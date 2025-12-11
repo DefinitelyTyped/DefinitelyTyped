@@ -1,48 +1,20 @@
 import {
     ClearDataOptions,
     ClearDataTypeSet,
-    ConsoleMessage,
-    ConsoleMessageEvent,
     ContentScriptDetails,
-    ContextMenus,
-    ContextMenusClickEvent,
     ContextMenusCreateProperties,
-    DialogController,
-    DialogEvent,
-    DialogMessage,
     DialogType,
-    HTMLControlledFrameElement,
     ImageDetails,
     InjectDetails,
-    LoadAbortEvent,
-    LoadAbortInfo,
-    LoadRedirectEvent,
-    LoadRedirectInfo,
-    NewWindow,
-    NewWindowController,
-    NewWindowEvent,
-    PermissionRequest,
-    PermissionRequestControllerBase,
-    PermissionRequestEvent,
     PermissionType,
     RequestedHeaders,
     ResourceType,
     RunAt,
-    SizeChange,
-    SizeChangedEvent,
     URLPattern,
-    WebRequest,
     WebRequestAuthCredentials,
     WebRequestAuthOptions,
-    WebRequestAuthRequiredEvent,
-    WebRequestBeforeRequestEvent,
-    WebRequestBeforeSendHeadersEvent,
-    WebRequestHeadersReceivedEvent,
     WebRequestInterceptorOptions,
-    WebRequestResponse,
     WindowOpenDisposition,
-    ZoomChange,
-    ZoomChangeEvent,
     ZoomMode,
 } from "w3c-controlled-frame";
 
@@ -54,7 +26,6 @@ const dummyResponse: WebRequestResponse = {} as WebRequestResponse;
 const dummyHeaders: Headers = {} as Headers;
 
 const urlPatternInput = { pathname: "/test/*" };
-const urlPattern = {} as URLPattern;
 const url = "https://example.com/page";
 
 async function testControlledFrame() {
@@ -82,7 +53,7 @@ async function testControlledFrame() {
     dummyControlledFrame.canGoBack();
     // $ExpectType Promise<boolean>
     dummyControlledFrame.go(1);
-    // $ExpectType undefined
+    // $ExpectType void
     dummyControlledFrame.reload();
 
     const contentScript: ContentScriptDetails = {
@@ -91,32 +62,32 @@ async function testControlledFrame() {
         js: { files: ["script.js"] },
         runAt: "document-idle" as RunAt,
     };
-    // $ExpectType Promise<undefined>
+    // $ExpectType Promise<void>
     dummyControlledFrame.addContentScripts([contentScript]);
 
     const injectDetails: InjectDetails = { code: "console.log(\"hi\")" };
     // $ExpectType Promise<any>
     dummyControlledFrame.executeScript(injectDetails);
-    // $ExpectType Promise<undefined>
+    // $ExpectType Promise<void>
     dummyControlledFrame.insertCSS({ file: "style.css" });
-    // $ExpectType Promise<undefined>
+    // $ExpectType Promise<void>
     dummyControlledFrame.removeContentScripts(["myScript"]);
 
     const clearOptions: ClearDataOptions = { since: 0 };
     const clearTypes: ClearDataTypeSet = { cookies: true, localStorage: true };
-    // $ExpectType Promise<undefined>
+    // $ExpectType Promise<void>
     dummyControlledFrame.clearData(clearOptions, clearTypes);
     // $ExpectType Promise<number>
     dummyControlledFrame.getZoom();
-    // $ExpectType undefined
+    // $ExpectType void
     dummyControlledFrame.setAudioMuted(true);
-    // $ExpectType Promise<undefined>
+    // $ExpectType Promise<void>
     dummyControlledFrame.setZoomMode("disabled" as ZoomMode);
 
     const imageDetails: ImageDetails = { format: "jpeg", quality: "90" };
-    // $ExpectType Promise<undefined>
+    // $ExpectType Promise<void>
     dummyControlledFrame.captureVisibleRegion(imageDetails);
-    // $ExpectType undefined
+    // $ExpectType void
     dummyControlledFrame.print();
 
     // --------------------------------------------------------------------------------
@@ -209,13 +180,13 @@ async function testControlledFrame() {
         documentURLPatterns: [urlPatternInput],
     };
 
-    // $ExpectType Promise<undefined>
+    // $ExpectType Promise<void>
     contextMenus.create(createProps);
-    // $ExpectType Promise<undefined>
+    // $ExpectType Promise<void>
     contextMenus.remove("1");
-    // $ExpectType Promise<undefined>
+    // $ExpectType Promise<void>
     contextMenus.removeAll();
-    // $ExpectType Promise<undefined>
+    // $ExpectType Promise<void>
     contextMenus.update("1", {
         enabled: false,
         targetURLPatterns: [urlPatternInput],
@@ -239,7 +210,7 @@ async function testControlledFrame() {
         clickListener as EventListenerOrEventListenerObject,
     );
 
-    // $ExpectType ((ev: Event) => any) | null
+    // $ExpectType ((this: ContextMenus, ev: ContextMenusClickEvent) => any) | null
     contextMenus.onclick;
 
     // --------------------------------------------------------------------------------
@@ -248,7 +219,7 @@ async function testControlledFrame() {
 
     const webRequest: WebRequest = dummyControlledFrame.request;
     const interceptorOptions: WebRequestInterceptorOptions = {
-        urlPatterns: [urlPattern],
+        urlPatterns: [new URLPattern()],
         resourceTypes: ["script", "image"] as ResourceType[],
         blocking: true,
         includeHeaders: "all" as RequestedHeaders,
@@ -265,21 +236,21 @@ async function testControlledFrame() {
     const credentialsPromise: Promise<WebRequestAuthCredentials> = Promise.resolve({ username: "u", password: "p" });
     const authOptions: WebRequestAuthOptions = { signal: {} as AbortSignal };
 
-    // $ExpectType undefined
+    // $ExpectType void
     authEvent.setCredentials(credentialsPromise, authOptions);
 
     const beforeRequestEvent: WebRequestBeforeRequestEvent = {} as WebRequestBeforeRequestEvent;
-    // $ExpectType undefined
+    // $ExpectType void
     beforeRequestEvent.redirect("https://new.url");
 
     const beforeSendHeadersEvent: WebRequestBeforeSendHeadersEvent = {} as WebRequestBeforeSendHeadersEvent;
-    // $ExpectType undefined
+    // $ExpectType void
     beforeSendHeadersEvent.setRequestHeaders(dummyHeaders);
 
     const headersReceivedEvent: WebRequestHeadersReceivedEvent = {
         response: dummyResponse,
     } as WebRequestHeadersReceivedEvent;
-    // $ExpectType undefined
+    // $ExpectType void
     headersReceivedEvent.setResponseHeaders(dummyHeaders);
 
     type BeforeRequestListener = (ev: WebRequestBeforeRequestEvent) => any;
@@ -291,4 +262,60 @@ async function testControlledFrame() {
         "beforerequest",
         beforeRequestListener as EventListenerOrEventListenerObject,
     );
+}
+
+function testTagNameMap() {
+    // This string must match what you put in HTMLElementTagNameMap.
+    // If the map works, TS infers 'HTMLControlledFrameElement'.
+    const frame = document.createElement("controlledframe");
+
+    // $ExpectType HTMLControlledFrameElement
+    frame;
+
+    // Verify we can access specific properties without casting
+    // (This would fail if it returned a generic HTMLElement)
+    frame.src = "https://example.com";
+    frame.back();
+
+    // Selectors are trickier, but tag selectors should work.
+    const queriedFrame = document.querySelector("controlledframe");
+
+    // $ExpectType HTMLControlledFrameElement | null
+    queriedFrame;
+
+    if (queriedFrame) {
+        queriedFrame.reload(); // Should compile
+    }
+}
+
+function testEventListeners(frame: HTMLControlledFrameElement) {
+    // We do NOT add specific types to 'e'. We let TS infer them.
+    frame.addEventListener("consolemessage", (e) => {
+        // $ExpectType ConsoleMessageEvent
+        e;
+
+        // This property exists ONLY on ConsoleMessageEvent.
+        // If inference failed (and it fell back to generic Event), this would error.
+        console.log(e.consoleMessage.level);
+    });
+
+    frame.contextMenus.addEventListener("click", (e) => {
+        // $ExpectType ContextMenusClickEvent
+        e;
+        console.log(e.menuItem.id);
+    });
+
+    frame.addEventListener("consolemessage", (e) => {
+        // @ts-expect-error
+        // Error: Property 'menuItem' does not exist on type 'ConsoleMessageEvent'.
+        console.log(e.menuItem);
+    });
+
+    frame.addEventListener("loadcommit", function(e) {
+        // $ExpectType HTMLControlledFrameElement
+        this;
+
+        // We can access the element's properties via 'this'
+        this.reload();
+    });
 }
