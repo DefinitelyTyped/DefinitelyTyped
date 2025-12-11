@@ -2,8 +2,10 @@
  * @see https://wicg.github.io/web-smart-card
  */
 
-export interface SmartCardResourceManager {
-    establishContext(): Promise<SmartCardContext>;
+declare global {
+    interface SmartCardResourceManager {
+        establishContext(): Promise<SmartCardContext>;
+    }
 }
 
 export type SmartCardResponseCode =
@@ -28,9 +30,11 @@ export interface SmartCardErrorOptions {
     responseCode: SmartCardResponseCode;
 }
 
-export class SmartCardError extends DOMException {
-    constructor(message: string, options: SmartCardErrorOptions);
-    readonly responseCode: SmartCardResponseCode;
+declare global {
+    class SmartCardError extends DOMException {
+        constructor(message: string, options: SmartCardErrorOptions);
+        readonly responseCode: SmartCardResponseCode;
+    }
 }
 
 export interface SmartCardReaderStateIn {
@@ -101,17 +105,19 @@ export interface SmartCardConnectOptions {
     preferredProtocols?: SmartCardProtocol[];
 }
 
-export interface SmartCardContext {
-    listReaders(): Promise<string[]>;
-    getStatusChange(
-        readerStates: SmartCardReaderStateIn[],
-        options?: SmartCardGetStatusChangeOptions,
-    ): Promise<SmartCardReaderStateOut[]>;
-    connect(
-        readerName: string,
-        accessMode: SmartCardAccessMode,
-        options?: SmartCardConnectOptions,
-    ): Promise<SmartCardConnectResult>;
+declare global {
+    interface SmartCardContext {
+        listReaders(): Promise<string[]>;
+        getStatusChange(
+            readerStates: SmartCardReaderStateIn[],
+            options?: SmartCardGetStatusChangeOptions,
+        ): Promise<SmartCardReaderStateOut[]>;
+        connect(
+            readerName: string,
+            accessMode: SmartCardAccessMode,
+            options?: SmartCardConnectOptions,
+        ): Promise<SmartCardConnectResult>;
+    }
 }
 
 export type SmartCardConnectionState =
@@ -146,17 +152,19 @@ export interface SmartCardTransmitOptions {
 
 export type SmartCardTransactionCallback = () => Promise<SmartCardDisposition | null>;
 
-export interface SmartCardConnection {
-    disconnect(disposition?: SmartCardDisposition): Promise<undefined>;
-    transmit(sendBuffer: BufferSource, options?: SmartCardTransmitOptions): Promise<ArrayBuffer>;
-    status(): Promise<SmartCardConnectionStatus>;
-    control(controlCode: number, data: BufferSource): Promise<ArrayBuffer>;
-    getAttribute(tag: number): Promise<ArrayBuffer>;
-    setAttribute(tag: number, value: BufferSource): Promise<undefined>;
-    startTransaction(
-        transaction: SmartCardTransactionCallback,
-        options?: SmartCardTransactionOptions,
-    ): Promise<undefined>;
+declare global {
+    interface SmartCardConnection {
+        disconnect(disposition?: SmartCardDisposition): Promise<void>;
+        transmit(sendBuffer: BufferSource, options?: SmartCardTransmitOptions): Promise<ArrayBuffer>;
+        status(): Promise<SmartCardConnectionStatus>;
+        control(controlCode: number, data: BufferSource): Promise<ArrayBuffer>;
+        getAttribute(tag: number): Promise<ArrayBuffer>;
+        setAttribute(tag: number, value: BufferSource): Promise<void>;
+        startTransaction(
+            transaction: SmartCardTransactionCallback,
+            options?: SmartCardTransactionOptions,
+        ): Promise<void>;
+    }
 }
 
 declare global {
