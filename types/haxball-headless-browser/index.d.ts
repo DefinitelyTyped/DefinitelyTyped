@@ -35,7 +35,7 @@ interface RoomConfigObject {
     geo?: { "code": string; "lat": number; "lon": number };
     /** Token that can be obtained from https://www.haxball.com/headlesstoken to skip recaptcha. These tokens expire after a few minutes. */
     token?: string;
-    /** 
+    /**
      * If set to true the room player list will be empty, the playerName setting will be ignored.
      * Default value is false but it's recommended to set this to true.
      * @warning Events will have null as the byPlayer argument when the event is caused by the host.
@@ -278,7 +278,7 @@ interface RoomObject {
      * // Check if disc 4 belongs to collision group "ball":
      * var discProps = room.getDiscProperties(4);
      * var hasBallFlag = (discProps.cGroup & room.CollisionFlags.ball) != 0;
-     * 
+     *
      * // Add "wall" to the collision mask of disc 5:
      * var discProps = room.getDiscProperties(5);
      * room.setDiscProperties(5, {cMask: discProps.cMask | room.CollisionFlags.wall});
@@ -504,10 +504,10 @@ interface DiscPropertiesObject {
 /**
  * Contains flag constants used as helpers for reading and writing collision flags.
  * Collision flags determine which objects collide and which objects ignore each other.
- * 
+ *
  * Object A and B will collide if and only if:
  * (A.cGroup & B.cMask != 0) && (B.cGroup & A.cMask != 0)
- * 
+ *
  * @see https://github.com/haxball/haxball-issues/wiki/Collision-Flags
  */
 interface CollisionFlagsObject {
@@ -550,27 +550,27 @@ interface StadiumObject {
     width?: number;
     /** Height of the rectangle centered at <0,0> in which the camera will be contained. */
     height?: number;
-    /** 
+    /**
      * Maximum allowed viewable width for the level.
      * If the player screen is wide enough to see more than maxViewWidth, the game will zoom in.
      * Setting to 0 disables this feature. Default: 0
      */
     maxViewWidth?: number;
-    /** 
+    /**
      * Changes camera following behavior.
      * "player" = follow player only, ignore ball
      * "ball" = follow average position between player and ball, prioritize player if too far apart
      * Default: "ball"
      */
     cameraFollow?: string;
-    /** 
+    /**
      * Distance from <0,0> at which teams spawn during kickoff.
      * Ignored if redSpawnPoints or blueSpawnPoints are not empty.
      */
     spawnDistance?: number;
     /** Whether this stadium can be stored with the /store command. Default: true */
     canBeStored?: boolean;
-    /** 
+    /**
      * "partial" = only ball and player discs reset for kickoff
      * "full" = all discs reset for kickoff
      * Default: "partial"
@@ -578,7 +578,7 @@ interface StadiumObject {
     kickOffReset?: string;
     /** Object describing the background for the stadium. */
     bg: BackgroundObject;
-    /** 
+    /**
      * Map of named traits. TraitValues define default values for any object that references that trait.
      * Useful for avoiding repetition when manually writing stadium files.
      */
@@ -595,14 +595,14 @@ interface StadiumObject {
     planes?: Plane[];
     /** List of joints (physical connections between discs). */
     joints?: Joint[];
-    /** 
+    /**
      * List of spawn points for red team kickoff.
      * If empty, default spawn behavior is used.
      * When a player joins a started game, they're positioned at the last point.
      * Default: []
      */
     redSpawnPoints?: number[][];
-    /** 
+    /**
      * List of spawn points for blue team kickoff.
      * If empty, default spawn behavior is used.
      * Default: []
@@ -610,7 +610,7 @@ interface StadiumObject {
     blueSpawnPoints?: number[][];
     /** Object describing player physics. If omitted, default player physics will be used. */
     playerPhysics?: PlayerPhysics;
-    /** 
+    /**
      * Disc used to create the ball. Collision flags "kick" and "score" are automatically added.
      * Setting to "disc0" uses the first disc as the ball (cGroup left unmodified).
      * If omitted, default ball physics will be used.
@@ -783,12 +783,12 @@ interface PlayerPhysics {
  * Joints are physical connections between two discs.
  */
 interface Joint {
-    /** 
+    /**
      * Index of one of the two discs connected by the joint.
      * Note: Index 0 is used by the ball disc if StadiumObject.ballPhysics is not set to "disc0".
      */
     d0?: number;
-    /** 
+    /**
      * Index of one of the two discs connected by the joint.
      * Note: Index 0 is used by the ball disc if StadiumObject.ballPhysics is not set to "disc0".
      */
