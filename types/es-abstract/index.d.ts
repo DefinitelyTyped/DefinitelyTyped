@@ -7,6 +7,12 @@ import ES2016 = require("./es2016");
 import ES2017 = require("./es2017");
 import ES2018 = require("./es2018");
 import ES2019 = require("./es2019");
+import ES2020 = require("./es2020");
+import ES2021 = require("./es2021");
+import ES2022 = require("./es2022");
+import ES2023 = require("./es2023");
+import ES2024 = require("./es2024");
+import ES2025 = require("./es2025");
 
 declare namespace ESAbstract {
     // ES2015 types:
@@ -43,6 +49,12 @@ interface ESAbstract extends ES6 {
     readonly ES2017: ES2017;
     readonly ES2018: ES2018;
     readonly ES2019: ES2019;
+    readonly ES2020: ES2020;
+    readonly ES2021: ES2021;
+    readonly ES2022: ES2022;
+    readonly ES2023: ES2023;
+    readonly ES2024: ES2024;
+    readonly ES2025: ES2025;
 }
 
 declare const ESAbstract: ESAbstract;
