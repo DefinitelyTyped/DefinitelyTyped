@@ -32,7 +32,7 @@ interface RoomConfigObject {
     /** If true the room will appear in the room list. */
     public?: boolean;
     /** GeoLocation override for the room. */
-    geo?: { "code": string; "lat": number; "lon": number };
+    geo?: { code: string; lat: number; lon: number };
     /** Token that can be obtained from https://www.haxball.com/headlesstoken to skip recaptcha. These tokens expire after a few minutes. */
     token?: string;
     /**
@@ -171,7 +171,7 @@ interface RoomObject {
      * Returns the ball's position in the field.
      * @returns The ball's position or null if no game is in progress.
      */
-    getBallPosition(): { "x": number; "y": number } | null;
+    getBallPosition(): { x: number; y: number } | null;
 
     /**
      * Starts recording of a haxball replay.
@@ -310,7 +310,7 @@ interface RoomObject {
      * @param msg - The message text.
      * @returns Return false to filter the message and prevent it from reaching other players.
      */
-    onPlayerChat(player: PlayerObject, msg: string): boolean;
+    onPlayerChat(player: PlayerObject, msg: string): boolean | undefined;
 
     /**
      * Event called when a player kicks the ball.
@@ -429,7 +429,7 @@ interface PlayerObject {
     /** Whether the player has admin rights. */
     admin: boolean;
     /** The player's position in the field, or null if the player is not in the field. */
-    position: { "x": number; "y": number } | null;
+    position: { x: number; y: number } | null;
     /**
      * The player's public ID. Players can view their own ID at https://www.haxball.com/playerauth
      * Useful for validating a player is who they claim to be, but not for verifying they aren't someone else.
@@ -512,31 +512,31 @@ interface DiscPropertiesObject {
  */
 interface CollisionFlagsObject {
     /** Default collision group of the ball. */
-    "ball": number;
+    ball: number;
     /** Automatically added to players of the red team. */
-    "red": number;
+    red: number;
     /** Automatically added to players of the blue team. */
-    "blue": number;
+    blue: number;
     /** Kickoff barriers active during kickoff for the red team. */
-    "redKO": number;
+    redKO: number;
     /** Kickoff barriers active during kickoff for the blue team. */
-    "blueKO": number;
+    blueKO: number;
     /** Default collision group for vertexes, segments, and planes. */
-    "wall": number;
+    wall: number;
     /** Represents a set including ball, red, blue, redKO, blueKO, and wall. */
-    "all": number;
+    all: number;
     /** Objects with this flag in their cGroup become kickable by players. */
-    "kick": number;
+    kick: number;
     /** Objects with this flag in their cGroup will score goals if they cross a goal line. */
-    "score": number;
+    score: number;
     /** Custom collision flag with no special meaning, can be used for any purpose. */
-    "c0": number;
+    c0: number;
     /** Custom collision flag with no special meaning, can be used for any purpose. */
-    "c1": number;
+    c1: number;
     /** Custom collision flag with no special meaning, can be used for any purpose. */
-    "c2": number;
+    c2: number;
     /** Custom collision flag with no special meaning, can be used for any purpose. */
-    "c3": number;
+    c3: number;
 }
 
 /**
