@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-invalid-void-type */
+
 /**
  * Initializes a Haxball headless room with the specified configuration.
  * @param roomConfig - Configuration object for the room. All properties are optional.
@@ -310,7 +312,7 @@ interface RoomObject {
      * @param msg - The message text.
      * @returns Return false to filter the message and prevent it from reaching other players.
      */
-    onPlayerChat(player: PlayerObject, msg: string): boolean | undefined;
+    onPlayerChat(player: PlayerObject, msg: string): void | boolean;
 
     /**
      * Event called when a player kicks the ball.
