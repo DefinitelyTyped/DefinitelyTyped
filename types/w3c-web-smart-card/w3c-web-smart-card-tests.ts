@@ -1,11 +1,8 @@
 import {
     SmartCardAccessMode,
-    SmartCardConnection,
     SmartCardConnectionStatus,
     SmartCardConnectOptions,
-    SmartCardContext,
     SmartCardDisposition,
-    SmartCardError,
     SmartCardErrorOptions,
     SmartCardGetStatusChangeOptions,
     SmartCardProtocol,
@@ -139,10 +136,10 @@ async function testSmartCardApi() {
 
     const connection: SmartCardConnection = {} as SmartCardConnection;
 
-    // $ExpectType Promise<undefined>
+    // $ExpectType Promise<void>
     connection.disconnect("unpower");
 
-    // $ExpectType Promise<undefined>
+    // $ExpectType Promise<void>
     connection.disconnect();
 
     const transmitOptions: SmartCardTransmitOptions = {
@@ -161,7 +158,7 @@ async function testSmartCardApi() {
     // $ExpectType Promise<ArrayBuffer>
     connection.getAttribute(tag);
 
-    // $ExpectType Promise<undefined>
+    // $ExpectType Promise<void>
     connection.setAttribute(tag, bufferSource);
 
     const transactionCallback: SmartCardTransactionCallback = async () => "reset";
@@ -169,6 +166,6 @@ async function testSmartCardApi() {
         signal: {} as AbortSignal,
     };
 
-    // $ExpectType Promise<undefined>
+    // $ExpectType Promise<void>
     connection.startTransaction(transactionCallback, transactionOptions);
 }
