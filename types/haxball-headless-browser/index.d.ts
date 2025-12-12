@@ -290,7 +290,7 @@ interface RoomObject {
      * Event called when a new player joins the room.
      * @param player - The player who joined.
      */
-    onPlayerJoin(player: PlayerObject): void;
+    onPlayerJoin(player: PlayerJoinObject): void;
 
     /**
      * Event called when a player leaves the room.
@@ -430,6 +430,9 @@ interface PlayerObject {
     admin: boolean;
     /** The player's position in the field, or null if the player is not in the field. */
     position: { x: number; y: number } | null;
+}
+
+interface PlayerJoinObject extends PlayerObject {
     /**
      * The player's public ID. Players can view their own ID at https://www.haxball.com/playerauth
      * Useful for validating a player is who they claim to be, but not for verifying they aren't someone else.
