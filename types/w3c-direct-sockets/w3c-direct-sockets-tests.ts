@@ -1,14 +1,10 @@
 import {
-    MulticastController,
     SocketDnsQueryType,
-    TCPServerSocket,
     TCPServerSocketOpenInfo,
     TCPServerSocketOptions,
-    TCPSocket,
     TCPSocketOpenInfo,
     TCPSocketOptions,
     UDPMessage,
-    UDPSocket,
     UDPSocketOpenInfo,
     UDPSocketOptions,
 } from "w3c-direct-sockets";
@@ -52,10 +48,10 @@ async function testDirectSockets() {
     // $ExpectType Promise<UDPSocketOpenInfo>
     udpSocket.opened;
 
-    // $ExpectType Promise<undefined>
+    // $ExpectType Promise<void>
     udpSocket.closed;
 
-    // $ExpectType Promise<undefined>
+    // $ExpectType Promise<void>
     udpSocket.close();
 
     // Cast to 'any' or 'UDPMessage' to avoid "missing properties" error during test compilation
@@ -84,10 +80,10 @@ async function testDirectSockets() {
     // $ExpectType Promise<SocketOpenInfo>
     tcpSocket.opened;
 
-    // $ExpectType Promise<undefined>
+    // $ExpectType Promise<void>
     tcpSocket.closed;
 
-    // $ExpectType Promise<undefined>
+    // $ExpectType Promise<void>
     tcpSocket.close();
 
     // --------------------------------------------------------------------------------
@@ -107,10 +103,10 @@ async function testDirectSockets() {
     // $ExpectType Promise<TCPServerSocketOpenInfo>
     tcpServerSocket.opened;
 
-    // $ExpectType Promise<undefined>
+    // $ExpectType Promise<void>
     tcpServerSocket.closed;
 
-    // $ExpectType Promise<undefined>
+    // $ExpectType Promise<void>
     tcpServerSocket.close();
 
     // --------------------------------------------------------------------------------
@@ -144,9 +140,9 @@ async function testDirectSockets() {
     // $ExpectType readonly string[]
     multicastController.joinedGroups;
 
-    // $ExpectType Promise<undefined>
+    // $ExpectType Promise<void>
     multicastController.joinGroup(remoteAddress);
 
-    // $ExpectType Promise<undefined>
+    // $ExpectType Promise<void>
     multicastController.leaveGroup(remoteAddress);
 }
