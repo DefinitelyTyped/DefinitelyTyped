@@ -313,6 +313,7 @@ Papa.unparse(
 Papa.RECORD_SEP;
 Papa.UNIT_SEP;
 Papa.BAD_DELIMITERS;
+Papa.BYTE_ORDER_MARK;
 
 /**
  * Parser
