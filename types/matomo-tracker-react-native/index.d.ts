@@ -24,6 +24,7 @@ export interface AppStart {
 
 export interface Action {
     name: string;
+    url?: string;
     userInfo?: UserInfo;
 }
 
@@ -33,6 +34,7 @@ export interface Event {
     name?: string;
     value?: number;
     campaign?: string;
+    url?: string;
     userInfo?: UserInfo;
 }
 
