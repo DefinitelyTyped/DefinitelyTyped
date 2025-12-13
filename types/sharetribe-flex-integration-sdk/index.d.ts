@@ -482,6 +482,18 @@ export interface IntegrationSdk {
          */
         query: (params?: PaginationParams & BaseQueryParams) => Promise<QueryResponse<User>>;
         /**
+         * Update user data (generic method for updating public, protected, or private data)
+         */
+        update: (
+            params: {
+                id: UUID | string;
+                publicData?: Record<string, unknown>;
+                protectedData?: Record<string, unknown>;
+                privateData?: Record<string, unknown>;
+            },
+            options?: PerRequestOptions,
+        ) => Promise<MutationResponse<User>>;
+        /**
          * Update user profile
          */
         updateProfile: (
@@ -537,23 +549,26 @@ export interface IntegrationSdk {
         ) => Promise<QueryResponse<Listing>>;
         /**
          * Create a new listing
+         * Allows both Money object and plain price object for flexibility
          */
         create: (
             params: {
                 authorId: UUID | string;
                 title: string;
+                state: 'published' | 'pendingApproval';
                 description?: string;
                 geolocation?: LatLng;
-                price?: Money;
+                price?: Money | { amount: number; currency: string };
                 availabilityPlan?: unknown;
                 publicData?: Record<string, unknown>;
                 privateData?: Record<string, unknown>;
                 metadata?: Record<string, unknown>;
             },
-            options?: PerRequestOptions,
+            options?: PerRequestOptions & { include?: string[] },
         ) => Promise<MutationResponse<Listing>>;
         /**
          * Update a listing
+         * Allows both Money object and plain price object for flexibility
          */
         update: (
             params: {
@@ -561,7 +576,7 @@ export interface IntegrationSdk {
                 title?: string;
                 description?: string;
                 geolocation?: LatLng;
-                price?: Money;
+                price?: Money | { amount: number; currency: string };
                 availabilityPlan?: unknown;
                 publicData?: Record<string, unknown>;
                 privateData?: Record<string, unknown>;
@@ -688,14 +703,14 @@ export interface IntegrationSdk {
          * Query stock adjustments
          */
         query: (
-            params: { stockId: UUID | string } & PaginationParams & BaseQueryParams,
+            params: { listingId: UUID | string } & PaginationParams & BaseQueryParams,
         ) => Promise<QueryResponse<StockAdjustment>>;
         /**
          * Create stock adjustment
          */
         create: (
             params: {
-                stockId: UUID | string;
+                listingId: UUID | string;
                 quantity: number;
             },
             options?: PerRequestOptions,
@@ -705,11 +720,12 @@ export interface IntegrationSdk {
     stock: {
         /**
          * Compare and set stock quantity atomically
+         * oldTotal can be null for new listings without existing stock
          */
         compareAndSet: (
             params: {
-                stockId: UUID | string;
-                oldTotal: number;
+                listingId: UUID | string;
+                oldTotal: number | null;
                 newTotal: number;
             },
             options?: PerRequestOptions,
