@@ -555,7 +555,7 @@ export interface IntegrationSdk {
             params: {
                 authorId: UUID | string;
                 title: string;
-                state: 'published' | 'pendingApproval';
+                state: "published" | "pendingApproval";
                 description?: string;
                 geolocation?: LatLng;
                 price?: Money | { amount: number; currency: string };
