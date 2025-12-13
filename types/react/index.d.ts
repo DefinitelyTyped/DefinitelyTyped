@@ -1956,12 +1956,12 @@ declare namespace React {
 
     export function useActionState<State>(
         action: (state: Awaited<State>) => State | Promise<State>,
-        initialState: Awaited<State>,
+        initialState?: Awaited<State>,
         permalink?: string,
     ): [state: Awaited<State>, dispatch: () => void, isPending: boolean];
     export function useActionState<State, Payload>(
         action: (state: Awaited<State>, payload: Payload) => State | Promise<State>,
-        initialState: Awaited<State>,
+        initialState?: Awaited<State>,
         permalink?: string,
     ): [state: Awaited<State>, dispatch: (payload: Payload) => void, isPending: boolean];
 
