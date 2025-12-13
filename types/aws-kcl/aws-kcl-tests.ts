@@ -45,6 +45,32 @@ const recordProcessor = {
         });
         completeCallback();
     },
+
+    shutdownRequested(shutdownRequestedInput: kcl.ShutdownRequestedInput, completeCallback: kcl.Callback) {
+        shutdownRequestedInput.checkpointer.checkpoint((_err?: string) => {
+            completeCallback();
+        });
+    },
 };
 
 kcl(recordProcessor).run();
+
+const recordProcessorWithoutShutdownRequested: kcl.RecordProcessor = {
+    initialize(_initializeInput: kcl.InitializeInput, completeCallback: kcl.Callback) {
+        completeCallback();
+    },
+
+    processRecords(processRecordsInput: kcl.ProcessRecordsInput, completeCallback: kcl.Callback) {
+        completeCallback();
+    },
+
+    leaseLost(_leaseLostInput: kcl.LeaseLossInput, completeCallback: kcl.Callback) {
+        completeCallback();
+    },
+
+    shardEnded(shardEndedInput: kcl.ShardEndedInput, completeCallback: kcl.Callback) {
+        completeCallback();
+    },
+};
+
+kcl(recordProcessorWithoutShutdownRequested).run();
