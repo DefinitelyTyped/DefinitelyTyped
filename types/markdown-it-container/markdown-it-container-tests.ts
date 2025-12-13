@@ -5,7 +5,7 @@ import MarkdownItContainer = require("markdown-it-container");
 const md = new MarkdownIt();
 
 md.use(MarkdownItContainer, "spoiler", {
-    validate: (params: any) => params.trim().match(/^spoiler\s+(.*)$/),
+    validate: (params: string) => params.trim().match(/^spoiler\s+(.*)$/),
     render: (tokens: MarkdownIt.Token[], index: number) => {
         const match = tokens[index].info.trim().match(/^spoiler\s+(.*)$/);
         const onClick = "this.parentNode.classList.toggle('_expanded');" + "event.preventDefault();";
@@ -26,6 +26,7 @@ md.use(MarkdownItContainer, "spoiler", {
             return "</div></div>\n";
         }
     },
+    marker: "marker",
 });
 
 const src = `:::spoiler This Is Spoiler Title
