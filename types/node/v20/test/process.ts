@@ -165,6 +165,10 @@ process.env.TZ = "test";
 }
 
 {
+    process.noDeprecation; // $ExpectType boolean | undefined
+}
+
+{
     process.permission.has("fs.read"); // $ExpectType boolean
     process.permission.has("fs.read", "./README.md"); // $ExpectType boolean
 }

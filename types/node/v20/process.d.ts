@@ -1638,6 +1638,11 @@ declare module "process" {
                  */
                 nextTick(callback: Function, ...args: any[]): void;
                 /**
+                 * The process.noDeprecation property indicates whether the --no-deprecation flag is set on the current Node.js process.
+                 * See the documentation for the ['warning' event](https://nodejs.org/docs/latest/api/process.html#event-warning) and the [emitWarning()](https://nodejs.org/docs/latest/api/process.html#processemitwarningwarning-type-code-ctor) method for more information about this flag's behavior.
+                 */
+                noDeprecation?: boolean;
+                /**
                  * This API is available through the [--experimental-permission](https://nodejs.org/api/cli.html#--experimental-permission) flag.
                  *
                  * `process.permission` is an object whose methods are used to manage permissions for the current process.
