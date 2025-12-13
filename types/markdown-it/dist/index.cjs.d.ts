@@ -921,7 +921,7 @@ declare namespace MarkdownIt {
     type PluginWithParams = (md: MarkdownIt, ...params: any[]) => void;
 }
 
-interface MarkdownItConstructor {
+export interface MarkdownItConstructor {
     new(): MarkdownIt;
     new(presetName: MarkdownIt.PresetName, options?: MarkdownIt.Options): MarkdownIt;
     new(options: MarkdownIt.Options): MarkdownIt;
@@ -1233,4 +1233,4 @@ interface MarkdownIt {
  */
 declare const MarkdownIt: MarkdownItConstructor;
 
-export = MarkdownIt;
+export default MarkdownIt;
