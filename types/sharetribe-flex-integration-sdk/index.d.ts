@@ -563,6 +563,7 @@ export interface IntegrationSdk {
                 publicData?: Record<string, unknown>;
                 privateData?: Record<string, unknown>;
                 metadata?: Record<string, unknown>;
+                images?: Array<UUID | string>;
             },
             options?: PerRequestOptions & { include?: string[] },
         ) => Promise<MutationResponse<Listing>>;
@@ -581,6 +582,7 @@ export interface IntegrationSdk {
                 publicData?: Record<string, unknown>;
                 privateData?: Record<string, unknown>;
                 metadata?: Record<string, unknown>;
+                images?: Array<UUID | string>;
             },
             options?: PerRequestOptions,
         ) => Promise<MutationResponse<Listing>>;
@@ -662,10 +664,11 @@ export interface IntegrationSdk {
 
     images: {
         /**
-         * Upload an image
+         * Upload an image from a file path
+         * @param params.image - Path to the image file to upload
          */
         upload: (
-            params: { image: unknown },
+            params: { image: string },
             options?: PerRequestOptions,
         ) => Promise<MutationResponse<Image>>;
     };
