@@ -1494,16 +1494,17 @@ declare namespace SteamUser {
     }
 
     interface SupportedLanguageData {
-        english: {
-            supported: "true" | string;
-            full_audio: "true" | string;
-        };
+        supported: "true" | string;
+        full_audio?: "true" | string;
+        subtitles?: "true" | string;
     }
 
     interface LibraryAssets {
         library_capsule: "en" | string;
         library_hero: "en" | string;
         library_logo: "en" | string;
+        library_hero_blur?: "en" | string,
+        library_header?: "en" | string,
         logo_position: {
             pinned_position: "BottomCenter" | string;
             width_pct: "77.01516064953753" | `${number}`;
@@ -1511,43 +1512,35 @@ declare namespace SteamUser {
         };
     }
 
+    interface LibraryAssetImage {
+        image: Record<"schinese" | "english" | string, "library_hero.jpg" | string>;
+        image2x: Record<"schinese" | "english" | string, "library_hero.jpg" | string>;
+    }
+
     interface LibraryAssetsFull {
-        library_capsule: {
+        library_capsule: LibraryAssetImage;
+        library_hero: LibraryAssetImage;
+        library_hero_blur?: {
             image: {
-                english: "library_600x900.jpg" | string;
-            };
-            image2x: {
-                english: "library_600x900_2x.jpg" | string;
+                english: "ac24a584893d024ab1b0fcf40d0a0b82a90cdb7e/library_hero_blur.jpg" | string;
             };
         };
-        library_hero: {
-            image: {
-                english: "library_hero.jpg" | string;
-            };
-            image2x: {
-                english: "library_hero_2x.jpg" | string;
-            };
-        };
-        library_logo: {
+        library_logo: LibraryAssetImage & {
             logo_position: {
                 pinned_position: "BottomCenter" | string;
                 width_pct: "77.01516064953753" | `${number}`;
                 height_pct: "43.685387882494695" | `${number}`;
             };
-            image: {
-                english: "logo.png" | string;
-            };
-            image2x: {
-                english: "logo_2x.png" | string;
-            };
         };
+        library_header?: LibraryAssetImage
     }
 
     type Associations = Record<
         `${number}`,
         {
             type: "developer" | "publisher" | "franchise";
-            name: "Valve" | "Half-Life" | string;
+            /** note: "Anonymous" can be repeated multiple times, likely a special keyword */
+            name: "Anonymous" | "Valve" | "Half-Life" | string;
         }
     >;
 
@@ -1566,6 +1559,7 @@ declare namespace SteamUser {
         header_image?: Record<"english" | string, "header.jpg" | string>;
         community_hub_visible?: "1" | `${number}`;
         releasestate?: "prerelease" | string;
+        aicontenttype?: "1" | `${number}`,
         osarch?: "" | string;
         osextended?: "" | string;
         exfgls?: "8" | `${number}`;
@@ -1592,7 +1586,7 @@ declare namespace SteamUser {
         primary_genre: "1" | `${number}`;
         genres: Record<`${number}`, `${number}`>;
         category: Record<`category_${number}`, `${number}`>;
-        supported_languages: Record<"english" | "french" | string, SupportedLanguageData>;
+        supported_languages: Record<"english" | "french" | "schinese" | string, SupportedLanguageData>;
         steam_release_date: "911462400" | `${number}`;
         metacritic_score: "96" | `${number}`;
         metacritic_fullurl: "https://www.metacritic.com/game/pc/half-life?ftag=MCD-06-10aaa1f" | string;
@@ -1613,7 +1607,7 @@ declare namespace SteamUser {
             language?: "" | "french" | string;
         };
         systemdefined?: "1";
-        manifests: {
+        manifests?: {
             public: DepotManifest;
             steam_legacy?: DepotManifest;
             beta?: DepotManifest;
@@ -1637,6 +1631,7 @@ declare namespace SteamUser {
         workingdir?: ".\\";
         config?: {
             oslist: "windows" | "macos" | "linux" | string;
+            osarch?: "64";
         };
     }
 
@@ -1668,7 +1663,14 @@ declare namespace SteamUser {
         publisher: "Valve" | string;
         aliases: "hl1" | string;
         listofdlc: "632440" | `${number}`;
+        gamemanualurl?: "https://store.steampowered.com/manual/2521400/" | string;
     };
+
+    interface AppInfoExtendedGameAnon {
+        "developer": "Anonymous",
+        "publisher": "Anonymous",
+        "gamemanualurl": "https://store.steampowered.com/manual/2521400/" | string
+    }
 
     interface AppInfoConfigBase {
         contenttype?: "3" | `${number}`;
@@ -1680,6 +1682,7 @@ declare namespace SteamUser {
             | string;
         installscriptoverride?: "1" | `${number}`;
         externalregistrationurl?: Record<"english" | string, "http://www.arma2.com" | string>;
+        steamdecktouchscreen?: "1" | `${number}`;
     }
 
     type AppInfoConfig = AppInfoConfigBase & {
@@ -1694,7 +1697,6 @@ declare namespace SteamUser {
                 use_action_block: "false" | string;
             }
         >;
-        steamdecktouchscreen: "1" | `${number}`;
         steamcontrollertemplateindex: "13" | `${number}`;
         uselaunchcommandline: "1" | `${number}`;
         steaminputmanifestpath: "valve\\controller_configs\\hl1_manifest.vdf" | string;
@@ -1719,9 +1721,11 @@ declare namespace SteamUser {
             | (AppInfoCommonBase & {
                 type: "game" | "Game";
             });
-        extended?: AppInfoExtendedGame;
-        config?: AppInfoConfig;
-        depots?: Record<`${number}`, AppInfoDepot>;
+        extended?: AppInfoExtendedGame | AppInfoExtendedGameAnon;
+        config?: AppInfoConfig | AppInfoConfigBase;
+        depots?: Record<`${number}`, AppInfoDepot> & {
+            branches?: Branches,
+        };
         ufs?: {
             quota: "104857600" | `${number}`;
             maxnumfiles: "500" | `${number}`;
