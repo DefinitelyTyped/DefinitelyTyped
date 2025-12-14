@@ -1,7 +1,7 @@
 /// <reference types="node"/>
 
 import child = require("child_process");
-import glob = require("glob");
+import glob = require("fast-glob");
 
 /**
  * Changes the current working directory dir for the duration of the script.
@@ -1240,7 +1240,7 @@ export interface ShellConfig {
     /**
      * Passed to glob.sync() instead of the default options ({}).
      */
-    globOptions: glob.GlobOptions;
+    globOptions: glob.Options;
 
     /**
      * Absolute path of the Node binary. Default is null (inferred).

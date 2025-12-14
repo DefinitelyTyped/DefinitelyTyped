@@ -158,7 +158,7 @@ $("#rulersExample").rangeSlider({
                 return false;
             },
             label: function() {
-                return null;
+                return "";
             },
         },
     ],

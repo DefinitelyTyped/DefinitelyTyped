@@ -1,7 +1,7 @@
-import * as dnsResolver from "./lib/dns";
-import * as httpResolver from "./lib/http";
+import * as dnsResolver from "./lib/dns.js";
+import * as httpResolver from "./lib/http.js";
 
-export = resolve;
+export default resolve;
 
 declare function resolve(
     domain: string,

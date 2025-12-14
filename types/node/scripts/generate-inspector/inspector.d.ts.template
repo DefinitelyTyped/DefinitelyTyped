@@ -3,14 +3,12 @@
 // See scripts/generate-inspector/README.md for information on how to update the protocol definitions.
 // Changes to the module itself should be added to the generator template (scripts/generate-inspector/inspector.d.ts.template).
 
-declare module "inspector" {
+declare module "node:inspector" {
     interface InspectorNotification<T> {
         method: string;
         params: T;
     }
-
     // # interfaceDefinitions
-
     interface Session {
         /**
          * Posts a message to the inspector back-end. `callback` will be notified when
@@ -34,23 +32,19 @@ declare module "inspector" {
         post(method: string, callback?: (err: Error | null, params?: object) => void): void;
         post(method: string, params?: object, callback?: (err: Error | null, params?: object) => void): void;
         // # postOverloads
-
         // # eventOverloads
     }
 }
-
-declare module "inspector/promises" {
+declare module "node:inspector/promises" {
     export {
         // # importNamespaces
     } from 'inspector';
 }
-
-declare module "inspector/promises" {
+declare module "node:inspector/promises" {
     import {
         InspectorNotification,
         // # importNamespaces
     } from "inspector";
-
     /**
      * The `inspector.Session` is used for dispatching messages to the V8 inspector
      * back-end and receiving message responses and notifications.
@@ -83,7 +77,6 @@ declare module "inspector/promises" {
          */
         post(method: string, params?: object): Promise<void>;
         // # postPromiseOverloads
-
         // # eventOverloads
     }
 }

@@ -163,7 +163,7 @@ declare class TransformControls extends Controls<TransformControlsEventMap> {
      * @param camera The camera of the rendered scene.
      * @param domElement The HTML element used for event listeners. (optional)
      */
-    constructor(camera: Camera, domElement?: HTMLElement);
+    constructor(camera: Camera, domElement?: HTMLElement | SVGElement | null);
 
     /**
      * Returns the visual representation of the controls. Add the helper to your scene to visually transform the

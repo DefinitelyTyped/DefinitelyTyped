@@ -3,6 +3,7 @@ export {};
 import * as undici from "undici-types";
 
 type _CloseEvent = typeof globalThis extends { onmessage: any } ? {} : undici.CloseEvent;
+type _ErrorEvent = typeof globalThis extends { onmessage: any } ? {} : undici.ErrorEvent;
 type _EventSource = typeof globalThis extends { onmessage: any } ? {} : undici.EventSource;
 type _FormData = typeof globalThis extends { onmessage: any } ? {} : undici.FormData;
 type _Headers = typeof globalThis extends { onmessage: any } ? {} : undici.Headers;
@@ -21,6 +22,9 @@ declare global {
 
     interface CloseEvent extends _CloseEvent {}
     var CloseEvent: typeof globalThis extends { onmessage: any; CloseEvent: infer T } ? T : typeof undici.CloseEvent;
+
+    interface ErrorEvent extends _ErrorEvent {}
+    var ErrorEvent: typeof globalThis extends { onmessage: any; ErrorEvent: infer T } ? T : typeof undici.ErrorEvent;
 
     interface EventSource extends _EventSource {}
     var EventSource: typeof globalThis extends { onmessage: any; EventSource: infer T } ? T : typeof undici.EventSource;

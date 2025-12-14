@@ -1,27 +1,23 @@
-import { JSONMeta, Object3D, Object3DJSON } from "../core/Object3D.js";
+import { JSONMeta, Object3D, Object3DEventMap, Object3DJSON } from "../core/Object3D.js";
 import { Color, ColorRepresentation } from "../math/Color.js";
-import { LightShadow, LightShadowJSON } from "./LightShadow.js";
+import { LightShadow } from "./LightShadow.js";
 
 export interface LightJSON extends Object3DJSON {
     color: number;
     intensity: number;
+}
 
-    groundColor?: number;
-
-    distance?: number;
-    angle?: number;
-    decay?: number;
-    penumbra?: number;
-
-    shadow?: LightShadowJSON;
-    target?: string;
+export interface LightEventMap extends Object3DEventMap {
+    dispose: {};
 }
 
 /**
  * Abstract base class for lights.
  * @remarks All other light types inherit the properties and methods described here.
  */
-export abstract class Light<TShadowSupport extends LightShadow | undefined = LightShadow | undefined> extends Object3D {
+export abstract class Light<TShadowSupport extends LightShadow | undefined = LightShadow | undefined>
+    extends Object3D<LightEventMap>
+{
     /**
      * Creates a new {@link Light}
      * @remarks

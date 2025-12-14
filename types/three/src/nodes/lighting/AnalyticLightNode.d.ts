@@ -16,6 +16,8 @@ declare class AnalyticLightNode<T extends Light> extends LightingNode {
 
     constructor(light?: T | null);
 
+    disposeShadow(): void;
+
     getLightVector(builder: NodeBuilder): Node;
 
     setupDirect(builder: NodeBuilder): DirectLightData | undefined;

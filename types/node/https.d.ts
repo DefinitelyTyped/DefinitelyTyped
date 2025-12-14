@@ -1,13 +1,12 @@
 /**
  * HTTPS is the HTTP protocol over TLS/SSL. In Node.js this is implemented as a
  * separate module.
- * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/https.js)
+ * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/https.js)
  */
-declare module "https" {
-    import { NonSharedBuffer } from "node:buffer";
+declare module "node:https" {
+    import * as http from "node:http";
     import { Duplex } from "node:stream";
     import * as tls from "node:tls";
-    import * as http from "node:http";
     import { URL } from "node:url";
     interface ServerOptions<
         Request extends typeof http.IncomingMessage = typeof http.IncomingMessage,
@@ -36,10 +35,10 @@ declare module "https" {
         ): Duplex | null | undefined;
         getName(options?: RequestOptions): string;
     }
-    interface Server<
+    interface ServerEventMap<
         Request extends typeof http.IncomingMessage = typeof http.IncomingMessage,
         Response extends typeof http.ServerResponse<InstanceType<Request>> = typeof http.ServerResponse,
-    > extends http.Server<Request, Response> {}
+    > extends http.ServerEventMap<Request, Response>, tls.ServerEventMap {}
     /**
      * See `http.Server` for more information.
      * @since v0.3.4
@@ -63,245 +62,66 @@ declare module "https" {
          * @since v18.2.0
          */
         closeIdleConnections(): void;
-        addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener(event: "keylog", listener: (line: NonSharedBuffer, tlsSocket: tls.TLSSocket) => void): this;
-        addListener(
-            event: "newSession",
-            listener: (sessionId: NonSharedBuffer, sessionData: NonSharedBuffer, callback: () => void) => void,
+        // #region InternalEventEmitter
+        addListener<E extends keyof ServerEventMap>(
+            eventName: E,
+            listener: (...args: ServerEventMap<Request, Response>[E]) => void,
         ): this;
-        addListener(
-            event: "OCSPRequest",
-            listener: (
-                certificate: NonSharedBuffer,
-                issuer: NonSharedBuffer,
-                callback: (err: Error | null, resp: Buffer | null) => void,
-            ) => void,
+        addListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        emit<E extends keyof ServerEventMap>(eventName: E, ...args: ServerEventMap<Request, Response>[E]): boolean;
+        emit(eventName: string | symbol, ...args: any[]): boolean;
+        listenerCount<E extends keyof ServerEventMap>(
+            eventName: E,
+            listener?: (...args: ServerEventMap<Request, Response>[E]) => void,
+        ): number;
+        listenerCount(eventName: string | symbol, listener?: (...args: any[]) => void): number;
+        listeners<E extends keyof ServerEventMap>(
+            eventName: E,
+        ): ((...args: ServerEventMap<Request, Response>[E]) => void)[];
+        listeners(eventName: string | symbol): ((...args: any[]) => void)[];
+        off<E extends keyof ServerEventMap>(
+            eventName: E,
+            listener: (...args: ServerEventMap<Request, Response>[E]) => void,
         ): this;
-        addListener(
-            event: "resumeSession",
-            listener: (
-                sessionId: NonSharedBuffer,
-                callback: (err: Error | null, sessionData: Buffer | null) => void,
-            ) => void,
+        off(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        on<E extends keyof ServerEventMap>(
+            eventName: E,
+            listener: (...args: ServerEventMap<Request, Response>[E]) => void,
         ): this;
-        addListener(event: "secureConnection", listener: (tlsSocket: tls.TLSSocket) => void): this;
-        addListener(event: "tlsClientError", listener: (err: Error, tlsSocket: tls.TLSSocket) => void): this;
-        addListener(event: "close", listener: () => void): this;
-        addListener(event: "connection", listener: (socket: Duplex) => void): this;
-        addListener(event: "error", listener: (err: Error) => void): this;
-        addListener(event: "listening", listener: () => void): this;
-        addListener(event: "checkContinue", listener: http.RequestListener<Request, Response>): this;
-        addListener(event: "checkExpectation", listener: http.RequestListener<Request, Response>): this;
-        addListener(event: "clientError", listener: (err: Error, socket: Duplex) => void): this;
-        addListener(
-            event: "connect",
-            listener: (req: InstanceType<Request>, socket: Duplex, head: NonSharedBuffer) => void,
+        on(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        once<E extends keyof ServerEventMap>(
+            eventName: E,
+            listener: (...args: ServerEventMap<Request, Response>[E]) => void,
         ): this;
-        addListener(event: "request", listener: http.RequestListener<Request, Response>): this;
-        addListener(
-            event: "upgrade",
-            listener: (req: InstanceType<Request>, socket: Duplex, head: NonSharedBuffer) => void,
+        once(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        prependListener<E extends keyof ServerEventMap>(
+            eventName: E,
+            listener: (...args: ServerEventMap<Request, Response>[E]) => void,
         ): this;
-        emit(event: string, ...args: any[]): boolean;
-        emit(event: "keylog", line: NonSharedBuffer, tlsSocket: tls.TLSSocket): boolean;
-        emit(
-            event: "newSession",
-            sessionId: NonSharedBuffer,
-            sessionData: NonSharedBuffer,
-            callback: () => void,
-        ): boolean;
-        emit(
-            event: "OCSPRequest",
-            certificate: NonSharedBuffer,
-            issuer: NonSharedBuffer,
-            callback: (err: Error | null, resp: Buffer | null) => void,
-        ): boolean;
-        emit(
-            event: "resumeSession",
-            sessionId: NonSharedBuffer,
-            callback: (err: Error | null, sessionData: Buffer | null) => void,
-        ): boolean;
-        emit(event: "secureConnection", tlsSocket: tls.TLSSocket): boolean;
-        emit(event: "tlsClientError", err: Error, tlsSocket: tls.TLSSocket): boolean;
-        emit(event: "close"): boolean;
-        emit(event: "connection", socket: Duplex): boolean;
-        emit(event: "error", err: Error): boolean;
-        emit(event: "listening"): boolean;
-        emit(
-            event: "checkContinue",
-            req: InstanceType<Request>,
-            res: InstanceType<Response>,
-        ): boolean;
-        emit(
-            event: "checkExpectation",
-            req: InstanceType<Request>,
-            res: InstanceType<Response>,
-        ): boolean;
-        emit(event: "clientError", err: Error, socket: Duplex): boolean;
-        emit(event: "connect", req: InstanceType<Request>, socket: Duplex, head: NonSharedBuffer): boolean;
-        emit(
-            event: "request",
-            req: InstanceType<Request>,
-            res: InstanceType<Response>,
-        ): boolean;
-        emit(event: "upgrade", req: InstanceType<Request>, socket: Duplex, head: NonSharedBuffer): boolean;
-        on(event: string, listener: (...args: any[]) => void): this;
-        on(event: "keylog", listener: (line: NonSharedBuffer, tlsSocket: tls.TLSSocket) => void): this;
-        on(
-            event: "newSession",
-            listener: (sessionId: NonSharedBuffer, sessionData: NonSharedBuffer, callback: () => void) => void,
+        prependListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        prependOnceListener<E extends keyof ServerEventMap>(
+            eventName: E,
+            listener: (...args: ServerEventMap<Request, Response>[E]) => void,
         ): this;
-        on(
-            event: "OCSPRequest",
-            listener: (
-                certificate: NonSharedBuffer,
-                issuer: NonSharedBuffer,
-                callback: (err: Error | null, resp: Buffer | null) => void,
-            ) => void,
+        prependOnceListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        rawListeners<E extends keyof ServerEventMap>(
+            eventName: E,
+        ): ((...args: ServerEventMap<Request, Response>[E]) => void)[];
+        rawListeners(eventName: string | symbol): ((...args: any[]) => void)[];
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+        removeAllListeners<E extends keyof ServerEventMap>(eventName?: E): this;
+        removeAllListeners(eventName?: string | symbol): this;
+        removeListener<E extends keyof ServerEventMap>(
+            eventName: E,
+            listener: (...args: ServerEventMap<Request, Response>[E]) => void,
         ): this;
-        on(
-            event: "resumeSession",
-            listener: (
-                sessionId: NonSharedBuffer,
-                callback: (err: Error | null, sessionData: Buffer | null) => void,
-            ) => void,
-        ): this;
-        on(event: "secureConnection", listener: (tlsSocket: tls.TLSSocket) => void): this;
-        on(event: "tlsClientError", listener: (err: Error, tlsSocket: tls.TLSSocket) => void): this;
-        on(event: "close", listener: () => void): this;
-        on(event: "connection", listener: (socket: Duplex) => void): this;
-        on(event: "error", listener: (err: Error) => void): this;
-        on(event: "listening", listener: () => void): this;
-        on(event: "checkContinue", listener: http.RequestListener<Request, Response>): this;
-        on(event: "checkExpectation", listener: http.RequestListener<Request, Response>): this;
-        on(event: "clientError", listener: (err: Error, socket: Duplex) => void): this;
-        on(
-            event: "connect",
-            listener: (req: InstanceType<Request>, socket: Duplex, head: NonSharedBuffer) => void,
-        ): this;
-        on(event: "request", listener: http.RequestListener<Request, Response>): this;
-        on(
-            event: "upgrade",
-            listener: (req: InstanceType<Request>, socket: Duplex, head: NonSharedBuffer) => void,
-        ): this;
-        once(event: string, listener: (...args: any[]) => void): this;
-        once(event: "keylog", listener: (line: NonSharedBuffer, tlsSocket: tls.TLSSocket) => void): this;
-        once(
-            event: "newSession",
-            listener: (sessionId: NonSharedBuffer, sessionData: NonSharedBuffer, callback: () => void) => void,
-        ): this;
-        once(
-            event: "OCSPRequest",
-            listener: (
-                certificate: NonSharedBuffer,
-                issuer: NonSharedBuffer,
-                callback: (err: Error | null, resp: Buffer | null) => void,
-            ) => void,
-        ): this;
-        once(
-            event: "resumeSession",
-            listener: (
-                sessionId: NonSharedBuffer,
-                callback: (err: Error | null, sessionData: Buffer | null) => void,
-            ) => void,
-        ): this;
-        once(event: "secureConnection", listener: (tlsSocket: tls.TLSSocket) => void): this;
-        once(event: "tlsClientError", listener: (err: Error, tlsSocket: tls.TLSSocket) => void): this;
-        once(event: "close", listener: () => void): this;
-        once(event: "connection", listener: (socket: Duplex) => void): this;
-        once(event: "error", listener: (err: Error) => void): this;
-        once(event: "listening", listener: () => void): this;
-        once(event: "checkContinue", listener: http.RequestListener<Request, Response>): this;
-        once(event: "checkExpectation", listener: http.RequestListener<Request, Response>): this;
-        once(event: "clientError", listener: (err: Error, socket: Duplex) => void): this;
-        once(
-            event: "connect",
-            listener: (req: InstanceType<Request>, socket: Duplex, head: NonSharedBuffer) => void,
-        ): this;
-        once(event: "request", listener: http.RequestListener<Request, Response>): this;
-        once(
-            event: "upgrade",
-            listener: (req: InstanceType<Request>, socket: Duplex, head: NonSharedBuffer) => void,
-        ): this;
-        prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: "keylog", listener: (line: NonSharedBuffer, tlsSocket: tls.TLSSocket) => void): this;
-        prependListener(
-            event: "newSession",
-            listener: (sessionId: NonSharedBuffer, sessionData: NonSharedBuffer, callback: () => void) => void,
-        ): this;
-        prependListener(
-            event: "OCSPRequest",
-            listener: (
-                certificate: NonSharedBuffer,
-                issuer: NonSharedBuffer,
-                callback: (err: Error | null, resp: Buffer | null) => void,
-            ) => void,
-        ): this;
-        prependListener(
-            event: "resumeSession",
-            listener: (
-                sessionId: NonSharedBuffer,
-                callback: (err: Error | null, sessionData: Buffer | null) => void,
-            ) => void,
-        ): this;
-        prependListener(event: "secureConnection", listener: (tlsSocket: tls.TLSSocket) => void): this;
-        prependListener(event: "tlsClientError", listener: (err: Error, tlsSocket: tls.TLSSocket) => void): this;
-        prependListener(event: "close", listener: () => void): this;
-        prependListener(event: "connection", listener: (socket: Duplex) => void): this;
-        prependListener(event: "error", listener: (err: Error) => void): this;
-        prependListener(event: "listening", listener: () => void): this;
-        prependListener(event: "checkContinue", listener: http.RequestListener<Request, Response>): this;
-        prependListener(event: "checkExpectation", listener: http.RequestListener<Request, Response>): this;
-        prependListener(event: "clientError", listener: (err: Error, socket: Duplex) => void): this;
-        prependListener(
-            event: "connect",
-            listener: (req: InstanceType<Request>, socket: Duplex, head: NonSharedBuffer) => void,
-        ): this;
-        prependListener(event: "request", listener: http.RequestListener<Request, Response>): this;
-        prependListener(
-            event: "upgrade",
-            listener: (req: InstanceType<Request>, socket: Duplex, head: NonSharedBuffer) => void,
-        ): this;
-        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: "keylog", listener: (line: NonSharedBuffer, tlsSocket: tls.TLSSocket) => void): this;
-        prependOnceListener(
-            event: "newSession",
-            listener: (sessionId: NonSharedBuffer, sessionData: NonSharedBuffer, callback: () => void) => void,
-        ): this;
-        prependOnceListener(
-            event: "OCSPRequest",
-            listener: (
-                certificate: NonSharedBuffer,
-                issuer: NonSharedBuffer,
-                callback: (err: Error | null, resp: Buffer | null) => void,
-            ) => void,
-        ): this;
-        prependOnceListener(
-            event: "resumeSession",
-            listener: (
-                sessionId: NonSharedBuffer,
-                callback: (err: Error | null, sessionData: Buffer | null) => void,
-            ) => void,
-        ): this;
-        prependOnceListener(event: "secureConnection", listener: (tlsSocket: tls.TLSSocket) => void): this;
-        prependOnceListener(event: "tlsClientError", listener: (err: Error, tlsSocket: tls.TLSSocket) => void): this;
-        prependOnceListener(event: "close", listener: () => void): this;
-        prependOnceListener(event: "connection", listener: (socket: Duplex) => void): this;
-        prependOnceListener(event: "error", listener: (err: Error) => void): this;
-        prependOnceListener(event: "listening", listener: () => void): this;
-        prependOnceListener(event: "checkContinue", listener: http.RequestListener<Request, Response>): this;
-        prependOnceListener(event: "checkExpectation", listener: http.RequestListener<Request, Response>): this;
-        prependOnceListener(event: "clientError", listener: (err: Error, socket: Duplex) => void): this;
-        prependOnceListener(
-            event: "connect",
-            listener: (req: InstanceType<Request>, socket: Duplex, head: NonSharedBuffer) => void,
-        ): this;
-        prependOnceListener(event: "request", listener: http.RequestListener<Request, Response>): this;
-        prependOnceListener(
-            event: "upgrade",
-            listener: (req: InstanceType<Request>, socket: Duplex, head: NonSharedBuffer) => void,
-        ): this;
+        removeListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        // #endregion
     }
+    interface Server<
+        Request extends typeof http.IncomingMessage = typeof http.IncomingMessage,
+        Response extends typeof http.ServerResponse<InstanceType<Request>> = typeof http.ServerResponse,
+    > extends http.Server<Request, Response> {}
     /**
      * ```js
      * // curl -k https://localhost:8000/
@@ -574,6 +394,6 @@ declare module "https" {
     ): http.ClientRequest;
     let globalAgent: Agent;
 }
-declare module "node:https" {
-    export * from "https";
+declare module "https" {
+    export * from "node:https";
 }

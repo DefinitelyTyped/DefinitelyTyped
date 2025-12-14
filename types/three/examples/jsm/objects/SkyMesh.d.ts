@@ -8,7 +8,12 @@ declare class SkyMesh extends Mesh<BoxGeometry, NodeMaterial> {
     sunPosition: UniformNode<Vector3>;
     upUniform: UniformNode<Vector3>;
 
+    /**
+     * @deprecated
+     */
     readonly isSky: true;
+
+    readonly isSkyMesh: true;
 
     constructor();
 }

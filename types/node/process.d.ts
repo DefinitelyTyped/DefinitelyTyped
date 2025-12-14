@@ -1,9 +1,9 @@
-declare module "process" {
+declare module "node:process" {
     import { Control, MessageOptions, SendHandle } from "node:child_process";
+    import { InternalEventEmitter } from "node:events";
     import { PathLike } from "node:fs";
     import * as tty from "node:tty";
     import { Worker } from "node:worker_threads";
-
     interface BuiltInModule {
         "assert": typeof import("assert");
         "node:assert": typeof import("node:assert");
@@ -69,6 +69,7 @@ declare module "process" {
         "node:punycode": typeof import("node:punycode");
         "querystring": typeof import("querystring");
         "node:querystring": typeof import("node:querystring");
+        "node:quic": typeof import("node:quic");
         "readline": typeof import("readline");
         "node:readline": typeof import("node:readline");
         "readline/promises": typeof import("readline/promises");
@@ -103,8 +104,6 @@ declare module "process" {
         "node:url": typeof import("node:url");
         "util": typeof import("util");
         "node:util": typeof import("node:util");
-        "sys": typeof import("util");
-        "node:sys": typeof import("node:util");
         "util/types": typeof import("util/types");
         "node:util/types": typeof import("node:util/types");
         "v8": typeof import("v8");
@@ -118,8 +117,28 @@ declare module "process" {
         "zlib": typeof import("zlib");
         "node:zlib": typeof import("node:zlib");
     }
+    type SignalsEventMap = { [S in NodeJS.Signals]: [signal: S] };
+    interface ProcessEventMap extends SignalsEventMap {
+        "beforeExit": [code: number];
+        "disconnect": [];
+        "exit": [code: number];
+        "message": [
+            message: object | boolean | number | string | null,
+            sendHandle: SendHandle | undefined,
+        ];
+        "rejectionHandled": [promise: Promise<unknown>];
+        "uncaughtException": [error: Error, origin: NodeJS.UncaughtExceptionOrigin];
+        "uncaughtExceptionMonitor": [error: Error, origin: NodeJS.UncaughtExceptionOrigin];
+        "unhandledRejection": [reason: unknown, promise: Promise<unknown>];
+        "warning": [warning: Error];
+        "worker": [worker: Worker];
+        "workerMessage": [value: any, source: number];
+    }
     global {
         var process: NodeJS.Process;
+        namespace process {
+            export { ProcessEventMap };
+        }
         namespace NodeJS {
             // this namespace merge is here because these are specifically used
             // as the type for process.stdin, process.stdout, and process.stderr.
@@ -196,7 +215,7 @@ declare module "process" {
                 readonly ipv6: boolean;
                 /**
                  * A boolean value that is `true` if the current Node.js build supports
-                 * [loading ECMAScript modules using `require()`](https://nodejs.org/docs/latest-v24.x/api/modules.md#loading-ecmascript-modules-using-require).
+                 * [loading ECMAScript modules using `require()`](https://nodejs.org/docs/latest-v25.x/api/modules.md#loading-ecmascript-modules-using-require).
                  * @since v22.10.0
                  */
                 readonly require_module: boolean;
@@ -320,26 +339,129 @@ declare module "process" {
                 | "SIGLOST"
                 | "SIGINFO";
             type UncaughtExceptionOrigin = "uncaughtException" | "unhandledRejection";
-            type MultipleResolveType = "resolve" | "reject";
-            type BeforeExitListener = (code: number) => void;
-            type DisconnectListener = () => void;
-            type ExitListener = (code: number) => void;
-            type RejectionHandledListener = (promise: Promise<unknown>) => void;
-            type UncaughtExceptionListener = (error: Error, origin: UncaughtExceptionOrigin) => void;
             /**
-             * Most of the time the unhandledRejection will be an Error, but this should not be relied upon
-             * as *anything* can be thrown/rejected, it is therefore unsafe to assume that the value is an Error.
+             * @deprecated Global listener types will be removed in a future version.
+             * Callbacks passed directly to `process`'s EventEmitter methods
+             * have their parameter types inferred automatically.
+             *
+             * `process` event types are also available via `ProcessEventMap`:
+             *
+             * ```ts
+             * import type { ProcessEventMap } from 'node:process';
+             * const listener = (...args: ProcessEventMap['beforeExit']) => { ... };
+             * ```
              */
-            type UnhandledRejectionListener = (reason: unknown, promise: Promise<unknown>) => void;
-            type WarningListener = (warning: Error) => void;
-            type MessageListener = (message: unknown, sendHandle: SendHandle) => void;
+            type BeforeExitListener = (...args: ProcessEventMap["beforeExit"]) => void;
+            /**
+             * @deprecated Global listener types will be removed in a future version.
+             * Callbacks passed directly to `process`'s EventEmitter methods
+             * have their parameter types inferred automatically.
+             *
+             * `process` event types are also available via `ProcessEventMap`:
+             *
+             * ```ts
+             * import type { ProcessEventMap } from 'node:process';
+             * const listener = (...args: ProcessEventMap['disconnect']) => { ... };
+             * ```
+             */
+            type DisconnectListener = (...args: ProcessEventMap["disconnect"]) => void;
+            /**
+             * @deprecated Global listener types will be removed in a future version.
+             * Callbacks passed directly to `process`'s EventEmitter methods
+             * have their parameter types inferred automatically.
+             *
+             * `process` event types are also available via `ProcessEventMap`:
+             *
+             * ```ts
+             * import type { ProcessEventMap } from 'node:process';
+             * const listener = (...args: ProcessEventMap['exit']) => { ... };
+             * ```
+             */
+            type ExitListener = (...args: ProcessEventMap["exit"]) => void;
+            /**
+             * @deprecated Global listener types will be removed in a future version.
+             * Callbacks passed directly to `process`'s EventEmitter methods
+             * have their parameter types inferred automatically.
+             *
+             * `process` event types are also available via `ProcessEventMap`:
+             *
+             * ```ts
+             * import type { ProcessEventMap } from 'node:process';
+             * const listener = (...args: ProcessEventMap['message']) => { ... };
+             * ```
+             */
+            type MessageListener = (...args: ProcessEventMap["message"]) => void;
+            /**
+             * @deprecated Global listener types will be removed in a future version.
+             * Callbacks passed directly to `process`'s EventEmitter methods
+             * have their parameter types inferred automatically.
+             *
+             * `process` event types are also available via `ProcessEventMap`:
+             *
+             * ```ts
+             * import type { ProcessEventMap } from 'node:process';
+             * const listener = (...args: ProcessEventMap['rejectionHandled']) => { ... };
+             * ```
+             */
+            type RejectionHandledListener = (...args: ProcessEventMap["rejectionHandled"]) => void;
+            /**
+             * @deprecated Global listener types will be removed in a future version.
+             * Callbacks passed directly to `process`'s EventEmitter methods
+             * have their parameter types inferred automatically.
+             */
             type SignalsListener = (signal: Signals) => void;
-            type MultipleResolveListener = (
-                type: MultipleResolveType,
-                promise: Promise<unknown>,
-                value: unknown,
-            ) => void;
-            type WorkerListener = (worker: Worker) => void;
+            /**
+             * @deprecated Global listener types will be removed in a future version.
+             * Callbacks passed directly to `process`'s EventEmitter methods
+             * have their parameter types inferred automatically.
+             *
+             * `process` event types are also available via `ProcessEventMap`:
+             *
+             * ```ts
+             * import type { ProcessEventMap } from 'node:process';
+             * const listener = (...args: ProcessEventMap['uncaughtException']) => { ... };
+             * ```
+             */
+            type UncaughtExceptionListener = (...args: ProcessEventMap["uncaughtException"]) => void;
+            /**
+             * @deprecated Global listener types will be removed in a future version.
+             * Callbacks passed directly to `process`'s EventEmitter methods
+             * have their parameter types inferred automatically.
+             *
+             * `process` event types are also available via `ProcessEventMap`:
+             *
+             * ```ts
+             * import type { ProcessEventMap } from 'node:process';
+             * const listener = (...args: ProcessEventMap['unhandledRejection']) => { ... };
+             * ```
+             */
+            type UnhandledRejectionListener = (...args: ProcessEventMap["unhandledRejection"]) => void;
+            /**
+             * @deprecated Global listener types will be removed in a future version.
+             * Callbacks passed directly to `process`'s EventEmitter methods
+             * have their parameter types inferred automatically.
+             *
+             * `process` event types are also available via `ProcessEventMap`:
+             *
+             * ```ts
+             * import type { ProcessEventMap } from 'node:process';
+             * const listener = (...args: ProcessEventMap['warning']) => { ... };
+             * ```
+             */
+            type WarningListener = (...args: ProcessEventMap["warning"]) => void;
+            /**
+             * @deprecated Global listener types will be removed in a future version.
+             * Callbacks passed directly to `process`'s EventEmitter methods
+             * have their parameter types inferred automatically.
+             *
+             * `process` event types are also available via `ProcessEventMap`:
+             *
+             * ```ts
+             * import type { ProcessEventMap } from 'node:process';
+             * const listener = (...args: ProcessEventMap['worker']) => { ... };
+             * ```
+             */
+            type WorkerListener = (...args: ProcessEventMap["worker"]) => void;
             interface Socket extends ReadWriteStream {
                 isTTY?: true | undefined;
             }
@@ -560,7 +682,7 @@ declare module "process" {
                     readonly visibility: string;
                 };
             }
-            interface Process extends EventEmitter {
+            interface Process extends InternalEventEmitter<ProcessEventMap> {
                 /**
                  * The `process.stdout` property returns a stream connected to`stdout` (fd `1`). It is a `net.Socket` (which is a `Duplex` stream) unless fd `1` refers to a file, in which case it is
                  * a `Writable` stream.
@@ -749,7 +871,7 @@ declare module "process" {
                  * should not be used directly, except in special cases. In other words, `require()` should be preferred over `process.dlopen()`
                  * unless there are specific reasons such as custom dlopen flags or loading from ES modules.
                  *
-                 * The `flags` argument is an integer that allows to specify dlopen behavior. See the `[os.constants.dlopen](https://nodejs.org/docs/latest-v24.x/api/os.html#dlopen-constants)`
+                 * The `flags` argument is an integer that allows to specify dlopen behavior. See the `[os.constants.dlopen](https://nodejs.org/docs/latest-v25.x/api/os.html#dlopen-constants)`
                  * documentation for details.
                  *
                  * An important requirement when calling `process.dlopen()` is that the `module` instance must be passed. Functions exported by the C++ Addon
@@ -1584,7 +1706,7 @@ declare module "process" {
                 constrainedMemory(): number;
                 /**
                  * Gets the amount of free memory that is still available to the process (in bytes).
-                 * See [`uv_get_available_memory`](https://nodejs.org/docs/latest-v24.x/api/process.html#processavailablememory) for more information.
+                 * See [`uv_get_available_memory`](https://nodejs.org/docs/latest-v25.x/api/process.html#processavailablememory) for more information.
                  * @since v20.13.0
                  */
                 availableMemory(): number;
@@ -1705,6 +1827,11 @@ declare module "process" {
                  */
                 nextTick(callback: Function, ...args: any[]): void;
                 /**
+                 * The process.noDeprecation property indicates whether the --no-deprecation flag is set on the current Node.js process.
+                 * See the documentation for the ['warning' event](https://nodejs.org/docs/latest/api/process.html#event-warning) and the [emitWarning()](https://nodejs.org/docs/latest/api/process.html#processemitwarningwarning-type-code-ctor) method for more information about this flag's behavior.
+                 */
+                noDeprecation?: boolean;
+                /**
                  * This API is available through the [--permission](https://nodejs.org/api/cli.html#--permission) flag.
                  *
                  * `process.permission` is an object whose methods are used to manage permissions for the current process.
@@ -1790,7 +1917,7 @@ declare module "process" {
                  * If the Node.js process was not spawned with an IPC channel, `process.disconnect()` will be `undefined`.
                  * @since v0.7.2
                  */
-                disconnect(): void;
+                disconnect?(): void;
                 /**
                  * If the Node.js process is spawned with an IPC channel (see the `Child Process` and `Cluster` documentation), the `process.connected` property will return `true` so long as the IPC
                  * channel is connected and will return `false` after `process.disconnect()` is called.
@@ -1844,7 +1971,7 @@ declare module "process" {
                 allowedNodeEnvironmentFlags: ReadonlySet<string>;
                 /**
                  * `process.report` is an object whose methods are used to generate diagnostic reports for the current process.
-                 * Additional documentation is available in the [report documentation](https://nodejs.org/docs/latest-v24.x/api/report.html).
+                 * Additional documentation is available in the [report documentation](https://nodejs.org/docs/latest-v25.x/api/report.html).
                  * @since v11.8.0
                  */
                 report: ProcessReport;
@@ -1959,111 +2086,12 @@ declare module "process" {
                  * **Default:** `process.env`.
                  */
                 execve?(file: string, args?: readonly string[], env?: ProcessEnv): never;
-                /* EventEmitter */
-                addListener(event: "beforeExit", listener: BeforeExitListener): this;
-                addListener(event: "disconnect", listener: DisconnectListener): this;
-                addListener(event: "exit", listener: ExitListener): this;
-                addListener(event: "rejectionHandled", listener: RejectionHandledListener): this;
-                addListener(event: "uncaughtException", listener: UncaughtExceptionListener): this;
-                addListener(event: "uncaughtExceptionMonitor", listener: UncaughtExceptionListener): this;
-                addListener(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
-                addListener(event: "warning", listener: WarningListener): this;
-                addListener(event: "message", listener: MessageListener): this;
-                addListener(event: "workerMessage", listener: (value: any, source: number) => void): this;
-                addListener(event: Signals, listener: SignalsListener): this;
-                addListener(event: "multipleResolves", listener: MultipleResolveListener): this;
-                addListener(event: "worker", listener: WorkerListener): this;
-                emit(event: "beforeExit", code: number): boolean;
-                emit(event: "disconnect"): boolean;
-                emit(event: "exit", code: number): boolean;
-                emit(event: "rejectionHandled", promise: Promise<unknown>): boolean;
-                emit(event: "uncaughtException", error: Error): boolean;
-                emit(event: "uncaughtExceptionMonitor", error: Error): boolean;
-                emit(event: "unhandledRejection", reason: unknown, promise: Promise<unknown>): boolean;
-                emit(event: "warning", warning: Error): boolean;
-                emit(event: "message", message: unknown, sendHandle: SendHandle): this;
-                emit(event: "workerMessage", value: any, source: number): this;
-                emit(event: Signals, signal?: Signals): boolean;
-                emit(
-                    event: "multipleResolves",
-                    type: MultipleResolveType,
-                    promise: Promise<unknown>,
-                    value: unknown,
-                ): this;
-                emit(event: "worker", listener: WorkerListener): this;
-                on(event: "beforeExit", listener: BeforeExitListener): this;
-                on(event: "disconnect", listener: DisconnectListener): this;
-                on(event: "exit", listener: ExitListener): this;
-                on(event: "rejectionHandled", listener: RejectionHandledListener): this;
-                on(event: "uncaughtException", listener: UncaughtExceptionListener): this;
-                on(event: "uncaughtExceptionMonitor", listener: UncaughtExceptionListener): this;
-                on(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
-                on(event: "warning", listener: WarningListener): this;
-                on(event: "message", listener: MessageListener): this;
-                on(event: "workerMessage", listener: (value: any, source: number) => void): this;
-                on(event: Signals, listener: SignalsListener): this;
-                on(event: "multipleResolves", listener: MultipleResolveListener): this;
-                on(event: "worker", listener: WorkerListener): this;
-                on(event: string | symbol, listener: (...args: any[]) => void): this;
-                once(event: "beforeExit", listener: BeforeExitListener): this;
-                once(event: "disconnect", listener: DisconnectListener): this;
-                once(event: "exit", listener: ExitListener): this;
-                once(event: "rejectionHandled", listener: RejectionHandledListener): this;
-                once(event: "uncaughtException", listener: UncaughtExceptionListener): this;
-                once(event: "uncaughtExceptionMonitor", listener: UncaughtExceptionListener): this;
-                once(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
-                once(event: "warning", listener: WarningListener): this;
-                once(event: "message", listener: MessageListener): this;
-                once(event: "workerMessage", listener: (value: any, source: number) => void): this;
-                once(event: Signals, listener: SignalsListener): this;
-                once(event: "multipleResolves", listener: MultipleResolveListener): this;
-                once(event: "worker", listener: WorkerListener): this;
-                once(event: string | symbol, listener: (...args: any[]) => void): this;
-                prependListener(event: "beforeExit", listener: BeforeExitListener): this;
-                prependListener(event: "disconnect", listener: DisconnectListener): this;
-                prependListener(event: "exit", listener: ExitListener): this;
-                prependListener(event: "rejectionHandled", listener: RejectionHandledListener): this;
-                prependListener(event: "uncaughtException", listener: UncaughtExceptionListener): this;
-                prependListener(event: "uncaughtExceptionMonitor", listener: UncaughtExceptionListener): this;
-                prependListener(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
-                prependListener(event: "warning", listener: WarningListener): this;
-                prependListener(event: "message", listener: MessageListener): this;
-                prependListener(event: "workerMessage", listener: (value: any, source: number) => void): this;
-                prependListener(event: Signals, listener: SignalsListener): this;
-                prependListener(event: "multipleResolves", listener: MultipleResolveListener): this;
-                prependListener(event: "worker", listener: WorkerListener): this;
-                prependOnceListener(event: "beforeExit", listener: BeforeExitListener): this;
-                prependOnceListener(event: "disconnect", listener: DisconnectListener): this;
-                prependOnceListener(event: "exit", listener: ExitListener): this;
-                prependOnceListener(event: "rejectionHandled", listener: RejectionHandledListener): this;
-                prependOnceListener(event: "uncaughtException", listener: UncaughtExceptionListener): this;
-                prependOnceListener(event: "uncaughtExceptionMonitor", listener: UncaughtExceptionListener): this;
-                prependOnceListener(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
-                prependOnceListener(event: "warning", listener: WarningListener): this;
-                prependOnceListener(event: "message", listener: MessageListener): this;
-                prependOnceListener(event: "workerMessage", listener: (value: any, source: number) => void): this;
-                prependOnceListener(event: Signals, listener: SignalsListener): this;
-                prependOnceListener(event: "multipleResolves", listener: MultipleResolveListener): this;
-                prependOnceListener(event: "worker", listener: WorkerListener): this;
-                listeners(event: "beforeExit"): BeforeExitListener[];
-                listeners(event: "disconnect"): DisconnectListener[];
-                listeners(event: "exit"): ExitListener[];
-                listeners(event: "rejectionHandled"): RejectionHandledListener[];
-                listeners(event: "uncaughtException"): UncaughtExceptionListener[];
-                listeners(event: "uncaughtExceptionMonitor"): UncaughtExceptionListener[];
-                listeners(event: "unhandledRejection"): UnhandledRejectionListener[];
-                listeners(event: "warning"): WarningListener[];
-                listeners(event: "message"): MessageListener[];
-                listeners(event: "workerMessage"): ((value: any, source: number) => void)[];
-                listeners(event: Signals): SignalsListener[];
-                listeners(event: "multipleResolves"): MultipleResolveListener[];
-                listeners(event: "worker"): WorkerListener[];
             }
         }
     }
     export = process;
 }
-declare module "node:process" {
-    import process = require("process");
+declare module "process" {
+    import process = require("node:process");
     export = process;
 }

@@ -67,9 +67,9 @@
  * wat2wasm demo.wat
  * ```
  * @experimental
- * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/wasi.js)
+ * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/wasi.js)
  */
-declare module "wasi" {
+declare module "node:wasi" {
     interface WASIOptions {
         /**
          * An array of strings that the WebAssembly application will
@@ -197,6 +197,6 @@ declare module "wasi" {
         readonly wasiImport: NodeJS.Dict<any>; // TODO: Narrow to DOM types
     }
 }
-declare module "node:wasi" {
-    export * from "wasi";
+declare module "wasi" {
+    export * from "node:wasi";
 }

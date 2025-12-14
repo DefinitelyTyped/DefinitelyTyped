@@ -1,4 +1,4 @@
-import { NormalMapTypes } from "../../constants.js";
+import { NormalMapTypes, NormalPacking } from "../../constants.js";
 import Node from "../core/Node.js";
 import TempNode from "../core/TempNode.js";
 
@@ -7,6 +7,8 @@ declare class NormalMapNode extends TempNode {
     scaleNode: Node | null;
 
     normalMapType: NormalMapTypes;
+
+    unpackNormalMode: NormalPacking;
 
     constructor(node: Node, scaleNode?: Node | null);
 }
