@@ -1953,10 +1953,10 @@ declare namespace SteamUser {
     }
 
     interface AppInfoContentVideo {
-        appid: "373022";
+        appid: "373022" | `${number}`;
         common: AppInfoCommonBase & {
             type: "Video";
-            parent: "373020";
+            parent: "373020" | `${number}`;
         };
         config: {
             videoid: "7527155574822378568" | string;
