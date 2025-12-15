@@ -685,17 +685,6 @@ declare namespace Dockerode {
                     MacAddress: string;
                 };
             };
-            Node?:
-                | {
-                    ID: string;
-                    IP: string;
-                    Addr: string;
-                    Name: string;
-                    Cpus: number;
-                    Memory: number;
-                    Labels: any;
-                }
-                | undefined;
         };
     }
 
