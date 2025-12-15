@@ -397,7 +397,7 @@ declare abstract class Proofreader implements DestroyableModel {
     static create(options?: ProofreaderCreateOptions): Promise<Proofreader>;
     static availability(options?: ProofreaderCreateCoreOptions): Promise<Availability>;
 
-    proofread(input: string): Promise<ProofreadResult>;
+    proofread(input: string, options?: ProofreaderProofreadOptions): Promise<ProofreadResult>;
     // proofreadStreaming(input: string): ReadableStream<unknown>;
 
     readonly includeCorrectionTypes: boolean;
@@ -418,6 +418,10 @@ interface ProofreaderCreateCoreOptions {
 interface ProofreaderCreateOptions extends ProofreaderCreateCoreOptions {
     signal?: AbortSignal;
     monitor?: CreateMonitorCallback;
+}
+
+interface ProofreaderProofreadOptions {
+    signal?: AbortSignal;
 }
 
 interface ProofreadResult {
