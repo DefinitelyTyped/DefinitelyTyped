@@ -37,7 +37,7 @@ S2.IJToST(ij, 10, [0, 0]);
 // [ 0.0302734375, 0.146484375 ]
 
 // $ExpectType S2Cell
-S2.S2Cell.FromHilbertQuadKey('4/0010023002');
+S2.S2Cell.FromHilbertQuadKey("4/0010023002");
 // { face: 4, ij: [ 30, 150 ], level: 10 }
 
 // $ExpectType S2Cell
@@ -59,11 +59,11 @@ S2.S2Cell.latLngToNeighborKeys(ll.lat, ll.lng, 10);
 // [ '4/0010023002', '4/0010023010', '4/0010132332', '4/0010023000' ]
 
 // $ExpectType string
-S2.facePosLevelToId(4, '0010023003', 10);
+S2.facePosLevelToId(4, "0010023003", 10);
 // $ExpectType string
-S2.fromFacePosLevel(4, '0010023003', 10);
+S2.fromFacePosLevel(4, "0010023003", 10);
 // $ExpectType string
-S2.S2Cell.facePosLevelToId(4, '0010023003', 10);
+S2.S2Cell.facePosLevelToId(4, "0010023003", 10);
 // '9260956642827042816'
 
 // $ExpectType string
