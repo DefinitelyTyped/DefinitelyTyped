@@ -3232,6 +3232,29 @@ export interface Locator {
     press(key: string, options?: KeyboardPressOptions): Promise<void>;
 
     /**
+     * Focuses the element and then sends a `keydown`, `keypress`/`input`, and
+     * `keyup` event for each character in the text.
+     *
+     * This method is useful for simulating real user typing behavior when the page
+     * has special keyboard event handling, such as input validation or autocomplete.
+     * For simple text input without special keyboard handling, use {@link fill | fill()}
+     * instead as it's faster and more reliable.
+     *
+     * @example
+     * ```js
+     * // Type text instantly
+     * await locator.pressSequentially('Hello World');
+     *
+     * // Type text with delay between keypresses (like a real user)
+     * await locator.pressSequentially('Hello World', { delay: 100 });
+     * ```
+     *
+     * @param text Text to type into the focused element character by character.
+     * @param options Typing options.
+     */
+    pressSequentially(text: string, options?: KeyboardPressOptions): Promise<void>;
+
+    /**
      * Type a text into the input field.
      * @param text Text to type into the input field.
      * @param options Typing options.

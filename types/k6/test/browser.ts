@@ -1435,6 +1435,19 @@ async function test() {
     locator.setChecked(true, { position: { x: 0, y: 0 } });
 
     // @ts-expect-error
+    locator.pressSequentially();
+    // @ts-expect-error
+    locator.pressSequentially({ timeout: 10000 });
+    // $ExpectType Promise<void>
+    locator.pressSequentially("text");
+    // $ExpectType Promise<void>
+    locator.pressSequentially("text", { delay: 100 });
+    // $ExpectType Promise<void>
+    locator.pressSequentially("text", { noWaitAfter: true });
+    // $ExpectType Promise<void>
+    locator.pressSequentially("text", { timeout: 10000 });
+
+    // @ts-expect-error
     locator.type();
     // @ts-expect-error
     locator.type({ timeout: 10000 });
