@@ -661,11 +661,7 @@ declare namespace Dockerode {
             Healthcheck?: HealthConfig | undefined;
         };
         NetworkSettings: {
-            Bridge: string;
             SandboxID: string;
-            HairpinMode: boolean;
-            LinkLocalIPv6Address: string;
-            LinkLocalIPv6PrefixLen: number;
             Ports: {
                 [portAndProtocol: string]: Array<{
                     HostIp: string;
@@ -673,16 +669,6 @@ declare namespace Dockerode {
                 }>;
             };
             SandboxKey: string;
-            SecondaryIPAddresses?: any;
-            SecondaryIPv6Addresses?: any;
-            EndpointID: string;
-            Gateway: string;
-            GlobalIPv6Address: string;
-            GlobalIPv6PrefixLen: number;
-            IPAddress: string;
-            IPPrefixLen: number;
-            IPv6Gateway: string;
-            MacAddress: string;
             Networks: {
                 [type: string]: {
                     IPAMConfig?: any;
