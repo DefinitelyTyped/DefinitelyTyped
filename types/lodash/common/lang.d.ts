@@ -342,10 +342,6 @@ declare module "../index" {
          * @return Returns true if value is correctly classified, else false.
          */
         isArray(value?: any): value is any[];
-        /**
-         * @see _.isArray
-         */
-        isArray<T>(value?: any): value is any[];
     }
     interface LoDashImplicitWrapper<TValue> {
         /**
