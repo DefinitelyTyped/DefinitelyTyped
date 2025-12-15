@@ -14,7 +14,6 @@
     },
     "files": [
         "index.d.ts",
-        "index.d.mts",
         "markdown-it-container-tests.ts"
     ]
 }
