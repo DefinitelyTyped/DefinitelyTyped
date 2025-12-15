@@ -124,8 +124,8 @@ function message_common_fields_test() {
 
 function message_common_fields_array_test() {
     const message: Mail.Options = {
-        from: ["sender@server.com", { address: "sender2@server.com", name: "Sender2 }],
-        to: ["receiver@sender.com", { address: "receiver2@sender.com", name: "Receiver2 }],
+        from: ["sender@server.com", { address: "sender2@server.com", name: "Sender2" }],
+        to: ["receiver@sender.com", { address: "receiver2@sender.com", name: "Receiver2" }],
         cc: ["ccdreceiver@sender.com"],
         bcc: ["bccdreceiver@sender.com"]
     };
