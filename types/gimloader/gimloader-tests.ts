@@ -12,6 +12,7 @@ api.patcher; // $ExpectType Readonly<ScopedPatcherApi>
 api.plugins; // $ExpectType Readonly<PluginsApi>
 api.rewriter; // $ExpectType Readonly<ScopedRewriterApi>
 api.storage; // $ExpectType Readonly<ScopedStorageApi>
+api.commands; // $ExpectType Readonly<ScopedCommandsApi>
 
 GL.React; // $ExpectType typeof React
 GL.UI; // $ExpectType Readonly<UIApi>
@@ -22,6 +23,7 @@ GL.patcher; // $ExpectType Readonly<PatcherApi>
 GL.plugins; // $ExpectType Readonly<PluginsApi>
 GL.rewriter; // $ExpectType Readonly<RewriterApi>
 GL.storage; // $ExpectType Readonly<StorageApi>
+GL.commands; // $ExpectType Readonly<CommandsApi>
 
 // @ts-expect-error
 GL.onStop;
@@ -47,6 +49,38 @@ api.net.onLoad((type, gamemode) => {});
 api.net.modifyFetchRequest("/path/*/thing", (options) => null);
 api.net.modifyFetchRequest("/path/*/thing", (options) => options);
 api.net.modifyFetchResponse("/path/*/thing", (response) => response);
+
+api.commands.addCommand({
+    text: "test",
+    hidden: () => false,
+    keywords: ["thing", "thing"],
+}, async (context) => {
+    await context.number({
+        title: "Number",
+        decimal: false,
+        max: 6,
+        min: 1,
+    });
+    await context.select({
+        title: "Select",
+        options: [
+            {
+                label: "Option 1",
+                value: "option1",
+            },
+            {
+                label: "Option 2",
+                value: "option2",
+            },
+        ],
+    });
+    await context.string({
+        title: "String",
+        maxLength: 10,
+    });
+});
+
+api.commands.addCommand({ text: () => "something" }, () => {});
 
 GL.stores.phaser; // $ExpectType Phaser
 window.stores.phaser; // $ExpectType Phaser
