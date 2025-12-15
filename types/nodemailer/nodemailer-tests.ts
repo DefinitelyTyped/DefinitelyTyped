@@ -127,7 +127,7 @@ function message_common_fields_array_test() {
         from: ["sender@server.com", { address: "sender2@server.com", name: "Sender2" }],
         to: ["receiver@sender.com", { address: "receiver2@sender.com", name: "Receiver2" }],
         cc: ["ccdreceiver@sender.com"],
-        bcc: ["bccdreceiver@sender.com"]
+        bcc: ["bccdreceiver@sender.com"],
     };
 }
 
