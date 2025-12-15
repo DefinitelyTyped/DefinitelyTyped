@@ -434,11 +434,11 @@ async function topLevel() {
     });
     console.log(proofreaderAvailability2);
 
-    const proofreaderResult: ProofreadResult = await proofreader.proofread("foo");
+    const proofreaderResult: ProofreadResult = await proofreader.proofread("foo", { signal: (new AbortController()).signal });
     console.log(proofreaderResult);
 
     // for await (
-    //     const chunk of proofreader.proofreadStreaming("foo")
+    //     const chunk of proofreader.proofreadStreaming("foo", { signal: (new AbortController()).signal })
     // ) {
     //     console.log(chunk);
     // }
