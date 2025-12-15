@@ -779,16 +779,16 @@ const GAME_WITH_ANON_ASSOC_EXAMPLE: AppInfoContent = {
         "releasestate": "released",
         "content_descriptors": {
             "0": "1",
-            "1": "5"
+            "1": "5",
         },
         "aicontenttype": "1",
         "controllertagwizard": "1",
         "small_capsule": {
             "schinese": "capsule_231x87_schinese.jpg",
-            "english": "7eec28c94d470fbd1244f016f60d62adf7ebc238/capsule_231x87.jpg"
+            "english": "7eec28c94d470fbd1244f016f60d62adf7ebc238/capsule_231x87.jpg",
         },
         "header_image": {
-            "english": "23311545184bc42e54d4317e96d9fa7af885a089/header.jpg"
+            "english": "23311545184bc42e54d4317e96d9fa7af885a089/header.jpg",
         },
         "library_assets": {
             "library_capsule": "zh-cn,en",
@@ -799,75 +799,75 @@ const GAME_WITH_ANON_ASSOC_EXAMPLE: AppInfoContent = {
             "logo_position": {
                 "pinned_position": "CenterCenter",
                 "width_pct": "50",
-                "height_pct": "50"
-            }
+                "height_pct": "50",
+            },
         },
         "library_assets_full": {
             "library_capsule": {
                 "image": {
                     "schinese": "library_600x900_schinese.jpg",
-                    "english": "1a41e429f8a9d1ced4d1d694f8be40a644a9035b/library_capsule.jpg"
+                    "english": "1a41e429f8a9d1ced4d1d694f8be40a644a9035b/library_capsule.jpg",
                 },
                 "image2x": {
                     "schinese": "library_600x900_schinese_2x.jpg",
-                    "english": "1a41e429f8a9d1ced4d1d694f8be40a644a9035b/library_capsule_2x.jpg"
-                }
+                    "english": "1a41e429f8a9d1ced4d1d694f8be40a644a9035b/library_capsule_2x.jpg",
+                },
             },
             "library_hero": {
                 "image": {
-                    "english": "ac24a584893d024ab1b0fcf40d0a0b82a90cdb7e/library_hero.jpg"
+                    "english": "ac24a584893d024ab1b0fcf40d0a0b82a90cdb7e/library_hero.jpg",
                 },
                 "image2x": {
-                    "english": "ac24a584893d024ab1b0fcf40d0a0b82a90cdb7e/library_hero_2x.jpg"
-                }
+                    "english": "ac24a584893d024ab1b0fcf40d0a0b82a90cdb7e/library_hero_2x.jpg",
+                },
             },
             "library_hero_blur": {
                 "image": {
-                    "english": "ac24a584893d024ab1b0fcf40d0a0b82a90cdb7e/library_hero_blur.jpg"
-                }
+                    "english": "ac24a584893d024ab1b0fcf40d0a0b82a90cdb7e/library_hero_blur.jpg",
+                },
             },
             "library_logo": {
                 "image": {
                     "schinese": "logo_schinese.png",
-                    "english": "644a8dfb21c4fdb1524ddfe6af9627e40cfb7eb6/logo.png"
+                    "english": "644a8dfb21c4fdb1524ddfe6af9627e40cfb7eb6/logo.png",
                 },
                 "image2x": {
                     "schinese": "logo_schinese_2x.png",
-                    "english": "644a8dfb21c4fdb1524ddfe6af9627e40cfb7eb6/logo_2x.png"
+                    "english": "644a8dfb21c4fdb1524ddfe6af9627e40cfb7eb6/logo_2x.png",
                 },
                 "logo_position": {
                     "pinned_position": "CenterCenter",
                     "width_pct": "50",
-                    "height_pct": "50"
-                }
+                    "height_pct": "50",
+                },
             },
             "library_header": {
                 "image": {
-                    "english": "23311545184bc42e54d4317e96d9fa7af885a089/library_header.jpg"
+                    "english": "23311545184bc42e54d4317e96d9fa7af885a089/library_header.jpg",
                 },
                 "image2x": {
-                    "english": "23311545184bc42e54d4317e96d9fa7af885a089/library_header_2x.jpg"
-                }
-            }
+                    "english": "23311545184bc42e54d4317e96d9fa7af885a089/library_header_2x.jpg",
+                },
+            },
         },
         "store_asset_mtime": "1759495332",
         "associations": {
             "0": {
                 "type": "developer",
-                "name": "Anonymous"
+                "name": "Anonymous",
             },
             "1": {
                 "type": "developer",
-                "name": "Anonymous"
+                "name": "Anonymous",
             },
             "2": {
                 "type": "publisher",
-                "name": "Anonymous"
+                "name": "Anonymous",
             },
             "3": {
                 "type": "publisher",
-                "name": "Anonymous"
-            }
+                "name": "Anonymous",
+            },
         },
         "primary_genre": "23",
         "genres": {
@@ -875,23 +875,23 @@ const GAME_WITH_ANON_ASSOC_EXAMPLE: AppInfoContent = {
             "1": "4",
             "2": "23",
             "3": "3",
-            "4": "70"
+            "4": "70",
         },
         "category": {
             "category_2": "1",
-            "category_62": "1"
+            "category_62": "1",
         },
         "supported_languages": {
             "schinese": {
                 "supported": "true",
-                "subtitles": "true"
-            }
+                "subtitles": "true",
+            },
         },
         "community_hub_visible": "1",
         "gameid": "2521400",
         "content_descriptors_including_dlc": {
             "0": "1",
-            "1": "5"
+            "1": "5",
         },
         "store_tags": {
             "0": "122",
@@ -912,15 +912,15 @@ const GAME_WITH_ANON_ASSOC_EXAMPLE: AppInfoContent = {
             "15": "4182",
             "16": "31275",
             "17": "492",
-            "18": "493"
+            "18": "493",
         },
         "review_score": "8",
-        "review_percentage": "95"
+        "review_percentage": "95",
     },
     "extended": {
         "developer": "Anonymous",
         "publisher": "Anonymous",
-        "gamemanualurl": "https://store.steampowered.com/manual/2521400/"
+        "gamemanualurl": "https://store.steampowered.com/manual/2521400/",
     },
     "config": {
         "installdir": "愚人船 NARRENSCHIFF",
@@ -931,11 +931,11 @@ const GAME_WITH_ANON_ASSOC_EXAMPLE: AppInfoContent = {
                 "type": "default",
                 "config": {
                     "oslist": "windows",
-                    "osarch": "64"
-                }
-            }
+                    "osarch": "64",
+                },
+            },
         },
-        "steamdecktouchscreen": "1"
+        "steamdecktouchscreen": "1",
     },
     "depots": {
         "2521401": {
@@ -943,20 +943,20 @@ const GAME_WITH_ANON_ASSOC_EXAMPLE: AppInfoContent = {
                 "public": {
                     "gid": "6981023562958172906",
                     "size": "860631256",
-                    "download": "571884368"
-                }
-            }
+                    "download": "571884368",
+                },
+            },
         },
         "2521402": {
             "config": {
-                "oslist": "linux"
-            }
+                "oslist": "linux",
+            },
         },
         "branches": {
             "public": {
                 "buildid": "20242077",
-                "timeupdated": "1759507951"
-            }
-        }
-    }
+                "timeupdated": "1759507951",
+            },
+        },
+    },
 };

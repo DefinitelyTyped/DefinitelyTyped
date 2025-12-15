@@ -1503,8 +1503,8 @@ declare namespace SteamUser {
         library_capsule: "en" | string;
         library_hero: "en" | string;
         library_logo: "en" | string;
-        library_hero_blur?: "en" | string,
-        library_header?: "en" | string,
+        library_hero_blur?: "en" | string;
+        library_header?: "en" | string;
         logo_position: {
             pinned_position: "BottomCenter" | string;
             width_pct: "77.01516064953753" | `${number}`;
@@ -1532,7 +1532,7 @@ declare namespace SteamUser {
                 height_pct: "43.685387882494695" | `${number}`;
             };
         };
-        library_header?: LibraryAssetImage
+        library_header?: LibraryAssetImage;
     }
 
     type Associations = Record<
@@ -1559,7 +1559,7 @@ declare namespace SteamUser {
         header_image?: Record<"english" | string, "header.jpg" | string>;
         community_hub_visible?: "1" | `${number}`;
         releasestate?: "prerelease" | string;
-        aicontenttype?: "1" | `${number}`,
+        aicontenttype?: "1" | `${number}`;
         osarch?: "" | string;
         osextended?: "" | string;
         exfgls?: "8" | `${number}`;
@@ -1667,9 +1667,9 @@ declare namespace SteamUser {
     };
 
     interface AppInfoExtendedGameAnon {
-        "developer": "Anonymous",
-        "publisher": "Anonymous",
-        "gamemanualurl": "https://store.steampowered.com/manual/2521400/" | string
+        "developer": "Anonymous";
+        "publisher": "Anonymous";
+        "gamemanualurl": "https://store.steampowered.com/manual/2521400/" | string;
     }
 
     interface AppInfoConfigBase {
@@ -1724,7 +1724,7 @@ declare namespace SteamUser {
         extended?: AppInfoExtendedGame | AppInfoExtendedGameAnon;
         config?: AppInfoConfig | AppInfoConfigBase;
         depots?: Record<`${number}`, AppInfoDepot> & {
-            branches?: Branches,
+            branches?: Branches;
         };
         ufs?: {
             quota: "104857600" | `${number}`;
