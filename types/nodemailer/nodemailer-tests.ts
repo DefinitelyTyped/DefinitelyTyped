@@ -120,6 +120,17 @@ function message_common_fields_test() {
     };
 }
 
+// Array variant of common fields
+
+function message_common_fields_array_test() {
+    const message: Mail.Options = {
+        from: ["sender@server.com", { address: "sender2@server.com", name: "Sender2 }],
+        to: ["receiver@sender.com", { address: "receiver2@sender.com", name: "Receiver2 }],
+        cc: ["ccdreceiver@sender.com"],
+        bcc: ["bccdreceiver@sender.com"]
+    };
+}
+
 // More advanced fields
 
 function message_more_advanced_fields_test() {
