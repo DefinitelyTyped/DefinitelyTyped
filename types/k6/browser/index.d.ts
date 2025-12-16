@@ -5720,7 +5720,7 @@ export interface Page {
      * Waits for the specified event to be emitted.
      *
      * This method blocks until the event is captured or the timeout is reached.
-     * It can wait for any page event such as `console`, `request`, or `response`.
+     * Supported event types are `console`, `request`, or `response`.
      *
      * @example
      * ```js
