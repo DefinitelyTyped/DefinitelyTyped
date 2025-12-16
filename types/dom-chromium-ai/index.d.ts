@@ -429,7 +429,7 @@ interface ProofreadCorrection {
     startIndex: number;
     endIndex: number;
     correction: string;
-    type?: CorrectionType;
+    types?: CorrectionType[];
     explanation?: string;
 }
 
