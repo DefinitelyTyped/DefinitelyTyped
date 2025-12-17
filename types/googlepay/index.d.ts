@@ -494,9 +494,9 @@ declare namespace google.payments.api {
         phoneNumber?: string | undefined;
 
         /**
-         * The 3166-2 administrative area code
+         * The ISO 3166-2 administrative area
          *
-         * ISO 3166-2 administrative area code corresponding to administrativeArea.
+         * ISO 3166-2 administrative area corresponding to administrativeArea.
          * Only present if the shipping or billing address format is FULL-ISO3166.
          */
         iso3166AdministrativeAreaCode?: string | undefined;
@@ -535,9 +535,9 @@ declare namespace google.payments.api {
         locality: string;
 
         /**
-         * The 3166-2 administrative area code
+         * The 3166-2 administrative area
          *
-         * ISO 3166-2 administrative area code corresponding to administrativeArea.
+         * ISO 3166-2 administrative area corresponding to administrativeArea.
          * Only present if the shipping address format is FULL-ISO3166.
          */
         iso3166AdministrativeAreaCode?: string | undefined;
@@ -1635,7 +1635,7 @@ declare namespace google.payments.api {
      * - `FULL-ISO3166`:
      *   Same as `FULL` but includes [[Address.iso3166AdministrativeArea|`Address.iso3166AdministrativeArea`]]
      */
-    type ShippingAddressFormat = "MIN" | "FULL" | "FULL-ISO3166";
+    type ShippingAddressFormat = "FULL" | "FULL-ISO3166";
 
     /**
      * The status of the total price used.
