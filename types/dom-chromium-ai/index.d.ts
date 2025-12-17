@@ -146,10 +146,16 @@ interface LanguageModelToolFunction {
     (...args: any[]): Promise<string>;
 }
 
-type LanguageModelPrompt = LanguageModelMessage[] | string;
+type LanguageModelPrompt = (LanguageModelMessage | LanguageModelAssistantMessage)[] | string;
 
 interface LanguageModelMessage {
     role: LanguageModelMessageRole;
+    content: LanguageModelMessageContent[] | string;
+}
+
+// Not in IDL, split up here for allowing assistant messages with prefix in prompt() and promptStreaming() only
+interface LanguageModelAssistantMessage {
+    role: LanguageModelAssistantMessageRole;
     content: LanguageModelMessageContent[] | string;
     prefix?: boolean;
 }
@@ -165,7 +171,9 @@ interface LanguageModelMessageContent {
     value: LanguageModelMessageValue;
 }
 
-type LanguageModelMessageRole = "user" | "assistant";
+type LanguageModelMessageRole = "user" | LanguageModelAssistantMessageRole;
+// Not in IDL, split up here for allowing assistant messages with prefix in prompt() and promptStreaming() only
+type LanguageModelAssistantMessageRole = "assistant";
 // Not in IDL, split up here for enforcing the system message as the first element
 type LanguageModelSystemMessageRole = "system";
 
