@@ -535,7 +535,7 @@ declare namespace google.payments.api {
         locality: string;
 
         /**
-         * The 3166-2 administrative area
+         * The ISO 3166-2 administrative area
          *
          * ISO 3166-2 administrative area corresponding to administrativeArea.
          * Only present if the shipping address format is FULL-ISO3166.
