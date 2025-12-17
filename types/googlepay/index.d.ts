@@ -499,7 +499,7 @@ declare namespace google.payments.api {
          * ISO 3166-2 administrative area corresponding to administrativeArea.
          * Only present if the shipping or billing address format is FULL-ISO3166.
          */
-        iso3166AdministrativeAreaCode?: string | undefined;
+        iso3166AdministrativeArea?: string | undefined;
     }
 
     /**
@@ -540,7 +540,7 @@ declare namespace google.payments.api {
          * ISO 3166-2 administrative area corresponding to administrativeArea.
          * Only present if the shipping address format is FULL-ISO3166.
          */
-        iso3166AdministrativeAreaCode?: string | undefined;
+        iso3166AdministrativeArea?: string | undefined;
     }
 
     /**
