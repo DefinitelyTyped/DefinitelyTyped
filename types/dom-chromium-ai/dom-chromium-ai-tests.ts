@@ -2,8 +2,13 @@ async function topLevel() {
     // Language Model
 
     await LanguageModel.create({
-        // @ts-expect-error - System prompt must be first element of the initialPrompt array.
+        // @ts-expect-error - System prompt must be first element of the initialPrompts array.
         initialPrompts: [{ role: "user", content: "foo" }, { role: "system", content: "foo" }],
+    });
+
+    await LanguageModel.create({
+        // @ts-expect-error - Prefixes are not allowed in initialPrompts.
+        initialPrompts: [{ role: "assistant", content: "foo", prefix: true }],
     });
 
     const languageModel = await LanguageModel.create({
