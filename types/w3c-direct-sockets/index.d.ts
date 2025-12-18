@@ -71,8 +71,8 @@ export interface TCPServerSocketOptions {
 }
 
 export interface SocketOpenInfo {
-    readable?: ReadableStream;
-    writable?: WritableStream;
+    readable: ReadableStream;
+    writable: WritableStream;
     remoteAddress?: string;
     remotePort?: number;
     localAddress?: string;
@@ -86,7 +86,7 @@ export interface UDPSocketOpenInfo extends SocketOpenInfo {
 }
 
 export interface TCPServerSocketOpenInfo {
-    readable?: ReadableStream;
+    readable: ReadableStream;
     localAddress?: string;
     localPort?: number;
 }

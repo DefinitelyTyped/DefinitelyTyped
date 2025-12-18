@@ -89,6 +89,10 @@ async function testDirectSockets() {
     // --------------------------------------------------------------------------------
     // TCPServerSocket
     // --------------------------------------------------------------------------------
+
+    // @ts-expect-error
+    const invalidTcpServerOpenInfo: TCPServerSocketOpenInfo = {};
+
     const tcpServerOptions: TCPServerSocketOptions = {
         localPort: 0,
         backlog: 5,
@@ -113,23 +117,45 @@ async function testDirectSockets() {
     // Open Info Structures
     // --------------------------------------------------------------------------------
 
-    const udpOpenInfo: UDPSocketOpenInfo = {};
+    const udpOpenInfo: UDPSocketOpenInfo = {
+        readable: {} as ReadableStream,
+        writable: {} as WritableStream, // Only include if your d.ts actually requires this
+        remoteAddress: "127.0.0.1",
+        remotePort: 53,
+        localAddress: "0.0.0.0",
+        localPort: 4500,
+    };
     // $ExpectType MulticastController | undefined
     udpOpenInfo.multicastController;
-    // $ExpectType ReadableStream<any> | undefined
+
+    // $ExpectType ReadableStream<any>
     udpOpenInfo.readable;
 
-    const tcpOpenInfo: TCPSocketOpenInfo = {};
-    // @ts-expect-error
-    tcpOpenInfo.multicastController;
-    // $ExpectType WritableStream<any> | undefined
-    tcpOpenInfo.writable;
+    // ============================================================================
+    // TCPSocketOpenInfo (REQUIRED FIELDS TEST)
+    // ============================================================================
 
-    const tcpServerOpenInfo: TCPServerSocketOpenInfo = {};
-    // $ExpectType ReadableStream<any> | undefined
-    tcpServerOpenInfo.readable;
     // @ts-expect-error
-    tcpServerOpenInfo.writable;
+    const invalidTcpOpenInfo: TCPSocketOpenInfo = {};
+
+    const validTcpOpenInfo: TCPSocketOpenInfo = {
+        readable: {} as ReadableStream,
+        writable: {} as WritableStream,
+        remoteAddress: "127.0.0.1",
+        remotePort: 80,
+        localAddress: "192.168.1.5",
+        localPort: 3000,
+    };
+
+    // $ExpectType ReadableStream<any>
+    validTcpOpenInfo.readable;
+    // $ExpectType WritableStream<any>
+    validTcpOpenInfo.writable;
+    // $ExpectType string | undefined
+    validTcpOpenInfo.remoteAddress;
+
+    // @ts-expect-error
+    validTcpOpenInfo.multicastController;
 
     // --------------------------------------------------------------------------------
     // MulticastController
