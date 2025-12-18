@@ -151,7 +151,7 @@ async function testDirectSockets() {
     validTcpOpenInfo.readable;
     // $ExpectType WritableStream<any>
     validTcpOpenInfo.writable;
-    // $ExpectType string
+    // $ExpectType string | undefined
     validTcpOpenInfo.remoteAddress;
 
     // @ts-expect-error
