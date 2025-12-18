@@ -6,7 +6,8 @@
         "https://github.com/npm/cacache#readme"
     ],
     "dependencies": {
-        "@types/node": "*"
+        "@types/node": "*",
+        "minipass": "*"
     },
     "devDependencies": {
         "@types/cacache": "workspace:."
