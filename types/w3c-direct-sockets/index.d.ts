@@ -71,12 +71,12 @@ export interface TCPServerSocketOptions {
 }
 
 export interface SocketOpenInfo {
-    readable?: ReadableStream;
-    writable?: WritableStream;
-    remoteAddress?: string;
-    remotePort?: number;
-    localAddress?: string;
-    localPort?: number;
+    readable: ReadableStream;
+    writable: WritableStream;
+    remoteAddress: string;
+    remotePort: number;
+    localAddress: string;
+    localPort: number;
 }
 
 export type TCPSocketOpenInfo = SocketOpenInfo;
@@ -86,9 +86,9 @@ export interface UDPSocketOpenInfo extends SocketOpenInfo {
 }
 
 export interface TCPServerSocketOpenInfo {
-    readable?: ReadableStream;
-    localAddress?: string;
-    localPort?: number;
+    readable: ReadableStream;
+    localAddress: string;
+    localPort: number;
 }
 
 declare global {
