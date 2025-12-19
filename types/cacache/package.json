@@ -1,12 +1,13 @@
 {
     "private": true,
     "name": "@types/cacache",
-    "version": "19.0.9999",
+    "version": "20.0.9999",
     "projects": [
         "https://github.com/npm/cacache#readme"
     ],
     "dependencies": {
-        "@types/node": "*"
+        "@types/node": "*",
+        "minipass": "*"
     },
     "devDependencies": {
         "@types/cacache": "workspace:."
