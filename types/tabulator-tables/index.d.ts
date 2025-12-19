@@ -1253,7 +1253,14 @@ export interface ColumnDefinition extends ColumnLayout, CellCallbacks {
      *
      * Validators can be applied by using the validator property in a columns definition object (see Define Columns for more details).
      */
-    validator?: StandardValidatorType | StandardValidatorType[] | Validator | Validator[] | string | undefined | ((cell: CellComponent, value: any) => boolean);
+    validator?:
+        | StandardValidatorType
+        | StandardValidatorType[]
+        | Validator
+        | Validator[]
+        | string
+        | undefined
+        | ((cell: CellComponent, value: any) => boolean);
 
     /**
      * Mutators are used to alter data as it is parsed into  For example if you wanted to convert a numeric column into a boolean based on its value, before the data is used to build the table.
