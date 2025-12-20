@@ -27,7 +27,7 @@ export interface CreateTorrentOptions {
     onProgress?: (hashedLength: number, estimatedTorrentLength: number) => void;
 }
 
-export type TorrentInput = string | File | FileList | Buffer | ReadableStream | string[] | File[] | Buffer[];
+export type TorrentInput = string | File | FileList | Buffer | ReadableStream | string[] | File[] | Buffer[] | ReadableStream[];
 
 declare function createTorrent(input: TorrentInput, opts: CreateTorrentOptions, cb: CreateTorrentCallback): void;
 declare function createTorrent(input: TorrentInput, cb: CreateTorrentCallback): void;
