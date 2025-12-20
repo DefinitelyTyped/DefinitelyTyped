@@ -1,38 +1,64 @@
-import createTorrent = require("create-torrent");
-import fs = require("fs");
+/// <reference types="node" />
+import createTorrent, { announceList, isJunkPath } from "create-torrent"
+import { Readable } from "stream"
 
-createTorrent("test", (err, torrent) => {
-    if (err) {
-        return;
-    }
+const readable = Readable.from([Buffer.from("test")])
 
-    fs.writeFileSync("test.torrent", torrent);
-});
+const cb = (err: Error | null, torrent?: Buffer) => { }
+
+createTorrent("test", (err: Error | null, torrent?: Buffer) => {
+    if (err) return
+    if (torrent) torrent.equals(Buffer.alloc(0))
+})
+
+createTorrent(["a.txt", "b.txt"], cb)
 
 createTorrent(
-    "test",
+    [Buffer.from("a")],
     {
         name: "test",
-        comment: "test",
-        createdBy: "test",
-        creationDate: Date.now(),
-        private: true,
-        pieceLength: 100,
-        announceList: [["test"]],
-        urlList: ["test"],
-        info: {
-            test: "test",
-        },
-        onProgress: (b1, b2) => {
-            const percent = Math.round(b1 / b2 * 100);
-            console.info(`${percent} % ${b1} B - ${b2} B`);
+        comment: "comment",
+        createdBy: "tester",
+        creationDate: new Date(),
+        private: 1,
+        pieceLength: 1024,
+        maxPieceLength: 2 * 1024 * 1024,
+        announceList: [["udp://tracker.example"]],
+        urlList: ["https://example.com/file"],
+        info: { custom: "value" },
+        onProgress: (written: number, total: number) => {
+            const percent: number = Math.round((written / total) * 100)
+            console.log(percent)
         },
     },
-    (err, torrent) => {
-        if (err) {
-            return;
-        }
+    (_err: Error | null, torrent?: Buffer) => {
+        if (torrent) torrent.toString("base64")
+    },
+)
 
-        fs.writeFileSync("test.torrent", torrent);
+createTorrent(
+    [Buffer.from("a")],
+    {
+        name: "test",
+        comment: "comment",
+        createdBy: "tester",
+        creationDate: new Date(),
+        private: 1,
+        pieceLength: 1024,
+        maxPieceLength: 2 * 1024 * 1024,
+        announceList: [["udp://tracker.example"]],
+        urlList: ["https://example.com/file"],
+        info: { custom: "value" },
+        onProgress: (written: number, total: number) => {
+            const percent: number = Math.round((written / total) * 100)
+            console.log(percent)
+        },
     },
-);
+    (_err: Error | null, torrent?: Buffer) => {
+        if (torrent) torrent.toString("base64")
+    },
+)
+
+const junk: boolean = isJunkPath("dir")
+const firstTracker: string | undefined = announceList[0]?.[0]
+console.log(junk, firstTracker)

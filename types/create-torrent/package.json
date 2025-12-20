@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/create-torrent",
-    "version": "5.0.9999",
+    "version": "6.1.0",
     "projects": [
         "https://github.com/webtorrent/create-torrent#readme"
     ],
