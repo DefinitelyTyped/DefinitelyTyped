@@ -1,6 +1,5 @@
 /// <reference types="node" />
 
-import * as aws from "@aws-sdk/client-ses";
 import { EventEmitter } from "node:events";
 
 import { Transport, TransportOptions } from "../..";
@@ -10,6 +9,44 @@ import MailMessage = require("../mailer/mail-message");
 import MimeNode = require("../mime-node");
 
 declare namespace SESTransport {
+    /**
+     * Minimal structural shape of SES SendEmail input.
+     * This is intentionally structural so @types/nodemailer does not require
+     * installing @aws-sdk/client-ses.
+     *
+     * If you want the full, exact type, install @aws-sdk/client-ses in your
+     * app and use its types directly in your own code.
+     */
+    interface SendEmailRequestLike {
+        Source?: string;
+        Destination?: {
+            ToAddresses?: string[];
+            CcAddresses?: string[];
+            BccAddresses?: string[];
+        };
+        Message?: unknown;
+        ReplyToAddresses?: string[];
+        ReturnPath?: string;
+        SourceArn?: string;
+        ReturnPathArn?: string;
+        Tags?: Array<{ Name?: string; Value?: string }>;
+        ConfigurationSetName?: string;
+        // Allow extra fields without forcing the SDK type package
+        [key: string]: unknown;
+    }
+
+    /** Structural type matching SES client from @aws-sdk/client-ses */
+    interface SESClientLike {
+        sendEmail(params: unknown, options?: unknown): Promise<{ MessageId?: string }>;
+        sendRawEmail(params: unknown, options?: unknown): Promise<{ MessageId?: string }>;
+    }
+
+    /** Structural type matching the aws module shape */
+    interface AwsModuleLike {
+        SendRawEmailCommand?: unknown;
+        [key: string]: unknown;
+    }
+
     interface MailOptions extends Mail.Options {
         /** list of keys that SendRawEmail method can take */
         ses?: MailSesOptions | undefined;
@@ -17,16 +54,16 @@ declare namespace SESTransport {
 
     // Keep it as an interface for backward-compatibility
     // eslint-disable-next-line @typescript-eslint/no-empty-interface
-    interface MailSesOptions extends Partial<aws.SendEmailRequest> {}
+    interface MailSesOptions extends Partial<SendEmailRequestLike> {}
 
     interface Options extends MailOptions, TransportOptions {
         /** An option that expects an instantiated aws.SES object */
         SES:
             | {
-                ses: aws.SES;
-                aws: typeof aws;
+                ses: SESClientLike;
+                aws: AwsModuleLike;
             }
-            | aws.SES;
+            | SESClientLike;
         /** How many messages per second is allowed to be delivered to SES */
         maxConnections?: number | undefined;
         /** How many parallel connections to allow towards SES */
@@ -34,7 +71,7 @@ declare namespace SESTransport {
     }
 
     interface SentMessageInfo {
-        /** an envelope object {from:‘address’, to:[‘address’]} */
+        /** an envelope object {from:'address', to:['address']} */
         envelope: MimeNode.Envelope;
         /** the Message-ID header value. This value is derived from the response of SES API, so it differs from the Message-ID values used in logging. */
         messageId: string;
