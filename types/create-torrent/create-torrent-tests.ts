@@ -1,6 +1,5 @@
 /// <reference types="node" />
 import createTorrent, { announceList, isJunkPath } from "create-torrent";
-import { Readable } from "stream";
 
 const cb = (err: Error | null, torrent?: Buffer) => {};
 
@@ -18,7 +17,7 @@ createTorrent(
         comment: "comment",
         createdBy: "tester",
         creationDate: new Date(),
-        private: 1,
+        private: true,
         pieceLength: 1024,
         maxPieceLength: 2 * 1024 * 1024,
         announceList: [["udp://tracker.example"]],
@@ -29,9 +28,7 @@ createTorrent(
             console.log(percent);
         },
     },
-    (_err: Error | null, torrent?: Buffer) => {
-        if (torrent) torrent.toString("base64");
-    },
+    cb,
 );
 
 createTorrent(
@@ -41,7 +38,7 @@ createTorrent(
         comment: "comment",
         createdBy: "tester",
         creationDate: new Date(),
-        private: 1,
+        private: false,
         pieceLength: 1024,
         maxPieceLength: 2 * 1024 * 1024,
         announceList: [["udp://tracker.example"]],
@@ -52,9 +49,7 @@ createTorrent(
             console.log(percent);
         },
     },
-    (_err: Error | null, torrent?: Buffer) => {
-        if (torrent) torrent.toString("base64");
-    },
+    cb,
 );
 
 const junk: boolean = isJunkPath("dir");
