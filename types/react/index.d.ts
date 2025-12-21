@@ -3564,6 +3564,9 @@ declare namespace React {
         method?: string | undefined;
         min?: number | string | undefined;
         name?: string | undefined;
+        nonce?: string | undefined;
+        part?: string | undefined;
+        slot?: string | undefined;
         style?: CSSProperties | undefined;
         target?: string | undefined;
         type?: string | undefined;
