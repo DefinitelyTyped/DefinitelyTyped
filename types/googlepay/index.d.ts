@@ -1868,6 +1868,7 @@ declare namespace google.payments.api {
      *
      * - `UNKNOWN`:
      *   The funding source is unknown.
+     *
      * - `CREDIT`:
      *   The card is a credit card.
      *
