@@ -1208,6 +1208,9 @@ declare namespace google.payments.api {
          */
         billingAddress?: Address | undefined;
 
+        /**
+         * Card funding source for the selected payment method.
+         */
         cardFundingSource?: CardFundingSource | undefined;
     }
 
