@@ -301,6 +301,7 @@ export namespace Calendar {
         events: EventSourceFunc | EventSourceFuncPromise;
     };
 
+    type cssLength = string;
     type dayOfWeek = 0 | 1 | 2 | 3 | 4 | 5 | 6;
     type isoDateString = string;
     type isoDateTimeString = string;
@@ -309,6 +310,7 @@ export namespace Calendar {
         allDayContent?: Content;
         allDaySlot?: boolean;
         buttonText?: ButtonTextMapping | ((text: ButtonTextMapping) => ButtonTextMapping);
+        columnWidth?: cssLength;
         customButtons?: CustomButtons | ((customButtons: CustomButtons) => CustomButtons);
         date?: Date | string | undefined;
         dateClick?: (info: DateClickInfo) => void;
