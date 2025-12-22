@@ -806,6 +806,21 @@ declare namespace google.payments.api {
         allowCreditCards?: false | true | undefined;
 
         /**
+         * Issuer country allowlist that contains ISO 3166-1 alpha-2 country codes.
+         * When this allowlist is set, users can only choose payment methods issued in the specified countries.
+         * If neither allowlist nor blocklist is set, users will be allowed to choose payment methods issued in any country.
+         */
+        allowedIssuerCountryCodes?: string[] | undefined;
+
+        /**
+         * Issuer country blocklist that contains ISO 3166-1 alpha-2 country codes.
+         * When this blocklist is set, users are restricted from choosing payment methods issued in the specified countries.
+         *
+         * Note: allowedIssuerCountryCodes and blockedIssuerCountryCodes are mutually exclusive, so only one should be set at a time.
+         */
+        blockedIssuerCountryCodes?: string[] | undefined;
+
+        /**
          * Set to `true` to request assuranceDetails.
          *
          * If omitted, defaults to `false`.
@@ -1192,6 +1207,11 @@ declare namespace google.payments.api {
          * [[CardParameters.billingAddressRequired|`CardParameters.billingAddressRequired`]].
          */
         billingAddress?: Address | undefined;
+
+        /**
+         * Card funding source for the selected payment method.
+         */
+        cardFundingSource?: CardFundingSource | undefined;
     }
 
     /**
@@ -1840,6 +1860,25 @@ declare namespace google.payments.api {
      *   to retry.
      */
     type TransactionState = "SUCCESS" | "ERROR";
+
+    /**
+     * Enum string for the card funding source of the selected payment method.
+     *
+     * Options:
+     *
+     * - `UNKNOWN`:
+     *   The funding source is unknown.
+     *
+     * - `CREDIT`:
+     *   The card is a credit card.
+     *
+     * - `DEBIT`:
+     *   The card is a debit card.
+     *
+     * - `PREPAID`:
+     *   The card is a prepaid card.
+     */
+    type CardFundingSource = "UNKNOWN" | "CREDIT" | "DEBIT" | "PREPAID";
 
     /**
      * This object allows you to configure a Google Pay payment button. For
