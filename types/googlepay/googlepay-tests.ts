@@ -7,11 +7,19 @@ const allowedCardNetworks = new Array<google.payments.api.CardNetwork>(
     "INTERAC",
 );
 
+const cardFundingSource = new Array<google.payments.api.CardFundingSource>(
+    "UNKNOWN",
+    "CREDIT",
+    "DEBIT",
+    "PREPAID",
+);
+
 const allowedPaymentMethods = new Array<google.payments.api.PaymentMethodSpecification>({
     type: "CARD",
     parameters: {
         allowedAuthMethods: ["PAN_ONLY", "CRYPTOGRAM_3DS"],
         allowedCardNetworks,
+        allowedIssuerCountryCodes: ["US", "CA"],
         billingAddressRequired: true,
         billingAddressParameters: {
             format: "MIN",
