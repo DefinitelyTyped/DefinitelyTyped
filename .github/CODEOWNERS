@@ -2920,7 +2920,7 @@
 /types/google_interactive_media_ads_types/              @Kiro705
 /types/googlefc/                                        @johngeorgewright
 /types/googlemaps.infobubble/                           @Dashue
-/types/googlepay/                                       @Fluccioni @Radu-Raicea @fstanis @mumpo @socsieng @JlUgia @dmengelt
+/types/googlepay/                                       @Fluccioni @Radu-Raicea @fstanis @mumpo @socsieng @JlUgia @dmengelt @aikimatthew @stephenmcd
 /types/googletag/                                       @atwwei
 /types/gopd/                                            @ljharb
 /types/gorilla-engine/                                  @jhwoodward @UJAM-JH @rip-off-hb @pkellett @vpietropaolo-ujam @agachuma
@@ -6984,6 +6984,7 @@
 /types/rx-node/                                         @andre-luiz-dos-santos
 /types/rx.wamp/                                         @darkl
 /types/s-salt-pepper/                                   @kguzek
+/types/s2-geometry/                                     @bilde2910
 /types/s3-download-stream/                              @everettcaleb
 /types/s3-streams/                                      @azatoth
 /types/s3-upload-stream/                                @geoffreak
