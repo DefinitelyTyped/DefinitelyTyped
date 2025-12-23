@@ -220,6 +220,14 @@ const cloneOptions: Git.CloneOptions = {
     fetchOpts: {
         callbacks: {
             credentials: () => Git.Credential.sshKeyFromAgent("git"),
+            transferProgress: (progress) => {
+                progress.indexedDeltas() //$ ExpectType string
+                progress.indexedObjects() //$ ExpectType string
+                progress.localObjects() //$ ExpectType string
+                progress.receivedBytes() //$ ExpectType string
+                progress.receivedObjects() //$ ExpectType string
+                progress.totalObjects() //$ ExpectType string
+            }
         },
     },
 };
