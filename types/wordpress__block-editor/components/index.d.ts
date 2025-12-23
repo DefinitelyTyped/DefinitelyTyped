@@ -64,5 +64,6 @@ export { default as BlockEditorProvider } from "./provider";
  */
 export { useBlockBindingsUtils } from "./use-block-bindings-utils";
 export { useBlockEditContext } from "./use-block-edit-context";
+export { useBlockEditingMode } from "./use-block-editing-mode";
 export { useBlockProps } from "./use-block-props";
 export { useSettings } from "./use-settings";
