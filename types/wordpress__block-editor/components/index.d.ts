@@ -7,6 +7,7 @@ export { default as BlockAlignmentToolbar } from "./block-alignment-toolbar";
 export { default as BlockControls } from "./block-controls";
 export { default as BlockEdit } from "./block-edit";
 export { default as BlockFormatControls } from "./block-format-controls";
+export { default as HeadingLevelDropdown } from "./block-heading-level-dropdown";
 export { default as BlockIcon } from "./block-icon";
 export { default as BlockNavigationDropdown } from "./block-navigation/dropdown";
 export { default as BlockVerticalAlignmentToolbar } from "./block-vertical-alignment-toolbar";
