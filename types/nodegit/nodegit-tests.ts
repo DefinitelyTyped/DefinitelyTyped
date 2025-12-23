@@ -221,12 +221,12 @@ const cloneOptions: Git.CloneOptions = {
         callbacks: {
             credentials: () => Git.Credential.sshKeyFromAgent("git"),
             transferProgress: (progress) => {
-                progress.indexedDeltas() //$ ExpectType string
-                progress.indexedObjects() //$ ExpectType string
-                progress.localObjects() //$ ExpectType string
-                progress.receivedBytes() //$ ExpectType string
-                progress.receivedObjects() //$ ExpectType string
-                progress.totalObjects() //$ ExpectType string
+                progress.indexedDeltas() // $ExpectType number
+                progress.indexedObjects() // $ExpectType number
+                progress.localObjects() // $ExpectType number
+                progress.receivedBytes() // $ExpectType number
+                progress.receivedObjects() // $ExpectType number
+                progress.totalObjects() // $ExpectType number
             }
         },
     },
