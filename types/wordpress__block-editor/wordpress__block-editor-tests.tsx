@@ -690,3 +690,6 @@ be.useBlockBindingsUtils();
 
 // $ExpectType { name: string; isSelected?: boolean | undefined; clientId: string; layout: unknown; }
 be.useBlockEditContext();
+
+// $ExpectType BlockEditingMode
+be.useBlockEditingMode();
