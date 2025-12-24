@@ -1,7 +1,7 @@
 /// <reference types="node" />
 import type { Readable as ReadableStream } from "node:stream";
 
-export type CreateTorrentCallback = (err: Error | null, torrent?: Uint8Array) => void;
+export type CreateTorrentCallback = (err: Error | null, torrent: Uint8Array) => void;
 
 export interface CreateTorrentOptions {
     // name of the torrent (default = basename of `path`, or 1st file's name)

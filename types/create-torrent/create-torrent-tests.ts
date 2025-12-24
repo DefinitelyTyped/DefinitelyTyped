@@ -1,11 +1,11 @@
 /// <reference types="node" />
 import createTorrent, { announceList, isJunkPath } from "create-torrent";
 
-const cb = (err: Error | null, torrent?: Buffer) => {};
+const cb = (err: Error | null, torrent: Uint8Array) => {};
 
-createTorrent("test", (err: Error | null, torrent?: Buffer) => {
+createTorrent("test", (err: Error | null, torrent: Uint8Array) => {
     if (err) return;
-    if (torrent) torrent.equals(Buffer.alloc(0));
+    if (torrent) Buffer.from(torrent).equals(Buffer.alloc(0));
 });
 
 createTorrent(["a.txt", "b.txt"], cb);
