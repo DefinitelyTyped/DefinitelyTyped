@@ -53,7 +53,6 @@ declare module "dayjs" {
             start?: string | Dayjs;
             end?: string | Dayjs;
         }): Recurrence;
-
         monthWeekByDay(): number
         monthWeek(): number
     }
