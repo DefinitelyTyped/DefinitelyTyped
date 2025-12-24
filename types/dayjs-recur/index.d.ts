@@ -21,6 +21,7 @@ interface Recurrence {
     daysOfMonth(unit?: string): Recurrence;
     weekOfMonth(unit?: string): Recurrence;
     weeksOfMonth(unit?: string): Recurrence;
+    weeksOfMonthByDay(unit?: string): Recurrence;
     weekOfYear(unit?: string): Recurrence;
     weeksOfYear(unit?: string): Recurrence;
     monthOfYear(unit?: string): Recurrence;
