@@ -562,7 +562,7 @@ declare module "tls" {
          * the client's ALPN protocols, an error will be thrown.
          * This option cannot be used with the `ALPNProtocols` option, and setting both options will throw an error.
          */
-        ALPNCallback?: ((arg: { servername: string; protocols: string[] }) => string | undefined) | undefined;
+        ALPNCallback?: ((arg: { servername: string | false; protocols: string[] }) => string | undefined) | undefined;
         /**
          * SNICallback(servername, cb) <Function> A function that will be
          * called if the client supports SNI TLS extension. Two arguments
