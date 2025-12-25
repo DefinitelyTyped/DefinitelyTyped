@@ -1,4 +1,4 @@
-declare module "buffer" {
+declare module "node:buffer" {
     global {
         interface BufferConstructor {
             // see ../buffer.d.ts for implementation shared with all TypeScript versions
@@ -459,10 +459,4 @@ declare module "buffer" {
          */
         type AllowSharedBuffer = Buffer;
     }
-    /** @deprecated Use `Buffer.allocUnsafeSlow()` instead. */
-    var SlowBuffer: {
-        /** @deprecated Use `Buffer.allocUnsafeSlow()` instead. */
-        new(size: number): Buffer;
-        prototype: Buffer;
-    };
 }

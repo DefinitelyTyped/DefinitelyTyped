@@ -23,10 +23,10 @@
  * The `punycode` module is a third-party dependency used by Node.js and
  * made available to developers as a convenience. Fixes or other modifications to
  * the module must be directed to the [Punycode.js](https://github.com/bestiejs/punycode.js) project.
- * @deprecated Since v7.0.0 - Deprecated
- * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/punycode.js)
+ * @deprecated
+ * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/punycode.js)
  */
-declare module "punycode" {
+declare module "node:punycode" {
     /**
      * The `punycode.decode()` method converts a [Punycode](https://tools.ietf.org/html/rfc3492) string of ASCII-only
      * characters to the equivalent string of Unicode codepoints.
@@ -112,6 +112,6 @@ declare module "punycode" {
      */
     const version: string;
 }
-declare module "node:punycode" {
-    export * from "punycode";
+declare module "punycode" {
+    export * from "node:punycode";
 }

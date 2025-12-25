@@ -24,7 +24,7 @@ c.iqCallee; // $ExpectType IQCallee<Client>
 c.starttls; // $ExpectType Middleware<IncomingContext<Client>>
 c.sasl; // $ExpectType SASL
 c.streamManagement; // $ExpectType StreamManagement
-c.mechanisms; // $ExpectType ({ plain: undefined; } | { anonymous: undefined; })[]
+c.mechanisms; // $ExpectType ({ plain: undefined; } | { anonymous: undefined; } | { scramsha1: undefined })[]
 
 XMPP.jid("foo");
 XMPP.jid(null, "foo", "bar");

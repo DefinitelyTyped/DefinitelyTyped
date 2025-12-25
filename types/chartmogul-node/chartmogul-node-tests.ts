@@ -15,6 +15,13 @@ ChartMogul.DataSource.create(config, {
 // $ExpectType Promise<DataSource>
 ChartMogul.DataSource.retrieve(config, "");
 
+// $ExpectType Promise<DataSource>
+ChartMogul.DataSource.retrieve(config, "", {
+    with_processing_status: true,
+    with_auto_churn_subscription_setting: true,
+    with_invoice_handling_setting: true,
+});
+
 // $ExpectType Promise<{}>
 ChartMogul.DataSource.destroy(config, "");
 
@@ -23,9 +30,24 @@ ChartMogul.DataSource.all(config, {
     name: "",
 });
 
+// $ExpectType Promise<DataSources>
+ChartMogul.DataSource.all(config, {
+    name: "",
+    system: "",
+    with_processing_status: true,
+    with_auto_churn_subscription_setting: true,
+    with_invoice_handling_setting: true,
+});
+
 ChartMogul.DataSource.all(config).then(data => {
     data.data_sources[0]; // $ExpectType DataSource
     data.data_sources[0].name; // $ExpectType string
+    data.data_sources[0].processing_status!.processed!; // $ExpectType number
+    data.data_sources[0].processing_status!.pending!; // $ExpectType number
+    data.data_sources[0].processing_status!.failed!; // $ExpectType number
+    data.data_sources[0].auto_churn_subscription_setting!.enabled; // $ExpectType boolean
+    data.data_sources[0].auto_churn_subscription_setting!.interval; // $ExpectType number | null
+    data.data_sources[0].invoice_handling_setting; // $ExpectType Record<string, any> | undefined
 });
 
 // $ExpectType Promise<Customer>

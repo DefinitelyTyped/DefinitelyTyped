@@ -1035,18 +1035,8 @@ fs.rm(path, { retryDelay: 200 }, err => {
 });
 
 fs.rmdir(dir); // $ExpectType Promise<void>
-fs.rmdir(dir, { maxRetries: 1 }); // $ExpectType Promise<void>
-fs.rmdir(dir, { retryDelay: 200 }); // $ExpectType Promise<void>
 // $ExpectType void
 fs.rmdir(dir, err => {
-    err; // $ExpectType ErrnoException | null
-});
-// $ExpectType void
-fs.rmdir(dir, { maxRetries: 1 }, err => {
-    err; // $ExpectType ErrnoException | null
-});
-// $ExpectType void
-fs.rmdir(dir, { retryDelay: 200 }, err => {
     err; // $ExpectType ErrnoException | null
 });
 

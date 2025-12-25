@@ -38,7 +38,7 @@ declare class FlyControls extends Controls<FlyControlsEventMap> {
      * @param object The camera to be controlled.
      * @param domElement The HTML element used for event listeners. (optional)
      */
-    constructor(object: Camera, domElement?: HTMLElement | null);
+    constructor(object: Camera, domElement?: HTMLElement | SVGElement | null);
 }
 
 export { FlyControls };

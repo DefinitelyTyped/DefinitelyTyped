@@ -1,9 +1,9 @@
-import { IQCaller } from "@xmpp/iq/caller";
+import { IQCaller } from "@xmpp/iq/caller.js";
 import { Entity } from "@xmpp/middleware";
 import { StreamFeatures } from "@xmpp/stream-features";
 import { Node } from "@xmpp/xml";
 
-export = resourceBinding;
+export default resourceBinding;
 
 /**
  * Resource binding for `@xmpp/client`.
@@ -18,10 +18,8 @@ declare function resourceBinding<TEntity extends Entity>(
         streamFeatures: StreamFeatures<TEntity>;
         iqCaller: IQCaller<TEntity>;
     },
-    resource?: resourceBinding.Resource,
+    resource?: Resource,
 ): void;
 
-declare namespace resourceBinding {
-    type Resource = ResourceFn | Node;
-    type ResourceFn = (bind: (resource: Node) => Promise<string>) => Promise<void>;
-}
+export type Resource = ResourceFn | Node;
+export type ResourceFn = (bind: (resource: Node) => Promise<string>) => Promise<void>;

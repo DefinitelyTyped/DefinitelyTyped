@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/libtess",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/brendankenny/libtess.js"
+    ],
+    "devDependencies": {
+        "@types/libtess": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jeremy Tribby",
+            "githubUsername": "jpt"
+        }
+    ]
+}

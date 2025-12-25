@@ -130,7 +130,7 @@ declare class ArcballControls extends Controls<ArcballControlsEventMap> {
      * @param domElement The HTML element used for event listeners. (optional)
      * @param scene The scene rendered by the camera. If not given, gizmos cannot be shown. (optional)
      */
-    constructor(camera: Camera, domElement?: HTMLElement | null, scene?: Scene | null);
+    constructor(camera: Camera, domElement?: HTMLElement | SVGElement | null, scene?: Scene | null);
 
     /**
      * Set a new mouse action by specifying the operation to be performed and a mouse/key combination. In case of

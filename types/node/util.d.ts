@@ -6,10 +6,60 @@
  * ```js
  * import util from 'node:util';
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/util.js)
+ * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/util.js)
  */
-declare module "util" {
-    import * as types from "node:util/types";
+declare module "node:util" {
+    export * as types from "node:util/types";
+    export type InspectStyle =
+        | "special"
+        | "number"
+        | "bigint"
+        | "boolean"
+        | "undefined"
+        | "null"
+        | "string"
+        | "symbol"
+        | "date"
+        | "name"
+        | "regexp"
+        | "module";
+    export interface InspectStyles extends Record<InspectStyle, InspectColor | ((value: string) => string)> {
+        regexp: {
+            (value: string): string;
+            colors: InspectColor[];
+        };
+    }
+    export type InspectColorModifier =
+        | "reset"
+        | "bold"
+        | "dim"
+        | "italic"
+        | "underline"
+        | "blink"
+        | "inverse"
+        | "hidden"
+        | "strikethrough"
+        | "doubleunderline";
+    export type InspectColorForeground =
+        | "black"
+        | "red"
+        | "green"
+        | "yellow"
+        | "blue"
+        | "magenta"
+        | "cyan"
+        | "white"
+        | "gray"
+        | "redBright"
+        | "greenBright"
+        | "yellowBright"
+        | "blueBright"
+        | "magentaBright"
+        | "cyanBright"
+        | "whiteBright";
+    export type InspectColorBackground = `bg${Capitalize<InspectColorForeground>}`;
+    export type InspectColor = InspectColorModifier | InspectColorForeground | InspectColorBackground;
+    export interface InspectColors extends Record<InspectColor, [number, number]> {}
     export interface InspectOptions {
         /**
          * If `true`, object's non-enumerable symbols and properties are included in the formatted result.
@@ -92,22 +142,26 @@ declare module "util" {
          */
         numericSeparator?: boolean | undefined;
     }
-    export type Style =
-        | "special"
-        | "number"
-        | "bigint"
-        | "boolean"
-        | "undefined"
-        | "null"
-        | "string"
-        | "symbol"
-        | "date"
-        | "regexp"
-        | "module";
-    export type CustomInspectFunction = (depth: number, options: InspectOptionsStylized) => any; // TODO: , inspect: inspect
-    export interface InspectOptionsStylized extends InspectOptions {
-        stylize(text: string, styleType: Style): string;
+    export interface InspectContext extends Required<InspectOptions> {
+        stylize(text: string, styleType: InspectStyle): string;
     }
+    import _inspect = inspect;
+    export interface Inspectable {
+        [inspect.custom](depth: number, options: InspectContext, inspect: typeof _inspect): any;
+    }
+    // TODO: Remove these in a future major
+    /** @deprecated Use `InspectStyle` instead. */
+    export type Style = Exclude<InspectStyle, "name">;
+    /** @deprecated Use the `Inspectable` interface instead. */
+    export type CustomInspectFunction = (depth: number, options: InspectContext) => any;
+    /** @deprecated Use `InspectContext` instead. */
+    export interface InspectOptionsStylized extends InspectContext {}
+    /** @deprecated Use `InspectColorModifier` instead. */
+    export type Modifiers = InspectColorModifier;
+    /** @deprecated Use `InspectColorForeground` instead. */
+    export type ForegroundColors = InspectColorForeground;
+    /** @deprecated Use `InspectColorBackground` instead. */
+    export type BackgroundColors = InspectColorBackground;
     export interface CallSiteObject {
         /**
          * Returns the name of the function associated with this call site.
@@ -243,7 +297,7 @@ declare module "util" {
      * @since v10.0.0
      */
     export function formatWithOptions(inspectOptions: InspectOptions, format?: any, ...param: any[]): string;
-    interface GetCallSitesOptions {
+    export interface GetCallSitesOptions {
         /**
          * Reconstruct the original location in the stacktrace from the source-map.
          * Enabled by default with the flag `--enable-source-maps`.
@@ -609,19 +663,11 @@ declare module "util" {
     export function inspect(object: any, showHidden?: boolean, depth?: number | null, color?: boolean): string;
     export function inspect(object: any, options?: InspectOptions): string;
     export namespace inspect {
-        let colors: NodeJS.Dict<[number, number]>;
-        let styles: {
-            [K in Style]: string;
-        };
-        let defaultOptions: InspectOptions;
-        /**
-         * Allows changing inspect settings from the repl.
-         */
-        let replDefaults: InspectOptions;
-        /**
-         * That can be used to declare custom inspect functions.
-         */
         const custom: unique symbol;
+        let colors: InspectColors;
+        let styles: InspectStyles;
+        let defaultOptions: InspectOptions;
+        let replDefaults: InspectOptions;
     }
     /**
      * Alias for [`Array.isArray()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/isArray).
@@ -1045,7 +1091,7 @@ declare module "util" {
      * ```
      *
      * If there is an `original[util.promisify.custom]` property present, `promisify`
-     * will return its value, see [Custom promisified functions](https://nodejs.org/docs/latest-v24.x/api/util.html#custom-promisified-functions).
+     * will return its value, see [Custom promisified functions](https://nodejs.org/docs/latest-v25.x/api/util.html#custom-promisified-functions).
      *
      * `promisify()` assumes that `original` is a function taking a callback as its
      * final argument in all cases. If `original` is not a function, `promisify()`
@@ -1136,61 +1182,6 @@ declare module "util" {
      * @since v20.12.0
      */
     export function parseEnv(content: string): NodeJS.Dict<string>;
-    // https://nodejs.org/docs/latest/api/util.html#foreground-colors
-    type ForegroundColors =
-        | "black"
-        | "blackBright"
-        | "blue"
-        | "blueBright"
-        | "cyan"
-        | "cyanBright"
-        | "gray"
-        | "green"
-        | "greenBright"
-        | "grey"
-        | "magenta"
-        | "magentaBright"
-        | "red"
-        | "redBright"
-        | "white"
-        | "whiteBright"
-        | "yellow"
-        | "yellowBright";
-    // https://nodejs.org/docs/latest/api/util.html#background-colors
-    type BackgroundColors =
-        | "bgBlack"
-        | "bgBlackBright"
-        | "bgBlue"
-        | "bgBlueBright"
-        | "bgCyan"
-        | "bgCyanBright"
-        | "bgGray"
-        | "bgGreen"
-        | "bgGreenBright"
-        | "bgGrey"
-        | "bgMagenta"
-        | "bgMagentaBright"
-        | "bgRed"
-        | "bgRedBright"
-        | "bgWhite"
-        | "bgWhiteBright"
-        | "bgYellow"
-        | "bgYellowBright";
-    // https://nodejs.org/docs/latest/api/util.html#modifiers
-    type Modifiers =
-        | "blink"
-        | "bold"
-        | "dim"
-        | "doubleunderline"
-        | "framed"
-        | "hidden"
-        | "inverse"
-        | "italic"
-        | "none"
-        | "overlined"
-        | "reset"
-        | "strikethrough"
-        | "underline";
     export interface StyleTextOptions {
         /**
          * When true, `stream` is checked to see if it can handle colors.
@@ -1245,142 +1236,19 @@ declare module "util" {
      *
      * The special format value `none` applies no additional styling to the text.
      *
-     * The full list of formats can be found in [modifiers](https://nodejs.org/docs/latest-v24.x/api/util.html#modifiers).
+     * The full list of formats can be found in [modifiers](https://nodejs.org/docs/latest-v25.x/api/util.html#modifiers).
      * @param format A text format or an Array of text formats defined in `util.inspect.colors`.
      * @param text The text to to be formatted.
      * @since v20.12.0
      */
     export function styleText(
-        format:
-            | ForegroundColors
-            | BackgroundColors
-            | Modifiers
-            | Array<ForegroundColors | BackgroundColors | Modifiers>,
+        format: InspectColor | readonly InspectColor[],
         text: string,
         options?: StyleTextOptions,
     ): string;
-    /**
-     * An implementation of the [WHATWG Encoding Standard](https://encoding.spec.whatwg.org/) `TextDecoder` API.
-     *
-     * ```js
-     * const decoder = new TextDecoder();
-     * const u8arr = new Uint8Array([72, 101, 108, 108, 111]);
-     * console.log(decoder.decode(u8arr)); // Hello
-     * ```
-     * @since v8.3.0
-     */
-    export class TextDecoder {
-        /**
-         * The encoding supported by the `TextDecoder` instance.
-         */
-        readonly encoding: string;
-        /**
-         * The value will be `true` if decoding errors result in a `TypeError` being
-         * thrown.
-         */
-        readonly fatal: boolean;
-        /**
-         * The value will be `true` if the decoding result will include the byte order
-         * mark.
-         */
-        readonly ignoreBOM: boolean;
-        constructor(
-            encoding?: string,
-            options?: {
-                fatal?: boolean | undefined;
-                ignoreBOM?: boolean | undefined;
-            },
-        );
-        /**
-         * Decodes the `input` and returns a string. If `options.stream` is `true`, any
-         * incomplete byte sequences occurring at the end of the `input` are buffered
-         * internally and emitted after the next call to `textDecoder.decode()`.
-         *
-         * If `textDecoder.fatal` is `true`, decoding errors that occur will result in a `TypeError` being thrown.
-         * @param input An `ArrayBuffer`, `DataView`, or `TypedArray` instance containing the encoded data.
-         */
-        decode(
-            input?: NodeJS.ArrayBufferView | ArrayBuffer | null,
-            options?: {
-                stream?: boolean | undefined;
-            },
-        ): string;
-    }
-    export interface EncodeIntoResult {
-        /**
-         * The read Unicode code units of input.
-         */
-        read: number;
-        /**
-         * The written UTF-8 bytes of output.
-         */
-        written: number;
-    }
-    export { types };
-
-    //// TextEncoder/Decoder
-    /**
-     * An implementation of the [WHATWG Encoding Standard](https://encoding.spec.whatwg.org/) `TextEncoder` API. All
-     * instances of `TextEncoder` only support UTF-8 encoding.
-     *
-     * ```js
-     * const encoder = new TextEncoder();
-     * const uint8array = encoder.encode('this is some data');
-     * ```
-     *
-     * The `TextEncoder` class is also available on the global object.
-     * @since v8.3.0
-     */
-    export class TextEncoder {
-        /**
-         * The encoding supported by the `TextEncoder` instance. Always set to `'utf-8'`.
-         */
-        readonly encoding: string;
-        /**
-         * UTF-8 encodes the `input` string and returns a `Uint8Array` containing the
-         * encoded bytes.
-         * @param [input='an empty string'] The text to encode.
-         */
-        encode(input?: string): NodeJS.NonSharedUint8Array;
-        /**
-         * UTF-8 encodes the `src` string to the `dest` Uint8Array and returns an object
-         * containing the read Unicode code units and written UTF-8 bytes.
-         *
-         * ```js
-         * const encoder = new TextEncoder();
-         * const src = 'this is some data';
-         * const dest = new Uint8Array(10);
-         * const { read, written } = encoder.encodeInto(src, dest);
-         * ```
-         * @param src The text to encode.
-         * @param dest The array to hold the encode result.
-         */
-        encodeInto(src: string, dest: Uint8Array): EncodeIntoResult;
-    }
-    import { TextDecoder as _TextDecoder, TextEncoder as _TextEncoder } from "util";
-    global {
-        /**
-         * `TextDecoder` class is a global reference for `import { TextDecoder } from 'node:util'`
-         * https://nodejs.org/api/globals.html#textdecoder
-         * @since v11.0.0
-         */
-        var TextDecoder: typeof globalThis extends {
-            onmessage: any;
-            TextDecoder: infer TextDecoder;
-        } ? TextDecoder
-            : typeof _TextDecoder;
-        /**
-         * `TextEncoder` class is a global reference for `import { TextEncoder } from 'node:util'`
-         * https://nodejs.org/api/globals.html#textencoder
-         * @since v11.0.0
-         */
-        var TextEncoder: typeof globalThis extends {
-            onmessage: any;
-            TextEncoder: infer TextEncoder;
-        } ? TextEncoder
-            : typeof _TextEncoder;
-    }
-
+    /** @deprecated This alias will be removed in a future version. Use the canonical `TextEncoderEncodeIntoResult` instead. */
+    // TODO: remove in future major
+    export interface EncodeIntoResult extends TextEncoderEncodeIntoResult {}
     //// parseArgs
     /**
      * Provides a higher level API for command-line argument parsing than interacting
@@ -1411,12 +1279,10 @@ declare module "util" {
      * @return The parsed command line arguments:
      */
     export function parseArgs<T extends ParseArgsConfig>(config?: T): ParsedResults<T>;
-
     /**
      * Type of argument used in {@link parseArgs}.
      */
     export type ParseArgsOptionsType = "boolean" | "string";
-
     export interface ParseArgsOptionDescriptor {
         /**
          * Type of argument.
@@ -1491,23 +1357,19 @@ declare module "util" {
     type IfDefaultsTrue<T, IfTrue, IfFalse> = T extends true ? IfTrue
         : T extends false ? IfFalse
         : IfTrue;
-
     // we put the `extends false` condition first here because `undefined` compares like `any` when `strictNullChecks: false`
     type IfDefaultsFalse<T, IfTrue, IfFalse> = T extends false ? IfFalse
         : T extends true ? IfTrue
         : IfFalse;
-
     type ExtractOptionValue<T extends ParseArgsConfig, O extends ParseArgsOptionDescriptor> = IfDefaultsTrue<
         T["strict"],
         O["type"] extends "string" ? string : O["type"] extends "boolean" ? boolean : string | boolean,
         string | boolean
     >;
-
     type ApplyOptionalModifiers<O extends ParseArgsOptionsConfig, V extends Record<keyof O, unknown>> = (
         & { -readonly [LongOption in keyof O]?: V[LongOption] }
         & { [LongOption in keyof O as O[LongOption]["default"] extends {} ? LongOption : never]: V[LongOption] }
     ) extends infer P ? { [K in keyof P]: P[K] } : never; // resolve intersection to object
-
     type ParsedValues<T extends ParseArgsConfig> =
         & IfDefaultsTrue<T["strict"], unknown, { [longOption: string]: undefined | string | boolean }>
         & (T["options"] extends ParseArgsOptionsConfig ? ApplyOptionalModifiers<
@@ -1521,13 +1383,11 @@ declare module "util" {
                 }
             >
             : {});
-
     type ParsedPositionals<T extends ParseArgsConfig> = IfDefaultsTrue<
         T["strict"],
         IfDefaultsFalse<T["allowPositionals"], string[], []>,
         IfDefaultsTrue<T["allowPositionals"], string[], []>
     >;
-
     type PreciseTokenForOptions<
         K extends string,
         O extends ParseArgsOptionDescriptor,
@@ -1548,7 +1408,6 @@ declare module "util" {
                 inlineValue: undefined;
             }
         : OptionToken & { name: K };
-
     type TokenForOptions<
         T extends ParseArgsConfig,
         K extends keyof T["options"] = keyof T["options"],
@@ -1556,19 +1415,15 @@ declare module "util" {
         ? T["options"] extends ParseArgsOptionsConfig ? PreciseTokenForOptions<K & string, T["options"][K]>
         : OptionToken
         : never;
-
     type ParsedOptionToken<T extends ParseArgsConfig> = IfDefaultsTrue<T["strict"], TokenForOptions<T>, OptionToken>;
-
     type ParsedPositionalToken<T extends ParseArgsConfig> = IfDefaultsTrue<
         T["strict"],
         IfDefaultsFalse<T["allowPositionals"], { kind: "positional"; index: number; value: string }, never>,
         IfDefaultsTrue<T["allowPositionals"], { kind: "positional"; index: number; value: string }, never>
     >;
-
     type ParsedTokens<T extends ParseArgsConfig> = Array<
         ParsedOptionToken<T> | ParsedPositionalToken<T> | { kind: "option-terminator"; index: number }
     >;
-
     type PreciseParsedResults<T extends ParseArgsConfig> = IfDefaultsFalse<
         T["tokens"],
         {
@@ -1581,7 +1436,6 @@ declare module "util" {
             positionals: ParsedPositionals<T>;
         }
     >;
-
     type OptionToken =
         | { kind: "option"; index: number; name: string; rawName: string; value: string; inlineValue: boolean }
         | {
@@ -1592,12 +1446,10 @@ declare module "util" {
             value: undefined;
             inlineValue: undefined;
         };
-
     type Token =
         | OptionToken
         | { kind: "positional"; index: number; value: string }
         | { kind: "option-terminator"; index: number };
-
     // If ParseArgsConfig extends T, then the user passed config constructed elsewhere.
     // So we can't rely on the `"not definitely present" implies "definitely not present"` assumption mentioned above.
     type ParsedResults<T extends ParseArgsConfig> = ParseArgsConfig extends T ? {
@@ -1608,7 +1460,6 @@ declare module "util" {
             tokens?: Token[];
         }
         : PreciseParsedResults<T>;
-
     /**
      * An implementation of [the MIMEType class](https://bmeck.github.io/node-proposal-mime-api/).
      *
@@ -1630,7 +1481,6 @@ declare module "util" {
          * @param input The input MIME to parse.
          */
         constructor(input: string | { toString: () => string });
-
         /**
          * Gets and sets the type portion of the MIME.
          *
@@ -1761,565 +1611,43 @@ declare module "util" {
          */
         [Symbol.iterator](): NodeJS.Iterator<[name: string, value: string]>;
     }
+    // #region web types
+    export interface TextDecodeOptions {
+        stream?: boolean;
+    }
+    export interface TextDecoderCommon {
+        readonly encoding: string;
+        readonly fatal: boolean;
+        readonly ignoreBOM: boolean;
+    }
+    export interface TextDecoderOptions {
+        fatal?: boolean;
+        ignoreBOM?: boolean;
+    }
+    export interface TextEncoderCommon {
+        readonly encoding: string;
+    }
+    export interface TextEncoderEncodeIntoResult {
+        read: number;
+        written: number;
+    }
+    export interface TextDecoder extends TextDecoderCommon {
+        decode(input?: NodeJS.AllowSharedBufferSource, options?: TextDecodeOptions): string;
+    }
+    export var TextDecoder: {
+        prototype: TextDecoder;
+        new(label?: string, options?: TextDecoderOptions): TextDecoder;
+    };
+    export interface TextEncoder extends TextEncoderCommon {
+        encode(input?: string): NodeJS.NonSharedUint8Array;
+        encodeInto(source: string, destination: Uint8Array): TextEncoderEncodeIntoResult;
+    }
+    export var TextEncoder: {
+        prototype: TextEncoder;
+        new(): TextEncoder;
+    };
+    // #endregion
 }
-declare module "util/types" {
-    import { KeyObject, webcrypto } from "node:crypto";
-    /**
-     * Returns `true` if the value is a built-in [`ArrayBuffer`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer) or
-     * [`SharedArrayBuffer`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer) instance.
-     *
-     * See also `util.types.isArrayBuffer()` and `util.types.isSharedArrayBuffer()`.
-     *
-     * ```js
-     * util.types.isAnyArrayBuffer(new ArrayBuffer());  // Returns true
-     * util.types.isAnyArrayBuffer(new SharedArrayBuffer());  // Returns true
-     * ```
-     * @since v10.0.0
-     */
-    function isAnyArrayBuffer(object: unknown): object is ArrayBufferLike;
-    /**
-     * Returns `true` if the value is an `arguments` object.
-     *
-     * ```js
-     * function foo() {
-     *   util.types.isArgumentsObject(arguments);  // Returns true
-     * }
-     * ```
-     * @since v10.0.0
-     */
-    function isArgumentsObject(object: unknown): object is IArguments;
-    /**
-     * Returns `true` if the value is a built-in [`ArrayBuffer`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer) instance.
-     * This does _not_ include [`SharedArrayBuffer`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer) instances. Usually, it is
-     * desirable to test for both; See `util.types.isAnyArrayBuffer()` for that.
-     *
-     * ```js
-     * util.types.isArrayBuffer(new ArrayBuffer());  // Returns true
-     * util.types.isArrayBuffer(new SharedArrayBuffer());  // Returns false
-     * ```
-     * @since v10.0.0
-     */
-    function isArrayBuffer(object: unknown): object is ArrayBuffer;
-    /**
-     * Returns `true` if the value is an instance of one of the [`ArrayBuffer`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer) views, such as typed
-     * array objects or [`DataView`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DataView). Equivalent to
-     * [`ArrayBuffer.isView()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer/isView).
-     *
-     * ```js
-     * util.types.isArrayBufferView(new Int8Array());  // true
-     * util.types.isArrayBufferView(Buffer.from('hello world')); // true
-     * util.types.isArrayBufferView(new DataView(new ArrayBuffer(16)));  // true
-     * util.types.isArrayBufferView(new ArrayBuffer());  // false
-     * ```
-     * @since v10.0.0
-     */
-    function isArrayBufferView(object: unknown): object is NodeJS.ArrayBufferView;
-    /**
-     * Returns `true` if the value is an [async function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function).
-     * This only reports back what the JavaScript engine is seeing;
-     * in particular, the return value may not match the original source code if
-     * a transpilation tool was used.
-     *
-     * ```js
-     * util.types.isAsyncFunction(function foo() {});  // Returns false
-     * util.types.isAsyncFunction(async function foo() {});  // Returns true
-     * ```
-     * @since v10.0.0
-     */
-    function isAsyncFunction(object: unknown): boolean;
-    /**
-     * Returns `true` if the value is a `BigInt64Array` instance.
-     *
-     * ```js
-     * util.types.isBigInt64Array(new BigInt64Array());   // Returns true
-     * util.types.isBigInt64Array(new BigUint64Array());  // Returns false
-     * ```
-     * @since v10.0.0
-     */
-    function isBigInt64Array(value: unknown): value is BigInt64Array;
-    /**
-     * Returns `true` if the value is a BigInt object, e.g. created
-     * by `Object(BigInt(123))`.
-     *
-     * ```js
-     * util.types.isBigIntObject(Object(BigInt(123)));   // Returns true
-     * util.types.isBigIntObject(BigInt(123));   // Returns false
-     * util.types.isBigIntObject(123);  // Returns false
-     * ```
-     * @since v10.4.0
-     */
-    function isBigIntObject(object: unknown): object is BigInt;
-    /**
-     * Returns `true` if the value is a `BigUint64Array` instance.
-     *
-     * ```js
-     * util.types.isBigUint64Array(new BigInt64Array());   // Returns false
-     * util.types.isBigUint64Array(new BigUint64Array());  // Returns true
-     * ```
-     * @since v10.0.0
-     */
-    function isBigUint64Array(value: unknown): value is BigUint64Array;
-    /**
-     * Returns `true` if the value is a boolean object, e.g. created
-     * by `new Boolean()`.
-     *
-     * ```js
-     * util.types.isBooleanObject(false);  // Returns false
-     * util.types.isBooleanObject(true);   // Returns false
-     * util.types.isBooleanObject(new Boolean(false)); // Returns true
-     * util.types.isBooleanObject(new Boolean(true));  // Returns true
-     * util.types.isBooleanObject(Boolean(false)); // Returns false
-     * util.types.isBooleanObject(Boolean(true));  // Returns false
-     * ```
-     * @since v10.0.0
-     */
-    function isBooleanObject(object: unknown): object is Boolean;
-    /**
-     * Returns `true` if the value is any boxed primitive object, e.g. created
-     * by `new Boolean()`, `new String()` or `Object(Symbol())`.
-     *
-     * For example:
-     *
-     * ```js
-     * util.types.isBoxedPrimitive(false); // Returns false
-     * util.types.isBoxedPrimitive(new Boolean(false)); // Returns true
-     * util.types.isBoxedPrimitive(Symbol('foo')); // Returns false
-     * util.types.isBoxedPrimitive(Object(Symbol('foo'))); // Returns true
-     * util.types.isBoxedPrimitive(Object(BigInt(5))); // Returns true
-     * ```
-     * @since v10.11.0
-     */
-    function isBoxedPrimitive(object: unknown): object is String | Number | BigInt | Boolean | Symbol;
-    /**
-     * Returns `true` if the value is a built-in [`DataView`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DataView) instance.
-     *
-     * ```js
-     * const ab = new ArrayBuffer(20);
-     * util.types.isDataView(new DataView(ab));  // Returns true
-     * util.types.isDataView(new Float64Array());  // Returns false
-     * ```
-     *
-     * See also [`ArrayBuffer.isView()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer/isView).
-     * @since v10.0.0
-     */
-    function isDataView(object: unknown): object is DataView;
-    /**
-     * Returns `true` if the value is a built-in [`Date`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) instance.
-     *
-     * ```js
-     * util.types.isDate(new Date());  // Returns true
-     * ```
-     * @since v10.0.0
-     */
-    function isDate(object: unknown): object is Date;
-    /**
-     * Returns `true` if the value is a native `External` value.
-     *
-     * A native `External` value is a special type of object that contains a
-     * raw C++ pointer (`void*`) for access from native code, and has no other
-     * properties. Such objects are created either by Node.js internals or native
-     * addons. In JavaScript, they are
-     * [frozen](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze) objects with a
-     * `null` prototype.
-     *
-     * ```c
-     * #include <js_native_api.h>
-     * #include <stdlib.h>
-     * napi_value result;
-     * static napi_value MyNapi(napi_env env, napi_callback_info info) {
-     *   int* raw = (int*) malloc(1024);
-     *   napi_status status = napi_create_external(env, (void*) raw, NULL, NULL, &result);
-     *   if (status != napi_ok) {
-     *     napi_throw_error(env, NULL, "napi_create_external failed");
-     *     return NULL;
-     *   }
-     *   return result;
-     * }
-     * ...
-     * DECLARE_NAPI_PROPERTY("myNapi", MyNapi)
-     * ...
-     * ```
-     *
-     * ```js
-     * import native from 'napi_addon.node';
-     * import { types } from 'node:util';
-     *
-     * const data = native.myNapi();
-     * types.isExternal(data); // returns true
-     * types.isExternal(0); // returns false
-     * types.isExternal(new String('foo')); // returns false
-     * ```
-     *
-     * For further information on `napi_create_external`, refer to
-     * [`napi_create_external()`](https://nodejs.org/docs/latest-v24.x/api/n-api.html#napi_create_external).
-     * @since v10.0.0
-     */
-    function isExternal(object: unknown): boolean;
-    /**
-     * Returns `true` if the value is a built-in [`Float16Array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float16Array) instance.
-     *
-     * ```js
-     * util.types.isFloat16Array(new ArrayBuffer());  // Returns false
-     * util.types.isFloat16Array(new Float16Array());  // Returns true
-     * util.types.isFloat16Array(new Float32Array());  // Returns false
-     * ```
-     * @since v24.0.0
-     */
-    function isFloat16Array(object: unknown): object is Float16Array;
-    /**
-     * Returns `true` if the value is a built-in [`Float32Array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array) instance.
-     *
-     * ```js
-     * util.types.isFloat32Array(new ArrayBuffer());  // Returns false
-     * util.types.isFloat32Array(new Float32Array());  // Returns true
-     * util.types.isFloat32Array(new Float64Array());  // Returns false
-     * ```
-     * @since v10.0.0
-     */
-    function isFloat32Array(object: unknown): object is Float32Array;
-    /**
-     * Returns `true` if the value is a built-in [`Float64Array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float64Array) instance.
-     *
-     * ```js
-     * util.types.isFloat64Array(new ArrayBuffer());  // Returns false
-     * util.types.isFloat64Array(new Uint8Array());  // Returns false
-     * util.types.isFloat64Array(new Float64Array());  // Returns true
-     * ```
-     * @since v10.0.0
-     */
-    function isFloat64Array(object: unknown): object is Float64Array;
-    /**
-     * Returns `true` if the value is a generator function.
-     * This only reports back what the JavaScript engine is seeing;
-     * in particular, the return value may not match the original source code if
-     * a transpilation tool was used.
-     *
-     * ```js
-     * util.types.isGeneratorFunction(function foo() {});  // Returns false
-     * util.types.isGeneratorFunction(function* foo() {});  // Returns true
-     * ```
-     * @since v10.0.0
-     */
-    function isGeneratorFunction(object: unknown): object is GeneratorFunction;
-    /**
-     * Returns `true` if the value is a generator object as returned from a
-     * built-in generator function.
-     * This only reports back what the JavaScript engine is seeing;
-     * in particular, the return value may not match the original source code if
-     * a transpilation tool was used.
-     *
-     * ```js
-     * function* foo() {}
-     * const generator = foo();
-     * util.types.isGeneratorObject(generator);  // Returns true
-     * ```
-     * @since v10.0.0
-     */
-    function isGeneratorObject(object: unknown): object is Generator;
-    /**
-     * Returns `true` if the value is a built-in [`Int8Array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int8Array) instance.
-     *
-     * ```js
-     * util.types.isInt8Array(new ArrayBuffer());  // Returns false
-     * util.types.isInt8Array(new Int8Array());  // Returns true
-     * util.types.isInt8Array(new Float64Array());  // Returns false
-     * ```
-     * @since v10.0.0
-     */
-    function isInt8Array(object: unknown): object is Int8Array;
-    /**
-     * Returns `true` if the value is a built-in [`Int16Array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int16Array) instance.
-     *
-     * ```js
-     * util.types.isInt16Array(new ArrayBuffer());  // Returns false
-     * util.types.isInt16Array(new Int16Array());  // Returns true
-     * util.types.isInt16Array(new Float64Array());  // Returns false
-     * ```
-     * @since v10.0.0
-     */
-    function isInt16Array(object: unknown): object is Int16Array;
-    /**
-     * Returns `true` if the value is a built-in [`Int32Array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int32Array) instance.
-     *
-     * ```js
-     * util.types.isInt32Array(new ArrayBuffer());  // Returns false
-     * util.types.isInt32Array(new Int32Array());  // Returns true
-     * util.types.isInt32Array(new Float64Array());  // Returns false
-     * ```
-     * @since v10.0.0
-     */
-    function isInt32Array(object: unknown): object is Int32Array;
-    /**
-     * Returns `true` if the value is a built-in [`Map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) instance.
-     *
-     * ```js
-     * util.types.isMap(new Map());  // Returns true
-     * ```
-     * @since v10.0.0
-     */
-    function isMap<T>(
-        object: T | {},
-    ): object is T extends ReadonlyMap<any, any> ? (unknown extends T ? never : ReadonlyMap<any, any>)
-        : Map<unknown, unknown>;
-    /**
-     * Returns `true` if the value is an iterator returned for a built-in [`Map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) instance.
-     *
-     * ```js
-     * const map = new Map();
-     * util.types.isMapIterator(map.keys());  // Returns true
-     * util.types.isMapIterator(map.values());  // Returns true
-     * util.types.isMapIterator(map.entries());  // Returns true
-     * util.types.isMapIterator(map[Symbol.iterator]());  // Returns true
-     * ```
-     * @since v10.0.0
-     */
-    function isMapIterator(object: unknown): boolean;
-    /**
-     * Returns `true` if the value is an instance of a [Module Namespace Object](https://tc39.github.io/ecma262/#sec-module-namespace-exotic-objects).
-     *
-     * ```js
-     * import * as ns from './a.js';
-     *
-     * util.types.isModuleNamespaceObject(ns);  // Returns true
-     * ```
-     * @since v10.0.0
-     */
-    function isModuleNamespaceObject(value: unknown): boolean;
-    /**
-     * Returns `true` if the value was returned by the constructor of a
-     * [built-in `Error` type](https://tc39.es/ecma262/#sec-error-objects).
-     *
-     * ```js
-     * console.log(util.types.isNativeError(new Error()));  // true
-     * console.log(util.types.isNativeError(new TypeError()));  // true
-     * console.log(util.types.isNativeError(new RangeError()));  // true
-     * ```
-     *
-     * Subclasses of the native error types are also native errors:
-     *
-     * ```js
-     * class MyError extends Error {}
-     * console.log(util.types.isNativeError(new MyError()));  // true
-     * ```
-     *
-     * A value being `instanceof` a native error class is not equivalent to `isNativeError()`
-     * returning `true` for that value. `isNativeError()` returns `true` for errors
-     * which come from a different [realm](https://tc39.es/ecma262/#realm) while `instanceof Error` returns `false`
-     * for these errors:
-     *
-     * ```js
-     * import { createContext, runInContext } from 'node:vm';
-     * import { types } from 'node:util';
-     *
-     * const context = createContext({});
-     * const myError = runInContext('new Error()', context);
-     * console.log(types.isNativeError(myError)); // true
-     * console.log(myError instanceof Error); // false
-     * ```
-     *
-     * Conversely, `isNativeError()` returns `false` for all objects which were not
-     * returned by the constructor of a native error. That includes values
-     * which are `instanceof` native errors:
-     *
-     * ```js
-     * const myError = { __proto__: Error.prototype };
-     * console.log(util.types.isNativeError(myError)); // false
-     * console.log(myError instanceof Error); // true
-     * ```
-     * @since v10.0.0
-     * @deprecated The `util.types.isNativeError` API is deprecated. Please use `Error.isError` instead.
-     */
-    function isNativeError(object: unknown): object is Error;
-    /**
-     * Returns `true` if the value is a number object, e.g. created
-     * by `new Number()`.
-     *
-     * ```js
-     * util.types.isNumberObject(0);  // Returns false
-     * util.types.isNumberObject(new Number(0));   // Returns true
-     * ```
-     * @since v10.0.0
-     */
-    function isNumberObject(object: unknown): object is Number;
-    /**
-     * Returns `true` if the value is a built-in [`Promise`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise).
-     *
-     * ```js
-     * util.types.isPromise(Promise.resolve(42));  // Returns true
-     * ```
-     * @since v10.0.0
-     */
-    function isPromise(object: unknown): object is Promise<unknown>;
-    /**
-     * Returns `true` if the value is a [`Proxy`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy) instance.
-     *
-     * ```js
-     * const target = {};
-     * const proxy = new Proxy(target, {});
-     * util.types.isProxy(target);  // Returns false
-     * util.types.isProxy(proxy);  // Returns true
-     * ```
-     * @since v10.0.0
-     */
-    function isProxy(object: unknown): boolean;
-    /**
-     * Returns `true` if the value is a regular expression object.
-     *
-     * ```js
-     * util.types.isRegExp(/abc/);  // Returns true
-     * util.types.isRegExp(new RegExp('abc'));  // Returns true
-     * ```
-     * @since v10.0.0
-     */
-    function isRegExp(object: unknown): object is RegExp;
-    /**
-     * Returns `true` if the value is a built-in [`Set`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set) instance.
-     *
-     * ```js
-     * util.types.isSet(new Set());  // Returns true
-     * ```
-     * @since v10.0.0
-     */
-    function isSet<T>(
-        object: T | {},
-    ): object is T extends ReadonlySet<any> ? (unknown extends T ? never : ReadonlySet<any>) : Set<unknown>;
-    /**
-     * Returns `true` if the value is an iterator returned for a built-in [`Set`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set) instance.
-     *
-     * ```js
-     * const set = new Set();
-     * util.types.isSetIterator(set.keys());  // Returns true
-     * util.types.isSetIterator(set.values());  // Returns true
-     * util.types.isSetIterator(set.entries());  // Returns true
-     * util.types.isSetIterator(set[Symbol.iterator]());  // Returns true
-     * ```
-     * @since v10.0.0
-     */
-    function isSetIterator(object: unknown): boolean;
-    /**
-     * Returns `true` if the value is a built-in [`SharedArrayBuffer`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer) instance.
-     * This does _not_ include [`ArrayBuffer`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer) instances. Usually, it is
-     * desirable to test for both; See `util.types.isAnyArrayBuffer()` for that.
-     *
-     * ```js
-     * util.types.isSharedArrayBuffer(new ArrayBuffer());  // Returns false
-     * util.types.isSharedArrayBuffer(new SharedArrayBuffer());  // Returns true
-     * ```
-     * @since v10.0.0
-     */
-    function isSharedArrayBuffer(object: unknown): object is SharedArrayBuffer;
-    /**
-     * Returns `true` if the value is a string object, e.g. created
-     * by `new String()`.
-     *
-     * ```js
-     * util.types.isStringObject('foo');  // Returns false
-     * util.types.isStringObject(new String('foo'));   // Returns true
-     * ```
-     * @since v10.0.0
-     */
-    function isStringObject(object: unknown): object is String;
-    /**
-     * Returns `true` if the value is a symbol object, created
-     * by calling `Object()` on a `Symbol` primitive.
-     *
-     * ```js
-     * const symbol = Symbol('foo');
-     * util.types.isSymbolObject(symbol);  // Returns false
-     * util.types.isSymbolObject(Object(symbol));   // Returns true
-     * ```
-     * @since v10.0.0
-     */
-    function isSymbolObject(object: unknown): object is Symbol;
-    /**
-     * Returns `true` if the value is a built-in [`TypedArray`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray) instance.
-     *
-     * ```js
-     * util.types.isTypedArray(new ArrayBuffer());  // Returns false
-     * util.types.isTypedArray(new Uint8Array());  // Returns true
-     * util.types.isTypedArray(new Float64Array());  // Returns true
-     * ```
-     *
-     * See also [`ArrayBuffer.isView()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer/isView).
-     * @since v10.0.0
-     */
-    function isTypedArray(object: unknown): object is NodeJS.TypedArray;
-    /**
-     * Returns `true` if the value is a built-in [`Uint8Array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array) instance.
-     *
-     * ```js
-     * util.types.isUint8Array(new ArrayBuffer());  // Returns false
-     * util.types.isUint8Array(new Uint8Array());  // Returns true
-     * util.types.isUint8Array(new Float64Array());  // Returns false
-     * ```
-     * @since v10.0.0
-     */
-    function isUint8Array(object: unknown): object is Uint8Array;
-    /**
-     * Returns `true` if the value is a built-in [`Uint8ClampedArray`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8ClampedArray) instance.
-     *
-     * ```js
-     * util.types.isUint8ClampedArray(new ArrayBuffer());  // Returns false
-     * util.types.isUint8ClampedArray(new Uint8ClampedArray());  // Returns true
-     * util.types.isUint8ClampedArray(new Float64Array());  // Returns false
-     * ```
-     * @since v10.0.0
-     */
-    function isUint8ClampedArray(object: unknown): object is Uint8ClampedArray;
-    /**
-     * Returns `true` if the value is a built-in [`Uint16Array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array) instance.
-     *
-     * ```js
-     * util.types.isUint16Array(new ArrayBuffer());  // Returns false
-     * util.types.isUint16Array(new Uint16Array());  // Returns true
-     * util.types.isUint16Array(new Float64Array());  // Returns false
-     * ```
-     * @since v10.0.0
-     */
-    function isUint16Array(object: unknown): object is Uint16Array;
-    /**
-     * Returns `true` if the value is a built-in [`Uint32Array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint32Array) instance.
-     *
-     * ```js
-     * util.types.isUint32Array(new ArrayBuffer());  // Returns false
-     * util.types.isUint32Array(new Uint32Array());  // Returns true
-     * util.types.isUint32Array(new Float64Array());  // Returns false
-     * ```
-     * @since v10.0.0
-     */
-    function isUint32Array(object: unknown): object is Uint32Array;
-    /**
-     * Returns `true` if the value is a built-in [`WeakMap`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap) instance.
-     *
-     * ```js
-     * util.types.isWeakMap(new WeakMap());  // Returns true
-     * ```
-     * @since v10.0.0
-     */
-    function isWeakMap(object: unknown): object is WeakMap<object, unknown>;
-    /**
-     * Returns `true` if the value is a built-in [`WeakSet`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet) instance.
-     *
-     * ```js
-     * util.types.isWeakSet(new WeakSet());  // Returns true
-     * ```
-     * @since v10.0.0
-     */
-    function isWeakSet(object: unknown): object is WeakSet<object>;
-    /**
-     * Returns `true` if `value` is a `KeyObject`, `false` otherwise.
-     * @since v16.2.0
-     */
-    function isKeyObject(object: unknown): object is KeyObject;
-    /**
-     * Returns `true` if `value` is a `CryptoKey`, `false` otherwise.
-     * @since v16.2.0
-     */
-    function isCryptoKey(object: unknown): object is webcrypto.CryptoKey;
-}
-declare module "node:util" {
-    export * from "util";
-}
-declare module "node:util/types" {
-    export * from "util/types";
+declare module "util" {
+    export * from "node:util";
 }

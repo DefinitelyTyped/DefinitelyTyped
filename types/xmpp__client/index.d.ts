@@ -1,4 +1,6 @@
 import { Client as ClientCore, jid as xmppJid, xml as xmppXml } from "@xmpp/client-core";
+import { Bind2 } from "@xmpp/client-core/src/bind2/bind2.js";
+import { FAST } from "@xmpp/client-core/src/fast/fast.js";
 import { Options as ConnectionOptions } from "@xmpp/connection";
 import { IQCallee } from "@xmpp/iq/callee";
 import { IQCaller } from "@xmpp/iq/caller";
@@ -88,6 +90,8 @@ export interface Client extends ClientCore {
     sasl: SASL;
     streamManagement: StreamManagement;
     mechanisms: Array<{ scramsha1: undefined } | { plain: undefined } | { anonymous: undefined }>;
+    bind2: Bind2;
+    fast: FAST;
 }
 
 export const jid: typeof xmppJid;

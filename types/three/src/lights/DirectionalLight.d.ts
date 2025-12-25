@@ -1,8 +1,14 @@
-import { Object3D } from "../core/Object3D.js";
+import { JSONMeta, Object3D } from "../core/Object3D.js";
 import { ColorRepresentation } from "../math/Color.js";
 import { Vector3 } from "../math/Vector3.js";
 import { DirectionalLightShadow } from "./DirectionalLightShadow.js";
-import { Light } from "./Light.js";
+import { Light, LightJSON } from "./Light.js";
+import { LightShadowJSON } from "./LightShadow.js";
+
+export interface DirectionalLightJSON extends LightJSON {
+    shadow: LightShadowJSON;
+    target: string;
+}
 
 /**
  * A light that gets emitted in a specific direction
@@ -99,4 +105,6 @@ export class DirectionalLight extends Light<DirectionalLightShadow> {
      * Call this method whenever this instance is no longer used in your app.
      */
     dispose(): void;
+
+    toJSON(meta?: JSONMeta): DirectionalLightJSON;
 }

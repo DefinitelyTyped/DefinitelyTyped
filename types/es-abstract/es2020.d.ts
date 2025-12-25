@@ -1,0 +1,166 @@
+import ES2019 = require("./es2019");
+
+interface ES2020 {
+    readonly "Abstract Equality Comparison": typeof import("./2020/AbstractEqualityComparison");
+    readonly "Abstract Relational Comparison": typeof import("./2020/AbstractRelationalComparison");
+    readonly "Strict Equality Comparison": typeof import("./2020/StrictEqualityComparison");
+    readonly AddEntriesFromIterable: typeof import("./2020/AddEntriesFromIterable");
+    readonly AdvanceStringIndex: typeof import("./2020/AdvanceStringIndex");
+    readonly ArrayCreate: typeof import("./2020/ArrayCreate");
+    readonly ArraySetLength: typeof import("./2020/ArraySetLength");
+    readonly ArraySpeciesCreate: typeof import("./2020/ArraySpeciesCreate");
+    readonly BigIntBitwiseOp: typeof import("./2020/BigIntBitwiseOp");
+    readonly BinaryAnd: typeof import("./2020/BinaryAnd");
+    readonly BinaryOr: typeof import("./2020/BinaryOr");
+    readonly BinaryXor: typeof import("./2020/BinaryXor");
+    readonly Call: typeof import("./2020/Call");
+    readonly CanonicalNumericIndexString: typeof import("./2020/CanonicalNumericIndexString");
+    readonly CodePointAt: typeof import("./2020/CodePointAt");
+    readonly CompletePropertyDescriptor: typeof import("./2020/CompletePropertyDescriptor");
+    readonly CopyDataProperties: typeof import("./2020/CopyDataProperties");
+    readonly CreateDataProperty: typeof import("./2020/CreateDataProperty");
+    readonly CreateDataPropertyOrThrow: typeof import("./2020/CreateDataPropertyOrThrow");
+    readonly CreateHTML: typeof import("./2020/CreateHTML");
+    readonly CreateIterResultObject: typeof import("./2020/CreateIterResultObject");
+    readonly CreateListFromArrayLike: typeof import("./2020/CreateListFromArrayLike");
+    readonly CreateMethodProperty: typeof import("./2020/CreateMethodProperty");
+    readonly CreateRegExpStringIterator: typeof import("./2020/CreateRegExpStringIterator");
+    readonly DateFromTime: typeof import("./2020/DateFromTime");
+    readonly DateString: typeof import("./2020/DateString");
+    readonly Day: typeof import("./2020/Day");
+    readonly DayFromYear: typeof import("./2020/DayFromYear");
+    readonly DaysInYear: typeof import("./2020/DaysInYear");
+    readonly DayWithinYear: typeof import("./2020/DayWithinYear");
+    readonly DefinePropertyOrThrow: typeof import("./2020/DefinePropertyOrThrow");
+    readonly DeletePropertyOrThrow: typeof import("./2020/DeletePropertyOrThrow");
+    readonly EnumerableOwnPropertyNames: typeof import("./2020/EnumerableOwnPropertyNames");
+    readonly FlattenIntoArray: typeof import("./2020/FlattenIntoArray");
+    readonly FromPropertyDescriptor: typeof import("./2020/FromPropertyDescriptor");
+    readonly Get: typeof import("./2020/Get");
+    readonly GetIterator: typeof import("./2020/GetIterator");
+    readonly GetMethod: typeof import("./2020/GetMethod");
+    readonly GetOwnPropertyKeys: typeof import("./2020/GetOwnPropertyKeys");
+    readonly GetPrototypeFromConstructor: typeof import("./2020/GetPrototypeFromConstructor");
+    readonly GetSubstitution: typeof import("./2020/GetSubstitution");
+    readonly GetV: typeof import("./2020/GetV");
+    readonly HasOwnProperty: typeof import("./2020/HasOwnProperty");
+    readonly HasProperty: typeof import("./2020/HasProperty");
+    readonly HourFromTime: typeof import("./2020/HourFromTime");
+    readonly InLeapYear: typeof import("./2020/InLeapYear");
+    readonly InstanceofOperator: typeof import("./2020/InstanceofOperator");
+    readonly Invoke: typeof import("./2020/Invoke");
+    readonly IsAccessorDescriptor: typeof import("./2020/IsAccessorDescriptor");
+    readonly IsArray: typeof import("./2020/IsArray");
+    readonly IsCallable: typeof import("./2020/IsCallable");
+    readonly IsConcatSpreadable: typeof import("./2020/IsConcatSpreadable");
+    readonly IsConstructor: typeof import("./2020/IsConstructor");
+    readonly IsDataDescriptor: typeof import("./2020/IsDataDescriptor");
+    readonly IsExtensible: typeof import("./2020/IsExtensible");
+    readonly IsGenericDescriptor: typeof import("./2020/IsGenericDescriptor");
+    readonly IsInteger: typeof import("./2020/IsInteger");
+    readonly IsNonNegativeInteger: typeof import("./2020/IsNonNegativeInteger");
+    readonly IsPromise: typeof import("./2020/IsPromise");
+    readonly IsPropertyKey: typeof import("./2020/IsPropertyKey");
+    readonly IsRegExp: typeof import("./2020/IsRegExp");
+    readonly IsStringPrefix: typeof import("./2020/IsStringPrefix");
+    readonly IterableToList: typeof import("./2020/IterableToList");
+    readonly IteratorClose: typeof import("./2020/IteratorClose");
+    readonly IteratorComplete: typeof import("./2020/IteratorComplete");
+    readonly IteratorNext: typeof import("./2020/IteratorNext");
+    readonly IteratorStep: typeof import("./2020/IteratorStep");
+    readonly IteratorValue: typeof import("./2020/IteratorValue");
+    readonly LengthOfArrayLike: typeof import("./2020/LengthOfArrayLike");
+    readonly MakeDate: typeof import("./2020/MakeDate");
+    readonly MakeDay: typeof import("./2020/MakeDay");
+    readonly MakeTime: typeof import("./2020/MakeTime");
+    readonly MinFromTime: typeof import("./2020/MinFromTime");
+    readonly modulo: typeof import("./2020/modulo");
+    readonly MonthFromTime: typeof import("./2020/MonthFromTime");
+    readonly msFromTime: typeof import("./2020/msFromTime");
+    readonly NumberBitwiseOp: typeof import("./2020/NumberBitwiseOp");
+    readonly NumberToBigInt: typeof import("./2020/NumberToBigInt");
+    readonly OrdinaryDefineOwnProperty: typeof import("./2020/OrdinaryDefineOwnProperty");
+    readonly OrdinaryGetOwnProperty: typeof import("./2020/OrdinaryGetOwnProperty");
+    readonly OrdinaryGetPrototypeOf: typeof import("./2020/OrdinaryGetPrototypeOf");
+    readonly OrdinaryHasInstance: typeof import("./2020/OrdinaryHasInstance");
+    readonly OrdinaryHasProperty: typeof import("./2020/OrdinaryHasProperty");
+    readonly OrdinaryObjectCreate: typeof import("./2020/OrdinaryObjectCreate");
+    readonly OrdinarySetPrototypeOf: typeof import("./2020/OrdinarySetPrototypeOf");
+    readonly PromiseResolve: typeof import("./2020/PromiseResolve");
+    readonly RegExpExec: typeof import("./2020/RegExpExec");
+    readonly RequireObjectCoercible: typeof import("./2020/RequireObjectCoercible");
+    readonly SameValue: typeof import("./2020/SameValue");
+    readonly SameValueNonNumeric: typeof import("./2020/SameValueNonNumeric");
+    readonly SameValueZero: typeof import("./2020/SameValueZero");
+    readonly SecFromTime: typeof import("./2020/SecFromTime");
+    readonly Set: typeof import("./2020/Set");
+    readonly SetFunctionName: typeof import("./2020/SetFunctionName");
+    readonly SetIntegrityLevel: typeof import("./2020/SetIntegrityLevel");
+    readonly SpeciesConstructor: typeof import("./2020/SpeciesConstructor");
+    readonly StrictEqualityComparison: typeof import("./2020/StrictEqualityComparison");
+    readonly StringPad: typeof import("./2020/StringPad");
+    readonly StringToBigInt: typeof import("./2020/StringToBigInt");
+    readonly SymbolDescriptiveString: typeof import("./2020/SymbolDescriptiveString");
+    readonly TestIntegrityLevel: typeof import("./2020/TestIntegrityLevel");
+    readonly thisBigIntValue: typeof import("./2020/thisBigIntValue");
+    readonly thisBooleanValue: typeof import("./2020/thisBooleanValue");
+    readonly thisNumberValue: typeof import("./2020/thisNumberValue");
+    readonly thisStringValue: typeof import("./2020/thisStringValue");
+    readonly thisSymbolValue: typeof import("./2020/thisSymbolValue");
+    readonly thisTimeValue: typeof import("./2020/thisTimeValue");
+    readonly TimeClip: typeof import("./2020/TimeClip");
+    readonly TimeFromYear: typeof import("./2020/TimeFromYear");
+    readonly TimeString: typeof import("./2020/TimeString");
+    readonly TimeWithinDay: typeof import("./2020/TimeWithinDay");
+    readonly ToBigInt: typeof import("./2020/ToBigInt");
+    readonly ToBigInt64: typeof import("./2020/ToBigInt64");
+    readonly ToBigUint64: typeof import("./2020/ToBigUint64");
+    readonly ToBoolean: typeof import("./2020/ToBoolean");
+    readonly ToDateString: typeof import("./2020/ToDateString");
+    readonly ToIndex: typeof import("./2020/ToIndex");
+    readonly ToInt16: typeof import("./2020/ToInt16");
+    readonly ToInt32: typeof import("./2020/ToInt32");
+    readonly ToInt8: typeof import("./2020/ToInt8");
+    readonly ToInteger: typeof import("./2020/ToInteger");
+    readonly ToLength: typeof import("./2020/ToLength");
+    readonly ToNumber: typeof import("./2020/ToNumber");
+    readonly ToNumeric: typeof import("./2020/ToNumeric");
+    readonly ToObject: typeof import("./2020/ToObject");
+    readonly ToPrimitive: typeof import("./2020/ToPrimitive");
+    readonly ToPropertyDescriptor: typeof import("./2020/ToPropertyDescriptor");
+    readonly ToPropertyKey: typeof import("./2020/ToPropertyKey");
+    readonly ToString: typeof import("./2020/ToString");
+    readonly ToUint16: typeof import("./2020/ToUint16");
+    readonly ToUint32: typeof import("./2020/ToUint32");
+    readonly ToUint8: typeof import("./2020/ToUint8");
+    readonly ToUint8Clamp: typeof import("./2020/ToUint8Clamp");
+    readonly TrimString: typeof import("./2020/TrimString");
+    readonly Type: typeof import("./2020/Type");
+    readonly UTF16DecodeString: typeof import("./2020/UTF16DecodeString");
+    readonly UTF16DecodeSurrogatePair: typeof import("./2020/UTF16DecodeSurrogatePair");
+    readonly ValidateAndApplyPropertyDescriptor: typeof import("./2020/ValidateAndApplyPropertyDescriptor");
+    readonly WeekDay: typeof import("./2020/WeekDay");
+    readonly YearFromTime: typeof import("./2020/YearFromTime");
+}
+
+declare namespace ES2020 {
+    // Re-export types from previous versions
+    // - ES2015:
+    type PropertyKey = ES2019.PropertyKey;
+
+    // - ES5:
+    type GenericDescriptor = ES2019.GenericDescriptor;
+    type AccessorDescriptor<T = unknown> = ES2019.AccessorDescriptor<T>;
+    type DataDescriptor<T = unknown> = ES2019.DataDescriptor<T>;
+    type PropertyDescriptor<T = unknown> = ES2019.PropertyDescriptor<T>;
+
+    // ES2020 types:
+    interface CodePointRecord {
+        "[[CodePoint]]": string;
+        "[[CodeUnitCount]]": 1 | 2;
+        "[[IsUnpairedSurrogate]]": boolean;
+    }
+}
+
+declare const ES2020: ES2020;
+export = ES2020;

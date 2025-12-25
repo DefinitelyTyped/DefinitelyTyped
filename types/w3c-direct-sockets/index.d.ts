@@ -2,11 +2,13 @@
  * @see https://github.com/WICG/direct-sockets/blob/main/docs/explainer.md
  */
 
-export class UDPSocket {
-    constructor(options: UDPSocketOptions);
-    readonly opened: Promise<UDPSocketOpenInfo>;
-    readonly closed: Promise<undefined>;
-    close(): Promise<undefined>;
+declare global {
+    class UDPSocket {
+        constructor(options: UDPSocketOptions);
+        readonly opened: Promise<UDPSocketOpenInfo>;
+        readonly closed: Promise<void>;
+        close(): Promise<void>;
+    }
 }
 
 export interface UDPMessage {
@@ -16,18 +18,22 @@ export interface UDPMessage {
     dnsQueryType?: SocketDnsQueryType;
 }
 
-export class TCPSocket {
-    constructor(remoteAddress: string, remotePort: number, options?: TCPSocketOptions);
-    readonly opened: Promise<TCPSocketOpenInfo>;
-    readonly closed: Promise<undefined>;
-    close(): Promise<undefined>;
+declare global {
+    class TCPSocket {
+        constructor(remoteAddress: string, remotePort: number, options?: TCPSocketOptions);
+        readonly opened: Promise<TCPSocketOpenInfo>;
+        readonly closed: Promise<void>;
+        close(): Promise<void>;
+    }
 }
 
-export class TCPServerSocket {
-    constructor(localAddress: string, options?: TCPServerSocketOptions);
-    readonly opened: Promise<TCPServerSocketOpenInfo>;
-    readonly closed: Promise<undefined>;
-    close(): Promise<undefined>;
+declare global {
+    class TCPServerSocket {
+        constructor(localAddress: string, options?: TCPServerSocketOptions);
+        readonly opened: Promise<TCPServerSocketOpenInfo>;
+        readonly closed: Promise<void>;
+        close(): Promise<void>;
+    }
 }
 
 export type SocketDnsQueryType =
@@ -65,8 +71,8 @@ export interface TCPServerSocketOptions {
 }
 
 export interface SocketOpenInfo {
-    readable?: ReadableStream;
-    writable?: WritableStream;
+    readable: ReadableStream;
+    writable: WritableStream;
     remoteAddress?: string;
     remotePort?: number;
     localAddress?: string;
@@ -80,13 +86,15 @@ export interface UDPSocketOpenInfo extends SocketOpenInfo {
 }
 
 export interface TCPServerSocketOpenInfo {
-    readable?: ReadableStream;
+    readable: ReadableStream;
     localAddress?: string;
     localPort?: number;
 }
 
-export interface MulticastController {
-    joinGroup(ipAddress: string): Promise<undefined>;
-    leaveGroup(ipAddress: string): Promise<undefined>;
-    readonly joinedGroups: readonly string[];
+declare global {
+    interface MulticastController {
+        joinGroup(ipAddress: string): Promise<void>;
+        leaveGroup(ipAddress: string): Promise<void>;
+        readonly joinedGroups: readonly string[];
+    }
 }

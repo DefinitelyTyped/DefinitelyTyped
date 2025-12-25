@@ -6,6 +6,7 @@ import {
     FunctionDeclaration,
     Program,
     Statement,
+    StructDefinition,
     Switch,
     Ternary,
     Uniform,
@@ -38,6 +39,7 @@ export default class TSLEncoder {
     emitWhile(node: While): string;
     emitVariables(node: VariableDeclaration, isRoot?: boolean): string;
     emitVarying(node: Varying): string;
+    emitStructDefinition(node: StructDefinition): string;
     emitOverloadingFunction(nodes: FunctionDeclaration[]): string;
     emitFunction(node: FunctionDeclaration): string;
     setLastStatement(statement: Statement | null): void;

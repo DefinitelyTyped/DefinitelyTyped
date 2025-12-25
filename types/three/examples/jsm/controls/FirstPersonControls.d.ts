@@ -76,7 +76,7 @@ declare class FirstPersonControls extends Controls<{}> {
      * @param object The camera to be controlled.
      * @param domElement The HTML element used for event listeners. (optional)
      */
-    constructor(object: Camera, domElement?: HTMLElement);
+    constructor(object: Camera, domElement?: HTMLElement | SVGElement);
 
     /**
      * Should be called if the application window is resized.
