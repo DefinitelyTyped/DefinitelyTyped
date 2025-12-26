@@ -6910,7 +6910,7 @@ function testWebRequest() {
     checkWebRequestEvent(chrome.webRequest.onAuthRequired, (details, asyncCallback) => {
         details.challenger.host; // $ExpectType string
         details.challenger.port; // $ExpectType number
-        details.documentId; // $ExpectType string
+        details.documentId; // $ExpectType string | undefined
         details.documentLifecycle; // $ExpectType DocumentLifecycle
         details.frameId; // $ExpectType number
         details.frameType; // $ExpectType FrameType
@@ -6937,7 +6937,7 @@ function testWebRequest() {
     }, ["responseHeaders", "blocking", "asyncBlocking", "extraHeaders"]);
 
     checkWebRequestEvent(chrome.webRequest.onBeforeRedirect, (details) => {
-        details.documentId; // $ExpectType string
+        details.documentId; // $ExpectType string | undefined
         details.documentLifecycle; // $ExpectType DocumentLifecycle
         details.frameId; // $ExpectType number
         details.frameType; // $ExpectType FrameType
@@ -6985,7 +6985,7 @@ function testWebRequest() {
     checkWebRequestEvent(
         chrome.webRequest.onBeforeSendHeaders,
         (details) => {
-            details.documentId; // $ExpectType string
+            details.documentId; // $ExpectType string | undefined
             details.documentLifecycle; // $ExpectType DocumentLifecycle
             details.frameId; // $ExpectType number
             details.frameType; // $ExpectType FrameType
@@ -7008,7 +7008,7 @@ function testWebRequest() {
     );
 
     checkWebRequestEvent(chrome.webRequest.onCompleted, (details) => {
-        details.documentId; // $ExpectType string
+        details.documentId; // $ExpectType string | undefined
         details.documentLifecycle; // $ExpectType DocumentLifecycle
         details.frameId; // $ExpectType number
         details.frameType; // $ExpectType FrameType
@@ -7031,7 +7031,7 @@ function testWebRequest() {
     }, ["responseHeaders", "extraHeaders"]);
 
     checkWebRequestEvent(chrome.webRequest.onErrorOccurred, (details) => {
-        details.documentId; // $ExpectType string
+        details.documentId; // $ExpectType string | undefined
         details.documentLifecycle; // $ExpectType DocumentLifecycle
         details.error; // $ExpectType string
         details.frameId; // $ExpectType number
@@ -7050,7 +7050,7 @@ function testWebRequest() {
     }, ["extraHeaders"]);
 
     checkWebRequestEvent(chrome.webRequest.onHeadersReceived, (details) => {
-        details.documentId; // $ExpectType string
+        details.documentId; // $ExpectType string | undefined
         details.documentLifecycle; // $ExpectType DocumentLifecycle
         details.frameId; // $ExpectType number
         details.frameType; // $ExpectType FrameType
@@ -7073,7 +7073,7 @@ function testWebRequest() {
     }, ["blocking", "responseHeaders", "extraHeaders"]);
 
     checkWebRequestEvent(chrome.webRequest.onResponseStarted, (details) => {
-        details.documentId; // $ExpectType string
+        details.documentId; // $ExpectType string | undefined
         details.documentLifecycle; // $ExpectType DocumentLifecycle
         details.frameId; // $ExpectType number
         details.frameType; // $ExpectType FrameType
@@ -7096,7 +7096,7 @@ function testWebRequest() {
     }, ["responseHeaders", "extraHeaders"]);
 
     checkWebRequestEvent(chrome.webRequest.onSendHeaders, (details) => {
-        details.documentId; // $ExpectType string
+        details.documentId; // $ExpectType string | undefined
         details.documentLifecycle; // $ExpectType DocumentLifecycle
         details.frameId; // $ExpectType number
         details.frameType; // $ExpectType FrameType
