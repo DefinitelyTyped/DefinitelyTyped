@@ -1,4 +1,4 @@
-export = id;
+export default id;
 
 /**
  * XMPP id generator for JavaScript.

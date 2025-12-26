@@ -6,7 +6,7 @@ const cachePath = "";
 cacache.ls(cachePath).then(() => {});
 
 cacache.ls.stream(cachePath).on("data", data => {
-    data; // $ExpectType any
+    data; // $ExpectType Cache
 });
 
 cacache.get(cachePath, "my-thing", { memoize: true }).then(() => {});
@@ -21,7 +21,10 @@ cacache.get
         metadata; // $ExpectType any
     })
     .on("integrity", integrity => {
-        integrity; // $ExpectType any
+        integrity; // $ExpectType string
+    })
+    .on("size", size => {
+        size; // $ExpectType number
     })
     .pipe(fs.createWriteStream("./x.tgz"));
 
@@ -29,7 +32,9 @@ cacache.get.stream.byDigest(cachePath, "sha512-SoMeDIGest+64==").pipe(fs.createW
 
 cacache.get.info(cachePath, "my-thing").then(() => {});
 
-cacache.get.hasContent(cachePath, "sha521-NOT+IN/CACHE==").then(() => {});
+cacache.get.hasContent(cachePath, "sha521-NOT+IN/CACHE==").then((res) => {
+    res; // $ExpectType HasContentObject | false
+});
 
 cacache
     .put(cachePath, "registry.npmjs.org|cacache@1.0.0", Buffer.from([]), {
@@ -43,7 +48,12 @@ cacache
 fs.createReadStream("").pipe(
     cacache.put
         .stream(cachePath, "registry.npmjs.org|cacache@1.0.0")
-        .on("integrity", d => console.log(`integrity digest is ${d}`)),
+        .on("integrity", integrity => {
+            integrity; // $ExpectType string
+        })
+        .on("size", size => {
+            size; // $ExpectType number
+        }),
 );
 
 cacache.rm.all(cachePath).then(() => {

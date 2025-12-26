@@ -1,7 +1,6 @@
 declare var global: typeof globalThis;
 
 declare var process: NodeJS.Process;
-declare var console: Console;
 
 interface ErrorConstructor {
     /**
@@ -105,31 +104,6 @@ declare namespace NodeJS {
         syscall?: string | undefined;
     }
 
-    interface ReadableStream extends EventEmitter {
-        readable: boolean;
-        read(size?: number): string | Buffer;
-        setEncoding(encoding: BufferEncoding): this;
-        pause(): this;
-        resume(): this;
-        isPaused(): boolean;
-        pipe<T extends WritableStream>(destination: T, options?: { end?: boolean | undefined }): T;
-        unpipe(destination?: WritableStream): this;
-        unshift(chunk: string | Uint8Array, encoding?: BufferEncoding): void;
-        wrap(oldStream: ReadableStream): this;
-        [Symbol.asyncIterator](): AsyncIterableIterator<string | Buffer>;
-    }
-
-    interface WritableStream extends EventEmitter {
-        writable: boolean;
-        write(buffer: Uint8Array | string, cb?: (err?: Error | null) => void): boolean;
-        write(str: string, encoding?: BufferEncoding, cb?: (err?: Error | null) => void): boolean;
-        end(cb?: () => void): this;
-        end(data: string | Uint8Array, cb?: () => void): this;
-        end(str: string, encoding?: BufferEncoding, cb?: () => void): this;
-    }
-
-    interface ReadWriteStream extends ReadableStream, WritableStream {}
-
     interface RefCounted {
         ref(): this;
         unref(): this;
@@ -167,4 +141,10 @@ declare namespace NodeJS {
     interface AsyncIterator<T, TReturn = undefined, TNext = any> extends AsyncIteratorObject<T, TReturn, TNext> {
         [Symbol.asyncIterator](): NodeJS.AsyncIterator<T, TReturn, TNext>;
     }
+
+    /** The [`BufferSource`](https://webidl.spec.whatwg.org/#BufferSource) type from the Web IDL specification. */
+    type BufferSource = NonSharedArrayBufferView | ArrayBuffer;
+
+    /** The [`AllowSharedBufferSource`](https://webidl.spec.whatwg.org/#AllowSharedBufferSource) type from the Web IDL specification. */
+    type AllowSharedBufferSource = ArrayBufferView | ArrayBufferLike;
 }

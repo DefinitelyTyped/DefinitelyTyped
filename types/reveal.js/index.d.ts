@@ -1535,7 +1535,7 @@ declare namespace Reveal {
      */
     interface HighlightConfig {
         highlightOnLoad?: boolean;
-        excapeHTML?: boolean;
+        escapeHTML?: boolean;
         beforeHighlight?: (...args: any) => any;
     }
 

@@ -1,3 +1,5 @@
+declare function isTypedArray(object: unknown): boolean;
+
 declare function createCanvasElement(): HTMLCanvasElement;
 
 declare function setConsoleFunction(
@@ -16,4 +18,14 @@ declare function warnOnce(...params: unknown[]): void;
 
 declare function probeAsync(gl: WebGLRenderingContext, sync: WebGLSync, interval: number): Promise<void>;
 
-export { createCanvasElement, error, getConsoleFunction, log, probeAsync, setConsoleFunction, warn, warnOnce };
+export {
+    createCanvasElement,
+    error,
+    getConsoleFunction,
+    isTypedArray,
+    log,
+    probeAsync,
+    setConsoleFunction,
+    warn,
+    warnOnce,
+};

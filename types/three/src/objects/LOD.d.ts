@@ -57,7 +57,7 @@ export class LOD<TEventMap extends Object3DEventMap = Object3DEventMap> extends 
     /**
      * An array of level objects
      */
-    levels: Array<{
+    readonly levels: Array<{
         /** The Object3D to display at this level. */
         object: Object3D;
         /** The distance at which to display this level of detail. Expects a `Float`. */

@@ -385,6 +385,7 @@ colDef.validator = {
 };
 colDef.validator = "float";
 colDef.validator = { type: "float", parameters: {} };
+colDef.validator = (cell, value) => true;
 
 let validators: Validator[] = [
     { type: "integer", parameters: {} },

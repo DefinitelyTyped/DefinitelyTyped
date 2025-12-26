@@ -1,7 +1,4 @@
-import jid = require("@xmpp/jid");
-
-// test type exports
-type JID = jid.JID;
+import jid, { JID } from "@xmpp/jid";
 
 const addr = jid("alice@wonderland.net/rabbithole"); // $ExpectType JID
 jid("alice", "wonderland.net"); // $ExpectType JID

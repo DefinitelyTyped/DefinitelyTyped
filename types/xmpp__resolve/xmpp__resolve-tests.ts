@@ -1,7 +1,7 @@
-import Connection = require("@xmpp/connection");
-import registerResolve = require("@xmpp/resolve");
-import resolve = require("@xmpp/resolve/resolve");
-import { compare } from "@xmpp/resolve/lib/alt-connections";
+import Connection from "@xmpp/connection";
+import registerResolve from "@xmpp/resolve";
+import { compare } from "@xmpp/resolve/lib/alt-connections.js";
+import resolve from "@xmpp/resolve/resolve.js";
 import { Element } from "@xmpp/xml";
 
 // test type exports
