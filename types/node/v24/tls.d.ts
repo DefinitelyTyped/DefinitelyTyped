@@ -516,6 +516,13 @@ declare module "tls" {
     }
     interface CommonConnectionOptions {
         /**
+         * If not `false`, the peer certificate is verified against the list of
+         * supplied CAs. An `'error'` event is emitted if verification fails;
+         * `err.code` contains the OpenSSL error code.
+         * @default true
+         */
+        rejectUnauthorized?: boolean | undefined;
+        /**
          * When enabled, TLS packet trace information is written to `stderr`. This can be
          * used to debug TLS connection problems.
          * @default false
