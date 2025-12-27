@@ -359,6 +359,12 @@ declare namespace jasmine {
     /** @deprecated Please use `Configuration` instead of `EnvConfiguration`. */
     type EnvConfiguration = Configuration;
 
+    /**
+     * Get the currently booted mock {Clock} for this Jasmine environment.
+     * @name jasmine.clock
+     * @since 2.0.0
+     * @returns {Clock}
+     */
     function clock(): Clock;
     /**
      * @deprecated Private method that may be changed or removed in the future
@@ -408,28 +414,189 @@ declare namespace jasmine {
      */
     function is(sample: any): AsymmetricMatcher<any>;
 
+    /**
+     * Get an {@link AsymmetricEqualityTester} that will succeed if the actual
+     * value is an `Array` that contains at least the elements in the sample.
+     * @since 2.2.0
+     * @param sample
+     */
     function arrayContaining<T>(sample: ArrayLike<T>): ArrayContaining<T>;
+    /**
+     * Get an {@link AsymmetricEqualityTester} that will succeed if the actual
+     * value is an `Array` that contains all of the elements in the sample in
+     * any order.
+     * @since 2.8.0
+     * @param sample
+     */
     function arrayWithExactContents<T>(sample: ArrayLike<T>): ArrayContaining<T>;
+
+    /**
+     * Get an {@link AsymmetricEqualityTester} that will succeed if the actual
+     * value being compared contains at least the specified keys and values.
+     * @since 1.3.0
+     * @param sample - The subset of properties that _must_ be in the actual.
+     */
     function objectContaining<T>(sample: { [K in keyof T]?: ExpectedRecursive<T[K]> }): ObjectContaining<T>;
+    /**
+     * Get an {@link AsymmetricEqualityTester} that will succeed if every
+     * key/value pair in the sample passes the deep equality comparison
+     * with at least one key/value pair in the actual value being compared
+     * @since 3.5.0
+     * @param sample - The subset of items that _must_ be in the actual.
+     */
     function mapContaining<K, V>(sample: Map<K, V>): AsymmetricMatcher<Map<K, V>>;
+    /**
+     * Get an {@link AsymmetricEqualityTester} that will succeed if every item
+     * in the sample passes the deep equality comparison
+     * with at least one item in the actual value being compared
+     * @since 3.5.0
+     * @param sample - The subset of items that _must_ be in the actual.
+     */
     function setContaining<T>(sample: Set<T>): AsymmetricMatcher<Set<T>>;
 
+    /**
+     * Set the default spy strategy for the current scope of specs.
+     *
+     * _Note:_ This is only callable from within a {@link beforeEach}, {@link it}, or {@link beforeAll}.
+     * @param defaultStrategyFn - a function that assigns a strategy
+     * @example
+     * beforeEach(function() {
+     *   jasmine.setDefaultSpyStrategy(and => and.returnValue(true));
+     * });
+     */
     function setDefaultSpyStrategy<Fn extends Func = Func>(fn?: (and: SpyAnd<Fn>) => void): void;
+
+    /**
+     * Replaces Jasmine's global error handling with a spy. This prevents Jasmine
+     * from treating uncaught exceptions and unhandled promise rejections
+     * as spec failures and allows them to be inspected using the spy's
+     * {@link Spy#calls|calls property} and related matchers such as
+     * {@link matchers#toHaveBeenCalledWith|toHaveBeenCalledWith}.
+     *
+     * After installing the spy, spyOnGlobalErrorsAsync immediately calls its
+     * argument, which must be an async or promise-returning function. The spy
+     * will be passed as the first argument to that callback. Normal error
+     * handling will be restored when the promise returned from the callback is
+     * settled.
+     *
+     * When the JavaScript runtime reports an uncaught error or unhandled rejection,
+     * the spy will be called with a single parameter representing Jasmine's best
+     * effort at describing the error. This parameter may be of any type, because
+     * JavaScript allows anything to be thrown or used as the reason for a
+     * rejected promise, but Error instances and strings are most common.
+     *
+     * Note: The JavaScript runtime may deliver uncaught error events and unhandled
+     * rejection events asynchronously, especially in browsers. If the event
+     * occurs after the promise returned from the callback is settled, it won't
+     * be routed to the spy even if the underlying error occurred previously.
+     * It's up to you to ensure that all of the error/rejection events that you
+     * want to handle have occurred before you resolve the promise returned from
+     * the callback.
+     *
+     * You must ensure that the `it`/`beforeEach`/etc fn that called
+     * `spyOnGlobalErrorsAsync` does not signal completion until after the
+     * promise returned by `spyOnGlobalErrorsAsync` is resolved. Normally this is
+     * done by `await`ing the returned promise. Leaving the global error spy
+     * installed after the `it`/`beforeEach`/etc fn that installed it signals
+     * completion is likely to cause problems and is not supported.
+     * @param fn - A function to run, during which the global error spy will be effective
+     * @example
+     * it('demonstrates global error spies', async function() {
+     *   await jasmine.spyOnGlobalErrorsAsync(async function(globalErrorSpy) {
+     *     setTimeout(function() {
+     *       throw new Error('the expected error');
+     *     });
+     *     await new Promise(function(resolve) {
+     *       setTimeout(resolve);
+     *     });
+     *     const expected = new Error('the expected error');
+     *     expect(globalErrorSpy).toHaveBeenCalledWith(expected);
+     *   });
+     * });
+     */
     function spyOnGlobalErrorsAsync(fn?: (globalErrorSpy: Spy<(error: Error) => void>) => Promise<void>): Promise<void>;
+    /**
+     * Add a custom spy strategy for the current scope of specs.
+     *
+     * _Note:_ This is only callable from within a {@link beforeEach}, {@link it}, or {@link beforeAll}.
+     * @since 3.5.0
+     * @param name - The name of the strategy (i.e. what you call from `and`)
+     * @param factory - Factory function that returns the plan to be executed.
+     */
     function addSpyStrategy<Fn extends Func = Func>(name: string, factory: Fn): void;
+    /**
+     * Create a bare {@link Spy} object. This won't be installed anywhere and will not have any implementation behind it.
+     * @since 1.3.0
+     * @param name - Name to give the spy. This will be displayed in failure messages.
+     * @param originalFn - The "real" function. This will
+     * be used for subsequent calls to the spy after you call
+     * `mySpy.and.callThrough()`. In most cases you should omit this parameter.
+     * The usual way to supply an original function is to call {@link spyOn}
+     * instead of createSpy.
+     */
     function createSpy<Fn extends Func>(name?: string, originalFn?: Fn): Spy<Fn>;
+    /**
+     * Create an object with multiple {@link Spy}s as its members.
+     * @since 1.3.0
+     * @param baseName - Base name for the spies in the object.
+     * @param methodNames - Array of method names to create spies for, or Object whose keys will be method names and values the {@link Spy#and#returnValue|returnValue}.
+     * @param propertyNames - Array of property names to create spies for, or Object whose keys will be propertynames and values the {@link Spy#and#returnValue|returnValue}.
+     */
     function createSpyObj(baseName: string, methodNames: SpyObjMethodNames, propertyNames?: SpyObjPropertyNames): any;
+    /**
+     * Create an object with multiple {@link Spy}s as its members.
+     * @since 1.3.0
+     * @param baseName - Base name for the spies in the object.
+     * @param methodNames - Array of method names to create spies for, or Object whose keys will be method names and values the {@link Spy#and#returnValue|returnValue}.
+     * @param propertyNames - Array of property names to create spies for, or Object whose keys will be propertynames and values the {@link Spy#and#returnValue|returnValue}.
+     */
     function createSpyObj<T>(
         baseName: string,
         methodNames: SpyObjMethodNames<T>,
         propertyNames?: SpyObjPropertyNames<T>,
     ): SpyObj<T>;
+    /**
+     * Create an object with multiple {@link Spy}s as its members.
+     * @since 1.3.0
+     * @param baseName - Base name for the spies in the object.
+     * @param methodNames - Array of method names to create spies for, or Object whose keys will be method names and values the {@link Spy#and#returnValue|returnValue}.
+     * @param propertyNames - Array of property names to create spies for, or Object whose keys will be propertynames and values the {@link Spy#and#returnValue|returnValue}.
+     */
     function createSpyObj(methodNames: SpyObjMethodNames, propertyNames?: SpyObjPropertyNames): any;
+    /**
+     * Create an object with multiple {@link Spy}s as its members.
+     * @since 1.3.0
+     * @param baseName - Base name for the spies in the object.
+     * @param methodNames - Array of method names to create spies for, or Object whose keys will be method names and values the {@link Spy#and#returnValue|returnValue}.
+     * @param propertyNames - Array of property names to create spies for, or Object whose keys will be propertynames and values the {@link Spy#and#returnValue|returnValue}.
+     */
     function createSpyObj<T>(methodNames: SpyObjMethodNames<T>, propertyNames?: SpyObjPropertyNames<T>): SpyObj<T>;
 
+    /**
+     * Get the currently booted Jasmine Environment.
+     *
+     * @since 1.3.0
+     */
     function getEnv(): Env;
+    /**
+     * Logs a message for use in debugging. If the spec fails, trace messages
+     * will be included in the {@link SpecDoneEvent|result} passed to the
+     * reporter's specDone method.
+     *
+     * This method should be called only when a spec (including any associated
+     * beforeEach or afterEach functions) is running.
+     * @since 4.0.0
+     * @param msg - The message to log
+     */
     function debugLog(msg: string): void;
 
+    /**
+     * Add a custom equality tester for the current scope of specs.
+     *
+     * _Note:_ This is only callable from within a {@link beforeEach}, {@link it}, or {@link beforeAll}.
+     * @since 2.0.0
+     * @param tester - A function which takes two arguments to compare and returns a `true` or `false` comparison result if it knows how to compare them, and `undefined` otherwise.
+     */
     function addCustomEqualityTester(equalityTester: CustomEqualityTester): void;
 
     /**
@@ -440,16 +607,38 @@ declare namespace jasmine {
      */
     function addCustomObjectFormatter(formatter: CustomObjectFormatter): void;
 
+    /**
+     * Add custom matchers for the current scope of specs.
+     *
+     * _Note:_ This is only callable from within a {@link beforeEach}, {@link it}, or {@link beforeAll}.
+     * @since 2.0.0
+     * @param matchers - Keys from this object will be the new matcher names.
+     */
     function addMatchers(matchers: CustomMatcherFactories): void;
+    /**
+     * Add custom async matchers for the current scope of specs.
+     *
+     * _Note:_ This is only callable from within a {@link beforeEach}, {@link it}, or {@link beforeAll}.
+     * @since 3.5.0
+     * @param matchers - Keys from this object will be the new async matcher names.
+     */
     function addAsyncMatchers(matchers: CustomAsyncMatcherFactories): void;
 
-    function stringMatching(str: string | RegExp): AsymmetricMatcher<string>;
-
-    function stringContaining(str: string): AsymmetricMatcher<string>;
     /**
-     * @deprecated Private method that may be changed or removed in the future
+     * Get an {@link AsymmetricEqualityTester} that will succeed if the actual
+     * value is a `String` that matches the `RegExp` or `String`.
+     * @since 2.2.0
+     * @param expected
      */
-    function formatErrorMsg(domain: string, usage: string): (msg: string) => string;
+    function stringMatching(expected: string | RegExp): AsymmetricMatcher<string>;
+
+    /**
+     * Get an {@link AsymmetricEqualityTester} that will succeed if the actual
+     * value is a `String` that contains the specified `String`.
+     * @since 3.10.0
+     * @param expected
+     */
+    function stringContaining(expected: string): AsymmetricMatcher<string>;
 
     interface Any extends AsymmetricMatcher<any> {
         new(expectedClass: any): any;
@@ -558,6 +747,14 @@ declare namespace jasmine {
 
     interface Env {
         addReporter(reporter: CustomReporter): void;
+        /**
+         * Configures whether Jasmine should allow the same function to be spied on
+         * more than once during the execution of a spec. By default, spying on
+         * a function that is already a spy will cause an error.
+         * @name Env#allowRespy
+         * @since 2.5.0
+         * @param allow Whether to allow respying
+         */
         allowRespy(allow: boolean): void;
         clearReporters(): void;
         configuration(): Configuration;
@@ -576,6 +773,12 @@ declare namespace jasmine {
          * @since 3.6.0
          */
         setSuiteProperty: typeof setSuiteProperty;
+        /**
+         * Provides the root suite, through which all suites and specs can be
+         * accessed.
+         * @return the root suite
+         * @since 2.0.0
+         */
         topSuite(): Suite;
     }
 
@@ -682,25 +885,57 @@ declare namespace jasmine {
         // tslint:disable-next-line unified-signatures
         toMatch(expected: string | RegExp, expectationFailOutput: any): void;
 
+        /**
+         * {@link expect} the actual value to be defined. (Not `undefined`)
+         * @name matchers#toBeDefined
+         * @since 1.3.0
+         * @example
+         * expect(result).toBeDefined();
+         */
         toBeDefined(): void;
         /**
          * @deprecated expectationFailOutput is deprecated. Use withContext instead.
          */
         // tslint:disable-next-line unified-signatures
         toBeDefined(expectationFailOutput: any): void;
+        /**
+         * {@link expect} the actual value to be `undefined`.
+         * @since 1.3.0
+         * @example
+         * expect(result).toBeUndefined():
+         */
         toBeUndefined(): void;
         /**
          * @deprecated expectationFailOutput is deprecated. Use withContext instead.
          */
         // tslint:disable-next-line unified-signatures
         toBeUndefined(expectationFailOutput: any): void;
+        /**
+         * {@link expect} the actual value to be `null`.
+         * @since 1.3.0
+         * @example
+         * expect(result).toBeNull();
+         */
         toBeNull(): void;
         /**
          * @deprecated expectationFailOutput is deprecated. Use withContext instead.
          */
         // tslint:disable-next-line unified-signatures
         toBeNull(expectationFailOutput: any): void;
+        /**
+         * {@link expect} the actual value to be `NaN` (Not a Number).
+         * @since 1.3.0
+         * @example
+         * expect(thing).toBeNaN();
+         */
         toBeNaN(): void;
+
+        /**
+         * {@link expect} the actual value to be truthy.
+         * @since 2.0.0
+         * @example
+         * expect(thing).toBeTruthy();
+         */
         toBeTruthy(): void;
         /**
          * @deprecated expectationFailOutput is deprecated. Use withContext instead.
@@ -715,10 +950,45 @@ declare namespace jasmine {
         toBeFalsy(expectationFailOutput: any): void;
         toBeTrue(): void;
         toBeFalse(): void;
+        /**
+         * {@link expect} the actual (a {@link Spy}) to have been called.
+         * @since 1.3.0
+         * @example
+         * expect(mySpy).toHaveBeenCalled();
+         * expect(mySpy).not.toHaveBeenCalled();
+         */
         toHaveBeenCalled(): void;
+        /**
+         * {@link expect} the actual value (a {@link Spy}) to have been called before another {@link Spy}.
+         * @since 2.6.0
+         * @param expected - {@link Spy} that should have been called after the `actual` {@link Spy}.
+         * @example
+         * expect(mySpy).toHaveBeenCalledBefore(otherSpy);
+         */
         toHaveBeenCalledBefore(expected: Func): void;
+        /**
+         * {@link expect} the actual (a {@link Spy}) to have been called with particular arguments at least once.
+         * @since 1.3.0
+         * @param params - The arguments to look for
+         * @example
+         * expect(mySpy).toHaveBeenCalledWith('foo', 'bar', 2);
+         */
         toHaveBeenCalledWith(...params: any[]): void;
+        /**
+         * {@link expect} the actual (a {@link Spy}) to have been called exactly once, and exactly with the particular arguments.
+         * @since 3.6.0
+         * @param params - The arguments to look for
+         * @example
+         * expect(mySpy).toHaveBeenCalledOnceWith('foo', 'bar', 2);
+         */
         toHaveBeenCalledOnceWith(...params: any[]): void;
+        /**
+         * {@link expect} the actual (a {@link Spy}) to have been called the specified number of times.
+         * @since 2.4.0
+         * @param expected - The number of invocations to look for.
+         * @example
+         * expect(mySpy).toHaveBeenCalledTimes(3);
+         */
         toHaveBeenCalledTimes(expected: number): void;
         toContain(expected: any): void;
         /**
