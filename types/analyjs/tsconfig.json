@@ -1,17 +1,18 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "*": [
-        "*"
-      ]
-    },
+    "noEmit": true,
+    "types": [],
     "strict": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "lib": ["ES2020", "DOM"]
   },
   "include": [
-    "**/*.ts"
+    "index.d.ts",
+    "analyjs-tests.ts"
   ]
 }
