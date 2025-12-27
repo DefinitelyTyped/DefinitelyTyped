@@ -11,7 +11,18 @@ type SetPartial<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
 ////////////////////
 interface Window {
     chrome: typeof chrome;
+    /**
+     * Alias for the `chrome` namespace
+     * @since Chrome 144
+     */
+    browser: typeof chrome;
 }
+
+/**
+ * Alias for the `chrome` namespace
+ * @since Chrome 144
+ */
+declare const browser: typeof chrome;
 
 declare namespace chrome {
     ////////////////////
@@ -9188,11 +9199,6 @@ declare namespace chrome {
             | "webRequestBlocking"
             | "webRequestAuthProvider";
 
-        /**
-         * @deprecated Use `ManifestPermission` instead.
-         */
-        export type ManifestPermissions = ManifestPermission;
-
         /** Source : https://developer.chrome.com/docs/extensions/reference/api/permissions */
         export type ManifestOptionalPermission = Exclude<
             ManifestPermission,
@@ -9209,11 +9215,6 @@ declare namespace chrome {
             | "wallpaper"
             | "webAuthenticationProxy"
         >;
-
-        /**
-         * @deprecated Use `ManifestOptionalPermission` instead.
-         */
-        export type ManifestOptionalPermissions = ManifestOptionalPermission;
 
         export interface SearchProvider {
             name?: string | undefined;
@@ -10222,10 +10223,6 @@ declare namespace chrome {
             /** The total cumulative time for this processor. This value is equal to user + kernel + idle. */
             total: number;
         }
-
-        /** @deprecated Use {@link CpuTime} instead. */
-        // eslint-disable-next-line @typescript-eslint/no-empty-interface
-        interface ProcessorUsage extends CpuTime {}
 
         export interface ProcessorInfo {
             /** Cumulative usage info for this logical processor. */
@@ -12448,10 +12445,6 @@ declare namespace chrome {
             reconnect?: string | undefined;
         }
 
-        /** @deprecated Use {@link Parameters} instead */
-        // eslint-disable-next-line @typescript-eslint/no-empty-interface
-        interface VpnSessionParameters extends Parameters {}
-
         /** The enum is used by the platform to notify the client of the VPN session status. */
         export enum PlatformMessage {
             /** Indicates that the VPN configuration connected. */
@@ -13330,7 +13323,6 @@ declare namespace chrome {
 
         /** Fired before sending an HTTP request, once the request headers are available. This may occur after a TCP connection is made to the server, but before any HTTP data is sent. */
         export const onBeforeSendHeaders: WebRequestEvent<
-            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             (details: OnBeforeSendHeadersDetails) => BlockingResponse | undefined,
             `${OnBeforeSendHeadersOptions}`[]
         >;
