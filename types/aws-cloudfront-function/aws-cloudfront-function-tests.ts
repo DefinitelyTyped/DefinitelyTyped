@@ -137,6 +137,10 @@ function handler2(event: AWSCloudFrontFunction.Event): AWSCloudFrontFunction.Req
 
 import cf from "cloudfront";
 
+// $ExpectType KVStore
+cf.kvs();
+
+// $ExpectType KVStore
 const kvsHandle = cf.kvs("example-kvs-id");
 
 async function handler3(
