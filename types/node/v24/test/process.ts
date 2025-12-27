@@ -68,6 +68,7 @@ import { fileURLToPath } from "node:url";
     report.reportOnFatalError = true;
     report.reportOnSignal = true;
     report.reportOnUncaughtException = true;
+    report.excludeEnv = true;
     report.signal = "SIGINT";
     let dest = report.writeReport("asdasd", new Error());
     dest = report.writeReport("asdasd");

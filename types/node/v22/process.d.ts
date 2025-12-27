@@ -475,6 +475,11 @@ declare module "process" {
                  */
                 reportOnUncaughtException: boolean;
                 /**
+                 * If true, a diagnostic report is generated without the environment variables.
+                 * @default false
+                 */
+                excludeEnv: boolean;
+                /**
                  * The signal used to trigger the creation of a diagnostic report.
                  * @default 'SIGUSR2'
                  */
