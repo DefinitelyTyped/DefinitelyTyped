@@ -370,6 +370,8 @@ be.withFontSizes("fontSize")(() => <h1>Hello World</h1>);
     onReplace={blocks => blocks.forEach(b => console.log(b.clientId))}
     allowedFormats={["core/bold", "core/italic"]}
     onSplit={(value, isOriginal) => createBlock("core/paragraph", { content: value })}
+    disableLineBreaks
+    withoutInteractiveFormatting
 />;
 <be.RichText.Content value="foo" />;
 <be.RichText.Content tagName="p" style={{ color: "blue" }} className="foo" value="Hello World" dir="rtl" />;
@@ -607,6 +609,10 @@ useSelect("core/block-editor").getBlockParents("foo");
 useSelect("core/block-editor").getBlockParentsByBlockName("foo", ["core/query"]);
 useSelect("core/block-editor").getBlockParents("foo", true);
 useSelect("core/block-editor").getBlockParentsByBlockName("foo", ["core/query"], true);
+
+// $ExpectType string[]
+useSelect("core/block-editor").getBlocksByName("core/group");
+useSelect("core/block-editor").getBlocksByName(["core/group", "core/paragraph"]);
 
 {
     const blockProps: UseBlockProps.Merged & UseBlockProps.Reserved = be.useBlockProps();
