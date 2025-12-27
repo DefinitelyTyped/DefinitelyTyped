@@ -42,10 +42,9 @@ export interface Dictionary<T> {
 }
 
 export interface ParamsDictionary {
-    [key: string]: string;
+    [key: string | number]: string;
 }
-export type ParamsArray = string[];
-export type Params = ParamsDictionary | ParamsArray;
+export type Params = ParamsDictionary;
 
 export interface Locals extends Express.Locals {}
 
@@ -382,19 +381,6 @@ export interface RequestRanges extends RangeParserRanges {}
 
 export type Errback = (err: Error) => void;
 
-/**
- * @param P  For most requests, this should be `ParamsDictionary`, but if you're
- * using this in a route handler for a route that uses a `RegExp` or a wildcard
- * `string` path (e.g. `'/user/*'`), then `req.params` will be an array, in
- * which case you should use `ParamsArray` instead.
- *
- * @see https://expressjs.com/en/api.html#req.params
- *
- * @example
- *     app.get('/user/:id', (req, res) => res.send(req.params.id)); // implicitly `ParamsDictionary`
- *     app.get<ParamsArray>(/user\/(.*)/, (req, res) => res.send(req.params[0]));
- *     app.get<ParamsArray>('/user/*', (req, res) => res.send(req.params[0]));
- */
 export interface Request<
     P = ParamsDictionary,
     ResBody = any,
