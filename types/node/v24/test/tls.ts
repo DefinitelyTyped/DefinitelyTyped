@@ -40,6 +40,7 @@ import {
                 psk: Buffer.from("asd"),
             };
         },
+        requestOCSP: true,
     };
     const tlsSocket = connect(connOpts);
 
@@ -85,7 +86,7 @@ import {
 }
 
 {
-    const _server = createServer({
+    const options: TlsOptions = {
         enableTrace: true,
         pskCallback(socket, ident) {
             if (ident === "something") {
@@ -93,7 +94,8 @@ import {
             }
             return Buffer.from("asdasd");
         },
-    });
+    };
+    const _server = createServer(options);
 
     _server.addContext("example", {
         cert: fs.readFileSync("cert_filepath"),
