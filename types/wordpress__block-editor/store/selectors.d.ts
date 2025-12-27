@@ -192,6 +192,15 @@ export function getBlocks(rootClientId?: string): BlockInstance[];
 export function getBlocksByClientId(clientIds: string | string[]): Array<BlockInstance | null>;
 
 /**
+ * Returns all blocks that match a blockName. Results include nested blocks.
+ *
+ * @param blockName - Block name(s) for which clientIds are to be returned.
+ *
+ * @returns Array of clientIds of blocks with name equal to blockName.
+ */
+export function getBlocksByName(blockName: string | string[]): string[];
+
+/**
  * Returns an array containing the clientIds of all descendants of the blocks given.
  *
  * @param clientIds - Array of block ids to inspect.
