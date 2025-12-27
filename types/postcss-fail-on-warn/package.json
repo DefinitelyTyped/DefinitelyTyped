@@ -1,0 +1,15 @@
+{
+    "private": true,
+    "name": "@types/postcss-fail-on-warn",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/postcss/postcss-fail-on-warn#readme"
+    ],
+    "dependencies": {
+        "postcss": "^6.0.17"
+    },
+    "devDependencies": {
+        "@types/postcss-fail-on-warn": "workspace:."
+    },
+    "owners": []
+}
