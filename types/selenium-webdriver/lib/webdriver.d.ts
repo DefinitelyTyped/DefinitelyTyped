@@ -111,6 +111,14 @@ export class Condition<T> {
  */
 export class WebElementCondition extends Condition<WebElement> {
     /**
+     * Private discriminator to prevent structural type compatibility with
+     * Condition<WebElement[]>. This ensures TypeScript correctly resolves
+     * driver.wait() overloads when using elementsLocated() vs elementLocated().
+     * @see https://github.com/SeleniumHQ/selenium/issues/14239
+     */
+    private readonly __isWebElementCondition: true;
+
+    /**
      * @param {string} message A descriptive error message. Should complete the
      *     sentence "Waiting [...]"
      * @param {function(!WebDriver): !(WebElement|IThenable<!WebElement>)}
