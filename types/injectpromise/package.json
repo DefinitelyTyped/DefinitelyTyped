@@ -8,10 +8,5 @@
     "devDependencies": {
         "@types/injectpromise": "workspace:."
     },
-    "owners": [
-        {
-            "name": "naeemy",
-            "githubUsername": "naeemy"
-        }
-    ]
+    "owners": []
 }

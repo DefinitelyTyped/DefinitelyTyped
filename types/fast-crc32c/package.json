@@ -11,10 +11,5 @@
     "devDependencies": {
         "@types/fast-crc32c": "workspace:."
     },
-    "owners": [
-        {
-            "name": "naeem",
-            "githubUsername": "naeemy"
-        }
-    ]
+    "owners": []
 }
