@@ -11,10 +11,5 @@
     "devDependencies": {
         "@types/sse4_crc32": "workspace:."
     },
-    "owners": [
-        {
-            "name": "naeemy",
-            "githubUsername": "naeemy"
-        }
-    ]
+    "owners": []
 }
