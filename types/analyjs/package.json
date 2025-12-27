@@ -1,0 +1,89 @@
+{
+  "_id": "analyjs",
+  "name": "analyjs",
+  "dist-tags": {
+    "experimental-1": "0.0.1-experimental",
+    "latest": "0.0.1-experimental"
+  },
+  "versions": {
+    "0.0.1-experimental": {
+      "name": "analyjs",
+      "version": "0.0.1-experimental",
+      "description": "Data Analyzer User For Website, Free, Open-source, And Easy To Use.",
+      "types": "@types/analyjs",
+      "keywords": [
+        "analyzer-js",
+        "analyzer-browser",
+        "analyzer-user"
+      ],
+      "license": "MIT",
+      "author": {
+        "name": "Sholehuddin Khairy"
+      },
+      "type": "commonjs",
+      "main": "dist/ana-ly.umd.min.js",
+      "module": "dist/ana-ly.module.mjs",
+      "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+      },
+      "_id": "analyjs@0.0.1-experimental",
+      "_nodeVersion": "24.9.0",
+      "_npmVersion": "11.6.0",
+      "dist": {
+        "integrity": "sha512-W+FW/fABiXDGGHHjeH1UbyDMmVYjY7xo6wOrqx0UgScc+MKlUKZbSRKPW8vs38KIl7YIa5fh9hFqLNUr95+TeA==",
+        "shasum": "94d664986edce690c4f43f4b62c4771eb922f1c5",
+        "tarball": "https://registry.npmjs.org/analyjs/-/analyjs-0.0.1-experimental.tgz",
+        "fileCount": 6,
+        "unpackedSize": 88043,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEYCIQCI9m2wTkjKaSWSV9MgyYEXLs4sTRfLNHeM8UHcG1wCoQIhAOVoM7SOPEhsXSXA4I1RnbvjNcwH+gsFexG1gVttpSKN"
+          }
+        ]
+      },
+      "_npmUser": {
+        "name": "kyrt",
+        "email": "musickhairy@gmail.com"
+      },
+      "directories": {
+
+      },
+      "maintainers": [
+        {
+          "name": "kyrt",
+          "email": "musickhairy@gmail.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/analyjs_0.0.1-experimental_1766820300833_0.98187941049744"
+      },
+      "_hasShrinkwrap": false
+    }
+  },
+  "time": {
+    "created": "2025-12-27T07:25:00.831Z",
+    "0.0.1-experimental": "2025-12-27T07:25:01.003Z",
+    "modified": "2025-12-27T07:25:01.297Z"
+  },
+  "maintainers": [
+    {
+      "name": "kyrt",
+      "email": "musickhairy@gmail.com"
+    }
+  ],
+  "description": "Data Analyzer User For Website, Free, Open-source, And Easy To Use.",
+  "keywords": [
+    "analyzer-js",
+    "analyzer-browser",
+    "analyzer-user"
+  ],
+  "author": {
+    "name": "Sholehuddin Khairy"
+  },
+  "license": "MIT",
+  "readme": "# AnaLy.js v1.0\n\n![npm](https://img.shields.io/npm/v/analyjs)\n![npm downloads](https://img.shields.io/npm/dm/analyjs)\n![license](https://img.shields.io/npm/l/analyjs)\n![types](https://img.shields.io/npm/types/analyjs)\n![module](https://img.shields.io/badge/module-ESM%20%7C%20CJS%20%7C%20UMD-blue)\n![status](https://img.shields.io/badge/status-experimental-blue)\n\n---\n\n## Overview\n\n**AnaLy.js** is a lightweight and privacy-aware JavaScript library designed for **browser and device snapshotting**.\n\nIt provides structured insights into client environments, including browser information, operating system, locale, hardware capabilities, network signals, media devices, input devices, and JavaScript feature support—while offering configurable **anonymization controls** to respect user privacy.\n\nAnaLy.js is suitable for analytics preprocessing, telemetry, diagnostics, and research-oriented client profiling.\n\n---\n\n## Key Features\n\n- Comprehensive browser and device snapshot generation\n- Privacy-first design with configurable anonymization options\n- Supports synchronous and asynchronous snapshot workflows\n- One-time and realtime data delivery\n- Debounced network transmission to reduce overhead\n- Built-in privacy and security heuristics detection\n- Compatible with ESM, CommonJS, and UMD environments\n\n---\n\n## Installation\n\n```bash\nnpm install analyjs\n# or\nyarn add analyjs\n# or\npnpm add analyjs\n```\n\n---\n\n## Usage\n\n### ESM (Recommended)\n\n```js\nimport AnaLy from \"analyjs\";\n\n// Synchronous snapshot\nconst snapshot = AnaLy.getSnapshot({ customField: \"example\" });\n\n// Asynchronous snapshot\nAnaLy.getSnapshotAsync({ customField: \"example\" }).then(console.log);\n\n// Send snapshot data to a server\nAnaLy.sendData(\"https://your-server.com/endpoint\", { extra: \"info\" });\n\n// Enable realtime tracking\nAnaLy.setupRealtime(\"https://your-server.com/endpoint\", { userId: 123 });\n\n// Stop realtime tracking\nAnaLy.stopRealtime();\n\n// Initialize with configuration\nAnaLy.init({\n  autoSend: true,\n  url: \"https://your-server.com/endpoint\"\n});\n\n// Log full snapshot to console\nAnaLy.logAll();\n```\n\n---\n\n### CommonJS\n\n```js\nconst AnaLy = require(\"analyjs\");\n\nconst snapshot = AnaLy.getSnapshot();\nAnaLy.getSnapshotAsync().then(console.log);\n```\n\n---\n\n### UMD / Browser\n\n```html\n\u003Cscript src=\"https://cdn.kyrt.my.id/libs/jsutils/analyjs@1.0.0.umd.min.js\"\u003E\u003C/script\u003E\n\u003Cscript\u003E\n  const snapshot = AnaLy.getSnapshot();\n  console.log(snapshot);\n\u003C/script\u003E\n```\n\n---\n\n## Configuration\n\n| Option | Type | Default | Description |\n|------|------|---------|-------------|\n| `anonymizeIP` | boolean | `true` | Hide or anonymize IP address |\n| `anonymizeUA` | boolean | `false` | Hide or anonymize user-agent |\n| `anonymizeHardware` | boolean | `true` | Hide CPU cores, memory, and GPU details |\n| `autoSend` | boolean | `false` | Automatically send snapshot on initialization |\n| `url` | string \\| null | `null` | Target server URL for data submission |\n| `debounceMs` | number | `1200` | Debounce delay for realtime sending |\n| `verbose` | boolean | `false` | Enable verbose debug logging |\n| `preferAsyncSnapshotForSend` | boolean | `true` | Use async snapshot when auto-sending |\n| `includeOnInit` | boolean | `true` | Send initial snapshot during `init()` |\n\n---\n\n## API Reference\n\n### Snapshot Methods\n\n- `getSnapshot(extra?, config?)`\n- `getSnapshotAsync(extra?, config?)`\n\n### Networking\n\n- `sendData(url, extra?, options?)`\n- `setupRealtime(url, extra?, config?)`\n- `stopRealtime()`\n\n### Lifecycle\n\n- `init(config?)`\n- `logAll(extra?, config?)`\n\n### Low-level Detectors\n\n- `detectBrowser()`\n- `detectOS()`\n- `detectJSFeatures()`\n- `detectHardware()`\n- `detectLocale()`\n- `detectMediaDevices()`\n- `detectStorageEstimate()`\n\n---\n\n## License\n\n© 2025 **OpenDN Foundation**  \nReleased under the **MIT License**.\n",
+  "readmeFilename": "README.md",
+  "_rev": "1-a27656585a64247fa5572e41da9d5d85"
+    }
