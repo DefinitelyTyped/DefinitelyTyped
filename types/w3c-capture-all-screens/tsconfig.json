@@ -1,0 +1,25 @@
+{
+    "compilerOptions": {
+        "module": "node16",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "w3c-capture-all-screens": [
+                "./index.d.ts"
+            ]
+        }
+    },
+    "files": [
+        "index.d.ts",
+        "w3c-capture-all-screens-tests.ts"
+    ]
+}
