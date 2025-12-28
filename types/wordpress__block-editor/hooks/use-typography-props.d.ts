@@ -7,7 +7,7 @@ import { GlobalStylesSettings } from "@wordpress/global-styles-engine";
  *
  * @param attributes              Block attributes.
  * @param fluidTypographySettings If boolean, whether the function should try to convert font sizes to fluid values,
- *                                                 otherwise an object containing theme settings.
+ *                                                 otherwise an object containing theme (typography) settings.
  *
  * @return Typography block support derived CSS classes & styles.
  */
