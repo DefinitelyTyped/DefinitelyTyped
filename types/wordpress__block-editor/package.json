@@ -11,6 +11,7 @@
         "@wordpress/components": "^29.12.0",
         "@wordpress/data": "^10.26.0",
         "@wordpress/element": "^6.26.0",
+        "@wordpress/global-styles-engine": "^1.4.0",
         "@wordpress/keycodes": "^4.26.0",
         "react-autosize-textarea": "^7.1.0"
     },
