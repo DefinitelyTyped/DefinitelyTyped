@@ -219,6 +219,7 @@ be.withFontSizes("fontSize")(() => <h1>Hello World</h1>);
 //
 // heading-level-dropdown
 //
+<be.HeadingLevelDropdown value={0} />;
 <be.HeadingLevelDropdown value={5} />;
 <be.HeadingLevelDropdown value={5} options={[4]} />;
 <be.HeadingLevelDropdown value={5} options={[4]} onChange={v => console.log(v)} />;
