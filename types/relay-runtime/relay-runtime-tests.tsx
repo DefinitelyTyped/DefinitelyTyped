@@ -28,6 +28,7 @@ import {
     readFragment,
     readInlineData,
     RecordProxy,
+    RelayFeatureFlags,
     RecordSource,
     RecordSourceSelectorProxy,
     requestSubscription,
@@ -1133,8 +1134,6 @@ export function myAnimal(): IdOf<"Animal", AnimalTypenames> {
 // ~~~~~~~~~~~~~~~~~~
 // RelayFeatureFlags
 // ~~~~~~~~~~~~~~~~~~
-
-import { RelayFeatureFlags } from "relay-runtime";
 
 // Test all existing flags
 // $ExpectType boolean
