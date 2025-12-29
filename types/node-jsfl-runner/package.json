@@ -11,10 +11,5 @@
     "devDependencies": {
         "@types/node-jsfl-runner": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Michael Randolph",
-            "githubUsername": "mrand01"
-        }
-    ]
+    "owners": []
 }
