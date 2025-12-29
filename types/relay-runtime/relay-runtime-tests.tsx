@@ -28,9 +28,9 @@ import {
     readFragment,
     readInlineData,
     RecordProxy,
-    RelayFeatureFlags,
     RecordSource,
     RecordSourceSelectorProxy,
+    RelayFeatureFlags,
     requestSubscription,
     Result,
     ROOT_ID,
@@ -147,19 +147,19 @@ const environment = new Environment({
         {
             handle(field, record, argValues) {
                 if (
-                    record != null &&
-                    record.getType() === ROOT_TYPE &&
-                    field.name === "user" &&
-                    argValues.hasOwnProperty("id")
+                    record != null
+                    && record.getType() === ROOT_TYPE
+                    && field.name === "user"
+                    && argValues.hasOwnProperty("id")
                 ) {
                     // If field is user(id: $id), look up the record by the value of $id
                     return argValues.id;
                 }
                 if (
-                    record != null &&
-                    record.getType() === ROOT_TYPE &&
-                    field.name === "story" &&
-                    argValues.hasOwnProperty("story_id")
+                    record != null
+                    && record.getType() === ROOT_TYPE
+                    && field.name === "story"
+                    && argValues.hasOwnProperty("story_id")
                 ) {
                     // If field is story(story_id: $story_id), look up the record by the
                     // value of $story_id.
@@ -291,7 +291,7 @@ function storeUpdater(store: RecordSourceSelectorProxy, dataRef: UserFragment_up
                 name
             }
         `,
-        dataRef
+        dataRef,
     );
     updatableFragment.name = "NewName";
 
@@ -303,7 +303,7 @@ function storeUpdater(store: RecordSourceSelectorProxy, dataRef: UserFragment_up
                 }
             }
         `,
-        {}
+        {},
     );
     updatableQuery.userName = "NewName";
 }
@@ -431,7 +431,7 @@ query FooQuery {
 */
 
 /* tslint:disable:only-arrow-functions no-var-keyword prefer-const */
-const node: ConcreteRequest = (function () {
+const node: ConcreteRequest = (function() {
     var v0 = [
         {
             kind: "ScalarField",
@@ -461,13 +461,13 @@ const node: ConcreteRequest = (function () {
             type: "Query",
             metadata: null,
             argumentDefinitions: [],
-            selections: v0 /*: any*/,
+            selections: v0, /*: any*/
         },
         operation: {
             kind: "Operation",
             name: "FooQuery",
             argumentDefinitions: [],
-            selections: v0 /*: any*/,
+            selections: v0, /*: any*/
         },
         params: {
             operationKind: "query",
@@ -617,7 +617,7 @@ function readData(dataRef: Module_data$key) {
                 id
             }
         `,
-        dataRef
+        dataRef,
     );
 }
 
@@ -633,7 +633,7 @@ function readNullableData(dataRef: Module_data$key) {
                 id
             }
         `,
-        dataRef
+        dataRef,
     );
 }
 
@@ -682,12 +682,12 @@ __internal.fetchQueryDeduped(environment, operation.request.identifier, () => en
 function multiActors() {
     const environment = new multiActorEnvironment.MultiActorEnvironment({
         createNetworkForActor(
-            id // $ExpectType string
+            id, // $ExpectType string
         ) {
             return network;
         },
         createStoreForActor(
-            id // $ExpectType string
+            id, // $ExpectType string
         ) {
             return store;
         },
@@ -735,7 +735,7 @@ function NonNullableFragmentResolver(userKey: UserComponent_user$key) {
                 }
             }
         `,
-        userKey
+        userKey,
     );
 
     return `${data.name}, ${data.profile_picture.uri}`;
@@ -752,7 +752,7 @@ function NullableFragmentResolver(userKey: UserComponent_user$key | null) {
                 }
             }
         `,
-        userKey
+        userKey,
     );
 }
 
@@ -781,7 +781,7 @@ function NonNullableArrayFragmentResolver(usersKey: UserComponent_users$key) {
                 }
             }
         `,
-        usersKey
+        usersKey,
     );
 
     return data.map((thing) => `${thing.id}: ${thing.name}, ${thing.profile_picture}`);
@@ -797,7 +797,7 @@ function NullableArrayFragmentResolver(usersKey: UserComponent_users$key | null)
                 }
             }
         `,
-        usersKey
+        usersKey,
     );
 
     return data?.map((thing) => `${thing.id}: ${thing.name}, ${thing.profile_picture}`);
@@ -813,7 +813,7 @@ function ArrayOfNullableFragmentResolver(usersKey: ReadonlyArray<UserComponent_u
                 }
             }
         `,
-        usersKey
+        usersKey,
     );
 
     return data?.map((thing) => `${thing.id}: ${thing.name}, ${thing.profile_picture}`);
@@ -830,7 +830,7 @@ fetchQuery(
     {
         networkCacheConfig: { force: true, poll: 1234 },
         fetchPolicy: "network-only",
-    }
+    },
 );
 
 // ~~~~~~~~~~~~~~~~~~~~~
@@ -888,7 +888,7 @@ __internal.withProvidedVariables(
                 return "value";
             },
         },
-    }
+    },
 );
 
 __internal.withProvidedVariables.tests_only_resetDebugCache?.();
@@ -950,9 +950,9 @@ const refetchMetadata: {
     fragmentRefPathInResponse: readonly (string | number)[];
     identifierInfo:
         | {
-              identifierField: string;
-              identifierQueryVariableName: string;
-          }
+            identifierField: string;
+            identifierQueryVariableName: string;
+        }
         | null
         | undefined;
     refetchableRequest: ConcreteRequest;
@@ -961,9 +961,9 @@ const refetchMetadata: {
         fragmentPathInResult: string[];
         identifierInfo?:
             | {
-                  identifierField: string;
-                  identifierQueryVariableName: string;
-              }
+                identifierField: string;
+                identifierQueryVariableName: string;
+            }
             | null
             | undefined;
     };
@@ -987,7 +987,7 @@ async function waitForFragmentDataTest(userKey: UserComponent_user$key) {
                 }
             }
         `,
-        userKey
+        userKey,
     );
 }
 
@@ -1006,7 +1006,7 @@ function observeFragmentTest(userKey: UserComponent_user$key) {
                 }
             }
         `,
-        userKey
+        userKey,
     ).subscribe({
         next: (result) => {
             switch (result.state) {
@@ -1054,7 +1054,7 @@ function observeQueryTest() {
                 }
             }
         `,
-        { id: "12345" }
+        { id: "12345" },
     ).subscribe({
         next: (result) => {
             switch (result.state) {
@@ -1114,7 +1114,7 @@ export const resolverModule = resolverDataInjector(
     MyResolverType__id_graphql,
     myResolverTypeRelayModelInstanceResolver,
     "id",
-    true
+    true,
 );
 
 // ~~~~~~~~~~~~~~~~~~
