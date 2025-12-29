@@ -1172,18 +1172,12 @@ const typenamePrefixedDataId = RelayFeatureFlags.ENABLE_TYPENAME_PREFIXED_DATA_I
 // $ExpectType boolean
 const checkAllFragments = RelayFeatureFlags.CHECK_ALL_FRAGMENTS_FOR_MISSING_CLIENT_EDGES;
 
-// $ExpectType boolean
-const filterOutRelayResolverRecords = RelayFeatureFlags.FILTER_OUT_RELAY_RESOLVER_RECORDS;
-
-// $ExpectType boolean
-const optimizeNotify = RelayFeatureFlags.OPTIMIZE_NOTIFY;
-
-// $ExpectType boolean
-const readerFragmentsLogging = RelayFeatureFlags.ENABLE_READER_FRAGMENTS_LOGGING;
-
 // Test that removed flags no longer exist (these should cause type errors)
 // The following flags were removed as they don't exist in relay-runtime v20.1.1:
 // - ENABLE_LOAD_QUERY_REQUEST_DEDUPING
 // - ENABLE_FIELD_ERROR_HANDLING
 // - ENABLE_FIELD_ERROR_HANDLING_THROW_BY_DEFAULT
 // - ENABLE_FIELD_ERROR_HANDLING_CATCH_DIRECTIVE
+// - FILTER_OUT_RELAY_RESOLVER_RECORDS
+// - OPTIMIZE_NOTIFY
+// - ENABLE_READER_FRAGMENTS_LOGGING

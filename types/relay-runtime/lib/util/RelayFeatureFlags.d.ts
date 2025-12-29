@@ -7,7 +7,7 @@ export interface FeatureFlags {
     ENABLE_FRIENDLY_QUERY_NAME_GQL_URL: boolean;
     ENABLE_DO_NOT_WRAP_LIVE_QUERY: boolean;
     ENABLE_NOTIFY_SUBSCRIPTION: boolean;
-    BATCH_ASYNC_MODULE_UPDATES_FN: null | undefined | ((arg: () => void) => Disposable);
+    BATCH_ASYNC_MODULE_UPDATES_FN: null | undefined | ((callback: () => void) => Disposable);
     ENABLE_CONTAINERS_SUBSCRIBE_ON_COMMIT: boolean;
     MAX_DATA_ID_LENGTH: number | null | undefined;
     STRING_INTERN_LEVEL: number;
@@ -27,9 +27,6 @@ export interface FeatureFlags {
     DISALLOW_NESTED_UPDATES: boolean;
     ENABLE_TYPENAME_PREFIXED_DATA_ID: boolean;
     CHECK_ALL_FRAGMENTS_FOR_MISSING_CLIENT_EDGES: boolean;
-    FILTER_OUT_RELAY_RESOLVER_RECORDS: boolean;
-    OPTIMIZE_NOTIFY: boolean;
-    ENABLE_READER_FRAGMENTS_LOGGING: boolean;
 }
 
 export const RelayFeatureFlags: FeatureFlags;
