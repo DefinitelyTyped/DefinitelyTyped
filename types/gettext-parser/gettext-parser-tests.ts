@@ -1,4 +1,5 @@
-import { mo, po } from "gettext-parser";
+import { type GetTextTranslation, type GetTextTranslations, mo, po } from "gettext-parser";
+import { Buffer } from "node:buffer";
 import { createReadStream } from "node:fs";
 
 let parsed = po.parse("foo", { defaultCharset: "utf-8", validation: true });
@@ -15,12 +16,14 @@ compiled = po.compile(parsed, { escapeCharacters: false });
 compiled = po.compile(parsed, { sort: true });
 compiled = po.compile(parsed, { sort: false });
 compiled = po.compile(parsed, { eol: "\n" });
-compiled = po.compile(parsed, { sort: (a, b) => a.msgid.length > b.msgid.length ? 1 : -1 });
+compiled = po.compile(parsed, {
+    sort: (a: GetTextTranslation, b: GetTextTranslation) => a.msgid.length > b.msgid.length ? 1 : -1,
+});
 
 const poParseStream = po.createParseStream();
 const input = createReadStream("bar");
 input.pipe(poParseStream);
-poParseStream.on("data", (data) => {
+poParseStream.on("data", (data: GetTextTranslations) => {
     console.log(data.translations[""]);
 });
 
