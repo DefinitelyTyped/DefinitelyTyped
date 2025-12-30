@@ -2305,7 +2305,7 @@ declare global {
             /** Gets the headers of a plugin, such as version, author, and description */
             getHeaders(name: string): ScriptHeaders;
             /** Gets the exported values of a plugin, if it has been enabled */
-            get(name: string): any;
+            get<T extends keyof Gimloader.Plugins>(name: T): Gimloader.Plugins[T];
             /**
              * @deprecated Use {@link get} instead
              * @hidden
@@ -2342,7 +2342,7 @@ declare global {
             /** Gets the headers of a library, such as version, author, and description */
             getHeaders(name: string): ScriptHeaders;
             /** Gets the exported values of a library */
-            get(name: string): any;
+            get<T extends keyof Gimloader.Libraries>(name: T): Gimloader.Libraries[T];
         }
 
         class ScopedCommandsApi {
@@ -2415,6 +2415,23 @@ declare global {
             createShared(id: string, value: any): string;
             /** Removes the shared value with a certain id created by {@link createShared} */
             removeSharedById(id: string): void;
+            /**
+             * Runs code in the scope of modules when they are loaded, or when runInScope is called with them already loaded.
+             * Returning true from the callback will remove the hook.
+             */
+            runInScope(prefix: string | boolean, callback: RunInScopeCallback): () => void;
+            /** A utility function that exposes a variable based on regex to get its name. */
+            exposeVar(prefix: string | boolean, exposer: Exposer): () => void;
+        }
+
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        type RunInScopeCallback = (code: string, run: (evalCode: string) => void) => true | void;
+
+        interface Exposer {
+            check?: string;
+            find: RegExp;
+            callback: (val: any) => void;
+            multiple?: boolean;
         }
 
         class RewriterApi {
@@ -2425,10 +2442,10 @@ declare global {
              * @param pluginName The name of the plugin creating the hook.
              * @param prefix Limits the hook to only running on scripts beginning with this prefix.
              * Passing `true` will only run on the index script, and passing `false` will run on all scripts.
-             * @param callback The function that will modify the code. Should return the modified code. Cannot have side effects.
+             * @param callback A function that will modify the code, which should return the modified code.
              */
-            addParseHook(pluginName: string, prefix: string | boolean, callback: (code: string) => string): () => void;
-            /** Removes all hooks created by a certain plugin */
+            addParseHook(pluginName: string, prefix: string | boolean, modifier: (code: string) => string): () => void;
+            /** Removes all parse hooks created by a certain plugin */
             removeParseHooks(pluginName: string): void;
             /**
              * Creates a shared value that can be accessed from any script.
@@ -2442,6 +2459,15 @@ declare global {
             removeShared(pluginName: string): void;
             /** Removes the shared value with a certain id created by {@link createShared} */
             removeSharedById(pluginName: string, id: string): void;
+            /**
+             * Runs code in the scope of modules when they are loaded, or when runInScope is called with them already loaded.
+             * Returning true from the callback will remove the hook.
+             */
+            runInScope(pluginName: string, prefix: string | boolean, callback: RunInScopeCallback): () => void;
+            /** Stops all hooks created by {@link runInScope} */
+            removeRunInScope(pluginName: string): void;
+            /** A utility function that exposes a variable based on regex to get its name. */
+            exposeVar(pluginName: string, prefix: string | boolean, exposer: Exposer): () => void;
         }
 
         class ScopedPatcherApi {
@@ -2836,11 +2862,11 @@ declare global {
             /** Methods for getting info on libraries */
             static libs: Readonly<LibsApi>;
             /** Gets the exported values of a library */
-            static lib: (name: string) => any;
+            static lib: <T extends keyof Gimloader.Libraries>(name: T) => Gimloader.Libraries[T];
             /** Methods for getting info on plugins */
             static plugins: Readonly<PluginsApi>;
             /** Gets the exported values of a plugin, if it has been enabled */
-            static plugin: (name: string) => any;
+            static plugin: <T extends keyof Gimloader.Plugins>(name: T) => Gimloader.Plugins[T];
             /** Gimkit's internal react instance */
             static get React(): typeof import("react");
             /** Gimkit's internal reactDom instance */
@@ -2909,11 +2935,11 @@ declare global {
             /** Methods for getting info on libraries */
             libs: Readonly<LibsApi>;
             /** Gets the exported values of a library */
-            lib: (name: string) => any;
+            lib: <T extends keyof Gimloader.Libraries>(name: T) => Gimloader.Libraries[T];
             /** Methods for getting info on plugins */
             plugins: Readonly<PluginsApi>;
             /** Gets the exported values of a plugin, if it has been enabled */
-            plugin: (name: string) => any;
+            plugin: <T extends keyof Gimloader.Plugins>(name: T) => Gimloader.Plugins[T];
             /** Gimkit's internal react instance */
             get React(): typeof import("react");
             /** Gimkit's internal reactDom instance */
@@ -2934,6 +2960,14 @@ declare global {
              * This function is not available for libraries
              */
             openSettingsMenu: (callback: () => void) => void;
+        }
+
+        interface Plugins {
+            [name: string]: any;
+        }
+
+        interface Libraries {
+            [name: string]: any;
         }
     }
     const api: Gimloader.Api;
