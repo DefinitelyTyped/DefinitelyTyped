@@ -1,9 +1,11 @@
 /**
  * Block Creation Components
  */
+export { default as AlignmentControl } from "./alignment-control";
 export { default as AlignmentToolbar } from "./alignment-toolbar";
 export { default as Autocomplete } from "./autocomplete";
 export { default as BlockAlignmentToolbar } from "./block-alignment-toolbar";
+export { default as BlockContext } from "./block-context";
 export { default as BlockControls } from "./block-controls";
 export { default as BlockEdit } from "./block-edit";
 export { default as BlockFormatControls } from "./block-format-controls";
