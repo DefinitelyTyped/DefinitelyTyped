@@ -10,7 +10,7 @@ declare namespace BlockContextProvider {
         /**
          * Context value to merge with current value.
          */
-        value?: Record<string, any>|undefined;
+        value?: Record<string, any> | undefined;
         /**
          * Component children.
          */
@@ -19,6 +19,6 @@ declare namespace BlockContextProvider {
 }
 declare const BlockContextProvider: {
     (props: BlockContextProvider.Props): JSX.Element;
-}
+};
 
 export default BlockContextProvider;
