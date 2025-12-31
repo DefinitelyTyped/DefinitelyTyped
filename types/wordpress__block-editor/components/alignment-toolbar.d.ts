@@ -12,7 +12,7 @@ declare namespace AlignmentToolbar {
             | undefined;
         children?: never | undefined;
         value?: string | undefined;
-        onChange?(newValue: string | undefined): void;
+        onChange(newValue: string | undefined): void;
         label?: string | undefined;
         description?: string | undefined;
         isCollapsed?: boolean | undefined;
