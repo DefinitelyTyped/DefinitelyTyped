@@ -26,6 +26,17 @@ const STYLES = [{ css: ".foo { color: red; }" }, { css: ".bar { color: blue; }",
 />;
 
 //
+// alignment-control
+//
+<be.AlignmentControl value={undefined} onChange={newValue => newValue && console.log(newValue.toUpperCase())} />;
+<be.AlignmentControl value="left" onChange={newValue => newValue && console.log(newValue.toUpperCase())} />;
+<be.AlignmentControl
+    alignmentControls={[{ align: "center", icon: "carrot", title: "Center" }]}
+    value="left"
+    onChange={newValue => newValue && console.log(newValue.toUpperCase())}
+/>;
+
+//
 // block-alignment-toolbar
 //
 <be.BlockAlignmentToolbar value={undefined} onChange={newValue => newValue && console.log(newValue.toUpperCase())} />;
@@ -86,6 +97,13 @@ const STYLES = [{ css: ".foo { color: red; }" }, { css: ".bar { color: blue; }",
 >
     Hello World
 </be.BlockControls>;
+
+//
+// BlockContextProvider
+//
+<be.BlockContextProvider value={{}}>
+    <div />
+</be.BlockContextProvider>;
 
 //
 // BlockEditorProvider

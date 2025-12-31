@@ -1,7 +1,7 @@
 import { IconType } from "@wordpress/components";
 import { ComponentType } from "react";
 
-declare namespace AlignmentToolbar {
+declare namespace AlignmentControl {
     interface Props {
         alignmentControls?:
             | Array<{
@@ -19,6 +19,6 @@ declare namespace AlignmentToolbar {
     }
 }
 
-declare const AlignmentToolbar: ComponentType<AlignmentToolbar.Props>;
+declare const AlignmentControl: ComponentType<AlignmentControl.Props>;
 
-export default AlignmentToolbar;
+export default AlignmentControl;
