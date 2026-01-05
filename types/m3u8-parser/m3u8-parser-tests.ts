@@ -2,10 +2,49 @@ import { Manifest, Parser } from "m3u8-parser";
 
 const manifest = "#EXTM3U\n#EXT-X-VERSION:3";
 
-var parser = new Parser();
+const parser = new Parser();
+
+// $ExpectType void
+parser.on("info", (args) => {
+    args.message; // $ExpectType string
+});
+// $ExpectType void
+parser.on("info", (args) => {
+    args.message; // $ExpectType string
+});
+// $ExpectType void
+parser.on("info", (args) => {
+    args.message; // $ExpectType string
+});
+// $ExpectType boolean
+parser.off("info", (args) => {
+    args.message; // $ExpectType string
+});
+// $ExpectType boolean
+parser.off("info", (args) => {
+    args.message; // $ExpectType string
+});
+// $ExpectType boolean
+parser.off("info", (args) => {
+    args.message; // $ExpectType string
+});
+// $ExpectType void
+parser.trigger("info", (args) => {
+    args.message; // $ExpectType string
+});
+// $ExpectType void
+parser.trigger("info", (args) => {
+    args.message; // $ExpectType string
+});
+// $ExpectType void
+parser.trigger("info", (args) => {
+    args.message; // $ExpectType string
+});
 
 parser.push(manifest);
 parser.end();
+
+parser.dispose();
 
 const parsedManifest = parser.manifest.playlists?.[0].contentProtection?.["com.apple.fps.1_0"]?.attributes.resolution;
 
