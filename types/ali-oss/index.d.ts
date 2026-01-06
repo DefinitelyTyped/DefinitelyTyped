@@ -27,6 +27,8 @@ declare namespace OSS {
         refreshSTSTokenInterval?: number;
         /** used by auto set stsToken、accessKeyId、accessKeySecret when sts info expires. return value must be object contains stsToken、accessKeyId、accessKeySecret */
         refreshSTSToken?: () => Promise<{ accessKeyId: string; accessKeySecret: string; stsToken: string }>;
+        /** Use V4 signature. Default is false. */
+        authorizationV4?: boolean | undefined;
     }
 
     /**
@@ -1082,6 +1084,20 @@ declare class OSS {
      * Create a signature url for download or upload object. When you put object with signatureUrl ,you need to pass Content-Type.Please look at the example.
      */
     signatureUrl(name: string, options?: OSS.SignatureUrlOptions): string;
+
+    /**
+     * Generate a signed URL for V4 of an OSS resource and share the URL to allow authorized third-party users to access the resource.
+     */
+    signatureUrlV4(
+        method: HTTPMethods,
+        expires: number,
+        request?: {
+            headers?: object | undefined;
+            queries?: object | undefined;
+        },
+        objectName?: string,
+        additionalHeaders?: string[],
+    ): Promise<string>;
 
     /**
      * Basically the same as signatureUrl, if refreshSTSToken is configured asyncSignatureUrl will refresh stsToken
