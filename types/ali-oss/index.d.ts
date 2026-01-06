@@ -700,11 +700,11 @@ declare namespace OSS {
         signatureUrlV4(
             method: HTTPMethods,
             expires: number,
-            request?: {
+            request: {
                 headers?: object | undefined;
                 queries?: object | undefined;
-            },
-            objectName?: string,
+            } | undefined,
+            objectName: string,
             additionalHeaders?: string[],
         ): Promise<string>;
 
@@ -1089,13 +1089,13 @@ declare class OSS {
      * Generate a signed URL for V4 of an OSS resource and share the URL to allow authorized third-party users to access the resource.
      */
     signatureUrlV4(
-        method: HTTPMethods,
+        method: OSS.HTTPMethods,
         expires: number,
-        request?: {
+        request: {
             headers?: object | undefined;
             queries?: object | undefined;
-        },
-        objectName?: string,
+        } | undefined,
+        objectName: string,
         additionalHeaders?: string[],
     ): Promise<string>;
 
