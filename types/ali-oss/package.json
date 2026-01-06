@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/ali-oss",
-    "version": "6.23.0",
+    "version": "6.23.9999",
     "projects": [
         "https://github.com/ali-sdk/ali-oss"
     ],
