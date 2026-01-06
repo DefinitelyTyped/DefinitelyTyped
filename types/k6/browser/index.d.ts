@@ -5738,20 +5738,20 @@ export interface Page {
         optionsOrPredicate?:
             | ((msg: ConsoleMessage) => boolean)
             | {
-                  /**
-                   * Predicate function that returns `true` when the expected event is received.
-                   */
-                  predicate?: (msg: ConsoleMessage) => boolean;
-                  /**
-                   * Maximum time to wait in milliseconds. Defaults to `30` seconds.
-                   * The default value can be changed via the
-                   * browserContext.setDefaultTimeout(timeout) or
-                   * page.setDefaultTimeout(timeout) methods.
-                   *
-                   * Setting the value to `0` will disable the timeout.
-                   */
-                  timeout?: number;
-              },
+                /**
+                 * Predicate function that returns `true` when the expected event is received.
+                 */
+                predicate?: (msg: ConsoleMessage) => boolean;
+                /**
+                 * Maximum time to wait in milliseconds. Defaults to `30` seconds.
+                 * The default value can be changed via the
+                 * browserContext.setDefaultTimeout(timeout) or
+                 * page.setDefaultTimeout(timeout) methods.
+                 *
+                 * Setting the value to `0` will disable the timeout.
+                 */
+                timeout?: number;
+            },
     ): Promise<ConsoleMessage>;
 
     /**
@@ -5776,20 +5776,20 @@ export interface Page {
         optionsOrPredicate?:
             | ((req: Request) => boolean)
             | {
-                  /**
-                   * Predicate function that returns `true` when the expected event is received.
-                   */
-                  predicate?: (req: Request) => boolean;
-                  /**
-                   * Maximum time to wait in milliseconds. Defaults to `30` seconds.
-                   * The default value can be changed via the
-                   * browserContext.setDefaultTimeout(timeout) or
-                   * page.setDefaultTimeout(timeout) methods.
-                   *
-                   * Setting the value to `0` will disable the timeout.
-                   */
-                  timeout?: number;
-              },
+                /**
+                 * Predicate function that returns `true` when the expected event is received.
+                 */
+                predicate?: (req: Request) => boolean;
+                /**
+                 * Maximum time to wait in milliseconds. Defaults to `30` seconds.
+                 * The default value can be changed via the
+                 * browserContext.setDefaultTimeout(timeout) or
+                 * page.setDefaultTimeout(timeout) methods.
+                 *
+                 * Setting the value to `0` will disable the timeout.
+                 */
+                timeout?: number;
+            },
     ): Promise<Request>;
 
     /**
@@ -5814,20 +5814,20 @@ export interface Page {
         optionsOrPredicate?:
             | ((res: Response) => boolean)
             | {
-                  /**
-                   * Predicate function that returns `true` when the expected event is received.
-                   */
-                  predicate?: (res: Response) => boolean;
-                  /**
-                   * Maximum time to wait in milliseconds. Defaults to `30` seconds.
-                   * The default value can be changed via the
-                   * browserContext.setDefaultTimeout(timeout) or
-                   * page.setDefaultTimeout(timeout) methods.
-                   *
-                   * Setting the value to `0` will disable the timeout.
-                   */
-                  timeout?: number;
-              },
+                /**
+                 * Predicate function that returns `true` when the expected event is received.
+                 */
+                predicate?: (res: Response) => boolean;
+                /**
+                 * Maximum time to wait in milliseconds. Defaults to `30` seconds.
+                 * The default value can be changed via the
+                 * browserContext.setDefaultTimeout(timeout) or
+                 * page.setDefaultTimeout(timeout) methods.
+                 *
+                 * Setting the value to `0` will disable the timeout.
+                 */
+                timeout?: number;
+            },
     ): Promise<Response>;
 
     /**
