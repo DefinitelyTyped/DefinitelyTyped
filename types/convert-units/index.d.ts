@@ -63,7 +63,7 @@ declare namespace convert {
     type Temperature = "C" | "F" | "K" | "R"; // Temperature
     type Time = "ns" | "mu" | "ms" | "s" | "min" | "h" | "d" | "week" | "month" | "year"; // Time
     type Frequency = "Hz" | "mHz" | "kHz" | "MHz" | "GHz" | "THz" | "rpm" | "deg/s" | "rad/s"; // Frequency
-    type Speed = "m/s" | "km/h" | "m/h" | "knot" | "ft/s"; // Speed
+    type Speed = "m/s" | "km/h" | "m/h" | 'mph' | "knot" | "ft/s" | 'ft/min' | 'in/h'; // Speed
     type Pace = "s/m" | "min/km" | "s/ft" | "min/mi"; // Pace
     type Pressure = "Pa" | "hPa" | "kPa" | "MPa" | "bar" | "torr" | "psi" | "ksi"; // Pressure
     type Digital = "b" | "Kb" | "Mb" | "Gb" | "Tb" | "B" | "KB" | "MB" | "GB" | "TB"; // Digital
