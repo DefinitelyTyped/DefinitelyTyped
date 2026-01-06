@@ -17,40 +17,40 @@ client.copy("newfile.png", "sourcefile.png", "sourceBucket");
 client.copy("newfile.png", "sourcefile.png", "sourceBucket", { timeout: 1000 });
 
 // $ExpectType Promise<string>
-client.signatureUrlV4('GET', 60, undefined, 'your object name');
+client.signatureUrlV4("GET", 60, undefined, "your object name");
 
 // $ExpectType Promise<string>
 client.signatureUrlV4(
-    'GET',
+    "GET",
     60,
     {
         headers: {
-            'Cache-Control': 'no-cache'
+            "Cache-Control": "no-cache",
         },
         queries: {
-            versionId: 'version ID of your object'
-        }
+            versionId: "version ID of your object",
+        },
     },
-    'your object name',
-    ['Cache-Control']
+    "your object name",
+    ["Cache-Control"],
 );
 
 // $ExpectType Promise<string>
-client.signatureUrlV4('PUT', 60, undefined, 'your object name');
+client.signatureUrlV4("PUT", 60, undefined, "your object name");
 
 // $ExpectType Promise<string>
 client.signatureUrlV4(
-    'PUT',
+    "PUT",
     60,
     {
         headers: {
-            'Content-Type': 'text/plain',
-            'Content-MD5': 'xxx',
-            'Content-Length': 1
-        }
+            "Content-Type": "text/plain",
+            "Content-MD5": "xxx",
+            "Content-Length": 1,
+        },
     },
-    'your object name',
-    ['Content-Length']
+    "your object name",
+    ["Content-Length"],
 );
 
 const clusterOptions: OSS.ClusterOptions = {
