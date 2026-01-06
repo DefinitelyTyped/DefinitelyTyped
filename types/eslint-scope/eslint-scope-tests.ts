@@ -58,6 +58,10 @@ if (scope) {
     scope.functionExpressionScope;
     // $ExpectType Reference[]
     scope.implicit.left;
+    // $ExpectType Map<string, Variable<Reference>>
+    scope.implicit.set;
+    // $ExpectType Variable<Reference>[]
+    scope.implicit.variables;
     // $ExpectType  Map<string, Variable>
     scope.set;
     // $ExpectType Reference[]
@@ -196,7 +200,7 @@ scopeInstance.childScopes;
 scopeInstance.block;
 // $ExpectType boolean
 scopeInstance.functionExpressionScope;
-// $ExpectType { left: Reference[]; set: Map<string, Variable<Reference>>; }
+// $ExpectType { left: Reference[]; set: Map<string, Variable<Reference>>; variables: Variable<Reference>[]; }
 scopeInstance.implicit;
 // $ExpectType Map<string, Variable>
 scopeInstance.set;
