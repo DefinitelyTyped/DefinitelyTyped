@@ -24,7 +24,7 @@ export interface ServerSideRenderProps {
     block: string; // Required name of the block to be rendered on the server
     EmptyResponsePlaceholder?: React.ComponentType<EmptyResponsePlaceholderProps>; // Optional custom component for empty response state
     ErrorResponsePlaceholder?: React.ComponentType<ErrorResponsePlaceholderProps>; // Optional custom component for error state
-    httpMethod?: 'GET' | 'POST'; // Optional HTTP method for the server request, defaults to 'GET' if omitted
+    httpMethod?: "GET" | "POST"; // Optional HTTP method for the server request, defaults to 'GET' if omitted
     LoadingResponsePlaceholder?: React.ComponentType<LoadingResponsePlaceholderProps>; // Optional custom component for loading state
     skipBlockSupportAttributes?: boolean; // Optional flag to exclude block support attributes from processing
     urlQueryArgs?: Record<string, any>; // Optional key-value pairs to append as query parameters in the URL
@@ -32,17 +32,17 @@ export interface ServerSideRenderProps {
 
 // Function to filter out block support attributes from an attributes object
 export function removeBlockSupportAttributes(
-    attributes: Record<string, any> // Input attributes object to process
+    attributes: Record<string, any>, // Input attributes object to process
 ): Record<string, any>; // Returns a new object with block support attributes removed
 
 // Function to construct a server-side rendering path for a given block
 export function rendererPath(
     block: string, // The name of the block to render
     attributes?: null | Record<string, any>, // Optional attributes to include in the path generation
-    urlQueryArgs?: Record<string, any> // Optional query arguments to append to the path
+    urlQueryArgs?: Record<string, any>, // Optional query arguments to append to the path
 ): string; // Returns the constructed path as a string
 
 // React component that handles server-side rendering based on provided props
 export default function ServerSideRender(
-    props: ServerSideRenderProps // Configuration object for server-side rendering
+    props: ServerSideRenderProps, // Configuration object for server-side rendering
 ): React.JSX.Element; // Returns a JSX element representing the rendered block

@@ -1,11 +1,11 @@
 import * as React from "react";
 
 import ServerSideRender, {
-    rendererPath,
-    removeBlockSupportAttributes,
     EmptyResponsePlaceholderProps,
     ErrorResponsePlaceholderProps,
     LoadingResponsePlaceholderProps,
+    removeBlockSupportAttributes,
+    rendererPath,
 } from "@wordpress/server-side-render";
 
 <ServerSideRender block="core/archives" />;
