@@ -1,4 +1,3 @@
-import { NodeRepresentation, ShaderNodeObject } from "../tsl/TSLCore.js";
 import Node from "./Node.js";
 import NodeBuilder from "./NodeBuilder.js";
 
@@ -13,4 +12,4 @@ export default class AttributeNode extends Node {
 export const attribute: (
     name: string,
     nodeType?: string | null,
-) => ShaderNodeObject<AttributeNode>;
+) => AttributeNode;

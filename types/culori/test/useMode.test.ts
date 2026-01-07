@@ -1,4 +1,4 @@
-import { Color, modeP3, useMode } from "culori/fn";
+import { type Color, modeP3, useMode } from "culori/fn";
 
 declare const color: unknown;
 

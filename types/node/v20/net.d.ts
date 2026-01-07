@@ -13,6 +13,7 @@
  * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/net.js)
  */
 declare module "net" {
+    import { NonSharedBuffer } from "node:buffer";
     import * as stream from "node:stream";
     import { Abortable, EventEmitter } from "node:events";
     import * as dns from "node:dns";
@@ -31,7 +32,7 @@ declare module "net" {
         allowHalfOpen?: boolean | undefined;
         readable?: boolean | undefined;
         writable?: boolean | undefined;
-        signal?: AbortSignal;
+        signal?: AbortSignal | undefined;
     }
     interface OnReadOpts {
         buffer: Uint8Array | (() => Uint8Array);
@@ -112,8 +113,8 @@ declare module "net" {
          * @since v0.1.90
          * @param [encoding='utf8'] Only used when data is `string`.
          */
-        write(buffer: Uint8Array | string, cb?: (err?: Error) => void): boolean;
-        write(str: Uint8Array | string, encoding?: BufferEncoding, cb?: (err?: Error) => void): boolean;
+        write(buffer: Uint8Array | string, cb?: (err?: Error | null) => void): boolean;
+        write(str: Uint8Array | string, encoding?: BufferEncoding, cb?: (err?: Error | null) => void): boolean;
         /**
          * Initiate a connection on a given socket.
          *
@@ -327,25 +328,25 @@ declare module "net" {
          * the socket is destroyed (for example, if the client disconnected).
          * @since v0.5.10
          */
-        readonly remoteAddress?: string | undefined;
+        readonly remoteAddress: string | undefined;
         /**
          * The string representation of the remote IP family. `'IPv4'` or `'IPv6'`. Value may be `undefined` if
          * the socket is destroyed (for example, if the client disconnected).
          * @since v0.11.14
          */
-        readonly remoteFamily?: string | undefined;
+        readonly remoteFamily: string | undefined;
         /**
          * The numeric representation of the remote port. For example, `80` or `21`. Value may be `undefined` if
          * the socket is destroyed (for example, if the client disconnected).
          * @since v0.5.10
          */
-        readonly remotePort?: number | undefined;
+        readonly remotePort: number | undefined;
         /**
          * The socket timeout in milliseconds as set by `socket.setTimeout()`.
          * It is `undefined` if a timeout has not been set.
          * @since v10.7.0
          */
-        readonly timeout?: number | undefined;
+        readonly timeout?: number;
         /**
          * Half-closes the socket. i.e., it sends a FIN packet. It is possible the
          * server will still send some data.
@@ -380,13 +381,13 @@ declare module "net" {
         addListener(event: "connectionAttempt", listener: (ip: string, port: number, family: number) => void): this;
         addListener(
             event: "connectionAttemptFailed",
-            listener: (ip: string, port: number, family: number) => void,
+            listener: (ip: string, port: number, family: number, error: Error) => void,
         ): this;
         addListener(
             event: "connectionAttemptTimeout",
             listener: (ip: string, port: number, family: number) => void,
         ): this;
-        addListener(event: "data", listener: (data: Buffer) => void): this;
+        addListener(event: "data", listener: (data: NonSharedBuffer) => void): this;
         addListener(event: "drain", listener: () => void): this;
         addListener(event: "end", listener: () => void): this;
         addListener(event: "error", listener: (err: Error) => void): this;
@@ -400,9 +401,9 @@ declare module "net" {
         emit(event: "close", hadError: boolean): boolean;
         emit(event: "connect"): boolean;
         emit(event: "connectionAttempt", ip: string, port: number, family: number): boolean;
-        emit(event: "connectionAttemptFailed", ip: string, port: number, family: number): boolean;
+        emit(event: "connectionAttemptFailed", ip: string, port: number, family: number, error: Error): boolean;
         emit(event: "connectionAttemptTimeout", ip: string, port: number, family: number): boolean;
-        emit(event: "data", data: Buffer): boolean;
+        emit(event: "data", data: NonSharedBuffer): boolean;
         emit(event: "drain"): boolean;
         emit(event: "end"): boolean;
         emit(event: "error", err: Error): boolean;
@@ -413,9 +414,12 @@ declare module "net" {
         on(event: "close", listener: (hadError: boolean) => void): this;
         on(event: "connect", listener: () => void): this;
         on(event: "connectionAttempt", listener: (ip: string, port: number, family: number) => void): this;
-        on(event: "connectionAttemptFailed", listener: (ip: string, port: number, family: number) => void): this;
+        on(
+            event: "connectionAttemptFailed",
+            listener: (ip: string, port: number, family: number, error: Error) => void,
+        ): this;
         on(event: "connectionAttemptTimeout", listener: (ip: string, port: number, family: number) => void): this;
-        on(event: "data", listener: (data: Buffer) => void): this;
+        on(event: "data", listener: (data: NonSharedBuffer) => void): this;
         on(event: "drain", listener: () => void): this;
         on(event: "end", listener: () => void): this;
         on(event: "error", listener: (err: Error) => void): this;
@@ -428,10 +432,13 @@ declare module "net" {
         once(event: string, listener: (...args: any[]) => void): this;
         once(event: "close", listener: (hadError: boolean) => void): this;
         once(event: "connectionAttempt", listener: (ip: string, port: number, family: number) => void): this;
-        once(event: "connectionAttemptFailed", listener: (ip: string, port: number, family: number) => void): this;
+        once(
+            event: "connectionAttemptFailed",
+            listener: (ip: string, port: number, family: number, error: Error) => void,
+        ): this;
         once(event: "connectionAttemptTimeout", listener: (ip: string, port: number, family: number) => void): this;
         once(event: "connect", listener: () => void): this;
-        once(event: "data", listener: (data: Buffer) => void): this;
+        once(event: "data", listener: (data: NonSharedBuffer) => void): this;
         once(event: "drain", listener: () => void): this;
         once(event: "end", listener: () => void): this;
         once(event: "error", listener: (err: Error) => void): this;
@@ -447,13 +454,13 @@ declare module "net" {
         prependListener(event: "connectionAttempt", listener: (ip: string, port: number, family: number) => void): this;
         prependListener(
             event: "connectionAttemptFailed",
-            listener: (ip: string, port: number, family: number) => void,
+            listener: (ip: string, port: number, family: number, error: Error) => void,
         ): this;
         prependListener(
             event: "connectionAttemptTimeout",
             listener: (ip: string, port: number, family: number) => void,
         ): this;
-        prependListener(event: "data", listener: (data: Buffer) => void): this;
+        prependListener(event: "data", listener: (data: NonSharedBuffer) => void): this;
         prependListener(event: "drain", listener: () => void): this;
         prependListener(event: "end", listener: () => void): this;
         prependListener(event: "error", listener: (err: Error) => void): this;
@@ -472,13 +479,13 @@ declare module "net" {
         ): this;
         prependOnceListener(
             event: "connectionAttemptFailed",
-            listener: (ip: string, port: number, family: number) => void,
+            listener: (ip: string, port: number, family: number, error: Error) => void,
         ): this;
         prependOnceListener(
             event: "connectionAttemptTimeout",
             listener: (ip: string, port: number, family: number) => void,
         ): this;
-        prependOnceListener(event: "data", listener: (data: Buffer) => void): this;
+        prependOnceListener(event: "data", listener: (data: NonSharedBuffer) => void): this;
         prependOnceListener(event: "drain", listener: () => void): this;
         prependOnceListener(event: "end", listener: () => void): this;
         prependOnceListener(event: "error", listener: (err: Error) => void): this;
@@ -649,7 +656,7 @@ declare module "net" {
          * Callback should take two arguments `err` and `count`.
          * @since v0.9.7
          */
-        getConnections(cb: (error: Error | null, count: number) => void): void;
+        getConnections(cb: (error: Error | null, count: number) => void): this;
         /**
          * Opposite of `unref()`, calling `ref()` on a previously `unref`ed server will _not_ let the program exit if it's the only server left (the default behavior).
          * If the server is `ref`ed calling `ref()` again will have no effect.

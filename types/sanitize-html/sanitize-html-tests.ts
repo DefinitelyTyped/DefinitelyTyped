@@ -45,6 +45,8 @@ const options: IOptions = {
     allowedScriptDomains: ["test.com"],
     allowedScriptHostnames: ["test.com"],
     nonBooleanAttributes: ["href"],
+    onOpenTag: (name: string, attribs: Attributes) => {},
+    onCloseTag: (name: string, isImplied: boolean) => {},
 };
 
 sanitize.defaults.allowedAttributes; // $ExpectType Record<string, AllowedAttribute[]>

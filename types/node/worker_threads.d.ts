@@ -15,28 +15,31 @@
  *
  * ```js
  * import {
- *   Worker, isMainThread, parentPort, workerData,
+ *   Worker,
+ *   isMainThread,
+ *   parentPort,
+ *   workerData,
  * } from 'node:worker_threads';
- * import { parse } from 'some-js-parsing-library';
  *
- * if (isMainThread) {
- *   module.exports = function parseJSAsync(script) {
- *     return new Promise((resolve, reject) => {
- *       const worker = new Worker(__filename, {
- *         workerData: script,
- *       });
- *       worker.on('message', resolve);
- *       worker.on('error', reject);
- *       worker.on('exit', (code) => {
- *         if (code !== 0)
- *           reject(new Error(`Worker stopped with exit code ${code}`));
- *       });
- *     });
- *   };
- * } else {
+ * if (!isMainThread) {
+ *   const { parse } = await import('some-js-parsing-library');
  *   const script = workerData;
  *   parentPort.postMessage(parse(script));
  * }
+ *
+ * export default function parseJSAsync(script) {
+ *   return new Promise((resolve, reject) => {
+ *     const worker = new Worker(new URL(import.meta.url), {
+ *       workerData: script,
+ *     });
+ *     worker.on('message', resolve);
+ *     worker.on('error', reject);
+ *     worker.on('exit', (code) => {
+ *       if (code !== 0)
+ *         reject(new Error(`Worker stopped with exit code ${code}`));
+ *     });
+ *   });
+ * };
  * ```
  *
  * The above example spawns a Worker thread for each `parseJSAsync()` call. In
@@ -49,198 +52,35 @@
  *
  * Worker threads inherit non-process-specific options by default. Refer to `Worker constructor options` to know how to customize worker thread options,
  * specifically `argv` and `execArgv` options.
- * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/worker_threads.js)
+ * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/worker_threads.js)
  */
-declare module "worker_threads" {
-    import { Blob } from "node:buffer";
-    import { Context } from "node:vm";
-    import { EventEmitter } from "node:events";
-    import { EventLoopUtilityFunction } from "node:perf_hooks";
+declare module "node:worker_threads" {
+    import {
+        EventEmitter,
+        InternalEventEmitter,
+        InternalEventTargetEventProperties,
+        NodeEventTarget,
+    } from "node:events";
     import { FileHandle } from "node:fs/promises";
+    import { Performance } from "node:perf_hooks";
     import { Readable, Writable } from "node:stream";
+    import { ReadableStream, TransformStream, WritableStream } from "node:stream/web";
     import { URL } from "node:url";
-    import { X509Certificate } from "node:crypto";
+    import { CPUProfileHandle, HeapInfo, HeapProfileHandle } from "node:v8";
+    import { Context } from "node:vm";
+    import { MessageEvent } from "undici-types";
+    const isInternalThread: boolean;
     const isMainThread: boolean;
     const parentPort: null | MessagePort;
     const resourceLimits: ResourceLimits;
     const SHARE_ENV: unique symbol;
     const threadId: number;
+    const threadName: string | null;
     const workerData: any;
-    /**
-     * Instances of the `worker.MessageChannel` class represent an asynchronous,
-     * two-way communications channel.
-     * The `MessageChannel` has no methods of its own. `new MessageChannel()` yields an object with `port1` and `port2` properties, which refer to linked `MessagePort` instances.
-     *
-     * ```js
-     * import { MessageChannel } from 'node:worker_threads';
-     *
-     * const { port1, port2 } = new MessageChannel();
-     * port1.on('message', (message) => console.log('received', message));
-     * port2.postMessage({ foo: 'bar' });
-     * // Prints: received { foo: 'bar' } from the `port1.on('message')` listener
-     * ```
-     * @since v10.5.0
-     */
-    class MessageChannel {
-        readonly port1: MessagePort;
-        readonly port2: MessagePort;
-    }
-    interface WorkerPerformance {
-        eventLoopUtilization: EventLoopUtilityFunction;
-    }
-    type TransferListItem = ArrayBuffer | MessagePort | FileHandle | X509Certificate | Blob;
-    /**
-     * Instances of the `worker.MessagePort` class represent one end of an
-     * asynchronous, two-way communications channel. It can be used to transfer
-     * structured data, memory regions and other `MessagePort`s between different `Worker`s.
-     *
-     * This implementation matches [browser `MessagePort`](https://developer.mozilla.org/en-US/docs/Web/API/MessagePort) s.
-     * @since v10.5.0
-     */
-    class MessagePort extends EventEmitter {
-        /**
-         * Disables further sending of messages on either side of the connection.
-         * This method can be called when no further communication will happen over this `MessagePort`.
-         *
-         * The `'close' event` is emitted on both `MessagePort` instances that
-         * are part of the channel.
-         * @since v10.5.0
-         */
-        close(): void;
-        /**
-         * Sends a JavaScript value to the receiving side of this channel. `value` is transferred in a way which is compatible with
-         * the [HTML structured clone algorithm](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Structured_clone_algorithm).
-         *
-         * In particular, the significant differences to `JSON` are:
-         *
-         * * `value` may contain circular references.
-         * * `value` may contain instances of builtin JS types such as `RegExp`s, `BigInt`s, `Map`s, `Set`s, etc.
-         * * `value` may contain typed arrays, both using `ArrayBuffer`s
-         * and `SharedArrayBuffer`s.
-         * * `value` may contain [`WebAssembly.Module`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/Module) instances.
-         * * `value` may not contain native (C++-backed) objects other than:
-         *
-         * ```js
-         * import { MessageChannel } from 'node:worker_threads';
-         * const { port1, port2 } = new MessageChannel();
-         *
-         * port1.on('message', (message) => console.log(message));
-         *
-         * const circularData = {};
-         * circularData.foo = circularData;
-         * // Prints: { foo: [Circular] }
-         * port2.postMessage(circularData);
-         * ```
-         *
-         * `transferList` may be a list of [`ArrayBuffer`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer), `MessagePort`, and `FileHandle` objects.
-         * After transferring, they are not usable on the sending side of the channel
-         * anymore (even if they are not contained in `value`). Unlike with `child processes`, transferring handles such as network sockets is currently
-         * not supported.
-         *
-         * If `value` contains [`SharedArrayBuffer`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer) instances, those are accessible
-         * from either thread. They cannot be listed in `transferList`.
-         *
-         * `value` may still contain `ArrayBuffer` instances that are not in `transferList`; in that case, the underlying memory is copied rather than moved.
-         *
-         * ```js
-         * import { MessageChannel } from 'node:worker_threads';
-         * const { port1, port2 } = new MessageChannel();
-         *
-         * port1.on('message', (message) => console.log(message));
-         *
-         * const uint8Array = new Uint8Array([ 1, 2, 3, 4 ]);
-         * // This posts a copy of `uint8Array`:
-         * port2.postMessage(uint8Array);
-         * // This does not copy data, but renders `uint8Array` unusable:
-         * port2.postMessage(uint8Array, [ uint8Array.buffer ]);
-         *
-         * // The memory for the `sharedUint8Array` is accessible from both the
-         * // original and the copy received by `.on('message')`:
-         * const sharedUint8Array = new Uint8Array(new SharedArrayBuffer(4));
-         * port2.postMessage(sharedUint8Array);
-         *
-         * // This transfers a freshly created message port to the receiver.
-         * // This can be used, for example, to create communication channels between
-         * // multiple `Worker` threads that are children of the same parent thread.
-         * const otherChannel = new MessageChannel();
-         * port2.postMessage({ port: otherChannel.port1 }, [ otherChannel.port1 ]);
-         * ```
-         *
-         * The message object is cloned immediately, and can be modified after
-         * posting without having side effects.
-         *
-         * For more information on the serialization and deserialization mechanisms
-         * behind this API, see the `serialization API of the node:v8 module`.
-         * @since v10.5.0
-         */
-        postMessage(value: any, transferList?: readonly TransferListItem[]): void;
-        /**
-         * Opposite of `unref()`. Calling `ref()` on a previously `unref()`ed port does _not_ let the program exit if it's the only active handle left (the default
-         * behavior). If the port is `ref()`ed, calling `ref()` again has no effect.
-         *
-         * If listeners are attached or removed using `.on('message')`, the port
-         * is `ref()`ed and `unref()`ed automatically depending on whether
-         * listeners for the event exist.
-         * @since v10.5.0
-         */
-        ref(): void;
-        /**
-         * Calling `unref()` on a port allows the thread to exit if this is the only
-         * active handle in the event system. If the port is already `unref()`ed calling `unref()` again has no effect.
-         *
-         * If listeners are attached or removed using `.on('message')`, the port is `ref()`ed and `unref()`ed automatically depending on whether
-         * listeners for the event exist.
-         * @since v10.5.0
-         */
-        unref(): void;
-        /**
-         * Starts receiving messages on this `MessagePort`. When using this port
-         * as an event emitter, this is called automatically once `'message'` listeners are attached.
-         *
-         * This method exists for parity with the Web `MessagePort` API. In Node.js,
-         * it is only useful for ignoring messages when no event listener is present.
-         * Node.js also diverges in its handling of `.onmessage`. Setting it
-         * automatically calls `.start()`, but unsetting it lets messages queue up
-         * until a new handler is set or the port is discarded.
-         * @since v10.5.0
-         */
-        start(): void;
-        addListener(event: "close", listener: () => void): this;
-        addListener(event: "message", listener: (value: any) => void): this;
-        addListener(event: "messageerror", listener: (error: Error) => void): this;
-        addListener(event: string | symbol, listener: (...args: any[]) => void): this;
-        emit(event: "close"): boolean;
-        emit(event: "message", value: any): boolean;
-        emit(event: "messageerror", error: Error): boolean;
-        emit(event: string | symbol, ...args: any[]): boolean;
-        on(event: "close", listener: () => void): this;
-        on(event: "message", listener: (value: any) => void): this;
-        on(event: "messageerror", listener: (error: Error) => void): this;
-        on(event: string | symbol, listener: (...args: any[]) => void): this;
-        once(event: "close", listener: () => void): this;
-        once(event: "message", listener: (value: any) => void): this;
-        once(event: "messageerror", listener: (error: Error) => void): this;
-        once(event: string | symbol, listener: (...args: any[]) => void): this;
-        prependListener(event: "close", listener: () => void): this;
-        prependListener(event: "message", listener: (value: any) => void): this;
-        prependListener(event: "messageerror", listener: (error: Error) => void): this;
-        prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: "close", listener: () => void): this;
-        prependOnceListener(event: "message", listener: (value: any) => void): this;
-        prependOnceListener(event: "messageerror", listener: (error: Error) => void): this;
-        prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
-        removeListener(event: "close", listener: () => void): this;
-        removeListener(event: "message", listener: (value: any) => void): this;
-        removeListener(event: "messageerror", listener: (error: Error) => void): this;
-        removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
-        off(event: "close", listener: () => void): this;
-        off(event: "message", listener: (value: any) => void): this;
-        off(event: "messageerror", listener: (error: Error) => void): this;
-        off(event: string | symbol, listener: (...args: any[]) => void): this;
-        addEventListener: EventTarget["addEventListener"];
-        dispatchEvent: EventTarget["dispatchEvent"];
-        removeEventListener: EventTarget["removeEventListener"];
-    }
+    interface WorkerPerformance extends Pick<Performance, "eventLoopUtilization"> {}
+    /** @deprecated Use `import { Transferable } from "node:worker_threads"` instead. */
+    // TODO: remove in a future major @types/node version.
+    type TransferListItem = Transferable;
     interface WorkerOptions {
         /**
          * List of arguments which would be stringified and appended to
@@ -260,7 +100,7 @@ declare module "worker_threads" {
         /**
          * Additional data to send in the first worker message.
          */
-        transferList?: TransferListItem[] | undefined;
+        transferList?: Transferable[] | undefined;
         /**
          * @default true
          */
@@ -290,6 +130,13 @@ declare module "worker_threads" {
          * @default 4
          */
         stackSizeMb?: number | undefined;
+    }
+    interface WorkerEventMap {
+        "error": [err: unknown];
+        "exit": [exitCode: number];
+        "message": [value: any];
+        "messageerror": [error: Error];
+        "online": [];
     }
     /**
      * The `Worker` class represents an independent JavaScript execution thread.
@@ -355,7 +202,7 @@ declare module "worker_threads" {
      * ```
      * @since v10.5.0
      */
-    class Worker extends EventEmitter {
+    class Worker implements EventEmitter {
         /**
          * If `stdin: true` was passed to the `Worker` constructor, this is a
          * writable stream. The data written to this stream will be made available in
@@ -383,6 +230,12 @@ declare module "worker_threads" {
          */
         readonly threadId: number;
         /**
+         * A string identifier for the referenced thread or null if the thread is not running.
+         * Inside the worker thread, it is available as `require('node:worker_threads').threadName`.
+         * @since v24.6.0
+         */
+        readonly threadName: string | null;
+        /**
          * Provides the set of JS engine resource constraints for this Worker thread.
          * If the `resourceLimits` option was passed to the `Worker` constructor,
          * this matches its values.
@@ -408,25 +261,7 @@ declare module "worker_threads" {
          * See `port.postMessage()` for more details.
          * @since v10.5.0
          */
-        postMessage(value: any, transferList?: readonly TransferListItem[]): void;
-        /**
-         * Sends a value to another worker, identified by its thread ID.
-         * @param threadId The target thread ID. If the thread ID is invalid, a `ERR_WORKER_MESSAGING_FAILED` error will be thrown.
-         * If the target thread ID is the current thread ID, a `ERR_WORKER_MESSAGING_SAME_THREAD` error will be thrown.
-         * @param value The value to send.
-         * @param transferList If one or more `MessagePort`-like objects are passed in value, a `transferList` is required for those items
-         * or `ERR_MISSING_MESSAGE_PORT_IN_TRANSFER_LIST` is thrown. See `port.postMessage()` for more information.
-         * @param timeout Time to wait for the message to be delivered in milliseconds. By default it's `undefined`, which means wait forever.
-         * If the operation times out, a `ERR_WORKER_MESSAGING_TIMEOUT` error is thrown.
-         * @since v22.5.0
-         */
-        postMessageToThread(threadId: number, value: any, timeout?: number): Promise<void>;
-        postMessageToThread(
-            threadId: number,
-            value: any,
-            transferList: readonly TransferListItem[],
-            timeout?: number,
-        ): Promise<void>;
+        postMessage(value: any, transferList?: readonly Transferable[]): void;
         /**
          * Opposite of `unref()`, calling `ref()` on a previously `unref()`ed worker does _not_ let the program exit if it's the only active handle left (the default
          * behavior). If the worker is `ref()`ed, calling `ref()` again has
@@ -447,6 +282,13 @@ declare module "worker_threads" {
          */
         terminate(): Promise<number>;
         /**
+         * This method returns a `Promise` that will resolve to an object identical to `process.threadCpuUsage()`,
+         * or reject with an `ERR_WORKER_NOT_RUNNING` error if the worker is no longer running.
+         * This methods allows the statistics to be observed from outside the actual thread.
+         * @since v24.6.0
+         */
+        cpuUsage(prev?: NodeJS.CpuUsage): Promise<NodeJS.CpuUsage>;
+        /**
          * Returns a readable stream for a V8 snapshot of the current state of the Worker.
          * See `v8.getHeapSnapshot()` for more details.
          *
@@ -456,110 +298,102 @@ declare module "worker_threads" {
          * @return A promise for a Readable Stream containing a V8 heap snapshot
          */
         getHeapSnapshot(): Promise<Readable>;
-        addListener(event: "error", listener: (err: Error) => void): this;
-        addListener(event: "exit", listener: (exitCode: number) => void): this;
-        addListener(event: "message", listener: (value: any) => void): this;
-        addListener(event: "messageerror", listener: (error: Error) => void): this;
-        addListener(event: "online", listener: () => void): this;
-        addListener(event: string | symbol, listener: (...args: any[]) => void): this;
-        emit(event: "error", err: Error): boolean;
-        emit(event: "exit", exitCode: number): boolean;
-        emit(event: "message", value: any): boolean;
-        emit(event: "messageerror", error: Error): boolean;
-        emit(event: "online"): boolean;
-        emit(event: string | symbol, ...args: any[]): boolean;
-        on(event: "error", listener: (err: Error) => void): this;
-        on(event: "exit", listener: (exitCode: number) => void): this;
-        on(event: "message", listener: (value: any) => void): this;
-        on(event: "messageerror", listener: (error: Error) => void): this;
-        on(event: "online", listener: () => void): this;
-        on(event: string | symbol, listener: (...args: any[]) => void): this;
-        once(event: "error", listener: (err: Error) => void): this;
-        once(event: "exit", listener: (exitCode: number) => void): this;
-        once(event: "message", listener: (value: any) => void): this;
-        once(event: "messageerror", listener: (error: Error) => void): this;
-        once(event: "online", listener: () => void): this;
-        once(event: string | symbol, listener: (...args: any[]) => void): this;
-        prependListener(event: "error", listener: (err: Error) => void): this;
-        prependListener(event: "exit", listener: (exitCode: number) => void): this;
-        prependListener(event: "message", listener: (value: any) => void): this;
-        prependListener(event: "messageerror", listener: (error: Error) => void): this;
-        prependListener(event: "online", listener: () => void): this;
-        prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: "error", listener: (err: Error) => void): this;
-        prependOnceListener(event: "exit", listener: (exitCode: number) => void): this;
-        prependOnceListener(event: "message", listener: (value: any) => void): this;
-        prependOnceListener(event: "messageerror", listener: (error: Error) => void): this;
-        prependOnceListener(event: "online", listener: () => void): this;
-        prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
-        removeListener(event: "error", listener: (err: Error) => void): this;
-        removeListener(event: "exit", listener: (exitCode: number) => void): this;
-        removeListener(event: "message", listener: (value: any) => void): this;
-        removeListener(event: "messageerror", listener: (error: Error) => void): this;
-        removeListener(event: "online", listener: () => void): this;
-        removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
-        off(event: "error", listener: (err: Error) => void): this;
-        off(event: "exit", listener: (exitCode: number) => void): this;
-        off(event: "message", listener: (value: any) => void): this;
-        off(event: "messageerror", listener: (error: Error) => void): this;
-        off(event: "online", listener: () => void): this;
-        off(event: string | symbol, listener: (...args: any[]) => void): this;
+        /**
+         * This method returns a `Promise` that will resolve to an object identical to `v8.getHeapStatistics()`,
+         * or reject with an `ERR_WORKER_NOT_RUNNING` error if the worker is no longer running.
+         * This methods allows the statistics to be observed from outside the actual thread.
+         * @since v24.0.0
+         */
+        getHeapStatistics(): Promise<HeapInfo>;
+        /**
+         * Starting a CPU profile then return a Promise that fulfills with an error
+         * or an `CPUProfileHandle` object. This API supports `await using` syntax.
+         *
+         * ```js
+         * const { Worker } = require('node:worker_threads');
+         *
+         * const worker = new Worker(`
+         *   const { parentPort } = require('worker_threads');
+         *   parentPort.on('message', () => {});
+         *   `, { eval: true });
+         *
+         * worker.on('online', async () => {
+         *   const handle = await worker.startCpuProfile();
+         *   const profile = await handle.stop();
+         *   console.log(profile);
+         *   worker.terminate();
+         * });
+         * ```
+         *
+         * `await using` example.
+         *
+         * ```js
+         * const { Worker } = require('node:worker_threads');
+         *
+         * const w = new Worker(`
+         *   const { parentPort } = require('node:worker_threads');
+         *   parentPort.on('message', () => {});
+         *   `, { eval: true });
+         *
+         * w.on('online', async () => {
+         *   // Stop profile automatically when return and profile will be discarded
+         *   await using handle = await w.startCpuProfile();
+         * });
+         * ```
+         * @since v24.8.0
+         */
+        startCpuProfile(): Promise<CPUProfileHandle>;
+        /**
+         * Starting a Heap profile then return a Promise that fulfills with an error
+         * or an `HeapProfileHandle` object. This API supports `await using` syntax.
+         *
+         * ```js
+         * const { Worker } = require('node:worker_threads');
+         *
+         * const worker = new Worker(`
+         *   const { parentPort } = require('worker_threads');
+         *   parentPort.on('message', () => {});
+         *   `, { eval: true });
+         *
+         * worker.on('online', async () => {
+         *   const handle = await worker.startHeapProfile();
+         *   const profile = await handle.stop();
+         *   console.log(profile);
+         *   worker.terminate();
+         * });
+         * ```
+         *
+         * `await using` example.
+         *
+         * ```js
+         * const { Worker } = require('node:worker_threads');
+         *
+         * const w = new Worker(`
+         *   const { parentPort } = require('node:worker_threads');
+         *   parentPort.on('message', () => {});
+         *   `, { eval: true });
+         *
+         * w.on('online', async () => {
+         *   // Stop profile automatically when return and profile will be discarded
+         *   await using handle = await w.startHeapProfile();
+         * });
+         * ```
+         */
+        startHeapProfile(): Promise<HeapProfileHandle>;
+        /**
+         * Calls `worker.terminate()` when the dispose scope is exited.
+         *
+         * ```js
+         * async function example() {
+         *   await using worker = new Worker('for (;;) {}', { eval: true });
+         *   // Worker is automatically terminate when the scope is exited.
+         * }
+         * ```
+         * @since v24.2.0
+         */
+        [Symbol.asyncDispose](): Promise<void>;
     }
-    interface BroadcastChannel extends NodeJS.RefCounted {}
-    /**
-     * Instances of `BroadcastChannel` allow asynchronous one-to-many communication
-     * with all other `BroadcastChannel` instances bound to the same channel name.
-     *
-     * ```js
-     * 'use strict';
-     *
-     * import {
-     *   isMainThread,
-     *   BroadcastChannel,
-     *   Worker,
-     * } from 'node:worker_threads';
-     *
-     * const bc = new BroadcastChannel('hello');
-     *
-     * if (isMainThread) {
-     *   let c = 0;
-     *   bc.onmessage = (event) => {
-     *     console.log(event.data);
-     *     if (++c === 10) bc.close();
-     *   };
-     *   for (let n = 0; n < 10; n++)
-     *     new Worker(__filename);
-     * } else {
-     *   bc.postMessage('hello from every worker');
-     *   bc.close();
-     * }
-     * ```
-     * @since v15.4.0
-     */
-    class BroadcastChannel {
-        readonly name: string;
-        /**
-         * Invoked with a single \`MessageEvent\` argument when a message is received.
-         * @since v15.4.0
-         */
-        onmessage: (message: unknown) => void;
-        /**
-         * Invoked with a received message cannot be deserialized.
-         * @since v15.4.0
-         */
-        onmessageerror: (message: unknown) => void;
-        constructor(name: string);
-        /**
-         * Closes the `BroadcastChannel` connection.
-         * @since v15.4.0
-         */
-        close(): void;
-        /**
-         * @since v15.4.0
-         * @param message Any cloneable JavaScript value.
-         */
-        postMessage(message: unknown): void;
-    }
+    interface Worker extends InternalEventEmitter<WorkerEventMap> {}
     /**
      * Mark an object as not transferable. If `object` occurs in the transfer list of
      * a `port.postMessage()` call, it is ignored.
@@ -700,46 +534,181 @@ declare module "worker_threads" {
      * @param value Any arbitrary, cloneable JavaScript value that will be cloned and passed automatically to all new `Worker` instances. If `value` is passed as `undefined`, any previously set value
      * for the `key` will be deleted.
      */
-    function setEnvironmentData(key: Serializable, value: Serializable): void;
-
-    import {
-        BroadcastChannel as _BroadcastChannel,
-        MessageChannel as _MessageChannel,
-        MessagePort as _MessagePort,
-    } from "worker_threads";
-    global {
-        /**
-         * `BroadcastChannel` class is a global reference for `import { BroadcastChannel } from 'worker_threads'`
-         * https://nodejs.org/api/globals.html#broadcastchannel
-         * @since v18.0.0
-         */
-        var BroadcastChannel: typeof globalThis extends {
-            onmessage: any;
-            BroadcastChannel: infer T;
-        } ? T
-            : typeof _BroadcastChannel;
-        /**
-         * `MessageChannel` class is a global reference for `import { MessageChannel } from 'worker_threads'`
-         * https://nodejs.org/api/globals.html#messagechannel
-         * @since v15.0.0
-         */
-        var MessageChannel: typeof globalThis extends {
-            onmessage: any;
-            MessageChannel: infer T;
-        } ? T
-            : typeof _MessageChannel;
-        /**
-         * `MessagePort` class is a global reference for `import { MessagePort } from 'worker_threads'`
-         * https://nodejs.org/api/globals.html#messageport
-         * @since v15.0.0
-         */
-        var MessagePort: typeof globalThis extends {
-            onmessage: any;
-            MessagePort: infer T;
-        } ? T
-            : typeof _MessagePort;
+    function setEnvironmentData(key: Serializable, value?: Serializable): void;
+    /**
+     * Sends a value to another worker, identified by its thread ID.
+     * @param threadId The target thread ID. If the thread ID is invalid, a `ERR_WORKER_MESSAGING_FAILED` error will be thrown.
+     * If the target thread ID is the current thread ID, a `ERR_WORKER_MESSAGING_SAME_THREAD` error will be thrown.
+     * @param value The value to send.
+     * @param transferList If one or more `MessagePort`-like objects are passed in value, a `transferList` is required for those items
+     * or `ERR_MISSING_MESSAGE_PORT_IN_TRANSFER_LIST` is thrown. See `port.postMessage()` for more information.
+     * @param timeout Time to wait for the message to be delivered in milliseconds. By default it's `undefined`, which means wait forever.
+     * If the operation times out, a `ERR_WORKER_MESSAGING_TIMEOUT` error is thrown.
+     * @since v22.5.0
+     */
+    function postMessageToThread(threadId: number, value: any, timeout?: number): Promise<void>;
+    function postMessageToThread(
+        threadId: number,
+        value: any,
+        transferList: readonly Transferable[],
+        timeout?: number,
+    ): Promise<void>;
+    // #region web types
+    type LockMode = "exclusive" | "shared";
+    type Transferable =
+        | ArrayBuffer
+        | MessagePort
+        | AbortSignal
+        | FileHandle
+        | ReadableStream
+        | WritableStream
+        | TransformStream;
+    interface LockGrantedCallback<T> {
+        (lock: Lock | null): T;
     }
+    interface LockInfo {
+        clientId: string;
+        mode: LockMode;
+        name: string;
+    }
+    interface LockManagerSnapshot {
+        held: LockInfo[];
+        pending: LockInfo[];
+    }
+    interface LockOptions {
+        ifAvailable?: boolean;
+        mode?: LockMode;
+        signal?: AbortSignal;
+        steal?: boolean;
+    }
+    interface StructuredSerializeOptions {
+        transfer?: Transferable[];
+    }
+    interface BroadcastChannelEventMap {
+        "message": MessageEvent;
+        "messageerror": MessageEvent;
+    }
+    interface BroadcastChannel
+        extends EventTarget, InternalEventTargetEventProperties<BroadcastChannelEventMap>, NodeJS.RefCounted
+    {
+        readonly name: string;
+        close(): void;
+        postMessage(message: any): void;
+        addEventListener<K extends keyof BroadcastChannelEventMap>(
+            type: K,
+            listener: (ev: BroadcastChannelEventMap[K]) => void,
+            options?: AddEventListenerOptions | boolean,
+        ): void;
+        addEventListener(
+            type: string,
+            listener: EventListener | EventListenerObject,
+            options?: AddEventListenerOptions | boolean,
+        ): void;
+        removeEventListener<K extends keyof BroadcastChannelEventMap>(
+            type: K,
+            listener: (ev: BroadcastChannelEventMap[K]) => void,
+            options?: EventListenerOptions | boolean,
+        ): void;
+        removeEventListener(
+            type: string,
+            listener: EventListener | EventListenerObject,
+            options?: EventListenerOptions | boolean,
+        ): void;
+    }
+    var BroadcastChannel: {
+        prototype: BroadcastChannel;
+        new(name: string): BroadcastChannel;
+    };
+    interface Lock {
+        readonly mode: LockMode;
+        readonly name: string;
+    }
+    // var Lock: {
+    //     prototype: Lock;
+    //     new(): Lock;
+    // };
+    interface LockManager {
+        query(): Promise<LockManagerSnapshot>;
+        request<T>(name: string, callback: LockGrantedCallback<T>): Promise<Awaited<T>>;
+        request<T>(name: string, options: LockOptions, callback: LockGrantedCallback<T>): Promise<Awaited<T>>;
+    }
+    // var LockManager: {
+    //     prototype: LockManager;
+    //     new(): LockManager;
+    // };
+    interface MessageChannel {
+        readonly port1: MessagePort;
+        readonly port2: MessagePort;
+    }
+    var MessageChannel: {
+        prototype: MessageChannel;
+        new(): MessageChannel;
+    };
+    interface MessagePortEventMap {
+        "close": Event;
+        "message": MessageEvent;
+        "messageerror": MessageEvent;
+    }
+    interface MessagePort extends NodeEventTarget, InternalEventTargetEventProperties<MessagePortEventMap> {
+        close(): void;
+        postMessage(message: any, transfer: Transferable[]): void;
+        postMessage(message: any, options?: StructuredSerializeOptions): void;
+        start(): void;
+        addEventListener<K extends keyof MessagePortEventMap>(
+            type: K,
+            listener: (ev: MessagePortEventMap[K]) => void,
+            options?: AddEventListenerOptions | boolean,
+        ): void;
+        addEventListener(
+            type: string,
+            listener: EventListener | EventListenerObject,
+            options?: AddEventListenerOptions | boolean,
+        ): void;
+        removeEventListener<K extends keyof MessagePortEventMap>(
+            type: K,
+            listener: (ev: MessagePortEventMap[K]) => void,
+            options?: EventListenerOptions | boolean,
+        ): void;
+        removeEventListener(
+            type: string,
+            listener: EventListener | EventListenerObject,
+            options?: EventListenerOptions | boolean,
+        ): void;
+        // #region NodeEventTarget
+        addListener(event: "close", listener: (ev: Event) => void): this;
+        addListener(event: "message", listener: (value: any) => void): this;
+        addListener(event: "messageerror", listener: (error: Error) => void): this;
+        addListener(event: string, listener: (arg: any) => void): this;
+        emit(event: "close", ev: Event): boolean;
+        emit(event: "message", value: any): boolean;
+        emit(event: "messageerror", error: Error): boolean;
+        emit(event: string, arg: any): boolean;
+        off(event: "close", listener: (ev: Event) => void, options?: EventListenerOptions): this;
+        off(event: "message", listener: (value: any) => void, options?: EventListenerOptions): this;
+        off(event: "messageerror", listener: (error: Error) => void, options?: EventListenerOptions): this;
+        off(event: string, listener: (arg: any) => void, options?: EventListenerOptions): this;
+        on(event: "close", listener: (ev: Event) => void): this;
+        on(event: "message", listener: (value: any) => void): this;
+        on(event: "messageerror", listener: (error: Error) => void): this;
+        on(event: string, listener: (arg: any) => void): this;
+        once(event: "close", listener: (ev: Event) => void): this;
+        once(event: "message", listener: (value: any) => void): this;
+        once(event: "messageerror", listener: (error: Error) => void): this;
+        once(event: string, listener: (arg: any) => void): this;
+        removeListener(event: "close", listener: (ev: Event) => void, options?: EventListenerOptions): this;
+        removeListener(event: "message", listener: (value: any) => void, options?: EventListenerOptions): this;
+        removeListener(event: "messageerror", listener: (error: Error) => void, options?: EventListenerOptions): this;
+        removeListener(event: string, listener: (arg: any) => void, options?: EventListenerOptions): this;
+        // #endregion
+    }
+    var MessagePort: {
+        prototype: MessagePort;
+        new(): MessagePort;
+    };
+    var locks: LockManager;
+    export import structuredClone = globalThis.structuredClone;
+    // #endregion
 }
-declare module "node:worker_threads" {
-    export * from "worker_threads";
+declare module "worker_threads" {
+    export * from "node:worker_threads";
 }

@@ -1,11 +1,11 @@
 import Node from "../core/Node.js";
-import { ShaderNodeObject } from "../tsl/TSLCore.js";
 
 export type ScreenNodeScope =
     | typeof ScreenNode.COORDINATE
     | typeof ScreenNode.VIEWPORT
     | typeof ScreenNode.SIZE
-    | typeof ScreenNode.UV;
+    | typeof ScreenNode.UV
+    | typeof ScreenNode.DPR;
 
 declare class ScreenNode extends Node {
     scope: ScreenNodeScope;
@@ -18,36 +18,28 @@ declare class ScreenNode extends Node {
     static VIEWPORT: "viewport";
     static SIZE: "size";
     static UV: "uv";
+    static DPR: "dpr";
 }
 
 export default ScreenNode;
 
 // Screen
 
-export const screenUV: ShaderNodeObject<ScreenNode>;
-export const screenSize: ShaderNodeObject<ScreenNode>;
-export const screenCoordinate: ShaderNodeObject<ScreenNode>;
+export const screenDPR: ScreenNode;
+export const screenUV: ScreenNode;
+export const screenSize: ScreenNode;
+export const screenCoordinate: ScreenNode;
 
 // Viewport
 
-export const viewport: ShaderNodeObject<ScreenNode>;
-export const viewportSize: ShaderNodeObject<Node>;
-export const viewportCoordinate: ShaderNodeObject<Node>;
-export const viewportUV: ShaderNodeObject<Node>;
+export const viewport: ScreenNode;
+export const viewportSize: Node;
+export const viewportCoordinate: Node;
+export const viewportUV: Node;
 
 // Deprecated
 
 /**
  * @deprecated "viewportResolution" is deprecated. Use "screenSize" instead.
  */
-export const viewportResolution: ShaderNodeObject<ScreenNode>;
-
-/**
- * @deprecated "viewportTopLeft" is deprecated. Use "viewportUV" instead.
- */
-export const viewportTopLeft: ShaderNodeObject<ScreenNode>;
-
-/**
- * @deprecated "viewportBottomLeft" is deprecated. Use "viewportUV.flipY()" instead.
- */
-export const viewportBottomLeft: ShaderNodeObject<ScreenNode>;
+export const viewportResolution: ScreenNode;

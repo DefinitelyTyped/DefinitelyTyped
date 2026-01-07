@@ -32,6 +32,7 @@ const mailparser2 = new MailParser(
         skipTextToHtml: true,
         skipTextLinks: true,
         Iconv: getDecoder("ascii"),
+        checksumAlgo: "md5",
         keepCidLinks: true,
     },
 );

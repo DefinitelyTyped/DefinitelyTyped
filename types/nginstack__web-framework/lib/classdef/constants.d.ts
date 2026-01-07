@@ -9,10 +9,9 @@ export namespace DEFAULTS_BY_TYPE {
         let latitude: number;
         let longitude: number;
         let angle: number;
-        let boolean: number;
         let combo: number;
         let memo: number;
-        let file: string;
+        let file: number;
     }
     namespace alignment {
         let integer_1: string;
@@ -31,8 +30,8 @@ export namespace DEFAULTS_BY_TYPE {
         export { number_1 as number };
         let date_1: string;
         export { date_1 as date };
-        let boolean_1: string;
-        export { boolean_1 as boolean };
+        export let boolean: string;
+        export let image: string;
         let combo_1: string;
         export { combo_1 as combo };
         let file_1: string;
@@ -42,4 +41,17 @@ export namespace DEFAULTS_BY_TYPE {
         let file_2: string;
         export { file_2 as file };
     }
+}
+export namespace DEFAULTS_BY_CONTROL_TYPE {
+    export namespace alignment_1 {
+        let image_1: string;
+        export { image_1 as image };
+        export let color: string;
+    }
+    export { alignment_1 as alignment };
+    export namespace width_1 {
+        let color_1: number;
+        export { color_1 as color };
+    }
+    export { width_1 as width };
 }

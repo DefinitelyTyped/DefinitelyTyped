@@ -23,7 +23,7 @@ declare class NodeSampledCubeTexture extends NodeSampledTexture {
 }
 
 declare class NodeSampledTexture3D extends NodeSampledTexture {
-    readonly isSampledTexture3D = true;
+    readonly isSampledTexture3D: true;
 }
 
 export { NodeSampledCubeTexture, NodeSampledTexture, NodeSampledTexture3D };

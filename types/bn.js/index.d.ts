@@ -23,12 +23,12 @@ declare class BN {
     static wordSize: 26;
 
     constructor(
-        number: number | string | number[] | Uint8Array | Buffer | BN,
+        number: bigint | number | string | number[] | Uint8Array | Buffer | BN,
         base?: number | "hex",
         endian?: BN.Endianness,
     );
     constructor(
-        number: number | string | number[] | Uint8Array | Buffer | BN,
+        number: bigint | number | string | number[] | Uint8Array | Buffer | BN,
         endian?: BN.Endianness,
     );
 

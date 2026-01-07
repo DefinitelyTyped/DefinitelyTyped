@@ -1,5 +1,5 @@
-import * as Cookies from "cookies";
-import * as Koa from "koa";
+import Cookies = require("cookies");
+import Koa = require("koa");
 
 declare namespace koaSession {
     interface Session {
@@ -43,7 +43,7 @@ declare namespace koaSession {
 }
 
 declare module "koa" {
-    interface Context {
+    interface ExtendableContext {
         sessionId: string;
         session: koaSession.Session | null;
         sessionSave: boolean | null;

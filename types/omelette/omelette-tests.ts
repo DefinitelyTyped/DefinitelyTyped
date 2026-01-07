@@ -64,6 +64,8 @@ if (~process.argv.indexOf("--setup")) {
 // Similarly, if you want to tear down autocompletion, use `omeletteInstance.cleanupShellInitFile()`
 if (~process.argv.indexOf("--cleanup")) {
     completion.cleanupShellInitFile();
+
+    completion.cleanupShellInitFile("~/custom/.bashrc");
 }
 
 // Rest is yours

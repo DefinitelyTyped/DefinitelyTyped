@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/sdp-transform",
-    "version": "2.4.9999",
+    "version": "2.15.9999",
     "projects": [
         "https://github.com/clux/sdp-transform#readme"
     ],
@@ -16,6 +16,10 @@
         {
             "name": "@muenchow",
             "githubUsername": "muenchow"
+        },
+        {
+            "name": "Iñaki Baz Castillo",
+            "githubUsername": "ibc"
         }
     ]
 }

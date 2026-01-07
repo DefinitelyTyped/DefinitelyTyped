@@ -35,8 +35,8 @@ declare namespace BigDecimal {
         emax?: number;
         emin?: number;
     }): void;
-    function add(a: string | number | BigDecimal, b: string | number | BigDecimal): BigDecimal;
-    function sub(a: string | number | BigDecimal, b: string | number | BigDecimal): BigDecimal;
-    function div(a: string | number | BigDecimal, b: string | number | BigDecimal): BigDecimal;
-    function mul(a: string | number | BigDecimal, b: string | number | BigDecimal): BigDecimal;
+    function add(a: number | BigDecimal | string, b: number | BigDecimal | string): BigDecimal;
+    function sub(a: number | BigDecimal | string, b: number | BigDecimal | string): BigDecimal;
+    function div(a: number | BigDecimal | string, b: number | BigDecimal | string): BigDecimal;
+    function mul(a: number | BigDecimal | string, b: number | BigDecimal | string): BigDecimal;
 }

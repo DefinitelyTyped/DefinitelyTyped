@@ -1,224 +1,47 @@
-import "./test/assert";
-import "./test/async_hooks";
-import "./test/buffer";
-import "./test/child_process";
-import "./test/cluster";
-import "./test/console";
-import "./test/constants";
-import "./test/crypto";
-import "./test/dgram";
-import "./test/diagnostics_channel";
-import "./test/dns";
-import "./test/events";
-import "./test/events_generic";
-import "./test/fs";
-import "./test/globals";
-import "./test/http";
-import "./test/http2";
-import "./test/https";
-import "./test/inspector";
-import "./test/module";
-import "./test/net";
-import "./test/os";
-import "./test/path";
-import "./test/perf_hooks";
-import "./test/process";
-import "./test/querystring";
-import "./test/readline";
-import "./test/repl";
-import "./test/sea";
-import "./test/sqlite";
-import "./test/stream";
-import "./test/string_decoder";
-import "./test/test";
-import "./test/timers_promises";
-import "./test/timers";
-import "./test/tls";
-import "./test/trace_events";
-import "./test/tty";
-import "./test/url";
-import "./test/util_types";
-import "./test/util";
-import "./test/v8";
-import "./test/vm";
-import "./test/wasi";
-import "./test/worker_threads";
-import "./test/zlib";
-
-import * as http from "node:http";
-import * as http2 from "node:http2";
-import * as https from "node:https";
-import * as inspector from "node:inspector";
-import * as net from "node:net";
-import * as stream from "node:stream";
-import * as trace_events from "node:trace_events";
-import * as url from "node:url";
-
-//////////////////////////////////////////////////////
-/// Https tests : https://nodejs.org/api/https.html ///
-//////////////////////////////////////////////////////
-
-{
-    let agent: https.Agent = new https.Agent({
-        keepAlive: true,
-        keepAliveMsecs: 10000,
-        maxSockets: Infinity,
-        maxFreeSockets: 256,
-        maxCachedSessions: 100,
-        timeout: 15000,
-        family: 4,
-    });
-
-    agent = https.globalAgent;
-
-    let sockets: NodeJS.ReadOnlyDict<net.Socket[]> = agent.sockets;
-    sockets = agent.freeSockets;
-
-    https.request({
-        agent: false,
-    });
-    https.request({
-        agent,
-    });
-    https.request({
-        agent: undefined,
-    });
-
-    https.get("http://www.example.com/xyz");
-    https.request("http://www.example.com/xyz");
-
-    https.get("http://www.example.com/xyz", (res: http.IncomingMessage): void => {});
-    https.request("http://www.example.com/xyz", (res: http.IncomingMessage): void => {});
-
-    https.get(new url.URL("http://www.example.com/xyz"));
-    https.request(new url.URL("http://www.example.com/xyz"));
-
-    https.get(new url.URL("http://www.example.com/xyz"), (res: http.IncomingMessage): void => {});
-    https.request(new url.URL("http://www.example.com/xyz"), (res: http.IncomingMessage): void => {});
-
-    const opts: https.RequestOptions = {
-        path: "/some/path",
-    };
-    https.get(new url.URL("http://www.example.com"), opts);
-    https.request(new url.URL("http://www.example.com"), opts);
-    https.get(new url.URL("http://www.example.com/xyz"), opts, (res: http.IncomingMessage): void => {});
-    https.request(new url.URL("http://www.example.com/xyz"), opts, (res: http.IncomingMessage): void => {});
-
-    https.globalAgent.options.ca = [];
-
-    {
-        function reqListener(req: http.IncomingMessage, res: http.ServerResponse): void {}
-
-        class MyIncomingMessage extends http.IncomingMessage {
-            foo: number;
-        }
-
-        class MyServerResponse<Request extends http.IncomingMessage = http.IncomingMessage>
-            extends http.ServerResponse<Request>
-        {
-            foo: string;
-        }
-
-        let server: https.Server;
-
-        server = new https.Server();
-        server = new https.Server(reqListener);
-        server = new https.Server({ IncomingMessage: MyIncomingMessage });
-
-        server = new https.Server({
-            IncomingMessage: MyIncomingMessage,
-            ServerResponse: MyServerResponse,
-        }, reqListener);
-
-        server = https.createServer();
-        server = https.createServer(reqListener);
-        server = https.createServer({ IncomingMessage: MyIncomingMessage });
-        server = https.createServer({ ServerResponse: MyServerResponse }, reqListener);
-
-        const timeout: number = server.timeout;
-        const listening: boolean = server.listening;
-        const keepAliveTimeout: number = server.keepAliveTimeout;
-        const maxHeadersCount: number | null = server.maxHeadersCount;
-        const headersTimeout: number = server.headersTimeout;
-        server.setTimeout().setTimeout(1000).setTimeout(() => {}).setTimeout(100, () => {});
-    }
-}
-
-/////////////////////////////////////////////////////////
-/// Errors Tests : https://nodejs.org/api/errors.html ///
-/////////////////////////////////////////////////////////
-
-{
-    {
-        Error.stackTraceLimit = Infinity;
-    }
-    {
-        const myObject = {};
-        Error.captureStackTrace(myObject);
-    }
-    {
-        const frames: NodeJS.CallSite[] = [];
-        Error.prepareStackTrace!(new Error(), frames);
-    }
-    {
-        const frame: NodeJS.CallSite = null!;
-        const frameThis: unknown = frame.getThis();
-        const typeName: string | null = frame.getTypeName();
-        const func: Function | undefined = frame.getFunction();
-        const funcName: string | null = frame.getFunctionName();
-        const meth: string | null = frame.getMethodName();
-        const fname: string | undefined = frame.getFileName();
-        const lineno: number | null = frame.getLineNumber();
-        const colno: number | null = frame.getColumnNumber();
-        const evalOrigin: string | undefined = frame.getEvalOrigin();
-        const isTop: boolean = frame.isToplevel();
-        const isEval: boolean = frame.isEval();
-        const isNative: boolean = frame.isNative();
-        const isConstr: boolean = frame.isConstructor();
-    }
-}
-
-/*****************************************************************************
- *                                                                           *
- * The following tests are the modules not mentioned in document but existed *
- *                                                                           *
- *****************************************************************************/
-
-///////////////////////////////////////////////////////////
-/// Trace Events Tests                                  ///
-///////////////////////////////////////////////////////////
-
-{
-    const enabledCategories: string | undefined = trace_events.getEnabledCategories();
-    const tracing: trace_events.Tracing = trace_events.createTracing({ categories: ["node", "v8"] });
-    const categories: string = tracing.categories;
-    const enabled: boolean = tracing.enabled;
-    tracing.enable();
-    tracing.disable();
-}
-
-////////////////////////////////////////////////////
-/// Node.js ESNEXT Support
-////////////////////////////////////////////////////
-
-{
-    const s = "foo";
-    const s1: string = s.trimLeft();
-    const s2: string = s.trimRight();
-    const s3: string = s.trimStart();
-    const s4: string = s.trimEnd();
-}
-
-////////////////////////////////////////////////////
-/// Node.js http2 tests
-////////////////////////////////////////////////////
-
-{
-    http2.connect("https://foo.com", {
-        createConnection: (authority, option) => {
-            authority; // $ExpectType URL
-            option; // $ExpectType SessionOptions
-            return new stream.Duplex();
-        },
-    });
-}
+import "./node-tests/assert";
+import "./node-tests/async_hooks";
+import "./node-tests/buffer";
+import "./node-tests/child_process";
+import "./node-tests/cluster";
+import "./node-tests/console";
+import "./node-tests/constants";
+import "./node-tests/crypto";
+import "./node-tests/dgram";
+import "./node-tests/diagnostics_channel";
+import "./node-tests/dns";
+import "./node-tests/events";
+import "./node-tests/events-maps";
+import "./node-tests/fs";
+import "./node-tests/globals";
+import "./node-tests/http";
+import "./node-tests/http2";
+import "./node-tests/https";
+import "./node-tests/inspector";
+import "./node-tests/module";
+import "./node-tests/net";
+import "./node-tests/os";
+import "./node-tests/path";
+import "./node-tests/perf_hooks";
+import "./node-tests/process";
+import "./node-tests/quic";
+import "./node-tests/querystring";
+import "./node-tests/readline";
+import "./node-tests/repl";
+import "./node-tests/sea";
+import "./node-tests/sqlite";
+import "./node-tests/stream";
+import "./node-tests/string_decoder";
+import "./node-tests/test";
+import "./node-tests/timers_promises";
+import "./node-tests/timers";
+import "./node-tests/tls";
+import "./node-tests/trace_events";
+import "./node-tests/tty";
+import "./node-tests/url";
+import "./node-tests/util_types";
+import "./node-tests/util";
+import "./node-tests/v8";
+import "./node-tests/vm";
+import "./node-tests/wasi";
+import "./node-tests/worker_threads";
+import "./node-tests/zlib";

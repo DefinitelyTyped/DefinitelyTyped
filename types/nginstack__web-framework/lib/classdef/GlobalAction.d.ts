@@ -3,11 +3,12 @@ declare function GlobalAction(name: string): void;
 declare class GlobalAction {
     constructor(name: string);
     private name_;
-    onShow: LegacyEvent;
-    params: Record<string, string | number | boolean | Date | null>;
+    onShow: Adapter;
+    params: Record<string, string | number | boolean | Date>;
     activity: string | null;
     caption: string;
     enabled: boolean;
+    hasPermissionControl: boolean;
     defaultKeyParamName: string;
     help: string;
     hint: string;
@@ -23,4 +24,4 @@ declare class GlobalAction {
     getParameters(): any;
     clone(): GlobalAction;
 }
-import LegacyEvent = require("@nginstack/engine/lib/event/LegacyEvent.js");
+import Adapter = require("@nginstack/engine/lib/event/Adapter.js");

@@ -27,10 +27,11 @@
  *   performance.measure('A to B', 'A', 'B');
  * });
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/perf_hooks.js)
+ * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/perf_hooks.js)
  */
-declare module "perf_hooks" {
-    import { AsyncResource } from "node:async_hooks";
+declare module "node:perf_hooks" {
+    import { InternalEventTargetEventProperties } from "node:events";
+    // #region web types
     type EntryType =
         | "dns" // Node.js only
         | "function" // Node.js only
@@ -42,79 +43,291 @@ declare module "perf_hooks" {
         | "net" // Node.js only
         | "node" // Node.js only
         | "resource"; // available on the Web
-    interface NodeGCPerformanceDetail {
+    interface EventLoopUtilization {
+        idle: number;
+        active: number;
+        utilization: number;
+    }
+    interface ConnectionTimingInfo {
+        domainLookupStartTime: number;
+        domainLookupEndTime: number;
+        connectionStartTime: number;
+        connectionEndTime: number;
+        secureConnectionStartTime: number;
+        ALPNNegotiatedProtocol: string;
+    }
+    interface FetchTimingInfo {
+        startTime: number;
+        redirectStartTime: number;
+        redirectEndTime: number;
+        postRedirectStartTime: number;
+        finalServiceWorkerStartTime: number;
+        finalNetworkRequestStartTime: number;
+        finalNetworkResponseStartTime: number;
+        endTime: number;
+        finalConnectionTimingInfo: ConnectionTimingInfo | null;
+        encodedBodySize: number;
+        decodedBodySize: number;
+    }
+    type PerformanceEntryList = PerformanceEntry[];
+    interface PerformanceMarkOptions {
+        detail?: any;
+        startTime?: number;
+    }
+    interface PerformanceMeasureOptions {
+        detail?: any;
+        duration?: number;
+        end?: string | number;
+        start?: string | number;
+    }
+    interface PerformanceObserverCallback {
+        (entries: PerformanceObserverEntryList, observer: PerformanceObserver): void;
+    }
+    interface PerformanceObserverInit {
+        buffered?: boolean;
+        entryTypes?: EntryType[];
+        type?: EntryType;
+    }
+    interface PerformanceEventMap {
+        "resourcetimingbufferfull": Event;
+    }
+    interface Performance extends EventTarget, InternalEventTargetEventProperties<PerformanceEventMap> {
+        readonly nodeTiming: PerformanceNodeTiming;
+        readonly timeOrigin: number;
+        clearMarks(markName?: string): void;
+        clearMeasures(measureName?: string): void;
+        clearResourceTimings(resourceTimingName?: string): void;
+        getEntries(): PerformanceEntryList;
+        getEntriesByName(name: string, type?: EntryType): PerformanceEntryList;
+        getEntriesByType(type: EntryType): PerformanceEntryList;
+        mark(markName: string, markOptions?: PerformanceMarkOptions): PerformanceMark;
+        markResourceTiming(
+            timingInfo: FetchTimingInfo,
+            requestedUrl: string,
+            initiatorType: string,
+            global: unknown,
+            cacheMode: string,
+            bodyInfo: unknown,
+            responseStatus: number,
+            deliveryType?: string,
+        ): PerformanceResourceTiming;
+        measure(measureName: string, startMark?: string, endMark?: string): PerformanceMeasure;
+        measure(measureName: string, options: PerformanceMeasureOptions, endMark?: string): PerformanceMeasure;
+        now(): number;
+        setResourceTimingBufferSize(maxSize: number): void;
+        toJSON(): any;
+        addEventListener<K extends keyof PerformanceEventMap>(
+            type: K,
+            listener: (ev: PerformanceEventMap[K]) => void,
+            options?: AddEventListenerOptions | boolean,
+        ): void;
+        addEventListener(
+            type: string,
+            listener: EventListener | EventListenerObject,
+            options?: AddEventListenerOptions | boolean,
+        ): void;
+        removeEventListener<K extends keyof PerformanceEventMap>(
+            type: K,
+            listener: (ev: PerformanceEventMap[K]) => void,
+            options?: EventListenerOptions | boolean,
+        ): void;
+        removeEventListener(
+            type: string,
+            listener: EventListener | EventListenerObject,
+            options?: EventListenerOptions | boolean,
+        ): void;
         /**
-         * When `performanceEntry.entryType` is equal to 'gc', the `performance.kind` property identifies
-         * the type of garbage collection operation that occurred.
-         * See perf_hooks.constants for valid values.
+         * The `eventLoopUtilization()` method returns an object that contains the
+         * cumulative duration of time the event loop has been both idle and active as a
+         * high resolution milliseconds timer. The `utilization` value is the calculated
+         * Event Loop Utilization (ELU).
+         *
+         * If bootstrapping has not yet finished on the main thread the properties have
+         * the value of `0`. The ELU is immediately available on [Worker threads](https://nodejs.org/docs/latest-v25.x/api/worker_threads.html#worker-threads) since
+         * bootstrap happens within the event loop.
+         *
+         * Both `utilization1` and `utilization2` are optional parameters.
+         *
+         * If `utilization1` is passed, then the delta between the current call's `active`
+         * and `idle` times, as well as the corresponding `utilization` value are
+         * calculated and returned (similar to `process.hrtime()`).
+         *
+         * If `utilization1` and `utilization2` are both passed, then the delta is
+         * calculated between the two arguments. This is a convenience option because,
+         * unlike `process.hrtime()`, calculating the ELU is more complex than a
+         * single subtraction.
+         *
+         * ELU is similar to CPU utilization, except that it only measures event loop
+         * statistics and not CPU usage. It represents the percentage of time the event
+         * loop has spent outside the event loop's event provider (e.g. `epoll_wait`).
+         * No other CPU idle time is taken into consideration. The following is an example
+         * of how a mostly idle process will have a high ELU.
+         *
+         * ```js
+         * import { eventLoopUtilization } from 'node:perf_hooks';
+         * import { spawnSync } from 'node:child_process';
+         *
+         * setImmediate(() => {
+         *   const elu = eventLoopUtilization();
+         *   spawnSync('sleep', ['5']);
+         *   console.log(eventLoopUtilization(elu).utilization);
+         * });
+         * ```
+         *
+         * Although the CPU is mostly idle while running this script, the value of
+         * `utilization` is `1`. This is because the call to
+         * `child_process.spawnSync()` blocks the event loop from proceeding.
+         *
+         * Passing in a user-defined object instead of the result of a previous call to
+         * `eventLoopUtilization()` will lead to undefined behavior. The return values
+         * are not guaranteed to reflect any correct state of the event loop.
+         * @since v14.10.0, v12.19.0
+         * @param utilization1 The result of a previous call to
+         * `eventLoopUtilization()`.
+         * @param utilization2 The result of a previous call to
+         * `eventLoopUtilization()` prior to `utilization1`.
          */
-        readonly kind?: number | undefined;
+        eventLoopUtilization(
+            utilization1?: EventLoopUtilization,
+            utilization2?: EventLoopUtilization,
+        ): EventLoopUtilization;
         /**
-         * When `performanceEntry.entryType` is equal to 'gc', the `performance.flags`
-         * property contains additional information about garbage collection operation.
-         * See perf_hooks.constants for valid values.
+         * _This property is an extension by Node.js. It is not available in Web browsers._
+         *
+         * Wraps a function within a new function that measures the running time of the
+         * wrapped function. A `PerformanceObserver` must be subscribed to the `'function'`
+         * event type in order for the timing details to be accessed.
+         *
+         * ```js
+         * import { performance, PerformanceObserver } from 'node:perf_hooks';
+         *
+         * function someFunction() {
+         *   console.log('hello world');
+         * }
+         *
+         * const wrapped = performance.timerify(someFunction);
+         *
+         * const obs = new PerformanceObserver((list) => {
+         *   console.log(list.getEntries()[0].duration);
+         *
+         *   performance.clearMarks();
+         *   performance.clearMeasures();
+         *   obs.disconnect();
+         * });
+         * obs.observe({ entryTypes: ['function'] });
+         *
+         * // A performance timeline entry will be created
+         * wrapped();
+         * ```
+         *
+         * If the wrapped function returns a promise, a finally handler will be attached
+         * to the promise and the duration will be reported once the finally handler is
+         * invoked.
+         * @since v8.5.0
          */
-        readonly flags?: number | undefined;
+        timerify<T extends (...args: any[]) => any>(fn: T, options?: PerformanceTimerifyOptions): T;
+    }
+    var Performance: {
+        prototype: Performance;
+        new(): Performance;
+    };
+    interface PerformanceEntry {
+        readonly duration: number;
+        readonly entryType: EntryType;
+        readonly name: string;
+        readonly startTime: number;
+        toJSON(): any;
+    }
+    var PerformanceEntry: {
+        prototype: PerformanceEntry;
+        new(): PerformanceEntry;
+    };
+    interface PerformanceMark extends PerformanceEntry {
+        readonly detail: any;
+        readonly entryType: "mark";
+    }
+    var PerformanceMark: {
+        prototype: PerformanceMark;
+        new(markName: string, markOptions?: PerformanceMarkOptions): PerformanceMark;
+    };
+    interface PerformanceMeasure extends PerformanceEntry {
+        readonly detail: any;
+        readonly entryType: "measure";
+    }
+    var PerformanceMeasure: {
+        prototype: PerformanceMeasure;
+        new(): PerformanceMeasure;
+    };
+    interface PerformanceObserver {
+        disconnect(): void;
+        observe(options: PerformanceObserverInit): void;
+        takeRecords(): PerformanceEntryList;
+    }
+    var PerformanceObserver: {
+        prototype: PerformanceObserver;
+        new(callback: PerformanceObserverCallback): PerformanceObserver;
+        readonly supportedEntryTypes: readonly EntryType[];
+    };
+    interface PerformanceObserverEntryList {
+        getEntries(): PerformanceEntryList;
+        getEntriesByName(name: string, type?: EntryType): PerformanceEntryList;
+        getEntriesByType(type: EntryType): PerformanceEntryList;
+    }
+    var PerformanceObserverEntryList: {
+        prototype: PerformanceObserverEntryList;
+        new(): PerformanceObserverEntryList;
+    };
+    interface PerformanceResourceTiming extends PerformanceEntry {
+        readonly connectEnd: number;
+        readonly connectStart: number;
+        readonly decodedBodySize: number;
+        readonly domainLookupEnd: number;
+        readonly domainLookupStart: number;
+        readonly encodedBodySize: number;
+        readonly entryType: "resource";
+        readonly fetchStart: number;
+        readonly initiatorType: string;
+        readonly nextHopProtocol: string;
+        readonly redirectEnd: number;
+        readonly redirectStart: number;
+        readonly requestStart: number;
+        readonly responseEnd: number;
+        readonly responseStart: number;
+        readonly responseStatus: number;
+        readonly secureConnectionStart: number;
+        readonly transferSize: number;
+        readonly workerStart: number;
+        toJSON(): any;
+    }
+    var PerformanceResourceTiming: {
+        prototype: PerformanceResourceTiming;
+        new(): PerformanceResourceTiming;
+    };
+    var performance: Performance;
+    // #endregion
+    interface PerformanceTimerifyOptions {
+        /**
+         * A histogram object created using
+         * `perf_hooks.createHistogram()` that will record runtime durations in
+         * nanoseconds.
+         */
+        histogram?: RecordableHistogram | undefined;
     }
     /**
+     * _This class is an extension by Node.js. It is not available in Web browsers._
+     *
+     * Provides detailed Node.js timing data.
+     *
      * The constructor of this class is not exposed to users directly.
-     * @since v8.5.0
+     * @since v19.0.0
      */
-    class PerformanceEntry {
-        protected constructor();
-        /**
-         * The total number of milliseconds elapsed for this entry. This value will not
-         * be meaningful for all Performance Entry types.
-         * @since v8.5.0
-         */
-        readonly duration: number;
-        /**
-         * The name of the performance entry.
-         * @since v8.5.0
-         */
-        readonly name: string;
-        /**
-         * The high resolution millisecond timestamp marking the starting time of the
-         * Performance Entry.
-         * @since v8.5.0
-         */
-        readonly startTime: number;
-        /**
-         * The type of the performance entry. It may be one of:
-         *
-         * * `'node'` (Node.js only)
-         * * `'mark'` (available on the Web)
-         * * `'measure'` (available on the Web)
-         * * `'gc'` (Node.js only)
-         * * `'function'` (Node.js only)
-         * * `'http2'` (Node.js only)
-         * * `'http'` (Node.js only)
-         * @since v8.5.0
-         */
-        readonly entryType: EntryType;
+    class PerformanceNodeEntry extends PerformanceEntry {
         /**
          * Additional detail specific to the `entryType`.
          * @since v16.0.0
          */
-        readonly detail?: NodeGCPerformanceDetail | unknown | undefined; // TODO: Narrow this based on entry type.
-        toJSON(): any;
-    }
-    /**
-     * Exposes marks created via the `Performance.mark()` method.
-     * @since v18.2.0, v16.17.0
-     */
-    class PerformanceMark extends PerformanceEntry {
-        readonly duration: 0;
-        readonly entryType: "mark";
-    }
-    /**
-     * Exposes measures created via the `Performance.measure()` method.
-     *
-     * The constructor of this class is not exposed to users directly.
-     * @since v18.2.0, v16.17.0
-     */
-    class PerformanceMeasure extends PerformanceEntry {
-        readonly entryType: "measure";
+        readonly detail: any;
+        readonly entryType: "dns" | "function" | "gc" | "http2" | "http" | "net" | "node";
     }
     interface UVMetrics {
         /**
@@ -137,8 +350,7 @@ declare module "perf_hooks" {
      * is not exposed to users.
      * @since v8.5.0
      */
-    class PerformanceNodeTiming extends PerformanceEntry {
-        readonly entryType: "node";
+    interface PerformanceNodeTiming extends PerformanceEntry {
         /**
          * The high resolution millisecond timestamp at which the Node.js process
          * completed bootstrapping. If bootstrapping has not yet finished, the property
@@ -146,6 +358,7 @@ declare module "perf_hooks" {
          * @since v8.5.0
          */
         readonly bootstrapComplete: number;
+        readonly entryType: "node";
         /**
          * The high resolution millisecond timestamp at which the Node.js environment was
          * initialized.
@@ -197,507 +410,6 @@ declare module "perf_hooks" {
          */
         readonly v8Start: number;
     }
-    interface EventLoopUtilization {
-        idle: number;
-        active: number;
-        utilization: number;
-    }
-    /**
-     * @param utilization1 The result of a previous call to `eventLoopUtilization()`.
-     * @param utilization2 The result of a previous call to `eventLoopUtilization()` prior to `utilization1`.
-     */
-    type EventLoopUtilityFunction = (
-        utilization1?: EventLoopUtilization,
-        utilization2?: EventLoopUtilization,
-    ) => EventLoopUtilization;
-    interface MarkOptions {
-        /**
-         * Additional optional detail to include with the mark.
-         */
-        detail?: unknown | undefined;
-        /**
-         * An optional timestamp to be used as the mark time.
-         * @default `performance.now()`
-         */
-        startTime?: number | undefined;
-    }
-    interface MeasureOptions {
-        /**
-         * Additional optional detail to include with the mark.
-         */
-        detail?: unknown | undefined;
-        /**
-         * Duration between start and end times.
-         */
-        duration?: number | undefined;
-        /**
-         * Timestamp to be used as the end time, or a string identifying a previously recorded mark.
-         */
-        end?: number | string | undefined;
-        /**
-         * Timestamp to be used as the start time, or a string identifying a previously recorded mark.
-         */
-        start?: number | string | undefined;
-    }
-    interface TimerifyOptions {
-        /**
-         * A histogram object created using `perf_hooks.createHistogram()` that will record runtime
-         * durations in nanoseconds.
-         */
-        histogram?: RecordableHistogram | undefined;
-    }
-    interface Performance {
-        /**
-         * If `name` is not provided, removes all `PerformanceMark` objects from the Performance Timeline.
-         * If `name` is provided, removes only the named mark.
-         * @since v8.5.0
-         */
-        clearMarks(name?: string): void;
-        /**
-         * If `name` is not provided, removes all `PerformanceMeasure` objects from the Performance Timeline.
-         * If `name` is provided, removes only the named measure.
-         * @since v16.7.0
-         */
-        clearMeasures(name?: string): void;
-        /**
-         * If `name` is not provided, removes all `PerformanceResourceTiming` objects from the Resource Timeline.
-         * If `name` is provided, removes only the named resource.
-         * @since v18.2.0, v16.17.0
-         */
-        clearResourceTimings(name?: string): void;
-        /**
-         * eventLoopUtilization is similar to CPU utilization except that it is calculated using high precision wall-clock time.
-         * It represents the percentage of time the event loop has spent outside the event loop's event provider (e.g. epoll_wait).
-         * No other CPU idle time is taken into consideration.
-         */
-        eventLoopUtilization: EventLoopUtilityFunction;
-        /**
-         * Returns a list of `PerformanceEntry` objects in chronological order with respect to `performanceEntry.startTime`.
-         * If you are only interested in performance entries of certain types or that have certain names, see
-         * `performance.getEntriesByType()` and `performance.getEntriesByName()`.
-         * @since v16.7.0
-         */
-        getEntries(): PerformanceEntry[];
-        /**
-         * Returns a list of `PerformanceEntry` objects in chronological order with respect to `performanceEntry.startTime`
-         * whose `performanceEntry.name` is equal to `name`, and optionally, whose `performanceEntry.entryType` is equal to `type`.
-         * @param name
-         * @param type
-         * @since v16.7.0
-         */
-        getEntriesByName(name: string, type?: EntryType): PerformanceEntry[];
-        /**
-         * Returns a list of `PerformanceEntry` objects in chronological order with respect to `performanceEntry.startTime`
-         * whose `performanceEntry.entryType` is equal to `type`.
-         * @param type
-         * @since v16.7.0
-         */
-        getEntriesByType(type: EntryType): PerformanceEntry[];
-        /**
-         * Creates a new `PerformanceMark` entry in the Performance Timeline.
-         * A `PerformanceMark` is a subclass of `PerformanceEntry` whose `performanceEntry.entryType` is always `'mark'`,
-         * and whose `performanceEntry.duration` is always `0`.
-         * Performance marks are used to mark specific significant moments in the Performance Timeline.
-         *
-         * The created `PerformanceMark` entry is put in the global Performance Timeline and can be queried with
-         * `performance.getEntries`, `performance.getEntriesByName`, and `performance.getEntriesByType`. When the observation is
-         * performed, the entries should be cleared from the global Performance Timeline manually with `performance.clearMarks`.
-         * @param name
-         */
-        mark(name: string, options?: MarkOptions): PerformanceMark;
-        /**
-         * Creates a new `PerformanceResourceTiming` entry in the Resource Timeline.
-         * A `PerformanceResourceTiming` is a subclass of `PerformanceEntry` whose `performanceEntry.entryType` is always `'resource'`.
-         * Performance resources are used to mark moments in the Resource Timeline.
-         * @param timingInfo [Fetch Timing Info](https://fetch.spec.whatwg.org/#fetch-timing-info)
-         * @param requestedUrl The resource url
-         * @param initiatorType The initiator name, e.g: 'fetch'
-         * @param global
-         * @param cacheMode The cache mode must be an empty string ('') or 'local'
-         * @param bodyInfo [Fetch Response Body Info](https://fetch.spec.whatwg.org/#response-body-info)
-         * @param responseStatus The response's status code
-         * @param deliveryType The delivery type. Default: ''.
-         * @since v18.2.0, v16.17.0
-         */
-        markResourceTiming(
-            timingInfo: object,
-            requestedUrl: string,
-            initiatorType: string,
-            global: object,
-            cacheMode: "" | "local",
-            bodyInfo: object,
-            responseStatus: number,
-            deliveryType?: string,
-        ): PerformanceResourceTiming;
-        /**
-         * Creates a new PerformanceMeasure entry in the Performance Timeline.
-         * A PerformanceMeasure is a subclass of PerformanceEntry whose performanceEntry.entryType is always 'measure',
-         * and whose performanceEntry.duration measures the number of milliseconds elapsed since startMark and endMark.
-         *
-         * The startMark argument may identify any existing PerformanceMark in the the Performance Timeline, or may identify
-         * any of the timestamp properties provided by the PerformanceNodeTiming class. If the named startMark does not exist,
-         * then startMark is set to timeOrigin by default.
-         *
-         * The endMark argument must identify any existing PerformanceMark in the the Performance Timeline or any of the timestamp
-         * properties provided by the PerformanceNodeTiming class. If the named endMark does not exist, an error will be thrown.
-         * @param name
-         * @param startMark
-         * @param endMark
-         * @return The PerformanceMeasure entry that was created
-         */
-        measure(name: string, startMark?: string, endMark?: string): PerformanceMeasure;
-        measure(name: string, options: MeasureOptions): PerformanceMeasure;
-        /**
-         * _This property is an extension by Node.js. It is not available in Web browsers._
-         *
-         * An instance of the `PerformanceNodeTiming` class that provides performance metrics for specific Node.js operational milestones.
-         * @since v8.5.0
-         */
-        readonly nodeTiming: PerformanceNodeTiming;
-        /**
-         * Returns the current high resolution millisecond timestamp, where 0 represents the start of the current `node` process.
-         * @since v8.5.0
-         */
-        now(): number;
-        /**
-         * Sets the global performance resource timing buffer size to the specified number of "resource" type performance entry objects.
-         *
-         * By default the max buffer size is set to 250.
-         * @since v18.8.0
-         */
-        setResourceTimingBufferSize(maxSize: number): void;
-        /**
-         * The [`timeOrigin`](https://w3c.github.io/hr-time/#dom-performance-timeorigin) specifies the high resolution millisecond timestamp
-         * at which the current `node` process began, measured in Unix time.
-         * @since v8.5.0
-         */
-        readonly timeOrigin: number;
-        /**
-         * _This property is an extension by Node.js. It is not available in Web browsers._
-         *
-         * Wraps a function within a new function that measures the running time of the wrapped function.
-         * A `PerformanceObserver` must be subscribed to the `'function'` event type in order for the timing details to be accessed.
-         *
-         * ```js
-         * import {
-         *   performance,
-         *   PerformanceObserver,
-         * } from 'node:perf_hooks';
-         *
-         * function someFunction() {
-         *   console.log('hello world');
-         * }
-         *
-         * const wrapped = performance.timerify(someFunction);
-         *
-         * const obs = new PerformanceObserver((list) => {
-         *   console.log(list.getEntries()[0].duration);
-         *
-         *   performance.clearMarks();
-         *   performance.clearMeasures();
-         *   obs.disconnect();
-         * });
-         * obs.observe({ entryTypes: ['function'] });
-         *
-         * // A performance timeline entry will be created
-         * wrapped();
-         * ```
-         *
-         * If the wrapped function returns a promise, a finally handler will be attached to the promise and the duration will be reported
-         * once the finally handler is invoked.
-         * @param fn
-         */
-        timerify<T extends (...params: any[]) => any>(fn: T, options?: TimerifyOptions): T;
-        /**
-         * An object which is JSON representation of the performance object. It is similar to
-         * [`window.performance.toJSON`](https://developer.mozilla.org/en-US/docs/Web/API/Performance/toJSON) in browsers.
-         * @since v16.1.0
-         */
-        toJSON(): any;
-    }
-    class PerformanceObserverEntryList {
-        /**
-         * Returns a list of `PerformanceEntry` objects in chronological order
-         * with respect to `performanceEntry.startTime`.
-         *
-         * ```js
-         * import {
-         *   performance,
-         *   PerformanceObserver,
-         * } from 'node:perf_hooks';
-         *
-         * const obs = new PerformanceObserver((perfObserverList, observer) => {
-         *   console.log(perfObserverList.getEntries());
-         *
-         *    * [
-         *    *   PerformanceEntry {
-         *    *     name: 'test',
-         *    *     entryType: 'mark',
-         *    *     startTime: 81.465639,
-         *    *     duration: 0,
-         *    *     detail: null
-         *    *   },
-         *    *   PerformanceEntry {
-         *    *     name: 'meow',
-         *    *     entryType: 'mark',
-         *    *     startTime: 81.860064,
-         *    *     duration: 0,
-         *    *     detail: null
-         *    *   }
-         *    * ]
-         *
-         *   performance.clearMarks();
-         *   performance.clearMeasures();
-         *   observer.disconnect();
-         * });
-         * obs.observe({ type: 'mark' });
-         *
-         * performance.mark('test');
-         * performance.mark('meow');
-         * ```
-         * @since v8.5.0
-         */
-        getEntries(): PerformanceEntry[];
-        /**
-         * Returns a list of `PerformanceEntry` objects in chronological order
-         * with respect to `performanceEntry.startTime` whose `performanceEntry.name` is
-         * equal to `name`, and optionally, whose `performanceEntry.entryType` is equal to`type`.
-         *
-         * ```js
-         * import {
-         *   performance,
-         *   PerformanceObserver,
-         * } from 'node:perf_hooks';
-         *
-         * const obs = new PerformanceObserver((perfObserverList, observer) => {
-         *   console.log(perfObserverList.getEntriesByName('meow'));
-         *
-         *    * [
-         *    *   PerformanceEntry {
-         *    *     name: 'meow',
-         *    *     entryType: 'mark',
-         *    *     startTime: 98.545991,
-         *    *     duration: 0,
-         *    *     detail: null
-         *    *   }
-         *    * ]
-         *
-         *   console.log(perfObserverList.getEntriesByName('nope')); // []
-         *
-         *   console.log(perfObserverList.getEntriesByName('test', 'mark'));
-         *
-         *    * [
-         *    *   PerformanceEntry {
-         *    *     name: 'test',
-         *    *     entryType: 'mark',
-         *    *     startTime: 63.518931,
-         *    *     duration: 0,
-         *    *     detail: null
-         *    *   }
-         *    * ]
-         *
-         *   console.log(perfObserverList.getEntriesByName('test', 'measure')); // []
-         *
-         *   performance.clearMarks();
-         *   performance.clearMeasures();
-         *   observer.disconnect();
-         * });
-         * obs.observe({ entryTypes: ['mark', 'measure'] });
-         *
-         * performance.mark('test');
-         * performance.mark('meow');
-         * ```
-         * @since v8.5.0
-         */
-        getEntriesByName(name: string, type?: EntryType): PerformanceEntry[];
-        /**
-         * Returns a list of `PerformanceEntry` objects in chronological order
-         * with respect to `performanceEntry.startTime` whose `performanceEntry.entryType` is equal to `type`.
-         *
-         * ```js
-         * import {
-         *   performance,
-         *   PerformanceObserver,
-         * } from 'node:perf_hooks';
-         *
-         * const obs = new PerformanceObserver((perfObserverList, observer) => {
-         *   console.log(perfObserverList.getEntriesByType('mark'));
-         *
-         *    * [
-         *    *   PerformanceEntry {
-         *    *     name: 'test',
-         *    *     entryType: 'mark',
-         *    *     startTime: 55.897834,
-         *    *     duration: 0,
-         *    *     detail: null
-         *    *   },
-         *    *   PerformanceEntry {
-         *    *     name: 'meow',
-         *    *     entryType: 'mark',
-         *    *     startTime: 56.350146,
-         *    *     duration: 0,
-         *    *     detail: null
-         *    *   }
-         *    * ]
-         *
-         *   performance.clearMarks();
-         *   performance.clearMeasures();
-         *   observer.disconnect();
-         * });
-         * obs.observe({ type: 'mark' });
-         *
-         * performance.mark('test');
-         * performance.mark('meow');
-         * ```
-         * @since v8.5.0
-         */
-        getEntriesByType(type: EntryType): PerformanceEntry[];
-    }
-    type PerformanceObserverCallback = (list: PerformanceObserverEntryList, observer: PerformanceObserver) => void;
-    /**
-     * @since v8.5.0
-     */
-    class PerformanceObserver extends AsyncResource {
-        constructor(callback: PerformanceObserverCallback);
-        /**
-         * Disconnects the `PerformanceObserver` instance from all notifications.
-         * @since v8.5.0
-         */
-        disconnect(): void;
-        /**
-         * Subscribes the `PerformanceObserver` instance to notifications of new `PerformanceEntry` instances identified either by `options.entryTypes` or `options.type`:
-         *
-         * ```js
-         * import {
-         *   performance,
-         *   PerformanceObserver,
-         * } from 'node:perf_hooks';
-         *
-         * const obs = new PerformanceObserver((list, observer) => {
-         *   // Called once asynchronously. `list` contains three items.
-         * });
-         * obs.observe({ type: 'mark' });
-         *
-         * for (let n = 0; n < 3; n++)
-         *   performance.mark(`test${n}`);
-         * ```
-         * @since v8.5.0
-         */
-        observe(
-            options:
-                | {
-                    entryTypes: readonly EntryType[];
-                    buffered?: boolean | undefined;
-                }
-                | {
-                    type: EntryType;
-                    buffered?: boolean | undefined;
-                },
-        ): void;
-        /**
-         * @since v16.0.0
-         * @returns Current list of entries stored in the performance observer, emptying it out.
-         */
-        takeRecords(): PerformanceEntry[];
-    }
-    /**
-     * Provides detailed network timing data regarding the loading of an application's resources.
-     *
-     * The constructor of this class is not exposed to users directly.
-     * @since v18.2.0, v16.17.0
-     */
-    class PerformanceResourceTiming extends PerformanceEntry {
-        readonly entryType: "resource";
-        protected constructor();
-        /**
-         * The high resolution millisecond timestamp at immediately before dispatching the `fetch`
-         * request. If the resource is not intercepted by a worker the property will always return 0.
-         * @since v18.2.0, v16.17.0
-         */
-        readonly workerStart: number;
-        /**
-         * The high resolution millisecond timestamp that represents the start time of the fetch which
-         * initiates the redirect.
-         * @since v18.2.0, v16.17.0
-         */
-        readonly redirectStart: number;
-        /**
-         * The high resolution millisecond timestamp that will be created immediately after receiving
-         * the last byte of the response of the last redirect.
-         * @since v18.2.0, v16.17.0
-         */
-        readonly redirectEnd: number;
-        /**
-         * The high resolution millisecond timestamp immediately before the Node.js starts to fetch the resource.
-         * @since v18.2.0, v16.17.0
-         */
-        readonly fetchStart: number;
-        /**
-         * The high resolution millisecond timestamp immediately before the Node.js starts the domain name lookup
-         * for the resource.
-         * @since v18.2.0, v16.17.0
-         */
-        readonly domainLookupStart: number;
-        /**
-         * The high resolution millisecond timestamp representing the time immediately after the Node.js finished
-         * the domain name lookup for the resource.
-         * @since v18.2.0, v16.17.0
-         */
-        readonly domainLookupEnd: number;
-        /**
-         * The high resolution millisecond timestamp representing the time immediately before Node.js starts to
-         * establish the connection to the server to retrieve the resource.
-         * @since v18.2.0, v16.17.0
-         */
-        readonly connectStart: number;
-        /**
-         * The high resolution millisecond timestamp representing the time immediately after Node.js finishes
-         * establishing the connection to the server to retrieve the resource.
-         * @since v18.2.0, v16.17.0
-         */
-        readonly connectEnd: number;
-        /**
-         * The high resolution millisecond timestamp representing the time immediately before Node.js starts the
-         * handshake process to secure the current connection.
-         * @since v18.2.0, v16.17.0
-         */
-        readonly secureConnectionStart: number;
-        /**
-         * The high resolution millisecond timestamp representing the time immediately before Node.js receives the
-         * first byte of the response from the server.
-         * @since v18.2.0, v16.17.0
-         */
-        readonly requestStart: number;
-        /**
-         * The high resolution millisecond timestamp representing the time immediately after Node.js receives the
-         * last byte of the resource or immediately before the transport connection is closed, whichever comes first.
-         * @since v18.2.0, v16.17.0
-         */
-        readonly responseEnd: number;
-        /**
-         * A number representing the size (in octets) of the fetched resource. The size includes the response header
-         * fields plus the response payload body.
-         * @since v18.2.0, v16.17.0
-         */
-        readonly transferSize: number;
-        /**
-         * A number representing the size (in octets) received from the fetch (HTTP or cache), of the payload body, before
-         * removing any applied content-codings.
-         * @since v18.2.0, v16.17.0
-         */
-        readonly encodedBodySize: number;
-        /**
-         * A number representing the size (in octets) received from the fetch (HTTP or cache), of the message body, after
-         * removing any applied content-codings.
-         * @since v18.2.0, v16.17.0
-         */
-        readonly decodedBodySize: number;
-        /**
-         * Returns a `object` that is the JSON representation of the `PerformanceResourceTiming` object
-         * @since v18.2.0, v16.17.0
-         */
-        toJSON(): any;
-    }
     namespace constants {
         const NODE_PERFORMANCE_GC_MAJOR: number;
         const NODE_PERFORMANCE_GC_MINOR: number;
@@ -711,7 +423,6 @@ declare module "perf_hooks" {
         const NODE_PERFORMANCE_GC_FLAGS_ALL_EXTERNAL_MEMORY: number;
         const NODE_PERFORMANCE_GC_FLAGS_SCHEDULE_IDLE: number;
     }
-    const performance: Performance;
     interface EventLoopMonitorOptions {
         /**
          * The sampling rate in milliseconds.
@@ -813,6 +524,20 @@ declare module "perf_hooks" {
          * @since v11.10.0
          */
         disable(): boolean;
+        /**
+         * Disables the update interval timer when the histogram is disposed.
+         *
+         * ```js
+         * const { monitorEventLoopDelay } = require('node:perf_hooks');
+         * {
+         *   using hist = monitorEventLoopDelay({ resolution: 20 });
+         *   hist.enable();
+         *   // The histogram will be disabled when the block is exited.
+         * }
+         * ```
+         * @since v24.2.0
+         */
+        [Symbol.dispose](): void;
     }
     interface RecordableHistogram extends Histogram {
         /**
@@ -866,12 +591,12 @@ declare module "perf_hooks" {
          * The minimum recordable value. Must be an integer value greater than 0.
          * @default 1
          */
-        min?: number | bigint | undefined;
+        lowest?: number | bigint | undefined;
         /**
          * The maximum recordable value. Must be an integer value greater than min.
          * @default Number.MAX_SAFE_INTEGER
          */
-        max?: number | bigint | undefined;
+        highest?: number | bigint | undefined;
         /**
          * The number of accuracy digits. Must be a number between 1 and 5.
          * @default 3
@@ -883,88 +608,14 @@ declare module "perf_hooks" {
      * @since v15.9.0, v14.18.0
      */
     function createHistogram(options?: CreateHistogramOptions): RecordableHistogram;
-    import {
-        performance as _performance,
-        PerformanceEntry as _PerformanceEntry,
-        PerformanceMark as _PerformanceMark,
-        PerformanceMeasure as _PerformanceMeasure,
-        PerformanceObserver as _PerformanceObserver,
-        PerformanceObserverEntryList as _PerformanceObserverEntryList,
-        PerformanceResourceTiming as _PerformanceResourceTiming,
-    } from "perf_hooks";
-    global {
-        /**
-         * `PerformanceEntry` is a global reference for `import { PerformanceEntry } from 'node:perf_hooks'`
-         * @see https://nodejs.org/docs/latest-v22.x/api/globals.html#performanceentry
-         * @since v19.0.0
-         */
-        var PerformanceEntry: typeof globalThis extends {
-            onmessage: any;
-            PerformanceEntry: infer T;
-        } ? T
-            : typeof _PerformanceEntry;
-        /**
-         * `PerformanceMark` is a global reference for `import { PerformanceMark } from 'node:perf_hooks'`
-         * @see https://nodejs.org/docs/latest-v22.x/api/globals.html#performancemark
-         * @since v19.0.0
-         */
-        var PerformanceMark: typeof globalThis extends {
-            onmessage: any;
-            PerformanceMark: infer T;
-        } ? T
-            : typeof _PerformanceMark;
-        /**
-         * `PerformanceMeasure` is a global reference for `import { PerformanceMeasure } from 'node:perf_hooks'`
-         * @see https://nodejs.org/docs/latest-v22.x/api/globals.html#performancemeasure
-         * @since v19.0.0
-         */
-        var PerformanceMeasure: typeof globalThis extends {
-            onmessage: any;
-            PerformanceMeasure: infer T;
-        } ? T
-            : typeof _PerformanceMeasure;
-        /**
-         * `PerformanceObserver` is a global reference for `import { PerformanceObserver } from 'node:perf_hooks'`
-         * @see https://nodejs.org/docs/latest-v22.x/api/globals.html#performanceobserver
-         * @since v19.0.0
-         */
-        var PerformanceObserver: typeof globalThis extends {
-            onmessage: any;
-            PerformanceObserver: infer T;
-        } ? T
-            : typeof _PerformanceObserver;
-        /**
-         * `PerformanceObserverEntryList` is a global reference for `import { PerformanceObserverEntryList } from 'node:perf_hooks'`
-         * @see https://nodejs.org/docs/latest-v22.x/api/globals.html#performanceobserverentrylist
-         * @since v19.0.0
-         */
-        var PerformanceObserverEntryList: typeof globalThis extends {
-            onmessage: any;
-            PerformanceObserverEntryList: infer T;
-        } ? T
-            : typeof _PerformanceObserverEntryList;
-        /**
-         * `PerformanceResourceTiming` is a global reference for `import { PerformanceResourceTiming } from 'node:perf_hooks'`
-         * @see https://nodejs.org/docs/latest-v22.x/api/globals.html#performanceresourcetiming
-         * @since v19.0.0
-         */
-        var PerformanceResourceTiming: typeof globalThis extends {
-            onmessage: any;
-            PerformanceResourceTiming: infer T;
-        } ? T
-            : typeof _PerformanceResourceTiming;
-        /**
-         * `performance` is a global reference for `import { performance } from 'node:perf_hooks'`
-         * @see https://nodejs.org/docs/latest-v22.x/api/globals.html#performance
-         * @since v16.0.0
-         */
-        var performance: typeof globalThis extends {
-            onmessage: any;
-            performance: infer T;
-        } ? T
-            : typeof _performance;
-    }
+    // TODO: remove these in a future major
+    /** @deprecated Use the canonical `PerformanceMarkOptions` instead. */
+    interface MarkOptions extends PerformanceMarkOptions {}
+    /** @deprecated Use the canonical `PerformanceMeasureOptions` instead. */
+    interface MeasureOptions extends PerformanceMeasureOptions {}
+    /** @deprecated Use `PerformanceTimerifyOptions` instead. */
+    interface TimerifyOptions extends PerformanceTimerifyOptions {}
 }
-declare module "node:perf_hooks" {
-    export * from "perf_hooks";
+declare module "perf_hooks" {
+    export * from "node:perf_hooks";
 }

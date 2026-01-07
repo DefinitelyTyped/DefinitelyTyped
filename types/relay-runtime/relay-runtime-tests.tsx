@@ -15,7 +15,9 @@ import {
     getRefetchMetadata,
     getRequest,
     graphql,
+    isErrorResult,
     isPromise,
+    isValueResult,
     LiveState,
     Network,
     PreloadableConcreteRequest,
@@ -23,6 +25,7 @@ import {
     QueryResponseCache,
     ReaderFragment,
     ReaderInlineDataFragment,
+    readFragment,
     readInlineData,
     RecordProxy,
     RecordSource,
@@ -35,6 +38,13 @@ import {
     suspenseSentinel,
     Variables,
 } from "relay-runtime";
+import {
+    IdOf,
+    observeFragment,
+    observeQuery,
+    resolverDataInjector,
+    waitForFragmentData,
+} from "relay-runtime/experimental";
 
 import type { HandlerProvider } from "relay-runtime/lib/handlers/RelayDefaultHandlerProvider";
 import * as multiActorEnvironment from "relay-runtime/multi-actor-environment";
@@ -111,6 +121,9 @@ const handlerProvider: HandlerProvider = (handle: string) => {
 // ~~~~~~~~~~~~~~~~~~~~~
 // Environment
 // ~~~~~~~~~~~~~~~~~~~~~
+
+// Minimal
+new Environment({ network });
 
 const isServer = false;
 
@@ -697,8 +710,6 @@ function multiActors() {
 // Relay Resolvers
 // ~~~~~~~~~~~~~~~~~~~~~~~
 
-const { readFragment } = __internal.ResolverFragments;
-
 // Regular fragment.
 interface UserComponent_user {
     readonly id: string;
@@ -917,6 +928,20 @@ export function handleResult<T, E>(result: Result<T, E>) {
     }
 }
 
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+export function handleValueResult<T, E>(result: Result<T, E>) {
+    if (isValueResult(result)) {
+        const value: T = result.value;
+    }
+}
+
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+export function handleErrorResult<T, E>(result: Result<T, E>) {
+    if (isErrorResult(result)) {
+        const errors: readonly E[] = result.errors;
+    }
+}
+
 // ~~~~~~~~~~~~~~~~~~
 // Metadata
 // ~~~~~~~~~~~~~~~~~~
@@ -943,3 +968,162 @@ const refetchMetadata: {
             | undefined;
     };
 } = getRefetchMetadata(node.fragment, "getRefetchMetadata()");
+
+// ~~~~~~~~~~~~~~~~~~~
+// waitForFragmentData
+// ~~~~~~~~~~~~~~~~~~~
+
+async function waitForFragmentDataTest(userKey: UserComponent_user$key) {
+    const { name, profile_picture: { uri } } = await waitForFragmentData(
+        environment,
+        graphql`
+            fragment UserComponent_user on User {
+                name
+                profile_picture(scale: 2) {
+                    uri
+                }
+            }
+        `,
+        userKey,
+    );
+}
+
+// ~~~~~~~~~~~~~~~~~~
+// observeFragment
+// ~~~~~~~~~~~~~~~~~~
+
+function observeFragmentTest(userKey: UserComponent_user$key) {
+    const subscription = observeFragment(
+        environment,
+        graphql`
+            fragment UserComponent_user on User {
+                name
+                profile_picture(scale: 2) {
+                    uri
+                }
+            }
+        `,
+        userKey,
+    ).subscribe({
+        next: (result) => {
+            switch (result.state) {
+                case "loading":
+                    break;
+                case "error":
+                    const error: Error = result.error;
+                    break;
+                case "ok":
+                    const name: string = result.value.name;
+                    break;
+            }
+        },
+    });
+
+    subscription.unsubscribe();
+}
+
+// ~~~~~~~~~~~~~~~~~~
+// observeQuery
+// ~~~~~~~~~~~~~~~~~~
+
+interface AppQueryVariables {
+    id: string;
+}
+
+interface AppQueryResponse {
+    readonly user: {
+        readonly name: string;
+    };
+}
+
+interface AppQuery {
+    readonly response: AppQueryResponse;
+    readonly variables: AppQueryVariables;
+}
+
+function observeQueryTest() {
+    const subscription = observeQuery<AppQuery>(
+        environment,
+        graphql`
+            query AppQuery($id: ID!) {
+                user(id: $id) {
+                    name
+                }
+            }
+        `,
+        { id: "12345" },
+    ).subscribe({
+        next: (result) => {
+            switch (result.state) {
+                case "loading":
+                    break;
+                case "error":
+                    const error: Error = result.error;
+                    break;
+                case "ok":
+                    const name: string = result.value.user.name;
+                    break;
+            }
+        },
+    });
+
+    subscription.unsubscribe();
+}
+
+// ~~~~~~~~~~~~~~~~~~
+// resolverDataInjector
+// ~~~~~~~~~~~~~~~~~~
+
+const MyResolverType__id_graphql: ReaderFragment = {
+    "argumentDefinitions": [],
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "MyResolverType__id",
+    "selections": [
+        {
+            "kind": "ClientExtension",
+            "selections": [
+                {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "id",
+                    "storageKey": null,
+                },
+            ],
+        },
+    ],
+    "type": "MyResolverType",
+    "abstractKey": null,
+};
+
+interface MyResolverType {
+    id: string;
+}
+
+function myResolverTypeRelayModelInstanceResolver(id: DataID): MyResolverType {
+    return {
+        id,
+    };
+}
+
+export const resolverModule = resolverDataInjector(
+    MyResolverType__id_graphql,
+    myResolverTypeRelayModelInstanceResolver,
+    "id",
+    true,
+);
+
+// ~~~~~~~~~~~~~~~~~~
+// Client edge resolver
+// ~~~~~~~~~~~~~~~~~~
+
+export function myDog(): IdOf<"Dog"> {
+    return { id: "5" };
+}
+
+type AnimalTypenames = "Cat" | "Dog";
+
+export function myAnimal(): IdOf<"Animal", AnimalTypenames> {
+    return Math.random() > 0.5 ? { id: "5", __typename: "Dog" } : { id: "6", __typename: "Cat" };
+}

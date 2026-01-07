@@ -5,4 +5,5 @@ declare class Repository {
     get(name: string): any;
     set(name: string, value: any): void;
     delete(name: string): void;
+    getPropertyNames(): string[];
 }

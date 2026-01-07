@@ -431,8 +431,13 @@ export function someLimit<T, E = Error>(
     arr: IterableCollection<T>,
     limit: number,
     iterator: AsyncBooleanIterator<T, E>,
-    callback?: AsyncBooleanResultCallback<E>,
+    callback: AsyncBooleanResultCallback<E>,
 ): void;
+export function someLimit<T, E = Error>(
+    arr: IterableCollection<T>,
+    limit: number,
+    iterator: AsyncBooleanIterator<T, E>,
+): Promise<boolean>;
 export const any: typeof some;
 export const anySeries: typeof someSeries;
 export const anyLimit: typeof someLimit;
@@ -576,16 +581,6 @@ export function doUntil<T, R, E = Error>(
     test: (/* ...results: T[], */ cb: AsyncBooleanResultCallback) => void,
 ): Promise<R>;
 
-export function during<E = Error>(
-    test: (testCallback: AsyncBooleanResultCallback<E>) => void,
-    fn: AsyncVoidFunction<E>,
-    callback: ErrorCallback<E>,
-): void;
-export function doDuring<E = Error>(
-    fn: AsyncVoidFunction<E>,
-    test: (testCallback: AsyncBooleanResultCallback<E>) => void,
-    callback: ErrorCallback<E>,
-): void;
 export function forever<E = Error>(next: (next: ErrorCallback<E>) => void, errBack: ErrorCallback<E>): void;
 export function waterfall<T>(tasks: Function[]): Promise<T>;
 export function waterfall<T, E = Error>(tasks: Function[], callback: AsyncResultCallback<T, E>): void;
@@ -615,7 +610,8 @@ export function auto<R extends Dictionary<any>, E = Error>(
     tasks: AsyncAutoTasks<R, E>,
     callback: AsyncResultCallback<R, E>,
 ): void;
-export function autoInject<E = Error>(tasks: any, callback?: AsyncResultCallback<any, E>): void;
+export function autoInject<E = Error>(tasks: any, callback: AsyncResultCallback<any, E>): void;
+export function autoInject(tasks: any): Promise<any>;
 
 export interface RetryOptions<E> {
     times?: number | undefined;
@@ -688,29 +684,46 @@ export function timesLimit<T, E = Error>(
 export function transform<T, R, E = Error>(
     arr: T[],
     iteratee: (acc: R[], item: T, key: number, callback: (error?: E) => void) => void,
-    callback?: AsyncResultArrayCallback<T, E>,
+    callback: AsyncResultArrayCallback<T, E>,
+): void;
+export function transform<T, R, E = Error>(
+    arr: T[],
+    iteratee: (acc: R[], item: T, key: number, callback: (error?: E) => void) => void,
+): Promise<Array<T | undefined>>;
+export function transform<T, R, E = Error>(
+    arr: T[],
+    acc: R[],
+    iteratee: (acc: R[], item: T, key: number, callback: (error?: E) => void) => void,
+    callback: AsyncResultArrayCallback<T, E>,
 ): void;
 export function transform<T, R, E = Error>(
     arr: T[],
     acc: R[],
     iteratee: (acc: R[], item: T, key: number, callback: (error?: E) => void) => void,
-    callback?: AsyncResultArrayCallback<T, E>,
-): void;
-
+): Promise<Array<T | undefined>>;
 export function transform<T, R, E = Error>(
     arr: { [key: string]: T },
     iteratee: (acc: { [key: string]: R }, item: T, key: string, callback: (error?: E) => void) => void,
-    callback?: AsyncResultObjectCallback<T, E>,
+    callback: AsyncResultObjectCallback<T, E>,
 ): void;
-
+export function transform<T, R, E = Error>(
+    arr: { [key: string]: T },
+    iteratee: (acc: { [key: string]: R }, item: T, key: string, callback: (error?: E) => void) => void,
+): Promise<Dictionary<T | undefined>>;
 export function transform<T, R, E = Error>(
     arr: { [key: string]: T },
     acc: { [key: string]: R },
     iteratee: (acc: { [key: string]: R }, item: T, key: string, callback: (error?: E) => void) => void,
-    callback?: AsyncResultObjectCallback<T, E>,
+    callback: AsyncResultObjectCallback<T, E>,
 ): void;
+export function transform<T, R, E = Error>(
+    arr: { [key: string]: T },
+    acc: { [key: string]: R },
+    iteratee: (acc: { [key: string]: R }, item: T, key: string, callback: (error?: E) => void) => void,
+): Promise<Dictionary<T | undefined>>;
 
 export function race<T, E = Error>(tasks: Array<AsyncFunction<T, E>>, callback: AsyncResultCallback<T, E>): void;
+export function race<T, E = Error>(tasks: Array<AsyncFunction<T, E>>): Promise<T>;
 
 export function tryEach<T, E = Error>(
     tasks: IterableCollection<AsyncFunction<T>>,

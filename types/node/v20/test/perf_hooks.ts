@@ -33,14 +33,6 @@ const performanceObserverCallback: PerformanceObserverCallback = (list, obs) => 
     const name: string = entries[0].name;
     const startTime: number = entries[0].startTime;
     const entryTypes: EntryType = entries[0].entryType;
-    const detail: NodeGCPerformanceDetail = entries[0].detail as NodeGCPerformanceDetail;
-    const kind: number | undefined = detail.kind;
-    const flags: number | undefined = detail.flags;
-
-    if (kind === constants.NODE_PERFORMANCE_GC_MAJOR) {
-        if (flags === constants.NODE_PERFORMANCE_GC_FLAGS_ALL_EXTERNAL_MEMORY) {
-        }
-    }
 
     obs.disconnect();
 };
@@ -72,8 +64,8 @@ const exceeds: number = monitor.exceeds;
 
 let histogram: RecordableHistogram = createHistogram({
     figures: 123,
-    min: 1,
-    max: 2,
+    lowest: 1,
+    highest: 2,
 });
 histogram = createHistogram();
 
@@ -151,3 +143,14 @@ const resource = NodePerf.markResourceTiming(
     "",
 );
 resource; // $ExpectType PerformanceResourceTiming
+
+{
+    const { nodeTiming } = NodePerf;
+
+    // $ExpectType UVMetrics
+    const uvMetrics = nodeTiming.uvMetricsInfo;
+
+    uvMetrics.loopCount; // $ExpectType number
+    uvMetrics.events; // $ExpectType number
+    uvMetrics.eventsWaiting; // $ExpectType number
+}

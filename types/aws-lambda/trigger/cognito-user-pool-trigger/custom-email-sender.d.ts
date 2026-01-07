@@ -50,6 +50,10 @@ export interface CustomEmailSenderAdminCreateUserTriggerEvent
     extends BaseCustomEmailSenderTriggerEvent<"CustomEmailSender_AdminCreateUser">
 {}
 
+export interface CustomEmailSenderAuthenticationTriggerEvent
+    extends BaseCustomEmailSenderTriggerEvent<"CustomEmailSender_Authentication">
+{}
+
 export interface CustomEmailSenderAccountTakeOverNotificationTriggerEvent
     extends BaseTriggerEvent<"CustomEmailSender_AccountTakeOverNotification">
 {
@@ -71,6 +75,7 @@ export type CustomEmailSenderTriggerEvent =
     | CustomEmailSenderUpdateUserAttributeTriggerEvent
     | CustomEmailSenderVerifyUserAttributeTriggerEvent
     | CustomEmailSenderAdminCreateUserTriggerEvent
+    | CustomEmailSenderAuthenticationTriggerEvent
     | CustomEmailSenderAccountTakeOverNotificationTriggerEvent;
 
 export type CustomEmailSenderTriggerHandler = Handler<CustomEmailSenderTriggerEvent>;

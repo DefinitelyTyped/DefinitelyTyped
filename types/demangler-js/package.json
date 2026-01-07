@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/demangler-js",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/arthurmco/demangler-js#readme"
+    ],
+    "devDependencies": {
+        "@types/demangler-js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ron",
+            "githubUsername": "rjaegers"
+        }
+    ]
+}

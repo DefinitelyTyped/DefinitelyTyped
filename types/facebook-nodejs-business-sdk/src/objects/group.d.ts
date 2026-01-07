@@ -1,6 +1,5 @@
 import { AbstractCrudObject } from "./../abstract-crud-object";
 import Cursor from "./../cursor";
-import Album from "./album";
 import Post from "./post";
 import LiveVideo from "./live-video";
 import Photo from "./photo";
@@ -101,10 +100,9 @@ export default class Group extends AbstractCrudObject {
         work_team: "WORK_TEAM";
         work_teamwork: "WORK_TEAMWORK";
     }>;
-    deleteAdMIns(params?: Record<string, any>): Promise<any>;
-    createAdMIn(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Group>;
+    deleteAdmins(params?: Record<string, any>): Promise<any>;
+    createAdmin(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Group>;
     getAlbums(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createAlbum(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Album>;
     getDocs(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getEvents(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getFeed(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;

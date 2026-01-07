@@ -1,6 +1,6 @@
+import { Vector3 } from "../../math/Vector3.js";
 import Node from "../core/Node.js";
 import TempNode from "../core/TempNode.js";
-import { NodeRepresentation, ShaderNodeObject } from "../tsl/TSLCore.js";
 import OperatorNode from "./OperatorNode.js";
 
 export type MathNodeMethod1 =
@@ -33,13 +33,13 @@ export type MathNodeMethod1 =
     | typeof MathNode.RECIPROCAL
     | typeof MathNode.TRUNC
     | typeof MathNode.FWIDTH
-    | typeof MathNode.BITCAST
-    | typeof MathNode.TRANSPOSE;
+    | typeof MathNode.TRANSPOSE
+    | typeof MathNode.DETERMINANT
+    | typeof MathNode.INVERSE;
 
 export type MathNodeMethod2 =
     | typeof MathNode.MIN
     | typeof MathNode.MAX
-    | typeof MathNode.MOD
     | typeof MathNode.STEP
     | typeof MathNode.REFLECT
     | typeof MathNode.DISTANCE
@@ -93,14 +93,14 @@ export default class MathNode extends TempNode {
     static RECIPROCAL: "reciprocal";
     static TRUNC: "trunc";
     static FWIDTH: "fwidth";
-    static BITCAST: "bitcast";
     static TRANSPOSE: "transpose";
+    static DETERMINANT: "determinant";
+    static INVERSE: "inverse";
 
     // 2 inputs
 
     static MIN: "min";
     static MAX: "max";
-    static MOD: "mod";
     static STEP: "step";
     static REFLECT: "reflect";
     static DISTANCE: "distance";
@@ -129,15 +129,29 @@ export default class MathNode extends TempNode {
     constructor(method: MathNodeMethod3, aNode: Node, bNode: Node, cNode: Node);
 }
 
-export const EPSILON: ShaderNodeObject<Node>;
-export const INFINITY: ShaderNodeObject<Node>;
-export const PI: ShaderNodeObject<Node>;
-export const PI2: ShaderNodeObject<Node>;
+export const EPSILON: Node;
+export const INFINITY: Node;
+export const PI: Node;
 
-type Unary = (a: NodeRepresentation) => ShaderNodeObject<MathNode>;
+/**
+ * @deprecated Please use the non-deprecated version `TWO_PI`.
+ */
+export const PI2: Node;
+
+export const TWO_PI: Node;
+
+export const HALF_PI: Node;
+
+type MathNodeParameter = Node | number;
+
+type Unary = (a: MathNodeParameter) => MathNode;
 
 export const all: Unary;
 export const any: Unary;
+
+/**
+ * @deprecated "equals" is deprecated. Use "equal" inside a vector instead, like: "bvec*( equal( ... ) )"
+ */
 export const equals: Unary;
 
 export const radians: Unary;
@@ -150,14 +164,14 @@ export const sqrt: Unary;
 export const inverseSqrt: Unary;
 export const floor: Unary;
 export const ceil: Unary;
-export const normalize: Unary;
+export const normalize: (a: Node | Vector3) => MathNode;
 export const fract: Unary;
 export const sin: Unary;
 export const cos: Unary;
 export const tan: Unary;
 export const asin: Unary;
 export const acos: Unary;
-export const atan: (a: NodeRepresentation, b?: NodeRepresentation) => ShaderNodeObject<MathNode>;
+export const atan: (a: MathNodeParameter, b?: MathNodeParameter) => MathNode;
 export const abs: Unary;
 export const sign: Unary;
 export const length: Unary;
@@ -169,45 +183,54 @@ export const round: Unary;
 export const reciprocal: Unary;
 export const trunc: Unary;
 export const fwidth: Unary;
-export const bitcast: Unary;
 export const transpose: Unary;
+export const determinant: (x: Node) => MathNode;
+export const inverse: (x: Node) => MathNode;
 
-type Binary = (a: NodeRepresentation, b: NodeRepresentation) => ShaderNodeObject<MathNode>;
+type Binary = (a: MathNodeParameter, b: MathNodeParameter) => MathNode;
 
-export const min: Binary;
-export const max: Binary;
-export const mod: Binary;
+export const min: (
+    x: MathNodeParameter,
+    y: MathNodeParameter,
+    ...values: MathNodeParameter[]
+) => MathNode;
+export const max: (
+    x: MathNodeParameter,
+    y: MathNodeParameter,
+    ...values: MathNodeParameter[]
+) => MathNode;
 export const step: Binary;
 export const reflect: Binary;
 export const distance: Binary;
 export const difference: Binary;
 export const dot: Binary;
-export const cross: Binary;
+export const cross: (x: Node, y: Node) => MathNode;
 export const pow: Binary;
-export const pow2: Binary;
-export const pow3: Binary;
-export const pow4: Binary;
+export const pow2: Unary;
+export const pow3: Unary;
+export const pow4: Unary;
 export const transformDirection: Binary;
-
-type Ternary = (a: NodeRepresentation, b: NodeRepresentation, c: NodeRepresentation) => ShaderNodeObject<MathNode>;
-
 export const cbrt: Unary;
 export const lengthSq: Unary;
+
+type Ternary = (a: MathNodeParameter, b: MathNodeParameter, c: MathNodeParameter) => MathNode;
+
 export const mix: Ternary;
 export const clamp: (
-    a: NodeRepresentation,
-    b?: NodeRepresentation,
-    c?: NodeRepresentation,
-) => ShaderNodeObject<MathNode>;
+    a: MathNodeParameter,
+    b?: MathNodeParameter,
+    c?: MathNodeParameter,
+) => MathNode;
 export const saturate: Unary;
 export const refract: Ternary;
 export const smoothstep: Ternary;
 export const faceForward: Ternary;
 
-export const rand: (uv: NodeRepresentation) => ShaderNodeObject<OperatorNode>;
+export const rand: (uv: MathNodeParameter) => OperatorNode;
 
 export const mixElement: Ternary;
 export const smoothstepElement: Ternary;
+export const stepElement: Binary;
 
 /**
  * @deprecated
@@ -221,64 +244,204 @@ export const inversesqrt: typeof inverseSqrt;
 
 // Method chaining
 
-declare module "../tsl/TSLCore.js" {
-    interface NodeElements {
-        all: typeof all;
-        any: typeof any;
-        equals: typeof equals;
-        radians: typeof radians;
-        degrees: typeof degrees;
-        exp: typeof exp;
-        exp2: typeof exp2;
-        log: typeof log;
-        log2: typeof log2;
-        sqrt: typeof sqrt;
-        inverseSqrt: typeof inverseSqrt;
-        floor: typeof floor;
-        ceil: typeof ceil;
-        normalize: typeof normalize;
-        fract: typeof fract;
-        sin: typeof sin;
-        cos: typeof cos;
-        tan: typeof tan;
-        asin: typeof asin;
-        acos: typeof acos;
-        atan: typeof atan;
-        abs: typeof abs;
-        sign: typeof sign;
-        length: typeof length;
-        lengthSq: typeof lengthSq;
-        negate: typeof negate;
-        oneMinus: typeof oneMinus;
-        dFdx: typeof dFdx;
-        dFdy: typeof dFdy;
-        round: typeof round;
-        reciprocal: typeof reciprocal;
-        trunc: typeof trunc;
-        fwidth: typeof fwidth;
-        atan2: typeof atan2;
-        min: typeof min;
-        max: typeof max;
-        mod: typeof mod;
-        step: typeof step;
-        reflect: typeof reflect;
-        distance: typeof distance;
-        dot: typeof dot;
-        cross: typeof cross;
-        pow: typeof pow;
-        pow2: typeof pow2;
-        pow3: typeof pow3;
-        pow4: typeof pow4;
-        transformDirection: typeof transformDirection;
-        mix: typeof mixElement;
-        clamp: typeof clamp;
-        refract: typeof refract;
-        smoothstep: typeof smoothstepElement;
-        faceForward: typeof faceForward;
-        difference: typeof difference;
-        saturate: typeof saturate;
-        cbrt: typeof cbrt;
-        transpose: typeof transpose;
-        rand: typeof rand;
+declare module "../Nodes.js" {
+    interface Node {
+        all: () => MathNode;
+        allAssign: () => this;
+
+        any: () => MathNode;
+        anyAssign: () => this;
+
+        /**
+         * @deprecated "equals" is deprecated. Use "equal" inside a vector instead, like: "bvec*( equal( ... ) )"
+         */
+        equals: () => MathNode;
+        /**
+         * @deprecated "equals" is deprecated. Use "equal" inside a vector instead, like: "bvec*( equal( ... ) )"
+         */
+        equalsAssign: () => this;
+
+        radians: () => MathNode;
+        radiansAssign: () => this;
+
+        degrees: () => MathNode;
+        degreesAssign: () => this;
+
+        exp: () => MathNode;
+        expAssign: () => this;
+
+        exp2: () => MathNode;
+        exp2Assign: () => this;
+
+        log: () => MathNode;
+        logAssign: () => this;
+
+        log2: () => MathNode;
+        log2Assign: () => this;
+
+        sqrt: () => MathNode;
+        sqrtAssign: () => this;
+
+        inverseSqrt: () => MathNode;
+        inverseSqrtAssign: () => this;
+
+        floor: () => MathNode;
+        floorAssign: () => this;
+
+        ceil: () => MathNode;
+        ceilAssign: () => this;
+
+        normalize: () => MathNode;
+        normalizeAssign: () => this;
+
+        fract: () => MathNode;
+        fractAssign: () => this;
+
+        sin: () => MathNode;
+        sinAssign: () => this;
+
+        cos: () => MathNode;
+        cosAssign: () => this;
+
+        tan: () => MathNode;
+        tanAssign: () => this;
+
+        asin: () => MathNode;
+        asinAssign: () => this;
+
+        acos: () => MathNode;
+        acosAssign: () => this;
+
+        atan: (b?: MathNodeParameter) => MathNode;
+        atanAssign: (b?: MathNodeParameter) => this;
+
+        abs: () => MathNode;
+        absAssign: () => this;
+
+        sign: () => MathNode;
+        signAssign: () => this;
+
+        length: () => MathNode;
+        lengthAssign: () => this;
+
+        lengthSq: () => MathNode;
+        lengthSqAssign: () => this;
+
+        negate: () => MathNode;
+        negateAssign: () => this;
+
+        oneMinus: () => MathNode;
+        oneMinusAssign: () => this;
+
+        dFdx: () => MathNode;
+        dFdxAssign: () => this;
+
+        dFdy: () => MathNode;
+        dFdyAssign: () => this;
+
+        round: () => MathNode;
+        roundAssign: () => this;
+
+        reciprocal: () => MathNode;
+        reciprocalAssign: () => this;
+
+        trunc: () => MathNode;
+        truncAssign: () => this;
+
+        fwidth: () => MathNode;
+        fwidthAssign: () => this;
+
+        /**
+         * @deprecated
+         */
+        atan2: (b: MathNodeParameter) => MathNode;
+        /**
+         * @deprecated
+         */
+        atan2Assign: (b: MathNodeParameter) => this;
+
+        min: (
+            y: MathNodeParameter,
+            ...values: MathNodeParameter[]
+        ) => MathNode;
+        minAssign: (
+            y: MathNodeParameter,
+            ...values: MathNodeParameter[]
+        ) => this;
+
+        max: (
+            y: MathNodeParameter,
+            ...values: MathNodeParameter[]
+        ) => MathNode;
+        maxAssign: (
+            y: MathNodeParameter,
+            ...values: MathNodeParameter[]
+        ) => this;
+
+        step: (b: MathNodeParameter) => MathNode;
+        stepAssign: (b: MathNodeParameter) => this;
+
+        reflect: (b: MathNodeParameter) => MathNode;
+        reflectAssign: (b: MathNodeParameter) => this;
+
+        distance: (b: MathNodeParameter) => MathNode;
+        distanceAssign: (b: MathNodeParameter) => this;
+
+        dot: (b: MathNodeParameter) => MathNode;
+        dotAssign: (b: MathNodeParameter) => this;
+
+        cross: (y: Node) => MathNode;
+        crossAssign: (y: Node) => this;
+
+        pow: (b: MathNodeParameter) => MathNode;
+        powAssign: (b: MathNodeParameter) => this;
+
+        pow2: () => MathNode;
+        pow2Assign: () => this;
+
+        pow3: () => MathNode;
+        pow3Assign: () => this;
+
+        pow4: () => MathNode;
+        pow4Assign: () => this;
+
+        transformDirection: (b: MathNodeParameter) => MathNode;
+        transformDirectionAssign: (b: MathNodeParameter) => this;
+
+        mix: (b: MathNodeParameter, c: MathNodeParameter) => MathNode;
+        mixAssign: (b: MathNodeParameter, c: MathNodeParameter) => this;
+
+        clamp: (b?: MathNodeParameter, c?: MathNodeParameter) => MathNode;
+        clampAssign: (b?: MathNodeParameter, c?: MathNodeParameter) => this;
+
+        refract: (b: MathNodeParameter, c: MathNodeParameter) => MathNode;
+        refractAssign: (b: MathNodeParameter, c: MathNodeParameter) => this;
+
+        smoothstep: (b: MathNodeParameter, c: MathNodeParameter) => MathNode;
+        smoothstepAssign: (b: MathNodeParameter, c: MathNodeParameter) => this;
+
+        faceForward: (b: MathNodeParameter, c: MathNodeParameter) => MathNode;
+        faceForwardAssign: (b: MathNodeParameter, c: MathNodeParameter) => this;
+
+        difference: (b: MathNodeParameter) => MathNode;
+        differenceAssign: (b: MathNodeParameter) => this;
+
+        saturate: () => MathNode;
+        saturateAssign: () => this;
+
+        cbrt: () => MathNode;
+        cbrtAssign: () => this;
+
+        transpose: () => MathNode;
+        transposeAssign: () => this;
+
+        determinant: () => MathNode;
+        determinantAssign: () => this;
+
+        inverse: () => MathNode;
+        inverseAssign: () => this;
+
+        rand: () => OperatorNode;
+        randAssign: () => this;
     }
 }

@@ -44,6 +44,18 @@ export class BreakClipLoadInterceptorContext {
  */
 export interface BreakManager {
     /**
+     * Adds dynamic break and break clips. The break clips will be associated with the break
+     * ({@link Break.breakClipIds} and {@link Break.duration} will be updated according to the clips).
+     * @param breakData The {@link Break} object to be added.
+     * @param breakClips Array of non-null {@link BreakClip} objects.
+     * @param broadCastMediaStatus Whether CAF should check if the current break status has changed.
+     *     This may not be desirable before playback begins, as the receiver may still need to add
+     *     more breaks (e.g., during load complete).
+     * @returns `true` if break was added successfully.
+     */
+    addBreak(breakData: Break, breakClips: BreakClip[], broadCastMediaStatus?: boolean): boolean;
+
+    /**
      * Get current media break by id.
      */
     getBreakById(id: string): Break;
@@ -73,6 +85,12 @@ export interface BreakManager {
 
     /** Returns true if watched breaks should be played. */
     getPlayWatchedBreak(): boolean;
+
+    /**
+     * Removes a break and associated break clips.
+     * @returns `true` if break was removed successfully.
+     */
+    removeBreakById(breakId: string): boolean;
 
     /**
      * Provide an interceptor to allow developer to insert more break clips or

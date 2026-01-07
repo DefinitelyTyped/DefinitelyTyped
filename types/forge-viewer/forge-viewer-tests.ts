@@ -5,6 +5,11 @@ const options = {
     accessToken: "",
 };
 
+Autodesk.Viewing.FeatureFlags.print();
+// $ExpectType boolean | undefined
+Autodesk.Viewing.FeatureFlags.isEnabled("ENABLE_LOCATION_MEASUREMENT");
+Autodesk.Viewing.FeatureFlags.set("ENABLE_LOCATION_MEASUREMENT", true);
+
 Autodesk.Viewing.Initializer(options, async () => {
     const htmlDiv = document.getElementById("forgeViewer");
     if (!htmlDiv) {
@@ -684,6 +689,7 @@ async function selectiveLoadingTest(viewer: Autodesk.Viewing.GuiViewer3D): Promi
     await viewer.waitForLoadDone();
 
     const propHashes = await fakeLoadedModel.getPropertyHashes();
+    const propHashesWithFiltering = await fakeLoadedModel.getPropertyHashes(/name/, /category/);
     viewer.unloadDocumentNode(fakeLoadedModel.getDocumentNode());
 
     const matches = JSON.stringify(query).matchAll(/(["'])\?([\w\d\s]+)\1/g);

@@ -9,10 +9,5 @@
     "devDependencies": {
         "@types/netlify-identity-widget": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Naveen Kumar Sangi",
-            "githubUsername": "nkprince007"
-        }
-    ]
+    "owners": []
 }

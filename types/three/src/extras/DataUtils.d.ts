@@ -14,9 +14,9 @@ declare function toHalfFloat(val: number): number;
  */
 declare function fromHalfFloat(val: number): number;
 
-declare const DataUtils: {
-    toHalfFloat: typeof toHalfFloat;
-    fromHalfFloat: typeof fromHalfFloat;
-};
+declare class DataUtils {
+    static toHalfFloat(val: number): number;
+    static fromHalfFloat(val: number): number;
+}
 
 export { DataUtils, fromHalfFloat, toHalfFloat };

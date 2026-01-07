@@ -1,5 +1,4 @@
 import Node from "../core/Node.js";
-import { NodeRepresentation, ShaderNodeObject } from "../tsl/TSLCore.js";
 
 declare class Resources extends Map<string, unknown> {
     get<TArgs extends unknown[]>(key: string, callback?: ((...args: TArgs) => void) | null, ...params: TArgs): unknown;
@@ -17,6 +16,6 @@ declare class ScriptableNode extends Node {
 export default ScriptableNode;
 
 export const scriptable: (
-    codeNode?: NodeRepresentation | null,
+    codeNode: Node,
     parameters?: Record<string, unknown>,
-) => ShaderNodeObject<ScriptableNode>;
+) => ScriptableNode;

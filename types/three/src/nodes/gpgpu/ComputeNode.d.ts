@@ -1,34 +1,51 @@
 import Renderer from "../../renderers/common/Renderer.js";
 import Node from "../core/Node.js";
-import { NodeRepresentation, ShaderNodeObject } from "../tsl/TSLCore.js";
 
 export default class ComputeNode extends Node {
-    isComputeNode: true;
+    readonly isComputeNode: true;
 
-    count: number;
+    computeNode: Node;
     workgroupSize: number[];
-    dispatchCount: number;
+    count: number | number[] | null;
     name: string;
 
     onInitFunction: ((args: { renderer: Renderer }) => void) | null;
 
-    constructor(computeNode: Node, count: number, workgroupSize?: number[]);
+    constructor(computeNode: Node, workgroupSize: number[]);
 
-    label(name: string): void;
+    setCount(count: number | number[]): this;
+    getCount(): number | number[] | null;
 
-    updateDispatchCount(): void;
+    setName: (name: string) => this;
+
+    /**
+     * @deprecated "label()" has been deprecated. Use "setName()" instead.
+     */
+    label: (name: string) => this;
 
     onInit(callback: ((args: { renderer: Renderer }) => void) | null): void;
 }
 
+export const computeKernel: (node: Node, workgroupSize?: number[]) => ComputeNode;
+
 export const compute: (
-    node: NodeRepresentation,
+    node: Node,
     count: number,
     workgroupSize?: number[],
-) => ShaderNodeObject<ComputeNode>;
+) => ComputeNode;
 
-declare module "../tsl/TSLCore.js" {
-    interface NodeElements {
-        compute: typeof compute;
+declare module "../Nodes.js" {
+    interface Node {
+        compute: (
+            count: number,
+            workgroupSize?: number[],
+        ) => ComputeNode;
+        computeAssign: (
+            count: number,
+            workgroupSize?: number[],
+        ) => this;
+
+        computeKernel: (workgroupSize?: number[]) => ComputeNode;
+        computeKernelAssign: (workgroupSize?: number[]) => this;
     }
 }

@@ -1,7 +1,6 @@
-import { NodeRepresentation, ShaderNodeObject } from "../tsl/TSLCore.js";
 import Node from "./Node.js";
 
-export default class VarNode extends Node {
+declare class VarNode extends Node {
     node: Node;
     name: string | null;
 
@@ -9,30 +8,31 @@ export default class VarNode extends Node {
 
     readOnly: boolean;
 
+    intent: boolean;
+
     constructor(node: Node, name?: string | null, readOnly?: boolean);
+
+    setIntent(value: boolean): this;
+    getIntent(): boolean;
 }
 
-export const Var: (node: Node, name?: string | null) => ShaderNodeObject<VarNode>;
+export default VarNode;
 
-export const Const: (node: Node, name?: string | null) => ShaderNodeObject<VarNode>;
+export const Var: (node: Node, name?: string | null) => VarNode;
 
-declare module "../tsl/TSLCore.js" {
-    interface NodeElements {
-        toVar: (node: NodeRepresentation, name?: string | null) => ShaderNodeObject<VarNode>;
-        toConst: (node: NodeRepresentation, name?: string | null) => ShaderNodeObject<VarNode>;
-    }
-}
+export const Const: (node: Node, name?: string | null) => VarNode;
 
-/**
- * @deprecated Use ".toVar()" instead.
- */
-export const temp: (node: NodeRepresentation, name?: string | null) => ShaderNodeObject<VarNode>;
+export const VarIntent: (node: Node) => Node;
 
-declare module "../tsl/TSLCore.js" {
-    interface NodeElements {
-        /**
-         * @deprecated Use ".toVar()" instead.
-         */
-        temp: typeof temp;
+declare module "../Nodes.js" {
+    interface Node {
+        toVar: (name?: string | null) => VarNode;
+        toVarAssign: (name?: string | null) => this;
+
+        toConst: (name?: string | null) => VarNode;
+        toConstAssign: (name?: string | null) => this;
+
+        toVarIntent: () => Node;
+        toVarIntentAssign: () => this;
     }
 }

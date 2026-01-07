@@ -11,7 +11,10 @@ import { type TranslationPluralForms } from "../../i18n.js";
  * You can configure the message to only appear after a certain percentage
  * of the available characters/words has been entered.
  */
-export class CharacterCount extends ConfigurableComponent<CharacterCountConfig, HTMLElement> {
+export class CharacterCount extends ConfigurableComponent<
+    CharacterCountConfig,
+    HTMLElement
+> {
     /**
      * Name for the component used when initialising using data-module attributes.
      */
@@ -21,13 +24,15 @@ export class CharacterCount extends ConfigurableComponent<CharacterCountConfig, 
      * Character count default config
      *
      * @see {@link CharacterCountConfig}
+     * @constant
      */
     static defaults: CharacterCountConfig;
 
     /**
      * Character count config schema
      *
-     * @satisfies {Schema}
+     * @constant
+     * @satisfies {Schema<CharacterCountConfig>}
      */
     static schema: Readonly<{
         properties: {
@@ -44,10 +49,16 @@ export class CharacterCount extends ConfigurableComponent<CharacterCountConfig, 
                 type: "number";
             };
         };
-        anyOf: Array<{
-            required: string[];
-            errorMessage: string;
-        }>;
+        anyOf: (
+            | {
+                required: "maxwords"[];
+                errorMessage: string;
+            }
+            | {
+                required: "maxlength"[];
+                errorMessage: string;
+            }
+        )[];
     }>;
 
     /**

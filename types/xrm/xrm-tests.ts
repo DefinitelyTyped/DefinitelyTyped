@@ -153,7 +153,7 @@ alert(`The current form type is: ${formContext.ui.getFormType()}`);
 
 alert(`The current entity type is: ${formContext.data.entity.getEntityName()}`);
 
-/// Demonstrate Optionset Value as int in Turbo Forms
+/// Demonstrate OptionSet Value as int
 
 const optionSetAttribute = formContext.getAttribute<Xrm.Attributes.OptionSetAttribute>("statuscode");
 if (optionSetAttribute !== null) {
@@ -168,6 +168,41 @@ if (optionSetAttribute !== null) {
             firstControl.setFocus();
         }
     }
+}
+
+/// Demonstrate OptionSet Value as enum
+
+enum TestOptionSet {
+    Option1 = 56666000,
+    Option2 = 56666001,
+}
+
+const optionSetAttributeEnum = formContext.getAttribute<Xrm.Attributes.OptionSetAttribute<TestOptionSet>>("statuscode");
+if (optionSetAttributeEnum !== null) {
+    const optionEnumValue: TestOptionSet | null = optionSetAttributeEnum.getValue();
+}
+
+/// Demonstrate MultiSelectOptionSet Value as int
+
+const multiSelectOptionSetAttribute = formContext.getAttribute<Xrm.Attributes.MultiSelectOptionSetAttribute>(
+    "statuscode",
+);
+if (multiSelectOptionSetAttribute !== null) {
+    const multiSelectOptionValue: number = multiSelectOptionSetAttribute.getOptions()[0].value;
+}
+
+/// Demonstrate MultiSelectOptionSet Value as enum
+
+enum TestMultiSelectOptionSet {
+    Option1 = 56666000,
+    Option2 = 56666001,
+}
+
+const multiSelectOptionSetAttributeEnum = formContext.getAttribute<
+    Xrm.Attributes.MultiSelectOptionSetAttribute<TestMultiSelectOptionSet>
+>("statuscode");
+if (multiSelectOptionSetAttributeEnum !== null) {
+    const multiSelectOptionEnumValue: TestMultiSelectOptionSet[] | null = multiSelectOptionSetAttributeEnum.getValue();
 }
 
 /// Demonstrate setFormNotification
@@ -189,8 +224,8 @@ if (attribute !== null) {
     attribute.setSubmitMode(submitModeString); // Works if the string is a const
     attribute.setRequiredLevel(requirementLevel);
     attribute.setRequiredLevel(requirementLevelString); // Works if the string is a const
-
-    const isMulitselect = attribute.getAttributeType() === "multiselectoptionset";
+    // @ts-expect-error
+    const isMultiSelectAttribute = attribute.getAttributeType() === "multiselectoptionset"; // This will return false because the attribute is a LookupAttribute
 }
 /// Demonstrate v8.2 quick form controls
 
@@ -218,6 +253,16 @@ if (ctrl !== null) {
 // Demonstrate getEntityMetadata
 Xrm.Utility.getEntityMetadata("account", ["telephone1"]).then((metadata) => {
     console.log(metadata.Attributes["statuscode"].OptionSet[0].Label.LocalizedLabels[0].Label);
+});
+
+// Demonstrate WebAPI CreateRecord
+Xrm.WebApi.createRecord("contact", { fullname: "Neo" }).then((response) => {
+    console.log(response.entityType, response.id);
+});
+
+// Demonstrate WebAPI UpdateRecord
+Xrm.WebApi.updateRecord("contact", "1d-123", { fullname: "Neo" }).then((response) => {
+    console.log(response.entityType, response.id);
 });
 
 // Demonstrate WebAPI RetrieveMultiple
@@ -634,7 +679,7 @@ const multiSelectOptionSetControl = formContext.getControl<Xrm.Controls.MultiSel
 if (multiSelectOptionSetControl === null) {
     throw new Error("Control does not exist!");
 }
-// $ExpectType MultiSelectOptionSetAttribute
+// $ExpectType MultiSelectOptionSetAttribute<number>
 multiSelectOptionSetControl.getAttribute();
 
 // Demonstrates getWebResourceUrl
@@ -677,4 +722,66 @@ function ActionOnPostsave(context: Xrm.Events.PostSaveEventContext) {
     } else {
         console.log(args.getSaveErrorInfo());
     }
+}
+
+// Demonstrate non-index/name getAttribute/getControl returns non-null array
+
+function GetAll(context: Xrm.FormContext) {
+    const allAttributes: Xrm.Attributes.Attribute[] = context.getAttribute();
+    const allAttributesTyped: Xrm.Attributes.StringAttribute[] = context.getAttribute<Xrm.Attributes.StringAttribute>();
+    const noAttributes: Xrm.Attributes.Attribute[] = context.getAttribute(() => false);
+    const noAttributesTyped: Xrm.Attributes.StringAttribute[] = context.getAttribute<Xrm.Attributes.StringAttribute>(
+        () => false,
+    );
+    if (
+        allAttributes === null
+        || allAttributesTyped === null
+        || noAttributes === null
+        || noAttributesTyped === null
+    ) {
+        throw new Error("Will return an empty array if no attributes are present.");
+    }
+
+    const allControls: Xrm.Controls.Control[] = context.getControl();
+    const allControlsTyped: Xrm.Controls.StringControl[] = context.getControl<Xrm.Controls.StringControl>();
+    const itemCollection: Xrm.Controls.Control[] = (context.getControl("mySection") as unknown as Xrm.Controls.Section)
+        .controls.get();
+    const noControls: Xrm.Controls.Control[] = context.getControl(() => false);
+    const noControlsTyped: Xrm.Controls.StringControl[] = context.getControl<Xrm.Controls.StringControl>(() => false);
+    if (
+        allControls === null
+        || allControlsTyped === null
+        || itemCollection === null
+        || noControls === null
+        || noControlsTyped === null
+    ) {
+        throw new Error("Will return an empty array if no controls are present.");
+    }
+}
+
+function getPossibleAttributeValues(formContext: Xrm.FormContext) {
+    const attribute = formContext.getAttribute("statuscode");
+    if (attribute === null) {
+        throw new Error("Attribute does not exist!");
+    }
+    // $ExpectType AttributeValues | null
+    const values = attribute.getValue();
+}
+function testAttributeType(formContext: Xrm.FormContext) {
+    const attribute = formContext.getAttribute<Xrm.Attributes.StringAttribute>("myattribute");
+    if (attribute === null) {
+        return;
+    }
+    const attributeType = attribute.getAttributeType();
+    // @ts-expect-error
+    const isNumberAttribute = attributeType === "number"; // This errors because the attribute is a StringAttribute, not a NumberAttribute
+    const isStringAttribute = attributeType === "string"; // This works because the attribute is a StringAttribute
+}
+
+// Demonstrate getSteps from active stage returns collection of steps
+function getStepsFromActiveStage(formContext: Xrm.FormContext) {
+    const process = formContext.data.process;
+
+    // $ExpectType ItemCollection<Step>
+    const steps = process.getActiveStage().getSteps();
 }

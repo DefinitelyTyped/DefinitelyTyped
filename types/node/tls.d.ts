@@ -6,9 +6,10 @@
  * ```js
  * import tls from 'node:tls';
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/tls.js)
+ * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/tls.js)
  */
-declare module "tls" {
+declare module "node:tls" {
+    import { NonSharedBuffer } from "node:buffer";
     import { X509Certificate } from "node:crypto";
     import * as net from "node:net";
     import * as stream from "stream";
@@ -49,7 +50,7 @@ declare module "tls" {
         /**
          * The DER encoded X.509 certificate data.
          */
-        raw: Buffer;
+        raw: NonSharedBuffer;
         /**
          * The certificate subject.
          */
@@ -115,7 +116,7 @@ declare module "tls" {
         /**
          * The public key.
          */
-        pubkey?: Buffer;
+        pubkey?: NonSharedBuffer;
         /**
          * The ASN.1 name of the OID of the elliptic curve.
          * Well-known curves are identified by an OID.
@@ -206,6 +207,12 @@ declare module "tls" {
          */
         requestOCSP?: boolean | undefined;
     }
+    interface TLSSocketEventMap extends net.SocketEventMap {
+        "keylog": [line: NonSharedBuffer];
+        "OCSPResponse": [response: NonSharedBuffer];
+        "secureConnect": [];
+        "session": [session: NonSharedBuffer];
+    }
     /**
      * Performs transparent encryption of written data and all required TLS
      * negotiation.
@@ -295,7 +302,7 @@ declare module "tls" {
          * @since v9.9.0
          * @return The latest `Finished` message that has been sent to the socket as part of a SSL/TLS handshake, or `undefined` if no `Finished` message has been sent yet.
          */
-        getFinished(): Buffer | undefined;
+        getFinished(): NonSharedBuffer | undefined;
         /**
          * Returns an object representing the peer's certificate. If the peer does not
          * provide a certificate, an empty object will be returned. If the socket has been
@@ -322,7 +329,7 @@ declare module "tls" {
          * @return The latest `Finished` message that is expected or has actually been received from the socket as part of a SSL/TLS handshake, or `undefined` if there is no `Finished` message so
          * far.
          */
-        getPeerFinished(): Buffer | undefined;
+        getPeerFinished(): NonSharedBuffer | undefined;
         /**
          * Returns a string containing the negotiated SSL/TLS protocol version of the
          * current connection. The value `'unknown'` will be returned for connected
@@ -352,7 +359,7 @@ declare module "tls" {
          * must use the `'session'` event (it also works for TLSv1.2 and below).
          * @since v0.11.4
          */
-        getSession(): Buffer | undefined;
+        getSession(): NonSharedBuffer | undefined;
         /**
          * See [SSL\_get\_shared\_sigalgs](https://www.openssl.org/docs/man1.1.1/man3/SSL_get_shared_sigalgs.html) for more information.
          * @since v12.11.0
@@ -367,7 +374,7 @@ declare module "tls" {
          * See `Session Resumption` for more information.
          * @since v0.11.4
          */
-        getTLSTicket(): Buffer | undefined;
+        getTLSTicket(): NonSharedBuffer | undefined;
         /**
          * See `Session Resumption` for more information.
          * @since v0.5.6
@@ -398,6 +405,14 @@ declare module "tls" {
             },
             callback: (err: Error | null) => void,
         ): undefined | boolean;
+        /**
+         * The `tlsSocket.setKeyCert()` method sets the private key and certificate to use for the socket.
+         * This is mainly useful if you wish to select a server certificate from a TLS server's `ALPNCallback`.
+         * @since v22.5.0, v20.17.0
+         * @param context An object containing at least `key` and `cert` properties from the {@link createSecureContext()} `options`,
+         * or a TLS context object created with {@link createSecureContext()} itself.
+         */
+        setKeyCert(context: SecureContextOptions | SecureContext): void;
         /**
          * The `tlsSocket.setMaxSendFragment()` method sets the maximum TLS fragment size.
          * Returns `true` if setting the limit succeeded; `false` otherwise.
@@ -470,37 +485,49 @@ declare module "tls" {
          * @param context Optionally provide a context.
          * @return requested bytes of the keying material
          */
-        exportKeyingMaterial(length: number, label: string, context: Buffer): Buffer;
-        addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener(event: "OCSPResponse", listener: (response: Buffer) => void): this;
-        addListener(event: "secureConnect", listener: () => void): this;
-        addListener(event: "session", listener: (session: Buffer) => void): this;
-        addListener(event: "keylog", listener: (line: Buffer) => void): this;
-        emit(event: string | symbol, ...args: any[]): boolean;
-        emit(event: "OCSPResponse", response: Buffer): boolean;
-        emit(event: "secureConnect"): boolean;
-        emit(event: "session", session: Buffer): boolean;
-        emit(event: "keylog", line: Buffer): boolean;
-        on(event: string, listener: (...args: any[]) => void): this;
-        on(event: "OCSPResponse", listener: (response: Buffer) => void): this;
-        on(event: "secureConnect", listener: () => void): this;
-        on(event: "session", listener: (session: Buffer) => void): this;
-        on(event: "keylog", listener: (line: Buffer) => void): this;
-        once(event: string, listener: (...args: any[]) => void): this;
-        once(event: "OCSPResponse", listener: (response: Buffer) => void): this;
-        once(event: "secureConnect", listener: () => void): this;
-        once(event: "session", listener: (session: Buffer) => void): this;
-        once(event: "keylog", listener: (line: Buffer) => void): this;
-        prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: "OCSPResponse", listener: (response: Buffer) => void): this;
-        prependListener(event: "secureConnect", listener: () => void): this;
-        prependListener(event: "session", listener: (session: Buffer) => void): this;
-        prependListener(event: "keylog", listener: (line: Buffer) => void): this;
-        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: "OCSPResponse", listener: (response: Buffer) => void): this;
-        prependOnceListener(event: "secureConnect", listener: () => void): this;
-        prependOnceListener(event: "session", listener: (session: Buffer) => void): this;
-        prependOnceListener(event: "keylog", listener: (line: Buffer) => void): this;
+        exportKeyingMaterial(length: number, label: string, context: Buffer): NonSharedBuffer;
+        // #region InternalEventEmitter
+        addListener<E extends keyof TLSSocketEventMap>(
+            eventName: E,
+            listener: (...args: TLSSocketEventMap[E]) => void,
+        ): this;
+        addListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        emit<E extends keyof TLSSocketEventMap>(eventName: E, ...args: TLSSocketEventMap[E]): boolean;
+        emit(eventName: string | symbol, ...args: any[]): boolean;
+        listenerCount<E extends keyof TLSSocketEventMap>(
+            eventName: E,
+            listener?: (...args: TLSSocketEventMap[E]) => void,
+        ): number;
+        listenerCount(eventName: string | symbol, listener?: (...args: any[]) => void): number;
+        listeners<E extends keyof TLSSocketEventMap>(eventName: E): ((...args: TLSSocketEventMap[E]) => void)[];
+        listeners(eventName: string | symbol): ((...args: any[]) => void)[];
+        off<E extends keyof TLSSocketEventMap>(eventName: E, listener: (...args: TLSSocketEventMap[E]) => void): this;
+        off(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        on<E extends keyof TLSSocketEventMap>(eventName: E, listener: (...args: TLSSocketEventMap[E]) => void): this;
+        on(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        once<E extends keyof TLSSocketEventMap>(eventName: E, listener: (...args: TLSSocketEventMap[E]) => void): this;
+        once(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        prependListener<E extends keyof TLSSocketEventMap>(
+            eventName: E,
+            listener: (...args: TLSSocketEventMap[E]) => void,
+        ): this;
+        prependListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        prependOnceListener<E extends keyof TLSSocketEventMap>(
+            eventName: E,
+            listener: (...args: TLSSocketEventMap[E]) => void,
+        ): this;
+        prependOnceListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        rawListeners<E extends keyof TLSSocketEventMap>(eventName: E): ((...args: TLSSocketEventMap[E]) => void)[];
+        rawListeners(eventName: string | symbol): ((...args: any[]) => void)[];
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+        removeAllListeners<E extends keyof TLSSocketEventMap>(eventName?: E): this;
+        removeAllListeners(eventName?: string | symbol): this;
+        removeListener<E extends keyof TLSSocketEventMap>(
+            eventName: E,
+            listener: (...args: TLSSocketEventMap[E]) => void,
+        ): this;
+        removeListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        // #endregion
     }
     interface CommonConnectionOptions {
         /**
@@ -523,7 +550,7 @@ declare module "tls" {
          * An array of strings or a Buffer naming possible ALPN protocols.
          * (Protocols should be ordered by their priority.)
          */
-        ALPNProtocols?: string[] | Uint8Array[] | Uint8Array | undefined;
+        ALPNProtocols?: readonly string[] | NodeJS.ArrayBufferView | undefined;
         /**
          * SNICallback(servername, cb) <Function> A function that will be
          * called if the client supports SNI TLS extension. Two arguments
@@ -578,7 +605,7 @@ declare module "tls" {
          * requires explicitly specifying a cipher suite with the `ciphers` option.
          * More information can be found in the RFC 4279.
          */
-        pskCallback?(socket: TLSSocket, identity: string): DataView | NodeJS.TypedArray | null;
+        pskCallback?: ((socket: TLSSocket, identity: string) => NodeJS.ArrayBufferView | null) | undefined;
         /**
          * hint to send to a client to help
          * with selecting the identity during TLS-PSK negotiation. Will be ignored
@@ -588,7 +615,7 @@ declare module "tls" {
         pskIdentityHint?: string | undefined;
     }
     interface PSKCallbackNegotation {
-        psk: DataView | NodeJS.TypedArray;
+        psk: NodeJS.ArrayBufferView;
         identity: string;
     }
     interface ConnectionOptions extends SecureContextOptions, CommonConnectionOptions {
@@ -619,7 +646,20 @@ declare module "tls" {
          * compatible with the selected cipher's digest.
          * `identity` must use UTF-8 encoding.
          */
-        pskCallback?(hint: string | null): PSKCallbackNegotation | null;
+        pskCallback?: ((hint: string | null) => PSKCallbackNegotation | null) | undefined;
+    }
+    interface ServerEventMap extends net.ServerEventMap {
+        "connection": [socket: net.Socket];
+        "keylog": [line: NonSharedBuffer, tlsSocket: TLSSocket];
+        "newSession": [sessionId: NonSharedBuffer, sessionData: NonSharedBuffer, callback: () => void];
+        "OCSPRequest": [
+            certificate: NonSharedBuffer,
+            issuer: NonSharedBuffer,
+            callback: (err: Error | null, resp: Buffer | null) => void,
+        ];
+        "resumeSession": [sessionId: Buffer, callback: (err: Error | null, sessionData?: Buffer) => void];
+        "secureConnection": [tlsSocket: TLSSocket];
+        "tlsClientError": [exception: Error, tlsSocket: TLSSocket];
     }
     /**
      * Accepts encrypted connections using TLS or SSL.
@@ -639,7 +679,7 @@ declare module "tls" {
          * @param context An object containing any of the possible properties from the {@link createSecureContext} `options` arguments (e.g. `key`, `cert`, `ca`, etc), or a TLS context object created
          * with {@link createSecureContext} itself.
          */
-        addContext(hostname: string, context: SecureContextOptions): void;
+        addContext(hostname: string, context: SecureContextOptions | SecureContext): void;
         /**
          * Returns the session ticket keys.
          *
@@ -647,7 +687,7 @@ declare module "tls" {
          * @since v3.0.0
          * @return A 48-byte buffer containing the session ticket keys.
          */
-        getTicketKeys(): Buffer;
+        getTicketKeys(): NonSharedBuffer;
         /**
          * The `server.setSecureContext()` method replaces the secure context of an
          * existing server. Existing connections to the server are not interrupted.
@@ -666,135 +706,45 @@ declare module "tls" {
          * @param keys A 48-byte buffer containing the session ticket keys.
          */
         setTicketKeys(keys: Buffer): void;
-        /**
-         * events.EventEmitter
-         * 1. tlsClientError
-         * 2. newSession
-         * 3. OCSPRequest
-         * 4. resumeSession
-         * 5. secureConnection
-         * 6. keylog
-         */
-        addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener(event: "tlsClientError", listener: (err: Error, tlsSocket: TLSSocket) => void): this;
-        addListener(
-            event: "newSession",
-            listener: (sessionId: Buffer, sessionData: Buffer, callback: () => void) => void,
+        // #region InternalEventEmitter
+        addListener<E extends keyof ServerEventMap>(eventName: E, listener: (...args: ServerEventMap[E]) => void): this;
+        addListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        emit<E extends keyof ServerEventMap>(eventName: E, ...args: ServerEventMap[E]): boolean;
+        emit(eventName: string | symbol, ...args: any[]): boolean;
+        listenerCount<E extends keyof ServerEventMap>(
+            eventName: E,
+            listener?: (...args: ServerEventMap[E]) => void,
+        ): number;
+        listenerCount(eventName: string | symbol, listener?: (...args: any[]) => void): number;
+        listeners<E extends keyof ServerEventMap>(eventName: E): ((...args: ServerEventMap[E]) => void)[];
+        listeners(eventName: string | symbol): ((...args: any[]) => void)[];
+        off<E extends keyof ServerEventMap>(eventName: E, listener: (...args: ServerEventMap[E]) => void): this;
+        off(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        on<E extends keyof ServerEventMap>(eventName: E, listener: (...args: ServerEventMap[E]) => void): this;
+        on(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        once<E extends keyof ServerEventMap>(eventName: E, listener: (...args: ServerEventMap[E]) => void): this;
+        once(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        prependListener<E extends keyof ServerEventMap>(
+            eventName: E,
+            listener: (...args: ServerEventMap[E]) => void,
         ): this;
-        addListener(
-            event: "OCSPRequest",
-            listener: (
-                certificate: Buffer,
-                issuer: Buffer,
-                callback: (err: Error | null, resp: Buffer) => void,
-            ) => void,
+        prependListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        prependOnceListener<E extends keyof ServerEventMap>(
+            eventName: E,
+            listener: (...args: ServerEventMap[E]) => void,
         ): this;
-        addListener(
-            event: "resumeSession",
-            listener: (sessionId: Buffer, callback: (err: Error | null, sessionData: Buffer | null) => void) => void,
+        prependOnceListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        rawListeners<E extends keyof ServerEventMap>(eventName: E): ((...args: ServerEventMap[E]) => void)[];
+        rawListeners(eventName: string | symbol): ((...args: any[]) => void)[];
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+        removeAllListeners<E extends keyof ServerEventMap>(eventName?: E): this;
+        removeAllListeners(eventName?: string | symbol): this;
+        removeListener<E extends keyof ServerEventMap>(
+            eventName: E,
+            listener: (...args: ServerEventMap[E]) => void,
         ): this;
-        addListener(event: "secureConnection", listener: (tlsSocket: TLSSocket) => void): this;
-        addListener(event: "keylog", listener: (line: Buffer, tlsSocket: TLSSocket) => void): this;
-        emit(event: string | symbol, ...args: any[]): boolean;
-        emit(event: "tlsClientError", err: Error, tlsSocket: TLSSocket): boolean;
-        emit(event: "newSession", sessionId: Buffer, sessionData: Buffer, callback: () => void): boolean;
-        emit(
-            event: "OCSPRequest",
-            certificate: Buffer,
-            issuer: Buffer,
-            callback: (err: Error | null, resp: Buffer) => void,
-        ): boolean;
-        emit(
-            event: "resumeSession",
-            sessionId: Buffer,
-            callback: (err: Error | null, sessionData: Buffer | null) => void,
-        ): boolean;
-        emit(event: "secureConnection", tlsSocket: TLSSocket): boolean;
-        emit(event: "keylog", line: Buffer, tlsSocket: TLSSocket): boolean;
-        on(event: string, listener: (...args: any[]) => void): this;
-        on(event: "tlsClientError", listener: (err: Error, tlsSocket: TLSSocket) => void): this;
-        on(event: "newSession", listener: (sessionId: Buffer, sessionData: Buffer, callback: () => void) => void): this;
-        on(
-            event: "OCSPRequest",
-            listener: (
-                certificate: Buffer,
-                issuer: Buffer,
-                callback: (err: Error | null, resp: Buffer) => void,
-            ) => void,
-        ): this;
-        on(
-            event: "resumeSession",
-            listener: (sessionId: Buffer, callback: (err: Error | null, sessionData: Buffer | null) => void) => void,
-        ): this;
-        on(event: "secureConnection", listener: (tlsSocket: TLSSocket) => void): this;
-        on(event: "keylog", listener: (line: Buffer, tlsSocket: TLSSocket) => void): this;
-        once(event: string, listener: (...args: any[]) => void): this;
-        once(event: "tlsClientError", listener: (err: Error, tlsSocket: TLSSocket) => void): this;
-        once(
-            event: "newSession",
-            listener: (sessionId: Buffer, sessionData: Buffer, callback: () => void) => void,
-        ): this;
-        once(
-            event: "OCSPRequest",
-            listener: (
-                certificate: Buffer,
-                issuer: Buffer,
-                callback: (err: Error | null, resp: Buffer) => void,
-            ) => void,
-        ): this;
-        once(
-            event: "resumeSession",
-            listener: (sessionId: Buffer, callback: (err: Error | null, sessionData: Buffer | null) => void) => void,
-        ): this;
-        once(event: "secureConnection", listener: (tlsSocket: TLSSocket) => void): this;
-        once(event: "keylog", listener: (line: Buffer, tlsSocket: TLSSocket) => void): this;
-        prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: "tlsClientError", listener: (err: Error, tlsSocket: TLSSocket) => void): this;
-        prependListener(
-            event: "newSession",
-            listener: (sessionId: Buffer, sessionData: Buffer, callback: () => void) => void,
-        ): this;
-        prependListener(
-            event: "OCSPRequest",
-            listener: (
-                certificate: Buffer,
-                issuer: Buffer,
-                callback: (err: Error | null, resp: Buffer) => void,
-            ) => void,
-        ): this;
-        prependListener(
-            event: "resumeSession",
-            listener: (sessionId: Buffer, callback: (err: Error | null, sessionData: Buffer | null) => void) => void,
-        ): this;
-        prependListener(event: "secureConnection", listener: (tlsSocket: TLSSocket) => void): this;
-        prependListener(event: "keylog", listener: (line: Buffer, tlsSocket: TLSSocket) => void): this;
-        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: "tlsClientError", listener: (err: Error, tlsSocket: TLSSocket) => void): this;
-        prependOnceListener(
-            event: "newSession",
-            listener: (sessionId: Buffer, sessionData: Buffer, callback: () => void) => void,
-        ): this;
-        prependOnceListener(
-            event: "OCSPRequest",
-            listener: (
-                certificate: Buffer,
-                issuer: Buffer,
-                callback: (err: Error | null, resp: Buffer) => void,
-            ) => void,
-        ): this;
-        prependOnceListener(
-            event: "resumeSession",
-            listener: (sessionId: Buffer, callback: (err: Error | null, sessionData: Buffer | null) => void) => void,
-        ): this;
-        prependOnceListener(event: "secureConnection", listener: (tlsSocket: TLSSocket) => void): this;
-        prependOnceListener(event: "keylog", listener: (line: Buffer, tlsSocket: TLSSocket) => void): this;
-    }
-    /**
-     * @deprecated since v0.11.3 Use `tls.TLSSocket` instead.
-     */
-    interface SecurePair {
-        encrypted: TLSSocket;
-        cleartext: TLSSocket;
+        removeListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        // #endregion
     }
     type SecureVersion = "TLSv1.3" | "TLSv1.2" | "TLSv1.1" | "TLSv1";
     interface SecureContextOptions {
@@ -1095,45 +1045,6 @@ declare module "tls" {
     ): TLSSocket;
     function connect(port: number, options?: ConnectionOptions, secureConnectListener?: () => void): TLSSocket;
     /**
-     * Creates a new secure pair object with two streams, one of which reads and writes
-     * the encrypted data and the other of which reads and writes the cleartext data.
-     * Generally, the encrypted stream is piped to/from an incoming encrypted data
-     * stream and the cleartext one is used as a replacement for the initial encrypted
-     * stream.
-     *
-     * `tls.createSecurePair()` returns a `tls.SecurePair` object with `cleartext` and `encrypted` stream properties.
-     *
-     * Using `cleartext` has the same API as {@link TLSSocket}.
-     *
-     * The `tls.createSecurePair()` method is now deprecated in favor of`tls.TLSSocket()`. For example, the code:
-     *
-     * ```js
-     * pair = tls.createSecurePair(// ... );
-     * pair.encrypted.pipe(socket);
-     * socket.pipe(pair.encrypted);
-     * ```
-     *
-     * can be replaced by:
-     *
-     * ```js
-     * secureSocket = tls.TLSSocket(socket, options);
-     * ```
-     *
-     * where `secureSocket` has the same API as `pair.cleartext`.
-     * @since v0.3.2
-     * @deprecated Since v0.11.3 - Use {@link TLSSocket} instead.
-     * @param context A secure context object as returned by `tls.createSecureContext()`
-     * @param isServer `true` to specify that this TLS connection should be opened as a server.
-     * @param requestCert `true` to specify whether a server should request a certificate from a connecting client. Only applies when `isServer` is `true`.
-     * @param rejectUnauthorized If not `false` a server automatically reject clients with invalid certificates. Only applies when `isServer` is `true`.
-     */
-    function createSecurePair(
-        context?: SecureContext,
-        isServer?: boolean,
-        requestCert?: boolean,
-        rejectUnauthorized?: boolean,
-    ): SecurePair;
-    /**
      * `{@link createServer}` sets the default value of the `honorCipherOrder` option
      * to `true`, other APIs that create secure contexts leave it unset.
      *
@@ -1159,12 +1070,37 @@ declare module "tls" {
      */
     function createSecureContext(options?: SecureContextOptions): SecureContext;
     /**
+     * Returns an array containing the CA certificates from various sources, depending on `type`:
+     *
+     * * `"default"`: return the CA certificates that will be used by the Node.js TLS clients by default.
+     *   * When `--use-bundled-ca` is enabled (default), or `--use-openssl-ca` is not enabled,
+     *     this would include CA certificates from the bundled Mozilla CA store.
+     *   * When `--use-system-ca` is enabled, this would also include certificates from the system's
+     *     trusted store.
+     *   * When `NODE_EXTRA_CA_CERTS` is used, this would also include certificates loaded from the specified
+     *     file.
+     * * `"system"`: return the CA certificates that are loaded from the system's trusted store, according
+     *   to rules set by `--use-system-ca`. This can be used to get the certificates from the system
+     *   when `--use-system-ca` is not enabled.
+     * * `"bundled"`: return the CA certificates from the bundled Mozilla CA store. This would be the same
+     *   as `tls.rootCertificates`.
+     * * `"extra"`: return the CA certificates loaded from `NODE_EXTRA_CA_CERTS`. It's an empty array if
+     *   `NODE_EXTRA_CA_CERTS` is not set.
+     * @since v22.15.0
+     * @param type The type of CA certificates that will be returned. Valid values
+     * are `"default"`, `"system"`, `"bundled"` and `"extra"`.
+     * **Default:** `"default"`.
+     * @returns An array of PEM-encoded certificates. The array may contain duplicates
+     * if the same certificate is repeatedly stored in multiple sources.
+     */
+    function getCACertificates(type?: "default" | "system" | "bundled" | "extra"): string[];
+    /**
      * Returns an array with the names of the supported TLS ciphers. The names are
      * lower-case for historical reasons, but must be uppercased to be used in
      * the `ciphers` option of `{@link createSecureContext}`.
      *
      * Not all supported ciphers are enabled by default. See
-     * [Modifying the default TLS cipher suite](https://nodejs.org/docs/latest-v22.x/api/tls.html#modifying-the-default-tls-cipher-suite).
+     * [Modifying the default TLS cipher suite](https://nodejs.org/docs/latest-v25.x/api/tls.html#modifying-the-default-tls-cipher-suite).
      *
      * Cipher names that start with `'tls_'` are for TLSv1.3, all the others are for
      * TLSv1.2 and below.
@@ -1175,6 +1111,38 @@ declare module "tls" {
      * @since v0.10.2
      */
     function getCiphers(): string[];
+    /**
+     * Sets the default CA certificates used by Node.js TLS clients. If the provided
+     * certificates are parsed successfully, they will become the default CA
+     * certificate list returned by {@link getCACertificates} and used
+     * by subsequent TLS connections that don't specify their own CA certificates.
+     * The certificates will be deduplicated before being set as the default.
+     *
+     * This function only affects the current Node.js thread. Previous
+     * sessions cached by the HTTPS agent won't be affected by this change, so
+     * this method should be called before any unwanted cachable TLS connections are
+     * made.
+     *
+     * To use system CA certificates as the default:
+     *
+     * ```js
+     * import tls from 'node:tls';
+     * tls.setDefaultCACertificates(tls.getCACertificates('system'));
+     * ```
+     *
+     * This function completely replaces the default CA certificate list. To add additional
+     * certificates to the existing defaults, get the current certificates and append to them:
+     *
+     * ```js
+     * import tls from 'node:tls';
+     * const currentCerts = tls.getCACertificates('default');
+     * const additionalCerts = ['-----BEGIN CERTIFICATE-----\n...'];
+     * tls.setDefaultCACertificates([...currentCerts, ...additionalCerts]);
+     * ```
+     * @since v24.5.0
+     * @param certs An array of CA certificates in PEM format.
+     */
+    function setDefaultCACertificates(certs: ReadonlyArray<string | NodeJS.ArrayBufferView>): void;
     /**
      * The default curve name to use for ECDH key agreement in a tls server.
      * The default value is `'auto'`. See `{@link createSecureContext()}` for further
@@ -1221,6 +1189,6 @@ declare module "tls" {
      */
     const rootCertificates: readonly string[];
 }
-declare module "node:tls" {
-    export * from "tls";
+declare module "tls" {
+    export * from "node:tls";
 }

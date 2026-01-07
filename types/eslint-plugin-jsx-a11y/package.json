@@ -6,7 +6,7 @@
         "https://github.com/jsx-eslint/eslint-plugin-jsx-a11y#readme"
     ],
     "dependencies": {
-        "@types/eslint": "*"
+        "eslint": "^9"
     },
     "devDependencies": {
         "@types/eslint-plugin-jsx-a11y": "workspace:."

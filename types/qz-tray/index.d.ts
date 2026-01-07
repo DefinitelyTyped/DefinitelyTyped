@@ -231,6 +231,7 @@ export type HidGetFeatureReportsDeviceInfoInput = HidDeviceInfoInput & {
     responseSize: string;
 };
 export type HidOpenStreamDeviceInfoInput = HidDeviceInfoInput & {
+    responseSize: string | number;
     interval?: number;
 };
 export type HidReadDataDeviceInfoInput = HidDeviceInfoInput & {

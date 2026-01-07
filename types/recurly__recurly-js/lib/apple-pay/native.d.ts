@@ -12,7 +12,10 @@ export type ApplePayPaymentTiming =
  */
 export type ApplePayRecurringPaymentDateUnit =
   | 'year'
-  | 'month';
+  | 'month'
+  | 'day'
+  | 'hour'
+  | 'minute';
 
 /**
  * Field names for requesting contact information in a payment request.
@@ -194,7 +197,7 @@ export type ApplePayPaymentRequest = {
    * The payment networks the merchant supports. Only selects those networks that intersect with the merchant's
    * payment gateways configured in Recurly.
    */
-  supportedNetworks?: string;
+  supportedNetworks?: string[];
 
   /**
    * The fields of shipping information the user must provide to fulfill the order.

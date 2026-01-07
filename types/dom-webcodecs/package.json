@@ -7,7 +7,7 @@
     "projects": [
         "https://w3c.github.io/webcodecs/"
     ],
-    "minimumTypeScriptVersion": "5.7",
+    "minimumTypeScriptVersion": "5.8",
     "devDependencies": {
         "@types/dom-webcodecs": "workspace:."
     },

@@ -2,7 +2,7 @@ export = EChartsVisualization;
 declare function EChartsVisualization(definition: any): void;
 declare class EChartsVisualization {
     constructor(definition: any);
-    onGetOptions: Event;
+    onGetOptions: import("@nginstack/engine/lib/event/Event");
     private chart_;
     render(outputObj: any): void;
     queryData(filterValues: Record<string, any>): void;

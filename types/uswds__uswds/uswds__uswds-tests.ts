@@ -341,7 +341,7 @@ import("@uswds/uswds").then((imports) => {
         component.off(element); // $ExpectType void
     });
 });
-import("@uswds/uswds/src/js/components").then((imports) => {
+import("@uswds/uswds/src/js/components/index.js").then((imports) => {
     Object.keys(components).forEach((key) => {
         const component = imports[key as ComponentKey];
         component.on(); // $ExpectType void

@@ -1,5 +1,4 @@
 import Node from "../core/Node.js";
-import { NodeRepresentation, ShaderNodeObject } from "../tsl/TSLCore.js";
 
 /**
  * Computes a position in view space based on a fragment's screen position expressed as uv coordinates, the fragments
@@ -11,10 +10,10 @@ import { NodeRepresentation, ShaderNodeObject } from "../tsl/TSLCore.js";
  * @return {vec3} The fragments position in view space.
  */
 export const getViewPosition: (
-    screenPosition: NodeRepresentation,
-    depth: NodeRepresentation,
-    projectionMatrixInverse: NodeRepresentation,
-) => ShaderNodeObject<Node>;
+    screenPosition: Node,
+    depth: Node,
+    projectionMatrixInverse: Node,
+) => Node;
 
 /**
  * Computes a screen position expressed as uv coordinates based on a fragment's position in view space and the camera's
@@ -25,9 +24,9 @@ export const getViewPosition: (
  * @return {vec2} The fragment's screen position expressed as uv coordinates.
  */
 export const getScreenPosition: (
-    viewPosition: NodeRepresentation,
-    projectionMatrix: NodeRepresentation,
-) => ShaderNodeObject<Node>;
+    viewPosition: Node,
+    projectionMatrix: Node,
+) => Node;
 
 /**
  * Computes a normal vector based on depth data. Can be used as a fallback when no normal render target is available or
@@ -39,7 +38,11 @@ export const getScreenPosition: (
  * @return {vec3} The computed normal vector.
  */
 export const getNormalFromDepth: (
-    uv: NodeRepresentation,
-    depthTexture: NodeRepresentation,
-    projectionMatrixInverse: NodeRepresentation,
-) => ShaderNodeObject<Node>;
+    uv: Node,
+    depthTexture: Node,
+    projectionMatrixInverse: Node,
+) => Node;
+
+export const interleavedGradientNoise: (position: Node) => Node;
+
+export const vogelDiskSample: (sampleIndex: Node, samplesCount: Node, phi: Node) => Node;

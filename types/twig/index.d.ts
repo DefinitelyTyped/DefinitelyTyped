@@ -22,6 +22,7 @@ declare namespace Twig {
         base?: any;
         path?: any;
         href?: any;
+        ref?: any;
         name?: any;
         method?: any;
         options?: any;

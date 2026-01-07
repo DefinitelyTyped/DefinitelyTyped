@@ -27,7 +27,7 @@ declare class ClippingContext {
     /**
      * Constructs a new clipping context.
      *
-     * @param {ClippingContext?} [parentContext=null] - A reference to the parent clipping context.
+     * @param {?ClippingContext} [parentContext=null] - A reference to the parent clipping context.
      */
     constructor(parentContext?: ClippingContext | null);
     /**
@@ -36,7 +36,7 @@ declare class ClippingContext {
      *
      * @param {Array<Plane>} source - The source clipping planes.
      * @param {Array<Vector4>} destination - The destination.
-     * @param {Number} offset - The offset.
+     * @param {number} offset - The offset.
      */
     projectPlanes(source: readonly Plane[], destination: readonly Vector4[], offset: number): void;
     /**
@@ -63,7 +63,7 @@ declare class ClippingContext {
     /**
      * The count of union clipping planes.
      *
-     * @type {Number}
+     * @type {number}
      * @readonly
      */
     get unionClippingCount(): number;

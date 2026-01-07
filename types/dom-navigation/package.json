@@ -2,7 +2,7 @@
     "private": true,
     "name": "@types/dom-navigation",
     "version": "1.0.9999",
-    "nonNpm": true,
+    "nonNpm": "conflict",
     "nonNpmDescription": "dom-navigation-browser",
     "projects": [
         "https://wicg.github.io/navigation-api"

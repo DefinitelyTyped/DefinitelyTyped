@@ -259,12 +259,16 @@ import { URL } from "node:url";
     let settings: Settings = {};
     const serverOptions: ServerOptions = {
         maxDeflateDynamicTableSize: 0,
+        maxSettings: 32,
+        maxSessionMemory: 10,
+        maxHeaderListPairs: 128,
+        maxOutstandingPings: 10,
         maxSendHeaderBlockLength: 0,
         paddingStrategy: 0,
         peerMaxConcurrentStreams: 0,
-        selectPadding: (frameLen: number, maxFrameLen: number) => 0,
         settings,
-        unknownProtocolTimeout: 123,
+        remoteCustomSettings: [0],
+        unknownProtocolTimeout: 100000,
     };
     // tslint:disable-next-line prefer-object-spread (ts2.1 feature)
     const secureServerOptions: SecureServerOptions = Object.assign({}, serverOptions);
@@ -376,13 +380,25 @@ import { URL } from "node:url";
 
     const clientSessionOptions: ClientSessionOptions = {
         maxDeflateDynamicTableSize: 0,
-        maxReservedRemoteStreams: 0,
+        maxSettings: 32,
+        maxSessionMemory: 10,
+        maxHeaderListPairs: 128,
+        maxOutstandingPings: 10,
         maxSendHeaderBlockLength: 0,
         paddingStrategy: 0,
         peerMaxConcurrentStreams: 0,
-        protocol: "https:",
-        selectPadding: (frameLen: number, maxFrameLen: number) => 0,
         settings,
+        remoteCustomSettings: [0],
+        unknownProtocolTimeout: 100000,
+        maxReservedRemoteStreams: 0,
+        createConnection: (authority, option) => {
+            // $ExpectType URL
+            authority;
+            // $ExpectType SessionOptions
+            option;
+            return new Duplex();
+        },
+        protocol: "https:",
     };
     // tslint:disable-next-line prefer-object-spread (ts2.1 feature)
     const secureClientSessionOptions: SecureClientSessionOptions = Object.assign({}, clientSessionOptions);
@@ -476,12 +492,16 @@ import { URL } from "node:url";
 
     const serverOptions: ServerOptions = {
         maxDeflateDynamicTableSize: 0,
+        maxSettings: 32,
+        maxSessionMemory: 10,
+        maxHeaderListPairs: 128,
+        maxOutstandingPings: 10,
         maxSendHeaderBlockLength: 0,
         paddingStrategy: 0,
         peerMaxConcurrentStreams: 0,
-        selectPadding: (frameLen: number, maxFrameLen: number) => 0,
         settings,
-        unknownProtocolTimeout: 123,
+        remoteCustomSettings: [0],
+        unknownProtocolTimeout: 100000,
     };
 
     const http2Stream: Http2Stream = {} as any;

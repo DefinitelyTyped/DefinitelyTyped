@@ -104,9 +104,12 @@ export class I18n {
      * @param {{ [key: string]: unknown }} options - Any options passed with the translation string, e.g: for string interpolation.
      * @returns {string} The translation string to output, with $\{\} placeholders replaced
      */
-    replacePlaceholders(translationString: string, options: {
-        [key: string]: unknown;
-    }): string;
+    replacePlaceholders(
+        translationString: string,
+        options: {
+            [key: string]: unknown;
+        },
+    ): string;
 
     /**
      * Check to see if the browser supports Intl.PluralRules

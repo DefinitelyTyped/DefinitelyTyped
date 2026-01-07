@@ -33,6 +33,7 @@ export interface OptionsWithResolver<Props, Module = DefaultComponent<Props>> ex
 
 export interface LoadableReadyOptions {
     namespace?: string | undefined;
+    chunkLoadingGlobal?: string | undefined;
 }
 
 export interface LoadableComponentMethods<Props> {

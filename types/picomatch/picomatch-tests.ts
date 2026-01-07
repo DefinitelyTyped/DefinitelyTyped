@@ -3,7 +3,12 @@ import pm = require("picomatch");
 new RegExp(/a/);
 // main function
 const isMatch = pm("*.!(*a)");
+// $ExpectType boolean
 isMatch("abcd");
+// $ExpectType boolean
+isMatch("abcd", false);
+// $ExpectType Result
+isMatch("abcd", true);
 
 // main function with state
 const isMatch2 = pm("*.!(*a)", {}, true);
@@ -11,7 +16,11 @@ const isMatch2 = pm("*.!(*a)", {}, true);
 isMatch2.state.negated;
 
 // $ExpectType boolean
-isMatch("abcd");
+isMatch2("abcd");
+// $ExpectType boolean
+isMatch2("abcd", false);
+// $ExpectType Result
+isMatch2("abcd", true);
 
 const testResult = pm.test("foo/bar", /^(?:([^/]*?)\/([^/]*?))$/);
 // $ExpectType boolean

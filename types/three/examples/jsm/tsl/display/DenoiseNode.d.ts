@@ -1,4 +1,3 @@
-import { NodeRepresentation, ShaderNodeObject } from "three/tsl";
 import { Camera, Node, TempNode, UniformNode } from "three/webgpu";
 
 declare class DenoiseNode extends TempNode {
@@ -20,8 +19,8 @@ declare class DenoiseNode extends TempNode {
 export default DenoiseNode;
 
 export const denoise: (
-    node: NodeRepresentation,
-    depthNode: NodeRepresentation,
-    normalNode: NodeRepresentation,
+    node: Node,
+    depthNode: Node,
+    normalNode: Node,
     camera: Camera,
-) => ShaderNodeObject<DenoiseNode>;
+) => DenoiseNode;

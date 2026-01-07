@@ -1,4 +1,4 @@
-import * as libmime from "libmime";
+import libmime from "libmime";
 
 // test type exports
 type MimeWordEncoding = libmime.MimeWordEncoding;
@@ -67,3 +67,6 @@ libmime.buildHeaderParam("filename", Buffer.from("bla.txt"), 1, "UTF-8"); // $Ex
 libmime.detectExtension("image/jpeg"); // $ExpectType string
 
 libmime.detectMimeType("logo.jpg"); // $ExpectType string
+
+let anotherLibmimeInstance = new libmime.Libmime(); // $ExpectType Libmime
+libmime === anotherLibmimeInstance; // Equality applies to same class of variables on typescript

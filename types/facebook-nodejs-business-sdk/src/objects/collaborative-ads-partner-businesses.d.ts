@@ -7,5 +7,6 @@ export default class CollaborativeAdsPartnerBusinesses extends AbstractCrudObjec
     static get Fields(): Readonly<{
         collaborative_ads_partner_businesses_info: "collaborative_ads_partner_businesses_info";
         dedicated_partner_business_info: "dedicated_partner_business_info";
+        dedicated_partners_business_info: "dedicated_partners_business_info";
     }>;
 }

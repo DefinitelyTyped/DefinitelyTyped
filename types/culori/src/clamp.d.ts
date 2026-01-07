@@ -1,4 +1,4 @@
-import { Color, FindColorByMode, GamutMode, Mode } from "./common";
+import { Color, FindColorByMode, GamutMode, Mode } from "./common.js";
 
 /**
  * Returns whether the color is in the sRGB gamut.
@@ -12,7 +12,7 @@ export function displayable(color: Color | string): boolean;
  */
 export function inGamut(mode?: Mode): (color: Color | string) => boolean;
 
-/*
+/**
  * Obtain a color that's in the sRGB gamut
  * by converting it to sRGB and clipping the channel values
  * so that they're within the [0, 1] range.
@@ -52,7 +52,7 @@ export function clampChroma(
 ): Color | undefined;
 export function clampChroma<C extends Color>(color: C, mode?: Mode, rgbGamut?: GamutMode): C;
 
-/*
+/**
  * Obtain a color that's in the `dest` gamut,
  * by first converting it to the `mode` color space
  * and then finding the largest chroma that's in gamut,

@@ -26,6 +26,14 @@ declare namespace google {
          * noted otherwise, the return type of methods below is of type
          * `PickerBuilder`, allowing you to chain one call after another.
          *
+         * Note: The
+         * {@link https://npmjs.com/package/@googleworkspace/drive-picker-element
+         * | @googleworkspace/drive-picker-element} custom web component is a
+         * streamlined way to integrate the Google Picker into your web app. For
+         * React applications, use the
+         * {@link https://npmjs.com/package/@googleworkspace/drive-picker-react
+         * | @googleworkspace/drive-picker-react} React component.
+         *
          * @example Build a basic `Picker` using the builder pattern.
          *
          * ```ts
@@ -84,7 +92,8 @@ declare namespace google {
 
             /**
              * Sets the Id of the application needing to access the user's files via
-             * the {@link https://developers.google.com/drive/api | Drive API}.
+             * the {@link https://developers.google.com/workspace/drive/api | Drive
+             * API}.
              *
              * This is required for the `https://www.googleapis.com/auth/drive.file`
              * scope.
@@ -104,8 +113,8 @@ declare namespace google {
              * Set the callback method. This method is called when the user selects
              * items or cancels.  The callback method receives a single callback
              * object. The structure of the callback object is described in the {@link
-             * https://developers.google.com/drive/picker/reference/results | JSON
-             * Guide}.
+             * https://developers.google.com/workspace/drive/picker/reference/results
+             * | JSON Guide}.
              */
             setCallback(method: (result: ResponseObject) => void): PickerBuilder;
 
@@ -489,9 +498,7 @@ declare namespace google {
             constructor(viewId?: ViewId);
 
             /**
-             * Show folders in the view items.  Do not combine with
-             * `setOwnedByMe`. When `setIncludeFolders(true)` is
-             * set, `setOwnedByMe` is ignored.
+             * Show folders in the view items.
              *
              * If you don't set this option, folders aren't displayed in the
              * view.
@@ -514,10 +521,12 @@ declare namespace google {
             setMode(mode: DocsViewMode): DocsView;
 
             /**
-             *  Filters the documents based on whether they are owned by the user, or
-             * shared with the user. Do not combine this setting with
-             * `setIncludeFolders`. When `setIncludeFolders(true)`
-             * is set, `setOwnedByMe` is ignored.
+             * Filters the documents based on whether they are owned by the user, or
+             * shared with the user.
+             *
+             * Don't combine this setting with `setEnableDrives`.
+             * When `setEnableDrives(true)` and `setOwnedByMe(true)` are set,
+             * there are no results.
              *
              * If you don't set this option, all documents, including shared
              * documents, are displayed in the view.
@@ -529,26 +538,49 @@ declare namespace google {
              *
              * If `true`, only starred documents are displayed in the view. If
              * `false`, all documents are displayed in the view.
+             *
+             * Don't combine this setting with `setEnableDrives`.
+             * When `setEnableDrives(true)` is set, `setStarred` is ignored.
              */
             setStarred(starred: boolean): DocsView;
 
             /**
              * Shows shared drives and the files they contain. Before enabling, refer
              * to
-             * {@link https://developers.google.com/drive/v3/web/enable-shareddrives |
-             * GoogleDrive API documentation for enabling shared drives}.
+             * {@link
+             * https://developers.google.com/workspace/drive/v3/web/enable-shareddrives
+             * | GoogleDrive API documentation for enabling shared drives}.
              *
              * If `true`, only shared drives are included in the view.
+             *
+             * Don't combine this setting with `setParent` or `setFileIds`.
+             * Calls to this function override previous calls to `setParent` or
+             * `setFileIds`.
+             *
+             * Don't combine this setting with `setOwnedByMe`.
+             * When `setEnableDrives(true)` and `setOwnedByMe(true)` are set,
+             * there are no results.
+             *
+             * Don't combine this setting with `setStarred`.
+             * When `setEnableDrives(true)` is set, `setStarred` is ignored.
              */
             setEnableDrives(enabled: boolean): DocsView;
 
             /**
              *  Sets the initial parent folder to display.
+             *
+             * Don't combine this setting with `setEnableDrives` or `setFileIds`.
+             * Calls to this function override previous calls to `setEnableDrives`
+             * or `setFileIds`.
              */
             setParent(parentId: string): View;
 
             /**
              * Sets the file IDs included in the view.
+             *
+             * Don't combine this setting with `setEnableDrives` or `setParent`.
+             * Calls to this function override previous calls to `setEnableDrives`
+             * or `setParent`.
              *
              * @param fileIds A string of file IDs. Use commas to separate file IDs if
              * setting more than one. If you include the file ID of a file that the

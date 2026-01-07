@@ -11,6 +11,24 @@ declare module "assert" {
      */
     function assert(value: unknown, message?: string | Error): asserts value;
     namespace assert {
+        type AssertMethodNames =
+            | "deepEqual"
+            | "deepStrictEqual"
+            | "doesNotMatch"
+            | "doesNotReject"
+            | "doesNotThrow"
+            | "equal"
+            | "fail"
+            | "ifError"
+            | "match"
+            | "notDeepEqual"
+            | "notDeepStrictEqual"
+            | "notEqual"
+            | "notStrictEqual"
+            | "ok"
+            | "rejects"
+            | "strictEqual"
+            | "throws";
         /**
          * Indicates the failure of an assertion. All errors thrown by the `node:assert` module will be instances of the `AssertionError` class.
          */
@@ -79,7 +97,9 @@ declare module "assert" {
              * @return A function that wraps `fn`.
              */
             calls(exact?: number): () => void;
-            calls<Func extends (...args: any[]) => any>(fn?: Func, exact?: number): Func;
+            calls(fn: undefined, exact?: number): () => void;
+            calls<Func extends (...args: any[]) => any>(fn: Func, exact?: number): Func;
+            calls<Func extends (...args: any[]) => any>(fn?: Func, exact?: number): Func | (() => void);
             /**
              * Example:
              *

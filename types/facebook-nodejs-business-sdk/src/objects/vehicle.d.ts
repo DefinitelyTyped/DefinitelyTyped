@@ -9,11 +9,22 @@ export default class Vehicle extends AbstractCrudObject {
         address: "address";
         applinks: "applinks";
         availability: "availability";
+        availability_circle_radius: "availability_circle_radius";
+        availability_circle_radius_unit: "availability_circle_radius_unit";
         body_style: "body_style";
         category_specific_fields: "category_specific_fields";
         condition: "condition";
         currency: "currency";
         custom_label_0: "custom_label_0";
+        custom_label_1: "custom_label_1";
+        custom_label_2: "custom_label_2";
+        custom_label_3: "custom_label_3";
+        custom_label_4: "custom_label_4";
+        custom_number_0: "custom_number_0";
+        custom_number_1: "custom_number_1";
+        custom_number_2: "custom_number_2";
+        custom_number_3: "custom_number_3";
+        custom_number_4: "custom_number_4";
         date_first_on_lot: "date_first_on_lot";
         dealer_communication_channel: "dealer_communication_channel";
         dealer_email: "dealer_email";
@@ -38,10 +49,16 @@ export default class Vehicle extends AbstractCrudObject {
         previous_currency: "previous_currency";
         previous_price: "previous_price";
         price: "price";
+        product_priority_0: "product_priority_0";
+        product_priority_1: "product_priority_1";
+        product_priority_2: "product_priority_2";
+        product_priority_3: "product_priority_3";
+        product_priority_4: "product_priority_4";
         sale_currency: "sale_currency";
         sale_price: "sale_price";
         sanitized_images: "sanitized_images";
         state_of_vehicle: "state_of_vehicle";
+        tags: "tags";
         title: "title";
         transmission: "transmission";
         trim: "trim";
@@ -71,6 +88,7 @@ export default class Vehicle extends AbstractCrudObject {
         available: "AVAILABLE";
         not_available: "NOT_AVAILABLE";
         pending: "PENDING";
+        unknown: "UNKNOWN";
     }>;
     static get BodyStyle(): Readonly<{
         convertible: "CONVERTIBLE";
@@ -147,8 +165,8 @@ export default class Vehicle extends AbstractCrudObject {
         rv_camper: "RV_CAMPER";
         trailer: "TRAILER";
     }>;
-    getAugmentedRealitiesMetadata(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getChannelsToIntegrityStatus(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getOverrideDetails(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getVideosMetadata(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     get(fields: string[], params?: Record<string, any>): Promise<Vehicle>;
     update(fields: string[], params?: Record<string, any>): Promise<Vehicle>;

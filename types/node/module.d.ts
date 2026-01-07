@@ -1,7 +1,7 @@
 /**
  * @since v0.3.7
  */
-declare module "module" {
+declare module "node:module" {
     import { URL } from "node:url";
     class Module {
         constructor(id: string, parent?: Module);
@@ -30,7 +30,7 @@ declare module "module" {
             /**
              * The following constants are returned as the `status` field in the object returned by
              * {@link enableCompileCache} to indicate the result of the attempt to enable the
-             * [module compile cache](https://nodejs.org/docs/latest-v22.x/api/module.html#module-compile-cache).
+             * [module compile cache](https://nodejs.org/docs/latest-v25.x/api/module.html#module-compile-cache).
              * @since v22.8.0
              */
             namespace compileCacheStatus {
@@ -62,6 +62,24 @@ declare module "module" {
                 const DISABLED: number;
             }
         }
+        interface EnableCompileCacheOptions {
+            /**
+             * Optional. Directory to store the compile cache. If not specified,
+             * the directory specified by the `NODE_COMPILE_CACHE=dir` environment variable
+             * will be used if it's set, or `path.join(os.tmpdir(), 'node-compile-cache')`
+             * otherwise.
+             * @since v25.0.0
+             */
+            directory?: string | undefined;
+            /**
+             * Optional. If `true`, enables portable compile cache so that
+             * the cache can be reused even if the project directory is moved. This is a best-effort
+             * feature. If not specified, it will depend on whether the environment variable
+             * `NODE_COMPILE_CACHE_PORTABLE=1` is set.
+             * @since v25.0.0
+             */
+            portable?: boolean | undefined;
+        }
         interface EnableCompileCacheResult {
             /**
              * One of the {@link constants.compileCacheStatus}
@@ -81,25 +99,21 @@ declare module "module" {
             directory?: string;
         }
         /**
-         * Enable [module compile cache](https://nodejs.org/docs/latest-v22.x/api/module.html#module-compile-cache)
+         * Enable [module compile cache](https://nodejs.org/docs/latest-v25.x/api/module.html#module-compile-cache)
          * in the current Node.js instance.
          *
-         * If `cacheDir` is not specified, Node.js will either use the directory specified by the
-         * `NODE_COMPILE_CACHE=dir` environment variable if it's set, or use
-         * `path.join(os.tmpdir(), 'node-compile-cache')` otherwise. For general use cases, it's
-         * recommended to call `module.enableCompileCache()` without specifying the `cacheDir`,
-         * so that the directory can be overridden by the `NODE_COMPILE_CACHE` environment
-         * variable when necessary.
+         * For general use cases, it's recommended to call `module.enableCompileCache()` without
+         * specifying the `options.directory`, so that the directory can be overridden by the
+         * `NODE_COMPILE_CACHE` environment variable when necessary.
          *
-         * Since compile cache is supposed to be a quiet optimization that is not required for the
-         * application to be functional, this method is designed to not throw any exception when the
-         * compile cache cannot be enabled. Instead, it will return an object containing an error
-         * message in the `message` field to aid debugging.
-         * If compile cache is enabled successfully, the `directory` field in the returned object
-         * contains the path to the directory where the compile cache is stored. The `status`
-         * field in the returned object would be one of the `module.constants.compileCacheStatus`
+         * Since compile cache is supposed to be a optimization that is not mission critical, this
+         * method is designed to not throw any exception when the compile cache cannot be enabled.
+         * Instead, it will return an object containing an error message in the `message` field to
+         * aid debugging. If compile cache is enabled successfully, the `directory` field in the
+         * returned object contains the path to the directory where the compile cache is stored. The
+         * `status` field in the returned object would be one of the `module.constants.compileCacheStatus`
          * values to indicate the result of the attempt to enable the
-         * [module compile cache](https://nodejs.org/docs/latest-v22.x/api/module.html#module-compile-cache).
+         * [module compile cache](https://nodejs.org/docs/latest-v25.x/api/module.html#module-compile-cache).
          *
          * This method only affects the current Node.js instance. To enable it in child worker threads,
          * either call this method in child worker threads too, or set the
@@ -107,12 +121,11 @@ declare module "module" {
          * be inherited into the child workers. The directory can be obtained either from the
          * `directory` field returned by this method, or with {@link getCompileCacheDir}.
          * @since v22.8.0
-         * @param cacheDir Optional path to specify the directory where the compile cache
-         * will be stored/retrieved.
+         * @param options Optional. If a string is passed, it is considered to be `options.directory`.
          */
-        function enableCompileCache(cacheDir?: string): EnableCompileCacheResult;
+        function enableCompileCache(options?: string | EnableCompileCacheOptions): EnableCompileCacheResult;
         /**
-         * Flush the [module compile cache](https://nodejs.org/docs/latest-v22.x/api/module.html#module-compile-cache)
+         * Flush the [module compile cache](https://nodejs.org/docs/latest-v25.x/api/module.html#module-compile-cache)
          * accumulated from modules already loaded
          * in the current Node.js instance to disk. This returns after all the flushing
          * file system operations come to an end, no matter they succeed or not. If there
@@ -123,17 +136,59 @@ declare module "module" {
         function flushCompileCache(): void;
         /**
          * @since v22.8.0
-         * @return Path to the [module compile cache](https://nodejs.org/docs/latest-v22.x/api/module.html#module-compile-cache)
+         * @return Path to the [module compile cache](https://nodejs.org/docs/latest-v25.x/api/module.html#module-compile-cache)
          * directory if it is enabled, or `undefined` otherwise.
          */
         function getCompileCacheDir(): string | undefined;
         /**
-         * @since v23.2.0, v22.14.0
+         * ```text
+         * /path/to/project
+         *   ├ packages/
+         *     ├ bar/
+         *       ├ bar.js
+         *       └ package.json // name = '@foo/bar'
+         *     └ qux/
+         *       ├ node_modules/
+         *         └ some-package/
+         *           └ package.json // name = 'some-package'
+         *       ├ qux.js
+         *       └ package.json // name = '@foo/qux'
+         *   ├ main.js
+         *   └ package.json // name = '@foo'
+         * ```
+         * ```js
+         * // /path/to/project/packages/bar/bar.js
+         * import { findPackageJSON } from 'node:module';
+         *
+         * findPackageJSON('..', import.meta.url);
+         * // '/path/to/project/package.json'
+         * // Same result when passing an absolute specifier instead:
+         * findPackageJSON(new URL('../', import.meta.url));
+         * findPackageJSON(import.meta.resolve('../'));
+         *
+         * findPackageJSON('some-package', import.meta.url);
+         * // '/path/to/project/packages/bar/node_modules/some-package/package.json'
+         * // When passing an absolute specifier, you might get a different result if the
+         * // resolved module is inside a subfolder that has nested `package.json`.
+         * findPackageJSON(import.meta.resolve('some-package'));
+         * // '/path/to/project/packages/bar/node_modules/some-package/some-subfolder/package.json'
+         *
+         * findPackageJSON('@foo/qux', import.meta.url);
+         * // '/path/to/project/packages/qux/package.json'
+         * ```
+         * @since v22.14.0
+         * @param specifier The specifier for the module whose `package.json` to
+         * retrieve. When passing a _bare specifier_, the `package.json` at the root of
+         * the package is returned. When passing a _relative specifier_ or an _absolute specifier_,
+         * the closest parent `package.json` is returned.
+         * @param base The absolute location (`file:` URL string or FS path) of the
+         * containing  module. For CJS, use `__filename` (not `__dirname`!); for ESM, use
+         * `import.meta.url`. You do not need to pass it if `specifier` is an _absolute specifier_.
+         * @returns A path if the `package.json` is found. When `startLocation`
+         * is a package, the package's root `package.json`; when a relative or unresolved, the closest
+         * `package.json` to the `startLocation`.
          */
-        function findPackageJSON(
-            specifier: string | URL,
-            base?: string | URL,
-        ): undefined | string;
+        function findPackageJSON(specifier: string | URL, base?: string | URL): string | undefined;
         /**
          * @since v18.6.0, v16.17.0
          */
@@ -152,7 +207,7 @@ declare module "module" {
              */
             data?: Data | undefined;
             /**
-             * [Transferable objects](https://nodejs.org/docs/latest-v22.x/api/worker_threads.html#portpostmessagevalue-transferlist)
+             * [Transferable objects](https://nodejs.org/docs/latest-v25.x/api/worker_threads.html#portpostmessagevalue-transferlist)
              * to be passed into the `initialize` hook.
              */
             transferList?: any[] | undefined;
@@ -161,7 +216,10 @@ declare module "module" {
         /**
          * Register a module that exports hooks that customize Node.js module
          * resolution and loading behavior. See
-         * [Customization hooks](https://nodejs.org/docs/latest-v22.x/api/module.html#customization-hooks).
+         * [Customization hooks](https://nodejs.org/docs/latest-v25.x/api/module.html#customization-hooks).
+         *
+         * This feature requires `--allow-worker` if used with the
+         * [Permission Model](https://nodejs.org/docs/latest-v25.x/api/permissions.html#permission-model).
          * @since v20.6.0, v18.19.0
          * @param specifier Customization hooks to be registered; this should be
          * the same string that would be passed to `import()`, except that if it is
@@ -175,6 +233,31 @@ declare module "module" {
             options?: RegisterOptions<Data>,
         ): void;
         function register<Data = any>(specifier: string | URL, options?: RegisterOptions<Data>): void;
+        interface RegisterHooksOptions {
+            /**
+             * See [load hook](https://nodejs.org/docs/latest-v25.x/api/module.html#loadurl-context-nextload).
+             * @default undefined
+             */
+            load?: LoadHookSync | undefined;
+            /**
+             * See [resolve hook](https://nodejs.org/docs/latest-v25.x/api/module.html#resolvespecifier-context-nextresolve).
+             * @default undefined
+             */
+            resolve?: ResolveHookSync | undefined;
+        }
+        interface ModuleHooks {
+            /**
+             * Deregister the hook instance.
+             */
+            deregister(): void;
+        }
+        /**
+         * Register [hooks](https://nodejs.org/docs/latest-v25.x/api/module.html#customization-hooks)
+         * that customize Node.js module resolution and loading behavior.
+         * @since v22.15.0
+         * @experimental
+         */
+        function registerHooks(options: RegisterHooksOptions): ModuleHooks;
         interface StripTypeScriptTypesOptions {
             /**
              * Possible values are:
@@ -200,9 +283,9 @@ declare module "module" {
          * with `vm.runInContext()` or `vm.compileFunction()`.
          * By default, it will throw an error if the code contains TypeScript features
          * that require transformation such as `Enums`,
-         * see [type-stripping](https://nodejs.org/docs/latest-v22.x/api/typescript.md#type-stripping) for more information.
+         * see [type-stripping](https://nodejs.org/docs/latest-v25.x/api/typescript.md#type-stripping) for more information.
          * When mode is `'transform'`, it also transforms TypeScript features to JavaScript,
-         * see [transform TypeScript features](https://nodejs.org/docs/latest-v22.x/api/typescript.md#typescript-features) for more information.
+         * see [transform TypeScript features](https://nodejs.org/docs/latest-v25.x/api/typescript.md#typescript-features) for more information.
          * When mode is `'strip'`, source maps are not generated, because locations are preserved.
          * If `sourceMap` is provided, when mode is `'strip'`, an error will be thrown.
          *
@@ -289,7 +372,9 @@ declare module "module" {
         interface ImportAttributes extends NodeJS.Dict<string> {
             type?: string | undefined;
         }
+        type ImportPhase = "source" | "evaluation";
         type ModuleFormat =
+            | "addon"
             | "builtin"
             | "commonjs"
             | "commonjs-typescript"
@@ -325,9 +410,9 @@ declare module "module" {
         }
         interface ResolveFnOutput {
             /**
-             * A hint to the load hook (it might be ignored)
+             * A hint to the load hook (it might be ignored); can be an intermediary value.
              */
-            format?: ModuleFormat | null | undefined;
+            format?: string | null | undefined;
             /**
              * The import attributes to use when caching the module (optional; if excluded the input will be used)
              */
@@ -359,22 +444,30 @@ declare module "module" {
                 context?: Partial<ResolveHookContext>,
             ) => ResolveFnOutput | Promise<ResolveFnOutput>,
         ) => ResolveFnOutput | Promise<ResolveFnOutput>;
+        type ResolveHookSync = (
+            specifier: string,
+            context: ResolveHookContext,
+            nextResolve: (
+                specifier: string,
+                context?: Partial<ResolveHookContext>,
+            ) => ResolveFnOutput,
+        ) => ResolveFnOutput;
         interface LoadHookContext {
             /**
              * Export conditions of the relevant `package.json`
              */
             conditions: string[];
             /**
-             * The format optionally supplied by the `resolve` hook chain
+             * The format optionally supplied by the `resolve` hook chain (can be an intermediary value).
              */
-            format: ModuleFormat | null | undefined;
+            format: string | null | undefined;
             /**
              *  An object whose key-value pairs represent the assertions for the module to import
              */
             importAttributes: ImportAttributes;
         }
         interface LoadFnOutput {
-            format: ModuleFormat;
+            format: string | null | undefined;
             /**
              * A signal that this hook intends to terminate the chain of `resolve` hooks.
              * @default false
@@ -398,6 +491,34 @@ declare module "module" {
                 context?: Partial<LoadHookContext>,
             ) => LoadFnOutput | Promise<LoadFnOutput>,
         ) => LoadFnOutput | Promise<LoadFnOutput>;
+        type LoadHookSync = (
+            url: string,
+            context: LoadHookContext,
+            nextLoad: (
+                url: string,
+                context?: Partial<LoadHookContext>,
+            ) => LoadFnOutput,
+        ) => LoadFnOutput;
+        interface SourceMapsSupport {
+            /**
+             * If the source maps support is enabled
+             */
+            enabled: boolean;
+            /**
+             * If the support is enabled for files in `node_modules`.
+             */
+            nodeModules: boolean;
+            /**
+             * If the support is enabled for generated code from `eval` or `new Function`.
+             */
+            generatedCode: boolean;
+        }
+        /**
+         * This method returns whether the [Source Map v3](https://tc39.es/ecma426/) support for stack
+         * traces is enabled.
+         * @since v23.7.0, v22.14.0
+         */
+        function getSourceMapsSupport(): SourceMapsSupport;
         /**
          * `path` is the resolved path for the file for which a corresponding source map
          * should be fetched.
@@ -405,6 +526,33 @@ declare module "module" {
          * @return Returns `module.SourceMap` if a source map is found, `undefined` otherwise.
          */
         function findSourceMap(path: string): SourceMap | undefined;
+        interface SetSourceMapsSupportOptions {
+            /**
+             * If enabling the support for files in `node_modules`.
+             * @default false
+             */
+            nodeModules?: boolean | undefined;
+            /**
+             * If enabling the support for generated code from `eval` or `new Function`.
+             * @default false
+             */
+            generatedCode?: boolean | undefined;
+        }
+        /**
+         * This function enables or disables the [Source Map v3](https://tc39.es/ecma426/) support for
+         * stack traces.
+         *
+         * It provides same features as launching Node.js process with commandline options
+         * `--enable-source-maps`, with additional options to alter the support for files
+         * in `node_modules` or generated codes.
+         *
+         * Only source maps in JavaScript files that are loaded after source maps has been
+         * enabled will be parsed and loaded. Preferably, use the commandline options
+         * `--enable-source-maps` to avoid losing track of source maps of modules loaded
+         * before this API call.
+         * @since v23.7.0, v22.14.0
+         */
+        function setSourceMapsSupport(enabled: boolean, options?: SetSourceMapsSupportOptions): void;
         interface SourceMapConstructorOptions {
             /**
              * @since v21.0.0, v20.5.0
@@ -488,37 +636,6 @@ declare module "module" {
         function wrap(script: string): string;
     }
     global {
-        interface ImportMeta {
-            /**
-             * The directory name of the current module. This is the same as the `path.dirname()` of the `import.meta.filename`.
-             * **Caveat:** only present on `file:` modules.
-             */
-            dirname: string;
-            /**
-             * The full absolute path and filename of the current module, with symlinks resolved.
-             * This is the same as the `url.fileURLToPath()` of the `import.meta.url`.
-             * **Caveat:** only local modules support this property. Modules not using the `file:` protocol will not provide it.
-             */
-            filename: string;
-            /**
-             * The absolute `file:` URL of the module.
-             */
-            url: string;
-            /**
-             * Provides a module-relative resolution function scoped to each module, returning
-             * the URL string.
-             *
-             * Second `parent` parameter is only used when the `--experimental-import-meta-resolve`
-             * command flag enabled.
-             *
-             * @since v20.6.0
-             *
-             * @param specifier The module specifier to resolve relative to `parent`.
-             * @param parent The absolute parent module URL to resolve from.
-             * @returns The absolute (`file:`) URL string for the resolved module.
-             */
-            resolve(specifier: string, parent?: string | URL | undefined): string;
-        }
         namespace NodeJS {
             interface Module {
                 /**
@@ -592,7 +709,7 @@ declare module "module" {
                  * Modules are cached in this object when they are required. By deleting a key
                  * value from this object, the next `require` will reload the module.
                  * This does not apply to
-                 * [native addons](https://nodejs.org/docs/latest-v22.x/api/addons.html),
+                 * [native addons](https://nodejs.org/docs/latest-v25.x/api/addons.html),
                  * for which reloading will result in an error.
                  * @since v0.3.0
                  */
@@ -626,7 +743,7 @@ declare module "module" {
                  * Paths to resolve module location from. If present, these
                  * paths are used instead of the default resolution paths, with the exception
                  * of
-                 * [GLOBAL\_FOLDERS](https://nodejs.org/docs/latest-v22.x/api/modules.html#loading-from-the-global-folders)
+                 * [GLOBAL\_FOLDERS](https://nodejs.org/docs/latest-v25.x/api/modules.html#loading-from-the-global-folders)
                  * like `$HOME/.node_modules`, which are
                  * always included. Each of these paths is used as a starting point for
                  * the module resolution algorithm, meaning that the `node_modules` hierarchy
@@ -696,7 +813,7 @@ declare module "module" {
     }
     export = Module;
 }
-declare module "node:module" {
-    import module = require("module");
+declare module "module" {
+    import module = require("node:module");
     export = module;
 }

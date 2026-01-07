@@ -1,6 +1,15 @@
+import { JSONMeta } from "../core/Object3D.js";
 import { ColorRepresentation } from "../math/Color.js";
-import { Light } from "./Light.js";
+import { Light, LightJSON } from "./Light.js";
+import { LightShadowJSON } from "./LightShadow.js";
 import { PointLightShadow } from "./PointLightShadow.js";
+
+export interface PointLightJSON extends LightJSON {
+    distance: number;
+    decay: number;
+
+    shadow: LightShadowJSON;
+}
 
 /**
  * A light that gets emitted from a single point in all directions
@@ -22,7 +31,7 @@ import { PointLightShadow } from "./PointLightShadow.js";
 export class PointLight extends Light<PointLightShadow> {
     /**
      * Creates a new PointLight.
-     * @param color Hexadecimal color of the light. Default is 0xffffff (white). Expects a `Integer`
+     * @param color Hexadecimal color of the light. Default is 0xffffff (white). Expects an `Integer`
      * @param intensity Numeric value of the light's strength/intensity. Expects a `Float`. Default `1`
      * @param distance Maximum range of the light. Default is 0 (no limit).
      * @param decay The amount the light dims along the distance of the light. Expects a `Float`. Default `2`
@@ -99,4 +108,6 @@ export class PointLight extends Light<PointLightShadow> {
      * @remarks Expects a `Float`
      */
     power: number;
+
+    toJSON(meta?: JSONMeta): PointLightJSON;
 }

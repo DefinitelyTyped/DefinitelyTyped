@@ -5,6 +5,12 @@ import { AbstractCrudObject } from "./../abstract-crud-object";
  */
 export default class AdCreativeSiteLinksSpec extends AbstractCrudObject {
     static get Fields(): Readonly<{
+        is_site_link_sticky: "is_site_link_sticky";
+        site_link_hash: "site_link_hash";
+        site_link_id: "site_link_id";
+        site_link_image_hash: "site_link_image_hash";
+        site_link_image_url: "site_link_image_url";
+        site_link_recommendation_type: "site_link_recommendation_type";
         site_link_title: "site_link_title";
         site_link_url: "site_link_url";
     }>;

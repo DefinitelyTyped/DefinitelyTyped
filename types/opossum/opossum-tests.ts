@@ -3,7 +3,7 @@ import { EventEmitter } from "node:events";
 import * as fs from "node:fs";
 import { promisify } from "node:util";
 
-import * as CircuitBreaker from "opossum";
+import CircuitBreaker from "opossum";
 
 let breaker: CircuitBreaker;
 const callbackNoArgs = async () => console.log("foo");
@@ -50,7 +50,10 @@ breaker = new CircuitBreaker(async () => true, {
         flush: () => {},
     },
 });
-breaker = new CircuitBreaker(async () => true, { abortController: new AbortController() });
+breaker = new CircuitBreaker(async () => true, {
+    abortController: new AbortController(),
+    autoRenewAbortController: true,
+});
 breaker = new CircuitBreaker(async () => true, { enableSnapshots: true });
 breaker = new CircuitBreaker(async () => true, { rotateBucketController: new EventEmitter() });
 
@@ -142,7 +145,7 @@ const options: CircuitBreaker.Options = {
     resetTimeout: 30000, // After 30 seconds, try again.
 };
 options.enableSnapshots; // $ExpectType boolean | undefined
-options.rotateBucketController; // $ExpectType EventEmitter<DefaultEventMap> | undefined
+options.rotateBucketController; // $ExpectType EventEmitter<any> | undefined
 breaker = new CircuitBreaker(asyncFunctionThatCouldFail, options);
 
 breaker

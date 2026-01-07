@@ -1,17 +1,31 @@
 declare class Stats {
     constructor();
+
     REVISION: number;
     dom: HTMLDivElement;
+
+    addPanel(panel: Stats.Panel): Stats.Panel;
 
     /**
      * @param value 0:fps, 1: ms, 2: mb, 3+: custom
      */
     showPanel(value: number): void;
+
     begin(): void;
     end(): number;
     update(): void;
 
-    addPanel(panel: Stats.Panel): Stats.Panel;
+    // Backwards Compatibility
+
+    /**
+     * @deprecated Use `dom` instead.
+     */
+    domElement: HTMLDivElement;
+
+    /**
+     * @deprecated Use `showPanel` instead.
+     */
+    setMode(value: number): void;
 }
 
 declare namespace Stats {

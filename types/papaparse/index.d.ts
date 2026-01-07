@@ -82,6 +82,12 @@ export function unparse<T>(data: T[] | UnparseObject<T>, config?: UnparseConfig)
 /** An array of characters that are not allowed as delimiters. `\r`, `\n`, `"`, `\ufeff` */
 export const BAD_DELIMITERS: readonly string[];
 
+/**
+ * The unicode Byte Order Mark (\ufeff).
+ * @see https://en.wikipedia.org/wiki/Byte_order_mark
+ */
+export const BYTE_ORDER_MARK: "\ufeff";
+
 /** The true delimiter. Invisible. ASCII code 30. Should be doing the job we strangely rely upon commas and tabs for. */
 export const RECORD_SEP: "\x1E";
 
@@ -254,6 +260,11 @@ export interface ParseConfig<T = any, TInput = undefined> {
      */
     // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     beforeFirstChunk?(chunk: string): string | void;
+    /**
+     * To skip first N number of lines when converting a CSV file to JSON.
+     * @default 0
+     */
+    skipFirstNLines?: number | undefined;
 }
 
 export interface ParseWorkerConfig<T = any> extends ParseConfig<T> {
@@ -445,6 +456,9 @@ export interface ParseMeta {
     /** Whether preview consumed all input */
     truncated: boolean;
     cursor: number;
+    /** Headers that are automatically renamed by the library to avoid duplication.
+     * {Column 1_1: 'Column 1'} the later header 'Column 1' was renamed to 'Column 1_1'}**/
+    renamedHeaders?: Record<string, string>;
 }
 
 /**

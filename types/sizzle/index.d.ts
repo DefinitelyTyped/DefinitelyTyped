@@ -3,6 +3,12 @@ export as namespace Sizzle;
 declare const Sizzle: SizzleStatic;
 export = Sizzle;
 
+// For users who don't have "dom" types
+// See: https://github.com/DefinitelyTyped/DefinitelyTyped/pull/73082
+type Element = typeof globalThis extends { Element: { new(): infer T } } ? T : never;
+type Document = typeof globalThis extends { Document: { new(): infer T } } ? T : never;
+type DocumentFragment = typeof globalThis extends { DocumentFragment: { new(): infer T } } ? T : never;
+
 interface SizzleStatic {
     selectors: Sizzle.Selectors;
     <TArrayLike extends ArrayLike<Element>>(

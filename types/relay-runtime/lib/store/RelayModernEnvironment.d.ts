@@ -31,7 +31,7 @@ export interface EnvironmentConfig {
     readonly operationLoader?: OperationLoader | null | undefined;
     readonly network: Network;
     readonly scheduler?: TaskScheduler | null | undefined;
-    readonly store: Store;
+    readonly store?: Store;
     readonly missingFieldHandlers?: readonly MissingFieldHandler[] | null | undefined;
     readonly operationTracker?: OperationTracker | null | undefined;
     readonly getDataID?: GetDataID | null | undefined;

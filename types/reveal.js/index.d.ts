@@ -831,7 +831,7 @@ declare namespace Reveal {
          *
          * @defaultValue `true`
          */
-        controls?: boolean;
+        controls?: boolean | "speaker-only";
 
         /**
          * Help the user learn the controls by providing hints, for example by
@@ -1535,7 +1535,7 @@ declare namespace Reveal {
      */
     interface HighlightConfig {
         highlightOnLoad?: boolean;
-        excapeHTML?: boolean;
+        escapeHTML?: boolean;
         beforeHighlight?: (...args: any) => any;
     }
 

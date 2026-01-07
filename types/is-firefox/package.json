@@ -8,10 +8,5 @@
     "devDependencies": {
         "@types/is-firefox": "workspace:."
     },
-    "owners": [
-        {
-            "name": "David Reed",
-            "githubUsername": "e9x"
-        }
-    ]
+    "owners": []
 }

@@ -8,9 +8,9 @@ export default class EventResponse {
     /**
      * @param {Number} events_received
      * @param {Number} events_dropped
-     * @param {Array<Object>} message
+     * @param {Object[]} message
      */
-    constructor(events_received: number, events_dropped: number, message?: Array<Record<string, any>>);
+    constructor(events_received?: number, events_dropped?: number, message?: Array<Record<string, any>>);
     /**
      * Gets the events received number from the Graph API Response.
      */

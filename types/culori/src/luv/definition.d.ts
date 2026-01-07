@@ -1,12 +1,12 @@
-import convertLuvToXyz50 from "./convertLuvToXyz50";
-import convertXyz50ToLuv from "./convertXyz50ToLuv";
+import convertLuvToXyz50 from "./convertLuvToXyz50.js";
+import convertXyz50ToLuv from "./convertXyz50ToLuv.js";
 
-import { fixupAlpha } from "../fixup/alpha";
-import { interpolatorLinear } from "../interpolate/linear";
-import { Rgb } from "../rgb/types";
-import { Luv } from "./types";
+import { fixupAlpha } from "../fixup/alpha.js";
+import { interpolatorLinear } from "../interpolate/linear.js";
+import { Rgb } from "../rgb/types.js";
+import { Luv } from "./types.js";
 
-declare const definition: {
+declare const modeLuv: {
     mode: "luv";
 
     toMode: {
@@ -38,4 +38,4 @@ declare const definition: {
     };
 };
 
-export default definition;
+export default modeLuv;

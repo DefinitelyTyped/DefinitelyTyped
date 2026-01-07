@@ -74,6 +74,18 @@ declare class Bindings extends DataMap<{
      */
     updateForRender(renderObject: RenderObject): void;
     /**
+     * Deletes the bindings for the given compute node.
+     *
+     * @param {Node} computeNode - The compute node.
+     */
+    deleteForCompute(computeNode: ComputeNode): void;
+    /**
+     * Deletes the bindings for the given renderObject node.
+     *
+     * @param {RenderObject} renderObject - The renderObject.
+     */
+    deleteForRender(renderObject: RenderObject): void;
+    /**
      * Updates the given array of bindings.
      *
      * @param {Array<BindGroup>} bindings - The bind groups.

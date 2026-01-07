@@ -8,14 +8,14 @@ declare class Grid {
     private _getFieldByName;
     private toggledViewFieldsVisibility_;
     classDefManager: ClassDefManager;
-    protected arFields: any[];
+    layout: LayoutConfig;
+    protected arFields: ViewDefField[];
     private arTableViewFields;
     private arFormViewFields;
     private _permissionFilters;
     private fCanInsert;
     private fCanEdit;
     private fCanDelete;
-    private isGrLookup;
     private changes;
     private buttons;
     private arButtons;
@@ -46,6 +46,9 @@ declare class Grid {
     private clientRecordCount;
     private clientPosition;
     private clientCollapsed;
+    private clientTitle_;
+    private pendingFocus_;
+    private savedState_;
     integerDatabaseType: string;
     private integerDatabaseType_;
     selectedRecords: string[];
@@ -55,7 +58,6 @@ declare class Grid {
     private clientCanInsert;
     private clientCanDelete;
     private clientCanPost;
-    private clientCanInvertSelection;
     private clientCanModify;
     private clientCanShowLog;
     private clientCanExport;
@@ -65,49 +67,36 @@ declare class Grid {
     private recentlyWritten_;
     private isFirstSync;
     private recentlyCreated;
-    private recentlyInserted;
     private written_;
     private fieldsHasChanged;
-    private directionOfBlur;
-    private navigateOnlyEditableFields;
-    private maxColumn;
     private viewHasChanged;
     private viewChangedByUser;
     private canSync;
     private syncOnlyCurrentRecord;
     private inLookup;
-    private inSpeedFill;
-    private focusChangedByLocate_;
     private delayedOnAfterScrollEventCall_;
-    private locate_last_value;
-    private locate_last_bookmark;
-    private locate_last_field_found;
+    private locateLastValue_;
+    private locateLastBookmark_;
+    private locateLastFoundField_;
     private searchTempDs;
     private toIgnoreBookmarks;
     userCanExport: boolean;
     toggleKeyButtonEnabled: boolean;
     private executePrepareOnFieldMethod;
     private useLocatePatternForAll;
-    private fieldToFocus;
-    private fieldToFocusCalledByUser;
     private firstRecNoOfView;
     private editingField;
-    private clientEditingFieldName;
-    private waitingForEdition;
-    private unlockEdition;
     private _lookupCallerField;
     getLookupCallerField(): Field;
-    private firstField;
-    private lastField;
-    private firstEditableField;
-    private lastEditableField;
     private _reprepareFieldPermissions;
     private _reprepareGrid;
     private _preparedFieldsLength;
     private _syncOfGrLookupFromReadOnlyField;
     private stateProtectionId_;
     private stateProtectionLevel_;
+    private doRefresh;
     autoPersist: boolean;
+    private isLookupGrid_;
     private protectState_;
     private unprotectState_;
     private protectedEmit_;
@@ -140,13 +129,8 @@ declare class Grid {
     private getIndexOfDsKeyField;
     setFieldsProperties(...args: any[]): void;
     getFieldsByProperty(...args: any[]): Field[];
-    private _getArrayFromList;
     private _translateFieldNamesToFieldObjectsArray;
-    private getKeyFieldExistInDs;
     getKeyField(): Field;
-    private getIndexOfDsClassField;
-    private getClassFieldExistInDs;
-    private doRefresh;
     private setNewBufferFieldValue;
     private canShowButtonsBar;
     private resetPropertiesToResend;
@@ -168,17 +152,17 @@ declare class Grid {
     private fDs;
     tableViewFieldNames: string;
     formViewFieldNames: string;
-    private bookmarkBeforeRefresh_;
-    private saveBookmarkState_;
+    private backupState_;
+    private restoreState_;
     private preserveFieldLinkIds_;
     ds: DataSet;
     definitionClass: number | null;
     definitionName: number | null;
     private syncDataSetReferenceToAggregates;
     column: number;
-    private span;
+    span: string;
     breakLine: boolean;
-    cssClass: any;
+    cssClass: string;
     width: string;
     confirmDelete: boolean;
     confirmCancel: boolean;
@@ -222,25 +206,16 @@ declare class Grid {
     private getSelectionRecordsRange;
     private handleCollapsed;
     private collapsed_;
-    private handleFieldNameWithBlur;
     private handleInput;
     private handleGridSynchronize;
     private handleGridSynchronizeFunctions;
     private refreshFields;
-    private linkFields;
-    private getNextEditableField;
-    private getPriorEditableField;
-    private getNextVisibleField;
-    private getPriorVisibleField;
     private forceChangedFields;
     private syncButtons;
-    private getNextFieldToFocus;
-    private syncCheckFieldFocus;
-    private clearSelectedFieldByClick;
+    private syncGridFocus_;
     private formSyncRefreshNavButtonsView;
     private syncFieldProperties_;
     private _readOnlyOfFieldsHasChanged;
-    private syncFieldStyle_;
     private getFormViewDataSynchronize;
     private visible;
     private formSync_;
@@ -251,8 +226,12 @@ declare class Grid {
     private getRecordCount_;
     private alertKeyNotFoundOnce;
     private alertedKeys_;
-    protected tabSyncBufferUpdate(dsSync: any, records: any, i: any, isCurrentRecord: any): void;
-    private getHtmlForLinks_;
+    protected tabSyncBufferUpdate(
+        dsSync: any,
+        records: any,
+        clientRow: any,
+        isCurrentRecord: any,
+    ): void;
     private calculateFirstRecNoOfView;
     private syncDataSetStateToBufferState;
     private tableSync_;
@@ -264,6 +243,7 @@ declare class Grid {
     private tableSyncNextRecords_;
     private getTableRecordsSyncCommands_;
     protected sync_(formSync: any, tableSync: any): void;
+    allAlreadySelected_: boolean;
     private checkRefresh;
     private _getChanges;
     private syncCheckBufferChange;
@@ -275,6 +255,9 @@ declare class Grid {
             cancelable: boolean;
         },
     ): GridEvent;
+    focus(options: FocusOptions): void;
+    private protectFocus;
+    private unprotectFocus;
     insert(): void;
     private _setFieldDefaultValue;
     private forEachDetail_;
@@ -311,8 +294,6 @@ declare class Grid {
     private _applyGridDefinition;
     private _prepareFromClass;
     private _prepareFromDataSet;
-    private getIkey;
-    private getIclass;
     private _prepareAggregates;
     private _preparePermissionFilter;
     private _prepareFieldPermissions;
@@ -350,9 +331,6 @@ declare class Grid {
     private validateFields;
     private validateRequiredFields;
     private _getRequiredFieldsNotFilled;
-    private breakFocusFlow;
-    private focusFlowDisabled_;
-    private flushFocusFlow;
     private postAtNavigation;
     private safeCallOnAfterScroll;
     private handleFirst;
@@ -360,7 +338,15 @@ declare class Grid {
     private handlePrior;
     private handleNext;
     private handleChangeView;
-    scroll(action: string | ((arg0: DataSet) => any)): void;
+    scroll(action: string | ((arg0: DataSet) => boolean)): boolean;
+    first(): boolean;
+    last(): boolean;
+    next(): boolean;
+    prior(): boolean;
+    gotoBookmark(bookmark: string): boolean;
+    tryGotoBookmark(bookmark: string): boolean;
+    gotoRowId(rowId: number): boolean;
+    tryGotoRowId(rowId: number): boolean;
     private collectAllRecordsToDuplicate_;
     private readCurrentRecordToDuplicate_;
     private handleDuplicateRecord_;
@@ -371,13 +357,12 @@ declare class Grid {
     private handlePost;
     private handleCancel;
     private handleInvertSelection;
-    private allAlreadySelected_;
+    private handleUnselectAll;
+    private handleSelectAll;
     private handleSetsOrRetrievesAll;
     private handleSelectRecord;
-    private act_focus_;
     private fieldAction;
     private _defaultOnShowLog;
-    private getChildrenJustToGroup_;
     lookup(field: GridField): void;
     private _handleLookup;
     private endLookup;
@@ -385,7 +370,6 @@ declare class Grid {
     expand(nodeValue: string): void;
     colapse(nodeValue: string): void;
     private handleTreeViewToggle;
-    private speedFill;
     private _locateField;
     private _locateValueAtField;
     private _compareNearestOrMatch;
@@ -429,7 +413,9 @@ declare namespace Grid {
         ALWAYS,
         Button,
         Event,
+        FocusOptions,
         FORM_VIEW as FORMVIEW,
+        GridState,
         LOCATE_ALL_FIELDS,
         LOCATE_EXACT,
         LOCATE_NEXT,
@@ -440,37 +426,55 @@ declare namespace Grid {
         NEVER,
         persist,
         Process,
+        RecordData,
         TABLE_VIEW as TABLEVIEW,
         USER_PERMISSION,
         ViewDefField,
     };
 }
 import ClassDefManager = require("@nginstack/engine/lib/classdef/ClassDefManager.js");
+import LayoutConfig = require("../process/LayoutConfig.js");
 import FieldGroupSet = require("@nginstack/engine/lib/classdef/FieldGroupSet.js");
 import TableViewBuffer = require("./TableViewBuffer.js");
 import FieldList = require("@nginstack/engine/lib/classdef/FieldList.js");
-type Process = import("../process/Process");
 import Field = require("@nginstack/engine/lib/classdef/Field.js");
-type Event = import("@nginstack/engine/lib/event/Event");
 import DataSet = require("@nginstack/engine/lib/dataset/DataSet.js");
 import DBKey = require("@nginstack/engine/lib/dbkey/DBKey.js");
 import GridField = require("./GridField.js");
 import GridEvent = require("../classdef/GridEvent.js");
 import StringList = require("@nginstack/engine/lib/string/StringList.js");
-type Button = import("../button/Button");
-declare const FORM_VIEW: number;
-declare const TABLE_VIEW: number;
+declare const FORM_VIEW: 0;
+declare const TABLE_VIEW: 1;
 declare let NEVER: number;
 declare let ALWAYS: number;
 declare let USER_PERMISSION: number;
-declare let MDA_ERROR: typeof MasterDeleteAction;
-declare let MDA_DELETE: typeof MasterDeleteAction;
-declare let MDA_UNLINK: typeof MasterDeleteAction;
+declare const MDA_ERROR: 0;
+declare const MDA_DELETE: 1;
+declare const MDA_UNLINK: 2;
 declare let LOCATE_ALL_FIELDS: number;
 declare let LOCATE_EXACT: number;
 declare let LOCATE_NEXT: number;
 declare function persist(grids: Grid | Grid[]): number;
 declare let MAX_VISIBLE_RECORD_COUNT: number;
+interface RecordData {
+    bookmark: number;
+    recNo: number;
+    checked: boolean;
+    enabled: boolean;
+    editing: boolean;
+    locked: boolean;
+}
+interface FocusOptions {
+    fieldName?: string;
+    firstEditable?: boolean;
+}
 type AdapterDescriptor = import("@nginstack/engine/lib/event/AdapterDescriptor");
+type Event = import("@nginstack/engine/lib/event/Event");
+type Button = import("../button/Button");
 type ViewDefField = import("../classdef/ViewDefField");
-import MasterDeleteAction = require("@nginstack/engine/lib/classdef/MasterDeleteAction.js");
+type Process = import("../process/Process");
+interface GridState {
+    dataSetId: number | null;
+    rowId: number | null;
+    selectedRecords: string[];
+}

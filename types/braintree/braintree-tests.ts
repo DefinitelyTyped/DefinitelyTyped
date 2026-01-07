@@ -117,6 +117,7 @@ const gateway: BraintreeGateway = new braintree.BraintreeGateway({
 (async () => {
     const transactionRequest: braintree.TransactionRequest = {
         amount: "128.00",
+        shippingTaxAmount: "10.00",
     };
     const response = await gateway.transaction.sale(transactionRequest).catch(console.error);
     if (!response) return;
@@ -245,7 +246,7 @@ const gateway: BraintreeGateway = new braintree.BraintreeGateway({
 
 // Plan Gateway
 (async () => {
-    // $ExpectType { plans: Plan[]; }
+    // $ExpectType Plan[];
     await gateway.plan.all();
 })();
 

@@ -2,7 +2,7 @@
     "private": true,
     "name": "@types/vscode-notebook-renderer",
     "version": "1.72.9999",
-    "nonNpm": true,
+    "nonNpm": "conflict",
     "nonNpmDescription": "vscode-notebook-renderer",
     "projects": [
         "https://github.com/microsoft/vscode-docs/blob/notebook/api/extension-guides/notebook.md"

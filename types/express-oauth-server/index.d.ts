@@ -1,5 +1,5 @@
-import * as express from "express";
-import * as OAuth2Server from "oauth2-server";
+import express = require("express");
+import OAuth2Server = require("oauth2-server");
 
 declare namespace ExpressOAuthServer {
     interface Options extends OAuth2Server.ServerOptions {
@@ -17,19 +17,19 @@ declare class ExpressOAuthServer {
         request: express.Request,
         response: express.Response,
         next: express.NextFunction,
-    ) => Promise<void>;
+    ) => Promise<OAuth2Server.Token>;
 
     authorize(options?: OAuth2Server.AuthorizeOptions): (
         request: express.Request,
         response: express.Response,
         next: express.NextFunction,
-    ) => Promise<void>;
+    ) => Promise<OAuth2Server.AuthorizationCode>;
 
     token(options?: OAuth2Server.TokenOptions): (
         request: express.Request,
         response: express.Response,
         next: express.NextFunction,
-    ) => Promise<void>;
+    ) => Promise<OAuth2Server.Token>;
 }
 
 export = ExpressOAuthServer;

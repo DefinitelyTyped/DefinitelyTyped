@@ -184,6 +184,7 @@ declare namespace registry {
         payload?: unknown | undefined;
         topic?: string | undefined;
         _msgid?: string | undefined;
+        [key: string]: unknown;
     }
 
     interface NodeMessageParts {

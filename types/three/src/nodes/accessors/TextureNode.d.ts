@@ -1,14 +1,13 @@
 import { Texture } from "../../textures/Texture.js";
 import Node from "../core/Node.js";
 import UniformNode from "../core/UniformNode.js";
-import { NodeRepresentation, ShaderNodeObject } from "../tsl/TSLCore.js";
 
 export default class TextureNode extends UniformNode<Texture> {
     readonly isTextureNode: true;
 
-    uvNode: ShaderNodeObject<Node> | null;
-    levelNode: ShaderNodeObject<Node> | null;
-    biasNode: ShaderNodeObject<Node> | null;
+    uvNode: Node | null;
+    levelNode: Node | null;
+    biasNode: Node | null;
     compareNode: Node | null;
     depthNode: Node | null;
     gradNode: Node | null;
@@ -19,10 +18,10 @@ export default class TextureNode extends UniformNode<Texture> {
     referenceNode: Node | null;
 
     constructor(
-        value: Texture,
-        uvNode?: ShaderNodeObject<Node> | null,
-        levelNode?: ShaderNodeObject<Node> | null,
-        biasNode?: ShaderNodeObject<Node> | null,
+        value?: Texture,
+        uvNode?: Node | null,
+        levelNode?: Node | null,
+        biasNode?: Node | null,
     );
 
     getDefaultUV(): Node;
@@ -34,38 +33,55 @@ export default class TextureNode extends UniformNode<Texture> {
     /**
      * @deprecated
      */
-    uv(uvNode: NodeRepresentation): ShaderNodeObject<Node>;
+    uv(uvNode: Node): Node;
 
-    sample(uvNode: NodeRepresentation): ShaderNodeObject<Node>;
+    sample(uvNode: Node): Node;
 
-    blur(amountNode: NodeRepresentation): ShaderNodeObject<Node>;
+    load(uvNode: Node): Node;
 
-    level(levelNode: NodeRepresentation): ShaderNodeObject<Node>;
+    blur(amountNode: Node): Node;
 
-    size(levelNode: NodeRepresentation): ShaderNodeObject<Node>;
+    level(levelNode: Node): Node;
 
-    bias(biasNode: NodeRepresentation): ShaderNodeObject<Node>;
+    size(levelNode: Node): Node;
 
-    compare(compareNode: NodeRepresentation): ShaderNodeObject<Node>;
+    bias(biasNode: Node): Node;
 
-    grad(gradeNodeX: NodeRepresentation, gradeNodeY: NodeRepresentation): ShaderNodeObject<Node>;
+    getBase(): TextureNode;
 
-    depth(depthNode: NodeRepresentation): ShaderNodeObject<Node>;
+    compare(compareNode: Node): Node;
+
+    grad(gradeNodeX: Node, gradeNodeY: Node): Node;
+
+    depth(depthNode: Node): Node;
 
     clone(): this;
 }
 
 export const texture: (
-    value: Texture,
-    uvNode?: NodeRepresentation,
-    levelNode?: NodeRepresentation,
-    biasNode?: NodeRepresentation,
-) => ShaderNodeObject<TextureNode>;
-export const textureLoad: (
-    value: Texture,
-    uvNode?: NodeRepresentation,
-    levelNode?: NodeRepresentation,
-    biasNode?: NodeRepresentation,
-) => ShaderNodeObject<TextureNode>;
+    value?: Texture | TextureNode,
+    uvNode?: Node | null,
+    levelNode?: Node | number | null,
+    biasNode?: Node | null,
+) => TextureNode;
 
-export const sampler: (aTexture: Texture | TextureNode) => ShaderNodeObject<Node>;
+export const uniformTexture: (
+    value?: Texture,
+) => TextureNode;
+
+export const textureLoad: (
+    value?: Texture | TextureNode,
+    uvNode?: Node,
+    levelNode?: Node | number,
+    biasNode?: Node,
+) => TextureNode;
+
+export const textureLevel: (
+    value: Texture | TextureNode,
+    uv: Node,
+    level: Node,
+) => TextureNode;
+
+export const sampler: (value: Texture | TextureNode) => Node;
+
+export const samplerComparison: (value: Texture | TextureNode) => Node;

@@ -1,5 +1,4 @@
 import Node from "../core/Node.js";
-import { NodeRepresentation, ShaderNodeObject } from "../tsl/TSLCore.js";
 import ArrayElementNode from "../utils/ArrayElementNode.js";
 import BufferNode from "./BufferNode.js";
 
@@ -18,14 +17,9 @@ declare class UniformArrayNode extends BufferNode<unknown[]> {
 
     getPaddedType(): string;
 
-    element(indexNode: NodeRepresentation): ShaderNodeObject<UniformArrayElementNode>;
+    element: (indexNode: Node) => UniformArrayElementNode;
 }
 
 export default UniformArrayNode;
 
-export const uniformArray: (values: unknown[], nodeType?: string | null) => ShaderNodeObject<UniformArrayNode>;
-
-/**
- * @deprecated uniforms() has been renamed to uniformArray().
- */
-export const uniforms: (values: unknown[], nodeType?: string | null) => ShaderNodeObject<UniformArrayNode>;
+export const uniformArray: (values: unknown[], nodeType?: string | null) => UniformArrayNode;

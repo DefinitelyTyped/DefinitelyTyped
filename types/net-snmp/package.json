@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/net-snmp",
+    "version": "3.23.9999",
+    "projects": [
+        "https://github.com/markabrahams/node-net-snmp#readme"
+    ],
+    "devDependencies": {
+        "@types/net-snmp": "workspace:."
+    },
+    "dependencies": {
+        "@types/node": "^24.3.0"
+    },
+    "owners": [
+        {
+            "name": "Ori Erel",
+            "githubUsername": "0rierel"
+        }
+    ]
+}

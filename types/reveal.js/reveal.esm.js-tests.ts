@@ -342,7 +342,7 @@ deck.initialize({
     // highlight
     highlight: {
         highlightOnLoad: true,
-        excapeHTML: true,
+        escapeHTML: true,
         beforeHighlight: () => {},
     },
 
@@ -460,6 +460,8 @@ deck.configure({});
 
 // $ExpectType void
 deck.configure({ slideNumber: true, width: 20, height: 20 });
+
+deck.configure({ totalTime: 0, minTimePerSlide: 0 });
 
 // -------------- //
 // destroy method //

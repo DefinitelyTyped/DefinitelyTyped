@@ -1,4 +1,4 @@
-import * as oauth2 from "passport-oauth2";
+import oauth2 = require("passport-oauth2");
 
 // Disable automatic exporting
 export {};
@@ -8,6 +8,8 @@ export {};
 type OptionalOptionParameters = "authorizationURL" | "tokenURL" | "scopeSeparator" | "customHeaders";
 
 interface MicrosoftSpecificStrategyOptions {
+    apiEntryPoint: string;
+    graphApiVersion: string;
     tenant: string;
 }
 

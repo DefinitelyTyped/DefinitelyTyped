@@ -64,8 +64,8 @@ class Simple extends React.Component {
 
 const renderNode: HTMLViewProps["renderNode"] = (
     node,
-    index,
-    siblings,
+    _index,
+    _siblings,
     parent,
     defaultRenderer,
 ) => {

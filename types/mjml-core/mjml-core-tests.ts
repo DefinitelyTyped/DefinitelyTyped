@@ -39,7 +39,7 @@ class MjBreakpoint extends HeadComponent {
 }
 
 registerComponent(MjBreakpoint);
-registerComponent(NewBodyComponent);
+registerComponent(NewBodyComponent, { registerDependencies: true });
 
 const skeleton: MJMLJsonObject = {
     tagName: "mjml",

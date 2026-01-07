@@ -48,13 +48,13 @@ declare module "perf_hooks" {
          * the type of garbage collection operation that occurred.
          * See perf_hooks.constants for valid values.
          */
-        readonly kind?: number | undefined;
+        readonly kind: number;
         /**
          * When `performanceEntry.entryType` is equal to 'gc', the `performance.flags`
          * property contains additional information about garbage collection operation.
          * See perf_hooks.constants for valid values.
          */
-        readonly flags?: number | undefined;
+        readonly flags: number;
     }
     /**
      * The constructor of this class is not exposed to users directly.
@@ -92,11 +92,6 @@ declare module "perf_hooks" {
          * @since v8.5.0
          */
         readonly entryType: EntryType;
-        /**
-         * Additional detail specific to the `entryType`.
-         * @since v16.0.0
-         */
-        readonly detail?: NodeGCPerformanceDetail | unknown | undefined; // TODO: Narrow this based on entry type.
         toJSON(): any;
     }
     /**
@@ -104,6 +99,7 @@ declare module "perf_hooks" {
      * @since v18.2.0, v16.17.0
      */
     class PerformanceMark extends PerformanceEntry {
+        readonly detail: any;
         readonly duration: 0;
         readonly entryType: "mark";
     }
@@ -114,8 +110,24 @@ declare module "perf_hooks" {
      * @since v18.2.0, v16.17.0
      */
     class PerformanceMeasure extends PerformanceEntry {
+        readonly detail: any;
         readonly entryType: "measure";
     }
+    interface UVMetrics {
+        /**
+         * Number of event loop iterations.
+         */
+        readonly loopCount: number;
+        /**
+         * Number of events that have been processed by the event handler.
+         */
+        readonly events: number;
+        /**
+         * Number of events that were waiting to be processed when the event provider was called.
+         */
+        readonly eventsWaiting: number;
+    }
+    // TODO: PerformanceNodeEntry is missing
     /**
      * _This property is an extension by Node.js. It is not available in Web browsers._
      *
@@ -166,6 +178,16 @@ declare module "perf_hooks" {
          */
         readonly nodeStart: number;
         /**
+         * This is a wrapper to the `uv_metrics_info` function.
+         * It returns the current set of event loop metrics.
+         *
+         * It is recommended to use this property inside a function whose execution was
+         * scheduled using `setImmediate` to avoid collecting metrics before finishing all
+         * operations scheduled during the current loop iteration.
+         * @since v20.18.0
+         */
+        readonly uvMetricsInfo: UVMetrics;
+        /**
          * The high resolution millisecond timestamp at which the V8 platform was
          * initialized.
          * @since v8.5.0
@@ -200,7 +222,7 @@ declare module "perf_hooks" {
         /**
          * Additional optional detail to include with the mark.
          */
-        detail?: unknown | undefined;
+        detail?: unknown;
         /**
          * Duration between start and end times.
          */
@@ -563,6 +585,11 @@ declare module "perf_hooks" {
                     buffered?: boolean | undefined;
                 },
         ): void;
+        /**
+         * @since v16.0.0
+         * @returns Current list of entries stored in the performance observer, emptying it out.
+         */
+        takeRecords(): PerformanceEntry[];
     }
     /**
      * Provides detailed network timing data regarding the loading of an application's resources.
@@ -830,12 +857,12 @@ declare module "perf_hooks" {
          * The minimum recordable value. Must be an integer value greater than 0.
          * @default 1
          */
-        min?: number | bigint | undefined;
+        lowest?: number | bigint | undefined;
         /**
          * The maximum recordable value. Must be an integer value greater than min.
          * @default Number.MAX_SAFE_INTEGER
          */
-        max?: number | bigint | undefined;
+        highest?: number | bigint | undefined;
         /**
          * The number of accuracy digits. Must be a number between 1 and 5.
          * @default 3

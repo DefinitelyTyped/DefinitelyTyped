@@ -1,5 +1,5 @@
-import { Rgb } from "./types";
+import { Rgb } from "./types.js";
 
-declare function parseRgb(color: string): Rgb;
+declare function parseRgb(color: string): Rgb | undefined;
 
 export default parseRgb;

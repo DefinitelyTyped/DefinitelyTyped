@@ -1,12 +1,10 @@
 {
     "private": true,
     "name": "@types/telegram-web-app",
-    "version": "7.10.9999",
+    "version": "9.1.9999",
     "nonNpm": "conflict",
     "nonNpmDescription": "telegram-web-app",
-    "projects": [
-        "https://telegram.org/js/telegram-web-app.js"
-    ],
+    "projects": ["https://telegram.org/js/telegram-web-app.js"],
     "devDependencies": {
         "@types/telegram-web-app": "workspace:."
     },
@@ -22,6 +20,10 @@
         {
             "name": "deptyped",
             "githubUsername": "deptyped"
+        },
+        {
+            "name": "sidorko",
+            "githubUsername": "sidorko"
         }
     ]
 }

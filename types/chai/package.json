@@ -1,13 +1,14 @@
 {
     "private": true,
     "name": "@types/chai",
-    "version": "5.0.9999",
+    "version": "5.2.9999",
     "type": "module",
     "projects": [
         "http://chaijs.com/"
     ],
     "dependencies": {
-        "@types/deep-eql": "*"
+        "@types/deep-eql": "*",
+        "assertion-error": "^2.0.1"
     },
     "devDependencies": {
         "@types/chai": "workspace:.",

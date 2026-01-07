@@ -11,7 +11,121 @@ import OpenSeadragon, {
 // @ts-expect-error
 OpenSeadragon.setString("abc", 123);
 
-const viewer = OpenSeadragon({ id: "viewerid" });
+let viewer: OpenSeadragon.Viewer;
+viewer = OpenSeadragon({});
+viewer = OpenSeadragon({
+    id: "id",
+    prefixUrl: "prefixUrl",
+    navigatorId: "navigatorId",
+    navigatorBackground: "navigatorBackground",
+    navigatorBorderColor: "navigatorBorderColor",
+    navigatorDisplayRegionColor: "navigatorDisplayRegionColor",
+    referenceStripScroll: "referenceStripScroll",
+    referenceStripPosition: "referenceStripPosition",
+    tabIndex: 0,
+    blendTime: 0,
+    defaultZoomLevel: 0,
+    opacity: 0,
+    degrees: 0,
+    minZoomLevel: 0,
+    maxZoomLevel: 0,
+    minZoomImageRatio: 0,
+    maxZoomPixelRatio: 0,
+    smoothTileEdgesMinZoom: 0,
+    minScrollDeltaTime: 0,
+    pixelsPerWheelLine: 0,
+    pixelsPerArrowPress: 0,
+    visibilityRatio: 0,
+    imageLoaderLimit: 0,
+    clickTimeThreshold: 0,
+    clickDistThreshold: 0,
+    dblClickTimeThreshold: 0,
+    dblClickDistThreshold: 0,
+    springStiffness: 0,
+    animationTime: 0,
+    zoomPerClick: 0,
+    zoomPerScroll: 0,
+    zoomPerSecond: 0,
+    navigatorSizeRatio: 0,
+    navigatorOpacity: 0,
+    controlsFadeDelay: 0,
+    controlsFadeLength: 0,
+    maxImageCacheCount: 0,
+    timeout: 0,
+    minPixelRatio: 0,
+    initialPage: 0,
+    referenceStripHeight: 0,
+    referenceStripWidth: 0,
+    referenceStripSizeRatio: 0,
+    collectionRows: 0,
+    collectionColumns: 0,
+    collectionTileSize: 0,
+    collectionTileMargin: 0,
+    rotationIncrement: 0,
+    debugMode: true,
+    alwaysBlend: true,
+    autoHideControls: true,
+    immediateRender: true,
+    preload: true,
+    flipped: true,
+    homeFillsViewer: true,
+    panHorizontal: true,
+    panVertical: true,
+    constrainDuringPan: true,
+    wrapHorizontal: true,
+    wrapVertical: true,
+    iOSDevice: true,
+    autoResize: true,
+    preserveImageSizeOnResize: true,
+    showNavigator: true,
+    navigatorMaintainSizeRatio: true,
+    navigatorAutoResize: true,
+    navigatorAutoFade: true,
+    navigatorRotate: true,
+    useCanvas: true,
+    mouseNavEnabled: true,
+    showNavigationControl: true,
+    showZoomControl: true,
+    showHomeControl: true,
+    showFullPageControl: true,
+    showRotationControl: true,
+    showFlipControl: true,
+    showSequenceControl: true,
+    navPrevNextWrap: true,
+    sequenceMode: true,
+    preserveViewport: true,
+    preserveOverlays: true,
+    showReferenceStrip: true,
+    collectionMode: true,
+    ajaxWithCredentials: true,
+    loadTilesWithAjax: true,
+    imageSmoothingEnabled: true,
+});
+
+declare const buttonElement: Element;
+declare const toolbarElement: Element;
+viewer = OpenSeadragon({
+    toolbar: "toolbar-id",
+    zoomInButton: "zoomInButton-id",
+    zoomOutButton: "zoomOutButton-id",
+    homeButton: "homeButton-id",
+    fullPageButton: "fullPageButton-id",
+    rotateLeftButton: "rotateLeftButton-id",
+    rotateRightButton: "rotateRightButton-id",
+    previousButton: "previousButton-id",
+    nextButton: "nextButton-id",
+});
+viewer = OpenSeadragon({
+    toolbar: toolbarElement,
+    zoomInButton: buttonElement,
+    zoomOutButton: buttonElement,
+    homeButton: buttonElement,
+    fullPageButton: buttonElement,
+    rotateLeftButton: buttonElement,
+    rotateRightButton: buttonElement,
+    previousButton: buttonElement,
+    nextButton: buttonElement,
+});
 
 // @ts-expect-error
 viewer.addHandler("canvas-click", ({ fullScreen }) => {
@@ -85,3 +199,46 @@ viewer.addTiledImage({
     },
     flipped: true,
 });
+
+// Drawer as constructor
+const canvasDrawer = new OpenSeadragon.CanvasDrawer({
+    viewer,
+    viewport: viewer.viewport,
+    element: document.createElement("div"),
+    debugGridColor: 0xff0000,
+});
+
+// Using drawer array
+const viewer6 = new OpenSeadragon.Viewer({
+    drawer: ["webgl", OpenSeadragon.CanvasDrawer, "html"],
+});
+
+const viewer7 = new OpenSeadragon.Viewer({
+    // @ts-expect-error invalid drawer string
+    drawer: "invalid-drawer",
+});
+
+const viewer8 = new OpenSeadragon.Viewer({ id: "osd" });
+
+// Invalid drawer
+// @ts-expect-error
+viewer8.drawer = "invalid";
+
+// Old events still work
+viewer8.addHandler("open", e => {
+    console.log("Opened"); // e: {}
+});
+
+// New event added in typedef
+viewer8.addHandler("after-resize", e => {
+    console.log(e.newContainerSize.x, e.newContainerSize.y);
+});
+
+// @ts-expect-error invalid event name should fail
+viewer8.addHandler("non-existent-event", e => {});
+
+// removeHandler works with new event too
+viewer8.removeHandler("after-resize", e => {});
+
+// raiseEvent works too
+viewer8.raiseEvent("after-resize", { width: 800, height: 600 });

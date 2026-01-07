@@ -1871,6 +1871,13 @@ export interface VerovioOptions {
     ligatureAsBracket?: boolean;
 
     /**
+     * Ligature oblique shape
+     *
+     * default: "auto"
+     */
+    ligatureOblique?: "auto" | "straight" | "curved";
+
+    /**
      * Convert mensural content to a more responsive view reduced to the seleceted markup
      *
      * default: false

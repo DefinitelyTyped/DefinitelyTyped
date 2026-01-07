@@ -1,15 +1,35 @@
-// For Library Version: 1.132.0
+// For Library Version: 1.143.0
 
 declare module "sap/tnt/library" {
   /**
    * Interface for controls suitable for the `header` aggregation of {@link sap.tnt.ToolPage}.
    *
    * @since 1.68
+   * @deprecated As of version 1.135. This interface is not needed anymore. The `ToolPage` now accepts any
+   * control as a header or subheader.
    */
   export interface IToolHeader {
     __implements__sap_tnt_IToolHeader: boolean;
   }
 
+  /**
+   * Available types for navigation list item.
+   *
+   * This enum is part of the 'sap/tnt/library' module export and must be accessed by the property 'NavigationListItemDesign'.
+   *
+   * @since 1.133.0
+   * @experimental Behavior might change.
+   */
+  export enum NavigationListItemDesign {
+    /**
+     * Navigation list item type which provides access to frequent functionality.
+     */
+    Action = "Action",
+    /**
+     * Navigation list item type which enables navigation or contains navigation child items, or both.
+     */
+    Default = "Default",
+  }
   /**
    * Predefined types of `InfoLabel`
    *
@@ -24,6 +44,24 @@ declare module "sap/tnt/library" {
      * When type of the content of `InfoLabel` is numeric paddings are narrow
      */
     Narrow = "Narrow",
+  }
+  /**
+   * Available options for the Side Navigation design.
+   *
+   * This enum is part of the 'sap/tnt/library' module export and must be accessed by the property 'SideNavigationDesign'.
+   *
+   * @since 1.134.0
+   * @experimental Behavior might change.
+   */
+  export enum SideNavigationDesign {
+    /**
+     * Side Navigation has a shadow and border.
+     */
+    Decorated = "Decorated",
+    /**
+     * Side Navigation without any shadow or border.
+     */
+    Plain = "Plain",
   }
 }
 
@@ -102,6 +140,10 @@ declare module "sap/tnt/IllustratedMessageType" {
      * "Dialog" illustration type.
      */
     Dialog = "tnt-Dialog",
+    /**
+     * "EmptyContentPane" illustration type.
+     */
+    EmptyContentPane = "tnt-EmptyContentPane",
     /**
      * "ExternalLink" illustration type.
      */
@@ -388,7 +430,7 @@ declare module "sap/tnt/InfoLabel" {
      *
      * @returns Value of property `renderMode`
      */
-    getRenderMode(): RenderMode | keyof typeof RenderMode;
+    getRenderMode(): RenderMode;
     /**
      * Gets current value of property {@link #getText text}.
      *
@@ -411,7 +453,7 @@ declare module "sap/tnt/InfoLabel" {
      *
      * @returns Value of property `textDirection`
      */
-    getTextDirection(): TextDirection | keyof typeof TextDirection;
+    getTextDirection(): TextDirection;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
@@ -748,6 +790,53 @@ declare module "sap/tnt/NavigationList" {
       oItem: NavigationListItemBase
     ): this;
     /**
+     * Attaches event handler `fnFunction` to the {@link #event:itemPress itemPress} event of this `sap.tnt.NavigationList`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.tnt.NavigationList` itself.
+     *
+     * Fired when an item is pressed.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachItemPress(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: NavigationList$ItemPressEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.tnt.NavigationList` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:itemPress itemPress} event of this `sap.tnt.NavigationList`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.tnt.NavigationList` itself.
+     *
+     * Fired when an item is pressed.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachItemPress(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: NavigationList$ItemPressEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.tnt.NavigationList` itself
+       */
+      oListener?: object
+    ): this;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:itemSelect itemSelect} event of this `sap.tnt.NavigationList`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -802,6 +891,24 @@ declare module "sap/tnt/NavigationList" {
      */
     destroyItems(): this;
     /**
+     * Detaches event handler `fnFunction` from the {@link #event:itemPress itemPress} event of this `sap.tnt.NavigationList`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachItemPress(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: NavigationList$ItemPressEvent) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
      * Detaches event handler `fnFunction` from the {@link #event:itemSelect itemSelect} event of this `sap.tnt.NavigationList`.
      *
      * The passed function and listener object must match the ones used for event registration.
@@ -819,6 +926,22 @@ declare module "sap/tnt/NavigationList" {
        */
       oListener?: object
     ): this;
+    /**
+     * Fires event {@link #event:itemPress itemPress} to attached listeners.
+     *
+     * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
+     * event object. The return value of this method indicates whether the default action should be executed.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Whether or not to prevent the default action
+     */
+    fireItemPress(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: NavigationList$ItemPressEventParameters
+    ): boolean;
     /**
      * Fires event {@link #event:itemSelect itemSelect} to attached listeners.
      *
@@ -1083,7 +1206,52 @@ declare module "sap/tnt/NavigationList" {
      * Fired when an item is selected.
      */
     itemSelect?: (oEvent: NavigationList$ItemSelectEvent) => void;
+
+    /**
+     * Fired when an item is pressed.
+     */
+    itemPress?: (oEvent: NavigationList$ItemPressEvent) => void;
   }
+
+  /**
+   * Parameters of the NavigationList#itemPress event.
+   */
+  export interface NavigationList$ItemPressEventParameters {
+    /**
+     * The pressed item.
+     */
+    item?: Item;
+
+    /**
+     * Indicates whether the CTRL key was pressed when the link was selected.
+     */
+    ctrlKey?: boolean;
+
+    /**
+     * Indicates whether the Shift key was pressed when the link was selected.
+     */
+    shiftKey?: boolean;
+
+    /**
+     * Indicates whether the Alt key was pressed when the link was selected.
+     */
+    altKey?: boolean;
+
+    /**
+     * Indicates whether the "meta" key was pressed when the link was selected.
+     *
+     * On Macintosh keyboards, this is the command key (⌘). On Windows keyboards, this is the windows key (⊞).
+     */
+    metaKey?: boolean;
+  }
+
+  /**
+   * Event object of the NavigationList#itemPress event.
+   */
+  export type NavigationList$ItemPressEvent = Event<
+    NavigationList$ItemPressEventParameters,
+    NavigationList
+  >;
 
   /**
    * Parameters of the NavigationList#itemSelect event.
@@ -1294,7 +1462,9 @@ declare module "sap/tnt/NavigationListItem" {
     $NavigationListItemBaseSettings,
   } from "sap/tnt/NavigationListItemBase";
 
-  import { URI } from "sap/ui/core/library";
+  import { aria, URI } from "sap/ui/core/library";
+
+  import { NavigationListItemDesign } from "sap/tnt/library";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -1474,6 +1644,32 @@ declare module "sap/tnt/NavigationListItem" {
       mParameters?: NavigationListItem$SelectEventParameters
     ): this;
     /**
+     * Gets current value of property {@link #getAriaHasPopup ariaHasPopup}.
+     *
+     * Specifies the value of the `aria-haspopup` attribute
+     *
+     * Default value is `None`.
+     *
+     * @since 1.133.0
+     *
+     * @returns Value of property `ariaHasPopup`
+     */
+    getAriaHasPopup(): aria.HasPopup;
+    /**
+     * Gets current value of property {@link #getDesign design}.
+     *
+     * Specifies if the item has a special design. NOTE: If `design` is not `NavigationListItemDesign.Default`
+     * sub-items can't be added.
+     *
+     * Default value is `Default`.
+     *
+     * @since 1.133.0
+     * @experimental Behavior might change.
+     *
+     * @returns Value of property `design`
+     */
+    getDesign(): NavigationListItemDesign;
+    /**
      * Gets current value of property {@link #getHref href}.
      *
      * Defines the link target URI. Supports standard hyperlink behavior. If a JavaScript action should be triggered,
@@ -1503,13 +1699,22 @@ declare module "sap/tnt/NavigationListItem" {
     /**
      * Gets current value of property {@link #getSelectable selectable}.
      *
-     * Specifies if the item can be selected. It is recommended to set this property to `false` when the property
-     * `href` is also used.
+     * Specifies if the item can be selected. By default all items are selectable.
+     *
+     * When a parent item's `selectable` property is set to `false`, selecting it will only expand or collapse
+     * its sub-items.
+     *
+     * To improve user experience do not mix selectable parent items with not selectable parent items within
+     * a single side navigation.
+     *
+     * **Guidelines:**
+     * 	 - Items that have a set href and target set to `_blank` should not be selectable.
+     * 	 - Items that trigger actions (with design "Action") should not be selectable.
      *
      * Default value is `true`.
      *
      * @since 1.116
-     * @experimental (since 1.116) - Disclaimer: this property is in a beta state - incompatible API changes
+     * @experimental As of version 1.116. Disclaimer: this property is in a beta state - incompatible API changes
      * may be done before its official public release.
      *
      * @returns Value of property `selectable`
@@ -1521,8 +1726,12 @@ declare module "sap/tnt/NavigationListItem" {
      * Specifies the browsing context where the linked content will open.
      *
      * Options are the standard values for window.open() supported by browsers: `_self`, `_top`, `_blank`, `_parent`,
-     * `_search`. Alternatively, a frame name can be entered. This property is only used when the `href` property
-     * is set.
+     * `_search`. Alternatively, a frame name can be entered.
+     *
+     * **Guidelines:**
+     * 	 - Use only when `href` property is set.
+     * 	 - Items that have a set href and target set to `_blank` should not have children Items that have
+     *     a set href, should not use target for internal navigation/li>
      *
      *
      * @returns Value of property `target`
@@ -1593,6 +1802,46 @@ declare module "sap/tnt/NavigationListItem" {
       vItem: int | string | NavigationListItem
     ): NavigationListItem | null;
     /**
+     * Sets a new value for property {@link #getAriaHasPopup ariaHasPopup}.
+     *
+     * Specifies the value of the `aria-haspopup` attribute
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `None`.
+     *
+     * @since 1.133.0
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setAriaHasPopup(
+      /**
+       * New value for property `ariaHasPopup`
+       */
+      sAriaHasPopup?: aria.HasPopup | keyof typeof aria.HasPopup
+    ): this;
+    /**
+     * Sets a new value for property {@link #getDesign design}.
+     *
+     * Specifies if the item has a special design. NOTE: If `design` is not `NavigationListItemDesign.Default`
+     * sub-items can't be added.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `Default`.
+     *
+     * @since 1.133.0
+     * @experimental Behavior might change.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setDesign(
+      /**
+       * New value for property `design`
+       */
+      sDesign?: NavigationListItemDesign | keyof typeof NavigationListItemDesign
+    ): this;
+    /**
      * Sets a new value for property {@link #getHref href}.
      *
      * Defines the link target URI. Supports standard hyperlink behavior. If a JavaScript action should be triggered,
@@ -1630,15 +1879,24 @@ declare module "sap/tnt/NavigationListItem" {
     /**
      * Sets a new value for property {@link #getSelectable selectable}.
      *
-     * Specifies if the item can be selected. It is recommended to set this property to `false` when the property
-     * `href` is also used.
+     * Specifies if the item can be selected. By default all items are selectable.
+     *
+     * When a parent item's `selectable` property is set to `false`, selecting it will only expand or collapse
+     * its sub-items.
+     *
+     * To improve user experience do not mix selectable parent items with not selectable parent items within
+     * a single side navigation.
+     *
+     * **Guidelines:**
+     * 	 - Items that have a set href and target set to `_blank` should not be selectable.
+     * 	 - Items that trigger actions (with design "Action") should not be selectable.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
      *
      * @since 1.116
-     * @experimental (since 1.116) - Disclaimer: this property is in a beta state - incompatible API changes
+     * @experimental As of version 1.116. Disclaimer: this property is in a beta state - incompatible API changes
      * may be done before its official public release.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -1655,8 +1913,12 @@ declare module "sap/tnt/NavigationListItem" {
      * Specifies the browsing context where the linked content will open.
      *
      * Options are the standard values for window.open() supported by browsers: `_self`, `_top`, `_blank`, `_parent`,
-     * `_search`. Alternatively, a frame name can be entered. This property is only used when the `href` property
-     * is set.
+     * `_search`. Alternatively, a frame name can be entered.
+     *
+     * **Guidelines:**
+     * 	 - Use only when `href` property is set.
+     * 	 - Items that have a set href and target set to `_blank` should not have children Items that have
+     *     a set href, should not use target for internal navigation/li>
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -1707,11 +1969,20 @@ declare module "sap/tnt/NavigationListItem" {
     visible?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * Specifies if the item can be selected. It is recommended to set this property to `false` when the property
-     * `href` is also used.
+     * Specifies if the item can be selected. By default all items are selectable.
+     *
+     * When a parent item's `selectable` property is set to `false`, selecting it will only expand or collapse
+     * its sub-items.
+     *
+     * To improve user experience do not mix selectable parent items with not selectable parent items within
+     * a single side navigation.
+     *
+     * **Guidelines:**
+     * 	 - Items that have a set href and target set to `_blank` should not be selectable.
+     * 	 - Items that trigger actions (with design "Action") should not be selectable.
      *
      * @since 1.116
-     * @experimental (since 1.116) - Disclaimer: this property is in a beta state - incompatible API changes
+     * @experimental As of version 1.116. Disclaimer: this property is in a beta state - incompatible API changes
      * may be done before its official public release.
      */
     selectable?: boolean | PropertyBindingInfo | `{${string}}`;
@@ -1726,10 +1997,36 @@ declare module "sap/tnt/NavigationListItem" {
      * Specifies the browsing context where the linked content will open.
      *
      * Options are the standard values for window.open() supported by browsers: `_self`, `_top`, `_blank`, `_parent`,
-     * `_search`. Alternatively, a frame name can be entered. This property is only used when the `href` property
-     * is set.
+     * `_search`. Alternatively, a frame name can be entered.
+     *
+     * **Guidelines:**
+     * 	 - Use only when `href` property is set.
+     * 	 - Items that have a set href and target set to `_blank` should not have children Items that have
+     *     a set href, should not use target for internal navigation/li>
      */
     target?: string | PropertyBindingInfo;
+
+    /**
+     * Specifies if the item has a special design. NOTE: If `design` is not `NavigationListItemDesign.Default`
+     * sub-items can't be added.
+     *
+     * @since 1.133.0
+     * @experimental Behavior might change.
+     */
+    design?:
+      | (NavigationListItemDesign | keyof typeof NavigationListItemDesign)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
+     * Specifies the value of the `aria-haspopup` attribute
+     *
+     * @since 1.133.0
+     */
+    ariaHasPopup?:
+      | (aria.HasPopup | keyof typeof aria.HasPopup)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * The sub items.
@@ -1771,6 +2068,8 @@ declare module "sap/tnt/NavigationListItemBase" {
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * The `NavigationListItemBase` class represents a base class for the items that are accepted by the `NavigationList`
@@ -1841,6 +2140,91 @@ declare module "sap/tnt/NavigationListItemBase" {
      * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.tnt.NavigationListItemBase`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.tnt.NavigationListItemBase` itself.
+     *
+     * Fired when an item is pressed.
+     *
+     * @since 1.133
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachPress(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: NavigationListItemBase$PressEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.tnt.NavigationListItemBase` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.tnt.NavigationListItemBase`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.tnt.NavigationListItemBase` itself.
+     *
+     * Fired when an item is pressed.
+     *
+     * @since 1.133
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachPress(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: NavigationListItemBase$PressEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.tnt.NavigationListItemBase` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:press press} event of this `sap.tnt.NavigationListItemBase`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     * @since 1.133
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachPress(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: NavigationListItemBase$PressEvent) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Fires event {@link #event:press press} to attached listeners.
+     *
+     * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
+     * event object. The return value of this method indicates whether the default action should be executed.
+     *
+     * @since 1.133
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Whether or not to prevent the default action
+     */
+    firePress(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: NavigationListItemBase$PressEventParameters
+    ): boolean;
     /**
      * Gets current value of property {@link #getExpanded expanded}.
      *
@@ -1963,7 +2347,54 @@ declare module "sap/tnt/NavigationListItemBase" {
      * @since 1.121
      */
     visible?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Fired when an item is pressed.
+     *
+     * @since 1.133
+     */
+    press?: (oEvent: NavigationListItemBase$PressEvent) => void;
   }
+
+  /**
+   * Parameters of the NavigationListItemBase#press event.
+   */
+  export interface NavigationListItemBase$PressEventParameters {
+    /**
+     * The pressed item.
+     */
+    item?: Item;
+
+    /**
+     * Indicates whether the CTRL key was pressed when the link was selected.
+     */
+    ctrlKey?: boolean;
+
+    /**
+     * Indicates whether the Shift key was pressed when the link was selected.
+     */
+    shiftKey?: boolean;
+
+    /**
+     * Indicates whether the Alt key was pressed when the link was selected.
+     */
+    altKey?: boolean;
+
+    /**
+     * Indicates whether the "meta" key was pressed when the link was selected.
+     *
+     * On Macintosh keyboards, this is the command key (⌘). On Windows keyboards, this is the windows key (⊞).
+     */
+    metaKey?: boolean;
+  }
+
+  /**
+   * Event object of the NavigationListItemBase#press event.
+   */
+  export type NavigationListItemBase$PressEvent = Event<
+    NavigationListItemBase$PressEventParameters,
+    NavigationListItemBase
+  >;
 }
 
 declare module "sap/tnt/SideNavigation" {
@@ -1973,6 +2404,8 @@ declare module "sap/tnt/SideNavigation" {
     AggregationBindingInfo,
     PropertyBindingInfo,
   } from "sap/ui/base/ManagedObject";
+
+  import { SideNavigationDesign } from "sap/tnt/library";
 
   import NavigationList from "sap/tnt/NavigationList";
 
@@ -1992,6 +2425,9 @@ declare module "sap/tnt/SideNavigation" {
    * 	 - The flexible part adapts its size to the fixed one.
    * 	 - The flexible part has a scrollbar when the content is larger than the available space.  **Note:**
    *     In order for the `SideNavigation` to stretch properly, its parent layout control should only be the `sap.tnt.ToolPage`.
+   *     **Note:** If used outside the intended parent layout `sap.tnt.ToolPage`, for example inside a `sap.m.ResponsivePopover`
+   *     to achieve a Side Navigation Overlay Mode, the application developer should set the `design` property
+   *     to `Plain`.
    *
    * @since 1.34
    */
@@ -2058,6 +2494,53 @@ declare module "sap/tnt/SideNavigation" {
      * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:itemPress itemPress} event of this `sap.tnt.SideNavigation`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.tnt.SideNavigation` itself.
+     *
+     * Fired when an item is pressed.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachItemPress(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: SideNavigation$ItemPressEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.tnt.SideNavigation` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:itemPress itemPress} event of this `sap.tnt.SideNavigation`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.tnt.SideNavigation` itself.
+     *
+     * Fired when an item is pressed.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachItemPress(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: SideNavigation$ItemPressEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.tnt.SideNavigation` itself
+       */
+      oListener?: object
+    ): this;
     /**
      * Attaches event handler `fnFunction` to the {@link #event:itemSelect itemSelect} event of this `sap.tnt.SideNavigation`.
      *
@@ -2130,7 +2613,7 @@ declare module "sap/tnt/SideNavigation" {
     /**
      * Destroys the footer in the aggregation {@link #getFooter footer}.
      *
-     * @deprecated (since 1.120) - Use the aggregation `fixedItem` instead.
+     * @deprecated As of version 1.120. Use the aggregation `fixedItem` instead.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -2142,6 +2625,24 @@ declare module "sap/tnt/SideNavigation" {
      * @returns Reference to `this` in order to allow method chaining
      */
     destroyItem(): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:itemPress itemPress} event of this `sap.tnt.SideNavigation`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachItemPress(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: SideNavigation$ItemPressEvent) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
     /**
      * Detaches event handler `fnFunction` from the {@link #event:itemSelect itemSelect} event of this `sap.tnt.SideNavigation`.
      *
@@ -2160,6 +2661,22 @@ declare module "sap/tnt/SideNavigation" {
        */
       oListener?: object
     ): this;
+    /**
+     * Fires event {@link #event:itemPress itemPress} to attached listeners.
+     *
+     * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
+     * event object. The return value of this method indicates whether the default action should be executed.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Whether or not to prevent the default action
+     */
+    fireItemPress(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: SideNavigation$ItemPressEventParameters
+    ): boolean;
     /**
      * Fires event {@link #event:itemSelect itemSelect} to attached listeners.
      *
@@ -2184,6 +2701,21 @@ declare module "sap/tnt/SideNavigation" {
      */
     getAriaLabel(): string;
     /**
+     * Gets current value of property {@link #getDesign design}.
+     *
+     * Specifies whether the control should have own container styling, such as a box-shadow and border, or
+     * not. **Note:** This property has to be set to `Plain` when the control is used inside a `sap.m.ResponsivePopover`
+     * to achieve a Side Navigation Overlay Mode.
+     *
+     * Default value is `Decorated`.
+     *
+     * @since 1.134
+     * @experimental As of version 1.134.
+     *
+     * @returns Value of property `design`
+     */
+    getDesign(): SideNavigationDesign;
+    /**
      * Gets current value of property {@link #getExpanded expanded}.
      *
      * Specifies if the control is expanded.
@@ -2205,7 +2737,7 @@ declare module "sap/tnt/SideNavigation" {
      *
      * Defines the content inside the footer.
      *
-     * @deprecated (since 1.120) - Use the aggregation `fixedItem` instead.
+     * @deprecated As of version 1.120. Use the aggregation `fixedItem` instead.
      */
     getFooter(): NavigationList;
     /**
@@ -2262,6 +2794,28 @@ declare module "sap/tnt/SideNavigation" {
       sAriaLabel?: string
     ): this;
     /**
+     * Sets a new value for property {@link #getDesign design}.
+     *
+     * Specifies whether the control should have own container styling, such as a box-shadow and border, or
+     * not. **Note:** This property has to be set to `Plain` when the control is used inside a `sap.m.ResponsivePopover`
+     * to achieve a Side Navigation Overlay Mode.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `Decorated`.
+     *
+     * @since 1.134
+     * @experimental As of version 1.134.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setDesign(
+      /**
+       * New value for property `design`
+       */
+      sDesign?: SideNavigationDesign | keyof typeof SideNavigationDesign
+    ): this;
+    /**
      * Sets if the control is in expanded or collapsed mode.
      *
      *
@@ -2288,7 +2842,7 @@ declare module "sap/tnt/SideNavigation" {
     /**
      * Sets the aggregated {@link #getFooter footer}.
      *
-     * @deprecated (since 1.120) - Use the aggregation `fixedItem` instead.
+     * @deprecated As of version 1.120. Use the aggregation `fixedItem` instead.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -2396,6 +2950,19 @@ declare module "sap/tnt/SideNavigation" {
     ariaLabel?: string | PropertyBindingInfo;
 
     /**
+     * Specifies whether the control should have own container styling, such as a box-shadow and border, or
+     * not. **Note:** This property has to be set to `Plain` when the control is used inside a `sap.m.ResponsivePopover`
+     * to achieve a Side Navigation Overlay Mode.
+     *
+     * @since 1.134
+     * @experimental As of version 1.134.
+     */
+    design?:
+      | (SideNavigationDesign | keyof typeof SideNavigationDesign)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
      * Defines the content inside the flexible part.
      */
     item?: NavigationList;
@@ -2408,7 +2975,7 @@ declare module "sap/tnt/SideNavigation" {
     /**
      * Defines the content inside the footer.
      *
-     * @deprecated (since 1.120) - Use the aggregation `fixedItem` instead.
+     * @deprecated As of version 1.120. Use the aggregation `fixedItem` instead.
      */
     footer?: NavigationList;
 
@@ -2423,7 +2990,52 @@ declare module "sap/tnt/SideNavigation" {
      * Fired when an item is selected.
      */
     itemSelect?: (oEvent: SideNavigation$ItemSelectEvent) => void;
+
+    /**
+     * Fired when an item is pressed.
+     */
+    itemPress?: (oEvent: SideNavigation$ItemPressEvent) => void;
   }
+
+  /**
+   * Parameters of the SideNavigation#itemPress event.
+   */
+  export interface SideNavigation$ItemPressEventParameters {
+    /**
+     * The pressed item.
+     */
+    item?: Item;
+
+    /**
+     * Indicates whether the CTRL key was pressed when the link was selected.
+     */
+    ctrlKey?: boolean;
+
+    /**
+     * Indicates whether the Shift key was pressed when the link was selected.
+     */
+    shiftKey?: boolean;
+
+    /**
+     * Indicates whether the Alt key was pressed when the link was selected.
+     */
+    altKey?: boolean;
+
+    /**
+     * Indicates whether the "meta" key was pressed when the link was selected.
+     *
+     * On Macintosh keyboards, this is the command key (⌘). On Windows keyboards, this is the windows key (⊞).
+     */
+    metaKey?: boolean;
+  }
+
+  /**
+   * Event object of the SideNavigation#itemPress event.
+   */
+  export type SideNavigation$ItemPressEvent = Event<
+    SideNavigation$ItemPressEventParameters,
+    SideNavigation
+  >;
 
   /**
    * Parameters of the SideNavigation#itemSelect event.
@@ -2449,8 +3061,6 @@ declare module "sap/tnt/ToolHeader" {
     default as OverflowToolbar,
     $OverflowToolbarSettings,
   } from "sap/m/OverflowToolbar";
-
-  import { IToolHeader } from "sap/tnt/library";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -2492,11 +3102,7 @@ declare module "sap/tnt/ToolHeader" {
    *
    * @since 1.34
    */
-  export default class ToolHeader
-    extends OverflowToolbar
-    implements IToolHeader
-  {
-    __implements__sap_tnt_IToolHeader: boolean;
+  export default class ToolHeader extends OverflowToolbar {
     /**
      * Constructor for a new ToolHeader.
      *
@@ -2665,8 +3271,6 @@ declare module "sap/tnt/ToolPage" {
 
   import { PageBackgroundDesign } from "sap/m/library";
 
-  import { IToolHeader } from "sap/tnt/library";
-
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import SideNavigation from "sap/tnt/SideNavigation";
@@ -2800,15 +3404,13 @@ declare module "sap/tnt/ToolPage" {
      *
      * @returns Value of property `contentBackgroundDesign`
      */
-    getContentBackgroundDesign():
-      | PageBackgroundDesign
-      | keyof typeof PageBackgroundDesign;
+    getContentBackgroundDesign(): PageBackgroundDesign;
     /**
      * Gets content of aggregation {@link #getHeader header}.
      *
      * The control to appear in the header area.
      */
-    getHeader(): IToolHeader;
+    getHeader(): Control;
     /**
      * Gets content of aggregation {@link #getMainContents mainContents}.
      *
@@ -2839,7 +3441,7 @@ declare module "sap/tnt/ToolPage" {
      *
      * @since 1.93
      */
-    getSubHeader(): IToolHeader;
+    getSubHeader(): Control;
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getMainContents mainContents}.
      * and returns its index if found or -1 otherwise.
@@ -2923,7 +3525,7 @@ declare module "sap/tnt/ToolPage" {
       /**
        * The header to set
        */
-      oHeader: IToolHeader
+      oHeader: Control
     ): this;
     /**
      * Sets the aggregated {@link #getSideContent sideContent}.
@@ -2960,7 +3562,7 @@ declare module "sap/tnt/ToolPage" {
       /**
        * The subHeader to set
        */
-      oSubHeader: IToolHeader
+      oSubHeader: Control
     ): this;
     /**
      * Toggles the expand/collapse state of the SideContent.
@@ -2992,14 +3594,14 @@ declare module "sap/tnt/ToolPage" {
     /**
      * The control to appear in the header area.
      */
-    header?: IToolHeader;
+    header?: Control;
 
     /**
      * The control to appear in the subheader area.
      *
      * @since 1.93
      */
-    subHeader?: IToolHeader;
+    subHeader?: Control;
 
     /**
      * The side menu of the layout.

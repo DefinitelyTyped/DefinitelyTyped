@@ -66,29 +66,21 @@ export function fill(
     encoding?: BufferEncoding,
 ): Buffer | Uint8Array;
 /**
+ * See https://nodejs.org/api/buffer.html#static-method-bufferfromarray
+ */
+export function from(array: Uint8Array | readonly number[]): Buffer | Uint8Array;
+/**
  * See https://nodejs.org/api/buffer.html#static-method-bufferfromarraybuffer-byteoffset-length
  */
 export function from(
-    arrayBuffer: WithImplicitCoercion<ArrayBuffer | SharedArrayBuffer>,
+    arrayBuffer: ArrayBuffer | SharedArrayBuffer,
     byteOffset?: number,
     length?: number,
 ): Buffer | Uint8Array;
 /**
- * See https://nodejs.org/api/buffer.html#static-method-bufferfrombuffer
- */
-export function from(data: Uint8Array | readonly number[]): Buffer | Uint8Array;
-/**
- * See https://nodejs.org/api/buffer.html#static-method-bufferfromarray
- */
-// tslint:disable-next-line unified-signatures
-export function from(data: WithImplicitCoercion<Uint8Array | readonly number[] | string>): Buffer | Uint8Array;
-/**
  * See https://nodejs.org/api/buffer.html#static-method-bufferfromstring-encoding
  */
-export function from(
-    str: WithImplicitCoercion<string> | { [Symbol.toPrimitive](hint: "string"): string },
-    encoding?: BufferEncoding,
-): Buffer | Uint8Array;
+export function from(string: string, encoding?: BufferEncoding): Buffer | Uint8Array;
 /**
  * See https://nodejs.org/api/buffer.html#bufincludesvalue-byteoffset-encoding
  * @param buffer

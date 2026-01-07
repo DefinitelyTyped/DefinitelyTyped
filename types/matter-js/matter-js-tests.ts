@@ -137,6 +137,9 @@ var constraint1 = Constraint.create({
 
 World.addConstraint(engine.world, constraint1);
 
+// $ExpectType number
+Constraint.currentLength(constraint1);
+
 // $ExpectType Body | null
 var bodyA = constraint1.bodyA;
 // $ExpectType Body | null
@@ -174,8 +177,12 @@ var render = Render.create({
 // Runner
 const runner1 = Matter.Runner.create({
     delta: 1000 / 60,
-    isFixed: false,
     enabled: true,
+    frameDelta: 1000 / 60,
+    frameDeltaSmoothing: true,
+    frameDeltaSnapping: true,
+    maxFrameTime: 1000 / 30,
+    maxUpdates: null,
 });
 const runner2 = Matter.Runner.create({});
 const runner3 = Matter.Runner.create();
@@ -234,6 +241,8 @@ Events.on(composite1, "afterRemove", (e) => {});
 
 // $ExpectType (e: IEventTimestamped<Engine>) => void
 Events.on(engine, "beforeUpdate", (e) => {});
+// $ExpectType (e: IEventTimestamped<Engine>) => void
+Events.on(engine, "beforeSolve", (e) => {});
 // $ExpectType (e: IEventTimestamped<Engine>) => void
 Events.on(engine, "afterUpdate", (e) => {});
 // $ExpectType (e: IEventCollision<Engine>) => void

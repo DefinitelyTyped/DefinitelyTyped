@@ -6,6 +6,11 @@ export as namespace ReactDOM;
 
 import { Key, ReactNode, ReactPortal } from "react";
 
+declare module "react" {
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
+    interface CacheSignal extends AbortSignal {}
+}
+
 export function createPortal(
     children: ReactNode,
     container: Element | DocumentFragment,
@@ -84,6 +89,7 @@ export interface PreloadOptions {
     type?: string | undefined;
     nonce?: string | undefined;
     referrerPolicy?: ReferrerPolicy | undefined;
+    media?: string | undefined;
 }
 export function preload(href: string, options?: PreloadOptions): void;
 

@@ -57,6 +57,7 @@ export default class ReachFrequencyPrediction extends AbstractCrudObject {
         instream_packages: "instream_packages";
         interval_frequency_cap: "interval_frequency_cap";
         interval_frequency_cap_reset_period: "interval_frequency_cap_reset_period";
+        is_balanced_frequency: "is_balanced_frequency";
         is_bonus_media: "is_bonus_media";
         is_conversion_goal: "is_conversion_goal";
         is_higher_average_frequency: "is_higher_average_frequency";
@@ -71,6 +72,7 @@ export default class ReachFrequencyPrediction extends AbstractCrudObject {
         optimization_goal: "optimization_goal";
         optimization_goal_name: "optimization_goal_name";
         pause_periods: "pause_periods";
+        percent_reach_at_target_frequency: "percent_reach_at_target_frequency";
         placement_breakdown: "placement_breakdown";
         placement_breakdown_map: "placement_breakdown_map";
         plan_name: "plan_name";
@@ -83,6 +85,8 @@ export default class ReachFrequencyPrediction extends AbstractCrudObject {
         status: "status";
         story_event_type: "story_event_type";
         target_cpm: "target_cpm";
+        target_frequency: "target_frequency";
+        target_frequency_reset_period: "target_frequency_reset_period";
         target_spec: "target_spec";
         time_created: "time_created";
         time_updated: "time_updated";

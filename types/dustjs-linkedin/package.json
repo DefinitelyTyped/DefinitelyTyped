@@ -8,10 +8,5 @@
     "devDependencies": {
         "@types/dustjs-linkedin": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Marcelo Dezem",
-            "githubUsername": "mdezem"
-        }
-    ]
+    "owners": []
 }

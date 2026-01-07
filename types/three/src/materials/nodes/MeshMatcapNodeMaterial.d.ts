@@ -1,32 +1,45 @@
-import { NormalMapTypes } from "../../constants.js";
-import { Color } from "../../math/Color.js";
-import { Vector2 } from "../../math/Vector2.js";
-import { Texture } from "../../textures/Texture.js";
-import { MeshMatcapMaterialParameters } from "../MeshMatcapMaterial.js";
-import NodeMaterial, { NodeMaterialParameters } from "./NodeMaterial.js";
+import NodeBuilder from "../../nodes/core/NodeBuilder.js";
+import { MapColorPropertiesToColorRepresentations } from "../Material.js";
+import { MeshMatcapMaterialParameters, MeshMatcapMaterialProperties } from "../MeshMatcapMaterial.js";
+import NodeMaterial, { NodeMaterialNodeProperties } from "./NodeMaterial.js";
 
-export interface MeshMatcapNodeMaterialParameters extends NodeMaterialParameters, MeshMatcapMaterialParameters {
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface MeshMatcapNodeMaterialNodeProperties extends NodeMaterialNodeProperties {
 }
 
-export default class MeshMatcapNodeMaterial extends NodeMaterial {
-    readonly isMeshMatcapNodeMaterial: true;
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface MeshMatcapNodeMaterialParameters
+    extends
+        Partial<MapColorPropertiesToColorRepresentations<MeshMatcapNodeMaterialNodeProperties>>,
+        MeshMatcapMaterialParameters
+{}
 
-    // Properties from MeshMatcapMaterial
-    readonly isMeshMatcapMaterial: true;
-    color: Color;
-    matcap: Texture | null;
-    map: Texture | null;
-    bumpMap: Texture | null;
-    bumpScale: number;
-    normalMap: Texture | null;
-    normalMapType: NormalMapTypes;
-    normalScale: Vector2;
-    displacementMap: Texture | null;
-    displacementScale: number;
-    displacementBias: number;
-    alphaMap: Texture | null;
-    flatShading: boolean;
-    fog: boolean;
-
+/**
+ * Node material version of {@link MeshMatcapMaterial}.
+ */
+declare class MeshMatcapNodeMaterial extends NodeMaterial {
+    /**
+     * Constructs a new mesh normal node material.
+     *
+     * @param {Object} [parameters] - The configuration parameter.
+     */
     constructor(parameters?: MeshMatcapNodeMaterialParameters);
+    /**
+     * This flag can be used for type testing.
+     *
+     * @default true
+     */
+    readonly isMeshMatcapNodeMaterial: boolean;
+    setValues(values?: MeshMatcapNodeMaterialParameters): void;
+    /**
+     * Setups the matcap specific node variables.
+     *
+     * @param {NodeBuilder} builder - The current node builder.
+     */
+    setupVariants(builder: NodeBuilder): void;
 }
+
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface MeshMatcapNodeMaterial extends MeshMatcapNodeMaterialNodeProperties, MeshMatcapMaterialProperties {}
+
+export default MeshMatcapNodeMaterial;

@@ -47,8 +47,8 @@ const identifyRequest: mParticle.IdentifyRequest = {
         facebookcustomaudienceid: "test",
         google: "test",
         twitter: "test",
-        microsoft: "test",
-        yahoo: "test",
+        microsoft: null,
+        yahoo: null,
     },
 };
 
@@ -120,6 +120,12 @@ const config: mParticle.MPConfiguration = {
         anotherFlag: "bar",
     },
     sideloadedKits: [{}, {}],
+    v1SecureServiceUrl: "mp.mydomain.com/webevents/v1/JS/",
+    v2SecureServiceUrl: "mp.mydomain.com/webevents/v2/JS/",
+    v3SecureServiceUrl: "mp.mydomain.com/webevents/v3/JS/",
+    configUrl: "mp.mydomain.com/tags/JS/v2/",
+    identityUrl: "mp.mydomain.com/identity/v1/",
+    aliasUrl: "mp.mydomain.com/webevents/v1/identity/",
 };
 
 mParticle.endSession();
@@ -186,6 +192,41 @@ mParticle.logPageView("pageName");
 mParticle.logPageView("pageName", customAttrs);
 mParticle.logPageView("pageName", customAttrs, customFlags);
 mParticle.logPageView("pageName", customAttrs, customFlags, eventOptions);
+
+mParticle.Rokt.selectPlacements({
+    identifier: "mp-test-identifier",
+    attributes: {
+        email: "test@test.com",
+        price: 100,
+        taxes: 6.75,
+        excessbaggage: true,
+        products: ["product1", "product2"],
+        cartItems: [
+            {
+                name: "item",
+                price: 100,
+                quantity: 1,
+            },
+            {
+                name: "item2",
+                price: 200,
+                quantity: 2,
+            },
+        ],
+    },
+});
+
+mParticle.Rokt.hashAttributes({
+    email: "test@test.com",
+});
+
+mParticle.Rokt.setExtensionData({
+    "test-extension": {
+        "test-key": "test-value",
+    },
+});
+
+mParticle.Rokt.use("test-extension-name");
 
 mParticle.ready(() => {
     console.log("hi");

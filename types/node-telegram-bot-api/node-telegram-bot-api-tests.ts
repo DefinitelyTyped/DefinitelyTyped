@@ -35,6 +35,20 @@ MyTelegramBot.sendMessage(1234, "test-ForceReply-no-placeholder", {
         force_reply: true,
     },
 });
+MyTelegramBot.sendMessage(1234, "test-InlineKeyboardButton-CopyTextButton", {
+    reply_markup: {
+        inline_keyboard: [
+            [
+                {
+                    text: `Copy Text`,
+                    copy_text: {
+                        text: "copy text",
+                    },
+                },
+            ],
+        ],
+    },
+});
 MyTelegramBot.sendMessage(1234, "test-ReplyKeyboardMarkup-placeholder", {
     reply_markup: {
         keyboard: [
@@ -67,6 +81,7 @@ MyTelegramBot.sendMessage(1234, "test-ReplyKeyboardMarkup-no-placeholder", {
         ],
     },
 });
+MyTelegramBot.sendMessage(1234, "test-text", { reply_parameters: { message_id: 4321 } });
 MyTelegramBot.sendMessage(1234, "test-text", { disable_web_page_preview: true, allow_sending_without_reply: true });
 const res: TelegramBot.InlineQueryResultArticle = {
     id: "1",
@@ -319,6 +334,28 @@ MyTelegramBot.sendInvoice(
     ],
     { is_flexible: true, start_parameter: "start_parameter" },
 );
+MyTelegramBot.createInvoiceLink(
+    "Invoice Title",
+    "Invoice Description",
+    "Invoice Payload",
+    "Providertoken",
+    "Currency",
+    [
+        {
+            label: "$",
+            amount: 1200,
+        },
+    ],
+    {
+        photo_url: "url",
+        need_email: false,
+        send_phone_number_to_provider: false,
+        is_flexible: true,
+        subscription_period: 2592000,
+        max_tip_amount: 145,
+        suggested_tip_amounts: [40, 75, 110, 145],
+    },
+);
 MyTelegramBot.answerShippingQuery("shippingQueryId", true, {
     shipping_options: [
         {
@@ -441,6 +478,24 @@ MyTelegramBot.setMyCommands([{ command: "command", description: "description" }]
     // @ts-expect-error
     scope: { type: "default", chat_id: 1234 },
 });
+MyTelegramBot.setMyName({ name: "My Bot" });
+MyTelegramBot.setMyName({ name: "My Bot", language_code: "ru" });
+MyTelegramBot.setMyName({});
+MyTelegramBot.getMyName();
+MyTelegramBot.getMyName({ language_code: "en" });
+MyTelegramBot.getMyName({ language_code: "ru" });
+MyTelegramBot.setMyDescription({ description: "My Bot Description" });
+MyTelegramBot.setMyDescription({ description: "My Bot Description", language_code: "ru" });
+MyTelegramBot.setMyDescription({});
+MyTelegramBot.getMyDescription();
+MyTelegramBot.getMyDescription({ language_code: "en" });
+MyTelegramBot.getMyDescription({ language_code: "ru" });
+MyTelegramBot.setMyShortDescription({ short_description: "Short Description" });
+MyTelegramBot.setMyShortDescription({ short_description: "Short Description", language_code: "ru" });
+MyTelegramBot.setMyShortDescription({});
+MyTelegramBot.getMyShortDescription();
+MyTelegramBot.getMyShortDescription({ language_code: "en" });
+MyTelegramBot.getMyShortDescription({ language_code: "ru" });
 MyTelegramBot.banChatSenderChat(1234, 1234);
 MyTelegramBot.unbanChatSenderChat(1234, 1234);
 MyTelegramBot.setChatMenuButton({
@@ -472,6 +527,9 @@ MyTelegramBot.setMyDefaultAdministratorRights({
         can_restrict_members: true,
         can_promote_members: false,
         can_change_info: true,
+        can_post_stories: true,
+        can_edit_stories: true,
+        can_delete_stories: true,
         can_invite_users: false,
         can_post_messages: false,
         can_pin_messages: true,
@@ -487,3 +545,6 @@ MyTelegramBot.addStickerToSet(1234, "custom_sticker", "sticker_path", "emoji", "
 MyTelegramBot.setStickerPositionInSet("sticker_on_position_one", 2);
 MyTelegramBot.deleteStickerFromSet("sticker_on_position_one");
 MyTelegramBot.setStickerSetThumb(1234, "my_set_thumb", "thumb_file");
+MyTelegramBot.setMessageReaction(1234, 1234, {
+    reaction: [{ type: "emoji", emoji: "👍" }],
+});

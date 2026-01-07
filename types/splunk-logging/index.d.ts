@@ -1,5 +1,17 @@
 import { CoreOptions as RequestOptions } from "request";
 
+export {};
+
+export type Severity = "debug" | "info" | "warn" | "error";
+
+// this enum isn't actually exported, but it is used as an internal value by the Logger.
+declare enum SeverityLevel {
+    DEBUG = "debug",
+    INFO = "info",
+    WARN = "warn",
+    ERROR = "error",
+}
+
 export interface Config {
     token: string;
     name?: string | undefined;
@@ -9,7 +21,7 @@ export interface Config {
     protocol?: "http" | "https" | undefined;
     port?: number | undefined;
     url?: string | undefined;
-    level?: string | undefined;
+    level?: Severity | string | undefined;
     batchInterval?: number | undefined;
     maxBatchSize?: number | undefined;
     maxBatchCount?: number | undefined;
@@ -25,7 +37,7 @@ export interface SendContextMetadata {
 
 export interface SendContext {
     message: any;
-    severity?: string | undefined;
+    severity?: Severity | string | undefined;
     metadata?: SendContextMetadata | undefined;
 }
 
@@ -37,6 +49,7 @@ export class Logger {
     eventFormatter: EventFormatter;
     requestOptions: RequestOptions;
     readonly serializedContextQueue: any[];
+    readonly levels: typeof SeverityLevel;
 
     constructor(config: Config);
 

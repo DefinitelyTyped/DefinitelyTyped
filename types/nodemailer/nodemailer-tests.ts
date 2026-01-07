@@ -1,3 +1,5 @@
+import { SendEmailCommand, SESv2Client } from "@aws-sdk/client-sesv2";
+
 import * as nodemailer from "nodemailer";
 
 import addressparser = require("nodemailer/lib/addressparser");
@@ -26,7 +28,7 @@ import LeWindows = require("nodemailer/lib/sendmail-transport/le-windows");
 import LeUnix = require("nodemailer/lib/sendmail-transport/le-unix");
 
 import * as fs from "fs";
-import * as stream from "stream";
+import stream from "stream";
 
 // mock aws-sdk
 const aws = {
@@ -74,18 +76,11 @@ function nodemailer_test() {
         };
 
         // send mail with defined transport object
-        transporter.sendMail(mailOptions, (err, info: SMTPTransport.SentMessageInfo) => {
-            if (err) {
-                console.log(err);
-                return;
-            }
-            console.log(info.accepted, info.rejected, info.pending);
-            console.log("Message sent: %s", info.messageId);
-            // Preview only available when sending through an Ethereal account
-            console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-
-            // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@blurdybloop.com>
-            // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
+        transporter.sendMail(mailOptions, (err, info) => {
+            err satisfies Error | null;
+            info satisfies SMTPTransport.SentMessageInfo;
+            // @ts-expect-error - info is `SMTPTransport.SentMessageInfo`.
+            info satisfies SMTPPool.SentMessageInfo;
         });
     });
 }
@@ -142,10 +137,11 @@ function message_more_advanced_fields_test() {
     let transporterDefault: SMTPTransport.Options;
     transporterDefault = transporter._defaults;
 
-    transporter.sendMail({ html: htmlstream }, err => {
-        if (err) {
-            // check if htmlstream is still open and close it to clean up
-        }
+    transporter.sendMail({ html: htmlstream }, (err, info) => {
+        err satisfies Error | null;
+        info satisfies SMTPTransport.SentMessageInfo;
+        // @ts-expect-error - info is `SMTPTransport.SentMessageInfo`.
+        info satisfies SMTPPool.SentMessageInfo;
     });
 }
 
@@ -439,6 +435,20 @@ Attached text file`,
     };
 }
 
+// xMailer
+
+function message_xmailer_false_test() {
+    const message: Mail.Options = {
+        xMailer: false,
+    };
+}
+
+function message_xmailer_string_test() {
+    const message: Mail.Options = {
+        xMailer: "foobar",
+    };
+}
+
 // 4. SMTP transport
 
 // Single connection
@@ -600,8 +610,10 @@ function smtp_info_test() {
     let transporterDefault: SMTPTransport.Options;
     transporterDefault = transporter._defaults;
 
-    transporter.sendMail({}).then((info: SMTPTransport.SentMessageInfo) => {
-        console.log("Preview URL: " + nodemailer.getTestMessageUrl(info));
+    transporter.sendMail({}).then((info) => {
+        info satisfies SMTPTransport.SentMessageInfo;
+        // @ts-expect-error - info is `SMTPTransport.SentMessageInfo`.
+        info satisfies SMTPPool.SentMessageInfo;
     });
 }
 
@@ -1044,12 +1056,11 @@ function sendmail_test() {
             subject: "Message",
             text: "I hope this message gets delivered!",
         },
-        (err, info: SendmailTransport.SentMessageInfo) => {
-            if (!err) {
-                console.log(info.envelope);
-                console.log(info.messageId);
-                console.log(info.accepted, info.rejected, info.pending);
-            }
+        (err, info) => {
+            err satisfies Error | null;
+            info satisfies SendmailTransport.SentMessageInfo;
+            // @ts-expect-error - info is `SendmailTransport.SentMessageInfo`.
+            info satisfies SMTPPool.SentMessageInfo;
         },
     );
 }
@@ -1083,12 +1094,14 @@ function ses_test() {
     // create Nodemailer SES transporter
     let transporter: nodemailer.Transporter<SESTransport.SentMessageInfo, SESTransport.Options>;
     transporter = nodemailer.createTransport({
-        SES: new aws.SES({
-            apiVersion: "2010-12-01",
-        }),
+        SES: {
+            sesClient: new SESv2Client(),
+            SendEmailCommand,
+        },
+        component: "ses-transport",
     });
 
-    let transporterDefault: SMTPTransport.Options;
+    let transporterDefault: SESTransport.Options;
     transporterDefault = transporter._defaults;
 
     const options: SESTransport.MailOptions = {
@@ -1098,7 +1111,7 @@ function ses_test() {
         text: "I hope this message gets sent!",
         ses: {
             // optional extra arguments for SendRawEmail
-            Tags: [
+            EmailTags: [
                 {
                     Name: "tag name",
                     Value: "tag value",
@@ -1108,12 +1121,11 @@ function ses_test() {
     };
 
     // send some mail
-    transporter.sendMail(options, (err, info: SESTransport.SentMessageInfo) => {
-        if (!err) {
-            console.log(info.envelope);
-            console.log(info.messageId);
-            console.log(info.accepted, info.rejected, info.pending);
-        }
+    transporter.sendMail(options, (err, info) => {
+        err satisfies Error | null;
+        info satisfies SESTransport.SentMessageInfo;
+        // @ts-expect-error - info is `SESTransport.SentMessageInfo`.
+        info satisfies SMTPPool.SentMessageInfo;
     });
 }
 
@@ -1138,16 +1150,11 @@ function stream_test() {
             subject: "Message",
             text: "I hope this message gets streamed!",
         },
-        (err, info: StreamTransport.SentMessageInfo) => {
-            if (!err) {
-                console.log(info.envelope);
-                console.log(info.messageId);
-                console.log(info.accepted, info.rejected, info.pending);
-                // if ('pipe' in info.message) {
-                if (info.message instanceof stream.Readable) {
-                    info.message.pipe(process.stdout);
-                }
-            }
+        (err, info) => {
+            err satisfies Error | null;
+            info satisfies StreamTransport.SentMessageInfo;
+            // @ts-expect-error - info is `StreamTransport.SentMessageInfo`.
+            info satisfies SMTPPool.SentMessageInfo;
         },
     );
 }
@@ -1173,13 +1180,11 @@ function stream_buffer_unix_newlines_test() {
             subject: "Message",
             text: "I hope this message gets buffered!",
         },
-        (err, info: StreamTransport.SentMessageInfo) => {
-            if (!err) {
-                console.log(info.envelope);
-                console.log(info.messageId);
-                console.log(info.message.toString());
-                console.log(info.accepted, info.rejected, info.pending);
-            }
+        (err, info) => {
+            err satisfies Error | null;
+            info satisfies StreamTransport.SentMessageInfo;
+            // @ts-expect-error - info is `StreamTransport.SentMessageInfo`.
+            info satisfies SMTPPool.SentMessageInfo;
         },
     );
 }
@@ -1203,13 +1208,11 @@ function json_test() {
             subject: "Message",
             text: "I hope this message gets buffered!",
         },
-        (err, info: JSONTransport.SentMessageInfo) => {
-            if (!err) {
-                console.log(info.envelope);
-                console.log(info.messageId);
-                console.log(info.message); // JSON string
-                console.log(info.accepted, info.rejected, info.pending);
-            }
+        (err, info) => {
+            err satisfies Error | null;
+            info satisfies JSONTransport.SentMessageInfo;
+            // @ts-expect-error - info is `JSONTransport.SentMessageInfo`.
+            info satisfies SMTPPool.SentMessageInfo;
         },
     );
 }
@@ -1540,13 +1543,9 @@ async function mailcomposer_build_promise_test() {
 
 // addressparser
 
-function isAddress(addressOrGroup: addressparser.AddressOrGroup): addressOrGroup is addressparser.Address {
-    return (addressOrGroup as addressparser.Address).address !== undefined;
-}
+declare function isAddress(arg: unknown): arg is addressparser.Address;
 
-function isGroup(addressOrGroup: addressparser.AddressOrGroup): addressOrGroup is addressparser.Group {
-    return (addressOrGroup as addressparser.Group).group !== undefined;
-}
+declare function isGroup(arg: unknown): arg is addressparser.Group;
 
 function addressparser_test() {
     const input = "andris@tr.ee";
@@ -1556,7 +1555,7 @@ function addressparser_test() {
         const address: string = firstResult.address;
         const name: string = firstResult.name;
     } else if (isGroup(firstResult)) {
-        const group: addressparser.AddressOrGroup[] = firstResult.group;
+        const group: addressparser.Address[] = firstResult.group;
         const name: string = firstResult.name;
     }
 }
@@ -2051,3 +2050,25 @@ function xoauth2_sign_payload_test() {
         some: "payload",
     });
 }
+
+// testSendMailOverloads
+(async () => {
+    const DISABLE_EMAILS = false;
+
+    const transporter = DISABLE_EMAILS
+        ? nodemailer.createTransport({
+            streamTransport: true,
+            buffer: true,
+        })
+        : nodemailer.createTransport({
+            host: "localhost",
+            port: 25,
+        });
+
+    await transporter.sendMail({
+        from: "sender@example.com",
+        to: "recipient@example.com",
+        subject: "Buffered message",
+        text: "This message is buffered.",
+    });
+});

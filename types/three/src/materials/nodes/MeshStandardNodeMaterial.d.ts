@@ -1,56 +1,93 @@
-import { NormalMapTypes } from "../../constants.js";
-import { Color } from "../../math/Color.js";
-import { Euler } from "../../math/Euler.js";
-import { Vector2 } from "../../math/Vector2.js";
 import Node from "../../nodes/core/Node.js";
-import { Texture } from "../../textures/Texture.js";
-import { MeshStandardMaterialParameters } from "../MeshStandardMaterial.js";
-import NodeMaterial, { NodeMaterialParameters } from "./NodeMaterial.js";
+import NodeBuilder from "../../nodes/core/NodeBuilder.js";
+import PhysicalLightingModel from "../../nodes/functions/PhysicalLightingModel.js";
+import EnvironmentNode from "../../nodes/lighting/EnvironmentNode.js";
+import { MapColorPropertiesToColorRepresentations } from "../Material.js";
+import { MeshStandardMaterialParameters, MeshStandardMaterialProperties } from "../MeshStandardMaterial.js";
+import NodeMaterial, { NodeMaterialNodeProperties } from "./NodeMaterial.js";
 
-export interface MeshStandardNodeMaterialParameters extends NodeMaterialParameters, MeshStandardMaterialParameters {
-}
-
-export default class MeshStandardNodeMaterial extends NodeMaterial {
-    readonly isMeshStandardNodeMaterial: true;
-
+export interface MeshStandardNodeMaterialNodeProperties extends NodeMaterialNodeProperties {
+    /**
+     * The emissive color of standard materials is by default inferred from the `emissive`,
+     * `emissiveIntensity` and `emissiveMap` properties. This node property allows to
+     * overwrite the default and define the emissive color with a node instead.
+     *
+     * If you don't want to overwrite the emissive color but modify the existing
+     * value instead, use {@link materialEmissive}.
+     *
+     * @default null
+     */
     emissiveNode: Node | null;
-
+    /**
+     * The metalness of standard materials is by default inferred from the `metalness`,
+     * and `metalnessMap` properties. This node property allows to
+     * overwrite the default and define the metalness with a node instead.
+     *
+     * If you don't want to overwrite the metalness but modify the existing
+     * value instead, use {@link materialMetalness}.
+     *
+     * @default null
+     */
     metalnessNode: Node | null;
+    /**
+     * The roughness of standard materials is by default inferred from the `roughness`,
+     * and `roughnessMap` properties. This node property allows to
+     * overwrite the default and define the roughness with a node instead.
+     *
+     * If you don't want to overwrite the roughness but modify the existing
+     * value instead, use {@link materialRoughness}.
+     *
+     * @default null
+     */
     roughnessNode: Node | null;
-
-    // Properties from MeshStandardMaterial
-    readonly isMeshStandardMaterial: true;
-    color: Color;
-    roughness: number;
-    metalness: number;
-    map: Texture | null;
-    lightMap: Texture | null;
-    lightMapIntensity: number;
-    aoMap: Texture | null;
-    aoMapIntensity: number;
-    emissive: Color;
-    emissiveIntensity: number;
-    emissiveMap: Texture | null;
-    bumpMap: Texture | null;
-    bumpScale: number;
-    normalMap: Texture | null;
-    normalMapType: NormalMapTypes;
-    normalScale: Vector2;
-    displacementMap: Texture | null;
-    displacementScale: number;
-    displacementBias: number;
-    roughnessMap: Texture | null;
-    metalnessMap: Texture | null;
-    alphaMap: Texture | null;
-    envMap: Texture | null;
-    envMapRotation: Euler;
-    envMapIntensity: number;
-    wireframe: boolean;
-    wireframeLinewidth: number;
-    wireframeLinecap: string;
-    wireframeLinejoin: string;
-    flatShading: boolean;
-    fog: boolean;
-
-    constructor(parameters?: MeshStandardNodeMaterialParameters);
 }
+
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface MeshStandardNodeMaterialParameters
+    extends
+        Partial<MapColorPropertiesToColorRepresentations<MeshStandardNodeMaterialNodeProperties>>,
+        MeshStandardMaterialParameters
+{}
+
+/**
+ * Node material version of {@link MeshStandardMaterial}.
+ */
+declare class MeshStandardNodeMaterial extends NodeMaterial {
+    /**
+     * Constructs a new mesh standard node material.
+     *
+     * @param {Object} [parameters] - The configuration parameter.
+     */
+    constructor(parameters?: MeshStandardNodeMaterialParameters);
+    /**
+     * This flag can be used for type testing.
+     *
+     * @default true
+     */
+    readonly isMeshStandardNodeMaterial: boolean;
+    setValues(values?: MeshStandardNodeMaterialParameters): void;
+    /**
+     * Overwritten since this type of material uses {@link EnvironmentNode}
+     * to implement the PBR (PMREM based) environment mapping. Besides, the
+     * method honors `Scene.environment`.
+     *
+     * @param {NodeBuilder} builder - The current node builder.
+     * @return {?EnvironmentNode<vec3>} The environment node.
+     */
+    setupEnvironment(builder: NodeBuilder): EnvironmentNode | null;
+    /**
+     * Setups the lighting model.
+     *
+     * @return {PhysicalLightingModel} The lighting model.
+     */
+    setupLightingModel(): PhysicalLightingModel;
+    /**
+     * Setups the specular related node variables.
+     */
+    setupSpecular(): void;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface MeshStandardNodeMaterial extends MeshStandardNodeMaterialNodeProperties, MeshStandardMaterialProperties {}
+
+export default MeshStandardNodeMaterial;

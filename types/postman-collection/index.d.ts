@@ -180,6 +180,11 @@ export interface CollectionDefinition extends ItemGroupDefinition {
         id?: string | undefined;
         name?: string | undefined;
         version?: string | undefined;
+        description?: {
+            content?: string | undefined;
+            type?: string | undefined;
+            version?: string | undefined;
+        } | undefined;
     } | undefined;
     variable?: VariableDefinition[] | undefined;
 }

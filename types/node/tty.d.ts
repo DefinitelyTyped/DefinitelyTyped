@@ -21,9 +21,9 @@
  *
  * In most cases, there should be little to no reason for an application to
  * manually create instances of the `tty.ReadStream` and `tty.WriteStream` classes.
- * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/tty.js)
+ * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/tty.js)
  */
-declare module "tty" {
+declare module "node:tty" {
     import * as net from "node:net";
     /**
      * The `tty.isatty()` method returns `true` if the given `fd` is associated with
@@ -75,6 +75,9 @@ declare module "tty" {
      *  1 - to the right from cursor
      */
     type Direction = -1 | 0 | 1;
+    interface WriteStreamEventMap extends net.SocketEventMap {
+        "resize": [];
+    }
     /**
      * Represents the writable side of a TTY. In normal circumstances, `process.stdout` and `process.stderr` will be the only`tty.WriteStream` instances created for a Node.js process and there
      * should be no reason to create additional instances.
@@ -82,18 +85,6 @@ declare module "tty" {
      */
     class WriteStream extends net.Socket {
         constructor(fd: number);
-        addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener(event: "resize", listener: () => void): this;
-        emit(event: string | symbol, ...args: any[]): boolean;
-        emit(event: "resize"): boolean;
-        on(event: string, listener: (...args: any[]) => void): this;
-        on(event: "resize", listener: () => void): this;
-        once(event: string, listener: (...args: any[]) => void): this;
-        once(event: "resize", listener: () => void): this;
-        prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: "resize", listener: () => void): this;
-        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: "resize", listener: () => void): this;
         /**
          * `writeStream.clearLine()` clears the current line of this `WriteStream` in a
          * direction identified by `dir`.
@@ -201,8 +192,59 @@ declare module "tty" {
          * @since v0.5.8
          */
         isTTY: boolean;
+        // #region InternalEventEmitter
+        addListener<E extends keyof WriteStreamEventMap>(
+            eventName: E,
+            listener: (...args: WriteStreamEventMap[E]) => void,
+        ): this;
+        addListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        emit<E extends keyof WriteStreamEventMap>(eventName: E, ...args: WriteStreamEventMap[E]): boolean;
+        emit(eventName: string | symbol, ...args: any[]): boolean;
+        listenerCount<E extends keyof WriteStreamEventMap>(
+            eventName: E,
+            listener?: (...args: WriteStreamEventMap[E]) => void,
+        ): number;
+        listenerCount(eventName: string | symbol, listener?: (...args: any[]) => void): number;
+        listeners<E extends keyof WriteStreamEventMap>(eventName: E): ((...args: WriteStreamEventMap[E]) => void)[];
+        listeners(eventName: string | symbol): ((...args: any[]) => void)[];
+        off<E extends keyof WriteStreamEventMap>(
+            eventName: E,
+            listener: (...args: WriteStreamEventMap[E]) => void,
+        ): this;
+        off(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        on<E extends keyof WriteStreamEventMap>(
+            eventName: E,
+            listener: (...args: WriteStreamEventMap[E]) => void,
+        ): this;
+        on(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        once<E extends keyof WriteStreamEventMap>(
+            eventName: E,
+            listener: (...args: WriteStreamEventMap[E]) => void,
+        ): this;
+        once(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        prependListener<E extends keyof WriteStreamEventMap>(
+            eventName: E,
+            listener: (...args: WriteStreamEventMap[E]) => void,
+        ): this;
+        prependListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        prependOnceListener<E extends keyof WriteStreamEventMap>(
+            eventName: E,
+            listener: (...args: WriteStreamEventMap[E]) => void,
+        ): this;
+        prependOnceListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        rawListeners<E extends keyof WriteStreamEventMap>(eventName: E): ((...args: WriteStreamEventMap[E]) => void)[];
+        rawListeners(eventName: string | symbol): ((...args: any[]) => void)[];
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+        removeAllListeners<E extends keyof WriteStreamEventMap>(eventName?: E): this;
+        removeAllListeners(eventName?: string | symbol): this;
+        removeListener<E extends keyof WriteStreamEventMap>(
+            eventName: E,
+            listener: (...args: WriteStreamEventMap[E]) => void,
+        ): this;
+        removeListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        // #endregion
     }
 }
-declare module "node:tty" {
-    export * from "tty";
+declare module "tty" {
+    export * from "node:tty";
 }

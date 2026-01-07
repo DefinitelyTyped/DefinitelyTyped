@@ -23,3 +23,21 @@ const ui = SwaggerUIBundle({
     presets: [SwaggerUIBundle.presets.apis, SwaggerUIBundle.SwaggerUIStandalonePreset],
     layout: "StandaloneLayout",
 });
+
+const uiSyncInterceptor = SwaggerUIBundle({
+    url: "https://petstore.swagger.io/v2/swagger.json",
+    dom_id: "#swagger-ui",
+    presets: [SwaggerUIBundle.presets.apis, SwaggerUIBundle.SwaggerUIStandalonePreset],
+    layout: "StandaloneLayout",
+    responseInterceptor: (res) => res,
+    requestInterceptor: (req) => req,
+});
+
+const uiASyncInterceptor = SwaggerUIBundle({
+    url: "https://petstore.swagger.io/v2/swagger.json",
+    dom_id: "#swagger-ui",
+    presets: [SwaggerUIBundle.presets.apis, SwaggerUIBundle.SwaggerUIStandalonePreset],
+    layout: "StandaloneLayout",
+    responseInterceptor: (res) => Promise.resolve(res),
+    requestInterceptor: (req) => Promise.resolve(req),
+});

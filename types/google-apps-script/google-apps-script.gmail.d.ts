@@ -183,6 +183,15 @@ declare namespace GoogleAppsScript {
              */
             replyTo?: string | undefined;
         }
+        /**
+         * Options for a Gmail draft reply.
+         */
+        interface GmailReplyOptions extends GmailAdvancedOptions {
+            /**
+             * The subject line for the reply draft (up to 250 characters).
+             */
+            subject?: string | undefined;
+        }
         /** alias to GmailAdvancedOptions */
         type GmailDraftOptions = GmailAdvancedOptions;
         /**
@@ -220,9 +229,9 @@ declare namespace GoogleAppsScript {
          */
         interface GmailMessage {
             createDraftReply(body: string): GmailDraft;
-            createDraftReply(body: string, options: GmailAdvancedOptions): GmailDraft;
+            createDraftReply(body: string, options: GmailReplyOptions): GmailDraft;
             createDraftReplyAll(body: string): GmailDraft;
-            createDraftReplyAll(body: string, options: GmailAdvancedOptions): GmailDraft;
+            createDraftReplyAll(body: string, options: GmailReplyOptions): GmailDraft;
             forward(recipient: string): GmailMessage;
             forward(recipient: string, options: GmailAdvancedOptions): GmailMessage;
             getAttachments(): GmailAttachment[];
@@ -264,9 +273,9 @@ declare namespace GoogleAppsScript {
         interface GmailThread {
             addLabel(label: GmailLabel): GmailThread;
             createDraftReply(body: string): GmailDraft;
-            createDraftReply(body: string, options: GmailAdvancedOptions): GmailDraft;
+            createDraftReply(body: string, options: GmailReplyOptions): GmailDraft;
             createDraftReplyAll(body: string): GmailDraft;
-            createDraftReplyAll(body: string, options: GmailAdvancedOptions): GmailDraft;
+            createDraftReplyAll(body: string, options: GmailReplyOptions): GmailDraft;
             getFirstMessageSubject(): string;
             getId(): string;
             getLabels(): GmailLabel[];

@@ -15,61 +15,71 @@ function suspenseTest() {
 
     function FlameChart() {
         return (
-            <React.Suspense fallback="computing..." unstable_expectedLoadTime={2000}>
+            <React.Suspense fallback="computing..." defer>
                 <DisplayData />
             </React.Suspense>
         );
     }
 }
 
-// Unsupported `revealOrder` triggers a runtime warning
-// @ts-expect-error
-<React.unstable_SuspenseList revealOrder="something">
-    <React.Suspense fallback="Loading">Content</React.Suspense>
-</React.unstable_SuspenseList>;
-
-<React.unstable_SuspenseList revealOrder="backwards">
-    <React.Suspense fallback="Loading">A</React.Suspense>
-    <React.Suspense fallback="Loading">B</React.Suspense>
-</React.unstable_SuspenseList>;
-
-<React.unstable_SuspenseList revealOrder="forwards">
-    <React.Suspense fallback="Loading">A</React.Suspense>
-    <React.Suspense fallback="Loading">B</React.Suspense>
-</React.unstable_SuspenseList>;
-
-<React.unstable_SuspenseList revealOrder="together">
-    <React.Suspense fallback="Loading">A</React.Suspense>
-    <React.Suspense fallback="Loading">B</React.Suspense>
-</React.unstable_SuspenseList>;
-
-function useEvent() {
-    // Implicit any
+function suspenseListTests() {
+    <React.unstable_SuspenseList>
+        <React.Suspense fallback="Loading">Content</React.Suspense>
+        <React.Suspense fallback="Loading">Content</React.Suspense>
+    </React.unstable_SuspenseList>;
+    // @ts-expect-error -- Directional SuspenseList needs more than one child
+    <React.unstable_SuspenseList>
+        <React.Suspense fallback="Loading">Content</React.Suspense>
+    </React.unstable_SuspenseList>;
+    // Unsupported `revealOrder` triggers a runtime warning
     // @ts-expect-error
-    const anyEvent = React.experimental_useEffectEvent(value => {
-        // $ExpectType any
-        return value;
-    });
-    // $ExpectType any
-    anyEvent({});
-    // $ExpectType (value: string) => number
-    const typedEvent = React.experimental_useEffectEvent((value: string) => {
-        return Number(value);
-    });
-    // $ExpectType number
-    typedEvent("1");
-    // Argument of type '{}' is not assignable to parameter of type 'string'.
-    // @ts-expect-error
-    typedEvent({});
+    <React.unstable_SuspenseList revealOrder="something">
+        <React.Suspense fallback="Loading">Content</React.Suspense>
+    </React.unstable_SuspenseList>;
 
-    function useContextuallyTypedEvent(fn: (event: Event) => string) {}
-    useContextuallyTypedEvent(
-        React.experimental_useEffectEvent(event => {
-            // $ExpectType Event
-            event;
-            return String(event);
-        }),
-    );
+    <React.unstable_SuspenseList revealOrder="forwards">
+        <React.Suspense fallback="Loading">Content</React.Suspense>
+        <React.Suspense fallback="Loading">Content</React.Suspense>
+    </React.unstable_SuspenseList>;
+
+    <React.unstable_SuspenseList revealOrder="backwards" tail="collapsed">
+        <React.Suspense fallback="Loading">A</React.Suspense>
+        <React.Suspense fallback="Loading">B</React.Suspense>
+    </React.unstable_SuspenseList>;
+
+    // @ts-expect-error -- Must have more than one static child
+    <React.unstable_SuspenseList revealOrder="backwards" tail="collapsed">
+        <React.Suspense fallback="Loading">B</React.Suspense>
+    </React.unstable_SuspenseList>;
+
+    <React.unstable_SuspenseList revealOrder="unstable_legacy-backwards" tail="collapsed">
+        <React.Suspense fallback="Loading">A</React.Suspense>
+        <React.Suspense fallback="Loading">B</React.Suspense>
+    </React.unstable_SuspenseList>;
+
+    <React.unstable_SuspenseList revealOrder="independent">
+        <React.Suspense fallback="Loading">A</React.Suspense>
+        <React.Suspense fallback="Loading">B</React.Suspense>
+    </React.unstable_SuspenseList>;
+
+    <React.unstable_SuspenseList revealOrder="forwards" tail="hidden">
+        <React.Suspense fallback="Loading">A</React.Suspense>
+        <React.Suspense fallback="Loading">B</React.Suspense>
+    </React.unstable_SuspenseList>;
+
+    <React.unstable_SuspenseList revealOrder="together">
+        <React.Suspense fallback="Loading">A</React.Suspense>
+        <React.Suspense fallback="Loading">B</React.Suspense>
+    </React.unstable_SuspenseList>;
+
+    function Page({ children }: { children: NonNullable<React.ReactNode> }) {
+        return (
+            // @ts-expect-error -- Can't pass arbitrary Nodes. Must be an Element or Iterable of Elements.
+            <React.unstable_SuspenseList revealOrder="forwards" tail="collapsed">
+                {children}
+            </React.unstable_SuspenseList>
+        );
+    }
 }
 
 function elementTypeTests() {
@@ -134,80 +144,38 @@ function taintTests() {
     );
 }
 
-function viewTransitionTests() {
-    const ViewTransition = React.unstable_ViewTransition;
-
-    <ViewTransition />;
-    <ViewTransition
-        className="enter-slide-in exit-fade-out update-cross-fade"
-        enter="slide-from-left"
-        exit="slide-to-right"
-        layout="slide"
-        update="none"
-        share="cross-fade"
-    />;
-    <ViewTransition name="auto" />;
-    <ViewTransition name="foo" />;
-    // autocomplete should display "auto"
-    <ViewTransition name="" />;
-
-    <ViewTransition
-        onEnter={instance => {
-            // $ExpectType ViewTransitionInstance
-            instance;
-        }}
-        onExit={instance => {
-            // $ExpectType ViewTransitionInstance
-            instance;
-        }}
-        onLayout={instance => {
-            // $ExpectType ViewTransitionInstance
-            instance;
-        }}
-        onShare={instance => {
-            // $ExpectType ViewTransitionInstance
-            instance;
-        }}
-        onUpdate={instance => {
-            // $ExpectType ViewTransitionInstance
-            instance;
-        }}
-    />;
-
-    <ViewTransition
-        ref={current => {
-            if (current !== null) {
-                // $ExpectType string
-                current.name;
-            }
-        }}
-    >
-        <div />
-    </ViewTransition>;
-
-    <ViewTransition>
-        <div />
-    </ViewTransition>;
-
-    const Null = () => null;
-    <ViewTransition>
-        <Null />
-    </ViewTransition>;
-
-    const Div = ({ children }: { children?: React.ReactNode }) => <div>{children}</div>;
-    <ViewTransition>
-        <Div />
-    </ViewTransition>;
-}
-
+// @enableGestureTransition
 function swipeTransitionTest() {
-    const useSwipeTransition = React.unstable_useSwipeTransition;
-    // $ExpectType [value: string | null, startGesture: StartGesture]
-    const [value, startGesture] = useSwipeTransition("/?a", null, "/?b");
+    const startGestureTransition = React.unstable_startGestureTransition;
 
-    const gestureProvider: {} = {};
-    // $ExpectType () => void
-    startGesture(gestureProvider);
-    // @ts-expect-error -- missing gesture provider
-    startGesture();
+    const url: string = "";
+    const [renderedUrl, optimisticNavigate] = React.useOptimistic(
+        url,
+        (state, direction) => {
+            return direction === "left" ? "/?a" : "/?b";
+        },
+    );
+
+    function onScroll() {
+        const gestureProvider: {} = {};
+        // $ExpectType () => void
+        startGestureTransition(
+            gestureProvider,
+            () => {
+                optimisticNavigate("left");
+            },
+            {
+                rangeStart: 0,
+                rangeEnd: 100,
+            },
+        );
+        // @ts-expect-error -- missing gesture provider
+        startGestureTransition();
+        // @ts-expect-error -- missing scope
+        startGestureTransition(gestureProvider);
+        // options can be omitted
+        startGestureTransition(gestureProvider, () => {});
+        // options can be empty
+        startGestureTransition(gestureProvider, () => {}, {});
+    }
 }

@@ -1,1 +1,3 @@
-export default function round(precision: number): <T>(value: T) => T;
+declare function round(n?: number): <T>(value: T) => T;
+
+export default round;

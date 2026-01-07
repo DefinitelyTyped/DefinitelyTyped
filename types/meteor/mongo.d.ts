@@ -479,8 +479,8 @@ declare module 'meteor/mongo' {
                 callbacks: ObserveChangesCallbacks<T>,
                 options?: { nonMutatingCallbacks?: boolean | undefined },
             ): Meteor.LiveQueryHandle;
-            [Symbol.iterator](): Iterator<T>;
-            [Symbol.asyncIterator](): AsyncIterator<T>;
+            [Symbol.iterator](): Iterator<U>;
+            [Symbol.asyncIterator](): AsyncIterator<U>;
         }
 
         var ObjectID: ObjectIDStatic;

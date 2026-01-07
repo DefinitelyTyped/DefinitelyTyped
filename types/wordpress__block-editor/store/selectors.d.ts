@@ -119,6 +119,31 @@ export function getBlockName(clientId: string): string | null;
 export function getBlockOrder(rootClientId?: string): string[];
 
 /**
+ * Returns a block's parents' client IDs given its client ID
+ *
+ * @param clientId - Block client ID.
+ * @param ascending - If true, the client ids will be returned from closest to farthest instead of the default of farthest to closest
+ *
+ * @returns The client IDs of all parent blocks
+ */
+export function getBlockParents(clientId: string, ascending?: boolean): string[];
+
+/**
+ * Returns a block's parents' client IDs given its client ID pre-filtered to only include blocks with the passed blockNames
+ *
+ * @param clientId - Block client ID.
+ * @param blockName - the name or names of the block types to which the parents list should be filtered
+ * @param ascending - If true, the client ids will be returned from closest to farthest instead of the default of farthest to closest
+ *
+ * @returns The client IDs of all parent blocks filtered by the passed block name or names
+ */
+export function getBlockParentsByBlockName(
+    clientId: string,
+    blockName: string | string[],
+    ascending?: boolean,
+): string[];
+
+/**
  * Given a block client ID, returns the root block from which the block is nested, an empty string
  * for top-level blocks, or `null` if the block does not exist.
  *
@@ -165,6 +190,15 @@ export function getBlocks(rootClientId?: string): BlockInstance[];
  * @param clientIds - Client IDs for which blocks are to be returned.
  */
 export function getBlocksByClientId(clientIds: string | string[]): Array<BlockInstance | null>;
+
+/**
+ * Returns all blocks that match a blockName. Results include nested blocks.
+ *
+ * @param blockName - Block name(s) for which clientIds are to be returned.
+ *
+ * @returns Array of clientIds of blocks with name equal to blockName.
+ */
+export function getBlocksByName(blockName: string | string[]): string[];
 
 /**
  * Returns an array containing the clientIds of all descendants of the blocks given.

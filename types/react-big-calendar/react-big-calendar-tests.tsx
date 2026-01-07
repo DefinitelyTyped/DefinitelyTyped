@@ -1,5 +1,7 @@
 import * as React from "react";
 import {
+    AgendaDateProps,
+    AgendaTimeProps,
     Calendar,
     CalendarProps,
     Culture,
@@ -206,6 +208,7 @@ class CalendarResource {
             onEventResize={handleEventMove}
             onDragStart={console.log}
             onDropFromOutside={console.log}
+            dragFromOutsideItem={() => getEvents()[0]}
             draggableAccessor={() => true}
             resizableAccessor={() => true}
             elementProps={{ id: "myCalendar" }}
@@ -584,6 +587,35 @@ class Toolbar extends React.Component<ToolbarProps<CalendarEvent, CalendarResour
 
     const Basic = ({ localizer }: CalendarProps) => (
         <Calendar events={[]} localizer={localizer} components={{ month: { header, dateHeader, event } }} />
+    );
+
+    <Basic localizer={localizer} />;
+}
+
+// Test components.agenda
+{
+    const localizer: DateLocalizer = momentLocalizer(moment);
+
+    const date: React.FC<AgendaDateProps> = ({ day, label }) => <>date</>;
+
+    const time: React.FC<AgendaTimeProps> = ({ day, label, event }) => <>time</>;
+
+    const event: React.FC<EventProps> = ({
+        event,
+        title,
+        continuesPrior,
+        continuesAfter,
+        isAllDay,
+        localizer,
+        slotStart,
+        slotEnd,
+    }) => {
+        const { formats, propType, startOfWeek, format, messages } = localizer;
+        return <>Event</>;
+    };
+
+    const Basic = ({ localizer }: CalendarProps) => (
+        <Calendar events={[]} localizer={localizer} components={{ agenda: { date, time, event } }} />
     );
 
     <Basic localizer={localizer} />;

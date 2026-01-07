@@ -51,14 +51,14 @@ declare class NodeCache {
     /**
      * Constructs a new node cache.
      *
-     * @param {NodeCache?} parent - A reference to a parent cache.
+     * @param {?NodeCache} parent - A reference to a parent cache.
      */
     constructor(parent?: NodeCache | null);
     /**
      * Returns the data for the given node.
      *
      * @param {Node} node - The node.
-     * @return {Object?} The data for the node.
+     * @return {?Object} The data for the node.
      */
     getData(node: Node): NodeData | undefined;
     getData(node: TypedArray | InterleavedBuffer | BufferAttribute): BufferAttributeData | undefined;

@@ -41,6 +41,7 @@ class Test extends React.Component {
                 showThumbsOnMount={false}
                 disableThumbs={false}
                 openOnMount={false}
+                autoplay
                 disableBackgroundClose={true}
                 disableLocalStorage={true}
                 disableSlideSwiping={true}

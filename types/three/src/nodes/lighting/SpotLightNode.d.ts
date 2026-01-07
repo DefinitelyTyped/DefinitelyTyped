@@ -1,8 +1,9 @@
 import { SpotLight } from "../../lights/SpotLight.js";
 import Node from "../core/Node.js";
+import NodeBuilder from "../core/NodeBuilder.js";
 import AnalyticLightNode from "./AnalyticLightNode.js";
 
-export default class PointLightNode extends AnalyticLightNode<SpotLight> {
+declare class SpotLightNode extends AnalyticLightNode<SpotLight> {
     directionNode: Node;
 
     coneCosNode: Node;
@@ -11,5 +12,17 @@ export default class PointLightNode extends AnalyticLightNode<SpotLight> {
     cutoffDistanceNode: Node;
     decayExponentNode: Node;
 
+    colorNode: Node;
+
     constructor(light?: SpotLight | null);
+
+    getLightCoord(builder: NodeBuilder): Node;
 }
+
+declare module "three" {
+    export interface SpotLight {
+        attenuationNode?: ((lightNode: SpotLightNode) => Node) | null | undefined;
+    }
+}
+
+export default SpotLightNode;

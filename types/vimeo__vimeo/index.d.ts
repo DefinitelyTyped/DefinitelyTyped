@@ -1,4 +1,9 @@
 export type CompleteCallback = (err: Error | null, result: any, statusCode?: number, headers?: object) => void;
+export interface CompleteCallbackObject {
+    statusCode?: number | undefined;
+    body: any;
+    headers?: object | undefined;
+}
 
 export type ProgressCallback = (bytesUploaded: number, bytesTotal: number) => void;
 export type ErrorCallback = (err: string) => void;
@@ -49,6 +54,7 @@ export class Vimeo {
      *                                  `host`, `port`, `query` or `headers`.
      * @param callback  Called when complete, `function (err, json)`.
      */
+    request(url: string | RequestOptions): Promise<CompleteCallbackObject>;
     request(url: string | RequestOptions, callback: CompleteCallback): void;
 
     /**
@@ -66,6 +72,7 @@ export class Vimeo {
      *                                and configured in your API app settings.
      * @param fn           Callback to execute on completion.
      */
+    accessToken(code: string, redirectUri: string): Promise<CompleteCallbackObject>;
     accessToken(code: string, redirectUri: string, fn: CompleteCallback): void;
 
     /**
@@ -96,6 +103,7 @@ export class Vimeo {
      *                          occured the first parameter will be that error, otherwise the first
      *                          parameter will be null.
      */
+    generateClientCredentials(scope: string | string[]): Promise<CompleteCallbackObject>;
     generateClientCredentials(scope: string | string[], fn: CompleteCallback): void;
 
     /**
@@ -114,6 +122,7 @@ export class Vimeo {
      * @param progressCallback  Callback to be executed when upload progress is updated.
      * @param errorCallback     Callback to be executed when the upload returns an error.
      */
+    upload(file: string | File, params: object): Promise<string>;
     upload(
         file: string | File,
         params: object,
@@ -142,6 +151,18 @@ export class Vimeo {
      * @param progressCallback  Callback to be executed when upload progress is updated.
      * @param errorCallback     Callback to be executed when the upload returns an error.
      */
+    replace(
+        file: string | File,
+        videoUri: string,
+        params: object,
+    ): Promise<string>;
+    replace(
+        file: string | File,
+        videoUri: string,
+        completeCallback: UriCallback,
+        progressCallback: ProgressCallback | undefined,
+        errorCallback: ErrorCallback,
+    ): void;
     replace(
         file: string | File,
         videoUri: string,

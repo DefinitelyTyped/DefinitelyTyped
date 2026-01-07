@@ -1,5 +1,5 @@
 import StorageBufferNode from "../accessors/StorageBufferNode.js";
-import { NodeRepresentation, ShaderNodeObject } from "../tsl/TSLCore.js";
+import Node from "../core/Node.js";
 import ArrayElementNode from "./ArrayElementNode.js";
 
 export default class StorageArrayElementNode extends ArrayElementNode {
@@ -14,6 +14,6 @@ export default class StorageArrayElementNode extends ArrayElementNode {
 }
 
 export const storageElement: (
-    storageBufferNode: NodeRepresentation,
-    indexNode: NodeRepresentation,
-) => ShaderNodeObject<StorageArrayElementNode>;
+    storageBufferNode: Node,
+    indexNode: Node,
+) => StorageArrayElementNode;

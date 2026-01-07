@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/gulp-flatmap",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/mariusGundersen/gulp-flatmap#readme"
+    ],
+    "devDependencies": {
+        "@types/gulp": "*",
+        "@types/gulp-concat": "*",
+        "@types/gulp-flatmap": "workspace:.",
+        "@types/gulp-uglify": "*"
+    },
+    "dependencies": {
+        "@types/node": "*",
+        "@types/vinyl": "*"
+    },
+    "owners": [
+        {
+            "name": "Samuel Bronson",
+            "githubUsername": "SamB"
+        }
+    ]
+}

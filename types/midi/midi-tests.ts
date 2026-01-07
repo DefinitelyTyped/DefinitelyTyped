@@ -28,9 +28,9 @@ input.on("message", (deltaTime, message) => {
 });
 
 // create a readable stream
-midi.createReadStream(); // $ExpectType internal
+midi.createReadStream(); // $ExpectType Stream
 // createReadStream also accepts an optional `input` param
-const readStream = midi.createReadStream(input); // $ExpectType internal
+const readStream = midi.createReadStream(input); // $ExpectType Stream
 readStream.pipe(fs.createWriteStream("something.bin"));
 
 const output = new midi.Output();

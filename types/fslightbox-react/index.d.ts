@@ -49,6 +49,7 @@ declare namespace FsLightbox {
 
         // sources
         maxYoutubeVideoDimensions?: VideoDimensions | undefined;
+        autoplay?: boolean | undefined;
 
         // thumbs
         thumbs?: Array<string | null> | undefined; // pro feature
@@ -60,7 +61,6 @@ declare namespace FsLightbox {
 
         // toolbar
         customToolbarButtons?: CustomToolbarButtonProps[] | undefined; // pro feature
-
         // preferences
         disableBackgroundClose?: boolean | undefined;
         disableSlideSwiping?: boolean | undefined;

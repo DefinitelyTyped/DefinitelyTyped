@@ -1,18 +1,18 @@
 {
     "private": true,
     "name": "@types/chrome",
-    "version": "0.0.9999",
+    "version": "0.1.9999",
+    "nonNpm": "conflict",
+    "nonNpmDescription": "The complete reference to all APIs made available to Chrome Extensions",
     "projects": [
-        "http://developer.chrome.com/extensions/"
+        "https://developer.chrome.com/docs/extensions"
     ],
     "dependencies": {
         "@types/filesystem": "*",
         "@types/har-format": "*"
     },
     "devDependencies": {
-        "@types/chrome": "workspace:.",
-        "@types/jquery": "*",
-        "@types/jqueryui": "*"
+        "@types/chrome": "workspace:."
     },
     "owners": [
         {

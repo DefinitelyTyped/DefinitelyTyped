@@ -8,7 +8,6 @@ import UniformGroupNode from "../../../nodes/core/UniformGroupNode.js";
 import ComputeNode from "../../../nodes/gpgpu/ComputeNode.js";
 import LightsNode from "../../../nodes/lighting/LightsNode.js";
 import { NodeFrame } from "../../../nodes/Nodes.js";
-import { ShaderNodeObject } from "../../../nodes/TSL.js";
 import { Fog } from "../../../scenes/Fog.js";
 import { FogExp2 } from "../../../scenes/FogExp2.js";
 import { Scene } from "../../../scenes/Scene.js";
@@ -33,11 +32,11 @@ interface ComputeNodeData {
 }
 interface SceneData {
     background?: Color | Texture | CubeTexture | undefined;
-    backgroundNode?: ShaderNodeObject<Node> | undefined;
+    backgroundNode?: Node | undefined;
     fog?: Fog | FogExp2 | undefined;
-    fogNode?: ShaderNodeObject<Node> | undefined;
+    fogNode?: Node | undefined;
     environment?: Texture | undefined;
-    environmentNode?: ShaderNodeObject<Node> | undefined;
+    environmentNode?: Node | undefined;
 }
 interface CacheKeyData {
     callId: number;
@@ -45,9 +44,9 @@ interface CacheKeyData {
 }
 declare module "../../../scenes/Scene.js" {
     interface Scene {
-        environmentNode?: ShaderNodeObject<Node> | null | undefined;
-        backgroundNode?: ShaderNodeObject<Node> | null | undefined;
-        fogNode?: ShaderNodeObject<Node> | null | undefined;
+        environmentNode?: Node | null | undefined;
+        backgroundNode?: Node | null | undefined;
+        fogNode?: Node | null | undefined;
     }
 }
 /**
@@ -90,23 +89,23 @@ declare class Nodes extends DataMap<{
         version?: number;
     }>;
     cacheLib: {
-        [type: string]: WeakMap<object, ShaderNodeObject<Node> | undefined>;
+        [type: string]: WeakMap<object, Node | undefined>;
     };
     constructor(renderer: Renderer, backend: Backend);
     /**
      * Returns `true` if the given node uniforms group must be updated or not.
      *
      * @param {NodeUniformsGroup} nodeUniformsGroup - The node uniforms group.
-     * @return {Boolean} Whether the node uniforms group requires an update or not.
+     * @return {boolean} Whether the node uniforms group requires an update or not.
      */
     updateGroup(nodeUniformsGroup: NodeUniformsGroup): boolean;
     /**
      * Returns the cache key for the given render object.
      *
      * @param {RenderObject} renderObject - The render object.
-     * @return {Number} The cache key.
+     * @return {number} The cache key.
      */
-    getForRenderCacheKey(renderObject: RenderObject): string;
+    getForRenderCacheKey(renderObject: RenderObject): number;
     /**
      * Returns a node builder state for the given render object.
      *
@@ -117,8 +116,8 @@ declare class Nodes extends DataMap<{
     /**
      * Deletes the given object from the internal data map
      *
-     * @param {Any} object - The object to delete.
-     * @return {Object?} The deleted dictionary.
+     * @param {any} object - The object to delete.
+     * @return {?Object} The deleted dictionary.
      */
     delete(
         object: NodeUniformsGroup | RenderObject | ComputeNode | Scene,
@@ -145,7 +144,7 @@ declare class Nodes extends DataMap<{
      * @param {Scene} scene - The scene.
      * @return {Node} A node representing the current scene environment.
      */
-    getEnvironmentNode(scene: Scene): ShaderNodeObject<Node> | null;
+    getEnvironmentNode(scene: Scene): Node | null;
     /**
      * Returns a background node for the current configured
      * scene background.
@@ -153,14 +152,14 @@ declare class Nodes extends DataMap<{
      * @param {Scene} scene - The scene.
      * @return {Node} A node representing the current scene background.
      */
-    getBackgroundNode(scene: Scene): ShaderNodeObject<Node> | null;
+    getBackgroundNode(scene: Scene): Node | null;
     /**
      * Returns a fog node for the current configured scene fog.
      *
      * @param {Scene} scene - The scene.
      * @return {Node} A node representing the current scene fog.
      */
-    getFogNode(scene: Scene): ShaderNodeObject<Node> | null;
+    getFogNode(scene: Scene): Node | null;
     /**
      * Returns a cache key for the given scene and lights node.
      * This key is used by `RenderObject` as a part of the dynamic
@@ -169,14 +168,14 @@ declare class Nodes extends DataMap<{
      *
      * @param {Scene} scene - The scene.
      * @param {LightsNode} lightsNode - The lights node.
-     * @return {Number} The cache key.
+     * @return {number} The cache key.
      */
     getCacheKey(scene: Scene, lightsNode: LightsNode): number;
     /**
      * A boolean that indicates whether tone mapping should be enabled
      * or not.
      *
-     * @type {Boolean}
+     * @type {boolean}
      */
     get isToneMappingState(): boolean;
     /**
@@ -190,18 +189,18 @@ declare class Nodes extends DataMap<{
      * This method is part of the caching of nodes which are used to represents the
      * scene's background, fog or environment.
      *
-     * @param {String} type - The type of object to cache.
+     * @param {string} type - The type of object to cache.
      * @param {Object} object - The object.
      * @param {Function} callback - A callback that produces a node representation for the given object.
-     * @param {Boolean} [forceUpdate=false] - Whether an update should be enforced or not.
+     * @param {boolean} [forceUpdate=false] - Whether an update should be enforced or not.
      * @return {Node} The node representation.
      */
     getCacheNode(
         type: string,
         object: object,
-        callback: () => ShaderNodeObject<Node> | undefined,
+        callback: () => Node | undefined,
         forceUpdate?: boolean,
-    ): ShaderNodeObject<Node> | undefined;
+    ): Node | undefined;
     /**
      * If a scene fog is configured, this method makes sure to
      * represent the fog with a corresponding node-based implementation.
@@ -227,7 +226,7 @@ declare class Nodes extends DataMap<{
     /**
      * Returns the current output cache key.
      *
-     * @return {String} The output cache key.
+     * @return {string} The output cache key.
      */
     getOutputCacheKey(): string;
     /**
@@ -235,7 +234,7 @@ declare class Nodes extends DataMap<{
      * the given target has changed.
      *
      * @param {Texture} outputTarget - The output target.
-     * @return {Boolean} Whether the output configuration has changed or not.
+     * @return {boolean} Whether the output configuration has changed or not.
      */
     hasOutputChange(outputTarget: Texture): boolean;
     /**
@@ -245,7 +244,7 @@ declare class Nodes extends DataMap<{
      * @param {Texture} outputTarget - The output target.
      * @return {Node} The output node.
      */
-    getOutputNode(outputTarget: Texture): ShaderNodeObject<Node>;
+    getOutputNode(outputTarget: Texture): Node;
     /**
      * Triggers the call of `updateBefore()` methods
      * for all nodes of the given render object.
@@ -278,7 +277,7 @@ declare class Nodes extends DataMap<{
      * Returns `true` if the given render object requires a refresh.
      *
      * @param {RenderObject} renderObject - The render object.
-     * @return {Boolean} Whether the given render object requires a refresh or not.
+     * @return {boolean} Whether the given render object requires a refresh or not.
      */
     needsRefresh(renderObject: RenderObject): boolean;
     /**

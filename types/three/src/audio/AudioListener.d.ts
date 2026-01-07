@@ -4,7 +4,7 @@ import { AudioContext } from "./AudioContext.js";
 /**
  * The {@link AudioListener} represents a virtual {@link https://developer.mozilla.org/en-US/docs/Web/API/AudioListener | listener} of the all positional and non-positional audio effects in the scene.
  * A three.js application usually creates a single instance of {@link AudioListener}  * @remarks
- * It is a mandatory construtor parameter for audios entities like {@link Audio | Audio} and {@link PositionalAudio | PositionalAudio}.
+ * It is a mandatory constructor parameter for audios entities like {@link Audio | Audio} and {@link PositionalAudio | PositionalAudio}.
  * In most cases, the listener object is a child of the camera
  * So the 3D transformation of the camera represents the 3D transformation of the listener.
  * @example

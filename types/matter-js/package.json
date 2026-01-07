@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/matter-js",
-    "version": "0.19.9999",
+    "version": "0.20.9999",
     "projects": [
         "https://github.com/liabru/matter-js"
     ],
@@ -20,10 +20,6 @@
         {
             "name": "Piotr Pietrzak",
             "githubUsername": "hasparus"
-        },
-        {
-            "name": "Dale Whinham",
-            "githubUsername": "dwhinham"
         },
         {
             "name": "slikts",

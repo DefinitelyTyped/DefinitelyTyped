@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import * as events from "events";
+import events = require("events");
 import * as net from "net";
 
 export type Callback<T> = (value: T) => void;

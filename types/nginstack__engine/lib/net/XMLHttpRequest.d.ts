@@ -19,6 +19,11 @@ declare class XMLHttpRequest {
 declare namespace XMLHttpRequest {
     export { UNSENT, OPENED, HEADERS_RECEIVED, LOADING, DONE, XHRConfig };
 }
+declare let UNSENT: number;
+declare let OPENED: number;
+declare let HEADERS_RECEIVED: number;
+declare let LOADING: number;
+declare let DONE: number;
 interface XHRConfig {
     keyPath?: string;
     certPath?: string;
@@ -27,8 +32,3 @@ interface XHRConfig {
     ignoreSslErrors?: boolean;
     proxy?: string;
 }
-declare let UNSENT: number;
-declare let OPENED: number;
-declare let HEADERS_RECEIVED: number;
-declare let LOADING: number;
-declare let DONE: number;

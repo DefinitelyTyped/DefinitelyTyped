@@ -25,10 +25,18 @@ const d = new ActiveStorage.DirectUpload(
     customHeaders,
 );
 
-d.create((error, blob) => {
+console.log(d.delegate);
+
+d.create((error: Error | null) => {
     if (error) {
         console.log(error.message);
-    } else {
+    }
+});
+
+d.create((error: Error | null, blob?: ActiveStorage.Blob) => {
+    if (error) {
+        console.log(error.message);
+    } else if (blob) {
         const { byte_size, checksum, content_type, filename, signed_id } = blob;
         console.log({ byte_size, checksum, content_type, filename, signed_id });
     }

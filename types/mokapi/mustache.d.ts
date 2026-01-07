@@ -13,7 +13,7 @@ import { JSONValue } from ".";
  *       type: 'string',
  *       format: '{firstname}'
  *     }),
- *     calc: () => ( 3 + 4 )
+ *     calc: () => (3 + 4)
  *   }
  *
  *   const output = render("{{firstname}} has {{calc}} apples", scope)

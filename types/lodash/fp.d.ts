@@ -240,7 +240,7 @@ declare namespace _ {
     type LodashBindKey1x1 = (key: string) => (...args: any[]) => any;
     type LodashBindKey1x2 = (object: object) => (...args: any[]) => any;
     type LodashCamelCase = (string: string) => string;
-    type LodashCapitalize = <T extends string>(string: T) => Capitalize<Lowercase<T>>;
+    type LodashCapitalize = <T extends string>(string: T) => string extends T ? string : Capitalize<Lowercase<T>>;
     type LodashCastArray = <T>(value: lodash.Many<T>) => T[];
     type LodashCeil = (n: number) => number;
     interface LodashChunk {
@@ -1169,7 +1169,10 @@ declare namespace _ {
     }
     type LodashFindLastKey1x1<T> = (object: object | null | undefined) => string | undefined;
     type LodashFindLastKey1x2<T> = (predicate: lodash.ValueIteratee<T[keyof T]>) => string | undefined;
-    type LodashHead = <T>(array: lodash.List<T> | null | undefined) => T | undefined;
+    interface LodashHead {
+        <T>(array: readonly [T, ...unknown[]]): T;
+        <T>(array: lodash.List<T> | null | undefined): T | undefined;
+    }
     interface LodashFlatMap {
         <T, TResult>(iteratee: (value: T) => lodash.Many<TResult>): LodashFlatMap1x1<T, TResult>;
         <T>(iteratee: lodash.__, collection: lodash.List<T> | null | undefined): LodashFlatMap1x2<T>;
@@ -1776,13 +1779,13 @@ declare namespace _ {
     type LodashIntersectionBy1x5<T1> = (array: lodash.List<T1> | null) => T1[];
     type LodashIntersectionBy1x6<T1, T2> = (iteratee: lodash.ValueIteratee<T1 | T2>) => T1[];
     interface LodashIntersectionWith {
-        <T1, T2>(comparator: lodash.Comparator2<T1, T2>): LodashIntersectionWith1x1<T1, T2>;
+        <T1, T2>(comparator: lodash.Comparator2<T1, T1 | T2>): LodashIntersectionWith1x1<T1, T2>;
         <T1>(comparator: lodash.__, array: lodash.List<T1> | null | undefined): LodashIntersectionWith1x2<T1>;
-        <T1, T2>(comparator: lodash.Comparator2<T1, T2>, array: lodash.List<T1> | null | undefined): LodashIntersectionWith1x3<T1, T2>;
+        <T1, T2>(comparator: lodash.Comparator2<T1, T1 | T2>, array: lodash.List<T1> | null | undefined): LodashIntersectionWith1x3<T1, T2>;
         <T2>(comparator: lodash.__, array: lodash.__, values: lodash.List<T2>): LodashIntersectionWith1x4<T2>;
-        <T1, T2>(comparator: lodash.Comparator2<T1, T2>, array: lodash.__, values: lodash.List<T2>): LodashIntersectionWith1x5<T1>;
+        <T1, T2>(comparator: lodash.Comparator2<T1, T1 | T2>, array: lodash.__, values: lodash.List<T2>): LodashIntersectionWith1x5<T1>;
         <T1, T2>(comparator: lodash.__, array: lodash.List<T1> | null | undefined, values: lodash.List<T2>): LodashIntersectionWith1x6<T1, T2>;
-        <T1, T2>(comparator: lodash.Comparator2<T1, T2>, array: lodash.List<T1> | null | undefined, values: lodash.List<T2>): T1[];
+        <T1, T2>(comparator: lodash.Comparator2<T1, T1 | T2>, array: lodash.List<T1> | null | undefined, values: lodash.List<T2>): T1[];
     }
     interface LodashIntersectionWith1x1<T1, T2> {
         (array: lodash.List<T1> | null | undefined): LodashIntersectionWith1x3<T1, T2>;
@@ -1790,18 +1793,18 @@ declare namespace _ {
         (array: lodash.List<T1> | null | undefined, values: lodash.List<T2>): T1[];
     }
     interface LodashIntersectionWith1x2<T1> {
-        <T2>(comparator: lodash.Comparator2<T1, T2>): LodashIntersectionWith1x3<T1, T2>;
+        <T2>(comparator: lodash.Comparator2<T1, T1 | T2>): LodashIntersectionWith1x3<T1, T2>;
         <T2>(comparator: lodash.__, values: lodash.List<T2>): LodashIntersectionWith1x6<T1, T2>;
-        <T2>(comparator: lodash.Comparator2<T1, T2>, values: lodash.List<T2>): T1[];
+        <T2>(comparator: lodash.Comparator2<T1, T1 | T2>, values: lodash.List<T2>): T1[];
     }
     type LodashIntersectionWith1x3<T1, T2> = (values: lodash.List<T2>) => T1[];
     interface LodashIntersectionWith1x4<T2> {
-        <T1>(comparator: lodash.Comparator2<T1, T2>): LodashIntersectionWith1x5<T1>;
+        <T1>(comparator: lodash.Comparator2<T1, T1 | T2>): LodashIntersectionWith1x5<T1>;
         <T1>(comparator: lodash.__, array: lodash.List<T1> | null | undefined): LodashIntersectionWith1x6<T1, T2>;
-        <T1>(comparator: lodash.Comparator2<T1, T2>, array: lodash.List<T1> | null | undefined): T1[];
+        <T1>(comparator: lodash.Comparator2<T1, T1 | T2>, array: lodash.List<T1> | null | undefined): T1[];
     }
     type LodashIntersectionWith1x5<T1> = (array: lodash.List<T1> | null | undefined) => T1[];
-    type LodashIntersectionWith1x6<T1, T2> = (comparator: lodash.Comparator2<T1, T2>) => T1[];
+    type LodashIntersectionWith1x6<T1, T2> = (comparator: lodash.Comparator2<T1, T1 | T2>) => T1[];
     type LodashInvert = (object: object) => lodash.Dictionary<string>;
     interface LodashInvertBy {
         <T>(interatee: lodash.ValueIteratee<T>): LodashInvertBy1x1<T>;
@@ -2030,7 +2033,10 @@ declare namespace _ {
     type LodashKebabCase = (string: string) => string;
     type LodashKeys = (object: any) => string[];
     type LodashKeysIn = (object: any) => string[];
-    type LodashLast = <T>(array: lodash.List<T> | null | undefined) => T | undefined;
+    interface LodashLast {
+        <T>(array: readonly [...unknown[], T]): T;
+        <T>(array: lodash.List<T> | null | undefined): T | undefined;
+    }
     interface LodashLastIndexOf {
         <T>(value: T): LodashLastIndexOf1x1<T>;
         <T>(value: lodash.__, array: lodash.List<T> | null | undefined): LodashLastIndexOf1x2<T>;
@@ -2167,7 +2173,10 @@ declare namespace _ {
     }
     type LodashMatchesProperty1x1 = <T>(srcValue: T) => (value: any) => boolean;
     type LodashMatchesProperty1x2 = (path: lodash.PropertyPath) => (value: any) => boolean;
-    type LodashMax = <T>(collection: lodash.List<T> | null | undefined) => T | undefined;
+    interface LodashMax {
+        <T>(collection: readonly [T, ...T[]]): T;
+        <T>(collection: lodash.List<T> | null | undefined): T | undefined;
+    }
     interface LodashMaxBy {
         <T>(iteratee: lodash.ValueIteratee<T>): LodashMaxBy1x1<T>;
         <T>(iteratee: lodash.__, collection: lodash.List<T> | null | undefined): LodashMaxBy1x2<T>;
@@ -2234,7 +2243,10 @@ declare namespace _ {
     type LodashMergeWith1x6<TObject, TSource> = (customizer: lodash.MergeWithCustomizer) => TObject & TSource;
     type LodashMethod = (path: lodash.PropertyPath) => (object: any) => any;
     type LodashMethodOf = (object: object) => (path: lodash.PropertyPath) => any;
-    type LodashMin = <T>(collection: lodash.List<T> | null | undefined) => T | undefined;
+    interface LodashMin {
+        <T>(collection: readonly [T, ...T[]]): T;
+        <T>(collection: lodash.List<T> | null | undefined): T | undefined;
+    }
     interface LodashMinBy {
         <T>(iteratee: lodash.ValueIteratee<T>): LodashMinBy1x1<T>;
         <T>(iteratee: lodash.__, collection: lodash.List<T> | null | undefined): LodashMinBy1x2<T>;

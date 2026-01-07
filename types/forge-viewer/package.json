@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/forge-viewer",
-    "version": "7.89.9999",
+    "version": "7.99.9999",
     "nonNpm": true,
     "nonNpmDescription": "Forge Viewer",
     "projects": [

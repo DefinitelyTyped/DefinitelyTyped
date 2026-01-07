@@ -8,15 +8,14 @@ declare class LobStorage {
     beginBatch(): void;
     endBatch(): DataSet;
     private compress_;
-    private decompress_;
     private encode_;
-    private decode_;
     private tryCompress_;
     private prepareContent_;
     private getDataSetForUpdate_;
+    private getContentSize_;
     addLob(
         fileName: string,
-        content: string,
+        content: string | Uint8Array | ArrayBuffer,
         options?: {
             mimeType?: number | DBKey;
             key?: number;
@@ -26,7 +25,7 @@ declare class LobStorage {
     ): number;
     updateLob(
         key: number,
-        content: string,
+        content: string | Uint8Array | ArrayBuffer,
         options?: {
             fileName?: string;
             mimeType?: number | DBKey;
@@ -40,6 +39,15 @@ declare class LobStorage {
     setLobExtraAttributes(key: number, extraAttributes: any): void;
     getLobExtraAttributes(key: number): any;
 }
+declare namespace LobStorage {
+    export { Object, LargeObject };
+}
 import DBKey = require('../dbkey/DBKey.js');
 import DataSet = require('../dataset/DataSet.js');
-import LargeObject = require('./LargeObject.js');
+interface Object {
+    content: string;
+    compression: number;
+    encoding: number;
+    mimeType: number;
+}
+type LargeObject = import('./LargeObject');

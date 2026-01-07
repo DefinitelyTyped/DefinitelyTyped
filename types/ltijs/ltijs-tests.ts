@@ -50,11 +50,9 @@ const ltiAdvanced = Provider.setup(
         },
     },
     {
-        appUrl: "/",
-        loginUrl: "/login",
-        sessionTimeoutUrl: "/sessionTimeout",
-        invalidTokenUrl: "/invalidToken",
-        keysetUrl: "/keys",
+        appRoute: "/",
+        loginRoute: "/login",
+        keysetRoute: "/keys",
         staticPath: "/views",
         https: true,
         ssl: {
@@ -72,7 +70,6 @@ const ltiAdvanced = Provider.setup(
 // $ExpectType true
 ltiMinimal.onConnect(
     (connection, request, response) => {
-        console.log(connection.endpoint);
         ltiMinimal.redirect(response, "/main");
     },
     {
@@ -104,7 +101,7 @@ ltiMinimal.deploy(deploymentOptions);
 // $ExpectType Promise<true | undefined>
 ltiAdvanced.deploy({ port: 4040, silent: true });
 
-// $ExpectType Promise<false | Platform>
+// $ExpectType Promise<Platform>
 ltiAdvanced.registerPlatform({
     url: "https://platform.url",
     name: "Platform Name",
@@ -167,13 +164,17 @@ ltiAdvanced.app.get("/any", (request: Request, response: Response) => {
 ltiAdvanced.getPlatform("https://platform.url").then(async (platform) => {
     if (!platform) return;
 
+    const p = Array.isArray(platform) ? platform[0] : platform;
+
     // $expectType string | boolean
-    const name = await platform?.[0]?.platformName();
+    const name = await p.platformName();
 });
 
 ltiAdvanced.getPlatform("https://platform.url", "123").then(async (platform) => {
     if (!platform) return;
 
+    const p = Array.isArray(platform) ? platform[0] : platform;
+
     // $expectType string | boolean
-    const name = await platform.platformName();
+    const name = await p.platformName();
 });

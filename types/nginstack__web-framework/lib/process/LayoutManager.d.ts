@@ -1,25 +1,22 @@
 export = LayoutManager;
-declare function LayoutManager(responseObject: any): void;
+declare function LayoutManager(output: { write: (arg0: string) => any }): void;
 declare class LayoutManager {
-    constructor(responseObject: any);
-    private responseObject;
-    private id;
-    private started;
-    private colStarted;
-    private rowStarted;
-    private lastColumn;
-    private max_col;
-    private max_row;
-    border: number;
+    constructor(output: { write: (arg0: string) => any });
+    private output_;
+    private started_;
+    private colStarted_;
+    private rowStarted_;
+    currentRow_: number;
+    private lastColumn_;
     enabled: boolean;
-    private reset;
-    private begin;
-    private end;
-    add(obj: any, row: number, col: number, ...args: any[]): void;
-    cellStarted: boolean;
-    private _write;
-    write(): void;
+    begin(): void;
+    end(): void;
+    add(item: LayoutComponent): void;
 }
 declare namespace LayoutManager {
-    let INSTANCE_COUNT: number;
+    export { LayoutComponent };
 }
+interface LayoutComponent {
+    layout?: LayoutConfig;
+}
+import LayoutConfig = require("./LayoutConfig.js");

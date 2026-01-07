@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/is-fqdn",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/parro-it/is-fqdn#readme"
+    ],
+    "devDependencies": {
+        "@types/is-fqdn": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Adam Thompson-Sharpe",
+            "githubUsername": "MysteryBlokHed"
+        }
+    ]
+}

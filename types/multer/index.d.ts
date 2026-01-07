@@ -148,7 +148,8 @@ declare namespace multer {
         | "LIMIT_FIELD_KEY"
         | "LIMIT_FIELD_VALUE"
         | "LIMIT_FIELD_COUNT"
-        | "LIMIT_UNEXPECTED_FILE";
+        | "LIMIT_UNEXPECTED_FILE"
+        | "MISSING_FIELD_NAME";
 
     class MulterError extends Error {
         constructor(code: ErrorCode, field?: string);

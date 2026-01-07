@@ -1,15 +1,13 @@
-import { Mode } from "./common";
-import { ColorToSameColorMapper } from "./map";
+import { Mode } from "./common.js";
+import { ColorToSameColorMapper } from "./map.js";
 
-type Filter = (amt?: number, mode?: Mode) => ColorToSameColorMapper;
-
-declare const filterBrightness: Filter;
-declare const filterContrast: Filter;
-declare const filterSepia: Filter;
-declare const filterSaturate: Filter;
-declare const filterGrayscale: Filter;
-declare const filterInvert: Filter;
-declare const filterHueRotate: Filter;
+declare function filterBrightness(amount?: number, mode?: Mode): ColorToSameColorMapper;
+declare function filterContrast(amount?: number, mode?: Mode): ColorToSameColorMapper;
+declare function filterSepia(amount?: number, mode?: Mode): ColorToSameColorMapper;
+declare function filterSaturate(amount?: number, mode?: Mode): ColorToSameColorMapper;
+declare function filterGrayscale(amount?: number, mode?: Mode): ColorToSameColorMapper;
+declare function filterInvert(amount?: number, mode?: Mode): ColorToSameColorMapper;
+declare function filterHueRotate(degress?: number, mode?: Mode): ColorToSameColorMapper;
 
 export {
     filterBrightness,

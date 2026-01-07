@@ -4,7 +4,7 @@ import FacebookAdsApi from "./api";
  * Video uploader that can upload videos to adaccount
  **/
 declare class VideoUploader {
-    _session: VideoUploadSession | null | undefined;
+    _session?: VideoUploadSession | null;
     constructor();
     /**
      * Upload the given video file.
@@ -23,9 +23,9 @@ declare class VideoUploadSession {
     _accountId: string;
     _api: FacebookAdsApi;
     _endOffset: number;
-    _filePath: string | null | undefined;
+    _filePath?: string | null;
     _sessionId: string;
-    _slideshowSpec: SlideshowSpec | null | undefined;
+    _slideshowSpec?: SlideshowSpec | null;
     _startOffset: number;
     _startRequestManager: VideoUploadStartRequestManager;
     _transferRequestManager: VideoUploadTransferRequestManager;
@@ -33,7 +33,7 @@ declare class VideoUploadSession {
     _video: AdVideo;
     _waitForEncoding: boolean;
     constructor(video: AdVideo, waitForEncoding?: boolean);
-    start(): Record<string, any>;
+    start(): Promise<Record<string, any>>;
     getStartRequestContext(): VideoUploadRequestContext;
     getTransferRequestContext(): VideoUploadRequestContext;
     getFinishRequestContext(): VideoUploadRequestContext;
@@ -51,7 +51,7 @@ declare class VideoUploadStartRequestManager extends VideoUploadRequestManager {
     /**
      * Send start request with the given context
      **/
-    sendRequest(context: VideoUploadRequestContext): Record<string, any>;
+    sendRequest(context: VideoUploadRequestContext): Promise<Record<string, any>>;
     getParamsFromContext(context: VideoUploadRequestContext): Record<string, any>;
 }
 declare class VideoUploadTransferRequestManager extends VideoUploadRequestManager {
@@ -60,13 +60,13 @@ declare class VideoUploadTransferRequestManager extends VideoUploadRequestManage
     /**
      * Send transfer request with the given context
      **/
-    sendRequest(context: VideoUploadRequestContext): Record<string, any>;
+    sendRequest(context: VideoUploadRequestContext): Promise<Record<string, any>>;
 }
 declare class VideoUploadFinishRequestManager extends VideoUploadRequestManager {
     /**
      * Send transfer request with the given context
      **/
-    sendRequest(context: VideoUploadRequestContext): Record<string, any>;
+    sendRequest(context: VideoUploadRequestContext): Promise<Record<string, any>>;
     getParamsFromContext(context: VideoUploadRequestContext): Record<string, any>;
 }
 /**

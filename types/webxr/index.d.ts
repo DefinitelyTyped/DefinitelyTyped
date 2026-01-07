@@ -584,15 +584,86 @@ interface XRInputSourcesChangeEventHandler {
 type XRAnchorSet = Set<XRAnchor>;
 
 interface XRAnchor {
-    anchorSpace: XRSpace;
+    /**
+     * An XRSpace object to locate the anchor relative to other XRSpace objects.
+     *
+     * @see https://immersive-web.github.io/anchors/#dom-xranchor-anchorspace
+     */
+    readonly anchorSpace: XRSpace;
+
+    /**
+     * When persistent anchors are supported, this method can be used to request a persistent
+     * handle for the anchor. The returned handle is a string which uniquely identifies the anchor.
+     *
+     * If the anchor is deleted, the promise will be rejected with a InvalidStateError.
+     *
+     * @see https://immersive-web.github.io/anchors/#dom-xranchor-requestpersistenthandle
+     */
+    requestPersistentHandle?: () => Promise<string>;
+
     delete(): void;
 }
 
 declare abstract class XRAnchor implements XRAnchor {}
 
 interface XRFrame {
-    trackedAnchors?: XRAnchorSet | undefined;
-    createAnchor?: (pose: XRRigidTransform, space: XRSpace) => Promise<XRAnchor> | undefined;
+    /**
+     * All anchors tracked in the frame.
+     *
+     * At XRFrame creation, the set is initially empty and will be populated by
+     * the update anchors algorithm.
+     *
+     * @see https://immersive-web.github.io/anchors/#dom-xrframe-trackedanchors
+     */
+    readonly trackedAnchors?: XRAnchorSet;
+
+    /**
+     * Creates a new anchor using the given pose in the given reference space.
+     *
+     * By creating an anchor from frame, the created anchor will not be attached to
+     * any particular real world object.
+     *
+     * If the frame is not active, the promise will be rejected with a InvalidStateError.
+     *
+     * @see https://immersive-web.github.io/anchors/#dom-xrframe-createanchor
+     */
+    createAnchor?: (pose: XRRigidTransform, space: XRSpace) => Promise<XRAnchor>;
+}
+
+interface XRSession {
+    /**
+     * A list of the known persistent anchors
+     */
+    readonly persistentAnchors?: string[];
+
+    /**
+     * Restores a persistent anchor with the given UUID.
+     *
+     * If the sessions map of persistent anchors does not contain the given UUID or if the
+     * session has ended, the promise will be rejected with a InvalidStateError.
+     *
+     * @see https://immersive-web.github.io/anchors/#dom-xrsession-restorepersistentanchor
+     */
+    restorePersistentAnchor?: (uuid: string) => Promise<XRAnchor>;
+
+    /**
+     * Deletes the persistent anchor with the given UUID. Also deletes the anchor.
+     *
+     * If the sessions map of persistent anchors does not contain the given UUID the
+     * promise will be rejected with a InvalidStateError.
+     *
+     * @see https://immersive-web.github.io/anchors/#dom-xrsession-deletepersistentanchor
+     */
+    deletePersistentAnchor?: (uuid: string) => Promise<void>;
+}
+
+interface XRHitTestResult {
+    /**
+     * Creates a new anchor from the hit test result.
+     *
+     * @see https://immersive-web.github.io/anchors/#dom-xrhittestresult-createanchor
+     */
+    createAnchor?: () => Promise<XRAnchor>;
 }
 
 // AR Hit testing
@@ -617,8 +688,6 @@ declare class XRTransientInputHitTestResult {
 
 interface XRHitTestResult {
     getPose(baseSpace: XRSpace): XRPose | undefined;
-    // When anchor system is enabled
-    createAnchor?: (pose: XRRigidTransform) => Promise<XRAnchor> | undefined;
 }
 
 declare abstract class XRHitTestResult implements XRHitTestResult {}
@@ -954,7 +1023,7 @@ interface XRProjectionLayer extends XRCompositionLayer {
     readonly textureWidth: number;
     readonly textureHeight: number;
     readonly textureArrayLength: number;
-    readonly ignoreDepthValues: number;
+    readonly ignoreDepthValues: boolean;
     fixedFoveation: number;
 }
 
@@ -1200,9 +1269,13 @@ type XRDepthUsage = "cpu-optimized" | "gpu-optimized";
 
 type XRDepthDataFormat = "luminance-alpha" | "float32" | "unsigned-short";
 
+type XRDepthType = "raw" | "smooth";
+
 interface XRDepthStateInit {
     usagePreference: XRDepthUsage[];
     dataFormatPreference: XRDepthDataFormat[];
+    depthTypeRequest?: XRDepthType[] | undefined;
+    matchDepthView?: boolean | undefined;
 }
 
 interface XRSessionInit {
@@ -1212,6 +1285,11 @@ interface XRSessionInit {
 interface XRSession {
     readonly depthUsage?: XRDepthUsage | undefined;
     readonly depthDataFormat?: XRDepthDataFormat | undefined;
+    readonly depthType?: XRDepthType | undefined;
+    readonly depthActive?: boolean | undefined;
+
+    readonly pauseDepthSensing?: (() => void) | undefined;
+    readonly resumeDepthSensing?: (() => void) | undefined;
 }
 
 interface XRDepthInformation {
@@ -1220,6 +1298,9 @@ interface XRDepthInformation {
 
     readonly normDepthBufferFromNormView: XRRigidTransform;
     readonly rawValueToMeters: number;
+
+    readonly transform?: XRRigidTransform | undefined;
+    readonly projectionMatrix?: Float32Array | undefined;
 }
 
 interface XRCPUDepthInformation extends XRDepthInformation {

@@ -20,9 +20,11 @@ declare class ECharts {
         },
         ...args: any[]
     );
+    layout: LayoutConfig;
     private theme_;
     private initOptions_;
     setOption(options: any): void;
     private options_;
     html(): string;
 }
+import LayoutConfig = require("../process/LayoutConfig.js");

@@ -1,7 +1,6 @@
 import Node from "../core/Node.js";
-import { NodeRepresentation, ShaderNodeObject } from "../tsl/TSLCore.js";
 
-export const oscSine: (timeNode?: NodeRepresentation) => ShaderNodeObject<Node>;
-export const oscSquare: (timeNode?: NodeRepresentation) => ShaderNodeObject<Node>;
-export const oscTriangle: (timeNode?: NodeRepresentation) => ShaderNodeObject<Node>;
-export const oscSawtooth: (timeNode?: NodeRepresentation) => ShaderNodeObject<Node>;
+export const oscSine: (timeNode?: Node) => Node;
+export const oscSquare: (timeNode?: Node) => Node;
+export const oscTriangle: (timeNode?: Node) => Node;
+export const oscSawtooth: (timeNode?: Node) => Node;

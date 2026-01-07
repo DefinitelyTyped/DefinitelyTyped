@@ -6,7 +6,7 @@
         "https://github.com/domasx2/sequelize-fixtures"
     ],
     "dependencies": {
-        "@types/sequelize": "*"
+        "@types/sequelize": "<4"
     },
     "devDependencies": {
         "@types/sequelize-fixtures": "workspace:."

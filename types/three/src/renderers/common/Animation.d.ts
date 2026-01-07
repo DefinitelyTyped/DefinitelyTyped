@@ -1,7 +1,8 @@
 import Info from "./Info.js";
 import Nodes from "./nodes/Nodes.js";
+import Renderer from "./Renderer.js";
 export interface AnimationContext {
-    requestAnimationFrame(callback: FrameRequestCallback, frame?: XRFrame): number;
+    requestAnimationFrame(callback: FrameRequestCallback, xrFrame?: XRFrame): number;
     cancelAnimationFrame(handle: number): void;
 }
 /**
@@ -10,18 +11,20 @@ export interface AnimationContext {
  * @private
  */
 declare class Animation {
+    renderer: Renderer;
     nodes: Nodes;
     info: Info;
-    _context: AnimationContext;
-    _animationLoop: ((time: DOMHighResTimeStamp, frame?: XRFrame) => void) | null;
+    _context: AnimationContext | null;
+    _animationLoop: ((time: DOMHighResTimeStamp, xrFrame?: XRFrame) => void) | null;
     _requestId: number | null;
     /**
      * Constructs a new animation loop management component.
      *
+     * @param {Renderer} renderer - A reference to the main renderer.
      * @param {Nodes} nodes - Renderer component for managing nodes related logic.
      * @param {Info} info - Renderer component for managing metrics and monitoring data.
      */
-    constructor(nodes: Nodes, info: Info);
+    constructor(renderer: Renderer, nodes: Nodes, info: Info);
     /**
      * Starts the internal animation loop.
      */
@@ -33,21 +36,21 @@ declare class Animation {
     /**
      * Returns the user-level animation loop.
      *
-     * @return {Function} The animation loop.
+     * @return {?Function} The animation loop.
      */
-    getAnimationLoop(): ((time: DOMHighResTimeStamp, frame?: XRFrame) => void) | null;
+    getAnimationLoop(): ((time: DOMHighResTimeStamp, xrFrame?: XRFrame) => void) | null;
     /**
      * Defines the user-level animation loop.
      *
-     * @param {Function} callback - The animation loop.
+     * @param {?Function} callback - The animation loop.
      */
-    setAnimationLoop(callback: ((time: DOMHighResTimeStamp, frame?: XRFrame) => void) | null): void;
+    setAnimationLoop(callback: ((time: DOMHighResTimeStamp, xrFrame?: XRFrame) => void) | null): void;
     /**
      * Returns the animation context.
      *
      * @return {Window|XRSession} The animation context.
      */
-    getContext(): AnimationContext;
+    getContext(): AnimationContext | null;
     /**
      * Defines the context in which `requestAnimationFrame()` is executed.
      *

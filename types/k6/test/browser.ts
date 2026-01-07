@@ -1,4 +1,4 @@
-import { browser } from "k6/browser";
+import { browser, devices } from "k6/browser";
 
 const url = "http://example.com";
 const selector = "a[href=\"http://example.com\"]";
@@ -62,6 +62,11 @@ async function test() {
     browser.newContext({ userAgent: "foo" });
     // $ExpectType Promise<BrowserContext>
     browser.newContext({ viewport: { width: 1280, height: 720 } });
+
+    // $ExpectType Device
+    const iphoneX = devices["iPhone X"];
+    // $ExpectType Promise<BrowserContext>
+    browser.newContext(iphoneX);
 
     // $ExpectType Promise<Page>
     browser.newPage();
@@ -529,6 +534,16 @@ async function test() {
     page.locator();
     // $ExpectType Locator
     page.locator(selector);
+    // $ExpectType Locator
+    page.locator(selector, { hasText: "Submit" });
+    // $ExpectType Locator
+    page.locator(selector, { hasText: /Submit/ });
+    // $ExpectType Locator
+    page.locator(selector, { hasNotText: "Cancel" });
+    // $ExpectType Locator
+    page.locator(selector, { hasNotText: /Cancel/ });
+    // $ExpectType Locator
+    page.locator(selector, { hasText: "Submit", hasNotText: "Cancel" });
 
     // $ExpectType Frame
     page.mainFrame();
@@ -589,6 +604,72 @@ async function test() {
         });
     });
 
+    // $ExpectType void
+    page.on("request", request => {
+        // $ExpectType Promise<Record<string, string>>
+        request.allHeaders();
+        // $ExpectType Frame
+        request.frame();
+        // $ExpectType Record<string, string>
+        request.headers();
+        // $ExpectType Promise<{ name: string; value: string; }[]>
+        request.headersArray();
+        // $ExpectType Promise<string | null>
+        request.headerValue("content-type");
+        // $ExpectType boolean
+        request.isNavigationRequest();
+        // $ExpectType string
+        request.method();
+        // $ExpectType string | null
+        request.postData();
+        // $ExpectType ArrayBuffer | null
+        request.postDataBuffer();
+        // $ExpectType ResourceType
+        request.resourceType();
+        // $ExpectType Promise<Response | null>
+        request.response();
+        // $ExpectType Promise<{ body: number; headers: number; }>
+        request.size();
+        // $ExpectType ResourceTiming
+        request.timing();
+    });
+
+    // $ExpectType void
+    page.on("response", response => {
+        // $ExpectType Promise<Record<string, string>>
+        response.allHeaders();
+        // $ExpectType Promise<ArrayBuffer>
+        response.body();
+        // $ExpectType Frame
+        response.frame();
+        // $ExpectType Record<string, string>
+        response.headers();
+        // $ExpectType Promise<{ name: string; value: string; }[]>
+        response.headersArray();
+        // $ExpectType Promise<string | null>
+        response.headerValue("content-type");
+        // $ExpectType Promise<string[]>
+        response.headerValues("content-type");
+        // $ExpectType Promise<any>
+        response.json();
+        // $ExpectType boolean
+        response.ok();
+        // $ExpectType Request
+        response.request();
+        // $ExpectType Promise<SecurityDetailsObject | null>
+        response.securityDetails();
+        // $ExpectType Promise<{ ipAddress: string; port: number; } | null>
+        response.serverAddr();
+        // $ExpectType number
+        response.status();
+        // $ExpectType string
+        response.statusText();
+        // $ExpectType Promise<{ body: number; headers: number; }>
+        response.size();
+        // $ExpectType string
+        response.url();
+    });
+
     // $ExpectType Promise<Page | null>
     page.opener();
 
@@ -606,6 +687,93 @@ async function test() {
     page.press(selector, "a", { strict: true });
     // $ExpectType Promise<void>
     page.press(selector, "a", { timeout: 10000 });
+
+    // $ExpectType Locator
+    page.getByRole("button", { name: "Sign in" });
+    // $ExpectType Locator
+    page.getByRole("button", { name: /Sign in/i });
+    // $ExpectType Locator
+    page.getByRole("button", { exact: true });
+    // $ExpectType Locator
+    page.getByRole("checkbox", { checked: true });
+    // $ExpectType Locator
+    page.getByRole("checkbox", { disabled: true });
+    // $ExpectType Locator
+    page.getByRole("checkbox", { expanded: true });
+    // $ExpectType Locator
+    page.getByRole("checkbox", { includeHidden: true });
+    // $ExpectType Locator
+    page.getByRole("heading", { level: 1 });
+    // $ExpectType Locator
+    page.getByRole("checkbox", { pressed: true });
+    // $ExpectType Locator
+    page.getByRole("checkbox", { selected: true });
+    // @ts-expect-error
+    page.getByRole("button", { name: 123 });
+    // @ts-expect-error
+    page.getByRole("invalid-role");
+
+    // $ExpectType Locator
+    page.getByAltText("pizza");
+    // $ExpectType Locator
+    page.getByAltText(/pizza/i);
+    // @ts-expect-error
+    page.getByAltText(123);
+    // $ExpectType Locator
+    page.getByAltText("pizza", { exact: true });
+    // @ts-expect-error
+    page.getByAltText("pizza", { exact: "true" });
+
+    // $ExpectType Locator
+    page.getByLabel("Password");
+    // $ExpectType Locator
+    page.getByLabel(/Password/i);
+    // @ts-expect-error
+    page.getByLabel(123);
+    // $ExpectType Locator
+    page.getByLabel("Password", { exact: true });
+    // @ts-expect-error
+    page.getByLabel("Password", { exact: "true" });
+
+    // $ExpectType Locator
+    page.getByText("Welcome");
+    // $ExpectType Locator
+    page.getByText(/Welcome/i);
+    // @ts-expect-error
+    page.getByText(123);
+    // $ExpectType Locator
+    page.getByText("Welcome", { exact: true });
+    // @ts-expect-error
+    page.getByText("Welcome", { exact: "true" });
+
+    // $ExpectType Locator
+    page.getByTestId("submit-button");
+    // $ExpectType Locator
+    page.getByTestId(/submit-button/i);
+    // @ts-expect-error
+    page.getByTestId(123);
+
+    // $ExpectType Locator
+    page.getByTitle("Information box");
+    // $ExpectType Locator
+    page.getByTitle(/Information box/i);
+    // @ts-expect-error
+    page.getByTitle(123);
+    // $ExpectType Locator
+    page.getByTitle("Information box", { exact: true });
+    // @ts-expect-error
+    page.getByTitle("Information box", { exact: "true" });
+
+    // $ExpectType Locator
+    page.getByPlaceholder("name@example.com");
+    // $ExpectType Locator
+    page.getByPlaceholder(/name@example.com/i);
+    // @ts-expect-error
+    page.getByPlaceholder(123);
+    // $ExpectType Locator
+    page.getByPlaceholder("name@example.com", { exact: true });
+    // @ts-expect-error
+    page.getByPlaceholder("name@example.com", { exact: "true" });
 
     // $ExpectType Promise<Response | null>
     page.reload();
@@ -852,6 +1020,64 @@ async function test() {
     page.waitForNavigation({ waitUntil: "domcontentloaded" });
     // $ExpectType Promise<Response | null>
     page.waitForNavigation({ waitUntil: "networkidle" });
+    // $ExpectType Promise<Response | null>
+    page.waitForNavigation({ url: "https://example.com" });
+    // $ExpectType Promise<Response | null>
+    page.waitForNavigation({ url: /.*\/api\/pizza$/ });
+
+    // @ts-expect-error
+    page.waitForURL();
+    // $ExpectType Promise<void>
+    page.waitForURL("https://example.com");
+    // $ExpectType Promise<void>
+    page.waitForURL(/.*\/api\/pizza$/);
+    // $ExpectType Promise<void>
+    page.waitForURL("https://example.com", { timeout: 10000 });
+    // $ExpectType Promise<void>
+    page.waitForURL("https://example.com", { waitUntil: "domcontentloaded" });
+
+    // @ts-expect-error
+    page.waitForResponse();
+    // $ExpectType Promise<Response | null>
+    page.waitForResponse("https://example.com");
+    // $ExpectType Promise<Response | null>
+    page.waitForResponse(/.*\/api\/pizza$/);
+    // $ExpectType Promise<Response | null>
+    page.waitForResponse("https://example.com", { timeout: 10000 });
+
+    // @ts-expect-error
+    page.waitForRequest();
+    // $ExpectType Promise<Request | null>
+    page.waitForRequest("https://example.com");
+    // $ExpectType Promise<Request | null>
+    page.waitForRequest(/.*\/api\/pizza$/);
+    // $ExpectType Promise<Request | null>
+    page.waitForRequest("https://example.com", { timeout: 10000 });
+
+    // @ts-expect-error
+    page.waitForEvent();
+    // $ExpectType Promise<ConsoleMessage>
+    page.waitForEvent("console");
+    // $ExpectType Promise<ConsoleMessage>
+    page.waitForEvent("console", (msg) => msg.text().includes("hello"));
+    // $ExpectType Promise<ConsoleMessage>
+    page.waitForEvent("console", { predicate: (msg) => msg.text().includes("hello") });
+    // $ExpectType Promise<ConsoleMessage>
+    page.waitForEvent("console", { timeout: 10000 });
+    // $ExpectType Promise<ConsoleMessage>
+    page.waitForEvent("console", { predicate: (msg) => msg.text().includes("hello"), timeout: 10000 });
+    // $ExpectType Promise<Request>
+    page.waitForEvent("request");
+    // $ExpectType Promise<Request>
+    page.waitForEvent("request", (req) => req.url().includes("/api"));
+    // $ExpectType Promise<Request>
+    page.waitForEvent("request", { predicate: (req) => req.url().includes("/api"), timeout: 10000 });
+    // $ExpectType Promise<Response>
+    page.waitForEvent("response");
+    // $ExpectType Promise<Response>
+    page.waitForEvent("response", (res) => res.url().includes("/api"));
+    // $ExpectType Promise<Response>
+    page.waitForEvent("response", { predicate: (res) => res.url().includes("/api"), timeout: 10000 });
 
     // @ts-expect-error
     page.waitForSelector();
@@ -887,6 +1113,31 @@ async function test() {
     page.$$();
     // $ExpectType Promise<ElementHandle[]>
     page.$$(selector);
+
+    // $ExpectType Promise<void>
+    page.route("https://example.com/logo.png", () => {});
+    // $ExpectType Promise<void>
+    page.route(/.*\/logo.png/i, () => {});
+    // @ts-expect-error
+    page.route();
+    // @ts-expect-error
+    page.route(123, () => {});
+    // @ts-expect-error
+    page.route("https://example.com/logo.png");
+
+    // $ExpectType Promise<void>
+    page.unroute("https://example.com/logo.png");
+    // $ExpectType Promise<void>
+    page.unroute(/.*\/logo.png/i);
+    // @ts-expect-error
+    page.unroute();
+    // @ts-expect-error
+    page.unroute(123);
+
+    // $ExpectType Promise<void>
+    page.unrouteAll();
+    // @ts-expect-error
+    page.unrouteAll("https://example.com/logo.png");
 
     //
     // Keyboard
@@ -980,6 +1231,11 @@ async function test() {
     //
     const locator = page.locator(selector);
 
+    // $ExpectType Promise<Rect | null>
+    locator.boundingBox();
+    // $ExpectType Promise<Rect | null>
+    locator.boundingBox({ timeout: 10000 });
+
     // $ExpectType Promise<void>
     locator.clear();
     // $ExpectType Promise<void>
@@ -1007,6 +1263,9 @@ async function test() {
     locator.click({ timeout: 10000 });
     // $ExpectType Promise<void>
     locator.click({ trial: true });
+
+    // $ExpectType FrameLocator
+    locator.contentFrame();
 
     // $ExpectType Promise<void>
     locator.dblclick();
@@ -1089,6 +1348,9 @@ async function test() {
     // $ExpectType Promise<void>
     locator.fill("text", { timeout: 10000 });
 
+    // $ExpectType Locator
+    locator.first();
+
     // $ExpectType Promise<void>
     locator.focus();
     // $ExpectType Promise<void>
@@ -1110,6 +1372,44 @@ async function test() {
     locator.innerText();
     // $ExpectType Promise<string>
     locator.innerText({ timeout: 10000 });
+
+    // $ExpectType Locator
+    locator.last();
+
+    // $ExpectType Locator
+    locator.locator("div");
+    // $ExpectType Locator
+    locator.locator("div", { hasText: "Submit" });
+    // $ExpectType Locator
+    locator.locator("div", { hasText: /Submit/ });
+    // $ExpectType Locator
+    locator.locator("div", { hasNotText: "Cancel" });
+    // $ExpectType Locator
+    locator.locator("div", { hasNotText: /Cancel/ });
+    // $ExpectType Locator
+    locator.locator("div", { hasText: "Submit", hasNotText: "Cancel" });
+    // @ts-expect-error
+    locator.locator();
+
+    // $ExpectType Locator
+    locator.filter({ hasText: "Submit" });
+    // $ExpectType Locator
+    locator.filter({ hasText: /Submit/ });
+    // $ExpectType Locator
+    locator.filter({ hasNotText: "Cancel" });
+    // $ExpectType Locator
+    locator.filter({ hasNotText: /Cancel/ });
+    // $ExpectType Locator
+    locator.filter({ hasText: "Submit", hasNotText: "Cancel" });
+    // $ExpectType Locator
+    locator.filter({});
+
+    // $ExpectType Locator
+    locator.nth(0);
+    // @ts-expect-error
+    locator.nth();
+    // @ts-expect-error
+    locator.nth("0");
 
     // $ExpectType Promise<string | null>
     locator.textContent();
@@ -1158,6 +1458,19 @@ async function test() {
     locator.setChecked(true, { trial: true });
     // $ExpectType Promise<void>
     locator.setChecked(true, { position: { x: 0, y: 0 } });
+
+    // @ts-expect-error
+    locator.pressSequentially();
+    // @ts-expect-error
+    locator.pressSequentially({ timeout: 10000 });
+    // $ExpectType Promise<void>
+    locator.pressSequentially("text");
+    // $ExpectType Promise<void>
+    locator.pressSequentially("text", { delay: 100 });
+    // $ExpectType Promise<void>
+    locator.pressSequentially("text", { noWaitAfter: true });
+    // $ExpectType Promise<void>
+    locator.pressSequentially("text", { timeout: 10000 });
 
     // @ts-expect-error
     locator.type();
@@ -1219,6 +1532,132 @@ async function test() {
     }
     // $ExpectType Promise<void>
     locator.waitFor({ timeout: 10000 });
+
+    // Locator getBy* methods tests
+    // $ExpectType Locator
+    locator.getByRole("button", { name: "Sign in" });
+    // $ExpectType Locator
+    locator.getByRole("button", { name: /Sign in/i });
+    // $ExpectType Locator
+    locator.getByRole("button", { exact: true });
+    // $ExpectType Locator
+    locator.getByRole("checkbox", { checked: true });
+    // $ExpectType Locator
+    locator.getByRole("checkbox", { disabled: true });
+    // $ExpectType Locator
+    locator.getByRole("checkbox", { expanded: true });
+    // $ExpectType Locator
+    locator.getByRole("checkbox", { includeHidden: true });
+    // $ExpectType Locator
+    locator.getByRole("heading", { level: 1 });
+    // $ExpectType Locator
+    locator.getByRole("checkbox", { pressed: true });
+    // $ExpectType Locator
+    locator.getByRole("checkbox", { selected: true });
+    // @ts-expect-error
+    locator.getByRole("button", { name: 123 });
+    // @ts-expect-error
+    locator.getByRole("invalid-role");
+
+    // $ExpectType Locator
+    locator.getByAltText("pizza");
+    // $ExpectType Locator
+    locator.getByAltText(/pizza/i);
+    // @ts-expect-error
+    locator.getByAltText(123);
+    // $ExpectType Locator
+    locator.getByAltText("pizza", { exact: true });
+    // @ts-expect-error
+    locator.getByAltText("pizza", { exact: "true" });
+
+    // $ExpectType Locator
+    locator.getByLabel("Password");
+    // $ExpectType Locator
+    locator.getByLabel(/Password/i);
+    // @ts-expect-error
+    locator.getByLabel(123);
+    // $ExpectType Locator
+    locator.getByLabel("Password", { exact: true });
+    // @ts-expect-error
+    locator.getByLabel("Password", { exact: "true" });
+
+    // $ExpectType Locator
+    locator.getByText("Welcome");
+    // $ExpectType Locator
+    locator.getByText(/Welcome/i);
+    // @ts-expect-error
+    locator.getByText(123);
+    // $ExpectType Locator
+    locator.getByText("Welcome", { exact: true });
+    // @ts-expect-error
+    locator.getByText("Welcome", { exact: "true" });
+
+    // $ExpectType Locator
+    locator.getByTestId("submit-button");
+    // $ExpectType Locator
+    locator.getByTestId(/submit-button/i);
+    // @ts-expect-error
+    locator.getByTestId(123);
+
+    // $ExpectType Locator
+    locator.getByTitle("Information box");
+    // $ExpectType Locator
+    locator.getByTitle(/Information box/i);
+    // @ts-expect-error
+    locator.getByTitle(123);
+    // $ExpectType Locator
+    locator.getByTitle("Information box", { exact: true });
+    // @ts-expect-error
+    locator.getByTitle("Information box", { exact: "true" });
+
+    // $ExpectType Locator
+    locator.getByPlaceholder("name@example.com");
+    // $ExpectType Locator
+    locator.getByPlaceholder(/name@example.com/i);
+    // @ts-expect-error
+    locator.getByPlaceholder(123);
+    // $ExpectType Locator
+    locator.getByPlaceholder("name@example.com", { exact: true });
+    // @ts-expect-error
+    locator.getByPlaceholder("name@example.com", { exact: "true" });
+
+    // @ts-expect-error
+    locator.evaluate();
+    // @ts-expect-error
+    locator.evaluate(1);
+    // @ExpectType Promise<void>
+    locator.evaluate("");
+    // @ExpectType Promise<void>
+    locator.evaluate(() => {});
+    // @ExpectType Promise<string>
+    locator.evaluate(() => {
+        "";
+    });
+    // @ExpectType Promise<string>
+    locator.evaluate((elem: HTMLElement, a: string) => {
+        a;
+    }, "");
+    // @ExpectType Promise<string[]>
+    locator.evaluate((el: HTMLElement, a: string[]) => a, [""]);
+
+    // @ts-expect-error
+    locator.evaluateHandle();
+    // @ts-expect-error
+    locator.evaluateHandle(1);
+    // @ExpectType Promise<JSHandle>
+    locator.evaluateHandle("");
+    // @ExpectType Promise<JSHandle>
+    locator.evaluateHandle(() => {});
+    // @ExpectType Promise<JSHandle>
+    locator.evaluateHandle(() => {
+        "";
+    });
+    // @ExpectType Promise<JSHandle>
+    locator.evaluateHandle((el: HTMLElement, a: string) => {
+        a;
+    }, "");
+    // @ExpectType Promise<JSHandle>
+    locator.evaluateHandle((el: HTMLElement, a: string[]) => a, [""]);
 
     //
     // JSHandle
@@ -2033,6 +2472,16 @@ async function test() {
     frame.locator();
     // $ExpectType Locator
     frame.locator("div");
+    // $ExpectType Locator
+    frame.locator("div", { hasText: "Submit" });
+    // $ExpectType Locator
+    frame.locator("div", { hasText: /Submit/ });
+    // $ExpectType Locator
+    frame.locator("div", { hasNotText: "Cancel" });
+    // $ExpectType Locator
+    frame.locator("div", { hasNotText: /Cancel/ });
+    // $ExpectType Locator
+    frame.locator("div", { hasText: "Submit", hasNotText: "Cancel" });
 
     // @ts-expect-error
     frame.innerHTML();
@@ -2185,6 +2634,21 @@ async function test() {
     frame.waitForNavigation({ timeout: 10000 });
     // $ExpectType Promise<Response | null>
     frame.waitForNavigation({ waitUntil: "domcontentloaded" });
+    // $ExpectType Promise<Response | null>
+    frame.waitForNavigation({ url: "https://example.com" });
+    // $ExpectType Promise<Response | null>
+    frame.waitForNavigation({ url: /.*\/api\/pizza$/ });
+
+    // @ts-expect-error
+    frame.waitForURL();
+    // $ExpectType Promise<void>
+    frame.waitForURL("https://example.com");
+    // $ExpectType Promise<void>
+    frame.waitForURL(/.*\/api\/pizza$/);
+    // $ExpectType Promise<void>
+    frame.waitForURL("https://example.com", { timeout: 10000 });
+    // $ExpectType Promise<void>
+    frame.waitForURL("https://example.com", { waitUntil: "domcontentloaded" });
 
     // @ts-expect-error
     frame.waitForSelector();
@@ -2197,10 +2661,206 @@ async function test() {
         frame.waitForSelector("div", { state: state as any });
     }
 
+    // Frame getBy* methods tests
+    // $ExpectType Locator
+    frame.getByRole("button", { name: "Sign in" });
+    // $ExpectType Locator
+    frame.getByRole("button", { name: /Sign in/i });
+    // $ExpectType Locator
+    frame.getByRole("button", { exact: true });
+    // $ExpectType Locator
+    frame.getByRole("checkbox", { checked: true });
+    // $ExpectType Locator
+    frame.getByRole("checkbox", { disabled: true });
+    // $ExpectType Locator
+    frame.getByRole("checkbox", { expanded: true });
+    // $ExpectType Locator
+    frame.getByRole("checkbox", { includeHidden: true });
+    // $ExpectType Locator
+    frame.getByRole("heading", { level: 1 });
+    // $ExpectType Locator
+    frame.getByRole("checkbox", { pressed: true });
+    // $ExpectType Locator
+    frame.getByRole("checkbox", { selected: true });
+    // @ts-expect-error
+    frame.getByRole("button", { name: 123 });
+    // @ts-expect-error
+    frame.getByRole("invalid-role");
+
+    // $ExpectType Locator
+    frame.getByAltText("pizza");
+    // $ExpectType Locator
+    frame.getByAltText(/pizza/i);
+    // @ts-expect-error
+    frame.getByAltText(123);
+    // $ExpectType Locator
+    frame.getByAltText("pizza", { exact: true });
+    // @ts-expect-error
+    frame.getByAltText("pizza", { exact: "true" });
+
+    // $ExpectType Locator
+    frame.getByLabel("Password");
+    // $ExpectType Locator
+    frame.getByLabel(/Password/i);
+    // @ts-expect-error
+    frame.getByLabel(123);
+    // $ExpectType Locator
+    frame.getByLabel("Password", { exact: true });
+    // @ts-expect-error
+    frame.getByLabel("Password", { exact: "true" });
+
+    // $ExpectType Locator
+    frame.getByText("Welcome");
+    // $ExpectType Locator
+    frame.getByText(/Welcome/i);
+    // @ts-expect-error
+    frame.getByText(123);
+    // $ExpectType Locator
+    frame.getByText("Welcome", { exact: true });
+    // @ts-expect-error
+    frame.getByText("Welcome", { exact: "true" });
+
+    // $ExpectType Locator
+    frame.getByTestId("submit-button");
+    // $ExpectType Locator
+    frame.getByTestId(/submit-button/i);
+    // @ts-expect-error
+    frame.getByTestId(123);
+
+    // $ExpectType Locator
+    frame.getByTitle("Information box");
+    // $ExpectType Locator
+    frame.getByTitle(/Information box/i);
+    // @ts-expect-error
+    frame.getByTitle(123);
+    // $ExpectType Locator
+    frame.getByTitle("Information box", { exact: true });
+    // @ts-expect-error
+    frame.getByTitle("Information box", { exact: "true" });
+
+    // $ExpectType Locator
+    frame.getByPlaceholder("name@example.com");
+    // $ExpectType Locator
+    frame.getByPlaceholder(/name@example.com/i);
+    // @ts-expect-error
+    frame.getByPlaceholder(123);
+    // $ExpectType Locator
+    frame.getByPlaceholder("name@example.com", { exact: true });
+    // @ts-expect-error
+    frame.getByPlaceholder("name@example.com", { exact: "true" });
+
     // @ts-expect-error
     frame.waitForTimeout();
     // $ExpectType Promise<void>
     frame.waitForTimeout(10000);
+
+    //
+    // FrameLocator
+    //
+    // $ExpectType FrameLocator
+    const frameLocator = page.locator(selector).contentFrame();
+    // $ExpectType Locator
+    frameLocator.locator("div");
+    // $ExpectType Locator
+    frameLocator.locator("div", { hasText: "Submit" });
+    // $ExpectType Locator
+    frameLocator.locator("div", { hasText: /Submit/ });
+    // $ExpectType Locator
+    frameLocator.locator("div", { hasNotText: "Cancel" });
+    // $ExpectType Locator
+    frameLocator.locator("div", { hasNotText: /Cancel/ });
+    // $ExpectType Locator
+    frameLocator.locator("div", { hasText: "Submit", hasNotText: "Cancel" });
+    // @ts-expect-error
+    frameLocator.locator();
+
+    // FrameLocator getBy* methods tests
+    // $ExpectType Locator
+    frameLocator.getByRole("button", { name: "Sign in" });
+    // $ExpectType Locator
+    frameLocator.getByRole("button", { name: /Sign in/i });
+    // $ExpectType Locator
+    frameLocator.getByRole("button", { exact: true });
+    // $ExpectType Locator
+    frameLocator.getByRole("checkbox", { checked: true });
+    // $ExpectType Locator
+    frameLocator.getByRole("checkbox", { disabled: true });
+    // $ExpectType Locator
+    frameLocator.getByRole("checkbox", { expanded: true });
+    // $ExpectType Locator
+    frameLocator.getByRole("checkbox", { includeHidden: true });
+    // $ExpectType Locator
+    frameLocator.getByRole("heading", { level: 1 });
+    // $ExpectType Locator
+    frameLocator.getByRole("checkbox", { pressed: true });
+    // $ExpectType Locator
+    frameLocator.getByRole("checkbox", { selected: true });
+    // @ts-expect-error
+    frameLocator.getByRole("button", { name: 123 });
+    // @ts-expect-error
+    frameLocator.getByRole("invalid-role");
+
+    // $ExpectType Locator
+    frameLocator.getByAltText("pizza");
+    // $ExpectType Locator
+    frameLocator.getByAltText(/pizza/i);
+    // @ts-expect-error
+    frameLocator.getByAltText(123);
+    // $ExpectType Locator
+    frameLocator.getByAltText("pizza", { exact: true });
+    // @ts-expect-error
+    frameLocator.getByAltText("pizza", { exact: "true" });
+
+    // $ExpectType Locator
+    frameLocator.getByLabel("Password");
+    // $ExpectType Locator
+    frameLocator.getByLabel(/Password/i);
+    // @ts-expect-error
+    frameLocator.getByLabel(123);
+    // $ExpectType Locator
+    frameLocator.getByLabel("Password", { exact: true });
+    // @ts-expect-error
+    frameLocator.getByLabel("Password", { exact: "true" });
+
+    // $ExpectType Locator
+    frameLocator.getByText("Welcome");
+    // $ExpectType Locator
+    frameLocator.getByText(/Welcome/i);
+    // @ts-expect-error
+    frameLocator.getByText(123);
+    // $ExpectType Locator
+    frameLocator.getByText("Welcome", { exact: true });
+    // @ts-expect-error
+    frameLocator.getByText("Welcome", { exact: "true" });
+
+    // $ExpectType Locator
+    frameLocator.getByTestId("submit-button");
+    // $ExpectType Locator
+    frameLocator.getByTestId(/submit-button/i);
+    // @ts-expect-error
+    frameLocator.getByTestId(123);
+
+    // $ExpectType Locator
+    frameLocator.getByTitle("Information box");
+    // $ExpectType Locator
+    frameLocator.getByTitle(/Information box/i);
+    // @ts-expect-error
+    frameLocator.getByTitle(123);
+    // $ExpectType Locator
+    frameLocator.getByTitle("Information box", { exact: true });
+    // @ts-expect-error
+    frameLocator.getByTitle("Information box", { exact: "true" });
+
+    // $ExpectType Locator
+    frameLocator.getByPlaceholder("name@example.com");
+    // $ExpectType Locator
+    frameLocator.getByPlaceholder(/name@example.com/i);
+    // @ts-expect-error
+    frameLocator.getByPlaceholder(123);
+    // $ExpectType Locator
+    frameLocator.getByPlaceholder("name@example.com", { exact: true });
+    // @ts-expect-error
+    frameLocator.getByPlaceholder("name@example.com", { exact: "true" });
 
     //
     // Touchscreen.tap

@@ -10,6 +10,6 @@ declare class IClauseWhereFactory {
 declare namespace IClauseWhereFactory {
     export { IClauseJoin, IQuery };
 }
-type IQuery = import("./IQuery");
-type IClauseJoin = import("./IClauseJoin");
 import IClauseWhere = require("./IClauseWhere.js");
+type IClauseJoin = import("./IClauseJoin");
+type IQuery = import("./IQuery");

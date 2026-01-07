@@ -95,7 +95,7 @@ export interface ForGenericStatement extends Base<"ForGenericStatement"> {
 
 export interface Chunk extends Base<"Chunk"> {
     body: Statement[];
-    comments?: string[] | undefined;
+    comments?: Comment[] | undefined;
 }
 
 export interface Identifier extends Base<"Identifier"> {

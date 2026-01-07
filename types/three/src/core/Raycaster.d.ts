@@ -17,6 +17,10 @@ export interface Face {
 export interface Intersection<TIntersected extends Object3D = Object3D> {
     /** Distance between the origin of the ray and the intersection */
     distance: number;
+    /**
+     * Some objects (f.e. {@link Points}) provide the distance of the intersection to the nearest point on the ray. For
+     * other objects it will be `undefined`
+     */
     distanceToRay?: number | undefined;
     /** Point of intersection, in world coordinates */
     point: Vector3;

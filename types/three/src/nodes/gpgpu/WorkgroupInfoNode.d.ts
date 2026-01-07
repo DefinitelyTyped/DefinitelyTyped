@@ -1,5 +1,4 @@
 import Node from "../core/Node.js";
-import { ShaderNodeObject } from "../tsl/TSLCore.js";
 
 declare class WorkgroupInfoNode extends Node {
     bufferType: string;
@@ -16,4 +15,4 @@ declare class WorkgroupInfoNode extends Node {
 
 export default WorkgroupInfoNode;
 
-export const workgroupArray: (type: string, count?: number) => ShaderNodeObject<WorkgroupInfoNode>;
+export const workgroupArray: (type: string, count?: number) => WorkgroupInfoNode;

@@ -1,3 +1,3 @@
-import id = require("@xmpp/id");
+import id from "@xmpp/id";
 
 id(); // $ExpectType string

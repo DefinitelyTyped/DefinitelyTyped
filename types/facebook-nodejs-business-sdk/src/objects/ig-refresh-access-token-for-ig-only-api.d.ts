@@ -7,6 +7,7 @@ export default class IGRefreshAccessTokenForIGOnlyAPI extends AbstractCrudObject
     static get Fields(): Readonly<{
         access_token: "access_token";
         expires_in: "expires_in";
+        permissions: "permissions";
         token_type: "token_type";
         id: "id";
     }>;

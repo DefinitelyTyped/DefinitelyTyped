@@ -14,6 +14,9 @@ export default class ProductItem extends AbstractCrudObject {
         applinks: "applinks";
         availability: "availability";
         brand: "brand";
+        bundle_items: "bundle_items";
+        bundle_retailer_ids: "bundle_retailer_ids";
+        capabilities_disabled_by_user: "capabilities_disabled_by_user";
         capability_to_review_status: "capability_to_review_status";
         category: "category";
         category_specific_fields: "category_specific_fields";
@@ -37,6 +40,8 @@ export default class ProductItem extends AbstractCrudObject {
         expiration_date: "expiration_date";
         fb_product_category: "fb_product_category";
         gender: "gender";
+        generated_background_images: "generated_background_images";
+        generated_background_images_ad_usage: "generated_background_images_ad_usage";
         gtin: "gtin";
         id: "id";
         image_cdn_urls: "image_cdn_urls";
@@ -47,6 +52,7 @@ export default class ProductItem extends AbstractCrudObject {
         importer_name: "importer_name";
         invalidation_errors: "invalidation_errors";
         inventory: "inventory";
+        is_bundle_hero: "is_bundle_hero";
         manufacturer_info: "manufacturer_info";
         manufacturer_part_number: "manufacturer_part_number";
         marked_for_product_launch: "marked_for_product_launch";
@@ -63,6 +69,7 @@ export default class ProductItem extends AbstractCrudObject {
         product_feed: "product_feed";
         product_group: "product_group";
         product_local_info: "product_local_info";
+        product_relationship: "product_relationship";
         product_type: "product_type";
         quantity_to_sell_on_facebook: "quantity_to_sell_on_facebook";
         retailer_id: "retailer_id";
@@ -79,7 +86,9 @@ export default class ProductItem extends AbstractCrudObject {
         start_date: "start_date";
         tags: "tags";
         url: "url";
+        vendor_id: "vendor_id";
         video_fetch_status: "video_fetch_status";
+        videos: "videos";
         visibility: "visibility";
         wa_compliance_category: "wa_compliance_category";
     }>;
@@ -100,6 +109,13 @@ export default class ProductItem extends AbstractCrudObject {
         out_of_stock: "out of stock";
         pending: "pending";
         preorder: "preorder";
+    }>;
+    static get CapabilityToReviewStatus(): Readonly<{
+        approved: "APPROVED";
+        no_review: "NO_REVIEW";
+        outdated: "OUTDATED";
+        pending: "PENDING";
+        rejected: "REJECTED";
     }>;
     static get Condition(): Readonly<{
         cpo: "cpo";
@@ -370,6 +386,7 @@ export default class ProductItem extends AbstractCrudObject {
         bad_quality_image: "BAD_QUALITY_IMAGE";
         big_catalog_with_all_items_in_stock: "BIG_CATALOG_WITH_ALL_ITEMS_IN_STOCK";
         biz_msg_ai_agent_disabled_by_user: "BIZ_MSG_AI_AGENT_DISABLED_BY_USER";
+        biz_msg_gen_ai_policy_violated: "BIZ_MSG_GEN_AI_POLICY_VIOLATED";
         cannot_edit_subscription_products: "CANNOT_EDIT_SUBSCRIPTION_PRODUCTS";
         catalog_not_connected_to_event_source: "CATALOG_NOT_CONNECTED_TO_EVENT_SOURCE";
         checkout_disabled_by_user: "CHECKOUT_DISABLED_BY_USER";
@@ -377,6 +394,7 @@ export default class ProductItem extends AbstractCrudObject {
         commerce_account_not_legally_compliant: "COMMERCE_ACCOUNT_NOT_LEGALLY_COMPLIANT";
         crawled_availability_mismatch: "CRAWLED_AVAILABILITY_MISMATCH";
         da_disabled_by_user: "DA_DISABLED_BY_USER";
+        da_policy_unfit_for_audience: "DA_POLICY_UNFIT_FOR_AUDIENCE";
         da_policy_violation: "DA_POLICY_VIOLATION";
         deleted_item: "DELETED_ITEM";
         digital_goods_not_available_for_checkout: "DIGITAL_GOODS_NOT_AVAILABLE_FOR_CHECKOUT";
@@ -425,6 +443,7 @@ export default class ProductItem extends AbstractCrudObject {
         invalid_subscription_disable_params: "INVALID_SUBSCRIPTION_DISABLE_PARAMS";
         invalid_subscription_enable_params: "INVALID_SUBSCRIPTION_ENABLE_PARAMS";
         invalid_subscription_params: "INVALID_SUBSCRIPTION_PARAMS";
+        invalid_tax_extension_state: "INVALID_TAX_EXTENSION_STATE";
         invalid_vehicle_state: "INVALID_VEHICLE_STATE";
         invalid_virtual_tour_url_domain: "INVALID_VIRTUAL_TOUR_URL_DOMAIN";
         inventory_zero_availability_in_stock: "INVENTORY_ZERO_AVAILABILITY_IN_STOCK";
@@ -437,6 +456,18 @@ export default class ProductItem extends AbstractCrudObject {
         item_price_not_positive: "ITEM_PRICE_NOT_POSITIVE";
         item_stale_out_of_stock: "ITEM_STALE_OUT_OF_STOCK";
         marketplace_disabled_by_user: "MARKETPLACE_DISABLED_BY_USER";
+        marketplace_partner_auction_no_bid_close_time: "MARKETPLACE_PARTNER_AUCTION_NO_BID_CLOSE_TIME";
+        marketplace_partner_currency_not_valid: "MARKETPLACE_PARTNER_CURRENCY_NOT_VALID";
+        marketplace_partner_listing_country_not_match_catalog: "MARKETPLACE_PARTNER_LISTING_COUNTRY_NOT_MATCH_CATALOG";
+        marketplace_partner_listing_limit_exceeded: "MARKETPLACE_PARTNER_LISTING_LIMIT_EXCEEDED";
+        marketplace_partner_missing_latlong: "MARKETPLACE_PARTNER_MISSING_LATLONG";
+        marketplace_partner_missing_shipping_cost: "MARKETPLACE_PARTNER_MISSING_SHIPPING_COST";
+        marketplace_partner_not_local_item: "MARKETPLACE_PARTNER_NOT_LOCAL_ITEM";
+        marketplace_partner_not_shipped_item: "MARKETPLACE_PARTNER_NOT_SHIPPED_ITEM";
+        marketplace_partner_policy_violation: "MARKETPLACE_PARTNER_POLICY_VIOLATION";
+        marketplace_partner_rule_listing_limit_exceeded: "MARKETPLACE_PARTNER_RULE_LISTING_LIMIT_EXCEEDED";
+        marketplace_partner_seller_banned: "MARKETPLACE_PARTNER_SELLER_BANNED";
+        marketplace_partner_seller_not_valid: "MARKETPLACE_PARTNER_SELLER_NOT_VALID";
         mini_shops_disabled_by_user: "MINI_SHOPS_DISABLED_BY_USER";
         missing_checkout: "MISSING_CHECKOUT";
         missing_checkout_currency: "MISSING_CHECKOUT_CURRENCY";
@@ -502,6 +533,8 @@ export default class ProductItem extends AbstractCrudObject {
         video_fetch_failed_timed_out: "VIDEO_FETCH_FAILED_TIMED_OUT";
         video_not_downloadable: "VIDEO_NOT_DOWNLOADABLE";
         whatsapp_disabled_by_user: "WHATSAPP_DISABLED_BY_USER";
+        whatsapp_marketing_message_disabled_by_user: "WHATSAPP_MARKETING_MESSAGE_DISABLED_BY_USER";
+        whatsapp_marketing_message_policy_violation: "WHATSAPP_MARKETING_MESSAGE_POLICY_VIOLATION";
         whatsapp_policy_violation: "WHATSAPP_POLICY_VIOLATION";
     }>;
     static get MarkedForProductLaunch(): Readonly<{
@@ -510,6 +543,7 @@ export default class ProductItem extends AbstractCrudObject {
         not_marked: "not_marked";
     }>;
     static get OriginCountry(): Readonly<{
+        ac: "AC";
         ad: "AD";
         ae: "AE";
         af: "AF";
@@ -767,6 +801,7 @@ export default class ProductItem extends AbstractCrudObject {
         default: "DEFAULT";
     }>;
     getChannelsToIntegrityStatus(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getOverrideDetails(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getProductSets(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getVideosMetadata(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     delete(fields: string[], params?: Record<string, any>): Promise<AbstractObject>;

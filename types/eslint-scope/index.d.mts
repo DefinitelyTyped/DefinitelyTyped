@@ -1,0 +1,31 @@
+import {
+    analyze,
+    type AnalyzeOptions,
+    BlockScope,
+    Definition,
+    FunctionScope,
+    GlobalScope,
+    ModuleScope,
+    PatternVisitor,
+    type PatternVisitorCallback,
+    Reference,
+    Scope,
+    ScopeManager,
+    Variable,
+} from "./index.cjs";
+
+export {
+    analyze,
+    type AnalyzeOptions,
+    BlockScope,
+    Definition,
+    FunctionScope,
+    GlobalScope,
+    ModuleScope,
+    PatternVisitor,
+    type PatternVisitorCallback,
+    Reference,
+    Scope,
+    ScopeManager,
+    Variable,
+};

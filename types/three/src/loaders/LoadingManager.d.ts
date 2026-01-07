@@ -1,11 +1,9 @@
 import { Loader } from "./Loader.js";
 
-export const DefaultLoadingManager: LoadingManager;
-
 /**
  * Handles and keeps track of loaded and pending data.
  */
-export class LoadingManager {
+declare class LoadingManager {
     constructor(
         onLoad?: () => void,
         onProgress?: (url: string, loaded: number, total: number) => void,
@@ -18,7 +16,7 @@ export class LoadingManager {
      * @param loaded The number of items already loaded so far.
      * @param total The total amount of items to be loaded.
      */
-    onStart?: ((url: string, loaded: number, total: number) => void) | undefined;
+    onStart: ((url: string, loaded: number, total: number) => void) | undefined;
 
     /**
      * Will be called when all items finish loading.
@@ -42,28 +40,34 @@ export class LoadingManager {
      */
     onError: (url: string) => void;
 
-    /**
-     * If provided, the callback will be passed each resource URL before a request is sent.
-     * The callback may return the original URL, or a new URL to override loading behavior.
-     * This behavior can be used to load assets from .ZIP files, drag-and-drop APIs, and Data URIs.
-     * @param callback URL modifier callback. Called with url argument, and must return resolvedURL.
-     */
-    setURLModifier(callback?: (url: string) => string): this;
+    abortController: AbortController;
+
+    itemStart: (url: string) => void;
+    itemEnd: (url: string) => void;
+    itemError: (url: string) => void;
 
     /**
      * Given a URL, uses the URL modifier callback (if any) and returns a resolved URL.
      * If no URL modifier is set, returns the original URL.
      * @param url the url to load
      */
-    resolveURL(url: string): string;
+    resolveURL: (url: string) => string;
 
-    itemStart(url: string): void;
-    itemEnd(url: string): void;
-    itemError(url: string): void;
+    /**
+     * If provided, the callback will be passed each resource URL before a request is sent.
+     * The callback may return the original URL, or a new URL to override loading behavior.
+     * This behavior can be used to load assets from .ZIP files, drag-and-drop APIs, and Data URIs.
+     * @param callback URL modifier callback. Called with url argument, and must return resolvedURL.
+     */
+    setURLModifier: (callback?: (url: string) => string) => this;
 
-    // handlers
+    addHandler: (regex: RegExp, loader: Loader) => this;
+    removeHandler: (regex: RegExp) => this;
+    getHandler: (file: string) => Loader | null;
 
-    addHandler(regex: RegExp, loader: Loader): this;
-    removeHandler(regex: RegExp): this;
-    getHandler(file: string): Loader | null;
+    abort: () => this;
 }
+
+declare const DefaultLoadingManager: LoadingManager;
+
+export { DefaultLoadingManager, LoadingManager };

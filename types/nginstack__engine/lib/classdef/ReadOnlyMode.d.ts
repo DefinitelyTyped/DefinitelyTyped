@@ -1,7 +1,5 @@
-export type exports = number;
-declare let NEVER: number;
-declare let ALWAYS: number;
-declare let AFTER_INSERT: number;
-declare let ONEDIT: number;
-declare let FILLED: number;
-export {};
+export const NEVER = 0;
+export const ALWAYS = 1;
+export const AFTER_INSERT = 2;
+export const ONEDIT = 2;
+export const FILLED = 3;

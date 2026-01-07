@@ -1,6 +1,6 @@
 import * as React from "react";
 import ReactDataGrid = require("react-data-grid");
-import * as ReactDataGridPlugins from "react-data-grid-addons";
+import ReactDataGridPlugins from "react-data-grid-addons";
 import faker = require("faker");
 
 var Editors = ReactDataGridPlugins.Editors;

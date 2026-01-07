@@ -66,6 +66,7 @@ export interface PurchasedProducts {
     originalPurchaseDate?: number | undefined; // only if extended = true
     applicationVersion?: string | undefined; // only if extended = true
     originalApplicationVersion?: string | undefined; // only if extended = true
+    originalTransactionId?: string | undefined; // only if extended = true
 }
 
 export interface ValidationError extends Error {

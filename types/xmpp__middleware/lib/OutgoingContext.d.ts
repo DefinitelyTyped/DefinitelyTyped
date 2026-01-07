@@ -1,6 +1,6 @@
-import { Entity } from "../index";
-import Context = require("./Context");
+import { Entity } from "../index.js";
+import Context from "./Context.js";
 
-export = OutgoingContext;
+export default OutgoingContext;
 
 declare class OutgoingContext<TEntity extends Entity> extends Context<TEntity> {}

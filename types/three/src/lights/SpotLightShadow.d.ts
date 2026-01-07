@@ -69,4 +69,6 @@ export class SpotLightShadow extends LightShadow<PerspectiveCamera> {
      * @defaultValue `1`
      */
     focus: number;
+
+    aspect: number;
 }

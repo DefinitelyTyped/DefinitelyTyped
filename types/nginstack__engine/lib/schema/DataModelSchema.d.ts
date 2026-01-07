@@ -38,10 +38,6 @@ declare namespace DataModelSchema {
         DataModelSchemaOptions,
     };
 }
-interface DataModelSchemaOptions {
-    baseClass: number;
-    ignoreClassDefErrors: boolean;
-}
 declare function getRemoteSchema(
     database: Database,
     options?: DataModelSchemaOptions | Partial<DataModelSchemaOptions>
@@ -58,11 +54,7 @@ interface TableInfo {
     keyFieldName: string;
     classFieldName: string;
     versionFieldName: string;
-    cacheStrategy: {
-        ALWAYS: string;
-        NEVER: string;
-        ON_DEMAND: string;
-    };
+    cacheStrategy: typeof TableCacheStrategy;
     upgradeMustSyncRecords: boolean;
     managedDatabaseSchema: boolean;
     tablespace: string;
@@ -128,3 +120,8 @@ interface DataModelSchemaInfo {
     unmanagedTableColumns: Record<string, string[]>;
     unmanagedTableIndexes: Record<string, string[]>;
 }
+interface DataModelSchemaOptions {
+    baseClass: number;
+    ignoreClassDefErrors: boolean;
+}
+import TableCacheStrategy = require('../classdef/TableCacheStrategy.js');

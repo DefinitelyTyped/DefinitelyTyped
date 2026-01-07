@@ -1,0 +1,39 @@
+{
+    "private": true,
+    "nonNpm": true,
+    "nonNpmDescription": "Type definitions for non-npm package webvis 3.12",
+    "name": "@types/webvis",
+    "version": "3.12.9999",
+    "projects": [
+        "https://threedy.io"
+    ],
+    "devDependencies": {
+        "@types/webvis": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Threedy GmbH",
+            "githubUsername": "threedy-io"
+        },
+        {
+            "name": "instant3Dhub",
+            "githubUsername": "instant3Dhub"
+        },
+        {
+            "name": "Timo Sturm",
+            "githubUsername": "tsturm"
+        },
+        {
+            "name": "Dennis Basgier",
+            "githubUsername": "dbthreed"
+        },
+        {
+            "name": "Erik Spiegelberg",
+            "githubUsername": "ErikSpiegelberg"
+        },
+        {
+            "name": "Tim Lam",
+            "githubUsername": "TimLamThreedy"
+        }
+    ]
+}

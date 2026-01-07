@@ -1,5 +1,4 @@
 import Node from "../core/Node.js";
-import { NodeRepresentation, ShaderNodeObject } from "../tsl/TSLCore.js";
 
 export default class RemapNode extends Node {
     node: Node;
@@ -15,22 +14,45 @@ export default class RemapNode extends Node {
 
 export const remap: (
     node: Node,
-    inLowNode: NodeRepresentation,
-    inHighNode: NodeRepresentation,
-    outLowNode?: NodeRepresentation,
-    outHighNode?: NodeRepresentation,
-) => ShaderNodeObject<RemapNode>;
+    inLowNode: Node | number,
+    inHighNode: Node | number,
+    outLowNode?: Node | number,
+    outHighNode?: Node | number,
+) => RemapNode;
 export const remapClamp: (
     node: Node,
-    inLowNode: NodeRepresentation,
-    inHighNode: NodeRepresentation,
-    outLowNode?: NodeRepresentation,
-    outHighNode?: NodeRepresentation,
-) => ShaderNodeObject<RemapNode>;
+    inLowNode: Node | number,
+    inHighNode: Node | number,
+    outLowNode?: Node | number,
+    outHighNode?: Node | number,
+) => RemapNode;
 
-declare module "../tsl/TSLCore.js" {
-    interface NodeElements {
-        remap: typeof remap;
-        remapClamp: typeof remapClamp;
+declare module "../Nodes.js" {
+    interface Node {
+        remap: (
+            inLowNode: Node | number,
+            inHighNode: Node | number,
+            outLowNode?: Node | number,
+            outHighNode?: Node | number,
+        ) => RemapNode;
+        remapAssign: (
+            inLowNode: Node | number,
+            inHighNode: Node | number,
+            outLowNode?: Node | number,
+            outHighNode?: Node | number,
+        ) => this;
+
+        remapClamp: (
+            inLowNode: Node | number,
+            inHighNode: Node | number,
+            outLowNode?: Node | number,
+            outHighNode?: Node | number,
+        ) => RemapNode;
+        remapClampAssign: (
+            inLowNode: Node | number,
+            inHighNode: Node | number,
+            outLowNode?: Node | number,
+            outHighNode?: Node | number,
+        ) => this;
     }
 }

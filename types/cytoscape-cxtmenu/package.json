@@ -6,7 +6,7 @@
         "https://github.com/cytoscape/cytoscape.js-cxtmenu"
     ],
     "dependencies": {
-        "@types/cytoscape": "*"
+        "cytoscape": "^3.31"
     },
     "devDependencies": {
         "@types/cytoscape-cxtmenu": "workspace:."

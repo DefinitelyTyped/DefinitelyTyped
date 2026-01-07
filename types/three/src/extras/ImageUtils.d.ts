@@ -10,6 +10,7 @@ declare class ImageUtils {
      */
     static getDataURL(
         image: HTMLImageElement | HTMLCanvasElement | CanvasImageSource | ImageBitmap | ImageData,
+        type?: string,
     ): string;
 
     /**

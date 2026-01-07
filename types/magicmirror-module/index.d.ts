@@ -18,7 +18,7 @@ declare namespace Module {
         // Subclassable methods
         init: () => void;
         loaded: (callback?: () => void) => void;
-        start: () => void;
+        start: () => void | Promise<void>;
         getScripts: () => string[];
         getStyles: () => string[];
         getTranslations: () => { [key: string]: string };
@@ -50,7 +50,9 @@ declare namespace Module {
 
 /* tslint:disable:no-single-declare-module */
 declare module "node_helper" {
-    function create(object: ThisType<NonNullable<NodeHelperModule>> & Partial<NodeHelperModule>): void;
+    function create<T>(
+        object: ThisType<T & NonNullable<NodeHelperModule>> & Partial<NodeHelperModule>,
+    ): new() => T & NodeHelperModule;
 
     interface NodeHelperModule {
         readonly name: string;

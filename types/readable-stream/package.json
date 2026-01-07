@@ -6,8 +6,7 @@
         "https://github.com/nodejs/readable-stream"
     ],
     "dependencies": {
-        "@types/node": "*",
-        "safe-buffer": "~5.1.1"
+        "@types/node": "*"
     },
     "devDependencies": {
         "@types/readable-stream": "workspace:."

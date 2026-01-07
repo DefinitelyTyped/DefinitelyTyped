@@ -63,7 +63,8 @@ declare enum builtins {
     REGROLE = 4096,
 }
 type TypeId = builtins;
-type TypeParser<I extends (string | Buffer), T> = (value: I) => T;
+type TypeParser<TOid = number, TReturn = any> = (oid: TOid) => TReturn;
+type TypeFormat = "text" | "binary";
 
 export = TypeOverrides;
 declare class TypeOverrides implements CustomTypesConfig {
@@ -72,6 +73,5 @@ declare class TypeOverrides implements CustomTypesConfig {
     setTypeParser<T>(oid: number | TypeId, format: "text", parseFn: TypeParser<string, T>): void;
     setTypeParser<T>(oid: number | TypeId, format: "binary", parseFn: TypeParser<Buffer, T>): void;
 
-    getTypeParser<T>(oid: number | TypeId, format?: "text"): TypeParser<string, T | string>;
-    getTypeParser<T>(oid: number | TypeId, format: "binary"): TypeParser<Buffer, T | string>;
+    getTypeParser<T>(oid: number | TypeId, format?: TypeFormat): TypeParser;
 }

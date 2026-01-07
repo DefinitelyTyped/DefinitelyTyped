@@ -1,14 +1,17 @@
 export = TestResult;
-declare function TestResult(opt_error?: Error): void;
+declare function TestResult(error?: Error): void;
 declare class TestResult {
-    constructor(opt_error?: Error);
-    runTime: number;
+    constructor(error?: Error);
+    startTime: number;
+    duration: number;
+    fileId: any;
     testSuiteName: string;
     testCaseName: string;
+    product: number | null;
     memDelta: number;
-    wasSuccessful: boolean;
-    message: string;
-    stackTraceMessage: string;
+    passed: boolean;
+    errorMessage: string;
+    errorStack: string;
     failureCount: number;
     errorCount: number;
     private formatFileName_;

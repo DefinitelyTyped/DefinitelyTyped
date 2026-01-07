@@ -3,10 +3,12 @@
     "name": "@types/dom-chromium-ai",
     "version": "0.0.9999",
     "nonNpm": true,
-    "nonNpmDescription": "dom-chromium-ai",
+    "nonNpmDescription": "dom-chromium-ai. This includes types for the [Prompt API](https://github.com/webmachinelearning/prompt-api) (`LanguageModel`), [Writing Assistance APIs](https://github.com/webmachinelearning/writing-assistance-apis/) (`Writer`, `Rewriter`, `Summarizer`), [Translation API](https://github.com/webmachinelearning/translation-api/) (`LanguageDetector`, `Translator`), and [Proofreader API](https://github.com/webmachinelearning/proofreader-api) (`Proofreader`).",
     "projects": [
-        "https://github.com/explainers-by-googlers/writing-assistance-apis",
-        "https://github.com/explainers-by-googlers/prompt-api"
+        "https://github.com/webmachinelearning/prompt-api",
+        "https://github.com/webmachinelearning/writing-assistance-apis/",
+        "https://github.com/webmachinelearning/translation-api/",
+        "https://github.com/webmachinelearning/proofreader-api"
     ],
     "minimumTypeScriptVersion": "5.5",
     "devDependencies": {

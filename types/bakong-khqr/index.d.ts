@@ -45,7 +45,7 @@ export interface KHQRResponse {
 export class BakongKHQR {
     generateIndividual(individualInfo: IndividualInfo): KHQRResponse;
     generateMerchant(merchantInfo: MerchantInfo): KHQRResponse;
-    generateDeepLink(url: string, qr: string, sourceInfo?: SourceInfo): Promise<KHQRResponse>;
+    static generateDeepLink(url: string, qr: string, sourceInfo?: SourceInfo): Promise<KHQRResponse>;
     static verify(qr: string): { isValid: boolean };
     static decode(qr: string): KHQRResponse;
     static checkBakongAccount(url: string, accountID: string): Promise<{ bakongAccountExisted: boolean }>;

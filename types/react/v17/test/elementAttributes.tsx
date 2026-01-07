@@ -1,5 +1,13 @@
 import * as React from "react";
 
+declare module "react" {
+    namespace JSX {
+        interface IntrinsicElements {
+            "custom-element": React.HTMLAttributes<unknown>;
+        }
+    }
+}
+
 const testCases = [
     <span />,
     <span accessKey="s" />,
@@ -61,7 +69,9 @@ const testCases = [
         <source media="test" srcSet="test" width={50} height={50} />
         <img src="test" width={100} height={100} />
     </picture>,
+    <dialog />,
     <dialog
+        closedby="closerequest"
         onCancel={event => {
             // $ExpectType SyntheticEvent<HTMLDialogElement, Event>
             event;
@@ -70,9 +80,21 @@ const testCases = [
             // $ExpectType SyntheticEvent<HTMLDialogElement, Event>
             event;
         }}
-    >
-    </dialog>,
+        open
+    />,
     <link nonce="8IBTHwOdqNKAWeKl7plt8g==" />,
+    <>
+        <template>
+            <div part="base" />
+            <custom-element exportparts="nested" />
+        </template>
+    </>,
+    <link rel="expect" href="#lead-content" blocking="render" />,
+    <link rel="expect" href="#lead-content" blocking="render render" />,
+    <style blocking="render" />,
+    <style blocking="render render" />,
+    <script blocking="render" async />,
+    <script blocking="render render" async />,
 ];
 
 // Needed to check these HTML elements in event callbacks.
@@ -110,4 +132,13 @@ const eventCallbacksTestCases = [
     <meter onClick={e => e.currentTarget.optimum} />,
     <output onClick={e => e.currentTarget.value} />,
     <time onClick={e => e.currentTarget.dateTime} />,
+    <video onResize={e => e.currentTarget} onResizeCapture={e => e.currentTarget} />,
+];
+
+const ariaAttributesTestCases = [
+    <a aria-braillelabel="a" />,
+    <a aria-brailleroledescription="a" />,
+    <a aria-colindextext="a" />,
+    <a aria-rowindextext="a" />,
+    <a aria-description="a" />,
 ];

@@ -2,7 +2,6 @@ import { LinearSRGBColorSpace, SRGBColorSpace } from "../../constants.js";
 import Node from "../core/Node.js";
 import NodeBuilder from "../core/NodeBuilder.js";
 import TempNode from "../core/TempNode.js";
-import { NodeRepresentation, ShaderNodeObject } from "../tsl/TSLCore.js";
 
 export type WorkingOrOutputColorSpace = "WorkingColorSpace" | "OutputColorSpace";
 
@@ -27,34 +26,35 @@ export default class ColorSpaceNode extends TempNode {
     resolveColorSpace(nodeBuilder: NodeBuilder, colorSpace: WorkingOrOutputColorSpace): string;
 }
 
-export const toOutputColorSpace: (
-    node: NodeRepresentation,
-) => ShaderNodeObject<ColorSpaceNode>;
-export const toWorkingColorSpace: (
-    node: NodeRepresentation,
-) => ShaderNodeObject<ColorSpaceNode>;
-
 export const workingToColorSpace: (
-    node: NodeRepresentation,
-    colorSpace: string,
-) => ShaderNodeObject<ColorSpaceNode>;
+    node: Node,
+    targetColorSpace: string,
+) => ColorSpaceNode;
 export const colorSpaceToWorking: (
-    node: NodeRepresentation,
-    colorSpace: string,
-) => ShaderNodeObject<ColorSpaceNode>;
+    node: Node,
+    sourceColorSpace: string,
+) => ColorSpaceNode;
 
 export const convertColorSpace: (
-    node: NodeRepresentation,
+    node: Node,
     sourceColorSpace: string,
     targetColorSpace: string,
-) => ShaderNodeObject<ColorSpaceNode>;
+) => ColorSpaceNode;
 
-declare module "../tsl/TSLCore.js" {
-    interface NodeElements {
-        toOutputColorSpace: typeof toOutputColorSpace;
-        toWorkingColorSpace: typeof toWorkingColorSpace;
+declare module "../Nodes.js" {
+    interface Node {
+        workingToColorSpace: (
+            targetColorSpace: string,
+        ) => ColorSpaceNode;
+        workingToColorSpaceAssign: (
+            targetColorSpace: string,
+        ) => this;
 
-        workingToColorSpace: typeof workingToColorSpace;
-        colorSpaceToWorking: typeof colorSpaceToWorking;
+        colorSpaceToWorking: (
+            sourceColorSpace: string,
+        ) => ColorSpaceNode;
+        colorSpaceToWorkingAssign: (
+            sourceColorSpace: string,
+        ) => this;
     }
 }

@@ -1,16 +1,27 @@
 {
     "private": true,
     "name": "@types/eslint-scope",
-    "version": "3.7.9999",
+    "version": "8.3.9999",
+    "type": "module",
     "projects": [
         "https://github.com/eslint/eslint-scope"
     ],
     "dependencies": {
         "@types/eslint": "*",
-        "@types/estree": "*"
+        "@types/esrecurse": "*",
+        "@types/estree": "*",
+        "eslint-visitor-keys": "*"
     },
     "devDependencies": {
-        "@types/eslint-scope": "workspace:."
+        "@types/eslint-scope": "workspace:.",
+        "@types/espree": "*"
+    },
+    "exports": {
+        ".": {
+            "import": "./index.d.mts",
+            "require": "./index.d.cts"
+        },
+        "./package.json": "./package.json"
     },
     "owners": [
         {

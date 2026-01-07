@@ -1,4 +1,4 @@
-import { ComponentType, ReactNode } from "react";
+import { ComponentClass, ComponentType, ReactInstance, ReactNode } from "react";
 import { ImageStyle, StyleProp, TextProps, TextStyle, ViewProps, ViewStyle } from "react-native";
 
 type Nullish = null | undefined;
@@ -114,5 +114,9 @@ export type HTMLViewNodeRenderer = (
     parent: HTMLViewNode | Nullish,
 ) => ReactNode;
 
-declare const HTMLView: ComponentType<HTMLViewProps>;
+declare const HTMLView: ComponentClass<HTMLViewProps> & {
+    refs?: {
+        [key: string]: ReactInstance;
+    };
+};
 export default HTMLView;

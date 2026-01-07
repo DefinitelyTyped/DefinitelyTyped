@@ -1,10 +1,6 @@
 import * as fs from "fs";
 import OSRM = require("osrm");
 
-// Access to Types from namespace
-const tile: OSRM.Tile = [0, 0, 0];
-const overview: OSRM.OverviewTypes = "full";
-
 // Version
 OSRM.version;
 
@@ -136,6 +132,18 @@ osrm.match({ coordinates, timestamps, exclude }, (err, response) => {
     if (err) throw err;
     console.log(response.tracepoints); // array of Waypoint objects
     console.log(response.matchings); // array of Route objects
+
+    response.tracepoints.forEach((tracepoint) => {
+        if (!tracepoint) {
+            return;
+        }
+
+        // $ExpectType number
+        tracepoint.matchings_index;
+
+        // $ExpectType number
+        tracepoint.waypoint_index;
+    });
 });
 
 osrm.match({ coordinates, timestamps, exclude }, { format: "object" }, (err, response) => {

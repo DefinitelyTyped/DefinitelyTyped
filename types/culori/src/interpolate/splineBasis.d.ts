@@ -1,5 +1,5 @@
-import { Interpolator } from "./Interpolator";
+// eslint-disable-next-line @definitelytyped/prefer-declare-function
+export const interpolatorSplineBasis: (arr: number[]) => (t: number) => number;
 
-export const interpolatorSplineBasis: Interpolator;
-
-export const interpolatorSplineBasisClosed: Interpolator;
+// eslint-disable-next-line @definitelytyped/prefer-declare-function
+export const interpolatorSplineBasisClosed: (arr: number[]) => (t: number) => number;

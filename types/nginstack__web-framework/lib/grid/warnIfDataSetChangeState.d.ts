@@ -8,6 +8,6 @@ declare function warnIfDataSetChangeState(
 declare namespace warnIfDataSetChangeState {
     export { DataSet, logger_ };
 }
-type DataSet = import("@nginstack/engine/lib/dataset/DataSet");
 declare let logger_: Logger;
+type DataSet = import("@nginstack/engine/lib/dataset/DataSet");
 import Logger = require("@nginstack/engine/lib/log/Logger.js");

@@ -2,9 +2,9 @@ export = MockResponse;
 declare function MockResponse(): void;
 declare class MockResponse {
     headers: {};
-    statusCode_: number;
-    content_: string;
-    contentType_: string;
+    private statusCode_;
+    private content_;
+    private contentType_;
     sent: boolean;
     getHeader(header: any): any;
     setHeader(header: any, value: any): void;

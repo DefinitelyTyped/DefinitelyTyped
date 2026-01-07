@@ -19,7 +19,7 @@ declare namespace LicenseCheckerWebpackPlugin {
         dependencies: Dependency[];
     }
 
-    type OutputWriter = (args: OutputWriterArgs) => string;
+    type OutputWriter = (args: OutputWriterArgs) => string | Promise<string>;
 
     interface Options {
         /**

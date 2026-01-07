@@ -1,8 +1,8 @@
-import rgb from "../rgb/definition";
-import { Rgb } from "../rgb/types";
-import convertP3ToXyz65 from "./convertP3ToXyz65";
-import convertXyz65ToP3 from "./convertXyz65ToP3";
-import { P3 } from "./types";
+import rgb from "../rgb/definition.js";
+import { Rgb } from "../rgb/types.js";
+import convertP3ToXyz65 from "./convertP3ToXyz65.js";
+import convertXyz65ToP3 from "./convertXyz65ToP3.js";
+import { P3 } from "./types.js";
 
 interface P3DefinitionMixin {
     mode: "p3";
@@ -20,6 +20,6 @@ interface P3DefinitionMixin {
     };
 }
 
-declare const definition: Omit<typeof rgb, keyof P3DefinitionMixin> & P3DefinitionMixin;
+declare const modeP3: Omit<typeof rgb, keyof P3DefinitionMixin> & P3DefinitionMixin;
 
-export default definition;
+export default modeP3;

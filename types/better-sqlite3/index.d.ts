@@ -62,8 +62,15 @@ declare namespace BetterSqlite3 {
         transaction<F extends VariableArgFunction>(fn: F): Transaction<F>;
         exec(source: string): this;
         pragma(source: string, options?: Database.PragmaOptions): unknown;
-        function(name: string, cb: (...params: unknown[]) => unknown): this;
-        function(name: string, options: Database.RegistrationOptions, cb: (...params: unknown[]) => unknown): this;
+        function(
+            name: string,
+            cb: (...params: any[]) => any,
+        ): this;
+        function(
+            name: string,
+            options: Database.RegistrationOptions,
+            cb: (...params: any[]) => any,
+        ): this;
         aggregate<T>(
             name: string,
             options: Database.RegistrationOptions & {

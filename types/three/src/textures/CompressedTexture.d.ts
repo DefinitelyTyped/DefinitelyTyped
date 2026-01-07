@@ -21,7 +21,7 @@ export interface CompressedTextureMipmap {
  * @see {@link https://threejs.org/docs/index.html#api/en/textures/CompressedTexture | Official Documentation}
  * @see {@link https://github.com/mrdoob/three.js/blob/master/src/textures/CompressedTexture.js | Source}
  */
-export class CompressedTexture extends Texture {
+export class CompressedTexture<TImageData = CompressedTextureImageData> extends Texture<TImageData> {
     /**
      * This creates a new {@link THREE.CompressedTexture | CompressedTexture} object.
      * @param mipmaps The mipmaps array should contain objects with data, width and height. The mipmaps should be of the
@@ -39,9 +39,9 @@ export class CompressedTexture extends Texture {
      * @param colorSpace See {@link Texture.colorSpace .colorSpace}. Default {@link NoColorSpace}
      */
     constructor(
-        mipmaps?: CompressedTextureMipmap[],
-        width?: number,
-        height?: number,
+        mipmaps: CompressedTextureMipmap[],
+        width: number,
+        height: number,
         format?: CompressedPixelFormat,
         type?: TextureDataType,
         mapping?: Mapping,
@@ -61,17 +61,10 @@ export class CompressedTexture extends Texture {
     readonly isCompressedTexture: true;
 
     /**
-     * Overridden with a object containing width and height.
-     * @override
-     */
-    get image(): { width: number; height: number };
-    set image(value: { width: number; height: number });
-
-    /**
      *  The mipmaps array should contain objects with data, width and height. The mipmaps should be of the correct
      *  format and type.
      */
-    mipmaps: CompressedTextureMipmap[] | undefined;
+    mipmaps: CompressedTextureMipmap[];
 
     /**
      * @override
@@ -91,4 +84,9 @@ export class CompressedTexture extends Texture {
      * @defaultValue `false`
      */
     generateMipmaps: boolean;
+}
+
+export interface CompressedTextureImageData {
+    width: number;
+    height: number;
 }

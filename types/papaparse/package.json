@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/papaparse",
-    "version": "5.3.9999",
+    "version": "5.5.9999",
     "projects": [
         "https://github.com/mholt/PapaParse"
     ],
@@ -37,10 +37,6 @@
             "githubUsername": "jliuhtonen"
         },
         {
-            "name": "Raphaël Barbazza",
-            "githubUsername": "rbarbazz"
-        },
-        {
             "name": "Piotr Błażejewicz",
             "githubUsername": "peterblazejewicz"
         },
@@ -51,6 +47,10 @@
         {
             "name": "Opportunity Liu",
             "githubUsername": "OpportunityLiu"
+        },
+        {
+            "name": "Kohei Matsubara",
+            "githubUsername": "matsuby"
         }
     ]
 }

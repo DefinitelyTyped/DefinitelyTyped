@@ -62,4 +62,12 @@ export class Sprite<TEventMap extends Object3DEventMap = Object3DEventMap> exten
      * @defaultValue {@link THREE.Vector2 | `new Vector2(0.5, 0.5)`}.
      */
     center: Vector2;
+
+    /**
+     * The number of instances of this sprite.
+     * Can only be used with {@link WebGPURenderer}.
+     *
+     * @default 1
+     */
+    count: number;
 }

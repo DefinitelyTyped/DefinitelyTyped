@@ -1,9 +1,25 @@
 import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionToggle,
+    AccordionToggleIcon,
     Box,
     Button,
+    ButtonLink,
+    Checkbox,
+    CheckboxGroup,
     DarkMode,
     DrawerContent,
+    Icon,
+    Input,
     LightMode,
+    Link,
+    Menu,
+    MenuItem,
+    MenuList,
+    MenuToggle,
+    MenuToggleIcon,
     Modal,
     ModalBody,
     ModalContent,
@@ -13,6 +29,11 @@ import {
     PopoverArrow,
     PopoverContent,
     PopoverTrigger,
+    Portal,
+    Radio,
+    RadioGroup,
+    Space,
+    Stack,
     Tab,
     TabList,
     TabPanel,
@@ -21,7 +42,9 @@ import {
     Text,
     theme,
     Toast,
+    TonicProps,
     TonicProvider,
+    TonicSVGProps,
     Tree,
     TreeItem,
     TreeItemContent,
@@ -34,7 +57,7 @@ import {
     UseToastRenderFn,
     VisuallyHidden,
 } from "@tonic-ui/react";
-import { useCallback, useRef, useState } from "react";
+import { forwardRef, useCallback, useRef, useState } from "react";
 
 const customTheme = { ...theme, box: { color: "grey" } };
 
@@ -43,7 +66,7 @@ const Container = (): React.JSX.Element => {
     const refUnknown = useRef<unknown>(undefined);
     const refAny = useRef<any>(undefined);
     setColorMode("light");
-    useColorStyle({ colorMode });
+    const [colorStyle] = useColorStyle({ colorMode });
     const portal = usePortalManager();
     portal.remove("fds");
     portal((close) => <div onClick={close} />, { appendToParentPortal: true });
@@ -51,7 +74,7 @@ const Container = (): React.JSX.Element => {
     return (
         <TonicProvider colorMode={{ defaultValue: "light", value: "dark" }} theme={customTheme} useCSSBaseline={true}>
             <DarkMode>
-                <Modal ref={refUnknown} autoFocus={true} size="md">
+                <Modal ref={refUnknown} autoFocus={true} size="md" background={colorStyle.background.secondary}>
                     <ModalContent ref={refAny}>
                         <ModalHeader
                             // Generic prop
@@ -88,6 +111,43 @@ const Container = (): React.JSX.Element => {
                         <ModalFooter />
                     </ModalContent>
                 </Modal>
+                <Link href="" target="_blank">
+                    <Text>Link</Text>
+                </Link>
+                <Portal>
+                    <ButtonLink
+                        href=""
+                        target="_blank"
+                        onClick={(e) =>
+                            e.currentTarget.id}
+                    >
+                        ButtonLink
+                    </ButtonLink>
+                </Portal>
+                <Checkbox
+                    defaultChecked={true}
+                    disabled={false}
+                    id="id"
+                    indeterminate={false}
+                    inputRef={refAny}
+                    name="id"
+                    onBlur={() => {}}
+                    onClick={() => {}}
+                    onFocus={() => {}}
+                    variantColor="blue"
+                    htmlFor="id"
+                    inputProps={{
+                        id: "id",
+                    }}
+                    value="value"
+                    checked={true}
+                    size="md"
+                    alignItems="self-start"
+                    onChange={(e) =>
+                        e.target.checked}
+                >
+                    Check
+                </Checkbox>
             </DarkMode>
             <LightMode>
                 <DrawerContent TransitionComponent={DrawerContent} />
@@ -121,7 +181,7 @@ const InferredTests = () => {
         _notFirstOfType: { background: "red", flexAlign: "start" },
         _lastChild: { background: "red", flexAlign: "start" },
         _lastOfType: { background: "red", flexAlign: "start" },
-        _nthOfType: "none",
+        _nthOfType: { "1st": { background: "red", flexAlign: "start" } },
         background: { sm: "red", lg: "blue" },
         m: "2x",
     };
@@ -215,6 +275,81 @@ const ToastApp = () => {
     return <Button onClick={handleClickOpenToast}>Open Toast</Button>;
 };
 
+const FormApp = () => {
+    const [radioGroupValue, setRadioGroupValue] = useState<string>("");
+    const [checkboxGroupValue, setCheckboxGroupValue] = useState<string[]>([]);
+
+    return (
+        <>
+            <Input value="" onChange={(e) => e.target.value} />
+            <Input type="checkbox" value="" onChange={(e) => e.target.checked} checked={true} />
+            <RadioGroup variantColor="green" value={radioGroupValue} onChange={value => setRadioGroupValue(value)}>
+                <Stack spacing="1x" shouldWrapChildren gap={{ sm: "32" }}>
+                    <Radio value="1">First</Radio>
+                    <Radio value="2">Second</Radio>
+                    <Radio value="3">Third</Radio>
+                </Stack>
+            </RadioGroup>
+            <CheckboxGroup value={checkboxGroupValue} onChange={value => setCheckboxGroupValue(value)}>
+                <Stack direction="column" spacing="1x" shouldWrapChildren gap={29} lineHeight={4}>
+                    <Checkbox value="apple">Apple</Checkbox>
+                    <Checkbox value="orange">Orange</Checkbox>
+                    <Checkbox value="papaya">Papaya</Checkbox>
+                </Stack>
+            </CheckboxGroup>
+        </>
+    );
+};
+
+const SVGApp = () => {
+    const SVG = forwardRef((props: TonicSVGProps<SVGSVGElement>, ref) => (
+        <Box
+            ref={ref}
+            as="svg"
+            {...(props as any)}
+        />
+    ));
+    const G = forwardRef((props: TonicSVGProps<SVGGElement>, ref) => <Box ref={ref} as="g" {...(props as any)} />);
+    const Rect = forwardRef((props: TonicSVGProps<SVGRectElement>, ref) => (
+        <Box ref={ref} as="rect" {...(props as any)} />
+    ));
+    const ForeignObject = forwardRef((props: TonicSVGProps<SVGForeignObjectElement>, ref) => (
+        <Box ref={ref} as="foreignObject" {...(props as any)} />
+    ));
+    const Path = forwardRef((props: TonicSVGProps<SVGPathElement>, ref) => (
+        <Box ref={ref} as="path" {...(props as any)} />
+    ));
+    const Ellipse = forwardRef((props: TonicSVGProps<SVGEllipseElement>, ref) => (
+        <Box ref={ref} as="ellipse" {...(props as any)} />
+    ));
+    const Circle = forwardRef((props: TonicSVGProps<SVGCircleElement>, ref) => (
+        <Box ref={ref} as="circle" {...(props as any)} />
+    ));
+
+    return (
+        <G>
+            <Rect
+                className="public-access-rect"
+                x={1}
+                y={2}
+                width={3}
+                height={4}
+                stroke={"gray:50"}
+                strokeDasharray="5"
+                strokeWidth={1}
+                rx="4"
+                fill="transparent"
+            />
+
+            <ForeignObject
+                y={0}
+            >
+                <Box />
+            </ForeignObject>
+        </G>
+    );
+};
+
 const TabsApp = () => {
     const [index, setIndex] = useState("tab1");
 
@@ -273,8 +408,11 @@ const TreeApp = () => {
 
 const PopoverTest = () => {
     return (
-        <Popover>
-            <PopoverTrigger>
+        <Popover
+            disabled={false} // Use the `disabled` prop to control whether the popover will be displayed
+            trigger="hover"
+        >
+            <PopoverTrigger shouldWrapChildren>
                 <Button>Open Popover</Button>
             </PopoverTrigger>
             <PopoverContent
@@ -286,5 +424,60 @@ const PopoverTest = () => {
                 <Box>Popover Content</Box>
             </PopoverContent>
         </Popover>
+    );
+};
+
+const AccordionApp = () => {
+    return (
+        <Accordion>
+            {["item1", "item2", "item3"].map((item, index) => (
+                <AccordionItem
+                    key={item}
+                    {...{ onToggle: (ctx) => ctx?.isExpanded }}
+                >
+                    <AccordionToggle
+                        {...{} as TonicProps}
+                    >
+                        <AccordionToggleIcon>
+                            {(_state, { ref, style: styleProps }) => {
+                                styleProps.transform = "rotate(-90deg)";
+                                return <Icon ref={ref} size="4x" {...styleProps} />;
+                            }}
+                        </AccordionToggleIcon>
+                        <Space width="2x" />
+                        <Text>
+                            Collapsible Item #{index + 1}
+                        </Text>
+                    </AccordionToggle>
+                    <AccordionContent>
+                        Content
+                    </AccordionContent>
+                </AccordionItem>
+            ))}
+        </Accordion>
+    );
+};
+
+const MenuApp = () => {
+    return (
+        <Menu>
+            <MenuToggle disabled={true}>
+                {({ getMenuToggleProps }) => (
+                    <Button {...getMenuToggleProps()}>
+                        <MenuToggleIcon />
+                    </Button>
+                )}
+            </MenuToggle>
+            <MenuList
+                width="max-content"
+                PopperComponent={PopoverArrow}
+                PopperProps={{ arrowWidth: 20, arrowHeight: 20, randomProp: 123 }}
+                TransitionComponent={Box}
+                TransitionProps={{ appear: false, in: false, randomProp: 123 }}
+            >
+                <MenuItem>List item 1</MenuItem>
+                <MenuItem>List item 2</MenuItem>
+            </MenuList>
+        </Menu>
     );
 };

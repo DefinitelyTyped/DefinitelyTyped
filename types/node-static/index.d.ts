@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import * as events from "events";
+import events = require("events");
 import * as fs from "fs";
 import * as http from "http";
 import * as mime from "mime";

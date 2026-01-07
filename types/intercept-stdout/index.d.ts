@@ -1,5 +1,7 @@
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-type hookFunction = (txt: string) => string | void;
+/// <reference types="node" />
+
+type Chunk = Parameters<NodeJS.Process["stdout"]["write"]>[0];
+type hookFunction = (chunk: Chunk) => Chunk;
 type unhookFunction = () => void;
 
 declare function intercept(

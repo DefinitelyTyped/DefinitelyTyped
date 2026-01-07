@@ -13,10 +13,5 @@
     "devDependencies": {
         "@types/promise-pg": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Chris Charabaruk",
-            "githubUsername": "coldacid"
-        }
-    ]
+    "owners": []
 }

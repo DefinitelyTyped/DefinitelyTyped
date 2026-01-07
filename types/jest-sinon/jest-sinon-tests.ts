@@ -72,7 +72,7 @@ expect(fn).toBeCalledTimes(1);
 expect(fn).toHaveReturnedWith({});
 expect(fn).toReturnWith({});
 expect(fn).toHaveReturned();
-expect(fn).toReturn();
+expect(fn).toReturn({});
 expect(fn).toHaveAlwaysReturnedWith({});
 expect(fn).toAlwaysReturnWith({});
 

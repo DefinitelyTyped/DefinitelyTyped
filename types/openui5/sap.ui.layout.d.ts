@@ -1,9 +1,11 @@
-// For Library Version: 1.132.0
+// For Library Version: 1.143.0
 
 declare module "sap/ui/layout/library" {
   import Control from "sap/ui/core/Control";
 
   import GridLayoutBase from "sap/ui/layout/cssgrid/GridLayoutBase";
+
+  import { CSSGapShortHand } from "sap/ui/core/library";
 
   /**
    * Available Background Design.
@@ -53,7 +55,7 @@ declare module "sap/ui/layout/library" {
     /**
      * Background with bright and dark background colors
      *
-     * @deprecated (since 1.50)
+     * @deprecated As of version 1.50.
      */
     Mixed = "Mixed",
   }
@@ -372,8 +374,9 @@ declare module "sap/ui/layout/library" {
      * 	{@link https://developer.mozilla.org/en-US/docs/Web/CSS/gap}
      *
      * @since 1.60.0
+     * @deprecated As of version 1.135. use {@link sap.ui.core.CSSGapShortHand} instead
      */
-    type CSSGridGapShortHand = string;
+    type CSSGridGapShortHand = CSSGapShortHand;
 
     /**
      * A string type that represents one or two grid lines. Used to define the position and size of a single
@@ -424,8 +427,8 @@ declare module "sap/ui/layout/library" {
       /**
        * Uses the `GridLayout` layout to render the `SimpleForm` control
        *
-       * @deprecated (since 1.67.0) - as the `sap.ui.commons` library is deprecated, and the `GridLayout` must
-       * not be used in responsive applications. Please use `ResponsiveGridLayout` or `ColumnLayout` instead.
+       * @deprecated As of version 1.67.0. as the `sap.ui.commons` library is deprecated, and the `GridLayout`
+       * must not be used in responsive applications. Please use `ResponsiveGridLayout` or `ColumnLayout` instead.
        */
       GridLayout = "GridLayout",
       /**
@@ -437,13 +440,14 @@ declare module "sap/ui/layout/library" {
       /**
        * Uses the `ResponsiveLayout` layout to render the `SimpleForm` control
        *
-       * @deprecated (since 1.93) - replaced by {@link sap.ui.layout.form.SimpleFormLayout.ColumnLayout ColumnLayout}
+       * @deprecated As of version 1.93. replaced by {@link sap.ui.layout.form.SimpleFormLayout.ColumnLayout ColumnLayout}
        */
       ResponsiveLayout = "ResponsiveLayout",
     }
     /**
-     * An `int` type that defines how many cells a control inside of a column of a `Form` control using the
-     * `ColumnLayout` control as layout can use.
+     * An `int` type that defines how many cells a control inside of a column of a {@link sap.ui.layout.form.Form Form }
+     * control using the {@link sap.ui.layout.form.ColumnLayout ColumnLayout} control as {@link sap.ui.layout.form.FormE#setLayout layout }
+     * can use.
      *
      * Allowed values are numbers from 1 to 12 and -1. -1 means the value is calculated.
      *
@@ -452,8 +456,9 @@ declare module "sap/ui/layout/library" {
     type ColumnCells = int;
 
     /**
-     * An `int` type that defines how many columns a `Form` control using the `ColumnLayout` as layout can have
-     * if it has large size
+     * An `int` type that defines how many columns a {@link sap.ui.layout.form.Form Form} control using the
+     * {@link sap.ui.layout.form.ColumnLayout ColumnLayout} as {@link sap.ui.layout.form.FormE#setLayout layout }
+     * can have if it has large size
      *
      * Allowed values are numbers from 1 to 4. **Note:** In versions lower than 1.122 only 3 columns are allowed.
      *
@@ -462,8 +467,9 @@ declare module "sap/ui/layout/library" {
     type ColumnsL = int;
 
     /**
-     * An `int` type that defines how many columns a `Form` control using the `ColumnLayout` as layout can have
-     * if it has medium size
+     * An `int` type that defines how many columns a {@link sap.ui.layout.form.Form Form} control using the
+     * {@link sap.ui.layout.form.ColumnLayout ColumnLayout} as {@link sap.ui.layout.form.FormE#setLayout layout }
+     * can have if it has medium size
      *
      * Allowed values are numbers from 1 to 3. **Note:** In versions lower than 1.122 only 2 columns are allowed.
      *
@@ -472,8 +478,9 @@ declare module "sap/ui/layout/library" {
     type ColumnsM = int;
 
     /**
-     * An `int` type that defines how many columns a `Form` control using the `ColumnLayout` as layout can have
-     * if it has extra-large size
+     * An `int` type that defines how many columns a {@link sap.ui.layout.form.Form Form} control using the
+     * {@link sap.ui.layout.form.ColumnLayout ColumnLayout} as {@link sap.ui.layout.form.FormE#setLayout layout }
+     * can have if it has extra-large size
      *
      * Allowed values are numbers from 1 to 6. **Note:** In versions lower than 1.89 only 4 columns are allowed.
      *
@@ -482,8 +489,9 @@ declare module "sap/ui/layout/library" {
     type ColumnsXL = int;
 
     /**
-     * An `int` type that defines how many cells beside the controls inside of a column of a `Form` control
-     * using the `ColumnLayout` control as layout are empty.
+     * An `int` type that defines how many cells beside the controls inside of a column of a {@link sap.ui.layout.form.Form Form }
+     * control using the {@link sap.ui.layout.form.ColumnLayout ColumnLayout} control as {@link sap.ui.layout.form.FormE#setLayout layout }
+     * are empty.
      *
      * Allowed values are numbers from 0 to 11.
      *
@@ -498,8 +506,8 @@ declare module "sap/ui/layout/library" {
      * It gets the full width of the row and the label is displayed above. **Note:** For labels full size has
      * no effect.
      *
-     * @deprecated (since 1.67.0) - as `sap.ui.commons` library is deprecated and the `GridLayout` must not
-     * be used in responsive applications. Please use `ResponsiveGridLayout` or `ColumnLayout` instead.
+     * @deprecated As of version 1.67.0. as `sap.ui.commons` library is deprecated and the `GridLayout` must
+     * not be used in responsive applications. Please use `ResponsiveGridLayout` or `ColumnLayout` instead.
      */
     type GridElementCells = string;
   }
@@ -653,7 +661,7 @@ declare module "sap/ui/layout/BlockLayout" {
      *
      * @returns Value of property `background`
      */
-    getBackground(): BlockBackgroundType | keyof typeof BlockBackgroundType;
+    getBackground(): BlockBackgroundType;
     /**
      * Gets content of aggregation {@link #getContent content}.
      *
@@ -918,9 +926,7 @@ declare module "sap/ui/layout/BlockLayoutCell" {
      *
      * @returns Value of property `backgroundColorSet`
      */
-    getBackgroundColorSet():
-      | BlockLayoutCellColorSet
-      | keyof typeof BlockLayoutCellColorSet;
+    getBackgroundColorSet(): BlockLayoutCellColorSet;
     /**
      * Gets current value of property {@link #getBackgroundColorShade backgroundColorShade}.
      *
@@ -931,9 +937,7 @@ declare module "sap/ui/layout/BlockLayoutCell" {
      *
      * @returns Value of property `backgroundColorShade`
      */
-    getBackgroundColorShade():
-      | BlockLayoutCellColorShade
-      | keyof typeof BlockLayoutCellColorShade;
+    getBackgroundColorShade(): BlockLayoutCellColorShade;
     /**
      * Gets content of aggregation {@link #getContent content}.
      *
@@ -960,7 +964,7 @@ declare module "sap/ui/layout/BlockLayoutCell" {
      *
      * @returns Value of property `titleAlignment`
      */
-    getTitleAlignment(): HorizontalAlign | keyof typeof HorizontalAlign;
+    getTitleAlignment(): HorizontalAlign;
     /**
      * Gets current value of property {@link #getTitleLevel titleLevel}.
      *
@@ -972,7 +976,7 @@ declare module "sap/ui/layout/BlockLayoutCell" {
      *
      * @returns Value of property `titleLevel`
      */
-    getTitleLevel(): TitleLevel | keyof typeof TitleLevel;
+    getTitleLevel(): TitleLevel;
     /**
      * Gets content of aggregation {@link #getTitleLink titleLink}.
      *
@@ -1615,7 +1619,7 @@ declare module "sap/ui/layout/BlockLayoutRow" {
      *
      * @returns Value of property `rowColorSet`
      */
-    getRowColorSet(): BlockRowColorSets | keyof typeof BlockRowColorSets;
+    getRowColorSet(): BlockRowColorSets;
     /**
      * Gets current value of property {@link #getScrollable scrollable}.
      *
@@ -1780,7 +1784,7 @@ declare module "sap/ui/layout/cssgrid/CSSGrid" {
 
   import GridLayoutBase from "sap/ui/layout/cssgrid/GridLayoutBase";
 
-  import { CSSSize } from "sap/ui/core/library";
+  import { CSSSize, CSSGapShortHand } from "sap/ui/core/library";
 
   import GridBasicLayout from "sap/ui/layout/cssgrid/GridBasicLayout";
 
@@ -1983,9 +1987,7 @@ declare module "sap/ui/layout/cssgrid/CSSGrid" {
      *
      * @returns Value of property `gridAutoFlow`
      */
-    getGridAutoFlow():
-      | cssgrid.CSSGridAutoFlow
-      | keyof typeof cssgrid.CSSGridAutoFlow;
+    getGridAutoFlow(): cssgrid.CSSGridAutoFlow;
     /**
      * Gets current value of property {@link #getGridAutoRows gridAutoRows}.
      *
@@ -2028,7 +2030,7 @@ declare module "sap/ui/layout/cssgrid/CSSGrid" {
      *
      * @returns Value of property `gridGap`
      */
-    getGridGap(): cssgrid.CSSGridGapShortHand;
+    getGridGap(): CSSGapShortHand;
     /**
      * Returns the layout configuration of the `CSSGrid`.
      *
@@ -2243,7 +2245,7 @@ declare module "sap/ui/layout/cssgrid/CSSGrid" {
       /**
        * New value for property `gridGap`
        */
-      sGridGap?: cssgrid.CSSGridGapShortHand
+      sGridGap?: CSSGapShortHand
     ): this;
     /**
      * Sets a new value for property {@link #getGridRowGap gridRowGap}.
@@ -2358,7 +2360,7 @@ declare module "sap/ui/layout/cssgrid/CSSGrid" {
      * It is a shorthand for gridRowGap and gridColumnGap. If some of them is set, the gridGap value will have
      * less priority and will be overwritten.
      */
-    gridGap?: cssgrid.CSSGridGapShortHand | PropertyBindingInfo | `{${string}}`;
+    gridGap?: CSSGapShortHand | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Sets the value for the CSS display:grid property {@link https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-rows MDN web docs: grid-auto-rows}
@@ -2401,7 +2403,7 @@ declare module "sap/ui/layout/cssgrid/GridBasicLayout" {
 
   import { cssgrid } from "sap/ui/layout/library";
 
-  import { CSSSize } from "sap/ui/core/library";
+  import { CSSSize, CSSGapShortHand } from "sap/ui/core/library";
 
   import ManagedObjectMetadata from "sap/ui/base/ManagedObjectMetadata";
 
@@ -2496,9 +2498,7 @@ declare module "sap/ui/layout/cssgrid/GridBasicLayout" {
      *
      * @returns Value of property `gridAutoFlow`
      */
-    getGridAutoFlow():
-      | cssgrid.CSSGridAutoFlow
-      | keyof typeof cssgrid.CSSGridAutoFlow;
+    getGridAutoFlow(): cssgrid.CSSGridAutoFlow;
     /**
      * Gets current value of property {@link #getGridAutoRows gridAutoRows}.
      *
@@ -2531,7 +2531,7 @@ declare module "sap/ui/layout/cssgrid/GridBasicLayout" {
      *
      * @returns Value of property `gridGap`
      */
-    getGridGap(): cssgrid.CSSGridGapShortHand;
+    getGridGap(): CSSGapShortHand;
     /**
      * Gets current value of property {@link #getGridRowGap gridRowGap}.
      *
@@ -2655,7 +2655,7 @@ declare module "sap/ui/layout/cssgrid/GridBasicLayout" {
       /**
        * New value for property `gridGap`
        */
-      sGridGap?: cssgrid.CSSGridGapShortHand
+      sGridGap?: CSSGapShortHand
     ): this;
     /**
      * Sets a new value for property {@link #getGridRowGap gridRowGap}.
@@ -2745,7 +2745,7 @@ declare module "sap/ui/layout/cssgrid/GridBasicLayout" {
     /**
      * Sets the value for the CSS display:grid property {@link https://developer.mozilla.org/en-US/docs/Web/CSS/grid-gap MDN web docs: grid-gap}
      */
-    gridGap?: cssgrid.CSSGridGapShortHand | PropertyBindingInfo | `{${string}}`;
+    gridGap?: CSSGapShortHand | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Sets the value for the CSS display:grid property {@link https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-rows MDN web docs: grid-auto-rows}
@@ -3832,7 +3832,7 @@ declare module "sap/ui/layout/cssgrid/GridSettings" {
 
   import { cssgrid } from "sap/ui/layout/library";
 
-  import { CSSSize } from "sap/ui/core/library";
+  import { CSSSize, CSSGapShortHand } from "sap/ui/core/library";
 
   import ManagedObjectMetadata from "sap/ui/base/ManagedObjectMetadata";
 
@@ -3925,9 +3925,7 @@ declare module "sap/ui/layout/cssgrid/GridSettings" {
      *
      * @returns Value of property `gridAutoFlow`
      */
-    getGridAutoFlow():
-      | cssgrid.CSSGridAutoFlow
-      | keyof typeof cssgrid.CSSGridAutoFlow;
+    getGridAutoFlow(): cssgrid.CSSGridAutoFlow;
     /**
      * Gets current value of property {@link #getGridAutoRows gridAutoRows}.
      *
@@ -3960,7 +3958,7 @@ declare module "sap/ui/layout/cssgrid/GridSettings" {
      *
      * @returns Value of property `gridGap`
      */
-    getGridGap(): cssgrid.CSSGridGapShortHand;
+    getGridGap(): CSSGapShortHand;
     /**
      * Gets current value of property {@link #getGridRowGap gridRowGap}.
      *
@@ -4084,7 +4082,7 @@ declare module "sap/ui/layout/cssgrid/GridSettings" {
       /**
        * New value for property `gridGap`
        */
-      sGridGap?: cssgrid.CSSGridGapShortHand
+      sGridGap?: CSSGapShortHand
     ): this;
     /**
      * Sets a new value for property {@link #getGridRowGap gridRowGap}.
@@ -4174,7 +4172,7 @@ declare module "sap/ui/layout/cssgrid/GridSettings" {
     /**
      * Sets the value for the CSS display:grid property {@link https://developer.mozilla.org/en-US/docs/Web/CSS/grid-gap MDN web docs: grid-gap}
      */
-    gridGap?: cssgrid.CSSGridGapShortHand | PropertyBindingInfo | `{${string}}`;
+    gridGap?: CSSGapShortHand | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Sets the value for the CSS display:grid property {@link https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-rows MDN web docs: grid-auto-rows}
@@ -4937,9 +4935,7 @@ declare module "sap/ui/layout/DynamicSideContent" {
      *
      * @returns Value of property `sideContentFallDown`
      */
-    getSideContentFallDown():
-      | SideContentFallDown
-      | keyof typeof SideContentFallDown;
+    getSideContentFallDown(): SideContentFallDown;
     /**
      * Gets current value of property {@link #getSideContentPosition sideContentPosition}.
      *
@@ -4951,9 +4947,7 @@ declare module "sap/ui/layout/DynamicSideContent" {
      *
      * @returns Value of property `sideContentPosition`
      */
-    getSideContentPosition():
-      | SideContentPosition
-      | keyof typeof SideContentPosition;
+    getSideContentPosition(): SideContentPosition;
     /**
      * Gets current value of property {@link #getSideContentVisibility sideContentVisibility}.
      *
@@ -4964,9 +4958,7 @@ declare module "sap/ui/layout/DynamicSideContent" {
      *
      * @returns Value of property `sideContentVisibility`
      */
-    getSideContentVisibility():
-      | SideContentVisibility
-      | keyof typeof SideContentVisibility;
+    getSideContentVisibility(): SideContentVisibility;
     /**
      * Gets current value of property {@link #getSideContentWidthL sideContentWidthL}.
      *
@@ -5829,10 +5821,12 @@ declare module "sap/ui/layout/form/ColumnContainerData" {
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
   /**
-   * The `ColumnLayout`-specific layout data for the `FormContainer` element.
+   * The {@link sap.ui.layout.form.ColumnLayout ColumnLayout}-specific layout data for the {@link sap.ui.layout.form.FormContainer FormContainer }
+   * element.
    *
-   * Depending on its size, the `Form` control is divided into 1, 2, 3 or 4 columns by the `ColumnLayout`
-   * control. Using `ColumnContainerData`, the size of the `FormContainer` element can be influenced.
+   * Depending on its size, the {@link sap.ui.layout.form.Form Form} control is divided into 1, 2, 3 or 4
+   * columns by the {@link sap.ui.layout.form.ColumnLayout ColumnLayout} control. Using `ColumnContainerData`,
+   * the size of the {@link sap.ui.layout.form.FormContainer FormContainer} element can be influenced.
    *
    * @since 1.56.0
    */
@@ -5902,7 +5896,8 @@ declare module "sap/ui/layout/form/ColumnContainerData" {
     /**
      * Gets current value of property {@link #getColumnsL columnsL}.
      *
-     * Number of columns the `FormContainer` element uses if the `Form` control has large size.
+     * Number of columns the {@link sap.ui.layout.form.FormContainer FormContainer} element uses if the {@link sap.ui.layout.form.Form Form }
+     * control has large size.
      *
      * The number of columns for large size must not be smaller than the number of columns for medium size.
      *
@@ -5915,7 +5910,8 @@ declare module "sap/ui/layout/form/ColumnContainerData" {
     /**
      * Gets current value of property {@link #getColumnsM columnsM}.
      *
-     * Number of columns the `FormContainer` element uses if the `Form` control has medium size.
+     * Number of columns the {@link sap.ui.layout.form.FormContainer FormContainer} element uses if the {@link sap.ui.layout.form.Form Form }
+     * control has medium size.
      *
      * Default value is `1`.
      *
@@ -5926,7 +5922,8 @@ declare module "sap/ui/layout/form/ColumnContainerData" {
     /**
      * Gets current value of property {@link #getColumnsXL columnsXL}.
      *
-     * Number of columns the `FormContainer` element uses if the `Form` control has extra-large size.
+     * Number of columns the {@link sap.ui.layout.form.FormContainer FormContainer} element uses if the {@link sap.ui.layout.form.Form Form }
+     * control has extra-large size.
      *
      * The number of columns for extra-large size must not be smaller than the number of columns for large size.
      *
@@ -5939,7 +5936,8 @@ declare module "sap/ui/layout/form/ColumnContainerData" {
     /**
      * Sets a new value for property {@link #getColumnsL columnsL}.
      *
-     * Number of columns the `FormContainer` element uses if the `Form` control has large size.
+     * Number of columns the {@link sap.ui.layout.form.FormContainer FormContainer} element uses if the {@link sap.ui.layout.form.Form Form }
+     * control has large size.
      *
      * The number of columns for large size must not be smaller than the number of columns for medium size.
      *
@@ -5959,7 +5957,8 @@ declare module "sap/ui/layout/form/ColumnContainerData" {
     /**
      * Sets a new value for property {@link #getColumnsM columnsM}.
      *
-     * Number of columns the `FormContainer` element uses if the `Form` control has medium size.
+     * Number of columns the {@link sap.ui.layout.form.FormContainer FormContainer} element uses if the {@link sap.ui.layout.form.Form Form }
+     * control has medium size.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -5977,7 +5976,8 @@ declare module "sap/ui/layout/form/ColumnContainerData" {
     /**
      * Sets a new value for property {@link #getColumnsXL columnsXL}.
      *
-     * Number of columns the `FormContainer` element uses if the `Form` control has extra-large size.
+     * Number of columns the {@link sap.ui.layout.form.FormContainer FormContainer} element uses if the {@link sap.ui.layout.form.Form Form }
+     * control has extra-large size.
      *
      * The number of columns for extra-large size must not be smaller than the number of columns for large size.
      *
@@ -6000,21 +6000,24 @@ declare module "sap/ui/layout/form/ColumnContainerData" {
    */
   export interface $ColumnContainerDataSettings extends $LayoutDataSettings {
     /**
-     * Number of columns the `FormContainer` element uses if the `Form` control has extra-large size.
+     * Number of columns the {@link sap.ui.layout.form.FormContainer FormContainer} element uses if the {@link sap.ui.layout.form.Form Form }
+     * control has extra-large size.
      *
      * The number of columns for extra-large size must not be smaller than the number of columns for large size.
      */
     columnsXL?: form.ColumnsXL | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * Number of columns the `FormContainer` element uses if the `Form` control has large size.
+     * Number of columns the {@link sap.ui.layout.form.FormContainer FormContainer} element uses if the {@link sap.ui.layout.form.Form Form }
+     * control has large size.
      *
      * The number of columns for large size must not be smaller than the number of columns for medium size.
      */
     columnsL?: form.ColumnsL | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * Number of columns the `FormContainer` element uses if the `Form` control has medium size.
+     * Number of columns the {@link sap.ui.layout.form.FormContainer FormContainer} element uses if the {@link sap.ui.layout.form.Form Form }
+     * control has medium size.
      */
     columnsM?: form.ColumnsM | PropertyBindingInfo | `{${string}}`;
   }
@@ -6033,10 +6036,12 @@ declare module "sap/ui/layout/form/ColumnElementData" {
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
   /**
-   * The `ColumnLayout`-specific layout data for the `FormElement` content fields.
+   * The {@link sap.ui.layout.form.ColumnLayout ColumnLayout}-specific layout data for the {@link sap.ui.layout.form.Form Form }
+   * content fields.
    *
-   * One `FormElement` element contains 12 cells and has two sizes, small and large. Using `ColumnElementData`,
-   * the default calculation of the cells used for a field or label can be overwritten.
+   * One {@link sap.ui.layout.form.FormElement FormElement} element contains 12 cells and has two sizes, small
+   * and large. Using `ColumnElementData`, the default calculation of the cells used for a field or label
+   * can be overwritten.
    *
    * @since 1.56.0
    */
@@ -6106,10 +6111,10 @@ declare module "sap/ui/layout/form/ColumnElementData" {
     /**
      * Gets current value of property {@link #getCellsLarge cellsLarge}.
      *
-     * Number of cells used by a field if the `FormElement` element is large. The label is then beside the fields
-     * per default.
+     * Number of cells used by a field if the {@link sap.ui.layout.form.FormElement FormElement} element is
+     * large. The label is then beside the fields per default.
      *
-     * If set to `12`, the full size of the `FormElement` element is used.
+     * If set to `12`, the full size of the {@link sap.ui.layout.form.FormElement FormElement} element is used.
      *
      * Default value is `8`.
      *
@@ -6120,10 +6125,10 @@ declare module "sap/ui/layout/form/ColumnElementData" {
     /**
      * Gets current value of property {@link #getCellsSmall cellsSmall}.
      *
-     * Number of cells used by a field if the `FormElement` element is small. The label is then above the fields
-     * per default.
+     * Number of cells used by a field if the {@link sap.ui.layout.form.FormElement FormElement} element is
+     * small. The label is then above the fields per default.
      *
-     * If set to `12`, the full size of the `FormElement` is used.
+     * If set to `12`, the full size of the {@link sap.ui.layout.form.FormElement FormElement} is used.
      *
      * Default value is `12`.
      *
@@ -6134,10 +6139,10 @@ declare module "sap/ui/layout/form/ColumnElementData" {
     /**
      * Sets a new value for property {@link #getCellsLarge cellsLarge}.
      *
-     * Number of cells used by a field if the `FormElement` element is large. The label is then beside the fields
-     * per default.
+     * Number of cells used by a field if the {@link sap.ui.layout.form.FormElement FormElement} element is
+     * large. The label is then beside the fields per default.
      *
-     * If set to `12`, the full size of the `FormElement` element is used.
+     * If set to `12`, the full size of the {@link sap.ui.layout.form.FormElement FormElement} element is used.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -6155,10 +6160,10 @@ declare module "sap/ui/layout/form/ColumnElementData" {
     /**
      * Sets a new value for property {@link #getCellsSmall cellsSmall}.
      *
-     * Number of cells used by a field if the `FormElement` element is small. The label is then above the fields
-     * per default.
+     * Number of cells used by a field if the {@link sap.ui.layout.form.FormElement FormElement} element is
+     * small. The label is then above the fields per default.
      *
-     * If set to `12`, the full size of the `FormElement` is used.
+     * If set to `12`, the full size of the {@link sap.ui.layout.form.FormElement FormElement} is used.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -6179,18 +6184,18 @@ declare module "sap/ui/layout/form/ColumnElementData" {
    */
   export interface $ColumnElementDataSettings extends $LayoutDataSettings {
     /**
-     * Number of cells used by a field if the `FormElement` element is large. The label is then beside the fields
-     * per default.
+     * Number of cells used by a field if the {@link sap.ui.layout.form.FormElement FormElement} element is
+     * large. The label is then beside the fields per default.
      *
-     * If set to `12`, the full size of the `FormElement` element is used.
+     * If set to `12`, the full size of the {@link sap.ui.layout.form.FormElement FormElement} element is used.
      */
     cellsLarge?: form.ColumnCells | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * Number of cells used by a field if the `FormElement` element is small. The label is then above the fields
-     * per default.
+     * Number of cells used by a field if the {@link sap.ui.layout.form.FormElement FormElement} element is
+     * small. The label is then above the fields per default.
      *
-     * If set to `12`, the full size of the `FormElement` is used.
+     * If set to `12`, the full size of the {@link sap.ui.layout.form.FormElement FormElement} is used.
      */
     cellsSmall?: form.ColumnCells | PropertyBindingInfo | `{${string}}`;
   }
@@ -6225,18 +6230,18 @@ declare module "sap/ui/layout/form/ColumnLayout" {
    * So the last row of the {@link sap.ui.layout.form.Form Form} control will not be fully used.
    *
    * The default size of the {@link sap.ui.layout.form.FormContainer FormContainer} element can be overwritten
-   * by using {@link sap.ui.layout.form.ColumnContainerData ColumnContainerData} as `LayoutData`. If one {@link sap.ui.layout.form.FormContainer FormContainer }
-   * element has {@link sap.ui.layout.form.ColumnContainerData ColumnContainerData} set, the size calculation
-   * of the other {@link sap.ui.layout.form.FormContainer FormContainer} elements might not lead to the expected
-   * result. In this case, use {@link sap.ui.layout.form.ColumnContainerData ColumnContainerData} also for
-   * the other {@link sap.ui.layout.form.FormContainer FormContainer} elements.
+   * by using {@link sap.ui.layout.form.ColumnContainerData ColumnContainerData} as {@link sap.ui.core.Element#setLayoutData LayoutData}.
+   * If one {@link sap.ui.layout.form.FormContainer FormContainer} element has {@link sap.ui.layout.form.ColumnContainerData ColumnContainerData }
+   * set, the size calculation of the other {@link sap.ui.layout.form.FormContainer FormContainer} elements
+   * might not lead to the expected result. In this case, use {@link sap.ui.layout.form.ColumnContainerData ColumnContainerData }
+   * also for the other {@link sap.ui.layout.form.FormContainer FormContainer} elements.
    *
    * The {@link sap.ui.layout.form.FormElement FormElement} elements are spread out to the columns of a {@link sap.ui.layout.form.FormContainer FormContainer }
    * element arranged in a newspaper-like order. The position of the labels and fields depends on the size
    * of the used column. If there is enough space, the labels are beside the fields, otherwise above the fields.
    *
    * The default size of a content control of a {@link sap.ui.layout.form.FormElement FormElement} element
-   * can be overwritten using {@link sap.ui.layout.form.ColumnElementData ColumnElementData} as `LayoutData`.
+   * can be overwritten using {@link sap.ui.layout.form.ColumnElementData ColumnElementData} as {@link sap.ui.core.Element#setLayoutData LayoutData}.
    * If one control assigned to a {@link sap.ui.layout.form.FormElement FormElement} element has {@link sap.ui.layout.form.ColumnElementData ColumnElementData }
    * set, the size calculation of the other controls assigned to the {@link sap.ui.layout.form.FormElement FormElement }
    * element might not lead to the expected result. In this case, use {@link sap.ui.layout.form.ColumnElementData ColumnElementData }
@@ -6247,7 +6252,7 @@ declare module "sap/ui/layout/form/ColumnLayout" {
    * results than might be expected.
    *
    * **Note:** This control cannot be used stand-alone, it just renders a {@link sap.ui.layout.form.Form Form }
-   * control, so it must be assigned to a {@link sap.ui.layout.form.Form Form} control using the `layout`
+   * control, so it must be assigned to a {@link sap.ui.layout.form.Form Form} control using the {@link sap.ui.layout.form.Form#setLayout layout }
    * aggregation.
    *
    * @since 1.56.0
@@ -6529,23 +6534,27 @@ declare module "sap/ui/layout/form/Form" {
    * A `Form` control arranges labels and fields (like input fields) into groups and rows. There are different
    * ways to visualize forms for different screen sizes.
    *
-   * A `Form` is structured into `FormContainers`. Each `FormContainer` consists of `FormElements`. The `FormElements`
-   * consists of a label and the form fields. A `Form` doesn't render its content by itself. The rendering
-   * is done by the assigned `FormLayout`. This is so that the rendering can be adopted to new UI requirements
-   * without changing the `Form` itself.
+   * A `Form` is structured into `FormContainers`. Each {@link sap.ui.layout.form.FormContainer FormContainer }
+   * consists of `FormElements`. The {@link sap.ui.layout.form.FormElement FormElement} consists of a label
+   * and the form fields. A `Form` doesn't render its content on its own. The rendering is done by the assigned
+   * {@link sap.ui.layout.form.FormLayout FormLayout}. This is so that the rendering can be adopted to new
+   * UI requirements without changing the `Form` itself.
    *
-   * For the content of a `Form`, `VariantLayoutData` are supported to allow simple switching of the `FormLayout`.
-   * `LayoutData` on the content can be used to overwrite the default layout of the `Form`.
+   * For the content of a `Form`, {@link sap.ui.core.VariantLayoutData VariantLayoutData} are supported to
+   * allow simple switching of the {@link sap.ui.layout.form.FormLayout FormLayout}. {@link sap.ui.core.Element#setLayoutData LayoutData }
+   * on the content can be used to overwrite the default layout of the `Form`.
    *
    * The `Form` (and its sub-controls) automatically add label and field assignment to enable screen reader
    * support. It also adds keyboard support to navigate between the fields and groups inside the form.
    *
-   * **Warning:** Do not put any layout or other container controls into the `FormElement`. Views are also
-   * not supported. This could damage the visual layout, keyboard support and screen-reader support.
+   * **Warning:** Do not put any layout or other container controls into the {@link sap.ui.layout.form.FormElement FormElement}.
+   * Views are also not supported. This could damage the visual layout, keyboard support and screen-reader
+   * support.
    *
-   * If editable controls are used as content, the `editable` property must be set to `true`, otherwise to
-   * `false`. If the `editable` property is set incorrectly, there will be visual issues like wrong label
-   * alignment or wrong spacing between the controls.
+   * If editable controls are used as content, the {@link #setEditable editable} property must be set to `true`,
+   * otherwise to `false`. If the {@link #setEditable editable} property is set incorrectly, there will be
+   * visual issues like wrong label alignment or wrong spacing between the controls. In addition to that,
+   * wrong screen reader announcements might occur.
    *
    * @since 1.16.0
    */
@@ -6681,12 +6690,13 @@ declare module "sap/ui/layout/form/Form" {
      *
      * The labels inside the form will be rendered by default in the according mode.
      *
-     * **Note:** The setting of this property does not change the content of the form. For example, `Input`
+     * **Note:** The setting of this property does not change the content of the form. For example, {@link sap.m.Input Input }
      * controls in a form with `editable` set to false are still editable.
      *
      * **Warning:** If this property is wrongly set, this might lead to visual issues. The labels and fields
      * might be misaligned, the labels might be rendered in the wrong mode, and the spacing between the single
-     * controls might be wrong. Also, controls that do not fit the mode might be rendered incorrectly.
+     * controls might be wrong. Also, controls that do not fit the mode might be rendered incorrectly. In addition
+     * to that, wrong screen reader announcements might occur.
      *
      * Default value is `false`.
      *
@@ -6714,7 +6724,7 @@ declare module "sap/ui/layout/form/Form" {
      * Title of the `Form`. Can either be a `Title` element or a string. If a `Title` element it used, the style
      * of the title can be set.
      *
-     * **Note:** If a `Toolbar` is used, the `Title` is ignored.
+     * **Note:** If a {@link #getToolbar Toolbar} is used, the `Title` is ignored.
      *
      * **Note:** If the title is provided as a string, the title is rendered with a theme-dependent default
      * level. As the `Form` control cannot know the structure of the page, this might not fit the page structure.
@@ -6727,9 +6737,9 @@ declare module "sap/ui/layout/form/Form" {
      *
      * Toolbar of the `Form`.
      *
-     * **Note:** If a `Toolbar` is used, the `Title` is ignored. If a title is needed inside the `Toolbar` it
-     * must be added at content to the `Toolbar`. In this case, add the `Title` to the `ariaLabelledBy` association.
-     * Use the right title level to meet the visual requirements. This might be theme-dependent.
+     * **Note:** If a `Toolbar` is used, the {@link #getTitle Title} is ignored. If a title is needed inside
+     * the `Toolbar` it must be added at content to the `Toolbar`. In this case, add the `Title` to the {@link #addAriaLabelledBy ariaLabelledBy }
+     * association. Use the right title level to meet the visual requirements. This might be theme-dependent.
      *
      * @since 1.36.0
      */
@@ -6825,12 +6835,13 @@ declare module "sap/ui/layout/form/Form" {
      *
      * The labels inside the form will be rendered by default in the according mode.
      *
-     * **Note:** The setting of this property does not change the content of the form. For example, `Input`
+     * **Note:** The setting of this property does not change the content of the form. For example, {@link sap.m.Input Input }
      * controls in a form with `editable` set to false are still editable.
      *
      * **Warning:** If this property is wrongly set, this might lead to visual issues. The labels and fields
      * might be misaligned, the labels might be rendered in the wrong mode, and the spacing between the single
-     * controls might be wrong. Also, controls that do not fit the mode might be rendered incorrectly.
+     * controls might be wrong. Also, controls that do not fit the mode might be rendered incorrectly. In addition
+     * to that, wrong screen reader announcements might occur.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -6916,12 +6927,13 @@ declare module "sap/ui/layout/form/Form" {
      *
      * The labels inside the form will be rendered by default in the according mode.
      *
-     * **Note:** The setting of this property does not change the content of the form. For example, `Input`
+     * **Note:** The setting of this property does not change the content of the form. For example, {@link sap.m.Input Input }
      * controls in a form with `editable` set to false are still editable.
      *
      * **Warning:** If this property is wrongly set, this might lead to visual issues. The labels and fields
      * might be misaligned, the labels might be rendered in the wrong mode, and the spacing between the single
-     * controls might be wrong. Also, controls that do not fit the mode might be rendered incorrectly.
+     * controls might be wrong. Also, controls that do not fit the mode might be rendered incorrectly. In addition
+     * to that, wrong screen reader announcements might occur.
      *
      * @since 1.20.0
      */
@@ -6940,7 +6952,7 @@ declare module "sap/ui/layout/form/Form" {
      * Title of the `Form`. Can either be a `Title` element or a string. If a `Title` element it used, the style
      * of the title can be set.
      *
-     * **Note:** If a `Toolbar` is used, the `Title` is ignored.
+     * **Note:** If a {@link #getToolbar Toolbar} is used, the `Title` is ignored.
      *
      * **Note:** If the title is provided as a string, the title is rendered with a theme-dependent default
      * level. As the `Form` control cannot know the structure of the page, this might not fit the page structure.
@@ -6952,9 +6964,9 @@ declare module "sap/ui/layout/form/Form" {
     /**
      * Toolbar of the `Form`.
      *
-     * **Note:** If a `Toolbar` is used, the `Title` is ignored. If a title is needed inside the `Toolbar` it
-     * must be added at content to the `Toolbar`. In this case, add the `Title` to the `ariaLabelledBy` association.
-     * Use the right title level to meet the visual requirements. This might be theme-dependent.
+     * **Note:** If a `Toolbar` is used, the {@link #getTitle Title} is ignored. If a title is needed inside
+     * the `Toolbar` it must be added at content to the `Toolbar`. In this case, add the `Title` to the {@link #addAriaLabelledBy ariaLabelledBy }
+     * association. Use the right title level to meet the visual requirements. This might be theme-dependent.
      *
      * @since 1.36.0
      */
@@ -6970,7 +6982,7 @@ declare module "sap/ui/layout/form/Form" {
      * Association to controls / IDs that label this control (see WAI-ARIA attribute `aria-labelledby`).
      *
      * **Note:** Every `Form` needs to have some title or label (at least for screen reader support). If no
-     * `Title` is set, and the `Form` is not a child or a control with a title, such as {@link sap.m.Panel Panel }
+     * {@link #getTitle Title} is set, and the `Form` is not a child or a control with a title, such as {@link sap.m.Panel Panel }
      * or {@link sap.m.Dialog Dialog}, a label or title needs to be assigned using the `ariaLabelledBy` association.
      *
      * @since 1.28.0
@@ -6998,8 +7010,9 @@ declare module "sap/ui/layout/form/FormContainer" {
   } from "sap/ui/base/ManagedObject";
 
   /**
-   * A `FormContainer` represents a group inside a `Form`. It consists of `FormElements`. The rendering of
-   * the `FormContainer` is done by the `FormLayout` assigned to the `Form`.
+   * A `FormContainer` represents a group inside a {@link sap.ui.layout.form.Form Form}. It consists of {@link sap.ui.layout.form.FormElement FormElements}.
+   * The rendering of the `FormContainer` is done by the {@link sap.ui.layout.form.Form#getLayout FormLayout }
+   * assigned to the {@link sap.ui.layout.form.Form Form}.
    *
    * @since 1.16.0
    */
@@ -7140,7 +7153,7 @@ declare module "sap/ui/layout/form/FormContainer" {
      *
      * Defines if the `FormContainer` is expandable.
      *
-     * **Note:** The expander icon will only be shown if a `title` is set for the `FormContainer`.
+     * **Note:** The expander icon will only be shown if a {@link #getTitle Title} is set for the `FormContainer`.
      *
      * Default value is `false`.
      *
@@ -7153,7 +7166,7 @@ declare module "sap/ui/layout/form/FormContainer" {
      *
      * Container is expanded.
      *
-     * **Note:** This property only works if `expandable` is set to `true`.
+     * **Note:** This property only works if {@link #getExpandable expandable} is set to `true`.
      *
      * Default value is `true`.
      *
@@ -7173,7 +7186,7 @@ declare module "sap/ui/layout/form/FormContainer" {
      * Title of the `FormContainer`. Can either be a `Title` element or a string. If a `Title` element is used,
      * the style of the title can be set.
      *
-     * **Note:** If a `Toolbar` is used, the `Title` is ignored.
+     * **Note:** If a {@link #getToolbar Toolbar} is used, the `Title` is ignored.
      *
      * **Note:** If the title is provided as a string, the title is rendered with a theme-dependent default
      * level. As the `Form` control cannot know the structure of the page, this might not fit the page structure.
@@ -7186,9 +7199,9 @@ declare module "sap/ui/layout/form/FormContainer" {
      *
      * Toolbar of the `FormContainer`.
      *
-     * **Note:** If a `Toolbar` is used, the `Title` is ignored. If a title is needed inside the `Toolbar` it
-     * must be added at content to the `Toolbar`. In this case add the `Title` to the `ariaLabelledBy` association.
-     * Use the right title level to meet the visual requirements. This might be theme-dependent.
+     * **Note:** If a `Toolbar` is used, the {@link #getTitle Title} is ignored. If a title is needed inside
+     * the `Toolbar` it must be added at content to the `Toolbar`. In this case add the `Title` to the {@link #addAriaLabelledBy ariaLabelledBy }
+     * association. Use the right title level to meet the visual requirements. This might be theme-dependent.
      *
      * @since 1.36.0
      */
@@ -7292,7 +7305,7 @@ declare module "sap/ui/layout/form/FormContainer" {
      *
      * Defines if the `FormContainer` is expandable.
      *
-     * **Note:** The expander icon will only be shown if a `title` is set for the `FormContainer`.
+     * **Note:** The expander icon will only be shown if a {@link #getTitle Title} is set for the `FormContainer`.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -7312,7 +7325,7 @@ declare module "sap/ui/layout/form/FormContainer" {
      *
      * Container is expanded.
      *
-     * **Note:** This property only works if `expandable` is set to `true`.
+     * **Note:** This property only works if {@link #getExpandable expandable} is set to `true`.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -7378,14 +7391,14 @@ declare module "sap/ui/layout/form/FormContainer" {
     /**
      * Container is expanded.
      *
-     * **Note:** This property only works if `expandable` is set to `true`.
+     * **Note:** This property only works if {@link #getExpandable expandable} is set to `true`.
      */
     expanded?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines if the `FormContainer` is expandable.
      *
-     * **Note:** The expander icon will only be shown if a `title` is set for the `FormContainer`.
+     * **Note:** The expander icon will only be shown if a {@link #getTitle Title} is set for the `FormContainer`.
      */
     expandable?: boolean | PropertyBindingInfo | `{${string}}`;
 
@@ -7407,7 +7420,7 @@ declare module "sap/ui/layout/form/FormContainer" {
      * Title of the `FormContainer`. Can either be a `Title` element or a string. If a `Title` element is used,
      * the style of the title can be set.
      *
-     * **Note:** If a `Toolbar` is used, the `Title` is ignored.
+     * **Note:** If a {@link #getToolbar Toolbar} is used, the `Title` is ignored.
      *
      * **Note:** If the title is provided as a string, the title is rendered with a theme-dependent default
      * level. As the `Form` control cannot know the structure of the page, this might not fit the page structure.
@@ -7419,9 +7432,9 @@ declare module "sap/ui/layout/form/FormContainer" {
     /**
      * Toolbar of the `FormContainer`.
      *
-     * **Note:** If a `Toolbar` is used, the `Title` is ignored. If a title is needed inside the `Toolbar` it
-     * must be added at content to the `Toolbar`. In this case add the `Title` to the `ariaLabelledBy` association.
-     * Use the right title level to meet the visual requirements. This might be theme-dependent.
+     * **Note:** If a `Toolbar` is used, the {@link #getTitle Title} is ignored. If a title is needed inside
+     * the `Toolbar` it must be added at content to the `Toolbar`. In this case add the `Title` to the {@link #addAriaLabelledBy ariaLabelledBy }
+     * association. Use the right title level to meet the visual requirements. This might be theme-dependent.
      *
      * @since 1.36.0
      */
@@ -7434,8 +7447,8 @@ declare module "sap/ui/layout/form/FormContainer" {
      * used `FormLayout`.
      *
      * **Note:** If there is more than one `FormContainers`, every `FormContainer` needs to have some title
-     * or label (at least for screen reader support). If no `Title` is set, a label or title needs to be assigned
-     * using the `ariaLabelledBy` association.
+     * or label (at least for screen reader support). If no {@link #getTitle Title} is set, a label or title
+     * needs to be assigned using the `ariaLabelledBy` association.
      *
      * @since 1.36.0
      */
@@ -7458,8 +7471,8 @@ declare module "sap/ui/layout/form/FormElement" {
   } from "sap/ui/base/ManagedObject";
 
   /**
-   * A `FormElement` represents a row in a `FormContainer`. A `FormElement` is a combination of one label
-   * and different controls associated to this label.
+   * A `FormElement` represents a row in a {@link sap.ui.layout.form.FormContainer FormContainer}. A `FormElement`
+   * is a combination of one label and different controls associated to this label.
    *
    * @since 1.16.0
    */
@@ -7559,7 +7572,7 @@ declare module "sap/ui/layout/form/FormElement" {
      *
      * **Warning:** Do not put any layout or other container controls in here. This could damage the visual
      * layout, keyboard support and screen-reader support. Only form controls are allowed. Views are also not
-     * supported. Allowed controls implement the interface `sap.ui.core.IFormContent`.
+     * supported. Allowed controls implement the interface {@link sap.ui.core.IFormContent}.
      */
     getFields(): Control[];
     /**
@@ -7711,7 +7724,7 @@ declare module "sap/ui/layout/form/FormElement" {
      *
      * **Warning:** Do not put any layout or other container controls in here. This could damage the visual
      * layout, keyboard support and screen-reader support. Only form controls are allowed. Views are also not
-     * supported. Allowed controls implement the interface `sap.ui.core.IFormContent`.
+     * supported. Allowed controls implement the interface {@link sap.ui.core.IFormContent}.
      */
     fields?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
   }
@@ -7812,7 +7825,7 @@ declare module "sap/ui/layout/form/FormLayout" {
      *
      * @returns Value of property `backgroundDesign`
      */
-    getBackgroundDesign(): BackgroundDesign | keyof typeof BackgroundDesign;
+    getBackgroundDesign(): BackgroundDesign;
     /**
      * In {@link sap.ui.layout.SemanticFormElement SemanticFormElement}, delimiters are rendered. They should
      * use only a small space. So `Layout`-dependent `LayoutData` are needed.
@@ -7916,8 +7929,8 @@ declare module "sap/ui/layout/form/GridContainerData" {
    * The `GridLayout`-specific layout data for `FormContainers`.
    *
    * @since 1.16.0
-   * @deprecated (since 1.67.0) - as `sap.ui.commons` library is deprecated and the `GridLayout` must not
-   * be used in responsive applications. Please use `ResponsiveGridLayout` or `ColumnLayout` instead.
+   * @deprecated As of version 1.67.0. as `sap.ui.commons` library is deprecated and the `GridLayout` must
+   * not be used in responsive applications. Please use `ResponsiveGridLayout` or `ColumnLayout` instead.
    */
   export default class GridContainerData extends LayoutData {
     /**
@@ -8019,8 +8032,8 @@ declare module "sap/ui/layout/form/GridContainerData" {
   /**
    * Describes the settings that can be provided to the GridContainerData constructor.
    *
-   * @deprecated (since 1.67.0) - as `sap.ui.commons` library is deprecated and the `GridLayout` must not
-   * be used in responsive applications. Please use `ResponsiveGridLayout` or `ColumnLayout` instead.
+   * @deprecated As of version 1.67.0. as `sap.ui.commons` library is deprecated and the `GridLayout` must
+   * not be used in responsive applications. Please use `ResponsiveGridLayout` or `ColumnLayout` instead.
    */
   export interface $GridContainerDataSettings extends $LayoutDataSettings {
     /**
@@ -8048,8 +8061,8 @@ declare module "sap/ui/layout/form/GridElementData" {
    * The `GridLayout`-specific layout data for `FormElement` fields.
    *
    * @since 1.16.0
-   * @deprecated (since 1.67.0) - as `sap.ui.commons` library is deprecated and the `GridLayout` must not
-   * be used in responsive applications. Please use `ResponsiveGridLayout` or `ColumnLayout` instead.
+   * @deprecated As of version 1.67.0. as `sap.ui.commons` library is deprecated and the `GridLayout` must
+   * not be used in responsive applications. Please use `ResponsiveGridLayout` or `ColumnLayout` instead.
    */
   export default class GridElementData extends LayoutData {
     /**
@@ -8196,8 +8209,8 @@ declare module "sap/ui/layout/form/GridElementData" {
   /**
    * Describes the settings that can be provided to the GridElementData constructor.
    *
-   * @deprecated (since 1.67.0) - as `sap.ui.commons` library is deprecated and the `GridLayout` must not
-   * be used in responsive applications. Please use `ResponsiveGridLayout` or `ColumnLayout` instead.
+   * @deprecated As of version 1.67.0. as `sap.ui.commons` library is deprecated and the `GridLayout` must
+   * not be used in responsive applications. Please use `ResponsiveGridLayout` or `ColumnLayout` instead.
    */
   export interface $GridElementDataSettings extends $LayoutDataSettings {
     /**
@@ -8247,8 +8260,8 @@ declare module "sap/ui/layout/form/GridLayout" {
    * using the `layout` aggregation.
    *
    * @since 1.16.0
-   * @deprecated (since 1.67.0) - as `sap.ui.commons` library is deprecated and the `GridLayout` must not
-   * be used in responsive applications. Please use `ResponsiveGridLayout` or `ColumnLayout` instead.
+   * @deprecated As of version 1.67.0. as `sap.ui.commons` library is deprecated and the `GridLayout` must
+   * not be used in responsive applications. Please use `ResponsiveGridLayout` or `ColumnLayout` instead.
    */
   export default class GridLayout extends FormLayout {
     /**
@@ -8354,8 +8367,8 @@ declare module "sap/ui/layout/form/GridLayout" {
   /**
    * Describes the settings that can be provided to the GridLayout constructor.
    *
-   * @deprecated (since 1.67.0) - as `sap.ui.commons` library is deprecated and the `GridLayout` must not
-   * be used in responsive applications. Please use `ResponsiveGridLayout` or `ColumnLayout` instead.
+   * @deprecated As of version 1.67.0. as `sap.ui.commons` library is deprecated and the `GridLayout` must
+   * not be used in responsive applications. Please use `ResponsiveGridLayout` or `ColumnLayout` instead.
    */
   export interface $GridLayoutSettings extends $FormLayoutSettings {
     /**
@@ -9209,7 +9222,7 @@ declare module "sap/ui/layout/form/ResponsiveLayout" {
    * using the `layout` aggregation.
    *
    * @since 1.16.0
-   * @deprecated (since 1.93) - replaced by {@link sap.ui.layout.form.ColumnLayout ColumnLayout}
+   * @deprecated As of version 1.93. replaced by {@link sap.ui.layout.form.ColumnLayout ColumnLayout}
    */
   export default class ResponsiveLayout extends FormLayout {
     /**
@@ -9284,7 +9297,7 @@ declare module "sap/ui/layout/form/ResponsiveLayout" {
   /**
    * Describes the settings that can be provided to the ResponsiveLayout constructor.
    *
-   * @deprecated (since 1.93) - replaced by {@link sap.ui.layout.form.ColumnLayout ColumnLayout}
+   * @deprecated As of version 1.93. replaced by {@link sap.ui.layout.form.ColumnLayout ColumnLayout}
    */
   export interface $ResponsiveLayoutSettings extends $FormLayoutSettings {}
 }
@@ -9541,13 +9554,13 @@ declare module "sap/ui/layout/form/SimpleForm" {
    * a `{@link sap.ui.layout.form.Form Form}` control is created along with its `{@link sap.ui.layout.form.FormContainer FormContainer}`
    * elements and `{@link sap.ui.layout.form.FormElement FormElement}` elements, but the complexity in the
    * API is not exposed to the user.
-   * 	 - A new `sap.ui.core.Title` element or `Toolbar` control starts a new group (`{@link sap.ui.layout.form.FormContainer FormContainer}`)
+   * 	 - A new {@link sap.ui.core.Title Title} element or `Toolbar` control starts a new group (`{@link sap.ui.layout.form.FormContainer FormContainer}`)
    *     in the form.
    * 	 - A new `Label` control starts a new row (`{@link sap.ui.layout.form.FormElement FormElement}`) in
    *     the form.
    * 	 - All other controls will be assigned to the row (`{@link sap.ui.layout.form.FormElement FormElement}`)
-   *     that started with the last label.  Use `LayoutData` to influence the layout for special cases in
-   *     the Input/Display controls.
+   *     that started with the last label.  Use {@link sap.ui.core.Element#setLayoutData LayoutData} to influence
+   *     the layout for special cases in the Input/Display controls.
    *
    * **Note:** If a more complex form is needed, use the `{@link sap.ui.layout.form.Form Form}` control instead.
    *
@@ -9704,7 +9717,7 @@ declare module "sap/ui/layout/form/SimpleForm" {
      *
      * @returns Value of property `backgroundDesign`
      */
-    getBackgroundDesign(): BackgroundDesign | keyof typeof BackgroundDesign;
+    getBackgroundDesign(): BackgroundDesign;
     /**
      * Gets current value of property {@link #getBreakpointL breakpointL}.
      *
@@ -9797,34 +9810,37 @@ declare module "sap/ui/layout/form/SimpleForm" {
      * Gets content of aggregation {@link #getContent content}.
      *
      * The content of the form is structured in the following way:
-     * 	 - Add a `sap.ui.core.Title` element or `Toolbar` control to start a new group (`{@link sap.ui.layout.form.FormContainer FormContainer}`).
+     * 	 - Add a {@link sap.ui.core.Title Title} element or `Toolbar` control to start a new group (`{@link sap.ui.layout.form.FormContainer FormContainer}`).
      *
-     * 	 - Add a `Label` control to start a new row (`{@link sap.ui.layout.form.FormElement FormElement}`).
+     * 	 - Add a {@link sap.m.Label Label} control to start a new row (`{@link sap.ui.layout.form.FormElement FormElement}`).
      *
      * 	 - Add controls as input fields, text fields or other as needed.
-     * 	 - Use `LayoutData` to influence the layout for special cases in the single controls. For example, if
-     *     a `ColumnLayout` is used as a layout, the form content is weighted using 4 cells for the labels and 8
-     *     cells for the field part, for large size. If there is only little space, the labels are above the fields
-     *     and each field uses 12 cells. If your input controls should influence their width, you can add `sap.ui.layout.ColumnElementData`
-     *     to them via `setLayoutData` method. Ensure that the sum of the weights in the `ColumnElementData` is
-     *     not more than 12, as this is the total width of the input control part of each form row.  Example
-     *     for a row where the `Input` uses 6 cells and the second `Input` uses 2 cells (using `ColumnElementData`):
-     *
+     * 	 - Use {@link sap.ui.core.Element#setLayoutData LayoutData} to influence the layout for special cases
+     *     in the single controls. For example, if a {@link sap.ui.layout.ColumnLayout ColumnLayout} is used as
+     *     a layout, the form content is weighted using 4 cells for the labels and 8 cells for the field part, for
+     *     large size. If there is only little space, the labels are above the fields and each field uses 12 cells.
+     *     If your input controls should influence their width, you can add {@link sap.ui.layout.form.ColumnElementData ColumnElementData }
+     *     to them via the {@link sap.ui.core.Element#setLayoutData setLayoutData} method. Ensure that the sum of
+     *     the weights in the {@link sap.ui.layout.form.ColumnElementData ColumnElementData} is not more than 12,
+     *     as this is the total width of the input control part of each form row.  Example for a row where
+     *     the {@link sap.m.Input Input} uses 6 cells and the second {@link sap.m.Input Input} uses 2 cells (using
+     *     {@link sap.ui.layout.form.ColumnElementData ColumnElementData}):
      * ```javascript
      *
      * new sap.m.Label({text:"Label"});
-     * new sap.m.Input({value:"6 cells", layoutData: new sap.ui.layout.ColumnElementData({cellsLarge: 6, cellsSmall: 8})}),
-     * new sap.m.Input({value:"2 cells", layoutData: new sap.ui.layout.ColumnElementData({cellsLarge: 2, cellsSmall: 4})}),
+     * new sap.m.Input({value:"6 cells", layoutData: new sap.ui.layout.form.ColumnElementData({cellsLarge: 6, cellsSmall: 8})}),
+     * new sap.m.Input({value:"2 cells", layoutData: new sap.ui.layout.form.ColumnElementData({cellsLarge: 2, cellsSmall: 4})}),
      * ```
      *
      *
-     * For example, if a `ResponsiveGridLayout` is used as a layout, there are 12 cells in one row. Depending
-     * on the screen size the labels use the defined `labelSpan`. The remaining cells are used for the fields
-     * (and `emptySpan` if defined). The available cells are distributed to all fields in the row. If one field
-     * should use a fixed number of cells you can add `sap.ui.layout.GridData` to them via `setLayoutData` method.
-     * If there are additional fields in the row they will get the remaining cells.  Example for a row
-     * with two `Input` controls where one uses four cells on small screens, one cell on medium screens and
-     * 2 cells on larger screens (using `ResponsiveGridLayout`):
+     * For example, if a {@link sap.ui.layout.ResponsiveGridLayout ResponsiveGridLayout} is used as a layout,
+     * there are 12 cells in one row. Depending on the screen size the labels use the defined `labelSpan`. The
+     * remaining cells are used for the fields (and `emptySpan` if defined). The available cells are distributed
+     * to all fields in the row. If one field should use a fixed number of cells you can add {@link sap.ui.layout.GridData GridData }
+     * to them via the {@link sap.ui.core.Element#setLayoutData setLayoutData} method. If there are additional
+     * fields in the row they will get the remaining cells.  Example for a row with two {@link sap.m.Input Input }
+     * controls where one uses four cells on small screens, one cell on medium screens and 2 cells on larger
+     * screens (using {@link sap.ui.layout.ResponsiveGridLayout ResponsiveGridLayout}):
      * ```javascript
      *
      * new sap.m.Label({text:"Label"});
@@ -9835,11 +9851,12 @@ declare module "sap/ui/layout/form/SimpleForm" {
      *
      * **Warning:** Do not put any layout or other container controls in here. This could damage the visual
      * layout, keyboard support and screen-reader support. Only labels, titles, toolbars and form controls are
-     * allowed. Views are also not supported. Allowed form controls implement the interface `sap.ui.core.IFormContent`.
+     * allowed. Views are also not supported. Allowed form controls implement the interface {@link sap.ui.core.IFormContent}.
      *
-     * If editable controls are used as content, the `editable` property must be set to `true`, otherwise to
-     * `false`. If the `editable` property is set incorrectly, there will be visual issues like wrong label
-     * alignment or wrong spacing between the controls.
+     * If editable controls are used as content, the {@link #setEditable editable} property must be set to `true`,
+     * otherwise to `false`. If the {@link #setEditable editable} property is set incorrectly, there will be
+     * visual issues like wrong label alignment or wrong spacing between the controls. In addition to that,
+     * wrong screen reader announcements might occur.
      */
     getContent(): UI5Element[];
     /**
@@ -9856,7 +9873,8 @@ declare module "sap/ui/layout/form/SimpleForm" {
      *
      * **Warning:** If this property is wrongly set, this might lead to visual issues. The labels and fields
      * might be misaligned, the labels might be rendered in the wrong mode, and the spacing between the single
-     * controls might be wrong. Also, controls that do not fit the mode might be rendered incorrectly.
+     * controls might be wrong. Also, controls that do not fit the mode might be rendered incorrectly. In addition
+     * to that, wrong screen reader announcements might occur.
      *
      * Default value is `false`.
      *
@@ -9932,7 +9950,7 @@ declare module "sap/ui/layout/form/SimpleForm" {
      *
      * Default value is `192`.
      *
-     * @deprecated (since 1.93) - use another `Layout`
+     * @deprecated As of version 1.93. use another `Layout`
      *
      * @returns Value of property `labelMinWidth`
      */
@@ -10022,7 +10040,7 @@ declare module "sap/ui/layout/form/SimpleForm" {
      *
      * @returns Value of property `layout`
      */
-    getLayout(): form.SimpleFormLayout | keyof typeof form.SimpleFormLayout;
+    getLayout(): form.SimpleFormLayout;
     /**
      * Gets current value of property {@link #getMaxContainerCols maxContainerCols}.
      *
@@ -10052,7 +10070,7 @@ declare module "sap/ui/layout/form/SimpleForm" {
      *
      * Default value is `-1`.
      *
-     * @deprecated (since 1.93) - use another `Layout`
+     * @deprecated As of version 1.93. use another `Layout`
      *
      * @returns Value of property `minWidth`
      */
@@ -10080,7 +10098,7 @@ declare module "sap/ui/layout/form/SimpleForm" {
      *
      * Title element of the `SimpleForm`. Can either be a `Title` element, or a string.
      *
-     * **Note:** If a `Toolbar` is used, the `Title` is ignored.
+     * **Note:** If a {@link #getToolbar Toolbar} is used, the `Title` is ignored.
      *
      * **Note:** If the title is provided as a string, the title is rendered with a theme-dependent default
      * level. As the `Form` control cannot know the structure of the page, this might not fit the page structure.
@@ -10095,8 +10113,9 @@ declare module "sap/ui/layout/form/SimpleForm" {
      *
      * Toolbar of the `SimpleForm`.
      *
-     * **Note:** If a `Toolbar` is used, the `Title` is ignored. If a title is needed inside the `Toolbar` it
-     * must be added at content to the `Toolbar`. In this case, add the `Title` to the `ariaLabelledBy` association.
+     * **Note:** If a `Toolbar` is used, the {@link #getTitle Title} is ignored. If a title is needed inside
+     * the `Toolbar` it must be added at content to the `Toolbar`. In this case, add the `Title` to the {@link #addAriaLabelledBy ariaLabelledBy }
+     * association. Use the right title level to meet the visual requirements. This might be theme-dependent.
      *
      * @since 1.36.0
      */
@@ -10377,7 +10396,8 @@ declare module "sap/ui/layout/form/SimpleForm" {
      *
      * **Warning:** If this property is wrongly set, this might lead to visual issues. The labels and fields
      * might be misaligned, the labels might be rendered in the wrong mode, and the spacing between the single
-     * controls might be wrong. Also, controls that do not fit the mode might be rendered incorrectly.
+     * controls might be wrong. Also, controls that do not fit the mode might be rendered incorrectly. In addition
+     * to that, wrong screen reader announcements might occur.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -10490,7 +10510,7 @@ declare module "sap/ui/layout/form/SimpleForm" {
      *
      * Default value is `192`.
      *
-     * @deprecated (since 1.93) - use another `Layout`
+     * @deprecated As of version 1.93. use another `Layout`
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -10659,7 +10679,7 @@ declare module "sap/ui/layout/form/SimpleForm" {
      *
      * Default value is `-1`.
      *
-     * @deprecated (since 1.93) - use another `Layout`
+     * @deprecated As of version 1.93. use another `Layout`
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -10761,7 +10781,7 @@ declare module "sap/ui/layout/form/SimpleForm" {
      *
      * **Note:** This property is only used if a `ResponsiveLayout` is used as a layout.
      *
-     * @deprecated (since 1.93) - use another `Layout`
+     * @deprecated As of version 1.93. use another `Layout`
      */
     minWidth?: int | PropertyBindingInfo | `{${string}}`;
 
@@ -10784,7 +10804,8 @@ declare module "sap/ui/layout/form/SimpleForm" {
      *
      * **Warning:** If this property is wrongly set, this might lead to visual issues. The labels and fields
      * might be misaligned, the labels might be rendered in the wrong mode, and the spacing between the single
-     * controls might be wrong. Also, controls that do not fit the mode might be rendered incorrectly.
+     * controls might be wrong. Also, controls that do not fit the mode might be rendered incorrectly. In addition
+     * to that, wrong screen reader announcements might occur.
      */
     editable?: boolean | PropertyBindingInfo | `{${string}}`;
 
@@ -10793,7 +10814,7 @@ declare module "sap/ui/layout/form/SimpleForm" {
      *
      * **Note:** This property is only used if a `ResponsiveLayout` is used as a layout.
      *
-     * @deprecated (since 1.93) - use another `Layout`
+     * @deprecated As of version 1.93. use another `Layout`
      */
     labelMinWidth?: int | PropertyBindingInfo | `{${string}}`;
 
@@ -11000,34 +11021,37 @@ declare module "sap/ui/layout/form/SimpleForm" {
 
     /**
      * The content of the form is structured in the following way:
-     * 	 - Add a `sap.ui.core.Title` element or `Toolbar` control to start a new group (`{@link sap.ui.layout.form.FormContainer FormContainer}`).
+     * 	 - Add a {@link sap.ui.core.Title Title} element or `Toolbar` control to start a new group (`{@link sap.ui.layout.form.FormContainer FormContainer}`).
      *
-     * 	 - Add a `Label` control to start a new row (`{@link sap.ui.layout.form.FormElement FormElement}`).
+     * 	 - Add a {@link sap.m.Label Label} control to start a new row (`{@link sap.ui.layout.form.FormElement FormElement}`).
      *
      * 	 - Add controls as input fields, text fields or other as needed.
-     * 	 - Use `LayoutData` to influence the layout for special cases in the single controls. For example, if
-     *     a `ColumnLayout` is used as a layout, the form content is weighted using 4 cells for the labels and 8
-     *     cells for the field part, for large size. If there is only little space, the labels are above the fields
-     *     and each field uses 12 cells. If your input controls should influence their width, you can add `sap.ui.layout.ColumnElementData`
-     *     to them via `setLayoutData` method. Ensure that the sum of the weights in the `ColumnElementData` is
-     *     not more than 12, as this is the total width of the input control part of each form row.  Example
-     *     for a row where the `Input` uses 6 cells and the second `Input` uses 2 cells (using `ColumnElementData`):
-     *
+     * 	 - Use {@link sap.ui.core.Element#setLayoutData LayoutData} to influence the layout for special cases
+     *     in the single controls. For example, if a {@link sap.ui.layout.ColumnLayout ColumnLayout} is used as
+     *     a layout, the form content is weighted using 4 cells for the labels and 8 cells for the field part, for
+     *     large size. If there is only little space, the labels are above the fields and each field uses 12 cells.
+     *     If your input controls should influence their width, you can add {@link sap.ui.layout.form.ColumnElementData ColumnElementData }
+     *     to them via the {@link sap.ui.core.Element#setLayoutData setLayoutData} method. Ensure that the sum of
+     *     the weights in the {@link sap.ui.layout.form.ColumnElementData ColumnElementData} is not more than 12,
+     *     as this is the total width of the input control part of each form row.  Example for a row where
+     *     the {@link sap.m.Input Input} uses 6 cells and the second {@link sap.m.Input Input} uses 2 cells (using
+     *     {@link sap.ui.layout.form.ColumnElementData ColumnElementData}):
      * ```javascript
      *
      * new sap.m.Label({text:"Label"});
-     * new sap.m.Input({value:"6 cells", layoutData: new sap.ui.layout.ColumnElementData({cellsLarge: 6, cellsSmall: 8})}),
-     * new sap.m.Input({value:"2 cells", layoutData: new sap.ui.layout.ColumnElementData({cellsLarge: 2, cellsSmall: 4})}),
+     * new sap.m.Input({value:"6 cells", layoutData: new sap.ui.layout.form.ColumnElementData({cellsLarge: 6, cellsSmall: 8})}),
+     * new sap.m.Input({value:"2 cells", layoutData: new sap.ui.layout.form.ColumnElementData({cellsLarge: 2, cellsSmall: 4})}),
      * ```
      *
      *
-     * For example, if a `ResponsiveGridLayout` is used as a layout, there are 12 cells in one row. Depending
-     * on the screen size the labels use the defined `labelSpan`. The remaining cells are used for the fields
-     * (and `emptySpan` if defined). The available cells are distributed to all fields in the row. If one field
-     * should use a fixed number of cells you can add `sap.ui.layout.GridData` to them via `setLayoutData` method.
-     * If there are additional fields in the row they will get the remaining cells.  Example for a row
-     * with two `Input` controls where one uses four cells on small screens, one cell on medium screens and
-     * 2 cells on larger screens (using `ResponsiveGridLayout`):
+     * For example, if a {@link sap.ui.layout.ResponsiveGridLayout ResponsiveGridLayout} is used as a layout,
+     * there are 12 cells in one row. Depending on the screen size the labels use the defined `labelSpan`. The
+     * remaining cells are used for the fields (and `emptySpan` if defined). The available cells are distributed
+     * to all fields in the row. If one field should use a fixed number of cells you can add {@link sap.ui.layout.GridData GridData }
+     * to them via the {@link sap.ui.core.Element#setLayoutData setLayoutData} method. If there are additional
+     * fields in the row they will get the remaining cells.  Example for a row with two {@link sap.m.Input Input }
+     * controls where one uses four cells on small screens, one cell on medium screens and 2 cells on larger
+     * screens (using {@link sap.ui.layout.ResponsiveGridLayout ResponsiveGridLayout}):
      * ```javascript
      *
      * new sap.m.Label({text:"Label"});
@@ -11038,11 +11062,12 @@ declare module "sap/ui/layout/form/SimpleForm" {
      *
      * **Warning:** Do not put any layout or other container controls in here. This could damage the visual
      * layout, keyboard support and screen-reader support. Only labels, titles, toolbars and form controls are
-     * allowed. Views are also not supported. Allowed form controls implement the interface `sap.ui.core.IFormContent`.
+     * allowed. Views are also not supported. Allowed form controls implement the interface {@link sap.ui.core.IFormContent}.
      *
-     * If editable controls are used as content, the `editable` property must be set to `true`, otherwise to
-     * `false`. If the `editable` property is set incorrectly, there will be visual issues like wrong label
-     * alignment or wrong spacing between the controls.
+     * If editable controls are used as content, the {@link #setEditable editable} property must be set to `true`,
+     * otherwise to `false`. If the {@link #setEditable editable} property is set incorrectly, there will be
+     * visual issues like wrong label alignment or wrong spacing between the controls. In addition to that,
+     * wrong screen reader announcements might occur.
      */
     content?:
       | UI5Element[]
@@ -11053,7 +11078,7 @@ declare module "sap/ui/layout/form/SimpleForm" {
     /**
      * Title element of the `SimpleForm`. Can either be a `Title` element, or a string.
      *
-     * **Note:** If a `Toolbar` is used, the `Title` is ignored.
+     * **Note:** If a {@link #getToolbar Toolbar} is used, the `Title` is ignored.
      *
      * **Note:** If the title is provided as a string, the title is rendered with a theme-dependent default
      * level. As the `Form` control cannot know the structure of the page, this might not fit the page structure.
@@ -11067,8 +11092,9 @@ declare module "sap/ui/layout/form/SimpleForm" {
     /**
      * Toolbar of the `SimpleForm`.
      *
-     * **Note:** If a `Toolbar` is used, the `Title` is ignored. If a title is needed inside the `Toolbar` it
-     * must be added at content to the `Toolbar`. In this case, add the `Title` to the `ariaLabelledBy` association.
+     * **Note:** If a `Toolbar` is used, the {@link #getTitle Title} is ignored. If a title is needed inside
+     * the `Toolbar` it must be added at content to the `Toolbar`. In this case, add the `Title` to the {@link #addAriaLabelledBy ariaLabelledBy }
+     * association. Use the right title level to meet the visual requirements. This might be theme-dependent.
      *
      * @since 1.36.0
      */
@@ -11078,8 +11104,9 @@ declare module "sap/ui/layout/form/SimpleForm" {
      * Association to controls / IDs which label this control (see WAI-ARIA attribute `aria-labelledby`).
      *
      * **Note:** Every `Form` needs to have some title or label (at least for screen reader support). If no
-     * `Title` is set, and the `Form` is not a child or a control with a title, such as {@link sap.m.Panel Panel }
-     * or {@link sap.m.Dialog Dialog}, a label or title needs to be assigned using the `ariaLabelledBy` association.
+     * {@link #getTitle Title} is set, and the `SimpleForm` is not a child or a control with a title, such as
+     * {@link sap.m.Panel Panel} or {@link sap.m.Dialog Dialog}, a label or title needs to be assigned using
+     * the `ariaLabelledBy` association.
      *
      * @since 1.32.0
      */
@@ -11311,7 +11338,7 @@ declare module "sap/ui/layout/Grid" {
      *
      * @returns Value of property `position`
      */
-    getPosition(): GridPosition | keyof typeof GridPosition;
+    getPosition(): GridPosition;
     /**
      * Gets current value of property {@link #getVSpacing vSpacing}.
      *
@@ -11738,7 +11765,7 @@ declare module "sap/ui/layout/GridData" {
      * Deprecated. Defines an indent value for large screens. This value overwrites the value for large screens
      * defined in the `indent` property.
      *
-     * @deprecated (since 1.17.1) - Use the `indentL` property instead.
+     * @deprecated As of version 1.17.1. Use the `indentL` property instead.
      *
      * @returns Value of property `indentLarge`
      */
@@ -11759,7 +11786,7 @@ declare module "sap/ui/layout/GridData" {
      * Deprecated. Defines an indent value for medium screens. This value overwrites the value for medium screens
      * defined in the `indent` property.
      *
-     * @deprecated (since 1.17.1) - Use the `indentM` property instead.
+     * @deprecated As of version 1.17.1. Use the `indentM` property instead.
      *
      * @returns Value of property `indentMedium`
      */
@@ -11780,7 +11807,7 @@ declare module "sap/ui/layout/GridData" {
      * Deprecated. Defines an indent value for small screens. This value overwrites the value for small screens
      * defined in the `indent` property.
      *
-     * @deprecated (since 1.17.1) - Use `indentS` property instead.
+     * @deprecated As of version 1.17.1. Use `indentS` property instead.
      *
      * @returns Value of property `indentSmall`
      */
@@ -11904,7 +11931,7 @@ declare module "sap/ui/layout/GridData" {
      * Deprecated. Defines a span value for large screens. This value overwrites the value for large screens
      * defined in the `span` property.
      *
-     * @deprecated (since 1.17.1) - Use the `spanL` property instead.
+     * @deprecated As of version 1.17.1. Use the `spanL` property instead.
      *
      * @returns Value of property `spanLarge`
      */
@@ -11925,7 +11952,7 @@ declare module "sap/ui/layout/GridData" {
      * Deprecated. Defines a span value for medium screens. This value overwrites the value for medium screens
      * defined in the `span` property.
      *
-     * @deprecated (since 1.17.1) - Use the `spanM` property instead.
+     * @deprecated As of version 1.17.1. Use the `spanM` property instead.
      *
      * @returns Value of property `spanMedium`
      */
@@ -11946,7 +11973,7 @@ declare module "sap/ui/layout/GridData" {
      * Deprecated. Defines a span value for small screens. This value overwrites the value for small screens
      * defined in the `span` property.
      *
-     * @deprecated (since 1.17.1) - Use the `spanS` property instead.
+     * @deprecated As of version 1.17.1. Use the `spanS` property instead.
      *
      * @returns Value of property `spanSmall`
      */
@@ -11990,7 +12017,7 @@ declare module "sap/ui/layout/GridData" {
      *
      * Default value is `true`.
      *
-     * @deprecated (since 1.17.1) - Use the `visibleL` property instead.
+     * @deprecated As of version 1.17.1. Use the `visibleL` property instead.
      *
      * @returns Value of property `visibleOnLarge`
      */
@@ -12002,7 +12029,7 @@ declare module "sap/ui/layout/GridData" {
      *
      * Default value is `true`.
      *
-     * @deprecated (since 1.17.1) - Use the `visibleM` property instead.
+     * @deprecated As of version 1.17.1. Use the `visibleM` property instead.
      *
      * @returns Value of property `visibleOnMedium`
      */
@@ -12014,7 +12041,7 @@ declare module "sap/ui/layout/GridData" {
      *
      * Default value is `true`.
      *
-     * @deprecated (since 1.17.1) - Use the `visibleS` property instead.
+     * @deprecated As of version 1.17.1. Use the `visibleS` property instead.
      *
      * @returns Value of property `visibleOnSmall`
      */
@@ -12088,7 +12115,7 @@ declare module "sap/ui/layout/GridData" {
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
-     * @deprecated (since 1.17.1) - Use the `indentL` property instead.
+     * @deprecated As of version 1.17.1. Use the `indentL` property instead.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -12123,7 +12150,7 @@ declare module "sap/ui/layout/GridData" {
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
-     * @deprecated (since 1.17.1) - Use the `indentM` property instead.
+     * @deprecated As of version 1.17.1. Use the `indentM` property instead.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -12158,7 +12185,7 @@ declare module "sap/ui/layout/GridData" {
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
-     * @deprecated (since 1.17.1) - Use `indentS` property instead.
+     * @deprecated As of version 1.17.1. Use `indentS` property instead.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -12359,7 +12386,7 @@ declare module "sap/ui/layout/GridData" {
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
-     * @deprecated (since 1.17.1) - Use the `spanL` property instead.
+     * @deprecated As of version 1.17.1. Use the `spanL` property instead.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -12394,7 +12421,7 @@ declare module "sap/ui/layout/GridData" {
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
-     * @deprecated (since 1.17.1) - Use the `spanM` property instead.
+     * @deprecated As of version 1.17.1. Use the `spanM` property instead.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -12429,7 +12456,7 @@ declare module "sap/ui/layout/GridData" {
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
-     * @deprecated (since 1.17.1) - Use the `spanS` property instead.
+     * @deprecated As of version 1.17.1. Use the `spanS` property instead.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -12501,7 +12528,7 @@ declare module "sap/ui/layout/GridData" {
      *
      * Default value is `true`.
      *
-     * @deprecated (since 1.17.1) - Use the `visibleL` property instead.
+     * @deprecated As of version 1.17.1. Use the `visibleL` property instead.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -12520,7 +12547,7 @@ declare module "sap/ui/layout/GridData" {
      *
      * Default value is `true`.
      *
-     * @deprecated (since 1.17.1) - Use the `visibleM` property instead.
+     * @deprecated As of version 1.17.1. Use the `visibleM` property instead.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -12539,7 +12566,7 @@ declare module "sap/ui/layout/GridData" {
      *
      * Default value is `true`.
      *
-     * @deprecated (since 1.17.1) - Use the `visibleS` property instead.
+     * @deprecated As of version 1.17.1. Use the `visibleS` property instead.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -12724,7 +12751,7 @@ declare module "sap/ui/layout/GridData" {
      * Deprecated. Defines a span value for large screens. This value overwrites the value for large screens
      * defined in the `span` property.
      *
-     * @deprecated (since 1.17.1) - Use the `spanL` property instead.
+     * @deprecated As of version 1.17.1. Use the `spanL` property instead.
      */
     spanLarge?: int | PropertyBindingInfo | `{${string}}`;
 
@@ -12732,7 +12759,7 @@ declare module "sap/ui/layout/GridData" {
      * Deprecated. Defines a span value for medium screens. This value overwrites the value for medium screens
      * defined in the `span` property.
      *
-     * @deprecated (since 1.17.1) - Use the `spanM` property instead.
+     * @deprecated As of version 1.17.1. Use the `spanM` property instead.
      */
     spanMedium?: int | PropertyBindingInfo | `{${string}}`;
 
@@ -12740,7 +12767,7 @@ declare module "sap/ui/layout/GridData" {
      * Deprecated. Defines a span value for small screens. This value overwrites the value for small screens
      * defined in the `span` property.
      *
-     * @deprecated (since 1.17.1) - Use the `spanS` property instead.
+     * @deprecated As of version 1.17.1. Use the `spanS` property instead.
      */
     spanSmall?: int | PropertyBindingInfo | `{${string}}`;
 
@@ -12748,7 +12775,7 @@ declare module "sap/ui/layout/GridData" {
      * Deprecated. Defines an indent value for large screens. This value overwrites the value for large screens
      * defined in the `indent` property.
      *
-     * @deprecated (since 1.17.1) - Use the `indentL` property instead.
+     * @deprecated As of version 1.17.1. Use the `indentL` property instead.
      */
     indentLarge?: int | PropertyBindingInfo | `{${string}}`;
 
@@ -12756,7 +12783,7 @@ declare module "sap/ui/layout/GridData" {
      * Deprecated. Defines an indent value for medium screens. This value overwrites the value for medium screens
      * defined in the `indent` property.
      *
-     * @deprecated (since 1.17.1) - Use the `indentM` property instead.
+     * @deprecated As of version 1.17.1. Use the `indentM` property instead.
      */
     indentMedium?: int | PropertyBindingInfo | `{${string}}`;
 
@@ -12764,28 +12791,28 @@ declare module "sap/ui/layout/GridData" {
      * Deprecated. Defines an indent value for small screens. This value overwrites the value for small screens
      * defined in the `indent` property.
      *
-     * @deprecated (since 1.17.1) - Use `indentS` property instead.
+     * @deprecated As of version 1.17.1. Use `indentS` property instead.
      */
     indentSmall?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Deprecated. Defines if this control is visible on large screens.
      *
-     * @deprecated (since 1.17.1) - Use the `visibleL` property instead.
+     * @deprecated As of version 1.17.1. Use the `visibleL` property instead.
      */
     visibleOnLarge?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Deprecated. Defines if this control is visible on medium screens.
      *
-     * @deprecated (since 1.17.1) - Use the `visibleM` property instead.
+     * @deprecated As of version 1.17.1. Use the `visibleM` property instead.
      */
     visibleOnMedium?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Deprecated. Defines if this control is visible on small screens.
      *
-     * @deprecated (since 1.17.1) - Use the `visibleS` property instead.
+     * @deprecated As of version 1.17.1. Use the `visibleS` property instead.
      */
     visibleOnSmall?: boolean | PropertyBindingInfo | `{${string}}`;
   }
@@ -13206,7 +13233,7 @@ declare module "sap/ui/layout/PaneContainer" {
      *
      * @returns Value of property `orientation`
      */
-    getOrientation(): Orientation | keyof typeof Orientation;
+    getOrientation(): Orientation;
     /**
      * Gets content of aggregation {@link #getPanes panes}.
      *
@@ -14484,9 +14511,9 @@ declare module "sap/ui/layout/Splitter" {
      * the control changes its size. The resize handler is enabled in every control instance by default. For
      * performance reasons this behavior can be disabled by calling disableAutoResize()
      *
-     * @deprecated (since 1.21) - This method is declared as protected in order to assess the need for this
-     * feature. It is declared as deprecated because the API might change in case the need for this is high
-     * enough to make it part of the official Splitter interface
+     * @deprecated As of version 1.21. This method is declared as protected in order to assess the need for
+     * this feature. It is declared as deprecated because the API might change in case the need for this is
+     * high enough to make it part of the official Splitter interface
      * @ui5-protected Do not call from applications (only from related classes in the framework)
      */
     disableAutoResize(
@@ -14507,9 +14534,9 @@ declare module "sap/ui/layout/Splitter" {
      * Disables recalculation and resize of the splitter contents while dragging the splitter bar. This means
      * that the contents are resized only once after moving the splitter bar.
      *
-     * @deprecated (since 1.21) - This method is declared as protected in order to assess the need for this
-     * feature. It is declared as deprecated because the API might change in case the need for this is high
-     * enough to make it part of the official Splitter interface
+     * @deprecated As of version 1.21. This method is declared as protected in order to assess the need for
+     * this feature. It is declared as deprecated because the API might change in case the need for this is
+     * high enough to make it part of the official Splitter interface
      * @ui5-protected Do not call from applications (only from related classes in the framework)
      */
     disableLiveResize(): void;
@@ -14518,9 +14545,9 @@ declare module "sap/ui/layout/Splitter" {
      * the control changes its size. The resize handler is enabled in every control instance by default. For
      * performance reasons this behavior can be disabled by calling disableAutoResize()
      *
-     * @deprecated (since 1.21) - This method is declared as protected in order to assess the need for this
-     * feature. It is declared as deprecated because the API might change in case the need for this is high
-     * enough to make it part of the official Splitter interface
+     * @deprecated As of version 1.21. This method is declared as protected in order to assess the need for
+     * this feature. It is declared as deprecated because the API might change in case the need for this is
+     * high enough to make it part of the official Splitter interface
      * @ui5-protected Do not call from applications (only from related classes in the framework)
      */
     enableAutoResize(
@@ -14539,9 +14566,9 @@ declare module "sap/ui/layout/Splitter" {
      * Enables recalculation and resize of the splitter contents while dragging the splitter bar. This means
      * that the contents are resized several times per second when moving the splitter bar.
      *
-     * @deprecated (since 1.21) - This method is declared as protected in order to assess the need for this
-     * feature. It is declared as deprecated because the API might change in case the need for this is high
-     * enough to make it part of the official Splitter interface
+     * @deprecated As of version 1.21. This method is declared as protected in order to assess the need for
+     * this feature. It is declared as deprecated because the API might change in case the need for this is
+     * high enough to make it part of the official Splitter interface
      * @ui5-protected Do not call from applications (only from related classes in the framework)
      */
     enableLiveResize(): void;
@@ -14561,9 +14588,9 @@ declare module "sap/ui/layout/Splitter" {
     /**
      * Returns the current actual content sizes as pixel value - these values can change with every resize.
      *
-     * @deprecated (since 1.21) - This method is declared as protected in order to assess the need for this
-     * feature. It is declared as deprecated because the API might change in case the need for this is high
-     * enough to make it part of the official Splitter interface
+     * @deprecated As of version 1.21. This method is declared as protected in order to assess the need for
+     * this feature. It is declared as deprecated because the API might change in case the need for this is
+     * high enough to make it part of the official Splitter interface
      * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Array of px values that correspond to the content area sizes
@@ -14596,7 +14623,7 @@ declare module "sap/ui/layout/Splitter" {
      *
      * @returns Value of property `orientation`
      */
-    getOrientation(): Orientation | keyof typeof Orientation;
+    getOrientation(): Orientation;
     /**
      * Gets current value of property {@link #getWidth width}.
      *

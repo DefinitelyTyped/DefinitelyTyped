@@ -1,4 +1,4 @@
-import XMPPError = require("@xmpp/error");
+import XMPPError from "@xmpp/error";
 import { Element } from "@xmpp/xml";
 
 const err = new XMPPError("foo");

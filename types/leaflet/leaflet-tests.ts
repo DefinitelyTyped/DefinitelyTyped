@@ -88,6 +88,8 @@ const bottomRight = bounds.getBottomRight();
 
 bounds.isValid();
 
+point = bounds.getCenter();
+
 let points: L.Point[];
 points = L.LineUtil.simplify([point, point], 1);
 
@@ -184,7 +186,21 @@ layerOptions = {
 
 const popupOptions: L.PopupOptions = {};
 
+let popup;
+popup = L.popup(latLng);
+popup = L.popup(latLng, popupOptions);
+popup = L.popup();
+popup = L.popup(popupOptions);
+popup = L.popup(popupOptions, layer);
+
 const tooltipOptions: L.TooltipOptions = {};
+
+let tooltip;
+tooltip = L.tooltip(latLng);
+tooltip = L.tooltip(latLng, tooltipOptions);
+tooltip = L.tooltip();
+tooltip = L.tooltip(tooltipOptions);
+tooltip = L.tooltip(tooltipOptions, layer);
 
 let zoomPanOptions: L.ZoomPanOptions = {};
 zoomPanOptions = {
@@ -340,7 +356,6 @@ gridLayerOptions = {
 let tileLayerOptions: L.TileLayerOptions = {};
 tileLayerOptions = {
     id: "mapbox.streets",
-    accessToken: "your.mapbox.access.token",
     minZoom: 0,
     maxZoom: 18,
     maxNativeZoom: 2,
@@ -422,7 +437,7 @@ imageOverlay.setBounds(imageOverlayBounds);
 imageOverlay.setZIndex(1);
 imageOverlayBounds = imageOverlay.getBounds();
 maybeHtml = imageOverlay.getElement();
-point = imageOverlay.getCenter();
+coordinates = imageOverlay.getCenter();
 imageOverlay = imageOverlay.setStyle({ opacity: 90 });
 
 // SVGOverlay
@@ -449,7 +464,7 @@ svgOverlay.setBounds(imageOverlayBounds);
 svgOverlay.setZIndex(1);
 svgOverlayBounds = svgOverlay.getBounds();
 const svgElement: SVGElement | undefined = svgOverlay.getElement();
-point = svgOverlay.getCenter();
+coordinates = svgOverlay.getCenter();
 svgOverlay = svgOverlay.setStyle({ opacity: 90 });
 
 // videoOverlay
@@ -480,7 +495,7 @@ videoOverlay.setBounds(imageOverlayBounds);
 videoOverlay.setZIndex(1);
 videoOverlayBounds = videoOverlay.getBounds();
 maybeHtml = videoOverlay.getElement();
-point = videoOverlay.getCenter();
+coordinates = videoOverlay.getCenter();
 videoOverlay = videoOverlay.setStyle(videoOverlayOptions);
 
 const eventHandler = () => {};
@@ -616,7 +631,8 @@ map = map
     .addHandler("Hello World", L.Handler)
     .remove()
     .whenReady(() => {})
-    .whenReady(() => {}, {});
+    .whenReady(() => {}, {})
+    .whenReady(({ target: {} }) => {}, {});
 
 const elementToDrag = document.createElement("div");
 const draggable = new L.Draggable(elementToDrag);
@@ -993,17 +1009,16 @@ let circle = new L.Circle(latLng, 10);
 circle = new L.Circle(latLng, { radius: 10 });
 // @ts-expect-error
 circle = new L.Circle(latLng, { radius: "10" });
-// @ts-expect-error
 circle = new L.Circle(latLng, { radius: undefined });
 // @ts-expect-error
 circle = new L.Circle(latLng, { radius: null });
-// @ts-expect-error
 circle = new L.Circle(latLng, {});
 // @ts-expect-error
 circle = new L.Circle(latLng);
 
 let circleMarker = new L.CircleMarker(latLng, { radius: 10 }).setStyle({});
 circleMarker = new L.CircleMarker(latLng, { radius: 10 }).setStyle({ radius: 10 });
+circleMarker = new L.CircleMarker(latLng, { color: "red" });
 // @ts-expect-error
 circleMarker = new L.CircleMarker(latLng, { radius: 10 }).setStyle();
 

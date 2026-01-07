@@ -2,7 +2,9 @@ import EmberObject, { get } from "@ember/object";
 import Router from "@ember/routing/router";
 import Service, { inject as service } from "@ember/service";
 
-const AppRouter = Router.extend({});
+const AppRouter = Router.extend({
+    location: "history",
+});
 
 AppRouter.map(function() {
     this.route("index", { path: "/" });

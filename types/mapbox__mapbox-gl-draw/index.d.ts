@@ -195,7 +195,7 @@ declare namespace MapboxDraw {
 
         isSelected(id: string): boolean;
 
-        getFeature(id: string): DrawFeature;
+        getFeature(id: string): DrawFeature | undefined;
 
         select(id: string): void;
 

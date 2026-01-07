@@ -6,5 +6,5 @@ declare function parseTransparent(str: "transparent"): {
     g: 0;
     b: 0;
     alpha: 0;
-};
+} | undefined;
 declare function parseTransparent(str: unknown): undefined;

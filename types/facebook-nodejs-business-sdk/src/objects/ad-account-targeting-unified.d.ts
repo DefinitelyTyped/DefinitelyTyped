@@ -60,12 +60,14 @@ export default class AdAccountTargetingUnified extends AbstractCrudObject {
     static get RegulatedCategories(): Readonly<{
         credit: "CREDIT";
         employment: "EMPLOYMENT";
+        financial_products_services: "FINANCIAL_PRODUCTS_SERVICES";
         housing: "HOUSING";
         issues_elections_politics: "ISSUES_ELECTIONS_POLITICS";
         none: "NONE";
         online_gambling_and_gaming: "ONLINE_GAMBLING_AND_GAMING";
     }>;
     static get RegulatedCountries(): Readonly<{
+        ac: "AC";
         ad: "AD";
         ae: "AE";
         af: "AF";
@@ -355,6 +357,7 @@ export default class AdAccountTargetingUnified extends AbstractCrudObject {
         effective_messenger_positions: "effective_messenger_positions";
         effective_oculus_positions: "effective_oculus_positions";
         effective_publisher_platforms: "effective_publisher_platforms";
+        effective_threads_positions: "effective_threads_positions";
         effective_whatsapp_positions: "effective_whatsapp_positions";
         engagement_specs: "engagement_specs";
         ethnic_affinity: "ethnic_affinity";
@@ -390,11 +393,13 @@ export default class AdAccountTargetingUnified extends AbstractCrudObject {
         home_type: "home_type";
         home_value: "home_value";
         household_composition: "household_composition";
+        household_income: "household_income";
         id: "id";
         income: "income";
         industries: "industries";
         instagram_hashtags: "instagram_hashtags";
         instagram_positions: "instagram_positions";
+        install_state_application: "install_state_application";
         instream_video_skippable_excluded: "instream_video_skippable_excluded";
         instream_video_sponsorship_placements: "instream_video_sponsorship_placements";
         interest_defaults_source: "interest_defaults_source";
@@ -409,7 +414,6 @@ export default class AdAccountTargetingUnified extends AbstractCrudObject {
         location_cluster_ids: "location_cluster_ids";
         location_expansion: "location_expansion";
         marketing_message_channels: "marketing_message_channels";
-        marketing_message_targeting: "marketing_message_targeting";
         marketplace_product_categories: "marketplace_product_categories";
         messenger_positions: "messenger_positions";
         mobile_device_model: "mobile_device_model";
@@ -430,14 +434,17 @@ export default class AdAccountTargetingUnified extends AbstractCrudObject {
         relationship_statuses: "relationship_statuses";
         rtb_flag: "rtb_flag";
         site_category: "site_category";
+        subscriber_universe: "subscriber_universe";
         tafe_ca_mitigation_strategy: "tafe_ca_mitigation_strategy";
         targeting_automation: "targeting_automation";
         targeting_optimization: "targeting_optimization";
         targeting_relaxation_types: "targeting_relaxation_types";
+        threads_positions: "threads_positions";
         timezones: "timezones";
         topic: "topic";
         trending: "trending";
         user_adclusters: "user_adclusters";
+        user_age_unknown: "user_age_unknown";
         user_device: "user_device";
         user_event: "user_event";
         user_os: "user_os";

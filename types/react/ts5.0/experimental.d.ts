@@ -43,18 +43,22 @@ type VoidOrUndefinedOnly = void | { [UNDEFINED_VOID_ONLY]: never };
 
 declare module "." {
     export interface SuspenseProps {
+        // @enableCPUSuspense
         /**
          * The presence of this prop indicates that the content is computationally expensive to render.
          * In other words, the tree is CPU bound and not I/O bound (e.g. due to fetching data).
          * @see {@link https://github.com/facebook/react/pull/19936}
          */
-        unstable_expectedLoadTime?: number | undefined;
+        defer?: boolean | undefined;
     }
 
-    export type SuspenseListRevealOrder = "forwards" | "backwards" | "together";
-    export type SuspenseListTailMode = "collapsed" | "hidden";
+    export type SuspenseListRevealOrder = "forwards" | "backwards" | "together" | "independent";
+    export type SuspenseListTailMode = "collapsed" | "hidden" | "visible";
 
     export interface SuspenseListCommonProps {
+    }
+
+    interface DirectionalSuspenseListProps extends SuspenseListCommonProps {
         /**
          * Note that SuspenseList require more than one child;
          * it is a runtime warning to provide only a single child.
@@ -62,33 +66,34 @@ declare module "." {
          * It does, however, allow those children to be wrapped inside a single
          * level of `<React.Fragment>`.
          */
-        children: ReactElement | Iterable<ReactElement>;
-    }
-
-    interface DirectionalSuspenseListProps extends SuspenseListCommonProps {
+        children: Iterable<ReactElement> | AsyncIterable<ReactElement>;
         /**
          * Defines the order in which the `SuspenseList` children should be revealed.
+         * @default "forwards"
          */
-        revealOrder: "forwards" | "backwards";
+        revealOrder?: "forwards" | "backwards" | "unstable_legacy-backwards" | undefined;
         /**
          * Dictates how unloaded items in a SuspenseList is shown.
          *
-         * - By default, `SuspenseList` will show all fallbacks in the list.
          * - `collapsed` shows only the next fallback in the list.
-         * - `hidden` doesn’t show any unloaded items.
+         * - `hidden` doesn't show any unloaded items.
+         * - `visible` shows all fallbacks in the list.
+         *
+         * @default "hidden"
          */
         tail?: SuspenseListTailMode | undefined;
     }
 
     interface NonDirectionalSuspenseListProps extends SuspenseListCommonProps {
+        children: ReactNode;
         /**
          * Defines the order in which the `SuspenseList` children should be revealed.
          */
-        revealOrder?: Exclude<SuspenseListRevealOrder, DirectionalSuspenseListProps["revealOrder"]> | undefined;
+        revealOrder: Exclude<SuspenseListRevealOrder, DirectionalSuspenseListProps["revealOrder"]>;
         /**
          * The tail property is invalid when not using the `forwards` or `backwards` reveal orders.
          */
-        tail?: never | undefined;
+        tail?: never;
     }
 
     export type SuspenseListProps = DirectionalSuspenseListProps | NonDirectionalSuspenseListProps;
@@ -106,9 +111,6 @@ declare module "." {
      */
     export const unstable_SuspenseList: ExoticComponent<SuspenseListProps>;
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
-    export function experimental_useEffectEvent<T extends Function>(event: T): T;
-
     type Reference = object;
     type TaintableUniqueValue = string | bigint | ArrayBufferView;
     function experimental_taintUniqueValue(
@@ -118,95 +120,28 @@ declare module "." {
     ): void;
     function experimental_taintObjectReference(message: string | undefined, object: Reference): void;
 
-    export interface ViewTransitionInstance {
-        /**
-         * The {@link ViewTransitionProps name} that was used in the corresponding {@link ViewTransition} component or `"auto"` if the `name` prop was omitted.
-         */
-        name: string;
-    }
-
-    export interface ViewTransitionProps {
-        children?: ReactNode | undefined;
-        /**
-         * Assigns the {@link https://developer.chrome.com/blog/view-transitions-update-io24#view-transition-class `view-transition-class`} class to the underlying DOM node.
-         */
-        className?: string | undefined;
-        /**
-         * Combined with {@link className} if this `<ViewTransition>` or its parent Component is mounted and there's no other with the same name being deleted.
-         * `"none"` is a special value that deactivates the view transition name under that condition.
-         */
-        enter?: "none" | (string & {}) | undefined;
-        /**
-         * Combined with {@link className} if this `<ViewTransition>` or its parent Component is unmounted and there's no other with the same name being deleted.
-         * `"none"` is a special value that deactivates the view transition name under that condition.
-         */
-        exit?: "none" | (string & {}) | undefined;
-        /**
-         * Combined with {@link className} there are no updates to the content inside this boundary itself but the boundary has resized or moved due to other changes to siblings.
-         * `"none"` is a special value that deactivates the view transition name under that condition.
-         */
-        layout?: "none" | (string & {}) | undefined;
-        /**
-         * "auto" will automatically assign a view-transition-name to the inner DOM node.
-         * That way you can add a View Transition to a Component without controlling its DOM nodes styling otherwise.
-         *
-         * A difference between this and the browser's built-in view-transition-name: auto is that switching the DOM nodes within the `<ViewTransition>` component preserves the same name so this example cross-fades between the DOM nodes instead of causing an exit and enter.
-         * @default "auto"
-         */
-        name?: "auto" | (string & {}) | undefined;
-        /**
-         * The `<ViewTransition>` or its parent Component is mounted and there's no other `<ViewTransition>` with the same name being deleted.
-         */
-        onEnter?: (instance: ViewTransitionInstance) => void;
-        /**
-         * The `<ViewTransition>` or its parent Component is unmounted and there's no other `<ViewTransition>` with the same name being deleted.
-         */
-        onExit?: (instance: ViewTransitionInstance) => void;
-        /**
-         *  There are no updates to the content inside this `<ViewTransition>` boundary itself but the boundary has resized or moved due to other changes to siblings.
-         */
-        onLayout?: (instance: ViewTransitionInstance) => void;
-        /**
-         * This `<ViewTransition>` is being mounted and another `<ViewTransition>` instance with the same name is being unmounted elsewhere.
-         */
-        onShare?: (instance: ViewTransitionInstance) => void;
-        /**
-         * The content of `<ViewTransition>` has changed either due to DOM mutations or because an inner child `<ViewTransition>` has resized.
-         */
-        onUpdate?: (instance: ViewTransitionInstance) => void;
-        ref?: Ref<ViewTransitionInstance> | undefined;
-        /**
-         * Combined with {@link className} if this `<ViewTransition>` is being mounted and another instance with the same name is being unmounted elsewhere.
-         * `"none"` is a special value that deactivates the view transition name under that condition.
-         */
-        share?: "none" | (string & {}) | undefined;
-        /**
-         * Combined with {@link className} if the content of this `<ViewTransition>` has changed either due to DOM mutations or because an inner child has resized.
-         * `"none"` is a special value that deactivates the view transition name under that condition.
-         */
-        update?: "none" | (string & {}) | undefined;
-    }
-
-    /**
-     * Opt-in for using {@link https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API View Transitions} in React.
-     * View Transitions only trigger for async updates like {@link startTransition}, {@link useDeferredValue}, Actions or <{@link Suspense}> revealing from fallback to content.
-     * Synchronous updates provide an opt-out but also guarantee that they commit immediately which View Transitions can't.
-     *
-     * @see {@link https://github.com/facebook/react/pull/31975}
-     */
-    export const unstable_ViewTransition: ExoticComponent<ViewTransitionProps>;
-
+    // @enableGestureTransition
     // Implemented by the specific renderer e.g. `react-dom`.
     // Keep in mind that augmented interfaces merge their JSDoc so if you put
     // JSDoc here and in the renderer, the IDE will display both.
     export interface GestureProvider {}
-
-    export type StartGesture = (gestureProvider: GestureProvider) => () => void;
-
+    export interface GestureOptions {
+        rangeStart?: number | undefined;
+        rangeEnd?: number | undefined;
+    }
     /** */
-    export function unstable_useSwipeTransition<Value>(
-        previous: Value,
-        current: Value,
-        next: Value,
-    ): [value: Value, startGesture: StartGesture];
+    export function unstable_startGestureTransition(
+        provider: GestureProvider,
+        scope: () => void,
+        options?: GestureOptions,
+    ): () => void;
+
+    // @enableSrcObject
+    interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_IMG_SRC_TYPES {
+        srcObject: Blob;
+    }
+
+    interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_MEDIA_SRC_TYPES {
+        srcObject: Blob | MediaSource | MediaStream;
+    }
 }

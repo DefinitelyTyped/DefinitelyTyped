@@ -8,7 +8,7 @@
         "https://github.com/heyman/leaflet-areaselect"
     ],
     "dependencies": {
-        "@types/leaflet": "*"
+        "@types/leaflet": "^1.9"
     },
     "devDependencies": {
         "@types/leaflet-areaselect": "workspace:."

@@ -1,4 +1,4 @@
-import * as CodeMirror from "codemirror";
+import CodeMirror from "codemirror";
 import "codemirror/addon/fold/foldgutter";
 
 const myCodeMirror1: CodeMirror.Editor = CodeMirror(document.body, {

@@ -1,5 +1,5 @@
-import * as Range from "strange";
-import * as RangeTree from "strange/tree";
+import Range from "strange";
+import RangeTree from "strange/tree";
 
 {
     new Range();

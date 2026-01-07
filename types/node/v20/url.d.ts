@@ -8,7 +8,7 @@
  * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/url.js)
  */
 declare module "url" {
-    import { Blob as NodeBlob } from "node:buffer";
+    import { Blob as NodeBlob, NonSharedBuffer } from "node:buffer";
     import { ClientRequestArgs } from "node:http";
     import { ParsedUrlQuery, ParsedUrlQueryInput } from "node:querystring";
     // Input to `url.format`
@@ -437,6 +437,15 @@ declare module "url" {
          * @param base The base URL to resolve against if the `input` is not absolute. If `base` is not a string, it is `converted to a string` first.
          */
         static canParse(input: string, base?: string): boolean;
+        /**
+         * Parses a string as a URL. If `base` is provided, it will be used as the base URL for the purpose of resolving non-absolute `input` URLs.
+         * Returns `null` if `input` is not a valid.
+         * @param input The absolute or relative input URL to parse. If `input` is relative, then `base` is required. If `input` is absolute, the `base` is ignored. If `input` is not a string, it is
+         * `converted to a string` first.
+         * @param base The base URL to resolve against if the `input` is not absolute. If `base` is not a string, it is `converted to a string` first.
+         * @since v20.18.0
+         */
+        static parse(input: string, base?: string): URL | null;
         constructor(input: string | { toString: () => string }, base?: string | URL);
         /**
          * Gets and sets the fragment portion of the URL.

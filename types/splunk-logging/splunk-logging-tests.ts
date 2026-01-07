@@ -28,7 +28,7 @@ logger.send(payload, (err, resp, body) => {
 
 const fullPayload = {
     message: [1, 2, 3],
-    severity: "error",
+    severity: logger.levels.ERROR,
     metadata: {
         host: "myHost",
         index: "splunkIndex",
@@ -48,7 +48,7 @@ const fullConfig = {
     path: "splunkPath",
     procotol: "https",
     port: 2,
-    level: "info",
+    level: logger.levels.INFO,
     batchInterval: 3,
     maxBatchSize: 4,
     maxBatchCount: 5,

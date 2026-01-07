@@ -1,18 +1,17 @@
 import { CubeTexture } from "../../textures/CubeTexture.js";
 import Node from "../core/Node.js";
-import { NodeRepresentation, ShaderNodeObject } from "../tsl/TSLCore.js";
 import TextureNode from "./TextureNode.js";
 
 declare class CubeTextureNode extends TextureNode {
     isCubeTextureNode: boolean;
-    uvNode: ShaderNodeObject<Node> | null;
-    levelNode: ShaderNodeObject<Node> | null;
+    uvNode: Node | null;
+    levelNode: Node | null;
 
     constructor(
         value: CubeTexture,
-        uvNode?: ShaderNodeObject<Node> | null,
-        levelNode?: ShaderNodeObject<Node> | null,
-        biasNode?: ShaderNodeObject<Node> | null,
+        uvNode?: Node | null,
+        levelNode?: Node | null,
+        biasNode?: Node | null,
     );
 
     getDefaultUV(): Node;
@@ -20,9 +19,20 @@ declare class CubeTextureNode extends TextureNode {
 
 export default CubeTextureNode;
 
-export const cubeTexture: (
+export const cubeTextureBase: (
     value: CubeTexture,
-    uvNode?: NodeRepresentation,
-    levelNode?: NodeRepresentation,
-    biasNode?: NodeRepresentation,
-) => ShaderNodeObject<CubeTextureNode>;
+    uvNode?: Node,
+    levelNode?: Node,
+    biasNode?: Node,
+) => CubeTextureNode;
+
+export const cubeTexture: (
+    value?: CubeTexture,
+    uvNode?: Node | null,
+    levelNode?: Node | null,
+    biasNode?: Node | null,
+) => CubeTextureNode;
+
+export const uniformCubeTexture: (
+    value?: CubeTexture,
+) => CubeTextureNode;

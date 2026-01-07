@@ -14,7 +14,7 @@
  | limitations under the License.
  */
 
-import * as adlib from "adlib";
+import adlib from "adlib";
 
 const transform1: adlib.TransformFunction = (key: string, value: any, settings: any, param?: any): any => {
     return null;

@@ -27,6 +27,7 @@ declare namespace OAuth2Client {
         DeviceAuthorizationResponse,
     };
 }
+declare function encryptClientSecret(secret: string): string;
 interface OAuth2ClientConstructorOptions {
     clientId?: string;
     clientSecret?: string;
@@ -38,7 +39,6 @@ interface OAuth2ClientConstructorOptions {
     revocationEndpoint?: string;
     deviceAuthorizationEndpoint?: string;
 }
-declare function encryptClientSecret(secret: string): string;
 interface AuthorizationRequestOptions {
     redirectUri: string;
     scopes?: string | string[];

@@ -13,11 +13,7 @@ declare class ModelDef {
     private extraFilterExpressionCache_;
     private extraFilterFieldsCache_;
     cachedData: boolean | CachedDataOptions;
-    cacheStrategy: {
-        ALWAYS: string;
-        NEVER: string;
-        ON_DEMAND: string;
-    };
+    cacheStrategy: typeof TableCacheStrategy;
     cachedVfsContent: boolean;
     classDefManager: ClassDefManager;
     classChangePolicy: number;
@@ -38,12 +34,7 @@ declare class ModelDef {
     versionFieldName: string;
     displayName: string;
     displayOrder: number;
-    sourceType: {
-        MODEL: string;
-        VIEW: string;
-        CONFIG: string;
-        NON_STRICT_MODEL: string;
-    };
+    sourceType: typeof SourceType;
     cache: ClassDefCache;
     integerDatabaseType: string;
     private integerDatabaseType_;
@@ -63,11 +54,11 @@ declare class ModelDef {
     private nextParentDefWithFields_;
     private notifyFieldUsage_;
     field(name: string, type?: string, size?: number): Field;
-    getClassDef(classKey: any): any;
+    getClassDef(classKey: any): ViewDef;
     getNormalizedDef(classKey: number): ModelDef;
     fields: FieldList;
-    getClassDefWithObjectProperty(propertyName: string, skipCurrentClass?: boolean): any;
-    getClassDefWithEvent(eventName: string, skipCurrentClass?: boolean): any;
+    getClassDefWithObjectProperty(propertyName: string, skipCurrentClass?: boolean): ViewDef;
+    getClassDefWithEvent(eventName: string, skipCurrentClass?: boolean): ViewDef;
     hasObjectProperty(propertyName: string): boolean;
     hasObjectPropertyDeclaredInThisClass(propertyName: string): boolean;
     hasEvent(eventName: string): boolean;
@@ -98,7 +89,6 @@ declare class ModelDef {
     toString(): string;
     setFieldsProperties(...args: any[]): void;
     getFieldsByProperty(...args: any[]): Field[];
-    private _getArrayFromList;
     private _translateFieldNamesToFieldObjectsArray;
     private _getFieldByName;
     getKeySchema(): string;
@@ -122,13 +112,12 @@ declare namespace ModelDef {
     };
 }
 import Logger = require('../log/Logger.js');
-type CachedDataOptions = Record<any, any>;
-type ClassDefManager = import('./ClassDefManager');
+import TableCacheStrategy = require('./TableCacheStrategy.js');
+import SourceType = require('./SourceType.js');
 import ClassDefCache = require('./ClassDefCache.js');
 import Field = require('./Field.js');
 import FieldGroupSet = require('./FieldGroupSet.js');
 import FieldList = require('./FieldList.js');
-type Event = import('../event/Event');
 import DataEvent = require('./DataEvent.js');
 import ClassDef = require('./ClassDef.js');
 import StringList = require('../string/StringList.js');
@@ -145,5 +134,8 @@ declare function declareGetterOfObjectProperty(
 ): void;
 declare function declareObject(obj: ModelDef, name: string): void;
 declare function declareEvent(obj: ModelDef, name: string): void;
+type Event = import('../event/Event');
 type AdapterDescriptor = import('../event/AdapterDescriptor');
-type ViewDef = any;
+type CachedDataOptions = Record<any, any>;
+type ClassDefManager = import('./ClassDefManager');
+type ViewDef = ModelDef;

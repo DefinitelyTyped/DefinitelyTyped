@@ -612,6 +612,7 @@ export interface Identity {
     provider: string;
     isSocial: boolean;
     access_token?: string | undefined;
+    refresh_token?: string | undefined;
     profileData?:
         | {
             email?: string | undefined;

@@ -6,15 +6,14 @@ export { default as ArrayNode } from "./core/ArrayNode.js";
 export { default as AssignNode } from "./core/AssignNode.js";
 export { default as AttributeNode } from "./core/AttributeNode.js";
 export { default as BypassNode } from "./core/BypassNode.js";
-export { default as CacheNode } from "./core/CacheNode.js";
 export { default as ConstNode } from "./core/ConstNode.js";
 export { default as ContextNode } from "./core/ContextNode.js";
 export { default as IndexNode, IndexNodeScope } from "./core/IndexNode.js";
+export { default as IsolateNode } from "./core/IsolateNode.js";
 export {
     default as LightingModel,
     LightingModelDirectInput,
     LightingModelDirectRectAreaInput,
-    LightingModelIndirectInput,
     LightingModelReflectedLight,
 } from "./core/LightingModel.js";
 export { default as MRTNode } from "./core/MRTNode.js";
@@ -40,6 +39,7 @@ export { default as PropertyNode } from "./core/PropertyNode.js";
 export { default as StackNode } from "./core/StackNode.js";
 export { default as StructNode } from "./core/StructNode.js";
 export { default as StructTypeNode } from "./core/StructTypeNode.js";
+export { default as SubBuildNode } from "./core/SubBuildNode.js";
 export { default as TempNode } from "./core/TempNode.js";
 export { default as UniformGroupNode } from "./core/UniformGroupNode.js";
 export { default as UniformNode } from "./core/UniformNode.js";
@@ -52,11 +52,11 @@ export { NodeUtils };
 // utils
 export { default as ArrayElementNode } from "./utils/ArrayElementNode.js";
 export { default as ConvertNode } from "./utils/ConvertNode.js";
-export { default as EquirectUVNode } from "./utils/EquirectUVNode.js";
+export { default as DebugNode } from "./utils/DebugNode.js";
+export { default as EventNode } from "./utils/EventNode.js";
 export { default as FunctionOverloadingNode } from "./utils/FunctionOverloadingNode.js";
 export { default as JoinNode } from "./utils/JoinNode.js";
 export { default as LoopNode } from "./utils/LoopNode.js";
-export { default as MatcapUVNode } from "./utils/MatcapUVNode.js";
 export { default as MaxMipLevelNode } from "./utils/MaxMipLevelNode.js";
 export { default as MemberNode } from "./utils/MemberNode.js";
 export { default as ReflectorNode, ReflectorNodeParameters } from "./utils/ReflectorNode.js";
@@ -67,7 +67,9 @@ export { default as SetNode } from "./utils/SetNode.js";
 export { default as SplitNode } from "./utils/SplitNode.js";
 export { default as SpriteSheetUVNode } from "./utils/SpriteSheetUVNode.js";
 export { default as StorageArrayElementNode } from "./utils/StorageArrayElementNode.js";
-export { default as TriplanarTexturesNode } from "./utils/TriplanarTexturesNode.js";
+
+// math
+export { default as BitcastNode } from "./math/BitcastNode.js";
 
 // accessors
 export { default as BatchNode } from "./accessors/BatchNode.js";
@@ -134,11 +136,12 @@ export { default as EnvironmentNode } from "./lighting/EnvironmentNode.js";
 export { default as HemisphereLightNode } from "./lighting/HemisphereLightNode.js";
 export { default as IESSpotLightNode } from "./lighting/IESSpotLightNode.js";
 export { default as IrradianceNode } from "./lighting/IrradianceNode.js";
-export { default as LightingContextNode } from "./lighting/LightingContextNode.js";
+export { default as LightingContextNode, LightingContext } from "./lighting/LightingContextNode.js";
 export { default as LightingNode } from "./lighting/LightingNode.js";
 export { default as LightProbeNode } from "./lighting/LightProbeNode.js";
 export { default as LightsNode } from "./lighting/LightsNode.js";
 export { default as PointLightNode } from "./lighting/PointLightNode.js";
+export { default as ProjectorLightNode } from "./lighting/ProjectorLightNode.js";
 export { default as RectAreaLightNode, RectAreaLightTexturesLib } from "./lighting/RectAreaLightNode.js";
 export { default as ShadowBaseNode } from "./lighting/ShadowBaseNode.js";
 export { default as ShadowNode } from "./lighting/ShadowNode.js";

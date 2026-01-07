@@ -15,7 +15,7 @@ import { Texture } from "./Texture.js";
  * @see {@link https://threejs.org/docs/index.html#api/en/textures/DepthTexture | Official Documentation}
  * @see {@link https://github.com/mrdoob/three.js/blob/master/src/textures/DepthTexture.js | Source}
  */
-export class DepthTexture extends Texture {
+export class DepthTexture extends Texture<DepthTextureImageData> {
     /**
      * Create a new instance of {@link DepthTexture}
      * @param width Width of the texture.
@@ -28,6 +28,7 @@ export class DepthTexture extends Texture {
      * @param minFilter  See {@link Texture.minFilter | .minFilter}. Default {@link THREE.NearestFilter}
      * @param anisotropy See {@link Texture.anisotropy | .anisotropy}. Default {@link THREE.Texture.DEFAULT_ANISOTROPY}
      * @param format See {@link DepthTexture.format | .format}. Default {@link THREE.DepthFormat}
+     * @param {number} [depth=1] - The depth of the texture.
      */
     constructor(
         width: number,
@@ -40,6 +41,7 @@ export class DepthTexture extends Texture {
         minFilter?: MinificationTextureFilter,
         anisotropy?: number,
         format?: DepthTexturePixelFormat,
+        depth?: number,
     );
 
     /**
@@ -48,13 +50,6 @@ export class DepthTexture extends Texture {
      * @defaultValue `true`
      */
     readonly isDepthTexture: true;
-
-    /**
-     * Overridden with a record type holding width and height.
-     * @override
-     */
-    get image(): { width: number; height: number };
-    set image(value: { width: number; height: number });
 
     /**
      * @override
@@ -101,4 +96,10 @@ export class DepthTexture extends Texture {
      * See {@link THREE.TextureComparisonFunction} for functions.
      */
     compareFunction: TextureComparisonFunction | null;
+}
+
+export interface DepthTextureImageData {
+    width: number;
+    height: number;
+    depth: number;
 }

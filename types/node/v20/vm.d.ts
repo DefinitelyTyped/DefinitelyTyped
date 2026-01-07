@@ -37,6 +37,7 @@
  * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/vm.js)
  */
 declare module "vm" {
+    import { NonSharedBuffer } from "node:buffer";
     import { ImportAttributes } from "node:module";
     interface Context extends NodeJS.Dict<any> {}
     interface BaseOptions {
@@ -56,11 +57,16 @@ declare module "vm" {
          */
         columnOffset?: number | undefined;
     }
+    type DynamicModuleLoader<T> = (
+        specifier: string,
+        referrer: T,
+        importAttributes: ImportAttributes,
+    ) => Module | Promise<Module>;
     interface ScriptOptions extends BaseOptions {
         /**
-         * V8's code cache data for the supplied source.
+         * Provides an optional data with V8's code cache data for the supplied source.
          */
-        cachedData?: Buffer | NodeJS.ArrayBufferView | undefined;
+        cachedData?: NodeJS.ArrayBufferView | undefined;
         /** @deprecated in favor of `script.createCachedData()` */
         produceCachedData?: boolean | undefined;
         /**
@@ -69,7 +75,7 @@ declare module "vm" {
          * [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v20.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
          */
         importModuleDynamically?:
-            | ((specifier: string, script: Script, importAttributes: ImportAttributes) => Module)
+            | DynamicModuleLoader<Script>
             | typeof constants.USE_MAIN_CONTEXT_DEFAULT_LOADER
             | undefined;
     }
@@ -92,41 +98,46 @@ declare module "vm" {
          */
         breakOnSigint?: boolean | undefined;
     }
-    interface RunningScriptInNewContextOptions extends RunningScriptOptions {
+    interface RunningScriptInNewContextOptions
+        extends RunningScriptOptions, Pick<CreateContextOptions, "microtaskMode">
+    {
         /**
          * Human-readable name of the newly created context.
          */
-        contextName?: CreateContextOptions["name"];
+        contextName?: CreateContextOptions["name"] | undefined;
         /**
          * Origin corresponding to the newly created context for display purposes. The origin should be formatted like a URL,
          * but with only the scheme, host, and port (if necessary), like the value of the `url.origin` property of a `URL` object.
          * Most notably, this string should omit the trailing slash, as that denotes a path.
          */
-        contextOrigin?: CreateContextOptions["origin"];
-        contextCodeGeneration?: CreateContextOptions["codeGeneration"];
-        /**
-         * If set to `afterEvaluate`, microtasks will be run immediately after the script has run.
-         */
-        microtaskMode?: CreateContextOptions["microtaskMode"];
+        contextOrigin?: CreateContextOptions["origin"] | undefined;
+        contextCodeGeneration?: CreateContextOptions["codeGeneration"] | undefined;
     }
-    interface RunningCodeOptions extends RunningScriptOptions {
-        cachedData?: ScriptOptions["cachedData"];
-        importModuleDynamically?: ScriptOptions["importModuleDynamically"];
-    }
-    interface RunningCodeInNewContextOptions extends RunningScriptInNewContextOptions {
-        cachedData?: ScriptOptions["cachedData"];
-        importModuleDynamically?: ScriptOptions["importModuleDynamically"];
-    }
-    interface CompileFunctionOptions extends BaseOptions {
+    interface RunningCodeOptions extends RunningScriptOptions, Pick<ScriptOptions, "cachedData"> {
         /**
-         * Provides an optional data with V8's code cache data for the supplied source.
+         * Used to specify how the modules should be loaded during the evaluation of this script when `import()` is called. This option is
+         * part of the experimental modules API. We do not recommend using it in a production environment. For detailed information, see
+         * [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v22.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
          */
-        cachedData?: Buffer | undefined;
+        importModuleDynamically?:
+            | DynamicModuleLoader<Script>
+            | typeof constants.USE_MAIN_CONTEXT_DEFAULT_LOADER
+            | undefined;
+    }
+    interface RunningCodeInNewContextOptions
+        extends RunningScriptInNewContextOptions, Pick<ScriptOptions, "cachedData">
+    {
         /**
-         * Specifies whether to produce new cache data.
-         * @default false
+         * Used to specify how the modules should be loaded during the evaluation of this script when `import()` is called. This option is
+         * part of the experimental modules API. We do not recommend using it in a production environment. For detailed information, see
+         * [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v22.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
          */
-        produceCachedData?: boolean | undefined;
+        importModuleDynamically?:
+            | DynamicModuleLoader<Script>
+            | typeof constants.USE_MAIN_CONTEXT_DEFAULT_LOADER
+            | undefined;
+    }
+    interface CompileFunctionOptions extends BaseOptions, Pick<ScriptOptions, "cachedData" | "produceCachedData"> {
         /**
          * The sandbox/context in which the said function should be compiled in.
          */
@@ -135,6 +146,15 @@ declare module "vm" {
          * An array containing a collection of context extensions (objects wrapping the current scope) to be applied while compiling
          */
         contextExtensions?: Object[] | undefined;
+        /**
+         * Used to specify how the modules should be loaded during the evaluation of this script when `import()` is called. This option is
+         * part of the experimental modules API. We do not recommend using it in a production environment. For detailed information, see
+         * [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v22.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
+         */
+        importModuleDynamically?:
+            | DynamicModuleLoader<ReturnType<typeof compileFunction>>
+            | typeof constants.USE_MAIN_CONTEXT_DEFAULT_LOADER
+            | undefined;
     }
     interface CreateContextOptions {
         /**
@@ -169,6 +189,15 @@ declare module "vm" {
          * If set to `afterEvaluate`, microtasks will be run immediately after the script has run.
          */
         microtaskMode?: "afterEvaluate" | undefined;
+        /**
+         * Used to specify how the modules should be loaded during the evaluation of this script when `import()` is called. This option is
+         * part of the experimental modules API. We do not recommend using it in a production environment. For detailed information, see
+         * [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v22.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
+         */
+        importModuleDynamically?:
+            | DynamicModuleLoader<Context>
+            | typeof constants.USE_MAIN_CONTEXT_DEFAULT_LOADER
+            | undefined;
     }
     type MeasureMemoryMode = "summary" | "detailed";
     interface MeasureMemoryOptions {
@@ -230,16 +259,23 @@ declare module "vm" {
          */
         runInContext(contextifiedObject: Context, options?: RunningScriptOptions): any;
         /**
-         * First contextifies the given `contextObject`, runs the compiled code contained
-         * by the `vm.Script` object within the created context, and returns the result.
-         * Running code does not have access to local scope.
+         * This method is a shortcut to `script.runInContext(vm.createContext(options), options)`.
+         * It does several things at once:
+         *
+         * 1. Creates a new context.
+         * 2. If `contextObject` is an object, contextifies it with the new context.
+         *    If `contextObject` is undefined, creates a new object and contextifies it.
+         *    If `contextObject` is `vm.constants.DONT_CONTEXTIFY`, don't contextify anything.
+         * 3. Runs the compiled code contained by the `vm.Script` object within the created context. The code
+         *    does not have access to the scope in which this method is called.
+         * 4. Returns the result.
          *
          * The following example compiles code that sets a global variable, then executes
          * the code multiple times in different contexts. The globals are set on and
          * contained within each individual `context`.
          *
          * ```js
-         * import vm from 'node:vm';
+         * const vm = require('node:vm');
          *
          * const script = new vm.Script('globalVar = "set"');
          *
@@ -250,12 +286,22 @@ declare module "vm" {
          *
          * console.log(contexts);
          * // Prints: [{ globalVar: 'set' }, { globalVar: 'set' }, { globalVar: 'set' }]
+         *
+         * // This would throw if the context is created from a contextified object.
+         * // vm.constants.DONT_CONTEXTIFY allows creating contexts with ordinary
+         * // global objects that can be frozen.
+         * const freezeScript = new vm.Script('Object.freeze(globalThis); globalThis;');
+         * const frozenContext = freezeScript.runInNewContext(vm.constants.DONT_CONTEXTIFY);
          * ```
          * @since v0.3.1
-         * @param contextObject An object that will be `contextified`. If `undefined`, a new object will be created.
+         * @param contextObject Either `vm.constants.DONT_CONTEXTIFY` or an object that will be contextified.
+         * If `undefined`, an empty contextified object will be created for backwards compatibility.
          * @return the result of the very last statement executed in the script.
          */
-        runInNewContext(contextObject?: Context, options?: RunningScriptInNewContextOptions): any;
+        runInNewContext(
+            contextObject?: Context | typeof constants.DONT_CONTEXTIFY,
+            options?: RunningScriptInNewContextOptions,
+        ): any;
         /**
          * Runs the compiled code contained by the `vm.Script` within the context of the
          * current `global` object. Running code does not have access to local scope, but _does_ have access to the current `global` object.
@@ -316,17 +362,17 @@ declare module "vm" {
          * ```
          * @since v10.6.0
          */
-        createCachedData(): Buffer;
+        createCachedData(): NonSharedBuffer;
         /** @deprecated in favor of `script.createCachedData()` */
-        cachedDataProduced?: boolean | undefined;
+        cachedDataProduced?: boolean;
         /**
          * When `cachedData` is supplied to create the `vm.Script`, this value will be set
          * to either `true` or `false` depending on acceptance of the data by V8.
          * Otherwise the value is `undefined`.
          * @since v5.7.0
          */
-        cachedDataRejected?: boolean | undefined;
-        cachedData?: Buffer | undefined;
+        cachedDataRejected?: boolean;
+        cachedData?: NonSharedBuffer;
         /**
          * When the script is compiled from a source that contains a source map magic
          * comment, this property will be set to the URL of the source map.
@@ -344,20 +390,20 @@ declare module "vm" {
          * ```
          * @since v19.1.0, v18.13.0
          */
-        sourceMapURL?: string | undefined;
+        sourceMapURL: string | undefined;
     }
     /**
-     * If given a `contextObject`, the `vm.createContext()` method will
+     * If the given `contextObject` is an object, the `vm.createContext()` method will
      * [prepare that object](https://nodejs.org/docs/latest-v20.x/api/vm.html#what-does-it-mean-to-contextify-an-object)
-     * and return a reference to it so that it can be used in `{@link runInContext}` or
-     * [`script.runInContext()`](https://nodejs.org/docs/latest-v20.x/api/vm.html#scriptrunincontextcontextifiedobject-options). Inside such
-     * scripts, the `contextObject` will be the global object, retaining all of its
-     * existing properties but also having the built-in objects and functions any
-     * standard [global object](https://es5.github.io/#x15.1) has. Outside of scripts run by the vm module, global
+     * and return a reference to it so that it can be used in calls to {@link runInContext} or
+     * [`script.runInContext()`](https://nodejs.org/docs/latest-v20.x/api/vm.html#scriptrunincontextcontextifiedobject-options).
+     * Inside such scripts, the global object will be wrapped by the `contextObject`, retaining all of its
+     * existing properties but also having the built-in objects and functions any standard
+     * [global object](https://es5.github.io/#x15.1) has. Outside of scripts run by the vm module, global
      * variables will remain unchanged.
      *
      * ```js
-     * import vm from 'node:vm';
+     * const vm = require('node:vm');
      *
      * global.globalVar = 3;
      *
@@ -374,7 +420,12 @@ declare module "vm" {
      * ```
      *
      * If `contextObject` is omitted (or passed explicitly as `undefined`), a new,
-     * empty `contextified` object will be returned.
+     * empty contextified object will be returned.
+     *
+     * When the global object in the newly created context is contextified, it has some quirks
+     * compared to ordinary global objects. For example, it cannot be frozen. To create a context
+     * without the contextifying quirks, pass `vm.constants.DONT_CONTEXTIFY` as the `contextObject`
+     * argument. See the documentation of `vm.constants.DONT_CONTEXTIFY` for details.
      *
      * The `vm.createContext()` method is primarily useful for creating a single
      * context that can be used to run multiple scripts. For instance, if emulating a
@@ -385,11 +436,17 @@ declare module "vm" {
      * The provided `name` and `origin` of the context are made visible through the
      * Inspector API.
      * @since v0.3.1
+     * @param contextObject Either `vm.constants.DONT_CONTEXTIFY` or an object that will be contextified.
+     * If `undefined`, an empty contextified object will be created for backwards compatibility.
      * @return contextified object.
      */
-    function createContext(sandbox?: Context, options?: CreateContextOptions): Context;
+    function createContext(
+        contextObject?: Context | typeof constants.DONT_CONTEXTIFY,
+        options?: CreateContextOptions,
+    ): Context;
     /**
-     * Returns `true` if the given `object` object has been `contextified` using {@link createContext}.
+     * Returns `true` if the given `object` object has been contextified using {@link createContext},
+     * or if it's the global object of a context created using `vm.constants.DONT_CONTEXTIFY`.
      * @since v0.11.7
      */
     function isContext(sandbox: Context): boolean;
@@ -422,18 +479,26 @@ declare module "vm" {
      */
     function runInContext(code: string, contextifiedObject: Context, options?: RunningCodeOptions | string): any;
     /**
-     * The `vm.runInNewContext()` first contextifies the given `contextObject` (or
-     * creates a new `contextObject` if passed as `undefined`), compiles the `code`,
-     * runs it within the created context, then returns the result. Running code
-     * does not have access to the local scope.
-     *
+     * This method is a shortcut to
+     * `(new vm.Script(code, options)).runInContext(vm.createContext(options), options)`.
      * If `options` is a string, then it specifies the filename.
+     *
+     * It does several things at once:
+     *
+     * 1. Creates a new context.
+     * 2. If `contextObject` is an object, contextifies it with the new context.
+     *    If  `contextObject` is undefined, creates a new object and contextifies it.
+     *    If `contextObject` is `vm.constants.DONT_CONTEXTIFY`, don't contextify anything.
+     * 3. Compiles the code as a`vm.Script`
+     * 4. Runs the compield code within the created context. The code does not have access to the scope in
+     *    which this method is called.
+     * 5. Returns the result.
      *
      * The following example compiles and executes code that increments a global
      * variable and sets a new one. These globals are contained in the `contextObject`.
      *
      * ```js
-     * import vm from 'node:vm';
+     * const vm = require('node:vm');
      *
      * const contextObject = {
      *   animal: 'cat',
@@ -443,15 +508,21 @@ declare module "vm" {
      * vm.runInNewContext('count += 1; name = "kitty"', contextObject);
      * console.log(contextObject);
      * // Prints: { animal: 'cat', count: 3, name: 'kitty' }
+     *
+     * // This would throw if the context is created from a contextified object.
+     * // vm.constants.DONT_CONTEXTIFY allows creating contexts with ordinary global objects that
+     * // can be frozen.
+     * const frozenContext = vm.runInNewContext('Object.freeze(globalThis); globalThis;', vm.constants.DONT_CONTEXTIFY);
      * ```
      * @since v0.3.1
      * @param code The JavaScript code to compile and run.
-     * @param contextObject An object that will be `contextified`. If `undefined`, a new object will be created.
+     * @param contextObject Either `vm.constants.DONT_CONTEXTIFY` or an object that will be contextified.
+     * If `undefined`, an empty contextified object will be created for backwards compatibility.
      * @return the result of the very last statement executed in the script.
      */
     function runInNewContext(
         code: string,
-        contextObject?: Context,
+        contextObject?: Context | typeof constants.DONT_CONTEXTIFY,
         options?: RunningCodeInNewContextOptions | string,
     ): any;
     /**
@@ -528,11 +599,7 @@ declare module "vm" {
         code: string,
         params?: readonly string[],
         options?: CompileFunctionOptions,
-    ): Function & {
-        cachedData?: Script["cachedData"] | undefined;
-        cachedDataProduced?: Script["cachedDataProduced"] | undefined;
-        cachedDataRejected?: Script["cachedDataRejected"] | undefined;
-    };
+    ): Function & Pick<Script, "cachedData" | "cachedDataProduced" | "cachedDataRejected">;
     /**
      * Measure the memory known to V8 and used by all contexts known to the
      * current V8 isolate, or the main context.
@@ -589,10 +656,7 @@ declare module "vm" {
      * @experimental
      */
     function measureMemory(options?: MeasureMemoryOptions): Promise<MemoryMeasurement>;
-    interface ModuleEvaluateOptions {
-        timeout?: RunningScriptOptions["timeout"] | undefined;
-        breakOnSigint?: RunningScriptOptions["breakOnSigint"] | undefined;
-    }
+    interface ModuleEvaluateOptions extends Pick<RunningScriptOptions, "breakOnSigint" | "timeout"> {}
     type ModuleLinker = (
         specifier: string,
         referencingModule: Module,
@@ -801,21 +865,23 @@ declare module "vm" {
          */
         link(linker: ModuleLinker): Promise<void>;
     }
-    interface SourceTextModuleOptions {
+    interface SourceTextModuleOptions extends Pick<ScriptOptions, "cachedData" | "columnOffset" | "lineOffset"> {
         /**
          * String used in stack traces.
          * @default 'vm:module(i)' where i is a context-specific ascending index.
          */
         identifier?: string | undefined;
-        cachedData?: ScriptOptions["cachedData"] | undefined;
         context?: Context | undefined;
-        lineOffset?: BaseOptions["lineOffset"] | undefined;
-        columnOffset?: BaseOptions["columnOffset"] | undefined;
         /**
          * Called during evaluation of this module to initialize the `import.meta`.
          */
         initializeImportMeta?: ((meta: ImportMeta, module: SourceTextModule) => void) | undefined;
-        importModuleDynamically?: ScriptOptions["importModuleDynamically"] | undefined;
+        /**
+         * Used to specify how the modules should be loaded during the evaluation of this script when `import()` is called. This option is
+         * part of the experimental modules API. We do not recommend using it in a production environment. For detailed information, see
+         * [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v22.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
+         */
+        importModuleDynamically?: DynamicModuleLoader<SourceTextModule> | undefined;
     }
     /**
      * This feature is only available with the `--experimental-vm-modules` command
@@ -915,6 +981,19 @@ declare module "vm" {
          * @since v20.12.0
          */
         const USE_MAIN_CONTEXT_DEFAULT_LOADER: number;
+        /**
+         * This constant, when used as the `contextObject` argument in vm APIs, instructs Node.js to create
+         * a context without wrapping its global object with another object in a Node.js-specific manner.
+         * As a result, the `globalThis` value inside the new context would behave more closely to an ordinary
+         * one.
+         *
+         * When `vm.constants.DONT_CONTEXTIFY` is used as the `contextObject` argument to {@link createContext},
+         * the returned object is a proxy-like object to the global object in the newly created context with
+         * fewer Node.js-specific quirks. It is reference equal to the `globalThis` value in the new context,
+         * can be modified from outside the context, and can be used to access built-ins in the new context directly.
+         * @since v20.18.0
+         */
+        const DONT_CONTEXTIFY: number;
     }
 }
 declare module "node:vm" {

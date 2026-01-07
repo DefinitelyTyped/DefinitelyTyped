@@ -246,7 +246,7 @@ import { promisify } from "node:util";
 
     const cipher = crypto.createCipheriv("aes-192-cbc", key, nonce);
     const plaintext = "Hello world";
-    // $ExpectType Buffer || Buffer<ArrayBufferLike>
+    // $ExpectType NonSharedBuffer
     const cipherBuf = cipher.update(plaintext, "utf8");
     cipher.final();
 
@@ -263,14 +263,342 @@ import { promisify } from "node:util";
 
     const cipher = crypto.createCipheriv("aes-192-cbc", key, nonce);
     const plaintext = "Hello world";
-    // $ExpectType Buffer || Buffer<ArrayBufferLike>
+    // $ExpectType NonSharedBuffer
     const cipherBuf = cipher.update(plaintext, "utf8");
     cipher.final();
 
     const decipher = crypto.createDecipheriv("aes-192-cbc", key, nonce);
-    // $ExpectType Buffer || Buffer<ArrayBufferLike>
+    // $ExpectType NonSharedBuffer
     const receivedPlaintext = decipher.update(cipherBuf);
     decipher.final();
+}
+
+{
+    let password: crypto.BinaryLike = "" as crypto.BinaryLike;
+    {
+        let cipher = crypto.createCipher("aes-128-ccm", password, { authTagLength: 16 });
+        cipher = crypto.createCipher("aes-128-ccm", password, {
+            authTagLength: 16,
+            read(size) {
+                // $ExpectType Transform
+                this;
+                // $ExpectType number
+                size;
+            },
+        });
+        cipher = cipher.setAAD(Buffer.from([]), { plaintextLength: 0 });
+        // $ExpectType NonSharedBuffer
+        cipher.getAuthTag();
+    }
+
+    {
+        let cipher = crypto.createCipher("aes-128-gcm", password);
+        cipher = crypto.createCipher("aes-128-gcm", password, {});
+        cipher = crypto.createCipher("aes-128-gcm", password, { authTagLength: 16 });
+        cipher = crypto.createCipher("aes-128-gcm", password, {
+            read(size) {
+                // $ExpectType Transform
+                this;
+                // $ExpectType number
+                size;
+            },
+        });
+        cipher = cipher.setAAD(Buffer.from([]), { plaintextLength: 0 });
+        // $ExpectType NonSharedBuffer
+        cipher.getAuthTag();
+    }
+
+    {
+        let cipher = crypto.createCipher("aes-128-ocb", password, { authTagLength: 16 });
+        cipher = crypto.createCipher("aes-128-ocb", password, {
+            authTagLength: 16,
+            read(size) {
+                // $ExpectType Transform
+                this;
+                // $ExpectType number
+                size;
+            },
+        });
+        cipher = cipher.setAAD(Buffer.from([]), { plaintextLength: 0 });
+        // $ExpectType NonSharedBuffer
+        cipher.getAuthTag();
+    }
+
+    {
+        let cipher = crypto.createCipher("chacha20-poly1305", password);
+        cipher = crypto.createCipher("chacha20-poly1305", password, {});
+        cipher = crypto.createCipher("chacha20-poly1305", password, { authTagLength: 16 });
+        cipher = crypto.createCipher("chacha20-poly1305", password, {
+            read(size) {
+                // $ExpectType Transform
+                this;
+                // $ExpectType number
+                size;
+            },
+        });
+        cipher = cipher.setAAD(Buffer.from([]), { plaintextLength: 0 });
+        // $ExpectType NonSharedBuffer
+        cipher.getAuthTag();
+    }
+
+    let cipher = crypto.createCipher("aes-128-ecb", password);
+    // @ts-expect-error - Only accept TransformOptions
+    cipher = crypto.createCipher("aes-128-ecb", password, { authTagLength: 16 });
+    cipher = crypto.createCipher("aes-128-ecb", password, {
+        read(size) {
+            // $ExpectType Transform
+            this;
+            // $ExpectType number
+            size;
+        },
+    });
+    // @ts-expect-error - .setAAD() does not exist
+    cipher = cipher.setAAD(Buffer.from([]), { plaintextLength: 0 });
+    // @ts-expect-error - .getAuthTag() does not exist
+    cipher.getAuthTag();
+}
+
+{
+    let key: crypto.CipherKey = "" as crypto.CipherKey;
+    let iv: crypto.BinaryLike = "" as crypto.BinaryLike;
+    {
+        let cipher = crypto.createCipheriv("aes-128-ccm", key, iv, { authTagLength: 16 });
+        cipher = crypto.createCipheriv("aes-128-ccm", key, iv, {
+            authTagLength: 16,
+            read(size) {
+                // $ExpectType Transform
+                this;
+                // $ExpectType number
+                size;
+            },
+        });
+        cipher = cipher.setAAD(Buffer.from([]), { plaintextLength: 0 });
+        // $ExpectType NonSharedBuffer
+        cipher.getAuthTag();
+    }
+
+    {
+        let cipher = crypto.createCipheriv("aes-128-gcm", key, iv);
+        cipher = crypto.createCipheriv("aes-128-gcm", key, iv, {});
+        cipher = crypto.createCipheriv("aes-128-gcm", key, iv, { authTagLength: 16 });
+        cipher = crypto.createCipheriv("aes-128-gcm", key, iv, {
+            read(size) {
+                // $ExpectType Transform
+                this;
+                // $ExpectType number
+                size;
+            },
+        });
+        cipher = cipher.setAAD(Buffer.from([]), { plaintextLength: 0 });
+        // $ExpectType NonSharedBuffer
+        cipher.getAuthTag();
+    }
+
+    {
+        let cipher = crypto.createCipheriv("aes-128-ocb", key, iv, { authTagLength: 16 });
+        cipher = crypto.createCipheriv("aes-128-ocb", key, iv, {
+            authTagLength: 16,
+            read(size) {
+                // $ExpectType Transform
+                this;
+                // $ExpectType number
+                size;
+            },
+        });
+        cipher = cipher.setAAD(Buffer.from([]), { plaintextLength: 0 });
+        // $ExpectType NonSharedBuffer
+        cipher.getAuthTag();
+    }
+
+    {
+        let cipher = crypto.createCipheriv("chacha20-poly1305", key, iv);
+        cipher = crypto.createCipheriv("chacha20-poly1305", key, iv, {});
+        cipher = crypto.createCipheriv("chacha20-poly1305", key, iv, { authTagLength: 16 });
+        cipher = crypto.createCipheriv("chacha20-poly1305", key, iv, {
+            read(size) {
+                // $ExpectType Transform
+                this;
+                // $ExpectType number
+                size;
+            },
+        });
+        cipher = cipher.setAAD(Buffer.from([]), { plaintextLength: 0 });
+        // $ExpectType NonSharedBuffer
+        cipher.getAuthTag();
+    }
+
+    let cipher = crypto.createCipheriv("aes-128-ecb", key, iv);
+    cipher = crypto.createCipheriv("aes-128-ecb", key, iv, {
+        read(size) {
+            // $ExpectType Transform
+            this;
+            // $ExpectType number
+            size;
+        },
+    });
+    // @ts-expect-error - .setAAD() does not exist
+    cipher = cipher.setAAD(Buffer.from([]), { plaintextLength: 0 });
+    // @ts-expect-error - .getAuthTag() does not exist
+    cipher.getAuthTag();
+}
+
+{
+    let password: crypto.BinaryLike = "" as crypto.BinaryLike;
+    {
+        let cipher = crypto.createDecipher("aes-128-ccm", password, { authTagLength: 16 });
+        cipher = crypto.createDecipher("aes-128-ccm", password, {
+            authTagLength: 16,
+            read(size) {
+                // $ExpectType Transform
+                this;
+                // $ExpectType number
+                size;
+            },
+        });
+        cipher = cipher.setAAD(Buffer.from([]), { plaintextLength: 0 });
+        cipher.setAuthTag(Buffer.from([]));
+    }
+
+    {
+        let cipher = crypto.createDecipher("aes-128-gcm", password);
+        cipher = crypto.createDecipher("aes-128-gcm", password, {});
+        cipher = crypto.createDecipher("aes-128-gcm", password, { authTagLength: 16 });
+        cipher = crypto.createDecipher("aes-128-gcm", password, {
+            read(size) {
+                // $ExpectType Transform
+                this;
+                // $ExpectType number
+                size;
+            },
+        });
+        cipher = cipher.setAAD(Buffer.from([]), { plaintextLength: 0 });
+        cipher.setAuthTag(Buffer.from([]));
+    }
+
+    {
+        let cipher = crypto.createDecipher("aes-128-ocb", password, { authTagLength: 16 });
+        cipher = crypto.createDecipher("aes-128-ocb", password, {
+            authTagLength: 16,
+            read(size) {
+                // $ExpectType Transform
+                this;
+                // $ExpectType number
+                size;
+            },
+        });
+        cipher = cipher.setAAD(Buffer.from([]), { plaintextLength: 0 });
+        cipher.setAuthTag(Buffer.from([]));
+    }
+
+    {
+        let cipher = crypto.createDecipher("chacha20-poly1305", password);
+        cipher = crypto.createDecipher("chacha20-poly1305", password, {});
+        cipher = crypto.createDecipher("chacha20-poly1305", password, { authTagLength: 16 });
+        cipher = crypto.createDecipher("chacha20-poly1305", password, {
+            read(size) {
+                // $ExpectType Transform
+                this;
+                // $ExpectType number
+                size;
+            },
+        });
+        cipher = cipher.setAAD(Buffer.from([]), { plaintextLength: 0 });
+        cipher.setAuthTag(Buffer.from([]));
+    }
+
+    let cipher = crypto.createDecipher("aes-128-ecb", password);
+    cipher = crypto.createDecipher("aes-128-ecb", password, {
+        read(size) {
+            // $ExpectType Transform
+            this;
+            // $ExpectType number
+            size;
+        },
+    });
+    // @ts-expect-error - .setAAD() does not exist
+    cipher = cipher.setAAD(Buffer.from([]), { plaintextLength: 0 });
+    // @ts-expect-error - .setAuthTag() does not exist
+    cipher.setAuthTag(Buffer.from([]));
+}
+
+{
+    let key: crypto.CipherKey = "" as crypto.CipherKey;
+    let iv: crypto.BinaryLike = "" as crypto.BinaryLike;
+    {
+        let cipher = crypto.createDecipheriv("aes-128-ccm", key, iv, { authTagLength: 16 });
+        cipher = crypto.createDecipheriv("aes-128-ccm", key, iv, {
+            authTagLength: 16,
+            read(size) {
+                // $ExpectType Transform
+                this;
+                // $ExpectType number
+                size;
+            },
+        });
+        cipher = cipher.setAAD(Buffer.from([]), { plaintextLength: 0 });
+        cipher.setAuthTag(Buffer.from([]));
+    }
+
+    {
+        let cipher = crypto.createDecipheriv("aes-128-gcm", key, iv);
+        cipher = crypto.createDecipheriv("aes-128-gcm", key, iv, {});
+        cipher = crypto.createDecipheriv("aes-128-gcm", key, iv, { authTagLength: 16 });
+        cipher = crypto.createDecipheriv("aes-128-gcm", key, iv, {
+            read(size) {
+                // $ExpectType Transform
+                this;
+                // $ExpectType number
+                size;
+            },
+        });
+        cipher = cipher.setAAD(Buffer.from([]), { plaintextLength: 0 });
+        cipher.setAuthTag(Buffer.from([]));
+    }
+
+    {
+        let cipher = crypto.createDecipheriv("aes-128-ocb", key, iv, { authTagLength: 16 });
+        cipher = crypto.createDecipheriv("aes-128-ocb", key, iv, {
+            authTagLength: 16,
+            read(size) {
+                // $ExpectType Transform
+                this;
+                // $ExpectType number
+                size;
+            },
+        });
+        cipher = cipher.setAAD(Buffer.from([]), { plaintextLength: 0 });
+        cipher.setAuthTag(Buffer.from([]));
+    }
+
+    {
+        let cipher = crypto.createDecipheriv("chacha20-poly1305", key, iv);
+        cipher = crypto.createDecipheriv("chacha20-poly1305", key, iv, {});
+        cipher = crypto.createDecipheriv("chacha20-poly1305", key, iv, { authTagLength: 16 });
+        cipher = crypto.createDecipheriv("chacha20-poly1305", key, iv, {
+            read(size) {
+                // $ExpectType Transform
+                this;
+                // $ExpectType number
+                size;
+            },
+        });
+        cipher = cipher.setAAD(Buffer.from([]), { plaintextLength: 0 });
+        cipher.setAuthTag(Buffer.from([]));
+    }
+
+    let cipher = crypto.createDecipheriv("aes-128-ecb", key, iv);
+    cipher = crypto.createDecipheriv("aes-128-ecb", key, iv, {
+        read(size) {
+            // $ExpectType Transform
+            this;
+            // $ExpectType number
+            size;
+        },
+    });
+    // @ts-expect-error - .setAAD() does not exist
+    cipher = cipher.setAAD(Buffer.from([]), { plaintextLength: 0 });
+    // @ts-expect-error - .setAuthTag() does not exist
+    cipher.setAuthTag(Buffer.from([]));
 }
 
 {
@@ -1308,7 +1636,7 @@ import { promisify } from "node:util";
     cert.issuerCertificate; // $ExpectType X509Certificate | undefined
     cert.keyUsage; // $ExpectType string[]
     cert.publicKey; // $ExpectType KeyObject
-    cert.raw; // $ExpectType Buffer || Buffer<ArrayBufferLike>
+    cert.raw; // $ExpectType NonSharedBuffer
     cert.serialNumber; // $ExpectType string
     cert.subject; // $ExpectType string
     cert.subjectAltName; // $ExpectType string | undefined
@@ -1485,7 +1813,7 @@ import { promisify } from "node:util";
 
     alice.generateKeys();
 
-    let alicePublicKey = alice.getPublicKey(); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+    let alicePublicKey = alice.getPublicKey(); // $ExpectType NonSharedBuffer
     alicePublicKey = alice.getPublicKey(null);
     alicePublicKey = alice.getPublicKey(null, "compressed");
     alicePublicKey = alice.getPublicKey(undefined, "hybrid");
@@ -1493,7 +1821,7 @@ import { promisify } from "node:util";
     let bobPublicKey = bob.getPublicKey("hex"); // $ExpectType string
     bobPublicKey = bob.getPublicKey("hex", "compressed");
 
-    let aliceSecret = alice.computeSecret(bobPublicKey, "hex"); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+    let aliceSecret = alice.computeSecret(bobPublicKey, "hex"); // $ExpectType NonSharedBuffer
     aliceSecret = alice.computeSecret(Buffer.from(bobPublicKey, "hex"));
 
     let bobSecret = bob.computeSecret(alicePublicKey, "hex"); // $ExpectType string

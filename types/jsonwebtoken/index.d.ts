@@ -56,12 +56,12 @@ export interface SignOptions {
 
 export interface VerifyOptions {
     algorithms?: Algorithm[] | undefined;
-    audience?: string | RegExp | Array<string | RegExp> | undefined;
+    audience?: string | RegExp | [string | RegExp, ...(string | RegExp)[]] | undefined;
     clockTimestamp?: number | undefined;
     clockTolerance?: number | undefined;
     /** return an object with the decoded `{ payload, header, signature }` instead of only the usual content of the payload. */
     complete?: boolean | undefined;
-    issuer?: string | string[] | undefined;
+    issuer?: string | [string, ...(string[])] | undefined;
     ignoreExpiration?: boolean | undefined;
     ignoreNotBefore?: boolean | undefined;
     jwtid?: string | undefined;

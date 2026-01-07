@@ -17,8 +17,8 @@ declare class DataSourceDef {
 declare namespace DataSourceDef {
     export { DataSet, DataSource, DataSourceColumns, DataSourceFilters, DataSourceSecurityMode };
 }
-type DataSourceSecurityMode = any;
+type DataSet = import("@nginstack/engine/lib/dataset/DataSet");
 type DataSource = import("./DataSource");
 type DataSourceFilters = import("./DataSourceFilters");
 type DataSourceColumns = import("./DataSourceColumns");
-type DataSet = import("@nginstack/engine/lib/dataset/DataSet");
+type DataSourceSecurityMode = any;

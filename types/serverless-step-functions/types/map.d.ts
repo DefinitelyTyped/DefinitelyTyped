@@ -66,9 +66,13 @@ export type Map = {
     // JSONPath style fields
     InputPath?: Path | null;
     OutputPath?: Path | null;
-    Parameters?: JsonObject;
+    ItemsPath?: ReferencePath;
     ResultPath?: ReferencePath | null;
     ResultSelector?: JsonObject;
+
+    // Deprecated fields
+    Parameters?: JsonObject;
+    Iterator?: JsonObject;
 
     // Item processing configuration
     ItemReader?: ItemReader;

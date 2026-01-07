@@ -27,7 +27,7 @@ import { Texture } from "./Texture.js";
  * @see {@link https://threejs.org/docs/index.html#api/en/textures/FramebufferTexture | Official Documentation}
  * @see {@link https://github.com/mrdoob/three.js/blob/master/src/textures/FramebufferTexture.js | Source}
  */
-export class FramebufferTexture extends Texture {
+export class FramebufferTexture extends Texture<FramebufferTextureImageData> {
     /**
      * Create a new instance of {@link FramebufferTexture}
      * @param width The width of the texture.
@@ -59,4 +59,9 @@ export class FramebufferTexture extends Texture {
      * @defaultValue `false`
      */
     generateMipmaps: boolean;
+}
+
+export interface FramebufferTextureImageData {
+    width: number;
+    height: number;
 }

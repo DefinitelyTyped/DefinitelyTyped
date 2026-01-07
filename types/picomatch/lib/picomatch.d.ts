@@ -31,7 +31,8 @@ declare namespace picomatch {
     type Glob = string | string[];
 
     interface Matcher {
-        (test: string): boolean;
+        (test: string, returnObject?: false | undefined): boolean;
+        (test: string, returnObject: true): Result;
     }
 
     interface MatcherWithState extends Matcher {
@@ -115,10 +116,6 @@ declare namespace picomatch {
          */
         literalBrackets?: boolean | undefined;
         /**
-         * Support regex positive and negative lookbehinds. Note that you must be using Node 8.1.10 or higher to enable regex lookbehinds.
-         */
-        lookbehinds?: boolean | undefined;
-        /**
          * Alias for `basename`
          */
         matchBase?: boolean | undefined;
@@ -131,7 +128,7 @@ declare namespace picomatch {
          */
         nobrace?: boolean | undefined;
         /**
-         * Disable brace matching, so that `{a,b}` and `{1..3}` would be treated as literal characters.
+         * Disable matching with regex brackets.
          */
         nobracket?: boolean | undefined;
         /**
@@ -181,11 +178,11 @@ declare namespace picomatch {
          */
         posix?: boolean | undefined;
         /**
-         * Convert all slashes in file paths to forward slashes. This does not convert slashes in the glob pattern itself
+         * Convert all slashes in file paths to forward slashes. This does not convert slashes in the glob pattern itself.
          */
         posixSlashes?: boolean | undefined;
         /**
-         * Convert all slashes in file paths to forward slashes. This does not convert slashes in the glob pattern itself
+         * String to prepend to the generated regex used for matching.
          */
         prepend?: boolean | undefined;
         /**

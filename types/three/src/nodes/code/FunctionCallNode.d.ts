@@ -1,9 +1,11 @@
 import Node from "../core/Node.js";
 import TempNode from "../core/TempNode.js";
-import { ProxiedObject, ShaderNodeObject } from "../tsl/TSLCore.js";
+import { ProxiedObject } from "../tsl/TSLCore.js";
 import FunctionNode, { FunctionNodeArguments } from "./FunctionNode.js";
 
-export default class FunctionCallNode<P extends Node[] | { [name: string]: Node }> extends TempNode {
+export default class FunctionCallNode<P extends Array<Node | number> | { [name: string]: Node | number }>
+    extends TempNode
+{
     functionNode: FunctionNode<P>;
     parameters: { [name: string]: Node };
 
@@ -16,10 +18,11 @@ export default class FunctionCallNode<P extends Node[] | { [name: string]: Node 
 export const call: <P extends FunctionNodeArguments>(
     functionNode?: FunctionNode<P>,
     parameters?: ProxiedObject<P>,
-) => ShaderNodeObject<FunctionCallNode<P>>;
+) => FunctionCallNode<P>;
 
-declare module "../tsl/TSLCore.js" {
-    interface NodeElements {
-        call: typeof call;
+declare module "../Nodes.js" {
+    interface FunctionNode<P extends FunctionNodeArguments> {
+        call: (parameters?: ProxiedObject<P>) => FunctionCallNode<P>;
+        callAssign: (parameters?: ProxiedObject<P>) => this;
     }
 }

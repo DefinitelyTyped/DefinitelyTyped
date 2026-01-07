@@ -16,12 +16,11 @@ import { BufferGeometry } from "../core/BufferGeometry.js";
  */
 export class TorusGeometry extends BufferGeometry {
     /**
-     * Create a new instance of {@link TorusGeometry}
-     * @param radius Radius of the torus, from the center of the torus to the center of the tube. Expects a `Float`. Default `1`.
-     * @param tube Radius of the tube. Expects a `Float`. Default `0.4`.
-     * @param radialSegments Expects a `Integer`.Default is `12`.
-     * @param tubularSegments Expects a `Integer`. Default `48`.
-     * @param arc Central angle. Expects a `Float`. Default `Math.PI * 2`
+     * @param radius Radius of the torus, from the center of the torus to the center of the tube. Default `1`.
+     * @param tube Radius of the tube. Must be smaller than `radius`. Default is `0.4`.
+     * @param radialSegments Default is `12`.
+     * @param tubularSegments Default is `48`.
+     * @param arc Central angle. Default is Math.PI * 2.
      */
     constructor(radius?: number, tube?: number, radialSegments?: number, tubularSegments?: number, arc?: number);
 

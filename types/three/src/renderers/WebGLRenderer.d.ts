@@ -1,5 +1,5 @@
 import { Camera } from "../cameras/Camera.js";
-import { CullFace, ShadowMapType, ToneMapping, WebGLCoordinateSystem } from "../constants.js";
+import { CullFace, ShadowMapType, TextureDataType, ToneMapping, WebGLCoordinateSystem } from "../constants.js";
 import { TypedArray } from "../core/BufferAttribute.js";
 import { BufferGeometry } from "../core/BufferGeometry.js";
 import { Object3D } from "../core/Object3D.js";
@@ -12,8 +12,6 @@ import { Vector2 } from "../math/Vector2.js";
 import { Vector3 } from "../math/Vector3.js";
 import { Vector4 } from "../math/Vector4.js";
 import { Scene } from "../scenes/Scene.js";
-import { Data3DTexture } from "../textures/Data3DTexture.js";
-import { DataArrayTexture } from "../textures/DataArrayTexture.js";
 import { OffscreenCanvas, Texture } from "../textures/Texture.js";
 import { WebGLCapabilities, WebGLCapabilitiesParameters } from "./webgl/WebGLCapabilities.js";
 import { WebGLExtensions } from "./webgl/WebGLExtensions.js";
@@ -78,6 +76,11 @@ export interface WebGLRendererParameters extends WebGLCapabilitiesParameters {
      * default is false.
      */
     failIfMajorPerformanceCaveat?: boolean | undefined;
+
+    /**
+     * @default UnsignedByteType
+     */
+    outputBufferType?: TextureDataType | undefined;
 }
 
 export interface WebGLDebug {
@@ -100,6 +103,17 @@ export interface WebGLDebug {
             glFragmentShader: WebGLShader,
         ) => void)
         | null;
+}
+
+export interface Effect {
+    setSize(width: number, height: number): void;
+    render(
+        renderer: WebGLRenderer,
+        writeBuffer: WebGLRenderTarget,
+        readBuffer: WebGLRenderTarget,
+        deltaTime: number,
+        maskActive: boolean,
+    ): void;
 }
 
 /**
@@ -202,8 +216,6 @@ export class WebGLRenderer {
 
     shadowMap: WebGLShadowMap;
 
-    pixelRatio: number;
-
     capabilities: WebGLCapabilities;
     properties: WebGLProperties;
     renderLists: WebGLRenderLists;
@@ -232,15 +244,17 @@ export class WebGLRenderer {
     getPixelRatio(): number;
     setPixelRatio(value: number): void;
 
-    getDrawingBufferSize(target: Vector2): Vector2;
-    setDrawingBufferSize(width: number, height: number, pixelRatio: number): void;
-
     getSize(target: Vector2): Vector2;
 
     /**
      * Resizes the output canvas to (width, height), and also sets the viewport to fit that size, starting in (0, 0).
      */
     setSize(width: number, height: number, updateStyle?: boolean): void;
+
+    getDrawingBufferSize(target: Vector2): Vector2;
+    setDrawingBufferSize(width: number, height: number, pixelRatio: number): void;
+
+    setEffects(effects: Effect[] | null): void;
 
     getCurrentViewport(target: Vector4): Vector4;
 
@@ -408,6 +422,7 @@ export class WebGLRenderer {
         height: number,
         buffer: TypedArray,
         activeCubeFaceIndex?: number,
+        textureIndex?: number,
     ): void;
 
     readRenderTargetPixelsAsync(
@@ -418,6 +433,7 @@ export class WebGLRenderer {
         height: number,
         buffer: TypedArray,
         activeCubeFaceIndex?: number,
+        textureIndex?: number,
     ): Promise<TypedArray>;
 
     /**
@@ -454,29 +470,6 @@ export class WebGLRenderer {
         dstPosition?: Vector2 | Vector3 | null,
         srcLevel?: number,
         dstLevel?: number,
-    ): void;
-
-    /**
-     * @deprecated Use "copyTextureToTexture" instead.
-     *
-     * Copies the pixels of a texture in the bounds `srcRegion` in the destination texture starting from the given
-     * position. The `depthTexture` and `texture` property of 3D render targets are supported as well.
-     *
-     * When using render target textures as `srcTexture` and `dstTexture`, you must make sure both render targets are
-     * intitialized e.g. via {@link .initRenderTarget}().
-     *
-     * @param srcTexture Specifies the source texture.
-     * @param dstTexture Specifies the destination texture.
-     * @param srcRegion Specifies the bounds
-     * @param dstPosition Specifies the pixel offset into the dstTexture where the copy will occur.
-     * @param level Specifies the destination mipmap level of the texture.
-     */
-    copyTextureToTexture3D(
-        srcTexture: Texture,
-        dstTexture: Data3DTexture | DataArrayTexture,
-        srcRegion?: Box3 | null,
-        dstPosition?: Vector3 | null,
-        level?: number,
     ): void;
 
     /**

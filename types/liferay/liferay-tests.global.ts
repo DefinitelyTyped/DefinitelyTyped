@@ -31,6 +31,14 @@ Liferay.Util.openToast({
     autoClose: 5000,
 });
 
+// $ExpectType void
+Liferay.Util.openToast({
+    title: "title",
+    message: "message",
+    type: "warning",
+    autoClose: 5000,
+});
+
 Liferay.Service("/user/get-current-user-id"); // $ExpectType Promise<unknown>
 Liferay.Loader.require("some-module"); // $ExpectType void
 
@@ -45,4 +53,7 @@ Liferay.OAuth2Client.FromParameters({
     homePageURL: "home-page-url",
 });
 Liferay.OAuth2Client.FromUserAgentApplication("reference-code"); // $ExpectType LiferayOAuth2Client
-Liferay.OAuth2Client.fetch("/user/get-current-user-id"); // $ExpectType Promise<any>
+Liferay.OAuth2Client.FromUserAgentApplication("reference-code").fetch("/user/get-current-user-id"); // $ExpectType Promise<any>
+Liferay.OAuth2Client.FromUserAgentApplication("reference-code").clientId; // $ExpectType string
+Liferay.OAuth2Client.FromUserAgentApplication("reference-code")._getOrRequestToken(); // $ExpectType Promise<LiferayTokenResponse>
+Liferay.OAuth2Client.FromUserAgentApplication("reference-code").homePageURL; // $ExpectType string | undefined

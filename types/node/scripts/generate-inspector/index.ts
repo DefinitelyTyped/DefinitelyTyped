@@ -69,7 +69,7 @@ function writeProtocolsToFile(jsonProtocols: string[]) {
         .map(trimRight)
         .join("\n");
 
-    writeFileSync("./inspector.d.ts", inspectorDts, "utf8");
+    writeFileSync("./inspector.generated.d.ts", inspectorDts, "utf8");
 }
 
 /**

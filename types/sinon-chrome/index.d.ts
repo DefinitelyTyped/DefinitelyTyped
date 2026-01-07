@@ -50,7 +50,7 @@ declare namespace SinonChrome {
 }
 
 declare namespace SinonChrome.events {
-    interface Event extends chrome.events.Event<Function> {
+    interface Event extends chrome.events.Event<(...args: any) => void> {
         dispatch(...args: any[]): void;
         trigger(...args: any[]): void;
         triggerAsync(...args: any[]): void;

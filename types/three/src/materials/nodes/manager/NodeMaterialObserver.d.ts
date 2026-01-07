@@ -1,7 +1,10 @@
 import { BufferAttribute } from "../../../core/BufferAttribute.js";
+import { Light } from "../../../lights/Light.js";
 import { Matrix4 } from "../../../math/Matrix4.js";
 import NodeBuilder from "../../../nodes/core/NodeBuilder.js";
 import NodeFrame from "../../../nodes/core/NodeFrame.js";
+import LightsNode from "../../../nodes/lighting/LightsNode.js";
+import Renderer from "../../../renderers/common/Renderer.js";
 import RenderObject from "../../../renderers/common/RenderObject.js";
 import { Material } from "../../Material.js";
 declare const refreshUniforms: readonly [
@@ -11,6 +14,7 @@ declare const refreshUniforms: readonly [
     "anisotropyMap",
     "anisotropyRotation",
     "aoMap",
+    "aoMapIntensity",
     "attenuationColor",
     "attenuationDistance",
     "bumpMap",
@@ -23,8 +27,10 @@ declare const refreshUniforms: readonly [
     "dispersion",
     "displacementMap",
     "emissive",
+    "emissiveIntensity",
     "emissiveMap",
     "envMap",
+    "envMapIntensity",
     "gradientMap",
     "ior",
     "iridescence",
@@ -32,6 +38,7 @@ declare const refreshUniforms: readonly [
     "iridescenceMap",
     "iridescenceThicknessMap",
     "lightMap",
+    "lightMapIntensity",
     "map",
     "matcap",
     "metalness",
@@ -79,6 +86,9 @@ interface RenderObjectData {
     worldMatrix: Matrix4;
     version?: number;
 }
+interface LightData {
+    map: number;
+}
 /**
  * This class is used by {@link WebGPURenderer} as management component.
  * It's primary purpose is to determine whether render objects require a
@@ -100,9 +110,16 @@ declare class NodeMaterialObserver {
      * Returns `true` if the given render object is verified for the first time of this observer.
      *
      * @param {RenderObject} renderObject - The render object.
-     * @return {Boolean} Whether the given render object is verified for the first time of this observer.
+     * @return {boolean} Whether the given render object is verified for the first time of this observer.
      */
     firstInitialization(renderObject: RenderObject): boolean;
+    /**
+     * Returns `true` if the current rendering produces motion vectors.
+     *
+     * @param {Renderer} renderer - The renderer.
+     * @return {boolean} Whether the current rendering produces motion vectors or not.
+     */
+    needsVelocity(renderer: Renderer): boolean;
     /**
      * Returns monitoring data for the given render object.
      *
@@ -123,7 +140,7 @@ declare class NodeMaterialObserver {
      * node properties.
      *
      * @param {NodeBuilder} builder - The current node builder.
-     * @return {Boolean} Whether the node builder's material uses node properties or not.
+     * @return {boolean} Whether the node builder's material uses node properties or not.
      */
     containsNode(builder: NodeBuilder): boolean;
     /**
@@ -138,15 +155,31 @@ declare class NodeMaterialObserver {
      * Returns `true` if the given render object has not changed its state.
      *
      * @param {RenderObject} renderObject - The render object.
-     * @return {Boolean} Whether the given render object has changed its state or not.
+     * @param {Array<Light>} lightsData - The current material lights.
+     * @return {boolean} Whether the given render object has changed its state or not.
      */
-    equals(renderObject: RenderObject): boolean;
+    equals(renderObject: RenderObject, lightsData: Light[]): boolean;
+    /**
+     * Returns the lights data for the given material lights.
+     *
+     * @param {Array<Light>} materialLights - The material lights.
+     * @return {Array<Object>} The lights data for the given material lights.
+     */
+    getLightsData(materialLights: Light[]): LightData[];
+    /**
+     * Returns the lights for the given lights node and render ID.
+     *
+     * @param {LightsNode} lightsNode - The lights node.
+     * @param {number} renderId - The render ID.
+     * @return {Array<Object>} The lights for the given lights node and render ID.
+     */
+    getLights(lightsNode: LightsNode, renderId: number): LightData[];
     /**
      * Checks if the given render object requires a refresh.
      *
      * @param {RenderObject} renderObject - The render object.
      * @param {NodeFrame} nodeFrame - The current node frame.
-     * @return {Boolean} Whether the given render object requires a refresh or not.
+     * @return {boolean} Whether the given render object requires a refresh or not.
      */
     needsRefresh(renderObject: RenderObject, nodeFrame: NodeFrame): boolean;
 }

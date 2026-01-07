@@ -1,5 +1,5 @@
-import * as IClauseSelect from "@nginstack/iquery/lib/IClauseSelect";
-import * as IQuery from "@nginstack/iquery/lib/IQuery";
+import IClauseSelect from "@nginstack/iquery/lib/IClauseSelect";
+import IQuery from "@nginstack/iquery/lib/IQuery";
 
 const iquery = new IQuery();
 const clauseSelect = new IClauseSelect(iquery);
@@ -21,6 +21,6 @@ iquery.getWhereSql(true); // $ExpectType string
 iquery.toSql(); // $ExpectType string
 
 function getVersion(): string {
-    return "71.0.132";
+    return "72.0.1";
 }
 getVersion(); // $ExpectType string

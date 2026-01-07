@@ -18,6 +18,7 @@ export default class User extends AbstractCrudObject {
         age_range: "age_range";
         avatar_2d_profile_picture: "avatar_2d_profile_picture";
         birthday: "birthday";
+        client_business_id: "client_business_id";
         community: "community";
         cover: "cover";
         currency: "currency";
@@ -51,6 +52,7 @@ export default class User extends AbstractCrudObject {
         profile_pic: "profile_pic";
         quotes: "quotes";
         relationship_status: "relationship_status";
+        religion: "religion";
         shared_login_upgrade_required_by: "shared_login_upgrade_required_by";
         short_name: "short_name";
         significant_other: "significant_other";
@@ -97,6 +99,7 @@ export default class User extends AbstractCrudObject {
     getAssignedBusinessAssetGroups(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getAssignedPages(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getAssignedProductCatalogs(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getAssignedWhatsAppBusinessAccounts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getAvatars(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getBusinessUsers(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     deleteBusinesses(params?: Record<string, any>): Promise<any>;
@@ -118,6 +121,7 @@ export default class User extends AbstractCrudObject {
     getLiveVideos(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createLiveVideo(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<LiveVideo>;
     createMessengerDesktopPerformanceTrace(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<User>;
+    createMessengerKidsAccountsUnreadBadge(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<User>;
     getMusic(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createNotification(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<User>;
     getPaymentTransactions(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;

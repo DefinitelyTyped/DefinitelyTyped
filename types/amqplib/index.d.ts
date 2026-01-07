@@ -1,16 +1,25 @@
 /// <reference types="node" />
 
-import * as events from "events";
+import events = require("events");
 import { ConsumeMessage, GetMessage, Message, Options, Replies, ServerProperties } from "./properties";
 export * from "./properties";
 
 export interface Connection extends events.EventEmitter {
+    serverProperties: ServerProperties;
+    /**
+     * Set by library when the connection closing has been kicked off
+     */
+    expectSocketClose: boolean;
+    sentSinceLastCheck: boolean;
+    recvSinceLastCheck: boolean;
+    sendMessage(...args: unknown[]): unknown;
+}
+
+export interface ChannelModel extends events.EventEmitter {
     close(): Promise<void>;
     createChannel(): Promise<Channel>;
     createConfirmChannel(): Promise<ConfirmChannel>;
-    connection: {
-        serverProperties: ServerProperties;
-    };
+    connection: Connection;
     updateSecret(newSecret: Buffer, reason: string): Promise<void>;
 }
 
@@ -100,4 +109,4 @@ export const credentials: {
     };
 };
 
-export function connect(url: string | Options.Connect, socketOptions?: any): Promise<Connection>;
+export function connect(url: string | Options.Connect, socketOptions?: any): Promise<ChannelModel>;

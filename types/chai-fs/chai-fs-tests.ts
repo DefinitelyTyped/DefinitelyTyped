@@ -1,3 +1,5 @@
+/// <reference types="chai/register-should" />
+
 import Chaifs = require("chai-fs");
 
 declare const assert: Chai.AssertStatic;

@@ -7,7 +7,7 @@
     ],
     "devDependencies": {
         "@types/java": "workspace:.",
-        "@types/pify": "*"
+        "@types/pify": "<6"
     },
     "owners": [
         {

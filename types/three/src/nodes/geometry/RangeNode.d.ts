@@ -1,6 +1,9 @@
+import { Color } from "../../math/Color.js";
+import { Vector2 } from "../../math/Vector2.js";
+import { Vector3 } from "../../math/Vector3.js";
+import { Vector4 } from "../../math/Vector4.js";
 import Node from "../core/Node.js";
 import NodeBuilder from "../core/NodeBuilder.js";
-import { NodeRepresentation, ShaderNodeObject } from "../tsl/TSLCore.js";
 
 export default class RangeNode extends Node {
     minNode: Node;
@@ -11,4 +14,7 @@ export default class RangeNode extends Node {
     getVectorLength(builder: NodeBuilder): number;
 }
 
-export const range: (minNode: NodeRepresentation, maxNode: NodeRepresentation) => ShaderNodeObject<RangeNode>;
+export const range: (
+    minNode: Node | number | Color | Vector2 | Vector3 | Vector4,
+    maxNode: Node | number | Color | Vector2 | Vector3 | Vector4,
+) => RangeNode;

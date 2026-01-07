@@ -5,16 +5,9 @@ import * as http from "http";
 namespace express_tests {
     const app = express();
 
-    // Disable and use the same built-in query parser
-    app.disable("query parser");
-    app.use(express.query({}));
-
     app.engine("jade", require("jade").__express);
     app.engine("html", require("ejs").renderFile);
 
-    express.static.mime.define({
-        "application/fx": ["fx"],
-    });
     app.use(
         "/static",
         express.static(__dirname + "/public", {

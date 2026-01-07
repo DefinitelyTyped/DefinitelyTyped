@@ -57,6 +57,10 @@ export interface GeometryGroup {
     materialIndex?: number | undefined;
 }
 
+export interface BufferGeometryEventMap {
+    dispose: {};
+}
+
 /**
  * A representation of mesh, line, or point geometry
  * Includes vertex positions, face indices, normals, colors, UVs, and custom attributes within buffers, reducing the cost of passing all this data to the GPU.
@@ -117,7 +121,8 @@ export interface GeometryGroup {
  */
 export class BufferGeometry<
     Attributes extends NormalOrGLBufferAttributes = NormalBufferAttributes,
-> extends EventDispatcher<{ dispose: {} }> {
+    TEventMap extends BufferGeometryEventMap = BufferGeometryEventMap,
+> extends EventDispatcher<TEventMap> {
     /**
      * This creates a new {@link THREE.BufferGeometry | BufferGeometry} object.
      */
@@ -158,6 +163,8 @@ export class BufferGeometry<
 
     indirect: IndirectStorageBufferAttribute | null;
 
+    indirectOffset: number | number[];
+
     /**
      * This hashmap has as id the name of the attribute to be set and as value the {@link THREE.BufferAttribute | buffer} to set it to. Rather than accessing this property directly,
      * use {@link setAttribute | .setAttribute} and {@link getAttribute | .getAttribute} to access attributes of this geometry.
@@ -173,7 +180,9 @@ export class BufferGeometry<
      * @defaultValue `{}`
      */
     morphAttributes: {
-        [name: string]: Array<BufferAttribute | InterleavedBufferAttribute>; // TODO Replace for 'Record<>'
+        position?: Array<BufferAttribute | InterleavedBufferAttribute> | undefined;
+        normal?: Array<BufferAttribute | InterleavedBufferAttribute> | undefined;
+        color?: Array<BufferAttribute | InterleavedBufferAttribute> | undefined;
     };
 
     /**
@@ -236,7 +245,7 @@ export class BufferGeometry<
      */
     setIndex(index: BufferAttribute | number[] | null): this;
 
-    setIndirect(indirect: IndirectStorageBufferAttribute | null): this;
+    setIndirect(indirect: IndirectStorageBufferAttribute | null, indirectOffset?: number | number[]): this;
 
     getIndirect(): IndirectStorageBufferAttribute | null;
 

@@ -11,7 +11,7 @@ export interface ColorSpaceDefinition {
     fromXYZ: Matrix3;
     luminanceCoefficients: [number, number, number];
     workingColorSpaceConfig?: { unpackColorSpace: string };
-    outputColorSpaceConfig?: { drawingBufferColorSpace: string };
+    outputColorSpaceConfig?: { drawingBufferColorSpace: string; toneMappingNode?: "extended" | "standard" };
 }
 
 export interface ColorManagement {
@@ -29,9 +29,9 @@ export interface ColorManagement {
 
     convert: (color: Color, sourceColorSpace: string, targetColorSpace: string) => Color;
 
-    fromWorkingColorSpace: (color: Color, targetColorSpace: string) => Color;
+    workingToColorSpace: (color: Color, targetColorSpace: string) => Color;
 
-    toWorkingColorSpace: (color: Color, sourceColorSpace: string) => Color;
+    colorSpaceToWorking: (color: Color, sourceColorSpace: string) => Color;
 
     getPrimaries: (colorSpace: string) => [number, number, number, number, number, number];
 
@@ -40,6 +40,16 @@ export interface ColorManagement {
     getLuminanceCoefficients: (target: Vector3, colorSpace?: string) => [number, number, number];
 
     define: (colorSpaces: Record<string, ColorSpaceDefinition>) => void;
+
+    /**
+     * @deprecated .fromWorkingColorSpace() has been renamed to .workingToColorSpace().
+     */
+    fromWorkingColorSpace: (color: Color, targetColorSpace: string) => Color;
+
+    /**
+     * @deprecated .toWorkingColorSpace() has been renamed to .colorSpaceToWorking().
+     */
+    toWorkingColorSpace: (color: Color, sourceColorSpace: string) => Color;
 }
 
 export const ColorManagement: ColorManagement;

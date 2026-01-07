@@ -1,8 +1,18 @@
 import { connect } from "net";
 import * as pg from "pg";
-import { Client, Connection, CustomTypesConfig, DatabaseError, defaults, Pool, QueryArrayConfig, types } from "pg";
+import {
+    Client,
+    Connection,
+    CustomTypesConfig,
+    DatabaseError,
+    defaults,
+    Pool,
+    QueryArrayConfig,
+    TypeOverrides as TypeOverridesNamed,
+    types,
+} from "pg";
 import TypeOverrides = require("pg/lib/type-overrides");
-import { NoticeMessage } from "pg-protocol/dist/messages";
+import { NoticeMessage } from "pg-protocol/dist/messages.js";
 
 // https://github.com/brianc/node-pg-types
 // tslint:disable-next-line no-unnecessary-callback-wrapper
@@ -208,6 +218,15 @@ customTypeOverrides.setTypeParser(types.builtins.INT8, BigInt);
 const customCustomTypeOverrides = new TypeOverrides(customTypes);
 customTypeOverrides.setTypeParser(types.builtins.INT8, BigInt);
 
+const customTypeOverridesFromNamed = new TypeOverridesNamed();
+customTypeOverrides.setTypeParser(types.builtins.INT8, BigInt);
+
+client.connection.once("rowDescription", () => {
+    console.log("client connection rowDescription event");
+});
+// @ts-expect-error – connection is readonly
+client.connection = new Connection();
+
 // pg.Pool
 // https://node-postgres.com/apis/pool
 
@@ -293,6 +312,8 @@ pool.on("connect", (client) => {
     // $ExpectType PoolClient
     client;
 });
+// @ts-expect-error - test wrong number of arguments
+pool.on("connect", (error, client) => {});
 pool.on("acquire", (client) => {
     // $ExpectType PoolClient
     client;
@@ -304,10 +325,27 @@ pool.on("release", (err, client) => {
         console.error("connection released to pool: ", err.message);
     }
 });
+pool.on("release", (error) => {
+    // $ExpectType Error
+    error;
+});
 pool.on("remove", (client) => {
     // $ExpectType PoolClient
     client;
 });
+
+const listeners: {
+    [K in "error" | "release" | "connect" | "remove" | "acquire"]?: K extends "error" | "release"
+        ? (err: Error, client: pg.PoolClient) => void
+        : (client: pg.PoolClient) => void;
+} = {};
+
+for (const eventName in listeners) {
+    const listener = listeners[eventName as keyof typeof listeners];
+    if (listener) {
+        pool.on(eventName as keyof typeof listeners, listener);
+    }
+}
 
 (async () => {
     const client = await pool.connect();

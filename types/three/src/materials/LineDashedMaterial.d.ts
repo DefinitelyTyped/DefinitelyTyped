@@ -1,35 +1,56 @@
-import { LineBasicMaterial, LineBasicMaterialParameters } from "./LineBasicMaterial.js";
+import { LineBasicMaterial, LineBasicMaterialProperties } from "./LineBasicMaterial.js";
+import { MapColorPropertiesToColorRepresentations } from "./Material.js";
 
-export interface LineDashedMaterialParameters extends LineBasicMaterialParameters {
-    scale?: number | undefined;
-    dashSize?: number | undefined;
-    gapSize?: number | undefined;
-}
-
-export class LineDashedMaterial extends LineBasicMaterial {
-    constructor(parameters?: LineDashedMaterialParameters);
-
+export interface LineDashedMaterialProperties extends LineBasicMaterialProperties {
     /**
-     * Read-only flag to check if a given object is of type {@link LineDashedMaterial}.
-     * @remarks This is a _constant_ value
-     * @defaultValue `true`
-     */
-    readonly isLineDashedMaterial: true;
-
-    /**
+     * The scale of the dashed part of a line.
+     *
      * @default 1
      */
     scale: number;
-
     /**
-     * @default 1
+     * The size of the dash. This is both the gap with the stroke.
+     *
+     * @default 3
      */
     dashSize: number;
-
     /**
+     * The size of the gap.
+     *
      * @default 1
      */
     gapSize: number;
-
-    setValues(parameters: LineDashedMaterialParameters): void;
 }
+
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface LineDashedMaterialParameters
+    extends Partial<MapColorPropertiesToColorRepresentations<LineDashedMaterialProperties>>
+{}
+
+/**
+ * A material for rendering line primitives.
+ *
+ * Materials define the appearance of renderable 3D objects.
+ *
+ * ```js
+ * const material = new THREE.LineDashedMaterial( {
+ * 	color: 0xffffff,
+ * 	scale: 1,
+ * 	dashSize: 3,
+ * 	gapSize: 1,
+ * } );
+ * ```
+ */
+export class LineDashedMaterial extends LineBasicMaterial {
+    constructor(parameters?: LineDashedMaterialParameters);
+    /**
+     * This flag can be used for type testing.
+     *
+     * @default true
+     */
+    readonly isLineDashedMaterial: boolean;
+    setValues(values?: LineDashedMaterialParameters): void;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface LineDashedMaterial extends LineDashedMaterialProperties {}

@@ -2,7 +2,7 @@ import FacebookAdsApi from "./api";
 import AbstractObject from "./abstract-object";
 import Cursor from "./cursor";
 export class AbstractCrudObject extends AbstractObject {
-    _parentId: string | null | undefined;
+    _parentId?: string | null;
     _changes: Record<string, any>;
     _api: FacebookAdsApi;
     id: string;
@@ -11,7 +11,7 @@ export class AbstractCrudObject extends AbstractObject {
      * @param  {String} parentId
      * @param  {FacebookAdApi} [api]
      */
-    constructor(id?: number |string | null, data?: Record<string, any>, parentId?: string | null , api?: FacebookAdsApi | null );
+    constructor(id?: number | string | null, data?: Record<string, any>, parentId?: string | null, api?: FacebookAdsApi | null);
     /**
      * Define data getter and setter recording changes
      * @param {String} field
@@ -86,7 +86,7 @@ export class AbstractCrudObject extends AbstractObject {
      * @param  {String}  [endpoint]
      * @return {Cursor}
      */
-    getEdge(targetClass: Record<string, any>, fields: string[], params: Record<string, any>, fetchFirstPage: boolean, endpoint: string | null | undefined): Cursor | Promise<Cursor>;
+    getEdge(targetClass: Record<string, any>, fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean, endpoint?: string | null): Cursor | Promise<Cursor>;
     /**
      * Create edge object
      * @param   {String}  [endpoint]
@@ -111,6 +111,6 @@ export class AbstractCrudObject extends AbstractObject {
      * @param  {FacebookAdsApi} [api]
      * @return {Promise}
      */
-    static getByIds(ids: number[], fields: string[], params: Record<string, any>, api: FacebookAdsApi): Promise<any>;
+    static getByIds(ids: number[], fields: string[], params: Record<string, any> | undefined, api: FacebookAdsApi): Promise<any>;
 }
 export default AbstractCrudObject;

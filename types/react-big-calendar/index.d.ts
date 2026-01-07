@@ -209,8 +209,8 @@ export interface Components<TEvent extends object = Event, TResource extends obj
     toolbar?: React.ComponentType<ToolbarProps<TEvent, TResource>> | undefined;
     agenda?:
         | {
-            date?: React.ComponentType | undefined;
-            time?: React.ComponentType | undefined;
+            date?: React.ComponentType<AgendaDateProps> | undefined;
+            time?: React.ComponentType<AgendaTimeProps> | undefined;
             event?: React.ComponentType<EventProps<TEvent>> | undefined;
         }
         | undefined;
@@ -267,6 +267,17 @@ export interface EventProps<TEvent extends object = Event> {
     localizer: DateLocalizer;
     slotStart: Date;
     slotEnd: Date;
+}
+
+export interface AgendaDateProps {
+    day: Date;
+    label: string;
+}
+
+export interface AgendaTimeProps {
+    event: Event;
+    day: Date;
+    label: string;
 }
 
 export interface EventWrapperProps<TEvent extends object = Event> {

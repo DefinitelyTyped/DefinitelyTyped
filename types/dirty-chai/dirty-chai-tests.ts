@@ -1,3 +1,5 @@
+/// <reference types="chai/register-should" />
+
 import chaiAsPromised = require("chai-as-promised");
 import("chai").then(chai => chai.use(chaiAsPromised));
 

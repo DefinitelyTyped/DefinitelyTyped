@@ -20,6 +20,13 @@ app.use(
         flush: zlib.constants.Z_NO_FLUSH,
         finishFlush: zlib.constants.Z_FINISH,
         dictionary: Buffer.from("Hello World!"),
+        // brotli options
+        brotli: {
+            params: {
+                [zlib.constants.BROTLI_PARAM_QUALITY]: 4,
+                [zlib.constants.BROTLI_PARAM_MODE]: zlib.constants.BROTLI_DEFAULT_MODE,
+            },
+        },
         info: true,
     }),
 );
@@ -37,6 +44,8 @@ app.use(
         },
     }),
 );
+
+app.use(compression({ enforceEncoding: "br" }));
 
 // compression.filter
 

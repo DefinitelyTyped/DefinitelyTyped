@@ -1,5 +1,5 @@
 import { NextHandleFunction } from "connect";
-import * as webpack from "webpack";
+import webpack = require("webpack");
 
 export = WebpackHotMiddleware;
 
@@ -31,6 +31,7 @@ declare namespace WebpackHotMiddleware {
         log?: false | Logger | undefined;
         path?: string | undefined;
         heartbeat?: number | undefined;
+        statsOptions?: webpack.StatsOptions;
     }
 
     type Logger = (message?: any, ...optionalParams: any[]) => void;

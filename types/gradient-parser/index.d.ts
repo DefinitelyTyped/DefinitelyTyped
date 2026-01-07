@@ -47,30 +47,48 @@ export interface AngularNode {
 export interface LiteralNode {
     type: "literal";
     value: string;
-    length?: PxNode | EmNode | PercentNode | undefined;
+    length?: PxNode | EmNode | PercentNode | CalcNode | undefined;
 }
 
 export interface HexNode {
     type: "hex";
     value: string;
-    length?: PxNode | EmNode | PercentNode | undefined;
+    length?: PxNode | EmNode | PercentNode | CalcNode | undefined;
 }
 
 export interface RgbNode {
     type: "rgb";
     value: [string, string, string];
-    length?: PxNode | EmNode | PercentNode | undefined;
+    length?: PxNode | EmNode | PercentNode | CalcNode | undefined;
 }
 
 export interface RgbaNode {
     type: "rgba";
     value: [string, string, string, string?];
-    length?: PxNode | EmNode | PercentNode | undefined;
+    length?: PxNode | EmNode | PercentNode | CalcNode | undefined;
+}
+
+export interface HslNode {
+    type: "hsl";
+    value: [string, string, string];
+    length?: PxNode | EmNode | PercentNode | CalcNode | undefined;
+}
+
+export interface HslaNode {
+    type: "hsla";
+    value: [string, string, string, string?];
+    length?: PxNode | EmNode | PercentNode | CalcNode | undefined;
+}
+
+export interface VarNode {
+    type: "var";
+    value: string;
+    length?: PxNode | EmNode | PercentNode | CalcNode | undefined;
 }
 
 export interface ShapeNode {
     type: "shape";
-    style?: ExtentKeywordNode | PxNode | EmNode | PercentNode | PositionKeywordNode | undefined;
+    style?: ExtentKeywordNode | PxNode | EmNode | PercentNode | PositionKeywordNode | CalcNode | undefined;
     value: "ellipse" | "circle";
     at?: PositionNode | undefined;
 }
@@ -88,8 +106,8 @@ export interface PositionKeywordNode {
 export interface PositionNode {
     type: "position";
     value: {
-        x: ExtentKeywordNode | PxNode | EmNode | PercentNode | PositionKeywordNode;
-        y: ExtentKeywordNode | PxNode | EmNode | PercentNode | PositionKeywordNode;
+        x: ExtentKeywordNode | PxNode | EmNode | PercentNode | PositionKeywordNode | CalcNode;
+        y: ExtentKeywordNode | PxNode | EmNode | PercentNode | PositionKeywordNode | CalcNode;
     };
 }
 
@@ -114,7 +132,12 @@ export interface PercentNode {
     value: string;
 }
 
-export type ColorStop = LiteralNode | HexNode | RgbNode | RgbaNode;
+export interface CalcNode {
+    type: "calc";
+    value: string;
+}
+
+export type ColorStop = LiteralNode | HexNode | RgbNode | RgbaNode | HslNode | HslaNode | VarNode;
 
 export type GradientNode =
     | LinearGradientNode

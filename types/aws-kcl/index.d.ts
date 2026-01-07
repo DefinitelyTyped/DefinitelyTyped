@@ -58,6 +58,8 @@ declare namespace KCLProcess {
 
     interface ShardEndedInput extends CheckpointInput {} // eslint-disable-line @typescript-eslint/no-empty-interface
 
+    interface ShutdownRequestedInput extends CheckpointInput {} // eslint-disable-line @typescript-eslint/no-empty-interface
+
     interface RecordProcessor {
         /**
          * Called once by the KCL before any calls to processRecords. Any initialization
@@ -110,6 +112,16 @@ declare namespace KCLProcess {
          *               ended operations are completed.
          */
         shardEnded(shardEndedInput: ShardEndedInput, completeCallback: Callback): void;
+        /**
+         * Called by the KCL to indicate that this record processor should shut down.
+         * This is called when the KCL is being shutdown using requestedShutdown.
+         * Clients should checkpoint at this time if they wish to save their progress.
+         *
+         * @param shutdownRequestedInput - Shutdown request information with checkpointer.
+         * @param completeCallback - The callback must be invoked once shutdown
+         *             requested operations are completed.
+         */
+        shutdownRequested?(shutdownRequestedInput: ShutdownRequestedInput, completeCallback: Callback): void;
     }
 
     interface KCLInput {

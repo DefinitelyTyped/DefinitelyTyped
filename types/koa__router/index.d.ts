@@ -5,7 +5,7 @@
 
  =============================================== */
 
-import * as Koa from "koa";
+import Koa = require("koa");
 
 declare namespace Router {
     interface RouterOptions {

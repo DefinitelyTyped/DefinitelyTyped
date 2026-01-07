@@ -11,10 +11,13 @@ export { default as WebGPURenderer } from "./renderers/webgpu/WebGPURenderer.Nod
 import * as RendererUtils from "./renderers/common/RendererUtils.js";
 export { RendererUtils };
 export { default as IESSpotLight } from "./lights/webgpu/IESSpotLight.js";
+export { default as ProjectorLight } from "./lights/webgpu/ProjectorLight.js";
 export { default as NodeLoader } from "./loaders/nodes/NodeLoader.js";
 export { default as NodeMaterialLoader } from "./loaders/nodes/NodeMaterialLoader.js";
 export { default as NodeObjectLoader } from "./loaders/nodes/NodeObjectLoader.js";
 export * from "./nodes/Nodes.js";
+export { default as CanvasTarget } from "./renderers/common/CanvasTarget.js";
+export { default as InspectorBase } from "./renderers/common/InspectorBase.js";
 import * as TSL from "./nodes/TSL.js";
 export { TSL };
 export { ClippingGroup } from "./objects/ClippingGroup.js";

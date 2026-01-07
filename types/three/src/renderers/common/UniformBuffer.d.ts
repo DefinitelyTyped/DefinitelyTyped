@@ -10,7 +10,7 @@ declare class UniformBuffer extends Buffer {
     /**
      * Constructs a new uniform buffer.
      *
-     * @param {String} name - The buffer's name.
+     * @param {string} name - The buffer's name.
      * @param {TypedArray} [buffer=null] - The buffer.
      */
     constructor(name?: string, buffer?: null);

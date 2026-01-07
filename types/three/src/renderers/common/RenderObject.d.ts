@@ -53,7 +53,14 @@ declare class RenderObject {
         count: number;
     } | null;
     attributes: Array<BufferAttribute | InterleavedBufferAttribute> | null;
+    attributesId: {
+        [attributeName: string]: number;
+    } | null;
     pipeline: RenderPipeline | null;
+    group: {
+        start: number;
+        count: number;
+    } | null;
     vertexBuffers: Array<BufferAttribute | InterleavedBuffer> | null;
     drawParams: {
         vertexCount: number;
@@ -64,14 +71,15 @@ declare class RenderObject {
     bundle: BundleGroup | null;
     clippingContext: ClippingContext | null;
     clippingContextCacheKey: string;
-    initialNodesCacheKey: string;
-    initialCacheKey: string;
+    initialNodesCacheKey: number;
+    initialCacheKey: number;
     _nodeBuilderState: NodeBuilderState | null;
     _bindings: BindGroup[] | null;
     _monitor: NodeMaterialObserver | null;
     onDispose: (() => void) | null;
     readonly isRenderObject: true;
     onMaterialDispose: () => void;
+    onGeometryDispose: () => void;
     /**
      * Constructs a new render object.
      *
@@ -107,14 +115,14 @@ declare class RenderObject {
     /**
      * Whether the clipping requires an update or not.
      *
-     * @type {Boolean}
+     * @type {boolean}
      * @readonly
      */
     get clippingNeedsUpdate(): boolean;
     /**
      * The number of clipping planes defined in context of hardware clipping.
      *
-     * @type {Number}
+     * @type {number}
      * @readonly
      */
     get hardwareClippingPlanes(): number;
@@ -139,22 +147,28 @@ declare class RenderObject {
     /**
      * Returns a binding group by group name of this render object.
      *
-     * @param {String} name - The name of the binding group.
-     * @return {BindGroup?} The bindings.
+     * @param {string} name - The name of the binding group.
+     * @return {?BindGroup} The bindings.
      */
     getBindingGroup(name: string): BindGroup | undefined;
     /**
      * Returns the index of the render object's geometry.
      *
-     * @return {BufferAttribute?} The index. Returns `null` for non-indexed geometries.
+     * @return {?BufferAttribute} The index. Returns `null` for non-indexed geometries.
      */
     getIndex(): BufferAttribute | null;
     /**
      * Returns the indirect buffer attribute.
      *
-     * @return {BufferAttribute?} The indirect attribute. `null` if no indirect drawing is used.
+     * @return {?BufferAttribute} The indirect attribute. `null` if no indirect drawing is used.
      */
     getIndirect(): import("./IndirectStorageBufferAttribute.js").default | null;
+    /**
+     * Returns the byte offset into the indirect attribute buffer.
+     *
+     * @return {number|Array<number>} The byte offset into the indirect attribute buffer.
+     */
+    getIndirectOffset(): number | number[];
     /**
      * Returns an array that acts as a key for identifying the render object in a chain map.
      *
@@ -189,7 +203,7 @@ declare class RenderObject {
     /**
      * Returns the draw parameters for the render object.
      *
-     * @return {{vertexCount: Number, firstVertex: Number, instanceCount: Number, firstInstance: Number}} The draw parameters.
+     * @return {?{vertexCount: number, firstVertex: number, instanceCount: number, firstInstance: number}} The draw parameters.
      */
     getDrawParameters(): {
         vertexCount: number;
@@ -202,7 +216,7 @@ declare class RenderObject {
      *
      * The geometry cache key is part of the material cache key.
      *
-     * @return {String} The geometry cache key.
+     * @return {string} The geometry cache key.
      */
     getGeometryCacheKey(): string;
     /**
@@ -210,13 +224,13 @@ declare class RenderObject {
      *
      * The material cache key is part of the render object cache key.
      *
-     * @return {Number} The material cache key.
+     * @return {number} The material cache key.
      */
     getMaterialCacheKey(): number;
     /**
      * Whether the geometry requires an update or not.
      *
-     * @type {Boolean}
+     * @type {boolean}
      * @readonly
      */
     get needsGeometryUpdate(): boolean;
@@ -234,20 +248,20 @@ declare class RenderObject {
      * TODO: Investigate if it's possible to merge both steps so there is only a single place
      * that performs the 'needsUpdate' check.
      *
-     * @type {Boolean}
+     * @type {boolean}
      * @readonly
      */
     get needsUpdate(): boolean;
     /**
      * Returns the dynamic cache key which represents a key that is computed per draw command.
      *
-     * @return {Number} The cache key.
+     * @return {number} The cache key.
      */
     getDynamicCacheKey(): number;
     /**
      * Returns the render object's cache key.
      *
-     * @return {Number} The cache key.
+     * @return {number} The cache key.
      */
     getCacheKey(): number;
     /**

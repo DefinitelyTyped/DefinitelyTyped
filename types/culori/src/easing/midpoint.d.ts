@@ -1,3 +1,3 @@
-declare function midpoint(H: number): (t: number) => number;
+declare function easingMidpoint(H?: number): (t: number) => number;
 
-export default midpoint;
+export default easingMidpoint;

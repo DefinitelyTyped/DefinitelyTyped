@@ -1,11 +1,12 @@
 const arg = process.argv[2];
 
+const maxAllJobs = 16;
 const maxJobs = 12;
 
 let shardCount;
 
 if (arg === "all") {
-    shardCount = maxJobs;
+    shardCount = maxAllJobs;
 } else {
     const testCount = Number.parseInt(arg);
     const testsPerJob = 100;

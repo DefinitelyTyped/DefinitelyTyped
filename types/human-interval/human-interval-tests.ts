@@ -1,4 +1,4 @@
-import * as humanInterval from "human-interval";
+import humanInterval from "human-interval";
 
 function testHumanInterval() {
     const value1 = humanInterval("one minute");

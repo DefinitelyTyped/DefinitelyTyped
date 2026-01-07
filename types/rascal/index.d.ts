@@ -437,16 +437,20 @@ declare const testConfig: {
 };
 
 type AckOrNack = (err?: Error, recovery?: Recovery | Recovery[]) => void;
+type CallbackReturn<T> = T | Promise<T>;
 
 export class SubscriberSessionAsPromised extends EventEmitter {
     name: string;
     cancel(): Promise<void>;
 
-    on(event: "message", listener: (message: Message, content: any, ackOrNackFn: AckOrNack) => void): this;
-    on(event: "error" | "cancelled", listener: (err: Error) => void): this;
+    on(
+        event: "message",
+        listener: (message: Message, content: any, ackOrNackFn: AckOrNack) => CallbackReturn<void>,
+    ): this;
+    on(event: "error" | "cancelled", listener: (err: Error) => CallbackReturn<void>): this;
     on(
         event: "invalid_content" | "redeliveries_exceeded" | "redeliveries_error",
-        listener: (err: Error, message: Message, ackOrNackFn: AckOrNack) => void,
+        listener: (err: Error, message: Message, ackOrNackFn: AckOrNack) => CallbackReturn<void>,
     ): this;
 }
 
@@ -472,11 +476,14 @@ export class SubscriptionSession extends EventEmitter {
     isCancelled(): boolean;
     cancel(next: ErrorCb): void;
 
-    on(event: "message", listener: (message: Message, content: any, ackOrNackFn: AckOrNack) => void): this;
-    on(event: "error" | "cancelled", listener: (err: Error) => void): this;
+    on(
+        event: "message",
+        listener: (message: Message, content: any, ackOrNackFn: AckOrNack) => CallbackReturn<void>,
+    ): this;
+    on(event: "error" | "cancelled", listener: (err: Error) => CallbackReturn<void>): this;
     on(
         event: "invalid_content" | "redeliveries_exceeded" | "redeliveries_error",
-        listener: (err: Error, message: Message, ackOrNackFn: AckOrNack) => void,
+        listener: (err: Error, message: Message, ackOrNackFn: AckOrNack) => CallbackReturn<void>,
     ): this;
 }
 

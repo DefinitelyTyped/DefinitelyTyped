@@ -1,9 +1,9 @@
-import { GOVUKFrontendComponent } from "../../govuk-frontend-component.js";
+import { Component } from "../../component.js";
 
 /**
  * Checkboxes component
  */
-export class Checkboxes extends GOVUKFrontendComponent<HTMLElement> {
+export class Checkboxes extends Component<HTMLElement> {
     /**
      * Name for the component used when initialising using data-module attributes.
      */

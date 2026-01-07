@@ -37,17 +37,19 @@
  *   'Host', 'example.com',
  *   'accepT', '*' ]
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/http.js)
+ * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/http.js)
  */
-declare module "http" {
-    import * as stream from "node:stream";
-    import { URL } from "node:url";
+declare module "node:http" {
+    import { NonSharedBuffer } from "node:buffer";
     import { LookupOptions } from "node:dns";
     import { EventEmitter } from "node:events";
-    import { LookupFunction, Server as NetServer, Socket, TcpSocketConnectOpts } from "node:net";
+    import * as net from "node:net";
+    import * as stream from "node:stream";
+    import { URL } from "node:url";
     // incoming headers will never contain number
     interface IncomingHttpHeaders extends NodeJS.Dict<string | string[]> {
         accept?: string | undefined;
+        "accept-encoding"?: string | undefined;
         "accept-language"?: string | undefined;
         "accept-patch"?: string | undefined;
         "accept-ranges"?: string | undefined;
@@ -94,6 +96,10 @@ declare module "http" {
         range?: string | undefined;
         referer?: string | undefined;
         "retry-after"?: string | undefined;
+        "sec-fetch-site"?: string | undefined;
+        "sec-fetch-mode"?: string | undefined;
+        "sec-fetch-user"?: string | undefined;
+        "sec-fetch-dest"?: string | undefined;
         "sec-websocket-accept"?: string | undefined;
         "sec-websocket-extensions"?: string | undefined;
         "sec-websocket-key"?: string | undefined;
@@ -195,7 +201,7 @@ declare module "http" {
         "x-frame-options"?: string | undefined;
         "x-xss-protection"?: string | undefined;
     }
-    interface ClientRequestArgs {
+    interface ClientRequestArgs extends Pick<LookupOptions, "hints"> {
         _defaultAgent?: Agent | undefined;
         agent?: Agent | boolean | undefined;
         auth?: string | null | undefined;
@@ -207,14 +213,13 @@ declare module "http" {
             | undefined;
         defaultPort?: number | string | undefined;
         family?: number | undefined;
-        headers?: OutgoingHttpHeaders | undefined;
-        hints?: LookupOptions["hints"];
+        headers?: OutgoingHttpHeaders | readonly string[] | undefined;
         host?: string | null | undefined;
         hostname?: string | null | undefined;
         insecureHTTPParser?: boolean | undefined;
         localAddress?: string | undefined;
         localPort?: number | undefined;
-        lookup?: LookupFunction | undefined;
+        lookup?: net.LookupFunction | undefined;
         /**
          * @default 16384
          */
@@ -229,7 +234,7 @@ declare module "http" {
         socketPath?: string | undefined;
         timeout?: number | undefined;
         uniqueHeaders?: Array<string | string[]> | undefined;
-        joinDuplicateHeaders?: boolean;
+        joinDuplicateHeaders?: boolean | undefined;
     }
     interface ServerOptions<
         Request extends typeof IncomingMessage = typeof IncomingMessage,
@@ -255,7 +260,7 @@ declare module "http" {
          * @default false
          * @since v18.14.0
          */
-        joinDuplicateHeaders?: boolean;
+        joinDuplicateHeaders?: boolean | undefined;
         /**
          * The number of milliseconds of inactivity a server needs to wait for additional incoming data,
          * after it has finished writing the last response, before a socket will be destroyed.
@@ -265,10 +270,24 @@ declare module "http" {
          */
         keepAliveTimeout?: number | undefined;
         /**
+         * An additional buffer time added to the
+         * `server.keepAliveTimeout` to extend the internal socket timeout.
+         * @since 24.6.0
+         * @default 1000
+         */
+        keepAliveTimeoutBuffer?: number | undefined;
+        /**
          * Sets the interval value in milliseconds to check for request and headers timeout in incomplete requests.
          * @default 30000
          */
         connectionsCheckingInterval?: number | undefined;
+        /**
+         * Sets the timeout value in milliseconds for receiving the complete HTTP headers from the client.
+         * See {@link Server.headersTimeout} for more information.
+         * @default 60000
+         * @since 18.0.0
+         */
+        headersTimeout?: number | undefined;
         /**
          * Optionally overrides all `socket`s' `readableHighWaterMark` and `writableHighWaterMark`.
          * This affects `highWaterMark` property of both `IncomingMessage` and `ServerResponse`.
@@ -297,6 +316,13 @@ declare module "http" {
          */
         noDelay?: boolean | undefined;
         /**
+         * If set to `true`, it forces the server to respond with a 400 (Bad Request) status code
+         * to any HTTP/1.1 request message that lacks a Host header (as mandated by the specification).
+         * @default true
+         * @since 20.0.0
+         */
+        requireHostHeader?: boolean | undefined;
+        /**
          * If set to `true`, it enables keep-alive functionality on the socket immediately after a new incoming connection is received,
          * similarly on what is done in `socket.setKeepAlive([enable][, initialDelay])`.
          * @default false
@@ -314,18 +340,48 @@ declare module "http" {
          * If the header's value is an array, the items will be joined using `; `.
          */
         uniqueHeaders?: Array<string | string[]> | undefined;
+        /**
+         * A callback which receives an
+         * incoming request and returns a boolean, to control which upgrade attempts
+         * should be accepted. Accepted upgrades will fire an `'upgrade'` event (or
+         * their sockets will be destroyed, if no listener is registered) while
+         * rejected upgrades will fire a `'request'` event like any non-upgrade
+         * request.
+         * @since v24.9.0
+         * @default () => server.listenerCount('upgrade') > 0
+         */
+        shouldUpgradeCallback?: ((request: InstanceType<Request>) => boolean) | undefined;
+        /**
+         * If set to `true`, an error is thrown when writing to an HTTP response which does not have a body.
+         * @default false
+         * @since v18.17.0, v20.2.0
+         */
+        rejectNonStandardBodyWrites?: boolean | undefined;
     }
     type RequestListener<
         Request extends typeof IncomingMessage = typeof IncomingMessage,
         Response extends typeof ServerResponse<InstanceType<Request>> = typeof ServerResponse,
-    > = (req: InstanceType<Request>, res: InstanceType<Response> & { req: InstanceType<Request> }) => void;
+    > = (request: InstanceType<Request>, response: InstanceType<Response> & { req: InstanceType<Request> }) => void;
+    interface ServerEventMap<
+        Request extends typeof IncomingMessage = typeof IncomingMessage,
+        Response extends typeof ServerResponse<InstanceType<Request>> = typeof ServerResponse,
+    > extends net.ServerEventMap {
+        "checkContinue": Parameters<RequestListener<Request, Response>>;
+        "checkExpectation": Parameters<RequestListener<Request, Response>>;
+        "clientError": [exception: Error, socket: stream.Duplex];
+        "connect": [request: InstanceType<Request>, socket: stream.Duplex, head: NonSharedBuffer];
+        "connection": [socket: net.Socket];
+        "dropRequest": [request: InstanceType<Request>, socket: stream.Duplex];
+        "request": Parameters<RequestListener<Request, Response>>;
+        "upgrade": [req: InstanceType<Request>, socket: stream.Duplex, head: NonSharedBuffer];
+    }
     /**
      * @since v0.1.17
      */
     class Server<
         Request extends typeof IncomingMessage = typeof IncomingMessage,
         Response extends typeof ServerResponse<InstanceType<Request>> = typeof ServerResponse,
-    > extends NetServer {
+    > extends net.Server {
         constructor(requestListener?: RequestListener<Request, Response>);
         constructor(options: ServerOptions<Request, Response>, requestListener?: RequestListener<Request, Response>);
         /**
@@ -342,8 +398,8 @@ declare module "http" {
          * @since v0.9.12
          * @param [msecs=0 (no timeout)]
          */
-        setTimeout(msecs?: number, callback?: () => void): this;
-        setTimeout(callback: () => void): this;
+        setTimeout(msecs?: number, callback?: (socket: net.Socket) => void): this;
+        setTimeout(callback: (socket: net.Socket) => void): this;
         /**
          * Limits maximum incoming headers count. If set to 0, no limit will be applied.
          * @since v0.7.0
@@ -388,12 +444,18 @@ declare module "http" {
         /**
          * The number of milliseconds of inactivity a server needs to wait for additional
          * incoming data, after it has finished writing the last response, before a socket
-         * will be destroyed. If the server receives new data before the keep-alive
-         * timeout has fired, it will reset the regular inactivity timeout, i.e., `server.timeout`.
+         * will be destroyed.
+         *
+         * This timeout value is combined with the
+         * `server.keepAliveTimeoutBuffer` option to determine the actual socket
+         * timeout, calculated as:
+         * socketTimeout = keepAliveTimeout + keepAliveTimeoutBuffer
+         * If the server receives new data before the keep-alive timeout has fired, it
+         * will reset the regular inactivity timeout, i.e., `server.timeout`.
          *
          * A value of `0` will disable the keep-alive timeout behavior on incoming
          * connections.
-         * A value of `0` makes the http server behave similarly to Node.js versions prior
+         * A value of `0` makes the HTTP server behave similarly to Node.js versions prior
          * to 8.0.0, which did not have a keep-alive timeout.
          *
          * The socket timeout logic is set up on connection, so changing this value only
@@ -401,6 +463,18 @@ declare module "http" {
          * @since v8.0.0
          */
         keepAliveTimeout: number;
+        /**
+         * An additional buffer time added to the
+         * `server.keepAliveTimeout` to extend the internal socket timeout.
+         *
+         * This buffer helps reduce connection reset (`ECONNRESET`) errors by increasing
+         * the socket timeout slightly beyond the advertised keep-alive timeout.
+         *
+         * This option applies only to new incoming connections.
+         * @since v24.6.0
+         * @default 1000
+         */
+        keepAliveTimeoutBuffer: number;
         /**
          * Sets the timeout value in milliseconds for receiving the entire request from
          * the client.
@@ -425,120 +499,64 @@ declare module "http" {
          * @since v18.2.0
          */
         closeIdleConnections(): void;
-        addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener(event: "close", listener: () => void): this;
-        addListener(event: "connection", listener: (socket: Socket) => void): this;
-        addListener(event: "error", listener: (err: Error) => void): this;
-        addListener(event: "listening", listener: () => void): this;
-        addListener(event: "checkContinue", listener: RequestListener<Request, Response>): this;
-        addListener(event: "checkExpectation", listener: RequestListener<Request, Response>): this;
-        addListener(event: "clientError", listener: (err: Error, socket: stream.Duplex) => void): this;
-        addListener(
-            event: "connect",
-            listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void,
+        // #region InternalEventEmitter
+        addListener<E extends keyof ServerEventMap>(
+            eventName: E,
+            listener: (...args: ServerEventMap<Request, Response>[E]) => void,
         ): this;
-        addListener(event: "dropRequest", listener: (req: InstanceType<Request>, socket: stream.Duplex) => void): this;
-        addListener(event: "request", listener: RequestListener<Request, Response>): this;
-        addListener(
-            event: "upgrade",
-            listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void,
+        addListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        emit<E extends keyof ServerEventMap>(eventName: E, ...args: ServerEventMap<Request, Response>[E]): boolean;
+        emit(eventName: string | symbol, ...args: any[]): boolean;
+        listenerCount<E extends keyof ServerEventMap>(
+            eventName: E,
+            listener?: (...args: ServerEventMap<Request, Response>[E]) => void,
+        ): number;
+        listenerCount(eventName: string | symbol, listener?: (...args: any[]) => void): number;
+        listeners<E extends keyof ServerEventMap>(
+            eventName: E,
+        ): ((...args: ServerEventMap<Request, Response>[E]) => void)[];
+        listeners(eventName: string | symbol): ((...args: any[]) => void)[];
+        off<E extends keyof ServerEventMap>(
+            eventName: E,
+            listener: (...args: ServerEventMap<Request, Response>[E]) => void,
         ): this;
-        emit(event: string, ...args: any[]): boolean;
-        emit(event: "close"): boolean;
-        emit(event: "connection", socket: Socket): boolean;
-        emit(event: "error", err: Error): boolean;
-        emit(event: "listening"): boolean;
-        emit(
-            event: "checkContinue",
-            req: InstanceType<Request>,
-            res: InstanceType<Response> & { req: InstanceType<Request> },
-        ): boolean;
-        emit(
-            event: "checkExpectation",
-            req: InstanceType<Request>,
-            res: InstanceType<Response> & { req: InstanceType<Request> },
-        ): boolean;
-        emit(event: "clientError", err: Error, socket: stream.Duplex): boolean;
-        emit(event: "connect", req: InstanceType<Request>, socket: stream.Duplex, head: Buffer): boolean;
-        emit(event: "dropRequest", req: InstanceType<Request>, socket: stream.Duplex): boolean;
-        emit(
-            event: "request",
-            req: InstanceType<Request>,
-            res: InstanceType<Response> & { req: InstanceType<Request> },
-        ): boolean;
-        emit(event: "upgrade", req: InstanceType<Request>, socket: stream.Duplex, head: Buffer): boolean;
-        on(event: string, listener: (...args: any[]) => void): this;
-        on(event: "close", listener: () => void): this;
-        on(event: "connection", listener: (socket: Socket) => void): this;
-        on(event: "error", listener: (err: Error) => void): this;
-        on(event: "listening", listener: () => void): this;
-        on(event: "checkContinue", listener: RequestListener<Request, Response>): this;
-        on(event: "checkExpectation", listener: RequestListener<Request, Response>): this;
-        on(event: "clientError", listener: (err: Error, socket: stream.Duplex) => void): this;
-        on(event: "connect", listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void): this;
-        on(event: "dropRequest", listener: (req: InstanceType<Request>, socket: stream.Duplex) => void): this;
-        on(event: "request", listener: RequestListener<Request, Response>): this;
-        on(event: "upgrade", listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void): this;
-        once(event: string, listener: (...args: any[]) => void): this;
-        once(event: "close", listener: () => void): this;
-        once(event: "connection", listener: (socket: Socket) => void): this;
-        once(event: "error", listener: (err: Error) => void): this;
-        once(event: "listening", listener: () => void): this;
-        once(event: "checkContinue", listener: RequestListener<Request, Response>): this;
-        once(event: "checkExpectation", listener: RequestListener<Request, Response>): this;
-        once(event: "clientError", listener: (err: Error, socket: stream.Duplex) => void): this;
-        once(
-            event: "connect",
-            listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void,
+        off(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        on<E extends keyof ServerEventMap>(
+            eventName: E,
+            listener: (...args: ServerEventMap<Request, Response>[E]) => void,
         ): this;
-        once(event: "dropRequest", listener: (req: InstanceType<Request>, socket: stream.Duplex) => void): this;
-        once(event: "request", listener: RequestListener<Request, Response>): this;
-        once(
-            event: "upgrade",
-            listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void,
+        on(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        once<E extends keyof ServerEventMap>(
+            eventName: E,
+            listener: (...args: ServerEventMap<Request, Response>[E]) => void,
         ): this;
-        prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: "close", listener: () => void): this;
-        prependListener(event: "connection", listener: (socket: Socket) => void): this;
-        prependListener(event: "error", listener: (err: Error) => void): this;
-        prependListener(event: "listening", listener: () => void): this;
-        prependListener(event: "checkContinue", listener: RequestListener<Request, Response>): this;
-        prependListener(event: "checkExpectation", listener: RequestListener<Request, Response>): this;
-        prependListener(event: "clientError", listener: (err: Error, socket: stream.Duplex) => void): this;
-        prependListener(
-            event: "connect",
-            listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void,
+        once(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        prependListener<E extends keyof ServerEventMap>(
+            eventName: E,
+            listener: (...args: ServerEventMap<Request, Response>[E]) => void,
         ): this;
-        prependListener(
-            event: "dropRequest",
-            listener: (req: InstanceType<Request>, socket: stream.Duplex) => void,
+        prependListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        prependOnceListener<E extends keyof ServerEventMap>(
+            eventName: E,
+            listener: (...args: ServerEventMap<Request, Response>[E]) => void,
         ): this;
-        prependListener(event: "request", listener: RequestListener<Request, Response>): this;
-        prependListener(
-            event: "upgrade",
-            listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void,
+        prependOnceListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        rawListeners<E extends keyof ServerEventMap>(
+            eventName: E,
+        ): ((...args: ServerEventMap<Request, Response>[E]) => void)[];
+        rawListeners(eventName: string | symbol): ((...args: any[]) => void)[];
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+        removeAllListeners<E extends keyof ServerEventMap>(eventName?: E): this;
+        removeAllListeners(eventName?: string | symbol): this;
+        removeListener<E extends keyof ServerEventMap>(
+            eventName: E,
+            listener: (...args: ServerEventMap<Request, Response>[E]) => void,
         ): this;
-        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: "close", listener: () => void): this;
-        prependOnceListener(event: "connection", listener: (socket: Socket) => void): this;
-        prependOnceListener(event: "error", listener: (err: Error) => void): this;
-        prependOnceListener(event: "listening", listener: () => void): this;
-        prependOnceListener(event: "checkContinue", listener: RequestListener<Request, Response>): this;
-        prependOnceListener(event: "checkExpectation", listener: RequestListener<Request, Response>): this;
-        prependOnceListener(event: "clientError", listener: (err: Error, socket: stream.Duplex) => void): this;
-        prependOnceListener(
-            event: "connect",
-            listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void,
-        ): this;
-        prependOnceListener(
-            event: "dropRequest",
-            listener: (req: InstanceType<Request>, socket: stream.Duplex) => void,
-        ): this;
-        prependOnceListener(event: "request", listener: RequestListener<Request, Response>): this;
-        prependOnceListener(
-            event: "upgrade",
-            listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void,
-        ): this;
+        removeListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        // #endregion
+    }
+    interface OutgoingMessageEventMap extends stream.WritableEventMap {
+        "prefinish": [];
     }
     /**
      * This class serves as the parent class of {@link ClientRequest} and {@link ServerResponse}. It is an abstract outgoing message from
@@ -546,6 +564,7 @@ declare module "http" {
      * @since v0.1.17
      */
     class OutgoingMessage<Request extends IncomingMessage = IncomingMessage> extends stream.Writable {
+        constructor();
         readonly req: Request;
         chunkedEncoding: boolean;
         shouldKeepAlive: boolean;
@@ -565,7 +584,7 @@ declare module "http" {
          * @since v0.3.0
          * @deprecated Since v15.12.0,v14.17.1 - Use `socket` instead.
          */
-        readonly connection: Socket | null;
+        readonly connection: net.Socket | null;
         /**
          * Reference to the underlying socket. Usually, users will not want to access
          * this property.
@@ -573,8 +592,7 @@ declare module "http" {
          * After calling `outgoingMessage.end()`, this property will be nulled.
          * @since v0.3.0
          */
-        readonly socket: Socket | null;
-        constructor();
+        readonly socket: net.Socket | null;
         /**
          * Once a socket is associated with the message and is connected, `socket.setTimeout()` will be called with `msecs` as the first parameter.
          * @since v0.9.12
@@ -732,6 +750,61 @@ declare module "http" {
          * @since v1.6.0
          */
         flushHeaders(): void;
+        // #region InternalEventEmitter
+        addListener<E extends keyof OutgoingMessageEventMap>(
+            eventName: E,
+            listener: (...args: OutgoingMessageEventMap[E]) => void,
+        ): this;
+        addListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        emit<E extends keyof OutgoingMessageEventMap>(eventName: E, ...args: OutgoingMessageEventMap[E]): boolean;
+        emit(eventName: string | symbol, ...args: any[]): boolean;
+        listenerCount<E extends keyof OutgoingMessageEventMap>(
+            eventName: E,
+            listener?: (...args: OutgoingMessageEventMap[E]) => void,
+        ): number;
+        listenerCount(eventName: string | symbol, listener?: (...args: any[]) => void): number;
+        listeners<E extends keyof OutgoingMessageEventMap>(
+            eventName: E,
+        ): ((...args: OutgoingMessageEventMap[E]) => void)[];
+        listeners(eventName: string | symbol): ((...args: any[]) => void)[];
+        off<E extends keyof OutgoingMessageEventMap>(
+            eventName: E,
+            listener: (...args: OutgoingMessageEventMap[E]) => void,
+        ): this;
+        off(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        on<E extends keyof OutgoingMessageEventMap>(
+            eventName: E,
+            listener: (...args: OutgoingMessageEventMap[E]) => void,
+        ): this;
+        on(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        once<E extends keyof OutgoingMessageEventMap>(
+            eventName: E,
+            listener: (...args: OutgoingMessageEventMap[E]) => void,
+        ): this;
+        once(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        prependListener<E extends keyof OutgoingMessageEventMap>(
+            eventName: E,
+            listener: (...args: OutgoingMessageEventMap[E]) => void,
+        ): this;
+        prependListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        prependOnceListener<E extends keyof OutgoingMessageEventMap>(
+            eventName: E,
+            listener: (...args: OutgoingMessageEventMap[E]) => void,
+        ): this;
+        prependOnceListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        rawListeners<E extends keyof OutgoingMessageEventMap>(
+            eventName: E,
+        ): ((...args: OutgoingMessageEventMap[E]) => void)[];
+        rawListeners(eventName: string | symbol): ((...args: any[]) => void)[];
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+        removeAllListeners<E extends keyof OutgoingMessageEventMap>(eventName?: E): this;
+        removeAllListeners(eventName?: string | symbol): this;
+        removeListener<E extends keyof OutgoingMessageEventMap>(
+            eventName: E,
+            listener: (...args: OutgoingMessageEventMap[E]) => void,
+        ): this;
+        removeListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        // #endregion
     }
     /**
      * This object is created internally by an HTTP server, not by the user. It is
@@ -776,8 +849,8 @@ declare module "http" {
          */
         strictContentLength: boolean;
         constructor(req: Request);
-        assignSocket(socket: Socket): void;
-        detachSocket(socket: Socket): void;
+        assignSocket(socket: net.Socket): void;
+        detachSocket(socket: net.Socket): void;
         /**
          * Sends an HTTP/1.1 100 Continue message to the client, indicating that
          * the request body should be sent. See the `'checkContinue'` event on `Server`.
@@ -886,16 +959,27 @@ declare module "http" {
          * the request body should be sent.
          * @since v10.0.0
          */
-        writeProcessing(): void;
+        writeProcessing(callback?: () => void): void;
     }
     interface InformationEvent {
-        statusCode: number;
-        statusMessage: string;
         httpVersion: string;
         httpVersionMajor: number;
         httpVersionMinor: number;
+        statusCode: number;
+        statusMessage: string;
         headers: IncomingHttpHeaders;
         rawHeaders: string[];
+    }
+    interface ClientRequestEventMap extends stream.WritableEventMap {
+        /** @deprecated Listen for the `'close'` event instead. */
+        "abort": [];
+        "connect": [response: IncomingMessage, socket: net.Socket, head: NonSharedBuffer];
+        "continue": [];
+        "information": [info: InformationEvent];
+        "response": [response: IncomingMessage];
+        "socket": [socket: net.Socket];
+        "timeout": [];
+        "upgrade": [response: IncomingMessage, socket: net.Socket, head: NonSharedBuffer];
     }
     /**
      * This object is created internally and returned from {@link request}. It
@@ -1019,7 +1103,7 @@ declare module "http" {
          * @deprecated Since v14.1.0,v13.14.0 - Use `destroy` instead.
          */
         abort(): void;
-        onSocket(socket: Socket): void;
+        onSocket(socket: net.Socket): void;
         /**
          * Once a socket is assigned to this request and is connected `socket.setTimeout()` will be called.
          * @since v0.5.9
@@ -1051,114 +1135,63 @@ declare module "http" {
          * @since v15.13.0, v14.17.0
          */
         getRawHeaderNames(): string[];
-        /**
-         * @deprecated
-         */
-        addListener(event: "abort", listener: () => void): this;
-        addListener(
-            event: "connect",
-            listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void,
+        // #region InternalEventEmitter
+        addListener<E extends keyof ClientRequestEventMap>(
+            eventName: E,
+            listener: (...args: ClientRequestEventMap[E]) => void,
         ): this;
-        addListener(event: "continue", listener: () => void): this;
-        addListener(event: "information", listener: (info: InformationEvent) => void): this;
-        addListener(event: "response", listener: (response: IncomingMessage) => void): this;
-        addListener(event: "socket", listener: (socket: Socket) => void): this;
-        addListener(event: "timeout", listener: () => void): this;
-        addListener(
-            event: "upgrade",
-            listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void,
+        addListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        emit<E extends keyof ClientRequestEventMap>(eventName: E, ...args: ClientRequestEventMap[E]): boolean;
+        emit(eventName: string | symbol, ...args: any[]): boolean;
+        listenerCount<E extends keyof ClientRequestEventMap>(
+            eventName: E,
+            listener?: (...args: ClientRequestEventMap[E]) => void,
+        ): number;
+        listenerCount(eventName: string | symbol, listener?: (...args: any[]) => void): number;
+        listeners<E extends keyof ClientRequestEventMap>(eventName: E): ((...args: ClientRequestEventMap[E]) => void)[];
+        listeners(eventName: string | symbol): ((...args: any[]) => void)[];
+        off<E extends keyof ClientRequestEventMap>(
+            eventName: E,
+            listener: (...args: ClientRequestEventMap[E]) => void,
         ): this;
-        addListener(event: "close", listener: () => void): this;
-        addListener(event: "drain", listener: () => void): this;
-        addListener(event: "error", listener: (err: Error) => void): this;
-        addListener(event: "finish", listener: () => void): this;
-        addListener(event: "pipe", listener: (src: stream.Readable) => void): this;
-        addListener(event: "unpipe", listener: (src: stream.Readable) => void): this;
-        addListener(event: string | symbol, listener: (...args: any[]) => void): this;
-        /**
-         * @deprecated
-         */
-        on(event: "abort", listener: () => void): this;
-        on(event: "connect", listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
-        on(event: "continue", listener: () => void): this;
-        on(event: "information", listener: (info: InformationEvent) => void): this;
-        on(event: "response", listener: (response: IncomingMessage) => void): this;
-        on(event: "socket", listener: (socket: Socket) => void): this;
-        on(event: "timeout", listener: () => void): this;
-        on(event: "upgrade", listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
-        on(event: "close", listener: () => void): this;
-        on(event: "drain", listener: () => void): this;
-        on(event: "error", listener: (err: Error) => void): this;
-        on(event: "finish", listener: () => void): this;
-        on(event: "pipe", listener: (src: stream.Readable) => void): this;
-        on(event: "unpipe", listener: (src: stream.Readable) => void): this;
-        on(event: string | symbol, listener: (...args: any[]) => void): this;
-        /**
-         * @deprecated
-         */
-        once(event: "abort", listener: () => void): this;
-        once(event: "connect", listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
-        once(event: "continue", listener: () => void): this;
-        once(event: "information", listener: (info: InformationEvent) => void): this;
-        once(event: "response", listener: (response: IncomingMessage) => void): this;
-        once(event: "socket", listener: (socket: Socket) => void): this;
-        once(event: "timeout", listener: () => void): this;
-        once(event: "upgrade", listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
-        once(event: "close", listener: () => void): this;
-        once(event: "drain", listener: () => void): this;
-        once(event: "error", listener: (err: Error) => void): this;
-        once(event: "finish", listener: () => void): this;
-        once(event: "pipe", listener: (src: stream.Readable) => void): this;
-        once(event: "unpipe", listener: (src: stream.Readable) => void): this;
-        once(event: string | symbol, listener: (...args: any[]) => void): this;
-        /**
-         * @deprecated
-         */
-        prependListener(event: "abort", listener: () => void): this;
-        prependListener(
-            event: "connect",
-            listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void,
+        off(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        on<E extends keyof ClientRequestEventMap>(
+            eventName: E,
+            listener: (...args: ClientRequestEventMap[E]) => void,
         ): this;
-        prependListener(event: "continue", listener: () => void): this;
-        prependListener(event: "information", listener: (info: InformationEvent) => void): this;
-        prependListener(event: "response", listener: (response: IncomingMessage) => void): this;
-        prependListener(event: "socket", listener: (socket: Socket) => void): this;
-        prependListener(event: "timeout", listener: () => void): this;
-        prependListener(
-            event: "upgrade",
-            listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void,
+        on(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        once<E extends keyof ClientRequestEventMap>(
+            eventName: E,
+            listener: (...args: ClientRequestEventMap[E]) => void,
         ): this;
-        prependListener(event: "close", listener: () => void): this;
-        prependListener(event: "drain", listener: () => void): this;
-        prependListener(event: "error", listener: (err: Error) => void): this;
-        prependListener(event: "finish", listener: () => void): this;
-        prependListener(event: "pipe", listener: (src: stream.Readable) => void): this;
-        prependListener(event: "unpipe", listener: (src: stream.Readable) => void): this;
-        prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
-        /**
-         * @deprecated
-         */
-        prependOnceListener(event: "abort", listener: () => void): this;
-        prependOnceListener(
-            event: "connect",
-            listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void,
+        once(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        prependListener<E extends keyof ClientRequestEventMap>(
+            eventName: E,
+            listener: (...args: ClientRequestEventMap[E]) => void,
         ): this;
-        prependOnceListener(event: "continue", listener: () => void): this;
-        prependOnceListener(event: "information", listener: (info: InformationEvent) => void): this;
-        prependOnceListener(event: "response", listener: (response: IncomingMessage) => void): this;
-        prependOnceListener(event: "socket", listener: (socket: Socket) => void): this;
-        prependOnceListener(event: "timeout", listener: () => void): this;
-        prependOnceListener(
-            event: "upgrade",
-            listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void,
+        prependListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        prependOnceListener<E extends keyof ClientRequestEventMap>(
+            eventName: E,
+            listener: (...args: ClientRequestEventMap[E]) => void,
         ): this;
-        prependOnceListener(event: "close", listener: () => void): this;
-        prependOnceListener(event: "drain", listener: () => void): this;
-        prependOnceListener(event: "error", listener: (err: Error) => void): this;
-        prependOnceListener(event: "finish", listener: () => void): this;
-        prependOnceListener(event: "pipe", listener: (src: stream.Readable) => void): this;
-        prependOnceListener(event: "unpipe", listener: (src: stream.Readable) => void): this;
-        prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
+        prependOnceListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        rawListeners<E extends keyof ClientRequestEventMap>(
+            eventName: E,
+        ): ((...args: ClientRequestEventMap[E]) => void)[];
+        rawListeners(eventName: string | symbol): ((...args: any[]) => void)[];
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+        removeAllListeners<E extends keyof ClientRequestEventMap>(eventName?: E): this;
+        removeAllListeners(eventName?: string | symbol): this;
+        removeListener<E extends keyof ClientRequestEventMap>(
+            eventName: E,
+            listener: (...args: ClientRequestEventMap[E]) => void,
+        ): this;
+        removeListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        // #endregion
+    }
+    interface IncomingMessageEventMap extends stream.ReadableEventMap {
+        /** @deprecated Listen for `'close'` event instead. */
+        "aborted": [];
     }
     /**
      * An `IncomingMessage` object is created by {@link Server} or {@link ClientRequest} and passed as the first argument to the `'request'` and `'response'` event respectively. It may be used to
@@ -1171,7 +1204,7 @@ declare module "http" {
      * @since v0.1.17
      */
     class IncomingMessage extends stream.Readable {
-        constructor(socket: Socket);
+        constructor(socket: net.Socket);
         /**
          * The `message.aborted` property will be `true` if the request has
          * been aborted.
@@ -1219,7 +1252,7 @@ declare module "http" {
          * @since v0.1.90
          * @deprecated Since v16.0.0 - Use `socket`.
          */
-        connection: Socket;
+        connection: net.Socket;
         /**
          * The `net.Socket` object associated with the connection.
          *
@@ -1231,7 +1264,7 @@ declare module "http" {
          * type other than `net.Socket` or internally nulled.
          * @since v0.3.0
          */
-        socket: Socket;
+        socket: net.Socket;
         /**
          * The request/response headers object.
          *
@@ -1393,8 +1426,71 @@ declare module "http" {
          * @since v0.3.0
          */
         destroy(error?: Error): this;
+        // #region InternalEventEmitter
+        addListener<E extends keyof IncomingMessageEventMap>(
+            eventName: E,
+            listener: (...args: IncomingMessageEventMap[E]) => void,
+        ): this;
+        addListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        emit<E extends keyof IncomingMessageEventMap>(eventName: E, ...args: IncomingMessageEventMap[E]): boolean;
+        emit(eventName: string | symbol, ...args: any[]): boolean;
+        listenerCount<E extends keyof IncomingMessageEventMap>(
+            eventName: E,
+            listener?: (...args: IncomingMessageEventMap[E]) => void,
+        ): number;
+        listenerCount(eventName: string | symbol, listener?: (...args: any[]) => void): number;
+        listeners<E extends keyof IncomingMessageEventMap>(
+            eventName: E,
+        ): ((...args: IncomingMessageEventMap[E]) => void)[];
+        listeners(eventName: string | symbol): ((...args: any[]) => void)[];
+        off<E extends keyof IncomingMessageEventMap>(
+            eventName: E,
+            listener: (...args: IncomingMessageEventMap[E]) => void,
+        ): this;
+        off(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        on<E extends keyof IncomingMessageEventMap>(
+            eventName: E,
+            listener: (...args: IncomingMessageEventMap[E]) => void,
+        ): this;
+        on(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        once<E extends keyof IncomingMessageEventMap>(
+            eventName: E,
+            listener: (...args: IncomingMessageEventMap[E]) => void,
+        ): this;
+        once(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        prependListener<E extends keyof IncomingMessageEventMap>(
+            eventName: E,
+            listener: (...args: IncomingMessageEventMap[E]) => void,
+        ): this;
+        prependListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        prependOnceListener<E extends keyof IncomingMessageEventMap>(
+            eventName: E,
+            listener: (...args: IncomingMessageEventMap[E]) => void,
+        ): this;
+        prependOnceListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        rawListeners<E extends keyof IncomingMessageEventMap>(
+            eventName: E,
+        ): ((...args: IncomingMessageEventMap[E]) => void)[];
+        rawListeners(eventName: string | symbol): ((...args: any[]) => void)[];
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+        removeAllListeners<E extends keyof IncomingMessageEventMap>(eventName?: E): this;
+        removeAllListeners(eventName?: string | symbol): this;
+        removeListener<E extends keyof IncomingMessageEventMap>(
+            eventName: E,
+            listener: (...args: IncomingMessageEventMap[E]) => void,
+        ): this;
+        removeListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+        // #endregion
     }
-    interface AgentOptions extends Partial<TcpSocketConnectOpts> {
+    interface ProxyEnv extends NodeJS.ProcessEnv {
+        HTTP_PROXY?: string | undefined;
+        HTTPS_PROXY?: string | undefined;
+        NO_PROXY?: string | undefined;
+        http_proxy?: string | undefined;
+        https_proxy?: string | undefined;
+        no_proxy?: string | undefined;
+    }
+    interface AgentOptions extends NodeJS.PartialOptions<net.TcpSocketConnectOpts> {
         /**
          * Keep sockets around in a pool to be used by other requests in the future. Default = false
          */
@@ -1404,6 +1500,16 @@ declare module "http" {
          * Only relevant if keepAlive is set to true.
          */
         keepAliveMsecs?: number | undefined;
+        /**
+         * Milliseconds to subtract from
+         * the server-provided `keep-alive: timeout=...` hint when determining socket
+         * expiration time. This buffer helps ensure the agent closes the socket
+         * slightly before the server does, reducing the chance of sending a request
+         * on a socket that’s about to be closed by the server.
+         * @since v24.7.0
+         * @default 1000
+         */
+        agentKeepAliveTimeoutBuffer?: number | undefined;
         /**
          * Maximum number of sockets to allow per host. Default for Node 0.10 is 5, default for Node 0.12 is Infinity
          */
@@ -1425,6 +1531,22 @@ declare module "http" {
          * @default `lifo`
          */
         scheduling?: "fifo" | "lifo" | undefined;
+        /**
+         * Environment variables for proxy configuration. See
+         * [Built-in Proxy Support](https://nodejs.org/docs/latest-v25.x/api/http.html#built-in-proxy-support) for details.
+         * @since v24.5.0
+         */
+        proxyEnv?: ProxyEnv | undefined;
+        /**
+         * Default port to use when the port is not specified in requests.
+         * @since v24.5.0
+         */
+        defaultPort?: number | undefined;
+        /**
+         * The protocol to use for the agent.
+         * @since v24.5.0
+         */
+        protocol?: string | undefined;
     }
     /**
      * An `Agent` is responsible for managing connection persistence
@@ -1480,7 +1602,7 @@ declare module "http" {
      * });
      * ```
      *
-     * `options` in [`socket.connect()`](https://nodejs.org/docs/latest-v22.x/api/net.html#socketconnectoptions-connectlistener) are also supported.
+     * `options` in [`socket.connect()`](https://nodejs.org/docs/latest-v25.x/api/net.html#socketconnectoptions-connectlistener) are also supported.
      *
      * To configure any of them, a custom {@link Agent} instance must be created.
      *
@@ -1520,13 +1642,13 @@ declare module "http" {
          * removed from the array on `'timeout'`.
          * @since v0.11.4
          */
-        readonly freeSockets: NodeJS.ReadOnlyDict<Socket[]>;
+        readonly freeSockets: NodeJS.ReadOnlyDict<net.Socket[]>;
         /**
          * An object which contains arrays of sockets currently in use by the
          * agent. Do not modify.
          * @since v0.3.6
          */
-        readonly sockets: NodeJS.ReadOnlyDict<Socket[]>;
+        readonly sockets: NodeJS.ReadOnlyDict<net.Socket[]>;
         /**
          * An object which contains queues of requests that have not yet been assigned to
          * sockets. Do not modify.
@@ -1545,6 +1667,68 @@ declare module "http" {
          * @since v0.11.4
          */
         destroy(): void;
+        /**
+         * Produces a socket/stream to be used for HTTP requests.
+         *
+         * By default, this function is the same as `net.createConnection()`. However,
+         * custom agents may override this method in case greater flexibility is desired.
+         *
+         * A socket/stream can be supplied in one of two ways: by returning the
+         * socket/stream from this function, or by passing the socket/stream to `callback`.
+         *
+         * This method is guaranteed to return an instance of the `net.Socket` class,
+         * a subclass of `stream.Duplex`, unless the user specifies a socket
+         * type other than `net.Socket`.
+         *
+         * `callback` has a signature of `(err, stream)`.
+         * @since v0.11.4
+         * @param options Options containing connection details. Check `createConnection` for the format of the options
+         * @param callback Callback function that receives the created socket
+         */
+        createConnection(
+            options: ClientRequestArgs,
+            callback?: (err: Error | null, stream: stream.Duplex) => void,
+        ): stream.Duplex | null | undefined;
+        /**
+         * Called when `socket` is detached from a request and could be persisted by the`Agent`. Default behavior is to:
+         *
+         * ```js
+         * socket.setKeepAlive(true, this.keepAliveMsecs);
+         * socket.unref();
+         * return true;
+         * ```
+         *
+         * This method can be overridden by a particular `Agent` subclass. If this
+         * method returns a falsy value, the socket will be destroyed instead of persisting
+         * it for use with the next request.
+         *
+         * The `socket` argument can be an instance of `net.Socket`, a subclass of `stream.Duplex`.
+         * @since v8.1.0
+         */
+        keepSocketAlive(socket: stream.Duplex): void;
+        /**
+         * Called when `socket` is attached to `request` after being persisted because of
+         * the keep-alive options. Default behavior is to:
+         *
+         * ```js
+         * socket.ref();
+         * ```
+         *
+         * This method can be overridden by a particular `Agent` subclass.
+         *
+         * The `socket` argument can be an instance of `net.Socket`, a subclass of `stream.Duplex`.
+         * @since v8.1.0
+         */
+        reuseSocket(socket: stream.Duplex, request: ClientRequest): void;
+        /**
+         * Get a unique name for a set of request options, to determine whether a
+         * connection can be reused. For an HTTP agent, this returns`host:port:localAddress` or `host:port:localAddress:family`. For an HTTPS agent,
+         * the name includes the CA, cert, ciphers, and other HTTPS/TLS-specific options
+         * that determine socket reusability.
+         * @since v0.11.4
+         * @param options A set of options providing information for name generation
+         */
+        getName(options?: ClientRequestArgs): string;
     }
     const METHODS: string[];
     const STATUS_CODES: {
@@ -1941,19 +2125,19 @@ declare module "http" {
      */
     const maxHeaderSize: number;
     /**
-     * A browser-compatible implementation of [WebSocket](https://nodejs.org/docs/latest/api/http.html#websocket).
+     * A browser-compatible implementation of `WebSocket`.
      * @since v22.5.0
      */
-    const WebSocket: import("undici-types").WebSocket;
+    const WebSocket: typeof import("undici-types").WebSocket;
     /**
      * @since v22.5.0
      */
-    const CloseEvent: import("undici-types").CloseEvent;
+    const CloseEvent: typeof import("undici-types").CloseEvent;
     /**
      * @since v22.5.0
      */
-    const MessageEvent: import("undici-types").MessageEvent;
+    const MessageEvent: typeof import("undici-types").MessageEvent;
 }
-declare module "node:http" {
-    export * from "http";
+declare module "http" {
+    export * from "node:http";
 }

@@ -1,11 +1,19 @@
-import TextureNode from "../../nodes/accessors/TextureNode.js";
+import { Texture } from "../../textures/Texture.js";
 import Binding from "./Binding.js";
 
 declare class Sampler extends Binding {
-    texture: TextureNode | null;
     version: number;
+
+    generation: number | null;
+
+    samplerKey: string;
+
     readonly isSampler: true;
-    constructor(name: string, texture: TextureNode | null);
+
+    constructor(name: string, texture: Texture | null);
+
+    set texture(value: Texture | null);
+    get texture(): Texture | null;
 }
 
 export default Sampler;

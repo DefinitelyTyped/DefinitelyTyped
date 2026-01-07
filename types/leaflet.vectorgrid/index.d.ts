@@ -1,6 +1,6 @@
 import * as geojson from "geojson";
-import * as geojsonvt from "geojson-vt";
 import * as L from "leaflet";
+import geojsonvt = require("geojson-vt");
 
 declare module "leaflet" {
     interface TileProps {
@@ -12,7 +12,7 @@ declare module "leaflet" {
     type TileParameters = [
         tileCoord: TileProps["tileCoord"],
         tileSize: TileProps["tileSize"],
-        options: TileProps["tileSize"],
+        options: TileProps["options"],
     ];
 
     type TileFactoryFunction<T extends Canvas.Tile | SVG.Tile> = (...args: TileParameters) => T;
@@ -74,7 +74,8 @@ declare module "leaflet" {
         rendererFactory?: TileFactoryFunction<T>;
         /** A data structure holding initial symbolizer definitions for the vector features. */
         vectorTileLayerStyles?:
-            | Record<string, PathOptions>
+            | Record<string, PathOptions | PathOptions[]>
+            | Record<string, ((properties: Record<string, string>, zoom: number) => PathOptions | PathOptions[])>
             | ((properties: Record<string, string>, zoom: number) => PathOptions);
         /** Whether this VectorGrid fires Interactive Layer events. */
         interactive?: boolean;

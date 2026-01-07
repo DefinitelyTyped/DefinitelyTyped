@@ -5,9 +5,9 @@ export * from "./core/constants.js";
 export * from "./core/AssignNode.js";
 export * from "./core/AttributeNode.js";
 export * from "./core/BypassNode.js";
-export * from "./core/CacheNode.js";
 export * from "./core/ContextNode.js";
 export * from "./core/IndexNode.js";
+export * from "./core/IsolateNode.js";
 export * from "./core/MRTNode.js";
 export * from "./core/OutputStructNode.js";
 export * from "./core/ParameterNode.js";
@@ -19,15 +19,20 @@ export * from "./core/UniformNode.js";
 export * from "./core/VaryingNode.js";
 
 // math
+export * from "./math/BitcastNode.js";
+export * from "./math/BitcountNode.js";
 export * from "./math/Hash.js";
 export * from "./math/MathUtils.js";
+export * from "./math/PackFloatNode.js";
 export * from "./math/TriNoise3D.js";
+export * from "./math/UnpackFloatNode.js";
 
 // utils
-export * from "./utils/EquirectUVNode.js";
+export * from "./utils/EquirectUV.js";
+export * from "./utils/EventNode.js";
 export * from "./utils/FunctionOverloadingNode.js";
 export * from "./utils/LoopNode.js";
-export * from "./utils/MatcapUVNode.js";
+export * from "./utils/MatcapUV.js";
 export * from "./utils/MaxMipLevelNode.js";
 export * from "./utils/Oscillators.js";
 export * from "./utils/Packing.js";
@@ -36,10 +41,11 @@ export * from "./utils/ReflectorNode.js";
 export * from "./utils/RemapNode.js";
 export * from "./utils/RotateNode.js";
 export * from "./utils/RTTNode.js";
+export * from "./utils/SampleNode.js";
 export * from "./utils/SpriteSheetUVNode.js";
 export * from "./utils/SpriteUtils.js";
 export * from "./utils/Timer.js";
-export * from "./utils/TriplanarTexturesNode.js";
+export * from "./utils/TriplanarTextures.js";
 export * from "./utils/UVUtils.js";
 export * from "./utils/ViewportUtils.js";
 
@@ -53,6 +59,7 @@ export * from "./accessors/BatchNode.js";
 export * from "./accessors/Bitangent.js";
 export * from "./accessors/BufferAttributeNode.js";
 export * from "./accessors/BufferNode.js";
+export * from "./accessors/BuiltinNode.js";
 export * from "./accessors/Camera.js";
 export * from "./accessors/CubeTextureNode.js";
 export * from "./accessors/InstancedMeshNode.js";
@@ -126,6 +133,7 @@ export * from "./gpgpu/AtomicFunctionNode.js";
 export * from "./gpgpu/BarrierNode.js";
 export * from "./gpgpu/ComputeBuiltinNode.js";
 export * from "./gpgpu/ComputeNode.js";
+export * from "./gpgpu/SubgroupFunctionNode.js";
 export * from "./gpgpu/WorkgroupInfoNode.js";
 
 // lighting
@@ -133,7 +141,9 @@ export * from "./accessors/Lights.js";
 export * from "./lighting/LightingContextNode.js";
 export * from "./lighting/LightsNode.js";
 export * from "./lighting/PointLightNode.js";
+export * from "./lighting/PointShadowNode.js";
 export * from "./lighting/ShadowBaseNode.js";
+export * from "./lighting/ShadowFilterNode.js";
 export * from "./lighting/ShadowNode.js";
 
 // pmrem
@@ -153,7 +163,7 @@ export * from "./materialx/MaterialXNodes.js";
 export { default as BRDF_GGX } from "./functions/BSDF/BRDF_GGX.js";
 export { default as BRDF_Lambert } from "./functions/BSDF/BRDF_Lambert.js";
 export { default as D_GGX } from "./functions/BSDF/D_GGX.js";
-export { default as DFGApprox } from "./functions/BSDF/DFGApprox.js";
+export { default as DFGLUT } from "./functions/BSDF/DFGLUT.js";
 export { default as F_Schlick } from "./functions/BSDF/F_Schlick.js";
 export { default as Schlick_to_F0 } from "./functions/BSDF/Schlick_to_F0.js";
 export { default as V_GGX_SmithCorrelated } from "./functions/BSDF/V_GGX_SmithCorrelated.js";

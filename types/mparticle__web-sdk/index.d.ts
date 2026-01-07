@@ -3,6 +3,54 @@ import { Batch } from "@mparticle/event-models";
 // Placeholder for Dictionary-like Types
 export type Dictionary<V = any> = Record<string, V>;
 
+// Rokt Manager Types
+export type RoktAttributeValueArray = Array<string | number | boolean | Dictionary>;
+export type RoktAttributeValueType = string | number | boolean | undefined | null;
+export type RoktAttributeValue = RoktAttributeValueType | RoktAttributeValueArray;
+export type RoktPartnerAttributes = Record<string, RoktAttributeValue>;
+
+export interface RoktPartnerExtensionData<T> {
+    [extensionName: string]: T;
+}
+
+export interface RoktSelectPlacementsOptions {
+    attributes: RoktPartnerAttributes;
+    identifier?: string;
+}
+
+export interface RoktPlacementEvent<T = void> {
+    body: T;
+    event: string;
+    placement: RoktPlacement;
+}
+
+export interface RoktSubscriber<T> {
+    subscribe(handler: (value: T) => void): RoktUnsubscriber;
+}
+
+export interface RoktUnsubscriber {
+    unsubscribe(): void;
+}
+
+export interface RoktPlacement {
+    id: string;
+    element: HTMLIFrameElement;
+    close(): Promise<void>;
+    on(event: string): RoktSubscriber<RoktPlacementEvent<unknown>>;
+    ready(): Promise<void>;
+    send(event: string, data?: unknown): Promise<void>;
+    onClose(): Promise<void>;
+}
+
+export interface RoktSelection {
+    close: () => void;
+    getPlacements: () => Promise<Array<RoktPlacement>>;
+    on(eventName: string): RoktSubscriber<RoktPlacementEvent<unknown>>;
+    ready(): Promise<void>;
+    send(event: string, data?: unknown): Promise<void>;
+    setAttributes(attributes: RoktPartnerAttributes): Promise<void>;
+}
+
 export as namespace mParticle;
 export {};
 export interface MPConfiguration {
@@ -23,6 +71,12 @@ export interface MPConfiguration {
     cookieDomain?: string | undefined;
     customFlags?: SDKEventCustomFlags | undefined;
     sideloadedKits?: MPForwarder[];
+    v1SecureServiceUrl?: string | undefined;
+    v2SecureServiceUrl?: string | undefined;
+    v3SecureServiceUrl?: string | undefined;
+    configUrl?: string | undefined;
+    identityUrl?: string | undefined;
+    aliasUrl?: string | undefined;
     /**
      * @warning only change workspaceToken if you are absolutely sure you know what you are doing
      */
@@ -303,6 +357,23 @@ interface GetSession {
     (): string;
 }
 
+// Rokt Manager Method Interfaces
+interface SelectPlacements {
+    (options: RoktSelectPlacementsOptions): Promise<RoktSelection>;
+}
+
+interface Use {
+    (name: string): Promise<unknown>;
+}
+
+interface HashAttributes {
+    (attributes: RoktPartnerAttributes): Promise<Record<string, string>>;
+}
+
+interface SetExtensionData {
+    (extensionData: RoktPartnerExtensionData<unknown>): void;
+}
+
 export const endSession: EndSession;
 export const getAppName: GetAppName;
 export const getAppVersion: GetAppVersion;
@@ -485,6 +556,13 @@ export namespace eCommerce {
     const Cart: Cart;
 }
 
+export namespace Rokt {
+    const selectPlacements: SelectPlacements;
+    const hashAttributes: HashAttributes;
+    const setExtensionData: SetExtensionData;
+    const use: Use;
+}
+
 export interface IdentifyRequest {
     userIdentities: UserIdentities;
 }
@@ -515,27 +593,27 @@ export interface User {
 export type UserAttributesValue = string | number | boolean | null;
 export type AllUserAttributes = Record<string, UserAttributesValue | UserAttributesValue[]>;
 export interface UserIdentities {
-    customerid?: string | undefined;
-    email?: string | undefined;
-    other?: string | undefined;
-    other2?: string | undefined;
-    other3?: string | undefined;
-    other4?: string | undefined;
-    other5?: string | undefined;
-    other6?: string | undefined;
-    other7?: string | undefined;
-    other8?: string | undefined;
-    other9?: string | undefined;
-    other10?: string | undefined;
-    mobile_number?: string | undefined;
-    phone_number_2?: string | undefined;
-    phone_number_3?: string | undefined;
-    facebook?: string | undefined;
-    facebookcustomaudienceid?: string | undefined;
-    google?: string | undefined;
-    twitter?: string | undefined;
-    microsoft?: string | undefined;
-    yahoo?: string | undefined;
+    customerid?: string | null;
+    email?: string | null;
+    other?: string | null;
+    other2?: string | null;
+    other3?: string | null;
+    other4?: string | null;
+    other5?: string | null;
+    other6?: string | null;
+    other7?: string | null;
+    other8?: string | null;
+    other9?: string | null;
+    other10?: string | null;
+    mobile_number?: string | null;
+    phone_number_2?: string | null;
+    phone_number_3?: string | null;
+    facebook?: string | null;
+    facebookcustomaudienceid?: string | null;
+    google?: string | null;
+    twitter?: string | null;
+    microsoft?: string | null;
+    yahoo?: string | null;
 }
 
 interface Cart {
@@ -590,6 +668,8 @@ export interface Promotion {
 export interface IdentityApiData {
     userIdentities: UserIdentities;
 }
+
+export type IdentityApiMethods = "identify" | "login" | "logout" | "modify";
 
 export interface Callback {
     (): void;
@@ -737,6 +817,12 @@ declare class mParticleInstance {
         logRefund: LogRefund;
         setCurrencyCode: SetCurrencyCode;
         Cart: Cart;
+    };
+    Rokt: {
+        selectPlacements: SelectPlacements;
+        hashAttributes: HashAttributes;
+        setExtensionData: SetExtensionData;
+        use: Use;
     };
     PromotionType: {
         Unknown: PromotionType.Unknown;

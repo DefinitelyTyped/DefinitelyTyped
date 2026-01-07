@@ -1,18 +1,15 @@
-import { NodeRepresentation, ShaderNodeObject } from "../tsl/TSLCore.js";
 import Node from "./Node.js";
 import NodeBuilder from "./NodeBuilder.js";
 import TempNode from "./TempNode.js";
 
-export default class AssignNode extends TempNode {
+declare class AssignNode extends TempNode {
+    readonly isAssignNode: true;
+
     constructor(targetNode: Node, sourceNode: Node);
 
     needsSplitAssign(builder: NodeBuilder): boolean;
 }
 
-export const assign: (targetNode: NodeRepresentation, sourceNode: NodeRepresentation) => ShaderNodeObject<AssignNode>;
+export default AssignNode;
 
-declare module "../tsl/TSLCore.js" {
-    interface NodeElements {
-        assign: typeof assign;
-    }
-}
+export const assign: (targetNode: Node, sourceNode: Node | number) => AssignNode;

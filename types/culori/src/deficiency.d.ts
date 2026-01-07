@@ -1,9 +1,7 @@
-import { Color } from "./common";
+import { Color } from "./common.js";
 
-type FilterDeficiencyFactory = (severity: number) => <C extends Color>(color: C) => C;
-
-declare const filterDeficiencyProt: FilterDeficiencyFactory;
-declare const filterDeficiencyDeuter: FilterDeficiencyFactory;
-declare const filterDeficiencyTrit: FilterDeficiencyFactory;
+declare function filterDeficiencyProt(severity?: number): <C extends Color>(color: C) => C;
+declare function filterDeficiencyDeuter(severity?: number): <C extends Color>(color: C) => C;
+declare function filterDeficiencyTrit(severity?: number): <C extends Color>(color: C) => C;
 
 export { filterDeficiencyDeuter, filterDeficiencyProt, filterDeficiencyTrit };

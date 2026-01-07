@@ -1,19 +1,20 @@
-/** @deprecated since v6.3.0 - use constants property exposed by the relevant module instead. */
-declare module "constants" {
-    import { constants as osConstants, SignalConstants } from "node:os";
-    import { constants as cryptoConstants } from "node:crypto";
-    import { constants as fsConstants } from "node:fs";
-
-    const exp:
-        & typeof osConstants.errno
-        & typeof osConstants.priority
-        & SignalConstants
-        & typeof cryptoConstants
-        & typeof fsConstants;
-    export = exp;
-}
-
+/**
+ * @deprecated The `node:constants` module is deprecated. When requiring access to constants
+ * relevant to specific Node.js builtin modules, developers should instead refer
+ * to the `constants` property exposed by the relevant module. For instance,
+ * `require('node:fs').constants` and `require('node:os').constants`.
+ */
 declare module "node:constants" {
-    import constants = require("constants");
+    const constants:
+        & typeof import("node:os").constants.dlopen
+        & typeof import("node:os").constants.errno
+        & typeof import("node:os").constants.priority
+        & typeof import("node:os").constants.signals
+        & typeof import("node:fs").constants
+        & typeof import("node:crypto").constants;
+    export = constants;
+}
+declare module "constants" {
+    import constants = require("node:constants");
     export = constants;
 }

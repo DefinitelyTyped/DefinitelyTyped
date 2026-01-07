@@ -1,5 +1,5 @@
-import * as Cldr from "cldrjs";
-import * as Globalize from "./dist/globalize";
+import Cldr = require("cldrjs");
+import Globalize = require("./dist/globalize");
 
 import "./dist/globalize/message";
 import "./dist/globalize/number";

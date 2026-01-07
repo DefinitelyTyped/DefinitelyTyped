@@ -1,5 +1,5 @@
-import { Rgb } from "../rgb/types";
-import { Oklab } from "./types";
+import { Rgb } from "../rgb/types.js";
+import { Oklab } from "./types.js";
 
 declare function convertOklabToRgb(color: Omit<Oklab, "mode">): Rgb;
 

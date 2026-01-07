@@ -175,6 +175,13 @@ declare namespace GorillaEngine {
          */
         setModuleAtPath(path: string, module: string): boolean;
         /**
+         * Method used to replace a module in an instrument in a given path
+         * @param path The path to the module that should be retrieved.
+         * @param module The serialised module to replace as a string
+         */
+        replaceModuleAtPath(path: string, module: string): boolean;
+
+        /**
          * Method used to determine if a value from the Gorilla Engine is a module.
          *
          * @param path The path to the value that should be determined.
@@ -356,7 +363,9 @@ declare namespace GorillaEngine {
         /**
          * Method used to retrieve a string from the Gorilla Engine.
          * @param path The path to the string that should be retrieved.
-         * @returns the string found at the given `path` or `false` if nothing was found.
+         * @returns the string found at the given `path` or `false` if nothing was found. If a numeric
+         * value is found at the path it's string representation is returned - the same as if the value
+         * was passed to {@link valueToStringAtPath}.
          */
         getStringAtPath(path: string): string;
 
@@ -596,6 +605,7 @@ declare namespace GorillaEngine {
          * @param x  the x position to place the settings button
          * @param y  the y position to place the settings button
          */
+
         function setSettingsButtonPosition(x: number, y: number): void;
     }
 }

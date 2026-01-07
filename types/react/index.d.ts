@@ -11,6 +11,7 @@ type NativeClipboardEvent = ClipboardEvent;
 type NativeCompositionEvent = CompositionEvent;
 type NativeDragEvent = DragEvent;
 type NativeFocusEvent = FocusEvent;
+type NativeInputEvent = InputEvent;
 type NativeKeyboardEvent = KeyboardEvent;
 type NativeMouseEvent = MouseEvent;
 type NativeTouchEvent = TouchEvent;
@@ -134,7 +135,7 @@ declare namespace React {
             props: P,
         ) => ReactNode | Promise<ReactNode>)
         // constructor signature must match React.Component
-        | (new(props: P) => Component<any, any>);
+        | (new(props: P, context: any) => Component<any, any>);
 
     /**
      * Created by {@link createRef}, or {@link useRef} when passed `null`.
@@ -217,7 +218,7 @@ declare namespace React {
     type ElementRef<
         C extends
             | ForwardRefExoticComponent<any>
-            | { new(props: any): Component<any> }
+            | { new(props: any, context: any): Component<any> }
             | ((props: any) => ReactNode)
             | keyof JSX.IntrinsicElements,
     > = ComponentRef<C>;
@@ -721,6 +722,10 @@ declare namespace React {
         only<C>(children: C): C extends any[] ? never : C;
         toArray(children: ReactNode | ReactNode[]): Array<Exclude<ReactNode, boolean | null | undefined>>;
     };
+
+    export interface FragmentProps {
+        children?: React.ReactNode;
+    }
     /**
      * Lets you group elements without a wrapper node.
      *
@@ -748,7 +753,7 @@ declare namespace React {
      * </>
      * ```
      */
-    const Fragment: ExoticComponent<{ children?: ReactNode | undefined }>;
+    const Fragment: ExoticComponent<FragmentProps>;
 
     /**
      * Lets you find common bugs in your components early during development.
@@ -923,7 +928,7 @@ declare namespace React {
         static propTypes?: any;
 
         /**
-         * If using the new style context, re-declare this in your class to be the
+         * If using React Context, re-declare this in your class to be the
          * `React.ContextType` of your `static contextType`.
          * Should be used with type annotation or static contextType.
          *
@@ -942,6 +947,14 @@ declare namespace React {
 
         // Keep in sync with constructor signature of JSXElementConstructor and ComponentClass.
         constructor(props: P);
+        /**
+         * @param props
+         * @param context value of the parent {@link https://react.dev/reference/react/Component#context Context} specified
+         * in `contextType`.
+         */
+        // TODO: Ideally we'd infer the constructor signatur from `contextType`.
+        // Might be hard to ship without breaking existing code.
+        constructor(props: P, context: any);
 
         // We MUST keep setState() as a unified signature because it allows proper checking of the method return type.
         // See: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/18365#issuecomment-351013257
@@ -1113,7 +1126,14 @@ declare namespace React {
      */
     interface ComponentClass<P = {}, S = ComponentState> extends StaticLifecycle<P, S> {
         // constructor signature must match React.Component
-        new(props: P): Component<P, S>;
+        new(
+            props: P,
+            /**
+             * Value of the parent {@link https://react.dev/reference/react/Component#context Context} specified
+             * in `contextType`.
+             */
+            context?: any,
+        ): Component<P, S>;
         /**
          * Ignored by React.
          * @deprecated Only kept in types for backwards compatibility. Will be removed in a future major release.
@@ -1153,7 +1173,7 @@ declare namespace React {
      */
     type ClassType<P, T extends Component<P, ComponentState>, C extends ComponentClass<P>> =
         & C
-        & (new(props: P) => T);
+        & (new(props: P, context: any) => T);
 
     //
     // Component Specs and Lifecycle
@@ -1177,7 +1197,7 @@ declare namespace React {
          * If false is returned, {@link Component.render}, `componentWillUpdate`
          * and `componentDidUpdate` will not be called.
          */
-        shouldComponentUpdate?(nextProps: Readonly<P>, nextState: Readonly<S>): boolean;
+        shouldComponentUpdate?(nextProps: Readonly<P>, nextState: Readonly<S>, nextContext: any): boolean;
         /**
          * Called immediately before a component is destroyed. Perform any necessary cleanup in this method, such as
          * cancelled network requests, or cleaning up any DOM elements created in `componentDidMount`.
@@ -1276,7 +1296,7 @@ declare namespace React {
          * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#updating-state-based-on-props}
          * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#gradual-migration-path}
          */
-        componentWillReceiveProps?(nextProps: Readonly<P>): void;
+        componentWillReceiveProps?(nextProps: Readonly<P>, nextContext: any): void;
         /**
          * Called when the component may be receiving new props.
          * React may call this even if props have not changed, so be sure to compare new and existing
@@ -1294,7 +1314,7 @@ declare namespace React {
          * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#updating-state-based-on-props}
          * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#gradual-migration-path}
          */
-        UNSAFE_componentWillReceiveProps?(nextProps: Readonly<P>): void;
+        UNSAFE_componentWillReceiveProps?(nextProps: Readonly<P>, nextContext: any): void;
         /**
          * Called immediately before rendering when new props or state is received. Not called for the initial render.
          *
@@ -1308,7 +1328,7 @@ declare namespace React {
          * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#reading-dom-properties-before-an-update}
          * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#gradual-migration-path}
          */
-        componentWillUpdate?(nextProps: Readonly<P>, nextState: Readonly<S>): void;
+        componentWillUpdate?(nextProps: Readonly<P>, nextState: Readonly<S>, nextContext: any): void;
         /**
          * Called immediately before rendering when new props or state is received. Not called for the initial render.
          *
@@ -1324,7 +1344,7 @@ declare namespace React {
          * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#reading-dom-properties-before-an-update}
          * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#gradual-migration-path}
          */
-        UNSAFE_componentWillUpdate?(nextProps: Readonly<P>, nextState: Readonly<S>): void;
+        UNSAFE_componentWillUpdate?(nextProps: Readonly<P>, nextState: Readonly<S>, nextContext: any): void;
     }
 
     function createRef<T>(): RefObject<T | null>;
@@ -1690,20 +1710,6 @@ declare namespace React {
      * @version 16.8.0
      * @see {@link https://react.dev/reference/react/useReducer}
      */
-    function useReducer<S, A extends AnyActionArg>(
-        reducer: (prevState: S, ...args: A) => S,
-        initialState: S,
-    ): [S, ActionDispatch<A>];
-    /**
-     * An alternative to `useState`.
-     *
-     * `useReducer` is usually preferable to `useState` when you have complex state logic that involves
-     * multiple sub-values. It also lets you optimize performance for components that trigger deep
-     * updates because you can pass `dispatch` down instead of callbacks.
-     *
-     * @version 16.8.0
-     * @see {@link https://react.dev/reference/react/useReducer}
-     */
     function useReducer<S, I, A extends AnyActionArg>(
         reducer: (prevState: S, ...args: A) => S,
         initialArg: I,
@@ -1768,12 +1774,16 @@ declare namespace React {
      * @see {@link https://react.dev/reference/react/useEffect}
      */
     function useEffect(effect: EffectCallback, deps?: DependencyList): void;
+    /**
+     * @see {@link https://react.dev/reference/react/useEffectEvent `useEffectEvent()` documentation}
+     * @version 19.2.0
+     */
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
+    export function useEffectEvent<T extends Function>(callback: T): T;
     // NOTE: this does not accept strings, but this will have to be fixed by removing strings from type Ref<T>
     /**
      * `useImperativeHandle` customizes the instance value that is exposed to parent components when using
      * `ref`. As always, imperative code using refs should be avoided in most cases.
-     *
-     * `useImperativeHandle` should be used with `React.forwardRef`.
      *
      * @version 16.8.0
      * @see {@link https://react.dev/reference/react/useImperativeHandle}
@@ -1916,7 +1926,31 @@ declare namespace React {
         reducer: (state: State, action: Action) => State,
     ): [State, (action: Action) => void];
 
-    export type Usable<T> = PromiseLike<T> | Context<T>;
+    interface UntrackedReactPromise<T> extends PromiseLike<T> {
+        status?: void;
+    }
+
+    export interface PendingReactPromise<T> extends PromiseLike<T> {
+        status: "pending";
+    }
+
+    export interface FulfilledReactPromise<T> extends PromiseLike<T> {
+        status: "fulfilled";
+        value: T;
+    }
+
+    export interface RejectedReactPromise<T> extends PromiseLike<T> {
+        status: "rejected";
+        reason: unknown;
+    }
+
+    export type ReactPromise<T> =
+        | UntrackedReactPromise<T>
+        | PendingReactPromise<T>
+        | FulfilledReactPromise<T>
+        | RejectedReactPromise<T>;
+
+    export type Usable<T> = ReactPromise<T> | Context<T>;
 
     export function use<T>(usable: Usable<T>): T;
 
@@ -1933,6 +1967,42 @@ declare namespace React {
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
     export function cache<CachedFunction extends Function>(fn: CachedFunction): CachedFunction;
+
+    export interface CacheSignal {}
+    /**
+     * @version 19.2.0
+     */
+    export function cacheSignal(): null | CacheSignal;
+
+    export interface ActivityProps {
+        /**
+         * @default "visible"
+         */
+        mode?:
+            | "hidden"
+            | "visible"
+            | undefined;
+        /**
+         * A name for this Activity boundary for instrumentation purposes.
+         * The name will help identify this boundary in React DevTools.
+         */
+        name?: string | undefined;
+        children: ReactNode;
+    }
+
+    /**
+     * @see {@link https://react.dev/reference/react/Activity `<Activity>` documentation}
+     * @version 19.2.0
+     */
+    export const Activity: ExoticComponent<ActivityProps>;
+
+    /**
+     * Warning: Only available in development builds.
+     *
+     * @see {@link https://react.dev/reference/react/captureOwnerStack Reference docs}
+     * @version 19.1.0
+     */
+    function captureOwnerStack(): string | null;
 
     //
     // Event System
@@ -2004,6 +2074,10 @@ declare namespace React {
 
     interface ChangeEvent<T = Element> extends SyntheticEvent<T> {
         target: EventTarget & T;
+    }
+
+    interface InputEvent<T = Element> extends SyntheticEvent<T, NativeInputEvent> {
+        data: string;
     }
 
     export type ModifierKey =
@@ -2126,6 +2200,7 @@ declare namespace React {
     type FocusEventHandler<T = Element> = EventHandler<FocusEvent<T>>;
     type FormEventHandler<T = Element> = EventHandler<FormEvent<T>>;
     type ChangeEventHandler<T = Element> = EventHandler<ChangeEvent<T>>;
+    type InputEventHandler<T = Element> = EventHandler<InputEvent<T>>;
     type KeyboardEventHandler<T = Element> = EventHandler<KeyboardEvent<T>>;
     type MouseEventHandler<T = Element> = EventHandler<MouseEvent<T>>;
     type TouchEventHandler<T = Element> = EventHandler<TouchEvent<T>>;
@@ -2184,7 +2259,7 @@ declare namespace React {
         // Form Events
         onChange?: FormEventHandler<T> | undefined;
         onChangeCapture?: FormEventHandler<T> | undefined;
-        onBeforeInput?: FormEventHandler<T> | undefined;
+        onBeforeInput?: InputEventHandler<T> | undefined;
         onBeforeInputCapture?: FormEventHandler<T> | undefined;
         onInput?: FormEventHandler<T> | undefined;
         onInputCapture?: FormEventHandler<T> | undefined;
@@ -2242,8 +2317,6 @@ declare namespace React {
         onProgressCapture?: ReactEventHandler<T> | undefined;
         onRateChange?: ReactEventHandler<T> | undefined;
         onRateChangeCapture?: ReactEventHandler<T> | undefined;
-        onResize?: ReactEventHandler<T> | undefined;
-        onResizeCapture?: ReactEventHandler<T> | undefined;
         onSeeked?: ReactEventHandler<T> | undefined;
         onSeekedCapture?: ReactEventHandler<T> | undefined;
         onSeeking?: ReactEventHandler<T> | undefined;
@@ -2334,6 +2407,8 @@ declare namespace React {
         // UI Events
         onScroll?: UIEventHandler<T> | undefined;
         onScrollCapture?: UIEventHandler<T> | undefined;
+        onScrollEnd?: UIEventHandler<T> | undefined;
+        onScrollEndCapture?: UIEventHandler<T> | undefined;
 
         // Wheel Events
         onWheel?: WheelEventHandler<T> | undefined;
@@ -2731,7 +2806,7 @@ declare namespace React {
         unselectable?: "on" | "off" | undefined;
 
         // Popover API
-        popover?: "" | "auto" | "manual" | undefined;
+        popover?: "" | "auto" | "manual" | "hint" | undefined;
         popoverTargetAction?: "toggle" | "show" | "hide" | undefined;
         popoverTarget?: string | undefined;
 
@@ -2750,6 +2825,14 @@ declare namespace React {
          * @see {@link https://html.spec.whatwg.org/multipage/custom-elements.html#attr-is}
          */
         is?: string | undefined;
+        /**
+         * @see {@link https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/exportparts}
+         */
+        exportparts?: string | undefined;
+        /**
+         * @see {@link https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/part}
+         */
+        part?: string | undefined;
     }
 
     /**
@@ -2977,6 +3060,7 @@ declare namespace React {
     }
 
     interface DialogHTMLAttributes<T> extends HTMLAttributes<T> {
+        closedby?: "any" | "closerequest" | "none" | undefined;
         onCancel?: ReactEventHandler<T> | undefined;
         onClose?: ReactEventHandler<T> | undefined;
         open?: boolean | undefined;
@@ -3039,6 +3123,8 @@ declare namespace React {
         width?: number | string | undefined;
     }
 
+    interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_IMG_SRC_TYPES {}
+
     interface ImgHTMLAttributes<T> extends HTMLAttributes<T> {
         alt?: string | undefined;
         crossOrigin?: CrossOrigin;
@@ -3048,7 +3134,12 @@ declare namespace React {
         loading?: "eager" | "lazy" | undefined;
         referrerPolicy?: HTMLAttributeReferrerPolicy | undefined;
         sizes?: string | undefined;
-        src?: string | undefined;
+        src?:
+            | string
+            | DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_IMG_SRC_TYPES[
+                keyof DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_IMG_SRC_TYPES
+            ]
+            | undefined;
         srcSet?: string | undefined;
         useMap?: string | undefined;
         width?: number | string | undefined;
@@ -3207,6 +3298,7 @@ declare namespace React {
 
     interface LinkHTMLAttributes<T> extends HTMLAttributes<T> {
         as?: string | undefined;
+        blocking?: "render" | (string & {}) | undefined;
         crossOrigin?: CrossOrigin;
         fetchPriority?: "high" | "low" | "auto";
         href?: string | undefined;
@@ -3232,6 +3324,8 @@ declare namespace React {
         type?: string | undefined;
     }
 
+    interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_MEDIA_SRC_TYPES {}
+
     interface MediaHTMLAttributes<T> extends HTMLAttributes<T> {
         autoPlay?: boolean | undefined;
         controls?: boolean | undefined;
@@ -3242,7 +3336,12 @@ declare namespace React {
         muted?: boolean | undefined;
         playsInline?: boolean | undefined;
         preload?: string | undefined;
-        src?: string | undefined;
+        src?:
+            | string
+            | DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_MEDIA_SRC_TYPES[
+                keyof DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_MEDIA_SRC_TYPES
+            ]
+            | undefined;
     }
 
     interface MetaHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -3319,10 +3418,12 @@ declare namespace React {
 
     interface ScriptHTMLAttributes<T> extends HTMLAttributes<T> {
         async?: boolean | undefined;
+        blocking?: "render" | (string & {}) | undefined;
         /** @deprecated */
         charSet?: string | undefined;
         crossOrigin?: CrossOrigin;
         defer?: boolean | undefined;
+        fetchPriority?: "high" | "low" | "auto" | undefined;
         integrity?: string | undefined;
         noModule?: boolean | undefined;
         referrerPolicy?: HTMLAttributeReferrerPolicy | undefined;
@@ -3353,6 +3454,7 @@ declare namespace React {
     }
 
     interface StyleHTMLAttributes<T> extends HTMLAttributes<T> {
+        blocking?: "render" | (string & {}) | undefined;
         media?: string | undefined;
         scoped?: boolean | undefined;
         type?: string | undefined;
@@ -3433,6 +3535,9 @@ declare namespace React {
         width?: number | string | undefined;
         disablePictureInPicture?: boolean | undefined;
         disableRemotePlayback?: boolean | undefined;
+
+        onResize?: ReactEventHandler<T> | undefined;
+        onResizeCapture?: ReactEventHandler<T> | undefined;
     }
 
     // this list is "complete" in that it contains every SVG attribute
@@ -3526,7 +3631,21 @@ declare namespace React {
         direction?: number | string | undefined;
         display?: number | string | undefined;
         divisor?: number | string | undefined;
-        dominantBaseline?: number | string | undefined;
+        dominantBaseline?:
+            | "auto"
+            | "use-script"
+            | "no-change"
+            | "reset-size"
+            | "ideographic"
+            | "alphabetic"
+            | "hanging"
+            | "mathematical"
+            | "central"
+            | "middle"
+            | "text-after-edge"
+            | "text-before-edge"
+            | "inherit"
+            | undefined;
         dur?: number | string | undefined;
         dx?: number | string | undefined;
         dy?: number | string | undefined;
@@ -3673,7 +3792,7 @@ declare namespace React {
         tableValues?: number | string | undefined;
         targetX?: number | string | undefined;
         targetY?: number | string | undefined;
-        textAnchor?: string | undefined;
+        textAnchor?: "start" | "middle" | "end" | "inherit" | undefined;
         textDecoration?: number | string | undefined;
         textLength?: number | string | undefined;
         textRendering?: number | string | undefined;
@@ -3962,7 +4081,6 @@ declare namespace React {
          * Captures which component contained the exception, and its ancestors.
          */
         componentStack?: string | null;
-        digest?: string | null;
     }
 
     // Keep in sync with JSX namespace in ./jsx-runtime.d.ts and ./jsx-dev-runtime.d.ts

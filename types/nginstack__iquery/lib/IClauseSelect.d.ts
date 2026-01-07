@@ -36,6 +36,6 @@ declare class IClauseSelect {
 declare namespace IClauseSelect {
     export { DataSet, IQuery };
 }
-type IQuery = import("./IQuery");
 import IColumn = require("./IColumn.js");
+type IQuery = import("./IQuery");
 type DataSet = import("@nginstack/engine/lib/dataset/DataSet");

@@ -1,5 +1,5 @@
 import Node from "../core/Node.js";
-import { NodeRepresentation, ShaderNodeObject } from "../tsl/TSLCore.js";
 
-export const directionToColor: (node: NodeRepresentation) => ShaderNodeObject<Node>;
-export const colorToDirection: (node: NodeRepresentation) => ShaderNodeObject<Node>;
+export const directionToColor: (node: Node) => Node;
+export const colorToDirection: (node: Node) => Node;
+export const unpackNormal: (xy: Node) => Node;

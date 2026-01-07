@@ -7,8 +7,8 @@ type FlowControlType = "none" | "hardware";
 /*~ https://wicg.github.io/serial/#dom-serialoptions */
 interface SerialOptions {
     baudRate: number;
-    dataBits?: number | undefined;
-    stopBits?: number | undefined;
+    dataBits?: 7 | 8 | undefined;
+    stopBits?: 1 | 2 | undefined;
     parity?: ParityType | undefined;
     bufferSize?: number | undefined;
     flowControl?: FlowControlType | undefined;
@@ -40,8 +40,8 @@ interface SerialPortInfo {
 
 /*~ https://wicg.github.io/serial/#dom-serialport */
 declare class SerialPort extends EventTarget {
-    onconnect: ((this: this, ev: Event) => any) | null;
-    ondisconnect: ((this: this, ev: Event) => any) | null;
+    onconnect: ((this: this, ev: Event) => void) | null;
+    ondisconnect: ((this: this, ev: Event) => void) | null;
     /** A flag indicating the logical connection state of serial port */
     readonly connected: boolean;
     readonly readable: ReadableStream<Uint8Array> | null;
@@ -56,7 +56,7 @@ declare class SerialPort extends EventTarget {
 
     addEventListener(
         type: "connect" | "disconnect",
-        listener: (this: this, ev: Event) => any,
+        listener: (this: this, ev: Event) => void,
         useCapture?: boolean,
     ): void;
     addEventListener(
@@ -66,7 +66,7 @@ declare class SerialPort extends EventTarget {
     ): void;
     removeEventListener(
         type: "connect" | "disconnect",
-        callback: (this: this, ev: Event) => any,
+        callback: (this: this, ev: Event) => void,
         useCapture?: boolean,
     ): void;
     removeEventListener(
@@ -96,14 +96,14 @@ interface SerialPortRequestOptions {
 
 /*~ https://wicg.github.io/serial/#dom-serial */
 declare class Serial extends EventTarget {
-    onconnect: ((this: this, ev: Event) => any) | null;
-    ondisconnect: ((this: this, ev: Event) => any) | null;
+    onconnect: ((this: this, ev: Event) => void) | null;
+    ondisconnect: ((this: this, ev: Event) => void) | null;
 
     getPorts(): Promise<SerialPort[]>;
     requestPort(options?: SerialPortRequestOptions): Promise<SerialPort>;
     addEventListener(
         type: "connect" | "disconnect",
-        listener: (this: this, ev: Event) => any,
+        listener: (this: this, ev: Event) => void,
         useCapture?: boolean,
     ): void;
     addEventListener(
@@ -113,7 +113,7 @@ declare class Serial extends EventTarget {
     ): void;
     removeEventListener(
         type: "connect" | "disconnect",
-        callback: (this: this, ev: Event) => any,
+        callback: (this: this, ev: Event) => void,
         useCapture?: boolean,
     ): void;
     removeEventListener(

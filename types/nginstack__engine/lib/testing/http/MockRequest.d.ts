@@ -23,15 +23,5 @@ declare class MockRequest {
     private limitReadSize_;
     private headers_;
     private getHeader;
-    private getHeaders;
-    private getParams;
-    private getMethod;
-    private getMethodType;
-    private getPath;
-    private getHost;
-    private getContent;
-    private getContentType;
-    private getContentLength;
-    private getBody;
     private read;
 }

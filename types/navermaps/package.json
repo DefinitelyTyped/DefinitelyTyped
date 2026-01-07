@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/navermaps",
-    "version": "3.7.9999",
+    "version": "3.9.9999",
     "nonNpm": true,
     "nonNpmDescription": "NAVER Maps JavaScript API",
     "projects": [

@@ -1,9 +1,9 @@
-import { GOVUKFrontendComponent } from "../../govuk-frontend-component.js";
+import { Component } from "../../component.js";
 
 /**
  * Header component
  */
-export class Header extends GOVUKFrontendComponent<HTMLElement> {
+export class Header extends Component<HTMLElement> {
     /**
      * Name for the component used when initialising using data-module attributes.
      */

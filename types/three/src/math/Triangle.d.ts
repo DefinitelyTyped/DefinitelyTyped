@@ -83,7 +83,7 @@ export class Triangle {
         target: Vector4,
     ): Vector4 | null;
     static getInterpolatedAttribute(
-        attr: BufferAttribute,
+        attr: BufferAttribute | InterleavedBufferAttribute,
         i1: number,
         i2: number,
         i3: number,
@@ -91,7 +91,7 @@ export class Triangle {
         target: Vector2,
     ): Vector2;
     static getInterpolatedAttribute(
-        attr: BufferAttribute,
+        attr: BufferAttribute | InterleavedBufferAttribute,
         i1: number,
         i2: number,
         i3: number,
@@ -99,7 +99,7 @@ export class Triangle {
         target: Vector3,
     ): Vector3;
     static getInterpolatedAttribute(
-        attr: BufferAttribute,
+        attr: BufferAttribute | InterleavedBufferAttribute,
         i1: number,
         i2: number,
         i3: number,

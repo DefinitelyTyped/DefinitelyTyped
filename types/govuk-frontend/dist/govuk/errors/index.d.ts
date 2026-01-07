@@ -19,8 +19,7 @@ import { type ComponentWithModuleName } from "../common/index.js";
  * }
  * ```
  */
-export abstract class GOVUKFrontendError extends Error {
-}
+export abstract class GOVUKFrontendError extends Error {}
 
 /**
  * Indicates that GOV.UK Frontend is not supported
@@ -37,8 +36,7 @@ export class SupportError extends GOVUKFrontendError {
 /**
  * Indicates that a component has received an illegal configuration
  */
-export class ConfigError extends GOVUKFrontendError {
-}
+export class ConfigError extends GOVUKFrontendError {}
 
 /**
  * Indicates an issue with an element (possibly `null` or `undefined`)
@@ -75,22 +73,22 @@ export class InitError extends GOVUKFrontendError {
  */
 export interface ElementErrorOptions {
     /**
+     * - The element in error (optional)
+     */
+    element?: Document | Element | null | undefined;
+
+    /**
+     * - Component throwing the error (optional)
+     */
+    component?: ComponentWithModuleName | undefined;
+
+    /**
      * - An identifier that'll let the user understand which element has an error. This is whatever makes the most sense
      */
     identifier: string;
 
     /**
-     * - The element in error
-     */
-    element?: Element | null | undefined;
-
-    /**
-     * - The type that was expected for the identifier
+     * - The type that was expected for the identifier (optional)
      */
     expectedType?: string | undefined;
-
-    /**
-     * - Component throwing the error
-     */
-    component: ComponentWithModuleName;
 }

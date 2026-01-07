@@ -5,6 +5,7 @@ import {
     avplay,
     billing,
     network,
+    preview,
     productinfo,
     sso,
     tvinfo,
@@ -13,10 +14,12 @@ import {
 
 adinfo.getVersion(); // $ExpectType string
 appcommon.getVersion(); // $ExpectType string
+appcommon.getUuid(); // $ExpectType string
 avplay.getVersion(); // $ExpectType string
 avinfo.getVersion(); // $ExpectType string
 billing.getVersion(); // $ExpectType string
 network.getVersion(); // $ExpectType string
+preview.getVersion(); // $ExpectType string
 productinfo.getVersion(); // $ExpectType string
 sso.getVersion(); // $ExpectType string
 tvinfo.getVersion(); // $ExpectType string

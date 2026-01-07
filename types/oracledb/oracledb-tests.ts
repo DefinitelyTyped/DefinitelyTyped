@@ -24,7 +24,7 @@ const {
     DB_USER,
 } = process.env;
 
-const initSession = (connection: oracledb.Connection, requestedTag: string, callback: () => void): void => {
+const initSession = (connection: oracledb.Connection, requestedTag: string, callback: (e: unknown) => void): void => {
     connection.execute(`alter session set nls_date_format = 'YYYY-MM-DD' nls_language = AMERICAN`, callback);
 };
 
@@ -64,6 +64,7 @@ const testGetStatmentInfo = async (connection: oracledb.Connection): Promise<voi
         info.metaData[0],
         {
             name: "1",
+            dbColumnName: "1",
             fetchType: 2002,
             dbType: oracledb.DB_TYPE_NUMBER,
             nullable: true,
@@ -430,6 +431,7 @@ const version4Tests = async () => {
         sql: "test",
         callback: message => {
             console.log(message.queueName);
+            console.log(message.regId);
             for (const query of message.queries ?? []) {
                 for (const table of query.tables ?? []) {
                     console.log(table.name);
@@ -705,6 +707,10 @@ export const version6Tests = async (): Promise<void> => {
 
     console.log(defaultOracledb.DB_TYPE_VECTOR);
     console.log(defaultOracledb.JsonId);
+    console.log(defaultOracledb.traceHandler.TraceHandlerBase);
+    console.log(defaultOracledb.traceHandler.setTraceInstance());
+    console.log(defaultOracledb.traceHandler.getTraceInstance());
+    console.log(defaultOracledb.traceHandler.isEnabled());
 
     // pass random 12 byte value to JsonId which is generated
     // by DB for SODA document.
@@ -726,4 +732,145 @@ export const version6Tests = async (): Promise<void> => {
         queueTimeout: 60000,
         user: DB_USER,
     });
+};
+
+export const version6_6Tests = async (): Promise<void> => {
+    await oracledb.getConnection({
+        externalAuth: true,
+        walletContent: "",
+    });
+    await oracledb.createPool({
+        externalAuth: true,
+        walletContent: "",
+    });
+};
+
+export const version6_7Tests = async (): Promise<void> => {
+    const s1: string[] = await oracledb.getNetworkServiceNames();
+    const s2: string[] = await oracledb.getNetworkServiceNames("/tnsnames.ora");
+
+    defaultOracledb.machine = "test";
+    defaultOracledb.osUser = "test";
+    defaultOracledb.program = "test";
+    defaultOracledb.terminal = "test";
+    defaultOracledb.driverName = "test";
+
+    await oracledb.getConnection({
+        user: "test",
+        machine: "test",
+        osUser: "test",
+        program: "test",
+        terminal: "test",
+        driverName: "test",
+    });
+
+    await oracledb.createPool({
+        connectString: DB_CONNECTION_STRING,
+        privilege: oracledb.SYSDBA,
+        homogeneous: true,
+        password: DB_PASSWORD,
+        poolIncrement: 1,
+        poolMax: 5,
+        poolMin: 3,
+        poolPingInterval: 60,
+        poolTimeout: 60,
+        queueTimeout: 60000,
+        user: DB_USER,
+        machine: "test",
+        osUser: "test",
+        program: "test",
+        terminal: "test",
+        driverName: "test",
+    });
+};
+
+export const version6point8Tests = async (): Promise<void> => {
+    console.log("Testing Vector constants...");
+    console.log(defaultOracledb.VECTOR_FORMAT_BINARY);
+    console.log(defaultOracledb.VECTOR_FORMAT_FLOAT32);
+    console.log(defaultOracledb.VECTOR_FORMAT_FLOAT64);
+    console.log(defaultOracledb.VECTOR_FORMAT_INT8);
+    console.log("Testing IntervalYM...");
+    const intervalYM = new oracledb.IntervalYM();
+    console.log(intervalYM.years);
+    console.log(intervalYM.months);
+    console.log("Testing IntervalDS...");
+    const intervalDS = new oracledb.IntervalDS();
+    console.log(intervalDS.days);
+    console.log(intervalDS.hours);
+    console.log(intervalDS.minutes);
+    console.log(intervalDS.seconds);
+    console.log(intervalDS.fseconds);
+    console.log("Testing Sparse vector...");
+    const vec = new oracledb.SparseVector<Float32Array>([0, 0.2, 0, 1.5]);
+    const values = vec.values;
+    const dense = vec.dense();
+    console.log("Testing oracledb settable properties...");
+    defaultOracledb.driverName = "ndb-thin";
+    defaultOracledb.machine = "my-machine";
+    defaultOracledb.osUser = "default-user";
+    defaultOracledb.program = "testPgm";
+    defaultOracledb.terminal = "testTerminal";
+};
+
+export const version6_9Tests = async (): Promise<void> => {
+    const connection = await oracledb.getConnection({
+        user: "test",
+        appContext: [
+            ["TEST_CONTEXT", "testAttr", "testValue"],
+        ],
+    });
+
+    const txnId = "testId";
+    await connection.beginSessionlessTransaction({ transactionId: txnId, timeout: 2, deferRoundTrip: true });
+    await connection.execute("INSERT INTO TEST VALUES(1)", {}, { suspendOnSuccess: true });
+    await connection.suspendSessionlessTransaction();
+    await connection.resumeSessionlessTransaction(txnId, { deferRoundTrip: false });
+
+    console.log(connection.ltxid);
+
+    await oracledb.createPool({
+        connectString: DB_CONNECTION_STRING,
+        password: DB_PASSWORD,
+        maxLifetimeSession: 2,
+        user: DB_USER,
+    });
+
+    interface QueueItem {
+        test: string;
+        connor: boolean;
+        test2: number;
+    }
+
+    const q = await connection.getQueue<QueueItem>("test");
+
+    q.enqOne("test");
+    const msg = await q.deqOne();
+    console.log(msg.enqTime);
+};
+
+export const version6_10Tests = async (): Promise<void> => {
+    const connection = await oracledb.getConnection({
+        user: "test",
+    });
+    const queue = await connection.getQueue("test", {
+        payloadType: "test",
+    });
+
+    const { name, deqOptions, enqOptions, payloadType, payloadTypeClass, payloadTypeName } = queue;
+
+    const {
+        condition,
+        consumerName,
+        correlation,
+        deliveryMode,
+        mode,
+        msgId,
+        navigation,
+        transformation,
+        visibility,
+        wait,
+    } = deqOptions;
+
+    const messages = await queue.deqMany(5);
 };

@@ -1,14 +1,11 @@
 export = HtmlToPdf;
-declare function HtmlToPdf(canSendToServer: boolean): void;
+declare function HtmlToPdf(): void;
 declare class HtmlToPdf {
-    constructor(canSendToServer: boolean);
+    private workDir_;
     private pages_;
     private resources_;
-    private operationType_;
-    private workDir_;
     private logger_;
     timeout: number;
-    transferEncoding: string;
     copies: number;
     grayScale: boolean;
     orientation: string;
@@ -31,28 +28,20 @@ declare class HtmlToPdf {
     private getGrayScale;
     private setTitle;
     private getTitle;
-    private addFileByPath_;
-    addPage(inputFilePath: string): void;
-    addResource(inputFilePath: string): void;
-    private addFileByContent_;
-    addPageContent(fileName: string, fileContent: string, opt_transferEncoding?: string): void;
-    addResourceContent(fileName: string, fileContent: string, opt_transferEncoding?: string): void;
-    setPageExtraArguments(index: number, params: string): void;
-    getPages(): any[];
     private tryExecuteApp_;
     private buildCommand_;
     private updateAppPackage_;
     private htmlToPdfPath_;
     private htmlToPdfExec_;
-    private encode_;
-    private decode_;
-    private buildRemotePayload_;
-    private remotePayload_;
     private isAppAvailableOnEnvironment_;
-    private printWithEmbeddedApp_;
-    private printWithEnvironmentApp_;
-    private printWithWebService_;
-    private printWithRemoteServer_;
+    private addFileByPath_;
+    private addFileByContent_;
+    addPage(inputFilePath: string): void;
+    addResource(inputFilePath: string): void;
+    addPageContent(fileName: string, content: string): void;
+    addResourceContent(fileName: string, fileContent: string): void;
+    setPageExtraArguments(index: number, params: string): void;
+    getPages(): any[];
     print(outputFileName: string, generateLog?: boolean): number;
 }
 declare namespace HtmlToPdf {

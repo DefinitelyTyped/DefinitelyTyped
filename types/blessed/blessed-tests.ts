@@ -832,6 +832,66 @@ const list = blessed.list({
 
 list.setItems(["string1", "string2", "string3"]);
 
+// https://github.com/chjj/blessed/blob/master/test/widget-log.js
+// modified for testing purposes
+
+screen = blessed.screen({
+    dump: __dirname + "/logs/logger.log",
+    smartCSR: true,
+    autoPadding: false,
+    warnings: true,
+});
+
+var logger = blessed.log({
+    parent: screen,
+    top: "center",
+    left: "center",
+    width: "50%",
+    height: "50%",
+    border: "line",
+    tags: true,
+    keys: true,
+    vi: true,
+    mouse: true,
+    scrollback: 100,
+    scrollbar: {
+        ch: " ",
+        track: {
+            bg: "yellow",
+        },
+        style: {
+            inverse: true,
+        },
+    },
+});
+
+logger.align = "right";
+logger.valign = "bottom";
+
+logger.focus();
+
+screen.key("q", function() {
+    return screen.destroy();
+});
+
+screen.render();
+
+// Adding align and valign properties to Box element
+
+const box8 = blessed.box({
+    left: 1,
+    top: 2,
+    height: 6,
+    width: 8,
+    content: "test",
+    style: {
+        bg: "green",
+    },
+});
+
+box8.align = "center";
+box8.valign = "middle";
+
 // https://github.com/chjj/blessed/blob/master/test/program-mouse.js
 
 const program = blessed.program({

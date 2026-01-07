@@ -7,7 +7,7 @@
     ],
     "dependencies": {
         "@types/react": "*",
-        "@types/tinymce": "*"
+        "@types/tinymce": "<5"
     },
     "devDependencies": {
         "@types/react-mce": "workspace:."

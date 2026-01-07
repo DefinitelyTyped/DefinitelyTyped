@@ -9,6 +9,12 @@ function test_events() {
 
     object.off("change", onChange);
     object.off("change");
+    object.off({
+        change: onChange,
+    });
+    object.off({
+        change: onChange,
+    }, context);
     object.off(null, onChange);
     object.off(null, null, context);
     object.off();
@@ -402,7 +408,11 @@ namespace v1Changes {
             const view = new Backbone.View<Employee>();
             view.stopListening(model, "invalid", () => {});
             view.stopListening(model, "invalid");
+            view.stopListening(model, {
+                invalid: () => {},
+            });
             view.stopListening(model);
+            view.stopListening();
         }
     }
 

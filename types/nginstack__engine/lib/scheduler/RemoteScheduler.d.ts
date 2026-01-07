@@ -4,6 +4,7 @@ declare class RemoteScheduler {
     constructor(database: Database);
     private database_;
     private runAction_;
+    maxConcurrentTaskCount: number;
     maxSimultaneousTasks: number;
     getTasks(options?: { scriptKey?: string; scriptURI?: string }): DataSet;
     saveTasks(tasks: DataSet, userName?: string, password?: string): void;

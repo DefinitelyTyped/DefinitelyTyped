@@ -6,6 +6,7 @@ const msg = "Hello World";
 // test promise api
 amqp.connect("amqp://localhost")
     .then(connection => {
+        connection.connection;
         return connection.createChannel()
             .then(channel => {
                 channel.connection;

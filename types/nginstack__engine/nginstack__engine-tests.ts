@@ -1,5 +1,5 @@
-import * as DataSet from '@nginstack/engine/lib/dataset/DataSet';
-import * as Database from '@nginstack/engine/lib/database/Database';
+import DataSet from "@nginstack/engine/lib/dataset/DataSet";
+import Database from "@nginstack/engine/lib/database/Database";
 
 const values = ['test1', 'test_memo1', 1, true, new Date()];
 
@@ -89,6 +89,6 @@ database.userHasScope(456, 'scope'); // $ExpectType boolean
 database.logout(); // $ExpectType void
 
 function getVersion(): string {
-    return '71.0.253';
+    return '72.0.12';
 }
 getVersion(); // $ExpectType string

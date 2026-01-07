@@ -1,12 +1,159 @@
 import * as Plotly from "plotly.js";
-import { Config, Datum, Layout, newPlot, PlotData, Template, XAxisName, YAxisName } from "plotly.js";
+import { Config, Datum, Font, Layout, newPlot, PlotData, Template, XAxisName, YAxisName } from "plotly.js";
 
 const graphDiv = "#test";
+
+const font: Font = {
+    color: "#fff",
+    family: "Arial, sans-serif",
+    lineposition: "under",
+    shadow: "auto",
+    size: 15,
+    style: "italic",
+    textcase: "word caps",
+    variant: "all-petite-caps",
+    weight: "bold",
+};
+
+const config: Partial<Config> = {
+    staticPlot: false,
+    typesetMath: true,
+    plotlyServerURL: "fake-server-url",
+    editable: true,
+    edits: {
+        annotationPosition: true,
+        annotationTail: true,
+        annotationText: true,
+        axisTitleText: true,
+        colorbarPosition: true,
+        colorbarTitleText: true,
+        legendPosition: true,
+        legendText: true,
+        shapePosition: true,
+        titleText: true,
+    },
+    editSelection: true,
+    autosizable: true,
+    responsive: true,
+    fillFrame: false,
+    frameMargins: 0.1,
+    scrollZoom: "gl3d+geo+map",
+    doubleClick: "reset+autosize",
+    doubleClickDelay: 300,
+    showAxisDragHandles: true,
+    showAxisRangeEntryBoxes: true,
+    showTips: true,
+    showLink: true,
+    linkText: "Edit in Chart Studio",
+    sendData: true,
+    showSources: (gd) => {
+        // $ExpectType PlotlyHTMLElement
+        gd;
+    },
+    displayModeBar: "hover",
+    showSendToCloud: true,
+    showEditInChartStudio: false,
+    modeBarButtonsToRemove: [
+        "lasso2d",
+        "select2d",
+        "sendDataToCloud",
+    ],
+    modeBarButtonsToAdd: [
+        "togglespikelines",
+        "togglehover",
+        {
+            name: "customButton",
+            title: "Custom Action",
+            icon: {
+                width: 1000,
+                height: 1000,
+                path: "M500 500 L600 600 L400 600 Z",
+                ascent: 850,
+                descent: 150,
+                name: "customIcon",
+                transform: "matrix(1 0 0 -1 0 850)",
+            },
+            gravity: "top",
+            click: (gd, ev) => {
+                // $ExpectType PlotlyHTMLElement
+                gd;
+                // $ExpectType MouseEvent
+                ev;
+            },
+            attr: "customAttr",
+            val: "initialValue",
+            toggle: true,
+        },
+    ],
+    modeBarButtons: [
+        [
+            {
+                name: "save",
+                title: "Save Plot",
+                icon: {
+                    width: 857.1,
+                    height: 1000,
+                    path: "fake-plot-path",
+                    ascent: 850,
+                    transform: "matrix(1 0 0 -1 0 850)",
+                },
+                click: (gd, ev) => {
+                    // $ExpectType PlotlyHTMLElement
+                    gd;
+                    // $ExpectType MouseEvent
+                    ev;
+                },
+                attr: "saveState",
+                val: null,
+                toggle: false,
+            },
+            "zoom2d",
+            "pan2d",
+        ],
+        ["toImage"],
+    ],
+    toImageButtonOptions: {
+        format: "png",
+        filename: "plot_export",
+        height: 600,
+        width: 800,
+        scale: 2,
+    },
+    displaylogo: true,
+    watermark: false,
+    plotGlPixelRatio: 2,
+    setBackground: (gd, bgColor) => {
+        // $ExpectType PlotlyHTMLElement
+        gd;
+        // $ExpectType string
+        bgColor;
+    },
+    topojsonURL: "fake-topo-json-URL",
+    mapboxAccessToken: "fake-token",
+    logging: 1,
+    notifyOnLogging: 0,
+    queueLength: 10,
+    locale: "en-US",
+    locales: {
+        "en-US": {
+            dictionary: {
+                "Reset axes": "Reset Axes",
+                "Download plot": "Download Plot",
+            },
+            format: {
+                months: ["January", "February"],
+                shortMonths: ["Jan", "Feb"],
+            },
+        },
+    },
+};
 
 //////////////////////////////////////////////////////////////////////
 // Plotly.newPlot
 // combination of https://plotly.com/javascript/multiple-transforms/#all-transforms and
-// https://plotly.com/javascript/2d-density-plots/
+// https://plotly.com/javascript/2d-density-plots/, but with transforms removed as they
+// no longer exist in Plotly v3 (it's up to you to massage the data set before passing
+// it to Plotly, rather than letting Plotly do the transform for you).
 
 (() => {
     const testrows = [
@@ -74,35 +221,6 @@ const graphDiv = "#test";
             },
         },
         type: "scatter",
-        transforms: [
-            {
-                type: "filter",
-                target: unpack(testrows, "year"),
-                operation: "=",
-                value: "2002",
-            },
-            {
-                type: "groupby",
-                nameformat: `%{group}`,
-                groups: unpack(testrows, "continent"),
-                styles: [
-                    { target: "Asia", value: { marker: { color: "red" } } },
-                    { target: "Europe", value: { marker: { color: "blue" } } },
-                    { target: "Americas", value: { marker: { color: "orange" } } },
-                    { target: "Africa", value: { marker: { color: "green" } } },
-                    { target: "Oceania", value: { marker: { color: "purple" } } },
-                ],
-            },
-            {
-                type: "aggregate",
-                groups: unpack(testrows, "continent"),
-                aggregations: [
-                    { target: "x", func: "avg" },
-                    { target: "y", func: "avg" },
-                    { target: "marker.size", func: "sum" },
-                ],
-            },
-        ],
         width: 2,
     } as PlotData;
     const trace2 = {
@@ -128,15 +246,21 @@ const graphDiv = "#test";
     } as PlotData;
     const data = [trace1, trace2, trace3];
     const layout = {
-        title: "Gapminder",
+        title: {
+            text: "Gapminder",
+        },
         xaxis: {
-            title: "Life Expectancy",
+            title: {
+                text: "Life Expectancy",
+            },
             domain: [0, 0.85],
             showgrid: false,
             zeroline: false,
         },
         yaxis: {
-            title: "GDP per Cap",
+            title: {
+                text: "GDP per Cap",
+            },
             showline: false,
             domain: [0, 0.85],
             showgrid: false,
@@ -165,7 +289,7 @@ const graphDiv = "#test";
             type: "scatter",
         } as PlotData,
     ];
-    const layout2 = { title: "Revenue" };
+    const layout2 = { title: { text: "Revenue" } };
     Plotly.newPlot(graphDiv, data2, layout2);
 })();
 (() => {
@@ -295,15 +419,15 @@ const graphDiv = "#test";
         bgcolor: "#ffffff",
         bordercolor: "#444444",
         borderwidth: 1,
-        font: { size: 15 },
+        font,
         groupclick: "togglegroup",
-        grouptitlefont: { size: 15 },
+        grouptitlefont: font,
         itemclick: "toggleothers",
         itemdoubleclick: "toggle",
         itemsizing: "constant",
         itemwidth: 50,
         orientation: "h",
-        title: { font: { size: 15 }, side: "top right", text: "Legend Title" },
+        title: { font, side: "top right", text: "Legend Title" },
         tracegroupgap: 15,
         traceorder: "reversed+grouped",
         valign: "bottom",
@@ -313,55 +437,12 @@ const graphDiv = "#test";
         yanchor: "top",
     };
 
-    const layout: Partial<Layout> = { showlegend: true, title: "January 2013 Sales Report", template, modebar, legend };
-    const config: Partial<Config> = {
-        modeBarButtons: [
-            [
-                {
-                    name: "save",
-                    title: "Download plot data",
-                    icon: {
-                        width: 857.1,
-                        height: 1000,
-                        path:
-                            "m214-7h429v214h-429v-214z m500 0h72v500q0 8-6 21t-11 20l-157 156q-5 6-19 12t-22 5v-232q0-22-15-38t-38-16h-322q-22 0-37 16t-16 38v232h-72v-714h72v232q0 22 16 38t37 "
-                            + "16h465q22 0 38-16t15-38v-232z m-214 518v178q0 8-5 13t-13 5h-107q-7 0-13-5t-5-13v-178q0-8 5-13t13-5h107q7 0 13 5t5 13z m357-18v-518q0-22-15-38t-38-16h-750q-23 0-38 "
-                            + "16t-16 38v750q0 22 16 38t38 16h517q23 0 50-12t42-26l156-157q16-15 27-42t11-49z",
-                        ascent: 850,
-                        transform: "matrix(1 0 0 -1 0 850)",
-                    },
-                    click: (gd, ev) => console.log("Download data"),
-                },
-                "pan2d",
-                "zoom2d",
-            ],
-            ["toImage"],
-        ],
-        // mix strings from ModeBarDefaultButtons and custom button added as ModeBarButton interface
-        modeBarButtonsToAdd: [
-            "togglespikelines",
-            "togglehover",
-            "hovercompare",
-            "hoverclosest",
-            "v1hovermode",
-            {
-                name: "save",
-                title: "Download plot data",
-                icon: {
-                    width: 857.1,
-                    height: 1000,
-                    path:
-                        "m214-7h429v214h-429v-214z m500 0h72v500q0 8-6 21t-11 20l-157 156q-5 6-19 12t-22 5v-232q0-22-15-38t-38-16h-322q-22 0-37 16t-16 38v232h-72v-714h72v232q0 22 16 38t37 "
-                        + "16h465q22 0 38-16t15-38v-232z m-214 518v178q0 8-5 13t-13 5h-107q-7 0-13-5t-5-13v-178q0-8 5-13t13-5h107q7 0 13 5t5 13z m357-18v-518q0-22-15-38t-38-16h-750q-23 0-38 "
-                        + "16t-16 38v750q0 22 16 38t38 16h517q23 0 50-12t42-26l156-157q16-15 27-42t11-49z",
-                    ascent: 850,
-                    transform: "matrix(1 0 0 -1 0 850)",
-                },
-                click: (gd, ev) => console.log("Download data"),
-            },
-        ],
-        setBackground: "transparent",
-        watermark: false,
+    const layout: Partial<Layout> = {
+        showlegend: true,
+        title: { text: "January 2013 Sales Report" },
+        template,
+        modebar,
+        legend,
     };
     Plotly.newPlot("myDiv", data, layout, config);
 })();
@@ -414,7 +495,9 @@ const graphDiv = "#test";
         },
     ];
     const layout: Partial<Layout> = {
-        title: "Grouped Box Plot",
+        title: {
+            text: "Grouped Box Plot",
+        },
         boxmode: "overlay",
     };
 
@@ -425,7 +508,56 @@ const graphDiv = "#test";
     const data: Array<Partial<PlotData>> = [
         {
             colorbar: {
-                title: "Test",
+                title: {
+                    text: "Test",
+                    font,
+                    side: "top",
+                },
+                orientation: "v",
+                thicknessmode: "pixels",
+                thickness: 30,
+                lenmode: "fraction",
+                len: 1,
+                x: 1.02,
+                xref: "paper",
+                xanchor: "left",
+                xpad: 10,
+                y: 0.5,
+                yref: "paper",
+                yanchor: "middle",
+                ypad: 10,
+                outlinecolor: "#000000",
+                outlinewidth: 1,
+                bordercolor: "#000000",
+                borderwidth: 0,
+                bgcolor: "rgba(0,0,0,0)",
+                tickmode: "auto",
+                nticks: 0,
+                tick0: 0,
+                dtick: 1,
+                tickvals: [],
+                ticktext: [],
+                ticks: "",
+                ticklabeloverflow: "hide past div",
+                ticklabelposition: "outside",
+                ticklen: 5,
+                tickwidth: 1,
+                tickcolor: "#000000",
+                ticklabelstep: 1,
+                showticklabels: true,
+                labelalias: "labelalias",
+                tickfont: font,
+                tickangle: "auto",
+                tickformat: "",
+                tickformatstops: [],
+                tickprefix: "",
+                showtickprefix: "all",
+                ticksuffix: "",
+                showticksuffix: "all",
+                separatethousands: false,
+                exponentformat: "B",
+                minexponent: 3,
+                showexponent: "all",
             },
             locationmode: "ISO-3",
             locations: ["USA", "NLD"],
@@ -436,7 +568,9 @@ const graphDiv = "#test";
     ];
     const layout: Partial<Layout> = {
         showlegend: true,
-        title: "World Map",
+        title: {
+            text: "World Map",
+        },
         geo: {
             projection: { type: "Mercator" },
             showcoastlines: true,
@@ -452,7 +586,7 @@ const graphDiv = "#test";
                     visible: true,
                     prefix: "Date:",
                     xanchor: "right",
-                    font: { size: 20, color: "#666" },
+                    font,
                 },
                 steps: [
                     {
@@ -577,7 +711,9 @@ const graphDiv = "#test";
 // update only values within nested objects
 (() => {
     const update = {
-        title: "some new title", // updates the title
+        title: { // updates the title
+            text: "some new title",
+        },
         "xaxis.range": [0, 5], // updates the xaxis range
         "yaxis.range[1]": 15, // updates the end of the yaxis range
     } as Layout;
@@ -589,7 +725,9 @@ const graphDiv = "#test";
         marker: { color: "red" },
     };
     const layout_update = {
-        title: "some new title", // updates the title
+        title: { // updates the title
+            text: "some new title",
+        },
     };
     Plotly.update(graphDiv, data_update, layout_update);
 })();
@@ -598,9 +736,7 @@ const graphDiv = "#test";
     const update = {
         title: {
             text: "some new title",
-            font: {
-                size: 1.2,
-            },
+            font,
             x: 0.9,
             pad: {
                 t: 20,
@@ -620,7 +756,9 @@ const graphDiv = "#test";
         marker: { color: "red" },
     };
     const layout_update = {
-        title: "some new title", // updates the title
+        title: { // updates the title
+            text: "some new title",
+        },
     };
     Plotly.update(graphDiv, data_update, layout_update);
 })();
@@ -1018,10 +1156,7 @@ function rand() {
             type: "contour",
             contours: {
                 coloring: "lines",
-                labelfont: {
-                    color: "black",
-                    family: "monospace",
-                },
+                labelfont: font,
                 showlabels: true,
             },
             autocontour: true,
@@ -1097,12 +1232,198 @@ function rand() {
 
     const layout: Partial<Layout> = {
         dragmode: "zoom",
-        mapbox: { style: "open-street-map", center: { lat: 0, lon: -0 }, zoom: 3 },
+        mapbox: {
+            accesstoken: "accesstoken",
+            domain: { x: [0], y: [0], row: 0, column: 0 },
+            style: "open-street-map",
+            center: { lat: 0, lon: -0 },
+            zoom: 3,
+            bearing: 30,
+            bounds: { east: 0, west: 0, south: 0, north: 0 },
+            pitch: 0,
+            layers: [
+                {
+                    // Circle layer
+                    visible: true,
+                    sourcetype: "geojson",
+                    source: {
+                        type: "Feature",
+                        properties: {},
+                        geometry: {
+                            type: "Point",
+                            coordinates: [-74.0060, 40.7128],
+                        },
+                    },
+                    type: "circle",
+                    circle: { radius: 10 },
+                    color: "rgb(255, 0, 0)",
+                    opacity: 0.8,
+                    minzoom: 8,
+                    maxzoom: 15,
+                },
+                {
+                    // Line layer
+                    visible: true,
+                    sourcetype: "geojson",
+                    source: {
+                        type: "Feature",
+                        geometry: {
+                            type: "LineString",
+                            coordinates: [
+                                [-74.0060, 40.7128],
+                                [-73.9857, 40.7484],
+                            ],
+                        },
+                    },
+                    type: "line",
+                    line: {
+                        color: "#00ff00",
+                        width: 2,
+                        dash: "dashdot",
+                    },
+                    opacity: 0.6,
+                },
+                {
+                    // Symbol layer
+                    visible: true,
+                    sourcetype: "geojson",
+                    source: {
+                        type: "Feature",
+                        geometry: {
+                            type: "Point",
+                            coordinates: [-73.9857, 40.7484],
+                        },
+                    },
+                    type: "symbol",
+                    symbol: {
+                        icon: "monument",
+                        iconsize: 1.5,
+                        text: "Empire State",
+                        placement: "point",
+                        textposition: "top center",
+                        textfont: font,
+                    },
+                },
+                {
+                    // Raster layer
+                    visible: true,
+                    sourcetype: "raster",
+                    source: "mapbox://mapbox.satellite",
+                    type: "raster",
+                    opacity: 0.7,
+                    minzoom: 0,
+                    maxzoom: 22,
+                },
+            ],
+            uirevision: "uirevision",
+        },
         margin: { r: 0, t: 0, b: 0, l: 0 },
     };
 
-    const config: Partial<Config> = {
-        modeBarButtonsToRemove: ["resetViewMapbox", "zoomInMapbox", "zoomOutMapbox"],
+    Plotly.newPlot("myDiv", data, layout);
+})();
+
+//////////////////////////////////////////////////////////////////////
+// Map plot
+(() => {
+    const data: Array<Partial<PlotData>> = [
+        {
+            type: "scattermap",
+            text: ["A", "B", "C"],
+            lon: [0, 1, 2],
+            lat: [0, 1, 2],
+            marker: { color: "fuchsia", size: 4 },
+        },
+    ];
+
+    const layout: Partial<Layout> = {
+        dragmode: "zoom",
+        map: {
+            accesstoken: "accesstoken",
+            domain: { x: [0], y: [0], row: 0, column: 0 },
+            style: "open-street-map",
+            center: { lat: 0, lon: -0 },
+            zoom: 3,
+            bearing: 30,
+            bounds: { east: 0, west: 0, south: 0, north: 0 },
+            pitch: 0,
+            layers: [
+                {
+                    // Circle layer
+                    visible: true,
+                    sourcetype: "geojson",
+                    source: {
+                        type: "Feature",
+                        properties: {},
+                        geometry: {
+                            type: "Point",
+                            coordinates: [-74.0060, 40.7128],
+                        },
+                    },
+                    type: "circle",
+                    circle: { radius: 10 },
+                    color: "rgb(255, 0, 0)",
+                    opacity: 0.8,
+                    minzoom: 8,
+                    maxzoom: 15,
+                },
+                {
+                    // Line layer
+                    visible: true,
+                    sourcetype: "geojson",
+                    source: {
+                        type: "Feature",
+                        geometry: {
+                            type: "LineString",
+                            coordinates: [
+                                [-74.0060, 40.7128],
+                                [-73.9857, 40.7484],
+                            ],
+                        },
+                    },
+                    type: "line",
+                    line: {
+                        color: "#00ff00",
+                        width: 2,
+                        dash: "dashdot",
+                    },
+                    opacity: 0.6,
+                },
+                {
+                    // Symbol layer
+                    visible: true,
+                    sourcetype: "geojson",
+                    source: {
+                        type: "Feature",
+                        geometry: {
+                            type: "Point",
+                            coordinates: [-73.9857, 40.7484],
+                        },
+                    },
+                    type: "symbol",
+                    symbol: {
+                        icon: "monument",
+                        iconsize: 1.5,
+                        text: "Empire State",
+                        placement: "point",
+                        textposition: "top center",
+                        textfont: font,
+                    },
+                },
+                {
+                    // Raster layer
+                    visible: true,
+                    sourcetype: "raster",
+                    source: "mapbox://mapbox.satellite",
+                    type: "raster",
+                    opacity: 0.7,
+                    minzoom: 0,
+                    maxzoom: 22,
+                },
+            ],
+            uirevision: "uirevision",
+        },
+        margin: { r: 0, t: 0, b: 0, l: 0 },
     };
 
     Plotly.newPlot("myDiv", data, layout);

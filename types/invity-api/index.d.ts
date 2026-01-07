@@ -69,6 +69,31 @@ export type FiatCurrencyCode =
 
 export type FiatCurrenciesProps = Record<FiatCurrencyCode, number>;
 
+export interface ClientVersion {
+    client: string;
+    version: string;
+}
+
+export interface ProviderMetadata {
+    name: string; // unique internal name, e.g. "changenow"
+    companyName: string; // name visible to clients, e.g. "ChangeNow"
+    logo: string; // logo image filename, e.g. "changenow-icon.jpg"
+    isActive: boolean;
+    isDisabled?: boolean;
+    disabledCurrencies?: string[]; // ['BTC', 'USD']
+    supportedCountries?: string[]; // ['CZ', 'NL']
+    disabledCountries?: string[];
+    supportUrl?: string; // https://www.simplex.com/support/
+    statusUrl?: string; // https://payment-status.simplex.com/api/v1/user/payments?uuid={{paymentId}}
+    termsUrl?: string; // https://www.simplex.com/terms-of-use/payment-terms
+    disabledClientVersions?: ClientVersion[];
+}
+
+export interface BuySellProviderMetadata extends ProviderMetadata {
+    supportedCountries: string[]; // ['AT', 'BE']
+    tradedCoins: CryptoId[]; // ['BTC', 'BCH', 'LTC', 'XRP', 'ETH', 'bitcoin', 'ethereum', 'litecoin', 'ethereum--0xdac17f958d2ee523a2206206994597c13d831ec7']
+}
+
 // buy types
 
 export type BuyTradeFinalStatus =
@@ -119,22 +144,12 @@ export type BuyTradeTag =
     | "widget"
     | "noExternalAddress";
 
-export interface BuyProviderInfo {
-    name: string; // simplex
-    companyName: string; // UAB Invity Finance
-    brandName?: string; // Invity
-    logo: string; // simplex-icon.jpg
-    isActive: boolean;
-    isDisabled?: boolean;
-    tradedCoins: CryptoId[]; // ['bitcoin', 'ethereum', 'litecoin', 'ethereum--0xdac17f958d2ee523a2206206994597c13d831ec7']
+export interface BuyProviderInfo extends BuySellProviderMetadata {
     tradedFiatCurrencies: string[]; // ['EUR', 'USD']
-    disabledCurrencies?: string[];
-    supportedCountries: string[]; // ['CZ', 'NL']
-    disabledCountries?: string[];
     paymentMethods: BuyCryptoPaymentMethod[];
-    statusUrl?: string; // https://payment-status.simplex.com/api/v1/user/payments?uuid={{paymentId}}
-    supportUrl?: string; // https://www.simplex.com/support/
-    pendingTimeoutSeconds?: number; // Time until a SUBMITTED transaction automatically changes to APPROVAL_PENDING. Null means it does not change.
+    disabledPaymentMethods?: BuyCryptoPaymentMethod[];
+    brandName?: string; // Invity
+    pendingTimeoutSeconds?: number; // time until a SUBMITTED transaction automatically changes to APPROVAL_PENDING, null means it does not change
 }
 
 export interface BuyListResponse {
@@ -250,23 +265,18 @@ export type ExchangeMaximum =
 export type ExchangeTradeTag = "renewed" | "bestRate" | "favorite" | "kyc" | "widget" | "noExternalAddress";
 export type ExchangeKYCType = "KYC-required" | "KYC-norefund" | "KYC-yesrefund" | "noKYC" | "DEX";
 
-export interface ExchangeProviderInfo {
-    name: string; // changenow
-    companyName: string; // ChangeNow
-    logo: string; // changenow-icon.jpg
-    isActive: boolean;
+export interface ExchangeProviderInfo extends ProviderMetadata {
     isFixedRate: boolean;
     isDex: boolean;
     buyTickers: CryptoId[];
     sellTickers: CryptoId[];
-    addressFormats: StringMap; // specification of formats required by selected exchange
-    statusUrl: string; // https://changenow.io/exchange/txs/{{orderId}}
+    addressFormats: StringMap;
     kycUrl?: string; // https://changenow.io/faq#kyc
     supportUrl: string; // https://support.changenow.io
     // TODO region of operation
-    kycPolicy?: string | undefined;
+    kycPolicy?: string;
     kycPolicyType: ExchangeKYCType;
-    isRefundRequired?: boolean | undefined;
+    isRefundRequired?: boolean;
 }
 
 export type ExchangeListResponse = ExchangeProviderInfo[];
@@ -285,6 +295,8 @@ export interface ExchangeTrade {
     receive?: CryptoId | undefined; // litecoin
 
     receiveStringAmount?: string | undefined; // "0.01"
+    /** User`s crypto address where tx should be refunded */
+    refundAddress?: string;
     fromAddress?: string | undefined; // user's address from which the tx is sent - used in DEX
     receiveAddress?: string | undefined; // user's address for receive tx
     rate?: number | undefined; // 100
@@ -337,6 +349,11 @@ export interface ExchangeTrade {
     tradeForm?: FormResponse;
 }
 
+export interface ExchangeTradeSigned extends ExchangeTrade {
+    /** SLIP24: Nonce for payment request signature */
+    tradeSignature: string;
+}
+
 export interface ExtendedExchangeTrade extends ExchangeTrade {
     requestTradeErrorType?: "QUOTE_TIMEOUT" | "UNKNOWN" | undefined;
     newQuote?: ExchangeTrade | undefined; // A renewed quote, in case of a timeout
@@ -353,6 +370,8 @@ export interface ExchangeTradeQuoteRequest {
     send: CryptoId; // bitcoin
     receive: CryptoId; // litecoin
     sendStringAmount?: string | undefined; // "0.01"
+    fromAddress?: string; // user's address from which the tx is sent - used in DEX
+    receiveAddress?: string; // user's address where they'll receive exchanged crypto
     dex?: "enable" | "exclusively" | undefined; // 'enable' means add dex offers, 'exclusively' means only dex offers
 }
 
@@ -362,6 +381,7 @@ export interface ConfirmExchangeTradeRequest {
     trade: ExchangeTrade;
     receiveAddress: string; // address hash
     refundAddress: string; // address hash (optional because Changelly doesn't support it)
+    approvalFlow?: boolean; // approval flow
     extraField?: string | undefined; // XRP destination tag, XMR label id, ...
     returnUrl?: string; // URL where to return after the trade is done
 }
@@ -453,23 +473,16 @@ export type SellProviderType = "Fiat" | "Voucher";
 
 export type SellFiatFlowType = "BANK_ACCOUNT" | "PAYMENT_GATE" | "N/A";
 
-export interface SellProviderInfo {
-    name: string; // simplex
-    companyName: string; // Simplex
-    logo: string; // simplex-icon.jpg
+export interface SellProviderInfo extends BuySellProviderMetadata {
     type: SellProviderType;
-    isActive: boolean;
-    tradedCoins: CryptoId[]; // ['bitcoin', 'bitcoin-cash', 'litecoin']
-    tradedFiatCurrencies?: string[] | undefined; // ['EUR', 'USD']
-    supportedCountries: string[]; // ['AT', 'BE']
-    statusUrl?: string | undefined; // https://payment-status.simplex.com/api/v1/user/payments?uuid={{paymentId}}
-    supportUrl?: string | undefined; // https://www.simplex.com/support/
-    quoteInfo?: string | undefined; // some info text shown on quote
-    voucherSiteOrigin?: string | undefined;
-    paymentMethods?: SellCryptoPaymentMethod[] | undefined;
-    flow?: SellFiatFlowType | undefined;
-    isRefundAddressRequired?: boolean | undefined;
-    pendingTimeout?: number | undefined; // Time until a SUBMITTED transaction automatically changes to PENDING. Null means it does not change.
+    tradedFiatCurrencies?: string[]; // ['EUR', 'USD']
+    quoteInfo?: string; // some info text shown on quote
+    paymentMethods?: SellCryptoPaymentMethod[];
+    disabledPaymentMethods?: SellCryptoPaymentMethod[];
+    flow?: SellFiatFlowType;
+    isRefundAddressRequired?: boolean;
+    pendingTimeout?: number; // time until a SUBMITTED transaction automatically changes to PENDING, null means it does not change
+    lockSendAmount?: boolean; // should be used when it's necessary to have the exact amount match between the trade and the transaction */
 }
 
 export interface SellListResponse {
@@ -534,6 +547,11 @@ export interface SellFiatTrade {
     partnerData2?: string | undefined; // arbitrary data specific for the partner
 }
 
+export interface SellFiatTradeSigned extends SellFiatTrade {
+    /** SLIP24: Signature of the trade */
+    tradeSignature: string;
+}
+
 export interface SellVoucherTradeQuoteRequest {
     cryptoCurrency?: CryptoId | undefined; // bitcoin
     language?: string | undefined; // en
@@ -587,3 +605,32 @@ export interface WatchSellTradeResponse {
     destinationPaymentExtraId?: string | undefined; // Extra ID for payments to exchange for networks that require it (destinationTag)
     cryptoStringAmount?: string; // Crypto amount to send in case of change on provider's side (Banxa)
 }
+
+export interface PaymentRequestOutput {
+    address: string;
+    amount: string;
+}
+
+export interface CreateTradeSignatureRequestSell {
+    type: "sell";
+    /** ID of the trade - `paymentId` for sell */
+    id: string;
+    nonce: string;
+    sendSlip44: number;
+    outputs: PaymentRequestOutput[];
+    memoText: string;
+}
+
+export interface CreateTradeSignatureRequestExchange {
+    type: "exchange";
+    /** ID of the trade - `orderId` for exchange */
+    id: string;
+    nonce: string;
+    sendSlip44: number;
+    receiveSlip44: number;
+    outputs: PaymentRequestOutput[];
+}
+
+export type CreateTradeSignatureRequest =
+    | CreateTradeSignatureRequestSell
+    | CreateTradeSignatureRequestExchange;

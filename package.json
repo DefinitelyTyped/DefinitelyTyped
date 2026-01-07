@@ -25,7 +25,7 @@
         "clean-node-modules": "node scripts/clean-node-modules.js",
         "test": "node --enable-source-maps node_modules/@definitelytyped/dtslint/ types",
         "lint": "node --enable-source-maps node_modules/@definitelytyped/dtslint/ types",
-        "prettier": "prettier",
+        "format": "dprint fmt",
         "setup-hooks": "husky install"
     },
     "devDependencies": {

@@ -1,4 +1,3 @@
-import "./Tests";
 import {
     ParsedCell,
     Parser,

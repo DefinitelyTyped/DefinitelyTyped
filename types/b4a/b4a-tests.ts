@@ -54,7 +54,7 @@ u8a = b4a.fill(buf, 1, 2, 3, "utf8");
 u8a = b4a.from(sb);
 u8a = b4a.from(buf);
 u8a = b4a.from("this is a tést");
-u8a = b4a.from(buf, 1, 2);
+u8a = b4a.from(buf.buffer, 1, 2);
 u8a = b4a.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72] as readonly number[]);
 // @ts-expect-error
 b4a.from({});

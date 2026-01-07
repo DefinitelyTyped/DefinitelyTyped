@@ -59,7 +59,7 @@ const opts: fetch.Options = {
     proxy: "https://my.proxy",
     query: { foo: "bar" },
     registry: "https://registry.npmjs.org",
-    retry,
+    ...retry,
     scope: "scope",
     spec: "@scope/package",
     timeout: 60000,
@@ -71,8 +71,20 @@ const opts: fetch.Options = {
     "//registry.npmjs.org/:username": "nobody",
 };
 
+const retryObject: fetch.FetchRetryObjectOptions = {
+    retries: 42,
+    factor: 10,
+    maxTimeout: 10000,
+    minTimeout: 60000,
+};
+
+const optsWithRetry: fetch.Options = {
+    retry: retryObject,
+};
+
 fetch("/"); // $ExpectType Promise<Response>
 fetch("/", opts); // $ExpectType Promise<Response>
+fetch("/", optsWithRetry); // $ExpectType Promise<Response>
 fetch.json("/"); // $ExpectType Promise<Record<string, unknown>>
 fetch.json("/", opts); // $ExpectType Promise<Record<string, unknown>>
 fetch.json.stream("/-/user/zkat/package", "$*"); // $ExpectType ReadWriteStream

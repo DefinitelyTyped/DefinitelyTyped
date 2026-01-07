@@ -14,7 +14,7 @@ declare class NodeUniformsGroup extends UniformsGroup {
     /**
      * Constructs a new node-based uniforms group.
      *
-     * @param {String} name - The group's name.
+     * @param {string} name - The group's name.
      * @param {UniformGroupNode} groupNode - The uniform group node.
      */
     constructor(name: string, groupNode: UniformGroupNode);

@@ -1,4 +1,2 @@
-export type exports = number;
-declare let START: number;
-declare let END: number;
-export {};
+export const START: number;
+export const END: number;

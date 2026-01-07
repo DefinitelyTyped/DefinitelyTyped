@@ -1,25 +1,34 @@
+export type PreservedStreamEventType = "info" | "warn" | "error";
+
 export abstract class Stream {
-    private listeners: Record<string, unknown>;
-    private on(type: string, listener: () => void): void;
-    private off(type: string, listener: () => void): void;
-    private trigger(type: string, ...args: unknown[]): void;
-    private dispose(): void;
-    private pipe(destination: Stream): void;
+    listeners: Record<string, unknown>;
+    on(type: PreservedStreamEventType, listener: (data: { message: string }) => void): void;
+    on(type: string, listener: (...data: unknown[]) => void): void;
+    off(type: PreservedStreamEventType, listener: (data: { message: string }) => void): boolean;
+    off(type: string, listener: (...data: unknown[]) => void): boolean;
+    trigger(type: PreservedStreamEventType, listener: (data: { message: string }) => void): void;
+    trigger(type: string, listener: (...data: unknown[]) => void): void;
+    dispose(): void;
+    pipe(destination: Stream): void;
 }
 
 export interface RawAttributes {
-    RESOLUTION?: unknown;
+    RESOLUTION?: { width: number; height: number };
     BANDWIDTH?: number;
     "FRAME-RATE"?: number;
     "PROGRAM-ID"?: number;
     PRECISE?: number;
     "TIME-OFFSET"?: unknown;
+    URI?: string;
+    CODECS?: string;
+    AUDIO?: string;
+    SUBTITLES?: string;
 
     [other: string]: unknown;
 }
 
 export interface Attributes {
-    resoltion?: unknown;
+    resolution?: unknown;
 
     [other: string]: unknown;
 }
@@ -30,10 +39,10 @@ export interface ByteRange {
 }
 
 export interface Segment {
-    dateTimeString: string;
-    dateTimeObject: Date;
-    programDateTime: number;
-    title: string;
+    dateTimeString?: string;
+    dateTimeObject?: Date;
+    programDateTime?: number;
+    title?: string;
     duration: number;
     uri: string;
 
@@ -43,7 +52,7 @@ export interface Segment {
     key?: {
         method: string;
         uri: string;
-        iv: string;
+        iv?: Uint32Array;
     };
     map?: {
         uri: string;
@@ -94,17 +103,20 @@ export interface Manifest {
     };
     mediaSequence?: number;
     discontinuitySequence?: number;
+    independentSegments?: boolean;
     playlistType?: "VOD" | "EVENT";
     mediaGroups?: {
         [groupName: string]: {
             [groupId: string]: {
-                default: boolean;
-                autoselect: boolean;
-                language: string;
-                uri: string;
-                instreamId: string;
-                characteristics: string;
-                forced: boolean;
+                [itemName: string]: {
+                    default: boolean;
+                    autoselect: boolean;
+                    language: string;
+                    uri?: string;
+                    instreamId?: string;
+                    characteristics?: string;
+                    forced?: boolean;
+                };
             };
         };
     };
@@ -119,12 +131,19 @@ export interface Manifest {
     totalDuration?: number;
     endList?: boolean;
     custom?: unknown;
-    playlists?: (Manifest & { attributes: Attributes })[];
+    playlists?: PlaylistItem[];
+}
+
+export interface PlaylistItem {
+    attributes: RawAttributes;
+    uri: string;
+    timeline: number;
+    contentProtection?: Manifest["contentProtection"];
 }
 
 export class Parser extends Stream {
     constructor(options?: {
-        url?: string;
+        uri?: string;
         mainDefinitions?: Record<string, string>;
     });
     lineStream: LineStream;

@@ -1,14 +1,8 @@
 declare function _exports(
     date: Date,
     opt_options?: {
-        format?: {
-            DDMMYYYY: number;
-            DDMM: number;
-            MMYYYY: number;
-            WWYYYY: number;
-            YYYYWW: number;
-            MMMYYYY: number;
-        };
+        format?: typeof DateFormat;
     }
 ): string;
 export = _exports;
+import DateFormat = require('./DateFormat.js');

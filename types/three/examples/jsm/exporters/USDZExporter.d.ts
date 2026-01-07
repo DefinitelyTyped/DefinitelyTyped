@@ -5,6 +5,7 @@ import * as WebGPUTextureUtils from "../utils/WebGPUTextureUtils.js";
 export interface USDZExporterOptions {
     ar?: { anchoring: { type: "plane" }; planeAnchoring: { alignment: "horizontal" | "vertical" | "any" } } | undefined;
     includeAnchoringProperties?: boolean | undefined;
+    onlyVisible?: boolean | undefined;
     quickLookCompatible?: boolean | undefined;
     maxTextureSize?: number | undefined;
 }
@@ -16,10 +17,10 @@ export class USDZExporter {
 
     parse(
         scene: Object3D,
-        onDone: (result: Uint8Array) => void,
+        onDone: (result: Uint8Array<ArrayBuffer>) => void,
         onError: (error: unknown) => void,
         options?: USDZExporterOptions,
     ): void;
 
-    parseAsync(scene: Object3D, options?: USDZExporterOptions): Promise<Uint8Array>;
+    parseAsync(scene: Object3D, options?: USDZExporterOptions): Promise<Uint8Array<ArrayBuffer>>;
 }

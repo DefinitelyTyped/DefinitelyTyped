@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/babel__generator",
-    "version": "7.6.9999",
+    "version": "7.27.9999",
     "projects": [
         "https://github.com/babel/babel/tree/master/packages/babel-generator",
         "https://babeljs.io"

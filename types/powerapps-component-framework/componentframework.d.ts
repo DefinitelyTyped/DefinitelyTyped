@@ -790,6 +790,7 @@ declare namespace ComponentFramework {
          * Fluent v9 theming
          */
         fluentDesignLanguage?: FluentDesignState;
+        copilot: Copilot;
     }
 
     type IEventBag = Record<string, (params?: unknown) => void>;
@@ -2833,5 +2834,65 @@ declare namespace ComponentFramework {
                 alias: string;
             }
         }
+    }
+
+    /**
+     * Interface for Copilot functionality
+     */
+    interface Copilot {
+        /**
+         * Executes a Microsoft Copilot Studio Agent's topic based on the registered event name. Returns an array of type MCSResponse.
+         * @param eventName Name of the event to execute
+         * @param parameters Parameters for the event, such as an ID
+         * @returns Promise that resolves with the event result
+         */
+        executeEvent(eventName: string, parameters: Record<string, unknown>): Promise<MCSResponse[]>;
+
+        /**
+         * Executes a Microsoft Copilot Studio Agent's topic based on registered triggered phrases. Returns an array of MCSResponse.
+         * @param promptText The text that is registered as a trigger query in the MCS topic.
+         */
+        executePrompt(promptText: string): Promise<MCSResponse[]>;
+    }
+
+    /**
+     * Interface for Copilot attachment layout types
+     */
+    type AttachmentLayout = "list" | "carousel";
+
+    /**
+     * Interface for Copilot attachments
+     */
+    interface Attachment {
+        content?: unknown;
+        contentType?: string;
+    }
+
+    /**
+     * Interface for Copilot text formats
+     */
+    type TextFormat = "plain" | "markdown" | "xml";
+
+    /*
+     * Interface for Copilot response
+     */
+    interface MCSResponse {
+        type: string;
+        id?: string;
+        locale?: string;
+        replyToId?: string;
+        timestamp?: string;
+        speak?: string;
+        text?: string;
+        textFormat?: TextFormat;
+        suggestedActions?: {
+            actions: unknown[];
+            to?: string[];
+        };
+        value?: unknown;
+        valueType?: string;
+        name?: string;
+        attachmentLayout?: AttachmentLayout;
+        attachments?: Attachment[];
     }
 }

@@ -134,9 +134,9 @@ declare namespace DatabaseSchema {
         IndexDef,
     };
 }
-type Database = import('../database/Database');
 declare function registerObserver(observer: import('./DatabaseSchemaObserver')): void;
 declare function deregisterObserver(observer: import('./DatabaseSchemaObserver')): void;
+type Database = import('../database/Database');
 interface TableInfo {
     name: string;
     primaryKey: string[];

@@ -3,26 +3,37 @@
 export = screenshotDesktop;
 
 declare function screenshotDesktop(
-    options?: { format?: screenshotDesktop.ImageFormat; screen?: screenshotDesktop.DisplayID },
-): Promise<Buffer>;
+    options?: screenshotDesktop.ScreenshotOptionsWithoutFilename,
+): Promise<NonSharedBuffer>;
 declare function screenshotDesktop(
-    options?: { filename: string; format?: screenshotDesktop.ImageFormat; screen?: screenshotDesktop.DisplayID },
+    options?: screenshotDesktop.ScreenshotOptionsWithFilename,
 ): Promise<string>;
 
 declare namespace screenshotDesktop {
-    type DisplayID = number;
+    interface ScreenshotOptions {
+        filename?: string;
+        format?: ImageFormat;
+        screen?: DisplayID;
+        linuxLibrary?: "scrot" | "imagemagick";
+    }
 
-    type ImageFormat =
-        | "bmp"
-        | "emf"
-        | "exif"
-        | "jpg"
-        | "jpeg"
-        | "gif"
-        | "png"
-        | "tiff"
-        | "wmf";
+    interface ScreenshotOptionsWithFilename extends ScreenshotOptions {
+        filename: string;
+    }
 
-    function listDisplays(): Promise<Array<{ id: DisplayID; name: string }>>;
-    function all(): Promise<Array<{ id: DisplayID; name: string }>>;
+    interface ScreenshotOptionsWithoutFilename extends ScreenshotOptions {
+        filename?: "";
+    }
+
+    interface Display {
+        id: number | string;
+        name: string;
+    }
+
+    type DisplayID = Display["id"];
+
+    type ImageFormat = "jpg" | "png";
+
+    function listDisplays(): Promise<Array<Display>>;
+    function all(): Promise<Array<NonSharedBuffer>>;
 }

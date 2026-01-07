@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/cronofy-elements",
+    "version": "1.64.9999",
+    "projects": [
+        "https://github.com/cronofy",
+        "https://docs.cronofy.com/developers/ui-elements/"
+    ],
+    "devDependencies": {
+        "@types/cronofy-elements": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Agustin Garcia",
+            "githubUsername": "agarciabz"
+        }
+    ]
+}

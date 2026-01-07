@@ -4,30 +4,29 @@ import { capitalize, createDocs, filterNull, hasElements, isObjectReference } fr
 
 const INDENT = "    ";
 
-// Turns a type into a type representing an array of that type
-const arrify = (typeString: string) => {
-    return typeString === "{}" ? `Array<${typeString}>` : `${typeString}[]`;
-};
-
 // Converts DevTools type to TS type
 const createTypeString = (type: schema.Field, domain?: string): string => {
-    return isObjectReference(type)
-        ? type.$ref
-        : type.type === "any"
-        ? "any"
-        : type.type === "integer"
-        ? "number"
-        : type.type === "number"
-        ? "number"
-        : type.type === "boolean"
-        ? "boolean"
-        : type.type === "string"
-        ? "string"
-        : type.type === "array"
-        ? arrify(createTypeString(type.items, domain))
-        : type.type === "object"
-        ? "{}"
-        : "never"; // 'never' has yet to be observed
+    if (isObjectReference(type)) {
+        return type.$ref;
+    }
+    switch (type.type) {
+        case "any":
+        case "number":
+        case "boolean":
+        case "string":
+        case "object":
+            return type.type;
+        case "integer":
+            return "number";
+        case "array":
+            return `${createTypeString(type.items, domain)}[]`;
+        case "binary":
+            // The V8 inspector provides these as base64-encoded strings.
+            return "string";
+        default:
+            console.warn(`Warning: unknown PDL type "${type["type"]}"`);
+            return "never";
+    }
 };
 
 // Helper for createInterface -- constructs a list of interface fields
@@ -83,7 +82,7 @@ const createPostFunctions = (command: schema.Command, domain: string): string[] 
     if (hasElements(command.parameters || [])) {
         const parts = [
             `${fnName}(`,
-            `method: '${domain}.${command.name}', `,
+            `method: "${domain}.${command.name}", `,
             `params?: ${domain}.${capitalize(command.name)}ParameterType, `,
             `callback?: ${callbackStr}`,
             "): void;",
@@ -100,7 +99,7 @@ const createPostFunctions = (command: schema.Command, domain: string): string[] 
     }
     result.push([
         `${fnName}(`,
-        `method: '${domain}.${command.name}', `,
+        `method: "${domain}.${command.name}", `,
         `callback?: ${callbackStr}`,
         "): void;",
     ].join(""));
@@ -113,14 +112,14 @@ const createPostPromiseFunction = (command: schema.Command, domain: string): str
     if (hasElements(command.parameters || [])) {
         result.push([
             `${fnName}(`,
-            `method: '${domain}.${command.name}', `,
+            `method: "${domain}.${command.name}", `,
             `params?: ${domain}.${capitalize(command.name)}ParameterType`,
             `): ${promiseStr};`,
         ].join(""));
     } else {
         result.push([
             `${fnName}(`,
-            `method: '${domain}.${command.name}'`,
+            `method: "${domain}.${command.name}"`,
             `): ${promiseStr};`,
         ].join(""));
     }

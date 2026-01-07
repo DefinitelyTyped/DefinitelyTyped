@@ -34,13 +34,13 @@ declare class NumberNodeUniform extends NumberUniform {
     /**
      * Overwritten to return the value of the node uniform.
      *
-     * @return {Number} The value.
+     * @return {number} The value.
      */
     getValue(): number;
     /**
      * Returns the node uniform data type.
      *
-     * @return {String} The data type.
+     * @return {string} The data type.
      */
     getType(): string | null;
 }
@@ -68,7 +68,7 @@ declare class Vector2NodeUniform extends Vector2Uniform {
     /**
      * Returns the node uniform data type.
      *
-     * @return {String} The data type.
+     * @return {string} The data type.
      */
     getType(): string | null;
 }
@@ -96,7 +96,7 @@ declare class Vector3NodeUniform extends Vector3Uniform {
     /**
      * Returns the node uniform data type.
      *
-     * @return {String} The data type.
+     * @return {string} The data type.
      */
     getType(): string | null;
 }
@@ -124,7 +124,7 @@ declare class Vector4NodeUniform extends Vector4Uniform {
     /**
      * Returns the node uniform data type.
      *
-     * @return {String} The data type.
+     * @return {string} The data type.
      */
     getType(): string | null;
 }
@@ -152,7 +152,7 @@ declare class ColorNodeUniform extends ColorUniform {
     /**
      * Returns the node uniform data type.
      *
-     * @return {String} The data type.
+     * @return {string} The data type.
      */
     getType(): string | null;
 }
@@ -180,7 +180,7 @@ declare class Matrix2NodeUniform extends Matrix2Uniform {
     /**
      * Returns the node uniform data type.
      *
-     * @return {String} The data type.
+     * @return {string} The data type.
      */
     getType(): string | null;
 }
@@ -208,7 +208,7 @@ declare class Matrix3NodeUniform extends Matrix3Uniform {
     /**
      * Returns the node uniform data type.
      *
-     * @return {String} The data type.
+     * @return {string} The data type.
      */
     getType(): string | null;
 }
@@ -236,7 +236,7 @@ declare class Matrix4NodeUniform extends Matrix4Uniform {
     /**
      * Returns the node uniform data type.
      *
-     * @return {String} The data type.
+     * @return {string} The data type.
      */
     getType(): string | null;
 }

@@ -8,7 +8,7 @@
     "dependencies": {
         "@types/connect": "*",
         "@types/express": "*",
-        "@types/lowdb": "*"
+        "@types/lowdb": "<2"
     },
     "devDependencies": {
         "@types/json-server": "workspace:."

@@ -1,3 +1,5 @@
+/// <reference types="chai/register-should" />
+
 import ChaiJsonSchema = require("chai-json-schema");
 import { TV4 } from "tv4";
 

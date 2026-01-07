@@ -1,5 +1,3 @@
-// For ddescribe / iit use : https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/karma-jasmine/karma-jasmine.d.ts
-
 /**
  * @deprecated Use {@link jasmine.ImplementationCallback} instead.
  */
@@ -108,6 +106,13 @@ declare function afterAll(action: jasmine.ImplementationCallback, timeout?: numb
  * @param spy
  */
 declare function expect<T extends jasmine.Func>(spy: T | jasmine.Spy<T>): jasmine.FunctionMatchers<T>;
+
+/**
+ * Create an expectation for a spec.
+ * @checkReturnValue see https://tsetse.info/check-return-value
+ * @param actual Actual computed value to test expectations against.
+ */
+declare function expect(actual: string): jasmine.Matchers<string>;
 
 /**
  * Create an expectation for a spec.
@@ -300,6 +305,14 @@ declare namespace jasmine {
          */
         stopOnSpecFailure?: boolean | undefined;
         /**
+         * Whether to forbid duplicate spec or suite names. If set to true, using
+         * the same name multiple times in the same immediate parent suite is an
+         * error.
+         * @since 5.5.0
+         * @default false
+         */
+        forbidDuplicateNames?: boolean | undefined;
+        /**
          * Whether to fail the spec if it ran no expectations. By default
          * a spec that ran no expectations is reported as passed. Setting this
          * to true will report such spec as a failure.
@@ -466,6 +479,7 @@ declare namespace jasmine {
     }
 
     interface Clock {
+        autoTick(): void;
         install(): Clock;
         uninstall(): void;
         /** Calls to any registered callback are triggered when the clock is ticked forward via the jasmine.clock().tick function, which takes a number of milliseconds. */
@@ -548,7 +562,7 @@ declare namespace jasmine {
         clearReporters(): void;
         configuration(): Configuration;
         configure(configuration: Configuration): void;
-        execute(runnablesToRun?: Suite[]): PromiseLike<JasmineDoneInfo>;
+        execute(runnablesToRun?: Suite[]): Promise<JasmineDoneInfo>;
         provideFallbackReporter(reporter: CustomReporter): void;
         /**
          * Sets a user-defined property that will be provided to reporters as
@@ -1028,7 +1042,7 @@ declare namespace jasmine {
         duration: number | null;
 
         /**
-         * User-supplied properties, if any, that were set using {@link Env.setSpecProperty}
+         * User-supplied properties, if any, that were set using {@link Env.setSuiteProperty}
          */
         properties: { [key: string]: unknown } | null;
     }
@@ -1045,6 +1059,11 @@ declare namespace jasmine {
         pendingReason: string;
 
         debugLogs: DebugLogEntry[] | null;
+
+        /**
+         * User-supplied properties, if any, that were set using {@link Env.setSpecProperty}
+         */
+        properties: { [key: string]: unknown } | null;
     }
 
     interface DebugLogEntry {

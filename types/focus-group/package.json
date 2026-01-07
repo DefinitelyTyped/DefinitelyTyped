@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/focus-group",
+    "version": "0.3.9999",
+    "projects": [
+        "https://github.com/davidtheclark/focus-group#readme"
+    ],
+    "devDependencies": {
+        "@types/focus-group": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Masashi Kawafuji",
+            "githubUsername": "m-kawafuji"
+        }
+    ]
+}

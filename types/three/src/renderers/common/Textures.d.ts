@@ -6,7 +6,7 @@ import Backend from "./Backend.js";
 import DataMap from "./DataMap.js";
 import Info from "./Info.js";
 import Renderer from "./Renderer.js";
-type SizeVector3Unitialized = Vector3 & {
+type SizeVector3Uninitialized = Vector3 & {
     width?: number;
     height?: number;
     depth?: number;
@@ -75,7 +75,7 @@ declare class Textures extends DataMap<{
      * it updates the texture states representing the attachments of the framebuffer.
      *
      * @param {RenderTarget} renderTarget - The render target to update.
-     * @param {Number} [activeMipmapLevel=0] - The active mipmap level.
+     * @param {number} [activeMipmapLevel=0] - The active mipmap level.
      */
     updateRenderTarget(renderTarget: RenderTarget, activeMipmapLevel?: number): void;
     /**
@@ -88,6 +88,19 @@ declare class Textures extends DataMap<{
      */
     updateTexture(texture: Texture, options?: TextureOptions): void;
     /**
+     * Updates the sampler for the given texture. This method has no effect
+     * for the WebGL backend since it has no concept of samplers. Texture
+     * parameters are configured with the `texParameter()` command for each
+     * texture.
+     *
+     * In WebGPU, samplers are objects like textures and it's possible to share
+     * them when the texture parameters match.
+     *
+     * @param {Texture} texture - The texture to update the sampler for.
+     * @return {string} The current sampler key.
+     */
+    updateSampler(texture: Texture): void;
+    /**
      * Computes the size of the given texture and writes the result
      * into the target vector. This vector is also returned by the
      * method.
@@ -99,30 +112,30 @@ declare class Textures extends DataMap<{
      * @param {Vector3} target - The target vector.
      * @return {Vector3} The target vector.
      */
-    getSize(texture: Texture, target?: SizeVector3Unitialized): SizeVector3;
+    getSize(texture: Texture, target?: SizeVector3Uninitialized): SizeVector3;
     /**
      * Computes the number of mipmap levels for the given texture.
      *
      * @param {Texture} texture - The texture.
-     * @param {Number} width - The texture's width.
-     * @param {Number} height - The texture's height.
-     * @return {Number} The number of mipmap levels.
+     * @param {number} width - The texture's width.
+     * @param {number} height - The texture's height.
+     * @return {number} The number of mipmap levels.
      */
     getMipLevels(texture: Texture, width: number, height: number): number;
     /**
-     * Returns `true` if the given texture requires mipmaps.
+     * Returns `true` if the given texture makes use of mipmapping.
      *
      * @param {Texture} texture - The texture.
-     * @return {Boolean} Whether mipmaps are required or not.
+     * @return {boolean} Whether mipmaps are required or not.
      */
     needsMipmaps(texture: Texture): boolean;
     /**
-     * Returns `true` if the given texture is an environment map.
+     * Frees internal resources when the given render target isn't
+     * required anymore.
      *
-     * @param {Texture} texture - The texture.
-     * @return {Boolean} Whether the given texture is an environment map or not.
+     * @param {RenderTarget} renderTarget - The render target to destroy.
      */
-    isEnvironmentTexture(texture: Texture): boolean;
+    _destroyRenderTarget(renderTarget: RenderTarget): void;
     /**
      * Frees internal resource when the given texture isn't
      * required anymore.

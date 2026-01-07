@@ -1,3 +1,5 @@
+/// <reference types="chai/register-should" />
+
 import ChaiArrays = require("chai-arrays");
 
 declare const assert: Chai.AssertStatic;

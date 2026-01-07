@@ -9,7 +9,7 @@
         "vue": "^2.0.0"
     },
     "devDependencies": {
-        "@types/chart.js": "*",
+        "@types/chart.js": "<4",
         "@types/vue-chartkick": "workspace:."
     },
     "owners": [

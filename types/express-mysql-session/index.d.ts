@@ -1,4 +1,4 @@
-import * as expressSession from "express-session";
+import expressSession = require("express-session");
 import { Connection, Pool, PoolOptions } from "mysql2";
 
 export = MySQLStore;
@@ -99,7 +99,7 @@ declare class MySQLStoreClass extends expressSession.Store {
 
     options: MySQLStore.Options;
 
-    private _expirationInterval?: NodeJS.Timer | null;
+    private _expirationInterval?: NodeJS.Timeout | null;
 
     onReady(): Promise<void>;
 

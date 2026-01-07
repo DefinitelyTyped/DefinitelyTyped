@@ -1,11 +1,14 @@
-import { Group, Loader, LoadingManager, Mesh } from "three";
+import { LoadingManager } from "three";
+import { USDLoader } from "./USDLoader.js";
 
-export class USDAParser {
-    parse(text: string): object;
-}
-
-export class USDZLoader extends Loader<Mesh> {
+/**
+ * @deprecated USDZLoader has been deprecated. Please use USDLoader instead.
+ */
+declare class USDZLoader extends USDLoader {
+    /**
+     * @deprecated USDZLoader has been deprecated. Please use USDLoader instead.
+     */
     constructor(manager?: LoadingManager);
-
-    parse(buffer: ArrayBuffer | string): Group;
 }
+
+export { USDZLoader };

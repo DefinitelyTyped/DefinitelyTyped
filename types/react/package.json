@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/react",
-    "version": "19.0.9999",
+    "version": "19.2.9999",
     "projects": [
         "https://react.dev/"
     ],
@@ -61,7 +61,7 @@
         }
     },
     "dependencies": {
-        "csstype": "^3.0.2"
+        "csstype": "^3.2.2"
     },
     "devDependencies": {
         "@types/react": "workspace:.",

@@ -878,6 +878,12 @@ declare namespace ShopifyBuy {
         appliedGiftCards: AppliedGiftCard[];
         availableShippingRates?: AvailableShippingRates;
         buyerIdentity: CheckoutBuyerIdentity;
+        /**
+         * @deprecated
+         * Not supported. Defaults to `null`.
+         *
+         * The Cart API does not maintain the state of a completed Cart that became an order.
+         */
         completedAt?: DateTime;
         createdAt: DateTime;
         currencyCode: CurrencyCode;
@@ -885,16 +891,58 @@ declare namespace ShopifyBuy {
         email?: string;
         lineItemsSubtotalPrice: MoneyV2;
         note?: string;
+        /**
+         * @deprecated
+         * Not supported. Defaults to `null`.
+         *
+         * To retrieve customer orders, please use either the [Customer Account API](https://shopify.dev/docs/api/customer) or the legacy [Customer API](https://shopify.dev/docs/api/storefront/2025-01/objects/customer).
+         */
         order?: Order;
+        /**
+         * @deprecated
+         * Not supported. Defaults to `null`.
+         *
+         * To retrieve customer orders, please use either the [Customer Account API](https://shopify.dev/docs/api/customer) or the legacy [Customer API](https://shopify.dev/docs/api/storefront/2025-01/objects/customer).
+         */
         orderStatusUrl?: URL;
         paymentDue: MoneyV2;
+        /**
+         * @deprecated
+         * Not supported. Defaults to `false`.
+         *
+         * The [Cart API](https://shopify.dev/docs/api/storefront/2025-01/objects/cart) returns only carts that are considered ready. Simply bypass or remove any existing code depending on this field.
+         */
         ready: boolean;
+        /**
+         * @deprecated
+         * Not supported. Defaults to `false`.
+         *
+         * The [Cart API](https://shopify.dev/docs/api/storefront/2025-01/objects/cart) does not contain shipping information, this is currently handled in the Checkout flow. Remove any existing code depending on these fields.
+         */
         requiresShipping: boolean;
         shippingAddress?: MailingAddress;
         shippingDiscountAllocations: DiscountAllocation[];
+        /**
+         * @deprecated
+         * Not supported. Defaults to `null`.
+         *
+         * The [Cart API](https://shopify.dev/docs/api/storefront/2025-01/objects/cart) does not contain shipping information, this is currently handled in the Checkout flow. Remove any existing code depending on these fields.
+         */
         shippingLine?: ShippingRate;
         subtotalPrice: MoneyV2;
+        /**
+         * @deprecated
+         * Not supported. Defaults to `false`.
+         *
+         * The [Cart API](https://shopify.dev/docs/api/storefront/2025-01/objects/cart) does not have Tax aware as this is currently handled in the Checkout flow. Remove any existing code depending on this field.
+         */
         taxExempt: boolean;
+        /**
+         * @deprecated
+         * Not supported. Defaults to `false`.
+         *
+         * The [Cart API](https://shopify.dev/docs/api/storefront/2025-01/objects/cart) does not have Tax aware as this is currently handled in the Checkout flow. Remove any existing code depending on this field.
+         */
         taxesIncluded: boolean;
         totalDuties?: MoneyV2;
         totalPrice: MoneyV2;
@@ -1544,6 +1592,11 @@ declare namespace ShopifyBuy {
 
         /**
          * Creates a checkout.
+         *
+         * @remarks
+         * There are limitations with checkout localization:
+         * - Does not create localized checkouts when passing `presentmentCurrencyCode`
+         * - Does not localize an *empty* checkout created with `buyerIdentity.countryCode` (must create with lineItems)
          */
         create(input?: {
             email?: string;
@@ -1555,6 +1608,9 @@ declare namespace ShopifyBuy {
 
         /**
          * Replaces the value of checkout's custom attributes and/or note with values defined in the input
+         *
+         * @remarks
+         * It does not update a checkout to support `allowPartialAddresses`
          */
         updateAttributes(
             checkoutId: ID,
@@ -1577,6 +1633,10 @@ declare namespace ShopifyBuy {
 
         /**
          * Applies a discount to an existing checkout using a discount code.
+         *
+         * @remarks
+         * - It does not apply an order-level fixed amount discount to an empty checkout
+         * - It does not apply an order-level percentage discount to an empty checkout
          */
         addDiscount(checkoutId: ID, discountCode: string): Promise<Checkout>;
 

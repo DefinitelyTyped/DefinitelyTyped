@@ -278,8 +278,9 @@ num = slgDAG.iterations();
 
 // test multiple definitions
 slgDAG = slgDAG.nodeSort((node: SNode) => (node.index === 0 ? 1 : -1));
-slgDAG = slgDAG.nodeSort(() => undefined);
-slgDAG = slgDAG.nodeSort((node: SNode) => (node.name === "test" ? null : undefined));
+slgDAG = slgDAG.nodeSort(undefined);
+slgDAG = slgDAG.nodeSort(null);
+slgDAG = slgDAG.nodeSort((node: SNode) => (node.name === "test" ? 0 : -1));
 
 // ---------------------------------------------------------------------------
 // LinkSort
@@ -287,8 +288,9 @@ slgDAG = slgDAG.nodeSort((node: SNode) => (node.name === "test" ? null : undefin
 
 // test multiple definitions
 slgDAG = slgDAG.linkSort((link: SLink) => (link.index === 0 ? 1 : -1));
-slgDAG = slgDAG.linkSort(() => undefined);
-slgDAG = slgDAG.linkSort((link: SLink) => (link.source > link.target ? null : undefined));
+slgDAG = slgDAG.linkSort(undefined);
+slgDAG = slgDAG.linkSort(null);
+slgDAG = slgDAG.linkSort((link: SLink) => (link.source > link.target ? 0 : -1));
 
 // ---------------------------------------------------------------------------
 // Node Id

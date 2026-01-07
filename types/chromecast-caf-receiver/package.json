@@ -2,7 +2,7 @@
     "private": true,
     "name": "@types/chromecast-caf-receiver",
     "version": "6.0.9999",
-    "nonNpm": true,
+    "nonNpm": "conflict",
     "nonNpmDescription": "chromecast-caf-receiver",
     "projects": [
         "https://github.com/googlecast"

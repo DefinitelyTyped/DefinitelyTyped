@@ -1150,16 +1150,11 @@ declare namespace Xrm {
          * Gets an attribute matching attributeName.
          * @param T An Attribute type.
          * @param attributeNameOrIndex Name of the attribute.
-         * @returns The attribute.
-         */
-        getAttribute<T extends Attributes.Attribute>(attributeNameOrIndex: string | number): T | null;
-
-        /**
-         * Gets an attribute by name or index.
-         * @param attributeNameOrIndex Name of the attribute or the attribute index.
          * @returns The attribute or null if attribute does not exist.
          */
-        getAttribute(attributeNameOrIndex: string | number): Attributes.Attribute | null;
+        getAttribute<T extends Attributes.Attribute = Attributes.Attribute>(
+            attributeNameOrIndex: string | number,
+        ): T | null;
 
         /**
          * Gets a collection of attributes using a delegate function or gets all attributes if delegateFunction is not provided.
@@ -1169,7 +1164,18 @@ declare namespace Xrm {
          */
         getAttribute(
             delegateFunction?: Collection.MatchingDelegate<Attributes.Attribute>,
-        ): Collection.ItemCollection<Attributes.Attribute> | null;
+        ): Attributes.Attribute[];
+
+        /**
+         * Gets a collection of attributes using a delegate function or gets all attributes if delegateFunction is not provided.
+         * @param T An Attribute type.
+         * @param delegateFunction A matching delegate function
+         * @returns An collection of attributes.
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/collections External Link: Collections (Client API reference)}
+         */
+        getAttribute<T extends Attributes.Attribute>(
+            delegateFunction?: Collection.MatchingDelegate<Attributes.Attribute>,
+        ): T[];
 
         /**
          * Gets a control by name or index.
@@ -1194,7 +1200,18 @@ declare namespace Xrm {
          */
         getControl(
             delegateFunction?: Collection.MatchingDelegate<Controls.Control>,
-        ): Collection.ItemCollection<Controls.Control> | null;
+        ): Controls.Control[];
+
+        /**
+         * Gets a collection of controls using a delegate function or gets all controls if delegateFunction is not provided.
+         * @param T A Control type.  There is no guarentee that all control types will match.
+         * @param delegateFunction A matching delegate function.
+         * @returns An collection of controls.
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/collections External Link: Collections (Client API reference)}
+         */
+        getControl<T extends Controls.Control>(
+            delegateFunction?: Collection.MatchingDelegate<Controls.Control>,
+        ): T[];
     }
 
     /**
@@ -1859,7 +1876,7 @@ declare namespace Xrm {
              * @param delegate A matching delegate function
              * @returns A T[] whose members have been validated by delegate or a entire array of T[]
              */
-            get(delegate?: MatchingDelegate<T>): T[] | null;
+            get(delegate?: MatchingDelegate<T>): T[];
 
             /**
              * Gets the length of the collection.
@@ -2589,9 +2606,14 @@ declare namespace Xrm {
             | StringAttributeFormat;
 
         /**
+         * Possible attribute values that can be set or retrieved from an attribute.
+         */
+        type AttributeValues = string | number | number[] | boolean | Date | LookupValue[] | OptionSetValue;
+
+        /**
          * Interface for an Entity attribute.
          */
-        interface Attribute<T = any> {
+        interface Attribute<T extends AttributeValues = AttributeValues> {
             /**
              * Adds a handler to be called when the attribute's value is changed.
              * @param handler The function reference.
@@ -2732,6 +2754,11 @@ declare namespace Xrm {
          */
         interface NumberAttribute extends Attribute<number> {
             /**
+             * Get the attribute type.
+             * @returns The attribute type.
+             */
+            getAttributeType(): "integer" | "decimal" | "double" | "money";
+            /**
              * Gets the attribute format.
              * @returns The format of the attribute.
              * Values returned are: duration, none
@@ -2775,6 +2802,11 @@ declare namespace Xrm {
          * @see {@link Attribute}
          */
         interface StringAttribute extends Attribute<string> {
+            /**
+             * Get the attribute type.
+             * @returns The attribute type.
+             */
+            getAttributeType(): "string";
             /**
              * Gets the attribute format.
              * @returns The format of the attribute.
@@ -2825,16 +2857,16 @@ declare namespace Xrm {
          */
         interface BooleanAttribute extends EnumAttribute<boolean> {
             /**
-             * A collection of all the controls on the form that interface with this attribute.
-             * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/collections External Link: Collections (Client API reference)}
-             */
-            controls: Collection.ItemCollection<Controls.BooleanControl>;
-
-            /**
              * Gets the attribute format.
              * @returns the string "boolean"
              */
             getAttributeType(): "boolean";
+
+            /**
+             * A collection of all the controls on the form that interface with this attribute.
+             * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/collections External Link: Collections (Client API reference)}
+             */
+            controls: Collection.ItemCollection<Controls.BooleanControl>;
         }
 
         /**
@@ -2843,6 +2875,12 @@ declare namespace Xrm {
          * @see {@link Attribute}
          */
         interface DateAttribute extends Attribute<Date> {
+            /**
+             * Gets the attribute type.
+             * @returns The attribute type.
+             */
+            getAttributeType(): "datetime";
+
             /**
              * Gets the attribute format.
              *
@@ -2863,6 +2901,12 @@ declare namespace Xrm {
          * @see {@link EnumAttribute}
          */
         interface OptionSetAttribute<T extends number = number> extends EnumAttribute<T> {
+            /**
+             * Gets the attribute type.
+             * @returns The attribute type.
+             */
+            getAttributeType(): "optionset";
+
             /**
              * Gets the attribute format.
              * @returns The format of the attribute.
@@ -2923,7 +2967,12 @@ declare namespace Xrm {
          * Interface an OptionSet attribute.
          * @see {@link EnumAttribute}
          */
-        interface MultiSelectOptionSetAttribute extends EnumAttribute<number[]> {
+        interface MultiSelectOptionSetAttribute<T extends number = number> extends EnumAttribute<T[]> {
+            /**
+             * Gets the attribute type.
+             * @returns The attribute type.
+             */
+            getAttributeType(): "multiselectoptionset";
             /**
              * Gets the attribute format.
              * @returns The format of the attribute.
@@ -2986,6 +3035,11 @@ declare namespace Xrm {
          * @see {@link Attribute}
          */
         interface LookupAttribute extends Attribute<LookupValue[]> {
+            /**
+             * Gets the attribute type.
+             */
+            getAttributeType(): "lookup";
+
             /**
              * Gets a boolean value indicating whether the Lookup is a multi-value PartyList.
              * @returns true the attribute is a PartyList, otherwise false.
@@ -3253,7 +3307,7 @@ declare namespace Xrm {
              * * customcontrol: <namespace>.<name> (A custom control for mobile phone and tablet clients).
              * * customsubgrid: <namespace>.<name> (A custom dataset control for mobile phone and tablet clients).
              */
-            getControlType(): ControlType | string;
+            getControlType(): ControlType | `${string}.${string}`;
 
             /**
              * Gets the name of the control on the form.
@@ -4655,7 +4709,7 @@ declare namespace Xrm {
              * Returns a collection of steps in the stage.
              * @returns An array of Step.
              */
-            getSteps(): Step[];
+            getSteps(): Xrm.Collection.ItemCollection<Step>;
         }
 
         interface Step {
@@ -6083,13 +6137,21 @@ declare namespace Xrm {
          * @returns On success, returns a promise object containing the attributes specified earlier in the description of the successCallback parameter.
          * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/xrm-webapi/updaterecord External Link: updateRecord (Client API reference)}
          */
-        updateRecord(entityLogicalName: string, id: string, data: any): Async.PromiseLike<any>;
+        updateRecord(entityLogicalName: string, id: string, data: any): Async.PromiseLike<UpdateResponse>;
     }
 
     /**
      * Interface for the WebAPI CreateRecord request response
      */
     interface CreateResponse {
+        entityType: string;
+        id: string;
+    }
+
+    /**
+     * Interface for the WebAPI UpdateRecord request response
+     */
+    interface UpdateResponse {
         entityType: string;
         id: string;
     }

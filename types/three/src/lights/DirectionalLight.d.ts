@@ -1,8 +1,14 @@
-import { Object3D } from "../core/Object3D.js";
+import { JSONMeta, Object3D } from "../core/Object3D.js";
 import { ColorRepresentation } from "../math/Color.js";
 import { Vector3 } from "../math/Vector3.js";
 import { DirectionalLightShadow } from "./DirectionalLightShadow.js";
-import { Light } from "./Light.js";
+import { Light, LightJSON } from "./Light.js";
+import { LightShadowJSON } from "./LightShadow.js";
+
+export interface DirectionalLightJSON extends LightJSON {
+    shadow: LightShadowJSON;
+    target: string;
+}
 
 /**
  * A light that gets emitted in a specific direction
@@ -10,7 +16,6 @@ import { Light } from "./Light.js";
  * This light will behave as though it is infinitely far away and the rays produced from it are all parallel
  * The common use case for this is to simulate daylight; the sun is far enough away that its position can be considered to be infinite, and all light rays coming from it are parallel.
  * A common point of confusion for directional lights is that setting the rotation has no effect
- * @remarks
  * This is because three.js's {@link DirectionalLight} is the equivalent to what is often called a 'Target Direct Light' in other applications.
  * This means that its direction is calculated as pointing from the light's {@link THREE.Object3D.position | position} to the {@link THREE.DirectionalLight.target | target}'s
  * position (as opposed to a 'Free Direct Light' that just has a rotation component).
@@ -100,4 +105,6 @@ export class DirectionalLight extends Light<DirectionalLightShadow> {
      * Call this method whenever this instance is no longer used in your app.
      */
     dispose(): void;
+
+    toJSON(meta?: JSONMeta): DirectionalLightJSON;
 }

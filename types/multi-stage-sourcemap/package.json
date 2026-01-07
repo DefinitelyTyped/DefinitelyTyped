@@ -11,10 +11,5 @@
     "devDependencies": {
         "@types/multi-stage-sourcemap": "workspace:."
     },
-    "owners": [
-        {
-            "name": "David Reed",
-            "githubUsername": "e9x"
-        }
-    ]
+    "owners": []
 }

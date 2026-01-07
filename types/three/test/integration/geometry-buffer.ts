@@ -13,19 +13,19 @@ function init() {
 
     const geometry = new THREE.BufferGeometry();
 
-    const verticles = new Float32Array([
+    const vertices = new Float32Array([
         ...[-1.0, -1.0, 1.0], //
         ...[1.0, -1.0, 1.0], //
         ...[0.0, 1.0, 1.0], //
     ]);
-    geometry.setAttribute("position", new THREE.BufferAttribute(verticles, 3));
+    geometry.setAttribute("position", new THREE.BufferAttribute(vertices, 3));
     const posAtt = geometry.getAttribute("position");
 
     if (posAtt.name === "position") {
         geometry.deleteAttribute("position");
     }
 
-    geometry.setAttribute("position", new THREE.BufferAttribute(verticles, 3));
+    geometry.setAttribute("position", new THREE.BufferAttribute(vertices, 3));
 
     geometry.setAttribute("customAttribute", new THREE.BufferAttribute(new Float32Array([0]), 1));
     const customAtt = geometry.getAttribute("customAttribute");

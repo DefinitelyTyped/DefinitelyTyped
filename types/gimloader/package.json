@@ -1,0 +1,30 @@
+{
+    "private": true,
+    "name": "@types/gimloader",
+    "version": "1.10.9999",
+    "nonNpm": "conflict",
+    "nonNpmDescription": "Types for the Gimloader global variables",
+    "projects": [
+        "https://github.com/Gimloader/Gimloader#readme"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "@types/react-dom": "*",
+        "phaser": "~3.90.0",
+        "@dimforge/rapier2d-compat": "~0.17.2",
+        "eventemitter2": "~6.4.9"
+    },
+    "devDependencies": {
+        "@types/gimloader": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "TheLazySquid",
+            "githubUsername": "TheLazySquid"
+        },
+        {
+            "name": "Riptide",
+            "githubUsername": "RiptideAtlantic"
+        }
+    ]
+}

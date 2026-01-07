@@ -9,7 +9,7 @@
         "@types/caseless": "*",
         "@types/node": "*",
         "@types/tough-cookie": "*",
-        "form-data": "^2.5.0"
+        "form-data": "^2.5.5"
     },
     "devDependencies": {
         "@types/request": "workspace:."

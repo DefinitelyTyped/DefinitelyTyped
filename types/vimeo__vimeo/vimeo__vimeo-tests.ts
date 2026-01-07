@@ -71,3 +71,23 @@ clientWithoutAccessToken.buildAuthorizationEndpoint("", "", "");
 
 // $ExpectType void
 clientWithoutAccessToken.buildAuthorizationEndpoint("", [""], "");
+
+// Promise API
+
+// $ExpectType Promise<string>
+client.upload("", {});
+
+// $ExpectType Promise<string>
+client.replace("", "", {});
+
+// $ExpectType Promise<CompleteCallbackObject>
+client.request("");
+
+// $ExpectType Promise<CompleteCallbackObject>
+client.accessToken("", "");
+
+// $ExpectType Promise<CompleteCallbackObject>
+client.generateClientCredentials("");
+
+// $ExpectType Promise<CompleteCallbackObject>
+client.generateClientCredentials([""]);

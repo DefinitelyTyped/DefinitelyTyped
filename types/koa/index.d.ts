@@ -9,20 +9,21 @@
 
  =============================================== */
 /// <reference types="node" />
-import * as accepts from "accepts";
+import accepts = require("accepts");
 import { AsyncLocalStorage } from "async_hooks";
-import * as Cookies from "cookies";
+import Cookies = require("cookies");
 import { EventEmitter } from "events";
 import { IncomingHttpHeaders, IncomingMessage, OutgoingHttpHeaders, Server, ServerResponse } from "http";
 import { Http2ServerRequest, Http2ServerResponse } from "http2";
 import httpAssert = require("http-assert");
-import * as contentDisposition from "content-disposition";
-import * as HttpErrors from "http-errors";
-import * as Keygrip from "keygrip";
-import * as compose from "koa-compose";
+import contentDisposition = require("content-disposition");
+import HttpErrors = require("http-errors");
+import Keygrip = require("keygrip");
+import compose = require("koa-compose");
 import { ListenOptions, Socket } from "net";
 import { ParsedUrlQuery } from "querystring";
 import * as url from "url";
+import type httpErrors = require("http-errors");
 
 declare interface ContextDelegatedRequest {
     /**
@@ -325,6 +326,18 @@ declare interface ContextDelegatedResponse {
     vary(field: string | string[]): void;
 
     /**
+     * Perform a special-cased "back" to provide Referrer support.
+     * When Referrer is not present, `alt` or "/" is used.
+     *
+     * Examples:
+     *
+     *    ctx.back()
+     *    ctx.back('/index.html')
+     */
+
+    back(alt?: string): void;
+
+    /**
      * Perform a 302 redirect to `url`.
      *
      * The string "back" is special-cased
@@ -333,12 +346,10 @@ declare interface ContextDelegatedResponse {
      *
      * Examples:
      *
-     *    this.redirect('back');
-     *    this.redirect('back', '/index.html');
      *    this.redirect('/login');
      *    this.redirect('http://google.com');
      */
-    redirect(url: string, alt?: string): void;
+    redirect(url: string): void;
 
     /**
      * Set Content-Disposition to "attachment" to signal the client to prompt for download.
@@ -683,9 +694,8 @@ declare namespace Application {
          *
          * See: https://github.com/jshttp/http-errors
          */
-        throw(message: string, code?: number, properties?: {}): never;
-        throw(status: number): never;
-        throw(...properties: Array<number | string | {}>): never;
+        throw(status: number, ...args: httpErrors.UnknownError[]): never;
+        throw(...args: httpErrors.UnknownError[]): never;
 
         /**
          * Default error handling.

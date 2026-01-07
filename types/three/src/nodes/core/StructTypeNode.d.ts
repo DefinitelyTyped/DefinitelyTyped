@@ -1,6 +1,5 @@
 import Node from "./Node.js";
 import NodeBuilder from "./NodeBuilder.js";
-/** @module StructTypeNode **/
 export interface MembersLayout {
     [name: string]: string | {
         type: string;
@@ -29,18 +28,19 @@ declare class StructTypeNode extends Node {
      * Creates an instance of StructTypeNode.
      *
      * @param {Object} membersLayout - The layout of the members for the struct.
-     * @param {string} [name=null] - The optional name of the struct.
+     * @param {?string} [name=null] - The optional name of the struct.
      */
     constructor(membersLayout: MembersLayout, name?: string | null);
     /**
      * Returns the length of the struct.
      * The length is calculated by summing the lengths of the struct's members.
      *
-     * @returns {Number} The length of the struct.
+     * @returns {number} The length of the struct.
      */
     getLength(): number;
     getMemberType(builder: NodeBuilder, name: string): string;
     getNodeType(builder: NodeBuilder): string;
+    setup(builder: NodeBuilder): void;
     generate(builder: NodeBuilder): string;
 }
 export default StructTypeNode;

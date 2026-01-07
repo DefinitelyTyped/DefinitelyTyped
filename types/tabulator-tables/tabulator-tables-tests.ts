@@ -7,6 +7,7 @@ import {
     ColumnDefinition,
     ColumnDefinitionSorterParams,
     DataTreeModule,
+    FilterModule,
     GroupComponent,
     InputParams,
     JSONRecord,
@@ -384,6 +385,7 @@ colDef.validator = {
 };
 colDef.validator = "float";
 colDef.validator = { type: "float", parameters: {} };
+colDef.validator = (cell, value) => true;
 
 let validators: Validator[] = [
     { type: "integer", parameters: {} },
@@ -397,6 +399,10 @@ let validators: Validator[] = [
 
 colDef.headerFilterFunc = (headerValue, rowValue, rowData, filterParams) => {
     return rowData.name === filterParams.name && rowValue < headerValue; // must return a boolean, true if it passes the filter.
+};
+
+colDef.headerFilterFuncParams = {
+    myParam: "my param",
 };
 
 // Calculation
@@ -433,6 +439,23 @@ colDef.tooltip = (event: MouseEvent, cell: CellComponent, onRendered: (callback:
         console.log("rendering occurred");
     });
     return cell.getValue();
+};
+
+// Additional tests for tooltip signature / return values
+// boolean values
+colDef.tooltip = false;
+colDef.tooltip = true;
+
+// function returning a string
+colDef.tooltip = (e: MouseEvent, cell: CellComponent) => {
+    return "Tooltip";
+};
+
+// function returning an HTMLElement
+colDef.tooltip = (e: MouseEvent, cell: CellComponent) => {
+    const el = document.createElement("div");
+    el.innerText = "Tooltip";
+    return el;
 };
 
 // Cell Component
@@ -692,7 +715,7 @@ table.blockRedraw();
 table.restoreRedraw();
 
 table.getRows("visible");
-table.deleteRow([15, 7, 9]);
+table.deleteRow([15, 7, 9]).then(() => {});
 
 table.addColumn({} as ColumnDefinition).then(() => {});
 
@@ -921,6 +944,12 @@ table = new Tabulator("#example-table", {
         age: { headerFilter: true },
         myProp: { title: "my title" },
     },
+});
+
+new Tabulator("#example-table", {
+    autoColumnsDefinitions: [
+        { field: "migration_up", formatter: "textarea" },
+    ],
 });
 
 let colDefs: ColumnDefinition[] = [];
@@ -1311,6 +1340,44 @@ table = new Tabulator("#testPagination", {
         return `${pageSize}, ${currentRow}, ${currentPage}, ${totalRows}, ${totalPages}`;
     },
 });
+
+// Testing paginationSize to number and to "All"
+table = new Tabulator("#testPaginationSize", {
+    columns: [
+        {
+            field: "test_inline",
+            title: "Test inline",
+        },
+    ],
+    pagination: true,
+    paginationSize: true,
+});
+table = new Tabulator("#testPaginationSize", {
+    columns: [
+        {
+            field: "test_inline",
+            title: "Test inline",
+        },
+    ],
+    pagination: true,
+    paginationSize: 5,
+});
+
+// Testing setPageSize/getPageSize to number and to "All"
+table = new Tabulator("#testSetPagenSize", {
+    columns: [
+        {
+            field: "test_inline",
+            title: "Test inline",
+        },
+    ],
+    pagination: true,
+    paginationSize: 5,
+});
+table.setPageSize(10);
+table.setPageSize(true);
+// $ExpectType number | true
+table.getPageSize();
 
 // Testing data loader element
 table = new Tabulator("#testDataLoader", {
@@ -1757,3 +1824,54 @@ table = new Tabulator("#example-table", {
 
 table.setData(table.getAjaxUrl());
 table.setData();
+
+// Testing selectableRowsCheck with data and selection verification
+const testData = [
+    { id: 1, name: "John", age: 15, active: true },
+    { id: 2, name: "Jane", age: 25, active: true },
+    { id: 3, name: "Bob", age: 35, active: false },
+];
+
+table = new Tabulator("#test-selectableRowsCheck", {
+    data: testData,
+    selectableRows: true,
+    selectableRowsCheck: (row: RowComponent): boolean => {
+        return row.getData().age >= 18;
+    },
+    columns: [
+        { title: "ID", field: "id" },
+        { title: "Name", field: "name" },
+        { title: "Age", field: "age" },
+    ],
+});
+
+table.selectRow([1, 2, 3]);
+const selectedRows = table.getSelectedRows();
+console.log("Number of selected rows:", selectedRows.length); // Should be 2 (only rows with age >= 18)
+
+const headerMenuFunc = function(_e: MouseEvent, component: ColumnComponent) {
+    return [{
+        label: "Test",
+    }];
+};
+
+table = new Tabulator("#test-selectableRowsCheck", {
+    columns: [
+        { title: "ID", field: "id" },
+        { title: "Name", field: "name", headerMenu: headerMenuFunc },
+    ],
+});
+
+// Testing FilterModule
+// getFilters can take a boolean or no arguments (it defaults to false)
+table.setFilter("name", "<=", 3);
+table.getFilters();
+table.getFilters(true);
+table.getFilters(false);
+// $ExpectType HeaderFilterFunc
+FilterModule.filters[0];
+
+// Testing SortModule
+// setSort can take a string or an array of Sorters
+table.setSort("title", "asc");
+table.setSort([{ column: "title", dir: "asc" }]);

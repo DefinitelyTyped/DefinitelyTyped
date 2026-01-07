@@ -70,8 +70,9 @@ interface ZWJSBridge {
 
     /**
      * 获取单点的路过的票据
+     * @param options 必须传空对象，否则获取的 ticketId 无效
      */
-    ssoTicket(): Promise<{
+    ssoTicket(options: Record<string, never>): Promise<{
         /** 是否支持获取 */
         result: boolean;
         /** 票据，可通过此票据获取用户信息 */

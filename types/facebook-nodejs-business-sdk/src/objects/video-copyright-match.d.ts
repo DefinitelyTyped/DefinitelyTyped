@@ -12,6 +12,7 @@ export default class VideoCopyrightMatch extends AbstractCrudObject {
         match_status: "match_status";
         notes: "notes";
         permalink: "permalink";
+        ugc_content_format: "ugc_content_format";
     }>;
     static get Action(): Readonly<{
         block: "BLOCK";

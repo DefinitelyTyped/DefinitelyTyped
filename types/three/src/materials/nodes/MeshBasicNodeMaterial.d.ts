@@ -1,36 +1,56 @@
-import { Combine } from "../../constants.js";
-import { Color } from "../../math/Color.js";
-import { Euler } from "../../math/Euler.js";
-import { Texture } from "../../textures/Texture.js";
-import { MeshBasicMaterialParameters } from "../MeshBasicMaterial.js";
-import NodeMaterial, { NodeMaterialParameters } from "./NodeMaterial.js";
+import NodeBuilder from "../../nodes/core/NodeBuilder.js";
+import BasicLightingModel from "../../nodes/functions/BasicLightingModel.js";
+import BasicEnvironmentNode from "../../nodes/lighting/BasicEnvironmentNode.js";
+import { MapColorPropertiesToColorRepresentations } from "../Material.js";
+import { MeshBasicMaterialParameters, MeshBasicMaterialProperties } from "../MeshBasicMaterial.js";
+import NodeMaterial, { NodeMaterialNodeProperties } from "./NodeMaterial.js";
 
-export interface MeshBasicNodeMaterialParameters extends NodeMaterialParameters, MeshBasicMaterialParameters {
+export interface MeshBasicNodeMaterialNodeProperties extends NodeMaterialNodeProperties {
 }
 
-export default class MeshBasicNodeMaterial extends NodeMaterial {
-    readonly isMeshBasicNodeMaterial: true;
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface MeshBasicNodeMaterialParameters
+    extends
+        Partial<MapColorPropertiesToColorRepresentations<MeshBasicNodeMaterialNodeProperties>>,
+        MeshBasicMaterialParameters
+{}
 
-    // Properties from MeshBasicMaterial
-    readonly isMeshBasicMaterial: true;
-    color: Color;
-    map: Texture | null;
-    lightMap: Texture | null;
-    lightMapIntensity: number;
-    aoMap: Texture | null;
-    aoMapIntensity: number;
-    specularMap: Texture | null;
-    alphaMap: Texture | null;
-    envMap: Texture | null;
-    envMapRotation: Euler;
-    combine: Combine;
-    reflectivity: number;
-    refractionRatio: number;
-    wireframe: boolean;
-    wireframeLinewidth: number;
-    wireframeLinecap: string;
-    wireframeLinejoin: string;
-    fog: boolean;
-
+/**
+ * Node material version of {@link MeshBasicMaterial}.
+ */
+declare class MeshBasicNodeMaterial extends NodeMaterial {
+    /**
+     * Constructs a new mesh basic node material.
+     *
+     * @param {Object} [parameters] - The configuration parameter.
+     */
     constructor(parameters?: MeshBasicNodeMaterialParameters);
+    /**
+     * This flag can be used for type testing.
+     *
+     * @type {boolean}
+     * @readonly
+     * @default true
+     */
+    readonly isMeshBasicNodeMaterial: boolean;
+    setValues(values?: MeshBasicNodeMaterialParameters): void;
+    /**
+     * Overwritten since this type of material uses {@link BasicEnvironmentNode}
+     * to implement the default environment mapping.
+     *
+     * @param {NodeBuilder} builder - The current node builder.
+     * @return {?BasicEnvironmentNode<vec3>} The environment node.
+     */
+    setupEnvironment(builder: NodeBuilder): BasicEnvironmentNode | null;
+    /**
+     * Setups the lighting model.
+     *
+     * @return {BasicLightingModel} The lighting model.
+     */
+    setupLightingModel(): BasicLightingModel;
 }
+
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface MeshBasicNodeMaterial extends MeshBasicNodeMaterialNodeProperties, MeshBasicMaterialProperties {}
+
+export default MeshBasicNodeMaterial;

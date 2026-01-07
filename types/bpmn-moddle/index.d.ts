@@ -1,25 +1,26 @@
+/* eslint-disable @typescript-eslint/no-empty-interface */
 declare namespace BPMNModdle {
     type AdHocOrdering = "Parallel" | "Sequential";
     type AssociationDirection = "None" | "One" | "Both";
-    type ChoreographyLoopType =
-        | "None"
-        | "Standard"
-        | "MultiInstanceSequential"
-        | "MultiInstanceParallel";
+    type ChoreographyLoopType = "None" | "Standard" | "MultiInstanceSequential" | "MultiInstanceParallel";
     type EventBasedGatewayType = "Parallel" | "Exclusive";
-    type GatewayDirection =
-        | "Unspecified"
-        | "Converging"
-        | "Diverging"
-        | "Mixed";
+    type GatewayDirection = "Unspecified" | "Converging" | "Diverging" | "Mixed";
     type ItemKind = "Physical" | "Information";
     type MultiInstanceBehavior = "None" | "One" | "All" | "Complex";
-    type ProcessType = "None" | "Public" | "Private";
     type RelationshipDirection = "None" | "Forward" | "Backward" | "Both";
+    type ParticipantBandKind =
+        | "top_initiating"
+        | "middle_initiating"
+        | "bottom_initiating"
+        | "top_non_initiating"
+        | "middle_ non_initiating"
+        | "bottom_ non_initiating";
+
+    type MessageVisibleKind = "initiating" | "non_initiating";
 
     interface TypeDerived {
         $type: ElementType;
-        $parent: TypeDerived;
+        $parent?: TypeDerived;
     }
     interface BaseElement extends TypeDerived {
         /**
@@ -46,12 +47,9 @@ declare namespace BPMNModdle {
          * Attributes that aren't defined by the BPMN Spec such
          * as Camunda properties
          */
-        $attrs?: {
-            [key: string]: any;
-        } | undefined;
+        $attrs?: Record<string, any> | undefined;
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface RootElement extends BaseElement {}
     interface Interface extends RootElement {
         name: string;
@@ -67,9 +65,7 @@ declare namespace BPMNModdle {
         implementationRef: string;
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface EndPoint extends RootElement {}
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface Auditing extends BaseElement {}
     interface CallableElement extends RootElement {
         name: string;
@@ -86,10 +82,8 @@ declare namespace BPMNModdle {
     interface GlobalTask extends CallableElement {
         resources: ResourceRole;
     }
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface Monitoring extends BaseElement {}
 
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface Performer extends ResourceRole {}
     interface Process extends FlowElementsContainer, CallableElement {
         processType: string;
@@ -117,19 +111,14 @@ declare namespace BPMNModdle {
         flowNodeRef: FlowNode[];
         childLaneSet: LaneSet;
     }
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface GlobalManualTask extends GlobalTask {}
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface ManualTask extends Task {}
     interface UserTask extends Task {
         renderings: Rendering[];
         implementation: string;
     }
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface Rendering extends BaseElement {}
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface HumanPerformer extends Performer {}
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface PotentialOwner extends Performer {}
     interface GlobalUserTask extends GlobalTask {
         implementation: string;
@@ -158,7 +147,6 @@ declare namespace BPMNModdle {
     interface InclusiveGateway extends Gateway {
         default: SequenceFlow;
     }
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface ParallelGateway extends Gateway {}
     interface Relationship extends BaseElement {
         type: string;
@@ -201,11 +189,8 @@ declare namespace BPMNModdle {
     interface Event extends FlowNode, InteractionNode {
         properties: Property[];
     }
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface IntermediateCatchEvent extends CatchEvent {}
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface IntermediateThrowEvent extends ThrowEvent {}
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface EndEvent extends ThrowEvent {}
     interface StartEvent extends CatchEvent {
         /**
@@ -238,14 +223,11 @@ declare namespace BPMNModdle {
         attachedToRef: Activity;
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface EventDefinition extends RootElement {}
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface CancelEventDefinition extends EventDefinition {}
     interface ErrorEventDefinition extends EventDefinition {
         errorRef: ErrorElement;
     }
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface TerminateEventDefinition extends EventDefinition {}
     interface EscalationEventDefinition extends EventDefinition {
         escalationRef: Escalation;
@@ -283,7 +265,6 @@ declare namespace BPMNModdle {
         structureRef: ItemDefinition;
         name: string;
     }
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface ImplicitThrowEvent extends ThrowEvent {}
     interface DataState extends BaseElement {
         name: string;
@@ -333,9 +314,7 @@ declare namespace BPMNModdle {
     interface Property extends ItemAwareElement {
         name: string;
     }
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface DataInputAssociation extends DataAssociation {}
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface DataOutputAssociation extends DataAssociation {}
     interface InputOutputSpecification extends BaseElement {
         dataInputs: DataInput[];
@@ -381,7 +360,6 @@ declare namespace BPMNModdle {
         calledCollaborationRef: Collaboration;
         participantAssociations: ParticipantAssociation[];
     }
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface Conversation extends ConversationNode {}
     interface SubConversation extends ConversationNode {
         conversationNodes: ConversationNode[];
@@ -392,7 +370,6 @@ declare namespace BPMNModdle {
         messageFlowRefs: MessageFlow[];
         correlationKeys: CorrelationKey[];
     }
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface GlobalConversation extends Collaboration {}
     interface PartnerEntity extends RootElement {
         name: string;
@@ -556,7 +533,6 @@ declare namespace BPMNModdle {
         categoryValue: CategoryValue;
         name: string;
     }
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface Artifact extends BaseElement {}
     interface CategoryValue extends BaseElement {
         categorizedFlowElements: FlowElement[];
@@ -583,7 +559,6 @@ declare namespace BPMNModdle {
         triggeredByEvent: boolean;
         artifacts: Artifact[];
     }
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface LoopCharacteristics extends BaseElement {}
     interface MultiInstanceLoopCharacteristics extends LoopCharacteristics {
         isSequential: boolean;
@@ -665,64 +640,98 @@ declare namespace BPMNModdle {
         imports: Import[];
         extensions: Extension[];
         rootElements: RootElement[];
-        diagrams: BPMNDiagram;
+        diagrams: BPMNDiagram[];
         er: string;
         relationship: Relationship[];
         erVersion: string;
     }
     interface BPMNDiagram extends Diagram {
         plane: BPMNPlane;
-        labelStyle: BPMNLabelStyle;
+        labelStyle: BPMNLabelStyle[];
     }
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
-    interface BPMNPlane extends Plane {}
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
-    interface BPMNShape extends LabeledShape {}
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
-    interface BPMNEdge extends LabeledEdge {}
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
-    interface BPMNLabel extends Label {}
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
-    interface BPMNLabelStyle extends Style {}
+    interface BPMNPlane extends Plane {
+        bpmnElement?: BaseElement;
+        planeElement: (BPMNShape | BPMNEdge)[];
+    }
+    interface BPMNShape extends LabeledShape {
+        isHorizontal?: boolean;
+        isExpanded?: boolean;
+        isMarkerVisible?: boolean;
+        participantBandKind?: ParticipantBandKind;
+        isMessageVisible?: boolean;
+        choreographyActivityShape?: BPMNShape;
+        bpmnElement?: BaseElement;
+        label?: BPMNLabel;
+    }
+
+    interface BPMNEdge extends LabeledEdge {
+        label?: BPMNLabel;
+        bpmnElement?: BaseElement;
+        sourceElement?: BPMNShape | BPMNEdge;
+        targetElement?: BPMNShape | BPMNEdge;
+        messageVisibleKind?: MessageVisibleKind;
+    }
+
+    interface BPMNLabel extends Label {
+        labelStyle?: BPMNLabelStyle;
+    }
+
+    interface BPMNLabelStyle extends Style {
+        font: Font;
+    }
     interface Font extends TypeDerived {
-        name: string;
-        size: number;
-        isBold: boolean;
-        isItalic: boolean;
-        isUnderline: boolean;
-        isStrikeThrough: boolean;
+        name?: string;
+        size?: number;
+        isBold?: boolean;
+        isItalic?: boolean;
+        isUnderline?: boolean;
+        isStrikeThrough?: boolean;
     }
     interface Point extends TypeDerived {
+        /**
+         * @default 0
+         */
         x: number;
+        /**
+         * @default 0
+         */
+        y: number;
+    }
+    interface Bounds extends TypeDerived {
+        /**
+         * @default 0
+         */
+        x: number;
+        /**
+         * @default Unspecified
+         */
         y: number;
         width: number;
         height: number;
     }
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
-    interface Bounds extends TypeDerived {}
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface DiagramElement extends TypeDerived {}
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
-    interface Node extends TypeDerived {}
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
-    interface Edge extends TypeDerived {}
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
-    interface Diagram extends TypeDerived {}
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
-    interface Shape extends TypeDerived {}
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
-    interface Plane extends TypeDerived {}
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
-    interface LabeledEdge extends TypeDerived {}
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
-    interface LabeledShape extends TypeDerived {}
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
-    interface Label extends TypeDerived {}
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
+    interface Node extends DiagramElement {}
+    interface Edge extends DiagramElement {
+        waypoint: Point[];
+    }
+    interface Diagram extends TypeDerived {
+        name?: string;
+        documentation?: string;
+        resolution?: number;
+    }
+    interface Shape extends Node {
+        bounds: Bounds;
+    }
+    interface Plane extends Node {
+        planeElement: DiagramElement[];
+    }
+    interface LabeledEdge extends Edge {}
+    interface LabeledShape extends Shape {}
+    interface Label extends Node {
+        bounds: Bounds;
+    }
     interface Style extends TypeDerived {}
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface ColoredShape extends TypeDerived {}
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface ColoredEdge extends TypeDerived {}
 
     interface ElementTypes {
@@ -893,19 +902,11 @@ declare namespace BPMNModdle {
 
     type ElementType = keyof ElementTypes;
 
-    interface Option {
-        [key: string]: any;
-    }
+    type Option = Record<string, any>;
 
     interface BPMNModdleConstructor {
         new(packages?: any, options?: Option): BPMNModdle;
     }
-
-    type ImportFn = (
-        err: Error,
-        definitions: Definitions,
-        parseContext: any,
-    ) => void;
 
     interface Moddle {
         /**
@@ -920,10 +921,7 @@ declare namespace BPMNModdle {
          * @param  attrs   a number of attributes to initialize the model instance with
          * @return model instance
          */
-        create<T = ElementTypes, K extends keyof T = keyof T>(
-            descriptor: K,
-            attrs?: any,
-        ): T[K];
+        create<T = ElementTypes, K extends keyof T = keyof T>(descriptor: K, attrs?: any): T[K];
         create(descriptor: any, attrs?: any): BaseElement;
 
         /**
@@ -1001,84 +999,48 @@ declare namespace BPMNModdle {
         getTypeDescriptor(type: string): any;
     }
 
+    interface BPMNModel {
+        rootElement: RootElement;
+        elementsById: Record<string, BaseElement>;
+        references: BaseElement[];
+        warnings: string[];
+    }
+
     interface BPMNModdle extends Moddle {
         /**
          * Instantiates a BPMN model tree from a given xml string.
          *
-         * @param xmlStr
-         * XML string
+         * @param xmlStr xml string
+         * @param typeName name of the root element
+         * @param options  options to pass to the underlying reader
          *
-         * @param done
-         * done callback
+         * @throws ParseError
+         * @returns BPMNModel
          */
-        fromXML(xmlStr: string, done: ImportFn): void;
+        fromXML(xmlStr: string, typeName: string, options: Option): Promise<BPMNModel>;
 
         /**
          * Instantiates a BPMN model tree from a given xml string.
          *
          * @param xmlStr
-         * XML string
+         * @param typeNameOrOptions name of the root element or options to pass to the underlying reader
          *
-         * @param options
-         * Options to pass to the underlying reader
-         *
-         * @param done
-         * done callback
+         * @throws ParseError
+         * @returns BPMNModel
          */
-        fromXML(xmlStr: string, options: Option, done: ImportFn): void;
+        fromXML(xmlStr: string, typeNameOrOptions?: Option | string): Promise<BPMNModel>;
 
         /**
-         * Instantiates a BPMN model tree from a given xml string.
+         * Serializes a BPMN 2.0 object tree to XML.
          *
-         * @param xmlStr
-         * XML string
+         * @param element The root element, typically an instance of `bpmn:Definitions`
+         * @param option Options to pass to the underlying writer
          *
-         * @param typeName
-         * Name of the root element
-         *
-         * @param options
-         * Options to pass to the underlying reader
-         *
-         * @param done
-         * done callback
+         * @returns {Promise<SerializationResult, Error>}
          */
-        fromXML(
-            xmlStr: string,
-            typeName: string,
-            options: Option,
-            done: ImportFn,
-        ): void;
-
-        /**
-         * Instantiates a BPMN model tree from a given xml string.
-         *
-         * @param xmlStr
-         * XML string
-         *
-         * @param options
-         * Options to pass to the underlying reader
-         */
-        fromXML(xmlStr: string, options?: Option): Promise<Definitions>;
-
-        /**
-         * Instantiates a BPMN model tree from a given xml string.
-         *
-         * @param xmlStr
-         * XML string
-         *
-         * @param typeName
-         * Name of the root element
-         *
-         * @param options
-         * Options to pass to the underlying reader
-         */
-        fromXML(
-            xmlStr: string,
-            typeName: string,
-            options: Option,
-        ): Promise<Definitions>;
+        toXML(element: RootElement, options?: Option): Promise<{ xml: string }>;
     }
 }
 
 declare const BPMNModdle: BPMNModdle.BPMNModdleConstructor;
-export = BPMNModdle;
+export default BPMNModdle;

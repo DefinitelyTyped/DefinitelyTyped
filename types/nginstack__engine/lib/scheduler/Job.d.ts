@@ -37,6 +37,6 @@ declare class Job {
 declare namespace Job {
     export { File, MemoryStream, DataSet };
 }
-type DataSet = import('../dataset/DataSet');
 type File = import('../io/File');
 type MemoryStream = import('../io/MemoryStream');
+type DataSet = import('../dataset/DataSet');

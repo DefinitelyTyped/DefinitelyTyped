@@ -40,9 +40,6 @@ declare namespace Node {
         NodeType,
     };
 }
-type NodeType = '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10' | '11' | '12';
-type NodeList = import('./NodeList');
-type Document = import('./Document');
 declare let ELEMENT_NODE: number;
 declare let ATTRIBUTE_NODE: number;
 declare let TEXT_NODE: number;
@@ -55,3 +52,6 @@ declare let DOCUMENT_NODE: number;
 declare let DOCUMENT_TYPE_NODE: number;
 declare let DOCUMENT_FRAGMENT_NODE: number;
 declare let NOTATION_NODE: number;
+type NodeList = import('./NodeList');
+type Document = import('./Document');
+type NodeType = '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10' | '11' | '12';

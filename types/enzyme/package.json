@@ -6,7 +6,7 @@
         "https://github.com/airbnb/enzyme"
     ],
     "dependencies": {
-        "@types/cheerio": "*",
+        "@types/cheerio": "<1",
         "@types/react": "^16"
     },
     "devDependencies": {

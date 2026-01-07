@@ -42,6 +42,7 @@ declare class TreeChild {
     css: any;
     fHtml: string;
     getHtml(): string;
+    getLabelHtml(): string;
     getIsLast(): boolean;
     getIsFirst(): boolean;
 }

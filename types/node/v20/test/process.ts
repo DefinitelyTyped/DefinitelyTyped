@@ -1,6 +1,8 @@
 import * as p from "node:process";
 import assert = require("node:assert");
 import EventEmitter = require("node:events");
+import * as dgram from "node:dgram";
+import * as net from "node:net";
 import { constants } from "node:os";
 import { dlopen } from "node:process";
 import { fileURLToPath } from "node:url";
@@ -16,7 +18,7 @@ import { fileURLToPath } from "node:url";
     assert.ok(process.argv[0] === process.argv0);
 }
 {
-    process.on("message", (req: any) => {});
+    process.on("message", (message: unknown, sendHandle: net.Server | net.Socket | dgram.Socket | undefined) => {});
     process.addListener("beforeExit", (code: number) => {});
     process.once("disconnect", () => {});
     process.prependListener("exit", (code: number) => {});
@@ -25,13 +27,17 @@ import { fileURLToPath } from "node:url";
     process.once("uncaughtExceptionMonitor", (error: Error) => {});
     process.addListener("unhandledRejection", (reason: unknown, promise: Promise<unknown>) => {});
     process.once("warning", (warning: Error) => {});
-    process.prependListener("message", (message: any, sendHandle: any) => {});
+    process.prependListener(
+        "message",
+        (message: any, sendHandle: net.Server | net.Socket | dgram.Socket | undefined) => {},
+    );
     process.prependOnceListener("SIGBREAK", () => {});
     process.emit("SIGINT");
     process.on("newListener", (event: string | symbol, listener: Function) => {});
     process.once("removeListener", (event: string | symbol, listener: Function) => {});
     process.on("multipleResolves", (type: NodeJS.MultipleResolveType, prom: Promise<any>, value: any) => {});
     process.on("customEvent", () => {});
+    process.on("workerMessage", (value: any, source: number) => {});
     process.on("worker", w => {
         w; // $ExpectType Worker
     });
@@ -73,9 +79,15 @@ import { fileURLToPath } from "node:url";
     }
     if (process.send) {
         let r: boolean = process.send("aMessage");
-        r = process.send({ msg: "foo" }, {});
-        r = process.send({ msg: "foo" }, {}, { keepOpen: true });
-        r = process.send({ msg: "foo" }, {}, { keepOpen: true }, (err: Error | null) => {});
+        r = process.send({ msg: "foo" }, new net.Server());
+        r = process.send({ msg: "foo" }, new net.Socket());
+        r = process.send({ msg: "foo" }, new dgram.Socket());
+        r = process.send({ msg: "foo" }, new net.Server(), { keepOpen: true });
+        r = process.send({ msg: "foo" }, new net.Socket(), { keepOpen: true });
+        r = process.send({ msg: "foo" }, new dgram.Socket(), { keepOpen: true });
+        r = process.send({ msg: "foo" }, new net.Server(), { keepOpen: true }, (err: Error | null) => {});
+        r = process.send({ msg: "foo" }, new net.Socket(), { keepOpen: true }, (err: Error | null) => {});
+        r = process.send({ msg: "foo" }, new dgram.Socket(), { keepOpen: true }, (err: Error | null) => {});
     }
 }
 
@@ -150,6 +162,10 @@ process.env.TZ = "test";
 
 {
     process.getActiveResourcesInfo(); // $ExpectType string[]
+}
+
+{
+    process.noDeprecation; // $ExpectType boolean | undefined
 }
 
 {

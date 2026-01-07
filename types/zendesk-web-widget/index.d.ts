@@ -87,6 +87,11 @@ declare function zE(
  * @see https://developer.zendesk.com/api-reference/widget-messaging/web/core/#set-conversation-tags
  */
 declare function zE(scope: "messenger:set", method: "conversationTags", value: string[]): void;
+/**
+ * Clears all widget local state, including user data, conversations, and connections.
+ * @see https://developer.zendesk.com/api-reference/widget-messaging/web/core/#reset-widget
+ */
+declare function zE(scope: "messenger", method: "resetWidget", value: () => void): void;
 
 /**
  * @see https://developer.zendesk.com/api-reference/widget-messaging/introduction/

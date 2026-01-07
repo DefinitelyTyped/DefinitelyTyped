@@ -22,6 +22,7 @@ export default class CustomAudience extends AbstractCrudObject {
         household_audience: "household_audience";
         id: "id";
         included_custom_audiences: "included_custom_audiences";
+        is_eligible_for_sac_campaigns: "is_eligible_for_sac_campaigns";
         is_household: "is_household";
         is_snapshot: "is_snapshot";
         is_value_based: "is_value_based";
@@ -64,7 +65,6 @@ export default class CustomAudience extends AbstractCrudObject {
         generic: "GENERIC";
         home_listing: "HOME_LISTING";
         hotel: "HOTEL";
-        job: "JOB";
         local_service_business: "LOCAL_SERVICE_BUSINESS";
         media_title: "MEDIA_TITLE";
         offline_product: "OFFLINE_PRODUCT";
@@ -76,6 +76,10 @@ export default class CustomAudience extends AbstractCrudObject {
         both_user_and_partner_provided: "BOTH_USER_AND_PARTNER_PROVIDED";
         partner_provided_only: "PARTNER_PROVIDED_ONLY";
         user_provided_only: "USER_PROVIDED_ONLY";
+    }>;
+    static get SubscriptionInfo(): Readonly<{
+        messenger: "MESSENGER";
+        whatsapp: "WHATSAPP";
     }>;
     static get Subtype(): Readonly<{
         app: "APP";
@@ -89,14 +93,18 @@ export default class CustomAudience extends AbstractCrudObject {
         lookalike: "LOOKALIKE";
         managed: "MANAGED";
         measurement: "MEASUREMENT";
+        messenger_subscriber_list: "MESSENGER_SUBSCRIBER_LIST";
         offline_conversion: "OFFLINE_CONVERSION";
         partner: "PARTNER";
         primary: "PRIMARY";
         regulated_categories_audience: "REGULATED_CATEGORIES_AUDIENCE";
         study_rule_audience: "STUDY_RULE_AUDIENCE";
-        subscriber_segment: "SUBSCRIBER_SEGMENT";
         video: "VIDEO";
         website: "WEBSITE";
+    }>;
+    static get UseForProducts(): Readonly<{
+        ads: "ADS";
+        marketing_messages: "MARKETING_MESSAGES";
     }>;
     static get ActionSource(): Readonly<{
         physical_store: "PHYSICAL_STORE";
@@ -106,10 +114,11 @@ export default class CustomAudience extends AbstractCrudObject {
     getAdAccounts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createAdAccount(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<CustomAudience>;
     getAds(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getHealth(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getSalts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createSalt(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<CustomAudience>;
     getSessions(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getShareDAccountInfo(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getSharedAccountInfo(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     deleteUsers(params?: Record<string, any>): Promise<any>;
     createUser(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<CustomAudience>;
     createUsersReplace(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<CustomAudience>;

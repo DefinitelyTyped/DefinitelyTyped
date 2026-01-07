@@ -1,10 +1,58 @@
 import Node from "../../nodes/core/Node.js";
-import NodeMaterial, { NodeMaterialParameters } from "./NodeMaterial.js";
+import VolumetricLightingModel from "../../nodes/functions/VolumetricLightingModel.js";
+import { MapColorPropertiesToColorRepresentations, MaterialParameters, MaterialProperties } from "../Material.js";
+import NodeMaterial, { NodeMaterialNodeProperties } from "./NodeMaterial.js";
 
-export default class VolumeNodeMaterial extends NodeMaterial {
-    lights: boolean;
-    readonly isVolumeNodeMaterial: true;
-    testNode: Node | null;
-
-    constructor(parameters?: NodeMaterialParameters);
+export interface VolumeNodeMaterialNodeProperties extends NodeMaterialNodeProperties {
+    /**
+     * Number of steps used for raymarching.
+     *
+     * @default 25
+     */
+    steps: number;
+    /**
+     * Offsets the distance a ray has been traveled through a volume.
+     * Can be used to implement dithering to reduce banding.
+     *
+     * @default null
+     */
+    offsetNode: Node;
+    /**
+     * Node used for scattering calculations.
+     *
+     * @default null
+     */
+    scatteringNode: (params: { positionRay: Node }) => Node | null;
 }
+
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface VolumeNodeMaterialParameters
+    extends Partial<MapColorPropertiesToColorRepresentations<VolumeNodeMaterialNodeProperties>>, MaterialParameters
+{}
+
+/**
+ * Volume node material.
+ *
+ * @augments NodeMaterial
+ */
+declare class VolumeNodeMaterial extends NodeMaterial {
+    /**
+     * Constructs a new volume node material.
+     *
+     * @param {Object} [parameters] - The configuration parameter.
+     */
+    constructor(parameters?: VolumeNodeMaterialParameters);
+    /**
+     * This flag can be used for type testing.
+     *
+     * @default true
+     */
+    readonly isVolumeNodeMaterial: boolean;
+    setValues(values?: VolumeNodeMaterialParameters): void;
+    setupLightingModel(): VolumetricLightingModel;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface VolumeNodeMaterial extends VolumeNodeMaterialNodeProperties, MaterialProperties {}
+
+export default VolumeNodeMaterial;

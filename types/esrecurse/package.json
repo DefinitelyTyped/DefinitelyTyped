@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/esrecurse",
+    "version": "4.3.9999",
+    "projects": [
+        "https://github.com/estools/esrecurse"
+    ],
+    "devDependencies": {
+        "@types/esrecurse": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jimmy Leung",
+            "githubUsername": "hkleungai"
+        }
+    ]
+}

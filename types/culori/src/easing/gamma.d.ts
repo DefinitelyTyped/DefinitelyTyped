@@ -1,3 +1,3 @@
-declare function gamma(y: number): (t: number) => number;
+declare function easingGamma(y: number): (t: number) => number;
 
-export default gamma;
+export default easingGamma;

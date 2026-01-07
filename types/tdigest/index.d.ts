@@ -24,7 +24,7 @@ export class TDigest {
      * console.log(td.summary());
      * console.log("median ~ " + td.percentile(0.5));
      */
-    constructor(delta: number | false, K?: number, CX?: number);
+    constructor(delta?: number | false, K?: number, CX?: number);
 
     /**
      * Prepare to digest new points.

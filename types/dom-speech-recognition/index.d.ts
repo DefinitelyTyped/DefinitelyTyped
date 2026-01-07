@@ -32,7 +32,7 @@ interface SpeechRecognition extends EventTarget {
     onspeechstart: ((this: SpeechRecognition, ev: Event) => any) | null;
     onstart: ((this: SpeechRecognition, ev: Event) => any) | null;
     abort(): void;
-    start(): void;
+    start(audioTrack?: MediaStreamTrack): void;
     stop(): void;
     addEventListener<K extends keyof SpeechRecognitionEventMap>(
         type: K,
@@ -76,15 +76,15 @@ declare var SpeechRecognitionEvent: {
 };
 
 // https://wicg.github.io/speech-api/#enumdef-speechrecognitionerrorcode
-type SpeechRecognitionErrorCode =
-    | "aborted"
-    | "audio-capture"
-    | "bad-grammar"
-    | "language-not-supported"
-    | "network"
-    | "no-speech"
-    | "not-allowed"
-    | "service-not-allowed";
+// type SpeechRecognitionErrorCode =
+//     | "aborted"
+//     | "audio-capture"
+//     | "bad-grammar"
+//     | "language-not-supported"
+//     | "network"
+//     | "no-speech"
+//     | "not-allowed"
+//     | "service-not-allowed";
 
 // https://wicg.github.io/speech-api/#dictdef-speechrecognitionerroreventinit
 interface SpeechRecognitionErrorEventInit extends EventInit {

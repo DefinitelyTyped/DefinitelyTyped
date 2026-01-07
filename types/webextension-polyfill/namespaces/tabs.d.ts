@@ -231,17 +231,18 @@ export namespace Tabs {
         successorTabId?: number;
 
         /**
+         * The ID of the group that the tab belongs to. $(ref:tabGroups.TAB_GROUP_ID_NONE) (-1)
+         * if the tab does not belong to a tab group.
+         * Optional.
+         */
+        groupId?: number;
+
+        /**
          * The URL the tab is navigating to, before it has committed. This property is only present if the extension's manifest
          * includes the "tabs" permission and there is a pending navigation.
          * Optional.
          */
         pendingUrl?: string;
-
-        /**
-         * The ID of the group that the tab belongs to.
-         * Optional.
-         */
-        groupId?: number;
     }
 
     /**
@@ -459,6 +460,7 @@ export namespace Tabs {
         | "autoDiscardable"
         | "discarded"
         | "favIconUrl"
+        | "groupId"
         | "hidden"
         | "isArticle"
         | "mutedInfo"
@@ -494,6 +496,11 @@ export namespace Tabs {
          * Optional.
          */
         windowId?: number;
+
+        /**
+         * Optional.
+         */
+        cookieStoreId?: string;
     }
 
     interface ConnectConnectInfoType {
@@ -723,6 +730,12 @@ export namespace Tabs {
         openerTabId?: number;
 
         /**
+         * The ID of the group that the tabs are in, or $(ref:tabGroups.TAB_GROUP_ID_NONE) (-1) for ungrouped tabs.
+         * Optional.
+         */
+        groupId?: number;
+
+        /**
          * True for any screen sharing, or a string to specify type of screen sharing.
          * Optional.
          */
@@ -858,15 +871,11 @@ export namespace Tabs {
         insert?: boolean;
     }
 
-    /**
-     * The options to add the tab(s) to a group.
-     */
     interface GroupOptionsType {
         /**
-         * Configurations for creating a group. Cannot be used if groupId is already specified.
-         * Optional.
+         * The tab ID or list of tab IDs to add to the specified group.
          */
-        createProperties?: GroupOptionsTypeCreatePropertiesType;
+        tabIds: number | number[];
 
         /**
          * The ID of the group to add the tabs to. If not specified, a new group will be created.
@@ -875,9 +884,10 @@ export namespace Tabs {
         groupId?: number;
 
         /**
-         * The tab ID or list of tab IDs to add to the specified group.
+         * Configurations for creating a group. Cannot be used if groupId is already specified.
+         * Optional.
          */
-        tabIds: number | number[];
+        createProperties?: GroupOptionsTypeCreatePropertiesType;
     }
 
     /**
@@ -914,6 +924,12 @@ export namespace Tabs {
          * Optional.
          */
         favIconUrl?: string;
+
+        /**
+         * The tab's new group ID. $(ref:tabGroups.TAB_GROUP_ID_NONE) (-1) if the tab no longer belongs to a tab group.
+         * Optional.
+         */
+        groupId?: number;
 
         /**
          * The tab's new hidden state.
@@ -1052,7 +1068,7 @@ export namespace Tabs {
     /**
      * Fired when a tab is updated.
      */
-    interface onUpdatedEvent
+    interface OnUpdatedEvent
         extends Events.Event<(tabId: number, changeInfo: OnUpdatedChangeInfoType, tab: Tab) => void>
     {
         /**
@@ -1388,12 +1404,16 @@ export namespace Tabs {
         goBack(tabId?: number): Promise<void>;
 
         /**
-         * Chrome API (only available for Chrome)
          * Adds one or more tabs to a specified group, or if no group is specified, adds the given tabs to a newly created group.
-         *
-         * @param options The options to add the tab(s) to a group.
          */
-        group?(options: GroupOptionsType): Promise<number>;
+        group(options: GroupOptionsType): Promise<number>;
+
+        /**
+         * Removes one or more tabs from their respective groups. If any groups become empty, they are deleted.
+         *
+         * @param tabIds The tab ID or list of tab IDs to remove from their respective groups.
+         */
+        ungroup(tabIds: number | number[]): void;
 
         /**
          * Fired when a tab is created. Note that the tab's URL may not be set at the time this event fired,
@@ -1406,7 +1426,7 @@ export namespace Tabs {
         /**
          * Fired when a tab is updated.
          */
-        onUpdated: onUpdatedEvent;
+        onUpdated: OnUpdatedEvent;
 
         /**
          * Fired when a tab is moved within a window. Only one move event is fired, representing the tab the user directly moved.

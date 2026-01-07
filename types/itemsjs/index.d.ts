@@ -9,11 +9,11 @@ declare namespace itemsjs {
 
     type Buckets<K> = Array<Bucket<K>>;
 
-    interface SearchAggregation<I extends {}, A extends keyof I & string> {
-        name: A;
+    interface SearchAggregation<Items extends Record<string, any>, Aggregations extends keyof Items & string> {
+        name: Aggregations;
         title: string;
         position: number;
-        buckets: Buckets<I[A]>;
+        buckets: Buckets<Items[Aggregations]>;
     }
 
     interface Pagination {
@@ -22,27 +22,35 @@ declare namespace itemsjs {
         total: number;
     }
 
-    interface SearchOptions<I extends {}, S extends string, A extends keyof I & string> {
+    interface SearchOptions<
+        Items extends Record<string, any>,
+        Sortings extends string,
+        Aggregations extends keyof Items & string,
+        IdField extends keyof Items & string,
+    > {
         query?: string | undefined;
         /** @default 1 */
         page?: number | undefined;
         /** @default 12 */
         per_page?: number | undefined;
         /** The name of a sort defined in the configuration's sortings, or a new custom one */
-        sort?: S | Sorting<I> | undefined;
-        filters?: Partial<Record<A, string[]>> | undefined;
+        sort?: Sortings | Sorting<Items> | undefined;
+        filters?: Partial<Record<Aggregations, string[]>> | undefined;
         /** A custom function to filter values */
-        filter?: ((item: I) => boolean) | undefined;
+        filter?: ((item: Items) => boolean) | undefined;
         /** @default false */
         isExactSearch?: boolean | undefined;
         /** @default false */
         removeStopWordFilter?: boolean | undefined;
         /** @default false */
         is_all_filtered_items?: boolean | undefined;
+
+        /** Restricts results to items whose values match the ID field (`id` by default or as defined in `custom_id_field`). */
+        ids?: Items[IdField][];
     }
 
-    interface AggregationOptions<A extends string> {
-        name: A;
+    interface AggregationOptions<Aggregations extends string> {
+        name: Aggregations;
         /** @default 1 */
         page?: number | undefined;
         /** @default 10 */
@@ -51,8 +59,8 @@ declare namespace itemsjs {
         conjunction?: boolean | undefined;
     }
 
-    interface SimilarOptions<I extends {}> {
-        field: keyof I & string;
+    interface SimilarOptions<Items extends Record<string, any>> {
+        field: keyof Items & string;
         /** @default 0 */
         minimum?: number | undefined;
         /** @default 1 */
@@ -61,13 +69,18 @@ declare namespace itemsjs {
         per_page?: number | undefined;
     }
 
-    interface ItemsJs<I extends {}, S extends string, A extends keyof I & string> {
+    interface ItemsJs<
+        Items extends Record<string, any>,
+        Sortings extends string,
+        Aggregations extends keyof Items & string,
+        IdField extends keyof Items & string,
+    > {
         /** Search items */
-        search(options?: SearchOptions<I, S, A>): {
+        search(options?: SearchOptions<Items, Sortings, Aggregations, IdField>): {
             data: {
-                items: I[];
-                allFilteredItems: I[] | null;
-                aggregations: Record<A, SearchAggregation<I, A>>;
+                items: Items[];
+                allFilteredItems: Items[] | null;
+                aggregations: Record<Aggregations, SearchAggregation<Items, Aggregations>>;
             };
             pagination: Pagination;
             timings: {
@@ -79,31 +92,31 @@ declare namespace itemsjs {
         };
 
         /** Get data for aggregation */
-        aggregation(options: AggregationOptions<A>): {
-            data: { buckets: Buckets<I[A]> };
+        aggregation(options: AggregationOptions<Aggregations>): {
+            data: { buckets: Buckets<Items[Aggregations]> };
             pagination: Pagination;
         };
 
         /**
          * Find similar items.
-         * Uses the `id` key on items to check for uniqueness
+         * Uses the `id` key or the one set via `custom_id_field` to check for uniqueness..
          */
         similar(
-            id: I extends { id: infer ID } ? ID : unknown,
-            options: SimilarOptions<I>,
+            id: Items[IdField],
+            options: SimilarOptions<Items>,
         ): {
-            data: { items: Array<I & { _id: number; intersection_length: number }> };
+            data: { items: Array<Items & { _id: number; intersection_length: number }> };
             pagination: Pagination;
         };
 
         /** Reindex with an entirely new list of items */
-        reindex(data: I[]): void;
+        reindex(data: Items[]): void;
     }
 
     type Order = "asc" | "desc";
 
-    interface Sorting<I extends {}> {
-        field: keyof I | Array<keyof I>;
+    interface Sorting<Items extends Record<string, any>> {
+        field: keyof Items | Array<keyof Items>;
         order?: Order | Order[] | undefined;
     }
 
@@ -125,26 +138,40 @@ declare namespace itemsjs {
     }
 
     /** Configuration for itemsjs */
-    interface Configuration<I extends {}, S extends string, A extends keyof I & string> {
-        sortings?: Record<S, Sorting<I>> | undefined;
-        aggregations?: Record<A, Aggregation> | undefined;
+    interface Configuration<
+        Items extends Record<string, any>,
+        Sortings extends string,
+        Aggregations extends keyof Items & string,
+        IdField extends string = "id",
+    > {
+        sortings?: Record<Sortings, Sorting<Items>> | undefined;
+        aggregations?: Record<Aggregations, Aggregation> | undefined;
         /** @default [] */
-        searchableFields?: Array<keyof I> | undefined;
+        searchableFields?: Array<keyof Items> | undefined;
         /** @default true */
         native_search_enabled?: boolean | undefined;
+        /** @default 'id' — defines which field represents the unique ID */
+        custom_id_field?: IdField;
     }
 }
 
 /**
  * Main itemsjs function
  * @param items The items to index
- * @param configuration itemsjs
- * @template I The type of items being indexed
+ * @param configuration Configuration options including sortings, aggregations, and optionally a custom ID field.
+ * @template Items The type of items being indexed
+ * @template Sortings The keys of sortings defined in the configuration.
+ * @template Aggregations The keys of aggregations defined in the configuration.
+ * @template IdField The field used as the unique identifier for items (defaults to "id").
  */
 declare function itemsjs<
-    I extends {} = Record<any, unknown>,
-    S extends string = string,
-    A extends keyof I & string = keyof I & string,
->(items: I[], configuration?: itemsjs.Configuration<I, S, A>): itemsjs.ItemsJs<I, S, A>;
+    Items extends Record<string, any> = Record<string, unknown>,
+    Sortings extends string = string,
+    Aggregations extends keyof Items & string = keyof Items & string,
+    IdField extends keyof Items & string = "id",
+>(
+    items: Items[],
+    configuration?: itemsjs.Configuration<Items, Sortings, Aggregations, IdField>,
+): itemsjs.ItemsJs<Items, Sortings, Aggregations, IdField>;
 
 export = itemsjs;

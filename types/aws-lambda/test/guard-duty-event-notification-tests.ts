@@ -23,7 +23,7 @@ const guardDutyScanResultNotificationEvent: GuardDutyScanResultNotificationEvent
             s3Throttled: false,
         },
         scanResultDetails: {
-            scanResultStatus: "THREAT_FOUND",
+            scanResultStatus: "THREATS_FOUND",
             threats: [
                 {
                     name: "foobar",

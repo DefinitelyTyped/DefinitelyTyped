@@ -1,4 +1,4 @@
-import * as blocks from "@wordpress/blocks";
+import blocks from "@wordpress/blocks";
 import { dispatch, select } from "@wordpress/data";
 
 // $ExpectType BlocksStoreDescriptor
@@ -348,6 +348,23 @@ blocks.registerBlockType<{ foo: string }>("my/foo", {
     attributes: {
         foo: {
             type: "string",
+        },
+    },
+    icon: {
+        src: "carrot",
+        foreground: "orange",
+        background: "green",
+    },
+    title: "Foo",
+    category: "common",
+});
+
+// $ExpectType Block<{ foo: string; }> | undefined
+blocks.registerBlockType<{ foo: string }>("my/foo", {
+    attributes: {
+        foo: {
+            type: "string",
+            enum: ["bar", "baz"],
         },
     },
     icon: {

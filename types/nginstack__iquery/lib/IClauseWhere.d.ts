@@ -26,8 +26,8 @@ declare class IClauseWhere {
     private splitValueList_;
     private _requiredClauseToSql;
     private _subSelectClauseToSql;
-    getValueIsNull(): boolean;
-    getIsGenerable(): boolean;
+    valueIsNull: boolean;
+    isGenerable: boolean;
     toSql(): string;
 }
 declare namespace IClauseWhere {

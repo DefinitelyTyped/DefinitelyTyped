@@ -1,4 +1,5 @@
 import * as chai from "chai";
+import "chai/register-should.js";
 import chaiAsPromised from "chai-as-promised";
 
 chai.use(chaiAsPromised);
@@ -15,6 +16,7 @@ thenableNum = chai.expect(thenableNum).to.eventually.have.ownProperty("foo");
 thenableNum = chai.expect(thenableNum).to.eventually.have.ownProperty(Symbol.for("bar"));
 thenableNum = chai.expect(thenableNum).to.eventually.have.ownPropertyDescriptor("foo");
 thenableNum = chai.expect(thenableNum).to.eventually.have.ownPropertyDescriptor(Symbol.for("bar"));
+thenableNum = chai.expect(thenableNum).to.eventually.containSubset({});
 thenableNum = chai.expect(thenableNum).to.become(3);
 thenableNum = chai.expect(thenableNum).to.be.fulfilled;
 thenableNum = chai.expect(thenableNum).to.be.rejected;
@@ -33,6 +35,7 @@ thenableNum = thenableNum.should.be.fulfilled;
 thenableNum = thenableNum.should.eventually.deep.equal(3);
 thenableNum = thenableNum.should.eventually.become(3);
 thenableNum = thenableNum.should.become(3);
+thenableNum = thenableNum.should.eventually.containSubset(3);
 thenableNum = thenableNum.should.be.rejected;
 thenableNum = thenableNum.should.be.rejectedWith(Error);
 thenableNum = thenableNum.should.be.rejectedWith("Error");

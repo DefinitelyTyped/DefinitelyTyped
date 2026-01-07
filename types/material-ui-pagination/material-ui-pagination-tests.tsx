@@ -1,4 +1,4 @@
-import * as ui from "material-ui";
+import ui from "material-ui";
 import Pagination from "material-ui-pagination";
 import { MuiThemeProvider } from "material-ui/styles";
 import * as React from "react";

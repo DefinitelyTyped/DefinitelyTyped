@@ -159,8 +159,8 @@ crypto.subtle
                 hash: "SHA-256",
             },
             imported_key,
-            signature,
-            data,
+            signature.buffer,
+            data.buffer,
         );
     });
 crypto.subtle.importKey(
@@ -209,7 +209,7 @@ crypto.subtle.importKey(
 ).then((imported_key) => {
     const data = Uint8Array.from([97, 110, 103, 117, 115, 32, 97, 110, 100, 32, 111, 119, 101, 110]);
     crypto.subtle.sign("HMAC", imported_key, data).then((sig) => {
-        crypto.subtle.verify("HMAC", imported_key, sig, data);
+        crypto.subtle.verify("HMAC", imported_key, sig, data.buffer);
     });
 });
 

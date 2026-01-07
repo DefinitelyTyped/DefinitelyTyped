@@ -1,17 +1,29 @@
-import { CubeTexture } from "../../textures/CubeTexture.js";
 import { Texture } from "../../textures/Texture.js";
 import Node from "../core/Node.js";
-import { NodeRepresentation, ShaderNodeObject } from "../tsl/TSLCore.js";
 import TextureNode from "./TextureNode.js";
 
 export default class Texture3DNode extends TextureNode {
     readonly isTexture3DNode: true;
 
-    constructor(value: Texture, uvNode?: ShaderNodeObject<Node> | null, levelNode?: ShaderNodeObject<Node> | null);
+    constructor(value: Texture, uvNode?: Node | null, levelNode?: Node | null);
+
+    normal(uvNode: Node): Node;
 }
 
 export const texture3D: (
     value: Texture,
-    uvNode?: NodeRepresentation,
-    levelNode?: NodeRepresentation,
-) => ShaderNodeObject<Texture3DNode>;
+    uvNode?: Node | null,
+    levelNode?: Node | number | null,
+) => Texture3DNode;
+
+export const texture3DLoad: (
+    value: Texture,
+    uvNode?: Node | null,
+    levelNode?: Node | number | null,
+) => Texture3DNode;
+
+export const texture3DLevel: (
+    value: Texture,
+    uvNode?: Node | null,
+    levelNode?: Node | number | null,
+) => Texture3DNode;

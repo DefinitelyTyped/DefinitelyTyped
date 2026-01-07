@@ -11,10 +11,5 @@
     "devDependencies": {
         "@types/npm-which": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Manuel Thalmann",
-            "githubUsername": "manuth"
-        }
-    ]
+    "owners": []
 }

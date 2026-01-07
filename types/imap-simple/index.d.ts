@@ -28,7 +28,7 @@ export interface MessageBodyPart extends Imap.ImapMessageBodyInfo {
 export interface Message {
     attributes: Imap.ImapMessageAttributes;
     parts: MessageBodyPart[];
-    seqno: number;
+    seqNo: number;
 }
 
 export class ImapSimple extends EventEmitter {

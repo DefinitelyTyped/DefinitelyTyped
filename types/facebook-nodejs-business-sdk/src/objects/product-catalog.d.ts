@@ -49,12 +49,15 @@ export default class ProductCatalog extends AbstractCrudObject {
         generic: "generic";
         home_listings: "home_listings";
         hotels: "hotels";
-        jobs: "jobs";
         local_service_businesses: "local_service_businesses";
         offer_items: "offer_items";
         offline_commerce: "offline_commerce";
         transactable_items: "transactable_items";
         vehicles: "vehicles";
+    }>;
+    static get EnabledCollabTerms(): Readonly<{
+        enforce_create_new_ad_account: "ENFORCE_CREATE_NEW_AD_ACCOUNT";
+        enforce_share_ad_performance_access: "ENFORCE_SHARE_AD_PERFORMANCE_ACCESS";
     }>;
     static get PermittedRoles(): Readonly<{
         admin: "ADMIN";
@@ -103,6 +106,12 @@ export default class ProductCatalog extends AbstractCrudObject {
         video_game_consoles_and_video_games: "VIDEO_GAME_CONSOLES_AND_VIDEO_GAMES";
         watches: "WATCHES";
     }>;
+    static get EventName(): Readonly<{
+        add_to_cart: "ADD_TO_CART";
+        purchase: "PURCHASE";
+        test: "TEST";
+        view_item: "VIEW_ITEM";
+    }>;
     deleteAgencies(params?: Record<string, any>): Promise<any>;
     getAgencies(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createAgency(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<ProductCatalog>;
@@ -115,6 +124,7 @@ export default class ProductCatalog extends AbstractCrudObject {
     getCategories(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createCategory(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<ProductCatalogCategory>;
     getCheckBatchRequestStatus(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getCheckMarketplacePartnerSellersStatus(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getCollaborativeAdsLsbImageBank(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getCollaborativeAdsShareSettings(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createCpasLsbImageBank(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<CPASLsbImageBank>;
@@ -127,6 +137,7 @@ export default class ProductCatalog extends AbstractCrudObject {
     getExternalEventSources(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createExternalEventSource(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<ProductCatalog>;
     getFlights(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createGeolocatedItemsBatch(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<ProductCatalog>;
     getHomeListings(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createHomeListing(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<HomeListing>;
     getHotelRoomsBatch(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
@@ -135,6 +146,8 @@ export default class ProductCatalog extends AbstractCrudObject {
     createHotel(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Hotel>;
     createItemsBatch(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<ProductCatalog>;
     createLocalizedItemsBatch(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<ProductCatalog>;
+    createMarketPlacePartnerSellersDetail(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<ProductCatalog>;
+    createMarketPlacePartnerSignal(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<ProductCatalog>;
     getPricingVariablesBatch(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createPricingVariablesBatch(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<ProductCatalog>;
     getProductFeeds(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
@@ -146,9 +159,11 @@ export default class ProductCatalog extends AbstractCrudObject {
     getProductSetsBatch(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getProducts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createProduct(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<ProductItem>;
+    createUpdateGeneratedImageConfig(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<ProductCatalog>;
     getVehicleOffers(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getVehicles(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createVehicle(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Vehicle>;
+    getVersionConfigs(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createVersionItemsBatch(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<ProductCatalog>;
     delete(fields: string[], params?: Record<string, any>): Promise<AbstractObject>;
     get(fields: string[], params?: Record<string, any>): Promise<ProductCatalog>;

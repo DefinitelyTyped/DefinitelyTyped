@@ -1,42 +1,49 @@
-import { NormalMapTypes } from "../../constants.js";
-import { Color } from "../../math/Color.js";
-import { Vector2 } from "../../math/Vector2.js";
-import { Texture } from "../../textures/Texture.js";
-import { MeshToonMaterialParameters } from "../MeshToonMaterial.js";
-import NodeMaterial, { NodeMaterialParameters } from "./NodeMaterial.js";
+import ToonLightingModel from "../../nodes/functions/ToonLightingModel.js";
+import { MapColorPropertiesToColorRepresentations } from "../Material.js";
+import { MeshToonMaterialParameters, MeshToonMaterialProperties } from "../MeshToonMaterial.js";
+import NodeMaterial, { NodeMaterialNodeProperties } from "./NodeMaterial.js";
 
-export interface MeshToonNodeMaterialParameters extends NodeMaterialParameters, MeshToonMaterialParameters {
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface MeshToonNodeMaterialNodeProperties extends NodeMaterialNodeProperties {
 }
 
-export default class MeshToonNodeMaterial extends NodeMaterial {
-    readonly isMeshToonNodeMaterial: true;
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface MeshToonNodeMaterialParameters
+    extends
+        Partial<MapColorPropertiesToColorRepresentations<MeshToonNodeMaterialNodeProperties>>,
+        MeshToonMaterialParameters
+{}
 
-    // Properties from MeshToonMaterial
-    readonly isMeshToonMaterial: true;
-    color: Color;
-    gradientMap: Texture | null;
-    map: Texture | null;
-    lightMap: Texture | null;
-    lightMapIntensity: number;
-    aoMap: Texture | null;
-    aoMapIntensity: number;
-    emissive: Color;
-    emissiveIntensity: number;
-    emissiveMap: Texture | null;
-    bumpMap: Texture | null;
-    bumpScale: number;
-    normalMap: Texture | null;
-    normalMapType: NormalMapTypes;
-    normalScale: Vector2;
-    displacementMap: Texture | null;
-    displacementScale: number;
-    displacementBias: number;
-    alphaMap: Texture | null;
-    wireframe: boolean;
-    wireframeLinewidth: number;
-    wireframeLinecap: string;
-    wireframeLinejoin: string;
-    fog: boolean;
-
+/**
+ * Node material version of {@link MeshToonMaterial}.
+ *
+ * @augments NodeMaterial
+ */
+declare class MeshToonNodeMaterial extends NodeMaterial {
+    /**
+     * Constructs a new mesh toon node material.
+     *
+     * @param {Object} [parameters] - The configuration parameter.
+     */
     constructor(parameters?: MeshToonNodeMaterialParameters);
+    /**
+     * This flag can be used for type testing.
+     *
+     * @type {boolean}
+     * @readonly
+     * @default true
+     */
+    readonly isMeshToonNodeMaterial: boolean;
+    setValues(values?: MeshToonNodeMaterialParameters): void;
+    /**
+     * Setups the lighting model.
+     *
+     * @return {ToonLightingModel} The lighting model.
+     */
+    setupLightingModel(): ToonLightingModel;
 }
+
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface MeshToonNodeMaterial extends MeshToonNodeMaterialNodeProperties, MeshToonMaterialProperties {}
+
+export default MeshToonNodeMaterial;

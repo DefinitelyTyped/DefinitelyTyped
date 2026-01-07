@@ -8,7 +8,7 @@ import {
 } from "../constants.js";
 import { VideoTexture } from "./VideoTexture.js";
 
-declare class VideoFrameTexture extends VideoTexture {
+declare class VideoFrameTexture extends VideoTexture<VideoFrame | {}> {
     constructor(
         mapping?: Mapping,
         wrapS?: Wrapping,
@@ -21,7 +21,7 @@ declare class VideoFrameTexture extends VideoTexture {
     );
 
     // FIXME Replace with VideoFrame when we no longer need to support TypeScript 5.0
-    setFrame(frane: unknown): void;
+    setFrame(frame: unknown): void;
 }
 
 export { VideoFrameTexture };

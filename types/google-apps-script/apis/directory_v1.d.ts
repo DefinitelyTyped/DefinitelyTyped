@@ -226,7 +226,7 @@ declare namespace GoogleAppsScript {
                 remove(customer: string, domainName: string): void;
             }
             interface GroupsCollection {
-                Aliases?: AdminDirectory.Collection.Groups.AliasesCollection | undefined;
+                Aliases: AdminDirectory.Collection.Groups.AliasesCollection;
                 // Retrieve Group
                 get(groupKey: string): AdminDirectory.Schema.Group;
                 // Create Group
@@ -331,9 +331,9 @@ declare namespace GoogleAppsScript {
                 ListTrustedApps(): AdminDirectory.Schema.TrustedApps;
             }
             interface ResourcesCollection {
-                Buildings?: AdminDirectory.Collection.Resources.BuildingsCollection | undefined;
-                Calendars?: AdminDirectory.Collection.Resources.CalendarsCollection | undefined;
-                Features?: AdminDirectory.Collection.Resources.FeaturesCollection | undefined;
+                Buildings: AdminDirectory.Collection.Resources.BuildingsCollection;
+                Calendars: AdminDirectory.Collection.Resources.CalendarsCollection;
+                Features: AdminDirectory.Collection.Resources.FeaturesCollection;
             }
             interface RoleAssignmentsCollection {
                 // Retrieve a role assignment.
@@ -386,8 +386,8 @@ declare namespace GoogleAppsScript {
                 remove(userKey: string, clientId: string): void;
             }
             interface UsersCollection {
-                Aliases?: AdminDirectory.Collection.Users.AliasesCollection | undefined;
-                Photos?: AdminDirectory.Collection.Users.PhotosCollection | undefined;
+                Aliases: AdminDirectory.Collection.Users.AliasesCollection;
+                Photos: AdminDirectory.Collection.Users.PhotosCollection;
                 // retrieve user
                 get(userKey: string): AdminDirectory.Schema.User;
                 // retrieve user
@@ -1114,26 +1114,26 @@ declare namespace GoogleAppsScript {
         }
     }
     interface AdminDirectory {
-        Asps?: AdminDirectory.Collection.AspsCollection | undefined;
-        Channels?: AdminDirectory.Collection.ChannelsCollection | undefined;
-        Chromeosdevices?: AdminDirectory.Collection.ChromeosdevicesCollection | undefined;
-        Customers?: AdminDirectory.Collection.CustomersCollection | undefined;
-        DomainAliases?: AdminDirectory.Collection.DomainAliasesCollection | undefined;
-        Domains?: AdminDirectory.Collection.DomainsCollection | undefined;
-        Groups?: AdminDirectory.Collection.GroupsCollection | undefined;
-        Members?: AdminDirectory.Collection.MembersCollection | undefined;
-        Mobiledevices?: AdminDirectory.Collection.MobiledevicesCollection | undefined;
-        Notifications?: AdminDirectory.Collection.NotificationsCollection | undefined;
-        Orgunits?: AdminDirectory.Collection.OrgunitsCollection | undefined;
-        Privileges?: AdminDirectory.Collection.PrivilegesCollection | undefined;
-        ResolvedAppAccessSettings?: AdminDirectory.Collection.ResolvedAppAccessSettingsCollection | undefined;
-        Resources?: AdminDirectory.Collection.ResourcesCollection | undefined;
-        RoleAssignments?: AdminDirectory.Collection.RoleAssignmentsCollection | undefined;
-        Roles?: AdminDirectory.Collection.RolesCollection | undefined;
-        Schemas?: AdminDirectory.Collection.SchemasCollection | undefined;
-        Tokens?: AdminDirectory.Collection.TokensCollection | undefined;
-        Users?: AdminDirectory.Collection.UsersCollection | undefined;
-        VerificationCodes?: AdminDirectory.Collection.VerificationCodesCollection | undefined;
+        Asps: AdminDirectory.Collection.AspsCollection;
+        Channels: AdminDirectory.Collection.ChannelsCollection;
+        Chromeosdevices: AdminDirectory.Collection.ChromeosdevicesCollection;
+        Customers: AdminDirectory.Collection.CustomersCollection;
+        DomainAliases: AdminDirectory.Collection.DomainAliasesCollection;
+        Domains: AdminDirectory.Collection.DomainsCollection;
+        Groups: AdminDirectory.Collection.GroupsCollection;
+        Members: AdminDirectory.Collection.MembersCollection;
+        Mobiledevices: AdminDirectory.Collection.MobiledevicesCollection;
+        Notifications: AdminDirectory.Collection.NotificationsCollection;
+        Orgunits: AdminDirectory.Collection.OrgunitsCollection;
+        Privileges: AdminDirectory.Collection.PrivilegesCollection;
+        ResolvedAppAccessSettings: AdminDirectory.Collection.ResolvedAppAccessSettingsCollection;
+        Resources: AdminDirectory.Collection.ResourcesCollection;
+        RoleAssignments: AdminDirectory.Collection.RoleAssignmentsCollection;
+        Roles: AdminDirectory.Collection.RolesCollection;
+        Schemas: AdminDirectory.Collection.SchemasCollection;
+        Tokens: AdminDirectory.Collection.TokensCollection;
+        Users: AdminDirectory.Collection.UsersCollection;
+        VerificationCodes: AdminDirectory.Collection.VerificationCodesCollection;
         // Create a new instance of Alias
         newAlias(): AdminDirectory.Schema.Alias;
         // Create a new instance of Building
@@ -1217,4 +1217,7 @@ declare namespace GoogleAppsScript {
     }
 }
 
-declare var AdminDirectory: GoogleAppsScript.AdminDirectory;
+/**
+ * The `AdminDirectory` advanced service must be enabled.
+ */
+declare var AdminDirectory: GoogleAppsScript.AdminDirectory | undefined;

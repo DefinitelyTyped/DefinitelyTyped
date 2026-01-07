@@ -5,7 +5,7 @@
     "nonNpm": true,
     "nonNpmDescription": "parcel-env",
     "projects": [
-        "https://github.com/parcel/parcel-bundler"
+        "https://parceljs.org/features/node-emulation/"
     ],
     "devDependencies": {
         "@types/node": "*",

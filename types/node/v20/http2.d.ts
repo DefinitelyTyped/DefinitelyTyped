@@ -9,6 +9,7 @@
  * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/http2.js)
  */
 declare module "http2" {
+    import { NonSharedBuffer } from "node:buffer";
     import EventEmitter = require("node:events");
     import * as fs from "node:fs";
     import * as net from "node:net";
@@ -55,14 +56,15 @@ declare module "http2" {
         length: number;
     }
     export interface ServerStreamFileResponseOptions {
-        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-        statCheck?(stats: fs.Stats, headers: OutgoingHttpHeaders, statOptions: StatOptions): void | boolean;
+        statCheck?:
+            | ((stats: fs.Stats, headers: OutgoingHttpHeaders, statOptions: StatOptions) => void)
+            | undefined;
         waitForTrailers?: boolean | undefined;
         offset?: number | undefined;
         length?: number | undefined;
     }
     export interface ServerStreamFileResponseOptionsWithError extends ServerStreamFileResponseOptions {
-        onError?(err: NodeJS.ErrnoException): void;
+        onError?: ((err: NodeJS.ErrnoException) => void) | undefined;
     }
     export interface Http2Stream extends stream.Duplex {
         /**
@@ -195,7 +197,7 @@ declare module "http2" {
         sendTrailers(headers: OutgoingHttpHeaders): void;
         addListener(event: "aborted", listener: () => void): this;
         addListener(event: "close", listener: () => void): this;
-        addListener(event: "data", listener: (chunk: Buffer | string) => void): this;
+        addListener(event: "data", listener: (chunk: NonSharedBuffer | string) => void): this;
         addListener(event: "drain", listener: () => void): this;
         addListener(event: "end", listener: () => void): this;
         addListener(event: "error", listener: (err: Error) => void): this;
@@ -210,7 +212,7 @@ declare module "http2" {
         addListener(event: string | symbol, listener: (...args: any[]) => void): this;
         emit(event: "aborted"): boolean;
         emit(event: "close"): boolean;
-        emit(event: "data", chunk: Buffer | string): boolean;
+        emit(event: "data", chunk: NonSharedBuffer | string): boolean;
         emit(event: "drain"): boolean;
         emit(event: "end"): boolean;
         emit(event: "error", err: Error): boolean;
@@ -225,7 +227,7 @@ declare module "http2" {
         emit(event: string | symbol, ...args: any[]): boolean;
         on(event: "aborted", listener: () => void): this;
         on(event: "close", listener: () => void): this;
-        on(event: "data", listener: (chunk: Buffer | string) => void): this;
+        on(event: "data", listener: (chunk: NonSharedBuffer | string) => void): this;
         on(event: "drain", listener: () => void): this;
         on(event: "end", listener: () => void): this;
         on(event: "error", listener: (err: Error) => void): this;
@@ -240,7 +242,7 @@ declare module "http2" {
         on(event: string | symbol, listener: (...args: any[]) => void): this;
         once(event: "aborted", listener: () => void): this;
         once(event: "close", listener: () => void): this;
-        once(event: "data", listener: (chunk: Buffer | string) => void): this;
+        once(event: "data", listener: (chunk: NonSharedBuffer | string) => void): this;
         once(event: "drain", listener: () => void): this;
         once(event: "end", listener: () => void): this;
         once(event: "error", listener: (err: Error) => void): this;
@@ -255,7 +257,7 @@ declare module "http2" {
         once(event: string | symbol, listener: (...args: any[]) => void): this;
         prependListener(event: "aborted", listener: () => void): this;
         prependListener(event: "close", listener: () => void): this;
-        prependListener(event: "data", listener: (chunk: Buffer | string) => void): this;
+        prependListener(event: "data", listener: (chunk: NonSharedBuffer | string) => void): this;
         prependListener(event: "drain", listener: () => void): this;
         prependListener(event: "end", listener: () => void): this;
         prependListener(event: "error", listener: (err: Error) => void): this;
@@ -270,7 +272,7 @@ declare module "http2" {
         prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
         prependOnceListener(event: "aborted", listener: () => void): this;
         prependOnceListener(event: "close", listener: () => void): this;
-        prependOnceListener(event: "data", listener: (chunk: Buffer | string) => void): this;
+        prependOnceListener(event: "data", listener: (chunk: NonSharedBuffer | string) => void): this;
         prependOnceListener(event: "drain", listener: () => void): this;
         prependOnceListener(event: "end", listener: () => void): this;
         prependOnceListener(event: "error", listener: (err: Error) => void): this;
@@ -789,10 +791,10 @@ declare module "http2" {
          * @since v8.9.3
          * @param payload Optional ping payload.
          */
-        ping(callback: (err: Error | null, duration: number, payload: Buffer) => void): boolean;
+        ping(callback: (err: Error | null, duration: number, payload: NonSharedBuffer) => void): boolean;
         ping(
             payload: NodeJS.ArrayBufferView,
-            callback: (err: Error | null, duration: number, payload: Buffer) => void,
+            callback: (err: Error | null, duration: number, payload: NonSharedBuffer) => void,
         ): boolean;
         /**
          * Calls `ref()` on this `Http2Session` instance's underlying `net.Socket`.
@@ -854,7 +856,7 @@ declare module "http2" {
         ): this;
         addListener(
             event: "goaway",
-            listener: (errorCode: number, lastStreamID: number, opaqueData?: Buffer) => void,
+            listener: (errorCode: number, lastStreamID: number, opaqueData?: NonSharedBuffer) => void,
         ): this;
         addListener(event: "localSettings", listener: (settings: Settings) => void): this;
         addListener(event: "ping", listener: () => void): this;
@@ -864,7 +866,7 @@ declare module "http2" {
         emit(event: "close"): boolean;
         emit(event: "error", err: Error): boolean;
         emit(event: "frameError", frameType: number, errorCode: number, streamID: number): boolean;
-        emit(event: "goaway", errorCode: number, lastStreamID: number, opaqueData?: Buffer): boolean;
+        emit(event: "goaway", errorCode: number, lastStreamID: number, opaqueData?: NonSharedBuffer): boolean;
         emit(event: "localSettings", settings: Settings): boolean;
         emit(event: "ping"): boolean;
         emit(event: "remoteSettings", settings: Settings): boolean;
@@ -873,7 +875,10 @@ declare module "http2" {
         on(event: "close", listener: () => void): this;
         on(event: "error", listener: (err: Error) => void): this;
         on(event: "frameError", listener: (frameType: number, errorCode: number, streamID: number) => void): this;
-        on(event: "goaway", listener: (errorCode: number, lastStreamID: number, opaqueData?: Buffer) => void): this;
+        on(
+            event: "goaway",
+            listener: (errorCode: number, lastStreamID: number, opaqueData?: NonSharedBuffer) => void,
+        ): this;
         on(event: "localSettings", listener: (settings: Settings) => void): this;
         on(event: "ping", listener: () => void): this;
         on(event: "remoteSettings", listener: (settings: Settings) => void): this;
@@ -882,7 +887,10 @@ declare module "http2" {
         once(event: "close", listener: () => void): this;
         once(event: "error", listener: (err: Error) => void): this;
         once(event: "frameError", listener: (frameType: number, errorCode: number, streamID: number) => void): this;
-        once(event: "goaway", listener: (errorCode: number, lastStreamID: number, opaqueData?: Buffer) => void): this;
+        once(
+            event: "goaway",
+            listener: (errorCode: number, lastStreamID: number, opaqueData?: NonSharedBuffer) => void,
+        ): this;
         once(event: "localSettings", listener: (settings: Settings) => void): this;
         once(event: "ping", listener: () => void): this;
         once(event: "remoteSettings", listener: (settings: Settings) => void): this;
@@ -896,7 +904,7 @@ declare module "http2" {
         ): this;
         prependListener(
             event: "goaway",
-            listener: (errorCode: number, lastStreamID: number, opaqueData?: Buffer) => void,
+            listener: (errorCode: number, lastStreamID: number, opaqueData?: NonSharedBuffer) => void,
         ): this;
         prependListener(event: "localSettings", listener: (settings: Settings) => void): this;
         prependListener(event: "ping", listener: () => void): this;
@@ -911,7 +919,7 @@ declare module "http2" {
         ): this;
         prependOnceListener(
             event: "goaway",
-            listener: (errorCode: number, lastStreamID: number, opaqueData?: Buffer) => void,
+            listener: (errorCode: number, lastStreamID: number, opaqueData?: NonSharedBuffer) => void,
         ): this;
         prependOnceListener(event: "localSettings", listener: (settings: Settings) => void): this;
         prependOnceListener(event: "ping", listener: () => void): this;
@@ -1223,14 +1231,66 @@ declare module "http2" {
     }
     // Http2Server
     export interface SessionOptions {
+        /**
+         * Sets the maximum dynamic table size for deflating header fields.
+         * @default 4Kib
+         */
         maxDeflateDynamicTableSize?: number | undefined;
+        /**
+         * Sets the maximum number of settings entries per `SETTINGS` frame.
+         * The minimum value allowed is `1`.
+         * @default 32
+         */
+        maxSettings?: number | undefined;
+        /**
+         * Sets the maximum memory that the `Http2Session` is permitted to use.
+         * The value is expressed in terms of number of megabytes, e.g. `1` equal 1 megabyte.
+         * The minimum value allowed is `1`.
+         * This is a credit based limit, existing `Http2Stream`s may cause this limit to be exceeded,
+         * but new `Http2Stream` instances will be rejected while this limit is exceeded.
+         * The current number of `Http2Stream` sessions, the current memory use of the header compression tables,
+         * current data queued to be sent, and unacknowledged `PING` and `SETTINGS` frames are all counted towards the current limit.
+         * @default 10
+         */
         maxSessionMemory?: number | undefined;
+        /**
+         * Sets the maximum number of header entries.
+         * This is similar to `server.maxHeadersCount` or `request.maxHeadersCount` in the `node:http` module.
+         * The minimum value is `1`.
+         * @default 128
+         */
         maxHeaderListPairs?: number | undefined;
+        /**
+         * Sets the maximum number of outstanding, unacknowledged pings.
+         * @default 10
+         */
         maxOutstandingPings?: number | undefined;
+        /**
+         * Sets the maximum allowed size for a serialized, compressed block of headers.
+         * Attempts to send headers that exceed this limit will result in
+         * a `'frameError'` event being emitted and the stream being closed and destroyed.
+         */
         maxSendHeaderBlockLength?: number | undefined;
+        /**
+         * Strategy used for determining the amount of padding to use for `HEADERS` and `DATA` frames.
+         * @default http2.constants.PADDING_STRATEGY_NONE
+         */
         paddingStrategy?: number | undefined;
+        /**
+         * Sets the maximum number of concurrent streams for the remote peer as if a `SETTINGS` frame had been received.
+         * Will be overridden if the remote peer sets its own value for `maxConcurrentStreams`.
+         * @default 100
+         */
         peerMaxConcurrentStreams?: number | undefined;
+        /**
+         * The initial settings to send to the remote peer upon connection.
+         */
         settings?: Settings | undefined;
+        /**
+         * The array of integer values determines the settings types,
+         * which are included in the `CustomSettings`-property of the received remoteSettings.
+         * Please see the `CustomSettings`-property of the `Http2Settings` object for more information, on the allowed setting types.
+         */
         remoteCustomSettings?: number[] | undefined;
         /**
          * Specifies a timeout in milliseconds that
@@ -1239,11 +1299,27 @@ declare module "http2" {
          * @default 100000
          */
         unknownProtocolTimeout?: number | undefined;
-        selectPadding?(frameLen: number, maxFrameLen: number): number;
     }
     export interface ClientSessionOptions extends SessionOptions {
+        /**
+         * Sets the maximum number of reserved push streams the client will accept at any given time.
+         * Once the current number of currently reserved push streams exceeds reaches this limit,
+         * new push streams sent by the server will be automatically rejected.
+         * The minimum allowed value is 0. The maximum allowed value is 2<sup>32</sup>-1.
+         * A negative value sets this option to the maximum allowed value.
+         * @default 200
+         */
         maxReservedRemoteStreams?: number | undefined;
+        /**
+         * An optional callback that receives the `URL` instance passed to `connect` and the `options` object,
+         * and returns any `Duplex` stream that is to be used as the connection for this session.
+         */
         createConnection?: ((authority: url.URL, option: SessionOptions) => stream.Duplex) | undefined;
+        /**
+         * The protocol to connect with, if not set in the `authority`.
+         * Value may be either `'http:'` or `'https:'`.
+         * @default 'https:'
+         */
         protocol?: "http:" | "https:" | undefined;
     }
     export interface ServerSessionOptions<
@@ -1722,45 +1798,45 @@ declare module "http2" {
          * @since v8.4.0
          */
         setTimeout(msecs: number, callback?: () => void): void;
-        read(size?: number): Buffer | string | null;
+        read(size?: number): NonSharedBuffer | string | null;
         addListener(event: "aborted", listener: (hadError: boolean, code: number) => void): this;
         addListener(event: "close", listener: () => void): this;
-        addListener(event: "data", listener: (chunk: Buffer | string) => void): this;
+        addListener(event: "data", listener: (chunk: NonSharedBuffer | string) => void): this;
         addListener(event: "end", listener: () => void): this;
         addListener(event: "readable", listener: () => void): this;
         addListener(event: "error", listener: (err: Error) => void): this;
         addListener(event: string | symbol, listener: (...args: any[]) => void): this;
         emit(event: "aborted", hadError: boolean, code: number): boolean;
         emit(event: "close"): boolean;
-        emit(event: "data", chunk: Buffer | string): boolean;
+        emit(event: "data", chunk: NonSharedBuffer | string): boolean;
         emit(event: "end"): boolean;
         emit(event: "readable"): boolean;
         emit(event: "error", err: Error): boolean;
         emit(event: string | symbol, ...args: any[]): boolean;
         on(event: "aborted", listener: (hadError: boolean, code: number) => void): this;
         on(event: "close", listener: () => void): this;
-        on(event: "data", listener: (chunk: Buffer | string) => void): this;
+        on(event: "data", listener: (chunk: NonSharedBuffer | string) => void): this;
         on(event: "end", listener: () => void): this;
         on(event: "readable", listener: () => void): this;
         on(event: "error", listener: (err: Error) => void): this;
         on(event: string | symbol, listener: (...args: any[]) => void): this;
         once(event: "aborted", listener: (hadError: boolean, code: number) => void): this;
         once(event: "close", listener: () => void): this;
-        once(event: "data", listener: (chunk: Buffer | string) => void): this;
+        once(event: "data", listener: (chunk: NonSharedBuffer | string) => void): this;
         once(event: "end", listener: () => void): this;
         once(event: "readable", listener: () => void): this;
         once(event: "error", listener: (err: Error) => void): this;
         once(event: string | symbol, listener: (...args: any[]) => void): this;
         prependListener(event: "aborted", listener: (hadError: boolean, code: number) => void): this;
         prependListener(event: "close", listener: () => void): this;
-        prependListener(event: "data", listener: (chunk: Buffer | string) => void): this;
+        prependListener(event: "data", listener: (chunk: NonSharedBuffer | string) => void): this;
         prependListener(event: "end", listener: () => void): this;
         prependListener(event: "readable", listener: () => void): this;
         prependListener(event: "error", listener: (err: Error) => void): this;
         prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
         prependOnceListener(event: "aborted", listener: (hadError: boolean, code: number) => void): this;
         prependOnceListener(event: "close", listener: () => void): this;
-        prependOnceListener(event: "data", listener: (chunk: Buffer | string) => void): this;
+        prependOnceListener(event: "data", listener: (chunk: NonSharedBuffer | string) => void): this;
         prependOnceListener(event: "end", listener: () => void): this;
         prependOnceListener(event: "readable", listener: () => void): this;
         prependOnceListener(event: "error", listener: (err: Error) => void): this;
@@ -2420,7 +2496,7 @@ declare module "http2" {
      * ```
      * @since v8.4.0
      */
-    export function getPackedSettings(settings: Settings): Buffer;
+    export function getPackedSettings(settings: Settings): NonSharedBuffer;
     /**
      * Returns a `HTTP/2 Settings Object` containing the deserialized settings from
      * the given `Buffer` as generated by `http2.getPackedSettings()`.

@@ -45,12 +45,20 @@ declare namespace validator {
      */
     export function isAbaRouting(str: string): boolean;
 
+    export interface IsAfterOptions {
+        /**
+         * Date to compare to.
+         * @default Date().toString()
+         */
+        comparisonDate?: string | undefined;
+    }
+
     /**
      * Check if the string is a date that's after the specified date.
      *
      * @param [date] - Date string (defaults to now)
      */
-    export function isAfter(str: string, date?: string): boolean;
+    export function isAfter(str: string, dateStringOrOptions?: string | IsAfterOptions): boolean;
 
     export type AlphaLocale =
         | "en-US"
@@ -203,10 +211,19 @@ declare namespace validator {
      */
     export function isAscii(str: string): boolean;
 
+    export interface IsBase32Options {
+        /**
+         * If true, it tests the given base32 encoded string using [Crockford's base32 alternative](http://www.crockford.com/base32.html).
+         * @default false
+         */
+        crockford?: boolean | undefined;
+    }
+
     /**
      * Check if a string is base32 encoded.
      */
-    export function isBase32(str: string): boolean;
+    export function isBase32(str: string, options?: IsBase32Options): boolean;
+
     /**
      * check if a string is base58 encoded
      */
@@ -217,6 +234,11 @@ declare namespace validator {
          * @default false
          */
         urlSafe?: boolean | undefined;
+
+        /**
+         * @default !urlSafe
+         */
+        padding?: boolean | undefined;
     }
 
     /**
@@ -226,15 +248,25 @@ declare namespace validator {
      */
     export function isBase64(str: string, options?: IsBase64Options): boolean;
 
+    export interface IsBeforeOptions {
+        /**
+         * Date to compare to.
+         * @default Date().toString()
+         */
+        comparisonDate?: string | undefined;
+    }
+
     /**
      * Check if the string is a date that's before the specified date.
      *
      * @param [date] - Date string (defaults to now)
      */
-    export function isBefore(str: string, date?: string): boolean;
+    export function isBefore(str: string, dateStringOrOptions?: string | IsBeforeOptions): boolean;
 
     export const isIBAN: typeof _isIBAN.default;
     export const ibanLocales: typeof _isIBAN.locales;
+    export type IBANLocale = _isIBAN.IBANLocale;
+    export type IsIBANOptions = _isIBAN.IsIBANOptions;
 
     /**
      * Check if a string is a BIC (Bank Identification Code) or SWIFT code.
@@ -257,9 +289,11 @@ declare namespace validator {
     /**
      * Check if the string's length (in UTF-8 bytes) falls in a range.
      *
-     * @param [options] - Options
+     * @param [optionsOrMin] - Options, or the minimum byte length allowed.
+     * @param [max] - The maximum byte length allowed.
      */
-    export function isByteLength(str: string, options?: IsByteLengthOptions): boolean;
+    export function isByteLength(str: string, optionsOrMin?: number | IsByteLengthOptions): boolean;
+    export function isByteLength(str: string, min: number, max: number): boolean;
 
     export interface IsCreditCardOptions {
         /**
@@ -383,7 +417,8 @@ declare namespace validator {
     /**
      * Check if the string is a valid date.
      */
-    export function isDate(str: string, options?: IsDateOptions): boolean;
+    export function isDate(input: Date, formatOrOptions: IsDateOptions & { strictMode: true }): false;
+    export function isDate(input: string | Date, formatOrOptions?: string | IsDateOptions): boolean;
 
     export type DecimalLocale = FloatLocale;
 
@@ -581,12 +616,23 @@ declare namespace validator {
      */
     export function isHSL(str: string): boolean;
 
+    export interface IsRgbColorOptions {
+        /**
+         * If you don't want to allow to set rgb or rgba values with percents, like rgb(5%,5%,5%), or rgba(90%,90%,90%,.3), then set it to false. (defaults to true)
+         */
+        includePercentValues?: boolean | undefined;
+        /**
+         * `allowSpaces` defaults to `true`, which prohibits whitespace. If set to false, whitespace between color values is allowed, such as `rgb(255, 255, 255)` or even `rgba(255,       128,        0,      0.7)`.
+         */
+        allowSpaces?: boolean | undefined;
+    }
+
     /**
      * Check if the string is a rgb or rgba color.
      *
-     * @param [includePercentValues=true] - If you don't want to allow to set rgb or rgba values with percents, like rgb(5%,5%,5%), or rgba(90%,90%,90%,.3), then set it to false. (defaults to true)
+     * @param [options] - Options
      */
-    export function isRgbColor(str: string, includePercentValues?: boolean): boolean;
+    export function isRgbColor(str: string, includePercentValuesOrOptions?: boolean | IsRgbColorOptions): boolean;
 
     export type IdentityCardLocale =
         | "ar-LY"
@@ -599,6 +645,7 @@ declare namespace validator {
         | "IT"
         | "LK"
         | "NO"
+        | "PK"
         | "PL"
         | "TH"
         | "zh-CN"
@@ -650,11 +697,11 @@ declare namespace validator {
          */
         allow_leading_zeroes?: boolean | undefined;
         /**
-         * enforce integers being greater than the value provided
+         * enforce integers being less than the value provided
          */
         lt?: number | undefined;
         /**
-         * enforce integers being less than the value provided
+         * enforce integers being greater than the value provided
          */
         gt?: number | undefined;
     }
@@ -668,12 +715,19 @@ declare namespace validator {
 
     export type IPVersion = "4" | "6" | 4 | 6;
 
+    export interface IsIPOptions {
+        /**
+         * Defines which IP version to compare to.
+         */
+        version?: IPVersion | undefined;
+    }
+
     /**
      * Check if the string is an IP (version 4 or 6).
      *
-     * @param [version] - IP Version
+     * @param [version] - Defines which IP version to compare to.
      */
-    export function isIP(str: string, version?: IPVersion): boolean;
+    export function isIP(str: string, versionOrOptions?: IPVersion | IsIPOptions): boolean;
 
     /**
      * Check if the string is an IP Range (version 4 or 6).
@@ -699,12 +753,22 @@ declare namespace validator {
      */
     export function isISIN(str: string): boolean;
 
+    /**
+     * Check if the string is a valid [ISO 15924](https://en.wikipedia.org/wiki/ISO_15924) officially assigned script code.
+     */
+    export function isISO15924(str: string): boolean;
+
     export const isISO31661Alpha2: typeof _isISO31661Alpha2.default;
 
     /**
      * Check if the string is a valid [ISO 3166-1 alpha-3](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3) officially assigned country code.
      */
     export function isISO31661Alpha3(str: string): boolean;
+
+    /**
+     * Check if the string is a valid [ISO 3166-1 numeric](https://en.wikipedia.org/wiki/ISO_3166-1_numeric) officially assigned country code.
+     */
+    export function isISO31661Numeric(str: string): boolean;
 
     /**
      * check if the string is a valid [ISO 6346](https://en.wikipedia.org/wiki/ISO_6346) shipping container identification.
@@ -776,22 +840,36 @@ declare namespace validator {
      */
     export function isRFC3339(str: string): boolean;
 
+    export interface IsJSONOptions {
+        /**
+         * If true, the primitives 'true', 'false' and 'null' are accepted as valid JSON values.
+         * @default false
+         */
+        allow_primitives?: boolean | undefined;
+    }
     /**
      * Check if the string is valid JSON (note: uses `JSON.parse`).
      */
-    export function isJSON(str: string): boolean;
+    export function isJSON(str: string, options?: IsJSONOptions): boolean;
 
     /**
      * Check if the string is valid JWT token.
      */
     export function isJWT(str: string): boolean;
 
+    export interface IsLatLongOptions {
+        /**
+         * Pass `checkDMS` as true to validate DMS(degrees, minutes, and seconds) latitude-longitude format.
+         * @default false
+         */
+        checkDMS?: boolean | undefined;
+    }
     /**
      * Check if the string is a valid latitude-longitude coordinate in the format:
      *
      * `lat,long` or `lat, long`.
      */
-    export function isLatLong(str: string): boolean;
+    export function isLatLong(str: string, options?: IsLatLongOptions): boolean;
 
     export interface IsLengthOptions {
         /**
@@ -802,6 +880,10 @@ declare namespace validator {
          * @default undefined
          */
         max?: number | undefined;
+        /**
+         * @default undefined
+         */
+        discreteLengths?: Array<number> | undefined;
     }
 
     /**
@@ -811,26 +893,28 @@ declare namespace validator {
      *
      * @param [options] - Options
      */
-    export function isLength(str: string, options?: IsLengthOptions): boolean;
+    export function isLength(str: string, minOrOptions?: number | IsLengthOptions): boolean;
+    export function isLength(str: string, min: number, max: number): boolean;
 
     export type LicensePlateLocale =
         | "cs-CZ"
         | "de-DE"
         | "de-LI"
         | "en-IN"
+        | "en-SG"
         | "es-AR"
+        | "fi-FI"
         | "hu-HU"
         | "pt-BR"
         | "pt-PT"
         | "sq-AL"
         | "sv-SE"
-        | "en-PK"
-        | "any";
+        | "en-PK";
 
     /**
      * Check if the string matches the format of a country's license plate.
      */
-    export function isLicensePlate(str: string, locale: LicensePlateLocale): boolean;
+    export function isLicensePlate(str: string, locale: LicensePlateLocale | "any"): boolean;
     export function isLicensePlate(str: string, locale: string): unknown;
 
     /**
@@ -910,10 +994,13 @@ declare namespace validator {
         | "ar-LY"
         | "ar-MA"
         | "ar-OM"
+        | "ar-PS"
         | "ar-SA"
+        | "ar-SD"
         | "ar-SY"
         | "ar-TN"
         | "az-AZ"
+        | "ar-QA"
         | "bs-BA"
         | "be-BY"
         | "bg-BG"
@@ -925,20 +1012,36 @@ declare namespace validator {
         | "de-AT"
         | "de-CH"
         | "de-LU"
+        | "dv-MV"
         | "el-GR"
+        | "el-CY"
+        | "en-AI"
         | "en-AU"
+        | "en-AG"
+        | "en-BM"
+        | "en-BS"
         | "en-GB"
         | "en-GG"
         | "en-GH"
+        | "en-GY"
         | "en-HK"
         | "en-MO"
         | "en-IE"
         | "en-IN"
+        | "en-JM"
         | "en-KE"
+        | "fr-CF"
+        | "en-SS"
+        | "en-KI"
+        | "en-KN"
+        | "en-LS"
         | "en-MT"
         | "en-MU"
+        | "en-MW"
+        | "en-NA"
         | "en-NG"
         | "en-NZ"
+        | "en-PG"
         | "en-PK"
         | "en-PH"
         | "en-RW"
@@ -950,19 +1053,24 @@ declare namespace validator {
         | "en-ZA"
         | "en-ZM"
         | "en-ZW"
+        | "en-BW"
         | "es-AR"
         | "es-BO"
         | "es-CO"
         | "es-CL"
         | "es-CR"
+        | "es-CU"
         | "es-DO"
         | "es-HN"
         | "es-EC"
         | "es-ES"
+        | "es-GT"
         | "es-PE"
         | "es-MX"
+        | "es-NI"
         | "es-PA"
         | "es-PY"
+        | "es-SV"
         | "es-UY"
         | "es-VE"
         | "et-EE"
@@ -970,14 +1078,21 @@ declare namespace validator {
         | "fi-FI"
         | "fj-FJ"
         | "fo-FO"
+        | "fr-BF"
+        | "fr-BJ"
+        | "fr-CD"
+        | "fr-CM"
         | "fr-FR"
         | "fr-GF"
         | "fr-GP"
         | "fr-MQ"
+        | "fr-PF"
         | "fr-RE"
+        | "fr-WF"
         | "he-IL"
         | "hu-HU"
         | "id-ID"
+        | "ir-IR"
         | "it-IT"
         | "it-SM"
         | "ja-JP"
@@ -985,34 +1100,48 @@ declare namespace validator {
         | "kk-KZ"
         | "kl-GL"
         | "ko-KR"
+        | "ky-KG"
         | "lt-LT"
         | "lv-LV"
+        | "mg-MG"
+        | "mn-MN"
+        | "my-MM"
         | "ms-MY"
         | "mz-MZ"
         | "nb-NO"
         | "ne-NP"
         | "nl-BE"
         | "nl-NL"
+        | "nl-AW"
         | "nn-NO"
         | "pl-PL"
         | "pt-BR"
         | "pt-PT"
         | "pt-AO"
+        | "ro-MD"
         | "ro-RO"
         | "ru-RU"
         | "si-LK"
         | "sl-SI"
         | "sk-SK"
+        | "so-SO"
         | "sq-AL"
         | "sr-RS"
         | "sv-SE"
+        | "tg-TJ"
         | "th-TH"
         | "tr-TR"
+        | "tk-TM"
         | "uk-UA"
         | "uz-UZ"
         | "vi-VN"
         | "zh-CN"
-        | "zh-TW";
+        | "zh-TW"
+        | "dz-BT"
+        | "ar-YE"
+        | "ar-EH"
+        | "fa-AF"
+        | "mk-MK";
     export type PhoneLocaleAlias = "en-CA" | "fr-CA" | "fr-BE" | "zh-HK" | "zh-MO" | "ga-IE" | "fr-CH" | "it-CH";
 
     export const isMobilePhoneLocales: MobilePhoneLocale[];
@@ -1086,15 +1215,21 @@ declare namespace validator {
         | "AD"
         | "AT"
         | "AU"
+        | "AZ"
+        | "BA"
+        | "BD"
         | "BE"
         | "BG"
         | "BR"
+        | "BY"
         | "CA"
         | "CH"
         | "CN"
+        | "CO"
         | "CZ"
         | "DE"
         | "DK"
+        | "DO"
         | "DZ"
         | "EE"
         | "ES"
@@ -1103,6 +1238,7 @@ declare namespace validator {
         | "GB"
         | "GR"
         | "HR"
+        | "HT"
         | "HU"
         | "ID"
         | "IE"
@@ -1118,11 +1254,16 @@ declare namespace validator {
         | "LT"
         | "LU"
         | "LV"
+        | "LK"
+        | "MG"
         | "MX"
         | "MT"
+        | "MY"
         | "NL"
         | "NO"
+        | "NP"
         | "NZ"
+        | "PK"
         | "PL"
         | "PR"
         | "PT"
@@ -1130,8 +1271,10 @@ declare namespace validator {
         | "RU"
         | "SA"
         | "SE"
+        | "SG"
         | "SI"
         | "SK"
+        | "TH"
         | "TN"
         | "TW"
         | "UA"
@@ -1158,17 +1301,53 @@ declare namespace validator {
      */
 
     export interface StrongPasswordOptions {
+        /**
+         * @default 8
+         */
         minLength?: number | undefined;
+        /**
+         * @default 1
+         */
         minLowercase?: number | undefined;
+        /**
+         * @default 1
+         */
         minUppercase?: number | undefined;
+        /**
+         * @default 1
+         */
         minNumbers?: number | undefined;
+        /**
+         * @default 1
+         */
         minSymbols?: number | undefined;
+        /**
+         * @default false
+         */
         returnScore?: boolean | undefined;
+        /**
+         * @default 1
+         */
         pointsPerUnique?: number | undefined;
+        /**
+         * @default 0.5
+         */
         pointsPerRepeat?: number | undefined;
+        /**
+         * @default 10
+         */
         pointsForContainingLower?: number | undefined;
+        /**
+         * @default 10
+         */
         pointsForContainingUpper?: number | undefined;
+        /**
+         * @default 10
+         */
         pointsForContainingNumber?: number | undefined;
+        /**
+         * @default 10
+         */
         pointsForContainingSymbol?: number | undefined;
     }
 
@@ -1176,7 +1355,8 @@ declare namespace validator {
         str: string,
         options?: StrongPasswordOptions & { returnScore?: false | undefined },
     ): boolean;
-    export function isStrongPassword(str: string, options: StrongPasswordOptions & { returnScore: true }): number;
+    export function isStrongPassword(str: string, options?: StrongPasswordOptions & { returnScore: true }): number;
+    export function isStrongPassword(str: string, options?: StrongPasswordOptions): boolean | number;
 
     /**
      * Check if the string contains any surrogate pairs chars.
@@ -1185,16 +1365,19 @@ declare namespace validator {
 
     export interface IsTimeOptions {
         /**
-         * 'hour24' will validate hours in 24 format and 'hour12' will validate hours in 12 format.
+         * `'hour24'` will validate hours in 24 format,
+         * `'hour12'` will validate hours in 12 format.
          * @default 'hour24'
          */
-        hourFormat?: "hour12" | "hour24";
+        hourFormat?: "hour12" | "hour24" | undefined;
         /**
-         * 'default' will validate HH:MM format, 'withSeconds' will validate the HH:MM:SS format
+         * `'default'` will validate `HH:MM` format,
+         * `'withSeconds'` will validate the `HH:MM:SS` format,
+         * `'withOptionalSeconds'` will validate `'HH:MM'` and `'HH:MM:SS'` formats.
          *
          * @default 'default'
          */
-        mode?: "default" | "withSeconds";
+        mode?: "default" | "withSeconds" | "withOptionalSeconds" | undefined;
     }
 
     /**
@@ -1212,9 +1395,34 @@ declare namespace validator {
      */
     export function isUppercase(str: string): boolean;
 
-    export type UUIDVersion = "1" | "2" | "3" | "4" | "5" | "7" | "all" | 1 | 2 | 3 | 4 | 5 | 7;
     /**
-     * Check if the string is a UUID (version 1, 2, 3, 4, 5 or 7).
+     * Check if the string is a [ULID](https://github.com/ulid/spec).
+     */
+    export function isULID(str: string): boolean;
+
+    export type UUIDVersion =
+        | "1"
+        | "2"
+        | "3"
+        | "4"
+        | "5"
+        | "6"
+        | "7"
+        | "8"
+        | "nil"
+        | "max"
+        | "loose"
+        | "all"
+        | 1
+        | 2
+        | 3
+        | 4
+        | 5
+        | 6
+        | 7
+        | 8;
+    /**
+     * Check if the string is a UUID (version 1-8, nil, max, all).
      *
      * @param [version="all"] - UUID version
      */
@@ -1225,10 +1433,81 @@ declare namespace validator {
      */
     export function isVariableWidth(str: string): boolean;
 
+    export type VATCountryCode =
+        | "AT"
+        | "BE"
+        | "BG"
+        | "HR"
+        | "CY"
+        | "CZ"
+        | "DK"
+        | "EE"
+        | "FI"
+        | "FR"
+        | "DE"
+        | "EL"
+        | "HU"
+        | "IE"
+        | "IT"
+        | "LV"
+        | "LT"
+        | "LU"
+        | "MT"
+        | "NL"
+        | "PL"
+        | "PT"
+        | "RO"
+        | "SK"
+        | "SI"
+        | "ES"
+        | "SE"
+        | "AL"
+        | "MK"
+        | "AU"
+        | "BY"
+        | "CA"
+        | "IS"
+        | "IN"
+        | "ID"
+        | "IL"
+        | "KZ"
+        | "NZ"
+        | "NG"
+        | "NO"
+        | "PH"
+        | "RU"
+        | "SM"
+        | "SA"
+        | "RS"
+        | "CH"
+        | "TR"
+        | "UA"
+        | "GB"
+        | "UZ"
+        | "AR"
+        | "BO"
+        | "BR"
+        | "CL"
+        | "CO"
+        | "CR"
+        | "EC"
+        | "SV"
+        | "GT"
+        | "HN"
+        | "MX"
+        | "NI"
+        | "PA"
+        | "PY"
+        | "PE"
+        | "DO"
+        | "UY"
+        | "VE";
+
     /**
-     * Checks that the string is a [valid VAT number
+     * check if the string is a [valid VAT number](https://en.wikipedia.org/wiki/VAT_identification_number)
+     * if validation is available for the given country code
      */
-    export function isVAT(str: string, countryCode: string): boolean;
+    export function isVAT(str: string, countryCode: VATCountryCode): boolean;
 
     /**
      * Checks characters if they appear in the whitelist.
@@ -1242,13 +1521,7 @@ declare namespace validator {
      *
      * @param pattern - `/foo/i`
      */
-    export function matches(str: string, pattern: RegExp): boolean;
-    /**
-     * Check if string matches the pattern.
-     *
-     * @param pattern - `'foo'`
-     * @param [modifiers] - `'i'`
-     */
+    export function matches(str: string, pattern: RegExp | string): boolean;
     export function matches(str: string, pattern: string, modifiers?: string): boolean;
 
     /**
@@ -1350,6 +1623,19 @@ declare namespace validator {
          * @default true
          */
         yahoo_remove_subaddress?: boolean | undefined;
+        /**
+         * Yandex Mail addresses are known to be case-insensitive, so this switch allows lowercasing them even when `all_lowercase` is set to `false`.
+         * Please note that when `all_lowercase` is `true`, Yandex Mail addresses are lowercased regardless of the value of this setting.
+         *
+         * @default true
+         */
+        yandex_lowercase?: boolean | undefined;
+        /**
+         * All Yandex domains are equal, this explicitly sets the domain to 'yandex.ru'
+         *
+         * @default true
+         */
+        yandex_convert_yandexru?: boolean | undefined;
         /**
          * iCloud addresses (including MobileMe) are known to be case-insensitive, so this switch allows lowercasing them even when `all_lowercase` is set to `false`.
          * Please note that when `all_lowercase` is `true`, iCloud addresses are lowercased regardless of the value of this setting.

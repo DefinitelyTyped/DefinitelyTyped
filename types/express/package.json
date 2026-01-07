@@ -8,8 +8,7 @@
     "dependencies": {
         "@types/body-parser": "*",
         "@types/express-serve-static-core": "^5.0.0",
-        "@types/qs": "*",
-        "@types/serve-static": "*"
+        "@types/serve-static": "^2"
     },
     "devDependencies": {
         "@types/express": "workspace:.",
@@ -21,16 +20,16 @@
             "githubUsername": "borisyankov"
         },
         {
-            "name": "China Medical University Hospital",
-            "githubUsername": "CMUH"
-        },
-        {
             "name": "Puneet Arora",
             "githubUsername": "puneetar"
         },
         {
             "name": "Dylan Frankland",
             "githubUsername": "dfrankland"
+        },
+        {
+            "name": "Sebastian Beltran",
+            "githubUsername": "bjohansebas"
         }
     ]
 }

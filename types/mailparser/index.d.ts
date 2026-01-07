@@ -309,6 +309,7 @@ export interface MailParserOptions extends StreamModule.TransformOptions {
     skipTextToHtml?: boolean | undefined;
     skipTextLinks?: boolean | undefined;
     Iconv?: DecoderStream | undefined;
+    checksumAlgo?: string | undefined;
     keepCidLinks?: boolean | undefined;
 }
 

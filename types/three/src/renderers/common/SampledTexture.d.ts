@@ -1,21 +1,16 @@
 import { Texture } from "../../textures/Texture.js";
-import Binding from "./Binding.js";
+import Sampler from "./Sampler.js";
 
-declare class SampledTexture extends Binding {
+declare class SampledTexture extends Sampler {
     id: number;
 
-    texture: Texture | null;
-    version: number;
     store: boolean;
-    generation: number | null;
+
+    mipLevel: number;
 
     readonly isSampledTexture: true;
 
     constructor(name: string, texture: Texture | null);
-
-    needsBindingsUpdate(generation: number): boolean;
-
-    update(): boolean;
 }
 
 declare class SampledArrayTexture extends SampledTexture {

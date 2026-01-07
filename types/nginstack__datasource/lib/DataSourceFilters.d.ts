@@ -7,12 +7,11 @@ declare class DataSourceFilters {
     private indexByName_;
     private newDynFilter_;
     private unshare_;
-    getLength(): number;
+    length: number;
     importFields(
         classKey: number,
         prefix: string,
         opt_options?:
-            | Record<any, any>
             | {
                 includeFieldNames: string;
                 excludeFieldNames: string;
@@ -20,7 +19,8 @@ declare class DataSourceFilters {
                 onlyVisible: boolean;
                 onlyIncludedFieldNames: boolean;
                 classDef: ModelDef;
-            },
+            }
+            | Record<any, any>,
     ): void;
     importVisibleFields(
         classKey: number,
@@ -47,7 +47,7 @@ declare class DataSourceFilters {
 declare namespace DataSourceFilters {
     export { DataSource, IQuery, ModelDef };
 }
-type DataSource = import("./DataSource");
 import DataSourceFilter = require("./DataSourceFilter.js");
 type ModelDef = import("@nginstack/engine/lib/classdef/ModelDef");
 type IQuery = import("@nginstack/iquery/lib/IQuery");
+type DataSource = import("./DataSource");

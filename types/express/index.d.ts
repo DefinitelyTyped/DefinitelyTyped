@@ -8,10 +8,9 @@
 /// <reference types="express-serve-static-core" />
 /// <reference types="serve-static" />
 
-import * as bodyParser from "body-parser";
+import bodyParser = require("body-parser");
 import * as core from "express-serve-static-core";
-import * as qs from "qs";
-import * as serveStatic from "serve-static";
+import serveStatic = require("serve-static");
 
 /**
  * Creates an Express application. The express() function is a top-level function exported by the express module.
@@ -54,11 +53,6 @@ declare namespace e {
      * @since 4.16.0
      */
     var urlencoded: typeof bodyParser.urlencoded;
-
-    /**
-     * This is a built-in middleware function in Express. It parses incoming request query parameters.
-     */
-    export function query(options: qs.IParseOptions | typeof qs.parse): Handler;
 
     export function Router(options?: RouterOptions): core.Router;
 

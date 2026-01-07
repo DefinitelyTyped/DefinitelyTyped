@@ -61,7 +61,7 @@ export interface RequestHandler<
         req: Request<P, ResBody, ReqBody, ReqQuery, LocalsObj>,
         res: Response<ResBody, LocalsObj>,
         next: NextFunction,
-    ): void | Promise<void>;
+    ): unknown;
 }
 
 export type ErrorRequestHandler<
@@ -75,7 +75,7 @@ export type ErrorRequestHandler<
     req: Request<P, ResBody, ReqBody, ReqQuery, LocalsObj>,
     res: Response<ResBody, LocalsObj>,
     next: NextFunction,
-) => void | Promise<void>;
+) => unknown;
 
 export type PathParams = string | RegExp | Array<string | RegExp>;
 
@@ -1230,7 +1230,7 @@ export interface Application<
      *  - Not inherit the value of settings that have a default value. You must set the value in the sub-app.
      *  - Inherit the value of settings with no default value.
      */
-    on: (event: string, callback: (parent: Application) => void) => this;
+    on: (event: "mount", callback: (parent: Application) => void) => this;
 
     /**
      * The app.mountpath property contains one or more path patterns on which a sub-app was mounted.

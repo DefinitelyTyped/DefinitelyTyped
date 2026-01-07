@@ -7,7 +7,7 @@
     ],
     "dependencies": {
         "@types/chai": "*",
-        "@types/cheerio": "*",
+        "@types/cheerio": "<1",
         "@types/enzyme": "*",
         "@types/react": "^16"
     },

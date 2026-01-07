@@ -1,4 +1,3 @@
-import { ShaderNodeObject } from "three/tsl";
 import { Camera, Color, PassNode, RenderTarget, Scene, UniformNode } from "three/webgpu";
 
 declare class SSAAPassNode extends PassNode {
@@ -18,4 +17,4 @@ declare class SSAAPassNode extends PassNode {
 
 export default SSAAPassNode;
 
-export const ssaaPass: (scene: Scene, camera: Camera) => ShaderNodeObject<SSAAPassNode>;
+export const ssaaPass: (scene: Scene, camera: Camera) => SSAAPassNode;

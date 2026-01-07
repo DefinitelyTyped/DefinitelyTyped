@@ -12,12 +12,16 @@ import {
     run,
     skip,
     suite,
-    type SuiteContext,
+    SuiteContext,
     test,
-    type TestContext,
+    TestContext,
     todo,
 } from "node:test";
 import { dot, junit, lcov, spec, tap, TestEvent } from "node:test/reporters";
+
+// top-level export
+test satisfies typeof import("node:test");
+({} as typeof import("node:test")) satisfies typeof test;
 
 // run without options
 // $ExpectType TestsStream
@@ -159,25 +163,6 @@ test(t => {
 
 // @ts-expect-error
 test(1, () => {});
-
-test.after(() => {});
-test.afterEach(() => {});
-test.before(() => {});
-test.beforeEach(() => {});
-test.describe("describe", () => {});
-test.it("it", () => {});
-// $ExpectType MockTracker
-test.mock;
-// $ExpectType typeof test
-test.test;
-test.test.test("chained self ref", (t) => {
-    // $ExpectType typeof test
-    t.test;
-});
-test.skip("skip", () => {});
-test.suite("suite", () => {});
-test.todo("todo", () => {});
-test.only("only", () => {});
 
 describe("foo", () => {
     it("it", () => {});
@@ -786,6 +771,25 @@ test("mocks a setter", (t) => {
         // $ExpectType unknown
         call.this;
     }
+});
+
+test("mocks a module", (t) => {
+    // $ExpectType MockModuleContext
+    const mock = t.mock.module("node:readline", {
+        namedExports: {
+            fn() {
+                return 42;
+            },
+        },
+        defaultExport: {
+            foo() {
+                return "bar";
+            },
+        },
+        cache: true,
+    });
+    // $ExpectType void
+    mock.restore();
 });
 
 // @ts-expect-error

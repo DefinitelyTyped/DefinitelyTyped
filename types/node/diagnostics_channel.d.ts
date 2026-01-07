@@ -20,9 +20,9 @@
  * should generally include the module name to avoid collisions with data from
  * other modules.
  * @since v15.1.0, v14.17.0
- * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/diagnostics_channel.js)
+ * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/diagnostics_channel.js)
  */
-declare module "diagnostics_channel" {
+declare module "node:diagnostics_channel" {
     import { AsyncLocalStorage } from "node:async_hooks";
     /**
      * Check if there are active subscribers to the named channel. This is helpful if
@@ -189,7 +189,6 @@ declare module "diagnostics_channel" {
          * });
          * ```
          * @since v15.1.0, v14.17.0
-         * @deprecated Since v18.7.0,v16.17.0 - Use {@link subscribe(name, onMessage)}
          * @param onMessage The handler to receive channel messages
          */
         subscribe(onMessage: ChannelListener): void;
@@ -210,7 +209,6 @@ declare module "diagnostics_channel" {
          * channel.unsubscribe(onMessage);
          * ```
          * @since v15.1.0, v14.17.0
-         * @deprecated Since v18.7.0,v16.17.0 - Use {@link unsubscribe(name, onMessage)}
          * @param onMessage The previous subscribed handler to remove
          * @return `true` if the handler was found, `false` otherwise.
          */
@@ -259,7 +257,7 @@ declare module "diagnostics_channel" {
          * @param store The store to unbind from the channel.
          * @return `true` if the store was found, `false` otherwise.
          */
-        unbindStore(store: any): void;
+        unbindStore(store: AsyncLocalStorage<StoreType>): boolean;
         /**
          * Applies the given data to any AsyncLocalStorage instances bound to the channel
          * for the duration of the given function, then publishes to the channel within
@@ -297,7 +295,12 @@ declare module "diagnostics_channel" {
          * @param thisArg The receiver to be used for the function call.
          * @param args Optional arguments to pass to the function.
          */
-        runStores(): void;
+        runStores<ThisArg = any, Args extends any[] = any[], Result = any>(
+            context: ContextType,
+            fn: (this: ThisArg, ...args: Args) => Result,
+            thisArg?: ThisArg,
+            ...args: Args
+        ): Result;
     }
     interface TracingChannelSubscribers<ContextType extends object> {
         start: (message: ContextType) => void;
@@ -441,12 +444,12 @@ declare module "diagnostics_channel" {
          * @param args Optional arguments to pass to the function
          * @return The return value of the given function
          */
-        traceSync<ThisArg = any, Args extends any[] = any[]>(
-            fn: (this: ThisArg, ...args: Args) => any,
+        traceSync<ThisArg = any, Args extends any[] = any[], Result = any>(
+            fn: (this: ThisArg, ...args: Args) => Result,
             context?: ContextType,
             thisArg?: ThisArg,
             ...args: Args
-        ): void;
+        ): Result;
         /**
          * Trace a promise-returning function call. This will always produce a `start event` and `end event` around the synchronous portion of the
          * function execution, and will produce an `asyncStart event` and `asyncEnd event` when a promise continuation is reached. It may also
@@ -476,12 +479,12 @@ declare module "diagnostics_channel" {
          * @param args Optional arguments to pass to the function
          * @return Chained from promise returned by the given function
          */
-        tracePromise<ThisArg = any, Args extends any[] = any[]>(
-            fn: (this: ThisArg, ...args: Args) => Promise<any>,
+        tracePromise<ThisArg = any, Args extends any[] = any[], Result = any>(
+            fn: (this: ThisArg, ...args: Args) => Promise<Result>,
             context?: ContextType,
             thisArg?: ThisArg,
             ...args: Args
-        ): void;
+        ): Promise<Result>;
         /**
          * Trace a callback-receiving function call. This will always produce a `start event` and `end event` around the synchronous portion of the
          * function execution, and will produce a `asyncStart event` and `asyncEnd event` around the callback execution. It may also produce an `error event` if the given function throws an error or
@@ -540,15 +543,34 @@ declare module "diagnostics_channel" {
          * @param args Optional arguments to pass to the function
          * @return The return value of the given function
          */
-        traceCallback<Fn extends (this: any, ...args: any[]) => any>(
-            fn: Fn,
+        traceCallback<ThisArg = any, Args extends any[] = any[], Result = any>(
+            fn: (this: ThisArg, ...args: Args) => Result,
             position?: number,
             context?: ContextType,
-            thisArg?: any,
-            ...args: Parameters<Fn>
-        ): void;
+            thisArg?: ThisArg,
+            ...args: Args
+        ): Result;
+        /**
+         * `true` if any of the individual channels has a subscriber, `false` if not.
+         *
+         * This is a helper method available on a {@link TracingChannel} instance to check
+         * if any of the [TracingChannel Channels](https://nodejs.org/api/diagnostics_channel.html#tracingchannel-channels) have subscribers.
+         * A `true` is returned if any of them have at least one subscriber, a `false` is returned otherwise.
+         *
+         * ```js
+         * const diagnostics_channel = require('node:diagnostics_channel');
+         *
+         * const channels = diagnostics_channel.tracingChannel('my-channel');
+         *
+         * if (channels.hasSubscribers) {
+         *   // Do something
+         * }
+         * ```
+         * @since v22.0.0, v20.13.0
+         */
+        readonly hasSubscribers: boolean;
     }
 }
-declare module "node:diagnostics_channel" {
-    export * from "diagnostics_channel";
+declare module "diagnostics_channel" {
+    export * from "node:diagnostics_channel";
 }

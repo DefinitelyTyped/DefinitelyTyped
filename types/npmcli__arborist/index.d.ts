@@ -354,6 +354,7 @@ declare namespace Arborist {
 
         explain(seen?: Node[]): Explanation;
         get bundled(): boolean;
+        get workspace(): boolean;
         get prod(): boolean;
         get dev(): boolean;
         get optional(): boolean;

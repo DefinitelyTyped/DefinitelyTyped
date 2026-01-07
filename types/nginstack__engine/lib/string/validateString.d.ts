@@ -12,5 +12,5 @@ declare function validateString(
 declare namespace validateString {
     export { registerType, DateFormat };
 }
-type DateFormat = import('../date/DateFormat').DateFormatType;
 declare function registerType(type: string | string[], handler: any): void;
+type DateFormat = import('../date/DateFormat').DateFormatType;

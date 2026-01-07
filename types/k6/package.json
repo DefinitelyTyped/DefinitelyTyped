@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/k6",
-    "version": "0.57.9999",
+    "version": "1.5.9999",
     "type": "module",
     "projects": [
         "https://grafana.com/docs/k6/latest/"
@@ -21,12 +21,12 @@
         "./execution": "./execution/index.d.ts",
         "./encoding": "./encoding/index.d.ts",
         "./data": "./data/index.d.ts",
+        "./secrets": "./secrets/index.d.ts",
         "./crypto": "./crypto/index.d.ts",
         "./browser": "./browser/index.d.ts",
         "./experimental/csv": "./experimental/csv/index.d.ts",
         "./experimental/fs": "./experimental/fs/index.d.ts",
         "./experimental/redis": "./experimental/redis/index.d.ts",
-        "./experimental/webcrypto": "./experimental/webcrypto/index.d.ts",
         "./experimental/streams": "./experimental/streams/index.d.ts",
         "./experimental/websockets": "./experimental/websockets/index.d.ts"
     },
@@ -44,10 +44,6 @@
             "githubUsername": "oleiade"
         },
         {
-            "name": "Oleg Bespalov",
-            "githubUsername": "olegbespalov"
-        },
-        {
             "name": "Ankur Agarwal",
             "githubUsername": "ankur22"
         },
@@ -58,6 +54,10 @@
         {
             "name": "Joan López de la Franca Beltran",
             "githubUsername": "joanlopez"
+        },
+        {
+            "name": "Agnès Toulet",
+            "githubUsername": "AgnesToulet"
         }
     ]
 }

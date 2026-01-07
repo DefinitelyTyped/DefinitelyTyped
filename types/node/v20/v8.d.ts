@@ -7,6 +7,7 @@
  * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/v8.js)
  */
 declare module "v8" {
+    import { NonSharedBuffer } from "node:buffer";
     import { Readable } from "node:stream";
     interface HeapSpaceInfo {
         space_name: string;
@@ -43,12 +44,12 @@ declare module "v8" {
          * If true, expose internals in the heap snapshot.
          * @default false
          */
-        exposeInternals?: boolean;
+        exposeInternals?: boolean | undefined;
         /**
          * If true, expose numeric values in artificial fields.
          * @default false
          */
-        exposeNumericValues?: boolean;
+        exposeNumericValues?: boolean | undefined;
     }
     /**
      * Returns an integer representing a version tag derived from the V8 version,
@@ -339,7 +340,7 @@ declare module "v8" {
          * the buffer is released. Calling this method results in undefined behavior
          * if a previous write has failed.
          */
-        releaseBuffer(): Buffer;
+        releaseBuffer(): NonSharedBuffer;
         /**
          * Marks an `ArrayBuffer` as having its contents transferred out of band.
          * Pass the corresponding `ArrayBuffer` in the deserializing context to `deserializer.transferArrayBuffer()`.
@@ -367,7 +368,7 @@ declare module "v8" {
          * will require a way to compute the length of the buffer.
          * For use inside of a custom `serializer._writeHostObject()`.
          */
-        writeRawBytes(buffer: NodeJS.TypedArray): void;
+        writeRawBytes(buffer: NodeJS.ArrayBufferView): void;
     }
     /**
      * A subclass of `Serializer` that serializes `TypedArray`(in particular `Buffer`) and `DataView` objects as host objects, and only
@@ -438,7 +439,7 @@ declare module "v8" {
      * larger than `buffer.constants.MAX_LENGTH`.
      * @since v8.0.0
      */
-    function serialize(value: any): Buffer;
+    function serialize(value: any): NonSharedBuffer;
     /**
      * Uses a `DefaultDeserializer` with default options to read a JS value
      * from a buffer.

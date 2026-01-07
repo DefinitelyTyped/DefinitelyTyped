@@ -24,14 +24,19 @@ type Lang = "en-US" | "ko-KR";
 const enUs: Lang = "en-US";
 const koKr: Lang = "ko-KR";
 
+const readonlyLocales: readonly string[] = ["bg", "en"];
+const readonlyLangs: readonly Lang[] = [enUs, koKr];
+
 const parsed1: AcceptLanguageParser.Language[] = AcceptLanguageParser.parse("");
 const parsed: AcceptLanguageParser.Language[] = AcceptLanguageParser.parse();
 const pick1: string | null = AcceptLanguageParser.pick([""], "");
 const pick2: string | null = AcceptLanguageParser.pick([""], [l1, l2, l3]);
 const pick3: string | null = AcceptLanguageParser.pick([""], "", {});
 const pick4: string | null = AcceptLanguageParser.pick([""], "", { loose: true });
-const pick5: Lang | null = AcceptLanguageParser.pick<Lang>([enUs, koKr], [l1, l2, l3]);
-const pick6: Lang | null = AcceptLanguageParser.pick([enUs, koKr], [l1, l2, l3]);
+const pick5: string | null = AcceptLanguageParser.pick(readonlyLocales, [l1, l2, l3]);
+const pick6: Lang | null = AcceptLanguageParser.pick<Lang>([enUs, koKr], [l1, l2, l3]);
+const pick7: Lang | null = AcceptLanguageParser.pick([enUs, koKr], [l1, l2, l3]);
+const pick8: Lang | null = AcceptLanguageParser.pick(readonlyLangs, [l1, l2, l3]);
 
 const pickOptions: AcceptLanguageParser.PickOptions = {
     loose: true,

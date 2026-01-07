@@ -165,7 +165,7 @@ export class HtmlRenderer {
     /**
      * Override the function that will be used to escape (sanitize) the html output. Return value is used to add to the html output
      * @param input the input to escape
-     * @param isAttributeValue indicates wheter or not the input value will be used as value of an html attribute.
+     * @param isAttributeValue indicates whether or not the input value will be used as value of an html attribute.
      */
     escape: (input: string, isAttributeValue: boolean) => string;
 }

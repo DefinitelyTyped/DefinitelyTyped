@@ -833,10 +833,10 @@ fs.opendir(path, { encoding: "utf-8" }, (err, dir) => {
 
 fs.readdir(path); // $ExpectType Promise<string[]>
 fs.readdir(path, "utf-8"); // $ExpectType Promise<string[]>
-fs.readdir(path, "buffer"); // $ExpectType Promise<Buffer[]> || Promise<Buffer<ArrayBufferLike>[]>
-fs.readdir(path, { encoding: "buffer" }); // $ExpectType Promise<Buffer[]> || Promise<Buffer<ArrayBufferLike>[]>
+fs.readdir(path, "buffer"); // $ExpectType Promise<Buffer[]> || Promise<NonSharedBuffer[]>
+fs.readdir(path, { encoding: "buffer" }); // $ExpectType Promise<Buffer[]> || Promise<NonSharedBuffer[]>
 fs.readdir(path, { encoding: "utf-8" }); // $ExpectType Promise<string[]>
-fs.readdir(path, { withFileTypes: true }); // $ExpectType Promise<Dirent[]>
+fs.readdir(path, { withFileTypes: true }); // $ExpectType Promise<Dirent<string>[]>
 // $ExpectType void
 fs.readdir(path, (err, files) => {
     err; // $ExpectType ErrnoException | null
@@ -850,12 +850,12 @@ fs.readdir(path, "utf-8", (err, files) => {
 // $ExpectType void
 fs.readdir(path, "buffer", (err, files) => {
     err; // $ExpectType ErrnoException | null
-    files; // $ExpectType Buffer[] || Buffer<ArrayBufferLike>[]
+    files; // $ExpectType Buffer[] || NonSharedBuffer[]
 });
 // $ExpectType void
 fs.readdir(path, { encoding: "buffer" }, (err, files) => {
     err; // $ExpectType ErrnoException | null
-    files; // $ExpectType Buffer[] || Buffer<ArrayBufferLike>[]
+    files; // $ExpectType Buffer[] || NonSharedBuffer[]
 });
 // $ExpectType void
 fs.readdir(path, { encoding: "utf-8" }, (err, files) => {
@@ -865,17 +865,17 @@ fs.readdir(path, { encoding: "utf-8" }, (err, files) => {
 // $ExpectType void
 fs.readdir(path, { withFileTypes: true }, (err, files) => {
     err; // $ExpectType ErrnoException | null
-    files; // $ExpectType Dirent[]
+    files; // $ExpectType Dirent<string>[]
 });
 
-fs.readFile(path); // $ExpectType Promise<Buffer> || Promise<Buffer<ArrayBufferLike>>
+fs.readFile(path); // $ExpectType Promise<Buffer> || Promise<NonSharedBuffer>
 fs.readFile(path, "utf-8"); // $ExpectType Promise<string>
 fs.readFile(path, { encoding: "utf-8" }); // $ExpectType Promise<string>
-fs.readFile(path, { flag: "r" }); // $ExpectType Promise<Buffer> || Promise<Buffer<ArrayBufferLike>>
+fs.readFile(path, { flag: "r" }); // $ExpectType Promise<Buffer> || Promise<NonSharedBuffer>
 // $ExpectType void
 fs.readFile(path, (err, data) => {
     err; // $ExpectType ErrnoException | null
-    data; // $ExpectType Buffer || Buffer<ArrayBufferLike>
+    data; // $ExpectType Buffer || NonSharedBuffer
 });
 // $ExpectType void
 fs.readFile(path, "utf-8", (err, data) => {
@@ -890,19 +890,19 @@ fs.readFile(path, { encoding: "utf-8" }, (err, data) => {
 // $ExpectType void
 fs.readFile(path, { flag: "r" }, (err, data) => {
     err; // $ExpectType ErrnoException | null
-    data; // $ExpectType Buffer || Buffer<ArrayBufferLike>
+    data; // $ExpectType Buffer || NonSharedBuffer
 });
 // $ExpectType void
 fs.readFile(path, { signal: new AbortController().signal }, (err, data) => {
     err; // $ExpectType ErrnoException | null
-    data; // $ExpectType Buffer || Buffer<ArrayBufferLike>
+    data; // $ExpectType Buffer || NonSharedBuffer
 });
 
 fs.readlink(path); // $ExpectType Promise<string>
 fs.readlink(path, "utf-8"); // $ExpectType Promise<string>
-fs.readlink(path, "buffer"); // $ExpectType Promise<Buffer> || Promise<Buffer<ArrayBufferLike>>
+fs.readlink(path, "buffer"); // $ExpectType Promise<Buffer> || Promise<NonSharedBuffer>
 fs.readlink(path, { encoding: "utf-8" }); // $ExpectType Promise<string>
-fs.readlink(path, { encoding: "buffer" }); // $ExpectType Promise<Buffer> || Promise<Buffer<ArrayBufferLike>>
+fs.readlink(path, { encoding: "buffer" }); // $ExpectType Promise<Buffer> || Promise<NonSharedBuffer>
 // $ExpectType void
 fs.readlink(path, err => {
     err; // $ExpectType ErrnoException | null
@@ -915,7 +915,7 @@ fs.readlink(path, "utf-8", (err, data) => {
 // $ExpectType void
 fs.readlink(path, "buffer", (err, data) => {
     err; // $ExpectType ErrnoException | null
-    data; // $ExpectType Buffer || Buffer<ArrayBufferLike>
+    data; // $ExpectType Buffer || NonSharedBuffer
 });
 // $ExpectType void
 fs.readlink(path, { encoding: "utf-8" }, (err, data) => {
@@ -925,14 +925,14 @@ fs.readlink(path, { encoding: "utf-8" }, (err, data) => {
 // $ExpectType void
 fs.readlink(path, { encoding: "buffer" }, (err, data) => {
     err; // $ExpectType ErrnoException | null
-    data; // $ExpectType Buffer || Buffer<ArrayBufferLike>
+    data; // $ExpectType Buffer || NonSharedBuffer
 });
 
 fs.realpath(path); // $ExpectType Promise<string>
 fs.realpath(path, "utf-8"); // $ExpectType Promise<string>
-fs.realpath(path, "buffer"); // $ExpectType Promise<Buffer> || Promise<Buffer<ArrayBufferLike>>
+fs.realpath(path, "buffer"); // $ExpectType Promise<Buffer> || Promise<NonSharedBuffer>
 fs.realpath(path, { encoding: "utf-8" }); // $ExpectType Promise<string>
-fs.realpath(path, { encoding: "buffer" }); // $ExpectType Promise<Buffer> || Promise<Buffer<ArrayBufferLike>>
+fs.realpath(path, { encoding: "buffer" }); // $ExpectType Promise<Buffer> || Promise<NonSharedBuffer>
 fs.realpath(path, { encoding: null }); // $ExpectType Promise<string>
 // $ExpectType void
 fs.realpath(path, (err, resolved) => {
@@ -947,7 +947,7 @@ fs.realpath(path, "utf-8", (err, resolved) => {
 // $ExpectType void
 fs.realpath(path, "buffer", (err, resolved) => {
     err; // $ExpectType ErrnoException | null
-    resolved; // $ExpectType Buffer || Buffer<ArrayBufferLike>
+    resolved; // $ExpectType Buffer || NonSharedBuffer
 });
 // $ExpectType void
 fs.realpath(path, { encoding: "utf-8" }, (err, resolved) => {
@@ -957,7 +957,7 @@ fs.realpath(path, { encoding: "utf-8" }, (err, resolved) => {
 // $ExpectType void
 fs.realpath(path, { encoding: "buffer" }, (err, resolved) => {
     err; // $ExpectType ErrnoException | null
-    resolved; // $ExpectType Buffer || Buffer<ArrayBufferLike>
+    resolved; // $ExpectType Buffer || NonSharedBuffer
 });
 // $ExpectType void
 fs.realpath(path, { encoding: null }, (err, resolved) => {
@@ -983,7 +983,7 @@ fs.realpath.native(path, "utf-8", (err, resolved) => {
 // $ExpectType void
 fs.realpath.native(path, "buffer", (err, resolved) => {
     err; // $ExpectType ErrnoException | null
-    resolved; // $ExpectType Buffer || Buffer<ArrayBufferLike>
+    resolved; // $ExpectType Buffer || NonSharedBuffer
 });
 // $ExpectType void
 fs.realpath.native(path, { encoding: "utf-8" }, (err, resolved) => {
@@ -993,7 +993,7 @@ fs.realpath.native(path, { encoding: "utf-8" }, (err, resolved) => {
 // $ExpectType void
 fs.realpath.native(path, { encoding: "buffer" }, (err, resolved) => {
     err; // $ExpectType ErrnoException | null
-    resolved; // $ExpectType Buffer || Buffer<ArrayBufferLike>
+    resolved; // $ExpectType Buffer || NonSharedBuffer
 });
 // $ExpectType void
 fs.realpath.native(path, { encoding: null }, (err, resolved) => {
@@ -1035,18 +1035,8 @@ fs.rm(path, { retryDelay: 200 }, err => {
 });
 
 fs.rmdir(dir); // $ExpectType Promise<void>
-fs.rmdir(dir, { maxRetries: 1 }); // $ExpectType Promise<void>
-fs.rmdir(dir, { retryDelay: 200 }); // $ExpectType Promise<void>
 // $ExpectType void
 fs.rmdir(dir, err => {
-    err; // $ExpectType ErrnoException | null
-});
-// $ExpectType void
-fs.rmdir(dir, { maxRetries: 1 }, err => {
-    err; // $ExpectType ErrnoException | null
-});
-// $ExpectType void
-fs.rmdir(dir, { retryDelay: 200 }, err => {
     err; // $ExpectType ErrnoException | null
 });
 
@@ -1176,42 +1166,42 @@ fs.writeFile(path, Buffer.from("i am foo"), { signal: new AbortController().sign
     err; // $ExpectType ErrnoException | null
 });
 
-fs.read(fd); // $ExpectType Promise<{ bytesRead: number; buffer: ArrayBufferView; }> || Promise<{ bytesRead: number; buffer: ArrayBufferView<ArrayBufferLike>; }>
-fs.read(fd, { offset: 1 }); // $ExpectType Promise<{ bytesRead: number; buffer: ArrayBufferView; }> || Promise<{ bytesRead: number; buffer: ArrayBufferView<ArrayBufferLike>; }>
-fs.read(fd, { length: 10 }); // $ExpectType Promise<{ bytesRead: number; buffer: ArrayBufferView; }> || Promise<{ bytesRead: number; buffer: ArrayBufferView<ArrayBufferLike>; }>
-fs.read(fd, { position: 1 }); // $ExpectType Promise<{ bytesRead: number; buffer: ArrayBufferView; }> || Promise<{ bytesRead: number; buffer: ArrayBufferView<ArrayBufferLike>; }>
-fs.read(fd, { position: BigInt(1) }); // $ExpectType Promise<{ bytesRead: number; buffer: ArrayBufferView; }> || Promise<{ bytesRead: number; buffer: ArrayBufferView<ArrayBufferLike>; }>
+fs.read(fd); // $ExpectType Promise<{ bytesRead: number; buffer: Buffer; }> || Promise<{ bytesRead: number; buffer: NonSharedBuffer; }>
+fs.read(fd, { offset: 1 }); // $ExpectType Promise<{ bytesRead: number; buffer: Buffer; }> || Promise<{ bytesRead: number; buffer: NonSharedBuffer; }>
+fs.read(fd, { length: 10 }); // $ExpectType Promise<{ bytesRead: number; buffer: Buffer; }> || Promise<{ bytesRead: number; buffer: NonSharedBuffer; }>
+fs.read(fd, { position: 1 }); // $ExpectType Promise<{ bytesRead: number; buffer: Buffer; }> || Promise<{ bytesRead: number; buffer: NonSharedBuffer; }>
+fs.read(fd, { position: BigInt(1) }); // $ExpectType Promise<{ bytesRead: number; buffer: Buffer; }> || Promise<{ bytesRead: number; buffer: NonSharedBuffer; }>
 fs.read(fd, { buffer: Buffer.alloc(10) }); // $ExpectType Promise<{ bytesRead: number; buffer: Buffer; }> || Promise<{ bytesRead: number; buffer: Buffer<ArrayBuffer>; }>
 fs.read(0, Buffer.from(""), 0, 0, null); // $ExpectType Promise<{ bytesRead: number; buffer: Buffer; }> || Promise<{ bytesRead: number; buffer: Buffer<ArrayBuffer>; }>
 // $ExpectType void
 fs.read(fd, (err, bytesRead, buffer) => {
     err; // $ExpectType ErrnoException | null
     bytesRead; // $ExpectType number
-    buffer; // $ExpectType ArrayBufferView || ArrayBufferView<ArrayBufferLike>
+    buffer; // $ExpectType Buffer || NonSharedBuffer
 });
 // $ExpectType void
 fs.read(fd, { offset: 1 }, (err, bytesRead, buffer) => {
     err; // $ExpectType ErrnoException | null
     bytesRead; // $ExpectType number
-    buffer; // $ExpectType ArrayBufferView || ArrayBufferView<ArrayBufferLike>
+    buffer; // $ExpectType Buffer || NonSharedBuffer
 });
 // $ExpectType void
 fs.read(fd, { length: 10 }, (err, bytesRead, buffer) => {
     err; // $ExpectType ErrnoException | null
     bytesRead; // $ExpectType number
-    buffer; // $ExpectType ArrayBufferView || ArrayBufferView<ArrayBufferLike>
+    buffer; // $ExpectType Buffer || NonSharedBuffer
 });
 // $ExpectType void
 fs.read(fd, { position: 1 }, (err, bytesRead, buffer) => {
     err; // $ExpectType ErrnoException | null
     bytesRead; // $ExpectType number
-    buffer; // $ExpectType ArrayBufferView || ArrayBufferView<ArrayBufferLike>
+    buffer; // $ExpectType Buffer || NonSharedBuffer
 });
 // $ExpectType void
 fs.read(fd, { position: BigInt(1) }, (err, bytesRead, buffer) => {
     err; // $ExpectType ErrnoException | null
     bytesRead; // $ExpectType number
-    buffer; // $ExpectType ArrayBufferView || ArrayBufferView<ArrayBufferLike>
+    buffer; // $ExpectType Buffer || NonSharedBuffer
 });
 // $ExpectType void
 fs.read(fd, { buffer: Buffer.alloc(10) }, (err, bytesRead, buffer) => {
@@ -1226,19 +1216,19 @@ fs.read(fd, Buffer.from(""), 0, 0, null, (err, bytesRead, buffer) => {
     buffer; // $ExpectType Buffer || Buffer<ArrayBuffer>
 });
 
-fs.readv(fd, [Buffer.alloc(10)] as const); // $ExpectType Promise<ReadVResult>
-fs.readv(fd, [Buffer.alloc(10)] as const, 1); // $ExpectType Promise<ReadVResult>
+fs.readv(fd, [Buffer.alloc(10)] as const); // $ExpectType Promise<ReadVResult<readonly [Buffer]>> || Promise<ReadVResult<readonly [Buffer<ArrayBuffer>]>>
+fs.readv(fd, [Buffer.alloc(10)] as const, 1); // $ExpectType Promise<ReadVResult<readonly [Buffer]>> || Promise<ReadVResult<readonly [Buffer<ArrayBuffer>]>>
 // $ExpectType void
 fs.readv(fd, [Buffer.alloc(10)] as const, (err, bytesRead, buffers) => {
     err; // $ExpectType ErrnoException | null
     bytesRead; // $ExpectType number
-    buffers; // $ExpectType ArrayBufferView[] || ArrayBufferView<ArrayBufferLike>[]
+    buffers; // $ExpectType readonly [Buffer] || readonly [Buffer<ArrayBuffer>]
 });
 // $ExpectType void
 fs.readv(fd, [Buffer.alloc(10)] as const, 1, (err, bytesRead, buffers) => {
     err; // $ExpectType ErrnoException | null
     bytesRead; // $ExpectType number
-    buffers; // $ExpectType ArrayBufferView[] || ArrayBufferView<ArrayBufferLike>[]
+    buffers; // $ExpectType readonly [Buffer] || readonly [Buffer<ArrayBuffer>]
 });
 
 fs.write(fd, "foo"); // $ExpectType Promise<{ bytesWritten: number; buffer: string; }>
@@ -1291,17 +1281,17 @@ fs.write(fd, Buffer.from("foo"), 0, 0, 1, (err, written, buffer) => {
     buffer; // $ExpectType Buffer || Buffer<ArrayBuffer>
 });
 
-fs.writev(fd, [Buffer.alloc(10)] as const); // $ExpectType Promise<WriteVResult>
-fs.writev(fd, [Buffer.alloc(10)] as const, 1); // $ExpectType Promise<WriteVResult>
+fs.writev(fd, [Buffer.alloc(10)] as const); // $ExpectType Promise<WriteVResult<readonly [Buffer]>> || Promise<WriteVResult<readonly [Buffer<ArrayBuffer>]>>
+fs.writev(fd, [Buffer.alloc(10)] as const, 1); // $ExpectType Promise<WriteVResult<readonly [Buffer]>> || Promise<WriteVResult<readonly [Buffer<ArrayBuffer>]>>
 // $ExpectType void
 fs.writev(fd, [Buffer.alloc(10)] as const, (err, bytesWritten, buffers) => {
     err; // $ExpectType ErrnoException | null
     bytesWritten; // $ExpectType number
-    buffers; // $ExpectType ArrayBufferView[] || ArrayBufferView<ArrayBufferLike>[]
+    buffers; // $ExpectType readonly [Buffer] || readonly [Buffer<ArrayBuffer>]
 });
 // $ExpectType void
 fs.writev(fd, [Buffer.alloc(10)] as const, 1, (err, bytesWritten, buffers) => {
     err; // $ExpectType ErrnoException | null
     bytesWritten; // $ExpectType number
-    buffers; // $ExpectType ArrayBufferView[] || ArrayBufferView<ArrayBufferLike>[]
+    buffers; // $ExpectType readonly [Buffer] || readonly [Buffer<ArrayBuffer>]
 });

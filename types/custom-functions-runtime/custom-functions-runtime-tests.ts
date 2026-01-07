@@ -14,6 +14,10 @@ function callerAddress(invocation: CustomFunctions.Invocation) {
     return invocation.address;
 }
 
+function isInValuePreview(invocation: CustomFunctions.Invocation) {
+  return invocation.isInValuePreview;
+}
+
 async function getStockValues(ticker: string): Promise<number> {
     const response = await fetch(`myService.com/prices/${ticker}`);
     return (await response.json())["price"];

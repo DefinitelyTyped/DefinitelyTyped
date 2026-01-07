@@ -6,7 +6,7 @@
         "https://github.com/styled-system/styled-system"
     ],
     "dependencies": {
-        "csstype": "^3.0.2"
+        "csstype": "^3.2.2"
     },
     "devDependencies": {
         "@types/styled-system__css": "workspace:."

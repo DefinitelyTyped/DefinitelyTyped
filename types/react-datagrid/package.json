@@ -11,10 +11,5 @@
     "devDependencies": {
         "@types/react-datagrid": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Stephen Jelfs",
-            "githubUsername": "stephenjelfs"
-        }
-    ]
+    "owners": []
 }

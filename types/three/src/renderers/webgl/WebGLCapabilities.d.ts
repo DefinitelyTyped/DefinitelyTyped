@@ -14,7 +14,7 @@ export interface WebGLCapabilitiesParameters {
     /**
      * default is false.
      */
-    reverseDepthBuffer?: boolean | undefined;
+    reversedDepthBuffer?: boolean | undefined;
 }
 
 export class WebGLCapabilities {
@@ -30,7 +30,7 @@ export class WebGLCapabilities {
 
     precision: string;
     logarithmicDepthBuffer: boolean;
-    reverseDepthBuffer: boolean;
+    reversedDepthBuffer: boolean;
 
     maxTextures: number;
     maxVertexTextures: number;
@@ -42,7 +42,7 @@ export class WebGLCapabilities {
     maxVaryings: number;
     maxFragmentUniforms: number;
 
-    vertexTextures: boolean;
-
     maxSamples: number;
+
+    samples: number;
 }

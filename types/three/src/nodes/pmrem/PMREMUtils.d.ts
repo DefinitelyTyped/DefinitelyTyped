@@ -1,28 +1,27 @@
 import Node from "../core/Node.js";
-import { NodeRepresentation, ShaderNodeObject } from "../tsl/TSLCore.js";
 
-export const getDirection: (uv_immutable: NodeRepresentation, face: NodeRepresentation) => ShaderNodeObject<Node>;
+export const getDirection: (uv_immutable: Node, face: Node) => Node;
 
 export const textureCubeUV: (
-    envMap: NodeRepresentation,
-    sampleDir_immutable: NodeRepresentation,
-    roughness_immutable: NodeRepresentation,
-    CUBEUV_TEXEL_WIDTH: NodeRepresentation,
-    CUBEUV_TEXEL_HEIGHT: NodeRepresentation,
-    CUBEUV_MAX_MIP: NodeRepresentation,
-) => ShaderNodeObject<Node>;
+    envMap: Node,
+    sampleDir_immutable: Node,
+    roughness_immutable: Node,
+    CUBEUV_TEXEL_WIDTH: Node,
+    CUBEUV_TEXEL_HEIGHT: Node,
+    CUBEUV_MAX_MIP: Node,
+) => Node;
 
 export const blur: (
-    n: NodeRepresentation,
-    latitudinal: NodeRepresentation,
-    poleAxis: NodeRepresentation,
-    outputDirection: NodeRepresentation,
-    weights: NodeRepresentation,
-    samples: NodeRepresentation,
-    dTheta: NodeRepresentation,
-    mipInt: NodeRepresentation,
-    envMap: NodeRepresentation,
-    CUBEUV_TEXEL_WIDTH: NodeRepresentation,
-    CUBEUV_TEXEL_HEIGHT: NodeRepresentation,
-    CUBEUV_MAX_MIP: NodeRepresentation,
-) => ShaderNodeObject<Node>;
+    n: Node,
+    latitudinal: Node,
+    poleAxis: Node,
+    outputDirection: Node,
+    weights: Node,
+    samples: Node,
+    dTheta: Node,
+    mipInt: Node,
+    envMap: Node,
+    CUBEUV_TEXEL_WIDTH: Node,
+    CUBEUV_TEXEL_HEIGHT: Node,
+    CUBEUV_MAX_MIP: Node,
+) => Node;

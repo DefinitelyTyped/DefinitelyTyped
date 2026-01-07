@@ -6,6 +6,8 @@ declare namespace convert {
         | "mm3"
         | "cm3"
         | "ml"
+        | "cl"
+        | "dl"
         | "l"
         | "kl"
         | "m3"

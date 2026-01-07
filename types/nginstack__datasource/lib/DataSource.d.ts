@@ -33,8 +33,8 @@ declare class DataSource {
     private processAggregate_;
     private convertFilters_;
     private convertColumns_;
-    getKey(): number;
-    getUrl(): string;
+    key: number;
+    url: string;
     purgeUnsolicitedColumns(ds: DataSet, columns: DataSourceColumns): DataSet;
     getResult(
         filters: DataSourceFilterDef[] | any[],
@@ -44,7 +44,6 @@ declare class DataSource {
 declare namespace DataSource {
     export { ColumnOps, DataSourceColumnDef, DataSourceDef, DataSourceFilterDef, list, loadDefinitionFile };
 }
-type DataSourceDef = import("./DataSourceDef");
 import DataSourceFilters = require("./DataSourceFilters.js");
 import DataSourceColumns = require("./DataSourceColumns.js");
 import DataSet = require("@nginstack/engine/lib/dataset/DataSet.js");
@@ -56,5 +55,6 @@ declare namespace ColumnOps {
 type ColumnOps = string;
 declare function loadDefinitionFile(fileId: number | string): any;
 declare function list(): DataSet;
+type DataSourceDef = import("./DataSourceDef");
 type DataSourceColumnDef = import("./DataSourceColumnDef");
 type DataSourceFilterDef = import("./DataSourceFilterDef");

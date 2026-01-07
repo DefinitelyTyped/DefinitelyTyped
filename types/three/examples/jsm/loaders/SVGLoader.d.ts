@@ -34,7 +34,7 @@ export class SVGLoader extends Loader<SVGResult> {
     ): StrokeStyle;
 
     /**
-     * Generates a stroke with some witdh around the given path.
+     * Generates a stroke with some width around the given path.
      * @remarks The path can be open or closed (last point equals to first point)
      * @param points  Array of Vector2D (the path). Minimum 2 points.
      * @param style  Object with SVG properties as returned by SVGLoader.getStrokeStyle(), or SVGLoader.parse() in the path.userData.style object

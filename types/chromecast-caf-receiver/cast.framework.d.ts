@@ -11,7 +11,7 @@ export import system = system;
 export import messages = messages;
 
 export as namespace framework;
-export enum LoggerLevel {
+export const enum LoggerLevel {
     DEBUG = 0,
     VERBOSE = 500,
     INFO = 800,
@@ -24,7 +24,7 @@ export enum LoggerLevel {
  * Content protection type.
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework#.ContentProtection
  */
-export enum ContentProtection {
+export const enum ContentProtection {
     NONE = "none",
     CLEARKEY = "clearkey",
     PLAYREADY = "playready",
@@ -997,7 +997,7 @@ export class NetworkRequestInfo {
  *
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework#.ShakaVariant
  */
-export enum ShakaVariant {
+export const enum ShakaVariant {
     /**
      * The standard, default build.
      */
@@ -1167,7 +1167,7 @@ export class CastReceiverContext {
      * @param listener
      * @throws Error If system is not ready or the namespace is not supported by this application.
      */
-    addCustomMessageListener(namespace: string, listener: SystemEventHandler): void;
+    addCustomMessageListener(namespace: string, listener: CustomMessageHandler): void;
 
     /**
      * Add listener to cast system events.

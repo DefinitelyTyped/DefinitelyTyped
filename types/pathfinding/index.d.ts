@@ -33,6 +33,8 @@ declare module "pathfinding" {
         interface FinderOptions extends Heuristic {
             diagonalMovement?: DiagonalMovement | undefined;
             weight?: number | undefined;
+            allowDiagonal?: boolean | undefined;
+            dontCrossCorners?: boolean | undefined;
         }
 
         interface IDAStarFinderOptions extends FinderOptions {

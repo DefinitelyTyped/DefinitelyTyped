@@ -1,5 +1,3 @@
-/// <reference types="node" />
-
 import ioredis = require("ioredis");
 
 export type RedisOptions = { data?: Record<string, unknown> } & ioredis.RedisOptions;

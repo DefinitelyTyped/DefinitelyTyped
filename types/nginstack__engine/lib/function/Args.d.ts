@@ -3,7 +3,6 @@ declare function Args(args: any): void;
 declare class Args {
     constructor(args: any);
     arguments: any;
-    getLength(): any;
     private _checkRequired;
     private _validParameter;
     getTypeOf(

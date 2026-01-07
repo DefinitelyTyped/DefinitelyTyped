@@ -1,8 +1,8 @@
 {
     "private": true,
     "name": "@types/google-publisher-tag",
-    "version": "1.20250210.9999",
-    "nonNpm": true,
+    "version": "1.20251117.9999",
+    "nonNpm": "conflict",
     "nonNpmDescription": "Google Publisher Tag",
     "projects": [
         "https://developers.google.com/publisher-tag/"

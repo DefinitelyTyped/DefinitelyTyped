@@ -125,7 +125,7 @@ declare namespace AGTransport {
         data: any;
         callback?: EventObjectCallback | undefined;
         cid?: number | undefined;
-        timeout?: NodeJS.Timer | undefined;
+        timeout?: NodeJS.Timeout | undefined;
     }
 
     interface TransmitOptions {

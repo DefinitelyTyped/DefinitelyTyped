@@ -10,7 +10,7 @@ export = find;
  * @param root The root directory we should start searching in.
  * @returns Iterator interface.
  */
-declare function find(root?: string | NodeModule): find.FinderIterator;
+declare function find(root?: string | NodeJS.Module): find.FinderIterator;
 
 declare namespace find {
     interface FinderIterator extends IterableIterator<PackageWithPath> {

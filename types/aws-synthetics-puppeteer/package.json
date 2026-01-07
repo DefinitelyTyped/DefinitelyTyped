@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/aws-synthetics-puppeteer",
-    "version": "9.0.9999",
+    "version": "10.0.9999",
     "nonNpm": true,
     "nonNpmDescription": "aws-synthetics-puppeteer",
     "projects": [
@@ -9,8 +9,8 @@
     ],
     "dependencies": {
         "@types/node": "*",
-        "puppeteer-core": "22.12.1",
-        "aws-xray-sdk-core": "=3.3.1"
+        "puppeteer-core": "24.2.0",
+        "aws-xray-sdk-core": "3.10.3"
     },
     "devDependencies": {
         "@types/aws-synthetics-puppeteer": "workspace:."

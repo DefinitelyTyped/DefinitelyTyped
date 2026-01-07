@@ -1,5 +1,5 @@
 import Vara = require("vara");
-import * as Vara2 from "vara";
+import Vara2 from "vara";
 
 const vara = new Vara("#root", "font.json", [
     {

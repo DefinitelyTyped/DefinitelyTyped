@@ -30,6 +30,7 @@ export interface CognitoUserPoolTriggerEvent {
         | "TokenGeneration_NewPasswordChallenge"
         | "TokenGeneration_AuthenticateDevice"
         | "TokenGeneration_RefreshTokens"
+        | "TokenGeneration_ClientCredentials"
         | "UserMigration_Authentication"
         | "UserMigration_ForgotPassword";
     region: string;
@@ -124,5 +125,6 @@ export * from "./pre-authentication";
 export * from "./pre-signup";
 export * from "./pre-token-generation";
 export * from "./pre-token-generation-v2";
+export * from "./pre-token-generation-v3";
 export * from "./user-migration";
 export * from "./verify-auth-challenge-response";

@@ -19,10 +19,32 @@ export default class BusinessUser extends AbstractCrudObject {
         name: "name";
         pending_email: "pending_email";
         role: "role";
+        tasks: "tasks";
         title: "title";
         two_fac_status: "two_fac_status";
     }>;
+    static get InvitedUserType(): Readonly<{
+        fb: "FB";
+        mwa: "MWA";
+    }>;
     static get Role(): Readonly<{
+        admin: "ADMIN";
+        ads_rights_reviewer: "ADS_RIGHTS_REVIEWER";
+        default: "DEFAULT";
+        developer: "DEVELOPER";
+        employee: "EMPLOYEE";
+        finance_analyst: "FINANCE_ANALYST";
+        finance_edit: "FINANCE_EDIT";
+        finance_editor: "FINANCE_EDITOR";
+        finance_view: "FINANCE_VIEW";
+        manage: "MANAGE";
+        partner_center_admin: "PARTNER_CENTER_ADMIN";
+        partner_center_analyst: "PARTNER_CENTER_ANALYST";
+        partner_center_education: "PARTNER_CENTER_EDUCATION";
+        partner_center_marketing: "PARTNER_CENTER_MARKETING";
+        partner_center_operations: "PARTNER_CENTER_OPERATIONS";
+    }>;
+    static get Tasks(): Readonly<{
         admin: "ADMIN";
         ads_rights_reviewer: "ADS_RIGHTS_REVIEWER";
         default: "DEFAULT";
@@ -43,6 +65,7 @@ export default class BusinessUser extends AbstractCrudObject {
     getAssignedBusinessAssetGroups(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getAssignedPages(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getAssignedProductCatalogs(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getAssignedWhatsAppBusinessAccounts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     delete(fields: string[], params?: Record<string, any>): Promise<AbstractObject>;
     get(fields: string[], params?: Record<string, any>): Promise<BusinessUser>;
     update(fields: string[], params?: Record<string, any>): Promise<BusinessUser>;

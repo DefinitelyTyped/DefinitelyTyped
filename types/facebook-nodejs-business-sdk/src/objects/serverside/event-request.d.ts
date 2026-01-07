@@ -9,19 +9,20 @@ export default class EventRequest {
     _access_token: string;
     _pixel_id: string;
     _events: ServerEvent[];
-    _partner_agent: string | null;
-    _test_event_code: string | null;
-    _namespace_id: string | null;
-    _upload_id: string | null;
-    _upload_tag: string | null;
-    _upload_source: string | null;
+    _partner_agent?: string | null;
+    _test_event_code?: string | null;
+    _namespace_id?: string | null;
+    _upload_id?: string | null;
+    _upload_tag?: string | null;
+    _upload_source?: string | null;
     _debug_mode: boolean;
     _api: Record<string, any>;
-    _http_service: HttpServiceInterface | null;
+    _http_service?: HttpServiceInterface | null;
+    _app_secret?: string | null;
     /**
      * @param {String} access_token Access Token for the user calling Graph API
      * @param {String} pixel_id Pixel Id to which you are sending the events
-     * @param {Array<ServerEvent>} events Data for the request Payload for a Conversions API Event
+     * @param {ServerEvent[]} events Data for the request Payload for a Conversions API Event
      * @param {?String} partner_agent Platform from which the event is sent e.g. wordpress
      * @param {?String} test_event_code Test Event Code used to verify that your server events are received correctly by Facebook.
      * @param {?String} namespace_id Scope used to resolve extern_id or Third-party ID. Can be another data set or data partner ID.
@@ -30,8 +31,9 @@ export default class EventRequest {
      * @param {?String} upload_source The origin/source of data for the dataset to be uploaded.
      * @param {Boolean} debug_mode_flag Set to true if you want to enable more logging in SDK
      * @param {?HttpServiceInterface} http_service Override the default http request method by setting an object that implements HttpServiceInterface
+     * @param {?String} app_secret App Secret for the user calling Graph API
      */
-    constructor(access_token: string, pixel_id: string, events?: ServerEvent[], partner_agent?: string | null, test_event_code?: string | null, namespace_id?: string | null, upload_id?: string | null, upload_tag?: string | null, upload_source?: string | null, debug_mode_flag?: boolean, http_service?: HttpServiceInterface | null);
+    constructor(access_token?: string, pixel_id?: string, events?: ServerEvent[], partner_agent?: string | null, test_event_code?: string | null, namespace_id?: string | null, upload_id?: string | null, upload_tag?: string | null, upload_source?: string | null, debug_mode_flag?: boolean, http_service?: HttpServiceInterface | null, app_secret?: string | null);
     /**
      * Gets the data for the request Payload for a Conversions API Event. events is represented by a list/array of ServerEvent objects.
      */
@@ -114,6 +116,20 @@ export default class EventRequest {
      * @param {String} access_token string representing the access token that is used to make the Graph API.
      */
     setAccessToken(access_token: string): EventRequest;
+    /**
+     * Gets the app secret for the Graph API request
+     */
+    get app_secret(): string;
+    /**
+     * Sets the app secret for the Graph API request
+     * @param app_secret string representing the app secret that is used to make the Graph API.
+     */
+    set app_secret(app_secret: string);
+    /**
+     * Sets the app secret for the Graph API request
+     * @param {String} app_secret string representing the app secret that is used to make the Graph API.
+     */
+    setAppSecret(app_secret: string): EventRequest;
     /**
      * Gets the pixel against which we send the events
      */
@@ -202,5 +218,5 @@ export default class EventRequest {
      * Executes the current event_request data by making a call to the Facebook Graph API.
      */
     execute(): Promise<EventResponse>;
-    cloneWithoutEvents(): EventRequest;
+    cloneWithoutEvents(): Promise<EventRequest>;
 }

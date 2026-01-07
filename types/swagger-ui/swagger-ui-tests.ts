@@ -84,6 +84,23 @@ const swaggerUI = SwaggerUI({
     syntaxHighlight: false,
 });
 
+// $ExpectType SwaggerUIPreset
+const _basePreset = SwaggerUI.presets.base;
+// $ExpectType SwaggerUIPreset
+const _apisPreset = SwaggerUI.presets.apis;
+
 swaggerUI.initOAuth({});
 swaggerUI.preauthorizeApiKey("abc", "dec");
 swaggerUI.preauthorizeBasic("key", "user", "password");
+
+import SwaggerUIStandalonePreset from "swagger-ui/dist/swagger-ui-standalone-preset";
+// $ExpectType SwaggerUIPreset
+const _standAlonePreset = SwaggerUIStandalonePreset;
+
+import SwaggerUICSS from "swagger-ui/dist/swagger-ui.css";
+// $ExpectType any
+const _css = SwaggerUICSS;
+
+import OAuth2RedirectHTML from "swagger-ui/dist/oauth2-redirect.html";
+// $ExpectType any
+const _html = OAuth2RedirectHTML;

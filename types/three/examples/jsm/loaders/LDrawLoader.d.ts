@@ -10,20 +10,29 @@ export class LDrawLoader extends Loader<Group> {
 
     smoothNormals: boolean;
 
+    partsLibraryPath: string;
+
     ConditionalLineMaterial: typeof LDrawConditionalLineMaterial | typeof LDrawConditionalLineNodeMaterial | null;
 
     constructor(manager?: LoadingManager);
+
+    setPartsLibraryPath(path: string): this;
 
     setConditionalLineMaterial(
         type: typeof LDrawConditionalLineMaterial | typeof LDrawConditionalLineNodeMaterial,
     ): this;
 
     preloadMaterials(url: string): Promise<void>;
-    setFileMap(fileMap: Record<string, string>): void;
-    setMaterials(materials: Material[]): void;
 
-    parse(text: string, path: string, onLoad: (data: Group) => void, onError?: (error: unknown) => void): void;
+    parse(text: string, onLoad: (data: Group) => void, onError?: (error: unknown) => void): void;
 
-    addMaterial(material: Material): void;
+    setMaterials(materials: Material[]): this;
+    clearMaterials(): this;
+    addMaterials(materials: Material[]): this;
+    addDefaultMaterials(): this;
+
+    setFileMap(fileMap: Record<string, string>): this;
+
+    addMaterial(material: Material): this;
     getMaterial(colourCode: string): Material | null;
 }

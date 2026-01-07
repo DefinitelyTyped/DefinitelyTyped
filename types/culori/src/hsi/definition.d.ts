@@ -1,12 +1,12 @@
-import { averageAngle } from "../average";
-import { differenceHueSaturation } from "../difference";
-import { fixupAlpha } from "../fixup/alpha";
-import { fixupHueShorter } from "../fixup/hue";
-import { interpolatorLinear } from "../interpolate/linear";
-import convertHsiToRgb from "./convertHsiToRgb";
-import convertRgbToHsi from "./convertRgbToHsi";
+import { averageAngle } from "../average.js";
+import { differenceHueSaturation } from "../difference.js";
+import { fixupAlpha } from "../fixup/alpha.js";
+import { fixupHueShorter } from "../fixup/hue.js";
+import { interpolatorLinear } from "../interpolate/linear.js";
+import convertHsiToRgb from "./convertHsiToRgb.js";
+import convertRgbToHsi from "./convertRgbToHsi.js";
 
-declare const definition: {
+declare const modeHsi: {
     mode: "hsi";
 
     toMode: {
@@ -42,4 +42,4 @@ declare const definition: {
     };
 };
 
-export default definition;
+export default modeHsi;

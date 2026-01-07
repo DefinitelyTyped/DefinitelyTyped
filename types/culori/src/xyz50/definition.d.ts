@@ -1,11 +1,11 @@
-import { fixupAlpha } from "../fixup/alpha";
-import { interpolatorLinear } from "../interpolate/linear";
-import convertLabToXyz50 from "../lab/convertLabToXyz50";
-import convertXyz50ToLab from "../lab/convertXyz50ToLab";
-import convertRgbToXyz50 from "./convertRgbToXyz50";
-import convertXyz50ToRgb from "./convertXyz50ToRgb";
+import { fixupAlpha } from "../fixup/alpha.js";
+import { interpolatorLinear } from "../interpolate/linear.js";
+import convertLabToXyz50 from "../lab/convertLabToXyz50.js";
+import convertXyz50ToLab from "../lab/convertXyz50ToLab.js";
+import convertRgbToXyz50 from "./convertRgbToXyz50.js";
+import convertXyz50ToRgb from "./convertXyz50ToRgb.js";
 
-declare const definition: {
+declare const modeXyz50: {
     mode: "xyz50";
     parse: ["xyz-d50", "--xyz-d50"];
     serialize: "xyz-d50";
@@ -36,4 +36,4 @@ declare const definition: {
     };
 };
 
-export default definition;
+export default modeXyz50;

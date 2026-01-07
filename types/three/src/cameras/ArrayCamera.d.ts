@@ -19,6 +19,11 @@ export class ArrayCamera extends PerspectiveCamera {
     readonly isArrayCamera: true;
 
     /**
+     * Whether this camera is used with multiview rendering or not.
+     */
+    isMultiViewCamera: boolean;
+
+    /**
      * An array of cameras.
      * @defaultValue `[]`
      */

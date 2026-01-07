@@ -1,12 +1,5 @@
-import { GraphQLTaggedNode } from "../query/RelayModernGraphQLTag";
-import { FragmentType } from "./RelayStoreTypes";
-
-export type KeyType<TData = unknown> = Readonly<{
-    " $data"?: TData | undefined;
-    " $fragmentSpreads": FragmentType;
-}>;
-
-export type KeyTypeData<TKey extends KeyType<TData>, TData = unknown> = Required<TKey>[" $data"];
+import type { GraphQLTaggedNode } from "../query/RelayModernGraphQLTag";
+import type { KeyType, KeyTypeData } from "./FragmentTypes";
 
 export function readInlineData<TKey extends KeyType>(
     fragmentInput: GraphQLTaggedNode,

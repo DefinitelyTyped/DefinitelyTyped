@@ -1,9 +1,10 @@
+import { BufferAttribute } from "../../core/BufferAttribute.js";
 import StorageBufferAttribute from "../../renderers/common/StorageBufferAttribute.js";
 import StorageInstancedBufferAttribute from "../../renderers/common/StorageInstancedBufferAttribute.js";
 import { NodeAccess } from "../core/constants.js";
+import Node from "../core/Node.js";
 import { Struct } from "../core/StructNode.js";
 import StructTypeNode from "../core/StructTypeNode.js";
-import { NodeRepresentation, ShaderNodeObject } from "../tsl/TSLCore.js";
 import StorageArrayElementNode from "../utils/StorageArrayElementNode.js";
 import BufferNode from "./BufferNode.js";
 
@@ -24,7 +25,7 @@ export default class StorageBufferNode extends BufferNode<StorageBufferAttribute
         bufferCount?: number,
     );
 
-    element(indexNode: NodeRepresentation): ShaderNodeObject<StorageArrayElementNode>;
+    element: (indexNode: Node | number) => StorageArrayElementNode;
 
     setPBO(value: boolean): this;
 
@@ -40,10 +41,10 @@ export default class StorageBufferNode extends BufferNode<StorageBufferAttribute
 }
 
 export const storage: (
-    value: StorageBufferAttribute | StorageInstancedBufferAttribute,
+    value: StorageBufferAttribute | StorageInstancedBufferAttribute | BufferAttribute,
     type?: string | Struct | null,
     count?: number,
-) => ShaderNodeObject<StorageBufferNode>;
+) => StorageBufferNode;
 
 /**
  * @deprecated
@@ -52,4 +53,4 @@ export const storageObject: (
     value: StorageBufferAttribute | StorageInstancedBufferAttribute,
     type?: string | Struct | null,
     count?: number,
-) => ShaderNodeObject<StorageBufferNode>;
+) => StorageBufferNode;

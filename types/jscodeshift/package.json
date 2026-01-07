@@ -1,13 +1,13 @@
 {
     "private": true,
     "name": "@types/jscodeshift",
-    "version": "0.12.9999",
+    "version": "17.3.9999",
     "projects": [
         "https://github.com/facebook/jscodeshift#readme"
     ],
     "dependencies": {
-        "ast-types": "^0.14.1",
-        "recast": "^0.20.3"
+        "ast-types": "^0.16.1",
+        "recast": "^0.23.11"
     },
     "devDependencies": {
         "@types/jscodeshift": "workspace:."
