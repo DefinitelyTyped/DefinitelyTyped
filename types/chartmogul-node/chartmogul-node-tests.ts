@@ -22,7 +22,8 @@ ChartMogul.Account.retrieve(config, {
 
 // $ExpectType Promise<Account>
 ChartMogul.Account.retrieve(config, {
-    include: "churn_recognition,churn_when_zero_mrr,auto_churn_subscription,refund_handling,proximate_movement_reclassification",
+    include:
+        "churn_recognition,churn_when_zero_mrr,auto_churn_subscription,refund_handling,proximate_movement_reclassification",
 });
 
 ChartMogul.Account.retrieve(config).then(data => {
@@ -166,8 +167,12 @@ ChartMogul.Customer.modify(config, "", {
     },
 });
 
-// $ExpectType Promise<{}>
+// $ExpectType Promise<ResourceDestroyed>
 ChartMogul.Customer.destroy(config, "");
+
+ChartMogul.Customer.destroy(config, "").then(data => {
+    data.message; // $ExpectType string
+});
 
 // $ExpectType Promise<Entries<Customer>>
 ChartMogul.Customer.all(config, {

@@ -1,5 +1,9 @@
 import { Cursor, CursorParams, Entries, EntriesSummary, Map, Strings } from "./common";
 
+export interface ResourceDestroyed {
+    message: string;
+}
+
 export class Config {
     VERSION: string;
     API_BASE: string;
@@ -242,7 +246,7 @@ export namespace Customer {
     function create(config: Config, data: NewCustomer): Promise<Customer>;
     function retrieve(config: Config, uuid: string): Promise<Customer>;
     function modify(config: Config, uuid: string, data: UpdateCustomer): Promise<Customer>;
-    function destroy(config: Config, uuid: string): Promise<{}>;
+    function destroy(config: Config, uuid: string): Promise<ResourceDestroyed>;
     function all(config: Config, params?: ListCustomersParams): Promise<Entries<Customer>>;
     function search(config: Config, params?: SearchCustomersParams): Promise<Entries<Customer>>;
     function merge(config: Config, params?: MergeCustomersParams): Promise<{}>;
