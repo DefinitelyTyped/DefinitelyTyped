@@ -203,6 +203,30 @@ ChartMogul.Customer.merge(config, {
     },
 });
 
+// $ExpectType Promise<{}>
+ChartMogul.Customer.unmerge(config, {
+    customer_uuid: "cus_cd9e5f29-6299-40e5-b343-0bd1ed228b4f",
+});
+
+// $ExpectType Promise<{}>
+ChartMogul.Customer.unmerge(config, {
+    data_source_uuid: "ds_788ec6ae-dd51-11ee-bd46-a3ec952dc041",
+    external_id: "cus_O075O8NH0LrtG8",
+});
+
+// $ExpectType Promise<{}>
+ChartMogul.Customer.unmerge(config, {
+    customer_uuid: "cus_cd9e5f29-6299-40e5-b343-0bd1ed228b4f",
+    move_to_new_customer: ["tasks", "opportunities", "notes"],
+});
+
+// $ExpectType Promise<{}>
+ChartMogul.Customer.unmerge(config, {
+    data_source_uuid: "ds_788ec6ae-dd51-11ee-bd46-a3ec952dc041",
+    external_id: "cus_O075O8NH0LrtG8",
+    move_to_new_customer: ["tasks", "opportunities", "notes"],
+});
+
 // $ExpectType Promise<Attributes>
 ChartMogul.Customer.attributes(config, "");
 

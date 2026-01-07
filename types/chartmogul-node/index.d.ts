@@ -215,15 +215,25 @@ export namespace Customer {
     interface SearchCustomersParams extends CursorParams {
         email: string;
     }
-    interface MergeID {
-        customer_uuid?: string | undefined;
-        data_source_uuid?: string | undefined;
-        external_id?: string | undefined;
-    }
+    type MergeID =
+        | {
+            customer_uuid: string;
+            data_source_uuid?: never;
+            external_id?: never;
+        }
+        | {
+            customer_uuid?: never;
+            data_source_uuid: string;
+            external_id: string;
+        };
     interface MergeCustomersParams {
         from: MergeID;
         into: MergeID;
     }
+    type MoveToNewCustomerField = "tasks" | "opportunities" | "notes";
+    type UnmergeCustomersParams = MergeID & {
+        move_to_new_customer?: MoveToNewCustomerField[] | undefined;
+    };
 
     interface SubscriptionData {
         subscriptions: Array<{ uuid: string; data_source_uuid?: string }>;
@@ -236,6 +246,7 @@ export namespace Customer {
     function all(config: Config, params?: ListCustomersParams): Promise<Entries<Customer>>;
     function search(config: Config, params?: SearchCustomersParams): Promise<Entries<Customer>>;
     function merge(config: Config, params?: MergeCustomersParams): Promise<{}>;
+    function unmerge(config: Config, params: UnmergeCustomersParams): Promise<{}>;
     function attributes(config: Config, uuid: string): Promise<Attributes>;
     /**
      * @deprecated Use Metrics.Customer.connectSubscriptions instead
