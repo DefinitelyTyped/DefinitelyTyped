@@ -140,11 +140,23 @@ export namespace Customer {
         zip?: string | undefined;
         lead_created_at?: string | undefined;
         free_trial_started_at?: string | undefined;
+        owner?: string | undefined;
+        website_url?: string | undefined;
+    }
+    interface PrimaryContact {
+        first_name?: string | undefined;
+        last_name?: string | undefined;
+        email?: string | undefined;
+        title?: string | undefined;
+        phone?: string | undefined;
+        linked_in?: string | undefined;
+        twitter?: string | undefined;
+        notes?: string | undefined;
     }
     interface NewCustomer {
         data_source_uuid: string;
         external_id: string;
-        name: string;
+        name?: string | undefined;
         email?: string | undefined;
         company?: string | undefined;
         country?: string | undefined;
@@ -154,6 +166,9 @@ export namespace Customer {
         lead_created_at?: string | undefined;
         free_trial_started_at?: string | undefined;
         attributes?: NewAttributes | undefined;
+        owner?: string | undefined;
+        primary_contact?: PrimaryContact | undefined;
+        website_url?: string | undefined;
     }
     interface UpdateCustomer {
         name?: string | undefined;
@@ -166,6 +181,9 @@ export namespace Customer {
         lead_created_at?: string | undefined;
         free_trial_started_at?: string | undefined;
         attributes?: NewAttributes | undefined;
+        owner?: string | undefined;
+        primary_contact?: PrimaryContact | undefined;
+        website_url?: string | undefined;
     }
     interface NewAttributes {
         tags?: Strings | undefined;

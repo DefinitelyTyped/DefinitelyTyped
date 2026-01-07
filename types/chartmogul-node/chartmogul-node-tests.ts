@@ -84,8 +84,18 @@ ChartMogul.DataSource.all(config).then(data => {
 // $ExpectType Promise<Customer>
 ChartMogul.Customer.create(config, {
     data_source_uuid: "",
-    name: "",
     external_id: "",
+    name: "",
+    email: "test@example.com",
+    company: "Test Company",
+    country: "US",
+    state: "US-NY",
+    city: "New York",
+    zip: "10001",
+    lead_created_at: "2022-10-14 00:00:00",
+    free_trial_started_at: "2022-11-01 00:00:00",
+    owner: "owner@example.com",
+    website_url: "https://example.com",
     attributes: {
         tags: ["important", "Prio1"],
         custom: [
@@ -93,10 +103,31 @@ ChartMogul.Customer.create(config, {
             { type: "Integer", key: "age", value: 18 },
         ],
     },
+    primary_contact: {
+        first_name: "John",
+        last_name: "Doe",
+        email: "john@example.com",
+        title: "CEO",
+        phone: "+1234567890",
+        linked_in: "https://linkedin.com/in/johndoe",
+        twitter: "https://twitter.com/johndoe",
+        notes: "Primary contact notes",
+    },
+});
+
+// $ExpectType Promise<Customer>
+ChartMogul.Customer.create(config, {
+    data_source_uuid: "",
+    external_id: "",
 });
 
 // $ExpectType Promise<Customer>
 ChartMogul.Customer.retrieve(config, "");
+
+ChartMogul.Customer.retrieve(config, "").then(data => {
+    data.owner; // $ExpectType string | undefined
+    data.website_url; // $ExpectType string | undefined
+});
 
 // $ExpectType Promise<Customer>
 ChartMogul.Customer.modify(config, "", {});
