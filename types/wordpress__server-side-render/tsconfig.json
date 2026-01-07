@@ -2,19 +2,20 @@
     "compilerOptions": {
         "module": "node16",
         "lib": [
+            "dom",
             "es6"
         ],
+        "jsx": "preserve",
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "jsx": "react"
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "wordpress__server-side-render-tests.ts"
+        "wordpress__server-side-render-tests.tsx"
     ]
 }

@@ -3,15 +3,18 @@
     "name": "@types/wordpress__server-side-render",
     "version": "1.0.9999",
     "projects": [
-        "https://github.com/WordPress/gutenberg/blob/trunk/packages/server-side-render/README.md"
+        "https://github.com/WordPress/gutenberg/tree/master/packages/server-side-render/README.md"
     ],
+    "dependencies": {
+        "@types/react": "^18"
+    },
     "devDependencies": {
         "@types/wordpress__server-side-render": "workspace:."
     },
     "owners": [
         {
             "name": "Magezon",
-            "githubUsername": "Magezon"
+            "githubUsername": "magezon2018"
         }
     ]
 }

@@ -1,5 +1,5 @@
 // Import necessary types from React for use in this module
-import * as React from 'react';
+import * as React from "react";
 
 // Props for a component that will be rendered when the server-side response is empty
 export type EmptyResponsePlaceholderProps = {
