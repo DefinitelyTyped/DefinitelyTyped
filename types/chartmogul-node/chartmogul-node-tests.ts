@@ -184,11 +184,25 @@ ChartMogul.Customer.all(config).then(data => {
 ChartMogul.Customer.search(config, {
     email: "",
 });
+
 // $ExpectType Promise<{}>
 ChartMogul.Customer.merge(config, {
-    from: { customer_uuid: "" },
-    into: { customer_uuid: "" },
+    from: { customer_uuid: "cus_5915ee5a-babd-406b-b8ce-d207133fb4cb" },
+    into: { customer_uuid: "cus_2123290f-09c8-4628-a205-db5596bd58f7" },
 });
+
+// $ExpectType Promise<{}>
+ChartMogul.Customer.merge(config, {
+    from: {
+        data_source_uuid: "ds_ade45e52-47a4-231a-1ed2-eb6b9e541213",
+        external_id: "cus_187544",
+    },
+    into: {
+        data_source_uuid: "ds_fef05d54-47b4-431b-aed2-eb6b9e545430",
+        external_id: "34916129",
+    },
+});
+
 // $ExpectType Promise<Attributes>
 ChartMogul.Customer.attributes(config, "");
 

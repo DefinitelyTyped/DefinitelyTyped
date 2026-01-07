@@ -217,6 +217,7 @@ export namespace Customer {
     }
     interface MergeID {
         customer_uuid?: string | undefined;
+        data_source_uuid?: string | undefined;
         external_id?: string | undefined;
     }
     interface MergeCustomersParams {
