@@ -7,6 +7,37 @@ config.VERSION; // $ExpectType string
 
 ChartMogul.Ping.ping(config); // $ExpectType Promise<string>
 
+// $ExpectType Promise<Account>
+ChartMogul.Account.retrieve(config);
+
+// $ExpectType Promise<Account>
+ChartMogul.Account.retrieve(config, {
+    include: "refund_handling",
+});
+
+// $ExpectType Promise<Account>
+ChartMogul.Account.retrieve(config, {
+    include: "churn_recognition,churn_when_zero_mrr",
+});
+
+// $ExpectType Promise<Account>
+ChartMogul.Account.retrieve(config, {
+    include: "churn_recognition,churn_when_zero_mrr,auto_churn_subscription,refund_handling,proximate_movement_reclassification",
+});
+
+ChartMogul.Account.retrieve(config).then(data => {
+    data.id; // $ExpectType string
+    data.name; // $ExpectType string
+    data.currency; // $ExpectType string
+    data.time_zone; // $ExpectType string
+    data.week_start_on; // $ExpectType WeekStartOn
+    data.churn_recognition; // $ExpectType ChurnRecognition | undefined
+    data.churn_when_zero_mrr; // $ExpectType boolean | undefined
+    data.auto_churn_subscription; // $ExpectType boolean | undefined
+    data.refund_handling; // $ExpectType RefundHandling | undefined
+    data.proximate_movement_reclassification; // $ExpectType ProximateMovementReclassification | undefined
+});
+
 // $ExpectType Promise<DataSource>
 ChartMogul.DataSource.create(config, {
     name: "",

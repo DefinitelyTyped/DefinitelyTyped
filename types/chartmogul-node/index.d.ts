@@ -13,6 +13,53 @@ export namespace Ping {
     function ping(config: Config): Promise<string>;
 }
 
+export namespace Account {
+    type WeekStartOn = "monday" | "sunday";
+    type ChurnRecognition =
+        | "churn_at_time_of_cancelation"
+        | "churn_at_period_end"
+        | "churn_at_click";
+    type RefundHandling = "refund_ignore" | "refund_full_only";
+    type ProximateMovementReclassification =
+        | "reclassification_off"
+        | "one_minute_reclassification"
+        | "ten_minutes_reclassification"
+        | "one_hour_reclassification"
+        | "one_day_reclassification"
+        | "one_week_reclassification"
+        | "thirty_days_reclassification"
+        | "sixty_days_reclassification"
+        | "ninety_days_reclassification";
+
+    interface ExtraAccountParams {
+        /**
+         * Comma-separated list of fields to include. Allowed values:
+         * - churn_recognition,
+         * - churn_when_zero_mrr,
+         * - auto_churn_subscription,
+         * - refund_handling,
+         * - proximate_movement_reclassification
+         * Example: auto_churn_subscription,churn_when_zero_mrr
+         */
+        include?: string;
+    }
+
+    interface Account {
+        id: string;
+        name: string;
+        currency: string;
+        time_zone: string;
+        week_start_on: WeekStartOn;
+        churn_recognition?: ChurnRecognition;
+        churn_when_zero_mrr?: boolean;
+        auto_churn_subscription?: boolean;
+        refund_handling?: RefundHandling;
+        proximate_movement_reclassification?: ProximateMovementReclassification;
+    }
+
+    function retrieve(config: Config, params?: ExtraAccountParams): Promise<Account>;
+}
+
 export namespace DataSource {
     type DataSourceStatus =
         | "never_imported"
