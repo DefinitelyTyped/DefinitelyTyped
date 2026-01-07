@@ -132,6 +132,40 @@ ChartMogul.Customer.retrieve(config, "").then(data => {
 // $ExpectType Promise<Customer>
 ChartMogul.Customer.modify(config, "", {});
 
+// $ExpectType Promise<Customer>
+ChartMogul.Customer.modify(config, "", {
+    name: "Updated Name",
+    email: "updated@example.com",
+    company: "Updated Company",
+    country: "US",
+    state: "US-CA",
+    city: "San Francisco",
+    zip: "94102",
+    lead_created_at: "2023-01-01 00:00:00",
+    free_trial_started_at: "2023-06-13 15:45:13",
+    owner: "newowner@example.com",
+    website_url: "https://newsite.example.com",
+    status: "Working Lead",
+    attributes: {
+        tags: ["high-value", "enterprise"],
+        custom: {
+            CAC: 25,
+            channel: "Twitter",
+            pro: true,
+        },
+    },
+    primary_contact: {
+        first_name: "Jane",
+        last_name: "Smith",
+        email: "jane@example.com",
+        title: "CTO",
+        phone: "+9876543210",
+        linked_in: "https://linkedin.com/in/janesmith",
+        twitter: "https://twitter.com/janesmith",
+        notes: "Updated contact",
+    },
+});
+
 // $ExpectType Promise<{}>
 ChartMogul.Customer.destroy(config, "");
 

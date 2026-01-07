@@ -180,10 +180,15 @@ export namespace Customer {
         zip?: string | undefined;
         lead_created_at?: string | undefined;
         free_trial_started_at?: string | undefined;
-        attributes?: NewAttributes | undefined;
+        attributes?: UpdateAttributes | undefined;
         owner?: string | undefined;
         primary_contact?: PrimaryContact | undefined;
         website_url?: string | undefined;
+        status?: string | undefined;
+    }
+    interface UpdateAttributes {
+        tags?: Strings | undefined;
+        custom?: Map | undefined;
     }
     interface NewAttributes {
         tags?: Strings | undefined;
