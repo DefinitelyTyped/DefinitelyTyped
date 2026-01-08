@@ -101,11 +101,14 @@ export namespace DataSource {
         auto_churn_subscription_setting?: AutoChurnSubscriptionSetting;
         invoice_handling_setting?: Record<string, any>;
     }
+    interface NewDataSource {
+        name: string;
+    }
     interface DataSources {
         data_sources: DataSource[];
     }
 
-    function create(config: Config, data: DataSource): Promise<DataSource>;
+    function create(config: Config, data: NewDataSource): Promise<DataSource>;
     function retrieve(config: Config, uuid: string, params?: ExtraDataSourceParams): Promise<DataSource>;
     function destroy(config: Config, uuid: string): Promise<{}>;
     function all(config: Config, params?: ListDataSourcesParams): Promise<DataSources>;

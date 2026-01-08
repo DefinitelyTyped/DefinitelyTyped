@@ -32,6 +32,11 @@ ChartMogul.DataSource.create(config, {
 });
 
 // $ExpectType Promise<DataSource>
+ChartMogul.DataSource.create(config, {
+    name: "In-house billing",
+});
+
+// $ExpectType Promise<DataSource>
 ChartMogul.DataSource.retrieve(config, "");
 
 // $ExpectType Promise<DataSource>
