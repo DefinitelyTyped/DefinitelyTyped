@@ -295,6 +295,18 @@ ChartMogul.Customer.unmerge(config, {
 // $ExpectType Promise<Attributes>
 ChartMogul.Customer.attributes(config, "");
 
+// $ExpectType Promise<Attributes>
+ChartMogul.Customer.attributes(config, "cus_de305d54-75b4-431b-adb2-eb6b9e546012");
+
+ChartMogul.Customer.attributes(config, "cus_de305d54-75b4-431b-adb2-eb6b9e546012").then(data => {
+    data.tags; // $ExpectType Strings | undefined
+    data.stripe; // $ExpectType Map | undefined
+    data.clearbit; // $ExpectType Map | undefined
+    data.custom; // $ExpectType Map | undefined
+    data.stripe!["uid"]; // $ExpectType any
+    data.custom!["CAC"]; // $ExpectType any
+});
+
 // $ExpectType Promise<{}>
 ChartMogul.Customer.connectSubscriptions(config, "customer-uuid", {
     subscriptions: [{ uuid: "sub-uuid", data_source_uuid: "ds-uuid" }],
