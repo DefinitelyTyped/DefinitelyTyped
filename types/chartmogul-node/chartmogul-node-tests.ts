@@ -225,8 +225,29 @@ ChartMogul.Customer.all(config).then(data => {
 });
 
 // $ExpectType Promise<Entries<Customer>>
+ChartMogul.Customer.search(config);
+
+// $ExpectType Promise<Entries<Customer>>
 ChartMogul.Customer.search(config, {
     email: "",
+});
+
+// $ExpectType Promise<Entries<Customer>>
+ChartMogul.Customer.search(config, {
+    email: "adam@example.com",
+});
+
+// $ExpectType Promise<Entries<Customer>>
+ChartMogul.Customer.search(config, {
+    email: "adam@example.com",
+    cursor: "AjMx90kC0yMVQwNNwoYToyNC4wMDAwMDAwMDBgks68k",
+    per_page: 50,
+});
+
+ChartMogul.Customer.search(config, { email: "adam@example.com" }).then(data => {
+    data.entries[0]; // $ExpectType Customer
+    data.cursor; // $ExpectType string | undefined
+    data.has_more; // $ExpectType boolean | undefined
 });
 
 // $ExpectType Promise<{}>

@@ -217,7 +217,7 @@ export namespace Customer {
         external_id?: string | undefined;
     }
     interface SearchCustomersParams extends CursorParams {
-        email: string;
+        email?: string | undefined;
     }
     type MergeID =
         | {
