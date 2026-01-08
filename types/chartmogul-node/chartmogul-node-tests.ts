@@ -509,6 +509,22 @@ ChartMogul.Customer.createNote(
     data.author; // $ExpectType string | undefined
 });
 
+// $ExpectType Promise<Note>
+ChartMogul.CustomerNote.create(config, {
+    customer_uuid: "cus_52eb54c2-dea0-11ed-ac96-ef735d89fca0",
+    type: "note",
+    author_email: "adam@example.com",
+    text: "They are a world leader in specialized software.\\n",
+    created_at: "2023-11-01T00:00:00Z",
+});
+
+// $ExpectType Promise<Note>
+ChartMogul.CustomerNote.create(config, {
+    customer_uuid: "cus_52eb54c2-dea0-11ed-ac96-ef735d89fca0",
+    type: "call",
+    call_duration: 120,
+});
+
 // $ExpectType Promise<Entries<Opportunity>>
 ChartMogul.Customer.opportunities(config, "");
 

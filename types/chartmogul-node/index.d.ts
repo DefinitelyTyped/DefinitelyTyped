@@ -395,6 +395,8 @@ export namespace CustomerNote {
         call_duration?: number | undefined;
         created_at?: string | undefined;
     }
+
+    function create(config: Config, data: NewNote): Promise<Note>;
 }
 
 export namespace Contact {
