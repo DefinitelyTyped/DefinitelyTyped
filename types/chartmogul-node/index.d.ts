@@ -289,6 +289,7 @@ export namespace Customer {
         customerId: string,
         params?: Task.ListTasksParams,
     ): Promise<Entries<Task.Task>>;
+    function createTask(config: Config, customerId: string, data: Task.NewTask): Promise<Task.Task>;
 }
 
 export namespace Opportunity {
@@ -356,6 +357,13 @@ export namespace Task {
         due_date_on_or_after?: string | undefined;
         due_date_on_or_before?: string | undefined;
         completed?: boolean | undefined;
+    }
+    interface NewTask {
+        customer_uuid: string;
+        task_details: string;
+        assignee: string;
+        due_date: string;
+        completed_at?: string | undefined;
     }
 }
 
