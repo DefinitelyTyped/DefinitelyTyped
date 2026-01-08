@@ -265,6 +265,31 @@ export namespace Customer {
         customerId: string,
         data: Contact.NewContact,
     ): Promise<Contact.Contact>;
+
+    function notes(
+        config: Config,
+        customerId: string,
+        params?: CustomerNote.ListNotesParams,
+    ): Promise<Entries<CustomerNote.Note>>;
+}
+
+export namespace CustomerNote {
+    type NoteType = "note" | "call";
+    interface Note {
+        uuid?: string | undefined;
+        customer_uuid?: string | undefined;
+        type?: NoteType | undefined;
+        text?: string | undefined;
+        call_duration?: number | undefined;
+        author?: string | undefined;
+        created_at?: string | undefined;
+        updated_at?: string | undefined;
+    }
+    interface ListNotesParams extends CursorParams {
+        customer_uuid?: string | undefined;
+        type?: NoteType | undefined;
+        author_email?: string | undefined;
+    }
 }
 
 export namespace Contact {

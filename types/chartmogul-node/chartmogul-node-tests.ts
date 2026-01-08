@@ -381,6 +381,41 @@ ChartMogul.Customer.createContact(
     data.custom; // $ExpectType Map | undefined
 });
 
+// $ExpectType Promise<Entries<Note>>
+ChartMogul.Customer.notes(config, "");
+
+// $ExpectType Promise<Entries<Note>>
+ChartMogul.Customer.notes(config, "cus_52eb54c2-dea0-11ed-ac96-ef735d89fca0");
+
+// $ExpectType Promise<Entries<Note>>
+ChartMogul.Customer.notes(config, "cus_52eb54c2-dea0-11ed-ac96-ef735d89fca0", {
+    type: "note",
+});
+
+// $ExpectType Promise<Entries<Note>>
+ChartMogul.Customer.notes(config, "cus_52eb54c2-dea0-11ed-ac96-ef735d89fca0", {
+    type: "call",
+    author_email: "sara@example.com",
+});
+
+// $ExpectType Promise<Entries<Note>>
+ChartMogul.Customer.notes(config, "cus_52eb54c2-dea0-11ed-ac96-ef735d89fca0", {
+    cursor: "aabbcc",
+    per_page: 20,
+});
+
+ChartMogul.Customer.notes(config, "cus_52eb54c2-dea0-11ed-ac96-ef735d89fca0").then(data => {
+    data.entries[0]; // $ExpectType Note
+    data.entries[0].uuid; // $ExpectType string | undefined
+    data.entries[0].customer_uuid; // $ExpectType string | undefined
+    data.entries[0].type; // $ExpectType NoteType | undefined
+    data.entries[0].text; // $ExpectType string | undefined
+    data.entries[0].call_duration; // $ExpectType number | undefined
+    data.entries[0].author; // $ExpectType string | undefined
+    data.cursor; // $ExpectType string | undefined
+    data.has_more; // $ExpectType boolean | undefined
+});
+
 // $ExpectType Promise<Plan>
 ChartMogul.Plan.create(config, {
     data_source_uuid: "",
