@@ -351,6 +351,31 @@ ChartMogul.Customer.createContact(
     { data_source_uuid: "ds_92cc7226-509f-11ee-acf4-639f264f875d" },
 );
 
+// $ExpectType Promise<Contact>
+ChartMogul.Contact.create(config, {
+    customer_uuid: "cus_52eb54c2-dea0-11ed-ac96-ef735d89fca0",
+    data_source_uuid: "ds_35542640-d9f1-11ed-9c30-7727168c74a5",
+});
+
+// $ExpectType Promise<Contact>
+ChartMogul.Contact.create(config, {
+    customer_uuid: "cus_52eb54c2-dea0-11ed-ac96-ef735d89fca0",
+    data_source_uuid: "ds_35542640-d9f1-11ed-9c30-7727168c74a5",
+    first_name: "Adam",
+    last_name: "Smith",
+    position: 1,
+    title: "CEO",
+    email: "adam@example.com",
+    phone: "+1234567890",
+    linked_in: "https://linkedin.com/example",
+    twitter: "https://twitter.com/example",
+    notes: "Heading\\nBody\\nFooter",
+    custom: [
+        { key: "Facebook", value: "https://www.facebook.com/example" },
+        { key: "date_of_birth", value: "1985-01-22" },
+    ],
+});
+
 // $ExpectType Promise<Entries<Note>>
 ChartMogul.Customer.notes(config, "");
 

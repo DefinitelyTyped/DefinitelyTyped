@@ -266,7 +266,7 @@ export namespace Customer {
     function createContact(
         config: Config,
         customerId: string,
-        data: Contact.NewContact,
+        data: Contact.NewCustomerContact,
     ): Promise<Contact.Contact>;
 
     function notes(
@@ -421,6 +421,7 @@ export namespace Contact {
         customer_external_id?: string | undefined;
     }
     interface NewContact {
+        customer_uuid: string;
         data_source_uuid: string;
         position?: number | undefined;
         first_name?: string | undefined;
@@ -433,6 +434,9 @@ export namespace Contact {
         notes?: string | undefined;
         custom?: CustomAttribute.NewCustomAttribute[] | undefined;
     }
+    type NewCustomerContact = Omit<NewContact, "customer_uuid">;
+
+    function create(config: Config, data: NewContact): Promise<Contact>;
 }
 
 export namespace Plan {
