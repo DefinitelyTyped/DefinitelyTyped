@@ -196,13 +196,7 @@ export namespace Customer {
     }
     interface NewAttributes {
         tags?: Strings | undefined;
-        custom?: NewCustomAttributes[] | undefined;
-    }
-    interface NewCustomAttributes {
-        type?: string | undefined;
-        key: string;
-        value: any;
-        source?: string | undefined;
+        custom?: CustomAttribute.NewCustomAttribute[] | undefined;
     }
     interface Attributes {
         tags?: Strings | undefined;
@@ -266,6 +260,11 @@ export namespace Customer {
         customerId: string,
         params?: Contact.ListContactsParams,
     ): Promise<Entries<Contact.Contact>>;
+    function createContact(
+        config: Config,
+        customerId: string,
+        data: Contact.NewContact,
+    ): Promise<Contact.Contact>;
 }
 
 export namespace Contact {
@@ -290,6 +289,19 @@ export namespace Contact {
         data_source_uuid?: string | undefined;
         email?: string | undefined;
         customer_external_id?: string | undefined;
+    }
+    interface NewContact {
+        data_source_uuid: string;
+        position?: number | undefined;
+        first_name?: string | undefined;
+        last_name?: string | undefined;
+        title?: string | undefined;
+        email?: string | undefined;
+        phone?: string | undefined;
+        linked_in?: string | undefined;
+        twitter?: string | undefined;
+        notes?: string | undefined;
+        custom?: CustomAttribute.NewCustomAttribute[] | undefined;
     }
 }
 
@@ -424,17 +436,22 @@ export namespace Tag {
 }
 
 export namespace CustomAttribute {
-    import NewCustomAttributes = Customer.NewCustomAttributes;
+    interface NewCustomAttribute {
+        type?: string | undefined;
+        key: string;
+        value: any;
+        source?: string | undefined;
+    }
 
     interface CustomAttributes {
         custom: Map;
     }
     function add(config: Config, uuid: string, data: {
         email: string;
-        custom: NewCustomAttributes[];
+        custom: NewCustomAttribute[];
     }): Promise<Entries<Customer.Customer>>;
     function add(config: Config, uuid: string, data: {
-        custom: NewCustomAttributes[];
+        custom: NewCustomAttribute[];
     }): Promise<CustomAttributes>;
     function update(config: Config, uuid: string, data: CustomAttributes): Promise<CustomAttributes>;
     function remove(config: Config, uuid: string, data: {
