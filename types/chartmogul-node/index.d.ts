@@ -97,7 +97,7 @@ export namespace Customer {
     interface NewCustomer {
         data_source_uuid: string;
         external_id: string;
-        name: string;
+        name?: string;
         email?: string | undefined;
         company?: string | undefined;
         country?: string | undefined;
@@ -448,6 +448,72 @@ export namespace Metrics {
             data: SubscriptionConnectionData,
         ): Promise<{}>;
     }
+}
+
+export namespace Contact {
+    interface Contact {
+        uuid?: string;
+        data_source_uuid?: string;
+        customer_uuid?: string;
+        customer_external_id?: string;
+        position?: string;
+        first_name?: string;
+        last_name?: string;
+        title?: string;
+        email?: string;
+        phone?: string;
+        linked_in?: string;
+        twitter?: string;
+        note?: string;
+        custom?: Customer.Attributes["custom"];
+    }
+
+    interface NewContact {
+        customer_uuid: string;
+        data_source_uuid: string;
+        position?: string;
+        first_name?: string;
+        last_name?: string;
+        title?: string;
+        email?: string;
+        phone?: string;
+        linked_in?: string;
+        twitter?: string;
+        notes?: string;
+        custom?: Customer.Attributes["custom"];
+    }
+
+    interface ListCustomersParams extends CursorParams {
+        email?: string;
+        customer_external_id?: string;
+        data_source_uuid?: string;
+    }
+
+    interface ResponseContactList {
+        entries: Contact[];
+        cursor?: string;
+        has_more: boolean;
+    }
+
+    interface UpdateContact {
+        position?: string;
+        first_name?: string;
+        last_name?: string;
+        title?: string;
+        email?: string;
+        phone?: string;
+        linked_in?: string;
+        twitter?: string;
+        notes?: string;
+        custom?: Customer.Attributes["custom"];
+    }
+
+    function create(config: Config, data: NewContact): Promise<Contact>;
+    function retrieve(config: Config, uuid: string): Promise<Contact>;
+    function all(config: Config, data: ListCustomersParams): Promise<ResponseContactList>;
+    function modify(config: Config, uuid: string, data: UpdateContact): Promise<Contact>;
+    function merge(config: Config, uuidInto: string, uuidFrom: string): Promise<Contact>;
+    function destroy(config: Config, uuid: string): Promise<{}>;
 }
 
 export class ChartMogulError extends Error {

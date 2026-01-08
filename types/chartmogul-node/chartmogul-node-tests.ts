@@ -316,3 +316,30 @@ ChartMogul.Metrics.Customer.connectSubscriptions(config, "ds-uuid", "customer-uu
 ChartMogul.Metrics.Customer.disconnectSubscriptions(config, "ds-uuid", "customer-uuid", {
     subscriptions: [{ uuid: "sub-uuid", data_source_uuid: "ds-uuid" }],
 });
+
+// $ExpectType Promise<Contact>
+ChartMogul.Contact.create(config, {
+    customer_uuid: "",
+    data_source_uuid: "",
+    custom: [
+        { type: "String", key: "channel", value: "Facebook", source: "integration" },
+        { type: "Integer", key: "age", value: 18 },
+    ],
+});
+
+// $ExpectType Promise<Contact>
+ChartMogul.Contact.retrieve(config, "");
+
+// $ExpectType Promise<ResponseContactList>
+ChartMogul.Contact.all(config, {
+    data_source_uuid: "",
+});
+
+// $ExpectType Promise<Contact>
+ChartMogul.Contact.modify(config, "", {});
+
+// $ExpectType Promise<{}>
+ChartMogul.Contact.destroy(config, "");
+
+// $ExpectType Promise<Contact>
+ChartMogul.Contact.merge(config, "", "");
