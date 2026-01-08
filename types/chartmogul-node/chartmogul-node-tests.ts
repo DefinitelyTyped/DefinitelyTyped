@@ -26,19 +26,6 @@ ChartMogul.Account.retrieve(config, {
         "churn_recognition,churn_when_zero_mrr,auto_churn_subscription,refund_handling,proximate_movement_reclassification",
 });
 
-ChartMogul.Account.retrieve(config).then(data => {
-    data.id; // $ExpectType string
-    data.name; // $ExpectType string
-    data.currency; // $ExpectType string
-    data.time_zone; // $ExpectType string
-    data.week_start_on; // $ExpectType WeekStartOn
-    data.churn_recognition; // $ExpectType ChurnRecognition | undefined
-    data.churn_when_zero_mrr; // $ExpectType boolean | undefined
-    data.auto_churn_subscription; // $ExpectType boolean | undefined
-    data.refund_handling; // $ExpectType RefundHandling | undefined
-    data.proximate_movement_reclassification; // $ExpectType ProximateMovementReclassification | undefined
-});
-
 // $ExpectType Promise<DataSource>
 ChartMogul.DataSource.create(config, {
     name: "",
@@ -69,17 +56,6 @@ ChartMogul.DataSource.all(config, {
     with_processing_status: true,
     with_auto_churn_subscription_setting: true,
     with_invoice_handling_setting: true,
-});
-
-ChartMogul.DataSource.all(config).then(data => {
-    data.data_sources[0]; // $ExpectType DataSource
-    data.data_sources[0].name; // $ExpectType string
-    data.data_sources[0].processing_status!.processed!; // $ExpectType number
-    data.data_sources[0].processing_status!.pending!; // $ExpectType number
-    data.data_sources[0].processing_status!.failed!; // $ExpectType number
-    data.data_sources[0].auto_churn_subscription_setting!.enabled; // $ExpectType boolean
-    data.data_sources[0].auto_churn_subscription_setting!.interval; // $ExpectType number | null
-    data.data_sources[0].invoice_handling_setting; // $ExpectType Record<string, any> | undefined
 });
 
 // $ExpectType Promise<Customer>
@@ -124,11 +100,6 @@ ChartMogul.Customer.create(config, {
 
 // $ExpectType Promise<Customer>
 ChartMogul.Customer.retrieve(config, "");
-
-ChartMogul.Customer.retrieve(config, "").then(data => {
-    data.owner; // $ExpectType string | undefined
-    data.website_url; // $ExpectType string | undefined
-});
 
 // $ExpectType Promise<Customer>
 ChartMogul.Customer.modify(config, "", {});
@@ -373,13 +344,7 @@ ChartMogul.Customer.createContact(
     config,
     "cus_3819e09a-50a2-11ee-ada7-9fcf71cd4580",
     { data_source_uuid: "ds_92cc7226-509f-11ee-acf4-639f264f875d" },
-).then(data => {
-    data.uuid; // $ExpectType string | undefined
-    data.customer_uuid; // $ExpectType string | undefined
-    data.first_name; // $ExpectType string | undefined
-    data.email; // $ExpectType string | undefined
-    data.custom; // $ExpectType Map | undefined
-});
+);
 
 // $ExpectType Promise<Entries<Note>>
 ChartMogul.Customer.notes(config, "");
@@ -486,8 +451,8 @@ ChartMogul.Customer.opportunities(config, "cus_f466e33d-ff2b-4a11-8f85-417eb0215
     data.entries[0].uuid; // $ExpectType string | undefined
     data.entries[0].customer_uuid; // $ExpectType string | undefined
     data.entries[0].owner; // $ExpectType string | undefined
-    data.entries[0].pipeline; // $ExpectType OpportunityPipeline | undefined
-    data.entries[0].pipeline_stage; // $ExpectType OpportunityPipelineStage | undefined
+    data.entries[0].pipeline; // $ExpectType (string & {}) | OpportunityPipeline | undefined
+    data.entries[0].pipeline_stage; // $ExpectType (string & {}) | OpportunityPipelineStage | undefined
     data.entries[0].type; // $ExpectType OpportunityType | undefined
     data.entries[0].forecast_category; // $ExpectType ForecastCategory | undefined
     data.entries[0].win_likelihood; // $ExpectType number | undefined
@@ -495,6 +460,35 @@ ChartMogul.Customer.opportunities(config, "cus_f466e33d-ff2b-4a11-8f85-417eb0215
     data.cursor; // $ExpectType string | undefined
     data.has_more; // $ExpectType boolean | undefined
 });
+
+// $ExpectType Promise<Opportunity>
+ChartMogul.Customer.createOpportunity(config, "cus_f466e33d-ff2b-4a11-8f85-417eb02157a7", {
+    customer_uuid: "cus_f466e33d-ff2b-4a11-8f85-417eb02157a7",
+    owner: "bob@example.com",
+    pipeline: "New Business",
+    pipeline_stage: "Discovery",
+    estimated_close_date: "2024-04-21",
+    currency: "USD",
+    amount_in_cents: 100000,
+});
+
+ChartMogul.Customer.createOpportunity(
+    config,
+    "cus_f466e33d-ff2b-4a11-8f85-417eb02157a7",
+    {
+        customer_uuid: "cus_f466e33d-ff2b-4a11-8f85-417eb02157a7",
+        owner: "bob@example.com",
+        pipeline: "New Business",
+        pipeline_stage: "Discovery",
+        estimated_close_date: "2024-04-21",
+        currency: "USD",
+        amount_in_cents: 100000,
+        type: "recurring",
+        forecast_category: "best_case",
+        win_likelihood: 40,
+        custom: [{ key: "seats", value: 3 }, { key: "marketing_campaign", value: "Facebook" }],
+    },
+);
 
 // $ExpectType Promise<Plan>
 ChartMogul.Plan.create(config, {

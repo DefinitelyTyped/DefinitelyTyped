@@ -278,6 +278,11 @@ export namespace Customer {
         customerId: string,
         params?: Opportunity.ListOpportunitiesParams,
     ): Promise<Entries<Opportunity.Opportunity>>;
+    function createOpportunity(
+        config: Config,
+        customerId: string,
+        data: Opportunity.NewOpportunity,
+    ): Promise<Opportunity.Opportunity>;
 }
 
 export namespace Opportunity {
@@ -290,13 +295,13 @@ export namespace Opportunity {
         | "Negotiation"
         | "Verbal Commit"
         | "Closed Won"
-        | "Closed Lost"
+        | "Closed Lost";
     interface Opportunity {
         uuid?: string | undefined;
         customer_uuid?: string | undefined;
         owner?: string | undefined;
-        pipeline?: OpportunityPipeline | string | undefined;
-        pipeline_stage?: OpportunityPipelineStage | string | undefined;
+        pipeline?: (OpportunityPipeline | (string & {})) | undefined;
+        pipeline_stage?: (OpportunityPipelineStage | (string & {})) | undefined;
         estimated_close_date?: string | undefined;
         currency?: string | undefined;
         amount_in_cents?: number | undefined;
@@ -308,10 +313,23 @@ export namespace Opportunity {
     interface ListOpportunitiesParams extends CursorParams {
         customer_uuid?: string | undefined;
         owner?: string | undefined;
-        pipeline?: OpportunityPipeline | string | undefined;
-        pipeline_stage?: OpportunityPipelineStage | string | undefined;
+        pipeline?: (OpportunityPipeline | (string & {})) | undefined;
+        pipeline_stage?: (OpportunityPipelineStage | (string & {})) | undefined;
         estimated_close_date_on_or_after?: string | undefined;
         estimated_close_date_on_or_before?: string | undefined;
+    }
+    interface NewOpportunity {
+        customer_uuid: string;
+        owner: string;
+        pipeline: OpportunityPipeline | (string & {});
+        pipeline_stage: OpportunityPipelineStage | (string & {});
+        estimated_close_date: string;
+        amount_in_cents: number;
+        currency: string;
+        type?: OpportunityType | undefined;
+        forecast_category?: ForecastCategory | undefined;
+        win_likelihood?: number | undefined;
+        custom?: Array<{ key: string; value: any }> | undefined;
     }
 }
 
