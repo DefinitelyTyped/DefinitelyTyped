@@ -452,6 +452,50 @@ ChartMogul.Customer.createNote(
     data.author; // $ExpectType string | undefined
 });
 
+// $ExpectType Promise<Entries<Opportunity>>
+ChartMogul.Customer.opportunities(config, "");
+
+// $ExpectType Promise<Entries<Opportunity>>
+ChartMogul.Customer.opportunities(config, "cus_f466e33d-ff2b-4a11-8f85-417eb02157a7");
+
+// $ExpectType Promise<Entries<Opportunity>>
+ChartMogul.Customer.opportunities(config, "cus_f466e33d-ff2b-4a11-8f85-417eb02157a7", {
+    owner: "bob@example.com",
+});
+
+// $ExpectType Promise<Entries<Opportunity>>
+ChartMogul.Customer.opportunities(config, "cus_f466e33d-ff2b-4a11-8f85-417eb02157a7", {
+    pipeline: "New Business",
+    pipeline_stage: "Discovery",
+});
+
+// $ExpectType Promise<Entries<Opportunity>>
+ChartMogul.Customer.opportunities(config, "cus_f466e33d-ff2b-4a11-8f85-417eb02157a7", {
+    estimated_close_date_on_or_after: "2024-01-01",
+    estimated_close_date_on_or_before: "2024-12-31",
+});
+
+// $ExpectType Promise<Entries<Opportunity>>
+ChartMogul.Customer.opportunities(config, "cus_f466e33d-ff2b-4a11-8f85-417eb02157a7", {
+    cursor: "aabbcc",
+    per_page: 20,
+});
+
+ChartMogul.Customer.opportunities(config, "cus_f466e33d-ff2b-4a11-8f85-417eb02157a7").then(data => {
+    data.entries[0]; // $ExpectType Opportunity
+    data.entries[0].uuid; // $ExpectType string | undefined
+    data.entries[0].customer_uuid; // $ExpectType string | undefined
+    data.entries[0].owner; // $ExpectType string | undefined
+    data.entries[0].pipeline; // $ExpectType OpportunityPipeline | undefined
+    data.entries[0].pipeline_stage; // $ExpectType OpportunityPipelineStage | undefined
+    data.entries[0].type; // $ExpectType OpportunityType | undefined
+    data.entries[0].forecast_category; // $ExpectType ForecastCategory | undefined
+    data.entries[0].win_likelihood; // $ExpectType number | undefined
+    data.entries[0].custom; // $ExpectType Map | undefined
+    data.cursor; // $ExpectType string | undefined
+    data.has_more; // $ExpectType boolean | undefined
+});
+
 // $ExpectType Promise<Plan>
 ChartMogul.Plan.create(config, {
     data_source_uuid: "",

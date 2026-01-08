@@ -272,6 +272,47 @@ export namespace Customer {
         params?: CustomerNote.ListNotesParams,
     ): Promise<Entries<CustomerNote.Note>>;
     function createNote(config: Config, customerId: string, data: CustomerNote.NewNote): Promise<CustomerNote.Note>;
+
+    function opportunities(
+        config: Config,
+        customerId: string,
+        params?: Opportunity.ListOpportunitiesParams,
+    ): Promise<Entries<Opportunity.Opportunity>>;
+}
+
+export namespace Opportunity {
+    type OpportunityType = "one-time" | "recurring";
+    type ForecastCategory = "pipeline" | "best_case" | "committed" | "omitted";
+    type OpportunityPipeline = "New Business" | "Renewals";
+    type OpportunityPipelineStage =
+        | "Discovery"
+        | "Evaluation"
+        | "Negotiation"
+        | "Verbal Commit"
+        | "Closed Won"
+        | "Closed Lost"
+    interface Opportunity {
+        uuid?: string | undefined;
+        customer_uuid?: string | undefined;
+        owner?: string | undefined;
+        pipeline?: OpportunityPipeline | string | undefined;
+        pipeline_stage?: OpportunityPipelineStage | string | undefined;
+        estimated_close_date?: string | undefined;
+        currency?: string | undefined;
+        amount_in_cents?: number | undefined;
+        type?: OpportunityType | undefined;
+        forecast_category?: ForecastCategory | undefined;
+        win_likelihood?: number | undefined;
+        custom?: Map | undefined;
+    }
+    interface ListOpportunitiesParams extends CursorParams {
+        customer_uuid?: string | undefined;
+        owner?: string | undefined;
+        pipeline?: OpportunityPipeline | string | undefined;
+        pipeline_stage?: OpportunityPipelineStage | string | undefined;
+        estimated_close_date_on_or_after?: string | undefined;
+        estimated_close_date_on_or_before?: string | undefined;
+    }
 }
 
 export namespace CustomerNote {
