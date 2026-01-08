@@ -317,6 +317,35 @@ ChartMogul.Customer.disconnectSubscriptions(config, "customer-uuid", {
     subscriptions: [{ uuid: "sub-uuid" }],
 });
 
+// $ExpectType Promise<Entries<Contact>>
+ChartMogul.Customer.contacts(config, "");
+
+// $ExpectType Promise<Entries<Contact>>
+ChartMogul.Customer.contacts(config, "cus_52eb54c2-dea0-11ed-ac96-ef735d89fca0");
+
+// $ExpectType Promise<Entries<Contact>>
+ChartMogul.Customer.contacts(config, "cus_52eb54c2-dea0-11ed-ac96-ef735d89fca0", {
+    cursor: "aabbcc",
+    per_page: 50,
+});
+
+// $ExpectType Promise<Entries<Contact>>
+ChartMogul.Customer.contacts(config, "cus_52eb54c2-dea0-11ed-ac96-ef735d89fca0", {
+    email: "adam@example.com",
+});
+
+ChartMogul.Customer.contacts(config, "cus_52eb54c2-dea0-11ed-ac96-ef735d89fca0").then(data => {
+    data.entries[0]; // $ExpectType Contact
+    data.entries[0].uuid; // $ExpectType string | undefined
+    data.entries[0].customer_uuid; // $ExpectType string | undefined
+    data.entries[0].first_name; // $ExpectType string | undefined
+    data.entries[0].last_name; // $ExpectType string | undefined
+    data.entries[0].email; // $ExpectType string | undefined
+    data.entries[0].custom; // $ExpectType Map | undefined
+    data.cursor; // $ExpectType string | undefined
+    data.has_more; // $ExpectType boolean | undefined
+});
+
 // $ExpectType Promise<Plan>
 ChartMogul.Plan.create(config, {
     data_source_uuid: "",

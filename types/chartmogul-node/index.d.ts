@@ -260,6 +260,37 @@ export namespace Customer {
      * @deprecated Use Metrics.Customer.disconnectSubscriptions instead
      */
     function disconnectSubscriptions(config: Config, customerUuid: string, data: SubscriptionData): Promise<{}>;
+
+    function contacts(
+        config: Config,
+        customerId: string,
+        params?: Contact.ListContactsParams,
+    ): Promise<Entries<Contact.Contact>>;
+}
+
+export namespace Contact {
+    interface Contact {
+        uuid?: string | undefined;
+        customer_uuid?: string | undefined;
+        customer_external_id?: string | undefined;
+        data_source_uuid?: string | undefined;
+        position?: number | undefined;
+        first_name?: string | undefined;
+        last_name?: string | undefined;
+        title?: string | undefined;
+        email?: string | undefined;
+        phone?: string | undefined;
+        linked_in?: string | undefined;
+        twitter?: string | undefined;
+        notes?: string | undefined;
+        custom?: Map | undefined;
+    }
+    interface ListContactsParams extends CursorParams {
+        customer_uuid?: string | undefined;
+        data_source_uuid?: string | undefined;
+        email?: string | undefined;
+        customer_external_id?: string | undefined;
+    }
 }
 
 export namespace Plan {
