@@ -376,6 +376,26 @@ ChartMogul.Contact.create(config, {
     ],
 });
 
+// $ExpectType Promise<Contact>
+ChartMogul.Contact.modify(config, "con_f90ba380-57a8-11ee-9500-7f50256329a7", {});
+
+// $ExpectType Promise<Contact>
+ChartMogul.Contact.modify(config, "con_f90ba380-57a8-11ee-9500-7f50256329a7", {
+    first_name: "Bill",
+    last_name: "Thompson",
+    position: 10,
+    title: "CTO",
+    email: "bill@example.com",
+    phone: "+987654321",
+    linked_in: "https://linkedin.com/example",
+    twitter: "https://twitter.com/example",
+    notes: "New Heading\\nNew Body\\nNew Footer",
+    custom: [
+        { key: "Facebook", value: "https://www.facebook.com/example" },
+        { key: "date_of_birth", value: "1990-01-01" },
+    ],
+});
+
 // $ExpectType Promise<Entries<Note>>
 ChartMogul.Customer.notes(config, "");
 

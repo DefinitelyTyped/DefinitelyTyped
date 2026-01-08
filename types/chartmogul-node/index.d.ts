@@ -435,8 +435,21 @@ export namespace Contact {
         custom?: CustomAttribute.NewCustomAttribute[] | undefined;
     }
     type NewCustomerContact = Omit<NewContact, "customer_uuid">;
+    interface UpdateContact {
+        position?: number | undefined;
+        first_name?: string | undefined;
+        last_name?: string | undefined;
+        title?: string | undefined;
+        email?: string | undefined;
+        phone?: string | undefined;
+        linked_in?: string | undefined;
+        twitter?: string | undefined;
+        notes?: string | undefined;
+        custom?: CustomAttribute.NewCustomAttribute[] | undefined;
+    }
 
     function create(config: Config, data: NewContact): Promise<Contact>;
+    function modify(config: Config, uuid: string, data: UpdateContact): Promise<Contact>;
 }
 
 export namespace Plan {
