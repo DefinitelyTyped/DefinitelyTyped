@@ -451,6 +451,7 @@ export namespace Contact {
     function create(config: Config, data: NewContact): Promise<Contact>;
     function retrieve(config: Config, uuid: string): Promise<Contact>;
     function modify(config: Config, uuid: string, data: UpdateContact): Promise<Contact>;
+    function destroy(config: Config, uuid: string): Promise<{}>;
     function all(config: Config, params?: ListContactsParams): Promise<Entries<Contact>>;
 }
 

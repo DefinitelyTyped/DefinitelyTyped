@@ -379,6 +379,9 @@ ChartMogul.Contact.create(config, {
 // $ExpectType Promise<Contact>
 ChartMogul.Contact.retrieve(config, "con_653af916-dea0-11ed-845b-3be1ac0039ac");
 
+// $ExpectType Promise<{}>
+ChartMogul.Contact.destroy(config, "con_d018335c-56d2-11ee-897c-830bb2bba6ec");
+
 // $ExpectType Promise<Entries<Contact>>
 ChartMogul.Contact.all(config);
 
