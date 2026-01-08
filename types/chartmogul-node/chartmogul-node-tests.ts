@@ -377,6 +377,9 @@ ChartMogul.Contact.create(config, {
 });
 
 // $ExpectType Promise<Contact>
+ChartMogul.Contact.retrieve(config, "con_653af916-dea0-11ed-845b-3be1ac0039ac");
+
+// $ExpectType Promise<Contact>
 ChartMogul.Contact.modify(config, "con_f90ba380-57a8-11ee-9500-7f50256329a7", {});
 
 // $ExpectType Promise<Contact>
