@@ -21,7 +21,7 @@ declare const ShaderLib: {
     background: ShaderLibShader;
     cube: ShaderLibShader;
     equirect: ShaderLibShader;
-    distanceRGBA: ShaderLibShader;
+    distance: ShaderLibShader;
     shadow: ShaderLibShader;
     physical: ShaderLibShader;
 };

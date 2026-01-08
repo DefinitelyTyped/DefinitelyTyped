@@ -14,23 +14,48 @@ export namespace Ping {
 }
 
 export namespace DataSource {
+    type DataSourceStatus =
+        | "never_imported"
+        | "import_complete"
+        | "import_in_progress"
+        | "import_failed"
+        | string
+        | undefined;
+
+    interface ProcessingStatus {
+        processed?: number;
+        pending?: number;
+        failed?: number;
+    }
+    interface AutoChurnSubscriptionSetting {
+        enabled: boolean;
+        interval: number | null;
+    }
+    interface ExtraDataSourceParams {
+        with_processing_status?: boolean;
+        with_auto_churn_subscription_setting?: boolean;
+        with_invoice_handling_setting?: boolean;
+    }
+    interface ListDataSourcesParams extends ExtraDataSourceParams {
+        name?: string;
+        system?: string;
+    }
     interface DataSource {
-        uuid?: string | undefined;
+        uuid?: string;
         name: string;
-        created_at?: string | undefined;
-        status?: string | undefined;
-        system?: string | undefined;
+        created_at?: string;
+        status?: DataSourceStatus;
+        system?: string;
+        processing_status?: ProcessingStatus;
+        auto_churn_subscription_setting?: AutoChurnSubscriptionSetting;
+        invoice_handling_setting?: Record<string, any>;
     }
     interface DataSources {
         data_sources: DataSource[];
     }
-    interface ListDataSourcesParams {
-        name?: string | undefined;
-        system?: string | undefined;
-    }
 
     function create(config: Config, data: DataSource): Promise<DataSource>;
-    function retrieve(config: Config, uuid: string): Promise<DataSource>;
+    function retrieve(config: Config, uuid: string, params?: ExtraDataSourceParams): Promise<DataSource>;
     function destroy(config: Config, uuid: string): Promise<{}>;
     function all(config: Config, params?: ListDataSourcesParams): Promise<DataSources>;
 }
@@ -129,6 +154,10 @@ export namespace Customer {
         into: MergeID;
     }
 
+    interface SubscriptionData {
+        subscriptions: Array<{ uuid: string; data_source_uuid?: string }>;
+    }
+
     function create(config: Config, data: NewCustomer): Promise<Customer>;
     function retrieve(config: Config, uuid: string): Promise<Customer>;
     function modify(config: Config, uuid: string, data: UpdateCustomer): Promise<Customer>;
@@ -137,6 +166,14 @@ export namespace Customer {
     function search(config: Config, params?: SearchCustomersParams): Promise<Entries<Customer>>;
     function merge(config: Config, params?: MergeCustomersParams): Promise<{}>;
     function attributes(config: Config, uuid: string): Promise<Attributes>;
+    /**
+     * @deprecated Use Metrics.Customer.connectSubscriptions instead
+     */
+    function connectSubscriptions(config: Config, customerUuid: string, data: SubscriptionData): Promise<{}>;
+    /**
+     * @deprecated Use Metrics.Customer.disconnectSubscriptions instead
+     */
+    function disconnectSubscriptions(config: Config, customerUuid: string, data: SubscriptionData): Promise<{}>;
 }
 
 export namespace Plan {
@@ -388,12 +425,28 @@ export namespace Metrics {
             type: string;
         }
 
+        interface SubscriptionConnectionData {
+            subscriptions: Array<{ uuid: string; data_source_uuid: string }>;
+        }
+
         function subscriptions(
             config: Config,
             uuid: string,
             params?: CursorParams,
         ): Promise<Entries<MetricsSubscription>>;
         function activities(config: Config, uuid: string, params?: CursorParams): Promise<Entries<MetricsActivity>>;
+        function connectSubscriptions(
+            config: Config,
+            dataSourceUuid: string,
+            customerUuid: string,
+            data: SubscriptionConnectionData,
+        ): Promise<{}>;
+        function disconnectSubscriptions(
+            config: Config,
+            dataSourceUuid: string,
+            customerUuid: string,
+            data: SubscriptionConnectionData,
+        ): Promise<{}>;
     }
 }
 

@@ -421,7 +421,7 @@ declare global {
                 onChange(value: RotatedRect): void;
             }
 
-            interface VisualEditing {
+            interface DeviceVisualEditing {
                 add: {
                     box(options: VisualEditingBox): void;
                     circle(options: VisualEditingCircle): void;
@@ -969,7 +969,8 @@ declare global {
             }
 
             interface Jump {
-                actuallyJumped: boolean;
+                /** Optional in top-down, required in platformer */
+                actuallyJumped?: boolean;
                 isJumping: boolean;
                 jumpCounter: number;
                 jumpTicks: number;
@@ -1150,7 +1151,7 @@ declare global {
                 id: string;
                 scene: Scene;
                 deviceOption: DeviceOption;
-                visualEditing: VisualEditing;
+                visualEditing: DeviceVisualEditing;
                 shadows: Shadows;
                 input: DeviceInput;
                 parts: any;
@@ -1276,7 +1277,7 @@ declare global {
             }
 
             interface Keyboard {
-                heldKeys: Set<string>;
+                heldKeys: Set<number>;
                 scene: Scene;
                 state: KeyboardState;
                 createListeners(): void;
@@ -1391,7 +1392,10 @@ declare global {
             }
 
             interface EditingStore {
-                accessPoints: Map<any, any>;
+                accessPoints: Map<string, {
+                    name: string;
+                    position: Vector;
+                }>;
                 gridSnap: number;
                 showMemoryBarAtAllTimes: boolean;
             }
@@ -1638,7 +1642,7 @@ declare global {
                 id: string;
                 position: string;
                 text: string;
-                trackedItemId: any;
+                trackedItemId: string | null;
                 showTrackedItemMaximumAmount: boolean;
                 type: string;
                 priority: number;
@@ -1687,13 +1691,38 @@ declare global {
                 removing: boolean;
             }
 
+            interface Widget {
+                type: string;
+                id: string;
+                y: number;
+                placement: string;
+                statName: string;
+                statValue: number;
+            }
+
+            interface CallToActionItem {
+                id: string;
+                category: string;
+                name: string;
+                url: string;
+            }
+
+            interface CallToActionCategory {
+                id: string;
+                name: string;
+                plural: string;
+            }
+
             interface GameSession {
-                callToAction: any;
+                callToAction: {
+                    categories: CallToActionCategory[];
+                    items: CallToActionItem[];
+                };
                 countdownEnd: number;
                 phase: string;
                 resultsEnd: number;
                 widgets: {
-                    widgets: any[];
+                    widgets: Widget[];
                 };
             }
 
@@ -1847,6 +1876,26 @@ declare global {
                 topDownControlsActive: boolean;
             }
 
+            interface VisualEditing {
+                active: boolean;
+                cursor: string;
+                id: string;
+                instruction: string;
+                keyboardHelpers: {
+                    trigger: string;
+                    action: string;
+                }[];
+            }
+
+            interface SortingState {
+                depth: number;
+                deviceId: string;
+                deviceName: string;
+                globalDepth: number;
+                layer: string;
+                y: number;
+            }
+
             interface CurrentlyEditedDevice {
                 deviceOptionId: string;
                 id: string;
@@ -1857,9 +1906,9 @@ declare global {
                 currentlyEditedGridId: string;
                 currentlySortedDeviceId: string;
                 screen: string;
-                sortingState: any[];
+                sortingState: SortingState[];
                 usingMultiselect: boolean;
-                visualEditing: any;
+                visualEditing: VisualEditing;
             }
 
             interface Editing {
@@ -1873,7 +1922,7 @@ declare global {
             interface MeDeviceUI {
                 current: {
                     deviceId: string;
-                    props: any;
+                    props: Record<string, any>;
                 };
                 desiredOpenDeviceId?: string;
                 serverVersionOpenDeviceId: string;
@@ -2026,6 +2075,11 @@ declare global {
                 items: Map<string, CodeGridItem>;
             }
 
+            interface WireConnection {
+                id: string;
+                name: string;
+            }
+
             interface CodeGridSchema {
                 allowChannelGrids: boolean;
                 customBlocks: any[];
@@ -2034,12 +2088,28 @@ declare global {
 
             interface DeviceOption {
                 codeGridSchema: CodeGridSchema;
-                defaultState: any;
+                defaultState: Record<string, any>;
+                description?: string;
                 id: string;
+                initialMemoryCost?: number;
+                maxOnMap?: number;
+                maximumRoleLevel?: number;
+                minimumRoleLevel?: number;
+                name?: string;
                 optionSchema: {
                     options: any[];
                 };
-                wireConfig: any;
+                seasonTicketRequired?: boolean;
+                subsequentMemoryCost?: number;
+                supportedMapStyles?: string[];
+                wireConfig: {
+                    in: {
+                        connections: WireConnection[];
+                    };
+                    out: {
+                        connections: WireConnection[];
+                    };
+                };
             }
 
             interface DeviceData {
@@ -2121,23 +2191,19 @@ declare global {
 
         type SettingsChangeCallback = (value: any, remote: boolean) => void;
 
-        interface CustomSection {
+        interface CustomSection<T = any> {
             type: "customsection";
             id: string;
-            default?: any;
-            onChange?: (value: any, remote: boolean) => void;
-            render: (
-                container: HTMLElement,
-                currentValue: any,
-                onChange: (newValue: any) => void,
-                // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-            ) => (() => void) | void;
+            default?: T;
+            onChange?: (value: T, remote: boolean) => void;
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+            render: (container: HTMLElement, currentValue: T, onChange: (newValue: T) => void) => (() => void) | void;
         }
 
-        interface CustomSetting extends BaseSetting<any> {
+        interface CustomSetting<T = any> extends BaseSetting<T> {
             type: "custom";
             // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-            render: (container: HTMLElement, currentValue: any, update: (newValue: any) => void) => (() => void) | void;
+            render: (container: HTMLElement, currentValue: T, update: (newValue: T) => void) => (() => void) | void;
         }
 
         interface ColorSetting extends BaseSetting<string> {
@@ -2226,7 +2292,7 @@ declare global {
 
         interface SettingsMethods {
             create: (description: PluginSettingsDescription) => void;
-            listen: (key: string, callback: SettingsChangeCallback) => () => void;
+            listen: (key: string, callback: SettingsChangeCallback, immediate?: boolean) => () => void;
         }
 
         type PluginSettings = SettingsMethods & Record<string, any>;
@@ -2237,24 +2303,9 @@ declare global {
             /** Whether a plugin exists and is enabled */
             isEnabled(name: string): boolean;
             /** Gets the headers of a plugin, such as version, author, and description */
-            getHeaders(name: string): {
-                name: string;
-                description: string;
-                author: string;
-                version: string | null;
-                reloadRequired: string;
-                isLibrary: string;
-                downloadUrl: string | null;
-                webpage: string | null;
-                needsLib: string[];
-                optionalLib: string[];
-                deprecated: string | null;
-                gamemode: string[];
-                changelog: string[];
-                hasSettings: string;
-            };
+            getHeaders(name: string): ScriptHeaders;
             /** Gets the exported values of a plugin, if it has been enabled */
-            get(name: string): any;
+            get<T extends keyof Gimloader.Plugins>(name: T): Gimloader.Plugins[T];
             /**
              * @deprecated Use {@link get} instead
              * @hidden
@@ -2264,30 +2315,83 @@ declare global {
             };
         }
 
+        interface ScriptHeaders {
+            name: string;
+            description: string;
+            author: string;
+            version: string | null;
+            reloadRequired: string;
+            isLibrary: string;
+            downloadUrl: string | null;
+            webpage: string | null;
+            needsLib: string[];
+            optionalLib: string[];
+            deprecated: string | null;
+            gamemode: string[];
+            changelog: string[];
+            /** Only available for plugins */
+            needsPlugin: string[];
+            hasSettings: string;
+        }
+
         class LibsApi {
             /** A list of all the libraries installed */
             get list(): string[];
             /** Gets whether or not a plugin is installed and enabled */
             isEnabled(name: string): boolean;
             /** Gets the headers of a library, such as version, author, and description */
-            getHeaders(name: string): {
-                name: string;
-                description: string;
-                author: string;
-                version: string | null;
-                reloadRequired: string;
-                isLibrary: string;
-                downloadUrl: string | null;
-                webpage: string | null;
-                needsLib: string[];
-                optionalLib: string[];
-                deprecated: string | null;
-                gamemode: string[];
-                changelog: string[];
-                hasSettings: string;
-            };
+            getHeaders(name: string): ScriptHeaders;
             /** Gets the exported values of a library */
-            get(name: string): any;
+            get<T extends keyof Gimloader.Libraries>(name: T): Gimloader.Libraries[T];
+        }
+
+        class ScopedCommandsApi {
+            private readonly id;
+            constructor(id: string);
+            /** Adds a command to the user's command palette. Can request additional input within the callback. */
+            addCommand(options: CommandOptions, callback: CommandCallback): () => void;
+        }
+
+        interface CommandStringOptions extends BaseCommandOptions {
+            maxLength?: number;
+        }
+
+        interface CommandNumberOptions extends BaseCommandOptions {
+            min?: number;
+            max?: number;
+            decimal?: boolean;
+        }
+
+        interface BaseCommandOptions {
+            title: string;
+        }
+
+        interface CommandSelectOptions extends BaseCommandOptions {
+            options: {
+                label: string;
+                value: string;
+            }[];
+        }
+
+        interface CommandContext {
+            select(options: CommandSelectOptions): Promise<string>;
+            number(options: CommandNumberOptions): Promise<number>;
+            string(options: CommandStringOptions): Promise<string>;
+        }
+
+        type CommandCallback = (context: CommandContext) => void | Promise<void>;
+
+        interface CommandOptions {
+            text: string | (() => string);
+            keywords?: string[];
+            hidden?: () => boolean;
+        }
+
+        class CommandsApi {
+            /** Adds a command to the user's command palette. Can request additional input within the callback. */
+            addCommand(id: string, options: CommandOptions, callback: CommandCallback): () => void;
+            /** Removes all commands that were added with the same id */
+            removeCommands(id: string): void;
         }
 
         class ScopedRewriterApi {
@@ -2311,6 +2415,23 @@ declare global {
             createShared(id: string, value: any): string;
             /** Removes the shared value with a certain id created by {@link createShared} */
             removeSharedById(id: string): void;
+            /**
+             * Runs code in the scope of modules when they are loaded, or when runInScope is called with them already loaded.
+             * Returning true from the callback will remove the hook.
+             */
+            runInScope(prefix: string | boolean, callback: RunInScopeCallback): () => void;
+            /** A utility function that exposes a variable based on regex to get its name. */
+            exposeVar(prefix: string | boolean, exposer: Exposer): () => void;
+        }
+
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        type RunInScopeCallback = (code: string, run: (evalCode: string) => void) => true | void;
+
+        interface Exposer {
+            check?: string;
+            find: RegExp;
+            callback: (val: any) => void;
+            multiple?: boolean;
         }
 
         class RewriterApi {
@@ -2321,10 +2442,10 @@ declare global {
              * @param pluginName The name of the plugin creating the hook.
              * @param prefix Limits the hook to only running on scripts beginning with this prefix.
              * Passing `true` will only run on the index script, and passing `false` will run on all scripts.
-             * @param callback The function that will modify the code. Should return the modified code. Cannot have side effects.
+             * @param callback A function that will modify the code, which should return the modified code.
              */
-            addParseHook(pluginName: string, prefix: string | boolean, callback: (code: string) => string): () => void;
-            /** Removes all hooks created by a certain plugin */
+            addParseHook(pluginName: string, prefix: string | boolean, modifier: (code: string) => string): () => void;
+            /** Removes all parse hooks created by a certain plugin */
             removeParseHooks(pluginName: string): void;
             /**
              * Creates a shared value that can be accessed from any script.
@@ -2338,6 +2459,15 @@ declare global {
             removeShared(pluginName: string): void;
             /** Removes the shared value with a certain id created by {@link createShared} */
             removeSharedById(pluginName: string, id: string): void;
+            /**
+             * Runs code in the scope of modules when they are loaded, or when runInScope is called with them already loaded.
+             * Returning true from the callback will remove the hook.
+             */
+            runInScope(pluginName: string, prefix: string | boolean, callback: RunInScopeCallback): () => void;
+            /** Stops all hooks created by {@link runInScope} */
+            removeRunInScope(pluginName: string): void;
+            /** A utility function that exposes a variable based on regex to get its name. */
+            exposeVar(pluginName: string, prefix: string | boolean, exposer: Exposer): () => void;
         }
 
         class ScopedPatcherApi {
@@ -2442,18 +2572,18 @@ declare global {
         }
 
         interface ModalOptions {
-            id: string;
-            title: string;
-            style: string;
-            className: string;
-            closeOnBackgroundClick: boolean;
-            buttons: ModalButton[];
-            onClosed: () => void;
+            id?: string;
+            title?: string;
+            style?: string;
+            className?: string;
+            closeOnBackgroundClick?: boolean;
+            buttons?: ModalButton[];
+            onClosed?: () => void;
         }
 
         class BaseUIApi {
             /** Shows a customizable modal to the user */
-            showModal(element: HTMLElement | import("react").ReactElement, options?: Partial<ModalOptions>): void;
+            showModal(element: HTMLElement | import("react").ReactElement, options?: ModalOptions): void;
         }
 
         class UIApi extends BaseUIApi {
@@ -2496,7 +2626,7 @@ declare global {
             /** Whether the user is the one hosting the current game */
             get isHost(): boolean;
             /** Sends a message to the server on a specific channel */
-            send(channel: string, message: any): void;
+            send(channel: string, message?: any): void;
         }
 
         interface RequesterOptions {
@@ -2554,8 +2684,6 @@ declare global {
         }
 
         class ScopedParcelApi extends BaseParcelApi {
-            private readonly id;
-            constructor(id: string);
             /**
              * Waits for a module to be loaded, then runs a callback
              * @returns A function to cancel waiting for the module
@@ -2729,14 +2857,16 @@ declare global {
             static storage: Readonly<StorageApi>;
             /** Functions for intercepting the arguments and return values of functions */
             static patcher: Readonly<PatcherApi>;
+            /** Functions for adding commands to the command palette */
+            static commands: Readonly<CommandsApi>;
             /** Methods for getting info on libraries */
             static libs: Readonly<LibsApi>;
             /** Gets the exported values of a library */
-            static lib: (name: string) => any;
+            static lib: <T extends keyof Gimloader.Libraries>(name: T) => Gimloader.Libraries[T];
             /** Methods for getting info on plugins */
             static plugins: Readonly<PluginsApi>;
             /** Gets the exported values of a plugin, if it has been enabled */
-            static plugin: (name: string) => any;
+            static plugin: <T extends keyof Gimloader.Plugins>(name: T) => Gimloader.Plugins[T];
             /** Gimkit's internal react instance */
             static get React(): typeof import("react");
             /** Gimkit's internal reactDom instance */
@@ -2798,16 +2928,18 @@ declare global {
             storage: Readonly<ScopedStorageApi>;
             /** Functions for intercepting the arguments and return values of functions */
             patcher: Readonly<ScopedPatcherApi>;
+            /** Functions for adding commands to the command palette */
+            commands: Readonly<ScopedCommandsApi>;
             /** A utility for creating persistent settings menus, only available to plugins */
             settings: PluginSettings;
             /** Methods for getting info on libraries */
             libs: Readonly<LibsApi>;
             /** Gets the exported values of a library */
-            lib: (name: string) => any;
+            lib: <T extends keyof Gimloader.Libraries>(name: T) => Gimloader.Libraries[T];
             /** Methods for getting info on plugins */
             plugins: Readonly<PluginsApi>;
             /** Gets the exported values of a plugin, if it has been enabled */
-            plugin: (name: string) => any;
+            plugin: <T extends keyof Gimloader.Plugins>(name: T) => Gimloader.Plugins[T];
             /** Gimkit's internal react instance */
             get React(): typeof import("react");
             /** Gimkit's internal reactDom instance */
@@ -2828,6 +2960,14 @@ declare global {
              * This function is not available for libraries
              */
             openSettingsMenu: (callback: () => void) => void;
+        }
+
+        interface Plugins {
+            [name: string]: any;
+        }
+
+        interface Libraries {
+            [name: string]: any;
         }
     }
     const api: Gimloader.Api;

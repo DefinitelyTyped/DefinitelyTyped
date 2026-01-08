@@ -508,6 +508,11 @@ export const RGB_ETC2_Format: 37492;
  */
 export const RGBA_ETC2_EAC_Format: 37496;
 
+export const R11_EAC_Format: 37488;
+export const SIGNED_R11_EAC_Format: 37489;
+export const RG11_EAC_Format: 37490;
+export const SIGNED_RG11_EAC_Format: 37491;
+
 // ASTC compressed texture formats
 
 /**
@@ -598,6 +603,10 @@ export type CompressedPixelFormat =
     | typeof RGB_ETC1_Format
     | typeof RGB_ETC2_Format
     | typeof RGBA_ETC2_EAC_Format
+    | typeof R11_EAC_Format
+    | typeof SIGNED_R11_EAC_Format
+    | typeof RG11_EAC_Format
+    | typeof SIGNED_RG11_EAC_Format
     | typeof RGBA_ASTC_4x4_Format
     | typeof RGBA_ASTC_5x4_Format
     | typeof RGBA_ASTC_5x5_Format
@@ -692,6 +701,11 @@ export type ColorSpace =
 export const LinearTransfer: "linear";
 export const SRGBTransfer: "srgb";
 export type ColorSpaceTransfer = typeof LinearTransfer | typeof SRGBTransfer;
+
+export const NoNormalPacking: "";
+export const NormalRGPacking: "rg";
+export const NormalGAPacking: "ga";
+export type NormalPacking = typeof NoNormalPacking | typeof NormalRGPacking | typeof NormalGAPacking;
 
 // Stencil Op types
 export const ZeroStencilOp: 0;

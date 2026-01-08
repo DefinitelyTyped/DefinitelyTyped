@@ -7,11 +7,19 @@ const allowedCardNetworks = new Array<google.payments.api.CardNetwork>(
     "INTERAC",
 );
 
+const cardFundingSource = new Array<google.payments.api.CardFundingSource>(
+    "UNKNOWN",
+    "CREDIT",
+    "DEBIT",
+    "PREPAID",
+);
+
 const allowedPaymentMethods = new Array<google.payments.api.PaymentMethodSpecification>({
     type: "CARD",
     parameters: {
         allowedAuthMethods: ["PAN_ONLY", "CRYPTOGRAM_3DS"],
         allowedCardNetworks,
+        allowedIssuerCountryCodes: ["US", "CA"],
         billingAddressRequired: true,
         billingAddressParameters: {
             format: "MIN",
@@ -201,6 +209,10 @@ function getGooglePaymentDataConfiguration(): google.payments.api.PaymentDataReq
         },
         allowedPaymentMethods,
         shippingAddressRequired: true,
+        shippingAddressParameters: {
+            phoneNumberRequired: true,
+            format: "FULL-ISO3166",
+        },
         callbackIntents: ["OFFER", "PAYMENT_AUTHORIZATION", "PAYMENT_METHOD"],
     };
 }

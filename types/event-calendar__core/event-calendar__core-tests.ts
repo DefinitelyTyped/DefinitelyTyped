@@ -124,6 +124,7 @@ cal = createCalendar(target, plugins, {
     allDayContent: "content",
     allDaySlot: true,
     buttonText: { foo: "bar" },
+    columnWidth: "20px",
     customButtons: {
         foo: {
             text: "Foo",
@@ -263,6 +264,7 @@ cal.setOption("buttonText", () => {
         customButtons.bar = { text: "Bar", active: false, click: () => undefined };
         return customButtons;
     })
+    .setOption("columnWidth", undefined)
     .setOption("dayCellFormat", (_d: Date) => "content")
     .setOption("dayHeaderAriaLabelFormat", (_d: Date) => "content")
     .setOption("dayHeaderFormat", (_d: Date) => "content")

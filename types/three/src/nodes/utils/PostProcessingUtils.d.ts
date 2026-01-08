@@ -44,3 +44,5 @@ export const getNormalFromDepth: (
 ) => Node;
 
 export const interleavedGradientNoise: (position: Node) => Node;
+
+export const vogelDiskSample: (sampleIndex: Node, samplesCount: Node, phi: Node) => Node;

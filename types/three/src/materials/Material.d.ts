@@ -548,6 +548,7 @@ export class Material extends EventDispatcher<{ dispose: {} }> {
      * @default 0
      */
     readonly version: number;
+    defines?: Record<string, unknown> | undefined;
     /**
      * An optional callback that is executed immediately before the material is used to render a 3D object.
      *

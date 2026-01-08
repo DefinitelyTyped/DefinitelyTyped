@@ -228,8 +228,11 @@ export class Pool extends events.EventEmitter {
     ): void;
     // tslint:enable:no-unnecessary-generics
 
-    on(event: "release" | "error", listener: (err: Error, client: PoolClient) => void): this;
-    on(event: "connect" | "acquire" | "remove", listener: (client: PoolClient) => void): this;
+    on<K extends "error" | "release" | "connect" | "acquire" | "remove">(
+        event: K,
+        listener: K extends "error" | "release" ? (err: Error, client: PoolClient) => void
+            : (client: PoolClient) => void,
+    ): this;
 }
 
 export class ClientBase extends events.EventEmitter {
@@ -277,12 +280,13 @@ export class ClientBase extends events.EventEmitter {
     setTypeParser: typeof pgTypes.setTypeParser;
     getTypeParser: typeof pgTypes.getTypeParser;
 
-    on(event: "drain", listener: () => void): this;
-    on(event: "error", listener: (err: Error) => void): this;
-    on(event: "notice", listener: (notice: NoticeMessage) => void): this;
-    on(event: "notification", listener: (message: Notification) => void): this;
-    // tslint:disable-next-line unified-signatures
-    on(event: "end", listener: () => void): this;
+    on<E extends "drain" | "error" | "notice" | "notification" | "end">(
+        event: E,
+        listener: E extends "drain" | "end" ? () => void
+            : E extends "error" ? (err: Error) => void
+            : E extends "notice" ? (notice: NoticeMessage) => void
+            : (message: Notification) => void,
+    ): this;
 }
 
 export class Client extends ClientBase {
@@ -317,9 +321,12 @@ export class Query<R extends QueryResultRow = any, I extends any[] = any> extend
         callback?: (error: Error | undefined, result: ResultBuilder<R>) => void,
     );
     submit: (connection: Connection) => void;
-    on(event: "row", listener: (row: R, result?: ResultBuilder<R>) => void): this;
-    on(event: "error", listener: (err: Error) => void): this;
-    on(event: "end", listener: (result: ResultBuilder<R>) => void): this;
+    on<E extends "row" | "error" | "end">(
+        event: E,
+        listener: E extends "row" ? (row: R, result?: ResultBuilder<R>) => void
+            : E extends "error" ? (err: Error) => void
+            : (result: ResultBuilder<R>) => void,
+    ): this;
 }
 
 export class Events extends events.EventEmitter {

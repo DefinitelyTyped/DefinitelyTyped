@@ -1253,7 +1253,14 @@ export interface ColumnDefinition extends ColumnLayout, CellCallbacks {
      *
      * Validators can be applied by using the validator property in a columns definition object (see Define Columns for more details).
      */
-    validator?: StandardValidatorType | StandardValidatorType[] | Validator | Validator[] | string | undefined;
+    validator?:
+        | StandardValidatorType
+        | StandardValidatorType[]
+        | Validator
+        | Validator[]
+        | string
+        | undefined
+        | ((cell: CellComponent, value: any) => boolean);
 
     /**
      * Mutators are used to alter data as it is parsed into  For example if you wanted to convert a numeric column into a boolean based on its value, before the data is used to build the table.
@@ -1657,7 +1664,7 @@ export type Editor =
         onRendered: EmptyCallback,
         success: ValueBooleanCallback,
         cancel: ValueVoidCallback,
-        editorParams: {},
+        editorParams: Record<string, unknown>,
     ) => HTMLElement | false);
 
 export type EditorParams =
@@ -1669,7 +1676,7 @@ export type EditorParams =
     | DateParams
     | TimeParams
     | DateTimeEditorParams
-    | ((cell: CellComponent) => {});
+    | ((cell: CellComponent) => Record<string, unknown>);
 
 export type ScrollToRowPosition = "top" | "center" | "bottom" | "nearest";
 export type PopupPosition = ColumnDefinitionAlign | "top" | "bottom";

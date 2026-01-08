@@ -1055,6 +1055,31 @@ async function test() {
     page.waitForRequest("https://example.com", { timeout: 10000 });
 
     // @ts-expect-error
+    page.waitForEvent();
+    // $ExpectType Promise<ConsoleMessage>
+    page.waitForEvent("console");
+    // $ExpectType Promise<ConsoleMessage>
+    page.waitForEvent("console", (msg) => msg.text().includes("hello"));
+    // $ExpectType Promise<ConsoleMessage>
+    page.waitForEvent("console", { predicate: (msg) => msg.text().includes("hello") });
+    // $ExpectType Promise<ConsoleMessage>
+    page.waitForEvent("console", { timeout: 10000 });
+    // $ExpectType Promise<ConsoleMessage>
+    page.waitForEvent("console", { predicate: (msg) => msg.text().includes("hello"), timeout: 10000 });
+    // $ExpectType Promise<Request>
+    page.waitForEvent("request");
+    // $ExpectType Promise<Request>
+    page.waitForEvent("request", (req) => req.url().includes("/api"));
+    // $ExpectType Promise<Request>
+    page.waitForEvent("request", { predicate: (req) => req.url().includes("/api"), timeout: 10000 });
+    // $ExpectType Promise<Response>
+    page.waitForEvent("response");
+    // $ExpectType Promise<Response>
+    page.waitForEvent("response", (res) => res.url().includes("/api"));
+    // $ExpectType Promise<Response>
+    page.waitForEvent("response", { predicate: (res) => res.url().includes("/api"), timeout: 10000 });
+
+    // @ts-expect-error
     page.waitForSelector();
     // $ExpectType Promise<ElementHandle>
     page.waitForSelector(selector);
@@ -1433,6 +1458,19 @@ async function test() {
     locator.setChecked(true, { trial: true });
     // $ExpectType Promise<void>
     locator.setChecked(true, { position: { x: 0, y: 0 } });
+
+    // @ts-expect-error
+    locator.pressSequentially();
+    // @ts-expect-error
+    locator.pressSequentially({ timeout: 10000 });
+    // $ExpectType Promise<void>
+    locator.pressSequentially("text");
+    // $ExpectType Promise<void>
+    locator.pressSequentially("text", { delay: 100 });
+    // $ExpectType Promise<void>
+    locator.pressSequentially("text", { noWaitAfter: true });
+    // $ExpectType Promise<void>
+    locator.pressSequentially("text", { timeout: 10000 });
 
     // @ts-expect-error
     locator.type();

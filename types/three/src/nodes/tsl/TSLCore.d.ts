@@ -483,38 +483,38 @@ declare module "../Nodes.js" {
         toVec2: () => Node;
         toVec2Assign: () => this;
 
-        toIvec2: () => Node;
-        toIvec2Assign: () => this;
+        toIVec2: () => Node;
+        toIVec2Assign: () => this;
 
-        toUvec2: () => Node;
-        toUvec2Assign: () => this;
+        toUVec2: () => Node;
+        toUVec2Assign: () => this;
 
-        toBvec2: () => Node;
-        toBvec2Assign: () => this;
+        toBVec2: () => Node;
+        toBVec2Assign: () => this;
 
         toVec3: () => Node;
         toVec3Assign: () => this;
 
-        toIvec3: () => Node;
-        toIvec3Assign: () => this;
+        toIVec3: () => Node;
+        toIVec3Assign: () => this;
 
-        toUvec3: () => Node;
-        toUvec3Assign: () => this;
+        toUVec3: () => Node;
+        toUVec3Assign: () => this;
 
-        toBvec3: () => Node;
-        ttoBvec3Assign: () => this;
+        toBVec3: () => Node;
+        toBVec3Assign: () => this;
 
         toVec4: () => Node;
         toVec4Assign: () => this;
 
-        toIvec4: () => Node;
-        toIvec4Assign: () => this;
+        toIVec4: () => Node;
+        toIVec4Assign: () => this;
 
-        toUvec4: () => Node;
-        toUvec4Assign: () => this;
+        toUVec4: () => Node;
+        toUVec4Assign: () => this;
 
-        toBvec4: () => Node;
-        toBvec4Assign: () => this;
+        toBVec4: () => Node;
+        toBVec4Assign: () => this;
 
         toMat2: () => Node;
         toMat2Assign: () => this;
