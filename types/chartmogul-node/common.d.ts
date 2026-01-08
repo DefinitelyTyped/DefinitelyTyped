@@ -4,12 +4,14 @@ export interface Map {
 export interface CursorParams {
     page?: number | undefined;
     per_page?: number | undefined;
+    cursor?: string | undefined;
 }
 export type Strings = string[];
 
 export interface Cursor {
     page?: number | undefined;
     per_page?: number | undefined;
+    cursor?: string | undefined;
     has_more?: boolean | undefined;
     current_page?: number | undefined;
     total_pages?: number | undefined;

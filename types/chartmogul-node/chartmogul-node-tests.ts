@@ -175,13 +175,52 @@ ChartMogul.Customer.destroy(config, "").then(data => {
 });
 
 // $ExpectType Promise<Entries<Customer>>
+ChartMogul.Customer.all(config);
+
+// $ExpectType Promise<Entries<Customer>>
 ChartMogul.Customer.all(config, {
     data_source_uuid: "",
+});
+
+// $ExpectType Promise<Entries<Customer>>
+ChartMogul.Customer.all(config, {
+    external_id: "",
+});
+
+// $ExpectType Promise<Entries<Customer>>
+ChartMogul.Customer.all(config, {
+    status: "Active",
+});
+
+// $ExpectType Promise<Entries<Customer>>
+ChartMogul.Customer.all(config, {
+    status: "Working Lead",
+});
+
+// $ExpectType Promise<Entries<Customer>>
+ChartMogul.Customer.all(config, {
+    system: "Stripe",
+});
+
+// $ExpectType Promise<Entries<Customer>>
+ChartMogul.Customer.all(config, {
+    cursor: "AjMx90kC0yMVQwNNwoYToyNC4wMDAwMDAwMDBgks68k",
+    per_page: 50,
+});
+
+// $ExpectType Promise<Entries<Customer>>
+ChartMogul.Customer.all(config, {
+    data_source_uuid: "ds_fef05d54-47b4-431b-aed2-eb6b9e545430",
+    status: "Active",
+    system: "Stripe",
+    external_id: "34916129",
 });
 
 ChartMogul.Customer.all(config).then(data => {
     data.entries[0]; // $ExpectType Customer
     data.entries[0].attributes!.stripe!["something"]; // $ExpectType any
+    data.cursor; // $ExpectType string | undefined
+    data.has_more; // $ExpectType boolean | undefined
     data.page!; // $ExpectType number
 });
 
