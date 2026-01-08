@@ -395,8 +395,16 @@ export namespace CustomerNote {
         call_duration?: number | undefined;
         created_at?: string | undefined;
     }
+    interface UpdateNote {
+        author_email?: string | undefined;
+        text?: string | undefined;
+        call_duration?: number | undefined;
+        created_at?: string | undefined;
+        updated_at?: string | undefined;
+    }
 
     function create(config: Config, data: NewNote): Promise<Note>;
+    function modify(config: Config, uuid: string, data: UpdateNote): Promise<Note>;
 }
 
 export namespace Contact {

@@ -524,7 +524,17 @@ ChartMogul.CustomerNote.create(config, {
     type: "call",
     call_duration: 120,
 });
+// $ExpectType Promise<Note>
+ChartMogul.CustomerNote.modify(config, "note_39351ba6-dea0-11ee-ac96-37b2b3de29af", {
+    author_email: "sara@example.com",
+    text: "They are a world leader in specialized software.\nThey are in SaaS business.",
+});
 
+// $ExpectType Promise<Note>
+ChartMogul.CustomerNote.modify(config, "note_39351ba6-dea0-11ee-ac96-37b2b3de29af", {
+    call_duration: 180,
+    updated_at: "2023-12-21T10:53:50.082Z",
+});
 // $ExpectType Promise<Entries<Opportunity>>
 ChartMogul.Customer.opportunities(config, "");
 
