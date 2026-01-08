@@ -490,6 +490,34 @@ ChartMogul.Customer.createOpportunity(
     },
 );
 
+// $ExpectType Promise<Entries<Task>>
+ChartMogul.Customer.tasks(config, "");
+
+// $ExpectType Promise<Entries<Task>>
+ChartMogul.Customer.tasks(config, "cus_f466e33d-ff2b-4a11-8f85-417eb02157a7");
+
+// $ExpectType Promise<Entries<Task>>
+ChartMogul.Customer.tasks(config, "cus_f466e33d-ff2b-4a11-8f85-417eb02157a7", {
+    assignee: "bob@example.com",
+});
+
+// $ExpectType Promise<Entries<Task>>
+ChartMogul.Customer.tasks(config, "cus_f466e33d-ff2b-4a11-8f85-417eb02157a7", {
+    due_date_on_or_after: "2024-01-01",
+    due_date_on_or_before: "2024-12-31",
+});
+
+// $ExpectType Promise<Entries<Task>>
+ChartMogul.Customer.tasks(config, "cus_f466e33d-ff2b-4a11-8f85-417eb02157a7", {
+    completed: false,
+});
+
+// $ExpectType Promise<Entries<Task>>
+ChartMogul.Customer.tasks(config, "cus_f466e33d-ff2b-4a11-8f85-417eb02157a7", {
+    cursor: "aabbcc",
+    per_page: 20,
+});
+
 // $ExpectType Promise<Plan>
 ChartMogul.Plan.create(config, {
     data_source_uuid: "",

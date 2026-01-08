@@ -283,6 +283,12 @@ export namespace Customer {
         customerId: string,
         data: Opportunity.NewOpportunity,
     ): Promise<Opportunity.Opportunity>;
+
+    function tasks(
+        config: Config,
+        customerId: string,
+        params?: Task.ListTasksParams,
+    ): Promise<Entries<Task.Task>>;
 }
 
 export namespace Opportunity {
@@ -330,6 +336,26 @@ export namespace Opportunity {
         forecast_category?: ForecastCategory | undefined;
         win_likelihood?: number | undefined;
         custom?: Array<{ key: string; value: any }> | undefined;
+    }
+}
+
+export namespace Task {
+    interface Task {
+        task_uuid?: string | undefined;
+        customer_uuid?: string | undefined;
+        task_details?: string | undefined;
+        assignee?: string | undefined;
+        due_date?: string | undefined;
+        completed_at?: string | undefined;
+        created_at?: string | undefined;
+        updated_at?: string | undefined;
+    }
+    interface ListTasksParams extends CursorParams {
+        customer_uuid?: string | undefined;
+        assignee?: string | undefined;
+        due_date_on_or_after?: string | undefined;
+        due_date_on_or_before?: string | undefined;
+        completed?: boolean | undefined;
     }
 }
 
