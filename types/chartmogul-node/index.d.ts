@@ -271,6 +271,7 @@ export namespace Customer {
         customerId: string,
         params?: CustomerNote.ListNotesParams,
     ): Promise<Entries<CustomerNote.Note>>;
+    function createNote(config: Config, customerId: string, data: CustomerNote.NewNote): Promise<CustomerNote.Note>;
 }
 
 export namespace CustomerNote {
@@ -289,6 +290,14 @@ export namespace CustomerNote {
         customer_uuid?: string | undefined;
         type?: NoteType | undefined;
         author_email?: string | undefined;
+    }
+    interface NewNote {
+        customer_uuid: string;
+        type: NoteType;
+        author_email?: string | undefined;
+        text?: string | undefined;
+        call_duration?: number | undefined;
+        created_at?: string | undefined;
     }
 }
 

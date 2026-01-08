@@ -416,6 +416,42 @@ ChartMogul.Customer.notes(config, "cus_52eb54c2-dea0-11ed-ac96-ef735d89fca0").th
     data.has_more; // $ExpectType boolean | undefined
 });
 
+// $ExpectType Promise<Note>
+ChartMogul.Customer.createNote(config, "cus_52eb54c2-dea0-11ed-ac96-ef735d89fca0", {
+    customer_uuid: "cus_52eb54c2-dea0-11ed-ac96-ef735d89fca0",
+    type: "note",
+});
+
+// $ExpectType Promise<Note>
+ChartMogul.Customer.createNote(config, "cus_52eb54c2-dea0-11ed-ac96-ef735d89fca0", {
+    customer_uuid: "cus_52eb54c2-dea0-11ed-ac96-ef735d89fca0",
+    type: "note",
+    author_email: "adam@example.com",
+    text: "They are a world leader in specialized software.\\n",
+    created_at: "2023-11-01T00:00:00Z",
+});
+
+// $ExpectType Promise<Note>
+ChartMogul.Customer.createNote(config, "cus_52eb54c2-dea0-11ed-ac96-ef735d89fca0", {
+    customer_uuid: "cus_52eb54c2-dea0-11ed-ac96-ef735d89fca0",
+    type: "call",
+    call_duration: 300,
+    text: "Discussed pricing options",
+});
+
+ChartMogul.Customer.createNote(
+    config,
+    "cus_52eb54c2-dea0-11ed-ac96-ef735d89fca0",
+    { customer_uuid: "cus_52eb54c2-dea0-11ed-ac96-ef735d89fca0", type: "note" },
+).then(data => {
+    data.uuid; // $ExpectType string | undefined
+    data.customer_uuid; // $ExpectType string | undefined
+    data.type; // $ExpectType NoteType | undefined
+    data.text; // $ExpectType string | undefined
+    data.call_duration; // $ExpectType number | undefined
+    data.author; // $ExpectType string | undefined
+});
+
 // $ExpectType Promise<Plan>
 ChartMogul.Plan.create(config, {
     data_source_uuid: "",
