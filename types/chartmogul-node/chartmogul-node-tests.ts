@@ -379,6 +379,35 @@ ChartMogul.Contact.create(config, {
 // $ExpectType Promise<Contact>
 ChartMogul.Contact.retrieve(config, "con_653af916-dea0-11ed-845b-3be1ac0039ac");
 
+// $ExpectType Promise<Entries<Contact>>
+ChartMogul.Contact.all(config);
+
+// $ExpectType Promise<Entries<Contact>>
+ChartMogul.Contact.all(config, {
+    email: "adam@example.com",
+});
+
+// $ExpectType Promise<Entries<Contact>>
+ChartMogul.Contact.all(config, {
+    customer_uuid: "cus_52eb54c2-dea0-11ed-ac96-ef735d89fca0",
+});
+
+// $ExpectType Promise<Entries<Contact>>
+ChartMogul.Contact.all(config, {
+    data_source_uuid: "ds_35542640-d9f1-11ed-9c30-7727168c74a5",
+});
+
+// $ExpectType Promise<Entries<Contact>>
+ChartMogul.Contact.all(config, {
+    customer_external_id: "cus_0001",
+});
+
+// $ExpectType Promise<Entries<Contact>>
+ChartMogul.Contact.all(config, {
+    cursor: "aabbcc",
+    per_page: 50,
+});
+
 // $ExpectType Promise<Contact>
 ChartMogul.Contact.modify(config, "con_f90ba380-57a8-11ee-9500-7f50256329a7", {});
 
