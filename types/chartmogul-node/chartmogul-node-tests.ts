@@ -382,6 +382,13 @@ ChartMogul.Contact.retrieve(config, "con_653af916-dea0-11ed-845b-3be1ac0039ac");
 // $ExpectType Promise<{}>
 ChartMogul.Contact.destroy(config, "con_d018335c-56d2-11ee-897c-830bb2bba6ec");
 
+// $ExpectType Promise<Contact>
+ChartMogul.Contact.merge(
+    config,
+    "con_653af916-dea0-11ed-845b-3be1ac0039ac",
+    "con_36c9f236-ea66-11ed-b81d-cf0d715ced77",
+);
+
 // $ExpectType Promise<Entries<Contact>>
 ChartMogul.Contact.all(config);
 
