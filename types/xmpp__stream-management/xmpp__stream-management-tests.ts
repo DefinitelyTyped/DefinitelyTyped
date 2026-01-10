@@ -1,13 +1,10 @@
-import Connection = require("@xmpp/connection");
-import middleware = require("@xmpp/middleware");
-import streamFeatures = require("@xmpp/stream-features");
-import streamManagement = require("@xmpp/stream-management");
+import Connection from "@xmpp/connection";
+import middleware, { Entity } from "@xmpp/middleware";
+import streamFeatures from "@xmpp/stream-features";
+import streamManagement from "@xmpp/stream-management";
 import { Element } from "@xmpp/xml";
 
-// test type exports
-type StreamManagement = streamManagement.StreamManagement;
-
-class Foo extends Connection implements middleware.Entity {
+class Foo extends Connection implements Entity {
     domain?: string;
     hookOutgoing?: (stanza: Element) => Promise<void>;
 

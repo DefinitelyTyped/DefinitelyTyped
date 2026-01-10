@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/xmpp__sasl-ht-sha-256-none",
+    "version": "0.14.9999",
+    "type": "module",
+    "projects": [
+        "https://github.com/xmppjs/xmpp.js/tree/main/packages/sasl-ht-sha-256-none"
+    ],
+    "dependencies": {
+        "@types/saslmechanisms": "*",
+        "@types/xmpp__sasl": "*"
+    },
+    "devDependencies": {
+        "@types/xmpp__sasl-ht-sha-256-none": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Colin Reeder",
+            "githubUsername": "vpzomtrrfrt"
+        }
+    ]
+}

@@ -1,9 +1,9 @@
 {
     "private": true,
     "nonNpm": true,
-    "nonNpmDescription": "Type definitions for non-npm package webvis 3.11",
+    "nonNpmDescription": "Type definitions for non-npm package webvis 3.12",
     "name": "@types/webvis",
-    "version": "3.11.9999",
+    "version": "3.12.9999",
     "projects": [
         "https://threedy.io"
     ],

@@ -206,7 +206,7 @@ declare class OrbitControls extends Controls<OrbitControlsEventMap> {
      * is the scene itself.
      * @param domElement The HTML element used for event listeners. (optional)
      */
-    constructor(object: Camera, domElement?: HTMLElement | null);
+    constructor(object: Camera, domElement?: HTMLElement | SVGElement | null);
 
     /**
      * Get the current vertical rotation, in radians.

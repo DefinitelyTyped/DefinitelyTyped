@@ -16,7 +16,7 @@ export function getLengthFromType(type: string): number | undefined;
 
 export function getMemoryLengthFromType(type: string): number | undefined;
 
-export function getByteBoundaryFromType(type: string): number | undefined;
+export function getAlignmentFromType(type: string): number | undefined;
 
 export function getValueType(value: unknown): string | null;
 

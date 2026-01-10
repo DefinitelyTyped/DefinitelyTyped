@@ -1,7 +1,8 @@
 {
     "private": true,
     "name": "@types/xmpp__sasl-anonymous",
-    "version": "0.13.9999",
+    "version": "0.14.9999",
+    "type": "module",
     "projects": [
         "https://github.com/xmppjs/xmpp.js/tree/main/packages/sasl-anonymous"
     ],

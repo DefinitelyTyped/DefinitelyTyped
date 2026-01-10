@@ -76,11 +76,12 @@
  *
  * If any tests fail, the process exit code is set to `1`.
  * @since v18.0.0, v16.17.0
- * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/test.js)
+ * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/test.js)
  */
 declare module "node:test" {
     import { AssertMethodNames } from "node:assert";
-    import { Readable } from "node:stream";
+    import { Readable, ReadableEventMap } from "node:stream";
+    import { TestEvent } from "node:test/reporters";
     import TestFn = test.TestFn;
     import TestOptions = test.TestOptions;
     /**
@@ -243,14 +244,14 @@ declare module "node:test" {
             /**
              * Specifies the current working directory to be used by the test runner.
              * Serves as the base path for resolving files according to the
-             * [test runner execution model](https://nodejs.org/docs/latest-v24.x/api/test.html#test-runner-execution-model).
+             * [test runner execution model](https://nodejs.org/docs/latest-v25.x/api/test.html#test-runner-execution-model).
              * @since v23.0.0
              * @default process.cwd()
              */
             cwd?: string | undefined;
             /**
              * An array containing the list of files to run. If omitted, files are run according to the
-             * [test runner execution model](https://nodejs.org/docs/latest-v24.x/api/test.html#test-runner-execution-model).
+             * [test runner execution model](https://nodejs.org/docs/latest-v25.x/api/test.html#test-runner-execution-model).
              */
             files?: readonly string[] | undefined;
             /**
@@ -263,7 +264,7 @@ declare module "node:test" {
             /**
              * An array containing the list of glob patterns to match test files.
              * This option cannot be used together with `files`. If omitted, files are run according to the
-             * [test runner execution model](https://nodejs.org/docs/latest-v24.x/api/test.html#test-runner-execution-model).
+             * [test runner execution model](https://nodejs.org/docs/latest-v25.x/api/test.html#test-runner-execution-model).
              * @since v22.6.0
              */
             globPatterns?: readonly string[] | undefined;
@@ -351,7 +352,7 @@ declare module "node:test" {
              */
             rerunFailuresFilePath?: string | undefined;
             /**
-             * enable [code coverage](https://nodejs.org/docs/latest-v24.x/api/test.html#collecting-code-coverage) collection.
+             * enable [code coverage](https://nodejs.org/docs/latest-v25.x/api/test.html#collecting-code-coverage) collection.
              * @since v22.10.0
              * @default false
              */
@@ -398,6 +399,23 @@ declare module "node:test" {
              */
             functionCoverage?: number | undefined;
         }
+        interface TestsStreamEventMap extends ReadableEventMap {
+            "data": [data: TestEvent];
+            "test:coverage": [data: EventData.TestCoverage];
+            "test:complete": [data: EventData.TestComplete];
+            "test:dequeue": [data: EventData.TestDequeue];
+            "test:diagnostic": [data: EventData.TestDiagnostic];
+            "test:enqueue": [data: EventData.TestEnqueue];
+            "test:fail": [data: EventData.TestFail];
+            "test:pass": [data: EventData.TestPass];
+            "test:plan": [data: EventData.TestPlan];
+            "test:start": [data: EventData.TestStart];
+            "test:stderr": [data: EventData.TestStderr];
+            "test:stdout": [data: EventData.TestStdout];
+            "test:summary": [data: EventData.TestSummary];
+            "test:watch:drained": [];
+            "test:watch:restarted": [];
+        }
         /**
          * A successful call to `run()` will return a new `TestsStream` object, streaming a series of events representing the execution of the tests.
          *
@@ -405,96 +423,59 @@ declare module "node:test" {
          * @since v18.9.0, v16.19.0
          */
         interface TestsStream extends Readable {
-            addListener(event: "test:coverage", listener: (data: EventData.TestCoverage) => void): this;
-            addListener(event: "test:complete", listener: (data: EventData.TestComplete) => void): this;
-            addListener(event: "test:dequeue", listener: (data: EventData.TestDequeue) => void): this;
-            addListener(event: "test:diagnostic", listener: (data: EventData.TestDiagnostic) => void): this;
-            addListener(event: "test:enqueue", listener: (data: EventData.TestEnqueue) => void): this;
-            addListener(event: "test:fail", listener: (data: EventData.TestFail) => void): this;
-            addListener(event: "test:pass", listener: (data: EventData.TestPass) => void): this;
-            addListener(event: "test:plan", listener: (data: EventData.TestPlan) => void): this;
-            addListener(event: "test:start", listener: (data: EventData.TestStart) => void): this;
-            addListener(event: "test:stderr", listener: (data: EventData.TestStderr) => void): this;
-            addListener(event: "test:stdout", listener: (data: EventData.TestStdout) => void): this;
-            addListener(event: "test:summary", listener: (data: EventData.TestSummary) => void): this;
-            addListener(event: "test:watch:drained", listener: () => void): this;
-            addListener(event: "test:watch:restarted", listener: () => void): this;
-            addListener(event: string, listener: (...args: any[]) => void): this;
-            emit(event: "test:coverage", data: EventData.TestCoverage): boolean;
-            emit(event: "test:complete", data: EventData.TestComplete): boolean;
-            emit(event: "test:dequeue", data: EventData.TestDequeue): boolean;
-            emit(event: "test:diagnostic", data: EventData.TestDiagnostic): boolean;
-            emit(event: "test:enqueue", data: EventData.TestEnqueue): boolean;
-            emit(event: "test:fail", data: EventData.TestFail): boolean;
-            emit(event: "test:pass", data: EventData.TestPass): boolean;
-            emit(event: "test:plan", data: EventData.TestPlan): boolean;
-            emit(event: "test:start", data: EventData.TestStart): boolean;
-            emit(event: "test:stderr", data: EventData.TestStderr): boolean;
-            emit(event: "test:stdout", data: EventData.TestStdout): boolean;
-            emit(event: "test:summary", data: EventData.TestSummary): boolean;
-            emit(event: "test:watch:drained"): boolean;
-            emit(event: "test:watch:restarted"): boolean;
-            emit(event: string | symbol, ...args: any[]): boolean;
-            on(event: "test:coverage", listener: (data: EventData.TestCoverage) => void): this;
-            on(event: "test:complete", listener: (data: EventData.TestComplete) => void): this;
-            on(event: "test:dequeue", listener: (data: EventData.TestDequeue) => void): this;
-            on(event: "test:diagnostic", listener: (data: EventData.TestDiagnostic) => void): this;
-            on(event: "test:enqueue", listener: (data: EventData.TestEnqueue) => void): this;
-            on(event: "test:fail", listener: (data: EventData.TestFail) => void): this;
-            on(event: "test:pass", listener: (data: EventData.TestPass) => void): this;
-            on(event: "test:plan", listener: (data: EventData.TestPlan) => void): this;
-            on(event: "test:start", listener: (data: EventData.TestStart) => void): this;
-            on(event: "test:stderr", listener: (data: EventData.TestStderr) => void): this;
-            on(event: "test:stdout", listener: (data: EventData.TestStdout) => void): this;
-            on(event: "test:summary", listener: (data: EventData.TestSummary) => void): this;
-            on(event: "test:watch:drained", listener: () => void): this;
-            on(event: "test:watch:restarted", listener: () => void): this;
-            on(event: string, listener: (...args: any[]) => void): this;
-            once(event: "test:coverage", listener: (data: EventData.TestCoverage) => void): this;
-            once(event: "test:complete", listener: (data: EventData.TestComplete) => void): this;
-            once(event: "test:dequeue", listener: (data: EventData.TestDequeue) => void): this;
-            once(event: "test:diagnostic", listener: (data: EventData.TestDiagnostic) => void): this;
-            once(event: "test:enqueue", listener: (data: EventData.TestEnqueue) => void): this;
-            once(event: "test:fail", listener: (data: EventData.TestFail) => void): this;
-            once(event: "test:pass", listener: (data: EventData.TestPass) => void): this;
-            once(event: "test:plan", listener: (data: EventData.TestPlan) => void): this;
-            once(event: "test:start", listener: (data: EventData.TestStart) => void): this;
-            once(event: "test:stderr", listener: (data: EventData.TestStderr) => void): this;
-            once(event: "test:stdout", listener: (data: EventData.TestStdout) => void): this;
-            once(event: "test:summary", listener: (data: EventData.TestSummary) => void): this;
-            once(event: "test:watch:drained", listener: () => void): this;
-            once(event: "test:watch:restarted", listener: () => void): this;
-            once(event: string, listener: (...args: any[]) => void): this;
-            prependListener(event: "test:coverage", listener: (data: EventData.TestCoverage) => void): this;
-            prependListener(event: "test:complete", listener: (data: EventData.TestComplete) => void): this;
-            prependListener(event: "test:dequeue", listener: (data: EventData.TestDequeue) => void): this;
-            prependListener(event: "test:diagnostic", listener: (data: EventData.TestDiagnostic) => void): this;
-            prependListener(event: "test:enqueue", listener: (data: EventData.TestEnqueue) => void): this;
-            prependListener(event: "test:fail", listener: (data: EventData.TestFail) => void): this;
-            prependListener(event: "test:pass", listener: (data: EventData.TestPass) => void): this;
-            prependListener(event: "test:plan", listener: (data: EventData.TestPlan) => void): this;
-            prependListener(event: "test:start", listener: (data: EventData.TestStart) => void): this;
-            prependListener(event: "test:stderr", listener: (data: EventData.TestStderr) => void): this;
-            prependListener(event: "test:stdout", listener: (data: EventData.TestStdout) => void): this;
-            prependListener(event: "test:summary", listener: (data: EventData.TestSummary) => void): this;
-            prependListener(event: "test:watch:drained", listener: () => void): this;
-            prependListener(event: "test:watch:restarted", listener: () => void): this;
-            prependListener(event: string, listener: (...args: any[]) => void): this;
-            prependOnceListener(event: "test:coverage", listener: (data: EventData.TestCoverage) => void): this;
-            prependOnceListener(event: "test:complete", listener: (data: EventData.TestComplete) => void): this;
-            prependOnceListener(event: "test:dequeue", listener: (data: EventData.TestDequeue) => void): this;
-            prependOnceListener(event: "test:diagnostic", listener: (data: EventData.TestDiagnostic) => void): this;
-            prependOnceListener(event: "test:enqueue", listener: (data: EventData.TestEnqueue) => void): this;
-            prependOnceListener(event: "test:fail", listener: (data: EventData.TestFail) => void): this;
-            prependOnceListener(event: "test:pass", listener: (data: EventData.TestPass) => void): this;
-            prependOnceListener(event: "test:plan", listener: (data: EventData.TestPlan) => void): this;
-            prependOnceListener(event: "test:start", listener: (data: EventData.TestStart) => void): this;
-            prependOnceListener(event: "test:stderr", listener: (data: EventData.TestStderr) => void): this;
-            prependOnceListener(event: "test:stdout", listener: (data: EventData.TestStdout) => void): this;
-            prependOnceListener(event: "test:summary", listener: (data: EventData.TestSummary) => void): this;
-            prependOnceListener(event: "test:watch:drained", listener: () => void): this;
-            prependOnceListener(event: "test:watch:restarted", listener: () => void): this;
-            prependOnceListener(event: string, listener: (...args: any[]) => void): this;
+            // #region InternalEventEmitter
+            addListener<E extends keyof TestsStreamEventMap>(
+                eventName: E,
+                listener: (...args: TestsStreamEventMap[E]) => void,
+            ): this;
+            addListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+            emit<E extends keyof TestsStreamEventMap>(eventName: E, ...args: TestsStreamEventMap[E]): boolean;
+            emit(eventName: string | symbol, ...args: any[]): boolean;
+            listenerCount<E extends keyof TestsStreamEventMap>(
+                eventName: E,
+                listener?: (...args: TestsStreamEventMap[E]) => void,
+            ): number;
+            listenerCount(eventName: string | symbol, listener?: (...args: any[]) => void): number;
+            listeners<E extends keyof TestsStreamEventMap>(eventName: E): ((...args: TestsStreamEventMap[E]) => void)[];
+            listeners(eventName: string | symbol): ((...args: any[]) => void)[];
+            off<E extends keyof TestsStreamEventMap>(
+                eventName: E,
+                listener: (...args: TestsStreamEventMap[E]) => void,
+            ): this;
+            off(eventName: string | symbol, listener: (...args: any[]) => void): this;
+            on<E extends keyof TestsStreamEventMap>(
+                eventName: E,
+                listener: (...args: TestsStreamEventMap[E]) => void,
+            ): this;
+            on(eventName: string | symbol, listener: (...args: any[]) => void): this;
+            once<E extends keyof TestsStreamEventMap>(
+                eventName: E,
+                listener: (...args: TestsStreamEventMap[E]) => void,
+            ): this;
+            once(eventName: string | symbol, listener: (...args: any[]) => void): this;
+            prependListener<E extends keyof TestsStreamEventMap>(
+                eventName: E,
+                listener: (...args: TestsStreamEventMap[E]) => void,
+            ): this;
+            prependListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+            prependOnceListener<E extends keyof TestsStreamEventMap>(
+                eventName: E,
+                listener: (...args: TestsStreamEventMap[E]) => void,
+            ): this;
+            prependOnceListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+            rawListeners<E extends keyof TestsStreamEventMap>(
+                eventName: E,
+            ): ((...args: TestsStreamEventMap[E]) => void)[];
+            rawListeners(eventName: string | symbol): ((...args: any[]) => void)[];
+            // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+            removeAllListeners<E extends keyof TestsStreamEventMap>(eventName?: E): this;
+            removeAllListeners(eventName?: string | symbol): this;
+            removeListener<E extends keyof TestsStreamEventMap>(
+                eventName: E,
+                listener: (...args: TestsStreamEventMap[E]) => void,
+            ): this;
+            removeListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+            // #endregion
         }
         namespace EventData {
             interface Error extends globalThis.Error {
@@ -1218,7 +1199,7 @@ declare module "node:test" {
              * highlighting.
              * @since v22.14.0
              * @param value A value to serialize to a string. If Node.js was started with
-             * the [`--test-update-snapshots`](https://nodejs.org/docs/latest-v24.x/api/cli.html#--test-update-snapshots)
+             * the [`--test-update-snapshots`](https://nodejs.org/docs/latest-v25.x/api/cli.html#--test-update-snapshots)
              * flag, the serialized value is written to
              * `path`. Otherwise, the serialized value is compared to the contents of the
              * existing snapshot file.
@@ -1241,7 +1222,7 @@ declare module "node:test" {
              * ```
              * @since v22.3.0
              * @param value A value to serialize to a string. If Node.js was started with
-             * the [`--test-update-snapshots`](https://nodejs.org/docs/latest-v24.x/api/cli.html#--test-update-snapshots)
+             * the [`--test-update-snapshots`](https://nodejs.org/docs/latest-v25.x/api/cli.html#--test-update-snapshots)
              * flag, the serialized value is written to
              * the snapshot file. Otherwise, the serialized value is compared to the
              * corresponding value in the existing snapshot file.
@@ -1672,7 +1653,7 @@ declare module "node:test" {
              * This function is used to mock the exports of ECMAScript modules, CommonJS modules, JSON modules, and
              * Node.js builtin modules. Any references to the original module prior to mocking are not impacted. In
              * order to enable module mocking, Node.js must be started with the
-             * [`--experimental-test-module-mocks`](https://nodejs.org/docs/latest-v24.x/api/cli.html#--experimental-test-module-mocks)
+             * [`--experimental-test-module-mocks`](https://nodejs.org/docs/latest-v25.x/api/cli.html#--experimental-test-module-mocks)
              * command-line flag.
              *
              * The following example demonstrates how a mock is created for a module.
@@ -2255,85 +2236,4 @@ declare module "node:test" {
         [K in keyof T]: T[K] extends Function ? K : never;
     }[keyof T];
     export = test;
-}
-
-/**
- * The `node:test/reporters` module exposes the builtin-reporters for `node:test`.
- * To access it:
- *
- * ```js
- * import test from 'node:test/reporters';
- * ```
- *
- * This module is only available under the `node:` scheme. The following will not
- * work:
- *
- * ```js
- * import test from 'node:test/reporters';
- * ```
- * @since v19.9.0
- * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/test/reporters.js)
- */
-declare module "node:test/reporters" {
-    import { Transform, TransformOptions } from "node:stream";
-    import { EventData } from "node:test";
-
-    type TestEvent =
-        | { type: "test:coverage"; data: EventData.TestCoverage }
-        | { type: "test:complete"; data: EventData.TestComplete }
-        | { type: "test:dequeue"; data: EventData.TestDequeue }
-        | { type: "test:diagnostic"; data: EventData.TestDiagnostic }
-        | { type: "test:enqueue"; data: EventData.TestEnqueue }
-        | { type: "test:fail"; data: EventData.TestFail }
-        | { type: "test:pass"; data: EventData.TestPass }
-        | { type: "test:plan"; data: EventData.TestPlan }
-        | { type: "test:start"; data: EventData.TestStart }
-        | { type: "test:stderr"; data: EventData.TestStderr }
-        | { type: "test:stdout"; data: EventData.TestStdout }
-        | { type: "test:summary"; data: EventData.TestSummary }
-        | { type: "test:watch:drained"; data: undefined }
-        | { type: "test:watch:restarted"; data: undefined };
-    type TestEventGenerator = AsyncGenerator<TestEvent, void>;
-
-    interface ReporterConstructorWrapper<T extends new(...args: any[]) => Transform> {
-        new(...args: ConstructorParameters<T>): InstanceType<T>;
-        (...args: ConstructorParameters<T>): InstanceType<T>;
-    }
-
-    /**
-     * The `dot` reporter outputs the test results in a compact format,
-     * where each passing test is represented by a `.`,
-     * and each failing test is represented by a `X`.
-     * @since v20.0.0
-     */
-    function dot(source: TestEventGenerator): AsyncGenerator<"\n" | "." | "X", void>;
-    /**
-     * The `tap` reporter outputs the test results in the [TAP](https://testanything.org/) format.
-     * @since v20.0.0
-     */
-    function tap(source: TestEventGenerator): AsyncGenerator<string, void>;
-    class SpecReporter extends Transform {
-        constructor();
-    }
-    /**
-     * The `spec` reporter outputs the test results in a human-readable format.
-     * @since v20.0.0
-     */
-    const spec: ReporterConstructorWrapper<typeof SpecReporter>;
-    /**
-     * The `junit` reporter outputs test results in a jUnit XML format.
-     * @since v21.0.0
-     */
-    function junit(source: TestEventGenerator): AsyncGenerator<string, void>;
-    class LcovReporter extends Transform {
-        constructor(opts?: Omit<TransformOptions, "writableObjectMode">);
-    }
-    /**
-     * The `lcov` reporter outputs test coverage when used with the
-     * [`--experimental-test-coverage`](https://nodejs.org/docs/latest-v24.x/api/cli.html#--experimental-test-coverage) flag.
-     * @since v22.0.0
-     */
-    const lcov: ReporterConstructorWrapper<typeof LcovReporter>;
-
-    export { dot, junit, lcov, spec, tap, TestEvent };
 }

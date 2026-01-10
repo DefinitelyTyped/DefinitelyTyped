@@ -116,28 +116,6 @@ export function options(url: string, body?: JSONValue, args?: Args): Response;
 export function fetch(url: string, opts?: FetchOptions): Promise<Response>;
 
 /**
- * Request arguments.
- * Used to add headers to a request.
- */
-export interface Args {
-    /** Request headers. */
-    headers?: { [name: string]: string };
-    /**
-     * The number of redirects to follow for this request.
-     * @default 5
-     */
-    maxRedirects?: number;
-    /**
-     * Maximum time to wait for the request to complete. Default
-     * timeout is 60 seconds ("60s"). The type can also be a number, in which
-     * case Mokapi interprets it as milliseconds
-     * @example
-     * const res = get(url, { timeout: '5m' })
-     */
-    timeout?: number | string;
-}
-
-/**
  * Options for the {@link fetch} function.
  */
 export interface FetchOptions {
@@ -183,6 +161,28 @@ export interface FetchOptions {
      * @example
      * // Timeout as milliseconds
      * const res = await fetch(url, { timeout: 3000 });
+     */
+    timeout?: number | string;
+}
+
+/**
+ * Request arguments.
+ * Used to add headers to a request.
+ */
+export interface Args {
+    /** Request headers. */
+    headers?: { [name: string]: string };
+    /**
+     * The number of redirects to follow for this request.
+     * @default 5
+     */
+    maxRedirects?: number;
+    /**
+     * Maximum time to wait for the request to complete. Default
+     * timeout is 60 seconds ("60s"). The type can also be a number, in which
+     * case Mokapi interprets it as milliseconds
+     * @example
+     * const res = get(url, { timeout: '5m' })
      */
     timeout?: number | string;
 }

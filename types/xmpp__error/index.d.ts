@@ -1,6 +1,6 @@
 import { Element } from "@xmpp/xml";
 
-export = XMPPError;
+export default XMPPError;
 
 declare class XMPPError<TName extends string = "XMPPError"> extends Error {
     readonly name: TName;

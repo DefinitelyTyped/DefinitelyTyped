@@ -3232,6 +3232,29 @@ export interface Locator {
     press(key: string, options?: KeyboardPressOptions): Promise<void>;
 
     /**
+     * Focuses the element and then sends a `keydown`, `keypress`/`input`, and
+     * `keyup` event for each character in the text.
+     *
+     * This method is useful for simulating real user typing behavior when the page
+     * has special keyboard event handling, such as input validation or autocomplete.
+     * For simple text input without special keyboard handling, use {@link fill | fill()}
+     * instead as it's faster and more reliable.
+     *
+     * @example
+     * ```js
+     * // Type text instantly
+     * await locator.pressSequentially('Hello World');
+     *
+     * // Type text with delay between keypresses (like a real user)
+     * await locator.pressSequentially('Hello World', { delay: 100 });
+     * ```
+     *
+     * @param text Text to type into the focused element character by character.
+     * @param options Typing options.
+     */
+    pressSequentially(text: string, options?: KeyboardPressOptions): Promise<void>;
+
+    /**
      * Type a text into the input field.
      * @param text Text to type into the input field.
      * @param options Typing options.
@@ -5692,6 +5715,120 @@ export interface Page {
             timeout?: number;
         },
     ): Promise<Request | null>;
+
+    /**
+     * Waits for the specified event to be emitted.
+     *
+     * This method blocks until the event is captured or the timeout is reached.
+     * Supported event types are `console`, `request`, or `response`.
+     *
+     * @example
+     * ```js
+     * // Wait for a console message containing 'hello'
+     * const msgPromise = page.waitForEvent('console', msg => msg.text().includes('hello'));
+     * await page.evaluate(() => console.log('hello world'));
+     * const msg = await msgPromise;
+     * ```
+     *
+     * @param event Event name to wait for: `'console'`.
+     * @param optionsOrPredicate Either a predicate function or an options object.
+     */
+    waitForEvent(
+        event: "console",
+        optionsOrPredicate?:
+            | ((msg: ConsoleMessage) => boolean)
+            | {
+                /**
+                 * Predicate function that returns `true` when the expected event is received.
+                 */
+                predicate?: (msg: ConsoleMessage) => boolean;
+                /**
+                 * Maximum time to wait in milliseconds. Defaults to `30` seconds.
+                 * The default value can be changed via the
+                 * browserContext.setDefaultTimeout(timeout) or
+                 * page.setDefaultTimeout(timeout) methods.
+                 *
+                 * Setting the value to `0` will disable the timeout.
+                 */
+                timeout?: number;
+            },
+    ): Promise<ConsoleMessage>;
+
+    /**
+     * Waits for the specified event to be emitted.
+     *
+     * This method blocks until the event is captured or the timeout is reached.
+     * It can wait for any page event such as `console`, `request`, or `response`.
+     *
+     * @example
+     * ```js
+     * // Wait for a request to a specific URL
+     * const reqPromise = page.waitForEvent('request', req => req.url().includes('/api'));
+     * await page.click('button');
+     * const req = await reqPromise;
+     * ```
+     *
+     * @param event Event name to wait for: `'request'`.
+     * @param optionsOrPredicate Either a predicate function or an options object.
+     */
+    waitForEvent(
+        event: "request",
+        optionsOrPredicate?:
+            | ((req: Request) => boolean)
+            | {
+                /**
+                 * Predicate function that returns `true` when the expected event is received.
+                 */
+                predicate?: (req: Request) => boolean;
+                /**
+                 * Maximum time to wait in milliseconds. Defaults to `30` seconds.
+                 * The default value can be changed via the
+                 * browserContext.setDefaultTimeout(timeout) or
+                 * page.setDefaultTimeout(timeout) methods.
+                 *
+                 * Setting the value to `0` will disable the timeout.
+                 */
+                timeout?: number;
+            },
+    ): Promise<Request>;
+
+    /**
+     * Waits for the specified event to be emitted.
+     *
+     * This method blocks until the event is captured or the timeout is reached.
+     * It can wait for any page event such as `console`, `request`, or `response`.
+     *
+     * @example
+     * ```js
+     * // Wait for a response from a specific URL
+     * const resPromise = page.waitForEvent('response', res => res.url().includes('/api'));
+     * await page.click('button');
+     * const res = await resPromise;
+     * ```
+     *
+     * @param event Event name to wait for: `'response'`.
+     * @param optionsOrPredicate Either a predicate function or an options object.
+     */
+    waitForEvent(
+        event: "response",
+        optionsOrPredicate?:
+            | ((res: Response) => boolean)
+            | {
+                /**
+                 * Predicate function that returns `true` when the expected event is received.
+                 */
+                predicate?: (res: Response) => boolean;
+                /**
+                 * Maximum time to wait in milliseconds. Defaults to `30` seconds.
+                 * The default value can be changed via the
+                 * browserContext.setDefaultTimeout(timeout) or
+                 * page.setDefaultTimeout(timeout) methods.
+                 *
+                 * Setting the value to `0` will disable the timeout.
+                 */
+                timeout?: number;
+            },
+    ): Promise<Response>;
 
     /**
      * **NOTE** Use web assertions that assert visibility or a locator-based

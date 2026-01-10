@@ -475,6 +475,11 @@ declare module "process" {
                  */
                 reportOnUncaughtException: boolean;
                 /**
+                 * If true, a diagnostic report is generated without the environment variables.
+                 * @default false
+                 */
+                excludeEnv: boolean;
+                /**
                  * The signal used to trigger the creation of a diagnostic report.
                  * @default 'SIGUSR2'
                  */
@@ -1705,6 +1710,11 @@ declare module "process" {
                  * @param args Additional arguments to pass when invoking the `callback`
                  */
                 nextTick(callback: Function, ...args: any[]): void;
+                /**
+                 * The process.noDeprecation property indicates whether the --no-deprecation flag is set on the current Node.js process.
+                 * See the documentation for the ['warning' event](https://nodejs.org/docs/latest/api/process.html#event-warning) and the [emitWarning()](https://nodejs.org/docs/latest/api/process.html#processemitwarningwarning-type-code-ctor) method for more information about this flag's behavior.
+                 */
+                noDeprecation?: boolean;
                 /**
                  * This API is available through the [--permission](https://nodejs.org/api/cli.html#--permission) flag.
                  *

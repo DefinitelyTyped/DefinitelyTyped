@@ -6,7 +6,7 @@
         "https://github.com/markdown-it/markdown-it-container"
     ],
     "dependencies": {
-        "@types/markdown-it": "*"
+        "@types/markdown-it": "<14"
     },
     "devDependencies": {
         "@types/markdown-it-container": "workspace:."
