@@ -7543,6 +7543,10 @@
             "libraryName": "tedious",
             "asOfVersion": "18.0.0"
         },
+        "teen_process": {
+            "libraryName": "teen_process",
+            "asOfVersion": "4.0.0"
+        },
         "temp-dir": {
             "libraryName": "temp-dir",
             "asOfVersion": "2.0.0"
