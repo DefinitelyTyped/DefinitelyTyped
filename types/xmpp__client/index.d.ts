@@ -7,7 +7,8 @@ import { IQCaller } from "@xmpp/iq/caller";
 import { IncomingContext, Middleware } from "@xmpp/middleware";
 import { Reconnect } from "@xmpp/reconnect";
 import { Resource } from "@xmpp/resource-binding";
-import { Credentials, SASL } from "@xmpp/sasl";
+import { SASL } from "@xmpp/sasl";
+import { CredentialsFactory, CredentialsObj } from "@xmpp/sasl2";
 import { StreamFeatures } from "@xmpp/stream-features";
 import { StreamManagement } from "@xmpp/stream-management";
 import koaCompose = require("koa-compose");
@@ -68,7 +69,7 @@ export interface Options extends ConnectionOptions {
      * Resource for `@xmpp/resource-binding`.
      */
     resource?: Resource | undefined;
-    credentials?: Credentials | undefined;
+    credentials?: CredentialsObj | CredentialsFactory<Client> | undefined;
     /**
      * Username for `@xmpp/sasl`.
      */
