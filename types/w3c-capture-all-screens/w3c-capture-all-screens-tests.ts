@@ -1,5 +1,3 @@
-import { ScreenDetailed } from "w3c-capture-all-screens";
-
 async function testGetAllScreensMedia() {
     if (!navigator.mediaDevices || !navigator.mediaDevices.getAllScreensMedia) {
         return;
