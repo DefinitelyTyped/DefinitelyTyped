@@ -1,0 +1,60 @@
+name: Devcontainer verification
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  push:
+    branches: [ devcontainer/pandoc-latex ]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install system packages (Pandoc, LaTeX)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            pandoc \
+            texlive-latex-recommended \
+            texlive-latex-extra \
+            texlive-fonts-recommended \
+            wget \
+            ca-certificates
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install Python requirements
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then python -m pip install -r requirements.txt; fi
+
+      - name: Verify Pandoc
+        run: pandoc --version
+
+      - name: Verify Python packages import
+        run: |
+          python - <<'PY'
+          try:
+              import pandas, nltk, textblob
+              print('Python imports OK')
+          except Exception as e:
+              print('Import failed:', e)
+              raise
+          PY
+
+      - name: Run post-create script (idempotent)
+        run: bash ./.devcontainer/post-create.sh
+        env:
+          DEBIAN_FRONTEND: noninteractive
+
+      - name: Show devcontainer.json
+        run: |
+          echo 'Contents of .devcontainer/devcontainer.json:'
+          cat .devcontainer/devcontainer.json
