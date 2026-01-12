@@ -868,6 +868,18 @@ ChartMogul.Plan.all(config, {
     per_page: 3,
 });
 
+// $ExpectType Promise<PlanGroup>
+ChartMogul.PlanGroup.create(config, {
+    name: "Growth Plans",
+    plans: ["pl_6add9607-23ce-11eb-8b6f-cfcb12b8f91f", "pl_b4eaffff-23ce-11eb-8b6f-03cebf8dcd12"],
+});
+
+// $ExpectType Promise<PlanGroup>
+ChartMogul.PlanGroup.create(config, {
+    name: "Enterprise Plans",
+    plans: ["pl_eed05d54-75b4-431b-adb2-eb6b9e543206"],
+});
+
 // $ExpectType Promise<Invoice>
 ChartMogul.Invoice.retrieve(config, "");
 

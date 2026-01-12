@@ -542,6 +542,20 @@ export namespace Plan {
     function all(config: Config, params?: ListPlansParams): Promise<Plans>;
 }
 
+export namespace PlanGroup {
+    interface PlanGroup {
+        uuid?: string | undefined;
+        name?: string | undefined;
+        plans_count?: number | undefined;
+    }
+    interface NewPlanGroup {
+        name: string;
+        plans: string[];
+    }
+
+    function create(config: Config, data: NewPlanGroup): Promise<PlanGroup>;
+}
+
 export namespace Invoice {
     interface Invoice {
         uuid?: string | undefined;
