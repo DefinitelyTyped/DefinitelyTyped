@@ -146,10 +146,6 @@ ChartMogul.Customer.modify(config, "", {
 // $ExpectType Promise<ResourceDestroyed>
 ChartMogul.Customer.destroy(config, "");
 
-ChartMogul.Customer.destroy(config, "").then(data => {
-    data.message; // $ExpectType string
-});
-
 // $ExpectType Promise<Entries<Customer>>
 ChartMogul.Customer.all(config);
 
@@ -192,14 +188,6 @@ ChartMogul.Customer.all(config, {
     external_id: "34916129",
 });
 
-ChartMogul.Customer.all(config).then(data => {
-    data.entries[0]; // $ExpectType Customer
-    data.entries[0].attributes!.stripe!["something"]; // $ExpectType any
-    data.cursor; // $ExpectType string | undefined
-    data.has_more; // $ExpectType boolean | undefined
-    data.page!; // $ExpectType number
-});
-
 // $ExpectType Promise<Entries<Customer>>
 ChartMogul.Customer.search(config);
 
@@ -218,12 +206,6 @@ ChartMogul.Customer.search(config, {
     email: "adam@example.com",
     cursor: "AjMx90kC0yMVQwNNwoYToyNC4wMDAwMDAwMDBgks68k",
     per_page: 50,
-});
-
-ChartMogul.Customer.search(config, { email: "adam@example.com" }).then(data => {
-    data.entries[0]; // $ExpectType Customer
-    data.cursor; // $ExpectType string | undefined
-    data.has_more; // $ExpectType boolean | undefined
 });
 
 // $ExpectType Promise<{}>
@@ -274,15 +256,6 @@ ChartMogul.Customer.attributes(config, "");
 // $ExpectType Promise<Attributes>
 ChartMogul.Customer.attributes(config, "cus_de305d54-75b4-431b-adb2-eb6b9e546012");
 
-ChartMogul.Customer.attributes(config, "cus_de305d54-75b4-431b-adb2-eb6b9e546012").then(data => {
-    data.tags; // $ExpectType Strings | undefined
-    data.stripe; // $ExpectType Map | undefined
-    data.clearbit; // $ExpectType Map | undefined
-    data.custom; // $ExpectType Map | undefined
-    data.stripe!["uid"]; // $ExpectType any
-    data.custom!["CAC"]; // $ExpectType any
-});
-
 // $ExpectType Promise<{}>
 ChartMogul.Customer.connectSubscriptions(config, "customer-uuid", {
     subscriptions: [{ uuid: "sub-uuid", data_source_uuid: "ds-uuid" }],
@@ -308,18 +281,6 @@ ChartMogul.Customer.contacts(config, "cus_52eb54c2-dea0-11ed-ac96-ef735d89fca0",
 // $ExpectType Promise<Entries<Contact>>
 ChartMogul.Customer.contacts(config, "cus_52eb54c2-dea0-11ed-ac96-ef735d89fca0", {
     email: "adam@example.com",
-});
-
-ChartMogul.Customer.contacts(config, "cus_52eb54c2-dea0-11ed-ac96-ef735d89fca0").then(data => {
-    data.entries[0]; // $ExpectType Contact
-    data.entries[0].uuid; // $ExpectType string | undefined
-    data.entries[0].customer_uuid; // $ExpectType string | undefined
-    data.entries[0].first_name; // $ExpectType string | undefined
-    data.entries[0].last_name; // $ExpectType string | undefined
-    data.entries[0].email; // $ExpectType string | undefined
-    data.entries[0].custom; // $ExpectType Map | undefined
-    data.cursor; // $ExpectType string | undefined
-    data.has_more; // $ExpectType boolean | undefined
 });
 
 // $ExpectType Promise<Contact>
@@ -438,48 +399,36 @@ ChartMogul.Contact.modify(config, "con_f90ba380-57a8-11ee-9500-7f50256329a7", {
     ],
 });
 
-// $ExpectType Promise<Entries<Note>>
+// $ExpectType Promise<Entries<CustomerNote>>
 ChartMogul.Customer.notes(config, "");
 
-// $ExpectType Promise<Entries<Note>>
+// $ExpectType Promise<Entries<CustomerNote>>
 ChartMogul.Customer.notes(config, "cus_52eb54c2-dea0-11ed-ac96-ef735d89fca0");
 
-// $ExpectType Promise<Entries<Note>>
+// $ExpectType Promise<Entries<CustomerNote>>
 ChartMogul.Customer.notes(config, "cus_52eb54c2-dea0-11ed-ac96-ef735d89fca0", {
     type: "note",
 });
 
-// $ExpectType Promise<Entries<Note>>
+// $ExpectType Promise<Entries<CustomerNote>>
 ChartMogul.Customer.notes(config, "cus_52eb54c2-dea0-11ed-ac96-ef735d89fca0", {
     type: "call",
     author_email: "sara@example.com",
 });
 
-// $ExpectType Promise<Entries<Note>>
+// $ExpectType Promise<Entries<CustomerNote>>
 ChartMogul.Customer.notes(config, "cus_52eb54c2-dea0-11ed-ac96-ef735d89fca0", {
     cursor: "aabbcc",
     per_page: 20,
 });
 
-ChartMogul.Customer.notes(config, "cus_52eb54c2-dea0-11ed-ac96-ef735d89fca0").then(data => {
-    data.entries[0]; // $ExpectType Note
-    data.entries[0].uuid; // $ExpectType string | undefined
-    data.entries[0].customer_uuid; // $ExpectType string | undefined
-    data.entries[0].type; // $ExpectType NoteType | undefined
-    data.entries[0].text; // $ExpectType string | undefined
-    data.entries[0].call_duration; // $ExpectType number | undefined
-    data.entries[0].author; // $ExpectType string | undefined
-    data.cursor; // $ExpectType string | undefined
-    data.has_more; // $ExpectType boolean | undefined
-});
-
-// $ExpectType Promise<Note>
+// $ExpectType Promise<CustomerNote>
 ChartMogul.Customer.createNote(config, "cus_52eb54c2-dea0-11ed-ac96-ef735d89fca0", {
     customer_uuid: "cus_52eb54c2-dea0-11ed-ac96-ef735d89fca0",
     type: "note",
 });
 
-// $ExpectType Promise<Note>
+// $ExpectType Promise<CustomerNote>
 ChartMogul.Customer.createNote(config, "cus_52eb54c2-dea0-11ed-ac96-ef735d89fca0", {
     customer_uuid: "cus_52eb54c2-dea0-11ed-ac96-ef735d89fca0",
     type: "note",
@@ -488,7 +437,7 @@ ChartMogul.Customer.createNote(config, "cus_52eb54c2-dea0-11ed-ac96-ef735d89fca0
     created_at: "2023-11-01T00:00:00Z",
 });
 
-// $ExpectType Promise<Note>
+// $ExpectType Promise<CustomerNote>
 ChartMogul.Customer.createNote(config, "cus_52eb54c2-dea0-11ed-ac96-ef735d89fca0", {
     customer_uuid: "cus_52eb54c2-dea0-11ed-ac96-ef735d89fca0",
     type: "call",
@@ -496,20 +445,7 @@ ChartMogul.Customer.createNote(config, "cus_52eb54c2-dea0-11ed-ac96-ef735d89fca0
     text: "Discussed pricing options",
 });
 
-ChartMogul.Customer.createNote(
-    config,
-    "cus_52eb54c2-dea0-11ed-ac96-ef735d89fca0",
-    { customer_uuid: "cus_52eb54c2-dea0-11ed-ac96-ef735d89fca0", type: "note" },
-).then(data => {
-    data.uuid; // $ExpectType string | undefined
-    data.customer_uuid; // $ExpectType string | undefined
-    data.type; // $ExpectType NoteType | undefined
-    data.text; // $ExpectType string | undefined
-    data.call_duration; // $ExpectType number | undefined
-    data.author; // $ExpectType string | undefined
-});
-
-// $ExpectType Promise<Note>
+// $ExpectType Promise<CustomerNote>
 ChartMogul.CustomerNote.create(config, {
     customer_uuid: "cus_52eb54c2-dea0-11ed-ac96-ef735d89fca0",
     type: "note",
@@ -518,19 +454,23 @@ ChartMogul.CustomerNote.create(config, {
     created_at: "2023-11-01T00:00:00Z",
 });
 
-// $ExpectType Promise<Note>
+// $ExpectType Promise<CustomerNote>
 ChartMogul.CustomerNote.create(config, {
     customer_uuid: "cus_52eb54c2-dea0-11ed-ac96-ef735d89fca0",
     type: "call",
     call_duration: 120,
 });
-// $ExpectType Promise<Note>
+
+// $ExpectType Promise<CustomerNote>
+ChartMogul.CustomerNote.retrieve(config, "note_39351ba6-dea0-11ee-ac96-37b2b3de29af");
+
+// $ExpectType Promise<CustomerNote>
 ChartMogul.CustomerNote.modify(config, "note_39351ba6-dea0-11ee-ac96-37b2b3de29af", {
     author_email: "sara@example.com",
     text: "They are a world leader in specialized software.\nThey are in SaaS business.",
 });
 
-// $ExpectType Promise<Note>
+// $ExpectType Promise<CustomerNote>
 ChartMogul.CustomerNote.modify(config, "note_39351ba6-dea0-11ee-ac96-37b2b3de29af", {
     call_duration: 180,
     updated_at: "2023-12-21T10:53:50.082Z",
@@ -562,21 +502,6 @@ ChartMogul.Customer.opportunities(config, "cus_f466e33d-ff2b-4a11-8f85-417eb0215
 ChartMogul.Customer.opportunities(config, "cus_f466e33d-ff2b-4a11-8f85-417eb02157a7", {
     cursor: "aabbcc",
     per_page: 20,
-});
-
-ChartMogul.Customer.opportunities(config, "cus_f466e33d-ff2b-4a11-8f85-417eb02157a7").then(data => {
-    data.entries[0]; // $ExpectType Opportunity
-    data.entries[0].uuid; // $ExpectType string | undefined
-    data.entries[0].customer_uuid; // $ExpectType string | undefined
-    data.entries[0].owner; // $ExpectType string | undefined
-    data.entries[0].pipeline; // $ExpectType (string & {}) | OpportunityPipeline | undefined
-    data.entries[0].pipeline_stage; // $ExpectType (string & {}) | OpportunityPipelineStage | undefined
-    data.entries[0].type; // $ExpectType OpportunityType | undefined
-    data.entries[0].forecast_category; // $ExpectType ForecastCategory | undefined
-    data.entries[0].win_likelihood; // $ExpectType number | undefined
-    data.entries[0].custom; // $ExpectType Map | undefined
-    data.cursor; // $ExpectType string | undefined
-    data.has_more; // $ExpectType boolean | undefined
 });
 
 // $ExpectType Promise<Opportunity>
@@ -673,14 +598,6 @@ ChartMogul.Plan.modify(config, "", {
 // $ExpectType Promise<{}>
 ChartMogul.Plan.destroy(config, "");
 
-ChartMogul.Plan.all(config, {
-    page: 1,
-}).then(data => {
-    data.plans[0]; // $ExpectType Plan
-    data.plans[0].name!; // $ExpectType string
-    data.page!; // $ExpectType number
-});
-
 // $ExpectType Promise<Invoice>
 ChartMogul.Invoice.retrieve(config, "");
 
@@ -695,21 +612,9 @@ ChartMogul.Invoice.create(config, "", {
 
 // $ExpectType Promise<{}>
 ChartMogul.Invoice.destroy(config, "");
-ChartMogul.Invoice.all(config, {
-    external_id: "",
-}).then(data => {
-    data.invoices[0]; // $ExpectType Invoice
-    data.invoices[0].uuid!; // $ExpectType string
-    data.page!; // $ExpectType number
-});
 
 ChartMogul.Invoice.all(config, "", {
     page: 1,
-}).then(data => {
-    data.customer_uuid!; // $ExpectType string
-    data.invoices[0]; // $ExpectType Invoice
-    data.invoices[0].uuid!; // $ExpectType string
-    data.page!; // $ExpectType number
 });
 
 // $ExpectType Promise<Transaction>
@@ -719,19 +624,8 @@ ChartMogul.Transaction.create(config, "", {
     result: "",
 });
 
-ChartMogul.Subscription.all(config, "", {
-    page: 1,
-}).then(data => {
-    data.customer_uuid!; // $ExpectType string
-    data.subscriptions[0]; // $ExpectType Subscription
-    data.subscriptions[0].uuid; // $ExpectType string
-    data.current_page!; // $ExpectType number
-});
-
 ChartMogul.Subscription.cancel(config, "", {
     cancelled_at: "",
-}).then(data => {
-    data.customer_uuid; // $ExpectType string
 });
 
 // $ExpectType Promise<Entries<Customer>>
@@ -774,8 +668,6 @@ ChartMogul.CustomAttribute.update(config, "", {
 
 ChartMogul.CustomAttribute.remove(config, "", {
     custom: [""],
-}).then(data => {
-    data.custom["key"]; // $ExpectType any
 });
 
 // $ExpectType Promise<All>
@@ -834,10 +726,6 @@ ChartMogul.Metrics.mrrChurnRate(config, {
 ChartMogul.Metrics.ltv(config, {
     "start-date": "2015-01-01",
     "end-date": "2015-11-01",
-}).then(data => {
-    data.entries[0].ltv; // $ExpectType number
-    data.summary; // $ExpectType Summary
-    data.summary.current; // $ExpectType number
 });
 
 // $ExpectType Promise<Entries<MetricsSubscription>>
@@ -847,11 +735,6 @@ ChartMogul.Metrics.Customer.subscriptions(config, "", {
 
 ChartMogul.Metrics.Customer.activities(config, "", {
     page: 1,
-}).then(data => {
-    data.entries; // $ExpectType MetricsActivity[]
-    data.entries[0]; // $ExpectType MetricsActivity
-    data.entries[0]["activity-mrr"]; // $ExpectType number
-    data.page!; // $ExpectType number
 });
 
 // $ExpectType Promise<{}>

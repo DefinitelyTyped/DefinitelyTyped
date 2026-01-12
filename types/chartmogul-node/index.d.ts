@@ -272,9 +272,13 @@ export namespace Customer {
     function notes(
         config: Config,
         customerId: string,
-        params?: CustomerNote.ListNotesParams,
-    ): Promise<Entries<CustomerNote.Note>>;
-    function createNote(config: Config, customerId: string, data: CustomerNote.NewNote): Promise<CustomerNote.Note>;
+        params?: CustomerNote.ListCustomerNotesParams,
+    ): Promise<Entries<CustomerNote.CustomerNote>>;
+    function createNote(
+        config: Config,
+        customerId: string,
+        data: CustomerNote.NewCustomerNote,
+    ): Promise<CustomerNote.CustomerNote>;
 
     function opportunities(
         config: Config,
@@ -371,31 +375,31 @@ export namespace Task {
 }
 
 export namespace CustomerNote {
-    type NoteType = "note" | "call";
-    interface Note {
+    type CustomerNoteType = "note" | "call";
+    interface CustomerNote {
         uuid?: string | undefined;
         customer_uuid?: string | undefined;
-        type?: NoteType | undefined;
+        type?: CustomerNoteType | undefined;
         text?: string | undefined;
-        call_duration?: number | undefined;
         author?: string | undefined;
+        call_duration?: number | undefined;
         created_at?: string | undefined;
         updated_at?: string | undefined;
     }
-    interface ListNotesParams extends CursorParams {
+    interface ListCustomerNotesParams extends CursorParams {
         customer_uuid?: string | undefined;
-        type?: NoteType | undefined;
+        type?: CustomerNoteType | undefined;
         author_email?: string | undefined;
     }
-    interface NewNote {
+    interface NewCustomerNote {
         customer_uuid: string;
-        type: NoteType;
+        type: CustomerNoteType;
         author_email?: string | undefined;
         text?: string | undefined;
         call_duration?: number | undefined;
         created_at?: string | undefined;
     }
-    interface UpdateNote {
+    interface UpdateCustomerNote {
         author_email?: string | undefined;
         text?: string | undefined;
         call_duration?: number | undefined;
@@ -403,8 +407,9 @@ export namespace CustomerNote {
         updated_at?: string | undefined;
     }
 
-    function create(config: Config, data: NewNote): Promise<Note>;
-    function modify(config: Config, uuid: string, data: UpdateNote): Promise<Note>;
+    function create(config: Config, data: NewCustomerNote): Promise<CustomerNote>;
+    function retrieve(config: Config, uuid: string): Promise<CustomerNote>;
+    function modify(config: Config, uuid: string, data: UpdateCustomerNote): Promise<CustomerNote>;
 }
 
 export namespace Contact {
