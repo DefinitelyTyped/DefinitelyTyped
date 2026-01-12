@@ -616,6 +616,37 @@ ChartMogul.Opportunity.create(config, {
 // $ExpectType Promise<Opportunity>
 ChartMogul.Opportunity.retrieve(config, "4ee13ca4-e7fe-11ee-fa7f-f303abf41acc");
 
+// $ExpectType Promise<Entries<Opportunity>>
+ChartMogul.Opportunity.all(config);
+
+// $ExpectType Promise<Entries<Opportunity>>
+ChartMogul.Opportunity.all(config, {
+    customer_uuid: "cus_f466e33d-ff2b-4a11-8f85-417eb02157a7",
+});
+
+// $ExpectType Promise<Entries<Opportunity>>
+ChartMogul.Opportunity.all(config, {
+    owner: "bob@example.com",
+});
+
+// $ExpectType Promise<Entries<Opportunity>>
+ChartMogul.Opportunity.all(config, {
+    pipeline: "New Business",
+    pipeline_stage: "Discovery",
+});
+
+// $ExpectType Promise<Entries<Opportunity>>
+ChartMogul.Opportunity.all(config, {
+    estimated_close_date_on_or_after: "2024-01-01",
+    estimated_close_date_on_or_before: "2024-12-31",
+});
+
+// $ExpectType Promise<Entries<Opportunity>>
+ChartMogul.Opportunity.all(config, {
+    cursor: "aabbcc",
+    per_page: 20,
+});
+
 // $ExpectType Promise<Entries<Task>>
 ChartMogul.Customer.tasks(config, "");
 

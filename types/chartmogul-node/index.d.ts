@@ -350,6 +350,7 @@ export namespace Opportunity {
 
     function create(config: Config, data: NewOpportunity): Promise<Opportunity>;
     function retrieve(config: Config, uuid: string): Promise<Opportunity>;
+    function all(config: Config, params?: ListOpportunitiesParams): Promise<Entries<Opportunity>>;
 }
 
 export namespace Task {
