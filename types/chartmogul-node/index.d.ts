@@ -323,6 +323,8 @@ export namespace Opportunity {
         forecast_category?: ForecastCategory | undefined;
         win_likelihood?: number | undefined;
         custom?: Map | undefined;
+        created_at?: string | undefined;
+        updated_at?: string | undefined;
     }
     interface ListOpportunitiesParams extends CursorParams {
         customer_uuid?: string | undefined;
@@ -345,6 +347,9 @@ export namespace Opportunity {
         win_likelihood?: number | undefined;
         custom?: Array<{ key: string; value: any }> | undefined;
     }
+
+    function create(config: Config, data: NewOpportunity): Promise<Opportunity>;
+    function retrieve(config: Config, uuid: string): Promise<Opportunity>;
 }
 
 export namespace Task {

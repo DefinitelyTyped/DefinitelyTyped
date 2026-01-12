@@ -562,6 +562,60 @@ ChartMogul.Customer.createOpportunity(
     },
 );
 
+// $ExpectType Promise<Opportunity>
+ChartMogul.Opportunity.create(config, {
+    customer_uuid: "cus_f466e33d-ff2b-4a11-8f85-417eb02157a7",
+    owner: "bob@example.com",
+    pipeline: "New Business",
+    pipeline_stage: "Discovery",
+    estimated_close_date: "2024-04-21",
+    currency: "USD",
+    amount_in_cents: 100000,
+});
+
+// $ExpectType Promise<Opportunity>
+ChartMogul.Opportunity.create(config, {
+    customer_uuid: "cus_f466e33d-ff2b-4a11-8f85-417eb02157a7",
+    owner: "bob@example.com",
+    pipeline: "Renewals",
+    pipeline_stage: "Negotiation",
+    estimated_close_date: "2024-04-21",
+    currency: "USD",
+    amount_in_cents: 100000,
+    type: "recurring",
+});
+
+// $ExpectType Promise<Opportunity>
+ChartMogul.Opportunity.create(config, {
+    customer_uuid: "cus_f466e33d-ff2b-4a11-8f85-417eb02157a7",
+    owner: "bob@example.com",
+    pipeline: "New Business",
+    pipeline_stage: "Discovery",
+    estimated_close_date: "2024-04-21",
+    currency: "USD",
+    amount_in_cents: 100000,
+    type: "one-time",
+    forecast_category: "pipeline",
+});
+
+// $ExpectType Promise<Opportunity>
+ChartMogul.Opportunity.create(config, {
+    customer_uuid: "cus_f466e33d-ff2b-4a11-8f85-417eb02157a7",
+    owner: "bob@example.com",
+    pipeline: "New Business",
+    pipeline_stage: "Discovery",
+    estimated_close_date: "2024-04-21",
+    currency: "USD",
+    amount_in_cents: 100000,
+    type: "recurring",
+    forecast_category: "best_case",
+    win_likelihood: 40,
+    custom: [{ key: "seats", value: 3 }, { key: "marketing_campaign", value: "Facebook" }],
+});
+
+// $ExpectType Promise<Opportunity>
+ChartMogul.Opportunity.retrieve(config, "4ee13ca4-e7fe-11ee-fa7f-f303abf41acc");
+
 // $ExpectType Promise<Entries<Task>>
 ChartMogul.Customer.tasks(config, "");
 
