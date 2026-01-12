@@ -831,6 +831,30 @@ ChartMogul.Plan.modify(config, "", {
 // $ExpectType Promise<ResourceDestroyed>
 ChartMogul.Plan.destroy(config, "");
 
+// $ExpectType Promise<Plans>
+ChartMogul.Plan.all(config);
+
+// $ExpectType Promise<Plans>
+ChartMogul.Plan.all(config, {
+    data_source_uuid: "ds_fef05d54-47b4-431b-aed2-eb6b9e545430",
+});
+
+// $ExpectType Promise<Plans>
+ChartMogul.Plan.all(config, {
+    external_id: "plan_0001",
+});
+
+// $ExpectType Promise<Plans>
+ChartMogul.Plan.all(config, {
+    system: "Stripe",
+});
+
+// $ExpectType Promise<Plans>
+ChartMogul.Plan.all(config, {
+    cursor: "AjMx90kC0yMVQwNNwoYToyNC4wMDAwMDAwMDBgks68k",
+    per_page: 3,
+});
+
 // $ExpectType Promise<Invoice>
 ChartMogul.Invoice.retrieve(config, "");
 
