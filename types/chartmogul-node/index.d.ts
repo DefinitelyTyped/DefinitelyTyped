@@ -522,8 +522,15 @@ export namespace Plan {
     interface Plans extends Cursor {
         plans: Plan[];
     }
+    interface NewPlan {
+        data_source_uuid: string;
+        name: string;
+        interval_count: number;
+        interval_unit: string;
+        external_id?: string | undefined;
+    }
 
-    function create(config: Config, data: Plan): Promise<Plan>;
+    function create(config: Config, data: NewPlan): Promise<Plan>;
     function retrieve(config: Config, uuid: string): Promise<Plan>;
     function modify(config: Config, uuid: string, data: Plan): Promise<Plan>;
     function destroy(config: Config, uuid: string): Promise<ResourceDestroyed>;

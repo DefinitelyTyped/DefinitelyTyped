@@ -796,11 +796,28 @@ ChartMogul.Task.destroy(config, "5d6ec2cc-280d-11f0-b50e-5bd43fc8c28c");
 
 // $ExpectType Promise<Plan>
 ChartMogul.Plan.create(config, {
-    data_source_uuid: "",
-    name: "",
+    data_source_uuid: "ds_fef05d54-47b4-431b-aed2-eb6b9e545430",
+    name: "Bronze Plan",
     interval_count: 1,
-    interval_unit: "",
-    external_id: "",
+    interval_unit: "month",
+});
+
+// $ExpectType Promise<Plan>
+ChartMogul.Plan.create(config, {
+    data_source_uuid: "ds_fef05d54-47b4-431b-aed2-eb6b9e545430",
+    name: "Silver Plan",
+    interval_count: 1,
+    interval_unit: "month",
+    external_id: "plan_0001",
+});
+
+// $ExpectType Promise<Plan>
+ChartMogul.Plan.create(config, {
+    data_source_uuid: "ds_fef05d54-47b4-431b-aed2-eb6b9e545430",
+    name: "Annual Gold Plan",
+    interval_count: 1,
+    interval_unit: "year",
+    external_id: "plan_gold_annual",
 });
 
 // $ExpectType Promise<Plan>
