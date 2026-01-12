@@ -402,6 +402,7 @@ export namespace Task {
     function create(config: Config, data: NewTask): Promise<Task>;
     function retrieve(config: Config, taskUuid: string): Promise<Task>;
     function modify(config: Config, taskUuid: string, data: UpdateTask): Promise<Task>;
+    function destroy(config: Config, taskUuid: string): Promise<{}>;
     function all(config: Config, params?: ListTasksParams): Promise<Entries<Task>>;
 }
 
