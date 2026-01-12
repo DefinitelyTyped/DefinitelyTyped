@@ -713,7 +713,25 @@ export namespace SubscriptionEvent {
         event_order?: number | undefined;
     }
 
+    interface ListSubscriptionEventsParams extends CursorParams {
+        external_id?: string | undefined;
+        customer_external_id?: string | undefined;
+        data_source_uuid?: string | undefined;
+        subscription_external_id?: string | undefined;
+        event_type?: SubscriptionEventType | undefined;
+        event_date?: string | undefined;
+        effective_date?: string | undefined;
+        plan_external_id?: string | undefined;
+        include_edit_histories?: boolean | undefined;
+        with_disabled?: boolean | undefined;
+    }
+
+    interface SubscriptionEvents extends Cursor {
+        subscription_events: SubscriptionEvent[];
+    }
+
     function create(config: Config, data: NewSubscriptionEvent): Promise<SubscriptionEvent>;
+    function all(config: Config, params?: ListSubscriptionEventsParams): Promise<SubscriptionEvents>;
 }
 
 export namespace Tag {

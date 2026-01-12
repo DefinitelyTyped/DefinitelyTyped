@@ -1115,3 +1115,39 @@ ChartMogul.SubscriptionEvent.create(config, {
     subscription_external_id: "sub_0001",
     retracted_event_id: "evnt_001",
 });
+
+// $ExpectType Promise<SubscriptionEvents>
+ChartMogul.SubscriptionEvent.all(config);
+
+// $ExpectType Promise<SubscriptionEvents>
+ChartMogul.SubscriptionEvent.all(config, {});
+
+// $ExpectType Promise<SubscriptionEvents>
+ChartMogul.SubscriptionEvent.all(config, {
+    event_type: "subscription_cancelled",
+    plan_external_id: "gold_monthly",
+});
+
+// $ExpectType Promise<SubscriptionEvents>
+ChartMogul.SubscriptionEvent.all(config, {
+    customer_external_id: "cus_0001",
+    data_source_uuid: "ds_1fm3eaac-62d0-31ec-clf4-4bf0mbe81aba",
+});
+
+// $ExpectType Promise<SubscriptionEvents>
+ChartMogul.SubscriptionEvent.all(config, {
+    subscription_external_id: "sub_0001",
+    event_date: "2022-04-09T11:17:14Z",
+});
+
+// $ExpectType Promise<SubscriptionEvents>
+ChartMogul.SubscriptionEvent.all(config, {
+    per_page: 5,
+    cursor: "AjMx90kC0yMVQwNNwoYToyNC4wMDAwMDAwMDBgks68k",
+});
+
+// $ExpectType Promise<SubscriptionEvents>
+ChartMogul.SubscriptionEvent.all(config, {
+    include_edit_histories: true,
+    with_disabled: true,
+});
