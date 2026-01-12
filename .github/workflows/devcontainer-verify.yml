@@ -75,7 +75,7 @@ jobs:
       - name: Build devcontainer image (best-effort)
         continue-on-error: true
         run: |
-          devcontainer build --workspace-folder . --file .devcontainer/devcontainer.json --image-name devcontainer-image
+          devcontainer build --workspace-folder . --config .devcontainer/devcontainer.json --image-name devcontainer-image
 
       - name: List devcontainer image (if built)
         run: |
