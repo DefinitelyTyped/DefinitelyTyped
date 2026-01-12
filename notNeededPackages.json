@@ -3793,6 +3793,10 @@
             "libraryName": "ldclient-js",
             "asOfVersion": "1.1.11"
         },
+        "leaflet.fullscreen": {
+            "libraryName": "leaflet.fullscreen",
+            "asOfVersion": "5.2.0"
+        },
         "leaflet-geosearch": {
             "libraryName": "leaflet-geosearch",
             "asOfVersion": "3.0.0"
