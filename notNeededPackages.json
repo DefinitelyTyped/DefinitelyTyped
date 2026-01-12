@@ -3801,6 +3801,10 @@
             "libraryName": "leaflet-geosearch",
             "asOfVersion": "3.0.0"
         },
+        "leaflet.locatecontrol": {
+            "libraryName": "leaflet.locatecontrol",
+            "asOfVersion": "0.85.1"
+        },
         "leaflet-offline": {
             "libraryName": "leaflet.offline",
             "asOfVersion": "3.0.0"
