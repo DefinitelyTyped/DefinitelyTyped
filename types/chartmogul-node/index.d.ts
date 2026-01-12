@@ -775,6 +775,7 @@ export namespace Metrics {
             external_id: string;
             plan: string;
             quantity: number;
+            uuid: string;
             mrr: number;
             arr: number;
             status: string;
