@@ -555,9 +555,14 @@ export namespace PlanGroup {
         name: string;
         plans: string[];
     }
+    interface UpdatePlanGroup {
+        name?: string | undefined;
+        plans?: string[] | undefined;
+    }
 
     function create(config: Config, data: NewPlanGroup): Promise<PlanGroup>;
     function retrieve(config: Config, uuid: string): Promise<PlanGroup>;
+    function modify(config: Config, uuid: string, data: UpdatePlanGroup): Promise<PlanGroup>;
     function all(config: Config, planGroupUuid: string, params?: CursorParams): Promise<Plan.Plans>;
     function all(config: Config, params?: CursorParams): Promise<PlanGroups>;
 }

@@ -910,6 +910,25 @@ ChartMogul.PlanGroup.all(config, "plg_eed05d54-75b4-431b-adb2-eb6b9e543206", { p
 // $ExpectType Promise<Plans>
 ChartMogul.PlanGroup.all(config, "plg_eed05d54-75b4-431b-adb2-eb6b9e543206", { cursor: "cursor123" });
 
+// $ExpectType Promise<PlanGroup>
+ChartMogul.PlanGroup.modify(config, "plg_eed05d54-75b4-431b-adb2-eb6b9e543206", {});
+
+// $ExpectType Promise<PlanGroup>
+ChartMogul.PlanGroup.modify(config, "plg_eed05d54-75b4-431b-adb2-eb6b9e543206", {
+    name: "Updated Growth Plans",
+});
+
+// $ExpectType Promise<PlanGroup>
+ChartMogul.PlanGroup.modify(config, "plg_eed05d54-75b4-431b-adb2-eb6b9e543206", {
+    plans: ["pl_5d42c34e-c720-4a5b-8deb-a73ee2585803", "pl_14483884-6d43-47a9-ae1c-c362c2036c1d"],
+});
+
+// $ExpectType Promise<PlanGroup>
+ChartMogul.PlanGroup.modify(config, "plg_eed05d54-75b4-431b-adb2-eb6b9e543206", {
+    name: "Enterprise Plans",
+    plans: ["pl_5d42c34e-c720-4a5b-8deb-a73ee2585803"],
+});
+
 // $ExpectType Promise<Invoice>
 ChartMogul.Invoice.retrieve(config, "");
 
