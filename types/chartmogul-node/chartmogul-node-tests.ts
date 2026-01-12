@@ -898,6 +898,18 @@ ChartMogul.PlanGroup.all(config, { cursor: "AjMx90kC0yMVQwNNwoYToyNC4wMDAwMDAwMD
 // $ExpectType Promise<PlanGroups>
 ChartMogul.PlanGroup.all(config, { per_page: 10, cursor: "cursor_value" });
 
+// $ExpectType Promise<Plans>
+ChartMogul.PlanGroup.all(config, "plg_eed05d54-75b4-431b-adb2-eb6b9e543206");
+
+// $ExpectType Promise<Plans>
+ChartMogul.PlanGroup.all(config, "plg_eed05d54-75b4-431b-adb2-eb6b9e543206", {});
+
+// $ExpectType Promise<Plans>
+ChartMogul.PlanGroup.all(config, "plg_eed05d54-75b4-431b-adb2-eb6b9e543206", { per_page: 5 });
+
+// $ExpectType Promise<Plans>
+ChartMogul.PlanGroup.all(config, "plg_eed05d54-75b4-431b-adb2-eb6b9e543206", { cursor: "cursor123" });
+
 // $ExpectType Promise<Invoice>
 ChartMogul.Invoice.retrieve(config, "");
 
