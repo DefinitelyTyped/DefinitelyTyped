@@ -13162,7 +13162,7 @@ declare namespace chrome {
              * The UUID of the document making the request.
              * @since Chrome 106
              */
-            documentId: string;
+            documentId?: string;
             /**
              * The lifecycle the document is in.
              * @since Chrome 106

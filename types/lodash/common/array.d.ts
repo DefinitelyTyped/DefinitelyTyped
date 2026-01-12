@@ -780,7 +780,7 @@ declare module "../index" {
         /**
          * @see _.intersectionWith
          */
-        intersectionWith<T>(array?: List<T> | null, ...values: Array<List<T> | Comparator2<T, never>>): T[];
+        intersectionWith<T>(array?: List<T> | null, ...values: Array<List<T> | Comparator<T>>): T[];
     }
     interface Collection<T> {
         /**
@@ -790,7 +790,7 @@ declare module "../index" {
         /**
          * @see _.intersectionWith
          */
-        intersectionWith(...values: Array<List<unknown> | Comparator2<T,  never>>): Collection<T>;
+        intersectionWith(...values: Array<List<unknown> | Comparator<T>>): Collection<T>;
     }
     interface CollectionChain<T> {
         /**
@@ -800,7 +800,7 @@ declare module "../index" {
         /**
          * @see _.intersectionWith
          */
-        intersectionWith(...values: Array<List<unknown> | Comparator2<T,  never>>): CollectionChain<T>;
+        intersectionWith(...values: Array<List<unknown> | Comparator<T>>): CollectionChain<T>;
     }
     interface LoDashStatic {
         /**

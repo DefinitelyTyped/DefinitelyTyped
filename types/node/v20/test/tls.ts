@@ -58,6 +58,7 @@ import {
     tlsSocket.enableTrace();
 
     tlsSocket.encrypted; // $ExpectType true
+    tlsSocket.servername; // $ExpectType string | false | null
 
     const ciphers: string[] = getCiphers();
     const curve: string = DEFAULT_ECDH_CURVE;

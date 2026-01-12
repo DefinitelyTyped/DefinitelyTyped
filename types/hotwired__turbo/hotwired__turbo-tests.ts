@@ -73,6 +73,7 @@ Turbo.visit("my-location", { frame: "mine" });
 
 // $ExpectType TurboSession
 Turbo.session;
+Turbo.session.drive = false;
 
 StreamActions.log = function() {
     // $ExpectType StreamElement

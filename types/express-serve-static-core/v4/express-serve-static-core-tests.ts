@@ -42,18 +42,6 @@ app.route("/:foo").get(req => {
     req.is(1);
 });
 
-// Params can used as an array
-app.get<express.ParamsArray>("/*", req => {
-    req.params[0]; // $ExpectType string
-    req.params.length; // $ExpectType number
-});
-
-// Params can used as an array - under route
-app.route("/*").get<express.ParamsArray>(req => {
-    req.params[0]; // $ExpectType string
-    req.params.length; // $ExpectType number
-});
-
 // Params can be a custom type
 // NB. out-of-the-box all params are strings, however, other types are allowed to accommodate request validation/coercion middleware
 app.get<{ foo: string; bar: number }>("/:foo/:bar", req => {
