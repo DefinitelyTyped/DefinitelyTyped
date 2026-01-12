@@ -1,0 +1,4 @@
+# Define expertise domains
+*.ts @core-logic-team
+*.py @backend-security
+*.md @editorial-team

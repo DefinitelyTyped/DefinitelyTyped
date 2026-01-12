@@ -1,0 +1,38 @@
+{
+    "name": "epistemic-linter",
+    "displayName": "Epistemic Clarity",
+    "description": "Rigorous literary linter with profound AI enhancements.",
+    "version": "0.0.1",
+    "engines": { "vscode": "^1.85.0" },
+    "activationEvents": ["onCommand:epistemic.activateLicense"],
+    "main": "./src/extension.js",
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p .",
+        "watch": "tsc -watch -p ."
+    },
+    "devDependencies": {
+        "typescript": "^5.5.2",
+        "@types/vscode": "^1.85.0",
+        "@types/node": "^18.0.0"
+    },
+    "dependencies": {
+        "node-fetch": "^3.4.1"
+    },
+    "contributes": {
+        "commands": [{
+            "command": "epistemic.activateLicense",
+            "title": "Epistemic: Activate License"
+        }],
+        "configuration": {
+            "title": "Epistemic Settings",
+            "properties": {
+                "epistemic.licenseKey": {
+                    "type": "string",
+                    "description": "Your access token to the profound features.",
+                    "scope": "application"
+                }
+            }
+        }
+    }
+}
