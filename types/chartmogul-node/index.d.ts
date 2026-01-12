@@ -392,6 +392,8 @@ export namespace Task {
         due_date: string;
         completed_at?: string | undefined;
     }
+
+    function create(config: Config, data: NewTask): Promise<Task>;
 }
 
 export namespace CustomerNote {

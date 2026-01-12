@@ -719,6 +719,23 @@ ChartMogul.Customer.createTask(config, "cus_f466e33d-ff2b-4a11-8f85-417eb02157a7
     completed_at: "2025-04-20",
 });
 
+// $ExpectType Promise<Task>
+ChartMogul.Task.create(config, {
+    customer_uuid: "cus_f466e33d-ff2b-4a11-8f85-417eb02157a7",
+    task_details: "Schedule product demo",
+    assignee: "bob@myriapodlabs.com",
+    due_date: "2025-04-21",
+});
+
+// $ExpectType Promise<Task>
+ChartMogul.Task.create(config, {
+    customer_uuid: "cus_f466e33d-ff2b-4a11-8f85-417eb02157a7",
+    task_details: "Follow up on contract",
+    assignee: "alice@myriapodlabs.com",
+    due_date: "2025-05-01",
+    completed_at: "2025-04-30",
+});
+
 // $ExpectType Promise<Plan>
 ChartMogul.Plan.create(config, {
     data_source_uuid: "",
