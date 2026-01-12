@@ -821,7 +821,7 @@ ChartMogul.Plan.create(config, {
 });
 
 // $ExpectType Promise<Plan>
-ChartMogul.Plan.retrieve(config, "");
+ChartMogul.Plan.retrieve(config, "pl_eed05d54-75b4-431b-adb2-eb6b9e543206");
 
 // $ExpectType Promise<Plan>
 ChartMogul.Plan.modify(config, "", {
