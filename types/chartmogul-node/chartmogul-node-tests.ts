@@ -883,6 +883,21 @@ ChartMogul.PlanGroup.create(config, {
 // $ExpectType Promise<PlanGroup>
 ChartMogul.PlanGroup.retrieve(config, "plg_eed05d54-75b4-431b-adb2-eb6b9e543206");
 
+// $ExpectType Promise<PlanGroups>
+ChartMogul.PlanGroup.all(config);
+
+// $ExpectType Promise<PlanGroups>
+ChartMogul.PlanGroup.all(config, {});
+
+// $ExpectType Promise<PlanGroups>
+ChartMogul.PlanGroup.all(config, { per_page: 2 });
+
+// $ExpectType Promise<PlanGroups>
+ChartMogul.PlanGroup.all(config, { cursor: "AjMx90kC0yMVQwNNwoYToyNC4wMDAwMDAwMDBgks68k" });
+
+// $ExpectType Promise<PlanGroups>
+ChartMogul.PlanGroup.all(config, { per_page: 10, cursor: "cursor_value" });
+
 // $ExpectType Promise<Invoice>
 ChartMogul.Invoice.retrieve(config, "");
 

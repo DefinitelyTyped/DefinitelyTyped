@@ -548,6 +548,9 @@ export namespace PlanGroup {
         name?: string | undefined;
         plans_count?: number | undefined;
     }
+    interface PlanGroups extends Cursor {
+        plan_groups: PlanGroup[];
+    }
     interface NewPlanGroup {
         name: string;
         plans: string[];
@@ -555,6 +558,7 @@ export namespace PlanGroup {
 
     function create(config: Config, data: NewPlanGroup): Promise<PlanGroup>;
     function retrieve(config: Config, uuid: string): Promise<PlanGroup>;
+    function all(config: Config, params?: CursorParams): Promise<PlanGroups>;
 }
 
 export namespace Invoice {
