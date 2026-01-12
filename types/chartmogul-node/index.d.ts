@@ -411,6 +411,7 @@ export namespace CustomerNote {
     function retrieve(config: Config, uuid: string): Promise<CustomerNote>;
     function modify(config: Config, uuid: string, data: UpdateCustomerNote): Promise<CustomerNote>;
     function destroy(config: Config, uuid: string): Promise<{}>;
+    function all(config: Config, params?: ListCustomerNotesParams): Promise<Entries<CustomerNote>>;
 }
 
 export namespace Contact {

@@ -479,6 +479,31 @@ ChartMogul.CustomerNote.modify(config, "note_39351ba6-dea0-11ee-ac96-37b2b3de29a
 // $ExpectType Promise<{}>
 ChartMogul.CustomerNote.destroy(config, "note_39351ba6-dea0-11ee-ac96-37b2b3de29af");
 
+// $ExpectType Promise<Entries<CustomerNote>>
+ChartMogul.CustomerNote.all(config);
+
+// $ExpectType Promise<Entries<CustomerNote>>
+ChartMogul.CustomerNote.all(config, {
+    customer_uuid: "cus_52eb54c2-dea0-11ed-ac96-ef735d89fca0",
+});
+
+// $ExpectType Promise<Entries<CustomerNote>>
+ChartMogul.CustomerNote.all(config, {
+    type: "note",
+});
+
+// $ExpectType Promise<Entries<CustomerNote>>
+ChartMogul.CustomerNote.all(config, {
+    type: "call",
+    author_email: "sara@example.com",
+});
+
+// $ExpectType Promise<Entries<CustomerNote>>
+ChartMogul.CustomerNote.all(config, {
+    cursor: "aabbcc",
+    per_page: 20,
+});
+
 // $ExpectType Promise<Entries<Opportunity>>
 ChartMogul.Customer.opportunities(config, "");
 
