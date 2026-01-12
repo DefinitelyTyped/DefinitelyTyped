@@ -736,6 +736,9 @@ ChartMogul.Task.create(config, {
     completed_at: "2025-04-30",
 });
 
+// $ExpectType Promise<Task>
+ChartMogul.Task.retrieve(config, "5d6ec2cc-280d-11f0-b50e-5bd43fc8c28c");
+
 // $ExpectType Promise<Plan>
 ChartMogul.Plan.create(config, {
     data_source_uuid: "",

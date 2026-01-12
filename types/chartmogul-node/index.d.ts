@@ -394,6 +394,7 @@ export namespace Task {
     }
 
     function create(config: Config, data: NewTask): Promise<Task>;
+    function retrieve(config: Config, taskUuid: string): Promise<Task>;
 }
 
 export namespace CustomerNote {
