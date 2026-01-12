@@ -671,6 +671,9 @@ ChartMogul.Opportunity.modify(config, "4ee13ca4-e7fe-11ee-fa7f-f303abf41acc", {
     custom: [{ key: "seats", value: 4 }],
 });
 
+// $ExpectType Promise<{}>
+ChartMogul.Opportunity.destroy(config, "4ee13ca4-e7fe-11ee-fa7f-f303abf41acc");
+
 // $ExpectType Promise<Entries<Task>>
 ChartMogul.Customer.tasks(config, "");
 

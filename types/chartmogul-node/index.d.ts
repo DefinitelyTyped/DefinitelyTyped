@@ -363,6 +363,7 @@ export namespace Opportunity {
     function create(config: Config, data: NewOpportunity): Promise<Opportunity>;
     function retrieve(config: Config, uuid: string): Promise<Opportunity>;
     function modify(config: Config, uuid: string, data: UpdateOpportunity): Promise<Opportunity>;
+    function destroy(config: Config, uuid: string): Promise<{}>;
     function all(config: Config, params?: ListOpportunitiesParams): Promise<Entries<Opportunity>>;
 }
 
