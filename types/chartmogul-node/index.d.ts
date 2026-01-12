@@ -392,9 +392,16 @@ export namespace Task {
         due_date: string;
         completed_at?: string | undefined;
     }
+    interface UpdateTask {
+        task_details?: string | undefined;
+        assignee?: string | undefined;
+        due_date?: string | undefined;
+        completed_at?: string | undefined;
+    }
 
     function create(config: Config, data: NewTask): Promise<Task>;
     function retrieve(config: Config, taskUuid: string): Promise<Task>;
+    function modify(config: Config, taskUuid: string, data: UpdateTask): Promise<Task>;
     function all(config: Config, params?: ListTasksParams): Promise<Entries<Task>>;
 }
 
