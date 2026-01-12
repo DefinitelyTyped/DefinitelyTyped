@@ -475,6 +475,10 @@ ChartMogul.CustomerNote.modify(config, "note_39351ba6-dea0-11ee-ac96-37b2b3de29a
     call_duration: 180,
     updated_at: "2023-12-21T10:53:50.082Z",
 });
+
+// $ExpectType Promise<{}>
+ChartMogul.CustomerNote.destroy(config, "note_39351ba6-dea0-11ee-ac96-37b2b3de29af");
+
 // $ExpectType Promise<Entries<Opportunity>>
 ChartMogul.Customer.opportunities(config, "");
 

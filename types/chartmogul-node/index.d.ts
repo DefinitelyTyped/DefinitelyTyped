@@ -410,6 +410,7 @@ export namespace CustomerNote {
     function create(config: Config, data: NewCustomerNote): Promise<CustomerNote>;
     function retrieve(config: Config, uuid: string): Promise<CustomerNote>;
     function modify(config: Config, uuid: string, data: UpdateCustomerNote): Promise<CustomerNote>;
+    function destroy(config: Config, uuid: string): Promise<{}>;
 }
 
 export namespace Contact {
