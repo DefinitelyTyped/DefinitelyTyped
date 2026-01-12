@@ -257,6 +257,17 @@ declare namespace WechatMiniprogram {
         /** 缩略图路径，若留空则使用视频首帧 */
         thumbPath?: string;
     }
+    /** 以 beacon 设备形式广播的参数 */
+    interface BeaconObj {
+        /** Beacon 设备广播的 UUID */
+        uuid: string;
+        /** Beacon 设备的主 ID */
+        major: number;
+        /** Beacon 设备的次 ID */
+        minor: number;
+        /** 用于判断距离设备 1 米时 RSSI 大小的参考值 */
+        measuredPower?: number;
+    }
     /** 广播自定义参数 */
     interface AdvertiseReqObj {
         /** 当前Service是否可连接 */
@@ -267,6 +278,8 @@ declare namespace WechatMiniprogram {
         manufacturerData?: ManufacturerData[];
         /** 要广播的serviceUuid列表 */
         serviceUuids?: string[];
+        /** 以 beacon 设备形式广播的参数 */
+        beacon?: BeaconObj;
     }
     /** animationData */
     interface AnimationExportResult {
@@ -317,17 +330,17 @@ declare namespace WechatMiniprogram {
          * - 'utf8': ;
          * - 'latin1': ; */
         encoding?:
-            | "ascii"
-            | "base64"
-            | "binary"
-            | "hex"
-            | "ucs2"
-            | "ucs-2"
-            | "utf16le"
-            | "utf-16le"
-            | "utf-8"
-            | "utf8"
-            | "latin1";
+        | "ascii"
+        | "base64"
+        | "binary"
+        | "hex"
+        | "ucs2"
+        | "ucs-2"
+        | "utf16le"
+        | "utf-16le"
+        | "utf-8"
+        | "utf8"
+        | "latin1";
         /** 接口调用失败的回调函数 */
         fail?: AppendFileFailCallback;
         /** 接口调用成功的回调函数 */
@@ -1372,7 +1385,7 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
      * | WhiteSmoke           | #F5F5F5 |
      * | Yellow               | #FFFF00 |
      * | YellowGreen          | #9ACD32 | */
-    interface Color {}
+    interface Color { }
     interface CompressImageOption {
         /** 图片路径，图片的路径，支持本地路径、代码包路径 */
         src: string;
@@ -1739,17 +1752,17 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
          * - 'utf8': ;
          * - 'latin1': ; */
         encoding?:
-            | "ascii"
-            | "base64"
-            | "binary"
-            | "hex"
-            | "ucs2"
-            | "ucs-2"
-            | "utf16le"
-            | "utf-16le"
-            | "utf-8"
-            | "utf8"
-            | "latin1";
+        | "ascii"
+        | "base64"
+        | "binary"
+        | "hex"
+        | "ucs2"
+        | "ucs-2"
+        | "utf16le"
+        | "utf-16le"
+        | "utf-8"
+        | "utf8"
+        | "latin1";
         /** 指定文件的长度，如果不指定，则读到文件末尾。有效范围：[1, fileLength]。单位：byte */
         length?: number;
         /** 从文件指定位置开始读，如果不指定，则从文件头开始读。读取的范围应该是左闭右开区间 [position, position+length)。有效范围：[0, fileLength - 1]。单位：byte */
@@ -2361,14 +2374,14 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
          *
          * 最低基础库： `1.9.90` */
         orientation:
-            | "up"
-            | "up-mirrored"
-            | "down"
-            | "down-mirrored"
-            | "left-mirrored"
-            | "right"
-            | "right-mirrored"
-            | "left";
+        | "up"
+        | "up-mirrored"
+        | "down"
+        | "down-mirrored"
+        | "left-mirrored"
+        | "right"
+        | "right-mirrored"
+        | "left";
         /** 图片的本地路径 */
         path: string;
         /** 图片格式
@@ -2836,14 +2849,14 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
          * - 'left-mirrored': 同left，但垂直翻转;
          * - 'right-mirrored': 同right，但垂直翻转; */
         orientation:
-            | "up"
-            | "down"
-            | "left"
-            | "right"
-            | "up-mirrored"
-            | "down-mirrored"
-            | "left-mirrored"
-            | "right-mirrored";
+        | "up"
+        | "down"
+        | "left"
+        | "right"
+        | "up-mirrored"
+        | "down-mirrored"
+        | "left-mirrored"
+        | "right-mirrored";
         /** 视频大小，单位 kB */
         size: number;
         /** 视频格式 */
@@ -4146,18 +4159,18 @@ innerAudioContext.onError((res) => {
          * - 'w+': 打开文件用于读取和写入。 如果文件不存在则创建文件，如果文件存在则截断文件;
          * - 'wx+': 类似于 'w+'，但如果路径存在，则失败; */
         flag?:
-            | "a"
-            | "ax"
-            | "a+"
-            | "ax+"
-            | "as"
-            | "as+"
-            | "r"
-            | "r+"
-            | "w"
-            | "wx"
-            | "w+"
-            | "wx+";
+        | "a"
+        | "ax"
+        | "a+"
+        | "ax+"
+        | "as"
+        | "as+"
+        | "r"
+        | "r+"
+        | "w"
+        | "wx"
+        | "w+"
+        | "wx+";
         /** 接口调用成功的回调函数 */
         success?: OpenSuccessCallback;
     }
@@ -4210,18 +4223,18 @@ innerAudioContext.onError((res) => {
          * - 'w+': 打开文件用于读取和写入。 如果文件不存在则创建文件，如果文件存在则截断文件;
          * - 'wx+': 类似于 'w+'，但如果路径存在，则失败; */
         flag?:
-            | "a"
-            | "ax"
-            | "a+"
-            | "ax+"
-            | "as"
-            | "as+"
-            | "r"
-            | "r+"
-            | "w"
-            | "wx"
-            | "w+"
-            | "wx+";
+        | "a"
+        | "ax"
+        | "a+"
+        | "ax+"
+        | "as"
+        | "as+"
+        | "r"
+        | "r+"
+        | "w"
+        | "wx"
+        | "w+"
+        | "wx+";
     }
     interface OpenVideoEditorOption {
         /** 视频源的路径，只支持本地路径 */
@@ -4263,7 +4276,7 @@ innerAudioContext.onError((res) => {
     /** Canvas 2D API 的接口 Path2D 用来声明路径，此路径稍后会被CanvasRenderingContext2D 对象使用。CanvasRenderingContext2D 接口的 路径方法 也存在于 Path2D 这个接口中，允许你在 canvas 中根据需要创建可以保留并重用的路径。
      *
      * 最低基础库： `2.11.0` */
-    interface Path2D {}
+    interface Path2D { }
     interface PauseBGMOption {
         /** 接口调用结束的回调函数（调用成功、失败都会执行） */
         complete?: PauseBGMCompleteCallback;
@@ -4453,17 +4466,17 @@ innerAudioContext.onError((res) => {
          * - 'utf8': ;
          * - 'latin1': ; */
         encoding?:
-            | "ascii"
-            | "base64"
-            | "binary"
-            | "hex"
-            | "ucs2"
-            | "ucs-2"
-            | "utf16le"
-            | "utf-16le"
-            | "utf-8"
-            | "utf8"
-            | "latin1";
+        | "ascii"
+        | "base64"
+        | "binary"
+        | "hex"
+        | "ucs2"
+        | "ucs-2"
+        | "utf16le"
+        | "utf-16le"
+        | "utf-8"
+        | "utf8"
+        | "latin1";
         /** 接口调用失败的回调函数 */
         fail?: ReadFileFailCallback;
         /** 指定文件的长度，如果不指定，则读到文件末尾。有效范围：[1, fileLength]。单位：byte
@@ -4548,17 +4561,17 @@ innerAudioContext.onError((res) => {
          * - 'utf8': ;
          * - 'latin1': ; */
         encoding?:
-            | "ascii"
-            | "base64"
-            | "binary"
-            | "hex"
-            | "ucs2"
-            | "ucs-2"
-            | "utf16le"
-            | "utf-16le"
-            | "utf-8"
-            | "utf8"
-            | "latin1";
+        | "ascii"
+        | "base64"
+        | "binary"
+        | "hex"
+        | "ucs2"
+        | "ucs-2"
+        | "utf16le"
+        | "utf-16le"
+        | "utf-8"
+        | "utf8"
+        | "latin1";
         /** 接口调用失败的回调函数 */
         fail?: ReadZipEntryFailCallback;
         /** 接口调用成功的回调函数 */
@@ -4608,13 +4621,13 @@ innerAudioContext.onError((res) => {
          *
          * 最低基础库： `2.1.0` */
         audioSource?:
-            | "auto"
-            | "buildInMic"
-            | "headsetMic"
-            | "mic"
-            | "camcorder"
-            | "voice_communication"
-            | "voice_recognition";
+        | "auto"
+        | "buildInMic"
+        | "headsetMic"
+        | "mic"
+        | "camcorder"
+        | "voice_communication"
+        | "voice_recognition";
         /** 录音的时长，单位 ms，最大值 600000（10 分钟） */
         duration?: number;
         /** 编码码率，有效值见下表格 */
@@ -4648,15 +4661,15 @@ innerAudioContext.onError((res) => {
          * - 44100: 44100 采样率;
          * - 48000: 48000 采样率; */
         sampleRate?:
-            | 8000
-            | 11025
-            | 12000
-            | 16000
-            | 22050
-            | 24000
-            | 32000
-            | 44100
-            | 48000;
+        | 8000
+        | 11025
+        | 12000
+        | 16000
+        | 22050
+        | 24000
+        | 32000
+        | 44100
+        | 48000;
     }
     /** 菜单按钮的布局位置信息 */
     interface Rect {
@@ -4827,12 +4840,12 @@ innerAudioContext.onError((res) => {
      *
      * video 画到 2D Canvas 示例
      * [在微信开发者工具中查看示例](https://developers.weixin.qq.com/s/tJTak7mU7sfX) */
-    interface RenderingContext {}
+    interface RenderingContext { }
     interface RequestOption<
         T extends string | IAnyObject | ArrayBuffer =
-            | string
-            | IAnyObject
-            | ArrayBuffer,
+        | string
+        | IAnyObject
+        | ArrayBuffer,
     > {
         /** 开发者服务器接口地址 */
         url: string;
@@ -4876,14 +4889,14 @@ innerAudioContext.onError((res) => {
          * - 'TRACE': HTTP 请求 TRACE;
          * - 'CONNECT': HTTP 请求 CONNECT; */
         method?:
-            | "OPTIONS"
-            | "GET"
-            | "HEAD"
-            | "POST"
-            | "PUT"
-            | "DELETE"
-            | "TRACE"
-            | "CONNECT";
+        | "OPTIONS"
+        | "GET"
+        | "HEAD"
+        | "POST"
+        | "PUT"
+        | "DELETE"
+        | "TRACE"
+        | "CONNECT";
         /** 响应的数据类型
          *
          * 可选值：
@@ -5034,9 +5047,9 @@ innerAudioContext.onError((res) => {
     }
     interface RequestSuccessCallbackResult<
         T extends string | IAnyObject | ArrayBuffer =
-            | string
-            | IAnyObject
-            | ArrayBuffer,
+        | string
+        | IAnyObject
+        | ArrayBuffer,
     > {
         /** 开发者服务器返回的 cookies，格式为字符串数组
          *
@@ -5238,25 +5251,25 @@ innerAudioContext.onError((res) => {
          * - 'WX_CODE': 二维码;
          * - 'CODE_25': 一维码; */
         scanType:
-            | "QR_CODE"
-            | "AZTEC"
-            | "CODABAR"
-            | "CODE_39"
-            | "CODE_93"
-            | "CODE_128"
-            | "DATA_MATRIX"
-            | "EAN_8"
-            | "EAN_13"
-            | "ITF"
-            | "MAXICODE"
-            | "PDF_417"
-            | "RSS_14"
-            | "RSS_EXPANDED"
-            | "UPC_A"
-            | "UPC_E"
-            | "UPC_EAN_EXTENSION"
-            | "WX_CODE"
-            | "CODE_25";
+        | "QR_CODE"
+        | "AZTEC"
+        | "CODABAR"
+        | "CODE_39"
+        | "CODE_93"
+        | "CODE_128"
+        | "DATA_MATRIX"
+        | "EAN_8"
+        | "EAN_13"
+        | "ITF"
+        | "MAXICODE"
+        | "PDF_417"
+        | "RSS_14"
+        | "RSS_EXPANDED"
+        | "UPC_A"
+        | "UPC_E"
+        | "UPC_EAN_EXTENSION"
+        | "WX_CODE"
+        | "CODE_25";
         errMsg: string;
     }
     interface ScrollOffsetCallbackResult {
@@ -6190,13 +6203,13 @@ wx.createSelectorQuery()
          * - 'step-start': 动画第一帧就跳至结束状态直到结束;
          * - 'step-end': 动画一直保持开始状态，最后一帧跳到结束状态; */
         timingFunction?:
-            | "linear"
-            | "ease"
-            | "ease-in"
-            | "ease-in-out"
-            | "ease-out"
-            | "step-start"
-            | "step-end";
+        | "linear"
+        | "ease"
+        | "ease-in"
+        | "ease-in-out"
+        | "ease-out"
+        | "step-start"
+        | "step-end";
         transformOrigin?: string;
     }
     interface StopAccelerometerOption {
@@ -7049,17 +7062,17 @@ wx.getSetting({
          * - 'utf8': ;
          * - 'latin1': ; */
         encoding?:
-            | "ascii"
-            | "base64"
-            | "binary"
-            | "hex"
-            | "ucs2"
-            | "ucs-2"
-            | "utf16le"
-            | "utf-16le"
-            | "utf-8"
-            | "utf8"
-            | "latin1";
+        | "ascii"
+        | "base64"
+        | "binary"
+        | "hex"
+        | "ucs2"
+        | "ucs-2"
+        | "utf16le"
+        | "utf-16le"
+        | "utf-8"
+        | "utf8"
+        | "latin1";
         /** 接口调用失败的回调函数 */
         fail?: WriteFileFailCallback;
         /** 接口调用成功的回调函数 */
@@ -7101,17 +7114,17 @@ wx.getSetting({
          * - 'utf8': ;
          * - 'latin1': ; */
         encoding?:
-            | "ascii"
-            | "base64"
-            | "binary"
-            | "hex"
-            | "ucs2"
-            | "ucs-2"
-            | "utf16le"
-            | "utf-16le"
-            | "utf-8"
-            | "utf8"
-            | "latin1";
+        | "ascii"
+        | "base64"
+        | "binary"
+        | "hex"
+        | "ucs2"
+        | "ucs-2"
+        | "utf16le"
+        | "utf-16le"
+        | "utf-8"
+        | "utf8"
+        | "latin1";
         /** 接口调用失败的回调函数 */
         fail?: WriteFailCallback;
         /** 只在 data 类型是 ArrayBuffer 时有效，指定要写入的字节数，默认为 arrayBuffer 从0开始偏移 offset 个字节后剩余的字节数 */
@@ -7153,17 +7166,17 @@ wx.getSetting({
          * - 'utf8': ;
          * - 'latin1': ; */
         encoding?:
-            | "ascii"
-            | "base64"
-            | "binary"
-            | "hex"
-            | "ucs2"
-            | "ucs-2"
-            | "utf16le"
-            | "utf-16le"
-            | "utf-8"
-            | "utf8"
-            | "latin1";
+        | "ascii"
+        | "base64"
+        | "binary"
+        | "hex"
+        | "ucs2"
+        | "ucs-2"
+        | "utf16le"
+        | "utf-16le"
+        | "utf-8"
+        | "utf8"
+        | "latin1";
         /** 只在 data 类型是 ArrayBuffer 时有效，指定要写入的字节数，默认为 arrayBuffer 从0开始偏移 offset 个字节后剩余的字节数 */
         length?: number;
         /** 只在 data 类型是 ArrayBuffer 时有效，决定 arrayBuffe 中要被写入的部位，即 arrayBuffer 中的索引，默认0 */
@@ -14063,9 +14076,9 @@ wx.request({
 ``` */
         request<
             T extends string | IAnyObject | ArrayBuffer =
-                | string
-                | IAnyObject
-                | ArrayBuffer,
+            | string
+            | IAnyObject
+            | ArrayBuffer,
         >(
             option: RequestOption<T>,
         ): RequestTask;
@@ -21157,9 +21170,9 @@ wx.writeBLECharacteristicValue({
     /** 接口调用成功的回调函数 */
     type RequestSuccessCallback<
         T extends string | IAnyObject | ArrayBuffer =
-            | string
-            | IAnyObject
-            | ArrayBuffer,
+        | string
+        | IAnyObject
+        | ArrayBuffer,
     > = (result: RequestSuccessCallbackResult<T>) => void;
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
     type ResumeBGMCompleteCallback = (res: GeneralCallbackResult) => void;
