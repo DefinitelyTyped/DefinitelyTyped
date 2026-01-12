@@ -660,6 +660,62 @@ export namespace Subscription {
     function cancel(config: Config, uuid: string, data: CancelSubscriptionParams): Promise<Subscription>;
 }
 
+export namespace SubscriptionEvent {
+    type SubscriptionEventType =
+        | "subscription_start"
+        | "subscription_start_scheduled"
+        | "scheduled_subscription_start_retracted"
+        | "subscription_cancelled"
+        | "subscription_cancellation_scheduled"
+        | "scheduled_subscription_cancellation_retracted"
+        | "subscription_updated"
+        | "subscription_update_scheduled"
+        | "scheduled_subscription_update_retracted"
+        | "subscription_event_retracted";
+
+    interface SubscriptionEvent {
+        id?: number | undefined;
+        data_source_uuid?: string | undefined;
+        customer_external_id?: string | undefined;
+        subscription_set_external_id?: string | null | undefined;
+        subscription_external_id?: string | undefined;
+        plan_external_id?: string | undefined;
+        event_date?: string | undefined;
+        effective_date?: string | undefined;
+        event_type?: SubscriptionEventType | undefined;
+        external_id?: string | undefined;
+        errors?: Record<string, any> | undefined;
+        created_at?: string | undefined;
+        updated_at?: string | undefined;
+        quantity?: number | undefined;
+        currency?: string | undefined;
+        amount_in_cents?: number | string | undefined;
+        tax_amount_in_cents?: number | undefined;
+        event_order?: number | null | undefined;
+        retracted_event_id?: string | null | undefined;
+    }
+
+    interface NewSubscriptionEvent {
+        data_source_uuid: string;
+        customer_external_id: string;
+        event_type: SubscriptionEventType;
+        event_date: string;
+        effective_date: string;
+        subscription_external_id: string;
+        plan_external_id?: string | undefined;
+        currency?: string | undefined;
+        amount_in_cents?: number | undefined;
+        quantity?: number | undefined;
+        subscription_set_external_id?: string | undefined;
+        tax_amount_in_cents?: number | undefined;
+        retracted_event_id?: string | undefined;
+        external_id?: string | undefined;
+        event_order?: number | undefined;
+    }
+
+    function create(config: Config, data: NewSubscriptionEvent): Promise<SubscriptionEvent>;
+}
+
 export namespace Tag {
     interface Tags {
         tags: Strings;

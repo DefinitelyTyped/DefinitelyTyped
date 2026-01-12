@@ -1080,3 +1080,38 @@ ChartMogul.Metrics.Customer.connectSubscriptions(config, "ds-uuid", "customer-uu
 ChartMogul.Metrics.Customer.disconnectSubscriptions(config, "ds-uuid", "customer-uuid", [
     { uuid: "sub-uuid" },
 ]);
+
+// $ExpectType Promise<SubscriptionEvent>
+ChartMogul.SubscriptionEvent.create(config, {
+    data_source_uuid: "ds_1fm3eaac-62d0-31ec-clf4-4bf0mbe81aba",
+    customer_external_id: "cus_0001",
+    event_type: "subscription_start_scheduled",
+    event_date: "2022-03-30",
+    effective_date: "2022-04-01",
+    subscription_external_id: "sub_0001",
+    plan_external_id: "gold_monthly",
+    currency: "USD",
+    amount_in_cents: 1000,
+    quantity: 1,
+});
+
+// $ExpectType Promise<SubscriptionEvent>
+ChartMogul.SubscriptionEvent.create(config, {
+    data_source_uuid: "ds_1fm3eaac-62d0-31ec-clf4-4bf0mbe81aba",
+    customer_external_id: "cus_0001",
+    event_type: "subscription_cancelled",
+    event_date: "2022-05-30",
+    effective_date: "2022-06-01",
+    subscription_external_id: "sub_0001",
+});
+
+// $ExpectType Promise<SubscriptionEvent>
+ChartMogul.SubscriptionEvent.create(config, {
+    data_source_uuid: "ds_1fm3eaac-62d0-31ec-clf4-4bf0mbe81aba",
+    customer_external_id: "cus_0001",
+    event_type: "subscription_event_retracted",
+    event_date: "2022-03-31",
+    effective_date: "2022-04-01",
+    subscription_external_id: "sub_0001",
+    retracted_event_id: "evnt_001",
+});
