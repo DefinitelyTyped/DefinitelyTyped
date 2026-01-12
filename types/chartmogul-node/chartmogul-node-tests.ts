@@ -880,6 +880,9 @@ ChartMogul.PlanGroup.create(config, {
     plans: ["pl_eed05d54-75b4-431b-adb2-eb6b9e543206"],
 });
 
+// $ExpectType Promise<PlanGroup>
+ChartMogul.PlanGroup.retrieve(config, "plg_eed05d54-75b4-431b-adb2-eb6b9e543206");
+
 // $ExpectType Promise<Invoice>
 ChartMogul.Invoice.retrieve(config, "");
 

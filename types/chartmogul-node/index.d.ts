@@ -554,6 +554,7 @@ export namespace PlanGroup {
     }
 
     function create(config: Config, data: NewPlanGroup): Promise<PlanGroup>;
+    function retrieve(config: Config, uuid: string): Promise<PlanGroup>;
 }
 
 export namespace Invoice {
