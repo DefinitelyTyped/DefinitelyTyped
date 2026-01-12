@@ -1072,11 +1072,11 @@ ChartMogul.Metrics.Customer.activities(config, "", {
 });
 
 // $ExpectType Promise<{}>
-ChartMogul.Metrics.Customer.connectSubscriptions(config, "ds-uuid", "customer-uuid", {
-    subscriptions: [{ uuid: "sub-uuid", data_source_uuid: "ds-uuid" }],
-});
+ChartMogul.Metrics.Customer.connectSubscriptions(config, "ds-uuid", "customer-uuid", [
+    { uuid: "sub-uuid" },
+]);
 
 // $ExpectType Promise<{}>
-ChartMogul.Metrics.Customer.disconnectSubscriptions(config, "ds-uuid", "customer-uuid", {
-    subscriptions: [{ uuid: "sub-uuid", data_source_uuid: "ds-uuid" }],
-});
+ChartMogul.Metrics.Customer.disconnectSubscriptions(config, "ds-uuid", "customer-uuid", [
+    { uuid: "sub-uuid" },
+]);

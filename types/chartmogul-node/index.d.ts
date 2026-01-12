@@ -798,10 +798,6 @@ export namespace Metrics {
             type: string;
         }
 
-        interface SubscriptionConnectionData {
-            subscriptions: Array<{ uuid: string; data_source_uuid: string }>;
-        }
-
         function subscriptions(
             config: Config,
             uuid: string,
@@ -812,13 +808,13 @@ export namespace Metrics {
             config: Config,
             dataSourceUuid: string,
             customerUuid: string,
-            data: SubscriptionConnectionData,
+            data: Array<{ uuid: string }>,
         ): Promise<{}>;
         function disconnectSubscriptions(
             config: Config,
             dataSourceUuid: string,
             customerUuid: string,
-            data: SubscriptionConnectionData,
+            data: Array<{ uuid: string }>,
         ): Promise<{}>;
     }
 }
