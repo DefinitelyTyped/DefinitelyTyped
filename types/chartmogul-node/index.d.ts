@@ -347,9 +347,22 @@ export namespace Opportunity {
         win_likelihood?: number | undefined;
         custom?: Array<{ key: string; value: any }> | undefined;
     }
+    interface UpdateOpportunity {
+        owner?: string | undefined;
+        pipeline?: (OpportunityPipeline | (string & {})) | undefined;
+        pipeline_stage?: (OpportunityPipelineStage | (string & {})) | undefined;
+        estimated_close_date?: string | undefined;
+        amount_in_cents?: number | undefined;
+        currency?: string | undefined;
+        type?: OpportunityType | undefined;
+        forecast_category?: ForecastCategory | undefined;
+        win_likelihood?: number | undefined;
+        custom?: Array<{ key: string; value: any }> | undefined;
+    }
 
     function create(config: Config, data: NewOpportunity): Promise<Opportunity>;
     function retrieve(config: Config, uuid: string): Promise<Opportunity>;
+    function modify(config: Config, uuid: string, data: UpdateOpportunity): Promise<Opportunity>;
     function all(config: Config, params?: ListOpportunitiesParams): Promise<Entries<Opportunity>>;
 }
 

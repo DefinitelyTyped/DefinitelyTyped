@@ -647,6 +647,30 @@ ChartMogul.Opportunity.all(config, {
     per_page: 20,
 });
 
+// $ExpectType Promise<Opportunity>
+ChartMogul.Opportunity.modify(config, "4ee13ca4-e7fe-11ee-fa7f-f303abf41acc", {
+    amount_in_cents: 20000,
+});
+
+// $ExpectType Promise<Opportunity>
+ChartMogul.Opportunity.modify(config, "4ee13ca4-e7fe-11ee-fa7f-f303abf41acc", {
+    owner: "alice@example.com",
+    pipeline_stage: "Negotiation",
+});
+
+// $ExpectType Promise<Opportunity>
+ChartMogul.Opportunity.modify(config, "4ee13ca4-e7fe-11ee-fa7f-f303abf41acc", {
+    estimated_close_date: "2024-06-30",
+    forecast_category: "committed",
+    win_likelihood: 80,
+});
+
+// $ExpectType Promise<Opportunity>
+ChartMogul.Opportunity.modify(config, "4ee13ca4-e7fe-11ee-fa7f-f303abf41acc", {
+    amount_in_cents: 20000,
+    custom: [{ key: "seats", value: 4 }],
+});
+
 // $ExpectType Promise<Entries<Task>>
 ChartMogul.Customer.tasks(config, "");
 
