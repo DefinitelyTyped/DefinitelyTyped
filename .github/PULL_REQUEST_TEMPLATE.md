@@ -4,6 +4,7 @@ Please fill in this template.
 - [ ] Test the change in your own code. (Compile and run.)
 - [ ] [Add or edit tests](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.md#my-package-teststs) to reflect the change.
 - [ ] Follow the advice from the [readme](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.md#make-a-pull-request).
+- [ ] The commit messages include a `Signed-off-by:` line (DCO) or the contributor used `git commit -s`.
 - [ ] Avoid [common mistakes](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.md#common-mistakes).
 - [ ] [Run `pnpm test <package to test>`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.md#running-tests).
 

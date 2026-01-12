@@ -1,0 +1,49 @@
+name: DCO check
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  dco:
+    name: DCO sign-off check
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Fetch PR commits
+        run: |
+          git fetch origin ${{ github.event.pull_request.base.ref }} --no-tags --depth=1 || true
+          git fetch origin ${{ github.event.pull_request.head.ref }} --no-tags --depth=1 || true
+
+      - name: Check commits for Signed-off-by
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -euo pipefail
+          missing=0
+          echo "Checking commits between $BASE_SHA..$HEAD_SHA for Signed-off-by"
+          commits=$(git rev-list --reverse "$BASE_SHA".."$HEAD_SHA")
+          if [ -z "$commits" ]; then
+            echo "No new commits found in PR range; skipping DCO check."
+            exit 0
+          fi
+          for c in $commits; do
+            echo "Inspecting commit $c"
+            if git show -s --format=%B $c | grep -qi 'Signed-off-by:'; then
+              echo "  OK: Signed-off-by present"
+            else
+              echo "ERROR: commit $c is missing a Signed-off-by line"
+              git show -s --format='%h %s%n%b' $c
+              missing=1
+            fi
+          done
+          if [ "$missing" -eq 1 ]; then
+            echo "\nDCO check failed. Please add a Signed-off-by line to all commit messages, e.g. use 'git commit -s' or 'git commit --amend -s' and push the branch."
+            exit 1
+          fi
+          echo "All commits are Signed-off-by."

@@ -96,6 +96,8 @@ You may need to add manual [references](https://www.typescriptlang.org/docs/hand
 
 Definitely Typed only works because of contributions by users like you!
 
+Please see `CONTRIBUTING.md` for contribution guidelines, the Code of Conduct, and DCO sign-off instructions.
+
 ### Testing
 
 Before you share your improvement with the world, use the types yourself by creating a `typename.d.ts` file in your project and filling out its exports:
