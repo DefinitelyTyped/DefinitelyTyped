@@ -563,6 +563,7 @@ export namespace PlanGroup {
     function create(config: Config, data: NewPlanGroup): Promise<PlanGroup>;
     function retrieve(config: Config, uuid: string): Promise<PlanGroup>;
     function modify(config: Config, uuid: string, data: UpdatePlanGroup): Promise<PlanGroup>;
+    function destroy(config: Config, uuid: string): Promise<ResourceDestroyed>;
     function all(config: Config, planGroupUuid: string, params?: CursorParams): Promise<Plan.Plans>;
     function all(config: Config, params?: CursorParams): Promise<PlanGroups>;
 }

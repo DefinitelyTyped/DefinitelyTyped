@@ -929,6 +929,9 @@ ChartMogul.PlanGroup.modify(config, "plg_eed05d54-75b4-431b-adb2-eb6b9e543206", 
     plans: ["pl_5d42c34e-c720-4a5b-8deb-a73ee2585803"],
 });
 
+// $ExpectType Promise<ResourceDestroyed>
+ChartMogul.PlanGroup.destroy(config, "plg_eed05d54-75b4-431b-adb2-eb6b9e543206");
+
 // $ExpectType Promise<Invoice>
 ChartMogul.Invoice.retrieve(config, "");
 
