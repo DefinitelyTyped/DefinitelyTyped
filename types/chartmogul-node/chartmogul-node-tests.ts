@@ -842,7 +842,7 @@ ChartMogul.Plan.modify(config, "pl_eed05d54-75b4-431b-adb2-eb6b9e543206", {
 });
 
 // $ExpectType Promise<ResourceDestroyed>
-ChartMogul.Plan.destroy(config, "");
+ChartMogul.Plan.destroy(config, "pl_eed05d54-75b4-431b-adb2-eb6b9e543206");
 
 // $ExpectType Promise<Plans>
 ChartMogul.Plan.all(config);
