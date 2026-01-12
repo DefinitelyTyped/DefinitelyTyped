@@ -739,6 +739,36 @@ ChartMogul.Task.create(config, {
 // $ExpectType Promise<Task>
 ChartMogul.Task.retrieve(config, "5d6ec2cc-280d-11f0-b50e-5bd43fc8c28c");
 
+// $ExpectType Promise<Entries<Task>>
+ChartMogul.Task.all(config);
+
+// $ExpectType Promise<Entries<Task>>
+ChartMogul.Task.all(config, {
+    customer_uuid: "cus_f466e33d-ff2b-4a11-8f85-417eb02157a7",
+});
+
+// $ExpectType Promise<Entries<Task>>
+ChartMogul.Task.all(config, {
+    assignee: "bob@myriapodlabs.com",
+});
+
+// $ExpectType Promise<Entries<Task>>
+ChartMogul.Task.all(config, {
+    due_date_on_or_after: "2025-01-01",
+    due_date_on_or_before: "2025-12-31",
+});
+
+// $ExpectType Promise<Entries<Task>>
+ChartMogul.Task.all(config, {
+    completed: true,
+});
+
+// $ExpectType Promise<Entries<Task>>
+ChartMogul.Task.all(config, {
+    cursor: "aabbcc",
+    per_page: 20,
+});
+
 // $ExpectType Promise<Plan>
 ChartMogul.Plan.create(config, {
     data_source_uuid: "",
