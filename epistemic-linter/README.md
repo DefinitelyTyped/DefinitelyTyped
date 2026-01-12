@@ -8,8 +8,10 @@ An extension to verify the rigour of text.
 - **Server**: Python Flask API. Handles "Verification" and "Anti-Scheming".
 
 ## Quickstart (prototype)
-1. Start the license server:
+1. Install server dependencies:
+   - `python3 -m pip install -r server-backend/requirements.txt`
+2. Start the license server (this will initialize a local truth store):
    - `python3 server-backend/app.py`
-2. In a separate shell (after building the extension), run the extension host or install the extension to test the Activate License command and verify behavior.
+3. In a separate shell (after building the extension), run the extension host or install the extension to test the Activate License command and verify behavior.
 
 This scaffold is intentionally minimal: the real implementation should add tests, a proper license DB, secure JWT issuance, and production-grade webhook validation.
