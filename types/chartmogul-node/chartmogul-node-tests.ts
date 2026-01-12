@@ -46,7 +46,7 @@ ChartMogul.DataSource.retrieve(config, "", {
     with_invoice_handling_setting: true,
 });
 
-// $ExpectType Promise<{}>
+// $ExpectType Promise<ResourceDestroyed>
 ChartMogul.DataSource.destroy(config, "");
 
 // $ExpectType Promise<DataSources>
@@ -340,7 +340,7 @@ ChartMogul.Contact.create(config, {
 // $ExpectType Promise<Contact>
 ChartMogul.Contact.retrieve(config, "con_653af916-dea0-11ed-845b-3be1ac0039ac");
 
-// $ExpectType Promise<{}>
+// $ExpectType Promise<ResourceDestroyed>
 ChartMogul.Contact.destroy(config, "con_d018335c-56d2-11ee-897c-830bb2bba6ec");
 
 // $ExpectType Promise<Contact>
@@ -476,7 +476,7 @@ ChartMogul.CustomerNote.modify(config, "note_39351ba6-dea0-11ee-ac96-37b2b3de29a
     updated_at: "2023-12-21T10:53:50.082Z",
 });
 
-// $ExpectType Promise<{}>
+// $ExpectType Promise<ResourceDestroyed>
 ChartMogul.CustomerNote.destroy(config, "note_39351ba6-dea0-11ee-ac96-37b2b3de29af");
 
 // $ExpectType Promise<Entries<CustomerNote>>
@@ -671,7 +671,7 @@ ChartMogul.Opportunity.modify(config, "4ee13ca4-e7fe-11ee-fa7f-f303abf41acc", {
     custom: [{ key: "seats", value: 4 }],
 });
 
-// $ExpectType Promise<{}>
+// $ExpectType Promise<ResourceDestroyed>
 ChartMogul.Opportunity.destroy(config, "4ee13ca4-e7fe-11ee-fa7f-f303abf41acc");
 
 // $ExpectType Promise<Entries<Task>>
@@ -791,7 +791,7 @@ ChartMogul.Task.modify(config, "5d6ec2cc-280d-11f0-b50e-5bd43fc8c28c", {
     completed_at: "2025-04-19",
 });
 
-// $ExpectType Promise<{}>
+// $ExpectType Promise<ResourceDestroyed>
 ChartMogul.Task.destroy(config, "5d6ec2cc-280d-11f0-b50e-5bd43fc8c28c");
 
 // $ExpectType Promise<Plan>
@@ -811,7 +811,7 @@ ChartMogul.Plan.modify(config, "", {
     name: "",
 });
 
-// $ExpectType Promise<{}>
+// $ExpectType Promise<ResourceDestroyed>
 ChartMogul.Plan.destroy(config, "");
 
 // $ExpectType Promise<Invoice>
@@ -826,7 +826,7 @@ ChartMogul.Invoice.create(config, "", {
     ],
 });
 
-// $ExpectType Promise<{}>
+// $ExpectType Promise<ResourceDestroyed>
 ChartMogul.Invoice.destroy(config, "");
 
 ChartMogul.Invoice.all(config, "", {

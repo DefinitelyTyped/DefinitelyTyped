@@ -110,7 +110,7 @@ export namespace DataSource {
 
     function create(config: Config, data: NewDataSource): Promise<DataSource>;
     function retrieve(config: Config, uuid: string, params?: ExtraDataSourceParams): Promise<DataSource>;
-    function destroy(config: Config, uuid: string): Promise<{}>;
+    function destroy(config: Config, uuid: string): Promise<ResourceDestroyed>;
     function all(config: Config, params?: ListDataSourcesParams): Promise<DataSources>;
 }
 
@@ -363,7 +363,7 @@ export namespace Opportunity {
     function create(config: Config, data: NewOpportunity): Promise<Opportunity>;
     function retrieve(config: Config, uuid: string): Promise<Opportunity>;
     function modify(config: Config, uuid: string, data: UpdateOpportunity): Promise<Opportunity>;
-    function destroy(config: Config, uuid: string): Promise<{}>;
+    function destroy(config: Config, uuid: string): Promise<ResourceDestroyed>;
     function all(config: Config, params?: ListOpportunitiesParams): Promise<Entries<Opportunity>>;
 }
 
@@ -402,7 +402,7 @@ export namespace Task {
     function create(config: Config, data: NewTask): Promise<Task>;
     function retrieve(config: Config, taskUuid: string): Promise<Task>;
     function modify(config: Config, taskUuid: string, data: UpdateTask): Promise<Task>;
-    function destroy(config: Config, taskUuid: string): Promise<{}>;
+    function destroy(config: Config, taskUuid: string): Promise<ResourceDestroyed>;
     function all(config: Config, params?: ListTasksParams): Promise<Entries<Task>>;
 }
 
@@ -442,7 +442,7 @@ export namespace CustomerNote {
     function create(config: Config, data: NewCustomerNote): Promise<CustomerNote>;
     function retrieve(config: Config, uuid: string): Promise<CustomerNote>;
     function modify(config: Config, uuid: string, data: UpdateCustomerNote): Promise<CustomerNote>;
-    function destroy(config: Config, uuid: string): Promise<{}>;
+    function destroy(config: Config, uuid: string): Promise<ResourceDestroyed>;
     function all(config: Config, params?: ListCustomerNotesParams): Promise<Entries<CustomerNote>>;
 }
 
@@ -500,7 +500,7 @@ export namespace Contact {
     function create(config: Config, data: NewContact): Promise<Contact>;
     function retrieve(config: Config, uuid: string): Promise<Contact>;
     function modify(config: Config, uuid: string, data: UpdateContact): Promise<Contact>;
-    function destroy(config: Config, uuid: string): Promise<{}>;
+    function destroy(config: Config, uuid: string): Promise<ResourceDestroyed>;
     function merge(config: Config, intoContactUuid: string, fromContactUuid: string): Promise<Contact>;
     function all(config: Config, params?: ListContactsParams): Promise<Entries<Contact>>;
 }
@@ -526,7 +526,7 @@ export namespace Plan {
     function create(config: Config, data: Plan): Promise<Plan>;
     function retrieve(config: Config, uuid: string): Promise<Plan>;
     function modify(config: Config, uuid: string, data: Plan): Promise<Plan>;
-    function destroy(config: Config, uuid: string): Promise<{}>;
+    function destroy(config: Config, uuid: string): Promise<ResourceDestroyed>;
     function all(config: Config, params?: ListPlansParams): Promise<Plans>;
 }
 
@@ -583,7 +583,7 @@ export namespace Invoice {
         invoices: Invoice[];
     }): Promise<Invoice>;
     function retrieve(config: Config, uuid: string): Promise<Invoice>;
-    function destroy(config: Config, uuid: string): Promise<{}>;
+    function destroy(config: Config, uuid: string): Promise<ResourceDestroyed>;
     function all(config: Config, uuid: string, params?: ListInvoicesParams): Promise<Invoices>;
     function all(config: Config, params?: ListInvoicesParams): Promise<Invoices>;
 }
