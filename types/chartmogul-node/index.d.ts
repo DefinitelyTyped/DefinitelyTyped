@@ -529,10 +529,15 @@ export namespace Plan {
         interval_unit: string;
         external_id?: string | undefined;
     }
+    interface UpdatePlan {
+        name?: string | undefined;
+        interval_count?: number | undefined;
+        interval_unit?: string | undefined;
+    }
 
     function create(config: Config, data: NewPlan): Promise<Plan>;
     function retrieve(config: Config, uuid: string): Promise<Plan>;
-    function modify(config: Config, uuid: string, data: Plan): Promise<Plan>;
+    function modify(config: Config, uuid: string, data: UpdatePlan): Promise<Plan>;
     function destroy(config: Config, uuid: string): Promise<ResourceDestroyed>;
     function all(config: Config, params?: ListPlansParams): Promise<Plans>;
 }

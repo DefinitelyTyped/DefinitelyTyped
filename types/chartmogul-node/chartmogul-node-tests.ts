@@ -824,8 +824,21 @@ ChartMogul.Plan.create(config, {
 ChartMogul.Plan.retrieve(config, "pl_eed05d54-75b4-431b-adb2-eb6b9e543206");
 
 // $ExpectType Promise<Plan>
-ChartMogul.Plan.modify(config, "", {
-    name: "",
+ChartMogul.Plan.modify(config, "pl_eed05d54-75b4-431b-adb2-eb6b9e543206", {
+    name: "Bronze Monthly Plan",
+});
+
+// $ExpectType Promise<Plan>
+ChartMogul.Plan.modify(config, "pl_eed05d54-75b4-431b-adb2-eb6b9e543206", {
+    interval_count: 3,
+    interval_unit: "month",
+});
+
+// $ExpectType Promise<Plan>
+ChartMogul.Plan.modify(config, "pl_eed05d54-75b4-431b-adb2-eb6b9e543206", {
+    name: "Updated Plan",
+    interval_count: 1,
+    interval_unit: "year",
 });
 
 // $ExpectType Promise<ResourceDestroyed>
