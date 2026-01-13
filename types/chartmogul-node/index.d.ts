@@ -683,6 +683,12 @@ export namespace Invoice {
         include_edit_histories?: boolean | undefined;
         with_disabled?: boolean | undefined;
     }
+    interface UpdateInvoice {
+        date?: string | undefined;
+        due_date?: string | undefined;
+        currency?: string | undefined;
+        collection_method?: "automatic" | "manual" | undefined;
+    }
     interface Invoices extends Cursor {
         customer_uuid?: string | undefined;
         invoices: Invoice[];
@@ -696,6 +702,7 @@ export namespace Invoice {
         },
     ): Promise<{ invoices: Invoice[] }>;
     function retrieve(config: Config, uuid: string, params?: RetrieveInvoiceParams): Promise<Invoice>;
+    function modify(config: Config, uuid: string, data: UpdateInvoice): Promise<Invoice>;
     function destroy(config: Config, uuid: string): Promise<ResourceDestroyed>;
     function all(config: Config, uuid: string, params?: ListInvoicesParams): Promise<Invoices>;
     function all(config: Config, params?: ListInvoicesParams): Promise<Invoices>;

@@ -1099,6 +1099,42 @@ ChartMogul.Invoice.create(config, "cus_f466e33d-ff2b-4a11-8f85-417eb02157a7", {
     ],
 });
 
+// $ExpectType Promise<Invoice>
+ChartMogul.Invoice.modify(config, "inv_f466e33d-ff2b-4a11-8f85-417eb02157a7", {});
+
+// $ExpectType Promise<Invoice>
+ChartMogul.Invoice.modify(config, "inv_f466e33d-ff2b-4a11-8f85-417eb02157a7", {
+    date: "2024-11-10T00:00:00Z",
+});
+
+// $ExpectType Promise<Invoice>
+ChartMogul.Invoice.modify(config, "inv_f466e33d-ff2b-4a11-8f85-417eb02157a7", {
+    due_date: "2024-12-02T00:00:00Z",
+});
+
+// $ExpectType Promise<Invoice>
+ChartMogul.Invoice.modify(config, "inv_f466e33d-ff2b-4a11-8f85-417eb02157a7", {
+    currency: "EUR",
+});
+
+// $ExpectType Promise<Invoice>
+ChartMogul.Invoice.modify(config, "inv_f466e33d-ff2b-4a11-8f85-417eb02157a7", {
+    collection_method: "automatic",
+});
+
+// $ExpectType Promise<Invoice>
+ChartMogul.Invoice.modify(config, "inv_f466e33d-ff2b-4a11-8f85-417eb02157a7", {
+    collection_method: "manual",
+});
+
+// $ExpectType Promise<Invoice>
+ChartMogul.Invoice.modify(config, "inv_f466e33d-ff2b-4a11-8f85-417eb02157a7", {
+    date: "2024-11-10T00:00:00Z",
+    due_date: "2024-12-02T00:00:00Z",
+    currency: "EUR",
+    collection_method: "manual",
+});
+
 // $ExpectType Promise<ResourceDestroyed>
 ChartMogul.Invoice.destroy(config, "");
 
