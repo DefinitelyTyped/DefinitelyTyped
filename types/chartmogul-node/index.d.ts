@@ -70,8 +70,7 @@ export namespace DataSource {
         | "import_complete"
         | "import_in_progress"
         | "import_failed"
-        | string
-        | undefined;
+        | string;
 
     interface ProcessingStatus {
         processed?: number;
@@ -116,105 +115,105 @@ export namespace DataSource {
 
 export namespace Customer {
     interface Customer {
-        id?: number | undefined;
-        data_source_uuid?: string | undefined;
-        data_source_uuids?: Strings | undefined;
-        uuid?: string | undefined;
-        external_id?: string | undefined;
-        external_ids?: Strings | undefined;
-        name?: string | undefined;
-        email?: string | undefined;
-        status?: string | undefined;
-        ["customer-since"]?: string | undefined;
-        attributes?: Attributes | undefined;
+        id?: number;
+        data_source_uuid?: string;
+        data_source_uuids?: Strings;
+        uuid?: string;
+        external_id?: string;
+        external_ids?: Strings;
+        name?: string;
+        email?: string;
+        status?: string;
+        ["customer-since"]?: string;
+        attributes?: Attributes;
         address?: {
-            address_zip?: string | undefined;
-            city?: string | undefined;
-            state?: string | undefined;
-            country?: string | undefined;
-        } | undefined;
-        mrr?: number | undefined;
-        arr?: number | undefined;
-        ["billing-system-url"]?: string | undefined;
-        ["chartmogul-url"]?: string | undefined;
-        ["billing-system-type"]?: string | undefined;
-        currency?: string | undefined;
-        ["currency-sign"]?: string | undefined;
-        company?: string | undefined;
-        country?: string | undefined;
-        state?: string | undefined;
-        city?: string | undefined;
-        zip?: string | undefined;
-        lead_created_at?: string | undefined;
-        free_trial_started_at?: string | undefined;
-        owner?: string | undefined;
-        website_url?: string | undefined;
+            address_zip?: string;
+            city?: string;
+            state?: string;
+            country?: string;
+        };
+        mrr?: number;
+        arr?: number;
+        ["billing-system-url"]?: string;
+        ["chartmogul-url"]?: string;
+        ["billing-system-type"]?: string;
+        currency?: string;
+        ["currency-sign"]?: string;
+        company?: string;
+        country?: string;
+        state?: string;
+        city?: string;
+        zip?: string;
+        lead_created_at?: string;
+        free_trial_started_at?: string;
+        owner?: string;
+        website_url?: string;
     }
     interface PrimaryContact {
-        first_name?: string | undefined;
-        last_name?: string | undefined;
-        email?: string | undefined;
-        title?: string | undefined;
-        phone?: string | undefined;
-        linked_in?: string | undefined;
-        twitter?: string | undefined;
-        notes?: string | undefined;
+        first_name?: string;
+        last_name?: string;
+        email?: string;
+        title?: string;
+        phone?: string;
+        linked_in?: string;
+        twitter?: string;
+        notes?: string;
     }
     interface NewCustomer {
         data_source_uuid: string;
         external_id: string;
-        name?: string | undefined;
-        email?: string | undefined;
-        company?: string | undefined;
-        country?: string | undefined;
-        state?: string | undefined;
-        city?: string | undefined;
-        zip?: string | undefined;
-        lead_created_at?: string | undefined;
-        free_trial_started_at?: string | undefined;
-        attributes?: NewAttributes | undefined;
-        owner?: string | undefined;
-        primary_contact?: PrimaryContact | undefined;
-        website_url?: string | undefined;
+        name?: string;
+        email?: string;
+        company?: string;
+        country?: string;
+        state?: string;
+        city?: string;
+        zip?: string;
+        lead_created_at?: string;
+        free_trial_started_at?: string;
+        attributes?: NewAttributes;
+        owner?: string;
+        primary_contact?: PrimaryContact;
+        website_url?: string;
     }
     interface UpdateCustomer {
-        name?: string | undefined;
-        email?: string | undefined;
-        company?: string | undefined;
-        country?: string | undefined;
-        state?: string | undefined;
-        city?: string | undefined;
-        zip?: string | undefined;
-        lead_created_at?: string | undefined;
-        free_trial_started_at?: string | undefined;
-        attributes?: UpdateAttributes | undefined;
-        owner?: string | undefined;
-        primary_contact?: PrimaryContact | undefined;
-        website_url?: string | undefined;
-        status?: string | undefined;
+        name?: string;
+        email?: string;
+        company?: string;
+        country?: string;
+        state?: string;
+        city?: string;
+        zip?: string;
+        lead_created_at?: string;
+        free_trial_started_at?: string;
+        attributes?: UpdateAttributes;
+        owner?: string;
+        primary_contact?: PrimaryContact;
+        website_url?: string;
+        status?: string;
     }
     interface UpdateAttributes {
-        tags?: Strings | undefined;
-        custom?: Map | undefined;
+        tags?: Strings;
+        custom?: Map;
     }
     interface NewAttributes {
-        tags?: Strings | undefined;
-        custom?: CustomAttribute.NewCustomAttribute[] | undefined;
+        tags?: Strings;
+        custom?: CustomAttribute.NewCustomAttribute[];
     }
     interface Attributes {
-        tags?: Strings | undefined;
-        stripe?: Map | undefined;
-        clearbit?: Map | undefined;
-        custom?: Map | undefined;
+        tags?: Strings;
+        stripe?: Map;
+        clearbit?: Map;
+        custom?: Map;
     }
     interface ListCustomersParams extends CursorParams {
-        data_source_uuid?: string | undefined;
-        status?: string | undefined;
-        system?: string | undefined;
-        external_id?: string | undefined;
+        data_source_uuid?: string;
+        status?: string;
+        system?: string;
+        external_id?: string;
     }
     interface SearchCustomersParams extends CursorParams {
-        email?: string | undefined;
+        email?: string;
     }
     type MergeID =
         | {
@@ -233,7 +232,7 @@ export namespace Customer {
     }
     type MoveToNewCustomerField = "tasks" | "opportunities" | "notes";
     type UnmergeCustomersParams = MergeID & {
-        move_to_new_customer?: MoveToNewCustomerField[] | undefined;
+        move_to_new_customer?: MoveToNewCustomerField[];
     };
 
     interface SubscriptionData {
@@ -311,28 +310,28 @@ export namespace Opportunity {
         | "Closed Won"
         | "Closed Lost";
     interface Opportunity {
-        uuid?: string | undefined;
-        customer_uuid?: string | undefined;
-        owner?: string | undefined;
-        pipeline?: (OpportunityPipeline | (string & {})) | undefined;
-        pipeline_stage?: (OpportunityPipelineStage | (string & {})) | undefined;
-        estimated_close_date?: string | undefined;
-        currency?: string | undefined;
-        amount_in_cents?: number | undefined;
-        type?: OpportunityType | undefined;
-        forecast_category?: ForecastCategory | undefined;
-        win_likelihood?: number | undefined;
-        custom?: Map | undefined;
-        created_at?: string | undefined;
-        updated_at?: string | undefined;
+        uuid?: string;
+        customer_uuid?: string;
+        owner?: string;
+        pipeline?: OpportunityPipeline | (string & {});
+        pipeline_stage?: OpportunityPipelineStage | (string & {});
+        estimated_close_date?: string;
+        currency?: string;
+        amount_in_cents?: number;
+        type?: OpportunityType;
+        forecast_category?: ForecastCategory;
+        win_likelihood?: number;
+        custom?: Map;
+        created_at?: string;
+        updated_at?: string;
     }
     interface ListOpportunitiesParams extends CursorParams {
-        customer_uuid?: string | undefined;
-        owner?: string | undefined;
-        pipeline?: (OpportunityPipeline | (string & {})) | undefined;
-        pipeline_stage?: (OpportunityPipelineStage | (string & {})) | undefined;
-        estimated_close_date_on_or_after?: string | undefined;
-        estimated_close_date_on_or_before?: string | undefined;
+        customer_uuid?: string;
+        owner?: string;
+        pipeline?: OpportunityPipeline | (string & {});
+        pipeline_stage?: OpportunityPipelineStage | (string & {});
+        estimated_close_date_on_or_after?: string;
+        estimated_close_date_on_or_before?: string;
     }
     interface NewOpportunity {
         customer_uuid: string;
@@ -342,22 +341,22 @@ export namespace Opportunity {
         estimated_close_date: string;
         amount_in_cents: number;
         currency: string;
-        type?: OpportunityType | undefined;
-        forecast_category?: ForecastCategory | undefined;
-        win_likelihood?: number | undefined;
-        custom?: Array<{ key: string; value: any }> | undefined;
+        type?: OpportunityType;
+        forecast_category?: ForecastCategory;
+        win_likelihood?: number;
+        custom?: Array<{ key: string; value: any }>;
     }
     interface UpdateOpportunity {
-        owner?: string | undefined;
-        pipeline?: (OpportunityPipeline | (string & {})) | undefined;
-        pipeline_stage?: (OpportunityPipelineStage | (string & {})) | undefined;
-        estimated_close_date?: string | undefined;
-        amount_in_cents?: number | undefined;
-        currency?: string | undefined;
-        type?: OpportunityType | undefined;
-        forecast_category?: ForecastCategory | undefined;
-        win_likelihood?: number | undefined;
-        custom?: Array<{ key: string; value: any }> | undefined;
+        owner?: string;
+        pipeline?: OpportunityPipeline | (string & {});
+        pipeline_stage?: OpportunityPipelineStage | (string & {});
+        estimated_close_date?: string;
+        amount_in_cents?: number;
+        currency?: string;
+        type?: OpportunityType;
+        forecast_category?: ForecastCategory;
+        win_likelihood?: number;
+        custom?: Array<{ key: string; value: any }>;
     }
 
     function create(config: Config, data: NewOpportunity): Promise<Opportunity>;
@@ -369,34 +368,34 @@ export namespace Opportunity {
 
 export namespace Task {
     interface Task {
-        task_uuid?: string | undefined;
-        customer_uuid?: string | undefined;
-        task_details?: string | undefined;
-        assignee?: string | undefined;
-        due_date?: string | undefined;
-        completed_at?: string | undefined;
-        created_at?: string | undefined;
-        updated_at?: string | undefined;
+        task_uuid?: string;
+        customer_uuid?: string;
+        task_details?: string;
+        assignee?: string;
+        due_date?: string;
+        completed_at?: string;
+        created_at?: string;
+        updated_at?: string;
     }
     interface ListTasksParams extends CursorParams {
-        customer_uuid?: string | undefined;
-        assignee?: string | undefined;
-        due_date_on_or_after?: string | undefined;
-        due_date_on_or_before?: string | undefined;
-        completed?: boolean | undefined;
+        customer_uuid?: string;
+        assignee?: string;
+        due_date_on_or_after?: string;
+        due_date_on_or_before?: string;
+        completed?: boolean;
     }
     interface NewTask {
         customer_uuid: string;
         task_details: string;
         assignee: string;
         due_date: string;
-        completed_at?: string | undefined;
+        completed_at?: string;
     }
     interface UpdateTask {
-        task_details?: string | undefined;
-        assignee?: string | undefined;
-        due_date?: string | undefined;
-        completed_at?: string | undefined;
+        task_details?: string;
+        assignee?: string;
+        due_date?: string;
+        completed_at?: string;
     }
 
     function create(config: Config, data: NewTask): Promise<Task>;
@@ -409,34 +408,34 @@ export namespace Task {
 export namespace CustomerNote {
     type CustomerNoteType = "note" | "call";
     interface CustomerNote {
-        uuid?: string | undefined;
-        customer_uuid?: string | undefined;
-        type?: CustomerNoteType | undefined;
-        text?: string | undefined;
-        author?: string | undefined;
-        call_duration?: number | undefined;
-        created_at?: string | undefined;
-        updated_at?: string | undefined;
+        uuid?: string;
+        customer_uuid?: string;
+        type?: CustomerNoteType;
+        text?: string;
+        author?: string;
+        call_duration?: number;
+        created_at?: string;
+        updated_at?: string;
     }
     interface ListCustomerNotesParams extends CursorParams {
-        customer_uuid?: string | undefined;
-        type?: CustomerNoteType | undefined;
-        author_email?: string | undefined;
+        customer_uuid?: string;
+        type?: CustomerNoteType;
+        author_email?: string;
     }
     interface NewCustomerNote {
         customer_uuid: string;
         type: CustomerNoteType;
-        author_email?: string | undefined;
-        text?: string | undefined;
-        call_duration?: number | undefined;
-        created_at?: string | undefined;
+        author_email?: string;
+        text?: string;
+        call_duration?: number;
+        created_at?: string;
     }
     interface UpdateCustomerNote {
-        author_email?: string | undefined;
-        text?: string | undefined;
-        call_duration?: number | undefined;
-        created_at?: string | undefined;
-        updated_at?: string | undefined;
+        author_email?: string;
+        text?: string;
+        call_duration?: number;
+        created_at?: string;
+        updated_at?: string;
     }
 
     function create(config: Config, data: NewCustomerNote): Promise<CustomerNote>;
@@ -448,53 +447,53 @@ export namespace CustomerNote {
 
 export namespace Contact {
     interface Contact {
-        uuid?: string | undefined;
-        customer_uuid?: string | undefined;
-        customer_external_id?: string | undefined;
-        data_source_uuid?: string | undefined;
-        position?: number | undefined;
-        first_name?: string | undefined;
-        last_name?: string | undefined;
-        title?: string | undefined;
-        email?: string | undefined;
-        phone?: string | undefined;
-        linked_in?: string | undefined;
-        twitter?: string | undefined;
-        notes?: string | undefined;
-        custom?: Map | undefined;
+        uuid?: string;
+        customer_uuid?: string;
+        customer_external_id?: string;
+        data_source_uuid?: string;
+        position?: number;
+        first_name?: string;
+        last_name?: string;
+        title?: string;
+        email?: string;
+        phone?: string;
+        linked_in?: string;
+        twitter?: string;
+        notes?: string;
+        custom?: Map;
     }
     interface ListContactsParams extends CursorParams {
-        customer_uuid?: string | undefined;
-        data_source_uuid?: string | undefined;
-        email?: string | undefined;
-        customer_external_id?: string | undefined;
+        customer_uuid?: string;
+        data_source_uuid?: string;
+        email?: string;
+        customer_external_id?: string;
     }
     interface NewContact {
         customer_uuid: string;
         data_source_uuid: string;
-        position?: number | undefined;
-        first_name?: string | undefined;
-        last_name?: string | undefined;
-        title?: string | undefined;
-        email?: string | undefined;
-        phone?: string | undefined;
-        linked_in?: string | undefined;
-        twitter?: string | undefined;
-        notes?: string | undefined;
-        custom?: CustomAttribute.NewCustomAttribute[] | undefined;
+        position?: number;
+        first_name?: string;
+        last_name?: string;
+        title?: string;
+        email?: string;
+        phone?: string;
+        linked_in?: string;
+        twitter?: string;
+        notes?: string;
+        custom?: CustomAttribute.NewCustomAttribute[];
     }
     type NewCustomerContact = Omit<NewContact, "customer_uuid">;
     interface UpdateContact {
-        position?: number | undefined;
-        first_name?: string | undefined;
-        last_name?: string | undefined;
-        title?: string | undefined;
-        email?: string | undefined;
-        phone?: string | undefined;
-        linked_in?: string | undefined;
-        twitter?: string | undefined;
-        notes?: string | undefined;
-        custom?: CustomAttribute.NewCustomAttribute[] | undefined;
+        position?: number;
+        first_name?: string;
+        last_name?: string;
+        title?: string;
+        email?: string;
+        phone?: string;
+        linked_in?: string;
+        twitter?: string;
+        notes?: string;
+        custom?: CustomAttribute.NewCustomAttribute[];
     }
 
     function create(config: Config, data: NewContact): Promise<Contact>;
@@ -507,17 +506,17 @@ export namespace Contact {
 
 export namespace Plan {
     interface Plan {
-        uuid?: string | undefined;
-        data_source_uuid?: string | undefined;
-        external_id?: string | undefined;
-        name?: string | undefined;
-        interval_count?: number | undefined;
-        interval_unit?: string | undefined;
+        uuid?: string;
+        data_source_uuid?: string;
+        external_id?: string;
+        name?: string;
+        interval_count?: number;
+        interval_unit?: string;
     }
     interface ListPlansParams extends CursorParams {
-        data_source_uuid?: string | undefined;
-        system?: string | undefined;
-        external_id?: string | undefined;
+        data_source_uuid?: string;
+        system?: string;
+        external_id?: string;
     }
     interface Plans extends Cursor {
         plans: Plan[];
@@ -527,12 +526,12 @@ export namespace Plan {
         name: string;
         interval_count: number;
         interval_unit: string;
-        external_id?: string | undefined;
+        external_id?: string;
     }
     interface UpdatePlan {
-        name?: string | undefined;
-        interval_count?: number | undefined;
-        interval_unit?: string | undefined;
+        name?: string;
+        interval_count?: number;
+        interval_unit?: string;
     }
 
     function create(config: Config, data: NewPlan): Promise<Plan>;
@@ -544,9 +543,9 @@ export namespace Plan {
 
 export namespace PlanGroup {
     interface PlanGroup {
-        uuid?: string | undefined;
-        name?: string | undefined;
-        plans_count?: number | undefined;
+        uuid?: string;
+        name?: string;
+        plans_count?: number;
     }
     interface PlanGroups extends Cursor {
         plan_groups: PlanGroup[];
@@ -556,8 +555,8 @@ export namespace PlanGroup {
         plans: string[];
     }
     interface UpdatePlanGroup {
-        name?: string | undefined;
-        plans?: string[] | undefined;
+        name?: string;
+        plans?: string[];
     }
 
     function create(config: Config, data: NewPlanGroup): Promise<PlanGroup>;
@@ -570,85 +569,85 @@ export namespace PlanGroup {
 
 export namespace Invoice {
     interface Invoice {
-        uuid?: string | undefined;
-        customer_uuid?: string | undefined;
-        currency?: string | undefined;
-        data_source_uuid?: string | undefined;
-        date?: string | undefined;
-        due_date?: string | undefined;
-        external_id?: string | undefined;
-        line_items?: LineItem[] | undefined;
-        transactions?: Transaction[] | undefined;
+        uuid?: string;
+        customer_uuid?: string;
+        currency?: string;
+        data_source_uuid?: string;
+        date?: string;
+        due_date?: string;
+        external_id?: string;
+        line_items?: LineItem[];
+        transactions?: Transaction[];
     }
     interface LineItem {
-        uuid?: string | undefined;
-        account_code?: string | undefined;
-        amount_in_cents?: number | undefined;
-        cancelled_at?: string | undefined;
-        description?: string | undefined;
-        discount_amount_in_cents?: number | undefined;
-        discount_code?: string | undefined;
-        external_id?: string | undefined;
-        plan_uuid?: string | undefined;
-        prorated?: boolean | undefined;
-        quantity?: number | undefined;
-        service_period_end?: string | undefined;
-        service_period_start?: string | undefined;
-        subscription_external_id?: string | undefined;
-        subscription_uuid?: string | undefined;
-        tax_amount_in_cents?: number | undefined;
-        transaction_fees_in_cents?: number | undefined;
-        type?: string | undefined;
+        uuid?: string;
+        account_code?: string;
+        amount_in_cents?: number;
+        cancelled_at?: string;
+        description?: string;
+        discount_amount_in_cents?: number;
+        discount_code?: string;
+        external_id?: string;
+        plan_uuid?: string;
+        prorated?: boolean;
+        quantity?: number;
+        service_period_end?: string;
+        service_period_start?: string;
+        subscription_external_id?: string;
+        subscription_uuid?: string;
+        tax_amount_in_cents?: number;
+        transaction_fees_in_cents?: number;
+        type?: string;
     }
     interface Transaction {
-        uuid?: string | undefined;
-        date?: string | undefined;
-        external_id?: string | undefined;
-        result?: string | undefined;
-        type?: string | undefined;
+        uuid?: string;
+        date?: string;
+        external_id?: string;
+        result?: string;
+        type?: string;
     }
 
     interface NewLineItemBase {
         amount_in_cents: number;
-        quantity?: number | undefined;
-        discount_amount_in_cents?: number | undefined;
-        discount_code?: string | undefined;
-        tax_amount_in_cents?: number | undefined;
-        transaction_fees_in_cents?: number | undefined;
-        external_id?: string | undefined;
-        account_code?: string | undefined;
-        transaction_fees_currency?: string | undefined;
-        discount_description?: string | undefined;
-        event_order?: number | undefined;
+        quantity?: number;
+        discount_amount_in_cents?: number;
+        discount_code?: string;
+        tax_amount_in_cents?: number;
+        transaction_fees_in_cents?: number;
+        external_id?: string;
+        account_code?: string;
+        transaction_fees_currency?: string;
+        discount_description?: string;
+        event_order?: number;
     }
 
     interface NewSubscriptionLineItem extends NewLineItemBase {
         type: "subscription";
         subscription_external_id: string;
-        subscription_set_external_id?: string | undefined;
+        subscription_set_external_id?: string;
         plan_uuid: string;
         service_period_start: string;
-        service_period_end?: string | undefined;
-        cancelled_at?: string | undefined;
-        prorated?: boolean | undefined;
-        proration_type?: "differential" | "full" | "differential_mrr" | undefined;
+        service_period_end?: string;
+        cancelled_at?: string;
+        prorated?: boolean;
+        proration_type?: "differential" | "full" | "differential_mrr";
     }
 
     interface NewOneTimeLineItem extends NewLineItemBase {
         type: "one_time";
-        description?: string | undefined;
+        description?: string;
     }
 
     interface NewTrialLineItem extends NewLineItemBase {
         type: "trial";
         subscription_external_id: string;
-        subscription_set_external_id?: string | undefined;
+        subscription_set_external_id?: string;
         plan_uuid: string;
         service_period_start: string;
         service_period_end: string;
-        cancelled_at?: string | undefined;
-        prorated?: boolean | undefined;
-        proration_type?: "differential" | "full" | "differential_mrr" | undefined;
+        cancelled_at?: string;
+        prorated?: boolean;
+        proration_type?: "differential" | "full" | "differential_mrr";
     }
 
     type NewLineItem = NewSubscriptionLineItem | NewOneTimeLineItem | NewTrialLineItem;
@@ -657,8 +656,8 @@ export namespace Invoice {
         date: string;
         type: "payment" | "refund";
         result: "successful" | "failed";
-        amount_in_cents?: number | undefined;
-        external_id?: string | undefined;
+        amount_in_cents?: number;
+        external_id?: string;
     }
 
     interface NewInvoice {
@@ -666,31 +665,31 @@ export namespace Invoice {
         date: string;
         currency: string;
         line_items: NewLineItem[];
-        customer_external_id?: string | undefined;
-        data_source_uuid?: string | undefined;
-        transactions?: NewTransaction[] | undefined;
-        due_date?: string | undefined;
-        collection_method?: "automatic" | "manual" | undefined;
+        customer_external_id?: string;
+        data_source_uuid?: string;
+        transactions?: NewTransaction[];
+        due_date?: string;
+        collection_method?: "automatic" | "manual";
     }
 
     interface ListInvoicesParams extends CursorParams {
-        data_source_uuid?: string | undefined;
-        customer_uuid?: string | undefined;
-        external_id?: string | undefined;
+        data_source_uuid?: string;
+        customer_uuid?: string;
+        external_id?: string;
     }
     interface RetrieveInvoiceParams {
-        validation_type?: "valid" | "invalid" | "all" | undefined;
-        include_edit_histories?: boolean | undefined;
-        with_disabled?: boolean | undefined;
+        validation_type?: "valid" | "invalid" | "all";
+        include_edit_histories?: boolean;
+        with_disabled?: boolean;
     }
     interface UpdateInvoice {
-        date?: string | undefined;
-        due_date?: string | undefined;
-        currency?: string | undefined;
-        collection_method?: "automatic" | "manual" | undefined;
+        date?: string;
+        due_date?: string;
+        currency?: string;
+        collection_method?: "automatic" | "manual";
     }
     interface Invoices extends Cursor {
-        customer_uuid?: string | undefined;
+        customer_uuid?: string;
         invoices: Invoice[];
     }
 
@@ -710,28 +709,28 @@ export namespace Invoice {
 
 export namespace Transaction {
     interface Transaction {
-        uuid?: string | undefined;
-        external_id?: string | undefined;
-        type?: string | undefined;
-        date?: string | undefined;
-        result?: string | undefined;
-        amount_in_cents?: number | null | undefined;
-        transaction_fees_in_cents?: number | null | undefined;
-        transaction_fees_currency?: string | null | undefined;
-        disabled?: boolean | undefined;
-        disabled_at?: string | null | undefined;
-        disabled_by?: string | null | undefined;
-        user_created?: boolean | undefined;
+        uuid?: string;
+        external_id?: string;
+        type?: string;
+        date?: string;
+        result?: string;
+        amount_in_cents?: number | null;
+        transaction_fees_in_cents?: number | null;
+        transaction_fees_currency?: string | null;
+        disabled?: boolean;
+        disabled_at?: string | null;
+        disabled_by?: string | null;
+        user_created?: boolean;
     }
 
     interface NewTransaction {
         type: "payment" | "refund";
         date: string;
         result: "successful" | "failed";
-        external_id?: string | undefined;
-        amount_in_cents?: number | undefined;
-        transaction_fees_in_cents?: number | undefined;
-        transaction_fees_currency?: string | undefined;
+        external_id?: string;
+        amount_in_cents?: number;
+        transaction_fees_in_cents?: number;
+        transaction_fees_currency?: string;
     }
 
     function create(config: Config, invoiceUuid: string, data: NewTransaction): Promise<Transaction>;
@@ -747,11 +746,11 @@ export namespace Subscription {
         data_source_uuid: string;
     }
     interface CancelSubscriptionParams {
-        cancelled_at?: string | undefined;
-        cancellation_dates?: Strings | undefined;
+        cancelled_at?: string;
+        cancellation_dates?: Strings;
     }
     interface Subscriptions extends Cursor {
-        customer_uuid?: string | undefined;
+        customer_uuid?: string;
         subscriptions: Subscription[];
     }
 
@@ -773,25 +772,25 @@ export namespace SubscriptionEvent {
         | "subscription_event_retracted";
 
     interface SubscriptionEvent {
-        id?: number | undefined;
-        data_source_uuid?: string | undefined;
-        customer_external_id?: string | undefined;
-        subscription_set_external_id?: string | null | undefined;
-        subscription_external_id?: string | undefined;
-        plan_external_id?: string | undefined;
-        event_date?: string | undefined;
-        effective_date?: string | undefined;
-        event_type?: SubscriptionEventType | undefined;
-        external_id?: string | undefined;
-        errors?: Record<string, any> | undefined;
-        created_at?: string | undefined;
-        updated_at?: string | undefined;
-        quantity?: number | undefined;
-        currency?: string | undefined;
-        amount_in_cents?: number | string | undefined;
-        tax_amount_in_cents?: number | undefined;
-        event_order?: number | null | undefined;
-        retracted_event_id?: string | null | undefined;
+        id?: number;
+        data_source_uuid?: string;
+        customer_external_id?: string;
+        subscription_set_external_id?: string | null;
+        subscription_external_id?: string;
+        plan_external_id?: string;
+        event_date?: string;
+        effective_date?: string;
+        event_type?: SubscriptionEventType;
+        external_id?: string;
+        errors?: Record<string, any>;
+        created_at?: string;
+        updated_at?: string;
+        quantity?: number;
+        currency?: string;
+        amount_in_cents?: number | string;
+        tax_amount_in_cents?: number;
+        event_order?: number | null;
+        retracted_event_id?: string | null;
     }
 
     interface NewSubscriptionEvent {
@@ -801,28 +800,28 @@ export namespace SubscriptionEvent {
         event_date: string;
         effective_date: string;
         subscription_external_id: string;
-        plan_external_id?: string | undefined;
-        currency?: string | undefined;
-        amount_in_cents?: number | undefined;
-        quantity?: number | undefined;
-        subscription_set_external_id?: string | undefined;
-        tax_amount_in_cents?: number | undefined;
-        retracted_event_id?: string | undefined;
-        external_id?: string | undefined;
-        event_order?: number | undefined;
+        plan_external_id?: string;
+        currency?: string;
+        amount_in_cents?: number;
+        quantity?: number;
+        subscription_set_external_id?: string;
+        tax_amount_in_cents?: number;
+        retracted_event_id?: string;
+        external_id?: string;
+        event_order?: number;
     }
 
     interface ListSubscriptionEventsParams extends CursorParams {
-        external_id?: string | undefined;
-        customer_external_id?: string | undefined;
-        data_source_uuid?: string | undefined;
-        subscription_external_id?: string | undefined;
-        event_type?: SubscriptionEventType | undefined;
-        event_date?: string | undefined;
-        effective_date?: string | undefined;
-        plan_external_id?: string | undefined;
-        include_edit_histories?: boolean | undefined;
-        with_disabled?: boolean | undefined;
+        external_id?: string;
+        customer_external_id?: string;
+        data_source_uuid?: string;
+        subscription_external_id?: string;
+        event_type?: SubscriptionEventType;
+        event_date?: string;
+        effective_date?: string;
+        plan_external_id?: string;
+        include_edit_histories?: boolean;
+        with_disabled?: boolean;
     }
 
     interface SubscriptionEvents extends Cursor {
@@ -830,28 +829,28 @@ export namespace SubscriptionEvent {
     }
 
     interface UpdateSubscriptionEvent {
-        external_id?: string | undefined;
-        data_source_uuid?: string | undefined;
-        id?: number | undefined;
-        customer_external_id?: string | undefined;
-        event_type?: SubscriptionEventType | undefined;
-        event_date?: string | undefined;
-        effective_date?: string | undefined;
-        subscription_external_id?: string | undefined;
-        plan_external_id?: string | undefined;
-        currency?: string | undefined;
-        amount_in_cents?: number | undefined;
-        quantity?: number | undefined;
-        subscription_set_external_id?: string | undefined;
-        tax_amount_in_cents?: number | undefined;
-        retracted_event_id?: string | undefined;
-        event_order?: number | undefined;
+        external_id?: string;
+        data_source_uuid?: string;
+        id?: number;
+        customer_external_id?: string;
+        event_type?: SubscriptionEventType;
+        event_date?: string;
+        effective_date?: string;
+        subscription_external_id?: string;
+        plan_external_id?: string;
+        currency?: string;
+        amount_in_cents?: number;
+        quantity?: number;
+        subscription_set_external_id?: string;
+        tax_amount_in_cents?: number;
+        retracted_event_id?: string;
+        event_order?: number;
     }
 
     interface DestroySubscriptionEvent {
-        external_id?: string | undefined;
-        data_source_uuid?: string | undefined;
-        id?: number | undefined;
+        external_id?: string;
+        data_source_uuid?: string;
+        id?: number;
     }
 
     function create(config: Config, data: { subscription_event: NewSubscriptionEvent }): Promise<SubscriptionEvent>;
@@ -886,10 +885,10 @@ export namespace Tag {
 
 export namespace CustomAttribute {
     interface NewCustomAttribute {
-        type?: string | undefined;
+        type?: string;
         key: string;
         value: any;
-        source?: string | undefined;
+        source?: string;
     }
 
     interface CustomAttributes {
@@ -910,14 +909,14 @@ export namespace CustomAttribute {
 
 export namespace Metrics {
     interface Params extends ParamsNoInterval {
-        interval?: string | undefined;
+        interval?: string;
     }
     interface ParamsNoInterval {
         ["start-date"]: string;
         ["end-date"]: string;
-        geo?: string | undefined;
-        plans?: string | undefined;
-        filters?: string | undefined;
+        geo?: string;
+        plans?: string;
+        filters?: string;
     }
     interface All {
         entries: {
@@ -1068,31 +1067,31 @@ export namespace Metrics {
         type ActivityType = "new_biz" | "reactivation" | "expansion" | "contraction" | "churn";
 
         interface Activity {
-            description?: string | undefined;
-            ["activity-mrr-movement"]?: number | undefined;
-            ["activity-mrr"]?: number | undefined;
-            ["activity-arr"]?: number | undefined;
-            date?: string | undefined;
-            type?: ActivityType | undefined;
-            currency?: string | undefined;
-            ["subscription-external-id"]?: string | undefined;
-            ["plan-external-id"]?: string | undefined;
-            subscription_set_external_id?: string | null | undefined;
-            ["customer-name"]?: string | undefined;
-            ["customer-uuid"]?: string | undefined;
-            ["customer-external-id"]?: string | undefined;
-            ["billing-connector-uuid"]?: string | undefined;
-            uuid?: string | undefined;
+            description?: string;
+            ["activity-mrr-movement"]?: number;
+            ["activity-mrr"]?: number;
+            ["activity-arr"]?: number;
+            date?: string;
+            type?: ActivityType;
+            currency?: string;
+            ["subscription-external-id"]?: string;
+            ["plan-external-id"]?: string;
+            subscription_set_external_id?: string | null;
+            ["customer-name"]?: string;
+            ["customer-uuid"]?: string;
+            ["customer-external-id"]?: string;
+            ["billing-connector-uuid"]?: string;
+            uuid?: string;
         }
 
         interface ListActivitiesParams {
-            cursor?: string | undefined;
-            ["per-page"]?: number | undefined;
-            ["start-date"]?: string | undefined;
-            ["end-date"]?: string | undefined;
-            type?: ActivityType | undefined;
-            order?: "date" | "-date" | undefined;
-            ["start-after"]?: string | undefined;
+            cursor?: string;
+            ["per-page"]?: number;
+            ["start-date"]?: string;
+            ["end-date"]?: string;
+            type?: ActivityType;
+            order?: "date" | "-date";
+            ["start-after"]?: string;
         }
 
         interface Activities extends Cursor {
@@ -1107,25 +1106,25 @@ export namespace Metrics {
         type ExportStatus = "pending" | "processing" | "failed" | "successful";
 
         interface ActivitiesExport {
-            id?: string | undefined;
-            status?: ExportStatus | undefined;
-            file_url?: string | null | undefined;
+            id?: string;
+            status?: ExportStatus;
+            file_url?: string | null;
             params?: {
-                kind?: string | undefined;
+                kind?: string;
                 params?: {
-                    activity_type?: ActivityType | undefined;
-                    start_date?: string | undefined;
-                    end_date?: string | undefined;
-                } | undefined;
-            } | undefined;
-            expires_at?: string | null | undefined;
-            created_at?: string | undefined;
+                    activity_type?: ActivityType;
+                    start_date?: string;
+                    end_date?: string;
+                };
+            };
+            expires_at?: string | null;
+            created_at?: string;
         }
 
         interface NewActivitiesExport {
-            ["start-date"]?: string | undefined;
-            ["end-date"]?: string | undefined;
-            type?: ActivityType | undefined;
+            ["start-date"]?: string;
+            ["end-date"]?: string;
+            type?: ActivityType;
         }
 
         function create(config: Config, data?: NewActivitiesExport): Promise<ActivitiesExport>;
