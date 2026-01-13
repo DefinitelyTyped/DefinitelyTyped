@@ -711,13 +711,30 @@ export namespace Invoice {
 export namespace Transaction {
     interface Transaction {
         uuid?: string | undefined;
-        date: string;
         external_id?: string | undefined;
-        result: string;
-        type: string;
+        type?: string | undefined;
+        date?: string | undefined;
+        result?: string | undefined;
+        amount_in_cents?: number | null | undefined;
+        transaction_fees_in_cents?: number | null | undefined;
+        transaction_fees_currency?: string | null | undefined;
+        disabled?: boolean | undefined;
+        disabled_at?: string | null | undefined;
+        disabled_by?: string | null | undefined;
+        user_created?: boolean | undefined;
     }
 
-    function create(config: Config, uuid: string, data: Transaction): Promise<Transaction>;
+    interface NewTransaction {
+        type: "payment" | "refund";
+        date: string;
+        result: "successful" | "failed";
+        external_id?: string | undefined;
+        amount_in_cents?: number | undefined;
+        transaction_fees_in_cents?: number | undefined;
+        transaction_fees_currency?: string | undefined;
+    }
+
+    function create(config: Config, invoiceUuid: string, data: NewTransaction): Promise<Transaction>;
 }
 
 export namespace Subscription {

@@ -1143,10 +1143,37 @@ ChartMogul.Invoice.all(config, "", {
 });
 
 // $ExpectType Promise<Transaction>
-ChartMogul.Transaction.create(config, "", {
-    type: "",
-    date: "",
-    result: "",
+ChartMogul.Transaction.create(config, "inv_565c73b2-85b9-49c9-a25e-2b7df6a677c9", {
+    type: "payment",
+    date: "2022-11-10 00:14:23",
+    result: "successful",
+});
+
+// $ExpectType Promise<Transaction>
+ChartMogul.Transaction.create(config, "inv_565c73b2-85b9-49c9-a25e-2b7df6a677c9", {
+    type: "refund",
+    date: "2022-12-25 18:10:00",
+    result: "successful",
+    external_id: "trans_00241",
+});
+
+// $ExpectType Promise<Transaction>
+ChartMogul.Transaction.create(config, "inv_565c73b2-85b9-49c9-a25e-2b7df6a677c9", {
+    type: "payment",
+    date: "2022-11-10T00:14:23Z",
+    result: "failed",
+    amount_in_cents: 5000,
+});
+
+// $ExpectType Promise<Transaction>
+ChartMogul.Transaction.create(config, "inv_565c73b2-85b9-49c9-a25e-2b7df6a677c9", {
+    type: "refund",
+    date: "2022-11-10T00:14:23Z",
+    result: "successful",
+    external_id: "txn_001",
+    amount_in_cents: 1000,
+    transaction_fees_in_cents: 350,
+    transaction_fees_currency: "EUR",
 });
 
 ChartMogul.Subscription.cancel(config, "", {
