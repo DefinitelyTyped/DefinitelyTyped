@@ -108,7 +108,7 @@
 /types/alexa-voice-service/                             @dolanmiu
 /types/algebra.js/                                      @CaselIT
 /types/ali-app/                                         @taoqf
-/types/ali-oss/                                         @ptrdu @StarHeartHunt
+/types/ali-oss/                                         @ptrdu @StarHeartHunt @cnjsstong
 /types/alicloud__log/                                   @RuixeWolf
 /types/align-text/                                      @claasahl
 /types/alipayjssdk/                                     @shlyren
@@ -2008,7 +2008,7 @@
 /types/ez-plus/                                         @AndersonFriaca
 /types/ezuikit-js/                                      @daiwanxing
 /types/f1/                                              @neolwc
-/types/fabric/                                          @oklemencic @joewashear007 @mrand01 @NotWoods @bmartinson @RogerioTeixeira @BradleyHill @bmkrol823 @glenngartner @codertx @mike667 @nataliemarleny @oxwazz
+/types/fabric/                                          @oklemencic @joewashear007 @NotWoods @bmartinson @RogerioTeixeira @BradleyHill @bmkrol823 @glenngartner @codertx @mike667 @nataliemarleny @oxwazz
 /types/facebook-instant-games/                          @menushka @oyvindjam @doterax
 /types/facebook-js-sdk/                                 @amritk @mahmoudzohdi @fluidsonic @bengry
 /types/facebook-locales/                                @CvX
@@ -2035,7 +2035,6 @@
 /types/fast-als/                                        @elias-fauser
 /types/fast-astar/                                      @shezard
 /types/fast-chunk-string/                               @yoursunny
-/types/fast-crc32c/                                     @naeemy
 /types/fast-decode-uri-component/                       @huseeiin
 /types/fast-fifo/                                       @achingbrain
 /types/fast-html-parser/                                @rollercodester
@@ -3365,7 +3364,6 @@
 /types/iniparser/                                       @chrootsu
 /types/init-package-json/                               @kfarnung
 /types/initrc/                                          @Soldy
-/types/injectpromise/                                   @naeemy
 /types/ink-big-text/                                    @aaronleopold
 /types/ink-box/                                         @omjadas
 /types/ink-divider/                                     @omjadas
@@ -3968,7 +3966,7 @@
 /types/karma-spec-reporter/                             @peterblazejewicz
 /types/karma-summary-reporter/                          @peterblazejewicz @sth
 /types/karma-webpack/                                   @mtraynham
-/types/katex/                                           @mrand01 @knguyen0125 @dreamerblue @s-weigand @sapphi-red @Stefaans
+/types/katex/                                           @knguyen0125 @dreamerblue @s-weigand @sapphi-red @Stefaans
 /types/kavenegar/                                       @nimaebra
 /types/kbm-robot/                                       @usama8800
 /types/kcors/                                           @Xstoudi
@@ -4177,11 +4175,9 @@
 /types/leaflet.awesome-markers/v0/                      @Odrin @sebek64
 /types/leaflet.chinatmsproviders/                       @TwoKe945
 /types/leaflet.featuregroup.subgroup/                   @drtomato
-/types/leaflet.fullscreen/                              @wcomartin @danmana
 /types/leaflet.gridlayer.googlemutant/                  @ernest-rhinozeros
 /types/leaflet.heat/                                    @onderceylan
 /types/leaflet.icon.glyph/                              @BePo65
-/types/leaflet.locatecontrol/                           @DenisCarriere
 /types/leaflet.markercluster/                           @rimig @nenadfilipovic @YaroslavKormushyn
 /types/leaflet.markercluster.layersupport/              @AsamK
 /types/leaflet.pancontrol/                              @Brictarus
@@ -5181,7 +5177,6 @@
 /types/node-ipc/                                        @arvitaly @gjurgens
 /types/node-isbn/                                       @peterblazejewicz
 /types/node-jose/                                       @nadunindunil
-/types/node-jsfl-runner/                                @mrand01
 /types/node-json-logger/                                @from20020516
 /types/node-json-transform/                             @ymaheshwari1
 /types/node-kmeans/                                     @aquine-kujaruk
@@ -5558,7 +5553,7 @@
 /types/passport-deezer/                                 @nyo
 /types/passport-discord/                                @kzay @almeidx
 /types/passport-facebook/                               @staticfunction @lucasmacosta
-/types/passport-facebook-token/                         @rmartone @mrand01
+/types/passport-facebook-token/                         @rmartone
 /types/passport-fido2-webauthn/                         @benhchoi
 /types/passport-github/                                 @yasupeke
 /types/passport-github2/                                @yasupeke @mthmulders @codepunkt @ivan94
@@ -6258,7 +6253,6 @@
 /types/react-google-recaptcha/v0/                       @KoalaHuman @tomsturge
 /types/react-google-recaptcha-enterprise/               @KsAkira10
 /types/react-gravatar/                                  @invliD
-/types/react-grid-layout/                               @abirkholz @alitaheri @ZheyangSong @andrewhathaway @manav-m @al-fyodorov
 /types/react-gtm-module/                                @marcveens
 /types/react-hamburger-menu/                            @grzesie2k
 /types/react-hammerjs/                                  @jsonunger @cecchi
@@ -6445,7 +6439,6 @@
 /types/react-native-referrer/                           @christianchown
 /types/react-native-responsive-image/                   @dimameshcharakou
 /types/react-native-rss-parser/                         @emilianoLeite
-/types/react-native-safari-view/                        @mrand01
 /types/react-native-scaled-image/                       @Jaeger25
 /types/react-native-scrollable-tab-view/                @egorshulga @ydostyle
 /types/react-native-settings-list/                      @MrLuje
@@ -7060,7 +7053,6 @@
 /types/schwifty/                                        @ozum @timcosta
 /types/scoped-http-client/                              @mattvperry @rianadon
 /types/scorm-browser/                                   @CookieCookson
-/types/scrambo/                                         @padarom
 /types/scratch-env/                                     @Richienb
 /types/screenshot-desktop/                              @usama8800
 /types/screeps/                                         @NhanHo @bryanbecker @resir014 @Arcath @dmarcuse @pyrodogg @kotarou @DiamondMofeng
@@ -7453,7 +7445,6 @@
 /types/ssdeep/                                          @atd-schubert
 /types/ssdeep.js/                                       @JPBM135
 /types/sse/                                             @yutak23
-/types/sse4_crc32/                                      @naeemy
 /types/ssh-key-decrypt/                                 @BendingBender
 /types/ssh2/                                            @tkQubo @rbuckton @wrboyce @hengkx @bragle @LucianBuzzo @dhensby
 /types/ssh2-sftp-client/                                @igrayson @ascariandrea @kartik2406 @viamuli @gbhmt @builtbylane @loru88 @hengkx @candyapplecorn @tsop14
@@ -7730,7 +7721,6 @@
 /types/tdigest/                                         @BendingBender
 /types/teddy/                                           @lannonbr
 /types/tedious-connection-pool/                         @sandorfr
-/types/teen_process/                                    @NotWoods
 /types/telebot/                                         @mariotsi @martin-badin
 /types/telegram-mini-app/                               @dartweider2000
 /types/telegram-web-app/                                @KnorpelSenf @MKRhere @deptyped @sidorko

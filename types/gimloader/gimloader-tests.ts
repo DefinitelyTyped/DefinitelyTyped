@@ -1,3 +1,21 @@
+interface TestPlugin {
+    one: number;
+}
+
+interface TestLib {
+    two: string;
+}
+
+declare namespace Gimloader {
+    interface Plugins {
+        testPlugin: TestPlugin;
+    }
+
+    interface Libraries {
+        testLib: TestLib;
+    }
+}
+
 GL; // $ExpectType typeof Api
 api; // $ExpectType Api
 
@@ -25,6 +43,10 @@ GL.rewriter; // $ExpectType Readonly<RewriterApi>
 GL.storage; // $ExpectType Readonly<StorageApi>
 GL.commands; // $ExpectType Readonly<CommandsApi>
 
+api.plugin("testPlugin").one; // $ExpectType number
+api.lib("testLib").two; // $ExpectType string
+api.plugin("somethingElse"); // $ExpectType any
+
 // @ts-expect-error
 GL.onStop;
 // @ts-expect-error
@@ -49,6 +71,13 @@ api.net.onLoad((type, gamemode) => {});
 api.net.modifyFetchRequest("/path/*/thing", (options) => null);
 api.net.modifyFetchRequest("/path/*/thing", (options) => options);
 api.net.modifyFetchResponse("/path/*/thing", (response) => response);
+api.rewriter.runInScope("App", (code, evalCode) => evalCode("something"));
+api.rewriter.exposeVar("App", {
+    check: "someString",
+    find: /,(.+)=>{/,
+    callback: (theVar) => {},
+    multiple: false,
+});
 
 api.commands.addCommand({
     text: "test",

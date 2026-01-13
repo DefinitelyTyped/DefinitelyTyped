@@ -96,6 +96,16 @@ ChartMogul.Customer.merge(config, {
 // $ExpectType Promise<Attributes>
 ChartMogul.Customer.attributes(config, "");
 
+// $ExpectType Promise<{}>
+ChartMogul.Customer.connectSubscriptions(config, "customer-uuid", {
+    subscriptions: [{ uuid: "sub-uuid", data_source_uuid: "ds-uuid" }],
+});
+
+// $ExpectType Promise<{}>
+ChartMogul.Customer.disconnectSubscriptions(config, "customer-uuid", {
+    subscriptions: [{ uuid: "sub-uuid" }],
+});
+
 // $ExpectType Promise<Plan>
 ChartMogul.Plan.create(config, {
     data_source_uuid: "",
@@ -295,4 +305,14 @@ ChartMogul.Metrics.Customer.activities(config, "", {
     data.entries[0]; // $ExpectType MetricsActivity
     data.entries[0]["activity-mrr"]; // $ExpectType number
     data.page!; // $ExpectType number
+});
+
+// $ExpectType Promise<{}>
+ChartMogul.Metrics.Customer.connectSubscriptions(config, "ds-uuid", "customer-uuid", {
+    subscriptions: [{ uuid: "sub-uuid", data_source_uuid: "ds-uuid" }],
+});
+
+// $ExpectType Promise<{}>
+ChartMogul.Metrics.Customer.disconnectSubscriptions(config, "ds-uuid", "customer-uuid", {
+    subscriptions: [{ uuid: "sub-uuid", data_source_uuid: "ds-uuid" }],
 });

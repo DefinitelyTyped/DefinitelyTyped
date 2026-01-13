@@ -93,6 +93,7 @@ export interface TurboSession {
     connectStreamSource(source: unknown): void;
     disconnectStreamSource(source: unknown): void;
     renderStreamMessage(message: unknown): void;
+    drive: boolean;
 }
 
 export const StreamActions: {

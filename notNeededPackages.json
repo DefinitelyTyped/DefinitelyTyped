@@ -3793,9 +3793,17 @@
             "libraryName": "ldclient-js",
             "asOfVersion": "1.1.11"
         },
+        "leaflet.fullscreen": {
+            "libraryName": "leaflet.fullscreen",
+            "asOfVersion": "5.2.0"
+        },
         "leaflet-geosearch": {
             "libraryName": "leaflet-geosearch",
             "asOfVersion": "3.0.0"
+        },
+        "leaflet.locatecontrol": {
+            "libraryName": "leaflet.locatecontrol",
+            "asOfVersion": "0.85.1"
         },
         "leaflet-offline": {
             "libraryName": "leaflet.offline",
@@ -6063,6 +6071,10 @@
             "libraryName": "react-ga",
             "asOfVersion": "2.3.0"
         },
+        "react-grid-layout": {
+            "libraryName": "react-grid-layout",
+            "asOfVersion": "2.1.0"
+        },
         "react-helmet-async": {
             "libraryName": "react-helmet-async",
             "asOfVersion": "1.0.2"
@@ -7538,6 +7550,10 @@
         "tedious": {
             "libraryName": "tedious",
             "asOfVersion": "18.0.0"
+        },
+        "teen_process": {
+            "libraryName": "teen_process",
+            "asOfVersion": "4.0.0"
         },
         "temp-dir": {
             "libraryName": "temp-dir",

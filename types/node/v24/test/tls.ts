@@ -61,6 +61,7 @@ import {
     tlsSocket.enableTrace();
 
     tlsSocket.encrypted; // $ExpectType true
+    tlsSocket.servername; // $ExpectType string | false | null
 
     const caCertificates: string[] = getCACertificates("default");
     const ciphers: string[] = getCiphers();

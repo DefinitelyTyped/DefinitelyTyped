@@ -154,6 +154,10 @@ export namespace Customer {
         into: MergeID;
     }
 
+    interface SubscriptionData {
+        subscriptions: Array<{ uuid: string; data_source_uuid?: string }>;
+    }
+
     function create(config: Config, data: NewCustomer): Promise<Customer>;
     function retrieve(config: Config, uuid: string): Promise<Customer>;
     function modify(config: Config, uuid: string, data: UpdateCustomer): Promise<Customer>;
@@ -162,6 +166,14 @@ export namespace Customer {
     function search(config: Config, params?: SearchCustomersParams): Promise<Entries<Customer>>;
     function merge(config: Config, params?: MergeCustomersParams): Promise<{}>;
     function attributes(config: Config, uuid: string): Promise<Attributes>;
+    /**
+     * @deprecated Use Metrics.Customer.connectSubscriptions instead
+     */
+    function connectSubscriptions(config: Config, customerUuid: string, data: SubscriptionData): Promise<{}>;
+    /**
+     * @deprecated Use Metrics.Customer.disconnectSubscriptions instead
+     */
+    function disconnectSubscriptions(config: Config, customerUuid: string, data: SubscriptionData): Promise<{}>;
 }
 
 export namespace Plan {
@@ -413,12 +425,28 @@ export namespace Metrics {
             type: string;
         }
 
+        interface SubscriptionConnectionData {
+            subscriptions: Array<{ uuid: string; data_source_uuid: string }>;
+        }
+
         function subscriptions(
             config: Config,
             uuid: string,
             params?: CursorParams,
         ): Promise<Entries<MetricsSubscription>>;
         function activities(config: Config, uuid: string, params?: CursorParams): Promise<Entries<MetricsActivity>>;
+        function connectSubscriptions(
+            config: Config,
+            dataSourceUuid: string,
+            customerUuid: string,
+            data: SubscriptionConnectionData,
+        ): Promise<{}>;
+        function disconnectSubscriptions(
+            config: Config,
+            dataSourceUuid: string,
+            customerUuid: string,
+            data: SubscriptionConnectionData,
+        ): Promise<{}>;
     }
 }
 

@@ -26,6 +26,17 @@ const STYLES = [{ css: ".foo { color: red; }" }, { css: ".bar { color: blue; }",
 />;
 
 //
+// alignment-control
+//
+<be.AlignmentControl value={undefined} onChange={newValue => newValue && console.log(newValue.toUpperCase())} />;
+<be.AlignmentControl value="left" onChange={newValue => newValue && console.log(newValue.toUpperCase())} />;
+<be.AlignmentControl
+    alignmentControls={[{ align: "center", icon: "carrot", title: "Center" }]}
+    value="left"
+    onChange={newValue => newValue && console.log(newValue.toUpperCase())}
+/>;
+
+//
 // block-alignment-toolbar
 //
 <be.BlockAlignmentToolbar value={undefined} onChange={newValue => newValue && console.log(newValue.toUpperCase())} />;
@@ -86,6 +97,13 @@ const STYLES = [{ css: ".foo { color: red; }" }, { css: ".bar { color: blue; }",
 >
     Hello World
 </be.BlockControls>;
+
+//
+// BlockContextProvider
+//
+<be.BlockContextProvider value={{}}>
+    <div />
+</be.BlockContextProvider>;
 
 //
 // BlockEditorProvider
@@ -219,6 +237,7 @@ be.withFontSizes("fontSize")(() => <h1>Hello World</h1>);
 //
 // heading-level-dropdown
 //
+<be.HeadingLevelDropdown value={0} />;
 <be.HeadingLevelDropdown value={5} />;
 <be.HeadingLevelDropdown value={5} options={[4]} />;
 <be.HeadingLevelDropdown value={5} options={[4]} onChange={v => console.log(v)} />;
@@ -370,6 +389,8 @@ be.withFontSizes("fontSize")(() => <h1>Hello World</h1>);
     onReplace={blocks => blocks.forEach(b => console.log(b.clientId))}
     allowedFormats={["core/bold", "core/italic"]}
     onSplit={(value, isOriginal) => createBlock("core/paragraph", { content: value })}
+    disableLineBreaks
+    withoutInteractiveFormatting
 />;
 <be.RichText.Content value="foo" />;
 <be.RichText.Content tagName="p" style={{ color: "blue" }} className="foo" value="Hello World" dir="rtl" />;
@@ -608,6 +629,10 @@ useSelect("core/block-editor").getBlockParentsByBlockName("foo", ["core/query"])
 useSelect("core/block-editor").getBlockParents("foo", true);
 useSelect("core/block-editor").getBlockParentsByBlockName("foo", ["core/query"], true);
 
+// $ExpectType string[]
+useSelect("core/block-editor").getBlocksByName("core/group");
+useSelect("core/block-editor").getBlocksByName(["core/group", "core/paragraph"]);
+
 {
     const blockProps: UseBlockProps.Merged & UseBlockProps.Reserved = be.useBlockProps();
     blockProps;
@@ -675,6 +700,9 @@ be.getTypographyClassesAndStyles({}, { minFontSize: "33" }).className;
 be.getTypographyClassesAndStyles({}, false).style;
 be.getTypographyClassesAndStyles({}, {}).style;
 be.getTypographyClassesAndStyles({}, { minFontSize: "33" }).style;
+
+// $ExpectType string
+be.getTypographyClassesAndStyles({}).className;
 
 // $ExpectType "HELLO"
 be.useCachedTruthy("HELLO");
