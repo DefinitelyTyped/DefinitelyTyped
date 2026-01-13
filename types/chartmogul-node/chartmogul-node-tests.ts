@@ -935,11 +935,128 @@ ChartMogul.PlanGroup.destroy(config, "plg_eed05d54-75b4-431b-adb2-eb6b9e543206")
 // $ExpectType Promise<Invoice>
 ChartMogul.Invoice.retrieve(config, "");
 
-// $ExpectType Promise<Invoice>
-ChartMogul.Invoice.create(config, "", {
+// $ExpectType Promise<{ invoices: Invoice[]; }>
+ChartMogul.Invoice.create(config, "cus_f466e33d-ff2b-4a11-8f85-417eb02157a7", {
     invoices: [
         {
-            external_id: "",
+            external_id: "inv_0001",
+            date: "2022-11-10 00:00:00",
+            currency: "USD",
+            line_items: [
+                {
+                    type: "subscription",
+                    subscription_external_id: "sub_0001",
+                    plan_uuid: "pl_eed05d54-75b4-431b-adb2-eb6b9e543206",
+                    service_period_start: "2022-11-10 00:00:00",
+                    service_period_end: "2022-12-01 00:00:00",
+                    amount_in_cents: 5000,
+                },
+            ],
+        },
+    ],
+});
+
+// $ExpectType Promise<{ invoices: Invoice[]; }>
+ChartMogul.Invoice.create(config, "cus_f466e33d-ff2b-4a11-8f85-417eb02157a7", {
+    invoices: [
+        {
+            external_id: "inv_0002",
+            date: "2022-11-10 00:00:00",
+            currency: "USD",
+            due_date: "2022-11-15 00:00:00",
+            customer_external_id: "cus_0001",
+            data_source_uuid: "ds_fef05d54-47b4-431b-aed2-eb6b9e545430",
+            collection_method: "automatic",
+            line_items: [
+                {
+                    type: "subscription",
+                    subscription_external_id: "sub_0001",
+                    subscription_set_external_id: "set_0001",
+                    plan_uuid: "pl_eed05d54-75b4-431b-adb2-eb6b9e543206",
+                    service_period_start: "2022-11-10 00:00:00",
+                    service_period_end: "2022-12-01 00:00:00",
+                    amount_in_cents: 5000,
+                    prorated: true,
+                    proration_type: "differential",
+                    quantity: 1,
+                    discount_code: "PSO86",
+                    discount_amount_in_cents: 1000,
+                    tax_amount_in_cents: 900,
+                    transaction_fees_in_cents: 200,
+                    transaction_fees_currency: "USD",
+                    discount_description: "New signup promo",
+                    event_order: 5,
+                },
+                {
+                    type: "one_time",
+                    description: "Setup Fees",
+                    amount_in_cents: 2500,
+                    quantity: 1,
+                    discount_code: "PSO86",
+                    discount_amount_in_cents: 500,
+                    tax_amount_in_cents: 450,
+                    transaction_fees_currency: "USD",
+                    discount_description: "New signup promo",
+                },
+            ],
+            transactions: [
+                {
+                    date: "2022-11-10 00:14:23",
+                    type: "payment",
+                    result: "successful",
+                },
+            ],
+        },
+    ],
+});
+
+// $ExpectType Promise<{ invoices: Invoice[]; }>
+ChartMogul.Invoice.create(config, "cus_f466e33d-ff2b-4a11-8f85-417eb02157a7", {
+    invoices: [
+        {
+            external_id: "inv_0003",
+            date: "2022-11-10 00:00:00",
+            currency: "USD",
+            line_items: [
+                {
+                    type: "trial",
+                    subscription_external_id: "trial_sub_001",
+                    plan_uuid: "pl_eed05d54-75b4-431b-adb2-eb6b9e543206",
+                    service_period_start: "2022-11-01 00:00:00",
+                    service_period_end: "2022-11-14 00:00:00",
+                    amount_in_cents: 0,
+                },
+            ],
+        },
+    ],
+});
+
+// $ExpectType Promise<{ invoices: Invoice[]; }>
+ChartMogul.Invoice.create(config, "cus_f466e33d-ff2b-4a11-8f85-417eb02157a7", {
+    invoices: [
+        {
+            external_id: "inv_0004",
+            date: "2022-11-10 00:00:00",
+            currency: "USD",
+            line_items: [
+                {
+                    type: "subscription",
+                    subscription_external_id: "sub_0002",
+                    plan_uuid: "pl_eed05d54-75b4-431b-adb2-eb6b9e543206",
+                    service_period_start: "2022-11-10 00:00:00",
+                    amount_in_cents: 0,
+                    cancelled_at: "2022-11-20 00:00:00",
+                },
+            ],
+            transactions: [
+                {
+                    date: "2022-11-10 00:14:23",
+                    type: "refund",
+                    result: "failed",
+                    amount_in_cents: 1000,
+                    external_id: "txn_001",
+                },
+            ],
         },
     ],
 });

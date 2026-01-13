@@ -607,6 +607,72 @@ export namespace Invoice {
         result?: string | undefined;
         type?: string | undefined;
     }
+
+    interface NewLineItemBase {
+        amount_in_cents: number;
+        quantity?: number | undefined;
+        discount_amount_in_cents?: number | undefined;
+        discount_code?: string | undefined;
+        tax_amount_in_cents?: number | undefined;
+        transaction_fees_in_cents?: number | undefined;
+        external_id?: string | undefined;
+        account_code?: string | undefined;
+        transaction_fees_currency?: string | undefined;
+        discount_description?: string | undefined;
+        event_order?: number | undefined;
+    }
+
+    interface NewSubscriptionLineItem extends NewLineItemBase {
+        type: "subscription";
+        subscription_external_id: string;
+        subscription_set_external_id?: string | undefined;
+        plan_uuid: string;
+        service_period_start: string;
+        service_period_end?: string | undefined;
+        cancelled_at?: string | undefined;
+        prorated?: boolean | undefined;
+        proration_type?: "differential" | "full" | "differential_mrr" | undefined;
+    }
+
+    interface NewOneTimeLineItem extends NewLineItemBase {
+        type: "one_time";
+        description?: string | undefined;
+    }
+
+    interface NewTrialLineItem extends NewLineItemBase {
+        type: "trial";
+        subscription_external_id: string;
+        subscription_set_external_id?: string | undefined;
+        plan_uuid: string;
+        service_period_start: string;
+        service_period_end: string;
+        cancelled_at?: string | undefined;
+        prorated?: boolean | undefined;
+        proration_type?: "differential" | "full" | "differential_mrr" | undefined;
+    }
+
+    type NewLineItem = NewSubscriptionLineItem | NewOneTimeLineItem | NewTrialLineItem;
+
+    interface NewTransaction {
+        date: string;
+        type: "payment" | "refund";
+        result: "successful" | "failed";
+        amount_in_cents?: number | undefined;
+        external_id?: string | undefined;
+    }
+
+    interface NewInvoice {
+        external_id: string;
+        date: string;
+        currency: string;
+        line_items: NewLineItem[];
+        customer_external_id?: string | undefined;
+        data_source_uuid?: string | undefined;
+        transactions?: NewTransaction[] | undefined;
+        due_date?: string | undefined;
+        collection_method?: "automatic" | "manual" | undefined;
+    }
+
     interface ListInvoicesParams extends CursorParams {
         data_source_uuid?: string | undefined;
         customer_uuid?: string | undefined;
@@ -617,9 +683,13 @@ export namespace Invoice {
         invoices: Invoice[];
     }
 
-    function create(config: Config, uuid: string, data: {
-        invoices: Invoice[];
-    }): Promise<Invoice>;
+    function create(
+        config: Config,
+        uuid: string,
+        data: {
+            invoices: NewInvoice[];
+        },
+    ): Promise<{ invoices: Invoice[] }>;
     function retrieve(config: Config, uuid: string): Promise<Invoice>;
     function destroy(config: Config, uuid: string): Promise<ResourceDestroyed>;
     function all(config: Config, uuid: string, params?: ListInvoicesParams): Promise<Invoices>;
