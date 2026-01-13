@@ -1503,3 +1503,8 @@ ChartMogul.ActivitiesExport.create(config, {
     "end-date": "2022-12-31T00:00:00",
     type: "churn",
 });
+
+// ActivitiesExport.retrieve
+
+// $ExpectType Promise<ActivitiesExport>
+ChartMogul.ActivitiesExport.retrieve(config, "17042239-3674-4a61-b838-b6b307f28506");

@@ -1092,6 +1092,7 @@ export namespace ActivitiesExport {
     }
 
     function create(config: Config, data?: NewActivitiesExport): Promise<ActivitiesExport>;
+    function retrieve(config: Config, id: string): Promise<ActivitiesExport>;
 }
 
 export class ChartMogulError extends Error {
