@@ -1454,60 +1454,60 @@ ChartMogul.SubscriptionEvent.deleteWithParams(config, {
     },
 });
 
-// ActivitiesExport.create
+// Metrics.ActivitiesExport.create
 
 // $ExpectType Promise<ActivitiesExport>
-ChartMogul.ActivitiesExport.create(config);
+ChartMogul.Metrics.ActivitiesExport.create(config);
 
 // $ExpectType Promise<ActivitiesExport>
-ChartMogul.ActivitiesExport.create(config, {});
+ChartMogul.Metrics.ActivitiesExport.create(config, {});
 
 // $ExpectType Promise<ActivitiesExport>
-ChartMogul.ActivitiesExport.create(config, {
+ChartMogul.Metrics.ActivitiesExport.create(config, {
     "start-date": "2022-01-01T00:00:00",
 });
 
 // $ExpectType Promise<ActivitiesExport>
-ChartMogul.ActivitiesExport.create(config, {
+ChartMogul.Metrics.ActivitiesExport.create(config, {
     "end-date": "2022-12-31T00:00:00",
 });
 
 // $ExpectType Promise<ActivitiesExport>
-ChartMogul.ActivitiesExport.create(config, {
+ChartMogul.Metrics.ActivitiesExport.create(config, {
     type: "churn",
 });
 
 // $ExpectType Promise<ActivitiesExport>
-ChartMogul.ActivitiesExport.create(config, {
+ChartMogul.Metrics.ActivitiesExport.create(config, {
     type: "new_biz",
 });
 
 // $ExpectType Promise<ActivitiesExport>
-ChartMogul.ActivitiesExport.create(config, {
+ChartMogul.Metrics.ActivitiesExport.create(config, {
     type: "reactivation",
 });
 
 // $ExpectType Promise<ActivitiesExport>
-ChartMogul.ActivitiesExport.create(config, {
+ChartMogul.Metrics.ActivitiesExport.create(config, {
     type: "expansion",
 });
 
 // $ExpectType Promise<ActivitiesExport>
-ChartMogul.ActivitiesExport.create(config, {
+ChartMogul.Metrics.ActivitiesExport.create(config, {
     type: "contraction",
 });
 
 // $ExpectType Promise<ActivitiesExport>
-ChartMogul.ActivitiesExport.create(config, {
+ChartMogul.Metrics.ActivitiesExport.create(config, {
     "start-date": "2022-01-01T00:00:00",
     "end-date": "2022-12-31T00:00:00",
     type: "churn",
 });
 
-// ActivitiesExport.retrieve
+// Metrics.ActivitiesExport.retrieve
 
 // $ExpectType Promise<ActivitiesExport>
-ChartMogul.ActivitiesExport.retrieve(config, "17042239-3674-4a61-b838-b6b307f28506");
+ChartMogul.Metrics.ActivitiesExport.retrieve(config, "17042239-3674-4a61-b838-b6b307f28506");
 
 // Metrics.Activity.all
 

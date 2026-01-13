@@ -1101,36 +1101,36 @@ export namespace Metrics {
 
         function all(config: Config, params?: ListActivitiesParams): Promise<Activities>;
     }
-}
 
-export namespace ActivitiesExport {
-    type ActivityType = "new_biz" | "reactivation" | "expansion" | "contraction" | "churn";
-    type ExportStatus = "pending" | "processing" | "failed" | "successful";
+    namespace ActivitiesExport {
+        type ActivityType = "new_biz" | "reactivation" | "expansion" | "contraction" | "churn";
+        type ExportStatus = "pending" | "processing" | "failed" | "successful";
 
-    interface ActivitiesExport {
-        id?: string | undefined;
-        status?: ExportStatus | undefined;
-        file_url?: string | null | undefined;
-        params?: {
-            kind?: string | undefined;
+        interface ActivitiesExport {
+            id?: string | undefined;
+            status?: ExportStatus | undefined;
+            file_url?: string | null | undefined;
             params?: {
-                activity_type?: ActivityType | undefined;
-                start_date?: string | undefined;
-                end_date?: string | undefined;
+                kind?: string | undefined;
+                params?: {
+                    activity_type?: ActivityType | undefined;
+                    start_date?: string | undefined;
+                    end_date?: string | undefined;
+                } | undefined;
             } | undefined;
-        } | undefined;
-        expires_at?: string | null | undefined;
-        created_at?: string | undefined;
-    }
+            expires_at?: string | null | undefined;
+            created_at?: string | undefined;
+        }
 
-    interface NewActivitiesExport {
-        ["start-date"]?: string | undefined;
-        ["end-date"]?: string | undefined;
-        type?: ActivityType | undefined;
-    }
+        interface NewActivitiesExport {
+            ["start-date"]?: string | undefined;
+            ["end-date"]?: string | undefined;
+            type?: ActivityType | undefined;
+        }
 
-    function create(config: Config, data?: NewActivitiesExport): Promise<ActivitiesExport>;
-    function retrieve(config: Config, id: string): Promise<ActivitiesExport>;
+        function create(config: Config, data?: NewActivitiesExport): Promise<ActivitiesExport>;
+        function retrieve(config: Config, id: string): Promise<ActivitiesExport>;
+    }
 }
 
 export class ChartMogulError extends Error {
