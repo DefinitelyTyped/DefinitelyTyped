@@ -1908,8 +1908,17 @@ declare module "node:process" {
                  */
                 send?(
                     message: any,
-                    sendHandle?: SendHandle,
-                    options?: MessageOptions,
+                    callback?: (error: Error | null) => void,
+                ): boolean;
+                send?(
+                    message: any,
+                    sendHandle: SendHandle,
+                    callback?: (error: Error | null) => void,
+                ): boolean;
+                send?(
+                    message: any,
+                    sendHandle: SendHandle,
+                    options: MessageOptions,
                     callback?: (error: Error | null) => void,
                 ): boolean;
                 /**
