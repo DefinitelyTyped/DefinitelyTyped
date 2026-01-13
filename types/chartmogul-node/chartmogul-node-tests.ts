@@ -1508,3 +1508,81 @@ ChartMogul.ActivitiesExport.create(config, {
 
 // $ExpectType Promise<ActivitiesExport>
 ChartMogul.ActivitiesExport.retrieve(config, "17042239-3674-4a61-b838-b6b307f28506");
+
+// Metrics.Activity.all
+
+// $ExpectType Promise<Activities>
+ChartMogul.Metrics.Activity.all(config);
+
+// $ExpectType Promise<Activities>
+ChartMogul.Metrics.Activity.all(config, {});
+
+// $ExpectType Promise<Activities>
+ChartMogul.Metrics.Activity.all(config, {
+    cursor: "AjMx90kC0yMVQwNNwoYToyNC4wMDAwMDAwMDBgks68k",
+});
+
+// $ExpectType Promise<Activities>
+ChartMogul.Metrics.Activity.all(config, {
+    "per-page": 200,
+});
+
+// $ExpectType Promise<Activities>
+ChartMogul.Metrics.Activity.all(config, {
+    "start-date": "2023-01-01T00:00:00",
+});
+
+// $ExpectType Promise<Activities>
+ChartMogul.Metrics.Activity.all(config, {
+    "end-date": "2023-12-31T00:00:00",
+});
+
+// $ExpectType Promise<Activities>
+ChartMogul.Metrics.Activity.all(config, {
+    type: "churn",
+});
+
+// $ExpectType Promise<Activities>
+ChartMogul.Metrics.Activity.all(config, {
+    type: "new_biz",
+});
+
+// $ExpectType Promise<Activities>
+ChartMogul.Metrics.Activity.all(config, {
+    type: "reactivation",
+});
+
+// $ExpectType Promise<Activities>
+ChartMogul.Metrics.Activity.all(config, {
+    type: "expansion",
+});
+
+// $ExpectType Promise<Activities>
+ChartMogul.Metrics.Activity.all(config, {
+    type: "contraction",
+});
+
+// $ExpectType Promise<Activities>
+ChartMogul.Metrics.Activity.all(config, {
+    order: "date",
+});
+
+// $ExpectType Promise<Activities>
+ChartMogul.Metrics.Activity.all(config, {
+    order: "-date",
+});
+
+// $ExpectType Promise<Activities>
+ChartMogul.Metrics.Activity.all(config, {
+    "start-after": "f1a49735-21c7-4e3f-9ddc-67927aaadcf4",
+});
+
+// $ExpectType Promise<Activities>
+ChartMogul.Metrics.Activity.all(config, {
+    cursor: "AjMx90kC0yMVQwNNwoYToyNC4wMDAwMDAwMDBgks68k",
+    "per-page": 100,
+    "start-date": "2023-01-01T00:00:00",
+    "end-date": "2023-12-31T00:00:00",
+    type: "churn",
+    order: "-date",
+});

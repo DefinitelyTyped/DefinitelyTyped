@@ -1063,6 +1063,44 @@ export namespace Metrics {
             data: Array<{ uuid: string }>,
         ): Promise<{}>;
     }
+
+    namespace Activity {
+        type ActivityType = "new_biz" | "reactivation" | "expansion" | "contraction" | "churn";
+
+        interface Activity {
+            description?: string | undefined;
+            ["activity-mrr-movement"]?: number | undefined;
+            ["activity-mrr"]?: number | undefined;
+            ["activity-arr"]?: number | undefined;
+            date?: string | undefined;
+            type?: ActivityType | undefined;
+            currency?: string | undefined;
+            ["subscription-external-id"]?: string | undefined;
+            ["plan-external-id"]?: string | undefined;
+            subscription_set_external_id?: string | null | undefined;
+            ["customer-name"]?: string | undefined;
+            ["customer-uuid"]?: string | undefined;
+            ["customer-external-id"]?: string | undefined;
+            ["billing-connector-uuid"]?: string | undefined;
+            uuid?: string | undefined;
+        }
+
+        interface ListActivitiesParams {
+            cursor?: string | undefined;
+            ["per-page"]?: number | undefined;
+            ["start-date"]?: string | undefined;
+            ["end-date"]?: string | undefined;
+            type?: ActivityType | undefined;
+            order?: "date" | "-date" | undefined;
+            ["start-after"]?: string | undefined;
+        }
+
+        interface Activities extends Cursor {
+            entries: Activity[];
+        }
+
+        function all(config: Config, params?: ListActivitiesParams): Promise<Activities>;
+    }
 }
 
 export namespace ActivitiesExport {
