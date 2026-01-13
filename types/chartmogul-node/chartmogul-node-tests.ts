@@ -1453,3 +1453,53 @@ ChartMogul.SubscriptionEvent.deleteWithParams(config, {
         id: 23223966,
     },
 });
+
+// ActivitiesExport.create
+
+// $ExpectType Promise<ActivitiesExport>
+ChartMogul.ActivitiesExport.create(config);
+
+// $ExpectType Promise<ActivitiesExport>
+ChartMogul.ActivitiesExport.create(config, {});
+
+// $ExpectType Promise<ActivitiesExport>
+ChartMogul.ActivitiesExport.create(config, {
+    "start-date": "2022-01-01T00:00:00",
+});
+
+// $ExpectType Promise<ActivitiesExport>
+ChartMogul.ActivitiesExport.create(config, {
+    "end-date": "2022-12-31T00:00:00",
+});
+
+// $ExpectType Promise<ActivitiesExport>
+ChartMogul.ActivitiesExport.create(config, {
+    type: "churn",
+});
+
+// $ExpectType Promise<ActivitiesExport>
+ChartMogul.ActivitiesExport.create(config, {
+    type: "new_biz",
+});
+
+// $ExpectType Promise<ActivitiesExport>
+ChartMogul.ActivitiesExport.create(config, {
+    type: "reactivation",
+});
+
+// $ExpectType Promise<ActivitiesExport>
+ChartMogul.ActivitiesExport.create(config, {
+    type: "expansion",
+});
+
+// $ExpectType Promise<ActivitiesExport>
+ChartMogul.ActivitiesExport.create(config, {
+    type: "contraction",
+});
+
+// $ExpectType Promise<ActivitiesExport>
+ChartMogul.ActivitiesExport.create(config, {
+    "start-date": "2022-01-01T00:00:00",
+    "end-date": "2022-12-31T00:00:00",
+    type: "churn",
+});

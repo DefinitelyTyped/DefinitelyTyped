@@ -1065,6 +1065,35 @@ export namespace Metrics {
     }
 }
 
+export namespace ActivitiesExport {
+    type ActivityType = "new_biz" | "reactivation" | "expansion" | "contraction" | "churn";
+    type ExportStatus = "pending" | "processing" | "failed" | "successful";
+
+    interface ActivitiesExport {
+        id?: string | undefined;
+        status?: ExportStatus | undefined;
+        file_url?: string | null | undefined;
+        params?: {
+            kind?: string | undefined;
+            params?: {
+                activity_type?: ActivityType | undefined;
+                start_date?: string | undefined;
+                end_date?: string | undefined;
+            } | undefined;
+        } | undefined;
+        expires_at?: string | null | undefined;
+        created_at?: string | undefined;
+    }
+
+    interface NewActivitiesExport {
+        ["start-date"]?: string | undefined;
+        ["end-date"]?: string | undefined;
+        type?: ActivityType | undefined;
+    }
+
+    function create(config: Config, data?: NewActivitiesExport): Promise<ActivitiesExport>;
+}
+
 export class ChartMogulError extends Error {
     response: any;
     httpStatus: number;
