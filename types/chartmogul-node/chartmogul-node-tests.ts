@@ -1205,3 +1205,33 @@ ChartMogul.SubscriptionEvent.updateWithParams(config, {
         event_order: 200,
     },
 });
+
+// $ExpectType Promise<ResourceDestroyed>
+ChartMogul.SubscriptionEvent.destroy(config, {
+    subscription_event: {
+        external_id: "evnt_0001",
+        data_source_uuid: "ds_14336c0c-ab0b-11ec-8c55-c3902af70e1c",
+    },
+});
+
+// $ExpectType Promise<ResourceDestroyed>
+ChartMogul.SubscriptionEvent.destroy(config, {
+    subscription_event: {
+        id: 23223966,
+    },
+});
+
+// $ExpectType Promise<ResourceDestroyed>
+ChartMogul.SubscriptionEvent.deleteWithParams(config, {
+    subscription_event: {
+        external_id: "evnt_0001",
+        data_source_uuid: "ds_14336c0c-ab0b-11ec-8c55-c3902af70e1c",
+    },
+});
+
+// $ExpectType Promise<ResourceDestroyed>
+ChartMogul.SubscriptionEvent.deleteWithParams(config, {
+    subscription_event: {
+        id: 23223966,
+    },
+});

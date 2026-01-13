@@ -749,6 +749,12 @@ export namespace SubscriptionEvent {
         event_order?: number | undefined;
     }
 
+    interface DestroySubscriptionEvent {
+        external_id?: string | undefined;
+        data_source_uuid?: string | undefined;
+        id?: number | undefined;
+    }
+
     function create(config: Config, data: { subscription_event: NewSubscriptionEvent }): Promise<SubscriptionEvent>;
     function all(config: Config, params?: ListSubscriptionEventsParams): Promise<SubscriptionEvents>;
     function modify(config: Config, data: { subscription_event: UpdateSubscriptionEvent }): Promise<SubscriptionEvent>;
@@ -756,6 +762,14 @@ export namespace SubscriptionEvent {
         config: Config,
         data: { subscription_event: UpdateSubscriptionEvent },
     ): Promise<SubscriptionEvent>;
+    function destroy(
+        config: Config,
+        data: { subscription_event: DestroySubscriptionEvent },
+    ): Promise<ResourceDestroyed>;
+    function deleteWithParams(
+        config: Config,
+        data: { subscription_event: DestroySubscriptionEvent },
+    ): Promise<ResourceDestroyed>;
 }
 
 export namespace Tag {
