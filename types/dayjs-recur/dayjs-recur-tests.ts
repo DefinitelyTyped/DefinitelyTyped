@@ -34,6 +34,7 @@ d.dayOfMonth();
 d.daysOfMonth();
 d.weekOfMonth();
 d.weeksOfMonth();
+d.weeksOfMonthByDay();
 d.weekOfYear();
 d.weeksOfYear();
 d.monthOfYear();
