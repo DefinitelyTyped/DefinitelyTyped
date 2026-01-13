@@ -917,18 +917,53 @@ export namespace Metrics {
         ["end-date"]: string;
         geo?: string | undefined;
         plans?: string | undefined;
+        filters?: string | undefined;
     }
     interface All {
         entries: {
             date: string;
-            ["customer-churn-rate"]: number;
-            ["mrr-churn-rate"]: number;
-            ltv: number;
-            customers: number;
-            asp: number;
-            arpa: number;
-            arr: number;
             mrr: number;
+            ["mrr-percentage-change"]: number;
+            arr: number;
+            ["arr-percentage-change"]: number;
+            ["customer-churn-rate"]: number;
+            ["customer-churn-rate-percentage-change"]: number;
+            ["mrr-churn-rate"]: number;
+            ["mrr-churn-rate-percentage-change"]: number;
+            ltv: number;
+            ["ltv-percentage-change"]: number;
+            customers: number;
+            ["customers-percentage-change"]: number;
+            asp: number;
+            ["asp-percentage-change"]: number;
+            arpa: number;
+            ["arpa-percentage-change"]: number;
+        };
+        summary: {
+            ["current-mrr"]: number;
+            ["previous-mrr"]: number;
+            ["mrr-percentage-change"]: number;
+            ["current-arr"]: number;
+            ["previous-arr"]: number;
+            ["arr-percentage-change"]: number;
+            ["current-customer-churn-rate"]: number;
+            ["previous-customer-churn-rate"]: number;
+            ["customer-churn-rate-percentage-change"]: number;
+            ["current-mrr-churn-rate"]: number;
+            ["previous-mrr-churn-rate"]: number;
+            ["mrr-churn-rate-percentage-change"]: number;
+            ["current-ltv"]: number;
+            ["previous-ltv"]: number;
+            ["ltv-percentage-change"]: number;
+            ["current-customers"]: number;
+            ["previous-customers"]: number;
+            ["customers-percentage-change"]: number;
+            ["current-asp"]: number;
+            ["previous-asp"]: number;
+            ["asp-percentage-change"]: number;
+            ["current-arpa"]: number;
+            ["previous-arpa"]: number;
+            ["arpa-percentage-change"]: number;
         };
     }
 
