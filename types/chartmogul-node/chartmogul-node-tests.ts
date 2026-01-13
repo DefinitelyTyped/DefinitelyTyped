@@ -935,6 +935,44 @@ ChartMogul.PlanGroup.destroy(config, "plg_eed05d54-75b4-431b-adb2-eb6b9e543206")
 // $ExpectType Promise<Invoice>
 ChartMogul.Invoice.retrieve(config, "");
 
+// $ExpectType Promise<Invoice>
+ChartMogul.Invoice.retrieve(config, "inv_565c73b2-85b9-49c9-a25e-2b7df6a677c9");
+
+// $ExpectType Promise<Invoice>
+ChartMogul.Invoice.retrieve(config, "inv_565c73b2-85b9-49c9-a25e-2b7df6a677c9", {});
+
+// $ExpectType Promise<Invoice>
+ChartMogul.Invoice.retrieve(config, "inv_565c73b2-85b9-49c9-a25e-2b7df6a677c9", {
+    validation_type: "valid",
+});
+
+// $ExpectType Promise<Invoice>
+ChartMogul.Invoice.retrieve(config, "inv_565c73b2-85b9-49c9-a25e-2b7df6a677c9", {
+    validation_type: "invalid",
+});
+
+// $ExpectType Promise<Invoice>
+ChartMogul.Invoice.retrieve(config, "inv_565c73b2-85b9-49c9-a25e-2b7df6a677c9", {
+    validation_type: "all",
+});
+
+// $ExpectType Promise<Invoice>
+ChartMogul.Invoice.retrieve(config, "inv_565c73b2-85b9-49c9-a25e-2b7df6a677c9", {
+    include_edit_histories: true,
+});
+
+// $ExpectType Promise<Invoice>
+ChartMogul.Invoice.retrieve(config, "inv_565c73b2-85b9-49c9-a25e-2b7df6a677c9", {
+    with_disabled: true,
+});
+
+// $ExpectType Promise<Invoice>
+ChartMogul.Invoice.retrieve(config, "inv_565c73b2-85b9-49c9-a25e-2b7df6a677c9", {
+    validation_type: "all",
+    include_edit_histories: true,
+    with_disabled: true,
+});
+
 // $ExpectType Promise<{ invoices: Invoice[]; }>
 ChartMogul.Invoice.create(config, "cus_f466e33d-ff2b-4a11-8f85-417eb02157a7", {
     invoices: [

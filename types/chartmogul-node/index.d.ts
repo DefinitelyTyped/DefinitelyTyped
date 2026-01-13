@@ -678,6 +678,11 @@ export namespace Invoice {
         customer_uuid?: string | undefined;
         external_id?: string | undefined;
     }
+    interface RetrieveInvoiceParams {
+        validation_type?: "valid" | "invalid" | "all" | undefined;
+        include_edit_histories?: boolean | undefined;
+        with_disabled?: boolean | undefined;
+    }
     interface Invoices extends Cursor {
         customer_uuid?: string | undefined;
         invoices: Invoice[];
@@ -690,7 +695,7 @@ export namespace Invoice {
             invoices: NewInvoice[];
         },
     ): Promise<{ invoices: Invoice[] }>;
-    function retrieve(config: Config, uuid: string): Promise<Invoice>;
+    function retrieve(config: Config, uuid: string, params?: RetrieveInvoiceParams): Promise<Invoice>;
     function destroy(config: Config, uuid: string): Promise<ResourceDestroyed>;
     function all(config: Config, uuid: string, params?: ListInvoicesParams): Promise<Invoices>;
     function all(config: Config, params?: ListInvoicesParams): Promise<Invoices>;
