@@ -730,8 +730,32 @@ export namespace SubscriptionEvent {
         subscription_events: SubscriptionEvent[];
     }
 
-    function create(config: Config, data: NewSubscriptionEvent): Promise<SubscriptionEvent>;
+    interface UpdateSubscriptionEvent {
+        external_id?: string | undefined;
+        data_source_uuid?: string | undefined;
+        id?: number | undefined;
+        customer_external_id?: string | undefined;
+        event_type?: SubscriptionEventType | undefined;
+        event_date?: string | undefined;
+        effective_date?: string | undefined;
+        subscription_external_id?: string | undefined;
+        plan_external_id?: string | undefined;
+        currency?: string | undefined;
+        amount_in_cents?: number | undefined;
+        quantity?: number | undefined;
+        subscription_set_external_id?: string | undefined;
+        tax_amount_in_cents?: number | undefined;
+        retracted_event_id?: string | undefined;
+        event_order?: number | undefined;
+    }
+
+    function create(config: Config, data: { subscription_event: NewSubscriptionEvent }): Promise<SubscriptionEvent>;
     function all(config: Config, params?: ListSubscriptionEventsParams): Promise<SubscriptionEvents>;
+    function modify(config: Config, data: { subscription_event: UpdateSubscriptionEvent }): Promise<SubscriptionEvent>;
+    function updateWithParams(
+        config: Config,
+        data: { subscription_event: UpdateSubscriptionEvent },
+    ): Promise<SubscriptionEvent>;
 }
 
 export namespace Tag {

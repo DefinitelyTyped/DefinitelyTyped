@@ -1083,37 +1083,43 @@ ChartMogul.Metrics.Customer.disconnectSubscriptions(config, "ds-uuid", "customer
 
 // $ExpectType Promise<SubscriptionEvent>
 ChartMogul.SubscriptionEvent.create(config, {
-    data_source_uuid: "ds_1fm3eaac-62d0-31ec-clf4-4bf0mbe81aba",
-    customer_external_id: "cus_0001",
-    event_type: "subscription_start_scheduled",
-    event_date: "2022-03-30",
-    effective_date: "2022-04-01",
-    subscription_external_id: "sub_0001",
-    plan_external_id: "gold_monthly",
-    currency: "USD",
-    amount_in_cents: 1000,
-    quantity: 1,
+    subscription_event: {
+        data_source_uuid: "ds_1fm3eaac-62d0-31ec-clf4-4bf0mbe81aba",
+        customer_external_id: "cus_0001",
+        event_type: "subscription_start_scheduled",
+        event_date: "2022-03-30",
+        effective_date: "2022-04-01",
+        subscription_external_id: "sub_0001",
+        plan_external_id: "gold_monthly",
+        currency: "USD",
+        amount_in_cents: 1000,
+        quantity: 1,
+    },
 });
 
 // $ExpectType Promise<SubscriptionEvent>
 ChartMogul.SubscriptionEvent.create(config, {
-    data_source_uuid: "ds_1fm3eaac-62d0-31ec-clf4-4bf0mbe81aba",
-    customer_external_id: "cus_0001",
-    event_type: "subscription_cancelled",
-    event_date: "2022-05-30",
-    effective_date: "2022-06-01",
-    subscription_external_id: "sub_0001",
+    subscription_event: {
+        data_source_uuid: "ds_1fm3eaac-62d0-31ec-clf4-4bf0mbe81aba",
+        customer_external_id: "cus_0001",
+        event_type: "subscription_cancelled",
+        event_date: "2022-05-30",
+        effective_date: "2022-06-01",
+        subscription_external_id: "sub_0001",
+    },
 });
 
 // $ExpectType Promise<SubscriptionEvent>
 ChartMogul.SubscriptionEvent.create(config, {
-    data_source_uuid: "ds_1fm3eaac-62d0-31ec-clf4-4bf0mbe81aba",
-    customer_external_id: "cus_0001",
-    event_type: "subscription_event_retracted",
-    event_date: "2022-03-31",
-    effective_date: "2022-04-01",
-    subscription_external_id: "sub_0001",
-    retracted_event_id: "evnt_001",
+    subscription_event: {
+        data_source_uuid: "ds_1fm3eaac-62d0-31ec-clf4-4bf0mbe81aba",
+        customer_external_id: "cus_0001",
+        event_type: "subscription_event_retracted",
+        event_date: "2022-03-31",
+        effective_date: "2022-04-01",
+        subscription_external_id: "sub_0001",
+        retracted_event_id: "evnt_001",
+    },
 });
 
 // $ExpectType Promise<SubscriptionEvents>
@@ -1150,4 +1156,52 @@ ChartMogul.SubscriptionEvent.all(config, {
 ChartMogul.SubscriptionEvent.all(config, {
     include_edit_histories: true,
     with_disabled: true,
+});
+
+// $ExpectType Promise<SubscriptionEvent>
+ChartMogul.SubscriptionEvent.modify(config, {
+    subscription_event: {
+        external_id: "evnt_001",
+        data_source_uuid: "ds_1fm3eaac-62d0-31ec-clf4-4bf0mbe81aba",
+        effective_date: "2022-04-30",
+        currency: "USD",
+        amount_in_cents: 100,
+    },
+});
+
+// $ExpectType Promise<SubscriptionEvent>
+ChartMogul.SubscriptionEvent.modify(config, {
+    subscription_event: {
+        id: 23223966,
+        quantity: 2,
+    },
+});
+
+// $ExpectType Promise<SubscriptionEvent>
+ChartMogul.SubscriptionEvent.modify(config, {
+    subscription_event: {
+        external_id: "evnt_001",
+        data_source_uuid: "ds_1fm3eaac-62d0-31ec-clf4-4bf0mbe81aba",
+        event_type: "subscription_updated",
+        plan_external_id: "silver_monthly",
+    },
+});
+
+// $ExpectType Promise<SubscriptionEvent>
+ChartMogul.SubscriptionEvent.updateWithParams(config, {
+    subscription_event: {
+        external_id: "evnt_001",
+        data_source_uuid: "ds_1fm3eaac-62d0-31ec-clf4-4bf0mbe81aba",
+        effective_date: "2022-04-30",
+        currency: "USD",
+        amount_in_cents: 100,
+    },
+});
+
+// $ExpectType Promise<SubscriptionEvent>
+ChartMogul.SubscriptionEvent.updateWithParams(config, {
+    subscription_event: {
+        id: 23223966,
+        event_order: 200,
+    },
 });
