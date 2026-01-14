@@ -678,6 +678,25 @@ const lookupOptionsTest: ComponentFramework.UtilityApi.LookupOptions = {
     entityTypes: [],
 };
 
+type componentFramework_UtilityApi_LookupOptions_disableMruType = ComponentFramework.UtilityApi.LookupOptions["disableMru"];
+
+const disableMruIsBooleanTest: componentFramework_UtilityApi_LookupOptions_disableMruType = false;
+
+// @ts-expect-error: Testing invalid type for optional disableMru property on ComponentFramework.UtilityApi.LookupOptions
+const disableMruIsStringTest: disableMruType = "false";
+
+
+type componentFramework_UtilityApi_LookupOptions_filtersType = ComponentFramework.UtilityApi.LookupOptions["filters"];
+
+const filtersIsObjectText: componentFramework_UtilityApi_LookupOptions_filtersType = {
+    entityLogicalName: '',
+    filterXml: ''
+}
+
+// @ts-expect-error: Testing invalid type for optional filters property on ComponentFramework.UtilityApi.LookupOptions
+const filtersInvalidTypeTest: componentFramework_UtilityApi_LookupOptions_filtersType = {};
+
+
 const entityFormOptionsTest: ComponentFramework.NavigationApi.EntityFormOptions = {
     entityName: "",
     entityId: "",
