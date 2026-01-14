@@ -7,9 +7,33 @@ config.VERSION; // $ExpectType string
 
 ChartMogul.Ping.ping(config); // $ExpectType Promise<string>
 
+// $ExpectType Promise<Account>
+ChartMogul.Account.retrieve(config);
+
+// $ExpectType Promise<Account>
+ChartMogul.Account.retrieve(config, {
+    include: "refund_handling",
+});
+
+// $ExpectType Promise<Account>
+ChartMogul.Account.retrieve(config, {
+    include: "churn_recognition,churn_when_zero_mrr",
+});
+
+// $ExpectType Promise<Account>
+ChartMogul.Account.retrieve(config, {
+    include:
+        "churn_recognition,churn_when_zero_mrr,auto_churn_subscription,refund_handling,proximate_movement_reclassification",
+});
+
 // $ExpectType Promise<DataSource>
 ChartMogul.DataSource.create(config, {
     name: "",
+});
+
+// $ExpectType Promise<DataSource>
+ChartMogul.DataSource.create(config, {
+    name: "In-house billing",
 });
 
 // $ExpectType Promise<DataSource>
@@ -22,7 +46,7 @@ ChartMogul.DataSource.retrieve(config, "", {
     with_invoice_handling_setting: true,
 });
 
-// $ExpectType Promise<{}>
+// $ExpectType Promise<ResourceDestroyed>
 ChartMogul.DataSource.destroy(config, "");
 
 // $ExpectType Promise<DataSources>
@@ -39,22 +63,21 @@ ChartMogul.DataSource.all(config, {
     with_invoice_handling_setting: true,
 });
 
-ChartMogul.DataSource.all(config).then(data => {
-    data.data_sources[0]; // $ExpectType DataSource
-    data.data_sources[0].name; // $ExpectType string
-    data.data_sources[0].processing_status!.processed!; // $ExpectType number
-    data.data_sources[0].processing_status!.pending!; // $ExpectType number
-    data.data_sources[0].processing_status!.failed!; // $ExpectType number
-    data.data_sources[0].auto_churn_subscription_setting!.enabled; // $ExpectType boolean
-    data.data_sources[0].auto_churn_subscription_setting!.interval; // $ExpectType number | null
-    data.data_sources[0].invoice_handling_setting; // $ExpectType Record<string, any> | undefined
-});
-
 // $ExpectType Promise<Customer>
 ChartMogul.Customer.create(config, {
     data_source_uuid: "",
-    name: "",
     external_id: "",
+    name: "",
+    email: "test@example.com",
+    company: "Test Company",
+    country: "US",
+    state: "US-NY",
+    city: "New York",
+    zip: "10001",
+    lead_created_at: "2022-10-14 00:00:00",
+    free_trial_started_at: "2022-11-01 00:00:00",
+    owner: "owner@example.com",
+    website_url: "https://example.com",
     attributes: {
         tags: ["important", "Prio1"],
         custom: [
@@ -62,6 +85,22 @@ ChartMogul.Customer.create(config, {
             { type: "Integer", key: "age", value: 18 },
         ],
     },
+    primary_contact: {
+        first_name: "John",
+        last_name: "Doe",
+        email: "john@example.com",
+        title: "CEO",
+        phone: "+1234567890",
+        linked_in: "https://linkedin.com/in/johndoe",
+        twitter: "https://twitter.com/johndoe",
+        notes: "Primary contact notes",
+    },
+});
+
+// $ExpectType Promise<Customer>
+ChartMogul.Customer.create(config, {
+    data_source_uuid: "",
+    external_id: "",
 });
 
 // $ExpectType Promise<Customer>
@@ -70,31 +109,152 @@ ChartMogul.Customer.retrieve(config, "");
 // $ExpectType Promise<Customer>
 ChartMogul.Customer.modify(config, "", {});
 
-// $ExpectType Promise<{}>
+// $ExpectType Promise<Customer>
+ChartMogul.Customer.modify(config, "", {
+    name: "Updated Name",
+    email: "updated@example.com",
+    company: "Updated Company",
+    country: "US",
+    state: "US-CA",
+    city: "San Francisco",
+    zip: "94102",
+    lead_created_at: "2023-01-01 00:00:00",
+    free_trial_started_at: "2023-06-13 15:45:13",
+    owner: "newowner@example.com",
+    website_url: "https://newsite.example.com",
+    status: "Working Lead",
+    attributes: {
+        tags: ["high-value", "enterprise"],
+        custom: {
+            CAC: 25,
+            channel: "Twitter",
+            pro: true,
+        },
+    },
+    primary_contact: {
+        first_name: "Jane",
+        last_name: "Smith",
+        email: "jane@example.com",
+        title: "CTO",
+        phone: "+9876543210",
+        linked_in: "https://linkedin.com/in/janesmith",
+        twitter: "https://twitter.com/janesmith",
+        notes: "Updated contact",
+    },
+});
+
+// $ExpectType Promise<ResourceDestroyed>
 ChartMogul.Customer.destroy(config, "");
+
+// $ExpectType Promise<Entries<Customer>>
+ChartMogul.Customer.all(config);
 
 // $ExpectType Promise<Entries<Customer>>
 ChartMogul.Customer.all(config, {
     data_source_uuid: "",
 });
 
-ChartMogul.Customer.all(config).then(data => {
-    data.entries[0]; // $ExpectType Customer
-    data.entries[0].attributes!.stripe!["something"]; // $ExpectType any
-    data.page!; // $ExpectType number
+// $ExpectType Promise<Entries<Customer>>
+ChartMogul.Customer.all(config, {
+    external_id: "",
 });
+
+// $ExpectType Promise<Entries<Customer>>
+ChartMogul.Customer.all(config, {
+    status: "Active",
+});
+
+// $ExpectType Promise<Entries<Customer>>
+ChartMogul.Customer.all(config, {
+    status: "Working Lead",
+});
+
+// $ExpectType Promise<Entries<Customer>>
+ChartMogul.Customer.all(config, {
+    system: "Stripe",
+});
+
+// $ExpectType Promise<Entries<Customer>>
+ChartMogul.Customer.all(config, {
+    cursor: "AjMx90kC0yMVQwNNwoYToyNC4wMDAwMDAwMDBgks68k",
+    per_page: 50,
+});
+
+// $ExpectType Promise<Entries<Customer>>
+ChartMogul.Customer.all(config, {
+    data_source_uuid: "ds_fef05d54-47b4-431b-aed2-eb6b9e545430",
+    status: "Active",
+    system: "Stripe",
+    external_id: "34916129",
+});
+
+// $ExpectType Promise<Entries<Customer>>
+ChartMogul.Customer.search(config);
 
 // $ExpectType Promise<Entries<Customer>>
 ChartMogul.Customer.search(config, {
     email: "",
 });
+
+// $ExpectType Promise<Entries<Customer>>
+ChartMogul.Customer.search(config, {
+    email: "adam@example.com",
+});
+
+// $ExpectType Promise<Entries<Customer>>
+ChartMogul.Customer.search(config, {
+    email: "adam@example.com",
+    cursor: "AjMx90kC0yMVQwNNwoYToyNC4wMDAwMDAwMDBgks68k",
+    per_page: 50,
+});
+
 // $ExpectType Promise<{}>
 ChartMogul.Customer.merge(config, {
-    from: { customer_uuid: "" },
-    into: { customer_uuid: "" },
+    from: { customer_uuid: "cus_5915ee5a-babd-406b-b8ce-d207133fb4cb" },
+    into: { customer_uuid: "cus_2123290f-09c8-4628-a205-db5596bd58f7" },
 });
+
+// $ExpectType Promise<{}>
+ChartMogul.Customer.merge(config, {
+    from: {
+        data_source_uuid: "ds_ade45e52-47a4-231a-1ed2-eb6b9e541213",
+        external_id: "cus_187544",
+    },
+    into: {
+        data_source_uuid: "ds_fef05d54-47b4-431b-aed2-eb6b9e545430",
+        external_id: "34916129",
+    },
+});
+
+// $ExpectType Promise<{}>
+ChartMogul.Customer.unmerge(config, {
+    customer_uuid: "cus_cd9e5f29-6299-40e5-b343-0bd1ed228b4f",
+});
+
+// $ExpectType Promise<{}>
+ChartMogul.Customer.unmerge(config, {
+    data_source_uuid: "ds_788ec6ae-dd51-11ee-bd46-a3ec952dc041",
+    external_id: "cus_O075O8NH0LrtG8",
+});
+
+// $ExpectType Promise<{}>
+ChartMogul.Customer.unmerge(config, {
+    customer_uuid: "cus_cd9e5f29-6299-40e5-b343-0bd1ed228b4f",
+    move_to_new_customer: ["tasks", "opportunities", "notes"],
+});
+
+// $ExpectType Promise<{}>
+ChartMogul.Customer.unmerge(config, {
+    data_source_uuid: "ds_788ec6ae-dd51-11ee-bd46-a3ec952dc041",
+    external_id: "cus_O075O8NH0LrtG8",
+    move_to_new_customer: ["tasks", "opportunities", "notes"],
+});
+
 // $ExpectType Promise<Attributes>
 ChartMogul.Customer.attributes(config, "");
+
+// $ExpectType Promise<Attributes>
+ChartMogul.Customer.attributes(config, "cus_de305d54-75b4-431b-adb2-eb6b9e546012");
 
 // $ExpectType Promise<{}>
 ChartMogul.Customer.connectSubscriptions(config, "customer-uuid", {
@@ -106,85 +266,918 @@ ChartMogul.Customer.disconnectSubscriptions(config, "customer-uuid", {
     subscriptions: [{ uuid: "sub-uuid" }],
 });
 
+// $ExpectType Promise<Entries<Contact>>
+ChartMogul.Customer.contacts(config, "");
+
+// $ExpectType Promise<Entries<Contact>>
+ChartMogul.Customer.contacts(config, "cus_52eb54c2-dea0-11ed-ac96-ef735d89fca0");
+
+// $ExpectType Promise<Entries<Contact>>
+ChartMogul.Customer.contacts(config, "cus_52eb54c2-dea0-11ed-ac96-ef735d89fca0", {
+    cursor: "aabbcc",
+    per_page: 50,
+});
+
+// $ExpectType Promise<Entries<Contact>>
+ChartMogul.Customer.contacts(config, "cus_52eb54c2-dea0-11ed-ac96-ef735d89fca0", {
+    email: "adam@example.com",
+});
+
+// $ExpectType Promise<Contact>
+ChartMogul.Customer.createContact(config, "cus_3819e09a-50a2-11ee-ada7-9fcf71cd4580", {
+    data_source_uuid: "ds_92cc7226-509f-11ee-acf4-639f264f875d",
+});
+
+// $ExpectType Promise<Contact>
+ChartMogul.Customer.createContact(config, "cus_3819e09a-50a2-11ee-ada7-9fcf71cd4580", {
+    data_source_uuid: "ds_92cc7226-509f-11ee-acf4-639f264f875d",
+    first_name: "Adam",
+    last_name: "Smith",
+    position: 9,
+    title: "CEO",
+    email: "adam@example.com",
+    phone: "+1234567890",
+    linked_in: "https://linkedin.com/example",
+    twitter: "https://twitter.com/example",
+    notes: "Heading\nBody\nFooter",
+    custom: [
+        { key: "Facebook", value: "https://www.facebook.com/example" },
+        { key: "date_of_birth", value: "1985-01-22" },
+    ],
+});
+
+ChartMogul.Customer.createContact(
+    config,
+    "cus_3819e09a-50a2-11ee-ada7-9fcf71cd4580",
+    { data_source_uuid: "ds_92cc7226-509f-11ee-acf4-639f264f875d" },
+);
+
+// $ExpectType Promise<Contact>
+ChartMogul.Contact.create(config, {
+    customer_uuid: "cus_52eb54c2-dea0-11ed-ac96-ef735d89fca0",
+    data_source_uuid: "ds_35542640-d9f1-11ed-9c30-7727168c74a5",
+});
+
+// $ExpectType Promise<Contact>
+ChartMogul.Contact.create(config, {
+    customer_uuid: "cus_52eb54c2-dea0-11ed-ac96-ef735d89fca0",
+    data_source_uuid: "ds_35542640-d9f1-11ed-9c30-7727168c74a5",
+    first_name: "Adam",
+    last_name: "Smith",
+    position: 1,
+    title: "CEO",
+    email: "adam@example.com",
+    phone: "+1234567890",
+    linked_in: "https://linkedin.com/example",
+    twitter: "https://twitter.com/example",
+    notes: "Heading\\nBody\\nFooter",
+    custom: [
+        { key: "Facebook", value: "https://www.facebook.com/example" },
+        { key: "date_of_birth", value: "1985-01-22" },
+    ],
+});
+
+// $ExpectType Promise<Contact>
+ChartMogul.Contact.retrieve(config, "con_653af916-dea0-11ed-845b-3be1ac0039ac");
+
+// $ExpectType Promise<ResourceDestroyed>
+ChartMogul.Contact.destroy(config, "con_d018335c-56d2-11ee-897c-830bb2bba6ec");
+
+// $ExpectType Promise<Contact>
+ChartMogul.Contact.merge(
+    config,
+    "con_653af916-dea0-11ed-845b-3be1ac0039ac",
+    "con_36c9f236-ea66-11ed-b81d-cf0d715ced77",
+);
+
+// $ExpectType Promise<Entries<Contact>>
+ChartMogul.Contact.all(config);
+
+// $ExpectType Promise<Entries<Contact>>
+ChartMogul.Contact.all(config, {
+    email: "adam@example.com",
+});
+
+// $ExpectType Promise<Entries<Contact>>
+ChartMogul.Contact.all(config, {
+    customer_uuid: "cus_52eb54c2-dea0-11ed-ac96-ef735d89fca0",
+});
+
+// $ExpectType Promise<Entries<Contact>>
+ChartMogul.Contact.all(config, {
+    data_source_uuid: "ds_35542640-d9f1-11ed-9c30-7727168c74a5",
+});
+
+// $ExpectType Promise<Entries<Contact>>
+ChartMogul.Contact.all(config, {
+    customer_external_id: "cus_0001",
+});
+
+// $ExpectType Promise<Entries<Contact>>
+ChartMogul.Contact.all(config, {
+    cursor: "aabbcc",
+    per_page: 50,
+});
+
+// $ExpectType Promise<Contact>
+ChartMogul.Contact.modify(config, "con_f90ba380-57a8-11ee-9500-7f50256329a7", {});
+
+// $ExpectType Promise<Contact>
+ChartMogul.Contact.modify(config, "con_f90ba380-57a8-11ee-9500-7f50256329a7", {
+    first_name: "Bill",
+    last_name: "Thompson",
+    position: 10,
+    title: "CTO",
+    email: "bill@example.com",
+    phone: "+987654321",
+    linked_in: "https://linkedin.com/example",
+    twitter: "https://twitter.com/example",
+    notes: "New Heading\\nNew Body\\nNew Footer",
+    custom: [
+        { key: "Facebook", value: "https://www.facebook.com/example" },
+        { key: "date_of_birth", value: "1990-01-01" },
+    ],
+});
+
+// $ExpectType Promise<Entries<CustomerNote>>
+ChartMogul.Customer.notes(config, "");
+
+// $ExpectType Promise<Entries<CustomerNote>>
+ChartMogul.Customer.notes(config, "cus_52eb54c2-dea0-11ed-ac96-ef735d89fca0");
+
+// $ExpectType Promise<Entries<CustomerNote>>
+ChartMogul.Customer.notes(config, "cus_52eb54c2-dea0-11ed-ac96-ef735d89fca0", {
+    type: "note",
+});
+
+// $ExpectType Promise<Entries<CustomerNote>>
+ChartMogul.Customer.notes(config, "cus_52eb54c2-dea0-11ed-ac96-ef735d89fca0", {
+    type: "call",
+    author_email: "sara@example.com",
+});
+
+// $ExpectType Promise<Entries<CustomerNote>>
+ChartMogul.Customer.notes(config, "cus_52eb54c2-dea0-11ed-ac96-ef735d89fca0", {
+    cursor: "aabbcc",
+    per_page: 20,
+});
+
+// $ExpectType Promise<CustomerNote>
+ChartMogul.Customer.createNote(config, "cus_52eb54c2-dea0-11ed-ac96-ef735d89fca0", {
+    customer_uuid: "cus_52eb54c2-dea0-11ed-ac96-ef735d89fca0",
+    type: "note",
+});
+
+// $ExpectType Promise<CustomerNote>
+ChartMogul.Customer.createNote(config, "cus_52eb54c2-dea0-11ed-ac96-ef735d89fca0", {
+    customer_uuid: "cus_52eb54c2-dea0-11ed-ac96-ef735d89fca0",
+    type: "note",
+    author_email: "adam@example.com",
+    text: "They are a world leader in specialized software.\\n",
+    created_at: "2023-11-01T00:00:00Z",
+});
+
+// $ExpectType Promise<CustomerNote>
+ChartMogul.Customer.createNote(config, "cus_52eb54c2-dea0-11ed-ac96-ef735d89fca0", {
+    customer_uuid: "cus_52eb54c2-dea0-11ed-ac96-ef735d89fca0",
+    type: "call",
+    call_duration: 300,
+    text: "Discussed pricing options",
+});
+
+// $ExpectType Promise<CustomerNote>
+ChartMogul.CustomerNote.create(config, {
+    customer_uuid: "cus_52eb54c2-dea0-11ed-ac96-ef735d89fca0",
+    type: "note",
+    author_email: "adam@example.com",
+    text: "They are a world leader in specialized software.\\n",
+    created_at: "2023-11-01T00:00:00Z",
+});
+
+// $ExpectType Promise<CustomerNote>
+ChartMogul.CustomerNote.create(config, {
+    customer_uuid: "cus_52eb54c2-dea0-11ed-ac96-ef735d89fca0",
+    type: "call",
+    call_duration: 120,
+});
+
+// $ExpectType Promise<CustomerNote>
+ChartMogul.CustomerNote.retrieve(config, "note_39351ba6-dea0-11ee-ac96-37b2b3de29af");
+
+// $ExpectType Promise<CustomerNote>
+ChartMogul.CustomerNote.modify(config, "note_39351ba6-dea0-11ee-ac96-37b2b3de29af", {
+    author_email: "sara@example.com",
+    text: "They are a world leader in specialized software.\nThey are in SaaS business.",
+});
+
+// $ExpectType Promise<CustomerNote>
+ChartMogul.CustomerNote.modify(config, "note_39351ba6-dea0-11ee-ac96-37b2b3de29af", {
+    call_duration: 180,
+    updated_at: "2023-12-21T10:53:50.082Z",
+});
+
+// $ExpectType Promise<ResourceDestroyed>
+ChartMogul.CustomerNote.destroy(config, "note_39351ba6-dea0-11ee-ac96-37b2b3de29af");
+
+// $ExpectType Promise<Entries<CustomerNote>>
+ChartMogul.CustomerNote.all(config);
+
+// $ExpectType Promise<Entries<CustomerNote>>
+ChartMogul.CustomerNote.all(config, {
+    customer_uuid: "cus_52eb54c2-dea0-11ed-ac96-ef735d89fca0",
+});
+
+// $ExpectType Promise<Entries<CustomerNote>>
+ChartMogul.CustomerNote.all(config, {
+    type: "note",
+});
+
+// $ExpectType Promise<Entries<CustomerNote>>
+ChartMogul.CustomerNote.all(config, {
+    type: "call",
+    author_email: "sara@example.com",
+});
+
+// $ExpectType Promise<Entries<CustomerNote>>
+ChartMogul.CustomerNote.all(config, {
+    cursor: "aabbcc",
+    per_page: 20,
+});
+
+// $ExpectType Promise<Entries<Opportunity>>
+ChartMogul.Customer.opportunities(config, "");
+
+// $ExpectType Promise<Entries<Opportunity>>
+ChartMogul.Customer.opportunities(config, "cus_f466e33d-ff2b-4a11-8f85-417eb02157a7");
+
+// $ExpectType Promise<Entries<Opportunity>>
+ChartMogul.Customer.opportunities(config, "cus_f466e33d-ff2b-4a11-8f85-417eb02157a7", {
+    owner: "bob@example.com",
+});
+
+// $ExpectType Promise<Entries<Opportunity>>
+ChartMogul.Customer.opportunities(config, "cus_f466e33d-ff2b-4a11-8f85-417eb02157a7", {
+    pipeline: "New Business",
+    pipeline_stage: "Discovery",
+});
+
+// $ExpectType Promise<Entries<Opportunity>>
+ChartMogul.Customer.opportunities(config, "cus_f466e33d-ff2b-4a11-8f85-417eb02157a7", {
+    estimated_close_date_on_or_after: "2024-01-01",
+    estimated_close_date_on_or_before: "2024-12-31",
+});
+
+// $ExpectType Promise<Entries<Opportunity>>
+ChartMogul.Customer.opportunities(config, "cus_f466e33d-ff2b-4a11-8f85-417eb02157a7", {
+    cursor: "aabbcc",
+    per_page: 20,
+});
+
+// $ExpectType Promise<Opportunity>
+ChartMogul.Customer.createOpportunity(config, "cus_f466e33d-ff2b-4a11-8f85-417eb02157a7", {
+    customer_uuid: "cus_f466e33d-ff2b-4a11-8f85-417eb02157a7",
+    owner: "bob@example.com",
+    pipeline: "New Business",
+    pipeline_stage: "Discovery",
+    estimated_close_date: "2024-04-21",
+    currency: "USD",
+    amount_in_cents: 100000,
+});
+
+ChartMogul.Customer.createOpportunity(
+    config,
+    "cus_f466e33d-ff2b-4a11-8f85-417eb02157a7",
+    {
+        customer_uuid: "cus_f466e33d-ff2b-4a11-8f85-417eb02157a7",
+        owner: "bob@example.com",
+        pipeline: "New Business",
+        pipeline_stage: "Discovery",
+        estimated_close_date: "2024-04-21",
+        currency: "USD",
+        amount_in_cents: 100000,
+        type: "recurring",
+        forecast_category: "best_case",
+        win_likelihood: 40,
+        custom: [{ key: "seats", value: 3 }, { key: "marketing_campaign", value: "Facebook" }],
+    },
+);
+
+// $ExpectType Promise<Opportunity>
+ChartMogul.Opportunity.create(config, {
+    customer_uuid: "cus_f466e33d-ff2b-4a11-8f85-417eb02157a7",
+    owner: "bob@example.com",
+    pipeline: "New Business",
+    pipeline_stage: "Discovery",
+    estimated_close_date: "2024-04-21",
+    currency: "USD",
+    amount_in_cents: 100000,
+});
+
+// $ExpectType Promise<Opportunity>
+ChartMogul.Opportunity.create(config, {
+    customer_uuid: "cus_f466e33d-ff2b-4a11-8f85-417eb02157a7",
+    owner: "bob@example.com",
+    pipeline: "Renewals",
+    pipeline_stage: "Negotiation",
+    estimated_close_date: "2024-04-21",
+    currency: "USD",
+    amount_in_cents: 100000,
+    type: "recurring",
+});
+
+// $ExpectType Promise<Opportunity>
+ChartMogul.Opportunity.create(config, {
+    customer_uuid: "cus_f466e33d-ff2b-4a11-8f85-417eb02157a7",
+    owner: "bob@example.com",
+    pipeline: "New Business",
+    pipeline_stage: "Discovery",
+    estimated_close_date: "2024-04-21",
+    currency: "USD",
+    amount_in_cents: 100000,
+    type: "one-time",
+    forecast_category: "pipeline",
+});
+
+// $ExpectType Promise<Opportunity>
+ChartMogul.Opportunity.create(config, {
+    customer_uuid: "cus_f466e33d-ff2b-4a11-8f85-417eb02157a7",
+    owner: "bob@example.com",
+    pipeline: "New Business",
+    pipeline_stage: "Discovery",
+    estimated_close_date: "2024-04-21",
+    currency: "USD",
+    amount_in_cents: 100000,
+    type: "recurring",
+    forecast_category: "best_case",
+    win_likelihood: 40,
+    custom: [{ key: "seats", value: 3 }, { key: "marketing_campaign", value: "Facebook" }],
+});
+
+// $ExpectType Promise<Opportunity>
+ChartMogul.Opportunity.retrieve(config, "4ee13ca4-e7fe-11ee-fa7f-f303abf41acc");
+
+// $ExpectType Promise<Entries<Opportunity>>
+ChartMogul.Opportunity.all(config);
+
+// $ExpectType Promise<Entries<Opportunity>>
+ChartMogul.Opportunity.all(config, {
+    customer_uuid: "cus_f466e33d-ff2b-4a11-8f85-417eb02157a7",
+});
+
+// $ExpectType Promise<Entries<Opportunity>>
+ChartMogul.Opportunity.all(config, {
+    owner: "bob@example.com",
+});
+
+// $ExpectType Promise<Entries<Opportunity>>
+ChartMogul.Opportunity.all(config, {
+    pipeline: "New Business",
+    pipeline_stage: "Discovery",
+});
+
+// $ExpectType Promise<Entries<Opportunity>>
+ChartMogul.Opportunity.all(config, {
+    estimated_close_date_on_or_after: "2024-01-01",
+    estimated_close_date_on_or_before: "2024-12-31",
+});
+
+// $ExpectType Promise<Entries<Opportunity>>
+ChartMogul.Opportunity.all(config, {
+    cursor: "aabbcc",
+    per_page: 20,
+});
+
+// $ExpectType Promise<Opportunity>
+ChartMogul.Opportunity.modify(config, "4ee13ca4-e7fe-11ee-fa7f-f303abf41acc", {
+    amount_in_cents: 20000,
+});
+
+// $ExpectType Promise<Opportunity>
+ChartMogul.Opportunity.modify(config, "4ee13ca4-e7fe-11ee-fa7f-f303abf41acc", {
+    owner: "alice@example.com",
+    pipeline_stage: "Negotiation",
+});
+
+// $ExpectType Promise<Opportunity>
+ChartMogul.Opportunity.modify(config, "4ee13ca4-e7fe-11ee-fa7f-f303abf41acc", {
+    estimated_close_date: "2024-06-30",
+    forecast_category: "committed",
+    win_likelihood: 80,
+});
+
+// $ExpectType Promise<Opportunity>
+ChartMogul.Opportunity.modify(config, "4ee13ca4-e7fe-11ee-fa7f-f303abf41acc", {
+    amount_in_cents: 20000,
+    custom: [{ key: "seats", value: 4 }],
+});
+
+// $ExpectType Promise<ResourceDestroyed>
+ChartMogul.Opportunity.destroy(config, "4ee13ca4-e7fe-11ee-fa7f-f303abf41acc");
+
+// $ExpectType Promise<Entries<Task>>
+ChartMogul.Customer.tasks(config, "");
+
+// $ExpectType Promise<Entries<Task>>
+ChartMogul.Customer.tasks(config, "cus_f466e33d-ff2b-4a11-8f85-417eb02157a7");
+
+// $ExpectType Promise<Entries<Task>>
+ChartMogul.Customer.tasks(config, "cus_f466e33d-ff2b-4a11-8f85-417eb02157a7", {
+    assignee: "bob@example.com",
+});
+
+// $ExpectType Promise<Entries<Task>>
+ChartMogul.Customer.tasks(config, "cus_f466e33d-ff2b-4a11-8f85-417eb02157a7", {
+    due_date_on_or_after: "2024-01-01",
+    due_date_on_or_before: "2024-12-31",
+});
+
+// $ExpectType Promise<Entries<Task>>
+ChartMogul.Customer.tasks(config, "cus_f466e33d-ff2b-4a11-8f85-417eb02157a7", {
+    completed: false,
+});
+
+// $ExpectType Promise<Entries<Task>>
+ChartMogul.Customer.tasks(config, "cus_f466e33d-ff2b-4a11-8f85-417eb02157a7", {
+    cursor: "aabbcc",
+    per_page: 20,
+});
+
+// $ExpectType Promise<Task>
+ChartMogul.Customer.createTask(config, "cus_f466e33d-ff2b-4a11-8f85-417eb02157a7", {
+    customer_uuid: "cus_f466e33d-ff2b-4a11-8f85-417eb02157a7",
+    task_details: "Schedule product demo",
+    assignee: "bob@myriapodlabs.com",
+    due_date: "2025-04-21",
+});
+
+// $ExpectType Promise<Task>
+ChartMogul.Customer.createTask(config, "cus_f466e33d-ff2b-4a11-8f85-417eb02157a7", {
+    customer_uuid: "cus_f466e33d-ff2b-4a11-8f85-417eb02157a7",
+    task_details: "Schedule product demo",
+    assignee: "bob@myriapodlabs.com",
+    due_date: "2025-04-21",
+    completed_at: "2025-04-20",
+});
+
+// $ExpectType Promise<Task>
+ChartMogul.Task.create(config, {
+    customer_uuid: "cus_f466e33d-ff2b-4a11-8f85-417eb02157a7",
+    task_details: "Schedule product demo",
+    assignee: "bob@myriapodlabs.com",
+    due_date: "2025-04-21",
+});
+
+// $ExpectType Promise<Task>
+ChartMogul.Task.create(config, {
+    customer_uuid: "cus_f466e33d-ff2b-4a11-8f85-417eb02157a7",
+    task_details: "Follow up on contract",
+    assignee: "alice@myriapodlabs.com",
+    due_date: "2025-05-01",
+    completed_at: "2025-04-30",
+});
+
+// $ExpectType Promise<Task>
+ChartMogul.Task.retrieve(config, "5d6ec2cc-280d-11f0-b50e-5bd43fc8c28c");
+
+// $ExpectType Promise<Entries<Task>>
+ChartMogul.Task.all(config);
+
+// $ExpectType Promise<Entries<Task>>
+ChartMogul.Task.all(config, {
+    customer_uuid: "cus_f466e33d-ff2b-4a11-8f85-417eb02157a7",
+});
+
+// $ExpectType Promise<Entries<Task>>
+ChartMogul.Task.all(config, {
+    assignee: "bob@myriapodlabs.com",
+});
+
+// $ExpectType Promise<Entries<Task>>
+ChartMogul.Task.all(config, {
+    due_date_on_or_after: "2025-01-01",
+    due_date_on_or_before: "2025-12-31",
+});
+
+// $ExpectType Promise<Entries<Task>>
+ChartMogul.Task.all(config, {
+    completed: true,
+});
+
+// $ExpectType Promise<Entries<Task>>
+ChartMogul.Task.all(config, {
+    cursor: "aabbcc",
+    per_page: 20,
+});
+
+// $ExpectType Promise<Task>
+ChartMogul.Task.modify(config, "5d6ec2cc-280d-11f0-b50e-5bd43fc8c28c", {
+    assignee: "ana@myriapodlabs.com",
+});
+
+// $ExpectType Promise<Task>
+ChartMogul.Task.modify(config, "5d6ec2cc-280d-11f0-b50e-5bd43fc8c28c", {
+    task_details: "Updated task description",
+    due_date: "2025-06-30",
+});
+
+// $ExpectType Promise<Task>
+ChartMogul.Task.modify(config, "5d6ec2cc-280d-11f0-b50e-5bd43fc8c28c", {
+    completed_at: "2025-04-19",
+});
+
+// $ExpectType Promise<Task>
+ChartMogul.Task.modify(config, "5d6ec2cc-280d-11f0-b50e-5bd43fc8c28c", {
+    assignee: "ana@myriapodlabs.com",
+    completed_at: "2025-04-19",
+});
+
+// $ExpectType Promise<ResourceDestroyed>
+ChartMogul.Task.destroy(config, "5d6ec2cc-280d-11f0-b50e-5bd43fc8c28c");
+
 // $ExpectType Promise<Plan>
 ChartMogul.Plan.create(config, {
-    data_source_uuid: "",
-    name: "",
+    data_source_uuid: "ds_fef05d54-47b4-431b-aed2-eb6b9e545430",
+    name: "Bronze Plan",
     interval_count: 1,
-    interval_unit: "",
-    external_id: "",
+    interval_unit: "month",
 });
 
 // $ExpectType Promise<Plan>
-ChartMogul.Plan.retrieve(config, "");
-
-// $ExpectType Promise<Plan>
-ChartMogul.Plan.modify(config, "", {
-    name: "",
+ChartMogul.Plan.create(config, {
+    data_source_uuid: "ds_fef05d54-47b4-431b-aed2-eb6b9e545430",
+    name: "Silver Plan",
+    interval_count: 1,
+    interval_unit: "month",
+    external_id: "plan_0001",
 });
 
-// $ExpectType Promise<{}>
-ChartMogul.Plan.destroy(config, "");
+// $ExpectType Promise<Plan>
+ChartMogul.Plan.create(config, {
+    data_source_uuid: "ds_fef05d54-47b4-431b-aed2-eb6b9e545430",
+    name: "Annual Gold Plan",
+    interval_count: 1,
+    interval_unit: "year",
+    external_id: "plan_gold_annual",
+});
 
+// $ExpectType Promise<Plan>
+ChartMogul.Plan.retrieve(config, "pl_eed05d54-75b4-431b-adb2-eb6b9e543206");
+
+// $ExpectType Promise<Plan>
+ChartMogul.Plan.modify(config, "pl_eed05d54-75b4-431b-adb2-eb6b9e543206", {
+    name: "Bronze Monthly Plan",
+});
+
+// $ExpectType Promise<Plan>
+ChartMogul.Plan.modify(config, "pl_eed05d54-75b4-431b-adb2-eb6b9e543206", {
+    interval_count: 3,
+    interval_unit: "month",
+});
+
+// $ExpectType Promise<Plan>
+ChartMogul.Plan.modify(config, "pl_eed05d54-75b4-431b-adb2-eb6b9e543206", {
+    name: "Updated Plan",
+    interval_count: 1,
+    interval_unit: "year",
+});
+
+// $ExpectType Promise<ResourceDestroyed>
+ChartMogul.Plan.destroy(config, "pl_eed05d54-75b4-431b-adb2-eb6b9e543206");
+
+// $ExpectType Promise<Plans>
+ChartMogul.Plan.all(config);
+
+// $ExpectType Promise<Plans>
 ChartMogul.Plan.all(config, {
-    page: 1,
-}).then(data => {
-    data.plans[0]; // $ExpectType Plan
-    data.plans[0].name!; // $ExpectType string
-    data.page!; // $ExpectType number
+    data_source_uuid: "ds_fef05d54-47b4-431b-aed2-eb6b9e545430",
 });
+
+// $ExpectType Promise<Plans>
+ChartMogul.Plan.all(config, {
+    external_id: "plan_0001",
+});
+
+// $ExpectType Promise<Plans>
+ChartMogul.Plan.all(config, {
+    system: "Stripe",
+});
+
+// $ExpectType Promise<Plans>
+ChartMogul.Plan.all(config, {
+    cursor: "AjMx90kC0yMVQwNNwoYToyNC4wMDAwMDAwMDBgks68k",
+    per_page: 3,
+});
+
+// $ExpectType Promise<PlanGroup>
+ChartMogul.PlanGroup.create(config, {
+    name: "Growth Plans",
+    plans: ["pl_6add9607-23ce-11eb-8b6f-cfcb12b8f91f", "pl_b4eaffff-23ce-11eb-8b6f-03cebf8dcd12"],
+});
+
+// $ExpectType Promise<PlanGroup>
+ChartMogul.PlanGroup.create(config, {
+    name: "Enterprise Plans",
+    plans: ["pl_eed05d54-75b4-431b-adb2-eb6b9e543206"],
+});
+
+// $ExpectType Promise<PlanGroup>
+ChartMogul.PlanGroup.retrieve(config, "plg_eed05d54-75b4-431b-adb2-eb6b9e543206");
+
+// $ExpectType Promise<PlanGroups>
+ChartMogul.PlanGroup.all(config);
+
+// $ExpectType Promise<PlanGroups>
+ChartMogul.PlanGroup.all(config, {});
+
+// $ExpectType Promise<PlanGroups>
+ChartMogul.PlanGroup.all(config, { per_page: 2 });
+
+// $ExpectType Promise<PlanGroups>
+ChartMogul.PlanGroup.all(config, { cursor: "AjMx90kC0yMVQwNNwoYToyNC4wMDAwMDAwMDBgks68k" });
+
+// $ExpectType Promise<PlanGroups>
+ChartMogul.PlanGroup.all(config, { per_page: 10, cursor: "cursor_value" });
+
+// $ExpectType Promise<Plans>
+ChartMogul.PlanGroup.all(config, "plg_eed05d54-75b4-431b-adb2-eb6b9e543206");
+
+// $ExpectType Promise<Plans>
+ChartMogul.PlanGroup.all(config, "plg_eed05d54-75b4-431b-adb2-eb6b9e543206", {});
+
+// $ExpectType Promise<Plans>
+ChartMogul.PlanGroup.all(config, "plg_eed05d54-75b4-431b-adb2-eb6b9e543206", { per_page: 5 });
+
+// $ExpectType Promise<Plans>
+ChartMogul.PlanGroup.all(config, "plg_eed05d54-75b4-431b-adb2-eb6b9e543206", { cursor: "cursor123" });
+
+// $ExpectType Promise<PlanGroup>
+ChartMogul.PlanGroup.modify(config, "plg_eed05d54-75b4-431b-adb2-eb6b9e543206", {});
+
+// $ExpectType Promise<PlanGroup>
+ChartMogul.PlanGroup.modify(config, "plg_eed05d54-75b4-431b-adb2-eb6b9e543206", {
+    name: "Updated Growth Plans",
+});
+
+// $ExpectType Promise<PlanGroup>
+ChartMogul.PlanGroup.modify(config, "plg_eed05d54-75b4-431b-adb2-eb6b9e543206", {
+    plans: ["pl_5d42c34e-c720-4a5b-8deb-a73ee2585803", "pl_14483884-6d43-47a9-ae1c-c362c2036c1d"],
+});
+
+// $ExpectType Promise<PlanGroup>
+ChartMogul.PlanGroup.modify(config, "plg_eed05d54-75b4-431b-adb2-eb6b9e543206", {
+    name: "Enterprise Plans",
+    plans: ["pl_5d42c34e-c720-4a5b-8deb-a73ee2585803"],
+});
+
+// $ExpectType Promise<ResourceDestroyed>
+ChartMogul.PlanGroup.destroy(config, "plg_eed05d54-75b4-431b-adb2-eb6b9e543206");
 
 // $ExpectType Promise<Invoice>
 ChartMogul.Invoice.retrieve(config, "");
 
 // $ExpectType Promise<Invoice>
-ChartMogul.Invoice.create(config, "", {
+ChartMogul.Invoice.retrieve(config, "inv_565c73b2-85b9-49c9-a25e-2b7df6a677c9");
+
+// $ExpectType Promise<Invoice>
+ChartMogul.Invoice.retrieve(config, "inv_565c73b2-85b9-49c9-a25e-2b7df6a677c9", {});
+
+// $ExpectType Promise<Invoice>
+ChartMogul.Invoice.retrieve(config, "inv_565c73b2-85b9-49c9-a25e-2b7df6a677c9", {
+    validation_type: "valid",
+});
+
+// $ExpectType Promise<Invoice>
+ChartMogul.Invoice.retrieve(config, "inv_565c73b2-85b9-49c9-a25e-2b7df6a677c9", {
+    validation_type: "invalid",
+});
+
+// $ExpectType Promise<Invoice>
+ChartMogul.Invoice.retrieve(config, "inv_565c73b2-85b9-49c9-a25e-2b7df6a677c9", {
+    validation_type: "all",
+});
+
+// $ExpectType Promise<Invoice>
+ChartMogul.Invoice.retrieve(config, "inv_565c73b2-85b9-49c9-a25e-2b7df6a677c9", {
+    include_edit_histories: true,
+});
+
+// $ExpectType Promise<Invoice>
+ChartMogul.Invoice.retrieve(config, "inv_565c73b2-85b9-49c9-a25e-2b7df6a677c9", {
+    with_disabled: true,
+});
+
+// $ExpectType Promise<Invoice>
+ChartMogul.Invoice.retrieve(config, "inv_565c73b2-85b9-49c9-a25e-2b7df6a677c9", {
+    validation_type: "all",
+    include_edit_histories: true,
+    with_disabled: true,
+});
+
+// $ExpectType Promise<{ invoices: Invoice[]; }>
+ChartMogul.Invoice.create(config, "cus_f466e33d-ff2b-4a11-8f85-417eb02157a7", {
     invoices: [
         {
-            external_id: "",
+            external_id: "inv_0001",
+            date: "2022-11-10 00:00:00",
+            currency: "USD",
+            line_items: [
+                {
+                    type: "subscription",
+                    subscription_external_id: "sub_0001",
+                    plan_uuid: "pl_eed05d54-75b4-431b-adb2-eb6b9e543206",
+                    service_period_start: "2022-11-10 00:00:00",
+                    service_period_end: "2022-12-01 00:00:00",
+                    amount_in_cents: 5000,
+                },
+            ],
         },
     ],
 });
 
-// $ExpectType Promise<{}>
-ChartMogul.Invoice.destroy(config, "");
-ChartMogul.Invoice.all(config, {
-    external_id: "",
-}).then(data => {
-    data.invoices[0]; // $ExpectType Invoice
-    data.invoices[0].uuid!; // $ExpectType string
-    data.page!; // $ExpectType number
+// $ExpectType Promise<{ invoices: Invoice[]; }>
+ChartMogul.Invoice.create(config, "cus_f466e33d-ff2b-4a11-8f85-417eb02157a7", {
+    invoices: [
+        {
+            external_id: "inv_0002",
+            date: "2022-11-10 00:00:00",
+            currency: "USD",
+            due_date: "2022-11-15 00:00:00",
+            customer_external_id: "cus_0001",
+            data_source_uuid: "ds_fef05d54-47b4-431b-aed2-eb6b9e545430",
+            collection_method: "automatic",
+            line_items: [
+                {
+                    type: "subscription",
+                    subscription_external_id: "sub_0001",
+                    subscription_set_external_id: "set_0001",
+                    plan_uuid: "pl_eed05d54-75b4-431b-adb2-eb6b9e543206",
+                    service_period_start: "2022-11-10 00:00:00",
+                    service_period_end: "2022-12-01 00:00:00",
+                    amount_in_cents: 5000,
+                    prorated: true,
+                    proration_type: "differential",
+                    quantity: 1,
+                    discount_code: "PSO86",
+                    discount_amount_in_cents: 1000,
+                    tax_amount_in_cents: 900,
+                    transaction_fees_in_cents: 200,
+                    transaction_fees_currency: "USD",
+                    discount_description: "New signup promo",
+                    event_order: 5,
+                },
+                {
+                    type: "one_time",
+                    description: "Setup Fees",
+                    amount_in_cents: 2500,
+                    quantity: 1,
+                    discount_code: "PSO86",
+                    discount_amount_in_cents: 500,
+                    tax_amount_in_cents: 450,
+                    transaction_fees_currency: "USD",
+                    discount_description: "New signup promo",
+                },
+            ],
+            transactions: [
+                {
+                    date: "2022-11-10 00:14:23",
+                    type: "payment",
+                    result: "successful",
+                },
+            ],
+        },
+    ],
 });
+
+// $ExpectType Promise<{ invoices: Invoice[]; }>
+ChartMogul.Invoice.create(config, "cus_f466e33d-ff2b-4a11-8f85-417eb02157a7", {
+    invoices: [
+        {
+            external_id: "inv_0003",
+            date: "2022-11-10 00:00:00",
+            currency: "USD",
+            line_items: [
+                {
+                    type: "trial",
+                    subscription_external_id: "trial_sub_001",
+                    plan_uuid: "pl_eed05d54-75b4-431b-adb2-eb6b9e543206",
+                    service_period_start: "2022-11-01 00:00:00",
+                    service_period_end: "2022-11-14 00:00:00",
+                    amount_in_cents: 0,
+                },
+            ],
+        },
+    ],
+});
+
+// $ExpectType Promise<{ invoices: Invoice[]; }>
+ChartMogul.Invoice.create(config, "cus_f466e33d-ff2b-4a11-8f85-417eb02157a7", {
+    invoices: [
+        {
+            external_id: "inv_0004",
+            date: "2022-11-10 00:00:00",
+            currency: "USD",
+            line_items: [
+                {
+                    type: "subscription",
+                    subscription_external_id: "sub_0002",
+                    plan_uuid: "pl_eed05d54-75b4-431b-adb2-eb6b9e543206",
+                    service_period_start: "2022-11-10 00:00:00",
+                    amount_in_cents: 0,
+                    cancelled_at: "2022-11-20 00:00:00",
+                },
+            ],
+            transactions: [
+                {
+                    date: "2022-11-10 00:14:23",
+                    type: "refund",
+                    result: "failed",
+                    amount_in_cents: 1000,
+                    external_id: "txn_001",
+                },
+            ],
+        },
+    ],
+});
+
+// $ExpectType Promise<Invoice>
+ChartMogul.Invoice.modify(config, "inv_f466e33d-ff2b-4a11-8f85-417eb02157a7", {});
+
+// $ExpectType Promise<Invoice>
+ChartMogul.Invoice.modify(config, "inv_f466e33d-ff2b-4a11-8f85-417eb02157a7", {
+    date: "2024-11-10T00:00:00Z",
+});
+
+// $ExpectType Promise<Invoice>
+ChartMogul.Invoice.modify(config, "inv_f466e33d-ff2b-4a11-8f85-417eb02157a7", {
+    due_date: "2024-12-02T00:00:00Z",
+});
+
+// $ExpectType Promise<Invoice>
+ChartMogul.Invoice.modify(config, "inv_f466e33d-ff2b-4a11-8f85-417eb02157a7", {
+    currency: "EUR",
+});
+
+// $ExpectType Promise<Invoice>
+ChartMogul.Invoice.modify(config, "inv_f466e33d-ff2b-4a11-8f85-417eb02157a7", {
+    collection_method: "automatic",
+});
+
+// $ExpectType Promise<Invoice>
+ChartMogul.Invoice.modify(config, "inv_f466e33d-ff2b-4a11-8f85-417eb02157a7", {
+    collection_method: "manual",
+});
+
+// $ExpectType Promise<Invoice>
+ChartMogul.Invoice.modify(config, "inv_f466e33d-ff2b-4a11-8f85-417eb02157a7", {
+    date: "2024-11-10T00:00:00Z",
+    due_date: "2024-12-02T00:00:00Z",
+    currency: "EUR",
+    collection_method: "manual",
+});
+
+// $ExpectType Promise<ResourceDestroyed>
+ChartMogul.Invoice.destroy(config, "");
 
 ChartMogul.Invoice.all(config, "", {
     page: 1,
-}).then(data => {
-    data.customer_uuid!; // $ExpectType string
-    data.invoices[0]; // $ExpectType Invoice
-    data.invoices[0].uuid!; // $ExpectType string
-    data.page!; // $ExpectType number
 });
 
 // $ExpectType Promise<Transaction>
-ChartMogul.Transaction.create(config, "", {
-    type: "",
-    date: "",
-    result: "",
+ChartMogul.Transaction.create(config, "inv_565c73b2-85b9-49c9-a25e-2b7df6a677c9", {
+    type: "payment",
+    date: "2022-11-10 00:14:23",
+    result: "successful",
 });
 
-ChartMogul.Subscription.all(config, "", {
-    page: 1,
-}).then(data => {
-    data.customer_uuid!; // $ExpectType string
-    data.subscriptions[0]; // $ExpectType Subscription
-    data.subscriptions[0].uuid; // $ExpectType string
-    data.current_page!; // $ExpectType number
+// $ExpectType Promise<Transaction>
+ChartMogul.Transaction.create(config, "inv_565c73b2-85b9-49c9-a25e-2b7df6a677c9", {
+    type: "refund",
+    date: "2022-12-25 18:10:00",
+    result: "successful",
+    external_id: "trans_00241",
+});
+
+// $ExpectType Promise<Transaction>
+ChartMogul.Transaction.create(config, "inv_565c73b2-85b9-49c9-a25e-2b7df6a677c9", {
+    type: "payment",
+    date: "2022-11-10T00:14:23Z",
+    result: "failed",
+    amount_in_cents: 5000,
+});
+
+// $ExpectType Promise<Transaction>
+ChartMogul.Transaction.create(config, "inv_565c73b2-85b9-49c9-a25e-2b7df6a677c9", {
+    type: "refund",
+    date: "2022-11-10T00:14:23Z",
+    result: "successful",
+    external_id: "txn_001",
+    amount_in_cents: 1000,
+    transaction_fees_in_cents: 350,
+    transaction_fees_currency: "EUR",
 });
 
 ChartMogul.Subscription.cancel(config, "", {
     cancelled_at: "",
-}).then(data => {
-    data.customer_uuid; // $ExpectType string
 });
 
 // $ExpectType Promise<Entries<Customer>>
@@ -227,8 +1220,6 @@ ChartMogul.CustomAttribute.update(config, "", {
 
 ChartMogul.CustomAttribute.remove(config, "", {
     custom: [""],
-}).then(data => {
-    data.custom["key"]; // $ExpectType any
 });
 
 // $ExpectType Promise<All>
@@ -287,10 +1278,6 @@ ChartMogul.Metrics.mrrChurnRate(config, {
 ChartMogul.Metrics.ltv(config, {
     "start-date": "2015-01-01",
     "end-date": "2015-11-01",
-}).then(data => {
-    data.entries[0].ltv; // $ExpectType number
-    data.summary; // $ExpectType Summary
-    data.summary.current; // $ExpectType number
 });
 
 // $ExpectType Promise<Entries<MetricsSubscription>>
@@ -300,19 +1287,302 @@ ChartMogul.Metrics.Customer.subscriptions(config, "", {
 
 ChartMogul.Metrics.Customer.activities(config, "", {
     page: 1,
-}).then(data => {
-    data.entries; // $ExpectType MetricsActivity[]
-    data.entries[0]; // $ExpectType MetricsActivity
-    data.entries[0]["activity-mrr"]; // $ExpectType number
-    data.page!; // $ExpectType number
 });
 
 // $ExpectType Promise<{}>
-ChartMogul.Metrics.Customer.connectSubscriptions(config, "ds-uuid", "customer-uuid", {
-    subscriptions: [{ uuid: "sub-uuid", data_source_uuid: "ds-uuid" }],
-});
+ChartMogul.Metrics.Customer.connectSubscriptions(config, "ds-uuid", "customer-uuid", [
+    { uuid: "sub-uuid" },
+]);
 
 // $ExpectType Promise<{}>
-ChartMogul.Metrics.Customer.disconnectSubscriptions(config, "ds-uuid", "customer-uuid", {
-    subscriptions: [{ uuid: "sub-uuid", data_source_uuid: "ds-uuid" }],
+ChartMogul.Metrics.Customer.disconnectSubscriptions(config, "ds-uuid", "customer-uuid", [
+    { uuid: "sub-uuid" },
+]);
+
+// $ExpectType Promise<SubscriptionEvent>
+ChartMogul.SubscriptionEvent.create(config, {
+    subscription_event: {
+        data_source_uuid: "ds_1fm3eaac-62d0-31ec-clf4-4bf0mbe81aba",
+        customer_external_id: "cus_0001",
+        event_type: "subscription_start_scheduled",
+        event_date: "2022-03-30",
+        effective_date: "2022-04-01",
+        subscription_external_id: "sub_0001",
+        plan_external_id: "gold_monthly",
+        currency: "USD",
+        amount_in_cents: 1000,
+        quantity: 1,
+    },
+});
+
+// $ExpectType Promise<SubscriptionEvent>
+ChartMogul.SubscriptionEvent.create(config, {
+    subscription_event: {
+        data_source_uuid: "ds_1fm3eaac-62d0-31ec-clf4-4bf0mbe81aba",
+        customer_external_id: "cus_0001",
+        event_type: "subscription_cancelled",
+        event_date: "2022-05-30",
+        effective_date: "2022-06-01",
+        subscription_external_id: "sub_0001",
+    },
+});
+
+// $ExpectType Promise<SubscriptionEvent>
+ChartMogul.SubscriptionEvent.create(config, {
+    subscription_event: {
+        data_source_uuid: "ds_1fm3eaac-62d0-31ec-clf4-4bf0mbe81aba",
+        customer_external_id: "cus_0001",
+        event_type: "subscription_event_retracted",
+        event_date: "2022-03-31",
+        effective_date: "2022-04-01",
+        subscription_external_id: "sub_0001",
+        retracted_event_id: "evnt_001",
+    },
+});
+
+// $ExpectType Promise<SubscriptionEvents>
+ChartMogul.SubscriptionEvent.all(config);
+
+// $ExpectType Promise<SubscriptionEvents>
+ChartMogul.SubscriptionEvent.all(config, {});
+
+// $ExpectType Promise<SubscriptionEvents>
+ChartMogul.SubscriptionEvent.all(config, {
+    event_type: "subscription_cancelled",
+    plan_external_id: "gold_monthly",
+});
+
+// $ExpectType Promise<SubscriptionEvents>
+ChartMogul.SubscriptionEvent.all(config, {
+    customer_external_id: "cus_0001",
+    data_source_uuid: "ds_1fm3eaac-62d0-31ec-clf4-4bf0mbe81aba",
+});
+
+// $ExpectType Promise<SubscriptionEvents>
+ChartMogul.SubscriptionEvent.all(config, {
+    subscription_external_id: "sub_0001",
+    event_date: "2022-04-09T11:17:14Z",
+});
+
+// $ExpectType Promise<SubscriptionEvents>
+ChartMogul.SubscriptionEvent.all(config, {
+    per_page: 5,
+    cursor: "AjMx90kC0yMVQwNNwoYToyNC4wMDAwMDAwMDBgks68k",
+});
+
+// $ExpectType Promise<SubscriptionEvents>
+ChartMogul.SubscriptionEvent.all(config, {
+    include_edit_histories: true,
+    with_disabled: true,
+});
+
+// $ExpectType Promise<SubscriptionEvent>
+ChartMogul.SubscriptionEvent.modify(config, {
+    subscription_event: {
+        external_id: "evnt_001",
+        data_source_uuid: "ds_1fm3eaac-62d0-31ec-clf4-4bf0mbe81aba",
+        effective_date: "2022-04-30",
+        currency: "USD",
+        amount_in_cents: 100,
+    },
+});
+
+// $ExpectType Promise<SubscriptionEvent>
+ChartMogul.SubscriptionEvent.modify(config, {
+    subscription_event: {
+        id: 23223966,
+        quantity: 2,
+    },
+});
+
+// $ExpectType Promise<SubscriptionEvent>
+ChartMogul.SubscriptionEvent.modify(config, {
+    subscription_event: {
+        external_id: "evnt_001",
+        data_source_uuid: "ds_1fm3eaac-62d0-31ec-clf4-4bf0mbe81aba",
+        event_type: "subscription_updated",
+        plan_external_id: "silver_monthly",
+    },
+});
+
+// $ExpectType Promise<SubscriptionEvent>
+ChartMogul.SubscriptionEvent.updateWithParams(config, {
+    subscription_event: {
+        external_id: "evnt_001",
+        data_source_uuid: "ds_1fm3eaac-62d0-31ec-clf4-4bf0mbe81aba",
+        effective_date: "2022-04-30",
+        currency: "USD",
+        amount_in_cents: 100,
+    },
+});
+
+// $ExpectType Promise<SubscriptionEvent>
+ChartMogul.SubscriptionEvent.updateWithParams(config, {
+    subscription_event: {
+        id: 23223966,
+        event_order: 200,
+    },
+});
+
+// $ExpectType Promise<ResourceDestroyed>
+ChartMogul.SubscriptionEvent.destroy(config, {
+    subscription_event: {
+        external_id: "evnt_0001",
+        data_source_uuid: "ds_14336c0c-ab0b-11ec-8c55-c3902af70e1c",
+    },
+});
+
+// $ExpectType Promise<ResourceDestroyed>
+ChartMogul.SubscriptionEvent.destroy(config, {
+    subscription_event: {
+        id: 23223966,
+    },
+});
+
+// $ExpectType Promise<ResourceDestroyed>
+ChartMogul.SubscriptionEvent.deleteWithParams(config, {
+    subscription_event: {
+        external_id: "evnt_0001",
+        data_source_uuid: "ds_14336c0c-ab0b-11ec-8c55-c3902af70e1c",
+    },
+});
+
+// $ExpectType Promise<ResourceDestroyed>
+ChartMogul.SubscriptionEvent.deleteWithParams(config, {
+    subscription_event: {
+        id: 23223966,
+    },
+});
+
+// Metrics.ActivitiesExport.create
+
+// $ExpectType Promise<ActivitiesExport>
+ChartMogul.Metrics.ActivitiesExport.create(config);
+
+// $ExpectType Promise<ActivitiesExport>
+ChartMogul.Metrics.ActivitiesExport.create(config, {});
+
+// $ExpectType Promise<ActivitiesExport>
+ChartMogul.Metrics.ActivitiesExport.create(config, {
+    "start-date": "2022-01-01T00:00:00",
+});
+
+// $ExpectType Promise<ActivitiesExport>
+ChartMogul.Metrics.ActivitiesExport.create(config, {
+    "end-date": "2022-12-31T00:00:00",
+});
+
+// $ExpectType Promise<ActivitiesExport>
+ChartMogul.Metrics.ActivitiesExport.create(config, {
+    type: "churn",
+});
+
+// $ExpectType Promise<ActivitiesExport>
+ChartMogul.Metrics.ActivitiesExport.create(config, {
+    type: "new_biz",
+});
+
+// $ExpectType Promise<ActivitiesExport>
+ChartMogul.Metrics.ActivitiesExport.create(config, {
+    type: "reactivation",
+});
+
+// $ExpectType Promise<ActivitiesExport>
+ChartMogul.Metrics.ActivitiesExport.create(config, {
+    type: "expansion",
+});
+
+// $ExpectType Promise<ActivitiesExport>
+ChartMogul.Metrics.ActivitiesExport.create(config, {
+    type: "contraction",
+});
+
+// $ExpectType Promise<ActivitiesExport>
+ChartMogul.Metrics.ActivitiesExport.create(config, {
+    "start-date": "2022-01-01T00:00:00",
+    "end-date": "2022-12-31T00:00:00",
+    type: "churn",
+});
+
+// Metrics.ActivitiesExport.retrieve
+
+// $ExpectType Promise<ActivitiesExport>
+ChartMogul.Metrics.ActivitiesExport.retrieve(config, "17042239-3674-4a61-b838-b6b307f28506");
+
+// Metrics.Activity.all
+
+// $ExpectType Promise<Activities>
+ChartMogul.Metrics.Activity.all(config);
+
+// $ExpectType Promise<Activities>
+ChartMogul.Metrics.Activity.all(config, {});
+
+// $ExpectType Promise<Activities>
+ChartMogul.Metrics.Activity.all(config, {
+    cursor: "AjMx90kC0yMVQwNNwoYToyNC4wMDAwMDAwMDBgks68k",
+});
+
+// $ExpectType Promise<Activities>
+ChartMogul.Metrics.Activity.all(config, {
+    "per-page": 200,
+});
+
+// $ExpectType Promise<Activities>
+ChartMogul.Metrics.Activity.all(config, {
+    "start-date": "2023-01-01T00:00:00",
+});
+
+// $ExpectType Promise<Activities>
+ChartMogul.Metrics.Activity.all(config, {
+    "end-date": "2023-12-31T00:00:00",
+});
+
+// $ExpectType Promise<Activities>
+ChartMogul.Metrics.Activity.all(config, {
+    type: "churn",
+});
+
+// $ExpectType Promise<Activities>
+ChartMogul.Metrics.Activity.all(config, {
+    type: "new_biz",
+});
+
+// $ExpectType Promise<Activities>
+ChartMogul.Metrics.Activity.all(config, {
+    type: "reactivation",
+});
+
+// $ExpectType Promise<Activities>
+ChartMogul.Metrics.Activity.all(config, {
+    type: "expansion",
+});
+
+// $ExpectType Promise<Activities>
+ChartMogul.Metrics.Activity.all(config, {
+    type: "contraction",
+});
+
+// $ExpectType Promise<Activities>
+ChartMogul.Metrics.Activity.all(config, {
+    order: "date",
+});
+
+// $ExpectType Promise<Activities>
+ChartMogul.Metrics.Activity.all(config, {
+    order: "-date",
+});
+
+// $ExpectType Promise<Activities>
+ChartMogul.Metrics.Activity.all(config, {
+    "start-after": "f1a49735-21c7-4e3f-9ddc-67927aaadcf4",
+});
+
+// $ExpectType Promise<Activities>
+ChartMogul.Metrics.Activity.all(config, {
+    cursor: "AjMx90kC0yMVQwNNwoYToyNC4wMDAwMDAwMDBgks68k",
+    "per-page": 100,
+    "start-date": "2023-01-01T00:00:00",
+    "end-date": "2023-12-31T00:00:00",
+    type: "churn",
+    order: "-date",
 });
