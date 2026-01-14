@@ -80,16 +80,19 @@ import { fileURLToPath } from "node:url";
         process.channel.unref();
     }
     if (process.send) {
-        let r: boolean = process.send("aMessage");
-        r = process.send({ msg: "foo" }, new net.Server());
-        r = process.send({ msg: "foo" }, new net.Socket());
-        r = process.send({ msg: "foo" }, new dgram.Socket());
-        r = process.send({ msg: "foo" }, new net.Server(), { keepOpen: true });
-        r = process.send({ msg: "foo" }, new net.Socket(), { keepOpen: true });
-        r = process.send({ msg: "foo" }, new dgram.Socket(), { keepOpen: true });
-        r = process.send({ msg: "foo" }, new net.Server(), { keepOpen: true }, (err: Error | null) => {});
-        r = process.send({ msg: "foo" }, new net.Socket(), { keepOpen: true }, (err: Error | null) => {});
-        r = process.send({ msg: "foo" }, new dgram.Socket(), { keepOpen: true }, (err: Error | null) => {});
+        let r: boolean;
+        let sendHandle = Math.random() < 0.5
+            ? new net.Server()
+            : Math.random() < 0.5
+            ? new net.Socket()
+            : new dgram.Socket();
+
+        r = process.send("aMessage");
+        r = process.send({ msg: "foo" }, sendHandle);
+        r = process.send({ msg: "foo" }, sendHandle, { keepOpen: true });
+        r = process.send({ msg: "foo" }, (err: Error | null) => {});
+        r = process.send({ msg: "foo" }, sendHandle, (err: Error | null) => {});
+        r = process.send({ msg: "foo" }, sendHandle, { keepOpen: true }, (err: Error | null) => {});
     }
 }
 
