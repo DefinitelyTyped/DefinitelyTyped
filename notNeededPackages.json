@@ -3793,21 +3793,21 @@
             "libraryName": "ldclient-js",
             "asOfVersion": "1.1.11"
         },
-        "leaflet.fullscreen": {
-            "libraryName": "leaflet.fullscreen",
-            "asOfVersion": "5.2.0"
-        },
         "leaflet-geosearch": {
             "libraryName": "leaflet-geosearch",
             "asOfVersion": "3.0.0"
         },
-        "leaflet.locatecontrol": {
-            "libraryName": "leaflet.locatecontrol",
-            "asOfVersion": "0.85.1"
-        },
         "leaflet-offline": {
             "libraryName": "leaflet.offline",
             "asOfVersion": "3.0.0"
+        },
+        "leaflet.fullscreen": {
+            "libraryName": "leaflet.fullscreen",
+            "asOfVersion": "5.2.0"
+        },
+        "leaflet.locatecontrol": {
+            "libraryName": "leaflet.locatecontrol",
+            "asOfVersion": "0.85.1"
         },
         "leap-year": {
             "libraryName": "leap-year",
@@ -5318,6 +5318,10 @@
         "pino-http": {
             "libraryName": "pino-http",
             "asOfVersion": "6.1.0"
+        },
+        "pino-multi-stream": {
+            "libraryName": "pino-multi-stream",
+            "asOfVersion": "7.0.0"
         },
         "pino-pretty": {
             "libraryName": "pino-pretty",
