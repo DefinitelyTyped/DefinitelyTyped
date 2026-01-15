@@ -24,7 +24,7 @@ declare class UpdateOptions {
     emailSubject: string;
     trackingId: string;
     validate(): void;
-    private tryLoginByAuthToken_;
+    private loginByAuthToken_;
     private authorize_;
     private formatReferrer_;
     private newDatabase_;
@@ -42,6 +42,6 @@ declare class UpdateOptions {
     private sourceDatabase_;
     toJSON(): any;
 }
-import DBKey = require("@nginstack/engine/lib/dbkey/DBKey.js");
-import Connection = require("@nginstack/engine/lib/connection/Connection.js");
-import Database = require("@nginstack/engine/lib/database/Database.js");
+import DBKey = require('@nginstack/engine/lib/dbkey/DBKey.js');
+import Connection = require('@nginstack/engine/lib/connection/Connection.js');
+import Database = require('@nginstack/engine/lib/database/Database.js');
