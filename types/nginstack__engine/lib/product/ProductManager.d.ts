@@ -3,6 +3,7 @@ declare function ProductManager(): void;
 declare class ProductManager {
     createProduct(productInfo: any, userId: string, password: string): string;
     enableDevelopment(productStream: string, password: string): void;
+    isDevelopmentEnabled(product: number | DBKey): boolean;
     getChangeableProducts(userKey: number): any[];
     setChangeableProducts(userKey: number, products: any[], passwords: any[]): void;
     authenticatePassword(product: number, password: string): boolean;
