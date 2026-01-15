@@ -1,8 +1,8 @@
-import Grid from "@nginstack/web-framework/lib/grid/Grid";
-import GridField from "@nginstack/web-framework/lib/grid/GridField";
+import Grid from '@nginstack/web-framework/lib/grid/Grid';
+import GridField from '@nginstack/web-framework/lib/grid/GridField';
 
-const grid = new Grid("*", "name"); // $ExpectType Grid
-const gridField = new GridField("name", "type", null); // $ExpectType GridField
+const grid = new Grid('*', 'name'); // $ExpectType Grid
+const gridField = new GridField('name', 'type', null); // $ExpectType GridField
 
 grid.classDefManager; // $ExpectType ClassDefManager
 grid.classesToValidatePermissions; // $ExpectType any[]
@@ -48,10 +48,10 @@ grid.onAfterPrepare; // $ExpectType Event
 grid.onBeforeExpand; // $ExpectType Event
 grid.onAfterExpand; // $ExpectType Event
 grid.onExport; // $ExpectType Event
-grid.setFieldsProperties(["*"]); // $ExpectType void
-grid.getFieldsByProperty(["*"]); // $ExpectType Field[]
+grid.setFieldsProperties(['*']); // $ExpectType void
+grid.getFieldsByProperty(['*']); // $ExpectType Field[]
 grid.getKeyField(); // $ExpectType Field
-grid.emit("*", ["*"]); // $ExpectType any
+grid.emit('*', ['*']); // $ExpectType any
 grid.resetFields(); // $ExpectType void
 grid.clearButtons(); // $ExpectType void
 grid.name; // $ExpectType string
@@ -91,15 +91,14 @@ grid.hintFieldNames; // $ExpectType string
 grid.automaticClearUnselectableRecords; // $ExpectType boolean
 grid.viewMode; // $ExpectType number
 grid.classKeyToValidatePermission; // $ExpectType number | DBKey
-grid.selectedRecordsChanged; // $ExpectType boolean
 grid.edit(); // $ExpectType void
 grid.insert(); // $ExpectType void
 grid.del(true); // $ExpectType void
 grid.post(); // $ExpectType boolean
 grid.cancel(); // $ExpectType void
 grid.getFieldsAsStringList(); // $ExpectType StringList
-grid.field("name"); // $ExpectType Field | ViewDefField
-grid.button("name"); // $ExpectType Button
+grid.field('name'); // $ExpectType Field | ViewDefField
+grid.button('name'); // $ExpectType Button
 grid.visibleButtons; // $ExpectType (string | Button)[]
 grid.visibleActions; // $ExpectType (string | Button)[]
 grid.enabledButtons; // $ExpectType (string | Button)[]
@@ -109,12 +108,11 @@ grid.write(); // $ExpectType void
 grid.userKeyToValidatePermissions; // $ExpectType number
 grid.validateFieldPermissions; // $ExpectType boolean
 grid.lookup(gridField); // $ExpectType void
-grid.expand("nodeValue"); // $ExpectType void
-grid.colapse("nodeValue"); // $ExpectType void
+grid.expand('nodeValue'); // $ExpectType void
 grid.toggleKeyVisibility(); // $ExpectType void
-grid.toggleFieldVisibility("field"); // $ExpectType void
+grid.toggleFieldVisibility('field'); // $ExpectType void
 
 function getVersion(): string {
-    return "72.0.12";
+    return '81.0.1';
 }
 getVersion(); // $ExpectType string

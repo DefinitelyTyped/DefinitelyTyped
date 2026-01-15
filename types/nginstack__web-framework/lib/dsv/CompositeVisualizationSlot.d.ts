@@ -4,11 +4,11 @@ declare class CompositeVisualizationSlot {
     constructor(item: any, width: number, height: number);
     width: number;
     height: number;
-    visualization: import("./Visualization");
+    visualization: import('./Visualization');
     verticalAlignment: any;
 }
 declare namespace CompositeVisualizationSlot {
     export { DataExporter, Visualization };
 }
-type DataExporter = import("../export/DataExporter");
-type Visualization = import("./Visualization");
+type DataExporter = import('../export/DataExporter');
+type Visualization = import('./Visualization');

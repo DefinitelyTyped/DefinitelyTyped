@@ -3,13 +3,13 @@ declare function Label(process: Process): void;
 declare class Label {
     constructor(process: Process);
     layout: LayoutConfig;
-    private _changedProperties;
-    process: import("../process/Process");
+    private changedProperties_;
+    process: import('../process/Process');
     private logger_;
-    private _changed;
+    private changed_;
     private written_;
     private toString;
-    private getChanges;
+    private getChanges_;
     private _clearChangedProperties;
     private resetProperties;
     name: string;
@@ -31,5 +31,5 @@ declare class Label {
 declare namespace Label {
     export { Process };
 }
-import LayoutConfig = require("../process/LayoutConfig.js");
-type Process = import("../process/Process");
+import LayoutConfig = require('../process/LayoutConfig.js');
+type Process = import('../process/Process');

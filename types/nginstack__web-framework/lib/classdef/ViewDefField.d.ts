@@ -7,17 +7,22 @@ declare function ViewDefField(
 ): void;
 declare class ViewDefField {
     constructor(name: string, type: string, size: number | null, ...args: any[]);
+    private superInit_;
     private inheritedClassDefEvents_;
     private superRegisterEvents_;
+    notifyObjectPropertyChange_: any;
     private typesThatNotSupportUnderscoreAtName_;
+    private init_;
+    cssStyle: Record<string, string>;
     private protectState_;
     private unprotectState_;
     private defaultAdapterDescriptor_;
     private unrestrictedOn_;
     private registerEvents_;
     duplicationHandling: number;
-    private _propertiesToAssign;
-    private _ownControlledProperties;
+    private propertiesToAssign_;
+    private propertiesToAssignWithDeepClone_;
+    private ownControlledProperties_;
     resyncPending: boolean;
     private logger_;
     showGlobalActions: boolean;
@@ -28,10 +33,13 @@ declare class ViewDefField {
     requiredDataSetFields: string;
     private arRequiredDataSetFields;
     alignment: string;
-    height: number;
-    width: number;
+    height: string | number;
+    private height_;
+    rows: number;
+    width: string | number;
+    private width_;
     enterKeyAction: typeof EnterKeyAction | string;
-    private tableViewLabel;
+    tableViewLabel: string;
     controlType: string;
     private controlType_;
     treeParentFieldName: string;
@@ -43,16 +51,16 @@ declare class ViewDefField {
     changed: boolean;
     private changeable;
     private totalContent;
-    zoomMaxHeight: number | string | null;
-    zoomMaxWidth: number | string | null;
-    tableViewWidth: number;
+    zoomMaxHeight: number | string;
+    zoomMaxWidth: number | string;
+    tableViewWidth: string | number;
+    private tableViewWidth_;
     parent: Grid | ViewDef;
     editable: boolean;
     isCalculated: boolean;
     hasEvent(eventName: string): boolean;
     saveInputAsDefault: boolean;
     emptyResultMessage: string;
-    labelCssClass: string;
     labelPosition: string;
     negativeInRed: boolean;
     column: number;
@@ -64,7 +72,6 @@ declare class ViewDefField {
     private lastMasterFieldValues;
     private tableViewIndex;
     private inSetValue;
-    cssClass: string;
     private _index;
     detailIndexFieldNames: string;
     detailDescendingIndexFieldNames: string;
@@ -106,15 +113,15 @@ declare class ViewDefField {
     isMasterDetail(): boolean;
 }
 declare namespace ViewDefField {
-    export { Event, FieldAggregator, Grid, Link, ViewDef, VM_LIST, VM_THUMBNAIL };
+    export { VM_THUMBNAIL, VM_LIST, FieldAggregator, Event, ViewDef, Grid, Link };
 }
-import EnterKeyAction = require("./EnterKeyAction.js");
-import LinkSet = require("../anchor/LinkSet.js");
-import CellThumbnail = require("./CellThumbnail.js");
+import EnterKeyAction = require('./EnterKeyAction.js');
+import LinkSet = require('../anchor/LinkSet.js');
+import CellThumbnail = require('./CellThumbnail.js');
 declare let VM_THUMBNAIL: number;
 declare let VM_LIST: number;
-type FieldAggregator = import("../field-aggregator/FieldAggregator");
-type Event = import("@nginstack/engine/lib/event/Event");
-type ViewDef = import("./ViewDef");
-type Grid = import("../grid/Grid");
-type Link = import("../anchor/Link");
+type FieldAggregator = import('../field-aggregator/FieldAggregator');
+type Event = import('@nginstack/engine/lib/event/Event');
+type ViewDef = import('./ViewDef');
+type Grid = import('../grid/Grid');
+type Link = import('../anchor/Link');
