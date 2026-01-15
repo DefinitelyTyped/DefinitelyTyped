@@ -19,4 +19,4 @@ declare namespace LayoutManager {
 interface LayoutComponent {
     layout?: LayoutConfig;
 }
-import LayoutConfig = require('./LayoutConfig.js');
+import LayoutConfig = require("./LayoutConfig.js");

@@ -24,4 +24,4 @@ declare class GlobalAction {
     getParameters(): any;
     clone(): GlobalAction;
 }
-import Adapter = require('@nginstack/engine/lib/event/Adapter.js');
+import Adapter = require("@nginstack/engine/lib/event/Adapter.js");

@@ -69,7 +69,7 @@ declare class Column {
     classKey: number;
     showTotalLabel: boolean;
     showTotal: boolean;
-    columnGroup: import('./ColumnGroup');
+    columnGroup: import("./ColumnGroup");
     checkIfMerge(values: { content: string | number | Date; groups: string }): boolean;
     private getAccumulatorLength;
     private resizeAccumulators;
@@ -90,20 +90,20 @@ declare class Column {
 }
 declare namespace Column {
     export {
-        VerticalAligns,
-        TextAligns,
-        LatitudeFormat,
-        LongitudeFormat,
         AngleFormat,
-        DateFormat,
-        Link,
         ColumnWriteOptions,
+        DateFormat,
+        LatitudeFormat,
+        Link,
+        LongitudeFormat,
+        TextAligns,
+        VerticalAligns,
     };
 }
-import SimpleLayout = require('./SimpleLayout.js');
-import LegacyEvent = require('@nginstack/engine/lib/event/LegacyEvent.js');
-import LinkSet = require('../anchor/LinkSet.js');
-import NumberFormat = require('@nginstack/engine/lib/number/NumberFormat.js');
+import SimpleLayout = require("./SimpleLayout.js");
+import LegacyEvent = require("@nginstack/engine/lib/event/LegacyEvent.js");
+import LinkSet = require("../anchor/LinkSet.js");
+import NumberFormat = require("@nginstack/engine/lib/number/NumberFormat.js");
 declare namespace VerticalAligns {
     let TOP: string;
     let MIDDLE: string;
@@ -119,11 +119,11 @@ declare namespace TextAligns {
     let INHERIT: string;
 }
 type TextAligns = string;
-type LatitudeFormat = typeof import('@nginstack/engine/lib/geo/LatitudeFormat');
-type LongitudeFormat = typeof import('@nginstack/engine/lib/geo/LongitudeFormat');
-type AngleFormat = typeof import('@nginstack/engine/lib/geo/AngleFormat');
+type LatitudeFormat = typeof import("@nginstack/engine/lib/geo/LatitudeFormat");
+type LongitudeFormat = typeof import("@nginstack/engine/lib/geo/LongitudeFormat");
+type AngleFormat = typeof import("@nginstack/engine/lib/geo/AngleFormat");
 type DateFormat = typeof DateFormat;
-type Link = import('../anchor/Link');
+type Link = import("../anchor/Link");
 interface ColumnWriteOptions {
     linkParameters?: any[];
     storedParametersIds?: Record<string, string>;
@@ -139,4 +139,4 @@ interface ColumnWriteOptions {
     key?: number;
     beforeHtml?: string;
 }
-import DateFormat = require('@nginstack/engine/lib/date/DateFormat.js');
+import DateFormat = require("@nginstack/engine/lib/date/DateFormat.js");

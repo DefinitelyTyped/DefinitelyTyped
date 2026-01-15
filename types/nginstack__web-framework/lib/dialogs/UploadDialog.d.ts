@@ -12,9 +12,9 @@ declare class UploadDialog {
     private act_finish_;
 }
 declare namespace UploadDialog {
-    export { UploadedFile, Process };
+    export { Process, UploadedFile };
 }
-import UploadOptions = require('../file-loader/UploadOptions.js');
-import Promise = require('../promise/Promise.js');
-type UploadedFile = import('../file-loader/UploadedFile');
-type Process = import('../process/Process');
+import UploadOptions = require("../file-loader/UploadOptions.js");
+import Promise = require("../promise/Promise.js");
+type UploadedFile = import("../file-loader/UploadedFile");
+type Process = import("../process/Process");

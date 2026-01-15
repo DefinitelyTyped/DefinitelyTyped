@@ -8,5 +8,5 @@ declare class GridFieldEvent {
 declare namespace GridFieldEvent {
     export { Grid, Process };
 }
-type Grid = import('../grid/Grid');
-type Process = import('../process/Process');
+type Grid = import("../grid/Grid");
+type Process = import("../process/Process");

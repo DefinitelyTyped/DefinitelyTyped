@@ -3,14 +3,14 @@ declare function Button(
     name: string,
     target: string | ((arg0: any) => any),
     processKey?: number,
-    newTab?: boolean
+    newTab?: boolean,
 ): void;
 declare class Button {
     constructor(
         name: string,
         target: string | ((arg0: any) => any),
         processKey?: number,
-        newTab?: boolean
+        newTab?: boolean,
     );
     private syncCommands_;
     private parameters_;
@@ -78,10 +78,10 @@ declare class Button {
     private getChanges_;
 }
 declare namespace Button {
-    export { createProcess, Process, Grid };
+    export { createProcess, Grid, Process };
 }
-import Adapter = require('@nginstack/engine/lib/event/Adapter.js');
-import ButtonTimer = require('./ButtonTimer.js');
+import Adapter = require("@nginstack/engine/lib/event/Adapter.js");
+import ButtonTimer = require("./ButtonTimer.js");
 declare let createProcess: any;
-type Process = import('../process/Process.js');
-type Grid = import('../grid/Grid.js');
+type Process = import("../process/Process.js");
+type Grid = import("../grid/Grid.js");

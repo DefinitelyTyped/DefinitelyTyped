@@ -3,14 +3,14 @@ declare function Link(
     name: string,
     target: string | ((arg0: any) => any),
     processKey?: number,
-    newTab?: boolean
+    newTab?: boolean,
 ): void;
 declare class Link {
     constructor(
         name: string,
         target: string | ((arg0: any) => any),
         processKey?: number,
-        newTab?: boolean
+        newTab?: boolean,
     );
     private syncCommands_;
     name_: string;
@@ -71,12 +71,12 @@ declare class Link {
     private toString;
 }
 declare namespace Link {
-    export { createProcess, Column, Process };
+    export { Column, createProcess, Process };
 }
-import LayoutConfig = require('../process/LayoutConfig.js');
-import Adapter = require('@nginstack/engine/lib/event/Adapter.js');
-import ParametersStorage = require('./ParametersStorage.js');
-import Field = require('@nginstack/engine/lib/classdef/Field.js');
+import LayoutConfig = require("../process/LayoutConfig.js");
+import Adapter = require("@nginstack/engine/lib/event/Adapter.js");
+import ParametersStorage = require("./ParametersStorage.js");
+import Field = require("@nginstack/engine/lib/classdef/Field.js");
 declare let createProcess: any;
-type Column = import('../simple-layout/Column.js');
-type Process = import('../process/Process.js');
+type Column = import("../simple-layout/Column.js");
+type Process = import("../process/Process.js");

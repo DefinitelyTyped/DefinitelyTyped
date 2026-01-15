@@ -148,9 +148,9 @@ declare class Grid {
     name: string;
     help:
         | {
-              overview: string;
-              buttons: Record<string, string>;
-          }
+            overview: string;
+            buttons: Record<string, string>;
+        }
         | string;
     private formatEventId;
     refresh(opt_force?: boolean): void;
@@ -225,7 +225,7 @@ declare class Grid {
         dsSync: DataSet,
         records: RecordSync[],
         clientRow: number,
-        isCurrentRecord: boolean
+        isCurrentRecord: boolean,
     ): void;
     private calculateFirstRecNoOfView;
     private syncDataSetStateToBufferState;
@@ -248,7 +248,7 @@ declare class Grid {
         type: string,
         opt_options?: {
             cancelable: boolean;
-        }
+        },
     ): GridEvent;
     focus(options: FocusOptions): void;
     private protectFocus;
@@ -277,7 +277,7 @@ declare class Grid {
         opt_target?: string | ((arg0: any) => any),
         opt_order?: number,
         opt_processKey?: number,
-        opt_newTab?: boolean
+        opt_newTab?: boolean,
     ): Button;
     action(name: any, target: any, order: any, processKey: any, newTab: any): Button;
     visibleButtons: Array<Button | string>;
@@ -407,65 +407,65 @@ declare class Grid {
 }
 declare namespace Grid {
     export {
-        FORM_VIEW as FORMVIEW,
-        TABLE_VIEW as TABLEVIEW,
-        NEVER,
+        AdapterDescriptor,
+        AggregatesSyncResponse,
         ALWAYS,
-        USER_PERMISSION,
-        MDA_ERROR,
-        MDA_DELETE,
-        MDA_UNLINK,
+        Button,
+        ErrorPayload,
+        Event,
+        ExportRequest,
+        FieldFocusRequest,
+        FieldServerState,
+        FieldSync,
+        FocusOptions,
+        FORM_VIEW as FORMVIEW,
+        FormViewSync,
+        GridActionRequest,
+        GridClientState,
+        GridClientStructure,
+        GridGroupState,
+        GridServerState,
+        GridState,
+        GridSyncResponse,
+        IndexRequest,
         LOCATE_ALL_FIELDS,
         LOCATE_EXACT,
         LOCATE_NEXT,
-        persist,
-        MAX_VISIBLE_RECORD_COUNT,
-        RecordServerState,
-        FocusOptions,
-        AggregatesSyncResponse,
-        ErrorPayload,
-        GridSyncResponse,
-        GridServerState,
-        FieldSync,
-        FieldServerState,
-        RecordSync,
-        FormViewSync,
-        TableViewSync,
-        SelectRecordRequest,
-        GridActionRequest,
-        ExportRequest,
-        UpdateAggregateRequest,
-        IndexRequest,
-        SearchRequest,
-        TreeToggleRequest,
         LookupRequest,
         LookupResponse,
+        MAX_VISIBLE_RECORD_COUNT,
+        MDA_DELETE,
+        MDA_ERROR,
+        MDA_UNLINK,
+        NEVER,
         OpenKeyRequest,
-        FieldFocusRequest,
-        GridClientState,
-        GridClientStructure,
-        RefreshResponse,
-        GridGroupState,
-        TypedCommand,
-        GridState,
-        AdapterDescriptor,
-        Event,
-        Button,
-        ViewDefField,
+        persist,
         Process,
+        RecordServerState,
+        RecordSync,
+        RefreshResponse,
+        SearchRequest,
+        SelectRecordRequest,
+        TABLE_VIEW as TABLEVIEW,
+        TableViewSync,
+        TreeToggleRequest,
+        TypedCommand,
+        UpdateAggregateRequest,
+        USER_PERMISSION,
+        ViewDefField,
     };
 }
-import ClassDefManager = require('@nginstack/engine/lib/classdef/ClassDefManager.js');
-import LayoutConfig = require('../process/LayoutConfig.js');
-import FieldGroupSet = require('@nginstack/engine/lib/classdef/FieldGroupSet.js');
-import TableViewBuffer = require('./TableViewBuffer.js');
-import FieldList = require('@nginstack/engine/lib/classdef/FieldList.js');
-import Field = require('@nginstack/engine/lib/classdef/Field.js');
-import DataSet = require('@nginstack/engine/lib/dataset/DataSet.js');
-import DBKey = require('@nginstack/engine/lib/dbkey/DBKey.js');
-import GridField = require('./GridField.js');
-import GridEvent = require('../classdef/GridEvent.js');
-import StringList = require('@nginstack/engine/lib/string/StringList.js');
+import ClassDefManager = require("@nginstack/engine/lib/classdef/ClassDefManager.js");
+import LayoutConfig = require("../process/LayoutConfig.js");
+import FieldGroupSet = require("@nginstack/engine/lib/classdef/FieldGroupSet.js");
+import TableViewBuffer = require("./TableViewBuffer.js");
+import FieldList = require("@nginstack/engine/lib/classdef/FieldList.js");
+import Field = require("@nginstack/engine/lib/classdef/Field.js");
+import DataSet = require("@nginstack/engine/lib/dataset/DataSet.js");
+import DBKey = require("@nginstack/engine/lib/dbkey/DBKey.js");
+import GridField = require("./GridField.js");
+import GridEvent = require("../classdef/GridEvent.js");
+import StringList = require("@nginstack/engine/lib/string/StringList.js");
 declare const FORM_VIEW: 0;
 declare const TABLE_VIEW: 1;
 declare let NEVER: number;
@@ -492,7 +492,7 @@ interface FocusOptions {
     firstEditable?: boolean;
 }
 interface AggregatesSyncResponse {
-    aggregates: Array<import('./AggregateBar').AggregateState>;
+    aggregates: Array<import("./AggregateBar").AggregateState>;
     gridName: string;
 }
 interface ErrorPayload {
@@ -534,7 +534,7 @@ interface GridServerState {
 interface FieldSync {
     fieldName: string;
     state?: FieldServerState;
-    linkSet?: import('../anchor/LinkSet').FieldLinkSetData;
+    linkSet?: import("../anchor/LinkSet").FieldLinkSetData;
     value?: string;
     informed?: boolean;
     style?: {
@@ -647,7 +647,7 @@ interface GridClientStructure {
     name: string;
     parentName: string | null;
     state: GridClientState;
-    fields: Array<import('./GridField').FieldClientStructure>;
+    fields: Array<import("./GridField").FieldClientStructure>;
 }
 interface RefreshResponse {
     gridName: string;
@@ -658,14 +658,14 @@ interface GridGroupState {
     id: string;
     collapsed: boolean;
 }
-type TypedCommand = import('../process/Process').TypedCommand;
+type TypedCommand = import("../process/Process").TypedCommand;
 interface GridState {
     dataSetId: number | null;
     rowId: number | null;
     selectedRecords: string[];
 }
-type AdapterDescriptor = import('@nginstack/engine/lib/event/AdapterDescriptor');
-type Event = import('@nginstack/engine/lib/event/Event');
-type Button = import('../button/Button');
-type ViewDefField = import('../classdef/ViewDefField');
-type Process = import('../process/Process');
+type AdapterDescriptor = import("@nginstack/engine/lib/event/AdapterDescriptor");
+type Event = import("@nginstack/engine/lib/event/Event");
+type Button = import("../button/Button");
+type ViewDefField = import("../classdef/ViewDefField");
+type Process = import("../process/Process");

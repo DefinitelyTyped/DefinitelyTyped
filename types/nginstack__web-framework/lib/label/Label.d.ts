@@ -4,7 +4,7 @@ declare class Label {
     constructor(process: Process);
     layout: LayoutConfig;
     private changedProperties_;
-    process: import('../process/Process');
+    process: import("../process/Process");
     private logger_;
     private changed_;
     private written_;
@@ -31,5 +31,5 @@ declare class Label {
 declare namespace Label {
     export { Process };
 }
-import LayoutConfig = require('../process/LayoutConfig.js');
-type Process = import('../process/Process');
+import LayoutConfig = require("../process/LayoutConfig.js");
+type Process = import("../process/Process");

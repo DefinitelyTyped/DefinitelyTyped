@@ -7,4 +7,4 @@ declare class ProcessCreateEvent {
 declare namespace ProcessCreateEvent {
     export { Process };
 }
-type Process = import('./Process');
+type Process = import("./Process");

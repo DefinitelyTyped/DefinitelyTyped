@@ -8,4 +8,4 @@ declare class ProcessInteractionEvent {
 declare namespace ProcessInteractionEvent {
     export { Process };
 }
-type Process = import('./Process.js');
+type Process = import("./Process.js");
