@@ -5321,7 +5321,7 @@
         },
         "pino-multi-stream": {
             "libraryName": "pino-multi-stream",
-            "asOfVersion": "7.0.0"
+            "asOfVersion": "6.0.0"
         },
         "pino-pretty": {
             "libraryName": "pino-pretty",
