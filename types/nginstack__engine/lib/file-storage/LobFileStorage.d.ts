@@ -11,7 +11,13 @@ declare class LobFileStorage {
     findFileByName(fileName: string): FileInfo;
     getFilesSize(fileKeys: number[]): number;
     addFile(fileName: string, content: string | File | MemoryStream): number;
-    updateFile(fileKey: number, content: string | File | MemoryStream): void;
+    updateFile(
+        fileKey: number,
+        content: string | File | MemoryStream,
+        options?: {
+            fileName?: string;
+        }
+    ): void;
 }
 import FileInfo = require('./FileInfo.js');
 import File = require('../io/File.js');
