@@ -1,6 +1,6 @@
-import TestSuite = require('@nginstack/jsunit/lib/TestSuite');
+import TestSuite = require("@nginstack/jsunit/lib/TestSuite");
 
-const suite = new TestSuite('fileId'); // $ExpectType TestSuite
+const suite = new TestSuite("fileId"); // $ExpectType TestSuite
 
 suite.version; // $ExpectType number
 suite.filePath; // $ExpectType string
@@ -10,12 +10,12 @@ suite.fileEncoding; // $ExpectType string
 suite.id; // $ExpectType string
 suite.testCases; // $ExpectType TestCase[]
 
-suite.getTestCase('*'); // $ExpectType TestCase
+suite.getTestCase("*"); // $ExpectType TestCase
 suite.update(); // $ExpectType void
 suite.setUp(); // $ExpectType void
 suite.tearDown(); // $ExpectType void
 
 function getVersion(): string {
-    return '81.0.1';
+    return "81.0.1";
 }
 getVersion(); // $ExpectType string
