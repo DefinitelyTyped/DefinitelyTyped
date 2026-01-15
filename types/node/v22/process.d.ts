@@ -1787,6 +1787,8 @@ declare module "process" {
                  */
                 send?(
                     message: any,
+                    sendHandle?: SendHandle,
+                    options?: MessageOptions,
                     callback?: (error: Error | null) => void,
                 ): boolean;
                 send?(
@@ -1796,9 +1798,7 @@ declare module "process" {
                 ): boolean;
                 send?(
                     message: any,
-                    sendHandle: SendHandle,
-                    options: MessageOptions,
-                    callback?: (error: Error | null) => void,
+                    callback: (error: Error | null) => void,
                 ): boolean;
                 /**
                  * If the Node.js process is spawned with an IPC channel (see the `Child Process` and `Cluster` documentation), the `process.disconnect()` method will close the
