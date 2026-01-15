@@ -2,13 +2,13 @@ export = EntitySet;
 declare function EntitySet(
     baseClass: number,
     dataSet: DataSet,
-    opt_options?: EntitySetOptions | Record<any, any>,
+    opt_options?: EntitySetOptions | Record<any, any>
 ): void;
 declare class EntitySet {
     constructor(
         baseClass: number,
         dataSet: DataSet,
-        opt_options?: EntitySetOptions | Record<any, any>,
+        opt_options?: EntitySetOptions | Record<any, any>
     );
     private baseClass_;
     private userKey_;
@@ -43,17 +43,17 @@ declare class EntitySet {
     toJSONSchema(): any;
 }
 declare namespace EntitySet {
-    export { DataSet, EntitySetOptions, Field, fromClass, fromDataSet, ModelDef, persist };
+    export { fromClass, fromDataSet, persist, ModelDef, DataSet, Field, EntitySetOptions };
 }
-import Entity = require("./Entity.js");
+import Entity = require('./Entity.js');
 declare function fromClass(
     classKey: number,
     opt_options?:
         | {
-            userKey: number;
-            fields: string[] | ((arg0: Field) => boolean);
-        }
-        | Record<any, any>,
+              userKey: number;
+              fields: string[] | ((arg0: Field) => boolean);
+          }
+        | Record<any, any>
 ): EntitySet;
 declare function fromDataSet(
     baseClass: number,
@@ -61,12 +61,12 @@ declare function fromDataSet(
     opt_options?:
         | Record<any, any>
         | {
-            userKey: number;
-            fields: string[] | ((arg0: Field) => boolean);
-        },
+              userKey: number;
+              fields: string[] | ((arg0: Field) => boolean);
+          }
 ): EntitySet;
 declare function persist(entitySets: EntitySet | EntitySet[]): number;
-type ModelDef = import("@nginstack/engine/lib/classdef/ModelDef");
-type DataSet = import("@nginstack/engine/lib/dataset/DataSet");
-type Field = import("@nginstack/engine/lib/classdef/Field");
-type EntitySetOptions = import("./EntitySetOptions");
+type ModelDef = import('@nginstack/engine/lib/classdef/ModelDef');
+type DataSet = import('@nginstack/engine/lib/dataset/DataSet');
+type Field = import('@nginstack/engine/lib/classdef/Field');
+type EntitySetOptions = import('./EntitySetOptions');
