@@ -1302,7 +1302,9 @@ declare namespace OracleDB {
          *
          * @since 6.9
          */
-        beginSessionlessTransaction(opts: SessionlessTransactionOpts): Promise<SessionlessTransactionOpts["transactionId"]>;
+        beginSessionlessTransaction(
+            opts: SessionlessTransactionOpts,
+        ): Promise<SessionlessTransactionOpts["transactionId"]>;
         beginSessionlessTransaction(opts: SessionlessTransactionOpts, callback: (error: DBError) => void): void;
         /**
          * Stops the currently running operation on the connection.
