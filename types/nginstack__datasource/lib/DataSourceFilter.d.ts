@@ -2,7 +2,7 @@ export = DataSourceFilter;
 declare function DataSourceFilter(name: string, type: string): void;
 declare class DataSourceFilter {
     constructor(name: string, type: string);
-    onAfterLoadDefaultValue: import('@nginstack/engine/lib/event/Event');
+    onAfterLoadDefaultValue: import("@nginstack/engine/lib/event/Event");
     private propertiesToAssign_;
     group: string;
     size: number;
@@ -28,24 +28,17 @@ declare class DataSourceFilter {
     classKey: number;
     lookupType: number;
     displayFormat:
-        | import('@nginstack/engine/lib/date/DateFormat.js').DateFormatType
-        | import('@nginstack/engine/lib/geo/LatitudeFormat.js').LatitudeFormatType
-        | import('@nginstack/engine/lib/geo/LongitudeFormat.js').LongitudeFormatType
-        | import('@nginstack/engine/lib/geo/AngleFormat.js').AngleFormatType
-        | import('@nginstack/engine/lib/number/NumberFormat.js').NumberFormatType;
+        | import("@nginstack/engine/lib/date/DateFormat.js").DateFormatType
+        | import("@nginstack/engine/lib/geo/LatitudeFormat.js").LatitudeFormatType
+        | import("@nginstack/engine/lib/geo/LongitudeFormat.js").LongitudeFormatType
+        | import("@nginstack/engine/lib/geo/AngleFormat.js").AngleFormatType
+        | import("@nginstack/engine/lib/number/NumberFormat.js").NumberFormatType;
     stringIfTrue: string;
 }
 declare namespace DataSourceFilter {
-    export {
-        DATE_KEYWORDS,
-        removeRangeSuffix,
-        shouldCreateAuxiliaryRangeFilters,
-        Event,
-        Field,
-        LimitType,
-    };
+    export { DATE_KEYWORDS, Event, Field, LimitType, removeRangeSuffix, shouldCreateAuxiliaryRangeFilters };
 }
-import FilterOperator = require('./FilterOperator.js');
+import FilterOperator = require("./FilterOperator.js");
 declare namespace DATE_KEYWORDS {
     let IM: boolean;
     let FM: boolean;
@@ -62,6 +55,6 @@ declare namespace DATE_KEYWORDS {
 }
 declare function removeRangeSuffix(name: string): string;
 declare function shouldCreateAuxiliaryRangeFilters(filter: DataSourceFilter | Field): boolean;
-type Event = import('@nginstack/engine/lib/event/Event');
-type Field = import('@nginstack/engine/lib/classdef/Field');
+type Event = import("@nginstack/engine/lib/event/Event");
+type Field = import("@nginstack/engine/lib/classdef/Field");
 type LimitType = 1 | 2;
