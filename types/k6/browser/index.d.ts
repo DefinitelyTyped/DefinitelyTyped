@@ -5009,6 +5009,37 @@ export interface Page {
     }): Promise<Response | null>;
 
     /**
+     * Goes back to the previous page in the history.
+     *
+     * @example
+     * ```js
+     * await page.goto('https://example.com');
+     * await page.goto('https://example.com/page2');
+     * await page.goBack(); // Will navigate back to the first page
+     * ```
+     *
+     * @param options Navigation options.
+     * @returns A promise that resolves to the response of the requested navigation when it happens.
+     * Returns null if there is no previous entry in the history.
+     */
+    goBack(options?: NavigationOptions): Promise<Response | null>;
+
+    /**
+     * Goes forward to the next page in the history.
+     *
+     * @example
+     * ```js
+     * await page.goBack(); // Navigate back first
+     * await page.goForward(); // Then navigate forward
+     * ```
+     *
+     * @param options Navigation options.
+     * @returns A promise that resolves to the response of the requested navigation when it happens.
+     * Returns null if there is no next entry in the history.
+     */
+    goForward(options?: NavigationOptions): Promise<Response | null>;
+
+    /**
      * Adds a route to the page to modify network requests made by that page.
      *
      * Once routing is enabled, every request matching the url pattern will stall unless it's continued, fulfilled or aborted.

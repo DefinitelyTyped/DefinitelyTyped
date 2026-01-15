@@ -814,6 +814,24 @@ async function test() {
     // $ExpectType Promise<Response | null>
     page.reload({ waitUntil: "domcontentloaded" });
 
+    // $ExpectType Promise<Response | null>
+    page.goBack();
+    // $ExpectType Promise<Response | null>
+    page.goBack({ timeout: 10000 });
+    // $ExpectType Promise<Response | null>
+    page.goBack({ waitUntil: "domcontentloaded" });
+    // $ExpectType Promise<Response | null>
+    page.goBack({ timeout: 10000, waitUntil: "load" });
+
+    // $ExpectType Promise<Response | null>
+    page.goForward();
+    // $ExpectType Promise<Response | null>
+    page.goForward({ timeout: 10000 });
+    // $ExpectType Promise<Response | null>
+    page.goForward({ waitUntil: "domcontentloaded" });
+    // $ExpectType Promise<Response | null>
+    page.goForward({ timeout: 10000, waitUntil: "load" });
+
     // $ExpectType Promise<ArrayBuffer>
     page.screenshot();
     // $ExpectType Promise<ArrayBuffer>
