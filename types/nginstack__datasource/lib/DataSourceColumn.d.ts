@@ -40,20 +40,20 @@ declare class DataSourceColumn {
 }
 declare namespace DataSourceColumn {
     export {
-        AGGREGATE_AVG,
-        AGGREGATE_COUNT,
-        AGGREGATE_MAX,
-        AGGREGATE_MIN,
         AGGREGATE_NONE,
         AGGREGATE_SUM,
-        colNameFromField,
-        DIMENSION_SEP,
-        Field,
-        fromField,
-        getRootFromLeafNode,
+        AGGREGATE_COUNT,
+        AGGREGATE_AVG,
+        AGGREGATE_MAX,
+        AGGREGATE_MIN,
+        SORT_NONE,
         SORT_ASC,
         SORT_DESC,
-        SORT_NONE,
+        DIMENSION_SEP,
+        colNameFromField,
+        fromField,
+        getRootFromLeafNode,
+        Field,
     };
 }
 declare let AGGREGATE_NONE: string;
@@ -69,4 +69,4 @@ declare let DIMENSION_SEP: string;
 declare function colNameFromField(fld: Field, prefix: string): string;
 declare function fromField(fld: Field, prefix: string): DataSourceColumn;
 declare function getRootFromLeafNode(leafNode: number, suggestedRoot: number): number;
-type Field = import("@nginstack/engine/lib/classdef/Field");
+type Field = import('@nginstack/engine/lib/classdef/Field');
