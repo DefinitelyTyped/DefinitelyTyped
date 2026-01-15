@@ -61,13 +61,20 @@ declare class ReportVisualization {
     queryData(filterValues: Record<string, any>): void;
 }
 declare namespace ReportVisualization {
-    export { DataExporter, DataSet, FilterDef, Process, registerExportFormat, SimpleLayoutExporter };
+    export {
+        registerExportFormat,
+        Process,
+        SimpleLayoutExporter,
+        DataSet,
+        DataExporter,
+        FilterDef,
+    };
 }
-import ReportVisualizationColumns = require("./ReportVisualizationColumns.js");
-import ReportVisualizationColumn = require("./ReportVisualizationColumn.js");
+import ReportVisualizationColumns = require('./ReportVisualizationColumns.js');
+import ReportVisualizationColumn = require('./ReportVisualizationColumn.js');
 declare function registerExportFormat(name: string, processKey: number): void;
 declare let Process: any;
-type SimpleLayoutExporter = import("../simple-layout/SimpleLayoutExporter");
-type DataSet = import("@nginstack/engine/lib/dataset/DataSet");
-type DataExporter = import("../export/DataExporter");
-type FilterDef = import("../simple-layout/SimpleLayout").FilterDef;
+type SimpleLayoutExporter = import('../simple-layout/SimpleLayoutExporter');
+type DataSet = import('@nginstack/engine/lib/dataset/DataSet');
+type DataExporter = import('../export/DataExporter');
+type FilterDef = import('../simple-layout/SimpleLayout').FilterDef;

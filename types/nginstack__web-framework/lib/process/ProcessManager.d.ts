@@ -7,11 +7,11 @@ declare class ProcessManager {
     iClass: DataSet;
     publishedFileIds: {};
     processesById_: Record<string, Process>;
-    onBeforeRun: import("@nginstack/engine/lib/event/Event");
-    onAfterRun: import("@nginstack/engine/lib/event/Event");
-    ctrlChannel: ControlChannel;
+    onBeforeRun: Adapter;
+    onAfterRun: Adapter;
+    private ctrlChannel_;
     private environment_;
-    private openedTabs_;
+    private openViews_;
     ctrlSessionId: any;
     private lastUse_;
     private currentProcess_;
@@ -21,13 +21,13 @@ declare class ProcessManager {
     private lockedScreenTimeout_;
     private debugSessionTimeouts_;
     private logOutDueToInactivity_;
-    private interface_count;
     private logger_;
+    private textEncoder_;
     private loadSessionSettings_;
     private processEventQueue_;
-    private handleStartup;
+    private handleStartup_;
     private handleUpdatePassword_;
-    private handleHit;
+    private handlePing_;
     private isScreenLocked;
     private setEvaluateCode;
     private isEAbort;
@@ -35,7 +35,7 @@ declare class ProcessManager {
     private getDefaultProcessKeyOfClass;
     private handleIncomingMessages_;
     private handleRequest;
-    private handleIfp;
+    private handleSync_;
     private getParameterFromRequestObject;
     private createProcess;
     getProcessById(id: string): Process;
@@ -44,45 +44,134 @@ declare class ProcessManager {
     private runProcess;
     private updateTabInfo_;
     private getTabIcon;
-    private handleRunActivityCall;
+    private handleRunActivity_;
     private processWillGo;
-    private runActivity;
+    private runActivity_;
     closeProcess(id: number): void;
     private emitBeforeExitEvent_;
-    private handleCloseTabCall;
-    private finalize;
-    private handleExecuteLink;
-    private handleExecuteButton;
-    private handleHistoryNavigation;
-    private handleRefreshTabCall;
-    private handleRunInteractionRequest;
-    private handleGetFileRequest;
+    private handleCloseView_;
+    private handleRefreshView_;
+    private handleRunInteraction_;
+    private handleGetFile_;
     private getFileContent;
     private getFileId;
     private purgeExpiredExportedFiles_;
     private getClientAddress_;
     notifyUsage(lastUse?: number): void;
     verifySessionTimeouts(): SessionTimeoutsInfo;
-    private callHandlers;
-    private requestHandlers;
     getCurrentProcess(): Process;
 }
 declare namespace ProcessManager {
-    export { Controller, DataSet, Event, getInstance, parseLayoutLinkContent, SessionTimeoutsInfo, TabInfo };
+    export {
+        getInstance,
+        restrictAllowedProcesses,
+        parseLayoutLinkContent,
+        Event,
+        DataSet,
+        Controller,
+        TabInfo,
+        SyncCommandWithError,
+        SyncCommand,
+        SyncRequest,
+        SyncResponse,
+        RunActivityRequest,
+        RunActivityResponse,
+        RefreshViewRequest,
+        RefreshViewResponse,
+        CloseViewRequest,
+        CloseViewResponse,
+        DiscardProcessResponse,
+        UpdatePasswordRequest,
+        StartupResponse,
+        PingRequest,
+        SessionTimeoutsInfo,
+    };
 }
-import Process = require("./Process.js");
-import ControlChannel = require("../ifp/ControlChannel.js");
+import Process = require('./Process.js');
+import Adapter = require('@nginstack/engine/lib/event/Adapter.js');
 declare function getInstance(): ProcessManager;
+declare const restrictAllowedProcesses: any;
 declare function parseLayoutLinkContent(content: any): DBKey;
-type Event = import("@nginstack/engine/lib/event/Event");
-type DataSet = import("@nginstack/engine/lib/dataset/DataSet");
-type Controller = import("../messaging/Controller");
+type Event = import('@nginstack/engine/lib/event/Event');
+type DataSet = import('@nginstack/engine/lib/dataset/DataSet');
+type Controller = import('../messaging/Controller');
 interface TabInfo {
     processIds: string[];
     currentProcessId: string;
+}
+interface SyncCommandWithError {
+    sync: SyncCommand[];
+    error: Error | null;
+}
+interface SyncCommand {
+    target: string;
+    id?: string | number;
+    data?: any;
+}
+interface SyncRequest {
+    sequence: number;
+    messages: Array<{
+        targetId: string;
+        message: any;
+    }>;
+    timestamp: number;
+    lastUse: number;
+    data: SyncCommand[];
+}
+interface SyncResponse {
+    action: string;
+    data: any;
+}
+interface RunActivityRequest {
+    activityName: string;
+    parameters?: any[];
+    processKey?: number;
+    processId?: string;
+    icon?: string;
+    canDoHistory?: boolean;
+    lastShownProcessId?: string;
+    validateLastActivity?: boolean;
+}
+interface RunActivityResponse {
+    id: string;
+    menuPath: string;
+    icon?: string;
+    processKey?: number;
+    priorId?: string;
+}
+interface RefreshViewRequest {
+    viewId: string;
+}
+interface RefreshViewResponse {
+    currentId: string;
+    id: string;
+}
+interface CloseViewRequest {
+    viewId: string;
+}
+interface CloseViewResponse {
+    processId: number;
+}
+interface DiscardProcessResponse {
+    processId: string;
+}
+interface UpdatePasswordRequest {
+    password: string;
+}
+interface StartupResponse {
+    exiting: boolean;
+    alert?: string;
+    homeProcess?: {
+        key: string;
+        interactionName: string;
+        serializedParameters: any[];
+    };
+}
+interface PingRequest {
+    processId?: string;
 }
 interface SessionTimeoutsInfo {
     inactivity: number;
     lockedScreen: number;
 }
-import DBKey = require("@nginstack/engine/lib/dbkey/DBKey.js");
+import DBKey = require('@nginstack/engine/lib/dbkey/DBKey.js');

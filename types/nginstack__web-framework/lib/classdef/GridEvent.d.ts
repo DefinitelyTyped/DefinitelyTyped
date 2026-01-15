@@ -8,8 +8,8 @@ declare class GridEvent {
     masterData: DataSet;
 }
 declare namespace GridEvent {
-    export { DataSet, Grid, Process };
+    export { Grid, Process, DataSet };
 }
-type Grid = import("../grid/Grid");
-type Process = import("../process/Process");
-type DataSet = import("@nginstack/engine/lib/dataset/DataSet");
+type Grid = import('../grid/Grid');
+type Process = import('../process/Process');
+type DataSet = import('@nginstack/engine/lib/dataset/DataSet');

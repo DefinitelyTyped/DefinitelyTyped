@@ -8,15 +8,18 @@ declare class GridField {
     private clientValue;
     private clientCanModify;
     private clientRequired;
+    private clientWidth_;
+    private clientTableViewWidth_;
     private fieldIndexCache;
     private _readOnlyChangedByGrid;
+    calcError: string;
+    private indexData_;
     private dispatchEvent;
-    private handleDispatchFocusEvent;
-    private handleOpenKey;
-    private handleActions;
-    private handleFieldActionsFunctions;
+    private handleFocus_;
+    private handleOpenKey_;
     canModify: boolean;
-    private write;
+    prepare_(): void;
+    private getStructure_;
     alignment: any;
     private written_;
     lookup(): void;
@@ -25,6 +28,7 @@ declare class GridField {
     private defaultLookupMultipleInsertListener_;
     private checkIfCanModify_;
     private calc;
+    changed: any;
     private requiresFilling;
     private appendInTreeStructure;
     private prepareTreeView;
@@ -34,7 +38,7 @@ declare class GridField {
     dsTreeStructure: DataSet;
     private _checkInformedFields;
     private validateClassFieldChange_;
-    validateInput: (value: string | number | boolean | Date) => any;
+    validateInput: any;
     protected _checkSaveInputAsDefault(context: {
         processKey: number;
         interactionName: string;
@@ -51,7 +55,6 @@ declare class GridField {
     private validateLookupLicenseDependencies_;
     setValue(value: any, ...args: any[]): void;
     inSetValue: boolean;
-    changed: any;
     resyncPending: boolean;
     setValueOnly(value: any): void;
     getValue(): any;
@@ -67,14 +70,88 @@ declare class GridField {
     private refreshClientValue;
     private removeClassEvents;
     private getComboOptionDisplay;
-    private _configWidth;
-    height: any;
-    private _width;
-    private _tableViewWidth;
+    private configWidth_;
+    width: any;
+    tableViewWidth: any;
+    private width_;
 }
 declare namespace GridField {
-    export { DetailGrid, LookupMultipleInsertEvent };
+    export {
+        LookupMultipleInsertEvent,
+        DetailGrid,
+        FieldInitialState,
+        FieldClientStructure,
+        FieldIndexData,
+    };
 }
-import DataSet = require("@nginstack/engine/lib/dataset/DataSet.js");
-type LookupMultipleInsertEvent = import("../classdef/LookupMultipleInsertEvent");
-type DetailGrid = import("./DetailGrid");
+import DataSet = require('@nginstack/engine/lib/dataset/DataSet.js');
+type LookupMultipleInsertEvent = import('../classdef/LookupMultipleInsertEvent');
+type DetailGrid = import('./DetailGrid');
+interface FieldInitialState {
+    column: number;
+    group: any;
+    breakLine: boolean;
+    label: string;
+    labelPosition: string;
+    wrap: boolean;
+    enterKeyAction: string;
+    calculated: boolean;
+    alignment: string;
+    tableViewable: boolean;
+    formViewable: boolean;
+    withLink: boolean;
+    required: boolean;
+    controlType: string;
+    readOnly: boolean;
+    autoTrim: boolean;
+    hasFocusEvents: boolean;
+    validationType: string;
+    indexDirection?: {
+        NONE: number;
+        UP: number;
+        DOWN: number;
+        LEFT: number;
+        RIGHT: number;
+    };
+    positionAtIndex?: number;
+    aggregate?: {
+        description?: string;
+        decimalPrecision?: number;
+        type?: string;
+        readOnly?: boolean;
+        alignment?: string;
+    };
+    tableViewLabel?: string;
+    displayFormat?: string;
+    rangeLimit?: any;
+    thumbnail: {
+        visible: boolean;
+        zoomMaxHeight?: number;
+        zoomMaxWidth?: number;
+        zoomOnHover?: boolean;
+    };
+    hasLookup?: boolean;
+    max?: number;
+    min?: number;
+    lookupDisplay?: string;
+    caseType?: string;
+    width: number | string;
+    tableViewWidth: number | string;
+    height?: string;
+    rows?: number;
+    negativeInRed?: boolean;
+    decimalPrecision?: number;
+    minDecimalPrecision?: number;
+    maxDecimalPrecision?: number;
+    lookupType?: string;
+}
+interface FieldClientStructure {
+    name: string;
+    type: string;
+    size: number;
+    state: FieldInitialState;
+}
+interface FieldIndexData {
+    order: number;
+    direction: number;
+}

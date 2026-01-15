@@ -31,8 +31,8 @@ declare class CompositeVisualization {
     private validateLayout_;
 }
 declare namespace CompositeVisualization {
-    export { DataExporter, VisualizationDef };
+    export { VisualizationDef, DataExporter };
 }
-import VisualizationFilters = require("./VisualizationFilters.js");
-type VisualizationDef = import("./VisualizationDef");
-type DataExporter = import("../export/DataExporter");
+import VisualizationFilters = require('./VisualizationFilters.js');
+type VisualizationDef = import('./VisualizationDef');
+type DataExporter = import('../export/DataExporter');

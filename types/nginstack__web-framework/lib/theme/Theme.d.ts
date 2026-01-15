@@ -3,13 +3,14 @@ declare function Theme(): void;
 declare class Theme {
     private vendorConfig_;
     getTheme(userKey: number): number;
+    getVendorTheme(): number;
     getDefaultTheme(): number;
     canChangeTheme(userKey: number): boolean;
     canChangeColorScheme(userKey: number): boolean;
     canChangeContrastLevel(userKey: number): boolean;
     getDensity(userKey?: number): number;
     getColorScheme(userKey?: number): number;
-    getContrastLevel(userKey: number): number;
+    getContrastLevel(userKey?: number): number;
     getThemeSchemes(themeKey: number | DBKey): ThemeSchemes;
     getThemeTones(themeKey: number | DBKey): ThemeTones;
     getThemePreviewData(themeKey: number | DBKey): {
@@ -21,15 +22,15 @@ declare class Theme {
         options: {
             contrastLevel?: number;
             colorScheme?: number;
-        },
+        }
     ): ColorTokens;
     private getSpecializedProperty_;
     private getThemeConfig_;
 }
 declare namespace Theme {
-    export { ColorTokens, ColorTones, ThemeConfig, ThemeSchemes, ThemeTones };
+    export { ColorTokens, ColorTones, ThemeSchemes, ThemeTones, ThemeConfig };
 }
-import DBKey = require("@nginstack/engine/lib/dbkey/DBKey.js");
+import DBKey = require('@nginstack/engine/lib/dbkey/DBKey.js');
 interface ColorTokens {
     primary: string;
     onPrimary: string;
@@ -73,9 +74,12 @@ interface ColorTokens {
     shadow: string;
     source: string;
     onSource: string;
+    sourceContainerLowest: string;
+    onSourceContainerLowest: string;
     sourceContainer: string;
-    sourceContainerVariant: string;
     onSourceContainer: string;
+    sourceContainerVariant: string;
+    onSourceContainerVariant: string;
 }
 interface ColorTones {
     onSource: number;

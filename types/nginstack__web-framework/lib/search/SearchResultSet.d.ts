@@ -11,7 +11,7 @@ declare class SearchResultSet {
 declare namespace SearchResultSet {
     export { SearchResultItem };
 }
-import DataSet = require("@nginstack/engine/lib/dataset/DataSet.js");
+import DataSet = require('@nginstack/engine/lib/dataset/DataSet.js');
 interface SearchResultItem {
     key: string;
     classKey: DBKey | number;
@@ -19,4 +19,4 @@ interface SearchResultItem {
     group: string;
     icon?: string;
 }
-import DBKey = require("@nginstack/engine/lib/dbkey/DBKey.js");
+import DBKey = require('@nginstack/engine/lib/dbkey/DBKey.js');

@@ -3,13 +3,14 @@ declare function Process(
     key: number,
     id: string,
     responseObject: any,
-    sourceClass: number | DBKey,
+    sourceClass: number | DBKey
 ): void;
 declare class Process {
     constructor(key: number, id: string, responseObject: any, sourceClass: number | DBKey);
     environment: Environment;
-    private _ctrlChannel;
+    private ctrlChannel_;
     cssFiles: any[];
+    warnIncompleteHelp: boolean;
     private grids;
     userKeyToValidatePermissions: number;
     private writtenGridsInCurrentInteraction_;
@@ -24,7 +25,7 @@ declare class Process {
     private labels;
     private requiredFiles_;
     private reservedWords;
-    private _pendingOperations;
+    private pendingCommands_;
     key: number;
     dbkey: DBKey;
     uri: string;
@@ -37,14 +38,13 @@ declare class Process {
     private logger_;
     private pairName_;
     private componentFactoryResolver_;
-    private scrollX_;
-    private scrollY_;
     bodyClassName: string;
     private defaultButton;
     private dsLookup;
     private grLookup;
     private uploadDialog_;
     private fileLoader_;
+    private textEncoder_;
     private clearHistoryFlag;
     simpleLayoutOutputHandler: any;
     currentInteraction: Interaction;
@@ -96,7 +96,7 @@ declare class Process {
         name: string,
         nextInteractionNameOrFunction?: string | ((arg0: any) => any),
         processKey?: number,
-        newTab?: boolean,
+        newTab?: boolean
     ): Link;
     dsvLink(name: string, dsvKey: number, opt_newTab?: boolean): any;
     button(
@@ -104,13 +104,13 @@ declare class Process {
         target: string | ((arg0: any) => any),
         order?: number,
         processKey?: number,
-        newTab?: boolean,
+        newTab?: boolean
     ): Button;
     hasButton(name: string): boolean;
     action(name: any, target: any, order: any, processKey: any, newTab: any): Button;
     clearButtons(): void;
     clearActions(): void;
-    label(name: string, opt_text?: string): import("../label/Label");
+    label(name: string, text?: string): import('../label/Label');
     interaction(
         name: string,
         func: (this: Process) => any,
@@ -131,29 +131,33 @@ declare class Process {
         opt_params?: any[],
         opt_processKey?: number,
         opt_processId?: number,
-        opt_newTab?: boolean,
+        opt_newTab?: boolean
     ): void;
     private clearNextInteractionInfo;
-    private handleGridSynchronize;
+    private handleGridStateSynchronize_;
     private sortButtons;
-    private syncButtons;
+    private syncButtons_;
     private resetUiObjectsProperties;
-    private getButtonsChanges;
-    private getLinksChanges;
+    private getButtonsChanges_;
+    private getLinksChanges_;
     canWriteScripts: boolean;
-    private getLabelChanges;
-    private handleGridAction;
-    private validateRequiredInputOfLastInteraction;
+    private getLabelChanges_;
+    private validateLastInteractionRequiredFields_;
     private postAllWrittenGridDataSetsInCurrentInteraction_;
-    private handleInitialSynchronize;
-    private ping;
-    private handleExecuteLink;
-    private handleExecuteButton;
-    private handleIfp;
+    private handleGridStructures_;
+    immediateRedirectEnabled: any;
+    private handlePing_;
+    private handleLinkClick_;
+    private handleButtonClick_;
+    private handleNavigate_;
+    private handleSync_;
+    private handleCommand_;
     private addGridToWriteOnCurrentInteraction;
     private _insensitiveCompare;
     private removeDetailGridsFromWriteOnCurrentInteraction;
     private checkWordAvailability;
+    private checkProcessHelp_;
+    helpChecked__: boolean;
     private setParameters;
     private resetNextState;
     private prepare;
@@ -161,32 +165,36 @@ declare class Process {
     private updateConnectionReferrer;
     private run;
     getSimpleLayout(...args: any[]): SimpleLayout;
-    private handleIfpFunctionsLength;
-    private handleIfpFunctions;
     private closeLookupGrid;
     private getSelectedKeysOfLookup;
     private setStatusMessage;
     private setCtrlMessage;
     private setEvaluateCode;
+    copyToClipboard(
+        text: string,
+        options?: {
+            successMessage?: string;
+        }
+    ): void;
     title: string;
     getFileId(filePathOrVfsKey: any, displayFileName: any): string;
     alert(message: string): void;
+    playAudio(id: string): void;
     showProgress(currentStep: number, maxStep: number, label: string): void;
     private hideProgress;
     prompt(label: string, answers: any[][], options: PromptOptions, ...args: any[]): any;
     authenticateUser(label: string): number | null;
     confirm(msg: string, opt_noAsDefault?: boolean): boolean;
-    upload(options?: import("../file-loader/UploadOptions")): Promise;
+    upload(options?: import('../file-loader/UploadOptions')): Promise;
     download(
         files: string | number | DBKey | Array<string | number | DBKey>,
-        options?: DownloadOptions | Record<any, any>,
+        options?: DownloadOptions | Record<any, any>
     ): void;
     status: string;
     clearHistory(): void;
     close(): void;
     closeTab(opt_targetTabId?: number): void;
-    private _checkGridsAndConfirmCancel;
-    handleHistoryNavigation(args: any): any[];
+    private checkGridsAndConfirmCancel_;
     private translateButtonList;
     private setButtonsProperty;
     private setVisibleButtonsByButtonsArray;
@@ -206,44 +214,105 @@ declare class Process {
     private defineAllGrids;
     private _prepareConnection;
     private _unprepareConnection;
-    immediateRedirectEnabled: boolean;
-    private redirectIfInteractionWasChanged;
+    private redirectIfInteractionWasChanged_;
     getVisibleGridNames(): string;
     beep(): void;
     loadModule(path: string): void;
-    private act_preserveScrollPosition_;
+    private processCommandMethods_;
 }
 declare namespace Process {
     export {
-        Button,
-        create,
-        getProcessTitle,
+        getProcessDisplayName as getProcessTitle,
         getSourceAndInclude,
+        create,
+        manager,
+        Button,
         Grid,
-        GridField,
-        Label,
         Link,
-        PromptOptions,
+        GridField,
         UploadedFile,
+        Label,
+        SyncCommand,
+        PromptOptions,
+        TypedCommand,
+        SyncProcessRequest,
+        ClickButtonRequest,
+        ClickLinkRequest,
+        NavigateRequest,
+        NavigateResponse,
+        GridClientState,
+        NamedSyncCommand,
+        GridButtonsSyncCommand,
     };
 }
-import DBKey = require("@nginstack/engine/lib/dbkey/DBKey.js");
-import Environment = require("../environment/Environment.js");
-import Interaction = require("./Interaction.js");
-import DataSet = require("@nginstack/engine/lib/dataset/DataSet.js");
-import SimpleLayout = require("../simple-layout/SimpleLayout.js");
-import Promise = require("../promise/Promise.js");
-import DownloadOptions = require("../file-loader/DownloadOptions.js");
-declare function getProcessTitle(key: number, processName: string): string;
+import DBKey = require('@nginstack/engine/lib/dbkey/DBKey.js');
+import Environment = require('../environment/Environment.js');
+import Interaction = require('./Interaction.js');
+import DataSet = require('@nginstack/engine/lib/dataset/DataSet.js');
+import SimpleLayout = require('../simple-layout/SimpleLayout.js');
+import Promise = require('../promise/Promise.js');
+import DownloadOptions = require('../file-loader/DownloadOptions.js');
+import getProcessDisplayName = require('./getProcessDisplayName.js');
 declare function getSourceAndInclude(key: number): any[];
 declare function create(keyOrUrl: any, sourceClassKey: any): Process;
-type Button = import("../button/Button");
-type Grid = import("../grid/Grid");
-type Link = import("../anchor/Link");
-type GridField = import("../grid/GridField");
-type UploadedFile = import("../file-loader/UploadedFile");
-type Label = import("../label/Label.js");
+declare let manager: import('./ProcessManager');
+type Button = import('../button/Button');
+type Grid = import('../grid/Grid');
+type Link = import('../anchor/Link');
+type GridField = import('../grid/GridField');
+type UploadedFile = import('../file-loader/UploadedFile');
+type Label = import('../label/Label.js');
+type SyncCommand = import('./ProcessManager.js').SyncCommand;
 interface PromptOptions {
     defaultIndex?: number;
     cancelReturnValue?: any;
+}
+interface TypedCommand {
+    type: string;
+    data?: any;
+}
+interface SyncProcessRequest {
+    gridStates?: GridClientState[];
+    command?: SyncCommand | TypedCommand;
+}
+interface ClickButtonRequest {
+    buttonName: string;
+    gridName?: string;
+    lastShownProcessId?: string;
+}
+interface ClickLinkRequest {
+    linkName: string;
+    rowId?: number;
+    parametersId?: string;
+    lastShownProcessId?: string;
+}
+interface NavigateRequest {
+    direction: string;
+}
+interface NavigateResponse {
+    direction: string;
+}
+interface GridClientState {
+    name: string;
+    selectedRecords?: string[];
+    collapsed?: boolean;
+    recordIndex?: number;
+    fieldName?: string;
+    position?: {
+        recordIndex: number;
+        recNo: number;
+    };
+    pendingValues?: Array<{
+        fieldName: string;
+        value: string;
+        recNo: number | null;
+    }>;
+}
+interface NamedSyncCommand {
+    name: string;
+    data: any;
+}
+interface GridButtonsSyncCommand {
+    grid: string;
+    buttons: NamedSyncCommand[];
 }
