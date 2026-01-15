@@ -2,7 +2,7 @@ export = AggregatedTestResult;
 declare function AggregatedTestResult(numTotalTests: number): void;
 declare class AggregatedTestResult {
     constructor(numTotalTests: number);
-    testResults: Array<import("@nginstack/jsunit/lib/TestResult")>;
+    testResults: Array<import('@nginstack/jsunit/lib/TestResult')>;
     numTotalTests: number;
     numPendingTests: number;
     startTime: number;
@@ -12,6 +12,7 @@ declare class AggregatedTestResult {
     numFailedTests: number;
     numErrorTests: number;
     numPassedTests: number;
+    maxErrorsReached: boolean;
     addResult(testResult: TestResult): void;
     formatTxtReport(): string;
     formatHtmlReport(): string;
@@ -20,4 +21,4 @@ declare class AggregatedTestResult {
 declare namespace AggregatedTestResult {
     export { TestResult };
 }
-type TestResult = import("@nginstack/jsunit/lib/TestResult");
+type TestResult = import('@nginstack/jsunit/lib/TestResult');

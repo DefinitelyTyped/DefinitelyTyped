@@ -4,7 +4,8 @@ declare function TestSuiteRunner(
     options: {
         trackerId?: string;
         env?: Record<string, string>;
-    },
+        runtime?: string;
+    }
 ): void;
 declare class TestSuiteRunner {
     constructor(
@@ -12,7 +13,8 @@ declare class TestSuiteRunner {
         options: {
             trackerId?: string;
             env?: Record<string, string>;
-        },
+            runtime?: string;
+        }
     );
     private suite_;
     private isUnitTest_;
@@ -26,5 +28,5 @@ declare class TestSuiteRunner {
 declare namespace TestSuiteRunner {
     export { TestSuite };
 }
-import TestResult = require("./TestResult.js");
-type TestSuite = import("./TestSuite");
+import TestResult = require('./TestResult.js');
+type TestSuite = import('./TestSuite');

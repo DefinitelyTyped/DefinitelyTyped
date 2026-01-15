@@ -12,4 +12,4 @@ declare class TestCaseEvent {
 declare namespace TestCaseEvent {
     export { AggregatedTestResult };
 }
-type AggregatedTestResult = import("./AggregatedTestResult");
+type AggregatedTestResult = import('./AggregatedTestResult');
