@@ -749,7 +749,7 @@ declare module "node:vm" {
      *         // "contextifiedObject" when creating the context.
      *         export default secret;
      *       `, { context: referencingModule.context });
-     *       moduleMap.set(specifier, linkedModule);
+     *       moduleMap.set(specifier, requestedModule);
      *       // Resolve the dependencies of the new module as well.
      *       resolveAndLinkDependencies(requestedModule);
      *     }
