@@ -18,7 +18,7 @@ declare namespace grapoi {
         graphs?: Term[];
     }
 
-    export { Grapoi, PathList, Path, Edge };
+    export { Edge, Grapoi, Path, PathList };
 }
 
 import Grapoi = require("./Grapoi");

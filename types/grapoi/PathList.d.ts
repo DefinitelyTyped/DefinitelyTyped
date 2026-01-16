@@ -1,4 +1,4 @@
-import { DatasetCore, DataFactory, Quad, Term } from "@rdfjs/types";
+import { DataFactory, DatasetCore, Quad, Term } from "@rdfjs/types";
 import Path = require("./Path");
 
 /**

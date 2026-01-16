@@ -1,5 +1,5 @@
-import { DatasetCore, Quad, Term } from "@rdfjs/types";
 import { Environment } from "@rdfjs/environment/Environment";
+import { DatasetCore, Quad, Term } from "@rdfjs/types";
 import Edge = require("./Edge");
 
 declare class Path {

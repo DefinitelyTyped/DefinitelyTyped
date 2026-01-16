@@ -1,25 +1,25 @@
 import grapoi = require("grapoi");
 import { DataFactory } from "@rdfjs/types";
 
-import dataFactory from '@rdfjs/data-model'
-import datasetFactory from '@rdfjs/dataset'
+import dataFactory from "@rdfjs/data-model";
+import datasetFactory from "@rdfjs/dataset";
 const rdf: DataFactory = dataFactory;
 
 // Test factory function with basic options
-const dataset = datasetFactory.dataset()
+const dataset = datasetFactory.dataset();
 const ptr1 = grapoi({ dataset });
 
 // Test with factory
 const ptr2 = grapoi({
     dataset,
     factory: dataFactory,
-    term: rdf.namedNode("https://example.org/subject")
+    term: rdf.namedNode("https://example.org/subject"),
 });
 
 // Test with string term
 const ptr3 = grapoi({
     dataset,
-    term: "https://example.org/subject"
+    term: "https://example.org/subject",
 });
 
 // Test with multiple terms
@@ -27,8 +27,8 @@ const ptr4 = grapoi({
     dataset,
     terms: [
         rdf.namedNode("https://example.org/subject1"),
-        rdf.namedNode("https://example.org/subject2")
-    ]
+        rdf.namedNode("https://example.org/subject2"),
+    ],
 });
 
 // Test traversal methods
