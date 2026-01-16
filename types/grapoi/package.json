@@ -1,0 +1,27 @@
+{
+    "private": true,
+    "name": "@types/grapoi",
+    "version": "1.1.9999",
+    "type": "module",
+    "projects": [
+        "https://github.com/rdf-ext/grapoi"
+    ],
+    "dependencies": {
+        "@rdfjs/types": "*",
+        "@types/rdfjs__environment": "*",
+        "@rdfjs/data-model": "*",
+        "@rdfjs/dataset": "*",
+        "@types/rdfjs__dataset": "*"
+    },
+    "devDependencies": {
+        "@types/grapoi": "workspace:.",
+        "@types/node": "*",
+        "@types/rdfjs__data-model": "*"
+    },
+    "owners": [
+        {
+            "name": "Daniel Beeke",
+            "githubUsername": "danielbeeke"
+        }
+    ]
+}
