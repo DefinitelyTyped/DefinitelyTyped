@@ -828,6 +828,9 @@ declare namespace Dockerode {
     }
 
     interface ContainerStats {
+        id?: string;
+        name?: string;
+        os_type?: string;
         read: string;
         preread: string;
         pids_stats?: PidsStats;
