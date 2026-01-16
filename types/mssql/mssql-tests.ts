@@ -36,6 +36,8 @@ var config: sql.config = {
 
 var connectionString = "Server=localhost,1433;Database=database;User Id=username;Password=password;Encrypt=true";
 
+var configOrConnectionString: sql.config | string;
+
 var minimalConfig: sql.config = { server: "ip" };
 
 var connectionStringTest: sql.ConnectionPool = new sql.ConnectionPool("connectionstring", (err) => {
@@ -162,6 +164,8 @@ var connection: sql.ConnectionPool = new sql.ConnectionPool(config, function(err
         });
     }
 });
+
+var connectionUnionTypeTest = new sql.ConnectionPool(configOrConnectionString);
 
 function test_connection_string_parser() {
     var parsedConfig: sql.config = sql.ConnectionPool.parseConnectionString(connectionString);
