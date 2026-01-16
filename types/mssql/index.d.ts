@@ -236,8 +236,7 @@ export declare class ConnectionPool extends events.EventEmitter {
     public static parseConnectionString(
         connectionString: string,
     ): config & { options: IOptions; pool: Partial<PoolOpts<Connection>> };
-    public constructor(config: config, callback?: (err?: any) => void);
-    public constructor(connectionString: string, callback?: (err?: any) => void);
+    public constructor(configOrConnectionString: config | string, callback?: (err?: any) => void);
     public query(command: string): Promise<IResult<any>>;
     public query(strings: TemplateStringsArray, ...interpolations: any[]): Promise<IResult<any>>;
     public query<Entity>(command: string): Promise<IResult<Entity>>;
