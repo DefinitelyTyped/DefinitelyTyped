@@ -4910,6 +4910,21 @@ export interface Page {
     on(event: "requestfailed", listener: (request: Request) => void): void;
 
     /**
+     * Registers a handler function to listen for network requests that
+     * successfully complete (receive a response). The handler will receive an
+     * instance of {@link Request}, which includes information about the request.
+     *
+     * **Usage**
+     *
+     * ```js
+     * page.on('requestfinished', request => {
+     *   console.log(`Request finished: ${request.method()} ${request.url()}`);
+     * });
+     * ```
+     */
+    on(event: "requestfinished", listener: (request: Request) => void): void;
+
+    /**
      * Returns the page that opened the current page. The first page that is
      * navigated to will have a null opener.
      */
