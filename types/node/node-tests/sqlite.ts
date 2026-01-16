@@ -89,6 +89,11 @@ import { TextEncoder } from "node:util";
 }
 
 {
+    const database = new DatabaseSync(":memory:", { defensive: false });
+    database.enableDefensive(true);
+}
+
+{
     let statement!: StatementSync;
     statement.expandedSQL; // $ExpectType string
     statement.sourceSQL; // $ExpectType string
