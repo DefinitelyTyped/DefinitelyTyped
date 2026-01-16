@@ -87,8 +87,8 @@ export interface UDPSocketOpenInfo extends SocketOpenInfo {
 
 export interface TCPServerSocketOpenInfo {
     readable: ReadableStream;
-    localAddress?: string;
-    localPort?: number;
+    localAddress: string;
+    localPort: number;
 }
 
 declare global {
