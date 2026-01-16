@@ -4892,6 +4892,24 @@ export interface Page {
     on(event: "response", listener: (response: Response) => void): void;
 
     /**
+     * Registers a handler function to listen for network requests that
+     * fail to reach the server (DNS errors, connection refused, timeouts, etc.).
+     * The handler will receive an instance of {@link Request}, which includes
+     * information about the failed request.
+     *
+     * **Usage**
+     *
+     * ```js
+     * page.on('requestfailed', request => {
+     *   const failure = request.failure();
+     *   console.log(`Request failed: ${request.url()}`);
+     *   console.log(`  Error: ${failure ? failure.errorText : 'unknown'}`);
+     * });
+     * ```
+     */
+    on(event: "requestfailed", listener: (request: Request) => void): void;
+
+    /**
      * Returns the page that opened the current page. The first page that is
      * navigated to will have a null opener.
      */
@@ -6003,6 +6021,25 @@ export interface Request {
      * @returns request URL
      */
     url(): string;
+
+    /**
+     * Returns the failure info for a failed request, or null if the request succeeded.
+     * This method returns information about network failures such as DNS errors,
+     * connection refused, timeouts, etc. It does not return information for HTTP
+     * 4xx/5xx responses, which are successful network requests.
+     * @returns The failure information or null if the request succeeded.
+     */
+    failure(): RequestFailure | null;
+}
+
+/**
+ * RequestFailure contains information about a failed request.
+ */
+export interface RequestFailure {
+    /**
+     * The error text describing why the request failed.
+     */
+    errorText: string;
 }
 
 /**
