@@ -9,14 +9,12 @@
     "dependencies": {
         "@rdfjs/types": "*",
         "@types/rdfjs__environment": "*",
-        "@rdfjs/data-model": "*",
-        "@rdfjs/dataset": "*",
-        "@types/rdfjs__dataset": "*"
+        "@types/rdfjs__dataset": "*",
+        "@types/rdfjs__data-model": "*"
     },
     "devDependencies": {
         "@types/grapoi": "workspace:.",
-        "@types/node": "*",
-        "@types/rdfjs__data-model": "*"
+        "@types/node": "*"
     },
     "owners": [
         {
