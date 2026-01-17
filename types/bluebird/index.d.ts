@@ -793,21 +793,126 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
         options?: Bluebird.PromisifyOptions,
     ): () => Bluebird<T>;
     static promisify<T, A1>(
+        func: {
+            (arg1: A1, callback: (err: any, result?: T) => void): void;
+            (callback: (err: any, result?: T) => void): void;
+        },
+        options?: Bluebird.PromisifyOptions,
+    ): (arg1?: A1) => Bluebird<T>;
+    static promisify<T, A1>(
         func: (arg1: A1, callback: (err: any, result?: T) => void) => void,
         options?: Bluebird.PromisifyOptions,
     ): (arg1: A1) => Bluebird<T>;
+    static promisify<T, A1, A2>(
+        func: {
+            (arg1: A1, arg2: A2, callback: (err: any, result?: T) => void): void;
+            (callback: (err: any, result?: T) => void): void;
+        },
+        options?: Bluebird.PromisifyOptions,
+    ): (arg1?: A1, arg2?: A2) => Bluebird<T>;
+    static promisify<T, A1, A2>(
+        func: {
+            (arg1: A1, arg2: A2, callback: (err: any, result?: T) => void): void;
+            (arg1: A1, callback: (err: any, result?: T) => void): void;
+        },
+        options?: Bluebird.PromisifyOptions,
+    ): (arg1: A1, arg2?: A2) => Bluebird<T>;
     static promisify<T, A1, A2>(
         func: (arg1: A1, arg2: A2, callback: (err: any, result?: T) => void) => void,
         options?: Bluebird.PromisifyOptions,
     ): (arg1: A1, arg2: A2) => Bluebird<T>;
     static promisify<T, A1, A2, A3>(
+        func: {
+            (arg1: A1, arg2: A2, arg3: A3, callback: (err: any, result?: T) => void): void;
+            (callback: (err: any, result?: T) => void): void;
+        },
+        options?: Bluebird.PromisifyOptions,
+    ): (arg1?: A1, arg2?: A2, arg3?: A3) => Bluebird<T>;
+    static promisify<T, A1, A2, A3>(
+        func: {
+            (arg1: A1, arg2: A2, arg3: A3, callback: (err: any, result?: T) => void): void;
+            (arg1: A1, callback: (err: any, result?: T) => void): void;
+        },
+        options?: Bluebird.PromisifyOptions,
+    ): (arg1: A1, arg2?: A2, arg3?: A3) => Bluebird<T>;
+    static promisify<T, A1, A2, A3>(
+        func: {
+            (arg1: A1, arg2: A2, arg3: A3, callback: (err: any, result?: T) => void): void;
+            (arg1: A1, arg2: A2, callback: (err: any, result?: T) => void): void;
+        },
+        options?: Bluebird.PromisifyOptions,
+    ): (arg1: A1, arg2: A2, arg3?: A3) => Bluebird<T>;
+    static promisify<T, A1, A2, A3>(
         func: (arg1: A1, arg2: A2, arg3: A3, callback: (err: any, result?: T) => void) => void,
         options?: Bluebird.PromisifyOptions,
     ): (arg1: A1, arg2: A2, arg3: A3) => Bluebird<T>;
     static promisify<T, A1, A2, A3, A4>(
+        func: {
+            (arg1: A1, arg2: A2, arg3: A3, arg4: A4, callback: (err: any, result?: T) => void): void;
+            (callback: (err: any, result?: T) => void): void;
+        },
+        options?: Bluebird.PromisifyOptions,
+    ): (arg1?: A1, arg2?: A2, arg3?: A3, arg4?: A4) => Bluebird<T>;
+    static promisify<T, A1, A2, A3, A4>(
+        func: {
+            (arg1: A1, arg2: A2, arg3: A3, arg4: A4, callback: (err: any, result?: T) => void): void;
+            (arg1: A1, callback: (err: any, result?: T) => void): void;
+        },
+        options?: Bluebird.PromisifyOptions,
+    ): (arg1: A1, arg2?: A2, arg3?: A3, arg4?: A4) => Bluebird<T>;
+    static promisify<T, A1, A2, A3, A4>(
+        func: {
+            (arg1: A1, arg2: A2, arg3: A3, arg4: A4, callback: (err: any, result?: T) => void): void;
+            (arg1: A1, arg2: A2, callback: (err: any, result?: T) => void): void;
+        },
+        options?: Bluebird.PromisifyOptions,
+    ): (arg1: A1, arg2: A2, arg3?: A3, arg4?: A4) => Bluebird<T>;
+    static promisify<T, A1, A2, A3, A4>(
+        func: {
+            (arg1: A1, arg2: A2, arg3: A3, arg4: A4, callback: (err: any, result?: T) => void): void;
+            (arg1: A1, arg2: A2, arg3: A3, callback: (err: any, result?: T) => void): void;
+        },
+        options?: Bluebird.PromisifyOptions,
+    ): (arg1: A1, arg2: A2, arg3: A3, arg4?: A4) => Bluebird<T>;
+    static promisify<T, A1, A2, A3, A4>(
         func: (arg1: A1, arg2: A2, arg3: A3, arg4: A4, callback: (err: any, result?: T) => void) => void,
         options?: Bluebird.PromisifyOptions,
     ): (arg1: A1, arg2: A2, arg3: A3, arg4: A4) => Bluebird<T>;
+    static promisify<T, A1, A2, A3, A4, A5>(
+        func: {
+            (arg1: A1, arg2: A2, arg3: A3, arg4: A4, arg5: A5, callback: (err: any, result?: T) => void): void;
+            (callback: (err: any, result?: T) => void): void;
+        },
+        options?: Bluebird.PromisifyOptions,
+    ): (arg1?: A1, arg2?: A2, arg3?: A3, arg4?: A4, arg5?: A5) => Bluebird<T>;
+    static promisify<T, A1, A2, A3, A4, A5>(
+        func: {
+            (arg1: A1, arg2: A2, arg3: A3, arg4: A4, arg5: A5, callback: (err: any, result?: T) => void): void;
+            (arg1: A1, callback: (err: any, result?: T) => void): void;
+        },
+        options?: Bluebird.PromisifyOptions,
+    ): (arg1: A1, arg2?: A2, arg3?: A3, arg4?: A4, arg5?: A5) => Bluebird<T>;
+    static promisify<T, A1, A2, A3, A4, A5>(
+        func: {
+            (arg1: A1, arg2: A2, arg3: A3, arg4: A4, arg5: A5, callback: (err: any, result?: T) => void): void;
+            (arg1: A1, arg2: A2, callback: (err: any, result?: T) => void): void;
+        },
+        options?: Bluebird.PromisifyOptions,
+    ): (arg1: A1, arg2: A2, arg3?: A3, arg4?: A4, arg5?: A5) => Bluebird<T>;
+    static promisify<T, A1, A2, A3, A4, A5>(
+        func: {
+            (arg1: A1, arg2: A2, arg3: A3, arg4: A4, arg5: A5, callback: (err: any, result?: T) => void): void;
+            (arg1: A1, arg2: A2, arg3: A3, callback: (err: any, result?: T) => void): void;
+        },
+        options?: Bluebird.PromisifyOptions,
+    ): (arg1: A1, arg2: A2, arg3: A3, arg4?: A4, arg5?: A5) => Bluebird<T>;
+    static promisify<T, A1, A2, A3, A4, A5>(
+        func: {
+            (arg1: A1, arg2: A2, arg3: A3, arg4: A4, arg5: A5, callback: (err: any, result?: T) => void): void;
+            (arg1: A1, arg2: A2, arg3: A3, arg4: A4, callback: (err: any, result?: T) => void): void;
+        },
+        options?: Bluebird.PromisifyOptions,
+    ): (arg1: A1, arg2: A2, arg3: A3, arg4: A4, arg5?: A5) => Bluebird<T>;
     static promisify<T, A1, A2, A3, A4, A5>(
         func: (arg1: A1, arg2: A2, arg3: A3, arg4: A4, arg5: A5, callback: (err: any, result?: T) => void) => void,
         options?: Bluebird.PromisifyOptions,
