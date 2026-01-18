@@ -13968,7 +13968,7 @@ declare namespace chrome {
             /**
              * The rule will not match network requests when the associated top-level frame's domain
              * matches one from the list of excludedTopDomains. If the list is empty or omitted,
-             * no domains are excluded. This takes precedence over topDomains.
+             * The rule will not match network requests when the associated top-level frame's domain matches one from the list of `excludedTopDomains`. If the list is empty or omitted, no domains are excluded. This takes precedence over `topDomains`.
              *
              * Notes:
              * - Sub-domains like "a.example.com" are also allowed.
