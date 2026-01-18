@@ -13952,6 +13952,38 @@ declare namespace chrome {
              */
             excludedTabIds?: number[] | undefined;
 
+            /**
+             * The rule will only match network requests when the associated top-level frame's domain
+             * matches one from the list of topDomains. If the list is omitted, the rule is applied
+             * to requests associated with all top-level frame domains. An empty list is not allowed.
+             *
+             * Notes:
+             * - Sub-domains like "a.example.com" are also allowed.
+             * - The entries must consist of only ascii characters.
+             * - Use punycode encoding for internationalized domains.
+             * - Sub-domains of the listed domains are also matched.
+             * - For requests with no associated top-level frame (e.g. ServiceWorker initiated
+             *   requests, the request initiator's domain is considered instead.
+             * @since Chrome 141
+             */
+            topDomains?: string[] | undefined;
+
+            /**
+             * The rule will not match network requests when the associated top-level frame's domain
+             * matches one from the list of excludedTopDomains. If the list is empty or omitted,
+             * no domains are excluded. This takes precedence over topDomains.
+             *
+             * Notes:
+             * - Sub-domains like "a.example.com" are also allowed.
+             * - The entries must consist of only ascii characters.
+             * - Use punycode encoding for internationalized domains.
+             * - Sub-domains of the listed domains are also excluded.
+             * - For requests with no associated top-level frame (e.g. ServiceWorker initiated
+             *   requests, the request initiator's domain is considered instead.
+             * @since Chrome 141
+             */
+            excludedTopDomains?: string[] | undefined;
+
             /** Whether the `urlFilter` or `regexFilter` (whichever is specified) is case sensitive. Default is false. */
             isUrlFilterCaseSensitive?: boolean | undefined;
 
