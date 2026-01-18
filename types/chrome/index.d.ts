@@ -13960,8 +13960,7 @@ declare namespace chrome {
              * - The entries must consist of only ascii characters.
              * - Use punycode encoding for internationalized domains.
              * - Sub-domains of the listed domains are also matched.
-             * - For requests with no associated top-level frame (e.g. ServiceWorker initiated
-             *   requests, the request initiator's domain is considered instead.
+             * - For requests with no associated top-level frame (e.g. ServiceWorker initiated requests, the request initiator's domain is considered instead.
              * @since Chrome 141
              */
             topDomains?: string[] | undefined;
