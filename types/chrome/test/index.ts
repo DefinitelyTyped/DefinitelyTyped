@@ -4149,6 +4149,8 @@ async function testDeclarativeNetRequest() {
             domainType: "firstParty",
             excludedResourceTypes: [chrome.declarativeNetRequest.ResourceType.IMAGE, "object"],
             excludedRequestMethods: [chrome.declarativeNetRequest.RequestMethod.POST, "get"],
+            topDomains: ["example.com", "example.net"],
+            excludedTopDomains: ["example.com", "example.org"],
         },
     };
 
