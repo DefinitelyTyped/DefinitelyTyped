@@ -13953,9 +13953,7 @@ declare namespace chrome {
             excludedTabIds?: number[] | undefined;
 
             /**
-             * The rule will only match network requests when the associated top-level frame's domain
-             * matches one from the list of topDomains. If the list is omitted, the rule is applied
-             * to requests associated with all top-level frame domains. An empty list is not allowed.
+             * The rule will only match network requests when the associated top-level frame's domain matches one from the list of `topDomains`. If the list is omitted, the rule is applied to requests associated with all top-level frame domains. An empty list is not allowed.
              *
              * Notes:
              * - Sub-domains like "a.example.com" are also allowed.
