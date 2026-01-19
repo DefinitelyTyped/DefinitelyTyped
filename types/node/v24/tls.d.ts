@@ -186,6 +186,18 @@ declare module "tls" {
          */
         passphrase?: string | undefined;
     }
+    interface TLSSocketOptions extends SecureContextOptions, ServerConnectionOptions, ClientConnectionOptions {
+        /**
+         * The SSL/TLS protocol is asymmetrical, TLSSockets must know if they are to behave as a server or a client.
+         * If true the TLS socket will be instantiated as a server.
+         * @default false
+         */
+        isServer?: boolean | undefined;
+        /**
+         * An optional net.Server instance.
+         */
+        server?: net.Server | undefined;
+    }
     interface ServerModeTLSSocketOptions extends SecureContextOptions, ServerConnectionOptions {
         /**
          * The SSL/TLS protocol is asymmetrical, TLSSockets must know if they are to behave as a server or a client.
@@ -225,6 +237,10 @@ declare module "tls" {
          * Construct a new tls.TLSSocket object in client mode from an existing TCP socket.
          */
         constructor(socket: net.Socket, options?: ClientModeTLSSocketOptions);
+        /**
+         * Construct a new tls.TLSSocket object from an existing stream.Duplex.
+         */
+        constructor(socket: stream.Duplex, options?: TLSSocketOptions);
         /**
          * This property is `true` if the peer certificate was signed by one of the CAs
          * specified when creating the `tls.TLSSocket` instance, otherwise `false`.

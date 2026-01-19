@@ -1,4 +1,5 @@
 import * as fs from "node:fs";
+import * as net from "node:net";
 import * as stream from "node:stream";
 import {
     connect,
@@ -348,4 +349,15 @@ import {
             cb(null, ctx);
         },
     };
+}
+
+{
+    // server mode
+    ((socket: net.Socket, server: net.Server | undefined) => new TLSSocket(socket, { isServer: true, server: server }));
+    ((duplex: stream.Duplex, server: net.Server | undefined) =>
+        new TLSSocket(duplex, { isServer: true, server: server }));
+    // client mode
+    ((socket: net.Socket) => new TLSSocket(socket, { isServer: false }));
+    // backward compatibility with mixed options
+    ((duplex: stream.Duplex) => new TLSSocket(duplex, { isServer: false, ALPNCallback: undefined, requestOCSP: true }));
 }
