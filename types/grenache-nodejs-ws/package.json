@@ -1,0 +1,21 @@
+{
+  "private": true,
+  "name": "@types/grenache-nodejs-ws",
+  "version": "1.0.9999",
+  "projects": [
+    "https://github.com/bitfinexcom/grenache-nodejs-ws"
+  ],
+  "dependencies": {
+    "@types/node": "*",
+    "@types/grenache-nodejs-link": "*"
+  },
+  "devDependencies": {
+    "@types/grenache-nodejs-ws": "workspace:."
+  },
+  "owners": [
+    {
+      "name": "Rami Mohamed [https://rami.sd]",
+      "githubUsername": "ramioooz"
+    }
+  ]
+}
