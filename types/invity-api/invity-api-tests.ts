@@ -126,7 +126,7 @@ const sellProviderInfo: SellProviderInfo = {
     tradedCoins: ["bitcoin", "ethereum"] as CryptoId[],
     tradedFiatCurrencies: ["USD"],
     supportedCountries: ["US"],
-    supportedSubdivisions: {"US": ["WA"]},
+    supportedSubdivisions: { "US": ["WA"] },
     disabledSubdivisions: {},
     statusUrl: "https://example.com/txs/{{orderId}}",
     supportUrl: " https://support.example.com",
