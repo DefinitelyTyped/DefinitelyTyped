@@ -1218,6 +1218,7 @@ declare namespace braintree {
         | "subscription_expired"
         | "subscription_trial_ended"
         | "subscription_went_active"
+        | "subscription_went_past_due"
         | "subscription_billing_skipped";
 
     export type SubMerchantAccountApprovedNotificationKind = "sub_merchant_account_approved";
