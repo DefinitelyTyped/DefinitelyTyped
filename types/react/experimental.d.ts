@@ -129,12 +129,42 @@ declare module "." {
         rangeStart?: number | undefined;
         rangeEnd?: number | undefined;
     }
+    export type GestureOptionsRequired = {
+        [P in keyof GestureOptions]-?: NonNullable<GestureOptions[P]>;
+    };
     /** */
     export function unstable_startGestureTransition(
         provider: GestureProvider,
         scope: () => void,
         options?: GestureOptions,
     ): () => void;
+
+    interface ViewTransitionProps {
+        onGestureEnter?: (
+            timeline: GestureProvider,
+            options: GestureOptionsRequired,
+            instance: ViewTransitionInstance,
+            types: Array<string>,
+        ) => void;
+        onGestureExit?: (
+            timeline: GestureProvider,
+            options: GestureOptionsRequired,
+            instance: ViewTransitionInstance,
+            types: Array<string>,
+        ) => void;
+        onGestureShare?: (
+            timeline: GestureProvider,
+            options: GestureOptionsRequired,
+            instance: ViewTransitionInstance,
+            types: Array<string>,
+        ) => void;
+        onGestureUpdate?: (
+            timeline: GestureProvider,
+            options: GestureOptionsRequired,
+            instance: ViewTransitionInstance,
+            types: Array<string>,
+        ) => void;
+    }
 
     // @enableSrcObject
     interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_IMG_SRC_TYPES {

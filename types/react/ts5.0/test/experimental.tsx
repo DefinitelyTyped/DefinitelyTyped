@@ -178,4 +178,19 @@ function swipeTransitionTest() {
         // options can be empty
         startGestureTransition(gestureProvider, () => {}, {});
     }
+
+    <React.ViewTransition
+        onGestureEnter={(timeline, options, instance, types) => {
+            // @ts-expect-error -- Only implemented by react-dom
+            timeline.currentTime;
+            // passed options are non-nullable
+            // $ExpectType number
+            options.rangeStart;
+            // $ExpectType number
+            options.rangeEnd;
+            // @ts-expect-error -- Only implemented by react-dom
+            instance.group;
+        }}
+    >
+    </React.ViewTransition>;
 }
