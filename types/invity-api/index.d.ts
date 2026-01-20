@@ -74,6 +74,10 @@ export interface ClientVersion {
     version: string;
 }
 
+export interface Subdivisions {
+    [country: string]: string[];
+}
+
 export interface ProviderMetadata {
     name: string; // unique internal name, e.g. "changenow"
     companyName: string; // name visible to clients, e.g. "ChangeNow"
@@ -91,7 +95,9 @@ export interface ProviderMetadata {
 
 export interface BuySellProviderMetadata extends ProviderMetadata {
     supportedCountries: string[]; // ['AT', 'BE']
+    supportedSubdivisions: Subdivisions; // { 'US': ['AL', 'NY', 'WA'] }
     tradedCoins: CryptoId[]; // ['BTC', 'BCH', 'LTC', 'XRP', 'ETH', 'bitcoin', 'ethereum', 'litecoin', 'ethereum--0xdac17f958d2ee523a2206206994597c13d831ec7']
+    disabledSubdivisions?: Subdivisions;
 }
 
 // buy types
@@ -168,6 +174,7 @@ export interface BuyTradeQuoteRequest {
     fiatCurrency: string; // USD
     receiveCurrency: CryptoId; // bitcoin
     country?: string | undefined;
+    subdivision?: string | undefined;
     paymentMethod?: BuyCryptoPaymentMethod | undefined;
 }
 
@@ -501,6 +508,7 @@ export interface SellFiatTradeQuoteRequest {
     cryptoStringAmount?: string | undefined; // 0.3 - requested amount in crypto currency
     cryptoCurrency: CryptoId; // bitcoin
     country?: string | undefined;
+    subdivision?: string | undefined;
     paymentMethod?: SellCryptoPaymentMethod | undefined;
     flows?: SellFiatFlowType[] | undefined;
 }
