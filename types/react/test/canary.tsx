@@ -61,24 +61,47 @@ function viewTransitionTests() {
             instance;
             // $ExpectType string[]
             types;
+            return function cleanup() {};
         }}
         onExit={(instance, types) => {
             // $ExpectType ViewTransitionInstance
             instance;
             // $ExpectType string[]
             types;
+            return function cleanup() {};
         }}
         onShare={(instance, types) => {
             // $ExpectType ViewTransitionInstance
             instance;
             // $ExpectType string[]
             types;
+            return function cleanup() {};
         }}
         onUpdate={(instance, types) => {
             // $ExpectType ViewTransitionInstance
             instance;
             // $ExpectType string[]
             types;
+            return function cleanup() {};
+        }}
+    />;
+
+    <ViewTransition
+        // @ts-expect-error -- onEnter can return void or a cleanup function.
+        onEnter={() => {
+            return 5;
+        }}
+        // @ts-expect-error -- onExit can return void or a cleanup function.
+        onExit={() => {
+            return 5;
+        }}
+        // @ts-expect-error -- onShare can return void or a cleanup function.
+        onShare={() => {
+            return 5;
+        }}
+        // @ts-expect-error -- onUpdate can return void or a cleanup function.
+        onUpdate={() => {
+            return 5;
         }}
     />;
 
