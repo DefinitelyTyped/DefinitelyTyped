@@ -145,25 +145,25 @@ declare module "." {
             options: GestureOptionsRequired,
             instance: ViewTransitionInstance,
             types: Array<string>,
-        ) => void;
+        ) => void | (() => void);
         onGestureExit?: (
             timeline: GestureProvider,
             options: GestureOptionsRequired,
             instance: ViewTransitionInstance,
             types: Array<string>,
-        ) => void;
+        ) => void | (() => void);
         onGestureShare?: (
             timeline: GestureProvider,
             options: GestureOptionsRequired,
             instance: ViewTransitionInstance,
             types: Array<string>,
-        ) => void;
+        ) => void | (() => void);
         onGestureUpdate?: (
             timeline: GestureProvider,
             options: GestureOptionsRequired,
             instance: ViewTransitionInstance,
             types: Array<string>,
-        ) => void;
+        ) => void | (() => void);
     }
 
     // @enableSrcObject

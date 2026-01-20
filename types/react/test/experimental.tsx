@@ -193,4 +193,19 @@ function swipeTransitionTest() {
         }}
     >
     </React.ViewTransition>;
+
+    <React.ViewTransition
+        // @ts-expect-error -- Either void or a function must be returned
+        onGestureEnter={() => {
+            return 5;
+        }}
+    >
+    </React.ViewTransition>;
+
+    <React.ViewTransition
+        onGestureEnter={() => {
+            return function cleanup() {};
+        }}
+    >
+    </React.ViewTransition>;
 }
