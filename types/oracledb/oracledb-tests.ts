@@ -822,11 +822,16 @@ export const version6_9Tests = async (): Promise<void> => {
     });
 
     const txnId = "testId";
-    await connection.beginSessionlessTransaction({ transactionId: txnId, timeout: 2, deferRoundTrip: true });
+    const id1 = await connection.beginSessionlessTransaction({
+        transactionId: txnId,
+        timeout: 2,
+        deferRoundTrip: true,
+    });
+    console.log(id1.length);
     await connection.execute("INSERT INTO TEST VALUES(1)", {}, { suspendOnSuccess: true });
-    await connection.suspendSessionlessTransaction();
-    await connection.resumeSessionlessTransaction(txnId, { deferRoundTrip: false });
-
+    await connection.suspendSessionlessTransaction().then();
+    const id2 = await connection.resumeSessionlessTransaction(txnId, { deferRoundTrip: false });
+    console.log(id2.length);
     console.log(connection.ltxid);
 
     await oracledb.createPool({
