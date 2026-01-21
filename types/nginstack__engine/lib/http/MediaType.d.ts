@@ -1,4 +1,7 @@
 export = MediaType;
+/**
+ * Tipos de mídia comumente utilizados em requisições HTTP.
+ */
 type MediaType = string;
 declare namespace MediaType {
     let TEXT: string;

@@ -1,7 +1,18 @@
 export = DataSetManagerError;
+/**
+ * Classe de erro utilizada por DataSetManager.
+ * @constructor
+ * @extends FatalError
+ */
 declare function DataSetManagerError(...args: any[]): void;
 declare class DataSetManagerError {
+    /**
+     * Classe de erro utilizada por DataSetManager.
+     * @constructor
+     * @extends FatalError
+     */
     constructor(...args: any[]);
+    /** @private */
     private _name;
 }
 declare namespace DataSetManagerError {

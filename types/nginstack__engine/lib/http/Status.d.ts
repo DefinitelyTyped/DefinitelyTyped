@@ -1,4 +1,7 @@
 export = Status;
+/**
+ * Estados possíveis para uma resposta HTTP.
+ */
 type Status = number;
 declare namespace Status {
     let OK: number;

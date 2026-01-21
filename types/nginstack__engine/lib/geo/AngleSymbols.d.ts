@@ -7,4 +7,7 @@ declare namespace _exports {
     let SECONDS: string;
 }
 export = _exports;
+/**
+ * Símbolos utilizados na representação textual de ângulos.
+ */
 type exports = string;

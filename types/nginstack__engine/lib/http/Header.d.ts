@@ -1,4 +1,7 @@
 export = Header;
+/**
+ * Nomes dos cabeçalhos utilizados no protocolo HTTP.
+ */
 type Header = string;
 declare namespace Header {
     let ACCEPT: string;

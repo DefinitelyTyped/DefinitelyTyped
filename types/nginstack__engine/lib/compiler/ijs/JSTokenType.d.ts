@@ -1,5 +1,14 @@
 export = JSTokenType;
+/**
+ * Classe com propriedades estatísticas que representam os tipos de tokens retornados
+ * por {@link JSScanner#nextToken}.
+ * @enum {string}
+ */
 declare function JSTokenType(): void;
+/**
+ * Classe com propriedades estatísticas que representam os tipos de tokens retornados
+ * por {@link JSScanner#nextToken}.
+ */
 type JSTokenType = string;
 declare namespace JSTokenType {
     let NONE: string;

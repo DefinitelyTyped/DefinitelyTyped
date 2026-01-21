@@ -1,7 +1,16 @@
 export = ArgsError;
+/**
+ * @constructor
+ * @extends FatalError
+ */
 declare function ArgsError(...args: any[]): void;
 declare class ArgsError {
+    /**
+     * @constructor
+     * @extends FatalError
+     */
     constructor(...args: any[]);
+    /** @private */
     private _name;
 }
 declare namespace ArgsError {

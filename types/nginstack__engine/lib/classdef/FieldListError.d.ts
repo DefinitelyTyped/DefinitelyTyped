@@ -1,7 +1,18 @@
 export = FieldListError;
+/**
+ * Classe de erro de FieldList.
+ * @constructor
+ * @extends FatalError
+ */
 declare function FieldListError(...args: any[]): void;
 declare class FieldListError {
+    /**
+     * Classe de erro de FieldList.
+     * @constructor
+     * @extends FatalError
+     */
     constructor(...args: any[]);
+    /** @private */
     private _name;
 }
 declare namespace FieldListError {

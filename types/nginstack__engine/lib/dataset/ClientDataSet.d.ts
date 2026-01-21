@@ -1,6 +1,28 @@
 export = ClientDataSet;
+/**
+ * Classe que busca emular a API do DataSet em navegadores Web. Ela não deve ser utilizada, pois
+ * não implementa corretamente a API do DataSet, nem possui desempenho adequado. Ela existe apenas
+ * para garantir a compatibilidade com códigos que fazem uso da função deprecated
+ * *serialize*.
+ * @param {*} dataSetOrArray
+ * @param {*} howManyRecords
+ * @param {*} fields
+ * @constructor
+ * @deprecated
+ */
 declare function ClientDataSet(dataSetOrArray: any, howManyRecords: any, fields: any): void;
 declare class ClientDataSet {
+    /**
+     * Classe que busca emular a API do DataSet em navegadores Web. Ela não deve ser utilizada, pois
+     * não implementa corretamente a API do DataSet, nem possui desempenho adequado. Ela existe apenas
+     * para garantir a compatibilidade com códigos que fazem uso da função deprecated
+     * *serialize*.
+     * @param {*} dataSetOrArray
+     * @param {*} howManyRecords
+     * @param {*} fields
+     * @constructor
+     * @deprecated
+     */
     constructor(dataSetOrArray: any, howManyRecords: any, fields: any);
     fieldNames: any;
     fieldTypes: any;

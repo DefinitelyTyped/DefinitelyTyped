@@ -1,4 +1,7 @@
 export = Algorithm;
+/**
+ * Algoritmos utilizados para assinar ou encriptar um JWT.
+ */
 type Algorithm = string;
 declare namespace Algorithm {
     let HS256: string;

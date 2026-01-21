@@ -1,4 +1,12 @@
 export = StringList;
+/**
+ * Lista de strings que opcionalmente podem estar associadas a objetos.
+ *
+ * Essa classe tem o objetivo exclusivo de manter compatibilidade com códigos que utilizavam
+ * a classe global StringList. Códigos novos não devem fazer uso dela, dando preferência a criar
+ * mapas por meio de propriedades de objetos.
+ * @constructor
+ */
 declare function StringList(): void;
 declare class StringList {
     elements: any[];

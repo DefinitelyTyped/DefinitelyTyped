@@ -1,4 +1,11 @@
 export = TokenType;
+/** @module @nginstack/engine/lib/xml/TokenType */
+/** @typedef {('NoToken' | 'Declaration' | 'StartElement' | 'EndElement' | 'EmptyElement' | 'Characters' | 'Comment' | 'ProcessingInstruction' | 'DoctypeDefinition' | 'CData' | 'EndDocument' | 'GeneralRef')} TokenString */
+/**
+ * Enumerado dos tipos de *token* lidos pelo `XMLStreamReader`.
+ * @constructor
+ * @see module:@nginstack/engine/lib/xml/XMLStreamReader
+ */
 declare function TokenType(): void;
 declare class TokenType {}
 declare namespace TokenType {

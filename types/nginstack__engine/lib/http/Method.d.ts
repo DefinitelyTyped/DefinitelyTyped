@@ -1,4 +1,7 @@
 export = Method;
+/**
+ * Métodos possíveis em requisições HTTP.
+ */
 type Method = string;
 declare namespace Method {
     let GET: string;

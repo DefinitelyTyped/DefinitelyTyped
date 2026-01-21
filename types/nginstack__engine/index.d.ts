@@ -4,7 +4,6 @@
 /// <reference path="context/database.d.ts" />
 /// <reference path="context/dbCache.d.ts" />
 /// <reference path="context/engine.d.ts" />
-/// <reference path="context/index.d.ts" />
 /// <reference path="context/keysUtilities.d.ts" />
 /// <reference path="context/licenseManager.d.ts" />
 /// <reference path="context/productManager.d.ts" />

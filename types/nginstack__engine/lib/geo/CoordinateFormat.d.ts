@@ -7,4 +7,8 @@ declare namespace _exports {
     let DDD_MM_SS_S_DIR: number;
 }
 export = _exports;
+/**
+ * Formatos aceitos pelas funções {@link module :@nginstack/engine/lib/geo/parseCoordinate} e
+ * {@link module :@nginstack/engine/lib/geo/formatCoordinate}.
+ */
 type exports = number;

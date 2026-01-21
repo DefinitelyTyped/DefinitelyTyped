@@ -1,4 +1,7 @@
 export = SettingType;
+/**
+ * Tipos de configurações gerais.
+ */
 type SettingType = string;
 declare namespace SettingType {
     let STRING: string;

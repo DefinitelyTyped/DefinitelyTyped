@@ -89,6 +89,6 @@ database.userHasScope(456, 'scope'); // $ExpectType boolean
 database.logout(); // $ExpectType void
 
 function getVersion(): string {
-    return '81.0.1';
+    return '81.0.4'; // current version
 }
 getVersion(); // $ExpectType string

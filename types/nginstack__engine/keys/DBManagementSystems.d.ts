@@ -7,4 +7,7 @@ declare namespace _exports {
     let MS_SQL_SERVER: number;
 }
 export = _exports;
+/**
+ * Chaves dos SGBDs suportados pelo Engine.
+ */
 type exports = number;
