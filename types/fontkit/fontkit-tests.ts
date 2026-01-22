@@ -99,7 +99,7 @@ openV2.then(font => {
         font.COLR?.version; // $ExpectType number | undefined
         font.COLR?.baseGlyphRecord[0].gid; // $ExpectType number | undefined
         font.COLR?.layerRecords[0].paletteIndex; // $ExpectType number | undefined
-        
+
         font.CPAL?.numPalettes; // $ExpectType number | undefined
         font.CPAL?.colorRecords[0].red; // $ExpectType number | undefined
         font.CPAL?.colorRecords[0].alpha; // $ExpectType number | undefined
