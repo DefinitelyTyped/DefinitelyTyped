@@ -16,6 +16,13 @@ declare class UltraHDRLoader extends Loader<DataTexture> {
     setDataType(value: TextureDataType): this;
 
     parse(buffer: ArrayBuffer, onLoad: (texData: UltraHDRLoaderTextureData) => void): void;
+
+    load(
+        url: string,
+        onLoad: (data: DataTexture) => void,
+        onProgress?: (event: ProgressEvent) => void,
+        onError?: (err: unknown) => void,
+    ): DataTexture;
 }
 
 export { UltraHDRLoader };

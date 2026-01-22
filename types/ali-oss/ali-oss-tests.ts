@@ -5,15 +5,65 @@ const ossOptions: OSS.Options = {
     accessKeySecret: "your access secret",
     bucket: "your bucket name",
     region: "oss-cn-hangzhou",
+    authorizationV4: true,
 };
 
 const client = new OSS(ossOptions);
+
+client.putSymlink("newfile.png", "sourcefile.png");
+client.putSymlink("newfile.png", "sourcefile.png", {
+    storageClass: "IA",
+    meta: {
+        uid: 1,
+        pid: 0,
+    },
+});
+
+client.getSymlink("newfile.png");
+client.getSymlink("newfile.png", { versionId: "123" });
 
 client.listV2({ "max-keys": 1000 });
 client.copy("newfile.png", "sourcefile.png");
 client.copy("newfile.png", "sourcefile.png", { timeout: 1000 });
 client.copy("newfile.png", "sourcefile.png", "sourceBucket");
 client.copy("newfile.png", "sourcefile.png", "sourceBucket", { timeout: 1000 });
+
+// $ExpectType Promise<string>
+client.signatureUrlV4("GET", 60, undefined, "your object name");
+
+// $ExpectType Promise<string>
+client.signatureUrlV4(
+    "GET",
+    60,
+    {
+        headers: {
+            "Cache-Control": "no-cache",
+        },
+        queries: {
+            versionId: "version ID of your object",
+        },
+    },
+    "your object name",
+    ["Cache-Control"],
+);
+
+// $ExpectType Promise<string>
+client.signatureUrlV4("PUT", 60, undefined, "your object name");
+
+// $ExpectType Promise<string>
+client.signatureUrlV4(
+    "PUT",
+    60,
+    {
+        headers: {
+            "Content-Type": "text/plain",
+            "Content-MD5": "xxx",
+            "Content-Length": 1,
+        },
+    },
+    "your object name",
+    ["Content-Length"],
+);
 
 const clusterOptions: OSS.ClusterOptions = {
     clusters: [],

@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 /**
- * Type Definition for Visual Studio Code 1.106 Extension API
+ * Type Definition for Visual Studio Code 1.108 Extension API
  * See https://code.visualstudio.com/api for more information
  */
 
@@ -1944,6 +1944,17 @@ declare module 'vscode' {
 		detail?: string;
 
 		/**
+		 * A {@link Uri} representing the resource associated with this item.
+		 *
+		 * When set, this property is used to automatically derive several item properties if they are not explicitly provided:
+		 * - **Label**: Derived from the resource's file name when {@link QuickPickItem.label label} is not provided or is empty.
+		 * - **Description**: Derived from the resource's path when {@link QuickPickItem.description description} is not provided or is empty.
+		 * - **Icon**: Derived from the current file icon theme when {@link QuickPickItem.iconPath iconPath} is set to
+		 *   {@link ThemeIcon.File} or {@link ThemeIcon.Folder}.
+		 */
+		resourceUri?: Uri;
+
+		/**
 		 * Optional flag indicating if this item is initially selected.
 		 *
 		 * This is only honored when using the {@link window.showQuickPick showQuickPick} API. To do the same
@@ -2004,6 +2015,13 @@ declare module 'vscode' {
 		 * An optional string to show as placeholder in the input box to guide the user.
 		 */
 		placeHolder?: string;
+
+		/**
+		 * Optional text that provides instructions or context to the user.
+		 *
+		 * The prompt is displayed below the input box and above the list of items.
+		 */
+		prompt?: string;
 
 		/**
 		 * Set to `true` to keep the picker open when focus moves to another part of the editor or to another window.
@@ -7789,7 +7807,7 @@ declare module 'vscode' {
 		 *
 		 * Note that the possible values are currently defined as any of the following:
 		 * 'bash', 'cmd', 'csh', 'fish', 'gitbash', 'julia', 'ksh', 'node', 'nu', 'pwsh', 'python',
-		 * 'sh', 'wsl', 'zsh'.
+		 * 'sh', 'wsl', 'xonsh', 'zsh'.
 		 */
 		readonly shell: string | undefined;
 	}
@@ -9596,6 +9614,10 @@ declare module 'vscode' {
 		 * - a relative path to exclude (for example `build/output`)
 		 * - a simple glob pattern (for example `**​/build`, `output/**`)
 		 *
+		 * *Note* that case-sensitivity of the {@link excludes} patterns for built-in file system providers
+		 * will depend on the underlying file system: on Windows and macOS the matching will be case-insensitive and
+		 * on Linux it will be case-sensitive.
+		 *
 		 * It is the file system provider's job to call {@linkcode FileSystemProvider.onDidChangeFile onDidChangeFile}
 		 * for every change given these rules. No event should be emitted for files that match any of the provided
 		 * excludes.
@@ -10062,16 +10084,7 @@ declare module 'vscode' {
 		/**
 		 * Icon for the panel shown in UI.
 		 */
-		iconPath?: Uri | {
-			/**
-			 * The icon path for the light theme.
-			 */
-			readonly light: Uri;
-			/**
-			 * The icon path for the dark theme.
-			 */
-			readonly dark: Uri;
-		};
+		iconPath?: IconPath;
 
 		/**
 		 * {@linkcode Webview} belonging to the panel.
@@ -10130,7 +10143,7 @@ declare module 'vscode' {
 		 *
 		 * This closes the panel if it showing and disposes of the resources owned by the webview.
 		 * Webview panels are also disposed when the user closes the webview panel. Both cases
-		 * fire the `onDispose` event.
+		 * fire the `onDidDispose` event.
 		 */
 		dispose(): any;
 	}
@@ -12285,10 +12298,13 @@ declare module 'vscode' {
 		description?: string | boolean;
 
 		/**
-		 * The {@link Uri} of the resource representing this item.
+		 * A {@link Uri} representing the resource associated with this item.
 		 *
-		 * Will be used to derive the {@link TreeItem.label label}, when it is not provided.
-		 * Will be used to derive the icon from current file icon theme, when {@link TreeItem.iconPath iconPath} has {@link ThemeIcon} value.
+		 * When set, this property is used to automatically derive several item properties if they are not explicitly provided:
+		 * - **Label**: Derived from the resource's file name when {@link TreeItem.label label} is not provided.
+		 * - **Description**: Derived from the resource's path when {@link TreeItem.description description} is set to `true`.
+		 * - **Icon**: Derived from the current file icon theme when {@link TreeItem.iconPath iconPath} is set to
+		 *   {@link ThemeIcon.File} or {@link ThemeIcon.Folder}.
 		 */
 		resourceUri?: Uri;
 
@@ -13135,6 +13151,13 @@ declare module 'vscode' {
 		placeholder: string | undefined;
 
 		/**
+		 * Optional text that provides instructions or context to the user.
+		 *
+		 * The prompt is displayed below the input box and above the list of items.
+		 */
+		prompt: string | undefined;
+
+		/**
 		 * An event signaling when the value of the filter text has changed.
 		 */
 		readonly onDidChangeValue: Event<string>;
@@ -13894,6 +13917,10 @@ declare module 'vscode' {
 		 * all opened workspace folders. It cannot be used to add more folders for file watching, nor will
 		 * it report any file events from folders that are not part of the opened workspace folders.
 		 *
+		 * *Note* that case-sensitivity of the {@link globPattern} parameter will depend on the file system
+		 * where the watcher is running: on Windows and macOS the matching will be case-insensitive and
+		 * on Linux it will be case-sensitive.
+		 *
 		 * Optionally, flags to ignore certain kinds of events can be provided.
 		 *
 		 * To stop listening to events the watcher must be disposed.
@@ -13901,7 +13928,7 @@ declare module 'vscode' {
 		 * *Note* that file events from deleting a folder may not include events for the contained files.
 		 * For example, when a folder is moved to the trash, only one event is reported because technically
 		 * this is a rename/move operation and not a delete operation for each files within.
-		 * On top of that, performance optimisations are in place to fold multiple events that all belong
+		 * On top of that, performance optimizations are in place to fold multiple events that all belong
 		 * to the same parent operation (e.g. delete folder) into one event for that parent. As such, if
 		 * you need to know about all deleted files, you have to watch with `**` and deal with all file
 		 * events yourself.
@@ -18132,7 +18159,7 @@ declare module 'vscode' {
 		 * @example
 		 * l10n.t('Hello {name}', { name: 'Erich' });
 		 */
-		export function t(message: string, args: Record<string, any>): string;
+		export function t(message: string, args: Record<string, string | number | boolean>): string;
 		/**
 		 * Marks a string for localization. If a localized bundle is available for the language specified by
 		 * {@link env.language} and the bundle has a localized value for this message, then that localized
@@ -18144,17 +18171,17 @@ declare module 'vscode' {
 		export function t(options: {
 			/**
 			 * The message to localize. If {@link options.args args} is an array, this message supports index templating where strings like
-			 * `{0}` and `{1}` are replaced by the item at that index in the {@link options.args args} array. If `args` is a `Record<string, any>`,
+			 * `{0}` and `{1}` are replaced by the item at that index in the {@link options.args args} array. If `args` is a `Record`,
 			 * this supports named templating where strings like `{foo}` and `{bar}` are replaced by the value in
 			 * the Record for that key (foo, bar, etc).
 			 */
 			message: string;
 			/**
 			 * The arguments to be used in the localized string. As an array, the index of the argument is used to
-			 * match the template placeholder in the localized string. As a Record, the key is used to match the template
+			 * match the template placeholder in the localized string. As a `Record`, the key is used to match the template
 			 * placeholder in the localized string.
 			 */
-			args?: Array<string | number | boolean> | Record<string, any>;
+			args?: Array<string | number | boolean> | Record<string, string | number | boolean>;
 			/**
 			 * A comment to help translators understand the context of the message.
 			 */

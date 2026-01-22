@@ -3,15 +3,29 @@ declare function LobStorage(classKey: number | DBKey): void;
 declare class LobStorage {
     constructor(classKey: number | DBKey);
     classKey: number;
+    private storageProviderKey_;
+    private storageProvider_;
+    private getStorageProvider;
     private batchChanges_;
+    private transactionChanges_;
+    private storageChanges_;
     logChanges: boolean;
     beginBatch(): void;
     endBatch(): DataSet;
+    rollbackBatch(): void;
+    startTransaction(): void;
+    commitTransaction(): number;
+    private beforeApplyUpdates_;
+    private afterApplyUpdates_;
+    rollbackTransaction(): void;
+    private appendStorageChange_;
+    private rollbackStorageChanges_;
     private compress_;
     private encode_;
     private tryCompress_;
     private prepareContent_;
     private getDataSetForUpdate_;
+    private getDataSet_;
     private getContentSize_;
     addLob(
         fileName: string,
@@ -38,6 +52,7 @@ declare class LobStorage {
     deleteLob(key: number): boolean;
     setLobExtraAttributes(key: number, extraAttributes: any): void;
     getLobExtraAttributes(key: number): any;
+    private getStorageProviderFromKey_;
 }
 declare namespace LobStorage {
     export { Object, LargeObject };
@@ -48,6 +63,5 @@ interface Object {
     content: string;
     compression: number;
     encoding: number;
-    mimeType: number;
 }
 type LargeObject = import('./LargeObject');

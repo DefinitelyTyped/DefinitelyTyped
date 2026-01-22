@@ -1,12 +1,15 @@
 /**
  * Block Creation Components
  */
+export { default as AlignmentControl } from "./alignment-control";
 export { default as AlignmentToolbar } from "./alignment-toolbar";
 export { default as Autocomplete } from "./autocomplete";
 export { default as BlockAlignmentToolbar } from "./block-alignment-toolbar";
+export { default as BlockContextProvider } from "./block-context";
 export { default as BlockControls } from "./block-controls";
 export { default as BlockEdit } from "./block-edit";
 export { default as BlockFormatControls } from "./block-format-controls";
+export { default as HeadingLevelDropdown } from "./block-heading-level-dropdown";
 export { default as BlockIcon } from "./block-icon";
 export { default as BlockNavigationDropdown } from "./block-navigation/dropdown";
 export { default as BlockVerticalAlignmentToolbar } from "./block-vertical-alignment-toolbar";
@@ -63,5 +66,6 @@ export { default as BlockEditorProvider } from "./provider";
  */
 export { useBlockBindingsUtils } from "./use-block-bindings-utils";
 export { useBlockEditContext } from "./use-block-edit-context";
+export { useBlockEditingMode } from "./use-block-editing-mode";
 export { useBlockProps } from "./use-block-props";
 export { useSettings } from "./use-settings";

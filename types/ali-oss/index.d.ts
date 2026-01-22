@@ -27,6 +27,8 @@ declare namespace OSS {
         refreshSTSTokenInterval?: number;
         /** used by auto set stsToken、accessKeyId、accessKeySecret when sts info expires. return value must be object contains stsToken、accessKeyId、accessKeySecret */
         refreshSTSToken?: () => Promise<{ accessKeyId: string; accessKeySecret: string; stsToken: string }>;
+        /** Use V4 signature. Default is false. */
+        authorizationV4?: boolean | undefined;
     }
 
     /**
@@ -579,6 +581,15 @@ declare namespace OSS {
         uploads: Upload[];
     }
 
+    interface PutSymlinkOptions {
+        /** the storage type include (Standard,IA,Archive) */
+        storageClass?: string | undefined;
+        /** user meta, will send with x-oss-meta- prefix string */
+        meta?: UserMeta | undefined;
+        /** extra headers */
+        headers?: object | undefined;
+    }
+
     interface PutChannelConf {
         Description?: string | undefined;
         Status?: string | undefined;
@@ -698,11 +709,11 @@ declare namespace OSS {
         signatureUrlV4(
             method: HTTPMethods,
             expires: number,
-            request?: {
+            request: {
                 headers?: object | undefined;
                 queries?: object | undefined;
-            },
-            objectName?: string,
+            } | undefined,
+            objectName: string,
             additionalHeaders?: string[],
         ): Promise<string>;
 
@@ -1084,6 +1095,20 @@ declare class OSS {
     signatureUrl(name: string, options?: OSS.SignatureUrlOptions): string;
 
     /**
+     * Generate a signed URL for V4 of an OSS resource and share the URL to allow authorized third-party users to access the resource.
+     */
+    signatureUrlV4(
+        method: OSS.HTTPMethods,
+        expires: number,
+        request: {
+            headers?: object | undefined;
+            queries?: object | undefined;
+        } | undefined,
+        objectName: string,
+        additionalHeaders?: string[],
+    ): Promise<string>;
+
+    /**
      * Basically the same as signatureUrl, if refreshSTSToken is configured asyncSignatureUrl will refresh stsToken
      */
     asyncSignatureUrl(name: string, options?: OSS.SignatureUrlOptions): Promise<string>;
@@ -1193,6 +1218,23 @@ declare class OSS {
          */
         policy: object | string,
     ): OSS.PostObjectParams;
+
+    /**
+     * put symlink
+     */
+    putSymlink(
+        name: string,
+        targetName: string,
+        options?: OSS.PutSymlinkOptions,
+    ): Promise<{ res: OSS.NormalSuccessResponse }>;
+
+    /**
+     * get symlink
+     */
+    getSymlink(
+        name: string,
+        options?: { versionId?: string | undefined; timeout?: number | undefined; headers?: object | undefined },
+    ): Promise<{ targetName: string; res: OSS.NormalSuccessResponse }>;
 
     /************************************************ RTMP Operations *************************************************************/
     /**

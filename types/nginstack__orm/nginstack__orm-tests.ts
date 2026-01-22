@@ -22,6 +22,6 @@ entity.toJSONString(); // $ExpectType string
 entity.toJSONSchema(); // $ExpectType any
 
 function getVersion(): string {
-    return "72.0.1";
+    return "81.0.1";
 }
 getVersion(); // $ExpectType string

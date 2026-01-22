@@ -44,6 +44,7 @@ const Test = () => {
             {/* Test with all props */}
             <ResponsiveMasonry
                 columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3 }}
+                gutterBreakPoints={{ 320: "1rem", 768: "1.2rem", 960: "1.5rem" }}
                 className="responsive-masonry"
                 style={{ padding: "20px" }}
             >

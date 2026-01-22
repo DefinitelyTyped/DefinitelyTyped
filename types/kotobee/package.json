@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/kotobee",
+    "nonNpm": true,
+    "nonNpmDescription": "This is an SDK for Kotobee Author application.",
+    "version": "0.0.9999",
+    "projects": [
+        "https://support.kotobee.com/en/support/solutions/folders/8000082574"
+    ],
+    "devDependencies": {
+        "@types/kotobee": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Bashamega",
+            "githubUsername": "Bashamega"
+        }
+    ]
+}

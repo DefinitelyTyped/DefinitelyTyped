@@ -1,5 +1,5 @@
 import { Client, jid, xml } from "@xmpp/client-core";
-import Connection = require("@xmpp/connection");
+import Connection from "@xmpp/connection";
 import { Element } from "@xmpp/xml";
 
 // test type exports

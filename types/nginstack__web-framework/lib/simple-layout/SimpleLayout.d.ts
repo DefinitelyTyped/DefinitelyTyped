@@ -11,7 +11,7 @@ declare class SimpleLayout {
     private currentGroupCountBeforeDynamicFields_;
     private columnsWithMerge_;
     private arAccumulators;
-    private columnsTotalByGroupId;
+    private columnsTotals_;
     recordColors: string[];
     groupColors: any[];
     private currentGroupCount;
@@ -76,6 +76,7 @@ declare class SimpleLayout {
     printFontSize: string;
     columnPadding: string;
     negativeInRed: boolean;
+    noResultsMessage: string;
     showUserAndDataBaseName: boolean;
     showVariables: boolean;
     showOnlyFilledVariables: boolean;
@@ -193,20 +194,40 @@ declare class SimpleLayout {
             cssClass?: string;
         },
     ): string;
-    writeIcon(icon: string, options?: number | Record<any, any>): void;
-    formatIconTag(icon: string): string;
+    writeIcon(
+        icon: string,
+        options?: {
+            contentToAccumulate?: number;
+            cssClass?: string | string[];
+            cssStyle: Record<string, string>;
+            iconSize?: string | number;
+            iconColor?: string;
+            tagAttributes?: Record<string, string>;
+            showTopLine?: boolean;
+            showBottomLine?: boolean;
+            renderContentAsHtml?: boolean;
+            totalContentWeight?: number;
+            key?: number;
+        },
+    ): void;
+    formatIconTag(
+        icon: string,
+        options?: {
+            iconSize?: string | number;
+            iconColor?: string;
+        },
+    ): string;
     private formatToggle_;
     breakPage(): void;
     private writeTreeRow_;
     private writeTreeRows_;
-    end(totalLabel?: any, messageWhenEmpty?: any, resetColumns?: any): void;
+    end(totalLabel?: string, noResultsMessage?: string, resetColumns?: boolean): void;
     close(): void;
     private accumulator;
     stats(): SimpleLayoutStats;
 }
 declare namespace SimpleLayout {
     export {
-        columnsTotalByGroupId,
         ColumnWriteOptions,
         defaults,
         Event,
@@ -227,7 +248,6 @@ import Email = require("@nginstack/engine/lib/email/Email.js");
 import DataSet = require("@nginstack/engine/lib/dataset/DataSet.js");
 import Link = require("../anchor/Link.js");
 import Column = require("./Column.js");
-declare let columnsTotalByGroupId: any;
 declare let defaults: {};
 declare function formatCssStyle(options?: {
     theme?: number | DBKey;
@@ -246,7 +266,7 @@ interface FilterDef {
 }
 interface TreeRowColumn {
     content: any;
-    writeOptions: ColumnWriteOptions[];
+    writeOptions: ColumnWriteOptions;
 }
 interface TreeRow {
     rowId: string;

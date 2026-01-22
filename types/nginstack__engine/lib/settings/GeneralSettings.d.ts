@@ -26,7 +26,7 @@ declare function getInstance(): GeneralSettings;
 interface SettingOptions {
     type: SettingType;
     multiple?: boolean;
-    classKey?: DBKey | number;
+    classKey?: number;
     lookupType?: typeof LookupType;
 }
 type DataSet = import('../dataset/DataSet');

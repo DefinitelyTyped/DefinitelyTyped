@@ -1,10 +1,15 @@
+export type PreservedStreamEventType = "info" | "warn" | "error";
+
 export abstract class Stream {
-    private listeners: Record<string, unknown>;
-    private on(type: string, listener: () => void): void;
-    private off(type: string, listener: () => void): void;
-    private trigger(type: string, ...args: unknown[]): void;
-    private dispose(): void;
-    private pipe(destination: Stream): void;
+    listeners: Record<string, unknown>;
+    on(type: PreservedStreamEventType, listener: (data: { message: string }) => void): void;
+    on(type: string, listener: (...data: unknown[]) => void): void;
+    off(type: PreservedStreamEventType, listener: (data: { message: string }) => void): boolean;
+    off(type: string, listener: (...data: unknown[]) => void): boolean;
+    trigger(type: PreservedStreamEventType, listener: (data: { message: string }) => void): void;
+    trigger(type: string, listener: (...data: unknown[]) => void): void;
+    dispose(): void;
+    pipe(destination: Stream): void;
 }
 
 export interface RawAttributes {

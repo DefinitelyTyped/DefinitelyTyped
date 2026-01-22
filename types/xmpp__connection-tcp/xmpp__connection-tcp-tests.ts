@@ -1,11 +1,7 @@
-import Connection = require("@xmpp/connection");
-import ConnectionTCP = require("@xmpp/connection-tcp");
+import Connection from "@xmpp/connection";
+import ConnectionTCP, { SocketConstructor, SocketParameters } from "@xmpp/connection-tcp";
 import { Element } from "@xmpp/xml";
 import { URL } from "url";
-
-// test type exports
-type SocketParams = ConnectionTCP.SocketParameters;
-type SocketCtor = ConnectionTCP.SocketConstructor;
 
 const cTcp = new ConnectionTCP({ domain: "foo", service: "bar" });
 const c: Connection = cTcp;

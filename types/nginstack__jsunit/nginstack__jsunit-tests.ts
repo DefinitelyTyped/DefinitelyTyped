@@ -16,6 +16,6 @@ suite.setUp(); // $ExpectType void
 suite.tearDown(); // $ExpectType void
 
 function getVersion(): string {
-    return "72.0.1";
+    return "81.0.1";
 }
 getVersion(); // $ExpectType string

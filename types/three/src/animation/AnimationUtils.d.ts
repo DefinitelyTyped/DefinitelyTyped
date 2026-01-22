@@ -1,4 +1,5 @@
 import { TypedArray, TypedArrayConstructor } from "../core/BufferAttribute.js";
+import { isTypedArray } from "../utils.js";
 import { AnimationClip } from "./AnimationClip.js";
 
 /**
@@ -8,14 +9,7 @@ import { AnimationClip } from "./AnimationClip.js";
  * @param {TypedArray.constructor} type - The constructor of a typed array that defines the new type.
  * @return {TypedArray} The converted array.
  */
-export function convertArray(array: TypedArray | number[], type: TypedArrayConstructor): TypedArray | number[];
-/**
- * Returns `true` if the given object is a typed array.
- *
- * @param {any} object - The object to check.
- * @return {boolean} Whether the given object is a typed array.
- */
-export function isTypedArray(object: unknown): boolean;
+export function convertArray(array: TypedArray | number[], type: TypedArrayConstructor): TypedArray;
 /**
  * Returns an array by which times and values can be sorted.
  *
@@ -169,3 +163,4 @@ export class AnimationUtils {
         fps?: number,
     ): AnimationClip;
 }
+export { isTypedArray };

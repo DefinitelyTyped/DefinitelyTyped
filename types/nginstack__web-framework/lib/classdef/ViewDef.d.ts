@@ -4,8 +4,8 @@ declare class ViewDef {
     constructor(key: string, ...args: any[]);
     protected logger_: Logger;
     fieldClass: (arg0: any) => any;
-    lookupWidth: number;
-    lookupTableViewWidth: number | null;
+    lookupWidth: string | number;
+    lookupTableViewWidth: string | number;
     deprecatedInterfaceEnabled: boolean;
     defaultOpenInteraction: string;
     defaultProcess: number;
@@ -14,8 +14,8 @@ declare class ViewDef {
     confirmCancel: boolean | undefined;
     confirmDelete: boolean | undefined;
     confirmChange: boolean | undefined;
-    imageWidth: number;
-    imageHeight: number;
+    imageWidth: number | string;
+    imageHeight: number | string;
     canDuplicate: boolean;
     globalActions: GlobalActionSet;
     thumbnail: CellThumbnail;
@@ -34,8 +34,8 @@ declare class ViewDef {
     onBeforeDuplicate: any;
     onAfterDuplicate: any;
     onLocate: any;
-    zoomImageWidth: number;
-    zoomImageHeight: number;
+    zoomImageWidth: number | string;
+    zoomImageHeight: number | string;
     zoomImageOnHover: boolean;
     defaultGlobalActionName: string;
     canNavigate: boolean;
