@@ -9,8 +9,8 @@
     ],
     "dependencies": {
         "@types/node": "*",
-        "puppeteer-core": "24.35.0",
-        "aws-xray-sdk-core": "3.12.0"
+        "puppeteer-core": "24.25.0",
+        "aws-xray-sdk-core": "3.5.0"
     },
     "devDependencies": {
         "@types/aws-synthetics-puppeteer": "workspace:."
