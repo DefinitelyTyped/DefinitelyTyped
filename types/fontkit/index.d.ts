@@ -38,6 +38,10 @@ export interface Font {
     "OS/2": Os2Table;
     /** the font's horizontal header table consisting of information needed to layout fonts with horizontal characters    */
     hhea: HHEA;
+    /** the color table containing layer records for color glyphs (optional, present in fonts with color glyphs) */
+    COLR?: COLRTable;
+    /** the color palette table containing color definitions (optional, present in fonts with color glyphs) */
+    CPAL?: CPALTable;
 
     /** the number of glyphs in the font */
     numGlyphs: number;
@@ -243,6 +247,12 @@ export interface Glyph {
 
     /**  The glyph's name. Commonly the character, or 'space' or UTF**** */
     name: string;
+
+    /**
+     * For COLR glyphs, an array of objects containing the glyph and color for each layer.
+     * Each layer has a `glyph` property with the glyph object and a `color` property with RGBA values.
+     */
+    layers?: Array<{ glyph: Glyph; color: { red: number; green: number; blue: number; alpha: number } }>;
 }
 
 /**
@@ -371,6 +381,35 @@ export interface HHEA {
     caretOffset: number;
     metricDataFormat: number;
     numberOfMetrics: number;
+}
+
+export interface COLRTable {
+    version: number;
+    numBaseGlyphRecords: number;
+    baseGlyphRecord: Array<{
+        gid: number;
+        firstLayerIndex: number;
+        numLayers: number;
+    }>;
+    layerRecords: Array<{
+        gid: number;
+        paletteIndex: number;
+    }>;
+    numLayerRecords: number;
+}
+
+export interface CPALTable {
+    version: number;
+    numPaletteEntries: number;
+    numPalettes: number;
+    numColorRecords: number;
+    colorRecords: Array<{
+        red: number;
+        green: number;
+        blue: number;
+        alpha: number;
+    }>;
+    colorRecordIndices: number[];
 }
 
 export interface FontCollection {
