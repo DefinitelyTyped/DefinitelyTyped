@@ -167,6 +167,7 @@ export class Glyph {
     name: string | null;
     unicode?: number | undefined;
     unicodes: number[];
+    numberOfContours?: number;
     xMin?: number | undefined;
     xMax?: number | undefined;
     yMin?: number | undefined;
