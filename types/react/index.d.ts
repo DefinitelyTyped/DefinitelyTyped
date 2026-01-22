@@ -2085,7 +2085,9 @@ declare namespace React {
      * reflect a DOM event. Change events are just fired as standard {@link SyntheticEvent}.
      */
     interface ChangeEvent<CurrentTarget = Element, Target = Element> extends SyntheticEvent<CurrentTarget> {
-        target: EventTarget & Target;
+        // TODO: This is wrong for change event handlers on arbitrary. Should
+        // be EventTarget & Target, but kept for backward compatibility until React 20.
+        target: EventTarget & CurrentTarget;
     }
 
     interface InputEvent<T = Element> extends SyntheticEvent<T, NativeInputEvent> {

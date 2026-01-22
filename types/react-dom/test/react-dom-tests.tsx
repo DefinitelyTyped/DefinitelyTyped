@@ -706,7 +706,7 @@ function formrelatedEventTests() {
         value: "5",
         onChange: event => {
             // createElement is not inferring props for textarea. JSX works though.
-            // $ExpectType EventTarget & Element
+            // $ExpectType EventTarget & HTMLElement
             event.target;
             // @ts-expect-error
             event.target.value;
@@ -722,6 +722,13 @@ function formrelatedEventTests() {
         },
     });
 
+    <div
+        onChange={event => {
+            // Should be EventTarget since we don't know from where the change event bubbled.
+            // $ExpectType EventTarget & HTMLDivElement
+            event.target;
+        }}
+    />;
     <input
         onChange={event => {
             // $ExpectType EventTarget & HTMLInputElement
@@ -747,10 +754,12 @@ function formrelatedEventTests() {
         }}
     />;
 
-    <form onSubmit={event => {
-        // @ts-expect-error -- submitter is not yet exposed by React
-        event.submitter;
-        // $ExpectType EventTarget & HTMLFormElement
-        event.target;
-    }} />
+    <form
+        onSubmit={event => {
+            // @ts-expect-error -- submitter is not yet exposed by React
+            event.submitter;
+            // $ExpectType EventTarget & HTMLFormElement
+            event.target;
+        }}
+    />;
 }
