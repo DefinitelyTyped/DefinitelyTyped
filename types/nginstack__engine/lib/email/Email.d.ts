@@ -10,6 +10,8 @@ declare class Email {
     replyToAddress: string;
     userName: string;
     password: string;
+    accessToken: string;
+    authType: string;
     subject: string;
     content: string;
     htmlContent: string;

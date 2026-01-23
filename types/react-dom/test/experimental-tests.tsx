@@ -25,6 +25,16 @@ function swipeTransitionTest() {
             },
         );
     }
+
+    <React.ViewTransition
+        onGestureEnter={(timeline, options, instance, types) => {
+            // $ExpectType CSSNumberish | null
+            timeline.currentTime;
+            // $ExpectType ViewTransitionPseudoElement
+            instance.group;
+        }}
+    >
+    </React.ViewTransition>;
 }
 
 // @enableSrcObject

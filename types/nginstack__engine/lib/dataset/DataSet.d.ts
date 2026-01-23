@@ -27,6 +27,7 @@ declare class DataSet {
     tableName: string;
     automaticApplyUpdates: boolean;
     integrityCheck: boolean;
+    stringOverflowMode: string;
     modified: boolean;
     localDBInfo: any;
     recordCount: number;
@@ -99,7 +100,8 @@ declare class DataSet {
         fieldId: number | string,
         options?: GetFieldOptions | number
     ): string | number | Date | boolean | null;
-    setField(fieldId: number | string, value: any, opt_ignoreInvalidFieldId?: boolean): void;
+    setField(fieldId: number | string, value: any, ignoreInvalidFieldId?: boolean): void;
+    setFields(fields: Record<string, any> | string[], values?: any[]): void;
     applyUpdates(waitDBCacheSync?: boolean, logChanges?: boolean): number;
     cancelUpdates(opt_key?: number): void;
     copyStructure(sourceDataSet: DataSet, fieldNames?: string): void;
@@ -166,8 +168,7 @@ declare namespace DataSet {
     export {
         getIntegerDataType,
         setIntegerDataType,
-        setStringOverflowMode,
-        getStringOverflowMode,
+        defaultStringOverflowMode,
         MAX_FIELDS_PER_TABLE,
         File,
         MemoryStream,
@@ -198,8 +199,7 @@ declare class DataSetFieldDefs {
 import DBKey = require('../dbkey/DBKey.js');
 declare function getIntegerDataType(): DataSetFieldType;
 declare function setIntegerDataType(type: DataSetFieldType): void;
-declare function setStringOverflowMode(mode: string): void;
-declare function getStringOverflowMode(): string;
+declare let defaultStringOverflowMode: string;
 declare let MAX_FIELDS_PER_TABLE: number;
 type File = import('../io/File');
 type MemoryStream = import('../io/MemoryStream');

@@ -1601,6 +1601,10 @@
             "libraryName": "detect-it",
             "asOfVersion": "4.0.0"
         },
+        "detect-libc": {
+            "libraryName": "detect-libc",
+            "asOfVersion": "2.0.0"
+        },
         "detect-newline": {
             "libraryName": "detect-newline",
             "asOfVersion": "3.0.0"
@@ -3800,6 +3804,14 @@
         "leaflet-offline": {
             "libraryName": "leaflet.offline",
             "asOfVersion": "3.0.0"
+        },
+        "leaflet.fullscreen": {
+            "libraryName": "leaflet.fullscreen",
+            "asOfVersion": "5.2.0"
+        },
+        "leaflet.locatecontrol": {
+            "libraryName": "leaflet.locatecontrol",
+            "asOfVersion": "0.85.1"
         },
         "leap-year": {
             "libraryName": "leap-year",

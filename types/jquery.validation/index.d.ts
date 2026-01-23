@@ -50,7 +50,7 @@ declare namespace JQueryValidation {
          *
          * default: Places the error label after the invalid element
          */
-        errorPlacement?(error: JQuery, element: JQuery): void;
+        errorPlacement?(this: Validator, error: JQuery, element: JQuery): void;
         /**
          * If enabled, removes the errorClass from the invalid elements and hides all error messages whenever the element is focused.
          * Avoid combination with focusInvalid.
@@ -76,7 +76,7 @@ declare namespace JQueryValidation {
          *
          * default: Adds errorClass (see the option) to the element
          */
-        highlight?(element: HTMLElement, errorClass: string, validClass: string): void;
+        highlight?(this: Validator, element: HTMLElement, errorClass: string, validClass: string): void;
         /**
          * Elements to ignore when validating, simply filtering them out. jQuery's not-method is used, therefore everything that is
          * accepted by not() can be passed as this option. Inputs of type submit and reset are always ignored, so are disabled elements.
@@ -93,7 +93,7 @@ declare namespace JQueryValidation {
          * Callback for custom code when an invalid form is submitted. Called with an event object as the first argument, and the validator
          * as the second.
          */
-        invalidHandler?(event: JQueryEventObject, validator: Validator): void;
+        invalidHandler?(this: HTMLFormElement, event: JQueryEventObject, validator: Validator): void;
         /**
          * Key/value pairs defining custom messages. Key is the name of an element, value the message to display for that element. Instead
          * of a plain message, another map with specific messages for each rule can be used. Overrides the title attribute of an element or
@@ -154,12 +154,12 @@ declare namespace JQueryValidation {
          * be a single element when doing validation onblur/keyup. You can trigger (in addition to your own messages) the default
          * behaviour by calling this.defaultShowErrors().
          */
-        showErrors?(errorMap: ErrorDictionary, errorList: ErrorListItem[]): void;
+        showErrors?(this: Validator, errorMap: ErrorDictionary, errorList: ErrorListItem[]): void;
         /**
          * Callback for handling the actual submit when the form is valid. Gets the form and the event object. Replaces the default submit.
          * The right place to submit a form via Ajax after it is validated.
          */
-        submitHandler?(form: HTMLFormElement, event?: JQueryEventObject): void;
+        submitHandler?(this: Validator, form: HTMLFormElement, event?: JQueryEventObject): void;
         /**
          * String or Function. If specified, the error label is displayed to show a valid element. If a String is given, it is added as
          * a class to the label. If a Function is given, it is called with the label (as a jQuery object) and the validated input (as a DOM element).
@@ -171,7 +171,7 @@ declare namespace JQueryValidation {
          *
          * default: Removes the errorClass
          */
-        unhighlight?(element: HTMLElement, errorClass: string, validClass: string): void;
+        unhighlight?(this: Validator, element: HTMLElement, errorClass: string, validClass: string): void;
         /**
          * This class is added to an element after it was validated and considered valid.
          *
@@ -218,8 +218,8 @@ declare namespace JQueryValidation {
          */
         addMethod(
             name: string,
-            method: (value: any, element: HTMLElement, params: any) => boolean,
-            message?: string | ((params: any, element: HTMLElement) => string),
+            method: (this: Validator, value: any, element: HTMLElement, params: any) => boolean,
+            message?: string | ((this: Validator, params: any, element: HTMLElement) => string),
         ): void;
         /**
          * Replaces {n} placeholders with arguments.
@@ -240,6 +240,8 @@ declare namespace JQueryValidation {
     }
 
     interface Validator {
+        defaultShowErrors(): void;
+
         element(element: string | JQuery): boolean;
         checkForm(): boolean;
         /**
@@ -255,6 +257,9 @@ declare namespace JQueryValidation {
          * Returns the number of invalid fields.
          */
         numberOfInvalids(): number;
+
+        optional(element: HTMLElement): boolean;
+
         /**
          * Resets the controlled form.
          */

@@ -28,10 +28,11 @@ declare class DataSourceFilter {
     classKey: number;
     lookupType: number;
     displayFormat:
-        | typeof import("@nginstack/engine/lib/date/DateFormat.js")
-        | typeof import("@nginstack/engine/lib/geo/LatitudeFormat.js")
-        | typeof import("@nginstack/engine/lib/geo/LongitudeFormat.js")
-        | typeof import("@nginstack/engine/lib/geo/AngleFormat.js");
+        | import("@nginstack/engine/lib/date/DateFormat.js").DateFormatType
+        | import("@nginstack/engine/lib/geo/LatitudeFormat.js").LatitudeFormatType
+        | import("@nginstack/engine/lib/geo/LongitudeFormat.js").LongitudeFormatType
+        | import("@nginstack/engine/lib/geo/AngleFormat.js").AngleFormatType
+        | import("@nginstack/engine/lib/number/NumberFormat.js").NumberFormatType;
     stringIfTrue: string;
 }
 declare namespace DataSourceFilter {

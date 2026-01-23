@@ -372,6 +372,16 @@ declare namespace jasmine {
     function DiffBuilder(): DiffBuilder;
 
     /**
+     * Formats a value for display, taking into account the current set of
+     * custom object formatters.
+     *
+     * @since 6.0.0
+     * @param value The value to pretty-print
+     * @returns The pretty-printed value
+     */
+    function pp(value: any): string;
+
+    /**
      * That will succeed if the actual value being compared is an instance of the specified class/constructor.
      */
     function any(aclass: Constructor | Symbol): AsymmetricMatcher<any>;

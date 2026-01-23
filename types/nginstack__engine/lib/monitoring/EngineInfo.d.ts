@@ -20,6 +20,7 @@ declare class EngineInfo {
     instanceId: string;
     arch: string;
     platform: string;
+    serverExecutionMode: string;
     providerName: string;
     mainDatabase: string;
     hostName: string;
@@ -29,11 +30,13 @@ declare class EngineInfo {
     freeDisk: number;
     openSocketCount: number;
     openFileCount: number;
+    alertLevel: SeverityLevelType;
 }
 declare namespace EngineInfo {
     export {
         fromDataSet,
         DataSet,
+        SeverityLevelType,
         CpuInfo,
         MemoryStats,
         DBCacheInfo,
@@ -49,6 +52,7 @@ declare namespace EngineInfo {
 import ApplicationSessionInfo = require('./ApplicationSessionInfo.js');
 declare function fromDataSet(engines: DataSet, sessions?: DataSet): EngineInfo;
 type DataSet = import('../dataset/DataSet');
+type SeverityLevelType = SeverityLevel.SeverityLevelType;
 interface CpuInfo {
     modelName: string;
     vendorId: string;
@@ -119,8 +123,9 @@ interface EngineConfig {
     timeZoneBias: number;
 }
 interface EngineAlert {
-    severity: import('./AlertSeverity.js').AlertSeverityType;
+    severity: SeverityLevelType;
     code: string;
     message: string;
     engineId: string;
 }
+import SeverityLevel = require('./SeverityLevel.js');

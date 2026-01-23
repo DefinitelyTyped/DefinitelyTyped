@@ -15,18 +15,12 @@ declare class ObjectStorage {
     list(prefix?: string): ObjectInfo[];
     info(location: string): ObjectInfo;
     delete(location: string): void;
+    exists(location: string): boolean;
     download(location: string): DownloadResult;
+    readOnly: boolean;
 }
 declare namespace ObjectStorage {
-    export {
-        fromConfig,
-        encryptSecret,
-        GoogleOptions,
-        AmazonOptions,
-        AzureOptions,
-        UploadOptions,
-        ObjectInfo,
-    };
+    export { fromConfig, GoogleOptions, AmazonOptions, AzureOptions, UploadOptions, ObjectInfo };
 }
 declare function DownloadResult(): void;
 declare class DownloadResult {
@@ -44,8 +38,13 @@ declare class DownloadResult {
     toText(): string;
     toFile(destination: string): void;
 }
-declare function fromConfig(key: number): ObjectStorage;
-declare function encryptSecret(serviceAccount: DBKey | number, secret: string): string;
+declare function fromConfig(
+    key: number,
+    options?: {
+        ignoreOwnership?: boolean;
+        takeOwnership?: boolean;
+    }
+): ObjectStorage;
 interface GoogleOptions {
     bucketName: string;
     serviceAccountKey?: string;
@@ -85,4 +84,3 @@ interface ObjectInfo {
     cacheControl?: string;
     metadata?: Record<string, string>;
 }
-import DBKey = require('../dbkey/DBKey.js');

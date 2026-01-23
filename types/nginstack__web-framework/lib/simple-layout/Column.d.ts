@@ -41,9 +41,7 @@ declare class Column {
         | LatitudeFormat
         | LongitudeFormat
         | AngleFormat
-        | string
-        | number
-        | null;
+        | typeof NumberFormat;
     breakLine: boolean;
     wordWrap: boolean;
     width: number | string | null;
@@ -105,6 +103,7 @@ declare namespace Column {
 import SimpleLayout = require("./SimpleLayout.js");
 import LegacyEvent = require("@nginstack/engine/lib/event/LegacyEvent.js");
 import LinkSet = require("../anchor/LinkSet.js");
+import NumberFormat = require("@nginstack/engine/lib/number/NumberFormat.js");
 declare namespace VerticalAligns {
     let TOP: string;
     let MIDDLE: string;

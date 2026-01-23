@@ -1,6 +1,5 @@
 declare module "node:process" {
     import { Control, MessageOptions, SendHandle } from "node:child_process";
-    import { InternalEventEmitter } from "node:events";
     import { PathLike } from "node:fs";
     import * as tty from "node:tty";
     import { Worker } from "node:worker_threads";
@@ -687,7 +686,7 @@ declare module "node:process" {
                     readonly visibility: string;
                 };
             }
-            interface Process extends InternalEventEmitter<ProcessEventMap> {
+            interface Process extends EventEmitter {
                 /**
                  * The `process.stdout` property returns a stream connected to`stdout` (fd `1`). It is a `net.Socket` (which is a `Duplex` stream) unless fd `1` refers to a file, in which case it is
                  * a `Writable` stream.
@@ -1912,6 +1911,15 @@ declare module "node:process" {
                     options?: MessageOptions,
                     callback?: (error: Error | null) => void,
                 ): boolean;
+                send?(
+                    message: any,
+                    sendHandle: SendHandle,
+                    callback?: (error: Error | null) => void,
+                ): boolean;
+                send?(
+                    message: any,
+                    callback: (error: Error | null) => void,
+                ): boolean;
                 /**
                  * If the Node.js process is spawned with an IPC channel (see the `Child Process` and `Cluster` documentation), the `process.disconnect()` method will close the
                  * IPC channel to the parent process, allowing the child process to exit gracefully
@@ -2091,6 +2099,57 @@ declare module "node:process" {
                  * **Default:** `process.env`.
                  */
                 execve?(file: string, args?: readonly string[], env?: ProcessEnv): never;
+                // #region InternalEventEmitter
+                addListener<E extends keyof ProcessEventMap>(
+                    eventName: E,
+                    listener: (...args: ProcessEventMap[E]) => void,
+                ): this;
+                addListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+                emit<E extends keyof ProcessEventMap>(eventName: E, ...args: ProcessEventMap[E]): boolean;
+                emit(eventName: string | symbol, ...args: any[]): boolean;
+                listenerCount<E extends keyof ProcessEventMap>(
+                    eventName: E,
+                    listener?: (...args: ProcessEventMap[E]) => void,
+                ): number;
+                listenerCount(eventName: string | symbol, listener?: (...args: any[]) => void): number;
+                listeners<E extends keyof ProcessEventMap>(eventName: E): ((...args: ProcessEventMap[E]) => void)[];
+                listeners(eventName: string | symbol): ((...args: any[]) => void)[];
+                off<E extends keyof ProcessEventMap>(
+                    eventName: E,
+                    listener: (...args: ProcessEventMap[E]) => void,
+                ): this;
+                off(eventName: string | symbol, listener: (...args: any[]) => void): this;
+                on<E extends keyof ProcessEventMap>(
+                    eventName: E,
+                    listener: (...args: ProcessEventMap[E]) => void,
+                ): this;
+                on(eventName: string | symbol, listener: (...args: any[]) => void): this;
+                once<E extends keyof ProcessEventMap>(
+                    eventName: E,
+                    listener: (...args: ProcessEventMap[E]) => void,
+                ): this;
+                once(eventName: string | symbol, listener: (...args: any[]) => void): this;
+                prependListener<E extends keyof ProcessEventMap>(
+                    eventName: E,
+                    listener: (...args: ProcessEventMap[E]) => void,
+                ): this;
+                prependListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+                prependOnceListener<E extends keyof ProcessEventMap>(
+                    eventName: E,
+                    listener: (...args: ProcessEventMap[E]) => void,
+                ): this;
+                prependOnceListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+                rawListeners<E extends keyof ProcessEventMap>(eventName: E): ((...args: ProcessEventMap[E]) => void)[];
+                rawListeners(eventName: string | symbol): ((...args: any[]) => void)[];
+                // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+                removeAllListeners<E extends keyof ProcessEventMap>(eventName?: E): this;
+                removeAllListeners(eventName?: string | symbol): this;
+                removeListener<E extends keyof ProcessEventMap>(
+                    eventName: E,
+                    listener: (...args: ProcessEventMap[E]) => void,
+                ): this;
+                removeListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+                // #endregion
             }
         }
     }

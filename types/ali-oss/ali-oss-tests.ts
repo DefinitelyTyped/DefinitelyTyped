@@ -10,6 +10,18 @@ const ossOptions: OSS.Options = {
 
 const client = new OSS(ossOptions);
 
+client.putSymlink("newfile.png", "sourcefile.png");
+client.putSymlink("newfile.png", "sourcefile.png", {
+    storageClass: "IA",
+    meta: {
+        uid: 1,
+        pid: 0,
+    },
+});
+
+client.getSymlink("newfile.png");
+client.getSymlink("newfile.png", { versionId: "123" });
+
 client.listV2({ "max-keys": 1000 });
 client.copy("newfile.png", "sourcefile.png");
 client.copy("newfile.png", "sourcefile.png", { timeout: 1000 });

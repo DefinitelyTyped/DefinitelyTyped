@@ -12,6 +12,7 @@ declare class AggregatedTestResult {
     numFailedTests: number;
     numErrorTests: number;
     numPassedTests: number;
+    maxErrorsReached: boolean;
     addResult(testResult: TestResult): void;
     formatTxtReport(): string;
     formatHtmlReport(): string;

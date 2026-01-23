@@ -48,7 +48,7 @@ str = identity.cognitoIdentityPoolId;
 
 /* ClientContext */
 clientContextClient = clientCtx.client;
-anyObj = clientCtx.Custom;
+anyObj = clientCtx.custom;
 clientContextEnv = clientCtx.env;
 
 /* ClientContextEnv */

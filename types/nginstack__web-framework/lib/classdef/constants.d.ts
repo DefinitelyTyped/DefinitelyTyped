@@ -37,10 +37,6 @@ export namespace DEFAULTS_BY_TYPE {
         let file_1: string;
         export { file_1 as file };
     }
-    namespace height {
-        let file_2: string;
-        export { file_2 as file };
-    }
 }
 export namespace DEFAULTS_BY_CONTROL_TYPE {
     export namespace alignment_1 {
@@ -52,6 +48,7 @@ export namespace DEFAULTS_BY_CONTROL_TYPE {
     export namespace width_1 {
         let color_1: number;
         export { color_1 as color };
+        export let none: string;
     }
     export { width_1 as width };
 }

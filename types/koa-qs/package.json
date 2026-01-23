@@ -6,7 +6,8 @@
         "https://github.com/koajs/qs#readme"
     ],
     "dependencies": {
-        "@types/koa": "*"
+        "@types/koa": "*",
+        "@types/qs": "*"
     },
     "devDependencies": {
         "@types/koa-qs": "workspace:."

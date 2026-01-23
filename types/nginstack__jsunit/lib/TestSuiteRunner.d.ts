@@ -4,6 +4,7 @@ declare function TestSuiteRunner(
     options: {
         trackerId?: string;
         env?: Record<string, string>;
+        runtime?: string;
     },
 ): void;
 declare class TestSuiteRunner {
@@ -12,6 +13,7 @@ declare class TestSuiteRunner {
         options: {
             trackerId?: string;
             env?: Record<string, string>;
+            runtime?: string;
         },
     );
     private suite_;
