@@ -1,4 +1,4 @@
-import Link = require("grenache-nodejs-link");
+import Link from "grenache-nodejs-link";
 
 const link = new Link({
     grape: "http://127.0.0.1:30001",
