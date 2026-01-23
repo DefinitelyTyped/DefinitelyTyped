@@ -220,7 +220,7 @@ interface KotobeeReader {
      * Sets reading direction (left-to-right or right-to-left).
      */
     setDirection: (direction: Directions) => void;
-    book: Book,
+    book: Book;
 }
 
 // Declare the global variable

@@ -114,10 +114,12 @@ const book: Book = {
             accessibilityfeature: "structuralNavigation",
             accessibilityhazard: "none",
             accessibilitysummary: "Accessible for screen readers.",
-        }
+        },
     },
     version: 2,
-    chapters: '[{"title":"Intro"}]',
+    chapters:
+        `<li class="item parent"><i class="icon parent"> </i> <a href="#/reader/chapter/0" data-url="xhtml/raw/ch1.xhtml">Page 1</a></li>
+<li class="item"><i class="icon"> </i> <a href="#/reader/chapter/1" data-url="xhtml/raw/ch2.xhtml">Page 2</a></li>`,
 };
 
 // Book with missing required properties - should error
