@@ -1,4 +1,5 @@
 /// <reference lib="dom" />
+/// <reference types="node" />
 
 export = ColorThief;
 export as namespace ColorThief;
@@ -41,6 +42,38 @@ declare namespace ColorThief {
  * Color Thief - Extract dominant colors from images
  */
 declare class ColorThief {
+    // --------------------------------------------------------
+    // Node.js usage (Static methods returning Promises)
+    // --------------------------------------------------------
+
+    /**
+     * Extract the dominant color from an image (Node.js)
+     * @param sourceImage - Path to the image file, or Buffer containing image
+     * @param quality - Quality/speed trade-off (1 = highest quality, 10 = default)
+     * @returns Promise resolving to RGB color array [r, g, b] where values are 0-255
+     */
+    static getColor(
+        sourceImage: Buffer | Uint8Array | ArrayBuffer | string,
+        quality?: number,
+    ): Promise<ColorThief.RGBColor>;
+
+    /**
+     * Extract a palette of colors from an image (Node.js)
+     * @param sourceImage - Path to the image file, or Buffer containing image
+     * @param colorCount - Number of colors to extract (2-20, default: 10)
+     * @param quality - Quality/speed trade-off (1 = highest quality, 10 = default)
+     * @returns Promise resolving to Array of RGB color arrays [[r, g, b], ...] where values are 0-255
+     */
+    static getPalette(
+        sourceImage: Buffer | Uint8Array | ArrayBuffer | string,
+        colorCount?: number,
+        quality?: number,
+    ): Promise<ColorThief.RGBColor[]>;
+
+    // --------------------------------------------------------
+    // Browser usage (Instance methods)
+    // --------------------------------------------------------
+
     /**
      * Extract the dominant color from an image
      * @param sourceImage - HTML image element

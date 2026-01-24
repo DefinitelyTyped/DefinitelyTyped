@@ -4,6 +4,17 @@
 // Import the ColorThief class for testing
 import ColorThief from "colorthief";
 
+// Node.js version tests
+const imgPath = "rainbow.png";
+
+// Test getColor method
+const dominantColorNode: Promise<ColorThief.RGBColor> = ColorThief.getColor(imgPath);
+const dominantColorWithQualityNode: Promise<ColorThief.RGBColor> = ColorThief.getColor(imgPath, 5);
+
+// Test getPalette method
+const paletteNode: Promise<ColorThief.RGBColor[]> = ColorThief.getPalette(imgPath);
+const paletteWithOptionsNode: Promise<ColorThief.RGBColor[]> = ColorThief.getPalette(imgPath, 8, 5);
+
 // Browser version tests
 const colorThief = new ColorThief();
 const img = document.createElement("img");
