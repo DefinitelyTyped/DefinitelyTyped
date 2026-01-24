@@ -15,7 +15,7 @@ export type RequestHandler<TRequest = unknown, TResponse = unknown> = (
     callback: Callback<TResponse>,
 ) => void;
 
-declare class PeerRPCClient extends EventEmitter {
+export class PeerRPCClient extends EventEmitter {
     constructor(link: Link, options?: RPCOptions);
 
     init(): void;
@@ -28,7 +28,7 @@ declare class PeerRPCClient extends EventEmitter {
     ): void;
 }
 
-declare class PeerRPCServer extends EventEmitter {
+export class PeerRPCServer extends EventEmitter {
     constructor(link: Link, options?: RPCOptions);
 
     init(): void;
@@ -39,24 +39,22 @@ declare class PeerRPCServer extends EventEmitter {
     ): void;
 }
 
-declare class PeerSub extends EventEmitter {
+export class PeerSub extends EventEmitter {
     constructor(link: Link, options?: RPCOptions);
     init(): void;
 }
 
-declare class PeerPub extends EventEmitter {
+export class PeerPub extends EventEmitter {
     constructor(link: Link, options?: RPCOptions);
     init(): void;
 }
 
-declare class TransportRPCServer extends EventEmitter {
+export class TransportRPCServer extends EventEmitter {
     constructor(link: Link, options?: RPCOptions);
     init(): void;
 }
 
-declare class TransportRPCClient extends EventEmitter {
+export class TransportRPCClient extends EventEmitter {
     constructor(link: Link, options?: RPCOptions);
     init(): void;
 }
-
-export { PeerPub, PeerRPCClient, PeerRPCServer, PeerSub, TransportRPCClient, TransportRPCServer };
