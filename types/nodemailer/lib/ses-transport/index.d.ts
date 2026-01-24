@@ -39,6 +39,9 @@ declare namespace SESTransport {
     /** Structural type matching SESv2Client from @aws-sdk/client-sesv2 */
     interface SESv2ClientLike {
         send(command: unknown, options?: unknown): Promise<{ MessageId?: string }>;
+        config?: {
+            region?: string | (() => Promise<string>);
+        };
     }
 
     /**

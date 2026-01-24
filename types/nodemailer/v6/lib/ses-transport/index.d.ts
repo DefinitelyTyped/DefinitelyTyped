@@ -37,8 +37,13 @@ declare namespace SESTransport {
 
     /** Structural type matching SES client from @aws-sdk/client-ses */
     interface SESClientLike {
-        sendEmail(params: unknown, options?: unknown): Promise<{ MessageId?: string }>;
-        sendRawEmail(params: unknown, options?: unknown): Promise<{ MessageId?: string }>;
+        /** Used with v3 low-level client + SendRawEmailCommand */
+        send?(command: unknown): Promise<{ MessageId?: string }>;
+        /** Used with v3 high-level SES class or v2 SDK */
+        sendRawEmail?(params: unknown, options?: unknown): Promise<{ MessageId?: string }>;
+        config?: {
+            region?: string | (() => Promise<string>);
+        };
     }
 
     /** Structural type matching the aws module shape */
