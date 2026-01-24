@@ -2,7 +2,8 @@ import FsLightbox from "fslightbox-react";
 import * as React from "react";
 
 class Test extends React.Component {
-    handleEvent = (instance: FsLightbox) => {};
+    handleEvent = (instance: any) => {};
+    handleSourceLoadEvent = (instance: any, source: any, index: number) => {};
 
     render() {
         return (
@@ -24,6 +25,11 @@ class Test extends React.Component {
                 type="image"
                 types={[null, "video", "youtube"]}
                 thumbs={[null, "yt.jpg", "bbbunny.jpg", "vimeo.jpg"]}
+                thumbsIcon={
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28px" height="28px" viewBox="00 430.118 430.118">
+                        <path d="M0 0 H119.054 V119.054 H0 V0 z M158.946 0 H278 V119.054 H158.946 V0 z M158.946 158.946 H278 V278 H158.946 V158.946 z M0 158.946 H119.054 V278 H0 V158.946 z" />
+                    </svg>
+                }
                 thumbsIcons={[
                     null,
                     <svg xmlns="http://www.w3.org/2000/svg" width="28px" height="28px" viewBox="00 430.118 430.118">
@@ -39,6 +45,7 @@ class Test extends React.Component {
                 captions={[<h2>Caption 1</h2>, "Caption 2", "Caption 3"]}
                 customAttributes={[null, { poster: "bbbunny.jpg" }]}
                 showThumbsOnMount={false}
+                showThumbsWithCaptions={true}
                 disableThumbs={false}
                 openOnMount={false}
                 autoplay
@@ -48,12 +55,14 @@ class Test extends React.Component {
                 exitFullscreenOnClose={false}
                 slideDistance={0.5}
                 slideshowTime={10000}
+                sourceMargin={0.2}
                 UIFadeOutTime={10000}
                 zoomIncrement={0.5}
                 onInit={this.handleEvent}
                 onOpen={this.handleEvent}
                 onShow={this.handleEvent}
                 onClose={this.handleEvent}
+                onSourceLoad={this.handleSourceLoadEvent}
                 onSlideChange={this.handleEvent}
                 maxYoutubeVideoDimensions={{ width: 400, height: 300 }}
                 initialAnimation="example-initial-animation"
@@ -61,21 +70,20 @@ class Test extends React.Component {
                 svg={{
                     toolbarButtons: {
                         thumbs: {
+                            class: "new-thumbs-btn",
                             viewBox: "0 0 278 278",
-                            width: "17px",
-                            height: "17px",
                             d: "M0 0 H119.054 V119.054 H0 V0 z M158.946 0 H278 V119.054 H158.946 V0 z M158.946 158.946 H278 V278 H158.946 V158.946 z M0 158.946 H119.054 V278 H0 V158.946 z",
                             title: "Preview",
                         },
                         zoomIn: {
-                            width: "20px",
+                            title: "Bigger",
                         },
                         zoomOut: {
-                            height: "20px",
+                            class: "new-zoom-out",
                         },
                         slideshow: {
                             start: {
-                                width: "20px",
+                                d: "M 1",
                             },
                             pause: {
                                 viewBox: "0 0 31 31",
@@ -90,12 +98,12 @@ class Test extends React.Component {
                             },
                         },
                         close: {
-                            height: "32px",
+                            d: "M 0",
                         },
                     },
                     slideButtons: {
                         previous: {
-                            width: "40px",
+                            viewBox: "0 0 40 40",
                         },
                         next: {
                             title: "Next",
