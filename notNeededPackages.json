@@ -3859,11 +3859,11 @@
         },
         "libsodium-wrappers": {
             "libraryName": "libsodium-wrappers",
-            "asOfVersion": "0.8.1"
+            "asOfVersion": "0.8.2"
         },
         "libsodium-wrappers-sumo": {
             "libraryName": "libsodium-wrappers-sumo",
-            "asOfVersion": "0.8.1"
+            "asOfVersion": "0.8.2"
         },
         "libxmljs": {
             "libraryName": "libxmljs",
