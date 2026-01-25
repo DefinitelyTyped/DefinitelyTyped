@@ -3,6 +3,12 @@
     "name": "@types/vue-draggable-resizable",
     "version": "3.0.9999",
     "type": "module",
+    "exports": {
+        ".": {
+            "import": "./index.d.ts",
+            "require": "./index.d.cts"
+        }
+    },
     "projects": [
         "https://github.com/mauricius/vue-draggable-resizable"
     ],
