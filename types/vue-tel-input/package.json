@@ -3,7 +3,7 @@
     "name": "@types/vue-tel-input",
     "version": "3.0.9999",
     "projects": [
-        "https://iamstevendao.com/vue-tel-input"
+        "https://github.com/iamstevendao/vue-tel-input"
     ],
     "dependencies": {
         "vue": "^3.0.0"
