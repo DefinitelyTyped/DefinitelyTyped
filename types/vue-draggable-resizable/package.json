@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/vue-draggable-resizable",
+    "version": "3.0.9999",
+    "type": "module",
+    "projects": [
+        "https://github.com/mauricius/vue-draggable-resizable"
+    ],
+    "dependencies": {
+        "vue": "^3.0.0"
+    },
+    "devDependencies": {
+        "@types/vue-draggable-resizable": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Julio Borja Barra",
+            "githubUsername": "juboba"
+        }
+    ]
+}
