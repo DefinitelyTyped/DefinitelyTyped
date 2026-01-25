@@ -1,40 +1,36 @@
-import Vue from "vue";
+import { createApp } from "vue";
 import VueTelInput from "vue-tel-input";
 
-new Vue({
-    el: "#app",
-    data: {
-        phone: "",
-        bindProps: {
-            defaultCountry: "",
-            disabledFetchingCountry: false,
-            disabled: false,
-            disabledFormatting: false,
-            placeholder: "Enter a phone number",
-            required: false,
-            enabledCountryCode: false,
-            enabledFlags: true,
-            preferredCountries: ["AU", "BR"],
-            onlyCountries: [],
-            ignoredCountries: [],
-            autocomplete: "off",
-            name: "telephone",
-            maxLen: 25,
-            wrapperClasses: "",
-            inputClasses: "",
-            dropdownOptions: {
-                disabledDialCode: false,
+const app = createApp({
+    data() {
+        return {
+            phone: "",
+            bindProps: {
+                defaultCountry: "",
+                disabled: false,
+                inputOptions: {
+                    autocomplete: "off",
+                    maxlength: 25,
+                    name: "telephone",
+                    placeholder: "Enter a phone number",
+                    required: false,
+                    showDialCode: false,
+                },
+                dropdownOptions: {
+                    showFlags: false,
+                },
+                preferredCountries: ["AU", "BR"],
+                onlyCountries: [],
+                ignoredCountries: [],
+                styleClasses: "",
             },
-            inputOptions: {
-                showDialCode: false,
-            },
-        },
-    },
-    components: {
-        "vue-tel-input": VueTelInput,
+        };
     },
     template: `
     <vue-tel-input v-model="phone" v-bind="bindProps">
     </vue-tel-input>
 `,
 });
+
+app.use(VueTelInput);
+app.mount("#app");
