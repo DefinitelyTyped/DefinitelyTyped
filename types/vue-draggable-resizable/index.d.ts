@@ -187,9 +187,10 @@ export interface VueDraggableResizableSlots {
     default?: () => VNodeProps[];
 }
 
-declare const VueDraggableResizable: DefineComponent<VueDraggableResizableProps> &
-    AllowedComponentProps &
-    ComponentCustomProps;
+declare const VueDraggableResizable:
+    & DefineComponent<VueDraggableResizableProps>
+    & AllowedComponentProps
+    & ComponentCustomProps;
 
 /** Vue plugin install function */
 export function install(app: App): void;
