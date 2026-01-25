@@ -116,12 +116,12 @@ export interface VueDraggableResizableProps {
      * Called during drag, return false to cancel
      * @default () => true
      */
-    onDrag?: (x: number, y: number) => boolean | void;
+    onDrag?: (x: number, y: number) => boolean | undefined;
     /**
      * Called when drag starts, return false to cancel
      * @default () => true
      */
-    onDragStart?: (x: number, y: number) => boolean | void;
+    onDragStart?: (x: number, y: number) => boolean | undefined;
     /**
      * Called when drag stops
      */
@@ -130,12 +130,12 @@ export interface VueDraggableResizableProps {
      * Called during resize, return false to cancel
      * @default () => true
      */
-    onResize?: (handle: HandleType, x: number, y: number, width: number, height: number) => boolean | void;
+    onResize?: (handle: HandleType, x: number, y: number, width: number, height: number) => boolean | undefined;
     /**
      * Called when resize starts, return false to cancel
      * @default () => true
      */
-    onResizeStart?: (handle: HandleType, x: number, y: number, width: number, height: number) => boolean | void;
+    onResizeStart?: (handle: HandleType, x: number, y: number, width: number, height: number) => boolean | undefined;
     /**
      * Called when resize stops
      */
@@ -182,50 +182,14 @@ export interface VueDraggableResizableProps {
     z?: number | "auto";
 }
 
-export interface VueDraggableResizableEmits {
-    /** Emitted when component becomes active */
-    (event: "activated"): void;
-    /** Emitted when component becomes inactive */
-    (event: "deactivated"): void;
-    /** Emitted when drag ends */
-    (event: "drag-stop", left: number, top: number): void;
-    /** Emitted during drag movement */
-    (event: "dragging", left: number, top: number): void;
-    /** Emitted when resize ends */
-    (event: "resize-stop", left: number, top: number, width: number, height: number): void;
-    /** Emitted during resize */
-    (event: "resizing", left: number, top: number, width: number, height: number): void;
-    /** Two-way binding for active prop */
-    (event: "update:active", value: boolean): void;
-    /** Two-way binding for h prop */
-    (event: "update:h", value: number): void;
-    /** Two-way binding for w prop */
-    (event: "update:w", value: number): void;
-    /** Two-way binding for x prop */
-    (event: "update:x", value: number): void;
-    /** Two-way binding for y prop */
-    (event: "update:y", value: number): void;
-}
-
 export interface VueDraggableResizableSlots {
     /** Default slot for component content */
     default?: () => VNodeProps[];
 }
 
-type VueDraggableResizableComponent = DefineComponent<
-    VueDraggableResizableProps,
-    Record<string, never>,
-    Record<string, never>,
-    Record<string, never>,
-    Record<string, never>,
-    Record<string, never>,
-    Record<string, never>,
-    VueDraggableResizableEmits
-> &
+declare const VueDraggableResizable: DefineComponent<VueDraggableResizableProps> &
     AllowedComponentProps &
     ComponentCustomProps;
-
-declare const VueDraggableResizable: VueDraggableResizableComponent;
 
 /** Vue plugin install function */
 export function install(app: App): void;
