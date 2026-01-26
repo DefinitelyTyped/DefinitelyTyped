@@ -1471,7 +1471,6 @@
 /types/detect-file/                                     @LeoDog896
 /types/detect-hover/                                    @thomastilkema
 /types/detect-inapp/                                    @moelleer
-/types/detect-libc/                                     @JamieMagee
 /types/detect-node/                                     @LogvinovLeon
 /types/detect-pointer/                                  @thomastilkema
 /types/detect-rpi/                                      @LeoDog896
@@ -1854,7 +1853,7 @@
 /types/eslint-plugin-mobx/                              @MysteryBlokHed
 /types/eslint-plugin-mocha/                             @rhysd
 /types/eslint-plugin-prettier/                          @ikatyang @JounQin
-/types/eslint-plugin-security/                          @rhysd
+/types/eslint-plugin-security/                          @rhysd @porada
 /types/eslint-plugin-tailwindcss/                       @eagerestwolf
 /types/eslint-scope/                                    @mysticatea
 /types/eslint-utils/                                    @JoshuaKGoldberg
@@ -4094,6 +4093,7 @@
 /types/konami.js/                                       @mareek
 /types/koozaki__romaji-conv/                            @peterblazejewicz
 /types/kos-core/                                        @ali-Kos
+/types/kotobee/                                         @Bashamega
 /types/kraken-js/                                       @darkwebdev @micksatana
 /types/kramed/                                          @tonicblue
 /types/kss/                                             @giladgray
@@ -4174,7 +4174,6 @@
 /types/leaflet.awesome-markers/v0/                      @Odrin @sebek64
 /types/leaflet.chinatmsproviders/                       @TwoKe945
 /types/leaflet.featuregroup.subgroup/                   @drtomato
-/types/leaflet.fullscreen/                              @wcomartin @danmana
 /types/leaflet.gridlayer.googlemutant/                  @ernest-rhinozeros
 /types/leaflet.heat/                                    @onderceylan
 /types/leaflet.icon.glyph/                              @BePo65
@@ -4229,8 +4228,6 @@
 /types/libpq/                                           @Lodin
 /types/libqp/                                           @webstech
 /types/librato-node/                                    @jgeurts
-/types/libsodium-wrappers/                              @ffflorian
-/types/libsodium-wrappers-sumo/                         @ffflorian
 /types/libtess/                                         @jpt
 /types/libxslt/                                         @alejo90 @daniel-pedersen
 /types/license-checker/                                 @rogierschouten @unindented @alechemy
@@ -4709,6 +4706,7 @@
 /types/markdown-it-attrs/                               @grawl
 /types/markdown-it-color-inline/                        @hkleungai
 /types/markdown-it-container/                           @hronex
+/types/markdown-it-container/v2/                        @hronex
 /types/markdown-it-emoji/                               @Shinigami92 @peterblazejewicz
 /types/markdown-it-external-links/                      @grawl
 /types/markdown-it-fence/                               @hkleungai
@@ -5124,7 +5122,7 @@
 /types/nib/                                             @NomNes
 /types/nice-try/                                        @Richienb
 /types/nightmare/                                       @horiuchi @samyang-au
-/types/nightwind/                                       @CommanderStorm @jayakornk @jjranalli
+/types/nightwind/                                       @CommanderStorm @jayakornk @jacopo-eth
 /types/nise/                                            @a-tarasyuk
 /types/nivo-slider/                                     @AndersonFriaca
 /types/nkzq__copy-paste/                                @sfilata
@@ -5560,6 +5558,7 @@
 /types/passport-google-id-token/                        @Wyfy0107
 /types/passport-google-oauth/                           @staticfunction
 /types/passport-google-oauth20/                         @yasupeke @ezintz @ngtan @acerbic
+/types/passport-google-oidc/                            @nathanhleung
 /types/passport-http/                                   @krizalys @tlaziuk @cjbarth @jamesadarich
 /types/passport-http-bearer/                            @isman-usoh
 /types/passport-instagram/                              @sagar7993
@@ -5615,7 +5614,6 @@
 /types/paypal__checkout-server-sdk/                     @martin-badin
 /types/paypal__payouts-sdk/                             @msrumon
 /types/paypal__paypalhttp/                              @martin-badin
-/types/paystack/                                        @sheghun
 /types/paystack__inline-js/                             @3m1n3nc3
 /types/paytmchecksum/                                   @adarshsingh87
 /types/payu-emea-sdk/                                   @regdos
