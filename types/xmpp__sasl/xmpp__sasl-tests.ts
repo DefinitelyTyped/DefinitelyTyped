@@ -34,7 +34,7 @@ sasl({ streamFeatures: sf, saslFactory }, { password: "foo" }); // $ExpectType S
 // $ExpectType SASL
 sasl({ streamFeatures: sf, saslFactory }, async (cb, mech) => {
     cb; // $ExpectType (credentials: CredentialsObj) => Promise<void>
-    mech; // $ExpectType string
+    mech; // $ExpectType string[]
 
     await cb({ username: "foo", password: "bar" });
 });

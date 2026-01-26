@@ -15,6 +15,7 @@
         "@types/xmpp__reconnect": "*",
         "@types/xmpp__resource-binding": "*",
         "@types/xmpp__sasl": "*",
+        "@types/xmpp__sasl2": "*",
         "@types/xmpp__stream-features": "*",
         "@types/xmpp__stream-management": "*"
     },
