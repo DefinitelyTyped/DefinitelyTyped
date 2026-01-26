@@ -9,7 +9,7 @@ declare namespace FsLightbox {
     }
 
     interface ToolbarButtonProps {
-	class?: string;
+        class?: string;
         viewBox?: string;
         d?: string;
         title?: string;
@@ -66,11 +66,11 @@ declare namespace FsLightbox {
         disableSlideSwiping?: boolean | undefined;
         loadOnlyCurrentSource?: boolean | undefined;
         showThumbsOnMount?: boolean | undefined; // pro feature
-	showThumbsWithCaptions?: boolean | undefined; // pro feature
+        showThumbsWithCaptions?: boolean | undefined; // pro feature
         disableThumbs?: boolean | undefined; // pro feature
         slideDistance?: number | undefined;
         slideshowTime?: number | undefined; // pro feature
-	sourceMargin?: number | undefined;
+        sourceMargin?: number | undefined;
         UIFadeOutTime?: number | false | undefined; // pro feature
         zoomIncrement?: number | undefined; // pro feature
         openOnMount?: boolean | undefined;
@@ -100,6 +100,5 @@ declare namespace FsLightbox {
     }
 }
 
-declare const FsLightbox : React.FC<FsLightbox.FsLightboxProps>
-export = FsLightbox
-	
+declare const FsLightbox: React.FC<FsLightbox.FsLightboxProps>;
+export = FsLightbox;
