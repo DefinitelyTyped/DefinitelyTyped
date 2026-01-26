@@ -7,10 +7,10 @@
         "https://nodemailer.com"
     ],
     "dependencies": {
-        "@aws-sdk/client-ses": "^3.731.1",
         "@types/node": "*"
     },
     "devDependencies": {
+        "@aws-sdk/client-ses": "^3.731.1",
         "@types/nodemailer": "workspace:."
     },
     "owners": [
