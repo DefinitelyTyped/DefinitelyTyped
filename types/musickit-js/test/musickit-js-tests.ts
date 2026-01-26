@@ -1,10 +1,13 @@
-MusicKit.configure({
-    app: {
-        build: "1.0",
-        name: "PLAYER_NAME",
-    },
-    developerToken: "devToken",
-});
+async function testConfigure() {
+    // $ExpectType MusicKitInstance
+    const instance = await MusicKit.configure({
+        app: {
+            build: "1.0",
+            name: "PLAYER_NAME",
+        },
+        developerToken: "devToken",
+    });
+}
 
 const player = MusicKit.getInstance();
 
