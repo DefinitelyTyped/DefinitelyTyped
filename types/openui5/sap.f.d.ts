@@ -1,4 +1,4 @@
-// For Library Version: 1.143.0
+// For Library Version: 1.144.0
 
 declare module "sap/tnt/library" {
   export interface IToolHeader {
@@ -10862,7 +10862,7 @@ declare module "sap/f/FlexibleColumnLayoutData" {
 
   /**
    * Holds layout data for `sap.f.FlexibleColumnLayout`. Allows LayoutData of type `sap.f.FlexibleColumnLayoutDataForDesktop`
-   * or `sap.f.FlexibleColumnLayoutFlexibleColumnLayoutDataForTablet`
+   * or `sap.f.FlexibleColumnLayoutDataForTablet`
    *
    * @since 1.128
    */
@@ -18847,7 +18847,7 @@ declare module "sap/f/semantic/SemanticPage" {
     /**
      * Gets content of aggregation {@link #getLandmarkInfo landmarkInfo}.
      *
-     * Accessible landmark settings to be applied to the containers of the `sap.f.SemanticPage` control.
+     * Accessible landmark settings to be applied to the containers of the `sap.f.semantic.SemanticPage` control.
      *
      * If not set, no landmarks will be written.
      *
@@ -20575,7 +20575,7 @@ declare module "sap/f/semantic/SemanticPage" {
       | `{${string}}`;
 
     /**
-     * Accessible landmark settings to be applied to the containers of the `sap.f.SemanticPage` control.
+     * Accessible landmark settings to be applied to the containers of the `sap.f.semantic.SemanticPage` control.
      *
      * If not set, no landmarks will be written.
      *
