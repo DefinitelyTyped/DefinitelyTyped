@@ -2,7 +2,7 @@ import pdfFonts = require("pdfmake/build/vfs_fonts");
 import pdfMake = require("pdfmake/build/pdfmake");
 import { BufferOptions, CustomTableLayout, TDocumentDefinitions, TFontDictionary } from "pdfmake/interfaces";
 
-pdfMake.vfs = pdfFonts;
+pdfMake.addVirtualFileSystem(pdfFonts);
 
 const dd: TDocumentDefinitions = {
     content: [
@@ -18,30 +18,18 @@ const options: BufferOptions = {
 
 pdfMake.createPdf(dd).download();
 pdfMake.createPdf(dd).download("defaultFileName");
-pdfMake.createPdf(dd).download("defaultFileName", () => {
-    console.log("Download finished");
-});
-pdfMake.createPdf(dd).download("defaultFileName", undefined, options);
-pdfMake.createPdf(dd).download(() => {
-    console.log("Download finished");
-});
-pdfMake.createPdf(dd).download(() => {
-    console.log("Download finished");
-}, options);
 
 pdfMake.createPdf(dd).open();
-pdfMake.createPdf(dd).open(options);
 const win = window.open("", "_blank");
-pdfMake.createPdf(dd).open({}, win);
-pdfMake.createPdf(dd).open({}, window);
+pdfMake.createPdf(dd).open(win);
+pdfMake.createPdf(dd).open(window);
 
 pdfMake.createPdf(dd).print();
-pdfMake.createPdf(dd).print(options);
-pdfMake.createPdf(dd).print({}, win);
-pdfMake.createPdf(dd).print({}, window);
+pdfMake.createPdf(dd).print(win);
+pdfMake.createPdf(dd).print(window);
 
 const pdfDocGenerator = pdfMake.createPdf(dd);
-pdfDocGenerator.getDataUrl((dataUrl) => {
+pdfDocGenerator.getDataUrl().then(dataUrl => {
     const targetElement = document.querySelector("#iframeContainer");
     const iframe = document.createElement("iframe");
     iframe.src = dataUrl;
@@ -68,4 +56,9 @@ const fonts: TFontDictionary = {
 const vfs2: { [file: string]: string } = {
     "roboto-regular.ttf": "AAEAAAASAQAABAAgR0RFRrRCsIIAAjGsAAA....base64 of font binary",
 };
-pdfMake.createPdf(dd, layouts, fonts, vfs2).open();
+
+pdfMake.addVirtualFileSystem(vfs2);
+pdfMake.addFonts(fonts);
+pdfMake.addTableLayouts(layouts);
+
+pdfMake.createPdf(dd, options).open();

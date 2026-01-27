@@ -93,8 +93,8 @@ const pageBreakBefore: TDocumentDefinitions = {
         { text: "3 Headline", headlineLevel: 1 },
         "Some long text of variable length ...",
     ],
-    pageBreakBefore: (currentNode, followingNodesOnPage, nodesOnNextPage, previousNodesOnPage) =>
-        currentNode.headlineLevel === 1 && followingNodesOnPage.length === 0,
+    pageBreakBefore: (currentNode, { getFollowingNodesOnPage, getNodesOnNextPage, getPreviousNodesOnPage }) =>
+        currentNode.headlineLevel === 1 && getFollowingNodesOnPage().length === 0,
 };
 
 const qrCodes: TDocumentDefinitions = {
@@ -263,9 +263,7 @@ const imageWithHeaders: TDocumentDefinitions = {
 const bufferOptions: BufferOptions = {
     fontLayoutCache: true,
     bufferPages: true,
-    tableLayouts: { foo: { fillColor: "#ff0000" } },
     autoPrint: true,
-    progressCallback: (progress: number) => {},
 };
 
 const customTableLayouts: CustomTableLayout[] = [
