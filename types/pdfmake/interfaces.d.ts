@@ -837,6 +837,16 @@ export interface Style {
     noWrap?: boolean | undefined;
 
     /**
+     * Controls the line breaking behavior.
+     *
+     * - `normal` breaks lines at spaces
+     * - `break-all` breaks lines anywhere
+     *
+     * Defaults to `normal`.
+     */
+    wordBreak?: "normal" | "break-all" | undefined;
+
+    /**
      * Space between columns in `pt`.
      *
      * Only applies to {@link ContentColumns} elements.
@@ -1043,13 +1053,13 @@ export interface ContentCanvas extends ContentBase, ForbidOtherElementProperties
  */
 export interface ContentSvg extends ContentBase, ContentLink, ForbidOtherElementProperties<"svg"> {
     /**
-     * Renders the given SVG content string as an image.
+     * Renders the given SVG element or content string as an image.
      *
      * For images other than SVG, use the `image` property instead.
      *
      * Simple vectors can also be rendered using the `canvas` property instead.
      */
-    svg: string;
+    svg: string | SVGElement;
 
     /**
      * Width of the image in `pt`.
@@ -1563,6 +1573,15 @@ export interface OrderedListElementProperties {
      * Defaults to the list's {@link ContentOrderedList.type}.
      */
     listType?: OrderedListType | undefined;
+
+    /**
+     * Color of the list marker (i.e. number).
+     *
+     * Supports well-known color names like `blue` or hexadecimal color strings like `#ccffcc`.
+     *
+     * Defaults to the list's marker color.
+     */
+    markerColor?: string | undefined;
 }
 
 /**
@@ -1590,6 +1609,15 @@ export interface UnorderedListElementProperties {
      * Defaults to the list's {@link ContentUnorderedList.type}.
      */
     listType?: UnorderedListType | undefined;
+
+    /**
+     * Color of the list marker (i.e. bullet point).
+     *
+     * Supports well-known color names like `blue` or hexadecimal color strings like `#ccffcc`.
+     *
+     * Defaults to the list's marker color.
+     */
+    markerColor?: string | undefined;
 }
 
 /**
@@ -2069,7 +2097,7 @@ export interface TDocumentDefinitions {
      *
      * @param currentNode - The current content node to check.
      * @param followingNodesOnPage - The content nodes defined after the current node on the same page.
-     * @param nodesOnNextPage - The content nodes on the page after the current node's page.
+     * @param nodesOnNextPage - The content nodes on the next page.
      * @param previousNodesOnPage - The content nodes defined before the current node on the same page.
      *
      * @returns whether to insert a page break before the current node.

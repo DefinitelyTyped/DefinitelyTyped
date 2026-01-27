@@ -2,7 +2,7 @@ import pdfFonts = require("pdfmake/build/vfs_fonts");
 import pdfMake = require("pdfmake/build/pdfmake.min");
 import { BufferOptions, CustomTableLayout, TFontDictionary } from "pdfmake/interfaces";
 
-pdfMake.vfs = pdfFonts.vfs;
+pdfMake.vfs = pdfFonts;
 
 const dd = {
     content: "Hello world!",
