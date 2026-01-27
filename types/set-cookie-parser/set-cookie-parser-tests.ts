@@ -141,3 +141,38 @@ const expectedCookie: setCookie.Cookie = {
 };
 assert.deepStrictEqual(decodedValueCookie, expectedCookie);
 assert.strictEqual(notDecodedValueCookie.value, "%D0%98%D0%BB%D1%8C%D1%8F%20%D0%97%D0%B0%D0%B9%D1%86%D0%B5%D0%B2");
+
+// Call parseSetCookie function
+const parseSetCookieCookies = setCookie.parseSetCookie(
+    [
+        "foo=bar; Max-Age=1000; Domain=.example.com; Path=/; Expires=Tue, 01 Jul 2025 10:01:11 GMT; HttpOnly; Secure",
+        "baz=buz; Max-Age=1000; Domain=.example.com; Path=/; Expires=Tue, 01 Jul 2025 10:01:11 GMT; HttpOnly; Secure",
+    ],
+    { decodeValues: true, silent: false, split: "auto" },
+);
+assert.strictEqual(parseSetCookieCookies.length, 2);
+assert.strictEqual(parseSetCookieCookies[0].name, "foo");
+assert.strictEqual(parseSetCookieCookies[0].value, "bar");
+assert.strictEqual(parseSetCookieCookies[1].name, "baz");
+assert.strictEqual(parseSetCookieCookies[1].value, "buz");
+
+const parseSetCookieSingleCookie = setCookie.parseSetCookie(
+    "foo=bar; Max-Age=1000; Domain=.example.com; Path=/; Expires=Tue, 01 Jul 2025 10:01:11 GMT; HttpOnly; Secure",
+    { decodeValues: true, silent: false, split: "auto" },
+);
+assert.strictEqual(parseSetCookieSingleCookie.length, 1);
+assert.strictEqual(parseSetCookieSingleCookie[0].name, "foo");
+assert.strictEqual(parseSetCookieSingleCookie[0].value, "bar");
+
+// Call parseSetCookie with map=true option
+const parseSetCookieCookiesMap = setCookie.parseSetCookie(
+    [
+        "foo=bar; Max-Age=1000; Domain=.example.com; Path=/; Expires=Tue, 01 Jul 2025 10:01:11 GMT; HttpOnly; Secure",
+        "baz=buz; Max-Age=1000; Domain=.example.com; Path=/; Expires=Tue, 01 Jul 2025 10:01:11 GMT; HttpOnly; Secure",
+    ],
+    { decodeValues: true, map: true },
+);
+assert.strictEqual(parseSetCookieCookiesMap["foo"]["name"], "foo");
+assert.strictEqual(parseSetCookieCookiesMap["foo"]["value"], "bar");
+assert.strictEqual(parseSetCookieCookiesMap["baz"]["name"], "baz");
+assert.strictEqual(parseSetCookieCookiesMap["baz"]["value"], "buz");
