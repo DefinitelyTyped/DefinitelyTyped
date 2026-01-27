@@ -54,6 +54,12 @@ export interface RoktSelection {
 export as namespace mParticle;
 export {};
 
+export interface LauncherOptions {
+    noTargeting?: boolean | undefined;
+    noFunctional?: boolean | undefined;
+    [key: string]: unknown;
+}
+
 export type AliasRequestScope = "device" | "mpid";
 
 export interface MPConfiguration {
@@ -103,7 +109,7 @@ export interface MPConfiguration {
     domain?: string | undefined;
     userAudienceUrl?: string | undefined;
     flags?: Dictionary | undefined;
-    launcherOptions?: Dictionary | undefined;
+    launcherOptions?: LauncherOptions | undefined;
     RoktExtensions?: Array<string> | undefined;
 }
 

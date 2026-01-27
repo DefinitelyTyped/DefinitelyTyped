@@ -126,6 +126,10 @@ const config: mParticle.MPConfiguration = {
     configUrl: "mp.mydomain.com/tags/JS/v2/",
     identityUrl: "mp.mydomain.com/identity/v1/",
     aliasUrl: "mp.mydomain.com/webevents/v1/identity/",
+    launcherOptions: {
+        noTargeting: true,
+        noFunctional: true,
+    },
 };
 
 mParticle.endSession();
@@ -170,7 +174,7 @@ const mockKitInstance: mParticle.MPForwarder = {
     constructor: () => {},
 };
 
-const sideloadedKit = new mParticle.MPSideloadedKit(mockKitInstance);
+const sideloadedKit: mParticle.MPSideloadedKit = new mParticle.MPSideloadedKit(mockKitInstance);
 sideloadedKit.addEventTypeFilter(mParticle.EventType.Navigation);
 sideloadedKit.addEventNameFilter(mParticle.EventType.Navigation, "PageView");
 sideloadedKit.addEventAttributeFilter(mParticle.EventType.Navigation, "PageView", "attributeKey");
