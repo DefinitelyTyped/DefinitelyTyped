@@ -700,3 +700,66 @@ function cacheSignalTest() {
         }
     }
 }
+
+function formrelatedEventTests() {
+    React.createElement("textarea", {
+        value: "5",
+        onChange: event => {
+            // createElement is not inferring props for textarea. JSX works though.
+            // $ExpectType EventTarget & HTMLElement
+            event.target;
+            // @ts-expect-error
+            event.target.value;
+        },
+    });
+
+    React.createElement("input", {
+        onChange: event => {
+            // $ExpectType EventTarget & HTMLInputElement
+            event.target;
+            // $ExpectType string
+            event.target.value;
+        },
+    });
+
+    <div
+        onChange={event => {
+            // Should be EventTarget since we don't know from where the change event bubbled.
+            // $ExpectType EventTarget & HTMLDivElement
+            event.target;
+        }}
+    />;
+    <input
+        onChange={event => {
+            // $ExpectType EventTarget & HTMLInputElement
+            event.target;
+            // $ExpectType string
+            event.target.value;
+        }}
+    />;
+    <select
+        onChange={event => {
+            // $ExpectType EventTarget & HTMLSelectElement
+            event.target;
+            // $ExpectType string
+            event.target.value;
+        }}
+    />;
+    <textarea
+        onChange={event => {
+            // $ExpectType EventTarget & HTMLTextAreaElement
+            event.target;
+            // $ExpectType string
+            event.target.value;
+        }}
+    />;
+
+    <form
+        onSubmit={event => {
+            // @ts-expect-error -- submitter is not yet exposed by React
+            event.submitter;
+            // $ExpectType EventTarget & HTMLFormElement
+            event.target;
+        }}
+    />;
+}
