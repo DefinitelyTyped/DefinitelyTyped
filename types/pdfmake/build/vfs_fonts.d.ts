@@ -1,1 +1,3 @@
-export let vfs: { [file: string]: string };
+declare const vfs: { [file: string]: string };
+
+export = vfs;

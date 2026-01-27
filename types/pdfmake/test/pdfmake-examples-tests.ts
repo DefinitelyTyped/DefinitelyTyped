@@ -684,7 +684,7 @@ const lists: TDocumentDefinitions = {
         {
             color: "blue",
             markerColor: "red",
-            ul: ["item 1", "item 2", "item 3"],
+            ul: ["item 1", "item 2", { text: "item 3 with custom marker color", markerColor: "lime" }],
         },
         { text: "\n\nColored ordered list", style: "header" },
         {
@@ -698,7 +698,7 @@ const lists: TDocumentDefinitions = {
         {
             color: "blue",
             markerColor: "red",
-            ol: ["item 1", "item 2", "item 3"],
+            ol: ["item 1", "item 2", { text: "item 3 with custom marker color", markerColor: "lime" }],
         },
         { text: "\n\nOrdered list - type: lower-alpha", style: "header" },
         {
@@ -1447,7 +1447,37 @@ const stylingProperties: TDocumentDefinitions = {
                 " World",
             ],
         },
+        "\n\n",
+        {
+            text: "Text background pattern",
+            background: ["stripe45d", "gray"],
+        },
+        {
+            text: "Customize word break:",
+            pageBreak: "before",
+        },
+        {
+            text: "DefaultLine\n\"BreakBehaviour\" \"ForATextWithVeryVery\" \"LongLongWords\"",
+            fontSize: 30,
+        },
+        {
+            text: "\n\n",
+            fontSize: 30,
+        },
+        {
+            text: "BreakAll\n\"LineBreakBehaviour\" \"ForATextWithVeryVery\" \"LongLongWords\"",
+            fontSize: 30,
+            wordBreak: "break-all",
+        },
     ],
+    patterns: {
+        stripe45d: {
+            boundingBox: [1, 1, 4, 4],
+            xStep: 3,
+            yStep: 3,
+            pattern: "1 w 0 1 m 4 5 l s 2 0 m 5 3 l s",
+        },
+    },
 };
 
 const svgs: TDocumentDefinitions = {

@@ -1,11 +1,14 @@
 import pdfFonts = require("pdfmake/build/vfs_fonts");
 import pdfMake = require("pdfmake/build/pdfmake");
-import { BufferOptions, CustomTableLayout, TFontDictionary } from "pdfmake/interfaces";
+import { BufferOptions, CustomTableLayout, TDocumentDefinitions, TFontDictionary } from "pdfmake/interfaces";
 
-pdfMake.vfs = pdfFonts.vfs;
+pdfMake.vfs = pdfFonts;
 
-const dd = {
-    content: "Hello world!",
+const dd: TDocumentDefinitions = {
+    content: [
+        "Hello world!",
+        { svg: new SVGElement() },
+    ],
 };
 
 const options: BufferOptions = {
