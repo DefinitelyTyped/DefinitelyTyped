@@ -1,4 +1,4 @@
-// For Library Version: 1.143.0
+// For Library Version: 1.144.0
 
 declare module "sap/ui/webc/common/library" {}
 
@@ -114,6 +114,8 @@ declare module "sap/ui/webc/common/WebComponent" {
   /**
    * The structure of the "metadata" object which is passed when inheriting from sap.ui.core.Element using
    * its static "extend" method. See {@link sap.ui.core.Element.extend} for details on its usage.
+   *
+   * @deprecated As of version 1.118.0. because it is part of the deprecated package sap.ui.webc.common.WebComponent
    */
   export type MetadataOptions = MetadataOptions1;
 
