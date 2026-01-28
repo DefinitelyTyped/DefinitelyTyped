@@ -136,6 +136,66 @@ const absolute: TDocumentDefinitions = {
     },
 };
 
+const attachments: TDocumentDefinitions = {
+    content: [
+        "pdfmake supports attaching files as annotations as well as embedded files.",
+        "Embedded files are added in the \"files\" dictionary and will show up in supported pdf viewers in their respective attachment panels.",
+        "File attachments are annotations which link to a file.",
+        "Any attachment or embedded file must provide at least a \"src\", providing a filename through \"name\" is highly recommended.",
+        "The \"src\" of any attachment can be provided in dataURL format (like the following attachment, taken from http://www.clipartbest.com/clipart-dT7zx5rT9), but local files are allowed as well.",
+        {
+            attachment: {
+                src: "data:image/png;base64,...",
+                name: "testImage.png",
+            },
+        },
+        "You can also define an attachment in the \"attachments\" dictionary and reference it by name.",
+        {
+            attachment: "sampleImage",
+        },
+        "And there are three different standard icons for attachments, \"GraphPush\", \"Paperclip\", and \"Push\" (the default value). Set them with the \"icon\" option.",
+        {
+            attachment: "sampleImage",
+            icon: "GraphPush",
+        },
+        {
+            attachment: "sampleImage",
+            icon: "Paperclip",
+        },
+        {
+            attachment: "sampleImage",
+            icon: "Push",
+        },
+        "For better customization, add an image and attach a file to it with linkToFile:",
+        {
+            image: "fonts/sampleImage.jpg",
+            width: 150,
+            linkToFile: "sampleImage",
+        },
+        "You can add a description, which will show in your pdf viewer's attachments panel and as a tooltip when hovering over the attachment.",
+        {
+            attachment: {
+                src: "data:image/png;base64,...",
+                name: "withDescription.png",
+                description: "file description",
+            },
+        },
+        "You can also define the \"src\" of an attachment or embedded file in the \"attachments\" and \"files\" dictionary via URL address.",
+    ],
+    attachments: {
+        sampleImage: {
+            src: "fonts/sampleImage.jpg",
+            name: "sampleImage.png",
+        },
+    },
+    files: {
+        README: {
+            src: "https://raw.githubusercontent.com/bpampuch/pdfmake/master/README.md",
+            name: "pdfmake README.md",
+        },
+    },
+};
+
 const background: TDocumentDefinitions = {
     background(page) {
         if (page !== 2) {
@@ -684,7 +744,7 @@ const lists: TDocumentDefinitions = {
         {
             color: "blue",
             markerColor: "red",
-            ul: ["item 1", "item 2", "item 3"],
+            ul: ["item 1", "item 2", { text: "item 3 with custom marker color", markerColor: "lime" }],
         },
         { text: "\n\nColored ordered list", style: "header" },
         {
@@ -698,7 +758,7 @@ const lists: TDocumentDefinitions = {
         {
             color: "blue",
             markerColor: "red",
-            ol: ["item 1", "item 2", "item 3"],
+            ol: ["item 1", "item 2", { text: "item 3 with custom marker color", markerColor: "lime" }],
         },
         { text: "\n\nOrdered list - type: lower-alpha", style: "header" },
         {
@@ -1250,6 +1310,98 @@ const relative2: TDocumentDefinitions = {
     ],
 };
 
+const sections: TDocumentDefinitions = {
+    header: function() {
+        return "default header";
+    },
+    footer: function() {
+        return "default footer";
+    },
+    background: function() {
+        return { text: "global background", alignment: "right" };
+    },
+    watermark: "default watermark",
+    content: [
+        {
+            section: [
+                "SECTION 1",
+                "Text in section.",
+            ],
+        },
+        {
+            header: function(currentPage, pageCount) {
+                return "header: " + currentPage.toString() + " of " + pageCount;
+            },
+            footer: function(currentPage, pageCount) {
+                return "footer: " + currentPage.toString() + " of " + pageCount;
+            },
+            background: function() {
+                return { text: "SECTION 2 background", alignment: "right" };
+            },
+            watermark: "SECTION 2 watermark",
+            pageOrientation: "landscape",
+            section: [
+                "SECTION 2",
+                "Text in section as landscape page.",
+            ],
+        },
+        {
+            header: null,
+            footer: null,
+            background: null,
+            watermark: null,
+            pageSize: "A7",
+            pageOrientation: "portrait",
+            section: [
+                "SECTION 3",
+                "Text in section as A7 page.",
+            ],
+        },
+        {
+            watermark: "inherit",
+            pageSize: "A6",
+            pageOrientation: "portrait",
+            pageMargins: 5,
+            section: [
+                "SECTION 4",
+                "Text in section as A6 page with margin.",
+            ],
+        },
+        {
+            watermark: "watermark for inherit",
+            pageSize: "A6",
+            pageOrientation: "landscape",
+            pageMargins: 10,
+            section: [
+                "SECTION 5",
+                "Text in section as A6 landscape page with margin.",
+            ],
+        },
+        {
+            watermark: "inherit",
+            pageSize: "inherit",
+            pageOrientation: "inherit",
+            pageMargins: "inherit",
+            section: [
+                "SECTION 6",
+                "Text in section with page definition as previous page. Page size, orientation and margins are inherited.",
+            ],
+        },
+        {
+            header: function(currentPage, pageCount) {
+                return "header in section 8: " + currentPage.toString() + " of " + pageCount;
+            },
+            footer: function(currentPage, pageCount) {
+                return "footer in section 8: " + currentPage.toString() + " of " + pageCount;
+            },
+            section: [
+                "SECTION 7",
+                "Text in section with page definition as defined in document.",
+            ],
+        },
+    ],
+};
+
 const security: TDocumentDefinitions = {
     userPassword: "123",
     ownerPassword: "123456",
@@ -1447,7 +1599,37 @@ const stylingProperties: TDocumentDefinitions = {
                 " World",
             ],
         },
+        "\n\n",
+        {
+            text: "Text background pattern",
+            background: ["stripe45d", "gray"],
+        },
+        {
+            text: "Customize word break:",
+            pageBreak: "before",
+        },
+        {
+            text: "DefaultLine\n\"BreakBehaviour\" \"ForATextWithVeryVery\" \"LongLongWords\"",
+            fontSize: 30,
+        },
+        {
+            text: "\n\n",
+            fontSize: 30,
+        },
+        {
+            text: "BreakAll\n\"LineBreakBehaviour\" \"ForATextWithVeryVery\" \"LongLongWords\"",
+            fontSize: 30,
+            wordBreak: "break-all",
+        },
     ],
+    patterns: {
+        stripe45d: {
+            boundingBox: [1, 1, 4, 4],
+            xStep: 3,
+            yStep: 3,
+            pattern: "1 w 0 1 m 4 5 l s 2 0 m 5 3 l s",
+        },
+    },
 };
 
 const svgs: TDocumentDefinitions = {

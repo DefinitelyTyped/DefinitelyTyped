@@ -357,6 +357,15 @@ declare module "node:http" {
          * @since v18.17.0, v20.2.0
          */
         rejectNonStandardBodyWrites?: boolean | undefined;
+        /**
+         * If set to `true`, requests without `Content-Length`
+         * or `Transfer-Encoding` headers (indicating no body) will be initialized with an
+         * already-ended body stream, so they will never emit any stream events
+         * (like `'data'` or `'end'`). You can use `req.readableEnded` to detect this case.
+         * @since v25.1.0
+         * @default false
+         */
+        optimizeEmptyRequests?: boolean | undefined;
     }
     type RequestListener<
         Request extends typeof IncomingMessage = typeof IncomingMessage,

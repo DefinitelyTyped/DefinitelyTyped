@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/dom-eyedropper",
+    "version": "0.1.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "EyeDropper API",
+    "projects": [
+        "https://wicg.github.io/eyedropper-api/"
+    ],
+    "devDependencies": {
+        "@types/dom-eyedropper": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nathan Babcock",
+            "githubUsername": "nathanbabcock"
+        }
+    ]
+}

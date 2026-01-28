@@ -1,1 +1,5 @@
-export let vfs: { [file: string]: string };
+import { TVirtualFileSystem } from "../interfaces";
+
+declare const vfs: TVirtualFileSystem;
+
+export = vfs;

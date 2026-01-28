@@ -1,4 +1,4 @@
-// For Library Version: 1.143.0
+// For Library Version: 1.144.0
 
 declare module "sap/ui/unified/library" {
   /**
@@ -15548,7 +15548,7 @@ declare module "sap/ui/unified/FileUploader" {
      *
      * @since 1.25.0
      *
-     * @returns Reference to `this` for method chaining
+     * @returns Reference to `this` for method chaining.
      */
     clear(): this;
     /**
@@ -16097,6 +16097,7 @@ declare module "sap/ui/unified/FileUploader" {
      * Default value is `empty string`.
      *
      * @since 1.26.0
+     * @deprecated As of version 1.144. because it was relevant for `sap.ui.commons.FileUploader`.
      *
      * @returns Value of property `iconHovered`
      */
@@ -16124,10 +16125,18 @@ declare module "sap/ui/unified/FileUploader" {
      * Default value is `empty string`.
      *
      * @since 1.26.0
+     * @deprecated As of version 1.144. because it was relevant for `sap.ui.commons.FileUploader`.
      *
      * @returns Value of property `iconSelected`
      */
     getIconSelected(): URI;
+    /**
+     * Returns the id that should be used by external labels pointing to the native input.
+     *
+     *
+     * @returns ID of the native input element.
+     */
+    getIdForLabel(): string;
     /**
      * Gets current value of property {@link #getMaximumFilenameLength maximumFilenameLength}.
      *
@@ -16228,6 +16237,18 @@ declare module "sap/ui/unified/FileUploader" {
        */
       aBlobs: Blob[]
     ): Promise<Blob[]>;
+    /**
+     * Gets current value of property {@link #getRequired required}.
+     *
+     * Indicates whether the file uploader is required.
+     *
+     * Default value is `false`.
+     *
+     * @since 1.144
+     *
+     * @returns Value of property `required`
+     */
+    getRequired(): boolean;
     /**
      * Gets current value of property {@link #getSameFilenameAllowed sameFilenameAllowed}.
      *
@@ -16687,6 +16708,7 @@ declare module "sap/ui/unified/FileUploader" {
      * Default value is `empty string`.
      *
      * @since 1.26.0
+     * @deprecated As of version 1.144. because it was relevant for `sap.ui.commons.FileUploader`.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -16728,6 +16750,7 @@ declare module "sap/ui/unified/FileUploader" {
      * Default value is `empty string`.
      *
      * @since 1.26.0
+     * @deprecated As of version 1.144. because it was relevant for `sap.ui.commons.FileUploader`.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -16849,6 +16872,25 @@ declare module "sap/ui/unified/FileUploader" {
        * New value for property `placeholder`
        */
       sPlaceholder?: string
+    ): this;
+    /**
+     * Sets a new value for property {@link #getRequired required}.
+     *
+     * Indicates whether the file uploader is required.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     *
+     * @since 1.144
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setRequired(
+      /**
+       * New value for property `required`
+       */
+      bRequired?: boolean
     ): this;
     /**
      * Sets a new value for property {@link #getSameFilenameAllowed sameFilenameAllowed}.
@@ -17246,6 +17288,7 @@ declare module "sap/ui/unified/FileUploader" {
      * If not specified, the base icon is used. If an icon font icon is used, this property is ignored.
      *
      * @since 1.26.0
+     * @deprecated As of version 1.144. because it was relevant for `sap.ui.commons.FileUploader`.
      */
     iconHovered?: URI | PropertyBindingInfo | `{${string}}`;
 
@@ -17256,6 +17299,7 @@ declare module "sap/ui/unified/FileUploader" {
      * If not specified, the base or hovered icon is used. If an icon font icon is used, this property is ignored.
      *
      * @since 1.26.0
+     * @deprecated As of version 1.144. because it was relevant for `sap.ui.commons.FileUploader`.
      */
     iconSelected?: URI | PropertyBindingInfo | `{${string}}`;
 
@@ -17279,6 +17323,13 @@ declare module "sap/ui/unified/FileUploader" {
      * @since 1.105.0
      */
     directory?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Indicates whether the file uploader is required.
+     *
+     * @since 1.144
+     */
+    required?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * The parameters for the `FileUploader` which are rendered as a hidden input field.
@@ -17880,6 +17931,75 @@ declare module "sap/ui/unified/FileUploaderParameter" {
   }
 }
 
+declare module "sap/ui/unified/FileUploaderRenderer" {
+  import RenderManager from "sap/ui/core/RenderManager";
+
+  import FileUploader from "sap/ui/unified/FileUploader";
+
+  /**
+   * FileUploader renderer.
+   *
+   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   */
+  interface FileUploaderRenderer {
+    /**
+     * Adds the CSS value state classes to the control's root element using the provided {@link sap.ui.core.RenderManager}.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     */
+    addValueStateClasses(
+      /**
+       * The RenderManager used for writing to the render output buffer.
+       */
+      oRm: RenderManager,
+      /**
+       * An object representation of the control that should be rendered.
+       */
+      oFileUploader: FileUploader
+    ): void;
+    /**
+     * Returns the accessibility state of the control. Hook for the subclasses.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns The accessibility state object.
+     */
+    getAccessibilityState(): /* was: sap.m.InputBaseAccessibilityState */ any;
+    /**
+     * Renders the hidden aria-describedby and error message nodes for accessibility.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     */
+    renderValueStateAccDom(
+      /**
+       * The RenderManager used for writing to the render output buffer.
+       */
+      oRm: RenderManager,
+      /**
+       * An object representation of the control that should be rendered.
+       */
+      oFileUploader: FileUploader
+    ): void;
+    /**
+     * Writes the accessibility state of the control. Hook for the subclasses.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     */
+    writeAccessibilityState(
+      /**
+       * The RenderManager used for writing to the render output buffer.
+       */
+      oRm: RenderManager,
+      /**
+       * An object representation of the control that should be rendered.
+       */
+      oFileUploader: /* was: sap.m.InputBase */ any
+    ): void;
+  }
+  const FileUploaderRenderer: FileUploaderRenderer;
+  export default FileUploaderRenderer;
+}
+
 declare module "sap/ui/unified/FileUploaderXHRSettings" {
   import { default as UI5Element, $ElementSettings } from "sap/ui/core/Element";
 
@@ -18444,7 +18564,7 @@ declare module "sap/ui/unified/Menu" {
     /**
      * Returns all items that have `selected` properties set to `true`. **Note:** Only items with `selected`
      * property set that are members of `MenuItemGroup` with `ItemSelectionMode` property set to {@link sap.ui.core.ItemSelectionMode.SingleSelect }
-     * or {@link sap.ui.unified.ItemSelectionMode.MultiSelect}> are taken into account.
+     * or {@link sap.ui.core.ItemSelectionMode.MultiSelect}> are taken into account.
      *
      * @since 1.127.0
      *
@@ -19130,7 +19250,7 @@ declare module "sap/ui/unified/MenuItem" {
      * Determines whether the `MenuItem` is selected (default is set to `false`). A selected `MenuItem` has
      * a check mark rendered at its end. **Note: ** selection functionality works only if the menu item is a
      * member of `MenuItemGroup` with `itemSelectionMode` set to {@link sap.ui.core.ItemSelectionMode.SingleSelect }
-     * or {@link sap.ui.unified.ItemSelectionMode.MultiSelect}.
+     * or {@link sap.ui.core.ItemSelectionMode.MultiSelect}.
      *
      * @since 1.127.0
      */
@@ -23315,6 +23435,8 @@ declare namespace sap {
     "sap/ui/unified/FileUploaderHttpRequestMethod": undefined;
 
     "sap/ui/unified/FileUploaderParameter": undefined;
+
+    "sap/ui/unified/FileUploaderRenderer": undefined;
 
     "sap/ui/unified/FileUploaderXHRSettings": undefined;
 
