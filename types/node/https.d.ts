@@ -24,6 +24,12 @@ declare module "node:https" {
     }
     /**
      * An `Agent` object for HTTPS similar to `http.Agent`. See {@link request} for more information.
+     *
+     * Like `http.Agent`, the `createConnection(options[, callback])` method can be overridden
+     * to customize how TLS connections are established.
+     *
+     * > See `agent.createConnection()` for details on overriding this method,
+     * > including asynchronous socket creation with a callback.
      * @since v0.4.5
      */
     class Agent extends http.Agent {
