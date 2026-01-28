@@ -216,9 +216,9 @@ declare module "node:tls" {
      */
     class TLSSocket extends net.Socket {
         /**
-         * Construct a new tls.TLSSocket object from an existing stream.Duplex.
+         * Construct a new tls.TLSSocket object from an existing TCP socket or a stream.Duplex.
          */
-        constructor(socket: stream.Duplex, options?: TLSSocketOptions);
+        constructor(socket: net.Socket | stream.Duplex, options?: TLSSocketOptions);
         /**
          * This property is `true` if the peer certificate was signed by one of the CAs
          * specified when creating the `tls.TLSSocket` instance, otherwise `false`.
