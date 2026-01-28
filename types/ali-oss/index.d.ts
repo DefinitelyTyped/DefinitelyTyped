@@ -1210,6 +1210,17 @@ declare class OSS {
     ): Promise<OSS.NormalSuccessResponse>;
 
     /**
+     * Cancel the current multipart upload operation.
+     * If abort is provided, it will also call abortMultipartUpload.
+     */
+    cancel(abort?: { name: string; uploadId: string; options?: OSS.RequestOptions }): void;
+
+    /**
+     * Check if the upload has been cancelled.
+     */
+    isCancel(): boolean;
+
+    /**
      * get postObject params.
      */
     calculatePostSignature(

@@ -147,3 +147,15 @@ const userMeta: OSS.UserMeta = {
     pid: 0,
     anything: "anything",
 };
+
+// $ExpectType void
+client.cancel();
+
+// $ExpectType void
+client.cancel({ name: "object-name", uploadId: "upload-id" });
+
+// $ExpectType void
+client.cancel({ name: "object-name", uploadId: "upload-id", options: { timeout: 1000 } });
+
+// $ExpectType boolean
+client.isCancel();
