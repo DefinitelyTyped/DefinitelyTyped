@@ -198,26 +198,6 @@ declare module "node:tls" {
          */
         server?: net.Server | undefined;
     }
-    interface ServerModeTLSSocketOptions extends SecureContextOptions, ServerConnectionOptions {
-        /**
-         * The SSL/TLS protocol is asymmetrical, TLSSockets must know if they are to behave as a server or a client.
-         * If true the TLS socket will be instantiated as a server.
-         * @default false
-         */
-        isServer: true;
-        /**
-         * An optional net.Server instance.
-         */
-        server?: net.Server | undefined;
-    }
-    interface ClientModeTLSSocketOptions extends SecureContextOptions, ClientConnectionOptions {
-        /**
-         * The SSL/TLS protocol is asymmetrical, TLSSockets must know if they are to behave as a server or a client.
-         * If true the TLS socket will be instantiated as a server.
-         * @default false
-         */
-        isServer?: false | undefined;
-    }
     interface TLSSocketEventMap extends net.SocketEventMap {
         "keylog": [line: NonSharedBuffer];
         "OCSPResponse": [response: NonSharedBuffer];
@@ -235,14 +215,6 @@ declare module "node:tls" {
      * @since v0.11.4
      */
     class TLSSocket extends net.Socket {
-        /**
-         * Construct a new tls.TLSSocket object in server mode from an existing stream.Duplex.
-         */
-        constructor(socket: stream.Duplex, options: ServerModeTLSSocketOptions);
-        /**
-         * Construct a new tls.TLSSocket object in client mode from an existing TCP socket.
-         */
-        constructor(socket: net.Socket, options?: ClientModeTLSSocketOptions);
         /**
          * Construct a new tls.TLSSocket object from an existing stream.Duplex.
          */
