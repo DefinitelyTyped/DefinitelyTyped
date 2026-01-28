@@ -1046,6 +1046,7 @@ declare module "node:http" {
          *
          * ```js
          * import http from 'node:http';
+         * const agent = new http.Agent({ keepAlive: true });
          *
          * // Server has a 5 seconds keep-alive timeout by default
          * http
