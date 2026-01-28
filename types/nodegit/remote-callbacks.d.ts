@@ -11,7 +11,11 @@ export class RemoteCallbacks {
 }
 
 /** @see https://libgit2.org/docs/reference/main/remote/git_push_transfer_progress_cb.html */
-export type PushTransferProgressCallback = (pushedObjects: number, totalObjects: number, pushedBytes: number) => unknown;
+export type PushTransferProgressCallback = (
+    pushedObjects: number,
+    totalObjects: number,
+    pushedBytes: number,
+) => unknown;
 
 export interface IndexerProgress {
     indexedDeltas: () => number;

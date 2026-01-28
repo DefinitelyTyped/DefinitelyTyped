@@ -156,11 +156,11 @@ revwalk.fastWalk(100).then(oids => {
 const pushOptions: Git.PushOptions = {
     callbacks: {
         pushTransferProgress: (
-            pushedObjects, //$ExpectType number
-            totalObjects, //$ExpectType number
-            pushedBytes, //$ExpectType number
+            pushedObjects, // $ExpectType number
+            totalObjects, // $ExpectType number
+            pushedBytes, // $ExpectType number
         ) => {},
-    }
+    },
 };
 
 Git.Remote.create(repo, "test-repository", "https://github.com/test-repository/test-repository").then(remote => {
