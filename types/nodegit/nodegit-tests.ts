@@ -153,9 +153,20 @@ revwalk.fastWalk(100).then(oids => {
     }
 });
 
+const pushOptions: Git.PushOptions = {
+    callbacks: {
+        pushTransferProgress: (
+            pushedObjects, //$ExpectType number
+            totalObjects, //$ExpectType number
+            pushedBytes, //$ExpectType number
+        ) => {},
+    }
+};
+
 Git.Remote.create(repo, "test-repository", "https://github.com/test-repository/test-repository").then(remote => {
     remote.connect(Git.Enums.DIRECTION.FETCH, {});
     remote.defaultBranch(); // $ExpectType Promise<string>
+    remote.push([], pushOptions);
 });
 
 Git.Worktree.list(repo).then(list => {
