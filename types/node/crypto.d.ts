@@ -2582,8 +2582,8 @@ declare module "node:crypto" {
     interface X25519KeyPairOptions extends KeyPairExportOptions<"spki", "pkcs8"> {}
     interface X448KeyPairOptions extends KeyPairExportOptions<"spki", "pkcs8"> {}
     /**
-     * Generates a new asymmetric key pair of the given `type`. RSA, RSA-PSS, DSA, EC,
-     * Ed25519, Ed448, X25519, X448, DH, and ML-DSA are currently supported.
+     * Generates a new asymmetric key pair of the given `type`. See the
+     * supported [asymmetric key types](https://nodejs.org/docs/latest-v25.x/api/crypto.html#asymmetric-key-types).
      *
      * If a `publicKeyEncoding` or `privateKeyEncoding` was specified, this function
      * behaves as if `keyObject.export()` had been called on its result. Otherwise,
@@ -2672,8 +2672,8 @@ declare module "node:crypto" {
         options?: T,
     ): KeyPairExportResult<T>;
     /**
-     * Generates a new asymmetric key pair of the given `type`. RSA, RSA-PSS, DSA, EC,
-     * Ed25519, Ed448, X25519, X448, and DH are currently supported.
+     * Generates a new asymmetric key pair of the given `type`. See the
+     * supported [asymmetric key types](https://nodejs.org/docs/latest-v25.x/api/crypto.html#asymmetric-key-types).
      *
      * If a `publicKeyEncoding` or `privateKeyEncoding` was specified, this function
      * behaves as if `keyObject.export()` had been called on its result. Otherwise,
