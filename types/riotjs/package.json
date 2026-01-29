@@ -6,7 +6,7 @@
         "https://github.com/moot/riotjs"
     ],
     "dependencies": {
-        "@types/jquery": "*"
+        "@types/jquery": "^3"
     },
     "devDependencies": {
         "@types/riotjs": "workspace:."

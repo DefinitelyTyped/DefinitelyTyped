@@ -15,6 +15,12 @@ interface JQueryStatic {
      * @since 1.4.3
      */
     cssHooks: JQuery.CSSHooks;
+    /**
+     * An object containing all CSS properties that may be used without a unit. The .css() method uses this object to see if it may append px to unitless values.
+     * @see \`{@link https://api.jquery.com/jQuery.cssNumber/ }\`
+     * @since 1.4.3
+     */
+    cssNumber: JQuery.PlainObject<boolean>;
     Deferred: JQuery.DeferredStatic;
     easing: JQuery.Easings;
     Event: JQuery.EventStatic;
@@ -348,6 +354,10 @@ $.ajax({ data: myData });
             // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         ) => JQuery.Transport | void,
     ): void;
+    /**
+     * @deprecated ​ Deprecated since 3.3. Internal. See \`{@link https://github.com/jquery/jquery/issues/3384 }\`.
+     */
+    camelCase(value: string): string;
     cleanData(elems: ArrayLike<Element | Document | Window | JQuery.PlainObject>): void;
     /**
      * Check to see if a DOM element is a descendant of another DOM element.
@@ -2030,6 +2040,34 @@ $spans.eq( 3 ).text( jQuery.inArray( "Pete", arr, 2 ) );
      */
     inArray<T>(value: T, array: T[], fromIndex?: number): number;
     /**
+     * Determine whether the argument is an array.
+     * @param obj Object to test whether or not it is an array.
+     * @see \`{@link https://api.jquery.com/jQuery.isArray/ }\`
+     * @since 1.3
+     * @deprecated ​ Deprecated since 3.2. Use \`{@link ArrayConstructor.isArray Array.isArray}\`.
+     * @example ​ ````Finds out if the parameter is an array.
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>jQuery.isArray demo</title>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+</head>
+<body>
+​
+Is [] an Array? <b></b>
+​
+<script>
+$( "b" ).append( "" + $.isArray([]) );
+</script>
+​
+</body>
+</html>
+```
+     */
+    isArray(obj: any): obj is any[];
+    /**
      * Check to see if an object is empty (contains no enumerable properties).
      * @param obj The object that will be checked to see if it's empty.
      * @see \`{@link https://api.jquery.com/jQuery.isEmptyObject/ }\`
@@ -2042,6 +2080,96 @@ jQuery.isEmptyObject({ foo: "bar" }); // false
      */
     isEmptyObject(obj: any): boolean;
     /**
+     * Determine if the argument passed is a JavaScript function object.
+     * @param obj Object to test whether or not it is a function.
+     * @see \`{@link https://api.jquery.com/jQuery.isFunction/ }\`
+     * @since 1.2
+     * @deprecated ​ Deprecated since 3.3. Use `typeof x === "function"`.
+     * @example ​ ````Test a few parameter examples.
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>jQuery.isFunction demo</title>
+  <style>
+  div {
+    color: blue;
+    margin: 2px;
+    font-size: 14px;
+  }
+  span {
+    color: red;
+  }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+</head>
+<body>
+​
+<div>jQuery.isFunction( objs[ 0 ] ) = <span></span></div>
+<div>jQuery.isFunction( objs[ 1 ] ) = <span></span></div>
+<div>jQuery.isFunction( objs[ 2 ] ) = <span></span></div>
+<div>jQuery.isFunction( objs[ 3 ] ) = <span></span></div>
+<div>jQuery.isFunction( objs[ 4 ] ) = <span></span></div>
+​
+<script>
+function stub() {}
+var objs = [
+  function() {},
+  { x:15, y:20 },
+  null,
+  stub,
+  "function"
+];
+​
+jQuery.each( objs, function( i ) {
+  var isFunc = jQuery.isFunction( objs[ i ]);
+  $( "span" ).eq( i ).text( isFunc );
+});
+</script>
+​
+</body>
+</html>
+```
+     * @example ​ ````Finds out if the parameter is a function.
+```javascript
+$.isFunction(function() {});
+```
+     */
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
+    isFunction(obj: any): obj is Function;
+    /**
+     * Determines whether its argument represents a JavaScript number.
+     * @param value The value to be tested.
+     * @see \`{@link https://api.jquery.com/jQuery.isNumeric/ }\`
+     * @since 1.7
+     * @deprecated ​ Deprecated since 3.3. Internal. See \`{@link https://github.com/jquery/jquery/issues/2960 }\`.
+     * @example ​ ````Sample return values of $.isNumeric with various inputs.
+```javascript
+// true (numeric)
+$.isNumeric( "-10" )
+$.isNumeric( "0" )
+$.isNumeric( 0xFF )
+$.isNumeric( "0xFF" )
+$.isNumeric( "8e5" )
+$.isNumeric( "3.1415" )
+$.isNumeric( +10 )
+$.isNumeric( 0144 )
+​
+// false (non-numeric)
+$.isNumeric( "-0x42" )
+$.isNumeric( "7.2acdgs" )
+$.isNumeric( "" )
+$.isNumeric( {} )
+$.isNumeric( NaN )
+$.isNumeric( null )
+$.isNumeric( true )
+$.isNumeric( Infinity )
+$.isNumeric( undefined )
+```
+     */
+    isNumeric(value: any): boolean;
+    /**
      * Check to see if an object is a plain object (created using "{}" or "new Object").
      * @param obj The object that will be checked to see if it's a plain object.
      * @see \`{@link https://api.jquery.com/jQuery.isPlainObject/ }\`
@@ -2053,6 +2181,38 @@ jQuery.isPlainObject( "test" ) // false
 ```
      */
     isPlainObject(obj: any): boolean;
+    /**
+     * Determine whether the argument is a window.
+     * @param obj Object to test whether or not it is a window.
+     * @see \`{@link https://api.jquery.com/jQuery.isWindow/ }\`
+     * @since 1.4.3
+     * @deprecated ​ Deprecated since 3.3. Internal. See \`{@link https://github.com/jquery/jquery/issues/3629 }\`.
+     *
+     * **Cause**: This method returns `true` if its argument is thought to be a `window` element. It was created for internal use and is not a reliable way of detecting `window` for public needs.
+     *
+     * **Solution**: Remove any use of `jQuery.isWindow()` from code. If it is truly needed it can be replaced with a check for `obj != null && obj === obj.window` which was the test used inside this method.
+     * @example ​ ````Finds out if the parameter is a window.
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>jQuery.isWindow demo</title>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+</head>
+<body>
+​
+Is 'window' a window? <b></b>
+​
+<script>
+$( "b" ).append( "" + $.isWindow( window ) );
+</script>
+​
+</body>
+</html>
+```
+     */
+    isWindow(obj: any): obj is Window;
     /**
      * Check to see if a DOM node is within an XML document (or is an XML document).
      * @param node The DOM node that will be checked to see if it's in an XML document.
@@ -2336,11 +2496,26 @@ $log.append( "2nd loaded jQuery version (jq162): " + jq162.fn.jquery + "<br>" );
      */
     noConflict(removeAll?: boolean): this;
     /**
+     * @deprecated ​ Deprecated since 3.2.
+     *
+     * **Cause**: This public but never-documented method has been deprecated as of jQuery 3.2.0.
+     *
+     * **Solution**: Replace calls such as `jQuery.nodeName( elem, "div" )` with a test such as `elem.nodeName.toLowerCase() === "div"`.
+     */
+    nodeName(elem: Node, name: string): boolean;
+    /**
      * An empty function.
      * @see \`{@link https://api.jquery.com/jQuery.noop/ }\`
      * @since 1.4
      */
     noop(): undefined;
+    /**
+     * Return a number representing the current time.
+     * @see \`{@link https://api.jquery.com/jQuery.now/ }\`
+     * @since 1.4.3
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link DateConstructor.now Date.now}\`.
+     */
+    now(): number;
     /**
      * Create a serialized representation of an array, a plain object, or a jQuery object suitable for use in a URL query string or Ajax request. In case a jQuery object is passed, it should contain input elements with name/value properties.
      * @param obj An array, a plain object, or a jQuery object to serialize.
@@ -2470,6 +2645,23 @@ $( "<ol></ol>" )
 ```
      */
     parseHTML(data: string, context_keepScripts?: Document | null | boolean): JQuery.Node[];
+    /**
+     * Takes a well-formed JSON string and returns the resulting JavaScript value.
+     * @param json The JSON string to parse.
+     * @see \`{@link https://api.jquery.com/jQuery.parseJSON/ }\`
+     * @since 1.4.1
+     * @deprecated ​ Deprecated since 3.0. Use \`{@link JSON.parse }\`.
+     *
+     * **Cause**: The `jQuery.parseJSON` method in recent jQuery is identical to the native `JSON.parse`. As of jQuery 3.0 `jQuery.parseJSON` is deprecated.
+     *
+     * **Solution**: Replace any use of `jQuery.parseJSON` with `JSON.parse`.
+     * @example ​ ````Parse a JSON string.
+```javascript
+var obj = jQuery.parseJSON( '{ "name": "John" }' );
+alert( obj.name === "John" );
+```
+     */
+    parseJSON(json: string): any;
     /**
      * Parses a string into an XML document.
      * @param data a well-formed XML string to be parsed
@@ -13394,6 +13586,87 @@ $( "span:eq(3)" ).text( "" + jQuery.data( div, "test2" ) );
     speed<TElement extends Element = HTMLElement>(
         duration_complete_settings?: JQuery.Duration | ((this: TElement) => void) | JQuery.SpeedSettings<TElement>,
     ): JQuery.EffectsOptions<TElement>;
+    /**
+     * Remove the whitespace from the beginning and end of a string.
+     * @param str The string to trim.
+     * @see \`{@link https://api.jquery.com/jQuery.trim/ }\`
+     * @since 1.0
+     * @deprecated ​ Deprecated since 3.5. Use \`{@link String.prototype.trim String.prototype.trim}\`.
+     * @example ​ ````Remove the white spaces at the start and at the end of the string.
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>jQuery.trim demo</title>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+</head>
+<body>
+​
+<pre id="original"></pre>
+<pre id="trimmed"></pre>
+​
+<script>
+var str = "         lots of spaces before and after         ";
+$( "#original" ).html( "Original String: '" + str + "'" );
+$( "#trimmed" ).html( "$.trim()'ed: '" + $.trim(str) + "'" );
+</script>
+​
+</body>
+</html>
+```
+     * @example ​ ````Remove the white spaces at the start and at the end of the string.
+```javascript
+$.trim("    hello, how are you?    ");
+```
+     * @example ​ ````Remove the white spaces at the start and at the end of the string.
+```javascript
+$.trim("    hello, how are you?    ");
+```
+     */
+    trim(str: string): string;
+    /**
+     * Determine the internal JavaScript [[Class]] of an object.
+     * @param obj Object to get the internal JavaScript [[Class]] of.
+     * @see \`{@link https://api.jquery.com/jQuery.type/ }\`
+     * @since 1.4.3
+     * @deprecated ​ Deprecated since 3.3. See \`{@link https://github.com/jquery/jquery/issues/3605 }\`.
+     * @example ​ ````Find out if the parameter is a RegExp.
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>jQuery.type demo</title>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+</head>
+<body>
+​
+Is it a RegExp? <b></b>
+​
+<script>
+$( "b" ).append( "" + jQuery.type( /test/ ) );
+</script>
+​
+</body>
+</html>
+```
+     */
+    type(
+        obj: any,
+    ):
+        | "array"
+        | "boolean"
+        | "date"
+        | "error"
+        | "function"
+        | "null"
+        | "number"
+        | "object"
+        | "regexp"
+        | "string"
+        | "symbol"
+        | "undefined";
     /**
      * Sorts an array of DOM elements, in place, with the duplicates removed. Note that this only works on arrays of DOM elements, not strings or numbers.
      * @param array The Array of DOM elements.
