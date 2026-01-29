@@ -88,7 +88,7 @@ Cldr.preload(["localeid"], (error: Error | undefined) => {});
 // $ExpectType () => Promise<void>
 promisify(Cldr.preload);
 
-// $ExpectType (arg1: string[]) => Promise<void>
+// $ExpectType (arg1?: string[] | undefined) => Promise<void>
 promisify<string[]>(Cldr.preload);
 
 // $ExpectType Finder
