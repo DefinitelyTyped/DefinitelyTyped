@@ -20,15 +20,37 @@ declare function parse(
 ): parse.Cookie[] | parse.CookieMap;
 
 declare namespace parse {
+    /**
+     * @deprecated Use `parseSetCookie` function directly instead
+     */
     function parse(
         input: string | readonly string[] | IncomingMessage,
         options: Options & { map: true },
     ): CookieMap;
+    /**
+     * @deprecated Use `parseSetCookie` function directly instead
+     */
     function parse(
         input: string | readonly string[] | IncomingMessage,
         options?: Options & { map?: false | undefined },
     ): Cookie[];
+    /**
+     * @deprecated Use `parseSetCookie` function directly instead
+     */
     function parse(input: string | readonly string[] | IncomingMessage, options?: Options): Cookie[] | CookieMap;
+
+    function parseSetCookie(
+        input: string | readonly string[] | IncomingMessage,
+        options: Options & { map: true },
+    ): CookieMap;
+    function parseSetCookie(
+        input: string | readonly string[] | IncomingMessage,
+        options?: Options & { map?: false | undefined },
+    ): Cookie[];
+    function parseSetCookie(
+        input: string | readonly string[] | IncomingMessage,
+        options?: Options,
+    ): Cookie[] | CookieMap;
 
     /**
      * Set-Cookie header field-values are sometimes comma joined in one string. This splits them without choking on commas
@@ -38,12 +60,16 @@ declare namespace parse {
      * React Native's fetch does this for *every* header, including set-cookie.
      * Based on: https://github.com/google/j2objc/commit/16820fdbc8f76ca0c33472810ce0cb03d20efe25
      * Credits to: https://github.com/tomball for original and https://github.com/chrusart for JavaScript implementation
+     *
+     * @deprecated Use `parseSetCookie` function directly instead
      */
     function splitCookiesString(input: string | readonly string[] | undefined): string[];
 
     /**
      * Parses a single set-cookie header value string.
      * Options default is `{decodeValues: true}`. Used under-the-hood by `parse()`
+     *
+     * @deprecated Use `parseSetCookie` function directly instead
      */
     function parseString(individualSetCookieHeader: string, options?: Options): Cookie;
 
@@ -108,6 +134,11 @@ declare namespace parse {
          * @default false
          */
         silent?: boolean | undefined;
+        /**
+         * Separate combined cookie headers. Valid options are true/false/'auto'. 'auto' splits strings but not arrays.
+         * @default 'auto'
+         */
+        split?: true | false | "auto";
     }
 }
 
