@@ -841,7 +841,17 @@ declare namespace googletag {
 
         /**
          * Constructs and displays an ad slot with the given ad unit path and size.
-         * This method does not work with single request mode.
+         *
+         * This method is a shorthand equivalent to calling
+         * {@link googletag.defineSlot} followed immediately by
+         * {@link googletag.display}.
+         *
+         * The behavior of this method depends on whether
+         * {@link googletag.config.PageSettingsConfig.singleRequest | Single Request Architecture (SRA)}
+         * is enabled:
+         * * **SRA enabled:** All ad slots defined up to the point of this call will
+         * be batched and requested together.
+         * * **SRA disabled (default):** The ad slot will be requested individually.
          *
          * **Note:** When this method is called, a snapshot of the slot and page
          * state is created to ensure consistency when sending the ad request and

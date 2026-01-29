@@ -1,5 +1,5 @@
-// Tests for Google Publisher Tag 1.20251117
-// Synced from: https://github.com/googleads/google-publisher-tag-types/commit/b4114e351762295c878195e3b243c2afdbb5b889
+// Tests for Google Publisher Tag 1.20260126
+// Synced from: https://github.com/googleads/google-publisher-tag-types/commit/73204dbcec799a1e93c07bdce1110a1e7e63b420
 
 // Test for googletag.cmd
 function test_googletag_cmd() {
