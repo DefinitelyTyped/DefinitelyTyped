@@ -6,7 +6,6 @@ type _EventSource = typeof globalThis extends { onmessage: any } ? {} : undici.E
 type _EventSourceInit = typeof globalThis extends { onmessage: any } ? {} : undici.EventSourceInit;
 type _FormData = typeof globalThis extends { onmessage: any } ? {} : undici.FormData;
 type _Headers = typeof globalThis extends { onmessage: any } ? {} : undici.Headers;
-type _HeadersInit = typeof globalThis extends { onmessage: any } ? {} : undici.HeadersInit;
 type _MessageEvent = typeof globalThis extends { onmessage: any } ? {} : undici.MessageEvent;
 type _MessageEventInit = typeof globalThis extends { onmessage: any } ? {} : undici.MessageEventInit;
 type _Request = typeof globalThis extends { onmessage: any } ? {} : undici.Request;
@@ -32,8 +31,6 @@ declare global {
 
     interface Headers extends _Headers {}
     var Headers: typeof globalThis extends { onmessage: any; Headers: infer T } ? T : typeof undici.Headers;
-
-    interface HeadersInit extends _HeadersInit {}
 
     interface MessageEvent extends _MessageEvent {}
     var MessageEvent: typeof globalThis extends { onmessage: any; MessageEvent: infer T } ? T
