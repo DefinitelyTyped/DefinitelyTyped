@@ -466,6 +466,28 @@ doc.table({
     ],
 });
 
+// Alternative way to define the same styles as above using arrays
+doc.table({
+    // Set the style for all cells
+    defaultStyle: { border: 1, borderColor: "gray" },
+    // Set the style for cells based on their column
+    columnStyles: [{ border: { left: 2 }, borderColor: { left: "black" } }, {
+        border: { right: 2 },
+        borderColor: { right: "black" },
+    }],
+    // Set the style for cells based on their row
+    rowStyles: [{ border: { top: 2 }, borderColor: { top: "black" } }, {
+        border: { bottom: 2 },
+        borderColor: { bottom: "black" },
+    }],
+    data: [
+        ["Header 1", "Header 2", "Header 3"],
+        ["Sample value 1", "Sample value 2", "Sample value 3"],
+        ["Sample value 1", "Sample value 2", "Sample value 3"],
+        ["Sample value 1", "Sample value 2", "Sample value 3"],
+    ],
+});
+
 doc.table({
     rowStyles: (i) => {
         if (i % 2 === 0) return { backgroundColor: "#ccc" };
