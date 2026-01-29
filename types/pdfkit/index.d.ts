@@ -466,14 +466,14 @@ declare namespace PDFKit.Mixins {
         /** Column definitions of the table. (default auto) */
         columnStyles?:
             | number
-            | Array<number | string>
+            | Array<number | string | ColumnStyle>
             | ColumnStyle
             | ((row: number) => number | ColumnStyle | undefined);
         /** Row definitions of the table. (default *) */
-        rowStyles?: number | Array<number | string> | RowStyle | ((row: number) => number | RowStyle | undefined);
+        rowStyles?: number | Array<number | string | RowStyle> | RowStyle | ((row: number) => number | RowStyle | undefined);
         /** Defaults to apply to every cell */
         defaultStyle?:
-            & (number | Array<number | string> | CellStyle | ((row: number) => number | CellStyle | undefined))
+            & (number | Array<number | string | CellStyle> | CellStyle | ((row: number) => number | CellStyle | undefined))
             & { width?: number };
         /** Whether to show the debug lines for all the cells (default false) */
         debug?: boolean;
