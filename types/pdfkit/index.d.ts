@@ -479,7 +479,7 @@ declare namespace PDFKit.Mixins {
         defaultStyle?:
             & (
                 | number
-                | Array<number | string | CellStyle>
+                | Array<number | string>
                 | CellStyle
                 | ((row: number) => number | CellStyle | undefined)
             )
