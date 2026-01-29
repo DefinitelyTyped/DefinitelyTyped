@@ -41,6 +41,8 @@ export {};
 declare const UNDEFINED_VOID_ONLY: unique symbol;
 type VoidOrUndefinedOnly = void | { [UNDEFINED_VOID_ONLY]: never };
 
+declare const REACT_STORE: unique symbol;
+
 declare module "." {
     export interface SuspenseProps {
         // @enableCPUSuspense
@@ -174,4 +176,35 @@ declare module "." {
     interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_MEDIA_SRC_TYPES {
         srcObject: Blob | MediaSource | MediaStream;
     }
+
+    // @enableStore
+    /**
+     * The return value of `createStore`.
+     */
+    // Value is unused in the shape because it is a private property that's only
+    // accessible via `use(store)`.
+    interface Store<Value, Action> {
+        // private brand because only values from `createStore` are useable not
+        // arbitrary objects matching the shape.
+        [REACT_STORE]: never;
+        update: (action: Action) => void;
+    }
+
+    // Ideally we avoid these overloads since they produce walls of text in
+    // error messages. But also unclear if a single overload with type-wizardry
+    // is easier to understand.
+    // A proposal for a single overload is still welcome.
+    function unstable_createStore<Value>(
+        initialValue: Value,
+    ): Store<Value, Value>;
+    function unstable_createStore<Value>(
+        initialValue: Value,
+        reducer: (pendingValue: Value) => Value,
+    ): Store<Value, void>;
+    function unstable_createStore<Value, Action>(
+        initialValue: Value,
+        reducer: (pendingValue: Value, action: Action) => Value,
+    ): Store<Value, Action>;
+
+    function use<Value>(store: Store<Value, any>): Value;
 }
