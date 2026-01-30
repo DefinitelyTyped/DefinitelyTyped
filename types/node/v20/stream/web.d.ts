@@ -109,7 +109,7 @@ declare module "stream/web" {
     }
     interface ReadableStreamReadDoneResult<T> {
         done: true;
-        value?: T;
+        value: T | undefined;
     }
     type ReadableStreamReadResult<T> = ReadableStreamReadValueResult<T> | ReadableStreamReadDoneResult<T>;
     interface ReadableByteStreamControllerCallback {
