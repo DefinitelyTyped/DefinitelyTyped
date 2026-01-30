@@ -135,7 +135,7 @@ class ModernComponent extends React.Component<Props, State, Snapshot> implements
     static propTypes = {};
 
     static contextType = SomeContext;
-    context: Context;
+    declare context: React.ContextType<typeof SomeContext>;
 
     constructor(props: Props, context: Context) {
         super(props, context);
