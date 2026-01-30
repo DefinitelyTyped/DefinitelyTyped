@@ -1,3 +1,4 @@
+
 // Based on https://github.com/microsoft/TypeScript/issues/28791#issuecomment-443520161
 declare type UnionOmit<T, K extends keyof any> = T extends T ? Pick<T, Exclude<keyof T, K>> : never;
 
@@ -77,7 +78,7 @@ declare namespace Mongo {
         $query: Query<T>;
         $comment?: string | undefined;
         $explain?: any;
-        $hint?: unknown;
+        $hint?: Hint;
         $maxScan?: any;
         $max?: any;
         $maxTimeMS?: any;
@@ -151,7 +152,7 @@ declare namespace Mongo {
         /** Dictionary of fields to return or exclude. */
         fields?: FieldSpecifier | undefined;
         /** (Server only) Overrides MongoDB's default index selection and query optimization process. Specify an index to force its use, either by its name or index specification. */
-        hint?: unknown | undefined;
+        hint?: Hint | undefined;
         /** (Client only) Default `true`; pass `false` to disable reactivity */
         reactive?: boolean | undefined;
         /**  Overrides `transform` on the  [`Collection`](#collections) for this cursor.  Pass `null` to disable transformation. */
@@ -170,7 +171,7 @@ declare namespace Mongo {
          * Constructor for a Collection
          * @param name The name of the collection. If null, creates an unmanaged (unsynchronized) local collection.
          */
-        new <T, U = T>(
+        new <T extends MongoNpmModule.Document, U = T>(
             name: string | null,
             options?: {
                 /**
@@ -195,7 +196,7 @@ declare namespace Mongo {
             },
         ): Collection<T, U>;
     }
-    interface Collection<T, U = T> {
+    interface Collection<T extends MongoNpmModule.Document, U = T> {
         allow<Fn extends Transform<T> = undefined>(options: {
             insert?: ((userId: string, doc: DispatchTransform<Fn, T, U>) => boolean) | undefined;
             update?:
@@ -211,8 +212,8 @@ declare namespace Mongo {
             transform?: Fn | undefined;
         }): boolean;
         createCappedCollectionAsync(byteSize?: number, maxDocuments?: number): Promise<void>;
-        createIndex(indexSpec: { [key: string]: number | string } | string, options?: any): void;
-        createIndexAsync(indexSpec: { [key: string]: number | string } | string, options?: any): Promise<void>;
+        createIndex(indexSpec: IndexSpecification, options?: CreateIndexesOptions): void;
+        createIndexAsync(indexSpec: IndexSpecification, options?: CreateIndexesOptions): Promise<void>;
         deny<Fn extends Transform<T> = undefined>(options: {
             insert?: ((userId: string, doc: DispatchTransform<Fn, T, U>) => boolean) | undefined;
             update?:
@@ -284,12 +285,12 @@ declare namespace Mongo {
          * Returns the [`Collection`](http://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html) object corresponding to this collection from the
          * [npm `mongodb` driver module](https://www.npmjs.com/package/mongodb) which is wrapped by `Mongo.Collection`.
          */
-        rawCollection(): any;
+        rawCollection(): MongoCollection<T>;
         /**
          * Returns the [`Db`](http://mongodb.github.io/node-mongodb-native/3.0/api/Db.html) object corresponding to this collection's database connection from the
          * [npm `mongodb` driver module](https://www.npmjs.com/package/mongodb) which is wrapped by `Mongo.Collection`.
          */
-        rawDatabase(): any;
+        rawDatabase(): MongoDb;
         /**
          * Remove documents from the collection
          * @param selector Specifies which documents to remove
@@ -386,7 +387,7 @@ declare namespace Mongo {
         }>;
         _createCappedCollection(byteSize?: number, maxDocuments?: number): void;
         /** @deprecated */
-        _ensureIndex(indexSpec: { [key: string]: number | string } | string, options?: any): void;
+        _ensureIndex(indexSpec: IndexSpecification, options?: CreateIndexesOptions): void;
         _dropCollection(): Promise<void>;
         _dropIndex(indexName: string): void;
     }
@@ -472,8 +473,8 @@ declare namespace Mongo {
             callbacks: ObserveChangesCallbacks<T>,
             options?: { nonMutatingCallbacks?: boolean | undefined },
         ): Meteor.LiveQueryHandle;
-        [Symbol.iterator](): Iterator<T>;
-        [Symbol.asyncIterator](): AsyncIterator<T>;
+        [Symbol.iterator](): Iterator<U>;
+        [Symbol.asyncIterator](): AsyncIterator<U>;
     }
 
     var ObjectID: ObjectIDStatic;
@@ -504,8 +505,8 @@ declare namespace Mongo {
 }
 
 declare interface MongoConnection {
-    db: any;
-    client: any;
+    db: MongoDb;
+    client: MongoClient;
 }
 
 declare function defaultRemoteCollectionDriver(): {
@@ -515,6 +516,6 @@ declare function defaultRemoteCollectionDriver(): {
 declare var NpmModules: {
     mongodb: {
         version: string,
-        module: any
+        module: typeof MongoNpmModule
     }
 };

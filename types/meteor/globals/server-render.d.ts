@@ -13,13 +13,13 @@ declare interface ClientSink {
     // Server-only, but error-raising stubs provided to client:
     setStatusCode(code: number): void;
     setHeader(key: string, value: number | string | string[]): void;
-    getHeaders(): { [key: string]: string | string[] };
+    getHeaders(): http.IncomingHttpHeaders;
     getCookies(): { [key: string]: string };
 }
 
 declare interface ServerSink extends ClientSink {
     // Server-only:
-    request: unknown;
+    request: http.IncomingMessage;
     arch: string;
     head: string;
     body: string;

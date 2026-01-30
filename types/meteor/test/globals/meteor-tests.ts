@@ -11,17 +11,20 @@
 
 /*********************************** Begin setup for tests ******************************/
 
-declare namespace Meteor {
-    interface User {
-        // One of the tests assigns a new property to the user so it has to be typed
-        dexterity?: number | undefined;
-    }
-    interface UserProfile {
-        name?: string | undefined;
-    }
-    interface UserServices {
-        google?: {
-            email: string;
+declare module 'meteor/meteor' {
+    namespace Meteor {
+        interface User {
+            // One of the tests assigns a new property to the user so it has to be typed
+            dexterity?: number | undefined;
+        }
+        interface UserProfile {
+            name?: string | undefined;
+        }
+
+        interface UserServices {
+            google?: {
+                email: string;
+            }
         }
     }
 }
@@ -62,8 +65,8 @@ namespace MeteorTests {
             Rooms.rawDatabase()
                 .stats()
                 .then(
-                    (stats: any) => console.log('stats', stats),
-                    (error: any) => console.error('stats', error),
+                    stats => console.log('stats', stats),
+                    error => console.error('stats', error),
                 );
 
             Rooms.rawCollection()
