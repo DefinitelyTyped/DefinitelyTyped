@@ -300,8 +300,8 @@ export class Client extends ClientBase {
 
     constructor(config?: string | ClientConfig);
 
-    connect(): Promise<Client>
-    connect(callback: (err: Error | undefined, client: Client | undefined) => void): void
+    connect(): Promise<Client>;
+    connect(callback: ((err: Error) => void) | ((err: null, c: Client) => void)): void;
 
     end(): Promise<void>;
     end(callback: (err: Error) => void): void;
