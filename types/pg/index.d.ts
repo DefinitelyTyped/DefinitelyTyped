@@ -238,7 +238,7 @@ export class Pool extends events.EventEmitter {
 export class ClientBase extends events.EventEmitter {
     constructor(config?: string | ClientConfig);
 
-    connect(): Promise<void>;
+    connect(): Promise<ClientBase>;
     connect(callback: (err: Error) => void): void;
 
     query<T extends Submittable>(queryStream: T): T;
@@ -300,6 +300,9 @@ export class Client extends ClientBase {
 
     constructor(config?: string | ClientConfig);
 
+    connect(): Promise<Client>
+    connect(callback: (err: Error | undefined, client: Client | undefined) => void): void
+
     end(): Promise<void>;
     end(callback: (err: Error) => void): void;
 }
@@ -342,8 +345,8 @@ import * as Pg from ".";
 export const native: typeof Pg | null;
 
 export { DatabaseError } from "pg-protocol";
-import TypeOverrides = require("./lib/type-overrides");
 export { TypeOverrides };
+import TypeOverrides = require("./lib/type-overrides");
 
 export class Result<R extends QueryResultRow = any> implements QueryResult<R> {
     command: string;
