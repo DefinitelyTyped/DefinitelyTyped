@@ -47,19 +47,19 @@ const escapeIdentifier: (str: string) => string = pg.escapeIdentifier;
 const escapeLiteral: (str: string) => string = pg.escapeLiteral;
 
 client.on("notice", (notice: NoticeMessage) => console.warn(`${notice.severity}: ${notice.message}`));
-client.connect(err => {
+client.connect((err, c) => {
     if (err) {
         console.error("Could not connect to postgres", err);
         return;
     }
-    client.query("SELECT NOW() AS 'theTime'", (err, result) => {
+    c.query("SELECT NOW() AS 'theTime'", (err, result) => {
         if (err) {
             console.error("Error running query", err);
             return;
         }
         console.log(result.rowCount);
         console.log(result.rows[0]["theTime"]);
-        client.end();
+        c.end();
         return null;
     });
     return null;
@@ -68,7 +68,7 @@ client.on("end", () => console.log("Client was disconnected."));
 
 client
     .connect()
-    .then(() => console.log("connected"))
+    .then((c) => console.log("connected"))
     .catch(e => console.error("connection error", e.stack));
 
 client.query("SELECT NOW()", (err, res) => {
