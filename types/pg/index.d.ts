@@ -239,7 +239,7 @@ export class ClientBase extends events.EventEmitter {
     constructor(config?: string | ClientConfig);
 
     connect(): Promise<ClientBase>;
-    connect(callback: (err: Error) => void): void;
+    connect(callback: ((err: Error) => void) | ((err: null, c: ClientBase) => void)): void;
 
     query<T extends Submittable>(queryStream: T): T;
     // tslint:disable:no-unnecessary-generics
