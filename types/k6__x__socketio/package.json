@@ -1,0 +1,20 @@
+{
+  "name": "@types/k6__x__socketio",
+  "version": "0.1.9999",
+  "private": true,
+  "nonNpm": true,
+  "nonNpmDescription": "Type definitions for an xk6 extension providing Socket.IO support in k6, not distributed via npm",
+  "projects": ["https://github.com/xemax32/xk6-socketio"],
+  "owners": [
+    {
+      "name": "Emanuele Sacco",
+      "url": "https://github.com/xemax32"
+    }
+  ],
+  "dependencies": {
+    "@types/k6": "*"
+  },
+  "devDependencies": {
+    "@types/k6__x__socketio": "workspace:."
+  }
+}
