@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/meteor",
-    "version": "2.9.10000",
+    "version": "2.9.9999",
     "projects": [
         "http://www.meteor.com/"
     ],
