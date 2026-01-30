@@ -24,7 +24,7 @@ async function testAsyncAwait() {
     const awaitedNothing = await RSVP.resolve();
     const awaitedValue = await RSVP.resolve("just a value");
 
-    async function returnsAPromise(): RSVP.Promise<string> {
+    function returnsAPromise(): RSVP.Promise<string> {
         return RSVP.resolve("look, a string");
     }
 
