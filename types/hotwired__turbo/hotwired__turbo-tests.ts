@@ -1,4 +1,4 @@
-import { StreamActions, visit } from "@hotwired/turbo";
+import { cache, config, navigator, session, start, StreamActions, visit } from "@hotwired/turbo";
 
 const turboFrame = document.querySelector("turbo-frame")!;
 
@@ -114,3 +114,65 @@ document.addEventListener("turbo:submit-end", function(event) {
         event.detail.fetchResponse;
     }
 });
+
+// Test start() function
+start();
+Turbo.start();
+
+// Test session.adapter
+// $ExpectType BrowserAdapter
+session.adapter;
+session.adapter.formSubmissionStarted();
+session.adapter.formSubmissionFinished();
+Turbo.session.adapter.formSubmissionStarted();
+Turbo.session.adapter.formSubmissionFinished();
+
+// Test navigator.submitForm
+const form = document.querySelector("form")!;
+navigator.submitForm(form);
+navigator.submitForm(form, document.querySelector("button")!);
+Turbo.navigator.submitForm(form);
+Turbo.navigator.submitForm(form, document.querySelector("button")!);
+
+// Test cache methods
+cache.clear();
+cache.resetCacheControl();
+cache.exemptPageFromCache();
+cache.exemptPageFromPreview();
+Turbo.cache.clear();
+Turbo.cache.resetCacheControl();
+Turbo.cache.exemptPageFromCache();
+Turbo.cache.exemptPageFromPreview();
+
+// Test config.drive
+// $ExpectType boolean
+config.drive.enabled;
+// $ExpectType number
+config.drive.progressBarDelay;
+config.drive.progressBarDelay = 1000;
+// $ExpectType Set<string>
+config.drive.unvisitableExtensions;
+
+// Test config.forms
+// $ExpectType "on" | "off" | "optin"
+config.forms.mode;
+config.forms.mode = "optin";
+config.forms.mode = "on";
+config.forms.mode = "off";
+// @ts-expect-error
+config.forms.mode = "invalid";
+
+// Test Turbo.config
+Turbo.config.drive.progressBarDelay = 300;
+Turbo.config.forms.mode = "optin";
+
+// Test StreamElement.templateElement and templateContent
+// $ExpectType HTMLTemplateElement
+turboStream.templateElement;
+// $ExpectType DocumentFragment
+turboStream.templateContent;
+
+// @ts-expect-error - templateElement is readonly
+turboStream.templateElement = document.createElement("template");
+// @ts-expect-error - templateContent is readonly
+turboStream.templateContent = document.createDocumentFragment();

@@ -38,6 +38,16 @@ export class StreamElement extends HTMLElement {
      * Reads the request-id attribute
      */
     readonly requestId: string;
+
+    /**
+     * Gets the main `<template>` element used for rendering.
+     */
+    readonly templateElement: HTMLTemplateElement;
+
+    /**
+     * Gets a cloned copy of the template's content.
+     */
+    readonly templateContent: DocumentFragment;
 }
 
 export class FetchRequest {
@@ -68,6 +78,86 @@ export class FetchResponse {
 }
 
 /**
+ * Interface for accessing the browser adapter.
+ * The adapter handles form submission lifecycle events.
+ */
+export interface BrowserAdapter {
+    formSubmissionStarted(formSubmission?: FormSubmission): void;
+    formSubmissionFinished(formSubmission?: FormSubmission): void;
+}
+
+/**
+ * Interface for the Turbo navigator.
+ * Provides methods for programmatic navigation and form submission.
+ */
+export interface Navigator {
+    /**
+     * Submits a form programmatically through Turbo Drive.
+     *
+     * @param form The form element to submit
+     * @param submitter Optional submitter element (button or input)
+     */
+    submitForm(form: HTMLFormElement, submitter?: HTMLElement): void;
+}
+
+/**
+ * Interface for the Turbo page cache.
+ * Provides methods for managing the page cache.
+ */
+export interface Cache {
+    /**
+     * Removes all entries from the Turbo Drive page cache.
+     * Call this when state has changed on the server that may affect cached pages.
+     */
+    clear(): void;
+
+    /**
+     * Resets the cache control meta tag to allow normal caching.
+     */
+    resetCacheControl(): void;
+
+    /**
+     * Sets the cache control meta tag to "no-cache", preventing the page from being cached.
+     */
+    exemptPageFromCache(): void;
+
+    /**
+     * Sets the cache control meta tag to "no-preview", preventing the page from being used as a preview.
+     */
+    exemptPageFromPreview(): void;
+}
+
+/**
+ * Configuration for Turbo Drive.
+ */
+export interface DriveConfig {
+    /** Whether Turbo Drive is enabled. Defaults to true. */
+    enabled: boolean;
+    /** Delay in milliseconds before showing the progress bar. Defaults to 500. */
+    progressBarDelay: number;
+    /** Set of file extensions that should not be handled by Turbo Drive. */
+    unvisitableExtensions: Set<string>;
+}
+
+/**
+ * Configuration for Turbo form handling.
+ */
+export interface FormsConfig {
+    /** Form handling mode: "on" (default), "off", or "optin". */
+    mode: "on" | "off" | "optin";
+    /** Custom confirmation method. Replaces window.confirm. */
+    confirm: (message: string, element: HTMLFormElement, submitter: HTMLElement | null) => Promise<boolean>;
+}
+
+/**
+ * The Turbo configuration object.
+ */
+export interface TurboConfig {
+    drive: DriveConfig;
+    forms: FormsConfig;
+}
+
+/**
  * Connects a stream source to the main session.
  *
  * @param source Stream source to connect
@@ -94,6 +184,7 @@ export interface TurboSession {
     disconnectStreamSource(source: unknown): void;
     renderStreamMessage(message: unknown): void;
     drive: boolean;
+    adapter: BrowserAdapter;
 }
 
 export const StreamActions: {
@@ -107,6 +198,24 @@ export interface VisitOptions {
 }
 export function visit(location: string, options?: VisitOptions): void;
 
+/**
+ * Starts the main Turbo session.
+ * This initializes observers to monitor link interactions.
+ */
+export function start(): void;
+
+/** The Turbo session navigator */
+export const navigator: Navigator;
+
+/** The Turbo page cache */
+export const cache: Cache;
+
+/** The Turbo configuration object */
+export const config: TurboConfig;
+
+/** The Turbo session */
+export const session: TurboSession;
+
 export interface TurboGlobal {
     /**
      * Sets the delay after which the {@link https://turbo.hotwired.dev/handbook/drive#displaying-progress progress bar} will appear during navigation, in milliseconds.
@@ -115,23 +224,34 @@ export interface TurboGlobal {
      * Note that this method has no effect when used with the iOS or Android adapters.
      *
      * @param delayInMilliseconds
+     * @deprecated Use `Turbo.config.drive.progressBarDelay = delayInMilliseconds` instead.
      */
     setProgressBarDelay(delayInMilliseconds: number): void;
 
     /**
      * Sets the method that is called by links decorated with {@link https://turbo.hotwired.dev/handbook/drive#requiring-confirmation-for-a-visit data-turbo-confirm}.
      **
-     * The default is the browser’s built in confirm.
+     * The default is the browser's built in confirm.
      *
      * The method should return true if the visit can proceed.
      *
      * @param confirmMethod
+     * @deprecated Use `Turbo.config.forms.confirm = confirmMethod` instead.
      */
     setConfirmMethod(confirmMethod: () => boolean): void;
 
     visit(location: string, options?: { action?: Action; frame?: string }): void;
 
+    /**
+     * Starts the main Turbo session.
+     * This initializes observers to monitor link interactions.
+     */
+    start(): void;
+
     session: TurboSession;
+    navigator: Navigator;
+    cache: Cache;
+    config: TurboConfig;
 }
 
 declare global {
