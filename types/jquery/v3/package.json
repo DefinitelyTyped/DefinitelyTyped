@@ -1,51 +1,13 @@
 {
     "private": true,
     "name": "@types/jquery",
-    "version": "4.0.9999",
+    "version": "3.5.9999",
     "projects": [
         "https://jquery.com"
     ],
-    "exports": {
-        ".": {
-            "import": {
-                "types": "./index.d.mts"
-            },
-            "default": {
-                "types": "./index.d.ts"
-            }
-        },
-        "./slim": {
-            "import": {
-                "types": "./slim.d.mts"
-            },
-            "default": {
-                "types": "./slim.d.ts"
-            }
-        },
-        "./factory": {
-            "node": {
-                "types": "./factory.d.ts"
-            },
-            "import": {
-                "types": "./factory.d.mts"
-            },
-            "default": {
-                "types": "./factory.d.ts"
-            }
-        },
-        "./factory-slim": {
-            "node": {
-                "types": "./factory-slim.d.ts"
-            },
-            "import": {
-                "types": "./factory-slim.d.mts"
-            },
-            "default": {
-                "types": "./factory-slim.d.ts"
-            }
-        }
+    "dependencies": {
+        "@types/sizzle": "*"
     },
-    "dependencies": {},
     "devDependencies": {
         "@types/jquery": "workspace:."
     },

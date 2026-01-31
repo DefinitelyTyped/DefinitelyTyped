@@ -23,22 +23,7 @@ declare namespace JQuery {
         [key: string]: T;
     }
 
-    interface Selectors {
-        cacheLength: number;
-        match: { [name: string]: RegExp };
-        find: {
-            [name: string]: (
-                match: RegExpMatchArray,
-                context: Element | Document,
-                isXML: boolean,
-            ) => Element[] | undefined;
-        };
-        preFilter: { [name: string]: (match: RegExpMatchArray) => string[] };
-        filter: { [name: string]: (element: string, ...matches: string[]) => boolean };
-        attrHandle: { [name: string]: (elem: any, casePreservedName: string, isXML: boolean) => string };
-        pseudos: { [name: string]: (elem: Element) => boolean };
-        setFilters: { [name: string]: (elements: Element[], argument: number, not: boolean) => Element[] };
-        createPseudo(fn: (...args: any[]) => (elem: Element) => boolean): (elem: Element) => boolean;
+    interface Selectors extends Sizzle.Selectors {
         /**
          * @deprecated ​ Deprecated since 3.0. Use \`{@link Selectors#pseudos }\`.
          *
@@ -46,7 +31,15 @@ declare namespace JQuery {
          *
          * **Solution**: Rename any of the older usage to `jQuery.expr.pseudos`. The functionality is identical.
          */
-        ":": { [name: string]: (elem: Element) => boolean };
+        ":": Sizzle.Selectors.PseudoFunctions;
+        /**
+         * @deprecated ​ Deprecated since 3.0. Use \`{@link Selectors#pseudos }\`.
+         *
+         * **Cause**: The standard way to add new custom selectors through jQuery is `jQuery.expr.pseudos`. These two other aliases are deprecated, although they still work as of jQuery 3.0.
+         *
+         * **Solution**: Rename any of the older usage to `jQuery.expr.pseudos`. The functionality is identical.
+         */
+        filter: Sizzle.Selectors.FilterFunctions;
     }
 
     // region Ajax
@@ -4507,6 +4500,49 @@ jQuery.Tween.propHooks[ property ] = {
     // #region Effects (fx)
 
     interface Effects {
+        /**
+         * The rate (in milliseconds) at which animations fire.
+         * @see \`{@link https://api.jquery.com/jQuery.fx.interval/ }\`
+         * @since 1.4.3
+         * @deprecated ​ Deprecated since 3.0. See \`{@link https://api.jquery.com/jQuery.fx.interval/ }\`.
+         *
+         * **Cause**: As of jQuery 3.0 the `jQuery.fx.interval` property can be used to change the animation interval only on browsers that do not support the `window.requestAnimationFrame()` method. That is currently only Internet Explorer 9 and the Android Browser. Once support is dropped for these browsers, the property will serve no purpose and it will be removed.
+         *
+         * **Solution**: Find and remove code that changes or uses `jQuery.fx.interval`. If the value is being used by code in your page or a plugin, the code may be making assumptions that are no longer valid. The default value of `jQuery.fx.interval` is `13` (milliseconds), which could be used instead of accessing this property.
+         * @example ​ ````Cause all animations to run with less frames.
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>jQuery.fx.interval demo</title>
+  <style>
+  div {
+    width: 50px;
+    height: 30px;
+    margin: 5px;
+    float: left;
+    background: green;
+  }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+</head>
+<body>
+​
+<p><input type="button" value="Run"></p>
+<div></div>
+​
+<script>
+jQuery.fx.interval = 100;
+$( "input" ).click(function() {
+  $( "div" ).toggle( 3000 );
+});
+</script>
+</body>
+</html>
+```
+        */
+        interval: number;
         /**
          * Globally disable all animations.
          * @see \`{@link https://api.jquery.com/jQuery.fx.off/ }\`
