@@ -13,10 +13,13 @@ export class FrameElement extends HTMLElement {
 }
 
 export class StreamElement extends HTMLElement {
+    static renderElement(newElement: StreamElement): Promise<void>;
+
     connectedCallback(): Promise<void>;
     render(): Promise<void>;
     disconnect(): void;
     removeDuplicateTargetChildren(): void;
+    removeDuplicateTargetSiblings(): void;
 
     /**
      * The current action.
@@ -48,6 +51,11 @@ export class StreamElement extends HTMLElement {
      * Gets a cloned copy of the template's content.
      */
     readonly templateContent: DocumentFragment;
+}
+
+export class StreamSourceElement extends HTMLElement {
+    streamSource: WebSocket | EventSource | null;
+    readonly src: string;
 }
 
 export class FetchRequest {
@@ -140,6 +148,16 @@ export interface DriveConfig {
 }
 
 /**
+ * Submitter configuration callbacks for form submission.
+ */
+export interface SubmitterConfig {
+    /** Called before form submission to disable the submitter. */
+    beforeSubmit(submitter: HTMLElement): void;
+    /** Called after form submission to re-enable the submitter. */
+    afterSubmit(submitter: HTMLElement): void;
+}
+
+/**
  * Configuration for Turbo form handling.
  */
 export interface FormsConfig {
@@ -147,6 +165,11 @@ export interface FormsConfig {
     mode: "on" | "off" | "optin";
     /** Custom confirmation method. Replaces window.confirm. */
     confirm: (message: string, element: HTMLFormElement, submitter: HTMLElement | null) => Promise<boolean>;
+    /**
+     * Controls how submitters are disabled during form submission.
+     * Can be "disabled" (default), "aria-disabled", or a custom SubmitterConfig.
+     */
+    submitter: "disabled" | "aria-disabled" | SubmitterConfig;
 }
 
 /**
@@ -204,6 +227,75 @@ export function visit(location: string, options?: VisitOptions): void;
  */
 export function start(): void;
 
+/**
+ * Registers an adapter for the main session.
+ *
+ * @param adapter Adapter to register
+ */
+export function registerAdapter(adapter: unknown): void;
+
+/**
+ * Sets the form mode for Turbo Drive.
+ *
+ * @param mode Form handling mode
+ * @deprecated Use `Turbo.config.forms.mode = mode` instead.
+ */
+export function setFormMode(mode: "on" | "off" | "optin"): void;
+
+/**
+ * Options for morphing elements.
+ */
+export interface MorphOptions {
+    callbacks?: {
+        beforeNodeMorphed?: (currentElement: Element, newElement: Element) => boolean;
+    };
+    morphStyle?: "innerHTML" | "outerHTML";
+}
+
+/**
+ * Morph the state of the currentElement based on the attributes and contents of
+ * the newElement. Morphing may dispatch turbo:before-morph-element,
+ * turbo:before-morph-attribute, and turbo:morph-element events.
+ *
+ * @param currentElement Element destination of morphing changes
+ * @param newElement Element source of morphing changes
+ * @param options Optional morphing options
+ */
+export function morphElements(currentElement: Element, newElement: Element | ChildNode[], options?: MorphOptions): void;
+
+/**
+ * Morph the child elements of the currentElement based on the child elements of
+ * the newElement. Morphing children may dispatch turbo:before-morph-element,
+ * turbo:before-morph-attribute, and turbo:morph-element events.
+ *
+ * @param currentElement Element destination of morphing children changes
+ * @param newElement Element source of morphing children changes
+ * @param options Optional morphing options
+ */
+export function morphChildren(currentElement: Element, newElement: Element, options?: MorphOptions): void;
+
+/**
+ * Morph the state of the currentBody based on the attributes and contents of
+ * the newBody. Morphing body elements may dispatch turbo:morph,
+ * turbo:before-morph-element, turbo:before-morph-attribute, and
+ * turbo:morph-element events.
+ *
+ * @param currentBody HTMLBodyElement destination of morphing changes
+ * @param newBody HTMLBodyElement source of morphing changes
+ */
+export function morphBodyElements(currentBody: HTMLBodyElement, newBody: HTMLBodyElement): void;
+
+/**
+ * Morph the child elements of the currentFrame based on the child elements of
+ * the newFrame. Morphing turbo-frame elements may dispatch turbo:before-frame-morph,
+ * turbo:before-morph-element, turbo:before-morph-attribute, and
+ * turbo:morph-element events.
+ *
+ * @param currentFrame FrameElement destination of morphing children changes
+ * @param newFrame FrameElement source of morphing children changes
+ */
+export function morphTurboFrameElements(currentFrame: FrameElement, newFrame: FrameElement): void;
+
 /** The Turbo session navigator */
 export const navigator: Navigator;
 
@@ -240,6 +332,21 @@ export interface TurboGlobal {
      */
     setConfirmMethod(confirmMethod: () => boolean): void;
 
+    /**
+     * Sets the form mode for Turbo Drive.
+     *
+     * @param mode Form handling mode
+     * @deprecated Use `Turbo.config.forms.mode = mode` instead.
+     */
+    setFormMode(mode: "on" | "off" | "optin"): void;
+
+    /**
+     * Registers an adapter for the main session.
+     *
+     * @param adapter Adapter to register
+     */
+    registerAdapter(adapter: unknown): void;
+
     visit(location: string, options?: { action?: Action; frame?: string }): void;
 
     /**
@@ -248,10 +355,22 @@ export interface TurboGlobal {
      */
     start(): void;
 
+    connectStreamSource(source: unknown): void;
+    disconnectStreamSource(source: unknown): void;
+    renderStreamMessage(message: unknown): void;
+
+    morphElements(currentElement: Element, newElement: Element | ChildNode[], options?: MorphOptions): void;
+    morphChildren(currentElement: Element, newElement: Element, options?: MorphOptions): void;
+    morphBodyElements(currentBody: HTMLBodyElement, newBody: HTMLBodyElement): void;
+    morphTurboFrameElements(currentFrame: FrameElement, newFrame: FrameElement): void;
+
     session: TurboSession;
     navigator: Navigator;
     cache: Cache;
     config: TurboConfig;
+    StreamActions: {
+        [action: string]: (this: StreamElement) => void;
+    };
 }
 
 declare global {
@@ -293,6 +412,31 @@ export type TurboVisitEvent = CustomEvent<{ url: string; action: Action }>;
 export type TurboBeforeStreamRenderEvent = CustomEvent<{
     newStream: StreamElement;
     render: Render;
+}>;
+
+export type TurboMorphEvent = CustomEvent<{
+    currentElement: Element;
+    newElement: Element;
+}>;
+
+export type TurboBeforeMorphElementEvent = CustomEvent<{
+    currentElement: Element;
+    newElement: Element;
+}>;
+
+export type TurboMorphElementEvent = CustomEvent<{
+    currentElement: Element;
+    newElement: Element;
+}>;
+
+export type TurboBeforeMorphAttributeEvent = CustomEvent<{
+    attributeName: string;
+    mutationType: "updated" | "removed";
+}>;
+
+export type TurboBeforeFrameMorphEvent = CustomEvent<{
+    currentElement: FrameElement;
+    newElement: FrameElement;
 }>;
 
 export interface FormSubmission {
@@ -342,6 +486,7 @@ export type TurboFetchRequestErrorEvent = CustomEvent<{
 export interface TurboElementTagNameMap {
     "turbo-frame": FrameElement;
     "turbo-stream": StreamElement;
+    "turbo-stream-source": StreamSourceElement;
 }
 
 export interface TurboElementEventMap {
@@ -367,6 +512,11 @@ export interface TurboGlobalEventHandlersEventMap extends TurboElementEventMap {
     "turbo:render": TurboRenderEvent;
     "turbo:reload": TurboReloadEvent;
     "turbo:visit": TurboVisitEvent;
+    "turbo:morph": TurboMorphEvent;
+    "turbo:before-morph-element": TurboBeforeMorphElementEvent;
+    "turbo:morph-element": TurboMorphElementEvent;
+    "turbo:before-morph-attribute": TurboBeforeMorphAttributeEvent;
+    "turbo:before-frame-morph": TurboBeforeFrameMorphEvent;
 }
 
 declare global {
