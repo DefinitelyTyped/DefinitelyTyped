@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/gltf-validator",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/KhronosGroup/glTF-Validator"
+    ],
+    "devDependencies": {
+        "@types/gltf-validator": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Andreas Franek",
+            "githubUsername": "Visometry"
+        }
+    ]
+}
