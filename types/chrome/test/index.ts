@@ -26,6 +26,8 @@ function testBookmarks() {
 
     chrome.bookmarks.MAX_WRITE_OPERATIONS_PER_HOUR === 1000000;
 
+    chrome.bookmarks.ROOT_NODE_ID === "0";
+
     const bookmarkDetails: chrome.bookmarks.CreateDetails = {
         index: 0,
         parentId: "1",
@@ -3214,6 +3216,8 @@ async function testTabs() {
     chrome.tabs.MutedInfoReason.EXTENSION === "extension";
     chrome.tabs.MutedInfoReason.USER === "user";
 
+    chrome.tabs.SPLIT_VIEW_ID_NONE === -1;
+
     chrome.tabs.TAB_ID_NONE === -1;
 
     chrome.tabs.TAB_INDEX_NONE === -1;
@@ -4021,6 +4025,27 @@ async function testDeclarativeNetRequest() {
     chrome.declarativeNetRequest.RuleActionType.REDIRECT === "redirect";
     chrome.declarativeNetRequest.RuleActionType.UPGRADE_SCHEME === "upgradeScheme";
 
+    chrome.declarativeNetRequest.RuleConditionKeys.DOMAINS === "domains";
+    chrome.declarativeNetRequest.RuleConditionKeys.DOMAIN_TYPE === "domainType";
+    chrome.declarativeNetRequest.RuleConditionKeys.EXCLUDED_DOMAINS === "excludedDomains";
+    chrome.declarativeNetRequest.RuleConditionKeys.EXCLUDED_INITIATOR_DOMAINS === "excludedInitiatorDomains";
+    chrome.declarativeNetRequest.RuleConditionKeys.EXCLUDED_REQUEST_DOMAINS === "excludedRequestDomains";
+    chrome.declarativeNetRequest.RuleConditionKeys.EXCLUDED_REQUEST_METHODS === "excludedRequestMethods";
+    chrome.declarativeNetRequest.RuleConditionKeys.EXCLUDED_RESOURCE_TYPES === "excludedResourceTypes";
+    chrome.declarativeNetRequest.RuleConditionKeys.EXCLUDED_RESPONSE_HEADERS === "excludedResponseHeaders";
+    chrome.declarativeNetRequest.RuleConditionKeys.EXCLUDED_TAB_IDS === "excludedTabIds";
+    chrome.declarativeNetRequest.RuleConditionKeys.EXCLUDED_TOP_DOMAINS === "excludedTopDomains";
+    chrome.declarativeNetRequest.RuleConditionKeys.INITIATOR_DOMAINS === "initiatorDomains";
+    chrome.declarativeNetRequest.RuleConditionKeys.IS_URL_FILTER_CASE_SENSITIVE === "isUrlFilterCaseSensitive";
+    chrome.declarativeNetRequest.RuleConditionKeys.REGEX_FILTER === "regexFilter";
+    chrome.declarativeNetRequest.RuleConditionKeys.REQUEST_DOMAINS === "requestDomains";
+    chrome.declarativeNetRequest.RuleConditionKeys.REQUEST_METHODS === "requestMethods";
+    chrome.declarativeNetRequest.RuleConditionKeys.RESOURCE_TYPES === "resourceTypes";
+    chrome.declarativeNetRequest.RuleConditionKeys.RESPONSE_HEADERS === "responseHeaders";
+    chrome.declarativeNetRequest.RuleConditionKeys.TAB_IDS === "tabIds";
+    chrome.declarativeNetRequest.RuleConditionKeys.TOP_DOMAINS === "topDomains";
+    chrome.declarativeNetRequest.RuleConditionKeys.URL_FILTER === "urlFilter";
+
     chrome.declarativeNetRequest.SESSION_RULESET_ID === "_session";
 
     chrome.declarativeNetRequest.UnsupportedRegexReason.MEMORY_LIMIT_EXCEEDED === "memoryLimitExceeded";
@@ -4131,6 +4156,7 @@ async function testDeclarativeNetRequest() {
         tabId: 1,
         initiator: "https://example.com",
         method: "get",
+        topUrl: "https://example.com",
         responseHeaders: {},
     };
 
