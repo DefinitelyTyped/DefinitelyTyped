@@ -727,10 +727,20 @@ export interface Style {
     decorationColor?: string | undefined;
 
     /**
+     * Line thickness of the {@link decoration} in `pt`.
+     *
+     * If used in combination with a {@link decorationStyle}, this value is only used as a baseline
+     * for the computation of the actual line width.
+     *
+     * Defaults to a value derived from the {@link fontSize}.
+     */
+    decorationThickness?: number | undefined;
+
+    /**
      * Margins to apply.
      *
      * Overrides the single-side `marginXXX` properties, unless this value is inherited
-     * from a style and they are set directly on the content object.
+     * from another style.
      *
      * Ignored for content within an inline text array
      * (`{ text: [{ ... }] }`).
@@ -741,7 +751,7 @@ export interface Style {
      * Margin in `pt` to apply above the content.
      *
      * If {@link margin} is set, this value is ignored, unless the margin was inherited
-     * from a style and the value is set directly on the content object.
+     * from another style.
      */
     marginTop?: number | undefined;
 
@@ -749,7 +759,7 @@ export interface Style {
      * Margin in `pt` to apply to the right of the content.
      *
      * If {@link margin} is set, this value is ignored, unless the margin was inherited
-     * from a style and the value is set directly on the content object.
+     * from another style.
      */
     marginRight?: number | undefined;
 
@@ -757,7 +767,7 @@ export interface Style {
      * Margin in `pt` to apply below the content.
      *
      * If {@link margin} is set, this value is ignored, unless the margin was inherited
-     * from a style and the value is set directly on the content object.
+     * from another style.
      */
     marginBottom?: number | undefined;
 
@@ -765,7 +775,7 @@ export interface Style {
      * Margin in `pt` to apply to the left of the content.
      *
      * If {@link margin} is set, this value is ignored, unless the margin was inherited
-     * from a style and the value is set directly on the content object.
+     * from another style.
      */
     marginLeft?: number | undefined;
 
@@ -870,6 +880,21 @@ export interface Style {
      * Defaults to `0`.
      */
     columnGap?: number | undefined;
+}
+
+/**
+ * Named style defined in {@link TDocumentDefinitions.styles}.
+ */
+export interface NamedStyle extends Style {
+    /**
+     * Names of other styles in {@link TDocumentDefinitions.styles} to extend.
+     *
+     * An array applies the styles in the given order, later styles overriding
+     * properties from the earlier ones.
+     *
+     * Extended styles are overridden by the properties on this style.
+     */
+    extends?: string | string[] | undefined;
 }
 
 /**
@@ -1623,6 +1648,27 @@ export interface TableOfContent {
      *   {@link ContentTocItem.tocItem} to its ID
      */
     id?: string | undefined;
+
+    /**
+     * If set to `true`, the table of contents is hidden when it contains no items.
+     */
+    hideEmpty?: boolean | undefined;
+
+    /**
+     * Controls how the items are sorted.
+     *
+     * Defaults to `page`.
+     */
+    sortBy?: "page" | "title" | undefined;
+
+    /**
+     * Specifies the locale used for sorting as BCP 47 language tag, e.g. `en-US`.
+     *
+     * Only relevant if {@link sortBy} is set to `title`.
+     *
+     * Defaults to the system locale.
+     */
+    sortLocale?: string | undefined;
 }
 
 /**
@@ -1990,7 +2036,7 @@ export interface ImageCover {
  * Dictionary of reusable style definitions that can be referenced by their key.
  */
 export interface StyleDictionary {
-    [name: string]: Style;
+    [name: string]: NamedStyle;
 }
 
 /**
@@ -2264,7 +2310,7 @@ export interface TDocumentDefinitions {
     /**
      * Dictionary for reusable styles to be referenced by their key throughout the document.
      *
-     * To define styles that should apply by default, use {@link defaultStyles} instead.
+     * To define styles that should apply by default, use {@link defaultStyle} instead.
      */
     styles?: StyleDictionary | undefined;
 
