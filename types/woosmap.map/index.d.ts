@@ -1205,10 +1205,6 @@ declare namespace woosmap.map {
          */
         _sessionId: string;
         /**
-         * Public getter to allow reading the value
-         */
-        sessionId: string;
-        /**
          * Contains methods related to retrieving autocomplete predictions, geocoding for localities and retrieving details
          */
         constructor();
