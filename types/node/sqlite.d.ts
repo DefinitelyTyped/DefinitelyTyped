@@ -484,6 +484,8 @@ declare module "node:sqlite" {
          * [`sqlite3changeset_apply()`](https://www.sqlite.org/session/sqlite3changeset_apply.html).
          *
          * ```js
+         * import { DatabaseSync } from 'node:sqlite';
+         *
          * const sourceDb = new DatabaseSync(':memory:');
          * const targetDb = new DatabaseSync(':memory:');
          *

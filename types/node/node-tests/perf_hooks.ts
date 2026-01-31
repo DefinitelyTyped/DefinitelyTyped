@@ -1,6 +1,7 @@
 import {
     createHistogram,
     EntryType,
+    eventLoopUtilization,
     IntervalHistogram,
     monitorEventLoopDelay,
     performance as NodePerf,
@@ -9,6 +10,7 @@ import {
     PerformanceObserver,
     PerformanceObserverCallback,
     RecordableHistogram,
+    timerify,
 } from "node:perf_hooks";
 
 // Test module import once, the rest use global
@@ -154,4 +156,23 @@ resource; // $ExpectType PerformanceResourceTiming
     uvMetrics.loopCount; // $ExpectType number
     uvMetrics.events; // $ExpectType number
     uvMetrics.eventsWaiting; // $ExpectType number
+}
+
+{
+    let elu = eventLoopUtilization();
+    elu.active; // $ExpectType number
+    elu.idle; // $ExpectType number
+    elu.utilization; // $ExpectType number
+
+    elu = eventLoopUtilization(elu);
+    elu = eventLoopUtilization(elu, elu);
+}
+
+{
+    const fn = (a: number, b: number) => a + b;
+
+    // $ExpectType (a: number, b: number) => number
+    timerify(fn);
+    // $ExpectType (a: number, b: number) => number
+    timerify(fn, { histogram: createHistogram() });
 }

@@ -825,7 +825,7 @@ declare module "node:net" {
     function setDefaultAutoSelectFamily(value: boolean): void;
     /**
      * Gets the current default value of the `autoSelectFamilyAttemptTimeout` option of `socket.connect(options)`.
-     * The initial default value is `250` or the value specified via the command line option `--network-family-autoselection-attempt-timeout`.
+     * The initial default value is `500` or the value specified via the command line option `--network-family-autoselection-attempt-timeout`.
      * @returns The current default value of the `autoSelectFamilyAttemptTimeout` option.
      * @since v19.8.0, v18.8.0
      */

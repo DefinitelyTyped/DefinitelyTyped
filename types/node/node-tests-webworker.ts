@@ -2,4 +2,3 @@
 // If this changes, and it's necessary to create a WebWorker-specific test script, then the import should be updated here.
 import "./node-tests/events-dom";
 import "./node-tests/globals-dom";
-import "./node-tests/perf_hooks-dom";
