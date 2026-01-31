@@ -137,6 +137,8 @@ declare namespace SMTPConnection {
         auth?: AuthenticationType | undefined;
         /** defines if the connection should use SSL (if true) or not (if false) */
         secure?: boolean | undefined;
+        /** indicates that the provided socket has already been upgraded to TLS (if true) */
+        secured?: boolean | undefined;
         /** turns off STARTTLS support if true */
         ignoreTLS?: boolean | undefined;
         /** forces the client to use STARTTLS. Returns an error if upgrading the connection is not possible or fails. */
