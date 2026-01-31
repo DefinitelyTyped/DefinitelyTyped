@@ -252,6 +252,10 @@
             "libraryName": "arrify",
             "asOfVersion": "2.0.0"
         },
+        "artillery": {
+            "libraryName": "artillery",
+            "asOfVersion": "2.0.26"
+        },
         "artyom.js": {
             "libraryName": "artyom.js",
             "asOfVersion": "1.0.6"
