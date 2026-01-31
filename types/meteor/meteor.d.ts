@@ -235,6 +235,28 @@ declare module 'meteor/meteor' {
          * @param func The function to run
          */
         function defer(func: Function): void;
+
+        /**
+         * Wrap a function so that it only runs in the specified environments.
+         * @param func The function to wrap
+         * @param options An object with an `on` property that is an array of environment names: `"development"`, `"production"`, and/or `"test"`.
+         */
+        function deferrable<T extends Function>(
+            func: T,
+            options: { on: Array<"development" | "production" | "test"> }
+        ): T | void;
+
+        /**
+         * Wrap a function so that it only runs in development environment.
+         * @param func The function to wrap
+         */
+        function deferDev<T extends Function>(func: T): T | void;
+
+        /**
+         * Wrap a function so that it only runs in production environment.
+         * @param func The function to wrap
+         */
+        function deferProd<T extends Function>(func: T): T | void;
         /** Timeout **/
 
         /** utils **/
