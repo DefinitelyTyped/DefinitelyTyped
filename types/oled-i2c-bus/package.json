@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/oled-i2c-bus",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/baltazorr/oled-i2c-bus"
+    ],
+    "dependencies": {
+        "@types/i2c-bus": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/oled-i2c-bus": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Gaspard",
+            "githubUsername": "gaspard"
+        }
+    ]
+}
