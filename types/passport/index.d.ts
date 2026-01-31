@@ -158,7 +158,7 @@ declare namespace passport {
          */
         successRedirect?: string | undefined;
         successReturnToOrRedirect?: string | undefined;
-        state?: string | undefined;
+        state?: string | object | undefined;
         /**
          * Pause the request stream before deserializing the user
          * object from the session.  Defaults to `false`.  Should
