@@ -174,6 +174,11 @@ config.forms.mode = "invalid";
 Turbo.config.drive.progressBarDelay = 300;
 Turbo.config.forms.mode = "optin";
 
+// Test config.forms.confirm is optional (undefined by default, can be set to undefined)
+// $ExpectType ((message: string, element: HTMLFormElement, submitter: HTMLElement | null) => Promise<boolean>) | undefined
+config.forms.confirm;
+config.forms.confirm = undefined;
+
 // Test config.forms.confirm assignment
 config.forms.confirm = async (message, element, submitter) => {
     return window.confirm(message);
