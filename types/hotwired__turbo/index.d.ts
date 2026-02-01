@@ -163,7 +163,7 @@ export interface SubmitterConfig {
 export interface FormsConfig {
     /** Form handling mode: "on" (default), "off", or "optin". */
     mode: "on" | "off" | "optin";
-    /** Custom confirmation method. Replaces window.confirm. */
+    /** Custom confirmation method. Defaults to window.confirm. */
     confirm: (message: string, element: HTMLFormElement, submitter: HTMLElement | null) => Promise<boolean>;
     /**
      * Controls how submitters are disabled during form submission.

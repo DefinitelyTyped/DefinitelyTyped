@@ -153,6 +153,14 @@ config.drive.progressBarDelay = 1000;
 // $ExpectType Set<string>
 config.drive.unvisitableExtensions;
 
+// Test config.drive.enabled assignment
+config.drive.enabled = false;
+config.drive.enabled = true;
+
+// Test config.drive.unvisitableExtensions Set modification
+config.drive.unvisitableExtensions.add(".custom");
+config.drive.unvisitableExtensions.delete(".pdf");
+
 // Test config.forms
 // $ExpectType "on" | "off" | "optin"
 config.forms.mode;
@@ -165,6 +173,11 @@ config.forms.mode = "invalid";
 // Test Turbo.config
 Turbo.config.drive.progressBarDelay = 300;
 Turbo.config.forms.mode = "optin";
+
+// Test config.forms.confirm assignment
+config.forms.confirm = async (message, element, submitter) => {
+    return window.confirm(message);
+};
 
 // Test StreamElement.templateElement and templateContent
 // $ExpectType HTMLTemplateElement
