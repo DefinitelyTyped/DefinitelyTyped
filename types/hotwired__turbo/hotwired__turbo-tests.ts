@@ -1,4 +1,17 @@
-import { cache, config, navigator, session, start, StreamActions, visit } from "@hotwired/turbo";
+import {
+    cache,
+    config,
+    connectStreamSource,
+    disconnectStreamSource,
+    navigator,
+    renderStreamMessage,
+    session,
+    start,
+    StreamActions,
+    StreamMessage,
+    StreamSource,
+    visit,
+} from "@hotwired/turbo";
 
 const turboFrame = document.querySelector("turbo-frame")!;
 
@@ -194,3 +207,29 @@ turboStream.templateContent;
 turboStream.templateElement = document.createElement("template");
 // @ts-expect-error - templateContent is readonly
 turboStream.templateContent = document.createDocumentFragment();
+
+const eventSource = new EventSource("https://example.com/stream");
+const webSocket = new WebSocket("wss://example.com/stream");
+
+const streamSource: StreamSource = eventSource;
+connectStreamSource(streamSource);
+disconnectStreamSource(streamSource);
+connectStreamSource(eventSource);
+disconnectStreamSource(eventSource);
+connectStreamSource(webSocket);
+disconnectStreamSource(webSocket);
+
+// @ts-expect-error
+connectStreamSource({});
+
+const streamMessage = new StreamMessage(document.createDocumentFragment());
+renderStreamMessage("<turbo-stream></turbo-stream>");
+renderStreamMessage(streamMessage);
+Turbo.renderStreamMessage("<turbo-stream></turbo-stream>");
+Turbo.renderStreamMessage(streamMessage);
+
+// $ExpectType "text/vnd.turbo-stream.html"
+StreamMessage.contentType;
+
+// $ExpectType StreamMessage
+StreamMessage.wrap("<turbo-stream></turbo-stream>");

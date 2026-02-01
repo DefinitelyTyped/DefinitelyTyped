@@ -58,6 +58,26 @@ export class StreamSourceElement extends HTMLElement {
     readonly src: string;
 }
 
+export interface StreamSource {
+    addEventListener(
+        type: "message",
+        listener: (event: MessageEvent) => void,
+        options?: boolean | AddEventListenerOptions,
+    ): void;
+    removeEventListener(
+        type: "message",
+        listener: (event: MessageEvent) => void,
+        options?: boolean | EventListenerOptions,
+    ): void;
+}
+
+export class StreamMessage {
+    static readonly contentType: "text/vnd.turbo-stream.html";
+    readonly fragment: DocumentFragment;
+    static wrap(message: StreamMessage | string): StreamMessage;
+    constructor(fragment: DocumentFragment);
+}
+
 export class FetchRequest {
     body: FormData | URLSearchParams;
     enctype: "application/x-www-form-urlencoded" | "multipart/form-data" | "text/plain";
@@ -185,14 +205,14 @@ export interface TurboConfig {
  *
  * @param source Stream source to connect
  */
-export function connectStreamSource(source: unknown): void;
+export function connectStreamSource(source: StreamSource): void;
 
 /**
  * Disconnects a stream source from the main session.
  *
  * @param source Stream source to disconnect
  */
-export function disconnectStreamSource(source: unknown): void;
+export function disconnectStreamSource(source: StreamSource): void;
 
 /**
  * Renders a stream message to the main session by appending it to the
@@ -200,12 +220,12 @@ export function disconnectStreamSource(source: unknown): void;
  *
  * @param message Message to render
  */
-export function renderStreamMessage(message: unknown): void;
+export function renderStreamMessage(message: StreamMessage | string): void;
 
 export interface TurboSession {
-    connectStreamSource(source: unknown): void;
-    disconnectStreamSource(source: unknown): void;
-    renderStreamMessage(message: unknown): void;
+    connectStreamSource(source: StreamSource): void;
+    disconnectStreamSource(source: StreamSource): void;
+    renderStreamMessage(message: StreamMessage | string): void;
     drive: boolean;
     adapter: BrowserAdapter;
 }
@@ -355,9 +375,9 @@ export interface TurboGlobal {
      */
     start(): void;
 
-    connectStreamSource(source: unknown): void;
-    disconnectStreamSource(source: unknown): void;
-    renderStreamMessage(message: unknown): void;
+    connectStreamSource(source: StreamSource): void;
+    disconnectStreamSource(source: StreamSource): void;
+    renderStreamMessage(message: StreamMessage | string): void;
 
     morphElements(currentElement: Element, newElement: Element | ChildNode[], options?: MorphOptions): void;
     morphChildren(currentElement: Element, newElement: Element, options?: MorphOptions): void;
