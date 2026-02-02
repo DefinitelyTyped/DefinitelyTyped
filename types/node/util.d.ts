@@ -320,7 +320,7 @@ declare module "node:util" {
      *     console.log(`Function Name: ${callSite.functionName}`);
      *     console.log(`Script Name: ${callSite.scriptName}`);
      *     console.log(`Line Number: ${callSite.lineNumber}`);
-     *     console.log(`Column Number: ${callSite.column}`);
+     *     console.log(`Column Number: ${callSite.columnNumber}`);
      *   });
      *   // CallSite 1:
      *   // Function Name: exampleFunction
