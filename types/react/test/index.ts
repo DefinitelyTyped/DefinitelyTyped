@@ -135,16 +135,15 @@ class ModernComponent extends React.Component<Props, State, Snapshot> implements
     static propTypes = {};
 
     static contextType = SomeContext;
-    context: Context;
+    declare context: Context;
 
     constructor(props: Props, context: Context) {
         super(props, context);
+        this.state = {
+            inputValue: this.context.someValue,
+            seconds: this.props.foo,
+        };
     }
-
-    state = {
-        inputValue: this.context.someValue,
-        seconds: this.props.foo,
-    };
 
     reset() {
         this._myComponent.reset();

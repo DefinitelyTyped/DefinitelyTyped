@@ -225,7 +225,7 @@ class Book extends Backbone.Model {
 class Library extends Backbone.Collection<Book> {
     // This model definition is here only to test type compatibility of the model, but it
     // is not necessary in working code as it is automatically inferred through generics.
-    model: typeof Book;
+    declare model: typeof Book;
 
     constructor(models?: Book[] | Array<Record<string, any>>, options?: any) {
         super(models, options);
