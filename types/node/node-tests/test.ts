@@ -341,6 +341,8 @@ describe(s => {
     // $ExpectType SuiteContext
     s;
     // $ExpectType string
+    s.fullName;
+    // $ExpectType string
     s.name;
     // $ExpectType string | undefined
     s.filePath;
