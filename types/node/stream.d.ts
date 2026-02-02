@@ -81,6 +81,7 @@ declare module "node:stream" {
         interface ArrayOptions extends ReadableOperatorOptions {}
         interface ReadableToWebOptions {
             strategy?: web.QueuingStrategy | undefined;
+            type?: web.ReadableStreamType | undefined;
         }
         interface ReadableEventMap {
             "close": [];
@@ -1056,6 +1057,9 @@ declare module "node:stream" {
             writableHighWaterMark?: number | undefined;
             writableCorked?: number | undefined;
         }
+        interface DuplexToWebOptions {
+            type?: web.ReadableStreamType | undefined;
+        }
         interface DuplexEventMap extends ReadableEventMap, WritableEventMap {}
         /**
          * Duplex streams are streams that implement both the `Readable` and `Writable` interfaces.
@@ -1109,7 +1113,7 @@ declare module "node:stream" {
              * A utility method for creating a web `ReadableStream` and `WritableStream` from a `Duplex`.
              * @since v17.0.0
              */
-            static toWeb(streamDuplex: NodeJS.ReadWriteStream): web.ReadableWritablePair;
+            static toWeb(streamDuplex: NodeJS.ReadWriteStream, options?: DuplexToWebOptions): web.ReadableWritablePair;
             /**
              * A utility method for creating a `Duplex` from a web `ReadableStream` and `WritableStream`.
              * @since v17.0.0
