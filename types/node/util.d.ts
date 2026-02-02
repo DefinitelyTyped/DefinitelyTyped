@@ -804,7 +804,7 @@ declare module "node:util" {
      *
      * ```js
      * import { debuglog } from 'node:util';
-     * const log = debuglog('foo');
+     * const log = debuglog('foo-bar');
      *
      * log('hi there, it\'s foo-bar [%d]', 2333);
      * ```
