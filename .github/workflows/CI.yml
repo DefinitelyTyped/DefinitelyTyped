@@ -126,7 +126,8 @@ jobs:
 
   dangerbot:
     runs-on: ubuntu-latest
-    if: github.repository == 'DefinitelyTyped/DefinitelyTyped' && github.event_name == 'pull_request'
+    # if: github.repository == 'DefinitelyTyped/DefinitelyTyped' && github.event_name == 'pull_request'
+    if: ${{ false }}
 
     needs:
       - test
