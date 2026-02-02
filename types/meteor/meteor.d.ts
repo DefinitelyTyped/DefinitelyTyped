@@ -237,7 +237,7 @@ declare module 'meteor/meteor' {
         function defer(func: Function): void;
 
         /**
-         * Wrap a function so that it only runs in the specified environments.
+         * Wrap a function so that it only runs in background in specified environments..
          * @param func The function to wrap
          * @param options An object with an `on` property that is an array of environment names: `"development"`, `"production"`, and/or `"test"`.
          */
@@ -247,13 +247,13 @@ declare module 'meteor/meteor' {
         ): T | void;
 
         /**
-         * Wrap a function so that it only runs in development environment.
+         * Wrap a function to run in the background in development (similar to Meteor.isDevelopment ? Meteor.defer(fn) : Meteor.startup(fn)).
          * @param func The function to wrap
          */
         function deferDev<T extends Function>(func: T): T | void;
 
         /**
-         * Wrap a function so that it only runs in production environment.
+         * Wrap a function to run in the background in production (similar to Meteor.isProduction ? Meteor.defer(fn) : Meteor.startup(fn)).
          * @param func The function to wrap
          */
         function deferProd<T extends Function>(func: T): T | void;

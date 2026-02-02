@@ -88,6 +88,12 @@ namespace MeteorTests {
                 .aggregate([{ $group: { _id: null, names: { $addToSet: '$name' } } }])
                 .toArray()
                 .then();
+
+            Meteor.deferrable(
+                () => console.log('This is deferred until after startup.'),
+                {on: "development"}
+            )
+
         });
     }
 
@@ -398,6 +404,7 @@ namespace MeteorTests {
         if (Meteor.isServer) {
             Logs.remove({});
             Players.remove({ karma: { $lt: -2 } });
+            Meteor.defer(() => console.log('Old low-karma players removed from the Players collection.'));
         }
     });
 
@@ -1202,6 +1209,14 @@ namespace MeteorTests {
     if (Meteor.isDevelopment) {
         Rooms._dropIndex('indexName');
     }
+
+    Meteor.deferDev(() => {
+        console.log('This is a development-only deferred function.');
+    });
+
+    Meteor.deferProd(() => {
+        console.log('This is a production-only deferred function.');
+    });
 
     (async function() {
         await Rooms.dropIndexAsync('indexName');
