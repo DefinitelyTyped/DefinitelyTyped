@@ -2137,6 +2137,27 @@ declare module "node:http" {
      */
     function setMaxIdleHTTPParsers(max: number): void;
     /**
+     * Dynamically resets the global configurations to enable built-in proxy support for
+     * `fetch()` and `http.request()`/`https.request()` at runtime, as an alternative
+     * to using the `--use-env-proxy` flag or `NODE_USE_ENV_PROXY` environment variable.
+     * It can also be used to override settings configured from the environment variables.
+     *
+     * As this function resets the global configurations, any previously configured
+     * `http.globalAgent`, `https.globalAgent` or undici global dispatcher would be
+     * overridden after this function is invoked. It's recommended to invoke it before any
+     * requests are made and avoid invoking it in the middle of any requests.
+     *
+     * See [Built-in Proxy Support](https://nodejs.org/docs/latest-v25.x/api/http.html#built-in-proxy-support) for details on proxy URL formats and `NO_PROXY`
+     * syntax.
+     * @since v25.4.0
+     * @param proxyEnv An object containing proxy configuration. This accepts the
+     * same options as the `proxyEnv` option accepted by {@link Agent}. **Default:**
+     * `process.env`.
+     * @returns A function that restores the original agent and dispatcher
+     * settings to the state before this `http.setGlobalProxyFromEnv()` is invoked.
+     */
+    function setGlobalProxyFromEnv(proxyEnv?: ProxyEnv): () => void;
+    /**
      * Global instance of `Agent` which is used as the default for all HTTP client
      * requests. Diverges from a default `Agent` configuration by having `keepAlive`
      * enabled and a `timeout` of 5 seconds.

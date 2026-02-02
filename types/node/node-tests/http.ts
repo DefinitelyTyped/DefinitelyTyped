@@ -724,6 +724,11 @@ import * as url from "node:url";
     http.validateHeaderValue("Location", "/");
 
     http.setMaxIdleHTTPParsers(1337);
+
+    // $ExpectType () => void
+    http.setGlobalProxyFromEnv();
+    // $ExpectType () => void
+    http.setGlobalProxyFromEnv(process.env);
 }
 
 {
