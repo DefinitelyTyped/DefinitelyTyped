@@ -44,6 +44,7 @@ declare module "node:readline" {
     }
     interface InterfaceEventMap {
         "close": [];
+        "error": [error: Error];
         "history": [history: string[]];
         "line": [input: string];
         "pause": [];
