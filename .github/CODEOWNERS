@@ -703,7 +703,7 @@
 /types/bullbone/                                        @leonbahley @TarasOP @malikalimoekhamedov
 /types/bumblebee-hotword/                               @sheunglaili
 /types/bump-regex/                                      @silkentrance
-/types/bun/                                             @Jarred-Sumner @robobun @dylan-conway @nektro @RiskyMH @alii
+/types/bun/                                             @Jarred-Sumner @robobun @dylan-conway @cirospaciari @sosukesuzuki @alii
 /types/bundle-id/                                       @LeoDog896
 /types/bundle-name/                                     @LeoDog896
 /types/bunnymq/                                         @cyrilschumacher
@@ -1552,6 +1552,7 @@
 /types/dom-chromium-installation-events/                @dartess
 /types/dom-close-watcher/                               @tbondwilkinson
 /types/dom-css/                                         @LeoDog896
+/types/dom-eyedropper/                                  @nathanbabcock
 /types/dom-inputevent/                                  @diagramatics
 /types/dom-matches/                                     @AviVahl
 /types/dom-mediacapture-record/                         @elsmr @AppLover69
@@ -2960,6 +2961,8 @@
 /types/greek-utils/                                     @dimkirt
 /types/greenlock-express/                               @hendrixjoseph
 /types/gregorian-calendar/                              @cwalv
+/types/grenache-nodejs-link/                            @ramioooz
+/types/grenache-nodejs-ws/                              @ramioooz
 /types/grid-template-parser/                            @AviVahl
 /types/gridfs-stream/                                   @liorm
 /types/group-array/                                     @Richienb
@@ -4220,6 +4223,7 @@
 /types/lexicographic-integer/                           @me
 /types/lfsr/                                            @mildsunrise
 /types/lgtv2/                                           @ovidiupruteanu
+/types/liamcottle__meshcore.js/                         @mabahamo
 /types/libhoney/                                        @dcposch
 /types/libmime/                                         @bendingbender
 /types/libnpmdiff/                                      @oBusk
@@ -5427,7 +5431,7 @@
 /types/openlayers/v3/                                   @osechet
 /types/openpay/                                         @bjardon
 /types/openrct2/                                        @OpenRCT2 @IntelOrca @tubbo
-/types/openseadragon/                                   @alvaromartmart @jstaab @kristinruben @geoff-harper @justincy @peterblazejewicz
+/types/openseadragon/                                   @alvaromartmart @jstaab @kristinruben @geoff-harper @justincy @peterblazejewicz @rssaini01
 /types/openssi-websdk/                                  @arner
 /types/openstack-wrapper/                               @sanjaymadane
 /types/opentimestamps/                                  @despotes
@@ -8214,6 +8218,7 @@
 /types/vue-color/                                       @mildful
 /types/vue-cropperjs/                                   @Dylkid
 /types/vue-datetime/                                    @olavorn
+/types/vue-draggable-resizable/                         @juboba
 /types/vue-feather-icons/                               @potato4d
 /types/vue-json-compare/                                @slaweet
 /types/vue-ls/                                          @someone1 @lexasss
