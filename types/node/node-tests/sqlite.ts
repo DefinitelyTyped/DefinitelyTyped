@@ -163,7 +163,7 @@ import { TextEncoder } from "node:util";
     tagStore.iterate`SELECT * FROM users WHERE id = ${id}`; // $ExpectType Iterator<Record<string, SQLOutputValue>, undefined, any>
     tagStore.run`INSERT INTO users VALUES (${id}, ${name})`; // $ExpectType StatementResultingChanges
 
-    tagStore.size(); // $ExpectType number
+    tagStore.size; // $ExpectType number
     tagStore.capacity; // $ExpectType number
     tagStore.db; // $ExpectType DatabaseSync
     tagStore.clear();

@@ -675,9 +675,8 @@ declare module "node:sqlite" {
         /**
          * A read-only property that returns the number of prepared statements currently in the cache.
          * @since v24.9.0
-         * @returns The maximum number of prepared statements the cache can hold.
          */
-        size(): number;
+        readonly size: number;
         /**
          * A read-only property that returns the maximum number of prepared statements the cache can hold.
          * @since v24.9.0
