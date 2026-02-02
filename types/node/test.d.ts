@@ -1357,7 +1357,7 @@ declare module "node:test" {
          * describe('tests', async () => {
          *   before(() => console.log('about to run some test'));
          *   it('is a subtest', () => {
-         *     assert.ok('some relevant assertion here');
+         *     // Some relevant assertion here
          *   });
          * });
          * ```
@@ -1373,7 +1373,7 @@ declare module "node:test" {
          * describe('tests', async () => {
          *   after(() => console.log('finished running tests'));
          *   it('is a subtest', () => {
-         *     assert.ok('some relevant assertion here');
+         *     // Some relevant assertion here
          *   });
          * });
          * ```
@@ -1389,7 +1389,7 @@ declare module "node:test" {
          * describe('tests', async () => {
          *   beforeEach(() => console.log('about to run a test'));
          *   it('is a subtest', () => {
-         *     assert.ok('some relevant assertion here');
+         *     // Some relevant assertion here
          *   });
          * });
          * ```
@@ -1406,7 +1406,7 @@ declare module "node:test" {
          * describe('tests', async () => {
          *   afterEach(() => console.log('finished running a test'));
          *   it('is a subtest', () => {
-         *     assert.ok('some relevant assertion here');
+         *     // Some relevant assertion here
          *   });
          * });
          * ```
