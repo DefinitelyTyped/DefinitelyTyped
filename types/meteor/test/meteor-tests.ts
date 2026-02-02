@@ -91,7 +91,7 @@ namespace MeteorTests {
 
             Meteor.deferrable(
                 () => console.log('This is deferred until after startup.'),
-                {on: "development"}
+                {on: ['development', 'test']},
             )
 
         });

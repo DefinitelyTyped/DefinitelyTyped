@@ -241,8 +241,8 @@ declare module 'meteor/meteor' {
          * @param func The function to wrap
          * @param options An object with an `on` property that is an array of environment names: `"development"`, `"production"`, and/or `"test"`.
          */
-        function deferrable<T extends Function>(
-            func: T,
+        function deferrable<T>(
+            func: () => T,
             options: { on: Array<"development" | "production" | "test"> }
         ): T | void;
 
@@ -250,13 +250,16 @@ declare module 'meteor/meteor' {
          * Wrap a function to run in the background in development (similar to Meteor.isDevelopment ? Meteor.defer(fn) : Meteor.startup(fn)).
          * @param func The function to wrap
          */
-        function deferDev<T extends Function>(func: T): T | void;
-
+        function deferDev<T>(
+            func: () => T
+        ): T | void;
         /**
          * Wrap a function to run in the background in production (similar to Meteor.isProduction ? Meteor.defer(fn) : Meteor.startup(fn)).
          * @param func The function to wrap
          */
-        function deferProd<T extends Function>(func: T): T | void;
+        function deferProd<T>(
+            func: () => T
+        ): T | void;
         /** Timeout **/
 
         /** utils **/
