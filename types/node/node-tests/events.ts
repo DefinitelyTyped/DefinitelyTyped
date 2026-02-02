@@ -23,6 +23,7 @@ declare const any: any;
     events.setMaxListeners(10, emitter, eventTarget);
 
     events.listenerCount(emitter, event); // $ExpectType number
+    events.listenerCount(eventTarget, "event"); // $ExpectType number
 }
 
 void async function() {
