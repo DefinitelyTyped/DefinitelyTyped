@@ -383,59 +383,18 @@ declare module "node:module" {
             | "module-typescript"
             | "wasm";
         type ModuleSource = string | ArrayBuffer | NodeJS.TypedArray;
-        /**
-         * The `initialize` hook provides a way to define a custom function that runs in
-         * the hooks thread when the hooks module is initialized. Initialization happens
-         * when the hooks module is registered via {@link register}.
-         *
-         * This hook can receive data from a {@link register} invocation, including
-         * ports and other transferable objects. The return value of `initialize` can be a
-         * `Promise`, in which case it will be awaited before the main application thread
-         * execution resumes.
-         */
         type InitializeHook<Data = any> = (data: Data) => void | Promise<void>;
         interface ResolveHookContext {
-            /**
-             * Export conditions of the relevant `package.json`
-             */
             conditions: string[];
-            /**
-             *  An object whose key-value pairs represent the assertions for the module to import
-             */
             importAttributes: ImportAttributes;
-            /**
-             * The module importing this one, or undefined if this is the Node.js entry point
-             */
             parentURL: string | undefined;
         }
         interface ResolveFnOutput {
-            /**
-             * A hint to the load hook (it might be ignored); can be an intermediary value.
-             */
             format?: string | null | undefined;
-            /**
-             * The import attributes to use when caching the module (optional; if excluded the input will be used)
-             */
             importAttributes?: ImportAttributes | undefined;
-            /**
-             * A signal that this hook intends to terminate the chain of `resolve` hooks.
-             * @default false
-             */
             shortCircuit?: boolean | undefined;
-            /**
-             * The absolute URL to which this input resolves
-             */
             url: string;
         }
-        /**
-         * The `resolve` hook chain is responsible for telling Node.js where to find and
-         * how to cache a given `import` statement or expression, or `require` call. It can
-         * optionally return a format (such as `'module'`) as a hint to the `load` hook. If
-         * a format is specified, the `load` hook is ultimately responsible for providing
-         * the final `format` value (and it is free to ignore the hint provided by
-         * `resolve`); if `resolve` provides a `format`, a custom `load` hook is required
-         * even if only to pass the value to the Node.js default `load` hook.
-         */
         type ResolveHook = (
             specifier: string,
             context: ResolveHookContext,
@@ -453,36 +412,15 @@ declare module "node:module" {
             ) => ResolveFnOutput,
         ) => ResolveFnOutput;
         interface LoadHookContext {
-            /**
-             * Export conditions of the relevant `package.json`
-             */
             conditions: string[];
-            /**
-             * The format optionally supplied by the `resolve` hook chain (can be an intermediary value).
-             */
             format: string | null | undefined;
-            /**
-             *  An object whose key-value pairs represent the assertions for the module to import
-             */
             importAttributes: ImportAttributes;
         }
         interface LoadFnOutput {
             format: string | null | undefined;
-            /**
-             * A signal that this hook intends to terminate the chain of `resolve` hooks.
-             * @default false
-             */
             shortCircuit?: boolean | undefined;
-            /**
-             * The source for Node.js to evaluate
-             */
             source?: ModuleSource | undefined;
         }
-        /**
-         * The `load` hook provides a way to define a custom method of determining how a
-         * URL should be interpreted, retrieved, and parsed. It is also in charge of
-         * validating the import attributes.
-         */
         type LoadHook = (
             url: string,
             context: LoadHookContext,
