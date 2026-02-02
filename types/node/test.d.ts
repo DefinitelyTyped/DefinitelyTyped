@@ -2038,24 +2038,28 @@ declare module "node:test" {
              */
             enable(options?: MockTimersOptions): void;
             /**
-             * You can use the `.setTime()` method to manually move the mocked date to another time. This method only accepts a positive integer.
-             * Note: This method will execute any mocked timers that are in the past from the new time.
-             * In the below example we are setting a new time for the mocked date.
+             * Sets the current Unix timestamp that will be used as reference for any mocked
+             * `Date` objects.
+             *
              * ```js
              * import assert from 'node:assert';
              * import { test } from 'node:test';
-             * test('sets the time of a date object', (context) => {
-             *   // Optionally choose what to mock
-             *   context.mock.timers.enable({ apis: ['Date'], now: 100 });
-             *   assert.strictEqual(Date.now(), 100);
-             *   // Advance in time will also advance the date
-             *   context.mock.timers.setTime(1000);
-             *   context.mock.timers.tick(200);
-             *   assert.strictEqual(Date.now(), 1200);
+             *
+             * test('runAll functions following the given order', (context) => {
+             *   const now = Date.now();
+             *   const setTime = 1000;
+             *   // Date.now is not mocked
+             *   assert.deepStrictEqual(Date.now(), now);
+             *
+             *   context.mock.timers.enable({ apis: ['Date'] });
+             *   context.mock.timers.setTime(setTime);
+             *   // Date.now is now 1000
+             *   assert.strictEqual(Date.now(), setTime);
              * });
              * ```
+             * @since v21.2.0, v20.11.0
              */
-            setTime(time: number): void;
+            setTime(milliseconds: number): void;
             /**
              * This function restores the default behavior of all mocks that were previously
              * created by this `MockTimers` instance and disassociates the mocks
