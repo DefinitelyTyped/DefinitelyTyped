@@ -124,38 +124,38 @@ jobs:
           retention-days: 1
         if: ${{ github.event_name == 'pull_request' }}
 
-  # dangerbot:
-  #   runs-on: ubuntu-latest
-  #   if: github.repository == 'DefinitelyTyped/DefinitelyTyped' && github.event_name == 'pull_request'
+  dangerbot:
+    runs-on: ubuntu-latest
+    if: github.repository == 'DefinitelyTyped/DefinitelyTyped' && github.event_name == 'pull_request'
 
-  #   needs:
-  #     - test
+    needs:
+      - test
 
-  #   steps:
-  #     - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-  #     - uses: ./.github/actions/setup-for-scripts
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: ./.github/actions/setup-for-scripts
 
-  #     - name: Get suggestions dir
-  #       id: suggestions-dir
-  #       run: echo "path=$(node ./scripts/get-suggestions-dir.js)" >> "$GITHUB_OUTPUT"
+      - name: Get suggestions dir
+        id: suggestions-dir
+        run: echo "path=$(node ./scripts/get-suggestions-dir.js)" >> "$GITHUB_OUTPUT"
 
-  #     - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
-  #       with:
-  #         path: ${{ steps.suggestions-dir.outputs.path }}
-  #         merge-multiple: true
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+        with:
+          path: ${{ steps.suggestions-dir.outputs.path }}
+          merge-multiple: true
 
-  #     - name: 'Run Danger'
-  #       env:
-  #         # See https://github.com/danger/danger-js/issues/1042
-  #         DANGER_GITHUB_API_BASE_URL: 'https://api.github.com'
+      - name: 'Run Danger'
+        env:
+          # See https://github.com/danger/danger-js/issues/1042
+          DANGER_GITHUB_API_BASE_URL: 'https://api.github.com'
 
-  #       # Danger failing (for example through rate-limiting) shouldn't fail the build
-  #       run: |
-  #         # Exposing this token is safe because the user of it has no other public repositories
-  #         # and has no permission to modify this repository. See #62638 for the discussion.
-  #         TOKEN='ghp_i5wtj1l2AbpFv3OU96w6R'
-  #         TOKEN+='On3bHOkcV2AmVY6'
-  #         DANGER_GITHUB_API_TOKEN=$TOKEN pnpm danger ci || $( exit 0 )
+        # Danger failing (for example through rate-limiting) shouldn't fail the build
+        run: |
+          # Exposing this token is safe because the user of it has no other public repositories
+          # and has no permission to modify this repository. See #62638 for the discussion.
+          TOKEN='ghp_i5wtj1l2AbpFv3OU96w6R'
+          TOKEN+='On3bHOkcV2AmVY6'
+          DANGER_GITHUB_API_TOKEN=$TOKEN pnpm danger ci || $( exit 0 )
 
   scripts:
     runs-on: ubuntu-latest
