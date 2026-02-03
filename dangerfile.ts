@@ -129,7 +129,7 @@ if (dprintErrors.length > 0) {
         "## Formatting errors",
         "",
         codeBlock,
-        ...dprintErrors.join("\n\n"),
+        dprintErrors.join("\n\n"),
         codeBlock,
     ];
 
