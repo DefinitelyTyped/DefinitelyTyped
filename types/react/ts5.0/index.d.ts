@@ -2081,7 +2081,7 @@ declare namespace React {
      * Only for form elements we know their target type because form events can't
      * be nested.
      * This type exists purely to narrow `target` for form elements. It doesn't
-     * reflect a DOM event. React fires change events as {@link SyntheticEvent}.
+     * reflect a DOM event. Change events are just fired as standard {@link SyntheticEvent}.
      */
     interface ChangeEvent<CurrentTarget = Element, Target = Element> extends SyntheticEvent<CurrentTarget> {
         // TODO: This is wrong for change event handlers on arbitrary. Should
@@ -2157,7 +2157,7 @@ declare namespace React {
     }
 
     interface SubmitEvent<T = Element> extends SyntheticEvent<T, NativeSubmitEvent> {
-        // Currently not exposed by Reat
+        // `submitter` is available in react@canary
         // submitter: HTMLElement | null;
         // SubmitEvents are always targetted at HTMLFormElements.
         target: EventTarget & HTMLFormElement;
