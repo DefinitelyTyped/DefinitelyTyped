@@ -2158,7 +2158,7 @@ declare namespace React {
     }
 
     interface SubmitEvent<T = Element> extends SyntheticEvent<T, NativeSubmitEvent> {
-        // Currently not exposed by Reat
+        // `submitter` is available in react@canary
         // submitter: HTMLElement | null;
         // SubmitEvents are always targetted at HTMLFormElements.
         target: EventTarget & HTMLFormElement;
@@ -3525,7 +3525,7 @@ declare namespace React {
         value?: string | readonly string[] | number | undefined;
         wrap?: string | undefined;
 
-        // No other element dispatching change events can be nested in a <textare>
+        // No other element dispatching change events can be nested in a <textarea>
         // so we know the target will be a HTMLTextAreaElement.
         onChange?: ChangeEventHandler<T, HTMLTextAreaElement> | undefined;
     }
