@@ -6,7 +6,7 @@ interface MyDatePickerState {
 }
 
 export default class MyDatePicker extends React.Component<{}, MyDatePickerState> {
-    datepicker: DatePicker | null;
+    datepicker!: DatePicker | null;
 
     state = { date: "2016-05-15" };
 

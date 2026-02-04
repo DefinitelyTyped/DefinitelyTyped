@@ -20,7 +20,7 @@ export default class Signin extends React.Component<{}, State> {
         let user;
         try {
             user = await GoogleSignin.signInSilently();
-        } catch (error) {
+        } catch (error: any) {
             if (error.code === statusCodes.SIGN_IN_REQUIRED) {
                 user = await GoogleSignin.signIn();
             }
