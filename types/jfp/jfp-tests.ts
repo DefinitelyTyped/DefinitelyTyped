@@ -9,7 +9,7 @@ j.always(true)();
 j.and(true, false) === false;
 j.apply(testFn, [1, 2, 3]);
 j.between([3, 7], 5) === true;
-j.call(testFn, null, 1, 2, 3);
+j.call(testFn, null as any, 1, 2, 3);
 j.clone({});
 j.compact([]);
 j.compose(testFn, testFn)();
