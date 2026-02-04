@@ -13,7 +13,6 @@ function appendPre(message: string) {
 
     var SCOPES = ["https://www.googleapis.com/auth/calendar.readonly"];
 
-
     /**
      * Check if current user has authorized this application.
      */
@@ -100,7 +99,6 @@ function appendPre(message: string) {
             }
         });
     }
-
 }
 
 /* Example taken from https://developers.google.com/google-apps/calendar/v3/reference/events/insert#examples */

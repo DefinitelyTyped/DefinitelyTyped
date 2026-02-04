@@ -531,7 +531,13 @@ function test_misc() {
                     if (ko.bindingHandlers.options.update) {
                         ko.bindingHandlers.options.update.apply(
                             this,
-                            args as unknown as [any, () => any, KnockoutAllBindingsAccessor, any, KnockoutBindingContext],
+                            args as unknown as [
+                                any,
+                                () => any,
+                                KnockoutAllBindingsAccessor,
+                                any,
+                                KnockoutBindingContext,
+                            ],
                         );
                     }
                 },

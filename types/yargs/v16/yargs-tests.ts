@@ -40,7 +40,7 @@ function count() {
 
     const VERBOSE_LEVEL: number = argv.verbose;
 
-     function WARN() {
+    function WARN() {
         VERBOSE_LEVEL >= 0 && console.log(...arguments);
     }
     function INFO() {
