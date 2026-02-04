@@ -66,6 +66,12 @@ declare class NavigationTransition {
     readonly finished: Promise<void>;
 }
 
+declare class NavigationActivation {
+    readonly from: NavigationHistoryEntry | null;
+    readonly entry: NavigationHistoryEntry;
+    readonly navigationType: NavigationTypeString;
+}
+
 interface NavigationHistoryEntryEventMap {
     dispose: Event;
 }

@@ -7,6 +7,14 @@
     "projects": [
         "https://wicg.github.io/navigation-api"
     ],
+    "types": "index",
+    "typesVersions": {
+        "<=5.7": {
+            "*": [
+                "ts5.7/*"
+            ]
+        }
+    },
     "devDependencies": {
         "@types/dom-navigation": "workspace:."
     },
