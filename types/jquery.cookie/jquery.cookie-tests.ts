@@ -9,10 +9,10 @@ class TestObject {
 }
 
 class CookieOptions implements JQueryCookieOptions {
-    expires: number;
-    path: string;
-    domain: string;
-    secure: boolean;
+    expires!: number;
+    path!: string;
+    domain!: string;
+    secure!: boolean;
 }
 
 $.cookie("the_cookie", "the_value");

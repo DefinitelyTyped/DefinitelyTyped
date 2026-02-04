@@ -29,7 +29,7 @@ newrelic.finished();
 // noticeError()
 try {
     JSON.parse("{ \"bar\"");
-} catch (err) {
+} catch (err: any) {
     newrelic.noticeError(err);
 }
 newrelic.noticeError(new Error("bar"));

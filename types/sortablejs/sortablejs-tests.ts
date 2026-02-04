@@ -122,7 +122,7 @@ simpleList.innerHTML = Array.apply(null, new Array(100))
 
     if (!console.log) {
         console.log = function() {
-            alert([].join.apply(arguments, " "));
+            alert([...arguments].join(" "));
         };
     }
 

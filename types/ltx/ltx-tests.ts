@@ -163,7 +163,7 @@ el.tree(); // $ExpectType Element
 el.up(); // $ExpectType Element
 
 class MyEl extends ltx.Element {
-    foo: "bar";
+    foo!: "bar";
 }
 const myEl = new MyEl("el");
 

@@ -70,13 +70,13 @@ class CustomPlugin implements Plugin {
 // Test a plugin with missing 'hooks' property
 // @ts-expect-error
 class BadPlugin implements Plugin {
-    hoooks: Plugin.Hooks; // emulate a bad 'hooks' definition with a typo
+    hoooks!: Plugin.Hooks; // emulate a bad 'hooks' definition with a typo
     constructor(badArg: number) {}
 }
 
 // Test a plugin that throws an user error exception
 class ThrowUserErrorPlugin implements Plugin {
-    hooks: Plugin.Hooks;
+    hooks!: Plugin.Hooks;
     constructor(serverless: Serverless, options: Serverless.Options, logging: Plugin.Logging) {
         this.hooks = {
             "command:start": () => {},
@@ -100,7 +100,7 @@ manager.addPlugin(ThrowUserErrorPlugin);
 
 // Test a plugin with bad arguments for a variable resolver
 class BadVariablePlugin1 implements Plugin {
-    hooks: Plugin.Hooks;
+    hooks!: Plugin.Hooks;
     // @ts-expect-error
     variableResolvers = {
         badEchoArgs: async (badArg: number) => {},
@@ -109,7 +109,7 @@ class BadVariablePlugin1 implements Plugin {
 
 // Test a plugin with non-async variable resolver
 class BadVariablePlugin implements Plugin {
-    hooks: Plugin.Hooks;
+    hooks!: Plugin.Hooks;
     // @ts-expect-error
     variableResolvers = {
         badEchoNotAsync: (source: string) => {},
