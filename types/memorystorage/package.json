@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/memorystorage",
+    "version": "0.12.9999",
+    "projects": [
+        "https://github.com/download/memorystorage"
+    ],
+    "devDependencies": {
+        "@types/memorystorage": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "gaspard",
+            "githubUsername": "gasp"
+        }
+    ]
+}
