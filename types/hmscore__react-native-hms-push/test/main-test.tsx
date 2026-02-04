@@ -35,16 +35,16 @@ interface State {
 }
 
 export default class App extends Component<{}, State> {
-    onRemoteMessageReceivedListener: NativeEventSubscription;
-    onTokenReceivedListener: NativeEventSubscription;
-    onTokenErrorListener: NativeEventSubscription;
-    onMultiSenderTokenReceivedListener: NativeEventSubscription;
-    onMultiSenderTokenErrorListener: NativeEventSubscription;
-    onPushMessageSentListener: NativeEventSubscription;
-    onMessageSentErrorListener: NativeEventSubscription;
-    onMessageSentDeliveredListener: NativeEventSubscription;
-    onLocalNotificationActionListener: NativeEventSubscription;
-    onNotificationOpenedAppListener: NativeEventSubscription;
+    onRemoteMessageReceivedListener!: NativeEventSubscription;
+    onTokenReceivedListener!: NativeEventSubscription;
+    onTokenErrorListener!: NativeEventSubscription;
+    onMultiSenderTokenReceivedListener!: NativeEventSubscription;
+    onMultiSenderTokenErrorListener!: NativeEventSubscription;
+    onPushMessageSentListener!: NativeEventSubscription;
+    onMessageSentErrorListener!: NativeEventSubscription;
+    onMessageSentDeliveredListener!: NativeEventSubscription;
+    onLocalNotificationActionListener!: NativeEventSubscription;
+    onNotificationOpenedAppListener!: NativeEventSubscription;
 
     constructor(props: {}) {
         super(props);
