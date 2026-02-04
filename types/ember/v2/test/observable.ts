@@ -5,7 +5,7 @@ class MyComponent extends Ember.Component {
     foo = "bar";
 
     init() {
-        this._super.apply(this, arguments);
+        this._super.apply(this, arguments as unknown as any[]);
         this.addObserver("foo", this, "fooDidChange");
         this.addObserver("foo", this, this.fooDidChange);
         Ember.addObserver(this, "foo", this, "fooDidChange");

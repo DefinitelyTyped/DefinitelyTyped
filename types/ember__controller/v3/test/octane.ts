@@ -3,11 +3,11 @@ import Controller, { inject } from "@ember/controller";
 class FirstController extends Controller {
     foo = "bar";
     @inject
-    second: InstanceType<typeof SecondController>;
+    second!: InstanceType<typeof SecondController>;
     @inject()
-    otherSecond: InstanceType<typeof SecondController>;
+    otherSecond!: InstanceType<typeof SecondController>;
     @inject("second")
-    moreSecond: InstanceType<typeof SecondController>;
+    moreSecond!: InstanceType<typeof SecondController>;
 
     queryParams = [
         "category",

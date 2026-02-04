@@ -1,11 +1,18 @@
 /* Example taken from Google Calendar API JavaScript Quickstart https://developers.google.com/google-apps/calendar/quickstart/js */
 
+function appendPre(message: string) {
+    var pre = document.getElementById("output")!;
+    var textContent = document.createTextNode(message + "\n");
+    pre.appendChild(textContent);
+}
+
 {
     // Your Client ID can be retrieved from your project in the Google
     // Developer Console, https://console.developers.google.com
     var CLIENT_ID = "<YOUR_CLIENT_ID>";
 
     var SCOPES = ["https://www.googleapis.com/auth/calendar.readonly"];
+
 
     /**
      * Check if current user has authorized this application.
@@ -94,17 +101,6 @@
         });
     }
 
-    /**
-     * Append a pre element to the body containing the given message
-     * as its text node.
-     *
-     * @param {string} message Text to be placed in pre element.
-     */
-    function appendPre(message: string) {
-        var pre = document.getElementById("output")!;
-        var textContent = document.createTextNode(message + "\n");
-        pre.appendChild(textContent);
-    }
 }
 
 /* Example taken from https://developers.google.com/google-apps/calendar/v3/reference/events/insert#examples */

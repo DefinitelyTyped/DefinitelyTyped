@@ -915,7 +915,7 @@ const handleCommonAction = (e: GoogleAppsScript.Addons.EventObject) => {
         props.setProperties(parameters);
 
         console.log(`Processed on ${formattedDate} at ${formattedTime} | ${userLocale}`);
-    } catch ({ name, message }) {
+    } catch ({ name, message }: any) {
         const type = plaformMap[platform];
         console.warn(`Platform: ${type}
         Type: ${name}

@@ -755,7 +755,7 @@ async function dbIdRemappingTest(viewer: Autodesk.Viewing.GuiViewer3D): Promise<
     const _load = Autodesk.Viewing.Private.PropDbLoader.prototype.load;
     Autodesk.Viewing.Private.PropDbLoader.prototype.load = function() {
         this.needsDbIdRemap = true;
-        _load.call(this);
+        _load.apply(this, arguments as unknown as any[]);
     };
 
     // Override `PropDbLoader#processLoadResult` so that the dbid mapping is stored within all models (by default it is only stored in 2D models).
