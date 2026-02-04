@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/passport-google-oidc",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/jaredhanson/passport-google-openidconnect#readme"
+    ],
+    "dependencies": {
+        "@types/passport-openidconnect": "*"
+    },
+    "devDependencies": {
+        "@types/express": "*",
+        "@types/passport-google-oidc": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nathan H. Leung",
+            "githubUsername": "nathanhleung"
+        }
+    ]
+}

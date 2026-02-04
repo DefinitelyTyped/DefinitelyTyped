@@ -15,7 +15,7 @@ class Example extends React.Component<{}, State> {
     modal1: Modal | null = null;
     modal2: Modal | null = null;
     modal3: Modal | null = null;
-    modal4: Modal;
+    modal4!: Modal;
     modal6: Modal | null = null;
 
     state = {

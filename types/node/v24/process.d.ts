@@ -473,6 +473,11 @@ declare module "process" {
                  */
                 reportOnUncaughtException: boolean;
                 /**
+                 * If true, a diagnostic report is generated without the environment variables.
+                 * @default false
+                 */
+                excludeEnv: boolean;
+                /**
                  * The signal used to trigger the creation of a diagnostic report.
                  * @default 'SIGUSR2'
                  */
@@ -1784,6 +1789,15 @@ declare module "process" {
                     sendHandle?: SendHandle,
                     options?: MessageOptions,
                     callback?: (error: Error | null) => void,
+                ): boolean;
+                send?(
+                    message: any,
+                    sendHandle: SendHandle,
+                    callback?: (error: Error | null) => void,
+                ): boolean;
+                send?(
+                    message: any,
+                    callback: (error: Error | null) => void,
                 ): boolean;
                 /**
                  * If the Node.js process is spawned with an IPC channel (see the `Child Process` and `Cluster` documentation), the `process.disconnect()` method will close the

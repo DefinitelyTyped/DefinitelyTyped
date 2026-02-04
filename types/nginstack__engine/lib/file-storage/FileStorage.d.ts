@@ -14,6 +14,9 @@ declare class FileStorage {
     private maxFileSize_;
     private maxTotalSize_;
     private hasMain_;
+    private imageAutoCompress_;
+    private imageCompressionProfile_;
+    private mimeTypes_;
     private dataRel_;
     private fileInfos_;
     private fileFieldName_;
@@ -28,6 +31,13 @@ declare class FileStorage {
     maxFileSize: number;
     maxTotalSize: number;
     cacheControl: string;
+    imageAutoCompress: boolean;
+    imageCompressionProfile: number;
+    private getImageCompressorProfile_;
+    private compressIfImage_;
+    private findFileExtension_;
+    private fixUniqueFileNameCollision_;
+    private changeUniqueFileNameExtension_;
     private tryGetFileInfo_;
     userHasViewPermission(fileKey: number, userKey?: number): boolean;
     tryGetFileUrl(fileKey: number): string;
@@ -37,7 +47,7 @@ declare class FileStorage {
     updateExtraFileAttributes(fileKey: number, attributes: any, originalName?: string): void;
     getFileAttributes(fileKey: number): any;
     updateFileAttributes(fileKey: number, attributes: any, originalName?: string): void;
-    formatUniqueFileName(originalFileName: string, attributes: any): string;
+    formatUniqueFileName(originalFileName: string, attributes: any, fileExtension?: string): string;
     findLinkedFiles(key: number | DBKey, filters?: any): FileInfo[];
     getLinkedFilesSize(key: number | DBKey): number;
     getLinkedFilesCount(key: number | DBKey): number;
@@ -60,7 +70,7 @@ declare class FileStorage {
     ): void;
 }
 declare namespace FileStorage {
-    export { StorageKind, FileInfo, DBKey, DataSet };
+    export { StorageKind, FileInfo, DBKey, DataSet, ImageCompressionResult };
 }
 type StorageKind = string;
 declare namespace StorageKind {
@@ -72,3 +82,8 @@ import MemoryStream = require('../io/MemoryStream.js');
 type FileInfo = import('./FileInfo');
 type DBKey = import('../dbkey/DBKey');
 type DataSet = import('../dataset/DataSet');
+interface ImageCompressionResult {
+    content: string | File | MemoryStream;
+    contentType: string;
+    compressionProfile: number | null;
+}

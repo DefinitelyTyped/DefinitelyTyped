@@ -4,7 +4,7 @@ declare class Visualization {
     constructor(definition: any);
     private viewDefs_;
     title: string;
-    messageWhenEmpty: string;
+    noResultsMessage: string;
     help: string;
     private canExport_;
     includes: Array<string | number>;

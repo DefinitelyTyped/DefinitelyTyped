@@ -581,6 +581,15 @@ declare namespace OSS {
         uploads: Upload[];
     }
 
+    interface PutSymlinkOptions {
+        /** the storage type include (Standard,IA,Archive) */
+        storageClass?: string | undefined;
+        /** user meta, will send with x-oss-meta- prefix string */
+        meta?: UserMeta | undefined;
+        /** extra headers */
+        headers?: object | undefined;
+    }
+
     interface PutChannelConf {
         Description?: string | undefined;
         Status?: string | undefined;
@@ -1201,6 +1210,17 @@ declare class OSS {
     ): Promise<OSS.NormalSuccessResponse>;
 
     /**
+     * Cancel the current multipart upload operation.
+     * If abort is provided, it will also call abortMultipartUpload.
+     */
+    cancel(abort?: { name: string; uploadId: string; options?: OSS.RequestOptions }): void;
+
+    /**
+     * Check if the upload has been cancelled.
+     */
+    isCancel(): boolean;
+
+    /**
      * get postObject params.
      */
     calculatePostSignature(
@@ -1209,6 +1229,23 @@ declare class OSS {
          */
         policy: object | string,
     ): OSS.PostObjectParams;
+
+    /**
+     * put symlink
+     */
+    putSymlink(
+        name: string,
+        targetName: string,
+        options?: OSS.PutSymlinkOptions,
+    ): Promise<{ res: OSS.NormalSuccessResponse }>;
+
+    /**
+     * get symlink
+     */
+    getSymlink(
+        name: string,
+        options?: { versionId?: string | undefined; timeout?: number | undefined; headers?: object | undefined },
+    ): Promise<{ targetName: string; res: OSS.NormalSuccessResponse }>;
 
     /************************************************ RTMP Operations *************************************************************/
     /**

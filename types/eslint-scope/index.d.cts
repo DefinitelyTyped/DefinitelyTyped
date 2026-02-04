@@ -201,7 +201,7 @@ export class Scope<TVariable extends Variable = Variable, TReference extends Ref
     /**
      * Implicit references (e.g., 'arguments' in functions).
      */
-    implicit: { left: TReference[]; set: Map<string, Variable> };
+    implicit: { left: TReference[]; set: Map<string, Variable>; variables: Variable[] };
 
     /**
      * Map of variable names to variables.

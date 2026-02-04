@@ -6,7 +6,7 @@
         "https://bun.com"
     ],
     "dependencies": {
-        "bun-types": "1.3.5"
+        "bun-types": "1.3.8"
     },
     "devDependencies": {
         "@types/bun": "workspace:."
@@ -25,12 +25,12 @@
             "githubUsername": "dylan-conway"
         },
         {
-            "name": "Meghan Denny",
-            "githubUsername": "nektro"
+            "name": "Ciro Spaciari",
+            "githubUsername": "cirospaciari"
         },
         {
-            "name": "Michael H",
-            "githubUsername": "RiskyMH"
+            "name": "Sosuke Suzuki",
+            "githubUsername": "sosukesuzuki"
         },
         {
             "name": "Alistair Smith",

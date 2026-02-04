@@ -257,6 +257,17 @@ declare namespace WechatMiniprogram {
         /** 缩略图路径，若留空则使用视频首帧 */
         thumbPath?: string;
     }
+    /** 以 beacon 设备形式广播的参数 */
+    interface BeaconObj {
+        /** Beacon 设备广播的 UUID */
+        uuid: string;
+        /** Beacon 设备的主 ID */
+        major: number;
+        /** Beacon 设备的次 ID */
+        minor: number;
+        /** 用于判断距离设备 1 米时 RSSI 大小的参考值 */
+        measuredPower?: number;
+    }
     /** 广播自定义参数 */
     interface AdvertiseReqObj {
         /** 当前Service是否可连接 */
@@ -267,6 +278,8 @@ declare namespace WechatMiniprogram {
         manufacturerData?: ManufacturerData[];
         /** 要广播的serviceUuid列表 */
         serviceUuids?: string[];
+        /** 以 beacon 设备形式广播的参数 */
+        beacon?: BeaconObj;
     }
     /** animationData */
     interface AnimationExportResult {

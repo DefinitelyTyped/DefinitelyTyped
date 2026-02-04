@@ -16,7 +16,7 @@ const imageState: ImageState = {
 };
 
 class AvatarEditorTest extends React.Component {
-    avatar: AvatarEditor;
+    avatar!: AvatarEditor;
 
     test() {
         const getImage: HTMLCanvasElement = this.avatar.getImage();

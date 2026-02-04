@@ -1,4 +1,4 @@
-// For Library Version: 1.143.0
+// For Library Version: 1.144.0
 
 declare module "sap/tnt/library" {
   /**
@@ -3427,6 +3427,8 @@ declare module "sap/tnt/ToolPage" {
      * Gets current value of property {@link #getSideExpanded sideExpanded}.
      *
      * Indicates if the side menu is expanded. Overrides the `expanded` property of the `sideContent` aggregation.
+     * *Note:** By default, on small screens, the side content is collapsed to provide more space for the main
+     * content. On larger screens, it is expanded. This behavior can be overridden by setting this property.
      *
      * Default value is `true`.
      *
@@ -3578,6 +3580,8 @@ declare module "sap/tnt/ToolPage" {
   export interface $ToolPageSettings extends $ControlSettings {
     /**
      * Indicates if the side menu is expanded. Overrides the `expanded` property of the `sideContent` aggregation.
+     * **Note:** By default, on small screens, the side content is collapsed to provide more space for the main
+     * content. On larger screens, it is expanded. This behavior can be overridden by setting this property.
      */
     sideExpanded?: boolean | PropertyBindingInfo | `{${string}}`;
 

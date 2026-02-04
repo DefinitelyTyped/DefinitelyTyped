@@ -8,10 +8,5 @@
     "devDependencies": {
         "@types/paystack": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Oladiran Segun Solomon",
-            "githubUsername": "sheghun"
-        }
-    ]
+    "owners": []
 }

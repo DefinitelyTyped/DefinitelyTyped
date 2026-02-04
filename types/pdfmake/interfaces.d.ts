@@ -1,3 +1,4 @@
+/// <reference lib="dom" />
 /// <reference types="node" />
 /// <reference types="pdfkit" />
 
@@ -147,6 +148,21 @@ export type PatternFill = [string, string];
  */
 export interface TFontDictionary {
     [fontName: string]: TFontFamilyTypes;
+}
+
+/**
+ * Dictionary of a virtual file system, mapping file paths to base64 file contents.
+ */
+export interface TVirtualFileSystem {
+    [filePath: string]: string;
+}
+
+/**
+ * Container combining a virtual file system and its contained font definitions.
+ */
+export interface TFontContainer {
+    vfs: TVirtualFileSystem;
+    fonts: TFontDictionary;
 }
 
 /**
@@ -837,6 +853,16 @@ export interface Style {
     noWrap?: boolean | undefined;
 
     /**
+     * Controls the line breaking behavior.
+     *
+     * - `normal` breaks lines at spaces
+     * - `break-all` breaks lines anywhere
+     *
+     * Defaults to `normal`.
+     */
+    wordBreak?: "normal" | "break-all" | undefined;
+
+    /**
      * Space between columns in `pt`.
      *
      * Only applies to {@link ContentColumns} elements.
@@ -883,7 +909,11 @@ export type Content =
     | ContentImage
     | ContentSvg
     | ContentQr
-    | ContentCanvas;
+    | ContentCanvas
+    // Even though only allowed on the document root level, sections can be nested e.g. in stacks,
+    // so we treat them like normal content elements
+    | ContentSection
+    | ContentAttachment;
 
 /**
  * Internal helper type to prevent TypeScript from allowing
@@ -906,6 +936,8 @@ interface ForbiddenElementProperties {
     svg?: never;
     qr?: never;
     canvas?: never;
+    section?: never;
+    attachment?: never;
 }
 
 /**
@@ -925,6 +957,26 @@ type ForbidOtherElementProperties<TProperty extends keyof ForbiddenElementProper
     ForbiddenElementProperties,
     TProperty
 >;
+
+/**
+ * Document attachment.
+ *
+ * For linking an attachment to a custom image, use {@link ContentImage.linkToFile} instead.
+ */
+export interface ContentAttachment extends ForbidOtherElementProperties<"attachment"> {
+    /**
+     * Attachment to the document, either declared inline or referenced by name from
+     * {@link TDocumentDefinitions.attachments} or {@link TDocumentDefinitions.files}.
+     */
+    attachment: Attachment | string;
+
+    /**
+     * Icon for the attachment.
+     *
+     * Defaults to `Push`.
+     */
+    icon?: "Push" | "GraphPush" | "Paperclip" | undefined;
+}
 
 /**
  * Text element.
@@ -1043,13 +1095,13 @@ export interface ContentCanvas extends ContentBase, ForbidOtherElementProperties
  */
 export interface ContentSvg extends ContentBase, ContentLink, ForbidOtherElementProperties<"svg"> {
     /**
-     * Renders the given SVG content string as an image.
+     * Renders the given SVG element or content string as an image.
      *
      * For images other than SVG, use the `image` property instead.
      *
      * Simple vectors can also be rendered using the `canvas` property instead.
      */
-    svg: string;
+    svg: string | SVGElement;
 
     /**
      * Width of the image in `pt`.
@@ -1151,6 +1203,12 @@ export interface ContentImage extends ContentLink, ContentBase, ForbidOtherEleme
      * or vertically.
      */
     cover?: ImageCover | undefined;
+
+    /**
+     * Links the image to an attachment, either declared inline or referenced by name from
+     * {@link TDocumentDefinitions.attachments} or {@link TDocumentDefinitions.files}.
+     */
+    linkToFile?: Attachment | string | undefined;
 }
 
 /**
@@ -1463,6 +1521,65 @@ export interface ContentLink {
 }
 
 /**
+ * Document section. Only allowed at the root level of the document.
+ */
+export interface ContentSection extends ForbidOtherElementProperties<"section"> {
+    /**
+     * Content within the document section.
+     */
+    section: Content;
+
+    /**
+     * Size of the section's pages.
+     *
+     * Defaults to the document-wide value.
+     */
+    pageSize?: TDocumentDefinitions["pageSize"] | "inherit" | null;
+
+    /**
+     * Orientation of the section's pages.
+     *
+     * Defaults to the document-wide value.
+     */
+    pageOrientation?: TDocumentDefinitions["pageOrientation"] | "inherit" | null;
+
+    /**
+     * Margins around the content on each page of the section.
+     *
+     * Defaults to the document-wide value.
+     */
+    pageMargins?: TDocumentDefinitions["pageMargins"] | "inherit" | null;
+
+    /**
+     * Header content that is repeated on every page of the section.
+     *
+     * Defaults to the document-wide value.
+     */
+    header?: TDocumentDefinitions["header"] | "inherit" | null;
+
+    /**
+     * Footer content that is repeated on every page of the section.
+     *
+     * Defaults to the document-wide value.
+     */
+    footer?: TDocumentDefinitions["footer"] | "inherit" | null;
+
+    /**
+     * Content that is rendered behind the section's content, and repeated for every page.
+     *
+     * Defaults to the document-wide value.
+     */
+    background?: TDocumentDefinitions["background"] | "inherit" | null;
+
+    /**
+     * Watermark that is rendered on top of each page of the section.
+     *
+     * Defaults to the document-wide value.
+     */
+    watermark?: TDocumentDefinitions["watermark"] | "inherit" | null;
+}
+
+/**
  * Table of contents.
  *
  * One document may contain more than one table of contents.
@@ -1563,6 +1680,15 @@ export interface OrderedListElementProperties {
      * Defaults to the list's {@link ContentOrderedList.type}.
      */
     listType?: OrderedListType | undefined;
+
+    /**
+     * Color of the list marker (i.e. number).
+     *
+     * Supports well-known color names like `blue` or hexadecimal color strings like `#ccffcc`.
+     *
+     * Defaults to the list's marker color.
+     */
+    markerColor?: string | undefined;
 }
 
 /**
@@ -1590,6 +1716,15 @@ export interface UnorderedListElementProperties {
      * Defaults to the list's {@link ContentUnorderedList.type}.
      */
     listType?: UnorderedListType | undefined;
+
+    /**
+     * Color of the list marker (i.e. bullet point).
+     *
+     * Supports well-known color names like `blue` or hexadecimal color strings like `#ccffcc`.
+     *
+     * Defaults to the list's marker color.
+     */
+    markerColor?: string | undefined;
 }
 
 /**
@@ -1984,6 +2119,31 @@ export interface ImageDefinition {
 }
 
 /**
+ * Document attachment.
+ */
+export interface Attachment {
+    /**
+     * Attachment source.
+     *
+     * Available options:
+     * - Data URLs
+     * - Remote URLs via http:// or https://
+     * - File paths (on the server)
+     */
+    src: string;
+
+    /**
+     * File name of the attachment.
+     */
+    name?: string | undefined;
+
+    /**
+     * Description of the attachment.
+     */
+    description?: string | undefined;
+}
+
+/**
  * Complete definition of a PDF document.
  */
 export interface TDocumentDefinitions {
@@ -2068,19 +2228,12 @@ export interface TDocumentDefinitions {
      * Not called for nodes that have `pageBreak: 'before'` set.
      *
      * @param currentNode - The current content node to check.
-     * @param followingNodesOnPage - The content nodes defined after the current node on the same page.
-     * @param nodesOnNextPage - The content nodes on the page after the current node's page.
-     * @param previousNodesOnPage - The content nodes defined before the current node on the same page.
+     * @param nodeQueries - container to request additional information about the node.
      *
      * @returns whether to insert a page break before the current node.
      */
     pageBreakBefore?:
-        | ((
-            currentNode: Node,
-            followingNodesOnPage: Node[],
-            nodesOnNextPage: Node[],
-            previousNodesOnPage: Node[],
-        ) => boolean)
+        | ((currentNode: Node, nodeQueries: NodeQueries) => boolean)
         | undefined;
 
     /**
@@ -2191,6 +2344,18 @@ export interface TDocumentDefinitions {
      * Document language as BCP 47 language tag, e.g. `en-US`.
      */
     language?: string | undefined;
+
+    /**
+     * Document attachments that can be referenced by their key.
+     *
+     * To embed attachment files, use {@link files} instead.
+     */
+    attachments?: Record<string, Attachment> | undefined;
+
+    /**
+     * Document attachment files to embed into the document, that can be referenced by their key.
+     */
+    files?: Record<string, Attachment> | undefined;
 }
 
 /**
@@ -2288,6 +2453,26 @@ export interface Node {
 }
 
 /**
+ * Container to request additional information about a {@link Node}.
+ */
+export interface NodeQueries {
+    /**
+     * Returns the nodes after the current one on the same page.
+     */
+    getFollowingNodesOnPage: () => Node[];
+
+    /**
+     * Returns the nodes on the next page.
+     */
+    getNodesOnNextPage: () => Node[];
+
+    /**
+     * Returns the nodes before the current one on the same page.
+     */
+    getPreviousNodesOnPage: () => Node[];
+}
+
+/**
  * Information about the effective page size.
  */
 export interface ContextPageSize {
@@ -2304,10 +2489,76 @@ export interface ContextPageSize {
 export interface BufferOptions {
     fontLayoutCache?: boolean | undefined;
     bufferPages?: boolean | undefined;
-    tableLayouts?: { [key: string]: CustomTableLayout } | undefined;
     autoPrint?: boolean | undefined;
-    progressCallback?: ((progress: number) => void) | undefined;
 }
+
+export interface TCreatedPdf {
+    /**
+     * Returns a promise to the streamable PDFKit document.
+     */
+    getStream(): Promise<PDFKit.PDFDocument>;
+
+    /**
+     * Generates the PDF as a binary buffer.
+     */
+    getBuffer(): Promise<Buffer>;
+
+    /**
+     * Generates the PDF as a base64 string.
+     */
+    getBase64(): Promise<string>;
+
+    /**
+     * Generates the PDF as a data URL.
+     */
+    getDataUrl(): Promise<string>;
+
+    /**
+     * Writes the PDF on disk.
+     *
+     * **Note:** Only supported on the server.
+     */
+    write(fileName: string): Promise<void>;
+
+    /**
+     * Generates the PDF as a blob object.
+     *
+     * **Note:** Only supported in the browser.
+     */
+    getBlob(): Promise<Blob>;
+
+    /**
+     * Downloads the generated PDF.
+     *
+     * **Note:** Only supported in the browser.
+     */
+    download(defaultFileName?: string): Promise<void>;
+
+    /**
+     * Opens the generated PDF.
+     *
+     * @param window defaults to opening a new window.
+     *
+     * **Note:** Only supported in the browser.
+     */
+    open(win?: Window | null): Promise<void>;
+
+    /**
+     * Prints the generated PDF.
+     *
+     * @param window defaults to opening a new window.
+     *
+     * **Note:** Only supported in the browser.
+     */
+    print(win?: Window | null): Promise<void>;
+}
+
+/**
+ * Callback to track the document generation process.
+ *
+ * @param progress Current progress between 0 and 1.
+ */
+export type ProgressCallback = (progress: number) => void;
 
 // disable automatic exporting
 export {};

@@ -1,4 +1,4 @@
-// For Library Version: 1.143.0
+// For Library Version: 1.144.0
 
 declare module "sap/ui/webc/fiori/library" {
   /**
@@ -8,6 +8,7 @@ declare module "sap/ui/webc/fiori/library" {
    * 'BarDesign'.
    *
    * @since 1.92.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.fiori
    * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export enum BarDesign {
@@ -35,6 +36,7 @@ declare module "sap/ui/webc/fiori/library" {
    * 'FCLLayout'.
    *
    * @since 1.92.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.fiori
    * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export enum FCLLayout {
@@ -109,6 +111,7 @@ declare module "sap/ui/webc/fiori/library" {
    * Interface for components that may be slotted inside `ui5-page` as header and footer.
    *
    * @since 1.99.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.fiori
    * @experimental As of version 1.99.0. This API is experimental and might change significantly.
    */
   export interface IBar {
@@ -119,6 +122,7 @@ declare module "sap/ui/webc/fiori/library" {
    * Interface for components that may be slotted inside `ui5-view-settings-dialog` as filter items
    *
    * @since 1.97.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.fiori
    * @experimental As of version 1.97.0. This API is experimental and might change significantly.
    */
   export interface IFilterItem {
@@ -129,6 +133,7 @@ declare module "sap/ui/webc/fiori/library" {
    * Interface for components that may be slotted inside `ui5-filter-item` as values
    *
    * @since 1.97.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.fiori
    * @experimental As of version 1.97.0. This API is experimental and might change significantly.
    */
   export interface IFilterItemOption {
@@ -142,6 +147,7 @@ declare module "sap/ui/webc/fiori/library" {
    * 'IllustrationMessageSize'.
    *
    * @since 1.106.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.fiori
    * @experimental As of version 1.106.0. This API is experimental and might change significantly.
    */
   export enum IllustrationMessageSize {
@@ -180,6 +186,7 @@ declare module "sap/ui/webc/fiori/library" {
    * 'IllustrationMessageType'.
    *
    * @since 1.95.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.fiori
    * @experimental As of version 1.95.0. This API is experimental and might change significantly.
    */
   export enum IllustrationMessageType {
@@ -560,6 +567,7 @@ declare module "sap/ui/webc/fiori/library" {
    * Interface for components that can be slotted inside `ui5-media-gallery` as items.
    *
    * @since 1.99.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.fiori
    * @experimental As of version 1.99.0. This API is experimental and might change significantly.
    */
   export interface IMediaGalleryItem {
@@ -570,6 +578,7 @@ declare module "sap/ui/webc/fiori/library" {
    * Interface for components that may be slotted as an action inside `ui5-li-notification` and `ui5-li-notification-group`
    *
    * @since 1.92.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.fiori
    * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export interface INotificationAction {
@@ -580,6 +589,7 @@ declare module "sap/ui/webc/fiori/library" {
    * Interface for components that may be slotted inside a notification list
    *
    * @since 1.92.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.fiori
    * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export interface INotificationListItem {
@@ -590,6 +600,7 @@ declare module "sap/ui/webc/fiori/library" {
    * Interface for components that may be slotted inside `ui5-product-switch` as items
    *
    * @since 1.92.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.fiori
    * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export interface IProductSwitchItem {
@@ -600,6 +611,7 @@ declare module "sap/ui/webc/fiori/library" {
    * Interface for components that may be slotted inside `ui5-shellbar` as items
    *
    * @since 1.92.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.fiori
    * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export interface IShellBarItem {
@@ -610,6 +622,7 @@ declare module "sap/ui/webc/fiori/library" {
    * Interface for components that may be slotted inside `ui5-side-navigation` as items
    *
    * @since 1.92.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.fiori
    * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export interface ISideNavigationItem {
@@ -620,6 +633,7 @@ declare module "sap/ui/webc/fiori/library" {
    * Interface for components that may be slotted inside `ui5-side-navigation-item` as sub-items
    *
    * @since 1.92.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.fiori
    * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export interface ISideNavigationSubItem {
@@ -630,6 +644,7 @@ declare module "sap/ui/webc/fiori/library" {
    * Interface for components that may be slotted inside `ui5-view-settings-dialog` as sort items
    *
    * @since 1.97.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.fiori
    * @experimental As of version 1.97.0. This API is experimental and might change significantly.
    */
   export interface ISortItem {
@@ -640,6 +655,7 @@ declare module "sap/ui/webc/fiori/library" {
    * Interface for components that may be slotted inside `ui5-timeline` as items
    *
    * @since 1.92.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.fiori
    * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export interface ITimelineItem {
@@ -650,6 +666,7 @@ declare module "sap/ui/webc/fiori/library" {
    * Interface for components that may be slotted inside `ui5-upload-collection` as items
    *
    * @since 1.92.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.fiori
    * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export interface IUploadCollectionItem {
@@ -660,6 +677,7 @@ declare module "sap/ui/webc/fiori/library" {
    * Interface for components that may be slotted inside `ui5-wizard` as wizard steps
    *
    * @since 1.92.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.fiori
    * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export interface IWizardStep {
@@ -673,6 +691,7 @@ declare module "sap/ui/webc/fiori/library" {
    * 'MediaGalleryItemLayout'.
    *
    * @since 1.99.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.fiori
    * @experimental As of version 1.99.0. This API is experimental and might change significantly.
    */
   export enum MediaGalleryItemLayout {
@@ -696,6 +715,7 @@ declare module "sap/ui/webc/fiori/library" {
    * 'MediaGalleryLayout'.
    *
    * @since 1.99.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.fiori
    * @experimental As of version 1.99.0. This API is experimental and might change significantly.
    */
   export enum MediaGalleryLayout {
@@ -719,6 +739,7 @@ declare module "sap/ui/webc/fiori/library" {
    * 'MediaGalleryMenuHorizontalAlign'.
    *
    * @since 1.99.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.fiori
    * @experimental As of version 1.99.0. This API is experimental and might change significantly.
    */
   export enum MediaGalleryMenuHorizontalAlign {
@@ -738,6 +759,7 @@ declare module "sap/ui/webc/fiori/library" {
    * 'MediaGalleryMenuVerticalAlign'.
    *
    * @since 1.99.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.fiori
    * @experimental As of version 1.99.0. This API is experimental and might change significantly.
    */
   export enum MediaGalleryMenuVerticalAlign {
@@ -757,6 +779,7 @@ declare module "sap/ui/webc/fiori/library" {
    * 'PageBackgroundDesign'.
    *
    * @since 1.92.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.fiori
    * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export enum PageBackgroundDesign {
@@ -780,6 +803,7 @@ declare module "sap/ui/webc/fiori/library" {
    * 'SideContentFallDown'.
    *
    * @since 1.99.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.fiori
    * @experimental As of version 1.99.0. This API is experimental and might change significantly.
    */
   export enum SideContentFallDown {
@@ -807,6 +831,7 @@ declare module "sap/ui/webc/fiori/library" {
    * 'SideContentPosition'.
    *
    * @since 1.99.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.fiori
    * @experimental As of version 1.99.0. This API is experimental and might change significantly.
    */
   export enum SideContentPosition {
@@ -828,6 +853,7 @@ declare module "sap/ui/webc/fiori/library" {
    * 'SideContentVisibility'.
    *
    * @since 1.99.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.fiori
    * @experimental As of version 1.99.0. This API is experimental and might change significantly.
    */
   export enum SideContentVisibility {
@@ -859,6 +885,7 @@ declare module "sap/ui/webc/fiori/library" {
    * 'TimelineLayout'.
    *
    * @since 1.92.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.fiori
    * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export enum TimelineLayout {
@@ -878,6 +905,7 @@ declare module "sap/ui/webc/fiori/library" {
    * 'UploadState'.
    *
    * @since 1.92.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.fiori
    * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export enum UploadState {
@@ -905,6 +933,7 @@ declare module "sap/ui/webc/fiori/library" {
    * 'ViewSettingsDialogMode'.
    *
    * @since 1.115.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.fiori
    * @experimental As of version 1.115.0. This API is experimental and might change significantly.
    */
   export enum ViewSettingsDialogMode {
@@ -924,6 +953,7 @@ declare module "sap/ui/webc/fiori/library" {
    * 'WizardContentLayout'.
    *
    * @since 1.92.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.fiori
    * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export enum WizardContentLayout {

@@ -238,7 +238,7 @@ declare module "stream/web" {
         new(): ReadableStreamBYOBRequest;
     };
     interface ReadableByteStreamController {
-        readonly byobRequest: undefined;
+        readonly byobRequest: ReadableStreamBYOBRequest | null;
         readonly desiredSize: number | null;
         close(): void;
         enqueue(chunk: ArrayBufferView): void;

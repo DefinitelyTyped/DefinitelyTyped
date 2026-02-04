@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/javascript-natural-sort",
+    "version": "0.7.9999",
+    "projects": [
+        "https://github.com/Bill4Time/javascript-natural-sort"
+    ],
+    "devDependencies": {
+        "@types/javascript-natural-sort": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "gaspard",
+            "githubUsername": "gasp"
+        }
+    ]
+}

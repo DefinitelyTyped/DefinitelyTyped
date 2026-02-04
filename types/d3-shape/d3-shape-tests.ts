@@ -1525,7 +1525,7 @@ defaultStack = defaultStack.offset(null);
 
 overlyComplicatedStack = overlyComplicatedStack.offset(d3Shape.stackOffsetWiggle);
 
-let offsetStackDatumSeries: (series: d3Shape.Series<StackDatum, StackKey>, order: number[]) => void;
+let offsetStackDatumSeries: (series: d3Shape.Series<StackDatum, StackKey>[], order: number[]) => void;
 offsetStackDatumSeries = overlyComplicatedStack.offset();
 
 // Use stack generator ============================================================
@@ -1567,8 +1567,8 @@ order = d3Shape.stackOrderReverse(seriesAnyAny);
 
 // Test stack offsets ===============================================================
 
-d3Shape.stackOffsetExpand(seriesAnyAny, order);
-d3Shape.stackOffsetDiverging(seriesAnyAny, order);
-d3Shape.stackOffsetNone(seriesAnyAny, order);
-d3Shape.stackOffsetSilhouette(seriesAnyAny, order);
-d3Shape.stackOffsetWiggle(seriesAnyAny, order);
+d3Shape.stackOffsetExpand(seriesArray, order);
+d3Shape.stackOffsetDiverging(seriesArray, order);
+d3Shape.stackOffsetNone(seriesArray, order);
+d3Shape.stackOffsetSilhouette(seriesArray, order);
+d3Shape.stackOffsetWiggle(seriesArray, order);

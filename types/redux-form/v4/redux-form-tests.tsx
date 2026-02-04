@@ -6,7 +6,7 @@ import { reducer as reduxFormReducer, reduxForm, ReduxFormProps } from "redux-fo
 namespace SimpleForm {
     export const fields = ["firstName", "lastName", "email", "sex", "favoriteColor", "employed", "notes"];
 
-    class SimpleForm extends React.Component<ReduxFormProps<SimpleForm & HTMLFormElement>> {
+    class SimpleForm extends React.Component<ReduxFormProps<HTMLFormElement>> {
         static propTypes = {
             fields: PropTypes.object.isRequired,
             handleSubmit: PropTypes.func.isRequired,
@@ -121,9 +121,7 @@ namespace SynchronousValidation {
         return errors;
     };
 
-    class SynchronousValidationForm
-        extends React.Component<ReduxFormProps<SynchronousValidationForm & HTMLFormElement>>
-    {
+    class SynchronousValidationForm extends React.Component<ReduxFormProps<HTMLFormElement>> {
         static propTypes = {
             fields: PropTypes.object.isRequired,
             handleSubmit: PropTypes.func.isRequired,
@@ -255,7 +253,7 @@ namespace InitializingFromState {
         load(data: any): void;
     }
 
-    class InitializingFromStateForm extends React.Component<Props<InitializingFromStateForm & HTMLFormElement>> {
+    class InitializingFromStateForm extends React.Component<Props<HTMLFormElement>> {
         static propTypes = {
             fields: PropTypes.object.isRequired,
             handleSubmit: PropTypes.func.isRequired,
