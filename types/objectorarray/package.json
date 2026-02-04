@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/objectorarray",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/indentjs/objectorarray"
+    ],
+    "devDependencies": {
+        "@types/objectorarray": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "gaspard",
+            "githubUsername": "gasp"
+        }
+    ]
+}
