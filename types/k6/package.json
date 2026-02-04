@@ -28,7 +28,7 @@
         "./experimental/fs": "./experimental/fs/index.d.ts",
         "./experimental/redis": "./experimental/redis/index.d.ts",
         "./experimental/streams": "./experimental/streams/index.d.ts",
-        "./experimental/websockets": "./experimental/websockets/index.d.ts"
+        "./websockets": "./websockets/index.d.ts"
     },
     "owners": [
         {
