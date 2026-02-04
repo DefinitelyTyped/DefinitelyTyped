@@ -95,7 +95,7 @@ async function environmentDatasetFetch(): Promise<TestDataset> {
         dataset(): TestDataset {
             return <any> {};
         }
-        exports: ["dataset"];
+        exports: ["dataset"] = ["dataset"];
     }
     const environmentTest = new Environment([
         FetchFactory,

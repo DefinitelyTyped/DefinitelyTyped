@@ -19,7 +19,7 @@ const salesforceConnection: sf.Connection = new sf.Connection({
             if (callback) {
                 callback(null, conn.accessToken, userInfo);
             }
-        } catch (err) {
+        } catch (err: any) {
             if (callback) {
                 callback(err, conn.accessToken);
             }

@@ -95,7 +95,7 @@ describe("Simple", function() {
                 let threw: Error;
                 try {
                     spyFn();
-                } catch (e) {
+                } catch (e: any) {
                     threw = e;
                 }
 
@@ -110,17 +110,17 @@ describe("Simple", function() {
                 let threw: Error[] = [];
                 try {
                     spyFn();
-                } catch (e) {
+                } catch (e: any) {
                     threw.push(e);
                 }
                 try {
                     spyFn();
-                } catch (e) {
+                } catch (e: any) {
                     threw.push(e);
                 }
                 try {
                     spyFn();
-                } catch (e) {
+                } catch (e: any) {
                     threw.push(e);
                 }
 
@@ -359,7 +359,7 @@ describe("Simple", function() {
                 let threw: Error;
                 try {
                     stubFn();
-                } catch (e) {
+                } catch (e: any) {
                     threw = e;
                 }
 
@@ -373,12 +373,12 @@ describe("Simple", function() {
                 let threw: Error[] = [];
                 try {
                     stubFn();
-                } catch (e) {
+                } catch (e: any) {
                     threw.push(e);
                 }
                 try {
                     stubFn();
-                } catch (e) {
+                } catch (e: any) {
                     threw.push(e);
                 }
 
@@ -400,7 +400,7 @@ describe("Simple", function() {
                 let threw: Error;
                 try {
                     stubFn();
-                } catch (e) {
+                } catch (e: any) {
                     threw = e;
                 }
 
@@ -414,17 +414,17 @@ describe("Simple", function() {
                 let threw: Error[] = [];
                 try {
                     stubFn();
-                } catch (e) {
+                } catch (e: any) {
                     threw.push(e);
                 }
                 try {
                     stubFn();
-                } catch (e) {
+                } catch (e: any) {
                     threw.push(e);
                 }
                 try {
                     stubFn();
-                } catch (e) {
+                } catch (e: any) {
                     threw.push(e);
                 }
 
@@ -442,17 +442,17 @@ describe("Simple", function() {
                 let threw: Error[] = [];
                 try {
                     stubFn();
-                } catch (e) {
+                } catch (e: any) {
                     threw.push(e);
                 }
                 try {
                     stubFn();
-                } catch (e) {
+                } catch (e: any) {
                     threw.push(e);
                 }
                 try {
                     stubFn();
-                } catch (e) {
+                } catch (e: any) {
                     threw.push(e);
                 }
 
@@ -578,7 +578,7 @@ describe("Simple", function() {
                     let call2Args = arguments;
                     try {
                         stubFn(); // Call 3
-                    } catch (e) {
+                    } catch (e: any) {
                         assert.equal(stubFn.callCount, 3);
 
                         // Verify Call 1: return 'a'
@@ -721,7 +721,7 @@ describe("Simple", function() {
 
                 try {
                     stubFn();
-                } catch (e) {
+                } catch (e: any) {
                     assert(e instanceof Error);
                     assert.equal(e.message, "my message");
                 }

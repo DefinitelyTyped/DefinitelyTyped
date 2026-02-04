@@ -1132,14 +1132,14 @@ describe("Spy for generic method", () => {
 
 describe("Multiple spies, when created manually", () => {
     class Tape {
-        private rewindTo: number;
+        private rewindTo!: number;
         play(): void {}
         pause(): void {}
         rewind(pos: number): void {
             this.rewindTo = pos;
         }
         stop(): void {}
-        readonly isPlaying: boolean; // spy obj makes this writable
+        readonly isPlaying!: boolean; // spy obj makes this writable
     }
 
     var tape: Tape;

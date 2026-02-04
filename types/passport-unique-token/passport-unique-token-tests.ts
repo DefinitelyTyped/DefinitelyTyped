@@ -13,7 +13,7 @@ interface BaseUser {
 }
 
 class User implements BaseUser {
-    uniqueToken: string;
+    uniqueToken!: string;
 
     static findOne(user: BaseUser & any, callback: (err: Error | null, user: User) => void): void {
         callback(null, new User());

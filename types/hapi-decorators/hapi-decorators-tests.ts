@@ -3,8 +3,8 @@ import { cache, config, Controller, controller, get, post, put, route, validate 
 
 @controller("/test")
 class TestController implements Controller {
-    baseUrl: string;
-    routes: () => hapi.RouteConfiguration[];
+    baseUrl!: string;
+    routes!: () => hapi.RouteConfiguration[];
 
     @get("/")
     @config({
@@ -48,8 +48,8 @@ class SimpleTestController implements Controller {
         this.foo = foo;
     }
 
-    baseUrl: string;
-    routes: () => hapi.RouteConfiguration[];
+    baseUrl!: string;
+    routes!: () => hapi.RouteConfiguration[];
 }
 
 server.route(new SimpleTestController("bar").routes());

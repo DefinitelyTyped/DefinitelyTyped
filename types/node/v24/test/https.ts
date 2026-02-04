@@ -77,13 +77,13 @@ import * as url from "node:url";
         function reqListener(req: http.IncomingMessage, res: http.ServerResponse): void {}
 
         class MyIncomingMessage extends http.IncomingMessage {
-            foo: number;
+            foo!: number;
         }
 
         class MyServerResponse<Request extends http.IncomingMessage = http.IncomingMessage>
             extends http.ServerResponse<Request>
         {
-            foo: string;
+            foo!: string;
         }
 
         let server: https.Server;
@@ -127,13 +127,13 @@ import * as url from "node:url";
     let bar: "bar";
 
     class MyIncomingMessage extends http.IncomingMessage {
-        foo: typeof foo;
+        foo!: typeof foo;
     }
 
     class MyServerResponse<
         Request extends http.IncomingMessage = http.IncomingMessage,
     > extends http.ServerResponse<Request> {
-        bar: typeof bar;
+        bar!: typeof bar;
     }
 
     function reqListener(req: MyIncomingMessage, res: MyServerResponse): void {}

@@ -6,7 +6,7 @@ import { EventEmitter } from "events";
 
 export default class TsgBridge extends EventEmitter {
     ariClient: Client;
-    bridge: Bridge;
+    bridge!: Bridge;
 
     constructor(ariClient: Client, exten: string, log: any) {
         super();

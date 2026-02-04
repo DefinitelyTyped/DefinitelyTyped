@@ -56,8 +56,8 @@ function stockPriceStream(ticker: string,
             const response = await fetch(url);
             const data = await response.json();
             invocation.setResult(data.price);
-        } catch (error) {
-            invocation.setResult(error);
+        } catch (error: any) {
+          invocation.setResult(error);
         }
         isPending = false;
     }, updateFrequency);
