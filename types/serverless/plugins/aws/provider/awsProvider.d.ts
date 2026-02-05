@@ -117,7 +117,7 @@ declare namespace Aws {
          * @since v4
          * @see https://www.serverless.com/framework/docs/providers/aws/guide/building
          * @remarks
-         * **Migration Warning:** If migrating from v3 and using bundler plugins
+         * **Migration Warning ⚠️:** If migrating from v3 and using bundler plugins
          * (e.g., serverless-webpack, serverless-esbuild, serverless-plugin-typescript),
          * set `build: false` initially until you've stabilized your plugin configuration.
          * The native build system may conflict with existing bundler plugins.
@@ -2317,6 +2317,146 @@ declare namespace Aws {
         params?: { [key: string]: any } | undefined;
         /** Observability configuration */
         observability?: boolean | undefined;
+        /**
+         * Variable resolvers for external data sources.
+         * @since v4
+         * @see https://www.serverless.com/framework/docs/guides/variables/hashicorp
+         * @example
+         * ```yaml
+         * stages:
+         *   prod:
+         *     resolvers:
+         *       vault:
+         *         address: https://vault.example.com
+         *         token: ${env:VAULT_TOKEN}
+         *       terraform:
+         *         type: s3
+         *         bucket: my-terraform-state
+         *         key: prod/terraform.tfstate
+         * ```
+         */
+        resolvers?: StageResolvers | undefined;
+    }
+
+    /**
+     * Variable resolvers configuration for a stage.
+     * @since v4
+     * @see https://www.serverless.com/framework/docs/guides/variables/hashicorp
+     */
+    interface StageResolvers {
+        /**
+         * HashiCorp Vault resolver configuration.
+         * Enables ${vault:path/to/secret:key} variable syntax.
+         */
+        vault?: VaultResolver | undefined;
+        /**
+         * Terraform state resolver configuration.
+         * Enables ${terraform:outputs:output_name} variable syntax.
+         */
+        terraform?: TerraformResolver | undefined;
+        /** Custom named resolvers */
+        [resolverName: string]: VaultResolver | TerraformResolver | undefined;
+    }
+
+    /**
+     * HashiCorp Vault variable resolver configuration.
+     * @since v4
+     * @see https://www.serverless.com/framework/docs/guides/variables/hashicorp
+     * @example
+     * ```yaml
+     * resolvers:
+     *   vault:
+     *     address: https://vault.example.com:8200
+     *     token: ${env:VAULT_TOKEN}
+     *     version: v1
+     *     path: secret/data/myapp
+     * ```
+     */
+    interface VaultResolver {
+        /**
+         * Vault server URL.
+         * Can also be set via VAULT_ADDR environment variable.
+         * @example 'https://vault.example.com:8200'
+         */
+        address?: string | undefined;
+        /**
+         * Vault authentication token.
+         * Can also be set via VAULT_TOKEN environment variable.
+         * @example '${env:VAULT_TOKEN}'
+         */
+        token?: string | undefined;
+        /**
+         * Vault API version.
+         * @default 'v1'
+         */
+        version?: string | undefined;
+        /**
+         * Default path prefix for secrets.
+         * @example 'secret/data/myapp'
+         */
+        path?: string | undefined;
+    }
+
+    /**
+     * Terraform state variable resolver configuration.
+     * @since v4
+     * @see https://www.serverless.com/framework/docs/guides/variables/hashicorp
+     * @example
+     * ```yaml
+     * # S3 backend
+     * resolvers:
+     *   terraform:
+     *     type: s3
+     *     bucket: my-terraform-state
+     *     key: prod/terraform.tfstate
+     *     region: us-east-1
+     *
+     * # Terraform Cloud/HCP backend
+     * resolvers:
+     *   terraform:
+     *     type: cloud
+     *     organization: my-org
+     *     workspaces:
+     *       name: my-workspace
+     * ```
+     */
+    interface TerraformResolver {
+        /**
+         * Terraform state backend type.
+         * @example 's3' | 'cloud' | 'remote' | 'http'
+         */
+        type: "s3" | "cloud" | "remote" | "http" | string;
+        /**
+         * S3 bucket name (for s3 backend).
+         * @example 'my-terraform-state-bucket'
+         */
+        bucket?: string | undefined;
+        /**
+         * S3 object key for state file (for s3 backend).
+         * @example 'prod/terraform.tfstate'
+         */
+        key?: string | undefined;
+        /**
+         * AWS region (for s3 backend).
+         * @example 'us-east-1'
+         */
+        region?: string | undefined;
+        /**
+         * Terraform Cloud/HCP organization name.
+         */
+        organization?: string | undefined;
+        /**
+         * Terraform Cloud/HCP workspace configuration.
+         */
+        workspaces?: {
+            /** Workspace name */
+            name?: string | undefined;
+        } | undefined;
+        /**
+         * HTTP endpoint URL (for http backend).
+         * @example 'https://terraform-state.example.com/state'
+         */
+        address?: string | undefined;
     }
 
     /**
