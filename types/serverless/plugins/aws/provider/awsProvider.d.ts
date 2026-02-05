@@ -690,8 +690,6 @@ declare namespace Aws {
         usagePlan?: UsagePlan | undefined;
     }
 
-
-
     /**
      * Cognito User Pool authorizer for ALB.
      * @see https://www.serverless.com/framework/docs/providers/aws/events/alb#cognito-authentication
