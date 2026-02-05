@@ -1718,18 +1718,26 @@ declare namespace googletag {
     type SingleSizeArray = [number, number];
 
     /**
+     * The size string where the ad container takes 100% width of its parent div and
+     * then resizes its height to fit the creative content. Similar to how regular
+     * block elements on a page behave. Used for native ads (see
+     * [related article](https://support.google.com/admanager/answer/6366845)).
+     */
+    type FluidSize = "fluid";
+
+    /**
      * Named sizes that a slot can have. In most cases size is a fixed-size
      * rectangle but there are some cases when we need other kinds of size
      * specifications. Only the following are valid named sizes:
      *
-     * - **fluid**: the ad container takes 100% width of parent div and then
-     *   resizes its height to fit creative content. Similar to how regular block
+     * - **fluid**: the ad container takes 100% width of its parent div and then
+     *   resizes its height to fit the creative content. Similar to how regular block
      *   elements on a page behave. Used for native ads (see
      *   [related article](https://support.google.com/admanager/answer/6366845)).
      *   Note that both `fluid` and `['fluid']` are acceptable forms to declare a
      *   slot size as fluid.
      */
-    type NamedSize = "fluid" | ["fluid"];
+    type NamedSize = FluidSize | [FluidSize];
 
     /**
      * A single valid size for a slot.
