@@ -116,15 +116,25 @@ declare namespace Aws {
          * Native build configuration for TypeScript/JavaScript bundling.
          * @since v4
          * @see https://www.serverless.com/framework/docs/providers/aws/guide/building
+         * @remarks
+         * **Migration Warning:** If migrating from v3 and using bundler plugins
+         * (e.g., serverless-webpack, serverless-esbuild, serverless-plugin-typescript),
+         * set `build: false` initially until you've stabilized your plugin configuration.
+         * The native build system may conflict with existing bundler plugins.
          * @example
          * ```yaml
+         * # Disable native build when using legacy bundler plugins
+         * build: false
+         *
+         * # Or configure native esbuild
          * build:
          *   esbuild:
          *     bundle: true
          *     minify: true
+         *     configFile: ./esbuild.config.js
          * ```
          */
-        build?: Build | undefined;
+        build?: Build | false | undefined;
     }
 
     interface Service {
@@ -2322,8 +2332,14 @@ declare namespace Aws {
     /**
      * EsBuild bundler configuration.
      * @since v4
+     * @see https://www.serverless.com/framework/docs/providers/aws/guide/building
      */
     interface EsBuildConfig {
+        /**
+         * Path to esbuild config file relative to serverless.yml.
+         * @example './esbuild.config.js'
+         */
+        configFile?: string | undefined;
         /** Enable bundling */
         bundle?: boolean | undefined;
         /** Enable minification */
