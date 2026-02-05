@@ -1583,16 +1583,12 @@ declare namespace Aws {
         /** SQS queue ARN or CloudFormation reference */
         arn: string | { [key: string]: any };
         /**
-         * Number of messages to retrieve per batch.
-         * @minimum 1
-         * @maximum 10000
+         * Number of messages to retrieve per batch (1-10000).
          * @default 10
          */
         batchSize?: number | undefined;
         /**
-         * Maximum time to wait for a full batch (seconds).
-         * @minimum 0
-         * @maximum 300
+         * Maximum time to wait for a full batch in seconds (0-300).
          */
         maximumBatchingWindow?: number | undefined;
         /** Enable partial batch failure reporting */

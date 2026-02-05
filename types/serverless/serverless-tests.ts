@@ -1223,3 +1223,431 @@ class PluginAddingComponentsInConstructor implements Plugin {
         };
     }
 }
+
+// =============================================================================
+// Serverless Framework v4 Types Tests
+// =============================================================================
+
+// Test v4 stages configuration
+const awsServerlessWithStages: Aws.Serverless = {
+    service: "my-service",
+    provider: {
+        name: "aws",
+    },
+    stages: {
+        default: {
+            params: {
+                tableName: "default-table",
+                apiUrl: "https://api.example.com",
+            },
+            observability: true,
+        },
+        dev: {
+            params: {
+                tableName: "dev-table",
+                logLevel: "debug",
+            },
+            observability: false,
+        },
+        prod: {
+            params: {
+                tableName: "prod-table",
+                logLevel: "error",
+            },
+            observability: true,
+            resolvers: {
+                vault: {
+                    address: "https://vault.example.com:8200",
+                    token: "${env:VAULT_TOKEN}",
+                    version: "v1",
+                    path: "secret/data/myapp",
+                },
+                terraform: {
+                    type: "s3",
+                    bucket: "my-terraform-state",
+                    key: "prod/terraform.tfstate",
+                    region: "us-east-1",
+                },
+            },
+        },
+    },
+};
+
+// Test v4 build configuration with esbuild
+const awsServerlessWithBuild: Aws.Serverless = {
+    service: "my-service",
+    provider: {
+        name: "aws",
+    },
+    build: {
+        esbuild: {
+            configFile: "./esbuild.config.js",
+            bundle: true,
+            minify: true,
+            sourcemap: true,
+            external: ["aws-sdk", "@aws-sdk/*"],
+            target: "node18",
+            platform: "node",
+        },
+    },
+};
+
+// Test v4 build disabled (for migration from v3 with bundler plugins)
+const awsServerlessWithBuildDisabled: Aws.Serverless = {
+    service: "my-service",
+    provider: {
+        name: "aws",
+    },
+    build: false,
+};
+
+// Test v4 license key
+const awsServerlessWithLicenseKey: Aws.Serverless = {
+    service: "my-service",
+    provider: {
+        name: "aws",
+        licenseKey: "${env:SERVERLESS_LICENSE_KEY}",
+    },
+};
+
+// Test HashiCorp Vault resolver configuration
+const stageWithVaultResolver: Aws.StageConfig = {
+    params: {
+        myParam: "value",
+    },
+    resolvers: {
+        vault: {
+            address: "https://vault.company.com:8200",
+            token: "${env:VAULT_TOKEN}",
+            version: "v1",
+            path: "secret/data/myapp",
+        },
+    },
+};
+
+// Test Terraform S3 backend resolver
+const stageWithTerraformS3Resolver: Aws.StageConfig = {
+    resolvers: {
+        terraform: {
+            type: "s3",
+            bucket: "my-tf-state-bucket",
+            key: "env/prod/terraform.tfstate",
+            region: "us-east-1",
+        },
+    },
+};
+
+// Test Terraform Cloud/HCP backend resolver
+const stageWithTerraformCloudResolver: Aws.StageConfig = {
+    resolvers: {
+        terraform: {
+            type: "cloud",
+            organization: "my-org",
+            workspaces: {
+                name: "my-workspace",
+            },
+        },
+    },
+};
+
+// Test Terraform remote backend resolver
+const stageWithTerraformRemoteResolver: Aws.StageConfig = {
+    resolvers: {
+        terraform: {
+            type: "remote",
+            organization: "my-org",
+            workspaces: {
+                name: "my-workspace",
+            },
+        },
+    },
+};
+
+// Test Terraform HTTP backend resolver
+const stageWithTerraformHttpResolver: Aws.StageConfig = {
+    resolvers: {
+        terraform: {
+            type: "http",
+            address: "https://terraform-state.example.com/state",
+        },
+    },
+};
+
+// Test custom named resolvers
+const stageWithCustomResolvers: Aws.StageConfig = {
+    resolvers: {
+        vault: {
+            address: "https://vault.example.com",
+        },
+        terraform: {
+            type: "s3",
+            bucket: "state-bucket",
+            key: "state.tfstate",
+        },
+        // Custom named resolvers
+        myVault: {
+            address: "https://my-custom-vault.example.com",
+            token: "${env:MY_VAULT_TOKEN}",
+        },
+        infraState: {
+            type: "s3",
+            bucket: "infra-state-bucket",
+            key: "infra.tfstate",
+            region: "eu-west-1",
+        },
+    },
+};
+
+// Test EsBuild configuration options
+const esBuildConfig: Aws.EsBuildConfig = {
+    configFile: "./custom-esbuild.config.js",
+    bundle: true,
+    minify: true,
+    sourcemap: true,
+    external: ["aws-sdk", "@aws-sdk/client-s3", "@aws-sdk/client-dynamodb"],
+    target: "node20",
+    platform: "node",
+};
+
+// Test Build interface
+const buildConfig: Aws.Build = {
+    esbuild: {
+        bundle: true,
+        minify: false,
+    },
+};
+
+// Test Stages interface
+const stagesConfig: Aws.Stages = {
+    default: {
+        params: {
+            region: "us-east-1",
+        },
+    },
+    dev: {
+        params: {
+            logLevel: "debug",
+        },
+        observability: false,
+    },
+    staging: {
+        params: {
+            logLevel: "info",
+        },
+        observability: true,
+    },
+    prod: {
+        params: {
+            logLevel: "error",
+        },
+        observability: true,
+        resolvers: {
+            vault: {
+                address: "https://vault.prod.example.com",
+            },
+        },
+    },
+};
+
+// Test VaultResolver interface
+const vaultResolver: Aws.VaultResolver = {
+    address: "https://vault.example.com:8200",
+    token: "s.abcdefghijklmnop",
+    version: "v1",
+    path: "secret/data/myapp/config",
+};
+
+// Test TerraformResolver with all backend types
+const terraformS3Resolver: Aws.TerraformResolver = {
+    type: "s3",
+    bucket: "my-terraform-state-bucket",
+    key: "environments/prod/terraform.tfstate",
+    region: "us-east-1",
+};
+
+const terraformCloudResolver: Aws.TerraformResolver = {
+    type: "cloud",
+    organization: "my-organization",
+    workspaces: {
+        name: "production-workspace",
+    },
+};
+
+const terraformHttpResolver: Aws.TerraformResolver = {
+    type: "http",
+    address: "https://terraform-backend.example.com/state",
+};
+
+// Test StageResolvers interface
+const stageResolvers: Aws.StageResolvers = {
+    vault: {
+        address: "https://vault.example.com",
+        path: "secret/data",
+    },
+    terraform: {
+        type: "s3",
+        bucket: "state-bucket",
+        key: "terraform.tfstate",
+    },
+};
+
+// Test complete v4 configuration combining all features
+const completeV4Config: Aws.Serverless = {
+    service: "complete-v4-service",
+    frameworkVersion: "4",
+    provider: {
+        name: "aws",
+        runtime: "nodejs20.x",
+        stage: "${opt:stage, 'dev'}",
+        region: "us-east-1",
+        licenseKey: "${env:SERVERLESS_LICENSE_KEY}",
+        architecture: "arm64",
+        memorySize: 1024,
+        timeout: 30,
+        iam: {
+            role: {
+                statements: [
+                    {
+                        Effect: "Allow",
+                        Action: ["dynamodb:GetItem", "dynamodb:PutItem"],
+                        Resource: "*",
+                    },
+                ],
+            },
+        },
+    },
+    stages: {
+        default: {
+            params: {
+                tableName: "default-table",
+            },
+        },
+        dev: {
+            params: {
+                tableName: "dev-table",
+            },
+            observability: false,
+        },
+        prod: {
+            params: {
+                tableName: "prod-table",
+            },
+            observability: true,
+            resolvers: {
+                vault: {
+                    address: "https://vault.prod.example.com",
+                    token: "${env:VAULT_TOKEN}",
+                },
+                terraform: {
+                    type: "s3",
+                    bucket: "prod-tf-state",
+                    key: "terraform.tfstate",
+                    region: "us-east-1",
+                },
+            },
+        },
+    },
+    build: {
+        esbuild: {
+            bundle: true,
+            minify: true,
+            sourcemap: true,
+            external: ["@aws-sdk/*"],
+            target: "node20",
+            platform: "node",
+        },
+    },
+    functions: {
+        hello: {
+            handler: "src/handlers/hello.handler",
+            events: [
+                {
+                    httpApi: {
+                        method: "GET",
+                        path: "/hello",
+                    },
+                },
+            ],
+        },
+    },
+    custom: {
+        myCustomValue: "test",
+    },
+};
+
+// Test deprecated properties still work (backward compatibility)
+const backwardCompatibleConfig: Aws.Serverless = {
+    service: "backward-compatible-service",
+    variablesResolutionMode: "20210219", // deprecated but should still work
+    provider: {
+        name: "aws",
+        lambdaHashingVersion: 20201221, // deprecated but should still work
+        role: "arn:aws:iam::123456789:role/my-role", // deprecated, use iam.role
+        rolePermissionsBoundary: "arn:aws:iam::123456789:policy/boundary", // deprecated
+        iamRoleStatements: [ // deprecated, use iam.role.statements
+            {
+                Effect: "Allow",
+                Action: ["s3:GetObject"],
+                Resource: "*",
+            },
+        ],
+        iamManagedPolicies: ["arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess"], // deprecated
+        cfnRole: "arn:aws:iam::123456789:role/cfn-role", // deprecated, use iam.deploymentRole
+    },
+    package: {
+        include: ["src/**"], // deprecated, use patterns
+        exclude: ["node_modules/**"], // deprecated, use patterns
+    },
+};
+
+// Test Kafka event with consumerGroupId
+const kafkaEventConfig: Aws.Serverless = {
+    service: "kafka-service",
+    provider: {
+        name: "aws",
+    },
+    functions: {
+        kafkaConsumer: {
+            handler: "src/handlers/kafka.handler",
+            events: [
+                {
+                    kafka: {
+                        accessConfigurations: {
+                            saslScram512Auth: "arn:aws:secretsmanager:us-east-1:123456789:secret:kafka-auth",
+                            vpcSubnet: ["subnet-12345678", "subnet-87654321"],
+                            vpcSecurityGroup: "sg-12345678",
+                        },
+                        bootstrapServers: [
+                            "broker1.kafka.example.com:9092",
+                            "broker2.kafka.example.com:9092",
+                        ],
+                        topic: "my-topic",
+                        batchSize: 100,
+                        maximumBatchingWindow: 5,
+                        startingPosition: "LATEST",
+                        enabled: true,
+                        consumerGroupId: "my-consumer-group",
+                    },
+                },
+            ],
+        },
+    },
+};
+
+// Test type-only declarations (no runtime usage, just type checking)
+type StagesType = Aws.Stages;
+type StageConfigType = Aws.StageConfig;
+type StageResolversType = Aws.StageResolvers;
+type VaultResolverType = Aws.VaultResolver;
+type TerraformResolverType = Aws.TerraformResolver;
+type BuildType = Aws.Build;
+type EsBuildConfigType = Aws.EsBuildConfig;
+
+// Ensure types are assignable correctly
+const _stages: StagesType = stagesConfig;
+const _stageConfig: StageConfigType = stageWithVaultResolver;
+const _resolvers: StageResolversType = stageResolvers;
+const _vault: VaultResolverType = vaultResolver;
+const _terraform: TerraformResolverType = terraformS3Resolver;
+const _build: BuildType = buildConfig;
+const _esbuild: EsBuildConfigType = esBuildConfig;
