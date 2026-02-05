@@ -101,8 +101,8 @@ declare module "." {
      * However, if you wrap these items in a `SuspenseList`, React will not show an item in the list
      * until previous items have been displayed (this behavior is adjustable).
      *
-     * @see https://reactjs.org/docs/concurrent-mode-reference.html#suspenselist
-     * @see https://reactjs.org/docs/concurrent-mode-patterns.html#suspenselist
+     * @see {@link https://reactjs.org/docs/concurrent-mode-reference.html#suspenselist}
+     * @see {@link https://reactjs.org/docs/concurrent-mode-patterns.html#suspenselist}
      */
     export const unstable_SuspenseList: ExoticComponent<SuspenseListProps>;
 
@@ -125,7 +125,7 @@ declare module "." {
 
     export interface HTMLAttributes<T> {
         /**
-         * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert
+         * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert}
          */
         inert?: boolean | undefined;
     }
