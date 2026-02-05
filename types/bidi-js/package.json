@@ -3,7 +3,7 @@
     "name": "@types/bidi-js",
     "version": "1.0.9999",
     "projects": [
-        "https://github.com/lojjic/bidi-js"
+        "https://www.npmjs.com/package/bidi-js"
     ],
     "devDependencies": {
         "@types/bidi-js": "workspace:."
