@@ -1884,7 +1884,7 @@ declare namespace React {
      *
      * @param callback A synchronous, void callback that will execute as a single, complete React commit.
      *
-     * @see https://reactjs.org/blog/2019/02/06/react-v16.8.0.html#testing-hooks
+     * @see {@link https://reactjs.org/blog/2019/02/06/react-v16.8.0.html#testing-hooks}
      */
     // NOTES
     // - the order of these signatures matters - typescript will check the signatures in source order.
@@ -2840,7 +2840,7 @@ declare namespace React {
 
         // Living Standard
         /**
-         * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert
+         * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert}
          */
         inert?: boolean | undefined;
         /**
