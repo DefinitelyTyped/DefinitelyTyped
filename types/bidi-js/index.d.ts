@@ -160,4 +160,4 @@ export interface Bidi {
  */
 declare function bidiFactory(): Bidi;
 
-export default bidiFactory;
+export = bidiFactory;
