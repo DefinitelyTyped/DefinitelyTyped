@@ -153,8 +153,8 @@ class ModernComponent extends React.Component<Props, State, Snapshot> implements
         });
     }
 
-    private readonly _myComponent: MyComponent;
-    private _input: HTMLInputElement | null;
+    private readonly _myComponent!: MyComponent;
+    private _input: HTMLInputElement | null = null;
 
     render() {
         return React.createElement(
