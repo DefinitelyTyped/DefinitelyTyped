@@ -42,7 +42,7 @@ if (hyphenateEnUsSyncWithMinWordLength("sabotaging") !== "sabotaging") {
 
 // Test with exceptions
 const hyphenateWithExceptions = createHyphenator(hyphenationPatternsEnGb, {
-  exceptions: ["Bland-thorn"]
+    exceptions: ["Bland-thorn"],
 }) as HyphenationFunctionSync;
 if (hyphenateWithExceptions("Blandthorn") !== "Bland-thorn") {
     throw new Error("Test failed");
