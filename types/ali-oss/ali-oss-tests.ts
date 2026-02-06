@@ -25,18 +25,18 @@ client.getSymlink("newfile.png", { versionId: "123" });
 client.listV2({ "max-keys": 1000 });
 
 async function listV2Exhausive() {
-    let continuationToken = '';
+    let continuationToken = "";
 
     while (true) {
         let res = await client.listV2({
             "max-keys": 1000,
-            "continuation-token": continuationToken
+            "continuation-token": continuationToken,
         });
 
         if (res.isTruncated) {
             continuationToken = res.nextContinuationToken;
         } else {
-            continuationToken = '';
+            continuationToken = "";
             break;
         }
     }
