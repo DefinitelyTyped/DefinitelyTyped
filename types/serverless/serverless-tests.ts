@@ -1302,11 +1302,20 @@ const awsServerlessWithBuildDisabled: Aws.Serverless = {
 };
 
 // Test v4 license key (root-level property, not provider-level)
+// Example from: https://www.serverless.com/framework/docs/guides/license-keys
 const awsServerlessWithLicenseKey: Aws.Serverless = {
     service: "my-service",
-    licenseKey: "${env:SERVERLESS_LICENSE_KEY}",
+    // AWS SSM Params & AWS Secrets Manager Example
+    licenseKey: "${ssm:/path/to/serverless-framework-license-key}",
     provider: {
         name: "aws",
+        runtime: "nodejs20.x",
+    },
+    functions: {
+        hello: {
+            handler: "handler.hello",
+            events: [],
+        },
     },
 };
 
