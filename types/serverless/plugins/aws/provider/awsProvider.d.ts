@@ -134,7 +134,15 @@ declare namespace Aws {
          *     configFile: ./esbuild.config.js
          * ```
          */
-        build?: Build | false | undefined;
+        build?: string | Build | false | undefined;
+        /**
+         * Serverless Framework license key for v4+.
+         * @since v4
+         * @see https://www.serverless.com/framework/docs/guides/license-keys
+         * @remarks This is a root-level property, not a provider property.
+         * @example '${env:SERVERLESS_LICENSE_KEY}'
+         */
+        licenseKey?: string | undefined;
     }
 
     interface Service {
@@ -214,13 +222,7 @@ declare namespace Aws {
          * @deprecated No longer needed in v3+. Lambda hashing version for deployment.
          */
         lambdaHashingVersion?: number | undefined;
-        /**
-         * Serverless Framework license key for v4+.
-         * @since v4
-         * @see https://www.serverless.com/framework/docs/guides/license-keys
-         * @example '${env:SERVERLESS_LICENSE_KEY}'
-         */
-        licenseKey?: string | undefined;
+
         /**
          * Custom WebSocket API name.
          * @see https://www.serverless.com/framework/docs/providers/aws/events/websocket
@@ -2309,8 +2311,25 @@ declare namespace Aws {
     interface StageConfig {
         /** Stage-specific parameters */
         params?: { [key: string]: any } | undefined;
-        /** Observability configuration */
-        observability?: boolean | undefined;
+        /**
+         * Observability configuration.
+         * @since v4
+         * @see https://www.serverless.com/framework/docs/guides/observability
+         * @example
+         * ```yaml
+         * # Simple boolean
+         * observability: true
+         *
+         * # Provider shorthand
+         * observability: axiom
+         *
+         * # Full object form
+         * observability:
+         *   provider: axiom
+         *   dataset: my-dataset
+         * ```
+         */
+        observability?: boolean | "axiom" | "dashboard" | ObservabilityConfig | undefined;
         /**
          * Variable resolvers for external data sources.
          * @since v4
@@ -2328,8 +2347,11 @@ declare namespace Aws {
          *         bucket: my-terraform-state
          *         key: prod/terraform.tfstate
          * ```
+         * @remarks There are 13 built-in resolver types (aws, vault, terraform, env, file, param,
+         * self, git, sls, strToBool, output, doppler, opt), each with different config shapes.
+         * This is typed as an open object to accommodate all resolver types.
          */
-        resolvers?: StageResolvers | undefined;
+        resolvers?: { [resolverName: string]: unknown } | undefined;
     }
 
     /**
@@ -2464,6 +2486,38 @@ declare namespace Aws {
     }
 
     /**
+     * Observability configuration for a stage.
+     * @since v4
+     * @see https://www.serverless.com/framework/docs/guides/observability
+     */
+    interface ObservabilityConfig {
+        /** Observability provider: 'axiom' or 'dashboard' */
+        provider: "axiom" | "dashboard";
+        /**
+         * Dataset name for the observability provider.
+         * @example 'my-application-logs'
+         */
+        dataset?: string | undefined;
+    }
+
+    /**
+     * Sourcemap configuration for esbuild.
+     * @since v4
+     */
+    interface SourcemapConfig {
+        /**
+         * Type of sourcemap to generate.
+         * @default 'linked'
+         */
+        type?: "inline" | "linked" | "external" | undefined;
+        /**
+         * Whether to set NODE_OPTIONS=--enable-source-maps.
+         * @default false
+         */
+        setNodeOptions?: boolean | undefined;
+    }
+
+    /**
      * EsBuild bundler configuration.
      * @since v4
      * @see https://www.serverless.com/framework/docs/providers/aws/guide/building
@@ -2478,14 +2532,44 @@ declare namespace Aws {
         bundle?: boolean | undefined;
         /** Enable minification */
         minify?: boolean | undefined;
-        /** Enable source maps */
-        sourcemap?: boolean | undefined;
-        /** External packages to exclude from bundle */
+        /**
+         * Enable source maps.
+         * Can be a boolean or a configuration object.
+         * @example
+         * ```yaml
+         * # Simple boolean
+         * sourcemap: true
+         *
+         * # Full object form
+         * sourcemap:
+         *   type: linked
+         *   setNodeOptions: true
+         * ```
+         */
+        sourcemap?: boolean | SourcemapConfig | undefined;
+        /** External packages to exclude from bundle (still installed) */
         external?: string[] | undefined;
+        /**
+         * Packages to exclude from bundle (not installed).
+         * @example ['aws-sdk']
+         */
+        exclude?: string[] | undefined;
+        /**
+         * Mark all packages as external.
+         * When set to 'external', all packages will be excluded from the bundle.
+         */
+        packages?: "external" | undefined;
+        /**
+         * Number of concurrent builds.
+         * @default Infinity
+         */
+        buildConcurrency?: number | undefined;
         /** Target environment */
         target?: string | undefined;
         /** Platform: 'node' or 'browser' */
         platform?: "node" | "browser" | undefined;
+        /** Allow additional esbuild options */
+        [key: string]: unknown;
     }
 }
 

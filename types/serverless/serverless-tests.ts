@@ -1301,12 +1301,12 @@ const awsServerlessWithBuildDisabled: Aws.Serverless = {
     build: false,
 };
 
-// Test v4 license key
+// Test v4 license key (root-level property, not provider-level)
 const awsServerlessWithLicenseKey: Aws.Serverless = {
     service: "my-service",
+    licenseKey: "${env:SERVERLESS_LICENSE_KEY}",
     provider: {
         name: "aws",
-        licenseKey: "${env:SERVERLESS_LICENSE_KEY}",
     },
 };
 
@@ -1495,12 +1495,12 @@ const stageResolvers: Aws.StageResolvers = {
 const completeV4Config: Aws.Serverless = {
     service: "complete-v4-service",
     frameworkVersion: "4",
+    licenseKey: "${env:SERVERLESS_LICENSE_KEY}",
     provider: {
         name: "aws",
         runtime: "nodejs20.x",
         stage: "${opt:stage, 'dev'}",
         region: "us-east-1",
-        licenseKey: "${env:SERVERLESS_LICENSE_KEY}",
         architecture: "arm64",
         memorySize: 1024,
         timeout: 30,
@@ -1637,17 +1637,136 @@ const kafkaEventConfig: Aws.Serverless = {
 // Test type-only declarations (no runtime usage, just type checking)
 type StagesType = Aws.Stages;
 type StageConfigType = Aws.StageConfig;
-type StageResolversType = Aws.StageResolvers;
-type VaultResolverType = Aws.VaultResolver;
-type TerraformResolverType = Aws.TerraformResolver;
 type BuildType = Aws.Build;
 type EsBuildConfigType = Aws.EsBuildConfig;
+type ObservabilityConfigType = Aws.ObservabilityConfig;
+type SourcemapConfigType = Aws.SourcemapConfig;
 
 // Ensure types are assignable correctly
 const _stages: StagesType = stagesConfig;
 const _stageConfig: StageConfigType = stageWithVaultResolver;
-const _resolvers: StageResolversType = stageResolvers;
-const _vault: VaultResolverType = vaultResolver;
-const _terraform: TerraformResolverType = terraformS3Resolver;
 const _build: BuildType = buildConfig;
 const _esbuild: EsBuildConfigType = esBuildConfig;
+
+// =============================================================================
+// Additional v4 Types Tests (PR Feedback)
+// =============================================================================
+
+// Test build string variant (e.g., build: 'esbuild')
+const awsServerlessWithBuildString: Aws.Serverless = {
+    service: "my-service",
+    provider: { name: "aws" },
+    build: "esbuild",
+};
+
+// Test observability with string variants
+const stageWithObservabilityAxiom: Aws.StageConfig = {
+    params: { env: "prod" },
+    observability: "axiom",
+};
+
+const stageWithObservabilityDashboard: Aws.StageConfig = {
+    params: { env: "staging" },
+    observability: "dashboard",
+};
+
+// Test observability with object form
+const stageWithObservabilityObject: Aws.StageConfig = {
+    params: { env: "prod" },
+    observability: {
+        provider: "axiom",
+        dataset: "my-application-logs",
+    },
+};
+
+// Test ObservabilityConfig interface directly
+const observabilityConfig: Aws.ObservabilityConfig = {
+    provider: "axiom",
+    dataset: "my-logs-dataset",
+};
+
+// Test SourcemapConfig interface
+const sourcemapConfig: Aws.SourcemapConfig = {
+    type: "linked",
+    setNodeOptions: true,
+};
+
+// Test EsBuildConfig with all new properties
+const esBuildConfigExtended: Aws.EsBuildConfig = {
+    configFile: "./esbuild.config.js",
+    bundle: true,
+    minify: true,
+    sourcemap: {
+        type: "inline",
+        setNodeOptions: true,
+    },
+    external: ["aws-sdk"],
+    exclude: ["@aws-sdk/*"],
+    packages: "external",
+    buildConcurrency: 10,
+    target: "node20",
+    platform: "node",
+};
+
+// Test resolvers as open object (13 built-in resolver types)
+const stageWithOpenResolvers: Aws.StageConfig = {
+    params: { env: "prod" },
+    resolvers: {
+        // Built-in resolvers with varying shapes
+        vault: { address: "https://vault.example.com" },
+        terraform: { type: "s3", bucket: "state" },
+        env: {},
+        file: { path: "./config.json" },
+        param: {},
+        self: {},
+        git: {},
+        sls: {},
+        strToBool: {},
+        output: {},
+        doppler: { project: "my-project", config: "prod" },
+        opt: {},
+        aws: {},
+    },
+};
+
+// Test complete v4 config with all new features
+const completeV4ConfigWithNewFeatures: Aws.Serverless = {
+    service: "complete-v4-new-features",
+    frameworkVersion: "4",
+    licenseKey: "${env:SERVERLESS_LICENSE_KEY}",
+    provider: { name: "aws" },
+    build: {
+        esbuild: {
+            bundle: true,
+            minify: true,
+            sourcemap: {
+                type: "linked",
+                setNodeOptions: true,
+            },
+            exclude: ["aws-sdk"],
+            packages: "external",
+            buildConcurrency: 5,
+        },
+    },
+    stages: {
+        default: {
+            observability: true,
+        },
+        dev: {
+            observability: false,
+        },
+        staging: {
+            observability: "dashboard",
+        },
+        prod: {
+            observability: {
+                provider: "axiom",
+                dataset: "prod-logs",
+            },
+            resolvers: {
+                vault: { address: "https://vault.prod.example.com" },
+                doppler: { project: "my-app", config: "prod" },
+            },
+        },
+    },
+};

@@ -1,0 +1,124 @@
+# ESLint Rule Ideas from DefinitelyTyped CI Experience
+# Generated: 2026-02-05
+
+## 1. jsdoc/valid-tag-names (Enhancement Idea)
+**Problem Observed:** CI failed because of invalid JSDoc tags `@minimum` and `@maximum`.
+These are JSON Schema keywords mistakenly used as JSDoc tags.
+
+**Rule Idea:** `jsdoc/no-json-schema-tags`
+- Detect and warn when JSON Schema keywords are used as JSDoc tags
+- Common mistakes: @minimum, @maximum, @minLength, @maxLength, @pattern, @enum, @const
+- Suggest alternatives: Include range info in description text instead
+  - Bad:  `@minimum 1` `@maximum 100`
+  - Good: `(1-100)` or `Range: 1-100` in description
+
+**Severity:** Warning or Error
+**Autofix:** Could suggest moving to description text
+
+---
+
+## 2. jsdoc/description-includes-constraints
+**Problem:** Numeric constraints were documented using invalid tags instead of description text.
+
+**Rule Idea:** Encourage documenting constraints in human-readable format
+- Detect numeric types and suggest including range info
+- Detect string types and suggest including format/pattern info
+- Example: "Number of items (1-100)" instead of separate @minimum/@maximum
+
+---
+
+## 3. jsdoc/no-duplicate-description-and-tag
+**Problem:** Sometimes the same information appears in both description and @param tags.
+
+**Rule Idea:** Detect when @default value is duplicated in description text
+- Bad:  `Default is 10. @default 10`
+- Good: Just use `@default 10`
+
+---
+
+## 4. typescript-eslint/no-commented-jsdoc-terminators
+**Problem:** YAML/regex patterns like `*/*` in JSDoc examples can terminate the comment early.
+
+**Rule Idea:** Detect potentially dangerous patterns in JSDoc code examples
+- Look for `*/` within @example blocks that could break the comment
+- Suggest wrapping in quotes: `'*/*'` instead of `*/*`
+- This caused actual TypeScript compilation errors in the PR
+
+---
+
+## 5. jsdoc/consistent-since-format
+**Problem:** Version annotations like `@since v4` need consistent formatting.
+
+**Rule Idea:** Enforce consistent @since version format
+- Options: "v4", "4.0", "4.0.0", "^4"
+- Detect inconsistent usage across codebase
+- Autofix to normalize format
+
+---
+
+## 6. jsdoc/deprecated-requires-replacement
+**Problem:** @deprecated without migration path is unhelpful.
+
+**Rule Idea:** Require @deprecated to include replacement info
+- Bad:  `@deprecated`
+- Good: `@deprecated Use \`iam.role\` instead.`
+- Could also check for @see after @deprecated
+
+---
+
+## 7. typescript-eslint/no-implicit-undefined-union
+**Problem:** In .d.ts files, `| undefined` is verbose when the property is already optional.
+
+**Rule Idea:** Detect redundant `| undefined` on optional properties
+- Example: `foo?: string | undefined` - the `| undefined` is redundant
+- Note: This is actually required by DefinitelyTyped style, so rule would be configurable
+
+---
+
+## 8. jsdoc/link-to-docs
+**Problem:** Complex types benefit from links to official documentation.
+
+**Rule Idea:** Suggest @see for complex/external types
+- Detect interfaces with 5+ properties
+- Suggest adding @see with documentation link
+- Could integrate with known doc URLs (AWS, Serverless, etc.)
+
+---
+
+## 9. jsdoc/example-in-code-block
+**Problem:** JSDoc @example should use proper code blocks for syntax highlighting.
+
+**Rule Idea:** Enforce @example uses markdown code blocks
+- Bad:  `@example stages: default: ...`
+- Good: `@example \`\`\`yaml ... \`\`\``
+- Autofix: Wrap content in appropriate code fence
+
+---
+
+## 10. typescript-eslint/consistent-type-definitions-export
+**Problem:** Related types defined separately but not exported together.
+
+**Rule Idea:** For .d.ts files, suggest grouping related type exports
+- Detect when VaultResolver, TerraformResolver are in same namespace
+- Suggest consistent export patterns
+
+---
+
+## Priority for Implementation:
+1. **High:** #4 (jsdoc-terminator issue caused real compilation errors)
+2. **High:** #1 (JSON Schema tags in JSDoc is common mistake)
+3. **Medium:** #6 (deprecated migration guidance)
+4. **Medium:** #9 (example formatting)
+5. **Low:** Others (nice-to-have improvements)
+
+---
+
+## Related Existing Rules to Check:
+- eslint-plugin-jsdoc: valid-types, check-tag-names
+- @typescript-eslint/explicit-module-boundary-types
+- @typescript-eslint/consistent-type-definitions
+
+## Resources:
+- DefinitelyTyped dtslint: https://github.com/microsoft/dtslint
+- JSDoc Reference: https://jsdoc.app/
+- TypeScript JSDoc: https://www.typescriptlang.org/docs/handbook/jsdoc-supported-types.html
