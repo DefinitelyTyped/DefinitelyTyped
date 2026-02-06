@@ -24,7 +24,7 @@ client.getSymlink("newfile.png", { versionId: "123" });
 
 client.listV2({ "max-keys": 1000 });
 
-async function listV2Exhausive() {
+async function listV2Exhaustive() {
     let continuationToken = "";
 
     while (true) {
