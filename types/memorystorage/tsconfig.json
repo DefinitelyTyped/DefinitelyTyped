@@ -14,6 +14,7 @@
     },
     "files": [
         "index.d.ts",
-        "memorystorage-tests.ts"
+        "test/memorystorage-module.tests.ts",
+        "test/memorystorage-global.test.ts"
     ]
 }

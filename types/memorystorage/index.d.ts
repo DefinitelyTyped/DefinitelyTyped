@@ -89,3 +89,4 @@ declare class MemoryStorage {
 declare function MemoryStorage(id?: string): MemoryStorage;
 
 export = MemoryStorage;
+export as namespace MemoryStorage;
