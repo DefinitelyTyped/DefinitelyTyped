@@ -1,21 +1,6 @@
 {
   "name": "@types/jenjs__master",
   "version": "0.1.0",
-  "files": [
-    "index.d.ts",
-    "jen-tests.ts",
-    "tsconfig.json",
-    "package.json",
-    "README.md"
-  ],
-  "scripts": {
-    "test": "dtslint ."
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
-    "directory": "types/jenjs"
-  },
   "homepage": "https://github.com/kessud2021/Jen.js",
   "keywords": [
     "typescript",
