@@ -1,9 +1,13 @@
 {
   "name": "@types/jenjs__master",
-  "version": "0.1.0.9999",
+  "version": "1.0.9999",
   "private": true,
   "devDependencies": {
+    "@types/jenjs__master": "workspace:.",
     "@jenjs/master": "^1.7.7"
   },
+  "projects": [
+    "https://github.com/oopsio/Jen.js"
+  ],
   "license": "MIT"
 }
