@@ -1,17 +1,5 @@
 {
   "name": "@types/jenjs__master",
   "version": "0.1.0",
-  "homepage": "https://github.com/kessud2021/Jen.js",
-  "keywords": [
-    "typescript",
-    "types",
-    "jen.js",
-    "preact",
-    "ssr",
-    "ssg",
-    "static-site-generation",
-    "server-side-rendering"
-  ],
-  "author": "Jen.js Contributors",
   "license": "MIT"
 }
