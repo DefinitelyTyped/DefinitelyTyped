@@ -1,0 +1,39 @@
+{
+  "name": "@types/jenjs__master",
+  "version": "0.1.0",
+  "description": "TypeScript type definitions for Jen.js framework",
+  "types": "index.d.ts",
+  "typesVersions": {
+    "*": {
+      "*": ["index.d.ts"]
+    }
+  },
+  "files": [
+    "index.d.ts",
+    "jen-tests.ts",
+    "tsconfig.json",
+    "package.json",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "dtslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
+    "directory": "types/jenjs"
+  },
+  "homepage": "https://github.com/kessud2021/Jen.js",
+  "keywords": [
+    "typescript",
+    "types",
+    "jen.js",
+    "preact",
+    "ssr",
+    "ssg",
+    "static-site-generation",
+    "server-side-rendering"
+  ],
+  "author": "Jen.js Contributors",
+  "license": "MIT"
+}
