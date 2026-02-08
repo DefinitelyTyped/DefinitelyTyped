@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/find-pkg",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/jonschlinkert/find-pkg"
+    ],
+    "devDependencies": {
+        "@types/find-pkg": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jon Schlinkert",
+            "githubUsername": "jonschlinkert"
+        },
+        {
+            "name": "gaspard",
+            "githubUsername": "gasp"
+        }
+    ]
+}

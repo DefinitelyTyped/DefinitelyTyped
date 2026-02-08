@@ -31,8 +31,8 @@ function test_FeatureElement() {
         "<menuBar id=\"menuBar\"></menuBar><textField id=\"textField\"></textField>",
         "application/xml",
     );
-    var textField = document.getElementById("textField");
-    textField.addEventListener("change", function() {
+    var textField = document.getElementById("textField") as unknown as AppleTVJS.FeatureElement;
+    textField.addEventListener("change", function(this: AppleTVJS.FeatureElement) {
         change.call(this, textField);
     });
 
@@ -42,8 +42,8 @@ function test_FeatureElement() {
         var text = keyboard.text;
     };
 
-    var menuBar = document.getElementById("menuBar");
-    textField.addEventListener("change", function() {
+    var menuBar = document.getElementById("menuBar") as unknown as AppleTVJS.FeatureElement;
+    textField.addEventListener("change", function(this: AppleTVJS.FeatureElement) {
         change.call(this, textField);
     });
 

@@ -30,7 +30,7 @@ async function foo(id: number, delay: number): Promise<string> {
 
     try {
         await timeLimit(foo(6, 200), 100, { rejectWith: 200 });
-    } catch (err) {
+    } catch (err: any) {
         // $ExpectType any
         const fooOutRejectedFail = err; // 200
     }

@@ -136,7 +136,7 @@ expect(1).to.match(/^\d$/);
 expect("x").to.satisfy(value => value === "x");
 
 class CustomError extends Error {
-    call: (message: string) => Error;
+    call!: (message: string) => Error;
 }
 
 const throws = () => {

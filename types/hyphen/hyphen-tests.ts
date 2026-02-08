@@ -39,3 +39,11 @@ if (hyphenateEnUsSyncWithMinWordLength("sabotaging") !== "sabotaging") {
     // sabotaging has 10 chars => don't hyphenate
     throw new Error("Test failed");
 }
+
+// Test with exceptions
+const hyphenateWithExceptions = createHyphenator(hyphenationPatternsEnGb, {
+    exceptions: ["Bland-thorn"],
+}) as HyphenationFunctionSync;
+if (hyphenateWithExceptions("Blandthorn") !== "Bland-thorn") {
+    throw new Error("Test failed");
+}

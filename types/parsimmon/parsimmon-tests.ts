@@ -4,11 +4,11 @@ import { Index, Language, Mark, Parser, Reply, Result, TypedLanguage } from "par
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
 class Foo {
-    bar: Bar;
+    bar!: Bar;
 }
 
 class Bar {
-    foo: Foo;
+    foo!: Foo;
 }
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --

@@ -96,7 +96,7 @@ const withConnection = (initialCatalog: string, fn: (conn: ADODB.Connection) => 
     try {
         conn.Open(connectionString);
         fn(conn);
-    } catch (e) {
+    } catch (e: any) {
         WScript.Echo(e.message);
     } finally {
         if (conn.State === ADODB.ObjectStateEnum.adStateOpen) {
@@ -134,7 +134,7 @@ const withRs = (
             rs = tableOrCommand.Execute() as ADODB.Recordset;
         }
         fn(rs);
-    } catch (e) {
+    } catch (e: any) {
         WScript.Echo(e.message);
     } finally {
         if (rs && rs.State === ADODB.ObjectStateEnum.adStateOpen) {
@@ -252,7 +252,7 @@ const withEmployees = (fn: (rs: ADODB.Recordset) => void, type: ADODB.CursorType
                 WScript.Echo(rsContact("ContactName"));
                 rsContact.MoveNext();
             }
-        } catch (e) {
+        } catch (e: any) {
             WScript.Echo(e.message);
         } finally {
             if (rsContact && rsContact.State === ADODB.ObjectStateEnum.adStateOpen) {

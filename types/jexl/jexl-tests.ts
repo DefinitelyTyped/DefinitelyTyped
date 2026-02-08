@@ -108,7 +108,7 @@ jexl.eval("\"Guest\" _= \"gUeSt\"");
     try {
         const asyncTransform = await jexl.eval("name.last|getStat(\"weight\")", context);
         console.log("9. Async Transform", asyncTransform); // Output: 184
-    } catch (e) {
+    } catch (e: any) {
         console.log("Database Error", e.stack);
     }
 
@@ -128,7 +128,7 @@ jexl.eval("\"Guest\" _= \"gUeSt\"");
     try {
         const asyncFunc = await jexl.eval("age > calculateAge(20, 21)");
         console.log("12. Async Function", asyncFunc); // false
-    } catch (e) {
+    } catch (e: any) {
         console.log("Calculation Error", e.stack);
     }
 })().then(() => console.log("Testing done"));

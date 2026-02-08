@@ -2,11 +2,11 @@ import first = require("ee-first");
 import { EventEmitter } from "events";
 
 class Foo extends EventEmitter {
-    foo: "foo";
+    foo!: "foo";
 }
 
 class Bar extends EventEmitter {
-    bar: "bar";
+    bar!: "bar";
 }
 
 const ee1 = new Foo();

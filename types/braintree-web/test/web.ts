@@ -668,7 +668,7 @@ braintree.client.create(
                         });
                         payload.nonce;
                         // Submit payload.nonce to your server
-                    } catch (tokenizeErr /*braintree.BraintreeError*/) {
+                    } catch (tokenizeErr: any) {
                         // Handle tokenization errors or premature flow closure
                         switch (tokenizeErr.code) {
                             case "PAYPAL_POPUP_CLOSED":

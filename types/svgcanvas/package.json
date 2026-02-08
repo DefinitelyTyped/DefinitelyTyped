@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/svgcanvas",
+    "version": "2.6.9999",
+    "projects": [
+        "https://github.com/zenozeng/svgcanvas"
+    ],
+    "devDependencies": {
+        "@types/svgcanvas": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Au",
+            "githubUsername": "Aurouscia"
+        }
+    ]
+}
