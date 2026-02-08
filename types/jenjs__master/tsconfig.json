@@ -12,7 +12,6 @@
     "sourceMap": false,
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
-    "noImplicitAny": true,
     "strictNullChecks": true,
     "strictFunctionTypes": true,
     "strictBindCallApply": true,
