@@ -102,6 +102,23 @@ const charset2 = charset1.intersect(Charset.letters);
 // $ExpectType Promise<string>
 nova.clipboard.readText();
 
+/// https://docs.nova.app/api-reference/crypto/
+
+const uint8Array = new Uint8Array(16);
+// $ExpectType Uint8Array
+nova.crypto.getRandomValues(uint8Array);
+
+const int32Array = new Int32Array(10);
+// $ExpectType Int32Array
+nova.crypto.getRandomValues(int32Array);
+
+const bigUint64Array = new BigUint64Array(4);
+// $ExpectType BigUint64Array
+nova.crypto.getRandomValues(bigUint64Array);
+
+// $ExpectType string
+nova.crypto.randomUUID();
+
 /// https://novadocs.panic.com/api-reference/completion-item/
 
 const completionItem = new CompletionItem("label", CompletionItemKind.Struct);
