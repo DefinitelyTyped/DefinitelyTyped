@@ -1,6 +1,6 @@
 {
   "name": "@types/jenjs__master",
-  "version": "0.1.0",
+  "version": "0.1.0.9999",
   "private": true,
   "devDependencies": {
     "@jenjs/master": "^1.7.7"
