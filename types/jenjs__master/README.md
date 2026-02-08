@@ -1,4 +1,4 @@
-# @types/jenjs
+# @types/jenjs__master
 
 TypeScript type definitions for [Jen.js](https://github.com/kessud2021/Jen.js).
 
