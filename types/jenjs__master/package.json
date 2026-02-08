@@ -3,11 +3,16 @@
   "version": "1.0.9999",
   "private": true,
   "devDependencies": {
-    "@types/jenjs__master": "workspace:.",
-    "@jenjs/master": "^1.7.7"
+    "@types/jenjs__master": "workspace:."
   },
   "projects": [
     "https://github.com/oopsio/Jen.js"
   ],
-  "license": "MIT"
+  "owners": [
+    {
+      "name": "oopsio",
+      "url": "https://github.com/oopsio",
+      "githubUsername": "oopsio"
+    }
+  ]
 }
