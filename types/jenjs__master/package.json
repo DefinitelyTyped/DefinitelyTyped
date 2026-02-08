@@ -1,13 +1,6 @@
 {
   "name": "@types/jenjs__master",
   "version": "0.1.0",
-  "description": "TypeScript type definitions for Jen.js framework",
-  "types": "index.d.ts",
-  "typesVersions": {
-    "*": {
-      "*": ["index.d.ts"]
-    }
-  },
   "files": [
     "index.d.ts",
     "jen-tests.ts",
