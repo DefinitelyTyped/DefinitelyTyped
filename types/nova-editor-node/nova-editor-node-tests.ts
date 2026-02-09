@@ -105,15 +105,15 @@ nova.clipboard.readText();
 /// https://docs.nova.app/api-reference/crypto/
 
 const uint8Array = new Uint8Array(16);
-// $ExpectType Uint8Array
+// $ExpectType Uint8Array || Uint8Array<ArrayBuffer>
 nova.crypto.getRandomValues(uint8Array);
 
 const int32Array = new Int32Array(10);
-// $ExpectType Int32Array
+// $ExpectType Int32Array || Int32Array<ArrayBuffer>
 nova.crypto.getRandomValues(int32Array);
 
 const bigUint64Array = new BigUint64Array(4);
-// $ExpectType BigUint64Array
+// $ExpectType BigUint64Array || BigUint64Array<ArrayBuffer>
 nova.crypto.getRandomValues(bigUint64Array);
 
 // $ExpectType string
