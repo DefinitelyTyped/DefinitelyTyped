@@ -17,6 +17,6 @@
  * isObjectOrArray(123); // false
  * ```
  */
-declare function objectorarray(val: unknown): val is object;
+declare function objectorarray(val: unknown): val is object | unknown[];
 
 export = objectorarray;

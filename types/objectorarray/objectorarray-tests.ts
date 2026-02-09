@@ -24,5 +24,7 @@ const isBool: boolean = objectorarray(true);
 const value: unknown = { foo: "bar" };
 if (objectorarray(value)) {
     // value is narrowed to object
-    const obj: object = value;
+    const obj: object | unknown[] = value;
+    // @ts-expect-error
+    const obj2: boolean = value
 }
