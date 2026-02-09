@@ -1,4 +1,4 @@
-import bidiFactory, { Bidi, EmbeddingLevelsResult } from "bidi-js"
+import bidiFactory, { Bidi, EmbeddingLevelsResult } from "bidi-js";
 
 // Create bidi instance from factory
 const bidi: bidiFactory.Bidi = bidiFactory();
