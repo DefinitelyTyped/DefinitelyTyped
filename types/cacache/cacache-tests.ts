@@ -32,6 +32,10 @@ cacache.get.stream.byDigest(cachePath, "sha512-SoMeDIGest+64==").pipe(fs.createW
 
 cacache.get.info(cachePath, "my-thing").then(() => {});
 
+cacache.get.info(cachePath, "my-thing", { memoize: true }).then(() => {});
+
+cacache.get.info(cachePath, "my-thing", { memoize: new Map() }).then(() => {});
+
 cacache.get.hasContent(cachePath, "sha521-NOT+IN/CACHE==").then((res) => {
     res; // $ExpectType HasContentObject | false
 });
