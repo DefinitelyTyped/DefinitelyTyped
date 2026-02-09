@@ -1,4 +1,4 @@
-import * as d3 from 'd3';
+import * as d3 from "d3";
 
 // test variables
 let tileLayout: d3.TileLayout;
@@ -13,7 +13,7 @@ tileLayout = d3.tile();
 tiles = tileLayout();
 
 // test invoke with ZoomTransform argument
-zoomTransform = d3.zoomTransform(document.createElement('svg'));
+zoomTransform = d3.zoomTransform(document.createElement("svg"));
 tiles = tileLayout(zoomTransform);
 
 // test size getter/setter
