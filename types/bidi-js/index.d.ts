@@ -1,28 +1,44 @@
 /**
- * Result object from getEmbeddingLevels containing bidi analysis.
+ * Factory function that creates a bidi instance.
+ *
+ * @example
+ * ```javascript
+ * import bidiFactory = require('bidi-js');
+ * const bidi = bidiFactory();
+ * const result = bidi.getEmbeddingLevels('Hello שלום');
+ * console.log(result.levels); // Uint8Array with embedding levels
+ * ```
  */
-export interface EmbeddingLevelsResult {
-    /**
-     * Array of paragraph objects with start/end indices and resolved base level.
-     */
-    paragraphs: Array<{
-        /** Start index of the paragraph */
-        start: number;
-        /** End index of the paragraph */
-        end: number;
-        /** Resolved base embedding level (0 for LTR, 1 for RTL) */
-        level: number;
-    }>;
-    /**
-     * Uint8Array containing the resolved embedding level for each character.
-     */
-    levels: Uint8Array;
-}
+declare function bidiFactory(): bidiFactory.Bidi;
 
-/**
- * The bidi instance returned by the factory function.
- */
-export interface Bidi {
+export = bidiFactory;
+
+declare namespace bidiFactory {
+    /**
+     * Result object from getEmbeddingLevels containing bidi analysis.
+     */
+    interface EmbeddingLevelsResult {
+        /**
+         * Array of paragraph objects with start/end indices and resolved base level.
+         */
+        paragraphs: Array<{
+            /** Start index of the paragraph */
+            start: number;
+            /** End index of the paragraph */
+            end: number;
+            /** Resolved base embedding level (0 for LTR, 1 for RTL) */
+            level: number;
+        }>;
+        /**
+         * Uint8Array containing the resolved embedding level for each character.
+         */
+        levels: Uint8Array;
+    }
+
+    /**
+     * The bidi instance returned by the factory function.
+     */
+    interface Bidi {
     /**
      * Applies the Unicode Bidirectional Algorithm to a string, returning the resolved
      * embedding levels and paragraph information.
@@ -145,19 +161,5 @@ export interface Bidi {
      * @returns The canonical form, or null if not a bracket
      */
     getCanonicalBracket(char: string): string | null;
+    }
 }
-
-/**
- * Factory function that creates a bidi instance.
- *
- * @example
- * ```javascript
- * import bidiFactory from 'bidi-js';
- * const bidi = bidiFactory();
- * const result = bidi.getEmbeddingLevels('Hello שלום');
- * console.log(result.levels); // Uint8Array with embedding levels
- * ```
- */
-declare function bidiFactory(): Bidi;
-
-export = bidiFactory;

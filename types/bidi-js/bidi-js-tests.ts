@@ -1,13 +1,15 @@
-import bidiFactory, { Bidi, EmbeddingLevelsResult } from "bidi-js";
+import bidiFactory, { Bidi, EmbeddingLevelsResult } from "bidi-js"
 
 // Create bidi instance from factory
-const bidi: Bidi = bidiFactory();
+const bidi: bidiFactory.Bidi = bidiFactory();
+const anotherBidi: Bidi = bidiFactory(); // test also the import
 
 // Test getEmbeddingLevels
-const result: EmbeddingLevelsResult = bidi.getEmbeddingLevels("Hello שלום");
-const resultLtr: EmbeddingLevelsResult = bidi.getEmbeddingLevels("Hello שלום", "ltr");
-const resultRtl: EmbeddingLevelsResult = bidi.getEmbeddingLevels("Hello שלום", "rtl");
-const resultAuto: EmbeddingLevelsResult = bidi.getEmbeddingLevels("Hello שלום", "auto");
+const result: bidiFactory.EmbeddingLevelsResult = bidi.getEmbeddingLevels("Hello שלום");
+const resultDirectImport: EmbeddingLevelsResult = bidi.getEmbeddingLevels("Hello שלום");
+const resultLtr: bidiFactory.EmbeddingLevelsResult = bidi.getEmbeddingLevels("Hello שלום", "ltr");
+const resultRtl: bidiFactory.EmbeddingLevelsResult = bidi.getEmbeddingLevels("Hello שלום", "rtl");
+const resultAuto: bidiFactory.EmbeddingLevelsResult = bidi.getEmbeddingLevels("Hello שלום", "auto");
 
 // Test result structure
 const paragraphs: Array<{ start: number; end: number; level: number }> = result.paragraphs;
