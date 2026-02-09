@@ -191,12 +191,13 @@ export const randomGeometric: RandomGeometric;
  */
 export interface RandomBinomial extends RandomNumberGenerationSource {
     /**
-     * Returns a function for generating numbers with a geometric distribution with success probability p.
-     * The value p is in the range (0, 1].
+     * Returns a function for generating numbers with a binomial distribution with n the number of trials and success probability p.
+     * The value n is greater or equal to 0, and the value p is in the range (0, 1].
      *
+     * @param n The number of trials
      * @param p Success probability
      */
-    (p: number): () => number;
+    (n: number, p: number): () => number;
 }
 
 export const randomBinomial: RandomBinomial;
