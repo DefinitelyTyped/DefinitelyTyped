@@ -1,11 +1,10 @@
-import { CookieJar } from "../../http/index.js";
-import { ReadableStream } from "../streams/index.js";
+import { ReadableStream } from "../experimental/streams/index.js";
+import { CookieJar } from "../http/index.js";
 
 /**
- * This module provides an experimental implementation of the WebSocket API
- * for k6.
+ * This module provides a WebSocket API for k6.
  *
- * https://grafana.com/docs/k6/latest/javascript-api/k6-experimental/websockets/
+ * https://grafana.com/docs/k6/latest/javascript-api/k6-websockets/
  */
 
 /**
@@ -43,7 +42,7 @@ export class WebSocket {
 
     /**
      * The Websocket constructor returns a newly created WebSocket object.
-     * https://grafana.com/docs/k6/latest/javascript-api/k6-experimental/websockets/websocket/
+     * https://grafana.com/docs/k6/latest/javascript-api/k6-websockets/websocket/
      *
      * @param url - The URL to which to connect; this should be the URL to which the WebSocket server will respond.
      * @param protocols - Either a single protocol string or an array of protocol strings. The param is reserved for future use and will be presently ignored.
@@ -53,7 +52,7 @@ export class WebSocket {
 
     /**
      * Enqueues data to be transmitted to the server over the WebSocket connection.
-     * https://grafana.com/docs/k6/latest/javascript-api/k6-experimental/websockets/websocket/websocket-send/
+     * https://grafana.com/docs/k6/latest/javascript-api/k6-websockets/websocket/websocket-send/
      *
      * @param data - the data to send to the server
      */
@@ -62,7 +61,7 @@ export class WebSocket {
     /**
      * Bind event names to event handlers to be executed when their
      * respective event is received by the server.
-     * https://grafana.com/docs/k6/latest/javascript-api/k6-experimental/websockets/websocket/websocket-addeventlistener/
+     * https://grafana.com/docs/k6/latest/javascript-api/k6-websockets/websocket/websocket-addeventlistener/
      *
      * @param event - the event to listen for
      * @param listener - the callback to invoke when the event is emitted
@@ -71,7 +70,7 @@ export class WebSocket {
 
     /**
      * Closes the WebSocket connection or connection attempt, if any.
-     * https://grafana.com/docs/k6/latest/javascript-api/k6-experimental/websockets/websocket/websocket-close/
+     * https://grafana.com/docs/k6/latest/javascript-api/k6-websockets/websocket/websocket-close/
      *
      * @param code - An integer WebSocket connection close code value indicating a reason for closure.
      * @param reason - A human-readable string WebSocket connection close reason. No longer than 123 bytes of UTF-8 text.
@@ -80,13 +79,13 @@ export class WebSocket {
 
     /**
      * Sends a ping message over the WebSocket connection.
-     * https://grafana.com/docs/k6/latest/javascript-api/k6-experimental/websockets/websocket/websocket-ping/
+     * https://grafana.com/docs/k6/latest/javascript-api/k6-websockets/websocket/websocket-ping/
      */
     ping(): void;
 
     /**
      * Sets an event handler which is invoked when a message event happens.
-     * https://grafana.com/docs/k6/latest/javascript-api/k6-experimental/websockets/websocket/websocket-onmessage/
+     * https://grafana.com/docs/k6/latest/javascript-api/k6-websockets/websocket/websocket-onmessage/
      *
      * @param event - the message event
      */
@@ -94,19 +93,19 @@ export class WebSocket {
 
     /**
      * Sets an event handler which is invoked when the WebSocket connection's opens.
-     * https://grafana.com/docs/k6/latest/javascript-api/k6-experimental/websockets/websocket/websocket-onopen/
+     * https://grafana.com/docs/k6/latest/javascript-api/k6-websockets/websocket/websocket-onopen/
      */
     onopen: () => void;
 
     /**
      * Sets an event handler which is invoked when the WebSocket connection's closes.
-     * https://grafana.com/docs/k6/latest/javascript-api/k6-experimental/websockets/websocket/websocket-onclose/
+     * https://grafana.com/docs/k6/latest/javascript-api/k6-websockets/websocket/websocket-onclose/
      */
     onclose: () => void;
 
     /**
      * Sets an event handler which is invoked when errors occur.
-     * https://grafana.com/docs/k6/latest/javascript-api/k6-experimental/websockets/websocket/websocket-onerror/
+     * https://grafana.com/docs/k6/latest/javascript-api/k6-websockets/websocket/websocket-onerror/
      *
      * @param event - the error event
      */
@@ -114,13 +113,13 @@ export class WebSocket {
 
     /**
      * Sets an event handler which is invoked when a ping message is received.
-     * https://grafana.com/docs/k6/latest/javascript-api/k6-experimental/websockets/websocket/websocket-onping/
+     * https://grafana.com/docs/k6/latest/javascript-api/k6-websockets/websocket/websocket-onping/
      */
     onping: () => void;
 
     /**
      * Sets an event handler which is invoked when a pong message is received.
-     * https://grafana.com/docs/k6/latest/javascript-api/k6-experimental/websockets/websocket/websocket-onpong/
+     * https://grafana.com/docs/k6/latest/javascript-api/k6-websockets/websocket/websocket-onpong/
      */
     onpong: () => void;
 }
@@ -147,7 +146,7 @@ export class Blob {
 
 /**
  * k6 specific WebSocket parameters.
- * https://grafana.com/docs/k6/latest/javascript-api/k6-experimental/websockets/params/
+ * https://grafana.com/docs/k6/latest/javascript-api/k6-websockets/params/
  */
 export interface Params {
     /** Request headers. */
