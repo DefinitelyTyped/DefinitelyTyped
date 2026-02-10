@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/wordpress__server-side-render",
+    "version": "6.15.9999",
+    "projects": [
+        "https://github.com/WordPress/gutenberg/tree/HEAD/packages/server-side-render/README.md"
+    ],
+    "devDependencies": {
+        "@types/wordpress__server-side-render": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Rafał Całka",
+            "githubUsername": "rafaucau"
+        }
+    ]
+}
