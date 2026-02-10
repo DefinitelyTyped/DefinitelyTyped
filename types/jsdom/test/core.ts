@@ -9,7 +9,7 @@ import {
     VirtualConsole,
 } from "jsdom";
 import { CookieJar as ToughCookieJar, MemoryCookieStore } from "tough-cookie";
-import { ProxyAgent } from "undici";
+import { ProxyAgent } from "undici-types";
 import { Script } from "vm";
 
 function test_basic_usage() {
@@ -190,7 +190,8 @@ function test_fragment_serialization() {
 }
 
 function test_request_interceptor() {
-    requestInterceptor(function(request, { element }) { // $ExpectType DispatchInterceptor
+    // $ExpectType DispatchInterceptor
+    requestInterceptor(function(request, { element }) {
         console.log(`${element?.localName || "XHR"} requested ${request.url}`);
         if (request.url === "https://example.com/some-specific-script.js") {
             return new Response("window.someGlobal = 5;", {

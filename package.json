@@ -47,5 +47,8 @@
         "remark-validate-links": "^13.0.0",
         "typescript": "next"
     },
-    "type": "module"
+    "type": "module",
+    "dependencies": {
+        "undici-types": "^7.21.0"
+    }
 }

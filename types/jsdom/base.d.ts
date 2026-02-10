@@ -5,7 +5,7 @@
 import { EventEmitter } from "events";
 import { Token } from "parse5";
 import * as tough from "tough-cookie";
-import { Dispatcher } from "undici";
+import { Dispatcher } from "undici-types";
 import { Context } from "vm";
 
 // Needed to allow adding properties to `DOMWindow` that are only supported
