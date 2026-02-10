@@ -119,12 +119,15 @@ declare namespace Aws {
          * @remarks
          * **Migration Warning ⚠️:** If migrating from v3 and using bundler plugins
          * (e.g., serverless-webpack, serverless-esbuild, serverless-plugin-typescript),
-         * set `build: false` initially until you've stabilized your plugin configuration.
+         * disable the native build with `build: { esbuild: false }`.
          * The native build system may conflict with existing bundler plugins.
+         * Note: `build: false` does NOT disable esbuild — `false?.esbuild` evaluates
+         * to `undefined`, causing it to fall through to zero-config auto-detection.
          * @example
          * ```yaml
-         * # Disable native build when using legacy bundler plugins
-         * build: false
+         * # Disable native esbuild when using legacy bundler plugins
+         * build:
+         *   esbuild: false
          *
          * # Or configure native esbuild
          * build:
@@ -134,7 +137,7 @@ declare namespace Aws {
          *     configFile: ./esbuild.config.js
          * ```
          */
-        build?: string | Build | false | undefined;
+        build?: string | Build | undefined;
         /**
          * Serverless Framework license key for v4+.
          * @since v4
@@ -2481,8 +2484,12 @@ declare namespace Aws {
      * @see https://www.serverless.com/framework/docs/providers/aws/guide/building
      */
     interface Build {
-        /** EsBuild configuration */
-        esbuild?: EsBuildConfig | undefined;
+        /**
+         * EsBuild configuration or `false` to disable native build.
+         * @remarks Setting `esbuild: false` is the recommended way to disable
+         * the native build system (e.g., when using legacy bundler plugins).
+         */
+        esbuild?: boolean | EsBuildConfig | undefined;
     }
 
     /**

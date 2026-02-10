@@ -1293,12 +1293,16 @@ const awsServerlessWithBuild: Aws.Serverless = {
 };
 
 // Test v4 build disabled (for migration from v3 with bundler plugins)
+// The correct way to disable esbuild is `build: { esbuild: false }`, not `build: false`
+// See: https://github.com/serverless/serverless/blob/main/packages/serverless/lib/config-schema.js
 const awsServerlessWithBuildDisabled: Aws.Serverless = {
     service: "my-service",
     provider: {
         name: "aws",
     },
-    build: false,
+    build: {
+        esbuild: false,
+    },
 };
 
 // Test v4 license key (root-level property, not provider-level)
