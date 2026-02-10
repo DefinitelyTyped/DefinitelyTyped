@@ -5,6 +5,7 @@
 import { EventEmitter } from "events";
 import { Token } from "parse5";
 import * as tough from "tough-cookie";
+import { Dispatcher } from "undici";
 import { Context } from "vm";
 
 // Needed to allow adding properties to `DOMWindow` that are only supported
@@ -57,12 +58,6 @@ declare module "jsdom" {
         reconfigure(settings: ReconfigureSettings): void;
     }
 
-    class ResourceLoader {
-        fetch(url: string, options: FetchOptions): AbortablePromise<Buffer> | null;
-
-        constructor(obj?: ResourceLoaderConstructorOptions);
-    }
-
     class VirtualConsole extends EventEmitter {
         on<K extends keyof Console>(method: K, callback: Console[K]): this;
         on(event: "jsdomError", callback: (e: Error) => void): this;
@@ -79,14 +74,6 @@ declare module "jsdom" {
         referrer?: string | undefined;
 
         /**
-         * userAgent affects the value read from navigator.userAgent, as well as the User-Agent header sent while fetching subresources.
-         *
-         * @default
-         * `Mozilla/5.0 (${process.platform}) AppleWebKit/537.36 (KHTML, like Gecko) jsdom/${jsdomVersion}`
-         */
-        userAgent?: string | undefined;
-
-        /**
          * `includeNodeLocations` preserves the location info produced by the HTML parser,
          * allowing you to retrieve it with the nodeLocation() method (described below).
          *
@@ -97,7 +84,7 @@ declare module "jsdom" {
          */
         includeNodeLocations?: boolean | undefined;
         runScripts?: "dangerously" | "outside-only" | undefined;
-        resources?: "usable" | ResourceLoader | undefined;
+        resources?: "usable" | ResourcesOptions | undefined;
         virtualConsole?: VirtualConsole | undefined;
         cookieJar?: CookieJar | undefined;
 
@@ -156,6 +143,16 @@ declare module "jsdom" {
         storageQuota?: number | undefined;
     }
 
+    interface RequestInterceptorContext {
+        element: HTMLElement | null;
+    }
+    type RequestInterceptorCallback = (
+        request: Request,
+        context: RequestInterceptorContext,
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    ) => void | undefined | Response | Promise<undefined | Response>;
+    function requestInterceptor(fn: RequestInterceptorCallback): Dispatcher.DispatchInterceptor;
+
     type SupportedContentTypes =
         | "text/html"
         | "application/xhtml+xml"
@@ -178,17 +175,16 @@ declare module "jsdom" {
         url?: string | undefined;
     }
 
-    interface FetchOptions {
-        cookieJar?: CookieJar | undefined;
-        referrer?: string | undefined;
-        accept?: string | undefined;
-        element?: HTMLScriptElement | HTMLLinkElement | HTMLIFrameElement | HTMLImageElement | undefined;
-    }
-
-    interface ResourceLoaderConstructorOptions {
-        strictSSL?: boolean | undefined;
-        proxy?: string | undefined;
+    interface ResourcesOptions {
+        /**
+         * userAgent affects the value read from navigator.userAgent, as well as the User-Agent header sent while fetching subresources.
+         *
+         * @default
+         * `Mozilla/5.0 (${process.platform}) AppleWebKit/537.36 (KHTML, like Gecko) jsdom/${jsdomVersion}`
+         */
         userAgent?: string | undefined;
+        dispatcher?: Dispatcher | undefined;
+        interceptors?: Dispatcher.DispatcherComposeInterceptor[] | undefined;
     }
 
     interface DOMWindow extends Omit<Window, "top" | "self" | "window"> {
