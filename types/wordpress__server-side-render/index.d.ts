@@ -32,3 +32,53 @@ export function ServerSideRender(props: ServerSideRenderProps): JSX.Element;
  */
 declare const ServerSideRenderDefault: typeof ServerSideRender;
 export default ServerSideRenderDefault;
+
+export type UseServerSideRenderArgs = Pick<
+    ServerSideRenderProps,
+    "block" | "attributes" | "httpMethod" | "urlQueryArgs" | "skipBlockSupportAttributes"
+>;
+
+export type ServerSideRenderStatus = "idle" | "loading" | "success" | "error";
+
+export interface ServerSideRenderResponse {
+    /** The current request status: 'idle', 'loading', 'success', or 'error'. */
+    status: ServerSideRenderStatus;
+    /** The rendered block content (available when status is 'success'). */
+    content?: string;
+    /** The error message (available when status is 'error'). */
+    error?: string;
+}
+
+/**
+ * A hook for server-side rendering a preview of dynamic blocks to display in the editor.
+ *
+ * Handles fetching server-rendered previews for blocks, managing loading states,
+ * and automatically debouncing requests to prevent excessive API calls. It supports both
+ * GET and POST requests, with POST requests used for larger attribute payloads.
+ *
+ * @example
+ * Basic usage:
+ *
+ * ```jsx
+ * import { RawHTML } from '@wordpress/element';
+ * import { useServerSideRender } from '@wordpress/server-side-render';
+ *
+ * function MyServerSideRender( { attributes, block } ) {
+ *   const { content, status, error } = useServerSideRender( {
+ *     attributes,
+ *     block,
+ *   } );
+ *
+ *   if ( status === 'loading' ) {
+ *     return <div>Loading...</div>;
+ *   }
+ *
+ *   if ( status === 'error' ) {
+ *     return <div>Error: { error }</div>;
+ *   }
+ *
+ *   return <RawHTML>{ content }</RawHTML>;
+ * }
+ * ```
+ */
+export function useServerSideRender(args: UseServerSideRenderArgs): ServerSideRenderResponse;
