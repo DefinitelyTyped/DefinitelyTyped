@@ -5,6 +5,9 @@
     "projects": [
         "https://github.com/WordPress/gutenberg/tree/HEAD/packages/server-side-render/README.md"
     ],
+    "dependencies": {
+        "@types/react": "^18"
+    },
     "devDependencies": {
         "@types/wordpress__server-side-render": "workspace:."
     },

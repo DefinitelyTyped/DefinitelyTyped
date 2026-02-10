@@ -1,34 +1,34 @@
-/*~ If this module is a UMD module that exposes a global variable 'myLib' when
- *~ loaded outside a module loader environment, declare that global here.
- *~ Otherwise, delete this declaration.
- */
-export as namespace myLib;
+import type { ComponentType, JSX, PropsWithChildren } from "react";
 
-/*~ If this module has methods, declare them as functions like so.
- */
-export function myMethod(a: string): string;
-export function myOtherMethod(a: number): number;
-
-/*~ You can declare types that are available via importing the module */
-export interface someType {
-  name: string;
-  length: number;
-  extras?: string[];
+export interface ServerSideRenderProps {
+    /** The identifier of the block to be serverside rendered. */
+    block: string;
+    /** The block attributes to be sent to the server for rendering. */
+    attributes?: Record<string, unknown> | null;
+    /** Additional classes to apply to the wrapper element. */
+    className?: string;
+    /** The HTTP method to use (‘GET’ or ‘POST’). Default is ‘GET’ */
+    httpMethod?: "GET" | "POST";
+    /**  Additional query arguments to append to the request URL. */
+    urlQueryArgs?: Record<string, string | number | boolean | undefined>;
+    /** Whether to remove block support attributes before sending. */
+    skipBlockSupportAttributes?: boolean;
+    /** Component rendered when the API response is empty. */
+    EmptyResponsePlaceholder?: ComponentType<ServerSideRenderProps>;
+    /** Component rendered when the API response is an error. */
+    ErrorResponsePlaceholder?: ComponentType<ServerSideRenderProps & { message: string }>;
+    /** Component rendered while the API request is loading. */
+    LoadingResponsePlaceholder?: ComponentType<PropsWithChildren<ServerSideRenderProps>>;
 }
 
-/*~ You can declare properties of the module using const, let, or var */
-export const myField: number;
+/** A component that renders server-side content for blocks. */
+export function ServerSideRender(props: ServerSideRenderProps): JSX.Element;
 
-/*~ If there are types, properties, or methods inside dotted names
- *~ of the module, declare them inside a 'namespace'.
+/**
+ * @deprecated Use `ServerSideRender` non-default export instead:
+ * ```js
+ * import { ServerSideRender } from '@wordpress/server-side-render';
+ * ```
  */
-export namespace subProp {
-  /*~ For example, given this definition, someone could write:
-   *~   import { subProp } from 'yourModule';
-   *~   subProp.foo();
-   *~ or
-   *~   import * as yourMod from 'yourModule';
-   *~   yourMod.subProp.foo();
-   */
-  function foo(): void;
-}
+declare const ServerSideRenderDefault: typeof ServerSideRender;
+export default ServerSideRenderDefault;
