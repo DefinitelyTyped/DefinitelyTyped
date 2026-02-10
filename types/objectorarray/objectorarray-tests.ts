@@ -26,5 +26,5 @@ if (objectorarray(value)) {
     // value is narrowed to object
     const obj: object | unknown[] = value;
     // @ts-expect-error
-    const obj2: boolean = value
+    const obj2: boolean = value;
 }
