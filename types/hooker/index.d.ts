@@ -1,38 +1,50 @@
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-declare type HookerPostHookFunction = (result: any, ...args: any[]) => IHookerPostHookResult | void;
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-declare type HookerPreHookFunction = (...args: any[]) => IHookerPreHookResult | void;
+/* eslint-disable @typescript-eslint/no-invalid-void-type */
+declare type HookerPreHookFunction<F extends (...args: any[]) => any = (...args: any[]) => any> = (
+    ...args: Parameters<F>
+) => HookerOverride<ReturnType<F>> | HookerPreempt<ReturnType<F>> | HookerFilter<Parameters<F>> | Promise<void> | void;
+declare type HookerPostHookFunction<F extends (...args: any[]) => any = (...args: any[]) => any> = (
+    result: ReturnType<F>,
+    ...args: Parameters<F>
+) => HookerOverride<ReturnType<F>> | Promise<void> | void;
+/* eslint-enable @typescript-eslint/no-invalid-void-type */
 
 declare module "hooker" {
-    function hook(object: any, props: string | string[], options: IHookerOptions): void;
-    function hook(object: any, props: string | string[], prehookFunction: HookerPreHookFunction): void;
+    function hook<T, K extends keyof T>(
+        object: T,
+        props: K,
+        options: IHookerOptions<T[K] extends (...args: any[]) => any ? T[K] : never>,
+    ): void;
+    function hook<T, K extends keyof T>(
+        object: T,
+        props: K,
+        prehookFunction: HookerPreHookFunction<T[K] extends (...args: any[]) => any ? T[K] : never>,
+    ): void;
+    function hook(object: any, props: string[], options: IHookerOptions): void;
+    function hook(object: any, props: string[], prehookFunction: HookerPreHookFunction): void;
     function unhook(object: any, props?: string | string[]): string[];
-    function orig(object: any, props: string | string[]): Function;
-    function override(value: any): HookerOverride;
-    function preempt(value: any): HookerPreempt;
-    function filter(context: any, args: any[]): HookerFilter;
+    function orig<T, K extends keyof T>(object: T, prop: K): T[K] extends (...args: any[]) => any ? T[K] : never;
+    function orig(object: any, prop: string): Function;
+    function override<T>(value: T): HookerOverride<T>;
+    function preempt<T>(value: T): HookerPreempt<T>;
+    function filter<T>(context: any, args: T): HookerFilter<T>;
 }
 
-declare class HookerOverride implements IHookerPostHookResult, IHookerPreHookResult {
-    value: any;
+declare class HookerOverride<T> {
+    value: T;
 }
 
-declare class HookerPreempt implements IHookerPreHookResult {
-    value: any;
+declare class HookerPreempt<T> {
+    value: T;
 }
 
-declare class HookerFilter implements IHookerPreHookResult {
+declare class HookerFilter<T> {
     context: any;
-    args: any[];
+    args: T;
 }
 
-interface IHookerPostHookResult {}
-
-interface IHookerPreHookResult {}
-
-interface IHookerOptions {
-    pre?: HookerPreHookFunction | undefined;
-    post?: HookerPostHookFunction | undefined;
-    once?: boolean | undefined;
-    passName?: boolean | undefined;
+interface IHookerOptions<F extends (...args: any[]) => any = (...args: any[]) => any> {
+    pre?: HookerPreHookFunction<F>;
+    post?: HookerPostHookFunction<F>;
+    once?: boolean;
+    passName?: boolean;
 }
