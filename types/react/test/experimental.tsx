@@ -209,3 +209,91 @@ function swipeTransitionTest() {
     >
     </React.ViewTransition>;
 }
+
+// @enableStore
+function storeTest() {
+    const createStore = React.unstable_createStore;
+
+    const simpleNumberStore = createStore(0);
+    simpleNumberStore.update(5);
+    simpleNumberStore.update(
+        // @ts-expect-error -- Reducer goes into `createStore`
+        (prev: number) => prev + 1,
+    );
+    simpleNumberStore.update(
+        // @ts-expect-error -- assumed store has a reducer
+        "increment",
+    );
+    // $ExpectType number
+    React.use(simpleNumberStore);
+
+    const numberStore = createStore(0, (
+        // TODO: Would be nice to have `prev` inferred from the initial value and return type
+        prev: number,
+        action: "increment" | "double",
+    ) => {
+        if (action === "increment") {
+            return prev + 1;
+        } else if (action === "double") {
+            return prev * 2;
+        } else {
+            throw new Error("unreachable");
+        }
+    });
+    numberStore.update(
+        // @ts-expect-error -- assumed reducer-less store
+        5,
+    );
+    numberStore.update(
+        // @ts-expect-error -- Reducer goes into `createStore`
+        (prev: number) => prev + 1,
+    );
+    numberStore.update("increment");
+    numberStore.update(
+        // @ts-expect-error -- Unsupported action
+        "decrement",
+    );
+
+    // Ideally this would be `number | null` and people opt-into literals via `as const`
+    // $ExpectType 0 | null
+    React.use(createStore(0, () => null));
+
+    const voidStore = createStore<number>(0, n => n + 1);
+    voidStore.update();
+    voidStore.update(
+        // @ts-expect-error -- would be ignored by the reducer
+        5,
+    );
+
+    createStore<number>(
+        // @ts-expect-error -- Initial value is not a number
+        "not a number",
+    );
+
+    createStore<number, "increment">(5, (n, action) => {
+        // $ExpectType number
+        n;
+        // $ExpectType "increment"
+        action;
+        return n + 1;
+    });
+
+    const updaterStore = createStore(0, (n: number, updaterOrN: number | ((n: number) => number)) => {
+        // $ExpectType number
+        n;
+        // $ExpectType number | ((n: number) => number)
+        updaterOrN;
+        if (typeof updaterOrN === "number") {
+            return n + updaterOrN;
+        } else {
+            return updaterOrN(n);
+        }
+    });
+    // $ExpectType number
+    React.use(updaterStore);
+    updaterStore.update(5);
+    updaterStore.update(n => n - 1);
+
+    // @ts-expect-error -- missing reducer, omit the Action argument
+    createStore<number, "increment">(5);
+}
