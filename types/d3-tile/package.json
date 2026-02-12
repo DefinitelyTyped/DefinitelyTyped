@@ -6,7 +6,7 @@
         "https://github.com/d3/d3-tile"
     ],
     "dependencies": {
-        "@types/d3": "*"
+        "@types/d3-zoom": "*"
     },
     "devDependencies": {
         "@types/d3-tile": "workspace:."
