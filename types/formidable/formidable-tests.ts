@@ -12,6 +12,11 @@ import {
     PersistentFile,
     plugins,
     VolatileFile,
+    PluginFunction,
+    octetstream,
+    querystring,
+    multipart,
+    json,
 } from "formidable";
 import * as http from "http";
 
@@ -219,3 +224,12 @@ new IncomingForm();
 
 // $ExpectType IncomingForm
 formidable();
+
+// $ExpectType PluginFunction
+octetstream;
+// $ExpectType PluginFunction
+querystring;
+// $ExpectType PluginFunction
+multipart;
+// $ExpectType PluginFunction
+json;
