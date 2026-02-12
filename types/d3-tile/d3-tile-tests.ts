@@ -1,19 +1,20 @@
-import * as d3 from "d3";
+import * as d3Tile from "d3-tile";
+import * as d3Zoom from "d3-zoom";
 
 // test variables
-let tileLayout: d3.TileLayout;
-let tile: d3.Tile;
-let tiles: d3.Tiles;
-let zoomTransform: d3.ZoomTransform;
+let tileLayout: d3Tile.TileLayout;
+let tile: d3Tile.Tile;
+let tiles: d3Tile.Tiles;
+let zoomTransform: d3Zoom.ZoomTransform;
 
 // test tile() constructor
-tileLayout = d3.tile();
+tileLayout = d3Tile.tile();
 
 // test invoke with no arguments
 tiles = tileLayout();
 
 // test invoke with ZoomTransform argument
-zoomTransform = d3.zoomTransform(document.createElement("svg"));
+zoomTransform = d3Zoom.zoomTransform(document.createElement("svg"));
 tiles = tileLayout(zoomTransform);
 
 // test size getter/setter
@@ -68,14 +69,14 @@ let tilesTranslate: [number, number] = tiles.translate;
 
 // test tile coordinates
 for (let i = 0; i < tiles.length; i++) {
-    let tileCoord: d3.Tile = tiles[i];
+    let tileCoord: d3Tile.Tile = tiles[i];
     let x: number = tileCoord[0];
     let y: number = tileCoord[1];
     let z: number = tileCoord[2];
 }
 
 // test tileWrap function
-let wrappedTile: [number, number, number] = d3.tileWrap([1, 2, 3]);
+let wrappedTile: [number, number, number] = d3Tile.tileWrap([1, 2, 3]);
 let wrappedX: number = wrappedTile[0];
 let wrappedY: number = wrappedTile[1];
 let wrappedZ: number = wrappedTile[2];
