@@ -2289,6 +2289,10 @@
             "libraryName": "figures",
             "asOfVersion": "3.0.0"
         },
+        "file-entry-cache": {
+            "libraryName": "file-entry-cache",
+            "asOfVersion": "10.0.0"
+        },
         "file-type": {
             "libraryName": "file-type",
             "asOfVersion": "10.9.1"
