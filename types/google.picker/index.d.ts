@@ -26,6 +26,14 @@ declare namespace google {
          * noted otherwise, the return type of methods below is of type
          * `PickerBuilder`, allowing you to chain one call after another.
          *
+         * Note: The
+         * {@link https://npmjs.com/package/@googleworkspace/drive-picker-element
+         * | @googleworkspace/drive-picker-element} custom web component is a
+         * streamlined way to integrate the Google Picker into your web app. For
+         * React applications, use the
+         * {@link https://npmjs.com/package/@googleworkspace/drive-picker-react
+         * | @googleworkspace/drive-picker-react} React component.
+         *
          * @example Build a basic `Picker` using the builder pattern.
          *
          * ```ts

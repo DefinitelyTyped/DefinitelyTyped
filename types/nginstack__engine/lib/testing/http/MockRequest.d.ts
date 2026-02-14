@@ -24,4 +24,5 @@ declare class MockRequest {
     private headers_;
     private getHeader;
     private read;
+    saveToStream(stream: any): void;
 }

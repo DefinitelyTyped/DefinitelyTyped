@@ -27,7 +27,7 @@ import { Texture } from "./Texture.js";
  * @see {@link https://threejs.org/docs/index.html#api/en/textures/CubeTexture | Official Documentation}
  * @see {@link https://github.com/mrdoob/three.js/blob/master/src/textures/CubeTexture.js | Source}
  */
-export class CubeTexture extends Texture<HTMLImageElement[]> {
+export class CubeTexture<TImage = unknown> extends Texture<TImage[]> {
     /**
      * This creates a new {@link THREE.CubeTexture | CubeTexture} object.
      * @param images
@@ -42,7 +42,7 @@ export class CubeTexture extends Texture<HTMLImageElement[]> {
      * @param colorSpace See {@link Texture.colorSpace | .colorSpace}. Default {@link NoColorSpace}
      */
     constructor(
-        images?: HTMLImageElement[],
+        images?: TImage[],
         mapping?: CubeTextureMapping,
         wrapS?: Wrapping,
         wrapT?: Wrapping,
@@ -65,8 +65,8 @@ export class CubeTexture extends Texture<HTMLImageElement[]> {
      * An image object, typically created using the {@link THREE.CubeTextureLoader.load | CubeTextureLoader.load()} method.
      * @see {@link Texture.image}
      */
-    get images(): HTMLImageElement[];
-    set images(value: HTMLImageElement[]);
+    get images(): TImage[];
+    set images(value: TImage[]);
 
     /**
      * @inheritDoc

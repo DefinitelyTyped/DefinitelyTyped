@@ -21,6 +21,6 @@ datasource.createColumns(columnDefs); // $ExpectType DataSourceColumns
 datasource.getDataSet(filters, columns); // $ExpectType DataSet
 
 function getVersion(): string {
-    return "72.0.5";
+    return "81.0.1";
 }
 getVersion(); // $ExpectType string

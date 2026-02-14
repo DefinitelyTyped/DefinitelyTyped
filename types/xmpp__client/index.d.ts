@@ -1,11 +1,14 @@
 import { Client as ClientCore, jid as xmppJid, xml as xmppXml } from "@xmpp/client-core";
+import { Bind2 } from "@xmpp/client-core/src/bind2/bind2.js";
+import { FAST } from "@xmpp/client-core/src/fast/fast.js";
 import { Options as ConnectionOptions } from "@xmpp/connection";
 import { IQCallee } from "@xmpp/iq/callee";
 import { IQCaller } from "@xmpp/iq/caller";
 import { IncomingContext, Middleware } from "@xmpp/middleware";
 import { Reconnect } from "@xmpp/reconnect";
 import { Resource } from "@xmpp/resource-binding";
-import { Credentials, SASL } from "@xmpp/sasl";
+import { SASL } from "@xmpp/sasl";
+import { CredentialsFactory, CredentialsObj } from "@xmpp/sasl2";
 import { StreamFeatures } from "@xmpp/stream-features";
 import { StreamManagement } from "@xmpp/stream-management";
 import koaCompose = require("koa-compose");
@@ -66,7 +69,7 @@ export interface Options extends ConnectionOptions {
      * Resource for `@xmpp/resource-binding`.
      */
     resource?: Resource | undefined;
-    credentials?: Credentials | undefined;
+    credentials?: CredentialsObj | CredentialsFactory<Client> | undefined;
     /**
      * Username for `@xmpp/sasl`.
      */
@@ -88,6 +91,8 @@ export interface Client extends ClientCore {
     sasl: SASL;
     streamManagement: StreamManagement;
     mechanisms: Array<{ scramsha1: undefined } | { plain: undefined } | { anonymous: undefined }>;
+    bind2: Bind2;
+    fast: FAST;
 }
 
 export const jid: typeof xmppJid;

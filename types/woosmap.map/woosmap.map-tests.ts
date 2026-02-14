@@ -533,6 +533,7 @@ const localitiesAutocompleteRequest = expectType({
     customDescription: "name,admin_1,admin_0",
     radius: 500000,
     location: { lat: 51.5007, lng: -0.1246 },
+    excluded_types: ["village", "hamlet"],
 }) as woosmap.map.localities.LocalitiesAutocompleteRequest;
 
 let localitiesService;
@@ -561,6 +562,20 @@ const localitiesGeocodeRequest = expectType({
 const promiseLocalitiesGeocode = localitiesService.geocode(localitiesGeocodeRequest);
 promiseLocalitiesGeocode.then((result) => {
     // $ExpectType LocalitiesGeocodeResponse
+    result;
+});
+const localitiesNearbyRequest = expectType({
+    input: "royal al",
+    types: ["point_of_interest", "tourism", "hospitality"],
+    components: { country: ["GB", "FR"] },
+    radius: 5000000,
+    location: { lat: 51.5007, lng: -0.1246 },
+    excluded_types: ["education", "government"],
+}) as woosmap.map.localities.LocalitiesNearbyRequest;
+
+const promiseLocalitiesNearby = localitiesService.nearby(localitiesNearbyRequest);
+promiseLocalitiesNearby.then((result) => {
+    // $ExpectType LocalitiesNearbyResponse
     result;
 });
 const localitiesSearchRequest = expectType({

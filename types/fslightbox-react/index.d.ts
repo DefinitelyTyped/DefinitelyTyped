@@ -9,10 +9,9 @@ declare namespace FsLightbox {
     }
 
     interface ToolbarButtonProps {
+        class?: string;
         viewBox?: string;
         d?: string;
-        width?: string;
-        height?: string;
         title?: string;
     }
 
@@ -32,15 +31,15 @@ declare namespace FsLightbox {
 
         // slide number controlling
         slide?: number | undefined;
-        source?: string | undefined;
         sourceIndex?: number | undefined;
 
         // events
-        onOpen?: ((instance: FsLightbox) => void) | undefined;
-        onClose?: ((instance: FsLightbox) => void) | undefined;
-        onInit?: ((instance: FsLightbox) => void) | undefined;
-        onShow?: ((instance: FsLightbox) => void) | undefined;
-        onSlideChange?: ((instance: FsLightbox) => void) | undefined; // pro feature
+        onOpen?: ((instance: any) => void) | undefined;
+        onClose?: ((instance: any) => void) | undefined;
+        onInit?: ((instance: any) => void) | undefined;
+        onShow?: ((instance: any) => void) | undefined;
+        onSourceLoad?: ((instance: any, source: any, index: number) => void) | undefined;
+        onSlideChange?: ((instance: any) => void) | undefined; // pro feature
 
         // types
         disableLocalStorage?: boolean | undefined;
@@ -53,6 +52,7 @@ declare namespace FsLightbox {
 
         // thumbs
         thumbs?: Array<string | null> | undefined; // pro feature
+        thumbsIcon?: React.JSX.Element | undefined; // pro feature
         thumbsIcons?: Array<React.JSX.Element | null> | undefined; // pro feature
 
         // animations
@@ -66,9 +66,11 @@ declare namespace FsLightbox {
         disableSlideSwiping?: boolean | undefined;
         loadOnlyCurrentSource?: boolean | undefined;
         showThumbsOnMount?: boolean | undefined; // pro feature
+        showThumbsWithCaptions?: boolean | undefined; // pro feature
         disableThumbs?: boolean | undefined; // pro feature
         slideDistance?: number | undefined;
         slideshowTime?: number | undefined; // pro feature
+        sourceMargin?: number | undefined;
         UIFadeOutTime?: number | false | undefined; // pro feature
         zoomIncrement?: number | undefined; // pro feature
         openOnMount?: boolean | undefined;
@@ -98,6 +100,5 @@ declare namespace FsLightbox {
     }
 }
 
-declare class FsLightbox extends React.Component<FsLightbox.FsLightboxProps> {}
-
+declare const FsLightbox: React.FC<FsLightbox.FsLightboxProps>;
 export = FsLightbox;

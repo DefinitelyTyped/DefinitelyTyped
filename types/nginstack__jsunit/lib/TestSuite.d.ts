@@ -13,6 +13,7 @@ declare class TestSuite {
     private logger_;
     private testCaseMethods_;
     testCases: TestCase[];
+    initializationError: InitializationError;
     packageName: string;
     private packageName_;
     product: number | null;
@@ -29,7 +30,7 @@ declare class TestSuite {
     tearDown(): void;
 }
 declare namespace TestSuite {
-    export { findPackageName, formatSuiteName, formatTestCaseId, TestCase };
+    export { findPackageName, formatSuiteName, formatTestCaseId, InitializationError, TestCase };
 }
 import DBKey = require("@nginstack/engine/lib/dbkey/DBKey.js");
 declare function formatSuiteName(filePath: string): string;
@@ -40,4 +41,9 @@ interface TestCase {
     name: string;
     line: number;
     column: number;
+    initializationError?: InitializationError;
+}
+interface InitializationError {
+    message: string;
+    stack: string;
 }

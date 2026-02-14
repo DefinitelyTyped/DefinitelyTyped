@@ -10,6 +10,9 @@ export * from "./utils";
 declare module "@wordpress/data" {
     function dispatch(key: "core/block-editor"): typeof import("./store/actions");
     function select(key: "core/block-editor"): typeof import("./store/selectors");
+
+    function useDispatch(key: "core/block-editor"): typeof import("./store/actions");
+    function useSelect(key: "core/block-editor"): typeof import("./store/selectors");
 }
 
 export interface BlockEditorStoreDescriptor extends StoreDescriptor {

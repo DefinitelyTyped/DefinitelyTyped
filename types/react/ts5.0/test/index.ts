@@ -135,16 +135,15 @@ class ModernComponent extends React.Component<Props, State, Snapshot> implements
     static propTypes = {};
 
     static contextType = SomeContext;
-    context: Context;
+    declare context: Context;
 
     constructor(props: Props, context: Context) {
         super(props, context);
+        this.state = {
+            inputValue: this.context.someValue,
+            seconds: this.props.foo,
+        };
     }
-
-    state = {
-        inputValue: this.context.someValue,
-        seconds: this.props.foo,
-    };
 
     reset() {
         this._myComponent.reset();
@@ -154,8 +153,8 @@ class ModernComponent extends React.Component<Props, State, Snapshot> implements
         });
     }
 
-    private readonly _myComponent: MyComponent;
-    private _input: HTMLInputElement | null;
+    private readonly _myComponent!: MyComponent;
+    private _input: HTMLInputElement | null = null;
 
     render() {
         return React.createElement(
@@ -635,25 +634,6 @@ function handler(e: React.MouseEvent) {
 }
 
 const keyboardExtendsUI: React.UIEventHandler = (e: React.KeyboardEvent) => {};
-
-//
-// The SyntheticEvent.target.value should be accessible for onChange
-// --------------------------------------------------------------------------
-class SyntheticEventTargetValue extends React.Component<{}, { value: string }> {
-    state: { value: string };
-    constructor(props: {}) {
-        super(props);
-        this.state = { value: "a" };
-    }
-    render() {
-        return React.createElement("textarea", {
-            value: this.state.value,
-            onChange: e => {
-                const target: HTMLTextAreaElement = e.target;
-            },
-        });
-    }
-}
 
 React.createElement("input", {
     onChange: event => {

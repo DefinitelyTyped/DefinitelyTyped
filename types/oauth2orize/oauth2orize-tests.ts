@@ -100,8 +100,8 @@ class Clients {
     static findOne(id: string, callback: (err: Error, client?: Clients) => void): void {
         callback(new Error(), {} as Clients); // tslint:disable-line no-object-literal-type-assertion
     }
-    id: string;
-    redirectURI: string;
+    id!: string;
+    redirectURI!: string;
 }
 
 declare global {

@@ -643,12 +643,12 @@ describe("connecting with bad credentials", () => {
     it("throws an error", () => {
         try {
             new PQ().connectSync("asldkfjlasdf");
-        } catch (e) {
+        } catch (e: any) {
             assert.equal(e.toString().indexOf("connection pointer is NULL"), -1);
             return;
         }
 
-        assert.fail(null, null, "Should have thrown an exception", "");
+        assert.fail("Should have thrown an exception");
     });
 });
 

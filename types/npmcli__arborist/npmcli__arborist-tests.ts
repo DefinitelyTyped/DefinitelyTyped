@@ -15,6 +15,7 @@ const arb = new Arborist({
     progress: true,
     formatPackageLock: true,
 });
+new Arborist.Arborist();
 
 arb.loadActual().then(tree => {
     tree; // $ExpectType Node

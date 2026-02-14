@@ -11,7 +11,7 @@
         "noImplicitThis": false,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "target": "es5",
+        "target": "es6",
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

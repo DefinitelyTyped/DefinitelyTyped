@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     if: github.repository == 'DefinitelyTyped/DefinitelyTyped'
     steps:
-      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           # Use a deploy key so that CI triggers on pushes; we want to know if formatting broke something.
           ssh-key: ${{ secrets.DEPLOY_KEY }}
@@ -24,7 +24,7 @@ jobs:
         id: date
         run: echo "date=$(/bin/date -u "+%Y-%m-%d")" >> $GITHUB_OUTPUT
 
-      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+      - uses: actions/cache@cdf6c1fa76f9f475f3d7449005a359c84ca0f306 # v5.0.3
         with:
           # dprint caches info about the files in the repo to skip formatting them.
           # However, since package.json and .dprint.jsonc don't change very often,
@@ -40,7 +40,7 @@ jobs:
 
       - run: pnpm dprint fmt
 
-      - uses: stefanzweifel/git-auto-commit-action@28e16e81777b558cc906c8750092100bbb34c5e3 # v7.0.0
+      - uses: stefanzweifel/git-auto-commit-action@04702edda442b2e678b25b537cec683a1493fcb9 # v7.1.0
         with:
           commit_author: 'TypeScript Bot <typescriptbot@microsoft.com>'
           commit_message: '🤖 dprint fmt'

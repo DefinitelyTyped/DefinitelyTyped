@@ -8,11 +8,10 @@
  * concurrent modifications on the same file or data corruption may occur.
  * @since v10.0.0
  */
-declare module "fs/promises" {
+declare module "node:fs/promises" {
     import { NonSharedBuffer } from "node:buffer";
     import { Abortable } from "node:events";
-    import { Stream } from "node:stream";
-    import { ReadableStream } from "node:stream/web";
+    import { Interface as ReadlineInterface } from "node:readline";
     import {
         BigIntStats,
         BigIntStatsFs,
@@ -21,7 +20,6 @@ declare module "fs/promises" {
         CopyOptions,
         Dir,
         Dirent,
-        DisposableTempDir,
         EncodingOption,
         GlobOptions,
         GlobOptionsWithFileTypes,
@@ -37,7 +35,6 @@ declare module "fs/promises" {
         ReadPosition,
         ReadStream,
         ReadVResult,
-        RmDirOptions,
         RmOptions,
         StatFsOptions,
         StatOptions,
@@ -49,7 +46,8 @@ declare module "fs/promises" {
         WriteStream,
         WriteVResult,
     } from "node:fs";
-    import { Interface as ReadlineInterface } from "node:readline";
+    import { Stream } from "node:stream";
+    import { ReadableStream } from "node:stream/web";
     interface FileChangeInfo<T extends string | Buffer> {
         eventType: WatchEventType;
         filename: T | null;
@@ -602,7 +600,7 @@ declare module "fs/promises" {
      * @since v10.0.0
      * @return Fulfills with `undefined` upon success.
      */
-    function rmdir(path: PathLike, options?: RmDirOptions): Promise<void>;
+    function rmdir(path: PathLike): Promise<void>;
     /**
      * Removes files and directories (modeled on the standard POSIX `rm` utility).
      * @since v14.14.0
@@ -981,6 +979,20 @@ declare module "fs/promises" {
         prefix: string,
         options?: ObjectEncodingOptions | BufferEncoding | null,
     ): Promise<string | NonSharedBuffer>;
+    interface DisposableTempDir extends AsyncDisposable {
+        /**
+         * The path of the created directory.
+         */
+        path: string;
+        /**
+         * A function which removes the created directory.
+         */
+        remove(): Promise<void>;
+        /**
+         * The same as `remove`.
+         */
+        [Symbol.asyncDispose](): Promise<void>;
+    }
     /**
      * The resulting Promise holds an async-disposable object whose `path` property
      * holds the created directory path. When the object is disposed, the directory
@@ -1312,6 +1324,6 @@ declare module "fs/promises" {
         options: GlobOptions,
     ): NodeJS.AsyncIterator<Dirent | string>;
 }
-declare module "node:fs/promises" {
-    export * from "fs/promises";
+declare module "fs/promises" {
+    export * from "node:fs/promises";
 }

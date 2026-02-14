@@ -30,6 +30,8 @@ export {};
 declare const UNDEFINED_VOID_ONLY: unique symbol;
 type VoidOrUndefinedOnly = void | { [UNDEFINED_VOID_ONLY]: never };
 
+type NativeSubmitEvent = SubmitEvent;
+
 declare module "." {
     export function unstable_useCacheRefresh(): () => void;
 
@@ -71,19 +73,19 @@ declare module "." {
         /**
          * The `<ViewTransition>` or its parent Component is mounted and there's no other `<ViewTransition>` with the same name being deleted.
          */
-        onEnter?: (instance: ViewTransitionInstance, types: Array<string>) => void;
+        onEnter?: (instance: ViewTransitionInstance, types: Array<string>) => void | (() => void);
         /**
          * The `<ViewTransition>` or its parent Component is unmounted and there's no other `<ViewTransition>` with the same name being deleted.
          */
-        onExit?: (instance: ViewTransitionInstance, types: Array<string>) => void;
+        onExit?: (instance: ViewTransitionInstance, types: Array<string>) => void | (() => void);
         /**
          * This `<ViewTransition>` is being mounted and another `<ViewTransition>` instance with the same name is being unmounted elsewhere.
          */
-        onShare?: (instance: ViewTransitionInstance, types: Array<string>) => void;
+        onShare?: (instance: ViewTransitionInstance, types: Array<string>) => void | (() => void);
         /**
          * The content of `<ViewTransition>` has changed either due to DOM mutations or because an inner child `<ViewTransition>` has resized.
          */
-        onUpdate?: (instance: ViewTransitionInstance, types: Array<string>) => void;
+        onUpdate?: (instance: ViewTransitionInstance, types: Array<string>) => void | (() => void);
         ref?: Ref<ViewTransitionInstance> | undefined;
         /**
          * Combined with {@link className} if this `<ViewTransition>` is being mounted and another instance with the same name is being unmounted elsewhere.
@@ -116,5 +118,12 @@ declare module "." {
 
     export interface FragmentProps {
         ref?: Ref<FragmentInstance> | undefined;
+    }
+
+    interface SubmitEvent<T = Element> extends SyntheticEvent<T, NativeSubmitEvent> {
+        /**
+         * Only available in react@canary
+         */
+        submitter: HTMLElement | null;
     }
 }

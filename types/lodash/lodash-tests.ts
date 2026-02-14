@@ -760,7 +760,7 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     // $ExpectType AbcObject[]
     _.intersectionWith(...[list, list], (a, b) => {
         a; // $ExpectType AbcObject
-        b; // $ExpectType never || AbcObject
+        b; // $ExpectType AbcObject
         return true;
     });
 
@@ -4419,7 +4419,7 @@ fp.now(); // $ExpectType number
 
     {
         class CustomError extends Error {
-            custom: string;
+            custom!: string;
         }
 
         const value: number | CustomError = anything;

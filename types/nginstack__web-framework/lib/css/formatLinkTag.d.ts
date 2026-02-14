@@ -1,5 +1,10 @@
 export = formatLinkTag;
-declare function formatLinkTag(file: DBKey | string | number): string;
+declare function formatLinkTag(
+    file: DBKey | string | number,
+    options?: {
+        attributes?: string;
+    },
+): string;
 declare namespace formatLinkTag {
     export { DBKey };
 }

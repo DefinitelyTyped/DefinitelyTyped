@@ -7,7 +7,7 @@
     ],
     "dependencies": {
         "@types/jsdom": "*",
-        "@types/pdfmake": "*"
+        "@types/pdfmake": "^0.2.0"
     },
     "devDependencies": {
         "@types/html-to-pdfmake": "workspace:."

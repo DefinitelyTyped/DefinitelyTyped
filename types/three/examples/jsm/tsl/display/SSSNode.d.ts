@@ -11,6 +11,8 @@ declare class SSSNode extends TempNode {
     useTemporalFiltering: boolean;
 
     constructor(depthNode: TextureNode, camera: Camera, mainLight: DirectionalLight);
+
+    getTextureNode(): TextureNode;
 }
 
 export default SSSNode;

@@ -670,6 +670,68 @@ async function test() {
         response.url();
     });
 
+    // $ExpectType void
+    page.on("requestfailed", request => {
+        // $ExpectType Promise<Record<string, string>>
+        request.allHeaders();
+        // $ExpectType Frame
+        request.frame();
+        // $ExpectType Record<string, string>
+        request.headers();
+        // $ExpectType Promise<{ name: string; value: string; }[]>
+        request.headersArray();
+        // $ExpectType Promise<string | null>
+        request.headerValue("content-type");
+        // $ExpectType boolean
+        request.isNavigationRequest();
+        // $ExpectType string
+        request.method();
+        // $ExpectType string | null
+        request.postData();
+        // $ExpectType ArrayBuffer | null
+        request.postDataBuffer();
+        // $ExpectType ResourceType
+        request.resourceType();
+        // $ExpectType Promise<Response | null>
+        request.response();
+        // $ExpectType Promise<{ body: number; headers: number; }>
+        request.size();
+        // $ExpectType ResourceTiming
+        request.timing();
+        // $ExpectType RequestFailure | null
+        request.failure();
+    });
+
+    // $ExpectType void
+    page.on("requestfinished", request => {
+        // $ExpectType Promise<Record<string, string>>
+        request.allHeaders();
+        // $ExpectType Frame
+        request.frame();
+        // $ExpectType Record<string, string>
+        request.headers();
+        // $ExpectType Promise<{ name: string; value: string; }[]>
+        request.headersArray();
+        // $ExpectType Promise<string | null>
+        request.headerValue("content-type");
+        // $ExpectType boolean
+        request.isNavigationRequest();
+        // $ExpectType string
+        request.method();
+        // $ExpectType string | null
+        request.postData();
+        // $ExpectType ArrayBuffer | null
+        request.postDataBuffer();
+        // $ExpectType ResourceType
+        request.resourceType();
+        // $ExpectType Promise<Response | null>
+        request.response();
+        // $ExpectType Promise<{ body: number; headers: number; }>
+        request.size();
+        // $ExpectType ResourceTiming
+        request.timing();
+    });
+
     // $ExpectType Promise<Page | null>
     page.opener();
 
@@ -781,6 +843,24 @@ async function test() {
     page.reload({ timeout: 10000 });
     // $ExpectType Promise<Response | null>
     page.reload({ waitUntil: "domcontentloaded" });
+
+    // $ExpectType Promise<Response | null>
+    page.goBack();
+    // $ExpectType Promise<Response | null>
+    page.goBack({ timeout: 10000 });
+    // $ExpectType Promise<Response | null>
+    page.goBack({ waitUntil: "domcontentloaded" });
+    // $ExpectType Promise<Response | null>
+    page.goBack({ timeout: 10000, waitUntil: "load" });
+
+    // $ExpectType Promise<Response | null>
+    page.goForward();
+    // $ExpectType Promise<Response | null>
+    page.goForward({ timeout: 10000 });
+    // $ExpectType Promise<Response | null>
+    page.goForward({ waitUntil: "domcontentloaded" });
+    // $ExpectType Promise<Response | null>
+    page.goForward({ timeout: 10000, waitUntil: "load" });
 
     // $ExpectType Promise<ArrayBuffer>
     page.screenshot();
@@ -1053,6 +1133,31 @@ async function test() {
     page.waitForRequest(/.*\/api\/pizza$/);
     // $ExpectType Promise<Request | null>
     page.waitForRequest("https://example.com", { timeout: 10000 });
+
+    // @ts-expect-error
+    page.waitForEvent();
+    // $ExpectType Promise<ConsoleMessage>
+    page.waitForEvent("console");
+    // $ExpectType Promise<ConsoleMessage>
+    page.waitForEvent("console", (msg) => msg.text().includes("hello"));
+    // $ExpectType Promise<ConsoleMessage>
+    page.waitForEvent("console", { predicate: (msg) => msg.text().includes("hello") });
+    // $ExpectType Promise<ConsoleMessage>
+    page.waitForEvent("console", { timeout: 10000 });
+    // $ExpectType Promise<ConsoleMessage>
+    page.waitForEvent("console", { predicate: (msg) => msg.text().includes("hello"), timeout: 10000 });
+    // $ExpectType Promise<Request>
+    page.waitForEvent("request");
+    // $ExpectType Promise<Request>
+    page.waitForEvent("request", (req) => req.url().includes("/api"));
+    // $ExpectType Promise<Request>
+    page.waitForEvent("request", { predicate: (req) => req.url().includes("/api"), timeout: 10000 });
+    // $ExpectType Promise<Response>
+    page.waitForEvent("response");
+    // $ExpectType Promise<Response>
+    page.waitForEvent("response", (res) => res.url().includes("/api"));
+    // $ExpectType Promise<Response>
+    page.waitForEvent("response", { predicate: (res) => res.url().includes("/api"), timeout: 10000 });
 
     // @ts-expect-error
     page.waitForSelector();
@@ -1433,6 +1538,19 @@ async function test() {
     locator.setChecked(true, { trial: true });
     // $ExpectType Promise<void>
     locator.setChecked(true, { position: { x: 0, y: 0 } });
+
+    // @ts-expect-error
+    locator.pressSequentially();
+    // @ts-expect-error
+    locator.pressSequentially({ timeout: 10000 });
+    // $ExpectType Promise<void>
+    locator.pressSequentially("text");
+    // $ExpectType Promise<void>
+    locator.pressSequentially("text", { delay: 100 });
+    // $ExpectType Promise<void>
+    locator.pressSequentially("text", { noWaitAfter: true });
+    // $ExpectType Promise<void>
+    locator.pressSequentially("text", { timeout: 10000 });
 
     // @ts-expect-error
     locator.type();

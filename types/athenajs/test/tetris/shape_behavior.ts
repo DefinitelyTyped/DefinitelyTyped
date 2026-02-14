@@ -13,10 +13,10 @@ class ShapeBehavior extends Behavior {
     ts: number;
     LONG_DELAY: number;
     SMALL_DELAY: number;
-    delay: number;
-    key: number;
-    timerEnabled: boolean;
-    startTime: number;
+    delay!: number;
+    key!: number;
+    timerEnabled!: boolean;
+    startTime!: number;
 
     constructor(sprite: Shape, options?: any) {
         super(sprite as Drawable, options);

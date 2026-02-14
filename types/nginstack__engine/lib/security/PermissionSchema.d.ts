@@ -6,6 +6,7 @@ declare class PermissionSchema {
     private declaredFieldsByClass_;
     private databaseFieldNames_;
     private classDefManager_;
+    private mimeTypesWithPermissionControl_;
     private NON_PERMISSION_FIELDS_;
     private logger_;
     private tableCacheForGetFieldValue_;
@@ -47,7 +48,7 @@ declare class PermissionSchema {
     ): any;
     getFieldsForFile(
         fileKey: number,
-        opt_options?:
+        options?:
             | {
                   includeNonDatabaseFields: boolean;
               }

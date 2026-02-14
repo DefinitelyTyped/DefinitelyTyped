@@ -15,9 +15,9 @@ const scaleAnimation = new ScaleAnimation();
 const fadeAnimation = new FadeAnimation({ animationDuration: 150 });
 
 class Test extends React.Component<any> {
-    fadingPopupDialog: Dialog | null;
-    scalingPopupDialog: Dialog | null;
-    slidingPopupDialog: Dialog | null;
+    fadingPopupDialog!: Dialog | null;
+    scalingPopupDialog!: Dialog | null;
+    slidingPopupDialog!: Dialog | null;
 
     showPopupDialog(popupDialog: Dialog | null) {
         if (popupDialog !== null) {

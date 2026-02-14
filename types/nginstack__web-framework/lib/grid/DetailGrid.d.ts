@@ -15,7 +15,7 @@ declare class DetailGrid {
     onMasterCancel: Event;
     onMasterDelete: Event;
     private prepare;
-    protected sync_(...args: any[]): void;
+    protected sync_(...args: any[]): any;
     config(): void;
     title: any;
     readOnly: boolean;
@@ -34,6 +34,7 @@ declare class DetailGrid {
     notifyMasterDelete(): void;
     private notifyingMasterScroll_;
     notifyMasterScroll(): void;
+    syncError_: any;
     fDs: any;
     insert(): void;
     del(handleDetailGrid: any): void;

@@ -1,5 +1,9 @@
 /// <reference types="node" />
 
+import { Minipass } from "minipass";
+import * as fs from "node:fs";
+import { EventEmitter } from "node:stream";
+
 export interface CacheObject {
     /** Subresource Integrity hash for the content this entry refers to. */
     integrity: string;
@@ -36,6 +40,7 @@ export namespace get {
             options: any[];
             source: string;
         };
+        stat: fs.Stats;
     }
 
     interface Options {
@@ -74,16 +79,31 @@ export namespace get {
         size?: number | undefined;
     }
 
+    type InfoOptions = Pick<Options, "memoize">;
+
+    interface GetStreamEvents extends Minipass.Events<Buffer> {
+        // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
+        integrity: [integrity: string];
+
+        // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
+        size: [size: number];
+
+        // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
+        metadata: [metadata: any];
+    }
+
+    type CopyResultObject = Pick<CacheObject, "metadata" | "integrity" | "size">;
+
     namespace copy {
         function byDigest(cachePath: string, hash: string, dest: string, opts?: Options): Promise<string>;
     }
 
     namespace stream {
-        function byDigest(cachePath: string, hash: string, opts?: Options): NodeJS.ReadableStream;
+        function byDigest(cachePath: string, hash: string, opts?: Options): Minipass<Buffer, never>;
     }
 
-    function byDigest(cachePath: string, hash: string, opts?: Options): Promise<string>;
-    function copy(cachePath: string, key: string, dest: string, opts?: Options): Promise<CacheObject>;
+    function byDigest(cachePath: string, hash: string, opts?: Options): Promise<Buffer>;
+    function copy(cachePath: string, key: string, dest: string, opts?: Options): Promise<CopyResultObject>;
 
     /**
      * Looks up a Subresource Integrity hash in the cache. If content exists
@@ -98,7 +118,7 @@ export namespace get {
      * Looks up `key` in the cache index, returning information about the entry
      * if one exists.
      */
-    function info(cachePath: string, key: string): Promise<CacheObject>;
+    function info(cachePath: string, key: string, opts?: InfoOptions): Promise<CacheObject | null>;
 
     /**
      * Returns a Readable Stream of the cached data identified by `key`.
@@ -114,7 +134,7 @@ export namespace get {
      * entirely. This version does not emit the `metadata` and `integrity`
      * events at all.
      */
-    function stream(cachePath: string, key: string, opts?: Options): NodeJS.ReadableStream;
+    function stream(cachePath: string, key: string, opts?: Options): Minipass<Buffer, never, GetStreamEvents>;
 }
 
 export namespace ls {
@@ -127,10 +147,21 @@ export namespace ls {
      * This works just like `ls`, except `get.info` entries are returned as
      * `'data'` events on the returned stream.
      */
-    function stream(cachePath: string): NodeJS.ReadableStream;
+    function stream(cachePath: string): Minipass<Cache, never>;
 }
 
 export namespace put {
+    interface IntegrityEmitterEvents {
+        // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
+        integrity: [integrity: string];
+
+        // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
+        size: [size: number];
+
+        // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
+        error: [err: unknown];
+    }
+
     interface Options {
         /**
          * Default: `['sha512']`
@@ -144,7 +175,8 @@ export namespace put {
          * Currently only supports one algorithm at a time (i.e., an array
          * length of exactly `1`). Has no effect if `opts.integrity` is present.
          */
-        algorithms?: string[] | undefined;
+        // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
+        algorithms?: [string] | undefined;
 
         /**
          * If present, the pre-calculated digest for the inserted content. If
@@ -189,6 +221,31 @@ export namespace put {
          * Prefix to append on the temporary directory name inside the cache's tmp dir.
          */
         tmpPrefix?: null | string | undefined;
+
+        /**
+         * Default: `undefined`
+         *
+         * (Streaming only) If present, uses the provided event emitter as a
+         * source of truth for both integrity and size. This allows use cases
+         * where integrity is already being calculated outside of cacache to
+         * reuse that data instead of calculating it a second time.
+         *
+         * The emitter must emit both the 'integrity' and 'size' events.
+         *
+         * NOTE: If this option is provided, you must verify that you receive
+         * the correct integrity value yourself and emit an 'error' event if
+         * there is a mismatch. ssri Integrity Streams do this for you when
+         * given an expected integrity.
+         */
+        integrityEmitter?: EventEmitter<IntegrityEmitterEvents> | undefined;
+    }
+
+    interface PutStreamEvents extends Minipass.Events<never> {
+        // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
+        integrity: [integrity: string];
+
+        // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
+        size: [size: number];
     }
 
     /**
@@ -196,7 +253,11 @@ export namespace put {
      * Emits an `integrity` event with the digest of written contents when it
      * succeeds.
      */
-    function stream(cachePath: string, key: string, opts?: Options): NodeJS.WritableStream;
+    function stream(
+        cachePath: string,
+        key: string,
+        opts?: Options,
+    ): Minipass<never, Minipass.ContiguousData, PutStreamEvents>;
 }
 
 export namespace rm {

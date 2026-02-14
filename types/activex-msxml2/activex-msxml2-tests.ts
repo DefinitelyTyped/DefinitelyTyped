@@ -23,7 +23,7 @@ const MakeDOM = () => {
         dom.validateOnParse = false;
         dom.resolveExternals = false;
         return dom;
-    } catch (e) {
+    } catch (e: any) {
         WScript.Echo(e.description);
     }
 };
@@ -33,7 +33,7 @@ const LoadDOM = (file: string) => {
         const dom = MakeDOM()!;
         dom.load(file);
         return dom;
-    } catch (e) {
+    } catch (e: any) {
         WScript.Echo(e.description);
     }
 };
@@ -171,7 +171,7 @@ const LoadDOM = (file: string) => {
             if (nextNode == null) continue;
             WScript.Echo(`Node (${i}), <${oNode.nodeName} + ">:\n\t${oNode.xml}`);
         }
-    } catch (e) {
+    } catch (e: any) {
         WScript.Echo(e.description);
     }
 }

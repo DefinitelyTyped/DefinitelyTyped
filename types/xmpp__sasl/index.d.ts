@@ -1,34 +1,38 @@
 import { Entity } from "@xmpp/middleware";
-import streamFeatures = require("@xmpp/stream-features");
+import streamFeatures, { StreamFeatures } from "@xmpp/stream-features";
+import { Element } from "@xmpp/xml";
 import SASLFactory = require("saslmechanisms");
 
-export = sasl;
+export default sasl;
 
 // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 declare function sasl<TEntity extends Entity>(
     {
         streamFeatures,
     }: {
-        streamFeatures: streamFeatures.StreamFeatures<TEntity>;
+        streamFeatures: StreamFeatures<TEntity>;
+        saslFactory: SASLFactory;
     },
-    credentials: sasl.Credentials,
-): sasl.SASL;
+    credentials: Credentials<TEntity>,
+): SASL;
 
-declare namespace sasl {
-    type Credentials = Partial<CredentialsObj> | CredentialsFactory;
+export type Credentials<TEntity extends Entity> = Partial<CredentialsObj> | CredentialsFactory<TEntity>;
 
-    interface CredentialsObj {
-        username: string;
-        password: string;
-    }
-
-    type CredentialsFactory = (
-        callback: (credentials: CredentialsObj) => Promise<void>,
-        mechanism: string,
-    ) => Promise<void>;
-
-    interface SASL {
-        use(name: string, mechanism: SASLFactory.MechanismStatic): SASLFactory;
-        use(mechanism: SASLFactory.MechanismStatic): SASLFactory;
-    }
+export interface CredentialsObj {
+    username: string;
+    password: string;
 }
+
+export type CredentialsFactory<TEntity extends Entity> = (
+    callback: (credentials: CredentialsObj) => Promise<void>,
+    mechanisms: string[],
+    fast: null,
+    entity: TEntity,
+) => Promise<void>;
+
+export interface SASL {
+    use(name: string, mechanism: SASLFactory.MechanismStatic): SASLFactory;
+    use(mechanism: SASLFactory.MechanismStatic): SASLFactory;
+}
+
+export function getAvailableMechanisms(element: Element, NS: string, saslFactory: SASLFactory): string[];

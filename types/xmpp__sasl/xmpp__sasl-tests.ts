@@ -1,23 +1,16 @@
-import Connection = require("@xmpp/connection");
-import XMPPError = require("@xmpp/error");
-import middleware = require("@xmpp/middleware");
-import sasl = require("@xmpp/sasl");
-import SASLError = require("@xmpp/sasl/lib/SASLError");
-import streamFeatures = require("@xmpp/stream-features");
+import Connection from "@xmpp/connection";
+import XMPPError from "@xmpp/error";
+import middleware, { Entity } from "@xmpp/middleware";
+import sasl from "@xmpp/sasl";
+import SASLError from "@xmpp/sasl/lib/SASLError.js";
+import streamFeatures from "@xmpp/stream-features";
 import { Element } from "@xmpp/xml";
-import SASLFactory = require("saslmechanisms");
-import SASLAnonymous = require("sasl-anonymous");
-import SASLPlain = require("sasl-plain");
-import SASLScramSha1 = require("sasl-scram-sha-1");
+import SASLAnonymous from "sasl-anonymous";
+import SASLPlain from "sasl-plain";
+import SASLScramSha1 from "sasl-scram-sha-1";
+import SASLFactory from "saslmechanisms";
 
-// test type exports
-type Credentials = sasl.Credentials;
-type CredentialsObj = sasl.CredentialsObj;
-type CredentialsFactory = sasl.CredentialsFactory;
-type SASL = sasl.SASL;
-type Err = SASLError;
-
-class Foo extends Connection implements middleware.Entity {
+class Foo extends Connection implements Entity {
     domain?: string;
     hookOutgoing?: (stanza: Element) => Promise<void>;
 
@@ -33,13 +26,15 @@ class Foo extends Connection implements middleware.Entity {
 const mw = middleware({ entity: new Foo({ service: "foo", domain: "foo.bar" }) });
 const sf = streamFeatures({ middleware: mw });
 
-const saslMw = sasl({ streamFeatures: sf }, {}); // $ExpectType SASL
-sasl({ streamFeatures: sf }, { username: "foo" }); // $ExpectType SASL
-sasl({ streamFeatures: sf }, { password: "foo" }); // $ExpectType SASL
+const saslFactory = new SASLFactory();
+
+const saslMw = sasl({ streamFeatures: sf, saslFactory }, {}); // $ExpectType SASL
+sasl({ streamFeatures: sf, saslFactory }, { username: "foo" }); // $ExpectType SASL
+sasl({ streamFeatures: sf, saslFactory }, { password: "foo" }); // $ExpectType SASL
 // $ExpectType SASL
-sasl({ streamFeatures: sf }, async (cb, mech) => {
+sasl({ streamFeatures: sf, saslFactory }, async (cb, mech) => {
     cb; // $ExpectType (credentials: CredentialsObj) => Promise<void>
-    mech; // $ExpectType string
+    mech; // $ExpectType string[]
 
     await cb({ username: "foo", password: "bar" });
 });

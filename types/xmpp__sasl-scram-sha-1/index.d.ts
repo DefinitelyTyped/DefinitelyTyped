@@ -1,5 +1,5 @@
 import { SASL } from "@xmpp/sasl";
 
-export = saslScramSha1;
+export default saslScramSha1;
 
 declare function saslScramSha1(sasl: SASL): void;

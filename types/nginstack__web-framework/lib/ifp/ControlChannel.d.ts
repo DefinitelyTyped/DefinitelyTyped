@@ -16,6 +16,7 @@ declare class ControlChannel {
     requestScreenLock(): void;
     isScreenLockPending(): boolean;
     unlockSessionByNavigator(userName: string, password: string, newPassword?: string): string;
+    unlockSessionByNavigatorWithToken(userName: any, idToken: any): string;
     isScreenLocked(): boolean;
     getScreenLockedAt(): number;
     getScreenUnlockedAt(): number;

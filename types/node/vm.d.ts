@@ -34,9 +34,9 @@
  *
  * console.log(x); // 1; y is not defined.
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/vm.js)
+ * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/vm.js)
  */
-declare module "vm" {
+declare module "node:vm" {
     import { NonSharedBuffer } from "node:buffer";
     import { ImportAttributes, ImportPhase } from "node:module";
     interface Context extends NodeJS.Dict<any> {}
@@ -73,7 +73,7 @@ declare module "vm" {
         /**
          * Used to specify how the modules should be loaded during the evaluation of this script when `import()` is called. This option is
          * part of the experimental modules API. We do not recommend using it in a production environment. For detailed information, see
-         * [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v24.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
+         * [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v25.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
          * @experimental
          */
         importModuleDynamically?:
@@ -119,7 +119,7 @@ declare module "vm" {
         /**
          * Used to specify how the modules should be loaded during the evaluation of this script when `import()` is called. This option is
          * part of the experimental modules API. We do not recommend using it in a production environment. For detailed information, see
-         * [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v24.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
+         * [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v25.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
          * @experimental
          */
         importModuleDynamically?:
@@ -133,7 +133,7 @@ declare module "vm" {
         /**
          * Used to specify how the modules should be loaded during the evaluation of this script when `import()` is called. This option is
          * part of the experimental modules API. We do not recommend using it in a production environment. For detailed information, see
-         * [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v24.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
+         * [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v25.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
          * @experimental
          */
         importModuleDynamically?:
@@ -153,7 +153,7 @@ declare module "vm" {
         /**
          * Used to specify how the modules should be loaded during the evaluation of this script when `import()` is called. This option is
          * part of the experimental modules API. We do not recommend using it in a production environment. For detailed information, see
-         * [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v24.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
+         * [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v25.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
          * @experimental
          */
         importModuleDynamically?:
@@ -197,7 +197,7 @@ declare module "vm" {
         /**
          * Used to specify how the modules should be loaded during the evaluation of this script when `import()` is called. This option is
          * part of the experimental modules API. We do not recommend using it in a production environment. For detailed information, see
-         * [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v24.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
+         * [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v25.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
          * @experimental
          */
         importModuleDynamically?:
@@ -400,9 +400,9 @@ declare module "vm" {
     }
     /**
      * If the given `contextObject` is an object, the `vm.createContext()` method will
-     * [prepare that object](https://nodejs.org/docs/latest-v24.x/api/vm.html#what-does-it-mean-to-contextify-an-object)
+     * [prepare that object](https://nodejs.org/docs/latest-v25.x/api/vm.html#what-does-it-mean-to-contextify-an-object)
      * and return a reference to it so that it can be used in calls to {@link runInContext} or
-     * [`script.runInContext()`](https://nodejs.org/docs/latest-v24.x/api/vm.html#scriptrunincontextcontextifiedobject-options).
+     * [`script.runInContext()`](https://nodejs.org/docs/latest-v25.x/api/vm.html#scriptrunincontextcontextifiedobject-options).
      * Inside such scripts, the global object will be wrapped by the `contextObject`, retaining all of its
      * existing properties but also having the built-in objects and functions any standard
      * [global object](https://es5.github.io/#x15.1) has. Outside of scripts run by the vm module, global
@@ -749,7 +749,7 @@ declare module "vm" {
      *         // "contextifiedObject" when creating the context.
      *         export default secret;
      *       `, { context: referencingModule.context });
-     *       moduleMap.set(specifier, linkedModule);
+     *       moduleMap.set(specifier, requestedModule);
      *       // Resolve the dependencies of the new module as well.
      *       resolveAndLinkDependencies(requestedModule);
      *     }
@@ -819,19 +819,47 @@ declare module "vm" {
          */
         status: ModuleStatus;
         /**
-         * Evaluate the module.
+         * Evaluate the module and its depenendencies. Corresponds to the [Evaluate() concrete method](https://tc39.es/ecma262/#sec-moduleevaluation) field of
+         * [Cyclic Module Record](https://tc39.es/ecma262/#sec-cyclic-module-records)s in the ECMAScript specification.
          *
-         * This must be called after the module has been linked; otherwise it will reject.
-         * It could be called also when the module has already been evaluated, in which
-         * case it will either do nothing if the initial evaluation ended in success
-         * (`module.status` is `'evaluated'`) or it will re-throw the exception that the
-         * initial evaluation resulted in (`module.status` is `'errored'`).
+         * If the module is a `vm.SourceTextModule`, `evaluate()` must be called after the module has been instantiated;
+         * otherwise `evaluate()` will return a rejected promise.
          *
-         * This method cannot be called while the module is being evaluated
-         * (`module.status` is `'evaluating'`).
+         * For a `vm.SourceTextModule`, the promise returned by `evaluate()` may be fulfilled either
+         * synchronously or asynchronously:
          *
-         * Corresponds to the [Evaluate() concrete method](https://tc39.es/ecma262/#sec-moduleevaluation) field of [Cyclic Module Record](https://tc39.es/ecma262/#sec-cyclic-module-records) s in the
-         * ECMAScript specification.
+         * 1. If the `vm.SourceTextModule` has no top-level `await` in itself or any of its dependencies, the promise will be
+         *    fulfilled _synchronously_ after the module and all its dependencies have been evaluated.
+         *    1. If the evaluation succeeds, the promise will be _synchronously_ resolved to `undefined`.
+         *    2. If the evaluation results in an exception, the promise will be _synchronously_ rejected with the exception
+         *       that causes the evaluation to fail, which is the same as `module.error`.
+         * 2. If the `vm.SourceTextModule` has top-level `await` in itself or any of its dependencies, the promise will be
+         *    fulfilled _asynchronously_ after the module and all its dependencies have been evaluated.
+         *    1. If the evaluation succeeds, the promise will be _asynchronously_ resolved to `undefined`.
+         *    2. If the evaluation results in an exception, the promise will be _asynchronously_ rejected with the exception
+         *       that causes the evaluation to fail.
+         *
+         * If the module is a `vm.SyntheticModule`, `evaluate()` always returns a promise that fulfills synchronously, see
+         * the specification of [Evaluate() of a Synthetic Module Record](https://tc39.es/ecma262/#sec-smr-Evaluate):
+         *
+         * 1. If the `evaluateCallback` passed to its constructor throws an exception synchronously, `evaluate()` returns
+         *    a promise that will be synchronously rejected with that exception.
+         * 2. If the `evaluateCallback` does not throw an exception, `evaluate()` returns a promise that will be
+         *    synchronously resolved to `undefined`.
+         *
+         * The `evaluateCallback` of a `vm.SyntheticModule` is executed synchronously within the `evaluate()` call, and its
+         * return value is discarded. This means if `evaluateCallback` is an asynchronous function, the promise returned by
+         * `evaluate()` will not reflect its asynchronous behavior, and any rejections from an asynchronous
+         * `evaluateCallback` will be lost.
+         *
+         * `evaluate()` could also be called again after the module has already been evaluated, in which case:
+         *
+         * 1. If the initial evaluation ended in success (`module.status` is `'evaluated'`), it will do nothing
+         *    and return a promise that resolves to `undefined`.
+         * 2. If the initial evaluation resulted in an exception (`module.status` is `'errored'`), it will re-reject
+         *    the exception that the initial evaluation resulted in.
+         *
+         * This method cannot be called while the module is being evaluated (`module.status` is `'evaluating'`).
          * @return Fulfills with `undefined` upon success.
          */
         evaluate(options?: ModuleEvaluateOptions): Promise<void>;
@@ -887,7 +915,7 @@ declare module "vm" {
         /**
          * Used to specify how the modules should be loaded during the evaluation of this script when `import()` is called. This option is
          * part of the experimental modules API. We do not recommend using it in a production environment. For detailed information, see
-         * [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v24.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
+         * [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v25.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
          * @experimental
          */
         importModuleDynamically?: DynamicModuleLoader<SourceTextModule> | undefined;
@@ -1156,7 +1184,7 @@ declare module "vm" {
          * and `vm.compileFunction()` so that Node.js uses the default ESM loader from the main
          * context to load the requested module.
          *
-         * For detailed information, see [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v24.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
+         * For detailed information, see [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v25.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
          * @since v21.7.0, v20.12.0
          */
         const USE_MAIN_CONTEXT_DEFAULT_LOADER: number;
@@ -1175,6 +1203,6 @@ declare module "vm" {
         const DONT_CONTEXTIFY: number;
     }
 }
-declare module "node:vm" {
-    export * from "vm";
+declare module "vm" {
+    export * from "node:vm";
 }

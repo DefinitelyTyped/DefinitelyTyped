@@ -3232,6 +3232,29 @@ export interface Locator {
     press(key: string, options?: KeyboardPressOptions): Promise<void>;
 
     /**
+     * Focuses the element and then sends a `keydown`, `keypress`/`input`, and
+     * `keyup` event for each character in the text.
+     *
+     * This method is useful for simulating real user typing behavior when the page
+     * has special keyboard event handling, such as input validation or autocomplete.
+     * For simple text input without special keyboard handling, use {@link fill | fill()}
+     * instead as it's faster and more reliable.
+     *
+     * @example
+     * ```js
+     * // Type text instantly
+     * await locator.pressSequentially('Hello World');
+     *
+     * // Type text with delay between keypresses (like a real user)
+     * await locator.pressSequentially('Hello World', { delay: 100 });
+     * ```
+     *
+     * @param text Text to type into the focused element character by character.
+     * @param options Typing options.
+     */
+    pressSequentially(text: string, options?: KeyboardPressOptions): Promise<void>;
+
+    /**
      * Type a text into the input field.
      * @param text Text to type into the input field.
      * @param options Typing options.
@@ -4869,6 +4892,39 @@ export interface Page {
     on(event: "response", listener: (response: Response) => void): void;
 
     /**
+     * Registers a handler function to listen for network requests that
+     * fail to reach the server (DNS errors, connection refused, timeouts, etc.).
+     * The handler will receive an instance of {@link Request}, which includes
+     * information about the failed request.
+     *
+     * **Usage**
+     *
+     * ```js
+     * page.on('requestfailed', request => {
+     *   const failure = request.failure();
+     *   console.log(`Request failed: ${request.url()}`);
+     *   console.log(`  Error: ${failure ? failure.errorText : 'unknown'}`);
+     * });
+     * ```
+     */
+    on(event: "requestfailed", listener: (request: Request) => void): void;
+
+    /**
+     * Registers a handler function to listen for network requests that
+     * successfully complete (receive a response). The handler will receive an
+     * instance of {@link Request}, which includes information about the request.
+     *
+     * **Usage**
+     *
+     * ```js
+     * page.on('requestfinished', request => {
+     *   console.log(`Request finished: ${request.method()} ${request.url()}`);
+     * });
+     * ```
+     */
+    on(event: "requestfinished", listener: (request: Request) => void): void;
+
+    /**
      * Returns the page that opened the current page. The first page that is
      * navigated to will have a null opener.
      */
@@ -4966,6 +5022,37 @@ export interface Page {
          */
         waitUntil?: "load" | "domcontentloaded" | "networkidle";
     }): Promise<Response | null>;
+
+    /**
+     * Goes back to the previous page in the history.
+     *
+     * @example
+     * ```js
+     * await page.goto('https://example.com');
+     * await page.goto('https://example.com/page2');
+     * await page.goBack(); // Will navigate back to the first page
+     * ```
+     *
+     * @param options Navigation options.
+     * @returns A promise that resolves to the response of the requested navigation when it happens.
+     * Returns null if there is no previous entry in the history.
+     */
+    goBack(options?: NavigationOptions): Promise<Response | null>;
+
+    /**
+     * Goes forward to the next page in the history.
+     *
+     * @example
+     * ```js
+     * await page.goBack(); // Navigate back first
+     * await page.goForward(); // Then navigate forward
+     * ```
+     *
+     * @param options Navigation options.
+     * @returns A promise that resolves to the response of the requested navigation when it happens.
+     * Returns null if there is no next entry in the history.
+     */
+    goForward(options?: NavigationOptions): Promise<Response | null>;
 
     /**
      * Adds a route to the page to modify network requests made by that page.
@@ -5694,6 +5781,120 @@ export interface Page {
     ): Promise<Request | null>;
 
     /**
+     * Waits for the specified event to be emitted.
+     *
+     * This method blocks until the event is captured or the timeout is reached.
+     * Supported event types are `console`, `request`, or `response`.
+     *
+     * @example
+     * ```js
+     * // Wait for a console message containing 'hello'
+     * const msgPromise = page.waitForEvent('console', msg => msg.text().includes('hello'));
+     * await page.evaluate(() => console.log('hello world'));
+     * const msg = await msgPromise;
+     * ```
+     *
+     * @param event Event name to wait for: `'console'`.
+     * @param optionsOrPredicate Either a predicate function or an options object.
+     */
+    waitForEvent(
+        event: "console",
+        optionsOrPredicate?:
+            | ((msg: ConsoleMessage) => boolean)
+            | {
+                /**
+                 * Predicate function that returns `true` when the expected event is received.
+                 */
+                predicate?: (msg: ConsoleMessage) => boolean;
+                /**
+                 * Maximum time to wait in milliseconds. Defaults to `30` seconds.
+                 * The default value can be changed via the
+                 * browserContext.setDefaultTimeout(timeout) or
+                 * page.setDefaultTimeout(timeout) methods.
+                 *
+                 * Setting the value to `0` will disable the timeout.
+                 */
+                timeout?: number;
+            },
+    ): Promise<ConsoleMessage>;
+
+    /**
+     * Waits for the specified event to be emitted.
+     *
+     * This method blocks until the event is captured or the timeout is reached.
+     * It can wait for any page event such as `console`, `request`, or `response`.
+     *
+     * @example
+     * ```js
+     * // Wait for a request to a specific URL
+     * const reqPromise = page.waitForEvent('request', req => req.url().includes('/api'));
+     * await page.click('button');
+     * const req = await reqPromise;
+     * ```
+     *
+     * @param event Event name to wait for: `'request'`.
+     * @param optionsOrPredicate Either a predicate function or an options object.
+     */
+    waitForEvent(
+        event: "request",
+        optionsOrPredicate?:
+            | ((req: Request) => boolean)
+            | {
+                /**
+                 * Predicate function that returns `true` when the expected event is received.
+                 */
+                predicate?: (req: Request) => boolean;
+                /**
+                 * Maximum time to wait in milliseconds. Defaults to `30` seconds.
+                 * The default value can be changed via the
+                 * browserContext.setDefaultTimeout(timeout) or
+                 * page.setDefaultTimeout(timeout) methods.
+                 *
+                 * Setting the value to `0` will disable the timeout.
+                 */
+                timeout?: number;
+            },
+    ): Promise<Request>;
+
+    /**
+     * Waits for the specified event to be emitted.
+     *
+     * This method blocks until the event is captured or the timeout is reached.
+     * It can wait for any page event such as `console`, `request`, or `response`.
+     *
+     * @example
+     * ```js
+     * // Wait for a response from a specific URL
+     * const resPromise = page.waitForEvent('response', res => res.url().includes('/api'));
+     * await page.click('button');
+     * const res = await resPromise;
+     * ```
+     *
+     * @param event Event name to wait for: `'response'`.
+     * @param optionsOrPredicate Either a predicate function or an options object.
+     */
+    waitForEvent(
+        event: "response",
+        optionsOrPredicate?:
+            | ((res: Response) => boolean)
+            | {
+                /**
+                 * Predicate function that returns `true` when the expected event is received.
+                 */
+                predicate?: (res: Response) => boolean;
+                /**
+                 * Maximum time to wait in milliseconds. Defaults to `30` seconds.
+                 * The default value can be changed via the
+                 * browserContext.setDefaultTimeout(timeout) or
+                 * page.setDefaultTimeout(timeout) methods.
+                 *
+                 * Setting the value to `0` will disable the timeout.
+                 */
+                timeout?: number;
+            },
+    ): Promise<Response>;
+
+    /**
      * **NOTE** Use web assertions that assert visibility or a locator-based
      * locator.waitFor([options]) instead.
      *
@@ -5866,6 +6067,25 @@ export interface Request {
      * @returns request URL
      */
     url(): string;
+
+    /**
+     * Returns the failure info for a failed request, or null if the request succeeded.
+     * This method returns information about network failures such as DNS errors,
+     * connection refused, timeouts, etc. It does not return information for HTTP
+     * 4xx/5xx responses, which are successful network requests.
+     * @returns The failure information or null if the request succeeded.
+     */
+    failure(): RequestFailure | null;
+}
+
+/**
+ * RequestFailure contains information about a failed request.
+ */
+export interface RequestFailure {
+    /**
+     * The error text describing why the request failed.
+     */
+    errorText: string;
 }
 
 /**

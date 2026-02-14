@@ -1132,14 +1132,14 @@ describe("Spy for generic method", () => {
 
 describe("Multiple spies, when created manually", () => {
     class Tape {
-        private rewindTo: number;
+        private rewindTo!: number;
         play(): void {}
         pause(): void {}
         rewind(pos: number): void {
             this.rewindTo = pos;
         }
         stop(): void {}
-        readonly isPlaying: boolean; // spy obj makes this writable
+        readonly isPlaying!: boolean; // spy obj makes this writable
     }
 
     var tape: Tape;
@@ -2603,6 +2603,15 @@ describe("Debug logging", function() {
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 1000;
 jasmine.MAX_PRETTY_PRINT_DEPTH = 40;
+
+jasmine.pp(true);
+jasmine.pp("string");
+jasmine.pp(42);
+jasmine.pp({ key: "value" });
+jasmine.pp([1, 2, 3]);
+jasmine.pp(new Map());
+jasmine.pp(new Set());
+jasmine.pp(() => {});
 
 (async () => {
     throwUnless(1).toEqual(2);

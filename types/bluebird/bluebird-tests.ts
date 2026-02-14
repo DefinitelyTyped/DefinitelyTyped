@@ -366,7 +366,7 @@ fooOrBarProm = fooProm.caught(Bluebird.CancellationError, (reason: any) => {
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 class CustomError extends Error {
-    customField: number;
+    customField!: number;
 }
 // $ExpectType Bluebird<void | Foo>
 fooProm.catch(CustomError, reason => {

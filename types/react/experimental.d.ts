@@ -106,8 +106,8 @@ declare module "." {
      * However, if you wrap these items in a `SuspenseList`, React will not show an item in the list
      * until previous items have been displayed (this behavior is adjustable).
      *
-     * @see https://reactjs.org/docs/concurrent-mode-reference.html#suspenselist
-     * @see https://reactjs.org/docs/concurrent-mode-patterns.html#suspenselist
+     * @see {@link https://reactjs.org/docs/concurrent-mode-reference.html#suspenselist}
+     * @see {@link https://reactjs.org/docs/concurrent-mode-patterns.html#suspenselist}
      */
     export const unstable_SuspenseList: ExoticComponent<SuspenseListProps>;
 
@@ -129,12 +129,42 @@ declare module "." {
         rangeStart?: number | undefined;
         rangeEnd?: number | undefined;
     }
+    export type GestureOptionsRequired = {
+        [P in keyof GestureOptions]-?: NonNullable<GestureOptions[P]>;
+    };
     /** */
     export function unstable_startGestureTransition(
         provider: GestureProvider,
         scope: () => void,
         options?: GestureOptions,
     ): () => void;
+
+    interface ViewTransitionProps {
+        onGestureEnter?: (
+            timeline: GestureProvider,
+            options: GestureOptionsRequired,
+            instance: ViewTransitionInstance,
+            types: Array<string>,
+        ) => void | (() => void);
+        onGestureExit?: (
+            timeline: GestureProvider,
+            options: GestureOptionsRequired,
+            instance: ViewTransitionInstance,
+            types: Array<string>,
+        ) => void | (() => void);
+        onGestureShare?: (
+            timeline: GestureProvider,
+            options: GestureOptionsRequired,
+            instance: ViewTransitionInstance,
+            types: Array<string>,
+        ) => void | (() => void);
+        onGestureUpdate?: (
+            timeline: GestureProvider,
+            options: GestureOptionsRequired,
+            instance: ViewTransitionInstance,
+            types: Array<string>,
+        ) => void | (() => void);
+    }
 
     // @enableSrcObject
     interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_IMG_SRC_TYPES {
@@ -143,5 +173,12 @@ declare module "." {
 
     interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_MEDIA_SRC_TYPES {
         srcObject: Blob | MediaSource | MediaStream;
+    }
+
+    // @enableOptimisticKey
+    export const optimisticKey: unique symbol;
+
+    interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_KEY_TYPES {
+        optimisticKey: typeof optimisticKey;
     }
 }

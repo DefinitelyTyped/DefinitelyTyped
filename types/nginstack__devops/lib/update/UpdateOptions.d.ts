@@ -24,7 +24,7 @@ declare class UpdateOptions {
     emailSubject: string;
     trackingId: string;
     validate(): void;
-    private tryLoginByAuthToken_;
+    private loginByAuthToken_;
     private authorize_;
     private formatReferrer_;
     private newDatabase_;

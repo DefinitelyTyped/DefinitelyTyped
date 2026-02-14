@@ -153,9 +153,20 @@ revwalk.fastWalk(100).then(oids => {
     }
 });
 
+const pushOptions: Git.PushOptions = {
+    callbacks: {
+        pushTransferProgress: (
+            pushedObjects, // $ExpectType number
+            totalObjects, // $ExpectType number
+            pushedBytes, // $ExpectType number
+        ) => {},
+    },
+};
+
 Git.Remote.create(repo, "test-repository", "https://github.com/test-repository/test-repository").then(remote => {
     remote.connect(Git.Enums.DIRECTION.FETCH, {});
     remote.defaultBranch(); // $ExpectType Promise<string>
+    remote.push([], pushOptions);
 });
 
 Git.Worktree.list(repo).then(list => {
@@ -220,6 +231,14 @@ const cloneOptions: Git.CloneOptions = {
     fetchOpts: {
         callbacks: {
             credentials: () => Git.Credential.sshKeyFromAgent("git"),
+            transferProgress: (progress) => {
+                progress.indexedDeltas(); // $ExpectType number
+                progress.indexedObjects(); // $ExpectType number
+                progress.localObjects(); // $ExpectType number
+                progress.receivedBytes(); // $ExpectType number
+                progress.receivedObjects(); // $ExpectType number
+                progress.totalObjects(); // $ExpectType number
+            },
         },
     },
 };

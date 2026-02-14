@@ -29,9 +29,9 @@ declare class VirtualFileSystem {
     getFileSize(key: number | DBKey): number;
     getFilePath(key: number | DBKey): string;
     formatFilePath(name: string, directory: number | DBKey): string;
-    fileExists(path: string, opt_baseDirectory?: number): number;
+    fileExists(path: string, baseDirectory?: number | DBKey): number;
     startTransaction(): void;
-    commitTransaction(): void;
+    commitTransaction(): number;
     rollbackTransaction(): void;
     setXFileAttributes(fileKey: number, attributes: any): void;
     getXFileAttributes(fileKey: number): any;

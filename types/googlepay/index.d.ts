@@ -404,6 +404,15 @@ declare namespace google.payments.api {
          * @default false
          */
         phoneNumberRequired?: false | true | undefined;
+
+        /**
+         * Shipping address format.
+         *
+         * If omitted, defaults to [[ShippingAddressFormat|`FULL`]].
+         *
+         * * @default "FULL"
+         */
+        format?: ShippingAddressFormat | undefined;
     }
 
     /**
@@ -483,6 +492,14 @@ declare namespace google.payments.api {
          * number be returned.
          */
         phoneNumber?: string | undefined;
+
+        /**
+         * The ISO 3166-2 administrative area
+         *
+         * ISO 3166-2 administrative area corresponding to administrativeArea.
+         * Only present if the shipping or billing address format is FULL-ISO3166.
+         */
+        iso3166AdministrativeArea?: string | undefined;
     }
 
     /**
@@ -516,6 +533,14 @@ declare namespace google.payments.api {
          * The locality (e.g. city or town).
          */
         locality: string;
+
+        /**
+         * The ISO 3166-2 administrative area
+         *
+         * ISO 3166-2 administrative area corresponding to administrativeArea.
+         * Only present if the shipping address format is FULL-ISO3166.
+         */
+        iso3166AdministrativeArea?: string | undefined;
     }
 
     /**
@@ -779,6 +804,21 @@ declare namespace google.payments.api {
          * @default true
          */
         allowCreditCards?: false | true | undefined;
+
+        /**
+         * Issuer country allowlist that contains ISO 3166-1 alpha-2 country codes.
+         * When this allowlist is set, users can only choose payment methods issued in the specified countries.
+         * If neither allowlist nor blocklist is set, users will be allowed to choose payment methods issued in any country.
+         */
+        allowedIssuerCountryCodes?: string[] | undefined;
+
+        /**
+         * Issuer country blocklist that contains ISO 3166-1 alpha-2 country codes.
+         * When this blocklist is set, users are restricted from choosing payment methods issued in the specified countries.
+         *
+         * Note: allowedIssuerCountryCodes and blockedIssuerCountryCodes are mutually exclusive, so only one should be set at a time.
+         */
+        blockedIssuerCountryCodes?: string[] | undefined;
 
         /**
          * Set to `true` to request assuranceDetails.
@@ -1167,6 +1207,11 @@ declare namespace google.payments.api {
          * [[CardParameters.billingAddressRequired|`CardParameters.billingAddressRequired`]].
          */
         billingAddress?: Address | undefined;
+
+        /**
+         * Card funding source for the selected payment method.
+         */
+        cardFundingSource?: CardFundingSource | undefined;
     }
 
     /**
@@ -1582,8 +1627,35 @@ declare namespace google.payments.api {
      *   Only select this format when it is required to process the order.
      *   Additional form entry or customer data requests can increase friction
      *   during the checkout process and can lead to a lower conversion rate.
+     *
+     * - `FULL-ISO3166`:
+     *   Same as `FULL` but includes [[Address.iso3166AdministrativeArea|`Address.iso3166AdministrativeArea`]]
      */
-    type BillingAddressFormat = "MIN" | "FULL";
+    type BillingAddressFormat = "MIN" | "FULL" | "FULL-ISO3166";
+
+    /**
+     * Shipping address format enum string.
+     *
+     * Options:
+     *
+     * - `FULL`:
+     *   Full shipping address
+     *
+     *   All the fields in [[Address|`Address`]] will
+     *   be returned, with the possible exception of
+     *   [[Address.phoneNumber|`Address.phoneNumber`]] which will only be
+     *   returned if
+     *   [[ShippingAddressParameters.phoneNumberRequired|`ShippingAddressParameters.phoneNumberRequired`]]
+     *   is set to `true`.
+     *
+     *   Only select this format when it is required to process the order.
+     *   Additional form entry or customer data requests can increase friction
+     *   during the checkout process and can lead to a lower conversion rate.
+     *
+     * - `FULL-ISO3166`:
+     *   Same as `FULL` but includes [[Address.iso3166AdministrativeArea|`Address.iso3166AdministrativeArea`]]
+     */
+    type ShippingAddressFormat = "FULL" | "FULL-ISO3166";
 
     /**
      * The status of the total price used.
@@ -1788,6 +1860,25 @@ declare namespace google.payments.api {
      *   to retry.
      */
     type TransactionState = "SUCCESS" | "ERROR";
+
+    /**
+     * Enum string for the card funding source of the selected payment method.
+     *
+     * Options:
+     *
+     * - `UNKNOWN`:
+     *   The funding source is unknown.
+     *
+     * - `CREDIT`:
+     *   The card is a credit card.
+     *
+     * - `DEBIT`:
+     *   The card is a debit card.
+     *
+     * - `PREPAID`:
+     *   The card is a prepaid card.
+     */
+    type CardFundingSource = "UNKNOWN" | "CREDIT" | "DEBIT" | "PREPAID";
 
     /**
      * This object allows you to configure a Google Pay payment button. For

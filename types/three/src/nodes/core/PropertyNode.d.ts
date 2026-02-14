@@ -13,6 +13,7 @@ export const property: (type?: string | null, name?: string | null) => PropertyN
 export const varyingProperty: (type?: string | null, name?: string | null) => PropertyNode;
 
 export const diffuseColor: PropertyNode;
+export const diffuseContribution: PropertyNode;
 export const emissive: PropertyNode;
 export const roughness: PropertyNode;
 export const metalness: PropertyNode;
@@ -28,6 +29,7 @@ export const anisotropy: PropertyNode;
 export const anisotropyT: PropertyNode;
 export const anisotropyB: PropertyNode;
 export const specularColor: PropertyNode;
+export const specularColorBlended: PropertyNode;
 export const specularF90: PropertyNode;
 export const shininess: PropertyNode;
 export const output: PropertyNode;

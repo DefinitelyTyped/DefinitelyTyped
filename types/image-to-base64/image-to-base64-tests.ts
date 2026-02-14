@@ -18,7 +18,7 @@ imageToBase64("https://whatever-image/") // Image URL
 (async () => {
     try {
         await imageToBase64("path/to/file.jpg"); // $ExpectType string
-    } catch (error) {
+    } catch (error: any) {
         error; // $ExpectType any
     }
 })();

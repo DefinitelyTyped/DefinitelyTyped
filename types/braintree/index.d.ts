@@ -325,7 +325,7 @@ declare namespace braintree {
     }
 
     interface SubscriptionGateway {
-        cancel(subscriptionId: string): Promise<Subscription>;
+        cancel(subscriptionId: string): Promise<ValidatedResponse<Subscription>>;
         create(request: SubscriptionCreateRequest): Promise<ValidatedResponse<Subscription>>;
         find(subscriptionId: string): Promise<Subscription>;
         retryCharge(
@@ -793,9 +793,9 @@ declare namespace braintree {
         reason: string;
         reasonCode: string;
         reasonDescription: string;
-        receivedDate: Date;
+        receivedDate: string;
         referenceNumber: string;
-        replyByDate: Date;
+        replyByDate: string;
         status: DisputeStatus;
         statusHistory: DisputeStatusHistory[];
         transaction: {
@@ -812,17 +812,17 @@ declare namespace braintree {
     export type DisputeStatus = "Accepted" | "Disputed" | "Expired" | "Open" | "Lost" | "Won";
 
     export interface DisputeStatusHistory {
-        disbursementDate: Date;
-        effectiveDate: Date;
+        disbursementDate: string;
+        effectiveDate: string;
         status: DisputeStatus;
-        timestamp: Date;
+        timestamp: string;
     }
 
     export interface Evidence {
         comment?: string | undefined;
         createdAt: string;
         id: string;
-        sendToProcessorAt: Date;
+        sendToProcessorAt: string;
         url?: string | undefined;
     }
 
@@ -838,7 +838,7 @@ declare namespace braintree {
 
         id: string;
         amount: string;
-        disbursementDate: Date;
+        disbursementDate: string;
         disbursementType: DisbursementType;
         transactionIds: string[];
         merchantAccount: DisbursementMerchantAccount;
@@ -1127,7 +1127,7 @@ declare namespace braintree {
      * Account Updater
      */
     export class AccountUpdaterDailyReport {
-        reportDate: Date;
+        reportDate: string;
         reportUrl: string;
     }
 
@@ -1142,7 +1142,7 @@ declare namespace braintree {
 
     export interface BaseWebhookNotification {
         kind: WebhookNotificationKind;
-        timestamp: Date;
+        timestamp: string;
     }
 
     export interface TransactionNotification extends BaseWebhookNotification {
@@ -1218,7 +1218,8 @@ declare namespace braintree {
         | "subscription_expired"
         | "subscription_trial_ended"
         | "subscription_went_active"
-        | "subscription_went_past_due";
+        | "subscription_went_past_due"
+        | "subscription_billing_skipped";
 
     export type SubMerchantAccountApprovedNotificationKind = "sub_merchant_account_approved";
 
@@ -1339,7 +1340,7 @@ declare namespace braintree {
         descriptor?: Descriptor | undefined;
         discounts?: Discount[] | undefined;
         failureCount?: number | undefined;
-        firstBillingDate?: Date | undefined;
+        firstBillingDate?: string | undefined;
         id: string;
         merchantAccountId: string;
         neverExpires?: boolean | undefined;
@@ -1347,7 +1348,7 @@ declare namespace braintree {
         nextBillingDate: string;
         nextBillingPeriodAmount: string;
         numberOfBillingCycles?: number | undefined;
-        paidThroughDate?: Date | undefined;
+        paidThroughDate?: string | undefined;
         paymentMethodToken: string;
         planId: string;
         price?: string | undefined;
@@ -1451,9 +1452,9 @@ declare namespace braintree {
         };
 
         static Source: {
-            Api: "Api";
-            ControlPanel: "ControlPanel";
-            Recurring: "Recurring";
+            Api: "api";
+            ControlPanel: "control_panel";
+            Recurring: "recurring";
         };
 
         static CreatedUsing: {
@@ -1540,7 +1541,7 @@ declare namespace braintree {
             }
             | undefined;
         authorizationAdjustments?: AuthorizationAdjustment[] | undefined;
-        authorizationExpiresAt?: Date | undefined;
+        authorizationExpiresAt?: string | undefined;
         avsErrorResponseCode: string;
         avsPostalCodeResponseCode: string;
         avsStreetAddressResponseCode: string;
@@ -1726,8 +1727,8 @@ declare namespace braintree {
         statusHistory?: TransactionStatusHistory[] | undefined;
         subscription?:
             | {
-                billingPeriodEndDate: Date;
-                billingPeriodStartDate: Date;
+                billingPeriodEndDate: string;
+                billingPeriodStartDate: string;
             }
             | undefined;
         subscriptionId?: string | undefined;
@@ -1913,7 +1914,7 @@ declare namespace braintree {
     export interface AuthorizationAdjustment {
         amount: string;
         success: boolean;
-        timestamp: Date;
+        timestamp: string;
         processorResponseType: string;
         processorResponseCode: string;
         processorResponseText: string;
@@ -1926,7 +1927,7 @@ declare namespace braintree {
     }
 
     export interface DisbursementDetails {
-        disbursementDate: Date;
+        disbursementDate: string;
         fundsHeld: boolean;
         settlementAmount: string;
         settlementCurrencyExchangeRate: string;
@@ -1998,12 +1999,12 @@ declare namespace braintree {
     export interface TransactionStatusHistory {
         amount: string;
         status: TransactionStatus;
-        timestamp: Date;
-        transactionsource: TransactionSource;
+        timestamp: string;
+        transactionSource: TransactionSource;
         user: string;
     }
 
-    export type TransactionSource = "Api" | "ControlPanel" | "Recurring";
+    export type TransactionSource = "api" | "control_panel" | "recurring";
 
     export interface TransactionThreeDSecureInfo {
         enrolled: string;

@@ -40,7 +40,7 @@
  * ```
  * @since v22.5.0
  * @experimental
- * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/sqlite.js)
+ * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/sqlite.js)
  */
 declare module "node:sqlite" {
     import { PathLike } from "node:fs";
@@ -123,6 +123,14 @@ declare module "node:sqlite" {
          * @default false
          */
         allowUnknownNamedParameters?: boolean | undefined;
+        /**
+         * If `true`, enables the defensive flag. When the defensive flag is enabled,
+         * language features that allow ordinary SQL to deliberately corrupt the database file are disabled.
+         * The defensive flag can also be set using `enableDefensive()`.
+         * @since v25.1.0
+         * @default false
+         */
+        defensive?: boolean | undefined;
     }
     interface CreateSessionOptions {
         /**
@@ -295,6 +303,14 @@ declare module "node:sqlite" {
          */
         enableLoadExtension(allow: boolean): void;
         /**
+         * Enables or disables the defensive flag. When the defensive flag is active,
+         * language features that allow ordinary SQL to deliberately corrupt the database file are disabled.
+         * See [`SQLITE_DBCONFIG_DEFENSIVE`](https://www.sqlite.org/c3ref/c_dbconfig_defensive.html#sqlitedbconfigdefensive) in the SQLite documentation for details.
+         * @since v25.1.0
+         * @param active Whether to set the defensive flag.
+         */
+        enableDefensive(active: boolean): void;
+        /**
          * This method is a wrapper around [`sqlite3_db_filename()`](https://sqlite.org/c3ref/db_filename.html)
          * @since v24.0.0
          * @param dbName Name of the database. This can be `'main'` (the default primary database) or any other
@@ -320,7 +336,7 @@ declare module "node:sqlite" {
          * @param func The JavaScript function to call when the SQLite
          * function is invoked. The return value of this function should be a valid
          * SQLite data type: see
-         * [Type conversion between JavaScript and SQLite](https://nodejs.org/docs/latest-v24.x/api/sqlite.html#type-conversion-between-javascript-and-sqlite).
+         * [Type conversion between JavaScript and SQLite](https://nodejs.org/docs/latest-v25.x/api/sqlite.html#type-conversion-between-javascript-and-sqlite).
          * The result defaults to `NULL` if the return value is `undefined`.
          */
         function(
@@ -468,6 +484,8 @@ declare module "node:sqlite" {
          * [`sqlite3changeset_apply()`](https://www.sqlite.org/session/sqlite3changeset_apply.html).
          *
          * ```js
+         * import { DatabaseSync } from 'node:sqlite';
+         *
          * const sourceDb = new DatabaseSync(':memory:');
          * const targetDb = new DatabaseSync(':memory:');
          *
