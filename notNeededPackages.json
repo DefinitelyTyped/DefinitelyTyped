@@ -1969,6 +1969,10 @@
             "libraryName": "escape-string-regexp",
             "asOfVersion": "2.0.0"
         },
+        "eslint-plugin-mocha": {
+            "libraryName": "eslint-plugin-mocha",
+            "asOfVersion": "11.1.0"
+        },
         "eslint-visitor-keys": {
             "libraryName": "eslint-visitor-keys",
             "asOfVersion": "3.3.0"
