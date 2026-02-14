@@ -4061,6 +4061,10 @@
             "libraryName": "map-obj",
             "asOfVersion": "3.1.0"
         },
+        "mapbox__point-geometry": {
+            "libraryName": "@mapbox/point-geometry",
+            "asOfVersion": "1.0.0"
+        },
         "mapbox__vector-tile": {
             "libraryName": "@mapbox/vector-tile",
             "asOfVersion": "2.0.0"
