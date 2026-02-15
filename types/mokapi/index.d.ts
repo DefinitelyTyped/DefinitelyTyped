@@ -1,6 +1,6 @@
 /**
  * Mokapi JavaScript API
- * https://mokapi.io/docs/guides/welcome
+ * https://mokapi.io/docs/welcome
  */
 
 import "./faker";
@@ -10,6 +10,7 @@ import "./mustache";
 import "./yaml";
 import "./encoding";
 import "./mail";
+import "./file"
 
 /**
  * Attaches an event handler for the given event.
@@ -157,6 +158,9 @@ export interface HttpRequest {
     /** Object contains querystring parameters specified by OpenAPI querystring parameters. */
     readonly querystring: any;
 
+    /** Name of the API, as defined in the OpenAPI `info.title` field */
+    readonly api: string;
+
     /** Path value specified by the OpenAPI path */
     readonly key: string;
 
@@ -183,6 +187,23 @@ export interface HttpResponse {
 
     /** Data will be encoded with the OpenAPI response definition. */
     data: any;
+
+    /**
+     * Rebuilds the entire HTTP response using the OpenAPI response definition for the given status code and content type
+     * @example
+     * import { on } from 'mokapi'
+     *
+     * export default function() {
+     *     on('http', (request, response) => {
+     *         if (request.path.petId === 10) {
+     *             // Switch to a different OpenAPI response.
+     *             response.rebuild(404, 'application/json')
+     *             response.data.message = 'Pet not found'
+     *         }
+     *     })
+     * }
+     * */
+    rebuild: (statusCode?: number, contentType?: string) => void;
 }
 
 /**
@@ -421,10 +442,11 @@ export type DateLayout =
     | "RFC3339Nano";
 
 /**
- * EventArgs object contains additional arguments for an event handler.
+ * EventArgs provides optional configuration for an event handler.
  * https://mokapi.io/docs/javascript-api/mokapi/on
  *
- * Use this to customize how the event appears in the dashboard or to control tracking.
+ * Use this object to control how the event is tracked, labeled,
+ * and ordered in the execution pipeline.
  *
  * @example
  * export default function() {
@@ -438,16 +460,32 @@ export type DateLayout =
  */
 export interface EventArgs {
     /**
-     * Adds or overrides existing tags used to label the event in dashboard
+     * Adds or overrides tags used to label this event in the dashboard.
+     * Tags can be used for filtering, grouping, or ownership attribution.
      */
     tags?: { [key: string]: string };
 
     /**
-     * Set to `true` to enable tracking of this event handler in the dashboard.
-     * Set to `false` to disable tracking. If omitted, Mokapi checks the response
-     * object to determine if the handler changed it, and tracks it accordingly.
+     * Controls whether this event handler is tracked in the dashboard.
+     *
+     * - true: always track this handler
+     * - false: never track this handler
+     * - undefined: Mokapi determines tracking automatically based on
+     *   whether the response object was modified by the handler
      */
     track?: boolean;
+
+    /**
+     * Defines the execution order of the event handler.
+     *
+     * Handlers with higher priority values run first.
+     * Handlers with lower priority values run later.
+     *
+     * Use negative priorities (e.g. -1) to run a handler after
+     * the response has been fully populated by other handlers,
+     * such as for logging or recording purposes.
+     */
+    priority?: number;
 }
 
 /**
