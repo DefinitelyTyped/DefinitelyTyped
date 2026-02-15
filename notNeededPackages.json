@@ -1969,6 +1969,10 @@
             "libraryName": "escape-string-regexp",
             "asOfVersion": "2.0.0"
         },
+        "eslint-plugin-mocha": {
+            "libraryName": "eslint-plugin-mocha",
+            "asOfVersion": "11.1.0"
+        },
         "eslint-visitor-keys": {
             "libraryName": "eslint-visitor-keys",
             "asOfVersion": "3.3.0"
@@ -2288,6 +2292,10 @@
         "figures": {
             "libraryName": "figures",
             "asOfVersion": "3.0.0"
+        },
+        "file-entry-cache": {
+            "libraryName": "file-entry-cache",
+            "asOfVersion": "10.0.0"
         },
         "file-type": {
             "libraryName": "file-type",
@@ -4060,6 +4068,10 @@
         "map-obj": {
             "libraryName": "map-obj",
             "asOfVersion": "3.1.0"
+        },
+        "mapbox__point-geometry": {
+            "libraryName": "@mapbox/point-geometry",
+            "asOfVersion": "1.0.0"
         },
         "mapbox__vector-tile": {
             "libraryName": "@mapbox/vector-tile",
@@ -7559,6 +7571,10 @@
             "libraryName": "tap",
             "asOfVersion": "18.0.0"
         },
+        "tar": {
+            "libraryName": "tar",
+            "asOfVersion": "7.0.0"
+        },
         "tcomb": {
             "libraryName": "tcomb",
             "asOfVersion": "2.6.0"
@@ -7778,6 +7794,10 @@
         "typeform__embed": {
             "libraryName": "@typeform/embed",
             "asOfVersion": "1.0.0"
+        },
+        "vue-tel-input": {
+            "libraryName": "vue-tel-input",
+            "asOfVersion": "9.7.1"
         },
         "typescript": {
             "libraryName": "typescript",
