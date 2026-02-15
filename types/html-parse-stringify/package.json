@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/html-parse-stringify",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/henrikjoreteg/html-parse-stringify"
+    ],
+    "devDependencies": {
+        "@types/html-parse-stringify": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "gaspard",
+            "githubUsername": "gasp"
+        }
+    ]
+}

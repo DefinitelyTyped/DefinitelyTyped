@@ -21,16 +21,16 @@ function test_events() {
 }
 
 class PubSub implements Backbone.Events {
-    on: Backbone.Events_On<PubSub>;
-    off: Backbone.Events_Off<PubSub>;
-    trigger: Backbone.Events_Trigger<PubSub>;
-    bind: Backbone.Events_On<PubSub>;
-    unbind: Backbone.Events_Off<PubSub>;
+    on!: Backbone.Events_On<PubSub>;
+    off!: Backbone.Events_Off<PubSub>;
+    trigger!: Backbone.Events_Trigger<PubSub>;
+    bind!: Backbone.Events_On<PubSub>;
+    unbind!: Backbone.Events_Off<PubSub>;
 
-    once: Backbone.Events_On<PubSub>;
-    listenTo: Backbone.Events_Listen<PubSub>;
-    listenToOnce: Backbone.Events_Listen<PubSub>;
-    stopListening: Backbone.Events_Stop<PubSub>;
+    once!: Backbone.Events_On<PubSub>;
+    listenTo!: Backbone.Events_Listen<PubSub>;
+    listenToOnce!: Backbone.Events_Listen<PubSub>;
+    stopListening!: Backbone.Events_Stop<PubSub>;
 }
 
 Object.assign(PubSub.prototype, Backbone.Events);
@@ -156,7 +156,7 @@ class PrivateNote extends Note {
     }
 
     set(attributes: any, options?: any): this {
-        return Backbone.Model.prototype.set.call(this, attributes, options);
+        return super.set(attributes, options);
     }
 }
 
@@ -217,9 +217,9 @@ class EmployeeCollection extends Backbone.Collection<Employee> {
 }
 
 class Book extends Backbone.Model {
-    title: string;
-    author: string;
-    published: boolean;
+    title!: string;
+    author!: string;
+    published!: boolean;
 }
 
 class Library extends Backbone.Collection<Book> {

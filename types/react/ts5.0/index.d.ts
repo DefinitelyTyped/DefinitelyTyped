@@ -226,12 +226,20 @@ declare namespace React {
 
     type ComponentState = any;
 
+    interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_KEY_TYPES {}
+
     /**
      * A value which uniquely identifies a node among items in an array.
      *
      * @see {@link https://react.dev/learn/rendering-lists#keeping-list-items-in-order-with-key React Docs}
      */
-    type Key = string | number | bigint;
+    type Key =
+        | string
+        | number
+        | bigint
+        | DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_KEY_TYPES[
+            keyof DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_KEY_TYPES
+        ];
 
     /**
      * @internal The props any component can receive.
@@ -1884,7 +1892,7 @@ declare namespace React {
      *
      * @param callback A synchronous, void callback that will execute as a single, complete React commit.
      *
-     * @see https://reactjs.org/blog/2019/02/06/react-v16.8.0.html#testing-hooks
+     * @see {@link https://reactjs.org/blog/2019/02/06/react-v16.8.0.html#testing-hooks}
      */
     // NOTES
     // - the order of these signatures matters - typescript will check the signatures in source order.
@@ -2081,7 +2089,7 @@ declare namespace React {
      * Only for form elements we know their target type because form events can't
      * be nested.
      * This type exists purely to narrow `target` for form elements. It doesn't
-     * reflect a DOM event. React fires change events as {@link SyntheticEvent}.
+     * reflect a DOM event. Change events are just fired as standard {@link SyntheticEvent}.
      */
     interface ChangeEvent<CurrentTarget = Element, Target = Element> extends SyntheticEvent<CurrentTarget> {
         // TODO: This is wrong for change event handlers on arbitrary. Should
@@ -2157,7 +2165,7 @@ declare namespace React {
     }
 
     interface SubmitEvent<T = Element> extends SyntheticEvent<T, NativeSubmitEvent> {
-        // Currently not exposed by Reat
+        // `submitter` is available in react@canary
         // submitter: HTMLElement | null;
         // SubmitEvents are always targetted at HTMLFormElements.
         target: EventTarget & HTMLFormElement;
@@ -2840,7 +2848,7 @@ declare namespace React {
 
         // Living Standard
         /**
-         * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert
+         * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert}
          */
         inert?: boolean | undefined;
         /**
@@ -3598,6 +3606,9 @@ declare namespace React {
         method?: string | undefined;
         min?: number | string | undefined;
         name?: string | undefined;
+        nonce?: string | undefined;
+        part?: string | undefined;
+        slot?: string | undefined;
         style?: CSSProperties | undefined;
         target?: string | undefined;
         type?: string | undefined;

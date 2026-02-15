@@ -146,9 +146,9 @@ const orientation2 = () => {
 
 const explainer1 = () => {
     class LowPassFilterData {
-        x: number;
-        y: number;
-        z: number;
+        x!: number;
+        y!: number;
+        z!: number;
         bias: number;
 
         constructor(reading: Accelerometer | Gyroscope | Magnetometer, bias: number) {

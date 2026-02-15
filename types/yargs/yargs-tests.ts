@@ -40,13 +40,13 @@ function count() {
     const VERBOSE_LEVEL: number = argv.verbose;
 
     function WARN() {
-        VERBOSE_LEVEL >= 0 && console.log.apply(console, arguments);
+        VERBOSE_LEVEL >= 0 && console.log(...arguments);
     }
     function INFO() {
-        VERBOSE_LEVEL >= 1 && console.log.apply(console, arguments);
+        VERBOSE_LEVEL >= 1 && console.log(...arguments);
     }
     function DEBUG() {
-        VERBOSE_LEVEL >= 2 && console.log.apply(console, arguments);
+        VERBOSE_LEVEL >= 2 && console.log(...arguments);
     }
 }
 
@@ -396,7 +396,7 @@ async function Argv$commandModule() {
         handler(args: yargs.Arguments): void {
             console.log("one");
         }
-        deprecated: true;
+        deprecated!: true;
     }
 
     const CommandTwo: yargs.CommandModule<{ a: string }, { b: number }> = {

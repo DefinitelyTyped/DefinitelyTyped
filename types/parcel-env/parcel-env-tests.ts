@@ -13,7 +13,7 @@ otherModule.otherMethod();
 module.exports = null;
 
 class ModuleData {
-    updated: boolean;
+    updated!: boolean;
 }
 
 // check if HMR is enabled

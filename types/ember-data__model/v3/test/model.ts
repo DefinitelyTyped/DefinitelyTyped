@@ -40,19 +40,19 @@ const User = Model.extend({
 
 class Human extends Model {
     @attr
-    age: number;
+    age!: number;
     @belongsTo("human")
-    mother: AsyncBelongsTo<Human>;
+    mother!: AsyncBelongsTo<Human>;
     @belongsTo("human", { async: false })
-    motherSync: Human;
+    motherSync!: Human;
     @belongsTo("human")
-    father: AsyncBelongsTo<Human | null>;
+    father!: AsyncBelongsTo<Human | null>;
     @belongsTo("human", { async: false })
-    fatherSync: Human | null;
+    fatherSync!: Human | null;
     @hasMany("person")
-    children: AsyncHasMany<Person>;
+    children!: AsyncHasMany<Person>;
     @hasMany("person", { async: false })
-    childrenSync: SyncHasMany<Person>;
+    childrenSync!: SyncHasMany<Person>;
 }
 
 const user = User.create({ username: "dwickern" });

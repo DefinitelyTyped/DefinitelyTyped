@@ -4892,6 +4892,39 @@ export interface Page {
     on(event: "response", listener: (response: Response) => void): void;
 
     /**
+     * Registers a handler function to listen for network requests that
+     * fail to reach the server (DNS errors, connection refused, timeouts, etc.).
+     * The handler will receive an instance of {@link Request}, which includes
+     * information about the failed request.
+     *
+     * **Usage**
+     *
+     * ```js
+     * page.on('requestfailed', request => {
+     *   const failure = request.failure();
+     *   console.log(`Request failed: ${request.url()}`);
+     *   console.log(`  Error: ${failure ? failure.errorText : 'unknown'}`);
+     * });
+     * ```
+     */
+    on(event: "requestfailed", listener: (request: Request) => void): void;
+
+    /**
+     * Registers a handler function to listen for network requests that
+     * successfully complete (receive a response). The handler will receive an
+     * instance of {@link Request}, which includes information about the request.
+     *
+     * **Usage**
+     *
+     * ```js
+     * page.on('requestfinished', request => {
+     *   console.log(`Request finished: ${request.method()} ${request.url()}`);
+     * });
+     * ```
+     */
+    on(event: "requestfinished", listener: (request: Request) => void): void;
+
+    /**
      * Returns the page that opened the current page. The first page that is
      * navigated to will have a null opener.
      */
@@ -4989,6 +5022,37 @@ export interface Page {
          */
         waitUntil?: "load" | "domcontentloaded" | "networkidle";
     }): Promise<Response | null>;
+
+    /**
+     * Goes back to the previous page in the history.
+     *
+     * @example
+     * ```js
+     * await page.goto('https://example.com');
+     * await page.goto('https://example.com/page2');
+     * await page.goBack(); // Will navigate back to the first page
+     * ```
+     *
+     * @param options Navigation options.
+     * @returns A promise that resolves to the response of the requested navigation when it happens.
+     * Returns null if there is no previous entry in the history.
+     */
+    goBack(options?: NavigationOptions): Promise<Response | null>;
+
+    /**
+     * Goes forward to the next page in the history.
+     *
+     * @example
+     * ```js
+     * await page.goBack(); // Navigate back first
+     * await page.goForward(); // Then navigate forward
+     * ```
+     *
+     * @param options Navigation options.
+     * @returns A promise that resolves to the response of the requested navigation when it happens.
+     * Returns null if there is no next entry in the history.
+     */
+    goForward(options?: NavigationOptions): Promise<Response | null>;
 
     /**
      * Adds a route to the page to modify network requests made by that page.
@@ -6003,6 +6067,25 @@ export interface Request {
      * @returns request URL
      */
     url(): string;
+
+    /**
+     * Returns the failure info for a failed request, or null if the request succeeded.
+     * This method returns information about network failures such as DNS errors,
+     * connection refused, timeouts, etc. It does not return information for HTTP
+     * 4xx/5xx responses, which are successful network requests.
+     * @returns The failure information or null if the request succeeded.
+     */
+    failure(): RequestFailure | null;
+}
+
+/**
+ * RequestFailure contains information about a failed request.
+ */
+export interface RequestFailure {
+    /**
+     * The error text describing why the request failed.
+     */
+    errorText: string;
 }
 
 /**

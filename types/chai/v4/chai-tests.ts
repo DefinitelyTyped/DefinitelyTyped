@@ -532,7 +532,7 @@ function deepInclude() {
 }
 
 class FakeArgs {
-    length: number;
+    length!: number;
 }
 
 function empty() {

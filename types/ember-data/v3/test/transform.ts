@@ -2,8 +2,8 @@ import Ember from "ember";
 import DS from "ember-data";
 
 export class Point extends Ember.Object {
-    x: number;
-    y: number;
+    x!: number;
+    y!: number;
 }
 
 class PointTransform extends DS.Transform {

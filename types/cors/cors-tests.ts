@@ -44,7 +44,7 @@ app.use(cors({
     origin: (requestOrigin, cb) => {
         try {
             cb(null, true);
-        } catch (err) {
+        } catch (err: any) {
             cb(err);
         }
     },
@@ -53,7 +53,7 @@ app.use(cors({
     origin: (requestOrigin, cb) => {
         try {
             cb(null, "http://example.com");
-        } catch (err) {
+        } catch (err: any) {
             cb(err);
         }
     },
@@ -62,7 +62,7 @@ app.use(cors({
     origin: (requestOrigin, cb) => {
         try {
             cb(null, /example\.com$/);
-        } catch (err) {
+        } catch (err: any) {
             cb(err);
         }
     },
@@ -71,7 +71,7 @@ app.use(cors({
     origin: (requestOrigin, cb) => {
         try {
             cb(null, [/example\.com$/, "http://example.com"]);
-        } catch (err) {
+        } catch (err: any) {
             cb(err);
         }
     },
@@ -80,7 +80,7 @@ app.use(cors({
     origin: (requestOrigin, cb) => {
         try {
             cb(null, ["http://example.com", "http://fakeurl.com"]);
-        } catch (err) {
+        } catch (err: any) {
             cb(err);
         }
     },
@@ -89,7 +89,7 @@ app.use(cors({
     origin: (requestOrigin, cb) => {
         try {
             cb(null, [/example\.com$/, /fakeurl\.com$/]);
-        } catch (err) {
+        } catch (err: any) {
             cb(err);
         }
     },
@@ -101,7 +101,7 @@ app.use(cors({
                 throw new Error("No origin");
             }
             cb(null, requestOrigin);
-        } catch (err) {
+        } catch (err: any) {
             cb(err);
         }
     },
@@ -111,7 +111,7 @@ app.use(cors({
         try {
             const allow = !requestOrigin || requestOrigin.indexOf(".edu") !== -1;
             cb(null, allow);
-        } catch (err) {
+        } catch (err: any) {
             cb(err);
         }
     },

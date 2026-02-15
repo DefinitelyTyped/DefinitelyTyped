@@ -2,10 +2,10 @@ import { App, AppInfo, Client, CorsOptions, Delegate, DeviceInfo, DialDevice, Se
 import express = require("express");
 
 class AppImpl implements App {
-    name: string;
-    state: string;
-    allowStop: boolean;
-    pid: string;
+    name!: string;
+    state!: string;
+    allowStop!: boolean;
+    pid!: string;
     launch(launchData: string): void {
     }
 }

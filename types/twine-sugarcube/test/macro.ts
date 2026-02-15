@@ -12,7 +12,7 @@ Macro.add("if", {
                     break;
                 }
             }
-        } catch (ex) {
+        } catch (ex: any) {
             return this.error("bad conditional expression: " + ex.message);
         }
     },

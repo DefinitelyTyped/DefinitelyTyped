@@ -102,7 +102,8 @@ function sample3() {
     function applyFilter(index: number, filter: any) {
         const obj: fabric.Image = <fabric.Image> canvas.getActiveObject();
         obj.filters[index] = filter;
-        obj.applyFilters(canvas.renderAll.bind(canvas));
+        obj.applyFilters();
+        canvas.renderAll();
     }
 
     function getFilter(index: number) {
@@ -113,7 +114,8 @@ function sample3() {
     function applyFilterValue(index: number, prop: string, value: any) {
         const obj: fabric.Image = <fabric.Image> canvas.getActiveObject();
         if (obj.filters[index]) {
-            obj.applyFilters(canvas.renderAll.bind(canvas));
+            obj.applyFilters();
+            canvas.renderAll();
         }
     }
 

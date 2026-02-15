@@ -155,14 +155,18 @@ function weather_station_monitor(session: autobahn.Session) {
             return { type: warning.type, severity: warning.severity, message: "GET TO DA CHOPPA!!" };
         })
         // Publish it to our klaxon service to warn everyone on the block
-        .subscribe(Rx.Observable.publishAsObservable.bind(null, session, "weather.warnings.klaxon"));
+        .subscribe(warning => {
+            Rx.Observable.publishAsObservable(session, "weather.warnings.klaxon", [warning]);
+        });
 
     // Notify the climate control to turn off
     dailyForecast
         .map(weather => weather.temperature.average)
         .combineLatest(desiredTemperature, (actual, desired) => Math.abs(desired - actual))
         .map(difference => ({ state: difference > 4 }))
-        .subscribe(Rx.Observable.publishAsObservable.bind(null, session, "indoor.climatecontrol.active"));
+        .subscribe(state => {
+            Rx.Observable.publishAsObservable(session, "indoor.climatecontrol.active", [state]);
+        });
 
     // Create a pipeline of distributed computation
     var adder = Rx.Observable.callAsObservable<number>(session, "wamp.my.add");

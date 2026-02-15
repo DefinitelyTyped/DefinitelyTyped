@@ -5,8 +5,10 @@ import {
     ContentImage,
     ContentOrderedList,
     ContentSvg,
+    ContentToc,
     ContentUnorderedList,
     CustomTableLayout,
+    StyleDictionary,
     Table,
     TableCell,
     TDocumentDefinitions,
@@ -403,3 +405,27 @@ const svgWithLink: Content = [
         link: "http://foo.bar",
     },
 ];
+
+const hideEmptyToC: ContentToc = {
+    toc: {
+        hideEmpty: true,
+    },
+};
+
+const styleExtends: StyleDictionary = {
+    header: {
+        fontSize: 18,
+        bold: true,
+    },
+    subheader: {
+        fontSize: 15,
+        extends: "header",
+    },
+    smallheader: {
+        italics: true,
+        extends: ["subheader", "small"],
+    },
+    small: {
+        fontSize: 8,
+    },
+};

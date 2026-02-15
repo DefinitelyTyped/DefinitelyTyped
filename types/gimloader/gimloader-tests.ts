@@ -63,6 +63,7 @@ api.UI.showModal(document.createElement("div"), {
     ],
 });
 
+api.requestReload();
 api.patcher.before({}, "foo", () => {});
 api.patcher.before({}, "foo", () => true);
 GL.net.gamemode; // $ExpectType string
@@ -111,8 +112,8 @@ api.commands.addCommand({
 
 api.commands.addCommand({ text: () => "something" }, () => {});
 
-GL.stores.phaser; // $ExpectType Phaser
-window.stores.phaser; // $ExpectType Phaser
+GL.stores.phaser; // $ExpectType PhaserStore
+window.stores.phaser; // $ExpectType PhaserStore
 let worldManagerInstance!: Gimloader.Stores.WorldManager;
 worldManagerInstance; // $ExpectType WorldManager
 
@@ -123,6 +124,7 @@ api.stores.worldOptions.terrainOptions[0].name; // $ExpectType string
 api.stores.phaser.scene.add; // $ExpectType GameObjectFactory
 api.stores.phaser.mainCharacter.input; // $ExpectType CharacterInput
 api.stores.phaser.mainCharacter.physics.getBody().rigidBody.translation(); // $ExpectType Vector
+api.stores.phaser.mainCharacter.physics.getBody().character.feetSensor; // $ExpectType Collider
 
 const { actionManager, characterManager, inputManager, tileManager, worldManager } = api.stores.phaser.scene;
 actionManager; // $ExpectType ActionManager
@@ -149,7 +151,7 @@ api.settings.something = 123;
 api.settings.something = "abc";
 api.settings.something = {};
 api.settings.listen("someSetting", (val: any) => {});
-api.settings.create([
+const settings = api.settings.create([
     {
         type: "group",
         title: "Group",
@@ -191,7 +193,7 @@ api.settings.create([
         ],
         title: "A Multiselect",
         default: ["optionA", "optionC"],
-        onChange: (value: string[]) => {},
+        onChange: (value: readonly string[]) => {},
     },
     {
         type: "number",
@@ -263,3 +265,24 @@ api.settings.create([
         onChange: (value: any) => {},
     },
 ]);
+
+// @ts-expect-error
+settings.listen("fakekey", () => {});
+// @ts-expect-error
+settings.listen("number1", (value: string) => {});
+settings.listen("number1", (value) => {
+    value; // $ExpectType number
+});
+// @ts-expect-error
+settings.fakekey;
+settings.toggle1; // $ExpectType boolean
+settings.toggle2; // $ExpectType boolean
+settings.color1; // $ExpectType string
+settings.dropdown1; // $ExpectType string
+settings.multiselect1; // $ExpectType readonly string[]
+settings.number1; // $ExpectType number
+settings.radio1; // $ExpectType string
+settings.slider1; // $ExpectType number
+settings.text1; // $ExpectType string
+settings.custom1; // $ExpectType any
+settings.customsection1; // $ExpectType any

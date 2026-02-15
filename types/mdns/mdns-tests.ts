@@ -64,8 +64,8 @@ function createAdvertisement() {
         ad = mdns.createAdvertisement(mdns.tcp("http"), 1337);
         ad.on("error", handleError);
         ad.start();
-    } catch (ex) {
-        handleError(ex);
+    } catch (ex: any) {
+        handleError(ex as mdns.DnsSdError);
     }
 }
 

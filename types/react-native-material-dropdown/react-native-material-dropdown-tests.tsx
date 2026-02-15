@@ -7,9 +7,9 @@ interface DropdownTestProps {
 }
 
 class DropdownTest extends React.Component<DropdownTestProps> {
-    private layout: LayoutRectangle;
-    private isFocused: boolean;
-    private curText: string;
+    private layout!: LayoutRectangle;
+    private isFocused!: boolean;
+    private curText!: string;
 
     render(): React.JSX.Element {
         const dropdownData: DropDownData[] = [

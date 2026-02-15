@@ -42,7 +42,10 @@ function special() {
 
                 if (targetData.clicks % event.data.clicks === 0) {
                     event.type = handleObj.origType;
-                    ret = handleObj.handler.apply(this, arguments);
+                    ret = handleObj.handler.apply(
+                        this,
+                        arguments as unknown as [JQuery.TriggeredEvent, ...any[]],
+                    );
                     event.type = handleObj.type;
                     return ret;
                 }
