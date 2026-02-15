@@ -1,7 +1,7 @@
-import { read, writeString, appendString } from "mokapi/file";
+import { appendString, read, writeString } from "mokapi/file";
 
 // @ts-expect-error
-read(123)
+read(123);
 read("data.json");
 // @ts-expect-error
 const i: number = read("data.json");

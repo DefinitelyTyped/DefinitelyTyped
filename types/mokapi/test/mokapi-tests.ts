@@ -14,10 +14,10 @@ import {
     LdapSearchResponse,
     on,
     patch,
+    shared,
     sleep,
     SmtpEventHandler,
     SmtpEventMessage,
-    shared
 } from "mokapi";
 
 const handler = () => {};
@@ -64,9 +64,9 @@ on("http", (request, response) => {
     response.headers["Access-Control-Allow-Origin"] = "*";
     response.headers["foo"] = { bar: 123 };
 
-    response.rebuild(200, 'application/json');
+    response.rebuild(200, "application/json");
     // @ts-expect-error
-    response.rebuild('200', 'application/json');
+    response.rebuild("200", "application/json");
     // @ts-expect-error
     response.rebuild(200, {});
 });
