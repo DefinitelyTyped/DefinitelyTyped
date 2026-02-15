@@ -7779,7 +7779,7 @@
             "libraryName": "@typeform/embed",
             "asOfVersion": "1.0.0"
         },
-        "types/vue-tel-input": {
+        "vue-tel-input": {
             "libraryName": "vue-tel-input",
             "asOfVersion": "9.7.1"
         },
