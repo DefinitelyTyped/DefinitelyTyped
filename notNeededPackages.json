@@ -1973,6 +1973,10 @@
             "libraryName": "eslint-plugin-mocha",
             "asOfVersion": "11.1.0"
         },
+        "eslint-scope": {
+            "libraryName": "eslint-scope",
+            "asOfVersion": "9.1.0"
+        },
         "eslint-visitor-keys": {
             "libraryName": "eslint-visitor-keys",
             "asOfVersion": "3.3.0"
@@ -1988,6 +1992,10 @@
         "esm-utils": {
             "libraryName": "esm-utils",
             "asOfVersion": "2.0.1"
+        },
+        "espree": {
+            "libraryName": "espree",
+            "asOfVersion": "11.1.0"
         },
         "eth-sig-util": {
             "libraryName": "eth-sig-util",
