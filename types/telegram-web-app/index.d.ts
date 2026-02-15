@@ -1197,7 +1197,7 @@ export interface BiometricManager {
      * - face, face-based biometrics,
      * - unknown, biometrics of an unknown type.
      */
-    biometricType: "finger" | "face" | "unkown";
+    biometricType: "finger" | "face" | "unknown";
     /**
      * Shows whether permission to use biometrics has been requested.
      */
