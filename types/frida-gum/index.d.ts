@@ -3119,6 +3119,28 @@ type SqliteOpenFlag =
  */
 declare class SqliteStatement {
     /**
+     * Names of the columns in the prepared statement.
+     */
+    readonly columnNames: string[];
+
+    /**
+     * Types of the columns in the prepared statement.
+     */
+    readonly columnTypes: SqliteColumnType[];
+
+    /**
+     * Declared types of the columns as specified in the table schema. Each
+     * element is the type string (e.g. `"TEXT"`, `"INTEGER"`) or `null` if
+     * the column has no declared type (e.g. expression columns).
+     */
+    readonly declaredTypes: Array<string | null>;
+
+    /**
+     * Number of SQL parameters in the prepared statement.
+     */
+    readonly paramsCount: number;
+
+    /**
      * Binds the integer `value` to `index`.
      *
      * @param index 1-based index.
@@ -3171,6 +3193,8 @@ declare class SqliteStatement {
      */
     reset(): void;
 }
+
+type SqliteColumnType = "integer" | "float" | "text" | "blob" | "null";
 
 /**
  * Intercepts execution through inline hooking.
