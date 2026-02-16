@@ -20,19 +20,19 @@ declare function SVGtoPDF(
 declare namespace SVGtoPDF {
     type Color = [[number, number, number], number]
     interface Options {
-        // initial viewport width, by default it's the page width
+        /** initial viewport width, by default it's the page width */
         width?: number
 
-        // initial viewport width, by default it's the page height
+        /** initial viewport width, by default it's the page height */
         height?: number
 
-        // override alignment of the SVG content inside its viewport
+        /** override alignment of the SVG content inside its viewport */
         preserveAspectRatio?: string
 
-        // use the CSS styles computed by the browser (for SVGElement only)
+        /** use the CSS styles computed by the browser (for SVGElement only) */
         useCSS?: boolean
 
-        // function called to get the fonts, see source code
+        /** function called to get the fonts, see source code */
         fontCallback?: (
             family: string,
             bold: boolean,
@@ -40,24 +40,24 @@ declare namespace SVGtoPDF {
             fontOptions: { fauxItalic: boolean; fauxBold: boolean },
         ) => string
 
-        // same as above for the images (for Node.js)
+        /** same as above for the images (for Node.js) */
         imageCallback?: (link: string) => string
 
-        // same as above for the external SVG documents
+        /** same as above for the external SVG documents */
         documentCallback?: (
             file: string,
         ) => SVGElement | string | (SVGElement | string)[]
 
-        // function called to get color, making mapping to CMYK possible
+        /** function called to get color, making mapping to CMYK possible */
         colorCallback?: (color: Color) => Color
 
-        // function called when there is a warning
+        /** function called when there is a warning */
         warningCallback?: (warning: string) => void
 
-        // assume that units are PDF points instead of SVG pixels
+        /** assume that units are PDF points instead of SVG pixels */
         assumePt?: boolean
 
-        // precision factor for approximate calculations (default = 3)
+        /** precision factor for approximate calculations (default = 3) */
         precision?: number
     }
 }
