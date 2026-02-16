@@ -538,6 +538,7 @@ declare namespace braintree {
         expired: boolean;
         healthcare: HealthCare;
         imageUrl: string;
+        isNetworkTokenized: boolean;
         issuingBank: string;
         last4: string;
         maskedNumber: string;
@@ -2083,6 +2084,7 @@ declare namespace braintree {
         expirationYear: string;
         expired: boolean;
         imageUrl: string;
+        isDeviceToken: boolean;
         last4: string;
         paymentInsuranceName: string;
         sourceDescription: string;
