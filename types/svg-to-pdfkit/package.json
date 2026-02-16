@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/svg-to-pdfkit",
-    "version": "0.1.9999",
+    "version": "1.0.9999",
     "projects": [
         "https://github.com/alafr/SVG-to-PDFKit"
     ],
