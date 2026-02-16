@@ -12,9 +12,9 @@ import PDFDocument = require("pdfkit");
 declare function SVGtoPDF(
     doc: typeof PDFDocument,
     svg: SVGElement | string,
-    x: number,
-    y: number,
-    options: SVGtoPDF.Options,
+    x?: number,
+    y?: number,
+    options?: SVGtoPDF.Options,
 ): void
 
 declare namespace SVGtoPDF {
