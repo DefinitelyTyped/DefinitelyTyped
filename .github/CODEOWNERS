@@ -328,7 +328,6 @@
 /types/array.prototype.flat/                            @kylejlin @ljharb
 /types/array.prototype.flatmap/                         @hallettj @ljharb
 /types/arrive/                                          @vijaypemmaraju
-/types/artillery/                                       @BendingBender
 /types/asana/                                           @tkqubo @tasyp @filipposarzana @szlori @apiology
 /types/asap/                                            @fpascutti
 /types/ascii-art/                                       @lukaselmer
@@ -1349,6 +1348,7 @@
 /types/d3-shape/v1/                                     @tomwanzek @gustavderdrache @borisyankov @denisname @Methuselah96
 /types/d3-shape/v2/                                     @tomwanzek @gustavderdrache @borisyankov @denisname @Methuselah96
 /types/d3-simple-slider/                                @johnwalley
+/types/d3-tile/                                         @NaciriMouad
 /types/d3-time/                                         @tomwanzek @gustavderdrache @borisyankov @denisname @Methuselah96
 /types/d3-time/v1/                                      @tomwanzek @gustavderdrache @borisyankov @denisname @Methuselah96
 /types/d3-time/v2/                                      @tomwanzek @gustavderdrache @borisyankov @denisname @Methuselah96
@@ -1855,7 +1855,6 @@
 /types/eslint-plugin-jsx-a11y/                          @eagerestwolf @ljharb
 /types/eslint-plugin-markdown/                          @JounQin
 /types/eslint-plugin-mobx/                              @MysteryBlokHed
-/types/eslint-plugin-mocha/                             @rhysd
 /types/eslint-plugin-prettier/                          @ikatyang @JounQin
 /types/eslint-plugin-security/                          @rhysd @porada
 /types/eslint-plugin-tailwindcss/                       @eagerestwolf
@@ -2087,7 +2086,6 @@
 /types/fibjs/                                           @richardo2016
 /types/field/                                           @aleung
 /types/figma/                                           @rudi-c
-/types/file-entry-cache/                                @peterblazejewicz
 /types/file-exists/                                     @BendingBender
 /types/file-fetch/                                      @tpluscode
 /types/file-loader/                                     @g-rath
@@ -4696,7 +4694,6 @@
 /types/mapbox__mapbox-gl-geocoder/                      @Nosfit @dmytro-gokun
 /types/mapbox__mapbox-gl-traffic/                       @niekvb
 /types/mapbox__mapbox-sdk/                              @jeffbdye @mikeomeara1 @chachan @techieshark @rroohhh
-/types/mapbox__point-geometry/                          @webberig @HarelM
 /types/mapbox__polyline/                                @Kern0 @mklopets
 /types/mapbox__rehype-prism/                            @remcohaszing
 /types/mapbox__s3urls/                                  @sebastianvera
@@ -4799,6 +4796,7 @@
 /types/memory-fs/                                       @e-cloud
 /types/memory-pager/                                    @BendingBender
 /types/memory-usage/                                    @BendingBender
+/types/memorystorage/                                   @Zephyr-Blessed
 /types/memorystream/                                    @bangbang93 @geniou
 /types/memwatch-next/                                   @cyrilschumacher
 /types/mercadopago/                                     @danieldspx
@@ -7725,7 +7723,6 @@
 /types/tape-async/                                      @ExE-Boss
 /types/tape-catch/                                      @ExE-Boss
 /types/tape-promise/                                    @ExE-Boss @ljharb
-/types/tar/                                             @SomaticIT @connor4312
 /types/tar-fs/                                          @Umoxfo @chriswiggins
 /types/tar-js/                                          @Narazaka
 /types/tar-stream/                                      @glicht @peterblazejewicz @kevin-lindsay-1 @screendriver
@@ -8246,7 +8243,6 @@
 /types/vue-scroll-up/                                   @slaweet
 /types/vue-select/                                      @silh @FloEdelmann
 /types/vue-splitpane/                                   @noonhorse
-/types/vue-tel-input/                                   @suryadana
 /types/vue-template-es2015-compiler/                    @iam-medvedev
 /types/vue-the-mask/                                    @domschmidt
 /types/vue2-datepicker/                                 @ChrisStornowski
@@ -8467,6 +8463,7 @@
 /types/wordpress__blocks/                               @dsifford @sirreal @dmsnell @tomasztunik @sunyatasattva @bastolen @joshualip-plaudit
 /types/wordpress__customize-browser/                    @marekdedic
 /types/wordpress__edit-post/                            @dsifford
+/types/wordpress__server-side-render/                   @rafaucau
 /types/wordpress__viewport/                             @dsifford
 /types/wordpress__wordcount/                            @dsifford
 /types/words-to-time-converter/                         @peterblazejewicz
