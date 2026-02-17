@@ -19,27 +19,33 @@ declare module "tls" {
         /**
          * Country code.
          */
-        C: string;
+        C: string | string[];
         /**
          * Street.
          */
-        ST: string;
+        ST: string | string[];
         /**
          * Locality.
          */
-        L: string;
+        L: string | string[];
         /**
          * Organization.
          */
-        O: string;
+        O: string | string[];
         /**
          * Organizational unit.
          */
-        OU: string;
+        OU: string | string[];
         /**
          * Common name.
          */
-        CN: string;
+        CN: string | string[];
+        /**
+         * Additional DN attributes (e.g. `emailAddress`, `serialNumber`, `DC`).
+         * Any attribute recognized by OpenSSL can appear, and any attribute
+         * may be an array when the certificate contains multiple values.
+         */
+        [key: string]: string | string[] | undefined;
     }
     interface PeerCertificate {
         /**
