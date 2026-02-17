@@ -1791,6 +1791,18 @@ declare module "inspector" {
              */
             headers: Headers;
         }
+        interface EnableParameterType {
+            /**
+             * Buffer size in bytes to use when preserving network payloads (XHRs, etc).
+             * @experimental
+             */
+            maxTotalBufferSize?: number | undefined;
+            /**
+             * Per-resource buffer size in bytes to use when preserving network payloads (XHRs, etc).
+             * @experimental
+             */
+             maxResourceBufferSize?: number | undefined;
+         }
         interface GetRequestPostDataParameterType {
             /**
              * Identifier of the network request to get content for.
@@ -2379,6 +2391,7 @@ declare module "inspector" {
         /**
          * Enables network tracking, network events will now be delivered to the client.
          */
+        post(method: "Network.enable", params?: Network.EnableParameterType, callback?: (err: Error | null) => void): void;
         post(method: "Network.enable", callback?: (err: Error | null) => void): void;
         /**
          * Returns post data sent with the request. Returns an error when no data was sent with the request.
@@ -3477,7 +3490,7 @@ declare module "inspector/promises" {
         /**
          * Enables network tracking, network events will now be delivered to the client.
          */
-        post(method: "Network.enable"): Promise<void>;
+        post(method: "Network.enable", params?: Network.EnableParameterType): Promise<void>;
         /**
          * Returns post data sent with the request. Returns an error when no data was sent with the request.
          */
