@@ -1,6 +1,6 @@
 import Node from "../core/Node.js";
 
-declare class ReferenceNode<T> extends Node {
+interface ReferenceNodeInterface<T> extends Node {
     property: string;
 
     uniformType: string;
@@ -12,17 +12,26 @@ declare class ReferenceNode<T> extends Node {
     reference: T | null;
     node: Node | null;
 
-    constructor(property: string, uniformType: string, object?: T | null, count?: number | null);
-
     setNodeType(uniformType: string): void;
 }
 
+declare const ReferenceNode: {
+    new<TNodeType, T>(
+        property: string,
+        uniformType: TNodeType,
+        object?: T | null,
+        count?: number | null,
+    ): ReferenceNode<TNodeType, T>;
+};
+
+type ReferenceNode<TNodeType, T> = ReferenceNodeInterface<T> & Node<TNodeType>;
+
 export default ReferenceNode;
 
-export const reference: <T>(name: string, type: string, object: T) => ReferenceNode<T>;
-export const referenceBuffer: <T>(
+export const reference: <const TNodeType, T>(name: string, type: TNodeType, object: T) => ReferenceNode<TNodeType, T>;
+export const referenceBuffer: <const TNodeType, T>(
     name: string,
-    type: string,
+    type: TNodeType,
     count: number,
     object: T,
-) => ReferenceNode<T>;
+) => ReferenceNode<TNodeType, T>;

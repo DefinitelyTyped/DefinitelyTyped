@@ -4,47 +4,39 @@
  *
  * @private
  */
-declare class DataMap<
-    M extends {
-        [key: string]: {
-            key: object;
-            value: unknown;
-        };
-    },
-> {
-    data: WeakMap<M[keyof M]["key"], M[keyof M]["value"]>;
+declare class DataMap {
     /**
-     * Constructs a new data map.
+     * `DataMap` internally uses a weak map
+     * to manage its data.
+     *
+     * @type {WeakMap<Object, Object>}
      */
-    constructor();
+    data: WeakMap<object, unknown>;
     /**
      * Returns the dictionary for the given object.
      *
      * @param {Object} object - The object.
      * @return {Object} The dictionary.
      */
-    get<K extends M[keyof M]["key"]>(object: K): Extract<M[keyof M], {
-        key: K;
-    }>["value"];
+    get(object: object): unknown;
     /**
      * Deletes the dictionary for the given object.
      *
      * @param {Object} object - The object.
      * @return {?Object} The deleted dictionary.
      */
-    delete<K extends M[keyof M]["key"]>(object: K): Extract<M[keyof M], {
-        key: K;
-    }>["value"];
+    delete(object: object): unknown | null;
     /**
      * Returns `true` if the given object has a dictionary defined.
      *
      * @param {Object} object - The object to test.
      * @return {boolean} Whether a dictionary is defined or not.
      */
-    has(object: M[keyof M]["key"]): boolean;
+    has(object: object): boolean;
     /**
      * Frees internal resources.
      */
     dispose(): void;
 }
+
 export default DataMap;

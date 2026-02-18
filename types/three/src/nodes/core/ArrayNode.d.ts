@@ -18,9 +18,8 @@ interface ArrayFunction {
 
 export const array: ArrayFunction;
 
-declare module "../Nodes.js" {
-    interface Node {
+declare module "./Node.js" {
+    interface NodeElements {
         toArray: (count: number) => ArrayNode;
-        toArrayAssign: (count: number) => this;
     }
 }

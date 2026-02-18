@@ -57,7 +57,7 @@ export class CompressedArrayTexture extends CompressedTexture<CompressedArrayTex
     /**
      * Resets the layer updates registry. See {@link CompressedArrayTexture.addLayerUpdate}.
      */
-    clearLayoutUpdates(): void;
+    clearLayerUpdates(): void;
 }
 
 export interface CompressedArrayTextureImageData extends CompressedTextureImageData {

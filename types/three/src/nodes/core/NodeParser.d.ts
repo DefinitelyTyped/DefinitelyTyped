@@ -1,4 +1,5 @@
 import NodeFunction from "./NodeFunction.js";
+
 /**
  * Base class for node parsers. A derived parser must be implemented
  * for each supported native shader language.
@@ -13,4 +14,5 @@ declare abstract class NodeParser {
      */
     abstract parseFunction(source: string): NodeFunction;
 }
+
 export default NodeParser;

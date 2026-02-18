@@ -1,96 +1,75 @@
 import { Object3D } from "../core/Object3D.js";
-import { AudioContext } from "./AudioContext.js";
 
 /**
- * The {@link AudioListener} represents a virtual {@link https://developer.mozilla.org/en-US/docs/Web/API/AudioListener | listener} of the all positional and non-positional audio effects in the scene.
- * A three.js application usually creates a single instance of {@link AudioListener}  * @remarks
- * It is a mandatory constructor parameter for audios entities like {@link Audio | Audio} and {@link PositionalAudio | PositionalAudio}.
- * In most cases, the listener object is a child of the camera
- * So the 3D transformation of the camera represents the 3D transformation of the listener.
- * @example
- * ```typescript
- * // create an {@link AudioListener} and add it to the camera
- * const listener = new THREE.AudioListener();
- * camera.add(listener);
- * // create a global audio source
- * const sound = new THREE.Audio(listener);
- * // load a sound and set it as the Audio object's buffer
- * const audioLoader = new THREE.AudioLoader();
- * audioLoader.load('sounds/ambient.ogg', function (buffer) {
- *     sound.setBuffer(buffer);
- *     sound.setLoop(true);
- *     sound.setVolume(0.5);
- *     sound.play();
- * });
- * ```
- * @see Example: {@link https://threejs.org/examples/#webaudio_sandbox | webaudio / sandbox }
- * @see Example: {@link https://threejs.org/examples/#webaudio_timing | webaudio / timing }
- * @see Example: {@link https://threejs.org/examples/#webaudio_visualizer | webaudio / visualizer }
- * @see {@link https://threejs.org/docs/index.html#api/en/audio/AudioListener | Official Documentation}
- * @see {@link https://github.com/mrdoob/three.js/blob/master/src/audio/AudioListener.js | Source}
+ * The class represents a virtual listener of the all positional and non-positional audio effects
+ * in the scene. A three.js application usually creates a single listener. It is a mandatory
+ * constructor parameter for audios entities like {@link Audio} and {@link PositionalAudio}.
+ *
+ * In most cases, the listener object is a child of the camera. So the 3D transformation of the
+ * camera represents the 3D transformation of the listener.
  */
 export class AudioListener extends Object3D {
     /**
-     * Create a new AudioListener.
+     * The native audio context.
      */
-    constructor();
-
+    readonly context: AudioContext;
     /**
-     * A Read-only _string_ to check if `this` object type.
-     * @remarks Sub-classes will update this value.
-     * @defaultValue `AudioListener`
+     * The gain node used for volume control.
      */
-    readonly type: string | "AudioListener";
-
+    readonly gain: GainNode;
     /**
-     * The {@link https://developer.mozilla.org/en-US/docs/Web/API/AudioContext | AudioContext} of the {@link {@link AudioListener} | listener} given in the constructor.
+     * An optional filter.
+     *
+     * Defined via {@link AudioListener#setFilter}.
+     *
+     * @default null
      */
-    context: AudioContext;
-
+    readonly filter: AudioNode | null;
     /**
-     * A {@link https://developer.mozilla.org/en-US/docs/Web/API/GainNode | GainNode} created using
-     * {@link https://developer.mozilla.org/en-US/docs/Web/API/AudioContext/createGain | AudioContext.createGain()}.
+     * Time delta values required for `linearRampToValueAtTime()` usage.
+     *
+     * @default 0
      */
-    gain: GainNode;
-
+    readonly timeDelta: number;
     /**
-     * @defaultValue `null`
-     */
-    filter: AudioNode;
-
-    /**
-     * Time delta value for audio entities. Use in context of {@link https://developer.mozilla.org/en-US/docs/Web/API/AudioParam/linearRampToValueAtTime | AudioParam.linearRampToValueAtTimeDefault()}.
-     * @defaultValue `0`
-     */
-    timeDelta: number;
-
-    /**
-     * Return the {@link AudioListener.gain | gainNode}.
+     * Returns the listener's input node.
+     *
+     * This method is used by other audio nodes to connect to this listener.
+     *
+     * @return {GainNode} The input node.
      */
     getInput(): GainNode;
     /**
-     * Set the {@link AudioListener.filter | filter} property to `null`.
+     * Removes the current filter from this listener.
+     *
+     * @return {AudioListener} A reference to this listener.
      */
     removeFilter(): this;
-
     /**
-     * Returns the value of the {@link AudioListener.filter | filter} property.
+     * Returns the current set filter.
+     *
+     * @return {?AudioNode} The filter.
      */
-    getFilter(): AudioNode;
+    getFilter(): AudioNode | null;
     /**
-     * Set the {@link AudioListener.filter | filter} property to `value`.
-     * @param value
+     * Sets the given filter to this listener.
+     *
+     * @param {AudioNode} value - The filter to set.
+     * @return {AudioListener} A reference to this listener.
      */
     setFilter(value: AudioNode): this;
-
     /**
-     * Return the volume.
+     * Returns the applications master volume.
+     *
+     * @return {number} The master volume.
      */
     getMasterVolume(): number;
-
     /**
-     * Set the volume.
-     * @param value
+     * Sets the applications master volume. This volume setting affects
+     * all audio nodes in the scene.
+     *
+     * @param {number} value - The master volume to set.
+     * @return {AudioListener} A reference to this listener.
      */
     setMasterVolume(value: number): this;
 }

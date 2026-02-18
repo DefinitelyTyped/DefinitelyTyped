@@ -1,8 +1,7 @@
 import Node from "../core/Node.js";
-import VarNode from "../core/VarNode.js";
 
-export const reflectView: Node;
-export const refractView: Node;
+export const reflectView: Node<"vec3">;
+export const refractView: Node<"vec3">;
 
-export const reflectVector: VarNode;
-export const refractVector: VarNode;
+export const reflectVector: Node<"vec3">;
+export const refractVector: Node<"vec3">;

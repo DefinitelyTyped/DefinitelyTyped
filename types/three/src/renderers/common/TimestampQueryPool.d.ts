@@ -4,21 +4,74 @@
  * @abstract
  */
 declare abstract class TimestampQueryPool {
-    trackTimestamp: boolean;
-    maxQueries: number;
-    currentQueryIndex: number;
-    queryOffsets: Map<number, number>;
-    isDisposed: boolean;
-    lastValue: number;
-    frames: number[];
-    pendingResolve: boolean;
-    timestamps: Map<string, number>;
     /**
      * Creates a new timestamp query pool.
      *
      * @param {number} [maxQueries=256] - Maximum number of queries this pool can hold.
      */
     constructor(maxQueries?: number);
+    /**
+     * Whether to track timestamps or not.
+     *
+     * @type {boolean}
+     * @default true
+     */
+    trackTimestamp: boolean;
+    /**
+     * Maximum number of queries this pool can hold.
+     *
+     * @type {number}
+     * @default 256
+     */
+    maxQueries: number;
+    /**
+     * How many queries allocated so far.
+     *
+     * @type {number}
+     * @default 0
+     */
+    currentQueryIndex: number;
+    /**
+     * Tracks offsets for different contexts.
+     *
+     * @type {Map<string, number>}
+     */
+    queryOffsets: Map<string, number>;
+    /**
+     * Whether the pool has been disposed or not.
+     *
+     * @type {boolean}
+     * @default false
+     */
+    isDisposed: boolean;
+    /**
+     * The total frame duration until the next update.
+     *
+     * @type {number}
+     * @default 0
+     */
+    lastValue: number;
+    /**
+     * Stores all timestamp frames.
+     *
+     * @type {Array<number>}
+     */
+    frames: number[];
+    /**
+     * This property is used to avoid multiple concurrent resolve operations.
+     * The WebGL backend uses it as a boolean flag. In context of WebGPU, it holds
+     * the promise of the current resolve operation.
+     *
+     * @type {boolean|Promise<number>}
+     * @default false
+     */
+    pendingResolve: boolean | Promise<number>;
+    /**
+     * Stores the latest timestamp for each render context.
+     *
+     * @type {Map<string, number>}
+     */
+    timestamps: Map<string, number>;
     /**
      * Returns all timestamp frames.
      *
@@ -31,7 +84,7 @@ declare abstract class TimestampQueryPool {
      * @param {string} uid - A unique identifier for the render context.
      * @return {?number} The timestamp, or undefined if not available.
      */
-    getTimestamp(uid: string): number;
+    getTimestamp(uid: string): number | null;
     /**
      * Returns whether a timestamp is available for a given render context.
      *
@@ -55,7 +108,7 @@ declare abstract class TimestampQueryPool {
      * @async
      * @returns {Promise<number>|number} The resolved timestamp value.
      */
-    abstract resolveQueriesAsync(): Promise<number>;
+    abstract resolveQueriesAsync(): Promise<number> | number;
     /**
      * Dispose of the query pool.
      *
@@ -63,4 +116,5 @@ declare abstract class TimestampQueryPool {
      */
     abstract dispose(): void;
 }
+
 export default TimestampQueryPool;

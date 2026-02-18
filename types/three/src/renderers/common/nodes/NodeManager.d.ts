@@ -1,17 +1,11 @@
 import { Camera } from "../../../cameras/Camera.js";
 import { Object3D } from "../../../core/Object3D.js";
 import { Material } from "../../../materials/Material.js";
-import { Color } from "../../../math/Color.js";
 import Node from "../../../nodes/core/Node.js";
-import NodeBuilder from "../../../nodes/core/NodeBuilder.js";
-import UniformGroupNode from "../../../nodes/core/UniformGroupNode.js";
+import NodeFrame from "../../../nodes/core/NodeFrame.js";
 import ComputeNode from "../../../nodes/gpgpu/ComputeNode.js";
 import LightsNode from "../../../nodes/lighting/LightsNode.js";
-import { NodeFrame } from "../../../nodes/Nodes.js";
-import { Fog } from "../../../scenes/Fog.js";
-import { FogExp2 } from "../../../scenes/FogExp2.js";
 import { Scene } from "../../../scenes/Scene.js";
-import { CubeTexture } from "../../../textures/CubeTexture.js";
 import { Texture } from "../../../textures/Texture.js";
 import Backend from "../Backend.js";
 import ChainMap from "../ChainMap.js";
@@ -20,35 +14,15 @@ import Renderer from "../Renderer.js";
 import RenderObject from "../RenderObject.js";
 import NodeBuilderState from "./NodeBuilderState.js";
 import NodeUniformsGroup from "./NodeUniformsGroup.js";
-interface NodeUniformsGroupData {
-    renderId?: number | undefined;
-    frameId?: number | undefined;
-}
-interface RenderObjectData {
-    nodeBuilderState?: NodeBuilderState | undefined;
-}
-interface ComputeNodeData {
-    nodeBuilderState?: NodeBuilderState | undefined;
-}
-interface SceneData {
-    background?: Color | Texture | CubeTexture | undefined;
-    backgroundNode?: Node | undefined;
-    fog?: Fog | FogExp2 | undefined;
-    fogNode?: Node | undefined;
-    environment?: Texture | undefined;
-    environmentNode?: Node | undefined;
-}
-interface CacheKeyData {
-    callId: number;
-    cacheKey: number;
-}
+
 declare module "../../../scenes/Scene.js" {
     interface Scene {
-        environmentNode?: Node | null | undefined;
+        environmentNode?: Node<"vec3"> | null | undefined;
         backgroundNode?: Node | null | undefined;
         fogNode?: Node | null | undefined;
     }
 }
+
 /**
  * This renderer module manages node-related objects and is the
  * primary interface between the renderer and the node system.
@@ -56,42 +30,59 @@ declare module "../../../scenes/Scene.js" {
  * @private
  * @augments DataMap
  */
-declare class Nodes extends DataMap<{
+declare class NodeManager extends DataMap {
     /**
      * Constructs a new nodes management component.
      *
      * @param {Renderer} renderer - The renderer.
      * @param {Backend} backend - The renderer's backend.
      */
-    nodeUniformsGroup: {
-        key: NodeUniformsGroup;
-        value: NodeUniformsGroupData;
-    };
-    renderObject: {
-        key: RenderObject;
-        value: RenderObjectData;
-    };
-    computeNode: {
-        key: ComputeNode;
-        value: ComputeNodeData;
-    };
-    scene: {
-        key: Scene;
-        value: SceneData;
-    };
-}> {
-    renderer: Renderer;
-    backend: Backend;
-    nodeFrame: NodeFrame;
-    nodeBuilderCache: Map<string, NodeBuilderState>;
-    callHashCache: ChainMap<readonly [Scene, LightsNode], CacheKeyData>;
-    groupsData: ChainMap<readonly [UniformGroupNode, NodeUniformsGroup], {
-        version?: number;
-    }>;
-    cacheLib: {
-        [type: string]: WeakMap<object, Node | undefined>;
-    };
     constructor(renderer: Renderer, backend: Backend);
+    /**
+     * The renderer.
+     *
+     * @type {Renderer}
+     */
+    renderer: Renderer;
+    /**
+     * The renderer's backend.
+     *
+     * @type {Backend}
+     */
+    backend: Backend;
+    /**
+     * The node frame.
+     *
+     * @type {Renderer}
+     */
+    nodeFrame: NodeFrame;
+    /**
+     * A cache for managing node builder states.
+     *
+     * @type {Map<number,NodeBuilderState>}
+     */
+    nodeBuilderCache: Map<number, NodeBuilderState>;
+    /**
+     * A cache for managing data cache key data.
+     *
+     * @type {ChainMap}
+     */
+    callHashCache: ChainMap;
+    /**
+     * A cache for managing node uniforms group data.
+     *
+     * @type {ChainMap}
+     */
+    groupsData: ChainMap;
+    /**
+     * A cache for managing node objects of
+     * scene properties like fog or environments.
+     *
+     * @type {Object<string,WeakMap>}
+     */
+    cacheLib: {
+        [x: string]: WeakMap<object, Node | undefined>;
+    };
     /**
      * Returns `true` if the given node uniforms group must be updated or not.
      *
@@ -119,9 +110,7 @@ declare class Nodes extends DataMap<{
      * @param {any} object - The object to delete.
      * @return {?Object} The deleted dictionary.
      */
-    delete(
-        object: NodeUniformsGroup | RenderObject | ComputeNode | Scene,
-    ): RenderObjectData | NodeUniformsGroupData | ComputeNodeData | SceneData;
+    delete(object: unknown): unknown | null;
     /**
      * Returns a node builder state for the given compute node.
      *
@@ -136,7 +125,7 @@ declare class Nodes extends DataMap<{
      * @param {NodeBuilder} nodeBuilder - The node builder.
      * @return {NodeBuilderState} The node builder state.
      */
-    _createNodeBuilderState(nodeBuilder: NodeBuilder): NodeBuilderState;
+    private _createNodeBuilderState;
     /**
      * Returns an environment node for the current configured
      * scene environment.
@@ -144,7 +133,7 @@ declare class Nodes extends DataMap<{
      * @param {Scene} scene - The scene.
      * @return {Node} A node representing the current scene environment.
      */
-    getEnvironmentNode(scene: Scene): Node | null;
+    getEnvironmentNode(scene: Scene): Node;
     /**
      * Returns a background node for the current configured
      * scene background.
@@ -152,14 +141,14 @@ declare class Nodes extends DataMap<{
      * @param {Scene} scene - The scene.
      * @return {Node} A node representing the current scene background.
      */
-    getBackgroundNode(scene: Scene): Node | null;
+    getBackgroundNode(scene: Scene): Node;
     /**
      * Returns a fog node for the current configured scene fog.
      *
      * @param {Scene} scene - The scene.
      * @return {Node} A node representing the current scene fog.
      */
-    getFogNode(scene: Scene): Node | null;
+    getFogNode(scene: Scene): Node;
     /**
      * Returns a cache key for the given scene and lights node.
      * This key is used by `RenderObject` as a part of the dynamic
@@ -195,12 +184,7 @@ declare class Nodes extends DataMap<{
      * @param {boolean} [forceUpdate=false] - Whether an update should be enforced or not.
      * @return {Node} The node representation.
      */
-    getCacheNode(
-        type: string,
-        object: object,
-        callback: () => Node | undefined,
-        forceUpdate?: boolean,
-    ): Node | undefined;
+    getCacheNode(type: string, object: object, callback: () => Node | undefined, forceUpdate?: boolean): Node;
     /**
      * If a scene fog is configured, this method makes sure to
      * represent the fog with a corresponding node-based implementation.
@@ -280,9 +264,6 @@ declare class Nodes extends DataMap<{
      * @return {boolean} Whether the given render object requires a refresh or not.
      */
     needsRefresh(renderObject: RenderObject): boolean;
-    /**
-     * Frees the internal resources.
-     */
-    dispose(): void;
 }
-export default Nodes;
+
+export default NodeManager;

@@ -1,6 +1,4 @@
-import { Vector2 } from "../../math/Vector2.js";
 import Node from "../core/Node.js";
-import UniformNode from "../core/UniformNode.js";
 
 export type MaterialNodeScope =
     | typeof MaterialNode.ALPHA_TEST
@@ -125,4 +123,4 @@ export const materialPointSize: MaterialNode;
 export const materialDispersion: MaterialNode;
 export const materialLightMap: MaterialNode;
 export const materialAO: MaterialNode;
-export const materialAnisotropyVector: UniformNode<Vector2>;
+export const materialAnisotropyVector: MaterialNode;

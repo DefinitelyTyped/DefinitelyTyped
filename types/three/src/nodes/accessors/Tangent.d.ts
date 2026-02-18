@@ -1,8 +1,6 @@
-import AttributeNode from "../core/AttributeNode.js";
-import VaryingNode from "../core/VaryingNode.js";
-import MathNode from "../math/MathNode.js";
+import Node from "../core/Node.js";
 
-export const tangentGeometry: AttributeNode;
-export const tangentLocal: VaryingNode;
-export const tangentView: MathNode;
-export const tangentWorld: MathNode;
+export const tangentGeometry: Node<"vec4">;
+export const tangentLocal: Node<"vec3">;
+export const tangentView: Node<"vec3">;
+export const tangentWorld: Node<"vec3">;

@@ -1,3 +1,3 @@
 import Node from "../core/Node.js";
 
-export const checker: (coord?: Node) => Node;
+export const checker: (coord?: Node) => Node<"float">;
