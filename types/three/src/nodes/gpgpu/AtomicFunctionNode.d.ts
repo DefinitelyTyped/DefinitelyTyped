@@ -30,6 +30,8 @@ declare class AtomicFunctionNode extends Node {
     static ATOMIC_XOR: "atomicXor";
 }
 
+export default AtomicFunctionNode;
+
 export const atomicFunc: (
     method: AtomicMethod,
     pointerNode: Node,

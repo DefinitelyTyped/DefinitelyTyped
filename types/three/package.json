@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/three",
-    "version": "0.182.9999",
+    "version": "0.183.9999",
     "projects": [
         "https://threejs.org/"
     ],
@@ -26,7 +26,7 @@
         "@types/webxr": ">=0.5.17",
         "@webgpu/types": "*",
         "fflate": "~0.8.2",
-        "meshoptimizer": "~0.22.0"
+        "meshoptimizer": "~1.0.1"
     },
     "devDependencies": {
         "@types/three": "workspace:."

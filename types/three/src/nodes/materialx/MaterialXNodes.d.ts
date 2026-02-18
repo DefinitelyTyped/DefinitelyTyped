@@ -55,17 +55,17 @@ export const mx_noise_float: (
     texcoord?: Node,
     amplitude?: Node | number,
     pivot?: Node | number,
-) => Node;
+) => Node<"float">;
 export const mx_noise_vec3: (
     texcoord?: Node,
     amplitude?: Node | number,
     pivot?: Node | number,
-) => Node;
+) => Node<"vec3">;
 export const mx_noise_vec4: (
     texcoord?: Node,
     amplitude?: Node | number,
     pivot?: Node | number,
-) => Node;
+) => Node<"vec4">;
 
 export const mx_unifiednoise2d: (
     noiseType: Node,
@@ -97,17 +97,17 @@ export const mx_unifiednoise3d: (
 export function mx_worley_noise_float(
     texcoord?: Node,
     jitter?: Node | number,
-): Node;
+): Node<"float">;
 export function mx_worley_noise_vec2(
     texcoord?: Node,
     jitter?: Node | number,
-): Node;
+): Node<"vec2">;
 export function mx_worley_noise_vec3(
     texcoord?: Node,
     jitter?: Node | number,
-): Node;
+): Node<"vec3">;
 
-export function mx_cell_noise_float(texcoord?: Node): Node;
+export function mx_cell_noise_float(texcoord?: Node): Node<"float">;
 
 export function mx_fractal_noise_float(
     position?: Node,
@@ -115,28 +115,28 @@ export function mx_fractal_noise_float(
     lacunarity?: Node | number,
     diminish?: Node | number,
     amplitude?: Node | number,
-): Node;
+): Node<"float">;
 export function mx_fractal_noise_vec2(
     position?: Node,
     octaves?: Node | number,
     lacunarity?: Node | number,
     diminish?: Node | number,
     amplitude?: Node | number,
-): Node;
+): Node<"vec2">;
 export function mx_fractal_noise_vec3(
     position?: Node,
     octaves?: Node | number,
     lacunarity?: Node | number,
     diminish?: Node | number,
     amplitude?: Node | number,
-): Node;
+): Node<"vec3">;
 export function mx_fractal_noise_vec4(
     position?: Node,
     octaves?: Node | number,
     lacunarity?: Node | number,
     diminish?: Node | number,
     amplitude?: Node | number,
-): Node;
+): Node<"vec4">;
 
 export { mx_hsvtorgb, mx_rgbtohsv, mx_srgb_texture_to_lin_rec709 };
 

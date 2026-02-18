@@ -7,7 +7,7 @@ export default class Texture3DNode extends TextureNode {
 
     constructor(value: Texture, uvNode?: Node | null, levelNode?: Node | null);
 
-    normal(uvNode: Node): Node;
+    normal(uvNode: Node): Node<"vec3">;
 }
 
 export const texture3D: (

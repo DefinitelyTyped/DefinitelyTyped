@@ -20,26 +20,27 @@ export class PropertyMixer {
      * The keyframe track value size.
      */
     valueSize: number;
+    buffer: Float64Array | unknown[];
     /**
-     * TODO
+     * Accumulated weight of the property binding.
      *
      * @default 0
      */
     cumulativeWeight: number;
     /**
-     * TODO
+     * Accumulated additive weight of the property binding.
      *
      * @default 0
      */
     cumulativeWeightAdditive: number;
     /**
-     * TODO
+     * Number of active keyframe tracks currently using this property binding.
      *
      * @default 0
      */
     useCount: number;
     /**
-     * TODO
+     * Number of keyframe tracks referencing this property binding.
      *
      * @default 0
      */

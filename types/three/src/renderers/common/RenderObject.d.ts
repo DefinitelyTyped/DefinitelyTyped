@@ -2,21 +2,21 @@ import { Camera } from "../../cameras/Camera.js";
 import { BufferAttribute } from "../../core/BufferAttribute.js";
 import { BufferGeometry } from "../../core/BufferGeometry.js";
 import { InterleavedBuffer } from "../../core/InterleavedBuffer.js";
-import { InterleavedBufferAttribute } from "../../core/InterleavedBufferAttribute.js";
 import { Object3D } from "../../core/Object3D.js";
 import { Material } from "../../materials/Material.js";
 import NodeMaterialObserver from "../../materials/nodes/manager/NodeMaterialObserver.js";
-import { LightsNode } from "../../nodes/Nodes.js";
+import LightsNode from "../../nodes/lighting/LightsNode.js";
 import { Scene } from "../../scenes/Scene.js";
 import BindGroup from "./BindGroup.js";
 import BundleGroup from "./BundleGroup.js";
 import ClippingContext from "./ClippingContext.js";
 import Geometries from "./Geometries.js";
 import NodeBuilderState from "./nodes/NodeBuilderState.js";
-import Nodes from "./nodes/Nodes.js";
+import NodeManager from "./nodes/NodeManager.js";
 import RenderContext from "./RenderContext.js";
 import Renderer from "./Renderer.js";
 import RenderPipeline from "./RenderPipeline.js";
+
 /**
  * A render object is the renderer's representation of single entity that gets drawn
  * with a draw command. There is no unique mapping of render objects to 3D objects in the
@@ -36,50 +36,6 @@ import RenderPipeline from "./RenderPipeline.js";
  * @private
  */
 declare class RenderObject {
-    _nodes: Nodes;
-    _geometries: Geometries;
-    id: number;
-    renderer: Renderer;
-    object: Object3D;
-    material: Material;
-    scene: Scene;
-    camera: Camera;
-    lightsNode: LightsNode;
-    context: RenderContext;
-    geometry: BufferGeometry;
-    version: number;
-    drawRange: {
-        start: number;
-        count: number;
-    } | null;
-    attributes: Array<BufferAttribute | InterleavedBufferAttribute> | null;
-    attributesId: {
-        [attributeName: string]: number;
-    } | null;
-    pipeline: RenderPipeline | null;
-    group: {
-        start: number;
-        count: number;
-    } | null;
-    vertexBuffers: Array<BufferAttribute | InterleavedBuffer> | null;
-    drawParams: {
-        vertexCount: number;
-        firstVertex: number;
-        instanceCount: number;
-        firstInstance: number;
-    } | null;
-    bundle: BundleGroup | null;
-    clippingContext: ClippingContext | null;
-    clippingContextCacheKey: string;
-    initialNodesCacheKey: number;
-    initialCacheKey: number;
-    _nodeBuilderState: NodeBuilderState | null;
-    _bindings: BindGroup[] | null;
-    _monitor: NodeMaterialObserver | null;
-    onDispose: (() => void) | null;
-    readonly isRenderObject: true;
-    onMaterialDispose: () => void;
-    onGeometryDispose: () => void;
     /**
      * Constructs a new render object.
      *
@@ -95,7 +51,7 @@ declare class RenderObject {
      * @param {ClippingContext} clippingContext - The clipping context.
      */
     constructor(
-        nodes: Nodes,
+        nodes: NodeManager,
         geometries: Geometries,
         renderer: Renderer,
         object: Object3D,
@@ -104,8 +60,232 @@ declare class RenderObject {
         camera: Camera,
         lightsNode: LightsNode,
         renderContext: RenderContext,
-        clippingContext: ClippingContext | null,
+        clippingContext: ClippingContext,
     );
+    id: number;
+    /**
+     * Renderer component for managing nodes related logic.
+     *
+     * @type {Nodes}
+     * @private
+     */
+    private _nodes;
+    /**
+     * Renderer component for managing geometries.
+     *
+     * @type {Geometries}
+     * @private
+     */
+    private _geometries;
+    /**
+     * The renderer.
+     *
+     * @type {Renderer}
+     */
+    renderer: Renderer;
+    /**
+     * The 3D object.
+     *
+     * @type {Object3D}
+     */
+    object: Object3D;
+    /**
+     * The 3D object's material.
+     *
+     * @type {Material}
+     */
+    material: Material;
+    /**
+     * The scene the 3D object belongs to.
+     *
+     * @type {Scene}
+     */
+    scene: Scene;
+    /**
+     * The camera the 3D object should be rendered with.
+     *
+     * @type {Camera}
+     */
+    camera: Camera;
+    /**
+     * The lights node.
+     *
+     * @type {LightsNode}
+     */
+    lightsNode: LightsNode;
+    /**
+     * The render context.
+     *
+     * @type {RenderContext}
+     */
+    context: RenderContext;
+    /**
+     * The 3D object's geometry.
+     *
+     * @type {BufferGeometry}
+     */
+    geometry: BufferGeometry;
+    /**
+     * The render object's version.
+     *
+     * @type {number}
+     */
+    version: number;
+    /**
+     * The draw range of the geometry.
+     *
+     * @type {?Object}
+     * @default null
+     */
+    drawRange: {
+        start: number;
+        count: number;
+    } | null;
+    /**
+     * An array holding the buffer attributes
+     * of the render object. This entails attribute
+     * definitions on geometry and node level.
+     *
+     * @type {?Array<BufferAttribute>}
+     * @default null
+     */
+    attributes: BufferAttribute[] | null;
+    /**
+     * An object holding the version of the
+     * attributes. The keys are the attribute names
+     * and the values are the attribute versions.
+     *
+     * @type {?Object<string, number>}
+     * @default null
+     */
+    attributesId: {
+        [x: string]: number;
+    } | null;
+    /**
+     * A reference to a render pipeline the render
+     * object is processed with.
+     *
+     * @type {RenderPipeline}
+     * @default null
+     */
+    pipeline: RenderPipeline;
+    /**
+     * Only relevant for objects using
+     * multiple materials. This represents a group entry
+     * from the respective `BufferGeometry`.
+     *
+     * @type {?{start: number, count: number}}
+     * @default null
+     */
+    group: {
+        start: number;
+        count: number;
+    } | null;
+    /**
+     * An array holding the vertex buffers which can
+     * be buffer attributes but also interleaved buffers.
+     *
+     * @type {?Array<BufferAttribute|InterleavedBuffer>}
+     * @default null
+     */
+    vertexBuffers: Array<BufferAttribute | InterleavedBuffer> | null;
+    /**
+     * The parameters for the draw command.
+     *
+     * @type {?Object}
+     * @default null
+     */
+    drawParams: {
+        vertexCount: number;
+        firstVertex: number;
+        instanceCount: number;
+        firstInstance: number;
+    } | null;
+    /**
+     * If this render object is used inside a render bundle,
+     * this property points to the respective bundle group.
+     *
+     * @type {?BundleGroup}
+     * @default null
+     */
+    bundle: BundleGroup | null;
+    /**
+     * The clipping context.
+     *
+     * @type {ClippingContext}
+     */
+    clippingContext: ClippingContext;
+    /**
+     * The clipping context's cache key.
+     *
+     * @type {string}
+     */
+    clippingContextCacheKey: string;
+    /**
+     * The initial node cache key.
+     *
+     * @type {number}
+     */
+    initialNodesCacheKey: number;
+    /**
+     * The initial cache key.
+     *
+     * @type {number}
+     */
+    initialCacheKey: number;
+    /**
+     * The node builder state.
+     *
+     * @type {?NodeBuilderState}
+     * @private
+     * @default null
+     */
+    private _nodeBuilderState;
+    /**
+     * An array of bindings.
+     *
+     * @type {?Array<BindGroup>}
+     * @private
+     * @default null
+     */
+    private _bindings;
+    /**
+     * Reference to the node material observer.
+     *
+     * @type {?NodeMaterialObserver}
+     * @private
+     * @default null
+     */
+    private _monitor;
+    /**
+     * An event listener which is defined by `RenderObjects`. It performs
+     * clean up tasks when `dispose()` on this render object.
+     *
+     * @method
+     */
+    onDispose: (() => void) | null;
+    /**
+     * This flag can be used for type testing.
+     *
+     * @type {boolean}
+     * @readonly
+     * @default true
+     */
+    readonly isRenderObject: boolean;
+    /**
+     * An event listener which is executed when `dispose()` is called on
+     * the material of this render object.
+     *
+     * @method
+     */
+    onMaterialDispose: () => void;
+    /**
+     * An event listener which is executed when `dispose()` is called on
+     * the geometry of this render object.
+     *
+     * @method
+     */
+    onGeometryDispose: () => void;
     /**
      * Updates the clipping context.
      *
@@ -150,7 +330,7 @@ declare class RenderObject {
      * @param {string} name - The name of the binding group.
      * @return {?BindGroup} The bindings.
      */
-    getBindingGroup(name: string): BindGroup | undefined;
+    getBindingGroup(name: string): BindGroup | null;
     /**
      * Returns the index of the render object's geometry.
      *
@@ -162,7 +342,7 @@ declare class RenderObject {
      *
      * @return {?BufferAttribute} The indirect attribute. `null` if no indirect drawing is used.
      */
-    getIndirect(): import("./IndirectStorageBufferAttribute.js").default | null;
+    getIndirect(): BufferAttribute | null;
     /**
      * Returns the byte offset into the indirect attribute buffer.
      *
@@ -174,12 +354,7 @@ declare class RenderObject {
      *
      * @return {Array<Object>} An array with object references.
      */
-    getChainArray(): readonly [
-        Object3D<import("../../core/Object3D.js").Object3DEventMap>,
-        Material,
-        RenderContext,
-        LightsNode,
-    ];
+    getChainArray(): unknown[];
     /**
      * This method is used when the geometry of a 3D object has been exchanged and the
      * respective render object now requires an update.
@@ -193,13 +368,13 @@ declare class RenderObject {
      *
      * @return {Array<BufferAttribute>} An array with buffer attributes.
      */
-    getAttributes(): (BufferAttribute | InterleavedBufferAttribute)[];
+    getAttributes(): BufferAttribute[];
     /**
      * Returns the vertex buffers of the render object.
      *
      * @return {Array<BufferAttribute|InterleavedBuffer>} An array with buffer attribute or interleaved buffers.
      */
-    getVertexBuffers(): (BufferAttribute | InterleavedBuffer)[] | null;
+    getVertexBuffers(): Array<BufferAttribute | InterleavedBuffer>;
     /**
      * Returns the draw parameters for the render object.
      *
@@ -269,4 +444,5 @@ declare class RenderObject {
      */
     dispose(): void;
 }
+
 export default RenderObject;

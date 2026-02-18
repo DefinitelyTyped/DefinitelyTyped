@@ -39,7 +39,7 @@ export const storageTexture: (
 ) => StorageTextureNode;
 
 export const textureStore: (
-    value: Texture,
+    value: Texture | StorageTextureNode,
     uvNode?: Node | null,
     storeNode?: Node,
 ) => StorageTextureNode;

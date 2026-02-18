@@ -1,6 +1,7 @@
 import { CoordinateSystem } from "../constants.js";
 import { Object3D } from "../core/Object3D.js";
 import { RenderTarget } from "../core/RenderTarget.js";
+import CubeRenderTarget from "../renderers/common/CubeRenderTarget.js";
 import { WebGLCubeRenderTarget } from "../renderers/WebGLCubeRenderTarget.js";
 import { Camera } from "./Camera.js";
 
@@ -21,12 +22,13 @@ export interface CubeCameraRenderer {
 }
 
 /**
- * Creates **6** {@link THREE.PerspectiveCamera | cameras} that render to a {@link THREE.WebGLCubeRenderTarget | WebGLCubeRenderTarget}.
- * @remarks The cameras are added to the {@link children} array.
- * @example
- * ```typescript
+ * A special type of camera that is positioned in 3D space to render its surroundings into a
+ * cube render target. The render target can then be used as an environment map for rendering
+ * realtime reflections in your scene.
+ *
+ * ```js
  * // Create cube render target
- * const cubeRenderTarget = new THREE.WebGLCubeRenderTarget( 128, { generateMipmaps: true, minFilter: THREE.LinearMipmapLinearFilter } );
+ * const cubeRenderTarget = new THREE.WebGLCubeRenderTarget( 256, { generateMipmaps: true, minFilter: THREE.LinearMipmapLinearFilter } );
  *
  * // Create cube camera
  * const cubeCamera = new THREE.CubeCamera( 1, 100000, cubeRenderTarget );
@@ -46,40 +48,42 @@ export interface CubeCameraRenderer {
  * car.visible = true;
  * renderer.render( scene, camera );
  * ```
- * @see Example: {@link https://threejs.org/examples/#webgl_materials_cubemap_dynamic | materials / cubemap / dynamic }
- * @see {@link https://threejs.org/docs/index.html#api/en/cameras/CubeCamera | Official Documentation}
- * @see {@link https://github.com/mrdoob/three.js/blob/master/src/cameras/CubeCamera.js | Source}
  */
 export class CubeCamera extends Object3D {
     /**
-     * Constructs a {@link CubeCamera} that contains 6 {@link PerspectiveCamera | PerspectiveCameras} that render to a {@link THREE.WebGLCubeRenderTarget | WebGLCubeRenderTarget}.
-     * @param near The near clipping distance.
-     * @param far The far clipping distance.
-     * @param renderTarget The destination cube render target.
+     * Constructs a new cube camera.
+     *
+     * @param {number} near - The camera's near plane.
+     * @param {number} far - The camera's far plane.
+     * @param {WebGLCubeRenderTarget} renderTarget - The cube render target.
      */
-    constructor(near: number, far: number, renderTarget: WebGLCubeRenderTarget);
-
+    constructor(near: number, far: number, renderTarget: WebGLCubeRenderTarget | CubeRenderTarget);
     /**
-     * @override
-     * @defaultValue `CubeCamera`
-     */
-    override readonly type: string | "CubeCamera";
-
-    /**
-     * The destination cube render target.
+     * A reference to the cube render target.
      */
     renderTarget: WebGLCubeRenderTarget;
-
-    coordinateSystem: CoordinateSystem;
-
-    activeMipmapLevel: number;
-
-    updateCoordinateSystem(): void;
-
     /**
-     * Call this to update the {@link CubeCamera.renderTarget | renderTarget}.
-     * @param renderer The current WebGL renderer
-     * @param scene The current scene
+     * The current active coordinate system.
+     *
+     * @default null
+     */
+    coordinateSystem: CoordinateSystem | null;
+    /**
+     * The current active mipmap level
+     *
+     * @default 0
+     */
+    activeMipmapLevel: number;
+    /**
+     * Must be called when the coordinate system of the cube camera is changed.
+     */
+    updateCoordinateSystem(): void;
+    /**
+     * Calling this method will render the given scene with the given renderer
+     * into the cube render target of the camera.
+     *
+     * @param {(Renderer|WebGLRenderer)} renderer - The renderer.
+     * @param {Scene} scene - The scene to render.
      */
     update(renderer: CubeCameraRenderer, scene: Object3D): void;
 }

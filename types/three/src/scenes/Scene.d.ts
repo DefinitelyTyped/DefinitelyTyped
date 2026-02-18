@@ -1,8 +1,7 @@
-import { JSONMeta, Object3D, Object3DEventMap, Object3DJSON, Object3DJSONObject } from "../core/Object3D.js";
+import { JSONMeta, Object3D, Object3DJSON, Object3DJSONObject } from "../core/Object3D.js";
 import { Material } from "../materials/Material.js";
 import { Color } from "../math/Color.js";
 import { Euler, EulerTuple } from "../math/Euler.js";
-import { CubeTexture } from "../textures/CubeTexture.js";
 import { Texture } from "../textures/Texture.js";
 import { Fog, FogJSON } from "./Fog.js";
 import { FogExp2, FogExp2JSON } from "./FogExp2.js";
@@ -23,96 +22,83 @@ export interface SceneJSON extends Object3DJSON {
 }
 
 /**
- * Scenes allow you to set up what and where is to be rendered by three.js
- * @remarks
- * This is where you place objects, lights and cameras.
- * @see Example: {@link https://threejs.org/examples/#webgl_multiple_scenes_comparison | webgl multiple scenes comparison}
- * @see {@link https://threejs.org/docs/index.html#manual/en/introduction/Creating-a-scene | Manual: Creating a scene}
- * @see {@link https://threejs.org/docs/index.html#api/en/scenes/Scene | Official Documentation}
- * @see {@link https://github.com/mrdoob/three.js/blob/master/src/scenes/Scene.js | Source}
+ * Scenes allow you to set up what is to be rendered and where by three.js.
+ * This is where you place 3D objects like meshes, lines or lights.
  */
-export class Scene<TEventMap extends Object3DEventMap = Object3DEventMap> extends Object3D<TEventMap> {
+export class Scene extends Object3D {
     /**
-     * Create a new {@link Scene} object.
+     * This flag can be used for type testing.
+     *
+     * @default true
      */
-    constructor();
-
+    readonly isScene: boolean;
     /**
-     * Read-only flag to check if a given object is of type {@link Scene}.
-     * @remarks This is a _constant_ value
-     * @defaultValue `true`
+     * Defines the background of the scene. Valid inputs are:
+     *
+     * - A color for defining a uniform colored background.
+     * - A texture for defining a (flat) textured background.
+     * - Cube textures or equirectangular textures for defining a skybox.
+     *
+     * @default null
      */
-    readonly isScene: true;
-
+    background: (Color | Texture) | null;
     /**
-     * @defaultValue `Scene`
-     */
-    type: "Scene";
-
-    /**
-     * A {@link Fog | fog} instance defining the type of fog that affects everything rendered in the scene.
-     * @defaultValue `null`
-     */
-    fog: Fog | FogExp2 | null;
-
-    /**
-     * Sets the blurriness of the background. Only influences environment maps assigned to {@link THREE.Scene.background | Scene.background}.
-     * @defaultValue `0`
-     * @remarks Expects a `Float` between `0` and `1`.
-     */
-    backgroundBlurriness: number;
-
-    /**
-     * Attenuates the color of the background. Only applies to background textures.
-     * @defaultValue `1`
-     * @remarks Expects a `Float`
-     */
-    backgroundIntensity: number;
-
-    /**
-     * Forces everything in the {@link Scene} to be rendered with the defined material.
-     * @defaultValue `null`
-     */
-    overrideMaterial: Material | null;
-
-    /**
-     * Defines the background of the scene.
-     * @remarks Valid inputs are:
-     *  - A {@link THREE.Color | Color} for defining a uniform colored background.
-     *  - A {@link THREE.Texture | Texture} for defining a (flat) textured background.
-     *  - Texture cubes ({@link THREE.CubeTexture | CubeTexture}) or equirectangular textures for defining a skybox.</li>
-     * @defaultValue `null`
-     */
-    background: Color | Texture | CubeTexture | null;
-
-    /**
-     * The rotation of the background in radians. Only influences environment maps assigned to {@link .background}.
-     * Default is `(0,0,0)`.
-     */
-    backgroundRotation: Euler;
-
-    /**
-     * Sets the environment map for all physical materials in the scene.
-     * However, it's not possible to overwrite an existing texture assigned to {@link THREE.MeshStandardMaterial.envMap | MeshStandardMaterial.envMap}.
-     * @defaultValue `null`
+     * Sets the environment map for all physical materials in the scene. However,
+     * it's not possible to overwrite an existing texture assigned to the `envMap`
+     * material property.
+     *
+     * @default null
      */
     environment: Texture | null;
-
     /**
-     * Attenuates the color of the environment. Only influences environment maps assigned to {@link Scene.environment}.
+     * A fog instance defining the type of fog that affects everything
+     * rendered in the scene.
+     *
+     * @default null
+     */
+    fog: (Fog | FogExp2) | null;
+    /**
+     * Sets the blurriness of the background. Only influences environment maps
+     * assigned to {@link Scene#background}. Valid input is a float between `0`
+     * and `1`.
+     *
+     * @default 0
+     */
+    backgroundBlurriness: number;
+    /**
+     * Attenuates the color of the background. Only applies to background textures.
+     *
+     * @default 1
+     */
+    backgroundIntensity: number;
+    /**
+     * The rotation of the background in radians. Only influences environment maps
+     * assigned to {@link Scene#background}.
+     *
+     * @default (0,0,0)
+     */
+    backgroundRotation: Euler;
+    /**
+     * Attenuates the color of the environment. Only influences environment maps
+     * assigned to {@link Scene#environment}.
+     *
      * @default 1
      */
     environmentIntensity: number;
-
     /**
-     * The rotation of the environment map in radians. Only influences physical materials in the scene when
-     * {@link .environment} is used. Default is `(0,0,0)`.
+     * The rotation of the environment map in radians. Only influences physical materials
+     * in the scene when {@link Scene#environment} is used.
+     *
+     * @default (0,0,0)
      */
     environmentRotation: Euler;
-
     /**
-     * Convert the {@link Scene} to three.js {@link https://github.com/mrdoob/three.js/wiki/JSON-Object-Scene-format-4 | JSON Object/Scene format}.
-     * @param meta Object containing metadata such as textures or images for the scene.
+     * Forces everything in the scene to be rendered with the defined material. It is possible
+     * to exclude materials from override by setting {@link Material#allowOverride} to `false`.
+     *
+     * @default null
      */
+    overrideMaterial: Material | null;
+    copy(source: Scene, recursive?: boolean): this;
     toJSON(meta?: JSONMeta): SceneJSON;
 }

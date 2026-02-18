@@ -1,5 +1,10 @@
 {
     "rules": {
-        "@definitelytyped/no-single-element-tuple-type": "off"
+        "@definitelytyped/no-relative-import-in-test": "off",
+        "@definitelytyped/no-single-element-tuple-type": "off",
+        "@definitelytyped/prefer-declare-function": "off",
+        "@definitelytyped/strict-export-declare-modifiers": "off",
+        "@typescript-eslint/no-empty-interface": "off",
+        "jsdoc/check-tag-names": "off"
     }
 }

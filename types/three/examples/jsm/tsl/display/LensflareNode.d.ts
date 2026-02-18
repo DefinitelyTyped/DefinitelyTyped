@@ -1,4 +1,4 @@
-import { Node, TempNode, TextureNode, UniformNode, Vector3 } from "three/webgpu";
+import { Node, TempNode, TextureNode } from "three/webgpu";
 
 interface LensflareNodeParams {
     ghostTint?: Node | undefined;
@@ -12,11 +12,11 @@ interface LensflareNodeParams {
 declare class LensflareNode extends TempNode {
     textureNode: TextureNode;
 
-    ghostTintNode: UniformNode<Vector3>;
-    thresholdNode: UniformNode<number>;
-    ghostSamplesNode: UniformNode<number>;
-    ghostSpacingNode: UniformNode<number>;
-    ghostAttenuationFactorNode: UniformNode<number>;
+    ghostTintNode: Node<"vec3">;
+    thresholdNode: Node<"float">;
+    ghostSamplesNode: Node<"float">;
+    ghostSpacingNode: Node<"float">;
+    ghostAttenuationFactorNode: Node<"float">;
     downSampleRatio: number;
 
     constructor(textureNode: TextureNode, params?: LensflareNodeParams);

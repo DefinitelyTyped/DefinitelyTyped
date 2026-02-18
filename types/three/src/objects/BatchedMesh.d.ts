@@ -5,6 +5,7 @@ import { Box3 } from "../math/Box3.js";
 import { Color } from "../math/Color.js";
 import { Matrix4 } from "../math/Matrix4.js";
 import { Sphere } from "../math/Sphere.js";
+import { Vector4 } from "../math/Vector4.js";
 import { Mesh } from "./Mesh.js";
 
 export interface BatchedMeshGeometryRange {
@@ -141,9 +142,10 @@ declare class BatchedMesh extends Mesh<BufferGeometry, Material> {
     /**
      * Get the color of the defined geometry.
      * @param instanceId The id of an instance to get the color of.
-     * @param target The target object to copy the color in to.
+     * @param color - The target object that is used to store the method's result.
+     * @return The instance's color. Use a `Vector4` to also retrieve alpha.
      */
-    getColorAt(instanceId: number, target: Color): void;
+    getColorAt(instanceId: number, color: Color | Vector4): Color | Vector4;
 
     /**
      * Get the local transformation matrix of the defined instance.
@@ -180,9 +182,9 @@ declare class BatchedMesh extends Mesh<BufferGeometry, Material> {
     /**
      * Sets the given color to the defined geometry instance.
      * @param instanceId The id of the instance to set the color of.
-     * @param color The color to set the instance to.
+     * @param color The color to set the instance to. Use a `Vector4` to also define alpha.
      */
-    setColorAt(instanceId: number, color: Color): void;
+    setColorAt(instanceId: number, color: Color | Vector4): void;
 
     /**
      * Sets the given local transformation matrix to the defined instance.

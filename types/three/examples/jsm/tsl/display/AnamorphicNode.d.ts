@@ -1,6 +1,6 @@
 import { Node, TempNode, Vector2 } from "three/webgpu";
 
-export default class AnamorphicNode extends TempNode {
+export default class AnamorphicNode extends TempNode<"vec4"> {
     textureNode: Node;
     thresholdNode: Node;
     scaleNode: Node;
