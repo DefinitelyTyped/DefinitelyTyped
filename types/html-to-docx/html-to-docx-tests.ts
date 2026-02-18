@@ -42,6 +42,23 @@ HtmlToDocx(
     "footer",
 );
 
+// $ExpectType Promise<Blob> | Promise<ArrayBuffer>
+HtmlToDocx(
+    htmlString,
+    null,
+    {
+        margins: {
+            top: 720,
+            right: 900,
+            bottom: 720,
+            left: 900,
+            header: 360,
+            footer: 360,
+            gutter: 0,
+        },
+    },
+);
+
 // @ts-expect-error
 HtmlToDocx(htmlString, {
     orientation: "landscape",
