@@ -43,7 +43,6 @@ export interface Dictionary<T> {
 
 export interface ParamsDictionary {
     [key: string]: string;
-    [key: string]: string[];
     [key: number]: string;
 }
 export interface ParamsFlatDictionary {
