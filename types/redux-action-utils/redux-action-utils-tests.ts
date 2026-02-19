@@ -21,7 +21,7 @@ var action: Action = ac();
 type = action.type;
 
 class ImportLesson {
-    lessons: string[];
+    lessons!: string[];
 }
 
 const importLessonAction = actionCreator<ImportLesson>(types.IMPORT_LESSONS, "lessons");
@@ -32,8 +32,8 @@ var lessons: string[] = importLesson.lessons;
 type = importLesson.type;
 
 class UpdateLesson {
-    id: number;
-    update: {
+    id!: number;
+    update!: {
         text: string;
     };
 }

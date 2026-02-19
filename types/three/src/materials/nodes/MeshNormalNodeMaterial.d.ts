@@ -25,8 +25,6 @@ declare class MeshNormalNodeMaterial extends NodeMaterial {
     constructor(parameters?: MeshNormalNodeMaterialParameters);
     /**
      * This flag can be used for type testing.
-     *
-     * @type {boolean}
      */
     readonly isMeshNormalNodeMaterial: boolean;
     setValues(values?: MeshNormalNodeMaterialParameters): void;

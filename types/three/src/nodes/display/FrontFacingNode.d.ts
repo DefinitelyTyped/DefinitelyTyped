@@ -1,6 +1,6 @@
 import Node from "../core/Node.js";
 
-declare class FrontFacingNode extends Node {
+declare class FrontFacingNode extends Node<"bool"> {
     isFrontFacingNode: true;
     constructor();
 }

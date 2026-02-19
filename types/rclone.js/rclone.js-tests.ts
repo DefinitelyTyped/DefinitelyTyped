@@ -20,7 +20,7 @@ async function usingRclonePromiseAPI() {
     try {
         const response = await rclonePromise.ls(rcloneRemoteName, rcloneConfigOptions);
         console.log(response.toString());
-    } catch (error) {
+    } catch (error: any) {
         console.log(error.toString());
     }
 }

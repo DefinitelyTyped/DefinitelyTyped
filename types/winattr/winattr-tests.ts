@@ -14,7 +14,7 @@ function getSync() {
     try {
         const attrs = winattr.getSync("/home/test");
         console.log(attrs.hidden);
-    } catch (ex) {
+    } catch (ex: any) {
         console.error(ex.message);
     }
 }
@@ -33,7 +33,7 @@ function setSync() {
     try {
         winattr.setSync("/home/test", { hidden: true });
         console.log("success");
-    } catch (ex) {
+    } catch (ex: any) {
         console.error(ex.message);
     }
 }

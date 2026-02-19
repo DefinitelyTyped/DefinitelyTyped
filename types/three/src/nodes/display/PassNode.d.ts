@@ -15,6 +15,8 @@ import TempNode from "../core/TempNode.js";
 declare class PassTextureNode extends TextureNode {
     passNode: PassNode;
 
+    readonly isPassTextureNode: boolean;
+
     constructor(passNode: PassNode, texture: Texture);
 }
 
@@ -22,12 +24,14 @@ declare class PassMultipleTextureNode extends PassTextureNode {
     textureName: string;
     previousTexture: boolean;
 
+    readonly isPassMultipleTextureNode: boolean;
+
     constructor(passNode: PassNode, textureName: string, previousTexture?: boolean);
 
     updateTexture(): void;
 }
 
-declare class PassNode extends TempNode {
+declare class PassNode extends TempNode<"vec4"> {
     scope: PassNodeScope;
     scene: Object3D;
     camera: Camera;
@@ -38,7 +42,7 @@ declare class PassNode extends TempNode {
     transparent: boolean;
     opaque: boolean;
 
-    contextNode: ContextNode | null;
+    contextNode: ContextNode<unknown> | null;
 
     readonly isPassNode: true;
 
@@ -74,11 +78,11 @@ declare class PassNode extends TempNode {
 
     getTextureNode(name?: string): TextureNode;
 
-    getPreviousTextureNode(name?: string): Node;
+    getPreviousTextureNode(name?: string): TextureNode;
 
-    getViewZNode(name?: string): Node;
+    getViewZNode(name?: string): Node<"float">;
 
-    getLinearDepthNode(name?: string): Node;
+    getLinearDepthNode(name?: string): Node<"float">;
 
     compileAsync(renderer: Renderer): Promise<void>;
 

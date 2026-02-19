@@ -5,13 +5,13 @@ import wrapper2 = require("node-mysql-wrapper");
 var db = wrapper2.wrap("mysql://kataras:pass@127.0.0.1/taglub?debug=false&charset=utf8");
 
 class User { // or interface
-    userId: number;
-    username: string;
-    mail: string;
-    password: string;
-    comments: Comment[];
-    myComments: Comment[];
-    info: UserInfo;
+    userId!: number;
+    username!: string;
+    mail!: string;
+    password!: string;
+    comments!: Comment[];
+    myComments!: Comment[];
+    info!: UserInfo;
 }
 
 interface Comment {

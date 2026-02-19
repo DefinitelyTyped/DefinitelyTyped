@@ -1645,7 +1645,7 @@ declare module "http" {
          * sockets. Do not modify.
          * @since v0.5.9
          */
-        readonly requests: NodeJS.ReadOnlyDict<IncomingMessage[]>;
+        readonly requests: NodeJS.ReadOnlyDict<ClientRequest[]>;
         constructor(opts?: AgentOptions);
         /**
          * Destroy any sockets that are currently in use by the agent.

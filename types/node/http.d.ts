@@ -357,6 +357,15 @@ declare module "node:http" {
          * @since v18.17.0, v20.2.0
          */
         rejectNonStandardBodyWrites?: boolean | undefined;
+        /**
+         * If set to `true`, requests without `Content-Length`
+         * or `Transfer-Encoding` headers (indicating no body) will be initialized with an
+         * already-ended body stream, so they will never emit any stream events
+         * (like `'data'` or `'end'`). You can use `req.readableEnded` to detect this case.
+         * @since v25.1.0
+         * @default false
+         */
+        optimizeEmptyRequests?: boolean | undefined;
     }
     type RequestListener<
         Request extends typeof IncomingMessage = typeof IncomingMessage,
@@ -1037,6 +1046,7 @@ declare module "node:http" {
          *
          * ```js
          * import http from 'node:http';
+         * const agent = new http.Agent({ keepAlive: true });
          *
          * // Server has a 5 seconds keep-alive timeout by default
          * http
@@ -1654,7 +1664,7 @@ declare module "node:http" {
          * sockets. Do not modify.
          * @since v0.5.9
          */
-        readonly requests: NodeJS.ReadOnlyDict<IncomingMessage[]>;
+        readonly requests: NodeJS.ReadOnlyDict<ClientRequest[]>;
         constructor(opts?: AgentOptions);
         /**
          * Destroy any sockets that are currently in use by the agent.
@@ -1670,20 +1680,34 @@ declare module "node:http" {
         /**
          * Produces a socket/stream to be used for HTTP requests.
          *
-         * By default, this function is the same as `net.createConnection()`. However,
-         * custom agents may override this method in case greater flexibility is desired.
+         * By default, this function behaves identically to `net.createConnection()`,
+         * synchronously returning the created socket. The optional `callback` parameter in the
+         * signature is **not** used by this default implementation.
          *
-         * A socket/stream can be supplied in one of two ways: by returning the
-         * socket/stream from this function, or by passing the socket/stream to `callback`.
+         * However, custom agents may override this method to provide greater flexibility,
+         * for example, to create sockets asynchronously. When overriding `createConnection`:
          *
-         * This method is guaranteed to return an instance of the `net.Socket` class,
-         * a subclass of `stream.Duplex`, unless the user specifies a socket
-         * type other than `net.Socket`.
+         * 1. **Synchronous socket creation**: The overriding method can return the
+         *    socket/stream directly.
+         * 2. **Asynchronous socket creation**: The overriding method can accept the `callback`
+         *    and pass the created socket/stream to it (e.g., `callback(null, newSocket)`).
+         *    If an error occurs during socket creation, it should be passed as the first
+         *    argument to the `callback` (e.g., `callback(err)`).
          *
-         * `callback` has a signature of `(err, stream)`.
+         * The agent will call the provided `createConnection` function with `options` and
+         * this internal `callback`. The `callback` provided by the agent has a signature
+         * of `(err, stream)`.
          * @since v0.11.4
-         * @param options Options containing connection details. Check `createConnection` for the format of the options
-         * @param callback Callback function that receives the created socket
+         * @param options Options containing connection details. Check
+         * `net.createConnection` for the format of the options. For custom agents,
+         * this object is passed to the custom `createConnection` function.
+         * @param callback (Optional, primarily for custom agents) A function to be
+         * called by a custom `createConnection` implementation when the socket is
+         * created, especially for asynchronous operations.
+         * @returns The created socket. This is returned by the default
+         * implementation or by a custom synchronous `createConnection` implementation.
+         * If a custom `createConnection` uses the `callback` for asynchronous
+         * operation, this return value might not be the primary way to obtain the socket.
          */
         createConnection(
             options: ClientRequestArgs,

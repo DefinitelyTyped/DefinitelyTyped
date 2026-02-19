@@ -1,50 +1,44 @@
-import { Camera } from "./Camera.js";
 import { PerspectiveCamera } from "./PerspectiveCamera.js";
 
 /**
- * Dual {@link PerspectiveCamera | PerspectiveCamera}s used for effects such as
- * {@link https://en.wikipedia.org/wiki/Anaglyph_3D | 3D Anaglyph} or
- * {@link https://en.wikipedia.org/wiki/parallax_barrier | Parallax Barrier}.
- * @see Example: {@link https://threejs.org/examples/#webgl_effects_anaglyph | effects / anaglyph }
- * @see Example: {@link https://threejs.org/examples/#webgl_effects_parallaxbarrier | effects / parallaxbarrier }
- * @see Example: {@link https://threejs.org/examples/#webgl_effects_stereo | effects / stereo }
- * @see {@link https://threejs.org/docs/index.html#api/en/cameras/StereoCamera | Official Documentation}
- * @see {@link https://github.com/mrdoob/three.js/blob/master/src/cameras/StereoCamera.js | Source}
+ * A special type of camera that uses two perspective cameras with
+ * stereoscopic projection. Can be used for rendering stereo effects
+ * like [3D Anaglyph](https://en.wikipedia.org/wiki/Anaglyph_3D) or
+ * [Parallax Barrier](https://en.wikipedia.org/wiki/parallax_barrier).
  */
-export class StereoCamera extends Camera {
-    constructor();
-
-    type: "StereoCamera";
-
+export class StereoCamera {
     /**
-     * @remarks Expects a `Float`
-     * @defaultValue `1`
+     * The type property is used for detecting the object type
+     * in context of serialization/deserialization.
+     */
+    readonly type: string;
+    /**
+     * The aspect.
+     *
+     * @default 1
      */
     aspect: number;
-
     /**
-     * @remarks Expects a `Float`
-     * @defaultValue `0.064`
+     * The eye separation which represents the distance
+     * between the left and right camera.
+     *
+     * @default 0.064
      */
     eyeSep: number;
-
     /**
-     * The Left camera.
-     * A {@link PerspectiveCamera } added to {@link THREE.PerspectiveCamera.layers | layer 1}
-     * @remarks Objects to be rendered by the **left** camera must also be added to this layer.
+     * The camera representing the left eye. This is added to layer `1` so objects to be
+     * rendered by the left camera must also be added to this layer.
      */
     cameraL: PerspectiveCamera;
-
     /**
-     * The Right camera.
-     * A {@link PerspectiveCamera } added to {@link THREE.PerspectiveCamera.layers | layer 2}
-     * @remarks Objects to be rendered by the **right** camera must also be added to this layer.
+     * The camera representing the right eye. This is added to layer `2` so objects to be
+     * rendered by the right camera must also be added to this layer.
      */
     cameraR: PerspectiveCamera;
-
     /**
-     * Update the stereo cameras based on the camera passed in.
-     * @param camera
+     * Updates the stereo camera based on the given perspective camera.
+     *
+     * @param {PerspectiveCamera} camera - The perspective camera.
      */
     update(camera: PerspectiveCamera): void;
 }

@@ -317,6 +317,15 @@ declare namespace OSS {
         res: NormalSuccessResponse;
     }
 
+    interface ListV2ObjectResult {
+        objects: ObjectMeta[];
+        prefixes: string[];
+        isTruncated: boolean;
+        nextContinuationToken: string;
+        keyCount: number;
+        res: NormalSuccessResponse;
+    }
+
     interface PutObjectOptions {
         /** the operation timeout */
         timeout?: number | undefined;
@@ -680,7 +689,7 @@ declare namespace OSS {
         /**
          * @since 6.12.0
          */
-        listV2(query: ListV2ObjectsQuery | null, options?: RequestOptions): Promise<ListObjectResult>;
+        listV2(query: ListV2ObjectsQuery | null, options?: RequestOptions): Promise<ListV2ObjectResult>;
 
         put(name: string, file: any, options?: PutObjectOptions): Promise<PutObjectResult>;
 
@@ -1017,7 +1026,7 @@ declare class OSS {
     /**
      * List Objects in the bucket.(V2)
      */
-    listV2(query: OSS.ListV2ObjectsQuery | null, options?: OSS.RequestOptions): Promise<OSS.ListObjectResult>;
+    listV2(query: OSS.ListV2ObjectsQuery | null, options?: OSS.RequestOptions): Promise<OSS.ListV2ObjectResult>;
 
     /**
      * Add an object to the bucket.
@@ -1208,6 +1217,17 @@ declare class OSS {
         uploadId: string,
         options?: OSS.RequestOptions,
     ): Promise<OSS.NormalSuccessResponse>;
+
+    /**
+     * Cancel the current multipart upload operation.
+     * If abort is provided, it will also call abortMultipartUpload.
+     */
+    cancel(abort?: { name: string; uploadId: string; options?: OSS.RequestOptions }): void;
+
+    /**
+     * Check if the upload has been cancelled.
+     */
+    isCancel(): boolean;
 
     /**
      * get postObject params.

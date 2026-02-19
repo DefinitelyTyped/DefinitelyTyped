@@ -18,7 +18,7 @@ interface State {
 }
 
 class Example1 extends React.Component<{}, State> {
-    Viewer: ReactSVGPanZoom | null;
+    Viewer!: ReactSVGPanZoom | null;
 
     constructor(props: Props) {
         super(props);

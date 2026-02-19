@@ -31,9 +31,9 @@ export class Person extends EmberObject {
     fullName = computed("firstName", "lastName", function() {
         return [this.firstName + this.lastName].join(" ");
     });
-    firstName: string;
-    lastName: string;
-    age: number;
+    firstName!: string;
+    lastName!: string;
+    age!: number;
 }
 const p = new Person();
 

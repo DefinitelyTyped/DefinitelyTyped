@@ -10,4 +10,4 @@ export const hashBlur: (
     textureNode: Node,
     bluramount?: Node | number,
     options?: HashBlurOptions,
-) => Node;
+) => Node<"vec4">;

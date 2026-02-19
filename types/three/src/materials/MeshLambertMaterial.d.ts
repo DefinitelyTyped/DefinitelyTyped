@@ -181,6 +181,12 @@ export interface MeshLambertMaterialProperties extends MaterialProperties {
      */
     reflectivity: number;
     /**
+     * Scales the effect of the environment map by multiplying its color.
+     *
+     * @default 1
+     */
+    envMapIntensity: number;
+    /**
      * The index of refraction (IOR) of air (approximately 1) divided by the
      * index of refraction of the material. It is used with environment mapping
      * modes {@link CubeRefractionMapping} and {@link EquirectangularRefractionMapping}.

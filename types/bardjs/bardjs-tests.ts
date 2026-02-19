@@ -23,7 +23,7 @@ namespace myService {
 }
 
 class MyController {
-    myProperty: string;
+    myProperty!: string;
 }
 
 angular

@@ -57,8 +57,8 @@ class MyApplication extends Marionette.Application {
         this.layoutView = new AppLayoutView();
     }
 
-    layoutView: AppLayoutView;
-    mainRegion: Marionette.Region;
+    layoutView!: AppLayoutView;
+    mainRegion!: Marionette.Region;
 
     onStart() {
         this.mainRegion = new Marionette.Region({ el: "#main" });

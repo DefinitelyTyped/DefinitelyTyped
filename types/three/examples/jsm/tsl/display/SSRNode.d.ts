@@ -1,6 +1,6 @@
 import { Camera, Node, TempNode, TextureNode, UniformNode } from "three/webgpu";
 
-declare class SSRNode extends TempNode {
+declare class SSRNode extends TempNode<"vec4"> {
     colorNode: Node;
     depthNode: Node;
     normalNode: Node;
@@ -10,11 +10,11 @@ declare class SSRNode extends TempNode {
 
     resolutionScale: number;
 
-    maxDistance: UniformNode<number>;
-    thickness: UniformNode<number>;
-    opacity: UniformNode<number>;
-    quality: UniformNode<number>;
-    blurQuality: UniformNode<number>;
+    maxDistance: UniformNode<"float", number>;
+    thickness: UniformNode<"float", number>;
+    opacity: UniformNode<"float", number>;
+    quality: UniformNode<"float", number>;
+    blurQuality: UniformNode<"float", number>;
 
     constructor(
         colorNode: Node,

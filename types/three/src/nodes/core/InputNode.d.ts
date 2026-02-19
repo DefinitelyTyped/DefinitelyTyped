@@ -3,13 +3,21 @@ import NodeBuilder from "./NodeBuilder.js";
 
 export type Precision = "low" | "medium" | "high";
 
-export default abstract class InputNode<Value> extends Node {
+interface InputNodeInterface<TValue> {
     isInputNode: true;
-    value: Value;
+    value: TValue;
     precision: Precision | null;
-
-    constructor(value: Value, nodeType?: string | null);
 
     getInputType(builder: NodeBuilder): string | null;
     setPrecision(precision: Precision): this;
 }
+
+declare const InputNode: {
+    new<TNodeType, TValue>(value: TValue, nodeType?: TNodeType | null): InputNode<TNodeType, TValue>;
+};
+
+type InputNode<TNodeType, TValue> = Node<TNodeType> & InputNodeInterface<TValue>;
+
+export default InputNode;
+
+export type { InputNode };

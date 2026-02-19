@@ -3,39 +3,34 @@ import Node from "./Node.js";
 import NodeBuilder from "./NodeBuilder.js";
 import NodeVarying from "./NodeVarying.js";
 
-export default class VaryingNode extends Node {
+interface VaryingNodeInterface {
     node: Node;
     name: string | null;
     readonly isVaryingNode: true;
     interpolationType: InterpolationSamplingType | null;
     interpolationSampling: InterpolationSamplingMode | null;
 
-    constructor(node: Node, name?: string | null);
-
     setInterpolation(type: InterpolationSamplingType | null, sampling?: InterpolationSamplingMode | null): this;
 
     setupVarying(builder: NodeBuilder): NodeVarying;
 }
 
-export const varying: (node: Node, name?: string) => VaryingNode;
+declare const VaryingNode: {
+    new<TNodeType>(node: Node<TNodeType>, name?: string | null): VaryingNode<TNodeType>;
+};
 
-export const vertexStage: (node: Node) => VaryingNode;
+type VaryingNode<TNodeType> = VaryingNodeInterface & Node<TNodeType>;
 
-declare module "../Nodes.js" {
-    interface Node {
-        toVarying: (name?: string) => VaryingNode;
-        toVaryingAssign: (name?: string) => this;
+export default VaryingNode;
 
-        toVertexStage: () => VaryingNode;
-        toVertexStageAssign: () => this;
+export const varying: <TNodeType>(node: Node<TNodeType>, name?: string) => VaryingNode<TNodeType>;
 
-        /**
-         * @deprecated .vertexStage() has been renamed to .toVertexStage().
-         */
-        vertexStage: () => VaryingNode;
-        /**
-         * @deprecated .vertexStage() has been renamed to .toVertexStage().
-         */
-        vertexStageAssign: () => this;
+export const vertexStage: <TNodeType>(node: Node<TNodeType>) => VaryingNode<TNodeType>;
+
+declare module "./Node.js" {
+    interface NodeExtensions<TNodeType> {
+        toVarying: (name?: string) => VaryingNode<TNodeType>;
+
+        toVertexStage: () => VaryingNode<TNodeType>;
     }
 }

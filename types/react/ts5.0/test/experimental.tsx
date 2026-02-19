@@ -209,3 +209,11 @@ function swipeTransitionTest() {
     >
     </React.ViewTransition>;
 }
+
+function optimisticKeyTest() {
+    <div key={React.optimisticKey} />;
+    <div
+        // @ts-expect-error -- random symbols are not allowed.
+        key={Symbol("foreign-key")}
+    />;
+}

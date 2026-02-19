@@ -6,30 +6,31 @@ import { Mesh } from "../objects/Mesh.js";
 
 /**
  * An 3D arrow object for visualizing directions.
- * @example
- * ```typescript
- * const dir = new THREE.Vector3(1, 2, 0);
+ *
+ * ```js
+ * const dir = new THREE.Vector3( 1, 2, 0 );
+ *
  * //normalize the direction vector (convert to vector of length 1)
  * dir.normalize();
- * const origin = new THREE.Vector3(0, 0, 0);
+ *
+ * const origin = new THREE.Vector3( 0, 0, 0 );
  * const length = 1;
  * const hex = 0xffff00;
- * const {@link ArrowHelper} = new THREE.ArrowHelper(dir, origin, length, hex);
- * scene.add(arrowHelper);
+ *
+ * const arrowHelper = new THREE.ArrowHelper( dir, origin, length, hex );
+ * scene.add( arrowHelper );
  * ```
- * @see Example: {@link https://threejs.org/examples/#webgl_shadowmesh | WebGL / shadowmesh}
- * @see {@link https://threejs.org/docs/index.html#api/en/helpers/ArrowHelper | Official Documentation}
- * @see {@link https://github.com/mrdoob/three.js/blob/master/src/helpers/ArrowHelper.js | Source}
  */
 export class ArrowHelper extends Object3D {
     /**
-     * Create a new instance of {@link ArrowHelper}
-     * @param dir Direction from origin. Must be a unit vector. Default `new THREE.Vector3(0, 0, 1)`
-     * @param origin Point at which the arrow starts. Default `new THREE.Vector3(0, 0, 0)`
-     * @param length Length of the arrow. Default `1`
-     * @param hex Hexadecimal value to define color. Default `0xffff00`
-     * @param headLength The length of the head of the arrow. Default `0.2 * length`
-     * @param headWidth The width of the head of the arrow. Default `0.2 * headLength`
+     * Constructs a new arrow helper.
+     *
+     * @param {Vector3} [dir=(0, 0, 1)] - The (normalized) direction vector.
+     * @param {Vector3} [origin=(0, 0, 0)] - Point at which the arrow starts.
+     * @param {number} [length=1] - Length of the arrow in world units.
+     * @param {(number|Color|string)} [color=0xffff00] - Color of the arrow.
+     * @param {number} [headLength=length times 0.2] - The length of the head of the arrow.
+     * @param {number} [headWidth=headLength times 0.2] - The width of the head of the arrow.
      */
     constructor(
         dir?: Vector3,
@@ -39,55 +40,38 @@ export class ArrowHelper extends Object3D {
         headLength?: number,
         headWidth?: number,
     );
-
     /**
-     * A Read-only _string_ to check if `this` object type.
-     * @remarks Sub-classes will update this value.
-     * @override
-     * @defaultValue `ArrowHelper`
-     */
-    override readonly type: string | "ArrowHelper";
-
-    /**
-     * Contains the line part of the arrowHelper.
+     * The line part of the arrow helper.
      */
     line: Line;
-
     /**
-     * Contains the cone part of the arrowHelper.
+     * The cone part of the arrow helper.
      */
     cone: Mesh;
-
     /**
-     * Sets the color of the arrowHelper.
-     * @param color The desired color.
-     */
-    setColor(color: ColorRepresentation): void;
-
-    /**
-     * @param dir The desired direction. Must be a unit vector.
+     * Sets the direction of the helper.
+     *
+     * @param {Vector3} dir - The normalized direction vector.
      */
     setDirection(dir: Vector3): void;
-
     /**
-     * Sets the length of the arrowhelper.
-     * @param length The desired length.
-     * @param headLength The length of the head of the arrow. Default `0.2 * length`
-     * @param headWidth The width of the head of the arrow. Default `0.2 * headLength`
+     * Sets the length of the helper.
+     *
+     * @param {number} length - Length of the arrow in world units.
+     * @param {number} [headLength=length times 0.2] - The length of the head of the arrow.
+     * @param {number} [headWidth=headLength times 0.2] - The width of the head of the arrow.
      */
     setLength(length: number, headLength?: number, headWidth?: number): void;
-
     /**
-     * Copy the given object into this object
-     * @remarks Note: event listeners and user-defined callbacks ({@link onAfterRender | .onAfterRender} and {@link onBeforeRender | .onBeforeRender}) are not copied.
-     * @param source
+     * Sets the color of the helper.
+     *
+     * @param {number|Color|string} color - The color to set.
      */
-    override copy(source: this): this;
-
+    setColor(color: ColorRepresentation): void;
+    copy(source: ArrowHelper): this;
     /**
-     * Frees the GPU-related resources allocated by this instance
-     * @remarks
-     * Call this method whenever this instance is no longer used in your app.
+     * Frees the GPU-related resources allocated by this instance. Call this
+     * method whenever this instance is no longer used in your app.
      */
     dispose(): void;
 }

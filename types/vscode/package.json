@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/vscode",
-    "version": "1.108.9999",
+    "version": "1.109.9999",
     "nonNpm": "conflict",
     "nonNpmDescription": "TypeScript definitions for the Visual Studio Code Extension API",
     "projects": [

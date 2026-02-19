@@ -1,24 +1,21 @@
 import { Node } from "../../nodes/Nodes.js";
 import Renderer from "./Renderer.js";
+import RenderPipeline from "./RenderPipeline.js";
 
-declare class PostProcessing {
-    renderer: Renderer;
-    outputNode: Node;
-
-    outputColorTransform: boolean;
-
-    needsUpdate: boolean;
-
-    constructor(renderer: Renderer, outputNode?: Node);
-
-    render(): void;
-
-    dispose(): void;
-
+/**
+ * @deprecated Use {@link RenderPipeline} instead. PostProcessing has been renamed to RenderPipeline.
+ *
+ * This class is a wrapper for backward compatibility and will be removed in a future version.
+ */
+declare class PostProcessing extends RenderPipeline {
     /**
-     * @deprecated "renderAsync()" has been deprecated. Use "render()" and "await renderer.init();" when creating the renderer.
+     * Constructs a new post processing management module.
+     *
+     * @param {Renderer} renderer - A reference to the renderer.
+     * @param {Node<vec4>} outputNode - An optional output node.
+     * @deprecated since r183. Use {@link RenderPipeline} instead.
      */
-    renderAsync(): Promise<void>;
+    constructor(renderer: Renderer, outputNode?: Node);
 }
 
 export default PostProcessing;

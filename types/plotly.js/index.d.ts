@@ -865,7 +865,7 @@ export interface Axis {
     autorange: true | false | "reversed" | "min reversed" | "max reversed" | "min" | "max";
     autorangeoptions: Partial<AutoRangeOptions>;
     /**
-     * 'If *normal*, the range is computed in relation to the extrema
+     * If *normal*, the range is computed in relation to the extrema
      * of the input data.
      * If *tozero*`, the range extends to 0,
      * regardless of the input data
@@ -970,7 +970,7 @@ export interface Axis {
      */
     minexponent: number;
     /**
-     * 'If `true`, even 4-digit integers are separated
+     * If `true`, even 4-digit integers are separated
      */
     separatethousands: boolean;
     /**
@@ -3155,51 +3155,59 @@ export interface CurrentValue {
     font: Partial<Font>;
 }
 
+export type PatternShape = "" | "/" | "\\" | "x" | "-" | "|" | "+" | ".";
+
 /**
- * 'Sets the pattern within the marker.
+ * Sets the pattern within the marker.
  */
 export interface Pattern {
     /**
      * Sets the shape of the pattern fill.
      * By default, no pattern is used for filling the area.
      */
-    shape?: "" | "/" | "\\" | "x" | "-" | "|" | "+" | ".";
+    shape?: PatternShape | PatternShape[] | undefined;
+    /**
+     * Sets a custom path for pattern fill.
+     * Use with no `shape` or `solidity`, provide an SVG path string for
+     * the regions of the square from (0,0) to (`size`,`size`) to color.
+     */
+    path?: string | undefined;
     /**
      * Determines whether `marker.color` should be used
      * as a default to `bgcolor` or a `fgcolor`.
      */
-    fillmode?: "replace" | "overlay";
+    fillmode?: "replace" | "overlay" | undefined;
     /**
      * When there is no colorscale sets the color of background pattern fill.
      * Defaults to a `marker.color` background when `fillmode` is *overlay*.
      * Otherwise, defaults to a transparent background.
      */
-    bgcolor?: string;
+    bgcolor?: string | string[] | undefined;
     /**
      * When there is no colorscale sets the color of foreground pattern fill.
      * Defaults to a `marker.color` background when `fillmode` is *replace*.
      * Otherwise, defaults to dark grey or white
      * to increase contrast with the `bgcolor`.
      */
-    fgcolor?: string;
+    fgcolor?: string | string[] | undefined;
     /**
      * Sets the opacity of the foreground pattern fill.
      * Defaults to a 0.5 when `fillmode` is *overlay*.
      * Otherwise, defaults to 1.
      */
-    fgopacity?: string;
+    fgopacity?: number | undefined;
     /**
      * Sets the size of unit squares of the pattern fill in pixels,
      * which corresponds to the interval of repetition of the pattern.
      */
-    size?: number;
+    size?: number | number[] | undefined;
     /**
      * Sets the solidity of the pattern fill.
      * Solidity is roughly the fraction of the area filled by the pattern.
      * Solidity of 0 shows only the background color without pattern
      * and solidty of 1 shows only the foreground color without pattern.
      */
-    solidity?: number;
+    solidity?: number | number[] | undefined;
 }
 
 export interface UpdateMenuButton {

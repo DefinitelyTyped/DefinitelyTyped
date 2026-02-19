@@ -19,10 +19,4 @@ declare class SpotLightNode extends AnalyticLightNode<SpotLight> {
     getLightCoord(builder: NodeBuilder): Node;
 }
 
-declare module "three" {
-    export interface SpotLight {
-        attenuationNode?: ((lightNode: SpotLightNode) => Node) | null | undefined;
-    }
-}
-
 export default SpotLightNode;

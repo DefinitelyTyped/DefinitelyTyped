@@ -110,7 +110,7 @@ const lorem = readFileSync(__dirname + "/git.diff", "utf8");
 const cleanSides = screen.cleanSides;
 function expectClean(value: any) {
     screen.cleanSides = function(el: blessed.Widgets.BlessedElement) {
-        const ret = cleanSides.apply(this, arguments);
+        const ret = cleanSides.call(this, el);
         if (ret !== value) {
             throw new Error(`Failed. Expected ${value} from cleanSides. Got ${ret}.`);
         }

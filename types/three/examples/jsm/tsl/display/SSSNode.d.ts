@@ -1,12 +1,12 @@
 import { Camera, DirectionalLight, TempNode, TextureNode, UniformNode } from "three/webgpu";
 
-declare class SSSNode extends TempNode {
+declare class SSSNode extends TempNode<"float"> {
     depthNode: TextureNode;
 
-    maxDistance: UniformNode<number>;
-    thickness: UniformNode<number>;
-    shadowIntensity: UniformNode<number>;
-    quality: UniformNode<number>;
+    maxDistance: UniformNode<"float", number>;
+    thickness: UniformNode<"float", number>;
+    shadowIntensity: UniformNode<"float", number>;
+    quality: UniformNode<"float", number>;
     resolutionScale: number;
     useTemporalFiltering: boolean;
 

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/webpack-log",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/shellscape/webpack-log"
+    ],
+    "devDependencies": {
+        "@types/webpack-log": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "gaspard",
+            "githubUsername": "gasp"
+        }
+    ]
+}

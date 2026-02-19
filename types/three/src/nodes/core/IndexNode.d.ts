@@ -8,7 +8,7 @@ export type IndexNodeScope =
     | typeof IndexNode.INVOCATION_SUBGROUP
     | typeof IndexNode.DRAW;
 
-declare class IndexNode extends Node {
+declare class IndexNode extends Node<"uint"> {
     scope: IndexNodeScope;
 
     readonly isInstanceNode: true;

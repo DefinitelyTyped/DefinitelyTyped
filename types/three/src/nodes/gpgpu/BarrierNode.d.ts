@@ -6,6 +6,8 @@ declare class BarrierNode extends Node {
     constructor(scope: string);
 }
 
+export default BarrierNode;
+
 export const workgroupBarrier: () => Node;
 export const storageBarrier: () => Node;
 export const textureBarrier: () => Node;

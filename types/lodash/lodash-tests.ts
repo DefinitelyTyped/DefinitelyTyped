@@ -4419,7 +4419,7 @@ fp.now(); // $ExpectType number
 
     {
         class CustomError extends Error {
-            custom: string;
+            custom!: string;
         }
 
         const value: number | CustomError = anything;

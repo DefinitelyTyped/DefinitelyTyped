@@ -23,6 +23,25 @@ client.getSymlink("newfile.png");
 client.getSymlink("newfile.png", { versionId: "123" });
 
 client.listV2({ "max-keys": 1000 });
+
+async function listV2Exhaustive() {
+    let continuationToken = "";
+
+    while (true) {
+        let res = await client.listV2({
+            "max-keys": 1000,
+            "continuation-token": continuationToken,
+        });
+
+        if (res.isTruncated) {
+            continuationToken = res.nextContinuationToken;
+        } else {
+            continuationToken = "";
+            break;
+        }
+    }
+}
+
 client.copy("newfile.png", "sourcefile.png");
 client.copy("newfile.png", "sourcefile.png", { timeout: 1000 });
 client.copy("newfile.png", "sourcefile.png", "sourceBucket");
@@ -147,3 +166,15 @@ const userMeta: OSS.UserMeta = {
     pid: 0,
     anything: "anything",
 };
+
+// $ExpectType void
+client.cancel();
+
+// $ExpectType void
+client.cancel({ name: "object-name", uploadId: "upload-id" });
+
+// $ExpectType void
+client.cancel({ name: "object-name", uploadId: "upload-id", options: { timeout: 1000 } });
+
+// $ExpectType boolean
+client.isCancel();

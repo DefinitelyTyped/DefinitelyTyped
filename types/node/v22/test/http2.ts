@@ -436,13 +436,13 @@ import { URL } from "node:url";
 // Http2ServerRequest, Http2ServerResponse,
 {
     class MyHttp2ServerRequest extends Http2ServerRequest {
-        foo: number;
+        foo!: number;
     }
 
     class MyHttp2ServerResponse<Request extends Http2ServerRequest = Http2ServerRequest>
         extends Http2ServerResponse<Request>
     {
-        bar: string;
+        bar!: string;
     }
 
     function reqListener(req: Http2ServerRequest, res: Http2ServerResponse): void {}

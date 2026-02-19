@@ -8,7 +8,7 @@ declare let emitter: Emitter;
 // NPM Usage Tests ============================================================
 class User {
     private readonly emitter: Emitter;
-    name: string;
+    name!: string;
 
     constructor() {
         this.emitter = new Emitter();
