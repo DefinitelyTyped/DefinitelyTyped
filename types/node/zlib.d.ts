@@ -108,10 +108,14 @@ declare module "node:zlib" {
          */
         chunkSize?: number | undefined;
         windowBits?: number | undefined;
-        level?: number | undefined; // compression only
-        memLevel?: number | undefined; // compression only
-        strategy?: number | undefined; // compression only
-        dictionary?: NodeJS.ArrayBufferView | ArrayBuffer | undefined; // deflate/inflate only, empty dictionary by default
+        /** compression only */
+        level?: number | undefined;
+        /** compression only */
+        memLevel?: number | undefined;
+        /** compression only */
+        strategy?: number | undefined;
+        /** deflate/inflate only, empty dictionary by default */
+        dictionary?: NodeJS.ArrayBufferView | ArrayBuffer | undefined;
         /**
          * If `true`, returns an object with `buffer` and `engine`.
          */
@@ -205,69 +209,130 @@ declare module "node:zlib" {
      * @since v10.16.0
      */
     class BrotliCompress extends stream.Transform implements Zlib {
-        constructor(options?: ZlibOptions);
+        constructor(options?: BrotliOptions);
+        readonly bytesWritten: number;
+        shell?: boolean | string | undefined;
+        close(callback?: () => void): void;
+        flush(kind?: number, callback?: () => void): void;
+        flush(callback?: () => void): void;
     }
     /**
      * @since v10.16.0
      */
     class BrotliDecompress extends stream.Transform implements Zlib {
-        constructor(options?: ZlibOptions);
+        constructor(options?: BrotliOptions);
+        readonly bytesWritten: number;
+        shell?: boolean | string | undefined;
+        close(callback?: () => void): void;
+        flush(kind?: number, callback?: () => void): void;
+        flush(callback?: () => void): void;
     }
     /**
      * @since v0.5.8
      */
     class Gzip extends stream.Transform implements Zlib {
         constructor(options?: ZlibOptions);
+        readonly bytesWritten: number;
+        shell?: boolean | string | undefined;
+        close(callback?: () => void): void;
+        flush(kind?: number, callback?: () => void): void;
+        flush(callback?: () => void): void;
     }
     /**
      * @since v0.5.8
      */
     class Gunzip extends stream.Transform implements Zlib {
         constructor(options?: ZlibOptions);
+        readonly bytesWritten: number;
+        shell?: boolean | string | undefined;
+        close(callback?: () => void): void;
+        flush(kind?: number, callback?: () => void): void;
+        flush(callback?: () => void): void;
     }
     /**
      * @since v0.5.8
      */
     class Deflate extends stream.Transform implements Zlib, ZlibReset, ZlibParams {
         constructor(options?: ZlibOptions);
+        readonly bytesWritten: number;
+        shell?: boolean | string | undefined;
+        close(callback?: () => void): void;
+        flush(kind?: number, callback?: () => void): void;
+        flush(callback?: () => void): void;
+        params(level: number, strategy: number, callback: () => void): void;
+        reset(): void;
     }
     /**
      * @since v0.5.8
      */
     class Inflate extends stream.Transform implements Zlib, ZlibReset {
         constructor(options?: ZlibOptions);
+        readonly bytesWritten: number;
+        shell?: boolean | string | undefined;
+        close(callback?: () => void): void;
+        flush(kind?: number, callback?: () => void): void;
+        flush(callback?: () => void): void;
+        reset(): void;
     }
     /**
      * @since v0.5.8
      */
     class DeflateRaw extends stream.Transform implements Zlib, ZlibReset, ZlibParams {
         constructor(options?: ZlibOptions);
+        readonly bytesWritten: number;
+        shell?: boolean | string | undefined;
+        close(callback?: () => void): void;
+        flush(kind?: number, callback?: () => void): void;
+        flush(callback?: () => void): void;
+        params(level: number, strategy: number, callback: () => void): void;
+        reset(): void;
     }
     /**
      * @since v0.5.8
      */
     class InflateRaw extends stream.Transform implements Zlib, ZlibReset {
         constructor(options?: ZlibOptions);
+        readonly bytesWritten: number;
+        shell?: boolean | string | undefined;
+        close(callback?: () => void): void;
+        flush(kind?: number, callback?: () => void): void;
+        flush(callback?: () => void): void;
+        reset(): void;
     }
     /**
      * @since v0.5.8
      */
     class Unzip extends stream.Transform implements Zlib {
         constructor(options?: ZlibOptions);
+        readonly bytesWritten: number;
+        shell?: boolean | string | undefined;
+        close(callback?: () => void): void;
+        flush(kind?: number, callback?: () => void): void;
+        flush(callback?: () => void): void;
     }
     /**
      * @since v22.15.0
      * @experimental
      */
     class ZstdCompress extends stream.Transform implements Zlib {
-        constructor(options?: ZlibOptions);
+        constructor(options?: ZstdOptions);
+        readonly bytesWritten: number;
+        shell?: boolean | string | undefined;
+        close(callback?: () => void): void;
+        flush(kind?: number, callback?: () => void): void;
+        flush(callback?: () => void): void;
     }
     /**
      * @since v22.15.0
      * @experimental
      */
     class ZstdDecompress extends stream.Transform implements Zlib {
-        constructor(options?: ZlibOptions);
+        constructor(options?: ZstdOptions);
+        readonly bytesWritten: number;
+        shell?: boolean | string | undefined;
+        close(callback?: () => void): void;
+        flush(kind?: number, callback?: () => void): void;
+        flush(callback?: () => void): void;
     }
     /**
      * Computes a 32-bit [Cyclic Redundancy Check](https://en.wikipedia.org/wiki/Cyclic_redundancy_check) checksum of `data`.
