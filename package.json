@@ -47,5 +47,10 @@
         "remark-validate-links": "^13.0.0",
         "typescript": "next"
     },
+    "pnpm": {
+        "overrides": {
+            "@wordpress/vips": "-"
+        }
+    },
     "type": "module"
 }
