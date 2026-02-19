@@ -201,25 +201,74 @@ declare module "node:zlib" {
     interface ZlibReset {
         reset(): void;
     }
-    interface BrotliCompress extends stream.Transform, Zlib {}
-    interface BrotliDecompress extends stream.Transform, Zlib {}
-    interface Gzip extends stream.Transform, Zlib {}
-    interface Gunzip extends stream.Transform, Zlib {}
-    interface Deflate extends stream.Transform, Zlib, ZlibReset, ZlibParams {}
-    interface Inflate extends stream.Transform, Zlib, ZlibReset {}
-    interface DeflateRaw extends stream.Transform, Zlib, ZlibReset, ZlibParams {}
-    interface InflateRaw extends stream.Transform, Zlib, ZlibReset {}
-    interface Unzip extends stream.Transform, Zlib {}
+    /**
+     * @since v10.16.0
+     */
+    class BrotliCompress extends stream.Transform implements Zlib {
+        constructor(options?: ZlibOptions);
+    }
+    /**
+     * @since v10.16.0
+     */
+    class BrotliDecompress extends stream.Transform implements Zlib {
+        constructor(options?: ZlibOptions);
+    }
+    /**
+     * @since v0.5.8
+     */
+    class Gzip extends stream.Transform implements Zlib {
+        constructor(options?: ZlibOptions);
+    }
+    /**
+     * @since v0.5.8
+     */
+    class Gunzip extends stream.Transform implements Zlib {
+        constructor(options?: ZlibOptions);
+    }
+    /**
+     * @since v0.5.8
+     */
+    class Deflate extends stream.Transform implements Zlib, ZlibReset, ZlibParams {
+        constructor(options?: ZlibOptions);
+    }
+    /**
+     * @since v0.5.8
+     */
+    class Inflate extends stream.Transform implements Zlib, ZlibReset {
+        constructor(options?: ZlibOptions);
+    }
+    /**
+     * @since v0.5.8
+     */
+    class DeflateRaw extends stream.Transform implements Zlib, ZlibReset, ZlibParams {
+        constructor(options?: ZlibOptions);
+    }
+    /**
+     * @since v0.5.8
+     */
+    class InflateRaw extends stream.Transform implements Zlib, ZlibReset {
+        constructor(options?: ZlibOptions);
+    }
+    /**
+     * @since v0.5.8
+     */
+    class Unzip extends stream.Transform implements Zlib {
+        constructor(options?: ZlibOptions);
+    }
     /**
      * @since v22.15.0
      * @experimental
      */
-    interface ZstdCompress extends stream.Transform, Zlib {}
+    class ZstdCompress extends stream.Transform implements Zlib {
+        constructor(options?: ZlibOptions);
+    }
     /**
      * @since v22.15.0
      * @experimental
      */
-    interface ZstdDecompress extends stream.Transform, Zlib {}
+    class ZstdDecompress extends stream.Transform implements Zlib {
+        constructor(options?: ZlibOptions);
+    }
     /**
      * Computes a 32-bit [Cyclic Redundancy Check](https://en.wikipedia.org/wiki/Cyclic_redundancy_check) checksum of `data`.
      * If `value` is specified, it is used as the starting value of the checksum, otherwise, 0 is used as the starting value.
