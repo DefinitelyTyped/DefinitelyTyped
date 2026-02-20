@@ -49,7 +49,7 @@
     },
     "pnpm": {
         "overrides": {
-            "@wordpress/vips": "-"
+            "@wordpress/upload-media>@wordpress/vips": "-"
         }
     },
     "type": "module"
