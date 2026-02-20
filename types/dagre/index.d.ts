@@ -39,7 +39,7 @@ export namespace graphlib {
         setParent(childName: string, parentName: string): void;
         sinks(): string[];
         sources(): string[];
-        successors(name: string): Array<Node<T>> | undefined;
+        successors(name: string): string[] | undefined;
     }
 
     namespace json {
