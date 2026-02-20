@@ -1636,7 +1636,7 @@ declare namespace React {
      * }
      * ```
      */
-    type SetStateAction<S> = S | ((prevState: S) => S);
+    type SetStateAction<S> = S extends Function ? ((prevState: S) => S) : S | ((prevState: S) => S);
 
     /**
      * A function that can be used to update the state of a {@link useState}
@@ -1686,7 +1686,7 @@ declare namespace React {
      * @version 16.8.0
      * @see {@link https://react.dev/reference/react/useState}
      */
-    function useState<S>(initialState: S | (() => S)): [S, Dispatch<SetStateAction<S>>];
+    function useState<S>(initialState: S extends Function ? () => S : S | (() => S)): [S, Dispatch<SetStateAction<S>>];
     // convenience overload when first argument is omitted
     /**
      * Returns a stateful value, and a function to update it.
