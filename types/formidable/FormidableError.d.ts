@@ -6,7 +6,7 @@ declare class FormidableError extends Error {
 
 declare const errors:
     & {
-        FormidableError: typeof FormidableError;
+        default: typeof FormidableError;
     }
     & Record<
         | "missingPlugin"
@@ -17,14 +17,20 @@ declare const errors:
         | "filenameNotString"
         | "maxFieldsSizeExceeded"
         | "maxFieldsExceeded"
+        | "maxFilesExceeded"
         | "smallerThanMinFileSize"
         | "biggerThanMaxFileSize"
         | "noEmptyFiles"
         | "missingContentType"
         | "malformedMultipart"
         | "missingMultipartBoundary"
-        | "unknownTransferEncoding",
+        | "unknownTransferEncoding"
+        | "biggerThanTotalMaxFileSize"
+        | "pluginFailed"
+        | "cannotCreateDir",
         number
     >;
 
 export = errors;
+
+
