@@ -32,5 +32,3 @@ declare const errors:
     >;
 
 export = errors;
-
-

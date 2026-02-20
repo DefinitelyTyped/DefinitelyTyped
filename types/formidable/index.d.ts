@@ -328,8 +328,6 @@ declare const formidable: {
     IncomingForm: typeof Formidable;
     // parsers and mapped parsers
     parsers: typeof parsers;
-} & formidable.MappedParsers & {
-    FormidableError: InstanceType<typeof errors.default>;
-};
+} & formidable.MappedParsers;
 
 export = formidable;
