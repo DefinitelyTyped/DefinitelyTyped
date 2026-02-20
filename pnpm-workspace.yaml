@@ -9,6 +9,9 @@ lockfile: false
 # everything.
 resolutionMode: highest
 
+# Do not delay installing things; we need to check the latest state.
+minimumReleaseAge: 0
+
 # Prevent pnpm from hoisting eslint/prettier-ish packages.
 # The first two are the defaults, but we don't want to also hoist packages
 # like @types/eslint-scope (which exist in the types dir).
