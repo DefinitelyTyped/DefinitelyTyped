@@ -83,7 +83,12 @@ const cloudFrontFunctionEvent: AWSCloudFrontFunction.Event = {
     version: "1.0",
     context: cloudFrontFunctionContext,
     viewer: cloudFrontFunctionViewer,
-    request: cloudFrontFunctionRequest,
+    request: {
+        ...cloudFrontFunctionRequest,
+        rawQueryString() {
+            return undefined;
+        },
+    },
     response: cloudFrontResponse,
 };
 
@@ -197,4 +202,12 @@ function testCreateRequestOriginGroup() {
         },
     };
     cf.createRequestOriginGroup(params);
+}
+
+function testEdgeLocation() {
+    cf.edgeLocation = {
+        name: "SEA",
+        serverIp: "1.2.3.4",
+        region: "us-west-2"
+    };
 }
