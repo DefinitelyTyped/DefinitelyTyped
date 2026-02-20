@@ -47,4 +47,4 @@ hoistWorkspacePackages: false
 sharedWorkspaceLockfile: false
 
 overrides:
-  "@wordpress/vips": "-"
+  '@wordpress/vips': '-'
