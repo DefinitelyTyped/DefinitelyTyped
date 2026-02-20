@@ -68,6 +68,7 @@ declare namespace FsLightbox {
         showThumbsOnMount?: boolean | undefined; // pro feature
         showThumbsWithCaptions?: boolean | undefined; // pro feature
         disableThumbs?: boolean | undefined; // pro feature
+        maxScale?: boolean | undefined; // pro feature
         slideDistance?: number | undefined;
         slideshowTime?: number | undefined; // pro feature
         sourceMargin?: number | undefined;
