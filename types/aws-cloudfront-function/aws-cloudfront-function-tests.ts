@@ -208,6 +208,6 @@ function testEdgeLocation() {
     cf.edgeLocation = {
         name: "SEA",
         serverIp: "1.2.3.4",
-        region: "us-west-2"
+        region: "us-west-2",
     };
 }
