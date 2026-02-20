@@ -174,4 +174,11 @@ declare module "." {
     interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_MEDIA_SRC_TYPES {
         srcObject: Blob | MediaSource | MediaStream;
     }
+
+    // @enableOptimisticKey
+    export const optimisticKey: unique symbol;
+
+    interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_KEY_TYPES {
+        optimisticKey: typeof optimisticKey;
+    }
 }

@@ -28,7 +28,6 @@ export interface SpriteNodeMaterialNodeProperties extends NodeMaterialNodeProper
     /**
      * Whether to use size attenuation or not.
      *
-     * @type {boolean}
      * @default true
      */
     get sizeAttenuation(): boolean;
@@ -55,8 +54,6 @@ declare class SpriteNodeMaterial extends NodeMaterial {
     /**
      * This flag can be used for type testing.
      *
-     * @type {boolean}
-     * @readonly
      * @default true
      */
     readonly isSpriteNodeMaterial: boolean;

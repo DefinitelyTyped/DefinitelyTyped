@@ -98,7 +98,7 @@ export class Vector3 {
      */
     addVectors(a: Vector3Like, b: Vector3Like): this;
 
-    addScaledVector(v: Vector3, s: number): this;
+    addScaledVector(v: Vector3Like, s: number): this;
 
     /**
      * Subtracts v from this vector.
@@ -123,7 +123,7 @@ export class Vector3 {
 
     applyEuler(euler: Euler): this;
 
-    applyAxisAngle(axis: Vector3, angle: number): this;
+    applyAxisAngle(axis: Vector3Like, angle: number): this;
 
     applyMatrix3(m: Matrix3): this;
 

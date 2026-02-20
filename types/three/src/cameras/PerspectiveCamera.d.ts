@@ -31,98 +31,83 @@ export interface PerspectiveCameraJSON extends Object3DJSON {
 }
 
 /**
- * Camera that uses {@link https://en.wikipedia.org/wiki/Perspective_(graphical) | perspective projection}.
- * This projection mode is designed to mimic the way the human eye sees
- * @remarks
- * It is the most common projection mode used for rendering a 3D scene.
- * @example
- * ```typescript
- * const camera = new THREE.PerspectiveCamera(45, width / height, 1, 1000);
- * scene.add(camera);
+ * Camera that uses [perspective projection](https://en.wikipedia.org/wiki/Perspective_(graphical)).
+ *
+ * This projection mode is designed to mimic the way the human eye sees. It
+ * is the most common projection mode used for rendering a 3D scene.
+ *
+ * ```js
+ * const camera = new THREE.PerspectiveCamera( 45, width / height, 1, 1000 );
+ * scene.add( camera );
  * ```
- * @see Example: {@link https://threejs.org/examples/#webgl_animation_skinning_blending | animation / skinning / blending }
- * @see Example: {@link https://threejs.org/examples/#webgl_animation_skinning_morph | animation / skinning / morph }
- * @see Example: {@link https://threejs.org/examples/#webgl_effects_stereo | effects / stereo }
- * @see Example: {@link https://threejs.org/examples/#webgl_interactive_cubes | interactive / cubes }
- * @see Example: {@link https://threejs.org/examples/#webgl_loader_collada_skinning | loader / collada / skinning }
- * @see {@link https://threejs.org/docs/index.html#api/en/cameras/PerspectiveCamera | Official Documentation}
- * @see {@link https://github.com/mrdoob/three.js/blob/master/src/cameras/PerspectiveCamera.js | Source}
  */
 export class PerspectiveCamera extends Camera {
     /**
-     * Creates a new {@link PerspectiveCamera}.
-     * @remarks Together these define the camera's {@link https://en.wikipedia.org/wiki/Viewing_frustum | viewing frustum}.
-     * @param fov Camera frustum vertical field of view. Default `50`.
-     * @param aspect Camera frustum aspect ratio. Default `1`.
-     * @param near Camera frustum near plane. Default `0.1`.
-     * @param far Camera frustum far plane. Default `2000`.
+     * Constructs a new perspective camera.
+     *
+     * @param {number} [fov=50] - The vertical field of view.
+     * @param {number} [aspect=1] - The aspect ratio.
+     * @param {number} [near=0.1] - The camera's near plane.
+     * @param {number} [far=2000] - The camera's far plane.
      */
     constructor(fov?: number, aspect?: number, near?: number, far?: number);
-
     /**
-     * Read-only flag to check if a given object is of type {@link Camera}.
-     * @remarks This is a _constant_ value
-     * @defaultValue `true`
+     * This flag can be used for type testing.
+     *
+     * @default true
      */
-    readonly isPerspectiveCamera: true;
-
+    readonly isPerspectiveCamera: boolean;
     /**
-     * @override
-     * @defaultValue `PerspectiveCamera`
-     */
-    override readonly type: string | "PerspectiveCamera";
-
-    /**
-     * Gets or sets the zoom factor of the camera.
-     * @defaultValue `1`
-     */
-    zoom: number;
-
-    /**
-     * Camera frustum vertical field of view, from bottom to top of view, in degrees.
-     * @remarks Expects a `Float`
-     * @defaultValue `50`
+     * The vertical field of view, from bottom to top of view,
+     * in degrees.
+     *
+     * @default 50
      */
     fov: number;
-
     /**
-     * Camera frustum aspect ratio, usually the canvas width / canvas height.
-     * @remarks Expects a `Float`
-     * @defaultValue `1`, _(square canvas)_.
+     * The zoom factor of the camera.
+     *
+     * @default 1
      */
-    aspect: number;
-
+    zoom: number;
     /**
-     * Camera frustum near plane.
-     * @remarks The valid range is greater than `0` and less than the current value of the {@link far | .far} plane.
-     * @remarks Note that, unlike for the {@link THREE.OrthographicCamera | OrthographicCamera}, `0` is **not** a valid value for a {@link PerspectiveCamera |PerspectiveCamera's}. near plane.
-     * @defaultValue `0.1`
-     * @remarks Expects a `Float`
+     * The camera's near plane. The valid range is greater than `0`
+     * and less than the current value of {@link PerspectiveCamera#far}.
+     *
+     * Note that, unlike for the {@link OrthographicCamera}, `0` is <em>not</em> a
+     * valid value for a perspective camera's near plane.
+     *
+     * @default 0.1
      */
     near: number;
-
     /**
-     * Camera frustum far plane.
-     * @remarks Must be greater than the current value of {@link near | .near} plane.
-     * @remarks Expects a `Float`
-     * @defaultValue `2000`
+     * The camera's far plane. Must be greater than the
+     * current value of {@link PerspectiveCamera#near}.
+     *
+     * @default 2000
      */
     far: number;
-
     /**
-     * Object distance used for stereoscopy and depth-of-field effects.
-     * @remarks This parameter does not influence the projection matrix unless a {@link THREE.StereoCamera | StereoCamera} is being used.
-     * @remarks Expects a `Float`
-     * @defaultValue `10`
+     * Object distance used for stereoscopy and depth-of-field effects. This
+     * parameter does not influence the projection matrix unless a
+     * {@link StereoCamera} is being used.
+     *
+     * @default 10
      */
     focus: number;
-
     /**
-     * Frustum window specification or null.
-     * This is set using the {@link setViewOffset | .setViewOffset} method and cleared using {@link clearViewOffset | .clearViewOffset}.
-     * @defaultValue `null`
+     * The aspect ratio, usually the canvas width / canvas height.
+     *
+     * @default 1
      */
-    view: null | {
+    aspect: number;
+    /**
+     * Represents the frustum window specification. This property should not be edited
+     * directly but via {@link PerspectiveCamera#setViewOffset} and {@link PerspectiveCamera#clearViewOffset}.
+     *
+     * @default null
+     */
+    view: {
         enabled: boolean;
         fullWidth: number;
         fullHeight: number;
@@ -130,125 +115,127 @@ export class PerspectiveCamera extends Camera {
         offsetY: number;
         width: number;
         height: number;
-    };
-
+    } | null;
     /**
-     * Film size used for the larger axis.
-     * This parameter does not influence the projection matrix unless {@link filmOffset | .filmOffset} is set to a nonzero value.
-     * @remarks Expects a `Float`
-     * @defaultValue `35`, _millimeters_.
+     * Film size used for the larger axis. Default is `35` (millimeters). This
+     * parameter does not influence the projection matrix unless {@link PerspectiveCamera#filmOffset}
+     * is set to a nonzero value.
+     *
+     * @default 35
      */
     filmGauge: number;
-
     /**
-     * Horizontal off-center offset in the same unit as {@link filmGauge | .filmGauge}.
-     * @remarks Expects a `Float`
-     * @defaultValue `0`
+     * Horizontal off-center offset in the same unit as {@link PerspectiveCamera#filmGauge}.
+     *
+     * @default 0
      */
     filmOffset: number;
-
+    copy(source: PerspectiveCamera, recursive?: boolean): this;
     /**
-     * Returns the focal length of the current {@link .fov | fov} in respect to {@link filmGauge | .filmGauge}.
-     */
-    getFocalLength(): number;
-
-    /**
-     * Sets the FOV by focal length in respect to the current {@link filmGauge | .filmGauge}.
-     * @remarks By default, the focal length is specified for a `35mm` (full frame) camera.
-     * @param focalLength Expects a `Float`
+     * Sets the FOV by focal length in respect to the current {@link PerspectiveCamera#filmGauge}.
+     *
+     * The default film gauge is 35, so that the focal length can be specified for
+     * a 35mm (full frame) camera.
+     *
+     * @param {number} focalLength - Values for focal length and film gauge must have the same unit.
      */
     setFocalLength(focalLength: number): void;
-
     /**
-     * Returns the current vertical field of view angle in degrees considering {@link zoom | .zoom}.
+     * Returns the focal length from the current {@link PerspectiveCamera#fov} and
+     * {@link PerspectiveCamera#filmGauge}.
+     *
+     * @return {number} The computed focal length.
+     */
+    getFocalLength(): number;
+    /**
+     * Returns the current vertical field of view angle in degrees considering {@link PerspectiveCamera#zoom}.
+     *
+     * @return {number} The effective FOV.
      */
     getEffectiveFOV(): number;
-
     /**
-     * Returns the width of the image on the film
-     * @remarks
-     * If {@link aspect | .aspect}. is greater than or equal to one (landscape format), the result equals {@link filmGauge | .filmGauge}.
+     * Returns the width of the image on the film. If {@link PerspectiveCamera#aspect} is greater than or
+     * equal to one (landscape format), the result equals {@link PerspectiveCamera#filmGauge}.
+     *
+     * @return {number} The film width.
      */
     getFilmWidth(): number;
-
     /**
-     * Returns the height of the image on the film
-     * @remarks
-     * If {@link aspect | .aspect}. is less than or equal to one (portrait format), the result equals {@link filmGauge | .filmGauge}.
+     * Returns the height of the image on the film. If {@link PerspectiveCamera#aspect} is greater than or
+     * equal to one (landscape format), the result equals {@link PerspectiveCamera#filmGauge}.
+     *
+     * @return {number} The film width.
      */
     getFilmHeight(): number;
-
     /**
      * Computes the 2D bounds of the camera's viewable rectangle at a given distance along the viewing direction.
-     * Sets minTarget and maxTarget to the coordinates of the lower-left and upper-right corners of the view rectangle.
+     * Sets `minTarget` and `maxTarget` to the coordinates of the lower-left and upper-right corners of the view rectangle.
+     *
+     * @param {number} distance - The viewing distance.
+     * @param {Vector2} minTarget - The lower-left corner of the view rectangle is written into this vector.
+     * @param {Vector2} maxTarget - The upper-right corner of the view rectangle is written into this vector.
      */
     getViewBounds(distance: number, minTarget: Vector2, maxTarget: Vector2): void;
-
     /**
      * Computes the width and height of the camera's viewable rectangle at a given distance along the viewing direction.
-     * Copies the result into the target Vector2, where x is width and y is height.
+     *
+     * @param {number} distance - The viewing distance.
+     * @param {Vector2} target - The target vector that is used to store result where x is width and y is height.
+     * @returns {Vector2} The view size.
      */
     getViewSize(distance: number, target: Vector2): Vector2;
-
     /**
-     * Sets an offset in a larger frustum.
-     * @remarks
-     * This is useful for multi-window or multi-monitor/multi-machine setups.
+     * Sets an offset in a larger frustum. This is useful for multi-window or
+     * multi-monitor/multi-machine setups.
      *
-     * For example, if you have 3x2 monitors and each monitor is _1920x1080_ and
+     * For example, if you have 3x2 monitors and each monitor is 1920x1080 and
      * the monitors are in grid like this
      * ```
-     * ┌───┬───┬───┐
-     * │ A │ B │ C │
-     * ├───┼───┼───┤
-     * │ D │ E │ F │
-     * └───┴───┴───┘
+     *   +---+---+---+
+     *   | A | B | C |
+     *   +---+---+---+
+     *   | D | E | F |
+     *   +---+---+---+
      * ```
-     * then for each monitor you would call it like this
-     * ```typescript
-     *   const w = 1920;
-     *   const h = 1080;
-     *   const fullWidth = w * 3;
-     *   const fullHeight = h * 2;
+     * then for each monitor you would call it like this:
+     * ```js
+     * const w = 1920;
+     * const h = 1080;
+     * const fullWidth = w * 3;
+     * const fullHeight = h * 2;
      *
-     *   // Monitor - A
-     *   camera.setViewOffset( fullWidth, fullHeight, w * 0, h * 0, w, h );
-     *   // Monitor - B
-     *   camera.setViewOffset( fullWidth, fullHeight, w * 1, h * 0, w, h );
-     *   // Monitor - C
-     *   camera.setViewOffset( fullWidth, fullHeight, w * 2, h * 0, w, h );
-     *   // Monitor - D
-     *   camera.setViewOffset( fullWidth, fullHeight, w * 0, h * 1, w, h );
-     *   // Monitor - E
-     *   camera.setViewOffset( fullWidth, fullHeight, w * 1, h * 1, w, h );
-     *   // Monitor - F
-     *   camera.setViewOffset( fullWidth, fullHeight, w * 2, h * 1, w, h );
+     * // --A--
+     * camera.setViewOffset( fullWidth, fullHeight, w * 0, h * 0, w, h );
+     * // --B--
+     * camera.setViewOffset( fullWidth, fullHeight, w * 1, h * 0, w, h );
+     * // --C--
+     * camera.setViewOffset( fullWidth, fullHeight, w * 2, h * 0, w, h );
+     * // --D--
+     * camera.setViewOffset( fullWidth, fullHeight, w * 0, h * 1, w, h );
+     * // --E--
+     * camera.setViewOffset( fullWidth, fullHeight, w * 1, h * 1, w, h );
+     * // --F--
+     * camera.setViewOffset( fullWidth, fullHeight, w * 2, h * 1, w, h );
      * ```
+     *
      * Note there is no reason monitors have to be the same size or in a grid.
-     * @param fullWidth Full width of multiview setup Expects a `Float`.
-     * @param fullHeight Full height of multiview setup Expects a `Float`.
-     * @param x Horizontal offset of subcamera Expects a `Float`.
-     * @param y Vertical offset of subcamera Expects a `Float`.
-     * @param width Width of subcamera Expects a `Float`.
-     * @param height Height of subcamera Expects a `Float`.
+     *
+     * @param {number} fullWidth - The full width of multiview setup.
+     * @param {number} fullHeight - The full height of multiview setup.
+     * @param {number} x - The horizontal offset of the subcamera.
+     * @param {number} y - The vertical offset of the subcamera.
+     * @param {number} width - The width of subcamera.
+     * @param {number} height - The height of subcamera.
      */
     setViewOffset(fullWidth: number, fullHeight: number, x: number, y: number, width: number, height: number): void;
-
     /**
-     * Removes any offset set by the {@link setViewOffset | .setViewOffset} method.
+     * Removes the view offset from the projection matrix.
      */
     clearViewOffset(): void;
-
     /**
-     * Updates the camera projection matrix
-     * @remarks Must be called after any change of parameters.
+     * Updates the camera's projection matrix. Must be called after any change of
+     * camera properties.
      */
     updateProjectionMatrix(): void;
-
-    /**
-     * @deprecated Use {@link PerspectiveCamera.setFocalLength | .setFocalLength()} and {@link PerspectiveCamera.filmGauge | .filmGauge} instead.
-     */
-    setLens(focalLength: number, frameHeight?: number): void;
-
     toJSON(meta?: JSONMeta): PerspectiveCameraJSON;
 }

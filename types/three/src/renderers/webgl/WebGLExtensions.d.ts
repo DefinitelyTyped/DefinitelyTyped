@@ -3,5 +3,5 @@ export class WebGLExtensions {
 
     has(name: string): boolean;
     init(): void;
-    get(name: string): any;
+    get(name: string): unknown;
 }

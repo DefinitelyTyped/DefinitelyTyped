@@ -72,6 +72,7 @@ declare namespace FsLightbox {
         slideshowTime?: number | undefined; // pro feature
         sourceMargin?: number | undefined;
         UIFadeOutTime?: number | false | undefined; // pro feature
+        useDialog?: boolean | undefined;
         zoomIncrement?: number | undefined; // pro feature
         openOnMount?: boolean | undefined;
         exitFullscreenOnClose?: boolean | undefined;

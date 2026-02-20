@@ -226,12 +226,20 @@ declare namespace React {
 
     type ComponentState = any;
 
+    interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_KEY_TYPES {}
+
     /**
      * A value which uniquely identifies a node among items in an array.
      *
      * @see {@link https://react.dev/learn/rendering-lists#keeping-list-items-in-order-with-key React Docs}
      */
-    type Key = string | number | bigint;
+    type Key =
+        | string
+        | number
+        | bigint
+        | DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_KEY_TYPES[
+            keyof DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_KEY_TYPES
+        ];
 
     /**
      * @internal The props any component can receive.

@@ -57,6 +57,7 @@ class Test extends React.Component {
                 slideshowTime={10000}
                 sourceMargin={0.2}
                 UIFadeOutTime={10000}
+                useDialog={true}
                 zoomIncrement={0.5}
                 onInit={this.handleEvent}
                 onOpen={this.handleEvent}
