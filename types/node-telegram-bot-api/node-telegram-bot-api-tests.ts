@@ -548,3 +548,32 @@ MyTelegramBot.setStickerSetThumb(1234, "my_set_thumb", "thumb_file");
 MyTelegramBot.setMessageReaction(1234, 1234, {
     reaction: [{ type: "emoji", emoji: "👍" }],
 });
+MyTelegramBot.sendMessage(1234, "test-InlineKeyboardButton", {
+    reply_markup: {
+        inline_keyboard: [
+            [
+                {
+                    text: "Registration",
+                    callback_data: "reg",
+                    icon_custom_emoji_id: "5179278706941624825",
+                    style: "primary",
+                },
+            ],
+        ],
+    },
+});
+MyTelegramBot.sendMessage(1234, "test-KeyboardButton", {
+    reply_markup: {
+        keyboard: [
+            [
+                {
+                    text: "Button",
+                    request_contact: false,
+                    icon_custom_emoji_id: "5179278706941624825",
+                    style: "success",
+                },
+            ],
+        ],
+    },
+});
+
