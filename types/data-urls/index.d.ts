@@ -1,4 +1,4 @@
-import MIMEType = require("whatwg-mimetype");
+import { MIMEType } from "whatwg-mimetype";
 import { URLRecord } from "whatwg-url";
 
 /**
