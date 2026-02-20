@@ -1,3 +1,50 @@
 packages:
   - 'scripts'
   - 'types/**'
+
+lockfile: false
+
+# As of pnpm v8, the default is "lowest", selecting the minimum version
+# available in the package graph. But, on DT, we want to test the latest of
+# everything.
+resolutionMode: highest
+
+# Prevent pnpm from hoisting eslint/prettier-ish packages.
+# The first two are the defaults, but we don't want to also hoist packages
+# like @types/eslint-scope (which exist in the types dir).
+publicHoistPattern:
+  - '*eslint*'
+  - '*prettier*'
+  - '!@types/*'
+
+# Match npm's behavior and ensure we get all deps.
+autoInstallPeers: true
+# Don't complain about peer dependencies; they're out of our control.
+strictPeerDependencies: false
+# Don't use the top-level package.json to resolve conflicts.
+resolvePeersFromWorkspaceRoot: false
+# https://github.com/pnpm/pnpm/issues/6300
+dedupePeerDependents: false
+
+ignoreScripts: true
+
+# Ensure that @types packages are resolved to this repo's packages where
+# available.
+preferWorkspacePackages: true
+# And also to transitive dependencies.
+linkWorkspacePackages: deep
+# For manual invocations of `pnpm add`, don't save deps as "workspace:...".
+saveWorkspaceProtocol: false
+# Ignore cycles; they are out of our control.
+ignoreWorkspaceCycles: true
+# Don't pull symlinks up out of workspace packages.
+dedupeDirectDeps: false
+# Don't allow every package to see every other package.
+hoistWorkspacePackages: false
+
+# Remove once https://github.com/pnpm/pnpm/issues/6457 is fixed
+# and we can set a hoisting limit of "workspaces" like in Yarn.
+sharedWorkspaceLockfile: false
+
+overrides:
+  "@wordpress/vips": "-"
