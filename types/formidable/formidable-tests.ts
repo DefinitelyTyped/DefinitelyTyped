@@ -2,9 +2,11 @@ import formidable = require("formidable");
 import {
     defaultOptions,
     enabledPlugins,
+    errors as formidableErrors,
     File,
     Formidable,
     formidable as formidableAlias,
+    FormidableError,
     IncomingForm,
     json,
     multipart,
@@ -17,8 +19,6 @@ import {
     plugins,
     querystring,
     VolatileFile,
-    errors as formidableErrors,
-    FormidableError
 } from "formidable";
 import * as http from "http";
 
@@ -148,7 +148,10 @@ form.on("data", data => {
         // $ExpectType number
         bytesExpected;
 
-        form.emit("error", new formidableErrors.default('bytes received exceeded', formidableErrors.biggerThanTotalMaxFileSize, 400))
+        form.emit(
+            "error",
+            new formidableErrors.default("bytes received exceeded", formidableErrors.biggerThanTotalMaxFileSize, 400),
+        );
     })
     .on("field", (name, value) => {
         // $ExpectType string
@@ -277,4 +280,4 @@ formidableErrors.pluginFailed;
 formidableErrors.cannotCreateDir;
 
 // $ExpectType FormidableError
-new formidableErrors.default('invalid type', 0, 400);
+new formidableErrors.default("invalid type", 0, 400);
