@@ -1448,7 +1448,7 @@ function dkim_specific_header_key_test() {
 // SMTP Connection
 
 function smtp_connection_test() {
-    const connection = new SMTPConnection();
+    const connection = new SMTPConnection({ secure: true, secured: true });
     connection.connect(err => {
         if (err) throw err;
         connection.login({ user: "user", pass: "pass" }, err => {
