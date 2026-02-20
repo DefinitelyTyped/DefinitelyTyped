@@ -1577,7 +1577,7 @@ declare namespace __MaterialUI {
             setSelectedValue(newSelectionValue: string): void;
         }
 
-        export interface ToggleProps extends CommonEnhancedSwitchProps<Toggle> {
+        export interface ToggleProps extends Omit<CommonEnhancedSwitchProps<Toggle>, "onToggle"> {
             // <EnhancedSwitch/> is element that get the 'other' properties
             defaultToggled?: boolean | undefined;
             disabled?: boolean | undefined;
