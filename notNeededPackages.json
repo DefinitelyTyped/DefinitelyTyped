@@ -4077,6 +4077,10 @@
             "libraryName": "map-obj",
             "asOfVersion": "3.1.0"
         },
+        "mapbox-gl": {
+            "libraryName": "mapbox-gl",
+            "asOfVersion": "3.5.0"
+        },
         "mapbox__point-geometry": {
             "libraryName": "@mapbox/point-geometry",
             "asOfVersion": "1.0.0"

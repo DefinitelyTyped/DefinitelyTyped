@@ -1351,7 +1351,6 @@ declare module "@mapbox/mapbox-sdk/services/isochrone" {
 
 // eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module "@mapbox/mapbox-sdk/services/geocoding" {
-    import { LngLatLike } from "mapbox-gl";
     // eslint-disable-next-line @definitelytyped/no-self-import
     import { Coordinates, MapiRequest } from "@mapbox/mapbox-sdk/lib/classes/mapi-request";
     // eslint-disable-next-line @definitelytyped/no-self-import
@@ -1388,7 +1387,7 @@ declare module "@mapbox/mapbox-sdk/services/geocoding" {
         /**
          * A location. This will be a place name for forward geocoding or a coordinate pair (longitude, latitude) for reverse geocoding.
          */
-        query: string | LngLatLike;
+        query: string;
         /**
          * Either  mapbox.places for ephemeral geocoding, or  mapbox.places-permanent for storing results and batch geocoding.
          */
@@ -1846,9 +1845,16 @@ declare module "@mapbox/mapbox-sdk/services/optimization" {
 // eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module "@mapbox/mapbox-sdk/services/static" {
     import * as GeoJSON from "geojson";
-    import { AnyLayer, LngLatBoundsLike, LngLatLike } from "mapbox-gl";
+    /**
+     * It is now the only remaining place that still requires `mapbox-gl`.
+     *
+     * Since the js source of `mapbox__mapbox-sdk` does not import codes from `mapbox-gl`,
+     * the `AnyLayer` usage can probably be made gone in further PR, so that `mapbox-gl` dependency
+     * is no longer needed in this type lib.
+     */
+    import { LayerSpecification as AnyLayer } from "mapbox-gl";
     // eslint-disable-next-line @definitelytyped/no-self-import
-    import { MapiRequest } from "@mapbox/mapbox-sdk/lib/classes/mapi-request";
+    import { Coordinates, MapiRequest } from "@mapbox/mapbox-sdk/lib/classes/mapi-request";
     // eslint-disable-next-line @definitelytyped/no-self-import
     import MapiClient, { SdkConfig } from "@mapbox/mapbox-sdk/lib/classes/mapi-client";
 
@@ -1872,7 +1878,7 @@ declare module "@mapbox/mapbox-sdk/services/static" {
         height: number;
         position:
             | {
-                coordinates: LngLatLike | "auto";
+                coordinates: Coordinates;
                 zoom: number;
                 bearing?: number | undefined;
                 pitch?: number | undefined;
@@ -1895,7 +1901,7 @@ declare module "@mapbox/mapbox-sdk/services/static" {
     }
 
     interface CustomMarker {
-        coordinates: LngLatLike;
+        coordinates: Coordinates;
         url: string;
     }
 
@@ -1904,7 +1910,7 @@ declare module "@mapbox/mapbox-sdk/services/static" {
     }
 
     interface SimpleMarker {
-        coordinates: [number, number];
+        coordinates: Coordinates;
         label?: string | undefined;
         color?: string | undefined;
         size?: "large" | "small" | undefined;
@@ -1918,7 +1924,7 @@ declare module "@mapbox/mapbox-sdk/services/static" {
         /**
          * An array of coordinates describing the path.
          */
-        coordinates: LngLatBoundsLike[];
+        coordinates: Coordinates[];
         strokeWidth?: number | undefined;
         strokeColor?: string | undefined;
         /**
