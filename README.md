@@ -1,4 +1,4 @@
-# Definitely Typed
+# Patrick's Definitely Typed
 
 > The repository for _high quality_ TypeScript type definitions.
 
