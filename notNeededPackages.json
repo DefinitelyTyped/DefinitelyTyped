@@ -7807,10 +7807,6 @@
             "libraryName": "@typeform/embed",
             "asOfVersion": "1.0.0"
         },
-        "vue-tel-input": {
-            "libraryName": "vue-tel-input",
-            "asOfVersion": "9.7.1"
-        },
         "typescript": {
             "libraryName": "typescript",
             "asOfVersion": "2.0.0"
@@ -8050,6 +8046,10 @@
         "vue-scrollto": {
             "libraryName": "vue-scrollto",
             "asOfVersion": "2.17.1"
+        },
+        "vue-tel-input": {
+            "libraryName": "vue-tel-input",
+            "asOfVersion": "9.7.1"
         },
         "vue3-json-viewer": {
             "libraryName": "vue3-json-viewer",
