@@ -13255,6 +13255,7 @@ declare namespace google.maps.marker {
     borderColor?: string | null;
     /**
      * The DOM element displayed in the pin.
+     * @deprecated Use PinElementOptions.glyphText or PinElementOptions.glyphSrc instead.
      */
     glyph?: string | Element | URL | null;
     /**
@@ -13263,6 +13264,14 @@ declare namespace google.maps.marker {
      * value</a>.
      */
     glyphColor?: string | null;
+    /**
+     * The source of the glyph image to be displayed in the pin.
+     */
+    glyphSrc?: URL | null;
+    /**
+     * The text displayed in the pin.
+     */
+    glyphText?: string | null;
     /**
      * The scale of the pin.
      * @defaultValue <code>1</code>
