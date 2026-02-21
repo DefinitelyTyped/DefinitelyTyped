@@ -393,6 +393,17 @@ const moduleObserver = Process.attachModuleObserver({
 });
 moduleObserver.detach();
 
+const db = SqliteDatabase.openInline("AAAA");
+const stmt = db.prepare("SELECT * from tab;");
+// $ExpectType string[]
+stmt.columnNames;
+// $ExpectType SqliteColumnType[]
+stmt.columnTypes;
+// $ExpectType (string | null)[]
+stmt.declaredTypes;
+// $ExpectType number
+stmt.paramsCount;
+
 // $ExpectType Profiler
 const profiler = new Profiler();
 const sampler = new BusyCycleSampler();
