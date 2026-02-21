@@ -2,9 +2,11 @@ import formidable = require("formidable");
 import {
     defaultOptions,
     enabledPlugins,
+    errors as formidableErrors,
     File,
     Formidable,
     formidable as formidableAlias,
+    FormidableError,
     IncomingForm,
     MultipartParser,
     Options,
@@ -140,6 +142,11 @@ form.on("data", data => {
         bytesReceived;
         // $ExpectType number
         bytesExpected;
+
+        form.emit(
+            "error",
+            new formidableErrors.default("bytes received exceeded", formidableErrors.biggerThanTotalMaxFileSize, 400),
+        );
     })
     .on("field", (name, value) => {
         // $ExpectType string
@@ -219,3 +226,45 @@ new IncomingForm();
 
 // $ExpectType IncomingForm
 formidable();
+
+// $ExpectType number
+formidableErrors.missingPlugin;
+// $ExpectType number
+formidableErrors.pluginFunction;
+// $ExpectType number
+formidableErrors.aborted;
+// $ExpectType number
+formidableErrors.noParser;
+// $ExpectType number
+formidableErrors.uninitializedParser;
+// $ExpectType number
+formidableErrors.filenameNotString;
+// $ExpectType number
+formidableErrors.maxFieldsSizeExceeded;
+// $ExpectType number
+formidableErrors.maxFieldsExceeded;
+// $ExpectType number
+formidableErrors.maxFilesExceeded;
+// $ExpectType number
+formidableErrors.smallerThanMinFileSize;
+// $ExpectType number
+formidableErrors.biggerThanMaxFileSize;
+// $ExpectType number
+formidableErrors.noEmptyFiles;
+// $ExpectType number
+formidableErrors.missingContentType;
+// $ExpectType number
+formidableErrors.malformedMultipart;
+// $ExpectType number
+formidableErrors.missingMultipartBoundary;
+// $ExpectType number
+formidableErrors.unknownTransferEncoding;
+// $ExpectType number
+formidableErrors.biggerThanTotalMaxFileSize;
+// $ExpectType number
+formidableErrors.pluginFailed;
+// $ExpectType number
+formidableErrors.cannotCreateDir;
+
+// $ExpectType FormidableError
+new formidableErrors.default("invalid type", 0, 400);

@@ -309,6 +309,8 @@ declare namespace formidable {
     type EnabledPlugins = {
         [P in Plugin]: PluginFunction;
     };
+
+    type FormidableError = InstanceType<typeof errors.default>;
 }
 
 declare const formidable: {
