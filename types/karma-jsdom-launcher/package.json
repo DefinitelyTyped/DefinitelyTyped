@@ -10,7 +10,8 @@
         "@types/karma": "*"
     },
     "devDependencies": {
-        "@types/karma-jsdom-launcher": "workspace:."
+        "@types/karma-jsdom-launcher": "workspace:.",
+        "undici-types": "^7.22.0"
     },
     "owners": [
         {
