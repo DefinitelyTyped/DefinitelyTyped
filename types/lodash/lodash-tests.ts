@@ -5105,12 +5105,84 @@ fp.now(); // $ExpectType number
 
 // _.sum
 {
-    const list: ArrayLike<number> | null | undefined = anything;
+    const anyList: ArrayLike<any> | null | undefined = anything;
 
-    _.sum(list); // $ExpectType number
-    _(list).sum(); // $ExpectType number
-    _(list).chain().sum(); // $ExpectType PrimitiveChain<number>
-    fp.sum(list); // $ExpectType number
+    _.sum(anyList); // $ExpectType number
+    _(anyList).sum(); // $ExpectType number
+    _(anyList).chain().sum(); // $ExpectType PrimitiveChain<number>
+    fp.sum(anyList); // $ExpectType number
+
+    const anyArray: any[] = anything;
+
+    _.sum(anyArray); // $ExpectType number
+    _(anyArray).sum(); // $ExpectType number
+    _(anyArray).chain().sum(); // $ExpectType PrimitiveChain<number>
+    fp.sum(anyArray); // $ExpectType number
+
+    const numberList: number[] = anything;
+
+    _.sum(numberList); // $ExpectType number
+    _.sum([1, 2, 3]); // $ExpectType number
+    _.sum([]); // $ExpectType number
+    _(numberList).sum(); // $ExpectType number
+    _(numberList).chain().sum(); // $ExpectType PrimitiveChain<number>
+    fp.sum(numberList); // $ExpectType number
+    fp.sum([]); // $ExpectType number
+
+    const nonEmptyBigints: [bigint, ...bigint[]] = anything;
+    const readonlyNonEmptyBigints: readonly [bigint, ...bigint[]] = anything;
+
+    _.sum(nonEmptyBigints); // $ExpectType bigint
+    _.sum(readonlyNonEmptyBigints); // $ExpectType bigint
+    _.sum([1n, 2n, 3n]); // $ExpectType bigint
+    fp.sum(nonEmptyBigints); // $ExpectType bigint
+    fp.sum(readonlyNonEmptyBigints); // $ExpectType bigint
+    fp.sum([1n, 2n, 3n]); // $ExpectType bigint
+
+    const bigintList: ArrayLike<bigint> = anything;
+    const bigintArray: bigint[] = anything;
+    const readonlyBigintArray: readonly bigint[] = anything;
+    const maybeBigintArray: bigint[] | null | undefined = anything;
+
+    _.sum(bigintList); // $ExpectType bigint | 0
+    _.sum(bigintArray); // $ExpectType bigint | 0
+    _.sum(readonlyBigintArray); // $ExpectType bigint | 0
+    _.sum(maybeBigintArray); // $ExpectType bigint | 0
+    _(bigintList).sum(); // $ExpectType bigint | 0
+    _(bigintArray).sum(); // $ExpectType bigint | 0
+    _([1n, 2n, 3n]).sum(); // $ExpectType bigint | 0
+    _(bigintList).chain().sum(); // $ExpectType PrimitiveChain<bigint | 0>
+    _(bigintArray).chain().sum(); // $ExpectType PrimitiveChain<bigint | 0>
+    _.chain(bigintArray).sum(); // $ExpectType PrimitiveChain<bigint | 0>
+    fp.sum(bigintList); // $ExpectType bigint | 0
+    fp.sum(bigintArray); // $ExpectType bigint | 0
+    fp.sum(readonlyBigintArray); // $ExpectType bigint | 0
+    fp.sum(maybeBigintArray); // $ExpectType bigint | 0
+
+    const nullValue: null = anything;
+
+    _.sum(nullValue); // $ExpectType number
+    _(nullValue).sum(); // $ExpectType number
+    _(nullValue).chain().sum(); // $ExpectType PrimitiveChain<number>
+    fp.sum(nullValue); // $ExpectType number
+
+    const undefinedValue: undefined = anything;
+
+    _.sum(undefinedValue); // $ExpectType number
+    _(undefinedValue).sum(); // $ExpectType number
+    _(undefinedValue).chain().sum(); // $ExpectType PrimitiveChain<number>
+    fp.sum(undefinedValue); // $ExpectType number
+
+    const mixedList: Array<number | bigint> = anything;
+
+    _.sum(mixedList); // $ExpectType number
+    _(mixedList).sum(); // $ExpectType number
+    fp.sum(mixedList); // $ExpectType number
+
+    // @ts-expect-error
+    _.sum(1n);
+    // @ts-expect-error
+    fp.sum(1n);
 }
 
 // _.sumBy
