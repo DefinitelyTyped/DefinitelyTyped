@@ -13,6 +13,7 @@ import {
     createZstdCompress,
     createZstdDecompress,
     deflate,
+    DeflateRaw,
     deflateRaw,
     deflateRawSync,
     deflateSync,
@@ -30,6 +31,7 @@ import {
     zstdCompressSync,
     zstdDecompress,
     zstdDecompressSync,
+    // ZlibOptions,
 } from "node:zlib";
 
 const compressMe = new Buffer("some data");
@@ -94,6 +96,12 @@ deflateRaw(
 );
 const inflatedRaw: Buffer = inflateRawSync(deflateRawSync(compressMe));
 const inflatedRawString: Buffer = inflateRawSync(deflateRawSync(compressMeString));
+
+class CustomDeflateRaw extends DeflateRaw {
+  constructor(options?: ZlibOptions) {
+    super(options);
+  }
+}
 
 // gzip
 
