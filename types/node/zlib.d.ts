@@ -192,7 +192,7 @@ declare module "node:zlib" {
          */
         dictionary?: NodeJS.ArrayBufferView | undefined;
     }
-    interface Zlib {
+    declare class Zlib extends stream.Transform {
         readonly bytesWritten: number;
         shell?: boolean | string | undefined;
         close(callback?: () => void): void;
@@ -208,132 +208,82 @@ declare module "node:zlib" {
     /**
      * @since v10.16.0
      */
-    class BrotliCompress extends stream.Transform implements Zlib {
+    class BrotliCompress extends stream.Transform {
         constructor(options?: BrotliOptions);
-        readonly bytesWritten: number;
-        shell?: boolean | string | undefined;
-        close(callback?: () => void): void;
-        flush(kind?: number, callback?: () => void): void;
-        flush(callback?: () => void): void;
     }
+    interface BrotliCompress extends stream.Transform, Zlib {}
     /**
      * @since v10.16.0
      */
-    class BrotliDecompress extends stream.Transform implements Zlib {
+    class BrotliDecompress extends stream.Transform {
         constructor(options?: BrotliOptions);
-        readonly bytesWritten: number;
-        shell?: boolean | string | undefined;
-        close(callback?: () => void): void;
-        flush(kind?: number, callback?: () => void): void;
-        flush(callback?: () => void): void;
     }
+    interface BrotliDecompress extends stream.Transform, Zlib {}
     /**
      * @since v0.5.8
      */
-    class Gzip extends stream.Transform implements Zlib {
+    class Gzip extends stream.Transform {
         constructor(options?: ZlibOptions);
-        readonly bytesWritten: number;
-        shell?: boolean | string | undefined;
-        close(callback?: () => void): void;
-        flush(kind?: number, callback?: () => void): void;
-        flush(callback?: () => void): void;
     }
+    interface Gzip extends stream.Transform, Zlib {}
     /**
      * @since v0.5.8
      */
-    class Gunzip extends stream.Transform implements Zlib {
+    class Gunzip extends stream.Transform {
         constructor(options?: ZlibOptions);
-        readonly bytesWritten: number;
-        shell?: boolean | string | undefined;
-        close(callback?: () => void): void;
-        flush(kind?: number, callback?: () => void): void;
-        flush(callback?: () => void): void;
     }
+    interface Gunzip extends stream.Transform, Zlib {}
     /**
      * @since v0.5.8
      */
-    class Deflate extends stream.Transform implements Zlib, ZlibReset, ZlibParams {
+    class Deflate extends stream.Transform {
         constructor(options?: ZlibOptions);
-        readonly bytesWritten: number;
-        shell?: boolean | string | undefined;
-        close(callback?: () => void): void;
-        flush(kind?: number, callback?: () => void): void;
-        flush(callback?: () => void): void;
-        params(level: number, strategy: number, callback: () => void): void;
-        reset(): void;
     }
+    interface Deflate extends stream.Transform, Zlib, ZlibReset, ZlibParams {}
     /**
      * @since v0.5.8
      */
-    class Inflate extends stream.Transform implements Zlib, ZlibReset {
+    class Inflate extends stream.Transform {
         constructor(options?: ZlibOptions);
-        readonly bytesWritten: number;
-        shell?: boolean | string | undefined;
-        close(callback?: () => void): void;
-        flush(kind?: number, callback?: () => void): void;
-        flush(callback?: () => void): void;
-        reset(): void;
     }
+    interface Inflate extends stream.Transform, Zlib, ZlibReset {}
     /**
      * @since v0.5.8
      */
-    class DeflateRaw extends stream.Transform implements Zlib, ZlibReset, ZlibParams {
+    class DeflateRaw extends stream.Transform {
         constructor(options?: ZlibOptions);
-        readonly bytesWritten: number;
-        shell?: boolean | string | undefined;
-        close(callback?: () => void): void;
-        flush(kind?: number, callback?: () => void): void;
-        flush(callback?: () => void): void;
-        params(level: number, strategy: number, callback: () => void): void;
-        reset(): void;
     }
+    interface Inflate extends stream.Transform, Zlib, ZlibReset, ZlibParams {}
     /**
      * @since v0.5.8
      */
-    class InflateRaw extends stream.Transform implements Zlib, ZlibReset {
+    class InflateRaw extends stream.Transform {
         constructor(options?: ZlibOptions);
-        readonly bytesWritten: number;
-        shell?: boolean | string | undefined;
-        close(callback?: () => void): void;
-        flush(kind?: number, callback?: () => void): void;
-        flush(callback?: () => void): void;
-        reset(): void;
     }
+    interface InflateRaw extends stream.Transform, Zlib, ZlibReset {}
     /**
      * @since v0.5.8
      */
-    class Unzip extends stream.Transform implements Zlib {
+    class Unzip extends stream.Transform {
         constructor(options?: ZlibOptions);
-        readonly bytesWritten: number;
-        shell?: boolean | string | undefined;
-        close(callback?: () => void): void;
-        flush(kind?: number, callback?: () => void): void;
-        flush(callback?: () => void): void;
     }
+    interface Unzip extends stream.Transform, Zlib {}
     /**
      * @since v22.15.0
      * @experimental
      */
-    class ZstdCompress extends stream.Transform implements Zlib {
+    class ZstdCompress extends stream.Transform {
         constructor(options?: ZstdOptions);
-        readonly bytesWritten: number;
-        shell?: boolean | string | undefined;
-        close(callback?: () => void): void;
-        flush(kind?: number, callback?: () => void): void;
-        flush(callback?: () => void): void;
     }
+    interface ZstdCompress extends stream.Transform, Zlib {}
     /**
      * @since v22.15.0
      * @experimental
      */
-    class ZstdDecompress extends stream.Transform implements Zlib {
+    class ZstdDecompress extends stream.Transform {
         constructor(options?: ZstdOptions);
-        readonly bytesWritten: number;
-        shell?: boolean | string | undefined;
-        close(callback?: () => void): void;
-        flush(kind?: number, callback?: () => void): void;
-        flush(callback?: () => void): void;
     }
+    interface ZstdDecompress extends stream.Transform, Zlib {}
     /**
      * Computes a 32-bit [Cyclic Redundancy Check](https://en.wikipedia.org/wiki/Cyclic_redundancy_check) checksum of `data`.
      * If `value` is specified, it is used as the starting value of the checksum, otherwise, 0 is used as the starting value.
