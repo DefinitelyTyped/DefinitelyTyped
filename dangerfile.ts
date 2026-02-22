@@ -1,5 +1,5 @@
 import { mangleScopedPackage, suggestionsDir } from "@definitelytyped/utils";
-import { danger, fail, markdown } from "danger";
+import { danger, fail, markdown } from "risk";
 import cp from "node:child_process";
 import fs from "node:fs";
 import os from "node:os";
