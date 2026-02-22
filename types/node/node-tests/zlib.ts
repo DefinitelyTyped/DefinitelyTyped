@@ -27,11 +27,11 @@ import {
     inflateSync,
     unzip,
     unzipSync,
+    ZlibOptions,
     zstdCompress,
     zstdCompressSync,
     zstdDecompress,
     zstdDecompressSync,
-    type ZlibOptions,
 } from "node:zlib";
 
 const compressMe = new Buffer("some data");
