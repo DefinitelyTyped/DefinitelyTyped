@@ -314,31 +314,31 @@ import {
     const r00ts: readonly string[] = rootCertificates;
 }
 
-// Certificate DN fields can be string or string[] (multi-valued)
+// Certificate DN fields are optional and can be string or string[] (multi-valued)
 {
     const tlsSocket = connect({});
     const peerCert = tlsSocket.getPeerCertificate();
     const subject = peerCert.subject;
 
-    // Single-valued fields (string)
-    const cn: string | string[] = subject.CN;
-    const ou: string | string[] = subject.OU;
-    const o: string | string[] = subject.O;
+    // Fields are optional and may be string or string[]
+    const cn: string | string[] | undefined = subject.CN;
+    const ou: string | string[] | undefined = subject.OU;
+    const o: string | string[] | undefined = subject.O;
 
     // Type narrowing with Array.isArray
     if (Array.isArray(subject.OU)) {
         const ous: string[] = subject.OU;
     } else {
-        const ou: string = subject.OU;
+        const ou: string | undefined = subject.OU;
     }
 
-    // Index signature: arbitrary DN attributes
+    // Arbitrary DN attributes via index signature
     const email: string | string[] | undefined = subject["emailAddress"];
     const dc: string | string[] | undefined = subject["DC"];
 
     // Issuer has the same shape
     const issuer = peerCert.issuer;
-    const issuerCN: string | string[] = issuer.CN;
+    const issuerCN: string | string[] | undefined = issuer.CN;
 }
 
 {

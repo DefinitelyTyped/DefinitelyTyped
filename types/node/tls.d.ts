@@ -15,37 +15,31 @@ declare module "node:tls" {
     import * as stream from "stream";
     const CLIENT_RENEG_LIMIT: number;
     const CLIENT_RENEG_WINDOW: number;
-    interface Certificate {
+    interface Certificate extends NodeJS.Dict<string | string[]> {
         /**
          * Country code.
          */
-        C: string | string[];
+        C?: string | string[];
         /**
          * Street.
          */
-        ST: string | string[];
+        ST?: string | string[];
         /**
          * Locality.
          */
-        L: string | string[];
+        L?: string | string[];
         /**
          * Organization.
          */
-        O: string | string[];
+        O?: string | string[];
         /**
          * Organizational unit.
          */
-        OU: string | string[];
+        OU?: string | string[];
         /**
          * Common name.
          */
-        CN: string | string[];
-        /**
-         * Additional DN attributes (e.g. `emailAddress`, `serialNumber`, `DC`).
-         * Any attribute recognized by OpenSSL can appear, and any attribute
-         * may be an array when the certificate contains multiple values.
-         */
-        [key: string]: string | string[] | undefined;
+        CN?: string | string[];
     }
     interface PeerCertificate {
         /**
