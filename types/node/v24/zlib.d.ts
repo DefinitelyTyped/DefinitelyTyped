@@ -253,7 +253,7 @@ declare module "zlib" {
     class DeflateRaw extends stream.Transform {
         constructor(options?: ZlibOptions);
     }
-    interface Inflate extends stream.Transform, Zlib, ZlibReset, ZlibParams {}
+    interface DeflateRaw extends stream.Transform, Zlib, ZlibReset, ZlibParams {}
     /**
      * @since v0.5.8
      */
