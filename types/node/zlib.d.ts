@@ -192,7 +192,7 @@ declare module "node:zlib" {
          */
         dictionary?: NodeJS.ArrayBufferView | undefined;
     }
-    declare class Zlib extends stream.Transform {
+    interface Zlib {
         readonly bytesWritten: number;
         shell?: boolean | string | undefined;
         close(callback?: () => void): void;

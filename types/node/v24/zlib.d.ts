@@ -108,10 +108,14 @@ declare module "zlib" {
          */
         chunkSize?: number | undefined;
         windowBits?: number | undefined;
-        level?: number | undefined; // compression only
-        memLevel?: number | undefined; // compression only
-        strategy?: number | undefined; // compression only
-        dictionary?: NodeJS.ArrayBufferView | ArrayBuffer | undefined; // deflate/inflate only, empty dictionary by default
+        /** compression only */
+        level?: number | undefined;
+        /** compression only */
+        memLevel?: number | undefined;
+        /** compression only */
+        strategy?: number | undefined;
+        /** deflate/inflate only, empty dictionary by default */
+        dictionary?: NodeJS.ArrayBufferView | ArrayBuffer | undefined;
         /**
          * If `true`, returns an object with `buffer` and `engine`.
          */
