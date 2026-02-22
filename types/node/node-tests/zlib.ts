@@ -31,7 +31,7 @@ import {
     zstdCompressSync,
     zstdDecompress,
     zstdDecompressSync,
-    // ZlibOptions,
+    type ZlibOptions,
 } from "node:zlib";
 
 const compressMe = new Buffer("some data");
