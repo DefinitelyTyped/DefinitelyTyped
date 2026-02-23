@@ -36,7 +36,6 @@
         "@definitelytyped/header-parser": "latest",
         "@definitelytyped/typescript-versions": "latest",
         "@definitelytyped/utils": "latest",
-        "danger": "^13.0.5",
         "dprint": "^0.49.0",
         "eslint-plugin-jsdoc": "^44.2.7",
         "husky": "^8.0.3",
@@ -44,6 +43,7 @@
         "remark-cli": "^12.0.0",
         "remark-gfm": "^4.0.0",
         "remark-validate-links": "^13.0.0",
+        "risk": "^0.0.4",
         "typescript": "next"
     },
     "type": "module"
