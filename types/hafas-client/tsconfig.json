@@ -16,6 +16,7 @@
     "files": [
         "index.d.ts",
         "throttle.d.ts",
+        "retry.d.ts",
         "hafas-client-tests.ts"
     ]
 }
