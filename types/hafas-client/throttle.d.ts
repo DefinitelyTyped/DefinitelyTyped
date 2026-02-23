@@ -1,3 +1,3 @@
-import { HafasClient, Profile } from ".";
+import { Profile } from ".";
 
-export function withThrottling(profile: Profile, limit?: number, interval?: number): HafasClient
+export function withThrottling(profile: Profile, limit?: number, interval?: number): Profile;
