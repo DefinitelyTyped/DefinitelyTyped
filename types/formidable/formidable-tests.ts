@@ -6,17 +6,17 @@ import {
     Formidable,
     formidable as formidableAlias,
     IncomingForm,
+    json,
+    multipart,
     MultipartParser,
+    octetstream,
     Options,
     Part,
     PersistentFile,
-    plugins,
-    VolatileFile,
     PluginFunction,
-    octetstream,
+    plugins,
     querystring,
-    multipart,
-    json,
+    VolatileFile,
 } from "formidable";
 import * as http from "http";
 
