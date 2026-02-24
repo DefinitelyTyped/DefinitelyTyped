@@ -465,12 +465,7 @@ declare module "node:process" {
                 isTTY?: true | undefined;
             }
             // Alias for compatibility
-            interface ProcessEnv extends Dict<string> {
-                /**
-                 * Can be used to change the default timezone at runtime
-                 */
-                TZ?: string | undefined;
-            }
+            interface ProcessEnv extends Dict<string> {}
             interface HRTime {
                 /**
                  * This is the legacy version of {@link process.hrtime.bigint()}
