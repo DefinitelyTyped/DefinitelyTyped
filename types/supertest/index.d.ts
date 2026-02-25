@@ -1,6 +1,7 @@
 import superagent = require("superagent");
 import stAgent = require("./lib/agent");
 import STest = require("./lib/test");
+import cookies = require("./lib/cookies");
 import { AgentOptions as STAgentOptions, App } from "./types";
 
 declare const supertest: supertest.SuperTestStatic;
@@ -28,10 +29,13 @@ declare namespace supertest {
 
     type SuperAgentTest = SuperTest<Test>;
 
+    type CustomAssertionCookie = cookies.CustomAssertionCookie;
+
     interface SuperTestStatic {
         (app: App, options?: STAgentOptions): stAgent;
         Test: typeof STest;
         agent: typeof stAgent & ((app?: App, options?: STAgentOptions) => InstanceType<typeof stAgent>);
+        cookies: typeof cookies;
     }
 }
 
