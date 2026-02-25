@@ -1,6 +1,12 @@
 /**
  * Mokapi JavaScript API
- * https://mokapi.io/docs/welcome
+ *
+ * This module exposes the core scripting API for Mokapi.
+ * It allows you to intercept and manipulate protocol events (HTTP, Kafka, LDAP, SMTP),
+ * schedule jobs, generate mock data, and share state between scripts.
+ *
+ * Documentation:
+ * https://mokapi.io/docs/javascript-api/overview
  */
 
 import "./faker";
@@ -14,10 +20,14 @@ import "./file";
 
 /**
  * Attaches an event handler for the given event.
+ *
+ * Event handlers are executed in priority order whenever the event occurs.
+ * Multiple handlers can be registered for the same event.
+ *
  * https://mokapi.io/docs/javascript-api/mokapi/on
- * @param event Event type such as http
- * @param handler An EventHandler to execute when the event is triggered
- * @param args EventArgs object contains additional event arguments.
+ * @param event Event type such as `http`, `kafka`, `ldap`, or `smtp`
+ * @param handler Function executed when the event is triggered
+ * @param args Optional event configuration such as priority, tracking, or tags
  * @example
  * export default function() {
  *   on('http', function(request, response) {
@@ -30,7 +40,7 @@ import "./file";
  *   })
  * }
  */
-export function on<T extends keyof EventHandler>(event: T, handler: EventHandler[T], args?: EventArgs): void;
+export function on<T extends keyof EventHandler>(event: T, handler: EventHandler[T], args?: TypedEventArgs[T]): void;
 
 /**
  * Schedules a new periodic job with interval.
@@ -110,16 +120,18 @@ export interface EventHandler {
 }
 
 /**
- * HttpEventHandler is a function that is executed when an HTTP event is triggered.
+ * HttpEventHandler is invoked for every incoming HTTP request.
+ *
+ * Handlers may modify the response object to influence the outgoing response.
+ * The return value is ignored.
+ *
  * https://mokapi.io/docs/javascript-api/mokapi/eventhandler/httpeventhandler
  * @example
  * export default function() {
  *   on('http', function(request, response) {
  *     if (request.operationId === 'time') {
  *       response.body = date()
- *       return true
  *     }
- *     return false
  *   })
  * }
  */
@@ -189,19 +201,27 @@ export interface HttpResponse {
     data: any;
 
     /**
-     * Rebuilds the entire HTTP response using the OpenAPI response definition for the given status code and content type
-     * @example
-     * import { on } from 'mokapi'
+     * Rebuilds the entire HTTP response using the OpenAPI response definition.
      *
-     * export default function() {
-     *     on('http', (request, response) => {
-     *         if (request.path.petId === 10) {
-     *             // Switch to a different OpenAPI response.
-     *             response.rebuild(404, 'application/json')
-     *             response.data.message = 'Pet not found'
-     *         }
-     *     })
-     * }
+     * This resets the status code, headers, and response body/data
+     * based on the OpenAPI specification.
+     *
+     * - If `statusCode` is omitted, the OpenAPI `default` response is used.
+     * - If `contentType` is omitted, the first defined content type for the
+     *   selected status code is used.
+     *
+     * Use this when switching to a different response (e.g. error handling)
+     * while keeping the response schema valid.
+     *
+     * @throws Error if the status code or content type is not defined in the OpenAPI spec
+     *
+     * @example
+     * on('http', (request, response) => {
+     *   if (request.path.petId === 10) {
+     *     response.rebuild(404)
+     *     response.data.message = 'Pet not found'
+     *   }
+     * })
      */
     rebuild: (statusCode?: number, contentType?: string) => void;
 }
@@ -466,17 +486,10 @@ export interface EventArgs {
     tags?: { [key: string]: string };
 
     /**
-     * Controls whether this event handler is tracked in the dashboard.
-     *
-     * - true: always track this handler
-     * - false: never track this handler
-     * - undefined: Mokapi determines tracking automatically based on
-     *   whether the response object was modified by the handler
-     */
-    track?: boolean;
-
-    /**
      * Defines the execution order of the event handler.
+     *
+     * Event handlers are executed in descending priority order.
+     * Handlers with the same priority are executed in registration order.
      *
      * Handlers with higher priority values run first.
      * Handlers with lower priority values run later.
@@ -486,6 +499,104 @@ export interface EventArgs {
      * such as for logging or recording purposes.
      */
     priority?: number;
+}
+
+/**
+ * TypedEventArgs provides strongly typed argument objects
+ * for each supported event type.
+ *
+ * It is mainly used internally to map event names
+ * (e.g. `http`, `kafka`) to their corresponding argument types.
+ */
+export interface TypedEventArgs {
+    /**
+     * Arguments for HTTP event handlers.
+     */
+    http: HttpEventArgs;
+    /**
+     * Arguments for Kafka event handlers.
+     */
+    kafka: KafkaEventArgs;
+    /**
+     * Arguments for LDAP event handlers.
+     */
+    ldap: LdapEventArgs;
+    /**
+     * Arguments for SMTP event handlers.
+     */
+    smtp: SmtpEventArgs;
+}
+
+/**
+ * Configuration options for HTTP event handlers.
+ *
+ * These arguments control execution behavior such as
+ * priority, tagging, and dashboard tracking.
+ */
+export interface HttpEventArgs extends EventArgs {
+    /**
+     * Controls whether this event handler is tracked in the dashboard.
+     *
+     * - true: always track this handler
+     * - false: never track this handler
+     * - undefined: Mokapi determines tracking automatically based on
+     *   whether the response object was modified by the handler
+     */
+    track?: boolean | ((request: HttpRequest, response: HttpResponse) => boolean);
+}
+
+/**
+ * Configuration options for Kafka event handlers.
+ *
+ * These arguments control execution behavior such as
+ * priority, tagging, and dashboard tracking.
+ */
+export interface KafkaEventArgs extends EventArgs {
+    /**
+     * Controls whether this event handler is tracked in the dashboard.
+     *
+     * - true: always track this handler
+     * - false: never track this handler
+     * - undefined: Mokapi determines tracking automatically based on
+     *   whether the message was modified or acknowledged by the handler
+     */
+    track?: boolean | ((message: KafkaEventMessage) => boolean);
+}
+
+/**
+ * Configuration options for LDAP event handlers.
+ *
+ * These arguments control execution behavior such as
+ * priority, tagging, and dashboard tracking.
+ */
+export interface LdapEventArgs extends EventArgs {
+    /**
+     * Controls whether this event handler is tracked in the dashboard.
+     *
+     * - true: always track this handler
+     * - false: never track this handler
+     * - undefined: Mokapi determines tracking automatically based on
+     *   whether the response object was modified by the handler
+     */
+    track?: boolean | ((request: LdapSearchRequest, response: LdapSearchResponse) => boolean);
+}
+
+/**
+ * Configuration options for SMTP event handlers.
+ *
+ * These arguments control execution behavior such as
+ * priority, tagging, and dashboard tracking.
+ */
+export interface SmtpEventArgs extends EventArgs {
+    /**
+     * Controls whether this event handler is tracked in the dashboard.
+     *
+     * - true: always track this handler
+     * - false: never track this handler
+     * - undefined: Mokapi determines tracking automatically based on
+     *   whether the message was processed or modified by the handler
+     */
+    track?: boolean | ((record: SmtpEventMessage) => boolean);
 }
 
 /**
@@ -500,6 +611,10 @@ export interface EventArgs {
  */
 export type ScheduledEventHandler = () => void | Promise<void>;
 
+/**
+* Configuration options for scheduled event handlers
+* created via `every` or `cron`.
+*/
 export interface ScheduledEventArgs {
     /**
      * Adds or overrides existing tags used in dashboard
@@ -663,7 +778,8 @@ export interface SharedMemory {
  * The `mokapi.shared` object provides a way to persist and share
  * data between multiple scripts running in the same Mokapi instance.
  *
- * Values are stored in memory and shared across all scripts.
+ * Values are stored in memory and shared across all scripts
+ * within the same Mokapi process.
  * This allows you to coordinate state, cache data, or simulate
  * application-level variables without using global variables.
  * All values are persisted for the lifetime of the Mokapi process.
