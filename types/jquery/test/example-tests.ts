@@ -2526,13 +2526,6 @@ function examples() {
         $("#log").append("<div><b>settings -- </b>" + JSON.stringify(settings) + "</div>");
     }
 
-    function jQuery_fx_interval_0() {
-        jQuery.fx.interval = 100;
-        $("input").click(function() {
-            $("div").toggle(3000);
-        });
-    }
-
     function jQuery_fx_off_0() {
         var toggleFx = function() {
             $.fx.off = !$.fx.off;
@@ -2708,66 +2701,14 @@ function examples() {
         $spans.eq(3).text(jQuery.inArray("Pete", arr, 2));
     }
 
-    function jQuery_is_array_0() {
-        $("b").append("" + $.isArray([]));
-    }
-
     function jQuery_is_empty_object_0() {
         jQuery.isEmptyObject({}); // true
         jQuery.isEmptyObject({ foo: "bar" }); // false
     }
 
-    function jQuery_is_function_0() {
-        function stub() {}
-
-        var objs = [
-            function() {},
-            { x: 15, y: 20 },
-            null,
-            stub,
-            "function",
-        ];
-
-        jQuery.each(objs, function(i) {
-            var isFunc = jQuery.isFunction(objs[i]);
-            $("span").eq(i).text(isFunc);
-        });
-    }
-
-    function jQuery_is_function_1() {
-        $.isFunction(function() {});
-    }
-
-    function jQuery_is_numeric_0() {
-        // true (numeric)
-        $.isNumeric("-10");
-        $.isNumeric("0");
-        $.isNumeric(0xFF);
-        $.isNumeric("0xFF");
-        $.isNumeric("8e5");
-        $.isNumeric("3.1415");
-        $.isNumeric(+10);
-        $.isNumeric(0o144);
-
-        // false (non-numeric)
-        $.isNumeric("-0x42");
-        $.isNumeric("7.2acdgs");
-        $.isNumeric("");
-        $.isNumeric({});
-        $.isNumeric(NaN);
-        $.isNumeric(null);
-        $.isNumeric(true);
-        $.isNumeric(Infinity);
-        $.isNumeric(undefined);
-    }
-
     function jQuery_is_plain_object_0() {
         jQuery.isPlainObject({}); // true
         jQuery.isPlainObject("test"); // false
-    }
-
-    function jQuery_is_window_0() {
-        $("b").append("" + $.isWindow(window));
     }
 
     function jQuery_is_xml_doc_0() {
@@ -2959,11 +2900,6 @@ function examples() {
         $("<ol></ol>")
             .append(nodeNames.join(""))
             .appendTo($log);
-    }
-
-    function jQuery_parse_json_0() {
-        var obj = jQuery.parseJSON("{ \"name\": \"John\" }");
-        alert(obj.name === "John");
     }
 
     function jQuery_parse_xml_0() {
@@ -3227,20 +3163,6 @@ function examples() {
         jQuery.removeData(div, "test1");
         $("span:eq(2)").text("" + jQuery.data(div, "test1"));
         $("span:eq(3)").text("" + jQuery.data(div, "test2"));
-    }
-
-    function jQuery_trim_0() {
-        var str = "         lots of spaces before and after         ";
-        $("#original").html("Original String: '" + str + "'");
-        $("#trimmed").html("$.trim()'ed: '" + $.trim(str) + "'");
-    }
-
-    function jQuery_trim_1() {
-        $.trim("    hello, how are you?    ");
-    }
-
-    function jQuery_type_0() {
-        $("b").append("" + jQuery.type(/test/));
     }
 
     function jQuery_unique_0() {
