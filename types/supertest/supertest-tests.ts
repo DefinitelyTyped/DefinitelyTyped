@@ -2,6 +2,7 @@
 /* eslint @typescript-eslint/no-misused-promises: "error" */
 import supertest = require("supertest");
 import express = require("express");
+import "./supertest-cookie-tests";
 
 import { Server as HttpServer } from "http";
 import type { Http2SecureServer, Http2Server, Http2ServerRequest, Http2ServerResponse } from "http2";
