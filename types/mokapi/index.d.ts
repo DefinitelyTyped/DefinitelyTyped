@@ -612,9 +612,9 @@ export interface SmtpEventArgs extends EventArgs {
 export type ScheduledEventHandler = () => void | Promise<void>;
 
 /**
-* Configuration options for scheduled event handlers
-* created via `every` or `cron`.
-*/
+ * Configuration options for scheduled event handlers
+ * created via `every` or `cron`.
+ */
 export interface ScheduledEventArgs {
     /**
      * Adds or overrides existing tags used in dashboard
