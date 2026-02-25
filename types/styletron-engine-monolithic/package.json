@@ -11,10 +11,5 @@
     "devDependencies": {
         "@types/styletron-engine-monolithic": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Tom Golden",
-            "githubUsername": "tbjgolden"
-        }
-    ]
+    "owners": []
 }

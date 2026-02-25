@@ -1,9 +1,9 @@
 import { mangleScopedPackage, suggestionsDir } from "@definitelytyped/utils";
-import { danger, fail, markdown } from "danger";
 import cp from "node:child_process";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
+import { danger, fail, markdown } from "risk";
 const lines: string[] = [];
 const missingProperty = /module exports a property named '(.+?)', which is missing/;
 

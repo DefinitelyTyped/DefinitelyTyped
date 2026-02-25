@@ -13,7 +13,7 @@ export interface LightingContext {
     backdropAlpha: Node;
 }
 
-export default class LightingContextNode extends ContextNode {
+export default class LightingContextNode extends ContextNode<unknown> {
     lightingModelNode: LightingModel | null;
     backdropNode: Node | null;
     backdropAlphaNode: Node | null;

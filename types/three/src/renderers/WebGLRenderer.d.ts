@@ -1,7 +1,7 @@
 import { Camera } from "../cameras/Camera.js";
-import { CullFace, ShadowMapType, TextureDataType, ToneMapping, WebGLCoordinateSystem } from "../constants.js";
+import { TextureDataType, ToneMapping, WebGLCoordinateSystem } from "../constants.js";
 import { TypedArray } from "../core/BufferAttribute.js";
-import { BufferGeometry } from "../core/BufferGeometry.js";
+import { BufferGeometry, GeometryGroup } from "../core/BufferGeometry.js";
 import { Object3D } from "../core/Object3D.js";
 import { Material } from "../materials/Material.js";
 import { Box2 } from "../math/Box2.js";
@@ -227,19 +227,9 @@ export class WebGLRenderer {
      * Return the WebGL context.
      */
     getContext(): WebGLRenderingContext | WebGL2RenderingContext;
-    getContextAttributes(): any;
+    getContextAttributes(): WebGLContextAttributes;
     forceContextLoss(): void;
     forceContextRestore(): void;
-
-    /**
-     * @deprecated Use {@link WebGLCapabilities#getMaxAnisotropy .capabilities.getMaxAnisotropy()} instead.
-     */
-    getMaxAnisotropy(): number;
-
-    /**
-     * @deprecated Use {@link WebGLCapabilities#precision .capabilities.precision} instead.
-     */
-    getPrecision(): string;
 
     getPixelRatio(): number;
     setPixelRatio(value: number): void;
@@ -327,10 +317,6 @@ export class WebGLRenderer {
     clearStencil(): void;
     clearTarget(renderTarget: WebGLRenderTarget, color: boolean, depth: boolean, stencil: boolean): void;
 
-    /**
-     * @deprecated Use {@link WebGLState#reset .state.reset()} instead.
-     */
-    resetGLState(): void;
     dispose(): void;
 
     renderBufferDirect(
@@ -339,7 +325,7 @@ export class WebGLRenderer {
         geometry: BufferGeometry,
         material: Material,
         object: Object3D,
-        geometryGroup: any,
+        group: GeometryGroup,
     ): void;
 
     /**
@@ -347,11 +333,6 @@ export class WebGLRenderer {
      * @param callback The function will be called every available frame. If `null` is passed it will stop any already ongoing animation.
      */
     setAnimationLoop(callback: XRFrameRequestCallback | null): void;
-
-    /**
-     * @deprecated Use {@link WebGLRenderer#setAnimationLoop .setAnimationLoop()} instead.
-     */
-    animate(callback: () => void): void;
 
     /**
      * Compiles all materials in the scene with the camera. This is useful to precompile shaders before the first
@@ -395,11 +376,6 @@ export class WebGLRenderer {
      * Returns the current render target. If no render target is set, null is returned.
      */
     getRenderTarget(): WebGLRenderTarget | null;
-
-    /**
-     * @deprecated Use {@link WebGLRenderer#getRenderTarget .getRenderTarget()} instead.
-     */
-    getCurrentRenderTarget(): WebGLRenderTarget | null;
 
     /**
      * Sets the active render target.
@@ -490,69 +466,4 @@ export class WebGLRenderer {
      * Can be used to reset the internal WebGL state.
      */
     resetState(): void;
-
-    /**
-     * @deprecated Use {@link WebGLRenderer#xr .xr} instead.
-     */
-    vr: boolean;
-
-    /**
-     * @deprecated Use {@link WebGLShadowMap#enabled .shadowMap.enabled} instead.
-     */
-    shadowMapEnabled: boolean;
-
-    /**
-     * @deprecated Use {@link WebGLShadowMap#type .shadowMap.type} instead.
-     */
-    shadowMapType: ShadowMapType;
-
-    /**
-     * @deprecated Use {@link WebGLShadowMap#cullFace .shadowMap.cullFace} instead.
-     */
-    shadowMapCullFace: CullFace;
-
-    /**
-     * @deprecated Use {@link WebGLExtensions#get .extensions.get( 'OES_texture_float' )} instead.
-     */
-    supportsFloatTextures(): any;
-
-    /**
-     * @deprecated Use {@link WebGLExtensions#get .extensions.get( 'OES_texture_half_float' )} instead.
-     */
-    supportsHalfFloatTextures(): any;
-
-    /**
-     * @deprecated Use {@link WebGLExtensions#get .extensions.get( 'OES_standard_derivatives' )} instead.
-     */
-    supportsStandardDerivatives(): any;
-
-    /**
-     * @deprecated Use {@link WebGLExtensions#get .extensions.get( 'WEBGL_compressed_texture_s3tc' )} instead.
-     */
-    supportsCompressedTextureS3TC(): any;
-
-    /**
-     * @deprecated Use {@link WebGLExtensions#get .extensions.get( 'WEBGL_compressed_texture_pvrtc' )} instead.
-     */
-    supportsCompressedTexturePVRTC(): any;
-
-    /**
-     * @deprecated Use {@link WebGLExtensions#get .extensions.get( 'EXT_blend_minmax' )} instead.
-     */
-    supportsBlendMinMax(): any;
-
-    /**
-     * @deprecated Use {@link WebGLCapabilities#vertexTextures .capabilities.vertexTextures} instead.
-     */
-    supportsVertexTextures(): any;
-
-    /**
-     * @deprecated Use {@link WebGLExtensions#get .extensions.get( 'ANGLE_instanced_arrays' )} instead.
-     */
-    supportsInstancedArrays(): any;
-
-    /**
-     * @deprecated Use {@link WebGLRenderer#setScissorTest .setScissorTest()} instead.
-     */
-    enableScissorTest(boolean: any): any;
 }

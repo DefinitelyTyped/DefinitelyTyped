@@ -1973,6 +1973,10 @@
             "libraryName": "eslint-plugin-mocha",
             "asOfVersion": "11.1.0"
         },
+        "eslint-scope": {
+            "libraryName": "eslint-scope",
+            "asOfVersion": "9.1.0"
+        },
         "eslint-visitor-keys": {
             "libraryName": "eslint-visitor-keys",
             "asOfVersion": "3.3.0"
@@ -1988,6 +1992,10 @@
         "esm-utils": {
             "libraryName": "esm-utils",
             "asOfVersion": "2.0.1"
+        },
+        "espree": {
+            "libraryName": "espree",
+            "asOfVersion": "11.1.0"
         },
         "eth-sig-util": {
             "libraryName": "eth-sig-util",
@@ -4068,6 +4076,10 @@
         "map-obj": {
             "libraryName": "map-obj",
             "asOfVersion": "3.1.0"
+        },
+        "mapbox-gl": {
+            "libraryName": "mapbox-gl",
+            "asOfVersion": "3.5.0"
         },
         "mapbox__point-geometry": {
             "libraryName": "@mapbox/point-geometry",
@@ -7795,10 +7807,6 @@
             "libraryName": "@typeform/embed",
             "asOfVersion": "1.0.0"
         },
-        "vue-tel-input": {
-            "libraryName": "vue-tel-input",
-            "asOfVersion": "9.7.1"
-        },
         "typescript": {
             "libraryName": "typescript",
             "asOfVersion": "2.0.0"
@@ -8038,6 +8046,10 @@
         "vue-scrollto": {
             "libraryName": "vue-scrollto",
             "asOfVersion": "2.17.1"
+        },
+        "vue-tel-input": {
+            "libraryName": "vue-tel-input",
+            "asOfVersion": "9.7.1"
         },
         "vue3-json-viewer": {
             "libraryName": "vue3-json-viewer",

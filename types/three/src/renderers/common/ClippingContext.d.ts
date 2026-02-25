@@ -5,6 +5,7 @@ import { Plane } from "../../math/Plane.js";
 import { Vector4 } from "../../math/Vector4.js";
 import { ClippingGroup } from "../../objects/ClippingGroup.js";
 import { Scene } from "../../scenes/Scene.js";
+
 /**
  * Represents the state that is used to perform clipping via clipping planes.
  * There is a default clipping context for each render context. When the
@@ -14,22 +15,71 @@ import { Scene } from "../../scenes/Scene.js";
  * @private
  */
 declare class ClippingContext {
-    version: number;
-    clipIntersection: boolean | null;
-    cacheKey: string;
-    intersectionPlanes?: Plane[];
-    unionPlanes?: Plane[];
-    viewNormalMatrix: Matrix3;
-    clippingGroupContexts: WeakMap<ClippingGroup, ClippingContext>;
-    shadowPass: boolean;
-    viewMatrix?: Matrix4;
-    parentVersion: number | null;
     /**
      * Constructs a new clipping context.
      *
      * @param {?ClippingContext} [parentContext=null] - A reference to the parent clipping context.
      */
     constructor(parentContext?: ClippingContext | null);
+    /**
+     * The clipping context's version.
+     *
+     * @type {number}
+     * @readonly
+     */
+    readonly version: number;
+    /**
+     * Whether the intersection of the clipping planes is used to clip objects, rather than their union.
+     *
+     * @type {?boolean}
+     * @default null
+     */
+    clipIntersection: boolean | null;
+    /**
+     * The clipping context's cache key.
+     *
+     * @type {string}
+     */
+    cacheKey: string;
+    /**
+     * Whether the shadow pass is active or not.
+     *
+     * @type {boolean}
+     * @default false
+     */
+    shadowPass: boolean;
+    /**
+     * The view normal matrix.
+     *
+     * @type {Matrix3}
+     */
+    viewNormalMatrix: Matrix3;
+    /**
+     * Internal cache for maintaining clipping contexts.
+     *
+     * @type {WeakMap<ClippingGroup,ClippingContext>}
+     */
+    clippingGroupContexts: WeakMap<ClippingGroup, ClippingContext>;
+    /**
+     * The intersection planes.
+     *
+     * @type {Array<Vector4>}
+     */
+    intersectionPlanes: Vector4[];
+    /**
+     * The intersection planes.
+     *
+     * @type {Array<Vector4>}
+     */
+    unionPlanes: Vector4[];
+    /**
+     * The version of the clipping context's parent context.
+     *
+     * @type {?number}
+     * @readonly
+     */
+    readonly parentVersion: number | null;
+    viewMatrix?: Matrix4;
     /**
      * Projects the given source clipping planes and writes the result into the
      * destination array.
@@ -38,7 +88,7 @@ declare class ClippingContext {
      * @param {Array<Vector4>} destination - The destination.
      * @param {number} offset - The offset.
      */
-    projectPlanes(source: readonly Plane[], destination: readonly Vector4[], offset: number): void;
+    projectPlanes(source: Plane[], destination: Vector4[], offset: number): void;
     /**
      * Updates the root clipping context of a scene.
      *
@@ -68,4 +118,5 @@ declare class ClippingContext {
      */
     get unionClippingCount(): number;
 }
+
 export default ClippingContext;

@@ -1784,6 +1784,28 @@ declare module "../index" {
          * @param array The array of grouped elements to process.
          * @return Returns the new array of regrouped elements.
          */
+        unzip<T1, T2>(array: Array<[T1, T2]>): [T1[], T2[]];
+        /**
+         * @see _.unzip
+         */
+        unzip<T1, T2, T3>(
+            array: Array<[T1, T2, T3]>,
+        ): [T1[], T2[], T3[]];
+        /**
+         * @see _.unzip
+         */
+        unzip<T1, T2, T3, T4>(
+            array: Array<[T1, T2, T3, T4]>,
+        ): [T1[], T2[], T3[], T4[]];
+        /**
+         * @see _.unzip
+         */
+        unzip<T1, T2, T3, T4, T5>(
+            array: Array<[T1, T2, T3, T4, T5]>,
+        ): [T1[], T2[], T3[], T4[], T5[]];
+        /**
+         * @see _.unzip
+         */
         unzip<T>(array: T[][] | List<List<T>> | null | undefined): T[][];
     }
     interface Collection<T> {

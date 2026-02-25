@@ -463,7 +463,7 @@ export namespace Runtime {
          * a connection will be attempted with your own extension. Required if sending messages from a web page for
          * $(topic:manifest/externally_connectable)[web messaging].
          * @param connectInfo Optional.
-         * @returns Port through which messages can be sent and received. The port's $(ref:runtime.Port onDisconnect)
+         * @returns Port through which messages can be sent and received. The port's $(ref:runtime.Port.onDisconnect)
          * event is fired if the extension/app does not exist.
          */
         connect(extensionId?: string, connectInfo?: ConnectConnectInfoType): Port;
@@ -475,7 +475,7 @@ export namespace Runtime {
          * content script. Extensions may connect to content scripts embedded in tabs via $(ref:tabs.connect).
          *
          * @param connectInfo Optional.
-         * @returns Port through which messages can be sent and received. The port's $(ref:runtime.Port onDisconnect)
+         * @returns Port through which messages can be sent and received. The port's $(ref:runtime.Port.onDisconnect)
          * event is fired if the extension/app does not exist.
          */
         connect(connectInfo?: ConnectConnectInfoType): Port;

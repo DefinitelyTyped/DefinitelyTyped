@@ -246,12 +246,15 @@ be.withFontSizes("fontSize")(() => <h1>Hello World</h1>);
 // inner-blocks
 //
 <be.InnerBlocks />;
+<be.InnerBlocks allowedBlocks={false} />;
 <be.InnerBlocks renderAppender={be.InnerBlocks.ButtonBlockAppender} />;
 <be.InnerBlocks.Content />;
 <be.InnerBlocks.DefaultBlockAppender />;
 <be.InnerBlocks orientation="vertical" />;
 <be.InnerBlocks prioritizedInserterBlocks={["core/navigation-link/page"]} />;
 <be.InnerBlocks templateLock="all" />;
+<be.InnerBlocks defaultBlock={{ name: "core/paragraph", attributes: { content: "Default content" } }} />;
+<be.InnerBlocks directInsert={true} />;
 
 //
 // inserter

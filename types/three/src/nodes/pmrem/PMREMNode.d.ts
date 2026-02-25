@@ -2,7 +2,7 @@ import { Texture } from "../../textures/Texture.js";
 import Node from "../core/Node.js";
 import TempNode from "../core/TempNode.js";
 
-declare class PMREMNode extends TempNode {
+declare class PMREMNode extends TempNode<"vec3"> {
     uvNode: Node | null;
     levelNode: Node | null;
 

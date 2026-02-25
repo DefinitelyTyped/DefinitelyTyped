@@ -26,7 +26,9 @@ export interface NodeData {
     compute: { [key: string]: unknown };
 }
 
-export type NodeBuilderContext = { [key: string]: unknown };
+export interface NodeBuilderContext {
+    [key: string]: unknown;
+}
 
 export default abstract class NodeBuilder {
     object: Object3D;
@@ -92,7 +94,7 @@ export default abstract class NodeBuilder {
 
     getAttribute(name: string, type: string): NodeAttribute;
 
-    getPropertyName<TValue>(node: NodeVar | NodeUniform<TValue>, shaderStage: NodeShaderStage): string;
+    getPropertyName(node: NodeVar | NodeUniform<unknown, unknown>, shaderStage: NodeShaderStage): string;
     isVector(type: string): boolean;
 
     isMatrix(type: string): boolean;
@@ -110,7 +112,7 @@ export default abstract class NodeBuilder {
         type: string,
         shaderStage?: NodeShaderStage,
         name?: string | null,
-    ): NodeUniform<string>;
+    ): NodeUniform<unknown, string>;
     getVarFromNode(node: Node, type: string, shaderStage?: NodeShaderStage): NodeVar;
     getVaryFromNode(node: Node, type: string): NodeVarying;
     getCodeFromNode(node: Node, type: string, shaderStage?: NodeShaderStage): string;

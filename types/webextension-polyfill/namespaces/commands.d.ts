@@ -92,7 +92,7 @@ export namespace Commands {
         /**
          * Open extension shortcuts configuration page.
          */
-        openShortcutSettings(): void;
+        openShortcutSettings(): Promise<void>;
 
         /**
          * Fired when a registered command is activated using a keyboard shortcut.

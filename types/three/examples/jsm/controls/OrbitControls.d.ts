@@ -208,6 +208,9 @@ declare class OrbitControls extends Controls<OrbitControlsEventMap> {
      */
     constructor(object: Camera, domElement?: HTMLElement | SVGElement | null);
 
+    set cursorStyle(type: "auto" | "grab");
+    get cursorStyle(): "auto" | "grab";
+
     /**
      * Get the current vertical rotation, in radians.
      */
@@ -244,6 +247,42 @@ declare class OrbitControls extends Controls<OrbitControlsEventMap> {
      * state.
      */
     reset(): void;
+
+    /**
+     * Programmatically pan the camera.
+     *
+     * @param {number} deltaX - The horizontal pan amount in pixels.
+     * @param {number} deltaY - The vertical pan amount in pixels.
+     */
+    pan(deltaX: number, deltaY: number): void;
+
+    /**
+     * Programmatically dolly in (zoom in for perspective camera).
+     *
+     * @param {number} dollyScale - The dolly scale factor.
+     */
+    dollyIn(dollyScale: number): void;
+
+    /**
+     * Programmatically dolly out (zoom out for perspective camera).
+     *
+     * @param {number} dollyScale - The dolly scale factor.
+     */
+    dollyOut(dollyScale: number): void;
+
+    /**
+     * Programmatically rotate the camera left (around the vertical axis).
+     *
+     * @param {number} angle - The rotation angle in radians.
+     */
+    rotateLeft(angle: number): void;
+
+    /**
+     * Programmatically rotate the camera up (around the horizontal axis).
+     *
+     * @param {number} angle - The rotation angle in radians.
+     */
+    rotateUp(angle: number): void;
 
     /**
      * Update the controls. Must be called after any manual changes to the camera's transform, or in the update loop if
