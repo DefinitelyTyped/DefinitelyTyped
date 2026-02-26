@@ -17,13 +17,7 @@ declare module "@wordpress/data" {
      */
     function select(key: "core/block-editor"): typeof import("./store/selectors");
 
-    /**
-     * @deprecated Use the version that takes a store descriptor object instead
-     */
     function useDispatch(key: "core/block-editor"): typeof import("./store/actions");
-    /**
-     * @deprecated Use the version that takes a store descriptor object instead
-     */
     function useSelect(key: "core/block-editor"): typeof import("./store/selectors");
 }
 
