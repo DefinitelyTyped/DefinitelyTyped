@@ -10,7 +10,7 @@ import {
 } from "./interfaces";
 
 export type { TCreatedPdf };
-export type { Alignment, Content, CustomTableLayout, Style, Table, TableCell, TableLayout } from "./interfaces";
+export type { Alignment, Content, CustomTableLayout, Size, Style, Table, TableCell, TableLayout } from "./interfaces";
 
 export function createPdf(
     documentDefinitions: TDocumentDefinitions,
