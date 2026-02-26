@@ -7,7 +7,13 @@ export * from "./api";
 export { withBlockContentContext } from "./block-content-provider";
 
 declare module "@wordpress/data" {
+    /**
+     * @deprecated Use the version that takes a store descriptor object instead
+     */
     function dispatch(key: "core/blocks"): typeof import("./store/actions");
+    /**
+     * @deprecated Use the version that takes a store descriptor object instead
+     */
     function select(key: "core/blocks"): typeof import("./store/selectors");
 }
 
