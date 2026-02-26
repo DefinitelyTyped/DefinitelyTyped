@@ -164,6 +164,10 @@ test(undefined, undefined, t => {
     t.signal;
     // $ExpectType MockTracker
     t.mock;
+    // $ExpectType boolean
+    t.passed;
+    // $ExpectType Error | null
+    t.error;
     // $ExpectType number
     t.attempt;
 });
