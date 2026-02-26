@@ -106,7 +106,7 @@ import { TextEncoder } from "node:util";
     sourceDb.exec("CREATE TABLE data(key INTEGER PRIMARY KEY, value TEXT)");
     targetDb.exec("CREATE TABLE data(key INTEGER PRIMARY KEY, value TEXT)");
 
-    const session = sourceDb.createSession();
+    using session = sourceDb.createSession();
 
     const insert = sourceDb.prepare("INSERT INTO data (key, value) VALUES (?, ?)");
     insert.run(1, "hello");

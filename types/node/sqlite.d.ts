@@ -596,6 +596,11 @@ declare module "node:sqlite" {
          * [`sqlite3session_delete()`](https://www.sqlite.org/session/sqlite3session_delete.html).
          */
         close(): void;
+        /**
+         * Closes the session. If the session is already closed, does nothing.
+         * @since v24.9.0
+         */
+        [Symbol.dispose](): void;
     }
     /**
      * This class represents a single LRU (Least Recently Used) cache for storing
