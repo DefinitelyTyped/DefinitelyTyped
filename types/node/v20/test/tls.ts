@@ -325,6 +325,33 @@ import {
     const r00ts: readonly string[] = rootCertificates;
 }
 
+// Certificate DN fields are optional and can be string or string[] (multi-valued)
+{
+    const tlsSocket = connect({});
+    const peerCert = tlsSocket.getPeerCertificate();
+    const subject = peerCert.subject;
+
+    // Fields are optional and may be string or string[]
+    const cn: string | string[] | undefined = subject.CN;
+    const ou: string | string[] | undefined = subject.OU;
+    const o: string | string[] | undefined = subject.O;
+
+    // Type narrowing with Array.isArray
+    if (Array.isArray(subject.OU)) {
+        const ous: string[] = subject.OU;
+    } else {
+        const ou: string | undefined = subject.OU;
+    }
+
+    // Arbitrary DN attributes via index signature
+    const email: string | string[] | undefined = subject["emailAddress"];
+    const dc: string | string[] | undefined = subject["DC"];
+
+    // Issuer has the same shape
+    const issuer = peerCert.issuer;
+    const issuerCN: string | string[] | undefined = issuer.CN;
+}
+
 {
     const _options: TlsOptions = {};
     const _server = new Server(_options, (socket) => {});
