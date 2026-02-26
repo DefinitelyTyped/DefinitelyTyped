@@ -116,6 +116,7 @@ import { fileURLToPath } from "node:url";
 }
 {
     process.traceDeprecation = true;
+    process.traceProcessWarnings = true;
 }
 
 {
