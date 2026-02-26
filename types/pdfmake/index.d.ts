@@ -9,8 +9,8 @@ import {
     TVirtualFileSystem,
 } from "./interfaces";
 
-export type { TCreatedPdf, TDocumentDefinitions, TFontContainer, TFontDictionary, TVirtualFileSystem };
-export type { Content, Style, Table, TableCell, TableLayout, Alignment, CustomTableLayout } from "./interfaces";
+export type { TCreatedPdf };
+export type { Alignment, Content, CustomTableLayout, Style, Table, TableCell, TableLayout } from "./interfaces";
 
 export function createPdf(
     documentDefinitions: TDocumentDefinitions,
