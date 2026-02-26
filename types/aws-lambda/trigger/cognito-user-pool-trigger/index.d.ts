@@ -32,7 +32,8 @@ export interface CognitoUserPoolTriggerEvent {
         | "TokenGeneration_RefreshTokens"
         | "TokenGeneration_ClientCredentials"
         | "UserMigration_Authentication"
-        | "UserMigration_ForgotPassword";
+        | "UserMigration_ForgotPassword"
+        | "InboundFederation_ExternalProvider";
     region: string;
     userPoolId: string;
     userName?: string | undefined;
@@ -119,6 +120,7 @@ export * from "./custom-email-sender";
 export * from "./custom-message";
 export * from "./custom-sms-sender";
 export * from "./define-auth-challenge";
+export * from "./inbound-federation";
 export * from "./post-authentication";
 export * from "./post-confirmation";
 export * from "./pre-authentication";
