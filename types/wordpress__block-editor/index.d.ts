@@ -1,5 +1,5 @@
 import { BlockIconNormalized } from "@wordpress/blocks";
-import { dispatch, select, StoreDescriptor } from "@wordpress/data";
+import { ReduxStoreConfig, StoreDescriptor } from "@wordpress/data";
 
 export * from "./components";
 export * from "./hooks";
@@ -8,14 +8,27 @@ export { SETTINGS_DEFAULTS } from "./store/defaults";
 export * from "./utils";
 
 declare module "@wordpress/data" {
+    /**
+     * @deprecated Use the version that takes a store descriptor object instead
+     */
     function dispatch(key: "core/block-editor"): typeof import("./store/actions");
+    /**
+     * @deprecated Use the version that takes a store descriptor object instead
+     */
     function select(key: "core/block-editor"): typeof import("./store/selectors");
 
     function useDispatch(key: "core/block-editor"): typeof import("./store/actions");
     function useSelect(key: "core/block-editor"): typeof import("./store/selectors");
 }
 
-export interface BlockEditorStoreDescriptor extends StoreDescriptor {
+type Decurry<S extends { [key: string]: (...args: any[]) => any }> = {
+    [key in keyof S]: (state: any, ...args: Parameters<S[key]>) => ReturnType<S[key]>;
+};
+export interface BlockEditorStoreDescriptor extends
+    StoreDescriptor<
+        ReduxStoreConfig<any, typeof import("./store/actions"), Decurry<typeof import("./store/selectors")>>
+    >
+{
     name: "core/block-editor";
 }
 
