@@ -99,3 +99,12 @@ function fragmentRefTest() {
         <div />
     </React.Fragment>;
 }
+
+function formrelatedEventTests() {
+    <form
+        onSubmit={event => {
+            // $ExpectType HTMLElement | null
+            event.submitter;
+        }}
+    />;
+}

@@ -782,7 +782,7 @@ interface Type2 {
     b: number;
 }
 class TestMocked {
-    field: string;
+    field!: string;
     test1(x: Type1): Promise<Type1> {
         return Promise.resolve(x);
     }

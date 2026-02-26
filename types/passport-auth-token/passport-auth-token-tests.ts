@@ -21,8 +21,8 @@ testingAuthTokenStrategy.success = () => {};
 testingAuthTokenStrategy.fail = () => {};
 
 class AccessTokenImpl implements AccessToken {
-    id: string;
-    userId: string;
+    id!: string;
+    userId!: string;
 
     static findOne(token: AccessToken, callback: (token: AccessTokenImpl, err?: Error) => void): void {
         callback(new AccessTokenImpl(), undefined);
@@ -34,7 +34,7 @@ class AccessTokenImpl implements AccessToken {
 }
 
 class UserImpl implements User {
-    id: string;
+    id!: string;
     static findOne(user: User, callback: (user: UserImpl, err?: Error) => void): void {
         callback(new UserImpl(), undefined);
     }

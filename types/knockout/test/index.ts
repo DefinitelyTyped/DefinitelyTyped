@@ -93,7 +93,7 @@ class GetterViewModel {
         this._selectedRange = ko.observable();
     }
 
-    public range: KnockoutObservable<any>;
+    public range!: KnockoutObservable<any>;
 }
 
 function testToJs() {
@@ -529,7 +529,16 @@ function test_misc() {
                 read: function() {
                     ko.utils.unwrapObservable(valueAccessor());
                     if (ko.bindingHandlers.options.update) {
-                        ko.bindingHandlers.options.update.apply(this, args);
+                        ko.bindingHandlers.options.update.apply(
+                            this,
+                            args as unknown as [
+                                any,
+                                () => any,
+                                KnockoutAllBindingsAccessor,
+                                any,
+                                KnockoutBindingContext,
+                            ],
+                        );
                     }
                 },
                 owner: this,

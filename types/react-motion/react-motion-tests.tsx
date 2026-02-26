@@ -79,10 +79,11 @@ class StaggeredTest extends React.Component {
         );
     }
 
-    getStyles(prevInterpolatedStyles: PlainStyle[]): Style[] {
-        return prevInterpolatedStyles.map((prevStyle, index) => {
+    getStyles(prevInterpolatedStyles?: PlainStyle[]): Style[] {
+        const styles = prevInterpolatedStyles ?? [];
+        return styles.map((prevStyle, index) => {
             const style: Style = {};
-            style["h"] = (index === 0) ? spring(100) : spring(prevInterpolatedStyles[index - 1]["h"]);
+            style["h"] = (index === 0) ? spring(100) : spring(styles[index - 1]["h"]);
             return style;
         });
     }

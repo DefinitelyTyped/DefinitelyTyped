@@ -91,9 +91,9 @@ function BaseClassExtensions_Function_Tests() {
 
     /** Sample code from http://msdn.microsoft.com/en-us/library/dd393712(v=vs.100).aspx */
     var validateParametersTest = function() {
-        var arguments = ["test1", "test2"];
+        var args = ["test1", "test2"];
         var insert = function Array$insert(array: any[], index: number, item: any) {
-            var e = Function.validateParameters(arguments, [
+            var e = Function.validateParameters(args, [
                 { name: "array", type: Array, elementMayBeNull: true },
                 { name: "index", mayBeNull: true },
                 { name: "item", mayBeNull: true },

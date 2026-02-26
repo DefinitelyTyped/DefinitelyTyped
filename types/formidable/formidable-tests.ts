@@ -6,11 +6,16 @@ import {
     Formidable,
     formidable as formidableAlias,
     IncomingForm,
+    json,
+    multipart,
     MultipartParser,
+    octetstream,
     Options,
     Part,
     PersistentFile,
+    PluginFunction,
     plugins,
+    querystring,
     VolatileFile,
 } from "formidable";
 import * as http from "http";
@@ -219,3 +224,12 @@ new IncomingForm();
 
 // $ExpectType IncomingForm
 formidable();
+
+// $ExpectType PluginFunction
+octetstream;
+// $ExpectType PluginFunction
+querystring;
+// $ExpectType PluginFunction
+multipart;
+// $ExpectType PluginFunction
+json;

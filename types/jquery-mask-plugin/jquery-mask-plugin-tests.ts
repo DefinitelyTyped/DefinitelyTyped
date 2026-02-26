@@ -96,7 +96,7 @@ let maskBehavior: (value: string) => string = val => {
 
 options = {
     onKeyPress(val: string, e: Event, field: JQuery, options: jQueryMask.Options) {
-        field.mask(maskBehavior.apply({}, arguments), options);
+        field.mask(maskBehavior(val), options);
     },
 };
 

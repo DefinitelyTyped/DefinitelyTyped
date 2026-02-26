@@ -10,8 +10,8 @@ import world from "./World";
 
 export class Enemy extends Vehicle {
     geometry: {};
-    deathAnimDuration: number;
-    currentTime: number;
+    deathAnimDuration!: number;
+    currentTime!: number;
     dead: boolean;
     notifiedWorld: boolean;
     spawningPoint: Vector3 | null;

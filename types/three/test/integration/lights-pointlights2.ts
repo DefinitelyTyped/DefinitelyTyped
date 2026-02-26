@@ -13,8 +13,6 @@ let light4: THREE.PointLight;
 let light5: THREE.PointLight;
 let light6: THREE.PointLight;
 
-const clock = new THREE.Clock();
-
 init();
 animate();
 

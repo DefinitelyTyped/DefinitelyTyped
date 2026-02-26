@@ -753,9 +753,9 @@ async function cameraMappingTest(viewer: Autodesk.Viewing.GuiViewer3D): Promise<
 async function dbIdRemappingTest(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {
     // Override `PropDbLoader#load` so that the svf1/svf2 dbid mapping is always loaded.
     const _load = Autodesk.Viewing.Private.PropDbLoader.prototype.load;
-    Autodesk.Viewing.Private.PropDbLoader.prototype.load = function() {
+    Autodesk.Viewing.Private.PropDbLoader.prototype.load = function(options) {
         this.needsDbIdRemap = true;
-        _load.call(this);
+        _load.apply(this, options);
     };
 
     // Override `PropDbLoader#processLoadResult` so that the dbid mapping is stored within all models (by default it is only stored in 2D models).

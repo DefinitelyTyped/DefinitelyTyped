@@ -81,6 +81,7 @@
 declare module "node:test" {
     import { AssertMethodNames } from "node:assert";
     import { Readable } from "node:stream";
+    import { URL } from "node:url";
     import TestFn = test.TestFn;
     import TestOptions = test.TestOptions;
     /**
@@ -1711,7 +1712,7 @@ declare module "node:test" {
              * @param specifier A string identifying the module to mock.
              * @param options Optional configuration options for the mock module.
              */
-            module(specifier: string, options?: MockModuleOptions): MockModuleContext;
+            module(specifier: string | URL, options?: MockModuleOptions): MockModuleContext;
             /**
              * Creates a mock for a property value on an object. This allows you to track and control access to a specific property,
              * including how many times it is read (getter) or written (setter), and to restore the original value after mocking.

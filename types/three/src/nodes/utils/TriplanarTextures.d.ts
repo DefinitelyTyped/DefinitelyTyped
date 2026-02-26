@@ -7,7 +7,7 @@ export const triplanarTextures: (
     scaleNode?: Node,
     positionNode?: Node,
     normalNode?: Node,
-) => Node;
+) => Node<"vec4">;
 
 export const triplanarTexture: (
     textureXNode: Node,
@@ -16,4 +16,4 @@ export const triplanarTexture: (
     scaleNode?: Node,
     positionNode?: Node,
     normalNode?: Node,
-) => Node;
+) => Node<"vec4">;

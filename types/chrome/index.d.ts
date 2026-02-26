@@ -692,8 +692,15 @@ declare namespace chrome {
 
         /** @deprecated Bookmark write operations are no longer limited by Chrome. */
         export const MAX_WRITE_OPERATIONS_PER_HOUR: 1000000;
+
         /** @deprecated Bookmark write operations are no longer limited by Chrome. */
         export const MAX_SUSTAINED_WRITE_OPERATIONS_PER_MINUTE: 1000000;
+
+        /**
+         * The `id` associated with the root level node.
+         * @since Chrome 145
+         */
+        export const ROOT_NODE_ID = "0";
 
         /**
          * Creates a bookmark or folder under the specified parentId. If url is NULL or missing, it will be a folder.
@@ -11048,6 +11055,11 @@ declare namespace chrome {
             /** The session ID used to uniquely identify a tab obtained from the {@link sessions} API. */
             sessionId?: string | undefined;
             /**
+             * The ID of the Split View that the tab belongs to.
+             * @since Chrome 145
+             */
+            splitViewId?: number | undefined;
+            /**
              * The ID of the group that the tab belongs to.
              * @since Chrome 88
              */
@@ -11117,6 +11129,12 @@ declare namespace chrome {
          * @since Chrome 92
          */
         export const MAX_CAPTURE_VISIBLE_TAB_CALLS_PER_SECOND = 2;
+
+        /**
+         * An ID that represents the absence of a split tab.
+         * @since Chrome 145
+         */
+        export const SPLIT_VIEW_ID_NONE: -1;
 
         /**
          * An ID that represents the absence of a browser tab.
@@ -14083,6 +14101,30 @@ declare namespace chrome {
             responseHeaders?: HeaderInfo[];
         }
 
+        /** @since Chrome 145 */
+        export enum RuleConditionKeys {
+            URL_FILTER = "urlFilter",
+            REGEX_FILTER = "regexFilter",
+            IS_URL_FILTER_CASE_SENSITIVE = "isUrlFilterCaseSensitive",
+            INITIATOR_DOMAINS = "initiatorDomains",
+            EXCLUDED_INITIATOR_DOMAINS = "excludedInitiatorDomains",
+            REQUEST_DOMAINS = "requestDomains",
+            EXCLUDED_REQUEST_DOMAINS = "excludedRequestDomains",
+            TOP_DOMAINS = "topDomains",
+            EXCLUDED_TOP_DOMAINS = "excludedTopDomains",
+            DOMAINS = "domains",
+            EXCLUDED_DOMAINS = "excludedDomains",
+            RESOURCE_TYPES = "resourceTypes",
+            EXCLUDED_RESOURCE_TYPES = "excludedResourceTypes",
+            REQUEST_METHODS = "requestMethods",
+            EXCLUDED_REQUEST_METHODS = "excludedRequestMethods",
+            DOMAIN_TYPE = "domainType",
+            TAB_IDS = "tabIds",
+            EXCLUDED_TAB_IDS = "excludedTabIds",
+            RESPONSE_HEADERS = "responseHeaders",
+            EXCLUDED_RESPONSE_HEADERS = "excludedResponseHeaders",
+        }
+
         export interface MatchedRule {
             /** A matching rule's ID. */
             ruleId: number;
@@ -14303,6 +14345,11 @@ declare namespace chrome {
             responseHeaders?: { [name: string]: unknown };
             /** The ID of the tab in which the hypothetical request takes place. Does not need to correspond to a real tab ID. Default is -1, meaning that the request isn't related to a tab. */
             tabId?: number;
+            /**
+             * The associated top-level frame URL (if any) for the request.
+             * @since Chrome 145
+             */
+            topUrl?: string;
             /** The resource type of the hypothetical request. */
             type: `${ResourceType}`;
             /** The URL of the hypothetical request. */

@@ -1,8 +1,9 @@
 import { Camera } from "../../cameras/Camera.js";
-import { Object3D } from "../../core/Object3D.js";
+import { Scene } from "../../scenes/Scene.js";
 import ChainMap from "./ChainMap.js";
 import Lighting from "./Lighting.js";
 import RenderList from "./RenderList.js";
+
 /**
  * This renderer module manages the render lists which are unique
  * per scene and camera combination.
@@ -10,8 +11,6 @@ import RenderList from "./RenderList.js";
  * @private
  */
 declare class RenderLists {
-    lighting: Lighting;
-    lists: ChainMap<readonly [Object3D, Camera], RenderList>;
     /**
      * Constructs a render lists management component.
      *
@@ -19,16 +18,29 @@ declare class RenderLists {
      */
     constructor(lighting: Lighting);
     /**
+     * The lighting management component.
+     *
+     * @type {Lighting}
+     */
+    lighting: Lighting;
+    /**
+     * The internal chain map which holds the render lists.
+     *
+     * @type {ChainMap}
+     */
+    lists: ChainMap;
+    /**
      * Returns a render list for the given scene and camera.
      *
      * @param {Scene} scene - The scene.
      * @param {Camera} camera - The camera.
      * @return {RenderList} The render list.
      */
-    get(scene: Object3D, camera: Camera): RenderList;
+    get(scene: Scene, camera: Camera): RenderList;
     /**
      * Frees all internal resources.
      */
     dispose(): void;
 }
+
 export default RenderLists;

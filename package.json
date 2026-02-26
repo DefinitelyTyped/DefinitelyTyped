@@ -11,10 +11,9 @@
     "bugs": {
         "url": "https://github.com/DefinitelyTyped/DefinitelyTyped/issues"
     },
-    "packageManager": "pnpm@9.14.4",
+    "packageManager": "pnpm@10.30.1+sha512.3590e550d5384caa39bd5c7c739f72270234b2f6059e13018f975c313b1eb9fefcc09714048765d4d9efe961382c312e624572c0420762bdc5d5940cdf9be73a",
     "engines": {
-        "pnpm": ">=9.14.4",
-        "node": ">=18.12"
+        "node": ">=20.17.0"
     },
     "scripts": {
         "preinstall": "npx only-allow pnpm",
@@ -37,7 +36,6 @@
         "@definitelytyped/header-parser": "latest",
         "@definitelytyped/typescript-versions": "latest",
         "@definitelytyped/utils": "latest",
-        "danger": "^11.2.3",
         "dprint": "^0.49.0",
         "eslint-plugin-jsdoc": "^44.2.7",
         "husky": "^8.0.3",
@@ -45,6 +43,7 @@
         "remark-cli": "^12.0.0",
         "remark-gfm": "^4.0.0",
         "remark-validate-links": "^13.0.0",
+        "risk": "^0.0.4",
         "typescript": "next"
     },
     "type": "module"

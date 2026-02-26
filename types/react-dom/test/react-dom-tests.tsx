@@ -756,7 +756,7 @@ function formrelatedEventTests() {
 
     <form
         onSubmit={event => {
-            // @ts-expect-error -- submitter is not yet exposed by React
+            // Only passes because program includes React Canary types
             event.submitter;
             // $ExpectType EventTarget & HTMLFormElement
             event.target;

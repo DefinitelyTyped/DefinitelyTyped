@@ -10,8 +10,7 @@ export type { WebGLBindingStates } from "./renderers/webgl/WebGLBindingStates.js
 export type { WebGLBufferRenderer } from "./renderers/webgl/WebGLBufferRenderer.js";
 export type { WebGLCapabilities, WebGLCapabilitiesParameters } from "./renderers/webgl/WebGLCapabilities.js";
 export type { WebGLClipping } from "./renderers/webgl/WebGLClipping.js";
-export type { WebGLCubeMaps } from "./renderers/webgl/WebGLCubeMaps.js";
-export type { WebGLCubeUVMaps } from "./renderers/webgl/WebGLCubeUVMaps.js";
+export type { WebGLEnvironments } from "./renderers/webgl/WebGLEnvironments.js";
 export type { WebGLExtensions } from "./renderers/webgl/WebGLExtensions.js";
 export type { WebGLGeometries } from "./renderers/webgl/WebGLGeometries.js";
 export type { WebGLIndexedBufferRenderer } from "./renderers/webgl/WebGLIndexedBufferRenderer.js";
@@ -37,6 +36,7 @@ export type {
 export type { WebGLTextures } from "./renderers/webgl/WebGLTextures.js";
 export type { WebGLUniforms } from "./renderers/webgl/WebGLUniforms.js";
 export * from "./renderers/webgl/WebGLUtils.js";
+export * from "./renderers/WebGLCubeRenderTarget.js";
 export * from "./renderers/WebGLRenderer.js";
 export type {
     WebXRController,

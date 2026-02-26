@@ -21,8 +21,8 @@ class ReactabularStickyTestComponent extends React.Component<Props> {
         },
     };
 
-    private tableHeader: HTMLElement | null;
-    private tableBody: HTMLElement | null;
+    private tableHeader!: HTMLElement | null;
+    private tableBody!: HTMLElement | null;
 
     render() {
         return (

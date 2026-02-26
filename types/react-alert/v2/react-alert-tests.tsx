@@ -3,7 +3,7 @@ import * as React from "react";
 import AlertContainer, { AlertContainerProps } from "react-alert";
 
 export default class App extends React.Component {
-    msg: AlertContainer;
+    msg!: AlertContainer;
 
     alertOptions: AlertContainerProps = {
         offset: 14,

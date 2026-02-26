@@ -6,7 +6,7 @@
         "http://www.semantic-ui.com"
     ],
     "dependencies": {
-        "@types/jquery": "*"
+        "@types/jquery": "^3"
     },
     "devDependencies": {
         "@types/semantic-ui-form": "workspace:."

@@ -1480,6 +1480,10 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     _(list).unzip(); // $ExpectType Collection<AbcObject[]>
     _.chain(list).unzip(); // $ExpectType CollectionChain<AbcObject[]>
     fp.unzip(list); // $ExpectType AbcObject[][]
+
+    _.unzip([[1, 'a'], [3, 'b'], [5, 'c']]); // $ExpectType [number[], string[]]
+    _.unzip([['a', 1, true], ['b', 2, false]]); // $ExpectType [string[], number[], boolean[]]
+    _.unzip([[1, undefined], [2, 'a']]); // $ExpectType [number[], (string | undefined)[]]
 }
 
 // _.unzipWith
@@ -4419,7 +4423,7 @@ fp.now(); // $ExpectType number
 
     {
         class CustomError extends Error {
-            custom: string;
+            custom!: string;
         }
 
         const value: number | CustomError = anything;

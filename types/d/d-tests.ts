@@ -42,7 +42,7 @@ d.gs("ce", () => ({})); // $ExpectType PropertyDescriptor
 d.gs("cew", () => ({}));
 
 class Foo {
-    _count: number;
+    _count!: number;
 }
 
 Object.defineProperties(

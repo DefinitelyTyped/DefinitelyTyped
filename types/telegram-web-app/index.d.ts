@@ -500,7 +500,7 @@ export interface WebApp {
      *
      * @since Bot API 8.0+
      */
-    shareMessage(msg_id: number, callback?: (success: boolean) => void): void;
+    shareMessage(msg_id: string, callback?: (success: boolean) => void): void;
 
     /**
      * A method that opens a dialog allowing the user to set the specified custom emoji as their status.
@@ -1197,7 +1197,7 @@ export interface BiometricManager {
      * - face, face-based biometrics,
      * - unknown, biometrics of an unknown type.
      */
-    biometricType: "finger" | "face" | "unkown";
+    biometricType: "finger" | "face" | "unknown";
     /**
      * Shows whether permission to use biometrics has been requested.
      */

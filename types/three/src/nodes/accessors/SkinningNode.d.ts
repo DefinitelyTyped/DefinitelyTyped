@@ -19,11 +19,13 @@ export default class SkinningNode extends Node {
 
     getSkinnedPosition(boneMatrices?: Node, position?: Node): Node;
 
-    getSkinnedNormal(boneMatrices?: Node, normal?: Node): Node;
+    getSkinnedNormalAndTangent(
+        boneMatrices?: Node,
+        normal?: Node,
+        tangent?: Node,
+    ): { skinNormal: Node; skinTangent: Node };
 
     getPreviousSkinnedPosition(builder: NodeBuilder): Node;
-
-    needsPreviousBoneMatrices(builder: NodeBuilder): boolean;
 }
 
 export const skinning: (skinnedMesh: SkinnedMesh) => SkinningNode;

@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/jsdom",
-    "version": "27.0.9999",
+    "version": "28.0.9999",
     "projects": [
         "https://github.com/jsdom/jsdom"
     ],
@@ -13,7 +13,8 @@
     "dependencies": {
         "@types/node": "*",
         "@types/tough-cookie": "*",
-        "parse5": "^7.0.0"
+        "parse5": "^7.0.0",
+        "undici-types": "^7.21.0"
     },
     "devDependencies": {
         "@types/jsdom": "workspace:."

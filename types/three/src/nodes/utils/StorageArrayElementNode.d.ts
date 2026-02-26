@@ -2,18 +2,27 @@ import StorageBufferNode from "../accessors/StorageBufferNode.js";
 import Node from "../core/Node.js";
 import ArrayElementNode from "./ArrayElementNode.js";
 
-export default class StorageArrayElementNode extends ArrayElementNode {
-    node: StorageBufferNode;
+interface StorageArrayElementNodeInterface<TNodeType> {
+    node: StorageBufferNode<TNodeType>;
 
     readonly isStorageArrayElementNode: true;
 
-    constructor(storageBufferNode: StorageBufferNode, indexNode: Node);
-
-    get storageBufferNode(): StorageBufferNode;
-    set storageBufferNode(value: StorageBufferNode);
+    get storageBufferNode(): StorageBufferNode<TNodeType>;
+    set storageBufferNode(value: StorageBufferNode<TNodeType>);
 }
 
-export const storageElement: (
-    storageBufferNode: Node,
+declare const StorageArrayElementNode: {
+    new<TNodeType>(
+        storageBufferNode: StorageBufferNode<TNodeType>,
+        indexNode: Node,
+    ): StorageArrayElementNode<TNodeType>;
+};
+
+type StorageArrayElementNode<TNodeType> = ArrayElementNode<TNodeType> & StorageArrayElementNodeInterface<TNodeType>;
+
+export default StorageArrayElementNode;
+
+export const storageElement: <TNodeType>(
+    storageBufferNode: Node<TNodeType>,
     indexNode: Node,
-) => StorageArrayElementNode;
+) => StorageArrayElementNode<TNodeType>;

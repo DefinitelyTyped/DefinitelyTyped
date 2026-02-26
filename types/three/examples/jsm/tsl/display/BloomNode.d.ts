@@ -1,12 +1,12 @@
 import { Node, TempNode, TextureNode, UniformNode } from "three/webgpu";
 
-declare class BloomNode extends TempNode {
+declare class BloomNode extends TempNode<"vec4"> {
     inputNode: Node;
-    strength: UniformNode<number>;
-    radius: UniformNode<number>;
-    threshold: UniformNode<number>;
+    strength: UniformNode<"float", number>;
+    radius: UniformNode<"float", number>;
+    threshold: UniformNode<"float", number>;
 
-    smoothWidth: UniformNode<number>;
+    smoothWidth: UniformNode<"float", number>;
 
     constructor(inputNode: Node, strength?: number, radius?: number, threshold?: number);
 

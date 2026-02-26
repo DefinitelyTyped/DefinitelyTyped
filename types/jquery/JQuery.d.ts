@@ -12226,18 +12226,6 @@ $( "a" ).on( "click", function( event ) {
         state?: TState,
     ): this;
     /**
-     * Add or remove one or more classes from each element in the set of matched elements, depending on either the class's presence or the value of the state argument.
-     * @param state A boolean value to determine whether the class should be added or removed.
-     * @see \`{@link https://api.jquery.com/toggleClass/ }\`
-     * @since 1.4
-     * @deprecated ​ Deprecated since 3.0. See \`{@link https://github.com/jquery/jquery/pull/2618 }\`.
-     *
-     * **Cause**: Calling `.toggleClass()` with no arguments, or with a single Boolean `true` or `false` argument, has been deprecated. Its behavior was poorly documented, but essentially the method saved away the current class value in a data item when the class was removed and restored the saved value when it was toggled back. If you do not believe you are specificially trying to use this form of the method, it is possible you are accidentally doing so via an inadvertent undefined value, as `.toggleClass( undefined )` toggles all classes.
-     *
-     * **Solution**: If this functionality is still needed, save the current full `.attr( "class" )` value in a data item and restore it when required.
-     */
-    toggleClass(state?: boolean): this;
-    /**
      * Execute all handlers and behaviors attached to the matched elements for the given event type.
      * @param eventType_event _&#x40;param_ `eventType_event`
      * <br>
