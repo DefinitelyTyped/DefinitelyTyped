@@ -1,5 +1,5 @@
 import { IconType } from "@wordpress/components";
-import { StoreDescriptor } from "@wordpress/data";
+import { ReduxStoreConfig, StoreDescriptor } from "@wordpress/data";
 import { ShortcodeMatch } from "@wordpress/shortcode";
 import { ComponentType, ReactElement } from "react";
 
@@ -11,7 +11,8 @@ declare module "@wordpress/data" {
     function select(key: "core/blocks"): typeof import("./store/selectors");
 }
 
-export interface BlocksStoreDescriptor extends StoreDescriptor {
+type Decurry<S extends {[key: string]: (...args: any[]) => any}> = { [key in keyof S]: (state: any, ...args: Parameters<S[key]>) => ReturnType<S[key]> };
+export interface BlocksStoreDescriptor extends StoreDescriptor<ReduxStoreConfig<any, typeof import("./store/actions"), Decurry<typeof import("./store/selectors")>>> {
     name: "core/blocks";
 }
 
