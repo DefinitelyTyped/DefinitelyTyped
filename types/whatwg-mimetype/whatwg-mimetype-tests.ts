@@ -1,4 +1,4 @@
-import MIMEType = require("whatwg-mimetype");
+import { computedMIMEType, MIMEType } from "whatwg-mimetype";
 
 // test type exports
 type MT = MIMEType;
@@ -39,3 +39,45 @@ if (mt != null) {
     mt.parameters.entries(); // $ExpectType IterableIterator<[string, string]>
     mt.parameters[Symbol.iterator](); // $ExpectType IterableIterator<[string, string]>
 }
+
+// test computedMIMEType function
+const resource = new Uint8Array([0x00, 0x01, 0x02]);
+
+// Test basic call with resource only
+computedMIMEType(resource); // $ExpectType MIMEType
+
+// Test with all options provided
+// $ExpectType MIMEType
+computedMIMEType(resource, {
+    contentTypeHeader: "text/html",
+    providedType: "text/plain",
+    noSniff: true,
+    isSupported: (mimeType: MIMEType) => true,
+});
+
+// Test with partial options
+computedMIMEType(resource, { contentTypeHeader: "text/html" }); // $ExpectType MIMEType
+computedMIMEType(resource, { providedType: "text/plain" }); // $ExpectType MIMEType
+computedMIMEType(resource, { noSniff: false }); // $ExpectType MIMEType
+//
+// $ExpectType MIMEType
+computedMIMEType(resource, {
+    isSupported: (mimeType) => {
+        mimeType; // $ExpectType MIMEType
+        return false;
+    },
+});
+
+// Test that invalid parameters are rejected
+// @ts-expect-error
+computedMIMEType();
+// @ts-expect-error
+computedMIMEType("not a Uint8Array");
+// @ts-expect-error
+computedMIMEType(resource, { invalidOption: true });
+// @ts-expect-error
+computedMIMEType(resource, { contentTypeHeader: 123 });
+// @ts-expect-error
+computedMIMEType(resource, { noSniff: "true" });
+// @ts-expect-error
+computedMIMEType(resource, { isSupported: "not a function" });
