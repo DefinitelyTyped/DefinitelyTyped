@@ -6,7 +6,7 @@
         "https://github.com/jsdom/data-urls#readme"
     ],
     "dependencies": {
-        "@types/whatwg-mimetype": "*",
+        "@types/whatwg-mimetype": "<=3.0.0",
         "@types/whatwg-url": "*"
     },
     "devDependencies": {
