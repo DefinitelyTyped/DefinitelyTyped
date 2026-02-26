@@ -17,8 +17,14 @@ declare module "@wordpress/data" {
     function select(key: "core/blocks"): typeof import("./store/selectors");
 }
 
-type Decurry<S extends {[key: string]: (...args: any[]) => any}> = { [key in keyof S]: (state: any, ...args: Parameters<S[key]>) => ReturnType<S[key]> };
-export interface BlocksStoreDescriptor extends StoreDescriptor<ReduxStoreConfig<any, typeof import("./store/actions"), Decurry<typeof import("./store/selectors")>>> {
+type Decurry<S extends { [key: string]: (...args: any[]) => any }> = {
+    [key in keyof S]: (state: any, ...args: Parameters<S[key]>) => ReturnType<S[key]>;
+};
+export interface BlocksStoreDescriptor extends
+    StoreDescriptor<
+        ReduxStoreConfig<any, typeof import("./store/actions"), Decurry<typeof import("./store/selectors")>>
+    >
+{
     name: "core/blocks";
 }
 
