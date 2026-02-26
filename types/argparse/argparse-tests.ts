@@ -68,6 +68,9 @@ const constantExample = new ArgumentParser({
     description: "Argparse examples: constant",
 });
 
+constantExample.add_argument('--multiple', '-m', '--alias1', '--alias2', '--alias3', '--alias4',
+    '--alias5', '--alias6', {dest: 'arg'});
+
 constantExample.add_argument("-a", {
     action: "store_const",
     dest: "answer",
