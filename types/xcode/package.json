@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/xcode",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/apache/cordova-node-xcode"
+    ],
+    "devDependencies": {
+        "@types/xcode": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Yevhenii Kotyrlo",
+            "githubUsername": "YevheniiKotyrlo"
+        }
+    ]
+}
