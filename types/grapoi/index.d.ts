@@ -4,7 +4,13 @@
 
 import { DataFactory, DatasetCore, Term } from "@rdfjs/types";
 
-export = grapoi;
+import type Grapoi from "./Grapoi.d.ts";
+import type PathList from "./PathList.d.ts";
+import type Path from "./Path.d.ts";
+import type Edge from "./Edge.d.ts";
+
+
+export default grapoi;
 export as namespace grapoi;
 
 declare function grapoi(args: grapoi.GrapoiOptions): grapoi.Grapoi;
@@ -21,7 +27,3 @@ declare namespace grapoi {
     export { Edge, Grapoi, Path, PathList };
 }
 
-import Grapoi = require("./Grapoi");
-import PathList = require("./PathList");
-import Path = require("./Path");
-import Edge = require("./Edge");

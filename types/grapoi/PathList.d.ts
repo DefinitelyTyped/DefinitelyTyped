@@ -1,10 +1,10 @@
 import { DataFactory, DatasetCore, Quad, Term } from "@rdfjs/types";
-import Path = require("./Path");
+import type Path from "./Path.d.ts"
 
 /**
  * List of paths
  */
-declare class PathList {
+export default class PathList {
     /**
      * Create a new instance
      * @param options Options for creating the PathList
@@ -166,5 +166,3 @@ declare class PathList {
      */
     [Symbol.iterator](): Iterator<this>;
 }
-
-export = PathList;

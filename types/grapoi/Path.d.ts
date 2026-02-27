@@ -1,19 +1,19 @@
-import { Environment } from "@rdfjs/environment/Environment";
+import type Environment from "@rdfjs/environment";
 import { DatasetCore, Quad, Term } from "@rdfjs/types";
-import Edge = require("./Edge");
+import type Edge from "./Edge.d.ts"
 
-declare class Path {
+export default class Path {
     constructor(options: {
         dataset: DatasetCore;
         edges?: Edge[];
-        factory: Environment<any>;
+        factory: typeof Environment<any>;
         graph: Term;
         term: Term;
     });
 
     dataset: DatasetCore;
     edges: Edge[];
-    factory: Environment<any>;
+    factory: typeof Environment<any>;
 
     get edge(): Edge | undefined;
     get graph(): Term;
@@ -55,5 +55,3 @@ declare class Path {
     quads(): IterableIterator<Quad>;
     trim(): Path;
 }
-
-export = Path;

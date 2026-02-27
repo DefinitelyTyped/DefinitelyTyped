@@ -1,4 +1,4 @@
-import grapoi = require("grapoi");
+import grapoi from "grapoi"
 import { DataFactory } from "@rdfjs/types";
 
 import dataFactory from "@rdfjs/data-model";

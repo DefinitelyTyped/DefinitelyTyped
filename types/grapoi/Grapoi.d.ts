@@ -1,10 +1,10 @@
 import { Term } from "@rdfjs/types";
-import PathList = require("./PathList");
+import type PathList from "./PathList.d.ts";
 
 /**
  * A graph pointer object
  */
-declare class Grapoi extends PathList {
+export default class Grapoi extends PathList {
     /**
      * Add quad(s) with the current terms as the object
      * @param predicates Predicates of the quads
@@ -137,5 +137,3 @@ declare class Grapoi extends PathList {
      */
     score(score: (ptr: this) => number, options?: { limit?: number; offset?: number }): this;
 }
-
-export = Grapoi;

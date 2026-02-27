@@ -1,6 +1,6 @@
 import { DatasetCore, Quad, Term } from "@rdfjs/types";
 
-declare class Edge {
+export default class Edge {
     constructor(options: {
         dataset: DatasetCore;
         end: "subject" | "object";
@@ -17,5 +17,3 @@ declare class Edge {
     get graph(): Term;
     get startTerm(): Term;
 }
-
-export = Edge;
