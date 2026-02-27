@@ -6,14 +6,14 @@
         "https://github.com/GoogleChromeLabs/worker-plugin"
     ],
     "dependencies": {
-        "@types/webpack": "^4"
+        "@types/webpack": "^5"
     },
     "devDependencies": {
         "@types/worker-plugin": "workspace:."
     },
     "owners": [
         {
-            "name": "Artur Androsovych",
+            "name": "arturovt",
             "githubUsername": "arturovt"
         },
         {
