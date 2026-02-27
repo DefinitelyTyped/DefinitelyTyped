@@ -882,7 +882,7 @@ declare namespace TelegramBot {
 
     interface KeyboardButton {
         text: string;
-        style?: 'primary' | 'danger' | 'success' | undefined;
+        style?: "primary" | "danger" | "success" | undefined;
         icon_custom_emoji_id?: string | undefined;
         request_user?: KeyboardButtonRequestUser | undefined;
         request_chat?: KeyboardButtonRequestChat | undefined;
@@ -924,7 +924,7 @@ declare namespace TelegramBot {
 
     interface InlineKeyboardButton {
         text: string;
-        style?: 'primary' | 'danger' | 'success' | undefined;
+        style?: "primary" | "danger" | "success" | undefined;
         icon_custom_emoji_id?: string | undefined;
         url?: string | undefined;
         callback_data?: string | undefined;
