@@ -1,5 +1,5 @@
-import grapoi from "grapoi"
 import { DataFactory } from "@rdfjs/types";
+import grapoi from "grapoi";
 
 import dataFactory from "@rdfjs/data-model";
 import datasetFactory from "@rdfjs/dataset";

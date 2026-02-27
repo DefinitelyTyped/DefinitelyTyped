@@ -1,6 +1,6 @@
 import type Environment from "@rdfjs/environment";
 import { DatasetCore, Quad, Term } from "@rdfjs/types";
-import type Edge from "./Edge.d.ts"
+import type Edge from "./Edge.d.ts";
 
 export default class Path {
     constructor(options: {

@@ -4,11 +4,10 @@
 
 import { DataFactory, DatasetCore, Term } from "@rdfjs/types";
 
-import type Grapoi from "./Grapoi.d.ts";
-import type PathList from "./PathList.d.ts";
-import type Path from "./Path.d.ts";
 import type Edge from "./Edge.d.ts";
-
+import type Grapoi from "./Grapoi.d.ts";
+import type Path from "./Path.d.ts";
+import type PathList from "./PathList.d.ts";
 
 export default grapoi;
 export as namespace grapoi;
@@ -26,4 +25,3 @@ declare namespace grapoi {
 
     export { Edge, Grapoi, Path, PathList };
 }
-

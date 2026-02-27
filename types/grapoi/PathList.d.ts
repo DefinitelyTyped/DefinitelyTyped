@@ -1,5 +1,5 @@
 import { DataFactory, DatasetCore, Quad, Term } from "@rdfjs/types";
-import type Path from "./Path.d.ts"
+import type Path from "./Path.d.ts";
 
 /**
  * List of paths
