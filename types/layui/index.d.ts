@@ -7,6 +7,7 @@
 /// <reference path="modules/element.d.ts" />
 /// <reference path="modules/flow.d.ts" />
 /// <reference path="modules/form.d.ts" />
+/// <reference path="modules/i18n.d.ts" />
 /// <reference path="modules/lay.d.ts" />
 /// <reference path="modules/laydate.d.ts" />
 /// <reference path="modules/layedit.d.ts" />

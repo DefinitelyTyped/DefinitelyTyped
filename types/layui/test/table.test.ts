@@ -105,6 +105,9 @@ function tableTest() {
                 countName: "total", // 规定数据总数的字段名称，默认：count
                 dataName: "rows", // 规定数据列表的字段名称，默认：data
             },
+            syncFixedRowHeight: true,
+            ajax(options, type) {
+            },
         });
         rendered.config.cols;
         layui.use(["table", "laytpl", "element"], () => {

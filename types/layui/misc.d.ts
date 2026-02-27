@@ -18,9 +18,29 @@ declare namespace Layui {
     };
     type LiteralUnion<LiteralType, BaseType extends Primitive> = LiteralType | (BaseType & Record<never, never>);
     type LiteralStringUnion<T> = LiteralUnion<T, string>;
+    type ObjectPathLeaf = Primitive | AnyFn | Date | Array<any>;
+    type DeepPath<T, Prefix extends string = ""> = {
+        [K in keyof T & string]: T[K] extends ObjectPathLeaf ? `${Prefix}${K}`
+            : T[K] extends object ? DeepPath<T[K], `${Prefix}${K}.`>
+            : never;
+    }[keyof T & string];
+    type DeepType<T, Path extends string> = Path extends `${infer Key}.${infer Rest}`
+        ? Key extends keyof T ? DeepType<T[Key], Rest>
+        : T extends any[] ? DeepType<T[number], Rest>
+        : never
+        : Path extends keyof T ? T[Path]
+        : T extends any[] ? T[number]
+        : never;
+    type DeepPartial<T> = T extends AnyFn ? T
+        : T extends Date ? T
+        : T extends Array<infer U> ? Array<DeepPartial<U>>
+        : T extends Map<infer K, infer V> ? Map<K, DeepPartial<V>>
+        : T extends Set<infer U> ? Set<DeepPartial<U>>
+        : T extends object ? { [P in keyof T]?: DeepPartial<T[P]> }
+        : T;
 
     type Selector = string;
-    type ExportsCallback = (this: Layui, fn: (app: string, exports: object) => void) => void;
+    type ExportsCallback = (this: Layui, fn: (app: string, exports: Record<string, any>) => void) => void;
 
     /**
      * 全局属性
@@ -230,6 +250,12 @@ declare namespace Layui {
          * @see https://layui.dev/docs/2/util/
          */
         util: Util;
+        /**
+         * 国际化
+         * @see https://layui.dev/docs/2/i18n/
+         * @since 2.12.0
+         */
+        i18n: I18n;
     }
 
     /**

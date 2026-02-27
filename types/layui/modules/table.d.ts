@@ -642,6 +642,21 @@ declare namespace Layui {
          * @deprecated 2.8.0 已弃用，请使用 {@link TableOptions.parseData|parseData}
          */
         response?: TableResponseRename;
+        /**
+         * 是否强制计算表格主区域的行高度并同步到固定列区域。
+         *
+         * 开启后会对表格性能有一定的影响，仅适用于行高度自适应的场景。
+         * @default false
+         * @since 2.12.0
+         */
+        syncFixedRowHeight?: boolean;
+        /**
+         * 自定义 ajax 请求
+         * @param options 原始的 jQuery.ajax 配置项
+         * @param type 请求类型，`table` 表示普通表格数据请求，`treeNodes` 表示树表格节点数据请求
+         * @since 2.12.0
+         */
+        ajax?(options: JQuery.AjaxSettings, type: "table" | "treeNodes"): void;
     }
 
     /**
