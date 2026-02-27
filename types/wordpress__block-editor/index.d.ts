@@ -16,9 +16,6 @@ declare module "@wordpress/data" {
      * @deprecated Use the version that takes a store descriptor object instead
      */
     function select(key: "core/block-editor"): typeof import("./store/selectors");
-
-    function useDispatch(key: "core/block-editor"): typeof import("./store/actions");
-    function useSelect(key: "core/block-editor"): typeof import("./store/selectors");
 }
 
 type Decurry<S extends { [key: string]: (...args: any[]) => any }> = {

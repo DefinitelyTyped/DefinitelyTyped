@@ -488,117 +488,115 @@ be.transformStyles(STYLES, ".foobar");
 // $ExpectType BlockEditorStoreDescriptor
 be.store;
 
-for (const dispatchOrUseDispatch of [dispatch, useDispatch]) {
-    // $ExpectType void
-    dispatchOrUseDispatch("core/block-editor").insertBlock(BLOCK_INSTANCE);
-    dispatchOrUseDispatch("core/block-editor").insertBlock(BLOCK_INSTANCE, 4);
-    dispatchOrUseDispatch("core/block-editor").insertBlock(BLOCK_INSTANCE, 4, "foo");
-    dispatchOrUseDispatch("core/block-editor").insertBlock(BLOCK_INSTANCE, 4, "foo", false);
+// $ExpectType void
+dispatch("core/block-editor").insertBlock(BLOCK_INSTANCE);
+dispatch("core/block-editor").insertBlock(BLOCK_INSTANCE, 4);
+dispatch("core/block-editor").insertBlock(BLOCK_INSTANCE, 4, "foo");
+dispatch("core/block-editor").insertBlock(BLOCK_INSTANCE, 4, "foo", false);
 
-    // $ExpectType IterableIterator<void>
-    dispatchOrUseDispatch("core/block-editor").insertBlocks([BLOCK_INSTANCE]);
-    dispatchOrUseDispatch("core/block-editor").insertBlocks([BLOCK_INSTANCE], 5);
-    dispatchOrUseDispatch("core/block-editor").insertBlocks([BLOCK_INSTANCE], 5, "foo");
-    dispatchOrUseDispatch("core/block-editor").insertBlocks([BLOCK_INSTANCE], 5, "foo", false);
+// $ExpectType IterableIterator<void>
+dispatch("core/block-editor").insertBlocks([BLOCK_INSTANCE]);
+dispatch("core/block-editor").insertBlocks([BLOCK_INSTANCE], 5);
+dispatch("core/block-editor").insertBlocks([BLOCK_INSTANCE], 5, "foo");
+dispatch("core/block-editor").insertBlocks([BLOCK_INSTANCE], 5, "foo", false);
 
-    // $ExpectType void
-    dispatchOrUseDispatch("core/block-editor").insertDefaultBlock();
-    dispatchOrUseDispatch("core/block-editor").insertDefaultBlock({ foo: "bar" });
-    dispatchOrUseDispatch("core/block-editor").insertDefaultBlock({ foo: "bar" }, "foo");
-    dispatchOrUseDispatch("core/block-editor").insertDefaultBlock({ foo: "bar" }, "foo", 5);
+// $ExpectType void
+dispatch("core/block-editor").insertDefaultBlock();
+dispatch("core/block-editor").insertDefaultBlock({ foo: "bar" });
+dispatch("core/block-editor").insertDefaultBlock({ foo: "bar" }, "foo");
+dispatch("core/block-editor").insertDefaultBlock({ foo: "bar" }, "foo", 5);
 
-    // $ExpectType void
-    dispatchOrUseDispatch("core/block-editor").mergeBlocks("foo", "bar");
+// $ExpectType void
+dispatch("core/block-editor").mergeBlocks("foo", "bar");
 
-    // $ExpectType void
-    dispatchOrUseDispatch("core/block-editor").moveBlocksUp("foo", "bar");
-    dispatchOrUseDispatch("core/block-editor").moveBlocksUp(["foo", "baz"], "bar");
+// $ExpectType void
+dispatch("core/block-editor").moveBlocksUp("foo", "bar");
+dispatch("core/block-editor").moveBlocksUp(["foo", "baz"], "bar");
 
-    // $ExpectType IterableIterator<void>
-    dispatchOrUseDispatch("core/block-editor").moveBlockToPosition("foo", "bar", "baz", 1);
-    dispatchOrUseDispatch("core/block-editor").moveBlockToPosition(undefined, "foo", undefined, 5);
-    dispatchOrUseDispatch("core/block-editor").moveBlockToPosition(undefined, undefined, undefined, 5);
+// $ExpectType IterableIterator<void>
+dispatch("core/block-editor").moveBlockToPosition("foo", "bar", "baz", 1);
+dispatch("core/block-editor").moveBlockToPosition(undefined, "foo", undefined, 5);
+dispatch("core/block-editor").moveBlockToPosition(undefined, undefined, undefined, 5);
 
-    // $ExpectType void
-    dispatchOrUseDispatch("core/block-editor").multiSelect("foo", "bar");
+// $ExpectType void
+dispatch("core/block-editor").multiSelect("foo", "bar");
 
-    // $ExpectType void
-    dispatchOrUseDispatch("core/block-editor").receiveBlocks([BLOCK_INSTANCE]);
+// $ExpectType void
+dispatch("core/block-editor").receiveBlocks([BLOCK_INSTANCE]);
 
-    // $ExpectType void
-    dispatchOrUseDispatch("core/block-editor").removeBlock("foo");
-    dispatchOrUseDispatch("core/block-editor").removeBlock("foo", true);
+// $ExpectType void
+dispatch("core/block-editor").removeBlock("foo");
+dispatch("core/block-editor").removeBlock("foo", true);
 
-    // $ExpectType IterableIterator<void>
-    dispatchOrUseDispatch("core/block-editor").removeBlocks("foo");
-    dispatchOrUseDispatch("core/block-editor").removeBlocks("foo", false);
-    dispatchOrUseDispatch("core/block-editor").removeBlocks(["foo"]);
-    dispatchOrUseDispatch("core/block-editor").removeBlocks(["foo"], false);
+// $ExpectType IterableIterator<void>
+dispatch("core/block-editor").removeBlocks("foo");
+dispatch("core/block-editor").removeBlocks("foo", false);
+dispatch("core/block-editor").removeBlocks(["foo"]);
+dispatch("core/block-editor").removeBlocks(["foo"], false);
 
-    // $ExpectType void
-    dispatchOrUseDispatch("core/block-editor").replaceBlock("foo", BLOCK_INSTANCE);
-    dispatchOrUseDispatch("core/block-editor").replaceBlock("foo", [BLOCK_INSTANCE]);
-    dispatchOrUseDispatch("core/block-editor").replaceBlock(["foo"], BLOCK_INSTANCE);
-    dispatchOrUseDispatch("core/block-editor").replaceBlock(["foo"], [BLOCK_INSTANCE]);
+// $ExpectType void
+dispatch("core/block-editor").replaceBlock("foo", BLOCK_INSTANCE);
+dispatch("core/block-editor").replaceBlock("foo", [BLOCK_INSTANCE]);
+dispatch("core/block-editor").replaceBlock(["foo"], BLOCK_INSTANCE);
+dispatch("core/block-editor").replaceBlock(["foo"], [BLOCK_INSTANCE]);
 
-    // $ExpectType IterableIterator<void>
-    dispatchOrUseDispatch("core/block-editor").replaceBlocks("foo", BLOCK_INSTANCE);
-    dispatchOrUseDispatch("core/block-editor").replaceBlocks("foo", [BLOCK_INSTANCE], 3);
-    dispatchOrUseDispatch("core/block-editor").replaceBlocks(["foo"], BLOCK_INSTANCE);
-    dispatchOrUseDispatch("core/block-editor").replaceBlocks(["foo"], [BLOCK_INSTANCE], 0);
+// $ExpectType IterableIterator<void>
+dispatch("core/block-editor").replaceBlocks("foo", BLOCK_INSTANCE);
+dispatch("core/block-editor").replaceBlocks("foo", [BLOCK_INSTANCE], 3);
+dispatch("core/block-editor").replaceBlocks(["foo"], BLOCK_INSTANCE);
+dispatch("core/block-editor").replaceBlocks(["foo"], [BLOCK_INSTANCE], 0);
 
-    // $ExpectType void
-    dispatchOrUseDispatch("core/block-editor").replaceInnerBlocks("foo", [BLOCK_INSTANCE]);
-    dispatchOrUseDispatch("core/block-editor").replaceInnerBlocks("foo", [BLOCK_INSTANCE], true);
+// $ExpectType void
+dispatch("core/block-editor").replaceInnerBlocks("foo", [BLOCK_INSTANCE]);
+dispatch("core/block-editor").replaceInnerBlocks("foo", [BLOCK_INSTANCE], true);
 
-    // $ExpectType void
-    dispatchOrUseDispatch("core/block-editor").resetBlocks([BLOCK_INSTANCE]);
+// $ExpectType void
+dispatch("core/block-editor").resetBlocks([BLOCK_INSTANCE]);
 
-    // $ExpectType void
-    dispatchOrUseDispatch("core/block-editor").selectBlock("foo");
-    dispatchOrUseDispatch("core/block-editor").selectBlock("foo", 5);
+// $ExpectType void
+dispatch("core/block-editor").selectBlock("foo");
+dispatch("core/block-editor").selectBlock("foo", 5);
 
-    // $ExpectType void
-    dispatchOrUseDispatch("core/block-editor").selectionChange("foo", "bar", 0, 5);
+// $ExpectType void
+dispatch("core/block-editor").selectionChange("foo", "bar", 0, 5);
 
-    // $ExpectType IterableIterator<void>
-    dispatchOrUseDispatch("core/block-editor").selectNextBlock("foo");
+// $ExpectType IterableIterator<void>
+dispatch("core/block-editor").selectNextBlock("foo");
 
-    // $ExpectType IterableIterator<void>
-    dispatchOrUseDispatch("core/block-editor").selectPreviousBlock("foo");
+// $ExpectType IterableIterator<void>
+dispatch("core/block-editor").selectPreviousBlock("foo");
 
-    // $ExpectType void
-    dispatchOrUseDispatch("core/block-editor").setTemplateValidity(false);
+// $ExpectType void
+dispatch("core/block-editor").setTemplateValidity(false);
 
-    // $ExpectType void
-    dispatchOrUseDispatch("core/block-editor").showInsertionPoint();
-    dispatchOrUseDispatch("core/block-editor").showInsertionPoint("foo");
-    dispatchOrUseDispatch("core/block-editor").showInsertionPoint("foo", 5);
+// $ExpectType void
+dispatch("core/block-editor").showInsertionPoint();
+dispatch("core/block-editor").showInsertionPoint("foo");
+dispatch("core/block-editor").showInsertionPoint("foo", 5);
 
-    // $ExpectType void
-    dispatchOrUseDispatch("core/block-editor").toggleBlockMode("foo");
+// $ExpectType void
+dispatch("core/block-editor").toggleBlockMode("foo");
 
-    // $ExpectType void
-    dispatchOrUseDispatch("core/block-editor").toggleSelection();
-    dispatchOrUseDispatch("core/block-editor").toggleSelection(true);
+// $ExpectType void
+dispatch("core/block-editor").toggleSelection();
+dispatch("core/block-editor").toggleSelection(true);
 
-    // $ExpectType void
-    dispatchOrUseDispatch("core/block-editor").updateBlock("foo", { attributes: { foo: "bar" }, innerBlocks: [] });
+// $ExpectType void
+dispatch("core/block-editor").updateBlock("foo", { attributes: { foo: "bar" }, innerBlocks: [] });
 
-    // $ExpectType void
-    dispatchOrUseDispatch("core/block-editor").updateBlockAttributes("foo", { foo: "bar" });
+// $ExpectType void
+dispatch("core/block-editor").updateBlockAttributes("foo", { foo: "bar" });
 
-    // $ExpectType void
-    dispatchOrUseDispatch("core/block-editor").updateBlockListSettings("foo", { allowedBlocks: ["core/paragraph"] });
+// $ExpectType void
+dispatch("core/block-editor").updateBlockListSettings("foo", { allowedBlocks: ["core/paragraph"] });
 
-    // $ExpectType void
-    dispatchOrUseDispatch("core/block-editor").updateSettings({
-        focusMode: true,
-        codeEditingEnabled: false,
-        maxUploadFileSize: 500,
-        richEditingEnabled: false,
-    });
-}
+// $ExpectType void
+dispatch("core/block-editor").updateSettings({
+    focusMode: true,
+    codeEditingEnabled: false,
+    maxUploadFileSize: 500,
+    richEditingEnabled: false,
+});
 
 for (const dispatchOrUseDispatch of [dispatch, useDispatch]) {
     // $ExpectType Promise<void>
@@ -712,27 +710,25 @@ for (const dispatchOrUseDispatch of [dispatch, useDispatch]) {
     });
 }
 
-for (const selectOrUseSelect of [select, useSelect]) {
-    // $ExpectType boolean
-    selectOrUseSelect("core/block-editor").canInsertBlockType("core/paragraph");
-    selectOrUseSelect("core/block-editor").canInsertBlockType("core/paragraph", "foo");
+// $ExpectType boolean
+select("core/block-editor").canInsertBlockType("core/paragraph");
+select("core/block-editor").canInsertBlockType("core/paragraph", "foo");
 
-    // $ExpectType string | null
-    selectOrUseSelect("core/block-editor").getAdjacentBlockClientId();
-    selectOrUseSelect("core/block-editor").getAdjacentBlockClientId("foo");
-    selectOrUseSelect("core/block-editor").getAdjacentBlockClientId("foo", -1);
-    selectOrUseSelect("core/block-editor").getAdjacentBlockClientId("foo", 1);
+// $ExpectType string | null
+select("core/block-editor").getAdjacentBlockClientId();
+select("core/block-editor").getAdjacentBlockClientId("foo");
+select("core/block-editor").getAdjacentBlockClientId("foo", -1);
+select("core/block-editor").getAdjacentBlockClientId("foo", 1);
 
-    // $ExpectType string[]
-    selectOrUseSelect("core/block-editor").getBlockParents("foo");
-    selectOrUseSelect("core/block-editor").getBlockParentsByBlockName("foo", ["core/query"]);
-    selectOrUseSelect("core/block-editor").getBlockParents("foo", true);
-    selectOrUseSelect("core/block-editor").getBlockParentsByBlockName("foo", ["core/query"], true);
+// $ExpectType string[]
+select("core/block-editor").getBlockParents("foo");
+select("core/block-editor").getBlockParentsByBlockName("foo", ["core/query"]);
+select("core/block-editor").getBlockParents("foo", true);
+select("core/block-editor").getBlockParentsByBlockName("foo", ["core/query"], true);
 
-    // $ExpectType string[]
-    selectOrUseSelect("core/block-editor").getBlocksByName("core/group");
-    selectOrUseSelect("core/block-editor").getBlocksByName(["core/group", "core/paragraph"]);
-}
+// $ExpectType string[]
+select("core/block-editor").getBlocksByName("core/group");
+select("core/block-editor").getBlocksByName(["core/group", "core/paragraph"]);
 
 for (const selectOrUseSelect of [select, useSelect]) {
     // $ExpectType boolean
