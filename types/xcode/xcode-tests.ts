@@ -36,14 +36,14 @@ const objects = hash.project.objects;
 // $ExpectType PbxprojSection
 const buildFiles = objects.PBXBuildFile;
 
-// $ExpectType UUID
+// $ExpectType string
 const rootObject = hash.project.rootObject;
 
 // UUID generation
-// $ExpectType UUID[]
+// $ExpectType string[]
 project.allUuids();
 
-// $ExpectType UUID
+// $ExpectType string
 project.generateUuid();
 
 // File management
@@ -70,13 +70,13 @@ if (framework !== false) {
 
 const resourceFile = project.addResourceFile("Assets.xcassets");
 if (resourceFile !== false) {
-    // $ExpectType UUID | undefined
+    // $ExpectType string | undefined
     resourceFile.uuid;
 }
 
 const pluginFile = project.addPluginFile("MyPlugin.m");
 if (pluginFile !== null) {
-    // $ExpectType UUID | undefined
+    // $ExpectType string | undefined
     pluginFile.fileRef;
 }
 
@@ -129,7 +129,7 @@ project.addToXcVersionGroupSection(file);
 
 // Group management
 const group = project.addPbxGroup(["file1.m", "file2.m"], "MyGroup", "src", '"<group>"');
-// $ExpectType UUID
+// $ExpectType string
 group.uuid;
 // $ExpectType PBXGroup
 group.pbxGroup;
@@ -150,14 +150,14 @@ project.addToPbxVariantGroup(file, "ABC123");
 project.addToPbxGroup(file, "ABC123");
 project.addToPbxGroup("filename.m", "ABC123");
 
-// $ExpectType UUID
+// $ExpectType string
 project.pbxCreateGroupWithType("NewGroup", "path/to", "PBXGroup");
 project.pbxCreateGroupWithType("NewGroup", undefined, "PBXVariantGroup");
 
-// $ExpectType UUID
+// $ExpectType string
 project.pbxCreateVariantGroup("Localizable.strings");
 
-// $ExpectType UUID
+// $ExpectType string
 project.pbxCreateGroup("Sources", "src");
 
 project.removeFromPbxGroupAndType(file, "ABC123", "PBXGroup");
@@ -168,7 +168,7 @@ const pbxGroup = project.getPBXGroupByKey("ABC123");
 if (pbxGroup !== undefined) {
     // $ExpectType string
     pbxGroup.isa;
-    // $ExpectType Array<{ value: UUID; comment?: string | undefined; }>
+    // $ExpectType { value: string; comment?: string | undefined; }[]
     pbxGroup.children;
 }
 
@@ -180,9 +180,9 @@ project.findPBXGroupKeyAndType({ name: "Sources" }, "PBXGroup");
 project.findPBXVariantGroupKey({ name: "Localizable.strings" });
 
 const locGroup = project.addLocalizationVariantGroup("Localizable.strings");
-// $ExpectType UUID
+// $ExpectType string
 locGroup.uuid;
-// $ExpectType UUID
+// $ExpectType string
 locGroup.fileRef;
 // $ExpectType string
 locGroup.basename;
@@ -200,7 +200,7 @@ project.addToPbxCopyfilesBuildPhase(file);
 project.removeFromPbxCopyfilesBuildPhase(file);
 
 const buildPhase = project.addBuildPhase(["file.m"], "PBXSourcesBuildPhase", "Sources");
-// $ExpectType UUID
+// $ExpectType string
 buildPhase.uuid;
 // $ExpectType BuildPhaseObject
 buildPhase.buildPhase;
@@ -218,7 +218,7 @@ const sourcesBP = project.pbxSourcesBuildPhaseObj();
 if (sourcesBP != null) {
     // $ExpectType string
     sourcesBP.isa;
-    // $ExpectType Array<{ value: UUID; comment: string; }>
+    // $ExpectType { value: string; comment: string; }[]
     sourcesBP.files;
 }
 
@@ -232,7 +232,7 @@ const bpObj = project.buildPhaseObject("PBXSourcesBuildPhase", "Sources");
 
 // Target management
 const target = project.addTarget("MyExtension", "app_extension", "Extensions", "com.example.ext");
-// $ExpectType UUID
+// $ExpectType string
 target.uuid;
 // $ExpectType PBXNativeTarget
 target.pbxNativeTarget;
@@ -242,7 +242,7 @@ project.addToPbxNativeTargetSection(target);
 
 const dep = project.addTargetDependency("TARGET1", ["TARGET2"]);
 if (dep !== undefined) {
-    // $ExpectType UUID
+    // $ExpectType string
     dep.uuid;
     // $ExpectType PBXNativeTarget
     dep.target;
@@ -253,7 +253,7 @@ const configList = project.addXCConfigurationList(
     "Release",
     "Build configuration list",
 );
-// $ExpectType UUID
+// $ExpectType string
 configList.uuid;
 // $ExpectType XCConfigurationList
 configList.xcConfigurationList;
@@ -336,20 +336,20 @@ project.removeFromBuildSettings("CUSTOM_SETTING");
 
 // Project queries
 const firstProject = project.getFirstProject();
-// $ExpectType UUID
+// $ExpectType string
 firstProject.uuid;
 // $ExpectType PBXProject
 firstProject.firstProject;
 
 const firstTarget = project.getFirstTarget();
-// $ExpectType UUID
+// $ExpectType string
 firstTarget.uuid;
 // $ExpectType PBXNativeTarget
 firstTarget.firstTarget;
 
 const appTarget = project.getTarget("com.apple.product-type.application");
 if (appTarget !== null) {
-    // $ExpectType UUID
+    // $ExpectType string
     appTarget.uuid;
     // $ExpectType PBXNativeTarget
     appTarget.target;
