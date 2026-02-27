@@ -116,7 +116,7 @@ project.removeResourceFile("old.xcassets");
 // Section manipulation
 const file: xcode.PBXFile = {
     basename: "test.m",
-    sourceTree: '"<group>"',
+    sourceTree: "\"<group>\"",
     includeInIndex: 0,
 };
 project.addToPbxBuildFileSection(file);
@@ -128,7 +128,7 @@ project.removeFromPbxFileReferenceSection(file);
 project.addToXcVersionGroupSection(file);
 
 // Group management
-const group = project.addPbxGroup(["file1.m", "file2.m"], "MyGroup", "src", '"<group>"');
+const group = project.addPbxGroup(["file1.m", "file2.m"], "MyGroup", "src", "\"<group>\"");
 // $ExpectType string
 group.uuid;
 // $ExpectType PBXGroup
