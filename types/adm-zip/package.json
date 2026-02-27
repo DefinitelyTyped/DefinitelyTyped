@@ -5,6 +5,12 @@
     "projects": [
         "https://github.com/cthackers/adm-zip"
     ],
+    "types": "index",
+    "typesVersions": {
+        "<=5.6": {
+            "*": ["ts5.6/*"]
+        }
+    },
     "dependencies": {
         "@types/node": "*"
     },
