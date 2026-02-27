@@ -2,12 +2,12 @@ import * as brotli from "brotli";
 import compress = require("brotli/compress");
 import decompress = require("brotli/decompress");
 
-// $ExpectType Uint8Array || Uint8Array<ArrayBufferLike>
+// $ExpectType Uint8Array | null || Uint8Array<ArrayBufferLike> | null
 brotli.compress(Buffer.from("hello"));
 // $ExpectType Uint8Array || Uint8Array<ArrayBufferLike>
 brotli.decompress(Buffer.from("hello"));
 
-// $ExpectType Uint8Array || Uint8Array<ArrayBufferLike>
+// $ExpectType Uint8Array | null || Uint8Array<ArrayBufferLike> | null
 compress(Buffer.from("hello"));
 compress(Buffer.from("hello"), {});
 // $ExpectType Uint8Array || Uint8Array<ArrayBufferLike>
