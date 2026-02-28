@@ -855,7 +855,6 @@ let multipolygonseriesDomain: CoverageJSON.MultiPolygonSeries = {
     referencing,
 };
 
-
 let coverageWithRemoteDomainRange: CoverageJSON.Coverage = {
     type: "Coverage",
     domain: "https://covjson.org/playground/coverages/grid-domain.covjson",
@@ -867,9 +866,9 @@ let coverageWithRemoteDomainRange: CoverageJSON.Coverage = {
             "type": "Parameter",
             "observedProperty": {
                 "label": {
-                    "en": "Bar"
-                }
-            }
-        }
-    }
-}
+                    "en": "Bar",
+                },
+            },
+        },
+    },
+};
