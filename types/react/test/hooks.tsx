@@ -268,8 +268,14 @@ function useEveryHook(ref: React.Ref<{ id: number }> | undefined): () => boolean
 
     // useState convenience overload
     // default to undefined only (not that useful, but type-safe -- no {} or unknown!)
-    // $ExpectType undefined
-    React.useState()[0];
+    {
+        const [state, setState] = React.useState();
+        // $ExpectType undefined
+        state;
+        // Allow void calls when storing undefined
+        setState();
+    }
+
     // $ExpectType number | undefined
     React.useState<number>()[0];
     // default overload
@@ -287,18 +293,31 @@ function useEveryHook(ref: React.Ref<{ id: number }> | undefined): () => boolean
     // make sure setState accepts a function
     setToggle(r => !r);
 
-    // Undesired
-    // Should not type-check since `number` will be `number` at runtime but `() => number` in the type-checker
-    const [number, setNumber] = React.useState<() => number>(() => 0);
-    // Should be `number`
-    // $EpectType () => number
+    // $ExpectType number
+    React.useState(() => 0)[0];
+    // $ExpectType string
+    React.useState(() => "")[0];
+
+    React.useState();
+
+    // make sure optional functions signatures works as expected
+    const [number, setNumber] = React.useState<() => number>();
+    // $ExpectType (() => number) | undefined
     number;
+    setNumber();
+    // When storing a function, don't allow direct input to update the state
+    // @ts-expect-error
+    setNumber(() => 0);
+    setNumber(() => () => 0);
+    // When storing a function, don't allow direct input to initialize the state
+    // @ts-expect-error
+    React.useState<() => number>(() => 0);
 
     const [numFunc, setNumFunc] = React.useState<() => number>(() => () => 0);
     // $ExpectType () => number
     numFunc;
-    // Undesired
-    // Should not typecheck since that would update the state to `number` when the type-checker would still consider the state to be `() => number`
+    // When storing a function, don't allow direct input to update the state
+    // @ts-expect-error
     setNumFunc(() => 42);
     // this is the correct way to set a function in state
     setNumFunc(() => () => 42);
@@ -313,20 +332,37 @@ function useEveryHook(ref: React.Ref<{ id: number }> | undefined): () => boolean
     // $ExpectType () => number
     React.useState(() => () => 0)[0];
 
-    // Undesired
     // Classes should only be accepted as a return value of state initializer/updater functions not direct input.
     // React would call the constructor causing a TypeError.
+    // @ts-expect-error
     React.useState(class {});
     // This is the correct way to store classes in state.
     // $ExpectType typeof A
     React.useState(() => class A {})[0];
 
     const [_, setClass] = React.useState(() => class {});
-    // Undesired
     // Classes should only be accepted as a return value of state initializer/updater functions not direct input.
     // React would call the constructor causing a TypeError,
+    // @ts-expect-error
     setClass(class {});
     setClass(() => class {});
+
+    {
+        class A {}
+
+        const [_, setClass] = React.useState<typeof A>();
+
+        // Classes should only be accepted as a return value of state initializer/updater functions not direct input.
+        // React would call the constructor causing a TypeError,
+        // @ts-expect-error
+        setClass(class {});
+        setClass(() => class {});
+        setClass();
+    }
+
+    // Should allow generic any
+    // $ExpectType any
+    React.useState<any>()[0];
 
     // useReducer convenience overload
 
