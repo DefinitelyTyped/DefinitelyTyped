@@ -328,6 +328,24 @@ interface Credentials {
     removePassword(service: string, user: User): null;
 }
 
+/// https://docs.nova.app/api-reference/crypto/
+
+type IntegerTypedArray =
+    | Int8Array
+    | Uint8Array
+    | Uint8ClampedArray
+    | Int16Array
+    | Uint16Array
+    | Int32Array
+    | Uint32Array
+    | BigInt64Array
+    | BigUint64Array;
+
+interface Crypto {
+    getRandomValues<T extends IntegerTypedArray>(typedArray: T): T;
+    randomUUID(): string;
+}
+
 /// https://docs.nova.app/api-reference/disposable/
 
 declare class Disposable {
@@ -359,6 +377,7 @@ interface Environment {
     readonly clipboard: Clipboard;
     readonly config: Configuration;
     readonly credentials: Credentials;
+    readonly crypto: Crypto;
     readonly extension: Extension;
     readonly environment: { [key: string]: string };
     readonly path: Path;
