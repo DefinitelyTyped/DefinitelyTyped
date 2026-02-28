@@ -203,14 +203,6 @@ const cbOptionalError: () => Promise<void | {}> = util.promisify((cb: (err?: Err
     cb();
 });
 assert(typeof util.promisify.custom === "symbol");
-// util.deprecate
-const foo = () => {};
-// $ExpectType () => void
-util.deprecate(foo, "foo() is deprecated, use bar() instead");
-// $ExpectType <T extends Function>(fn: T, msg: string, code?: string | undefined) => T
-util.deprecate(util.deprecate, "deprecate() is deprecated, use bar() instead");
-// $ExpectType <T extends Function>(fn: T, msg: string, code?: string | undefined) => T
-util.deprecate(util.deprecate, "deprecate() is deprecated, use bar() instead", "DEP0001");
 
 // util.isDeepStrictEqual
 util.isDeepStrictEqual({ foo: "bar" }, { foo: "bar" }); // $ExpectType boolean
@@ -285,6 +277,19 @@ util.setTraceSigInt(true);
 
 {
     util.stripVTControlCharacters("\u001B[4mvalue\u001B[0m"); // $ExpectType string
+}
+
+{
+    const foo = () => {};
+
+    // $ExpectType () => void
+    util.deprecate(foo, "foo() is deprecated, use bar() instead");
+    // $ExpectType () => void
+    util.deprecate(foo, "foo() is deprecated, use bar() instead", "DEP0001");
+    // $ExpectType () => void
+    util.deprecate(foo, "foo() is deprecated, use bar() instead", "DEP0001", { modifyPrototype: false });
+    // $ExpectType <T extends Function>(fn: T, msg: string, code?: string | undefined, options?: DeprecateOptions | undefined) => T
+    util.deprecate(util.deprecate, "pass-through return type");
 }
 
 {
