@@ -451,7 +451,7 @@ export interface Coverage<D extends Domain = Domain> {
 }
 
 export interface Ranges {
-    [key: string]: NdArray;
+    [key: string]: NdArray | string;
 }
 
 /**
