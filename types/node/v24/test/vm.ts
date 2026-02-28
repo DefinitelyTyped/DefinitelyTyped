@@ -200,7 +200,7 @@ import {
                         // "contextifiedObject" when creating the context.
                         export default secret;
                     `,
-                    { context: rootModule.context },
+                    { context: module.context },
                 );
                 moduleMap.set(specifier, requestedModule);
 
