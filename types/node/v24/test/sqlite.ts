@@ -84,8 +84,9 @@ import { TextEncoder } from "node:util";
 
 {
     const database = new DatabaseSync(":memory:", { allowExtension: true });
-    database.loadExtension("/path/to/extension.so");
-    database.enableLoadExtension(false);
+    database.enableDefensive(true); // $ExpectType void
+    database.loadExtension("/path/to/extension.so"); // $ExpectType void
+    database.enableLoadExtension(false); // $ExpectType void
 }
 
 {

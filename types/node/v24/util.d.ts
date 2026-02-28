@@ -792,6 +792,14 @@ declare module "util" {
      */
     export function debuglog(section: string, callback?: (fn: DebugLoggerFunction) => void): DebugLogger;
     export { debuglog as debug };
+    export interface DeprecateOptions {
+        /**
+         * When false do not change the prototype of object while emitting the deprecation warning.
+         * @since v24.12.0
+         * @default true
+         */
+        modifyPrototype?: boolean | undefined;
+    }
     /**
      * The `util.deprecate()` method wraps `fn` (which may be a function or class) in
      * such a way that it is marked as deprecated.
@@ -852,7 +860,7 @@ declare module "util" {
      * @param code A deprecation code. See the `list of deprecated APIs` for a list of codes.
      * @return The deprecated function wrapped to emit a warning.
      */
-    export function deprecate<T extends Function>(fn: T, msg: string, code?: string): T;
+    export function deprecate<T extends Function>(fn: T, msg: string, code?: string, options?: DeprecateOptions): T;
     export interface IsDeepStrictEqualOptions {
         /**
          * If `true`, prototype and constructor
