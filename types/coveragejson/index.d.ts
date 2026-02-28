@@ -88,7 +88,6 @@ export interface ObservedProperty {
     description?: I18N;
     /**MUST be a non-empty array of category objects */
     categories?: [Category, ...Category[]];
-    categoryEnconding?: CategoryEncoding;
 }
 
 /**
@@ -452,7 +451,7 @@ export interface Coverage<D extends Domain = Domain> {
 }
 
 export interface Ranges {
-    [key: string]: NdArray;
+    [key: string]: NdArray | string;
 }
 
 /**
@@ -511,7 +510,7 @@ export interface Grid extends DomainObject {
     axes: {
         x: { values: number[] } | RegularlySpacedAxis;
         y: { values: number[] } | RegularlySpacedAxis;
-        z?: { values: number[] };
+        z?: { values: number[] } | RegularlySpacedAxis;
         t?: { values: string[] };
     };
 }
@@ -526,7 +525,7 @@ export interface VerticalProfile extends DomainObject {
         x: { values: [number] };
         // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
         y: { values: [number] };
-        z: { values: number[] };
+        z: { values: number[] } | RegularlySpacedAxis;
         // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
         t?: { values: [string] };
     };
@@ -638,7 +637,7 @@ export interface Section extends DomainObject {
             coordinates: ["t", "x", "y"];
             values: [string, number, number][];
         };
-        z: { values: number[] };
+        z: { values: number[] } | RegularlySpacedAxis;
     };
 }
 
