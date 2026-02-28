@@ -463,7 +463,7 @@ declare module "node:v8" {
      * ```
      * @since v25.0.0
      */
-    function startCPUProfile(): SyncCPUProfileHandle;
+    function startCpuProfile(): SyncCPUProfileHandle;
     /**
      * V8 only supports `Latin-1/ISO-8859-1` and `UTF16` as the underlying representation of a string.
      * If the `content` uses `Latin-1/ISO-8859-1` as the underlying representation, this function will return true;
