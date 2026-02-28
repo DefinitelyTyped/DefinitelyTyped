@@ -88,7 +88,6 @@ export interface ObservedProperty {
     description?: I18N;
     /**MUST be a non-empty array of category objects */
     categories?: [Category, ...Category[]];
-    categoryEnconding?: CategoryEncoding;
 }
 
 /**
