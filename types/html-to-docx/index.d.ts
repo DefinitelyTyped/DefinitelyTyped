@@ -7,7 +7,7 @@ declare namespace HtmlToDocx {
         bottom?: number;
         left?: number;
         header?: number;
-        fotter?: number;
+        footer?: number;
         gutter?: number;
     }
 
