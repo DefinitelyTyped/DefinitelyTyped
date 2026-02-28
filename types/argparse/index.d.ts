@@ -24,9 +24,37 @@ export class SubParser {
     add_parser(name: string, options?: SubArgumentParserOptions): ArgumentParser;
 }
 
+type StrOrOptions = string | ArgumentOptions;
+
 export class ArgumentGroup {
-    add_argument(arg: string, options?: ArgumentOptions): void;
-    add_argument(arg1: string, arg2: string, options?: ArgumentOptions): void;
+    /**
+     * One argument
+     */
+    add_argument(name: string, options?: ArgumentOptions): void;
+
+    /**
+     * Arguments array
+     */
+    add_argument(args: string[], options?: ArgumentOptions): void;
+
+    /** 2-9 arguments with options */
+    add_argument(arg1: string, arg2: string, options: ArgumentOptions): void;
+    add_argument(arg1: string, arg2: string, arg3: string, options: ArgumentOptions): void;
+    add_argument(arg1: string, arg2: string, arg3: string, arg4: string, options: ArgumentOptions): void;
+    add_argument(arg1: string, arg2: string, arg3: string, arg4: string, arg5: string, options: ArgumentOptions): void;
+    add_argument(arg1: string, arg2: string, arg3: string, arg4: string, arg5: string, arg6: string, options: ArgumentOptions): void;
+    add_argument(arg1: string, arg2: string, arg3: string, arg4: string, arg5: string, arg6: string, arg7: string, options: ArgumentOptions): void;
+    add_argument(arg1: string, arg2: string, arg3: string, arg4: string, arg5: string, arg6: string, arg7: string, arg8: string, options: ArgumentOptions): void;
+    add_argument(arg1: string, arg2: string, arg3: string, arg4: string, arg5: string, arg6: string, arg7: string, arg8: string, arg9: string, options: ArgumentOptions): void;
+
+    /**
+     * More than one argument without options
+     */
+    add_argument(...args: string[]): void;
+
+    /** More than 9 arguments with options (not recommended) */
+    add_argument(...args_and_options: StrOrOptions[]): void;
+
     add_argument_group(options?: ArgumentGroupOptions): ArgumentGroup;
     add_mutually_exclusive_group(options?: { required: boolean }): ArgumentGroup;
     set_defaults(options?: {}): void;
