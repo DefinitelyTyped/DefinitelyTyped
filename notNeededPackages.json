@@ -1160,6 +1160,10 @@
             "libraryName": "conf",
             "asOfVersion": "3.0.0"
         },
+        "config": {
+            "libraryName": "config",
+            "asOfVersion": "4.4.0"
+        },
         "confirmdialog": {
             "libraryName": "confirmdialog",
             "asOfVersion": "1.0.0"
