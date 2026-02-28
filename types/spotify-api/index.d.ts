@@ -911,6 +911,7 @@ declare namespace SpotifyApi {
         copyrights: CopyrightObject[];
         /**
          * Known external IDs for the album.
+         * @deprecated since February 2026 for Development Mode apps
          */
         external_ids: ExternalIdObject;
         /**
@@ -920,11 +921,13 @@ declare namespace SpotifyApi {
         genres: string[];
         /**
          * The label for the album.
+         * @deprecated since February 2026 for Development Mode apps
          */
         label: string;
         /**
          * The popularity of the album. The value will be between `0` and `100`, with `100` being the most popular.
          * The popularity is calculated from the popularity of the album’s individual tracks;
+         * @deprecated since February 2026 for Development Mode apps
          */
         popularity: number;
         /**
@@ -942,6 +945,7 @@ declare namespace SpotifyApi {
          * The field is present when getting an artist’s albums.
          * Possible values are “album”, “single”, “compilation”, “appears_on”.
          * Compare to album_type this field represents relationship between the artist and the album.
+         * @deprecated since February 2026 for Development Mode apps
          */
         album_group?: "album" | "single" | "compilation" | "appears_on" | undefined;
         /**
@@ -956,6 +960,7 @@ declare namespace SpotifyApi {
         /**
          * The markets in which the album is available: [ISO 3166-1 alpha-2 country codes](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
          * Note that an album is considered available in a market when at least 1 of its tracks is available in that market.
+         * @deprecated since February 2026 for Development Mode apps
          */
         available_markets?: string[] | undefined;
         /**
@@ -1000,6 +1005,7 @@ declare namespace SpotifyApi {
     interface ArtistObjectFull extends ArtistObjectSimplified {
         /**
          * Information about the followers of the artist.
+         * @deprecated since February 2026 for Development Mode apps
          */
         followers: FollowersObject;
         /**
@@ -1015,6 +1021,7 @@ declare namespace SpotifyApi {
         /**
          * The popularity of the artist. The value will be between `0` and `100`, with `100` being the most popular.
          * The artist’s popularity is calculated from the popularity of all the artist’s tracks.
+         * @deprecated since February 2026 for Development Mode apps
          */
         popularity: number;
     }
@@ -1334,8 +1341,14 @@ declare namespace SpotifyApi {
         followers: FollowersObject;
         /**
          * Information about the tracks of the playlist.
+         * @deprecated since February 2026 for Development Mode apps, use `items`
          */
         tracks: PagingObject<PlaylistTrackObject>;
+        /**
+         * Information about the items of the playlist. Only available when retrieving a users own
+         * playlist. Not available for all other playlists.
+         */
+        items?: PagingObject<PlaylistTrackObject>;
     }
 
     /**
@@ -1343,7 +1356,19 @@ declare namespace SpotifyApi {
      * [](https://developer.spotify.com/web-api/object-model/)
      */
     interface PlaylistObjectSimplified extends PlaylistBaseObject {
+        /**
+         * Information about the tracks of the playlist.
+         * @deprecated since February 2026 for Development Mode apps, use `items`
+         */
         tracks: {
+            href: string;
+            total: number;
+        };
+        /**
+         * Information about the items of the playlist. Only available when retrieving a users own
+         * playlist. Not available for all other playlists.
+         */
+        items?: {
             href: string;
             total: number;
         };
@@ -1357,7 +1382,11 @@ declare namespace SpotifyApi {
         added_at: string;
         added_by: UserObjectPublic;
         is_local: boolean;
+        /**
+         * @deprecated since February 2026 for Development Mode apps, use `item`
+         */
         track: TrackObjectFull | null;
+        item: TrackObjectFull | null;
     }
 
     /**
@@ -1461,6 +1490,7 @@ declare namespace SpotifyApi {
         album: AlbumObjectSimplified;
         /**
          * Known external IDs for the track.
+         * @deprecated since February 2026 for Development Mode apps
          */
         external_ids: ExternalIdObject;
         /**
@@ -1468,6 +1498,7 @@ declare namespace SpotifyApi {
          * The popularity of a track is a value between `0` and `100`, with `100` being the most popular.
          * The popularity is calculated by algorithm and is based, in the most part,
          * on the total number of plays the track has had and how recent those plays are.
+         * @deprecated since February 2026 for Development Mode apps
          */
         popularity: number;
         /**
@@ -1488,6 +1519,7 @@ declare namespace SpotifyApi {
         /**
          * A list of the countries in which the track can be played,
          * identified by their [ISO 3166-1 alpha-2 code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+         * @deprecated since February 2026 for Development Mode apps
          */
         available_markets?: string[] | undefined;
         /**
@@ -1504,6 +1536,7 @@ declare namespace SpotifyApi {
         explicit: boolean;
         /**
          * Known external URLs for this track.
+         * @deprecated since February 2026 for Development Mode apps
          */
         external_urls: ExternalUrlObject;
         /**
@@ -1686,6 +1719,7 @@ declare namespace SpotifyApi {
     interface ShowObjectSimplified extends ContextObject {
         /**
          * A list of the countries in which the show can be played, identified by their [ISO 3166-1 alpha-2 code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+         *  @deprecated since February 2026 for Development Mode apps
          */
         available_markets: string[];
         /**
@@ -1730,6 +1764,7 @@ declare namespace SpotifyApi {
         name: string;
         /**
          * The publisher of the show.
+         * @deprecated since February 2026 for Development Mode apps
          */
         publisher: string;
         /**
@@ -1751,8 +1786,17 @@ declare namespace SpotifyApi {
      */
     interface UserObjectPrivate extends UserObjectPublic {
         birthdate: string;
+        /**
+         * @deprecated since February 2026 for Development Mode apps
+         */
         country: string;
+        /**
+         * @deprecated since February 2026 for Development Mode apps
+         */
         email: string;
+        /**
+         * @deprecated since February 2026 for Development Mode apps
+         */
         product: string;
     }
 
@@ -1763,6 +1807,9 @@ declare namespace SpotifyApi {
     interface UserObjectPublic {
         display_name?: string | undefined;
         external_urls: ExternalUrlObject;
+        /**
+         * @deprecated since February 2026 for Development Mode apps
+         */
         followers?: FollowersObject | undefined;
         href: string;
         id: string;
