@@ -4076,7 +4076,11 @@ declare namespace _ {
     }
     type LodashSubtract1x1 = (subtrahend: number) => number;
     type LodashSubtract1x2 = (minuend: number) => number;
-    type LodashSum = (collection: lodash.List<any> | null | undefined) => number;
+    interface LodashSum {
+        (collection: readonly []): number;
+        (collection: lodash.List<bigint>): bigint;
+        (collection: lodash.List<any> | bigint | number | null | undefined): number;
+    }
     interface LodashSumBy {
         <T>(iteratee: ((value: T) => number) | string): LodashSumBy1x1<T>;
         <T>(iteratee: lodash.__, collection: lodash.List<T> | null | undefined): LodashSumBy1x2<T>;

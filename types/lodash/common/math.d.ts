@@ -354,19 +354,28 @@ declare module "../index" {
          * _.sum([4, 2, 8, 6]);
          * // => 20
          */
-        sum(collection: List<any> | null | undefined): number;
+        sum(collection: readonly []): number;
+        sum(collection: List<bigint>): bigint;
+        sum(collection: List<any> | bigint | number | null | undefined): number;
     }
+    
+    type IsAny<T> = 0 extends (1 & T) ? true : false;
+    type IsNever<T> = [T] extends [never] ? true : false;
+    type IsBigint<T> = IsAny<T> extends true ? false : IsNever<T> extends true ? false : [T] extends [bigint] ? ([bigint] extends [T] ? true : false) : false;
+    type ElementType<T> = T extends bigint ? bigint : T extends List<infer U> ? U : never;
+    type SumResult<T> = IsBigint<ElementType<T>> extends true ? bigint : number;
+
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.sum
          */
-        sum(): number;
+        sum(): SumResult<TValue>;
     }
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.sum
          */
-        sum(): PrimitiveChain<number>;
+        sum(): PrimitiveChain<SumResult<TValue>>;
     }
 
     interface LoDashStatic {

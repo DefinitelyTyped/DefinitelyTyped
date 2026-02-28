@@ -5100,12 +5100,40 @@ fp.now(); // $ExpectType number
 
 // _.sum
 {
-    const list: ArrayLike<number> | null | undefined = anything;
+     const anyList: ArrayLike<any> | bigint | number | null | undefined = anything;
+    
+    _.sum(anyList); // $ExpectType number
+    _(anyList).sum(); // $ExpectType number
+    _(anyList).chain().sum(); // $ExpectType PrimitiveChain<number>
+    fp.sum(anyList); // $ExpectType number
 
-    _.sum(list); // $ExpectType number
-    _(list).sum(); // $ExpectType number
-    _(list).chain().sum(); // $ExpectType PrimitiveChain<number>
-    fp.sum(list); // $ExpectType number
+    const bigintList: ArrayLike<bigint> = anything;
+
+    _.sum(bigintList); // $ExpectType bigint
+    _(bigintList).sum(); // $ExpectType bigint
+    _(bigintList).chain().sum(); // $ExpectType PrimitiveChain<bigint>
+    fp.sum(bigintList); // $ExpectType bigint
+
+    const emptyList: any[] = anything;
+    
+    _.sum(emptyList); // $ExpectType number
+    _(emptyList).sum(); // $ExpectType number
+    _(emptyList).chain().sum(); // $ExpectType PrimitiveChain<number>
+    fp.sum(emptyList); // $ExpectType number
+
+    const nullValue: null = anything;
+    
+    _.sum(nullValue); // $ExpectType number
+    _(nullValue).sum(); // $ExpectType number
+    _(nullValue).chain().sum(); // $ExpectType PrimitiveChain<number>
+    fp.sum(nullValue); // $ExpectType number
+    
+    const undefinedValue: undefined = anything;
+    
+    _.sum(undefinedValue); // $ExpectType number
+    _(undefinedValue).sum(); // $ExpectType number
+    _(undefinedValue).chain().sum(); // $ExpectType PrimitiveChain<number>
+    fp.sum(undefinedValue); // $ExpectType number
 }
 
 // _.sumBy
