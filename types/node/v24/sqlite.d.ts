@@ -118,6 +118,14 @@ declare module "node:sqlite" {
          * @default false
          */
         allowUnknownNamedParameters?: boolean | undefined;
+        /**
+         * If `true`, enables the defensive flag. When the defensive flag is enabled,
+         * language features that allow ordinary SQL to deliberately corrupt the database
+         * file are disabled. The defensive flag can also be set using `enableDefensive()`.
+         * @since v24.12.0
+         * @default true
+         */
+        defensive?: boolean | undefined;
     }
     interface CreateSessionOptions {
         /**
@@ -289,6 +297,16 @@ declare module "node:sqlite" {
          * @param allow Whether to allow loading extensions.
          */
         enableLoadExtension(allow: boolean): void;
+        /**
+         * Enables or disables the defensive flag. When the defensive flag is active,
+         * language features that allow ordinary SQL to deliberately corrupt the
+         * database file are disabled.
+         * See [`SQLITE_DBCONFIG_DEFENSIVE`](https://www.sqlite.org/c3ref/c_dbconfig_defensive.html#sqlitedbconfigdefensive)
+         * in the SQLite documentation for details.
+         * @since v24.12.0
+         * @param active Whether to set the defensive flag.
+         */
+        enableDefensive(active: boolean): void;
         /**
          * This method is a wrapper around [`sqlite3_db_filename()`](https://sqlite.org/c3ref/db_filename.html)
          * @since v24.0.0
@@ -523,6 +541,11 @@ declare module "node:sqlite" {
          * [`sqlite3session_delete()`](https://www.sqlite.org/session/sqlite3session_delete.html).
          */
         close(): void;
+        /**
+         * Closes the session. If the session is already closed, does nothing.
+         * @since v24.9.0
+         */
+        [Symbol.asyncDispose](): void;
     }
     /**
      * This class represents a single LRU (Least Recently Used) cache for storing

@@ -57,8 +57,8 @@
 declare module "worker_threads" {
     import { Context } from "node:vm";
     import { EventEmitter, NodeEventTarget } from "node:events";
-    import { EventLoopUtilityFunction } from "node:perf_hooks";
     import { FileHandle } from "node:fs/promises";
+    import { Performance } from "node:perf_hooks";
     import { Readable, Writable } from "node:stream";
     import { ReadableStream, TransformStream, WritableStream } from "node:stream/web";
     import { URL } from "node:url";
@@ -91,9 +91,7 @@ declare module "worker_threads" {
         readonly port1: MessagePort;
         readonly port2: MessagePort;
     }
-    interface WorkerPerformance {
-        eventLoopUtilization: EventLoopUtilityFunction;
-    }
+    interface WorkerPerformance extends Pick<Performance, "eventLoopUtilization"> {}
     type Transferable =
         | ArrayBuffer
         | MessagePort
@@ -410,7 +408,7 @@ declare module "worker_threads" {
         readonly resourceLimits?: ResourceLimits | undefined;
         /**
          * An object that can be used to query performance information from a worker
-         * instance. Similar to `perf_hooks.performance`.
+         * instance.
          * @since v15.1.0, v14.17.0, v12.22.0
          */
         readonly performance: WorkerPerformance;

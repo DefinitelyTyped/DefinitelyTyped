@@ -241,12 +241,12 @@ Module.Module === Module;
 
 // Compile cache
 {
-    // $ExpectType EnableCompileCacheResult
-    Module.enableCompileCache();
-    // $ExpectType EnableCompileCacheResult
-    Module.enableCompileCache(`/var/run/nodejs/${process.pid}`);
+    let result: Module.EnableCompileCacheResult;
+    result = Module.enableCompileCache();
+    result = Module.enableCompileCache(`/var/run/nodejs/${process.pid}`);
+    result = Module.enableCompileCache({ portable: true });
+    result = Module.enableCompileCache({ directory: `/var/run/nodejs/${process.pid}`, portable: true });
 
-    const result = Module.enableCompileCache();
     result.status; // $ExpectType number
     result.message; // $ExpectType string | undefined
     result.directory; // $ExpectType string | undefined
