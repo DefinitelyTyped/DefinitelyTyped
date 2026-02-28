@@ -5367,6 +5367,10 @@
             "libraryName": "pino-std-serializers",
             "asOfVersion": "4.0.0"
         },
+        "pixelmatch": {
+            "libraryName": "pixelmatch",
+            "asOfVersion": "7.1.0"
+        },
         "pixi-spine": {
             "libraryName": "pixi-spine",
             "asOfVersion": "1.4.2"
