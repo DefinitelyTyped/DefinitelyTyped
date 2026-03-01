@@ -128,7 +128,7 @@ declare module "node:sqlite" {
          * language features that allow ordinary SQL to deliberately corrupt the database file are disabled.
          * The defensive flag can also be set using `enableDefensive()`.
          * @since v25.1.0
-         * @default false
+         * @default true
          */
         defensive?: boolean | undefined;
     }
