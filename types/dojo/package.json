@@ -8,10 +8,5 @@
     "devDependencies": {
         "@types/dojo": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Michael Van Sickle",
-            "githubUsername": "vansimke"
-        }
-    ]
+    "owners": []
 }
