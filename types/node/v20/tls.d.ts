@@ -188,24 +188,15 @@ declare module "tls" {
     }
     interface TLSSocketOptions extends SecureContextOptions, CommonConnectionOptions {
         /**
-         * If true the TLS socket will be instantiated in server-mode.
-         * Defaults to false.
+         * The SSL/TLS protocol is asymmetrical, TLSSockets must know if they are to behave as a server or a client.
+         * If true the TLS socket will be instantiated as a server.
+         * @default false
          */
         isServer?: boolean | undefined;
         /**
          * An optional net.Server instance.
          */
         server?: net.Server | undefined;
-        /**
-         * An optional Buffer instance containing a TLS session.
-         */
-        session?: Buffer | undefined;
-        /**
-         * If true, specifies that the OCSP status request extension will be
-         * added to the client hello and an 'OCSPResponse' event will be
-         * emitted on the socket before establishing a secure communication
-         */
-        requestOCSP?: boolean | undefined;
     }
     /**
      * Performs transparent encryption of written data and all required TLS
@@ -219,7 +210,7 @@ declare module "tls" {
      */
     class TLSSocket extends net.Socket {
         /**
-         * Construct a new tls.TLSSocket object from an existing TCP socket.
+         * Construct a new tls.TLSSocket object from an existing TCP socket or a stream.Duplex.
          */
         constructor(socket: net.Socket | stream.Duplex, options?: TLSSocketOptions);
         /**
@@ -548,6 +539,65 @@ declare module "tls" {
          */
         SNICallback?: ((servername: string, cb: (err: Error | null, ctx?: SecureContext) => void) => void) | undefined;
         /**
+         * If not `false`, the peer certificate is verified against the list of
+         * supplied CAs. An `'error'` event is emitted if verification fails;
+         * `err.code` contains the OpenSSL error code.
+         * @default true
+         */
+        rejectUnauthorized?: boolean | undefined;
+        /**
+         * An optional Buffer instance containing a TLS session.
+         */
+        session?: Buffer | undefined;
+        /**
+         * If true, specifies that the OCSP status request extension will be
+         * added to the client hello and an 'OCSPResponse' event will be
+         * emitted on the socket before establishing a secure communication
+         */
+        requestOCSP?: boolean | undefined;
+        /**
+         * If set, this will be called when a client opens a connection using the ALPN extension.
+         * One argument will be passed to the callback: an object containing `servername` and `protocols` fields,
+         * respectively containing the server name from the SNI extension (if any) and an array of
+         * ALPN protocol name strings. The callback must return either one of the strings listed in `protocols`,
+         * which will be returned to the client as the selected ALPN protocol, or `undefined`,
+         * to reject the connection with a fatal alert. If a string is returned that does not match one of
+         * the client's ALPN protocols, an error will be thrown.
+         * This option cannot be used with the `ALPNProtocols` option, and setting both options will throw an error.
+         */
+        ALPNCallback?: ((arg: { servername: string | false; protocols: string[] }) => string | undefined) | undefined;
+    }
+    interface ClientConnectionOptions extends
+        Pick<
+            CommonConnectionOptions,
+            | "secureContext"
+            | "enableTrace"
+            | "ALPNProtocols"
+            | "rejectUnauthorized"
+            | "session"
+            | "requestOCSP"
+        >
+    {
+        /**
+         * If not `false`, the server certificate is verified against the list of
+         * supplied CAs. An `'error'` event is emitted if verification fails;
+         * `err.code` contains the OpenSSL error code.
+         * @default true
+         */
+        rejectUnauthorized?: boolean | undefined;
+    }
+    interface ServerConnectionOptions extends
+        Pick<
+            CommonConnectionOptions,
+            | "enableTrace"
+            | "requestCert"
+            | "ALPNProtocols"
+            | "SNICallback"
+            | "rejectUnauthorized"
+            | "ALPNCallback"
+        >
+    {
+        /**
          * If true the server will reject any connection which is not
          * authorized with the list of supplied CAs. This option only has an
          * effect if requestCert is true.
@@ -555,7 +605,7 @@ declare module "tls" {
          */
         rejectUnauthorized?: boolean | undefined;
     }
-    interface TlsOptions extends SecureContextOptions, CommonConnectionOptions, net.ServerOpts {
+    interface TlsOptions extends SecureContextOptions, ServerConnectionOptions, net.ServerOpts {
         /**
          * Abort the connection if the SSL/TLS handshake does not finish in the
          * specified number of milliseconds. A 'tlsClientError' is emitted on
@@ -604,14 +654,13 @@ declare module "tls" {
         psk: NodeJS.ArrayBufferView;
         identity: string;
     }
-    interface ConnectionOptions extends SecureContextOptions, CommonConnectionOptions {
+    interface ConnectionOptions extends SecureContextOptions, ClientConnectionOptions {
         host?: string | undefined;
         port?: number | undefined;
         path?: string | undefined; // Creates unix socket connection to path. If this option is specified, `host` and `port` are ignored.
         socket?: stream.Duplex | undefined; // Establish secure connection on a given socket rather than creating a new socket
         checkServerIdentity?: typeof checkServerIdentity | undefined;
         servername?: string | undefined; // SNI TLS Extension
-        session?: Buffer | undefined;
         minDHSize?: number | undefined;
         lookup?: net.LookupFunction | undefined;
         timeout?: number | undefined;
@@ -834,17 +883,6 @@ declare module "tls" {
     }
     type SecureVersion = "TLSv1.3" | "TLSv1.2" | "TLSv1.1" | "TLSv1";
     interface SecureContextOptions {
-        /**
-         * If set, this will be called when a client opens a connection using the ALPN extension.
-         * One argument will be passed to the callback: an object containing `servername` and `protocols` fields,
-         * respectively containing the server name from the SNI extension (if any) and an array of
-         * ALPN protocol name strings. The callback must return either one of the strings listed in `protocols`,
-         * which will be returned to the client as the selected ALPN protocol, or `undefined`,
-         * to reject the connection with a fatal alert. If a string is returned that does not match one of
-         * the client's ALPN protocols, an error will be thrown.
-         * This option cannot be used with the `ALPNProtocols` option, and setting both options will throw an error.
-         */
-        ALPNCallback?: ((arg: { servername: string; protocols: string[] }) => string | undefined) | undefined;
         /**
          * Treat intermediate (non-self-signed)
          * certificates in the trust CA certificate list as trusted.

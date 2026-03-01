@@ -1,4 +1,5 @@
 import * as fs from "node:fs";
+import * as net from "node:net";
 import * as stream from "node:stream";
 import {
     connect,
@@ -38,6 +39,7 @@ import {
                 psk: Buffer.from("asd"),
             };
         },
+        requestOCSP: true,
     };
     const tlsSocket = connect(connOpts);
 
@@ -82,7 +84,7 @@ import {
 }
 
 {
-    const _server = createServer({
+    const options: TlsOptions = {
         enableTrace: true,
         pskCallback(socket, ident) {
             if (ident === "something") {
@@ -90,7 +92,8 @@ import {
             }
             return Buffer.from("asdasd");
         },
-    });
+    };
+    const _server = createServer(options);
 
     _server.addContext("example", {
         cert: fs.readFileSync("cert_filepath"),
@@ -370,4 +373,15 @@ import {
             cb(null, ctx);
         },
     };
+}
+
+{
+    // server mode
+    ((socket: net.Socket, server: net.Server | undefined) => new TLSSocket(socket, { isServer: true, server: server }));
+    ((duplex: stream.Duplex, server: net.Server | undefined) =>
+        new TLSSocket(duplex, { isServer: true, server: server }));
+    // client mode
+    ((socket: net.Socket) => new TLSSocket(socket, { isServer: false }));
+    // backward compatibility with mixed options
+    ((duplex: stream.Duplex) => new TLSSocket(duplex, { isServer: false, ALPNCallback: undefined, requestOCSP: true }));
 }
