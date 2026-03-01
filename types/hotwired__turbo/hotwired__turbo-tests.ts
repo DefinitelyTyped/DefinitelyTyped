@@ -114,6 +114,13 @@ document.addEventListener("turbo:before-render", function(e) {
         // $ExpectType HTMLBodyElement
         newElement;
     };
+    // $ExpectType (value?: unknown) => void
+    e.detail.resume;
+});
+
+document.addEventListener("turbo:before-frame-render", function(e) {
+    // $ExpectType (value?: unknown) => void
+    e.detail.resume;
 });
 
 document.addEventListener("turbo:frame-missing", function(event) {
