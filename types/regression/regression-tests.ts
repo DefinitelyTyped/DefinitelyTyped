@@ -10,3 +10,8 @@ const result6 = Regression._round(10.312, 3);
 const result7 = Regression.polynomial(data, { order: 4 });
 const result8 = Regression.polynomial(data, { precision: 4 });
 const result9 = Regression.polynomial(data, { order: 4, precision: 4 });
+
+// Immitate a common pattern of mapping into `readonly [number, number]`
+// using the `as const`. (Without `as const`, it remains number[]).
+const data2 = Array.from({ length: 2 }).map((_, i) => [i, i] as const);
+Regression.linear(data);
