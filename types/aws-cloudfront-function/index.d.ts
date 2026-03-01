@@ -3,7 +3,7 @@ declare namespace AWSCloudFrontFunction {
         version: "1.0";
         context: Context;
         viewer: Viewer;
-        request: Request;
+        request: Request & RequestMethods;
         response: Response;
     }
 
@@ -24,6 +24,17 @@ declare namespace AWSCloudFrontFunction {
         querystring: ValueObject;
         headers: ValueObject;
         cookies: ValueObject;
+    }
+
+    interface RequestMethods {
+        /**
+         * Use the rawQueryString() method to retrieve the unparsed and unaltered query string as a string.
+         * @returns Returns the full query string of the incoming request as a string value without the leading ?.
+         * - If there isn't a query string, but the ? is present, the functions returns an empty string.
+         * - If there isn't a query string and the ? isn't present, the function returns undefined.
+         * @see https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/general-helper-methods.html#raw-query-string-method
+         */
+        rawQueryString(): string | undefined;
     }
 
     interface Response {
@@ -225,11 +236,35 @@ declare module "cloudfront" {
      */
     function createRequestOriginGroup(params: CreateRequestOriginGroupParams): void;
 
+    /**
+     * Use this JavaScript object to obtain the edge location airport code,
+     * expected Regional Edge Cache region or the CloudFront server IP address used to handle the request.
+     * This metadata is available only the viewer request event trigger.
+     * @see https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/general-helper-methods.html#edge-location-metadata
+     */
+    interface EdgeLocation {
+        /**
+         * The three-letter IATA code of the edge location that handled the request.
+         */
+        name: string;
+        /**
+         * The IPv4 or IPv6 address of the server that handled the request.
+         */
+        serverIp: string;
+        /**
+         * The CloudFront Regional Edge Cache (REC) that the request is expected to use if there is a cache miss.
+         * This value is not updated in the event that the expected REC is unavailable and a backup REC is used for the request.
+         * This doesn't include the Origin Shield location being used, except in cases when the primary REC and the Origin Shield are the same location.
+         */
+        region: string;
+    }
+
     const cf: {
         kvs: typeof kvs;
         updateRequestOrigin: typeof updateRequestOrigin;
         selectRequestOriginById: typeof selectRequestOriginById;
         createRequestOriginGroup: typeof createRequestOriginGroup;
+        edgeLocation: EdgeLocation;
     };
 
     export default cf;
