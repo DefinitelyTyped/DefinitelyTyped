@@ -1290,6 +1290,11 @@ export interface ColumnDefinition extends ColumnLayout, CellCallbacks {
     mutatorClipboardParams?: CustomMutatorParams | undefined;
 
     /**
+     * Tell these columns to trigger their mutator when a value in this column has changes
+     * @see {@link https://tabulator.info/docs/6.3/mutators#mutator-link} */
+    mutateLink?: string | string[] | undefined;
+
+    /**
      * Accessors are used to alter data as it is extracted from the table, through commands, the clipboard, or download.
      *
      * You can set accessors on a per column basis using the accessor option in the column definition object.
