@@ -2013,7 +2013,7 @@ declare module "../index" {
          * _.omit(object, ['a', 'c']);
          * // => { 'b': '2' }
          */
-        omit<T extends object, K extends PropertyName[]>(
+        omit<T extends object, K extends PropertyPath[]>(
             object: T | null | undefined,
             ...paths: K
         ): Pick<T, Exclude<keyof T, K[number]>>;
@@ -2024,13 +2024,13 @@ declare module "../index" {
         /**
          * @see _.omit
          */
-        omit<T extends object>(object: T | null | undefined, ...paths: Array<Many<PropertyName>>): PartialObject<T>;
+        omit<T extends object>(object: T | null | undefined, ...paths: Array<Many<PropertyPath>>): PartialObject<T>;
     }
     interface Collection<T> {
         /**
          * @see _.omit
          */
-        omit(...paths: Array<Many<PropertyName>>): Collection<T>;
+        omit(...paths: Array<Many<PropertyPath>>): Collection<T>;
     }
     interface Object<T> {
         /**
@@ -2040,13 +2040,13 @@ declare module "../index" {
         /**
          * @see _.omit
          */
-        omit(...paths: Array<Many<PropertyName | IterateeShorthand<T>>>): Object<PartialObject<T>>;
+        omit(...paths: Array<Many<PropertyPath | IterateeShorthand<T>>>): Object<PartialObject<T>>;
     }
     interface CollectionChain<T> {
         /**
          * @see _.omit
          */
-        omit(...paths: Array<Many<PropertyName>>): CollectionChain<T>;
+        omit(...paths: Array<Many<PropertyPath>>): CollectionChain<T>;
     }
     interface ObjectChain<T> {
         /**
@@ -2056,7 +2056,7 @@ declare module "../index" {
         /**
          * @see _.omit
          */
-        omit(...paths: Array<Many<PropertyName>>): ObjectChain<PartialObject<T>>;
+        omit(...paths: Array<Many<PropertyPath>>): ObjectChain<PartialObject<T>>;
     }
     interface LoDashStatic {
         /**
