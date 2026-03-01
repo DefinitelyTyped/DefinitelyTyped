@@ -1741,20 +1741,20 @@ declare module "html-rewriter" {
          * @param text is the new text to insert.
          * @param trailing_opt controls whether elements missing a close tag should have one inserted.
          */
-        after(text: string, trailing_opt?: TrailingOpt): void;
+        after(text: string | Promise<string> | Promise<ReadableStream>, trailing_opt?: TrailingOpt): void;
 
         /**
          * Insert content right before the end tag of the element.
          * @param text is the new text to insert.
          * @param trailing_opt controls whether elements missing a close tag should have one inserted.
          */
-        append(text: string, trailing_opt?: TrailingOpt): void;
+        append(text: string | Promise<string> | Promise<ReadableStream>, trailing_opt?: TrailingOpt): void;
 
         /**
          * Insert new content immediately before the start tag of the matched element.
          * @param text is the new text to insert.
          */
-        before(text: string): void;
+        before(text: string | Promise<string> | Promise<ReadableStream>): void;
 
         /**
          * Read the value of a given attribute name on the tag or undefined if it doesn’t exist.
@@ -1766,7 +1766,7 @@ declare module "html-rewriter" {
          * Insert content right after the start tag of the element.
          * @param text is the new text to insert.
          */
-        prepend(text: string): void;
+        prepend(text: string | Promise<string> | Promise<ReadableStream>): void;
 
         /**
          * Removes the attribute if exists.
@@ -1779,13 +1779,13 @@ declare module "html-rewriter" {
          * @param text is the text to replace.
          * @param trailing_opt controls whether elements missing a close tag should have one inserted.
          */
-        replaceChildren(text: string, trailing_opt?: TrailingOpt): void;
+        replaceChildren(text: string | Promise<string> | Promise<ReadableStream>, trailing_opt?: TrailingOpt): void;
 
         /**
          * Remove the current element and its children, and insert the passed content in its place.
          * @param text is the text to replace.
          */
-        replaceWith(text: string): void;
+        replaceWith(text: string | Promise<string> | Promise<ReadableStream>): void;
 
         /**
          * Set an attribute to a provided value, creating the attribute if it doesn't exist.
