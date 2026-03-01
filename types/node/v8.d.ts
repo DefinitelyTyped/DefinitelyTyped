@@ -95,7 +95,7 @@ declare module "node:v8" {
      * buffers and external strings.
      *
      * `total_allocated_bytes` The value of total allocated bytes since the Isolate
-     * creation
+     * creation.
      *
      * ```js
      * {
@@ -112,7 +112,8 @@ declare module "node:v8" {
      *   number_of_detached_contexts: 0,
      *   total_global_handles_size: 8192,
      *   used_global_handles_size: 3296,
-     *   external_memory: 318824
+     *   external_memory: 318824,
+     *   total_allocated_bytes: 45224088
      * }
      * ```
      * @since v1.0.0
