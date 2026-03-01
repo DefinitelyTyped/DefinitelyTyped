@@ -954,7 +954,7 @@ declare module "node:http" {
          * been transmitted are equal or not.
          *
          * Attempting to set a header field name or value that contains invalid characters
-         * will result in a \[`Error`\]\[\] being thrown.
+         * will result in a `Error` being thrown.
          * @since v0.1.30
          */
         writeHead(
