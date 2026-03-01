@@ -2016,8 +2016,7 @@ declare namespace React {
     //
     // Event System
     // ----------------------------------------------------------------------
-    // TODO: change any to unknown when moving to TS v3
-    interface BaseSyntheticEvent<E = object, C = any, T = any> {
+    interface BaseSyntheticEvent<E = object, C = unknown, T = unknown> {
         nativeEvent: E;
         currentTarget: C;
         target: T;
