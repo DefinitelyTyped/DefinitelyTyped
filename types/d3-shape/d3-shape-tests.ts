@@ -1513,6 +1513,8 @@ defaultStack = defaultStack.order([2, 3, 1]);
 defaultStack = defaultStack.order(null);
 
 overlyComplicatedStack = overlyComplicatedStack.order(d3Shape.stackOrderAscending);
+overlyComplicatedStack = overlyComplicatedStack.order((vals) =>
+  vals.map((val, i) => [val.key, i]).sort((a, b) => a.key < b.key ? -1 : 1).map(([, i]) => i);
 
 let orderStackDatumSeries: (series: d3Shape.Series<StackDatum, StackKey>) => Iterable<number>;
 orderStackDatumSeries = overlyComplicatedStack.order();
