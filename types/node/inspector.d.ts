@@ -218,6 +218,51 @@ declare module "node:inspector" {
          */
         function put(url: string, data: string): void;
     }
+    namespace DOMStorage {
+        /**
+         * This feature is only available with the
+         * `--experimental-storage-inspection` flag enabled.
+         *
+         * Broadcasts the `DOMStorage.domStorageItemAdded` event to connected frontends.
+         * This event indicates that a new item has been added to the storage.
+         * @since v25.5.0
+         */
+        function domStorageItemAdded(params: DomStorageItemAddedEventDataType): void;
+        /**
+         * This feature is only available with the
+         * `--experimental-storage-inspection` flag enabled.
+         *
+         * Broadcasts the `DOMStorage.domStorageItemRemoved` event to connected frontends.
+         * This event indicates that an item has been removed from the storage.
+         * @since v25.5.0
+         */
+        function domStorageItemRemoved(params: DomStorageItemRemovedEventDataType): void;
+        /**
+         * This feature is only available with the
+         * `--experimental-storage-inspection` flag enabled.
+
+         * Broadcasts the `DOMStorage.domStorageItemUpdated` event to connected frontends.
+         * This event indicates that a storage item has been updated.
+         * @since v25.5.0
+         */
+        function domStorageItemUpdated(params: DomStorageItemUpdatedEventDataType): void;
+        /**
+         * This feature is only available with the
+         * `--experimental-storage-inspection` flag enabled.
+         *
+         * Broadcasts the `DOMStorage.domStorageItemsCleared` event to connected
+         * frontends. This event indicates that all items have been cleared from the
+         * storage.
+         * @since v25.5.0
+         */
+        function domStorageItemsCleared(params: DomStorageItemsClearedEventDataType): void;
+        /**
+         * This feature is only available with the
+         * `--experimental-storage-inspection` flag enabled.
+         * @since v25.5.0
+         */
+        function registerStorage(params: unknown): void;
+    }
 }
 declare module "inspector" {
     export * from "node:inspector";
