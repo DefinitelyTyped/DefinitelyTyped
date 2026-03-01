@@ -8,14 +8,14 @@ declare namespace WidgetTypes {
 
     type WidgetPolicy =
         | {
-              atEnd: boolean;
-          }
+            atEnd: boolean;
+        }
         | {
-              afterDate: Date;
-          }
+            afterDate: Date;
+        }
         | {
-              never: boolean;
-          };
+            never: boolean;
+        };
 
     interface WidgetContext {
         entry: WidgetEntry;
@@ -82,9 +82,9 @@ declare namespace WidgetTypes {
         cornerRadius?:
             | number
             | {
-                  value: number;
-                  style: 0 | 1; // 0: circular, 1: continuous
-              };
+                value: number;
+                style: 0 | 1; // 0: circular, 1: continuous
+            };
         border?: {
             color?: UIColor;
             width?: number;
@@ -104,20 +104,20 @@ declare namespace WidgetTypes {
         font?:
             | UIFont
             | {
-                  name: string;
-                  size: number;
-                  weight?:
-                      | "ultraLight"
-                      | "thin"
-                      | "light"
-                      | "regular"
-                      | "medium"
-                      | "semibold"
-                      | "bold"
-                      | "heavy"
-                      | "black";
-                  monospaced?: boolean;
-              };
+                name: string;
+                size: number;
+                weight?:
+                    | "ultraLight"
+                    | "thin"
+                    | "light"
+                    | "regular"
+                    | "medium"
+                    | "semibold"
+                    | "bold"
+                    | "heavy"
+                    | "black";
+                monospaced?: boolean;
+            };
         lineLimit?: number;
         minimumScaleFactor?: number;
     }
@@ -131,19 +131,20 @@ declare namespace WidgetTypes {
         accessibilityHint?: string;
     }
 
-    type TextProps = TextPropsModifiers &
-        (
+    type TextProps =
+        & TextPropsModifiers
+        & (
             | {
-                  text: string;
-              }
+                text: string;
+            }
             | {
-                  date: Date;
-                  style: number | string; // $widget.dateStyle, or string literals
-              }
+                date: Date;
+                style: number | string; // $widget.dateStyle, or string literals
+            }
             | {
-                  startDate: Date; // display a time interval
-                  endDate: Date;
-              }
+                startDate: Date; // display a time interval
+                endDate: Date;
+            }
         );
 
     interface WidgetTextOptions extends WidgetBaseOptions {
@@ -152,38 +153,39 @@ declare namespace WidgetTypes {
         modifiers?: TextPropsModifiers[];
     }
 
-    type ImageProps = ImagePropsModifiers &
-        (
+    type ImageProps =
+        & ImagePropsModifiers
+        & (
             | {
-                  image: UIImage;
-              }
+                image: UIImage;
+            }
             | {
-                  data: NSData;
-              }
+                data: NSData;
+            }
             | {
-                  symbol:
-                      | string
-                      | {
-                            glyph: string;
-                            size: number; // Default: 24
-                            weight:
-                                | "ultraLight"
-                                | "thin"
-                                | "light"
-                                | "regular"
-                                | "medium"
-                                | "semibold"
-                                | "bold"
-                                | "heavy"
-                                | "black"; // Default: "regular"
-                        };
-              }
+                symbol:
+                    | string
+                    | {
+                        glyph: string;
+                        size: number; // Default: 24
+                        weight:
+                            | "ultraLight"
+                            | "thin"
+                            | "light"
+                            | "regular"
+                            | "medium"
+                            | "semibold"
+                            | "bold"
+                            | "heavy"
+                            | "black"; // Default: "regular"
+                    };
+            }
             | {
-                  path: string;
-              }
+                path: string;
+            }
             | {
-                  uri: string; // URL or Base64
-              }
+                uri: string; // URL or Base64
+            }
         );
 
     interface WidgetImageOptions extends WidgetBaseOptions {
@@ -192,15 +194,16 @@ declare namespace WidgetTypes {
         modifiers?: ImagePropsModifiers[];
     }
 
-    type ColorProps = BasePropsModifiers &
-        (
+    type ColorProps =
+        & BasePropsModifiers
+        & (
             | {
-                  color: UIColor | string;
-              }
+                color: UIColor | string;
+            }
             | {
-                  light: UIColor | string;
-                  dark: UIColor | string;
-              }
+                light: UIColor | string;
+                dark: UIColor | string;
+            }
         );
 
     interface WidgetColorOptions extends WidgetBaseOptions {

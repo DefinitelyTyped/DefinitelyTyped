@@ -88,17 +88,17 @@ declare namespace ServerTypes {
 
     type ResponseOptions =
         | {
-              type: "default" | "error";
-              props: BaseResponse;
-          }
+            type: "default" | "error";
+            props: BaseResponse;
+        }
         | {
-              type: "data";
-              props: DataResponse;
-          }
+            type: "data";
+            props: DataResponse;
+        }
         | {
-              type: "file";
-              props: FileResponse;
-          };
+            type: "file";
+            props: FileResponse;
+        };
 
     interface ServerInstance {
         start: (options: ServerOptions) => void;
@@ -135,7 +135,7 @@ declare namespace ServerTypes {
 
 interface JBServer {
     start(options: ServerTypes.ServerStartOptions): ServerTypes.ServerInstance;
-    new (): ServerTypes.ServerInstance;
+    new(): ServerTypes.ServerInstance;
 }
 
 declare const $server: JBServer;

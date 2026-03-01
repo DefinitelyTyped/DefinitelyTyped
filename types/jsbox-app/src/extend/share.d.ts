@@ -11,15 +11,15 @@ declare namespace ShareTypes {
 
     type ShareSheetOptions =
         | {
-              items: ShareSheetItems;
-              item?: never;
-              handler: (success: boolean) => void; // Required
-          }
+            items: ShareSheetItems;
+            item?: never;
+            handler: (success: boolean) => void; // Required
+        }
         | {
-              item: ShareSheetItem;
-              items?: never;
-              handler: (success: boolean) => void; // Required
-          };
+            item: ShareSheetItem;
+            items?: never;
+            handler: (success: boolean) => void; // Required
+        };
 }
 
 interface JBShare {

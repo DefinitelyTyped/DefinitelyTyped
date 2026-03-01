@@ -16,25 +16,25 @@ declare namespace ImagekitTypes {
 
     type GIFMakeOptions =
         | {
-              duration: number;
-              durations?: never;
-              size?: number;
-          }
+            duration: number;
+            durations?: never;
+            size?: number;
+        }
         | {
-              durations: number[];
-              duration?: never;
-              size?: number;
-          };
+            durations: number[];
+            duration?: never;
+            size?: number;
+        };
 
     type VideoMakeOptions =
         | {
-              duration: number;
-              durations?: never;
-          }
+            duration: number;
+            durations?: never;
+        }
         | {
-              durations: number[];
-              duration?: never;
-          };
+            durations: number[];
+            duration?: never;
+        };
 
     enum CropToMode {
         TopLeft = 0,

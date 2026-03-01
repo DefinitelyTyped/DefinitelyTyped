@@ -681,13 +681,13 @@ interface UIListView extends UIScrollView {
     insert(
         args:
             | {
-                  indexPath: NSIndexPath;
-                  value: any; // The value here must conform to the format of data
-              }
+                indexPath: NSIndexPath;
+                value: any; // The value here must conform to the format of data
+            }
             | {
-                  index: number;
-                  value: any;
-              },
+                index: number;
+                value: any;
+            },
     ): void;
     delete(indexPathOrIndex: NSIndexPath | number): void;
     cell(indexPath: NSIndexPath): AllUIView;
@@ -717,13 +717,13 @@ interface UIMatrixView extends UIScrollView {
     insert(
         args:
             | {
-                  indexPath: NSIndexPath;
-                  value: any; // The value here must conform to the format of data
-              }
+                indexPath: NSIndexPath;
+                value: any; // The value here must conform to the format of data
+            }
             | {
-                  index: number;
-                  value: any;
-              },
+                index: number;
+                value: any;
+            },
     ): void;
     delete(indexPathOrIndex: NSIndexPath | number): void;
     cell(indexPath: NSIndexPath): AllUIView;
@@ -961,9 +961,9 @@ interface UIImage extends JBBasicValue {
         args:
             | JBInsets
             | {
-                  insets: JBInsets;
-                  mode: "tile" | "stretch"; // default stretch
-              },
+                insets: JBInsets;
+                mode: "tile" | "stretch"; // default stretch
+            },
     ): UIImage;
     resized: (size: JBSize) => UIImage;
     __clsName: string;

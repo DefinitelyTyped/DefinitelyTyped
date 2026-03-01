@@ -961,19 +961,19 @@ interface JBUi {
         options:
             | string
             | {
-                  props?: UiTypes.RootViewPrefs;
-                  views: UiTypes.AllViewOptions[];
-                  events?: UiTypes.RootViewEvents;
-              },
+                props?: UiTypes.RootViewPrefs;
+                views: UiTypes.AllViewOptions[];
+                events?: UiTypes.RootViewEvents;
+            },
     ): void;
     push(
         options:
             | string
             | {
-                  props?: UiTypes.RootViewPrefs;
-                  views: UiTypes.AllViewOptions[];
-                  events?: UiTypes.RootViewEvents;
-              },
+                props?: UiTypes.RootViewPrefs;
+                views: UiTypes.AllViewOptions[];
+                events?: UiTypes.RootViewEvents;
+            },
     ): void;
     animate(args: UiTypes.UIAnimationOptions): void;
     pop(): void;

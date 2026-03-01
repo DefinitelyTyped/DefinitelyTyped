@@ -87,7 +87,7 @@ declare namespace HttpTypes {
         url: string;
         header?: Record<string, any>;
         body?: Record<string, any> | NSData;
-        //timeout?: number; // Empirical testing shows that timeout is ineffective for $http.download
+        // timeout?: number; // Empirical testing shows that timeout is ineffective for $http.download
         form?: Record<string, any>;
         proxy?: {
             HTTPEnable: boolean;

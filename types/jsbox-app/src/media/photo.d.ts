@@ -46,9 +46,10 @@ declare namespace PhotoTypes {
     type PickPayload<F extends PhotoFormat, M extends boolean = false> = F extends "image"
         ? { format?: "image"; handler: (resp: PickResponse<"image", M>) => void }
         : { format: "data"; handler: (resp: PickResponse<"data", M>) => void };
-    type PickOptions<F extends PhotoFormat = "image", M extends boolean = false> = PickOptionsBase &
-        (M extends true ? PickOptionsMultiBase : {}) &
-        PickPayload<F, M>;
+    type PickOptions<F extends PhotoFormat = "image", M extends boolean = false> =
+        & PickOptionsBase
+        & (M extends true ? PickOptionsMultiBase : {})
+        & PickPayload<F, M>;
 
     type PickResponse<F extends PhotoFormat = "image", M extends boolean = false> = M extends true
         ? { status: boolean; results: Omit<PhotoResponse<F>, "status">[] }
@@ -70,13 +71,13 @@ declare namespace PhotoTypes {
 
     type SaveOptions =
         | {
-              image: UIImage;
-              handler: (success: boolean) => void;
-          }
+            image: UIImage;
+            handler: (success: boolean) => void;
+        }
         | {
-              data: NSData;
-              handler: (success: boolean) => void;
-          };
+            data: NSData;
+            handler: (success: boolean) => void;
+        };
 
     interface FetchOptionsBase {
         count?: number;

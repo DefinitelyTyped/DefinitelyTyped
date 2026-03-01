@@ -98,9 +98,9 @@ interface JBContact {
     delete(options: ContactTypes.ContactDeleteOptions): void;
     delete(options: Omit<ContactTypes.ContactDeleteOptions, "handler">): Promise<void>;
     fetchGroups(): Promise<ContactTypes.Group[]>;
-    addGroup(options: { name: string; handler: (resp: ContactTypes.Group) => void }): void; 
+    addGroup(options: { name: string; handler: (resp: ContactTypes.Group) => void }): void;
     // It is not documented, but it exists based on empirical testing.
-    addGroup(options: { name: string }): Promise<void>; 
+    addGroup(options: { name: string }): Promise<void>;
     // The documentation is incorrect; the asynchronous call actually does not return a value.
     deleteGroup(group: ContactTypes.Group): void;
     updateGroup(group: ContactTypes.Group): void;
