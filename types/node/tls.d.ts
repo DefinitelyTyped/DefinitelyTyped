@@ -210,6 +210,7 @@ declare module "node:tls" {
     interface TLSSocketEventMap extends net.SocketEventMap {
         "keylog": [line: NonSharedBuffer];
         "OCSPResponse": [response: NonSharedBuffer];
+        "secure": [];
         "secureConnect": [];
         "session": [session: NonSharedBuffer];
     }
