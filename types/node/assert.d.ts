@@ -253,10 +253,10 @@ declare module "node:assert" {
          * import assert from 'node:assert/strict';
          *
          * // Using `assert()` works the same:
-         * assert(0);
+         * assert(2 + 2 > 5);;
          * // AssertionError: The expression evaluated to a falsy value:
          * //
-         * //   assert(0)
+         * //   assert(2 + 2 > 5)
          * ```
          * @since v0.1.21
          */

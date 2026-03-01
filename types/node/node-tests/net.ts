@@ -60,6 +60,10 @@ import * as net from "node:net";
         },
         readable: false,
         writable: false,
+        keepAlive: true,
+        keepAliveInitialDelay: 1000,
+        noDelay: false,
+        blockList: new net.BlockList(),
     });
 
     let bool: boolean;
@@ -170,9 +174,6 @@ import * as net from "node:net";
             // nothing
         },
         port: 80,
-        keepAlive: true,
-        keepAliveInitialDelay: 1000,
-        noDelay: false,
         autoSelectFamily: false,
         autoSelectFamilyAttemptTimeout: 250,
     };

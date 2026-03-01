@@ -165,6 +165,10 @@ test(undefined, undefined, t => {
     t.signal;
     // $ExpectType MockTracker
     t.mock;
+    // $ExpectType boolean
+    t.passed;
+    // $ExpectType Error | null
+    t.error;
     // $ExpectType number
     t.attempt;
 });
@@ -341,6 +345,8 @@ it.only("only shorthand", {
 describe(s => {
     // $ExpectType SuiteContext
     s;
+    // $ExpectType string
+    s.fullName;
     // $ExpectType string
     s.name;
     // $ExpectType string | undefined

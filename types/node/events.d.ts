@@ -638,24 +638,17 @@ declare module "node:events" {
          */
         function getMaxListeners(emitter: EventEmitter | EventTarget): number;
         /**
-         * A class method that returns the number of listeners for the given `eventName`
-         * registered on the given `emitter`.
+         * Returns the number of registered listeners for the event named `eventName`.
          *
-         * ```js
-         * import { EventEmitter, listenerCount } from 'node:events';
+         * For `EventEmitter`s this behaves exactly the same as calling `.listenerCount`
+         * on the emitter.
          *
-         * const myEmitter = new EventEmitter();
-         * myEmitter.on('event', () => {});
-         * myEmitter.on('event', () => {});
-         * console.log(listenerCount(myEmitter, 'event'));
-         * // Prints: 2
-         * ```
+         * For `EventTarget`s this is the only way to obtain the listener count. This can
+         * be useful for debugging and diagnostic purposes.
          * @since v0.9.12
-         * @deprecated Use `emitter.listenerCount()` instead.
-         * @param emitter The emitter to query
-         * @param eventName The event name
          */
         function listenerCount(emitter: EventEmitter, eventName: string | symbol): number;
+        function listenerCount(emitter: EventTarget, eventName: string): number;
         interface OnOptions extends Abortable {
             /**
              * Names of events that will end the iteration.

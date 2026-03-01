@@ -308,6 +308,9 @@ declare module "node:util" {
      * Returns an array of call site objects containing the stack of
      * the caller function.
      *
+     * Unlike accessing an `error.stack`, the result returned from this API is not
+     * interfered with `Error.prepareStackTrace`.
+     *
      * ```js
      * import { getCallSites } from 'node:util';
      *
@@ -320,7 +323,7 @@ declare module "node:util" {
      *     console.log(`Function Name: ${callSite.functionName}`);
      *     console.log(`Script Name: ${callSite.scriptName}`);
      *     console.log(`Line Number: ${callSite.lineNumber}`);
-     *     console.log(`Column Number: ${callSite.column}`);
+     *     console.log(`Column Number: ${callSite.columnNumber}`);
      *   });
      *   // CallSite 1:
      *   // Function Name: exampleFunction
@@ -750,6 +753,26 @@ declare module "node:util" {
      * @legacy Use ES2015 class syntax and `extends` keyword instead.
      */
     export function inherits(constructor: unknown, superConstructor: unknown): void;
+    /**
+     * The `util.convertProcessSignalToExitCode()` method converts a signal name to its
+     * corresponding POSIX exit code. Following the POSIX standard, the exit code
+     * for a process terminated by a signal is calculated as `128 + signal number`.
+     *
+     * ```js
+     * import { convertProcessSignalToExitCode } from 'node:util';
+     *
+     * console.log(convertProcessSignalToExitCode('SIGTERM')); // 143 (128 + 15)
+     * console.log(convertProcessSignalToExitCode('SIGKILL')); // 137 (128 + 9)
+     * console.log(convertProcessSignalToExitCode('INVALID')); // null
+     * ```
+     *
+     * This is particularly useful when working with processes to determine
+     * the exit code based on the signal that terminated the process.
+     * @since v25.4.0
+     * @param signalCode A signal name (e.g., `'SIGTERM'`, `'SIGKILL'`).
+     * @returns The exit code, or `null` if the signal is invalid.
+     */
+    export function convertProcessSignalToExitCode(signalCode: NodeJS.Signals): number;
     export type DebugLoggerFunction = (msg: string, ...param: unknown[]) => void;
     export interface DebugLogger extends DebugLoggerFunction {
         /**
@@ -804,7 +827,7 @@ declare module "node:util" {
      *
      * ```js
      * import { debuglog } from 'node:util';
-     * const log = debuglog('foo');
+     * const log = debuglog('foo-bar');
      *
      * log('hi there, it\'s foo-bar [%d]', 2333);
      * ```

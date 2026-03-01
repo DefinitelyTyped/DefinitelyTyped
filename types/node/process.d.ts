@@ -1862,6 +1862,24 @@ declare module "node:process" {
                 readonly release: ProcessRelease;
                 readonly features: ProcessFeatures;
                 /**
+                 * The `process.traceProcessWarnings` property indicates whether the `--trace-warnings` flag
+                 * is set on the current Node.js process. This property allows programmatic control over the
+                 * tracing of warnings, enabling or disabling stack traces for warnings at runtime.
+                 *
+                 * ```js
+                 * // Enable trace warnings
+                 * process.traceProcessWarnings = true;
+                 *
+                 * // Emit a warning with a stack trace
+                 * process.emitWarning('Warning with stack trace');
+                 *
+                 * // Disable trace warnings
+                 * process.traceProcessWarnings = false;
+                 * ```
+                 * @since v6.10.0
+                 */
+                traceProcessWarnings: boolean;
+                /**
                  * `process.umask()` returns the Node.js process's file mode creation mask. Child
                  * processes inherit the mask from the parent process.
                  * @since v0.1.19
