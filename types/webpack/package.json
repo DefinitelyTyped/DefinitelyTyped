@@ -7,11 +7,14 @@
     ],
     "dependencies": {
         "@types/node": "*",
-        "tapable": "^2.2.0",
+        "tapable": "^2.2.0"
+    },
+    "peerDependencies": {
         "webpack": "^5"
     },
     "devDependencies": {
-        "@types/webpack": "workspace:."
+        "@types/webpack": "workspace:.",
+        "webpack": "^5"
     },
     "owners": [
         {
