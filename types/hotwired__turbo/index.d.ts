@@ -495,7 +495,7 @@ export type TurboFrameMissingEvent = CustomEvent<{
 export type TurboBeforeFetchRequestEvent = CustomEvent<{
     fetchOptions: Omit<RequestInit, "headers"> & { headers: FetchRequestHeaders };
     url: URL;
-    resume: (value: any) => void;
+    resume: (value?: unknown) => void;
 }>;
 
 export type TurboBeforeFetchResponseEvent = CustomEvent<{
