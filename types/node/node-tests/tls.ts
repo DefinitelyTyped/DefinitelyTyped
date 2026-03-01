@@ -277,26 +277,31 @@ import {
     socket = socket.addListener("OCSPResponse", (response) => {
         const _response: Buffer = response;
     });
+    socket = socket.addListener("secure", () => {});
     socket = socket.addListener("secureConnect", () => {});
 
     socket = socket.on("OCSPResponse", (response) => {
         const _response: Buffer = response;
     });
+    socket = socket.on("secure", () => {});
     socket = socket.on("secureConnect", () => {});
 
     socket = socket.once("OCSPResponse", (response) => {
         const _response: Buffer = response;
     });
+    socket = socket.once("secure", () => {});
     socket = socket.once("secureConnect", () => {});
 
     socket = socket.prependListener("OCSPResponse", (response) => {
         const _response: Buffer = response;
     });
+    socket = socket.prependListener("secure", () => {});
     socket = socket.prependListener("secureConnect", () => {});
 
     socket = socket.prependOnceListener("OCSPResponse", (response) => {
         const _response: Buffer = response;
     });
+    socket = socket.prependOnceListener("secure", () => {});
     socket = socket.prependOnceListener("secureConnect", () => {});
 
     socket.once("session", (buff: Buffer) => {});
