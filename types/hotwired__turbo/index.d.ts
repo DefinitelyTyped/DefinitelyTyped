@@ -411,7 +411,7 @@ export type TurboBeforeRenderEvent = CustomEvent<{
     newBody: HTMLBodyElement;
     renderMethod: "replace" | "morph";
     isPreview: boolean;
-    resume: (value?: any) => void;
+    resume: (value?: unknown) => void;
     render: (currentBody: HTMLBodyElement, newBody: HTMLBodyElement) => void;
 }>;
 export type TurboBeforeVisitEvent = CustomEvent<{ url: string }>;
@@ -422,7 +422,7 @@ export type TurboClickEvent = CustomEvent<{
 export type TurboFrameLoadEvent = CustomEvent;
 export type TurboBeforeFrameRenderEvent = CustomEvent<{
     newFrame: FrameElement;
-    resume: (value?: any) => void;
+    resume: (value?: unknown) => void;
     render: (currentFrame: FrameElement, newFrame: FrameElement) => void;
 }>;
 export type TurboFrameRenderEvent = CustomEvent<{
