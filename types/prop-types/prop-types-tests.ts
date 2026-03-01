@@ -36,7 +36,7 @@ interface Props {
     nullableNumber: number | null;
     undefinableNumber?: number | undefined;
     customProp?: typeof uniqueType | undefined;
-    component: PropTypes.ReactComponentLike;
+    component: React.JSX.ElementType;
 }
 
 const innerProps = {
