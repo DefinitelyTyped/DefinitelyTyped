@@ -128,7 +128,7 @@ declare module "node:sqlite" {
          * language features that allow ordinary SQL to deliberately corrupt the database file are disabled.
          * The defensive flag can also be set using `enableDefensive()`.
          * @since v25.1.0
-         * @default false
+         * @default true
          */
         defensive?: boolean | undefined;
     }
@@ -232,6 +232,28 @@ declare module "node:sqlite" {
          * new state.
          */
         inverse?: ((accumulator: T, ...args: SQLOutputValue[]) => T) | undefined;
+    }
+    interface PrepareOptions {
+        /**
+         * If `true`, integer fields are read as `BigInt`s.
+         * @since v25.5.0
+         */
+        readBigInts?: boolean | undefined;
+        /**
+         * If `true`, results are returned as arrays.
+         * @since v25.5.0
+         */
+        returnArrays?: boolean | undefined;
+        /**
+         * If `true`, allows binding named parameters without the prefix character.
+         * @since v25.5.0
+         */
+        allowBareNamedParameters?: boolean | undefined;
+        /**
+         * If `true`, unknown named parameters are ignored.
+         * @since v25.5.0
+         */
+        allowUnknownNamedParameters?: boolean | undefined;
     }
     /**
      * This class represents a single [connection](https://www.sqlite.org/c3ref/sqlite3.html) to a SQLite database. All APIs
@@ -425,9 +447,10 @@ declare module "node:sqlite" {
          * around [`sqlite3_prepare_v2()`](https://www.sqlite.org/c3ref/prepare.html).
          * @since v22.5.0
          * @param sql A SQL string to compile to a prepared statement.
+         * @param options Optional configuration for the prepared statement.
          * @return The prepared statement.
          */
-        prepare(sql: string): StatementSync;
+        prepare(sql: string, options?: PrepareOptions): StatementSync;
         /**
          * Creates a new `SQLTagStore`, which is an LRU (Least Recently Used) cache for
          * storing prepared statements. This allows for the efficient reuse of prepared

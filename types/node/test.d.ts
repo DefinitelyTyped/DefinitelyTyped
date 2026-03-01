@@ -191,6 +191,11 @@ declare module "node:test" {
             function only(name?: string, fn?: SuiteFn): Promise<void>;
             function only(options?: TestOptions, fn?: SuiteFn): Promise<void>;
             function only(fn?: SuiteFn): Promise<void>;
+            // added in v25.5.0, undocumented
+            function expectFailure(name?: string, options?: TestOptions, fn?: SuiteFn): Promise<void>;
+            function expectFailure(name?: string, fn?: SuiteFn): Promise<void>;
+            function expectFailure(options?: TestOptions, fn?: SuiteFn): Promise<void>;
+            function expectFailure(fn?: SuiteFn): Promise<void>;
         }
         /**
          * Shorthand for skipping a test. This is the same as calling {@link test} with `options.skip` set to `true`.
@@ -216,6 +221,11 @@ declare module "node:test" {
         function only(name?: string, fn?: TestFn): Promise<void>;
         function only(options?: TestOptions, fn?: TestFn): Promise<void>;
         function only(fn?: TestFn): Promise<void>;
+        // added in v25.5.0, undocumented
+        function expectFailure(name?: string, options?: TestOptions, fn?: TestFn): Promise<void>;
+        function expectFailure(name?: string, fn?: TestFn): Promise<void>;
+        function expectFailure(options?: TestOptions, fn?: TestFn): Promise<void>;
+        function expectFailure(fn?: TestFn): Promise<void>;
         /**
          * The type of a function passed to {@link test}. The first argument to this function is a {@link TestContext} object.
          * If the test uses callbacks, the callback function is passed as the second argument.
@@ -1345,6 +1355,8 @@ declare module "node:test" {
              * @since v22.2.0
              */
             plan?: number | undefined;
+            // added in v25.5.0, undocumented
+            expectFailure?: boolean | undefined;
         }
         /**
          * This function creates a hook that runs before executing a suite.
