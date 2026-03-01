@@ -1,16 +1,20 @@
 import {
+    Adapter,
     cache,
     config,
     connectStreamSource,
     disconnectStreamSource,
     navigator,
+    registerAdapter,
     renderStreamMessage,
     session,
     start,
     StreamActions,
     StreamMessage,
     StreamSource,
+    Visit,
     visit,
+    VisitOptions,
 } from "@hotwired/turbo";
 
 const turboFrame = document.querySelector("turbo-frame")!;
@@ -145,15 +149,29 @@ document.addEventListener("turbo:submit-end", function(event) {
 
 // Test start() function
 start();
+
+const customAdapter: Adapter = {
+    visitProposedToLocation(_location: URL, _options?: VisitOptions): void {},
+    visitStarted(_visit: Visit): void {},
+    visitCompleted(_visit: Visit): void {},
+    visitFailed(_visit: Visit): void {},
+    visitRequestStarted(_visit: Visit): void {},
+    visitRequestCompleted(_visit: Visit): void {},
+    visitRequestFailedWithStatusCode(_visit: Visit, _statusCode: number): void {},
+    visitRequestFinished(_visit: Visit): void {},
+    visitRendered(_visit: Visit): void {},
+    pageInvalidated(_reason: { reason: string }): void {},
+};
+registerAdapter(customAdapter);
+Turbo.registerAdapter(customAdapter);
+
 Turbo.start();
 
 // Test session.adapter
-// $ExpectType BrowserAdapter
+// $ExpectType Adapter
 session.adapter;
-session.adapter.formSubmissionStarted();
-session.adapter.formSubmissionFinished();
-Turbo.session.adapter.formSubmissionStarted();
-Turbo.session.adapter.formSubmissionFinished();
+// $ExpectType Adapter
+Turbo.session.adapter;
 
 // Test navigator.submitForm
 const form = document.querySelector("form")!;
