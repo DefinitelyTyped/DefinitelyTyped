@@ -94,6 +94,14 @@ StreamActions.log = function() {
     console.log(this.getAttribute("message"));
 };
 
+document.addEventListener("turbo:before-fetch-request", function(event) {
+    // $ExpectType FetchRequestHeaders
+    const headers = event.detail.fetchOptions.headers;
+    headers["Turbo-Referrer"] = window.location.href;
+    // $ExpectType string | undefined
+    headers.Accept;
+});
+
 document.addEventListener("turbo:before-fetch-response", function(e) {
     let { fetchResponse } = e.detail;
     fetchResponse.header("foo");

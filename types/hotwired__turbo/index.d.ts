@@ -78,11 +78,15 @@ export class StreamMessage {
     constructor(fragment: DocumentFragment);
 }
 
+export interface FetchRequestHeaders {
+    [header: string]: string | undefined;
+}
+
 export class FetchRequest {
     body: FormData | URLSearchParams;
     enctype: "application/x-www-form-urlencoded" | "multipart/form-data" | "text/plain";
     fetchOptions: RequestInit;
-    headers: Headers | { [k: string]: any };
+    headers: FetchRequestHeaders;
     method: "get" | "post" | "put" | "patch" | "delete";
     params: URLSearchParams;
     target: HTMLFormElement | HTMLAnchorElement | FrameElement | null;
@@ -489,7 +493,7 @@ export type TurboFrameMissingEvent = CustomEvent<{
 }>;
 
 export type TurboBeforeFetchRequestEvent = CustomEvent<{
-    fetchOptions: RequestInit;
+    fetchOptions: Omit<RequestInit, "headers"> & { headers: FetchRequestHeaders };
     url: URL;
     resume: (value: any) => void;
 }>;
