@@ -64,4 +64,4 @@ export function imageSync(text: string, options?: Options): string | Buffer;
 export function svgObject(text: string, level?: ec_level): SvgObject;
 export function svgObject(text: string, options?: Options): SvgObject;
 
-export function matrix(text: string, level?: ec_level): any[][];
+export function matrix(text: string, level?: ec_level): (0 | 1)[][];

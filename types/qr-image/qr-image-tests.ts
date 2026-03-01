@@ -29,3 +29,5 @@ qr.image("Customize PNG", {
 
 // $ExpectType SvgObject
 const res = qr.svgObject("test data");
+
+const matrix = qr.matrix("test data");
