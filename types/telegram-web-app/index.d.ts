@@ -935,46 +935,73 @@ export interface BackButton {
  * Web App in the Telegram interface.
  */
 export interface BottomButton {
-    /** Current button text. Set to CONTINUE by default. */
+    /**
+     * **Bot API 9.5+**
+     *
+     * Unique identifier of the custom emoji shown
+     * before the text of the button.
+    */
+    iconCustomEmojiId: string;
+    /**
+     * Current button text. Set to _Continue_ for the main button and
+     * _Cancel_ for the secondary button by default.
+     */
     text: string;
-    /** Current button color. Set to themeParams.button_color by default. */
+    /**
+     * Current button color. Set to _themeParams.button_color_ for the main button
+     * and _themeParams.bottom_bar_bg_color_ for the secondary button by default.
+     */
     color: string;
     /**
-     * Current button text color. Set to themeParams.button_text_color by
-     * default.
+     * Current button text color. Set to
+     * _themeParams.button_text_color_ for the main button and
+     * _themeParams.button_color_ for the secondary button by default.
      */
     textColor: string;
-    /** Shows whether the button is visible. Set to false by default. */
+    /** Shows whether the button is visible. Set to _false_ by default. */
     isVisible: boolean;
-    /** Shows whether the button is active. Set to true by default. */
+    /** Shows whether the button is active. Set to _true_ by default. */
     isActive: boolean;
-    /** Shows whether the button has a shine effect. Set to false by default. */
+    /**
+     * **Bot API 7.10+**
+     *
+     * Shows whether the button has a shine effect. Set to _false_ by default.
+     */
     hasShineEffect: boolean;
     /**
+     * **Bot API 7.10+**
+     *
      * Position of the secondary button. Not defined for the main button.
-     * It applies only if both the main and secondary buttons are visible. Set to left by default.
+     * It applies only if both the main and secondary buttons are visible.
+     * Set to _left_ by default.
+     *
      * Supported values:
-     *  - left, displayed to the left of the main button,
-     *  - right, displayed to the right of the main button,
-     *  - top, displayed above the main button,
-     *  - bottom, displayed below the main button.
+     *  - _left_, displayed to the left of the main button,
+     *  - _right_, displayed to the right of the main button,
+     *  - _top_, displayed above the main button,
+     *  - _bottom_, displayed below the main button.
      */
     position?: "left" | "right" | "top" | "bottom";
-    /** Readonly. Shows whether the button is displaying a loading indicator. */
+    /** _Readonly._ Shows whether the button is displaying a loading indicator. */
     isProgressVisible: boolean;
     /** A method to set the button text. */
     setText(text: string): BottomButton;
     /**
-     * A method that sets the button press event handler. An alias for
-     * Telegram.WebApp.onEvent('mainButtonClicked', callback)
+     * A method that sets the button's press event handler.
+     * An alias for `Telegram.WebApp.onEvent('mainButtonClicked', callback)`
      */
     onClick(callback: () => void): BottomButton;
-    /** A method that deletes a previously set handler */
+    /**
+     * A method that removes the button's press event handler.
+     * An alias for `Telegram.WebApp.offEvent('mainButtonClicked', callback)`
+     */
     offClick(callback: () => void): BottomButton;
     /**
-     * A method to make the button visible. Note that opening the Web App from
-     * the attachment menu hides the main button until the user interacts with
-     * the Web App interface.
+     * A method to make the button visible.
+     *
+     * _Note that opening the Web App from
+     * the {@link https://core.telegram.org/bots/webapps#launching-mini-apps-from-the-attachment-menu | attachment menu}
+     * hides the main button until the user interacts with the Web App interface._
      */
     show(): BottomButton;
     /** A method to hide the button. */
@@ -987,7 +1014,7 @@ export interface BottomButton {
      * A method to show a loading indicator on the button. It is recommended to
      * display loading progress if the action tied to the button may take a long
      * time. By default, the button is disabled while the action is in progress.
-     * If the parameter leaveActive=true is passed, the button remains enabled.
+     * If the parameter `leaveActive=true` is passed, the button remains enabled.
      */
     showProgress(leaveActive?: boolean): BottomButton;
     /** A method to hide the loading indicator. */
@@ -995,23 +1022,36 @@ export interface BottomButton {
     /**
      * A method to set the button parameters. The params parameter is an object
      * containing one or several fields that need to be changed:
+     * - icon_custom_emoji_id - `Bot API 9.5+` button icon emoji id;
      * - text - button text;
      * - color - button color;
      * - text_color - button text color;
+     * - has_shine_effect - `Bot API 7.10+` enable shine effect;
+     * - position - position of the secondary button;
      * - is_active - enable the button;
      * - is_visible - show the button.
      */
-    setParams(params: MainButtonParams): BottomButton;
+    setParams(params: BottomButtonParams): BottomButton;
 }
 
-export interface MainButtonParams {
+export interface BottomButtonParams {
+    /**
+     * **Bot API 9.5+**
+     *
+     * button icon emoji id
+     */
+    icon_custom_emoji_id?: string;
     /** button text */
     text?: string;
     /** button color */
     color?: Color;
     /** button text color */
     text_color?: Color;
-    /** enable shine effect */
+    /**
+     * **Bot API 7.10+**
+     *
+     * enable shine effect
+     */
     has_shine_effect?: boolean;
     /** position of the secondary button */
     position?: "left" | "right" | "top" | "bottom";
