@@ -1,9 +1,11 @@
 /**
- * We strongly discourage the use of the `async_hooks` API.
- * Other APIs that can cover most of its use cases include:
+ * We strongly discourage direct use of the low-level `async_hooks` APIs (for example, `createHook`, `executionAsyncId`, and `AsyncResource`).
+ * Use the stable, higher-level APIs where possible:
  *
- * * [`AsyncLocalStorage`](https://nodejs.org/docs/latest-v25.x/api/async_context.html#class-asynclocalstorage) tracks async context
- * * [`process.getActiveResourcesInfo()`](https://nodejs.org/docs/latest-v25.x/api/process.html#processgetactiveresourcesinfo) tracks active resources
+ * * [`AsyncLocalStorage`](https://nodejs.org/docs/latest-v25.x/api/async_context.html#class-asynclocalstorage) for async context tracking
+ * * [`process.getActiveResourcesInfo()`](https://nodejs.org/docs/latest-v25.x/api/process.html#processgetactiveresourcesinfo) for active resource tracking
+ *
+ * Note: `AsyncLocalStorage` itself is exported from `node:async_hooks`.
  *
  * The `node:async_hooks` module provides an API to track asynchronous resources.
  * It can be accessed using:
