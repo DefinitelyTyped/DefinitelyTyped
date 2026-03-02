@@ -47,11 +47,13 @@ let numberVar: number;
 async function main() {
     let response = await request.perform();
     if (response.ok) {
-        testJsonResponseVar = await response.json;
+        // $ExpectType Promise<unknown>
+        response.json;
+        testJsonResponseVar = await response.json as TestJsonResponse;
     }
 
     response = await get("https://example.com");
-    testJsonResponseVar = await response.json;
+    testJsonResponseVar = await response.json as TestJsonResponse;
     headersVar = response.headers;
     stringVar = response.contentType;
     stringVar = await response.html;

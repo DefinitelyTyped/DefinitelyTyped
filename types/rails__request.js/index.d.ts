@@ -44,7 +44,7 @@ export class FetchResponse {
     get contentType(): string;
     get headers(): Headers;
     get html(): Promise<string>;
-    get json(): Promise<any>;
+    get json(): Promise<unknown>;
     get text(): Promise<string>;
     get isTurboStream(): boolean;
     get isScript(): boolean;
