@@ -1,10 +1,13 @@
 import {
     Adapter,
+    BrowserAdapter,
     cache,
     config,
     connectStreamSource,
     disconnectStreamSource,
     navigator,
+    NavigatorDelegate,
+    ProgressBar,
     registerAdapter,
     renderStreamMessage,
     session,
@@ -179,6 +182,26 @@ navigator.submitForm(form);
 navigator.submitForm(form, document.querySelector("button")!);
 Turbo.navigator.submitForm(form);
 Turbo.navigator.submitForm(form, document.querySelector("button")!);
+
+// Test navigator.delegate
+// $ExpectType NavigatorDelegate
+navigator.delegate;
+// $ExpectType Adapter
+navigator.delegate.adapter;
+
+// Test ProgressBar via BrowserAdapter cast
+const browserAdapter = navigator.delegate.adapter as BrowserAdapter;
+// $ExpectType ProgressBar
+browserAdapter.progressBar;
+browserAdapter.progressBar.setValue(0);
+browserAdapter.progressBar.show();
+browserAdapter.progressBar.hide();
+// $ExpectType number
+browserAdapter.progressBar.value;
+// $ExpectType boolean
+browserAdapter.progressBar.visible;
+// $ExpectType boolean
+browserAdapter.progressBar.hiding;
 
 // Test cache methods
 cache.clear();

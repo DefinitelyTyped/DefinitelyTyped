@@ -134,6 +134,7 @@ export interface Adapter {
 }
 
 export class BrowserAdapter implements Adapter {
+    progressBar: ProgressBar;
     visitProposedToLocation(location: URL, options?: VisitOptions): void;
     visitStarted(visit: Visit): void;
     visitCompleted(visit: Visit): void;
@@ -149,11 +150,30 @@ export class BrowserAdapter implements Adapter {
     linkPrefetchingIsEnabledForLocation(location: URL): boolean;
 }
 
+export interface ProgressBar {
+    hiding: boolean;
+    value: number;
+    visible: boolean;
+    show(): void;
+    hide(): void;
+    setValue(value: number): void;
+}
+
+/**
+ * The delegate for the Turbo navigator — in practice, the active session.
+ * Provides access to the current adapter.
+ */
+export interface NavigatorDelegate {
+    adapter: Adapter;
+}
+
 /**
  * Interface for the Turbo navigator.
  * Provides methods for programmatic navigation and form submission.
  */
 export interface Navigator {
+    /** The delegate for this navigator (the active Turbo session). */
+    delegate: NavigatorDelegate;
     /**
      * Submits a form programmatically through Turbo Drive.
      *
