@@ -31,7 +31,7 @@ declare function $accessibilityAction(name: string, handler: () => void): UIAcce
 declare function $objc(className: string): any;
 declare function $define(options: { type: string; events?: any; classEvents?: any }): any;
 declare function $delegate(options: { type: string; events?: any }): any;
-declare function $block(definition: string, handler: () => void): any;
+declare function $block(definition: string, handler: (...args: any[]) => void): any;
 declare function $defc(...args: string[]): any;
 declare function $objc_retain(object: any): void;
 declare function $objc_release(object: any): void;
