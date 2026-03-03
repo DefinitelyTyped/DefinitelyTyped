@@ -54,7 +54,7 @@ const identifyRequest: mParticle.IdentifyRequest = {
     },
 };
 
-const identityCallback: mParticle.IdentityCallback = result => {
+const identityCallback: mParticle.IdentityCallback = (result: mParticle.IdentityResult) => {
     if (result.getUser()) {
         // IDSync request succeeded, mutate attributes or query for the MPID as needed
         const user = result.getUser();
@@ -87,13 +87,13 @@ const identityCallback: mParticle.IdentityCallback = result => {
 };
 
 const logger: mParticle.Logger = {
-    error: error => {
+    error: (error: string) => {
         console.log(error);
     },
-    warning: error => {
+    warning: (error: string) => {
         console.log(error);
     },
-    verbose: error => {
+    verbose: (error: string) => {
         console.log(error);
     },
 };
@@ -225,7 +225,7 @@ instance.setSessionAttribute("key4", null);
 instance.startNewSession();
 
 instance.startTrackingLocation();
-instance.startTrackingLocation(location => {
+instance.startTrackingLocation((location: mParticle.Location) => {
     console.log(location.coords.latitude);
     console.log(location.coords.longitude);
 });
@@ -485,10 +485,11 @@ const identifyIdentities: mParticle.IdentifyRequest = {
     },
 };
 
-instance.Identity.login(identifyIdentities, result => {
-    console.log(result.body.is_ephemeral);
-    console.log(result.body.is_logged_in);
-    console.log(result.body.matched_identities);
+instance.Identity.login(identifyIdentities, (result: mParticle.IdentityResult) => {
+    const body = result.body as mParticle.IdentityResultBody;
+    console.log(body.is_ephemeral);
+    console.log(body.is_logged_in);
+    console.log(body.matched_identities);
     const code = result.httpCode;
     const codes = window.mParticle.Identity.HTTPCodes;
 
@@ -519,9 +520,9 @@ instance.Identity.login(identifyIdentities, result => {
         endTime: new Date().getTime(),
     };
 
-    instance.Identity.aliasUsers(userAliasObject, result => {
-        const httpCode: number = result.httpCode;
-        const message: string = result.message;
+    instance.Identity.aliasUsers(userAliasObject, (aliasResult: { httpCode: number; message: string }) => {
+        const httpCode: number = aliasResult.httpCode;
+        const message: string = aliasResult.message;
     });
 
     const aliasRequest: mParticle.UserAliasRequest = instance.Identity.createAliasRequest(
@@ -533,10 +534,11 @@ instance.Identity.login(identifyIdentities, result => {
     const consentState: mParticle.ConsentState = result.getUser().getConsentState();
 });
 
-instance.Identity.logout(identifyIdentities, result => {
-    console.log(result.body.is_ephemeral);
-    console.log(result.body.is_logged_in);
-    console.log(result.body.matched_identities);
+instance.Identity.logout(identifyIdentities, (result: mParticle.IdentityResult) => {
+    const body = result.body as mParticle.IdentityResultBody;
+    console.log(body.is_ephemeral);
+    console.log(body.is_logged_in);
+    console.log(body.matched_identities);
     const code = result.httpCode;
     const codes = window.mParticle.Identity.HTTPCodes;
 
@@ -567,9 +569,9 @@ instance.Identity.logout(identifyIdentities, result => {
         endTime: new Date().getTime(),
     };
 
-    instance.Identity.aliasUsers(userAliasObject, result => {
-        const httpCode: number = result.httpCode;
-        const message: string = result.message;
+    instance.Identity.aliasUsers(userAliasObject, (aliasResult: { httpCode: number; message: string }) => {
+        const httpCode: number = aliasResult.httpCode;
+        const message: string = aliasResult.message;
     });
 
     const aliasRequest: mParticle.UserAliasRequest = instance.Identity.createAliasRequest(
@@ -587,10 +589,11 @@ instance.Identity.logout(null);
 instance.Identity.logout(undefined);
 instance.Identity.logout();
 
-instance.Identity.identify(identifyIdentities, result => {
-    console.log(result.body.is_ephemeral);
-    console.log(result.body.is_logged_in);
-    console.log(result.body.matched_identities);
+instance.Identity.identify(identifyIdentities, (result: mParticle.IdentityResult) => {
+    const body = result.body as mParticle.IdentityResultBody;
+    console.log(body.is_ephemeral);
+    console.log(body.is_logged_in);
+    console.log(body.matched_identities);
     const code = result.httpCode;
     const codes = window.mParticle.Identity.HTTPCodes;
 
@@ -622,9 +625,9 @@ instance.Identity.identify(identifyIdentities, result => {
         scope: "mpid",
     };
 
-    instance.Identity.aliasUsers(userAliasObject, result => {
-        const httpCode: number = result.httpCode;
-        const message: string = result.message;
+    instance.Identity.aliasUsers(userAliasObject, (aliasResult: { httpCode: number; message: string }) => {
+        const httpCode: number = aliasResult.httpCode;
+        const message: string = aliasResult.message;
     });
 
     const aliasRequest: mParticle.UserAliasRequest = instance.Identity.createAliasRequest(
@@ -636,11 +639,12 @@ instance.Identity.identify(identifyIdentities, result => {
     const consentState: mParticle.ConsentState = result.getUser().getConsentState();
 });
 
-instance.Identity.modify(identifyIdentities, result => {
-    console.log(result.body.context);
-    console.log(result.body.is_ephemeral);
-    console.log(result.body.is_logged_in);
-    console.log(result.body.matched_identities);
+instance.Identity.modify(identifyIdentities, (result: mParticle.IdentityResult) => {
+    const body = result.body as mParticle.IdentityResultBody;
+    console.log(body.context);
+    console.log(body.is_ephemeral);
+    console.log(body.is_logged_in);
+    console.log(body.matched_identities);
     const code = result.httpCode;
     const codes = window.mParticle.Identity.HTTPCodes;
 
@@ -671,9 +675,9 @@ instance.Identity.modify(identifyIdentities, result => {
         endTime: new Date().getTime(),
     };
 
-    instance.Identity.aliasUsers(userAliasObject, result => {
-        const httpCode: number = result.httpCode;
-        const message: string = result.message;
+    instance.Identity.aliasUsers(userAliasObject, (aliasResult: { httpCode: number; message: string }) => {
+        const httpCode: number = aliasResult.httpCode;
+        const message: string = aliasResult.message;
     });
 
     const aliasRequest: mParticle.UserAliasRequest = instance.Identity.createAliasRequest(
@@ -729,19 +733,19 @@ mParticle.Rokt.selectPlacements({
         "foo": "bar",
         "fizz": "buzz",
     },
-}).then(selection => {
+}).then((selection: mParticle.RoktSelection) => {
     // Test event subscription patterns
     selection.on("PLACEMENT_INTERACTIVE").subscribe(() => {
         console.log("Placement interaction");
     });
 
-    selection.on("PLACEMENT_COMPLETED").subscribe(event => {
+    selection.on("PLACEMENT_COMPLETED").subscribe((event: mParticle.RoktPlacementEvent<unknown>) => {
         console.log("Placement completed", event);
         console.log("Event details:", event.body, event.event, event.placement);
     });
 
     // Test unsubscription
-    const unsubscriber = selection.on("PLACEMENT_READY").subscribe(event => {
+    const unsubscriber = selection.on("PLACEMENT_READY").subscribe((event: mParticle.RoktPlacementEvent<unknown>) => {
         console.log("Placement ready:", event.placement.id);
     });
     unsubscriber.unsubscribe();
@@ -759,13 +763,13 @@ mParticle.Rokt.selectPlacements({
     });
 
     // Test getting individual placements
-    selection.getPlacements().then(placements => {
-        placements.forEach(placement => {
+    selection.getPlacements().then((placements: mParticle.RoktPlacement[]) => {
+        placements.forEach((placement: mParticle.RoktPlacement) => {
             console.log("Placement ID:", placement.id);
             console.log("Placement element:", placement.element);
 
             // Test placement-specific events
-            placement.on("PLACEMENT_RENDERED").subscribe(event => {
+            placement.on("PLACEMENT_RENDERED").subscribe((event: mParticle.RoktPlacementEvent<unknown>) => {
                 console.log("Placement rendered:", event);
             });
 
@@ -797,7 +801,7 @@ mParticle.Rokt.hashAttributes({
     email: "user@example.com",
     userId: "12345",
     segment: "premium",
-}).then(hashedAttrs => {
+}).then((hashedAttrs: Record<string, string>) => {
     console.log("Hashed attributes:", hashedAttrs);
 });
 
@@ -813,6 +817,6 @@ mParticle.Rokt.selectPlacements({
         "cart_value": 150.00,
     },
     identifier: "checkout-flow-2024",
-}).then(selection => {
+}).then((selection: mParticle.RoktSelection) => {
     console.log("Selection with identifier created", selection);
 });

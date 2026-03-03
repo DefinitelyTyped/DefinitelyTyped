@@ -1,3 +1,5 @@
+import { Camera } from "../../cameras/Camera.js";
+import { Light } from "../../lights/Light.js";
 import { WebGLExtensions } from "./WebGLExtensions.js";
 
 export interface WebGLLightsState {
@@ -19,21 +21,21 @@ export interface WebGLLightsState {
     };
 
     ambient: number[];
-    probe: any[];
-    directional: any[];
-    directionalShadow: any[];
-    directionalShadowMap: any[];
-    directionalShadowMatrix: any[];
-    spot: any[];
-    spotShadow: any[];
-    spotShadowMap: any[];
-    spotShadowMatrix: any[];
-    rectArea: any[];
-    point: any[];
-    pointShadow: any[];
-    pointShadowMap: any[];
-    pointShadowMatrix: any[];
-    hemi: any[];
+    probe: unknown[];
+    directional: unknown[];
+    directionalShadow: unknown[];
+    directionalShadowMap: unknown[];
+    directionalShadowMatrix: unknown[];
+    spot: unknown[];
+    spotShadow: unknown[];
+    spotShadowMap: unknown[];
+    spotShadowMatrix: unknown[];
+    rectArea: unknown[];
+    point: unknown[];
+    pointShadow: unknown[];
+    pointShadowMap: unknown[];
+    pointShadowMatrix: unknown[];
+    hemi: unknown[];
     numSpotLightShadowsWithMaps: number;
     numLightProbes: number;
 }
@@ -43,7 +45,6 @@ export class WebGLLights {
 
     state: WebGLLightsState;
 
-    get(light: any): any;
-    setup(lights: any): void;
-    setupView(lights: any, camera: any): void;
+    setup(lights: Light[]): void;
+    setupView(lights: Light[], camera: Camera): void;
 }

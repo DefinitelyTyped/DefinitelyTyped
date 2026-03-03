@@ -24,8 +24,8 @@ function ModuleTest(): void {
     Module.onAbort = (what) => console.log("abort");
     Module.onRuntimeInitialized = () => console.log("init");
 
-    const package: ArrayBuffer = Module.getPreloadedPackage("package-name", 100);
-    const exports: WebAssembly.Exports | undefined = Module.instantiateWasm(
+    const pkg: ArrayBuffer = Module.getPreloadedPackage("package-name", 100);
+    const wasmExports: WebAssembly.Exports | undefined = Module.instantiateWasm(
         { a: { n: function __syscall_chmod() {} } },
         (module: WebAssembly.Instance) => {},
     );

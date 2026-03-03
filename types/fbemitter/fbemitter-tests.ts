@@ -74,7 +74,7 @@ describe("EventEmitter", function tests() {
                         assert.deepStrictEqual(Array.prototype.slice.call(arguments), args);
                     });
 
-                    e.emit.apply(e, (["args"] as any[]).concat(args));
+                    e.emit.apply(e, ["args", ...args]);
                 })(i);
             }
         });
@@ -108,7 +108,7 @@ describe("EventEmitter", function tests() {
                         assert.deepStrictEqual(Array.prototype.slice.call(arguments), args);
                     });
 
-                    e.emit.apply(e, (["args"] as any[]).concat(args));
+                    e.emit.apply(e, ["args", ...args]);
                 })(i);
             }
         });

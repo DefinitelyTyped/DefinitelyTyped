@@ -42,19 +42,48 @@ export class InstancedMesh<
     TEventMap extends InstancedMeshEventMap = InstancedMeshEventMap,
 > extends Mesh<TGeometry, TMaterial, TEventMap> {
     /**
-     * Create a new instance of {@link InstancedMesh}
-     * @param geometry An instance of {@link BufferGeometry}.
-     * @param material A single or an array of {@link Material}. Default is a new {@link MeshBasicMaterial}.
-     * @param count The **maximum** number of instances of this Mesh. Expects a `Integer`
-     */
-    constructor(geometry: TGeometry | undefined, material: TMaterial | undefined, count: number);
-
-    /**
      * Read-only flag to check if a given object is of type {@link InstancedMesh}.
      * @remarks This is a _constant_ value
      * @defaultValue `true`
      */
     readonly isInstancedMesh: true;
+
+    /**
+     * Represents the local transformation of all instances.
+     * You have to set {@link InstancedBufferAttribute.needsUpdate | .instanceMatrix.needsUpdate()} flag to `true` if you modify instanced data via {@link setMatrixAt | .setMatrixAt()}.
+     */
+    instanceMatrix: InstancedBufferAttribute;
+
+    /**
+     * Represents the local transformation of all instances of the previous frame.
+     * Required for computing velocity. Maintained in {@link InstanceNode}.
+     *
+     * @default null
+     */
+    previousInstancedMatrix: InstancedBufferAttribute | null;
+
+    /**
+     * Represents the colors of all instances.
+     * You have to set {@link InstancedBufferAttribute.needsUpdate | .instanceColor.needsUpdate()} flag to `true` if you modify instanced data via {@link setColorAt | .setColorAt()}.
+     * @defaultValue `null`
+     */
+    instanceColor: InstancedBufferAttribute | null;
+
+    /**
+     * Represents the morph target weights of all instances. You have to set its {@link .needsUpdate} flag to true if
+     * you modify instanced data via {@link .setMorphAt}.
+     */
+    morphTexture: DataTexture | null;
+
+    /**
+     * The number of instances.
+     * @remarks
+     * The `count` value passed into the {@link InstancedMesh | constructor} represents the **maximum** number of instances of this mesh.
+     * You can change the number of instances at runtime to an integer value in the range `[0, count]`.
+     * If you need more instances than the original `count` value, you have to create a new InstancedMesh.
+     * Expects a `Integer`
+     */
+    count: number;
 
     /**
      * This bounding box encloses all instances of the {@link InstancedMesh},, which can be calculated with {@link computeBoundingBox | .computeBoundingBox()}.
@@ -71,33 +100,12 @@ export class InstancedMesh<
     boundingSphere: Sphere | null;
 
     /**
-     * The number of instances.
-     * @remarks
-     * The `count` value passed into the {@link InstancedMesh | constructor} represents the **maximum** number of instances of this mesh.
-     * You can change the number of instances at runtime to an integer value in the range `[0, count]`.
-     * If you need more instances than the original `count` value, you have to create a new InstancedMesh.
-     * Expects a `Integer`
+     * Create a new instance of {@link InstancedMesh}
+     * @param geometry An instance of {@link BufferGeometry}.
+     * @param material A single or an array of {@link Material}. Default is a new {@link MeshBasicMaterial}.
+     * @param count The **maximum** number of instances of this Mesh. Expects a `Integer`
      */
-    count: number;
-
-    /**
-     * Represents the colors of all instances.
-     * You have to set {@link InstancedBufferAttribute.needsUpdate | .instanceColor.needsUpdate()} flag to `true` if you modify instanced data via {@link setColorAt | .setColorAt()}.
-     * @defaultValue `null`
-     */
-    instanceColor: InstancedBufferAttribute | null;
-
-    /**
-     * Represents the local transformation of all instances.
-     * You have to set {@link InstancedBufferAttribute.needsUpdate | .instanceMatrix.needsUpdate()} flag to `true` if you modify instanced data via {@link setMatrixAt | .setMatrixAt()}.
-     */
-    instanceMatrix: InstancedBufferAttribute;
-
-    /**
-     * Represents the morph target weights of all instances. You have to set its {@link .needsUpdate} flag to true if
-     * you modify instanced data via {@link .setMorphAt}.
-     */
-    morphTexture: DataTexture | null;
+    constructor(geometry: TGeometry | undefined, material: TMaterial | undefined, count: number);
 
     /**
      * Computes the bounding box of the instanced mesh, and updates the {@link .boundingBox} attribute. The bounding box

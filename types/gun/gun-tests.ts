@@ -68,7 +68,7 @@ app.get("chatRoom").time!(msg => {
 app.get("object").time!({ a: 1 });
 
 class X {
-    val: string;
+    val!: string;
     b() {}
 }
 interface BadState {

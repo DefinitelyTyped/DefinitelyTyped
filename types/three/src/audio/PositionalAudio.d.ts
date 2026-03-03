@@ -1,101 +1,108 @@
 import { Audio } from "./Audio.js";
-import { AudioListener } from "./AudioListener.js";
 
 /**
- * Create a positional audio object.
- * This uses the {@link https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API | Web Audio API}.
- * @example
- * ```typescript
+ * Represents a positional audio object.
+ *
+ * ```js
  * // create an AudioListener and add it to the camera
  * const listener = new THREE.AudioListener();
- * camera.add(listener);
- * // create the {@link PositionalAudio} object (passing in the listener)
- * const sound = new THREE.PositionalAudio(listener);
- * // load a sound and set it as the {@link PositionalAudio} object's buffer
+ * camera.add( listener );
+ *
+ * // create the PositionalAudio object (passing in the listener)
+ * const sound = new THREE.PositionalAudio( listener );
+ *
+ * // load a sound and set it as the PositionalAudio object's buffer
  * const audioLoader = new THREE.AudioLoader();
- * audioLoader.load('sounds/song.ogg', function (buffer) {
- *     sound.setBuffer(buffer);
- *     sound.setRefDistance(20);
- *     sound.play();
+ * audioLoader.load( 'sounds/song.ogg', function( buffer ) {
+ * 	sound.setBuffer( buffer );
+ * 	sound.setRefDistance( 20 );
+ * 	sound.play();
  * });
+ *
  * // create an object for the sound to play from
- * const sphere = new THREE.SphereGeometry(20, 32, 16);
- * const material = new THREE.MeshPhongMaterial({
- *     color: 0xff2200
- * });
- * const mesh = new THREE.Mesh(sphere, material);
- * scene.add(mesh);
+ * const sphere = new THREE.SphereGeometry( 20, 32, 16 );
+ * const material = new THREE.MeshPhongMaterial( { color: 0xff2200 } );
+ * const mesh = new THREE.Mesh( sphere, material );
+ * scene.add( mesh );
+ *
  * // finally add the sound to the mesh
- * mesh.add(sound);
- * ```
- * @see Example: {@link https://threejs.org/examples/#webaudio_orientation | webaudio / orientation }
- * @see Example: {@link https://threejs.org/examples/#webaudio_sandbox | webaudio / sandbox }
- * @see Example: {@link https://threejs.org/examples/#webaudio_timing | webaudio / timing }
- * @see {@link https://threejs.org/docs/index.html#api/en/audio/PositionalAudio | Official Documentation}
- * @see {@link https://github.com/mrdoob/three.js/blob/master/src/audio/PositionalAudio.js | Source}
+ * mesh.add( sound );
  */
 export class PositionalAudio extends Audio<PannerNode> {
     /**
-     * Create a new instance of {@link PositionalAudio}
-     * @param listener (required) {@link AudioListener | AudioListener} instance.
+     * The panner node represents the location, direction, and behavior of an audio
+     * source in 3D space.
      */
-    constructor(listener: AudioListener);
-
+    readonly panner: PannerNode;
+    disconnect(): this;
     /**
-     * The PositionalAudio's {@link https://developer.mozilla.org/en-US/docs/Web/API/PannerNode | PannerNode}.
-     */
-    panner: PannerNode;
-
-    /**
-     * Returns the {@link PositionalAudio.panner | panner}.
-     */
-    getOutput(): PannerNode;
-
-    /**
-     * Returns the value of {@link https://developer.mozilla.org/en-US/docs/Web/API/PannerNode/refDistance | panner.refDistance}.
+     * Returns the current reference distance.
+     *
+     * @return {number} The reference distance.
      */
     getRefDistance(): number;
     /**
-     * Sets the value of {@link https://developer.mozilla.org/en-US/docs/Web/API/PannerNode/refDistance | panner.refDistance}.
-     * @param value Expects a `Float`
+     * Defines the reference distance for reducing volume as the audio source moves
+     * further from the listener – i.e. the distance at which the volume reduction
+     * starts taking effect.
+     *
+     * @param {number} value - The reference distance to set.
+     * @return {PositionalAudio} A reference to this instance.
      */
     setRefDistance(value: number): this;
-
     /**
-     * Returns the value of {@link https://developer.mozilla.org/en-US/docs/Web/API/PannerNode/rolloffFactor | panner.rolloffFactor}.
+     * Returns the current rolloff factor.
+     *
+     * @return {number} The rolloff factor.
      */
     getRolloffFactor(): number;
     /**
-     * Sets the value of {@link https://developer.mozilla.org/en-US/docs/Web/API/PannerNode/rolloffFactor | panner.rolloffFactor}.
-     * @param value Expects a `Float`
+     * Defines how quickly the volume is reduced as the source moves away from the listener.
+     *
+     * @param {number} value - The rolloff factor.
+     * @return {PositionalAudio} A reference to this instance.
      */
     setRolloffFactor(value: number): this;
-
     /**
-     * Returns the value of {@link https://developer.mozilla.org/en-US/docs/Web/API/PannerNode/distanceModel | panner.distanceModel}.
+     * Returns the current distance model.
+     *
+     * @return {('linear'|'inverse'|'exponential')} The distance model.
      */
-    getDistanceModel(): string;
+    getDistanceModel(): "linear" | "inverse" | "exponential";
     /**
-     * Sets the value of {@link https://developer.mozilla.org/en-US/docs/Web/API/PannerNode/distanceModel | panner.distanceModel}.
-     * @param value
+     * Defines which algorithm to use to reduce the volume of the audio source
+     * as it moves away from the listener.
+     *
+     * Read [the spec](https://www.w3.org/TR/webaudio-1.1/#enumdef-distancemodeltype)
+     * for more details.
+     *
+     * @param {('linear'|'inverse'|'exponential')} value - The distance model to set.
+     * @return {PositionalAudio} A reference to this instance.
      */
-    setDistanceModel(value: string): this;
-
+    setDistanceModel(value: "linear" | "inverse" | "exponential"): this;
     /**
-     * Returns the value of {@link https://developer.mozilla.org/en-US/docs/Web/API/PannerNode/maxDistance | panner.maxDistance}.
+     * Returns the current max distance.
+     *
+     * @return {number} The max distance.
      */
     getMaxDistance(): number;
     /**
-     * Sets the value of {@link https://developer.mozilla.org/en-US/docs/Web/API/PannerNode/maxDistance | panner.maxDistance}.
-     * @param value Expects a `Float`
+     * Defines the maximum distance between the audio source and the listener,
+     * after which the volume is not reduced any further.
+     *
+     * This value is used only by the `linear` distance model.
+     *
+     * @param {number} value - The max distance.
+     * @return {PositionalAudio} A reference to this instance.
      */
     setMaxDistance(value: number): this;
-
     /**
-     * This method can be used in order to transform an omnidirectional sound into a {@link https://developer.mozilla.org/en-US/docs/Web/API/PannerNode | directional sound}.
-     * @param coneInnerAngle Expects a `Float`
-     * @param coneOuterAngle Expects a `Float`
-     * @param coneOuterGain Expects a `Float`
+     * Sets the directional cone in which the audio can be listened.
+     *
+     * @param {number} coneInnerAngle - An angle, in degrees, of a cone inside of which there will be no volume reduction.
+     * @param {number} coneOuterAngle - An angle, in degrees, of a cone outside of which the volume will be reduced by a constant value, defined by the `coneOuterGain` parameter.
+     * @param {number} coneOuterGain - The amount of volume reduction outside the cone defined by the `coneOuterAngle`. When set to `0`, no sound can be heard.
+     * @return {PositionalAudio} A reference to this instance.
      */
     setDirectionalCone(coneInnerAngle: number, coneOuterAngle: number, coneOuterGain: number): this;
 }

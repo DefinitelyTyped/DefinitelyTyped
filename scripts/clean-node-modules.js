@@ -35,4 +35,10 @@ function rimraf(p) {
 for (const nodeModules of iterateNodeModules(repoRoot)) {
     console.log(path.relative(repoRoot, nodeModules));
     rimraf(nodeModules);
+
+    const lockfile = path.join(path.dirname(nodeModules), "pnpm-lock.yaml");
+    if (fs.existsSync(lockfile)) {
+        console.log(path.relative(repoRoot, lockfile));
+        fs.unlinkSync(lockfile);
+    }
 }

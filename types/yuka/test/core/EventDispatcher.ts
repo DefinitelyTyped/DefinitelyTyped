@@ -2,7 +2,7 @@ import { EventDispatcher, EventInterface } from "yuka";
 
 class TestEvent implements EventInterface {
     type = "foo";
-    target: EventDispatcher;
+    target!: EventDispatcher;
 }
 
 const handlerFunction = (event: EventInterface) => {};

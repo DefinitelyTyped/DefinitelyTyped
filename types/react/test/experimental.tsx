@@ -178,4 +178,42 @@ function swipeTransitionTest() {
         // options can be empty
         startGestureTransition(gestureProvider, () => {}, {});
     }
+
+    <React.ViewTransition
+        onGestureEnter={(timeline, options, instance, types) => {
+            // @ts-expect-error -- Only implemented by react-dom
+            timeline.currentTime;
+            // passed options are non-nullable
+            // $ExpectType number
+            options.rangeStart;
+            // $ExpectType number
+            options.rangeEnd;
+            // @ts-expect-error -- Only implemented by react-dom
+            instance.group;
+        }}
+    >
+    </React.ViewTransition>;
+
+    <React.ViewTransition
+        // @ts-expect-error -- Either void or a function must be returned
+        onGestureEnter={() => {
+            return 5;
+        }}
+    >
+    </React.ViewTransition>;
+
+    <React.ViewTransition
+        onGestureEnter={() => {
+            return function cleanup() {};
+        }}
+    >
+    </React.ViewTransition>;
+}
+
+function optimisticKeyTest() {
+    <div key={React.optimisticKey} />;
+    <div
+        // @ts-expect-error -- random symbols are not allowed.
+        key={Symbol("foreign-key")}
+    />;
 }

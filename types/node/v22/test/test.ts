@@ -20,6 +20,7 @@ import {
     todo,
 } from "node:test";
 import { dot, junit, lcov, spec, tap, TestEvent } from "node:test/reporters";
+import { URL } from "node:url";
 
 // top-level export
 test satisfies typeof import("node:test");
@@ -791,6 +792,7 @@ test("mocks a setter", (t) => {
 });
 
 test("mocks a module", (t) => {
+    // module specifier as a string
     // $ExpectType MockModuleContext
     const mock = t.mock.module("node:readline", {
         namedExports: {
@@ -807,6 +809,16 @@ test("mocks a module", (t) => {
     });
     // $ExpectType void
     mock.restore();
+
+    // module specifier as a URL
+    // $ExpectType MockModuleContext
+    t.mock.module(new URL("someUrl"), {
+        namedExports: {
+            fn() {
+                return 42;
+            },
+        },
+    });
 });
 
 // @ts-expect-error

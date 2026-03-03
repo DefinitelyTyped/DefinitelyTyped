@@ -81,6 +81,7 @@
 declare module "node:test" {
     import { AssertMethodNames } from "node:assert";
     import { Readable } from "node:stream";
+    import { URL } from "node:url";
     import TestFn = test.TestFn;
     import TestOptions = test.TestOptions;
     /**
@@ -1638,7 +1639,7 @@ declare module "node:test" {
              * @param specifier A string identifying the module to mock.
              * @param options Optional configuration options for the mock module.
              */
-            module(specifier: string, options?: MockModuleOptions): MockModuleContext;
+            module(specifier: string | URL, options?: MockModuleOptions): MockModuleContext;
             /**
              * This function restores the default behavior of all mocks that were previously
              * created by this `MockTracker` and disassociates the mocks from the `MockTracker` instance. Once disassociated, the mocks can still be used, but the `MockTracker` instance can no longer be

@@ -80,12 +80,12 @@ function testSandbox() {
         foo(arg1: string, arg2: number): number {
             return 1;
         }
-        bar: number;
+        bar!: number;
     };
     const PrivateFoo = class {
         private constructor() {}
         foo() {}
-        bar: number;
+        bar!: number;
         static create() {
             return new PrivateFoo();
         }

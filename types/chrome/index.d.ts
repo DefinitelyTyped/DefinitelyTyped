@@ -692,8 +692,15 @@ declare namespace chrome {
 
         /** @deprecated Bookmark write operations are no longer limited by Chrome. */
         export const MAX_WRITE_OPERATIONS_PER_HOUR: 1000000;
+
         /** @deprecated Bookmark write operations are no longer limited by Chrome. */
         export const MAX_SUSTAINED_WRITE_OPERATIONS_PER_MINUTE: 1000000;
+
+        /**
+         * The `id` associated with the root level node.
+         * @since Chrome 145
+         */
+        export const ROOT_NODE_ID = "0";
 
         /**
          * Creates a bookmark or folder under the specified parentId. If url is NULL or missing, it will be a folder.
@@ -1029,7 +1036,7 @@ declare namespace chrome {
             cookies?: boolean | undefined;
             /**
              * Stored passwords.
-             * @deprecated Support for password deletion through extensions has been removed. This data type will be ignored.
+             * @deprecated since Chrome 144. Support for password deletion through extensions has been removed. This data type will be ignored.
              */
             passwords?: boolean | undefined;
             /**
@@ -1125,7 +1132,7 @@ declare namespace chrome {
          * Clears the browser's stored passwords.
          *
          * Can return its result via Promise in Manifest V3 or later since Chrome 96.
-         * @deprecated Support for password deletion through extensions has been removed. This function has no effect.
+         * @deprecated since Chrome 144. Support for password deletion through extensions has been removed. This function has no effect.
          */
         export function removePasswords(options: RemovalOptions): Promise<void>;
         export function removePasswords(options: RemovalOptions, callback: () => void): void;
@@ -3779,6 +3786,8 @@ declare namespace chrome {
             BLOCKED_SCAN_FAILED = "blockedScanFailed",
             /** For use by the Secure Enterprise Browser extension. When required, Chrome will block the download to disc and download the file directly to Google Drive. */
             FORCE_SAVE_TO_GDRIVE = "forceSaveToGdrive",
+            /** For use by the Secure Enterprise Browser extension. When required, Chrome will block the download to disc and download the file directly to OneDrive. */
+            FORCE_SAVE_TO_ONEDRIVE = "forceSaveToOnedrive",
         }
 
         export interface DownloadItem {
@@ -11046,6 +11055,11 @@ declare namespace chrome {
             /** The session ID used to uniquely identify a tab obtained from the {@link sessions} API. */
             sessionId?: string | undefined;
             /**
+             * The ID of the Split View that the tab belongs to.
+             * @since Chrome 145
+             */
+            splitViewId?: number | undefined;
+            /**
              * The ID of the group that the tab belongs to.
              * @since Chrome 88
              */
@@ -11115,6 +11129,12 @@ declare namespace chrome {
          * @since Chrome 92
          */
         export const MAX_CAPTURE_VISIBLE_TAB_CALLS_PER_SECOND = 2;
+
+        /**
+         * An ID that represents the absence of a split tab.
+         * @since Chrome 145
+         */
+        export const SPLIT_VIEW_ID_NONE: -1;
 
         /**
          * An ID that represents the absence of a browser tab.
@@ -13085,6 +13105,10 @@ declare namespace chrome {
             EXTRA_HEADERS = "extraHeaders",
             /** Specifies that the response headers should be included in the event. */
             RESPONSE_HEADERS = "responseHeaders",
+            /** Specifies that the SecurityInfo should be included in the event. */
+            SECURITY_INFO = "securityInfo",
+            /** Specifies that the SecurityInfo with raw bytes of certificates should be included in the event. */
+            SECURITY_INFO_RAW_DER = "securityInfoRawDer",
         }
 
         /** @since Chrome 44 */
@@ -13145,6 +13169,23 @@ declare namespace chrome {
             OTHER = "other",
         }
 
+        /** @since Chrome 144 */
+        export interface SecurityInfo {
+            /** A list of certificates */
+            certificates: {
+                /** Fingerprints of the certificate. */
+                fingerprint: {
+                    /** sha256 fingerprint of the certificate. */
+                    sha256: string;
+                };
+                /** Raw bytes of DER encoded server certificate */
+                rawDER?: ArrayBuffer;
+            }[];
+
+            /** State of the connection. One of secure, insecure, broken. */
+            state: string;
+        }
+
         /** Contains data uploaded in a URL request. */
         export interface UploadData {
             /** An ArrayBuffer with a copy of the data. */
@@ -13162,7 +13203,7 @@ declare namespace chrome {
              * The UUID of the document making the request.
              * @since Chrome 106
              */
-            documentId: string;
+            documentId?: string;
             /**
              * The lifecycle the document is in.
              * @since Chrome 106
@@ -13282,6 +13323,11 @@ declare namespace chrome {
         export interface OnHeadersReceivedDetails extends WebRequestDetails {
             /** The HTTP response headers that have been received with this response. */
             responseHeaders?: HttpHeader[];
+            /**
+             * Information about the TLS/QUIC connection used for the underlying connection. Only provided if `securityInfo` is specified in the `extraInfoSpec` parameter.
+             * @since Chrome 144
+             */
+            securityInfo?: SecurityInfo;
             /** Standard HTTP status code returned by the server. */
             statusCode: number;
             /** HTTP status line of the response or the 'HTTP/0.9 200 OK' string for HTTP/0.9 responses (i.e., responses that lack a status line) or an empty string if there are no headers.*/
@@ -13952,6 +13998,32 @@ declare namespace chrome {
              */
             excludedTabIds?: number[] | undefined;
 
+            /**
+             * The rule will only match network requests when the associated top-level frame's domain matches one from the list of `topDomains`. If the list is omitted, the rule is applied to requests associated with all top-level frame domains. An empty list is not allowed.
+             *
+             * Notes:
+             * - Sub-domains like "a.example.com" are also allowed.
+             * - The entries must consist of only ascii characters.
+             * - Use punycode encoding for internationalized domains.
+             * - Sub-domains of the listed domains are also matched.
+             * - For requests with no associated top-level frame (e.g. ServiceWorker initiated requests, the request initiator's domain is considered instead.
+             * @since Chrome 141
+             */
+            topDomains?: string[] | undefined;
+
+            /**
+             * The rule will not match network requests when the associated top-level frame's domain matches one from the list of `excludedTopDomains`. If the list is empty or omitted, no domains are excluded. This takes precedence over `topDomains`.
+             *
+             * Notes:
+             * - Sub-domains like "a.example.com" are also allowed.
+             * - The entries must consist of only ascii characters.
+             * - Use punycode encoding for internationalized domains.
+             * - Sub-domains of the listed domains are also excluded.
+             * - For requests with no associated top-level frame (e.g. ServiceWorker initiated requests, the request initiator's domain is considered instead.
+             * @since Chrome 141
+             */
+            excludedTopDomains?: string[] | undefined;
+
             /** Whether the `urlFilter` or `regexFilter` (whichever is specified) is case sensitive. Default is false. */
             isUrlFilterCaseSensitive?: boolean | undefined;
 
@@ -14027,6 +14099,30 @@ declare namespace chrome {
              * @since Chrome 128
              */
             responseHeaders?: HeaderInfo[];
+        }
+
+        /** @since Chrome 145 */
+        export enum RuleConditionKeys {
+            URL_FILTER = "urlFilter",
+            REGEX_FILTER = "regexFilter",
+            IS_URL_FILTER_CASE_SENSITIVE = "isUrlFilterCaseSensitive",
+            INITIATOR_DOMAINS = "initiatorDomains",
+            EXCLUDED_INITIATOR_DOMAINS = "excludedInitiatorDomains",
+            REQUEST_DOMAINS = "requestDomains",
+            EXCLUDED_REQUEST_DOMAINS = "excludedRequestDomains",
+            TOP_DOMAINS = "topDomains",
+            EXCLUDED_TOP_DOMAINS = "excludedTopDomains",
+            DOMAINS = "domains",
+            EXCLUDED_DOMAINS = "excludedDomains",
+            RESOURCE_TYPES = "resourceTypes",
+            EXCLUDED_RESOURCE_TYPES = "excludedResourceTypes",
+            REQUEST_METHODS = "requestMethods",
+            EXCLUDED_REQUEST_METHODS = "excludedRequestMethods",
+            DOMAIN_TYPE = "domainType",
+            TAB_IDS = "tabIds",
+            EXCLUDED_TAB_IDS = "excludedTabIds",
+            RESPONSE_HEADERS = "responseHeaders",
+            EXCLUDED_RESPONSE_HEADERS = "excludedResponseHeaders",
         }
 
         export interface MatchedRule {
@@ -14249,6 +14345,11 @@ declare namespace chrome {
             responseHeaders?: { [name: string]: unknown };
             /** The ID of the tab in which the hypothetical request takes place. Does not need to correspond to a real tab ID. Default is -1, meaning that the request isn't related to a tab. */
             tabId?: number;
+            /**
+             * The associated top-level frame URL (if any) for the request.
+             * @since Chrome 145
+             */
+            topUrl?: string;
             /** The resource type of the hypothetical request. */
             type: `${ResourceType}`;
             /** The URL of the hypothetical request. */
@@ -14516,6 +14617,14 @@ declare namespace chrome {
         }
 
         /**
+         * Closes the extension's side panel. This is a no-op if the panel is already closed.
+         * @param options Specifies the context in which to close the side panel.
+         * @since Chrome 141
+         */
+        export function close(options: CloseOptions): Promise<void>;
+        export function close(options: CloseOptions, callback: () => void): void;
+
+        /**
          * Returns the side panel's current layout.
          * @since Chrome 140
          */
@@ -14566,6 +14675,12 @@ declare namespace chrome {
          */
         export function setPanelBehavior(behavior: PanelBehavior): Promise<void>;
         export function setPanelBehavior(behavior: PanelBehavior, callback: () => void): void;
+
+        /**
+         * Fired when the extension's side panel is closed.
+         * @since Chrome 142
+         */
+        const onClosed: events.Event<(info: PanelClosedInfo) => void>;
 
         /**
          * Fired when the extension's side panel is opened.

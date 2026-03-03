@@ -1,12 +1,12 @@
 import Ember from "ember";
 
 class AuthService extends Ember.Service {
-    isAuthenticated: boolean;
+    isAuthenticated!: boolean;
 }
 
 class ApplicationController extends Ember.Controller {
     model = {};
-    string: string;
+    string!: string;
     transitionToLogin() {}
 }
 

@@ -117,7 +117,7 @@ router.put(
                 params: JSON.parse(request.body),
             });
             response.json({ id });
-        } catch (e) {
+        } catch (e: any) {
             e.error = true;
             response.json(e);
         }

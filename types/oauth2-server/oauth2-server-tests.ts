@@ -80,7 +80,7 @@ const authenticate = (authenticateOptions?: {}) => {
             const token = await oauth2Server.authenticate(request, response, options);
             req.user = token;
             next();
-        } catch (err) {
+        } catch (err: any) {
             res.status(err.code || 500).json(err);
         }
     };

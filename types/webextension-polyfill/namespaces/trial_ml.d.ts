@@ -27,17 +27,17 @@ export namespace TrialMl {
         /**
          * Prepare the inference engine
          */
-        createEngine(CreateEngineRequest: CreateEngineRequest): void;
+        createEngine(CreateEngineRequest: CreateEngineRequest): Promise<void>;
 
         /**
          * Call the inference engine
          */
-        runEngine(RunEngineRequest: RunEngineRequest): void;
+        runEngine(RunEngineRequest: RunEngineRequest): Promise<void>;
 
         /**
          * Delete the models the extension downloaded.
          */
-        deleteCachedModels(): void;
+        deleteCachedModels(): Promise<void>;
 
         /**
          * Events from the inference engine.

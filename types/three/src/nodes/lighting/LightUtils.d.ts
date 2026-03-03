@@ -5,4 +5,4 @@ export const getDistanceAttenuation: (args: {
     lightDistance: Node;
     cutoffDistance: Node;
     decayExponent: Node;
-}) => ConditionalNode;
+}) => Node<"float">;

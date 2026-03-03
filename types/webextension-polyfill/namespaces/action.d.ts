@@ -228,8 +228,10 @@ export namespace Action {
 
         /**
          * Checks whether the browser action is enabled.
+         *
+         * @param details Optional.
          */
-        isEnabled(details: Details): Promise<boolean>;
+        isEnabled(details?: Details | number): Promise<boolean>;
 
         /**
          * Opens the extension popup window in the specified window.

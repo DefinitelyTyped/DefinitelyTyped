@@ -5,8 +5,10 @@ import {
     ContentImage,
     ContentOrderedList,
     ContentSvg,
+    ContentToc,
     ContentUnorderedList,
     CustomTableLayout,
+    StyleDictionary,
     Table,
     TableCell,
     TDocumentDefinitions,
@@ -93,8 +95,8 @@ const pageBreakBefore: TDocumentDefinitions = {
         { text: "3 Headline", headlineLevel: 1 },
         "Some long text of variable length ...",
     ],
-    pageBreakBefore: (currentNode, followingNodesOnPage, nodesOnNextPage, previousNodesOnPage) =>
-        currentNode.headlineLevel === 1 && followingNodesOnPage.length === 0,
+    pageBreakBefore: (currentNode, { getFollowingNodesOnPage, getNodesOnNextPage, getPreviousNodesOnPage }) =>
+        currentNode.headlineLevel === 1 && getFollowingNodesOnPage().length === 0,
 };
 
 const qrCodes: TDocumentDefinitions = {
@@ -263,9 +265,7 @@ const imageWithHeaders: TDocumentDefinitions = {
 const bufferOptions: BufferOptions = {
     fontLayoutCache: true,
     bufferPages: true,
-    tableLayouts: { foo: { fillColor: "#ff0000" } },
     autoPrint: true,
-    progressCallback: (progress: number) => {},
 };
 
 const customTableLayouts: CustomTableLayout[] = [
@@ -405,3 +405,27 @@ const svgWithLink: Content = [
         link: "http://foo.bar",
     },
 ];
+
+const hideEmptyToC: ContentToc = {
+    toc: {
+        hideEmpty: true,
+    },
+};
+
+const styleExtends: StyleDictionary = {
+    header: {
+        fontSize: 18,
+        bold: true,
+    },
+    subheader: {
+        fontSize: 15,
+        extends: "header",
+    },
+    smallheader: {
+        italics: true,
+        extends: ["subheader", "small"],
+    },
+    small: {
+        fontSize: 8,
+    },
+};

@@ -1,5 +1,5 @@
-import Node from "../core/Node.js";
+import UniformNode from "../core/UniformNode.js";
 
-export const time: Node;
-export const deltaTime: Node;
-export const frameId: Node;
+export const time: UniformNode<"float", number>;
+export const deltaTime: UniformNode<"float", number>;
+export const frameId: UniformNode<"uint", number>;

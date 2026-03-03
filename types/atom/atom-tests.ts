@@ -654,7 +654,7 @@ function testDecoration() {
 // DeserializerManager ========================================================
 function testDesializerManager() {
     class StorableClass {
-        name: string;
+        name!: string;
 
         constructor() {}
         deserialize() {

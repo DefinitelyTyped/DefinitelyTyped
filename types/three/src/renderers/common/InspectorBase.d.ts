@@ -1,39 +1,50 @@
 import { Camera } from "../../cameras/Camera.js";
 import { RenderTarget } from "../../core/RenderTarget.js";
+import Node from "../../nodes/core/Node.js";
+import NodeFrame from "../../nodes/core/NodeFrame.js";
 import ComputeNode from "../../nodes/gpgpu/ComputeNode.js";
 import { Scene } from "../../scenes/Scene.js";
 import { Texture } from "../../textures/Texture.js";
 import Renderer from "./Renderer.js";
+
 /**
  * InspectorBase is the base class for all inspectors.
  *
  * @class InspectorBase
  */
 declare class InspectorBase {
-    _renderer: Renderer | null;
     /**
-     * Creates a new InspectorBase.
+     * The renderer associated with this inspector.
+     *
+     * @type {WebGLRenderer}
+     * @private
      */
-    constructor();
+    private _renderer;
+    /**
+     * The current frame being processed.
+     *
+     * @type {Object}
+     */
+    currentFrame: unknown;
     /**
      * Returns the node frame for the current renderer.
      *
      * @return {Object} The node frame.
      */
-    get nodeFrame(): import("../../Three.WebGPU.Nodes.js").NodeFrame;
+    get nodeFrame(): NodeFrame;
     /**
      * Sets the renderer for this inspector.
      *
      * @param {WebGLRenderer} renderer - The renderer to associate with this inspector.
      * @return {InspectorBase} This inspector instance.
      */
-    setRenderer(renderer: Renderer | null): this;
+    setRenderer(renderer: Renderer): InspectorBase;
     /**
      * Returns the renderer associated with this inspector.
      *
      * @return {WebGLRenderer} The associated renderer.
      */
-    getRenderer(): Renderer | null;
+    getRenderer(): Renderer;
     /**
      * Initializes the inspector.
      */
@@ -51,7 +62,7 @@ declare class InspectorBase {
      *
      * @param {Node} node - The node to inspect.
      */
-    inspect(): void;
+    inspect(node: Node): void;
     /**
      * When a compute operation is performed.
      *
@@ -102,4 +113,5 @@ declare class InspectorBase {
      */
     copyFramebufferToTexture(framebufferTexture: Texture): void;
 }
+
 export default InspectorBase;

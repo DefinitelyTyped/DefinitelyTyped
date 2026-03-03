@@ -53,7 +53,7 @@ declare namespace MapboxGeocoder {
          * or [`fitBounds`](https://docs.mapbox.com/mapbox-gl-js/api/#map#fitbounds) method providing control over the animation of the transition.
          * @default true
          */
-        flyTo?: boolean | mapboxgl.FlyToOptions | mapboxgl.FitBoundsOptions | undefined;
+        flyTo?: boolean | mapboxgl.EasingOptions | undefined;
         /**
          * a geographical point given as an object with `latitude` and `longitude` properties, or the string 'ip' to use a user's IP address location. Search results closer to this point will be given higher priority.
          */
@@ -331,11 +331,11 @@ declare class MapboxGeocoder implements mapboxgl.IControl {
      * If an object, it will be passed as `options` to the map [`flyTo`](https://docs.mapbox.com/mapbox-gl-js/api/#map#flyto) or [`fitBounds`](https://docs.mapbox.com/mapbox-gl-js/api/#map#fitbounds)
      * method providing control over the animation of the transition.
      */
-    setFlyTo(flyTo: boolean | mapboxgl.FlyToOptions | mapboxgl.FitBoundsOptions): this;
+    setFlyTo(flyTo: boolean | mapboxgl.EasingOptions): this;
     /**
      * Get the parameters used to fly to the selected response, if any
      */
-    getFlyTo(): boolean | mapboxgl.FlyToOptions | mapboxgl.FitBoundsOptions;
+    getFlyTo(): boolean | mapboxgl.EasingOptions;
     /**
      * Get the value of the placeholder string
      */

@@ -29,8 +29,6 @@ declare class MeshLambertNodeMaterial extends NodeMaterial {
     /**
      * This flag can be used for type testing.
      *
-     * @type {boolean}
-     * @readonly
      * @default true
      */
     readonly isMeshLambertNodeMaterial: boolean;

@@ -1,4 +1,4 @@
-// For Library Version: 1.143.0
+// For Library Version: 1.144.0
 
 declare module "sap/ui/commons/library" {
   import { ColorPickerMode as ColorPickerMode1 } from "sap/ui/unified/library";
@@ -97,6 +97,35 @@ declare module "sap/ui/commons/library" {
      */
     Page = "Page",
   }
+  /**
+   * Marker interface for controls that process instances of `window.Blob`, such as `window.File`. The implementation
+   * of this Interface should implement the following Interface methods:
+   * 	 - `getProcessedBlobsFromArray`
+   *
+   * @deprecated As of version 1.38. because it is part of the deprecated package sap.ui.commons
+   */
+  export interface IProcessableBlobs {
+    __implements__sap_ui_commons_IProcessableBlobs: boolean;
+
+    /**
+     * Allows to process Blobs before they get uploaded. This API can be used to create custom Blobs and upload
+     * these custom Blobs instead of the received/initials Blobs in the parameter `aBlobs`. One use case could
+     * be to create and upload zip archives based on the passed Blobs. The default implementation of this API
+     * should simply resolve with the received Blobs (parameter `aBlobs`).
+     *
+     * @since 1.144
+     * @deprecated As of version 1.144. Please use the IProcessableBlobs of the library sap.ui.unified instead.
+     *
+     * @returns A Promise that resolves with an array of Blobs which is used for the final uploading.
+     */
+    getProcessedBlobsFromArray(
+      /**
+       * The initial Blobs which can be used to determine a new array of Blobs for further processing.
+       */
+      aBlobs: Blob[]
+    ): Promise<Blob[]>;
+  }
+
   /**
    * Available label display modes.
    *
@@ -8030,12 +8059,32 @@ declare module "sap/ui/commons/DropdownBox" {
 }
 
 declare module "sap/ui/commons/FileUploader" {
+  import { default as Control, $ControlSettings } from "sap/ui/core/Control";
+
   import {
-    default as FileUploader1,
-    $FileUploaderSettings as $FileUploaderSettings1,
-  } from "sap/ui/unified/FileUploader";
+    IFormContent,
+    ID,
+    URI,
+    ValueState,
+    CSSSize,
+  } from "sap/ui/core/library";
+
+  import { IProcessableBlobs } from "sap/ui/commons/library";
+
+  import FileUploaderParameter from "sap/ui/commons/FileUploaderParameter";
+
+  import Event from "sap/ui/base/Event";
+
+  import FileUploaderHttpRequestMethod from "sap/ui/commons/FileUploaderHttpRequestMethod";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import FileUploaderXHRSettings from "sap/ui/commons/FileUploaderXHRSettings";
+
+  import {
+    PropertyBindingInfo,
+    AggregationBindingInfo,
+  } from "sap/ui/base/ManagedObject";
 
   /**
    * The framework generates an input field and a button with text "Browse ...". The API supports features
@@ -8046,16 +8095,18 @@ declare module "sap/ui/commons/FileUploader" {
    * @deprecated As of version 1.21.0. Please use the control sap.ui.unified.FileUploader of the library sap.ui.unified
    * instead.
    */
-  export default class FileUploader extends FileUploader1 {
+  export default class FileUploader
+    extends Control
+    implements IFormContent, IProcessableBlobs
+  {
+    __implements__sap_ui_core_IFormContent: boolean;
+    __implements__sap_ui_commons_IProcessableBlobs: boolean;
     /**
      * Constructor for a new FileUploader.
      *
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
-     *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.FileUploader#constructor sap.ui.unified.FileUploader }
-     * can be used.
      */
     constructor(
       /**
@@ -8069,9 +8120,6 @@ declare module "sap/ui/commons/FileUploader" {
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
-     *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.FileUploader#constructor sap.ui.unified.FileUploader }
-     * can be used.
      */
     constructor(
       /**
@@ -8088,7 +8136,7 @@ declare module "sap/ui/commons/FileUploader" {
      * Creates a new subclass of class sap.ui.commons.FileUploader with name `sClassName` and enriches it with
      * the information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.unified.FileUploader.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
      *
      *
      * @returns Created class / constructor function
@@ -8115,6 +8163,2250 @@ declare module "sap/ui/commons/FileUploader" {
      * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
+    /**
+     * Aborts the currently running upload.
+     *
+     * @since 1.24.0
+     */
+    abort(
+      /**
+       * The name of the parameter within the `headerParameters` aggregation to be checked.
+       *
+       * **Note:** aborts the request, sent with a header parameter with the provided name. The parameter is taken
+       * into account if the sHeaderParameterValue parameter is provided too.
+       */
+      sHeaderParameterName: string,
+      /**
+       * The value of the parameter within the `headerParameters` aggregation to be checked.
+       *
+       * **Note:** aborts the request, sent with a header parameter with the provided value. The parameter is
+       * taken into account if the sHeaderParameterName parameter is provided too.
+       */
+      sHeaderParameterValue: string
+    ): void;
+    /**
+     * Adds some ariaDescribedBy into the association {@link #getAriaDescribedBy ariaDescribedBy}.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    addAriaDescribedBy(
+      /**
+       * The ariaDescribedBy to add; if empty, nothing is inserted
+       */
+      vAriaDescribedBy: ID | Control
+    ): this;
+    /**
+     * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    addAriaLabelledBy(
+      /**
+       * The ariaLabelledBy to add; if empty, nothing is inserted
+       */
+      vAriaLabelledBy: ID | Control
+    ): this;
+    /**
+     * Adds some headerParameter to the aggregation {@link #getHeaderParameters headerParameters}.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    addHeaderParameter(
+      /**
+       * The headerParameter to add; if empty, nothing is inserted
+       */
+      oHeaderParameter: FileUploaderParameter
+    ): this;
+    /**
+     * Adds some parameter to the aggregation {@link #getParameters parameters}.
+     *
+     * @since 1.12.2
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    addParameter(
+      /**
+       * The parameter to add; if empty, nothing is inserted
+       */
+      oParameter: FileUploaderParameter
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:afterDialogClose afterDialogClose} event of
+     * this `sap.ui.commons.FileUploader`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.FileUploader` itself.
+     *
+     * Fired after select file dialog closes.
+     *
+     * @since 1.102.0
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachAfterDialogClose(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.FileUploader` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:afterDialogClose afterDialogClose} event of
+     * this `sap.ui.commons.FileUploader`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.FileUploader` itself.
+     *
+     * Fired after select file dialog closes.
+     *
+     * @since 1.102.0
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachAfterDialogClose(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.FileUploader` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:beforeDialogOpen beforeDialogOpen} event of
+     * this `sap.ui.commons.FileUploader`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.FileUploader` itself.
+     *
+     * Fired before select file dialog opens.
+     *
+     * @since 1.102.0
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachBeforeDialogOpen(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.FileUploader` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:beforeDialogOpen beforeDialogOpen} event of
+     * this `sap.ui.commons.FileUploader`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.FileUploader` itself.
+     *
+     * Fired before select file dialog opens.
+     *
+     * @since 1.102.0
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachBeforeDialogOpen(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.FileUploader` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.commons.FileUploader`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.FileUploader` itself.
+     *
+     * Event is fired when the value of the file path has been changed.
+     *
+     * **Note:** Keep in mind that because of the HTML input element of type file, the event is also fired in
+     * Chrome browser when the Cancel button of the uploads window is pressed.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachChange(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: FileUploader$ChangeEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.FileUploader` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.commons.FileUploader`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.FileUploader` itself.
+     *
+     * Event is fired when the value of the file path has been changed.
+     *
+     * **Note:** Keep in mind that because of the HTML input element of type file, the event is also fired in
+     * Chrome browser when the Cancel button of the uploads window is pressed.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: FileUploader$ChangeEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.FileUploader` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:fileAllowed fileAllowed} event of this `sap.ui.commons.FileUploader`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.FileUploader` itself.
+     *
+     * Event is fired when the file is allowed for upload on client side.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachFileAllowed(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.FileUploader` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:fileAllowed fileAllowed} event of this `sap.ui.commons.FileUploader`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.FileUploader` itself.
+     *
+     * Event is fired when the file is allowed for upload on client side.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachFileAllowed(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.FileUploader` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:fileEmpty fileEmpty} event of this `sap.ui.commons.FileUploader`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.FileUploader` itself.
+     *
+     * Event is fired when the size of the file is 0
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachFileEmpty(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: FileUploader$FileEmptyEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.FileUploader` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:fileEmpty fileEmpty} event of this `sap.ui.commons.FileUploader`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.FileUploader` itself.
+     *
+     * Event is fired when the size of the file is 0
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachFileEmpty(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: FileUploader$FileEmptyEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.FileUploader` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:filenameLengthExceed filenameLengthExceed} event
+     * of this `sap.ui.commons.FileUploader`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.FileUploader` itself.
+     *
+     * Event is fired, if the filename of a chosen file is longer than the value specified with the `maximumFilenameLength`
+     * property.
+     *
+     * @since 1.24.0
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachFilenameLengthExceed(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: FileUploader$FilenameLengthExceedEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.FileUploader` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:filenameLengthExceed filenameLengthExceed} event
+     * of this `sap.ui.commons.FileUploader`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.FileUploader` itself.
+     *
+     * Event is fired, if the filename of a chosen file is longer than the value specified with the `maximumFilenameLength`
+     * property.
+     *
+     * @since 1.24.0
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachFilenameLengthExceed(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: FileUploader$FilenameLengthExceedEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.FileUploader` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:fileSizeExceed fileSizeExceed} event of this
+     * `sap.ui.commons.FileUploader`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.FileUploader` itself.
+     *
+     * Event is fired when the size of a file is above the `maximumFileSize` property. This event is not supported
+     * by Internet Explorer 9 (same restriction as for the property `maximumFileSize`).
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachFileSizeExceed(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: FileUploader$FileSizeExceedEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.FileUploader` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:fileSizeExceed fileSizeExceed} event of this
+     * `sap.ui.commons.FileUploader`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.FileUploader` itself.
+     *
+     * Event is fired when the size of a file is above the `maximumFileSize` property. This event is not supported
+     * by Internet Explorer 9 (same restriction as for the property `maximumFileSize`).
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachFileSizeExceed(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: FileUploader$FileSizeExceedEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.FileUploader` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:typeMissmatch typeMissmatch} event of this `sap.ui.commons.FileUploader`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.FileUploader` itself.
+     *
+     * Event is fired when the type of a file does not match the `mimeType` or `fileType` property.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachTypeMissmatch(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: FileUploader$TypeMissmatchEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.FileUploader` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:typeMissmatch typeMissmatch} event of this `sap.ui.commons.FileUploader`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.FileUploader` itself.
+     *
+     * Event is fired when the type of a file does not match the `mimeType` or `fileType` property.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachTypeMissmatch(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: FileUploader$TypeMissmatchEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.FileUploader` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:uploadAborted uploadAborted} event of this `sap.ui.commons.FileUploader`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.FileUploader` itself.
+     *
+     * Event is fired after the current upload has been aborted.
+     *
+     * This event is only supported with property `sendXHR` set to true, i.e. the event is not supported in
+     * Internet Explorer 9.
+     *
+     * @since 1.24.0
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachUploadAborted(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: FileUploader$UploadAbortedEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.FileUploader` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:uploadAborted uploadAborted} event of this `sap.ui.commons.FileUploader`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.FileUploader` itself.
+     *
+     * Event is fired after the current upload has been aborted.
+     *
+     * This event is only supported with property `sendXHR` set to true, i.e. the event is not supported in
+     * Internet Explorer 9.
+     *
+     * @since 1.24.0
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachUploadAborted(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: FileUploader$UploadAbortedEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.FileUploader` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:uploadComplete uploadComplete} event of this
+     * `sap.ui.commons.FileUploader`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.FileUploader` itself.
+     *
+     * Event is fired as soon as the upload request is completed (either successful or unsuccessful).
+     *
+     * To see if the upload request was successful, check the `status` parameter for a value 2xx. The actual
+     * progress of the upload can be monitored by listening to the `uploadProgress` event. However, this covers
+     * only the client side of the upload process and does not give any success status from the server.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachUploadComplete(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: FileUploader$UploadCompleteEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.FileUploader` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:uploadComplete uploadComplete} event of this
+     * `sap.ui.commons.FileUploader`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.FileUploader` itself.
+     *
+     * Event is fired as soon as the upload request is completed (either successful or unsuccessful).
+     *
+     * To see if the upload request was successful, check the `status` parameter for a value 2xx. The actual
+     * progress of the upload can be monitored by listening to the `uploadProgress` event. However, this covers
+     * only the client side of the upload process and does not give any success status from the server.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachUploadComplete(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: FileUploader$UploadCompleteEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.FileUploader` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:uploadProgress uploadProgress} event of this
+     * `sap.ui.commons.FileUploader`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.FileUploader` itself.
+     *
+     * Event is fired after the upload has started and before the upload is completed.
+     *
+     * It contains progress information related to the running upload. Depending on file size, band width and
+     * used browser the event is fired once or multiple times.
+     *
+     * This event is only supported with property `sendXHR` set to true, i.e. the event is not supported in
+     * Internet Explorer 9.
+     *
+     * @since 1.24.0
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachUploadProgress(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: FileUploader$UploadProgressEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.FileUploader` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:uploadProgress uploadProgress} event of this
+     * `sap.ui.commons.FileUploader`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.FileUploader` itself.
+     *
+     * Event is fired after the upload has started and before the upload is completed.
+     *
+     * It contains progress information related to the running upload. Depending on file size, band width and
+     * used browser the event is fired once or multiple times.
+     *
+     * This event is only supported with property `sendXHR` set to true, i.e. the event is not supported in
+     * Internet Explorer 9.
+     *
+     * @since 1.24.0
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachUploadProgress(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: FileUploader$UploadProgressEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.FileUploader` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:uploadStart uploadStart} event of this `sap.ui.commons.FileUploader`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.FileUploader` itself.
+     *
+     * Event is fired before an upload is started.
+     *
+     * @since 1.30.0
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachUploadStart(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: FileUploader$UploadStartEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.FileUploader` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:uploadStart uploadStart} event of this `sap.ui.commons.FileUploader`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.FileUploader` itself.
+     *
+     * Event is fired before an upload is started.
+     *
+     * @since 1.30.0
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachUploadStart(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: FileUploader$UploadStartEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.FileUploader` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Checks if the chosen file is readable.
+     *
+     *
+     * @returns A promise that resolves successfully if the chosen file can be read and fails with an error
+     * message if it cannot
+     */
+    checkFileReadable(): Promise<any>;
+    /**
+     * Clears the content of the `FileUploader`.
+     *
+     * **Note:** The attached additional data however is retained.
+     *
+     * @since 1.25.0
+     *
+     * @returns Reference to `this` for method chaining
+     */
+    clear(): this;
+    /**
+     * Destroys all the headerParameters in the aggregation {@link #getHeaderParameters headerParameters}.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    destroyHeaderParameters(): this;
+    /**
+     * Destroys all the parameters in the aggregation {@link #getParameters parameters}.
+     *
+     * @since 1.12.2
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    destroyParameters(): this;
+    /**
+     * Destroys the xhrSettings in the aggregation {@link #getXhrSettings xhrSettings}.
+     *
+     * @since 1.52
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    destroyXhrSettings(): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:afterDialogClose afterDialogClose} event of
+     * this `sap.ui.commons.FileUploader`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     * @since 1.102.0
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachAfterDialogClose(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:beforeDialogOpen beforeDialogOpen} event of
+     * this `sap.ui.commons.FileUploader`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     * @since 1.102.0
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachBeforeDialogOpen(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:change change} event of this `sap.ui.commons.FileUploader`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachChange(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: FileUploader$ChangeEvent) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:fileAllowed fileAllowed} event of this `sap.ui.commons.FileUploader`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachFileAllowed(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:fileEmpty fileEmpty} event of this `sap.ui.commons.FileUploader`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachFileEmpty(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: FileUploader$FileEmptyEvent) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:filenameLengthExceed filenameLengthExceed }
+     * event of this `sap.ui.commons.FileUploader`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     * @since 1.24.0
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachFilenameLengthExceed(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: FileUploader$FilenameLengthExceedEvent) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:fileSizeExceed fileSizeExceed} event of this
+     * `sap.ui.commons.FileUploader`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachFileSizeExceed(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: FileUploader$FileSizeExceedEvent) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:typeMissmatch typeMissmatch} event of this
+     * `sap.ui.commons.FileUploader`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachTypeMissmatch(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: FileUploader$TypeMissmatchEvent) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:uploadAborted uploadAborted} event of this
+     * `sap.ui.commons.FileUploader`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     * @since 1.24.0
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachUploadAborted(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: FileUploader$UploadAbortedEvent) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:uploadComplete uploadComplete} event of this
+     * `sap.ui.commons.FileUploader`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachUploadComplete(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: FileUploader$UploadCompleteEvent) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:uploadProgress uploadProgress} event of this
+     * `sap.ui.commons.FileUploader`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     * @since 1.24.0
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachUploadProgress(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: FileUploader$UploadProgressEvent) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:uploadStart uploadStart} event of this `sap.ui.commons.FileUploader`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     * @since 1.30.0
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachUploadStart(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: FileUploader$UploadStartEvent) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Fires event {@link #event:afterDialogClose afterDialogClose} to attached listeners.
+     *
+     * @since 1.102.0
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    fireAfterDialogClose(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: object
+    ): this;
+    /**
+     * Fires event {@link #event:beforeDialogOpen beforeDialogOpen} to attached listeners.
+     *
+     * @since 1.102.0
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    fireBeforeDialogOpen(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: object
+    ): this;
+    /**
+     * Fires event {@link #event:change change} to attached listeners.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    fireChange(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: FileUploader$ChangeEventParameters
+    ): this;
+    /**
+     * Fires event {@link #event:fileAllowed fileAllowed} to attached listeners.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    fireFileAllowed(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: object
+    ): this;
+    /**
+     * Fires event {@link #event:fileEmpty fileEmpty} to attached listeners.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    fireFileEmpty(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: FileUploader$FileEmptyEventParameters
+    ): this;
+    /**
+     * Fires event {@link #event:filenameLengthExceed filenameLengthExceed} to attached listeners.
+     *
+     * @since 1.24.0
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    fireFilenameLengthExceed(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: FileUploader$FilenameLengthExceedEventParameters
+    ): this;
+    /**
+     * Fires event {@link #event:fileSizeExceed fileSizeExceed} to attached listeners.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    fireFileSizeExceed(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: FileUploader$FileSizeExceedEventParameters
+    ): this;
+    /**
+     * Fires event {@link #event:typeMissmatch typeMissmatch} to attached listeners.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    fireTypeMissmatch(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: FileUploader$TypeMissmatchEventParameters
+    ): this;
+    /**
+     * Fires event {@link #event:uploadAborted uploadAborted} to attached listeners.
+     *
+     * @since 1.24.0
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    fireUploadAborted(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: FileUploader$UploadAbortedEventParameters
+    ): this;
+    /**
+     * Fires event {@link #event:uploadComplete uploadComplete} to attached listeners.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    fireUploadComplete(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: FileUploader$UploadCompleteEventParameters
+    ): this;
+    /**
+     * Fires event {@link #event:uploadProgress uploadProgress} to attached listeners.
+     *
+     * @since 1.24.0
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    fireUploadProgress(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: FileUploader$UploadProgressEventParameters
+    ): this;
+    /**
+     * Fires event {@link #event:uploadStart uploadStart} to attached listeners.
+     *
+     * @since 1.30.0
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    fireUploadStart(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: FileUploader$UploadStartEventParameters
+    ): this;
+    /**
+     * Gets current value of property {@link #getAdditionalData additionalData}.
+     *
+     * Additional data that is sent to the back end service.
+     *
+     * Data will be transmitted as value of a hidden input where the name is derived from the `name` property
+     * with suffix "-data".
+     *
+     *
+     * @returns Value of property `additionalData`
+     */
+    getAdditionalData(): string;
+    /**
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy ariaDescribedBy}.
+     */
+    getAriaDescribedBy(): ID[];
+    /**
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy ariaLabelledBy}.
+     */
+    getAriaLabelledBy(): ID[];
+    /**
+     * Gets current value of property {@link #getButtonOnly buttonOnly}.
+     *
+     * If set to "true", the `FileUploader` will be rendered as Button only, without showing the input field.
+     *
+     * Default value is `false`.
+     *
+     *
+     * @returns Value of property `buttonOnly`
+     */
+    getButtonOnly(): boolean;
+    /**
+     * Gets current value of property {@link #getButtonText buttonText}.
+     *
+     * The button's text can be overwritten using this property.
+     *
+     *
+     * @returns Value of property `buttonText`
+     */
+    getButtonText(): string;
+    /**
+     * Gets current value of property {@link #getDirectory directory}.
+     *
+     * Allows users to upload all files from a given directory and its corresponding subdirectories.
+     *
+     * Default value is `false`.
+     *
+     * @since 1.105.0
+     *
+     * @returns Value of property `directory`
+     */
+    getDirectory(): boolean;
+    /**
+     * Gets current value of property {@link #getEnabled enabled}.
+     *
+     * Disabled controls have different colors, depending on customer settings.
+     *
+     * Default value is `true`.
+     *
+     *
+     * @returns Value of property `enabled`
+     */
+    getEnabled(): boolean;
+    /**
+     * Gets current value of property {@link #getFileType fileType}.
+     *
+     * The chosen files will be checked against an array of file types.
+     *
+     * If at least one file does not fit the file type restriction, the upload is prevented. **Note:** This
+     * property is not supported by Microsoft Edge.
+     *
+     * Example: `["jpg", "png", "bmp"]`.
+     *
+     *
+     * @returns Value of property `fileType`
+     */
+    getFileType(): string[];
+    /**
+     * Gets content of aggregation {@link #getHeaderParameters headerParameters}.
+     *
+     * The header parameters for the `FileUploader` which are only submitted with XHR requests. Header parameters
+     * are not supported by Internet Explorer 9.
+     */
+    getHeaderParameters(): FileUploaderParameter[];
+    /**
+     * Gets current value of property {@link #getHttpRequestMethod httpRequestMethod}.
+     *
+     * Chosen HTTP request method for file upload.
+     *
+     * Default value is `Post`.
+     *
+     * @since 1.81.0
+     *
+     * @returns Value of property `httpRequestMethod`
+     */
+    getHttpRequestMethod(): FileUploaderHttpRequestMethod;
+    /**
+     * Gets current value of property {@link #getIcon icon}.
+     *
+     * Icon to be displayed as graphical element within the button.
+     *
+     * This can be a URI to an image or an icon font URI.
+     *
+     * Default value is `empty string`.
+     *
+     * @since 1.26.0
+     *
+     * @returns Value of property `icon`
+     */
+    getIcon(): URI;
+    /**
+     * Gets current value of property {@link #getIconFirst iconFirst}.
+     *
+     * If set to true (default), the display sequence is 1. icon 2. control text.
+     *
+     * Default value is `true`.
+     *
+     * @since 1.26.0
+     *
+     * @returns Value of property `iconFirst`
+     */
+    getIconFirst(): boolean;
+    /**
+     * Gets current value of property {@link #getIconHovered iconHovered}.
+     *
+     * Icon to be displayed as graphical element within the button when it is hovered (only if also a base icon
+     * was specified).
+     *
+     * If not specified, the base icon is used. If an icon font icon is used, this property is ignored.
+     *
+     * Default value is `empty string`.
+     *
+     * @since 1.26.0
+     *
+     * @returns Value of property `iconHovered`
+     */
+    getIconHovered(): URI;
+    /**
+     * Gets current value of property {@link #getIconOnly iconOnly}.
+     *
+     * If set to true, the button is displayed without any text.
+     *
+     * Default value is `false`.
+     *
+     * @since 1.26.0
+     *
+     * @returns Value of property `iconOnly`
+     */
+    getIconOnly(): boolean;
+    /**
+     * Gets current value of property {@link #getIconSelected iconSelected}.
+     *
+     * Icon to be displayed as graphical element within the button when it is selected (only if also a base
+     * icon was specified).
+     *
+     * If not specified, the base or hovered icon is used. If an icon font icon is used, this property is ignored.
+     *
+     * Default value is `empty string`.
+     *
+     * @since 1.26.0
+     *
+     * @returns Value of property `iconSelected`
+     */
+    getIconSelected(): URI;
+    /**
+     * Gets current value of property {@link #getMaximumFilenameLength maximumFilenameLength}.
+     *
+     * The maximum length of a filename which the `FileUploader` will accept.
+     *
+     * If the maximum filename length is exceeded, the corresponding event `filenameLengthExceed` is fired.
+     *
+     * @since 1.24.0
+     *
+     * @returns Value of property `maximumFilenameLength`
+     */
+    getMaximumFilenameLength(): int;
+    /**
+     * Gets current value of property {@link #getMaximumFileSize maximumFileSize}.
+     *
+     * A file size limit in megabytes which prevents the upload if at least one file exceeds it.
+     *
+     * This property is not supported by Internet Explorer 9.
+     *
+     *
+     * @returns Value of property `maximumFileSize`
+     */
+    getMaximumFileSize(): float;
+    /**
+     * Gets current value of property {@link #getMimeType mimeType}.
+     *
+     * The chosen files will be checked against an array of MIME types defined in this property.
+     *
+     * If at least one file does not fit the MIME type restriction, the upload is prevented.
+     *
+     * **Note:** This property is not supported by Internet Explorer. It is only reliable for common file types
+     * like images, audio, video, plain text and HTML documents. File types that are not recognized by the browser
+     * result in `file.type` to be returned as an empty string. In this case the verification could not be performed.
+     * The file upload is not prevented and the validation based on file type is left to the receiving backend
+     * side.
+     *
+     * Example: `["image/png", "image/jpeg"]`.
+     *
+     *
+     * @returns Value of property `mimeType`
+     */
+    getMimeType(): string[];
+    /**
+     * Gets current value of property {@link #getMultiple multiple}.
+     *
+     * Allows multiple files to be chosen and uploaded from the same folder.
+     *
+     * This property is not supported by Internet Explorer 9.
+     *
+     * **Note:** Keep in mind that the various operating systems for mobile devices can react differently to
+     * the property so that fewer upload functions may be available in some cases.
+     *
+     * Default value is `false`.
+     *
+     *
+     * @returns Value of property `multiple`
+     */
+    getMultiple(): boolean;
+    /**
+     * Gets current value of property {@link #getName name}.
+     *
+     * Unique control name for identification on the server side after sending data to the server.
+     *
+     *
+     * @returns Value of property `name`
+     */
+    getName(): string;
+    /**
+     * Gets content of aggregation {@link #getParameters parameters}.
+     *
+     * The parameters for the `FileUploader` which are rendered as a hidden input field.
+     *
+     * @since 1.12.2
+     */
+    getParameters(): FileUploaderParameter[];
+    /**
+     * Gets current value of property {@link #getPlaceholder placeholder}.
+     *
+     * Placeholder for the text field.
+     *
+     *
+     * @returns Value of property `placeholder`
+     */
+    getPlaceholder(): string;
+    /**
+     * Allows to process Blobs before they get uploaded. This API can be used to create custom Blobs and upload
+     * these custom Blobs instead of the received/initials Blobs in the parameter `aBlobs`. One use case could
+     * be to create and upload zip archives based on the passed Blobs. The default implementation of this API
+     * should simply resolve with the received Blobs (parameter `aBlobs`).
+     *
+     * This API is only supported in case `sendXHR` is `true`. This means only IE10+ is supported, while IE9
+     * and below is not.
+     *
+     * This is a default implementation of the interface `sap.ui.commons.IProcessableBlobs`.
+     *
+     * @since 1.52
+     *
+     * @returns A Promise that resolves with an array of Blobs which is used for the final uploading.
+     */
+    getProcessedBlobsFromArray(
+      /**
+       * The initial Blobs which can be used to determine/calculate a new array of Blobs for further processing.
+       */
+      aBlobs: Blob[]
+    ): Promise<Blob[]>;
+    /**
+     * Gets current value of property {@link #getSameFilenameAllowed sameFilenameAllowed}.
+     *
+     * If the FileUploader is configured to upload the file directly after the file is selected, it is not allowed
+     * to upload a file with the same name again. If a user should be allowed to upload a file with the same
+     * name again this parameter has to be "true".
+     *
+     * A typical use case would be if the files have different paths.
+     *
+     * Default value is `false`.
+     *
+     *
+     * @returns Value of property `sameFilenameAllowed`
+     */
+    getSameFilenameAllowed(): boolean;
+    /**
+     * Gets current value of property {@link #getSendXHR sendXHR}.
+     *
+     * If set to "true", the request will be sent as XHR request instead of a form submit.
+     *
+     * This property is not supported by Internet Explorer 9.
+     *
+     * Default value is `false`.
+     *
+     *
+     * @returns Value of property `sendXHR`
+     */
+    getSendXHR(): boolean;
+    /**
+     * Gets current value of property {@link #getStyle style}.
+     *
+     * Style of the button.
+     *
+     * Values "Transparent, "Accept", "Reject", or "Emphasized" are allowed.
+     *
+     *
+     * @returns Value of property `style`
+     */
+    getStyle(): string;
+    /**
+     * Gets current value of property {@link #getUploadOnChange uploadOnChange}.
+     *
+     * If set to "true", the upload immediately starts after file selection. With the default setting, the upload
+     * needs to be explicitly triggered.
+     *
+     * Default value is `false`.
+     *
+     *
+     * @returns Value of property `uploadOnChange`
+     */
+    getUploadOnChange(): boolean;
+    /**
+     * Gets current value of property {@link #getUploadUrl uploadUrl}.
+     *
+     * Used when URL address is on a remote server.
+     *
+     * Default value is `empty string`.
+     *
+     *
+     * @returns Value of property `uploadUrl`
+     */
+    getUploadUrl(): URI;
+    /**
+     * Gets current value of property {@link #getUseMultipart useMultipart}.
+     *
+     * If set to "false", the request will be sent as file only request instead of a multipart/form-data request.
+     *
+     * Only one file could be uploaded using this type of request. Required for sending such a request is to
+     * set the property `sendXHR` to "true". This property is not supported by Internet Explorer 9.
+     *
+     * Default value is `true`.
+     *
+     *
+     * @returns Value of property `useMultipart`
+     */
+    getUseMultipart(): boolean;
+    /**
+     * Gets current value of property {@link #getValue value}.
+     *
+     * Value of the path for file upload.
+     *
+     * Default value is `empty string`.
+     *
+     *
+     * @returns Value of property `value`
+     */
+    getValue(): string;
+    /**
+     * Gets current value of property {@link #getValueState valueState}.
+     *
+     * Visualizes warnings or errors related to the text field.
+     *
+     * Possible values: Warning, Error, Success, None.
+     *
+     * Default value is `None`.
+     *
+     * @since 1.24.0
+     *
+     * @returns Value of property `valueState`
+     */
+    getValueState(): ValueState;
+    /**
+     * Gets current value of property {@link #getValueStateText valueStateText}.
+     *
+     * Custom text for the value state message pop-up.
+     *
+     * **Note:** If not specified, a default text, based on the value state type, will be used instead.
+     *
+     * @since 1.52
+     *
+     * @returns Value of property `valueStateText`
+     */
+    getValueStateText(): string;
+    /**
+     * Gets current value of property {@link #getWidth width}.
+     *
+     * Specifies the displayed control width.
+     *
+     * Default value is `empty string`.
+     *
+     *
+     * @returns Value of property `width`
+     */
+    getWidth(): CSSSize;
+    /**
+     * Gets content of aggregation {@link #getXhrSettings xhrSettings}.
+     *
+     * Settings for the `XMLHttpRequest` object. **Note:** This aggregation is only used when the `sendXHR`
+     * property is set to `true`.
+     *
+     * @since 1.52
+     */
+    getXhrSettings(): FileUploaderXHRSettings;
+    /**
+     * Checks for the provided `sap.ui.commons.FileUploaderParameter` in the aggregation {@link #getHeaderParameters headerParameters}.
+     * and returns its index if found or -1 otherwise.
+     *
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
+     */
+    indexOfHeaderParameter(
+      /**
+       * The headerParameter whose index is looked for
+       */
+      oHeaderParameter: FileUploaderParameter
+    ): int;
+    /**
+     * Checks for the provided `sap.ui.commons.FileUploaderParameter` in the aggregation {@link #getParameters parameters}.
+     * and returns its index if found or -1 otherwise.
+     *
+     * @since 1.12.2
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
+     */
+    indexOfParameter(
+      /**
+       * The parameter whose index is looked for
+       */
+      oParameter: FileUploaderParameter
+    ): int;
+    /**
+     * Inserts a headerParameter into the aggregation {@link #getHeaderParameters headerParameters}.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    insertHeaderParameter(
+      /**
+       * The headerParameter to insert; if empty, nothing is inserted
+       */
+      oHeaderParameter: FileUploaderParameter,
+      /**
+       * The `0`-based index the headerParameter should be inserted at; for a negative value of `iIndex`, the
+       * headerParameter is inserted at position 0; for a value greater than the current size of the aggregation,
+       * the headerParameter is inserted at the last position
+       */
+      iIndex: int
+    ): this;
+    /**
+     * Inserts a parameter into the aggregation {@link #getParameters parameters}.
+     *
+     * @since 1.12.2
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    insertParameter(
+      /**
+       * The parameter to insert; if empty, nothing is inserted
+       */
+      oParameter: FileUploaderParameter,
+      /**
+       * The `0`-based index the parameter should be inserted at; for a negative value of `iIndex`, the parameter
+       * is inserted at position 0; for a value greater than the current size of the aggregation, the parameter
+       * is inserted at the last position
+       */
+      iIndex: int
+    ): this;
+    /**
+     * Removes all the controls in the association named {@link #getAriaDescribedBy ariaDescribedBy}.
+     *
+     *
+     * @returns An array of the removed elements (might be empty)
+     */
+    removeAllAriaDescribedBy(): ID[];
+    /**
+     * Removes all the controls in the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     *
+     * @returns An array of the removed elements (might be empty)
+     */
+    removeAllAriaLabelledBy(): ID[];
+    /**
+     * Removes all the controls from the aggregation {@link #getHeaderParameters headerParameters}.
+     *
+     * Additionally, it unregisters them from the hosting UIArea.
+     *
+     *
+     * @returns An array of the removed elements (might be empty)
+     */
+    removeAllHeaderParameters(): FileUploaderParameter[];
+    /**
+     * Removes all the controls from the aggregation {@link #getParameters parameters}.
+     *
+     * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @since 1.12.2
+     *
+     * @returns An array of the removed elements (might be empty)
+     */
+    removeAllParameters(): FileUploaderParameter[];
+    /**
+     * Removes an ariaDescribedBy from the association named {@link #getAriaDescribedBy ariaDescribedBy}.
+     *
+     *
+     * @returns The removed ariaDescribedBy or `null`
+     */
+    removeAriaDescribedBy(
+      /**
+       * The ariaDescribedBy to be removed or its index or ID
+       */
+      vAriaDescribedBy: int | ID | Control
+    ): ID | null;
+    /**
+     * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     *
+     * @returns The removed ariaLabelledBy or `null`
+     */
+    removeAriaLabelledBy(
+      /**
+       * The ariaLabelledBy to be removed or its index or ID
+       */
+      vAriaLabelledBy: int | ID | Control
+    ): ID | null;
+    /**
+     * Removes a headerParameter from the aggregation {@link #getHeaderParameters headerParameters}.
+     *
+     *
+     * @returns The removed headerParameter or `null`
+     */
+    removeHeaderParameter(
+      /**
+       * The headerParameter to remove or its index or id
+       */
+      vHeaderParameter: int | string | FileUploaderParameter
+    ): FileUploaderParameter | null;
+    /**
+     * Removes a parameter from the aggregation {@link #getParameters parameters}.
+     *
+     * @since 1.12.2
+     *
+     * @returns The removed parameter or `null`
+     */
+    removeParameter(
+      /**
+       * The parameter to remove or its index or id
+       */
+      vParameter: int | string | FileUploaderParameter
+    ): FileUploaderParameter | null;
+    /**
+     * Sets a new value for property {@link #getAdditionalData additionalData}.
+     *
+     * Additional data that is sent to the back end service.
+     *
+     * Data will be transmitted as value of a hidden input where the name is derived from the `name` property
+     * with suffix "-data".
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setAdditionalData(
+      /**
+       * New value for property `additionalData`
+       */
+      sAdditionalData?: string
+    ): this;
+    /**
+     * Sets a new value for property {@link #getButtonOnly buttonOnly}.
+     *
+     * If set to "true", the `FileUploader` will be rendered as Button only, without showing the input field.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setButtonOnly(
+      /**
+       * New value for property `buttonOnly`
+       */
+      bButtonOnly?: boolean
+    ): this;
+    /**
+     * Sets a new value for property {@link #getButtonText buttonText}.
+     *
+     * The button's text can be overwritten using this property.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setButtonText(
+      /**
+       * New value for property `buttonText`
+       */
+      sButtonText?: string
+    ): this;
+    /**
+     * Sets a new value for property {@link #getDirectory directory}.
+     *
+     * Allows users to upload all files from a given directory and its corresponding subdirectories.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     *
+     * @since 1.105.0
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setDirectory(
+      /**
+       * New value for property `directory`
+       */
+      bDirectory?: boolean
+    ): this;
+    /**
+     * Sets a new value for property {@link #getEnabled enabled}.
+     *
+     * Disabled controls have different colors, depending on customer settings.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `true`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setEnabled(
+      /**
+       * New value for property `enabled`
+       */
+      bEnabled?: boolean
+    ): this;
+    /**
+     * Sets a new value for property {@link #getFileType fileType}.
+     *
+     * The chosen files will be checked against an array of file types.
+     *
+     * If at least one file does not fit the file type restriction, the upload is prevented. **Note:** This
+     * property is not supported by Microsoft Edge.
+     *
+     * Example: `["jpg", "png", "bmp"]`.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setFileType(
+      /**
+       * New value for property `fileType`
+       */
+      sFileType?: string[]
+    ): this;
+    /**
+     * Sets a new value for property {@link #getHttpRequestMethod httpRequestMethod}.
+     *
+     * Chosen HTTP request method for file upload.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `Post`.
+     *
+     * @since 1.81.0
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setHttpRequestMethod(
+      /**
+       * New value for property `httpRequestMethod`
+       */
+      sHttpRequestMethod?: FileUploaderHttpRequestMethod
+    ): this;
+    /**
+     * Sets a new value for property {@link #getIcon icon}.
+     *
+     * Icon to be displayed as graphical element within the button.
+     *
+     * This can be a URI to an image or an icon font URI.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `empty string`.
+     *
+     * @since 1.26.0
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setIcon(
+      /**
+       * New value for property `icon`
+       */
+      sIcon?: URI
+    ): this;
+    /**
+     * Sets a new value for property {@link #getIconFirst iconFirst}.
+     *
+     * If set to true (default), the display sequence is 1. icon 2. control text.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `true`.
+     *
+     * @since 1.26.0
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setIconFirst(
+      /**
+       * New value for property `iconFirst`
+       */
+      bIconFirst?: boolean
+    ): this;
+    /**
+     * Sets a new value for property {@link #getIconHovered iconHovered}.
+     *
+     * Icon to be displayed as graphical element within the button when it is hovered (only if also a base icon
+     * was specified).
+     *
+     * If not specified, the base icon is used. If an icon font icon is used, this property is ignored.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `empty string`.
+     *
+     * @since 1.26.0
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setIconHovered(
+      /**
+       * New value for property `iconHovered`
+       */
+      sIconHovered?: URI
+    ): this;
+    /**
+     * Sets a new value for property {@link #getIconOnly iconOnly}.
+     *
+     * If set to true, the button is displayed without any text.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     *
+     * @since 1.26.0
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setIconOnly(
+      /**
+       * New value for property `iconOnly`
+       */
+      bIconOnly?: boolean
+    ): this;
+    /**
+     * Sets a new value for property {@link #getIconSelected iconSelected}.
+     *
+     * Icon to be displayed as graphical element within the button when it is selected (only if also a base
+     * icon was specified).
+     *
+     * If not specified, the base or hovered icon is used. If an icon font icon is used, this property is ignored.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `empty string`.
+     *
+     * @since 1.26.0
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setIconSelected(
+      /**
+       * New value for property `iconSelected`
+       */
+      sIconSelected?: URI
+    ): this;
+    /**
+     * Sets a new value for property {@link #getMaximumFilenameLength maximumFilenameLength}.
+     *
+     * The maximum length of a filename which the `FileUploader` will accept.
+     *
+     * If the maximum filename length is exceeded, the corresponding event `filenameLengthExceed` is fired.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @since 1.24.0
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setMaximumFilenameLength(
+      /**
+       * New value for property `maximumFilenameLength`
+       */
+      iMaximumFilenameLength?: int
+    ): this;
+    /**
+     * Sets a new value for property {@link #getMaximumFileSize maximumFileSize}.
+     *
+     * A file size limit in megabytes which prevents the upload if at least one file exceeds it.
+     *
+     * This property is not supported by Internet Explorer 9.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setMaximumFileSize(
+      /**
+       * New value for property `maximumFileSize`
+       */
+      fMaximumFileSize?: float
+    ): this;
+    /**
+     * Sets a new value for property {@link #getMimeType mimeType}.
+     *
+     * The chosen files will be checked against an array of MIME types defined in this property.
+     *
+     * If at least one file does not fit the MIME type restriction, the upload is prevented.
+     *
+     * **Note:** This property is not supported by Internet Explorer. It is only reliable for common file types
+     * like images, audio, video, plain text and HTML documents. File types that are not recognized by the browser
+     * result in `file.type` to be returned as an empty string. In this case the verification could not be performed.
+     * The file upload is not prevented and the validation based on file type is left to the receiving backend
+     * side.
+     *
+     * Example: `["image/png", "image/jpeg"]`.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setMimeType(
+      /**
+       * New value for property `mimeType`
+       */
+      sMimeType?: string[]
+    ): this;
+    /**
+     * Sets a new value for property {@link #getMultiple multiple}.
+     *
+     * Allows multiple files to be chosen and uploaded from the same folder.
+     *
+     * This property is not supported by Internet Explorer 9.
+     *
+     * **Note:** Keep in mind that the various operating systems for mobile devices can react differently to
+     * the property so that fewer upload functions may be available in some cases.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setMultiple(
+      /**
+       * New value for property `multiple`
+       */
+      bMultiple?: boolean
+    ): this;
+    /**
+     * Sets a new value for property {@link #getName name}.
+     *
+     * Unique control name for identification on the server side after sending data to the server.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setName(
+      /**
+       * New value for property `name`
+       */
+      sName?: string
+    ): this;
+    /**
+     * Sets a new value for property {@link #getPlaceholder placeholder}.
+     *
+     * Placeholder for the text field.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setPlaceholder(
+      /**
+       * New value for property `placeholder`
+       */
+      sPlaceholder?: string
+    ): this;
+    /**
+     * Sets a new value for property {@link #getSameFilenameAllowed sameFilenameAllowed}.
+     *
+     * If the FileUploader is configured to upload the file directly after the file is selected, it is not allowed
+     * to upload a file with the same name again. If a user should be allowed to upload a file with the same
+     * name again this parameter has to be "true".
+     *
+     * A typical use case would be if the files have different paths.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setSameFilenameAllowed(
+      /**
+       * New value for property `sameFilenameAllowed`
+       */
+      bSameFilenameAllowed?: boolean
+    ): this;
+    /**
+     * Sets a new value for property {@link #getSendXHR sendXHR}.
+     *
+     * If set to "true", the request will be sent as XHR request instead of a form submit.
+     *
+     * This property is not supported by Internet Explorer 9.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setSendXHR(
+      /**
+       * New value for property `sendXHR`
+       */
+      bSendXHR?: boolean
+    ): this;
+    /**
+     * Sets a new value for property {@link #getStyle style}.
+     *
+     * Style of the button.
+     *
+     * Values "Transparent, "Accept", "Reject", or "Emphasized" are allowed.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setStyle(
+      /**
+       * New value for property `style`
+       */
+      sStyle?: string
+    ): this;
+    /**
+     * Sets a new value for property {@link #getUploadOnChange uploadOnChange}.
+     *
+     * If set to "true", the upload immediately starts after file selection. With the default setting, the upload
+     * needs to be explicitly triggered.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setUploadOnChange(
+      /**
+       * New value for property `uploadOnChange`
+       */
+      bUploadOnChange?: boolean
+    ): this;
+    /**
+     * Sets a new value for property {@link #getUploadUrl uploadUrl}.
+     *
+     * Used when URL address is on a remote server.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `empty string`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setUploadUrl(
+      /**
+       * New value for property `uploadUrl`
+       */
+      sUploadUrl?: URI
+    ): this;
+    /**
+     * Sets a new value for property {@link #getUseMultipart useMultipart}.
+     *
+     * If set to "false", the request will be sent as file only request instead of a multipart/form-data request.
+     *
+     * Only one file could be uploaded using this type of request. Required for sending such a request is to
+     * set the property `sendXHR` to "true". This property is not supported by Internet Explorer 9.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `true`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setUseMultipart(
+      /**
+       * New value for property `useMultipart`
+       */
+      bUseMultipart?: boolean
+    ): this;
+    /**
+     * Sets a new value for property {@link #getValue value}.
+     *
+     * Value of the path for file upload.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `empty string`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setValue(
+      /**
+       * New value for property `value`
+       */
+      sValue?: string
+    ): this;
+    /**
+     * Sets a new value for property {@link #getValueState valueState}.
+     *
+     * Visualizes warnings or errors related to the text field.
+     *
+     * Possible values: Warning, Error, Success, None.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `None`.
+     *
+     * @since 1.24.0
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setValueState(
+      /**
+       * New value for property `valueState`
+       */
+      sValueState?: ValueState | keyof typeof ValueState
+    ): this;
+    /**
+     * Sets a new value for property {@link #getValueStateText valueStateText}.
+     *
+     * Custom text for the value state message pop-up.
+     *
+     * **Note:** If not specified, a default text, based on the value state type, will be used instead.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @since 1.52
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setValueStateText(
+      /**
+       * New value for property `valueStateText`
+       */
+      sValueStateText?: string
+    ): this;
+    /**
+     * Sets a new value for property {@link #getWidth width}.
+     *
+     * Specifies the displayed control width.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `empty string`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setWidth(
+      /**
+       * New value for property `width`
+       */
+      sWidth?: CSSSize
+    ): this;
+    /**
+     * Sets the aggregated {@link #getXhrSettings xhrSettings}.
+     *
+     * @since 1.52
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setXhrSettings(
+      /**
+       * The xhrSettings to set
+       */
+      oXhrSettings: FileUploaderXHRSettings
+    ): this;
+    /**
+     * Starts the upload (as defined by uploadUrl).
+     */
+    upload(
+      /**
+       * Set to `true` to allow pre-processing of the files before sending the request. As a result, the `upload`
+       * method becomes asynchronous. See {@link sap.ui.commons.IProcessableBlobs} for more information. **Note:**
+       * This parameter is only taken into account when `sendXHR` is set to `true`.
+       */
+      bPreProcessFiles?: boolean
+    ): void;
   }
   /**
    * Describes the settings that can be provided to the FileUploader constructor.
@@ -8122,33 +10414,711 @@ declare module "sap/ui/commons/FileUploader" {
    * @deprecated As of version 1.21.0. Please use the control sap.ui.unified.FileUploader of the library sap.ui.unified
    * instead.
    */
-  export interface $FileUploaderSettings extends $FileUploaderSettings1 {}
+  export interface $FileUploaderSettings extends $ControlSettings {
+    /**
+     * Value of the path for file upload.
+     */
+    value?: string | PropertyBindingInfo;
+
+    /**
+     * Disabled controls have different colors, depending on customer settings.
+     */
+    enabled?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Used when URL address is on a remote server.
+     */
+    uploadUrl?: URI | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Unique control name for identification on the server side after sending data to the server.
+     */
+    name?: string | PropertyBindingInfo;
+
+    /**
+     * Specifies the displayed control width.
+     */
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * If set to "true", the upload immediately starts after file selection. With the default setting, the upload
+     * needs to be explicitly triggered.
+     */
+    uploadOnChange?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Additional data that is sent to the back end service.
+     *
+     * Data will be transmitted as value of a hidden input where the name is derived from the `name` property
+     * with suffix "-data".
+     */
+    additionalData?: string | PropertyBindingInfo;
+
+    /**
+     * If the FileUploader is configured to upload the file directly after the file is selected, it is not allowed
+     * to upload a file with the same name again. If a user should be allowed to upload a file with the same
+     * name again this parameter has to be "true".
+     *
+     * A typical use case would be if the files have different paths.
+     */
+    sameFilenameAllowed?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * The button's text can be overwritten using this property.
+     */
+    buttonText?: string | PropertyBindingInfo;
+
+    /**
+     * The chosen files will be checked against an array of file types.
+     *
+     * If at least one file does not fit the file type restriction, the upload is prevented. **Note:** This
+     * property is not supported by Microsoft Edge.
+     *
+     * Example: `["jpg", "png", "bmp"]`.
+     */
+    fileType?: string[] | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Allows multiple files to be chosen and uploaded from the same folder.
+     *
+     * This property is not supported by Internet Explorer 9.
+     *
+     * **Note:** Keep in mind that the various operating systems for mobile devices can react differently to
+     * the property so that fewer upload functions may be available in some cases.
+     */
+    multiple?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * A file size limit in megabytes which prevents the upload if at least one file exceeds it.
+     *
+     * This property is not supported by Internet Explorer 9.
+     */
+    maximumFileSize?: float | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * The chosen files will be checked against an array of MIME types defined in this property.
+     *
+     * If at least one file does not fit the MIME type restriction, the upload is prevented.
+     *
+     * **Note:** This property is not supported by Internet Explorer. It is only reliable for common file types
+     * like images, audio, video, plain text and HTML documents. File types that are not recognized by the browser
+     * result in `file.type` to be returned as an empty string. In this case the verification could not be performed.
+     * The file upload is not prevented and the validation based on file type is left to the receiving backend
+     * side.
+     *
+     * Example: `["image/png", "image/jpeg"]`.
+     */
+    mimeType?: string[] | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * If set to "true", the request will be sent as XHR request instead of a form submit.
+     *
+     * This property is not supported by Internet Explorer 9.
+     */
+    sendXHR?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Chosen HTTP request method for file upload.
+     *
+     * @since 1.81.0
+     */
+    httpRequestMethod?:
+      | FileUploaderHttpRequestMethod
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
+     * Placeholder for the text field.
+     */
+    placeholder?: string | PropertyBindingInfo;
+
+    /**
+     * Style of the button.
+     *
+     * Values "Transparent, "Accept", "Reject", or "Emphasized" are allowed.
+     */
+    style?: string | PropertyBindingInfo;
+
+    /**
+     * If set to "true", the `FileUploader` will be rendered as Button only, without showing the input field.
+     */
+    buttonOnly?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * If set to "false", the request will be sent as file only request instead of a multipart/form-data request.
+     *
+     * Only one file could be uploaded using this type of request. Required for sending such a request is to
+     * set the property `sendXHR` to "true". This property is not supported by Internet Explorer 9.
+     */
+    useMultipart?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * The maximum length of a filename which the `FileUploader` will accept.
+     *
+     * If the maximum filename length is exceeded, the corresponding event `filenameLengthExceed` is fired.
+     *
+     * @since 1.24.0
+     */
+    maximumFilenameLength?: int | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Visualizes warnings or errors related to the text field.
+     *
+     * Possible values: Warning, Error, Success, None.
+     *
+     * @since 1.24.0
+     */
+    valueState?:
+      | (ValueState | keyof typeof ValueState)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
+     * Custom text for the value state message pop-up.
+     *
+     * **Note:** If not specified, a default text, based on the value state type, will be used instead.
+     *
+     * @since 1.52
+     */
+    valueStateText?: string | PropertyBindingInfo;
+
+    /**
+     * Icon to be displayed as graphical element within the button.
+     *
+     * This can be a URI to an image or an icon font URI.
+     *
+     * @since 1.26.0
+     */
+    icon?: URI | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Icon to be displayed as graphical element within the button when it is hovered (only if also a base icon
+     * was specified).
+     *
+     * If not specified, the base icon is used. If an icon font icon is used, this property is ignored.
+     *
+     * @since 1.26.0
+     */
+    iconHovered?: URI | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Icon to be displayed as graphical element within the button when it is selected (only if also a base
+     * icon was specified).
+     *
+     * If not specified, the base or hovered icon is used. If an icon font icon is used, this property is ignored.
+     *
+     * @since 1.26.0
+     */
+    iconSelected?: URI | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * If set to true (default), the display sequence is 1. icon 2. control text.
+     *
+     * @since 1.26.0
+     */
+    iconFirst?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * If set to true, the button is displayed without any text.
+     *
+     * @since 1.26.0
+     */
+    iconOnly?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Allows users to upload all files from a given directory and its corresponding subdirectories.
+     *
+     * @since 1.105.0
+     */
+    directory?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * The parameters for the `FileUploader` which are rendered as a hidden input field.
+     *
+     * @since 1.12.2
+     */
+    parameters?:
+      | FileUploaderParameter[]
+      | FileUploaderParameter
+      | AggregationBindingInfo
+      | `{${string}}`;
+
+    /**
+     * The header parameters for the `FileUploader` which are only submitted with XHR requests. Header parameters
+     * are not supported by Internet Explorer 9.
+     */
+    headerParameters?:
+      | FileUploaderParameter[]
+      | FileUploaderParameter
+      | AggregationBindingInfo
+      | `{${string}}`;
+
+    /**
+     * Settings for the `XMLHttpRequest` object. **Note:** This aggregation is only used when the `sendXHR`
+     * property is set to `true`.
+     *
+     * @since 1.52
+     */
+    xhrSettings?: FileUploaderXHRSettings;
+
+    /**
+     * Association to controls / IDs which describe this control (see WAI-ARIA attribute `aria-describedby`).
+     */
+    ariaDescribedBy?: Array<Control | string>;
+
+    /**
+     * Association to controls / IDs which label this control (see WAI-ARIA attribute `aria-labelledby`).
+     */
+    ariaLabelledBy?: Array<Control | string>;
+
+    /**
+     * Event is fired when the value of the file path has been changed.
+     *
+     * **Note:** Keep in mind that because of the HTML input element of type file, the event is also fired in
+     * Chrome browser when the Cancel button of the uploads window is pressed.
+     */
+    change?: (oEvent: FileUploader$ChangeEvent) => void;
+
+    /**
+     * Event is fired as soon as the upload request is completed (either successful or unsuccessful).
+     *
+     * To see if the upload request was successful, check the `status` parameter for a value 2xx. The actual
+     * progress of the upload can be monitored by listening to the `uploadProgress` event. However, this covers
+     * only the client side of the upload process and does not give any success status from the server.
+     */
+    uploadComplete?: (oEvent: FileUploader$UploadCompleteEvent) => void;
+
+    /**
+     * Event is fired when the type of a file does not match the `mimeType` or `fileType` property.
+     */
+    typeMissmatch?: (oEvent: FileUploader$TypeMissmatchEvent) => void;
+
+    /**
+     * Event is fired when the size of a file is above the `maximumFileSize` property. This event is not supported
+     * by Internet Explorer 9 (same restriction as for the property `maximumFileSize`).
+     */
+    fileSizeExceed?: (oEvent: FileUploader$FileSizeExceedEvent) => void;
+
+    /**
+     * Event is fired when the size of the file is 0
+     */
+    fileEmpty?: (oEvent: FileUploader$FileEmptyEvent) => void;
+
+    /**
+     * Event is fired when the file is allowed for upload on client side.
+     */
+    fileAllowed?: (oEvent: Event) => void;
+
+    /**
+     * Event is fired after the upload has started and before the upload is completed.
+     *
+     * It contains progress information related to the running upload. Depending on file size, band width and
+     * used browser the event is fired once or multiple times.
+     *
+     * This event is only supported with property `sendXHR` set to true, i.e. the event is not supported in
+     * Internet Explorer 9.
+     *
+     * @since 1.24.0
+     */
+    uploadProgress?: (oEvent: FileUploader$UploadProgressEvent) => void;
+
+    /**
+     * Event is fired after the current upload has been aborted.
+     *
+     * This event is only supported with property `sendXHR` set to true, i.e. the event is not supported in
+     * Internet Explorer 9.
+     *
+     * @since 1.24.0
+     */
+    uploadAborted?: (oEvent: FileUploader$UploadAbortedEvent) => void;
+
+    /**
+     * Event is fired, if the filename of a chosen file is longer than the value specified with the `maximumFilenameLength`
+     * property.
+     *
+     * @since 1.24.0
+     */
+    filenameLengthExceed?: (
+      oEvent: FileUploader$FilenameLengthExceedEvent
+    ) => void;
+
+    /**
+     * Event is fired before an upload is started.
+     *
+     * @since 1.30.0
+     */
+    uploadStart?: (oEvent: FileUploader$UploadStartEvent) => void;
+
+    /**
+     * Fired before select file dialog opens.
+     *
+     * @since 1.102.0
+     */
+    beforeDialogOpen?: (oEvent: Event) => void;
+
+    /**
+     * Fired after select file dialog closes.
+     *
+     * @since 1.102.0
+     */
+    afterDialogClose?: (oEvent: Event) => void;
+  }
+
+  /**
+   * Parameters of the FileUploader#afterDialogClose event.
+   */
+  export interface FileUploader$AfterDialogCloseEventParameters {}
+
+  /**
+   * Event object of the FileUploader#afterDialogClose event.
+   */
+  export type FileUploader$AfterDialogCloseEvent = Event<
+    FileUploader$AfterDialogCloseEventParameters,
+    FileUploader
+  >;
+
+  /**
+   * Parameters of the FileUploader#beforeDialogOpen event.
+   */
+  export interface FileUploader$BeforeDialogOpenEventParameters {}
+
+  /**
+   * Event object of the FileUploader#beforeDialogOpen event.
+   */
+  export type FileUploader$BeforeDialogOpenEvent = Event<
+    FileUploader$BeforeDialogOpenEventParameters,
+    FileUploader
+  >;
+
+  /**
+   * Parameters of the FileUploader#change event.
+   */
+  export interface FileUploader$ChangeEventParameters {
+    /**
+     * New file path value.
+     */
+    newValue?: string;
+
+    /**
+     * Files.
+     */
+    files?: object[];
+  }
+
+  /**
+   * Event object of the FileUploader#change event.
+   */
+  export type FileUploader$ChangeEvent = Event<
+    FileUploader$ChangeEventParameters,
+    FileUploader
+  >;
+
+  /**
+   * Parameters of the FileUploader#fileAllowed event.
+   */
+  export interface FileUploader$FileAllowedEventParameters {}
+
+  /**
+   * Event object of the FileUploader#fileAllowed event.
+   */
+  export type FileUploader$FileAllowedEvent = Event<
+    FileUploader$FileAllowedEventParameters,
+    FileUploader
+  >;
+
+  /**
+   * Parameters of the FileUploader#fileEmpty event.
+   */
+  export interface FileUploader$FileEmptyEventParameters {
+    /**
+     * The name of the file to be uploaded.
+     */
+    fileName?: string;
+  }
+
+  /**
+   * Event object of the FileUploader#fileEmpty event.
+   */
+  export type FileUploader$FileEmptyEvent = Event<
+    FileUploader$FileEmptyEventParameters,
+    FileUploader
+  >;
+
+  /**
+   * Parameters of the FileUploader#filenameLengthExceed event.
+   */
+  export interface FileUploader$FilenameLengthExceedEventParameters {
+    /**
+     * The filename, which is longer than specified by the value of the property `maximumFilenameLength`.
+     */
+    fileName?: string;
+  }
+
+  /**
+   * Event object of the FileUploader#filenameLengthExceed event.
+   */
+  export type FileUploader$FilenameLengthExceedEvent = Event<
+    FileUploader$FilenameLengthExceedEventParameters,
+    FileUploader
+  >;
+
+  /**
+   * Parameters of the FileUploader#fileSizeExceed event.
+   */
+  export interface FileUploader$FileSizeExceedEventParameters {
+    /**
+     * The name of a file to be uploaded.
+     */
+    fileName?: string;
+
+    /**
+     * The size in MB of a file to be uploaded.
+     */
+    fileSize?: string;
+  }
+
+  /**
+   * Event object of the FileUploader#fileSizeExceed event.
+   */
+  export type FileUploader$FileSizeExceedEvent = Event<
+    FileUploader$FileSizeExceedEventParameters,
+    FileUploader
+  >;
+
+  /**
+   * Parameters of the FileUploader#typeMissmatch event.
+   */
+  export interface FileUploader$TypeMissmatchEventParameters {
+    /**
+     * The name of a file to be uploaded.
+     */
+    fileName?: string;
+
+    /**
+     * The file ending of a file to be uploaded.
+     */
+    fileType?: string;
+
+    /**
+     * The MIME type of a file to be uploaded.
+     */
+    mimeType?: string;
+  }
+
+  /**
+   * Event object of the FileUploader#typeMissmatch event.
+   */
+  export type FileUploader$TypeMissmatchEvent = Event<
+    FileUploader$TypeMissmatchEventParameters,
+    FileUploader
+  >;
+
+  /**
+   * Parameters of the FileUploader#uploadAborted event.
+   */
+  export interface FileUploader$UploadAbortedEventParameters {
+    /**
+     * The name of a file to be uploaded.
+     */
+    fileName?: string;
+
+    /**
+     * Http-Request-Headers.
+     *
+     * Required for receiving `requestHeader` is to set the property `sendXHR` to true. This property is not
+     * supported by Internet Explorer 9.
+     */
+    requestHeaders?: object[];
+  }
+
+  /**
+   * Event object of the FileUploader#uploadAborted event.
+   */
+  export type FileUploader$UploadAbortedEvent = Event<
+    FileUploader$UploadAbortedEventParameters,
+    FileUploader
+  >;
+
+  /**
+   * Parameters of the FileUploader#uploadComplete event.
+   */
+  export interface FileUploader$UploadCompleteEventParameters {
+    /**
+     * The name of a file to be uploaded.
+     */
+    fileName?: string;
+
+    /**
+     * Response message which comes from the server.
+     *
+     * On the server side this response has to be put within the "body" tags of the response document
+     * of the iFrame. It can consist of a return code and an optional message. This does not work in cross-domain
+     * scenarios.
+     */
+    response?: string;
+
+    /**
+     * ReadyState of the XHR request.
+     *
+     * Required for receiving a `readyStateXHR` is to set the property `sendXHR` to true. This property is not
+     * supported by Internet Explorer 9.
+     */
+    readyStateXHR?: string;
+
+    /**
+     * Status of the XHR request.
+     *
+     * Required for receiving a `status` is to set the property `sendXHR` to true. This property is not supported
+     * by Internet Explorer 9.
+     */
+    status?: int;
+
+    /**
+     * Http-Response which comes from the server.
+     *
+     * Required for receiving `responseRaw` is to set the property `sendXHR` to true.
+     *
+     * This property is not supported by Internet Explorer 9.
+     */
+    responseRaw?: string;
+
+    /**
+     * Http-Response-Headers which come from the server.
+     *
+     * Provided as a JSON-map, i.e. each header-field is reflected by a property in the `headers` object, with
+     * the property value reflecting the header-field's content.
+     *
+     * Required for receiving `headers` is to set the property `sendXHR` to true. This property is not supported
+     * by Internet Explorer 9.
+     */
+    headers?: object;
+
+    /**
+     * Http-Request-Headers.
+     *
+     * Required for receiving `requestHeaders` is to set the property `sendXHR` to true. This property is not
+     * supported by Internet Explorer 9.
+     */
+    requestHeaders?: object[];
+  }
+
+  /**
+   * Event object of the FileUploader#uploadComplete event.
+   */
+  export type FileUploader$UploadCompleteEvent = Event<
+    FileUploader$UploadCompleteEventParameters,
+    FileUploader
+  >;
+
+  /**
+   * Parameters of the FileUploader#uploadProgress event.
+   */
+  export interface FileUploader$UploadProgressEventParameters {
+    /**
+     * Indicates whether or not the relative upload progress can be calculated out of loaded and total.
+     */
+    lengthComputable?: boolean;
+
+    /**
+     * The number of bytes of the file which have been uploaded by the time the event was fired.
+     */
+    loaded?: float;
+
+    /**
+     * The total size of the file to be uploaded in bytes.
+     */
+    total?: float;
+
+    /**
+     * The name of a file to be uploaded.
+     */
+    fileName?: string;
+
+    /**
+     * Http-Request-Headers.
+     *
+     * Required for receiving `requestHeaders` is to set the property `sendXHR` to true. This property is not
+     * supported by Internet Explorer 9.
+     */
+    requestHeaders?: object[];
+  }
+
+  /**
+   * Event object of the FileUploader#uploadProgress event.
+   */
+  export type FileUploader$UploadProgressEvent = Event<
+    FileUploader$UploadProgressEventParameters,
+    FileUploader
+  >;
+
+  /**
+   * Parameters of the FileUploader#uploadStart event.
+   */
+  export interface FileUploader$UploadStartEventParameters {
+    /**
+     * The name of a file to be uploaded.
+     */
+    fileName?: string;
+
+    /**
+     * Http-Request-Headers.
+     *
+     * Required for receiving `requestHeaders` is to set the property `sendXHR` to true. This property is not
+     * supported by Internet Explorer 9.
+     */
+    requestHeaders?: object[];
+  }
+
+  /**
+   * Event object of the FileUploader#uploadStart event.
+   */
+  export type FileUploader$UploadStartEvent = Event<
+    FileUploader$UploadStartEventParameters,
+    FileUploader
+  >;
+}
+
+declare module "sap/ui/commons/FileUploaderHttpRequestMethod" {
+  /**
+   * Types of HTTP request methods.
+   *
+   * @since 1.144.0
+   * @deprecated As of version 1.144.0. Please use the control sap.ui.unified.FileUploaderHttpRequestMethod
+   * of the library sap.ui.unified instead.
+   */
+  enum FileUploaderHttpRequestMethod {
+    /**
+     * HTTP request POST method.
+     */
+    Post = "POST",
+    /**
+     * HTTP request PUT method.
+     */
+    Put = "PUT",
+  }
+  export default FileUploaderHttpRequestMethod;
 }
 
 declare module "sap/ui/commons/FileUploaderParameter" {
-  import {
-    default as FileUploaderParameter1,
-    $FileUploaderParameterSettings as $FileUploaderParameterSettings1,
-  } from "sap/ui/unified/FileUploaderParameter";
+  import { default as UI5Element, $ElementSettings } from "sap/ui/core/Element";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
   /**
    * Represents a parameter for the FileUploader which is rendered as a hidden inputfield.
    *
-   * @deprecated As of version 1.21.0. Please use the element sap.ui.unified.FileUploaderParameter of the
+   * @deprecated As of version 1.21.0. Please use the control sap.ui.unified.FileUploaderParameter of the
    * library sap.ui.unified instead.
    */
-  export default class FileUploaderParameter extends FileUploaderParameter1 {
+  export default class FileUploaderParameter extends UI5Element {
     /**
      * Constructor for a new FileUploaderParameter.
      *
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
-     *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.FileUploaderParameter#constructor sap.ui.unified.FileUploaderParameter }
-     * can be used.
      */
     constructor(
       /**
@@ -8162,9 +11132,6 @@ declare module "sap/ui/commons/FileUploaderParameter" {
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
-     *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.FileUploaderParameter#constructor sap.ui.unified.FileUploaderParameter }
-     * can be used.
      */
     constructor(
       /**
@@ -8181,7 +11148,7 @@ declare module "sap/ui/commons/FileUploaderParameter" {
      * Creates a new subclass of class sap.ui.commons.FileUploaderParameter with name `sClassName` and enriches
      * it with the information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.unified.FileUploaderParameter.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
      *
      *
      * @returns Created class / constructor function
@@ -8208,15 +11175,207 @@ declare module "sap/ui/commons/FileUploaderParameter" {
      * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
+    /**
+     * Gets current value of property {@link #getName name}.
+     *
+     * The name of the hidden inputfield.
+     *
+     * @since 1.12.2
+     *
+     * @returns Value of property `name`
+     */
+    getName(): string;
+    /**
+     * Gets current value of property {@link #getValue value}.
+     *
+     * The value of the hidden inputfield.
+     *
+     * @since 1.12.2
+     *
+     * @returns Value of property `value`
+     */
+    getValue(): string;
+    /**
+     * Sets a new value for property {@link #getName name}.
+     *
+     * The name of the hidden inputfield.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @since 1.12.2
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setName(
+      /**
+       * New value for property `name`
+       */
+      sName?: string
+    ): this;
+    /**
+     * Sets a new value for property {@link #getValue value}.
+     *
+     * The value of the hidden inputfield.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @since 1.12.2
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setValue(
+      /**
+       * New value for property `value`
+       */
+      sValue?: string
+    ): this;
   }
   /**
    * Describes the settings that can be provided to the FileUploaderParameter constructor.
    *
-   * @deprecated As of version 1.21.0. Please use the element sap.ui.unified.FileUploaderParameter of the
+   * @deprecated As of version 1.21.0. Please use the control sap.ui.unified.FileUploaderParameter of the
    * library sap.ui.unified instead.
    */
-  export interface $FileUploaderParameterSettings
-    extends $FileUploaderParameterSettings1 {}
+  export interface $FileUploaderParameterSettings extends $ElementSettings {
+    /**
+     * The name of the hidden inputfield.
+     *
+     * @since 1.12.2
+     */
+    name?: string | PropertyBindingInfo;
+
+    /**
+     * The value of the hidden inputfield.
+     *
+     * @since 1.12.2
+     */
+    value?: string | PropertyBindingInfo;
+  }
+}
+
+declare module "sap/ui/commons/FileUploaderXHRSettings" {
+  import { default as UI5Element, $ElementSettings } from "sap/ui/core/Element";
+
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  /**
+   * Properties for the `XMLHttpRequest` object used for file uploads.
+   *
+   * @since 1.144
+   * @deprecated As of version 1.144.0. Please use the control sap.ui.unified.FileUploaderXHRSettings of the
+   * library sap.ui.unified instead.
+   */
+  export default class FileUploaderXHRSettings extends UI5Element {
+    /**
+     * Constructor for a new FileUploaderXHRSettings.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * initial settings for the new control
+       */
+      mSettings?: $FileUploaderXHRSettingsSettings
+    );
+    /**
+     * Constructor for a new FileUploaderXHRSettings.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * id for the new control, generated automatically if no id is given
+       */
+      sId?: string,
+      /**
+       * initial settings for the new control
+       */
+      mSettings?: $FileUploaderXHRSettingsSettings
+    );
+
+    /**
+     * Creates a new subclass of class sap.ui.commons.FileUploaderXHRSettings with name `sClassName` and enriches
+     * it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     *
+     *
+     * @returns Created class / constructor function
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, FileUploaderXHRSettings>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.commons.FileUploaderXHRSettings.
+     *
+     *
+     * @returns Metadata object describing this class
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Gets current value of property {@link #getWithCredentials withCredentials}.
+     *
+     * Determines the value of the `XMLHttpRequest.withCredentials` property
+     *
+     * Default value is `false`.
+     *
+     * @since 1.52
+     *
+     * @returns Value of property `withCredentials`
+     */
+    getWithCredentials(): boolean;
+    /**
+     * Sets a new value for property {@link #getWithCredentials withCredentials}.
+     *
+     * Determines the value of the `XMLHttpRequest.withCredentials` property
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     *
+     * @since 1.52
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setWithCredentials(
+      /**
+       * New value for property `withCredentials`
+       */
+      bWithCredentials?: boolean
+    ): this;
+  }
+  /**
+   * Describes the settings that can be provided to the FileUploaderXHRSettings constructor.
+   *
+   * @deprecated As of version 1.144.0. Please use the control sap.ui.unified.FileUploaderXHRSettings of the
+   * library sap.ui.unified instead.
+   */
+  export interface $FileUploaderXHRSettingsSettings extends $ElementSettings {
+    /**
+     * Determines the value of the `XMLHttpRequest.withCredentials` property
+     *
+     * @since 1.52
+     */
+    withCredentials?: boolean | PropertyBindingInfo | `{${string}}`;
+  }
 }
 
 declare module "sap/ui/commons/TextField" {
@@ -32571,7 +35730,11 @@ declare namespace sap {
 
     "sap/ui/commons/FileUploader": undefined;
 
+    "sap/ui/commons/FileUploaderHttpRequestMethod": undefined;
+
     "sap/ui/commons/FileUploaderParameter": undefined;
+
+    "sap/ui/commons/FileUploaderXHRSettings": undefined;
 
     "sap/ui/commons/form/Form": undefined;
 

@@ -22,19 +22,19 @@ interface TestActionsExplicit {
 class AbstractActions implements AltJS.ActionsClass {
     constructor(alt: AltJS.Alt) {}
     actions: any;
-    dispatch: (...payload: any[]) => void;
-    generateActions: (...actions: string[]) => void;
+    dispatch!: (...payload: any[]) => void;
+    generateActions!: (...actions: string[]) => void;
 }
 
 class AbstractStoreModel<S> implements AltJS.StoreModel<S> {
-    bindActions: (...actions: Object[]) => void;
-    bindAction: (...args: any[]) => void;
-    bindListeners: (obj: any) => void;
-    exportPublicMethods: (config: { [key: string]: (...args: any[]) => any }) => any;
-    exportAsync: (source: any) => void;
+    bindActions!: (...actions: Object[]) => void;
+    bindAction!: (...args: any[]) => void;
+    bindListeners!: (obj: any) => void;
+    exportPublicMethods!: (config: { [key: string]: (...args: any[]) => any }) => any;
+    exportAsync!: (source: any) => void;
     waitFor: any;
     exportConfig: any;
-    getState: () => S;
+    getState!: () => S;
 }
 
 class GenerateActionsClass extends AbstractActions {

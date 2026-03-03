@@ -1,273 +1,340 @@
 import { Object3D } from "../core/Object3D.js";
-import { AudioContext } from "./AudioContext.js";
 import { AudioListener } from "./AudioListener.js";
 
-// Extras / Audio /////////////////////////////////////////////////////////////////////
-
 /**
- * Create a non-positional ( global ) {@link Audio} object.
- * This uses the {@link https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API | Web {@link Audio} API}.
- * @example
- * ```typescript
+ * Represents a non-positional ( global ) audio object.
+ *
+ * This and related audio modules make use of the [Web Audio API](https://www.w3.org/TR/webaudio-1.1/).
+ *
+ * ```js
  * // create an AudioListener and add it to the camera
  * const listener = new THREE.AudioListener();
- * camera.add(listener);
- * // create a global {@link Audio} source
- * const sound = new THREE.Audio(listener);
- * // load a sound and set it as the {@link Audio} object's buffer
+ * camera.add( listener );
+ *
+ * // create a global audio source
+ * const sound = new THREE.Audio( listener );
+ *
+ * // load a sound and set it as the Audio object's buffer
  * const audioLoader = new THREE.AudioLoader();
- * audioLoader.load('sounds/ambient.ogg', function (buffer) {
- *     sound.setBuffer(buffer);
- *     sound.setLoop(true);
- *     sound.setVolume(0.5);
- *     sound.play();
+ * audioLoader.load( 'sounds/ambient.ogg', function( buffer ) {
+ * 	sound.setBuffer( buffer );
+ * 	sound.setLoop( true );
+ * 	sound.setVolume( 0.5 );
+ * 	sound.play();
  * });
  * ```
- * @see Example: {@link https://threejs.org/examples/#webaudio_sandbox | webaudio / sandbox }
- * @see Example: {@link https://threejs.org/examples/#webaudio_visualizer | webaudio / visualizer }
- * @see {@link https://threejs.org/docs/index.html#api/en/audio/Audio | Official Documentation}
- * @see {@link https://github.com/mrdoob/three.js/blob/master/src/audio/Audio.js | Source}
  */
-export class Audio<NodeType extends AudioNode = GainNode> extends Object3D {
+export class Audio<TNode extends AudioNode = GainNode> extends Object3D {
     /**
-     * Create a new instance of {@link Audio}
-     * @param listener (required) {@link AudioListener | AudioListener} instance.
+     * Constructs a new audio.
+     *
+     * @param {AudioListener} listener - The global audio listener.
      */
     constructor(listener: AudioListener);
-
     /**
-     * A Read-only _string_ to check if `this` object type.
-     * @remarks Sub-classes will update this value.
-     * @defaultValue `Audio`
+     * The global audio listener.
      */
-    readonly type: string | "Audio";
-
+    readonly listener: AudioListener;
     /**
-     * A reference to the listener object of this audio.
+     * The audio context.
      */
-    listener: AudioListener;
-
+    readonly context: AudioContext;
     /**
-     * The {@link https://developer.mozilla.org/en-US/docs/Web/API/AudioContext | AudioContext} of the {@link AudioListener | listener} given in the constructor.
+     * The gain node used for volume control.
      */
-    context: AudioContext;
-
+    readonly gain: GainNode;
     /**
-     * A {@link https://developer.mozilla.org/en-US/docs/Web/API/GainNode | GainNode} created using
-     * {@link https://developer.mozilla.org/en-US/docs/Web/API/AudioContext/createGain | AudioContext.createGain}().
-     */
-    gain: GainNode;
-
-    /**
-     * Whether to start playback automatically.
-     * @defaultValue `false`
+     * Whether to start playback automatically or not.
      */
     autoplay: boolean;
-
-    buffer: AudioBuffer | null;
-
     /**
-     * Modify pitch, measured in cents. +/- 100 is a semitone. +/- 1200 is an octave.
-     * @defaultValue `0`
+     * A reference to an audio buffer.
+     *
+     * Defined via {@link Audio#setBuffer}.
+     *
+     * @default null
      */
-    detune: number;
-
+    readonly buffer: AudioBuffer | null;
     /**
+     * Modify pitch, measured in cents. +/- 100 is a semitone.
+     * +/- 1200 is an octave.
+     *
+     * Defined via {@link Audio#setDetune}.
+     *
+     * @default 0
+     */
+    readonly detune: number;
+    /**
+     * Whether the audio should loop or not.
+     *
+     * Defined via {@link Audio#setLoop}.
+     *
      * @default false
      */
-    loop: boolean;
-
+    readonly loop: boolean;
     /**
+     * Defines where in the audio buffer the replay should
+     * start, in seconds.
+     *
      * @default 0
      */
     loopStart: number;
-
     /**
+     * Defines where in the audio buffer the replay should
+     * stop, in seconds.
+     *
      * @default 0
      */
     loopEnd: number;
-
     /**
-     * An offset to the time within the {@link Audio} buffer that playback should begin.
-     * Same as the {@link Audio.offset | offset} parameter of {@link https://developer.mozilla.org/en-US/docs/Web/API/AudioBufferSourceNode/start | AudioBufferSourceNode.start()}.
-     * @defaultValue `0`
+     * An offset to the time within the audio buffer the playback
+     * should begin, in seconds.
+     *
+     * @default 0
      */
     offset: number;
-
     /**
-     * Overrides the duration of the audio. Same as the {@link Audio.duration | duration} parameter of
-     * {@link https://developer.mozilla.org/en-US/docs/Web/API/AudioBufferSourceNode/start | AudioBufferSourceNode.start()}.
-     * @defaultValue `undefined` _to play the whole buffer_.
+     * Overrides the default duration of the audio.
+     *
+     * @default undefined
      */
     duration: number | undefined;
-
     /**
-     * Speed of playback.
-     * @defaultValue `1`
+     * The playback speed.
+     *
+     * Defined via {@link Audio#setPlaybackRate}.
+     *
+     * @default 1
      */
-    playbackRate: number;
-
+    readonly playbackRate: number;
     /**
-     * Whether the {@link Audio} is currently playing.
-     * @defaultValue `false`
+     * Indicates whether the audio is playing or not.
+     *
+     * This flag will be automatically set when using {@link Audio#play},
+     * {@link Audio#pause}, {@link Audio#stop}.
+     *
+     * @default false
      */
-    isPlaying: boolean;
-
+    readonly isPlaying: boolean;
     /**
-     * Whether playback can be controlled using the {@link Audio.play | play}(), {@link Audio.pause | pause}() etc. methods.
-     * @defaultValue `true`
+     * Indicates whether the audio playback can be controlled
+     * with method like {@link Audio#play} or {@link Audio#pause}.
+     *
+     * This flag will be automatically set when audio sources are
+     * defined.
+     *
+     * @default true
      */
-    hasPlaybackControl: boolean;
-
+    readonly hasPlaybackControl: boolean;
     /**
-     * Type of the {@link Audio} source.
-     * @defaultValue 'empty'.
+     * Holds a reference to the current audio source.
+     *
+     * The property is automatically by one of the `set*()` methods.
+     *
+     * @default null
      */
-    sourceType: string;
-
+    readonly source: AudioNode | null;
     /**
-     * An {@link https://developer.mozilla.org/en-US/docs/Web/API/AudioBufferSourceNode | AudioBufferSourceNode} created using
-     * {@link https://developer.mozilla.org/en-US/docs/Web/API/AudioContext/createBufferSource | AudioContext.createBufferSource()}.
+     * Defines the source type.
+     *
+     * The property is automatically set by one of the `set*()` methods.
+     *
+     * @default 'empty'
      */
-    source: AudioScheduledSourceNode | null;
-
+    readonly sourceType: "empty" | "audioNode" | "mediaNode" | "mediaStreamNode" | "buffer";
     /**
-     * Represents an array of {@link https://developer.mozilla.org/en-US/docs/Web/API/AudioNode | AudioNodes}.
-     * Can be used to apply a variety of low-order filters to create more complex sound effects.
-     * In most cases, the array contains instances of {@link https://developer.mozilla.org/en-US/docs/Web/API/BiquadFilterNode | BiquadFilterNodes}.
-     * Filters are set via {@link THREE.Audio.setFilter | Audio.setFilter} or {@link THREE.Audio.setFilters | Audio.setFilters}.
-     * @defaultValue `[]`
+     * Can be used to apply a variety of low-order filters to create
+     * more complex sound effects e.g. via `BiquadFilterNode`.
+     *
+     * The property is automatically set by {@link Audio#setFilters}.
      */
-    filters: AudioNode[];
-
+    readonly filters: AudioNode[];
     /**
-     * Return the {@link Audio.gain | gainNode}.
+     * Returns the output audio node.
+     *
+     * @return {GainNode} The output node.
      */
-    getOutput(): NodeType;
-
+    getOutput(): TNode;
     /**
-     * Setup the {@link Audio.source | source} to the audioBuffer, and sets {@link Audio.sourceType | sourceType} to 'audioNode'.
-     * @remarks Also sets {@link Audio.hasPlaybackControl | hasPlaybackControl} to false.
+     * Sets the given audio node as the source of this instance.
+     *
+     * {@link Audio#sourceType} is set to `audioNode` and {@link Audio#hasPlaybackControl} to `false`.
+     *
+     * @param {AudioNode} audioNode - The audio node like an instance of `OscillatorNode`.
+     * @return {Audio} A reference to this instance.
      */
-    setNodeSource(audioNode: AudioScheduledSourceNode): this;
-
+    setNodeSource(audioNode: AudioNode): this;
     /**
-     * Applies the given object of type {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement | HTMLMediaElement} as the source of this audio.
-     * @remarks Also sets {@link Audio.hasPlaybackControl | hasPlaybackControl} to false.
+     * Sets the given media element as the source of this instance.
+     *
+     * {@link Audio#sourceType} is set to `mediaNode` and {@link Audio#hasPlaybackControl} to `false`.
+     *
+     * @param {HTMLMediaElement} mediaElement - The media element.
+     * @return {Audio} A reference to this instance.
      */
     setMediaElementSource(mediaElement: HTMLMediaElement): this;
-
     /**
-     * Applies the given object of type {@link https://developer.mozilla.org/en-US/docs/Web/API/MediaStream | MediaStream} as the source of this audio.
-     * @remarks Also sets {@link Audio.hasPlaybackControl | hasPlaybackControl} to false.
+     * Sets the given media stream as the source of this instance.
+     *
+     * {@link Audio#sourceType} is set to `mediaStreamNode` and {@link Audio#hasPlaybackControl} to `false`.
+     *
+     * @param {MediaStream} mediaStream - The media stream.
+     * @return {Audio} A reference to this instance.
      */
     setMediaStreamSource(mediaStream: MediaStream): this;
-
     /**
-     * Setup the {@link Audio.source | source} to the audioBuffer, and sets {@link Audio.sourceType | sourceType} to 'buffer'.
-     * @remarks If {@link Audio.autoplay | autoplay}, also starts playback.
+     * Sets the given audio buffer as the source of this instance.
+     *
+     * {@link Audio#sourceType} is set to `buffer` and {@link Audio#hasPlaybackControl} to `true`.
+     *
+     * @param {AudioBuffer} audioBuffer - The audio buffer.
+     * @return {Audio} A reference to this instance.
      */
     setBuffer(audioBuffer: AudioBuffer): this;
-
     /**
-     * If {@link Audio.hasPlaybackControl | hasPlaybackControl} is true, starts playback.
+     * Starts the playback of the audio.
+     *
+     * Can only be used with compatible audio sources that allow playback control.
+     *
+     * @param {number} [delay=0] - The delay, in seconds, at which the audio should start playing.
+     * @return {Audio|undefined} A reference to this instance.
      */
-    play(delay?: number): this;
-
+    play(delay?: number): this | undefined;
     /**
-     * If {@link Audio.hasPlaybackControl | hasPlaybackControl} is true, pauses playback.
+     * Pauses the playback of the audio.
+     *
+     * Can only be used with compatible audio sources that allow playback control.
+     *
+     * @return {Audio|undefined} A reference to this instance.
      */
-    pause(): this;
-
+    pause(): this | undefined;
     /**
-     * If {@link Audio.hasPlaybackControl | hasPlaybackControl} is enabled, stops playback.
-     * @param delay (optional) - The delay, in seconds, at which the audio should start playing.
+     * Stops the playback of the audio.
+     *
+     * Can only be used with compatible audio sources that allow playback control.
+     *
+     * @param {number} [delay=0] - The delay, in seconds, at which the audio should stop playing.
+     * @return {Audio|undefined} A reference to this instance.
      */
-    stop(delay?: number): this;
-
+    stop(delay?: number): this | undefined;
     /**
-     * Called automatically when playback finished.
-     */
-    onEnded(): void;
-
-    /**
-     * Connect to the {@link THREE.Audio.source | Audio.source}
-     * @remarks This is used internally on initialisation and when setting / removing filters.
+     * Connects to the audio source. This is used internally on
+     * initialisation and when setting / removing filters.
+     *
+     * @return {Audio} A reference to this instance.
      */
     connect(): this;
     /**
-     * Disconnect from the {@link THREE.Audio.source | Audio.source}
-     * @remarks This is used internally when setting / removing filters.
+     * Disconnects to the audio source. This is used internally on
+     * initialisation and when setting / removing filters.
+     *
+     * @return {Audio|undefined} A reference to this instance.
      */
-    disconnect(): this;
-
+    disconnect(): this | undefined;
     /**
-     * Returns the detuning of oscillation in cents.
-     */
-    getDetune(): number;
-    /**
-     * Defines the detuning of oscillation in cents.
-     * @param value Expects a `Float`
-     */
-    setDetune(value: number): this;
-
-    /**
-     * Returns the first element of the {@link Audio.filters | filters} array.
-     */
-    getFilter(): AudioNode;
-    /**
-     * Applies a single filter node to the audio.
-     */
-    setFilter(filter: AudioNode): this;
-
-    /**
-     * Returns the {@link Audio.filters | filters} array.
+     * Returns the current set filters.
+     *
+     * @return {Array<AudioNode>} The list of filters.
      */
     getFilters(): AudioNode[];
     /**
-     * Applies an array of filter nodes to the audio.
-     * @param value Arrays of filters.
+     * Sets an array of filters and connects them with the audio source.
+     *
+     * @param {Array<AudioNode>} [value] - A list of filters.
+     * @return {Audio} A reference to this instance.
      */
-    setFilters(value: AudioNode[]): this;
-
+    setFilters(value?: AudioNode[]): this;
     /**
-     * Return the value of {@link Audio.playbackRate | playbackRate}.
+     * Defines the detuning of oscillation in cents.
+     *
+     * @param {number} value - The detuning of oscillation in cents.
+     * @return {Audio} A reference to this instance.
+     */
+    setDetune(value: number): this;
+    /**
+     * Returns the detuning of oscillation in cents.
+     *
+     * @return {number} The detuning of oscillation in cents.
+     */
+    getDetune(): number;
+    /**
+     * Returns the first filter in the list of filters.
+     *
+     * @return {AudioNode|undefined} The first filter in the list of filters.
+     */
+    getFilter(): AudioNode | undefined;
+    /**
+     * Applies a single filter node to the audio.
+     *
+     * @param {AudioNode} [filter] - The filter to set.
+     * @return {Audio} A reference to this instance.
+     */
+    setFilter(filter?: AudioNode): this;
+    /**
+     * Sets the playback rate.
+     *
+     * Can only be used with compatible audio sources that allow playback control.
+     *
+     * @param {number} [value] - The playback rate to set.
+     * @return {Audio|undefined} A reference to this instance.
+     */
+    setPlaybackRate(value?: number): this | undefined;
+    /**
+     * Returns the current playback rate.
+
+     * @return {number} The playback rate.
      */
     getPlaybackRate(): number;
     /**
-     * If {@link Audio.hasPlaybackControl | hasPlaybackControl} is enabled, set the {@link Audio.playbackRate | playbackRate} to `value`.
-     * @param value Expects a `Float`
+     * Automatically called when playback finished.
      */
-    setPlaybackRate(value: number): this;
-
+    onEnded(): void;
     /**
-     * Return the value of {@link https://developer.mozilla.org/en-US/docs/Web/API/AudioBufferSourceNode/loop | source.loop} (whether playback should loop).
+     * Returns the loop flag.
+     *
+     * Can only be used with compatible audio sources that allow playback control.
+     *
+     * @return {boolean} Whether the audio should loop or not.
      */
     getLoop(): boolean;
     /**
-     * Set {@link https://developer.mozilla.org/en-US/docs/Web/API/AudioBufferSourceNode/loop | source.loop} to `value` (whether playback should loop).
-     * @param value
+     * Sets the loop flag.
+     *
+     * Can only be used with compatible audio sources that allow playback control.
+     *
+     * @param {boolean} value - Whether the audio should loop or not.
+     * @return {Audio|undefined} A reference to this instance.
      */
-    setLoop(value: boolean): this;
-
+    setLoop(value: boolean): this | undefined;
     /**
-     * Set {@link https://developer.mozilla.org/en-US/docs/Web/API/AudioBufferSourceNode/loopStart | source.loopStart} to `value`.
-     * @param value Expects a `Float`
+     * Sets the loop start value which defines where in the audio buffer the replay should
+     * start, in seconds.
+     *
+     * @param {number} value - The loop start value.
+     * @return {Audio} A reference to this instance.
      */
     setLoopStart(value: number): this;
     /**
-     * Set {@link https://developer.mozilla.org/en-US/docs/Web/API/AudioBufferSourceNode/loopEnd | source.loopEnd} to `value`.
-     * @param value Expects a `Float`
+     * Sets the loop end value which defines where in the audio buffer the replay should
+     * stop, in seconds.
+     *
+     * @param {number} value - The loop end value.
+     * @return {Audio} A reference to this instance.
      */
     setLoopEnd(value: number): this;
-
     /**
-     * Return the current volume.
+     * Returns the volume.
+     *
+     * @return {number} The volume.
      */
     getVolume(): number;
     /**
-     * Set the volume.
-     * @param value Expects a `Float`
+     * Sets the volume.
+     *
+     * @param {number} value - The volume to set.
+     * @return {Audio} A reference to this instance.
      */
     setVolume(value: number): this;
+    copy(source: Audio, recursive?: boolean): this;
+    clone(recursive?: boolean): this;
 }

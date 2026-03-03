@@ -72,7 +72,7 @@ grid.setSelectedRows([0, 1, 2]);
 
 class SingleCellSelectionModel extends Slick.SelectionModel<MyData, Slick.Range[]> {
     private readonly self: SingleCellSelectionModel;
-    private _grid: Slick.Grid<MyData>;
+    private _grid!: Slick.Grid<MyData>;
 
     constructor() {
         super();

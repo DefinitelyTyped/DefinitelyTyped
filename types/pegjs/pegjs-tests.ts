@@ -10,7 +10,7 @@ import * as pegjs from "pegjs";
 
     try {
         let result: string = pegparser.parse("abba");
-    } catch (error) {
+    } catch (error: any) {
         if (error instanceof pegparser.SyntaxError) {
         }
     }
@@ -32,7 +32,7 @@ import * as pegjs from "pegjs";
 
 try {
     let source: string = pegjs.generate("A = 'test'", { output: "source" });
-} catch (error) {
+} catch (error: any) {
     if (error instanceof pegjs.GrammarError) {
         let e: pegjs.GrammarError = error;
     } else if (error instanceof pegjs.parser.SyntaxError) {

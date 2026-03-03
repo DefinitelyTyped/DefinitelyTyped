@@ -74,6 +74,10 @@ export interface ClientVersion {
     version: string;
 }
 
+export interface Subdivisions {
+    [country: string]: string[];
+}
+
 export interface ProviderMetadata {
     name: string; // unique internal name, e.g. "changenow"
     companyName: string; // name visible to clients, e.g. "ChangeNow"
@@ -91,7 +95,13 @@ export interface ProviderMetadata {
 
 export interface BuySellProviderMetadata extends ProviderMetadata {
     supportedCountries: string[]; // ['AT', 'BE']
+    supportedSubdivisions: Subdivisions; // { 'US': ['AL', 'NY', 'WA'] }
     tradedCoins: CryptoId[]; // ['BTC', 'BCH', 'LTC', 'XRP', 'ETH', 'bitcoin', 'ethereum', 'litecoin', 'ethereum--0xdac17f958d2ee523a2206206994597c13d831ec7']
+    disabledSubdivisions?: Subdivisions;
+}
+
+export interface TradeCommon {
+    statusUrl?: string | null; // URL with ID assigned to the trade by the provider to check status; if null, do not show any status url
 }
 
 // buy types
@@ -154,6 +164,7 @@ export interface BuyProviderInfo extends BuySellProviderMetadata {
 
 export interface BuyListResponse {
     country: string;
+    subdivision?: string;
     suggestedFiatCurrency?: string | undefined; // optional field, fiat currency based on user's IP
     providers: BuyProviderInfo[];
     defaultAmountsOfFiatCurrencies: FiatCurrenciesProps;
@@ -168,12 +179,13 @@ export interface BuyTradeQuoteRequest {
     fiatCurrency: string; // USD
     receiveCurrency: CryptoId; // bitcoin
     country?: string | undefined;
+    subdivision?: string | undefined;
     paymentMethod?: BuyCryptoPaymentMethod | undefined;
 }
 
 export type BuyTradeQuoteResponse = BuyTrade[];
 
-export interface BuyTrade {
+export interface BuyTrade extends TradeCommon {
     fiatAmount?: number | undefined; // 1000 - DEPRECATED, used only for TREZOR
     fiatStringAmount?: string | undefined; // 1000 - will pay fiat amount
     fiatCurrency?: string | undefined; // EUR
@@ -287,7 +299,7 @@ export type DexApprovalType =
     | "ZERO" // resets approval
     | "PRESET"; // PRESET takes value from approvalStringAmount
 
-export interface ExchangeTrade {
+export interface ExchangeTrade extends TradeCommon {
     send?: CryptoId | undefined; // bitcoin
 
     sendStringAmount?: string | undefined; // "0.01"
@@ -307,7 +319,6 @@ export interface ExchangeTrade {
     signature?: string | undefined; // Evercoin only, passed from createTrade response to confirmTrade request
     orderId?: string | undefined; // internal ID assigned to the trade by the exchange
     quoteId?: string | undefined;
-    statusUrl?: string | undefined; // internal URL + ID assigned to the trade by the exchange to check status
     status?: ExchangeTradeStatus | undefined; // state of trade after confirmTrade
     error?: string | undefined; // something went wrong after confirmTrade
     receiveTxHash?: string | undefined; // hash of tx from exchange to user or DEX swap
@@ -487,6 +498,7 @@ export interface SellProviderInfo extends BuySellProviderMetadata {
 
 export interface SellListResponse {
     country: string;
+    subdivision?: string;
     providers: SellProviderInfo[];
 }
 
@@ -501,13 +513,14 @@ export interface SellFiatTradeQuoteRequest {
     cryptoStringAmount?: string | undefined; // 0.3 - requested amount in crypto currency
     cryptoCurrency: CryptoId; // bitcoin
     country?: string | undefined;
+    subdivision?: string | undefined;
     paymentMethod?: SellCryptoPaymentMethod | undefined;
     flows?: SellFiatFlowType[] | undefined;
 }
 
 export type SellFiatTradeQuoteResponse = SellFiatTrade[];
 
-export interface SellFiatTrade {
+export interface SellFiatTrade extends TradeCommon {
     amountInCrypto?: boolean | undefined; // true for cryptoAmount, false for fiatAmount
     fiatStringAmount?: string | undefined; // 1000
     fiatCurrency?: string | undefined; // EUR

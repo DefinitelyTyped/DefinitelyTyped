@@ -82,7 +82,7 @@ var dummyTemplateEngine = function(templates?) {
                         try {
                             var evalResult = eval(script);
                             return (evalResult === null) || (evalResult === undefined) ? "" : evalResult.toString();
-                        } catch (ex) {
+                        } catch (ex: any) {
                             throw new Error(
                                 "Error evaluating script: [js: " + script + "]\n\nException: " + ex.toString(),
                             );
@@ -107,7 +107,7 @@ var dummyTemplateEngine = function(templates?) {
         // Only rewrite if the template isn't a function (can't rewrite those)
         var templateSource = new ko.templateSources.anonymousTemplate(template); // this.makeTemplateSource(template);
         if (typeof templateSource.text() != "function") {
-            return ko.templateEngine.prototype.rewriteTemplate.call(this, template, rewriterCallback);
+            return ko.templateEngine.prototype.rewriteTemplate.call(this, template, rewriterCallback, document);
         }
     };
     this.createJavaScriptEvaluatorBlock = function(script) {
@@ -135,7 +135,7 @@ describe("Templating", function() {
         ko.setTemplateEngine(undefined);
         try {
             ko.renderTemplate("someTemplate", {});
-        } catch (ex) {
+        } catch (ex: any) {
             threw = true;
         }
         expect(threw).toEqual(true);
@@ -971,7 +971,7 @@ describe("Templating", function() {
         var didThrow = false;
         try {
             ko.applyBindings({ someData: { childProp: "abc" } }, testNode);
-        } catch (ex) {
+        } catch (ex: any) {
             didThrow = true;
             expect(ex.message).toEqual(
                 "This template engine does not support anonymous templates nested within its templates",
@@ -994,7 +994,7 @@ describe("Templating", function() {
             ko.utils.domData.clear(testNode);
             try {
                 ko.applyBindings({ someData: { childProp: "abc" } }, testNode);
-            } catch (ex) {
+            } catch (ex: any) {
                 didThrow = true;
                 expect(ex.message).toEqual(
                     "This template engine does not support the '" + bindingName + "' binding within its templates",

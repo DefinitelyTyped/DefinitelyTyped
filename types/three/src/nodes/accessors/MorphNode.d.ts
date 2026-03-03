@@ -4,7 +4,7 @@ import UniformNode from "../core/UniformNode.js";
 
 declare class MorphNode extends Node {
     mesh: Mesh;
-    morphBaseInfluence: UniformNode<number>;
+    morphBaseInfluence: UniformNode<"float", number>;
 
     constructor(mesh: Mesh);
 }

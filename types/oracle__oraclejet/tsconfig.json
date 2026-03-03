@@ -17,7 +17,7 @@
         "types": [],
         "forceConsistentCasingInFileNames": true,
         "noEmit": true,
-        "target": "es5"
+        "target": "es6"
     },
     "files": [
         "oracle__oraclejet-tests.ts",

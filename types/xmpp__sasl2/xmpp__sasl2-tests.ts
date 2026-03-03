@@ -2,7 +2,7 @@ import Connection from "@xmpp/connection";
 import middleware, { Entity } from "@xmpp/middleware";
 import sasl2, { CredentialsFactory, SASL2 } from "@xmpp/sasl2";
 import streamFeatures from "@xmpp/stream-features";
-import { Element } from "@xmpp/xml";
+import xml, { Element } from "@xmpp/xml";
 import SASLFactory = require("saslmechanisms");
 
 class Foo extends Connection implements Entity {
@@ -23,7 +23,13 @@ const sf = streamFeatures({ middleware: mw });
 
 const saslFactory = new SASLFactory();
 
-const onAuthenticate = null as unknown as CredentialsFactory;
+const onAuthenticate: CredentialsFactory<Foo> = (callback, mechanisms, fast, entity) => {
+    return callback(
+        {},
+        mechanisms[0],
+        xml("user-agent"),
+    );
+};
 
 const saslMw = sasl2({ streamFeatures: sf, saslFactory }, onAuthenticate); // $ExpectType SASL2
 

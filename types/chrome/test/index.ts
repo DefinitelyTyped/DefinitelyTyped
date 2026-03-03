@@ -26,6 +26,8 @@ function testBookmarks() {
 
     chrome.bookmarks.MAX_WRITE_OPERATIONS_PER_HOUR === 1000000;
 
+    chrome.bookmarks.ROOT_NODE_ID === "0";
+
     const bookmarkDetails: chrome.bookmarks.CreateDetails = {
         index: 0,
         parentId: "1",
@@ -3214,6 +3216,8 @@ async function testTabs() {
     chrome.tabs.MutedInfoReason.EXTENSION === "extension";
     chrome.tabs.MutedInfoReason.USER === "user";
 
+    chrome.tabs.SPLIT_VIEW_ID_NONE === -1;
+
     chrome.tabs.TAB_ID_NONE === -1;
 
     chrome.tabs.TAB_INDEX_NONE === -1;
@@ -4021,6 +4025,27 @@ async function testDeclarativeNetRequest() {
     chrome.declarativeNetRequest.RuleActionType.REDIRECT === "redirect";
     chrome.declarativeNetRequest.RuleActionType.UPGRADE_SCHEME === "upgradeScheme";
 
+    chrome.declarativeNetRequest.RuleConditionKeys.DOMAINS === "domains";
+    chrome.declarativeNetRequest.RuleConditionKeys.DOMAIN_TYPE === "domainType";
+    chrome.declarativeNetRequest.RuleConditionKeys.EXCLUDED_DOMAINS === "excludedDomains";
+    chrome.declarativeNetRequest.RuleConditionKeys.EXCLUDED_INITIATOR_DOMAINS === "excludedInitiatorDomains";
+    chrome.declarativeNetRequest.RuleConditionKeys.EXCLUDED_REQUEST_DOMAINS === "excludedRequestDomains";
+    chrome.declarativeNetRequest.RuleConditionKeys.EXCLUDED_REQUEST_METHODS === "excludedRequestMethods";
+    chrome.declarativeNetRequest.RuleConditionKeys.EXCLUDED_RESOURCE_TYPES === "excludedResourceTypes";
+    chrome.declarativeNetRequest.RuleConditionKeys.EXCLUDED_RESPONSE_HEADERS === "excludedResponseHeaders";
+    chrome.declarativeNetRequest.RuleConditionKeys.EXCLUDED_TAB_IDS === "excludedTabIds";
+    chrome.declarativeNetRequest.RuleConditionKeys.EXCLUDED_TOP_DOMAINS === "excludedTopDomains";
+    chrome.declarativeNetRequest.RuleConditionKeys.INITIATOR_DOMAINS === "initiatorDomains";
+    chrome.declarativeNetRequest.RuleConditionKeys.IS_URL_FILTER_CASE_SENSITIVE === "isUrlFilterCaseSensitive";
+    chrome.declarativeNetRequest.RuleConditionKeys.REGEX_FILTER === "regexFilter";
+    chrome.declarativeNetRequest.RuleConditionKeys.REQUEST_DOMAINS === "requestDomains";
+    chrome.declarativeNetRequest.RuleConditionKeys.REQUEST_METHODS === "requestMethods";
+    chrome.declarativeNetRequest.RuleConditionKeys.RESOURCE_TYPES === "resourceTypes";
+    chrome.declarativeNetRequest.RuleConditionKeys.RESPONSE_HEADERS === "responseHeaders";
+    chrome.declarativeNetRequest.RuleConditionKeys.TAB_IDS === "tabIds";
+    chrome.declarativeNetRequest.RuleConditionKeys.TOP_DOMAINS === "topDomains";
+    chrome.declarativeNetRequest.RuleConditionKeys.URL_FILTER === "urlFilter";
+
     chrome.declarativeNetRequest.SESSION_RULESET_ID === "_session";
 
     chrome.declarativeNetRequest.UnsupportedRegexReason.MEMORY_LIMIT_EXCEEDED === "memoryLimitExceeded";
@@ -4131,6 +4156,7 @@ async function testDeclarativeNetRequest() {
         tabId: 1,
         initiator: "https://example.com",
         method: "get",
+        topUrl: "https://example.com",
         responseHeaders: {},
     };
 
@@ -4149,6 +4175,8 @@ async function testDeclarativeNetRequest() {
             domainType: "firstParty",
             excludedResourceTypes: [chrome.declarativeNetRequest.ResourceType.IMAGE, "object"],
             excludedRequestMethods: [chrome.declarativeNetRequest.RequestMethod.POST, "get"],
+            topDomains: ["example.com", "example.net"],
+            excludedTopDomains: ["example.com", "example.org"],
         },
     };
 
@@ -4918,6 +4946,7 @@ function testDownloads() {
     chrome.downloads.DangerType.DEEP_SCANNED_SAFE === "deepScannedSafe";
     chrome.downloads.DangerType.FILE === "file";
     chrome.downloads.DangerType.FORCE_SAVE_TO_GDRIVE === "forceSaveToGdrive";
+    chrome.downloads.DangerType.FORCE_SAVE_TO_ONEDRIVE === "forceSaveToOnedrive";
     chrome.downloads.DangerType.HOST === "host";
     chrome.downloads.DangerType.PASSWORD_PROTECTED === "passwordProtected";
     chrome.downloads.DangerType.PROMPT_FOR_LOCAL_PASSWORD_SCANNING === "promptForLocalPasswordScanning";
@@ -5078,7 +5107,7 @@ function testDownloads() {
         result.byExtensionName; // $ExpectType string | undefined
         result.bytesReceived; // $ExpectType number
         result.canResume; // $ExpectType boolean
-        result.danger; // $ExpectType "file" | "url" | "content" | "uncommon" | "host" | "unwanted" | "safe" | "accepted" | "allowlistedByPolicy" | "asyncScanning" | "asyncLocalPasswordScanning" | "passwordProtected" | "blockedTooLarge" | "sensitiveContentWarning" | "sensitiveContentBlock" | "deepScannedFailed" | "deepScannedSafe" | "deepScannedOpenedDangerous" | "promptForScanning" | "promptForLocalPasswordScanning" | "accountCompromise" | "blockedScanFailed" | "forceSaveToGdrive"
+        result.danger; // $ExpectType "file" | "url" | "content" | "uncommon" | "host" | "unwanted" | "safe" | "accepted" | "allowlistedByPolicy" | "asyncScanning" | "asyncLocalPasswordScanning" | "passwordProtected" | "blockedTooLarge" | "sensitiveContentWarning" | "sensitiveContentBlock" | "deepScannedFailed" | "deepScannedSafe" | "deepScannedOpenedDangerous" | "promptForScanning" | "promptForLocalPasswordScanning" | "accountCompromise" | "blockedScanFailed" | "forceSaveToGdrive" | "forceSaveToOnedrive"
         result.endTime; // $ExpectType string | undefined
         result.error; // $ExpectType "CRASH" | "FILE_ACCESS_DENIED" | "FILE_BLOCKED" | "FILE_FAILED" | "FILE_HASH_MISMATCH" | "FILE_NAME_TOO_LONG" | "FILE_NO_SPACE" | "FILE_SAME_AS_SOURCE" | "FILE_SECURITY_CHECK_FAILED" | "FILE_TOO_LARGE" | "FILE_TOO_SHORT" | "FILE_TRANSIENT_ERROR" | "FILE_VIRUS_INFECTED" | "NETWORK_DISCONNECTED" | "NETWORK_FAILED" | "NETWORK_INVALID_REQUEST" | "NETWORK_SERVER_DOWN" | "NETWORK_TIMEOUT" | "SERVER_BAD_CONTENT" | "SERVER_CERT_PROBLEM" | "SERVER_CONTENT_LENGTH_MISMATCH" | "SERVER_CROSS_ORIGIN_REDIRECT" | "SERVER_FAILED" | "SERVER_FORBIDDEN" | "SERVER_NO_RANGE" | "SERVER_UNAUTHORIZED" | "SERVER_UNREACHABLE" | "USER_CANCELED" | "USER_SHUTDOWN" | undefined
         result.estimatedEndTime; // $ExpectType string | undefined
@@ -5136,7 +5165,7 @@ function testDownloads() {
         downloadItem.byExtensionName; // $ExpectType string | undefined
         downloadItem.bytesReceived; // $ExpectType number
         downloadItem.canResume; // $ExpectType boolean
-        downloadItem.danger; // $ExpectType "file" | "url" | "content" | "uncommon" | "host" | "unwanted" | "safe" | "accepted" | "allowlistedByPolicy" | "asyncScanning" | "asyncLocalPasswordScanning" | "passwordProtected" | "blockedTooLarge" | "sensitiveContentWarning" | "sensitiveContentBlock" | "deepScannedFailed" | "deepScannedSafe" | "deepScannedOpenedDangerous" | "promptForScanning" | "promptForLocalPasswordScanning" | "accountCompromise" | "blockedScanFailed" | "forceSaveToGdrive"
+        downloadItem.danger; // $ExpectType "file" | "url" | "content" | "uncommon" | "host" | "unwanted" | "safe" | "accepted" | "allowlistedByPolicy" | "asyncScanning" | "asyncLocalPasswordScanning" | "passwordProtected" | "blockedTooLarge" | "sensitiveContentWarning" | "sensitiveContentBlock" | "deepScannedFailed" | "deepScannedSafe" | "deepScannedOpenedDangerous" | "promptForScanning" | "promptForLocalPasswordScanning" | "accountCompromise" | "blockedScanFailed" | "forceSaveToGdrive" | "forceSaveToOnedrive"
         downloadItem.endTime; // $ExpectType string | undefined
         downloadItem.error; // $ExpectType "CRASH" | "FILE_ACCESS_DENIED" | "FILE_BLOCKED" | "FILE_FAILED" | "FILE_HASH_MISMATCH" | "FILE_NAME_TOO_LONG" | "FILE_NO_SPACE" | "FILE_SAME_AS_SOURCE" | "FILE_SECURITY_CHECK_FAILED" | "FILE_TOO_LARGE" | "FILE_TOO_SHORT" | "FILE_TRANSIENT_ERROR" | "FILE_VIRUS_INFECTED" | "NETWORK_DISCONNECTED" | "NETWORK_FAILED" | "NETWORK_INVALID_REQUEST" | "NETWORK_SERVER_DOWN" | "NETWORK_TIMEOUT" | "SERVER_BAD_CONTENT" | "SERVER_CERT_PROBLEM" | "SERVER_CONTENT_LENGTH_MISMATCH" | "SERVER_CROSS_ORIGIN_REDIRECT" | "SERVER_FAILED" | "SERVER_FORBIDDEN" | "SERVER_NO_RANGE" | "SERVER_UNAUTHORIZED" | "SERVER_UNREACHABLE" | "USER_CANCELED" | "USER_SHUTDOWN" | undefined
         downloadItem.estimatedEndTime; // $ExpectType string | undefined
@@ -6196,6 +6225,15 @@ function testSidePanel() {
     chrome.sidePanel.Side.LEFT === "left";
     chrome.sidePanel.Side.RIGHT === "right";
 
+    const closeOptions: chrome.sidePanel.CloseOptions = {
+        tabId: 123,
+    };
+
+    chrome.sidePanel.close(closeOptions); // $ExpectType Promise<void>
+    chrome.sidePanel.close(closeOptions, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.sidePanel.close(closeOptions, () => {}).then(() => {});
+
     chrome.sidePanel.getLayout(); // $ExpectType Promise<PanelLayout>
     chrome.sidePanel.getLayout((layout) => { // $ExpectType void
         layout.side; // $ExpectType "left" | "right"
@@ -6262,6 +6300,12 @@ function testSidePanel() {
     chrome.sidePanel.setPanelBehavior(setPanelBehavior, () => void 0); // $ExpectType void
     // @ts-expect-error
     chrome.sidePanel.setPanelBehavior(setPanelBehavior, () => {}).then(() => {});
+
+    checkChromeEvent(chrome.sidePanel.onClosed, (info) => {
+        info.path; // $ExpectType string
+        info.tabId; // $ExpectType number | undefined
+        info.windowId; // $ExpectType number
+    });
 
     checkChromeEvent(chrome.sidePanel.onOpened, (info) => {
         info.path; // $ExpectType string
@@ -6855,6 +6899,8 @@ function testWebRequest() {
     chrome.webRequest.OnHeadersReceivedOptions.BLOCKING === "blocking";
     chrome.webRequest.OnHeadersReceivedOptions.EXTRA_HEADERS === "extraHeaders";
     chrome.webRequest.OnHeadersReceivedOptions.RESPONSE_HEADERS === "responseHeaders";
+    chrome.webRequest.OnHeadersReceivedOptions.SECURITY_INFO === "securityInfo";
+    chrome.webRequest.OnHeadersReceivedOptions.SECURITY_INFO_RAW_DER === "securityInfoRawDer";
 
     chrome.webRequest.OnResponseStartedOptions.EXTRA_HEADERS === "extraHeaders";
     chrome.webRequest.OnResponseStartedOptions.RESPONSE_HEADERS === "responseHeaders";
@@ -6910,7 +6956,7 @@ function testWebRequest() {
     checkWebRequestEvent(chrome.webRequest.onAuthRequired, (details, asyncCallback) => {
         details.challenger.host; // $ExpectType string
         details.challenger.port; // $ExpectType number
-        details.documentId; // $ExpectType string
+        details.documentId; // $ExpectType string | undefined
         details.documentLifecycle; // $ExpectType DocumentLifecycle
         details.frameId; // $ExpectType number
         details.frameType; // $ExpectType FrameType
@@ -6937,7 +6983,7 @@ function testWebRequest() {
     }, ["responseHeaders", "blocking", "asyncBlocking", "extraHeaders"]);
 
     checkWebRequestEvent(chrome.webRequest.onBeforeRedirect, (details) => {
-        details.documentId; // $ExpectType string
+        details.documentId; // $ExpectType string | undefined
         details.documentLifecycle; // $ExpectType DocumentLifecycle
         details.frameId; // $ExpectType number
         details.frameType; // $ExpectType FrameType
@@ -6985,7 +7031,7 @@ function testWebRequest() {
     checkWebRequestEvent(
         chrome.webRequest.onBeforeSendHeaders,
         (details) => {
-            details.documentId; // $ExpectType string
+            details.documentId; // $ExpectType string | undefined
             details.documentLifecycle; // $ExpectType DocumentLifecycle
             details.frameId; // $ExpectType number
             details.frameType; // $ExpectType FrameType
@@ -7008,7 +7054,7 @@ function testWebRequest() {
     );
 
     checkWebRequestEvent(chrome.webRequest.onCompleted, (details) => {
-        details.documentId; // $ExpectType string
+        details.documentId; // $ExpectType string | undefined
         details.documentLifecycle; // $ExpectType DocumentLifecycle
         details.frameId; // $ExpectType number
         details.frameType; // $ExpectType FrameType
@@ -7031,7 +7077,7 @@ function testWebRequest() {
     }, ["responseHeaders", "extraHeaders"]);
 
     checkWebRequestEvent(chrome.webRequest.onErrorOccurred, (details) => {
-        details.documentId; // $ExpectType string
+        details.documentId; // $ExpectType string | undefined
         details.documentLifecycle; // $ExpectType DocumentLifecycle
         details.error; // $ExpectType string
         details.frameId; // $ExpectType number
@@ -7050,7 +7096,7 @@ function testWebRequest() {
     }, ["extraHeaders"]);
 
     checkWebRequestEvent(chrome.webRequest.onHeadersReceived, (details) => {
-        details.documentId; // $ExpectType string
+        details.documentId; // $ExpectType string | undefined
         details.documentLifecycle; // $ExpectType DocumentLifecycle
         details.frameId; // $ExpectType number
         details.frameType; // $ExpectType FrameType
@@ -7062,6 +7108,10 @@ function testWebRequest() {
         details.responseHeaders?.[0].name; // $ExpectType string | undefined
         details.responseHeaders?.[0].value; // $ExpectType string | undefined
         details.responseHeaders?.[0].binaryValue; // $ExpectType ArrayBuffer | undefined
+        details.securityInfo; // $ExpectType SecurityInfo | undefined
+        details.securityInfo!.certificates![0].fingerprint.sha256; // $ExpectType string
+        details.securityInfo!.certificates![0].rawDER; // $ExpectType ArrayBuffer | undefined
+        details.securityInfo!.state; // $ExpectType string
         details.statusCode; // $ExpectType number
         details.statusLine; // $ExpectType string
         details.tabId; // $ExpectType number
@@ -7073,7 +7123,7 @@ function testWebRequest() {
     }, ["blocking", "responseHeaders", "extraHeaders"]);
 
     checkWebRequestEvent(chrome.webRequest.onResponseStarted, (details) => {
-        details.documentId; // $ExpectType string
+        details.documentId; // $ExpectType string | undefined
         details.documentLifecycle; // $ExpectType DocumentLifecycle
         details.frameId; // $ExpectType number
         details.frameType; // $ExpectType FrameType
@@ -7096,7 +7146,7 @@ function testWebRequest() {
     }, ["responseHeaders", "extraHeaders"]);
 
     checkWebRequestEvent(chrome.webRequest.onSendHeaders, (details) => {
-        details.documentId; // $ExpectType string
+        details.documentId; // $ExpectType string | undefined
         details.documentLifecycle; // $ExpectType DocumentLifecycle
         details.frameId; // $ExpectType number
         details.frameType; // $ExpectType FrameType

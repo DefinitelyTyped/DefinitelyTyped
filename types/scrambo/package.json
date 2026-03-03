@@ -8,10 +8,5 @@
     "devDependencies": {
         "@types/scrambo": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Christopher Mühl",
-            "githubUsername": "padarom"
-        }
-    ]
+    "owners": []
 }

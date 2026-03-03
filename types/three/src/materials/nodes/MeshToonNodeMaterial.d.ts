@@ -16,8 +16,6 @@ export interface MeshToonNodeMaterialParameters
 
 /**
  * Node material version of {@link MeshToonMaterial}.
- *
- * @augments NodeMaterial
  */
 declare class MeshToonNodeMaterial extends NodeMaterial {
     /**
@@ -29,8 +27,6 @@ declare class MeshToonNodeMaterial extends NodeMaterial {
     /**
      * This flag can be used for type testing.
      *
-     * @type {boolean}
-     * @readonly
      * @default true
      */
     readonly isMeshToonNodeMaterial: boolean;

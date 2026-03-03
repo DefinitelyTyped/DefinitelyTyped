@@ -16,6 +16,8 @@ declare class BitcountNode extends MathNode {
     static COUNT_ONE_BITS: "countOneBits";
 }
 
+export default BitcountNode;
+
 export const countTrailingZeros: (x: Node | number) => BitcountNode;
 export const countLeadingZeros: (x: Node | number) => BitcountNode;
 export const countOneBits: (x: Node | number) => BitcountNode;

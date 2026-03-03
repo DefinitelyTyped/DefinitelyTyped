@@ -170,9 +170,9 @@ const gateway: BraintreeGateway = new braintree.BraintreeGateway({
     escrowStatus === Transaction.EscrowStatus.Refunded;
 
     // Assert overlap between source and static field
-    "Api" === Transaction.Source.Api;
-    "Recurring" === Transaction.Source.Recurring;
-    "ControlPanel" === Transaction.Source.ControlPanel;
+    "api" === Transaction.Source.Api;
+    "recurring" === Transaction.Source.Recurring;
+    "control_panel" === Transaction.Source.ControlPanel;
 
     // Assert overlap between created using and static field
     "token" === Transaction.CreatedUsing.Token;
@@ -262,6 +262,7 @@ const gateway: BraintreeGateway = new braintree.BraintreeGateway({
 
     // $ExpectType string
     subscription.nextBillingDate;
+    subscription.firstBillingDate;
 
     // Assert overlap between subscription status and static field
     subscription.status === braintree.Subscription.Status.Active;
@@ -269,6 +270,9 @@ const gateway: BraintreeGateway = new braintree.BraintreeGateway({
     subscription.status === braintree.Subscription.Status.Expired;
     subscription.status === braintree.Subscription.Status.PastDue;
     subscription.status === braintree.Subscription.Status.Pending;
+
+    // $ExpectType ValidatedResponse<Subscription>
+    const cancelResult = await gateway.subscription.cancel("subscriptionId");
 })();
 
 // $ExpectType () => string[]

@@ -221,6 +221,7 @@ export class Color {
      */
     b: number;
 
+    // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
     set(...args: [color: ColorRepresentation] | [r: number, g: number, b: number]): this;
 
     /**

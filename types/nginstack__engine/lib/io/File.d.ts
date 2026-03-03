@@ -30,6 +30,7 @@ declare namespace File {
         createTempFile,
         createTempDirName,
         fileFromString,
+        fileFromStream,
         stringFromFile,
         pathAppend,
         pathSeparator,
@@ -41,6 +42,7 @@ declare namespace File {
         copyDirectory,
         openForRead,
         SearchRecord,
+        MemoryStream,
         FileListEntry,
     };
 }
@@ -62,6 +64,7 @@ declare function fileFromString(
     content: string | Uint8Array | ArrayBuffer,
     encoding?: string
 ): void;
+declare function fileFromStream(fileName: string, stream: File | MemoryStream): void;
 declare function stringFromFile(fileName: string, opt_encoding?: string): string;
 declare function pathAppend(path: string, append: Array<string[] | string>): string;
 declare let pathSeparator: string;
@@ -80,6 +83,7 @@ declare function listEntries(
 declare function copyDirectory(sourceDir: string, targetDir: string, opt_replace?: boolean): void;
 declare function openForRead(path: string): File;
 type SearchRecord = import('./SearchRecord');
+type MemoryStream = import('./MemoryStream');
 interface FileListEntry {
     name: string;
     size: number;

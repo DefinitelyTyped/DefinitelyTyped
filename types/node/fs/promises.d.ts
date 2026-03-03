@@ -20,7 +20,6 @@ declare module "node:fs/promises" {
         CopyOptions,
         Dir,
         Dirent,
-        DisposableTempDir,
         EncodingOption,
         GlobOptions,
         GlobOptionsWithFileTypes,
@@ -980,6 +979,20 @@ declare module "node:fs/promises" {
         prefix: string,
         options?: ObjectEncodingOptions | BufferEncoding | null,
     ): Promise<string | NonSharedBuffer>;
+    interface DisposableTempDir extends AsyncDisposable {
+        /**
+         * The path of the created directory.
+         */
+        path: string;
+        /**
+         * A function which removes the created directory.
+         */
+        remove(): Promise<void>;
+        /**
+         * The same as `remove`.
+         */
+        [Symbol.asyncDispose](): Promise<void>;
+    }
     /**
      * The resulting Promise holds an async-disposable object whose `path` property
      * holds the created directory path. When the object is disposed, the directory

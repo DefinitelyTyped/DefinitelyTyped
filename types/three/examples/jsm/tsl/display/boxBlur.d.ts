@@ -7,4 +7,4 @@ export interface BoxBlurOptions {
     premultipliedAlpha?: boolean | undefined;
 }
 
-export const boxBlur: (textureNode: Node, options?: BoxBlurOptions) => Node;
+export const boxBlur: (textureNode: Node, options?: BoxBlurOptions) => Node<"vec4">;

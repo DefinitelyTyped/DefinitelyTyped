@@ -1,16 +1,19 @@
 import Node from "./Node.js";
 import NodeBuilder from "./NodeBuilder.js";
+
 export interface MembersLayout {
     [name: string]: string | {
         type: string;
         atomic?: boolean;
     };
 }
+
 export interface MemberLayout {
     name: string;
     type: string;
     atomic: boolean;
 }
+
 /**
  * Represents a struct type node in the node-based system.
  * This class is used to define and manage the layout and types of struct members.
@@ -20,10 +23,6 @@ export interface MemberLayout {
  * @augments Node
  */
 declare class StructTypeNode extends Node {
-    static get type(): string;
-    membersLayout: MemberLayout[];
-    name: string | null;
-    readonly isStructLayoutNode: true;
     /**
      * Creates an instance of StructTypeNode.
      *
@@ -31,6 +30,20 @@ declare class StructTypeNode extends Node {
      * @param {?string} [name=null] - The optional name of the struct.
      */
     constructor(membersLayout: MembersLayout, name?: string | null);
+    /**
+     * The layout of the members for the struct
+     *
+     * @type {Array.<{name: string, type: string, atomic: boolean}>}
+     */
+    membersLayout: Array<MemberLayout>;
+    /**
+     * This flag can be used for type testing.
+     *
+     * @type {boolean}
+     * @readonly
+     * @default true
+     */
+    readonly isStructLayoutNode: boolean;
     /**
      * Returns the length of the struct.
      * The length is calculated by summing the lengths of the struct's members.
@@ -40,7 +53,8 @@ declare class StructTypeNode extends Node {
     getLength(): number;
     getMemberType(builder: NodeBuilder, name: string): string;
     getNodeType(builder: NodeBuilder): string;
-    setup(builder: NodeBuilder): void;
+    setup(builder: NodeBuilder): undefined;
     generate(builder: NodeBuilder): string;
 }
+
 export default StructTypeNode;

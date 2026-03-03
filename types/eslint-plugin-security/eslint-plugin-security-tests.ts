@@ -1,5 +1,12 @@
 import type { Linter, Rule } from "eslint";
-import { configs, rules } from "eslint-plugin-security";
+import security from "eslint-plugin-security";
 
-const config: Linter.FlatConfig = configs.recommended;
-const rule: Rule.RuleModule = rules["detect-unsafe-regex"];
+const name: string = security.meta.name;
+const version: string = security.meta.version;
+
+const rule: Rule.RuleModule = security.rules["detect-unsafe-regex"];
+
+const ruleConfig: Linter.Severity = security.rulesConfig["detect-unsafe-regex"];
+
+const config: Linter.Config = security.configs.recommended;
+const configLegacy: Linter.LegacyConfig = security.configs["recommended-legacy"];

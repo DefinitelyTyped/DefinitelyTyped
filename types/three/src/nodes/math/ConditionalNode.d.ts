@@ -1,30 +1,51 @@
 import Node from "../core/Node.js";
 
-declare class ConditionalNode extends Node {
-    condNode: Node;
-    ifNode: Node;
-    elseNode: Node | null;
-
-    constructor(condNode: Node, ifNode: Node, elseNode?: Node | null);
+interface ConditionalNodeInterface<TNodeType> {
+    condNode: Node<"bool">;
+    ifNode: Node<TNodeType>;
+    elseNode: Node<TNodeType> | null;
 }
+
+declare const ConditionalNode: {
+    new<TNodeType>(
+        condNode: Node<"bool">,
+        ifNode: Node<TNodeType>,
+        elseNode?: Node<TNodeType> | null,
+    ): ConditionalNode<TNodeType>;
+};
+
+type ConditionalNode<TNodeType> = Node<TNodeType> & ConditionalNodeInterface<TNodeType>;
 
 export default ConditionalNode;
 
-export const select: (
-    condNode: Node,
-    ifNode: Node | number,
-    elseNode?: Node | number | null,
-) => Node;
+interface Select {
+    (
+        condNode: Node<"bool">,
+        ifNode: Node<"float"> | number,
+        elseNode?: Node<"float"> | number | null,
+    ): Node<"float">;
+    <TNodeType>(
+        condNode: Node<"bool">,
+        ifNode: Node<TNodeType>,
+        elseNode?: Node<TNodeType> | null,
+    ): Node<TNodeType>;
+}
 
-declare module "../Nodes.js" {
-    interface Node {
-        select: (
-            ifNode: Node | number,
-            elseNode?: Node | number | null,
-        ) => Node;
-        selectAssign: (
-            ifNode: Node | number,
-            elseNode?: Node | number | null,
-        ) => this;
+export const select: Select;
+
+interface SelectExtension {
+    (
+        ifNode: Node<"float"> | number,
+        elseNode?: Node<"float"> | number | null,
+    ): Node<"float">;
+    <TNodeType>(
+        ifNode: Node<TNodeType>,
+        elseNode?: Node<TNodeType> | null,
+    ): Node<TNodeType>;
+}
+
+declare module "../core/Node.js" {
+    interface NodeElements {
+        select: SelectExtension;
     }
 }

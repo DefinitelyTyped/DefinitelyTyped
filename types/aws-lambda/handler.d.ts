@@ -131,7 +131,7 @@ export interface CognitoIdentity {
 
 export interface ClientContext {
     client: ClientContextClient;
-    Custom?: any;
+    custom?: any;
     env: ClientContextEnv;
 }
 

@@ -19,18 +19,13 @@ export const isolate: (node: Node) => IsolateNode;
  */
 export const cache: (node: Node, cache?: NodeCache) => IsolateNode;
 
-declare module "../Nodes.js" {
-    interface Node {
+declare module "./Node.js" {
+    interface NodeElements {
         /**
          * @deprecated "cache()" has been deprecated. Use "isolate()" instead.
          */
         cache: (cache?: NodeCache) => IsolateNode;
-        /**
-         * @deprecated "cache()" has been deprecated. Use "isolate()" instead.
-         */
-        cacheAssign: (cache?: NodeCache) => this;
 
         isolate: () => IsolateNode;
-        isolateAssign: () => this;
     }
 }

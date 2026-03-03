@@ -12,19 +12,11 @@ export class WebGLProgram {
      * @default 1
      */
     usedTimes: number;
-    program: any;
+    program: unknown; // TODO This should be the WebGLProgram in the DOM types
     vertexShader: WebGLShader;
     fragmentShader: WebGLShader;
-    /**
-     * @deprecated Use {@link WebGLProgram#getUniforms getUniforms()} instead.
-     */
-    uniforms: any;
-    /**
-     * @deprecated Use {@link WebGLProgram#getAttributes getAttributes()} instead.
-     */
-    attributes: any;
 
     getUniforms(): WebGLUniforms;
-    getAttributes(): any;
+    getAttributes(): unknown;
     destroy(): void;
 }

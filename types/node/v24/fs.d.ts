@@ -2193,7 +2193,7 @@ declare module "fs" {
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
     export function mkdtempSync(prefix: string, options?: EncodingOption): string | NonSharedBuffer;
-    export interface DisposableTempDir extends AsyncDisposable {
+    export interface DisposableTempDir extends Disposable {
         /**
          * The path of the created directory.
          */
@@ -2201,11 +2201,11 @@ declare module "fs" {
         /**
          * A function which removes the created directory.
          */
-        remove(): Promise<void>;
+        remove(): void;
         /**
          * The same as `remove`.
          */
-        [Symbol.asyncDispose](): Promise<void>;
+        [Symbol.dispose](): void;
     }
     /**
      * Returns a disposable object whose `path` property holds the created directory

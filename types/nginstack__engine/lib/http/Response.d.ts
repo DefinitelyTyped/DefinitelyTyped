@@ -15,7 +15,7 @@ declare class Response {
     setHeader(name: any, value: any): void;
     getAllHeaders(): any;
     stop(): void;
-    redirect(uri: string, opt_permanently?: boolean): void;
-    stopAndRedirect(uri: string, opt_permanently?: boolean): void;
+    redirect(uri: string, permanently?: boolean): void;
+    stopAndRedirect(uri: string, permanently?: boolean): void;
     send(): void;
 }

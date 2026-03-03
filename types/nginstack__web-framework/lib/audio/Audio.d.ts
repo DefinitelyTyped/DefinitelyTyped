@@ -11,8 +11,6 @@ declare class Audio {
     id: string;
     write(): void;
     play(): void;
-    private _formatAudioVariable;
-    private _createId;
 }
 declare namespace Audio {
     export { Process };

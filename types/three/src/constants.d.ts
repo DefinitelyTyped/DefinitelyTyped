@@ -50,13 +50,15 @@ export const AdditiveBlending: 2;
 export const SubtractiveBlending: 3;
 export const MultiplyBlending: 4;
 export const CustomBlending: 5;
+export const MaterialBlending: 6;
 export type Blending =
     | typeof NoBlending
     | typeof NormalBlending
     | typeof AdditiveBlending
     | typeof SubtractiveBlending
     | typeof MultiplyBlending
-    | typeof CustomBlending;
+    | typeof CustomBlending
+    | typeof MaterialBlending;
 
 // custom blending equations
 // (numbers start from 100 not to clash with other
@@ -651,7 +653,12 @@ export type AnimationActionLoopStyles = typeof LoopOnce | typeof LoopRepeat | ty
 export const InterpolateDiscrete: 2300;
 export const InterpolateLinear: 2301;
 export const InterpolateSmooth: 2302;
-export type InterpolationModes = typeof InterpolateDiscrete | typeof InterpolateLinear | typeof InterpolateSmooth;
+export const InterpolateBezier: 2303;
+export type InterpolationModes =
+    | typeof InterpolateDiscrete
+    | typeof InterpolateLinear
+    | typeof InterpolateSmooth
+    | typeof InterpolateBezier;
 
 // Interpolant ending modes
 export const ZeroCurvatureEnding: 2400;
@@ -823,6 +830,11 @@ export type InterpolationSamplingMode =
     | typeof InterpolationSamplingMode.SAMPLE
     | typeof InterpolationSamplingMode.FIRST
     | typeof InterpolationSamplingMode.EITHER;
+
+export const Compatibility: {
+    TEXTURE_COMPARE: "depthTextureCompare";
+};
+export type Compatibility = typeof Compatibility.TEXTURE_COMPARE;
 
 ///////////////////////////////////////////////////////////////////////////////
 // Texture - Internal Pixel Formats

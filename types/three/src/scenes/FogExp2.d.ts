@@ -8,59 +8,54 @@ export interface FogExp2JSON {
 }
 
 /**
- * This class contains the parameters that define exponential squared fog, which gives a clear view near the camera and a faster than exponentially densening fog farther from the camera.
- * @example
- * ```typescript
+ * This class can be used to define an exponential squared fog,
+ * which gives a clear view near the camera and a faster than exponentially
+ * densening fog farther from the camera.
+ *
+ * ```js
  * const scene = new THREE.Scene();
- * scene.fog = new THREE.FogExp2(0xcccccc, 0.002);
+ * scene.fog = new THREE.FogExp2( 0xcccccc, 0.002 );
  * ```
- * @see Example: {@link https://threejs.org/examples/#webgl_geometry_terrain | webgl geometry terrain}
- * @see {@link https://threejs.org/docs/index.html#api/en/scenes/FogExp2 | Official Documentation}
- * @see {@link https://github.com/mrdoob/three.js/blob/master/src/scenes/FogExp2.js | Source}
  */
 export class FogExp2 {
     /**
-     * The color parameter is passed to the {@link THREE.Color | Color} constructor to set the color property
-     * @remarks Color can be a hexadecimal integer or a CSS-style string.
-     * @param color
-     * @param density Expects a `Float`
+     * Constructs a new fog.
+     *
+     * @param {number|Color} color - The fog's color.
+     * @param {number} [density=0.00025] - Defines how fast the fog will grow dense.
      */
     constructor(color: ColorRepresentation, density?: number);
-
     /**
-     * Read-only flag to check if a given object is of type {@link FogExp2}.
-     * @remarks This is a _constant_ value
-     * @defaultValue `true`
+     * This flag can be used for type testing.
+     *
+     * @default true
      */
-    readonly isFogExp2: true;
-
+    readonly isFogExp2: boolean;
     /**
-     * Optional name of the object
-     * @remarks _(doesn't need to be unique)_.
-     * @defaultValue `""`
+     * The name of the fog.
      */
     name: string;
-
     /**
-     * Fog color.
-     * @remarks If set to black, far away objects will be rendered black.
+     * The fog's color.
      */
     color: Color;
-
     /**
-     * Defines how fast the fog will grow dense.
-     * @defaultValue `0.00025`
-     * @remarks Expects a `Float`
+     *  Defines how fast the fog will grow dense.
+     *
+     * @default 0.00025
      */
     density: number;
-
     /**
-     * Returns a new {@link FogExp2} instance with the same parameters as this one.
+     * Returns a new fog with copied values from this instance.
+     *
+     * @return {FogExp2} A clone of this instance.
      */
     clone(): FogExp2;
-
     /**
-     * Return {@link FogExp2} data in JSON format.
+     * Serializes the fog into JSON.
+     *
+     * @param {?(Object|string)} meta - An optional value holding meta information about the serialization.
+     * @return {Object} A JSON object representing the serialized fog
      */
     toJSON(): FogExp2JSON;
 }

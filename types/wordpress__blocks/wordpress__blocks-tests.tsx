@@ -721,3 +721,28 @@ dispatch("core/blocks").addBlockStyles("my/foo", { name: "foo__bar", label: "Foo
 
 // $ExpectType void
 dispatch("core/blocks").setDefaultBlockName("my/foo");
+
+//
+// store objects
+// ----------------------------------------------------------------------------
+
+// $ExpectType readonly BlockStyle[] | undefined
+select(blocks.store).getBlockStyles("my/foo");
+
+// $ExpectType string | undefined
+select(blocks.store).getFreeformFallbackBlockName();
+
+// $ExpectType string | undefined
+select(blocks.store).getUnregisteredFallbackBlockName();
+
+// $ExpectType boolean
+select(blocks.store).isMatchingSearchTerm("my/foo", "foo");
+
+// $ExpectType boolean
+select(blocks.store).isMatchingSearchTerm(BLOCK, "foo");
+
+// $ExpectType Promise<void>
+dispatch(blocks.store).addBlockStyles("my/foo", { name: "foo__bar", label: "Foobar" });
+
+// $ExpectType Promise<void>
+dispatch(blocks.store).setDefaultBlockName("my/foo");

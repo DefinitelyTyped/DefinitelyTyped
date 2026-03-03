@@ -95,7 +95,7 @@ import { InjectAsProperty } from "angular-es";
 
 @InjectAsProperty("fooBar")
 class MyFooBarService {
-    fooBar: Object;
+    fooBar!: Object;
 
     myMethod() {
         this.fooBar !== undefined;

@@ -23,6 +23,5 @@ export const call: <P extends FunctionNodeArguments>(
 declare module "../Nodes.js" {
     interface FunctionNode<P extends FunctionNodeArguments> {
         call: (parameters?: ProxiedObject<P>) => FunctionCallNode<P>;
-        callAssign: (parameters?: ProxiedObject<P>) => this;
     }
 }

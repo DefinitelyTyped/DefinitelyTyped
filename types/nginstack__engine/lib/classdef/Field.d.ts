@@ -19,7 +19,8 @@ declare class Field {
     dataSetType: typeof DataSetDataType;
     charLength: number | null;
     private defaultDisplayFormats_;
-    dateFormat: typeof DateFormat;
+    private defaultDisplayFormatsByName_;
+    dateFormat: DateFormat;
     size: number;
     order: number;
     readOnly: typeof ReadOnlyMode | boolean;
@@ -54,13 +55,18 @@ declare class Field {
     detailFieldNames: string;
     masterDeleteAction: typeof MasterDeleteAction;
     detailFilter: string;
-    private _propertiesToAssign;
-    private _ownControlledProperties;
-    protected _notifyObjectPropertyChange(name: string): void;
+    private propertiesToAssign_;
+    private propertiesToAssignWithDeepClone_;
+    private ownControlledProperties_;
+    protected notifyObjectPropertyChange_(name: string): void;
+    private _notifyObjectPropertyChange;
     private groupName;
     group: FieldGroup;
+    validationType: ValidationType;
+    private validationType_;
     protected inheritedClassDefEvents_: string[];
     protected init_(name: string, type: string, opt_size?: number): void;
+    private suggestValidationType_;
     protected registerEvents_(): void;
     protected changeFieldType_(type: string, fieldName: string): void;
     private type_;
@@ -68,11 +74,8 @@ declare class Field {
     assignObjectsTo(field: any): void;
     assign(field: Field): void;
     assignTo(field: Field): void;
-    displayFormat:
-        | typeof DateFormat
-        | typeof LatitudeFormat
-        | typeof LongitudeFormat
-        | typeof AngleFormat;
+    displayFormat: DateFormat | LatitudeFormat | LongitudeFormat | AngleFormat | NumberFormat;
+    private displayFormat_;
     onGetOptions: Event;
     onLookupDisplay: Event;
     onBeforeLookupAddResult: Event;
@@ -81,7 +84,6 @@ declare class Field {
     onBeforeChange: Event;
     onAfterChange: Event;
     onValidate: Event;
-    private checkCoordinateRange_;
     protected loadClassDefIfNeeded_(): void;
     classDef: any;
     private checkOptions_;
@@ -103,17 +105,46 @@ declare class Field {
     isTime(): boolean;
 }
 declare namespace Field {
-    export { Event, AdapterDescriptor, Limit };
+    export {
+        Event,
+        AdapterDescriptor,
+        Limit,
+        DateFormat,
+        LatitudeFormat,
+        LongitudeFormat,
+        AngleFormat,
+        NumberFormat,
+        ValidationType,
+    };
 }
 import DatabaseDataType = require('../database/DatabaseDataType.js');
 import DataSetDataType = require('../dataset/DataSetDataType.js');
-import DateFormat = require('../date/DateFormat.js');
 import ReadOnlyMode = require('./ReadOnlyMode.js');
 import MasterDeleteAction = require('./MasterDeleteAction.js');
 import FieldGroup = require('./FieldGroup.js');
-import LatitudeFormat = require('../geo/LatitudeFormat.js');
-import LongitudeFormat = require('../geo/LongitudeFormat.js');
-import AngleFormat = require('../geo/AngleFormat.js');
 type Event = import('../event/Event');
 type AdapterDescriptor = import('../event/AdapterDescriptor');
 type Limit = typeof import('../range/Limit');
+type DateFormat = import('../date/DateFormat').DateFormatType;
+type LatitudeFormat = import('../geo/LatitudeFormat').LatitudeFormatType;
+type LongitudeFormat = import('../geo/LongitudeFormat').LongitudeFormatType;
+type AngleFormat = import('../geo/AngleFormat').AngleFormatType;
+type NumberFormat = import('../number/NumberFormat').NumberFormatType;
+type ValidationType =
+    | 'string'
+    | 'int64'
+    | 'int32'
+    | 'number'
+    | 'date'
+    | 'email'
+    | 'cep'
+    | 'time'
+    | 'phone'
+    | 'pis'
+    | 'cpf'
+    | 'cnpj'
+    | 'cpfcnpj'
+    | 'latitude'
+    | 'longitude'
+    | 'angle'
+    | 'boolean';

@@ -179,6 +179,14 @@ import { createContext } from "node:vm";
 }
 
 {
+    // Test hasRef, ref, unref
+    const mp1 = new workerThreads.MessagePort();
+    mp1.hasRef();
+    mp1.ref();
+    mp1.unref();
+}
+
+{
     // Test addEventListener, removeEventListener and dispatchEvent
     if (workerThreads.isMainThread) {
         const worker = new workerThreads.Worker(__filename);

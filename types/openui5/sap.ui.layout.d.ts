@@ -1,4 +1,4 @@
-// For Library Version: 1.143.0
+// For Library Version: 1.144.0
 
 declare module "sap/ui/layout/library" {
   import Control from "sap/ui/core/Control";
@@ -446,7 +446,7 @@ declare module "sap/ui/layout/library" {
     }
     /**
      * An `int` type that defines how many cells a control inside of a column of a {@link sap.ui.layout.form.Form Form }
-     * control using the {@link sap.ui.layout.form.ColumnLayout ColumnLayout} control as {@link sap.ui.layout.form.FormE#setLayout layout }
+     * control using the {@link sap.ui.layout.form.ColumnLayout ColumnLayout} control as {@link sap.ui.layout.form.Form#setLayout layout }
      * can use.
      *
      * Allowed values are numbers from 1 to 12 and -1. -1 means the value is calculated.
@@ -457,7 +457,7 @@ declare module "sap/ui/layout/library" {
 
     /**
      * An `int` type that defines how many columns a {@link sap.ui.layout.form.Form Form} control using the
-     * {@link sap.ui.layout.form.ColumnLayout ColumnLayout} as {@link sap.ui.layout.form.FormE#setLayout layout }
+     * {@link sap.ui.layout.form.ColumnLayout ColumnLayout} as {@link sap.ui.layout.form.Form#setLayout layout }
      * can have if it has large size
      *
      * Allowed values are numbers from 1 to 4. **Note:** In versions lower than 1.122 only 3 columns are allowed.
@@ -468,7 +468,7 @@ declare module "sap/ui/layout/library" {
 
     /**
      * An `int` type that defines how many columns a {@link sap.ui.layout.form.Form Form} control using the
-     * {@link sap.ui.layout.form.ColumnLayout ColumnLayout} as {@link sap.ui.layout.form.FormE#setLayout layout }
+     * {@link sap.ui.layout.form.ColumnLayout ColumnLayout} as {@link sap.ui.layout.form.Form#setLayout layout }
      * can have if it has medium size
      *
      * Allowed values are numbers from 1 to 3. **Note:** In versions lower than 1.122 only 2 columns are allowed.
@@ -479,7 +479,7 @@ declare module "sap/ui/layout/library" {
 
     /**
      * An `int` type that defines how many columns a {@link sap.ui.layout.form.Form Form} control using the
-     * {@link sap.ui.layout.form.ColumnLayout ColumnLayout} as {@link sap.ui.layout.form.FormE#setLayout layout }
+     * {@link sap.ui.layout.form.ColumnLayout ColumnLayout} as {@link sap.ui.layout.form.Form#setLayout layout }
      * can have if it has extra-large size
      *
      * Allowed values are numbers from 1 to 6. **Note:** In versions lower than 1.89 only 4 columns are allowed.
@@ -490,7 +490,7 @@ declare module "sap/ui/layout/library" {
 
     /**
      * An `int` type that defines how many cells beside the controls inside of a column of a {@link sap.ui.layout.form.Form Form }
-     * control using the {@link sap.ui.layout.form.ColumnLayout ColumnLayout} control as {@link sap.ui.layout.form.FormE#setLayout layout }
+     * control using the {@link sap.ui.layout.form.ColumnLayout ColumnLayout} control as {@link sap.ui.layout.form.Form#setLayout layout }
      * are empty.
      *
      * Allowed values are numbers from 0 to 11.
@@ -9816,10 +9816,10 @@ declare module "sap/ui/layout/form/SimpleForm" {
      *
      * 	 - Add controls as input fields, text fields or other as needed.
      * 	 - Use {@link sap.ui.core.Element#setLayoutData LayoutData} to influence the layout for special cases
-     *     in the single controls. For example, if a {@link sap.ui.layout.ColumnLayout ColumnLayout} is used as
-     *     a layout, the form content is weighted using 4 cells for the labels and 8 cells for the field part, for
-     *     large size. If there is only little space, the labels are above the fields and each field uses 12 cells.
-     *     If your input controls should influence their width, you can add {@link sap.ui.layout.form.ColumnElementData ColumnElementData }
+     *     in the single controls. For example, if a {@link sap.ui.layout.form.ColumnLayout ColumnLayout} is used
+     *     as a layout, the form content is weighted using 4 cells for the labels and 8 cells for the field part,
+     *     for large size. If there is only little space, the labels are above the fields and each field uses 12
+     *     cells. If your input controls should influence their width, you can add {@link sap.ui.layout.form.ColumnElementData ColumnElementData }
      *     to them via the {@link sap.ui.core.Element#setLayoutData setLayoutData} method. Ensure that the sum of
      *     the weights in the {@link sap.ui.layout.form.ColumnElementData ColumnElementData} is not more than 12,
      *     as this is the total width of the input control part of each form row.  Example for a row where
@@ -9833,14 +9833,14 @@ declare module "sap/ui/layout/form/SimpleForm" {
      * ```
      *
      *
-     * For example, if a {@link sap.ui.layout.ResponsiveGridLayout ResponsiveGridLayout} is used as a layout,
+     * For example, if a {@link sap.ui.layout.form.ResponsiveGridLayout ResponsiveGridLayout} is used as a layout,
      * there are 12 cells in one row. Depending on the screen size the labels use the defined `labelSpan`. The
      * remaining cells are used for the fields (and `emptySpan` if defined). The available cells are distributed
      * to all fields in the row. If one field should use a fixed number of cells you can add {@link sap.ui.layout.GridData GridData }
      * to them via the {@link sap.ui.core.Element#setLayoutData setLayoutData} method. If there are additional
      * fields in the row they will get the remaining cells.  Example for a row with two {@link sap.m.Input Input }
      * controls where one uses four cells on small screens, one cell on medium screens and 2 cells on larger
-     * screens (using {@link sap.ui.layout.ResponsiveGridLayout ResponsiveGridLayout}):
+     * screens (using {@link sap.ui.layout.form.ResponsiveGridLayout ResponsiveGridLayout}):
      * ```javascript
      *
      * new sap.m.Label({text:"Label"});
@@ -11027,10 +11027,10 @@ declare module "sap/ui/layout/form/SimpleForm" {
      *
      * 	 - Add controls as input fields, text fields or other as needed.
      * 	 - Use {@link sap.ui.core.Element#setLayoutData LayoutData} to influence the layout for special cases
-     *     in the single controls. For example, if a {@link sap.ui.layout.ColumnLayout ColumnLayout} is used as
-     *     a layout, the form content is weighted using 4 cells for the labels and 8 cells for the field part, for
-     *     large size. If there is only little space, the labels are above the fields and each field uses 12 cells.
-     *     If your input controls should influence their width, you can add {@link sap.ui.layout.form.ColumnElementData ColumnElementData }
+     *     in the single controls. For example, if a {@link sap.ui.layout.form.ColumnLayout ColumnLayout} is used
+     *     as a layout, the form content is weighted using 4 cells for the labels and 8 cells for the field part,
+     *     for large size. If there is only little space, the labels are above the fields and each field uses 12
+     *     cells. If your input controls should influence their width, you can add {@link sap.ui.layout.form.ColumnElementData ColumnElementData }
      *     to them via the {@link sap.ui.core.Element#setLayoutData setLayoutData} method. Ensure that the sum of
      *     the weights in the {@link sap.ui.layout.form.ColumnElementData ColumnElementData} is not more than 12,
      *     as this is the total width of the input control part of each form row.  Example for a row where
@@ -11044,14 +11044,14 @@ declare module "sap/ui/layout/form/SimpleForm" {
      * ```
      *
      *
-     * For example, if a {@link sap.ui.layout.ResponsiveGridLayout ResponsiveGridLayout} is used as a layout,
+     * For example, if a {@link sap.ui.layout.form.ResponsiveGridLayout ResponsiveGridLayout} is used as a layout,
      * there are 12 cells in one row. Depending on the screen size the labels use the defined `labelSpan`. The
      * remaining cells are used for the fields (and `emptySpan` if defined). The available cells are distributed
      * to all fields in the row. If one field should use a fixed number of cells you can add {@link sap.ui.layout.GridData GridData }
      * to them via the {@link sap.ui.core.Element#setLayoutData setLayoutData} method. If there are additional
      * fields in the row they will get the remaining cells.  Example for a row with two {@link sap.m.Input Input }
      * controls where one uses four cells on small screens, one cell on medium screens and 2 cells on larger
-     * screens (using {@link sap.ui.layout.ResponsiveGridLayout ResponsiveGridLayout}):
+     * screens (using {@link sap.ui.layout.form.ResponsiveGridLayout ResponsiveGridLayout}):
      * ```javascript
      *
      * new sap.m.Label({text:"Label"});

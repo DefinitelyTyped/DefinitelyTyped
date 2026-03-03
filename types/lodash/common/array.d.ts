@@ -780,7 +780,7 @@ declare module "../index" {
         /**
          * @see _.intersectionWith
          */
-        intersectionWith<T>(array?: List<T> | null, ...values: Array<List<T> | Comparator2<T, never>>): T[];
+        intersectionWith<T>(array?: List<T> | null, ...values: Array<List<T> | Comparator<T>>): T[];
     }
     interface Collection<T> {
         /**
@@ -790,7 +790,7 @@ declare module "../index" {
         /**
          * @see _.intersectionWith
          */
-        intersectionWith(...values: Array<List<unknown> | Comparator2<T,  never>>): Collection<T>;
+        intersectionWith(...values: Array<List<unknown> | Comparator<T>>): Collection<T>;
     }
     interface CollectionChain<T> {
         /**
@@ -800,7 +800,7 @@ declare module "../index" {
         /**
          * @see _.intersectionWith
          */
-        intersectionWith(...values: Array<List<unknown> | Comparator2<T,  never>>): CollectionChain<T>;
+        intersectionWith(...values: Array<List<unknown> | Comparator<T>>): CollectionChain<T>;
     }
     interface LoDashStatic {
         /**
@@ -1783,6 +1783,28 @@ declare module "../index" {
          *
          * @param array The array of grouped elements to process.
          * @return Returns the new array of regrouped elements.
+         */
+        unzip<T1, T2>(array: Array<[T1, T2]>): [T1[], T2[]];
+        /**
+         * @see _.unzip
+         */
+        unzip<T1, T2, T3>(
+            array: Array<[T1, T2, T3]>,
+        ): [T1[], T2[], T3[]];
+        /**
+         * @see _.unzip
+         */
+        unzip<T1, T2, T3, T4>(
+            array: Array<[T1, T2, T3, T4]>,
+        ): [T1[], T2[], T3[], T4[]];
+        /**
+         * @see _.unzip
+         */
+        unzip<T1, T2, T3, T4, T5>(
+            array: Array<[T1, T2, T3, T4, T5]>,
+        ): [T1[], T2[], T3[], T4[], T5[]];
+        /**
+         * @see _.unzip
          */
         unzip<T>(array: T[][] | List<List<T>> | null | undefined): T[][];
     }

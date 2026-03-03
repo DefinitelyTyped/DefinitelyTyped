@@ -3,18 +3,18 @@ declare function FormDialogField(name: any, type: any, size: any, ...args: any[]
 declare class FormDialogField {
     constructor(name: any, type: any, size: any, ...args: any[]);
     private registerEvents_;
-    saveValuesToCache(entry: {
-        processKey: number;
-        interactionName: string;
-        gridName: string;
-        fieldName: string;
-        fieldType: string;
-    }): void;
+    saveValuesToCache(entry: Entry): void;
     assignListeners(): void;
     on(): never;
     private write;
 }
 declare namespace FormDialogField {
-    export { Field };
+    export { Entry };
 }
-type Field = import("@nginstack/engine/lib/classdef/Field");
+interface Entry {
+    processKey: number;
+    interactionName: string;
+    gridName: string;
+    fieldName: string;
+    fieldType: string;
+}

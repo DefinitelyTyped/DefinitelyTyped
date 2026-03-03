@@ -7,7 +7,7 @@
     ],
     "dependencies": {
         "@types/geojson": "*",
-        "@types/mapbox-gl": "*"
+        "mapbox-gl": "^3.13.0"
     },
     "devDependencies": {
         "@types/mapbox__mapbox-gl-geocoder": "workspace:."

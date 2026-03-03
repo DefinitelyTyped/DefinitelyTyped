@@ -98,8 +98,8 @@ export namespace Storage {
          * Fired when one or more items change.
          *
          * @param changes Object mapping each key that changed to its corresponding $(ref:storage.StorageChange) for that item.
-         * @param areaName The name of the storage area (<code>"sync"</code>, <code>"local"</code> or <code>"managed"</code>)
-         * the changes are for.
+         * @param areaName The name of the storage area (<code>"session"</code>, <code>"sync"</code>, <code>"local"</code> or <code>
+         * "managed"</code>) the changes are for.
          */
         onChanged: Events.Event<(changes: Record<string, StorageChange>, areaName: string) => void>;
 

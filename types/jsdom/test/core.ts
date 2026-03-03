@@ -3,13 +3,13 @@ import {
     ConstructorOptions,
     CookieJar,
     DOMWindow,
-    FetchOptions,
     FileOptions,
     JSDOM,
-    ResourceLoader,
+    requestInterceptor,
     VirtualConsole,
 } from "jsdom";
 import { CookieJar as ToughCookieJar, MemoryCookieStore } from "tough-cookie";
+import { ProxyAgent } from "undici-types";
 import { Script } from "vm";
 
 function test_basic_usage() {
@@ -189,26 +189,32 @@ function test_fragment_serialization() {
     }
 }
 
-function test_custom_resource_loader() {
-    class CustomResourceLoader extends ResourceLoader {
-        fetch(url: string, options: FetchOptions) {
-            if (options.element) {
-                console.log(`Element ${options.element.localName} is requesting the url ${url}`);
-
-                if (options.element.localName === "iframe") {
-                    console.log("Ignoring resource requested by iframe element");
-                    return null;
-                }
-            }
-
-            return super.fetch(url, options);
+function test_request_interceptor() {
+    // $ExpectType DispatchInterceptor
+    requestInterceptor(function(request, { element }) {
+        console.log(`${element?.localName || "XHR"} requested ${request.url}`);
+        if (request.url === "https://example.com/some-specific-script.js") {
+            return new Response("window.someGlobal = 5;", {
+                headers: { "Content-Type": "application/javascript" },
+            });
         }
-    }
-    new JSDOM("", { resources: new CustomResourceLoader() });
+    });
 }
 
-function test_resource_loader_return_type(resourceLoader: ResourceLoader) {
-    resourceLoader.fetch("https://example.com", {}); // $ExpectType AbortablePromise<Buffer> | null
+function test_resources_options() {
+    new JSDOM("", {
+        resources: "usable",
+    });
+    new JSDOM("", {
+        resources: {},
+    });
+    new JSDOM("", {
+        resources: {
+            userAgent: "",
+            dispatcher: new ProxyAgent("http://127.0.0.1:9001"),
+            interceptors: [requestInterceptor(function() {})],
+        },
+    });
 }
 
 function test_createElementDirectTypes() {

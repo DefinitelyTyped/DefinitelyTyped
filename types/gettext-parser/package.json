@@ -1,14 +1,13 @@
 {
     "private": true,
     "name": "@types/gettext-parser",
-    "version": "8.0.9999",
+    "version": "9.0.9999",
     "type": "module",
     "projects": [
         "https://github.com/smhg/gettext-parser"
     ],
     "dependencies": {
-        "@types/node": "*",
-        "@types/readable-stream": "*"
+        "@types/node": "*"
     },
     "devDependencies": {
         "@types/gettext-parser": "workspace:."

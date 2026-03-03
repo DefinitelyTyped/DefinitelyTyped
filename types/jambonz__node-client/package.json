@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/jambonz__node-client",
+    "version": "0.4.9999",
+    "projects": [
+        "https://github.com/jambonz/jambonz-node"
+    ],
+    "devDependencies": {
+        "@types/jambonz__node-client": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jacob Owens",
+            "githubUsername": "BuckyMcYolo"
+        }
+    ]
+}

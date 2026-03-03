@@ -344,12 +344,7 @@ declare module "process" {
                 isTTY?: true | undefined;
             }
             // Alias for compatibility
-            interface ProcessEnv extends Dict<string> {
-                /**
-                 * Can be used to change the default timezone at runtime
-                 */
-                TZ?: string | undefined;
-            }
+            interface ProcessEnv extends Dict<string> {}
             interface HRTime {
                 /**
                  * This is the legacy version of {@link process.hrtime.bigint()}
@@ -472,6 +467,11 @@ declare module "process" {
                  * @default false
                  */
                 reportOnUncaughtException: boolean;
+                /**
+                 * If true, a diagnostic report is generated without the environment variables.
+                 * @default false
+                 */
+                excludeEnv: boolean;
                 /**
                  * The signal used to trigger the creation of a diagnostic report.
                  * @default 'SIGUSR2'
@@ -1784,6 +1784,15 @@ declare module "process" {
                     sendHandle?: SendHandle,
                     options?: MessageOptions,
                     callback?: (error: Error | null) => void,
+                ): boolean;
+                send?(
+                    message: any,
+                    sendHandle: SendHandle,
+                    callback?: (error: Error | null) => void,
+                ): boolean;
+                send?(
+                    message: any,
+                    callback: (error: Error | null) => void,
                 ): boolean;
                 /**
                  * If the Node.js process is spawned with an IPC channel (see the `Child Process` and `Cluster` documentation), the `process.disconnect()` method will close the

@@ -13,9 +13,10 @@ declare class Link {
         newTab?: boolean,
     );
     private syncCommands_;
-    name: string;
+    name_: string;
+    escapedName_: string;
     layout: LayoutConfig;
-    onClick: LegacyEvent;
+    onClick: Adapter;
     private parameters;
     params: Record<string, string | number | boolean | Date>;
     enabled: boolean;
@@ -38,9 +39,7 @@ declare class Link {
     process: Process;
     autoSanitize: boolean;
     cssClass: string;
-    private name_;
-    private identifierName;
-    private identifierName_;
+    name: string;
     label: string;
     private label_;
     hint: string;
@@ -64,10 +63,10 @@ declare class Link {
     assign(obj: Link): void;
     private prepare;
     getHtml(content: string, parametersValue?: string, cssClass?: string): string;
-    write(content: string, parametersValue?: string, cssClass?: string): string;
+    write(content?: string, parametersValue?: string, cssClass?: string): string;
     private writeToClient;
     updateFieldParams(rowId: number): void;
-    private getChanges;
+    private getChanges_;
     private updateOpenParameters_;
     private toString;
 }
@@ -75,7 +74,7 @@ declare namespace Link {
     export { Column, createProcess, Process };
 }
 import LayoutConfig = require("../process/LayoutConfig.js");
-import LegacyEvent = require("@nginstack/engine/lib/event/LegacyEvent.js");
+import Adapter = require("@nginstack/engine/lib/event/Adapter.js");
 import ParametersStorage = require("./ParametersStorage.js");
 import Field = require("@nginstack/engine/lib/classdef/Field.js");
 declare let createProcess: any;

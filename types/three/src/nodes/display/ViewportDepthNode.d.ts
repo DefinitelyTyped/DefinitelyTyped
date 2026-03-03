@@ -1,6 +1,6 @@
 import Node from "../core/Node.js";
 
-declare class ViewportDepthNode extends Node {
+declare class ViewportDepthNode extends Node<"float"> {
     scope: ViewportDepthNodeScope;
     valueNode: Node;
 
@@ -20,17 +20,21 @@ export type ViewportDepthNodeScope =
 
 export default ViewportDepthNode;
 
-export const viewZToOrthographicDepth: (viewZ: Node, near: Node, far: Node) => Node;
+export const viewZToOrthographicDepth: (viewZ: Node, near: Node, far: Node) => Node<"float">;
 
-export const orthographicDepthToViewZ: (depth: Node, near: Node, far: Node) => Node;
+export const viewZToReversedOrthographicDepth: (viewZ: Node, near: Node, far: Node) => Node<"float">;
 
-export const viewZToPerspectiveDepth: (viewZ: Node, near: Node, far: Node) => Node;
+export const orthographicDepthToViewZ: (depth: Node, near: Node, far: Node) => Node<"float">;
 
-export const perspectiveDepthToViewZ: (depth: Node, near: Node, far: Node) => Node;
+export const viewZToPerspectiveDepth: (viewZ: Node, near: Node, far: Node) => Node<"float">;
 
-export const viewZToLogarithmicDepth: (viewZ: Node, near: Node, far: Node) => Node;
+export const viewZToReversedPerspectiveDepth: (viewZ: Node, near: Node, far: Node) => Node<"float">;
 
-export const logarithmicDepthToViewZ: (depth: Node, near: Node, far: Node) => Node;
+export const perspectiveDepthToViewZ: (depth: Node, near: Node, far: Node) => Node<"float">;
+
+export const viewZToLogarithmicDepth: (viewZ: Node, near: Node, far: Node) => Node<"float">;
+
+export const logarithmicDepthToViewZ: (depth: Node, near: Node, far: Node) => Node<"float">;
 
 export const depth: ViewportDepthNode;
 export const linearDepth: (valueNode?: Node | null) => ViewportDepthNode;

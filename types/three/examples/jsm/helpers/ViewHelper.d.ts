@@ -1,10 +1,11 @@
 import { Camera, Object3D, Vector3, WebGLRenderer } from "three";
 
-export class ViewHelper extends Object3D {
+declare class ViewHelper extends Object3D {
     readonly isViewHelper: true;
 
     animating: boolean;
     center: Vector3;
+    location: { top: number | null; right: number; bottom: number; left: number | null };
 
     render: (renderer: WebGLRenderer) => void;
     handleClick: (event: MouseEvent) => boolean;
@@ -15,3 +16,5 @@ export class ViewHelper extends Object3D {
 
     constructor(camera: Camera, domElement: HTMLElement);
 }
+
+export { ViewHelper };

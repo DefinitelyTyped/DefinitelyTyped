@@ -32,8 +32,6 @@ export interface VolumeNodeMaterialParameters
 
 /**
  * Volume node material.
- *
- * @augments NodeMaterial
  */
 declare class VolumeNodeMaterial extends NodeMaterial {
     /**

@@ -23,9 +23,9 @@ declare module "@ember/service" {
 
 class Foo extends EmberObject {
     @inject
-    foo: FirstSvc;
+    foo!: FirstSvc;
     @inject("first")
-    baz: FirstSvc;
+    baz!: FirstSvc;
     @inject()
-    bar: FirstSvc;
+    bar!: FirstSvc;
 }

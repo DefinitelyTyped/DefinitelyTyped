@@ -1,4 +1,4 @@
-// For Library Version: 1.143.0
+// For Library Version: 1.144.0
 
 declare module "sap/ui/webc/main/library" {
   /**
@@ -8,6 +8,7 @@ declare module "sap/ui/webc/main/library" {
    * 'AvatarColorScheme'.
    *
    * @since 1.92.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export enum AvatarColorScheme {
@@ -40,6 +41,7 @@ declare module "sap/ui/webc/main/library" {
    * 'AvatarGroupType'.
    *
    * @since 1.92.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export enum AvatarGroupType {
@@ -60,6 +62,7 @@ declare module "sap/ui/webc/main/library" {
    * 'AvatarShape'.
    *
    * @since 1.92.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export enum AvatarShape {
@@ -79,6 +82,7 @@ declare module "sap/ui/webc/main/library" {
    * 'AvatarSize'.
    *
    * @since 1.92.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export enum AvatarSize {
@@ -110,6 +114,7 @@ declare module "sap/ui/webc/main/library" {
    * 'BackgroundDesign'.
    *
    * @since 1.115.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.115.0. This API is experimental and might change significantly.
    */
   export enum BackgroundDesign {
@@ -133,6 +138,7 @@ declare module "sap/ui/webc/main/library" {
    * 'BorderDesign'.
    *
    * @since 1.115.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.115.0. This API is experimental and might change significantly.
    */
   export enum BorderDesign {
@@ -152,6 +158,7 @@ declare module "sap/ui/webc/main/library" {
    * 'BreadcrumbsDesign'.
    *
    * @since 1.95.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.95.0. This API is experimental and might change significantly.
    */
   export enum BreadcrumbsDesign {
@@ -172,6 +179,7 @@ declare module "sap/ui/webc/main/library" {
    * 'BreadcrumbsSeparatorStyle'.
    *
    * @since 1.95.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.95.0. This API is experimental and might change significantly.
    */
   export enum BreadcrumbsSeparatorStyle {
@@ -207,6 +215,7 @@ declare module "sap/ui/webc/main/library" {
    * 'BusyIndicatorSize'.
    *
    * @since 1.92.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export enum BusyIndicatorSize {
@@ -230,6 +239,7 @@ declare module "sap/ui/webc/main/library" {
    * 'ButtonDesign'.
    *
    * @since 1.92.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export enum ButtonDesign {
@@ -265,6 +275,7 @@ declare module "sap/ui/webc/main/library" {
    * 'ButtonType'.
    *
    * @since 1.120.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.120.0. This API is experimental and might change significantly.
    */
   export enum ButtonType {
@@ -288,6 +299,7 @@ declare module "sap/ui/webc/main/library" {
    * 'CalendarSelectionMode'.
    *
    * @since 1.92.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export enum CalendarSelectionMode {
@@ -311,6 +323,7 @@ declare module "sap/ui/webc/main/library" {
    * 'CarouselArrowsPlacement'.
    *
    * @since 1.92.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export enum CarouselArrowsPlacement {
@@ -330,6 +343,7 @@ declare module "sap/ui/webc/main/library" {
    * 'CarouselPageIndicatorStyle'.
    *
    * @since 1.115.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.115.0. This API is experimental and might change significantly.
    */
   export enum CarouselPageIndicatorStyle {
@@ -351,6 +365,7 @@ declare module "sap/ui/webc/main/library" {
    * 'ComboBoxFilter'.
    *
    * @since 1.115.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.115.0. This API is experimental and might change significantly.
    */
   export enum ComboBoxFilter {
@@ -378,6 +393,7 @@ declare module "sap/ui/webc/main/library" {
    * 'HasPopup'.
    *
    * @since 1.99.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.99.0. This API is experimental and might change significantly.
    */
   export enum HasPopup {
@@ -407,6 +423,7 @@ declare module "sap/ui/webc/main/library" {
    * such as `ui5-avatar-group`
    *
    * @since 1.92.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export interface IAvatar {
@@ -417,6 +434,7 @@ declare module "sap/ui/webc/main/library" {
    * Interface for components that may be slotted inside `ui5-breadcrumbs` as options
    *
    * @since 1.95.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.95.0. This API is experimental and might change significantly.
    */
   export interface IBreadcrumbsItem {
@@ -427,6 +445,7 @@ declare module "sap/ui/webc/main/library" {
    * Interface for components that may be used as a button inside numerous higher-order components
    *
    * @since 1.92.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export interface IButton {
@@ -437,6 +456,7 @@ declare module "sap/ui/webc/main/library" {
    * Interface for components that may be used as dates inside `ui5-calendar`
    *
    * @since 1.92.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export interface ICalendarDate {
@@ -447,6 +467,7 @@ declare module "sap/ui/webc/main/library" {
    * Interface for components that may be slotted inside `ui5-card` as header
    *
    * @since 1.115.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.115.0. This API is experimental and might change significantly.
    */
   export interface ICardHeader {
@@ -457,6 +478,7 @@ declare module "sap/ui/webc/main/library" {
    * Interface for components that may be used inside a `ui5-color-palette` or `ui5-color-palette-popover`
    *
    * @since 1.92.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export interface IColorPaletteItem {
@@ -467,6 +489,7 @@ declare module "sap/ui/webc/main/library" {
    * Interface for components that may be slotted inside a `ui5-combobox`
    *
    * @since 1.92.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export interface IComboBoxItem {
@@ -480,6 +503,7 @@ declare module "sap/ui/webc/main/library" {
    * 'IconDesign'.
    *
    * @since 1.115.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.115.0. This API is experimental and might change significantly.
    */
   export enum IconDesign {
@@ -520,6 +544,7 @@ declare module "sap/ui/webc/main/library" {
    * Interface for components that represent an icon, usable in numerous higher-order components
    *
    * @since 1.92.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export interface IIcon {
@@ -530,6 +555,7 @@ declare module "sap/ui/webc/main/library" {
    * Interface for components that represent an input, usable in numerous higher-order components
    *
    * @since 1.92.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export interface IInput {
@@ -540,6 +566,7 @@ declare module "sap/ui/webc/main/library" {
    * Interface for components that represent a suggestion item, usable in `ui5-input`
    *
    * @since 1.92.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export interface IInputSuggestionItem {
@@ -550,6 +577,7 @@ declare module "sap/ui/webc/main/library" {
    * Interface for components that may be slotted inside a `ui5-list` as items
    *
    * @since 1.92.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export interface IListItem {
@@ -560,6 +588,7 @@ declare module "sap/ui/webc/main/library" {
    * Interface for components that may be slotted inside `ui5-menu` as items
    *
    * @since 1.102.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.102.0. This API is experimental and might change significantly.
    */
   export interface IMenuItem {
@@ -570,6 +599,7 @@ declare module "sap/ui/webc/main/library" {
    * Interface for components that may be slotted inside a `ui5-multi-combobox` as items
    *
    * @since 1.92.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export interface IMultiComboBoxItem {
@@ -583,6 +613,7 @@ declare module "sap/ui/webc/main/library" {
    * 'InputType'.
    *
    * @since 1.92.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export enum InputType {
@@ -615,6 +646,7 @@ declare module "sap/ui/webc/main/library" {
    * Interface for components that may be slotted inside `ui5-segmented-button` as items
    *
    * @since 1.95.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.95.0. This API is experimental and might change significantly.
    */
   export interface ISegmentedButtonItem {
@@ -625,6 +657,7 @@ declare module "sap/ui/webc/main/library" {
    * Interface for components that may be slotted inside `ui5-select-menu` as options
    *
    * @since 1.120.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.120.0. This API is experimental and might change significantly.
    */
   export interface ISelectMenuOption {
@@ -635,6 +668,7 @@ declare module "sap/ui/webc/main/library" {
    * Interface for components that may be slotted inside `ui5-select` as options
    *
    * @since 1.92.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export interface ISelectOption {
@@ -645,6 +679,7 @@ declare module "sap/ui/webc/main/library" {
    * Interface for components that may be slotted inside `ui5-tabcontainer`
    *
    * @since 1.92.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export interface ITab {
@@ -655,6 +690,7 @@ declare module "sap/ui/webc/main/library" {
    * Interface for components that may be slotted inside a `ui5-table-row` as cells
    *
    * @since 1.92.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export interface ITableCell {
@@ -665,6 +701,7 @@ declare module "sap/ui/webc/main/library" {
    * Interface for components that may be slotted inside a `ui5-table` as columns
    *
    * @since 1.92.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export interface ITableColumn {
@@ -675,6 +712,7 @@ declare module "sap/ui/webc/main/library" {
    * Interface for components that may be slotted inside a `ui5-table` as rows
    *
    * @since 1.92.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export interface ITableRow {
@@ -685,6 +723,7 @@ declare module "sap/ui/webc/main/library" {
    * Interface for components that represent a token and are usable in components such as `ui5-multi-input`
    *
    * @since 1.92.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export interface IToken {
@@ -695,6 +734,7 @@ declare module "sap/ui/webc/main/library" {
    * Interface for toolbar items for the purpose of `ui5-toolbar`
    *
    * @since 1.120.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.120.0. This API is experimental and might change significantly.
    */
   export interface IToolbarItem {
@@ -705,6 +745,7 @@ declare module "sap/ui/webc/main/library" {
    * Interface for toolbar select items for the purpose of `ui5-toolbar-select`
    *
    * @since 1.120.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.120.0. This API is experimental and might change significantly.
    */
   export interface IToolbarSelectOption {
@@ -715,6 +756,7 @@ declare module "sap/ui/webc/main/library" {
    * Interface for tree items for the purpose of `ui5-tree`
    *
    * @since 1.92.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export interface ITreeItem {
@@ -728,6 +770,7 @@ declare module "sap/ui/webc/main/library" {
    * 'LinkDesign'.
    *
    * @since 1.92.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export enum LinkDesign {
@@ -751,6 +794,7 @@ declare module "sap/ui/webc/main/library" {
    * 'ListGrowingMode'.
    *
    * @since 1.92.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export enum ListGrowingMode {
@@ -774,6 +818,7 @@ declare module "sap/ui/webc/main/library" {
    * 'ListItemType'.
    *
    * @since 1.92.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export enum ListItemType {
@@ -802,6 +847,7 @@ declare module "sap/ui/webc/main/library" {
    * 'ListMode'.
    *
    * @since 1.92.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export enum ListMode {
@@ -842,6 +888,7 @@ declare module "sap/ui/webc/main/library" {
    * 'ListSeparators'.
    *
    * @since 1.92.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export enum ListSeparators {
@@ -865,6 +912,7 @@ declare module "sap/ui/webc/main/library" {
    * 'MessageStripDesign'.
    *
    * @since 1.92.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export enum MessageStripDesign {
@@ -892,6 +940,7 @@ declare module "sap/ui/webc/main/library" {
    * 'PanelAccessibleRole'.
    *
    * @since 1.92.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export enum PanelAccessibleRole {
@@ -918,6 +967,7 @@ declare module "sap/ui/webc/main/library" {
    * 'PopoverHorizontalAlign'.
    *
    * @since 1.92.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export enum PopoverHorizontalAlign {
@@ -945,6 +995,7 @@ declare module "sap/ui/webc/main/library" {
    * 'PopoverPlacementType'.
    *
    * @since 1.92.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export enum PopoverPlacementType {
@@ -972,6 +1023,7 @@ declare module "sap/ui/webc/main/library" {
    * 'PopoverVerticalAlign'.
    *
    * @since 1.92.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export enum PopoverVerticalAlign {
@@ -997,6 +1049,7 @@ declare module "sap/ui/webc/main/library" {
    * 'PopupAccessibleRole'.
    *
    * @since 1.115.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.115.0. This API is experimental and might change significantly.
    */
   export enum PopupAccessibleRole {
@@ -1020,6 +1073,7 @@ declare module "sap/ui/webc/main/library" {
    * 'Priority'.
    *
    * @since 1.92.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export enum Priority {
@@ -1047,6 +1101,7 @@ declare module "sap/ui/webc/main/library" {
    * 'SegmentedButtonMode'.
    *
    * @since 1.115.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.115.0. This API is experimental and might change significantly.
    */
   export enum SegmentedButtonMode {
@@ -1066,6 +1121,7 @@ declare module "sap/ui/webc/main/library" {
    * 'SemanticColor'.
    *
    * @since 1.92.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export enum SemanticColor {
@@ -1097,6 +1153,7 @@ declare module "sap/ui/webc/main/library" {
    * 'SwitchDesign'.
    *
    * @since 1.92.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export enum SwitchDesign {
@@ -1116,6 +1173,7 @@ declare module "sap/ui/webc/main/library" {
    * 'TabContainerBackgroundDesign'.
    *
    * @since 1.115.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.115.0. This API is experimental and might change significantly.
    */
   export enum TabContainerBackgroundDesign {
@@ -1139,6 +1197,7 @@ declare module "sap/ui/webc/main/library" {
    * 'TabLayout'.
    *
    * @since 1.92.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export enum TabLayout {
@@ -1158,6 +1217,7 @@ declare module "sap/ui/webc/main/library" {
    * 'TableColumnPopinDisplay'.
    *
    * @since 1.115.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.115.0. This API is experimental and might change significantly.
    */
   export enum TableColumnPopinDisplay {
@@ -1177,6 +1237,7 @@ declare module "sap/ui/webc/main/library" {
    * 'TableGrowingMode'.
    *
    * @since 1.92.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export enum TableGrowingMode {
@@ -1200,6 +1261,7 @@ declare module "sap/ui/webc/main/library" {
    * 'TableMode'.
    *
    * @since 1.92.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export enum TableMode {
@@ -1223,6 +1285,7 @@ declare module "sap/ui/webc/main/library" {
    * 'TableRowType'.
    *
    * @since 1.92.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export enum TableRowType {
@@ -1242,6 +1305,7 @@ declare module "sap/ui/webc/main/library" {
    * 'TabsOverflowMode'.
    *
    * @since 1.99.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.99.0. This API is experimental and might change significantly.
    */
   export enum TabsOverflowMode {
@@ -1261,6 +1325,7 @@ declare module "sap/ui/webc/main/library" {
    * 'TitleLevel'.
    *
    * @since 1.92.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export enum TitleLevel {
@@ -1296,6 +1361,7 @@ declare module "sap/ui/webc/main/library" {
    * 'ToastPlacement'.
    *
    * @since 1.92.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export enum ToastPlacement {
@@ -1343,6 +1409,7 @@ declare module "sap/ui/webc/main/library" {
    * 'ToolbarAlign'.
    *
    * @since 1.120.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.120.0. This API is experimental and might change significantly.
    */
   export enum ToolbarAlign {
@@ -1362,6 +1429,7 @@ declare module "sap/ui/webc/main/library" {
    * 'ToolbarItemOverflowBehavior'.
    *
    * @since 1.120.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.120.0. This API is experimental and might change significantly.
    */
   export enum ToolbarItemOverflowBehavior {
@@ -1382,6 +1450,7 @@ declare module "sap/ui/webc/main/library" {
    * 'WrappingType'.
    *
    * @since 1.92.0
+   * @deprecated As of version 1.120. because it is part of the deprecated package sap.ui.webc.main
    * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export enum WrappingType {

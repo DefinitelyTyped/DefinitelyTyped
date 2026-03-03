@@ -12,7 +12,7 @@ declare class VisualizationDef {
     footer: VisualizationFooterDef;
     canExport: boolean;
     help: string;
-    messageWhenEmpty: string;
+    noResultsMessage: string;
     onCreate: ((arg0: Visualization) => any) | null;
     title: string;
     type: string;

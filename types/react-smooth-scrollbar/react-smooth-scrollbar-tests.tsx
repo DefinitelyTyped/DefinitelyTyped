@@ -11,7 +11,7 @@ declare const object: object;
 declare const func: () => void;
 
 class Test extends React.Component {
-    ref: SmoothScrollbar | null;
+    ref!: SmoothScrollbar | null;
 
     componentDidMount() {
         if (this.ref) {

@@ -654,6 +654,9 @@ declare module "node:worker_threads" {
         postMessage(message: any, transfer: Transferable[]): void;
         postMessage(message: any, options?: StructuredSerializeOptions): void;
         start(): void;
+        hasRef(): boolean;
+        ref(): void;
+        unref(): void;
         addEventListener<K extends keyof MessagePortEventMap>(
             type: K,
             listener: (ev: MessagePortEventMap[K]) => void,

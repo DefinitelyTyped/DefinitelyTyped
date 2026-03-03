@@ -1,6 +1,10 @@
-import { Binary, Ternary } from "./MathNode.js";
+import Node from "../core/Node.js";
 
-export const parabola: Binary;
-export const gain: Binary;
-export const pcurve: Ternary;
-export const sinc: Binary;
+type FloatOrNumber = Node<"float"> | number;
+
+export const parabola: (x: FloatOrNumber, k: FloatOrNumber) => Node<"float">;
+export const gain: (x: FloatOrNumber, k: FloatOrNumber) => Node<"float">;
+export const pcurve: (x: FloatOrNumber, a: FloatOrNumber, b: FloatOrNumber) => Node<"float">;
+export const sinc: (x: FloatOrNumber, k: FloatOrNumber) => Node<"float">;
+
+export {};

@@ -4,10 +4,11 @@
  * @property {string} VERTEX The vertex shader stage.
  * @property {string} FRAGMENT The fragment shader stage.
  */
-export declare const NodeShaderStage: {
+export const NodeShaderStage: {
     readonly VERTEX: "vertex";
     readonly FRAGMENT: "fragment";
 };
+
 /**
  * Update types of a node.
  *
@@ -16,12 +17,13 @@ export declare const NodeShaderStage: {
  * @property {string} RENDER The update method is executed per render. A frame might be produced by multiple render calls so this value allows more detailed updates than FRAME.
  * @property {string} OBJECT The update method is executed per {@link Object3D} that uses the node for rendering.
  */
-export declare const NodeUpdateType: {
+export const NodeUpdateType: {
     readonly NONE: "none";
     readonly FRAME: "frame";
     readonly RENDER: "render";
     readonly OBJECT: "object";
 };
+
 /**
  * Data types of a node.
  *
@@ -35,7 +37,7 @@ export declare const NodeUpdateType: {
  * @property {string} MATRIX3 3x3 matrix type.
  * @property {string} MATRIX4 4x4 matrix type.
  */
-export declare const NodeType: {
+export const NodeType: {
     readonly BOOLEAN: "bool";
     readonly INTEGER: "int";
     readonly FLOAT: "float";
@@ -46,6 +48,7 @@ export declare const NodeType: {
     readonly MATRIX3: "mat3";
     readonly MATRIX4: "mat4";
 };
+
 /**
  * Access types of a node. These are relevant for compute and storage usage.
  *
@@ -53,14 +56,16 @@ export declare const NodeType: {
  * @property {string} WRITE_ONLY Write-only access.
  * @property {string} READ_WRITE Read and write access.
  */
-export declare const NodeAccess: {
+export const NodeAccess: {
     readonly READ_ONLY: "readOnly";
     readonly WRITE_ONLY: "writeOnly";
     readonly READ_WRITE: "readWrite";
 };
+
 export type NodeShaderStage = "vertex" | "fragment" | "compute";
 export type NodeUpdateType = "none" | "frame" | "render" | "object";
 export type NodeAccess = "readOnly" | "writeOnly" | "readWrite";
+
 export declare const defaultShaderStages: NodeShaderStage[];
 export declare const defaultBuildStages: string[];
 export declare const shaderStages: NodeShaderStage[];

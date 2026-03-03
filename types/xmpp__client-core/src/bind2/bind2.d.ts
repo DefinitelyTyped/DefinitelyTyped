@@ -1,13 +1,13 @@
-import { Entity } from "@xmpp/connection";
+import Connection from "@xmpp/connection";
 import { SASL2 } from "@xmpp/sasl2";
 import { Element } from "@xmpp/xml";
 
 export default function bind2(
     params: {
         sasl2: SASL2;
-        entity: Entity;
+        entity: Connection;
     },
-    tag: string | (() => Promise<string>),
+    tag: undefined | string | (() => Promise<string>),
 ): Bind2;
 
 export interface Bind2 {

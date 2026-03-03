@@ -1,11 +1,7 @@
-import karma = require("karma");
-import jsdom = require("jsdom");
+import jsdom from "jsdom";
+import karma from "karma";
+import { ProxyAgent } from "undici-types";
 
-const resourceLoader = new jsdom.ResourceLoader({
-    proxy: "http://127.0.0.1:9001",
-    strictSSL: false,
-    userAgent: "Mellblomenator/9000",
-});
 const virtualConsole = new jsdom.VirtualConsole();
 const cookieJar = new jsdom.CookieJar();
 
@@ -15,7 +11,15 @@ module.exports = (config: karma.Config) => {
 
         jsdomLauncher: {
             jsdom: {
-                resources: resourceLoader,
+                resources: {
+                    dispatcher: new ProxyAgent({
+                        uri: "http://127.0.0.1:9001",
+                        connect: {
+                            rejectUnauthorized: false,
+                        },
+                    }),
+                    userAgent: "Mellblomenator/9000",
+                },
                 virtualConsole,
                 cookieJar,
             },

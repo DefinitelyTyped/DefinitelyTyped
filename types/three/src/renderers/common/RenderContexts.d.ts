@@ -1,52 +1,47 @@
-import { Camera } from "../../cameras/Camera.js";
 import { RenderTarget } from "../../core/RenderTarget.js";
 import MRTNode from "../../nodes/core/MRTNode.js";
-import { Scene } from "../../scenes/Scene.js";
-import ChainMap from "./ChainMap.js";
 import RenderContext from "./RenderContext.js";
+import Renderer from "./Renderer.js";
+
 /**
  * This module manages the render contexts of the renderer.
  *
  * @private
  */
 declare class RenderContexts {
-    chainMaps: {
-        [attachmentState: string]: ChainMap<readonly [Scene, Camera], RenderContext> | undefined;
-    };
     /**
      * Constructs a new render context management component.
+     *
+     * @param {Renderer} renderer - The renderer.
      */
-    constructor();
+    constructor(renderer: Renderer);
+    /**
+     * The renderer.
+     *
+     * @type {Renderer}
+     */
+    renderer: Renderer;
+    /**
+     * A dictionary that manages render contexts.
+     *
+     * @type {Object<string,RenderContext>}
+     */
+    _renderContexts: {
+        [x: string]: RenderContext;
+    };
     /**
      * Returns a render context for the given scene, camera and render target.
      *
-     * @param {Scene} scene - The scene.
-     * @param {Camera} camera - The camera that is used to render the scene.
      * @param {?RenderTarget} [renderTarget=null] - The active render target.
-     * @param {?MRT} [mrt=null] - The active multiple render target.
+     * @param {?MRTNode} [mrt=null] - The MRT configuration
+     * @param {?number} [callDepth=0] - The call depth of the renderer.
      * @return {RenderContext} The render context.
      */
-    get(scene: Scene, camera: Camera, renderTarget?: RenderTarget | null, mrt?: MRTNode | null): RenderContext;
-    /**
-     * Returns a render context intended for clear operations.
-     *
-     * @param {?RenderTarget} [renderTarget=null] - The active render target.
-     * @return {RenderContext} The render context.
-     */
-    getForClear(renderTarget?: RenderTarget | null): RenderContext;
-    /**
-     * Returns a chain map for the given attachment state.
-     *
-     * @private
-     * @param {string} attachmentState - The attachment state.
-     * @return {ChainMap} The chain map.
-     */
-    _getChainMap(
-        attachmentState: string,
-    ): ChainMap<readonly [Scene<import("../../Three.Core.js").Object3DEventMap>, Camera], RenderContext>;
+    get(renderTarget?: RenderTarget | null, mrt?: MRTNode | null, callDepth?: number | null): RenderContext;
     /**
      * Frees internal resources.
      */
     dispose(): void;
 }
+
 export default RenderContexts;

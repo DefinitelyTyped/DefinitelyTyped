@@ -30,6 +30,7 @@ import {
     RecordProxy,
     RecordSource,
     RecordSourceSelectorProxy,
+    RelayFeatureFlags,
     requestSubscription,
     Result,
     ROOT_ID,
@@ -105,9 +106,9 @@ const handlerProvider: HandlerProvider = (handle: string) => {
         // Augment (or remove from) this list:
         case "connection":
             return ConnectionHandler;
-            // case 'viewer':
-            //     // ViewerHandler is special-cased and does not have an `update` method
-            //     return ViewerHandler;
+        // case 'viewer':
+        //     // ViewerHandler is special-cased and does not have an `update` method
+        //     return ViewerHandler;
         case "custom":
             return {
                 update(store, fieldPayload) {
@@ -170,7 +171,7 @@ const environment = new Environment({
             kind: "linked",
         },
     ],
-    log: logEvent => {
+    log: (logEvent) => {
         switch (logEvent.name) {
             case "suspense.fragment":
             case "suspense.query":
@@ -213,7 +214,7 @@ const environment = new Environment({
                 break;
         }
     },
-    relayFieldLogger: arg => {
+    relayFieldLogger: (arg) => {
         if (arg.kind === "missing_required_field.log") {
             console.log(arg.fieldPath, arg.owner);
         } else if (arg.kind === "missing_required_field.throw") {
@@ -366,7 +367,7 @@ const get_store_recorditem_typed = store.getSource().get<TConversation>("someDat
 // commitLocalUpdate
 // ~~~~~~~~~~~~~~~~~~~~~
 
-commitLocalUpdate(environment, store => {
+commitLocalUpdate(environment, (store) => {
     const root = store.get(ROOT_ID);
     root!.setValue("foo", "localKey");
 });
@@ -672,11 +673,7 @@ const operationWithCacheConfig = createOperationDescriptor(request, variables, c
 const operationWithDataID = createOperationDescriptor(request, variables, undefined, dataID);
 const operationWithAll = createOperationDescriptor(request, variables, cacheConfig, dataID);
 
-__internal.fetchQueryDeduped(
-    environment,
-    operation.request.identifier,
-    () => environment.execute({ operation }),
-);
+__internal.fetchQueryDeduped(environment, operation.request.identifier, () => environment.execute({ operation }));
 
 // ~~~~~~~~~~~~~~~~~~~~~~~
 // MULTI ACTOR ENVIRONMENT
@@ -787,7 +784,7 @@ function NonNullableArrayFragmentResolver(usersKey: UserComponent_users$key) {
         usersKey,
     );
 
-    return data.map(thing => `${thing.id}: ${thing.name}, ${thing.profile_picture}`);
+    return data.map((thing) => `${thing.id}: ${thing.name}, ${thing.profile_picture}`);
 }
 
 function NullableArrayFragmentResolver(usersKey: UserComponent_users$key | null) {
@@ -803,7 +800,7 @@ function NullableArrayFragmentResolver(usersKey: UserComponent_users$key | null)
         usersKey,
     );
 
-    return data?.map(thing => `${thing.id}: ${thing.name}, ${thing.profile_picture}`);
+    return data?.map((thing) => `${thing.id}: ${thing.name}, ${thing.profile_picture}`);
 }
 
 function ArrayOfNullableFragmentResolver(usersKey: ReadonlyArray<UserComponent_users$key[0] | null>) {
@@ -819,7 +816,7 @@ function ArrayOfNullableFragmentResolver(usersKey: ReadonlyArray<UserComponent_u
         usersKey,
     );
 
-    return data?.map(thing => `${thing.id}: ${thing.name}, ${thing.profile_picture}`);
+    return data?.map((thing) => `${thing.id}: ${thing.name}, ${thing.profile_picture}`);
 }
 
 // ~~~~~~~~~~~~~~~~~~~~~
@@ -847,10 +844,10 @@ requestSubscription(environment, {
     onCompleted: () => {
         return;
     },
-    onError: _error => {
+    onError: (_error) => {
         return;
     },
-    onNext: _response => {
+    onNext: (_response) => {
         return;
     },
     updater: (_store, _data) => {
@@ -881,15 +878,18 @@ ConnectionInterface.inject({
 // Provided variables
 // ~~~~~~~~~~~~~~~~~~
 
-__internal.withProvidedVariables({
-    one: "value",
-}, {
-    two: {
-        get() {
-            return "value";
+__internal.withProvidedVariables(
+    {
+        one: "value",
+    },
+    {
+        two: {
+            get() {
+                return "value";
+            },
         },
     },
-});
+);
 
 __internal.withProvidedVariables.tests_only_resetDebugCache?.();
 
@@ -974,7 +974,10 @@ const refetchMetadata: {
 // ~~~~~~~~~~~~~~~~~~~
 
 async function waitForFragmentDataTest(userKey: UserComponent_user$key) {
-    const { name, profile_picture: { uri } } = await waitForFragmentData(
+    const {
+        name,
+        profile_picture: { uri },
+    } = await waitForFragmentData(
         environment,
         graphql`
             fragment UserComponent_user on User {
@@ -1075,26 +1078,26 @@ function observeQueryTest() {
 // ~~~~~~~~~~~~~~~~~~
 
 const MyResolverType__id_graphql: ReaderFragment = {
-    "argumentDefinitions": [],
-    "kind": "Fragment",
-    "metadata": null,
-    "name": "MyResolverType__id",
-    "selections": [
+    argumentDefinitions: [],
+    kind: "Fragment",
+    metadata: null,
+    name: "MyResolverType__id",
+    selections: [
         {
-            "kind": "ClientExtension",
-            "selections": [
+            kind: "ClientExtension",
+            selections: [
                 {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "id",
-                    "storageKey": null,
+                    alias: null,
+                    args: null,
+                    kind: "ScalarField",
+                    name: "id",
+                    storageKey: null,
                 },
             ],
         },
     ],
-    "type": "MyResolverType",
-    "abstractKey": null,
+    type: "MyResolverType",
+    abstractKey: null,
 };
 
 interface MyResolverType {
@@ -1127,3 +1130,54 @@ type AnimalTypenames = "Cat" | "Dog";
 export function myAnimal(): IdOf<"Animal", AnimalTypenames> {
     return Math.random() > 0.5 ? { id: "5", __typename: "Dog" } : { id: "6", __typename: "Cat" };
 }
+
+// ~~~~~~~~~~~~~~~~~~
+// RelayFeatureFlags
+// ~~~~~~~~~~~~~~~~~~
+
+// Test all existing flags
+// $ExpectType boolean
+const variableConnectionKey = RelayFeatureFlags.ENABLE_VARIABLE_CONNECTION_KEY;
+
+// $ExpectType boolean
+const relayResolvers = RelayFeatureFlags.ENABLE_RELAY_RESOLVERS;
+
+// $ExpectType boolean
+const uiContext = RelayFeatureFlags.ENABLE_UI_CONTEXT_ON_RELAY_LOGGER;
+
+// $ExpectType boolean
+const nonCompliantErrorHandling = RelayFeatureFlags.ENABLE_NONCOMPLIANT_ERROR_HANDLING_ON_LISTS;
+
+// $ExpectType boolean
+const cycleDetection = RelayFeatureFlags.ENABLE_CYLE_DETECTION_IN_VARIABLES;
+
+// $ExpectType boolean
+const activityCompatibility = RelayFeatureFlags.ENABLE_ACTIVITY_COMPATIBILITY;
+
+// $ExpectType boolean
+const readTimeResolverStorageKeyPrefix = RelayFeatureFlags.ENABLE_READ_TIME_RESOLVER_STORAGE_KEY_PREFIX;
+
+// $ExpectType boolean
+const usePaginationIsLoadingFix = RelayFeatureFlags.ENABLE_USE_PAGINATION_IS_LOADING_FIX;
+
+// $ExpectType boolean
+const storeIdCollisionLogging = RelayFeatureFlags.ENABLE_STORE_ID_COLLISION_LOGGING;
+
+// $ExpectType boolean
+const disallowNestedUpdates = RelayFeatureFlags.DISALLOW_NESTED_UPDATES;
+
+// $ExpectType boolean
+const typenamePrefixedDataId = RelayFeatureFlags.ENABLE_TYPENAME_PREFIXED_DATA_ID;
+
+// $ExpectType boolean
+const checkAllFragments = RelayFeatureFlags.CHECK_ALL_FRAGMENTS_FOR_MISSING_CLIENT_EDGES;
+
+// Test that removed flags no longer exist (these should cause type errors)
+// The following flags were removed as they don't exist in relay-runtime v20.1.1:
+// - ENABLE_LOAD_QUERY_REQUEST_DEDUPING
+// - ENABLE_FIELD_ERROR_HANDLING
+// - ENABLE_FIELD_ERROR_HANDLING_THROW_BY_DEFAULT
+// - ENABLE_FIELD_ERROR_HANDLING_CATCH_DIRECTIVE
+// - FILTER_OUT_RELAY_RESOLVER_RECORDS
+// - OPTIMIZE_NOTIFY
+// - ENABLE_READER_FRAGMENTS_LOGGING

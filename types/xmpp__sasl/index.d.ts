@@ -13,19 +13,21 @@ declare function sasl<TEntity extends Entity>(
         streamFeatures: StreamFeatures<TEntity>;
         saslFactory: SASLFactory;
     },
-    credentials: Credentials,
+    credentials: Credentials<TEntity>,
 ): SASL;
 
-export type Credentials = Partial<CredentialsObj> | CredentialsFactory;
+export type Credentials<TEntity extends Entity> = Partial<CredentialsObj> | CredentialsFactory<TEntity>;
 
 export interface CredentialsObj {
     username: string;
     password: string;
 }
 
-export type CredentialsFactory = (
+export type CredentialsFactory<TEntity extends Entity> = (
     callback: (credentials: CredentialsObj) => Promise<void>,
-    mechanism: string,
+    mechanisms: string[],
+    fast: null,
+    entity: TEntity,
 ) => Promise<void>;
 
 export interface SASL {

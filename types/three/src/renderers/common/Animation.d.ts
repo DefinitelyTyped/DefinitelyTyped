@@ -1,22 +1,18 @@
 import Info from "./Info.js";
-import Nodes from "./nodes/Nodes.js";
+import NodeManager from "./nodes/NodeManager.js";
 import Renderer from "./Renderer.js";
+
 export interface AnimationContext {
     requestAnimationFrame(callback: FrameRequestCallback, xrFrame?: XRFrame): number;
     cancelAnimationFrame(handle: number): void;
 }
+
 /**
  * This module manages the internal animation loop of the renderer.
  *
  * @private
  */
 declare class Animation {
-    renderer: Renderer;
-    nodes: Nodes;
-    info: Info;
-    _context: AnimationContext | null;
-    _animationLoop: ((time: DOMHighResTimeStamp, xrFrame?: XRFrame) => void) | null;
-    _requestId: number | null;
     /**
      * Constructs a new animation loop management component.
      *
@@ -24,7 +20,47 @@ declare class Animation {
      * @param {Nodes} nodes - Renderer component for managing nodes related logic.
      * @param {Info} info - Renderer component for managing metrics and monitoring data.
      */
-    constructor(renderer: Renderer, nodes: Nodes, info: Info);
+    constructor(renderer: Renderer, nodes: NodeManager, info: Info);
+    /**
+     * A reference to the main renderer.
+     *
+     * @type {Renderer}
+     */
+    renderer: Renderer;
+    /**
+     * Renderer component for managing nodes related logic.
+     *
+     * @type {Nodes}
+     */
+    nodes: NodeManager;
+    /**
+     * Renderer component for managing metrics and monitoring data.
+     *
+     * @type {Info}
+     */
+    info: Info;
+    /**
+     * A reference to the context from `requestAnimationFrame()` can
+     * be called (usually `window`).
+     *
+     * @type {?(Window|XRSession)}
+     */
+    _context: AnimationContext | null;
+    /**
+     * The user-defined animation loop.
+     *
+     * @type {?Function}
+     * @default null
+     */
+    _animationLoop: ((time: DOMHighResTimeStamp, xrFrame?: XRFrame) => void) | null;
+    /**
+     * The requestId which is returned from the `requestAnimationFrame()` call.
+     * Can be used to cancel the stop the animation loop.
+     *
+     * @type {?number}
+     * @default null
+     */
+    _requestId: number | null;
     /**
      * Starts the internal animation loop.
      */
@@ -50,7 +86,7 @@ declare class Animation {
      *
      * @return {Window|XRSession} The animation context.
      */
-    getContext(): AnimationContext | null;
+    getContext(): AnimationContext;
     /**
      * Defines the context in which `requestAnimationFrame()` is executed.
      *
@@ -62,4 +98,5 @@ declare class Animation {
      */
     dispose(): void;
 }
+
 export default Animation;

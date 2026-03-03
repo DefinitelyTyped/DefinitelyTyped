@@ -1,4 +1,4 @@
-import PdfPrinter = require("pdfmake");
+import pdfMake = require("pdfmake");
 import { BufferOptions, CustomTableLayout, TDocumentDefinitions, TFontDictionary } from "pdfmake/interfaces";
 
 const fonts: TFontDictionary = {
@@ -10,7 +10,7 @@ const fonts: TFontDictionary = {
     },
 };
 
-const printer = new PdfPrinter(fonts);
+pdfMake.addFonts(fonts);
 
 const dd: TDocumentDefinitions = {
     content: "Hello world!",
@@ -23,13 +23,16 @@ const customTableLayouts: { [key: string]: CustomTableLayout } = {
     },
 };
 
+pdfMake.addTableLayouts(customTableLayouts);
+
 const options: BufferOptions = {
     fontLayoutCache: true,
     bufferPages: true,
-    tableLayouts: customTableLayouts,
     autoPrint: true,
-    progressCallback: progress => console.log("Creating pdf: ", progress * 100, "%..."),
 };
 
-// $ExpectType PDFDocument
-printer.createPdfKitDocument(dd, options);
+pdfMake.setProgressCallback(progress => console.log("Creating pdf: ", progress * 100, "%..."));
+
+pdfMake.createPdf(dd, options).write("fileName.pdf").then(() => {
+    console.log("PDF file written");
+});

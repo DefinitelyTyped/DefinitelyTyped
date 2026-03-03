@@ -1026,7 +1026,7 @@ function longdesc() {
                 // Text to html (true = no transformation)
                 "text html": true,
                 // Evaluate text as a json expression
-                "text json": jQuery.parseJSON,
+                "text json": JSON.parse,
                 // Parse text as xml
                 "text xml": jQuery.parseXML,
             },
@@ -1355,18 +1355,10 @@ function longdesc() {
         })(jQuery);
     }
 
-    function jquery_css_hooks_5() {
-        $.cssNumber.someCSSProp = true;
-    }
-
     function jquery_css_hooks_6() {
         $.fx.step.someCSSProp = function(fx) {
             $.cssHooks.someCSSProp.set!(fx.elem as HTMLElement, fx.now + fx.unit);
         };
-    }
-
-    function jquery_css_number_0() {
-        jQuery.cssNumber.someCSSProp = true;
     }
 
     function jquery_data_0() {

@@ -132,6 +132,7 @@ defaultGlyph.name = undefined;
 let num: number = defaultGlyph.index + Math.min(...defaultGlyph.unicodes);
 // @ts-expect-error
 num = defaultGlyph.unicode
+    ?? defaultGlyph.numberOfContours
     ?? defaultGlyph.xMin
     ?? defaultGlyph.xMax
     ?? defaultGlyph.yMin

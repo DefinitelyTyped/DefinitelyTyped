@@ -2,8 +2,8 @@ import { Node, TempNode, TextureNode, UniformNode } from "three/webgpu";
 
 export default class RGBShiftNode extends TempNode {
     textureNode: TextureNode;
-    amount: UniformNode<number>;
-    angle: UniformNode<number>;
+    amount: UniformNode<"float", number>;
+    angle: UniformNode<"float", number>;
 
     constructor(textureNode: TextureNode, amount?: number, angle?: number);
 

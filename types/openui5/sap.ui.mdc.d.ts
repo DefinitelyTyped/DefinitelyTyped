@@ -1,4 +1,4 @@
-// For Library Version: 1.143.0
+// For Library Version: 1.144.0
 
 declare module "sap/ui/mdc/AggregationBaseDelegate" {
   import BaseDelegate from "sap/ui/mdc/BaseDelegate";
@@ -1417,7 +1417,9 @@ declare module "sap/ui/mdc/field/FieldBaseDelegate" {
          */
         additionalValueType: SimpleType;
       }
-    ): Array<ConditionObject | string> | Promise<any[]>;
+    ):
+      | Array<ConditionObject | string>
+      | Promise<Array<ConditionObject | string>>;
   }
   const FieldBaseDelegate: FieldBaseDelegate;
   export default FieldBaseDelegate;
@@ -1688,7 +1690,7 @@ declare module "sap/ui/mdc/GeomapDelegate" {
 
   /**
    * Base Delegate for {@link sap.ui.mdc.Geomap Geomap}. Extend this object in your project to use all functionalities
-   * of the {@link sap.ui.mdc.GeoMap GeoMap}.
+   * of the {@link sap.ui.mdc.Geomap Geomap}.
    *  This class provides method calls, that are called by the `geomap` for specific operations and overwrite
    * the internal behavior.
    *
@@ -1763,8 +1765,8 @@ declare module "sap/ui/mdc/GeomapDelegate" {
      * **Note:** The result of this function must be kept stable throughout the lifecycle of your application.
      * Any changes of the returned values might result in undesired effects.
      *
-     * **Note**: Existing properties (set via `sap.ui.mdc.GeoMap#setPropertyInfo`) must not be removed and their
-     * attributes must not be changed during the {@link module:sap/ui/mdc/GeoMapDelegate.fetchProperties fetchProperties }
+     * **Note**: Existing properties (set via `sap.ui.mdc.Geomap#setPropertyInfo`) must not be removed and their
+     * attributes must not be changed during the {@link module:sap/ui/mdc/GeomapDelegate.fetchProperties fetchProperties }
      * callback. Otherwise validation errors might occur whenever personalization-related control features (such
      * as the opening of any personalization dialog) are activated.
      *
@@ -1776,7 +1778,7 @@ declare module "sap/ui/mdc/GeomapDelegate" {
        * Reference to the geomap
        */
       oGeomap: Geomap
-    ): Promise</* was: sap.ui.mdc.GeoMap.PropertyInfo */ any[]>;
+    ): Promise</* was: sap.ui.mdc.Geomap.PropertyInfo */ any[]>;
     /**
      * Returns the binding info for given geomap.
      *
@@ -1819,7 +1821,7 @@ declare module "sap/ui/mdc/GeomapDelegate" {
        * Reference to the MDC geomap
        */
       oGeomap: Geomap
-    ): /* was: sap.ui.mdc.GeoMap.GeomapTypeObject */ any[];
+    ): GeomapTypeObject[];
     /**
      * Gets the current zooming information for the geomap.
      *
@@ -1952,7 +1954,7 @@ declare module "sap/ui/mdc/GeomapDelegate" {
       /**
        * Reference to the geomap
        */
-      oGeoMap: /* was: sap.ui.mdc.GeoMap */ any
+      oGeomap: Geomap
     ): void;
   }
   const GeomapDelegate: GeomapDelegate;
@@ -2514,12 +2516,12 @@ declare module "sap/ui/mdc/TableDelegate" {
      * To enable specific functionalities, the configuration must contain the following functions:
      * 	 - To enable **Expand Entire Tree**, the `expandAll` function needs to be implemented.
      * 	 - To enable **Collapse Entire Tree**, the `collapseAll` function needs to be implemented.
-     * 	 - To enable **Expand Entire Node**, the `expandAllFromNode` and `isNodeExpanded` functions need to
-     *     be implemented.
-     * 	 - To enable **Collapse Entire Node**, the `collapseAllFromNode` and `isNodeExpanded` functions need
+     * 	 - To enable **Expand Entire Node**, the `expandEntireNode` and `isNodeExpanded` functions need to be
+     *     implemented.
+     * 	 - To enable **Collapse Entire Node**, the `collapseEntireNode` and `isNodeExpanded` functions need
      *     to be implemented.
      *
-     * **Note:** Expand and collapse all from a specific node is only supported if the table rows are selectable.
+     * **Note:** Expanding and collapsing an entire node is only supported if the table rows are selectable.
      *
      * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
@@ -2726,35 +2728,35 @@ declare module "sap/ui/mdc/TableDelegate" {
    */
   export type ExpandAndCollapseConfiguration = {
     /**
-     * Function to expand all rows
+     * Function to expand the entire tree
      *
      * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      */
     expandAll?: (p1: Table) => void;
     /**
-     * Function to collapse all rows
+     * Function to collapse the entire tree
      *
      * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      */
     collapseAll?: (p1: Table) => void;
     /**
-     * Function to expand all rows from a specific node
+     * Function to expand a node and all the nodes in its entire subtree.
      *
      * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      */
-    expandAllFromNode?: (p1: Table, p2: Context) => void;
+    expandEntireNode?: (p1: Table, p2: Context) => void;
     /**
-     * Function to collapse all rows from a specific node
+     * Function to collapse a node and all the nodes in its entire subtree.
      *
      * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      */
-    collapseAllFromNode?: (p1: Table, p2: Context) => void;
+    collapseEntireNode?: (p1: Table, p2: Context) => void;
     /**
-     * Function to check if a specific node is expanded
+     * Function to check if a specific node is expanded. Returns `undefined` if the node is a leaf.
      *
      * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      */
-    isNodeExpanded?: (p1: Table, p2: Context) => void;
+    isNodeExpanded?: (p1: Table, p2: Context) => boolean | undefined;
   };
 }
 
@@ -3876,8 +3878,8 @@ declare module "sap/ui/mdc/library" {
 
   /**
    * The `State` object describes the interface to apply and retrieve the current adaptation state from mdc
-   * controls. The {@link sap.mdc.p13n.StateUtil StateUtil} class can be used to programatically apply changes
-   * considered for the controls personalization to be part of its persistence.
+   * controls. The {@link sap.ui.mdc.p13n.StateUtil StateUtil} class can be used to programatically apply
+   * changes considered for the controls personalization to be part of its persistence.
    */
   export type State = {
     /**
@@ -5498,20 +5500,18 @@ declare module "sap/ui/mdc/Chart" {
     minHeight?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * Defines the sort conditions.
-     *  **Note:** This property must not be bound.
-     *  **Note:** This property is exclusively used for handling SAPUI5 flexibility changes. Do not use it for
-     * anything else.
+     * Defines the XML baseline for sort conditions in SAPUI5 flexibility.
+     *
+     * **Note:** This property must not be bound. **Note:** This property must not be changed during runtime.
      *
      * @since 1.88
      */
     sortConditions?: object | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * Defines the filter conditions.
-     *  **Note:** This property must not be bound.
-     *  **Note:** This property is exclusively used for handling SAPUI5 flexibility changes. Do not use it for
-     * anything else.
+     * Defines the XML baseline for filter conditions in SAPUI5 flexibility.
+     *
+     * **Note:** This property must not be bound. **Note:** This property must not be changed during runtime.
      *
      * @since 1.99
      */
@@ -8025,37 +8025,53 @@ declare module "sap/ui/mdc/enums/FieldEditMode" {
    */
   enum FieldEditMode {
     /**
-     * {@link sap.ui.mdc.Field Field}, {@link sap.ui.mdc.FilterField FilterField} or {@link sap.ui.mdc.MultiValueField MultiValueField }
-     * is rendered in disabled mode
+     * {@link sap.ui.mdc.Field Field}, {@link sap.ui.mdc.FilterField FilterField}, or {@link sap.ui.mdc.MultiValueField MultiValueField }
+     * is rendered in disabled mode.
      */
     Disabled = "Disabled",
     /**
-     * {@link sap.ui.mdc.Field Field}, {@link sap.ui.mdc.FilterField FilterField} or {@link sap.ui.mdc.MultiValueField MultiValueField }
-     * is rendered in display mode
+     * If more than one control is rendered by the {@link sap.ui.mdc.Field Field}, {@link sap.ui.mdc.FilterField FilterField},
+     * or {@link sap.ui.mdc.MultiValueField MultiValueField} control, the first part is disabled, and the other
+     * parts are in display mode.
+     *
+     * @since 1.144
+     */
+    DisabledDisplay = "DisabledDisplay",
+    /**
+     * {@link sap.ui.mdc.Field Field}, {@link sap.ui.mdc.FilterField FilterField}, or {@link sap.ui.mdc.MultiValueField MultiValueField }
+     * is rendered in display mode.
      */
     Display = "Display",
     /**
-     * {@link sap.ui.mdc.Field Field}, {@link sap.ui.mdc.FilterField FilterField} or {@link sap.ui.mdc.MultiValueField MultiValueField }
-     * is rendered in editable mode
+     * {@link sap.ui.mdc.Field Field}, {@link sap.ui.mdc.FilterField FilterField}, or {@link sap.ui.mdc.MultiValueField MultiValueField }
+     * is rendered in editable mode.
      */
     Editable = "Editable",
     /**
-     * If more than one control is rendered by the {@link sap.ui.mdc.Field Field}, {@link sap.ui.mdc.FilterField FilterField }
+     * If more than one control is rendered by the {@link sap.ui.mdc.Field Field}, {@link sap.ui.mdc.FilterField FilterField},
      * or {@link sap.ui.mdc.MultiValueField MultiValueField} control, the first part is editable, and the other
      * parts are in display mode.
      */
     EditableDisplay = "EditableDisplay",
     /**
-     * If more than one control is rendered by the {@link sap.ui.mdc.Field Field}, {@link sap.ui.mdc.FilterField FilterField }
+     * If more than one control is rendered by the {@link sap.ui.mdc.Field Field}, {@link sap.ui.mdc.FilterField FilterField},
      * or {@link sap.ui.mdc.MultiValueField MultiValueField} control, the first part is editable, and the other
      * parts are read-only.
      */
     EditableReadOnly = "EditableReadOnly",
     /**
-     * {@link sap.ui.mdc.Field Field}, {@link sap.ui.mdc.FilterField FilterField} or {@link sap.ui.mdc.MultiValueField MultiValueField }
-     * is rendered in read-only mode
+     * {@link sap.ui.mdc.Field Field}, {@link sap.ui.mdc.FilterField FilterField}, or {@link sap.ui.mdc.MultiValueField MultiValueField }
+     * is rendered in read-only mode.
      */
     ReadOnly = "ReadOnly",
+    /**
+     * If more than one control is rendered by the {@link sap.ui.mdc.Field Field}, {@link sap.ui.mdc.FilterField FilterField},
+     * or {@link sap.ui.mdc.MultiValueField MultiValueField} control, the first part is read-only, and the other
+     * parts are in display mode.
+     *
+     * @since 1.144
+     */
+    ReadOnlyDisplay = "ReadOnlyDisplay",
   }
   export default FieldEditMode;
 }
@@ -8924,19 +8940,19 @@ declare module "sap/ui/mdc/enums/RequestShowContainerReason" {
 declare module "sap/ui/mdc/enums/TableActionPosition" {
   /**
    * Defines the supported positions for table-relevant actions within the table toolbar, in accordance with
-   * the {@link https://www.sap.com/design-system/fiori-design-web/ui-elements/table-bar/ SAP Design System}.
+   * the {@link https://www.sap.com/design-system/fiori-design-web/ui-elements/table-bar/ SAP Design System guidelines}.
    *
    * @since 1.143
    */
   enum TableActionPosition {
     /**
      * Extension point for actions displayed after all table-relevant actions. These actions allow applications
-     * to add additional functionality, such as Pagination, Refresh.
+     * to add additional functionality, such as pagination, refresh.
      */
     EndActions = "EndActions",
     /**
      * Extension point for the export actions at the start of the group. These actions convert the content of
-     * the table into an external format, such as Excel, PDF, Print.
+     * the table into an external format, such as Excel, PDF, a printed document.
      */
     ExportActions = "ExportActions",
     /**
@@ -8957,7 +8973,7 @@ declare module "sap/ui/mdc/enums/TableActionPosition" {
     PersonalizationActions = "PersonalizationActions",
     /**
      * Extension point for the personalization actions inserted after the first and before the second group
-     * of predefined actions. These actions change the arrangement or personalization of the table on an item
+     * of predefined actions. These actions change the arrangement or personalization of the table at the item
      * level, such as Expand/Collapse Node, Show/Hide Details, Table Settings.
      */
     PersonalizationActionsMiddle = "PersonalizationActionsMiddle",
@@ -9038,12 +9054,12 @@ declare module "sap/ui/mdc/enums/TablePopinDisplay" {
    */
   enum TablePopinDisplay {
     /**
-     * The header is displayed in the first line, and the cell content is displayed in the next line.
+     * The header is displayed on the first line, and the cell content is displayed on the next line.
      */
     Block = "Block",
     /**
-     * The cell content is displayed next to the header in the same line. **Note:** If there is not enough space
-     * for the cell content, then it is displayed in the next line.
+     * The cell content is displayed next to the header on the same line. **Note:** If there is not enough space
+     * for the cell content, then it is displayed on the next line.
      */
     Inline = "Inline",
   }
@@ -12705,7 +12721,7 @@ declare module "sap/ui/mdc/field/FieldInfoBase" {
      * Returns the content of the popover.
      *
      *
-     * @returns `Promise` with a popover content of type sap.ui.Control as result
+     * @returns `Promise` with a popover content of type sap.ui.core.Control as result
      */
     getContent(
       /**
@@ -13485,6 +13501,19 @@ declare module "sap/ui/mdc/filterbar/FilterBarBase" {
       mParameters?: FilterBarBase$SearchEventParameters
     ): this;
     /**
+     * Updates the Adapt Filters button text based on the number of assigned filters.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns text for the Adapt Filters button
+     */
+    getAdaptFiltersButtonText(
+      /**
+       * number of assigned filters
+       */
+      iFilterCount: int
+    ): string;
+    /**
      * Gets the labels of all filters with a value assignment.
      *
      * **Note:** Filters annotated with `hiddenFilters` will not be considered.
@@ -14006,9 +14035,9 @@ declare module "sap/ui/mdc/filterbar/FilterBarBase" {
 declare module "sap/ui/mdc/filterbar/IFilterContainer" {
   import { default as UI5Element, $ElementSettings } from "sap/ui/core/Element";
 
-  import FilterField from "sap/ui/mdc/FilterField";
-
   import Control from "sap/ui/core/Control";
+
+  import FilterField from "sap/ui/mdc/FilterField";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -14060,6 +14089,17 @@ declare module "sap/ui/mdc/filterbar/IFilterContainer" {
      * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
+    /**
+     * Adds a button control to the inner layout of the `IFilterContainer`.
+     *
+     * @since 1.144
+     */
+    addButton(
+      /**
+       * Control that is added
+       */
+      oControl: Control
+    ): void;
     /**
      * Overwrites the default exit to clean up the created layout properly.
      */
@@ -14754,7 +14794,7 @@ declare module "sap/ui/mdc/Geomap" {
     __implements__sap_ui_mdc_IFilterSource: boolean;
     __implements__sap_ui_mdc_IxState: boolean;
     /**
-     * Constructor for a new GeoMap.
+     * Constructor for a new Geomap.
      *
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
@@ -14769,7 +14809,7 @@ declare module "sap/ui/mdc/Geomap" {
       mSettings?: $GeomapSettings
     );
     /**
-     * Constructor for a new GeoMap.
+     * Constructor for a new Geomap.
      *
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
@@ -15316,9 +15356,9 @@ declare module "sap/ui/mdc/Geomap" {
     ): this;
   }
   /**
-   * An object literal describing a data property in the context of a {@link sap.ui.mdc.GeoMap}.
+   * An object literal describing a data property in the context of a {@link sap.ui.mdc.Geomap}.
    *
-   * When specifying the `PropertyInfo` objects in the {@link sap.ui.mdc.GeoMap#getPropertyInfo propertyInfo }
+   * When specifying the `PropertyInfo` objects in the {@link sap.ui.mdc.Geomap#getPropertyInfo propertyInfo }
    * property, the following attributes need to be specified:
    * 	 - `key`
    * 	 - `label`
@@ -15446,7 +15486,7 @@ declare module "sap/ui/mdc/Geomap" {
      *  **Note:** This property must not be bound.
      *  **Note:** This property is exclusively used for handling SAPUI5 flexibility changes. Do not use it otherwise.
      *  **Note**: Existing properties (set via `sap.ui.mdc.Geomap#setPropertyInfo`) must not be removed and
-     * their attributes must not be changed during the {@link module:sap/ui/mdc/GeoMapDelegate.fetchProperties fetchProperties }
+     * their attributes must not be changed during the {@link module:sap/ui/mdc/GeomapDelegate.fetchProperties fetchProperties }
      * callback. Otherwise validation errors might occur whenever personalization-related control features (such
      * as the opening of any personalization dialog) are activated.
      *
@@ -19107,40 +19147,36 @@ declare module "sap/ui/mdc/Table" {
     threshold?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * Defines the sort conditions.
+     * Defines the XML baseline for sort conditions in SAPUI5 flexibility.
      *
-     * **Note:** This property must not be bound. It is used exclusively for handling SAPUI5 flexibility changes.
-     * Do not use it otherwise.
+     * **Note:** This property must not be bound. **Note:** This property must not be changed during runtime.
      *
      * @since 1.73
      */
     sortConditions?: object | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * Defines the filter conditions.
+     * Defines the XML baseline for filter conditions in SAPUI5 flexibility.
      *
-     * **Note:** This property must not be bound. It is used exclusively for handling SAPUI5 flexibility changes.
-     * Do not use it otherwise.
+     * **Note:** This property must not be bound. **Note:** This property must not be changed during runtime.
      *
      * @since 1.80.0
      */
     filterConditions?: object | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * Defines the group conditions.
+     * Defines the XML baseline for group conditions in SAPUI5 flexibility.
      *
-     * **Note:** This property must not be bound. It is used exclusively for handling SAPUI5 flexibility changes.
-     * Do not use it otherwise.
+     * **Note:** This property must not be bound. **Note:** This property must not be changed during runtime.
      *
      * @since 1.87
      */
     groupConditions?: object | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * Defines the aggregate conditions.
+     * Defines the XML baseline for aggregate conditions in SAPUI5 flexibility.
      *
-     * **Note:** This property must not be bound. It is exclusively used for handling SAPUI5 flexibility changes.
-     * Do not use it otherwise.
+     * **Note:** This property must not be bound. **Note:** This property must not be changed during runtime.
      *
      * @since 1.87
      */
@@ -27735,6 +27771,8 @@ declare namespace sap {
     "sap/ui/mdc/FilterBar": undefined;
 
     "sap/ui/mdc/filterbar/FilterBarBase": undefined;
+
+    "sap/ui/mdc/filterbar/FilterContainer": undefined;
 
     "sap/ui/mdc/filterbar/IFilterContainer": undefined;
 

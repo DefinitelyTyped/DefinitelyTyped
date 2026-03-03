@@ -76,7 +76,7 @@ declare module "Synthetics" {
         getCanaryArn(): string;
         getCanaryUserAgentString(): string;
         getRuntimeVersion(): string;
-        getPage(): localPuppeteer.Page;
+        getPage(): Promise<localPuppeteer.Page>;
         getUrl(): string;
         /**
          * Returns global syntheticsConfiguration instance.

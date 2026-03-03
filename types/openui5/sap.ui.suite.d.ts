@@ -1,10 +1,12 @@
-// For Library Version: 1.143.0
+// For Library Version: 1.144.0
 
 declare module "sap/ui/suite/library" {
   /**
    * Defined color values for the Task Circle Control
    *
    * This enum is part of the 'sap/ui/suite/library' module export and must be accessed by the property 'TaskCircleColor'.
+   *
+   * @deprecated As of version 1.108. because it is part of the deprecated package sap.ui.suite
    */
   export enum TaskCircleColor {
     /**

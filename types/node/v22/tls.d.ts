@@ -15,31 +15,31 @@ declare module "tls" {
     import * as stream from "stream";
     const CLIENT_RENEG_LIMIT: number;
     const CLIENT_RENEG_WINDOW: number;
-    interface Certificate {
+    interface Certificate extends NodeJS.Dict<string | string[]> {
         /**
          * Country code.
          */
-        C: string;
+        C?: string | string[];
         /**
          * Street.
          */
-        ST: string;
+        ST?: string | string[];
         /**
          * Locality.
          */
-        L: string;
+        L?: string | string[];
         /**
          * Organization.
          */
-        O: string;
+        O?: string | string[];
         /**
          * Organizational unit.
          */
-        OU: string;
+        OU?: string | string[];
         /**
          * Common name.
          */
-        CN: string;
+        CN?: string | string[];
     }
     interface PeerCertificate {
         /**
@@ -245,6 +245,10 @@ declare module "tls" {
          * When a handshake is completed but not ALPN protocol was selected, tlsSocket.alpnProtocol equals false.
          */
         alpnProtocol: string | false | null;
+        /**
+         * String containing the server name requested via SNI (Server Name Indication) TLS extension.
+         */
+        servername: string | false | null;
         /**
          * Returns an object representing the local certificate. The returned object has
          * some properties corresponding to the fields of the certificate.

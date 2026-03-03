@@ -11,10 +11,5 @@
     "devDependencies": {
         "@types/ng-notify": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Nick Zamosenchuk",
-            "githubUsername": "nzamosenchuk"
-        }
-    ]
+    "owners": []
 }

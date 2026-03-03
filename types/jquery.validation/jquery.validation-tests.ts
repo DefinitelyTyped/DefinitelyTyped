@@ -133,7 +133,7 @@ function test_validate() {
         },
     });
     $(".selector").validate({
-        showErrors: (errorMap: JQueryValidation.ErrorDictionary, errorList: JQueryValidation.ErrorListItem[]) => {
+        showErrors(errorMap: JQueryValidation.ErrorDictionary, errorList: JQueryValidation.ErrorListItem[]) {
             $("#summary").html(`Your form contains ${this.numberOfInvalids()} errors, see details below.`);
             this.defaultShowErrors();
         },

@@ -1302,7 +1302,9 @@ declare namespace OracleDB {
          *
          * @since 6.9
          */
-        beginSessionlessTransaction(opts: SessionlessTransactionOpts): SessionlessTransactionOpts["transactionId"];
+        beginSessionlessTransaction(
+            opts: SessionlessTransactionOpts,
+        ): Promise<SessionlessTransactionOpts["transactionId"]>;
         beginSessionlessTransaction(opts: SessionlessTransactionOpts, callback: (error: DBError) => void): void;
         /**
          * Stops the currently running operation on the connection.
@@ -1681,7 +1683,7 @@ declare namespace OracleDB {
         resumeSessionlessTransaction(
             transactionId: SessionlessTransactionOpts["transactionId"],
             resTxnOpts?: ResumeSessionlessTxnOpts,
-        ): SessionlessTransactionOpts["transactionId"];
+        ): Promise<SessionlessTransactionOpts["transactionId"]>;
         resumeSessionlessTransaction(callback: (error: DBError) => void): void;
         /**
          * Rolls back the current transaction in progress on the connection.
@@ -1760,7 +1762,7 @@ declare namespace OracleDB {
          *
          * @since 6.9
          */
-        suspendSessionlessTransaction(): void;
+        suspendSessionlessTransaction(): Promise<void>;
         suspendSessionlessTransaction(callback: (error: DBError) => void): void;
         /**
          * Unregister a Continuous Query Notification (CQN) subscription previously created with connection.subscribe().

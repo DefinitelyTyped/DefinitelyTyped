@@ -36,7 +36,7 @@ console.log("args:", opts._args);
 const parser = dashdash.createParser({ options });
 try {
     opts = parser.parse(process.argv);
-} catch (e) {
+} catch (e: any) {
     console.error("foo: error: %s", e.message);
     process.exit(1);
 }
@@ -83,7 +83,7 @@ ${help}`);
 
     try {
         const opts = dashdash.parse({ options });
-    } catch (e) {
+    } catch (e: any) {
         console.error("%s: error: %s", path.basename(process.argv[1]), e.message);
         process.exit(1);
     }
@@ -130,7 +130,7 @@ ${help}`);
 
     try {
         const opts = dashdash.parse({ options });
-    } catch (e) {
+    } catch (e: any) {
         console.error("%s: error: %s", path.basename(process.argv[1]), e.message);
         process.exit(1);
     }
@@ -169,7 +169,7 @@ ${help}`);
     const parser = dashdash.createParser({ options });
     try {
         const opts = parser.parse(process.argv);
-    } catch (e) {
+    } catch (e: any) {
         console.error("%s: error: %s", path.basename(process.argv[1]), e.message);
         process.exit(1);
     }

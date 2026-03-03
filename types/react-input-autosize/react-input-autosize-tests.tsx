@@ -3,7 +3,7 @@ import AutosizeInput, { AutosizeInputProps } from "react-input-autosize";
 
 class Test extends React.Component<AutosizeInputProps> {
     input: HTMLInputElement | null = null;
-    auto: AutosizeInput;
+    auto!: AutosizeInput;
 
     inputRef = (ref: HTMLInputElement | null) => {
         this.input = ref;

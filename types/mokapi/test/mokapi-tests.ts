@@ -46,6 +46,9 @@ on("http", handler, "");
 on("http", handler, {});
 on("http", handler, { tags: { foo: "bar" } });
 on("http", handler, { track: true });
+on("http", handler, { priority: 12 });
+// @ts-expect-error
+on("http", handler, { priority: true });
 on("http", async () => {});
 on("http", (request) => {
     request.querystring;
@@ -53,13 +56,30 @@ on("http", (request) => {
 on("http", (request, response) => {
     const s = request.toString();
     const url = request.url.toString();
+    const api: string = request.api;
 
     response.headers = {
         "Content-Type": "application/json",
     };
     response.headers["Access-Control-Allow-Origin"] = "*";
     response.headers["foo"] = { bar: 123 };
+
+    response.rebuild(200, "application/json");
+    // @ts-expect-error
+    response.rebuild("200", "application/json");
+    // @ts-expect-error
+    response.rebuild(200, {});
 });
+on("http", () => {}, { track: true });
+// @ts-expect-error
+on("http", () => {}, { track: 123 });
+on("http", () => {}, { track: () => true });
+// @ts-expect-error
+on("http", () => {}, { track: () => 123 });
+on("http", () => {}, { track: (req) => req.api === "foo" });
+on("http", () => {}, { track: (req, res) => res.body === "foo" });
+// @ts-expect-error
+on("http", () => {}, { track: (req, res) => res.foo === "foo" });
 
 // @ts-expect-error
 every(12, () => {});
@@ -188,6 +208,7 @@ kafka = (record: KafkaEventMessage) => {
     record.headers = null;
     record.headers = { foo: "bar" };
 };
+on("kafka", () => {}, { track: (record) => record.key === "foo" });
 
 let ldap: LdapEventHandler = () => {};
 // @ts-expect-error
@@ -216,6 +237,7 @@ ldap = (req: LdapSearchRequest, res: LdapSearchResponse) => {
     res.message = 12;
     res.message = "";
 };
+on("ldap", () => {}, { track: (request) => request.baseDN === "foo" });
 
 let smtp: SmtpEventHandler = () => {};
 // @ts-expect-error
@@ -315,6 +337,7 @@ smtp = (msg: SmtpEventMessage) => {
         data: new Uint8Array(2),
     }];
 };
+on("smtp", () => {}, { track: (mail) => mail.subject === "foo" });
 
 const i: number = patch(1, 2);
 patch({ x: 1 }, { y: 1 });

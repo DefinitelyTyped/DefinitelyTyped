@@ -21,6 +21,6 @@ iquery.getWhereSql(true); // $ExpectType string
 iquery.toSql(); // $ExpectType string
 
 function getVersion(): string {
-    return "72.0.1";
+    return "81.0.1";
 }
 getVersion(); // $ExpectType string

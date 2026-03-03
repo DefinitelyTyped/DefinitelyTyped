@@ -6,7 +6,7 @@
  * @param {number} floatLength - The buffer length.
  * @return {number} The padded length.
  */
-declare function getFloatLength(floatLength: number): number;
+export function getFloatLength(floatLength: number): number;
 /**
  * Given the count of vectors and their vector length, this function computes
  * a total length in bytes with buffer alignment according to STD140 layout.
@@ -16,7 +16,7 @@ declare function getFloatLength(floatLength: number): number;
  * @param {number} [vectorLength=4] - The vector length.
  * @return {number} The padded length.
  */
-declare function getVectorLength(count: number, vectorLength?: number): number;
+export function getVectorLength(count: number, vectorLength?: number): number;
 /**
  * This function is called with a vector length and ensure the computed length
  * matches a predefined stride (in this case `4`).
@@ -25,5 +25,4 @@ declare function getVectorLength(count: number, vectorLength?: number): number;
  * @param {number} vectorLength - The vector length.
  * @return {number} The padded length.
  */
-declare function getStrideLength(vectorLength: number): number;
-export { getFloatLength, getStrideLength, getVectorLength };
+export function getStrideLength(vectorLength: number): number;

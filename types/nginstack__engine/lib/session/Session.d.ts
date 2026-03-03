@@ -12,6 +12,7 @@ declare class Session {
     realm: string;
     runtime: string;
     scope: string;
+    identityProviderKey: number;
     clientId: string;
     trackingId: string;
     login(userName: string, password: string): boolean;

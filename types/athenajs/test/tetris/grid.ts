@@ -31,23 +31,23 @@ class Grid extends Scene {
 
     // game sprites
     // current tetris shape
-    shape: Shape;
+    shape!: Shape;
     // next tetris shape
-    nextShape: Shape;
+    nextShape!: Shape;
     // next tetris string
-    nextString: SimpleText;
+    nextString!: SimpleText;
     // score
-    scoreString: SimpleText;
+    scoreString!: SimpleText;
     // "line:"
-    linesString: SimpleText;
+    linesString!: SimpleText;
     // "level:"
-    levelString: SimpleText;
+    levelString!: SimpleText;
     // "pause:"
-    pauseString: SimpleText;
+    pauseString!: SimpleText;
     // flashing lines
-    flashLines: FlashLines;
+    flashLines!: FlashLines;
     // ->, <-
-    controls: SimpleText;
+    controls!: SimpleText;
 
     constructor() {
         super({

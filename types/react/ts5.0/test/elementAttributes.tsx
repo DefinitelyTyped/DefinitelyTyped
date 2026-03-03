@@ -29,6 +29,7 @@ const testCases = [
     <span lang="art-x-tokipona" />,
     <input placeholder="placeholder" />,
     <span slot="my-text" />,
+    <svg slot="my-svg" />,
     <span spellCheck />,
     <span tabIndex={0} />,
     <span title="title" />,
@@ -101,6 +102,7 @@ const testCases = [
         open
     />,
     <link nonce="8IBTHwOdqNKAWeKl7plt8g==" />,
+    <svg nonce="8IBTHwOdqNKAWeKl7plt8g==" />,
     <center></center>,
     // Float
     <>
@@ -171,6 +173,7 @@ const testCases = [
     <>
         <template>
             <div part="base" />
+            <svg part="svg" />
             <custom-element exportparts="nested" />
         </template>
     </>,
