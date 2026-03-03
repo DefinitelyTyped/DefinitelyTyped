@@ -940,7 +940,7 @@ export interface BottomButton {
      *
      * Unique identifier of the custom emoji shown
      * before the text of the button.
-    */
+     */
     iconCustomEmojiId: string;
     /**
      * Current button text. Set to _Continue_ for the main button and
