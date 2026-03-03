@@ -43,6 +43,6 @@ export function rendererPath(
 ): string; // Returns the constructed path as a string
 
 // React component that handles server-side rendering based on provided props
-export default function ServerSideRender(
+export function ServerSideRender(
     props: ServerSideRenderProps, // Configuration object for server-side rendering
 ): React.JSX.Element; // Returns a JSX element representing the rendered block

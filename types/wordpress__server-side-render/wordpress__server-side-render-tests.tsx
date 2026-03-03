@@ -1,6 +1,7 @@
 import * as React from "react";
 
-import ServerSideRender, {
+import {
+    ServerSideRender,
     EmptyResponsePlaceholderProps,
     ErrorResponsePlaceholderProps,
     LoadingResponsePlaceholderProps,
