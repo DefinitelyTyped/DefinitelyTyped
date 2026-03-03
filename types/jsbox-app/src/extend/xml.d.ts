@@ -1,11 +1,15 @@
 // JSBox Xml API TypeScript Declaration
 
 declare namespace XmlTypes {
-    interface ParseOptions {
-        string?: string;
-        data?: NSData;
-        mode?: "xml" | "html";
-    }
+    type ParseOptions =
+        | {
+            string: string;
+            mode?: "xml" | "html";
+        }
+        | {
+            data: NSData;
+            mode?: "xml" | "html";
+        };
 
     interface XMLDocument {
         version: string;
