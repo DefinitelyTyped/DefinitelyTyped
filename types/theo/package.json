@@ -6,7 +6,7 @@
         "https://github.com/salesforce-ux/theo"
     ],
     "dependencies": {
-        "immutable": "3.8.2"
+        "immutable": "4.3.8"
     },
     "devDependencies": {
         "@types/theo": "workspace:."
