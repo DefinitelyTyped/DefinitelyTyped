@@ -13,8 +13,8 @@ declare namespace BPMNModdle {
         | "middle_initiating"
         | "bottom_initiating"
         | "top_non_initiating"
-        | "middle_ non_initiating"
-        | "bottom_ non_initiating";
+        | "middle_non_initiating"
+        | "bottom_non_initiating";
 
     type MessageVisibleKind = "initiating" | "non_initiating";
 
