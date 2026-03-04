@@ -5,6 +5,7 @@ import assert = require("assert");
 
 const upload = multer({
     dest: "uploads/",
+    defParamCharset: "latin1",
     fileFilter: (req, file, cb) => {
         cb(null, false);
         cb(null, true);
