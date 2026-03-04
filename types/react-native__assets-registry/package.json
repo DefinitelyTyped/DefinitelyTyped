@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/react-native__assets-registry",
+    "version": "0.84.9999",
+    "projects": [
+        "https://github.com/facebook/react-native/tree/main/packages/assets"
+    ],
+    "devDependencies": {
+        "@types/react-native__assets-registry": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Yevhenii Kotyrlo",
+            "githubUsername": "YevheniiKotyrlo"
+        }
+    ]
+}
