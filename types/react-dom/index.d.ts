@@ -88,13 +88,44 @@ export interface PreloadOptions {
     integrity?: string | undefined;
     type?: string | undefined;
     nonce?: string | undefined;
-    referrerPolicy?: ReferrerPolicy | undefined;
+    referrerPolicy?:
+        | ""
+        | "no-referrer"
+        | "no-referrer-when-downgrade"
+        | "origin"
+        | "origin-when-cross-origin"
+        | "same-origin"
+        | "strict-origin"
+        | "strict-origin-when-cross-origin"
+        | "unsafe-url"
+        | undefined;
     media?: string | undefined;
 }
 export function preload(href: string, options?: PreloadOptions): void;
 
 // https://html.spec.whatwg.org/multipage/links.html#link-type-modulepreload
-export type PreloadModuleAs = RequestDestination;
+export type PreloadModuleAs =
+    | ""
+    | "audio"
+    | "audioworklet"
+    | "document"
+    | "embed"
+    | "font"
+    | "frame"
+    | "iframe"
+    | "image"
+    | "json"
+    | "manifest"
+    | "object"
+    | "paintworklet"
+    | "report"
+    | "script"
+    | "sharedworker"
+    | "style"
+    | "track"
+    | "video"
+    | "worker"
+    | "xslt";
 export interface PreloadModuleOptions {
     /**
      * @default "script"
