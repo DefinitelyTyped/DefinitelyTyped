@@ -48,6 +48,3 @@ hoistWorkspacePackages: false
 # Remove once https://github.com/pnpm/pnpm/issues/6457 is fixed
 # and we can set a hoisting limit of "workspaces" like in Yarn.
 sharedWorkspaceLockfile: false
-
-overrides:
-  '@wordpress/vips': '-'
