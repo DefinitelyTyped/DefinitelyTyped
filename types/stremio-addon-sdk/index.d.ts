@@ -398,13 +398,13 @@ export interface Stream {
          */
         notWebReady?: boolean | undefined;
         /**
-         * If defined, addons with the same behaviorHints.group will be chosen automatically for binge watching.
+         * If defined, addons with the same behaviorHints.bingeGroup will be chosen automatically for binge watching.
          *
          * This should be something that identifies the stream's nature within your addon.
-         * For example, if your addon is called "gobsAddon", and the stream is 720p, the group should be "gobsAddon-720p".
-         * If the next episode has a stream with the same group, stremio should select that stream implicitly.
+         * For example, if your addon is called "gobsAddon", and the stream is 720p, the bingeGroup should be "gobsAddon-720p".
+         * If the next episode has a stream with the same bingeGroup, stremio should select that stream implicitly.
          */
-        group?: string | undefined;
+        bingeGroup?: string | undefined;
         /**
          * **Not implemented yet!**
          *
