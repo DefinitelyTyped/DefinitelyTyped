@@ -16,17 +16,17 @@ upload; // $ExpectType Multer
 assert.strictEqual(upload.constructor.name, "Multer");
 
 const upload_with_defParamCharset = multer({
-    dest: 'uploads/',
+    dest: "uploads/",
     fileFilter: (req, file, cb) => {
         cb(null, false);
         cb(null, true);
         cb(new Error(`I don't have a clue!`));
     },
-    defParamCharset: 'utf8',
+    defParamCharset: "utf8",
 });
 
 upload_with_defParamCharset; // $ExpectType Multer
-assert.strictEqual(upload_with_defParamCharset.constructor.name, 'Multer');
+assert.strictEqual(upload_with_defParamCharset.constructor.name, "Multer");
 
 const app = express();
 
