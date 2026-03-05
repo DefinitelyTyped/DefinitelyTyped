@@ -62,7 +62,7 @@ declare namespace ImagekitTypes {
 
 interface JBImageKit {
     render(
-        options: { size: JBSize; color: string; scale?: number; opaque?: boolean },
+        options: { size: JBSize; color?: UIColor; scale?: number; opaque?: boolean },
         handler: (ctx: BBCanvasContext) => void,
     ): UIImage;
     info(image: UIImage): ImagekitTypes.ImageInfo; // Get image information
