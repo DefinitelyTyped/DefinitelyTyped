@@ -241,7 +241,75 @@ declare namespace Layui {
          * @default true
          */
         capture?: boolean;
+        /**
+         * 是否检测 Iframe 点击事件
+         * @since 2.12.0
+         * @default false
+         */
+        detectIframe?: boolean;
     }
+
+    interface LayTreeToFlatOptions {
+        /**
+         * 子节点字段名
+         * @default 'children'
+         */
+        childrenKey?: string;
+        /**
+         * 节点 id 字段名
+         * @default 'id'
+         */
+        idKey?: string;
+        /**
+         * 父节点 id 字段名
+         * @default 'parentId'
+         */
+        parentKey?: string;
+        /**
+         * 是否保留子节点数据
+         * @default true
+         */
+        keepChildren?: boolean;
+    }
+
+    interface LayFlatToTreeOptions {
+        /**
+         * 子节点字段名
+         * @default 'children'
+         */
+        childrenKey?: string;
+        /**
+         * 节点 id 字段名
+         * @default 'id'
+         */
+        idKey?: string;
+        /**
+         * 父节点 id 字段名
+         * @default 'parentId'
+         */
+        parentKey?: string;
+    }
+
+    type LayTreeNode<T extends Record<string, any> = Record<string, any>> = T & {
+        id?: string | number;
+        children?: LayTreeNode<T>[];
+        [key: string]: any;
+    };
+
+    type LayFlatNode<T extends Record<string, any> = Record<string, any>> = T & {
+        id?: string | number;
+        parentId?: string | number | null;
+        children?: LayTreeNode<T>[];
+        [key: string]: any;
+    };
+
+    type Customizer = (
+        targetValue: any,
+        sourceValue: any,
+        key: string,
+        target: any,
+        source: any,
+    ) => any;
 
     interface LayStatic {
         /**
@@ -264,9 +332,44 @@ declare namespace Layui {
          */
         v: string;
         /**
-         * 把多个对象深度克隆到 target
-         * @param target 一个对象
-         * @param objectN 包含额外的属性合并到第一个参数
+         * 深拷贝合并多个对象
+         * @param target 目标对象
+         * @param objectN 源对象列表。最后一个参数可选为 customizer 函数(2.13.0+)
+         * @example
+         * ```js
+         * console.log(lay.extend({}, {a:1})); // expected: {a:1}
+         * console.log(lay.extend({a:1}, {a:3}, {a:5,b:5})); // expected: {a:5,b:5}
+         * // 多个相同源对象的不同合并方式
+         *  const objN = [
+         *    {
+         *      a: [1, 3],
+         *      b: {ba: 1}
+         *    },
+         *    {
+         *      a: [5],
+         *      b: {bb: 2}
+         *    },
+         *    {
+         *      b: {ba: 3},
+         *      c: 3
+         *    }
+         *  ];
+         *  console.log(lay.extend({}, ...objN)); // expected: {a:[5,3],b:{ba:3,bb:2},c:3}
+         *  // 使用 customizer 实现数组覆盖而非合并
+         *  const obj1 = lay.extend({}, ...objN, function(objValue, srcValue) {
+         *    if (Array.isArray(objValue) && Array.isArray(srcValue)) {
+         *      return srcValue;
+         *    }
+         *  });
+         *  console.log(obj1); // expected: {a:[5],b:{ba:3,bb:2},c:3}
+         *  // 使用 customizer 实现特定字段跳过合并
+         *  const obj2 = lay.extend({}, ...objN, function(objValue, srcValue, key, target, source) {
+         *    if (key === 'b') {
+         *      return objValue;
+         *    }
+         *  });
+         *  console.log(obj2); // expected: {a:[5,3],b:{ba:1},c:3}
+         * ```
          */
         extend<T, U, V, W, X, Y, Z>(
             target: T,
@@ -289,6 +392,7 @@ declare namespace Layui {
         extend<T, U, V, W>(target: T, object1: U, object2: V, object3: W): T & U & V & W;
         extend<T, U, V>(target: T, object1: U, object2: V): T & U & V;
         extend<T, U>(target: T, object1: U): T & U;
+        extend<T, U>(target: T, object1: U, customizer?: Customizer): T & U;
         extend<T>(target: T): this & T;
         extend(target: any, object1: any, ...objectN: any[]): any;
         /**
@@ -469,7 +573,7 @@ declare namespace Layui {
          * @since 2.9.2
          */
         touchSwipe(
-            elem: string | Element | JQuery,
+            elem: string | globalThis.Element | JQuery,
             options: {
                 onTouchStart(e: TouchEvent, state: LayTouchSwipeState): void;
                 onTouchMove(e: TouchEvent, state: LayTouchSwipeState): void;
@@ -482,6 +586,7 @@ declare namespace Layui {
          * @param handler 事件触发时执行的函数
          * @param options
          * @return 返回一个停止事件监听的函数
+         * @since 2.9.13
          */
         onClickOutside<
             E extends keyof LayOnClickOutsideEventMap<S> = "pointerdown",
@@ -497,5 +602,90 @@ declare namespace Layui {
          * @param key 属性名
          */
         hasOwn<O, K extends PropertyKey, V = unknown>(obj: O, key: K): obj is O & Record<K, V>; // eslint-disable-line @definitelytyped/no-unnecessary-generics
+        /**
+         * 转义 HTML 字符串
+         * @param str 待转义的字符串
+         * @since 2.13.0
+         */
+        escape(str: string): string;
+        /**
+         * 还原转义 HTML 字符串
+         * @param str 待还原转义的字符串
+         * @since 2.13.0
+         */
+        unescape(str: string): string;
+        /**
+         * 创建一个共享的 ResizeObserver 实例
+         * @param namespace 命名空间，用于标识不同的 ResizeObserver 实例
+         * @returns 共享的 ResizeObserver 实例，或 null（如果不支持）
+         * @since 2.12.0
+         */
+        createSharedResizeObserver(namespace: string): {
+            disconnect(): void;
+            observe(target: globalThis.Element): void;
+            unobserve(target: globalThis.Element): void;
+        } | null;
+        /**
+         * 添加事件监听
+         * @param elem 事件目标元素
+         * @param type 事件类型
+         * @param handler 事件处理函数
+         * @param options 事件监听选项
+         * @since 2.12.0
+         */
+        addEvent(
+            elem: globalThis.Element | Document | Window,
+            type: string,
+            handler: EventListenerOrEventListenerObject,
+            options?: AddEventListenerOptions | boolean,
+        ): any;
+        /**
+         * 移除事件监听
+         * @param elem 事件目标元素
+         * @param type 事件类型
+         * @param handler 事件处理函数
+         * @param options 事件监听选项
+         * @since 2.13.0
+         */
+        removeEvent(
+            elem: globalThis.Element | Document | Window,
+            type: string,
+            handler: EventListenerOrEventListenerObject,
+            options?: EventListenerOptions | boolean,
+        ): any;
+        /**
+         * 将树状结构转换为扁平结构
+         * @param data 树状结构数组
+         * @param options 转换选项
+         * @returns 扁平结构数组
+         * @since 2.13.0
+         */
+        treeToFlat<T extends LayTreeNode = LayTreeNode>(
+            data: T[],
+            options?: LayTreeToFlatOptions,
+        ): LayFlatNode<T>[];
+        /**
+         * 将扁平结构转换为树状结构
+         * @param data 扁平结构数组
+         * @param options 转换选项
+         * @returns 树状结构数组
+         * @since 2.13.0
+         */
+        flatToTree<T extends LayFlatNode = LayFlatNode>(
+            data: T[],
+            options?: LayFlatToTreeOptions,
+        ): LayTreeNode<T>[];
+        /**
+         * 自动递增器，一般用于组件自增索引
+         * @internal
+         * @since 2.13.0
+         */
+        autoIncrementer(key: string, options?: { target?: HTMLElement }): number;
+        /**
+         * 判断一个对象是否为普通对象（非数组、函数等）
+         * @param obj 对象
+         * @since 2.13.0
+         */
+        isPlainObject(obj: any): obj is Record<string, any>;
     }
 }

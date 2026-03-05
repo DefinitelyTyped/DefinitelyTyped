@@ -372,6 +372,12 @@ function layerTest() {
             },
         );
 
+        layui.layer.prompt(
+            {
+                formType: "email",
+            },
+        );
+
         layer.tab({
             area: ["600px", "300px"],
             tab: [

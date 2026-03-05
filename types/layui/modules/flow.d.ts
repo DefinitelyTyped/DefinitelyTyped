@@ -53,8 +53,9 @@ declare namespace Layui {
     /**
      * 流加载
      * @see https://layui.dev/docs/2/flow/
+     * @since 2.13.0 之后继承自 Component
      */
-    interface Flow {
+    interface Flow extends ComponentInterface<FlowOptions, Component<FlowOptions>, ComponentReturn<FlowOptions>> {
         /**
          * 流加载
          * @param option 信息流参数

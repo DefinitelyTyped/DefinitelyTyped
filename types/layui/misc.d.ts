@@ -119,6 +119,12 @@ declare namespace Layui {
          */
         all: any;
         /**
+         * 面包屑
+         * @see https://layui.dev/docs/2/nav/#separator
+         * @since 2.13.0
+         */
+        breadcrumb: Breadcrumb;
+        /**
          * 轮播
          * @see https://layui.dev/docs/2/carousel/
          */
@@ -128,6 +134,12 @@ declare namespace Layui {
          * @see https://layui.dev/docs/2/code/
          */
         code: Code;
+        /**
+         * 折叠面板
+         * @see https://layui.dev/docs/2/panel/
+         * @since 2.13.0
+         */
+        collapse: Collapse;
         /**
          * 颜色选择器
          * @see https://layui.dev/docs/2/colorpicker/
@@ -152,7 +164,7 @@ declare namespace Layui {
          * @see https://layui.dev/docs/2/progress/ - 进度条
          * @see https://layui.dev/docs/2/nav/#separator - 面包屑
          */
-        element: Element;
+        element: LayElement;
         /**
          * 流加载
          * @see https://layui.dev/docs/2/flow/
@@ -202,6 +214,18 @@ declare namespace Layui {
          */
         "layui.all": string;
         /**
+         * 导航栏
+         * @see https://layui.dev/docs/2/nav/
+         * @since 2.13.0
+         */
+        nav: Nav;
+        /**
+         * 进度条
+         * @see https://layui.dev/docs/2/progress/
+         * @since 2.13.0
+         */
+        progress: Progress;
+        /**
          * 评分
          * @see https://layui.dev/docs/2/rate/
          * @since 2.11.0 后继承自 Component 组件
@@ -212,6 +236,13 @@ declare namespace Layui {
          * @see https://layui.dev/docs/2/slider/
          */
         slider: Slider;
+        /**
+         * 选项卡
+         * @see https://layui.dev/docs/2/tab/
+         * @since 2.13.0
+         * @deprecated 已废弃，使用 {@link Tabs}
+         */
+        tab: Tab;
         /**
          * 表格
          * @see https://layui.dev/docs/2/table

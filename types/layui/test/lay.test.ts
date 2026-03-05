@@ -2,6 +2,11 @@ function layTest() {
     const a = { a: [1, 2, 3] };
     const b = {};
     layui.lay.extend(b, a, { b: "ok" });
+    layui.lay.extend(b, a, { a: [4, 5, 6] }, (objValue: any[], srcValue: any) => {
+        if (Array.isArray(objValue)) {
+            return objValue.concat(srcValue);
+        }
+    });
     layui.lay.ie;
     layui.lay.layui;
     layui.lay.getPath;
@@ -64,6 +69,44 @@ function layTest() {
     lay.onClickOutside(document.body, (e) => {}, {
         event: "pointerdown",
         scope: window,
+        capture: true,
+        detectIframe: true,
     });
     lay.clipboard.writeText("123");
+    lay.isPlainObject({});
+    lay.isPlainObject([]);
+    lay.isPlainObject(new Date());
+
+    lay.escape("123");
+    lay.unescape("123");
+    const resizeObserver = lay.createSharedResizeObserver("test");
+    lay.removeEvent(window, "click", e => {});
+    lay.removeEvent(document.body, "click", e => {});
+    lay.addEvent(document, "click", e => {}, true);
+    lay.addEvent(document, "click", e => {}, {
+        capture: true,
+    });
+    const flat1 = lay.treeToFlat([{
+        id: 1,
+        children: [{
+            id: 2,
+        }],
+    }]);
+    flat1[0].parentId;
+    flat1[1].children[0].id;
+    const flat2 = lay.treeToFlat([{
+        id: 1,
+        children: [{
+            id: 2,
+        }],
+    }], {
+        idKey: "id2",
+        parentKey: "parent2",
+        childrenKey: "children2",
+    });
+    flat2[0].parent2;
+    flat2[1].children2[0].id2;
+    const tree1 = lay.flatToTree(flat1);
+    tree1[0].id;
+    tree1[0].children[0].id;
 }

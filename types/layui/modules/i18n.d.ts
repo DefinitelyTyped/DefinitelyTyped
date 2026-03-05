@@ -48,9 +48,30 @@ interface I18nMessage {
         verifyErrorPromptTitle: string;
     };
     laydate: {
-        months: [string, string, string, string, string, string, string, string, string, string, string, string];
-        weeks: [string, string, string, string, string, string, string];
-        time: [string, string, string];
+        months: [
+            January: string,
+            February: string,
+            March: string,
+            April: string,
+            May: string,
+            June: string,
+            July: string,
+            August: string,
+            September: string,
+            October: string,
+            November: string,
+            December: string,
+        ];
+        weeks: [
+            Sunday: string,
+            Monday: string,
+            Tuesday: string,
+            Wednesday: string,
+            Thursday: string,
+            Friday: string,
+            Saturday: string,
+        ];
+        time: [hour: string, minute: string, second: string];
         literal: {
             year: string;
         };
@@ -75,7 +96,7 @@ interface I18nMessage {
         cancel: string;
         defaultTitle: string;
         prompt: {
-            InputLengthPrompt: string;
+            inputLengthPrompt: string;
         };
         photos: {
             noData: string;
@@ -133,7 +154,7 @@ interface I18nMessage {
     transfer: {
         noData: string;
         noMatch: string;
-        title: [string, string];
+        title: [list1: string, list2: string];
         searchPlaceholder: string;
     };
     tree: {

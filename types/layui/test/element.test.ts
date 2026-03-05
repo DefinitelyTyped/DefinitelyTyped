@@ -1,7 +1,7 @@
 function elementTest() {
     layui.use("element", () => {
         const element = layui.element;
-        element.config["notExists"];
+        element.config;
         //  一些事件监听
         element.on("tab(demo)", data => {
             console.log(data);
@@ -38,8 +38,8 @@ function elementTest() {
             console.log(data.elem); //  得到当前的Tab大容器
             console.log(data.id);
         });
-        element.on("tabDelete(filter)", data => {
-            // console.log(this); //  当前Tab标题所在的原始DOM元素
+        element.on("tabDelete(filter)", function(data) {
+            console.log(this); //  当前Tab标题所在的原始DOM元素
             console.log(data.index); //  得到当前Tab的所在下标
             console.log(data.elem); //  得到当前的Tab大容器
         });

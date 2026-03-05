@@ -88,33 +88,23 @@ declare namespace Layui {
         dblclick?(obj: { elem: JQuery; data: object; index: number }): boolean | undefined;
     }
 
-    interface TransferReturn {
-        config: Record<string, any>;
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
+    class TransferClass extends Component<TransferOptions> {
+    }
+
+    interface TransferReturn extends ComponentReturn<TransferOptions> {
         /**
          * 获得右侧数据
          */
         getData(): Array<TransferOptionsData>;
-        /**
-         * 重载实例
-         * @param id  实例唯一索引
-         * @param options 各项基础参数
-         */
-        reload(id: string, options: TransferOptions): void;
-        /**
-         * 设定全局默认参数
-         *
-         * @param options 各项基础参数
-         */
-        set(options: Partial<TransferOptions>): void;
     }
 
     /**
      * 穿梭框
      * @see https://layui.dev/docs/2/transfer/
+     * @since 2.13.0 之后继承自 Component
      */
-    interface Transfer {
-        config: Record<string, any>;
-        index: number;
+    interface Transfer extends ComponentInterface<TransferOptions, TransferClass, TransferReturn> {
         /**
          * 获得右侧数据
          * @param id 实例唯一索引
@@ -125,22 +115,5 @@ declare namespace Layui {
          * @param option 各项基础参数
          */
         render(option: TransferOptions): TransferReturn;
-        /**
-         * 绑定事件，内部 modName 默认为 transfer，绑定参考 layui.onevent，触发参考 layui.event
-         * @param events
-         * @param callback
-         */
-        on(events: string, callback: (this: Layui, obj: any) => any): any;
-        /**
-         * 重载实例
-         * @param id  实例唯一索引
-         * @param options 各项基础参数
-         */
-        reload(id: string, options?: Partial<TransferOptions>): void;
-        /**
-         * 设定全局默认参数
-         * @param options 各项基础参数
-         */
-        set(options: Partial<TransferOptions>): void;
     }
 }
