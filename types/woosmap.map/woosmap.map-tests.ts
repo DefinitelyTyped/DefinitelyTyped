@@ -1,5 +1,6 @@
 // Tests for Woosmap Map JS API v1.4
 // https://developers.woosmap.com/products/map-api/get-started/
+//
 
 /**
  * Display a Map
