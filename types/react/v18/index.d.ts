@@ -2149,7 +2149,7 @@ declare namespace React {
      *
      * @param callback A synchronous, void callback that will execute as a single, complete React commit.
      *
-     * @see https://reactjs.org/blog/2019/02/06/react-v16.8.0.html#testing-hooks
+     * @see {@link https://reactjs.org/blog/2019/02/06/react-v16.8.0.html#testing-hooks}
      */
     // While act does always return Thenable, if a void function is passed, we pretend the return value is also void to not trigger dangling Promise lint rules.
     export function act(callback: () => VoidOrUndefinedOnly): void;

@@ -29,3 +29,5 @@ export const viewportMipTexture: (
     levelNode?: Node | null,
     framebufferTexture?: FramebufferTexture | null,
 ) => Node;
+
+export const viewportOpaqueMipTexture: (uv?: Node, level?: Node | null) => Node;

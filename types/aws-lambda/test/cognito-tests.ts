@@ -9,6 +9,8 @@ import {
     DefineAuthChallengeTriggerEvent,
     DefineAuthChallengeTriggerHandler,
     Handler,
+    InboundFederationTriggerEvent,
+    InboundFederationTriggerHandler,
     PostAuthenticationTriggerEvent,
     PostAuthenticationTriggerHandler,
     PostConfirmationTriggerEvent,
@@ -42,7 +44,8 @@ type CognitoTriggerEvent =
     | PreTokenGenerationV3TriggerEvent
     | UserMigrationTriggerEvent
     | CustomMessageTriggerEvent
-    | CustomEmailSenderTriggerEvent;
+    | CustomEmailSenderTriggerEvent
+    | InboundFederationTriggerEvent;
 
 const baseTest: Handler<CognitoTriggerEvent> = async (event: CognitoTriggerEvent, _, callback) => {
     str = event.version;
@@ -398,4 +401,31 @@ const customSmsSender: CustomSMSSenderTriggerHandler = async (event, _, callback
     triggerSource === "CustomSMSSender_ResendCode";
     triggerSource === "CustomSMSSender_SignUp";
     triggerSource === "CustomSMSSender_Authentication";
+};
+
+const inboundFederation: InboundFederationTriggerHandler = async (event, _, callback) => {
+    const { request, response, triggerSource } = event;
+
+    str = request.providerName;
+    str = request.providerType;
+    request.providerType === "OIDC";
+    request.providerType === "SAML";
+    request.providerType === "Facebook";
+    request.providerType === "Google";
+    request.providerType === "SignInWithApple";
+    request.providerType === "LoginWithAmazon";
+
+    objectOrUndefined = request.attributes.tokenResponse;
+    objectOrUndefined = request.attributes.idToken;
+    objectOrUndefined = request.attributes.userInfo;
+    objectOrUndefined = request.attributes.samlResponse;
+    strOrUndefined = request.attributes.idToken?.["email"];
+    strOrUndefined = request.attributes.samlResponse?.["given_name"];
+
+    obj = response.userAttributesToMap;
+    str = response.userAttributesToMap["email"];
+    response.userAttributesToMap = {};
+    response.userAttributesToMap = { email: "user@example.com", given_name: "Jane" };
+
+    triggerSource === "InboundFederation_ExternalProvider";
 };

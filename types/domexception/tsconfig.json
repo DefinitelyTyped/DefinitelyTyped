@@ -11,7 +11,7 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-        "target": "ES5"
+        "target": "es6"
     },
     "files": [
         "test/domexception.index.test.ts",

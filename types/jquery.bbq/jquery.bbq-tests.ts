@@ -228,7 +228,10 @@ $(function() { // START CLOSURE
         run_many_tests(
             // execute this for each array item
             function() {
-                current_url = $.param.querystring.apply(this, [current_url].concat(aps.call(arguments)));
+                current_url = $.param.querystring.apply(
+                    this,
+                    [current_url].concat(aps.call(arguments)) as [string?, any?, number?],
+                );
             },
             // tests:
 
@@ -399,7 +402,10 @@ $(function() { // START CLOSURE
         run_many_tests(
             // execute this for each array item
             function() {
-                current_url = $.param.fragment.apply(this, [current_url].concat(aps.call(arguments)));
+                current_url = $.param.fragment.apply(
+                    this,
+                    [current_url].concat(aps.call(arguments)) as [string, any, number?],
+                );
             },
             // tests:
 
@@ -1228,7 +1234,7 @@ $(function() { // START CLOSURE
             // execute this for each array item
             function() {
                 notice(msg += ".");
-                $.bbq.pushState.apply(this, aps.call(arguments));
+                $.bbq.pushState.apply(this, aps.call(arguments) as [any?, number?]);
             },
             // execute this at the end
             function() {

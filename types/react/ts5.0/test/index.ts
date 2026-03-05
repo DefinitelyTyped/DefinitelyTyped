@@ -135,16 +135,15 @@ class ModernComponent extends React.Component<Props, State, Snapshot> implements
     static propTypes = {};
 
     static contextType = SomeContext;
-    context: Context;
+    declare context: Context;
 
     constructor(props: Props, context: Context) {
         super(props, context);
+        this.state = {
+            inputValue: this.context.someValue,
+            seconds: this.props.foo,
+        };
     }
-
-    state = {
-        inputValue: this.context.someValue,
-        seconds: this.props.foo,
-    };
 
     reset() {
         this._myComponent.reset();
@@ -154,8 +153,8 @@ class ModernComponent extends React.Component<Props, State, Snapshot> implements
         });
     }
 
-    private readonly _myComponent: MyComponent;
-    private _input: HTMLInputElement | null;
+    private readonly _myComponent!: MyComponent;
+    private _input: HTMLInputElement | null = null;
 
     render() {
         return React.createElement(

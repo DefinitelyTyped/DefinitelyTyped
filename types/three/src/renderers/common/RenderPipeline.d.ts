@@ -1,21 +1,24 @@
-import Pipeline from "./Pipeline.js";
-import ProgrammableStage from "./ProgrammableStage.js";
-/**
- * Class for representing render pipelines.
- *
- * @private
- * @augments Pipeline
- */
-declare class RenderPipeline extends Pipeline {
-    vertexProgram: ProgrammableStage;
-    fragmentProgram: ProgrammableStage;
+import { Node } from "../../nodes/Nodes.js";
+import Renderer from "./Renderer.js";
+
+declare class RenderPipeline {
+    renderer: Renderer;
+    outputNode: Node;
+
+    outputColorTransform: boolean;
+
+    needsUpdate: boolean;
+
+    constructor(renderer: Renderer, outputNode?: Node);
+
+    render(): void;
+
+    dispose(): void;
+
     /**
-     * Constructs a new render pipeline.
-     *
-     * @param {string} cacheKey - The pipeline's cache key.
-     * @param {ProgrammableStage} vertexProgram - The pipeline's vertex shader.
-     * @param {ProgrammableStage} fragmentProgram - The pipeline's fragment shader.
+     * @deprecated "renderAsync()" has been deprecated. Use "render()" and "await renderer.init();" when creating the renderer.
      */
-    constructor(cacheKey: string, vertexProgram: ProgrammableStage, fragmentProgram: ProgrammableStage);
+    renderAsync(): Promise<void>;
 }
+
 export default RenderPipeline;

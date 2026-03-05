@@ -3,9 +3,8 @@ import Node from "../core/Node.js";
 export const Discard: (conditional?: Node) => Node;
 export const Return: () => Node;
 
-declare module "../Nodes.js" {
-    interface Node {
+declare module "../core/Node.js" {
+    interface NodeElements {
         discard: () => Node;
-        discardAssign: () => this;
     }
 }

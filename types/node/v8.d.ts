@@ -33,6 +33,7 @@ declare module "node:v8" {
         total_global_handles_size: number;
         used_global_handles_size: number;
         external_memory: number;
+        total_allocated_bytes: number;
     }
     interface HeapCodeStatistics {
         code_and_metadata_size: number;
@@ -92,6 +93,9 @@ declare module "node:v8" {
      *
      * `external_memory` The value of external\_memory is the memory size of array
      * buffers and external strings.
+     *
+     * `total_allocated_bytes` The value of total allocated bytes since the Isolate
+     * creation
      *
      * ```js
      * {
@@ -459,7 +463,7 @@ declare module "node:v8" {
      * ```
      * @since v25.0.0
      */
-    function startCPUProfile(): SyncCPUProfileHandle;
+    function startCpuProfile(): SyncCPUProfileHandle;
     /**
      * V8 only supports `Latin-1/ISO-8859-1` and `UTF16` as the underlying representation of a string.
      * If the `content` uses `Latin-1/ISO-8859-1` as the underlying representation, this function will return true;

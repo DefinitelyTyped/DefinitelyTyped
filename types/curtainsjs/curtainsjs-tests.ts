@@ -537,7 +537,7 @@ window.addEventListener("load", () => {
 
 class LocomotiveScroll {
     constructor(options: Record<string, unknown>) {}
-    isMobile: boolean;
+    isMobile!: boolean;
     on(
         event: string,
         callback: (obj: {

@@ -1,38 +1,36 @@
-import AttributeNode from "../core/AttributeNode.js";
 import Node from "../core/Node.js";
-import VarNode from "../core/VarNode.js";
 
-export const normalGeometry: AttributeNode;
+export const normalGeometry: Node<"vec3">;
 
-export const normalLocal: VarNode;
+export const normalLocal: Node<"vec3">;
 
-export const normalFlat: VarNode;
+export const normalFlat: Node<"vec3">;
 
-export const normalViewGeometry: VarNode;
+export const normalViewGeometry: Node<"vec3">;
 
-export const normalWorldGeometry: VarNode;
+export const normalWorldGeometry: Node<"vec3">;
 
-export const normalView: VarNode;
+export const normalView: Node<"vec3">;
 
-export const normalWorld: VarNode;
+export const normalWorld: Node<"vec3">;
 
-export const clearcoatNormalView: VarNode;
+export const clearcoatNormalView: Node<"vec3">;
 
-export const transformNormal: (normal: Node, matrix?: Node) => Node;
+export const transformNormal: (normal: Node, matrix?: Node) => Node<"vec3">;
 
-export const transformNormalToView: (normal: Node) => Node;
+export const transformNormalToView: (normal: Node) => Node<"vec3">;
 
 /**
  * @deprecated since r178. Use `normalView` instead.
  */
-export const transformedNormalView: VarNode;
+export const transformedNormalView: Node<"vec3">;
 
 /**
  * @deprecated since r178. Use `normalWorld` instead.
  */
-export const transformedNormalWorld: VarNode;
+export const transformedNormalWorld: Node<"vec3">;
 
 /**
  * @deprecated since r178. Use `clearcoatNormalView` instead.
  */
-export const transformedClearcoatNormalView: VarNode;
+export const transformedClearcoatNormalView: Node<"vec3">;

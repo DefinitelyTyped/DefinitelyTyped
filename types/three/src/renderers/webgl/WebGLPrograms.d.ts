@@ -8,7 +8,7 @@ import { WebGLRenderer } from "../WebGLRenderer.js";
 import { WebGLBindingStates } from "./WebGLBindingStates.js";
 import { WebGLCapabilities } from "./WebGLCapabilities.js";
 import { WebGLClipping } from "./WebGLClipping.js";
-import { WebGLCubeMaps } from "./WebGLCubeMaps.js";
+import { WebGLEnvironments } from "./WebGLEnvironments.js";
 import { WebGLExtensions } from "./WebGLExtensions.js";
 import { WebGLLightsState } from "./WebGLLights.js";
 import { WebGLProgram } from "./WebGLProgram.js";
@@ -208,7 +208,7 @@ export interface WebGLProgramParametersWithUniforms extends WebGLProgramParamete
 export class WebGLPrograms {
     constructor(
         renderer: WebGLRenderer,
-        cubemaps: WebGLCubeMaps,
+        environments: WebGLEnvironments,
         extensions: WebGLExtensions,
         capabilities: WebGLCapabilities,
         bindingStates: WebGLBindingStates,

@@ -109,7 +109,7 @@ declare namespace OpenSeadragon {
 
     function getCssPropertyWithVendorPrefix(property: string): string;
 
-    function getElement(element: string | Element): Element;
+    function getElement(element: string | Element): HTMLElement;
 
     function getElementOffset(element: Element | string): Point;
 
@@ -146,11 +146,11 @@ declare namespace OpenSeadragon {
         withCredentials?: boolean | undefined;
     }): XMLHttpRequest;
 
-    function makeCenteredNode(element: Element | string): Element;
+    function makeCenteredNode(element: Element | string): HTMLElement;
 
-    function makeNeutralElement(tagName: string): Element;
+    function makeNeutralElement(tagName: string): HTMLElement;
 
-    function makeTransparentImage(src: string): Element;
+    function makeTransparentImage(src: string): HTMLElement;
 
     function normalizeEventListenerOptions(
         options: boolean | { capture?: boolean; passive?: boolean; once?: boolean },
@@ -347,7 +347,7 @@ declare namespace OpenSeadragon {
         zoomPerDblClickDrag?: number;
         zoomPerSecond?: number | undefined;
         showNavigator?: boolean | undefined;
-        navigatorElement?: Element;
+        navigatorElement?: HTMLElement;
         navigatorId?: string | undefined;
         navigatorPosition?: "TOP_LEFT" | "TOP_RIGHT" | "BOTTOM_LEFT" | "BOTTOM_RIGHT" | "ABSOLUTE" | undefined;
         navigatorSizeRatio?: number | undefined;
@@ -385,7 +385,7 @@ declare namespace OpenSeadragon {
         showSequenceControl?: boolean | undefined;
         sequenceControlAnchor?: ControlAnchor | undefined;
         navPrevNextWrap?: boolean | undefined;
-        toolbar?: string | Element | undefined;
+        toolbar?: string | HTMLElement | undefined;
         zoomInButton?: string | Element | undefined;
         zoomOutButton?: string | Element | undefined;
         homeButton?: string | Element | undefined;
@@ -442,7 +442,7 @@ declare namespace OpenSeadragon {
 
     class Button extends EventSource<ButtonEventMap> {
         currentState: ButtonState;
-        element: Element;
+        element: HTMLElement;
         fadeDelay: number;
         fadeLength: number;
         tracker: MouseTracker;
@@ -474,7 +474,7 @@ declare namespace OpenSeadragon {
 
     class ButtonGroup {
         buttons: Button[];
-        element: Element;
+        element: HTMLElement;
         tracker: MouseTracker;
 
         constructor(options: { buttons: Button[]; element?: Element | undefined });
@@ -492,9 +492,9 @@ declare namespace OpenSeadragon {
     class Control {
         anchor: ControlAnchor;
         autoFade: boolean;
-        container: Element;
-        element: Element;
-        wrapper: Element;
+        container: HTMLElement;
+        element: HTMLElement;
+        wrapper: HTMLElement;
 
         constructor(element: Element, options: TControlOptions, container: Element);
 
@@ -522,15 +522,15 @@ declare namespace OpenSeadragon {
     }
 
     class Drawer {
-        canvas: HTMLCanvasElement | HTMLElement;
-        container: Element;
+        canvas: HTMLCanvasElement;
+        container: HTMLElement;
         context: CanvasRenderingContext2D | null;
         // element : Element; // Deprecated
 
         constructor(options: {
             viewer: Viewer;
             viewport: Viewport;
-            element: Element;
+            element: HTMLElement;
             debugGridColor?: string | undefined;
         });
 
@@ -575,13 +575,13 @@ declare namespace OpenSeadragon {
     interface TDrawerOptions {
         viewer: Viewer;
         viewport: Viewport;
-        element: Element;
+        element: HTMLElement;
         debugGridColor?: number;
     }
 
     class CanvasDrawer extends DrawerBase {
-        canvas: Element;
-        container: Element;
+        canvas: HTMLCanvasElement;
+        container: HTMLElement;
 
         constructor(options: TDrawerOptions);
     }
@@ -624,8 +624,8 @@ declare namespace OpenSeadragon {
     }
 
     class HTMLDrawer extends DrawerBase {
-        canvas: Element;
-        container: Element;
+        canvas: HTMLCanvasElement;
+        container: HTMLElement;
         constructor(options: TDrawerOptions);
     }
 
@@ -702,7 +702,7 @@ declare namespace OpenSeadragon {
     }
 
     interface MouseTrackerOptions {
-        element: Element | string;
+        element: HTMLElement | string;
         startDisabled?: boolean | undefined;
         clickTimeThreshold?: number | undefined;
         clickDistThreshold?: number | undefined;
@@ -743,7 +743,7 @@ declare namespace OpenSeadragon {
         clickDistThreshold: number;
         dblClickTimeThreshold: number;
         dblClickDistThreshold: number;
-        element: Element;
+        element: HTMLElement;
 
         constructor(options: MouseTrackerOptions);
 
@@ -787,7 +787,7 @@ declare namespace OpenSeadragon {
     interface EventProcessInfo {
         eventSource: MouseTracker;
         originalEvent: Event;
-        originalTarget: Element;
+        originalTarget: HTMLElement;
         eventPhase: EventPhase;
         eventType:
             | "keydown"
@@ -874,7 +874,7 @@ declare namespace OpenSeadragon {
     type OnDrawCallback = (position: Point, size: Point, element: Element) => void;
 
     interface OverlayOptions {
-        element: Element;
+        element: HTMLElement;
         location: Point | Rect;
         placement?: Placement | undefined;
         onDraw?: OnDrawCallback | undefined;
@@ -975,7 +975,7 @@ declare namespace OpenSeadragon {
         bounds: Rect;
         cacheKey: string;
         context2D: CanvasRenderingContext2D;
-        element: Element;
+        element: HTMLElement;
         exists: boolean;
         flipped: boolean;
         hasTransparency: boolean;
@@ -1229,10 +1229,10 @@ declare namespace OpenSeadragon {
     }
 
     class Viewer {
-        canvas: Element;
-        container: Element;
+        canvas: HTMLCanvasElement;
+        container: HTMLElement;
         drawer: Drawer;
-        element: Element;
+        element: HTMLElement;
         initialPage: number;
         navigator: Navigator;
         viewport: Viewport;
@@ -1384,8 +1384,8 @@ declare namespace OpenSeadragon {
     }
 
     class WebGLDrawer extends DrawerBase {
-        canvas: Element;
-        container: Element;
+        canvas: HTMLCanvasElement;
+        container: HTMLElement;
 
         constructor(options: TDrawerOptions);
 
@@ -1573,7 +1573,7 @@ declare namespace OpenSeadragon {
     }
 
     interface AddOverlayEvent extends ViewerEvent {
-        element: Element;
+        element: HTMLElement;
         location: Point | Rect;
         placement: Placement;
     }
@@ -1598,7 +1598,7 @@ declare namespace OpenSeadragon {
     interface CanvasClickEvent extends CanvasEvent {
         quick: boolean;
         shift: boolean;
-        originalTarget: Element;
+        originalTarget: HTMLElement;
         preventDefaultAction: boolean;
     }
 
@@ -1780,7 +1780,7 @@ declare namespace OpenSeadragon {
     }
 
     interface RemoveOverlayEvent extends ViewerEvent {
-        element: Element;
+        element: HTMLElement;
     }
 
     interface ResetSizeEvent extends ViewerEvent {
@@ -1841,7 +1841,7 @@ declare namespace OpenSeadragon {
     }
 
     interface UpdateOverlayEvent extends ViewerEvent {
-        element: Element;
+        element: HTMLElement;
         location: Point | Rect;
         placement: Placement;
     }

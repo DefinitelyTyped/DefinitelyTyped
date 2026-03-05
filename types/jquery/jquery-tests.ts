@@ -23,11 +23,6 @@ function JQueryStatic() {
         $.cssHooks;
     }
 
-    function cssNumber() {
-        // $ExpectType PlainObject<boolean>
-        $.cssNumber;
-    }
-
     function Deferred() {
         // $ExpectType DeferredStatic
         $.Deferred;
@@ -289,11 +284,6 @@ function JQueryStatic() {
             // $ExpectType jqXHR<any>
             jqXHR;
         });
-    }
-
-    function camelCase() {
-        // $ExpectType string
-        $.camelCase("foo-bar");
     }
 
     function cleanData() {
@@ -673,47 +663,9 @@ function JQueryStatic() {
         $.inArray(1, [1, 2]);
     }
 
-    function isArray() {
-        function type_guard(obj: object) {
-            if ($.isArray(obj)) {
-                // $ExpectType any[]
-                obj;
-            } else {
-                // $ExpectType object
-                obj;
-            }
-        }
-    }
-
     function isEmptyObject() {
         // $ExpectType boolean
         $.isEmptyObject({});
-    }
-
-    function isFunction() {
-        function type_guard(obj: object) {
-            if ($.isFunction(obj)) {
-                // $ExpectType Function
-                obj;
-            } else {
-                // $ExpectType object
-                obj;
-            }
-        }
-    }
-
-    function isNumeric() {
-        // $ExpectType boolean
-        $.isNumeric(123); // true
-
-        // $ExpectType boolean
-        $.isNumeric(0 / 0); // false
-
-        // $ExpectType boolean
-        $.isNumeric("123"); // true
-
-        // $ExpectType boolean
-        $.isNumeric("1s3"); // false
     }
 
     function isPlainObject() {
@@ -728,18 +680,6 @@ function JQueryStatic() {
 
         // $ExpectType boolean
         $.isPlainObject(Object.create(null)); // true
-    }
-
-    function isWindow() {
-        function type_guard(obj: object) {
-            if ($.isWindow(obj)) {
-                // $ExpectType Window
-                obj;
-            } else {
-                // $ExpectType object
-                obj;
-            }
-        }
     }
 
     function isXMLDoc() {
@@ -896,21 +836,9 @@ function JQueryStatic() {
         $.noConflict();
     }
 
-    function nodeName() {
-        const node: Node = undefined!;
-
-        // $ExpectType boolean
-        $.nodeName(node, "name");
-    }
-
     function noop() {
         // $ExpectType undefined
         $.noop();
-    }
-
-    function now() {
-        // $ExpectType number
-        $.now();
     }
 
     function param() {
@@ -963,11 +891,6 @@ function JQueryStatic() {
 
         // $ExpectType Node[]
         $.parseHTML("<span></span>");
-    }
-
-    function parseJSON() {
-        // $ExpectType any
-        $.parseJSON("{}");
     }
 
     function parseXML() {
@@ -2851,16 +2774,6 @@ function JQueryStatic() {
         $.speed();
     }
 
-    function trim() {
-        // $ExpectType string
-        $.trim("myStr");
-    }
-
-    function type() {
-        // // $ExpectType "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "array" | "date" | "error" | "null" | "regexp"
-        // $.type({});
-    }
-
     function unique() {
         // $ExpectType HTMLElement[]
         $.unique([new HTMLElement()]);
@@ -4026,12 +3939,6 @@ function JQuery() {
 
                 return "className";
             });
-
-            // $ExpectType JQuery<HTMLElement>
-            $("p").toggleClass(false);
-
-            // $ExpectType JQuery<HTMLElement>
-            $("p").toggleClass();
         }
     }
 
@@ -7294,12 +7201,12 @@ function JQuery() {
 
 function JQuery_Selectors() {
     function pseudos_colon() {
-        // $ExpectType PseudoFunctions
+        // $ExpectType { [name: string]: (elem: Element) => boolean; }
         $.expr[":"];
     }
 
     function filter() {
-        // $ExpectType FilterFunctions
+        // $ExpectType { [name: string]: (element: string, ...matches: string[]) => boolean; }
         $.expr.filter;
     }
 
@@ -8916,11 +8823,6 @@ function JQuery_Easings() {
 }
 
 function JQuery_Effects() {
-    function interval() {
-        // $ExpectType number
-        $.fx.interval;
-    }
-
     function off() {
         // $ExpectType boolean
         $.fx.off;

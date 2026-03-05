@@ -85,19 +85,19 @@ export namespace NormandyAddonStudy {
         /**
          * Returns a study object for the current study.
          */
-        getStudy(): void;
+        getStudy(): Promise<void>;
 
         /**
          * Marks the study as ended and then uninstalls the addon.
          *
          * @param reason The reason why the study is ending.
          */
-        endStudy(reason: string): void;
+        endStudy(reason: string): Promise<void>;
 
         /**
          * Returns an object with metadata about the client which may be required for constructing survey URLs.
          */
-        getClientMetadata(): void;
+        getClientMetadata(): Promise<void>;
 
         /**
          * Fired when a user unenrolls from a study but before the addon is uninstalled.

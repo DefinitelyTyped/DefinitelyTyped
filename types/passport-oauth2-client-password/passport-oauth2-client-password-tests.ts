@@ -13,8 +13,8 @@ interface IClient {
 }
 
 class Client implements IClient {
-    public clientId: string;
-    public clientSecret: string;
+    public clientId!: string;
+    public clientSecret!: string;
 
     static findOne(client: IClient, callback: (err: any, client: Client) => void): void {
         callback(null, new Client());

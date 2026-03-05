@@ -1,58 +1,52 @@
 import Node from "../core/Node.js";
 
-export default class RemapNode extends Node {
-    node: Node;
-    inLowNode: Node;
-    inHighNode: Node;
-    outLowNode: Node;
-    outHighNode: Node;
+export default class RemapNode extends Node<"float"> {
+    node: Node<"float">;
+    inLowNode: Node<"float">;
+    inHighNode: Node<"float">;
+    outLowNode: Node<"float">;
+    outHighNode: Node<"float">;
 
     doClamp: boolean;
 
-    constructor(node: Node, inLowNode: Node, inHighNode: Node, outLowNode?: Node, outHighNode?: Node);
+    constructor(
+        node: Node<"float">,
+        inLowNode: Node<"float">,
+        inHighNode: Node<"float">,
+        outLowNode?: Node<"float">,
+        outHighNode?: Node<"float">,
+    );
 }
 
 export const remap: (
-    node: Node,
-    inLowNode: Node | number,
-    inHighNode: Node | number,
-    outLowNode?: Node | number,
-    outHighNode?: Node | number,
+    node: Node<"float">,
+    inLowNode: Node<"float"> | number,
+    inHighNode: Node<"float"> | number,
+    outLowNode?: Node<"float"> | number,
+    outHighNode?: Node<"float"> | number,
 ) => RemapNode;
 export const remapClamp: (
-    node: Node,
-    inLowNode: Node | number,
-    inHighNode: Node | number,
-    outLowNode?: Node | number,
-    outHighNode?: Node | number,
+    node: Node<"float">,
+    inLowNode: Node<"float"> | number,
+    inHighNode: Node<"float"> | number,
+    outLowNode?: Node<"float"> | number,
+    outHighNode?: Node<"float"> | number,
 ) => RemapNode;
 
-declare module "../Nodes.js" {
-    interface Node {
+declare module "../core/Node.js" {
+    interface FloatExtensions {
         remap: (
-            inLowNode: Node | number,
-            inHighNode: Node | number,
-            outLowNode?: Node | number,
-            outHighNode?: Node | number,
+            inLowNode: Node<"float"> | number,
+            inHighNode: Node<"float"> | number,
+            outLowNode?: Node<"float"> | number,
+            outHighNode?: Node<"float"> | number,
         ) => RemapNode;
-        remapAssign: (
-            inLowNode: Node | number,
-            inHighNode: Node | number,
-            outLowNode?: Node | number,
-            outHighNode?: Node | number,
-        ) => this;
 
         remapClamp: (
-            inLowNode: Node | number,
-            inHighNode: Node | number,
-            outLowNode?: Node | number,
-            outHighNode?: Node | number,
+            inLowNode: Node<"float"> | number,
+            inHighNode: Node<"float"> | number,
+            outLowNode?: Node<"float"> | number,
+            outHighNode?: Node<"float"> | number,
         ) => RemapNode;
-        remapClampAssign: (
-            inLowNode: Node | number,
-            inHighNode: Node | number,
-            outLowNode?: Node | number,
-            outHighNode?: Node | number,
-        ) => this;
     }
 }

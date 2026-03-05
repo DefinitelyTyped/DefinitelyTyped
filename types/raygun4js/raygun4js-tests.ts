@@ -58,7 +58,7 @@ client.send(new Error("a error"), { some: "data" }, ["tag1", "tag2"]);
 
 try {
     throw new Error("oops");
-} catch (e) {
+} catch (e: any) {
     client.send(e);
 }
 

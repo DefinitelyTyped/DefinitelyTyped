@@ -30,6 +30,8 @@ export {};
 declare const UNDEFINED_VOID_ONLY: unique symbol;
 type VoidOrUndefinedOnly = void | { [UNDEFINED_VOID_ONLY]: never };
 
+type NativeSubmitEvent = SubmitEvent;
+
 declare module "." {
     export function unstable_useCacheRefresh(): () => void;
 
@@ -116,5 +118,12 @@ declare module "." {
 
     export interface FragmentProps {
         ref?: Ref<FragmentInstance> | undefined;
+    }
+
+    interface SubmitEvent<T = Element> extends SyntheticEvent<T, NativeSubmitEvent> {
+        /**
+         * Only available in react@canary
+         */
+        submitter: HTMLElement | null;
     }
 }

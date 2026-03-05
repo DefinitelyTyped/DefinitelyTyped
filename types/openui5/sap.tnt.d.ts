@@ -1,4 +1,4 @@
-// For Library Version: 1.144.0
+// For Library Version: 1.145.0
 
 declare module "sap/tnt/library" {
   /**
@@ -1658,8 +1658,8 @@ declare module "sap/tnt/NavigationListItem" {
     /**
      * Gets current value of property {@link #getDesign design}.
      *
-     * Specifies if the item has a special design. NOTE: If `design` is not `NavigationListItemDesign.Default`
-     * sub-items can't be added.
+     * Specifies if the item has a special design. **Note:** If the `design` property is not set to `NavigationListItemDesign.Default`,
+     * sub-items cannot be added.
      *
      * Default value is `Default`.
      *
@@ -1683,6 +1683,8 @@ declare module "sap/tnt/NavigationListItem" {
      * Gets current value of property {@link #getIcon icon}.
      *
      * Specifies the icon for the item.
+     *
+     * **Note:** By design, icons on second-level (child) navigation items are not rendered.
      *
      * Default value is `empty string`.
      *
@@ -1823,8 +1825,8 @@ declare module "sap/tnt/NavigationListItem" {
     /**
      * Sets a new value for property {@link #getDesign design}.
      *
-     * Specifies if the item has a special design. NOTE: If `design` is not `NavigationListItemDesign.Default`
-     * sub-items can't be added.
+     * Specifies if the item has a special design. **Note:** If the `design` property is not set to `NavigationListItemDesign.Default`,
+     * sub-items cannot be added.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -1862,6 +1864,8 @@ declare module "sap/tnt/NavigationListItem" {
      * Sets a new value for property {@link #getIcon icon}.
      *
      * Specifies the icon for the item.
+     *
+     * **Note:** By design, icons on second-level (child) navigation items are not rendered.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -1958,6 +1962,8 @@ declare module "sap/tnt/NavigationListItem" {
     extends $NavigationListItemBaseSettings {
     /**
      * Specifies the icon for the item.
+     *
+     * **Note:** By design, icons on second-level (child) navigation items are not rendered.
      */
     icon?: URI | PropertyBindingInfo | `{${string}}`;
 
@@ -2007,8 +2013,8 @@ declare module "sap/tnt/NavigationListItem" {
     target?: string | PropertyBindingInfo;
 
     /**
-     * Specifies if the item has a special design. NOTE: If `design` is not `NavigationListItemDesign.Default`
-     * sub-items can't be added.
+     * Specifies if the item has a special design. **Note:** If the `design` property is not set to `NavigationListItemDesign.Default`,
+     * sub-items cannot be added.
      *
      * @since 1.133.0
      * @experimental Behavior might change.
@@ -3427,8 +3433,9 @@ declare module "sap/tnt/ToolPage" {
      * Gets current value of property {@link #getSideExpanded sideExpanded}.
      *
      * Indicates if the side menu is expanded. Overrides the `expanded` property of the `sideContent` aggregation.
-     * *Note:** By default, on small screens, the side content is collapsed to provide more space for the main
-     * content. On larger screens, it is expanded. This behavior can be overridden by setting this property.
+     * *Note:** By default, on mobile phone devices and small screens, the side content is collapsed to provide
+     * more space for the main content. On larger screens, excluding mobile phone devices, it is expanded. This
+     * behavior can be overridden by setting this property.
      *
      * Default value is `true`.
      *
@@ -3580,8 +3587,9 @@ declare module "sap/tnt/ToolPage" {
   export interface $ToolPageSettings extends $ControlSettings {
     /**
      * Indicates if the side menu is expanded. Overrides the `expanded` property of the `sideContent` aggregation.
-     * **Note:** By default, on small screens, the side content is collapsed to provide more space for the main
-     * content. On larger screens, it is expanded. This behavior can be overridden by setting this property.
+     * **Note:** By default, on mobile phone devices and small screens, the side content is collapsed to provide
+     * more space for the main content. On larger screens, excluding mobile phone devices, it is expanded. This
+     * behavior can be overridden by setting this property.
      */
     sideExpanded?: boolean | PropertyBindingInfo | `{${string}}`;
 

@@ -15,31 +15,31 @@ declare module "tls" {
     import * as stream from "stream";
     const CLIENT_RENEG_LIMIT: number;
     const CLIENT_RENEG_WINDOW: number;
-    interface Certificate {
+    interface Certificate extends NodeJS.Dict<string | string[]> {
         /**
          * Country code.
          */
-        C: string;
+        C?: string | string[];
         /**
          * Street.
          */
-        ST: string;
+        ST?: string | string[];
         /**
          * Locality.
          */
-        L: string;
+        L?: string | string[];
         /**
          * Organization.
          */
-        O: string;
+        O?: string | string[];
         /**
          * Organizational unit.
          */
-        OU: string;
+        OU?: string | string[];
         /**
          * Common name.
          */
-        CN: string;
+        CN?: string | string[];
     }
     interface PeerCertificate {
         /**

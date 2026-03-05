@@ -1,3 +1,4 @@
+import { Item } from "../ui/Item.js";
 import { Tab } from "../ui/Tab.js";
 import { ValueButton, ValueCheckbox, ValueColor, ValueNumber, ValueSelect, ValueSlider } from "../ui/Values.js";
 
@@ -51,6 +52,8 @@ interface ValueColorWithParameters<
 
 declare class ParametersGroup {
     name: string;
+
+    paramList: Item;
 
     constructor(parameters: never, name: string);
 

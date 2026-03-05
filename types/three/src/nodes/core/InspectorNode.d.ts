@@ -8,9 +8,8 @@ export default InspectorNode;
 
 export function inspector<T extends Node>(node: T, name?: string, callback?: (node: T) => Node): T;
 
-declare module "../Nodes.js" {
-    interface Node {
+declare module "./Node.js" {
+    interface NodeElements {
         toInspector: (name?: string, callback?: (node: this) => Node) => this;
-        toInspectorAssign: (name?: string, callback?: (node: this) => Node) => this;
     }
 }

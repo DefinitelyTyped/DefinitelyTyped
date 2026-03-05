@@ -4,20 +4,18 @@ import Backend from "./Backend.js";
 import BindGroup from "./BindGroup.js";
 import DataMap from "./DataMap.js";
 import Info from "./Info.js";
-import Nodes from "./nodes/Nodes.js";
+import NodeManager from "./nodes/NodeManager.js";
 import Pipelines from "./Pipelines.js";
 import RenderObject from "./RenderObject.js";
 import Textures from "./Textures.js";
-interface BindGroupData {
-    bindGroup?: BindGroup | undefined;
-}
+
 /**
  * This renderer module manages the bindings of the renderer.
  *
  * @private
  * @augments DataMap
  */
-declare class Bindings extends DataMap<{
+declare class Bindings extends DataMap {
     /**
      * Constructs a new bindings management component.
      *
@@ -28,25 +26,50 @@ declare class Bindings extends DataMap<{
      * @param {Pipelines} pipelines - Renderer component for managing pipelines.
      * @param {Info} info - Renderer component for managing metrics and monitoring data.
      */
-    bindGroup: {
-        key: BindGroup;
-        value: BindGroupData;
-    };
-}> {
-    backend: Backend;
-    textures: Textures;
-    pipelines: Pipelines;
-    attributes: Attributes;
-    nodes: Nodes;
-    info: Info;
     constructor(
         backend: Backend,
-        nodes: Nodes,
+        nodes: NodeManager,
         textures: Textures,
         attributes: Attributes,
         pipelines: Pipelines,
         info: Info,
     );
+    /**
+     * The renderer's backend.
+     *
+     * @type {Backend}
+     */
+    backend: Backend;
+    /**
+     * Renderer component for managing textures.
+     *
+     * @type {Textures}
+     */
+    textures: Textures;
+    /**
+     * Renderer component for managing pipelines.
+     *
+     * @type {Pipelines}
+     */
+    pipelines: Pipelines;
+    /**
+     * Renderer component for managing attributes.
+     *
+     * @type {Attributes}
+     */
+    attributes: Attributes;
+    /**
+     * Renderer component for managing nodes related logic.
+     *
+     * @type {Nodes}
+     */
+    nodes: NodeManager;
+    /**
+     * Renderer component for managing metrics and monitoring data.
+     *
+     * @type {Info}
+     */
+    info: Info;
     /**
      * Returns the bind groups for the given render object.
      *
@@ -105,4 +128,5 @@ declare class Bindings extends DataMap<{
      */
     _update(bindGroup: BindGroup, bindings: BindGroup[]): void;
 }
+
 export default Bindings;

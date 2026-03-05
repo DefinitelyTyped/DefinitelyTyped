@@ -1,5 +1,5 @@
-import { Blob, CompressionAlgorithm, EventName, WebSocket } from "k6/experimental/websockets";
 import { CookieJar } from "k6/http";
+import { Blob, CompressionAlgorithm, EventName, WebSocket } from "k6/websockets";
 
 let str: string;
 let ab: ArrayBuffer;

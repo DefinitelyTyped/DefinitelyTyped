@@ -10,7 +10,7 @@
         "@types/node": "*"
     },
     "devDependencies": {
-        "@aws-sdk/client-sesv2": "^3.839.0",
+        "@aws-sdk/client-sesv2": "^3.985.0",
         "@types/nodemailer": "workspace:."
     },
     "owners": [

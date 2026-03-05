@@ -37,10 +37,10 @@ export namespace Management {
     type ExtensionType = "extension" | "theme";
 
     /**
-     * How the extension was installed. One of<br><var>development</var>: The extension was loaded unpacked in developer mode,
-     * <br><var>normal</var>: The extension was installed normally via an .xpi file,<br><var>sideload</var>
-     * : The extension was installed by other software on the machine,<br><var>admin</var>
-     * : The extension was installed by policy,<br><var>other</var>: The extension was installed by other means.
+     * How the extension was installed.<dl><dt>development</dt><dd>The extension was loaded unpacked in developer mode,</dd><dt>
+     * normal</dt><dd>The extension was installed normally via an .xpi file</dd><dt>sideload</dt><dd>
+     * The extension was installed by other software on the machine</dd><dt>admin</dt><dd>
+     * The extension was installed by policy</dd><dt>other</dt><dd>The extension was installed by other means.</dd></dl>
      */
     type ExtensionInstallType = "development" | "normal" | "sideload" | "admin" | "other";
 

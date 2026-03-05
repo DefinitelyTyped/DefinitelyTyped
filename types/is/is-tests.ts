@@ -3,12 +3,12 @@
 var getArguments = function() {
     return arguments;
 };
-var arguments = getArguments();
-is.arguments(arguments);
+var args = getArguments();
+is.arguments(args);
 is.not.arguments({ foo: "bar" });
-is.all.arguments(arguments, "bar");
-is.any.arguments(["foo"], arguments);
-is.all.arguments([arguments, "foo", "bar"]);
+is.all.arguments(args, "bar");
+is.any.arguments(["foo"], args);
+is.all.arguments([args, "foo", "bar"]);
 
 is.array(["foo", "bar", "baz"]);
 is.not.array({ foo: "bar" });

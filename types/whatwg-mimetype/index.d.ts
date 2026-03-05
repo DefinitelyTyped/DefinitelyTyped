@@ -1,5 +1,3 @@
-export = MIMEType;
-
 /**
  * This class will parse [MIME types](https://mimesniff.spec.whatwg.org/#understanding-mime-types) into a
  * structured format, which can then be manipulated and serialized.
@@ -23,7 +21,7 @@ export = MIMEType;
  * console.assert(mimeType.isHTML() === true);
  * console.assert(mimeType.isXML() === false);
  */
-declare class MIMEType {
+export class MIMEType {
     /**
      * the MIME type's [type](https://mimesniff.spec.whatwg.org/#mime-type-type), e.g. `"text"`
      */
@@ -75,7 +73,7 @@ declare class MIMEType {
     isJavaScript(opts?: { prohibitParameters?: boolean | undefined }): boolean;
 }
 
-declare namespace MIMEType {
+export namespace MIMEType {
     /**
      * The `MIMETypeParameters` class, instances of which are returned by `mimeType.parameters`, has equivalent
      * surface API to a [JavaScript `Map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map).
@@ -121,3 +119,27 @@ declare namespace MIMEType {
         [Symbol.iterator](): IterableIterator<[string, string]>;
     }
 }
+
+/**
+ * Determine the computed MIME type of a resource.
+ * https://mimesniff.spec.whatwg.org/#determining-the-computed-mime-type-of-a-resource
+ *
+ * @param resource - The resource bytes
+ * @returns The computed MIME type
+ */
+export function computedMIMEType(
+    resource: Uint8Array,
+    options?: {
+        /** The Content-Type header value (for HTTP resources) */
+        contentTypeHeader?: string;
+
+        /** MIME type from filesystem or other protocol (for non-HTTP resources) */
+        providedType?: string;
+
+        /** Whether the X-Content-Type-Options: nosniff header was present */
+        noSniff?: boolean;
+
+        /** Predicate to check if an image/audio/video MIME type is supported */
+        isSupported?: (mimeType: MIMEType) => boolean;
+    },
+): MIMEType;

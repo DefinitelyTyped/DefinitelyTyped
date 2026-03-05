@@ -13,13 +13,10 @@ export const debug: (
     callback?: ((node: NodeBuilder, code: string) => void) | null,
 ) => DebugNode;
 
-declare module "../Nodes.js" {
-    interface Node {
+declare module "../core/Node.js" {
+    interface NodeElements {
         debug: (
             callback?: ((node: NodeBuilder, code: string) => void) | null,
         ) => DebugNode;
-        debugAssign: (
-            callback?: ((node: NodeBuilder, code: string) => void) | null,
-        ) => this;
     }
 }

@@ -1,3 +1,5 @@
+import { DepthModes } from "./constants.js";
+
 declare function isTypedArray(object: unknown): boolean;
 
 declare function createCanvasElement(): HTMLCanvasElement;
@@ -18,6 +20,8 @@ declare function warnOnce(...params: unknown[]): void;
 
 declare function probeAsync(gl: WebGLRenderingContext, sync: WebGLSync, interval: number): Promise<void>;
 
+declare const ReversedDepthFuncs: { [K in DepthModes]: DepthModes };
+
 export {
     createCanvasElement,
     error,
@@ -25,6 +29,7 @@ export {
     isTypedArray,
     log,
     probeAsync,
+    ReversedDepthFuncs,
     setConsoleFunction,
     warn,
     warnOnce,

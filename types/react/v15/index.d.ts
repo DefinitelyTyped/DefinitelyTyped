@@ -2721,12 +2721,12 @@ declare namespace React {
         // Living Standard
         /**
          * Hints at the type of data that might be entered by the user while editing the element or its contents
-         * @see https://html.spec.whatwg.org/multipage/interaction.html#input-modalities:-the-inputmode-attribute
+         * @see {@link https://html.spec.whatwg.org/multipage/interaction.html#input-modalities:-the-inputmode-attribute}
          */
         inputMode?: "none" | "text" | "tel" | "url" | "email" | "numeric" | "decimal" | "search" | undefined;
         /**
          * Specify that a standard HTML element should behave like a defined custom built-in element
-         * @see https://html.spec.whatwg.org/multipage/custom-elements.html#attr-is
+         * @see {@link https://html.spec.whatwg.org/multipage/custom-elements.html#attr-is}
          */
         is?: string | undefined;
         /**

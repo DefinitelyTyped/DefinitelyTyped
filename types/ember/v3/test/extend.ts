@@ -23,8 +23,8 @@ assertType<string>(person.getFullName());
 assertType<number>(person.extra);
 
 class ES6Person extends Ember.Object {
-    firstName: string;
-    lastName: string;
+    firstName!: string;
+    lastName!: string;
 
     get fullName() {
         return `${this.firstName} ${this.lastName}`;

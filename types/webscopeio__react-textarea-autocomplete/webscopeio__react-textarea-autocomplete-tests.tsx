@@ -20,8 +20,8 @@ const MyTextArea: React.FC<MyTextAreaProps> = (props: MyTextAreaProps) => {
     return <textarea {...props} />;
 };
 class Autocomplete extends React.Component {
-    private rta: ReactTextareaAutocomplete<string, MyTextAreaProps> | null;
-    private textarea: HTMLTextAreaElement;
+    private rta!: ReactTextareaAutocomplete<string, MyTextAreaProps> | null;
+    private textarea!: HTMLTextAreaElement;
 
     private readonly names = ["abc", "def", "ghi"];
 

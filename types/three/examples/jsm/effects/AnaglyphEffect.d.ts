@@ -5,6 +5,10 @@ declare class AnaglyphEffect {
 
     colorMatrixRight: Matrix3;
 
+    eyeSep: number;
+
+    planeDistance: number;
+
     setSize: (width: number, height: number) => void;
 
     render: (scene: Scene, camera: Camera) => void;

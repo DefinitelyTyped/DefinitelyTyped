@@ -6,7 +6,7 @@ import { DirectLightData, DirectRectAreaLightData } from "./LightsNode.js";
 import ShadowNode from "./ShadowNode.js";
 
 declare module "../../lights/LightShadow.js" {
-    export interface LightShadow {
+    interface LightShadow {
         shadowNode?: Node;
     }
 }

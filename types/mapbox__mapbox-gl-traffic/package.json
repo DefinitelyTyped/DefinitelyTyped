@@ -6,7 +6,7 @@
         "https://github.com/mapbox/mapbox-gl-traffic"
     ],
     "dependencies": {
-        "@types/mapbox-gl": "*",
+        "@types/mapbox-gl": "<3.5",
         "@types/node": "*"
     },
     "devDependencies": {

@@ -24,9 +24,9 @@ class ImperativeUsageTest extends React.Component<any> {
         };
     }
 
-    fadingPopupModal: Modal;
-    scalingPopupModal: Modal;
-    slidingPopupModal: Modal;
+    fadingPopupModal!: Modal;
+    scalingPopupModal!: Modal;
+    slidingPopupModal!: Modal;
 
     componentDidMount() {
         this.fadingPopupModal = ModalPortal.show(<FakeModalContent />, {

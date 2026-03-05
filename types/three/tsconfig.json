@@ -20,7 +20,6 @@
         "test/integration/instanced-mesh.ts",
         "test/integration/lights-pointlights2.ts",
         "test/integration/loaders-gltfloader-plugin.ts",
-        "test/integration/materials-meshgouraud.ts",
         "test/integration/objects-reflector.ts",
         "test/integration/three-examples/webgl2_rendertarget_texture2darray.ts",
         "test/integration/three-examples/webgl_loader_ldraw.ts",

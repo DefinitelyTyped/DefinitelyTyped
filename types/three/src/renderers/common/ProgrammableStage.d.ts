@@ -1,4 +1,5 @@
 import NodeAttribute from "../../nodes/core/NodeAttribute.js";
+
 /**
  * Class for representing programmable stages which are vertex,
  * fragment or compute shaders. Unlike fixed-function states (like blending),
@@ -7,12 +8,6 @@ import NodeAttribute from "../../nodes/core/NodeAttribute.js";
  * @private
  */
 declare class ProgrammableStage {
-    id: number;
-    code: string;
-    stage: "compute" | "vertex" | "fragment";
-    name: string;
-    attributes: NodeAttribute[] | null;
-    usedTimes: number;
     /**
      * Constructs a new programmable stage.
      *
@@ -24,10 +19,55 @@ declare class ProgrammableStage {
      */
     constructor(
         code: string,
-        stage: "compute" | "vertex" | "fragment",
+        stage: "vertex" | "fragment" | "compute",
         name: string,
-        transforms?: null,
+        transforms?: unknown[] | null,
         attributes?: NodeAttribute[] | null,
     );
+    /**
+     * The id of the programmable stage.
+     *
+     * @type {number}
+     */
+    id: number;
+    /**
+     * The shader code.
+     *
+     * @type {string}
+     */
+    code: string;
+    /**
+     * The type of stage.
+     *
+     * @type {string}
+     */
+    stage: "vertex" | "fragment" | "compute";
+    /**
+     * The name of the stage.
+     * This is used for debugging purposes.
+     *
+     * @type {string}
+     */
+    name: string;
+    /**
+     * The transforms (only relevant for compute stages with WebGL 2 which uses Transform Feedback).
+     *
+     * @type {?Array<Object>}
+     */
+    transforms: unknown[] | null;
+    /**
+     * The attributes (only relevant for compute stages with WebGL 2 which uses Transform Feedback).
+     *
+     * @type {?Array<Object>}
+     */
+    attributes: NodeAttribute[] | null;
+    /**
+     * How often the programmable stage is currently in use.
+     *
+     * @type {number}
+     * @default 0
+     */
+    usedTimes: number;
 }
+
 export default ProgrammableStage;

@@ -7,11 +7,11 @@ const FormatCurrencyHelper = Ember.Helper.helper((params: [number], hash: { curr
 });
 
 class User extends Ember.Object {
-    email: string;
+    email!: string;
 }
 
 class SessionService extends Ember.Service {
-    currentUser: User;
+    currentUser!: User;
 }
 
 declare module "@ember/service" {

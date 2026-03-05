@@ -8,7 +8,7 @@ declare class SSAAPassNode extends PassNode {
     clearColor: Color;
     clearAlpha: number;
 
-    sampleWeight: UniformNode<number>;
+    sampleWeight: UniformNode<"float", number>;
 
     sampleRenderTarget: RenderTarget | null;
 

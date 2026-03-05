@@ -1,6 +1,6 @@
 import { Camera } from "../../cameras/Camera.js";
-import { ShadowMapType, TextureDataType, TimestampQuery, ToneMapping } from "../../constants.js";
-import { BufferAttribute } from "../../core/BufferAttribute.js";
+import { CoordinateSystem, ShadowMapType, TextureDataType, TimestampQuery, ToneMapping } from "../../constants.js";
+import { BufferAttribute, TypedArray } from "../../core/BufferAttribute.js";
 import { BufferGeometry, GeometryGroup } from "../../core/BufferGeometry.js";
 import { Object3D } from "../../core/Object3D.js";
 import { RenderTarget } from "../../core/RenderTarget.js";
@@ -11,53 +11,36 @@ import { ColorRepresentation } from "../../math/Color.js";
 import { Vector2 } from "../../math/Vector2.js";
 import { Vector3 } from "../../math/Vector3.js";
 import { Vector4 } from "../../math/Vector4.js";
+import ContextNode from "../../nodes/core/ContextNode.js";
 import MRTNode from "../../nodes/core/MRTNode.js";
 import ComputeNode from "../../nodes/gpgpu/ComputeNode.js";
 import LightsNode from "../../nodes/lighting/LightsNode.js";
-import { Group } from "../../objects/Group.js";
 import { Scene } from "../../scenes/Scene.js";
 import { FramebufferTexture } from "../../textures/FramebufferTexture.js";
 import { Texture } from "../../textures/Texture.js";
-import Animation from "./Animation.js";
-import Attributes from "./Attributes.js";
 import Backend from "./Backend.js";
-import Background from "./Background.js";
-import Bindings from "./Bindings.js";
 import CanvasTarget from "./CanvasTarget.js";
 import ClippingContext from "./ClippingContext.js";
 import Color4 from "./Color4.js";
-import Geometries from "./Geometries.js";
 import IndirectStorageBufferAttribute from "./IndirectStorageBufferAttribute.js";
 import Info from "./Info.js";
 import InspectorBase from "./InspectorBase.js";
 import Lighting from "./Lighting.js";
 import NodeLibrary from "./nodes/NodeLibrary.js";
-import Nodes from "./nodes/Nodes.js";
-import Pipelines from "./Pipelines.js";
-import QuadMesh from "./QuadMesh.js";
-import RenderBundle from "./RenderBundle.js";
-import RenderBundles from "./RenderBundles.js";
-import RenderContext from "./RenderContext.js";
-import RenderContexts from "./RenderContexts.js";
-import RenderList, { Bundle, RenderItem } from "./RenderList.js";
-import RenderLists from "./RenderLists.js";
-import RenderObjects from "./RenderObjects.js";
-import Textures from "./Textures.js";
+import { RenderItem } from "./RenderList.js";
+import StorageBufferAttribute from "./StorageBufferAttribute.js";
 import XRManager from "./XRManager.js";
-interface Rectangle {
-    x: number;
-    y: number;
-    z: number;
-    w: number;
-}
+
 interface DeviceLostInfo {
     api: "WebGL" | "WebGPU";
     message: string;
     reason: string | null;
     originalEvent: unknown;
 }
+
 export interface RendererParameters {
     logarithmicDepthBuffer?: boolean | undefined;
+    reversedDepthBuffer?: boolean | undefined;
     alpha?: boolean | undefined;
     depth?: boolean | undefined;
     stencil?: boolean | undefined;
@@ -67,127 +50,17 @@ export interface RendererParameters {
     outputBufferType?: TextureDataType | undefined;
     multiview?: boolean | undefined;
 }
+
 /**
  * Base class for renderers.
  */
 declare class Renderer {
-    readonly isRenderer: true;
-    backend: Backend;
-    autoClear: boolean;
-    autoClearColor: boolean;
-    autoClearDepth: boolean;
-    autoClearStencil: boolean;
-    alpha: boolean;
-    logarithmicDepthBuffer: boolean;
-    outputColorSpace: string;
-    toneMapping: ToneMapping;
-    toneMappingExposure: number;
-    sortObjects: boolean;
-    depth: boolean;
-    stencil: boolean;
-    info: Info;
-    library: NodeLibrary;
-    lighting: Lighting;
-    _samples: number;
-    _canvasTarget: CanvasTarget;
-    _inspector: InspectorBase;
-    _getFallback: ((error: unknown) => Backend) | null;
-    _attributes: Attributes | null;
-    _geometries: Geometries | null;
-    _nodes: Nodes | null;
-    _animation: Animation | null;
-    _bindings: Bindings | null;
-    _objects: RenderObjects | null;
-    _pipelines: Pipelines | null;
-    _bundles: RenderBundles | null;
-    _renderLists: RenderLists | null;
-    _renderContexts: RenderContexts | null;
-    _textures: Textures | null;
-    _background: Background | null;
-    _quad: QuadMesh;
-    _currentRenderContext: RenderContext | null;
-    _opaqueSort: ((a: RenderItem, b: RenderItem) => number) | null;
-    _transparentSort: ((a: RenderItem, b: RenderItem) => number) | null;
-    _frameBufferTarget: RenderTarget | null;
-    _clearColor: Color4;
-    _clearDepth: number;
-    _clearStencil: number;
-    _renderTarget: RenderTarget | null;
-    _activeCubeFace: number;
-    _activeMipmapLevel: number;
-    _outputRenderTarget: RenderTarget | null;
-    _mrt: MRTNode | null;
-    _renderObjectFunction:
-        | ((
-            object: Object3D,
-            scene: Scene,
-            camera: Camera,
-            geometry: BufferGeometry,
-            material: Material,
-            group: GeometryGroup,
-            lightsNode: LightsNode,
-            clippingContext: ClippingContext | null,
-            passId: string | null,
-        ) => void)
-        | null;
-    _currentRenderObjectFunction:
-        | ((
-            object: Object3D,
-            scene: Scene,
-            camera: Camera,
-            geometry: BufferGeometry,
-            material: Material,
-            group: GeometryGroup,
-            lightsNode: LightsNode,
-            clippingContext: ClippingContext | null,
-            passId: string | null,
-        ) => void)
-        | null;
-    _currentRenderBundle: RenderBundle | null;
-    _handleObjectFunction: (
-        object: Object3D,
-        material: Material,
-        scene: Scene,
-        camera: Camera,
-        lightsNode: LightsNode,
-        group: GeometryGroup,
-        clippingContext: ClippingContext | null,
-        passId?: string,
-    ) => void;
-    _isDeviceLost: boolean;
-    onDeviceLost: (info: DeviceLostInfo) => void;
-    _outputBufferType: TextureDataType;
-    _initialized: boolean;
-    _initPromise: Promise<this> | null;
-    _compilationPromises: Promise<void>[] | null;
-    transparent: boolean;
-    opaque: boolean;
-    shadowMap: {
-        enabled: boolean;
-        type: ShadowMapType | null;
-    };
-    xr: XRManager;
-    debug: {
-        checkShaderErrors: boolean;
-        onShaderError:
-            | ((
-                gl: WebGL2RenderingContext,
-                programGPU: WebGLProgram,
-                glVertexShader: WebGLShader,
-                glFragmentShader: WebGLShader,
-            ) => void)
-            | null;
-        getShaderAsync: (scene: Scene, camera: Camera, object: Object3D) => Promise<{
-            fragmentShader: string | null;
-            vertexShader: string | null;
-        }>;
-    };
-    localClippingEnabled?: boolean | undefined;
     /**
      * Renderer options.
      *
      * @typedef {Object} Renderer~Options
      * @property {boolean} [logarithmicDepthBuffer=false] - Whether logarithmic depth buffer is enabled or not.
+     * @property {boolean} [reversedDepthBuffer=false] - Whether reversed depth buffer is enabled or not.
      * @property {boolean} [alpha=true] - Whether the default framebuffer (which represents the final contents of the canvas) should be transparent or opaque.
      * @property {boolean} [depth=true] - Whether the default framebuffer should have a depth buffer or not.
      * @property {boolean} [stencil=false] - Whether the default framebuffer should have a stencil buffer or not.
@@ -206,6 +79,578 @@ declare class Renderer {
      * @param {Renderer~Options} [parameters] - The configuration parameter.
      */
     constructor(backend: Backend, parameters?: RendererParameters);
+    /**
+     * This flag can be used for type testing.
+     *
+     * @type {boolean}
+     * @readonly
+     * @default true
+     */
+    readonly isRenderer: boolean;
+    /**
+     * A reference to the current backend.
+     *
+     * @type {Backend}
+     */
+    backend: Backend;
+    /**
+     * Whether the renderer should automatically clear the current rendering target
+     * before execute a `render()` call. The target can be the canvas (default framebuffer)
+     * or the current bound render target (custom framebuffer).
+     *
+     * @type {boolean}
+     * @default true
+     */
+    autoClear: boolean;
+    /**
+     * When `autoClear` is set to `true`, this property defines whether the renderer
+     * should clear the color buffer.
+     *
+     * @type {boolean}
+     * @default true
+     */
+    autoClearColor: boolean;
+    /**
+     * When `autoClear` is set to `true`, this property defines whether the renderer
+     * should clear the depth buffer.
+     *
+     * @type {boolean}
+     * @default true
+     */
+    autoClearDepth: boolean;
+    /**
+     * When `autoClear` is set to `true`, this property defines whether the renderer
+     * should clear the stencil buffer.
+     *
+     * @type {boolean}
+     * @default true
+     */
+    autoClearStencil: boolean;
+    /**
+     * Whether the default framebuffer should be transparent or opaque.
+     *
+     * @type {boolean}
+     * @default true
+     */
+    alpha: boolean;
+    /**
+     * Whether logarithmic depth buffer is enabled or not.
+     *
+     * @type {boolean}
+     * @default false
+     * @readonly
+     */
+    readonly logarithmicDepthBuffer: boolean;
+    /**
+     * Whether reversed depth buffer is enabled or not.
+     *
+     * @type {boolean}
+     * @default false
+     * @readonly
+     */
+    readonly reversedDepthBuffer: boolean;
+    /**
+     * Defines the output color space of the renderer.
+     *
+     * @type {string}
+     * @default SRGBColorSpace
+     */
+    outputColorSpace: string;
+    /**
+     * Defines the tone mapping of the renderer.
+     *
+     * @type {number}
+     * @default NoToneMapping
+     */
+    toneMapping: ToneMapping;
+    /**
+     * Defines the tone mapping exposure.
+     *
+     * @type {number}
+     * @default 1
+     */
+    toneMappingExposure: number;
+    /**
+     * Whether the renderer should sort its render lists or not.
+     *
+     * Note: Sorting is used to attempt to properly render objects that have some degree of transparency.
+     * By definition, sorting objects may not work in all cases. Depending on the needs of application,
+     * it may be necessary to turn off sorting and use other methods to deal with transparency rendering
+     * e.g. manually determining each object's rendering order.
+     *
+     * @type {boolean}
+     * @default true
+     */
+    sortObjects: boolean;
+    /**
+     * Whether the default framebuffer should have a depth buffer or not.
+     *
+     * @type {boolean}
+     * @default true
+     */
+    depth: boolean;
+    /**
+     * Whether the default framebuffer should have a stencil buffer or not.
+     *
+     * @type {boolean}
+     * @default false
+     */
+    stencil: boolean;
+    /**
+     * Holds a series of statistical information about the GPU memory
+     * and the rendering process. Useful for debugging and monitoring.
+     *
+     * @type {Info}
+     */
+    info: Info;
+    /**
+     * A global context node that stores override nodes for specific transformations or calculations.
+     * These nodes can be used to replace default behavior in the rendering pipeline.
+     *
+     * @type {ContextNode}
+     * @property {Object} value - The context value object.
+     */
+    contextNode: ContextNode<unknown>;
+    /**
+     * The node library defines how certain library objects like materials, lights
+     * or tone mapping functions are mapped to node types. This is required since
+     * although instances of classes like `MeshBasicMaterial` or `PointLight` can
+     * be part of the scene graph, they are internally represented as nodes for
+     * further processing.
+     *
+     * @type {NodeLibrary}
+     */
+    library: NodeLibrary;
+    /**
+     * A map-like data structure for managing lights.
+     *
+     * @type {Lighting}
+     */
+    lighting: Lighting;
+    /**
+     * The number of MSAA samples.
+     *
+     * @private
+     * @type {number}
+     * @default 0
+     */
+    private _samples;
+    /**
+     * Callback when the canvas has been resized.
+     *
+     * @private
+     */
+    private _onCanvasTargetResize;
+    /**
+     * The canvas target for rendering.
+     *
+     * @private
+     * @type {CanvasTarget}
+     */
+    private _canvasTarget;
+    /**
+     * The inspector provides information about the internal renderer state.
+     *
+     * @private
+     * @type {InspectorBase}
+     */
+    private _inspector;
+    /**
+     * This callback function can be used to provide a fallback backend, if the primary backend can't be targeted.
+     *
+     * @private
+     * @type {?Function}
+     */
+    private _getFallback;
+    /**
+     * A reference to a renderer module for managing shader attributes.
+     *
+     * @private
+     * @type {?Attributes}
+     * @default null
+     */
+    private _attributes;
+    /**
+     * A reference to a renderer module for managing geometries.
+     *
+     * @private
+     * @type {?Geometries}
+     * @default null
+     */
+    private _geometries;
+    /**
+     * A reference to a renderer module for managing node related logic.
+     *
+     * @private
+     * @type {?NodeManager}
+     * @default null
+     */
+    private _nodes;
+    /**
+     * A reference to a renderer module for managing the internal animation loop.
+     *
+     * @private
+     * @type {?Animation}
+     * @default null
+     */
+    private _animation;
+    /**
+     * A reference to a renderer module for managing shader program bindings.
+     *
+     * @private
+     * @type {?Bindings}
+     * @default null
+     */
+    private _bindings;
+    /**
+     * A reference to a renderer module for managing render objects.
+     *
+     * @private
+     * @type {?RenderObjects}
+     * @default null
+     */
+    private _objects;
+    /**
+     * A reference to a renderer module for managing render and compute pipelines.
+     *
+     * @private
+     * @type {?Pipelines}
+     * @default null
+     */
+    private _pipelines;
+    /**
+     * A reference to a renderer module for managing render bundles.
+     *
+     * @private
+     * @type {?RenderBundles}
+     * @default null
+     */
+    private _bundles;
+    /**
+     * A reference to a renderer module for managing render lists.
+     *
+     * @private
+     * @type {?RenderLists}
+     * @default null
+     */
+    private _renderLists;
+    /**
+     * A reference to a renderer module for managing render contexts.
+     *
+     * @private
+     * @type {?RenderContexts}
+     * @default null
+     */
+    private _renderContexts;
+    /**
+     * A reference to a renderer module for managing textures.
+     *
+     * @private
+     * @type {?Textures}
+     * @default null
+     */
+    private _textures;
+    /**
+     * A reference to a renderer module for backgrounds.
+     *
+     * @private
+     * @type {?Background}
+     * @default null
+     */
+    private _background;
+    /**
+     * This fullscreen quad is used for internal render passes
+     * like the tone mapping and color space output pass.
+     *
+     * @private
+     * @type {QuadMesh}
+     */
+    private _quad;
+    /**
+     * A reference to the current render context.
+     *
+     * @private
+     * @type {?RenderContext}
+     * @default null
+     */
+    private _currentRenderContext;
+    /**
+     * A custom sort function for the opaque render list.
+     *
+     * @private
+     * @type {?Function}
+     * @default null
+     */
+    private _opaqueSort;
+    /**
+     * A custom sort function for the transparent render list.
+     *
+     * @private
+     * @type {?Function}
+     * @default null
+     */
+    private _transparentSort;
+    /**
+     * The framebuffer target.
+     *
+     * @private
+     * @type {?RenderTarget}
+     * @default null
+     */
+    private _frameBufferTarget;
+    /**
+     * The clear color value.
+     *
+     * @private
+     * @type {Color4}
+     */
+    private _clearColor;
+    /**
+     * The clear depth value.
+     *
+     * @private
+     * @type {number}
+     * @default 1
+     */
+    private _clearDepth;
+    /**
+     * The clear stencil value.
+     *
+     * @private
+     * @type {number}
+     * @default 0
+     */
+    private _clearStencil;
+    /**
+     * The current render target.
+     *
+     * @private
+     * @type {?RenderTarget}
+     * @default null
+     */
+    private _renderTarget;
+    /**
+     * The active cube face.
+     *
+     * @private
+     * @type {number}
+     * @default 0
+     */
+    private _activeCubeFace;
+    /**
+     * The active mipmap level.
+     *
+     * @private
+     * @type {number}
+     * @default 0
+     */
+    private _activeMipmapLevel;
+    /**
+     * The current output render target.
+     *
+     * @private
+     * @type {?RenderTarget}
+     * @default null
+     */
+    private _outputRenderTarget;
+    /**
+     * The MRT setting.
+     *
+     * @private
+     * @type {?MRTNode}
+     * @default null
+     */
+    private _mrt;
+    /**
+     * This function defines how a render object is going
+     * to be rendered.
+     *
+     * @private
+     * @type {?Function}
+     * @default null
+     */
+    private _renderObjectFunction;
+    /**
+     * Used to keep track of the current render object function.
+     *
+     * @private
+     * @type {?Function}
+     * @default null
+     */
+    private _currentRenderObjectFunction;
+    /**
+     * Used to keep track of the current render bundle.
+     *
+     * @private
+     * @type {?RenderBundle}
+     * @default null
+     */
+    private _currentRenderBundle;
+    /**
+     * Next to `_renderObjectFunction()`, this function provides another hook
+     * for influencing the render process of a render object. It is meant for internal
+     * use and only relevant for `compileAsync()` right now. Instead of using
+     * the default logic of `_renderObjectDirect()` which actually draws the render object,
+     * a different function might be used which performs no draw but just the node
+     * and pipeline updates.
+     *
+     * @private
+     * @type {Function}
+     */
+    private _handleObjectFunction;
+    /**
+     * Indicates whether the device has been lost or not. In WebGL terms, the device
+     * lost is considered as a context lost. When this is set to `true`, rendering
+     * isn't possible anymore.
+     *
+     * @private
+     * @type {boolean}
+     * @default false
+     */
+    private _isDeviceLost;
+    /**
+     * A callback function that defines what should happen when a device/context lost occurs.
+     *
+     * @type {Function}
+     */
+    onDeviceLost: (info: DeviceLostInfo) => void;
+    /**
+     * Defines the type of output buffers. The default `HalfFloatType` is recommend for
+     * best quality. To save memory and bandwidth, `UnsignedByteType` might be used.
+     * This will reduce rendering quality though.
+     *
+     * @private
+     * @type {number}
+     * @default HalfFloatType
+     */
+    private _outputBufferType;
+    /**
+     * A cache for shadow nodes per material
+     *
+     * @private
+     * @type {WeakMap<Material, Object>}
+     */
+    private _cacheShadowNodes;
+    /**
+     * Whether the renderer has been initialized or not.
+     *
+     * @private
+     * @type {boolean}
+     * @default false
+     */
+    private _initialized;
+    /**
+     * The call depth of the renderer. Counts the number of
+     * nested render calls.
+     *
+     * @private
+     * @type {number}
+     * @default - 1
+     */
+    private _callDepth;
+    /**
+     * A reference to the promise which initializes the renderer.
+     *
+     * @private
+     * @type {?Promise<this>}
+     * @default null
+     */
+    private _initPromise;
+    /**
+     * An array of compilation promises which are used in `compileAsync()`.
+     *
+     * @private
+     * @type {?Array<Promise>}
+     * @default null
+     */
+    private _compilationPromises;
+    /**
+     * Whether the renderer should render transparent render objects or not.
+     *
+     * @type {boolean}
+     * @default true
+     */
+    transparent: boolean;
+    /**
+     * Whether the renderer should render opaque render objects or not.
+     *
+     * @type {boolean}
+     * @default true
+     */
+    opaque: boolean;
+    /**
+     * Shadow map configuration
+     * @typedef {Object} ShadowMapConfig
+     * @property {boolean} enabled - Whether to globally enable shadows or not.
+     * @property {boolean} transmitted - Whether to enable light transmission through non-opaque materials.
+     * @property {number} type - The shadow map type.
+     */
+    /**
+     * The renderer's shadow configuration.
+     *
+     * @type {ShadowMapConfig}
+     */
+    shadowMap: {
+        /**
+         * - Whether to globally enable shadows or not.
+         */
+        enabled: boolean;
+        /**
+         * - Whether to enable light transmission through non-opaque materials.
+         */
+        transmitted: boolean;
+        /**
+         * - The shadow map type.
+         */
+        type: ShadowMapType;
+    };
+    /**
+     * XR configuration.
+     * @typedef {Object} XRConfig
+     * @property {boolean} enabled - Whether to globally enable XR or not.
+     */
+    /**
+     * The renderer's XR manager.
+     *
+     * @type {XRManager}
+     */
+    xr: XRManager;
+    /**
+     * Debug configuration.
+     * @typedef {Object} DebugConfig
+     * @property {boolean} checkShaderErrors - Whether shader errors should be checked or not.
+     * @property {?Function} onShaderError - A callback function that is executed when a shader error happens. Only supported with WebGL 2 right now.
+     * @property {Function} getShaderAsync - Allows the get the raw shader code for the given scene, camera and 3D object.
+     */
+    /**
+     * The renderer's debug configuration.
+     *
+     * @type {DebugConfig}
+     */
+    debug: {
+        /**
+         * - Whether shader errors should be checked or not.
+         */
+        checkShaderErrors: boolean;
+        /**
+         * - A callback function that is executed when a shader error happens. Only supported with WebGL 2 right now.
+         */
+        onShaderError:
+            | ((
+                gl: WebGL2RenderingContext,
+                programGPU: WebGLProgram,
+                glVertexShader: WebGLShader,
+                glFragmentShader: WebGLShader,
+            ) => void)
+            | null;
+        /**
+         * - Allows the get the raw shader code for the given scene, camera and 3D object.
+         */
+        getShaderAsync: (scene: Scene, camera: Camera, object: Object3D) => Promise<{
+            fragmentShader: string | null;
+            vertexShader: string | null;
+        }>;
+    };
     /**
      * Initializes the renderer so it is ready for usage.
      *
@@ -229,7 +674,7 @@ declare class Renderer {
      * @readonly
      * @type {number}
      */
-    get coordinateSystem(): import("../../constants.js").CoordinateSystem;
+    get coordinateSystem(): CoordinateSystem;
     /**
      * Compiles all materials in the given scene. This can be useful to avoid a
      * phenomenon which is called "shader compilation stutter", which occurs when
@@ -295,13 +740,13 @@ declare class Renderer {
      * @param {MRTNode} mrt - The MRT node to set.
      * @return {Renderer} A reference to this renderer.
      */
-    setMRT(mrt: MRTNode | null): this;
+    setMRT(mrt: MRTNode | null): Renderer;
     /**
      * Returns the MRT configuration.
      *
      * @return {MRTNode} The MRT configuration.
      */
-    getMRT(): MRTNode | null;
+    getMRT(): MRTNode;
     /**
      * Returns the output buffer type.
      *
@@ -321,7 +766,7 @@ declare class Renderer {
      * @private
      * @param {Object} info - Information about the context lost.
      */
-    _onDeviceLost(info: DeviceLostInfo): void;
+    private _onDeviceLost;
     /**
      * Renders the given render bundle.
      *
@@ -330,7 +775,7 @@ declare class Renderer {
      * @param {Scene} sceneRef - The scene the render bundle belongs to.
      * @param {LightsNode} lightsNode - The lights node.
      */
-    _renderBundle(bundle: Bundle, sceneRef: Scene, lightsNode: LightsNode): void;
+    private _renderBundle;
     /**
      * Renders the scene or 3D object with the given camera. This method can only be called
      * if the renderer has been initialized. When using `render()` inside an animation loop,
@@ -362,7 +807,7 @@ declare class Renderer {
      * @private
      * @return {?RenderTarget} The render target. The method returns `null` if no output conversion should be applied.
      */
-    _getFrameBufferTarget(): RenderTarget<Texture<unknown>> | null;
+    private _getFrameBufferTarget;
     /**
      * Renders the scene or 3D object with the given camera.
      *
@@ -372,7 +817,7 @@ declare class Renderer {
      * @param {boolean} [useFrameBufferTarget=true] - Whether to use a framebuffer target or not.
      * @return {RenderContext} The current render context.
      */
-    _renderScene(scene: Object3D, camera: Camera, useFrameBufferTarget?: boolean): RenderContext | undefined;
+    private _renderScene;
     _setXRLayerSize(width: number, height: number): void;
     /**
      * The output pass performs tone mapping and color space conversion.
@@ -380,7 +825,7 @@ declare class Renderer {
      * @private
      * @param {RenderTarget} renderTarget - The current render target.
      */
-    _renderOutput(renderTarget: RenderTarget): void;
+    private _renderOutput;
     /**
      * Returns the maximum available anisotropy for texture filtering.
      *
@@ -429,7 +874,7 @@ declare class Renderer {
      *
      * @return {GPUCanvasContext|WebGL2RenderingContext} The rendering context.
      */
-    getContext(): void;
+    getContext(): unknown;
     /**
      * Returns the pixel ratio.
      *
@@ -501,14 +946,16 @@ declare class Renderer {
     getScissor(target: Vector4): Vector4;
     /**
      * Defines the scissor rectangle.
+     */
+    setScissor(x: Vector4): void;
+    /**
+     * Defines the scissor rectangle.
      *
-     * @param {number | Vector4} x - The horizontal coordinate for the upper left corner of the box in logical pixel unit.
-     * Instead of passing four arguments, the method also works with a single four-dimensional vector.
+     * @param {number} x - The horizontal coordinate for the upper left corner of the box in logical pixel unit.
      * @param {number} y - The vertical coordinate for the upper left corner of the box in logical pixel unit.
      * @param {number} width - The width of the scissor box in logical pixel unit.
      * @param {number} height - The height of the scissor box in logical pixel unit.
      */
-    setScissor(x: Vector4): void;
     setScissor(x: number, y: number, width: number, height: number): void;
     /**
      * Returns the scissor test value.
@@ -531,15 +978,18 @@ declare class Renderer {
     getViewport(target: Vector4): Vector4;
     /**
      * Defines the viewport.
+     */
+    setViewport(x: Vector4): void;
+    /**
+     * Defines the viewport.
      *
-     * @param {number | Vector4} x - The horizontal coordinate for the upper left corner of the viewport origin in logical pixel unit.
+     * @param {number} x - The horizontal coordinate for the upper left corner of the viewport origin in logical pixel unit.
      * @param {number} y - The vertical coordinate for the upper left corner of the viewport origin  in logical pixel unit.
      * @param {number} width - The width of the viewport in logical pixel unit.
      * @param {number} height - The height of the viewport in logical pixel unit.
      * @param {number} minDepth - The minimum depth value of the viewport. WebGPU only.
      * @param {number} maxDepth - The maximum depth value of the viewport. WebGPU only.
      */
-    setViewport(x: Vector4): void;
     setViewport(x: number, y: number, width: number, height: number, minDepth?: number, maxDepth?: number): void;
     /**
      * Returns the clear color.
@@ -599,7 +1049,7 @@ declare class Renderer {
      * @param {Object3D} object - The 3D object to test.
      * @return {boolean} Whether the 3D object is fully occluded or not.
      */
-    isOccluded(object: Object3D): boolean | null;
+    isOccluded(object: Object3D): boolean;
     /**
      * Performs a manual clear operation. This method ignores `autoClear` properties.
      *
@@ -723,7 +1173,7 @@ declare class Renderer {
      *
      * @param {Object} renderTarget - The render target to set as the output target.
      */
-    setOutputRenderTarget(renderTarget: RenderTarget | null): void;
+    setOutputRenderTarget(renderTarget: RenderTarget): void;
     /**
      * Returns the current output target.
      *
@@ -748,7 +1198,7 @@ declare class Renderer {
      *
      * @private
      */
-    _resetXRState(): void;
+    private _resetXRState;
     /**
      * Callback for {@link Renderer#setRenderObjectFunction}.
      *
@@ -782,8 +1232,10 @@ declare class Renderer {
                 camera: Camera,
                 geometry: BufferGeometry,
                 material: Material,
-                group: GeometryGroup,
+                group: GeometryGroup | null,
                 lightsNode: LightsNode,
+                clippingContext: ClippingContext,
+                passId?: string | null | undefined,
             ) => void)
             | null,
     ): void;
@@ -799,10 +1251,10 @@ declare class Renderer {
             camera: Camera,
             geometry: BufferGeometry,
             material: Material,
-            group: GeometryGroup,
+            group: GeometryGroup | null,
             lightsNode: LightsNode,
-            clippingContext: ClippingContext | null,
-            passId: string | null,
+            clippingContext: ClippingContext,
+            passId?: string | null | undefined,
         ) => void)
         | null;
     /**
@@ -818,7 +1270,7 @@ declare class Renderer {
      */
     compute(
         computeNodes: ComputeNode | ComputeNode[],
-        dispatchSize?: number[] | number | IndirectStorageBufferAttribute | null,
+        dispatchSize?: number | number[] | IndirectStorageBufferAttribute,
     ): Promise<void> | undefined;
     /**
      * Execute a single or an array of compute nodes.
@@ -833,7 +1285,7 @@ declare class Renderer {
      */
     computeAsync(
         computeNodes: ComputeNode | ComputeNode[],
-        dispatchSize?: number[] | number | IndirectStorageBufferAttribute | null,
+        dispatchSize?: number | number[] | IndirectStorageBufferAttribute,
     ): Promise<void>;
     /**
      * Checks if the given feature is supported by the selected backend.
@@ -843,7 +1295,7 @@ declare class Renderer {
      * @param {string} name - The feature's name.
      * @return {Promise<boolean>} A Promise that resolves with a bool that indicates whether the feature is supported or not.
      */
-    hasFeatureAsync(name: string): Promise<void>;
+    hasFeatureAsync(name: string): Promise<boolean>;
     resolveTimestampsAsync(type?: TimestampQuery): Promise<number | undefined>;
     /**
      * Checks if the given feature is supported by the selected backend. If the
@@ -852,7 +1304,7 @@ declare class Renderer {
      * @param {string} name - The feature's name.
      * @return {boolean} Whether the feature is supported or not.
      */
-    hasFeature(name: string): void;
+    hasFeature(name: string): boolean;
     /**
      * Returns `true` when the renderer has been initialized.
      *
@@ -879,12 +1331,18 @@ declare class Renderer {
      */
     initTexture(texture: Texture): void;
     /**
+     * Initializes the given render target.
+     *
+     * @param {RenderTarget} renderTarget - The render target to intialize.
+     */
+    initRenderTarget(renderTarget: RenderTarget): void;
+    /**
      * Copies the current bound framebuffer into the given texture.
      *
      * @param {FramebufferTexture} framebufferTexture - The texture.
      * @param {?(Vector2|Vector4)} [rectangle=null] - A two or four dimensional vector that defines the rectangular portion of the framebuffer that should be copied.
      */
-    copyFramebufferToTexture(framebufferTexture: FramebufferTexture, rectangle?: Rectangle | null): void;
+    copyFramebufferToTexture(framebufferTexture: FramebufferTexture, rectangle?: (Vector2 | Vector4) | null): void;
     /**
      * Copies data of the given source texture into a destination texture.
      *
@@ -924,7 +1382,7 @@ declare class Renderer {
         height: number,
         textureIndex?: number,
         faceIndex?: number,
-    ): Promise<import("../../core/BufferAttribute.js").TypedArray>;
+    ): Promise<TypedArray>;
     /**
      * Analyzes the given 3D object's hierarchy and builds render lists from the
      * processed hierarchy.
@@ -936,13 +1394,7 @@ declare class Renderer {
      * @param {RenderList} renderList - The current render list.
      * @param {ClippingContext} clippingContext - The current clipping context.
      */
-    _projectObject(
-        object: Object3D,
-        camera: Camera,
-        groupOrder: number,
-        renderList: RenderList,
-        clippingContext: ClippingContext | null,
-    ): void;
+    private _projectObject;
     /**
      * Renders the given render bundles.
      *
@@ -951,7 +1403,7 @@ declare class Renderer {
      * @param {Scene} sceneRef - The scene the render bundles belong to.
      * @param {LightsNode} lightsNode - The current lights node.
      */
-    _renderBundles(bundles: Bundle[], sceneRef: Scene, lightsNode: LightsNode): void;
+    private _renderBundles;
     /**
      * Renders the transparent objects from the given render lists.
      *
@@ -962,13 +1414,7 @@ declare class Renderer {
      * @param {Scene} scene - The scene the render list belongs to.
      * @param {LightsNode} lightsNode - The current lights node.
      */
-    _renderTransparents(
-        renderList: RenderItem[],
-        doublePassList: RenderItem[],
-        camera: Camera,
-        scene: Scene,
-        lightsNode: LightsNode,
-    ): void;
+    private _renderTransparents;
     /**
      * Renders the objects from the given render list.
      *
@@ -979,13 +1425,7 @@ declare class Renderer {
      * @param {LightsNode} lightsNode - The current lights node.
      * @param {?string} [passId=null] - An optional ID for identifying the pass.
      */
-    _renderObjects(
-        renderList: RenderItem[],
-        camera: Camera,
-        scene: Scene,
-        lightsNode: LightsNode,
-        passId?: string | null,
-    ): void;
+    private _renderObjects;
     /**
      * Retrieves shadow nodes for the given material. This is used to setup shadow passes.
      * The result is cached per material and updated when the material's version changes.
@@ -994,7 +1434,7 @@ declare class Renderer {
      * @param {Material} material
      * @returns {Object} - The shadow nodes for the material.
      */
-    _getShadowNodes(material: Material): any;
+    private _getShadowNodes;
     /**
      * This method represents the default render object function that manages the render lifecycle
      * of the object.
@@ -1015,11 +1455,19 @@ declare class Renderer {
         camera: Camera,
         geometry: BufferGeometry,
         material: Material,
-        group: GeometryGroup,
+        group: GeometryGroup | null,
         lightsNode: LightsNode,
         clippingContext?: ClippingContext | null,
         passId?: string | null,
     ): void;
+    /**
+     * Checks if the given compatibility is supported by the selected backend. If the
+     * renderer has not been initialized, this method always returns `false`.
+     *
+     * @param {string} name - The compatibility's name.
+     * @return {boolean} Whether the compatibility is supported or not.
+     */
+    hasCompatibility(name: string): boolean;
     /**
      * This method represents the default `_handleObjectFunction` implementation which creates
      * a render object from the given data and performs the draw command with the selected backend.
@@ -1034,16 +1482,7 @@ declare class Renderer {
      * @param {ClippingContext} clippingContext - The clipping context.
      * @param {string} [passId] - An optional ID for identifying the pass.
      */
-    _renderObjectDirect(
-        object: Object3D,
-        material: Material,
-        scene: Scene,
-        camera: Camera,
-        lightsNode: LightsNode,
-        group: GeometryGroup,
-        clippingContext: ClippingContext | null,
-        passId?: string,
-    ): void;
+    private _renderObjectDirect;
     /**
      * A different implementation for `_handleObjectFunction` which only makes sure the object is ready for rendering.
      * Used in `compileAsync()`.
@@ -1058,22 +1497,7 @@ declare class Renderer {
      * @param {ClippingContext} clippingContext - The clipping context.
      * @param {string} [passId] - An optional ID for identifying the pass.
      */
-    _createObjectPipeline(
-        object: Object3D,
-        material: Material,
-        scene: Scene,
-        camera: Camera,
-        lightsNode: LightsNode,
-        group: Group,
-        clippingContext: ClippingContext | null,
-        passId?: string,
-    ): void;
-    /**
-     * Callback when the canvas has been resized.
-     *
-     * @private
-     */
-    _onCanvasTargetResize(): void;
+    private _createObjectPipeline;
     /**
      * Alias for `compileAsync()`.
      *
@@ -1085,11 +1509,5 @@ declare class Renderer {
      */
     get compile(): (scene: Object3D, camera: Camera, targetScene?: Scene | null) => Promise<void>;
 }
-/**
- * Animation loop parameter of `renderer.setAnimationLoop()`.
- *
- * @callback onAnimationCallback
- * @param {DOMHighResTimeStamp} time - A timestamp indicating the end time of the previous frame's rendering.
- * @param {XRFrame} [frame] - A reference to the current XR frame. Only relevant when using XR rendering.
- */
+
 export default Renderer;

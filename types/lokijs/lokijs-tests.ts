@@ -14,10 +14,10 @@ class Ant {
     static uniqueId = 1;
 
     id: number;
-    dob: Date;
-    health: number; // range [0.0, 1.0]
-    lengthMm: number; // in millimeters
-    weightMg: number; // in milligrams
+    dob!: Date;
+    health!: number; // range [0.0, 1.0]
+    lengthMm!: number; // in millimeters
+    weightMg!: number; // in milligrams
 
     constructor(id: number) {
         this.id = id;
@@ -29,7 +29,7 @@ class Ant {
 }
 
 class QueenAnt extends Ant {
-    eggsBirthed: number;
+    eggsBirthed!: number;
 
     constructor(id: number) {
         super(id);

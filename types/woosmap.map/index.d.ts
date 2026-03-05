@@ -124,6 +124,16 @@ declare namespace woosmap.map {
         setTilt(tilt: number): void;
 
         setZoom(zoom: number): void;
+
+        /**
+         * Returns the current map type id.
+         */
+        getMapTypeId(): string;
+
+        /**
+         * Sets the map type id.
+         */
+        setMapTypeId(mapTypeId: string): void;
     }
 }
 declare namespace woosmap.map {
@@ -1205,10 +1215,6 @@ declare namespace woosmap.map {
          */
         _sessionId: string;
         /**
-         * Public getter to allow reading the value
-         */
-        sessionId: string;
-        /**
          * Contains methods related to retrieving autocomplete predictions, geocoding for localities and retrieving details
          */
         constructor();
@@ -1242,10 +1248,6 @@ declare namespace woosmap.map {
         nearby(
             request: woosmap.map.localities.LocalitiesNearbyRequest,
         ): Promise<woosmap.map.localities.LocalitiesNearbyResponse>;
-
-        search(
-            request: woosmap.map.localities.LocalitiesSearchRequest,
-        ): Promise<woosmap.map.localities.LocalitiesSearchResponse>;
     }
 }
 declare namespace woosmap.map {
@@ -1560,6 +1562,14 @@ declare namespace woosmap.map {
          * The initial heading to start from.
          */
         heading?: number;
+        /**
+         * Whether to display the map type control. Defaults to false.
+         */
+        mapTypeControl?: boolean;
+        /**
+         * The initial map type. Defaults to `MapTypeId.ROADMAP`.
+         */
+        mapTypeId?: string;
         /**
          * ```json
          * [
@@ -2621,8 +2631,9 @@ declare namespace woosmap.map.stores {
         page?: number;
         /**
          * Find stores nearby an encoded polyline and inside a defined radius.
+         * The polyline as string is expected to be a google-encoded polyline.
          */
-        polyline?: string | woosmap.map.LatLng[];
+        polyline?: string | woosmap.map.LatLng[] | woosmap.map.LatLngLiteral[];
         /**
          * Example: `query=name:'My cool store'|type:'click_and_collect'`
          * Search query combining one or more search clauses.
@@ -3130,54 +3141,6 @@ declare namespace woosmap.map.localities {
     }
 }
 declare namespace woosmap.map.localities {
-    interface LocalitiesSearchRequest {
-        /**
-         * The categories of points of interest to return. Multiple categories can be passed as an array of comma separated strings.
-         * Example: `categories=['tourism', 'education']`
-         */
-        categories?: string | string[];
-        /**
-         * Used to filter over countries. Countries must be passed as an
-         * ISO 3166-1 Alpha-2 or Alpha-3 compatible country code.
-         */
-        components: woosmap.map.localities.LocalitiesComponentRestrictions;
-        /**
-         * The categories of points of interest to exclude from results. Multiple categories can be passed as an array of comma separated strings.
-         * Example: `excluded_categories=['hospitality.hostel','hospitality.guest_house']`
-         */
-        excluded_categories?: string | string[];
-        /**
-         * The types of suggestions to exclude.
-         * see available types to exclude [https://developers.woosmap.com/products/localities/search/#types](https://developers.woosmap.com/products/localities/search/#types)
-         */
-        excluded_types?: string | string[];
-        /**
-         * The user entered input string.
-         */
-        input: string;
-        /**
-         * The language code, using ISO 3166-1 Alpha-2 country codes,
-         * indicating in which language the results should be returned, if possible.
-         * If language is not supplied, the Localities service will use english as default language.
-         */
-        language?: string;
-        /**
-         * The center of the search circle.
-         */
-        location: woosmap.map.LatLng | woosmap.map.LatLngLiteral;
-        /**
-         * Define the distance in meters within which the API will return results.
-         * Default radius if this parameter is not set is 100 000.
-         */
-        radius?: number;
-        /**
-         * Types of targeted items.
-         * Available values are `point_of_interest`, `address`, `locality`, `postal_code`, `admin_level`, `country`.
-         */
-        types: string | string[];
-    }
-}
-declare namespace woosmap.map.localities {
     /**
      * A Localities Autocomplete response returned by the call to
      * `LocalitiesService.autocomplete` containing a
@@ -3222,19 +3185,6 @@ declare namespace woosmap.map.localities {
          * The array of nearby results.
          */
         results: woosmap.map.localities.LocalitiesNearbyResult[];
-    }
-}
-declare namespace woosmap.map.localities {
-    /**
-     * A Localities Search response returned by the call to
-     * `LocalitiesService.search` containing a
-     * list of `LocalitiesSearchResult`.
-     */
-    interface LocalitiesSearchResponse {
-        /**
-         * The array of search results.
-         */
-        results: woosmap.map.localities.LocalitiesSearchResult[];
     }
 }
 declare namespace woosmap.map.localities {
@@ -3670,46 +3620,6 @@ declare namespace woosmap.map.localities {
         previous_page?: number;
     }
 }
-declare namespace woosmap.map.localities {
-    /**
-     * The types of result returned by search.
-     */
-    type LocalitiesSearchTypes =
-        | "point_of_interest"
-        | "address"
-        | "locality"
-        | "postal_code"
-        | "route"
-        | "admin_level"
-        | "country";
-}
-declare namespace woosmap.map.localities {
-    /**
-     * Defines information about a Search element.
-     */
-    interface LocalitiesSearchResult {
-        /**
-         * An array containing the categories of the result if it's a point of interest.
-         */
-        categories?: string[];
-        /**
-         * The description for the result.
-         */
-        description?: string;
-        /**
-         * Contains a unique ID for each result. Please use this ID to give feedbacks on results.
-         */
-        public_id: string;
-        /**
-         * The title for the result.
-         */
-        title: string;
-        /**
-         * An array containing the types of the result.
-         */
-        types: woosmap.map.localities.LocalitiesSearchTypes[];
-    }
-}
 declare namespace woosmap.map {
     /**
      * Summary feature response, part of DatasetsSearchResponse.
@@ -4031,6 +3941,17 @@ declare namespace woosmap.map {
          * Sets the polygon stroke color.
          */
         defaultPolygonStrokeColor?: string;
+    }
+}
+declare namespace woosmap.map {
+    /**
+     * Identifiers for common map types.
+     * Specify these by value, or by using the constant's name.
+     * For example, `'roadmap'` or `woosmap.map.MapTypeId.ROADMAP`.
+     */
+    enum MapTypeId {
+        HYBRID = "HYBRID",
+        ROADMAP = "ROADMAP",
     }
 }
 declare namespace woosmap.map {

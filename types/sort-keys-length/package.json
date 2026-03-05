@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/sort-keys-length",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/kevva/sort-keys-length"
+    ],
+    "devDependencies": {
+        "@types/sort-keys-length": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "gaspard",
+            "githubUsername": "gasp"
+        }
+    ]
+}

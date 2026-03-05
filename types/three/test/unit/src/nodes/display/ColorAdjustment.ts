@@ -1,81 +1,167 @@
 /**
- * A copy of ColorAdjustmentNode.js converted to typescript
- *
- * It was chosen because it is short and nicely shows interaction
- * between ShaderNode a normal node.
+ * A copy of ColorAdjustment.js converted to TypeScript.
  */
 
-import { add, atan2, cos, div, dot, float, mat3, max, mix, mul, ShaderNode, sin, sqrt, sub, vec3 } from "three/tsl";
-import { Node, TempNode } from "three/webgpu";
+import { add, dot, float, Fn, If, max, mix, vec3, vec4 } from "three/tsl";
+import { ColorManagement, LinearSRGBColorSpace, Node, Vector3 } from "three/webgpu";
 
-const luminanceNode = new ShaderNode<{ color: Node }>(({ color }) => {
-    const LUMA = vec3(0.2125, 0.7154, 0.0721);
-
-    return dot(color, LUMA);
+/**
+ * Computes a grayscale value for the given RGB color value.
+ *
+ * @param {Node<vec3>} color - The color value to compute the grayscale for.
+ * @return {Node<vec3>} The grayscale color.
+ */
+// eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
+export const grayscale = /*@__PURE__*/ Fn(([color]: [Node<"vec3">]) => {
+    return luminance(color.rgb);
 });
 
-const saturationNode = new ShaderNode<{ color: Node; adjustment: Node }>(({ color, adjustment }) => {
-    const intensityNode = luminanceNode.call({ color });
+/**
+ * Super-saturates or desaturates the given RGB color.
+ *
+ * @param {Node<vec3>} color - The input color.
+ * @param {Node<float>} [adjustment=1] - Specifies the amount of the conversion. A value under `1` desaturates the color, a value over `1` super-saturates it.
+ * @return {Node<vec3>} The saturated color.
+ */
+export const saturation = /*@__PURE__*/ Fn(
+    // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
+    ([color, adjustment = float(1)]: [Node<"vec3">, Node<"float">] | [Node<"vec3">]) => {
+        return adjustment.mix(luminance(color.rgb), color.rgb);
+    },
+);
 
-    return mix(intensityNode, color, adjustment);
+/**
+ * Selectively enhance the intensity of less saturated RGB colors. Can result
+ * in a more natural and visually appealing image with enhanced color depth
+ * compared to {@link ColorAdjustment#saturation}.
+ *
+ * @param {Node<vec3>} color - The input color.
+ * @param {Node<float>} [adjustment=1] - Controls the intensity of the vibrance effect.
+ * @return {Node<vec3>} The updated color.
+ */
+export const vibrance = /*@__PURE__*/ Fn(
+    // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
+    ([color, adjustment = float(1)]: [Node<"vec3">, Node<"float">] | [Node<"vec3">]) => {
+        const average = add(color.r, color.g, color.b).div(3.0);
+
+        const mx = color.r.max(color.g.max(color.b));
+        const amt = mx.sub(average).mul(adjustment).mul(-3.0);
+
+        return mix(color.rgb, mx, amt);
+    },
+);
+
+/**
+ * Updates the hue component of the given RGB color while preserving its luminance and saturation.
+ *
+ * @param {Node<vec3>} color - The input color.
+ * @param {Node<float>} [adjustment=1] - Defines the degree of hue rotation in radians. A positive value rotates the hue clockwise, while a negative value rotates it counterclockwise.
+ * @return {Node<vec3>} The updated color.
+ */
+export const hue = /*@__PURE__*/ Fn(
+    // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
+    ([color, adjustment = float(1)]: [Node<"vec3">, Node<"float">] | [Node<"vec3">]) => {
+        const k = vec3(0.57735, 0.57735, 0.57735);
+
+        const cosAngle = adjustment.cos();
+
+        return vec3(
+            color.rgb.mul(cosAngle).add(
+                k.cross(color.rgb).mul(adjustment.sin()).add(k.mul(dot(k, color.rgb).mul(cosAngle.oneMinus()))),
+            ),
+        );
+    },
+);
+
+/**
+ * Computes the luminance for the given RGB color value.
+ *
+ * @param {Node<vec3>} color - The color value to compute the luminance for.
+ * @param {?Node<vec3>} luminanceCoefficients - The luminance coefficients. By default predefined values of the current working color space are used.
+ * @return {Node<float>} The luminance.
+ */
+export const luminance = (
+    color: Node<"vec3">,
+    luminanceCoefficients: Node<"vec3"> = vec3(ColorManagement.getLuminanceCoefficients(new Vector3())),
+) => dot(color, luminanceCoefficients);
+
+/**
+ * Color Decision List (CDL) v1.2
+ *
+ * Compact representation of color grading information, defined by slope, offset, power, and
+ * saturation. The CDL should be typically be given input in a log space (such as LogC, ACEScc,
+ * or AgX Log), and will return output in the same space. Output may require clamping >=0.
+ *
+ * @param {Node<vec4>} color Input (-Infinity < input < +Infinity)
+ * @param {Node<vec3>} slope Slope (0 ≤ slope < +Infinity)
+ * @param {Node<vec3>} offset Offset (-Infinity < offset < +Infinity; typically -1 < offset < 1)
+ * @param {Node<vec3>} power Power (0 < power < +Infinity)
+ * @param {Node<float>} saturation Saturation (0 ≤ saturation < +Infinity; typically 0 ≤ saturation < 4)
+ * @param {Node<vec3>} luminanceCoefficients Luminance coefficients for saturation term, typically Rec. 709
+ * @return {Node<vec4>} Output, -Infinity < output < +Infinity
+ *
+ * References:
+ * - ASC CDL v1.2
+ * - {@link https://blender.stackexchange.com/a/55239/43930}
+ * - {@link https://docs.acescentral.com/specifications/acescc/}
+ */
+export const cdl = /*@__PURE__*/ Fn(([
+    color,
+    slope = vec3(1),
+    offset = vec3(0),
+    power = vec3(1),
+    saturation = float(1),
+    // ASC CDL v1.2 explicitly requires Rec. 709 luminance coefficients.
+    luminanceCoefficients = vec3(ColorManagement.getLuminanceCoefficients(new Vector3(), LinearSRGBColorSpace)),
+]: [
+    Node<"vec4">,
+    Node<"vec3">,
+    Node<"vec3">,
+    Node<"vec3">,
+    Node<"float">,
+    Node<"vec3">,
+] | [
+    Node<"vec4">,
+    Node<"vec3">,
+    Node<"vec3">,
+    Node<"vec3">,
+    Node<"float">,
+] | [
+    Node<"vec4">,
+    Node<"vec3">,
+    Node<"vec3">,
+    Node<"vec3">,
+] | [
+    Node<"vec4">,
+    Node<"vec3">,
+    Node<"vec3">,
+] | [
+    Node<"vec4">,
+    Node<"vec3">,
+    // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
+] | [
+    Node<"vec4">,
+]) => {
+    // NOTE: The ASC CDL v1.2 defines a [0, 1] clamp on the slope+offset term, and another on the
+    // saturation term. Per the ACEScc specification and Filament, limits may be omitted to support
+    // values outside [0, 1], requiring a workaround for negative values in the power expression.
+
+    const luma = color.rgb.dot(vec3(luminanceCoefficients));
+
+    const v = max(color.rgb.mul(slope).add(offset), 0.0).toVar();
+    const pv = v.pow(power).toVar();
+
+    If(v.r.greaterThan(0.0), () => {
+        v.r.assign(pv.r);
+    });
+    If(v.g.greaterThan(0.0), () => {
+        v.g.assign(pv.g);
+    });
+    If(v.b.greaterThan(0.0), () => {
+        v.b.assign(pv.b);
+    });
+
+    v.assign(luma.add(v.sub(luma).mul(saturation)));
+
+    return vec4(v.rgb, color.a);
 });
-
-const vibranceNode = new ShaderNode<{ color: Node; adjustment: Node }>(({ color, adjustment }) => {
-    const average = div(add(color.r, color.g, color.b), 3.0);
-
-    const mx = max(color.r, max(color.g, color.b));
-    const amt = mul(sub(mx, average), mul(-3.0, adjustment));
-
-    return mix(color.rgb, vec3(mx), amt);
-});
-
-const hueNode = new ShaderNode<{ color: Node; adjustment: Node }>(({ color, adjustment }) => {
-    const RGBtoYIQ = mat3(0.299, 0.587, 0.114, 0.595716, -0.274453, -0.321263, 0.211456, -0.522591, 0.311135);
-    const YIQtoRGB = mat3(1.0, 0.9563, 0.621, 1.0, -0.2721, -0.6474, 1.0, -1.107, 1.7046);
-
-    const yiq = mul(RGBtoYIQ, color);
-
-    const hue = add(atan2(yiq.z, yiq.y), adjustment);
-    const chroma = sqrt(add(mul(yiq.z, yiq.z), mul(yiq.y, yiq.y)));
-
-    return mul(YIQtoRGB, vec3(yiq.x, mul(chroma, cos(hue)), mul(chroma, sin(hue))));
-});
-
-class TestNode extends TempNode {
-    static SATURATION = "saturation";
-    static VIBRANCE = "vibrance";
-    static HUE = "hue";
-    method: string;
-    colorNode: Node;
-    adjustmentNode: Node;
-
-    constructor(method: string, colorNode: Node, adjustmentNode = float(1)) {
-        super("vec3");
-
-        this.method = method;
-
-        this.colorNode = colorNode;
-        this.adjustmentNode = adjustmentNode;
-    }
-
-    setup() {
-        const { method, colorNode, adjustmentNode } = this;
-
-        const callParams = { color: colorNode, adjustment: adjustmentNode };
-
-        let outputNode = null;
-
-        switch (method) {
-            case TestNode.SATURATION:
-                outputNode = saturationNode.call(callParams);
-            case TestNode.VIBRANCE:
-                outputNode = vibranceNode.call(callParams);
-            case TestNode.HUE:
-                outputNode = hueNode.call(callParams);
-            default:
-                console.error(`${this.type}: Method "${this.method}" not supported!`);
-        }
-
-        return outputNode;
-    }
-}

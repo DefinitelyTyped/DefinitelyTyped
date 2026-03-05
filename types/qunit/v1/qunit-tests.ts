@@ -1596,7 +1596,7 @@ test("Circular reference - test reported by soniciq in #105", function() {
         expect(0);
         QUnit.reset = function() {
             ok(false, "reset should not modify test status");
-            reset.apply(this, arguments);
+            reset.call(this);
         };
     });
     test("reset runs assertions, cleanup", function() {

@@ -3,15 +3,18 @@ import { BufferGeometry, GeometryGroup } from "../../core/BufferGeometry.js";
 import { Object3D } from "../../core/Object3D.js";
 import { Light } from "../../lights/Light.js";
 import { Material } from "../../materials/Material.js";
-import { LightsNode } from "../../nodes/Nodes.js";
+import LightsNode from "../../nodes/lighting/LightsNode.js";
+import { Scene } from "../../scenes/Scene.js";
 import BundleGroup from "./BundleGroup.js";
 import ClippingContext from "./ClippingContext.js";
 import Lighting from "./Lighting.js";
+
 export interface Bundle {
     bundleGroup: BundleGroup;
     camera: Camera;
     renderList: RenderList;
 }
+
 export interface RenderItem {
     id: number | null;
     object: Object3D | null;
@@ -23,6 +26,7 @@ export interface RenderItem {
     group: GeometryGroup | null;
     clippingContext: ClippingContext | null;
 }
+
 /**
  * When the renderer analyzes the scene at the beginning of a render call,
  * it stores 3D object for further processing in render lists. Depending on the
@@ -35,17 +39,6 @@ export interface RenderItem {
  * @augments Pipeline
  */
 declare class RenderList {
-    renderItems: RenderItem[];
-    renderItemsIndex: number;
-    opaque: RenderItem[];
-    transparentDoublePass: RenderItem[];
-    transparent: RenderItem[];
-    bundles: Bundle[];
-    lightsNode: LightsNode;
-    lightsArray: Light[];
-    scene: Object3D;
-    camera: Camera;
-    occlusionQueryCount: number;
     /**
      * Constructs a render list.
      *
@@ -53,7 +46,79 @@ declare class RenderList {
      * @param {Scene} scene - The scene.
      * @param {Camera} camera - The camera the scene is rendered with.
      */
-    constructor(lighting: Lighting, scene: Object3D, camera: Camera);
+    constructor(lighting: Lighting, scene: Scene, camera: Camera);
+    /**
+     * 3D objects are transformed into render items and stored in this array.
+     *
+     * @type {Array<Object>}
+     */
+    renderItems: RenderItem[];
+    /**
+     * The current render items index.
+     *
+     * @type {number}
+     * @default 0
+     */
+    renderItemsIndex: number;
+    /**
+     * A list with opaque render items.
+     *
+     * @type {Array<Object>}
+     */
+    opaque: RenderItem[];
+    /**
+     * A list with transparent render items which require
+     * double pass rendering (e.g. transmissive objects).
+     *
+     * @type {Array<Object>}
+     */
+    transparentDoublePass: RenderItem[];
+    /**
+     * A list with transparent render items.
+     *
+     * @type {Array<Object>}
+     */
+    transparent: RenderItem[];
+    /**
+     * A list with transparent render bundle data.
+     *
+     * @type {Array<Object>}
+     */
+    bundles: Bundle[];
+    /**
+     * The render list's lights node. This node is later
+     * relevant for the actual analytical light nodes which
+     * compute the scene's lighting in the shader.
+     *
+     * @type {LightsNode}
+     */
+    lightsNode: LightsNode;
+    /**
+     * The scene's lights stored in an array. This array
+     * is used to setup the lights node.
+     *
+     * @type {Array<Light>}
+     */
+    lightsArray: Light[];
+    /**
+     * The scene.
+     *
+     * @type {Scene}
+     */
+    scene: Scene;
+    /**
+     * The camera the scene is rendered with.
+     *
+     * @type {Camera}
+     */
+    camera: Camera;
+    /**
+     * How many objects perform occlusion query tests.
+     *
+     * @type {number}
+     * @default 0
+     */
+    occlusionQueryCount: number;
     /**
      * This method is called right at the beginning of a render call
      * before the scene is analyzed. It prepares the internal data
@@ -85,7 +150,7 @@ declare class RenderList {
         groupOrder: number,
         z: number,
         group: GeometryGroup | null,
-        clippingContext: ClippingContext | null,
+        clippingContext: ClippingContext,
     ): RenderItem;
     /**
      * Pushes the given object as a render item to the internal render lists.
@@ -106,7 +171,7 @@ declare class RenderList {
         groupOrder: number,
         z: number,
         group: GeometryGroup | null,
-        clippingContext: ClippingContext | null,
+        clippingContext: ClippingContext,
     ): void;
     /**
      * Inserts the given object as a render item at the start of the internal render lists.
@@ -127,7 +192,7 @@ declare class RenderList {
         groupOrder: number,
         z: number,
         group: GeometryGroup | null,
-        clippingContext: ClippingContext | null,
+        clippingContext: ClippingContext,
     ): void;
     /**
      * Pushes render bundle group data into the render list.
@@ -157,4 +222,5 @@ declare class RenderList {
      */
     finish(): void;
 }
+
 export default RenderList;

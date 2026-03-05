@@ -28,7 +28,7 @@ const handler2: Handler = (event: Event, context: Context, callback: Callback) =
     try {
         // Successful response
         callback(undefined, response);
-    } catch (err) {
+    } catch (err: any) {
         // Error response
         callback(err);
     }

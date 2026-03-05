@@ -253,7 +253,7 @@ declare module "node:process" {
                 /**
                  * A value that is `"strip"` by default,
                  * `"transform"` if Node.js is run with `--experimental-transform-types`, and `false` if
-                 * Node.js is run with `--no-experimental-strip-types`.
+                 * Node.js is run with `--no-strip-types`.
                  * @since v22.10.0
                  */
                 readonly typescript: "strip" | "transform" | false;
@@ -465,12 +465,7 @@ declare module "node:process" {
                 isTTY?: true | undefined;
             }
             // Alias for compatibility
-            interface ProcessEnv extends Dict<string> {
-                /**
-                 * Can be used to change the default timezone at runtime
-                 */
-                TZ?: string | undefined;
-            }
+            interface ProcessEnv extends Dict<string> {}
             interface HRTime {
                 /**
                  * This is the legacy version of {@link process.hrtime.bigint()}

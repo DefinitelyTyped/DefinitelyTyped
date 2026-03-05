@@ -1,3 +1,5 @@
+import { RenderTarget } from "../../core/RenderTarget.js";
+import { Texture } from "../../textures/Texture.js";
 import { WebGLCapabilities } from "./WebGLCapabilities.js";
 import { WebGLExtensions } from "./WebGLExtensions.js";
 import { WebGLInfo } from "./WebGLInfo.js";
@@ -18,13 +20,12 @@ export class WebGLTextures {
 
     allocateTextureUnit(): void;
     resetTextureUnits(): void;
-    setTexture2D(texture: any, slot: number): void;
-    setTexture2DArray(texture: any, slot: number): void;
-    setTexture3D(texture: any, slot: number): void;
-    setTextureCube(texture: any, slot: number): void;
-    setupRenderTarget(renderTarget: any): void;
-    updateRenderTargetMipmap(renderTarget: any): void;
-    updateMultisampleRenderTarget(renderTarget: any): void;
-    safeSetTexture2D(texture: any, slot: number): void;
-    safeSetTextureCube(texture: any, slot: number): void;
+
+    setTexture2D(texture: Texture, slot: number): void;
+    setTexture2DArray(texture: Texture, slot: number): void;
+    setTexture3D(texture: Texture, slot: number): void;
+    setTextureCube(texture: Texture, slot: number): void;
+    setupRenderTarget(renderTarget: RenderTarget): void;
+    updateRenderTargetMipmap(renderTarget: RenderTarget): void;
+    updateMultisampleRenderTarget(renderTarget: RenderTarget): void;
 }

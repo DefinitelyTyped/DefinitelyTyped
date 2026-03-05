@@ -252,6 +252,10 @@
             "libraryName": "arrify",
             "asOfVersion": "2.0.0"
         },
+        "artillery": {
+            "libraryName": "artillery",
+            "asOfVersion": "2.0.26"
+        },
         "artyom.js": {
             "libraryName": "artyom.js",
             "asOfVersion": "1.0.6"
@@ -1965,6 +1969,14 @@
             "libraryName": "escape-string-regexp",
             "asOfVersion": "2.0.0"
         },
+        "eslint-plugin-mocha": {
+            "libraryName": "eslint-plugin-mocha",
+            "asOfVersion": "11.1.0"
+        },
+        "eslint-scope": {
+            "libraryName": "eslint-scope",
+            "asOfVersion": "9.1.0"
+        },
         "eslint-visitor-keys": {
             "libraryName": "eslint-visitor-keys",
             "asOfVersion": "3.3.0"
@@ -1980,6 +1992,10 @@
         "esm-utils": {
             "libraryName": "esm-utils",
             "asOfVersion": "2.0.1"
+        },
+        "espree": {
+            "libraryName": "espree",
+            "asOfVersion": "11.1.0"
         },
         "eth-sig-util": {
             "libraryName": "eth-sig-util",
@@ -2284,6 +2300,10 @@
         "figures": {
             "libraryName": "figures",
             "asOfVersion": "3.0.0"
+        },
+        "file-entry-cache": {
+            "libraryName": "file-entry-cache",
+            "asOfVersion": "10.0.0"
         },
         "file-type": {
             "libraryName": "file-type",
@@ -4056,6 +4076,14 @@
         "map-obj": {
             "libraryName": "map-obj",
             "asOfVersion": "3.1.0"
+        },
+        "mapbox-gl": {
+            "libraryName": "mapbox-gl",
+            "asOfVersion": "3.5.0"
+        },
+        "mapbox__point-geometry": {
+            "libraryName": "@mapbox/point-geometry",
+            "asOfVersion": "1.0.0"
         },
         "mapbox__vector-tile": {
             "libraryName": "@mapbox/vector-tile",
@@ -7555,6 +7583,10 @@
             "libraryName": "tap",
             "asOfVersion": "18.0.0"
         },
+        "tar": {
+            "libraryName": "tar",
+            "asOfVersion": "7.0.0"
+        },
         "tcomb": {
             "libraryName": "tcomb",
             "asOfVersion": "2.6.0"
@@ -8014,6 +8046,10 @@
         "vue-scrollto": {
             "libraryName": "vue-scrollto",
             "asOfVersion": "2.17.1"
+        },
+        "vue-tel-input": {
+            "libraryName": "vue-tel-input",
+            "asOfVersion": "9.7.1"
         },
         "vue3-json-viewer": {
             "libraryName": "vue3-json-viewer",

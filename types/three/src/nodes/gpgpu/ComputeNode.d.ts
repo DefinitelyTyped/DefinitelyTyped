@@ -34,18 +34,13 @@ export const compute: (
     workgroupSize?: number[],
 ) => ComputeNode;
 
-declare module "../Nodes.js" {
-    interface Node {
+declare module "../core/Node.js" {
+    interface NodeElements {
         compute: (
             count: number,
             workgroupSize?: number[],
         ) => ComputeNode;
-        computeAssign: (
-            count: number,
-            workgroupSize?: number[],
-        ) => this;
 
         computeKernel: (workgroupSize?: number[]) => ComputeNode;
-        computeKernelAssign: (workgroupSize?: number[]) => this;
     }
 }

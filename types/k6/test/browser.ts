@@ -670,6 +670,68 @@ async function test() {
         response.url();
     });
 
+    // $ExpectType void
+    page.on("requestfailed", request => {
+        // $ExpectType Promise<Record<string, string>>
+        request.allHeaders();
+        // $ExpectType Frame
+        request.frame();
+        // $ExpectType Record<string, string>
+        request.headers();
+        // $ExpectType Promise<{ name: string; value: string; }[]>
+        request.headersArray();
+        // $ExpectType Promise<string | null>
+        request.headerValue("content-type");
+        // $ExpectType boolean
+        request.isNavigationRequest();
+        // $ExpectType string
+        request.method();
+        // $ExpectType string | null
+        request.postData();
+        // $ExpectType ArrayBuffer | null
+        request.postDataBuffer();
+        // $ExpectType ResourceType
+        request.resourceType();
+        // $ExpectType Promise<Response | null>
+        request.response();
+        // $ExpectType Promise<{ body: number; headers: number; }>
+        request.size();
+        // $ExpectType ResourceTiming
+        request.timing();
+        // $ExpectType RequestFailure | null
+        request.failure();
+    });
+
+    // $ExpectType void
+    page.on("requestfinished", request => {
+        // $ExpectType Promise<Record<string, string>>
+        request.allHeaders();
+        // $ExpectType Frame
+        request.frame();
+        // $ExpectType Record<string, string>
+        request.headers();
+        // $ExpectType Promise<{ name: string; value: string; }[]>
+        request.headersArray();
+        // $ExpectType Promise<string | null>
+        request.headerValue("content-type");
+        // $ExpectType boolean
+        request.isNavigationRequest();
+        // $ExpectType string
+        request.method();
+        // $ExpectType string | null
+        request.postData();
+        // $ExpectType ArrayBuffer | null
+        request.postDataBuffer();
+        // $ExpectType ResourceType
+        request.resourceType();
+        // $ExpectType Promise<Response | null>
+        request.response();
+        // $ExpectType Promise<{ body: number; headers: number; }>
+        request.size();
+        // $ExpectType ResourceTiming
+        request.timing();
+    });
+
     // $ExpectType Promise<Page | null>
     page.opener();
 
@@ -781,6 +843,24 @@ async function test() {
     page.reload({ timeout: 10000 });
     // $ExpectType Promise<Response | null>
     page.reload({ waitUntil: "domcontentloaded" });
+
+    // $ExpectType Promise<Response | null>
+    page.goBack();
+    // $ExpectType Promise<Response | null>
+    page.goBack({ timeout: 10000 });
+    // $ExpectType Promise<Response | null>
+    page.goBack({ waitUntil: "domcontentloaded" });
+    // $ExpectType Promise<Response | null>
+    page.goBack({ timeout: 10000, waitUntil: "load" });
+
+    // $ExpectType Promise<Response | null>
+    page.goForward();
+    // $ExpectType Promise<Response | null>
+    page.goForward({ timeout: 10000 });
+    // $ExpectType Promise<Response | null>
+    page.goForward({ waitUntil: "domcontentloaded" });
+    // $ExpectType Promise<Response | null>
+    page.goForward({ timeout: 10000, waitUntil: "load" });
 
     // $ExpectType Promise<ArrayBuffer>
     page.screenshot();

@@ -96,7 +96,6 @@ export const UniformsLib: {
                 shadowMapSize: {};
             };
         };
-        directionalShadowMap: IUniform<unknown[]>;
         directionalShadowMatrix: IUniform<unknown[]>;
         spotLights: {
             value: unknown[];
@@ -121,7 +120,6 @@ export const UniformsLib: {
             };
         };
         spotLightMap: IUniform<unknown[]>;
-        spotShadowMap: IUniform<unknown[]>;
         spotLightMatrix: IUniform<unknown[]>;
         pointLights: {
             value: unknown[];
@@ -144,7 +142,6 @@ export const UniformsLib: {
                 shadowCameraFar: {};
             };
         };
-        pointShadowMap: IUniform<unknown[]>;
         pointShadowMatrix: IUniform<unknown[]>;
         hemisphereLights: {
             value: unknown[];

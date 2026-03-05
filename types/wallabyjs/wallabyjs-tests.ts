@@ -13,6 +13,8 @@ const myCompiler: wallabyjs.IWallabyCompiler = (file: wallabyjs.IWallabyFile) =>
     };
 };
 
+declare const compilers: wallabyjs.IWallabyBuiltInCompilers;
+
 export class WallabyConfig implements wallabyjs.IWallabyConfig {
     public files: Array<string | wallabyjs.IWallabyFilePattern> = [
         "src/**/*.ts",
@@ -26,9 +28,9 @@ export class WallabyConfig implements wallabyjs.IWallabyConfig {
     ];
 
     public compilers: wallabyjs.IWallabyCompilers = {
-        "src/**/*.js": this.wallaby.compilers.babel({ babelrc: true }),
-        "src/**/*.ts": this.wallaby.compilers.typeScript({ strict: true }),
-        "src/**/*.coffee": this.wallaby.compilers.coffeeScript({ bare: true }),
+        "src/**/*.js": compilers.babel({ babelrc: true }),
+        "src/**/*.ts": compilers.typeScript({ strict: true }),
+        "src/**/*.coffee": compilers.coffeeScript({ bare: true }),
         "src/**/*.my": myCompiler,
     };
 

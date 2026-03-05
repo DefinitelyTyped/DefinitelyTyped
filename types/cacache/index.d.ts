@@ -79,6 +79,8 @@ export namespace get {
         size?: number | undefined;
     }
 
+    type InfoOptions = Pick<Options, "memoize">;
+
     interface GetStreamEvents extends Minipass.Events<Buffer> {
         // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
         integrity: [integrity: string];
@@ -116,7 +118,7 @@ export namespace get {
      * Looks up `key` in the cache index, returning information about the entry
      * if one exists.
      */
-    function info(cachePath: string, key: string): Promise<CacheObject>;
+    function info(cachePath: string, key: string, opts?: InfoOptions): Promise<CacheObject | null>;
 
     /**
      * Returns a Readable Stream of the cached data identified by `key`.

@@ -156,8 +156,8 @@ import {
         bailout(state: State) {
             return state.bailout;
         }
-        method: "GET";
-        types: ["REQ_TYPE", "SUCCESS_TYPE", "FAILURE_TYPE"];
+        method!: "GET";
+        types!: ["REQ_TYPE", "SUCCESS_TYPE", "FAILURE_TYPE"];
     }
 
     class PromiseStateDrivenRSAACall implements RSAACall<State> {
@@ -176,17 +176,17 @@ import {
         bailout(state: State) {
             return Promise.resolve(state.bailout);
         }
-        method: "GET";
-        types: ["REQ_TYPE", "SUCCESS_TYPE", "FAILURE_TYPE"];
+        method!: "GET";
+        types!: ["REQ_TYPE", "SUCCESS_TYPE", "FAILURE_TYPE"];
     }
 
     class NonStateDrivenRSAACall implements RSAACall<State> {
-        endpoint: "/test/endpoint";
-        method: "GET";
-        headers: { "Content-Type": "application/json" };
-        options: { redirect: "follow" };
-        bailout: true;
-        types: ["REQ_TYPE", "SUCCESS_TYPE", "FAILURE_TYPE"];
+        endpoint!: "/test/endpoint";
+        method!: "GET";
+        headers!: { "Content-Type": "application/json" };
+        options!: { redirect: "follow" };
+        bailout!: true;
+        types!: ["REQ_TYPE", "SUCCESS_TYPE", "FAILURE_TYPE"];
     }
 }
 

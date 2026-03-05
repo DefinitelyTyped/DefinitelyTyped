@@ -31,7 +31,7 @@ new Raven.Client(dsn);
 
 try {
     throw new Error();
-} catch (e) {
+} catch (e: any) {
     const eventId = Raven.captureException(e, (sendErr, eventId) => {});
 }
 

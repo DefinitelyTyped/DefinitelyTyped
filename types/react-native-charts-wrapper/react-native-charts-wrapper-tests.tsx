@@ -10,6 +10,7 @@ import {
     HorizontalBarChart,
     LineChart,
     PieChart,
+    PieChartSelectEvent,
 } from "react-native-charts-wrapper";
 
 const styles = StyleSheet.create({
@@ -753,7 +754,7 @@ class Combined extends React.Component {
 }
 
 class PieChartScreen extends React.Component {
-    handleSelect(event: ChartSelectEvent) {
+    handleSelect(event: PieChartSelectEvent) {
         console.log(event.nativeEvent);
     }
 

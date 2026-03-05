@@ -2,10 +2,10 @@ import { Texture } from "../../textures/Texture.js";
 import Node from "../core/Node.js";
 import UniformNode from "../core/UniformNode.js";
 
-export default class TextureNode extends UniformNode<Texture> {
+interface TextureNodeInterface<TNodeType> {
     readonly isTextureNode: true;
 
-    uvNode: Node | null;
+    uvNode: Node<"vec2"> | Node<"vec3"> | null;
     levelNode: Node | null;
     biasNode: Node | null;
     compareNode: Node | null;
@@ -17,27 +17,15 @@ export default class TextureNode extends UniformNode<Texture> {
 
     referenceNode: Node | null;
 
-    constructor(
-        value?: Texture,
-        uvNode?: Node | null,
-        levelNode?: Node | null,
-        biasNode?: Node | null,
-    );
-
     getDefaultUV(): Node;
 
     setSampler(value: boolean): this;
 
     getSampler(): boolean;
 
-    /**
-     * @deprecated
-     */
-    uv(uvNode: Node): Node;
+    sample(uvNode: Node): Node<TNodeType>;
 
-    sample(uvNode: Node): Node;
-
-    load(uvNode: Node): Node;
+    load(uvNode: Node): Node<TNodeType>;
 
     blur(amountNode: Node): Node;
 
@@ -51,12 +39,25 @@ export default class TextureNode extends UniformNode<Texture> {
 
     compare(compareNode: Node): Node;
 
-    grad(gradeNodeX: Node, gradeNodeY: Node): Node;
+    grad(gradeNodeX: Node, gradeNodeY: Node): TextureNode;
 
-    depth(depthNode: Node): Node;
+    depth(depthNode: Node): TextureNode;
 
     clone(): this;
 }
+
+declare const TextureNode: {
+    new(
+        value?: Texture,
+        uvNode?: Node | null,
+        levelNode?: Node | null,
+        biasNode?: Node | null,
+    ): TextureNode;
+};
+
+type TextureNode<TNodeType = "vec4"> = TextureNodeInterface<TNodeType> & UniformNode<TNodeType, Texture>;
+
+export default TextureNode;
 
 export const texture: (
     value?: Texture | TextureNode,

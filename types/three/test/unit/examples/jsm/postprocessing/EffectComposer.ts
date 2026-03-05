@@ -1,5 +1,6 @@
 import * as THREE from "three";
-import { EffectComposer, FullScreenQuad, Pass } from "three/addons/postprocessing/EffectComposer.js";
+import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
+import { FullScreenQuad, Pass } from "three/addons/postprocessing/Pass.js";
 
 class FooPass extends Pass {
     fsQuad: FullScreenQuad;

@@ -112,7 +112,7 @@ export class DataArrayTexture extends Texture<DataArrayTextureImageData> {
     /**
      * Resets the layer updates registry. See {@link DataArrayTexture.addLayerUpdate}.
      */
-    clearLayoutUpdates(): void;
+    clearLayerUpdates(): void;
 }
 
 export interface DataArrayTextureImageData {

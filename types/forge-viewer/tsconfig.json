@@ -6,10 +6,7 @@
             "dom",
             "ES2020.String"
         ],
-        "noImplicitAny": true,
-        "noImplicitThis": true,
-        "strictNullChecks": true,
-        "strictFunctionTypes": true,
+        "strict": true,
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

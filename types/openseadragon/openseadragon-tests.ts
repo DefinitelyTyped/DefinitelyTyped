@@ -103,7 +103,7 @@ viewer = OpenSeadragon({
 });
 
 declare const buttonElement: Element;
-declare const toolbarElement: Element;
+declare const toolbarElement: HTMLElement;
 viewer = OpenSeadragon({
     toolbar: "toolbar-id",
     zoomInButton: "zoomInButton-id",
@@ -157,7 +157,7 @@ viewer.addControl(button.element, {
 
 const viewport = new Viewport({ margins: {} });
 
-const element = new Element();
+const element = new HTMLElement();
 
 const drawer = new Drawer({ viewer, viewport, element });
 

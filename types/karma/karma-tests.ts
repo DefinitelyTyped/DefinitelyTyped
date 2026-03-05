@@ -201,7 +201,7 @@ CustomPlugin.prototype = {
     log: () => {},
 };
 class CustomPluginClass {
-    log: () => {};
+    log!: () => void;
 }
 
 const pluginsTests = (config: Config) => {

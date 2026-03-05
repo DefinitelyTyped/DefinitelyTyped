@@ -504,6 +504,17 @@ const layout = {
             labels: ["Eve", "Cain", "Seth", "Enos", "Noam", "Abel", "Awan", "Enoch", "Azura"],
             parents: ["", "Eve", "Eve", "Seth", "Seth", "Eve", "Eve", "Awan", "Eve"],
             maxdepth: 1,
+            fill: "none",
+            fillcolor: "#000000",
+            fillpattern: {
+                shape: ["+", "-"],
+                fillmode: "replace",
+                bgcolor: ["#ffffff"],
+                fgcolor: ["#ff0000"],
+                fgopacity: 0.5,
+                size: 1,
+                solidity: [0, 0.5],
+            },
         },
     ];
 

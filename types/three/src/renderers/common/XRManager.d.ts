@@ -4,17 +4,15 @@ import { EventDispatcher } from "../../core/EventDispatcher.js";
 import { RenderTarget } from "../../core/RenderTarget.js";
 import { CylinderGeometry } from "../../geometries/CylinderGeometry.js";
 import { PlaneGeometry } from "../../geometries/PlaneGeometry.js";
-import { Material } from "../../materials/Material.js";
 import { MeshBasicMaterial } from "../../materials/MeshBasicMaterial.js";
 import { Quaternion } from "../../math/Quaternion.js";
-import { Vector2 } from "../../math/Vector2.js";
 import { Vector3 } from "../../math/Vector3.js";
 import { Mesh } from "../../objects/Mesh.js";
-import { WebXRController } from "../webxr/WebXRController.js";
-import { AnimationContext } from "./Animation.js";
+import { XRGripSpace, XRHandSpace, XRTargetRaySpace } from "../webxr/WebXRController.js";
 import QuadMesh from "./QuadMesh.js";
 import Renderer from "./Renderer.js";
 import { XRRenderTarget } from "./XRRenderTarget.js";
+
 export interface XRManagerEventMap {
     sessionstart: {};
     sessionend: {};
@@ -22,39 +20,11 @@ export interface XRManagerEventMap {
         data: XRFrame;
     };
 }
-export interface XRQuadLayerObject {
-    type: "quad";
-    width: number;
-    height: number;
-    translation: Vector3;
-    quaternion: Quaternion;
-    pixelwidth: number;
-    pixelheight: number;
-    plane: Mesh;
-    material: Material;
-    rendercall: () => void;
-    renderTarget: XRRenderTarget;
-    xrlayer?: XRLayer;
-}
-export interface XRCylinderLayerObject {
-    type: "cylinder";
-    radius: number;
-    centralAngle: number;
-    aspectratio: number;
-    translation: Vector3;
-    quaternion: Quaternion;
-    pixelwidth: number;
-    pixelheight: number;
-    plane: Mesh;
-    material: Material;
-    rendercall: () => void;
-    renderTarget: XRRenderTarget;
-    xrlayer?: XRLayer;
-}
-export type XRLayerObject = XRQuadLayerObject | XRCylinderLayerObject;
+
 export interface LayerAttributes {
     stencil?: boolean | undefined;
 }
+
 /**
  * The XR manager is built on top of the WebXR Device API to
  * manage XR sessions with `WebGPURenderer`.
@@ -64,52 +34,6 @@ export interface LayerAttributes {
  * @augments EventDispatcher
  */
 declare class XRManager extends EventDispatcher<XRManagerEventMap> {
-    enabled: boolean;
-    isPresenting: boolean;
-    cameraAutoUpdate: boolean;
-    _renderer: Renderer;
-    _cameraL: PerspectiveCamera;
-    _cameraR: PerspectiveCamera;
-    _cameras: PerspectiveCamera[];
-    _cameraXR: ArrayCamera;
-    _currentDepthNear: number | null;
-    _currentDepthFar: number | null;
-    _controllers: WebXRController[];
-    _controllerInputSources: (XRInputSource | null)[];
-    _xrRenderTarget: XRRenderTarget | null;
-    _layers: XRLayerObject[];
-    _sessionUsesLayers: boolean;
-    _supportsLayers: boolean;
-    _supportsGlBinding: boolean;
-    _frameBufferTargets:
-        | WeakMap<XRRenderTarget, {
-            frameBufferTarget: RenderTarget | null;
-            quad: QuadMesh;
-        }>
-        | null;
-    _createXRLayer: (layer: XRLayerObject) => XRLayer;
-    _gl: WebGL2RenderingContext | null;
-    _currentAnimationContext: AnimationContext | null;
-    _currentAnimationLoop: ((time: DOMHighResTimeStamp, frame?: XRFrame) => void) | null;
-    _currentPixelRatio: number | null;
-    _currentSize: Vector2;
-    _onSessionEvent: (event: XRInputSourceEvent) => void;
-    _onSessionEnd: () => void;
-    _onInputSourcesChange: (event: XRInputSourcesChangeEvent) => void;
-    _onAnimationFrame: (time: DOMHighResTimeStamp, frame?: XRFrame) => void;
-    _referenceSpace: XRReferenceSpace | null;
-    _referenceSpaceType: XRReferenceSpaceType;
-    _customReferenceSpace: XRReferenceSpace | null;
-    _framebufferScaleFactor: number;
-    _foveation: number;
-    _session: XRSession | null;
-    _glBaseLayer: XRWebGLLayer | null;
-    _glBinding: XRWebGLBinding | null;
-    _glProjLayer: XRProjectionLayer | null;
-    _xrFrame: XRFrame | null;
-    _useLayers: boolean;
-    _useMultiviewIfPossible: boolean;
-    _useMultiview: boolean;
     /**
      * Constructs a new XR manager.
      *
@@ -118,6 +42,319 @@ declare class XRManager extends EventDispatcher<XRManagerEventMap> {
      */
     constructor(renderer: Renderer, multiview?: boolean);
     /**
+     * This flag globally enables XR rendering.
+     *
+     * @type {boolean}
+     * @default false
+     */
+    enabled: boolean;
+    /**
+     * Whether the XR device is currently presenting or not.
+     *
+     * @type {boolean}
+     * @default false
+     * @readonly
+     */
+    readonly isPresenting: boolean;
+    /**
+     * Whether the XR camera should automatically be updated or not.
+     *
+     * @type {boolean}
+     * @default true
+     */
+    cameraAutoUpdate: boolean;
+    /**
+     * The renderer.
+     *
+     * @private
+     * @type {Renderer}
+     */
+    private _renderer;
+    /**
+     * Represents the camera for the left eye.
+     *
+     * @private
+     * @type {PerspectiveCamera}
+     */
+    private _cameraL;
+    /**
+     * Represents the camera for the right eye.
+     *
+     * @private
+     * @type {PerspectiveCamera}
+     */
+    private _cameraR;
+    /**
+     * A list of cameras used for rendering the XR views.
+     *
+     * @private
+     * @type {Array<Camera>}
+     */
+    private _cameras;
+    /**
+     * The main XR camera.
+     *
+     * @private
+     * @type {ArrayCamera}
+     */
+    private _cameraXR;
+    /**
+     * The current near value of the XR camera.
+     *
+     * @private
+     * @type {?number}
+     * @default null
+     */
+    private _currentDepthNear;
+    /**
+     * The current far value of the XR camera.
+     *
+     * @private
+     * @type {?number}
+     * @default null
+     */
+    private _currentDepthFar;
+    /**
+     * A list of WebXR controllers requested by the application.
+     *
+     * @private
+     * @type {Array<WebXRController>}
+     */
+    private _controllers;
+    /**
+     * A list of XR input source. Each input source belongs to
+     * an instance of WebXRController.
+     *
+     * @private
+     * @type {Array<XRInputSource?>}
+     */
+    private _controllerInputSources;
+    /**
+     * The XR render target that represents the rendering destination
+     * during an active XR session.
+     *
+     * @private
+     * @type {?RenderTarget}
+     * @default null
+     */
+    private _xrRenderTarget;
+    /**
+     * An array holding all the non-projection layers
+     *
+     * @private
+     * @type {Array<Object>}
+     * @default []
+     */
+    private _layers;
+    /**
+     * Whether the XR session uses layers.
+     *
+     * @private
+     * @type {boolean}
+     * @default false
+     */
+    private _sessionUsesLayers;
+    /**
+     * Whether the device supports binding gl objects.
+     *
+     * @private
+     * @type {boolean}
+     * @readonly
+     */
+    private readonly _supportsGlBinding;
+    _frameBufferTargets:
+        | WeakMap<XRRenderTarget, {
+            frameBufferTarget: RenderTarget | null;
+            quad: QuadMesh;
+        }>
+        | null;
+    /**
+     * Helper function to create native WebXR Layer.
+     *
+     * @private
+     * @type {Function}
+     */
+    private _createXRLayer;
+    /**
+     * The current WebGL context.
+     *
+     * @private
+     * @type {?WebGL2RenderingContext}
+     * @default null
+     */
+    private _gl;
+    /**
+     * The current animation context.
+     *
+     * @private
+     * @type {?Window}
+     * @default null
+     */
+    private _currentAnimationContext;
+    /**
+     * The current animation loop.
+     *
+     * @private
+     * @type {?Function}
+     * @default null
+     */
+    private _currentAnimationLoop;
+    /**
+     * The current pixel ratio.
+     *
+     * @private
+     * @type {?number}
+     * @default null
+     */
+    private _currentPixelRatio;
+    /**
+     * The current size of the renderer's canvas
+     * in logical pixel unit.
+     *
+     * @private
+     * @type {Vector2}
+     */
+    private _currentSize;
+    /**
+     * The default event listener for handling events inside a XR session.
+     *
+     * @private
+     * @type {Function}
+     */
+    private _onSessionEvent;
+    /**
+     * The event listener for handling the end of a XR session.
+     *
+     * @private
+     * @type {Function}
+     */
+    private _onSessionEnd;
+    /**
+     * The event listener for handling the `inputsourceschange` event.
+     *
+     * @private
+     * @type {Function}
+     */
+    private _onInputSourcesChange;
+    /**
+     * The animation loop which is used as a replacement for the default
+     * animation loop of the application. It is only used when a XR session
+     * is active.
+     *
+     * @private
+     * @type {Function}
+     */
+    private _onAnimationFrame;
+    /**
+     * The current XR reference space.
+     *
+     * @private
+     * @type {?XRReferenceSpace}
+     * @default null
+     */
+    private _referenceSpace;
+    /**
+     * The current XR reference space type.
+     *
+     * @private
+     * @type {XRReferenceSpaceType}
+     * @default 'local-floor'
+     */
+    private _referenceSpaceType;
+    /**
+     * A custom reference space defined by the application.
+     *
+     * @private
+     * @type {?XRReferenceSpace}
+     * @default null
+     */
+    private _customReferenceSpace;
+    /**
+     * The framebuffer scale factor.
+     *
+     * @private
+     * @type {number}
+     * @default 1
+     */
+    private _framebufferScaleFactor;
+    /**
+     * The foveation factor.
+     *
+     * @private
+     * @type {number}
+     * @default 1
+     */
+    private _foveation;
+    /**
+     * A reference to the current XR session.
+     *
+     * @private
+     * @type {?XRSession}
+     * @default null
+     */
+    private _session;
+    /**
+     * A reference to the current XR base layer.
+     *
+     * @private
+     * @type {?XRWebGLLayer}
+     * @default null
+     */
+    private _glBaseLayer;
+    /**
+     * A reference to the current XR binding.
+     *
+     * @private
+     * @type {?XRWebGLBinding}
+     * @default null
+     */
+    private _glBinding;
+    /**
+     * A reference to the current XR projection layer.
+     *
+     * @private
+     * @type {?XRProjectionLayer}
+     * @default null
+     */
+    private _glProjLayer;
+    /**
+     * A reference to the current XR frame.
+     *
+     * @private
+     * @type {?XRFrame}
+     * @default null
+     */
+    private _xrFrame;
+    /**
+     * Whether the browser supports the APIs necessary to use XRProjectionLayers.
+     *
+     * Note: this does not represent XRSession explicitly requesting
+     * `'layers'` as a feature - see `_sessionUsesLayers` and #30112
+     *
+     * @private
+     * @type {boolean}
+     * @readonly
+     */
+    private readonly _supportsLayers;
+    /**
+     * Whether the usage of multiview has been requested by the application or not.
+     *
+     * @private
+     * @type {boolean}
+     * @default false
+     * @readonly
+     */
+    private readonly _useMultiviewIfPossible;
+    /**
+     * Whether the usage of multiview is actually enabled. This flag only evaluates to `true`
+     * if multiview has been requested by the application and the `OVR_multiview2` is available.
+     *
+     * @private
+     * @type {boolean}
+     * @readonly
+     */
+    private readonly _useMultiview;
+    /**
      * Returns an instance of `THREE.Group` that represents the transformation
      * of a XR controller in target ray space. The requested controller is defined
      * by the given index.
@@ -125,7 +362,7 @@ declare class XRManager extends EventDispatcher<XRManagerEventMap> {
      * @param {number} index - The index of the XR controller.
      * @return {Group} A group that represents the controller's transformation.
      */
-    getController(index: number): import("../webxr/WebXRController.js").XRTargetRaySpace;
+    getController(index: number): XRTargetRaySpace;
     /**
      * Returns an instance of `THREE.Group` that represents the transformation
      * of a XR controller in grip space. The requested controller is defined
@@ -134,7 +371,7 @@ declare class XRManager extends EventDispatcher<XRManagerEventMap> {
      * @param {number} index - The index of the XR controller.
      * @return {Group} A group that represents the controller's transformation.
      */
-    getControllerGrip(index: number): import("../webxr/WebXRController.js").XRGripSpace;
+    getControllerGrip(index: number): XRGripSpace;
     /**
      * Returns an instance of `THREE.Group` that represents the transformation
      * of a XR controller in hand space. The requested controller is defined
@@ -143,7 +380,7 @@ declare class XRManager extends EventDispatcher<XRManagerEventMap> {
      * @param {number} index - The index of the XR controller.
      * @return {Group} A group that represents the controller's transformation.
      */
-    getHand(index: number): import("../webxr/WebXRController.js").XRHandSpace;
+    getHand(index: number): XRHandSpace;
     /**
      * Returns the foveation value.
      *
@@ -190,7 +427,7 @@ declare class XRManager extends EventDispatcher<XRManagerEventMap> {
      *
      * @return {XRReferenceSpace} The XR reference space.
      */
-    getReferenceSpace(): XRReferenceSpace | null;
+    getReferenceSpace(): XRReferenceSpace;
     /**
      * Sets a custom XR reference space.
      *
@@ -254,7 +491,7 @@ declare class XRManager extends EventDispatcher<XRManagerEventMap> {
         pixelheight: number,
         rendercall: () => void,
         attributes?: LayerAttributes,
-    ): Mesh<PlaneGeometry, MeshBasicMaterial, import("../../core/Object3D.js").Object3DEventMap>;
+    ): Mesh<PlaneGeometry, MeshBasicMaterial>;
     /**
      * This method can be used in XR applications to create a cylindrical layer that presents a separate
      * rendered scene.
@@ -281,7 +518,7 @@ declare class XRManager extends EventDispatcher<XRManagerEventMap> {
         pixelheight: number,
         rendercall: () => void,
         attributes?: LayerAttributes,
-    ): Mesh<CylinderGeometry, MeshBasicMaterial, import("../../core/Object3D.js").Object3DEventMap>;
+    ): Mesh<CylinderGeometry, MeshBasicMaterial>;
     /**
      * Renders the XR layers that have been previously added to the scene.
      *
@@ -320,6 +557,7 @@ declare class XRManager extends EventDispatcher<XRManagerEventMap> {
      * @param {number} index - The controller index.
      * @return {WebXRController} The XR controller.
      */
-    _getController(index: number): WebXRController;
+    private _getController;
 }
+
 export default XRManager;

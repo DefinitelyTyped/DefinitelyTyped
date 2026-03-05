@@ -7,8 +7,6 @@ declare module "../../core/Object3D.js" {
         count?: number | undefined;
         // See https://github.com/mrdoob/three.js/pull/26335
         occlusionTest?: boolean | undefined;
-        // https://github.com/mrdoob/three.js/pull/29386
-        static?: boolean | undefined;
     }
 }
 

@@ -14,23 +14,27 @@ export default class FunctionNode<P extends Array<Node | number> | { [name: stri
     getNodeFunction(builder: NodeBuilder): NodeFunction;
 }
 
+// eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
 type FnParameters<P extends FunctionNodeArguments> = P extends readonly [...unknown[]] ? ProxiedTuple<P>
+    // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
     : readonly [ProxiedObject<P>];
 
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export const nativeFn: <P extends FunctionNodeArguments>(
     code: string,
     includes?: CodeNodeInclude[],
     language?: string,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ) => (...params: FnParameters<P>) => Node;
 
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export const glslFn: <P extends FunctionNodeArguments>(
     code: string,
     includes?: CodeNodeInclude[],
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ) => (...params: FnParameters<P>) => Node;
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export const wgslFn: <P extends FunctionNodeArguments>(
     code: string,
     includes?: CodeNodeInclude[],
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ) => (...params: FnParameters<P>) => Node;
+
+export {};
