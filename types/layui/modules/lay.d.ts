@@ -575,9 +575,9 @@ declare namespace Layui {
         touchSwipe(
             elem: string | globalThis.Element | JQuery,
             options: {
-                onTouchStart(e: TouchEvent, state: LayTouchSwipeState): void;
-                onTouchMove(e: TouchEvent, state: LayTouchSwipeState): void;
-                onTouchEnd(e: TouchEvent, state: LayTouchSwipeState): void;
+                onTouchStart?(e: TouchEvent, state: LayTouchSwipeState): void;
+                onTouchMove?(e: TouchEvent, state: LayTouchSwipeState): void;
+                onTouchEnd?(e: TouchEvent, state: LayTouchSwipeState): void;
             },
         ): void;
         /**

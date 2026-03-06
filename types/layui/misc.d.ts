@@ -40,10 +40,11 @@ declare namespace Layui {
         : T;
 
     type Selector = string;
-    type ExportsCallback = (this: Layui, fn: (app: string, exports: Record<string, any>) => void) => void;
+    type ExportsCallback = (this: Layui, fn: (app: string, exports: object) => void) => void;
 
     /**
-     * 全局属性
+     * 全局配置选项
+     * layui.config(options)
      */
     interface GlobalConfigOptions {
         /**
@@ -62,6 +63,22 @@ declare namespace Layui {
          * 设定扩展的 layui 模块的所在目录，一般用于外部模块扩展
          */
         base?: string;
+    }
+
+    /**
+     * window.LAYUI_GLOBAL
+     */
+    interface GlobalProperties {
+        /**
+         * 动态加载等特殊场景设置 layui 目录
+         * @since 2.6.6
+         */
+        dir?: string;
+        /**
+         * 国际化消息对象
+         * @since 2.13.0
+         */
+        i18n?: I18nMessages;
     }
 
     /**

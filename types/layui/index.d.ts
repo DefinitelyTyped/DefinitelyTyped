@@ -34,19 +34,11 @@
 declare const layui: Layui;
 declare const lay: Layui.LayStatic;
 declare const layer: Layui.Layer;
-/**
- * 动态加载等特殊场景设置 layui 目录
- * @since 2.6.6
- */
-declare const LAYUI_GLOBAL: { dir: string };
+declare const LAYUI_GLOBAL: Layui.GlobalProperties;
 
 interface Window {
     layui: Layui;
     lay: Layui.LayStatic;
     layer: Layui.Layer;
-    /**
-     * 动态加载等特殊场景设置 layui 目录
-     * @since 2.6.6
-     */
-    LAYUI_GLOBAL: { dir: string };
+    LAYUI_GLOBAL: Layui.GlobalProperties;
 }
