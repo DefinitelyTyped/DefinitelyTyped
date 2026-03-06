@@ -9,7 +9,16 @@ project.parseSync();
 
 project.parse((err, results) => {
     if (err) {
-        const msg: string = err.message;
+        // Serialized from child process — not an Error instance
+        // $ExpectType string | undefined
+        const message = err.message;
+        // $ExpectType string | undefined
+        const name = err.name;
+        // $ExpectType string | undefined
+        const code = err.code;
+        // Index signature for other serialized properties (e.g., errno, syscall)
+        // $ExpectType unknown
+        const errno = err.errno;
     }
 });
 

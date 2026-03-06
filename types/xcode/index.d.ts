@@ -160,12 +160,28 @@ export interface WriteOptions {
     omitEmptyValues?: boolean;
 }
 
+/**
+ * Serialized error from child process worker (not an Error instance).
+ * `parse()` runs in a forked process via `child_process.fork()` with JSON serialization,
+ * so only own enumerable properties survive. PEG parser errors carry `message`/`name`;
+ * filesystem errors carry `code`/`errno`.
+ */
+export interface ParseError {
+    /** Present for PEG parser syntax errors. */
+    message?: string;
+    /** "SyntaxError" for PEG parser errors. */
+    name?: string;
+    /** Filesystem error code (e.g., "ENOENT"). */
+    code?: string;
+    [key: string]: unknown;
+}
+
 export interface XcodeProject {
     filepath: string;
     hash: PbxprojHash;
     readonly productName: string | undefined;
 
-    parse(callback?: (err: Error | null, results?: unknown) => void): this;
+    parse(callback?: (err: ParseError | null, results?: unknown) => void): this;
     parseSync(): this;
     writeSync(options?: WriteOptions): string;
     allUuids(): UUID[];
