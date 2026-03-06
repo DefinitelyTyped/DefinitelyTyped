@@ -12,6 +12,10 @@
             "libraryName": "hyphenate-style-name",
             "asOfVersion": "1.1.0"
         },
+        "@types/mongoose-geojson-schema": {
+            "libraryName": "mongoose-geojson-schema",
+            "asOfVersion": "3.0.0"
+        },
         "a11y-dialog": {
             "libraryName": "a11y-dialog",
             "asOfVersion": "5.3.2"
@@ -1664,6 +1668,10 @@
         "diff2html": {
             "libraryName": "diff2html",
             "asOfVersion": "3.0.0"
+        },
+        "dinero.js": {
+            "libraryName": "dinero.js",
+            "asOfVersion": "2.0.0"
         },
         "direction": {
             "libraryName": "direction",

@@ -402,6 +402,21 @@ declare module "v8" {
      */
     function getHeapCodeStatistics(): HeapCodeStatistics;
     /**
+     * @since v24.12.0
+     */
+    interface SyncCPUProfileHandle {
+        /**
+         * Stopping collecting the profile and return the profile data.
+         * @since v24.12.0
+         */
+        stop(): string;
+        /**
+         * Stopping collecting the profile and the profile will be discarded.
+         * @since v24.12.0
+         */
+        [Symbol.dispose](): void;
+    }
+    /**
      * @since v24.8.0
      */
     interface CPUProfileHandle {
@@ -466,6 +481,17 @@ declare module "v8" {
      * @since v23.10.0, v22.15.0
      */
     function isStringOneByteRepresentation(content: string): boolean;
+    /**
+     * Starting a CPU profile then return a `SyncCPUProfileHandle` object. This API supports `using` syntax.
+     *
+     * ```js
+     * const handle = v8.startCpuProfile();
+     * const profile = handle.stop();
+     * console.log(profile);
+     * ```
+     * @since v24.12.0
+     */
+    function startCpuProfile(): SyncCPUProfileHandle;
     /**
      * @since v8.0.0
      */

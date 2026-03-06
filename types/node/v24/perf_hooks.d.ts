@@ -200,14 +200,6 @@ declare module "perf_hooks" {
         active: number;
         utilization: number;
     }
-    /**
-     * @param utilization1 The result of a previous call to `eventLoopUtilization()`.
-     * @param utilization2 The result of a previous call to `eventLoopUtilization()` prior to `utilization1`.
-     */
-    type EventLoopUtilityFunction = (
-        utilization1?: EventLoopUtilization,
-        utilization2?: EventLoopUtilization,
-    ) => EventLoopUtilization;
     interface MarkOptions {
         /**
          * Additional optional detail to include with the mark.
@@ -264,11 +256,19 @@ declare module "perf_hooks" {
          */
         clearResourceTimings(name?: string): void;
         /**
-         * eventLoopUtilization is similar to CPU utilization except that it is calculated using high precision wall-clock time.
-         * It represents the percentage of time the event loop has spent outside the event loop's event provider (e.g. epoll_wait).
-         * No other CPU idle time is taken into consideration.
+         * This is an alias of `perf_hooks.eventLoopUtilization()`.
+         *
+         * _This property is an extension by Node.js. It is not available in Web browsers._
+         * @since v14.10.0, v12.19.0
+         * @param utilization1 The result of a previous call to
+         * `eventLoopUtilization()`.
+         * @param utilization2 The result of a previous call to
+         * `eventLoopUtilization()` prior to `utilization1`.
          */
-        eventLoopUtilization: EventLoopUtilityFunction;
+        eventLoopUtilization(
+            utilization1?: EventLoopUtilization,
+            utilization2?: EventLoopUtilization,
+        ): EventLoopUtilization;
         /**
          * Returns a list of `PerformanceEntry` objects in chronological order with respect to `performanceEntry.startTime`.
          * If you are only interested in performance entries of certain types or that have certain names, see
@@ -371,41 +371,12 @@ declare module "perf_hooks" {
          */
         readonly timeOrigin: number;
         /**
+         * This is an alias of `perf_hooks.timerify()`.
+         *
          * _This property is an extension by Node.js. It is not available in Web browsers._
-         *
-         * Wraps a function within a new function that measures the running time of the wrapped function.
-         * A `PerformanceObserver` must be subscribed to the `'function'` event type in order for the timing details to be accessed.
-         *
-         * ```js
-         * import {
-         *   performance,
-         *   PerformanceObserver,
-         * } from 'node:perf_hooks';
-         *
-         * function someFunction() {
-         *   console.log('hello world');
-         * }
-         *
-         * const wrapped = performance.timerify(someFunction);
-         *
-         * const obs = new PerformanceObserver((list) => {
-         *   console.log(list.getEntries()[0].duration);
-         *
-         *   performance.clearMarks();
-         *   performance.clearMeasures();
-         *   obs.disconnect();
-         * });
-         * obs.observe({ entryTypes: ['function'] });
-         *
-         * // A performance timeline entry will be created
-         * wrapped();
-         * ```
-         *
-         * If the wrapped function returns a promise, a finally handler will be attached to the promise and the duration will be reported
-         * once the finally handler is invoked.
-         * @param fn
+         * @since v8.5.0
          */
-        timerify<T extends (...params: any[]) => any>(fn: T, options?: TimerifyOptions): T;
+        timerify<T extends (...args: any[]) => any>(fn: T, options?: TimerifyOptions): T;
         /**
          * An object which is JSON representation of the performance object. It is similar to
          * [`window.performance.toJSON`](https://developer.mozilla.org/en-US/docs/Web/API/Performance/toJSON) in browsers.
@@ -844,6 +815,83 @@ declare module "perf_hooks" {
          */
         add(other: RecordableHistogram): void;
     }
+    interface CreateHistogramOptions {
+        /**
+         * The lowest discernible value. Must be an integer value greater than 0.
+         * @default 1
+         */
+        lowest?: number | bigint | undefined;
+        /**
+         * The highest recordable value. Must be an integer value that is equal to
+         * or greater than two times `lowest`.
+         * @default Number.MAX_SAFE_INTEGER
+         */
+        highest?: number | bigint | undefined;
+        /**
+         * The number of accuracy digits. Must be a number between `1` and `5`.
+         * @default 3
+         */
+        figures?: number | undefined;
+    }
+    /**
+     * Returns a {@link RecordableHistogram `RecordableHistogram`}.
+     * @since v15.9.0, v14.18.0
+     */
+    function createHistogram(options?: CreateHistogramOptions): RecordableHistogram;
+    /**
+     * The `eventLoopUtilization()` function returns an object that contains the
+     * cumulative duration of time the event loop has been both idle and active as a
+     * high resolution milliseconds timer. The `utilization` value is the calculated
+     * Event Loop Utilization (ELU).
+     *
+     * If bootstrapping has not yet finished on the main thread the properties have
+     * the value of `0`. The ELU is immediately available on
+     * [Worker threads](https://nodejs.org/docs/latest-v24.x/api/worker_threads.html#worker-threads)
+     * since bootstrap happens within the event loop.
+     *
+     * Both `utilization1` and `utilization2` are optional parameters.
+     *
+     * If `utilization1` is passed, then the delta between the current call's `active`
+     * and `idle` times, as well as the corresponding `utilization` value are
+     * calculated and returned (similar to `process.hrtime()`).
+     *
+     * If `utilization1` and `utilization2` are both passed, then the delta is
+     * calculated between the two arguments. This is a convenience option because,
+     * unlike `process.hrtime()`, calculating the ELU is more complex than a
+     * single subtraction.
+     *
+     * ELU is similar to CPU utilization, except that it only measures event loop
+     * statistics and not CPU usage. It represents the percentage of time the event
+     * loop has spent outside the event loop's event provider (e.g. `epoll_wait`).
+     * No other CPU idle time is taken into consideration. The following is an example
+     * of how a mostly idle process will have a high ELU.
+     *
+     * ```js
+     * import { eventLoopUtilization } from 'node:perf_hooks';
+     * import { spawnSync } from 'node:child_process';
+     *
+     * setImmediate(() => {
+     *   const elu = eventLoopUtilization();
+     *   spawnSync('sleep', ['5']);
+     *   console.log(eventLoopUtilization(elu).utilization);
+     * });
+     * ```
+     *
+     * Although the CPU is mostly idle while running this script, the value of `utilization`
+     * is `1`. This is because the call to `child_process.spawnSync()` blocks the event loop
+     * from proceeding.
+     *
+     * Passing in a user-defined object instead of the result of a previous call to
+     * `eventLoopUtilization()` will lead to undefined behavior. The return values are not
+     * guaranteed to reflect any correct state of the event loop.
+     * @since v24.12.0
+     * @param utilization1 The result of a previous call to `eventLoopUtilization()`.
+     * @param utilization2 The result of a previous call to `eventLoopUtilization()` prior to `utilization1`.
+     */
+    function eventLoopUtilization(
+        utilization1?: EventLoopUtilization,
+        utilization2?: EventLoopUtilization,
+    ): EventLoopUtilization;
     /**
      * _This property is an extension by Node.js. It is not available in Web browsers._
      *
@@ -873,28 +921,40 @@ declare module "perf_hooks" {
      * @since v11.10.0
      */
     function monitorEventLoopDelay(options?: EventLoopMonitorOptions): IntervalHistogram;
-    interface CreateHistogramOptions {
-        /**
-         * The minimum recordable value. Must be an integer value greater than 0.
-         * @default 1
-         */
-        lowest?: number | bigint | undefined;
-        /**
-         * The maximum recordable value. Must be an integer value greater than min.
-         * @default Number.MAX_SAFE_INTEGER
-         */
-        highest?: number | bigint | undefined;
-        /**
-         * The number of accuracy digits. Must be a number between 1 and 5.
-         * @default 3
-         */
-        figures?: number | undefined;
-    }
     /**
-     * Returns a `RecordableHistogram`.
-     * @since v15.9.0, v14.18.0
+     * _This property is an extension by Node.js. It is not available in Web browsers._
+     *
+     * Wraps a function within a new function that measures the running time of the
+     * wrapped function. A `PerformanceObserver` must be subscribed to the `'function'`
+     * event type in order for the timing details to be accessed.
+     *
+     * ```js
+     * import { timerify, performance, PerformanceObserver } from 'node:perf_hooks';
+     *
+     * function someFunction() {
+     *   console.log('hello world');
+     * }
+     *
+     * const wrapped = timerify(someFunction);
+     *
+     * const obs = new PerformanceObserver((list) => {
+     *   console.log(list.getEntries()[0].duration);
+     *
+     *   performance.clearMarks();
+     *   performance.clearMeasures();
+     *   obs.disconnect();
+     * });
+     * obs.observe({ entryTypes: ['function'] });
+     *
+     * // A performance timeline entry will be created
+     * wrapped();
+     * ```
+     *
+     * If the wrapped function returns a promise, a finally handler will be attached
+     * to the promise and the duration will be reported once the finally handler is invoked.
+     * @since v24.12.0
      */
-    function createHistogram(options?: CreateHistogramOptions): RecordableHistogram;
+    function timerify<T extends (...params: any[]) => any>(fn: T, options?: TimerifyOptions): T;
     import {
         performance as _performance,
         PerformanceEntry as _PerformanceEntry,
