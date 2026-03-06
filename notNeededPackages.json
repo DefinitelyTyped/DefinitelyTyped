@@ -1669,6 +1669,10 @@
             "libraryName": "diff2html",
             "asOfVersion": "3.0.0"
         },
+        "dinero.js": {
+            "libraryName": "dinero.js",
+            "asOfVersion": "2.0.0"
+        },
         "direction": {
             "libraryName": "direction",
             "asOfVersion": "2.0.0"
