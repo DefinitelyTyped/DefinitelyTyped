@@ -72,7 +72,7 @@ function layTest() {
         capture: true,
         detectIframe: true,
     });
-    lay.clipboard.writeText("123");
+    lay.clipboard.writeText({ text: "123" });
     lay.isPlainObject({});
     lay.isPlainObject([]);
     lay.isPlainObject(new Date());

@@ -547,13 +547,9 @@ declare namespace Layui {
         clipboard: {
             /**
              * 剪贴板写入文本
-             * @param text 写入剪贴板的文本
-             * @param done 写入成功/完成回调
-             * @param error 写入失败回调
-             *
              * @since 2.8.17
              */
-            writeText(text: string, done?: () => void, error?: (err: any) => void): void;
+            writeText(options: { text: string; done?: () => void; error?: (err: any) => void }): void;
         };
         /**
          * 检测是否支持 Passive Event Listeners
