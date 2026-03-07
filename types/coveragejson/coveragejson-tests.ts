@@ -854,3 +854,54 @@ let multipolygonseriesDomain: CoverageJSON.MultiPolygonSeries = {
     },
     referencing,
 };
+
+let coverageWithRemoteDomainRange: CoverageJSON.Coverage = {
+    type: "Coverage",
+    domain: "https://covjson.org/playground/coverages/grid-domain.covjson",
+    ranges: {
+        FOO: "https://gist.github.com/murithigeo/0d35074786aaa0e23657755a14044a2e",
+    },
+    parameters: {
+        "FOO": {
+            "type": "Parameter",
+            "observedProperty": {
+                "label": {
+                    "en": "Bar",
+                },
+            },
+        },
+    },
+};
+
+let gridDomainWithRegularElevation: CoverageJSON.CoverageJSON = {
+    type: "Domain",
+    domainType: "Grid",
+    axes: {
+        x: { values: [10, 20] },
+        y: { values: [-5, 0] },
+        z: { start: 0, stop: 10, num: 10 },
+    },
+};
+
+let sectionWithRegularElevation: CoverageJSON.Domain = {
+    type: "Domain",
+    domainType: "Section",
+    axes: {
+        composite: {
+            dataType: "tuple",
+            "coordinates": ["t", "x", "y"],
+            values: [["2024-10-10", 10, 20]],
+        },
+        z: { start: 0, stop: 10, num: 10 },
+    },
+};
+
+let verticalprofilewithRegularElevation: CoverageJSON.Domain = {
+    "type": "Domain",
+    domainType: "VerticalProfile",
+    axes: {
+        z: { start: 0, stop: 10, num: 0 },
+        x: { values: [10] },
+        y: { values: [20] },
+    },
+};
