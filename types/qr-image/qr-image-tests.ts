@@ -5,6 +5,8 @@ const qr_svg = qr.image("I love QR!", { type: "svg" });
 qr_svg.pipe(fs.createWriteStream("i_love_qr.svg"));
 
 const svg_string = qr.imageSync("I love QR!", { type: "svg" });
+const svg_string_from_num = qr.imageSync(1234, { type: "svg" });
+const svg_string_from_arr = qr.imageSync([1, 128], { type: "svg" });
 
 // customize
 function coord2offset(x: number, y: number, size: number) {

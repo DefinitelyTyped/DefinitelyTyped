@@ -8,6 +8,8 @@ export type ec_level = "L" | "M" | "Q" | "H";
 /** @default 'png' */
 export type image_type = "png" | "svg" | "pdf" | "eps";
 
+export type encodable = string | number | Buffer | ReadonlyArray<number>;
+
 export interface Bitmap {
     /**
      * width (and height) of resulting image in pixels
@@ -55,13 +57,13 @@ export interface Options {
     customize?: ((bitmap: Bitmap) => void) | undefined;
 }
 
-export function image(text: string, level?: ec_level): NodeJS.ReadableStream;
-export function image(text: string, options?: Options): NodeJS.ReadableStream;
+export function image(data: encodable, level?: ec_level): NodeJS.ReadableStream;
+export function image(data: encodable, options?: Options): NodeJS.ReadableStream;
 
-export function imageSync(text: string, level?: ec_level): Buffer;
-export function imageSync(text: string, options?: Options): string | Buffer;
+export function imageSync(data: encodable, level?: ec_level): Buffer;
+export function imageSync(data: encodable, options?: Options): string | Buffer;
 
-export function svgObject(text: string, level?: ec_level): SvgObject;
-export function svgObject(text: string, options?: Options): SvgObject;
+export function svgObject(data: encodable, level?: ec_level): SvgObject;
+export function svgObject(data: encodable, options?: Options): SvgObject;
 
-export function matrix(text: string, level?: ec_level): any[][];
+export function matrix(data: encodable, level?: ec_level): any[][];
