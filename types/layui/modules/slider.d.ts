@@ -87,31 +87,49 @@ declare namespace Layui {
     }
 
     /**
+     * 组件内部实例的详细类型请查看源码
+     */
+    class SliderClass extends Component<SliderOptions> {
+        precision(...args: any[]): any;
+        slide(...args: any[]): any;
+    }
+
+    interface SliderReturn extends ComponentReturn<SliderOptions> {
+        /**
+         * 改变指定滑块实例的数值
+         * @param value 要设置的滑块数值
+         * @param index 滑块所在的区间开始值或结尾值的索引，开始值：0 ; 结尾值：1
+         */
+        setValue(value: any, index?: number): void;
+    }
+
+    /**
      * 滑块
+     *
+     * 该组件继承自 Component(2.12.0)
      * @see https://layui.dev/docs/2/slider/
      */
-    interface Slider {
-        config: Record<string, any>;
-        index: number;
-        /**
-         * 设置滑块的全局参数
-         * @param options 基础参数
-         */
-        set(options?: Partial<SliderOptions>): Slider;
-        on(event: string, callback: (obj: any) => any): any;
+    interface Slider extends ComponentInterface<SliderOptions, SliderClass, SliderReturn> {
         /**
          * 核心方法
          * @param option 参数
          * @since 2.8.0+ 除 elem 属性外，其他基础属性也可以直接写在元素的 `lay-options="{}"` 属性中
          */
-        render(option: SliderOptions): {
-            config: Required<SliderOptions>;
-            /**
-             * 改变指定滑块实例的数值
-             * @param value 要设置的滑块数值
-             * @param index 滑块所在的区间开始值或结尾值的索引，开始值：0 ; 结尾值：1
-             */
-            setValue(value: any, index?: number): void;
-        };
+        render(option: SliderOptions): SliderReturn;
+        /**
+         * 组件常量集
+         * @since 2.11.0
+         */
+        CONST: {
+            ELEM_VIEW: string;
+            SLIDER_BAR: string;
+            SLIDER_WRAP: string;
+            SLIDER_WRAP_BTN: string;
+            SLIDER_TIPS: string;
+            SLIDER_INPUT: string;
+            SLIDER_INPUT_TXT: string;
+            SLIDER_INPUT_BTN: string;
+            ELEM_HOVER: string;
+        } & ComponentInterface<SliderOptions, SliderClass, SliderReturn>["CONST"];
     }
 }

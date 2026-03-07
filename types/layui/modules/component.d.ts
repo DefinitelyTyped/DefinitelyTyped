@@ -81,12 +81,14 @@ declare namespace Layui {
          * 渲染函数
          * @since 2.10.0
          */
-        render: ComponentBuilderOptions<TConfig, this>["render"];
+        render(
+            ...args: ArgumentsType<ComponentBuilderOptions<TConfig, this>["render"]>
+        ): ReturnType<ComponentBuilderOptions<TConfig, this>["render"]>;
         /**
          * 事件绑定函数
          * @since 2.10.0
          */
-        events: ComponentBuilderOptions<TConfig, this>["events"];
+        events(...args: any[]): any;
     }
 
     interface ComponentReturn<TConfig> {
