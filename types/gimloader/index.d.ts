@@ -2261,7 +2261,12 @@ declare global {
             error?: (error: any) => void;
         }
         namespace Schema {
-            type ObjectSchema<T extends object> = T & {
+            interface ColyseusMethods {
+                $callbacks: Record<string, any>;
+                $changes: any;
+                toJson(): any;
+            }
+            type ObjectSchema<T extends object> = T & ColyseusMethods & {
                 listen<K extends keyof T>(
                     key: K,
                     callback: (value: T[K], lastValue: T[K]) => void,
@@ -2269,11 +2274,11 @@ declare global {
                 ): () => void;
                 onChange(callback: () => void): () => void;
             };
-            interface CollectionSchema<T, K> {
+            type CollectionSchema<T, K> = ColyseusMethods & {
                 onAdd(callback: (value: T, index: K) => void, immediate?: boolean): () => void;
                 onRemove(callback: (value: T, index: K) => void): () => void;
                 onChange(callback: (item: T, index: K) => void): () => void;
-            }
+            };
             type MapSchema<T> =
                 & {
                     [key: string]: T;
@@ -2299,6 +2304,7 @@ declare global {
             interface HealthState {
                 classImmunityActive: boolean;
                 fragility: number;
+                health: number;
                 lives: number;
                 maxHealth: number;
                 maxShield: number;
@@ -2316,11 +2322,16 @@ declare global {
                 waitingEndTime: number;
                 waitingStartTime: number;
             }
+            interface SlotState {
+                amount: number;
+            }
             interface InventoryState {
                 activeInteractiveSlot: number;
                 infiniteAmmo: boolean;
-                interactiveSlots: MapSchema<InteractiveSlotState>;
+                interactiveSlots: MapSchema<ObjectSchema<InteractiveSlotState>>;
                 interactiveSlotsOrder: ArraySchema<number>;
+                maxSlots: number;
+                slots: MapSchema<ObjectSchema<SlotState>>;
             }
             interface PermissionsState {
                 adding: boolean;
@@ -2386,8 +2397,8 @@ declare global {
                 url: string;
             }
             interface CallToActionState {
-                categories: ArraySchema<ActionCategoryState>;
-                items: ArraySchema<ActionItemState>;
+                categories: ArraySchema<ObjectSchema<ActionCategoryState>>;
+                items: ArraySchema<ObjectSchema<ActionItemState>>;
             }
             interface GameSessionState {
                 callToAction: ObjectSchema<CallToActionState>;
@@ -2437,15 +2448,16 @@ declare global {
                 score: number;
             }
             interface GimkitState {
-                characters: MapSchema<CharacterState>;
-                customAssets: MapSchema<CustomAssetState>;
+                characters: MapSchema<ObjectSchema<CharacterState>>;
+                customAssets: MapSchema<ObjectSchema<CustomAssetState>>;
                 hooks: ObjectSchema<HooksState>;
                 mapSettings: string;
                 matchmaker: ObjectSchema<MatchmakerState>;
                 session: ObjectSchema<SessionState>;
-                teams: ArraySchema<TeamState>;
+                teams: ArraySchema<ObjectSchema<TeamState>>;
                 world: ObjectSchema<WorldState>;
             }
+            type GimkitSchema = ObjectSchema<GimkitState>;
         }
         class BaseNetApi extends EventEmitter2 {
             constructor();
@@ -2456,7 +2468,7 @@ declare global {
             /** The room that the client is connected to, or null if there is no connection */
             get room(): any;
             /** Gimkit's internal Colyseus state */
-            get state(): Schema.GimkitState;
+            get state(): Schema.GimkitSchema;
             /** Whether the user is the one hosting the current game */
             get isHost(): boolean;
             /** Sends a message to the server on a specific channel */
