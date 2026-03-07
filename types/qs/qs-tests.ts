@@ -426,6 +426,40 @@ qs.parse("a=b&c=d", { delimiter: "&" });
     );
 });
 
+(() => {
+    assert.deepEqual(
+        qs.parse("a[b]=c&a=d", { strictMerge: false }),
+        { a: { b: "c", d: true } },
+    );
+
+    assert.deepEqual(
+        qs.parse("a[b]=c&a=toString", { strictMerge: false }),
+        { a: { b: "c" } },
+    );
+
+    assert.deepEqual(
+        qs.parse("a[b]=c&a=toString", { strictMerge: false, allowPrototypes: true }),
+        { a: { b: "c", toString: true } },
+    );
+});
+
+(() => {
+    assert.deepEqual(
+        qs.parse("a[b]=c&a=d"),
+        { a: [{ b: "c" }, "d"] },
+    );
+
+    assert.deepEqual(
+        qs.parse("a=d&a[b]=c"),
+        { a: ["d", { b: "c" }] },
+    );
+
+    assert.deepEqual(
+        qs.parse("a[b]=c&a=toString"),
+        { a: [{ b: "c" }, "toString"] },
+    );
+});
+
 declare const myQuery: { a: string; b?: string | undefined };
 const myQueryCopy: qs.ParsedQs = myQuery;
 
