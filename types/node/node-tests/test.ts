@@ -6,6 +6,7 @@ import {
     before,
     beforeEach,
     describe,
+    expectFailure,
     it,
     Mock,
     mock,
@@ -218,6 +219,7 @@ describe("options with values", {
     skip: "reason for skip",
     timeout: Infinity,
     todo: "reason for todo",
+    expectFailure: true,
 });
 
 it("options with values", {
@@ -227,6 +229,7 @@ it("options with values", {
     skip: "reason for skip",
     timeout: Infinity,
     todo: "reason for todo",
+    expectFailure: true,
 });
 
 describe("options with booleans", {
@@ -331,6 +334,39 @@ describe.only("only shorthand", {
     timeout: Infinity,
 });
 it.only("only shorthand", {
+    concurrency: 1,
+    only: true,
+    signal: new AbortController().signal,
+    timeout: Infinity,
+});
+
+expectFailure("x", {
+    concurrency: 1,
+    only: true,
+    signal: new AbortController().signal,
+    timeout: Infinity,
+});
+expectFailure((t, cb) => {
+    // $ExpectType TestContext
+    t;
+    // $ExpectType (result?: any) => void
+    cb;
+    // $ExpectType void
+    cb({ x: "anything" });
+});
+test.expectFailure("x", {
+    concurrency: 1,
+    only: true,
+    signal: new AbortController().signal,
+    timeout: Infinity,
+});
+describe.expectFailure("x", {
+    concurrency: 1,
+    only: true,
+    signal: new AbortController().signal,
+    timeout: Infinity,
+});
+it.expectFailure("x", {
     concurrency: 1,
     only: true,
     signal: new AbortController().signal,
