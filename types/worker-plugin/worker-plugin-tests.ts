@@ -11,7 +11,9 @@ new WorkerPlugin({
     chunkFilename: "[id]_worker_chunk.js",
 });
 
-class ExistingPlugin extends webpack.Plugin {}
+class ExistingPlugin implements webpack.WebpackPluginInstance {
+    apply(compiler: webpack.Compiler): void {}
+}
 
 const optionsArray: WorkerPlugin.Options[] = [
     {
