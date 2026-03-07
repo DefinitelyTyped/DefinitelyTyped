@@ -1,84 +1,48 @@
-import type { ComponentType, JSX, PropsWithChildren } from "react";
+// Import necessary types from React for use in this module
+import * as React from "react";
 
+// Props for a component that will be rendered when the server-side response is empty
+export type EmptyResponsePlaceholderProps = {
+    className?: string; // Optional CSS class name for styling the placeholder
+} & Partial<ServerSideRenderProps>; // Inherits all properties from ServerSideRenderProps, made optional via Partial
+
+// Props for a component that will be rendered when there's an error in the server-side response
+export type ErrorResponsePlaceholderProps = {
+    className?: string; // Optional CSS class name for styling the placeholder
+    response?: { errorMsg?: string }; // Optional response object containing an optional error message
+} & Partial<ServerSideRenderProps>; // Inherits all properties from ServerSideRenderProps, made optional via Partial
+
+// Props for a component that will be rendered while the server-side response is loading
+export type LoadingResponsePlaceholderProps = {
+    children?: React.ReactNode; // Optional content (e.g., elements, strings) to render inside the placeholder
+    showLoader?: boolean; // Optional flag to display a loading indicator
+} & Partial<ServerSideRenderProps>; // Inherits all properties from ServerSideRenderProps, made optional via Partial
+
+// Interface defining the props for the ServerSideRender component
 export interface ServerSideRenderProps {
-    /** The identifier of the block to be serverside rendered. */
-    block: string;
-    /** The block attributes to be sent to the server for rendering. */
-    attributes?: Record<string, unknown> | null;
-    /** Additional classes to apply to the wrapper element. */
-    className?: string;
-    /** The HTTP method to use (‘GET’ or ‘POST’). Default is ‘GET’ */
-    httpMethod?: "GET" | "POST";
-    /**  Additional query arguments to append to the request URL. */
-    urlQueryArgs?: Record<string, string | number | boolean | undefined>;
-    /** Whether to remove block support attributes before sending. */
-    skipBlockSupportAttributes?: boolean;
-    /** Component rendered when the API response is empty. */
-    EmptyResponsePlaceholder?: ComponentType<ServerSideRenderProps>;
-    /** Component rendered when the API response is an error. */
-    ErrorResponsePlaceholder?: ComponentType<ServerSideRenderProps & { message: string }>;
-    /** Component rendered while the API request is loading. */
-    LoadingResponsePlaceholder?: ComponentType<PropsWithChildren<ServerSideRenderProps>>;
+    attributes?: Record<string, any>; // Optional key-value pairs to pass as attributes to the block
+    block: string; // Required name of the block to be rendered on the server
+    EmptyResponsePlaceholder?: React.ComponentType<EmptyResponsePlaceholderProps>; // Optional custom component for empty response state
+    ErrorResponsePlaceholder?: React.ComponentType<ErrorResponsePlaceholderProps>; // Optional custom component for error state
+    httpMethod?: "GET" | "POST"; // Optional HTTP method for the server request, defaults to 'GET' if omitted
+    LoadingResponsePlaceholder?: React.ComponentType<LoadingResponsePlaceholderProps>; // Optional custom component for loading state
+    skipBlockSupportAttributes?: boolean; // Optional flag to exclude block support attributes from processing
+    urlQueryArgs?: Record<string, any>; // Optional key-value pairs to append as query parameters in the URL
 }
 
-/** A component that renders server-side content for blocks. */
-export function ServerSideRender(props: ServerSideRenderProps): JSX.Element;
+// Function to filter out block support attributes from an attributes object
+export function removeBlockSupportAttributes(
+    attributes: Record<string, any>, // Input attributes object to process
+): Record<string, any>; // Returns a new object with block support attributes removed
 
-/**
- * @deprecated Use `ServerSideRender` non-default export instead:
- * ```js
- * import { ServerSideRender } from '@wordpress/server-side-render';
- * ```
- */
-declare const ServerSideRenderDefault: typeof ServerSideRender;
-export default ServerSideRenderDefault;
+// Function to construct a server-side rendering path for a given block
+export function rendererPath(
+    block: string, // The name of the block to render
+    attributes?: null | Record<string, any>, // Optional attributes to include in the path generation
+    urlQueryArgs?: Record<string, any>, // Optional query arguments to append to the path
+): string; // Returns the constructed path as a string
 
-export type UseServerSideRenderArgs = Pick<
-    ServerSideRenderProps,
-    "block" | "attributes" | "httpMethod" | "urlQueryArgs" | "skipBlockSupportAttributes"
->;
-
-export type ServerSideRenderStatus = "idle" | "loading" | "success" | "error";
-
-export interface ServerSideRenderResponse {
-    /** The current request status: 'idle', 'loading', 'success', or 'error'. */
-    status: ServerSideRenderStatus;
-    /** The rendered block content (available when status is 'success'). */
-    content?: string;
-    /** The error message (available when status is 'error'). */
-    error?: string;
-}
-
-/**
- * A hook for server-side rendering a preview of dynamic blocks to display in the editor.
- *
- * Handles fetching server-rendered previews for blocks, managing loading states,
- * and automatically debouncing requests to prevent excessive API calls. It supports both
- * GET and POST requests, with POST requests used for larger attribute payloads.
- *
- * @example
- * Basic usage:
- *
- * ```jsx
- * import { RawHTML } from '@wordpress/element';
- * import { useServerSideRender } from '@wordpress/server-side-render';
- *
- * function MyServerSideRender( { attributes, block } ) {
- *   const { content, status, error } = useServerSideRender( {
- *     attributes,
- *     block,
- *   } );
- *
- *   if ( status === 'loading' ) {
- *     return <div>Loading...</div>;
- *   }
- *
- *   if ( status === 'error' ) {
- *     return <div>Error: { error }</div>;
- *   }
- *
- *   return <RawHTML>{ content }</RawHTML>;
- * }
- * ```
- */
-export function useServerSideRender(args: UseServerSideRenderArgs): ServerSideRenderResponse;
+// React component that handles server-side rendering based on provided props
+export function ServerSideRender(
+    props: ServerSideRenderProps, // Configuration object for server-side rendering
+): React.JSX.Element; // Returns a JSX element representing the rendered block

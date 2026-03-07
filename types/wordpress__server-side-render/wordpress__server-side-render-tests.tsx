@@ -1,16 +1,49 @@
-import { ServerSideRender, useServerSideRender } from "@wordpress/server-side-render";
+import * as React from "react";
+
+import {
+    ServerSideRender,
+    EmptyResponsePlaceholderProps,
+    ErrorResponsePlaceholderProps,
+    LoadingResponsePlaceholderProps,
+    removeBlockSupportAttributes,
+    rendererPath,
+} from "@wordpress/server-side-render";
+
+<ServerSideRender block="core/archives" />;
 
 <ServerSideRender
-    block="my/block"
-    className="my-block"
-    ErrorResponsePlaceholder={(props) => <p>An error occurred while loading {props.block}: {props.message}</p>}
+    block="core/latest-posts"
+    attributes={{ postsToShow: 5, displayPostDate: true }}
+    urlQueryArgs={{ per_page: 5 }}
+    httpMethod="GET"
+    skipBlockSupportAttributes={false}
 />;
 
-function MyServerSideRender({ attributes, block }: { attributes: Record<string, unknown>; block: string }) {
-    const { content, status, error } = useServerSideRender({
-        attributes,
-        block,
-    });
+const MyLoading: React.ComponentType<LoadingResponsePlaceholderProps> = ({ children }) => (
+    <div>Loading... {children}</div>
+);
 
-    return <code>{content}</code>;
-}
+const MyEmpty: React.ComponentType<EmptyResponsePlaceholderProps> = ({ className }) => (
+    <div className={className}>No content</div>
+);
+
+const MyError: React.ComponentType<ErrorResponsePlaceholderProps> = ({ response }) => (
+    <div>Error: {response?.errorMsg ?? "Unknown"}</div>
+);
+
+<ServerSideRender
+    block="core/search"
+    LoadingResponsePlaceholder={MyLoading}
+    EmptyResponsePlaceholder={MyEmpty}
+    ErrorResponsePlaceholder={MyError}
+    attributes={{}}
+/>;
+
+const path1: string = rendererPath("core/paragraph");
+const path2: string = rendererPath("core/image", { id: 123 }, { preview: true });
+
+const cleanedAttrs = removeBlockSupportAttributes({
+    align: "wide",
+    someRealAttr: "value",
+    lock: { move: false },
+});
