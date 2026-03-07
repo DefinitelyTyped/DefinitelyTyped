@@ -160,6 +160,19 @@ api.net.state.characters["..."].x; // $ExpectType number
 api.net.state.characters.get("...")!.x; // $ExpectType number
 api.net.state.teams[0].characters[0]; // $ExpectType string
 api.net.state.mapSettings; // $ExpectType string
+api.net.state.listen("teams", () => {});
+api.net.state.characters.onAdd((item, index) => {
+    item; // $ExpectType ObjectSchema<CharacterState>
+    index; // $ExpectType string
+    item.listen("x", () => {});
+});
+api.net.state.teams.onAdd((item, index) => {
+    item; // $ExpectType ObjectSchema<TeamState>
+    index; // $ExpectType number
+});
+api.net.state.characters.onRemove((item, index) => {});
+api.net.state.$callbacks;
+api.net.state.characters.get("...")!.$callbacks;
 
 // Test settings
 api.settings.something;
