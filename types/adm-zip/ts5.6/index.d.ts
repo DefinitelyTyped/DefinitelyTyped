@@ -1,7 +1,7 @@
 /// <reference types="node" />
 
 import * as FS from "fs";
-import { Constants } from "./util";
+import { Constants } from "../util";
 
 declare class AdmZip {
     /**
@@ -226,7 +226,7 @@ declare class AdmZip {
     /**
      * Returns the content of the entire zip file.
      */
-    toBuffer(): Buffer<ArrayBuffer>;
+    toBuffer(): Buffer;
     /**
      * Asynchronously returns the content of the entire zip file.
      * @param onSuccess called with the content of the zip file, once it has been generated.
@@ -235,7 +235,7 @@ declare class AdmZip {
      * @param onItemEnd called after an entry is compressed.
      */
     toBuffer(
-        onSuccess: (buffer: Buffer<ArrayBuffer>) => void,
+        onSuccess: (buffer: Buffer) => void,
         onFail?: (...args: any[]) => void,
         onItemStart?: (name: string) => void,
         onItemEnd?: (name: string) => void,
@@ -243,7 +243,7 @@ declare class AdmZip {
     /**
      * Asynchronously convert the promise to a Buffer
      */
-    toBufferPromise(): Promise<Buffer<ArrayBuffer>>;
+    toBufferPromise(): Promise<Buffer>;
 }
 
 declare namespace AdmZip {
