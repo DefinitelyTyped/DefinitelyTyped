@@ -4074,14 +4074,17 @@ declare namespace chrome {
             id: string;
             /**
              * Implements the WebCrypto's SubtleCrypto interface. The cryptographic operations, including key generation, are hardware-backed.
-             * Only non-extractable keys can be generated. The supported key types are RSASSA-PKCS1-V1_5 and RSA-OAEP (on Chrome versions 134+) with `modulusLength` up to 2048 and ECDSA with `namedCurve` P-256. Each RSASSA-PKCS1-V1_5 and ECDSA key can be used for signing data at most once, unless the extension is allowlisted through the KeyPermissions policy, in which case the key can be used indefinitely. RSA-OAEP keys are supported since Chrome version 134 and can be used by extensions allowlisted through that same policy to unwrap other keys.
+             *
+             * Only non-extractable keys can be generated. The supported key types are RSASSA-PKCS1-V1_5 with `modulusLength` up to 2048 and ECDSA with `namedCurve` P-256. Each key can be used for signing data at most once, unless the extension is allowlisted by the KeyPermissions policy, in which case the key can be used indefinitely.
+             *
              * Keys generated on a specific `Token` cannot be used with any other Tokens, nor can they be used with `window.crypto.subtle`. Equally, `Key` objects created with `window.crypto.subtle` cannot be used with this interface.
              */
             subtleCrypto: SubtleCrypto;
             /**
-             * Implements the WebCrypto's SubtleCrypto interface. The cryptographic operations, including key generation, are software-backed.
-             * Protection of the keys, and thus implementation of the non-extractable property, is done in software, so the keys are less protected than hardware-backed keys.
-             * Only non-extractable keys can be generated. The supported key types are RSASSA-PKCS1-V1_5 and RSA-OAEP (on Chrome versions 134+) with `modulusLength` up to 2048. Each RSASSA-PKCS1-V1_5 key can be used for signing data at most once, unless the extension is allowlisted through the KeyPermissions policy, in which case the key can be used indefinitely. RSA-OAEP keys are supported since Chrome version 134 and can be used by extensions allowlisted through that same policy to unwrap other keys.
+             * Implements the WebCrypto's SubtleCrypto interface. The cryptographic operations, including key generation, are software-backed. Protection of the keys, and thus implementation of the non-extractable property, is done in software, so the keys are less protected than hardware-backed keys.
+             *
+             * Only non-extractable keys can be generated. The only supported key type is RSASSA-PKCS1-V1_5 with `modulusLength` up to 2048. up to 2048. Each key can be used for signing data at most once, unless the extension is allowlisted through the KeyPermissions policy, in which case the key can be used indefinitely.
+             *
              * Keys generated on a specific `Token` cannot be used with any other Tokens, nor can they be used with `window.crypto.subtle`. Equally, `Key` objects created with `window.crypto.subtle` cannot be used with this interface.
              * @since Chrome 97
              */
@@ -9690,7 +9693,7 @@ declare namespace chrome {
         /** Sent after onSuspend to indicate that the app won't be unloaded after all. */
         export const onSuspendCanceled: events.Event<() => void>;
 
-        /** Fired when a message is sent from either an extension process (by {@link runtime.sendMessage}) or a content script (by {@link tabs.sendMessage}). */
+        /** Fired when a message is sent from either {@link runtime.sendMessage} or {@link tabs.sendMessage}. */
         export const onMessage: events.Event<
             (message: any, sender: MessageSender, sendResponse: (response?: any) => void) => void
         >;
@@ -11056,7 +11059,7 @@ declare namespace chrome {
             sessionId?: string | undefined;
             /**
              * The ID of the Split View that the tab belongs to.
-             * @since Chrome 145
+             * @since Chrome 140
              */
             splitViewId?: number | undefined;
             /**
@@ -11132,7 +11135,7 @@ declare namespace chrome {
 
         /**
          * An ID that represents the absence of a split tab.
-         * @since Chrome 145
+         * @since Chrome 140
          */
         export const SPLIT_VIEW_ID_NONE: -1;
 
@@ -11579,7 +11582,7 @@ declare namespace chrome {
         export function duplicate(tabId: number, callback: (tab?: Tab) => void): void;
 
         /**
-         * Sends a single message to the content script(s) in the specified tab, with an optional callback to run when a response is sent back. The {@link runtime.onMessage} event is fired in each content script running in the specified tab for the current extension.
+         * Sends a single message to the content script(s) in the specified tab. The {@link runtime.onMessage} event is fired in each content script running in the specified tab for the current extension.
          *
          * Can return its result via Promise in Manifest V3 or later since Chrome 99.
          */
