@@ -766,7 +766,6 @@
 /types/carbon-components-react/                         @matchilling
 /types/carbon__colors/                                  @vpicone @szbihary
 /types/carbon__elements/                                @metonym
-/types/carbon__feature-flags/                           @metonym
 /types/carbon__layout/                                  @vpicone
 /types/carbon__motion/                                  @vpicone
 /types/carbon__themes/                                  @vpicone
