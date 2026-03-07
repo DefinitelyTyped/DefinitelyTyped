@@ -591,6 +591,9 @@ addAbortSignal(new AbortSignal(), new Readable());
             },
         },
     });
+
+    // $ExpectType ReadableStream<any>
+    Readable.toWeb(readable, { type: "bytes" });
 }
 
 {
@@ -633,6 +636,8 @@ addAbortSignal(new AbortSignal(), new Readable());
     const duplex = new Duplex();
     // $ExpectType ReadableWritablePair<any, any>
     Duplex.toWeb(duplex);
+    // $ExpectType ReadableWritablePair<any, any>
+    Duplex.toWeb(duplex, { type: "bytes" });
 }
 
 {
