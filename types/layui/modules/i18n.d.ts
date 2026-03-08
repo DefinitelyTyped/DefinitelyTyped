@@ -316,7 +316,7 @@ declare namespace Layui {
          * @param parameters 占位符替换参数
          * @param options 选项，例如 {locale: 'zh-CN', default: '默认值'}
          */
-        translation<P extends Layui.LiteralStringUnion<Layui.DeepPath<I18nMessages>>>(
+        translate<P extends Layui.LiteralStringUnion<Layui.DeepPath<I18nMessages>>>(
             keypath: P,
             parameters?: Record<string, any> | any[],
             options?: { locale?: string; default?: string },
@@ -330,6 +330,6 @@ declare namespace Layui {
          * @param parameters 占位符替换参数
          * @param options 选项，例如 {locale: 'zh-CN', default: '默认值'}
          */
-        $t: I18n["translation"];
+        $t: I18n["translate"];
     }
 }

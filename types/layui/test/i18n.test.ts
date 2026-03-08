@@ -20,7 +20,7 @@ function testI18n() {
         },
     });
 
-    i18n.translation("code.copy");
+    i18n.translate("code.copy");
     i18n.$t("util.toDateString.meridiem");
     i18n.$t("laydate.months");
     i18n.$t("laypage.total", { total: 10 });
