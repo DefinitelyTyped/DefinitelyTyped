@@ -758,21 +758,23 @@ declare module "node:util" {
      * corresponding POSIX exit code. Following the POSIX standard, the exit code
      * for a process terminated by a signal is calculated as `128 + signal number`.
      *
+     * If `signal` is not a valid signal name, then an error will be thrown. See
+     * [`signal(7)`](https://man7.org/linux/man-pages/man7/signal.7.html) for a list of valid signals.
+     *
      * ```js
      * import { convertProcessSignalToExitCode } from 'node:util';
      *
      * console.log(convertProcessSignalToExitCode('SIGTERM')); // 143 (128 + 15)
      * console.log(convertProcessSignalToExitCode('SIGKILL')); // 137 (128 + 9)
-     * console.log(convertProcessSignalToExitCode('INVALID')); // null
      * ```
      *
      * This is particularly useful when working with processes to determine
      * the exit code based on the signal that terminated the process.
      * @since v25.4.0
-     * @param signalCode A signal name (e.g., `'SIGTERM'`, `'SIGKILL'`).
-     * @returns The exit code, or `null` if the signal is invalid.
+     * @param signal A signal name (e.g. `'SIGTERM'`)
+     * @returns The exit code corresponding to `signal`
      */
-    export function convertProcessSignalToExitCode(signalCode: NodeJS.Signals): number;
+    export function convertProcessSignalToExitCode(signal: NodeJS.Signals): number;
     export type DebugLoggerFunction = (msg: string, ...param: unknown[]) => void;
     export interface DebugLogger extends DebugLoggerFunction {
         /**
