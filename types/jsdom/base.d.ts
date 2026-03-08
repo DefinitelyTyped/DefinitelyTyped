@@ -1,7 +1,3 @@
-/// <reference lib="dom" />
-/// <reference lib="dom.iterable" />
-/// <reference types="node" />
-
 import { EventEmitter } from "events";
 import { Token } from "parse5";
 import * as tough from "tough-cookie";

@@ -2,7 +2,9 @@
     "compilerOptions": {
         "module": "node16",
         "lib": [
-            "ESNext"
+            "ESNext",
+            "dom",
+            "dom.iterable"
         ],
         "target": "ES2015",
         "noImplicitAny": true,
