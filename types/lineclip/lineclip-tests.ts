@@ -1,4 +1,11 @@
-import { type BoundingBox, type LineClipResult, type Point, clipPolyline, clipPolygon, type PolygonClipResult } from "lineclip";
+import {
+    type BoundingBox,
+    clipPolygon,
+    clipPolyline,
+    type LineClipResult,
+    type Point,
+    type PolygonClipResult,
+} from "lineclip";
 
 const line: Point[] = [
     [-10, 10],
