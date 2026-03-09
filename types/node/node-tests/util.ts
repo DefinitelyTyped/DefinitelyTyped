@@ -548,3 +548,10 @@ util.setTraceSigInt(true);
         console.log(`Column Number: ${callSite.columnNumber}`);
     });
 }
+
+{
+    // $ExpectType number
+    util.convertProcessSignalToExitCode("SIGABRT");
+    // @ts-expect-error
+    util.convertProcessSignalToExitCode("INVALID");
+}
