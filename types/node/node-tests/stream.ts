@@ -498,6 +498,8 @@ async function testConsumers() {
     await consumers.blob(consumable);
     // $ExpectType NonSharedBuffer
     await consumers.buffer(consumable);
+    // $ExpectType NonSharedUint8Array
+    await consumers.bytes(consumable);
     // $ExpectType unknown
     await consumers.json(consumable);
     // $ExpectType string
