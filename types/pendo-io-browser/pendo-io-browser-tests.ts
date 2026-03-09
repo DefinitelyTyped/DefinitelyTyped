@@ -177,7 +177,6 @@ pendo.getVisitorId();
 // $ExpectType string
 pendo.get_visitor_id();
 
-pendo.setVisitorId("new-visitor-id");
 pendo.set_visitor_id("new-visitor-id-2");
 
 // $ExpectType string | null
@@ -185,13 +184,8 @@ pendo.getAccountId();
 // $ExpectType string | null
 pendo.get_account_id();
 
-pendo.setAccountId("new-account-id");
 pendo.set_account_id("new-account-id-2");
 
-// $ExpectType string
-pendo.generateUniqueId();
-// $ExpectType string
-pendo.generateUniqueId("prefix-");
 // $ExpectType string
 pendo.generate_unique_id();
 // $ExpectType string

@@ -168,17 +168,14 @@ declare namespace pendo {
         getVersion(): string;
         getVisitorId(): string;
         get_visitor_id(): string;
-        setVisitorId(newVisitorId: string): void;
         set_visitor_id(newVisitorId: string): void;
         getAccountId(): string | null;
         get_account_id(): string | null;
-        setAccountId(newAccountId: string): void;
         set_account_id(newAccountId: string): void;
         getCurrentUrl(): string;
         clearSession(): void;
         teardown(): void;
         isAnonymousVisitor(id?: string): boolean;
-        generateUniqueId(prefix?: string): string;
         generate_unique_id(prefix?: string): string;
 
         // Guides and Guide Center
