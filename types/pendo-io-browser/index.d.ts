@@ -188,8 +188,7 @@ declare namespace pendo {
         findGuideById(id: string): Guide | void;
         // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         findGuideBy(field: string, value: any): Guide | void;
-        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-        findModuleByName(name: string): any | void;
+        findModuleByName(name: string): any;
         findStepInGuide(guide: Guide, stepId: string): GuideStep | undefined;
         showGuideByName(name: string): void;
         showGuideById(id: string, reason?: string): void;
