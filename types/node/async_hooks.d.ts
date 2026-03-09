@@ -123,37 +123,31 @@ declare module "node:async_hooks" {
     function triggerAsyncId(): number;
     interface HookCallbacks {
         /**
-         * Called when a class is constructed that has the possibility to emit an asynchronous event.
-         * @param asyncId A unique ID for the async resource
-         * @param type The type of the async resource
-         * @param triggerAsyncId The unique ID of the async resource in whose execution context this async resource was created
-         * @param resource Reference to the resource representing the async operation, needs to be released during destroy
+         * The [`init` callback](https://nodejs.org/docs/latest-v25.x/api/async_hooks.html#initasyncid-type-triggerasyncid-resource).
          */
         init?(asyncId: number, type: string, triggerAsyncId: number, resource: object): void;
         /**
-         * When an asynchronous operation is initiated or completes a callback is called to notify the user.
-         * The before callback is called just before said callback is executed.
-         * @param asyncId the unique identifier assigned to the resource about to execute the callback.
+         * The [`before` callback](https://nodejs.org/docs/latest-v25.x/api/async_hooks.html#beforeasyncid).
          */
         before?(asyncId: number): void;
         /**
-         * Called immediately after the callback specified in `before` is completed.
-         *
-         * If an uncaught exception occurs during execution of the callback, then `after` will run after the `'uncaughtException'` event is emitted or a `domain`'s handler runs.
-         * @param asyncId the unique identifier assigned to the resource which has executed the callback.
+         * The [`after` callback](https://nodejs.org/docs/latest-v25.x/api/async_hooks.html#afterasyncid).
          */
         after?(asyncId: number): void;
         /**
-         * Called when a promise has resolve() called. This may not be in the same execution id
-         * as the promise itself.
-         * @param asyncId the unique id for the promise that was resolve()d.
+         * The [`promiseResolve` callback](https://nodejs.org/docs/latest-v25.x/api/async_hooks.html#promiseresolveasyncid).
          */
         promiseResolve?(asyncId: number): void;
         /**
-         * Called after the resource corresponding to asyncId is destroyed
-         * @param asyncId a unique ID for the async resource
+         * The [`destroy` callback](https://nodejs.org/docs/latest-v25.x/api/async_hooks.html#destroyasyncid).
          */
         destroy?(asyncId: number): void;
+        /**
+         * Whether the hook should track `Promise`s. Cannot be `false` if
+         * `promiseResolve` is set.
+         * @default true
+         */
+        trackPromises?: boolean | undefined;
     }
     interface AsyncHook {
         /**
@@ -174,7 +168,8 @@ declare module "node:async_hooks" {
      *
      * All callbacks are optional. For example, if only resource cleanup needs to
      * be tracked, then only the `destroy` callback needs to be passed. The
-     * specifics of all functions that can be passed to `callbacks` is in the `Hook Callbacks` section.
+     * specifics of all functions that can be passed to `callbacks` is in the
+     * [Hook Callbacks](https://nodejs.org/docs/latest-v25.x/api/async_hooks.html#hook-callbacks) section.
      *
      * ```js
      * import { createHook } from 'node:async_hooks';
@@ -202,12 +197,13 @@ declare module "node:async_hooks" {
      * ```
      *
      * Because promises are asynchronous resources whose lifecycle is tracked
-     * via the async hooks mechanism, the `init()`, `before()`, `after()`, and`destroy()` callbacks _must not_ be async functions that return promises.
+     * via the async hooks mechanism, the `init()`, `before()`, `after()`, and
+     * `destroy()` callbacks _must not_ be async functions that return promises.
      * @since v8.1.0
-     * @param callbacks The `Hook Callbacks` to register
-     * @return Instance used for disabling and enabling hooks
+     * @param options The [Hook Callbacks](https://nodejs.org/docs/latest-v25.x/api/async_hooks.html#hook-callbacks) to register
+     * @returns Instance used for disabling and enabling hooks
      */
-    function createHook(callbacks: HookCallbacks): AsyncHook;
+    function createHook(options: HookCallbacks): AsyncHook;
     interface AsyncResourceOptions {
         /**
          * The ID of the execution context that created this async event.
