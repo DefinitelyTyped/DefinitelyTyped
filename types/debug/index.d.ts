@@ -15,8 +15,8 @@ declare namespace debug {
         selectColor: (namespace: string) => string | number;
         humanize: typeof import("ms");
 
-        names: RegExp[];
-        skips: RegExp[];
+        names: string[];
+        skips: string[];
 
         formatters: Formatters;
 
