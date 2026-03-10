@@ -20,7 +20,7 @@ export type ContentType = "video" | "audio" | "image";
  * UI state of receiver application.
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.ui#.State
  */
-export const enum State {
+export enum State {
     LAUNCHING = "launching",
     IDLE = "idle",
     LOADING = "loading",
@@ -33,7 +33,7 @@ export const enum State {
  * Player data changed event types.
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.ui#.PlayerDataEventType
  */
-export const enum PlayerDataEventType {
+export enum PlayerDataEventType {
     ACTIVE_TRACK_IDS_CHANGED = "activeTrackIdsChanged",
     ANY_CHANGE = "*",
     APPLICATION_DATA_CHANGED = "applicationDataChanged",
@@ -517,7 +517,7 @@ export class UiConfig {
  * Aspect ratio of all images in the media browse carousel.
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.ui#.BrowseImageAspectRatio
  */
-export const enum BrowseImageAspectRatio {
+export enum BrowseImageAspectRatio {
     /**
      * Square images.
      */
@@ -541,7 +541,7 @@ export const enum BrowseImageAspectRatio {
  * available for the browse item.
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.ui#.BrowseImageType
  */
-export const enum BrowseImageType {
+export enum BrowseImageType {
     /**
      * A playlist that consists of songs by a specific
      * music artist or band, or radio seeded by an artist
@@ -627,7 +627,7 @@ export const enum BrowseImageType {
  * Badge that will be displayed on top of the browse item image.
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.ui#.BrowseMediaBadge
  */
-export const enum BrowseMediaBadge {
+export enum BrowseMediaBadge {
     /**
      * LIVE indicator badge. Should be used if stream is a live
      * content.
@@ -639,7 +639,7 @@ export const enum BrowseMediaBadge {
  * Predefined buttons for the Media Controls overlay
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.ui#.ControlsButton
  */
-export const enum ControlsButton {
+export enum ControlsButton {
     /**
      * Turn on/off closed captions.
      */
@@ -720,7 +720,7 @@ export const enum ControlsButton {
  * Touch Controls interface.
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.ui#.ControlsSlot
  */
-export const enum ControlsSlot {
+export enum ControlsSlot {
     /**
      * Side left slot. Deprecated, use SLOT_SECONDARY_1 instead.
      *
@@ -774,7 +774,7 @@ export const enum ControlsSlot {
  * Device display type.
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.ui#.DisplayType
  */
-export const enum DisplayType {
+export enum DisplayType {
     TV = "tv",
     TOUCH = "touch",
 }
