@@ -1,13 +1,3 @@
-/**
- * The `node:http2` module provides an implementation of the [HTTP/2](https://tools.ietf.org/html/rfc7540) protocol.
- * It can be accessed using:
- *
- * ```js
- * import http2 from 'node:http2';
- * ```
- * @since v8.4.0
- * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/http2.js)
- */
 declare module "node:http2" {
     import { NonSharedBuffer } from "node:buffer";
     import { InternalEventEmitter } from "node:events";

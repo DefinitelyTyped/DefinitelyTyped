@@ -1,16 +1,3 @@
-/**
- * The 'node:quic' module provides an implementation of the QUIC protocol.
- * To access it, start Node.js with the `--experimental-quic` option and:
- *
- * ```js
- * import quic from 'node:quic';
- * ```
- *
- * The module is only available under the `node:` scheme.
- * @since v23.8.0
- * @experimental
- * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/quic.js)
- */
 declare module "node:quic" {
     import { KeyObject, webcrypto } from "node:crypto";
     import { SocketAddress } from "node:net";

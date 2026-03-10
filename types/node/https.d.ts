@@ -1,8 +1,3 @@
-/**
- * HTTPS is the HTTP protocol over TLS/SSL. In Node.js this is implemented as a
- * separate module.
- * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/https.js)
- */
 declare module "node:https" {
     import * as http from "node:http";
     import { Duplex } from "node:stream";

@@ -1,13 +1,3 @@
-/**
- * The `node:tls` module provides an implementation of the Transport Layer Security
- * (TLS) and Secure Socket Layer (SSL) protocols that is built on top of OpenSSL.
- * The module can be accessed using:
- *
- * ```js
- * import tls from 'node:tls';
- * ```
- * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/tls.js)
- */
 declare module "node:tls" {
     import { NonSharedBuffer } from "node:buffer";
     import { X509Certificate } from "node:crypto";
