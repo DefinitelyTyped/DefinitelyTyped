@@ -41,7 +41,7 @@ declare namespace pendo {
         events?: EventCallbacks | undefined;
 
         // URL and Location Configuration
-        annotateUrl?: (url: string) => string | string[] | Record<string, any>;
+        annotateUrl?: (url: string) => string | string[] | { exclude?: string[]; include?: string[] | Record<string, string | number>; fragment?: string };
         sanitizeUrl?: (url: string) => string;
         queryStringWhitelist?: string[] | (() => string[]) | undefined;
         ignoreHashRouting?: boolean | undefined;
@@ -153,8 +153,8 @@ declare namespace pendo {
         guidesLoaded?(): void;
         guidesFailed?(): void;
         validateGlobalScript?(result: any): void;
-        validateGuide?(result: any): void;
-        validateLauncher?(result: any): void;
+        validateGuide?(signatureString: string, guide: Guide): void | Promise<void>;
+        validateLauncher?(signatureString: string): void | Promise<void>;
     }
 
     interface Pendo {
@@ -163,7 +163,7 @@ declare namespace pendo {
         identify(visitorId: string, accountId?: string): void;
         identify(identity: Identity): void;
         isReady(): boolean;
-        flushNow(options?: any): Promise<any>;
+        flushNow(options?: { hidden?: boolean; unload?: boolean }): Promise<any>;
         updateOptions(options: Identity): void;
         getVersion(): string;
         getVisitorId(): string;
@@ -192,7 +192,7 @@ declare namespace pendo {
         isGuideShown(): boolean;
         getActiveGuides(): Guide[];
         getActiveGuide(): Guide | undefined;
-        hideGuides(hideOptions?: any): void;
+        hideGuides(hideOptions?: { stayHidden?: boolean }): void;
         toggleLauncher(): void;
         showLauncher(): void;
         hideLauncher(): void;
@@ -259,9 +259,10 @@ declare namespace pendo {
         doesExist(arg: any): boolean;
         getMode(): string | undefined;
         getNormalizedUrl(): string;
+        /** @deprecated Use pendo.sniffer or navigator.userAgent directly */
         getUA(): string;
         getURL(): string;
-        getSerializedMetadata(): string;
+        getSerializedMetadata(): Metadata;
         isURLValid(url: string): boolean;
 
         // Advanced
@@ -375,7 +376,7 @@ declare namespace pendo {
         electronUserDirectory(): string | undefined;
         electronUserHomeDirectory(): string | undefined;
         electronResourcesPath(): string | undefined;
-        externalizeURL(href: string, qs?: any, xhrWhitelist?: any): string;
+        externalizeURL(href: string, qs?: string | Record<string, string>, xhrWhitelist?: string[] | (() => string[])): string;
         startPoller(): void;
     }
 
@@ -393,7 +394,7 @@ declare namespace pendo {
         get(url: string, headers?: any): Promise<any>;
         post(url: string, data?: any, headers?: any): Promise<any>;
         postJSON(url: string, data?: any, headers?: any): Promise<any>;
-        urlFor(base: string, params?: any, fragment?: string): string;
+        urlFor(base: string, params?: string[] | Record<string, string | number>, fragment?: string): string;
         supported(): boolean;
     }
 

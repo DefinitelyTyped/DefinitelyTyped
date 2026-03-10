@@ -216,7 +216,7 @@ pendo.getActiveGuides();
 const activeGuide = pendo.getActiveGuide();
 
 pendo.hideGuides();
-pendo.hideGuides({ untilReload: true });
+pendo.hideGuides({ stayHidden: true });
 
 pendo.showLauncher();
 pendo.hideLauncher();
@@ -313,7 +313,7 @@ pendo.getUA();
 // $ExpectType string
 pendo.getURL();
 
-// $ExpectType string
+// $ExpectType Metadata
 pendo.getSerializedMetadata();
 
 pendo.log("message", "context1", "context2");
