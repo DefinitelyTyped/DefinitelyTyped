@@ -41,7 +41,13 @@ declare namespace pendo {
         events?: EventCallbacks | undefined;
 
         // URL and Location Configuration
-        annotateUrl?: (url: string) => string | string[] | { exclude?: string[]; include?: string[] | Record<string, string | number>; fragment?: string };
+        annotateUrl?: (
+            url: string,
+        ) => string | string[] | {
+            exclude?: string[];
+            include?: string[] | Record<string, string | number>;
+            fragment?: string;
+        };
         sanitizeUrl?: (url: string) => string;
         queryStringWhitelist?: string[] | (() => string[]) | undefined;
         ignoreHashRouting?: boolean | undefined;
@@ -292,19 +298,21 @@ declare namespace pendo {
         getState(): any;
     }
 
-    type Events = {
-        [K in keyof EventCallbacks]-?: (callback: EventCallbacks[K]) => Events;
-    } & {
-        on(eventName: string, callback: (...args: any[]) => void): void;
-        off(eventName: string, callback?: (...args: any[]) => void): void;
-        once(eventName: string, callback: (...args: any[]) => void): void;
-        one(eventName: string, callback: (...args: any[]) => void): void;
-        trigger(eventName: string, ...args: any[]): void;
-        addEventListener(eventName: string, callback: (...args: any[]) => void): void;
-        removeEventListener(eventName: string, callback?: (...args: any[]) => void): void;
-        onClickCaptured(callback: (event: any) => void): Events;
-        deliverablesLoaded(callback: () => void): Events;
-    };
+    type Events =
+        & {
+            [K in keyof EventCallbacks]-?: (callback: EventCallbacks[K]) => Events;
+        }
+        & {
+            on(eventName: string, callback: (...args: any[]) => void): void;
+            off(eventName: string, callback?: (...args: any[]) => void): void;
+            once(eventName: string, callback: (...args: any[]) => void): void;
+            one(eventName: string, callback: (...args: any[]) => void): void;
+            trigger(eventName: string, ...args: any[]): void;
+            addEventListener(eventName: string, callback: (...args: any[]) => void): void;
+            removeEventListener(eventName: string, callback?: (...args: any[]) => void): void;
+            onClickCaptured(callback: (event: any) => void): Events;
+            deliverablesLoaded(callback: () => void): Events;
+        };
 
     interface Guide {
         createdByUser: User;
@@ -376,7 +384,11 @@ declare namespace pendo {
         electronUserDirectory(): string | undefined;
         electronUserHomeDirectory(): string | undefined;
         electronResourcesPath(): string | undefined;
-        externalizeURL(href: string, qs?: string | Record<string, string>, xhrWhitelist?: string[] | (() => string[])): string;
+        externalizeURL(
+            href: string,
+            qs?: string | Record<string, string>,
+            xhrWhitelist?: string[] | (() => string[]),
+        ): string;
         startPoller(): void;
     }
 
