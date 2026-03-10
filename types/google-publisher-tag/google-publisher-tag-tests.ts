@@ -1,5 +1,5 @@
-// Tests for Google Publisher Tag 1.20260216
-// Synced from: https://github.com/googleads/google-publisher-tag-types/commit/782098b359480f3e61d7be7ec5e922406e9775a3
+// Tests for Google Publisher Tag 1.20260309
+// Synced from: https://github.com/googleads/google-publisher-tag-types/commit/27374b01c38e0f8a66fe8181574edee6d5570200
 
 // Test for googletag.cmd
 function test_googletag_cmd() {
@@ -951,46 +951,6 @@ function test_googletag_config_slotSettingsConfig_adsenseAttributes() {
 
     // Clear all AdSense attributes.
     slot.setConfig({ adsenseAttributes: null });
-}
-
-// Test for googletag.config.ComponentAuctionConfig.auctionConfig
-function test_googletag_config_componentAuctionConfig_auctionConfig() {
-    const componentAuctionConfig = {
-        // Seller URL should be https and the same as decisionLogicURL's origin
-        seller: "https://testSeller.com",
-        decisionLogicURL: "https://testSeller.com/ssp/decision-logic.js",
-        interestGroupBuyers: ["https://example-buyer.com"],
-        auctionSignals: { auction_signals: "auction_signals" },
-        sellerSignals: { seller_signals: "seller_signals" },
-        perBuyerSignals: {
-            // listed on interestGroupBuyers
-            "https://example-buyer.com": {
-                per_buyer_signals: "per_buyer_signals",
-            },
-        },
-    };
-
-    const auctionSlot = googletag.defineSlot("/1234567/example", [160, 600])!;
-
-    // To add configKey to the component auction:
-    auctionSlot.setConfig({
-        componentAuction: [
-            {
-                configKey: "https://testSeller.com",
-                auctionConfig: componentAuctionConfig,
-            },
-        ],
-    });
-
-    // To remove configKey from the component auction:
-    auctionSlot.setConfig({
-        componentAuction: [
-            {
-                configKey: "https://testSeller.com",
-                auctionConfig: null,
-            },
-        ],
-    });
 }
 
 // Test for googletag.config.InterstitialConfig.triggers
