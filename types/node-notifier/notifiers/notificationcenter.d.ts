@@ -1,6 +1,7 @@
+import events = require("events");
 import notifier = require("../");
 
-declare class NotificationCenter {
+declare class NotificationCenter extends events.EventEmitter {
     constructor(option?: notifier.Option);
     notify(
         notification?: NotificationCenter.Notification,
@@ -19,6 +20,22 @@ declare namespace NotificationCenter {
         contentImage?: string | undefined;
         /** URL to open on click */
         open?: string | undefined;
+        /** Bundle identifier of the application to activate on click. */
+        activate?: string | undefined;
+        /** Bundle identifier of the application that sends the notification. */
+        sender?: string | undefined;
+        /** Command to execute when the notification is clicked. */
+        execute?: string | undefined;
+        /** Path to an image to display as the application icon. */
+        appIcon?: string | undefined;
+        /** Deliver even if Do Not Disturb is enabled. */
+        ignoreDnD?: boolean | undefined;
+        /** Group notifications under a specific identifier. */
+        group?: string | undefined;
+        /** List notifications by group or use ALL to list every notification. */
+        list?: string | undefined;
+        /** Remove a previously delivered notification by group or id. */
+        remove?: string | number | undefined;
         /**
          * The amount of seconds before the notification closes.
          * Takes precedence over wait if both are defined.
