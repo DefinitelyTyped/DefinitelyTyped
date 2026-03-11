@@ -44,6 +44,7 @@ interface DestroyableModel {
 declare abstract class LanguageModel extends EventTarget implements DestroyableModel {
     static create(options?: LanguageModelCreateOptions): Promise<LanguageModel>;
     static availability(options?: LanguageModelCreateCoreOptions): Promise<Availability>;
+    /** @deprecated Restricted to web extension contexts only. */
     static params(): Promise<LanguageModelParams>;
 
     prompt(input: LanguageModelPrompt, options?: LanguageModelPromptOptions): Promise<string>;
@@ -52,11 +53,20 @@ declare abstract class LanguageModel extends EventTarget implements DestroyableM
 
     append(input: LanguageModelPrompt, options?: LanguageModelAppendOptions): Promise<undefined>;
 
+    measureContextUsage(input: LanguageModelPrompt, options?: LanguageModelPromptOptions): Promise<number>;
+    /** @deprecated Use measureContextUsage instead. Deprecated in extensions, removed in web. */
     measureInputUsage(input: LanguageModelPrompt, options?: LanguageModelPromptOptions): Promise<number>;
 
+    readonly contextUsage: number;
+    /** @deprecated Use contextUsage instead. Deprecated in extensions, removed in web. */
     readonly inputUsage: number;
+
+    readonly contextWindow: number;
+    /** @deprecated Use contextWindow instead. Deprecated in extensions, removed in web. */
     readonly inputQuota: number;
 
+    oncontextoverflow: ((this: LanguageModel, ev: Event) => any) | null;
+    /** @deprecated Use oncontextoverflow instead. Deprecated in extensions, removed in web. */
     onquotaoverflow: ((this: LanguageModel, ev: Event) => any) | null;
 
     addEventListener<K extends keyof LanguageModelEventMap>(
@@ -80,7 +90,9 @@ declare abstract class LanguageModel extends EventTarget implements DestroyableM
         options?: boolean | EventListenerOptions,
     ): void;
 
+    /** @deprecated Restricted to web extension contexts only. */
     readonly topK: number;
+    /** @deprecated Restricted to web extension contexts only. */
     readonly temperature: number;
 
     clone(options?: LanguageModelCloneOptions): Promise<LanguageModel>;
@@ -88,18 +100,26 @@ declare abstract class LanguageModel extends EventTarget implements DestroyableM
 }
 
 interface LanguageModelEventMap {
+    contextoverflow: Event;
+    /** @deprecated Use contextoverflow instead. Deprecated in extensions, removed in web. */
     quotaoverflow: Event;
 }
 
 interface LanguageModelParams {
+    /** @deprecated Restricted to web extension contexts only. */
     readonly defaultTopK: number;
+    /** @deprecated Restricted to web extension contexts only. */
     readonly maxTopK: number;
+    /** @deprecated Restricted to web extension contexts only. */
     readonly defaultTemperature: number;
+    /** @deprecated Restricted to web extension contexts only. */
     readonly maxTemperature: number;
 }
 
 interface LanguageModelCreateCoreOptions {
+    /** @deprecated Restricted to web extension contexts only. Use the topK option within LanguageModel.create() is now restricted to web extensions. */
     topK?: number;
+    /** @deprecated Restricted to web extension contexts only. Use the temperature option within LanguageModel.create() is now restricted to web extensions. */
     temperature?: number;
 
     expectedInputs?: LanguageModelExpected[];
