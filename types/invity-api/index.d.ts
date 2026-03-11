@@ -27,45 +27,75 @@ export interface FormResponse {
 
 export type CryptoId = Brand<string, "CryptoId">;
 
-export type FiatCurrencyCode =
-    | "usd"
-    | "eur"
-    | "gbp"
-    | "aed"
-    | "ars"
-    | "aud"
-    | "bdt"
-    | "brl"
-    | "cad"
-    | "chf"
-    | "clp"
-    | "cny"
-    | "czk"
-    | "dkk"
-    | "hkd"
-    | "huf"
-    | "idr"
-    | "ils"
-    | "inr"
-    | "jpy"
-    | "krw"
-    | "kwd"
-    | "lkr"
-    | "mxn"
-    | "myr"
-    | "nok"
-    | "nzd"
-    | "php"
-    | "pln"
-    | "rub"
-    | "sar"
-    | "sek"
-    | "sgd"
-    | "thb"
-    | "try"
-    | "twd"
-    | "vnd"
-    | "zar";
+export const FIAT_CURRENCIES: readonly [
+    "aed",
+    "amd",
+    "ars",
+    "aud",
+    "azn",
+    "bdt",
+    "bgn",
+    "bhd",
+    "brl",
+    "cad",
+    "chf",
+    "clp",
+    "cny",
+    "cop",
+    "crc",
+    "czk",
+    "dkk",
+    "dop",
+    "dzd",
+    "egp",
+    "eur",
+    "gbp",
+    "gel",
+    "ghs",
+    "hkd",
+    "huf",
+    "idr",
+    "ils",
+    "inr",
+    "isk",
+    "jod",
+    "jpy",
+    "kes",
+    "krw",
+    "kwd",
+    "kzt",
+    "lkr",
+    "mad",
+    "mxn",
+    "myr",
+    "ngn",
+    "nok",
+    "nzd",
+    "omr",
+    "pen",
+    "php",
+    "pln",
+    "qar",
+    "ron",
+    "rub",
+    "sar",
+    "sek",
+    "sgd",
+    "thb",
+    "tnd",
+    "try",
+    "twd",
+    "tzs",
+    "uah",
+    "ugx",
+    "usd",
+    "uyu",
+    "vnd",
+    "xaf",
+    "xof",
+    "zar",
+];
+export type FiatCurrencyCode = (typeof FIAT_CURRENCIES)[number];
 
 export type FiatCurrenciesProps = Record<FiatCurrencyCode, number>;
 

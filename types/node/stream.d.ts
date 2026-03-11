@@ -81,6 +81,7 @@ declare module "node:stream" {
         interface ArrayOptions extends ReadableOperatorOptions {}
         interface ReadableToWebOptions {
             strategy?: web.QueuingStrategy | undefined;
+            type?: web.ReadableStreamType | undefined;
         }
         interface ReadableEventMap {
             "close": [];
@@ -485,13 +486,18 @@ declare module "node:stream" {
              *   }
              * }
              *
-             * const wordsStream = Readable.from(['this is', 'compose as operator']).compose(splitToWords);
+             * const wordsStream = Readable.from(['text passed through', 'composed stream']).compose(splitToWords);
              * const words = await wordsStream.toArray();
              *
-             * console.log(words); // prints ['this', 'is', 'compose', 'as', 'operator']
+             * console.log(words); // prints ['text', 'passed', 'through', 'composed', 'stream']
              * ```
              *
-             * See [`stream.compose`](https://nodejs.org/docs/latest-v25.x/api/stream.html#streamcomposestreams) for more information.
+             * `readable.compose(s)` is equivalent to `stream.compose(readable, s)`.
+             *
+             * This method also allows for an `AbortSignal` to be provided, which will destroy
+             * the composed stream when aborted.
+             *
+             * See [`stream.compose(...streams)`](https://nodejs.org/docs/latest-v25.x/api/stream.html#streamcomposestreams) for more information.
              * @since v19.1.0, v18.13.0
              * @returns a stream composed with the stream `stream`.
              */
@@ -1056,6 +1062,9 @@ declare module "node:stream" {
             writableHighWaterMark?: number | undefined;
             writableCorked?: number | undefined;
         }
+        interface DuplexToWebOptions {
+            type?: web.ReadableStreamType | undefined;
+        }
         interface DuplexEventMap extends ReadableEventMap, WritableEventMap {}
         /**
          * Duplex streams are streams that implement both the `Readable` and `Writable` interfaces.
@@ -1109,7 +1118,7 @@ declare module "node:stream" {
              * A utility method for creating a web `ReadableStream` and `WritableStream` from a `Duplex`.
              * @since v17.0.0
              */
-            static toWeb(streamDuplex: NodeJS.ReadWriteStream): web.ReadableWritablePair;
+            static toWeb(streamDuplex: NodeJS.ReadWriteStream, options?: DuplexToWebOptions): web.ReadableWritablePair;
             /**
              * A utility method for creating a `Duplex` from a web `ReadableStream` and `WritableStream`.
              * @since v17.0.0
@@ -1653,7 +1662,8 @@ declare module "node:stream" {
          * console.log(res); // prints 'HELLOWORLD'
          * ```
          *
-         * See [`readable.compose(stream)`](https://nodejs.org/docs/latest-v25.x/api/stream.html#readablecomposestream-options) for `stream.compose` as operator.
+         * For convenience, the `readable.compose(stream)` method is available on
+         * `Readable` and `Duplex` streams as a wrapper for this function.
          * @since v16.9.0
          * @experimental
          */

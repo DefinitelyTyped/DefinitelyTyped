@@ -551,8 +551,12 @@ declare module "node:tls" {
          */
         requestCert?: boolean | undefined;
         /**
-         * An array of strings or a Buffer naming possible ALPN protocols.
-         * (Protocols should be ordered by their priority.)
+         * An array of strings, or a single `Buffer`, `TypedArray`, or `DataView` containing the supported
+         * ALPN protocols. Buffers should have the format `[len][name][len][name]...`
+         * e.g. `'\x08http/1.1\x08http/1.0'`, where the `len` byte is the length of the
+         * next protocol name. Passing an array is usually much simpler, e.g.
+         * `['http/1.1', 'http/1.0']`. Protocols earlier in the list have higher
+         * preference than those later.
          */
         ALPNProtocols?: readonly string[] | NodeJS.ArrayBufferView | undefined;
         /**
