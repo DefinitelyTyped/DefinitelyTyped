@@ -396,11 +396,15 @@ declare module "node:worker_threads" {
     interface Worker extends InternalEventEmitter<WorkerEventMap> {}
     /**
      * Mark an object as not transferable. If `object` occurs in the transfer list of
-     * a `port.postMessage()` call, it is ignored.
+     * a [`port.postMessage()`](https://nodejs.org/docs/latest-v25.x/api/worker_threads.html#portpostmessagevalue-transferlist) call, an error is thrown. This is a no-op if
+     * `object` is a primitive value.
      *
      * In particular, this makes sense for objects that can be cloned, rather than
      * transferred, and which are used by other objects on the sending side.
-     * For example, Node.js marks the `ArrayBuffer`s it uses for its `Buffer pool` with this.
+     * For example, Node.js marks the `ArrayBuffer`s it uses for its
+     * [`Buffer` pool](https://nodejs.org/docs/latest-v25.x/api/buffer.html#static-method-bufferallocunsafesize) with this.
+     * `ArrayBuffer.prototype.transfer()` is disallowed on such array buffer
+     * instances.
      *
      * This operation cannot be undone.
      *
@@ -414,11 +418,17 @@ declare module "node:worker_threads" {
      * markAsUntransferable(pooledBuffer);
      *
      * const { port1 } = new MessageChannel();
-     * port1.postMessage(typedArray1, [ typedArray1.buffer ]);
+     * try {
+     *   // This will throw an error, because pooledBuffer is not transferable.
+     *   port1.postMessage(typedArray1, [ typedArray1.buffer ]);
+     * } catch (error) {
+     *   // error.name === 'DataCloneError'
+     * }
      *
      * // The following line prints the contents of typedArray1 -- it still owns
-     * // its memory and has been cloned, not transferred. Without
-     * // `markAsUntransferable()`, this would print an empty Uint8Array.
+     * // its memory and has not been transferred. Without
+     * // `markAsUntransferable()`, this would print an empty Uint8Array and the
+     * // postMessage call would have succeeded.
      * // typedArray2 is intact as well.
      * console.log(typedArray1);
      * console.log(typedArray2);

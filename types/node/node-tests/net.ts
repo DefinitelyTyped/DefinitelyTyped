@@ -64,6 +64,7 @@ import * as net from "node:net";
         keepAliveInitialDelay: 1000,
         noDelay: false,
         blockList: new net.BlockList(),
+        typeOfService: 0b00000111,
     });
 
     let bool: boolean;
@@ -449,6 +450,16 @@ import * as net from "node:net";
         // $ExpectType number
         count;
     });
+}
+
+{
+    const socket = new net.Socket();
+
+    // $ExpectType number
+    socket.getTypeOfService();
+
+    // $ExpectType Socket
+    socket.setTypeOfService(0b00000111);
 }
 
 {
