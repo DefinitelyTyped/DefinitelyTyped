@@ -570,82 +570,82 @@ interface PanResponderGestureState {
 interface PanResponderConfig {
     onMoveShouldSetPanResponder?:
         | ((
-            e: GestureResponderEvent,
-            gestureState: PanResponderGestureState,
-        ) => boolean)
+        e: GestureResponderEvent,
+        gestureState: PanResponderGestureState,
+    ) => boolean)
         | undefined;
     onStartShouldSetPanResponder?:
         | ((
-            e: GestureResponderEvent,
-            gestureState: PanResponderGestureState,
-        ) => boolean)
+        e: GestureResponderEvent,
+        gestureState: PanResponderGestureState,
+    ) => boolean)
         | undefined;
     onPanResponderGrant?:
         | ((
-            e: GestureResponderEvent,
-            gestureState: PanResponderGestureState,
-        ) => void)
+        e: GestureResponderEvent,
+        gestureState: PanResponderGestureState,
+    ) => void)
         | undefined;
     onPanResponderMove?:
         | ((
-            e: GestureResponderEvent,
-            gestureState: PanResponderGestureState,
-        ) => void)
+        e: GestureResponderEvent,
+        gestureState: PanResponderGestureState,
+    ) => void)
         | undefined;
     onPanResponderRelease?:
         | ((
-            e: GestureResponderEvent,
-            gestureState: PanResponderGestureState,
-        ) => void)
+        e: GestureResponderEvent,
+        gestureState: PanResponderGestureState,
+    ) => void)
         | undefined;
     onPanResponderTerminate?:
         | ((
-            e: GestureResponderEvent,
-            gestureState: PanResponderGestureState,
-        ) => void)
+        e: GestureResponderEvent,
+        gestureState: PanResponderGestureState,
+    ) => void)
         | undefined;
 
     onMoveShouldSetPanResponderCapture?:
         | ((
-            e: GestureResponderEvent,
-            gestureState: PanResponderGestureState,
-        ) => boolean)
+        e: GestureResponderEvent,
+        gestureState: PanResponderGestureState,
+    ) => boolean)
         | undefined;
     onStartShouldSetPanResponderCapture?:
         | ((
-            e: GestureResponderEvent,
-            gestureState: PanResponderGestureState,
-        ) => boolean)
+        e: GestureResponderEvent,
+        gestureState: PanResponderGestureState,
+    ) => boolean)
         | undefined;
     onPanResponderReject?:
         | ((
-            e: GestureResponderEvent,
-            gestureState: PanResponderGestureState,
-        ) => void)
+        e: GestureResponderEvent,
+        gestureState: PanResponderGestureState,
+    ) => void)
         | undefined;
     onPanResponderStart?:
         | ((
-            e: GestureResponderEvent,
-            gestureState: PanResponderGestureState,
-        ) => void)
+        e: GestureResponderEvent,
+        gestureState: PanResponderGestureState,
+    ) => void)
         | undefined;
     onPanResponderEnd?:
         | ((
-            e: GestureResponderEvent,
-            gestureState: PanResponderGestureState,
-        ) => void)
+        e: GestureResponderEvent,
+        gestureState: PanResponderGestureState,
+    ) => void)
         | undefined;
     onPanResponderTerminationRequest?:
         | ((
-            e: GestureResponderEvent,
-            gestureState: PanResponderGestureState,
-        ) => boolean)
+        e: GestureResponderEvent,
+        gestureState: PanResponderGestureState,
+    ) => boolean)
         | undefined;
     onShouldBlockNativeResponder?:
         | ((
-            e: GestureResponderEvent,
-            gestureState: PanResponderGestureState,
-        ) => boolean)
+        e: GestureResponderEvent,
+        gestureState: PanResponderGestureState,
+    ) => boolean)
         | undefined;
 }
 
@@ -976,8 +976,8 @@ export interface PressableProps extends ViewPropsWithoutStyle {
     children:
         | ReactNode
         | ((state: {
-            pressed: boolean;
-        }) => ReactNode);
+        pressed: boolean;
+    }) => ReactNode);
     // Duration (in milliseconds) from `onPressIn` before `onLongPress` is called.
     delayLongPress?: number;
     // Duration (in milliseconds) from `onPressStart` is called after pointerdown
@@ -1005,8 +1005,8 @@ export interface PressableProps extends ViewPropsWithoutStyle {
     style?:
         | StyleProp<ViewStyle>
         | ((state: {
-            pressed: boolean;
-        }) => StyleProp<ViewStyle>);
+        pressed: boolean;
+    }) => StyleProp<ViewStyle>);
 }
 export const Pressable: FunctionComponent<PressableProps & RefAttributes<typeof View>>;
 
@@ -1389,14 +1389,36 @@ declare module "react-native" {
             | AriaRole;
         // @deprecated
         accessibilityRole?:
-            | "button"
-            | "header"
-            | "heading"
-            | "label"
-            | "link"
-            | "listitem"
             | "none"
-            | "text";
+            | "button"
+            | "togglebutton"
+            | "link"
+            | "search"
+            | "image"
+            | "keyboardkey"
+            | "text"
+            | "adjustable"
+            | "imagebutton"
+            | "header"
+            | "summary"
+            | "alert"
+            | "checkbox"
+            | "combobox"
+            | "menu"
+            | "menubar"
+            | "menuitem"
+            | "progressbar"
+            | "radio"
+            | "radiogroup"
+            | "scrollbar"
+            | "spinbutton"
+            | "switch"
+            | "tab"
+            | "tabbar"
+            | "tablist"
+            | "timer"
+            | "list"
+            | "toolbar";
     }
 
     /**
@@ -1425,7 +1447,7 @@ declare module "react-native" {
      * ScrollView
      * Extracted from react-native-web, packages/react-native-web/src/exports/ScrollView/ScrollViewBase.js
      */
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface WebScrollViewProps extends WebSharedProps {}
     // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface ScrollViewProps extends WebScrollViewProps {}
@@ -1433,8 +1455,8 @@ declare module "react-native" {
     /**
      * Pressable
      */
-    // https://necolas.github.io/react-native-web/docs/pressable/#interactionstate
-    // Extracted from react-native-web, packages/react-native-web/src/exports/Pressable/index.js
+        // https://necolas.github.io/react-native-web/docs/pressable/#interactionstate
+        // Extracted from react-native-web, packages/react-native-web/src/exports/Pressable/index.js
     interface WebPressableStateCallbackType {
         readonly focused: boolean;
         readonly hovered: boolean;
@@ -1481,6 +1503,7 @@ declare module "react-native" {
         paddingRight?: CSSProperties["paddingRight"] | DimensionValue | undefined;
         paddingBottom?: CSSProperties["paddingBottom"] | DimensionValue | undefined;
         paddingLeft?: CSSProperties["paddingLeft"] | DimensionValue | undefined;
+        userSelect?: CSSProperties["userSelect"] | 'contain' | undefined;
     }
 
     interface TextStyle extends WebStyle {
