@@ -1,4 +1,4 @@
-// For Library Version: 1.144.0
+// For Library Version: 1.145.0
 
 declare module "sap/ui/layout/library" {
   import Control from "sap/ui/core/Control";

@@ -38,6 +38,7 @@ import * as url from "node:url";
         keepAliveTimeout: 100,
         keepAliveTimeoutBuffer: 200,
         headersTimeout: 50000,
+        optimizeEmptyRequests: true,
         requireHostHeader: false,
         rejectNonStandardBodyWrites: false,
         shouldUpgradeCallback(request) {

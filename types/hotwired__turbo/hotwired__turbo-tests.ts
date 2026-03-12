@@ -1,16 +1,23 @@
 import {
+    Adapter,
+    BrowserAdapter,
     cache,
     config,
     connectStreamSource,
     disconnectStreamSource,
     navigator,
+    NavigatorDelegate,
+    ProgressBar,
+    registerAdapter,
     renderStreamMessage,
     session,
     start,
     StreamActions,
     StreamMessage,
     StreamSource,
+    Visit,
     visit,
+    VisitOptions,
 } from "@hotwired/turbo";
 
 const turboFrame = document.querySelector("turbo-frame")!;
@@ -94,6 +101,14 @@ StreamActions.log = function() {
     console.log(this.getAttribute("message"));
 };
 
+document.addEventListener("turbo:before-fetch-request", function(event) {
+    // $ExpectType FetchRequestHeaders
+    const headers = event.detail.fetchOptions.headers;
+    headers["Turbo-Referrer"] = window.location.href;
+    // $ExpectType string | undefined
+    headers.Accept;
+});
+
 document.addEventListener("turbo:before-fetch-response", function(e) {
     let { fetchResponse } = e.detail;
     fetchResponse.header("foo");
@@ -106,6 +121,13 @@ document.addEventListener("turbo:before-render", function(e) {
         // $ExpectType HTMLBodyElement
         newElement;
     };
+    // $ExpectType (value?: unknown) => void
+    e.detail.resume;
+});
+
+document.addEventListener("turbo:before-frame-render", function(e) {
+    // $ExpectType (value?: unknown) => void
+    e.detail.resume;
 });
 
 document.addEventListener("turbo:frame-missing", function(event) {
@@ -130,15 +152,29 @@ document.addEventListener("turbo:submit-end", function(event) {
 
 // Test start() function
 start();
+
+const customAdapter: Adapter = {
+    visitProposedToLocation(_location: URL, _options?: VisitOptions): void {},
+    visitStarted(_visit: Visit): void {},
+    visitCompleted(_visit: Visit): void {},
+    visitFailed(_visit: Visit): void {},
+    visitRequestStarted(_visit: Visit): void {},
+    visitRequestCompleted(_visit: Visit): void {},
+    visitRequestFailedWithStatusCode(_visit: Visit, _statusCode: number): void {},
+    visitRequestFinished(_visit: Visit): void {},
+    visitRendered(_visit: Visit): void {},
+    pageInvalidated(_reason: { reason: string }): void {},
+};
+registerAdapter(customAdapter);
+Turbo.registerAdapter(customAdapter);
+
 Turbo.start();
 
 // Test session.adapter
-// $ExpectType BrowserAdapter
+// $ExpectType Adapter
 session.adapter;
-session.adapter.formSubmissionStarted();
-session.adapter.formSubmissionFinished();
-Turbo.session.adapter.formSubmissionStarted();
-Turbo.session.adapter.formSubmissionFinished();
+// $ExpectType Adapter
+Turbo.session.adapter;
 
 // Test navigator.submitForm
 const form = document.querySelector("form")!;
@@ -146,6 +182,26 @@ navigator.submitForm(form);
 navigator.submitForm(form, document.querySelector("button")!);
 Turbo.navigator.submitForm(form);
 Turbo.navigator.submitForm(form, document.querySelector("button")!);
+
+// Test navigator.delegate
+// $ExpectType NavigatorDelegate
+navigator.delegate;
+// $ExpectType Adapter
+navigator.delegate.adapter;
+
+// Test ProgressBar via BrowserAdapter cast
+const browserAdapter = navigator.delegate.adapter as BrowserAdapter;
+// $ExpectType ProgressBar
+browserAdapter.progressBar;
+browserAdapter.progressBar.setValue(0);
+browserAdapter.progressBar.show();
+browserAdapter.progressBar.hide();
+// $ExpectType number
+browserAdapter.progressBar.value;
+// $ExpectType boolean
+browserAdapter.progressBar.visible;
+// $ExpectType boolean
+browserAdapter.progressBar.hiding;
 
 // Test cache methods
 cache.clear();

@@ -279,7 +279,7 @@ declare namespace sap {
     "sap/ui/thirdparty/qunit-2": undefined;
   }
 }
-// For Library Version: 1.144.0
+// For Library Version: 1.145.0
 
 declare module "sap/base/assert" {
   /**
@@ -6787,7 +6787,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
          */
         adjustDeepPath?: Function;
         /**
-         * ID of the `ChangeSet` that this request belongs to
+         * ID of the change set that this request belongs to
          */
         changeSetId?: string;
         /**
@@ -6810,7 +6810,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
          * 	 - the HTTP method used for the function import is "POST",
          * 	 - the function import returns a single entity,
          * 	 - the back-end service must support the "Content-ID" header,
-         * 	 - the back end must allow GET requests relative to this content ID outside the changeset within the
+         * 	 - the back end must allow GET requests relative to this content ID outside the change set within the
          *     `$batch` request.  The success and error callback functions are called only once, even if there
          *     are two requests in the `$batch` related to a single call of {@link #callFunction}.
          * 	 - If both requests succeed, the success callback is called with the merged data of the POST and the
@@ -6929,7 +6929,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
          */
         groupId?: string;
         /**
-         * ID of the `ChangeSet` that this request should belong to
+         * ID of the change set that this request should belong to
          */
         changeSetId?: string;
         /**
@@ -7021,7 +7021,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
      * The parameter `expand` is supported since 1.78.0. If this parameter is set, the given navigation properties
      * are expanded automatically with the same $batch request in which the POST request for the creation is
      * contained. Ensure that the batch mode is used and the back-end service supports GET requests relative
-     * to a content ID outside the changeset. The success and error callback functions are called only once,
+     * to a content ID outside the change set. The success and error callback functions are called only once,
      * even if there are two requests in the `$batch` related to a single call of {@link #createEntry}:
      *
      * 	 - a POST request for creating an entity,
@@ -7067,7 +7067,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
          */
         batchGroupId?: string;
         /**
-         * The ID of the `ChangeSet` that this request should belong to
+         * The ID of the change set that this request should belong to
          */
         changeSetId?: string;
         /**
@@ -7090,7 +7090,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
          * GET request. **Note:** The following prerequisites must be fulfilled:
          * 	 - batch mode must be enabled; see constructor parameter `useBatch`,
          * 	 - the back-end service must support the "Content-ID" header,
-         * 	 - the back end must allow GET requests relative to this content ID outside the changeset within the
+         * 	 - the back end must allow GET requests relative to this content ID outside the change set within the
          *     `$batch` request.
          */
         expand?: string;
@@ -8053,7 +8053,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
          */
         groupId?: string;
         /**
-         * ID of the `ChangeSet` that this request should belong to
+         * ID of the change set that this request should belong to
          */
         changeSetId?: string;
         /**
@@ -8416,7 +8416,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
          */
         groupId?: string;
         /**
-         * ID of the `ChangeSet` that this request should belong to
+         * ID of the change set that this request should belong to
          */
         changeSetId?: string;
         /**
@@ -10234,14 +10234,15 @@ declare module "sap/ui/test/starter/config" {
    */
   export type CoverageConfiguration = {
     /**
-     * List of modules or packages that should be instrumented. If not given, all modules are instrumented.
-     * Default is null
+     * A single module or package name, or a list of such names, that should be instrumented. If not given,
+     * all modules are instrumented. Default is null
      */
-    only?: string[];
+    only?: string | string[];
     /**
-     * List of modules or packages that never should be instrumented. Default is null
+     * A single module or package name, or a list of such names, that never should be instrumented. Default
+     * is null
      */
-    never?: string[];
+    never?: string | string[];
 
     branchTracking?: boolean;
     /**
@@ -20616,7 +20617,7 @@ declare module "sap/ui/core/ComponentMetadata" {
      *
      * The configuration above can be accessed via `sample.Component.getMetadata().getCustomEntry("my.custom.config")`.
      *
-     * @deprecated As of version 1.27.1. Please use the sap.ui.core.ComponentMetadata#getManifestEntry
+     * @deprecated As of version 1.27.1. without replacement.
      *
      * @returns custom Component configuration with the specified key.
      */
@@ -27772,7 +27773,7 @@ declare module "sap/ui/core/Element" {
       /**
        * The dependent to add; if empty, nothing is inserted
        */
-      oDependent: UI5Element
+      oDependent: ManagedObject
     ): this;
     /**
      * Adds some dragDropConfig to the aggregation {@link #getDragDropConfig dragDropConfig}.
@@ -28156,11 +28157,11 @@ declare module "sap/ui/core/Element" {
      * Gets content of aggregation {@link #getDependents dependents}.
      *
      * Dependents are not rendered, but their databinding context and lifecycle are bound to the aggregating
-     * Element.
+     * ManagedObject.
      *
      * @since 1.19
      */
-    getDependents(): UI5Element[];
+    getDependents(): ManagedObject[];
     /**
      * Returns the best suitable DOM Element that represents this UI5 Element. By default the DOM Element with
      * the same ID as this Element is returned. Subclasses should override this method if the lookup via id
@@ -28333,8 +28334,8 @@ declare module "sap/ui/core/Element" {
       oCustomData: CustomData
     ): int;
     /**
-     * Checks for the provided `sap.ui.core.Element` in the aggregation {@link #getDependents dependents}. and
-     * returns its index if found or -1 otherwise.
+     * Checks for the provided `sap.ui.base.ManagedObject` in the aggregation {@link #getDependents dependents}.
+     * and returns its index if found or -1 otherwise.
      *
      * @since 1.19
      *
@@ -28344,7 +28345,7 @@ declare module "sap/ui/core/Element" {
       /**
        * The dependent whose index is looked for
        */
-      oDependent: UI5Element
+      oDependent: ManagedObject
     ): int;
     /**
      * Checks for the provided `sap.ui.core.dnd.DragDropBase` in the aggregation {@link #getDragDropConfig dragDropConfig}.
@@ -28408,7 +28409,7 @@ declare module "sap/ui/core/Element" {
       /**
        * The dependent to insert; if empty, nothing is inserted
        */
-      oDependent: UI5Element,
+      oDependent: ManagedObject,
       /**
        * The `0`-based index the dependent should be inserted at; for a negative value of `iIndex`, the dependent
        * is inserted at position 0; for a value greater than the current size of the aggregation, the dependent
@@ -28547,7 +28548,7 @@ declare module "sap/ui/core/Element" {
      *
      * @returns An array of the removed elements (might be empty)
      */
-    removeAllDependents(): UI5Element[];
+    removeAllDependents(): ManagedObject[];
     /**
      * Removes all the controls from the aggregation {@link #getDragDropConfig dragDropConfig}.
      *
@@ -28581,8 +28582,8 @@ declare module "sap/ui/core/Element" {
       /**
        * The dependent to remove or its index or id
        */
-      vDependent: int | string | UI5Element
-    ): UI5Element | null;
+      vDependent: int | string | ManagedObject
+    ): ManagedObject | null;
     /**
      * Removes a dragDropConfig from the aggregation {@link #getDragDropConfig dragDropConfig}.
      *
@@ -28885,13 +28886,13 @@ declare module "sap/ui/core/Element" {
 
     /**
      * Dependents are not rendered, but their databinding context and lifecycle are bound to the aggregating
-     * Element.
+     * ManagedObject.
      *
      * @since 1.19
      */
     dependents?:
-      | UI5Element[]
-      | UI5Element
+      | ManagedObject[]
+      | ManagedObject
       | AggregationBindingInfo
       | `{${string}}`;
 
@@ -38701,15 +38702,15 @@ declare module "sap/ui/core/mvc/View" {
        */
       sViewType: string,
       /**
-       * declares if the vPreprocessor ensures safe sync processing. This means the preprocessor will be executed
-       * also for sync views. Please be aware that any kind of async processing (like Promises, XHR, etc) may
-       * break the view initialization and lead to unexpected results.
+       * Deprecated as of version 1.145, because this parameter is only applicable to sync views and is no longer
+       * used. Declares if the vPreprocessor ensures safe sync processing. This means the preprocessor will be
+       * executed also for sync views. Please be aware that any kind of async processing (like Promises, XHR,
+       * etc) may break the view initialization and lead to unexpected results.
        */
       bSyncSupport: boolean,
       /**
        * on-demand preprocessor which enables developers to quickly activate the preprocessor for a view, by setting
-       * `preprocessors : { xml }`, for example. This should be false except for very special cases. There can
-       * only be one on-demand preprocessor per content type.
+       * `preprocessors : { xml }`, for example. There can only be one on-demand preprocessor per content type.
        */
       bOnDemand?: boolean,
       /**
@@ -39962,9 +39963,10 @@ declare module "sap/ui/core/mvc/XMLView" {
        */
       sViewType: string,
       /**
-       * declares if the vPreprocessor ensures safe sync processing. This means the preprocessor will be executed
-       * also for sync views. Please be aware that any kind of async processing (like Promises, XHR, etc) may
-       * break the view initialization and lead to unexpected results.
+       * Deprecated as of version 1.145, because this parameter is only applicable to sync views and is no longer
+       * used. Declares if the vPreprocessor ensures safe sync processing. This means the preprocessor will be
+       * executed also for sync views. Please be aware that any kind of async processing (like Promises, XHR,
+       * etc) may break the view initialization and lead to unexpected results.
        */
       bSyncSupport: boolean,
       /**
@@ -40007,9 +40009,10 @@ declare module "sap/ui/core/mvc/XMLView" {
         | string
         | ((p1: Object, p2: Preprocessor.ViewInfo, p3: object) => void),
       /**
-       * declares if the vPreprocessor ensures safe sync processing. This means the preprocessor will be executed
-       * also for sync views. Please be aware that any kind of async processing (like Promises, XHR, etc) may
-       * break the view initialization and lead to unexpected results.
+       * Deprecated as of version 1.145, because this parameter is only applicable to sync views and is no longer
+       * used. Declares if the vPreprocessor ensures safe sync processing. This means the preprocessor will be
+       * executed also for sync views. Please be aware that any kind of async processing (like Promises, XHR,
+       * etc) may break the view initialization and lead to unexpected results.
        */
       bSyncSupport: boolean,
       /**
@@ -46924,8 +46927,6 @@ declare module "sap/ui/core/support/RuleEngineOpaExtension" {
 }
 
 declare module "sap/ui/core/theming/Parameters" {
-  import UI5Element from "sap/ui/core/Element";
-
   /**
    * A helper used for (read-only) access to CSS parameters at runtime.
    */
@@ -46962,7 +46963,7 @@ declare module "sap/ui/core/theming/Parameters" {
     get(
       /**
        * the (array with) CSS parameter name(s) or an object containing the (array with) CSS parameter name(s),
-       * the scopeElement and a callback for async retrieval of parameters.
+       * and a callback for async retrieval of parameters.
        */
       vName:
         | string
@@ -46973,21 +46974,11 @@ declare module "sap/ui/core/theming/Parameters" {
              */
             name: string | string[];
             /**
-             * Element / control instance to take into account when looking for a parameter value. This can make a difference
-             * when a parameter value is overridden in a theme scope set via a CSS class.
-             */
-            scopeElement?: UI5Element;
-            /**
              * If given, the callback is only executed in case there are still parameters pending and one or more of
              * the requested parameters is missing.
              */
             callback?: (p1: Value) => void;
-          },
-      /**
-       * Element / control instance to take into account when looking for a parameter value. This can make a difference
-       * when a parameter value is overridden in a theme scope set via a CSS class.
-       */
-      oElement?: UI5Element
+          }
     ): Value;
     /**
      * Resets the CSS parameters which finally will reload the parameters the next time they are queried via
@@ -60399,6 +60390,44 @@ declare module "sap/ui/model/json/JSONModel" {
      */
     static getMetadata(): Metadata;
     /**
+     * Returns the value of the property for the given `sPath` and `oContext`.
+     *
+     * @deprecated As of version 1.145.0. use {@link #getProperty} instead
+     *
+     * @returns The value for the given `sPath` and `oContext`. If the property path derived from the given
+     * `sPath` and `oContext` is absolute (starts with a "/") but does not lead to a property in the data structure,
+     * `undefined` is returned. If the property `sPath` is not absolute, `null` is returned.
+     */
+    static getObject(
+      /**
+       * The path to the object you want to read
+       */
+      sPath: string,
+      /**
+       * The context that resolves the path
+       */
+      oContext?: Context
+    ): any | null | undefined;
+    /**
+     * Returns the original value for the property with the given `sPath` and `oContext`.
+     *
+     * @deprecated As of version 1.145.0. use {@link #getProperty} instead
+     *
+     * @returns The value of the property for the given `sPath` and `oContext`. If the property path derived
+     * from the given `sPath` and `oContext` is absolute (starts with a "/") but does not lead to a property
+     * in the data structure, `undefined` is returned. If the property `sPath` is not absolute, `null` is returned.
+     */
+    static getOriginalProperty(
+      /**
+       * The path/name of the property
+       */
+      sPath: string,
+      /**
+       * Context for accessing the property value
+       */
+      oContext?: Context
+    ): any | null | undefined;
+    /**
      * Returns a Promise of the current data-loading state. Every currently running {@link sap.ui.model.json.JSONModel#loadData }
      * call is respected by the returned Promise. This also includes a potential loadData call from the JSONModel's
      * constructor in case a URL was given. The data-loaded Promise will resolve once all running requests have
@@ -60417,7 +60446,7 @@ declare module "sap/ui/model/json/JSONModel" {
      */
     getJSON(): string;
     /**
-     * Returns the value for the property with the given path and context.
+     * Returns the value for the given `sPath` and `oContext`.
      *
      *
      * @returns The value of the property. If the property is not found, `null` or `undefined` is returned.
@@ -62224,16 +62253,19 @@ declare module "sap/ui/model/Model" {
      */
     getMetaModel(): MetaModel | undefined;
     /**
+     * Returns the value of the property for the given `sPath` and `oContext`.
      *
-     * @returns The value for the given path/context or `undefined` if data could not be found
+     *
+     * @returns The the value of the property for the given path/context or `undefined` if data could not be
+     * found
      */
     getObject(
       /**
-       * Path to where to read the object
+       * The path to the object you want to read
        */
       sPath: string,
       /**
-       * Context with which the path should be resolved
+       * The context that resolves the path
        */
       oContext?: Context,
       /**
@@ -62247,29 +62279,31 @@ declare module "sap/ui/model/Model" {
      * The original value is the value that was last responded by a server if using a server model implementation.
      *
      *
-     * @returns vValue The value of the property
+     * @returns The value of the property
      */
     getOriginalProperty(
       /**
-       * Path/name of the property
+       * The path/name of the property
        */
       sPath: string,
       /**
-       * Context if available to access the property value
+       * Context for accessing the property value
        */
       oContext?: Context
     ): any;
     /**
+     * Returns the value of the property for the given `sPath` and `oContext`.
      *
-     * @returns Value of the addressed property
+     *
+     * @returns The value of the addressed property
      */
     getProperty(
       /**
-       * The path to where to read the attribute value
+       * The path to the attribute value you want to read
        */
       sPath: string,
       /**
-       * The context with which the path should be resolved
+       * The context that resolves the path
        */
       oContext?: Context
     ): any;
@@ -65580,7 +65614,7 @@ declare module "sap/ui/model/odata/ODataModel" {
     /**
      * Appends the change batch operations to the end of the batch stack. Only `PUTPOST` or `DELETE`
      * batch operations should be included in the specified array. The operations in the array will be included
-     * in a single changeset. To embed change operations in different change sets call this method with the
+     * in a single change set. To embed change operations in different change sets call this method with the
      * corresponding change operations again. If an illegal batch operation is added to the change set nothing
      * will be performed and false will be returned.
      *
@@ -70500,8 +70534,8 @@ declare module "sap/ui/model/odata/v2/Context" {
          */
         groupId?: string;
         /**
-         * ID of the `ChangeSet` that this request should belong to. If not provided, the `changeSetId` defined
-         * for the type of the entity to be deleted is used.
+         * ID of the change set that this request should belong to. If not provided, the `changeSetId` defined for
+         * the type of the entity to be deleted is used.
          */
         changeSetId?: string;
         /**
@@ -71578,7 +71612,7 @@ declare module "sap/ui/model/odata/v2/ODataListBinding" {
        */
       mParameters?: {
         /**
-         * The ID of the `ChangeSet` that this request should belong to
+         * The ID of the change set that this request should belong to
          */
         changeSetId?: string;
         /**
@@ -72861,12 +72895,15 @@ declare module "sap/ui/model/odata/v4/Context" {
       bDoNotRequestCount?: boolean
     ): Promise<void>;
     /**
+     * Note: You may want to call {@link #delete} instead in order to delete the OData entity on the server
+     * side.
+     *
      * Destroys this context, that is, it removes this context from all dependent bindings and drops references
      * to {@link #getBinding binding} and {@link #getModel model}, so that the context cannot be used anymore;
      * it keeps path and index for debugging purposes. A destroyed context can be recognized by calling {@link #getBinding},
      * which returns `undefined`.
      *
-     * **BEWARE:** Do not call this function! The lifetime of an OData V4 context is completely controlled by
+     * **BEWARE: Do not call this function!** The lifetime of an OData V4 context is completely controlled by
      * its binding.
      * See:
      * 	sap.ui.base.Object#destroy
@@ -73200,6 +73237,10 @@ declare module "sap/ui/model/odata/v4/Context" {
      * Refreshes the single entity represented by this context. Use {@link #requestRefresh} if you want to wait
      * for the refresh.
      *
+     * When using data aggregation without `groupLevels` and without `"grandTotal like 1.84"` (see {@link sap.ui.model.odata.v4.ODataListBinding#setAggregation}),
+     * single entities (see {@link #isAggregated}) can be refreshed and the grand total is updated accordingly
+     * (@experimental as of version 1.145.0).
+     *
      * @since 1.53.0
      */
     refresh(
@@ -73333,7 +73374,7 @@ declare module "sap/ui/model/odata/v4/Context" {
        */
       sGroupId?: string,
       /**
-       * Allows to remove the context
+       * Allows to remove the context, see {@link #refresh} for details
        */
       bAllowRemoval?: boolean
     ): Promise<void>;
@@ -73399,7 +73440,8 @@ declare module "sap/ui/model/odata/v4/Context" {
        * Since 1.82.0, absolute paths are supported. Absolute paths must start with the entity container (example
        * "/com.sap.gateway.default.iwbep.tea_busi.v0001.Container/TEAMS") of the service. All (navigation) properties
        * in the complete model matching such an absolute path are updated. Since 1.85.0, "14.3.11 Expression edm:String"
-       * is accepted as well.
+       * is accepted as well. Since 1.145.0, you can use `null` values (and `{$Null : null}`) as synonyms for
+       * empty navigation property paths.
        *
        * Since 1.108.8, a property path matching the "com.sap.vocabularies.Common.v1.Messages" annotation of a
        * list binding's entity type is treated specially for a row context of a list binding: It is loaded even
@@ -73448,9 +73490,10 @@ declare module "sap/ui/model/odata/v4/Context" {
      * Note: This can be used for single entities in a data aggregation scenario (@experimental as of version
      * 1.144.0), see {@link #isAggregated}. Such a kept-alive context
      * 	 can be used as a binding context,  can be used for updating data (see {@link #setProperty}),
-     * is refreshed when its list binding's {@link sap.ui.model.odata.v4.ODataListBinding#refresh}) is called,
-     * and  is refreshed when {@link #requestSideEffects}) is called on its list binding's header context.
-     *  Other APIs are not supported.
+     * can be refreshed (see {@link #refresh} and {@link #requestRefresh}),  is refreshed when its list
+     * binding's {@link sap.ui.model.odata.v4.ODataListBinding#refresh}) is called, and  is refreshed when
+     * {@link #requestSideEffects}) is called on its list binding's header context.  Other APIs are not
+     * supported.
      * See:
      * 	#isKeepAlive
      *
@@ -73997,6 +74040,7 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
      * Method not supported
      *
      * @since 1.37.0
+     * @deprecated As of version 1.37.0. calling this method is not supported
      */
     isInitial(): boolean;
     /**
@@ -74869,8 +74913,9 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
      * 	sap.ui.model.ListBinding#getDistinctValues
      *
      * @since 1.37.0
+     * @deprecated As of version 1.37.0. calling this method is not supported
      */
-    getDistinctValues(_sPath?: string): any[];
+    getDistinctValues(): any[];
     /**
      * Returns a URL by which the complete content of the list can be downloaded in JSON format. The request
      * delivers all entities considering the binding's query options (such as filters or sorters). Returns `null`
@@ -75053,6 +75098,7 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
      * Method not supported
      *
      * @since 1.37.0
+     * @deprecated As of version 1.37.0. calling this method is not supported
      */
     isInitial(): boolean;
     /**
@@ -75857,18 +75903,9 @@ declare module "sap/ui/model/odata/v4/ODataMetaModel" {
      * 	sap.ui.model.Model#bindTree
      *
      * @since 1.37.0
+     * @deprecated As of version 1.37.0. calling this method is not supported
      */
-    bindTree(
-      _sPath: string,
-
-      _oContext?: Context,
-
-      _aFilters?: Filter[],
-
-      _mParameters?: object,
-
-      _aSorters?: Sorter[]
-    ): TreeBinding;
+    bindTree(): TreeBinding;
     /**
      * Returns a snapshot of each $metadata or annotation file loaded so far, combined into a single "JSON"
      * object according to the streamlined OData V4 Metadata JSON Format.
@@ -75968,6 +76005,7 @@ declare module "sap/ui/model/odata/v4/ODataMetaModel" {
      * Method not supported
      *
      * @since 1.37.0
+     * @deprecated As of version 1.37.0. calling this method is not supported
      */
     getOriginalProperty(): void;
     /**
@@ -76035,6 +76073,7 @@ declare module "sap/ui/model/odata/v4/ODataMetaModel" {
      * 	sap.ui.model.Model#refresh
      *
      * @since 1.37.0
+     * @deprecated As of version 1.37.0. calling this method is not supported
      */
     refresh(): void;
     /**
@@ -76079,7 +76118,7 @@ declare module "sap/ui/model/odata/v4/ODataMetaModel" {
 
         Text: string;
 
-        UnitSpecificScale: string;
+        UnitSpecificScale: number;
       }
     > | null>;
     /**
@@ -76383,7 +76422,7 @@ declare module "sap/ui/model/odata/v4/ODataMetaModel" {
 
         Text: string;
 
-        UnitSpecificScale: string;
+        UnitSpecificScale: number;
       }
     > | null>;
     /**
@@ -76459,6 +76498,7 @@ declare module "sap/ui/model/odata/v4/ODataMetaModel" {
      * Method not supported
      *
      * @since 1.37.0
+     * @deprecated As of version 1.37.0. calling this method is not supported
      */
     setLegacySyntax(): void;
     /**
@@ -77083,18 +77123,9 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
      * 	sap.ui.model.Model#bindTree
      *
      * @since 1.37.0
+     * @deprecated As of version 1.37.0. calling this method is not supported
      */
-    bindTree(
-      _sPath: string,
-
-      _oContext?: Context1,
-
-      _aFilters?: Filter[],
-
-      _mParameters?: object,
-
-      _aSorters?: Sorter[]
-    ): TreeBinding;
+    bindTree(): TreeBinding;
     /**
      * Changes the HTTP headers used for data and metadata requests sent by this model.
      *
@@ -77211,6 +77242,7 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
      * Method not supported
      *
      * @since 1.37.0
+     * @deprecated As of version 1.37.0. calling this method is not supported
      */
     destroyBindingContext(): void;
     /**
@@ -77400,6 +77432,7 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
      * Method not supported
      *
      * @since 1.37.0
+     * @deprecated As of version 1.37.0. calling this method is not supported
      */
     getObject(): void;
     /**
@@ -77414,6 +77447,7 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
      * Method not supported
      *
      * @since 1.37.0
+     * @deprecated As of version 1.37.0. calling this method is not supported
      */
     getOriginalProperty(): void;
     /**
@@ -77422,6 +77456,7 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
      * 	sap.ui.model.Model#getProperty
      *
      * @since 1.37.0
+     * @deprecated As of version 1.37.0. calling this method is not supported
      */
     getProperty(): void;
     /**
@@ -77575,6 +77610,7 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
      * Method not supported
      *
      * @since 1.37.0
+     * @deprecated As of version 1.37.0. calling this method is not supported
      */
     setLegacySyntax(): void;
     /**
@@ -77594,7 +77630,7 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
       /**
        * A "Retry-After" handler
        */
-      fnRetryAfter: (p1: Error) => Promise<undefined>
+      fnRetryAfter: (p1: Error) => Promise<void>
     ): void;
     /**
      * Submits the requests associated with the given group ID in one batch request. Requests from subsequent
@@ -77950,6 +77986,7 @@ declare module "sap/ui/model/odata/v4/ODataPropertyBinding" {
      * Method not supported
      *
      * @since 1.37.0
+     * @deprecated As of version 1.37.0. calling this method is not supported
      */
     isInitial(): boolean;
     /**
@@ -78052,6 +78089,7 @@ declare module "sap/ui/model/odata/v4/ODataPropertyBinding" {
      * 	sap.ui.model.Binding#resume
      *
      * @since 1.37.0
+     * @deprecated As of version 1.37.0. calling this method is not supported
      */
     resume(): void;
     /**
@@ -78116,6 +78154,7 @@ declare module "sap/ui/model/odata/v4/ODataPropertyBinding" {
      * 	sap.ui.model.Binding#suspend
      *
      * @since 1.37.0
+     * @deprecated As of version 1.37.0. calling this method is not supported
      */
     suspend(): void;
     /**
@@ -89856,6 +89895,8 @@ declare namespace sap {
     "sap/ui/dom/denormalizeScrollBeginRTL": undefined;
 
     "sap/ui/dom/denormalizeScrollLeftRTL": undefined;
+
+    "sap/ui/dom/detectTextSelection": undefined;
 
     "sap/ui/dom/getOwnerWindow": undefined;
 

@@ -93,3 +93,9 @@ v8.deserialize(new ArrayBuffer(1));
 v8.deserialize("Hello World!");
 
 v8.isStringOneByteRepresentation("你好"); // $ExpectType boolean
+
+{
+    using profile: v8.SyncCPUProfileHandle = v8.startCpuProfile();
+    profile.stop(); // $ExpectType string
+    profile[Symbol.dispose](); // $ExpectType void
+}

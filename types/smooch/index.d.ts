@@ -288,6 +288,104 @@ declare namespace Smooch {
      */
     function on(event: "typing:stop", callback: (data: ConversationData) => void): void;
     // tslint:enable:unified-signatures
+
+    // tslint:disable:unified-signatures
+    /**
+     * Removes a specific handler for the "ready" event, or all handlers if no callback is provided.
+     */
+    function off(event: "ready", callback?: () => void): void;
+    /**
+     * Removes a specific handler for the "destroy" event, or all handlers if no callback is provided.
+     */
+    function off(event: "destroy", callback?: () => void): void;
+    /**
+     * Removes a specific handler for the "participant:added" event, or all handlers if no callback is provided.
+     */
+    function off(
+        event: "participant:added",
+        callback?: (participant: ConversationParticipant, data: ConversationData) => void,
+    ): void;
+    /**
+     * Removes a specific handler for the "participant:removed" event, or all handlers if no callback is provided.
+     */
+    function off(
+        event: "participant:removed",
+        callback?: (participant: ConversationParticipant, data: ConversationData) => void,
+    ): void;
+    /**
+     * Removes a specific handler for the "conversation:added" event, or all handlers if no callback is provided.
+     */
+    function off(
+        event: "conversation:added",
+        callback?: (participants: ConversationParticipant[], data: ConversationData) => void,
+    ): void;
+    /**
+     * Removes a specific handler for the "conversation:read" event, or all handlers if no callback is provided.
+     */
+    function off(
+        event: "conversation:read",
+        callback?: (payload: ConversationReadEventPayload, data: ConversationData) => void,
+    ): void;
+    /**
+     * Removes a specific handler for the "conversation:removed" event, or all handlers if no callback is provided.
+     */
+    function off(event: "conversation:removed", callback?: (data: ConversationData) => void): void;
+    /**
+     * Removes a specific handler for the "message:received" event, or all handlers if no callback is provided.
+     */
+    function off(event: "message:received", callback?: (message: Message, data: ConversationData) => void): void;
+    /**
+     * Removes a specific handler for the "message:sent" event, or all handlers if no callback is provided.
+     */
+    function off(event: "message:sent", callback?: (message: Message, data: ConversationData) => void): void;
+    /**
+     * Removes a specific handler for the "message" event, or all handlers if no callback is provided.
+     */
+    function off(event: "message", callback?: (message: Message, data: ConversationData) => void): void;
+    /**
+     * Removes a specific handler for the "unreadCount" event, or all handlers if no callback is provided.
+     */
+    function off(event: "unreadCount", callback?: (unreadCount: number, data: ConversationData) => void): void;
+    /**
+     * Removes a specific handler for the "widget:opened" event, or all handlers if no callback is provided.
+     */
+    function off(event: "widget:opened", callback?: () => void): void;
+    /**
+     * Removes a specific handler for the "widget:closed" event, or all handlers if no callback is provided.
+     */
+    function off(event: "widget:closed", callback?: () => void): void;
+    /**
+     * Removes a specific handler for the "log:debug" event, or all handlers if no callback is provided.
+     */
+    function off(event: "log:debug", callback?: (e: DebugLog) => void): void;
+    /**
+     * Removes a specific handler for the "connected" event, or all handlers if no callback is provided.
+     */
+    function off(event: "connected", callback?: (data: ConversationData) => void): void;
+    /**
+     * Removes a specific handler for the "disconnected" event, or all handlers if no callback is provided.
+     */
+    function off(event: "disconnected", callback?: (data: ConversationData) => void): void;
+    /**
+     * Removes a specific handler for the "reconnecting" event, or all handlers if no callback is provided.
+     */
+    function off(event: "reconnecting", callback?: (data: ConversationData) => void): void;
+    /**
+     * Removes a specific handler for the "typing:start" event, or all handlers if no callback is provided.
+     */
+    function off(
+        event: "typing:start",
+        callback?: (data: ConversationData & { avatarUrl: string; name: string }) => void,
+    ): void;
+    /**
+     * Removes a specific handler for the "typing:stop" event, or all handlers if no callback is provided.
+     */
+    function off(event: "typing:stop", callback?: (data: ConversationData) => void): void;
+    /**
+     * Removes all handlers for all events.
+     */
+    function off(): void;
+    // tslint:enable:unified-signatures
 }
 
 type Nullable<T> = { [P in keyof T]: T[P] | null };

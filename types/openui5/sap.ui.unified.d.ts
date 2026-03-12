@@ -1,4 +1,4 @@
-// For Library Version: 1.144.0
+// For Library Version: 1.145.0
 
 declare module "sap/ui/unified/library" {
   /**
@@ -5770,6 +5770,18 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
      */
     getShowHeader(): boolean;
     /**
+     * Gets current value of property {@link #getShowWeekNumbers showWeekNumbers}.
+     *
+     * Determines if the week numbers are displayed.
+     *
+     * Default value is `false`.
+     *
+     * @since 1.145.0
+     *
+     * @returns Value of property `showWeekNumbers`
+     */
+    getShowWeekNumbers(): boolean;
+    /**
      * Gets current value of property {@link #getSingleSelection singleSelection}.
      *
      * If set, only a single month or interval, if intervalSelection is enabled, can be selected
@@ -6006,6 +6018,25 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
       bShowHeader?: boolean
     ): this;
     /**
+     * Sets a new value for property {@link #getShowWeekNumbers showWeekNumbers}.
+     *
+     * Determines if the week numbers are displayed.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     *
+     * @since 1.145.0
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setShowWeekNumbers(
+      /**
+       * New value for property `showWeekNumbers`
+       */
+      bShowWeekNumbers?: boolean
+    ): this;
+    /**
      * Sets a new value for property {@link #getSingleSelection singleSelection}.
      *
      * If set, only a single month or interval, if intervalSelection is enabled, can be selected
@@ -6077,6 +6108,13 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
      * If set, a header with the years is shown to visualize what month belongs to what year.
      */
     showHeader?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Determines if the week numbers are displayed.
+     *
+     * @since 1.145.0
+     */
+    showWeekNumbers?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Date ranges for selected dates. If `singleSelection` is set, only the first entry is used.

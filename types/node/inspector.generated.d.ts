@@ -1620,79 +1620,38 @@ declare module "node:inspector" {
             statsUpdate: number[];
         }
     }
-    namespace NodeTracing {
-        interface TraceConfig {
+    namespace IO {
+        type StreamHandle = string;
+        interface ReadParameterType {
             /**
-             * Controls how the trace buffer stores data.
+             * Handle of the stream to read.
              */
-            recordMode?: string | undefined;
+            handle: StreamHandle;
             /**
-             * Included category filters.
+             * Seek to the specified offset before reading (if not specified, proceed with offset
+             * following the last read). Some types of streams may only support sequential reads.
              */
-            includedCategories: string[];
-        }
-        interface StartParameterType {
-            traceConfig: TraceConfig;
-        }
-        interface GetCategoriesReturnType {
+            offset?: number | undefined;
             /**
-             * A list of supported tracing categories.
+             * Maximum number of bytes to read (left upon the agent discretion if not specified).
              */
-            categories: string[];
+            size?: number | undefined;
         }
-        interface DataCollectedEventDataType {
-            value: object[];
-        }
-    }
-    namespace NodeWorker {
-        type WorkerID = string;
-        /**
-         * Unique identifier of attached debugging session.
-         */
-        type SessionID = string;
-        interface WorkerInfo {
-            workerId: WorkerID;
-            type: string;
-            title: string;
-            url: string;
-        }
-        interface SendMessageToWorkerParameterType {
-            message: string;
+        interface CloseParameterType {
             /**
-             * Identifier of the session.
+             * Handle of the stream to close.
              */
-            sessionId: SessionID;
+            handle: StreamHandle;
         }
-        interface EnableParameterType {
+        interface ReadReturnType {
             /**
-             * Whether to new workers should be paused until the frontend sends `Runtime.runIfWaitingForDebugger`
-             * message to run them.
+             * Data that were read.
              */
-            waitForDebuggerOnStart: boolean;
-        }
-        interface DetachParameterType {
-            sessionId: SessionID;
-        }
-        interface AttachedToWorkerEventDataType {
+            data: string;
             /**
-             * Identifier assigned to the session used to send/receive messages.
+             * Set if the end-of-file condition occurred while reading.
              */
-            sessionId: SessionID;
-            workerInfo: WorkerInfo;
-            waitingForDebugger: boolean;
-        }
-        interface DetachedFromWorkerEventDataType {
-            /**
-             * Detached session identifier.
-             */
-            sessionId: SessionID;
-        }
-        interface ReceivedMessageFromWorkerEventDataType {
-            /**
-             * Identifier of a session which sends a message.
-             */
-            sessionId: SessionID;
-            message: string;
+            eof: boolean;
         }
     }
     namespace Network {
@@ -1789,6 +1748,18 @@ declare module "node:inspector" {
              * HTTP response headers.
              */
             headers: Headers;
+        }
+        interface EnableParameterType {
+            /**
+             * Buffer size in bytes to use when preserving network payloads (XHRs, etc).
+             * @experimental
+             */
+            maxTotalBufferSize?: number | undefined;
+            /**
+             * Per-resource buffer size in bytes to use when preserving network payloads (XHRs, etc).
+             * @experimental
+             */
+            maxResourceBufferSize?: number | undefined;
         }
         interface GetRequestPostDataParameterType {
             /**
@@ -1974,6 +1945,81 @@ declare module "node:inspector" {
             enabled: boolean;
         }
     }
+    namespace NodeTracing {
+        interface TraceConfig {
+            /**
+             * Controls how the trace buffer stores data.
+             */
+            recordMode?: string | undefined;
+            /**
+             * Included category filters.
+             */
+            includedCategories: string[];
+        }
+        interface StartParameterType {
+            traceConfig: TraceConfig;
+        }
+        interface GetCategoriesReturnType {
+            /**
+             * A list of supported tracing categories.
+             */
+            categories: string[];
+        }
+        interface DataCollectedEventDataType {
+            value: object[];
+        }
+    }
+    namespace NodeWorker {
+        type WorkerID = string;
+        /**
+         * Unique identifier of attached debugging session.
+         */
+        type SessionID = string;
+        interface WorkerInfo {
+            workerId: WorkerID;
+            type: string;
+            title: string;
+            url: string;
+        }
+        interface SendMessageToWorkerParameterType {
+            message: string;
+            /**
+             * Identifier of the session.
+             */
+            sessionId: SessionID;
+        }
+        interface EnableParameterType {
+            /**
+             * Whether to new workers should be paused until the frontend sends `Runtime.runIfWaitingForDebugger`
+             * message to run them.
+             */
+            waitForDebuggerOnStart: boolean;
+        }
+        interface DetachParameterType {
+            sessionId: SessionID;
+        }
+        interface AttachedToWorkerEventDataType {
+            /**
+             * Identifier assigned to the session used to send/receive messages.
+             */
+            sessionId: SessionID;
+            workerInfo: WorkerInfo;
+            waitingForDebugger: boolean;
+        }
+        interface DetachedFromWorkerEventDataType {
+            /**
+             * Detached session identifier.
+             */
+            sessionId: SessionID;
+        }
+        interface ReceivedMessageFromWorkerEventDataType {
+            /**
+             * Identifier of a session which sends a message.
+             */
+            sessionId: SessionID;
+            message: string;
+        }
+    }
     namespace Target {
         type SessionID = string;
         type TargetID = string;
@@ -1998,38 +2044,73 @@ declare module "node:inspector" {
             waitingForDebugger: boolean;
         }
     }
-    namespace IO {
-        type StreamHandle = string;
-        interface ReadParameterType {
+    namespace DOMStorage {
+        type SerializedStorageKey = string;
+        /**
+         * DOM Storage identifier.
+         */
+        interface StorageId {
             /**
-             * Handle of the stream to read.
+             * Security origin for the storage.
              */
-            handle: StreamHandle;
+            securityOrigin?: string | undefined;
             /**
-             * Seek to the specified offset before reading (if not specified, proceed with offset
-             * following the last read). Some types of streams may only support sequential reads.
+             * Represents a key by which DOM Storage keys its CachedStorageAreas
              */
-            offset?: number | undefined;
+            storageKey?: SerializedStorageKey | undefined;
             /**
-             * Maximum number of bytes to read (left upon the agent discretion if not specified).
+             * Whether the storage is local storage (not session storage).
              */
-            size?: number | undefined;
+            isLocalStorage: boolean;
         }
-        interface CloseParameterType {
-            /**
-             * Handle of the stream to close.
-             */
-            handle: StreamHandle;
+        /**
+         * DOM Storage item.
+         */
+        type Item = string[];
+        interface ClearParameterType {
+            storageId: StorageId;
         }
-        interface ReadReturnType {
-            /**
-             * Data that were read.
-             */
-            data: string;
-            /**
-             * Set if the end-of-file condition occurred while reading.
-             */
-            eof: boolean;
+        interface GetDOMStorageItemsParameterType {
+            storageId: StorageId;
+        }
+        interface RemoveDOMStorageItemParameterType {
+            storageId: StorageId;
+            key: string;
+        }
+        interface SetDOMStorageItemParameterType {
+            storageId: StorageId;
+            key: string;
+            value: string;
+        }
+        interface GetDOMStorageItemsReturnType {
+            entries: Item[];
+        }
+        interface DomStorageItemAddedEventDataType {
+            storageId: StorageId;
+            key: string;
+            newValue: string;
+        }
+        interface DomStorageItemRemovedEventDataType {
+            storageId: StorageId;
+            key: string;
+        }
+        interface DomStorageItemUpdatedEventDataType {
+            storageId: StorageId;
+            key: string;
+            oldValue: string;
+            newValue: string;
+        }
+        interface DomStorageItemsClearedEventDataType {
+            storageId: StorageId;
+        }
+    }
+    namespace Storage {
+        type SerializedStorageKey = string;
+        interface GetStorageKeyParameterType {
+            frameId?: string | undefined;
+        }
+        interface GetStorageKeyReturnType {
+            storageKey: SerializedStorageKey;
         }
     }
     interface Session {
@@ -2337,39 +2418,12 @@ declare module "node:inspector" {
         post(method: "HeapProfiler.stopSampling", callback?: (err: Error | null, params: HeapProfiler.StopSamplingReturnType) => void): void;
         post(method: "HeapProfiler.getSamplingProfile", callback?: (err: Error | null, params: HeapProfiler.GetSamplingProfileReturnType) => void): void;
         /**
-         * Gets supported tracing categories.
+         * Read a chunk of the stream
          */
-        post(method: "NodeTracing.getCategories", callback?: (err: Error | null, params: NodeTracing.GetCategoriesReturnType) => void): void;
-        /**
-         * Start trace events collection.
-         */
-        post(method: "NodeTracing.start", params?: NodeTracing.StartParameterType, callback?: (err: Error | null) => void): void;
-        post(method: "NodeTracing.start", callback?: (err: Error | null) => void): void;
-        /**
-         * Stop trace events collection. Remaining collected events will be sent as a sequence of
-         * dataCollected events followed by tracingComplete event.
-         */
-        post(method: "NodeTracing.stop", callback?: (err: Error | null) => void): void;
-        /**
-         * Sends protocol message over session with given id.
-         */
-        post(method: "NodeWorker.sendMessageToWorker", params?: NodeWorker.SendMessageToWorkerParameterType, callback?: (err: Error | null) => void): void;
-        post(method: "NodeWorker.sendMessageToWorker", callback?: (err: Error | null) => void): void;
-        /**
-         * Instructs the inspector to attach to running workers. Will also attach to new workers
-         * as they start
-         */
-        post(method: "NodeWorker.enable", params?: NodeWorker.EnableParameterType, callback?: (err: Error | null) => void): void;
-        post(method: "NodeWorker.enable", callback?: (err: Error | null) => void): void;
-        /**
-         * Detaches from all running workers and disables attaching to new workers as they are started.
-         */
-        post(method: "NodeWorker.disable", callback?: (err: Error | null) => void): void;
-        /**
-         * Detached from the worker with given sessionId.
-         */
-        post(method: "NodeWorker.detach", params?: NodeWorker.DetachParameterType, callback?: (err: Error | null) => void): void;
-        post(method: "NodeWorker.detach", callback?: (err: Error | null) => void): void;
+        post(method: "IO.read", params?: IO.ReadParameterType, callback?: (err: Error | null, params: IO.ReadReturnType) => void): void;
+        post(method: "IO.read", callback?: (err: Error | null, params: IO.ReadReturnType) => void): void;
+        post(method: "IO.close", params?: IO.CloseParameterType, callback?: (err: Error | null) => void): void;
+        post(method: "IO.close", callback?: (err: Error | null) => void): void;
         /**
          * Disables network tracking, prevents network events from being sent to the client.
          */
@@ -2377,6 +2431,7 @@ declare module "node:inspector" {
         /**
          * Enables network tracking, network events will now be delivered to the client.
          */
+        post(method: "Network.enable", params?: Network.EnableParameterType, callback?: (err: Error | null) => void): void;
         post(method: "Network.enable", callback?: (err: Error | null) => void): void;
         /**
          * Returns post data sent with the request. Returns an error when no data was sent with the request.
@@ -2417,15 +2472,67 @@ declare module "node:inspector" {
          */
         post(method: "NodeRuntime.notifyWhenWaitingForDisconnect", params?: NodeRuntime.NotifyWhenWaitingForDisconnectParameterType, callback?: (err: Error | null) => void): void;
         post(method: "NodeRuntime.notifyWhenWaitingForDisconnect", callback?: (err: Error | null) => void): void;
+        /**
+         * Gets supported tracing categories.
+         */
+        post(method: "NodeTracing.getCategories", callback?: (err: Error | null, params: NodeTracing.GetCategoriesReturnType) => void): void;
+        /**
+         * Start trace events collection.
+         */
+        post(method: "NodeTracing.start", params?: NodeTracing.StartParameterType, callback?: (err: Error | null) => void): void;
+        post(method: "NodeTracing.start", callback?: (err: Error | null) => void): void;
+        /**
+         * Stop trace events collection. Remaining collected events will be sent as a sequence of
+         * dataCollected events followed by tracingComplete event.
+         */
+        post(method: "NodeTracing.stop", callback?: (err: Error | null) => void): void;
+        /**
+         * Sends protocol message over session with given id.
+         */
+        post(method: "NodeWorker.sendMessageToWorker", params?: NodeWorker.SendMessageToWorkerParameterType, callback?: (err: Error | null) => void): void;
+        post(method: "NodeWorker.sendMessageToWorker", callback?: (err: Error | null) => void): void;
+        /**
+         * Instructs the inspector to attach to running workers. Will also attach to new workers
+         * as they start
+         */
+        post(method: "NodeWorker.enable", params?: NodeWorker.EnableParameterType, callback?: (err: Error | null) => void): void;
+        post(method: "NodeWorker.enable", callback?: (err: Error | null) => void): void;
+        /**
+         * Detaches from all running workers and disables attaching to new workers as they are started.
+         */
+        post(method: "NodeWorker.disable", callback?: (err: Error | null) => void): void;
+        /**
+         * Detached from the worker with given sessionId.
+         */
+        post(method: "NodeWorker.detach", params?: NodeWorker.DetachParameterType, callback?: (err: Error | null) => void): void;
+        post(method: "NodeWorker.detach", callback?: (err: Error | null) => void): void;
         post(method: "Target.setAutoAttach", params?: Target.SetAutoAttachParameterType, callback?: (err: Error | null) => void): void;
         post(method: "Target.setAutoAttach", callback?: (err: Error | null) => void): void;
+        post(method: "DOMStorage.clear", params?: DOMStorage.ClearParameterType, callback?: (err: Error | null) => void): void;
+        post(method: "DOMStorage.clear", callback?: (err: Error | null) => void): void;
         /**
-         * Read a chunk of the stream
+         * Disables storage tracking, prevents storage events from being sent to the client.
          */
-        post(method: "IO.read", params?: IO.ReadParameterType, callback?: (err: Error | null, params: IO.ReadReturnType) => void): void;
-        post(method: "IO.read", callback?: (err: Error | null, params: IO.ReadReturnType) => void): void;
-        post(method: "IO.close", params?: IO.CloseParameterType, callback?: (err: Error | null) => void): void;
-        post(method: "IO.close", callback?: (err: Error | null) => void): void;
+        post(method: "DOMStorage.disable", callback?: (err: Error | null) => void): void;
+        /**
+         * Enables storage tracking, storage events will now be delivered to the client.
+         */
+        post(method: "DOMStorage.enable", callback?: (err: Error | null) => void): void;
+        post(
+            method: "DOMStorage.getDOMStorageItems",
+            params?: DOMStorage.GetDOMStorageItemsParameterType,
+            callback?: (err: Error | null, params: DOMStorage.GetDOMStorageItemsReturnType) => void
+        ): void;
+        post(method: "DOMStorage.getDOMStorageItems", callback?: (err: Error | null, params: DOMStorage.GetDOMStorageItemsReturnType) => void): void;
+        post(method: "DOMStorage.removeDOMStorageItem", params?: DOMStorage.RemoveDOMStorageItemParameterType, callback?: (err: Error | null) => void): void;
+        post(method: "DOMStorage.removeDOMStorageItem", callback?: (err: Error | null) => void): void;
+        post(method: "DOMStorage.setDOMStorageItem", params?: DOMStorage.SetDOMStorageItemParameterType, callback?: (err: Error | null) => void): void;
+        post(method: "DOMStorage.setDOMStorageItem", callback?: (err: Error | null) => void): void;
+        /**
+         * @experimental
+         */
+        post(method: "Storage.getStorageKey", params?: Storage.GetStorageKeyParameterType, callback?: (err: Error | null, params: Storage.GetStorageKeyReturnType) => void): void;
+        post(method: "Storage.getStorageKey", callback?: (err: Error | null, params: Storage.GetStorageKeyReturnType) => void): void;
         addListener(event: string, listener: (...args: any[]) => void): this;
         /**
          * Emitted when any notification from the V8 Inspector is received.
@@ -2500,28 +2607,6 @@ declare module "node:inspector" {
          */
         addListener(event: "HeapProfiler.heapStatsUpdate", listener: (message: InspectorNotification<HeapProfiler.HeapStatsUpdateEventDataType>) => void): this;
         /**
-         * Contains an bucket of collected trace events.
-         */
-        addListener(event: "NodeTracing.dataCollected", listener: (message: InspectorNotification<NodeTracing.DataCollectedEventDataType>) => void): this;
-        /**
-         * Signals that tracing is stopped and there is no trace buffers pending flush, all data were
-         * delivered via dataCollected events.
-         */
-        addListener(event: "NodeTracing.tracingComplete", listener: () => void): this;
-        /**
-         * Issued when attached to a worker.
-         */
-        addListener(event: "NodeWorker.attachedToWorker", listener: (message: InspectorNotification<NodeWorker.AttachedToWorkerEventDataType>) => void): this;
-        /**
-         * Issued when detached from the worker.
-         */
-        addListener(event: "NodeWorker.detachedFromWorker", listener: (message: InspectorNotification<NodeWorker.DetachedFromWorkerEventDataType>) => void): this;
-        /**
-         * Notifies about a new protocol message received from the session
-         * (session ID is provided in attachedToWorker notification).
-         */
-        addListener(event: "NodeWorker.receivedMessageFromWorker", listener: (message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>) => void): this;
-        /**
          * Fired when page is about to send HTTP request.
          */
         addListener(event: "Network.requestWillBeSent", listener: (message: InspectorNotification<Network.RequestWillBeSentEventDataType>) => void): this;
@@ -2559,8 +2644,34 @@ declare module "node:inspector" {
          * example, when inspector.waitingForDebugger is called
          */
         addListener(event: "NodeRuntime.waitingForDebugger", listener: () => void): this;
+        /**
+         * Contains an bucket of collected trace events.
+         */
+        addListener(event: "NodeTracing.dataCollected", listener: (message: InspectorNotification<NodeTracing.DataCollectedEventDataType>) => void): this;
+        /**
+         * Signals that tracing is stopped and there is no trace buffers pending flush, all data were
+         * delivered via dataCollected events.
+         */
+        addListener(event: "NodeTracing.tracingComplete", listener: () => void): this;
+        /**
+         * Issued when attached to a worker.
+         */
+        addListener(event: "NodeWorker.attachedToWorker", listener: (message: InspectorNotification<NodeWorker.AttachedToWorkerEventDataType>) => void): this;
+        /**
+         * Issued when detached from the worker.
+         */
+        addListener(event: "NodeWorker.detachedFromWorker", listener: (message: InspectorNotification<NodeWorker.DetachedFromWorkerEventDataType>) => void): this;
+        /**
+         * Notifies about a new protocol message received from the session
+         * (session ID is provided in attachedToWorker notification).
+         */
+        addListener(event: "NodeWorker.receivedMessageFromWorker", listener: (message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>) => void): this;
         addListener(event: "Target.targetCreated", listener: (message: InspectorNotification<Target.TargetCreatedEventDataType>) => void): this;
         addListener(event: "Target.attachedToTarget", listener: (message: InspectorNotification<Target.AttachedToTargetEventDataType>) => void): this;
+        addListener(event: "DOMStorage.domStorageItemAdded", listener: (message: InspectorNotification<DOMStorage.DomStorageItemAddedEventDataType>) => void): this;
+        addListener(event: "DOMStorage.domStorageItemRemoved", listener: (message: InspectorNotification<DOMStorage.DomStorageItemRemovedEventDataType>) => void): this;
+        addListener(event: "DOMStorage.domStorageItemUpdated", listener: (message: InspectorNotification<DOMStorage.DomStorageItemUpdatedEventDataType>) => void): this;
+        addListener(event: "DOMStorage.domStorageItemsCleared", listener: (message: InspectorNotification<DOMStorage.DomStorageItemsClearedEventDataType>) => void): this;
         emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "inspectorNotification", message: InspectorNotification<object>): boolean;
         emit(event: "Runtime.executionContextCreated", message: InspectorNotification<Runtime.ExecutionContextCreatedEventDataType>): boolean;
@@ -2583,11 +2694,6 @@ declare module "node:inspector" {
         emit(event: "HeapProfiler.reportHeapSnapshotProgress", message: InspectorNotification<HeapProfiler.ReportHeapSnapshotProgressEventDataType>): boolean;
         emit(event: "HeapProfiler.lastSeenObjectId", message: InspectorNotification<HeapProfiler.LastSeenObjectIdEventDataType>): boolean;
         emit(event: "HeapProfiler.heapStatsUpdate", message: InspectorNotification<HeapProfiler.HeapStatsUpdateEventDataType>): boolean;
-        emit(event: "NodeTracing.dataCollected", message: InspectorNotification<NodeTracing.DataCollectedEventDataType>): boolean;
-        emit(event: "NodeTracing.tracingComplete"): boolean;
-        emit(event: "NodeWorker.attachedToWorker", message: InspectorNotification<NodeWorker.AttachedToWorkerEventDataType>): boolean;
-        emit(event: "NodeWorker.detachedFromWorker", message: InspectorNotification<NodeWorker.DetachedFromWorkerEventDataType>): boolean;
-        emit(event: "NodeWorker.receivedMessageFromWorker", message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>): boolean;
         emit(event: "Network.requestWillBeSent", message: InspectorNotification<Network.RequestWillBeSentEventDataType>): boolean;
         emit(event: "Network.responseReceived", message: InspectorNotification<Network.ResponseReceivedEventDataType>): boolean;
         emit(event: "Network.loadingFailed", message: InspectorNotification<Network.LoadingFailedEventDataType>): boolean;
@@ -2598,8 +2704,17 @@ declare module "node:inspector" {
         emit(event: "Network.webSocketHandshakeResponseReceived", message: InspectorNotification<Network.WebSocketHandshakeResponseReceivedEventDataType>): boolean;
         emit(event: "NodeRuntime.waitingForDisconnect"): boolean;
         emit(event: "NodeRuntime.waitingForDebugger"): boolean;
+        emit(event: "NodeTracing.dataCollected", message: InspectorNotification<NodeTracing.DataCollectedEventDataType>): boolean;
+        emit(event: "NodeTracing.tracingComplete"): boolean;
+        emit(event: "NodeWorker.attachedToWorker", message: InspectorNotification<NodeWorker.AttachedToWorkerEventDataType>): boolean;
+        emit(event: "NodeWorker.detachedFromWorker", message: InspectorNotification<NodeWorker.DetachedFromWorkerEventDataType>): boolean;
+        emit(event: "NodeWorker.receivedMessageFromWorker", message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>): boolean;
         emit(event: "Target.targetCreated", message: InspectorNotification<Target.TargetCreatedEventDataType>): boolean;
         emit(event: "Target.attachedToTarget", message: InspectorNotification<Target.AttachedToTargetEventDataType>): boolean;
+        emit(event: "DOMStorage.domStorageItemAdded", message: InspectorNotification<DOMStorage.DomStorageItemAddedEventDataType>): boolean;
+        emit(event: "DOMStorage.domStorageItemRemoved", message: InspectorNotification<DOMStorage.DomStorageItemRemovedEventDataType>): boolean;
+        emit(event: "DOMStorage.domStorageItemUpdated", message: InspectorNotification<DOMStorage.DomStorageItemUpdatedEventDataType>): boolean;
+        emit(event: "DOMStorage.domStorageItemsCleared", message: InspectorNotification<DOMStorage.DomStorageItemsClearedEventDataType>): boolean;
         on(event: string, listener: (...args: any[]) => void): this;
         /**
          * Emitted when any notification from the V8 Inspector is received.
@@ -2674,28 +2789,6 @@ declare module "node:inspector" {
          */
         on(event: "HeapProfiler.heapStatsUpdate", listener: (message: InspectorNotification<HeapProfiler.HeapStatsUpdateEventDataType>) => void): this;
         /**
-         * Contains an bucket of collected trace events.
-         */
-        on(event: "NodeTracing.dataCollected", listener: (message: InspectorNotification<NodeTracing.DataCollectedEventDataType>) => void): this;
-        /**
-         * Signals that tracing is stopped and there is no trace buffers pending flush, all data were
-         * delivered via dataCollected events.
-         */
-        on(event: "NodeTracing.tracingComplete", listener: () => void): this;
-        /**
-         * Issued when attached to a worker.
-         */
-        on(event: "NodeWorker.attachedToWorker", listener: (message: InspectorNotification<NodeWorker.AttachedToWorkerEventDataType>) => void): this;
-        /**
-         * Issued when detached from the worker.
-         */
-        on(event: "NodeWorker.detachedFromWorker", listener: (message: InspectorNotification<NodeWorker.DetachedFromWorkerEventDataType>) => void): this;
-        /**
-         * Notifies about a new protocol message received from the session
-         * (session ID is provided in attachedToWorker notification).
-         */
-        on(event: "NodeWorker.receivedMessageFromWorker", listener: (message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>) => void): this;
-        /**
          * Fired when page is about to send HTTP request.
          */
         on(event: "Network.requestWillBeSent", listener: (message: InspectorNotification<Network.RequestWillBeSentEventDataType>) => void): this;
@@ -2733,8 +2826,34 @@ declare module "node:inspector" {
          * example, when inspector.waitingForDebugger is called
          */
         on(event: "NodeRuntime.waitingForDebugger", listener: () => void): this;
+        /**
+         * Contains an bucket of collected trace events.
+         */
+        on(event: "NodeTracing.dataCollected", listener: (message: InspectorNotification<NodeTracing.DataCollectedEventDataType>) => void): this;
+        /**
+         * Signals that tracing is stopped and there is no trace buffers pending flush, all data were
+         * delivered via dataCollected events.
+         */
+        on(event: "NodeTracing.tracingComplete", listener: () => void): this;
+        /**
+         * Issued when attached to a worker.
+         */
+        on(event: "NodeWorker.attachedToWorker", listener: (message: InspectorNotification<NodeWorker.AttachedToWorkerEventDataType>) => void): this;
+        /**
+         * Issued when detached from the worker.
+         */
+        on(event: "NodeWorker.detachedFromWorker", listener: (message: InspectorNotification<NodeWorker.DetachedFromWorkerEventDataType>) => void): this;
+        /**
+         * Notifies about a new protocol message received from the session
+         * (session ID is provided in attachedToWorker notification).
+         */
+        on(event: "NodeWorker.receivedMessageFromWorker", listener: (message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>) => void): this;
         on(event: "Target.targetCreated", listener: (message: InspectorNotification<Target.TargetCreatedEventDataType>) => void): this;
         on(event: "Target.attachedToTarget", listener: (message: InspectorNotification<Target.AttachedToTargetEventDataType>) => void): this;
+        on(event: "DOMStorage.domStorageItemAdded", listener: (message: InspectorNotification<DOMStorage.DomStorageItemAddedEventDataType>) => void): this;
+        on(event: "DOMStorage.domStorageItemRemoved", listener: (message: InspectorNotification<DOMStorage.DomStorageItemRemovedEventDataType>) => void): this;
+        on(event: "DOMStorage.domStorageItemUpdated", listener: (message: InspectorNotification<DOMStorage.DomStorageItemUpdatedEventDataType>) => void): this;
+        on(event: "DOMStorage.domStorageItemsCleared", listener: (message: InspectorNotification<DOMStorage.DomStorageItemsClearedEventDataType>) => void): this;
         once(event: string, listener: (...args: any[]) => void): this;
         /**
          * Emitted when any notification from the V8 Inspector is received.
@@ -2809,28 +2928,6 @@ declare module "node:inspector" {
          */
         once(event: "HeapProfiler.heapStatsUpdate", listener: (message: InspectorNotification<HeapProfiler.HeapStatsUpdateEventDataType>) => void): this;
         /**
-         * Contains an bucket of collected trace events.
-         */
-        once(event: "NodeTracing.dataCollected", listener: (message: InspectorNotification<NodeTracing.DataCollectedEventDataType>) => void): this;
-        /**
-         * Signals that tracing is stopped and there is no trace buffers pending flush, all data were
-         * delivered via dataCollected events.
-         */
-        once(event: "NodeTracing.tracingComplete", listener: () => void): this;
-        /**
-         * Issued when attached to a worker.
-         */
-        once(event: "NodeWorker.attachedToWorker", listener: (message: InspectorNotification<NodeWorker.AttachedToWorkerEventDataType>) => void): this;
-        /**
-         * Issued when detached from the worker.
-         */
-        once(event: "NodeWorker.detachedFromWorker", listener: (message: InspectorNotification<NodeWorker.DetachedFromWorkerEventDataType>) => void): this;
-        /**
-         * Notifies about a new protocol message received from the session
-         * (session ID is provided in attachedToWorker notification).
-         */
-        once(event: "NodeWorker.receivedMessageFromWorker", listener: (message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>) => void): this;
-        /**
          * Fired when page is about to send HTTP request.
          */
         once(event: "Network.requestWillBeSent", listener: (message: InspectorNotification<Network.RequestWillBeSentEventDataType>) => void): this;
@@ -2868,8 +2965,34 @@ declare module "node:inspector" {
          * example, when inspector.waitingForDebugger is called
          */
         once(event: "NodeRuntime.waitingForDebugger", listener: () => void): this;
+        /**
+         * Contains an bucket of collected trace events.
+         */
+        once(event: "NodeTracing.dataCollected", listener: (message: InspectorNotification<NodeTracing.DataCollectedEventDataType>) => void): this;
+        /**
+         * Signals that tracing is stopped and there is no trace buffers pending flush, all data were
+         * delivered via dataCollected events.
+         */
+        once(event: "NodeTracing.tracingComplete", listener: () => void): this;
+        /**
+         * Issued when attached to a worker.
+         */
+        once(event: "NodeWorker.attachedToWorker", listener: (message: InspectorNotification<NodeWorker.AttachedToWorkerEventDataType>) => void): this;
+        /**
+         * Issued when detached from the worker.
+         */
+        once(event: "NodeWorker.detachedFromWorker", listener: (message: InspectorNotification<NodeWorker.DetachedFromWorkerEventDataType>) => void): this;
+        /**
+         * Notifies about a new protocol message received from the session
+         * (session ID is provided in attachedToWorker notification).
+         */
+        once(event: "NodeWorker.receivedMessageFromWorker", listener: (message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>) => void): this;
         once(event: "Target.targetCreated", listener: (message: InspectorNotification<Target.TargetCreatedEventDataType>) => void): this;
         once(event: "Target.attachedToTarget", listener: (message: InspectorNotification<Target.AttachedToTargetEventDataType>) => void): this;
+        once(event: "DOMStorage.domStorageItemAdded", listener: (message: InspectorNotification<DOMStorage.DomStorageItemAddedEventDataType>) => void): this;
+        once(event: "DOMStorage.domStorageItemRemoved", listener: (message: InspectorNotification<DOMStorage.DomStorageItemRemovedEventDataType>) => void): this;
+        once(event: "DOMStorage.domStorageItemUpdated", listener: (message: InspectorNotification<DOMStorage.DomStorageItemUpdatedEventDataType>) => void): this;
+        once(event: "DOMStorage.domStorageItemsCleared", listener: (message: InspectorNotification<DOMStorage.DomStorageItemsClearedEventDataType>) => void): this;
         prependListener(event: string, listener: (...args: any[]) => void): this;
         /**
          * Emitted when any notification from the V8 Inspector is received.
@@ -2944,28 +3067,6 @@ declare module "node:inspector" {
          */
         prependListener(event: "HeapProfiler.heapStatsUpdate", listener: (message: InspectorNotification<HeapProfiler.HeapStatsUpdateEventDataType>) => void): this;
         /**
-         * Contains an bucket of collected trace events.
-         */
-        prependListener(event: "NodeTracing.dataCollected", listener: (message: InspectorNotification<NodeTracing.DataCollectedEventDataType>) => void): this;
-        /**
-         * Signals that tracing is stopped and there is no trace buffers pending flush, all data were
-         * delivered via dataCollected events.
-         */
-        prependListener(event: "NodeTracing.tracingComplete", listener: () => void): this;
-        /**
-         * Issued when attached to a worker.
-         */
-        prependListener(event: "NodeWorker.attachedToWorker", listener: (message: InspectorNotification<NodeWorker.AttachedToWorkerEventDataType>) => void): this;
-        /**
-         * Issued when detached from the worker.
-         */
-        prependListener(event: "NodeWorker.detachedFromWorker", listener: (message: InspectorNotification<NodeWorker.DetachedFromWorkerEventDataType>) => void): this;
-        /**
-         * Notifies about a new protocol message received from the session
-         * (session ID is provided in attachedToWorker notification).
-         */
-        prependListener(event: "NodeWorker.receivedMessageFromWorker", listener: (message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>) => void): this;
-        /**
          * Fired when page is about to send HTTP request.
          */
         prependListener(event: "Network.requestWillBeSent", listener: (message: InspectorNotification<Network.RequestWillBeSentEventDataType>) => void): this;
@@ -3003,8 +3104,34 @@ declare module "node:inspector" {
          * example, when inspector.waitingForDebugger is called
          */
         prependListener(event: "NodeRuntime.waitingForDebugger", listener: () => void): this;
+        /**
+         * Contains an bucket of collected trace events.
+         */
+        prependListener(event: "NodeTracing.dataCollected", listener: (message: InspectorNotification<NodeTracing.DataCollectedEventDataType>) => void): this;
+        /**
+         * Signals that tracing is stopped and there is no trace buffers pending flush, all data were
+         * delivered via dataCollected events.
+         */
+        prependListener(event: "NodeTracing.tracingComplete", listener: () => void): this;
+        /**
+         * Issued when attached to a worker.
+         */
+        prependListener(event: "NodeWorker.attachedToWorker", listener: (message: InspectorNotification<NodeWorker.AttachedToWorkerEventDataType>) => void): this;
+        /**
+         * Issued when detached from the worker.
+         */
+        prependListener(event: "NodeWorker.detachedFromWorker", listener: (message: InspectorNotification<NodeWorker.DetachedFromWorkerEventDataType>) => void): this;
+        /**
+         * Notifies about a new protocol message received from the session
+         * (session ID is provided in attachedToWorker notification).
+         */
+        prependListener(event: "NodeWorker.receivedMessageFromWorker", listener: (message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>) => void): this;
         prependListener(event: "Target.targetCreated", listener: (message: InspectorNotification<Target.TargetCreatedEventDataType>) => void): this;
         prependListener(event: "Target.attachedToTarget", listener: (message: InspectorNotification<Target.AttachedToTargetEventDataType>) => void): this;
+        prependListener(event: "DOMStorage.domStorageItemAdded", listener: (message: InspectorNotification<DOMStorage.DomStorageItemAddedEventDataType>) => void): this;
+        prependListener(event: "DOMStorage.domStorageItemRemoved", listener: (message: InspectorNotification<DOMStorage.DomStorageItemRemovedEventDataType>) => void): this;
+        prependListener(event: "DOMStorage.domStorageItemUpdated", listener: (message: InspectorNotification<DOMStorage.DomStorageItemUpdatedEventDataType>) => void): this;
+        prependListener(event: "DOMStorage.domStorageItemsCleared", listener: (message: InspectorNotification<DOMStorage.DomStorageItemsClearedEventDataType>) => void): this;
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
         /**
          * Emitted when any notification from the V8 Inspector is received.
@@ -3079,28 +3206,6 @@ declare module "node:inspector" {
          */
         prependOnceListener(event: "HeapProfiler.heapStatsUpdate", listener: (message: InspectorNotification<HeapProfiler.HeapStatsUpdateEventDataType>) => void): this;
         /**
-         * Contains an bucket of collected trace events.
-         */
-        prependOnceListener(event: "NodeTracing.dataCollected", listener: (message: InspectorNotification<NodeTracing.DataCollectedEventDataType>) => void): this;
-        /**
-         * Signals that tracing is stopped and there is no trace buffers pending flush, all data were
-         * delivered via dataCollected events.
-         */
-        prependOnceListener(event: "NodeTracing.tracingComplete", listener: () => void): this;
-        /**
-         * Issued when attached to a worker.
-         */
-        prependOnceListener(event: "NodeWorker.attachedToWorker", listener: (message: InspectorNotification<NodeWorker.AttachedToWorkerEventDataType>) => void): this;
-        /**
-         * Issued when detached from the worker.
-         */
-        prependOnceListener(event: "NodeWorker.detachedFromWorker", listener: (message: InspectorNotification<NodeWorker.DetachedFromWorkerEventDataType>) => void): this;
-        /**
-         * Notifies about a new protocol message received from the session
-         * (session ID is provided in attachedToWorker notification).
-         */
-        prependOnceListener(event: "NodeWorker.receivedMessageFromWorker", listener: (message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>) => void): this;
-        /**
          * Fired when page is about to send HTTP request.
          */
         prependOnceListener(event: "Network.requestWillBeSent", listener: (message: InspectorNotification<Network.RequestWillBeSentEventDataType>) => void): this;
@@ -3138,8 +3243,34 @@ declare module "node:inspector" {
          * example, when inspector.waitingForDebugger is called
          */
         prependOnceListener(event: "NodeRuntime.waitingForDebugger", listener: () => void): this;
+        /**
+         * Contains an bucket of collected trace events.
+         */
+        prependOnceListener(event: "NodeTracing.dataCollected", listener: (message: InspectorNotification<NodeTracing.DataCollectedEventDataType>) => void): this;
+        /**
+         * Signals that tracing is stopped and there is no trace buffers pending flush, all data were
+         * delivered via dataCollected events.
+         */
+        prependOnceListener(event: "NodeTracing.tracingComplete", listener: () => void): this;
+        /**
+         * Issued when attached to a worker.
+         */
+        prependOnceListener(event: "NodeWorker.attachedToWorker", listener: (message: InspectorNotification<NodeWorker.AttachedToWorkerEventDataType>) => void): this;
+        /**
+         * Issued when detached from the worker.
+         */
+        prependOnceListener(event: "NodeWorker.detachedFromWorker", listener: (message: InspectorNotification<NodeWorker.DetachedFromWorkerEventDataType>) => void): this;
+        /**
+         * Notifies about a new protocol message received from the session
+         * (session ID is provided in attachedToWorker notification).
+         */
+        prependOnceListener(event: "NodeWorker.receivedMessageFromWorker", listener: (message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>) => void): this;
         prependOnceListener(event: "Target.targetCreated", listener: (message: InspectorNotification<Target.TargetCreatedEventDataType>) => void): this;
         prependOnceListener(event: "Target.attachedToTarget", listener: (message: InspectorNotification<Target.AttachedToTargetEventDataType>) => void): this;
+        prependOnceListener(event: "DOMStorage.domStorageItemAdded", listener: (message: InspectorNotification<DOMStorage.DomStorageItemAddedEventDataType>) => void): this;
+        prependOnceListener(event: "DOMStorage.domStorageItemRemoved", listener: (message: InspectorNotification<DOMStorage.DomStorageItemRemovedEventDataType>) => void): this;
+        prependOnceListener(event: "DOMStorage.domStorageItemUpdated", listener: (message: InspectorNotification<DOMStorage.DomStorageItemUpdatedEventDataType>) => void): this;
+        prependOnceListener(event: "DOMStorage.domStorageItemsCleared", listener: (message: InspectorNotification<DOMStorage.DomStorageItemsClearedEventDataType>) => void): this;
     }
 }
 declare module "node:inspector/promises" {
@@ -3150,12 +3281,14 @@ declare module "node:inspector/promises" {
         Console,
         Profiler,
         HeapProfiler,
-        NodeTracing,
-        NodeWorker,
+        IO,
         Network,
         NodeRuntime,
+        NodeTracing,
+        NodeWorker,
         Target,
-        IO,
+        DOMStorage,
+        Storage,
     } from 'inspector';
 }
 declare module "node:inspector/promises" {
@@ -3167,12 +3300,14 @@ declare module "node:inspector/promises" {
         Console,
         Profiler,
         HeapProfiler,
-        NodeTracing,
-        NodeWorker,
+        IO,
         Network,
         NodeRuntime,
+        NodeTracing,
+        NodeWorker,
         Target,
-        IO,
+        DOMStorage,
+        Storage,
     } from "inspector";
     /**
      * The `inspector.Session` is used for dispatching messages to the V8 inspector
@@ -3435,35 +3570,10 @@ declare module "node:inspector/promises" {
         post(method: "HeapProfiler.stopSampling"): Promise<HeapProfiler.StopSamplingReturnType>;
         post(method: "HeapProfiler.getSamplingProfile"): Promise<HeapProfiler.GetSamplingProfileReturnType>;
         /**
-         * Gets supported tracing categories.
+         * Read a chunk of the stream
          */
-        post(method: "NodeTracing.getCategories"): Promise<NodeTracing.GetCategoriesReturnType>;
-        /**
-         * Start trace events collection.
-         */
-        post(method: "NodeTracing.start", params?: NodeTracing.StartParameterType): Promise<void>;
-        /**
-         * Stop trace events collection. Remaining collected events will be sent as a sequence of
-         * dataCollected events followed by tracingComplete event.
-         */
-        post(method: "NodeTracing.stop"): Promise<void>;
-        /**
-         * Sends protocol message over session with given id.
-         */
-        post(method: "NodeWorker.sendMessageToWorker", params?: NodeWorker.SendMessageToWorkerParameterType): Promise<void>;
-        /**
-         * Instructs the inspector to attach to running workers. Will also attach to new workers
-         * as they start
-         */
-        post(method: "NodeWorker.enable", params?: NodeWorker.EnableParameterType): Promise<void>;
-        /**
-         * Detaches from all running workers and disables attaching to new workers as they are started.
-         */
-        post(method: "NodeWorker.disable"): Promise<void>;
-        /**
-         * Detached from the worker with given sessionId.
-         */
-        post(method: "NodeWorker.detach", params?: NodeWorker.DetachParameterType): Promise<void>;
+        post(method: "IO.read", params?: IO.ReadParameterType): Promise<IO.ReadReturnType>;
+        post(method: "IO.close", params?: IO.CloseParameterType): Promise<void>;
         /**
          * Disables network tracking, prevents network events from being sent to the client.
          */
@@ -3471,7 +3581,7 @@ declare module "node:inspector/promises" {
         /**
          * Enables network tracking, network events will now be delivered to the client.
          */
-        post(method: "Network.enable"): Promise<void>;
+        post(method: "Network.enable", params?: Network.EnableParameterType): Promise<void>;
         /**
          * Returns post data sent with the request. Returns an error when no data was sent with the request.
          */
@@ -3502,12 +3612,53 @@ declare module "node:inspector/promises" {
          * Enable the `NodeRuntime.waitingForDisconnect`.
          */
         post(method: "NodeRuntime.notifyWhenWaitingForDisconnect", params?: NodeRuntime.NotifyWhenWaitingForDisconnectParameterType): Promise<void>;
-        post(method: "Target.setAutoAttach", params?: Target.SetAutoAttachParameterType): Promise<void>;
         /**
-         * Read a chunk of the stream
+         * Gets supported tracing categories.
          */
-        post(method: "IO.read", params?: IO.ReadParameterType): Promise<IO.ReadReturnType>;
-        post(method: "IO.close", params?: IO.CloseParameterType): Promise<void>;
+        post(method: "NodeTracing.getCategories"): Promise<NodeTracing.GetCategoriesReturnType>;
+        /**
+         * Start trace events collection.
+         */
+        post(method: "NodeTracing.start", params?: NodeTracing.StartParameterType): Promise<void>;
+        /**
+         * Stop trace events collection. Remaining collected events will be sent as a sequence of
+         * dataCollected events followed by tracingComplete event.
+         */
+        post(method: "NodeTracing.stop"): Promise<void>;
+        /**
+         * Sends protocol message over session with given id.
+         */
+        post(method: "NodeWorker.sendMessageToWorker", params?: NodeWorker.SendMessageToWorkerParameterType): Promise<void>;
+        /**
+         * Instructs the inspector to attach to running workers. Will also attach to new workers
+         * as they start
+         */
+        post(method: "NodeWorker.enable", params?: NodeWorker.EnableParameterType): Promise<void>;
+        /**
+         * Detaches from all running workers and disables attaching to new workers as they are started.
+         */
+        post(method: "NodeWorker.disable"): Promise<void>;
+        /**
+         * Detached from the worker with given sessionId.
+         */
+        post(method: "NodeWorker.detach", params?: NodeWorker.DetachParameterType): Promise<void>;
+        post(method: "Target.setAutoAttach", params?: Target.SetAutoAttachParameterType): Promise<void>;
+        post(method: "DOMStorage.clear", params?: DOMStorage.ClearParameterType): Promise<void>;
+        /**
+         * Disables storage tracking, prevents storage events from being sent to the client.
+         */
+        post(method: "DOMStorage.disable"): Promise<void>;
+        /**
+         * Enables storage tracking, storage events will now be delivered to the client.
+         */
+        post(method: "DOMStorage.enable"): Promise<void>;
+        post(method: "DOMStorage.getDOMStorageItems", params?: DOMStorage.GetDOMStorageItemsParameterType): Promise<DOMStorage.GetDOMStorageItemsReturnType>;
+        post(method: "DOMStorage.removeDOMStorageItem", params?: DOMStorage.RemoveDOMStorageItemParameterType): Promise<void>;
+        post(method: "DOMStorage.setDOMStorageItem", params?: DOMStorage.SetDOMStorageItemParameterType): Promise<void>;
+        /**
+         * @experimental
+         */
+        post(method: "Storage.getStorageKey", params?: Storage.GetStorageKeyParameterType): Promise<Storage.GetStorageKeyReturnType>;
         addListener(event: string, listener: (...args: any[]) => void): this;
         /**
          * Emitted when any notification from the V8 Inspector is received.
@@ -3582,28 +3733,6 @@ declare module "node:inspector/promises" {
          */
         addListener(event: "HeapProfiler.heapStatsUpdate", listener: (message: InspectorNotification<HeapProfiler.HeapStatsUpdateEventDataType>) => void): this;
         /**
-         * Contains an bucket of collected trace events.
-         */
-        addListener(event: "NodeTracing.dataCollected", listener: (message: InspectorNotification<NodeTracing.DataCollectedEventDataType>) => void): this;
-        /**
-         * Signals that tracing is stopped and there is no trace buffers pending flush, all data were
-         * delivered via dataCollected events.
-         */
-        addListener(event: "NodeTracing.tracingComplete", listener: () => void): this;
-        /**
-         * Issued when attached to a worker.
-         */
-        addListener(event: "NodeWorker.attachedToWorker", listener: (message: InspectorNotification<NodeWorker.AttachedToWorkerEventDataType>) => void): this;
-        /**
-         * Issued when detached from the worker.
-         */
-        addListener(event: "NodeWorker.detachedFromWorker", listener: (message: InspectorNotification<NodeWorker.DetachedFromWorkerEventDataType>) => void): this;
-        /**
-         * Notifies about a new protocol message received from the session
-         * (session ID is provided in attachedToWorker notification).
-         */
-        addListener(event: "NodeWorker.receivedMessageFromWorker", listener: (message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>) => void): this;
-        /**
          * Fired when page is about to send HTTP request.
          */
         addListener(event: "Network.requestWillBeSent", listener: (message: InspectorNotification<Network.RequestWillBeSentEventDataType>) => void): this;
@@ -3641,8 +3770,34 @@ declare module "node:inspector/promises" {
          * example, when inspector.waitingForDebugger is called
          */
         addListener(event: "NodeRuntime.waitingForDebugger", listener: () => void): this;
+        /**
+         * Contains an bucket of collected trace events.
+         */
+        addListener(event: "NodeTracing.dataCollected", listener: (message: InspectorNotification<NodeTracing.DataCollectedEventDataType>) => void): this;
+        /**
+         * Signals that tracing is stopped and there is no trace buffers pending flush, all data were
+         * delivered via dataCollected events.
+         */
+        addListener(event: "NodeTracing.tracingComplete", listener: () => void): this;
+        /**
+         * Issued when attached to a worker.
+         */
+        addListener(event: "NodeWorker.attachedToWorker", listener: (message: InspectorNotification<NodeWorker.AttachedToWorkerEventDataType>) => void): this;
+        /**
+         * Issued when detached from the worker.
+         */
+        addListener(event: "NodeWorker.detachedFromWorker", listener: (message: InspectorNotification<NodeWorker.DetachedFromWorkerEventDataType>) => void): this;
+        /**
+         * Notifies about a new protocol message received from the session
+         * (session ID is provided in attachedToWorker notification).
+         */
+        addListener(event: "NodeWorker.receivedMessageFromWorker", listener: (message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>) => void): this;
         addListener(event: "Target.targetCreated", listener: (message: InspectorNotification<Target.TargetCreatedEventDataType>) => void): this;
         addListener(event: "Target.attachedToTarget", listener: (message: InspectorNotification<Target.AttachedToTargetEventDataType>) => void): this;
+        addListener(event: "DOMStorage.domStorageItemAdded", listener: (message: InspectorNotification<DOMStorage.DomStorageItemAddedEventDataType>) => void): this;
+        addListener(event: "DOMStorage.domStorageItemRemoved", listener: (message: InspectorNotification<DOMStorage.DomStorageItemRemovedEventDataType>) => void): this;
+        addListener(event: "DOMStorage.domStorageItemUpdated", listener: (message: InspectorNotification<DOMStorage.DomStorageItemUpdatedEventDataType>) => void): this;
+        addListener(event: "DOMStorage.domStorageItemsCleared", listener: (message: InspectorNotification<DOMStorage.DomStorageItemsClearedEventDataType>) => void): this;
         emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "inspectorNotification", message: InspectorNotification<object>): boolean;
         emit(event: "Runtime.executionContextCreated", message: InspectorNotification<Runtime.ExecutionContextCreatedEventDataType>): boolean;
@@ -3665,11 +3820,6 @@ declare module "node:inspector/promises" {
         emit(event: "HeapProfiler.reportHeapSnapshotProgress", message: InspectorNotification<HeapProfiler.ReportHeapSnapshotProgressEventDataType>): boolean;
         emit(event: "HeapProfiler.lastSeenObjectId", message: InspectorNotification<HeapProfiler.LastSeenObjectIdEventDataType>): boolean;
         emit(event: "HeapProfiler.heapStatsUpdate", message: InspectorNotification<HeapProfiler.HeapStatsUpdateEventDataType>): boolean;
-        emit(event: "NodeTracing.dataCollected", message: InspectorNotification<NodeTracing.DataCollectedEventDataType>): boolean;
-        emit(event: "NodeTracing.tracingComplete"): boolean;
-        emit(event: "NodeWorker.attachedToWorker", message: InspectorNotification<NodeWorker.AttachedToWorkerEventDataType>): boolean;
-        emit(event: "NodeWorker.detachedFromWorker", message: InspectorNotification<NodeWorker.DetachedFromWorkerEventDataType>): boolean;
-        emit(event: "NodeWorker.receivedMessageFromWorker", message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>): boolean;
         emit(event: "Network.requestWillBeSent", message: InspectorNotification<Network.RequestWillBeSentEventDataType>): boolean;
         emit(event: "Network.responseReceived", message: InspectorNotification<Network.ResponseReceivedEventDataType>): boolean;
         emit(event: "Network.loadingFailed", message: InspectorNotification<Network.LoadingFailedEventDataType>): boolean;
@@ -3680,8 +3830,17 @@ declare module "node:inspector/promises" {
         emit(event: "Network.webSocketHandshakeResponseReceived", message: InspectorNotification<Network.WebSocketHandshakeResponseReceivedEventDataType>): boolean;
         emit(event: "NodeRuntime.waitingForDisconnect"): boolean;
         emit(event: "NodeRuntime.waitingForDebugger"): boolean;
+        emit(event: "NodeTracing.dataCollected", message: InspectorNotification<NodeTracing.DataCollectedEventDataType>): boolean;
+        emit(event: "NodeTracing.tracingComplete"): boolean;
+        emit(event: "NodeWorker.attachedToWorker", message: InspectorNotification<NodeWorker.AttachedToWorkerEventDataType>): boolean;
+        emit(event: "NodeWorker.detachedFromWorker", message: InspectorNotification<NodeWorker.DetachedFromWorkerEventDataType>): boolean;
+        emit(event: "NodeWorker.receivedMessageFromWorker", message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>): boolean;
         emit(event: "Target.targetCreated", message: InspectorNotification<Target.TargetCreatedEventDataType>): boolean;
         emit(event: "Target.attachedToTarget", message: InspectorNotification<Target.AttachedToTargetEventDataType>): boolean;
+        emit(event: "DOMStorage.domStorageItemAdded", message: InspectorNotification<DOMStorage.DomStorageItemAddedEventDataType>): boolean;
+        emit(event: "DOMStorage.domStorageItemRemoved", message: InspectorNotification<DOMStorage.DomStorageItemRemovedEventDataType>): boolean;
+        emit(event: "DOMStorage.domStorageItemUpdated", message: InspectorNotification<DOMStorage.DomStorageItemUpdatedEventDataType>): boolean;
+        emit(event: "DOMStorage.domStorageItemsCleared", message: InspectorNotification<DOMStorage.DomStorageItemsClearedEventDataType>): boolean;
         on(event: string, listener: (...args: any[]) => void): this;
         /**
          * Emitted when any notification from the V8 Inspector is received.
@@ -3756,28 +3915,6 @@ declare module "node:inspector/promises" {
          */
         on(event: "HeapProfiler.heapStatsUpdate", listener: (message: InspectorNotification<HeapProfiler.HeapStatsUpdateEventDataType>) => void): this;
         /**
-         * Contains an bucket of collected trace events.
-         */
-        on(event: "NodeTracing.dataCollected", listener: (message: InspectorNotification<NodeTracing.DataCollectedEventDataType>) => void): this;
-        /**
-         * Signals that tracing is stopped and there is no trace buffers pending flush, all data were
-         * delivered via dataCollected events.
-         */
-        on(event: "NodeTracing.tracingComplete", listener: () => void): this;
-        /**
-         * Issued when attached to a worker.
-         */
-        on(event: "NodeWorker.attachedToWorker", listener: (message: InspectorNotification<NodeWorker.AttachedToWorkerEventDataType>) => void): this;
-        /**
-         * Issued when detached from the worker.
-         */
-        on(event: "NodeWorker.detachedFromWorker", listener: (message: InspectorNotification<NodeWorker.DetachedFromWorkerEventDataType>) => void): this;
-        /**
-         * Notifies about a new protocol message received from the session
-         * (session ID is provided in attachedToWorker notification).
-         */
-        on(event: "NodeWorker.receivedMessageFromWorker", listener: (message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>) => void): this;
-        /**
          * Fired when page is about to send HTTP request.
          */
         on(event: "Network.requestWillBeSent", listener: (message: InspectorNotification<Network.RequestWillBeSentEventDataType>) => void): this;
@@ -3815,8 +3952,34 @@ declare module "node:inspector/promises" {
          * example, when inspector.waitingForDebugger is called
          */
         on(event: "NodeRuntime.waitingForDebugger", listener: () => void): this;
+        /**
+         * Contains an bucket of collected trace events.
+         */
+        on(event: "NodeTracing.dataCollected", listener: (message: InspectorNotification<NodeTracing.DataCollectedEventDataType>) => void): this;
+        /**
+         * Signals that tracing is stopped and there is no trace buffers pending flush, all data were
+         * delivered via dataCollected events.
+         */
+        on(event: "NodeTracing.tracingComplete", listener: () => void): this;
+        /**
+         * Issued when attached to a worker.
+         */
+        on(event: "NodeWorker.attachedToWorker", listener: (message: InspectorNotification<NodeWorker.AttachedToWorkerEventDataType>) => void): this;
+        /**
+         * Issued when detached from the worker.
+         */
+        on(event: "NodeWorker.detachedFromWorker", listener: (message: InspectorNotification<NodeWorker.DetachedFromWorkerEventDataType>) => void): this;
+        /**
+         * Notifies about a new protocol message received from the session
+         * (session ID is provided in attachedToWorker notification).
+         */
+        on(event: "NodeWorker.receivedMessageFromWorker", listener: (message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>) => void): this;
         on(event: "Target.targetCreated", listener: (message: InspectorNotification<Target.TargetCreatedEventDataType>) => void): this;
         on(event: "Target.attachedToTarget", listener: (message: InspectorNotification<Target.AttachedToTargetEventDataType>) => void): this;
+        on(event: "DOMStorage.domStorageItemAdded", listener: (message: InspectorNotification<DOMStorage.DomStorageItemAddedEventDataType>) => void): this;
+        on(event: "DOMStorage.domStorageItemRemoved", listener: (message: InspectorNotification<DOMStorage.DomStorageItemRemovedEventDataType>) => void): this;
+        on(event: "DOMStorage.domStorageItemUpdated", listener: (message: InspectorNotification<DOMStorage.DomStorageItemUpdatedEventDataType>) => void): this;
+        on(event: "DOMStorage.domStorageItemsCleared", listener: (message: InspectorNotification<DOMStorage.DomStorageItemsClearedEventDataType>) => void): this;
         once(event: string, listener: (...args: any[]) => void): this;
         /**
          * Emitted when any notification from the V8 Inspector is received.
@@ -3891,28 +4054,6 @@ declare module "node:inspector/promises" {
          */
         once(event: "HeapProfiler.heapStatsUpdate", listener: (message: InspectorNotification<HeapProfiler.HeapStatsUpdateEventDataType>) => void): this;
         /**
-         * Contains an bucket of collected trace events.
-         */
-        once(event: "NodeTracing.dataCollected", listener: (message: InspectorNotification<NodeTracing.DataCollectedEventDataType>) => void): this;
-        /**
-         * Signals that tracing is stopped and there is no trace buffers pending flush, all data were
-         * delivered via dataCollected events.
-         */
-        once(event: "NodeTracing.tracingComplete", listener: () => void): this;
-        /**
-         * Issued when attached to a worker.
-         */
-        once(event: "NodeWorker.attachedToWorker", listener: (message: InspectorNotification<NodeWorker.AttachedToWorkerEventDataType>) => void): this;
-        /**
-         * Issued when detached from the worker.
-         */
-        once(event: "NodeWorker.detachedFromWorker", listener: (message: InspectorNotification<NodeWorker.DetachedFromWorkerEventDataType>) => void): this;
-        /**
-         * Notifies about a new protocol message received from the session
-         * (session ID is provided in attachedToWorker notification).
-         */
-        once(event: "NodeWorker.receivedMessageFromWorker", listener: (message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>) => void): this;
-        /**
          * Fired when page is about to send HTTP request.
          */
         once(event: "Network.requestWillBeSent", listener: (message: InspectorNotification<Network.RequestWillBeSentEventDataType>) => void): this;
@@ -3950,8 +4091,34 @@ declare module "node:inspector/promises" {
          * example, when inspector.waitingForDebugger is called
          */
         once(event: "NodeRuntime.waitingForDebugger", listener: () => void): this;
+        /**
+         * Contains an bucket of collected trace events.
+         */
+        once(event: "NodeTracing.dataCollected", listener: (message: InspectorNotification<NodeTracing.DataCollectedEventDataType>) => void): this;
+        /**
+         * Signals that tracing is stopped and there is no trace buffers pending flush, all data were
+         * delivered via dataCollected events.
+         */
+        once(event: "NodeTracing.tracingComplete", listener: () => void): this;
+        /**
+         * Issued when attached to a worker.
+         */
+        once(event: "NodeWorker.attachedToWorker", listener: (message: InspectorNotification<NodeWorker.AttachedToWorkerEventDataType>) => void): this;
+        /**
+         * Issued when detached from the worker.
+         */
+        once(event: "NodeWorker.detachedFromWorker", listener: (message: InspectorNotification<NodeWorker.DetachedFromWorkerEventDataType>) => void): this;
+        /**
+         * Notifies about a new protocol message received from the session
+         * (session ID is provided in attachedToWorker notification).
+         */
+        once(event: "NodeWorker.receivedMessageFromWorker", listener: (message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>) => void): this;
         once(event: "Target.targetCreated", listener: (message: InspectorNotification<Target.TargetCreatedEventDataType>) => void): this;
         once(event: "Target.attachedToTarget", listener: (message: InspectorNotification<Target.AttachedToTargetEventDataType>) => void): this;
+        once(event: "DOMStorage.domStorageItemAdded", listener: (message: InspectorNotification<DOMStorage.DomStorageItemAddedEventDataType>) => void): this;
+        once(event: "DOMStorage.domStorageItemRemoved", listener: (message: InspectorNotification<DOMStorage.DomStorageItemRemovedEventDataType>) => void): this;
+        once(event: "DOMStorage.domStorageItemUpdated", listener: (message: InspectorNotification<DOMStorage.DomStorageItemUpdatedEventDataType>) => void): this;
+        once(event: "DOMStorage.domStorageItemsCleared", listener: (message: InspectorNotification<DOMStorage.DomStorageItemsClearedEventDataType>) => void): this;
         prependListener(event: string, listener: (...args: any[]) => void): this;
         /**
          * Emitted when any notification from the V8 Inspector is received.
@@ -4026,28 +4193,6 @@ declare module "node:inspector/promises" {
          */
         prependListener(event: "HeapProfiler.heapStatsUpdate", listener: (message: InspectorNotification<HeapProfiler.HeapStatsUpdateEventDataType>) => void): this;
         /**
-         * Contains an bucket of collected trace events.
-         */
-        prependListener(event: "NodeTracing.dataCollected", listener: (message: InspectorNotification<NodeTracing.DataCollectedEventDataType>) => void): this;
-        /**
-         * Signals that tracing is stopped and there is no trace buffers pending flush, all data were
-         * delivered via dataCollected events.
-         */
-        prependListener(event: "NodeTracing.tracingComplete", listener: () => void): this;
-        /**
-         * Issued when attached to a worker.
-         */
-        prependListener(event: "NodeWorker.attachedToWorker", listener: (message: InspectorNotification<NodeWorker.AttachedToWorkerEventDataType>) => void): this;
-        /**
-         * Issued when detached from the worker.
-         */
-        prependListener(event: "NodeWorker.detachedFromWorker", listener: (message: InspectorNotification<NodeWorker.DetachedFromWorkerEventDataType>) => void): this;
-        /**
-         * Notifies about a new protocol message received from the session
-         * (session ID is provided in attachedToWorker notification).
-         */
-        prependListener(event: "NodeWorker.receivedMessageFromWorker", listener: (message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>) => void): this;
-        /**
          * Fired when page is about to send HTTP request.
          */
         prependListener(event: "Network.requestWillBeSent", listener: (message: InspectorNotification<Network.RequestWillBeSentEventDataType>) => void): this;
@@ -4085,8 +4230,34 @@ declare module "node:inspector/promises" {
          * example, when inspector.waitingForDebugger is called
          */
         prependListener(event: "NodeRuntime.waitingForDebugger", listener: () => void): this;
+        /**
+         * Contains an bucket of collected trace events.
+         */
+        prependListener(event: "NodeTracing.dataCollected", listener: (message: InspectorNotification<NodeTracing.DataCollectedEventDataType>) => void): this;
+        /**
+         * Signals that tracing is stopped and there is no trace buffers pending flush, all data were
+         * delivered via dataCollected events.
+         */
+        prependListener(event: "NodeTracing.tracingComplete", listener: () => void): this;
+        /**
+         * Issued when attached to a worker.
+         */
+        prependListener(event: "NodeWorker.attachedToWorker", listener: (message: InspectorNotification<NodeWorker.AttachedToWorkerEventDataType>) => void): this;
+        /**
+         * Issued when detached from the worker.
+         */
+        prependListener(event: "NodeWorker.detachedFromWorker", listener: (message: InspectorNotification<NodeWorker.DetachedFromWorkerEventDataType>) => void): this;
+        /**
+         * Notifies about a new protocol message received from the session
+         * (session ID is provided in attachedToWorker notification).
+         */
+        prependListener(event: "NodeWorker.receivedMessageFromWorker", listener: (message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>) => void): this;
         prependListener(event: "Target.targetCreated", listener: (message: InspectorNotification<Target.TargetCreatedEventDataType>) => void): this;
         prependListener(event: "Target.attachedToTarget", listener: (message: InspectorNotification<Target.AttachedToTargetEventDataType>) => void): this;
+        prependListener(event: "DOMStorage.domStorageItemAdded", listener: (message: InspectorNotification<DOMStorage.DomStorageItemAddedEventDataType>) => void): this;
+        prependListener(event: "DOMStorage.domStorageItemRemoved", listener: (message: InspectorNotification<DOMStorage.DomStorageItemRemovedEventDataType>) => void): this;
+        prependListener(event: "DOMStorage.domStorageItemUpdated", listener: (message: InspectorNotification<DOMStorage.DomStorageItemUpdatedEventDataType>) => void): this;
+        prependListener(event: "DOMStorage.domStorageItemsCleared", listener: (message: InspectorNotification<DOMStorage.DomStorageItemsClearedEventDataType>) => void): this;
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
         /**
          * Emitted when any notification from the V8 Inspector is received.
@@ -4161,28 +4332,6 @@ declare module "node:inspector/promises" {
          */
         prependOnceListener(event: "HeapProfiler.heapStatsUpdate", listener: (message: InspectorNotification<HeapProfiler.HeapStatsUpdateEventDataType>) => void): this;
         /**
-         * Contains an bucket of collected trace events.
-         */
-        prependOnceListener(event: "NodeTracing.dataCollected", listener: (message: InspectorNotification<NodeTracing.DataCollectedEventDataType>) => void): this;
-        /**
-         * Signals that tracing is stopped and there is no trace buffers pending flush, all data were
-         * delivered via dataCollected events.
-         */
-        prependOnceListener(event: "NodeTracing.tracingComplete", listener: () => void): this;
-        /**
-         * Issued when attached to a worker.
-         */
-        prependOnceListener(event: "NodeWorker.attachedToWorker", listener: (message: InspectorNotification<NodeWorker.AttachedToWorkerEventDataType>) => void): this;
-        /**
-         * Issued when detached from the worker.
-         */
-        prependOnceListener(event: "NodeWorker.detachedFromWorker", listener: (message: InspectorNotification<NodeWorker.DetachedFromWorkerEventDataType>) => void): this;
-        /**
-         * Notifies about a new protocol message received from the session
-         * (session ID is provided in attachedToWorker notification).
-         */
-        prependOnceListener(event: "NodeWorker.receivedMessageFromWorker", listener: (message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>) => void): this;
-        /**
          * Fired when page is about to send HTTP request.
          */
         prependOnceListener(event: "Network.requestWillBeSent", listener: (message: InspectorNotification<Network.RequestWillBeSentEventDataType>) => void): this;
@@ -4220,7 +4369,33 @@ declare module "node:inspector/promises" {
          * example, when inspector.waitingForDebugger is called
          */
         prependOnceListener(event: "NodeRuntime.waitingForDebugger", listener: () => void): this;
+        /**
+         * Contains an bucket of collected trace events.
+         */
+        prependOnceListener(event: "NodeTracing.dataCollected", listener: (message: InspectorNotification<NodeTracing.DataCollectedEventDataType>) => void): this;
+        /**
+         * Signals that tracing is stopped and there is no trace buffers pending flush, all data were
+         * delivered via dataCollected events.
+         */
+        prependOnceListener(event: "NodeTracing.tracingComplete", listener: () => void): this;
+        /**
+         * Issued when attached to a worker.
+         */
+        prependOnceListener(event: "NodeWorker.attachedToWorker", listener: (message: InspectorNotification<NodeWorker.AttachedToWorkerEventDataType>) => void): this;
+        /**
+         * Issued when detached from the worker.
+         */
+        prependOnceListener(event: "NodeWorker.detachedFromWorker", listener: (message: InspectorNotification<NodeWorker.DetachedFromWorkerEventDataType>) => void): this;
+        /**
+         * Notifies about a new protocol message received from the session
+         * (session ID is provided in attachedToWorker notification).
+         */
+        prependOnceListener(event: "NodeWorker.receivedMessageFromWorker", listener: (message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>) => void): this;
         prependOnceListener(event: "Target.targetCreated", listener: (message: InspectorNotification<Target.TargetCreatedEventDataType>) => void): this;
         prependOnceListener(event: "Target.attachedToTarget", listener: (message: InspectorNotification<Target.AttachedToTargetEventDataType>) => void): this;
+        prependOnceListener(event: "DOMStorage.domStorageItemAdded", listener: (message: InspectorNotification<DOMStorage.DomStorageItemAddedEventDataType>) => void): this;
+        prependOnceListener(event: "DOMStorage.domStorageItemRemoved", listener: (message: InspectorNotification<DOMStorage.DomStorageItemRemovedEventDataType>) => void): this;
+        prependOnceListener(event: "DOMStorage.domStorageItemUpdated", listener: (message: InspectorNotification<DOMStorage.DomStorageItemUpdatedEventDataType>) => void): this;
+        prependOnceListener(event: "DOMStorage.domStorageItemsCleared", listener: (message: InspectorNotification<DOMStorage.DomStorageItemsClearedEventDataType>) => void): this;
     }
 }

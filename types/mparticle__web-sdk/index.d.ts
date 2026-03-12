@@ -155,7 +155,8 @@ export interface SDKEventCustomFlags {
 }
 
 export interface SDKEventOptions {
-    shouldUploadEvent: boolean;
+    shouldUploadEvent?: boolean;
+    sourceMessageId?: string;
 }
 
 export interface DataPlanConfig {
