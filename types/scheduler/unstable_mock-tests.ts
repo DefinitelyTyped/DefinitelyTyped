@@ -1,8 +1,6 @@
-// eslint-disable-next-line @definitelytyped/no-relative-import-in-test
 import {
     log,
     reset,
-    unstable_Profiling,
     unstable_advanceTime,
     unstable_cancelCallback,
     unstable_clearLog,
@@ -14,10 +12,11 @@ import {
     unstable_forceFrameRate,
     unstable_hasPendingWork,
     unstable_NormalPriority,
+    unstable_Profiling,
     unstable_requestPaint,
     unstable_scheduleCallback,
     unstable_setDisableYieldValue,
-} from "./unstable_mock";
+} from "./unstable_mock"; // eslint-disable-line @definitelytyped/no-relative-import-in-test
 
 log("yield");
 reset();

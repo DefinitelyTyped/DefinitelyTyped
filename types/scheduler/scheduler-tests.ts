@@ -1,14 +1,13 @@
-// eslint-disable-next-line @definitelytyped/no-relative-import-in-test
 import {
     unstable_cancelCallback,
+    unstable_forceFrameRate,
     unstable_next,
     unstable_NormalPriority,
     unstable_now,
     unstable_Profiling,
-    unstable_forceFrameRate,
     unstable_requestPaint,
     unstable_scheduleCallback,
-} from ".";
+} from "."; // eslint-disable-line @definitelytyped/no-relative-import-in-test
 
 // $ExpectType CallbackNode
 const callbackNode = unstable_scheduleCallback(unstable_NormalPriority, () => {}, { delay: 100 });

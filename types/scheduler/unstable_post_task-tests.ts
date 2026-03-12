@@ -1,12 +1,11 @@
-// eslint-disable-next-line @definitelytyped/no-relative-import-in-test
 import {
-    unstable_Profiling,
     unstable_cancelCallback,
     unstable_forceFrameRate,
     unstable_NormalPriority,
+    unstable_Profiling,
     unstable_requestPaint,
     unstable_scheduleCallback,
-} from "./unstable_post_task";
+} from "./unstable_post_task"; // eslint-disable-line @definitelytyped/no-relative-import-in-test
 
 unstable_forceFrameRate(60);
 unstable_requestPaint();
