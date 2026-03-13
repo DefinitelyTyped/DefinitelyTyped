@@ -5336,7 +5336,7 @@ declare namespace Xrm {
             /**
              * The error code. If you just set errorCode, the message for the error code is automatically
              * retrieved from the server and displayed in the error dialog.
-             * If you specify an invalid errorCode value, an error dialog with a default error message is displyed.
+             * If you specify an invalid errorCode value, an error dialog with a default error message is displayed.
              */
             errorCode?: number | undefined;
             /**
