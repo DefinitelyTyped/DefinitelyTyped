@@ -1,5 +1,5 @@
 // Tests for Google Publisher Tag 1.20260309
-// Synced from: https://github.com/googleads/google-publisher-tag-types/commit/27374b01c38e0f8a66fe8181574edee6d5570200
+// Synced from: https://github.com/googleads/google-publisher-tag-types/commit/b016c4944f367bc81fd32a072d0648154987849d
 
 // Test for googletag.cmd
 function test_googletag_cmd() {
@@ -666,6 +666,16 @@ function test_googletag_config_adExpansionConfig() {
     });
 }
 
+// Test for googletag.config.AutoRefreshConfig.heavyAds
+function test_googletag_config_autoRefreshConfig_heavyAds() {
+    // Set the auto refresh configuration, disabling auto refresh on heavy
+    // ad intervention.
+    googletag.setConfig({ autoRefresh: { heavyAds: false } });
+
+    // Clear the auto refresh configuration, restoring to default behavior.
+    googletag.setConfig({ autoRefresh: null });
+}
+
 // Test for googletag.config.PageSettingsConfig.threadYield
 function test_googletag_config_pageSettingsConfig_threadYield() {
     // Disable yielding.
@@ -814,6 +824,15 @@ function test_googletag_config_pageSettingsConfig_adsenseAttributes() {
 
     // Clear all AdSense attributes.
     googletag.setConfig({ adsenseAttributes: null });
+}
+
+// Test for googletag.config.PageSettingsConfig.autoRefresh
+function test_googletag_config_pageSettingsConfig_autoRefresh() {
+    // Set the auto refresh configuration.
+    googletag.setConfig({ autoRefresh: { heavyAds: false } });
+
+    // Clear the auto refresh configuration.
+    googletag.setConfig({ autoRefresh: null });
 }
 
 // Test for googletag.config.PrivacyTreatmentsConfig.treatments

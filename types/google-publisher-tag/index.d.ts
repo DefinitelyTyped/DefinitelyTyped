@@ -1865,6 +1865,27 @@ declare namespace googletag {
         }
 
         /**
+         * Auto refresh configuration settings.
+         */
+        interface AutoRefreshConfig {
+            /**
+             * Whether GPT will automatically refresh an ad slot if Chrome's Heavy Ad
+             * Intervention triggers on the slot's ad iframe. Defaults to `true`.
+             *
+             * @example
+             *   // Set the auto refresh configuration, disabling auto refresh on heavy
+             *   // ad intervention.
+             *   googletag.setConfig({autoRefresh: {heavyAds: false}});
+             *
+             *   // Clear the auto refresh configuration, restoring to default behavior.
+             *   googletag.setConfig({autoRefresh: null});
+             *
+             * @see [Understand Chrome's Heavy Ad Interventions](https://developer.chrome.com/docs/web-platform/heavy-ads-intervention)
+             */
+            heavyAds?: boolean;
+        }
+
+        /**
          * Settings to control the use of lazy loading in GPT.
          *
          * @see {@link googletag.config.PageSettingsConfig.lazyLoad | PageSettingsConfig.lazyLoad}
@@ -2279,6 +2300,18 @@ declare namespace googletag {
              *   googletag.setConfig({adsenseAttributes: null});
              */
             adsenseAttributes?: AdSenseAttributesConfig | null;
+
+            /**
+             * Setting to configure automatic ad refresh behavior.
+             *
+             * @example
+             *   // Set the auto refresh configuration.
+             *   googletag.setConfig({autoRefresh: {heavyAds: false}});
+             *
+             *   // Clear the auto refresh configuration.
+             *   googletag.setConfig({autoRefresh: null});
+             */
+            autoRefresh?: AutoRefreshConfig | null;
         }
 
         /**
