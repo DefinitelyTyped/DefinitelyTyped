@@ -63,10 +63,10 @@ declare namespace AWSCloudFrontFunction {
 declare module "cloudfront" {
     /**
      * Retrieves a reference to a CloudFront Key-Value Store (KVS) by its ID.
-     * @param kvsId The identifier of the KVS to use.
+     * @param kvsId The identifier of the KVS to use (optional).
      * @see https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/functions-custom-methods.html
      */
-    function kvs(kvsId: string): KVStore;
+    function kvs(kvsId?: string): KVStore;
 
     interface KVStore {
         /**

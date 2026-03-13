@@ -138,6 +138,7 @@ function handler2(event: AWSCloudFrontFunction.Event): AWSCloudFrontFunction.Req
 import cf from "cloudfront";
 
 const kvsHandle = cf.kvs("example-kvs-id");
+const defaultKvsHandle = cf.kvs();
 
 async function handler3(
     event: AWSCloudFrontFunction.Event,
