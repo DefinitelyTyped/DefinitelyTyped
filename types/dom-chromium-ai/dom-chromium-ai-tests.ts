@@ -186,6 +186,7 @@ async function topLevel() {
         expectedInputLanguages: ["en"],
         expectedContextLanguages: ["en"],
         outputLanguage: "en",
+        preference: "auto",
         sharedContext: "foo",
         signal: (new AbortController()).signal,
         monitor(m: CreateMonitor) {
