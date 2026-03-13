@@ -204,7 +204,7 @@ type LanguageModelMessageValue = ImageBitmapSource | AudioBuffer | BufferSource 
 // Writing Assistance APIs
 // https://webmachinelearning.github.io/writing-assistance-apis/#idl-index
 
-type PerformancePreference = "auto" | "speed" | "capability"
+type PerformancePreference = "auto" | "speed" | "capability";
 
 declare abstract class Summarizer implements DestroyableModel {
     static create(options?: SummarizerCreateOptions): Promise<Summarizer>;
