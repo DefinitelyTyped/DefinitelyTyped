@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/resolve-url",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/lydell/resolve-url"
+    ],
+    "dependencies": {},
+    "devDependencies": {
+        "@types/resolve-url": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mahmoud Hamdi",
+            "githubUsername": "mahmoodhamdi"
+        }
+    ]
+}
