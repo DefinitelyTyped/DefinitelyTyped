@@ -299,7 +299,11 @@ export interface SMTPServerOptions extends tls.TlsOptions {
     /**
      * the callback to handle incoming messages ([see details](https://nodemailer.com/extras/smtp-server#processing-incoming-messages-ondata))
      */
-    onData?(stream: SMTPServerDataStream, session: SMTPServerSession, callback: (err?: Error | null, message?: string) => void): void;    
+    onData?(
+        stream: SMTPServerDataStream,
+        session: SMTPServerSession,
+        callback: (err?: Error | null, message?: string) => void,
+    ): void;
     /**
      * the callback that informs about closed client connection
      */
@@ -343,7 +347,11 @@ export class SMTPServer extends EventEmitter {
     /** Override this */
     onConnect(session: SMTPServerSession, callback: (err?: Error | null) => void): void;
     /** Override this */
-    onData(stream: SMTPServerDataStream, session: SMTPServerSession, callback: (err?: Error | null, message?: string) => void): void;
+    onData(
+        stream: SMTPServerDataStream,
+        session: SMTPServerSession,
+        callback: (err?: Error | null, message?: string) => void,
+    ): void;
     /** Override this */
     onMailFrom(address: SMTPServerAddress, session: SMTPServerSession, callback: (err?: Error | null) => void): void;
     /** Override this */
