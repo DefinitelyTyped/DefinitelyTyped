@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/unpipe",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/stream-utils/unpipe"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/unpipe": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mahmoud Hamdi",
+            "githubUsername": "mahmoodhamdi"
+        }
+    ]
+}
