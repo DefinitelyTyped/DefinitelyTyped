@@ -96,7 +96,7 @@ declare class NodeMediaServer {
     run(): void;
     on(eventName: string, listener: (id: string, StreamPath: string, args: object) => void): void;
     stop(): void;
-    getSession(id: string): Map<string, unknown>;
+    getSession(id: string): unknown;
 }
 
 export = NodeMediaServer;

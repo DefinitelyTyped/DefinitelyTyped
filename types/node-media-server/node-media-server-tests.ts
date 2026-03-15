@@ -49,7 +49,7 @@ nms.on("test");
 // $ExpectType void
 nms.on("test", () => {});
 
-// $ExpectType Map<string, unknown>
+// $ExpectType unknown
 nms.getSession("1");
 
 // $ExpectType void
