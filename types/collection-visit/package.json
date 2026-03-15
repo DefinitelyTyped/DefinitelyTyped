@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/collection-visit",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/jonschlinkert/collection-visit"
+    ],
+    "dependencies": {},
+    "devDependencies": {
+        "@types/collection-visit": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mahmoud Hamdi",
+            "githubUsername": "mahmoodhamdi"
+        }
+    ]
+}
