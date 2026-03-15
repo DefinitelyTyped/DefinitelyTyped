@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/extend-shallow",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/jonschlinkert/extend-shallow"
+    ],
+    "dependencies": {},
+    "devDependencies": {
+        "@types/extend-shallow": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mahmoud Hamdi",
+            "githubUsername": "mahmoodhamdi"
+        }
+    ]
+}
