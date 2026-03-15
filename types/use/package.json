@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/use",
+    "version": "3.1.9999",
+    "projects": [
+        "https://github.com/jonschlinkert/use"
+    ],
+    "dependencies": {},
+    "devDependencies": {
+        "@types/use": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mahmoud Hamdi",
+            "githubUsername": "mahmoodhamdi"
+        }
+    ]
+}
