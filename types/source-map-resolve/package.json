@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/source-map-resolve",
+    "version": "0.6.9999",
+    "projects": [
+        "https://github.com/lydell/source-map-resolve"
+    ],
+    "dependencies": {},
+    "devDependencies": {
+        "@types/source-map-resolve": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mahmoud Hamdi",
+            "githubUsername": "mahmoodhamdi"
+        }
+    ]
+}
