@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/wide-align",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/iarna/wide-align"
+    ],
+    "dependencies": {},
+    "devDependencies": {
+        "@types/wide-align": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mahmoud Hamdi",
+            "githubUsername": "mahmoodhamdi"
+        }
+    ]
+}
