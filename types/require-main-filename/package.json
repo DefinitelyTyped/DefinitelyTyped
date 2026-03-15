@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/require-main-filename",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/yargs/require-main-filename"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/require-main-filename": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mahmoud Hamdi",
+            "githubUsername": "mahmoodhamdi"
+        }
+    ]
+}
