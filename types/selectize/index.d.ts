@@ -416,6 +416,16 @@ declare namespace Selectize {
          */
         options: { [value: string]: U };
 
+        /**
+         * The original jQuery object for the input element that was selectized.
+         */
+        $input: JQuery;
+
+        /**
+         * The settings object for this selectize instance.
+         */
+        settings: IOptions<T, U>;
+
         // Dropdown Options
         // ------------------------------------------------------------------------------------------------------------
 
@@ -476,6 +486,11 @@ declare namespace Selectize {
         addItem(value: T, silent?: boolean): void;
 
         /**
+         * "Selects" multiple items at once. Adds them to the list at the current caret position.
+         */
+        addItems(values: T | T[], silent?: boolean): void;
+
+        /**
          * Removes the selected item matching the provided value.
          */
         removeItem(value: T, silent?: boolean): void;
@@ -499,6 +514,16 @@ declare namespace Selectize {
          * The "id" argument refers to a value of the property in option identified by the "optgroupField" setting.
          */
         addOptionGroup(id: string, data: U): void;
+
+        /**
+         * Removes an existing option group.
+         */
+        removeOptionGroup(id: string): void;
+
+        /**
+         * Clears all existing option groups.
+         */
+        clearOptionGroups(): void;
 
         // Events
         // ------------------------------------------------------------------------------------------------------------

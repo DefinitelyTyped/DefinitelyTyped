@@ -459,3 +459,22 @@ $(".demo-code-language").selectize({
         },
     },
 });
+
+// API methods: addItems, removeOptionGroup, clearOptionGroups
+// --------------------------------------------------------------------------------------------------------------------
+
+var apiControl = $select[0].selectize;
+
+// $ExpectType JQuery
+apiControl.$input;
+
+// $ExpectType IOptions<any, any>
+apiControl.settings;
+
+apiControl.addItems(["one", "two"]);
+apiControl.addItems(["one", "two"], true);
+apiControl.addItems("single");
+
+apiControl.addOptionGroup("group1", { label: "Group 1" });
+apiControl.removeOptionGroup("group1");
+apiControl.clearOptionGroups();
