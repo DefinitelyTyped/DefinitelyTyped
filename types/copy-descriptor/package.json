@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/copy-descriptor",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/jonschlinkert/copy-descriptor"
+    ],
+    "dependencies": {},
+    "devDependencies": {
+        "@types/copy-descriptor": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mahmoud Hamdi",
+            "githubUsername": "mahmoodhamdi"
+        }
+    ]
+}
