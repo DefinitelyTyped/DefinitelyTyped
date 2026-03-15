@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/base",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/node-base/base"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/base": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mahmoud Hamdi",
+            "githubUsername": "mahmoodhamdi"
+        }
+    ]
+}
