@@ -1,19 +1,19 @@
 import {
-    up,
-    down,
-    forward,
     back,
-    nextLine,
-    previousLine,
-    horizontalAbsolute,
+    beep,
+    color,
+    down,
     eraseData,
     eraseLine,
+    forward,
     goto,
     gotoSOL,
-    beep,
     hideCursor,
+    horizontalAbsolute,
+    nextLine,
+    previousLine,
     showCursor,
-    color,
+    up,
 } from "console-control-strings";
 
 // $ExpectType string
