@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/fragment-cache",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/jonschlinkert/fragment-cache"
+    ],
+    "dependencies": {},
+    "devDependencies": {
+        "@types/fragment-cache": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mahmoud Hamdi",
+            "githubUsername": "mahmoodhamdi"
+        }
+    ]
+}
