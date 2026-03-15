@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/queue-microtask",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/feross/queue-microtask"
+    ],
+    "dependencies": {},
+    "devDependencies": {
+        "@types/queue-microtask": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mahmoud Hamdi",
+            "githubUsername": "mahmoodhamdi"
+        }
+    ]
+}
