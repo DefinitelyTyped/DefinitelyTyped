@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/posix-character-classes",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/jonschlinkert/posix-character-classes"
+    ],
+    "dependencies": {},
+    "devDependencies": {
+        "@types/posix-character-classes": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mahmoud Hamdi",
+            "githubUsername": "mahmoodhamdi"
+        }
+    ]
+}
