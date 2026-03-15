@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/source-map-url",
+    "version": "0.4.9999",
+    "projects": [
+        "https://github.com/lydell/source-map-url"
+    ],
+    "dependencies": {},
+    "devDependencies": {
+        "@types/source-map-url": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mahmoud Hamdi",
+            "githubUsername": "mahmoodhamdi"
+        }
+    ]
+}
