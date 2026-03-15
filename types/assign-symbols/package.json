@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/assign-symbols",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/jonschlinkert/assign-symbols"
+    ],
+    "dependencies": {},
+    "devDependencies": {
+        "@types/assign-symbols": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mahmoud Hamdi",
+            "githubUsername": "mahmoodhamdi"
+        }
+    ]
+}
