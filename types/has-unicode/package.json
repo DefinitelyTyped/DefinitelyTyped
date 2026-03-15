@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/has-unicode",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/iarna/has-unicode"
+    ],
+    "dependencies": {},
+    "devDependencies": {
+        "@types/has-unicode": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mahmoud Hamdi",
+            "githubUsername": "mahmoodhamdi"
+        }
+    ]
+}
