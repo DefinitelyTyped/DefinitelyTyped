@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/is-accessor-descriptor",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/jonschlinkert/is-accessor-descriptor"
+    ],
+    "dependencies": {},
+    "devDependencies": {
+        "@types/is-accessor-descriptor": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mahmoud Hamdi",
+            "githubUsername": "mahmoodhamdi"
+        }
+    ]
+}
