@@ -1,5 +1,5 @@
 import unpipe = require("unpipe");
-import { Readable, PassThrough } from "stream";
+import { PassThrough, Readable } from "stream";
 
 const readable = new Readable();
 const passThrough = new PassThrough();
