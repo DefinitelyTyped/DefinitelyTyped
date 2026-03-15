@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/thenify-all",
+    "version": "1.6.9999",
+    "projects": [
+        "https://github.com/thenables/thenify-all"
+    ],
+    "dependencies": {},
+    "devDependencies": {
+        "@types/thenify-all": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mahmoud Hamdi",
+            "githubUsername": "mahmoodhamdi"
+        }
+    ]
+}
