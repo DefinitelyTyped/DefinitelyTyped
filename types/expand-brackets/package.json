@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/expand-brackets",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/jonschlinkert/expand-brackets"
+    ],
+    "dependencies": {},
+    "devDependencies": {
+        "@types/expand-brackets": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mahmoud Hamdi",
+            "githubUsername": "mahmoodhamdi"
+        }
+    ]
+}
