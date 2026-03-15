@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/async-each",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/paulmillr/async-each"
+    ],
+    "dependencies": {},
+    "devDependencies": {
+        "@types/async-each": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mahmoud Hamdi",
+            "githubUsername": "mahmoodhamdi"
+        }
+    ]
+}
