@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/currently-unhandled",
+    "version": "0.4.9999",
+    "projects": [
+        "https://github.com/jamestalmage/currently-unhandled"
+    ],
+    "dependencies": {},
+    "devDependencies": {
+        "@types/currently-unhandled": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mahmoud Hamdi",
+            "githubUsername": "mahmoodhamdi"
+        }
+    ]
+}
