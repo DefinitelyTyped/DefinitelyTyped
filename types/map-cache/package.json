@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/map-cache",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/jonschlinkert/map-cache"
+    ],
+    "dependencies": {},
+    "devDependencies": {
+        "@types/map-cache": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mahmoud Hamdi",
+            "githubUsername": "mahmoodhamdi"
+        }
+    ]
+}
