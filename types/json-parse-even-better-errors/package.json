@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/json-parse-even-better-errors",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/npm/json-parse-even-better-errors"
+    ],
+    "dependencies": {},
+    "devDependencies": {
+        "@types/json-parse-even-better-errors": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mahmoud Hamdi",
+            "githubUsername": "mahmoodhamdi"
+        }
+    ]
+}
