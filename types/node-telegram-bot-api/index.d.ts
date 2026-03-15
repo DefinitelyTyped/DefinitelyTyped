@@ -539,6 +539,11 @@ declare namespace TelegramBot {
         error_message?: string | undefined;
     }
 
+    interface GetStarTransactionsOptions {
+        offset?: number | undefined,
+        limit?: number | undefined,
+    }
+
     interface SendDiceOptions extends SendBasicOptions {
         emoji?: string | undefined;
     }
@@ -2176,6 +2181,10 @@ declare class TelegramBot extends TelegramBotEventEmitter<TelegramBot.TelegramEv
         preCheckoutQueryId: string,
         ok: boolean,
         options?: TelegramBot.AnswerPreCheckoutQueryOptions,
+    ): Promise<boolean>;
+
+    getStarTransactions(
+        options?: TelegramBot.GetStarTransactionsOptions,
     ): Promise<boolean>;
 
     listeners(event: keyof TelegramBot.TelegramEvents): Array<(data: any, metadata?: TelegramBot.Metadata) => void>;
