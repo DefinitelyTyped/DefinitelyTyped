@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/infer-owner",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/npm/infer-owner"
+    ],
+    "dependencies": {},
+    "devDependencies": {
+        "@types/infer-owner": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mahmoud Hamdi",
+            "githubUsername": "mahmoodhamdi"
+        }
+    ]
+}
