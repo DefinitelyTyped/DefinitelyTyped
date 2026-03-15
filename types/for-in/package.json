@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/for-in",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/jonschlinkert/for-in"
+    ],
+    "dependencies": {},
+    "devDependencies": {
+        "@types/for-in": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mahmoud Hamdi",
+            "githubUsername": "mahmoodhamdi"
+        }
+    ]
+}
