@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/which-module",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/nexdrew/which-module"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/which-module": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mahmoud Hamdi",
+            "githubUsername": "mahmoodhamdi"
+        }
+    ]
+}
