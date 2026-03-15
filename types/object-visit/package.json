@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/object-visit",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/jonschlinkert/object-visit"
+    ],
+    "dependencies": {},
+    "devDependencies": {
+        "@types/object-visit": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mahmoud Hamdi",
+            "githubUsername": "mahmoodhamdi"
+        }
+    ]
+}
