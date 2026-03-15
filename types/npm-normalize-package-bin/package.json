@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/npm-normalize-package-bin",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/npm/npm-normalize-package-bin"
+    ],
+    "dependencies": {},
+    "devDependencies": {
+        "@types/npm-normalize-package-bin": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mahmoud Hamdi",
+            "githubUsername": "mahmoodhamdi"
+        }
+    ]
+}
