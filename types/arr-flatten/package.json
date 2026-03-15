@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/arr-flatten",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/jonschlinkert/arr-flatten"
+    ],
+    "dependencies": {},
+    "devDependencies": {
+        "@types/arr-flatten": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mahmoud Hamdi",
+            "githubUsername": "mahmoodhamdi"
+        }
+    ]
+}
