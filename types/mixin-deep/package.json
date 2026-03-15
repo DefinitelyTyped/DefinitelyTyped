@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/mixin-deep",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/jonschlinkert/mixin-deep"
+    ],
+    "dependencies": {},
+    "devDependencies": {
+        "@types/mixin-deep": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mahmoud Hamdi",
+            "githubUsername": "mahmoodhamdi"
+        }
+    ]
+}
