@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/proto-list",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/isaacs/proto-list"
+    ],
+    "dependencies": {},
+    "devDependencies": {
+        "@types/proto-list": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mahmoud Hamdi",
+            "githubUsername": "mahmoodhamdi"
+        }
+    ]
+}
