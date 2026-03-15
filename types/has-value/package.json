@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/has-value",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/jonschlinkert/has-value"
+    ],
+    "dependencies": {},
+    "devDependencies": {
+        "@types/has-value": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mahmoud Hamdi",
+            "githubUsername": "mahmoodhamdi"
+        }
+    ]
+}
