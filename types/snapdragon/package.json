@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/snapdragon",
+    "version": "0.12.9999",
+    "projects": [
+        "https://github.com/here-be/snapdragon"
+    ],
+    "dependencies": {},
+    "devDependencies": {
+        "@types/snapdragon": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mahmoud Hamdi",
+            "githubUsername": "mahmoodhamdi"
+        }
+    ]
+}
