@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/wrappy",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/npm/wrappy"
+    ],
+    "dependencies": {},
+    "devDependencies": {
+        "@types/wrappy": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mahmoud Hamdi",
+            "githubUsername": "mahmoodhamdi"
+        }
+    ]
+}
