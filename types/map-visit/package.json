@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/map-visit",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/jonschlinkert/map-visit"
+    ],
+    "dependencies": {},
+    "devDependencies": {
+        "@types/map-visit": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mahmoud Hamdi",
+            "githubUsername": "mahmoodhamdi"
+        }
+    ]
+}
