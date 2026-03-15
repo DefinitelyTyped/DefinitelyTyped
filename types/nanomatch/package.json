@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/nanomatch",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/micromatch/nanomatch"
+    ],
+    "dependencies": {},
+    "devDependencies": {
+        "@types/nanomatch": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mahmoud Hamdi",
+            "githubUsername": "mahmoodhamdi"
+        }
+    ]
+}
