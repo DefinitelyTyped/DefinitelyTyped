@@ -90,3 +90,30 @@ openV2.then(font => {
         font.getFont("hhe"); // $ExpectType Font | null
     }
 });
+
+// ----------------------------
+// API: Font.COLR and Font.CPAL
+// ----------------------------
+openV2.then(font => {
+    if (!isCollection(font)) {
+        font.COLR?.version; // $ExpectType number | undefined
+        font.COLR?.baseGlyphRecord[0].gid; // $ExpectType number | undefined
+        font.COLR?.layerRecords[0].paletteIndex; // $ExpectType number | undefined
+
+        font.CPAL?.numPalettes; // $ExpectType number | undefined
+        font.CPAL?.colorRecords[0].red; // $ExpectType number | undefined
+        font.CPAL?.colorRecords[0].alpha; // $ExpectType number | undefined
+    }
+});
+
+// ------------------
+// API: Glyph.layers
+// ------------------
+openV2.then(font => {
+    if (!isCollection(font)) {
+        const glyph = font.glyphForCodePoint(0x1F600);
+        glyph.layers?.[0].glyph; // $ExpectType Glyph | undefined
+        glyph.layers?.[0].color.red; // $ExpectType number | undefined
+        glyph.layers?.[0].color.alpha; // $ExpectType number | undefined
+    }
+});
