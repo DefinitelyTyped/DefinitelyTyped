@@ -7,6 +7,14 @@ type ParamsCallback = (obj: ParamsObject) => void;
 type SqlJsConfig = Partial<EmscriptenModule>;
 type BindParams = SqlValue[] | ParamsObject | null;
 
+type UpdateHookOperation = 'insert' | 'update' | 'delete';
+type UpdateHookCallback = (
+    operation: UpdateHookOperation,
+    database: string,
+    table: string,
+    rowId: number
+) => void;
+
 interface QueryExecResult {
     columns: string[];
     values: SqlValue[][];
@@ -149,6 +157,36 @@ declare class Database {
      * `;`). This limitation does not apply to params as an object.
      */
     run(sql: string, params?: BindParams): Database;
+
+    /** Registers an update hook with SQLite.
+     *
+     * Every time a row is changed by whatever means, the callback is called
+     * once with the change (`'insert'`, `'update'` or `'delete'`), the database
+     * name and table name where the change happened and the
+     * [rowid](https://www.sqlite.org/rowidtable.html)
+     * of the row that has been changed.
+     *
+     * The rowid is cast to a plain number. If it exceeds
+     * `Number.MAX_SAFE_INTEGER` (2^53 - 1), an error will be thrown.
+     *
+     * **Important notes:**
+     * - The callback **MUST NOT** modify the database in any way
+     * - Only a single callback can be registered at a time
+     * - Unregister the callback by passing `null`
+     * - Not called for some updates like `ON REPLACE CONFLICT` and `TRUNCATE`
+     *   (a `DELETE FROM` without a `WHERE` clause)
+     *
+     * See SQLite documentation on
+     * [sqlite3_update_hook](https://www.sqlite.org/c3ref/update_hook.html)
+     * for more details
+     *
+     * @param callback
+     * - Callback to be executed when a row changes. Takes the type of change,
+     *   the name of the database, the name of the table, and the row id of the
+     *   changed row.
+     * - Set to `null` to unregister.
+     */
+    updateHook(callback: UpdateHookCallback | null): Database;
 }
 
 declare class Statement {
