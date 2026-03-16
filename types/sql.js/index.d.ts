@@ -7,12 +7,12 @@ type ParamsCallback = (obj: ParamsObject) => void;
 type SqlJsConfig = Partial<EmscriptenModule>;
 type BindParams = SqlValue[] | ParamsObject | null;
 
-type UpdateHookOperation = 'insert' | 'update' | 'delete';
+type UpdateHookOperation = "insert" | "update" | "delete";
 type UpdateHookCallback = (
     operation: UpdateHookOperation,
     database: string,
     table: string,
-    rowId: number
+    rowId: number,
 ) => void;
 
 interface QueryExecResult {
