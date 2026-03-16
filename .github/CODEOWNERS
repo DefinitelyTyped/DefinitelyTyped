@@ -4256,7 +4256,7 @@
 /types/line-reader/                                     @stpettersens
 /types/line-segments-intersect/                         @jeremybanka
 /types/linear-gradient/                                 @Jack-Works
-/types/lineclip/                                        @devloop01
+/types/lineclip/                                        @devloop01 @SheepFromHeaven
 /types/linesert/                                        @AlanWalk
 /types/link2aws/                                        @popefelix
 /types/linkify-it/                                      @praxxis @alexplumb @ragafus
@@ -8497,6 +8497,7 @@
 /types/xar/                                             @ffflorian
 /types/xast/                                            @stefanprobst @wooorm @ChristianMurphy @rokt33r @remcohaszing
 /types/xast/v1/                                         @stefanprobst @wooorm @ChristianMurphy @rokt33r
+/types/xcode/                                           @YevheniiKotyrlo
 /types/xdate/                                           @yamada28go
 /types/xdialog/                                         @DonaldDuck313
 /types/xelib/                                           @awlayton
