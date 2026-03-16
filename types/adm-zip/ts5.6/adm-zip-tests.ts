@@ -99,4 +99,4 @@ function isAdmZipEntry(obj: any): obj is AdmZip.IZipEntry {
     return obj !== null && typeof obj === "object" && typeof obj["entryName"] === "string";
 }
 
-zip.toBuffer(); // $ExpectType Buffer<ArrayBuffer>
+zip.toBuffer(); // $ExpectType Buffer
