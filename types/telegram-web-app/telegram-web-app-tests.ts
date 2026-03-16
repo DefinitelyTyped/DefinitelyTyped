@@ -126,3 +126,15 @@ app.isActive; // $ExpectType boolean
 app.isFullscreen; // $ExpectType boolean
 
 app.isOrientationLocked; // $ExpectType boolean
+
+app.MainButton.iconCustomEmojiId; // $ExpectType string
+
+app.MainButton.setParams({
+    icon_custom_emoji_id: "", // $ExpectType string
+});
+
+app.SecondaryButton.iconCustomEmojiId; // $ExpectType string
+
+app.SecondaryButton.setParams({
+    icon_custom_emoji_id: "", // $ExpectType string
+});
