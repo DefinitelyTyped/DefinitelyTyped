@@ -785,3 +785,14 @@ function getStepsFromActiveStage(formContext: Xrm.FormContext) {
     // $ExpectType ItemCollection<Step>
     const steps = process.getActiveStage().getSteps();
 }
+
+// Demonstrate set visibility for framed control (webresource)
+const framedControlSetVisible = (formContext: Xrm.FormContext) => {
+    const framedControl = formContext.getControl<Xrm.Controls.FramedControl>("myWebResource");
+    if (framedControl === null) {
+        return;
+    }
+
+    // setVisible
+    framedControl.setVisible(true);
+};
