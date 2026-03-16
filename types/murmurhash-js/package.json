@@ -8,10 +8,5 @@
     "devDependencies": {
         "@types/murmurhash-js": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Chi Vinh Le",
-            "githubUsername": "cvle"
-        }
-    ]
+    "owners": []
 }
