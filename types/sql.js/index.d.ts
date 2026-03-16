@@ -328,6 +328,7 @@ declare namespace initSqlJs {
         // types
         SqlValue,
         StatementIteratorResult,
+        UpdateHookCallback,
     };
 
     // classes
