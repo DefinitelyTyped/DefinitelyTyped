@@ -9,12 +9,22 @@ const params = parseQueryString("?id=123");
 
 const qstr = buildQueryString({ id: 123 });
 
-const censored = censor({ one: "two", enabled: false, oninit: () => {} }, ["enabled"] as const);
-// @ts-expect-error
-censored.enabled;
-// @ts-expect-error
-censored.oninit;
-censored.one;
+{
+    const censored = censor({ one: "two", enabled: false, oninit: () => {} }, ["enabled"] as const);
+    // @ts-expect-error
+    censored.enabled;
+    // @ts-expect-error
+    censored.oninit;
+    censored.one;
+}
+
+{
+    const censored = censor({ one: "two", enabled: false, oninit: () => {} });
+    censored.enabled;
+    // @ts-expect-error
+    censored.oninit;
+    censored.one;
+}
 
 render(document.body, "Hello");
 render(document.body, h("h1", "Test"));

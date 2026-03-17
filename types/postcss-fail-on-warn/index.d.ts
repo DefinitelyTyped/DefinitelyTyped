@@ -1,5 +1,5 @@
-import { Plugin } from "postcss";
+import { PluginCreator } from "postcss";
 
-declare const postcssFailOnWarn: Plugin<{}>;
+declare const postcssFailOnWarn: PluginCreator<{}>;
 
 export = postcssFailOnWarn;
