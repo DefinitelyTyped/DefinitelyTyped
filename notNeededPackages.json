@@ -668,6 +668,10 @@
             "libraryName": "canvaskit-wasm",
             "asOfVersion": "0.18.1"
         },
+        "carbon__feature-flags": {
+            "libraryName": "@carbon/feature-flags",
+            "asOfVersion": "1.1.0"
+        },
         "carbon__icon-helpers": {
             "libraryName": "@carbon/icon-helpers",
             "asOfVersion": "10.45.0"
