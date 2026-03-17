@@ -13,6 +13,6 @@ const jwtService = new JWTService("mytoken", {
     },
 });
 
-jwtService.validate(); // $ExpectType JWTService<{ bar: any; foo: any; }>
+jwtService.validate(); // $ExpectType JWTService<{ bar: any; foo: any; }> || JWTService<{ bar: any; foo: any; }>
 
 jwtService.jwt();
