@@ -7839,10 +7839,6 @@
             "libraryName": "uk.co.workingedge.phonegap.plugin.launchnavigator",
             "asOfVersion": "4.0.0"
         },
-        "umami": {
-            "libraryName": "@types/umami-browser",
-            "asOfVersion": "2.13.0"
-        },
         "umzug": {
             "libraryName": "umzug",
             "asOfVersion": "3.0.0"
