@@ -109,7 +109,7 @@ declare class USB extends EventTarget {
     addEventListener(
         type: "connect" | "disconnect",
         listener: (this: this, ev: USBConnectionEvent) => any,
-        useCapture?: boolean,
+        options?: boolean | AddEventListenerOptions,
     ): void;
     addEventListener(
         type: string,
@@ -119,7 +119,7 @@ declare class USB extends EventTarget {
     removeEventListener(
         type: "connect" | "disconnect",
         callback: (this: this, ev: USBConnectionEvent) => any,
-        useCapture?: boolean,
+        useCapture?: EventListenerOptions | boolean,
     ): void;
     removeEventListener(
         type: string,
