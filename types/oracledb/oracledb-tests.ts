@@ -205,6 +205,7 @@ const runPromiseTests = async (): Promise<void> => {
             queueTimeout: 60000,
             sessionCallback: initSession,
             stmtCacheSize: 5,
+            poolPingTimeout: 5000,
             user: DB_USER,
         });
 
