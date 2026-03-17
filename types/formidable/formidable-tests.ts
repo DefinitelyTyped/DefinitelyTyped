@@ -25,7 +25,7 @@ import * as http from "http";
 // arrange
 const options: Options = {
     allowEmptyFiles: true,
-    enabledPlugins: [],
+    enabledPlugins: [json, querystring],
     encoding: "utf-8",
     fileWriteStreamHandler: undefined,
     hashAlgorithm: false,
