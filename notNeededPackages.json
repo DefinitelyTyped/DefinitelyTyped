@@ -1112,6 +1112,10 @@
             "libraryName": "codegen.macro",
             "asOfVersion": "4.1.0"
         },
+        "color-convert": {
+            "libraryName": "color-convert",
+            "asOfVersion": "3.0.1"
+        },
         "colorbrewer": {
             "libraryName": "colorbrewer",
             "asOfVersion": "1.6.0"
