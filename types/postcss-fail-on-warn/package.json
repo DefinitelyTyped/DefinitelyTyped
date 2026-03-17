@@ -6,7 +6,7 @@
         "https://github.com/postcss/postcss-fail-on-warn#readme"
     ],
     "dependencies": {
-        "postcss": "^6.0.17"
+        "postcss": "^8.2.14"
     },
     "devDependencies": {
         "@types/postcss-fail-on-warn": "workspace:."
