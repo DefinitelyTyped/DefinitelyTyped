@@ -254,7 +254,7 @@ declare module "stream/web" {
     interface ReadableStreamDefaultController<R = any> {
         readonly desiredSize: number | null;
         close(): void;
-        enqueue(chunk?: R): void;
+        enqueue(chunk: R): void;
         error(e?: any): void;
     }
     const ReadableStreamDefaultController: {
@@ -283,7 +283,7 @@ declare module "stream/web" {
     };
     interface TransformStreamDefaultController<O = any> {
         readonly desiredSize: number | null;
-        enqueue(chunk?: O): void;
+        enqueue(chunk: O): void;
         error(reason?: any): void;
         terminate(): void;
     }
@@ -319,7 +319,7 @@ declare module "stream/web" {
         abort(reason?: any): Promise<void>;
         close(): Promise<void>;
         releaseLock(): void;
-        write(chunk?: W): Promise<void>;
+        write(chunk: W): Promise<void>;
     }
     const WritableStreamDefaultWriter: {
         prototype: WritableStreamDefaultWriter;
@@ -343,7 +343,7 @@ declare module "stream/web" {
         size?: QueuingStrategySize<T>;
     }
     interface QueuingStrategySize<T = any> {
-        (chunk?: T): number;
+        (chunk: T): number;
     }
     interface QueuingStrategyInit {
         /**
