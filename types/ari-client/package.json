@@ -10,7 +10,7 @@
     },
     "devDependencies": {
         "@types/ari-client": "workspace:.",
-        "@types/config": "*"
+        "@types/config": "<=3"
     },
     "owners": [
         {
