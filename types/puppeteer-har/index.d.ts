@@ -1,12 +1,19 @@
-interface PuppeteerHarOptions {
+import type { Frame, Page } from "puppeteer";
+
+
+export interface PuppeteerHarOptions {
     path?: string;
+    saveResponse?: boolean,
+    captureMimeTypes?: boolean
 }
 
-declare class PuppeteerHar {
+export class PuppeteerHar {
     constructor(page: any, options?: PuppeteerHarOptions);
     start(options?: PuppeteerHarOptions): Promise<void>;
-    stop(): Promise<void>;
-    save(options: PuppeteerHarOptions): Promise<void>;
-}
+    stop(): Promise< PuppeteerHar | undefined >;
+    cleanUp(): Promise<void>;
 
-export = PuppeteerHar;
+    inProgress: boolean;
+    page: Page;
+    mainFrame: Frame
+}

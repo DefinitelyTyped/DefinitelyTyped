@@ -1,12 +1,12 @@
 {
     "private": true,
     "name": "@types/puppeteer-har",
-    "version": "1.1.9999",
+    "version": "2.0.0",
     "projects": [
         "https://github.com/Everettss/puppeteer-har#readme"
     ],
     "dependencies": {
-        "@types/puppeteer": "*"
+        "puppeteer": "*"
     },
     "devDependencies": {
         "@types/puppeteer-har": "workspace:."
@@ -15,6 +15,11 @@
         {
             "name": "Julian Ordaz",
             "githubUsername": "jordaz14"
+        },
+        {
+            "name" : "Deniz Caglar",
+            "githubUsername" : "CaglarDeniz"
         }
+
     ]
 }
