@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/coveragejson",
-    "version": "1.0.9999",
+    "version": "2.0.9999",
     "projects": [
         "https://www.ogc.org/standard/coveragejson/"
     ],
