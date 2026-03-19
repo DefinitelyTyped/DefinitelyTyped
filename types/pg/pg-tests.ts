@@ -433,7 +433,6 @@ const bindConfig = {
 const con = new Connection();
 con.bind(bindConfig, true);
 
-
 const poolWithOnConnect = new Pool({
     onConnect: (client) => {
         client.query("SELECT 1").then(result => {

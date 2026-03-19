@@ -313,7 +313,8 @@ export interface PoolClient extends ClientBase {
 }
 
 export class Query<R extends QueryResultRow = any, I extends any[] = any> extends events.EventEmitter
-    implements Submittable {
+    implements Submittable
+{
     constructor(
         queryTextOrConfig?: string | QueryConfig<I>,
         callback?: (error: Error | undefined, result: ResultBuilder<R>) => void,
