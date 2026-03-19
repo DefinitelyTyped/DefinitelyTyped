@@ -54,6 +54,7 @@ export interface PoolConfig extends ClientConfig {
     maxUses?: number | undefined;
     maxLifetimeSeconds?: number | undefined;
     Client?: (new() => ClientBase) | undefined;
+    onConnect?: ((client: ClientBase) => void) | undefined;
 }
 
 export interface QueryConfig<I = any[]> {
@@ -312,8 +313,7 @@ export interface PoolClient extends ClientBase {
 }
 
 export class Query<R extends QueryResultRow = any, I extends any[] = any> extends events.EventEmitter
-    implements Submittable
-{
+    implements Submittable {
     constructor(
         queryTextOrConfig?: string | QueryConfig<I>,
         callback?: (error: Error | undefined, result: ResultBuilder<R>) => void,
