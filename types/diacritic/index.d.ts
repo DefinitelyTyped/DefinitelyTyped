@@ -1,4 +1,4 @@
-export as namespace Diacritics;
+export as namespace Diacritic;
 
 interface DiacriticStatic {
     map: Record<string, string>;
