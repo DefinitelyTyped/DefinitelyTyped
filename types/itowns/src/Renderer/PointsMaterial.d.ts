@@ -13,7 +13,13 @@ export enum PNTS_MODE {
     COLOR = 0,
     INTENSITY = 1,
     CLASSIFICATION = 2,
-    NORMAL = 3,
+    ELEVATION = 3,
+    RETURN_NUMBER = 4,
+    RETURN_TYPE = 5,
+    RETURN_COUNT = 6,
+    POINT_SOURCE_ID = 7,
+    SCAN_ANGLE = 8,
+    NORMAL = 9,
 }
 
 export enum PNTS_SHAPE {
@@ -55,6 +61,8 @@ declare class PointsMaterial extends THREE.RawShaderMaterial {
     sizeMode: PNTS_SIZE_MODE;
     classification: Classification;
     intensityRange: THREE.Vector2;
+    elevationRange: THREE.Vector2;
+    angleRange: THREE.Vector2;
     picking: boolean;
     overlayColor: THREE.Vector4;
     applyOpacityClassication: boolean;
