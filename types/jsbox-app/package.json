@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/jsbox-app",
+    "version": "1.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "JSBox iOS App runtime API",
+    "projects": [
+        "https://docs.xteko.com/"
+    ],
+    "devDependencies": {
+        "@types/jsbox-app": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Gandum2077",
+            "githubUsername": "Gandum2077"
+        }
+    ]
+}
