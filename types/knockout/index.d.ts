@@ -1085,7 +1085,7 @@ declare namespace KnockoutComponentTypes {
     type ViewModelFunction = ViewModelConstructor | ViewModelFactory;
 
     interface ViewModelConstructor {
-        new (params?: any): any;
+        new(params?: any): any;
     }
 
     interface ViewModelFactory {
