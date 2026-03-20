@@ -54,6 +54,7 @@ export interface PoolConfig extends ClientConfig {
     maxUses?: number | undefined;
     maxLifetimeSeconds?: number | undefined;
     Client?: (new() => ClientBase) | undefined;
+    onConnect?: ((client: ClientBase) => void) | undefined;
 }
 
 export interface QueryConfig<I = any[]> {
