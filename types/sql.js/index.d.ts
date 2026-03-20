@@ -1,4 +1,3 @@
-/// <reference types="node" />
 /// <reference types="emscripten" />
 
 type SqlValue = number | string | Uint8Array | null;
