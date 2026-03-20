@@ -1,12 +1,12 @@
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-export type FrameCallbackType = (didTimeout: boolean) => FrameCallbackType | void;
+import type { FrameCallbackType } from ".";
+
+export type { FrameCallbackType } from ".";
+
 export interface CallbackNode {
-    id: number;
-    callback: FrameCallbackType | null;
-    priorityLevel: number;
-    startTime: number;
-    expirationTime: number;
-    sortIndex: number;
+    _controller: {
+        readonly signal: unknown;
+        abort(reason?: unknown): void;
+    };
 }
 
 export const unstable_ImmediatePriority = 1;
