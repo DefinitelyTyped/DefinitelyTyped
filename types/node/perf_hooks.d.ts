@@ -1,34 +1,3 @@
-/**
- * This module provides an implementation of a subset of the W3C [Web Performance APIs](https://w3c.github.io/perf-timing-primer/) as well as additional APIs for
- * Node.js-specific performance measurements.
- *
- * Node.js supports the following [Web Performance APIs](https://w3c.github.io/perf-timing-primer/):
- *
- * * [High Resolution Time](https://www.w3.org/TR/hr-time-2)
- * * [Performance Timeline](https://w3c.github.io/performance-timeline/)
- * * [User Timing](https://www.w3.org/TR/user-timing/)
- * * [Resource Timing](https://www.w3.org/TR/resource-timing-2/)
- *
- * ```js
- * import { PerformanceObserver, performance } from 'node:perf_hooks';
- *
- * const obs = new PerformanceObserver((items) => {
- *   console.log(items.getEntries()[0].duration);
- *   performance.clearMarks();
- * });
- * obs.observe({ type: 'measure' });
- * performance.measure('Start to Now');
- *
- * performance.mark('A');
- * doSomeLongRunningProcess(() => {
- *   performance.measure('A to Now', 'A');
- *
- *   performance.mark('B');
- *   performance.measure('A to B', 'A', 'B');
- * });
- * ```
- * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/perf_hooks.js)
- */
 declare module "node:perf_hooks" {
     import { InternalEventTargetEventProperties } from "node:events";
     // #region web types

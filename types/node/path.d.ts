@@ -1,12 +1,3 @@
-/**
- * The `node:path` module provides utilities for working with file and directory
- * paths. It can be accessed using:
- *
- * ```js
- * import path from 'node:path';
- * ```
- * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/path.js)
- */
 declare module "node:path" {
     namespace path {
         /**
