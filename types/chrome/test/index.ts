@@ -8124,3 +8124,12 @@ function testWallpaper() {
     // @ts-expect-error
     chrome.wallpaper.setWallpaper(details, () => {}).then(() => {});
 }
+
+// https://developer.chrome.com/docs/extensions/reference/api
+function testBrowserNamespace() {
+    chrome.runtime.id; // $ExpectType string
+    browser.runtime.id; // $ExpectType string
+
+    window.chrome.bookmarks.getTree(); // $ExpectType Promise<BookmarkTreeNode[]>
+    window.browser.bookmarks.getTree(); // $ExpectType Promise<BookmarkTreeNode[]>
+}
