@@ -909,6 +909,317 @@ voidProm = Bluebird.delay(num);
 asyncfunc = Bluebird.promisify(f);
 asyncfunc = Bluebird.promisify(f, obj);
 
+declare function fn1WithOptionalArg1(arg1: string, cb: (err: Error | null, result: number) => void): void;
+declare function fn1WithOptionalArg1(cb: (err: Error | null, result: number) => void): void;
+declare function fn1WithFullArgs(arg1: string, cb: (err: Error | null, result: number) => void): void;
+
+// $ExpectType (arg1?: string | undefined) => Bluebird<number>
+Bluebird.promisify<number, string>(fn1WithOptionalArg1);
+// $ExpectType (arg1: string) => Bluebird<number>
+Bluebird.promisify<number, string>(fn1WithFullArgs);
+
+declare function fn2WithOptionalArg12(
+    arg1: string,
+    arg2: boolean,
+    cb: (err: Error | null, result: number) => void,
+): void;
+declare function fn2WithOptionalArg12(arg1: string, cb: (err: Error | null, result: number) => void): void;
+declare function fn2WithOptionalArg12(cb: (err: Error | null, result: number) => void): void;
+declare function fn2WithOptionalArg2(
+    arg1: string,
+    arg2: boolean,
+    cb: (err: Error | null, result: number) => void,
+): void;
+declare function fn2WithOptionalArg2(arg1: string, cb: (err: Error | null, result: number) => void): void;
+declare function fn2WithFullArgs(arg1: string, arg2: boolean, cb: (err: Error | null, result: number) => void): void;
+
+// $ExpectType (arg1?: string | undefined, arg2?: boolean | undefined) => Bluebird<number>
+Bluebird.promisify<number, string, boolean>(fn2WithOptionalArg12);
+// $ExpectType (arg1: string, arg2?: boolean | undefined) => Bluebird<number>
+Bluebird.promisify<number, string, boolean>(fn2WithOptionalArg2);
+// $ExpectType (arg1: string, arg2: boolean) => Bluebird<number>
+Bluebird.promisify<number, string, boolean>(fn2WithFullArgs);
+
+declare function fn3WithOptionalArg123(
+    arg1: string,
+    arg2: boolean,
+    arg3: number,
+    cb: (err: Error | null, result: number) => void,
+): void;
+declare function fn3WithOptionalArg123(
+    arg1: string,
+    arg2: boolean,
+    cb: (err: Error | null, result: number) => void,
+): void;
+declare function fn3WithOptionalArg123(arg1: string, cb: (err: Error | null, result: number) => void): void;
+declare function fn3WithOptionalArg123(cb: (err: Error | null, result: number) => void): void;
+declare function fn3WithOptionalArg23(
+    arg1: string,
+    arg2: boolean,
+    arg3: number,
+    cb: (err: Error | null, result: number) => void,
+): void;
+declare function fn3WithOptionalArg23(
+    arg1: string,
+    arg2: boolean,
+    cb: (err: Error | null, result: number) => void,
+): void;
+declare function fn3WithOptionalArg23(arg1: string, cb: (err: Error | null, result: number) => void): void;
+declare function fn3WithOptionalArg3(
+    arg1: string,
+    arg2: boolean,
+    arg3: number,
+    cb: (err: Error | null, result: number) => void,
+): void;
+declare function fn3WithOptionalArg3(
+    arg1: string,
+    arg2: boolean,
+    cb: (err: Error | null, result: number) => void,
+): void;
+declare function fn3WithFullArgs(
+    arg1: string,
+    arg2: boolean,
+    arg3: number,
+    cb: (err: Error | null, result: number) => void,
+): void;
+
+// $ExpectType (arg1?: string | undefined, arg2?: boolean | undefined, arg3?: number | undefined) => Bluebird<number>
+Bluebird.promisify<number, string, boolean, number>(fn3WithOptionalArg123);
+// $ExpectType (arg1: string, arg2?: boolean | undefined, arg3?: number | undefined) => Bluebird<number>
+Bluebird.promisify<number, string, boolean, number>(fn3WithOptionalArg23);
+// $ExpectType (arg1: string, arg2: boolean, arg3?: number | undefined) => Bluebird<number>
+Bluebird.promisify<number, string, boolean, number>(fn3WithOptionalArg3);
+// $ExpectType (arg1: string, arg2: boolean, arg3: number) => Bluebird<number>
+Bluebird.promisify<number, string, boolean, number>(fn3WithFullArgs);
+
+declare function fn4WithOptionalArg1234(
+    arg1: string,
+    arg2: boolean,
+    arg3: number,
+    arg4: string,
+    cb: (err: Error | null, result: number) => void,
+): void;
+declare function fn4WithOptionalArg1234(
+    arg1: string,
+    arg2: boolean,
+    arg3: number,
+    cb: (err: Error | null, result: number) => void,
+): void;
+declare function fn4WithOptionalArg1234(
+    arg1: string,
+    arg2: boolean,
+    cb: (err: Error | null, result: number) => void,
+): void;
+declare function fn4WithOptionalArg1234(arg1: string, cb: (err: Error | null, result: number) => void): void;
+declare function fn4WithOptionalArg1234(cb: (err: Error | null, result: number) => void): void;
+declare function fn4WithOptionalArg234(
+    arg1: string,
+    arg2: boolean,
+    arg3: number,
+    arg4: string,
+    cb: (err: Error | null, result: number) => void,
+): void;
+declare function fn4WithOptionalArg234(
+    arg1: string,
+    arg2: boolean,
+    arg3: number,
+    cb: (err: Error | null, result: number) => void,
+): void;
+declare function fn4WithOptionalArg234(
+    arg1: string,
+    arg2: boolean,
+    cb: (err: Error | null, result: number) => void,
+): void;
+declare function fn4WithOptionalArg234(arg1: string, cb: (err: Error | null, result: number) => void): void;
+declare function fn4WithOptionalArg34(
+    arg1: string,
+    arg2: boolean,
+    arg3: number,
+    arg4: string,
+    cb: (err: Error | null, result: number) => void,
+): void;
+declare function fn4WithOptionalArg34(
+    arg1: string,
+    arg2: boolean,
+    arg3: number,
+    cb: (err: Error | null, result: number) => void,
+): void;
+declare function fn4WithOptionalArg34(
+    arg1: string,
+    arg2: boolean,
+    cb: (err: Error | null, result: number) => void,
+): void;
+declare function fn4WithOptionalArg4(
+    arg1: string,
+    arg2: boolean,
+    arg3: number,
+    arg4: string,
+    cb: (err: Error | null, result: number) => void,
+): void;
+declare function fn4WithOptionalArg4(
+    arg1: string,
+    arg2: boolean,
+    arg3: number,
+    cb: (err: Error | null, result: number) => void,
+): void;
+declare function fn4WithFullArgs(
+    arg1: string,
+    arg2: boolean,
+    arg3: number,
+    arg4: string,
+    cb: (err: Error | null, result: number) => void,
+): void;
+
+// $ExpectType (arg1?: string | undefined, arg2?: boolean | undefined, arg3?: number | undefined, arg4?: string | undefined) => Bluebird<number>
+Bluebird.promisify<number, string, boolean, number, string>(fn4WithOptionalArg1234);
+// $ExpectType (arg1: string, arg2?: boolean | undefined, arg3?: number | undefined, arg4?: string | undefined) => Bluebird<number>
+Bluebird.promisify<number, string, boolean, number, string>(fn4WithOptionalArg234);
+// $ExpectType (arg1: string, arg2: boolean, arg3?: number | undefined, arg4?: string | undefined) => Bluebird<number>
+Bluebird.promisify<number, string, boolean, number, string>(fn4WithOptionalArg34);
+// $ExpectType (arg1: string, arg2: boolean, arg3: number, arg4?: string | undefined) => Bluebird<number>
+Bluebird.promisify<number, string, boolean, number, string>(fn4WithOptionalArg4);
+// $ExpectType (arg1: string, arg2: boolean, arg3: number, arg4: string) => Bluebird<number>
+Bluebird.promisify<number, string, boolean, number, string>(fn4WithFullArgs);
+
+declare function fn5WithOptionalArg12345(
+    arg1: string,
+    arg2: boolean,
+    arg3: number,
+    arg4: string,
+    arg5: boolean,
+    cb: (err: Error | null, result: number) => void,
+): void;
+declare function fn5WithOptionalArg12345(
+    arg1: string,
+    arg2: boolean,
+    arg3: number,
+    arg4: string,
+    cb: (err: Error | null, result: number) => void,
+): void;
+declare function fn5WithOptionalArg12345(
+    arg1: string,
+    arg2: boolean,
+    arg3: number,
+    cb: (err: Error | null, result: number) => void,
+): void;
+declare function fn5WithOptionalArg12345(
+    arg1: string,
+    arg2: boolean,
+    cb: (err: Error | null, result: number) => void,
+): void;
+declare function fn5WithOptionalArg12345(arg1: string, cb: (err: Error | null, result: number) => void): void;
+declare function fn5WithOptionalArg12345(cb: (err: Error | null, result: number) => void): void;
+declare function fn5WithOptionalArg2345(
+    arg1: string,
+    arg2: boolean,
+    arg3: number,
+    arg4: string,
+    arg5: boolean,
+    cb: (err: Error | null, result: number) => void,
+): void;
+declare function fn5WithOptionalArg2345(
+    arg1: string,
+    arg2: boolean,
+    arg3: number,
+    arg4: string,
+    cb: (err: Error | null, result: number) => void,
+): void;
+declare function fn5WithOptionalArg2345(
+    arg1: string,
+    arg2: boolean,
+    arg3: number,
+    cb: (err: Error | null, result: number) => void,
+): void;
+declare function fn5WithOptionalArg2345(
+    arg1: string,
+    arg2: boolean,
+    cb: (err: Error | null, result: number) => void,
+): void;
+declare function fn5WithOptionalArg2345(arg1: string, cb: (err: Error | null, result: number) => void): void;
+declare function fn5WithOptionalArg345(
+    arg1: string,
+    arg2: boolean,
+    arg3: number,
+    arg4: string,
+    arg5: boolean,
+    cb: (err: Error | null, result: number) => void,
+): void;
+declare function fn5WithOptionalArg345(
+    arg1: string,
+    arg2: boolean,
+    arg3: number,
+    arg4: string,
+    cb: (err: Error | null, result: number) => void,
+): void;
+declare function fn5WithOptionalArg345(
+    arg1: string,
+    arg2: boolean,
+    arg3: number,
+    cb: (err: Error | null, result: number) => void,
+): void;
+declare function fn5WithOptionalArg345(
+    arg1: string,
+    arg2: boolean,
+    cb: (err: Error | null, result: number) => void,
+): void;
+declare function fn5WithOptionalArg45(
+    arg1: string,
+    arg2: boolean,
+    arg3: number,
+    arg4: string,
+    arg5: boolean,
+    cb: (err: Error | null, result: number) => void,
+): void;
+declare function fn5WithOptionalArg45(
+    arg1: string,
+    arg2: boolean,
+    arg3: number,
+    arg4: string,
+    cb: (err: Error | null, result: number) => void,
+): void;
+declare function fn5WithOptionalArg45(
+    arg1: string,
+    arg2: boolean,
+    arg3: number,
+    cb: (err: Error | null, result: number) => void,
+): void;
+declare function fn5WithOptionalArg5(
+    arg1: string,
+    arg2: boolean,
+    arg3: number,
+    arg4: string,
+    arg5: boolean,
+    cb: (err: Error | null, result: number) => void,
+): void;
+declare function fn5WithOptionalArg5(
+    arg1: string,
+    arg2: boolean,
+    arg3: number,
+    arg4: string,
+    cb: (err: Error | null, result: number) => void,
+): void;
+declare function fn5WithFullArgs(
+    arg1: string,
+    arg2: boolean,
+    arg3: number,
+    arg4: string,
+    arg5: boolean,
+    cb: (err: Error | null, result: number) => void,
+): void;
+
+// $ExpectType (arg1?: string | undefined, arg2?: boolean | undefined, arg3?: number | undefined, arg4?: string | undefined, arg5?: boolean | undefined) => Bluebird<number>
+Bluebird.promisify<number, string, boolean, number, string, boolean>(fn5WithOptionalArg12345);
+// $ExpectType (arg1: string, arg2?: boolean | undefined, arg3?: number | undefined, arg4?: string | undefined, arg5?: boolean | undefined) => Bluebird<number>
+Bluebird.promisify<number, string, boolean, number, string, boolean>(fn5WithOptionalArg2345);
+// $ExpectType (arg1: string, arg2: boolean, arg3?: number | undefined, arg4?: string | undefined, arg5?: boolean | undefined) => Bluebird<number>
+Bluebird.promisify<number, string, boolean, number, string, boolean>(fn5WithOptionalArg345);
+// $ExpectType (arg1: string, arg2: boolean, arg3: number, arg4?: string | undefined, arg5?: boolean | undefined) => Bluebird<number>
+Bluebird.promisify<number, string, boolean, number, string, boolean>(fn5WithOptionalArg45);
+// $ExpectType (arg1: string, arg2: boolean, arg3: number, arg4: string, arg5?: boolean | undefined) => Bluebird<number>
+Bluebird.promisify<number, string, boolean, number, string, boolean>(fn5WithOptionalArg5);
+// $ExpectType (arg1: string, arg2: boolean, arg3: number, arg4: string, arg5: boolean) => Bluebird<number>
+Bluebird.promisify<number, string, boolean, number, string, boolean>(fn5WithFullArgs);
+
 const emtpyFn = () => {};
 
 const promiseModule = Bluebird.promisifyAll({
