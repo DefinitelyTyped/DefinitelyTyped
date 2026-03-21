@@ -3141,6 +3141,7 @@ declare namespace React {
         allow?: string | undefined;
         allowFullScreen?: boolean | undefined;
         allowTransparency?: boolean | undefined;
+        credentialless?: boolean | undefined;
         /** @deprecated */
         frameBorder?: number | string | undefined;
         height?: number | string | undefined;
