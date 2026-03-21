@@ -10,7 +10,7 @@ interface AudioDataCopyToOptions {
 }
 
 interface AudioDataInit {
-    data: AllowSharedBufferSource;
+    data: BufferSource;
     format: AudioSampleFormat;
     numberOfChannels: number;
     numberOfFrames: number;
