@@ -18,12 +18,33 @@ declare namespace Layui {
     };
     type LiteralUnion<LiteralType, BaseType extends Primitive> = LiteralType | (BaseType & Record<never, never>);
     type LiteralStringUnion<T> = LiteralUnion<T, string>;
+    type ObjectPathLeaf = Primitive | AnyFn | Date | Array<any>;
+    type DeepPath<T, Prefix extends string = ""> = {
+        [K in keyof T & string]: T[K] extends ObjectPathLeaf ? `${Prefix}${K}`
+            : T[K] extends object ? DeepPath<T[K], `${Prefix}${K}.`>
+            : never;
+    }[keyof T & string];
+    type DeepType<T, Path extends string> = Path extends `${infer Key}.${infer Rest}`
+        ? Key extends keyof T ? DeepType<T[Key], Rest>
+        : T extends any[] ? DeepType<T[number], Rest>
+        : never
+        : Path extends keyof T ? T[Path]
+        : T extends any[] ? T[number]
+        : never;
+    type DeepPartial<T> = T extends AnyFn ? T
+        : T extends Date ? T
+        : T extends Array<infer U> ? Array<DeepPartial<U>>
+        : T extends Map<infer K, infer V> ? Map<K, DeepPartial<V>>
+        : T extends Set<infer U> ? Set<DeepPartial<U>>
+        : T extends object ? { [P in keyof T]?: DeepPartial<T[P]> }
+        : T;
 
     type Selector = string;
     type ExportsCallback = (this: Layui, fn: (app: string, exports: object) => void) => void;
 
     /**
-     * 全局属性
+     * 全局配置选项
+     * layui.config(options)
      */
     interface GlobalConfigOptions {
         /**
@@ -42,6 +63,22 @@ declare namespace Layui {
          * 设定扩展的 layui 模块的所在目录，一般用于外部模块扩展
          */
         base?: string;
+    }
+
+    /**
+     * window.LAYUI_GLOBAL
+     */
+    interface GlobalProperties {
+        /**
+         * 动态加载等特殊场景设置 layui 目录
+         * @since 2.6.6
+         */
+        dir?: string;
+        /**
+         * 国际化消息对象
+         * @since 2.13.0
+         */
+        i18n?: I18nMessages;
     }
 
     /**
@@ -99,6 +136,12 @@ declare namespace Layui {
          */
         all: any;
         /**
+         * 面包屑
+         * @see https://layui.dev/docs/2/nav/#separator
+         * @since 2.13.0
+         */
+        breadcrumb: Breadcrumb;
+        /**
          * 轮播
          * @see https://layui.dev/docs/2/carousel/
          */
@@ -108,6 +151,12 @@ declare namespace Layui {
          * @see https://layui.dev/docs/2/code/
          */
         code: Code;
+        /**
+         * 折叠面板
+         * @see https://layui.dev/docs/2/panel/
+         * @since 2.13.0
+         */
+        collapse: Collapse;
         /**
          * 颜色选择器
          * @see https://layui.dev/docs/2/colorpicker/
@@ -132,7 +181,7 @@ declare namespace Layui {
          * @see https://layui.dev/docs/2/progress/ - 进度条
          * @see https://layui.dev/docs/2/nav/#separator - 面包屑
          */
-        element: Element;
+        element: LayElement;
         /**
          * 流加载
          * @see https://layui.dev/docs/2/flow/
@@ -182,6 +231,18 @@ declare namespace Layui {
          */
         "layui.all": string;
         /**
+         * 导航栏
+         * @see https://layui.dev/docs/2/nav/
+         * @since 2.13.0
+         */
+        nav: Nav;
+        /**
+         * 进度条
+         * @see https://layui.dev/docs/2/progress/
+         * @since 2.13.0
+         */
+        progress: Progress;
+        /**
          * 评分
          * @see https://layui.dev/docs/2/rate/
          * @since 2.11.0 后继承自 Component 组件
@@ -192,6 +253,13 @@ declare namespace Layui {
          * @see https://layui.dev/docs/2/slider/
          */
         slider: Slider;
+        /**
+         * 选项卡
+         * @see https://layui.dev/docs/2/tab/
+         * @since 2.13.0
+         * @deprecated 已废弃，使用 {@link Tabs}
+         */
+        tab: Tab;
         /**
          * 表格
          * @see https://layui.dev/docs/2/table
@@ -230,6 +298,12 @@ declare namespace Layui {
          * @see https://layui.dev/docs/2/util/
          */
         util: Util;
+        /**
+         * 国际化
+         * @see https://layui.dev/docs/2/i18n/
+         * @since 2.12.0
+         */
+        i18n: I18n;
     }
 
     /**

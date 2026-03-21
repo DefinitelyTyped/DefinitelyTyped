@@ -1,20 +1,26 @@
 /// <reference types="jquery" />
+/// <reference path="modules/breadcrumb.d.ts" />
 /// <reference path="modules/carousel.d.ts" />
 /// <reference path="modules/code.d.ts" />
+/// <reference path="modules/collapse.d.ts" />
 /// <reference path="modules/colorpicker.d.ts" />
 /// <reference path="modules/component.d.ts" />
 /// <reference path="modules/dropdown.d.ts" />
 /// <reference path="modules/element.d.ts" />
 /// <reference path="modules/flow.d.ts" />
 /// <reference path="modules/form.d.ts" />
+/// <reference path="modules/i18n.d.ts" />
 /// <reference path="modules/lay.d.ts" />
 /// <reference path="modules/laydate.d.ts" />
 /// <reference path="modules/layedit.d.ts" />
 /// <reference path="modules/layer.d.ts" />
 /// <reference path="modules/laypage.d.ts" />
 /// <reference path="modules/laytpl.d.ts" />
+/// <reference path="modules/nav.d.ts" />
+/// <reference path="modules/progress.d.ts" />
 /// <reference path="modules/rate.d.ts" />
 /// <reference path="modules/slider.d.ts" />
+/// <reference path="modules/tab.d.ts" />
 /// <reference path="modules/table.d.ts" />
 /// <reference path="modules/tabs.d.ts" />
 /// <reference path="modules/transfer.d.ts" />
@@ -28,19 +34,11 @@
 declare const layui: Layui;
 declare const lay: Layui.LayStatic;
 declare const layer: Layui.Layer;
-/**
- * 动态加载等特殊场景设置 layui 目录
- * @since 2.6.6
- */
-declare const LAYUI_GLOBAL: { dir: string };
+declare const LAYUI_GLOBAL: Layui.GlobalProperties;
 
 interface Window {
     layui: Layui;
     lay: Layui.LayStatic;
     layer: Layui.Layer;
-    /**
-     * 动态加载等特殊场景设置 layui 目录
-     * @since 2.6.6
-     */
-    LAYUI_GLOBAL: { dir: string };
+    LAYUI_GLOBAL: Layui.GlobalProperties;
 }

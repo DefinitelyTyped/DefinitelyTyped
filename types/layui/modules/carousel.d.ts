@@ -91,7 +91,7 @@ declare namespace Layui {
         item: JQuery;
     }
 
-    interface CarouselClass {
+    class CarouselClass extends Component<CarouselOptions> {
         /**
          * 配置属性
          */
@@ -175,28 +175,34 @@ declare namespace Layui {
         goto(index: number): void;
     }
 
+    interface CarouselReturn extends ComponentReturn<CarouselOptions> {
+        /**
+         * 切换到指定的索引
+         * @param index 轮播下标，从 0 开始计算
+         * @since 2.8.0
+         */
+        goto(index: number): void;
+        elemInd: any;
+        elemItem: any;
+        timer: any;
+    }
+
     /**
      * 轮播
      * @see https://layui.dev/docs/2/carousel/
+     * @since 2.13.0 之后继承自 Component 组件
      */
-    interface Carousel {
-        config: Required<CarouselOptions>;
+    interface Carousel extends ComponentInterface<CarouselOptions, CarouselClass, CarouselReturn> {
         /**
          * 渲染方法
          * @param options 基础参数
-         * @return 实例对象，包含操作当前实例的相关成员方法
          */
-        render(options: CarouselOptions): CarouselClass;
+        render(options: CarouselOptions): CarouselReturn;
         /**
          * 绑定切换事件
          * @param event  事件
          * @param callback  回调
          */
         on(event: string, callback: (this: CarouselClass, obj: CarouselItem) => any): any;
-        /**
-         * 设置轮播组件的全局参数
-         * @param options 基础参数
-         */
-        set(options: Partial<CarouselOptions>): this;
     }
 }

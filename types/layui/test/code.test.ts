@@ -37,6 +37,17 @@ function code() {
             style: "shiki",
             tools: ["full", "window", { title: ["复制"], type: "copy", event: (obj) => {} }],
             wordWrap: true,
+            highlightLine: {
+                hl: {
+                    range: "1,3-5,8",
+                    comment: true,
+                    classActiveLine: "layui-code-active-line",
+                    classActivePre: "layui-code-active-pre",
+                },
+                customHl: {
+                    range: "2,4-6,9",
+                },
+            },
         });
 
         inst.reloadCode({

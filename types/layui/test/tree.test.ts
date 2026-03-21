@@ -89,10 +89,11 @@ function treeTest() {
             },
             // 新的参数
         });
-        treeReloaded.config.abc;
+
         layui.tree.on("click", () => {
             console.log();
         });
         layui.event("tree", "click", "params-a");
+        tree.CONST;
     });
 }
