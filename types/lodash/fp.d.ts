@@ -4079,7 +4079,7 @@ declare namespace _ {
     interface LodashSum {
         (collection: readonly []): number;
         (collection: lodash.List<bigint>): bigint;
-        (collection: lodash.List<any> | bigint | number | null | undefined): number;
+        (collection: lodash.List<any> | null | undefined): number;
     }
     interface LodashSumBy {
         <T>(iteratee: ((value: T) => number) | string): LodashSumBy1x1<T>;

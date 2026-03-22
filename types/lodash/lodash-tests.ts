@@ -5096,7 +5096,7 @@ fp.now(); // $ExpectType number
 
 // _.sum
 {
-     const anyList: ArrayLike<any> | bigint | number | null | undefined = anything;
+     const anyList: ArrayLike<any> | null | undefined = anything;
     
     _.sum(anyList); // $ExpectType number
     _(anyList).sum(); // $ExpectType number

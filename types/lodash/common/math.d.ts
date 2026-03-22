@@ -356,7 +356,7 @@ declare module "../index" {
          */
         sum(collection: readonly []): number;
         sum(collection: List<bigint>): bigint;
-        sum(collection: List<any> | bigint | number | null | undefined): number;
+        sum(collection: List<any> | null | undefined): number;
     }
     
     type IsAny<T> = 0 extends (1 & T) ? true : false;
