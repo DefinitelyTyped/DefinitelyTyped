@@ -65,6 +65,7 @@ api.UI.showModal(document.createElement("div"), {
 
 api.requestReload();
 GL.net.gamemode; // $ExpectType string
+api.UI.forceReactUpdate();
 api.net.gamemode; // $ExpectType string
 api.net.onLoad((type, gamemode) => {});
 api.net.modifyFetchRequest("/path/*/thing", (options) => null);
@@ -87,6 +88,11 @@ api.patcher.after(object, "b", (thisVal, args, returnVal) => {
 });
 // @ts-expect-error
 api.patcher.after(object, "a", () => {});
+api.patcher.swap(object, "b", function(arg1, args2) {
+    arg1; // $ExpectType number
+    args2; // $ExpectType string
+    return false;
+});
 
 // Test commands
 api.commands.addCommand({
