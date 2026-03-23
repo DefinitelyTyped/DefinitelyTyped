@@ -965,7 +965,6 @@
 /types/color/v2/                                        @Airlun
 /types/color/v3/                                        @Airlun @jameswlane @BeeeQueue
 /types/color-check/                                     @ecraig12345
-/types/color-convert/                                   @Airlun @peterblazejewicz
 /types/color-diff/                                      @katsanva
 /types/color-hash/                                      @JohannesHoppe @ksocha
 /types/color-namer/                                     @in19farkt
@@ -1033,7 +1032,6 @@
 /types/conditional/                                     @rzhw
 /types/conductor-animate/                               @TaeKimJR
 /types/confidence/                                      @jppellerin
-/types/config/                                          @RWander @forrestbice @jndonald3 @albertovasquez @tellnes @ParitoshBh
 /types/config-yaml/                                     @Arylo
 /types/configs-overload/                                @anton-drobot
 /types/configstore/                                     @ArcticLight
@@ -4007,7 +4005,7 @@
 /types/knex-cleaner/                                    @Szarlus
 /types/knex-db-manager/                                 @dimonnwc3 @nicu-chiciuc
 /types/knockback/                                       @borisyankov
-/types/knockout/                                        @borisyankov @Igorbek @moonpyk @EnableSoftware @BenjaminEckardt @ffMathy @ltlombardi @Retsam @ReyPena
+/types/knockout/                                        @borisyankov @Igorbek @moonpyk @EnableSoftware @BenjaminEckardt @ffMathy @Retsam @ReyPena
 /types/knockout-amd-helpers/                            @DavidSichau
 /types/knockout-transformations/                        @johnnyreilly @Nemo157
 /types/knockout.deferred.updates/                       @sgaliano
@@ -4015,7 +4013,7 @@
 /types/knockout.es5/                                    @sgaliano
 /types/knockout.kogrid/                                 @huer12
 /types/knockout.mapper/                                 @BMeyerKC
-/types/knockout.mapping/                                @borisyankov @ffMathy @ltlombardi
+/types/knockout.mapping/                                @borisyankov @ffMathy
 /types/knockout.projections/                            @johnnyreilly
 /types/knockout.punches/                                @johnnyreilly
 /types/knockout.rx/                                     @Igorbek
@@ -5005,7 +5003,6 @@
 /types/multivariate-normal/                             @benweissmann
 /types/multy/                                           @dolezel
 /types/muri/                                            @jloveridge
-/types/murmurhash-js/                                   @cvle
 /types/murmurhash3js-revisited/                         @jcfrancisco @yoursunny
 /types/musickit-js/                                     @misterdev
 /types/musicmatch/                                      @DadUndead
@@ -6682,7 +6679,6 @@
 /types/readline-sync/                                   @jonestristand
 /types/readline-transform/                              @dex4er
 /types/readline-transform/v0/                           @dex4er
-/types/readmore-js/                                     @AntonDemarczyk
 /types/rebass/                                          @rhysd @ryee-dev @jamesmckenzie @angusfretwell @orzarchi @ilaiwi @mrkosima @rafaelalmeidatk
 /types/rebass__forms/                                   @zinozzino @trumanshuck
 /types/rebass__grid/                                    @antonvasin @vittorio @akameco
@@ -7765,7 +7761,7 @@
 /types/text-encoding-utf-8/                             @trxcllnt
 /types/text-mask-addons/                                @huntjosh @Aerophite
 /types/text-mask-core/                                  @huntjosh
-/types/text-metrics/                                    @theresasogunle @modus-jose
+/types/text-metrics/                                    @modus-jose
 /types/text-table/                                      @saadq
 /types/text-to-svg/                                     @mormahr
 /types/textarea-caret/                                  @shiftkey
@@ -8002,7 +7998,6 @@
 /types/uint64be/                                        @BendingBender
 /types/ultra-strftime/                                  @dex4er
 /types/ultron/                                          @goto-bus-stop
-/types/umami/                                           @ncovercash
 /types/umami-browser/                                   @screendriver
 /types/umd/                                             @TeamworkGuy2
 /types/umtrack-wx/                                      @azzgo
@@ -8270,7 +8265,6 @@
 /types/wallabyjs/                                       @andrewconnell @boneskull
 /types/wallop/                                          @leemcd56
 /types/wampy/                                           @KSDaemon
-/types/warning/                                         @cvle
 /types/watch/                                           @soywiz @Perlmint
 /types/watchify/                                        @TeamworkGuy2 @peterblazejewicz
 /types/watchpack/                                       @e-cloud @domdomegg
