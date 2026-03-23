@@ -14,7 +14,7 @@ async function example_1() {
 
     navigator.hid.addEventListener("connect", ({ device }) => {
         console.log(`HID connected: ${device.productName}`);
-    }, {});
+    }, { signal: AbortSignal.timeout(1000) });
 
     navigator.hid.addEventListener("disconnect", ({ device }) => {
         console.log(`HID disconnected: ${device.productName}`);
