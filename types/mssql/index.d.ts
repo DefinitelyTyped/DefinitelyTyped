@@ -216,9 +216,32 @@ export interface config {
     beforeConnect?: ((conn: Connection) => void) | undefined;
 }
 
+export declare enum MSSQL_ERROR_CODE {
+    ELOGIN = "ELOGIN",
+    ETIMEOUT = "ETIMEOUT",
+    EDRIVER = "EDRIVER",
+    EALREADYCONNECTED = "EALREADYCONNECTED",
+    EALREADYCONNECTING = "EALREADYCONNECTING",
+    ENOTOPEN = "ENOTOPEN",
+    EINSTLOOKUP = "EINSTLOOKUP",
+    ESOCKET = "ESOCKET",
+    ECONNCLOSED = "ECONNCLOSED",
+    ENOTBEGUN = "ENOTBEGUN",
+    EALREADYBEGUN = "EALREADYBEGUN",
+    EREQINPROG = "EREQINPROG",
+    EABORT = "EABORT",
+    EREQUEST = "EREQUEST",
+    ECANCEL = "ECANCEL",
+    EARGS = "EARGS",
+    EINJECT = "EINJECT",
+    ENOCONN = "ENOCONN",
+    EALREADYPREPARED = "EALREADYPREPARED",
+    ENOTPREPARED = "ENOTPREPARED",
+}
+
 export declare class MSSQLError extends Error {
-    constructor(message: Error | string, code?: string);
-    public code: string;
+    constructor(message: Error | string, code?: MSSQL_ERROR_CODE);
+    public code: MSSQL_ERROR_CODE;
     public name: string;
     public originalError?: Error | undefined;
 }

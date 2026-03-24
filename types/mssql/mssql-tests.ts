@@ -320,11 +320,11 @@ function test_mssql_errors() {
     // Test constructors
     const sqlDriverError = new Error("mock error");
     const mssqlStringError = new sql.MSSQLError("Something went wrong");
-    const baseMSSQLError = new sql.MSSQLError(sqlDriverError, "EREQUEST");
-    const connectionError = new sql.ConnectionError(sqlDriverError, "ELOGIN");
-    const requestError = new sql.RequestError(sqlDriverError, "EREQUEST");
-    const preparedStatementError = new sql.PreparedStatementError(sqlDriverError, "EINJECT");
-    const transactionError = new sql.TransactionError(sqlDriverError, "EABORT");
+    const baseMSSQLError = new sql.MSSQLError(sqlDriverError, sql.MSSQL_ERROR_CODE.EREQUEST);
+    const connectionError = new sql.ConnectionError(sqlDriverError, sql.MSSQL_ERROR_CODE.ELOGIN);
+    const requestError = new sql.RequestError(sqlDriverError, sql.MSSQL_ERROR_CODE.EREQUEST);
+    const preparedStatementError = new sql.PreparedStatementError(sqlDriverError, sql.MSSQL_ERROR_CODE.EINJECT);
+    const transactionError = new sql.TransactionError(sqlDriverError, sql.MSSQL_ERROR_CODE.EABORT);
 
     // Test inheritance
     if (
