@@ -205,6 +205,9 @@ if (multiSelectOptionSetAttributeEnum !== null) {
     const multiSelectOptionEnumValue: TestMultiSelectOptionSet[] | null = multiSelectOptionSetAttributeEnum.getValue();
 }
 
+// Demonstrate that controls on a MultiSelectOptionSetAttribute are typed as MultiSelectOptionSetControl
+multiSelectOptionSetAttribute?.controls // $ExpectType MultiSelectOptionSetControl[]
+
 /// Demonstrate setFormNotification
 
 let level: Xrm.FormNotificationLevel;
