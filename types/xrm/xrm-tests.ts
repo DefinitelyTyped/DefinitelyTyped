@@ -206,7 +206,7 @@ if (multiSelectOptionSetAttributeEnum !== null) {
 }
 
 // Demonstrate that controls on a MultiSelectOptionSetAttribute are typed as MultiSelectOptionSetControl
-multiSelectOptionSetAttribute?.controls // $ExpectType ItemCollection<MultiSelectOptionSetControl> | undefined
+multiSelectOptionSetAttribute?.controls; // $ExpectType ItemCollection<MultiSelectOptionSetControl> | undefined
 
 /// Demonstrate setFormNotification
 
