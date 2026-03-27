@@ -1911,6 +1911,22 @@ import { promisify } from "node:util";
     );
     subtle.verify({ name: "RSASSA-PKCS1-v1_5" }, key, buf, buf); // $ExpectType Promise<boolean>
     subtle.wrapKey("spki", key, key, { name: "AES-GCM", tagLength: 104, iv: buf }); // $ExpectType Promise<ArrayBuffer>
+
+    // Test: SubtleCrypto methods accept Uint8Array created via new Uint8Array(n).
+    // In TS 5.7+, new Uint8Array(n) infers Uint8Array<ArrayBufferLike> (not Uint8Array<ArrayBuffer>).
+    // These tests verify that the widened types (BufferSource | ArrayBufferView) work.
+    const rawKey = new Uint8Array(32);
+    const iv = new Uint8Array(12);
+    const data = new Uint8Array(64);
+    subtle.importKey("raw", rawKey, "AES-GCM", false, ["encrypt"]); // $ExpectType Promise<CryptoKey>
+    subtle.importKey("raw", rawKey, { name: "HKDF" }, false, ["deriveBits"]); // $ExpectType Promise<CryptoKey>
+    subtle.importKey("raw", rawKey, { name: "HMAC", hash: "SHA-256" }, false, ["sign", "verify"]); // $ExpectType Promise<CryptoKey>
+    subtle.encrypt({ name: "AES-GCM", iv }, key, data); // $ExpectType Promise<ArrayBuffer>
+    subtle.decrypt({ name: "AES-GCM", iv }, key, data); // $ExpectType Promise<ArrayBuffer>
+    subtle.sign("HMAC", key, data); // $ExpectType Promise<ArrayBuffer>
+    subtle.verify("HMAC", key, data, data); // $ExpectType Promise<boolean>
+    subtle.digest("SHA-256", data); // $ExpectType Promise<ArrayBuffer>
+    subtle.unwrapKey("raw", rawKey, key, "AES-KW", "AES-GCM", true, ["encrypt"]); // $ExpectType Promise<CryptoKey>
 }
 
 {
