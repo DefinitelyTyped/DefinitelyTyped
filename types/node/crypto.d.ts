@@ -3963,7 +3963,10 @@ declare module "node:crypto" {
                 extractable: boolean,
                 keyUsages: readonly KeyUsage[],
             ): Promise<CryptoKey>;
-            digest(algorithm: AlgorithmIdentifier | CShakeParams, data: NodeJS.BufferSource | NodeJS.ArrayBufferView): Promise<ArrayBuffer>;
+            digest(
+                algorithm: AlgorithmIdentifier | CShakeParams,
+                data: NodeJS.BufferSource | NodeJS.ArrayBufferView,
+            ): Promise<ArrayBuffer>;
             encapsulateBits(
                 encapsulationAlgorithm: AlgorithmIdentifier,
                 encapsulationKey: CryptoKey,
