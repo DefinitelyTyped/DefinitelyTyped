@@ -3949,7 +3949,7 @@ declare module "node:crypto" {
             decrypt(
                 algorithm: AlgorithmIdentifier | RsaOaepParams | AesCtrParams | AesCbcParams | AeadParams,
                 key: CryptoKey,
-                data: NodeJS.BufferSource,
+                data: NodeJS.BufferSource | NodeJS.ArrayBufferView,
             ): Promise<ArrayBuffer>;
             deriveBits(
                 algorithm: AlgorithmIdentifier | EcdhKeyDeriveParams | HkdfParams | Pbkdf2Params | Argon2Params,
@@ -3963,7 +3963,7 @@ declare module "node:crypto" {
                 extractable: boolean,
                 keyUsages: readonly KeyUsage[],
             ): Promise<CryptoKey>;
-            digest(algorithm: AlgorithmIdentifier | CShakeParams, data: NodeJS.BufferSource): Promise<ArrayBuffer>;
+            digest(algorithm: AlgorithmIdentifier | CShakeParams, data: NodeJS.BufferSource | NodeJS.ArrayBufferView): Promise<ArrayBuffer>;
             encapsulateBits(
                 encapsulationAlgorithm: AlgorithmIdentifier,
                 encapsulationKey: CryptoKey,
@@ -3978,7 +3978,7 @@ declare module "node:crypto" {
             encrypt(
                 algorithm: AlgorithmIdentifier | RsaOaepParams | AesCtrParams | AesCbcParams | AeadParams,
                 key: CryptoKey,
-                data: NodeJS.BufferSource,
+                data: NodeJS.BufferSource | NodeJS.ArrayBufferView,
             ): Promise<ArrayBuffer>;
             exportKey(format: "jwk", key: CryptoKey): Promise<JsonWebKey>;
             exportKey(format: Exclude<KeyFormat, "jwk">, key: CryptoKey): Promise<ArrayBuffer>;
@@ -4014,7 +4014,7 @@ declare module "node:crypto" {
             ): Promise<CryptoKey>;
             importKey(
                 format: Exclude<KeyFormat, "jwk">,
-                keyData: NodeJS.BufferSource,
+                keyData: NodeJS.BufferSource | NodeJS.ArrayBufferView,
                 algorithm:
                     | AlgorithmIdentifier
                     | RsaHashedImportParams
@@ -4028,11 +4028,11 @@ declare module "node:crypto" {
             sign(
                 algorithm: AlgorithmIdentifier | RsaPssParams | EcdsaParams | ContextParams | KmacParams,
                 key: CryptoKey,
-                data: NodeJS.BufferSource,
+                data: NodeJS.BufferSource | NodeJS.ArrayBufferView,
             ): Promise<ArrayBuffer>;
             unwrapKey(
                 format: KeyFormat,
-                wrappedKey: NodeJS.BufferSource,
+                wrappedKey: NodeJS.BufferSource | NodeJS.ArrayBufferView,
                 unwrappingKey: CryptoKey,
                 unwrapAlgorithm: AlgorithmIdentifier | RsaOaepParams | AesCtrParams | AesCbcParams | AeadParams,
                 unwrappedKeyAlgorithm:
@@ -4048,8 +4048,8 @@ declare module "node:crypto" {
             verify(
                 algorithm: AlgorithmIdentifier | RsaPssParams | EcdsaParams | ContextParams | KmacParams,
                 key: CryptoKey,
-                signature: NodeJS.BufferSource,
-                data: NodeJS.BufferSource,
+                signature: NodeJS.BufferSource | NodeJS.ArrayBufferView,
+                data: NodeJS.BufferSource | NodeJS.ArrayBufferView,
             ): Promise<boolean>;
             wrapKey(
                 format: KeyFormat,
