@@ -334,6 +334,7 @@ declare module "node:test" {
              * This options is not compatible with `isolation='none'`. These variables will override
              * those from the main process, and are not merged with `process.env`.
              * @since v25.6.0
+             * @default process.env
              */
             env?: NodeJS.ProcessEnv | undefined;
         }
