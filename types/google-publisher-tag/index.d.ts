@@ -1865,6 +1865,27 @@ declare namespace googletag {
         }
 
         /**
+         * Auto refresh configuration settings.
+         */
+        interface AutoRefreshConfig {
+            /**
+             * Whether GPT will automatically refresh an ad slot if Chrome's Heavy Ad
+             * Intervention triggers on the slot's ad iframe. Defaults to `true`.
+             *
+             * @example
+             *   // Set the auto refresh configuration, disabling auto refresh on heavy
+             *   // ad intervention.
+             *   googletag.setConfig({autoRefresh: {heavyAds: false}});
+             *
+             *   // Clear the auto refresh configuration, restoring to default behavior.
+             *   googletag.setConfig({autoRefresh: null});
+             *
+             * @see [Understand Chrome's Heavy Ad Interventions](https://developer.chrome.com/docs/web-platform/heavy-ads-intervention)
+             */
+            heavyAds?: boolean;
+        }
+
+        /**
          * Settings to control the use of lazy loading in GPT.
          *
          * @see {@link googletag.config.PageSettingsConfig.lazyLoad | PageSettingsConfig.lazyLoad}
@@ -2279,6 +2300,18 @@ declare namespace googletag {
              *   googletag.setConfig({adsenseAttributes: null});
              */
             adsenseAttributes?: AdSenseAttributesConfig | null;
+
+            /**
+             * Setting to configure automatic ad refresh behavior.
+             *
+             * @example
+             *   // Set the auto refresh configuration.
+             *   googletag.setConfig({autoRefresh: {heavyAds: false}});
+             *
+             *   // Clear the auto refresh configuration.
+             *   googletag.setConfig({autoRefresh: null});
+             */
+            autoRefresh?: AutoRefreshConfig | null;
         }
 
         /**
@@ -2468,11 +2501,6 @@ declare namespace googletag {
          *   ```
          */
         interface SlotSettingsConfig {
-            /**
-             * An array of component auctions to be included in an on-device ad auction.
-             */
-            componentAuction?: ComponentAuctionConfig[] | null;
-
             /**
              * Settings that configure interstitial ad slot behavior.
              *
@@ -2668,82 +2696,6 @@ declare namespace googletag {
              *   slot.setConfig({adsenseAttributes: null});
              */
             adsenseAttributes?: AdSenseAttributesConfig | null;
-        }
-
-        /**
-         * An object representing a single component auction in a on-device ad auction.
-         *
-         * @see [Protected Audience API Seller guide: run ad auctions](https://developer.chrome.com/docs/privacy-sandbox/fledge-api/ad-auction/)
-         */
-        interface ComponentAuctionConfig {
-            /**
-             * The configuration key associated with this component auction.
-             *
-             * This value must be non-empty and should be unique. If two
-             * `ComponentAuctionConfig` objects share the same configKey value,
-             * the last to be set will overwrite prior configurations.
-             */
-            configKey: string;
-
-            /**
-             * An auction configuration object for this component auction.
-             *
-             * If this value is set to `null`, any existing configuration for
-             * the specified `configKey` will be deleted.
-             *
-             * @example
-             *
-             * const componentAuctionConfig = {
-             *   // Seller URL should be https and the same as decisionLogicURL's origin
-             *   seller: 'https://testSeller.com',
-             *   decisionLogicURL: 'https://testSeller.com/ssp/decision-logic.js',
-             *   interestGroupBuyers: [
-             *     'https://example-buyer.com',
-             *   ],
-             *   auctionSignals: {auction_signals: 'auction_signals'},
-             *   sellerSignals: {seller_signals: 'seller_signals'},
-             *   perBuyerSignals: {
-             *     // listed on interestGroupBuyers
-             *     'https://example-buyer.com': {
-             *       per_buyer_signals: 'per_buyer_signals',
-             *     },
-             *   },
-             * };
-             *
-             * const auctionSlot = googletag.defineSlot('/1234567/example', [160, 600])!;
-             *
-             * // To add configKey to the component auction:
-             * auctionSlot.setConfig({
-             *   componentAuction: [{
-             *      configKey: 'https://testSeller.com',
-             *      auctionConfig: componentAuctionConfig
-             *   }]
-             * });
-             *
-             * // To remove configKey from the component auction:
-             * auctionSlot.setConfig({
-             *   componentAuction: [{
-             *      configKey: 'https://testSeller.com',
-             *      auctionConfig: null
-             *   }]
-             * });
-             *
-             * @see [Protected Audience API: Initiating an On-Device Auction](https://github.com/WICG/turtledove/blob/main/FLEDGE.md#21-initiating-an-on-device-auction)
-             */
-            auctionConfig: {
-                seller: string;
-                decisionLogicURL: string;
-                trustedScoringSignalsURL?: string;
-                interestGroupBuyers?: string[];
-                auctionSignals?: unknown;
-                sellerSignals?: unknown;
-                sellerTimeout?: number;
-                sellerExperimentGroupId?: number;
-                perBuyerSignals?: { [buyer: string]: unknown };
-                perBuyerTimeouts?: { [buyer: string]: number };
-                perBuyerGroupLimits?: { [buyer: string]: number };
-                perBuyerExperimentGroupIds?: { [buyer: string]: number };
-            } | null;
         }
 
         /**

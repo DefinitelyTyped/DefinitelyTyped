@@ -108,10 +108,14 @@ declare module "zlib" {
          */
         chunkSize?: number | undefined;
         windowBits?: number | undefined;
-        level?: number | undefined; // compression only
-        memLevel?: number | undefined; // compression only
-        strategy?: number | undefined; // compression only
-        dictionary?: NodeJS.ArrayBufferView | ArrayBuffer | undefined; // deflate/inflate only, empty dictionary by default
+        /** compression only */
+        level?: number | undefined;
+        /** compression only */
+        memLevel?: number | undefined;
+        /** compression only */
+        strategy?: number | undefined;
+        /** deflate/inflate only, empty dictionary by default */
+        dictionary?: NodeJS.ArrayBufferView | ArrayBuffer | undefined;
         /**
          * If `true`, returns an object with `buffer` and `engine`.
          */
@@ -203,24 +207,84 @@ declare module "zlib" {
     interface ZlibReset {
         reset(): void;
     }
+    /**
+     * @since v10.16.0
+     */
+    class BrotliCompress extends stream.Transform {
+        constructor(options?: BrotliOptions);
+    }
     interface BrotliCompress extends stream.Transform, Zlib {}
+    /**
+     * @since v10.16.0
+     */
+    class BrotliDecompress extends stream.Transform {
+        constructor(options?: BrotliOptions);
+    }
     interface BrotliDecompress extends stream.Transform, Zlib {}
+    /**
+     * @since v0.5.8
+     */
+    class Gzip extends stream.Transform {
+        constructor(options?: ZlibOptions);
+    }
     interface Gzip extends stream.Transform, Zlib {}
+    /**
+     * @since v0.5.8
+     */
+    class Gunzip extends stream.Transform {
+        constructor(options?: ZlibOptions);
+    }
     interface Gunzip extends stream.Transform, Zlib {}
+    /**
+     * @since v0.5.8
+     */
+    class Deflate extends stream.Transform {
+        constructor(options?: ZlibOptions);
+    }
     interface Deflate extends stream.Transform, Zlib, ZlibReset, ZlibParams {}
+    /**
+     * @since v0.5.8
+     */
+    class Inflate extends stream.Transform {
+        constructor(options?: ZlibOptions);
+    }
     interface Inflate extends stream.Transform, Zlib, ZlibReset {}
+    /**
+     * @since v0.5.8
+     */
+    class DeflateRaw extends stream.Transform {
+        constructor(options?: ZlibOptions);
+    }
     interface DeflateRaw extends stream.Transform, Zlib, ZlibReset, ZlibParams {}
+    /**
+     * @since v0.5.8
+     */
+    class InflateRaw extends stream.Transform {
+        constructor(options?: ZlibOptions);
+    }
     interface InflateRaw extends stream.Transform, Zlib, ZlibReset {}
+    /**
+     * @since v0.5.8
+     */
+    class Unzip extends stream.Transform {
+        constructor(options?: ZlibOptions);
+    }
     interface Unzip extends stream.Transform, Zlib {}
     /**
      * @since v22.15.0
      * @experimental
      */
+    class ZstdCompress extends stream.Transform {
+        constructor(options?: ZstdOptions);
+    }
     interface ZstdCompress extends stream.Transform, Zlib {}
     /**
      * @since v22.15.0
      * @experimental
      */
+    class ZstdDecompress extends stream.Transform {
+        constructor(options?: ZstdOptions);
+    }
     interface ZstdDecompress extends stream.Transform, Zlib {}
     /**
      * Computes a 32-bit [Cyclic Redundancy Check](https://en.wikipedia.org/wiki/Cyclic_redundancy_check) checksum of `data`.

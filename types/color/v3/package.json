@@ -6,7 +6,7 @@
         "https://github.com/qix-/color#readme"
     ],
     "dependencies": {
-        "@types/color-convert": "*"
+        "@types/color-convert": "1"
     },
     "devDependencies": {
         "@types/color": "workspace:."

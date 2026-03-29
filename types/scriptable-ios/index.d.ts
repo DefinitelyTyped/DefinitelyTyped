@@ -6077,12 +6077,14 @@ declare class UITableRow {
     /**
      * _Called when the row is selected._
      *
-     * Called when the row is selected when the table is presented. If this has no value, the row cannot be selected. Defaults to null.
+     * Called when the row is selected when the table is presented. If this has no value, the row cannot be selected. Defaults to `undefined`.
+     *
+     * The `index` parameter starts from 1.
      *
      * Rows cannot be tapped when the tables is presented in Siri.
      * @see https://docs.scriptable.app/uitablerow/#onselect
      */
-    onSelect: () => void;
+    onSelect: ((index: number) => void) | undefined;
 }
 
 /**

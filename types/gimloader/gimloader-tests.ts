@@ -24,10 +24,10 @@ new GL(); // $ExpectType Api
 api.React; // $ExpectType typeof React
 api.UI; // $ExpectType Readonly<ScopedUIApi>
 api.hotkeys; // $ExpectType Readonly<ScopedHotkeysApi>
-api.libs; // $ExpectType Readonly<LibsApi>
+api.libs; // $ExpectType Readonly<ScopedLibsApi>
 api.net; // $ExpectType Readonly<ScopedNetApi>
 api.patcher; // $ExpectType Readonly<ScopedPatcherApi>
-api.plugins; // $ExpectType Readonly<PluginsApi>
+api.plugins; // $ExpectType Readonly<ScopedPluginsApi>
 api.rewriter; // $ExpectType Readonly<ScopedRewriterApi>
 api.storage; // $ExpectType Readonly<ScopedStorageApi>
 api.commands; // $ExpectType Readonly<ScopedCommandsApi>
@@ -64,9 +64,8 @@ api.UI.showModal(document.createElement("div"), {
 });
 
 api.requestReload();
-api.patcher.before({}, "foo", () => {});
-api.patcher.before({}, "foo", () => true);
 GL.net.gamemode; // $ExpectType string
+api.UI.forceReactUpdate();
 api.net.gamemode; // $ExpectType string
 api.net.onLoad((type, gamemode) => {});
 api.net.modifyFetchRequest("/path/*/thing", (options) => null);
@@ -80,6 +79,22 @@ api.rewriter.exposeVar("App", {
     multiple: false,
 });
 
+// Test patcher
+let object = { a: true, b: (arg1: number, arg2: string) => true };
+api.patcher.after(object, "b", (thisVal, args, returnVal) => {
+    args[0]; // $ExpectType number
+    args[1]; // $ExpectType string
+    returnVal; // $ExpectType boolean
+});
+// @ts-expect-error
+api.patcher.after(object, "a", () => {});
+api.patcher.swap(object, "b", function(arg1, args2) {
+    arg1; // $ExpectType number
+    args2; // $ExpectType string
+    return false;
+});
+
+// Test commands
 api.commands.addCommand({
     text: "test",
     hidden: () => false,
@@ -112,6 +127,7 @@ api.commands.addCommand({
 
 api.commands.addCommand({ text: () => "something" }, () => {});
 
+// Test stores
 GL.stores.phaser; // $ExpectType PhaserStore
 window.stores.phaser; // $ExpectType PhaserStore
 let worldManagerInstance!: Gimloader.Stores.WorldManager;
@@ -145,6 +161,26 @@ worldManager.physics.bodies.staticBodies; // $ExpectType Set<string>
 worldManager.devices.interactives.findClosestInteractiveDevice([], 0, 0); // $ExpectType Device | undefined
 worldManager.inGameTerrainBuilder.clearPreviewLayer();
 
+// Test colyseus state
+api.net.state.characters["..."].x; // $ExpectType number
+api.net.state.characters.get("...")!.x; // $ExpectType number
+api.net.state.teams[0].characters[0]; // $ExpectType string
+api.net.state.mapSettings; // $ExpectType string
+api.net.state.listen("teams", () => {});
+api.net.state.characters.onAdd((item, index) => {
+    item; // $ExpectType ObjectSchema<CharacterState>
+    index; // $ExpectType string
+    item.listen("x", () => {});
+});
+api.net.state.teams.onAdd((item, index) => {
+    item; // $ExpectType ObjectSchema<TeamState>
+    index; // $ExpectType number
+});
+api.net.state.characters.onRemove((item, index) => {});
+api.net.state.$callbacks;
+api.net.state.characters.get("...")!.$callbacks;
+
+// Test settings
 api.settings.something;
 api.settings.somethingElse;
 api.settings.something = 123;

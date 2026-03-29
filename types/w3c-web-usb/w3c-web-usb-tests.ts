@@ -45,6 +45,16 @@ navigator.usb.addEventListener("connect", evt => {
     // Add |device| to the UI.
     handleConnectedDevice(evt.device);
 });
+// `options: boolean`
+navigator.usb.addEventListener("connect", evt => {
+    // Add |device| to the UI.
+    handleConnectedDevice(evt.device);
+}, true);
+// `options: AddEventListenerOptions`
+navigator.usb.addEventListener("connect", evt => {
+    // Add |device| to the UI.
+    handleConnectedDevice(evt.device);
+}, { capture: true });
 
 navigator.usb.addEventListener("disconnect", evt => {
     // Remove |device| from the UI.

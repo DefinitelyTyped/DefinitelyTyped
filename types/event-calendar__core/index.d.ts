@@ -27,6 +27,7 @@ export interface Calendar {
     removeEventById(id: number | string): Calendar;
     updateEvent(event: Calendar.Event | Calendar.EventInput): Calendar;
     refetchEvents(): Calendar;
+    refetchResources(): Calendar;
     dateFromPoint(x: number, y: number): Calendar.DateClickInfo | null;
     getView(): Calendar.View;
     next(): Calendar;
@@ -57,6 +58,10 @@ export namespace Calendar {
 
     interface CustomButtons {
         [key: string]: CustomButton;
+    }
+
+    interface Icons {
+        [key: string]: Content;
     }
 
     interface View {
@@ -224,6 +229,12 @@ export namespace Calendar {
         view: View;
     }
 
+    interface ResourceExpandInfo {
+        resource: Resource;
+        jsEvent: DomEvent;
+        view: View;
+    }
+
     interface ResourceLabelInfo {
         resource: Resource;
         date: Date;
@@ -312,6 +323,7 @@ export namespace Calendar {
         buttonText?: ButtonTextMapping | ((text: ButtonTextMapping) => ButtonTextMapping);
         columnWidth?: cssLength;
         customButtons?: CustomButtons | ((customButtons: CustomButtons) => CustomButtons);
+        customScrollbars?: boolean;
         date?: Date | string | undefined;
         dateClick?: (info: DateClickInfo) => void;
         datesAboveResources?: boolean;
@@ -364,18 +376,22 @@ export namespace Calendar {
         height?: string;
         hiddenDays?: dayOfWeek[];
         highlightedDates?: Array<isoDateString | Date>;
+        icons?: Icons | ((icons: Icons) => Icons);
         lazyFetching?: boolean;
         listDayFormat?: Intl.DateTimeFormatOptions | ((d: Date) => Content);
         listDaySideFormat?: Intl.DateTimeFormatOptions | ((d: Date) => Content);
         loading?: (isLoading: boolean) => void;
         locale?: string;
         longPressDelay?: number;
+        monthHeaderFormat?: Intl.DateTimeFormatOptions | ((date: Date) => Content);
         moreLinkContent?: Content | ((info: MoreLinkInfo) => Content);
         noEventsClick?: (info: NoEventsClickInfo) => void;
         noEventsContent?: Content | (() => Content);
         nowIndicator?: boolean;
         pointer?: boolean;
+        refetchResourcesOnNavigate?: boolean;
         resizeConstraint?: (info: EventResizeInfo) => boolean;
+        resourceExpand?: (info: ResourceExpandInfo) => void;
         resources?: ResourceInput[];
         resourceLabelContent?: Content | ((info: ResourceLabelInfo) => Content);
         resourceLabelDidMount?: (info: ResourceDidMountInfo) => void;
@@ -394,6 +410,7 @@ export namespace Calendar {
         slotMaxTime?: DurationInput;
         slotMinTime?: DurationInput;
         slotWidth?: number;
+        snapDuration?: DurationInput;
         theme?: Theme | ((theme: Theme) => Theme);
         titleFormat?: Intl.DateTimeFormatOptions | ((start: Date, end: Date) => Content);
         unselect?: (info: UnselectInfo) => void;

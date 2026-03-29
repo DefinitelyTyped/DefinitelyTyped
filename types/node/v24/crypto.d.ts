@@ -2709,12 +2709,12 @@ declare module "crypto" {
         privateKey: T2;
     }
     /**
-     * Generates a new asymmetric key pair of the given `type`. RSA, RSA-PSS, DSA, EC,
-     * Ed25519, Ed448, X25519, X448, DH, and ML-DSA are currently supported.
+     * Generates a new asymmetric key pair of the given `type`.
+     * See the supported [asymmetric key types](https://nodejs.org/docs/latest-v24.x/api/crypto.html#asymmetric-key-types).
      *
      * If a `publicKeyEncoding` or `privateKeyEncoding` was specified, this function
-     * behaves as if `keyObject.export()` had been called on its result. Otherwise,
-     * the respective part of the key is returned as a `KeyObject`.
+     * behaves as if {@link KeyObject.export `keyObject.export()`} had been called on its result. Otherwise,
+     * the respective part of the key is returned as a {@link KeyObject `KeyObject`}.
      *
      * When encoding public keys, it is recommended to use `'spki'`. When encoding
      * private keys, it is recommended to use `'pkcs8'` with a strong passphrase,
@@ -3007,12 +3007,12 @@ declare module "crypto" {
         options?: SLHDSAKeyPairKeyObjectOptions,
     ): KeyPairKeyObjectResult;
     /**
-     * Generates a new asymmetric key pair of the given `type`. RSA, RSA-PSS, DSA, EC,
-     * Ed25519, Ed448, X25519, X448, and DH are currently supported.
+     * Generates a new asymmetric key pair of the given `type`.
+     * See the supported [asymmetric key types](https://nodejs.org/docs/latest-v24.x/api/crypto.html#asymmetric-key-types).
      *
      * If a `publicKeyEncoding` or `privateKeyEncoding` was specified, this function
-     * behaves as if `keyObject.export()` had been called on its result. Otherwise,
-     * the respective part of the key is returned as a `KeyObject`.
+     * behaves as if {@link KeyObject.export `keyObject.export()`} had been called on its result. Otherwise,
+     * the respective part of the key is returned as a {@link KeyObject `KeyObject`}.
      *
      * It is recommended to encode public keys as `'spki'` and private keys as `'pkcs8'` with encryption for long-term storage:
      *

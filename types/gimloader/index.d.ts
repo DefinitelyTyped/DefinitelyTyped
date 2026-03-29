@@ -2110,7 +2110,7 @@ declare global {
             /** Should be a keyboardevent [code](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code) */
             key?: string;
             /** Should be keyboardevent [codes](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code) */
-            keys?: string[];
+            keys?: ReadonlyArray<string>;
             ctrl?: boolean;
             shift?: boolean;
             alt?: boolean;
@@ -2260,6 +2260,206 @@ declare global {
             both?: () => void;
             error?: (error: any) => void;
         }
+        namespace Schema {
+            interface ColyseusMethods {
+                $callbacks: Record<string, any>;
+                $changes: any;
+                toJson(): any;
+            }
+            type ObjectSchema<T extends object> = T & ColyseusMethods & {
+                listen<K extends keyof T>(
+                    key: K,
+                    callback: (value: T[K], lastValue: T[K]) => void,
+                    immediate?: boolean,
+                ): () => void;
+                onChange(callback: () => void): () => void;
+                onRemove(callback: () => void): () => void;
+            };
+            type CollectionSchema<T, K> = ColyseusMethods & {
+                onAdd(callback: (value: T, index: K) => void, immediate?: boolean): () => void;
+                onRemove(callback: (value: T, index: K) => void): () => void;
+                onChange(callback: (item: T, index: K) => void): () => void;
+            };
+            type MapSchema<T> =
+                & {
+                    [key: string]: T;
+                }
+                & Map<string, T>
+                & CollectionSchema<T, string>;
+            type ArraySchema<T> = T[] & CollectionSchema<T, number>;
+            interface AppearanceState {
+                skin: string;
+                tintModifierId: string;
+                trailId: string;
+                transparencyModifierId: string;
+            }
+            interface AssignmentState {
+                hasSavedProgress: boolean;
+                objective?: string;
+                percentageComplete?: number;
+            }
+            interface ClassDesignerState {
+                lastActivatedClassDeviceId: string;
+                lastClassDeviceActivationId: number;
+            }
+            interface HealthState {
+                classImmunityActive: boolean;
+                fragility: number;
+                health: number;
+                lives: number;
+                maxHealth: number;
+                maxShield: number;
+                shield: number;
+                showHealthBar: boolean;
+                spawnImmunityActive: boolean;
+            }
+            interface InteractiveSlotState {
+                clipSize: number;
+                count: number;
+                currentClip: number;
+                durability: number;
+                itemId: string;
+                waiting: boolean;
+                waitingEndTime: number;
+                waitingStartTime: number;
+            }
+            interface SlotState {
+                amount: number;
+            }
+            interface InventoryState {
+                activeInteractiveSlot: number;
+                infiniteAmmo: boolean;
+                interactiveSlots: MapSchema<ObjectSchema<InteractiveSlotState>>;
+                interactiveSlotsOrder: ArraySchema<number>;
+                maxSlots: number;
+                slots: MapSchema<ObjectSchema<SlotState>>;
+            }
+            interface PermissionsState {
+                adding: boolean;
+                editing: boolean;
+                manageCodeGrids: boolean;
+                removing: boolean;
+            }
+            interface PhysicsState {
+                isGrounded: boolean;
+            }
+            interface ProjectilesState {
+                aimAngle: number;
+                damageMultiplier: number;
+            }
+            interface XPState {
+                unredeemedXP: number;
+            }
+            interface ZoneAbilitiesOverridesState {
+                allowItemDrop: boolean;
+                allowResourceDrop: boolean;
+                allowWeaponDrop: boolean;
+                allowWeaponFire: boolean;
+            }
+            interface CharacterState {
+                appearance: ObjectSchema<AppearanceState>;
+                assignment: ObjectSchema<AssignmentState>;
+                classDesigner: ObjectSchema<ClassDesignerState>;
+                completedInitialPlacement: boolean;
+                health: ObjectSchema<HealthState>;
+                id: string;
+                inventory: ObjectSchema<InventoryState>;
+                isActive: boolean;
+                isRespawning: boolean;
+                lastPlayersTeamId: string;
+                movementSpeed: number;
+                name: string;
+                openDeviceUI: string;
+                openDeviceUIChangeCounter: number;
+                permissions: ObjectSchema<PermissionsState>;
+                phase: boolean;
+                physics: ObjectSchema<PhysicsState>;
+                projectiles: ObjectSchema<ProjectilesState>;
+                roleLevel: number;
+                scale: number;
+                score: number;
+                teamId: string;
+                teleportCount: number;
+                type: string;
+                x: number;
+                xp: ObjectSchema<XPState>;
+                y: number;
+                zoneAbilitiesOverrides: ObjectSchema<ZoneAbilitiesOverridesState>;
+            }
+            interface ActionCategoryState {
+                id: string;
+                name: string;
+                plural: string;
+            }
+            interface ActionItemState {
+                id: string;
+                category: string;
+                name: string;
+                url: string;
+            }
+            interface CallToActionState {
+                categories: ArraySchema<ObjectSchema<ActionCategoryState>>;
+                items: ArraySchema<ObjectSchema<ActionItemState>>;
+            }
+            interface GameSessionState {
+                callToAction: ObjectSchema<CallToActionState>;
+                countdownEnd: number;
+                phase: string;
+                resultsEnd: number;
+            }
+            interface SessionState {
+                allowGoogleTranslate: boolean;
+                cosmosBlocked: boolean;
+                gameOwnerId: string;
+                gameSession: ObjectSchema<GameSessionState>;
+                gameTime: number;
+                globalPermissions: ObjectSchema<PermissionsState>;
+                loadingPhase: boolean;
+                mapCreatorRoleLevel: number;
+                mapStyle: string;
+                modeType: string;
+                phase: string;
+                version: string;
+            }
+            interface DevicesState {
+                codeGrids: MapSchema<any>;
+            }
+            interface WorldState {
+                devices: ObjectSchema<DevicesState>;
+                height: number;
+                width: number;
+            }
+            interface CustomAssetState {
+                data: string;
+                icon: string;
+                id: string;
+                name: string;
+                optionId: string;
+            }
+            interface HooksState {
+                hookJSON: string;
+            }
+            interface MatchmakerState {
+                gameCode: string;
+            }
+            interface TeamState {
+                characters: ArraySchema<string>;
+                id: string;
+                name: string;
+                score: number;
+            }
+            interface GimkitState {
+                characters: MapSchema<ObjectSchema<CharacterState>>;
+                customAssets: MapSchema<ObjectSchema<CustomAssetState>>;
+                hooks: ObjectSchema<HooksState>;
+                mapSettings: string;
+                matchmaker: ObjectSchema<MatchmakerState>;
+                session: ObjectSchema<SessionState>;
+                teams: ArraySchema<ObjectSchema<TeamState>>;
+                world: ObjectSchema<WorldState>;
+            }
+            type GimkitSchema = ObjectSchema<GimkitState>;
+        }
         class BaseNetApi extends EventEmitter2 {
             constructor();
             /** Which type of server the client is currently connected to */
@@ -2268,6 +2468,8 @@ declare global {
             get gamemode(): string;
             /** The room that the client is connected to, or null if there is no connection */
             get room(): any;
+            /** Gimkit's internal Colyseus state */
+            get state(): Schema.GimkitSchema;
             /** Whether the user is the one hosting the current game */
             get isHost(): boolean;
             /** Sends a message to the server on a specific channel */
@@ -2282,7 +2484,7 @@ declare global {
             onLoad(
                 id: string,
                 callback: (type: ConnectionType, gamemode: string) => void,
-                gamemode?: string | string[],
+                gamemode?: string | ReadonlyArray<string>,
             ): () => void;
             /** Cancels any calls to {@link onLoad} with the same id */
             offLoad(id: string): void;
@@ -2326,7 +2528,7 @@ declare global {
              */
             onLoad(
                 callback: (type: ConnectionType, gamemode: string) => void,
-                gamemode?: string | string[],
+                gamemode?: string | ReadonlyArray<string>,
             ): () => void;
             /** Runs a callback when a request is made that matches a certain path (can have wildcards) */
             modifyFetchRequest(path: string, callback: (options: RequesterOptions) => any): () => void;
@@ -2346,7 +2548,7 @@ declare global {
             style?: string;
             className?: string;
             closeOnBackgroundClick?: boolean;
-            buttons?: ModalButton[];
+            buttons?: ReadonlyArray<ModalButton>;
             onClosed?: () => void;
         }
         type NoticeType = "info" | "success" | "error" | "warning" | "loading";
@@ -2673,6 +2875,8 @@ declare global {
         class BaseUIApi {
             /** Shows a customizable modal to the user */
             showModal(element: HTMLElement | React$1.ReactElement, options?: ModalOptions): void;
+            /** Forces Gimkit's react tree to fully rerender */
+            forceReactUpdate(): void;
             /**
              * Gimkit's notification object, only available when joining or playing a game
              *
@@ -2741,30 +2945,68 @@ declare global {
             /** Adds a listener for when a stored value with a certain key changes  */
             onChange(key: string, callback: ValueChangeCallback): () => void;
         }
+        type BaseFunction = (...args: any[]) => any;
+        type FunctionKeys<T> = keyof {
+            [K in keyof T as T[K] extends BaseFunction ? K : never]: T[K];
+        };
 
-        type PatcherAfterCallback = (thisVal: any, args: IArguments, returnVal: any) => any;
+        type PatcherAfterCallback<T> = (
+            thisVal: any,
+            args: T extends BaseFunction ? Parameters<T> : any[],
+            returnVal: T extends BaseFunction ? ReturnType<T> : any,
+        ) => any;
 
-        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-        type PatcherBeforeCallback = (thisVal: any, args: IArguments) => boolean | void;
+        type PatcherBeforeCallback<T> = (
+            thisVal: any,
+            args: T extends BaseFunction ? Parameters<T> : any[],
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        ) => boolean | void;
 
-        type PatcherInsteadCallback = (thisVal: any, args: IArguments) => void;
+        type PatcherInsteadCallback<T> = (thisVal: any, args: T extends BaseFunction ? Parameters<T> : any[]) => any;
+
+        type PatcherSwapCallback<T> = (...args: T extends BaseFunction ? Parameters<T> : any[]) => any;
         class PatcherApi {
             /**
              * Runs a callback after a function on an object has been run
              * @returns A function to remove the patch
              */
-            after(id: string, object: any, method: string, callback: PatcherAfterCallback): () => void;
+            after<O extends object, K extends FunctionKeys<O>>(
+                id: string,
+                object: O,
+                method: K,
+                callback: PatcherAfterCallback<O[K]>,
+            ): () => void;
             /**
              * Runs a callback before a function on an object has been run.
              * Return true from the callback to prevent the function from running
              * @returns A function to remove the patch
              */
-            before(id: string, object: any, method: string, callback: PatcherBeforeCallback): () => void;
+            before<O extends object, K extends FunctionKeys<O>>(
+                id: string,
+                object: O,
+                method: K,
+                callback: PatcherBeforeCallback<O[K]>,
+            ): () => void;
             /**
              * Runs a function instead of a function on an object
              * @returns A function to remove the patch
              */
-            instead(id: string, object: any, method: string, callback: PatcherInsteadCallback): () => void;
+            instead<O extends object, K extends FunctionKeys<O>>(
+                id: string,
+                object: O,
+                method: K,
+                callback: PatcherInsteadCallback<O[K]>,
+            ): () => void;
+            /**
+             * Replaces a function on an object with another function
+             * @returns A function to remove the patch
+             */
+            swap<O extends object, K extends FunctionKeys<O>>(
+                id: string,
+                object: O,
+                method: K,
+                callback: PatcherSwapCallback<O[K]>,
+            ): () => void;
             /** Removes all patches with a given id */
             unpatchAll(id: string): void;
         }
@@ -2774,22 +3016,43 @@ declare global {
              * Runs a callback after a function on an object has been run
              * @returns A function to remove the patch
              */
-            after(object: any, method: string, callback: PatcherAfterCallback): () => void;
+            after<O extends object, K extends FunctionKeys<O>>(
+                object: O,
+                method: K,
+                callback: PatcherAfterCallback<O[K]>,
+            ): () => void;
             /**
              * Runs a callback before a function on an object has been run.
              * Return true from the callback to prevent the function from running
              * @returns A function to remove the patch
              */
-            before(object: any, method: string, callback: PatcherBeforeCallback): () => void;
+            before<O extends object, K extends FunctionKeys<O>>(
+                object: O,
+                method: K,
+                callback: PatcherBeforeCallback<O[K]>,
+            ): () => void;
             /**
              * Runs a function instead of a function on an object
              * @returns A function to remove the patch
              */
-            instead(object: any, method: string, callback: PatcherInsteadCallback): () => void;
+            instead<O extends object, K extends FunctionKeys<O>>(
+                object: O,
+                method: K,
+                callback: PatcherInsteadCallback<O[K]>,
+            ): () => void;
+            /**
+             * Replaces a function on an object with another function
+             * @returns A function to remove the patch
+             */
+            swap<O extends object, K extends FunctionKeys<O>>(
+                object: O,
+                method: K,
+                callback: PatcherSwapCallback<O[K]>,
+            ): () => void;
         }
 
         // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-        type RunInScopeCallback = (code: string, run: (evalCode: string) => void) => true | void;
+        type RunInScopeCallback = (code: string, run: (evalCode: string) => any, initial: boolean) => true | void;
 
         interface Exposer {
             check?: string;
@@ -2863,17 +3126,17 @@ declare global {
 
         interface CommandOptions {
             text: string | (() => string);
-            keywords?: string[];
+            keywords?: ReadonlyArray<string>;
             hidden?: () => boolean;
         }
         interface BaseCommandOptions {
             title: string;
         }
         interface CommandSelectOptions extends BaseCommandOptions {
-            options: {
+            options: ReadonlyArray<{
                 label: string;
                 value: string;
-            }[];
+            }>;
         }
         interface CommandNumberOptions extends BaseCommandOptions {
             min?: number;
@@ -2930,6 +3193,11 @@ declare global {
             /** Gets the exported values of a library */
             get<T extends keyof Gimloader.Libraries>(name: T): Gimloader.Libraries[T];
         }
+        class ScopedLibsApi extends LibsApi {
+            constructor(id: string);
+            /** Gets a library by name, prompting the user to enable/download it if necessary. Returns a promise with its exports. */
+            require(name: string, downloadUrl?: string): Promise<any>;
+        }
         class PluginsApi {
             /** A list of all the plugins installed */
             get list(): string[];
@@ -2947,48 +3215,117 @@ declare global {
                 return: any;
             };
         }
+        class ScopedPluginsApi extends PluginsApi {
+            constructor(id: string);
+            /** Gets a plugin by name, prompting the user to enable/download it if necessary. Returns a promise with its exports. */
+            require(name: string, downloadUrl?: string): Promise<any>;
+        }
+        interface SvelteExport {
+            Index: any;
+            Client: any;
+            Animate: any;
+            Attachments: any;
+            Easing: any;
+            Events: any;
+            Motion: any;
+            WindowReactivity: any;
+            Reactivity: any;
+            Store: any;
+            Transition: any;
+        }
         class Api {
-            /**
-             * @deprecated Gimkit has switched from Parcel to vite, rendering this api useless.
-             * @hidden
-             */
-            static parcel: Readonly<ParcelApi>;
             /** Functions to edit Gimkit's code */
             static rewriter: Readonly<RewriterApi>;
+            /** Functions to edit Gimkit's code */
+            rewriter: Readonly<ScopedRewriterApi>;
             /** Functions to listen for key combinations */
             static hotkeys: Readonly<HotkeysApi>;
+            /** Functions to listen for key combinations */
+            hotkeys: Readonly<ScopedHotkeysApi>;
             /**
              * Ways to interact with the current connection to the server,
              * and functions to send general requests
              */
             static net: Readonly<NetApi>;
+            /**
+             * Ways to interact with the current connection to the server,
+             * and functions to send general requests
+             */
+            net: Readonly<ScopedNetApi>;
             /** Functions for interacting with the DOM */
             static UI: Readonly<UIApi>;
+            /** Functions for interacting with the DOM */
+            UI: Readonly<ScopedUIApi>;
             /** Functions for persisting data between reloads */
             static storage: Readonly<StorageApi>;
+            /** Functions for persisting data between reloads */
+            storage: Readonly<ScopedStorageApi>;
             /** Functions for intercepting the arguments and return values of functions */
             static patcher: Readonly<PatcherApi>;
+            /** Functions for intercepting the arguments and return values of functions */
+            patcher: Readonly<ScopedPatcherApi>;
             /** Functions for adding commands to the command palette */
             static commands: Readonly<CommandsApi>;
+            /** Functions for adding commands to the command palette */
+            commands: Readonly<ScopedCommandsApi>;
             /** Methods for getting info on libraries */
             static libs: Readonly<LibsApi>;
+            /** Methods for getting info on libraries */
+            libs: Readonly<ScopedLibsApi>;
             /** Gets the exported values of a library */
             static lib: <T extends keyof Gimloader.Libraries>(name: T) => Gimloader.Libraries[T];
+            /** Gets the exported values of a library */
+            lib: <T extends keyof Gimloader.Libraries>(name: T) => Gimloader.Libraries[T];
             /** Methods for getting info on plugins */
             static plugins: Readonly<PluginsApi>;
+            /** Methods for getting info on plugins */
+            plugins: Readonly<ScopedPluginsApi>;
             /** Gets the exported values of a plugin, if it has been enabled */
             static plugin: <T extends keyof Gimloader.Plugins>(name: T) => Gimloader.Plugins[T];
+            /** Gets the exported values of a plugin, if it has been enabled */
+            plugin: <T extends keyof Gimloader.Plugins>(name: T) => Gimloader.Plugins[T];
             /** Gimkit's internal react instance */
             static get React(): typeof import("react");
+            /** Gimkit's internal react instance */
+            get React(): typeof import("react");
             /** Gimkit's internal reactDom instance */
             static get ReactDOM(): typeof import("react-dom/client");
+            /** Gimkit's internal reactDom instance */
+            get ReactDOM(): typeof import("react-dom/client");
             /** A variety of Gimkit internal objects available in 2d gamemodes */
             static get stores(): Stores.Stores;
+            /** A variety of gimkit internal objects available in 2d gamemodes */
+            get stores(): Stores.Stores;
+            /**
+             * The exports of svelte v5.43.0, used internally by Gimloader and exposed to make scripts smaller.
+             * Should never be used by hand.
+             */
+            static svelte_5_43_0: SvelteExport;
+            /**
+             * The exports of svelte v5.43.0, used internally by Gimloader and exposed to make scripts smaller.
+             * Should never be used by hand.
+             */
+            svelte_5_43_0: SvelteExport;
+            /**
+             * @deprecated Gimkit has switched from Parcel to vite, rendering this api useless.
+             * @hidden
+             */
+            static parcel: Readonly<ParcelApi>;
+            /**
+             * @deprecated Gimkit has switched from Parcel to vite, rendering this api useless.
+             * @hidden
+             */
+            parcel: Readonly<ScopedParcelApi>;
             /**
              * @deprecated Use GL.UI.notification
              * @hidden
              */
             static get notification(): AntdNotification;
+            /**
+             * @deprecated Use api.UI.notification
+             * @hidden
+             */
+            get notification(): AntdNotification;
             /**
              * @deprecated No longer supported
              * @hidden
@@ -3018,49 +3355,8 @@ declare global {
              */
             static get pluginManager(): Readonly<PluginsApi>;
             constructor(type?: string, name?: string);
-            /**
-             * @deprecated Gimkit has switched from Parcel to vite, rendering this api useless.
-             * @hidden
-             */
-            parcel: Readonly<ScopedParcelApi>;
-            /** Functions to edit Gimkit's code */
-            rewriter: Readonly<ScopedRewriterApi>;
-            /** Functions to listen for key combinations */
-            hotkeys: Readonly<ScopedHotkeysApi>;
-            /**
-             * Ways to interact with the current connection to the server,
-             * and functions to send general requests
-             */
-            net: Readonly<ScopedNetApi>;
-            /** Functions for interacting with the DOM */
-            UI: Readonly<ScopedUIApi>;
-            /** Functions for persisting data between reloads */
-            storage: Readonly<ScopedStorageApi>;
-            /** Functions for intercepting the arguments and return values of functions */
-            patcher: Readonly<ScopedPatcherApi>;
-            /** Functions for adding commands to the command palette */
-            commands: Readonly<ScopedCommandsApi>;
             /** A utility for creating persistent settings menus, only available to plugins */
             settings: PluginSettings;
-            /** Methods for getting info on libraries */
-            libs: Readonly<LibsApi>;
-            /** Gets the exported values of a library */
-            lib: <T extends keyof Gimloader.Libraries>(name: T) => Gimloader.Libraries[T];
-            /** Methods for getting info on plugins */
-            plugins: Readonly<PluginsApi>;
-            /** Gets the exported values of a plugin, if it has been enabled */
-            plugin: <T extends keyof Gimloader.Plugins>(name: T) => Gimloader.Plugins[T];
-            /** Gimkit's internal react instance */
-            get React(): typeof import("react");
-            /** Gimkit's internal reactDom instance */
-            get ReactDOM(): typeof import("react-dom/client");
-            /** A variety of gimkit internal objects available in 2d gamemodes */
-            get stores(): Stores.Stores;
-            /**
-             * @deprecated Use api.UI.notification
-             * @hidden
-             */
-            get notification(): AntdNotification;
             /** Run a callback when the script is disabled */
             onStop: (callback: () => void) => void;
             /**

@@ -95,7 +95,7 @@ declare module "node:v8" {
      * buffers and external strings.
      *
      * `total_allocated_bytes` The value of total allocated bytes since the Isolate
-     * creation
+     * creation.
      *
      * ```js
      * {
@@ -112,7 +112,8 @@ declare module "node:v8" {
      *   number_of_detached_contexts: 0,
      *   total_global_handles_size: 8192,
      *   used_global_handles_size: 3296,
-     *   external_memory: 318824
+     *   external_memory: 318824,
+     *   total_allocated_bytes: 45224088
      * }
      * ```
      * @since v1.0.0
@@ -308,7 +309,6 @@ declare module "node:v8" {
      * ```
      * @param ctor The constructor that can be used to search on the prototype chain in order to filter target objects in the heap.
      * @since v20.13.0
-     * @experimental
      */
     function queryObjects(ctor: Function): number | string[];
     function queryObjects(ctor: Function, options: { format: "count" }): number;
@@ -737,6 +737,11 @@ declare module "node:v8" {
          * @since v19.6.0, v18.15.0
          */
         stop(): GCProfilerResult;
+        /**
+         * Stop collecting GC data, and discard the profile.
+         * @since v25.5.0
+         */
+        [Symbol.dispose](): void;
     }
     interface GCProfilerResult {
         version: number;

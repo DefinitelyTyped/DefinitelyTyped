@@ -1,5 +1,5 @@
-// Tests for Google Publisher Tag 1.20260216
-// Synced from: https://github.com/googleads/google-publisher-tag-types/commit/782098b359480f3e61d7be7ec5e922406e9775a3
+// Tests for Google Publisher Tag 1.20260309
+// Synced from: https://github.com/googleads/google-publisher-tag-types/commit/b016c4944f367bc81fd32a072d0648154987849d
 
 // Test for googletag.cmd
 function test_googletag_cmd() {
@@ -666,6 +666,16 @@ function test_googletag_config_adExpansionConfig() {
     });
 }
 
+// Test for googletag.config.AutoRefreshConfig.heavyAds
+function test_googletag_config_autoRefreshConfig_heavyAds() {
+    // Set the auto refresh configuration, disabling auto refresh on heavy
+    // ad intervention.
+    googletag.setConfig({ autoRefresh: { heavyAds: false } });
+
+    // Clear the auto refresh configuration, restoring to default behavior.
+    googletag.setConfig({ autoRefresh: null });
+}
+
 // Test for googletag.config.PageSettingsConfig.threadYield
 function test_googletag_config_pageSettingsConfig_threadYield() {
     // Disable yielding.
@@ -816,6 +826,15 @@ function test_googletag_config_pageSettingsConfig_adsenseAttributes() {
     googletag.setConfig({ adsenseAttributes: null });
 }
 
+// Test for googletag.config.PageSettingsConfig.autoRefresh
+function test_googletag_config_pageSettingsConfig_autoRefresh() {
+    // Set the auto refresh configuration.
+    googletag.setConfig({ autoRefresh: { heavyAds: false } });
+
+    // Clear the auto refresh configuration.
+    googletag.setConfig({ autoRefresh: null });
+}
+
 // Test for googletag.config.PrivacyTreatmentsConfig.treatments
 function test_googletag_config_privacyTreatmentsConfig_treatments() {
     // Disable personalization across the entire page.
@@ -951,46 +970,6 @@ function test_googletag_config_slotSettingsConfig_adsenseAttributes() {
 
     // Clear all AdSense attributes.
     slot.setConfig({ adsenseAttributes: null });
-}
-
-// Test for googletag.config.ComponentAuctionConfig.auctionConfig
-function test_googletag_config_componentAuctionConfig_auctionConfig() {
-    const componentAuctionConfig = {
-        // Seller URL should be https and the same as decisionLogicURL's origin
-        seller: "https://testSeller.com",
-        decisionLogicURL: "https://testSeller.com/ssp/decision-logic.js",
-        interestGroupBuyers: ["https://example-buyer.com"],
-        auctionSignals: { auction_signals: "auction_signals" },
-        sellerSignals: { seller_signals: "seller_signals" },
-        perBuyerSignals: {
-            // listed on interestGroupBuyers
-            "https://example-buyer.com": {
-                per_buyer_signals: "per_buyer_signals",
-            },
-        },
-    };
-
-    const auctionSlot = googletag.defineSlot("/1234567/example", [160, 600])!;
-
-    // To add configKey to the component auction:
-    auctionSlot.setConfig({
-        componentAuction: [
-            {
-                configKey: "https://testSeller.com",
-                auctionConfig: componentAuctionConfig,
-            },
-        ],
-    });
-
-    // To remove configKey from the component auction:
-    auctionSlot.setConfig({
-        componentAuction: [
-            {
-                configKey: "https://testSeller.com",
-                auctionConfig: null,
-            },
-        ],
-    });
 }
 
 // Test for googletag.config.InterstitialConfig.triggers

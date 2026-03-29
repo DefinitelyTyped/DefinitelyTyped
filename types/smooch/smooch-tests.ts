@@ -21,6 +21,51 @@ Smooch.on("reconnecting", (data: ConversationData) => {});
 Smooch.on("typing:start", (data: ConversationData) => {});
 Smooch.on("typing:stop", (data: ConversationData) => {});
 
+// off - remove a specific handler
+Smooch.off("ready", () => {});
+Smooch.off("destroy", () => {});
+Smooch.off("participant:added", (participant: ConversationParticipant, data: ConversationData) => {});
+Smooch.off("participant:removed", (participant: ConversationParticipant, data: ConversationData) => {});
+Smooch.off("conversation:added", (participants: ConversationParticipant[], data: ConversationData) => {});
+Smooch.off("conversation:read", (payload: ConversationReadEventPayload, data: ConversationData) => {});
+Smooch.off("conversation:removed", (data: ConversationData) => {});
+Smooch.off("message:received", (message: Message, data: ConversationData) => {});
+Smooch.off("message:sent", (message: Message, data: ConversationData) => {});
+Smooch.off("message", (message: Message, data: ConversationData) => {});
+Smooch.off("unreadCount", (unreadCount: number, data: ConversationData) => {});
+Smooch.off("widget:opened", () => {});
+Smooch.off("widget:closed", () => {});
+Smooch.off("log:debug", (e: DebugLog) => {});
+Smooch.off("connected", (data: ConversationData) => {});
+Smooch.off("disconnected", (data: ConversationData) => {});
+Smooch.off("reconnecting", (data: ConversationData) => {});
+Smooch.off("typing:start", (data: ConversationData) => {});
+Smooch.off("typing:stop", (data: ConversationData) => {});
+
+// off - remove all handlers for a specific event
+Smooch.off("ready");
+Smooch.off("destroy");
+Smooch.off("participant:added");
+Smooch.off("participant:removed");
+Smooch.off("conversation:added");
+Smooch.off("conversation:read");
+Smooch.off("conversation:removed");
+Smooch.off("message:received");
+Smooch.off("message:sent");
+Smooch.off("message");
+Smooch.off("unreadCount");
+Smooch.off("widget:opened");
+Smooch.off("widget:closed");
+Smooch.off("log:debug");
+Smooch.off("connected");
+Smooch.off("disconnected");
+Smooch.off("reconnecting");
+Smooch.off("typing:start");
+Smooch.off("typing:stop");
+
+// off - remove all handlers for all events
+Smooch.off();
+
 // InitOptions must always have integrationId
 // @ts-expect-error
 Smooch.init({});

@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 import fs = require("fs");
 
 import initSqlJs, { Database as SqlJsDatabase } from "sql.js";
@@ -27,6 +29,11 @@ initSqlJs().then(SqlJs => {
     const createTableStatement = "DROP TABLE IF EXISTS test_table;"
         + "CREATE TABLE test_table (id INTEGER PRIMARY KEY, content TEXT);";
     db.run(createTableStatement);
+
+    // Register handler for database changes
+    db.updateHook((operation, database, table, rowId) => {
+        console.log("SQLite database is updated", { operation, database, table, rowId });
+    });
 
     // Insert 2 records for testing.
     const insertRecordStatement = "INSERT INTO test_table (id, content) VALUES (@id, @content);";

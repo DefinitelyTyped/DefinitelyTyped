@@ -35,6 +35,7 @@ declare class IncomingForm extends EventEmitter {
     on(eventName: string, listener: () => void): this;
 
     emit(eventName: "data", data: EmitData): boolean;
+    emit(eventName: "error", error: any): boolean;
 
     /**
      * A method that allows you to extend the Formidable library. By default we include 4 plugins,

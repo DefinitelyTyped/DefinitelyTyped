@@ -128,7 +128,7 @@ declare module "node:sqlite" {
          * language features that allow ordinary SQL to deliberately corrupt the database file are disabled.
          * The defensive flag can also be set using `enableDefensive()`.
          * @since v25.1.0
-         * @default false
+         * @default true
          */
         defensive?: boolean | undefined;
     }
@@ -232,6 +232,28 @@ declare module "node:sqlite" {
          * new state.
          */
         inverse?: ((accumulator: T, ...args: SQLOutputValue[]) => T) | undefined;
+    }
+    interface PrepareOptions {
+        /**
+         * If `true`, integer fields are read as `BigInt`s.
+         * @since v25.5.0
+         */
+        readBigInts?: boolean | undefined;
+        /**
+         * If `true`, results are returned as arrays.
+         * @since v25.5.0
+         */
+        returnArrays?: boolean | undefined;
+        /**
+         * If `true`, allows binding named parameters without the prefix character.
+         * @since v25.5.0
+         */
+        allowBareNamedParameters?: boolean | undefined;
+        /**
+         * If `true`, unknown named parameters are ignored.
+         * @since v25.5.0
+         */
+        allowUnknownNamedParameters?: boolean | undefined;
     }
     /**
      * This class represents a single [connection](https://www.sqlite.org/c3ref/sqlite3.html) to a SQLite database. All APIs
@@ -425,19 +447,73 @@ declare module "node:sqlite" {
          * around [`sqlite3_prepare_v2()`](https://www.sqlite.org/c3ref/prepare.html).
          * @since v22.5.0
          * @param sql A SQL string to compile to a prepared statement.
+         * @param options Optional configuration for the prepared statement.
          * @return The prepared statement.
          */
-        prepare(sql: string): StatementSync;
+        prepare(sql: string, options?: PrepareOptions): StatementSync;
         /**
-         * Creates a new `SQLTagStore`, which is an LRU (Least Recently Used) cache for
-         * storing prepared statements. This allows for the efficient reuse of prepared
-         * statements by tagging them with a unique identifier.
+         * Creates a new {@link SQLTagStore}, which is a Least Recently Used (LRU) cache
+         * for storing prepared statements. This allows for the efficient reuse of
+         * prepared statements by tagging them with a unique identifier.
          *
          * When a tagged SQL literal is executed, the `SQLTagStore` checks if a prepared
-         * statement for that specific SQL string already exists in the cache. If it does,
-         * the cached statement is used. If not, a new prepared statement is created,
-         * executed, and then stored in the cache for future use. This mechanism helps to
-         * avoid the overhead of repeatedly parsing and preparing the same SQL statements.
+         * statement for the corresponding SQL query string already exists in the cache.
+         * If it does, the cached statement is used. If not, a new prepared statement is
+         * created, executed, and then stored in the cache for future use. This mechanism
+         * helps to avoid the overhead of repeatedly parsing and preparing the same SQL
+         * statements.
+         *
+         * Tagged statements bind the placeholder values from the template literal as
+         * parameters to the underlying prepared statement. For example:
+         *
+         * ```js
+         * sqlTagStore.get`SELECT ${value}`;
+         * ```
+         *
+         * is equivalent to:
+         *
+         * ```js
+         * db.prepare('SELECT ?').get(value);
+         * ```
+         *
+         * However, in the first example, the tag store will cache the underlying prepared
+         * statement for future use.
+         *
+         * > **Note:** The `${value}` syntax in tagged statements _binds_ a parameter to
+         * > the prepared statement. This differs from its behavior in _untagged_ template
+         * > literals, where it performs string interpolation.
+         * >
+         * > ```js
+         * > // This a safe example of binding a parameter to a tagged statement.
+         * > sqlTagStore.run`INSERT INTO t1 (id) VALUES (${id})`;
+         * >
+         * > // This is an *unsafe* example of an untagged template string.
+         * > // `id` is interpolated into the query text as a string.
+         * > // This can lead to SQL injection and data corruption.
+         * > db.run(`INSERT INTO t1 (id) VALUES (${id})`);
+         * > ```
+         *
+         * The tag store will match a statement from the cache if the query strings
+         * (including the positions of any bound placeholders) are identical.
+         *
+         * ```js
+         * // The following statements will match in the cache:
+         * sqlTagStore.get`SELECT * FROM t1 WHERE id = ${id} AND active = 1`;
+         * sqlTagStore.get`SELECT * FROM t1 WHERE id = ${12345} AND active = 1`;
+         *
+         * // The following statements will not match, as the query strings
+         * // and bound placeholders differ:
+         * sqlTagStore.get`SELECT * FROM t1 WHERE id = ${id} AND active = 1`;
+         * sqlTagStore.get`SELECT * FROM t1 WHERE id = 12345 AND active = 1`;
+         *
+         * // The following statements will not match, as matches are case-sensitive:
+         * sqlTagStore.get`SELECT * FROM t1 WHERE id = ${id} AND active = 1`;
+         * sqlTagStore.get`select * from t1 where id = ${id} and active = 1`;
+         * ```
+         *
+         * The only way of binding parameters in tagged statements is with the `${value}`
+         * syntax. Do not add parameter binding placeholders (`?` etc.) to the SQL query
+         * string itself.
          *
          * ```js
          * import { DatabaseSync } from 'node:sqlite';
@@ -453,8 +529,8 @@ declare module "node:sqlite" {
          * sql.run`INSERT INTO users VALUES (2, 'Bob')`;
          *
          * // Using the 'get' method to retrieve a single row.
-         * const id = 1;
-         * const user = sql.get`SELECT * FROM users WHERE id = ${id}`;
+         * const name = 'Alice';
+         * const user = sql.get`SELECT * FROM users WHERE name = ${name}`;
          * console.log(user); // { id: 1, name: 'Alice' }
          *
          * // Using the 'all' method to retrieve all rows.
@@ -543,26 +619,39 @@ declare module "node:sqlite" {
          * [`sqlite3session_delete()`](https://www.sqlite.org/session/sqlite3session_delete.html).
          */
         close(): void;
+        /**
+         * Closes the session. If the session is already closed, does nothing.
+         * @since v24.9.0
+         */
+        [Symbol.dispose](): void;
     }
     /**
      * This class represents a single LRU (Least Recently Used) cache for storing
      * prepared statements.
      *
-     * Instances of this class are created via the database.createSQLTagStore() method,
-     * not by using a constructor. The store caches prepared statements based on the
-     * provided SQL query string. When the same query is seen again, the store
+     * Instances of this class are created via the `database.createTagStore()`
+     * method, not by using a constructor. The store caches prepared statements based
+     * on the provided SQL query string. When the same query is seen again, the store
      * retrieves the cached statement and safely applies the new values through
      * parameter binding, thereby preventing attacks like SQL injection.
      *
      * The cache has a maxSize that defaults to 1000 statements, but a custom size can
-     * be provided (e.g., database.createSQLTagStore(100)). All APIs exposed by this
+     * be provided (e.g., `database.createTagStore(100)`). All APIs exposed by this
      * class execute synchronously.
      * @since v24.9.0
      */
     interface SQLTagStore {
         /**
-         * Executes the given SQL query and returns all resulting rows as an array of objects.
+         * Executes the given SQL query and returns all resulting rows as an array of
+         * objects.
+         *
+         * This function is intended to be used as a template literal tag, not to be
+         * called directly.
          * @since v24.9.0
+         * @param stringElements Template literal elements containing the SQL
+         * query.
+         * @param boundParameters Parameter values to be bound to placeholders in the template string.
+         * @returns An array of objects representing the rows returned by the query.
          */
         all(
             stringElements: TemplateStringsArray,
@@ -570,7 +659,15 @@ declare module "node:sqlite" {
         ): Record<string, SQLOutputValue>[];
         /**
          * Executes the given SQL query and returns the first resulting row as an object.
+         *
+         * This function is intended to be used as a template literal tag, not to be
+         * called directly.
          * @since v24.9.0
+         * @param stringElements Template literal elements containing the SQL
+         * query.
+         * @param boundParameters Parameter values to be bound to placeholders in the template string.
+         * @returns An object representing the first row returned by
+         * the query, or `undefined` if no rows are returned.
          */
         get(
             stringElements: TemplateStringsArray,
@@ -578,7 +675,14 @@ declare module "node:sqlite" {
         ): Record<string, SQLOutputValue> | undefined;
         /**
          * Executes the given SQL query and returns an iterator over the resulting rows.
+         *
+         * This function is intended to be used as a template literal tag, not to be
+         * called directly.
          * @since v24.9.0
+         * @param stringElements Template literal elements containing the SQL
+         * query.
+         * @param boundParameters Parameter values to be bound to placeholders in the template string.
+         * @returns An iterator that yields objects representing the rows returned by the query.
          */
         iterate(
             stringElements: TemplateStringsArray,
@@ -586,15 +690,21 @@ declare module "node:sqlite" {
         ): NodeJS.Iterator<Record<string, SQLOutputValue>>;
         /**
          * Executes the given SQL query, which is expected to not return any rows (e.g., INSERT, UPDATE, DELETE).
+         *
+         * This function is intended to be used as a template literal tag, not to be
+         * called directly.
          * @since v24.9.0
+         * @param stringElements Template literal elements containing the SQL
+         * query.
+         * @param boundParameters Parameter values to be bound to placeholders in the template string.
+         * @returns An object containing information about the execution, including `changes` and `lastInsertRowid`.
          */
         run(stringElements: TemplateStringsArray, ...boundParameters: SQLInputValue[]): StatementResultingChanges;
         /**
          * A read-only property that returns the number of prepared statements currently in the cache.
          * @since v24.9.0
-         * @returns The maximum number of prepared statements the cache can hold.
          */
-        size(): number;
+        readonly size: number;
         /**
          * A read-only property that returns the maximum number of prepared statements the cache can hold.
          * @since v24.9.0
