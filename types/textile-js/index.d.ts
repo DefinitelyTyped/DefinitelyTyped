@@ -9,18 +9,18 @@ declare namespace textile {
     type TokenType = "OPEN" | "CLOSE" | "TEXT" | "SINGLE" | "WS" | "COMMENT";
     type Token =
         | {
-              type: "OPEN" | "CLOSE" | "SINGLE";
-              tag: Tag;
-              attr?: JMLAttributes;
-              pos: number;
-              src: string;
-          }
+            type: "OPEN" | "CLOSE" | "SINGLE";
+            tag: Tag;
+            attr?: JMLAttributes;
+            pos: number;
+            src: string;
+        }
         | {
-              type: "TEXT" | "WS" | "COMMENT";
-              data: string;
-              pos: number;
-              src: string;
-          };
+            type: "TEXT" | "WS" | "COMMENT";
+            data: string;
+            pos: number;
+            src: string;
+        };
     interface Options {
         breaks?: boolean;
     }
