@@ -78,6 +78,7 @@ export namespace Calendar {
         title?: Content;
         eventBackgroundColor?: string;
         eventTextColor?: string;
+        expanded?: boolean;
         extendedProps?: Record<string, unknown>;
         children?: ResourceInput[];
     }
@@ -87,6 +88,7 @@ export namespace Calendar {
         title: Content;
         eventBackgroundColor: string | undefined;
         eventTextColor: string | undefined;
+        expanded: boolean;
         extendedProps: Record<string, unknown>;
     }
 
@@ -129,6 +131,13 @@ export namespace Calendar {
         startStr: string;
         endStr: string;
         view: View;
+    }
+
+    interface DayCellContentArg {
+        allDay: boolean;
+        date: Date;
+        isToday: boolean;
+        resource: Resource;
     }
 
     interface EventClassNamesInfo {
@@ -326,8 +335,10 @@ export namespace Calendar {
         customScrollbars?: boolean;
         date?: Date | string | undefined;
         dateClick?: (info: DateClickInfo) => void;
+        dateIncrement?: DurationInput;
         datesAboveResources?: boolean;
         datesSet?: (info: DatesSetInfo) => void;
+        dayCellContent?: Content | ((arg: DayCellContentArg) => Content);
         dayCellFormat?: Intl.DateTimeFormatOptions | ((d: Date) => Content);
         dayHeaderAriaLabelFormat?: Intl.DateTimeFormatOptions | ((d: Date) => Content);
         dayHeaderFormat?: Intl.DateTimeFormatOptions | ((d: Date) => Content);
