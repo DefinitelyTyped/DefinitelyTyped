@@ -119,7 +119,7 @@ declare class USB extends EventTarget {
     removeEventListener(
         type: "connect" | "disconnect",
         callback: (this: this, ev: USBConnectionEvent) => any,
-        useCapture?: EventListenerOptions | boolean,
+        options?: EventListenerOptions | boolean,
     ): void;
     removeEventListener(
         type: string,
