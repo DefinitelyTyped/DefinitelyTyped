@@ -17,6 +17,13 @@ declare namespace GoogleAppsScriptOAuth2 {
          * Often this URI needs to be entered into a configuration screen of your OAuth provider.
          */
         getRedirectUri(scriptId?: string): string;
+        /**
+         * Gets the list of services with tokens stored in the given property store.
+         * This is useful if you connect to the same API with multiple accounts and
+         * need to keep track of them. If no stored tokens are found this will return
+         * an empty array.
+         */
+        getServiceNames(propertyStore: GoogleAppsScript.Properties.PropertiesService): string[];
     }
 
     interface Storage {
