@@ -4145,6 +4145,10 @@
             "libraryName": "marked",
             "asOfVersion": "6.0.0"
         },
+        "mastercard-oauth1-signer": {
+            "libraryName": "mastercard-oauth1-signer",
+            "asOfVersion": "1.2.0"
+        },
         "match-sorter": {
             "libraryName": "match-sorter",
             "asOfVersion": "6.0.0"
