@@ -217,6 +217,26 @@ declare namespace GoogleAppsScriptOAuth2 {
          * For Google services this URL should be `https://accounts.google.com/o/oauth2/token`.
          */
         setTokenUrl(tokenUrl: string): OAuth2Service;
+        /**
+         * Sets the HTTP method to use when retrieving or refreshing the access token.
+         * Default: `post`.
+         */
+        setTokenMethod(tokenMethod: string): OAuth2Service;
+        /**
+         * Set the code verifier used for PKCE. For most use cases,
+         * prefer `generateCodeVerifier` to automatically initialize the
+         * value with a generated challenge string.
+         */
+        setCodeVerififer(codeVerifier: string): OAuth2Service;
+        /**
+         * Sets the code verifier to a randomly generated challenge string.
+         */
+        generateCodeVerifier(): OAuth2Service;
+        /**
+         * Set the code challenge method for PKCE. The default value method
+         * when a code verifier is set is `S256`.
+         */
+        setCodeChallengeMethod(method: CodeChallengeMethod): OAuth2Service;
     }
 
     enum TokenFormat {
@@ -228,6 +248,11 @@ declare namespace GoogleAppsScriptOAuth2 {
          * Form URL-encoded, for example `access_token=...`.
          */
         FORM_URL_ENCODED = "application/x-www-form-urlencoded",
+    }
+
+    enum CodeChallengeMethod {
+        S256 = "S256",
+        PLAIN = "plain",
     }
 
     interface TokenPayload {
