@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/google-apps-script-oauth2",
-    "version": "38.0.9999",
+    "version": "43.0.9999",
     "nonNpm": true,
     "nonNpmDescription": "google-apps-script-oauth2",
     "projects": [
