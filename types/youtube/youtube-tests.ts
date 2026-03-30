@@ -1,3 +1,5 @@
+import * as YT from "youtube";
+
 const players: YT.Player[] = [
     new YT.Player(document.body, {}),
     new YT.Player(document.body, {
