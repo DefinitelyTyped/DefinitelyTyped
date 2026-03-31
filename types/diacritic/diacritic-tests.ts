@@ -1,12 +1,12 @@
-import diacritic = require("diacritic");
+import diacritics = require("diacritic");
 
-const cleaned = diacritic.clean("déjà vu");
+const cleaned = diacritics.clean("déjà vu");
 // $ExpectType string
 cleaned;
 
-const mapped = diacritic.map["é"];
+const mapped = diacritics.map["é"];
 // $ExpectType string
 mapped;
 
 // @ts-expect-error
-diacritic.clean(123);
+diacritics.clean(123);

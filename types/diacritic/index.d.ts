@@ -1,10 +1,10 @@
-export as namespace Diacritic;
+export as namespace Diacritics;
 
-interface DiacriticStatic {
+interface DiacriticsStatic {
     map: Record<string, string>;
     clean(input?: string | null): string;
 }
 
-declare const diacritic: DiacriticStatic;
+declare const diacritics: DiacriticsStatic;
 
-export = diacritic;
+export = diacritics;
