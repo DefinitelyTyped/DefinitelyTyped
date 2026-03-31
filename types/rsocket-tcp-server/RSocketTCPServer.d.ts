@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import * as EventEmitter from "events";
+import EventEmitter = require("events");
 import * as net from "net";
 import { Encoders, TransportServer } from "rsocket-core";
 import { Flowable } from "rsocket-flowable";

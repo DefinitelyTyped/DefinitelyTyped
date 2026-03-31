@@ -1,4 +1,4 @@
-import * as s from "should";
+import s = require("should");
 
 declare module "should" {
     interface Assertion {

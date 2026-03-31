@@ -1661,32 +1661,32 @@ declare namespace GoogleAppsScript {
         }
     }
     interface YouTube {
-        Activities?: YouTube.Collection.ActivitiesCollection | undefined;
-        Captions?: YouTube.Collection.CaptionsCollection | undefined;
-        ChannelBanners?: YouTube.Collection.ChannelBannersCollection | undefined;
-        ChannelSections?: YouTube.Collection.ChannelSectionsCollection | undefined;
-        Channels?: YouTube.Collection.ChannelsCollection | undefined;
-        CommentThreads?: YouTube.Collection.CommentThreadsCollection | undefined;
-        Comments?: YouTube.Collection.CommentsCollection | undefined;
-        GuideCategories?: YouTube.Collection.GuideCategoriesCollection | undefined;
-        I18nLanguages?: YouTube.Collection.I18nLanguagesCollection | undefined;
-        I18nRegions?: YouTube.Collection.I18nRegionsCollection | undefined;
-        LiveBroadcasts?: YouTube.Collection.LiveBroadcastsCollection | undefined;
-        LiveChatBans?: YouTube.Collection.LiveChatBansCollection | undefined;
-        LiveChatMessages?: YouTube.Collection.LiveChatMessagesCollection | undefined;
-        LiveChatModerators?: YouTube.Collection.LiveChatModeratorsCollection | undefined;
-        LiveStreams?: YouTube.Collection.LiveStreamsCollection | undefined;
-        PlaylistItems?: YouTube.Collection.PlaylistItemsCollection | undefined;
-        Playlists?: YouTube.Collection.PlaylistsCollection | undefined;
-        Search?: YouTube.Collection.SearchCollection | undefined;
-        Sponsors?: YouTube.Collection.SponsorsCollection | undefined;
-        Subscriptions?: YouTube.Collection.SubscriptionsCollection | undefined;
-        SuperChatEvents?: YouTube.Collection.SuperChatEventsCollection | undefined;
-        Thumbnails?: YouTube.Collection.ThumbnailsCollection | undefined;
-        VideoAbuseReportReasons?: YouTube.Collection.VideoAbuseReportReasonsCollection | undefined;
-        VideoCategories?: YouTube.Collection.VideoCategoriesCollection | undefined;
-        Videos?: YouTube.Collection.VideosCollection | undefined;
-        Watermarks?: YouTube.Collection.WatermarksCollection | undefined;
+        Activities: YouTube.Collection.ActivitiesCollection;
+        Captions: YouTube.Collection.CaptionsCollection;
+        ChannelBanners: YouTube.Collection.ChannelBannersCollection;
+        ChannelSections: YouTube.Collection.ChannelSectionsCollection;
+        Channels: YouTube.Collection.ChannelsCollection;
+        CommentThreads: YouTube.Collection.CommentThreadsCollection;
+        Comments: YouTube.Collection.CommentsCollection;
+        GuideCategories: YouTube.Collection.GuideCategoriesCollection;
+        I18nLanguages: YouTube.Collection.I18nLanguagesCollection;
+        I18nRegions: YouTube.Collection.I18nRegionsCollection;
+        LiveBroadcasts: YouTube.Collection.LiveBroadcastsCollection;
+        LiveChatBans: YouTube.Collection.LiveChatBansCollection;
+        LiveChatMessages: YouTube.Collection.LiveChatMessagesCollection;
+        LiveChatModerators: YouTube.Collection.LiveChatModeratorsCollection;
+        LiveStreams: YouTube.Collection.LiveStreamsCollection;
+        PlaylistItems: YouTube.Collection.PlaylistItemsCollection;
+        Playlists: YouTube.Collection.PlaylistsCollection;
+        Search: YouTube.Collection.SearchCollection;
+        Sponsors: YouTube.Collection.SponsorsCollection;
+        Subscriptions: YouTube.Collection.SubscriptionsCollection;
+        SuperChatEvents: YouTube.Collection.SuperChatEventsCollection;
+        Thumbnails: YouTube.Collection.ThumbnailsCollection;
+        VideoAbuseReportReasons: YouTube.Collection.VideoAbuseReportReasonsCollection;
+        VideoCategories: YouTube.Collection.VideoCategoriesCollection;
+        Videos: YouTube.Collection.VideosCollection;
+        Watermarks: YouTube.Collection.WatermarksCollection;
         // Create a new instance of AccessPolicy
         newAccessPolicy(): YouTube.Schema.AccessPolicy;
         // Create a new instance of Activity
@@ -1950,4 +1950,7 @@ declare namespace GoogleAppsScript {
     }
 }
 
-declare var YouTube: GoogleAppsScript.YouTube;
+/**
+ * The `YouTube` advanced service must be enabled.
+ */
+declare var YouTube: GoogleAppsScript.YouTube | undefined;

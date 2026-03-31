@@ -112,7 +112,7 @@ export enum GPUTextureFormat {
     // Packed 32-bit formats
     RGB9E5UFloat = "rgb9e5ufloat",
     RGB10A2Unorm = "rgb10a2unorm",
-    RG11B10UFloat = "rgb10a2unorm",
+    RG11B10UFloat = "rg11b10ufloat",
 
     // 64-bit formats
 
@@ -334,4 +334,9 @@ export enum GPUFeatureName {
     Subgroups = "subgroups",
     TextureFormatsTier1 = "texture-formats-tier1",
     TextureFormatsTier2 = "texture-formats-tier2",
+}
+
+export enum GPUFeatureMap {
+    "texture-compression-s3tc" = "texture-compression-bc",
+    "texture-compression-etc1" = "texture-compression-etc2",
 }

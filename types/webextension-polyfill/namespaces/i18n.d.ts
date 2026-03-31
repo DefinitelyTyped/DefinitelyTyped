@@ -61,6 +61,12 @@ export namespace I18n {
         getMessage(messageName: string, substitutions?: string[] | string): string;
 
         /**
+         * Gets the preferred locales of the operating system. This is different from the locales set in the browser; to get those,
+         * use $(ref:i18n.getAcceptLanguages).
+         */
+        getPreferredSystemLanguages(): Promise<LanguageCode[]>;
+
+        /**
          * Gets the browser UI language of the browser. This is different from $(ref:i18n.getAcceptLanguages)
          * which returns the preferred user languages.
          *

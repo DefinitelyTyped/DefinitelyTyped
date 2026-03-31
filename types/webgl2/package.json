@@ -2,7 +2,7 @@
     "private": true,
     "name": "@types/webgl2",
     "version": "0.0.9999",
-    "nonNpm": true,
+    "nonNpm": "conflict",
     "nonNpmDescription": "webgl2",
     "projects": [
         "https://www.khronos.org/registry/webgl/specs/latest/2.0/"

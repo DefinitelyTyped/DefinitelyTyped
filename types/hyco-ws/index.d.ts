@@ -1,7 +1,7 @@
 /// <reference types="node" />
 
 import { EventEmitter } from "events";
-import * as WebSocket from "ws";
+import WebSocket = require("ws");
 
 export class HybridConnectionWebSocketServer extends EventEmitter {
     constructor(options: any);

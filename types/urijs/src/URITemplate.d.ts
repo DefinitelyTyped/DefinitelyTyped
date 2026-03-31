@@ -1,4 +1,4 @@
-import * as URI from "../";
+import URI = require("../");
 
 export = URITemplate;
 export as namespace URITemplate;

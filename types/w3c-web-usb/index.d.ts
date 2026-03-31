@@ -39,7 +39,7 @@ interface USBConnectionEventInit extends EventInit {
 
 declare class USBConfiguration {
     readonly configurationValue: number;
-    readonly configurationName?: string | undefined;
+    readonly configurationName: string | null;
     readonly interfaces: USBInterface[];
 }
 
@@ -57,14 +57,14 @@ declare class USBAlternateInterface {
     readonly interfaceClass: number;
     readonly interfaceSubclass: number;
     readonly interfaceProtocol: number;
-    readonly interfaceName?: string | undefined;
+    readonly interfaceName: string | null;
     readonly endpoints: USBEndpoint[];
 }
 
 declare class USBInTransferResult {
     constructor(status: USBTransferStatus, data?: DataView);
     readonly data?: DataView | undefined;
-    readonly status?: USBTransferStatus | undefined;
+    readonly status: USBTransferStatus;
 }
 
 declare class USBOutTransferResult {
@@ -76,7 +76,7 @@ declare class USBOutTransferResult {
 declare class USBIsochronousInTransferPacket {
     constructor(status: USBTransferStatus, data?: DataView);
     readonly data?: DataView | undefined;
-    readonly status?: USBTransferStatus | undefined;
+    readonly status: USBTransferStatus;
 }
 
 declare class USBIsochronousInTransferResult {
@@ -109,7 +109,7 @@ declare class USB extends EventTarget {
     addEventListener(
         type: "connect" | "disconnect",
         listener: (this: this, ev: USBConnectionEvent) => any,
-        useCapture?: boolean,
+        options?: boolean | AddEventListenerOptions,
     ): void;
     addEventListener(
         type: string,
@@ -119,7 +119,7 @@ declare class USB extends EventTarget {
     removeEventListener(
         type: "connect" | "disconnect",
         callback: (this: this, ev: USBConnectionEvent) => any,
-        useCapture?: boolean,
+        options?: EventListenerOptions | boolean,
     ): void;
     removeEventListener(
         type: string,
@@ -140,10 +140,10 @@ declare class USBDevice {
     readonly deviceVersionMajor: number;
     readonly deviceVersionMinor: number;
     readonly deviceVersionSubminor: number;
-    readonly manufacturerName?: string | undefined;
-    readonly productName?: string | undefined;
-    readonly serialNumber?: string | undefined;
-    readonly configuration?: USBConfiguration | undefined;
+    readonly manufacturerName: string | null;
+    readonly productName: string | null;
+    readonly serialNumber: string | null;
+    readonly configuration: USBConfiguration | null;
     readonly configurations: USBConfiguration[];
     readonly opened: boolean;
     open(): Promise<void>;
@@ -168,5 +168,9 @@ declare class USBDevice {
 }
 
 interface Navigator {
+    readonly usb: USB;
+}
+
+interface WorkerNavigator {
     readonly usb: USB;
 }

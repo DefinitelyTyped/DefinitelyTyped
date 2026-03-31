@@ -1,4 +1,4 @@
-import * as CodeMirror from "codemirror";
+import CodeMirror from "codemirror";
 import "codemirror/addon/search/matchesonscrollbar";
 
 const myCodeMirror: CodeMirror.Editor = CodeMirror(document.body, {

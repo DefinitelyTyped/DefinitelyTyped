@@ -1,4 +1,4 @@
-import * as editJsonFile from "edit-json-file";
+import editJsonFile from "edit-json-file";
 
 const jsonEditor: editJsonFile.JsonEditor = editJsonFile("1.json"); // $ExpectType JsonEditor
 jsonEditor.set("a", 2); // $ExpectType JsonEditor

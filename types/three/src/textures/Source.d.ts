@@ -19,7 +19,7 @@ export class SourceJSON {
  * @see {@link https://threejs.org/docs/index.html#api/en/textures/Source | Official Documentation}
  * @see {@link https://github.com/mrdoob/three.js/blob/master/src/textures/Source.js | Source}
  */
-export class Source {
+export class Source<TData> {
     /**
      * Flag to check if a given object is of type {@link Source}.
      * @remarks This is a _constant_ value
@@ -39,7 +39,7 @@ export class Source {
      * The actual data of a texture.
      * @remarks The type of this property depends on the texture that uses this instance.
      */
-    data: any;
+    data: TData;
 
     /**
      * This property is only relevant when {@link .needsUpdate} is set to `true` and provides more control on how
@@ -61,7 +61,7 @@ export class Source {
      * Create a new instance of {@link Source}
      * @param data The data definition of a texture. Default `null`
      */
-    constructor(data: any);
+    constructor(data: TData);
 
     getSize(target: Vector3): Vector3;
 

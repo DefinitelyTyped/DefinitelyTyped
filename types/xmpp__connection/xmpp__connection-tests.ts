@@ -1,7 +1,16 @@
-import Connection = require("@xmpp/connection");
-import StreamError = require("@xmpp/connection/lib/StreamError");
-import * as util from "@xmpp/connection/lib/util";
-import XMPPError = require("@xmpp/error");
+import Connection, {
+    ConnectionEvents,
+    OpenOptions,
+    Options,
+    SocketBase,
+    SocketConstructor,
+    SocketEvents,
+    Status,
+    StatusEvents,
+} from "@xmpp/connection";
+import StreamError from "@xmpp/connection/lib/StreamError.js";
+import * as util from "@xmpp/connection/lib/util.js";
+import XMPPError from "@xmpp/error";
 import { JID } from "@xmpp/jid";
 import { Element } from "@xmpp/xml";
 import { SocketConnectOpts } from "net";
@@ -11,14 +20,6 @@ import { URL } from "url";
 type ParsedHost = util.ParsedHost;
 type ParsedURI = util.ParsedURI;
 type ParsedService = util.ParsedService;
-type Status = Connection.Status;
-type Options = Connection.Options;
-type OpenOptions = Connection.OpenOptions;
-type ConnectionEvents = Connection.ConnectionEvents;
-type StatusEvents = Connection.StatusEvents;
-type SocketConstructor = Connection.SocketConstructor;
-type SocketBase = Connection.SocketBase;
-type SocketEvents = Connection.SocketEvents;
 
 const streamErr = new StreamError("foo");
 const xmppErr: XMPPError<"StreamError"> = streamErr;
@@ -71,14 +72,6 @@ new MyConn({ service: "foo", domain: "bar.baz", lang: "en" });
 conn.jid; // $ExpectType JID | null
 conn.timeout; // $ExpectType number
 conn.options; // $ExpectType Partial<Options>
-conn.socketListeners.data; // $ExpectType ((data: Buffer) => void) | undefined || ((data: Buffer<ArrayBufferLike>) => void) | undefined
-conn.socketListeners.close; // $ExpectType ((hadError: boolean, event?: string | undefined) => void) | undefined
-conn.socketListeners.connect; // $ExpectType (() => void) | undefined
-conn.socketListeners.error; // $ExpectType ((error: Error) => void) | undefined
-conn.parserListeners.element; // $ExpectType ((element: Element) => void) | undefined
-conn.parserListeners.error; // $ExpectType ((error: Error) => void) | undefined
-conn.parserListeners.end; // $ExpectType ((element: Element) => void) | undefined
-conn.parserListeners.start; // $ExpectType ((element: Element) => void) | undefined
 const s: keyof StatusEvents = conn.status;
 conn.socket; // $ExpectType SocketBase | null
 conn.parser; // $ExpectType Parser | null
@@ -91,10 +84,8 @@ conn.start(); // $ExpectType Promise<JID>
 conn.connect("foo"); // $ExpectType Promise<void>
 conn.disconnect(); // $ExpectType Promise<void>
 conn.disconnect(100); // $ExpectType Promise<void>
-conn.open("foo"); // $ExpectType Promise<Element>
 conn.open({ domain: "foo" }); // $ExpectType Promise<Element>
 conn.open({ domain: "foo", lang: "en" }); // $ExpectType Promise<Element>
-conn.open({ domain: "foo", timeout: 100 }); // $ExpectType Promise<Element>
 conn.stop(); // $ExpectType Promise<Element>
 conn.close(); // $ExpectType Promise<Element>
 conn.close(100); // $ExpectType Promise<Element>

@@ -1,4 +1,4 @@
-import * as _ from "underscore";
+import _ = require("underscore");
 
 declare var self: _.UnderscoreStringStatic;
 export = self;

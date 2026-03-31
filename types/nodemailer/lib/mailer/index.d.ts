@@ -97,7 +97,7 @@ declare namespace Mail {
 
     interface Options {
         /** The e-mail address of the sender. All e-mail addresses can be plain 'sender@server.com' or formatted 'Sender Name <sender@server.com>' */
-        from?: string | Address | undefined;
+        from?: string | Address | Array<string | Address> | undefined;
         /** An e-mail address that will appear on the Sender: field */
         sender?: string | Address | undefined;
         /** Comma separated list or an array of recipients e-mail addresses that will appear on the To: field */
@@ -155,6 +155,8 @@ declare namespace Mail {
         priority?: "high" | "normal" | "low" | undefined;
         /** if set to true then converts data:images in the HTML content of message to embedded attachments */
         attachDataUrls?: boolean | undefined;
+        /** if set to false then removes x-mailer header, otherwise replaces the default x-mailer header value **/
+        xMailer?: false | string;
     }
 
     type PluginFunction<T = any> = (mail: MailMessage<T>, callback: (err?: Error | null) => void) => void;
@@ -188,7 +190,12 @@ declare class Mail<T = any, DefaultTransportOptions = TransportOptions> extends 
     use(step: string, plugin: Mail.PluginFunction<T>): this;
 
     /** Sends an email using the preselected transport object */
+    sendMail(
+        mailOptions: Mail.Options & Partial<DefaultTransportOptions>,
+        callback: (err: Error | null, info: T) => void,
+    ): void;
     sendMail(mailOptions: Mail.Options, callback: (err: Error | null, info: T) => void): void;
+    sendMail(mailOptions: Mail.Options & Partial<DefaultTransportOptions>): Promise<T>;
     sendMail(mailOptions: Mail.Options): Promise<T>;
 
     getVersionString(): string;

@@ -7,7 +7,7 @@
     ],
     "dependencies": {
         "@types/geojson": "*",
-        "@types/mapbox-gl": "*",
+        "@types/mapbox-gl": "<3.5",
         "@types/react": "*",
         "@types/viewport-mercator-project": "*"
     },

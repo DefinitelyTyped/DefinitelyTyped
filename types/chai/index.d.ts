@@ -1,26 +1,27 @@
 import deepEqual = require("deep-eql");
+import { AssertionError as ImportedAssertionError } from "assertion-error";
 
 declare global {
     namespace Chai {
-        type Message = string | (() => string);
-        type ObjectProperty = string | symbol | number;
+        export type Message = string | (() => string);
+        export type ObjectProperty = string | symbol | number;
 
-        interface PathInfo {
+        export interface PathInfo {
             parent: object;
             name: string;
             value?: any;
             exists: boolean;
         }
 
-        interface Constructor<T> {
+        export interface Constructor<T> {
             new(...args: any[]): T;
         }
 
-        interface ErrorConstructor {
+        export interface ErrorConstructor {
             new(...args: any[]): Error;
         }
 
-        interface ChaiUtils {
+        export interface ChaiUtils {
             addChainableMethod(
                 // object to define the method on, e.g. chai.Assertion.prototype
                 ctx: object,
@@ -76,9 +77,9 @@ declare global {
             eql: typeof deepEqual;
         }
 
-        type ChaiPlugin = (chai: ChaiStatic, utils: ChaiUtils) => void;
+        export type ChaiPlugin = (chai: ChaiStatic, utils: ChaiUtils) => void;
 
-        interface ChaiStatic {
+        export interface ChaiStatic {
             expect: ExpectStatic;
             should(): Should;
             /**
@@ -103,7 +104,7 @@ declare global {
         }
 
         // chai.Assertion.prototype.assert arguments
-        type AssertionArgs = [
+        export type AssertionArgs = [
             any, // expression to be tested
             Message, // message or function that returns message to display if expression fails
             Message, // negatedMessage or function that returns negatedMessage to display if expression fails
@@ -147,25 +148,25 @@ declare global {
 
         export type OperatorComparable = boolean | null | number | string | undefined | Date;
 
-        interface ShouldAssertion {
+        export interface ShouldAssertion {
             equal(value1: any, value2: any, message?: string): void;
             Throw: ShouldThrow;
             throw: ShouldThrow;
             exist(value: any, message?: string): void;
         }
 
-        interface Should extends ShouldAssertion {
+        export interface Should extends ShouldAssertion {
             not: ShouldAssertion;
             fail(message?: string): never;
             fail(actual: any, expected: any, message?: string, operator?: Operator): never;
         }
 
-        interface ShouldThrow {
+        export interface ShouldThrow {
             (actual: Function, expected?: string | RegExp, message?: string): void;
             (actual: Function, constructor: Error | Function, expected?: string | RegExp, message?: string): void;
         }
 
-        interface Assertion extends LanguageChains, NumericComparison, TypeComparison {
+        export interface Assertion extends LanguageChains, NumericComparison, TypeComparison {
             not: Assertion;
             deep: Deep;
             ordered: Ordered;
@@ -231,7 +232,7 @@ declare global {
             oneOf: OneOf;
         }
 
-        interface LanguageChains {
+        export interface LanguageChains {
             to: Assertion;
             be: Assertion;
             been: Assertion;
@@ -249,7 +250,7 @@ declare global {
             does: Assertion;
         }
 
-        interface NumericComparison {
+        export interface NumericComparison {
             above: NumberComparer;
             gt: NumberComparer;
             greaterThan: NumberComparer;
@@ -266,25 +267,25 @@ declare global {
             within(start: Date, finish: Date, message?: string): Assertion;
         }
 
-        interface NumberComparer {
+        export interface NumberComparer {
             (value: number | Date, message?: string): Assertion;
         }
 
-        interface TypeComparison {
+        export interface TypeComparison {
             (type: string, message?: string): Assertion;
             instanceof: InstanceOf;
             instanceOf: InstanceOf;
         }
 
-        interface InstanceOf {
+        export interface InstanceOf {
             (constructor: any, message?: string): Assertion;
         }
 
-        interface CloseTo {
+        export interface CloseTo {
             (expected: number, delta: number, message?: string): Assertion;
         }
 
-        interface Nested {
+        export interface Nested {
             include: Include;
             includes: Include;
             contain: Include;
@@ -293,7 +294,7 @@ declare global {
             members: Members;
         }
 
-        interface Own {
+        export interface Own {
             include: Include;
             includes: Include;
             contain: Include;
@@ -301,7 +302,7 @@ declare global {
             property: Property;
         }
 
-        interface Deep extends KeyFilter {
+        export interface Deep extends KeyFilter {
             be: Assertion;
             equal: Equal;
             equals: Equal;
@@ -317,38 +318,38 @@ declare global {
             own: Own;
         }
 
-        interface Ordered {
+        export interface Ordered {
             members: Members;
         }
 
-        interface KeyFilter {
+        export interface KeyFilter {
             keys: Keys;
             members: Members;
         }
 
-        interface Equal {
+        export interface Equal {
             (value: any, message?: string): Assertion;
         }
 
-        interface ContainSubset {
+        export interface ContainSubset {
             (expected: any): Assertion;
         }
 
-        interface Property {
+        export interface Property {
             (name: string | symbol, value: any, message?: string): Assertion;
             (name: string | symbol, message?: string): Assertion;
         }
 
-        interface OwnPropertyDescriptor {
+        export interface OwnPropertyDescriptor {
             (name: string | symbol, descriptor: PropertyDescriptor, message?: string): Assertion;
             (name: string | symbol, message?: string): Assertion;
         }
 
-        interface Length extends LanguageChains, NumericComparison {
+        export interface Length extends LanguageChains, NumericComparison {
             (length: number, message?: string): Assertion;
         }
 
-        interface Include {
+        export interface Include {
             (value: any, message?: string): Assertion;
             keys: Keys;
             deep: Deep;
@@ -359,41 +360,41 @@ declare global {
             oneOf: OneOf;
         }
 
-        interface OneOf {
+        export interface OneOf {
             (list: readonly unknown[], message?: string): Assertion;
         }
 
-        interface Match {
+        export interface Match {
             (regexp: RegExp, message?: string): Assertion;
         }
 
-        interface Keys {
+        export interface Keys {
             (...keys: string[]): Assertion;
             (keys: readonly any[] | Object): Assertion;
         }
 
-        interface Throw {
+        export interface Throw {
             (expected?: string | RegExp, message?: string): Assertion;
             (constructor: Error | Function, expected?: string | RegExp, message?: string): Assertion;
         }
 
-        interface RespondTo {
+        export interface RespondTo {
             (method: string, message?: string): Assertion;
         }
 
-        interface Satisfy {
+        export interface Satisfy {
             (matcher: Function, message?: string): Assertion;
         }
 
-        interface Members {
+        export interface Members {
             (set: readonly any[], message?: string): Assertion;
         }
 
-        interface PropertyChange {
+        export interface PropertyChange {
             (object: Object, property?: string, message?: string): DeltaAssertion;
         }
 
-        interface DeltaAssertion extends Assertion {
+        export interface DeltaAssertion extends Assertion {
             by(delta: number, msg?: string): Assertion;
         }
 
@@ -2128,13 +2129,7 @@ declare global {
             deepEqual: <L, R>(expected: L, actual: R) => void;
         }
 
-        export class AssertionError {
-            constructor(message: string, _props?: any, ssf?: Function);
-            name: string;
-            message: string;
-            showDiff: boolean;
-            stack: string;
-        }
+        export type { ImportedAssertionError as AssertionError };
     }
 }
 
@@ -2143,6 +2138,7 @@ export function use(fn: Chai.ChaiPlugin): Chai.ChaiStatic;
 export const util: Chai.ChaiUtils;
 export const config: Chai.Config;
 export const Assertion: Chai.AssertionStatic;
+export const AssertionError: typeof ImportedAssertionError;
 export function should(): Chai.Should;
 export function Should(): Chai.Should;
 export const assert: Chai.AssertStatic;

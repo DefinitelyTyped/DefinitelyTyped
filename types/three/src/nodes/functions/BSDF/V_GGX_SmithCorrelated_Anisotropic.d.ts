@@ -1,6 +1,5 @@
 import Node from "../../core/Node.js";
 import MathNode from "../../math/MathNode.js";
-import { ShaderNodeObject } from "../../tsl/TSLCore.js";
 
 declare const V_GGX_SmithCorrelated: (inputs: {
     alphaT: Node;
@@ -11,6 +10,6 @@ declare const V_GGX_SmithCorrelated: (inputs: {
     dotBL: Node;
     dotNV: Node;
     dotNL: Node;
-}) => ShaderNodeObject<MathNode>;
+}) => MathNode;
 
 export default V_GGX_SmithCorrelated;

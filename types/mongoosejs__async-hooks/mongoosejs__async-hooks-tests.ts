@@ -1,4 +1,4 @@
-import * as hooks from "@mongoosejs/async-hooks";
+import hooks from "@mongoosejs/async-hooks";
 import { Schema } from "mongoose";
 
 function func(schema: Schema) {

@@ -1,5 +1,5 @@
 import * as fs from "fs";
-import * as Zopfli from "node-zopfli-es";
+import Zopfli from "node-zopfli-es";
 
 const opts: Zopfli.Options = {
     verbose: true,

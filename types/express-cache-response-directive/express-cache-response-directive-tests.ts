@@ -1,5 +1,5 @@
 import cacheResponseDirective = require("express-cache-response-directive");
-import * as express from "express";
+import express from "express";
 
 cacheResponseDirective(); // $ExpectType RequestHandler<ParamsDictionary, any, any, ParsedQs, Record<string, any>>
 

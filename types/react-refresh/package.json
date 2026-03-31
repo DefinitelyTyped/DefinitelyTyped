@@ -24,7 +24,7 @@
     },
     "dependencies": {
         "@types/babel__core": "*",
-        "csstype": "^3.0.2"
+        "csstype": "^3.2.2"
     },
     "devDependencies": {
         "@types/react-refresh": "workspace:."

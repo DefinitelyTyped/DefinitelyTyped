@@ -28,6 +28,7 @@ declare class XMLStreamReader {
     isProcessingInstruction(): boolean;
     isDTD(): boolean;
     isCData(): boolean;
+    isGeneralRef(): boolean;
     hasError(): boolean;
     done: boolean;
 }

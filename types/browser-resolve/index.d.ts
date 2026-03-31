@@ -1,4 +1,4 @@
-import * as resv from "resolve";
+import resv = require("resolve");
 
 /**
  * Resolve a module path and call cb(err, path)

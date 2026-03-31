@@ -1,4 +1,4 @@
-import * as json2mq from "json2mq";
+import json2mq from "json2mq";
 
 json2mq({ screen: true }); // -> 'screen'
 

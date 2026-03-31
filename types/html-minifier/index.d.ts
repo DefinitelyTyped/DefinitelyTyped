@@ -1,5 +1,5 @@
-import * as CleanCSS from "clean-css";
-import * as RelateUrl from "relateurl";
+import CleanCSS = require("clean-css");
+import RelateUrl = require("relateurl");
 import * as UglifyJS from "uglify-js";
 
 export function minify(text: string, options?: Options): string;

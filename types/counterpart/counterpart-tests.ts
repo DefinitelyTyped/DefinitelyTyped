@@ -1,4 +1,4 @@
-import * as counterpart from "counterpart";
+import counterpart from "counterpart";
 
 counterpart("translation.to.be.used");
 counterpart(["translation", "to", "be", "used"]);

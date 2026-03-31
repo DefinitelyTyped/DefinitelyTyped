@@ -1,10 +1,10 @@
 /// <reference types="node" />
 
-import * as events from "events";
+import events = require("events");
 import * as http from "http";
 import * as https from "https";
 import * as net from "net";
-import * as stream from "stream";
+import stream = require("stream");
 import * as url from "url";
 
 interface ProxyTargetDetailed {

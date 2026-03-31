@@ -34,6 +34,7 @@ export type BinaryType = "arraybuffer" | "blob";
 export type ConnectionState = "connecting" | "open" | "closing" | "closed";
 
 export interface SocketConnectOption {
+    authToken: string;
     binaryType: BinaryType;
     params: object | (() => object);
     transport: new(endpoint: string) => object;

@@ -115,6 +115,11 @@ export namespace BrowserSettings {
          */
         zoomSiteSpecific: Types.Setting;
 
+        /**
+         * This boolean setting controls whether vertical tabs are enabled.
+         */
+        verticalTabs: Types.Setting;
+
         colorManagement: BrowserSettingsColorManagement.Static;
     }
 }

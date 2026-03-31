@@ -993,4 +993,4 @@ export const my: {
     Schema?: any;
     bootstrapper?: any;
 };
-export const require: NodeRequire;
+export const require: NodeJS.Require;

@@ -1,4 +1,4 @@
-import * as L from "leaflet";
+import L from "leaflet";
 
 const token = "token";
 

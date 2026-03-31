@@ -5,7 +5,7 @@
     },
     "devDependencies": {
         "@khanacademy/flow-to-ts": "^0.5.2",
-        "facebook-nodejs-business-sdk": "^22.0.1",
+        "facebook-nodejs-business-sdk": "^23.0.1",
         "typescript": "^5.8.3"
     }
 }

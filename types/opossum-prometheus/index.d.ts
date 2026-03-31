@@ -1,4 +1,4 @@
-import type * as CircuitBreaker from "opossum";
+import CircuitBreaker = require("opossum");
 import type { Registry } from "prom-client";
 
 /**

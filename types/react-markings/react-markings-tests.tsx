@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as md from "react-markings";
+import md from "react-markings";
 
 function Example() {
     return (

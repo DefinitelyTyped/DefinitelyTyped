@@ -1,7 +1,7 @@
-import * as express from "express";
+import express from "express";
 const app = express();
 
-import * as SignalFxCollect from "signalfx-collect";
+import SignalFxCollect from "signalfx-collect";
 
 const config1: SignalFxCollect.Config = {
     accessToken: "MY_ACCESS_TOKEN",

@@ -12,10 +12,10 @@ interface shapeDescription {
 class Shape extends Sprite {
     shapes: shapeDescription[];
     // current shape
-    shape: shapeDescription;
-    shapeName: string;
+    shape!: shapeDescription;
+    shapeName!: string;
     // current shape rotation
-    rotation: number;
+    rotation!: number;
 
     constructor(name: string, options = {}) {
         super(name, {

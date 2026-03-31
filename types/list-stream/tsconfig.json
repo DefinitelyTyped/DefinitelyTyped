@@ -10,8 +10,7 @@
         "strictFunctionTypes": true,
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "test/import-tests.ts",

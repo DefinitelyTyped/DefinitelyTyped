@@ -1,4 +1,4 @@
-import * as VMasker from "vanilla-masker";
+import VMasker from "vanilla-masker";
 
 // Masking input element to money.
 const el = document.querySelector("data-js-input") as Element;

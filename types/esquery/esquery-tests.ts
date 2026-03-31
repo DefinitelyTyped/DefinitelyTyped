@@ -1,5 +1,5 @@
 import * as esprima from "esprima";
-import * as esquery from "esquery";
+import esquery from "esquery";
 
 const AST = esprima.parseScript(`const x = 2;
 function f (n) {

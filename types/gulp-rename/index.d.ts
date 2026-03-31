@@ -1,5 +1,5 @@
 /// <reference types="node"/>
-import * as File from "vinyl";
+import File = require("vinyl");
 
 declare namespace rename {
     interface ParsedPath {

@@ -40,13 +40,12 @@
  * ```
  * @since v22.5.0
  * @experimental
- * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/sqlite.js)
+ * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/sqlite.js)
  */
 declare module "node:sqlite" {
+    import { PathLike } from "node:fs";
     type SQLInputValue = null | number | bigint | string | NodeJS.ArrayBufferView;
-    type SQLOutputValue = null | number | bigint | string | Uint8Array;
-    /** @deprecated Use `SQLInputValue` or `SQLOutputValue` instead. */
-    type SupportedValueType = SQLOutputValue;
+    type SQLOutputValue = null | number | bigint | string | NodeJS.NonSharedUint8Array;
     interface DatabaseSyncOptions {
         /**
          * If `true`, the database is opened by the constructor. When
@@ -97,6 +96,41 @@ declare module "node:sqlite" {
          * @default 0
          */
         timeout?: number | undefined;
+        /**
+         * If `true`, integer fields are read as JavaScript `BigInt` values. If `false`,
+         * integer fields are read as JavaScript numbers.
+         * @since v24.4.0
+         * @default false
+         */
+        readBigInts?: boolean | undefined;
+        /**
+         * If `true`, query results are returned as arrays instead of objects.
+         * @since v24.4.0
+         * @default false
+         */
+        returnArrays?: boolean | undefined;
+        /**
+         * If `true`, allows binding named parameters without the prefix
+         * character (e.g., `foo` instead of `:foo`).
+         * @since v24.4.40
+         * @default true
+         */
+        allowBareNamedParameters?: boolean | undefined;
+        /**
+         * If `true`, unknown named parameters are ignored when binding.
+         * If `false`, an exception is thrown for unknown named parameters.
+         * @since v24.4.40
+         * @default false
+         */
+        allowUnknownNamedParameters?: boolean | undefined;
+        /**
+         * If `true`, enables the defensive flag. When the defensive flag is enabled,
+         * language features that allow ordinary SQL to deliberately corrupt the database file are disabled.
+         * The defensive flag can also be set using `enableDefensive()`.
+         * @since v25.1.0
+         * @default true
+         */
+        defensive?: boolean | undefined;
     }
     interface CreateSessionOptions {
         /**
@@ -199,6 +233,28 @@ declare module "node:sqlite" {
          */
         inverse?: ((accumulator: T, ...args: SQLOutputValue[]) => T) | undefined;
     }
+    interface PrepareOptions {
+        /**
+         * If `true`, integer fields are read as `BigInt`s.
+         * @since v25.5.0
+         */
+        readBigInts?: boolean | undefined;
+        /**
+         * If `true`, results are returned as arrays.
+         * @since v25.5.0
+         */
+        returnArrays?: boolean | undefined;
+        /**
+         * If `true`, allows binding named parameters without the prefix character.
+         * @since v25.5.0
+         */
+        allowBareNamedParameters?: boolean | undefined;
+        /**
+         * If `true`, unknown named parameters are ignored.
+         * @since v25.5.0
+         */
+        allowUnknownNamedParameters?: boolean | undefined;
+    }
     /**
      * This class represents a single [connection](https://www.sqlite.org/c3ref/sqlite3.html) to a SQLite database. All APIs
      * exposed by this class execute synchronously.
@@ -213,7 +269,7 @@ declare module "node:sqlite" {
          * To use an in-memory database, the path should be the special name `':memory:'`.
          * @param options Configuration options for the database connection.
          */
-        constructor(path: string | Buffer | URL, options?: DatabaseSyncOptions);
+        constructor(path: PathLike, options?: DatabaseSyncOptions);
         /**
          * Registers a new aggregate function with the SQLite database. This method is a wrapper around
          * [`sqlite3_create_window_function()`](https://www.sqlite.org/c3ref/create_function.html).
@@ -269,6 +325,14 @@ declare module "node:sqlite" {
          */
         enableLoadExtension(allow: boolean): void;
         /**
+         * Enables or disables the defensive flag. When the defensive flag is active,
+         * language features that allow ordinary SQL to deliberately corrupt the database file are disabled.
+         * See [`SQLITE_DBCONFIG_DEFENSIVE`](https://www.sqlite.org/c3ref/c_dbconfig_defensive.html#sqlitedbconfigdefensive) in the SQLite documentation for details.
+         * @since v25.1.0
+         * @param active Whether to set the defensive flag.
+         */
+        enableDefensive(active: boolean): void;
+        /**
          * This method is a wrapper around [`sqlite3_db_filename()`](https://sqlite.org/c3ref/db_filename.html)
          * @since v24.0.0
          * @param dbName Name of the database. This can be `'main'` (the default primary database) or any other
@@ -294,7 +358,7 @@ declare module "node:sqlite" {
          * @param func The JavaScript function to call when the SQLite
          * function is invoked. The return value of this function should be a valid
          * SQLite data type: see
-         * [Type conversion between JavaScript and SQLite](https://nodejs.org/docs/latest-v24.x/api/sqlite.html#type-conversion-between-javascript-and-sqlite).
+         * [Type conversion between JavaScript and SQLite](https://nodejs.org/docs/latest-v25.x/api/sqlite.html#type-conversion-between-javascript-and-sqlite).
          * The result defaults to `NULL` if the return value is `undefined`.
          */
         function(
@@ -303,6 +367,64 @@ declare module "node:sqlite" {
             func: (...args: SQLOutputValue[]) => SQLInputValue,
         ): void;
         function(name: string, func: (...args: SQLOutputValue[]) => SQLInputValue): void;
+        /**
+         * Sets an authorizer callback that SQLite will invoke whenever it attempts to
+         * access data or modify the database schema through prepared statements.
+         * This can be used to implement security policies, audit access, or restrict certain operations.
+         * This method is a wrapper around [`sqlite3_set_authorizer()`](https://sqlite.org/c3ref/set_authorizer.html).
+         *
+         * When invoked, the callback receives five arguments:
+         *
+         * * `actionCode` {number} The type of operation being performed (e.g.,
+         *   `SQLITE_INSERT`, `SQLITE_UPDATE`, `SQLITE_SELECT`).
+         * * `arg1` {string|null} The first argument (context-dependent, often a table name).
+         * * `arg2` {string|null} The second argument (context-dependent, often a column name).
+         * * `dbName` {string|null} The name of the database.
+         * * `triggerOrView` {string|null} The name of the trigger or view causing the access.
+         *
+         * The callback must return one of the following constants:
+         *
+         * * `SQLITE_OK` - Allow the operation.
+         * * `SQLITE_DENY` - Deny the operation (causes an error).
+         * * `SQLITE_IGNORE` - Ignore the operation (silently skip).
+         *
+         * ```js
+         * import { DatabaseSync, constants } from 'node:sqlite';
+         * const db = new DatabaseSync(':memory:');
+         *
+         * // Set up an authorizer that denies all table creation
+         * db.setAuthorizer((actionCode) => {
+         *   if (actionCode === constants.SQLITE_CREATE_TABLE) {
+         *     return constants.SQLITE_DENY;
+         *   }
+         *   return constants.SQLITE_OK;
+         * });
+         *
+         * // This will work
+         * db.prepare('SELECT 1').get();
+         *
+         * // This will throw an error due to authorization denial
+         * try {
+         *   db.exec('CREATE TABLE blocked (id INTEGER)');
+         * } catch (err) {
+         *   console.log('Operation blocked:', err.message);
+         * }
+         * ```
+         * @since v24.10.0
+         * @param callback The authorizer function to set, or `null` to
+         * clear the current authorizer.
+         */
+        setAuthorizer(
+            callback:
+                | ((
+                    actionCode: number,
+                    arg1: string | null,
+                    arg2: string | null,
+                    dbName: string | null,
+                    triggerOrView: string | null,
+                ) => number)
+                | null,
+        ): void;
         /**
          * Whether the database is currently open or not.
          * @since v22.15.0
@@ -325,9 +447,104 @@ declare module "node:sqlite" {
          * around [`sqlite3_prepare_v2()`](https://www.sqlite.org/c3ref/prepare.html).
          * @since v22.5.0
          * @param sql A SQL string to compile to a prepared statement.
+         * @param options Optional configuration for the prepared statement.
          * @return The prepared statement.
          */
-        prepare(sql: string): StatementSync;
+        prepare(sql: string, options?: PrepareOptions): StatementSync;
+        /**
+         * Creates a new {@link SQLTagStore}, which is a Least Recently Used (LRU) cache
+         * for storing prepared statements. This allows for the efficient reuse of
+         * prepared statements by tagging them with a unique identifier.
+         *
+         * When a tagged SQL literal is executed, the `SQLTagStore` checks if a prepared
+         * statement for the corresponding SQL query string already exists in the cache.
+         * If it does, the cached statement is used. If not, a new prepared statement is
+         * created, executed, and then stored in the cache for future use. This mechanism
+         * helps to avoid the overhead of repeatedly parsing and preparing the same SQL
+         * statements.
+         *
+         * Tagged statements bind the placeholder values from the template literal as
+         * parameters to the underlying prepared statement. For example:
+         *
+         * ```js
+         * sqlTagStore.get`SELECT ${value}`;
+         * ```
+         *
+         * is equivalent to:
+         *
+         * ```js
+         * db.prepare('SELECT ?').get(value);
+         * ```
+         *
+         * However, in the first example, the tag store will cache the underlying prepared
+         * statement for future use.
+         *
+         * > **Note:** The `${value}` syntax in tagged statements _binds_ a parameter to
+         * > the prepared statement. This differs from its behavior in _untagged_ template
+         * > literals, where it performs string interpolation.
+         * >
+         * > ```js
+         * > // This a safe example of binding a parameter to a tagged statement.
+         * > sqlTagStore.run`INSERT INTO t1 (id) VALUES (${id})`;
+         * >
+         * > // This is an *unsafe* example of an untagged template string.
+         * > // `id` is interpolated into the query text as a string.
+         * > // This can lead to SQL injection and data corruption.
+         * > db.run(`INSERT INTO t1 (id) VALUES (${id})`);
+         * > ```
+         *
+         * The tag store will match a statement from the cache if the query strings
+         * (including the positions of any bound placeholders) are identical.
+         *
+         * ```js
+         * // The following statements will match in the cache:
+         * sqlTagStore.get`SELECT * FROM t1 WHERE id = ${id} AND active = 1`;
+         * sqlTagStore.get`SELECT * FROM t1 WHERE id = ${12345} AND active = 1`;
+         *
+         * // The following statements will not match, as the query strings
+         * // and bound placeholders differ:
+         * sqlTagStore.get`SELECT * FROM t1 WHERE id = ${id} AND active = 1`;
+         * sqlTagStore.get`SELECT * FROM t1 WHERE id = 12345 AND active = 1`;
+         *
+         * // The following statements will not match, as matches are case-sensitive:
+         * sqlTagStore.get`SELECT * FROM t1 WHERE id = ${id} AND active = 1`;
+         * sqlTagStore.get`select * from t1 where id = ${id} and active = 1`;
+         * ```
+         *
+         * The only way of binding parameters in tagged statements is with the `${value}`
+         * syntax. Do not add parameter binding placeholders (`?` etc.) to the SQL query
+         * string itself.
+         *
+         * ```js
+         * import { DatabaseSync } from 'node:sqlite';
+         *
+         * const db = new DatabaseSync(':memory:');
+         * const sql = db.createSQLTagStore();
+         *
+         * db.exec('CREATE TABLE users (id INT, name TEXT)');
+         *
+         * // Using the 'run' method to insert data.
+         * // The tagged literal is used to identify the prepared statement.
+         * sql.run`INSERT INTO users VALUES (1, 'Alice')`;
+         * sql.run`INSERT INTO users VALUES (2, 'Bob')`;
+         *
+         * // Using the 'get' method to retrieve a single row.
+         * const name = 'Alice';
+         * const user = sql.get`SELECT * FROM users WHERE name = ${name}`;
+         * console.log(user); // { id: 1, name: 'Alice' }
+         *
+         * // Using the 'all' method to retrieve all rows.
+         * const allUsers = sql.all`SELECT * FROM users ORDER BY id`;
+         * console.log(allUsers);
+         * // [
+         * //   { id: 1, name: 'Alice' },
+         * //   { id: 2, name: 'Bob' }
+         * // ]
+         * ```
+         * @since v24.9.0
+         * @returns A new SQL tag store for caching prepared statements.
+         */
+        createTagStore(maxSize?: number): SQLTagStore;
         /**
          * Creates and attaches a session to the database. This method is a wrapper around
          * [`sqlite3session_create()`](https://www.sqlite.org/session/sqlite3session_create.html) and
@@ -343,6 +560,8 @@ declare module "node:sqlite" {
          * [`sqlite3changeset_apply()`](https://www.sqlite.org/session/sqlite3changeset_apply.html).
          *
          * ```js
+         * import { DatabaseSync } from 'node:sqlite';
+         *
          * const sourceDb = new DatabaseSync(':memory:');
          * const targetDb = new DatabaseSync(':memory:');
          *
@@ -383,7 +602,7 @@ declare module "node:sqlite" {
          * @returns Binary changeset that can be applied to other databases.
          * @since v22.12.0
          */
-        changeset(): Uint8Array;
+        changeset(): NodeJS.NonSharedUint8Array;
         /**
          * Similar to the method above, but generates a more compact patchset. See
          * [Changesets and Patchsets](https://www.sqlite.org/sessionintro.html#changesets_and_patchsets)
@@ -393,13 +612,114 @@ declare module "node:sqlite" {
          * @returns Binary patchset that can be applied to other databases.
          * @since v22.12.0
          */
-        patchset(): Uint8Array;
+        patchset(): NodeJS.NonSharedUint8Array;
         /**
          * Closes the session. An exception is thrown if the database or the session is not open. This method is a
          * wrapper around
          * [`sqlite3session_delete()`](https://www.sqlite.org/session/sqlite3session_delete.html).
          */
         close(): void;
+        /**
+         * Closes the session. If the session is already closed, does nothing.
+         * @since v24.9.0
+         */
+        [Symbol.dispose](): void;
+    }
+    /**
+     * This class represents a single LRU (Least Recently Used) cache for storing
+     * prepared statements.
+     *
+     * Instances of this class are created via the `database.createTagStore()`
+     * method, not by using a constructor. The store caches prepared statements based
+     * on the provided SQL query string. When the same query is seen again, the store
+     * retrieves the cached statement and safely applies the new values through
+     * parameter binding, thereby preventing attacks like SQL injection.
+     *
+     * The cache has a maxSize that defaults to 1000 statements, but a custom size can
+     * be provided (e.g., `database.createTagStore(100)`). All APIs exposed by this
+     * class execute synchronously.
+     * @since v24.9.0
+     */
+    interface SQLTagStore {
+        /**
+         * Executes the given SQL query and returns all resulting rows as an array of
+         * objects.
+         *
+         * This function is intended to be used as a template literal tag, not to be
+         * called directly.
+         * @since v24.9.0
+         * @param stringElements Template literal elements containing the SQL
+         * query.
+         * @param boundParameters Parameter values to be bound to placeholders in the template string.
+         * @returns An array of objects representing the rows returned by the query.
+         */
+        all(
+            stringElements: TemplateStringsArray,
+            ...boundParameters: SQLInputValue[]
+        ): Record<string, SQLOutputValue>[];
+        /**
+         * Executes the given SQL query and returns the first resulting row as an object.
+         *
+         * This function is intended to be used as a template literal tag, not to be
+         * called directly.
+         * @since v24.9.0
+         * @param stringElements Template literal elements containing the SQL
+         * query.
+         * @param boundParameters Parameter values to be bound to placeholders in the template string.
+         * @returns An object representing the first row returned by
+         * the query, or `undefined` if no rows are returned.
+         */
+        get(
+            stringElements: TemplateStringsArray,
+            ...boundParameters: SQLInputValue[]
+        ): Record<string, SQLOutputValue> | undefined;
+        /**
+         * Executes the given SQL query and returns an iterator over the resulting rows.
+         *
+         * This function is intended to be used as a template literal tag, not to be
+         * called directly.
+         * @since v24.9.0
+         * @param stringElements Template literal elements containing the SQL
+         * query.
+         * @param boundParameters Parameter values to be bound to placeholders in the template string.
+         * @returns An iterator that yields objects representing the rows returned by the query.
+         */
+        iterate(
+            stringElements: TemplateStringsArray,
+            ...boundParameters: SQLInputValue[]
+        ): NodeJS.Iterator<Record<string, SQLOutputValue>>;
+        /**
+         * Executes the given SQL query, which is expected to not return any rows (e.g., INSERT, UPDATE, DELETE).
+         *
+         * This function is intended to be used as a template literal tag, not to be
+         * called directly.
+         * @since v24.9.0
+         * @param stringElements Template literal elements containing the SQL
+         * query.
+         * @param boundParameters Parameter values to be bound to placeholders in the template string.
+         * @returns An object containing information about the execution, including `changes` and `lastInsertRowid`.
+         */
+        run(stringElements: TemplateStringsArray, ...boundParameters: SQLInputValue[]): StatementResultingChanges;
+        /**
+         * A read-only property that returns the number of prepared statements currently in the cache.
+         * @since v24.9.0
+         */
+        readonly size: number;
+        /**
+         * A read-only property that returns the maximum number of prepared statements the cache can hold.
+         * @since v24.9.0
+         */
+        readonly capacity: number;
+        /**
+         * A read-only property that returns the `DatabaseSync` object associated with this `SQLTagStore`.
+         * @since v24.9.0
+         */
+        readonly db: DatabaseSync;
+        /**
+         * Resets the LRU cache, clearing all stored prepared statements.
+         * @since v24.9.0
+         */
+        clear(): void;
     }
     interface StatementColumnMetadata {
         /**
@@ -567,6 +887,13 @@ declare module "node:sqlite" {
          */
         setAllowUnknownNamedParameters(enabled: boolean): void;
         /**
+         * When enabled, query results returned by the `all()`, `get()`, and `iterate()` methods will be returned as arrays instead
+         * of objects.
+         * @since v24.0.0
+         * @param enabled Enables or disables the return of query results as arrays.
+         */
+        setReturnArrays(enabled: boolean): void;
+        /**
          * When reading from the database, SQLite `INTEGER`s are mapped to JavaScript
          * numbers by default. However, SQLite `INTEGER`s can store values larger than
          * JavaScript numbers are capable of representing. In such cases, this method can
@@ -603,8 +930,9 @@ declare module "node:sqlite" {
          */
         rate?: number | undefined;
         /**
-         * Callback function that will be called with the number of pages copied and the total number of
-         * pages.
+         * An optional callback function that will be called after each backup step. The argument passed
+         * to this callback is an `Object` with `remainingPages` and `totalPages` properties, describing the current progress
+         * of the backup operation.
          */
         progress?: ((progressInfo: BackupProgressInfo) => void) | undefined;
     }
@@ -641,9 +969,10 @@ declare module "node:sqlite" {
      * the contents will be overwritten.
      * @param options Optional configuration for the backup. The
      * following properties are supported:
-     * @returns A promise that resolves when the backup is completed and rejects if an error occurs.
+     * @returns A promise that fulfills with the total number of backed-up pages upon completion, or rejects if an
+     * error occurs.
      */
-    function backup(sourceDb: DatabaseSync, path: string | Buffer | URL, options?: BackupOptions): Promise<void>;
+    function backup(sourceDb: DatabaseSync, path: PathLike, options?: BackupOptions): Promise<number>;
     /**
      * @since v22.13.0
      */
@@ -683,5 +1012,54 @@ declare module "node:sqlite" {
          * @since v22.12.0
          */
         const SQLITE_CHANGESET_ABORT: number;
+        /**
+         * Deny the operation and cause an error to be returned.
+         * @since v24.10.0
+         */
+        const SQLITE_DENY: number;
+        /**
+         * Ignore the operation and continue as if it had never been requested.
+         * @since 24.10.0
+         */
+        const SQLITE_IGNORE: number;
+        /**
+         * Allow the operation to proceed normally.
+         * @since v24.10.0
+         */
+        const SQLITE_OK: number;
+        const SQLITE_CREATE_INDEX: number;
+        const SQLITE_CREATE_TABLE: number;
+        const SQLITE_CREATE_TEMP_INDEX: number;
+        const SQLITE_CREATE_TEMP_TABLE: number;
+        const SQLITE_CREATE_TEMP_TRIGGER: number;
+        const SQLITE_CREATE_TEMP_VIEW: number;
+        const SQLITE_CREATE_TRIGGER: number;
+        const SQLITE_CREATE_VIEW: number;
+        const SQLITE_DELETE: number;
+        const SQLITE_DROP_INDEX: number;
+        const SQLITE_DROP_TABLE: number;
+        const SQLITE_DROP_TEMP_INDEX: number;
+        const SQLITE_DROP_TEMP_TABLE: number;
+        const SQLITE_DROP_TEMP_TRIGGER: number;
+        const SQLITE_DROP_TEMP_VIEW: number;
+        const SQLITE_DROP_TRIGGER: number;
+        const SQLITE_DROP_VIEW: number;
+        const SQLITE_INSERT: number;
+        const SQLITE_PRAGMA: number;
+        const SQLITE_READ: number;
+        const SQLITE_SELECT: number;
+        const SQLITE_TRANSACTION: number;
+        const SQLITE_UPDATE: number;
+        const SQLITE_ATTACH: number;
+        const SQLITE_DETACH: number;
+        const SQLITE_ALTER_TABLE: number;
+        const SQLITE_REINDEX: number;
+        const SQLITE_ANALYZE: number;
+        const SQLITE_CREATE_VTABLE: number;
+        const SQLITE_DROP_VTABLE: number;
+        const SQLITE_FUNCTION: number;
+        const SQLITE_SAVEPOINT: number;
+        const SQLITE_COPY: number;
+        const SQLITE_RECURSIVE: number;
     }
 }

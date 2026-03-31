@@ -1,4 +1,4 @@
-import * as Table from "@af-utils/react-table";
+import Table from "@af-utils/react-table";
 import * as React from "react";
 
 const basicTable = () => {

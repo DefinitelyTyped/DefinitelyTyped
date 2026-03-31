@@ -1,5 +1,5 @@
 import "karma";
-import * as Webpack from "webpack";
+import Webpack = require("webpack");
 import { Logger, Reporter } from "webpack-dev-middleware";
 
 declare module "karma" {

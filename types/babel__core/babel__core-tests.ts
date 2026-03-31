@@ -1,5 +1,5 @@
 import * as babel from "@babel/core";
-import * as t from "@babel/types";
+import t from "@babel/types";
 
 const options: babel.TransformOptions = {
     targets: {

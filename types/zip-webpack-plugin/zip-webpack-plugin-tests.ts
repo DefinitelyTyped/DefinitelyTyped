@@ -1,4 +1,4 @@
-import * as ZipPlugin from "zip-webpack-plugin";
+import ZipPlugin from "zip-webpack-plugin";
 
 new ZipPlugin();
 

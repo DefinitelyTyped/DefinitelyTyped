@@ -8,8 +8,6 @@
  * @private
  */
 declare class Binding {
-    name: string;
-    visibility: number;
     /**
      * Constructs a new binding.
      *
@@ -17,16 +15,36 @@ declare class Binding {
      */
     constructor(name?: string);
     /**
+     * The binding's name.
+     *
+     * @type {string}
+     */
+    name: string;
+    /**
+     * A bitmask that defines in what shader stages the
+     * binding's resource is accessible.
+     *
+     * @type {number}
+     */
+    visibility: number;
+    /**
      * Makes sure binding's resource is visible for the given shader stage.
      *
      * @param {number} visibility - The shader stage.
      */
     setVisibility(visibility: number): void;
     /**
+     * The shader stages in which the binding's resource is visible.
+     *
+     * @return {number} The visibility bitmask.
+     */
+    getVisibility(): number;
+    /**
      * Clones the binding.
      *
      * @return {Binding} The cloned binding.
      */
-    clone(): Binding & this;
+    clone(): Binding;
 }
+
 export default Binding;

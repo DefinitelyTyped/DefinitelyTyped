@@ -1,4 +1,4 @@
-import * as stream from "stream";
+import stream = require("stream");
 
 import { Batch, BatchResultInfo } from "./batch";
 import { Callback, Connection, RestApiOptions } from "./connection";

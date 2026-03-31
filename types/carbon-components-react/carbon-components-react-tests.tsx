@@ -67,7 +67,7 @@ import { LayoutDirection } from "carbon-components-react/lib/components/Layout";
 import { Popover, PopoverContent } from "carbon-components-react/lib/components/Popover";
 import { Text } from "carbon-components-react/lib/components/Text";
 import UIShellLink from "carbon-components-react/lib/components/UIShell/Link";
-import * as React from "react";
+import React from "react";
 
 // test components for "as" props
 interface TestCompProps {

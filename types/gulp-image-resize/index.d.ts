@@ -1,7 +1,7 @@
 /// <reference types="node" />
 
-import * as gm from "gm";
-import * as stream from "stream";
+import gm = require("gm");
+import stream = require("stream");
 
 export = GulpImageResize;
 

@@ -9,17 +9,17 @@
 
  =============================================== */
 /// <reference types="node" />
-import * as accepts from "accepts";
+import accepts = require("accepts");
 import { AsyncLocalStorage } from "async_hooks";
-import * as Cookies from "cookies";
+import Cookies = require("cookies");
 import { EventEmitter } from "events";
 import { IncomingHttpHeaders, IncomingMessage, OutgoingHttpHeaders, Server, ServerResponse } from "http";
 import { Http2ServerRequest, Http2ServerResponse } from "http2";
 import httpAssert = require("http-assert");
-import * as contentDisposition from "content-disposition";
-import * as HttpErrors from "http-errors";
-import * as Keygrip from "keygrip";
-import * as compose from "koa-compose";
+import contentDisposition = require("content-disposition");
+import HttpErrors = require("http-errors");
+import Keygrip = require("keygrip");
+import compose = require("koa-compose");
 import { ListenOptions, Socket } from "net";
 import { ParsedUrlQuery } from "querystring";
 import * as url from "url";
@@ -465,7 +465,7 @@ declare class Application<
      * @param {number} [options.subdomainOffset] Subdomain offset
      * @param {string} [options.proxyIpHeader] Proxy IP header, defaults to X-Forwarded-For
      * @param {number} [options.maxIpsCount] Max IPs read from proxy IP header, default to 0 (means infinity)
-     * @param {boolean} [options.asyncLocalStorage] Enable AsyncLocalStorage
+     * @param {boolean|AsyncLocalStorage} [options.asyncLocalStorage]  Pass `true` or an instance of `AsyncLocalStorage` to enable async local storage
      */
     constructor(options?: {
         env?: string | undefined;
@@ -474,7 +474,7 @@ declare class Application<
         subdomainOffset?: number | undefined;
         proxyIpHeader?: string | undefined;
         maxIpsCount?: number | undefined;
-        asyncLocalStorage?: boolean | undefined;
+        asyncLocalStorage?: boolean | AsyncLocalStorage<ContextT> | undefined;
     });
 
     /**

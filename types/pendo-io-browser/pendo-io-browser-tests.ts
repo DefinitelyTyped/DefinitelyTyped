@@ -141,7 +141,7 @@ pendo.track("User Registered", {
 
 try {
     throw new Error();
-} catch (error) {
+} catch (error: any) {
     pendo.track("JIRA-12345--error-tripped", {
         message: error.message,
         stack: error.stack,

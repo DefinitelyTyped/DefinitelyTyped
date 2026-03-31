@@ -126,7 +126,7 @@ declare namespace WebTorrent {
             torrentId: Torrent | string | Buffer,
             opts?: TorrentDestroyOptions,
             callback?: (err: Error | string) => void,
-        ): void;
+        ): Promise<void>;
 
         destroy(callback?: (err: Error | string) => void): void;
         createServer(
@@ -137,7 +137,7 @@ declare namespace WebTorrent {
         readonly torrents: Torrent[];
 
         // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-        get(torrentId: Torrent | string | Buffer): Torrent | void;
+        get(torrentId: Torrent | string | Buffer): Promise<Torrent | void>;
 
         throttleDownload(rate: number): boolean | undefined;
 

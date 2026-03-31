@@ -1,4 +1,4 @@
-import * as CodeMirror from "codemirror";
+import CodeMirror from "codemirror";
 import "codemirror/addon/hint/html-hint";
 import "codemirror/addon/hint/show-hint";
 

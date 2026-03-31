@@ -11,6 +11,7 @@ declare class Controller {
     forbidden(opt_content?: any): RouteResult;
     badRequest(opt_content?: any): RouteResult;
     notModified(): RouteResult;
+    seeOther(url: string): RouteResult;
     temporaryRedirect(url: string): RouteResult;
     permanentRedirect(url: string): RouteResult;
     runAction(

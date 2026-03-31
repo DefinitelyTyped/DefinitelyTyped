@@ -18,7 +18,7 @@ export type AddWithJSXFunc<StoryFnReturnType> = (
 
 declare module "@storybook/addons" {
     interface ClientStoryApi<StoryFnReturnType = unknown> {
-        storiesOf(kind: string, module: NodeModule):
+        storiesOf(kind: string, module: NodeJS.Module):
             & StoryApi<StoryFnReturnType>
             & { addWithJSX: AddWithJSXFunc<StoryFnReturnType> };
         addDecorator(decorator: DecoratorFunction<StoryFnReturnType>): StoryApi<StoryFnReturnType>;

@@ -1,4 +1,4 @@
-import * as crossfilter from "crossfilter";
+import crossfilter from "crossfilter";
 
 interface Payment {
     date: string;

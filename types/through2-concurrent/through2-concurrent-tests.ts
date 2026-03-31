@@ -1,5 +1,5 @@
 import { Transform } from "stream";
-import * as through2 from "through2-concurrent";
+import through2 from "through2-concurrent";
 
 let str: Transform;
 

@@ -1,6 +1,6 @@
 import * as AWS from "aws-sdk2-types";
 import * as fs from "fs";
-import * as S3Stream from "s3-download-stream";
+import S3Stream from "s3-download-stream";
 
 // Documentation for "params":
 // http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#getObject-property

@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import * as SerialPort from "serialport";
+import SerialPort = require("serialport");
 
 import { EventEmitter } from "events";
 

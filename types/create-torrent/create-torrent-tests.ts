@@ -1,38 +1,57 @@
-import createTorrent = require("create-torrent");
-import fs = require("fs");
+/// <reference types="node" />
+import createTorrent, { announceList, isJunkPath } from "create-torrent";
 
-createTorrent("test", (err, torrent) => {
-    if (err) {
-        return;
-    }
+const cb = (err: Error | null, torrent: Uint8Array) => {};
 
-    fs.writeFileSync("test.torrent", torrent);
+createTorrent("test", (err: Error | null, torrent: Uint8Array) => {
+    if (err) return;
+    if (torrent) Buffer.from(torrent).equals(Buffer.alloc(0));
 });
 
+createTorrent(["a.txt", "b.txt"], cb);
+
 createTorrent(
-    "test",
+    [Buffer.from("a")],
     {
         name: "test",
-        comment: "test",
-        createdBy: "test",
-        creationDate: Date.now(),
+        comment: "comment",
+        createdBy: "tester",
+        creationDate: new Date(),
         private: true,
-        pieceLength: 100,
-        announceList: [["test"]],
-        urlList: ["test"],
-        info: {
-            test: "test",
-        },
-        onProgress: (b1, b2) => {
-            const percent = Math.round(b1 / b2 * 100);
-            console.info(`${percent} % ${b1} B - ${b2} B`);
+        pieceLength: 1024,
+        maxPieceLength: 2 * 1024 * 1024,
+        announceList: [["udp://tracker.example"]],
+        urlList: ["https://example.com/file"],
+        info: { custom: "value" },
+        onProgress: (written: number, total: number) => {
+            const percent: number = Math.round((written / total) * 100);
+            console.log(percent);
         },
     },
-    (err, torrent) => {
-        if (err) {
-            return;
-        }
-
-        fs.writeFileSync("test.torrent", torrent);
-    },
+    cb,
 );
+
+createTorrent(
+    [Buffer.from("a")],
+    {
+        name: "test",
+        comment: "comment",
+        createdBy: "tester",
+        creationDate: new Date(),
+        private: false,
+        pieceLength: 1024,
+        maxPieceLength: 2 * 1024 * 1024,
+        announceList: [["udp://tracker.example"]],
+        urlList: ["https://example.com/file"],
+        info: { custom: "value" },
+        onProgress: (written: number, total: number) => {
+            const percent: number = Math.round((written / total) * 100);
+            console.log(percent);
+        },
+    },
+    cb,
+);
+
+const junk: boolean = isJunkPath("dir");
+const firstTracker: string | undefined = announceList[0]?.[0];
+console.log(junk, firstTracker);

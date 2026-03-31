@@ -216,6 +216,11 @@ export namespace Scripting {
          * Optional.
          */
         css?: Manifest.ExtensionURL[];
+
+        /**
+         * Optional.
+         */
+        cssOrigin?: ExtensionTypes.CSSOrigin;
     }
 
     /**

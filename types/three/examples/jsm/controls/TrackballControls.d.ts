@@ -124,7 +124,7 @@ declare class TrackballControls extends Controls<TrackballControlsEventMap> {
      * @param camera The camera of the rendered scene.
      * @param domElement The HTML element used for event listeners. (optional)
      */
-    constructor(camera: Camera, domElement?: HTMLElement | null);
+    constructor(camera: Camera, domElement?: HTMLElement | SVGElement | null);
 
     /**
      * Should be called if the application window is resized.

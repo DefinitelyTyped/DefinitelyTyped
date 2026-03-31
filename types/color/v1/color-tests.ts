@@ -1,4 +1,4 @@
-import * as Color from "color";
+import Color from "color";
 
 var color: Color.Color = Color("white");
 var colorOther: Color.Color = Color("black");

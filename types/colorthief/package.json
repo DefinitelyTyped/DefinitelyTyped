@@ -5,6 +5,9 @@
     "projects": [
         "https://github.com/lokesh/color-thief"
     ],
+    "dependencies": {
+        "@types/node": "*"
+    },
     "devDependencies": {
         "@types/colorthief": "workspace:."
     },

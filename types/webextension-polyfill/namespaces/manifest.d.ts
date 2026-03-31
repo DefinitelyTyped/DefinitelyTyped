@@ -27,7 +27,7 @@ export namespace Manifest {
         browser_specific_settings?: BrowserSpecificSettings;
 
         /**
-         * Name must be at least 2, at should be at most 75 characters
+         * Name must be at least 2, and should be at most 75 characters
          */
         name: string;
 
@@ -287,6 +287,7 @@ export namespace Manifest {
         | "menus.overrideContext"
         | "scripting"
         | "search"
+        | "tabGroups"
         | "activeTab"
         | "webRequest"
         | "webRequestAuthProvider"
@@ -315,7 +316,6 @@ export namespace Manifest {
         | "proxy"
         | "nativeMessaging"
         | "sessions"
-        | "tabGroups"
         | "tabs"
         | "tabHide"
         | "topSites"
@@ -325,6 +325,23 @@ export namespace Manifest {
     type OptionalPermissionOrOrigin = OptionalPermission | OptionalOnlyPermission | MatchPattern;
 
     type PermissionPrivileged = "mozillaAddons" | "activityLog" | "networkStatus" | "normandyAddonStudy";
+
+    type CommonDataCollectionPermission =
+        | "authenticationInfo"
+        | "bookmarksInfo"
+        | "browsingActivity"
+        | "financialAndPaymentInfo"
+        | "healthInfo"
+        | "locationInfo"
+        | "personalCommunications"
+        | "personallyIdentifyingInfo"
+        | "searchTerms"
+        | "websiteActivity"
+        | "websiteContent";
+
+    type DataCollectionPermission = CommonDataCollectionPermission | "none";
+
+    type OptionalDataCollectionPermission = CommonDataCollectionPermission | "technicalAndInteraction";
 
     type PermissionNoPrompt =
         | OptionalPermissionNoPrompt
@@ -381,6 +398,11 @@ export namespace Manifest {
          * Optional.
          */
         admin_install_only?: boolean;
+
+        /**
+         * Optional.
+         */
+        data_collection_permissions?: FirefoxSpecificPropertiesDataCollectionPermissionsType;
     }
 
     interface GeckoAndroidSpecificProperties {
@@ -455,6 +477,11 @@ export namespace Manifest {
          * Optional.
          */
         css?: ExtensionURL[];
+
+        /**
+         * Optional.
+         */
+        css_origin?: ExtensionTypes.CSSOrigin;
 
         /**
          * The list of JS files to inject
@@ -1005,6 +1032,23 @@ export namespace Manifest {
          * Optional.
          */
         paths?: string[];
+    }
+
+    interface FirefoxSpecificPropertiesDataCollectionPermissionsType {
+        /**
+         * Optional.
+         */
+        required?: DataCollectionPermission[];
+
+        /**
+         * Optional.
+         */
+        optional?: OptionalDataCollectionPermission[];
+
+        /**
+         * Optional.
+         */
+        has_previous_consent?: boolean;
     }
 
     /**

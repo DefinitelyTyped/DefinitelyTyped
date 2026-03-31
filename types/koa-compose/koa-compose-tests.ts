@@ -1,5 +1,5 @@
 import compose = require("koa-compose");
-import * as Koa from "koa";
+import Koa from "koa";
 
 const fn1: compose.Middleware<any> = (context: any, next: () => Promise<void>): Promise<any> =>
     Promise

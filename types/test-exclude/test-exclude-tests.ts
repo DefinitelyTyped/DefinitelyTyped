@@ -1,4 +1,4 @@
-import * as TestExclude from "test-exclude";
+import TestExclude from "test-exclude";
 
 // @ts-expect-error
 new TestExclude(null);

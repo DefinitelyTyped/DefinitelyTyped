@@ -1,7 +1,7 @@
 /// <reference types="node" />
 import { AsyncTask } from "async-done";
 import { EventEmitter } from "events";
-import * as Registry from "undertaker-registry";
+import Registry = require("undertaker-registry");
 
 declare namespace Undertaker {
     interface TaskFunctionParams {

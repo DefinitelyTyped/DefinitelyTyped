@@ -87,12 +87,104 @@ export function del(url: string, body?: JSONValue, args?: Args): Response;
 export function options(url: string, body?: JSONValue, args?: Args): Response;
 
 /**
+ * Sends an HTTP request and returns a Promise resolving to the response.
+ *
+ * @param {string} url - The URL to request.
+ * @param {FetchOptions} opts - Optional fetch configuration.
+ * @returns {Promise<Response>} A Promise that resolves with the response.
+ *
+ * @example
+ * // Simple GET request
+ * const res = await fetch('https://foo.bar/api');
+ * const data = await res.json();
+ *
+ * @example
+ * // POST request with JSON body
+ * const res = await fetch('https://foo.bar/api', {
+ *   method: 'POST',
+ *   headers: { 'Content-Type': 'application/json' },
+ *   body: { name: 'Alice' }
+ * });
+ *
+ * @example
+ * // Request with timeout and redirect settings
+ * const res = await fetch('https://foo.bar/api', {
+ *   timeout: '5s',
+ *   maxRedirects: 2
+ * });
+ */
+export function fetch(url: string, opts?: FetchOptions): Promise<Response>;
+
+/**
+ * Options for the {@link fetch} function.
+ */
+export interface FetchOptions {
+    /**
+     * HTTP method to use for the request.
+     * @default "GET"
+     * @example
+     * const res = await fetch(url, { method: 'POST' });
+     */
+    method?: string;
+
+    /**
+     * The body of the request, such as a string or object.
+     * @example
+     * const res = await fetch(url, { body: JSON.stringify({ name: 'Alice' }) });
+     */
+    body?: any;
+
+    /**
+     * Request headers.
+     * @example
+     * const res = await fetch(url, {
+     *   headers: { 'Authorization': 'Bearer token123' }
+     * });
+     */
+    headers?: { [name: string]: string };
+
+    /**
+     * The number of redirects to follow for this request.
+     * @default 5
+     * @example
+     * const res = await fetch(url, { maxRedirects: 1 });
+     */
+    maxRedirects?: number;
+
+    /**
+     * Maximum time to wait for the request to complete. Default
+     * timeout is 60 seconds ("60s"). The type can also be a number, in which
+     * case Mokapi interprets it as milliseconds
+     * @default "60s"
+     * @example
+     * const res = get(url, { timeout: '5m' })
+     * @example
+     * // Timeout as milliseconds
+     * const res = await fetch(url, { timeout: 3000 });
+     */
+    timeout?: number | string;
+}
+
+/**
  * Request arguments.
  * Used to add headers to a request.
  */
 export interface Args {
     /** Request headers. */
-    header?: { [name: string]: string };
+    headers?: { [name: string]: string };
+    /**
+     * The number of redirects to follow for this request.
+     * @default 5
+     */
+    maxRedirects?: number;
+    /**
+     * Maximum time to wait for the request to complete. Default
+     * timeout is 60 seconds ("60s"). The type can also be a number, in which
+     * case Mokapi interprets it as milliseconds
+     * @example
+     * const res = get(url, { timeout: '5m' })
+     */
+    timeout?: number | string;
 }
 
 /**

@@ -12,24 +12,24 @@
     },
     "owners": [
         {
-            "name": "Evan Hughes",
-            "githubUsername": "evan-hughes"
+            "name": "Chris Daley",
+            "githubUsername": "cdaley-akamai"
         },
         {
             "name": "Will Bain",
             "githubUsername": "wabain"
         },
         {
-            "name": "Swathi Bala",
-            "githubUsername": "swathimr"
+            "name": "Yana Kadiysk",
+            "githubUsername": "yanakad"
         },
         {
-            "name": "Aman Nanner",
-            "githubUsername": "ananner"
+            "name": "Miranda Lim",
+            "githubUsername": "miliworking"
         },
         {
-            "name": "Ben Matthews",
-            "githubUsername": "bmatthew"
+            "name": "Luca Perra",
+            "githubUsername": "lperra"
         }
     ]
 }

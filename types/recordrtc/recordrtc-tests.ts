@@ -50,6 +50,48 @@ navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(stream =>
     StereoAudioRecorder.onAudioProcessStarted();
 });
 
+Promise.all([
+    navigator.mediaDevices.getUserMedia({ audio: true, video: true }),
+    navigator.mediaDevices.getDisplayMedia({ audio: true, video: true }),
+]).then(streams => {
+    const instance = new RecordRTC(streams, {
+        type: "video",
+        disableLogs: true,
+        bufferSize: 2048,
+        ondataavailable: (blob: Blob) => {
+            console.log(blob);
+        },
+        onTimeStamp: (timestamp: number, timestamps: number[]) => {
+            console.log(timestamp, timestamps);
+        },
+        previewStream: (stream: MediaStream) => {
+            console.log(stream);
+        },
+    });
+
+    instance.stopRecording(() => {
+        const blob = instance.getBlob();
+    });
+
+    // $ExpectType State
+    instance.getState();
+
+    // $ExpectType { onRecordingStopped: (callback: () => void) => void; }
+    instance.setRecordingDuration(1);
+
+    const fiveMinutes = 5 * 1000 * 60;
+    // $ExpectType void
+    instance.setRecordingDuration(fiveMinutes, () => {});
+
+    // $ExpectType void
+    instance.getDataURL(dataURL => {
+        console.log({ dataURL });
+    });
+
+    // $ExpectType void
+    instance.setRecordingDuration(fiveMinutes).onRecordingStopped(() => {});
+});
+
 const canvas = document.querySelector("canvas")!;
 
 const instance2 = new RecordRTC(canvas, {

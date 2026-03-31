@@ -1,5 +1,5 @@
 import * as p from "@react-native/assets/path-support";
-import * as r from "@react-native/assets/registry";
+import r from "@react-native/assets/registry";
 
 const asset: r.PackagerAsset = {
     __packager_asset: true,

@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as ReactDOMServer from "react-dom/server";
-import * as ReactNative from "react-native";
+import ReactNative from "react-native";
 
 import styled, {
     css,

@@ -8,10 +8,5 @@
     "devDependencies": {
         "@types/microlight": "workspace:."
     },
-    "owners": [
-        {
-            "name": "ravenclaw900",
-            "githubUsername": "ravenclaw900"
-        }
-    ]
+    "owners": []
 }

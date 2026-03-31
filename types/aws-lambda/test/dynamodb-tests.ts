@@ -1,4 +1,4 @@
-import { DynamoDBBatchResponse, DynamoDBStreamEvent, DynamoDBStreamHandler } from "aws-lambda";
+import { DynamoDBBatchResponse, DynamoDBStreamEvent, DynamoDBStreamHandler, StreamRecord } from "aws-lambda";
 
 // TODO: Update test to read all event properties, and write all result
 //       properties, like the user will.
@@ -95,6 +95,17 @@ const event: DynamoDBStreamEvent = {
             eventSource: "aws:dynamodb",
         },
     ],
+};
+
+const keys: StreamRecord = {
+    Keys: {
+        // expect error when using multiple attributes in AttributeValue type
+        // @ts-expect-error
+        Id: {
+            N: "101",
+            S: "Extra",
+        },
+    },
 };
 
 const streamHandlerWithResponse: DynamoDBStreamHandler = async (event, context, callback) => {

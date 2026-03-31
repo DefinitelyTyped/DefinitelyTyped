@@ -1,5 +1,5 @@
 import * as logging from "@sap/logging";
-import * as express from "express";
+import express from "express";
 import * as http from "http";
 import { Socket } from "net";
 

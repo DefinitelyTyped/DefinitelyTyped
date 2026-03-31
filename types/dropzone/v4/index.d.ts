@@ -1,6 +1,6 @@
 /// <reference types="jquery"/>
 
-import * as $ from "jquery";
+import $ = require("jquery");
 
 declare namespace Dropzone {
     export interface DropzoneResizeInfo {

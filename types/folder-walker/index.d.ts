@@ -3,7 +3,7 @@
 import * as fs from "fs";
 
 interface WalkerOptions {
-    fs?: NodeRequire;
+    fs?: NodeJS.Require;
     maxDepth?: number;
     filter: (filename: string) => boolean;
 }

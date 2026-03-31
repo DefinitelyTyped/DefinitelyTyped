@@ -1,7 +1,7 @@
 class LeanModalOptions implements JQueryLeanModalOption {
-    top: number;
-    overlay: number;
-    closeButton: string;
+    top!: number;
+    overlay!: number;
+    closeButton!: string;
 }
 
 $.leanModal();

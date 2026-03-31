@@ -18,7 +18,6 @@
         "noEmit": true,
         "jsx": "react",
         "experimentalDecorators": true,
-        "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true
+        "forceConsistentCasingInFileNames": true
     }
 }

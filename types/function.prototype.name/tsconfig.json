@@ -10,8 +10,7 @@
         "strictNullChecks": true,
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "function.prototype.name-tests.ts",

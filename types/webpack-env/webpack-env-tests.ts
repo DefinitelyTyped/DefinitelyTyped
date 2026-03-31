@@ -59,7 +59,7 @@ if (module.hot) {
 }
 
 class ModuleData {
-    updated: boolean;
+    updated!: boolean;
 }
 
 if (module.hot) {

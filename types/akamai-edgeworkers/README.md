@@ -31,6 +31,7 @@ with the following stubs:
 
 export function onClientRequest(request: EW.IngressClientRequest) {}
 export function onOriginRequest(request: EW.IngressOriginRequest) {}
+export function onBotSegmentAvailable(request: EW.BotSegmentAvailableRequest) {}
 export function responseProvider(request: EW.ResponseProviderRequest) {}
 export function onOriginResponse(request: EW.EgressOriginRequest, response: EW.EgressOriginResponse) {}
 export function onClientResponse(request: EW.EgressClientRequest, response: EW.EgressClientResponse) {}

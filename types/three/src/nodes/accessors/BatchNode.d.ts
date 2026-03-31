@@ -1,6 +1,5 @@
 import { BatchedMesh } from "../../objects/BatchedMesh.js";
 import Node from "../core/Node.js";
-import { ShaderNodeObject } from "../tsl/TSLCore.js";
 
 export default class BatchNode extends Node {
     batchMesh: BatchedMesh;
@@ -10,4 +9,4 @@ export default class BatchNode extends Node {
     constructor(batchMesh: BatchedMesh);
 }
 
-export const batch: (batchMesh: BatchedMesh) => ShaderNodeObject<BatchNode>;
+export const batch: (batchMesh: BatchedMesh) => BatchNode;

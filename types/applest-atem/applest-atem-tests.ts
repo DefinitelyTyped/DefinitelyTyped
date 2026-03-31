@@ -1,4 +1,4 @@
-import * as ATEM from "applest-atem";
+import ATEM from "applest-atem";
 
 const atem = new ATEM();
 atem.event.setMaxListeners(5);

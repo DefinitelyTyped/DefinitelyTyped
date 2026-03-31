@@ -61,7 +61,7 @@ export function setDefaults(newDefaults: Options): Options;
 
 declare module "@storybook/addons" {
     interface ClientStoryApi<StoryFnReturnType = unknown> {
-        storiesOf(kind: string, module: NodeModule): StoryApi<StoryFnReturnType>;
+        storiesOf(kind: string, module: NodeJS.Module): StoryApi<StoryFnReturnType>;
         addParameters(parameter: Parameters & { info: Options }): StoryApi<StoryFnReturnType>;
         addDecorator(decorator: DecoratorFunction<StoryFnReturnType>): StoryApi<StoryFnReturnType>;
     }

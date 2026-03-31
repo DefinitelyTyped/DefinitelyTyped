@@ -1,4 +1,4 @@
-import * as BinaryXML from "binary-xml";
+import BinaryXML from "binary-xml";
 
 // @ts-expect-error
 new BinaryXML();

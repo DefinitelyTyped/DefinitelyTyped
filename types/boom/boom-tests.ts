@@ -1,4 +1,4 @@
-import * as Boom from "boom";
+import Boom from "boom";
 
 // 4xx and data type
 

@@ -80,11 +80,11 @@ csstree.generate(ast, {
         },
         node(node) {
             node; // $ExpectType CssNode
-            handlers.node.call(node);
+            handlers.node(node);
         },
         chunk(chunk) {
             chunk; // $ExpectType string
-            handlers.chunk.call(chunk);
+            handlers.chunk(chunk);
         },
         result() {
             return handlers.result.call(handlers);

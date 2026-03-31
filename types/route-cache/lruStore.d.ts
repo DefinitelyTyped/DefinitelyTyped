@@ -1,4 +1,4 @@
-import * as LRUCache from "lru-cache";
+import LRUCache = require("lru-cache");
 import { Store } from "./index";
 
 export = LruStore;

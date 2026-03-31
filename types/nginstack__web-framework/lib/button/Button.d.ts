@@ -15,21 +15,19 @@ declare class Button {
     private syncCommands_;
     private parameters_;
     name: string;
-    onClick: LegacyEvent;
+    onClick: Adapter;
     params: Record<string, string | number | boolean | Date>;
     order: number;
     label: string;
     visible: boolean;
     enabled: boolean;
-    timer: ButtonTimer;
+    timer_: ButtonTimer;
     private logger_;
     private resettingProperties_;
     private prepared_;
     private grid;
     private propertiesToAssign_;
     private propertiesToSync_;
-    icon: number;
-    disabledIcon: number;
     parent: Process | Grid;
     process: Process;
     createNewTab: boolean;
@@ -37,7 +35,6 @@ declare class Button {
     nextProcessKey: number;
     nextProcessId: string;
     validateLastInteraction: boolean;
-    private changed;
     private changed_;
     parameters: Array<Array<string | number | boolean | Date | null>>;
     hint: string;
@@ -51,6 +48,7 @@ declare class Button {
     private order_;
     private name_;
     private label_;
+    timer: ButtonTimer;
     timeout: number;
     defaultAction: boolean;
     defaultButton: boolean;
@@ -61,7 +59,8 @@ declare class Button {
     help: string;
     private help_;
     private getProcessedParameters;
-    private addToSync;
+    private addToSync_;
+    changed: boolean;
     private config;
     private prepare;
     protected forcingChanges_(): boolean;
@@ -76,12 +75,12 @@ declare class Button {
     disable(): void;
     hide(): void;
     show(): void;
-    private getChanges;
+    private getChanges_;
 }
 declare namespace Button {
     export { createProcess, Grid, Process };
 }
-import LegacyEvent = require("@nginstack/engine/lib/event/LegacyEvent.js");
+import Adapter = require("@nginstack/engine/lib/event/Adapter.js");
 import ButtonTimer = require("./ButtonTimer.js");
 declare let createProcess: any;
 type Process = import("../process/Process.js");

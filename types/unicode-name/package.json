@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/unicode-name",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/janlelis/unicode-name.js"
+    ],
+    "type": "module",
+    "exports": {
+        ".": {
+            "types": {
+                "default": "./index.d.ts"
+            }
+        }
+    },
+    "devDependencies": {
+        "@types/unicode-name": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "John Clow",
+            "githubUsername": "gamrix"
+        }
+    ]
+}

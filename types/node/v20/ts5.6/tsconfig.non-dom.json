@@ -10,6 +10,7 @@
         "lib": [
             "es6"
         ],
+        "exactOptionalPropertyTypes": true,
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,

@@ -5,6 +5,7 @@ import { MapColorPropertiesToColorRepresentations } from "../Material.js";
 import { MeshBasicMaterialParameters, MeshBasicMaterialProperties } from "../MeshBasicMaterial.js";
 import NodeMaterial, { NodeMaterialNodeProperties } from "./NodeMaterial.js";
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface MeshBasicNodeMaterialNodeProperties extends NodeMaterialNodeProperties {
 }
 
@@ -28,11 +29,10 @@ declare class MeshBasicNodeMaterial extends NodeMaterial {
     /**
      * This flag can be used for type testing.
      *
-     * @type {boolean}
-     * @readonly
      * @default true
      */
     readonly isMeshBasicNodeMaterial: boolean;
+    setValues(values?: MeshBasicNodeMaterialParameters): void;
     /**
      * Overwritten since this type of material uses {@link BasicEnvironmentNode}
      * to implement the default environment mapping.

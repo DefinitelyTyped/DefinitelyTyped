@@ -1,4 +1,4 @@
-import * as using from "jasmine-data-provider";
+import using from "jasmine-data-provider";
 import "jasmine";
 
 declare const calculator: any;

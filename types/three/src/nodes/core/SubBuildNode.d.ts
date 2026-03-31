@@ -1,4 +1,3 @@
-import { ShaderNodeObject } from "../tsl/TSLCore.js";
 import Node from "./Node.js";
 
 declare class SubBuildNode extends Node {
@@ -12,4 +11,4 @@ declare class SubBuildNode extends Node {
 
 export default SubBuildNode;
 
-export const subBuild: (node: Node, name: string, type?: string | null) => ShaderNodeObject<SubBuildNode>;
+export const subBuild: (node: Node, name: string, type?: string | null) => SubBuildNode;

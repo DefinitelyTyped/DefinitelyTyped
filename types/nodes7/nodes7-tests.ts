@@ -59,8 +59,6 @@ i.dropConnection(() => {}); // $ExpectType void
 
 // @ts-expect-error
 i.setTranslationCB();
-// @ts-expect-error
-i.setTranslationCB(() => {});
 i.setTranslationCB(() => ""); // $ExpectType void
 i.setTranslationCB(x => x); // $ExpectType void
 

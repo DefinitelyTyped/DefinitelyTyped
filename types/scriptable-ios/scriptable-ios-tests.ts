@@ -1031,7 +1031,9 @@
 }
 
 {
-    // TODO: UITableRow
+    const row = new UITableRow();
+    // $ExpectType ((index: number) => void) | undefined
+    row.onSelect;
 }
 
 {

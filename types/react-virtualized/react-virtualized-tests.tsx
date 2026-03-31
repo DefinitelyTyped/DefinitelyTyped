@@ -1027,8 +1027,8 @@ export class GridExample2 extends PureComponent<any, any> {
     _width = 0;
     _height = 0;
     _scrollTop?: number | undefined;
-    _cellPositioner: Positioner;
-    _masonry: Masonry;
+    _cellPositioner!: Positioner;
+    _masonry!: Masonry;
 
     constructor(props: any) {
         super(props);
@@ -1656,7 +1656,7 @@ export class DynamicHeightTableColumnExample extends PureComponent<any, any> {
 export class WindowScrollerExample extends PureComponent<{}, any> {
     context: any;
     contextType: any;
-    _windowScroller: WindowScroller;
+    _windowScroller!: WindowScroller;
     state = {
         showHeaderText: true,
     };

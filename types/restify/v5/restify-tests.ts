@@ -1,4 +1,4 @@
-import * as Logger from "bunyan";
+import Logger from "bunyan";
 import * as http from "http";
 import * as restify from "restify";
 import * as stream from "stream";

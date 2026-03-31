@@ -4,7 +4,6 @@
         "lib": [
             "es6"
         ],
-        "esModuleInterop": true,
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,

@@ -10,11 +10,11 @@
 
 /// <reference types='node' />
 
-import * as Boom from "boom";
+import Boom = require("boom");
 import * as http from "http";
 import * as https from "https";
 import * as Shot from "shot";
-import * as stream from "stream";
+import stream = require("stream");
 import * as url from "url";
 import * as zlib from "zlib";
 

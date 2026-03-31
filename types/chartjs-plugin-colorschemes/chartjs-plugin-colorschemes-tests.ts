@@ -1,4 +1,4 @@
-import * as Chart from "chart.js";
+import Chart from "chart.js";
 import { ColorSchemesOptions } from "chartjs-plugin-colorschemes";
 
 // https://github.com/nagix/chartjs-plugin-colorschemes/blob/master/src/plugins/plugin.colorschemes.js#L12

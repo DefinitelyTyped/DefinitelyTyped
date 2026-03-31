@@ -50,13 +50,15 @@ export const AdditiveBlending: 2;
 export const SubtractiveBlending: 3;
 export const MultiplyBlending: 4;
 export const CustomBlending: 5;
+export const MaterialBlending: 6;
 export type Blending =
     | typeof NoBlending
     | typeof NormalBlending
     | typeof AdditiveBlending
     | typeof SubtractiveBlending
     | typeof MultiplyBlending
-    | typeof CustomBlending;
+    | typeof CustomBlending
+    | typeof MaterialBlending;
 
 // custom blending equations
 // (numbers start from 100 not to clash with other
@@ -337,6 +339,7 @@ export const UnsignedShort4444Type: 1017;
 export const UnsignedShort5551Type: 1018;
 export const UnsignedInt248Type: 1020;
 export const UnsignedInt5999Type: 35902;
+export const UnsignedInt101111Type: 35899;
 
 export type AttributeGPUType = typeof FloatType | typeof IntType;
 
@@ -358,7 +361,8 @@ export type TextureDataType =
     | typeof UnsignedShort4444Type
     | typeof UnsignedShort5551Type
     | typeof UnsignedInt248Type
-    | typeof UnsignedInt5999Type;
+    | typeof UnsignedInt5999Type
+    | typeof UnsignedInt101111Type;
 
 ///////////////////////////////////////////////////////////////////////////////
 // Pixel formats
@@ -506,6 +510,11 @@ export const RGB_ETC2_Format: 37492;
  */
 export const RGBA_ETC2_EAC_Format: 37496;
 
+export const R11_EAC_Format: 37488;
+export const SIGNED_R11_EAC_Format: 37489;
+export const RG11_EAC_Format: 37490;
+export const SIGNED_RG11_EAC_Format: 37491;
+
 // ASTC compressed texture formats
 
 /**
@@ -596,6 +605,10 @@ export type CompressedPixelFormat =
     | typeof RGB_ETC1_Format
     | typeof RGB_ETC2_Format
     | typeof RGBA_ETC2_EAC_Format
+    | typeof R11_EAC_Format
+    | typeof SIGNED_R11_EAC_Format
+    | typeof RG11_EAC_Format
+    | typeof SIGNED_RG11_EAC_Format
     | typeof RGBA_ASTC_4x4_Format
     | typeof RGBA_ASTC_5x4_Format
     | typeof RGBA_ASTC_5x5_Format
@@ -640,7 +653,12 @@ export type AnimationActionLoopStyles = typeof LoopOnce | typeof LoopRepeat | ty
 export const InterpolateDiscrete: 2300;
 export const InterpolateLinear: 2301;
 export const InterpolateSmooth: 2302;
-export type InterpolationModes = typeof InterpolateDiscrete | typeof InterpolateLinear | typeof InterpolateSmooth;
+export const InterpolateBezier: 2303;
+export type InterpolationModes =
+    | typeof InterpolateDiscrete
+    | typeof InterpolateLinear
+    | typeof InterpolateSmooth
+    | typeof InterpolateBezier;
 
 // Interpolant ending modes
 export const ZeroCurvatureEnding: 2400;
@@ -690,6 +708,11 @@ export type ColorSpace =
 export const LinearTransfer: "linear";
 export const SRGBTransfer: "srgb";
 export type ColorSpaceTransfer = typeof LinearTransfer | typeof SRGBTransfer;
+
+export const NoNormalPacking: "";
+export const NormalRGPacking: "rg";
+export const NormalGAPacking: "ga";
+export type NormalPacking = typeof NoNormalPacking | typeof NormalRGPacking | typeof NormalGAPacking;
 
 // Stencil Op types
 export const ZeroStencilOp: 0;
@@ -807,6 +830,11 @@ export type InterpolationSamplingMode =
     | typeof InterpolationSamplingMode.SAMPLE
     | typeof InterpolationSamplingMode.FIRST
     | typeof InterpolationSamplingMode.EITHER;
+
+export const Compatibility: {
+    TEXTURE_COMPARE: "depthTextureCompare";
+};
+export type Compatibility = typeof Compatibility.TEXTURE_COMPARE;
 
 ///////////////////////////////////////////////////////////////////////////////
 // Texture - Internal Pixel Formats

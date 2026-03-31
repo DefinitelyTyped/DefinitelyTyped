@@ -1,6 +1,6 @@
-import * as express from "express";
+import express = require("express");
 import * as passport from "passport";
-import * as oauth2 from "passport-oauth2";
+import oauth2 = require("passport-oauth2");
 
 interface Profile extends passport.Profile {
     id: string;

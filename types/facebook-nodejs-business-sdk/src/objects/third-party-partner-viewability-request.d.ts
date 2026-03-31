@@ -7,6 +7,7 @@ export default class ThirdPartyPartnerViewabilityRequest extends AbstractCrudObj
     static get Fields(): Readonly<{
         created_time: "created_time";
         description: "description";
+        ds: "ds";
         hour: "hour";
         id: "id";
         metric: "metric";

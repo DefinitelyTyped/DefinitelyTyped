@@ -1,4 +1,4 @@
-import * as speedometer from "speedometer";
+import speedometer from "speedometer";
 
 const _speedometer: speedometer.Speedometer = speedometer(10);
 _speedometer(25);

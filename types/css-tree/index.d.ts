@@ -565,6 +565,7 @@ export type EnterOrLeaveFn<NodeType = CssNode> = (
 ) => void;
 
 export interface WalkOptionsNoVisit {
+    visit?: never;
     enter?: EnterOrLeaveFn | undefined;
     leave?: EnterOrLeaveFn | undefined;
     reverse?: boolean | undefined;

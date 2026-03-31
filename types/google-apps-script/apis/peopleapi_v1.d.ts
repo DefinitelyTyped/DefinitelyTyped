@@ -29,7 +29,7 @@ declare namespace GoogleAppsScript {
                 }
             }
             interface ContactGroupsCollection {
-                Members?: Collection.ContactGroups.MembersCollection | undefined;
+                Members: Collection.ContactGroups.MembersCollection;
                 // Get a list of contact groups owned by the authenticated user by specifying
                 // a list of contact group resource names.
                 batchGet(): Schema.BatchGetContactGroupsResponse;
@@ -80,7 +80,7 @@ declare namespace GoogleAppsScript {
                 search(optionalArgs: object): Schema.SearchDirectoryPeopleResponse;
             }
             interface PeopleCollection {
-                Connections?: Collection.People.ConnectionsCollection | undefined;
+                Connections: Collection.People.ConnectionsCollection;
                 // Create a batch of new contacts and return the PersonResponses for the
                 // newly Mutate requests for the same user should be sent sequentially
                 // to avoid increased latency and failures.
@@ -589,9 +589,9 @@ declare namespace GoogleAppsScript {
         }
     }
     interface People {
-        ContactGroups?: People.Collection.ContactGroupsCollection | undefined;
-        OtherContacts?: People.Collection.OtherContactsCollection | undefined;
-        People?: People.Collection.PeopleCollection | undefined;
+        ContactGroups: People.Collection.ContactGroupsCollection;
+        OtherContacts: People.Collection.OtherContactsCollection;
+        People: People.Collection.PeopleCollection;
         // Create a new instance of Address
         newAddress(): People.Schema.Address;
         // Create a new instance of AgeRangeType
@@ -703,4 +703,7 @@ declare namespace GoogleAppsScript {
     }
 }
 
-declare var People: GoogleAppsScript.People;
+/**
+ * The `People` advanced service must be enabled.
+ */
+declare var People: GoogleAppsScript.People | undefined;

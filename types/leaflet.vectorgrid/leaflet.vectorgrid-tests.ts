@@ -1,6 +1,6 @@
-import "leaflet.vectorgrid";
 import * as GJ from "geojson";
 import * as L from "leaflet";
+import "leaflet.vectorgrid";
 
 const data: GJ.FeatureCollection = {
     type: "FeatureCollection",
@@ -96,5 +96,51 @@ new L.VectorGrid({
     ...vectorgridOptions,
     vectorTileLayerStyles: (_properties, _zoom) => {
         return {};
+    },
+});
+
+// $ExpectType VectorGrid<HTMLCanvasElement | SVGViewElement>
+new L.VectorGrid({
+    ...vectorgridOptions,
+    vectorTileLayerStyles: {
+        name: {},
+    },
+});
+
+// $ExpectType VectorGrid<HTMLCanvasElement | SVGViewElement>
+new L.VectorGrid({
+    ...vectorgridOptions,
+    vectorTileLayerStyles: {
+        name: [{}],
+    },
+});
+
+// $ExpectType VectorGrid<HTMLCanvasElement | SVGViewElement>
+new L.VectorGrid({
+    ...vectorgridOptions,
+    vectorTileLayerStyles: {
+        name: (
+            // $ExpectType Record<string, string>
+            _properties,
+            // $ExpectType number
+            _zoom,
+        ) => {
+            return {};
+        },
+    },
+});
+
+// $ExpectType VectorGrid<HTMLCanvasElement | SVGViewElement>
+new L.VectorGrid({
+    ...vectorgridOptions,
+    vectorTileLayerStyles: {
+        name: (
+            // $ExpectType Record<string, string>
+            _properties,
+            // $ExpectType number
+            _zoom,
+        ) => {
+            return [{}];
+        },
     },
 });

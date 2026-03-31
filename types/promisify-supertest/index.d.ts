@@ -1,7 +1,7 @@
 // Mostly copy-pasted from supertest.d.ts
 
-import * as express from "express";
-import * as superagent from "superagent";
+import express = require("express");
+import superagent = require("superagent");
 
 type CallbackHandler = (err: any, res: supertest.Response) => void;
 

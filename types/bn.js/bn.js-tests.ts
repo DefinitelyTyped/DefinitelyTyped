@@ -1,7 +1,7 @@
 // test that it works as a require
 import BN_require = require("bn.js");
 // test that it works as module import
-import * as BN_esm from "bn.js";
+import BN_esm from "bn.js";
 // eslint-disable-next-line no-duplicate-imports
 import { Endianness, IPrimeName } from "bn.js";
 

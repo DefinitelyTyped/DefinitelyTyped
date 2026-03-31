@@ -99,6 +99,7 @@ export class MeshDepthMaterial extends Material {
      * @default true
      */
     readonly isMeshDepthMaterial: boolean;
+    setValues(values?: MeshDepthMaterialParameters): void;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface

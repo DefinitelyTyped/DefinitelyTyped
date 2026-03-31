@@ -121,6 +121,8 @@ interface VideoDecoderConfig {
     displayAspectWidth?: number | undefined;
     hardwareAcceleration?: HardwarePreference | undefined;
     optimizeForLatency?: boolean | undefined;
+    rotation?: number | undefined;
+    flip?: boolean | undefined;
 }
 
 interface VideoDecoderInit {
@@ -188,6 +190,7 @@ interface VideoFrameInit {
     duration?: number | undefined;
     timestamp?: number | undefined;
     visibleRect?: DOMRectInit | undefined;
+    rotation?: number;
 }
 
 interface AudioData {
@@ -427,6 +430,7 @@ interface VideoFrame {
     readonly timestamp: number;
     readonly visibleRect: DOMRectReadOnly | null;
     readonly rotation?: number;
+    readonly flip?: boolean;
     allocationSize(options?: VideoFrameCopyToOptions): number;
     clone(): VideoFrame;
     close(): void;

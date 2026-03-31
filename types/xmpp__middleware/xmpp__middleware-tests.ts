@@ -1,19 +1,12 @@
-import Connection = require("@xmpp/connection");
-import middleware = require("@xmpp/middleware");
-import Context = require("@xmpp/middleware/lib/Context");
-import IncomingContext = require("@xmpp/middleware/lib/IncomingContext");
-import OutgoingContext = require("@xmpp/middleware/lib/OutgoingContext");
-import StanzaError = require("@xmpp/middleware/lib/StanzaError");
+import Connection from "@xmpp/connection";
+import middleware, { Entity } from "@xmpp/middleware";
+import Context from "@xmpp/middleware/lib/Context.js";
+import IncomingContext from "@xmpp/middleware/lib/IncomingContext.js";
+import OutgoingContext from "@xmpp/middleware/lib/OutgoingContext.js";
+import StanzaError from "@xmpp/middleware/lib/StanzaError.js";
 import { Element } from "@xmpp/xml";
 
-// test type exports
-type E = middleware.Entity;
-type Res<T extends E> = middleware.Middleware<T>;
-type IC<T extends E> = middleware.IncomingContext<T>;
-type OC<T extends E> = middleware.OutgoingContext<T>;
-type Err = StanzaError;
-
-class Foo extends Connection implements middleware.Entity {
+class Foo extends Connection implements Entity {
     domain?: string;
     hookOutgoing?: (stanza: Element) => Promise<void>;
 

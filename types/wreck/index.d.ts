@@ -1,9 +1,9 @@
 /// <reference types="node" />
 
-import * as Boom from "boom";
-import * as events from "events";
+import Boom = require("boom");
+import events = require("events");
 import * as http from "http";
-import * as stream from "stream";
+import stream = require("stream");
 import * as Url from "url";
 
 interface RequestOptions {

@@ -1169,7 +1169,10 @@ declare namespace _ {
     }
     type LodashFindLastKey1x1<T> = (object: object | null | undefined) => string | undefined;
     type LodashFindLastKey1x2<T> = (predicate: lodash.ValueIteratee<T[keyof T]>) => string | undefined;
-    type LodashHead = <T>(array: lodash.List<T> | null | undefined) => T | undefined;
+    interface LodashHead {
+        <T>(array: readonly [T, ...unknown[]]): T;
+        <T>(array: lodash.List<T> | null | undefined): T | undefined;
+    }
     interface LodashFlatMap {
         <T, TResult>(iteratee: (value: T) => lodash.Many<TResult>): LodashFlatMap1x1<T, TResult>;
         <T>(iteratee: lodash.__, collection: lodash.List<T> | null | undefined): LodashFlatMap1x2<T>;
@@ -2030,7 +2033,10 @@ declare namespace _ {
     type LodashKebabCase = (string: string) => string;
     type LodashKeys = (object: any) => string[];
     type LodashKeysIn = (object: any) => string[];
-    type LodashLast = <T>(array: lodash.List<T> | null | undefined) => T | undefined;
+    interface LodashLast {
+        <T>(array: readonly [...unknown[], T]): T;
+        <T>(array: lodash.List<T> | null | undefined): T | undefined;
+    }
     interface LodashLastIndexOf {
         <T>(value: T): LodashLastIndexOf1x1<T>;
         <T>(value: lodash.__, array: lodash.List<T> | null | undefined): LodashLastIndexOf1x2<T>;
@@ -2167,7 +2173,10 @@ declare namespace _ {
     }
     type LodashMatchesProperty1x1 = <T>(srcValue: T) => (value: any) => boolean;
     type LodashMatchesProperty1x2 = (path: lodash.PropertyPath) => (value: any) => boolean;
-    type LodashMax = <T>(collection: lodash.List<T> | null | undefined) => T | undefined;
+    interface LodashMax {
+        <T>(collection: readonly [T, ...T[]]): T;
+        <T>(collection: lodash.List<T> | null | undefined): T | undefined;
+    }
     interface LodashMaxBy {
         <T>(iteratee: lodash.ValueIteratee<T>): LodashMaxBy1x1<T>;
         <T>(iteratee: lodash.__, collection: lodash.List<T> | null | undefined): LodashMaxBy1x2<T>;
@@ -2234,7 +2243,10 @@ declare namespace _ {
     type LodashMergeWith1x6<TObject, TSource> = (customizer: lodash.MergeWithCustomizer) => TObject & TSource;
     type LodashMethod = (path: lodash.PropertyPath) => (object: any) => any;
     type LodashMethodOf = (object: object) => (path: lodash.PropertyPath) => any;
-    type LodashMin = <T>(collection: lodash.List<T> | null | undefined) => T | undefined;
+    interface LodashMin {
+        <T>(collection: readonly [T, ...T[]]): T;
+        <T>(collection: lodash.List<T> | null | undefined): T | undefined;
+    }
     interface LodashMinBy {
         <T>(iteratee: lodash.ValueIteratee<T>): LodashMinBy1x1<T>;
         <T>(iteratee: lodash.__, collection: lodash.List<T> | null | undefined): LodashMinBy1x2<T>;

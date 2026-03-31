@@ -3896,7 +3896,7 @@ declare namespace Xrm {
          * @remarks     An Iframe control provides additional methods, so use {@link IframeControl} where
          *              appropriate.  Silverlight controls should use {@link SilverlightControl}.
          */
-        interface FramedControl extends Control {
+        interface FramedControl extends Control, UiCanSetVisibleElement {
             /**
              * Returns the content window that represents an IFRAME or web resource.
              * @returns A promise that contains a content window instance representing an IFRAME or web resource.
@@ -4709,7 +4709,7 @@ declare namespace Xrm {
              * Returns a collection of steps in the stage.
              * @returns An array of Step.
              */
-            getSteps(): Step[];
+            getSteps(): Xrm.Collection.ItemCollection<Step>;
         }
 
         interface Step {
@@ -5336,7 +5336,7 @@ declare namespace Xrm {
             /**
              * The error code. If you just set errorCode, the message for the error code is automatically
              * retrieved from the server and displayed in the error dialog.
-             * If you specify an invalid errorCode value, an error dialog with a default error message is displyed.
+             * If you specify an invalid errorCode value, an error dialog with a default error message is displayed.
              */
             errorCode?: number | undefined;
             /**

@@ -1,7 +1,7 @@
 /// <reference types="node" />
 
-import * as events from "events";
-import * as express from "express";
+import events = require("events");
+import express = require("express");
 import * as uuid from "node-uuid";
 
 export class Server extends events.EventEmitter {

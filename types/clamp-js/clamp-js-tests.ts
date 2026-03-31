@@ -1,4 +1,4 @@
-import * as clamp from "clamp-js";
+import clamp from "clamp-js";
 
 const lineElement: HTMLElement = document.createElement("div");
 lineElement.style.setProperty("font-size", "3px");

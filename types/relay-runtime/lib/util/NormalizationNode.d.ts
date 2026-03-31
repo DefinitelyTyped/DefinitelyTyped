@@ -1,5 +1,5 @@
 import type { JSResourceReference } from "./JSResourceReference";
-import type { ConcreteRequest } from "./RelayConcreteNode";
+import type { ConcreteRequest, ProvidedVariableType } from "./RelayConcreteNode";
 
 /**
  * Represents a single operation used to processing and normalize runtime
@@ -13,6 +13,8 @@ export interface NormalizationOperation {
     readonly clientAbstractTypes?: {
         readonly [key: string]: readonly string[];
     };
+    readonly use_exec_time_resolvers?: boolean;
+    readonly exec_time_resolvers_enabled_provider?: ProvidedVariableType;
 }
 
 export type NormalizationHandle = NormalizationScalarHandle | NormalizationLinkedHandle;

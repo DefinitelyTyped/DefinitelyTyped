@@ -1,6 +1,6 @@
 import { EventEmitter2 } from "eventemitter2";
 import { Server } from "http";
-import * as SocketIO from "socket.io";
+import SocketIO = require("socket.io");
 import { Stream } from "stream";
 
 export abstract class Component extends EventEmitter2 {

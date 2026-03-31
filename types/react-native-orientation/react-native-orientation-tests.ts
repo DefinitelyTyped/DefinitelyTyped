@@ -1,4 +1,4 @@
-import * as Orientation from "react-native-orientation";
+import Orientation from "react-native-orientation";
 
 Orientation.addOrientationListener((orientation) => {});
 Orientation.removeOrientationListener((orientation) => {});

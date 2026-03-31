@@ -1,4 +1,4 @@
-import * as factory from "malihu-custom-scrollbar-plugin";
+import factory from "malihu-custom-scrollbar-plugin";
 
 factory($);
 

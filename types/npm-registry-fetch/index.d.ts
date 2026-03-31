@@ -2,7 +2,7 @@
 
 import { Agent } from "http";
 import { Response } from "node-fetch";
-import * as npa from "npm-package-arg";
+import npa = require("npm-package-arg");
 import { Logger } from "npmlog";
 import { Integrity } from "ssri";
 import { Readable, Stream } from "stream";

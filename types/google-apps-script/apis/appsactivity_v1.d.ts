@@ -71,8 +71,11 @@ declare namespace GoogleAppsScript {
         }
     }
     interface Appsactivity {
-        Activities?: Appsactivity.Collection.ActivitiesCollection | undefined;
+        Activities: Appsactivity.Collection.ActivitiesCollection;
     }
 }
 
-declare var Appsactivity: GoogleAppsScript.Appsactivity;
+/**
+ * The `Appsactivity` advanced service must be enabled.
+ */
+declare var Appsactivity: GoogleAppsScript.Appsactivity | undefined;

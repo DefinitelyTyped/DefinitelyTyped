@@ -1,4 +1,4 @@
-import * as views from "co-views";
+import views from "co-views";
 
 const render = views("views", {
     map: {

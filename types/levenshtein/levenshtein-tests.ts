@@ -1,4 +1,4 @@
-import * as Levenshtein from "levenshtein";
+import Levenshtein from "levenshtein";
 
 // Using standard methods
 let l1 = new Levenshtein("kitten", "sitting");

@@ -5,5 +5,5 @@ export = Yargs;
 declare function Yargs(
     processArgs?: readonly string[],
     cwd?: string,
-    parentRequire?: NodeRequire,
+    parentRequire?: NodeJS.Require,
 ): Argv;

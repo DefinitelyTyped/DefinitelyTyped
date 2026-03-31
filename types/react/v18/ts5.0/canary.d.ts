@@ -53,7 +53,7 @@ declare module "." {
      * context value, as given by the nearest context provider for the given context.
      *
      * @version 16.8.0
-     * @see https://react.dev/reference/react/useContext
+     * @see {@link https://react.dev/reference/react/useContext}
      */
     function useContext<T extends ServerContextJSONValue>(context: ServerContext<T>): T;
     export function createServerContext<T extends ServerContextJSONValue>(
@@ -124,7 +124,7 @@ declare module "." {
     type ToggleEventHandler<T = Element> = EventHandler<ToggleEvent<T>>;
 
     interface HTMLAttributes<T> {
-        popover?: "" | "auto" | "manual" | undefined;
+        popover?: "" | "auto" | "manual" | "hint" | undefined;
         popoverTargetAction?: "toggle" | "show" | "hide" | undefined;
         popoverTarget?: string | undefined;
         onToggle?: ToggleEventHandler<T> | undefined;

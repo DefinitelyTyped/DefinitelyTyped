@@ -42,6 +42,11 @@ declare namespace woosmap.map {
         constructor(mapDiv: HTMLElement | string, options?: woosmap.map.MapOptions);
 
         /**
+         * Clean up and release all internal resources associated with this map.This includes DOM elements, event bindings, web workers, and WebGL resources.Use this method when you are done using the map and wish to ensure that it no longer consumes browser resources. Afterwards, you must not call any other methods on the map.
+         */
+        remove(): void;
+
+        /**
          * Sets the viewport to contain the given bounds.
          */
         fitBounds(
@@ -119,6 +124,16 @@ declare namespace woosmap.map {
         setTilt(tilt: number): void;
 
         setZoom(zoom: number): void;
+
+        /**
+         * Returns the current map type id.
+         */
+        getMapTypeId(): string;
+
+        /**
+         * Sets the map type id.
+         */
+        setMapTypeId(mapTypeId: string): void;
     }
 }
 declare namespace woosmap.map {
@@ -1194,6 +1209,12 @@ declare namespace woosmap.map {
      */
     class LocalitiesService {
         /**
+         * To better track autocomplete sessions and get more accurate and performant results, provide a common uuid to all
+         * autocomplete session requests and the details request. sessionId must be reset when autocomplete input is emptied
+         * and when a details is successful.
+         */
+        _sessionId: string;
+        /**
          * Contains methods related to retrieving autocomplete predictions, geocoding for localities and retrieving details
          */
         constructor();
@@ -1227,13 +1248,6 @@ declare namespace woosmap.map {
         nearby(
             request: woosmap.map.localities.LocalitiesNearbyRequest,
         ): Promise<woosmap.map.localities.LocalitiesNearbyResponse>;
-
-        /**
-         * Search results based on a text-based input.
-         */
-        search(
-            request: woosmap.map.localities.LocalitiesSearchRequest,
-        ): Promise<woosmap.map.localities.LocalitiesSearchResponse>;
     }
 }
 declare namespace woosmap.map {
@@ -1548,6 +1562,14 @@ declare namespace woosmap.map {
          * The initial heading to start from.
          */
         heading?: number;
+        /**
+         * Whether to display the map type control. Defaults to false.
+         */
+        mapTypeControl?: boolean;
+        /**
+         * The initial map type. Defaults to `MapTypeId.ROADMAP`.
+         */
+        mapTypeId?: string;
         /**
          * ```json
          * [
@@ -2609,8 +2631,9 @@ declare namespace woosmap.map.stores {
         page?: number;
         /**
          * Find stores nearby an encoded polyline and inside a defined radius.
+         * The polyline as string is expected to be a google-encoded polyline.
          */
-        polyline?: string | woosmap.map.LatLng[];
+        polyline?: string | woosmap.map.LatLng[] | woosmap.map.LatLngLiteral[];
         /**
          * Example: `query=name:'My cool store'|type:'click_and_collect'`
          * Search query combining one or more search clauses.
@@ -2953,6 +2976,11 @@ declare namespace woosmap.map.localities {
          */
         data?: woosmap.map.localities.LocalitiesRequestData;
         /**
+         * The types of suggestion to exclude. Multiple types can be passed using the pipe character (|) as a separator.
+         * Example: excluded_types=`suburb|quarter|neighbourhood`
+         */
+        excluded_types?: string | string[];
+        /**
          * If set, this parameter allows a refined search over locality names that bears the same postal code.
          * possible value is `extended=postal_code`
          */
@@ -2983,8 +3011,8 @@ declare namespace woosmap.map.localities {
         /**
          * The types of predictions to be returned.
          * By default, suggestions return types `locality` and `postal_code`.
-         * can be either a single type or a list of `LocalitiesTypes`
-         * see [https://developers.woosmap.com/products/localities/autocomplete/#types](https://developers.woosmap.com/products/localities/autocomplete/#types)
+         * can be either a single type or a list of `LocalitiesTypes|LocalitiesTypesPoi|LocalitiesTypesPoiAlias`
+         * see [https://developers.woosmap.com/products/localities/concepts/locality-types/](https://developers.woosmap.com/products/localities/concepts/locality-types/)
          */
         types?: string | string[];
     }
@@ -3014,6 +3042,11 @@ declare namespace woosmap.map.localities {
          */
         data?: woosmap.map.localities.LocalitiesRequestData;
         /**
+         * The types of suggestion to exclude. Multiple types can be passed using the pipe character (|) as a separator.
+         * Example: excluded_types=`suburb|quarter|neighbourhood`
+         */
+        excluded_types?: string | string[];
+        /**
          * If set, it will limit the content of responses to the specified fields.
          * This parameter can be any combination of geometry, address_components or shape (defaults to geometry|address_components).
          */
@@ -3036,8 +3069,8 @@ declare namespace woosmap.map.localities {
         /**
          * The types of geocoding responses to be returned.
          * By default, suggestions return types `locality`, `postal_code` and `address`
-         * can be either a single type or a list of `LocalitiesTypes`
-         * see [https://developers.woosmap.com/products/localities/geocode/#types](https://developers.woosmap.com/products/localities/geocode/#types)
+         * can be either a single type or a list of `LocalitiesTypes|LocalitiesTypesPoi|LocalitiesTypesPoiAlias`
+         * see [https://developers.woosmap.com/products/localities/concepts/locality-types/](https://developers.woosmap.com/products/localities/concepts/locality-types/)
          */
         types?: string | string[];
     }
@@ -3077,10 +3110,10 @@ declare namespace woosmap.map.localities {
     interface LocalitiesNearbyRequest {
         categories?: string | string[];
         /**
-         * The language code, using ISO 3166-1 Alpha-2 country codes,
-         * indicating in which language the results should be returned, if possible.
-         * If language is not supplied, the Localities service will use english as default language.
+         * POI types to exclude from results
+         * Example: `business.food_and_drinks.fast_food|business.food_and_drinks.pub`
          */
+        excluded_types?: string | string[];
         language?: string;
         /**
          * Limit of results per page. (Default is 10, max is 30)
@@ -3100,59 +3133,9 @@ declare namespace woosmap.map.localities {
          */
         radius?: number;
         /**
-         * Types of targeted items.
-         * The only available value for now is `point_of_interest`.
-         */
-        types?: string | string[];
-    }
-}
-declare namespace woosmap.map.localities {
-    /**
-     * A Localities Search request to be sent to `LocalitiesService.search`
-     */
-    interface LocalitiesSearchRequest {
-        /**
-         * The categories of points of interest to return. Multiple categories can be passed as an array of comma separated strings.
-         * Example: `categories=['tourism', 'education']`
-         */
-        categories?: string | string[];
-        /**
-         * Used to filter over countries. Countries must be passed as an
-         * ISO 3166-1 Alpha-2 or Alpha-3 compatible country code.
-         */
-        components: woosmap.map.localities.LocalitiesComponentRestrictions;
-        /**
-         * The categories of points of interest to exclude from results. Multiple categories can be passed as an array of comma separated strings.
-         * Example: `excluded_categories=['hospitality.hostel','hospitality.guest_house']`
-         */
-        excluded_categories?: string | string[];
-        /**
-         * The types of suggestions to exclude.
-         * see available types to exclude [https://developers.woosmap.com/products/localities/search/#types](https://developers.woosmap.com/products/localities/search/#types)
-         */
-        excluded_types?: string | string[];
-        /**
-         * The user entered input string.
-         */
-        input: string;
-        /**
-         * The language code, using ISO 3166-1 Alpha-2 country codes,
-         * indicating in which language the results should be returned, if possible.
-         * If language is not supplied, the Localities service will use english as default language.
-         */
-        language?: string;
-        /**
-         * The center of the search circle.
-         */
-        location: woosmap.map.LatLng | woosmap.map.LatLngLiteral;
-        /**
-         * Define the distance in meters within which the API will return results.
-         * Default radius if this parameter is not set is 100 000.
-         */
-        radius?: number;
-        /**
-         * Types of targeted items.
-         * Available values are `point_of_interest`, `address`, `locality`, `postal_code`, `admin_level`, `country`.
+         * POI types to include (pipe-separated).
+         * Example: `business.shop|medical.pharmacy|bank`.
+         * To check common POI types refer [https://developers.woosmap.com/products/localities/features/nearby/#common-poi-types](https://developers.woosmap.com/products/localities/features/nearby/#common-poi-types)
          */
         types: string | string[];
     }
@@ -3206,19 +3189,6 @@ declare namespace woosmap.map.localities {
 }
 declare namespace woosmap.map.localities {
     /**
-     * A Localities Search response returned by the call to
-     * `LocalitiesService.search` containing a
-     * list of `LocalitiesSearchResult`.
-     */
-    interface LocalitiesSearchResponse {
-        /**
-         * The array of search results.
-         */
-        results: woosmap.map.localities.LocalitiesSearchResult[];
-    }
-}
-declare namespace woosmap.map.localities {
-    /**
      * Defines information about a Locality.
      */
     interface LocalitiesDetailsResult {
@@ -3227,9 +3197,9 @@ declare namespace woosmap.map.localities {
          */
         address_components?: woosmap.map.localities.AddressComponents[];
         /**
-         * An array containing the categories of the result, only for points of interests.
+         * Only available for admin_level suggestions, this contains the local english name of the administration level ("department" for France or "federal_state" for Germany).
          */
-        categories?: string[];
+        administrative_area_label?: string;
         /**
          * Contains the readable text description of the result.
          */
@@ -3254,7 +3224,11 @@ declare namespace woosmap.map.localities {
         /**
          * available localities types
          */
-        types: woosmap.map.localities.LocalitiesTypes[];
+        types: Array<
+            | woosmap.map.localities.LocalitiesTypes
+            | woosmap.map.localities.LocalitiesTypesPoi
+            | woosmap.map.localities.LocalitiesTypesPoiAlias
+        >;
     }
 }
 declare namespace woosmap.map.localities {
@@ -3288,6 +3262,16 @@ declare namespace woosmap.map.localities {
 }
 declare namespace woosmap.map.localities {
     /**
+     * For each component (street_name, postal_code, and locality), it indicates the degree of correspondence with the original query. This value ranges from 0 to 1, with 0 indicating no match with the original query, and enables you to assess the quality of the Geocode’s result.
+     */
+    interface LocalitiesScoresPerComponent {
+        locality: number;
+        postal_code: number;
+        street_name: number;
+    }
+}
+declare namespace woosmap.map.localities {
+    /**
      * Represents a single locality prediction
      */
     interface LocalitiesPredictions {
@@ -3316,10 +3300,15 @@ declare namespace woosmap.map.localities {
          * Contains the related information for the prediction.
          */
         related?: woosmap.map.localities.LocalitiesRelated;
-        /**
-         * Contains the type of the Localities prediction.
-         */
         type?: woosmap.map.localities.LocalitiesTypes;
+        /**
+         * An array containing the types of the result.
+         */
+        types?: Array<
+            | woosmap.map.localities.LocalitiesTypes
+            | woosmap.map.localities.LocalitiesTypesPoi
+            | woosmap.map.localities.LocalitiesTypesPoiAlias
+        >;
     }
 }
 declare namespace woosmap.map.localities {
@@ -3331,6 +3320,14 @@ declare namespace woosmap.map.localities {
          * An array containing Address Components with additional information
          */
         address_components?: woosmap.map.localities.AddressComponents[];
+        /**
+         * Only available for admin_level suggestions, this contains the local english name of the administration level ("department" for France or "federal_state" for Germany).
+         */
+        administrative_area_label?: string;
+        /**
+         * When reverse geocoding, this field represents the distance (in meters) to the requested latlng
+         */
+        distance?: number;
         /**
          * Contains the readable text description of the result.
          */
@@ -3345,6 +3342,10 @@ declare namespace woosmap.map.localities {
          */
         public_id: string;
         /**
+         * For each component (street_name, postal_code, and locality), it indicates the degree of correspondence with the original query. This value ranges from 0 to 1, with 0 indicating no match with the original query, and enables you to assess the quality of the Geocode’s result.
+         */
+        scores_per_components?: woosmap.map.localities.LocalitiesScoresPerComponent;
+        /**
          * This optional field is only available for UK addresses referenced as not yey built.
          */
         status?: "not_yet_built";
@@ -3355,8 +3356,24 @@ declare namespace woosmap.map.localities {
         /**
          * available localities types
          */
-        types: woosmap.map.localities.LocalitiesTypes[];
+        types:
+            | woosmap.map.localities.LocalitiesTypes[]
+            | woosmap.map.localities.LocalitiesTypesPoi[]
+            | woosmap.map.localities.LocalitiesTypesPoiAlias[];
     }
+}
+declare namespace woosmap.map.localities {
+    type DeprecatedLocalitiesTypes =
+        | "airport"
+        | "amusement_park"
+        | "art_gallery"
+        | "metro_station"
+        | "museum"
+        | "shopping"
+        | "tourist_attraction"
+        | "train_station"
+        | "zoo"
+        | "point_of_interest";
 }
 declare namespace woosmap.map.localities {
     /**
@@ -3365,21 +3382,116 @@ declare namespace woosmap.map.localities {
      * Check [full list of supported types](https://developers.woosmap.com/products/localities/autocomplete/#types)
      */
     type LocalitiesTypes =
-        | "address"
-        | "locality"
+        | woosmap.map.localities.DeprecatedLocalitiesTypes
+        | "country"
         | "admin_level"
+        | "postal_code"
+        | "address"
+        | "route"
+        | "locality"
+        | "city"
+        | "town"
+        | "village"
+        | "hamlet"
+        | "borough"
+        | "suburb"
+        | "quarter"
+        | "neighbourhood";
+}
+declare namespace woosmap.map.localities {
+    /**
+     * Categories of points of interest (POI) supported for detailed classification in geographic data queries.
+     * Refer [supported POI types][https://developers.woosmap.com/products/localities/concepts/locality-types/#point-of-interest-types](https://developers.woosmap.com/products/localities/concepts/locality-types/#point-of-interest-types)
+     */
+    type LocalitiesTypesPoi =
+        | "point_of_interest"
+        | "transit.station"
+        | "transit.station.airport"
+        | "transit.station.rail"
+        | "beach"
+        | "business"
+        | "business.car_repair"
+        | "business.car_rental"
+        | "business.cinema"
+        | "business.conference_centre"
+        | "business.exhibition_centre"
+        | "business.theatre"
+        | "business.nightclub"
+        | "business.finance"
+        | "business.finance.bank"
+        | "business.fuel"
+        | "business.parking"
+        | "business.mall"
+        | "business.food_and_drinks"
+        | "business.food_and_drinks.bar"
+        | "business.food_and_drinks.biergarten"
+        | "business.food_and_drinks.cafe"
+        | "business.food_and_drinks.fast_food"
+        | "business.food_and_drinks.pub"
+        | "business.food_and_drinks.restaurant"
+        | "business.food_and_drinks.food_court"
+        | "business.shop"
+        | "business.shop.mall"
+        | "business.shop.bakery"
+        | "business.shop.butcher"
+        | "business.shop.library"
+        | "business.shop.grocery"
+        | "business.shop.sports"
+        | "business.shop.toys"
+        | "business.shop.clothes"
+        | "business.shop.furniture"
+        | "business.shop.electronics"
+        | "business.shop.doityourself"
+        | "business.shop.craft"
+        | "education"
+        | "education.school"
+        | "education.kindergarten"
+        | "education.university"
+        | "education.college"
+        | "education.library"
+        | "hospitality"
+        | "hospitality.hotel"
+        | "hospitality.hostel"
+        | "hospitality.guest_house"
+        | "hospitality.bed_and_breakfast"
+        | "hospitality.motel"
+        | "medical"
+        | "medical.hospital"
+        | "medical.pharmacy"
+        | "medical.clinic"
+        | "tourism"
+        | "tourism.attraction"
+        | "tourism.attraction.amusement_park"
+        | "tourism.attraction.zoo"
+        | "tourism.attraction.aquarium"
+        | "tourism.monument"
+        | "tourism.monument.castle"
+        | "tourism.museum"
+        | "government"
+        | "park"
+        | "park.national"
+        | "place_of_worship"
+        | "police"
+        | "post_office"
+        | "sports"
+        | "sports.golf"
+        | "sports.winter";
+}
+declare namespace woosmap.map.localities {
+    /**
+     * POI aliases
+     */
+    type LocalitiesTypesPoiAlias =
         | "airport"
+        | "train_station"
+        | "transit.station"
+        | "metro_station"
+        | "shopping"
+        | "museum"
+        | "zoo"
         | "amusement_park"
         | "art_gallery"
-        | "country"
-        | "metro_station"
-        | "museum"
-        | "postal_code"
-        | "shopping"
-        | "tourist_attraction"
-        | "train_station"
-        | "zoo"
-        | "point_of_interest";
+        | "tourist_attraction";
 }
 declare namespace woosmap.map.localities {
     /**
@@ -3454,9 +3566,6 @@ declare namespace woosmap.map.localities {
     }
 }
 declare namespace woosmap.map.localities {
-    /**
-     * The types of result returned by nearby search.
-     */
     type LocalitiesNearbyTypes = "point_of_interest";
 }
 declare namespace woosmap.map.localities {
@@ -3468,9 +3577,6 @@ declare namespace woosmap.map.localities {
          * An array containing Address Components with additional information
          */
         address_components: woosmap.map.localities.AddressComponents[];
-        /**
-         * An array containing the categories of the result.
-         */
         categories: string[];
         /**
          * The location of the result, in latitude and longitude, eventually associated with a Viewport.
@@ -3487,7 +3593,7 @@ declare namespace woosmap.map.localities {
         /**
          * An array containing the types of the result.
          */
-        types: woosmap.map.localities.LocalitiesNearbyTypes[];
+        types: Array<woosmap.map.localities.LocalitiesNearbyTypes | woosmap.map.localities.LocalitiesTypesPoi>;
     }
 }
 declare namespace woosmap.map.localities {
@@ -3512,46 +3618,6 @@ declare namespace woosmap.map.localities {
          * If previous results are available, this will contain the value to pass to the `page` parameter to get the previous page.
          */
         previous_page?: number;
-    }
-}
-declare namespace woosmap.map.localities {
-    /**
-     * The types of result returned by search.
-     */
-    type LocalitiesSearchTypes =
-        | "point_of_interest"
-        | "address"
-        | "locality"
-        | "postal_code"
-        | "route"
-        | "admin_level"
-        | "country";
-}
-declare namespace woosmap.map.localities {
-    /**
-     * Defines information about a Search element.
-     */
-    interface LocalitiesSearchResult {
-        /**
-         * An array containing the categories of the result if it's a point of interest.
-         */
-        categories?: string[];
-        /**
-         * The description for the result.
-         */
-        description?: string;
-        /**
-         * Contains a unique ID for each result. Please use this ID to give feedbacks on results.
-         */
-        public_id: string;
-        /**
-         * The title for the result.
-         */
-        title: string;
-        /**
-         * An array containing the types of the result.
-         */
-        types: woosmap.map.localities.LocalitiesSearchTypes[];
     }
 }
 declare namespace woosmap.map {
@@ -3875,6 +3941,17 @@ declare namespace woosmap.map {
          * Sets the polygon stroke color.
          */
         defaultPolygonStrokeColor?: string;
+    }
+}
+declare namespace woosmap.map {
+    /**
+     * Identifiers for common map types.
+     * Specify these by value, or by using the constant's name.
+     * For example, `'roadmap'` or `woosmap.map.MapTypeId.ROADMAP`.
+     */
+    enum MapTypeId {
+        HYBRID = "HYBRID",
+        ROADMAP = "ROADMAP",
     }
 }
 declare namespace woosmap.map {

@@ -1,5 +1,5 @@
 import * as gulp from "gulp";
-import * as minify from "gulp-minify";
+import minify from "gulp-minify";
 
 gulp.task("minify-1", () => {
     gulp.src("./src").pipe(minify()).pipe(gulp.dest("./out"));

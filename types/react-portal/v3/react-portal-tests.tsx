@@ -1,6 +1,6 @@
 // Example from https://github.com/tajo/react-portal
 import * as React from "react";
-import * as Portal from "react-portal";
+import Portal from "react-portal";
 
 export default class App extends React.Component {
     render() {

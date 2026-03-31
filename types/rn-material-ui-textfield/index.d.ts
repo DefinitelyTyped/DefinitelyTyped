@@ -70,8 +70,6 @@ export interface TextFieldProps extends TextInputProps {
     renderLeftAccessory?(): React.JSX.Element;
     renderRightAccessory?(): React.JSX.Element;
     onChangeText?(text: string): void;
-    onFocus?(event: NativeSyntheticEvent<TextInputFocusEventData>): void;
-    onBlur?(event: NativeSyntheticEvent<TextInputChangeEventData>): void;
     inputRef?: React.RefObject<any> | undefined;
 }
 

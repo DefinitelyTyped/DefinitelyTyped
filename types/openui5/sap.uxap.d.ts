@@ -1,4 +1,4 @@
-// For Library Version: 1.138.0
+// For Library Version: 1.145.0
 
 declare module "sap/uxap/library" {
   /**
@@ -7145,8 +7145,7 @@ declare module "sap/uxap/ObjectPageSection" {
      *
      * The list of Subsections.
      *
-     * Note: If multiple subsections are used, it is highly recommended to set a title for the section for accessibility
-     * reasons.
+     * **Note:** If you use multiple subsections, set a `title` for each subsection to avoid accessibility violations.
      */
     getSubSections(): ObjectPageSubSection[];
     /**
@@ -7359,8 +7358,7 @@ declare module "sap/uxap/ObjectPageSection" {
     /**
      * The list of Subsections.
      *
-     * Note: If multiple subsections are used, it is highly recommended to set a title for the section for accessibility
-     * reasons.
+     * **Note:** If you use multiple subsections, set a `title` for each subsection to avoid accessibility violations.
      */
     subSections?:
       | ObjectPageSubSection[]
@@ -7514,8 +7512,12 @@ declare module "sap/uxap/ObjectPageSectionBase" {
      * Defines the title of the respective section/subsection.
      *
      * **Note:** If a subsection is the only one (or the only one visible) within a section, its title is displayed
-     * instead of the section title. This behavior is true even if the `showTitle` propeprty of {@link sap.uxap.ObjectPageSubSection }
+     * instead of the section title. This behavior is true even if the `showTitle` property of {@link sap.uxap.ObjectPageSubSection }
      * is set to `false`.
+     *
+     * **Note:** To avoid accessibility issues, always set a `title` on {@link sap.uxap.ObjectPageSubSection},
+     * especially when a section contains multiple subsections. If no `title` is set on a subsection, the anchor
+     * bar button popover will appear empty, which will lead to accessibility violations.
      *
      *
      * @returns Value of property `title`
@@ -7604,8 +7606,12 @@ declare module "sap/uxap/ObjectPageSectionBase" {
      * Defines the title of the respective section/subsection.
      *
      * **Note:** If a subsection is the only one (or the only one visible) within a section, its title is displayed
-     * instead of the section title. This behavior is true even if the `showTitle` propeprty of {@link sap.uxap.ObjectPageSubSection }
+     * instead of the section title. This behavior is true even if the `showTitle` property of {@link sap.uxap.ObjectPageSubSection }
      * is set to `false`.
+     *
+     * **Note:** To avoid accessibility issues, always set a `title` on {@link sap.uxap.ObjectPageSubSection},
+     * especially when a section contains multiple subsections. If no `title` is set on a subsection, the anchor
+     * bar button popover will appear empty, which will lead to accessibility violations.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -7676,8 +7682,12 @@ declare module "sap/uxap/ObjectPageSectionBase" {
      * Defines the title of the respective section/subsection.
      *
      * **Note:** If a subsection is the only one (or the only one visible) within a section, its title is displayed
-     * instead of the section title. This behavior is true even if the `showTitle` propeprty of {@link sap.uxap.ObjectPageSubSection }
+     * instead of the section title. This behavior is true even if the `showTitle` property of {@link sap.uxap.ObjectPageSubSection }
      * is set to `false`.
+     *
+     * **Note:** To avoid accessibility issues, always set a `title` on {@link sap.uxap.ObjectPageSubSection},
+     * especially when a section contains multiple subsections. If no `title` is set on a subsection, the anchor
+     * bar button popover will appear empty, which will lead to accessibility violations.
      */
     title?: string | PropertyBindingInfo;
 

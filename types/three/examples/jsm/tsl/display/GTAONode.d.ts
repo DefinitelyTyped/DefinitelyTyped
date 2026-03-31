@@ -1,23 +1,24 @@
-import { ShaderNodeObject } from "three/tsl";
 import { Camera, Node, TempNode, TextureNode, UniformNode, Vector2 } from "three/webgpu";
 
-declare class GTAONode extends TempNode {
+declare class GTAONode extends TempNode<"float"> {
     depthNode: Node;
     normalNode: Node;
 
     resolutionScale: number;
 
-    radius: ShaderNodeObject<UniformNode<number>>;
-    resolution: ShaderNodeObject<UniformNode<Vector2>>;
-    thickness: ShaderNodeObject<UniformNode<number>>;
-    distanceExponent: ShaderNodeObject<UniformNode<number>>;
-    distanceFallOff: ShaderNodeObject<UniformNode<number>>;
-    scale: ShaderNodeObject<UniformNode<number>>;
-    samples: ShaderNodeObject<UniformNode<number>>;
+    radius: UniformNode<"float", number>;
+    resolution: UniformNode<"vec2", Vector2>;
+    thickness: UniformNode<"float", number>;
+    distanceExponent: UniformNode<"float", number>;
+    distanceFallOff: UniformNode<"float", number>;
+    scale: UniformNode<"float", number>;
+    samples: UniformNode<"float", number>;
+
+    useTemporalFiltering: boolean;
 
     constructor(depthNode: Node, normalNode: Node, camera: Camera);
 
-    getTextureNode(): ShaderNodeObject<TextureNode>;
+    getTextureNode(): TextureNode;
 
     setSize(width: number, height: number): void;
 }
@@ -28,4 +29,4 @@ export const ao: (
     depthNode: Node,
     normalNode: Node,
     camera: Camera,
-) => ShaderNodeObject<GTAONode>;
+) => GTAONode;

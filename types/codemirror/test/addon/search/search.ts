@@ -1,4 +1,4 @@
-import * as CodeMirror from "codemirror";
+import CodeMirror from "codemirror";
 import "codemirror/addon/search/search";
 
 const editor = CodeMirror(document.body, {

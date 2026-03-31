@@ -1377,7 +1377,7 @@ declare module "util" {
          * encoded bytes.
          * @param [input='an empty string'] The text to encode.
          */
-        encode(input?: string): Uint8Array;
+        encode(input?: string): NodeJS.NonSharedUint8Array;
         /**
          * UTF-8 encodes the `src` string to the `dest` Uint8Array and returns an object
          * containing the read Unicode code units and written UTF-8 bytes.
@@ -1478,7 +1478,7 @@ declare module "util" {
         /**
          * Array of argument strings.
          */
-        args?: string[] | undefined;
+        args?: readonly string[] | undefined;
         /**
          * Used to describe arguments known to the parser.
          */

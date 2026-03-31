@@ -1,4 +1,4 @@
-import * as imageBlobReduce from "image-blob-reduce";
+import imageBlobReduce from "image-blob-reduce";
 
 // no options
 // $ExpectType ImageBlobReduce

@@ -1,5 +1,5 @@
-import * as express from "express";
-import * as swaggerJSDoc from "swagger-jsdoc";
+import express from "express";
+import swaggerJSDoc from "swagger-jsdoc";
 
 const app = express();
 

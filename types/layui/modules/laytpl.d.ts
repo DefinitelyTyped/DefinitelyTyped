@@ -8,6 +8,24 @@ declare namespace Layui {
          * 结束符号
          */
         close?: string;
+        /**
+         * 是否开启缓存
+         * @default true
+         * @since 2.11.0
+         */
+        cache?: boolean;
+        /**
+         * 是否压缩模板空白字符
+         * @default true
+         * @since 2.11.0
+         */
+        condense?: boolean;
+        /**
+         * 设置标签风格
+         * @default 'legacy'
+         * @since 2.11.0
+         */
+        tagStyle?: "modern" | "legacy";
     }
 
     interface LayTplReturn {
@@ -24,6 +42,17 @@ declare namespace Layui {
          * @param callback  解析后的回调，即可通过回调中参数也可通过 render 返回值获取解析后结果串
          */
         render(data: Record<string, any>, callback?: (str: string) => any): string;
+        /**
+         * 编译模板
+         * @param template 模板原始字符
+         * @since 2.11.0
+         */
+        compile(template: string): string;
+        /**
+         * 当前模板实例的配置选项
+         * @since 2.11.0
+         */
+        config: Required<LayTplOptions>;
     }
 
     /**
@@ -42,5 +71,11 @@ declare namespace Layui {
          * @param option 例如：`{open: '<%', close: '%>'}`
          */
         config(option?: LayTplOptions): void;
+        /**
+         * 	扩展模板内部变量
+         * @param vars 变量对象
+         * @since 2.11.0
+         */
+        extendVars(vars: Record<string, AnyFn>): void;
     }
 }

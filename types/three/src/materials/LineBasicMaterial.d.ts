@@ -81,6 +81,7 @@ export class LineBasicMaterial extends Material {
      * @default true
      */
     readonly isLineBasicMaterial: boolean;
+    setValues(values?: LineBasicMaterialParameters): void;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface

@@ -1,4 +1,4 @@
-import * as Cldr from "cldrjs";
+import Cldr = require("cldrjs");
 
 declare namespace Globalize {
     interface CommonNumberFormatterOptions {

@@ -410,11 +410,6 @@ declare namespace Sinon {
          * As a convenience, you can apply stub.reset() to all stubs using sinon.reset()
          */
         reset(): void;
-        /**
-         * Causes the stub to return promises using a specific Promise library instead of the global one when using stub.rejects or stub.resolves.
-         * Returns the stub to allow chaining.
-         */
-        usingPromise(promiseLibrary: any): SinonStub<TArgs, TReturnValue>;
 
         /**
          * Makes the stub return the provided @param obj value.
@@ -438,7 +433,6 @@ declare namespace Sinon {
          * Causes the stub to return a Promise which resolves to the provided value.
          * When constructing the Promise, sinon uses the Promise.resolve method.
          * You are responsible for providing a polyfill in environments which do not provide Promise.
-         * The Promise library can be overwritten using the usingPromise method.
          * Since sinon@2.0.0
          */
         resolves(
@@ -477,7 +471,6 @@ declare namespace Sinon {
          * Causes the stub to return a Promise which rejects with an exception (Error).
          * When constructing the Promise, sinon uses the Promise.reject method.
          * You are responsible for providing a polyfill in environments which do not provide Promise.
-         * The Promise library can be overwritten using the usingPromise method.
          * Since sinon@2.0.0
          */
         rejects(): SinonStub<TArgs, TReturnValue>;
@@ -793,247 +786,6 @@ declare namespace Sinon {
         dispatchEvent(event: Event): void;
     }
 
-    interface SinonFakeXMLHttpRequest {
-        // Properties
-        /**
-         * The URL set on the request object.
-         */
-        url: string;
-        /**
-         * The request method as a string.
-         */
-        method: string;
-        /**
-         * An object of all request headers, i.e.:
-         */
-        requestHeaders: any;
-        /**
-         * The request body
-         */
-        requestBody: string;
-        /**
-         * The request’s status code.
-         * undefined if the request has not been handled (see respond below)
-         */
-        status: number;
-        /**
-         * Only populated if the respond method is called (see below).
-         */
-        statusText: string;
-        /**
-         * Whether or not the request is asynchronous.
-         */
-        async: boolean;
-        /**
-         * Username, if any.
-         */
-        username: string;
-        /**
-         * Password, if any.
-         */
-        password: string;
-        withCredentials: boolean;
-        upload: SinonFakeUploadProgress;
-        /**
-         * When using respond, this property is populated with a parsed document if response headers indicate as much (see the spec)
-         */
-        responseXML: Document;
-        /**
-         * The value of the given response header, if the request has been responded to (see respond).
-         * @param header
-         */
-        getResponseHeader(header: string): string;
-        /**
-         * All response headers as an object.
-         */
-        getAllResponseHeaders(): any;
-
-        // Methods
-        /**
-         * Sets response headers (e.g. { "Content-Type": "text/html", ... }, updates the readyState property and fires onreadystatechange.
-         * @param headers
-         */
-        setResponseHeaders(headers: any): void;
-        /**
-         * Sets the respond body, updates the readyState property and fires onreadystatechange.
-         * Additionally, populates responseXML with a parsed document if response headers indicate as much.
-         */
-        setResponseBody(body: string): void;
-        /**
-         * Calls the above three methods.
-         */
-        respond(status: number, headers: any, body: string): void;
-        autoRespond(ms: number): void;
-        /**
-         * Simulates a network error on the request. The onerror handler will be called and the status will be 0.
-         */
-        error(): void;
-        onerror(): void;
-    }
-
-    interface SinonFakeXMLHttpRequestStatic {
-        new(): SinonFakeXMLHttpRequest;
-        /**
-         * Default false.
-         * When set to true, Sinon will check added filters if certain requests should be “unfaked”
-         */
-        useFilters: boolean;
-        /**
-         * Add a filter that will decide whether or not to fake a request.
-         * The filter will be called when xhr.open is called, with the exact same arguments (method, url, async, username, password).
-         * If the filter returns true, the request will not be faked.
-         * @param filter
-         */
-        addFilter(
-            filter: (method: string, url: string, async: boolean, username: string, password: string) => boolean,
-        ): void;
-        /**
-         * By assigning a function to the onCreate property of the returned object from useFakeXMLHttpRequest()
-         * you can subscribe to newly created FakeXMLHttpRequest objects. See below for the fake xhr object API.
-         * Using this observer means you can still reach objects created by e.g. jQuery.ajax (or other abstractions/frameworks).
-         * @param xhr
-         */
-        onCreate(xhr: SinonFakeXMLHttpRequest): void;
-        /**
-         * Restore original function(s).
-         */
-        restore(): void;
-    }
-
-    interface SinonFakeServer extends SinonFakeServerOptions {
-        // Properties
-        /**
-         * Used internally to determine the HTTP method used with the provided request.
-         * By default this method simply returns request.method.
-         * When server.fakeHTTPMethods is true, the method will return the value of the _method parameter if the method is “POST”.
-         * This method can be overridden to provide custom behavior.
-         * @param request
-         */
-        getHTTPMethod(request: SinonFakeXMLHttpRequest): string;
-        /**
-         * You can inspect the server.requests to verify request ordering, find unmatched requests or check that no requests has been done.
-         * server.requests is an array of all the FakeXMLHttpRequest objects that have been created.
-         */
-        requests: SinonFakeXMLHttpRequest[];
-
-        // Methods
-        /**
-         * Causes the server to respond to any request not matched by another response with the provided data. The default catch-all response is [404, {}, ""].
-         * A String representing the response body
-         * An Array with status, headers and response body, e.g. [200, { "Content-Type": "text/html", "Content-Length": 2 }, "OK"]
-         * A Function.
-         * Default status is 200 and default headers are none.
-         * When the response is a Function, it will be passed the request object. You must manually call respond on it to complete the request.
-         * @param body A String representing the response body
-         */
-        respondWith(body: string): void;
-        /**
-         * Causes the server to respond to any request not matched by another response with the provided data. The default catch-all response is [404, {}, ""].
-         * Default status is 200 and default headers are none.
-         * When the response is a Function, it will be passed the request object. You must manually call respond on it to complete the request.
-         * @param response An Array with status, headers and response body, e.g. [200, { "Content-Type": "text/html", "Content-Length": 2 }, "OK"]
-         */
-        respondWith(response: any[]): void;
-        /**
-         * Causes the server to respond to any request not matched by another response with the provided data. The default catch-all response is [404, {}, ""].
-         * Default status is 200 and default headers are none.
-         * When the response is a Function, it will be passed the request object. You must manually call respond on it to complete the request.
-         * @param fn A Function.
-         */
-        respondWith(fn: (xhr: SinonFakeXMLHttpRequest) => void): void;
-        /**
-         * Responds to all requests to given URL, e.g. /posts/1.
-         */
-        respondWith(url: string, body: string): void;
-        /**
-         * Responds to all requests to given URL, e.g. /posts/1.
-         */
-        respondWith(url: string, response: any[]): void;
-        /**
-         * Responds to all requests to given URL, e.g. /posts/1.
-         */
-        respondWith(url: string, fn: (xhr: SinonFakeXMLHttpRequest) => void): void;
-        /**
-         * Responds to all method requests to the given URL with the given response.
-         * method is an HTTP verb.
-         */
-        respondWith(method: string, url: string, body: string): void;
-        /**
-         * Responds to all method requests to the given URL with the given response.
-         * method is an HTTP verb.
-         */
-        respondWith(method: string, url: string, response: any[]): void;
-        /**
-         * Responds to all method requests to the given URL with the given response.
-         * method is an HTTP verb.
-         */
-        respondWith(method: string, url: string, fn: (xhr: SinonFakeXMLHttpRequest) => void): void;
-        /**
-         * URL may be a regular expression, e.g. /\\/post\\//\\d+
-         * If the response is a Function, it will be passed any capture groups from the regular expression along with the XMLHttpRequest object:
-         */
-        respondWith(url: RegExp, body: string): void;
-        /**
-         * URL may be a regular expression, e.g. /\\/post\\//\\d+
-         * If the response is a Function, it will be passed any capture groups from the regular expression along with the XMLHttpRequest object:
-         */
-        respondWith(url: RegExp, response: any[]): void;
-        /**
-         * URL may be a regular expression, e.g. /\\/post\\//\\d+
-         * If the response is a Function, it will be passed any capture groups from the regular expression along with the XMLHttpRequest object:
-         */
-        respondWith(url: RegExp, fn: (xhr: SinonFakeXMLHttpRequest) => void): void;
-        /**
-         * Responds to all method requests to URLs matching the regular expression.
-         */
-        respondWith(method: string, url: RegExp, body: string): void;
-        /**
-         * Responds to all method requests to URLs matching the regular expression.
-         */
-        respondWith(method: string, url: RegExp, response: any[]): void;
-        /**
-         * Responds to all method requests to URLs matching the regular expression.
-         */
-        respondWith(method: string, url: RegExp, fn: (xhr: SinonFakeXMLHttpRequest) => void): void;
-        /**
-         * Causes all queued asynchronous requests to receive a response.
-         * If none of the responses added through respondWith match, the default response is [404, {}, ""].
-         * Synchronous requests are responded to immediately, so make sure to call respondWith upfront.
-         * If called with arguments, respondWith will be called with those arguments before responding to requests.
-         */
-        respond(): void;
-        restore(): void;
-    }
-
-    interface SinonFakeServerOptions {
-        /**
-         * When set to true, causes the server to automatically respond to incoming requests after a timeout.
-         * The default timeout is 10ms but you can control it through the autoRespondAfter property.
-         * Note that this feature is intended to help during mockup development, and is not suitable for use in tests.
-         */
-        autoRespond: boolean;
-        /**
-         * When autoRespond is true, respond to requests after this number of milliseconds. Default is 10.
-         */
-        autoRespondAfter: number;
-        /**
-         * If set to true, server will find _method parameter in POST body and recognize that as the actual method.
-         * Supports a pattern common to Ruby on Rails applications. For custom HTTP method faking, override server.getHTTPMethod(request).
-         */
-        fakeHTTPMethods: boolean;
-        /**
-         * If set, the server will respond to every request immediately and synchronously.
-         * This is ideal for faking the server from within a test without having to call server.respond() after each request made in that test.
-         * As this is synchronous and immediate, this is not suitable for simulating actual network latency in tests or mockups.
-         * To simulate network latency with automatic responses, see server.autoRespond and server.autoRespondAfter.
-         */
-        respondImmediately: boolean;
-    }
-
-    interface SinonFakeServerStatic {
-        create(options?: Partial<SinonFakeServerOptions>): SinonFakeServer;
-    }
-
     interface SinonExposeOptions {
         prefix: string;
         includeFail: boolean;
@@ -1042,14 +794,8 @@ declare namespace Sinon {
     interface SinonAssert {
         // Properties
         /**
-         * Defaults to AssertError.
-         */
-        failException: string;
-        /**
          * Every assertion fails by calling this method.
-         * By default it throws an error of type sinon.assert.failException.
-         * If the test framework looks for assertion errors by checking for a specific exception, you can simply override the kind of exception thrown.
-         * If that does not fit with your testing framework of choice, override the fail method to do the right thing.
+         * If your testing framework of choice looks for assertion errors by checking for a specific exception, you can override the `fail` method to do the right thing.
          */
         fail(message?: string): void; // Overridable
         /**
@@ -1429,9 +1175,7 @@ declare namespace Sinon {
          */
         injectInto: object | null;
         /**
-         * What properties to inject.
-         * Note that simply naming “server” here is not sufficient to have a server property show up in the target object,
-         * you also have to set useFakeServer to true.
+         * Which properties to inject into the facade object. By default empty!
          */
         properties: string[];
         /**
@@ -1439,12 +1183,6 @@ declare namespace Sinon {
          * You can optionally pass in a configuration object that follows the specification for fake timers, such as { toFake: ["setTimeout", "setInterval"] }.
          */
         useFakeTimers: boolean | Partial<FakeTimers.FakeTimerInstallOpts>;
-        /**
-         * If true, server and requests properties are added to the sandbox. Can also be an object to use for fake server.
-         * The default one is sinon.fakeServer, but if you’re using jQuery 1.3.x or some other library that does not set the XHR’s onreadystatechange handler,
-         * you might want to do:
-         */
-        useFakeServer: boolean | SinonFakeServer;
         /**
          * The assert options can help limit the amount of output produced by assert.fail
          */
@@ -1564,8 +1302,6 @@ declare namespace Sinon {
          */
         assert: SinonAssert;
         clock: SinonFakeTimers;
-        requests: SinonFakeXMLHttpRequest[];
-        server: SinonFakeServer;
         match: SinonMatch;
         /**
          * Works exactly like sinon.spy
@@ -1590,28 +1326,13 @@ declare namespace Sinon {
          * Since sinon@2.0.0
          * You can also pass in a Date object, and its getTime() will be used for the starting timestamp.
          * * Config : As above, but allows further configuration options, some of which are:
-         * * config.now - Number/Date - installs lolex with the specified unix epoch (default: 0)
-         * * config.toFake - String[ ] - an array with explicit function names to fake.
-         * By default lolex will automatically fake all methods except process.nextTick. You could, however, still fake nextTick by providing it explicitly
-         * * config.shouldAdvanceTime - Boolean - tells lolex to increment mocked time automatically based on the real system time shift (default: false)
-         * * Please visit the lolex.install documentation for the full feature set.
-         * * Important note: when faking nextTick, normal calls to process.nextTick() would not execute automatically as they would during normal event-loop phases.
-         * You would have to call either clock.next(), clock.tick(), clock.runAll() or clock.runToLast() (see example below). Please refer to the lolex documentation for more information.
+         * * config.now - Number/Date - installs 'fake-timers' with the specified unix epoch (default: 0)
+         * * config.toFake - String[ ] - an array with explicit function names to fake. By default `fake-timers` will automatically fake _all_ methods (changed in v19).
+         * * config.shouldAdvanceTime - Boolean - tells `fake-timers` to increment mocked time automatically based on the real system time shift (default: false). When used in conjunction with `config.toFake`, it will only work if `'setInterval'` is included in `config.toFake`.
+         * * Important note: when faking `nextTick`, normal calls to `process.nextTick()` will not execute automatically as they would during normal event-loop phases. You would have to call either `clock.next()`, `clock.tick()`, `clock.runAll()` or `clock.runToLast()` manually (see example below). You can easily work around this using the `config.toFake` option. Please refer to the [`fake-timers`](https://github.com/sinonjs/fake-timers) documentation for more information.
          * @param config
          */
         useFakeTimers(config?: number | Date | Partial<FakeTimers.FakeTimerInstallOpts>): SinonFakeTimers;
-        /**
-         * Causes Sinon to replace the native XMLHttpRequest object in browsers that support it with a custom implementation which does not send actual requests.
-         * In browsers that support ActiveXObject, this constructor is replaced, and fake objects are returned for XMLHTTP progIds.
-         * Other progIds, such as XMLDOM are left untouched.
-         * The native XMLHttpRequest object will be available at sinon.xhr.XMLHttpRequest
-         */
-        useFakeXMLHttpRequest(): SinonFakeXMLHttpRequestStatic;
-        /**
-         * Fakes XHR and binds a server object to the sandbox such that it too is restored when calling sandbox.restore().
-         * Access requests through sandbox.requests and server through sandbox.server
-         */
-        useFakeServer(): SinonFakeServer;
         /**
          * Restores all fakes created through sandbox.
          */
@@ -1630,12 +1351,6 @@ declare namespace Sinon {
          * Since sinon@2.0.0
          */
         resetBehavior(): void;
-        /**
-         * Causes all stubs created from the sandbox to return promises using a specific Promise library instead of the global one when using stub.rejects or stub.resolves.
-         * Returns the stub to allow chaining.
-         * Since sinon@2.0.0
-         */
-        usingPromise(promiseLibrary: any): SinonSandbox;
         /**
          * Verifies all mocks created through the sandbox.
          */
@@ -1712,11 +1427,6 @@ declare namespace Sinon {
         clock: {
             create(now: number | Date): FakeTimers.Clock;
         };
-
-        FakeXMLHttpRequest: SinonFakeXMLHttpRequestStatic;
-
-        fakeServer: SinonFakeServerStatic;
-        fakeServerWithClock: SinonFakeServerStatic;
 
         /**
          * Creates a new sandbox object with spies, stubs, and mocks.

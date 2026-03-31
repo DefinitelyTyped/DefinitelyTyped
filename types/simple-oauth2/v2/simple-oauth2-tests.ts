@@ -55,7 +55,7 @@ const oauth2 = oauth2lib.create(credentials);
     try {
         const result = await oauth2.authorizationCode.getToken(tokenConfig);
         const accessToken = oauth2.accessToken.create(result);
-    } catch (error) {
+    } catch (error: any) {
         console.log("Access Token Error", error.message);
     }
 })();
@@ -72,7 +72,7 @@ const oauth2 = oauth2lib.create(credentials);
     try {
         const result = await oauth2.ownerPassword.getToken(tokenConfig);
         const accessToken = oauth2.accessToken.create(result);
-    } catch (error) {
+    } catch (error: any) {
         console.log("Access Token Error", error.message);
     }
 })();
@@ -85,7 +85,7 @@ const oauth2 = oauth2lib.create(credentials);
     try {
         const result = await oauth2.clientCredentials.getToken(tokenConfig);
         const accessToken = oauth2.accessToken.create(result);
-    } catch (error) {
+    } catch (error: any) {
         console.log("Access Token error", error.message);
     }
 })();
@@ -106,7 +106,7 @@ const oauth2 = oauth2lib.create(credentials);
     if (accessToken.expired()) {
         try {
             accessToken = await accessToken.refresh();
-        } catch (error) {
+        } catch (error: any) {
             console.log("Error refreshing access token: ", error.message);
         }
     }
@@ -121,7 +121,7 @@ const oauth2 = oauth2lib.create(credentials);
         await accessToken.revoke("refresh_token");
 
         console.log("Token revoked");
-    } catch (error) {
+    } catch (error: any) {
         console.log("Error revoking token: ", error.message);
     }
 
@@ -130,7 +130,7 @@ const oauth2 = oauth2lib.create(credentials);
     try {
         // Revokes both tokens, refresh token is only revoked if the access_token is properly revoked
         await accessToken.revokeAll();
-    } catch (error) {
+    } catch (error: any) {
         console.log("Error revoking token: ", error.message);
     }
 })();
@@ -160,7 +160,7 @@ const oauth2 = oauth2lib.create(credentials);
     try {
         const result = await oauth2.ownerPassword.getToken(tokenConfig);
         const accessToken = oauth2.accessToken.create(result);
-    } catch (error) {
+    } catch (error: any) {
         console.log("Access Token Error", error.message);
     }
 })();

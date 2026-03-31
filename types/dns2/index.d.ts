@@ -52,7 +52,7 @@ declare namespace DNS {
         retries: number;
         timeout: number;
         recursive: boolean;
-        resolverProtocol: "UDP" | "TCP";
+        resolverProtocol: "UDP" | "TCP" | "DOH" | "Google";
         nameServers: string[];
         rootServers: string[];
     }
@@ -102,8 +102,38 @@ declare namespace DNS {
         port: number;
         address: string;
     };
+
+    interface DnsResolveOptions {
+        recursive?: boolean;
+        /** EDNS ECS, in CIDR format */
+        clientIp?: string;
+    }
+
+    type DnsResolver = (
+        name: string,
+        type?: DNS.PacketQuestion,
+        cls?: DNS.PacketClass,
+        options?: DNS.DnsResolveOptions,
+    ) => Promise<DNS.DnsResponse>;
+
+    interface TCPClientOptions {
+        dns: string;
+        protocol?: "tcp:" | "tls:";
+        port?: 53 | 853 | (number & {});
+    }
+
+    interface DOHClientOptions {
+        dns: string;
+    }
+
+    interface UDPClientOptions {
+        dns: string;
+        port?: 53 | (number & {});
+        socketType?: udp.SocketType;
+    }
 }
 
+// ******** Server *******
 declare class DnsServer extends EventEmitter {
     addresses(): {
         udp?: net.AddressInfo;
@@ -142,6 +172,11 @@ declare class DNS {
 
     static createTCPServer: (...options: ConstructorParameters<typeof TcpDnsServer>) => TcpDnsServer;
     static TCPServer: typeof TcpDnsServer;
+
+    static TCPClient: (options: DNS.TCPClientOptions) => DNS.DnsResolver;
+    static DOHClient: (options: DNS.DOHClientOptions) => DNS.DnsResolver;
+    static UDPClient: (options: DNS.UDPClientOptions) => DNS.DnsResolver;
+    static GoogleClient: () => DNS.DnsResolver;
 
     query(name: string, type: DNS.PacketQuestion, cls?: DNS.PacketClass, clientIp?: string): Promise<DNS.DnsResponse>;
     resolve(

@@ -1,7 +1,7 @@
 /// <reference types="node" />
 
-import * as Promise from "bluebird";
-import * as FtpClient from "ftp";
+import Promise = require("bluebird");
+import FtpClient = require("ftp");
 import * as PromiseFtpCommon from "promise-ftp-common";
 
 declare namespace PromiseFtp {

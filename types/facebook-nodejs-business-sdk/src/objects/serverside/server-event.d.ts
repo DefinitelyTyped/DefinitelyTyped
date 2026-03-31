@@ -3,12 +3,15 @@ import AttributionData from "./attribution-data";
 import CustomData from "./custom-data";
 import OriginalEventData from "./original-event-data";
 import UserData from "./user-data";
+import type {StandardEvents} from './standard-events'
+
+
 /**
  * ServerEvent
  * @see {@link https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/server-event}
  */
 export default class ServerEvent {
-    _event_name: string;
+    _event_name: StandardEvents;
     _event_time: number;
     _event_source_url: string;
     _event_id: string;
@@ -43,21 +46,21 @@ export default class ServerEvent {
      * @param {OriginalEventData} original_event_data Contains original event info used for attribution passback event or generalized value optimization(GVO).
      * @param {AttributionData} attribution_data Used for attribution passback event to optimize the performance.
      */
-    constructor(event_name?: string, event_time?: number, event_source_url?: string, user_data?: UserData, custom_data?: CustomData, app_data?: AppData, event_id?: string, opt_out?: boolean, action_source?: string, data_processing_options?: string[], data_processing_options_country?: number, data_processing_options_state?: number, advanced_measurement_table?: string, advertiser_tracking_enabled?: boolean, messaging_channel?: string, original_event_data?: OriginalEventData, attribution_data?: AttributionData);
+    constructor(event_name?: StandardEvents, event_time?: number, event_source_url?: string, user_data?: UserData, custom_data?: CustomData, app_data?: AppData, event_id?: string, opt_out?: boolean, action_source?: string, data_processing_options?: string[], data_processing_options_country?: number, data_processing_options_state?: number, advanced_measurement_table?: string, advertiser_tracking_enabled?: boolean, messaging_channel?: string, original_event_data?: OriginalEventData, attribution_data?: AttributionData);
     /**
      * Gets the Event Name for the current Event.
      */
-    get event_name(): string;
+    get event_name(): StandardEvents;
     /**
      * Sets the Event Name for the current Event.
-     * @param {String} event_name a Facebook pixel Standard Event or Custom Event name.
+     * @param {StandardEvents} event_name a Facebook pixel Standard Event or Custom Event name.
      */
-    set event_name(event_name: string);
+    set event_name(event_name: StandardEvents);
     /**
      * Sets the Event Name for the current Event.
-     * @param {String} event_name Facebook pixel Standard Event or Custom Event name.
+     * @param {StandardEvents} event_name Facebook pixel Standard Event or Custom Event name.
      */
-    setEventName(event_name: string): ServerEvent;
+    setEventName(event_name: StandardEvents): ServerEvent;
     /**
      * Gets the Event Time when the current Event happened.
      */

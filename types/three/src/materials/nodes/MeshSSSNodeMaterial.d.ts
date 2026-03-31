@@ -1,4 +1,3 @@
-import InputNode from "../../nodes/core/InputNode.js";
 import { LightingModelDirectInput } from "../../nodes/core/LightingModel.js";
 import Node from "../../nodes/core/Node.js";
 import NodeBuilder from "../../nodes/core/NodeBuilder.js";
@@ -40,7 +39,7 @@ declare class SSSLightingModel extends PhysicalLightingModel {
     /**
      * Extends the default implementation with a SSS term.
      *
-     * Reference: [Approximating Translucency for a Fast, Cheap and Convincing Subsurface Scattering Look]{@link https://colinbarrebrisebois.com/2011/03/07/gdc-2011-approximating-translucency-for-a-fast-cheap-and-convincing-subsurface-scattering-look/}
+     * Reference: [Approximating Translucency for a Fast, Cheap and Convincing Subsurface Scattering Look](https://colinbarrebrisebois.com/2011/03/07/gdc-2011-approximating-translucency-for-a-fast-cheap-and-convincing-subsurface-scattering-look/)
      *
      * @param {Object} input - The input data.
      * @param {NodeBuilder} builder - The current node builder.
@@ -58,23 +57,23 @@ export interface MeshSSSNodeMaterialNodeProperties extends MeshPhysicalNodeMater
     /**
      * Represents the distortion factor.
      */
-    thicknessDistortionNode: InputNode<number>;
+    thicknessDistortionNode: Node<"float">;
     /**
      * Represents the thickness ambient factor.
      */
-    thicknessAmbientNode: InputNode<number>;
+    thicknessAmbientNode: Node<"float">;
     /**
      * Represents the thickness attenuation.
      */
-    thicknessAttenuationNode: InputNode<number>;
+    thicknessAttenuationNode: Node<"float">;
     /**
      * Represents the thickness power.
      */
-    thicknessPowerNode: InputNode<number>;
+    thicknessPowerNode: Node<"float">;
     /**
      * Represents the thickness scale.
      */
-    thicknessScaleNode: InputNode<number>;
+    thicknessScaleNode: Node<"float">;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -87,11 +86,10 @@ export interface MeshSSSNodeMaterialParameters
 /**
  * This node material is an experimental extension of {@link MeshPhysicalNodeMaterial}
  * that implements a Subsurface scattering (SSS) term.
- *
- * @augments MeshPhysicalNodeMaterial
  */
 declare class MeshSSSNodeMaterial extends MeshPhysicalNodeMaterial {
     constructor(parameters?: MeshSSSNodeMaterialParameters);
+    setValues(values?: MeshSSSNodeMaterialParameters): void;
     /**
      * Whether the lighting model should use SSS or not.
      *

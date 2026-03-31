@@ -1,7 +1,7 @@
 import { Camera } from "../cameras/Camera.js";
-import { CullFace, ShadowMapType, ToneMapping, WebGLCoordinateSystem } from "../constants.js";
+import { TextureDataType, ToneMapping, WebGLCoordinateSystem } from "../constants.js";
 import { TypedArray } from "../core/BufferAttribute.js";
-import { BufferGeometry } from "../core/BufferGeometry.js";
+import { BufferGeometry, GeometryGroup } from "../core/BufferGeometry.js";
 import { Object3D } from "../core/Object3D.js";
 import { Material } from "../materials/Material.js";
 import { Box2 } from "../math/Box2.js";
@@ -12,8 +12,6 @@ import { Vector2 } from "../math/Vector2.js";
 import { Vector3 } from "../math/Vector3.js";
 import { Vector4 } from "../math/Vector4.js";
 import { Scene } from "../scenes/Scene.js";
-import { Data3DTexture } from "../textures/Data3DTexture.js";
-import { DataArrayTexture } from "../textures/DataArrayTexture.js";
 import { OffscreenCanvas, Texture } from "../textures/Texture.js";
 import { WebGLCapabilities, WebGLCapabilitiesParameters } from "./webgl/WebGLCapabilities.js";
 import { WebGLExtensions } from "./webgl/WebGLExtensions.js";
@@ -78,6 +76,11 @@ export interface WebGLRendererParameters extends WebGLCapabilitiesParameters {
      * default is false.
      */
     failIfMajorPerformanceCaveat?: boolean | undefined;
+
+    /**
+     * @default UnsignedByteType
+     */
+    outputBufferType?: TextureDataType | undefined;
 }
 
 export interface WebGLDebug {
@@ -100,6 +103,17 @@ export interface WebGLDebug {
             glFragmentShader: WebGLShader,
         ) => void)
         | null;
+}
+
+export interface Effect {
+    setSize(width: number, height: number): void;
+    render(
+        renderer: WebGLRenderer,
+        writeBuffer: WebGLRenderTarget,
+        readBuffer: WebGLRenderTarget,
+        deltaTime: number,
+        maskActive: boolean,
+    ): void;
 }
 
 /**
@@ -213,25 +227,12 @@ export class WebGLRenderer {
      * Return the WebGL context.
      */
     getContext(): WebGLRenderingContext | WebGL2RenderingContext;
-    getContextAttributes(): any;
+    getContextAttributes(): WebGLContextAttributes;
     forceContextLoss(): void;
     forceContextRestore(): void;
 
-    /**
-     * @deprecated Use {@link WebGLCapabilities#getMaxAnisotropy .capabilities.getMaxAnisotropy()} instead.
-     */
-    getMaxAnisotropy(): number;
-
-    /**
-     * @deprecated Use {@link WebGLCapabilities#precision .capabilities.precision} instead.
-     */
-    getPrecision(): string;
-
     getPixelRatio(): number;
     setPixelRatio(value: number): void;
-
-    getDrawingBufferSize(target: Vector2): Vector2;
-    setDrawingBufferSize(width: number, height: number, pixelRatio: number): void;
 
     getSize(target: Vector2): Vector2;
 
@@ -239,6 +240,11 @@ export class WebGLRenderer {
      * Resizes the output canvas to (width, height), and also sets the viewport to fit that size, starting in (0, 0).
      */
     setSize(width: number, height: number, updateStyle?: boolean): void;
+
+    getDrawingBufferSize(target: Vector2): Vector2;
+    setDrawingBufferSize(width: number, height: number, pixelRatio: number): void;
+
+    setEffects(effects: Effect[] | null): void;
 
     getCurrentViewport(target: Vector4): Vector4;
 
@@ -311,10 +317,6 @@ export class WebGLRenderer {
     clearStencil(): void;
     clearTarget(renderTarget: WebGLRenderTarget, color: boolean, depth: boolean, stencil: boolean): void;
 
-    /**
-     * @deprecated Use {@link WebGLState#reset .state.reset()} instead.
-     */
-    resetGLState(): void;
     dispose(): void;
 
     renderBufferDirect(
@@ -323,7 +325,7 @@ export class WebGLRenderer {
         geometry: BufferGeometry,
         material: Material,
         object: Object3D,
-        geometryGroup: any,
+        group: GeometryGroup,
     ): void;
 
     /**
@@ -331,11 +333,6 @@ export class WebGLRenderer {
      * @param callback The function will be called every available frame. If `null` is passed it will stop any already ongoing animation.
      */
     setAnimationLoop(callback: XRFrameRequestCallback | null): void;
-
-    /**
-     * @deprecated Use {@link WebGLRenderer#setAnimationLoop .setAnimationLoop()} instead.
-     */
-    animate(callback: () => void): void;
 
     /**
      * Compiles all materials in the scene with the camera. This is useful to precompile shaders before the first
@@ -379,11 +376,6 @@ export class WebGLRenderer {
      * Returns the current render target. If no render target is set, null is returned.
      */
     getRenderTarget(): WebGLRenderTarget | null;
-
-    /**
-     * @deprecated Use {@link WebGLRenderer#getRenderTarget .getRenderTarget()} instead.
-     */
-    getCurrentRenderTarget(): WebGLRenderTarget | null;
 
     /**
      * Sets the active render target.
@@ -457,29 +449,6 @@ export class WebGLRenderer {
     ): void;
 
     /**
-     * @deprecated Use "copyTextureToTexture" instead.
-     *
-     * Copies the pixels of a texture in the bounds `srcRegion` in the destination texture starting from the given
-     * position. The `depthTexture` and `texture` property of 3D render targets are supported as well.
-     *
-     * When using render target textures as `srcTexture` and `dstTexture`, you must make sure both render targets are
-     * initialized e.g. via {@link .initRenderTarget}().
-     *
-     * @param srcTexture Specifies the source texture.
-     * @param dstTexture Specifies the destination texture.
-     * @param srcRegion Specifies the bounds
-     * @param dstPosition Specifies the pixel offset into the dstTexture where the copy will occur.
-     * @param level Specifies the destination mipmap level of the texture.
-     */
-    copyTextureToTexture3D(
-        srcTexture: Texture,
-        dstTexture: Data3DTexture | DataArrayTexture,
-        srcRegion?: Box3 | null,
-        dstPosition?: Vector3 | null,
-        level?: number,
-    ): void;
-
-    /**
      * Initializes the given WebGLRenderTarget memory. Useful for initializing a render target so data can be copied
      * into it using {@link WebGLRenderer.copyTextureToTexture} before it has been rendered to.
      * @param target
@@ -497,69 +466,4 @@ export class WebGLRenderer {
      * Can be used to reset the internal WebGL state.
      */
     resetState(): void;
-
-    /**
-     * @deprecated Use {@link WebGLRenderer#xr .xr} instead.
-     */
-    vr: boolean;
-
-    /**
-     * @deprecated Use {@link WebGLShadowMap#enabled .shadowMap.enabled} instead.
-     */
-    shadowMapEnabled: boolean;
-
-    /**
-     * @deprecated Use {@link WebGLShadowMap#type .shadowMap.type} instead.
-     */
-    shadowMapType: ShadowMapType;
-
-    /**
-     * @deprecated Use {@link WebGLShadowMap#cullFace .shadowMap.cullFace} instead.
-     */
-    shadowMapCullFace: CullFace;
-
-    /**
-     * @deprecated Use {@link WebGLExtensions#get .extensions.get( 'OES_texture_float' )} instead.
-     */
-    supportsFloatTextures(): any;
-
-    /**
-     * @deprecated Use {@link WebGLExtensions#get .extensions.get( 'OES_texture_half_float' )} instead.
-     */
-    supportsHalfFloatTextures(): any;
-
-    /**
-     * @deprecated Use {@link WebGLExtensions#get .extensions.get( 'OES_standard_derivatives' )} instead.
-     */
-    supportsStandardDerivatives(): any;
-
-    /**
-     * @deprecated Use {@link WebGLExtensions#get .extensions.get( 'WEBGL_compressed_texture_s3tc' )} instead.
-     */
-    supportsCompressedTextureS3TC(): any;
-
-    /**
-     * @deprecated Use {@link WebGLExtensions#get .extensions.get( 'WEBGL_compressed_texture_pvrtc' )} instead.
-     */
-    supportsCompressedTexturePVRTC(): any;
-
-    /**
-     * @deprecated Use {@link WebGLExtensions#get .extensions.get( 'EXT_blend_minmax' )} instead.
-     */
-    supportsBlendMinMax(): any;
-
-    /**
-     * @deprecated Use {@link WebGLCapabilities#vertexTextures .capabilities.vertexTextures} instead.
-     */
-    supportsVertexTextures(): any;
-
-    /**
-     * @deprecated Use {@link WebGLExtensions#get .extensions.get( 'ANGLE_instanced_arrays' )} instead.
-     */
-    supportsInstancedArrays(): any;
-
-    /**
-     * @deprecated Use {@link WebGLRenderer#setScissorTest .setScissorTest()} instead.
-     */
-    enableScissorTest(boolean: any): any;
 }

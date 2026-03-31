@@ -1,5 +1,5 @@
-import * as Koa from "koa";
-import * as cache from "koa-redis-cache";
+import Koa from "koa";
+import cache from "koa-redis-cache";
 
 const app = new Koa();
 

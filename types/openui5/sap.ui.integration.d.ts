@@ -1,4 +1,4 @@
-// For Library Version: 1.138.0
+// For Library Version: 1.145.0
 
 declare module "sap/ui/integration/library" {
   import { URI } from "sap/ui/core/library";
@@ -956,7 +956,7 @@ declare module "sap/ui/integration/widgets/Card" {
   } from "sap/ui/base/ManagedObject";
 
   /**
-   * Settings for blocking message that ocurred in a {@link sap.ui.integration.widgets.Card}
+   * Settings for blocking message that occurred in a {@link sap.ui.integration.widgets.Card}
    *
    * @experimental As of version 1.114.
    */
@@ -996,6 +996,29 @@ declare module "sap/ui/integration/widgets/Card" {
      * A list of buttons placed below the description as additional content. Experimental since 1.121
      */
     additionalContent?: any[];
+  };
+
+  /**
+   * Settings for card request error.
+   *
+   * **Note:** For backward compatibility, the object can also be accessed as an array with the properties
+   * in the order - message, response, and responseText.
+   *
+   * @experimental As of version 1.139.
+   */
+  export type CardRequestError = {
+    /**
+     * The error message
+     */
+    message: string;
+    /**
+     * The response object
+     */
+    response: object;
+    /**
+     * The response text
+     */
+    responseText: string;
   };
 
   /**
@@ -1874,9 +1897,15 @@ declare module "sap/ui/integration/widgets/Card" {
      */
     removeAllActionDefinitions(): ActionDefinition[];
     /**
-     * Performs an HTTP request using the given configuration.
+     * Performs an asynchronous network request using the specified request settings, enabling dynamic bindings
+     * to card configurations, such as CSRF tokens, destinations, and parameters. If the request is successful,
+     * it returns a Promise that resolves with the response data.
      *
-     * @experimental As of version 1.79.
+     * If an error occurs during the request, the Promise will reject with a {@link sap.ui.integration.CardRequestError}.
+     *
+     * For more details on card data handling and request settings see [Card Explorer Data Section]{@link https://ui5.sap.com/test-resources/sap/ui/integration/demokit/cardExplorer/webapp/index.html#/learn/features/data}.
+     *
+     * @since 1.79
      *
      * @returns Resolves when the request is successful, rejects otherwise.
      */
@@ -1925,7 +1954,8 @@ declare module "sap/ui/integration/widgets/Card" {
          */
         headers?: object;
         /**
-         * Indicates whether cross-site requests should be made using credentials.
+         * Indicates whether cross-site requests should be made using credentials. Same-origin requests are always
+         * made using credentials.
          */
         withCredentials?: boolean;
       }
@@ -2284,7 +2314,9 @@ declare module "sap/ui/integration/widgets/Card" {
   /**
    * Facade of the {@link sap.ui.integration.widgets.Card} control.
    *
-   * @experimental As of version 1.79.
+   * This facade contains methods accessible within the card extension. The available methods represent a
+   * limited subset of all card methods, since not all card methods function as expected when called from
+   * within the extension.
    */
   export interface CardFacade {
     __implements__sap_ui_integration_widgets_CardFacade: boolean;
@@ -2304,6 +2336,27 @@ declare module "sap/ui/integration/widgets/Card" {
        */
       oActionDefinition: ActionDefinition
     ): this;
+    /**
+     * Destroys all the actionDefinitions in the aggregation {@link #getActionDefinitions actionDefinitions}.
+     *
+     * @since 1.85
+     * @experimental As of version 1.85. Disclaimer: this aggregation is in a beta state - incompatible API
+     * changes may be done before its official public release. Use at your own discretion.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    destroyActionDefinitions(): this;
+    /**
+     * Gets content of aggregation {@link #getActionDefinitions actionDefinitions}.
+     *
+     * Actions definitions from which actions in the header menu of the card are created. **Note**: This aggregation
+     * is destroyed when the property `manifest` changes.
+     *
+     * @since 1.85
+     * @experimental As of version 1.85. Disclaimer: this aggregation is in a beta state - incompatible API
+     * changes may be done before its official public release. Use at your own discretion.
+     */
+    getActionDefinitions(): ActionDefinition[];
     /**
      * Gets current value of property {@link #getBaseUrl baseUrl}.
      *
@@ -2340,6 +2393,11 @@ declare module "sap/ui/integration/widgets/Card" {
      */
     getCombinedParameters(): Record<string, any>;
     /**
+     * @deprecated As of version 1.143. Do not access the card dom reference, as this is not supported in a
+     * mobile native environment.
+     */
+    getDomRef(): void;
+    /**
      * Returns a value from the Manifest based on the specified path.
      *
      * **Note** Use this method when the manifest is ready. Check `manifestReady` event.
@@ -2355,14 +2413,18 @@ declare module "sap/ui/integration/widgets/Card" {
       sPath: string
     ): any;
     /**
+     * @deprecated As of version 1.143. Avoid accessing the models directly, use the binding syntax instead.
+     */
+    getModel(): void;
+    /**
      * Gets current value of property {@link #getParameters parameters}.
      *
-     * Overrides the default values of the parameters, which are defined in the manifest. The value is an object
-     * containing parameters in format `{parameterKey: parameterValue}`.
+     * Overrides the default values of the parameters, which are defined in the manifest. The returned value
+     * is an object containing parameters in format `{parameterKey: parameterValue}`.
      *
-     * @experimental As of version 1.65. This property might be changed in future.
+     * @deprecated As of version 1.143. Use `getCombinedParameters()` instead.
      *
-     * @returns Value of property `parameters`
+     * @returns Value of property parameters
      */
     getParameters(): object;
     /**
@@ -2479,9 +2541,15 @@ declare module "sap/ui/integration/widgets/Card" {
       vActionDefinition: int | string | ActionDefinition
     ): ActionDefinition | null;
     /**
-     * Performs an HTTP request using the given configuration.
+     * Performs an asynchronous network request using the specified request settings, enabling dynamic bindings
+     * to card configurations, such as CSRF tokens, destinations, and parameters. If the request is successful,
+     * it returns a Promise that resolves with the response data.
      *
-     * @experimental As of version 1.79.
+     * If an error occurs during the request, the Promise will reject with a {@link sap.ui.integration.CardRequestError}.
+     *
+     * For more details on card data handling and request settings see [Card Explorer Data Section]{@link https://ui5.sap.com/test-resources/sap/ui/integration/demokit/cardExplorer/webapp/index.html#/learn/features/data}.
+     *
+     * @since 1.79
      *
      * @returns Resolves when the request is successful, rejects otherwise.
      */
@@ -2530,7 +2598,8 @@ declare module "sap/ui/integration/widgets/Card" {
          */
         headers?: object;
         /**
-         * Indicates whether cross-site requests should be made using credentials.
+         * Indicates whether cross-site requests should be made using credentials. Same-origin requests are always
+         * made using credentials.
          */
         withCredentials?: boolean;
       }
@@ -2547,6 +2616,11 @@ declare module "sap/ui/integration/widgets/Card" {
        */
       sKey: string
     ): Promise<string>;
+    /**
+     * @deprecated As of version 1.143. Use `hide()` to hide a card opened by `showCard()`. The card facade
+     * does not provide methods for showing or hiding the main card itself.
+     */
+    setVisible(): void;
     /**
      * Show blocking message in the card's content area. Should be used after the `manifestApplied` event or
      * after the `cardReady` lifecycle hook in Component cards and Extensions.
@@ -3078,7 +3152,7 @@ declare module "sap/ui/integration/designtime/baseEditor/validator/IsBoolean" {
    * Validates if the provided value is a boolean or binding string.
    *
    * @since 1.81
-   * @experimental 1.81
+   * @experimental As of version 1.81.
    */
   interface IsBoolean {
     /**
@@ -3103,7 +3177,7 @@ declare module "sap/ui/integration/designtime/baseEditor/validator/IsDate" {
    * Validates if the provided value can be parsed to a valid date.
    *
    * @since 1.81
-   * @experimental 1.81
+   * @experimental As of version 1.81.
    */
   interface IsDate {
     /**
@@ -3128,7 +3202,7 @@ declare module "sap/ui/integration/designtime/baseEditor/validator/IsInteger" {
    * Validates if the provided value is an integer or binding string.
    *
    * @since 1.81
-   * @experimental 1.81
+   * @experimental As of version 1.81.
    */
   interface IsInteger {
     /**
@@ -3153,7 +3227,7 @@ declare module "sap/ui/integration/designtime/baseEditor/validator/IsNumber" {
    * Validates if the provided value is a number or binding string.
    *
    * @since 1.81
-   * @experimental 1.81
+   * @experimental As of version 1.81.
    */
   interface IsNumber {
     /**
@@ -3178,7 +3252,7 @@ declare module "sap/ui/integration/designtime/baseEditor/validator/IsSelectedKey
    * Validates if the provided value is one of the given keys.
    *
    * @since 1.81
-   * @experimental 1.81
+   * @experimental As of version 1.81.
    */
   interface IsSelectedKey {
     /**
@@ -3212,7 +3286,7 @@ declare module "sap/ui/integration/designtime/baseEditor/validator/IsStringList"
    * Validates if none of the provided values is an invalid binding.
    *
    * @since 1.81
-   * @experimental 1.81
+   * @experimental As of version 1.81.
    */
   interface IsStringList {
     /**
@@ -3237,7 +3311,7 @@ declare module "sap/ui/integration/designtime/baseEditor/validator/IsUniqueKey" 
    * Validates if the provided key is unique in a list of given keys.
    *
    * @since 1.81
-   * @experimental 1.81
+   * @experimental As of version 1.81.
    */
   interface IsUniqueKey {
     /**
@@ -3275,7 +3349,7 @@ declare module "sap/ui/integration/designtime/baseEditor/validator/IsUniqueList"
    * Validates if the provided list contains no duplicates.
    *
    * @since 1.81
-   * @experimental 1.81
+   * @experimental As of version 1.81.
    */
   interface IsUniqueList {
     /**
@@ -3300,7 +3374,7 @@ declare module "sap/ui/integration/designtime/baseEditor/validator/IsValidBindin
    * Validates if the provided value is a valid binding.
    *
    * @since 1.81
-   * @experimental 1.81
+   * @experimental As of version 1.81.
    */
   interface IsValidBinding {
     /**
@@ -3334,7 +3408,7 @@ declare module "sap/ui/integration/designtime/baseEditor/validator/MaxLength" {
    * Validates if the provided value doesn't exceed the maximum length.
    *
    * @since 1.81
-   * @experimental 1.81
+   * @experimental As of version 1.81.
    */
   interface MaxLength {
     /**
@@ -3359,7 +3433,7 @@ declare module "sap/ui/integration/designtime/baseEditor/validator/NotABinding" 
    * Validates if the provided value doesn't contain a binding.
    *
    * @since 1.81
-   * @experimental 1.81
+   * @experimental As of version 1.81.
    */
   interface NotABinding {
     /**
@@ -3886,7 +3960,6 @@ declare module "sap/ui/integration/Host" {
    * Examples may include, but are not limited to options like: share a card, remove a card.
    *
    * @since 1.75
-   * @experimental As of version 1.75.
    */
   export default class Host extends UI5Element {
     /**
@@ -4447,6 +4520,7 @@ declare module "sap/ui/integration/Host" {
      * Editor.
      *
      * @since 1.83
+     * @experimental As of version 1.143.
      *
      * @returns A promise which contains the context structure.
      */
@@ -4463,6 +4537,7 @@ declare module "sap/ui/integration/Host" {
      * userId: { value: "{context>sap.workzone/currentUser/id}" resolves to UserId } }
      *
      * @since 1.83
+     * @experimental As of version 1.143.
      *
      * @returns A promise which resolves with the value of this context.
      */
@@ -4575,8 +4650,6 @@ declare module "sap/ui/integration/Host" {
   }
   /**
    * Describes the settings that can be provided to the Host constructor.
-   *
-   * @experimental As of version 1.75.
    */
   export interface $HostSettings extends $ElementSettings {
     /**
@@ -4812,7 +4885,7 @@ declare namespace sap {
                * Validates if the provided value belongs to the icon pool.
                *
                * @since 1.81
-               * @experimental 1.81
+               * @experimental As of version 1.81.
                */
               namespace IsInIconPool {
                 /**

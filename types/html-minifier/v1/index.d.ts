@@ -1,7 +1,7 @@
 /// <reference types="uglify-js" />
 
-import * as CleanCSS from "clean-css";
-import * as RelateUrl from "relateurl";
+import CleanCSS = require("clean-css");
+import RelateUrl = require("relateurl");
 import * as UglifyJS from "uglify-js";
 
 declare namespace HTMLMinifier {

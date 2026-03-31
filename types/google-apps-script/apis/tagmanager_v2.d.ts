@@ -209,13 +209,13 @@ declare namespace GoogleAppsScript {
                         Built_in_variables?:
                             | TagManager.Collection.Accounts.Containers.Workspaces.Built_in_variablesCollection
                             | undefined;
-                        Folders?: TagManager.Collection.Accounts.Containers.Workspaces.FoldersCollection | undefined;
-                        Tags?: TagManager.Collection.Accounts.Containers.Workspaces.TagsCollection | undefined;
-                        Triggers?: TagManager.Collection.Accounts.Containers.Workspaces.TriggersCollection | undefined;
+                        Folders: TagManager.Collection.Accounts.Containers.Workspaces.FoldersCollection;
+                        Tags: TagManager.Collection.Accounts.Containers.Workspaces.TagsCollection;
+                        Triggers: TagManager.Collection.Accounts.Containers.Workspaces.TriggersCollection;
                         Variables?:
                             | TagManager.Collection.Accounts.Containers.Workspaces.VariablesCollection
                             | undefined;
-                        Zones?: TagManager.Collection.Accounts.Containers.Workspaces.ZonesCollection | undefined;
+                        Zones: TagManager.Collection.Accounts.Containers.Workspaces.ZonesCollection;
                         // Creates a Workspace.
                         create(resource: Schema.Workspace, parent: string): TagManager.Schema.Workspace;
                         // Creates a Container Version from the entities present in the workspace, deletes the workspace, and sets the base container version to the newly created version.
@@ -252,10 +252,10 @@ declare namespace GoogleAppsScript {
                     }
                 }
                 interface ContainersCollection {
-                    Environments?: TagManager.Collection.Accounts.Containers.EnvironmentsCollection | undefined;
-                    Version_headers?: TagManager.Collection.Accounts.Containers.Version_headersCollection | undefined;
-                    Versions?: TagManager.Collection.Accounts.Containers.VersionsCollection | undefined;
-                    Workspaces?: TagManager.Collection.Accounts.Containers.WorkspacesCollection | undefined;
+                    Environments: TagManager.Collection.Accounts.Containers.EnvironmentsCollection;
+                    Version_headers: TagManager.Collection.Accounts.Containers.Version_headersCollection;
+                    Versions: TagManager.Collection.Accounts.Containers.VersionsCollection;
+                    Workspaces: TagManager.Collection.Accounts.Containers.WorkspacesCollection;
                     // Creates a Container.
                     create(resource: Schema.Container, parent: string): TagManager.Schema.Container;
                     // Gets a Container.
@@ -287,8 +287,8 @@ declare namespace GoogleAppsScript {
                 }
             }
             interface AccountsCollection {
-                Containers?: TagManager.Collection.Accounts.ContainersCollection | undefined;
-                User_permissions?: TagManager.Collection.Accounts.User_permissionsCollection | undefined;
+                Containers: TagManager.Collection.Accounts.ContainersCollection;
+                User_permissions: TagManager.Collection.Accounts.User_permissionsCollection;
                 // Gets a GTM Account.
                 get(path: string): TagManager.Schema.Account;
                 // Lists all GTM Accounts that a user has access to.
@@ -682,7 +682,7 @@ declare namespace GoogleAppsScript {
         }
     }
     interface TagManager {
-        Accounts?: TagManager.Collection.AccountsCollection | undefined;
+        Accounts: TagManager.Collection.AccountsCollection;
         // Create a new instance of Account
         newAccount(): TagManager.Schema.Account;
         // Create a new instance of AccountAccess
@@ -738,4 +738,7 @@ declare namespace GoogleAppsScript {
     }
 }
 
-declare var TagManager: GoogleAppsScript.TagManager;
+/**
+ * The `TagManager` advanced service must be enabled.
+ */
+declare var TagManager: GoogleAppsScript.TagManager | undefined;

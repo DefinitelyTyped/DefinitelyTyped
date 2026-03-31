@@ -1,9 +1,9 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "node16",
         "lib": [
-            "dom",
-            "es6"
+            "es6",
+            "webworker"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,

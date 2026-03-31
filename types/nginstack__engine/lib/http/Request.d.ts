@@ -33,9 +33,12 @@ declare class Request {
     getHeader(name: any): string;
     read(size: number): string;
     isHttps(trustProxy?: boolean): boolean;
+    saveToStream(stream: File | MemoryStream): void;
 }
 declare namespace Request {
-    export { DBKey };
+    export { DBKey, File, MemoryStream };
 }
 import RequestBody = require('./RequestBody.js');
-type DBKey = any;
+type DBKey = import('../dbkey/DBKey');
+type File = import('../io/File');
+type MemoryStream = import('../io/MemoryStream');

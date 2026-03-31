@@ -58,7 +58,7 @@ declare namespace Layui {
          * 触发组件的事件类型。支持所有事件
          * @default 'click'
          */
-        trigger?: keyof HTMLElementEventMap;
+        trigger?: "hover" | keyof HTMLElementEventMap;
         /**
          * 是否初始即显示组件面板
          * @default false

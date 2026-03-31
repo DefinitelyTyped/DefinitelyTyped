@@ -101,6 +101,11 @@ function test(testContext: webvis.ContextAPI): void {
         measurementTargetLineSegment,
     );
 
+    const measureNormalResult: Promise<webvis.NormalMeasurementResult> = testContext.measureNormal(
+        measurementTargetTopology,
+        measurementTargetPoint,
+    );
+
     const measureTangentResult: Promise<webvis.TangentMeasurementResult> = testContext.measureTangent(
         measurementTargetTopology,
         measurementTargetPoint,

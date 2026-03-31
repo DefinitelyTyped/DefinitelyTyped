@@ -65,7 +65,6 @@ export default class CustomAudience extends AbstractCrudObject {
         generic: "GENERIC";
         home_listing: "HOME_LISTING";
         hotel: "HOTEL";
-        job: "JOB";
         local_service_business: "LOCAL_SERVICE_BUSINESS";
         media_title: "MEDIA_TITLE";
         offline_product: "OFFLINE_PRODUCT";

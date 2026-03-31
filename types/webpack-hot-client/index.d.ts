@@ -1,7 +1,7 @@
 /// <reference types="node" />
 
 import * as net from "net";
-import * as webpack from "webpack";
+import webpack = require("webpack");
 import { Server } from "ws";
 
 export = WebpackHotClient;

@@ -1,4 +1,4 @@
-import * as capitalize from "capitalize";
+import capitalize from "capitalize";
 // eslint-disable-next-line no-duplicate-imports
 import { words } from "capitalize";
 

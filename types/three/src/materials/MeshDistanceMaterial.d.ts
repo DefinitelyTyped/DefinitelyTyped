@@ -63,7 +63,7 @@ export interface MeshDistanceMaterialParameters
  * Can also be used to customize the shadow casting of an object by assigning
  * an instance of `MeshDistanceMaterial` to {@link Object3D#customDistanceMaterial}.
  * The following examples demonstrates this approach in order to ensure
- * transparent parts of objects do no cast shadows.
+ * transparent parts of objects do not cast shadows.
  */
 export class MeshDistanceMaterial extends Material {
     /**
@@ -82,6 +82,7 @@ export class MeshDistanceMaterial extends Material {
      * @default true
      */
     readonly isMeshDistanceMaterial: boolean;
+    setValues(values?: MeshDistanceMaterialParameters): void;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface

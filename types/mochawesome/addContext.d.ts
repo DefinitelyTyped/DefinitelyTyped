@@ -1,4 +1,4 @@
-import * as Mocha from "mocha";
+import Mocha = require("mocha");
 
 declare namespace addContext {
     interface TestContextObject {

@@ -1,14 +1,25 @@
-import stringPixelWidth = require("string-pixel-width");
+import stringPixelWidth, { Settings } from "string-pixel-width";
 
-// $ExpectType number
-stringPixelWidth("test");
-// $ExpectType number
-stringPixelWidth("test", {});
-// $ExpectType number
-stringPixelWidth("test", { bold: true });
-// $ExpectType number
-stringPixelWidth("test", { font: "arial" });
-// $ExpectType number
-stringPixelWidth("test", { italic: true });
-// $ExpectType number
-stringPixelWidth("test", { size: 10 });
+let x: number;
+x = stringPixelWidth("test");
+x = stringPixelWidth("test", {} satisfies Settings);
+x = stringPixelWidth("test", { bold: true });
+x = stringPixelWidth("test", { italic: true });
+x = stringPixelWidth("test", { size: 10 });
+x = stringPixelWidth("test", { font: "andale mono" });
+x = stringPixelWidth("test", { font: "arial" });
+x = stringPixelWidth("test", { font: "avenir" });
+x = stringPixelWidth("test", { font: "avenir next" });
+x = stringPixelWidth("test", { font: "comic sans ms" });
+x = stringPixelWidth("test", { font: "courier new" });
+x = stringPixelWidth("test", { font: "georgia" });
+x = stringPixelWidth("test", { font: "helvetica" });
+x = stringPixelWidth("test", { font: "impact" });
+x = stringPixelWidth("test", { font: "inter" });
+x = stringPixelWidth("test", { font: "times new roman" });
+x = stringPixelWidth("test", { font: "trebuchet ms" });
+x = stringPixelWidth("test", { font: "verdana" });
+x = stringPixelWidth("test", { font: "webdings" });
+x = stringPixelWidth("test", { font: "open sans" });
+x = stringPixelWidth("test", { font: "tahoma" });
+x = stringPixelWidth("test", { font: "quantify" });

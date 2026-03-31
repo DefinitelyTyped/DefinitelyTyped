@@ -1,4 +1,4 @@
-import * as convict from "convict";
+import convict from "convict";
 import { safeLoad } from "js-yaml";
 import validator from "validator";
 

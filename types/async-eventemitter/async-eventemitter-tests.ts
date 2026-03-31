@@ -1,4 +1,4 @@
-import * as AsyncEventEmitter from "async-eventemitter";
+import AsyncEventEmitter from "async-eventemitter";
 
 const ee = new AsyncEventEmitter<{
     sync: (a: string) => void;

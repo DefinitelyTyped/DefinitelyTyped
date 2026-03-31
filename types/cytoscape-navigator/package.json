@@ -6,7 +6,7 @@
         "https://github.com/cytoscape/cytoscape.js-navigator"
     ],
     "dependencies": {
-        "@types/cytoscape": "*"
+        "cytoscape": "^3.31"
     },
     "devDependencies": {
         "@types/cytoscape-navigator": "workspace:."

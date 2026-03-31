@@ -1,7 +1,7 @@
 import { Lifecycle, Server } from "hapi";
 
 import * as inert from "inert";
-import * as path from "path";
+import path from "path";
 
 const server = new Server({
     port: 3000,

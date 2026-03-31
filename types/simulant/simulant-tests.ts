@@ -1,4 +1,4 @@
-import * as simulant from "simulant";
+import simulant from "simulant";
 
 simulant(window, "click"); // $ExpectType Event
 simulant(window, "click", { foo: "bar" }); // $ExpectType Event

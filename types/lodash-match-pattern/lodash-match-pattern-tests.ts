@@ -1,4 +1,4 @@
-import * as matchPattern from "lodash-match-pattern";
+import matchPattern from "lodash-match-pattern";
 
 const lodash = matchPattern.getLodashModule(); // Use our lodash extensions (recommended)
 const isString = lodash.isString;

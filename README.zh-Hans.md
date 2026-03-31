@@ -105,7 +105,7 @@ declare module "libname" {
 
 你可直接编辑 `node_modules/@types/foo/index.d.ts` 来验证你的修改。接着，请使用下文所述的步骤将这些修改加入本仓库。
 
-你亦可以使用[模块扩充（Module Argumentation）](https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation)来向 Definitely Typed 模块中添加类型，或使用上文所示的 `declare module` 方法来覆盖 `node_modules` 中的版本。
+你亦可以使用[模块扩充（Module Augmentation](https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation)来向 Definitely Typed 模块中添加类型，或使用上文所示的 `declare module` 方法来覆盖 `node_modules` 中的版本。
 
 #### 为新增的软件包添加测试
 

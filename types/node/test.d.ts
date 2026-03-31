@@ -76,10 +76,13 @@
  *
  * If any tests fail, the process exit code is set to `1`.
  * @since v18.0.0, v16.17.0
- * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/test.js)
+ * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/test.js)
  */
 declare module "node:test" {
-    import { Readable } from "node:stream";
+    import { AssertMethodNames } from "node:assert";
+    import { Readable, ReadableEventMap } from "node:stream";
+    import { TestEvent } from "node:test/reporters";
+    import { URL } from "node:url";
     import TestFn = test.TestFn;
     import TestOptions = test.TestOptions;
     /**
@@ -188,6 +191,11 @@ declare module "node:test" {
             function only(name?: string, fn?: SuiteFn): Promise<void>;
             function only(options?: TestOptions, fn?: SuiteFn): Promise<void>;
             function only(fn?: SuiteFn): Promise<void>;
+            // added in v25.5.0, undocumented
+            function expectFailure(name?: string, options?: TestOptions, fn?: SuiteFn): Promise<void>;
+            function expectFailure(name?: string, fn?: SuiteFn): Promise<void>;
+            function expectFailure(options?: TestOptions, fn?: SuiteFn): Promise<void>;
+            function expectFailure(fn?: SuiteFn): Promise<void>;
         }
         /**
          * Shorthand for skipping a test. This is the same as calling {@link test} with `options.skip` set to `true`.
@@ -213,6 +221,11 @@ declare module "node:test" {
         function only(name?: string, fn?: TestFn): Promise<void>;
         function only(options?: TestOptions, fn?: TestFn): Promise<void>;
         function only(fn?: TestFn): Promise<void>;
+        // added in v25.5.0, undocumented
+        function expectFailure(name?: string, options?: TestOptions, fn?: TestFn): Promise<void>;
+        function expectFailure(name?: string, fn?: TestFn): Promise<void>;
+        function expectFailure(options?: TestOptions, fn?: TestFn): Promise<void>;
+        function expectFailure(fn?: TestFn): Promise<void>;
         /**
          * The type of a function passed to {@link test}. The first argument to this function is a {@link TestContext} object.
          * If the test uses callbacks, the callback function is passed as the second argument.
@@ -234,7 +247,7 @@ declare module "node:test" {
         }
         interface RunOptions {
             /**
-             * If a number is provided, then that many test processes would run in parallel, where each process corresponds to one test file.
+             * If a number is provided, then that many tests would run asynchronously (they are still managed by the single-threaded event loop).
              * If `true`, it would run `os.availableParallelism() - 1` test files in parallel. If `false`, it would only run one test file at a time.
              * @default false
              */
@@ -242,14 +255,14 @@ declare module "node:test" {
             /**
              * Specifies the current working directory to be used by the test runner.
              * Serves as the base path for resolving files according to the
-             * [test runner execution model](https://nodejs.org/docs/latest-v24.x/api/test.html#test-runner-execution-model).
+             * [test runner execution model](https://nodejs.org/docs/latest-v25.x/api/test.html#test-runner-execution-model).
              * @since v23.0.0
              * @default process.cwd()
              */
             cwd?: string | undefined;
             /**
              * An array containing the list of files to run. If omitted, files are run according to the
-             * [test runner execution model](https://nodejs.org/docs/latest-v24.x/api/test.html#test-runner-execution-model).
+             * [test runner execution model](https://nodejs.org/docs/latest-v25.x/api/test.html#test-runner-execution-model).
              */
             files?: readonly string[] | undefined;
             /**
@@ -262,7 +275,7 @@ declare module "node:test" {
             /**
              * An array containing the list of glob patterns to match test files.
              * This option cannot be used together with `files`. If omitted, files are run according to the
-             * [test runner execution model](https://nodejs.org/docs/latest-v24.x/api/test.html#test-runner-execution-model).
+             * [test runner execution model](https://nodejs.org/docs/latest-v25.x/api/test.html#test-runner-execution-model).
              * @since v22.6.0
              */
             globPatterns?: readonly string[] | undefined;
@@ -343,7 +356,14 @@ declare module "node:test" {
              */
             shard?: TestShard | undefined;
             /**
-             * enable [code coverage](https://nodejs.org/docs/latest-v24.x/api/test.html#collecting-code-coverage) collection.
+             * A file path where the test runner will
+             * store the state of the tests to allow rerunning only the failed tests on a next run.
+             * @since v24.7.0
+             * @default undefined
+             */
+            rerunFailuresFilePath?: string | undefined;
+            /**
+             * enable [code coverage](https://nodejs.org/docs/latest-v25.x/api/test.html#collecting-code-coverage) collection.
              * @since v22.10.0
              * @default false
              */
@@ -390,6 +410,23 @@ declare module "node:test" {
              */
             functionCoverage?: number | undefined;
         }
+        interface TestsStreamEventMap extends ReadableEventMap {
+            "data": [data: TestEvent];
+            "test:coverage": [data: EventData.TestCoverage];
+            "test:complete": [data: EventData.TestComplete];
+            "test:dequeue": [data: EventData.TestDequeue];
+            "test:diagnostic": [data: EventData.TestDiagnostic];
+            "test:enqueue": [data: EventData.TestEnqueue];
+            "test:fail": [data: EventData.TestFail];
+            "test:pass": [data: EventData.TestPass];
+            "test:plan": [data: EventData.TestPlan];
+            "test:start": [data: EventData.TestStart];
+            "test:stderr": [data: EventData.TestStderr];
+            "test:stdout": [data: EventData.TestStdout];
+            "test:summary": [data: EventData.TestSummary];
+            "test:watch:drained": [];
+            "test:watch:restarted": [];
+        }
         /**
          * A successful call to `run()` will return a new `TestsStream` object, streaming a series of events representing the execution of the tests.
          *
@@ -397,100 +434,63 @@ declare module "node:test" {
          * @since v18.9.0, v16.19.0
          */
         interface TestsStream extends Readable {
-            addListener(event: "test:coverage", listener: (data: EventData.TestCoverage) => void): this;
-            addListener(event: "test:complete", listener: (data: EventData.TestComplete) => void): this;
-            addListener(event: "test:dequeue", listener: (data: EventData.TestDequeue) => void): this;
-            addListener(event: "test:diagnostic", listener: (data: EventData.TestDiagnostic) => void): this;
-            addListener(event: "test:enqueue", listener: (data: EventData.TestEnqueue) => void): this;
-            addListener(event: "test:fail", listener: (data: EventData.TestFail) => void): this;
-            addListener(event: "test:pass", listener: (data: EventData.TestPass) => void): this;
-            addListener(event: "test:plan", listener: (data: EventData.TestPlan) => void): this;
-            addListener(event: "test:start", listener: (data: EventData.TestStart) => void): this;
-            addListener(event: "test:stderr", listener: (data: EventData.TestStderr) => void): this;
-            addListener(event: "test:stdout", listener: (data: EventData.TestStdout) => void): this;
-            addListener(event: "test:summary", listener: (data: EventData.TestSummary) => void): this;
-            addListener(event: "test:watch:drained", listener: () => void): this;
-            addListener(event: "test:watch:restarted", listener: () => void): this;
-            addListener(event: string, listener: (...args: any[]) => void): this;
-            emit(event: "test:coverage", data: EventData.TestCoverage): boolean;
-            emit(event: "test:complete", data: EventData.TestComplete): boolean;
-            emit(event: "test:dequeue", data: EventData.TestDequeue): boolean;
-            emit(event: "test:diagnostic", data: EventData.TestDiagnostic): boolean;
-            emit(event: "test:enqueue", data: EventData.TestEnqueue): boolean;
-            emit(event: "test:fail", data: EventData.TestFail): boolean;
-            emit(event: "test:pass", data: EventData.TestPass): boolean;
-            emit(event: "test:plan", data: EventData.TestPlan): boolean;
-            emit(event: "test:start", data: EventData.TestStart): boolean;
-            emit(event: "test:stderr", data: EventData.TestStderr): boolean;
-            emit(event: "test:stdout", data: EventData.TestStdout): boolean;
-            emit(event: "test:summary", data: EventData.TestSummary): boolean;
-            emit(event: "test:watch:drained"): boolean;
-            emit(event: "test:watch:restarted"): boolean;
-            emit(event: string | symbol, ...args: any[]): boolean;
-            on(event: "test:coverage", listener: (data: EventData.TestCoverage) => void): this;
-            on(event: "test:complete", listener: (data: EventData.TestComplete) => void): this;
-            on(event: "test:dequeue", listener: (data: EventData.TestDequeue) => void): this;
-            on(event: "test:diagnostic", listener: (data: EventData.TestDiagnostic) => void): this;
-            on(event: "test:enqueue", listener: (data: EventData.TestEnqueue) => void): this;
-            on(event: "test:fail", listener: (data: EventData.TestFail) => void): this;
-            on(event: "test:pass", listener: (data: EventData.TestPass) => void): this;
-            on(event: "test:plan", listener: (data: EventData.TestPlan) => void): this;
-            on(event: "test:start", listener: (data: EventData.TestStart) => void): this;
-            on(event: "test:stderr", listener: (data: EventData.TestStderr) => void): this;
-            on(event: "test:stdout", listener: (data: EventData.TestStdout) => void): this;
-            on(event: "test:summary", listener: (data: EventData.TestSummary) => void): this;
-            on(event: "test:watch:drained", listener: () => void): this;
-            on(event: "test:watch:restarted", listener: () => void): this;
-            on(event: string, listener: (...args: any[]) => void): this;
-            once(event: "test:coverage", listener: (data: EventData.TestCoverage) => void): this;
-            once(event: "test:complete", listener: (data: EventData.TestComplete) => void): this;
-            once(event: "test:dequeue", listener: (data: EventData.TestDequeue) => void): this;
-            once(event: "test:diagnostic", listener: (data: EventData.TestDiagnostic) => void): this;
-            once(event: "test:enqueue", listener: (data: EventData.TestEnqueue) => void): this;
-            once(event: "test:fail", listener: (data: EventData.TestFail) => void): this;
-            once(event: "test:pass", listener: (data: EventData.TestPass) => void): this;
-            once(event: "test:plan", listener: (data: EventData.TestPlan) => void): this;
-            once(event: "test:start", listener: (data: EventData.TestStart) => void): this;
-            once(event: "test:stderr", listener: (data: EventData.TestStderr) => void): this;
-            once(event: "test:stdout", listener: (data: EventData.TestStdout) => void): this;
-            once(event: "test:summary", listener: (data: EventData.TestSummary) => void): this;
-            once(event: "test:watch:drained", listener: () => void): this;
-            once(event: "test:watch:restarted", listener: () => void): this;
-            once(event: string, listener: (...args: any[]) => void): this;
-            prependListener(event: "test:coverage", listener: (data: EventData.TestCoverage) => void): this;
-            prependListener(event: "test:complete", listener: (data: EventData.TestComplete) => void): this;
-            prependListener(event: "test:dequeue", listener: (data: EventData.TestDequeue) => void): this;
-            prependListener(event: "test:diagnostic", listener: (data: EventData.TestDiagnostic) => void): this;
-            prependListener(event: "test:enqueue", listener: (data: EventData.TestEnqueue) => void): this;
-            prependListener(event: "test:fail", listener: (data: EventData.TestFail) => void): this;
-            prependListener(event: "test:pass", listener: (data: EventData.TestPass) => void): this;
-            prependListener(event: "test:plan", listener: (data: EventData.TestPlan) => void): this;
-            prependListener(event: "test:start", listener: (data: EventData.TestStart) => void): this;
-            prependListener(event: "test:stderr", listener: (data: EventData.TestStderr) => void): this;
-            prependListener(event: "test:stdout", listener: (data: EventData.TestStdout) => void): this;
-            prependListener(event: "test:summary", listener: (data: EventData.TestSummary) => void): this;
-            prependListener(event: "test:watch:drained", listener: () => void): this;
-            prependListener(event: "test:watch:restarted", listener: () => void): this;
-            prependListener(event: string, listener: (...args: any[]) => void): this;
-            prependOnceListener(event: "test:coverage", listener: (data: EventData.TestCoverage) => void): this;
-            prependOnceListener(event: "test:complete", listener: (data: EventData.TestComplete) => void): this;
-            prependOnceListener(event: "test:dequeue", listener: (data: EventData.TestDequeue) => void): this;
-            prependOnceListener(event: "test:diagnostic", listener: (data: EventData.TestDiagnostic) => void): this;
-            prependOnceListener(event: "test:enqueue", listener: (data: EventData.TestEnqueue) => void): this;
-            prependOnceListener(event: "test:fail", listener: (data: EventData.TestFail) => void): this;
-            prependOnceListener(event: "test:pass", listener: (data: EventData.TestPass) => void): this;
-            prependOnceListener(event: "test:plan", listener: (data: EventData.TestPlan) => void): this;
-            prependOnceListener(event: "test:start", listener: (data: EventData.TestStart) => void): this;
-            prependOnceListener(event: "test:stderr", listener: (data: EventData.TestStderr) => void): this;
-            prependOnceListener(event: "test:stdout", listener: (data: EventData.TestStdout) => void): this;
-            prependOnceListener(event: "test:summary", listener: (data: EventData.TestSummary) => void): this;
-            prependOnceListener(event: "test:watch:drained", listener: () => void): this;
-            prependOnceListener(event: "test:watch:restarted", listener: () => void): this;
-            prependOnceListener(event: string, listener: (...args: any[]) => void): this;
+            // #region InternalEventEmitter
+            addListener<E extends keyof TestsStreamEventMap>(
+                eventName: E,
+                listener: (...args: TestsStreamEventMap[E]) => void,
+            ): this;
+            addListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+            emit<E extends keyof TestsStreamEventMap>(eventName: E, ...args: TestsStreamEventMap[E]): boolean;
+            emit(eventName: string | symbol, ...args: any[]): boolean;
+            listenerCount<E extends keyof TestsStreamEventMap>(
+                eventName: E,
+                listener?: (...args: TestsStreamEventMap[E]) => void,
+            ): number;
+            listenerCount(eventName: string | symbol, listener?: (...args: any[]) => void): number;
+            listeners<E extends keyof TestsStreamEventMap>(eventName: E): ((...args: TestsStreamEventMap[E]) => void)[];
+            listeners(eventName: string | symbol): ((...args: any[]) => void)[];
+            off<E extends keyof TestsStreamEventMap>(
+                eventName: E,
+                listener: (...args: TestsStreamEventMap[E]) => void,
+            ): this;
+            off(eventName: string | symbol, listener: (...args: any[]) => void): this;
+            on<E extends keyof TestsStreamEventMap>(
+                eventName: E,
+                listener: (...args: TestsStreamEventMap[E]) => void,
+            ): this;
+            on(eventName: string | symbol, listener: (...args: any[]) => void): this;
+            once<E extends keyof TestsStreamEventMap>(
+                eventName: E,
+                listener: (...args: TestsStreamEventMap[E]) => void,
+            ): this;
+            once(eventName: string | symbol, listener: (...args: any[]) => void): this;
+            prependListener<E extends keyof TestsStreamEventMap>(
+                eventName: E,
+                listener: (...args: TestsStreamEventMap[E]) => void,
+            ): this;
+            prependListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+            prependOnceListener<E extends keyof TestsStreamEventMap>(
+                eventName: E,
+                listener: (...args: TestsStreamEventMap[E]) => void,
+            ): this;
+            prependOnceListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+            rawListeners<E extends keyof TestsStreamEventMap>(
+                eventName: E,
+            ): ((...args: TestsStreamEventMap[E]) => void)[];
+            rawListeners(eventName: string | symbol): ((...args: any[]) => void)[];
+            // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+            removeAllListeners<E extends keyof TestsStreamEventMap>(eventName?: E): this;
+            removeAllListeners(eventName?: string | symbol): this;
+            removeListener<E extends keyof TestsStreamEventMap>(
+                eventName: E,
+                listener: (...args: TestsStreamEventMap[E]) => void,
+            ): this;
+            removeListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+            // #endregion
         }
         namespace EventData {
             interface Error extends globalThis.Error {
-                cause: globalThis.Error;
+                cause: unknown;
             }
             interface LocationInfo {
                 /**
@@ -710,7 +710,7 @@ declare module "node:test" {
                     /**
                      * The type of the test, used to denote whether this is a suite.
                      */
-                    type?: "suite";
+                    type?: "suite" | "test";
                 };
                 /**
                  * The test name.
@@ -780,7 +780,13 @@ declare module "node:test" {
                      * The type of the test, used to denote whether this is a suite.
                      * @since v20.0.0, v19.9.0, v18.17.0
                      */
-                    type?: "suite";
+                    type?: "suite" | "test";
+                    /**
+                     * The attempt number of the test run,
+                     * present only when using the `--test-rerun-failures` flag.
+                     * @since v24.7.0
+                     */
+                    attempt?: number;
                 };
                 /**
                  * The test name.
@@ -816,7 +822,19 @@ declare module "node:test" {
                      * The type of the test, used to denote whether this is a suite.
                      * @since 20.0.0, 19.9.0, 18.17.0
                      */
-                    type?: "suite";
+                    type?: "suite" | "test";
+                    /**
+                     * The attempt number of the test run,
+                     * present only when using the `--test-rerun-failures` flag.
+                     * @since v24.7.0
+                     */
+                    attempt?: number;
+                    /**
+                     * The attempt number the test passed on,
+                     * present only when using the `--test-rerun-failures` flag.
+                     * @since v24.7.0
+                     */
+                    passed_on_attempt?: number;
                 };
                 /**
                  * The test name.
@@ -1024,6 +1042,21 @@ declare module "node:test" {
              */
             readonly name: string;
             /**
+             * Indicated whether the test succeeded.
+             * @since v21.7.0, v20.12.0
+             */
+            readonly passed: boolean;
+            /**
+             * The failure reason for the test/case; wrapped and available via `context.error.cause`.
+             * @since v21.7.0, v20.12.0
+             */
+            readonly error: EventData.Error | null;
+            /**
+             * Number of times the test has been attempted.
+             * @since v21.7.0, v20.12.0
+             */
+            readonly attempt: number;
+            /**
              * This function is used to set the number of assertions and subtests that are expected to run
              * within the test. If the number of assertions and subtests that run does not match the
              * expected count, the test will fail.
@@ -1171,29 +1204,7 @@ declare module "node:test" {
              */
             readonly mock: MockTracker;
         }
-        interface TestContextAssert extends
-            Pick<
-                typeof import("assert"),
-                | "deepEqual"
-                | "deepStrictEqual"
-                | "doesNotMatch"
-                | "doesNotReject"
-                | "doesNotThrow"
-                | "equal"
-                | "fail"
-                | "ifError"
-                | "match"
-                | "notDeepEqual"
-                | "notDeepStrictEqual"
-                | "notEqual"
-                | "notStrictEqual"
-                | "ok"
-                | "partialDeepStrictEqual"
-                | "rejects"
-                | "strictEqual"
-                | "throws"
-            >
-        {
+        interface TestContextAssert extends Pick<typeof import("assert"), AssertMethodNames> {
             /**
              * This function serializes `value` and writes it to the file specified by `path`.
              *
@@ -1213,7 +1224,7 @@ declare module "node:test" {
              * highlighting.
              * @since v22.14.0
              * @param value A value to serialize to a string. If Node.js was started with
-             * the [`--test-update-snapshots`](https://nodejs.org/docs/latest-v24.x/api/cli.html#--test-update-snapshots)
+             * the [`--test-update-snapshots`](https://nodejs.org/docs/latest-v25.x/api/cli.html#--test-update-snapshots)
              * flag, the serialized value is written to
              * `path`. Otherwise, the serialized value is compared to the contents of the
              * existing snapshot file.
@@ -1236,7 +1247,7 @@ declare module "node:test" {
              * ```
              * @since v22.3.0
              * @param value A value to serialize to a string. If Node.js was started with
-             * the [`--test-update-snapshots`](https://nodejs.org/docs/latest-v24.x/api/cli.html#--test-update-snapshots)
+             * the [`--test-update-snapshots`](https://nodejs.org/docs/latest-v25.x/api/cli.html#--test-update-snapshots)
              * flag, the serialized value is written to
              * the snapshot file. Otherwise, the serialized value is compared to the
              * corresponding value in the existing snapshot file.
@@ -1300,6 +1311,11 @@ declare module "node:test" {
              */
             readonly filePath: string | undefined;
             /**
+             * The name of the suite and each of its ancestors, separated by `>`.
+             * @since v22.3.0, v20.16.0
+             */
+            readonly fullName: string;
+            /**
              * The name of the suite.
              * @since v18.8.0, v16.18.0
              */
@@ -1358,6 +1374,8 @@ declare module "node:test" {
              * @since v22.2.0
              */
             plan?: number | undefined;
+            // added in v25.5.0, undocumented
+            expectFailure?: boolean | undefined;
         }
         /**
          * This function creates a hook that runs before executing a suite.
@@ -1366,7 +1384,7 @@ declare module "node:test" {
          * describe('tests', async () => {
          *   before(() => console.log('about to run some test'));
          *   it('is a subtest', () => {
-         *     assert.ok('some relevant assertion here');
+         *     // Some relevant assertion here
          *   });
          * });
          * ```
@@ -1382,7 +1400,7 @@ declare module "node:test" {
          * describe('tests', async () => {
          *   after(() => console.log('finished running tests'));
          *   it('is a subtest', () => {
-         *     assert.ok('some relevant assertion here');
+         *     // Some relevant assertion here
          *   });
          * });
          * ```
@@ -1398,7 +1416,7 @@ declare module "node:test" {
          * describe('tests', async () => {
          *   beforeEach(() => console.log('about to run a test'));
          *   it('is a subtest', () => {
-         *     assert.ok('some relevant assertion here');
+         *     // Some relevant assertion here
          *   });
          * });
          * ```
@@ -1415,7 +1433,7 @@ declare module "node:test" {
          * describe('tests', async () => {
          *   afterEach(() => console.log('finished running a test'));
          *   it('is a subtest', () => {
-         *     assert.ok('some relevant assertion here');
+         *     // Some relevant assertion here
          *   });
          * });
          * ```
@@ -1667,7 +1685,7 @@ declare module "node:test" {
              * This function is used to mock the exports of ECMAScript modules, CommonJS modules, JSON modules, and
              * Node.js builtin modules. Any references to the original module prior to mocking are not impacted. In
              * order to enable module mocking, Node.js must be started with the
-             * [`--experimental-test-module-mocks`](https://nodejs.org/docs/latest-v24.x/api/cli.html#--experimental-test-module-mocks)
+             * [`--experimental-test-module-mocks`](https://nodejs.org/docs/latest-v25.x/api/cli.html#--experimental-test-module-mocks)
              * command-line flag.
              *
              * The following example demonstrates how a mock is created for a module.
@@ -1706,7 +1724,47 @@ declare module "node:test" {
              * @param specifier A string identifying the module to mock.
              * @param options Optional configuration options for the mock module.
              */
-            module(specifier: string, options?: MockModuleOptions): MockModuleContext;
+            module(specifier: string | URL, options?: MockModuleOptions): MockModuleContext;
+            /**
+             * Creates a mock for a property value on an object. This allows you to track and control access to a specific property,
+             * including how many times it is read (getter) or written (setter), and to restore the original value after mocking.
+             *
+             * ```js
+             * test('mocks a property value', (t) => {
+             *   const obj = { foo: 42 };
+             *   const prop = t.mock.property(obj, 'foo', 100);
+             *
+             *   assert.strictEqual(obj.foo, 100);
+             *   assert.strictEqual(prop.mock.accessCount(), 1);
+             *   assert.strictEqual(prop.mock.accesses[0].type, 'get');
+             *   assert.strictEqual(prop.mock.accesses[0].value, 100);
+             *
+             *   obj.foo = 200;
+             *   assert.strictEqual(prop.mock.accessCount(), 2);
+             *   assert.strictEqual(prop.mock.accesses[1].type, 'set');
+             *   assert.strictEqual(prop.mock.accesses[1].value, 200);
+             *
+             *   prop.mock.restore();
+             *   assert.strictEqual(obj.foo, 42);
+             * });
+             * ```
+             * @since v24.3.0
+             * @param object The object whose value is being mocked.
+             * @param propertyName The identifier of the property on `object` to mock.
+             * @param value An optional value used as the mock value
+             * for `object[propertyName]`. **Default:** The original property value.
+             * @returns A proxy to the mocked object. The mocked object contains a
+             * special `mock` property, which is an instance of [`MockPropertyContext`][], and
+             * can be used for inspecting and changing the behavior of the mocked property.
+             */
+            property<
+                MockedObject extends object,
+                PropertyName extends keyof MockedObject,
+            >(
+                object: MockedObject,
+                property: PropertyName,
+                value?: MockedObject[PropertyName],
+            ): MockedObject & { mock: MockPropertyContext<MockedObject[PropertyName]> };
             /**
              * This function restores the default behavior of all mocks that were previously
              * created by this `MockTracker` and disassociates the mocks from the `MockTracker` instance. Once disassociated, the mocks can still be used, but the `MockTracker` instance can no longer be
@@ -1876,6 +1934,70 @@ declare module "node:test" {
              */
             restore(): void;
         }
+        /**
+         * @since v24.3.0
+         */
+        class MockPropertyContext<PropertyType = any> {
+            /**
+             * A getter that returns a copy of the internal array used to track accesses (get/set) to
+             * the mocked property. Each entry in the array is an object with the following properties:
+             */
+            readonly accesses: Array<{
+                type: "get" | "set";
+                value: PropertyType;
+                stack: Error;
+            }>;
+            /**
+             * This function returns the number of times that the property was accessed.
+             * This function is more efficient than checking `ctx.accesses.length` because
+             * `ctx.accesses` is a getter that creates a copy of the internal access tracking array.
+             * @returns The number of times that the property was accessed (read or written).
+             */
+            accessCount(): number;
+            /**
+             * This function is used to change the value returned by the mocked property getter.
+             * @param value The new value to be set as the mocked property value.
+             */
+            mockImplementation(value: PropertyType): void;
+            /**
+             * This function is used to change the behavior of an existing mock for a single
+             * invocation. Once invocation `onAccess` has occurred, the mock will revert to
+             * whatever behavior it would have used had `mockImplementationOnce()` not been
+             * called.
+             *
+             * The following example creates a mock function using `t.mock.property()`, calls the
+             * mock property, changes the mock implementation to a different value for the
+             * next invocation, and then resumes its previous behavior.
+             *
+             * ```js
+             * test('changes a mock behavior once', (t) => {
+             *   const obj = { foo: 1 };
+             *
+             *   const prop = t.mock.property(obj, 'foo', 5);
+             *
+             *   assert.strictEqual(obj.foo, 5);
+             *   prop.mock.mockImplementationOnce(25);
+             *   assert.strictEqual(obj.foo, 25);
+             *   assert.strictEqual(obj.foo, 5);
+             * });
+             * ```
+             * @param value The value to be used as the mock's
+             * implementation for the invocation number specified by `onAccess`.
+             * @param onAccess The invocation number that will use `value`. If
+             * the specified invocation has already occurred then an exception is thrown.
+             * **Default:** The number of the next invocation.
+             */
+            mockImplementationOnce(value: PropertyType, onAccess?: number): void;
+            /**
+             * Resets the access history of the mocked property.
+             */
+            resetAccesses(): void;
+            /**
+             * Resets the implementation of the mock property to its original behavior. The
+             * mock can still be used after calling this function.
+             */
+            restore(): void;
+        }
         interface MockTimersOptions {
             apis: ReadonlyArray<"setInterval" | "setTimeout" | "setImmediate" | "Date">;
             now?: number | Date | undefined;
@@ -1943,24 +2065,28 @@ declare module "node:test" {
              */
             enable(options?: MockTimersOptions): void;
             /**
-             * You can use the `.setTime()` method to manually move the mocked date to another time. This method only accepts a positive integer.
-             * Note: This method will execute any mocked timers that are in the past from the new time.
-             * In the below example we are setting a new time for the mocked date.
+             * Sets the current Unix timestamp that will be used as reference for any mocked
+             * `Date` objects.
+             *
              * ```js
              * import assert from 'node:assert';
              * import { test } from 'node:test';
-             * test('sets the time of a date object', (context) => {
-             *   // Optionally choose what to mock
-             *   context.mock.timers.enable({ apis: ['Date'], now: 100 });
-             *   assert.strictEqual(Date.now(), 100);
-             *   // Advance in time will also advance the date
-             *   context.mock.timers.setTime(1000);
-             *   context.mock.timers.tick(200);
-             *   assert.strictEqual(Date.now(), 1200);
+             *
+             * test('runAll functions following the given order', (context) => {
+             *   const now = Date.now();
+             *   const setTime = 1000;
+             *   // Date.now is not mocked
+             *   assert.deepStrictEqual(Date.now(), now);
+             *
+             *   context.mock.timers.enable({ apis: ['Date'] });
+             *   context.mock.timers.setTime(setTime);
+             *   // Date.now is now 1000
+             *   assert.strictEqual(Date.now(), setTime);
              * });
              * ```
+             * @since v21.2.0, v20.11.0
              */
-            setTime(time: number): void;
+            setTime(milliseconds: number): void;
             /**
              * This function restores the default behavior of all mocks that were previously
              * created by this `MockTimers` instance and disassociates the mocks
@@ -2146,85 +2272,4 @@ declare module "node:test" {
         [K in keyof T]: T[K] extends Function ? K : never;
     }[keyof T];
     export = test;
-}
-
-/**
- * The `node:test/reporters` module exposes the builtin-reporters for `node:test`.
- * To access it:
- *
- * ```js
- * import test from 'node:test/reporters';
- * ```
- *
- * This module is only available under the `node:` scheme. The following will not
- * work:
- *
- * ```js
- * import test from 'node:test/reporters';
- * ```
- * @since v19.9.0
- * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/test/reporters.js)
- */
-declare module "node:test/reporters" {
-    import { Transform, TransformOptions } from "node:stream";
-    import { EventData } from "node:test";
-
-    type TestEvent =
-        | { type: "test:coverage"; data: EventData.TestCoverage }
-        | { type: "test:complete"; data: EventData.TestComplete }
-        | { type: "test:dequeue"; data: EventData.TestDequeue }
-        | { type: "test:diagnostic"; data: EventData.TestDiagnostic }
-        | { type: "test:enqueue"; data: EventData.TestEnqueue }
-        | { type: "test:fail"; data: EventData.TestFail }
-        | { type: "test:pass"; data: EventData.TestPass }
-        | { type: "test:plan"; data: EventData.TestPlan }
-        | { type: "test:start"; data: EventData.TestStart }
-        | { type: "test:stderr"; data: EventData.TestStderr }
-        | { type: "test:stdout"; data: EventData.TestStdout }
-        | { type: "test:summary"; data: EventData.TestSummary }
-        | { type: "test:watch:drained"; data: undefined }
-        | { type: "test:watch:restarted"; data: undefined };
-    type TestEventGenerator = AsyncGenerator<TestEvent, void>;
-
-    interface ReporterConstructorWrapper<T extends new(...args: any[]) => Transform> {
-        new(...args: ConstructorParameters<T>): InstanceType<T>;
-        (...args: ConstructorParameters<T>): InstanceType<T>;
-    }
-
-    /**
-     * The `dot` reporter outputs the test results in a compact format,
-     * where each passing test is represented by a `.`,
-     * and each failing test is represented by a `X`.
-     * @since v20.0.0
-     */
-    function dot(source: TestEventGenerator): AsyncGenerator<"\n" | "." | "X", void>;
-    /**
-     * The `tap` reporter outputs the test results in the [TAP](https://testanything.org/) format.
-     * @since v20.0.0
-     */
-    function tap(source: TestEventGenerator): AsyncGenerator<string, void>;
-    class SpecReporter extends Transform {
-        constructor();
-    }
-    /**
-     * The `spec` reporter outputs the test results in a human-readable format.
-     * @since v20.0.0
-     */
-    const spec: ReporterConstructorWrapper<typeof SpecReporter>;
-    /**
-     * The `junit` reporter outputs test results in a jUnit XML format.
-     * @since v21.0.0
-     */
-    function junit(source: TestEventGenerator): AsyncGenerator<string, void>;
-    class LcovReporter extends Transform {
-        constructor(opts?: Omit<TransformOptions, "writableObjectMode">);
-    }
-    /**
-     * The `lcov` reporter outputs test coverage when used with the
-     * [`--experimental-test-coverage`](https://nodejs.org/docs/latest-v24.x/api/cli.html#--experimental-test-coverage) flag.
-     * @since v22.0.0
-     */
-    const lcov: ReporterConstructorWrapper<typeof LcovReporter>;
-
-    export { dot, junit, lcov, spec, tap, TestEvent };
 }

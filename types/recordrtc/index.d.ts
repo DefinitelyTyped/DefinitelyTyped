@@ -302,7 +302,10 @@ declare namespace RecordRTC {
 }
 
 declare class RecordRTC {
-    constructor(stream: MediaStream | HTMLCanvasElement | HTMLVideoElement | HTMLElement, options?: RecordRTC.Options);
+    constructor(
+        stream: MediaStream | MediaStream[] | HTMLCanvasElement | HTMLVideoElement | HTMLElement,
+        options?: RecordRTC.Options,
+    );
 
     /** start the recording */
     startRecording(): void;

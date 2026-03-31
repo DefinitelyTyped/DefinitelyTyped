@@ -1,4 +1,4 @@
-import * as posix from "posix";
+import posix from "posix";
 
 /* test-chroot */
 

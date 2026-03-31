@@ -29,11 +29,10 @@ declare class MeshLambertNodeMaterial extends NodeMaterial {
     /**
      * This flag can be used for type testing.
      *
-     * @type {boolean}
-     * @readonly
      * @default true
      */
     readonly isMeshLambertNodeMaterial: boolean;
+    setValues(values?: MeshLambertNodeMaterialParameters): void;
     /**
      * Overwritten since this type of material uses {@link BasicEnvironmentNode}
      * to implement the default environment mapping.

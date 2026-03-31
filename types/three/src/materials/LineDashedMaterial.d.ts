@@ -49,6 +49,7 @@ export class LineDashedMaterial extends LineBasicMaterial {
      * @default true
      */
     readonly isLineDashedMaterial: boolean;
+    setValues(values?: LineDashedMaterialParameters): void;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface

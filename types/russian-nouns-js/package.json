@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/russian-nouns-js",
-    "version": "2.3.9999",
+    "version": "2.4.9999",
     "projects": [
         "https://github.com/georgy7/RussianNounsJS"
     ],

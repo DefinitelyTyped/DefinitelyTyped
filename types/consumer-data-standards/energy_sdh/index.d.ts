@@ -92,7 +92,6 @@ export interface CommonPAFAddress {
      * Suffix for the second thoroughfare number. Only relevant is thoroughfareNumber2 is populated
      */
     thoroughfareNumber2Suffix?: string | null;
-    [k: string]: unknown;
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy_sdh api. */
 
@@ -193,7 +192,6 @@ export interface CommonPhysicalAddress {
          * Suffix for the second thoroughfare number. Only relevant is thoroughfareNumber2 is populated
          */
         thoroughfareNumber2Suffix?: string | null;
-        [k: string]: unknown;
     };
     /**
      * Required if addressUType is set to simple
@@ -231,9 +229,7 @@ export interface CommonPhysicalAddress {
          * Free text if the country is not Australia. If country is Australia then must be one of the values defined by the [State Type Abbreviation](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf) in the PAF file format. NSW, QLD, VIC, NT, WA, SA, TAS, ACT, AAT
          */
         state: string;
-        [k: string]: unknown;
     };
-    [k: string]: unknown;
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy_sdh api. */
 
@@ -273,7 +269,6 @@ export interface CommonSimpleAddress {
      * Free text if the country is not Australia. If country is Australia then must be one of the values defined by the [State Type Abbreviation](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf) in the PAF file format. NSW, QLD, VIC, NT, WA, SA, TAS, ACT, AAT
      */
     state: string;
-    [k: string]: unknown;
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy_sdh api. */
 
@@ -329,7 +324,6 @@ export interface EnergyDerDetailResponse {
                  * Used to indicate the primary technology used in the DER device
                  */
                 type: "FOSSIL" | "HYDRO" | "WIND" | "SOLAR_PV" | "RENEWABLE" | "GEOTHERMAL" | "STORAGE" | "OTHER";
-                [k: string]: unknown;
             }>;
             /**
              * Indicates whether the DER device is connected via an inverter (and what category of inverter it is) or not (e.g. rotating machine). If absent, assume equipment type to be “OTHER”.
@@ -355,7 +349,6 @@ export interface EnergyDerDetailResponse {
              * Code used to indicate the status of the Inverter. This will be used to identify if an inverter is active or inactive or decommissioned
              */
             status: "ACTIVE" | "INACTIVE" | "DECOMMISSIONED";
-            [k: string]: unknown;
         }>;
         /**
          * Approved small generating unit capacity as agreed with NSP in the connection agreement, expressed in kVA
@@ -441,25 +434,19 @@ export interface EnergyDerDetailResponse {
              * Trip angle in degrees.
              */
             voltageVectorShift?: number | null;
-            [k: string]: unknown;
         } | null;
         /**
          * The independent ID of the service point, known in the industry as the National Meter Identifier (NMI). Note that the servicePointId will be replaced with NMI for all interactions between Data Holder and AEMO.
          */
         servicePointId: string;
-        [k: string]: unknown;
     };
     links: {
         /**
          * Fully qualified link that generated the current response document
          */
         self: string;
-        [k: string]: unknown;
     };
-    meta?: {
-        [k: string]: unknown;
-    };
-    [k: string]: unknown;
+    meta?: {};
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy_sdh api. */
 
@@ -519,7 +506,6 @@ export interface EnergyDerListResponse {
                      * Used to indicate the primary technology used in the DER device
                      */
                     type: "FOSSIL" | "HYDRO" | "WIND" | "SOLAR_PV" | "RENEWABLE" | "GEOTHERMAL" | "STORAGE" | "OTHER";
-                    [k: string]: unknown;
                 }>;
                 /**
                  * Indicates whether the DER device is connected via an inverter (and what category of inverter it is) or not (e.g. rotating machine). If absent, assume equipment type to be “OTHER”.
@@ -545,7 +531,6 @@ export interface EnergyDerListResponse {
                  * Code used to indicate the status of the Inverter. This will be used to identify if an inverter is active or inactive or decommissioned
                  */
                 status: "ACTIVE" | "INACTIVE" | "DECOMMISSIONED";
-                [k: string]: unknown;
             }>;
             /**
              * Approved small generating unit capacity as agreed with NSP in the connection agreement, expressed in kVA
@@ -631,15 +616,12 @@ export interface EnergyDerListResponse {
                  * Trip angle in degrees.
                  */
                 voltageVectorShift?: number | null;
-                [k: string]: unknown;
             } | null;
             /**
              * The independent ID of the service point, known in the industry as the National Meter Identifier (NMI). Note that the servicePointId will be replaced with NMI for all interactions between Data Holder and AEMO.
              */
             servicePointId: string;
-            [k: string]: unknown;
         }>;
-        [k: string]: unknown;
     };
     links: {
         /**
@@ -662,7 +644,6 @@ export interface EnergyDerListResponse {
          * Fully qualified link that generated the current response document
          */
         self: string;
-        [k: string]: unknown;
     };
     meta: {
         /**
@@ -673,9 +654,7 @@ export interface EnergyDerListResponse {
          * The total number of records in the full set. See [pagination](#pagination).
          */
         totalRecords: number;
-        [k: string]: unknown;
     };
-    [k: string]: unknown;
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy_sdh api. */
 
@@ -730,7 +709,6 @@ export interface EnergyDerRecord {
              * Used to indicate the primary technology used in the DER device
              */
             type: "FOSSIL" | "HYDRO" | "WIND" | "SOLAR_PV" | "RENEWABLE" | "GEOTHERMAL" | "STORAGE" | "OTHER";
-            [k: string]: unknown;
         }>;
         /**
          * Indicates whether the DER device is connected via an inverter (and what category of inverter it is) or not (e.g. rotating machine). If absent, assume equipment type to be “OTHER”.
@@ -756,7 +734,6 @@ export interface EnergyDerRecord {
          * Code used to indicate the status of the Inverter. This will be used to identify if an inverter is active or inactive or decommissioned
          */
         status: "ACTIVE" | "INACTIVE" | "DECOMMISSIONED";
-        [k: string]: unknown;
     }>;
     /**
      * Approved small generating unit capacity as agreed with NSP in the connection agreement, expressed in kVA
@@ -842,13 +819,11 @@ export interface EnergyDerRecord {
          * Trip angle in degrees.
          */
         voltageVectorShift?: number | null;
-        [k: string]: unknown;
     } | null;
     /**
      * The independent ID of the service point, known in the industry as the National Meter Identifier (NMI). Note that the servicePointId will be replaced with NMI for all interactions between Data Holder and AEMO.
      */
     servicePointId: string;
-    [k: string]: unknown;
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy_sdh api. */
 
@@ -862,7 +837,6 @@ export interface EnergyServicePoint {
          * A code that defines the consumption threshold as defined in the National Energy Retail Regulations, or in overriding Jurisdictional instruments. Note the details of enumeration values below: <ul><li>**LOW** - Consumption is less than the ‘lower consumption threshold’ as defined in the National Energy Retail Regulations</li><li>**MEDIUM** - Consumption is equal to or greater than the ‘lower consumption threshold’, but less than the ‘upper consumption threshold’, as defined in the National Energy Retail Regulations</li><li>**HIGH** - Consumption is equal to or greater than the ‘upper consumption threshold’ as defined in the National Energy Retail Regulations</li></ul>
          */
         threshold?: "LOW" | "MEDIUM" | "HIGH";
-        [k: string]: unknown;
     } | null;
     /**
      * This flag determines whether the energy at this connection point is to be treated as consumer load or as a generating unit(this may include generator auxiliary loads). If absent defaults to false. <br>**Note:** Only applicable for scheduled or semischeduled generators, does not indicate on site generation by consumer
@@ -904,7 +878,6 @@ export interface EnergyServicePoint {
      * The start date from which this service point first became valid
      */
     validFromDate: string;
-    [k: string]: unknown;
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy_sdh api. */
 
@@ -918,7 +891,6 @@ export interface EnergyServicePointDetail {
          * A code that defines the consumption threshold as defined in the National Energy Retail Regulations, or in overriding Jurisdictional instruments. Note the details of enumeration values below: <ul><li>**LOW** - Consumption is less than the ‘lower consumption threshold’ as defined in the National Energy Retail Regulations</li><li>**MEDIUM** - Consumption is equal to or greater than the ‘lower consumption threshold’, but less than the ‘upper consumption threshold’, as defined in the National Energy Retail Regulations</li><li>**HIGH** - Consumption is equal to or greater than the ‘upper consumption threshold’ as defined in the National Energy Retail Regulations</li></ul>
          */
         threshold?: "LOW" | "MEDIUM" | "HIGH";
-        [k: string]: unknown;
     } | null;
     distributionLossFactor: {
         /**
@@ -933,7 +905,6 @@ export interface EnergyServicePointDetail {
          * The value associated with the loss factor code
          */
         lossValue: string;
-        [k: string]: unknown;
     };
     /**
      * This flag determines whether the energy at this connection point is to be treated as consumer load or as a generating unit(this may include generator auxiliary loads). If absent defaults to false. <br>**Note:** Only applicable for scheduled or semischeduled generators, does not indicate on site generation by consumer
@@ -1047,7 +1018,6 @@ export interface EnergyServicePointDetail {
              * Suffix for the second thoroughfare number. Only relevant is thoroughfareNumber2 is populated
              */
             thoroughfareNumber2Suffix?: string | null;
-            [k: string]: unknown;
         };
         /**
          * Required if addressUType is set to simple
@@ -1085,9 +1055,7 @@ export interface EnergyServicePointDetail {
              * Free text if the country is not Australia. If country is Australia then must be one of the values defined by the [State Type Abbreviation](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf) in the PAF file format. NSW, QLD, VIC, NT, WA, SA, TAS, ACT, AAT
              */
             state: string;
-            [k: string]: unknown;
         };
-        [k: string]: unknown;
     };
     /**
      * The meters associated with the service point. This may be empty where there are no meters physically installed at the service point
@@ -1158,7 +1126,6 @@ export interface EnergyServicePointDetail {
                  * The unit of measure for data held in this register
                  */
                 unitOfMeasure?: string;
-                [k: string]: unknown;
             }>;
             /**
              * Technical characteristics of the meter
@@ -1202,9 +1169,7 @@ export interface EnergyServicePointDetail {
                  * A code to denote the status of the meter. Note the details of enumeration values below: <ul><li>**CURRENT** -Applies when a meter is current and not disconnected</li><li>**DISCONNECTED** - Applies when a meter is present but has been remotely disconnected</li></ul>
                  */
                 status: "CURRENT" | "DISCONNECTED";
-                [k: string]: unknown;
             };
-            [k: string]: unknown;
         }>
         | null;
     /**
@@ -1220,7 +1185,6 @@ export interface EnergyServicePointDetail {
          * The role performed by this participant in relation to the service point. Note the details of enumeration values below: <ul><li>**FRMP** - Financially Responsible Market Participant</li><li>**LNSP** - Local Network Service Provider or Embedded Network Manager for child connection points</li><li>**DRSP** - wholesale Demand Response and/or market ancillary Service Provider and note that where it is not relevant for a NMI it will not be included</li></ul>
          */
         role: "FRMP" | "LNSP" | "DRSP";
-        [k: string]: unknown;
     }>;
     /**
      * The classification of the service point as defined in MSATS procedures
@@ -1246,7 +1210,6 @@ export interface EnergyServicePointDetail {
      * The start date from which this service point first became valid
      */
     validFromDate: string;
-    [k: string]: unknown;
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy_sdh api. */
 
@@ -1261,7 +1224,6 @@ export interface EnergyServicePointDetailResponse {
              * A code that defines the consumption threshold as defined in the National Energy Retail Regulations, or in overriding Jurisdictional instruments. Note the details of enumeration values below: <ul><li>**LOW** - Consumption is less than the ‘lower consumption threshold’ as defined in the National Energy Retail Regulations</li><li>**MEDIUM** - Consumption is equal to or greater than the ‘lower consumption threshold’, but less than the ‘upper consumption threshold’, as defined in the National Energy Retail Regulations</li><li>**HIGH** - Consumption is equal to or greater than the ‘upper consumption threshold’ as defined in the National Energy Retail Regulations</li></ul>
              */
             threshold?: "LOW" | "MEDIUM" | "HIGH";
-            [k: string]: unknown;
         } | null;
         distributionLossFactor: {
             /**
@@ -1276,7 +1238,6 @@ export interface EnergyServicePointDetailResponse {
              * The value associated with the loss factor code
              */
             lossValue: string;
-            [k: string]: unknown;
         };
         /**
          * This flag determines whether the energy at this connection point is to be treated as consumer load or as a generating unit(this may include generator auxiliary loads). If absent defaults to false. <br>**Note:** Only applicable for scheduled or semischeduled generators, does not indicate on site generation by consumer
@@ -1390,7 +1351,6 @@ export interface EnergyServicePointDetailResponse {
                  * Suffix for the second thoroughfare number. Only relevant is thoroughfareNumber2 is populated
                  */
                 thoroughfareNumber2Suffix?: string | null;
-                [k: string]: unknown;
             };
             /**
              * Required if addressUType is set to simple
@@ -1428,9 +1388,7 @@ export interface EnergyServicePointDetailResponse {
                  * Free text if the country is not Australia. If country is Australia then must be one of the values defined by the [State Type Abbreviation](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf) in the PAF file format. NSW, QLD, VIC, NT, WA, SA, TAS, ACT, AAT
                  */
                 state: string;
-                [k: string]: unknown;
             };
-            [k: string]: unknown;
         };
         /**
          * The meters associated with the service point. This may be empty where there are no meters physically installed at the service point
@@ -1501,7 +1459,6 @@ export interface EnergyServicePointDetailResponse {
                      * The unit of measure for data held in this register
                      */
                     unitOfMeasure?: string;
-                    [k: string]: unknown;
                 }>;
                 /**
                  * Technical characteristics of the meter
@@ -1545,9 +1502,7 @@ export interface EnergyServicePointDetailResponse {
                      * A code to denote the status of the meter. Note the details of enumeration values below: <ul><li>**CURRENT** -Applies when a meter is current and not disconnected</li><li>**DISCONNECTED** - Applies when a meter is present but has been remotely disconnected</li></ul>
                      */
                     status: "CURRENT" | "DISCONNECTED";
-                    [k: string]: unknown;
                 };
-                [k: string]: unknown;
             }>
             | null;
         /**
@@ -1563,7 +1518,6 @@ export interface EnergyServicePointDetailResponse {
              * The role performed by this participant in relation to the service point. Note the details of enumeration values below: <ul><li>**FRMP** - Financially Responsible Market Participant</li><li>**LNSP** - Local Network Service Provider or Embedded Network Manager for child connection points</li><li>**DRSP** - wholesale Demand Response and/or market ancillary Service Provider and note that where it is not relevant for a NMI it will not be included</li></ul>
              */
             role: "FRMP" | "LNSP" | "DRSP";
-            [k: string]: unknown;
         }>;
         /**
          * The classification of the service point as defined in MSATS procedures
@@ -1589,19 +1543,14 @@ export interface EnergyServicePointDetailResponse {
          * The start date from which this service point first became valid
          */
         validFromDate: string;
-        [k: string]: unknown;
     };
     links: {
         /**
          * Fully qualified link that generated the current response document
          */
         self: string;
-        [k: string]: unknown;
     };
-    meta?: {
-        [k: string]: unknown;
-    };
-    [k: string]: unknown;
+    meta?: {};
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy_sdh api. */
 
@@ -1617,7 +1566,6 @@ export interface EnergyServicePointListResponse {
                  * A code that defines the consumption threshold as defined in the National Energy Retail Regulations, or in overriding Jurisdictional instruments. Note the details of enumeration values below: <ul><li>**LOW** - Consumption is less than the ‘lower consumption threshold’ as defined in the National Energy Retail Regulations</li><li>**MEDIUM** - Consumption is equal to or greater than the ‘lower consumption threshold’, but less than the ‘upper consumption threshold’, as defined in the National Energy Retail Regulations</li><li>**HIGH** - Consumption is equal to or greater than the ‘upper consumption threshold’ as defined in the National Energy Retail Regulations</li></ul>
                  */
                 threshold?: "LOW" | "MEDIUM" | "HIGH";
-                [k: string]: unknown;
             } | null;
             /**
              * This flag determines whether the energy at this connection point is to be treated as consumer load or as a generating unit(this may include generator auxiliary loads). If absent defaults to false. <br>**Note:** Only applicable for scheduled or semischeduled generators, does not indicate on site generation by consumer
@@ -1659,9 +1607,7 @@ export interface EnergyServicePointListResponse {
              * The start date from which this service point first became valid
              */
             validFromDate: string;
-            [k: string]: unknown;
         }>;
-        [k: string]: unknown;
     };
     links: {
         /**
@@ -1684,7 +1630,6 @@ export interface EnergyServicePointListResponse {
          * Fully qualified link that generated the current response document
          */
         self: string;
-        [k: string]: unknown;
     };
     meta: {
         /**
@@ -1695,9 +1640,7 @@ export interface EnergyServicePointListResponse {
          * The total number of records in the full set. See [pagination](#pagination).
          */
         totalRecords: number;
-        [k: string]: unknown;
     };
-    [k: string]: unknown;
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy_sdh api. */
 
@@ -1719,7 +1662,6 @@ export interface EnergyUsageListResponse {
                  * Meter read value.  If positive then it means consumption, if negative it means export
                  */
                 value: number;
-                [k: string]: unknown;
             } | null;
             /**
              * Indicates whether the energy recorded by this register is created under a Controlled Load regime
@@ -1757,9 +1699,7 @@ export interface EnergyUsageListResponse {
                      * Start interval for read quality flag. First read begins at 1
                      */
                     startInterval: number;
-                    [k: string]: unknown;
                 } | null;
-                [k: string]: unknown;
             } | null;
             /**
              * Meter id/serial number as it appears in customer’s bill. ID permanence rules do not apply.
@@ -1793,9 +1733,7 @@ export interface EnergyUsageListResponse {
              * Unit of measure of the meter reads. Refer to Appendix B of <a href='https://www.aemo.com.au/-/media/files/stakeholder_consultation/consultations/nem-consultations/2019/5ms-metering-package-2/final-determination/mdff-specification-nem12-nem13-v21-final-determination-clean.pdf?la=en&hash=03FCBA0D60E091DE00F2361AE76206EA'>MDFF Specification NEM12 NEM13 v2.1</a> for a list of possible values
              */
             unitOfMeasure?: string | null;
-            [k: string]: unknown;
         }>;
-        [k: string]: unknown;
     };
     links: {
         /**
@@ -1818,7 +1756,6 @@ export interface EnergyUsageListResponse {
          * Fully qualified link that generated the current response document
          */
         self: string;
-        [k: string]: unknown;
     };
     meta: {
         /**
@@ -1829,9 +1766,7 @@ export interface EnergyUsageListResponse {
          * The total number of records in the full set. See [pagination](#pagination).
          */
         totalRecords: number;
-        [k: string]: unknown;
     };
-    [k: string]: unknown;
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy_sdh api. */
 
@@ -1848,7 +1783,6 @@ export interface EnergyUsageRead {
          * Meter read value.  If positive then it means consumption, if negative it means export
          */
         value: number;
-        [k: string]: unknown;
     } | null;
     /**
      * Indicates whether the energy recorded by this register is created under a Controlled Load regime
@@ -1886,9 +1820,7 @@ export interface EnergyUsageRead {
              * Start interval for read quality flag. First read begins at 1
              */
             startInterval: number;
-            [k: string]: unknown;
         } | null;
-        [k: string]: unknown;
     } | null;
     /**
      * Meter id/serial number as it appears in customer’s bill. ID permanence rules do not apply.
@@ -1922,7 +1854,6 @@ export interface EnergyUsageRead {
      * Unit of measure of the meter reads. Refer to Appendix B of <a href='https://www.aemo.com.au/-/media/files/stakeholder_consultation/consultations/nem-consultations/2019/5ms-metering-package-2/final-determination/mdff-specification-nem12-nem13-v21-final-determination-clean.pdf?la=en&hash=03FCBA0D60E091DE00F2361AE76206EA'>MDFF Specification NEM12 NEM13 v2.1</a> for a list of possible values
      */
     unitOfMeasure?: string | null;
-    [k: string]: unknown;
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy_sdh api. */
 
@@ -1933,7 +1864,6 @@ export interface Links {
      * Fully qualified link that generated the current response document
      */
     self: string;
-    [k: string]: unknown;
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy_sdh api. */
 
@@ -1958,7 +1888,6 @@ export interface LinksPaginated {
      * Fully qualified link that generated the current response document
      */
     self: string;
-    [k: string]: unknown;
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy_sdh api. */
 
@@ -1976,7 +1905,6 @@ export interface MetaPaginated {
      * The total number of records in the full set. See [pagination](#pagination).
      */
     totalRecords: number;
-    [k: string]: unknown;
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy_sdh api. */
 
@@ -1998,13 +1926,10 @@ export interface ResponseErrorListV2 {
              * The CDR error code URN which the application-specific error code extends. Mandatory if the error `code` is an application-specific error rather than a standardised error code.
              */
             urn?: string;
-            [k: string]: unknown;
         };
         /**
          * A short, human-readable summary of the problem that MUST NOT change from occurrence to occurrence of the problem represented by the error code.
          */
         title: string;
-        [k: string]: unknown;
     }>;
-    [k: string]: unknown;
 }

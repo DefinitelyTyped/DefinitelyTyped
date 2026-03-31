@@ -1,18 +1,13 @@
-import xml = require("@xmpp/xml");
+import xml, { escapeXML, escapeXMLText, Parser, unescapeXML, unescapeXMLText, XMLError } from "@xmpp/xml";
 import { Parser as LtxParser } from "ltx";
 
-// test type exports
-type Element = xml.Element;
-type Node = xml.Node;
-type XMLError = xml.XMLError;
+escapeXML(""); // $ExpectType string
+unescapeXML(""); // $ExpectType string
+escapeXMLText(""); // $ExpectType string
+unescapeXMLText(""); // $ExpectType string
 
-xml.escapeXML(""); // $ExpectType string
-xml.unescapeXML(""); // $ExpectType string
-xml.escapeXMLText(""); // $ExpectType string
-xml.unescapeXMLText(""); // $ExpectType string
-
-xml.Parser.XMLError; // $ExpectType typeof XMLError
-const parser = new xml.Parser();
+Parser.XMLError; // $ExpectType typeof XMLError
+const parser = new Parser();
 const ltxParser: LtxParser = parser;
 parser.parser; // $ExpectType Parser
 parser.root; // $ExpectType Element | null
@@ -51,6 +46,6 @@ message.prepend(...days.map(day => xml("day", {}, day))); // $ExpectType void
 const body = message.getChild("body");
 message.remove(body!); // $ExpectType Element
 
-const xmlError = new xml.XMLError("foo");
+const xmlError = new XMLError("foo");
 const error: Error = xmlError;
 xmlError.name; // $ExpectType "XMLError"

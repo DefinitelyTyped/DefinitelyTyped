@@ -1,6 +1,19 @@
-export class WebGLObjects {
-    constructor(gl: WebGLRenderingContext, geometries: any, attributes: any, info: any);
+import { BufferGeometry } from "../../core/BufferGeometry.js";
+import { Object3D } from "../../core/Object3D.js";
+import { WebGLAttributes } from "./WebGLAttributes.js";
+import { WebGLBindingStates } from "./WebGLBindingStates.js";
+import { WebGLGeometries } from "./WebGLGeometries.js";
+import { WebGLInfo } from "./WebGLInfo.js";
 
-    update(object: any): any;
+export class WebGLObjects {
+    constructor(
+        gl: WebGLRenderingContext,
+        geometries: WebGLGeometries,
+        attributes: WebGLAttributes,
+        bindingStates: WebGLBindingStates,
+        info: WebGLInfo,
+    );
+
+    update(object: Object3D): BufferGeometry;
     dispose(): void;
 }

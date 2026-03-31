@@ -30,9 +30,4 @@ export class WebGLShadowMap {
     type: ShadowMapType;
 
     render(shadowsArray: Light[], scene: Scene, camera: Camera): void;
-
-    /**
-     * @deprecated Use {@link Material#shadowSide} instead.
-     */
-    cullFace: any;
 }

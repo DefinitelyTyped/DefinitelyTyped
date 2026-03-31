@@ -192,6 +192,12 @@ import * as url from "node:url";
     path = url.fileURLToPath(new url.URL("file://test"));
     path = url.fileURLToPath(new url.URL("file://test"), { windows: false });
     path = url.fileURLToPath(new url.URL("file://test"), { windows: true });
+
+    let buffer: Buffer;
+    buffer = url.fileURLToPathBuffer("file://test");
+    buffer = url.fileURLToPathBuffer("file://test", { windows: true });
+    buffer = url.fileURLToPathBuffer(new url.URL("file://test"));
+    buffer = url.fileURLToPathBuffer(new url.URL("file://test"), { windows: true });
 }
 
 {

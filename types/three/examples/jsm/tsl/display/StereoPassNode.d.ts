@@ -1,4 +1,3 @@
-import { ShaderNodeObject } from "three/tsl";
 import { Camera, PassNode, Scene, StereoCamera } from "three/webgpu";
 
 declare class StereoPassNode extends PassNode {
@@ -11,4 +10,4 @@ declare class StereoPassNode extends PassNode {
 
 export default StereoPassNode;
 
-export const stereoPass: (scene: Scene, camera: Camera) => ShaderNodeObject<StereoPassNode>;
+export const stereoPass: (scene: Scene, camera: Camera) => StereoPassNode;

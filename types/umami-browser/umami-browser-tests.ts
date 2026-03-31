@@ -21,4 +21,9 @@ umami.track((props) => ({
     },
 }));
 
+umami.track((props) => ({ ...props, data: { superuser: true } }));
+umami.track((props) => ({ ...props, data: { superuser: false } }));
+
+umami.identify("test-id");
+umami.identify("test-id", { email: "test@example.com" });
 umami.identify({ email: "bob@aol.com" });

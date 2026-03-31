@@ -6,7 +6,7 @@
         "https://github.com/schibsted/jsx-pdf#readme"
     ],
     "dependencies": {
-        "@types/pdfmake": "*"
+        "@types/pdfmake": "^0.2.0"
     },
     "devDependencies": {
         "@types/jsx-pdf": "workspace:.",

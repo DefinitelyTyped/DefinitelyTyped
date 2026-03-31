@@ -9,54 +9,51 @@ import { Events } from "./events";
  */
 export namespace TabGroups {
     /**
-     * "grey": grey color.
-     * "blue": blue color.
-     * "red": red color.
-     * "yellow": yellow color.
-     * "green": green color.
-     * "pink": pink color.
-     * "purple": purple color.
-     * "cyan": cyan color.
-     * "orange": orange color.
+     * The group's color, using 'grey' spelling for compatibility with Chromium.
      */
-    type ColorEnum = "grey" | "blue" | "red" | "yellow" | "green" | "pink" | "purple" | "cyan" | "orange";
+    type Color = "blue" | "cyan" | "grey" | "green" | "orange" | "pink" | "purple" | "red" | "yellow";
 
+    /**
+     * State of a tab group inside of an open window.
+     */
     interface TabGroup {
         /**
-         * Whether the group is collapsed. A collapsed group is one whose tabs are hidden.
+         * Whether the tab group is collapsed or expanded in the tab strip.
          */
         collapsed: boolean;
 
         /**
-         * The group's color.
+         * User-selected color name for the tab group's label/icons.
          */
-        color: ColorEnum;
+        color: Color;
 
         /**
-         * The ID of the group. Group IDs are unique within a browser session.
+         * Unique ID of the tab group.
          */
         id: number;
 
         /**
-         * The title of the group.
+         * User-defined name of the tab group.
          * Optional.
          */
         title?: string;
 
         /**
-         * The ID of the window that contains the group.
+         * Window that the tab group is in.
          */
         windowId: number;
     }
 
     interface MoveMovePropertiesType {
         /**
-         * The position to move the group to. Use -1 to place the group at the end of the window.
+         * The position in the window to move the group to. After moving, the first tab in the group is at this index. <code>
+         * -1</code> moves the group to the end of the window.
          */
         index: number;
 
         /**
-         * The window to move the group to. Defaults to the window the group is currently in.
+         * The ID of the window to move the group to. If not specified, the group is left in its current window.
+         * Groups can only be moved to "normal" window types.
          * Optional.
          */
         windowId?: number;
@@ -64,25 +61,22 @@ export namespace TabGroups {
 
     interface QueryQueryInfoType {
         /**
-         * Whether the groups are collapsed.
          * Optional.
          */
         collapsed?: boolean;
 
         /**
-         * The color of the groups.
          * Optional.
          */
-        color?: ColorEnum;
+        color?: Color;
 
         /**
-         * Match group titles against a pattern.
          * Optional.
          */
         title?: string;
 
         /**
-         * The ID of the parent window, or <code>windows.WINDOW_ID_CURRENT</code> for the <code>current window</code>.
+         * The ID of the parent window, or <code>windows.WINDOW_ID_CURRENT</code> for the current window.
          * Optional.
          */
         windowId?: number;
@@ -90,22 +84,26 @@ export namespace TabGroups {
 
     interface UpdateUpdatePropertiesType {
         /**
-         * Whether the group should be collapsed.
          * Optional.
          */
-        collapsed?: number;
+        collapsed?: boolean;
 
         /**
-         * The color of the group.
          * Optional.
          */
-        color?: ColorEnum;
+        color?: Color;
 
         /**
-         * The title of the group.
          * Optional.
          */
         title?: string;
+    }
+
+    interface OnRemovedRemoveInfoType {
+        /**
+         * True when the tab group is being closed because its window is being closed.
+         */
+        isWindowClosing: boolean;
     }
 
     interface Static {
@@ -115,39 +113,37 @@ export namespace TabGroups {
         get(groupId: number): Promise<TabGroup>;
 
         /**
-         * Moves the group and all its tabs within its window, or to a new window.
+         * Move a group within, or to another window.
          */
-        move(groupId: number, moveProperties: MoveMovePropertiesType): Promise<TabGroup | undefined>;
+        move(groupId: number, moveProperties: MoveMovePropertiesType): Promise<TabGroup>;
 
         /**
-         * Moves the group and all its tabs within its window, or to a new window.
+         * Return all grups, or find groups with specified properties.
          */
         query(queryInfo: QueryQueryInfoType): Promise<TabGroup[]>;
 
         /**
-         * Moves the group and all its tabs within its window, or to a new window.
+         * Modifies state of a specified group.
          */
-        update(groupId: number, updateProperties: UpdateUpdatePropertiesType): Promise<TabGroup | undefined>;
+        update(groupId: number, updateProperties: UpdateUpdatePropertiesType): Promise<TabGroup>;
 
         /**
-         * Fired when a group is created.
+         * Fired when a tab group is created.
          */
         onCreated: Events.Event<(group: TabGroup) => void>;
 
         /**
-         * Fired when a group is moved within a window. Move events are still fired for the individual tabs within the group,
-         * as well as for the group itself. This event is not fired when a group is moved between windows; instead,
-         * it will be removed from one window and created in another.
+         * Fired when a tab group is moved, within a window or to another window.
          */
         onMoved: Events.Event<(group: TabGroup) => void>;
 
         /**
-         * Fired when a group is closed, either directly by the user or automatically because it contained zero tabs.
+         * Fired when a tab group is removed.
          */
-        onRemoved: Events.Event<(group: TabGroup) => void>;
+        onRemoved: Events.Event<(group: TabGroup, removeInfo: OnRemovedRemoveInfoType) => void>;
 
         /**
-         * Fired when a group is updated.
+         * Fired when a tab group is updated.
          */
         onUpdated: Events.Event<(group: TabGroup) => void>;
 

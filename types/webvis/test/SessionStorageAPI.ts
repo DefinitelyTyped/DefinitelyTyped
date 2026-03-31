@@ -3,6 +3,7 @@ function test(testContext: webvis.ContextAPI): void {
         thumbnail: true,
         thumbnailHeight: 100,
         thumbnailWidth: 100,
+        storeBackground: true,
     });
 
     const restoreSnapshotPromise: Promise<void> = testContext.restoreSnapshot(3);

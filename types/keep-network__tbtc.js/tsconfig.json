@@ -10,7 +10,6 @@
         "strictNullChecks": true,
         "types": [],
         "noEmit": true,
-        "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [

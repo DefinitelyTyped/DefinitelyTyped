@@ -1,9 +1,8 @@
-import { Matrix4 } from "../../math/Matrix4.js";
+import Node from "../core/Node.js";
 import UniformNode from "../core/UniformNode.js";
-import { ShaderNodeObject } from "../tsl/TSLCore.js";
 
-export const materialRefractionRatio: ShaderNodeObject<UniformNode<number>>;
+export const materialRefractionRatio: UniformNode<"float", number>;
 
-export const materialEnvIntensity: ShaderNodeObject<UniformNode<number>>;
+export const materialEnvIntensity: Node<"float">;
 
-export const materialEnvRotation: ShaderNodeObject<UniformNode<Matrix4>>;
+export const materialEnvRotation: Node<"mat4">;

@@ -1,5 +1,5 @@
 import * as cookiejar from "cookiejar";
-import * as stream from "stream";
+import stream = require("stream");
 import { Request, Response, SuperAgentRequest, SuperAgentStatic } from "superagent";
 
 // these types should be exported by `superagent` but are not -------

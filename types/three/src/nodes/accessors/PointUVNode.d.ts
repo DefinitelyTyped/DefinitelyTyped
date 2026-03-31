@@ -1,5 +1,4 @@
 import Node from "../core/Node.js";
-import { ShaderNodeObject } from "../tsl/TSLCore.js";
 
 export default class PointUVNode extends Node {
     isPointUVNode: true;
@@ -7,4 +6,4 @@ export default class PointUVNode extends Node {
     constructor();
 }
 
-export const pointUV: ShaderNodeObject<PointUVNode>;
+export const pointUV: PointUVNode;

@@ -1,4 +1,4 @@
-import * as gls from "gulp-live-server";
+import gls from "gulp-live-server";
 
 // $ExpectType GLSStatic
 gls(["command"]);

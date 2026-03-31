@@ -1,7 +1,7 @@
 import * as RDF from "@rdfjs/types";
 import * as fs from "fs";
 import * as N3 from "n3";
-import * as stream from "stream";
+import stream from "stream";
 
 function test_add_prefix() {
     const writer: N3.Writer = new N3.Writer();

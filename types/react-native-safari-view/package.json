@@ -11,10 +11,5 @@
     "devDependencies": {
         "@types/react-native-safari-view": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Michael Randolph",
-            "githubUsername": "mrand01"
-        }
-    ]
+    "owners": []
 }

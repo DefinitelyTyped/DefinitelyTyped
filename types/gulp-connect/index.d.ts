@@ -1,4 +1,4 @@
-import * as connectModule from "connect";
+import connectModule = require("connect");
 import * as http from "http";
 import * as https from "https";
 

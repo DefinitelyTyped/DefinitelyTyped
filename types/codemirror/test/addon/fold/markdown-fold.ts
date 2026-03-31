@@ -1,4 +1,4 @@
-import * as CodeMirror from "codemirror";
+import CodeMirror from "codemirror";
 import "codemirror/addon/fold/foldcode";
 import "codemirror/addon/fold/markdown-fold";
 

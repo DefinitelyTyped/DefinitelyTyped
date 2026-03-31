@@ -1,8 +1,8 @@
 import * as http from "http";
-import * as ShareDB from "sharedb";
+import ShareDB from "sharedb";
 import * as ShareDBClient from "sharedb/lib/client";
 import { Duplex } from "stream";
-import * as WebSocket from "ws";
+import WebSocket from "ws";
 import Agent = require("sharedb/lib/agent");
 import * as ClientESM from "sharedb/lib/client/index.js";
 

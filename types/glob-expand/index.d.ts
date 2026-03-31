@@ -1,6 +1,6 @@
 /// <reference types="glob"/>
 
-import * as glob from "glob";
+import glob = require("glob");
 
 interface Option {
     filter?: string | ((filePath: string) => boolean) | undefined;

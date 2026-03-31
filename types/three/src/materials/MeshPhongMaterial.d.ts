@@ -195,6 +195,12 @@ export interface MeshPhongMaterialProperties extends MaterialProperties {
      */
     reflectivity: number;
     /**
+     * Scales the effect of the environment map by multiplying its color.
+     *
+     * @default 1
+     */
+    envMapIntensity: number;
+    /**
      * The index of refraction (IOR) of air (approximately 1) divided by the
      * index of refraction of the material. It is used with environment mapping
      * modes {@link CubeRefractionMapping} and {@link EquirectangularRefractionMapping}.
@@ -255,7 +261,7 @@ export interface MeshPhongMaterialParameters
 /**
  * A material for shiny surfaces with specular highlights.
  *
- * The material uses a non-physically based [Blinn-Phong]{@link https://en.wikipedia.org/wiki/Blinn-Phong_shading_model}
+ * The material uses a non-physically based [Blinn-Phong](https://en.wikipedia.org/wiki/Blinn-Phong_shading_model)
  * model for calculating reflectance. Unlike the Lambertian model used in the
  * {@link MeshLambertMaterial} this can simulate shiny surfaces with specular
  * highlights (such as varnished wood). `MeshPhongMaterial` uses per-fragment shading.
@@ -281,6 +287,7 @@ export class MeshPhongMaterial extends Material {
      * @default true
      */
     readonly isMeshPhongMaterial: boolean;
+    setValues(values?: MeshPhongMaterialParameters): void;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface

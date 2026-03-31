@@ -1,5 +1,5 @@
 import { dispatch, select } from "@wordpress/data";
-import * as ep from "@wordpress/edit-post";
+import ep from "@wordpress/edit-post";
 
 // $ExpectType EditPostStoreDescriptor
 ep.store;

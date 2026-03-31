@@ -1,4 +1,4 @@
-import * as elementResizeDetectorMaker from "element-resize-detector";
+import elementResizeDetectorMaker from "element-resize-detector";
 
 const erd = elementResizeDetectorMaker({
     strategy: "scroll",

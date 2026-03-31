@@ -1,11 +1,7 @@
-import Connection = require("@xmpp/connection");
+import Connection from "@xmpp/connection";
 import { EventEmitter } from "@xmpp/events";
-import reconnect = require("@xmpp/reconnect");
+import reconnect from "@xmpp/reconnect";
 import { Element } from "@xmpp/xml";
-
-// test type exports
-type R<T extends Connection> = reconnect.Reconnect<T>;
-type RE = reconnect.ReconnectEvents;
 
 class Foo extends Connection {
     domain?: string;

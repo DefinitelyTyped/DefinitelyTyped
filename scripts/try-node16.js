@@ -1,12 +1,23 @@
+import { AllPackages, getDefinitelyTyped } from "@definitelytyped/definitions-parser";
+import { loggerWithErrors } from "@definitelytyped/utils";
 import cp from "child_process";
 import fs from "fs";
 import path from "path";
 import url from "url";
 
-const tsconfigs = process.argv.slice(2);
 const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
+const repoRoot = path.join(__dirname, "..");
 
-for (const tsconfigPath of tsconfigs) {
+const dtFS = await getDefinitelyTyped({
+    definitelyTypedPath: repoRoot,
+    progress: false,
+}, loggerWithErrors()[0]);
+
+const allPackages = AllPackages.fromFS(dtFS);
+
+for (const pkg of await allPackages.allTypings()) {
+    console.log(`Trying ${pkg.subDirectoryPath}...`);
+    const tsconfigPath = path.join(repoRoot, "types", pkg.subDirectoryPath, "tsconfig.json");
     const tsconfigString = fs.readFileSync(tsconfigPath, "utf-8");
     const tsconfig = JSON.parse(tsconfigString);
     if (tsconfig.compilerOptions.module === "node16") {
@@ -20,7 +31,7 @@ for (const tsconfigPath of tsconfigs) {
 
     try {
         cp.execFileSync(
-            path.join(__dirname, "node_modules/.bin/tsc"),
+            path.join(repoRoot, "node_modules/.bin/tsc"),
             ["-p", tsconfigPath, "--noEmit"],
             { stdio: "ignore" },
         );

@@ -101,6 +101,7 @@ declare module "../index" {
           * @param array The array to iterate over.
           * @returns Returns the maximum value.
          */
+        max<T>(collection: readonly [T, ...T[]]): T;
         max<T>(collection: List<T> | null | undefined): T | undefined;
     }
     interface Collection<T> {
@@ -216,6 +217,7 @@ declare module "../index" {
          * @param array The array to iterate over.
          * @returns Returns the minimum value.
          */
+        min<T>(collection: readonly [T, ...T[]]): T;
         min<T>(collection: List<T> | null | undefined): T | undefined;
     }
     interface Collection<T> {

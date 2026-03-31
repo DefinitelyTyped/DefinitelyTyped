@@ -7,7 +7,7 @@ interface CytoscapeComponentProps {
     style?: CSSProperties | undefined;
     elements: cytoscape.ElementDefinition[];
     layout?: cytoscape.LayoutOptions | undefined;
-    stylesheet?: cytoscape.Stylesheet | cytoscape.Stylesheet[] | string | undefined;
+    stylesheet?: cytoscape.StylesheetJsonBlock | cytoscape.StylesheetJsonBlock[] | string | undefined;
     className?: string | undefined;
     zoom?: number | undefined;
     pan?: cytoscape.Position | undefined;

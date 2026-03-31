@@ -343,6 +343,8 @@ declare namespace OfficeRuntime {
      *
      * **Applications**: Excel, Outlook, PowerPoint, Word
      *
+     * **Requirement set**: {@link https://learn.microsoft.com/javascript/api/requirement-sets/common/identity-api-requirement-sets | IdentityAPI 1.3}
+     * 
      * **Important**:
      *
      * - In Outlook, this API isn't supported if you load an add-in in an Outlook.com or Gmail mailbox.

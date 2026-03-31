@@ -1,5 +1,5 @@
 import { SASL } from "@xmpp/sasl";
 
-export = saslPlain;
+export default saslPlain;
 
 declare function saslPlain(sasl: SASL): void;

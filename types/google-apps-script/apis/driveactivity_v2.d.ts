@@ -204,7 +204,7 @@ declare namespace GoogleAppsScript {
         }
     }
     interface DriveActivity {
-        Activity?: DriveActivity.Collection.ActivityCollection | undefined;
+        Activity: DriveActivity.Collection.ActivityCollection;
         // Create a new instance of ConsolidationStrategy
         newConsolidationStrategy(): DriveActivity.Schema.ConsolidationStrategy;
         // Create a new instance of Legacy
@@ -216,4 +216,7 @@ declare namespace GoogleAppsScript {
     }
 }
 
-declare var DriveActivity: GoogleAppsScript.DriveActivity;
+/**
+ * The `DriveActivity` advanced service must be enabled.
+ */
+declare var DriveActivity: GoogleAppsScript.DriveActivity | undefined;

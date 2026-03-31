@@ -1,5 +1,5 @@
-import * as Koa from "koa";
-import * as pathToRegexp from "path-to-regexp";
+import Koa = require("koa");
+import pathToRegexp = require("path-to-regexp");
 
 declare namespace KoaRoute {
     type Path = string | RegExp | Array<string | RegExp>;

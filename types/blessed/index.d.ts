@@ -2183,6 +2183,12 @@ export namespace Widgets {
          * Original options object.
          */
         options: BoxOptions;
+
+        /**
+         * Content/Text alignment
+         */
+        align: "left" | "center" | "right";
+        valign: "top" | "middle" | "bottom";
     }
 
     interface TextOptions extends ElementOptions {
@@ -3072,6 +3078,12 @@ export namespace Widgets {
          * scroll to bottom on input even if the user has scrolled up. default: false.
          */
         scrollOnInput: boolean;
+
+        /**
+         * Content/Text alignment
+         */
+        align: "left" | "center" | "right";
+        valign: "top" | "middle" | "bottom";
 
         /**
          * add a log line.

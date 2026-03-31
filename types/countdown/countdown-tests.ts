@@ -1,4 +1,4 @@
-import * as countdown from "countdown";
+import countdown from "countdown";
 
 let ts: countdown.Timespan;
 let interval: number;

@@ -1,4 +1,4 @@
-import * as log from "lambda-log";
+import log from "lambda-log";
 
 const logMessage: log.LogMessage = log.log("customLevel", "custom", {
     key: "value",

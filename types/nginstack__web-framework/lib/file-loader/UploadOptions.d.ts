@@ -6,5 +6,7 @@ declare class UploadOptions {
     maxFiles: number;
     maxFileSize: number;
     maxTotalSize: number;
+    imageAutoCompress: boolean;
+    imageCompressionProfile: number | null;
     timeout: number;
 }

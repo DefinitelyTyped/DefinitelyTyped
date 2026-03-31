@@ -1,0 +1,91 @@
+interface Stringable {
+    value: string;
+    toString(): string;
+    after(search?: string): Stringable;
+    afterLast(search?: string): Stringable;
+    append(...values: string[]): Stringable;
+    ascii(language?: string): Stringable;
+    before(search?: string): Stringable;
+    beforeLast(search?: string): Stringable;
+    between(at?: string, to?: string): Stringable;
+    camel(): Stringable;
+    contains(needles: string | string[]): boolean;
+    containsAll(needles: string[]): boolean;
+    endsWith(needles: string | string[]): boolean;
+    finish(cap: string): Stringable;
+    exactly(value: string): boolean;
+    explode(delimiter: string, limit?: number): string[]; // simplified return
+    isUuid(): boolean;
+    kebab(): Stringable;
+    length(): number;
+    lower(): Stringable;
+    match(pattern: RegExp): RegExpMatchArray | null;
+    matchAll(pattern: RegExp): RegExpMatchArray[];
+    padBoth(length: number, pad?: string): Stringable;
+    padLeft(length: number, pad?: string): Stringable;
+    padRight(length: number, pad?: string): Stringable;
+    plural(count?: number, inclusive?: boolean): Stringable; // chain variant
+    replace(search: string | RegExp, replace: string): Stringable;
+    remove(search: string | RegExp): Stringable;
+    reverse(): Stringable;
+    singular(): Stringable;
+    slug(separator?: string, language?: string): Stringable;
+    snake(): Stringable;
+    squish(): Stringable;
+    start(prefix: string): Stringable;
+    startsWith(needles: string | string[]): boolean;
+    studly(): Stringable;
+    substr(start: number, length?: number): Stringable;
+    substrCount(needle: string, offset?: number, length?: number): number;
+    ucfirst(): Stringable;
+}
+
+declare class Str {
+    static after(subject: string, search?: string): string;
+    static afterLast(subject: string, search?: string): string;
+    static ascii(value: string, language?: string): string;
+    static before(subject: string, search?: string): string;
+    static beforeLast(subject: string, search?: string): string;
+    static between(subject: string, from?: string, to?: string): string;
+    static camel(value: string): string;
+    static contains(haystack: string, needles: string | string[]): boolean;
+    static containsAll(haystack: string, needles: string[]): boolean;
+    static endsWith(haystack: string, needles: string | string[]): boolean;
+    static finish(value: string, cap: string): string;
+    static explode(delimiter: string, subject: string, limit?: number): string[];
+    static isUuid(value: string): boolean;
+    static kebab(value: string): string;
+    static length(value: string): number;
+    static limit(value: string, limit?: number, end?: string): string;
+    static lower(value: string): string;
+    static match(pattern: RegExp, subject: string): RegExpMatchArray | null;
+    static matchAll(pattern: RegExp, subject: string): RegExpMatchArray[];
+    static padBoth(value: string, length: number, pad?: string): string;
+    static padLeft(value: string, length: number, pad?: string): string;
+    static padRight(value: string, length: number, pad?: string): string;
+    static plural(word: string, count?: number, inclusive?: boolean): string;
+    static pluralStudly(word: string, count?: number, inclusive?: boolean): string;
+    static random(length?: number): string;
+    static replace(search: string | RegExp, replace: string, subject: string): string;
+    static replaceArray(search: string, replacements: string[], subject: string): string;
+    static replaceFirst(search: string | RegExp, replace: string, subject: string): string;
+    static replaceLast(search: string | RegExp, replace: string, subject: string): string;
+    static remove(search: string | RegExp, subject: string): string;
+    static reverse(value: string): string;
+    static singular(word: string): string;
+    static slug(title: string, separator?: string, language?: string): string;
+    static snake(value: string): string;
+    static squish(value: string): string;
+    static start(value: string, prefix: string): string;
+    static startsWith(haystack: string, needles: string | string[]): boolean;
+    static studly(value: string): string;
+    static substr(string: string, start: number, length?: number | null): string;
+    static substrCount(haystack: string, needle: string, offset?: number, length?: number | null): number;
+    static ucfirst(value: string): string;
+    static uuid(): string;
+    static createUuidsUsing(factory?: (() => string) | null): void;
+    static createUuidsNormally(): void;
+    static of(value: string): Stringable;
+}
+
+export { Str };

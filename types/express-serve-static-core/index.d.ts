@@ -42,10 +42,13 @@ export interface Dictionary<T> {
 }
 
 export interface ParamsDictionary {
-    [key: string]: string;
+    [key: string]: string | string[];
+    [key: number]: string;
 }
-export type ParamsArray = string[];
-export type Params = ParamsDictionary | ParamsArray;
+export interface ParamsFlatDictionary {
+    [key: string | number]: string;
+}
+export type Params = ParamsDictionary | ParamsFlatDictionary;
 
 export interface Locals extends Express.Locals {}
 
@@ -96,18 +99,24 @@ type GetRouteParameter<S extends string> = RemoveTail<
     `.${string}`
 >;
 
-// prettier-ignore
-export type RouteParameters<Route extends string> = Route extends `${infer Required}{${infer Optional}}${infer Next}`
-    ? ParseRouteParameters<Required> & Partial<ParseRouteParameters<Optional>> & RouteParameters<Next>
-    : ParseRouteParameters<Route>;
+// dprint-ignore
+export type RouteParameters<Route extends string | RegExp> = Route extends string
+    ? Route extends `${infer Required}{${infer Optional}}${infer Next}`
+        ? ParseRouteParameters<Required> & Partial<ParseRouteParameters<Optional>> & RouteParameters<Next>
+        : ParseRouteParameters<Route>
+    : ParamsFlatDictionary;
 
 type ParseRouteParameters<Route extends string> = string extends Route ? ParamsDictionary
-    : Route extends `${string}(${string}` ? ParamsDictionary // TODO: handling for regex parameters
     : Route extends `${string}:${infer Rest}` ?
             & (
                 GetRouteParameter<Rest> extends never ? ParamsDictionary
-                    : GetRouteParameter<Rest> extends `${infer ParamName}?` ? { [P in ParamName]?: string } // TODO: Remove old `?` handling when Express 5 is promoted to "latest"
                     : { [P in GetRouteParameter<Rest>]: string }
+            )
+            & (Rest extends `${GetRouteParameter<Rest>}${infer Next}` ? RouteParameters<Next> : unknown)
+    : Route extends `${string}*${infer Rest}` ?
+            & (
+                GetRouteParameter<Rest> extends never ? ParamsDictionary
+                    : { [P in GetRouteParameter<Rest>]: string[] }
             )
             & (Rest extends `${GetRouteParameter<Rest>}${infer Next}` ? RouteParameters<Next> : unknown)
     : {};
@@ -118,7 +127,7 @@ export interface IRouterMatcher<
     Method extends "all" | "get" | "post" | "put" | "delete" | "patch" | "options" | "head" = any,
 > {
     <
-        Route extends string,
+        Route extends string | RegExp,
         P = RouteParameters<Route>,
         ResBody = any,
         ReqBody = any,
@@ -131,7 +140,7 @@ export interface IRouterMatcher<
         ...handlers: Array<RequestHandler<P, ResBody, ReqBody, ReqQuery, LocalsObj>>
     ): T;
     <
-        Path extends string,
+        Path extends string | RegExp,
         P = RouteParameters<Path>,
         ResBody = any,
         ReqBody = any,
@@ -168,7 +177,7 @@ export interface IRouterMatcher<
     (path: PathParams, subApplication: Application): T;
 }
 
-export interface IRouterHandler<T, Route extends string = string> {
+export interface IRouterHandler<T, Route extends string | RegExp = string> {
     (...handlers: Array<RequestHandler<RouteParameters<Route>>>): T;
     (...handlers: Array<RequestHandlerParams<RouteParameters<Route>>>): T;
     <
@@ -284,7 +293,7 @@ export interface IRouter extends RequestHandler {
 
     use: IRouterHandler<this> & IRouterMatcher<this>;
 
-    route<T extends string>(prefix: T): IRoute<T>;
+    route<T extends string | RegExp>(prefix: T): IRoute<T>;
     route(prefix: PathParams): IRoute;
     /**
      * Stack of configured routes
@@ -303,7 +312,7 @@ export interface ILayer {
     handle: (req: Request, res: Response, next: NextFunction) => any;
 }
 
-export interface IRoute<Route extends string = string> {
+export interface IRoute<Route extends string | RegExp = string> {
     path: string;
     stack: ILayer[];
     all: IRouterHandler<this, Route>;
@@ -381,16 +390,14 @@ export type Errback = (err: Error) => void;
 
 /**
  * @param P  For most requests, this should be `ParamsDictionary`, but if you're
- * using this in a route handler for a route that uses a `RegExp` or a wildcard
- * `string` path (e.g. `'/user/*'`), then `req.params` will be an array, in
- * which case you should use `ParamsArray` instead.
- *
- * @see https://expressjs.com/en/api.html#req.params
+ * using this in a route handler for a route that uses a `RegExp`, then `req.params`
+ * will only contains strings, in which case you should use `ParamsFlatDictionary` instead.
  *
  * @example
- *     app.get('/user/:id', (req, res) => res.send(req.params.id)); // implicitly `ParamsDictionary`
- *     app.get<ParamsArray>(/user\/(.*)/, (req, res) => res.send(req.params[0]));
- *     app.get<ParamsArray>('/user/*', (req, res) => res.send(req.params[0]));
+ *     app.get('/user/:id', (req, res) => res.send(req.params.id)); // implicitly `ParamsDictionary`, parameter is string
+ *     app.get('/user/*id', (req, res) => res.send(req.params.id)); // implicitly `ParamsDictionary`, parameter is string[]
+ *     app.get(/user\/(?<id>.*)/, (req, res) => res.send(req.params.id)); // implicitly `ParamsFlatDictionary`, parameter is string
+ *     app.get(/user\/(.*)/, (req, res) => res.send(req.params[0])); // implicitly `ParamsFlatDictionary`, parameter is string
  */
 export interface Request<
     P = ParamsDictionary,
@@ -1230,7 +1237,7 @@ export interface Application<
      *  - Not inherit the value of settings that have a default value. You must set the value in the sub-app.
      *  - Inherit the value of settings with no default value.
      */
-    on: (event: string, callback: (parent: Application) => void) => this;
+    on: (event: "mount", callback: (parent: Application) => void) => this;
 
     /**
      * The app.mountpath property contains one or more path patterns on which a sub-app was mounted.

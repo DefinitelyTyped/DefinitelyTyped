@@ -1,6 +1,6 @@
 // tests taken from https://github.com/cognitect-labs/transducers-js
 
-import * as t from "transducers-js";
+import t from "transducers-js";
 
 const { map, filter, comp, into } = t;
 

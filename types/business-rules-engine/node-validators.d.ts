@@ -1,8 +1,8 @@
 import Validation = require("business-rules-engine");
 export as namespace Validators;
 
-import * as moment from "moment";
-import * as Q from "q";
+import moment = require("moment");
+import Q = require("q");
 
 export class LettersOnlyValidator implements Validation.IStringValidator {
     public isAcceptable(s: string): boolean;

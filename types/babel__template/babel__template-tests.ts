@@ -1,6 +1,6 @@
 import generate from "@babel/generator";
 import template from "@babel/template";
-import * as t from "@babel/types";
+import t from "@babel/types";
 
 const buildRequire = template.statement(`
     const %%IMPORT_NAME%% = require(%%SOURCE%%);

@@ -1,0 +1,324 @@
+interface TestPlugin {
+    one: number;
+}
+
+interface TestLib {
+    two: string;
+}
+
+declare namespace Gimloader {
+    interface Plugins {
+        testPlugin: TestPlugin;
+    }
+
+    interface Libraries {
+        testLib: TestLib;
+    }
+}
+
+GL; // $ExpectType typeof Api
+api; // $ExpectType Api
+
+new GL(); // $ExpectType Api
+
+api.React; // $ExpectType typeof React
+api.UI; // $ExpectType Readonly<ScopedUIApi>
+api.hotkeys; // $ExpectType Readonly<ScopedHotkeysApi>
+api.libs; // $ExpectType Readonly<ScopedLibsApi>
+api.net; // $ExpectType Readonly<ScopedNetApi>
+api.patcher; // $ExpectType Readonly<ScopedPatcherApi>
+api.plugins; // $ExpectType Readonly<ScopedPluginsApi>
+api.rewriter; // $ExpectType Readonly<ScopedRewriterApi>
+api.storage; // $ExpectType Readonly<ScopedStorageApi>
+api.commands; // $ExpectType Readonly<ScopedCommandsApi>
+
+GL.React; // $ExpectType typeof React
+GL.UI; // $ExpectType Readonly<UIApi>
+GL.hotkeys; // $ExpectType Readonly<HotkeysApi>
+GL.libs; // $ExpectType Readonly<LibsApi>
+GL.net; // $ExpectType Readonly<NetApi>
+GL.patcher; // $ExpectType Readonly<PatcherApi>
+GL.plugins; // $ExpectType Readonly<PluginsApi>
+GL.rewriter; // $ExpectType Readonly<RewriterApi>
+GL.storage; // $ExpectType Readonly<StorageApi>
+GL.commands; // $ExpectType Readonly<CommandsApi>
+
+api.plugin("testPlugin").one; // $ExpectType number
+api.lib("testLib").two; // $ExpectType string
+api.plugin("somethingElse"); // $ExpectType any
+
+// @ts-expect-error
+GL.onStop;
+// @ts-expect-error
+GL.openSettingsMenu;
+// @ts-expect-error
+api.onStop();
+// @ts-expect-error
+api.openSettingsMenu();
+
+api.UI.showModal(document.createElement("div"), {
+    buttons: [
+        { text: "Ok", onClick: () => {} },
+        { text: "Ok", onClick: () => true },
+    ],
+});
+
+api.requestReload();
+GL.net.gamemode; // $ExpectType string
+api.UI.forceReactUpdate();
+api.net.gamemode; // $ExpectType string
+api.net.onLoad((type, gamemode) => {});
+api.net.modifyFetchRequest("/path/*/thing", (options) => null);
+api.net.modifyFetchRequest("/path/*/thing", (options) => options);
+api.net.modifyFetchResponse("/path/*/thing", (response) => response);
+api.rewriter.runInScope("App", (code, evalCode) => evalCode("something"));
+api.rewriter.exposeVar("App", {
+    check: "someString",
+    find: /,(.+)=>{/,
+    callback: (theVar) => {},
+    multiple: false,
+});
+
+// Test patcher
+let object = { a: true, b: (arg1: number, arg2: string) => true };
+api.patcher.after(object, "b", (thisVal, args, returnVal) => {
+    args[0]; // $ExpectType number
+    args[1]; // $ExpectType string
+    returnVal; // $ExpectType boolean
+});
+// @ts-expect-error
+api.patcher.after(object, "a", () => {});
+api.patcher.swap(object, "b", function(arg1, args2) {
+    arg1; // $ExpectType number
+    args2; // $ExpectType string
+    return false;
+});
+
+// Test commands
+api.commands.addCommand({
+    text: "test",
+    hidden: () => false,
+    keywords: ["thing", "thing"],
+}, async (context) => {
+    await context.number({
+        title: "Number",
+        decimal: false,
+        max: 6,
+        min: 1,
+    });
+    await context.select({
+        title: "Select",
+        options: [
+            {
+                label: "Option 1",
+                value: "option1",
+            },
+            {
+                label: "Option 2",
+                value: "option2",
+            },
+        ],
+    });
+    await context.string({
+        title: "String",
+        maxLength: 10,
+    });
+});
+
+api.commands.addCommand({ text: () => "something" }, () => {});
+
+// Test stores
+GL.stores.phaser; // $ExpectType PhaserStore
+window.stores.phaser; // $ExpectType PhaserStore
+let worldManagerInstance!: Gimloader.Stores.WorldManager;
+worldManagerInstance; // $ExpectType WorldManager
+
+api.stores.me.movementSpeed; // $ExpectType number
+api.stores.loading.percentageAssetsLoaded; // $ExpectType number
+api.stores.worldOptions.terrainOptions[0].name; // $ExpectType string
+
+api.stores.phaser.scene.add; // $ExpectType GameObjectFactory
+api.stores.phaser.mainCharacter.input; // $ExpectType CharacterInput
+api.stores.phaser.mainCharacter.physics.getBody().rigidBody.translation(); // $ExpectType Vector
+api.stores.phaser.mainCharacter.physics.getBody().character.feetSensor; // $ExpectType Collider
+
+const { actionManager, characterManager, inputManager, tileManager, worldManager } = api.stores.phaser.scene;
+actionManager; // $ExpectType ActionManager
+characterManager; // $ExpectType CharacterManager
+inputManager; // $ExpectType InputManager
+tileManager; // $ExpectType TileManager
+worldManager; // $ExpectType WorldManager
+
+let character = characterManager.characters.get("...")!; // $ExpectType Character
+character.setIsMain(true);
+inputManager.getMouseWorldXY(); // $ExpectType Vector
+tileManager.layerManager.getActualLayerDepth("..."); // $ExpectType number
+let device = worldManager.devices.getDeviceById("...")!; // $ExpectType Device
+device.colliders.list; // $ExpectType ColliderEntry[]
+device.colliders.list[0].options.r1; // $ExpectType number | undefined
+device.state; // $ExpectType Record<string, any>
+worldManager.physics.bodies.staticBodies; // $ExpectType Set<string>
+worldManager.devices.interactives.findClosestInteractiveDevice([], 0, 0); // $ExpectType Device | undefined
+worldManager.inGameTerrainBuilder.clearPreviewLayer();
+
+// Test colyseus state
+api.net.state.characters["..."].x; // $ExpectType number
+api.net.state.characters.get("...")!.x; // $ExpectType number
+api.net.state.teams[0].characters[0]; // $ExpectType string
+api.net.state.mapSettings; // $ExpectType string
+api.net.state.listen("teams", () => {});
+api.net.state.characters.onAdd((item, index) => {
+    item; // $ExpectType ObjectSchema<CharacterState>
+    index; // $ExpectType string
+    item.listen("x", () => {});
+});
+api.net.state.teams.onAdd((item, index) => {
+    item; // $ExpectType ObjectSchema<TeamState>
+    index; // $ExpectType number
+});
+api.net.state.characters.onRemove((item, index) => {});
+api.net.state.$callbacks;
+api.net.state.characters.get("...")!.$callbacks;
+
+// Test settings
+api.settings.something;
+api.settings.somethingElse;
+api.settings.something = 123;
+api.settings.something = "abc";
+api.settings.something = {};
+api.settings.listen("someSetting", (val: any) => {});
+const settings = api.settings.create([
+    {
+        type: "group",
+        title: "Group",
+        settings: [
+            {
+                type: "toggle",
+                id: "toggle1",
+                title: "A Toggle",
+                description: "Some Toggle",
+            },
+        ],
+    },
+    {
+        type: "color",
+        id: "color1",
+        title: "A Color",
+        rgba: true,
+        default: "rgba(255, 0, 0, 1)",
+        onChange: (val: string) => {},
+    },
+    {
+        type: "dropdown",
+        id: "dropdown1",
+        options: [
+            { label: "Option 1", value: "option1" },
+            { label: "Option 2", value: "option2" },
+        ],
+        title: "A Dropdown",
+        default: "option1",
+        onChange: (value: string) => {},
+    },
+    {
+        type: "multiselect",
+        id: "multiselect1",
+        options: [
+            { label: "Option A", value: "optionA" },
+            { label: "Option B", value: "optionB" },
+            { label: "Option C", value: "optionC" },
+        ],
+        title: "A Multiselect",
+        default: ["optionA", "optionC"],
+        onChange: (value: readonly string[]) => {},
+    },
+    {
+        type: "number",
+        id: "number1",
+        title: "A Number",
+        min: 5,
+        max: 10,
+        step: 2,
+        onChange: (value: number) => {},
+    },
+    {
+        type: "radio",
+        id: "radio1",
+        options: [
+            { label: "Option A", value: "optionA" },
+            { label: "Option B", value: "optionB" },
+            { label: "Option C", value: "optionC" },
+        ],
+        title: "A Radio",
+        default: "optionB",
+        description: "Pick one",
+        onChange: (value: string) => {},
+    },
+    {
+        type: "slider",
+        id: "slider1",
+        title: "A Slider",
+        min: 5,
+        max: 500,
+        step: 2,
+        formatter: (v: number) => v + "s",
+        ticks: [5, 100, 300, 400, 500],
+        onChange: (value: number) => {},
+    },
+    {
+        type: "text",
+        id: "text1",
+        title: "A Text",
+        placeholder: "Type",
+        maxLength: 50,
+        onChange: (value: string) => {},
+    },
+    {
+        type: "toggle",
+        id: "toggle2",
+        title: "Another Toggle",
+        default: true,
+        onChange: (value: boolean) => {},
+    },
+    {
+        type: "custom",
+        id: "custom1",
+        title: "Custom Setting",
+        default: 50,
+        render: (container: HTMLElement, value: any, update: (value: any) => void) => {
+            container.innerText = `Value is ${value}`;
+            container.onclick = () => update(value + 1);
+        },
+        onChange: (value: any) => {},
+    },
+    {
+        type: "customsection",
+        id: "customsection1",
+        default: 50,
+        render: (container: HTMLElement, value: any, update: (value: any) => void) => {
+            container.innerText = `Value is ${value}`;
+            container.onclick = () => update(value + 1);
+        },
+        onChange: (value: any) => {},
+    },
+]);
+
+// @ts-expect-error
+settings.listen("fakekey", () => {});
+// @ts-expect-error
+settings.listen("number1", (value: string) => {});
+settings.listen("number1", (value) => {
+    value; // $ExpectType number
+});
+// @ts-expect-error
+settings.fakekey;
+settings.toggle1; // $ExpectType boolean
+settings.toggle2; // $ExpectType boolean
+settings.color1; // $ExpectType string
+settings.dropdown1; // $ExpectType string
+settings.multiselect1; // $ExpectType readonly string[]
+settings.number1; // $ExpectType number
+settings.radio1; // $ExpectType string
+settings.slider1; // $ExpectType number
+settings.text1; // $ExpectType string
+settings.custom1; // $ExpectType any
+settings.customsection1; // $ExpectType any

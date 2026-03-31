@@ -79,7 +79,9 @@
  * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/test.js)
  */
 declare module "node:test" {
+    import { AssertMethodNames } from "node:assert";
     import { Readable } from "node:stream";
+    import { URL } from "node:url";
     import TestFn = test.TestFn;
     import TestOptions = test.TestOptions;
     /**
@@ -1157,29 +1159,7 @@ declare module "node:test" {
              */
             readonly mock: MockTracker;
         }
-        interface TestContextAssert extends
-            Pick<
-                typeof import("assert"),
-                | "deepEqual"
-                | "deepStrictEqual"
-                | "doesNotMatch"
-                | "doesNotReject"
-                | "doesNotThrow"
-                | "equal"
-                | "fail"
-                | "ifError"
-                | "match"
-                | "notDeepEqual"
-                | "notDeepStrictEqual"
-                | "notEqual"
-                | "notStrictEqual"
-                | "ok"
-                | "partialDeepStrictEqual"
-                | "rejects"
-                | "strictEqual"
-                | "throws"
-            >
-        {
+        interface TestContextAssert extends Pick<typeof import("assert"), AssertMethodNames> {
             /**
              * This function serializes `value` and writes it to the file specified by `path`.
              *
@@ -1659,7 +1639,7 @@ declare module "node:test" {
              * @param specifier A string identifying the module to mock.
              * @param options Optional configuration options for the mock module.
              */
-            module(specifier: string, options?: MockModuleOptions): MockModuleContext;
+            module(specifier: string | URL, options?: MockModuleOptions): MockModuleContext;
             /**
              * This function restores the default behavior of all mocks that were previously
              * created by this `MockTracker` and disassociates the mocks from the `MockTracker` instance. Once disassociated, the mocks can still be used, but the `MockTracker` instance can no longer be

@@ -1,6 +1,6 @@
 import { useAckee as useAckeeNamed } from "use-ackee";
 // eslint-disable-next-line no-duplicate-imports
-import * as useAckee from "use-ackee";
+import useAckee from "use-ackee";
 
 useAckeeNamed(
     "/current/path",

@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import { Transform, TransformOptions } from "readable-stream";
+import type { Transform, TransformOptions } from "node:stream";
 
 export interface GetTextComment {
     translator?: string;

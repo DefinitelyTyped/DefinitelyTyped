@@ -1,20 +1,12 @@
-import Connection = require("@xmpp/connection");
-import ConnectionTCP = require("@xmpp/connection-tcp");
-import tls = require("@xmpp/tls");
-import ConnectionTLS = require("@xmpp/tls/lib/Connection");
-import Socket = require("@xmpp/tls/lib/Socket");
-
-// test type exports
-type Entity = tls.Entity;
-type Conn = ConnectionTLS;
-type SockParams = ConnectionTLS.SocketParameters;
-type SockCtor = ConnectionTLS.SocketConstructor;
-type Sock = Socket;
-type SockEvents = Socket.Events;
+import Connection from "@xmpp/connection";
+import ConnectionTCP from "@xmpp/connection-tcp";
+import tls from "@xmpp/tls";
+import ConnectionTLS from "@xmpp/tls/lib/Connection.js";
+import Socket from "@xmpp/tls/lib/Socket.js";
 
 const sock = new Socket();
 sock.timeout; // $ExpectType Timeout | null
-sock.socket; // $ExpectType TLSSocket | undefined
+sock.socket; // $ExpectType TLSSocket | null | undefined
 sock.connect({ host: "foo" }); // $ExpectType void
 sock.end(); // $ExpectType void
 sock.write(new Uint8Array(10));

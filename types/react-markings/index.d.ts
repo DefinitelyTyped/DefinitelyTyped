@@ -1,4 +1,4 @@
-import * as CommonmarkReactRenderer from "commonmark-react-renderer";
+import CommonmarkReactRenderer = require("commonmark-react-renderer");
 import * as React from "react";
 
 declare namespace md {

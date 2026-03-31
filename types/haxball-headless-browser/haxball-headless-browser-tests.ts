@@ -15,3 +15,11 @@ room.onPlayerJoin = p => {
     room.setPlayerAvatar(p.id, null);
     room.setCustomStadium(JSON.stringify(customStadium));
 };
+
+room.onPlayerChat = (player, message) => {
+    if (message === "!admin") {
+        room.setPlayerAdmin(player.id, true);
+        return false; // Filter the message
+    }
+    // Return nothing (void) to allow the message
+};

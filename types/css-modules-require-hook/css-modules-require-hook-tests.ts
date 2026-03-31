@@ -1,4 +1,4 @@
-import * as hook from "css-modules-require-hook";
+import hook from "css-modules-require-hook";
 
 //
 // https://github.com/css-modules/css-modules-require-hook/blob/master/README.md#usage

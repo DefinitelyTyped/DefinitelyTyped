@@ -1,7 +1,7 @@
 /**
  * @since v17.0.0
  */
-declare module "readline/promises" {
+declare module "node:readline/promises" {
     import { Abortable } from "node:events";
     import {
         CompleterResult,
@@ -64,7 +64,7 @@ declare module "readline/promises" {
         constructor(
             stream: NodeJS.WritableStream,
             options?: {
-                autoCommit?: boolean;
+                autoCommit?: boolean | undefined;
             },
         );
         /**
@@ -156,6 +156,6 @@ declare module "readline/promises" {
     ): Interface;
     function createInterface(options: ReadLineOptions): Interface;
 }
-declare module "node:readline/promises" {
-    export * from "readline/promises";
+declare module "readline/promises" {
+    export * from "node:readline/promises";
 }

@@ -1,13 +1,12 @@
-import { ShaderNodeObject } from "three/tsl";
-import { Data3DTexture, Node, TempNode, Texture3DNode, UniformNode } from "three/webgpu";
+import { Node, TempNode, TextureNode, UniformNode } from "three/webgpu";
 
 declare class Lut3DNode extends TempNode {
     inputNode: Node;
-    lutNode: Texture3DNode;
-    size: ShaderNodeObject<UniformNode<number>>;
-    intensityNode: UniformNode<number>;
+    lutNode: TextureNode;
+    size: UniformNode<"float", number>;
+    intensityNode: Node<"float">;
 
-    constructor(inputNode: Node, lutNode: UniformNode<Data3DTexture>, size: number, intensityNode: UniformNode<number>);
+    constructor(inputNode: Node, lutNode: TextureNode, size: number, intensityNode: Node);
 }
 
 export default Lut3DNode;
@@ -17,4 +16,4 @@ export const lut3D: (
     lut: Node,
     size: number,
     intensity: Node,
-) => ShaderNodeObject<Lut3DNode>;
+) => Lut3DNode;

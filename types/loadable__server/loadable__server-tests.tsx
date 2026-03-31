@@ -1,5 +1,5 @@
 import { AttrFn, Chunk, ChunkExtractor } from "@loadable/server";
-import * as React from "react";
+import React from "react";
 
 // Should be satisfied by `stats` or `statsFile`
 new ChunkExtractor({ stats: {} });

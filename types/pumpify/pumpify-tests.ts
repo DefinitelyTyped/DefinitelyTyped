@@ -1,4 +1,4 @@
-import * as Pumpify from "pumpify";
+import Pumpify from "pumpify";
 import { Duplex, PassThrough, Transform, Writable } from "stream";
 
 new Pumpify();

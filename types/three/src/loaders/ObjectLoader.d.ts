@@ -23,9 +23,9 @@ export class ObjectLoader extends Loader<Object3D> {
     parseGeometries(json: unknown): { [key: string]: InstancedBufferGeometry | BufferGeometry };
     parseMaterials(json: unknown, textures: { [key: string]: Texture }): { [key: string]: Material };
     parseAnimations(json: unknown): { [key: string]: AnimationClip };
-    parseImages(json: unknown, onLoad?: () => void): { [key: string]: Source };
-    parseImagesAsync(json: unknown): Promise<{ [key: string]: Source }>;
-    parseTextures(json: unknown, images: { [key: string]: Source }): { [key: string]: Texture };
+    parseImages(json: unknown, onLoad?: () => void): { [key: string]: Source<unknown> };
+    parseImagesAsync(json: unknown): Promise<{ [key: string]: Source<unknown> }>;
+    parseTextures(json: unknown, images: { [key: string]: Source<unknown> }): { [key: string]: Texture };
     parseObject(
         data: unknown,
         geometries: { [key: string]: InstancedBufferGeometry | BufferGeometry },

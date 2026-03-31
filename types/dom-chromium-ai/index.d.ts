@@ -44,6 +44,7 @@ interface DestroyableModel {
 declare abstract class LanguageModel extends EventTarget implements DestroyableModel {
     static create(options?: LanguageModelCreateOptions): Promise<LanguageModel>;
     static availability(options?: LanguageModelCreateCoreOptions): Promise<Availability>;
+    /** @deprecated Restricted to web extension contexts only. */
     static params(): Promise<LanguageModelParams>;
 
     prompt(input: LanguageModelPrompt, options?: LanguageModelPromptOptions): Promise<string>;
@@ -52,11 +53,20 @@ declare abstract class LanguageModel extends EventTarget implements DestroyableM
 
     append(input: LanguageModelPrompt, options?: LanguageModelAppendOptions): Promise<undefined>;
 
+    measureContextUsage(input: LanguageModelPrompt, options?: LanguageModelPromptOptions): Promise<number>;
+    /** @deprecated Use measureContextUsage instead. Deprecated in extensions, removed in web. */
     measureInputUsage(input: LanguageModelPrompt, options?: LanguageModelPromptOptions): Promise<number>;
 
+    readonly contextUsage: number;
+    /** @deprecated Use contextUsage instead. Deprecated in extensions, removed in web. */
     readonly inputUsage: number;
+
+    readonly contextWindow: number;
+    /** @deprecated Use contextWindow instead. Deprecated in extensions, removed in web. */
     readonly inputQuota: number;
 
+    oncontextoverflow: ((this: LanguageModel, ev: Event) => any) | null;
+    /** @deprecated Use oncontextoverflow instead. Deprecated in extensions, removed in web. */
     onquotaoverflow: ((this: LanguageModel, ev: Event) => any) | null;
 
     addEventListener<K extends keyof LanguageModelEventMap>(
@@ -80,7 +90,9 @@ declare abstract class LanguageModel extends EventTarget implements DestroyableM
         options?: boolean | EventListenerOptions,
     ): void;
 
+    /** @deprecated Restricted to web extension contexts only. */
     readonly topK: number;
+    /** @deprecated Restricted to web extension contexts only. */
     readonly temperature: number;
 
     clone(options?: LanguageModelCloneOptions): Promise<LanguageModel>;
@@ -88,18 +100,26 @@ declare abstract class LanguageModel extends EventTarget implements DestroyableM
 }
 
 interface LanguageModelEventMap {
+    contextoverflow: Event;
+    /** @deprecated Use contextoverflow instead. Deprecated in extensions, removed in web. */
     quotaoverflow: Event;
 }
 
 interface LanguageModelParams {
+    /** @deprecated Restricted to web extension contexts only. */
     readonly defaultTopK: number;
+    /** @deprecated Restricted to web extension contexts only. */
     readonly maxTopK: number;
+    /** @deprecated Restricted to web extension contexts only. */
     readonly defaultTemperature: number;
+    /** @deprecated Restricted to web extension contexts only. */
     readonly maxTemperature: number;
 }
 
 interface LanguageModelCreateCoreOptions {
+    /** @deprecated Restricted to web extension contexts only. Use the topK option within LanguageModel.create() is now restricted to web extensions. */
     topK?: number;
+    /** @deprecated Restricted to web extension contexts only. Use the temperature option within LanguageModel.create() is now restricted to web extensions. */
     temperature?: number;
 
     expectedInputs?: LanguageModelExpected[];
@@ -146,10 +166,16 @@ interface LanguageModelToolFunction {
     (...args: any[]): Promise<string>;
 }
 
-type LanguageModelPrompt = LanguageModelMessage[] | string;
+type LanguageModelPrompt = (LanguageModelMessage | LanguageModelAssistantMessage)[] | string;
 
 interface LanguageModelMessage {
     role: LanguageModelMessageRole;
+    content: LanguageModelMessageContent[] | string;
+}
+
+// Not in IDL, split up here for allowing assistant messages with prefix in prompt() and promptStreaming() only
+interface LanguageModelAssistantMessage {
+    role: LanguageModelAssistantMessageRole;
     content: LanguageModelMessageContent[] | string;
     prefix?: boolean;
 }
@@ -165,7 +191,9 @@ interface LanguageModelMessageContent {
     value: LanguageModelMessageValue;
 }
 
-type LanguageModelMessageRole = "user" | "assistant";
+type LanguageModelMessageRole = "user" | LanguageModelAssistantMessageRole;
+// Not in IDL, split up here for allowing assistant messages with prefix in prompt() and promptStreaming() only
+type LanguageModelAssistantMessageRole = "assistant";
 // Not in IDL, split up here for enforcing the system message as the first element
 type LanguageModelSystemMessageRole = "system";
 
@@ -175,6 +203,8 @@ type LanguageModelMessageValue = ImageBitmapSource | AudioBuffer | BufferSource 
 
 // Writing Assistance APIs
 // https://webmachinelearning.github.io/writing-assistance-apis/#idl-index
+
+type PerformancePreference = "auto" | "speed" | "capability";
 
 declare abstract class Summarizer implements DestroyableModel {
     static create(options?: SummarizerCreateOptions): Promise<Summarizer>;
@@ -203,6 +233,7 @@ interface SummarizerCreateCoreOptions {
     type?: SummarizerType;
     format?: SummarizerFormat;
     length?: SummarizerLength;
+    preference?: PerformancePreference;
 
     expectedInputLanguages?: ReadonlyArray<string>;
     expectedContextLanguages?: ReadonlyArray<string>;
@@ -389,3 +420,52 @@ interface LanguageDetectionResult {
     detectedLanguage?: string;
     confidence?: number;
 }
+
+// Proofreader API
+// https://github.com/webmachinelearning/proofreader-api?tab=readme-ov-file#full-api-surface-in-web-idl
+
+declare abstract class Proofreader implements DestroyableModel {
+    static create(options?: ProofreaderCreateOptions): Promise<Proofreader>;
+    static availability(options?: ProofreaderCreateCoreOptions): Promise<Availability>;
+
+    proofread(input: string, options?: ProofreaderProofreadOptions): Promise<ProofreadResult>;
+    // proofreadStreaming(input: string, options?: ProofreaderProofreadOptions): ReadableStream<unknown>;
+
+    readonly includeCorrectionTypes: boolean;
+    readonly includeCorrectionExplanations: boolean;
+    readonly correctionExplanationLanguage?: string;
+    readonly expectedInputLanguages: ReadonlyArray<string>;
+
+    destroy(): void;
+}
+
+interface ProofreaderCreateCoreOptions {
+    includeCorrectionTypes?: boolean;
+    includeCorrectionExplanations?: boolean;
+    correctionExplanationLanguage?: string;
+    expectedInputLanguages?: string[];
+}
+
+interface ProofreaderCreateOptions extends ProofreaderCreateCoreOptions {
+    signal?: AbortSignal;
+    monitor?: CreateMonitorCallback;
+}
+
+interface ProofreaderProofreadOptions {
+    signal?: AbortSignal;
+}
+
+interface ProofreadResult {
+    correctedInput: string;
+    corrections: ProofreadCorrection[];
+}
+
+interface ProofreadCorrection {
+    startIndex: number;
+    endIndex: number;
+    correction: string;
+    types?: CorrectionType[];
+    explanation?: string;
+}
+
+type CorrectionType = "spelling" | "punctuation" | "capitalization" | "preposition" | "missing-words" | "grammar";

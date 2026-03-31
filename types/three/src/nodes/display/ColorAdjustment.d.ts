@@ -1,30 +1,26 @@
 import Node from "../core/Node.js";
-import MathNode from "../math/MathNode.js";
-import { ShaderNodeObject } from "../tsl/TSLCore.js";
 
-export const grayscale: (color: Node) => ShaderNodeObject<Node>;
+export const grayscale: (color: Node) => Node<"vec3">;
 
 export const saturation: (
     color: Node,
     adjustment?: Node | number,
-) => ShaderNodeObject<Node>;
+) => Node<"vec3">;
 
 export const vibrance: (
     color: Node,
     adjustment?: Node | number,
-) => ShaderNodeObject<Node>;
+) => Node<"vec3">;
 
 export const hue: (
     color: Node,
     adjustment?: Node | number,
-) => ShaderNodeObject<Node>;
+) => Node<"vec3">;
 
 export const luminance: (
     color: Node,
     luminanceCoefficients?: Node,
-) => ShaderNodeObject<MathNode>;
-
-export const threshold: (color: Node, thershold: Node) => ShaderNodeObject<MathNode>;
+) => Node<"float">;
 
 /**
  * Color Decision List (CDL) v1.2
@@ -53,4 +49,6 @@ export const cdl: (
     power?: Node,
     saturation?: Node,
     luminanceCoefficients?: Node,
-) => ShaderNodeObject<Node>;
+) => Node<"vec4">;
+
+export const posterize: <TNodeType>(sourceNode: Node<TNodeType>, stepsNode: Node | number) => Node<TNodeType>;

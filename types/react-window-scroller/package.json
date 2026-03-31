@@ -7,7 +7,7 @@
     ],
     "dependencies": {
         "@types/react": "*",
-        "@types/react-window": "*"
+        "@types/react-window": "^1"
     },
     "devDependencies": {
         "@types/react-window-scroller": "workspace:."

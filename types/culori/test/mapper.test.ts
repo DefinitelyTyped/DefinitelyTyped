@@ -46,3 +46,11 @@ mapper(
     undefined,
     true,
 );
+
+const halver = mapper(v => v / 2, null);
+
+// $ExpectType Rgb
+halver({ mode: "rgb", r: 0.5, b: 0.2, g: 0.1 });
+
+// $ExpectType Hsl
+halver({ h: 240, s: 1, l: 0.5, mode: "hsl", alpha: 0.5 });

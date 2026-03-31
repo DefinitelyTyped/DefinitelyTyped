@@ -689,10 +689,33 @@ export class QuoteMarket {
     constructor(symbol: MarketSymbol);
 
     /**
+     * When quote market is loaded
+     * @param callback Callback
+     */
+    onLoaded(callback: () => void): void;
+
+    /**
      * Subscribe to market data
      * @param callback Data callback
      */
     onData(callback: (data: any) => void): void;
+
+    /**
+     * When quote event happens
+     * @param callback Callback
+     */
+    onEvent(callback: (...data: any[]) => void): void;
+
+    /**
+     * When quote error happens
+     * @param callback Callback
+     */
+    onError(callback: (...data: any[]) => void): void;
+
+    /**
+     * Close this listener
+     */
+    close(): void;
 
     /**
      * Unsubscribe from market data

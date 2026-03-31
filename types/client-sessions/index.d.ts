@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import * as cookies from "cookies";
+import cookies = require("cookies");
 
 interface CookieOptions extends cookies.IOptions {
     /**

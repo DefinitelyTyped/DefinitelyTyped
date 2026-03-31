@@ -25,23 +25,165 @@ import { promisify } from "node:util";
     childProcess.spawnSync("echo test", { encoding: "buffer" });
     childProcess.spawnSync("echo test", { cwd: new URL("file://aaaaaaaa") });
 
-    childProcess.spawnSync("echo test").output; // $ExpectType (Buffer | null)[] || (Buffer<ArrayBufferLike> | null)[]
-    childProcess.spawnSync("echo test", {}).output; // $ExpectType (Buffer | null)[] || (Buffer<ArrayBufferLike> | null)[]
-    childProcess.spawnSync("echo test", { encoding: "buffer" }).output; // $ExpectType (Buffer | null)[] || (Buffer<ArrayBufferLike> | null)[]
+    childProcess.spawnSync("echo test").output; // $ExpectType (NonSharedBuffer | null)[]
+    childProcess.spawnSync("echo test", {}).output; // $ExpectType (NonSharedBuffer | null)[]
+    childProcess.spawnSync("echo test", { encoding: "buffer" }).output; // $ExpectType (NonSharedBuffer | null)[]
     childProcess.spawnSync("echo test", { encoding: "utf-8" }).output; // $ExpectType (string | null)[]
-    childProcess.spawnSync("echo", ["test"]).output; // $ExpectType (Buffer | null)[] || (Buffer<ArrayBufferLike> | null)[]
-    childProcess.spawnSync("echo test", ["test"], {}).output; // $ExpectType (Buffer | null)[] || (Buffer<ArrayBufferLike> | null)[]
-    childProcess.spawnSync("echo test", ["test"], { encoding: "buffer" }).output; // $ExpectType (Buffer | null)[] || (Buffer<ArrayBufferLike> | null)[]
+    childProcess.spawnSync("echo", ["test"]).output; // $ExpectType (NonSharedBuffer | null)[]
+    childProcess.spawnSync("echo test", ["test"], {}).output; // $ExpectType (NonSharedBuffer | null)[]
+    childProcess.spawnSync("echo test", ["test"], { encoding: "buffer" }).output; // $ExpectType (NonSharedBuffer | null)[]
     childProcess.spawnSync("echo test", ["test"], { encoding: "utf-8" }).output; // $ExpectType (string | null)[]
-    ((opts?: childProcess.SpawnSyncOptions) => childProcess.spawnSync("echo test", opts))().output; // $ExpectType (string | Buffer | null)[] || (string | Buffer<ArrayBufferLike> | null)[]
+    ((opts?: childProcess.SpawnSyncOptions) => childProcess.spawnSync("echo test", opts))().output; // $ExpectType (string | NonSharedBuffer | null)[]
 }
 
 {
-    childProcess.execSync("echo test"); // $ExpectType Buffer || Buffer<ArrayBufferLike>
-    childProcess.execSync("echo test", {}); // $ExpectType Buffer || Buffer<ArrayBufferLike>
-    childProcess.execSync("echo test", { encoding: "buffer" }); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+    const cmd = "echo test";
+    const promisifiedExec = promisify(childProcess.exec);
+    const boolFlag = Math.random() < 1;
+
+    // $ExpectType ChildProcess
+    childProcess.exec(cmd);
+    // $ExpectType ChildProcess
+    childProcess.exec(
+        cmd,
+        (error, stdout, stderr) => {
+            // $ExpectType ExecException | null
+            error;
+            // $ExpectType string
+            stdout;
+            // $ExpectType string
+            stderr;
+        },
+    );
+    // $ExpectType PromiseWithChild<{ stdout: string; stderr: string; }>
+    promisifiedExec(cmd);
+
+    // without encoding
+    // $ExpectType ChildProcess
+    childProcess.exec(
+        cmd,
+        {},
+        (error, stdout, stderr) => {
+            // $ExpectType ExecException | null
+            error;
+            // $ExpectType string
+            stdout;
+            // $ExpectType string
+            stderr;
+        },
+    );
+    // $ExpectType PromiseWithChild<{ stdout: string; stderr: string; }>
+    promisifiedExec(cmd, {});
+
+    // with optional options
+    // $ExpectType ChildProcess
+    childProcess.exec(
+        cmd,
+        {
+            windowsHide: true,
+            timeout: 0,
+            shell: "bash",
+            signal: new AbortSignal(),
+            maxBuffer: 1024,
+            killSignal: "SIGABRT",
+        },
+        (error, stdout, stderr) => {
+            // $ExpectType ExecException | null
+            error;
+            // $ExpectType string
+            stdout;
+            // $ExpectType string
+            stderr;
+        },
+    );
+    // $ExpectType PromiseWithChild<{ stdout: string; stderr: string; }>
+    promisifiedExec(
+        cmd,
+        {
+            windowsHide: true,
+            timeout: 0,
+            shell: "bash",
+            signal: new AbortSignal(),
+            maxBuffer: 1024,
+            killSignal: "SIGABRT",
+        },
+    );
+
+    // with encoding: 'buffer' | null
+    // $ExpectType ChildProcess
+    childProcess.exec(
+        cmd,
+        { encoding: boolFlag ? "buffer" : null },
+        (error, stdout, stderr) => {
+            // $ExpectType ExecException | null
+            error;
+            // $ExpectType NonSharedBuffer
+            stdout;
+            // $ExpectType NonSharedBuffer
+            stderr;
+        },
+    );
+    // $ExpectType PromiseWithChild<{ stdout: NonSharedBuffer; stderr: NonSharedBuffer; }>
+    promisifiedExec(cmd, { encoding: boolFlag ? "buffer" : null });
+
+    // with known encoding
+    // $ExpectType ChildProcess
+    childProcess.exec(
+        cmd,
+        { encoding: "utf16le" },
+        (error, stdout, stderr) => {
+            // $ExpectType ExecException | null
+            error;
+            // $ExpectType string
+            stdout;
+            // $ExpectType string
+            stderr;
+        },
+    );
+    // $ExpectType PromiseWithChild<{ stdout: string; stderr: string; }>
+    promisifiedExec(cmd, { encoding: "utf16le" });
+
+    // with unknown encoding
+    // $ExpectType ChildProcess
+    childProcess.exec(
+        cmd,
+        { encoding: "unknown" },
+        (error, stdout, stderr) => {
+            // $ExpectType ExecException | null
+            error;
+            // $ExpectType string | NonSharedBuffer
+            stdout;
+            // $ExpectType string | NonSharedBuffer
+            stderr;
+        },
+    );
+    // $ExpectType PromiseWithChild<{ stdout: string | NonSharedBuffer; stderr: string | NonSharedBuffer; }>
+    promisifiedExec(cmd, { encoding: "unknown" });
+
+    // with nullish encoding
+    // $ExpectType ChildProcess
+    childProcess.exec(
+        cmd,
+        boolFlag ? { encoding: "unknown" } : null,
+        (error, stdout, stderr) => {
+            // $ExpectType ExecException | null
+            error;
+            // $ExpectType string | NonSharedBuffer
+            stdout;
+            // $ExpectType string | NonSharedBuffer
+            stderr;
+        },
+    );
+    // $ExpectType PromiseWithChild<{ stdout: string | NonSharedBuffer; stderr: string | NonSharedBuffer; }>
+    promisifiedExec(cmd, boolFlag ? { encoding: "unknown" } : null);
+}
+
+{
+    childProcess.execSync("echo test"); // $ExpectType NonSharedBuffer
+    childProcess.execSync("echo test", {}); // $ExpectType NonSharedBuffer
+    childProcess.execSync("echo test", { encoding: "buffer" }); // $ExpectType NonSharedBuffer
     childProcess.execSync("echo test", { encoding: "utf-8" }); // $ExpectType string
-    ((opts?: childProcess.ExecSyncOptions) => childProcess.execSync("echo test", opts))(); // $ExpectType string | Buffer || string | Buffer<ArrayBufferLike>
+    ((opts?: childProcess.ExecSyncOptions) => childProcess.execSync("echo test", opts))(); // $ExpectType string | NonSharedBuffer
     childProcess.execSync("git status", { // $ExpectType string
         cwd: "test",
         input: "test",
@@ -59,49 +201,275 @@ import { promisify } from "node:util";
 }
 
 {
-    childProcess.execFile("npm", () => {});
-    childProcess.execFile("npm", { windowsHide: true, signal: new AbortSignal() }, () => {});
-    childProcess.execFile("npm", { shell: true }, () => {});
-    childProcess.execFile("npm", { shell: "/bin/sh" }, () => {});
-    childProcess.execFile("npm", ["-v"] as readonly string[], () => {});
+    const cmd = "echo test";
+    const promisifiedExecFile = promisify(childProcess.execFile);
+    const boolFlag = Math.random() < 1;
+    const args = boolFlag ? ["arg"] as const : boolFlag ? null : undefined;
+
+    // $ExpectType ChildProcess
+    childProcess.execFile(cmd);
+    // $ExpectType ChildProcess
     childProcess.execFile(
-        "npm",
-        ["-v"] as readonly string[],
-        { windowsHide: true, encoding: "utf-8" },
-        (stdout, stderr) => {
-            assert(stdout instanceof String);
+        cmd,
+        (error, stdout, stderr) => {
+            // $ExpectType ExecFileException | null
+            error;
+            // $ExpectType string
+            stdout;
+            // $ExpectType string
+            stderr;
         },
     );
+    // $ExpectType PromiseWithChild<{ stdout: string; stderr: string; }>
+    promisifiedExecFile(cmd);
+
+    // $ExpectType ChildProcess
+    childProcess.execFile(cmd, args);
+    // $ExpectType ChildProcess
     childProcess.execFile(
-        "npm",
-        ["-v"] as readonly string[],
-        { windowsHide: true, encoding: "buffer" },
-        (stdout, stderr) => {
-            assert(stdout instanceof Buffer);
+        cmd,
+        args,
+        (error, stdout, stderr) => {
+            // $ExpectType ExecFileException | null
+            error;
+            // $ExpectType string
+            stdout;
+            // $ExpectType string
+            stderr;
         },
     );
-    childProcess.execFile("npm", { encoding: "utf-8" }, (stdout, stderr) => {
-        assert(stdout instanceof String);
-    });
-    childProcess.execFile("npm", { encoding: "buffer" }, (stdout, stderr) => {
-        assert(stdout instanceof Buffer);
-    });
-    childProcess.execFile("npm", (err) => {
-        if (err && err.errno) assert(err.code === "ENOENT");
-    });
-    childProcess.execFile("npm", (err) => {
-        if (err !== null) {
-            if (typeof err.code === "string") {
-                console.log(err.code.charCodeAt(0));
-            } else if (typeof err.code === "number") {
-                console.log(err.code.toExponential());
-            } else if (err.code === null) {
-                // @ts-expect-error -- since err.code is null, this assignment has a type error
-                const x: string = err.code;
-                console.log(x);
-            }
-        }
-    });
+    // $ExpectType PromiseWithChild<{ stdout: string; stderr: string; }>
+    promisifiedExecFile(cmd, args);
+
+    // without encoding
+    // $ExpectType ChildProcess
+    childProcess.execFile(
+        cmd,
+        {},
+        (error, stdout, stderr) => {
+            // $ExpectType ExecFileException | null
+            error;
+            // $ExpectType string
+            stdout;
+            // $ExpectType string
+            stderr;
+        },
+    );
+    // $ExpectType PromiseWithChild<{ stdout: string; stderr: string; }>
+    promisifiedExecFile(cmd, {});
+    // $ExpectType ChildProcess
+    childProcess.execFile(
+        cmd,
+        args,
+        {},
+        (error, stdout, stderr) => {
+            // $ExpectType ExecFileException | null
+            error;
+            // $ExpectType string
+            stdout;
+            // $ExpectType string
+            stderr;
+        },
+    );
+    // $ExpectType PromiseWithChild<{ stdout: string; stderr: string; }>
+    promisifiedExecFile(cmd, args, {});
+
+    // with optional options
+    // $ExpectType ChildProcess
+    childProcess.execFile(
+        cmd,
+        {
+            maxBuffer: 1024,
+            killSignal: "SIGABRT",
+            windowsVerbatimArguments: true,
+            shell: "bash",
+            signal: new AbortSignal(),
+        },
+        (error, stdout, stderr) => {
+            // $ExpectType ExecFileException | null
+            error;
+            // $ExpectType string
+            stdout;
+            // $ExpectType string
+            stderr;
+        },
+    );
+    // $ExpectType PromiseWithChild<{ stdout: string; stderr: string; }>
+    promisifiedExecFile(
+        cmd,
+        {
+            maxBuffer: 1024,
+            killSignal: "SIGABRT",
+            windowsVerbatimArguments: true,
+            shell: "bash",
+            signal: new AbortSignal(),
+        },
+    );
+    // $ExpectType ChildProcess
+    childProcess.execFile(
+        cmd,
+        args,
+        {
+            maxBuffer: 1024,
+            killSignal: "SIGABRT",
+            windowsVerbatimArguments: true,
+            shell: "bash",
+            signal: new AbortSignal(),
+        },
+        (error, stdout, stderr) => {
+            // $ExpectType ExecFileException | null
+            error;
+            // $ExpectType string
+            stdout;
+            // $ExpectType string
+            stderr;
+        },
+    );
+    // $ExpectType PromiseWithChild<{ stdout: string; stderr: string; }>
+    promisifiedExecFile(
+        cmd,
+        args,
+        {
+            maxBuffer: 1024,
+            killSignal: "SIGABRT",
+            windowsVerbatimArguments: true,
+            shell: "bash",
+            signal: new AbortSignal(),
+        },
+    );
+
+    // with encoding: 'buffer' | null
+    // $ExpectType ChildProcess
+    childProcess.execFile(
+        cmd,
+        { encoding: boolFlag ? "buffer" : null },
+        (error, stdout, stderr) => {
+            // $ExpectType ExecFileException | null
+            error;
+            // $ExpectType NonSharedBuffer
+            stdout;
+            // $ExpectType NonSharedBuffer
+            stderr;
+        },
+    );
+    // $ExpectType PromiseWithChild<{ stdout: NonSharedBuffer; stderr: NonSharedBuffer; }>
+    promisifiedExecFile(cmd, { encoding: boolFlag ? "buffer" : null });
+    // $ExpectType ChildProcess
+    childProcess.execFile(
+        cmd,
+        args,
+        { encoding: boolFlag ? "buffer" : null },
+        (error, stdout, stderr) => {
+            // $ExpectType ExecFileException | null
+            error;
+            // $ExpectType NonSharedBuffer
+            stdout;
+            // $ExpectType NonSharedBuffer
+            stderr;
+        },
+    );
+    // $ExpectType PromiseWithChild<{ stdout: NonSharedBuffer; stderr: NonSharedBuffer; }>
+    promisifiedExecFile(cmd, args, { encoding: boolFlag ? "buffer" : null });
+
+    // with known encoding
+    // $ExpectType ChildProcess
+    childProcess.execFile(
+        cmd,
+        args,
+        { encoding: "utf16le" },
+        (error, stdout, stderr) => {
+            // $ExpectType ExecFileException | null
+            error;
+            // $ExpectType string
+            stdout;
+            // $ExpectType string
+            stderr;
+        },
+    );
+    // $ExpectType PromiseWithChild<{ stdout: string; stderr: string; }>
+    promisifiedExecFile(cmd, { encoding: "utf16le" });
+    // $ExpectType ChildProcess
+    childProcess.execFile(
+        cmd,
+        args,
+        { encoding: "utf16le" },
+        (error, stdout, stderr) => {
+            // $ExpectType ExecFileException | null
+            error;
+            // $ExpectType string
+            stdout;
+            // $ExpectType string
+            stderr;
+        },
+    );
+    // $ExpectType PromiseWithChild<{ stdout: string; stderr: string; }>
+    promisifiedExecFile(cmd, { encoding: "utf16le" });
+
+    // with unknown encoding
+    // $ExpectType ChildProcess
+    childProcess.execFile(
+        cmd,
+        { encoding: "unknown" },
+        (error, stdout, stderr) => {
+            // $ExpectType ExecFileException | null
+            error;
+            // $ExpectType string | NonSharedBuffer
+            stdout;
+            // $ExpectType string | NonSharedBuffer
+            stderr;
+        },
+    );
+    // $ExpectType PromiseWithChild<{ stdout: string | NonSharedBuffer; stderr: string | NonSharedBuffer; }>
+    promisifiedExecFile(cmd, { encoding: "unknown" });
+    // $ExpectType ChildProcess
+    childProcess.execFile(
+        cmd,
+        args,
+        { encoding: "unknown" },
+        (error, stdout, stderr) => {
+            // $ExpectType ExecFileException | null
+            error;
+            // $ExpectType string | NonSharedBuffer
+            stdout;
+            // $ExpectType string | NonSharedBuffer
+            stderr;
+        },
+    );
+    // $ExpectType PromiseWithChild<{ stdout: string | NonSharedBuffer; stderr: string | NonSharedBuffer; }>
+    promisifiedExecFile(cmd, args, { encoding: "unknown" });
+
+    // with nullish encoding
+    // $ExpectType ChildProcess
+    childProcess.execFile(
+        cmd,
+        boolFlag ? { encoding: "unknown" } : null,
+        (error, stdout, stderr) => {
+            // $ExpectType ExecFileException | null
+            error;
+            // $ExpectType string | NonSharedBuffer
+            stdout;
+            // $ExpectType string | NonSharedBuffer
+            stderr;
+        },
+    );
+    // $ExpectType PromiseWithChild<{ stdout: string | NonSharedBuffer; stderr: string | NonSharedBuffer; }>
+    promisifiedExecFile(cmd, boolFlag ? { encoding: "unknown" } : null);
+    // $ExpectType ChildProcess
+    childProcess.execFile(
+        cmd,
+        args,
+        boolFlag ? { encoding: "unknown" } : null,
+        (error, stdout, stderr) => {
+            // $ExpectType ExecFileException | null
+            error;
+            // $ExpectType string | NonSharedBuffer
+            stdout;
+            // $ExpectType string | NonSharedBuffer
+            stderr;
+        },
+    );
+    // $ExpectType PromiseWithChild<{ stdout: string | NonSharedBuffer; stderr: string | NonSharedBuffer; }>
+    promisifiedExecFile(cmd, args, boolFlag ? { encoding: "unknown" } : null);
 }
 
 {
@@ -113,15 +481,15 @@ import { promisify } from "node:util";
     childProcess.execFileSync("echo test", { input: new Uint8Array([]) });
     childProcess.execFileSync("echo test", { input: new DataView(new ArrayBuffer(1)) });
 
-    childProcess.execFileSync("echo test"); // $ExpectType Buffer || Buffer<ArrayBufferLike>
-    childProcess.execFileSync("echo test", {}); // $ExpectType Buffer || Buffer<ArrayBufferLike>
-    childProcess.execFileSync("echo test", { encoding: "buffer" }); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+    childProcess.execFileSync("echo test"); // $ExpectType NonSharedBuffer
+    childProcess.execFileSync("echo test", {}); // $ExpectType NonSharedBuffer
+    childProcess.execFileSync("echo test", { encoding: "buffer" }); // $ExpectType NonSharedBuffer
     childProcess.execFileSync("echo test", { encoding: "utf8" }); // $ExpectType string
-    childProcess.execFileSync("echo test", ["test"]); // $ExpectType Buffer || Buffer<ArrayBufferLike>
-    childProcess.execFileSync("echo test", ["test"], {}); // $ExpectType Buffer || Buffer<ArrayBufferLike>
-    childProcess.execFileSync("echo test", ["test"], { encoding: "buffer" }); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+    childProcess.execFileSync("echo test", ["test"]); // $ExpectType NonSharedBuffer
+    childProcess.execFileSync("echo test", ["test"], {}); // $ExpectType NonSharedBuffer
+    childProcess.execFileSync("echo test", ["test"], { encoding: "buffer" }); // $ExpectType NonSharedBuffer
     childProcess.execFileSync("echo test", ["test"], { encoding: "utf8" }); // $ExpectType string
-    ((opts?: childProcess.ExecFileSyncOptions) => childProcess.execFileSync("echo test", ["args"], opts))(); // $ExpectType string | Buffer || string | Buffer<ArrayBufferLike>
+    ((opts?: childProcess.ExecFileSyncOptions) => childProcess.execFileSync("echo test", ["args"], opts))(); // $ExpectType string | NonSharedBuffer
 }
 
 {
@@ -135,11 +503,9 @@ import { promisify } from "node:util";
         killSignal: "SIGABRT",
         timeout: 123,
     });
-    const ipc: Pipe = forked.channel!;
-    const hasRef: boolean = ipc.hasRef();
-    ipc.close();
-    ipc.unref();
+    const ipc: childProcess.Control = forked.channel!;
     ipc.ref();
+    ipc.unref();
 }
 
 {
@@ -153,11 +519,9 @@ import { promisify } from "node:util";
         killSignal: "SIGABRT",
         timeout: 123,
     });
-    const ipc: Pipe = forked.channel!;
-    const hasRef: boolean = ipc.hasRef();
-    ipc.close();
-    ipc.unref();
+    const ipc: childProcess.Control = forked.channel!;
     ipc.ref();
+    ipc.unref();
 }
 
 {

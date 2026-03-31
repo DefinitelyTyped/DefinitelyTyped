@@ -1,4 +1,4 @@
-import * as session from "koa-session";
+import session = require("koa-session");
 import * as Redis from "redis";
 
 export = RedisStore;

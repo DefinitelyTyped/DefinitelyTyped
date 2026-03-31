@@ -1,6 +1,6 @@
 /* =================== USAGE ===================
 
-    import * as Koa from "koa";
+    import Koa = require("koa");
 ....import hbs = require("koa-hbs");
 
     var app = new Koa();

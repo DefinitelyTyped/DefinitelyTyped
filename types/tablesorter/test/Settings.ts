@@ -1,4 +1,4 @@
-import * as Globalize from "globalize";
+import Globalize from "globalize";
 import "jquery";
 import {
     ColumnFilter,

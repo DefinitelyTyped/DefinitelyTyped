@@ -1,4 +1,4 @@
-import * as discourseSSO from "discourse-sso";
+import discourseSSO from "discourse-sso";
 const sso = new discourseSSO("sso secret string");
 
 if (sso.validate("payload", "sig")) {

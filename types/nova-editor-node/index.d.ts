@@ -1,8 +1,5 @@
 /// https://docs.nova.app/extensions/#javascript-runtime
 
-// This runs in an extension of Apple's JavaScriptCore, manually set libs
-
-/// <reference no-default-lib="true"/>
 /// <reference lib="es2020" />
 /// <reference lib="WebWorker" />
 
@@ -51,6 +48,7 @@ type ResolvedTaskAction = TaskCommandAction | TaskProcessAction;
 
 interface TaskAssistant {
     provideTasks(): AssistantArray<Task>;
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     resolveTaskAction?<T extends Transferrable>(
         context: TaskActionResolveContext<T>,
     ): ResolvedTaskAction | Promise<ResolvedTaskAction>;
@@ -77,7 +75,7 @@ declare class Charset {
 
 /// https://docs.nova.app/api-reference/clipboard/
 
-declare interface Clipboard {
+interface Clipboard {
     readText(): Promise<string>;
     writeText(text: string): Promise<void>;
 }
@@ -330,6 +328,24 @@ interface Credentials {
     removePassword(service: string, user: User): null;
 }
 
+/// https://docs.nova.app/api-reference/crypto/
+
+type IntegerTypedArray =
+    | Int8Array
+    | Uint8Array
+    | Uint8ClampedArray
+    | Int16Array
+    | Uint16Array
+    | Int32Array
+    | Uint32Array
+    | BigInt64Array
+    | BigUint64Array;
+
+interface Crypto {
+    getRandomValues<T extends IntegerTypedArray>(typedArray: T): T;
+    randomUUID(): string;
+}
+
 /// https://docs.nova.app/api-reference/disposable/
 
 declare class Disposable {
@@ -361,6 +377,7 @@ interface Environment {
     readonly clipboard: Clipboard;
     readonly config: Configuration;
     readonly credentials: Credentials;
+    readonly crypto: Crypto;
     readonly extension: Extension;
     readonly environment: { [key: string]: string };
     readonly path: Path;
@@ -793,7 +810,7 @@ interface NovaSymbol {
 
 /// https://docs.nova.app/api-reference/task/
 
-declare type TaskName = string & { __type: "TaskName" };
+type TaskName = string & { __type: "TaskName" };
 
 declare class Task {
     static readonly Build: TaskName;
@@ -990,7 +1007,7 @@ declare class TreeView<E> extends Disposable {
 /// https://docs.nova.app/api-reference/workspace/
 
 // The line is optional, unless a column is specified
-declare type FileLocation =
+type FileLocation =
     | {
         line?: number;
         column?: never;

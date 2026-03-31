@@ -9,7 +9,7 @@ import MUIDataTable, {
     MUIDataTableState,
     Popover,
 } from "mui-datatables";
-import * as React from "react";
+import React from "react";
 
 interface Props extends Omit<MUIDataTableProps, "columns"> {
     columns?: MUIDataTableColumn[] | undefined;

@@ -8,6 +8,7 @@
 export namespace DeclarativeNetRequest {
     /**
      * How the requested resource will be used. Comparable to the webRequest.ResourceType type.
+     * object_subrequest is unsupported.
      */
     type ResourceType =
         | "main_frame"

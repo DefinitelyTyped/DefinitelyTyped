@@ -1,5 +1,5 @@
 import * as pg from "pg";
-import * as Pool from "pg-pool";
+import Pool from "pg-pool";
 
 class CustomClient extends pg.Client {
     sayHi(): string {

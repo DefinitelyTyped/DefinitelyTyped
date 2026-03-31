@@ -1,4 +1,4 @@
-import * as nearestColor from "nearest-color";
+import nearestColor from "nearest-color";
 
 nearestColor("#800");
 

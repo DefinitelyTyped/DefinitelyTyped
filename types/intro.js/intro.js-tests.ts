@@ -128,7 +128,7 @@ introWithQuerySelector
 
 // test: intro.js should expose instance type #41108
 class SomeClass {
-    introJsInstance: introJs.IntroJs;
+    introJsInstance!: introJs.IntroJs;
 
     someMethod() {
         this.introJsInstance = introJs();

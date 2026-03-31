@@ -372,7 +372,7 @@ deck.initialize({
     // highlight
     highlight: {
         highlightOnLoad: true,
-        excapeHTML: true,
+        escapeHTML: true,
         beforeHighlight: () => {},
     },
 
@@ -498,6 +498,8 @@ deck.configure({ controls: false });
 deck.configure({ controls: "speaker-only" });
 // @ts-expect-error
 deck.configure({ controls: "foo" });
+
+deck.configure({ totalTime: 0, minTimePerSlide: 0 });
 
 // -------------- //
 // destroy method //

@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import * as Long from "long";
+import Long = require("long");
 
 export type DataType = number | Long | string | boolean;
 

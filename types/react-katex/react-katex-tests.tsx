@@ -1,4 +1,3 @@
-import "katex/dist/katex.min.css";
 import * as React from "react";
 import { BlockMath, InlineMath } from "react-katex";
 

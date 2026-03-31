@@ -1,5 +1,5 @@
 import * as webdriver from "selenium-webdriver";
-import * as firefox from "selenium-webdriver/firefox";
+import firefox from "selenium-webdriver/firefox";
 import * as remote from "selenium-webdriver/remote";
 
 function TestBinary() {

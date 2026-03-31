@@ -1,4 +1,4 @@
-import * as Globalize from "../globalize";
+import Globalize = require("../globalize");
 import "./number";
 import "./plural";
 

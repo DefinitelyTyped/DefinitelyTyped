@@ -5,7 +5,7 @@
             "es6",
             "dom"
         ],
-        "target": "es5",
+        "target": "es6",
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
@@ -13,7 +13,6 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true,
         "experimentalDecorators": true
     },
     "files": [

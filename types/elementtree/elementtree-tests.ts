@@ -1,4 +1,4 @@
-import * as et from "elementtree";
+import et from "elementtree";
 
 // Example 1
 // https://github.com/racker/node-elementtree#example-1--creating-an-xml-document

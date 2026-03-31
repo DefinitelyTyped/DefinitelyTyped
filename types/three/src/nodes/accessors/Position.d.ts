@@ -1,10 +1,11 @@
+import AttributeNode from "../core/AttributeNode.js";
 import Node from "../core/Node.js";
-import { ShaderNodeObject } from "../tsl/TSLCore.js";
 
-export const positionGeometry: ShaderNodeObject<Node>;
-export const positionLocal: ShaderNodeObject<Node>;
-export const positionPrevious: ShaderNodeObject<Node>;
-export const positionWorld: ShaderNodeObject<Node>;
-export const positionWorldDirection: ShaderNodeObject<Node>;
-export const positionView: ShaderNodeObject<Node>;
-export const positionViewDirection: ShaderNodeObject<Node>;
+export const clipSpace: Node<"vec4">;
+export const positionGeometry: AttributeNode<"vec3">;
+export const positionLocal: AttributeNode<"vec3">;
+export const positionPrevious: AttributeNode<"vec3">;
+export const positionWorld: Node<"vec3">;
+export const positionWorldDirection: Node<"vec3">;
+export const positionView: Node<"vec3">;
+export const positionViewDirection: Node<"vec3">;

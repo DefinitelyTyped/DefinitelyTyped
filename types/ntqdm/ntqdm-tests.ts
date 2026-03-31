@@ -1,4 +1,4 @@
-import * as tqdm from "ntqdm";
+import tqdm from "ntqdm";
 
 const array = [1, 2, 3];
 

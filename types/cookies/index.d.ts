@@ -1,8 +1,8 @@
 /// <reference types="node" />
-import * as connect from "connect";
-import * as express from "express";
+import connect = require("connect");
+import express = require("express");
 import { IncomingMessage, ServerResponse } from "http";
-import * as Keygrip from "keygrip";
+import Keygrip = require("keygrip");
 
 interface Cookies {
     secure: boolean;

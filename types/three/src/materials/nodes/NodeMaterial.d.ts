@@ -1,10 +1,10 @@
 import ClippingNode from "../../nodes/accessors/ClippingNode.js";
+import ContextNode from "../../nodes/core/ContextNode.js";
 import LightingModel from "../../nodes/core/LightingModel.js";
 import MRTNode from "../../nodes/core/MRTNode.js";
 import Node from "../../nodes/core/Node.js";
 import NodeBuilder from "../../nodes/core/NodeBuilder.js";
 import LightsNode from "../../nodes/lighting/LightsNode.js";
-import { ShaderNodeObject } from "../../nodes/tsl/TSLCore.js";
 import { MapColorPropertiesToColorRepresentations, Material, MaterialParameters } from "../Material.js";
 import NodeMaterialObserver from "./manager/NodeMaterialObserver.js";
 
@@ -88,7 +88,7 @@ export interface NodeMaterialNodeProperties {
      *
      * @default null
      */
-    colorNode: Node | null;
+    colorNode: Node<"float"> | Node<"vec2"> | Node<"vec3"> | Node<"vec4"> | Node<"color"> | null;
     /**
      * The normals of node materials are by default inferred from the `normalMap`/`normalScale`
      * or `bumpMap`/`bumpScale` properties. This node property allows to overwrite the default
@@ -105,7 +105,7 @@ export interface NodeMaterialNodeProperties {
      * and `alphaMap` properties. This node property allows to overwrite the default
      * and define the opacity with a node instead.
      *
-     * If you don't want to overwrite the normals but modify the existing
+     * If you don't want to overwrite the opacity but modify the existing
      * value instead, use {@link materialOpacity}.
      *
      * @default null
@@ -154,6 +154,12 @@ export interface NodeMaterialNodeProperties {
      */
     maskNode: Node | null;
     /**
+     * This node can be used to implement a shadow mask for the material.
+     *
+     * @default null
+     */
+    maskShadowNode: Node | null;
+    /**
      * The local vertex positions are computed based on multiple factors like the
      * attribute data, morphing or skinning. This node property allows to overwrite
      * the default and define local vertex positions with nodes instead.
@@ -181,7 +187,7 @@ export interface NodeMaterialNodeProperties {
      *
      * @default null
      */
-    geometryNode: (() => Node) | null;
+    geometryNode: Node | null;
     /**
      * Allows to overwrite depth values in the fragment shader.
      *
@@ -273,6 +279,12 @@ export interface NodeMaterialNodeProperties {
      * @default null
      */
     vertexNode: Node | null;
+    /**
+     * This node can be used as a global context management component for this material.
+     *
+     * @default null
+     */
+    contextNode: ContextNode<unknown> | null;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -291,6 +303,7 @@ declare class NodeMaterial extends Material {
      * @default true
      */
     readonly isNodeMaterial: boolean;
+    setValues(values?: NodeMaterialParameters): void;
     /**
      * Builds this material with the given node builder.
      *
@@ -384,7 +397,7 @@ declare class NodeMaterial extends Material {
      *
      * @return {Node<vec3>} The normal node.
      */
-    setupNormal(): ShaderNodeObject<Node>;
+    setupNormal(): Node;
     /**
      * Setups the environment node from the material.
      *

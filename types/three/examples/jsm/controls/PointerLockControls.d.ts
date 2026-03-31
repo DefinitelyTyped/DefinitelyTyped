@@ -47,12 +47,7 @@ declare class PointerLockControls extends Controls<PointerLockControlsEventMap> 
      * @param camera The camera of the rendered scene.
      * @param domElement The HTML element used for event listeners.
      */
-    constructor(camera: Camera, domElement?: HTMLElement | null);
-
-    /**
-     * @deprecated getObject() has been deprecated. Use controls.object instead.
-     */
-    getObject(): Camera;
+    constructor(camera: Camera, domElement?: HTMLElement | SVGElement | null);
 
     /**
      * Returns the look direction of the camera.

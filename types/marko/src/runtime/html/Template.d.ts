@@ -2,7 +2,7 @@
 
 import { AsyncWriter } from "async-writer";
 import { ServerResponse } from "http";
-import * as stream from "stream";
+import stream = require("stream");
 import AsyncVDOMBuilder from "../vdom/AsyncVDOMBuilder";
 import AsyncStream from "./AsyncStream";
 import RenderResult from "./RenderResult";

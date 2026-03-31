@@ -102,7 +102,7 @@ export interface OffscreenCanvas extends EventTarget {}
  * @see {@link https://threejs.org/docs/index.html#api/en/textures/Texture | Official Documentation}
  * @see {@link https://github.com/mrdoob/three.js/blob/master/src/Textures/Texture.js | Source}
  */
-export class Texture extends EventDispatcher<{ dispose: {} }> {
+export class Texture<TImage = unknown> extends EventDispatcher<{ dispose: {} }> {
     /**
      * This creates a new {@link THREE.Texture | Texture} object.
      * @param image See {@link Texture.image | .image}. Default {@link THREE.Texture.DEFAULT_IMAGE}
@@ -117,7 +117,7 @@ export class Texture extends EventDispatcher<{ dispose: {} }> {
      * @param colorSpace See {@link Texture.colorSpace | .colorSpace}. Default {@link THREE.NoColorSpace}
      */
     constructor(
-        image?: TexImageSource | OffscreenCanvas,
+        image?: TImage,
         mapping?: Mapping,
         wrapS?: Wrapping,
         wrapT?: Wrapping,
@@ -133,7 +133,7 @@ export class Texture extends EventDispatcher<{ dispose: {} }> {
      * @deprecated
      */
     constructor(
-        image: TexImageSource | OffscreenCanvas,
+        image: TImage,
         mapping: Mapping,
         wrapS: Wrapping,
         wrapT: Wrapping,
@@ -176,7 +176,7 @@ export class Texture extends EventDispatcher<{ dispose: {} }> {
      * This is often useful in context of spritesheets where multiple textures render the same data
      * but with different {@link Texture} transformations.
      */
-    source: Source;
+    source: Source<TImage>;
 
     /**
      * The width of the texture in pixels.
@@ -200,14 +200,14 @@ export class Texture extends EventDispatcher<{ dispose: {} }> {
      * for your {@link Texture} image and continuously update this {@link Texture}
      * as long as video is playing - the {@link THREE.VideoTexture | VideoTexture} class handles this automatically.
      */
-    get image(): any;
-    set image(data: any);
+    get image(): TImage;
+    set image(data: TImage);
 
     /**
      * Array of user-specified mipmaps
      * @defaultValue `[]`
      */
-    mipmaps: CompressedTextureMipmap[] | CubeTexture[] | HTMLCanvasElement[] | undefined;
+    mipmaps: CompressedTextureMipmap[] | CubeTexture[] | HTMLCanvasElement[];
 
     /**
      * How the image is applied to the object.
@@ -474,7 +474,7 @@ export class Texture extends EventDispatcher<{ dispose: {} }> {
      * The Global default value for {@link Texture.image | .image}.
      * @defaultValue `null`.
      */
-    static DEFAULT_IMAGE: any;
+    static DEFAULT_IMAGE: null;
 
     /**
      * The Global default value for {@link mapping | .mapping}.
@@ -528,7 +528,7 @@ export class Texture extends EventDispatcher<{ dispose: {} }> {
      */
     clone(): this;
 
-    copy(source: Texture): this;
+    copy(source: Texture<TImage>): this;
 
     /**
      * Sets this texture's properties based on `values`.

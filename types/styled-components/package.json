@@ -9,7 +9,7 @@
     "dependencies": {
         "@types/hoist-non-react-statics": "*",
         "@types/react": "*",
-        "csstype": "^3.0.2"
+        "csstype": "^3.2.2"
     },
     "devDependencies": {
         "@types/react-dom": "*",

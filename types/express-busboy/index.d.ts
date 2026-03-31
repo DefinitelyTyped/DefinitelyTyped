@@ -1,5 +1,5 @@
-import * as connectBusboy from "connect-busboy";
-import * as express from "express";
+import connectBusboy = require("connect-busboy");
+import express = require("express");
 
 export interface ExpressBusboyOptions extends connectBusboy.ConnectBusboyOptions {
     upload?: boolean;

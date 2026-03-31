@@ -1,10 +1,10 @@
 import { EventEmitter } from "events";
-import * as IORedis from "ioredis";
+import IORedis = require("ioredis");
 
 declare class CrimsonQClient {
     constructor(ConnectionSettings: IORedis.RedisOptions);
-    redisCommander: typeof IORedis;
-    redisSubscriber: typeof IORedis;
+    redisCommander: IORedis.Redis;
+    redisSubscriber: IORedis.Redis;
     command: Command;
     connect(): Promise<{ value: string; error: Error }>;
     Producer(): Producer;

@@ -59,7 +59,7 @@ declare module "buffer" {
      * @since v19.4.0, v18.14.0
      * @param input The input to validate.
      */
-    export function isUtf8(input: Buffer | ArrayBuffer | NodeJS.TypedArray): boolean;
+    export function isUtf8(input: ArrayBuffer | NodeJS.TypedArray): boolean;
     /**
      * This function returns `true` if `input` contains only valid ASCII-encoded data,
      * including the case in which `input` is empty.
@@ -68,7 +68,7 @@ declare module "buffer" {
      * @since v19.6.0, v18.15.0
      * @param input The input to validate.
      */
-    export function isAscii(input: Buffer | ArrayBuffer | NodeJS.TypedArray): boolean;
+    export function isAscii(input: ArrayBuffer | NodeJS.TypedArray): boolean;
     export let INSPECT_MAX_BYTES: number;
     export const kMaxLength: number;
     export const kStringMaxLength: number;
@@ -113,7 +113,11 @@ declare module "buffer" {
      * @param fromEnc The current encoding.
      * @param toEnc To target encoding.
      */
-    export function transcode(source: Uint8Array, fromEnc: TranscodeEncoding, toEnc: TranscodeEncoding): Buffer;
+    export function transcode(
+        source: Uint8Array,
+        fromEnc: TranscodeEncoding,
+        toEnc: TranscodeEncoding,
+    ): NonSharedBuffer;
     /**
      * Resolves a `'blob:nodedata:...'` an associated `Blob` object registered using
      * a prior call to `URL.createObjectURL()`.
@@ -139,7 +143,7 @@ declare module "buffer" {
         type?: string | undefined;
     }
     /**
-     * A [`Blob`](https://developer.mozilla.org/en-US/docs/Web/API/Blob) encapsulates immutable, raw data that can be safely shared across
+     * A `Blob` encapsulates immutable, raw data that can be safely shared across
      * multiple worker threads.
      * @since v15.7.0, v14.18.0
      */
@@ -330,7 +334,7 @@ declare module "buffer" {
              * @return The number of bytes contained within `string`.
              */
             byteLength(
-                string: string | Buffer | NodeJS.ArrayBufferView | ArrayBuffer | SharedArrayBuffer,
+                string: string | NodeJS.ArrayBufferView | ArrayBufferLike,
                 encoding?: BufferEncoding,
             ): number;
             /**

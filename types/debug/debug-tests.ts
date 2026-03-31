@@ -1,4 +1,4 @@
-import * as debug1 from "debug";
+import debug1 from "debug";
 /*eslint-disable-next-line no-duplicate-imports*/
 import debug2 from "debug";
 
@@ -8,7 +8,7 @@ log2("Formatted test (%d arg)", 1);
 log2("Formatted %s (%d args)", "test", 2);
 
 debug1.disable();
-debug1.enable("DefinitelyTyped:*");
+debug1.enable("DefinitelyTyped:*,-DefinitelyTyped:skip");
 
 const log: debug1.Debugger = debug1("DefinitelyTyped:log");
 
@@ -17,7 +17,8 @@ log("Formatted test (%d arg)", 1);
 log("Formatted %s (%d args)", "test", 2);
 
 log("Enabled?: %s", debug1.enabled("DefinitelyTyped:log"));
-log("Name Enabled: %s", debug1.names.some(name => name.test("DefinitelyTyped:log")));
+log("Name Enabled: %s", debug1.names.some(name => name === "DefinitelyTyped:*"));
+log("Skip Enabled: %s", debug1.skips.some(name => name === "DefinitelyTyped:skip"));
 log("Namespace: %s", log.namespace);
 
 const error: debug1.Debugger = debug1("DefinitelyTyped:error");

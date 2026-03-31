@@ -1,7 +1,6 @@
 import { SkinnedMesh } from "../../objects/SkinnedMesh.js";
 import Node from "../core/Node.js";
 import NodeBuilder from "../core/NodeBuilder.js";
-import { ShaderNodeObject } from "../tsl/TSLCore.js";
 
 export default class SkinningNode extends Node {
     skinnedMesh: SkinnedMesh;
@@ -18,14 +17,16 @@ export default class SkinningNode extends Node {
 
     constructor(skinnedMesh: SkinnedMesh);
 
-    getSkinnedPosition(boneMatrices?: Node, position?: Node): ShaderNodeObject<Node>;
+    getSkinnedPosition(boneMatrices?: Node, position?: Node): Node;
 
-    getSkinnedNormal(boneMatrices?: Node, normal?: Node): ShaderNodeObject<Node>;
+    getSkinnedNormalAndTangent(
+        boneMatrices?: Node,
+        normal?: Node,
+        tangent?: Node,
+    ): { skinNormal: Node; skinTangent: Node };
 
-    getPreviousSkinnedPosition(builder: NodeBuilder): ShaderNodeObject<Node>;
-
-    needsPreviousBoneMatrices(builder: NodeBuilder): boolean;
+    getPreviousSkinnedPosition(builder: NodeBuilder): Node;
 }
 
-export const skinning: (skinnedMesh: SkinnedMesh) => ShaderNodeObject<SkinningNode>;
-export const computeSkinning: (skinnedMesh: SkinnedMesh, toPosition?: Node | null) => ShaderNodeObject<SkinningNode>;
+export const skinning: (skinnedMesh: SkinnedMesh) => SkinningNode;
+export const computeSkinning: (skinnedMesh: SkinnedMesh, toPosition?: Node | null) => SkinningNode;

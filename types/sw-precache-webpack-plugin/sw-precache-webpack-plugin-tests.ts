@@ -1,4 +1,4 @@
-import * as SwPrecacheWebpackPlugin from "sw-precache-webpack-plugin";
+import SwPrecacheWebpackPlugin from "sw-precache-webpack-plugin";
 import { Configuration } from "webpack";
 
 let config: Configuration = {

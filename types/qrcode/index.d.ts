@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import * as stream from "stream";
+import stream = require("stream");
 
 export type QRCodeErrorCorrectionLevel = "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
 export type QRCodeMaskPattern = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;

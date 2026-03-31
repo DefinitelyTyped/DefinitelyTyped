@@ -1,6 +1,5 @@
 {
     "compilerOptions": {
-        "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
         "lib": [
             "es6"

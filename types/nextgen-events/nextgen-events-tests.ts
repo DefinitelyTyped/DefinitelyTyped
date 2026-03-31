@@ -1,5 +1,5 @@
-import * as NgEmitter from "nextgen-events";
-import * as WebSocket from "ws";
+import NgEmitter from "nextgen-events";
+import WebSocket from "ws";
 const emitter = new NgEmitter();
 
 // Normal listener

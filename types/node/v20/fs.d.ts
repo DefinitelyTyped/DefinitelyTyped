@@ -19,6 +19,7 @@
  * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/fs.js)
  */
 declare module "fs" {
+    import { NonSharedBuffer } from "node:buffer";
     import * as stream from "node:stream";
     import { Abortable, EventEmitter } from "node:events";
     import { URL } from "node:url";
@@ -386,23 +387,29 @@ declare module "fs" {
          *   3. error
          */
         addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener(event: "change", listener: (eventType: string, filename: string | Buffer) => void): this;
+        addListener(event: "change", listener: (eventType: string, filename: string | NonSharedBuffer) => void): this;
         addListener(event: "close", listener: () => void): this;
         addListener(event: "error", listener: (error: Error) => void): this;
         on(event: string, listener: (...args: any[]) => void): this;
-        on(event: "change", listener: (eventType: string, filename: string | Buffer) => void): this;
+        on(event: "change", listener: (eventType: string, filename: string | NonSharedBuffer) => void): this;
         on(event: "close", listener: () => void): this;
         on(event: "error", listener: (error: Error) => void): this;
         once(event: string, listener: (...args: any[]) => void): this;
-        once(event: "change", listener: (eventType: string, filename: string | Buffer) => void): this;
+        once(event: "change", listener: (eventType: string, filename: string | NonSharedBuffer) => void): this;
         once(event: "close", listener: () => void): this;
         once(event: "error", listener: (error: Error) => void): this;
         prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: "change", listener: (eventType: string, filename: string | Buffer) => void): this;
+        prependListener(
+            event: "change",
+            listener: (eventType: string, filename: string | NonSharedBuffer) => void,
+        ): this;
         prependListener(event: "close", listener: () => void): this;
         prependListener(event: "error", listener: (error: Error) => void): this;
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: "change", listener: (eventType: string, filename: string | Buffer) => void): this;
+        prependOnceListener(
+            event: "change",
+            listener: (eventType: string, filename: string | NonSharedBuffer) => void,
+        ): this;
         prependOnceListener(event: "close", listener: () => void): this;
         prependOnceListener(event: "error", listener: (error: Error) => void): this;
     }
@@ -1318,7 +1325,7 @@ declare module "fs" {
     export function readlink(
         path: PathLike,
         options: BufferEncodingOption,
-        callback: (err: NodeJS.ErrnoException | null, linkString: Buffer) => void,
+        callback: (err: NodeJS.ErrnoException | null, linkString: NonSharedBuffer) => void,
     ): void;
     /**
      * Asynchronous readlink(2) - read value of a symbolic link.
@@ -1328,7 +1335,7 @@ declare module "fs" {
     export function readlink(
         path: PathLike,
         options: EncodingOption,
-        callback: (err: NodeJS.ErrnoException | null, linkString: string | Buffer) => void,
+        callback: (err: NodeJS.ErrnoException | null, linkString: string | NonSharedBuffer) => void,
     ): void;
     /**
      * Asynchronous readlink(2) - read value of a symbolic link.
@@ -1350,13 +1357,13 @@ declare module "fs" {
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
          */
-        function __promisify__(path: PathLike, options: BufferEncodingOption): Promise<Buffer>;
+        function __promisify__(path: PathLike, options: BufferEncodingOption): Promise<NonSharedBuffer>;
         /**
          * Asynchronous readlink(2) - read value of a symbolic link.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
          */
-        function __promisify__(path: PathLike, options?: EncodingOption): Promise<string | Buffer>;
+        function __promisify__(path: PathLike, options?: EncodingOption): Promise<string | NonSharedBuffer>;
     }
     /**
      * Returns the symbolic link's string value.
@@ -1375,13 +1382,13 @@ declare module "fs" {
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    export function readlinkSync(path: PathLike, options: BufferEncodingOption): Buffer;
+    export function readlinkSync(path: PathLike, options: BufferEncodingOption): NonSharedBuffer;
     /**
      * Synchronous readlink(2) - read value of a symbolic link.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    export function readlinkSync(path: PathLike, options?: EncodingOption): string | Buffer;
+    export function readlinkSync(path: PathLike, options?: EncodingOption): string | NonSharedBuffer;
     /**
      * Asynchronously computes the canonical pathname by resolving `.`, `..`, and
      * symbolic links.
@@ -1421,7 +1428,7 @@ declare module "fs" {
     export function realpath(
         path: PathLike,
         options: BufferEncodingOption,
-        callback: (err: NodeJS.ErrnoException | null, resolvedPath: Buffer) => void,
+        callback: (err: NodeJS.ErrnoException | null, resolvedPath: NonSharedBuffer) => void,
     ): void;
     /**
      * Asynchronous realpath(3) - return the canonicalized absolute pathname.
@@ -1431,7 +1438,7 @@ declare module "fs" {
     export function realpath(
         path: PathLike,
         options: EncodingOption,
-        callback: (err: NodeJS.ErrnoException | null, resolvedPath: string | Buffer) => void,
+        callback: (err: NodeJS.ErrnoException | null, resolvedPath: string | NonSharedBuffer) => void,
     ): void;
     /**
      * Asynchronous realpath(3) - return the canonicalized absolute pathname.
@@ -1453,13 +1460,13 @@ declare module "fs" {
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
          */
-        function __promisify__(path: PathLike, options: BufferEncodingOption): Promise<Buffer>;
+        function __promisify__(path: PathLike, options: BufferEncodingOption): Promise<NonSharedBuffer>;
         /**
          * Asynchronous realpath(3) - return the canonicalized absolute pathname.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
          */
-        function __promisify__(path: PathLike, options?: EncodingOption): Promise<string | Buffer>;
+        function __promisify__(path: PathLike, options?: EncodingOption): Promise<string | NonSharedBuffer>;
         /**
          * Asynchronous [`realpath(3)`](http://man7.org/linux/man-pages/man3/realpath.3.html).
          *
@@ -1485,12 +1492,12 @@ declare module "fs" {
         function native(
             path: PathLike,
             options: BufferEncodingOption,
-            callback: (err: NodeJS.ErrnoException | null, resolvedPath: Buffer) => void,
+            callback: (err: NodeJS.ErrnoException | null, resolvedPath: NonSharedBuffer) => void,
         ): void;
         function native(
             path: PathLike,
             options: EncodingOption,
-            callback: (err: NodeJS.ErrnoException | null, resolvedPath: string | Buffer) => void,
+            callback: (err: NodeJS.ErrnoException | null, resolvedPath: string | NonSharedBuffer) => void,
         ): void;
         function native(
             path: PathLike,
@@ -1510,17 +1517,17 @@ declare module "fs" {
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    export function realpathSync(path: PathLike, options: BufferEncodingOption): Buffer;
+    export function realpathSync(path: PathLike, options: BufferEncodingOption): NonSharedBuffer;
     /**
      * Synchronous realpath(3) - return the canonicalized absolute pathname.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    export function realpathSync(path: PathLike, options?: EncodingOption): string | Buffer;
+    export function realpathSync(path: PathLike, options?: EncodingOption): string | NonSharedBuffer;
     export namespace realpathSync {
         function native(path: PathLike, options?: EncodingOption): string;
-        function native(path: PathLike, options: BufferEncodingOption): Buffer;
-        function native(path: PathLike, options?: EncodingOption): string | Buffer;
+        function native(path: PathLike, options: BufferEncodingOption): NonSharedBuffer;
+        function native(path: PathLike, options?: EncodingOption): string | NonSharedBuffer;
     }
     /**
      * Asynchronously removes a file or symbolic link. No arguments other than a
@@ -1890,12 +1897,8 @@ declare module "fs" {
      */
     export function mkdtemp(
         prefix: string,
-        options:
-            | "buffer"
-            | {
-                encoding: "buffer";
-            },
-        callback: (err: NodeJS.ErrnoException | null, folder: Buffer) => void,
+        options: BufferEncodingOption,
+        callback: (err: NodeJS.ErrnoException | null, folder: NonSharedBuffer) => void,
     ): void;
     /**
      * Asynchronously creates a unique temporary directory.
@@ -1905,7 +1908,7 @@ declare module "fs" {
     export function mkdtemp(
         prefix: string,
         options: EncodingOption,
-        callback: (err: NodeJS.ErrnoException | null, folder: string | Buffer) => void,
+        callback: (err: NodeJS.ErrnoException | null, folder: string | NonSharedBuffer) => void,
     ): void;
     /**
      * Asynchronously creates a unique temporary directory.
@@ -1927,13 +1930,13 @@ declare module "fs" {
          * Generates six random characters to be appended behind a required prefix to create a unique temporary directory.
          * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
          */
-        function __promisify__(prefix: string, options: BufferEncodingOption): Promise<Buffer>;
+        function __promisify__(prefix: string, options: BufferEncodingOption): Promise<NonSharedBuffer>;
         /**
          * Asynchronously creates a unique temporary directory.
          * Generates six random characters to be appended behind a required prefix to create a unique temporary directory.
          * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
          */
-        function __promisify__(prefix: string, options?: EncodingOption): Promise<string | Buffer>;
+        function __promisify__(prefix: string, options?: EncodingOption): Promise<string | NonSharedBuffer>;
     }
     /**
      * Returns the created directory path.
@@ -1951,13 +1954,13 @@ declare module "fs" {
      * Generates six random characters to be appended behind a required prefix to create a unique temporary directory.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    export function mkdtempSync(prefix: string, options: BufferEncodingOption): Buffer;
+    export function mkdtempSync(prefix: string, options: BufferEncodingOption): NonSharedBuffer;
     /**
      * Synchronously creates a unique temporary directory.
      * Generates six random characters to be appended behind a required prefix to create a unique temporary directory.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    export function mkdtempSync(prefix: string, options?: EncodingOption): string | Buffer;
+    export function mkdtempSync(prefix: string, options?: EncodingOption): string | NonSharedBuffer;
     /**
      * Reads the contents of a directory. The callback gets two arguments `(err, files)` where `files` is an array of the names of the files in the directory excluding `'.'` and `'..'`.
      *
@@ -1998,7 +2001,7 @@ declare module "fs" {
                 recursive?: boolean | undefined;
             }
             | "buffer",
-        callback: (err: NodeJS.ErrnoException | null, files: Buffer[]) => void,
+        callback: (err: NodeJS.ErrnoException | null, files: NonSharedBuffer[]) => void,
     ): void;
     /**
      * Asynchronous readdir(3) - read a directory.
@@ -2015,7 +2018,7 @@ declare module "fs" {
             | BufferEncoding
             | undefined
             | null,
-        callback: (err: NodeJS.ErrnoException | null, files: string[] | Buffer[]) => void,
+        callback: (err: NodeJS.ErrnoException | null, files: string[] | NonSharedBuffer[]) => void,
     ): void;
     /**
      * Asynchronous readdir(3) - read a directory.
@@ -2050,7 +2053,7 @@ declare module "fs" {
             withFileTypes: true;
             recursive?: boolean | undefined;
         },
-        callback: (err: NodeJS.ErrnoException | null, files: Dirent<Buffer>[]) => void,
+        callback: (err: NodeJS.ErrnoException | null, files: Dirent<NonSharedBuffer>[]) => void,
     ): void;
     export namespace readdir {
         /**
@@ -2083,7 +2086,7 @@ declare module "fs" {
                     withFileTypes?: false | undefined;
                     recursive?: boolean | undefined;
                 },
-        ): Promise<Buffer[]>;
+        ): Promise<NonSharedBuffer[]>;
         /**
          * Asynchronous readdir(3) - read a directory.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
@@ -2098,7 +2101,7 @@ declare module "fs" {
                 })
                 | BufferEncoding
                 | null,
-        ): Promise<string[] | Buffer[]>;
+        ): Promise<string[] | NonSharedBuffer[]>;
         /**
          * Asynchronous readdir(3) - read a directory.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
@@ -2123,7 +2126,7 @@ declare module "fs" {
                 withFileTypes: true;
                 recursive?: boolean | undefined;
             },
-        ): Promise<Dirent<Buffer>[]>;
+        ): Promise<Dirent<NonSharedBuffer>[]>;
     }
     /**
      * Reads the contents of the directory.
@@ -2163,7 +2166,7 @@ declare module "fs" {
                 recursive?: boolean | undefined;
             }
             | "buffer",
-    ): Buffer[];
+    ): NonSharedBuffer[];
     /**
      * Synchronous readdir(3) - read a directory.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
@@ -2178,7 +2181,7 @@ declare module "fs" {
             })
             | BufferEncoding
             | null,
-    ): string[] | Buffer[];
+    ): string[] | NonSharedBuffer[];
     /**
      * Synchronous readdir(3) - read a directory.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
@@ -2203,7 +2206,7 @@ declare module "fs" {
             withFileTypes: true;
             recursive?: boolean | undefined;
         },
-    ): Dirent<Buffer>[];
+    ): Dirent<NonSharedBuffer>[];
     /**
      * Closes the file descriptor. No arguments other than a possible exception are
      * given to the completion callback.
@@ -2369,7 +2372,7 @@ declare module "fs" {
         /**
          * @default null
          */
-        position?: number | undefined | null;
+        position?: number | null | undefined;
     }
     /**
      * Write `buffer` to the file specified by `fd`.
@@ -2570,7 +2573,7 @@ declare module "fs" {
         encoding?: BufferEncoding | null,
     ): number;
     export type ReadPosition = number | bigint;
-    export interface ReadSyncOptions {
+    export interface ReadOptions {
         /**
          * @default 0
          */
@@ -2584,9 +2587,15 @@ declare module "fs" {
          */
         position?: ReadPosition | null | undefined;
     }
-    export interface ReadAsyncOptions<TBuffer extends NodeJS.ArrayBufferView> extends ReadSyncOptions {
-        buffer?: TBuffer;
+    export interface ReadOptionsWithBuffer<T extends NodeJS.ArrayBufferView> extends ReadOptions {
+        buffer?: T | undefined;
     }
+    /** @deprecated Use `ReadOptions` instead. */
+    // TODO: remove in future major
+    export interface ReadSyncOptions extends ReadOptions {}
+    /** @deprecated Use `ReadOptionsWithBuffer` instead. */
+    // TODO: remove in future major
+    export interface ReadAsyncOptions<T extends NodeJS.ArrayBufferView> extends ReadOptionsWithBuffer<T> {}
     /**
      * Read data from the file specified by `fd`.
      *
@@ -2621,15 +2630,15 @@ declare module "fs" {
      * `position` defaults to `null`
      * @since v12.17.0, 13.11.0
      */
-    export function read<TBuffer extends NodeJS.ArrayBufferView>(
+    export function read<TBuffer extends NodeJS.ArrayBufferView = NonSharedBuffer>(
         fd: number,
-        options: ReadAsyncOptions<TBuffer>,
+        options: ReadOptionsWithBuffer<TBuffer>,
         callback: (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: TBuffer) => void,
     ): void;
     export function read<TBuffer extends NodeJS.ArrayBufferView>(
         fd: number,
         buffer: TBuffer,
-        options: ReadSyncOptions,
+        options: ReadOptions,
         callback: (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: TBuffer) => void,
     ): void;
     export function read<TBuffer extends NodeJS.ArrayBufferView>(
@@ -2639,7 +2648,7 @@ declare module "fs" {
     ): void;
     export function read(
         fd: number,
-        callback: (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: NodeJS.ArrayBufferView) => void,
+        callback: (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: NonSharedBuffer) => void,
     ): void;
     export namespace read {
         /**
@@ -2659,16 +2668,16 @@ declare module "fs" {
             bytesRead: number;
             buffer: TBuffer;
         }>;
-        function __promisify__<TBuffer extends NodeJS.ArrayBufferView>(
+        function __promisify__<TBuffer extends NodeJS.ArrayBufferView = NonSharedBuffer>(
             fd: number,
-            options: ReadAsyncOptions<TBuffer>,
+            options: ReadOptionsWithBuffer<TBuffer>,
         ): Promise<{
             bytesRead: number;
             buffer: TBuffer;
         }>;
         function __promisify__(fd: number): Promise<{
             bytesRead: number;
-            buffer: NodeJS.ArrayBufferView;
+            buffer: NonSharedBuffer;
         }>;
     }
     /**
@@ -2690,7 +2699,7 @@ declare module "fs" {
      * Similar to the above `fs.readSync` function, this version takes an optional `options` object.
      * If no `options` object is specified, it will default with the above values.
      */
-    export function readSync(fd: number, buffer: NodeJS.ArrayBufferView, opts?: ReadSyncOptions): number;
+    export function readSync(fd: number, buffer: NodeJS.ArrayBufferView, opts?: ReadOptions): number;
     /**
      * Asynchronously reads the entire contents of a file.
      *
@@ -3356,7 +3365,7 @@ declare module "fs" {
                 encoding: "buffer";
             })
             | "buffer",
-        listener?: WatchListener<Buffer>,
+        listener?: WatchListener<NonSharedBuffer>,
     ): FSWatcher;
     /**
      * Watch for changes on `filename`, where `filename` is either a file or a directory, returning an `FSWatcher`.
@@ -3382,7 +3391,7 @@ declare module "fs" {
     export function watch(
         filename: PathLike,
         options: WatchOptions | string,
-        listener?: WatchListener<string | Buffer>,
+        listener?: WatchListener<string | NonSharedBuffer>,
     ): FSWatcher;
     /**
      * Watch for changes on `filename`, where `filename` is either a file or a directory, returning an `FSWatcher`.
@@ -4100,27 +4109,29 @@ declare module "fs" {
      * @since v12.9.0
      * @param [position='null']
      */
-    export function writev(
+    export function writev<TBuffers extends readonly NodeJS.ArrayBufferView[]>(
         fd: number,
-        buffers: readonly NodeJS.ArrayBufferView[],
-        cb: (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => void,
+        buffers: TBuffers,
+        cb: (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: TBuffers) => void,
     ): void;
-    export function writev(
+    export function writev<TBuffers extends readonly NodeJS.ArrayBufferView[]>(
         fd: number,
-        buffers: readonly NodeJS.ArrayBufferView[],
+        buffers: TBuffers,
         position: number | null,
-        cb: (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => void,
+        cb: (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: TBuffers) => void,
     ): void;
-    export interface WriteVResult {
+    // Providing a default type parameter doesn't provide true BC for userland consumers, but at least suppresses TS2314
+    // TODO: remove default in future major version
+    export interface WriteVResult<T extends readonly NodeJS.ArrayBufferView[] = NodeJS.ArrayBufferView[]> {
         bytesWritten: number;
-        buffers: NodeJS.ArrayBufferView[];
+        buffers: T;
     }
     export namespace writev {
-        function __promisify__(
+        function __promisify__<TBuffers extends readonly NodeJS.ArrayBufferView[]>(
             fd: number,
-            buffers: readonly NodeJS.ArrayBufferView[],
+            buffers: TBuffers,
             position?: number,
-        ): Promise<WriteVResult>;
+        ): Promise<WriteVResult<TBuffers>>;
     }
     /**
      * For detailed information, see the documentation of the asynchronous version of
@@ -4145,27 +4156,29 @@ declare module "fs" {
      * @since v13.13.0, v12.17.0
      * @param [position='null']
      */
-    export function readv(
+    export function readv<TBuffers extends readonly NodeJS.ArrayBufferView[]>(
         fd: number,
-        buffers: readonly NodeJS.ArrayBufferView[],
-        cb: (err: NodeJS.ErrnoException | null, bytesRead: number, buffers: NodeJS.ArrayBufferView[]) => void,
+        buffers: TBuffers,
+        cb: (err: NodeJS.ErrnoException | null, bytesRead: number, buffers: TBuffers) => void,
     ): void;
-    export function readv(
+    export function readv<TBuffers extends readonly NodeJS.ArrayBufferView[]>(
         fd: number,
-        buffers: readonly NodeJS.ArrayBufferView[],
+        buffers: TBuffers,
         position: number | null,
-        cb: (err: NodeJS.ErrnoException | null, bytesRead: number, buffers: NodeJS.ArrayBufferView[]) => void,
+        cb: (err: NodeJS.ErrnoException | null, bytesRead: number, buffers: TBuffers) => void,
     ): void;
-    export interface ReadVResult {
+    // Providing a default type parameter doesn't provide true BC for userland consumers, but at least suppresses TS2314
+    // TODO: remove default in future major version
+    export interface ReadVResult<T extends readonly NodeJS.ArrayBufferView[] = NodeJS.ArrayBufferView[]> {
         bytesRead: number;
-        buffers: NodeJS.ArrayBufferView[];
+        buffers: T;
     }
     export namespace readv {
-        function __promisify__(
+        function __promisify__<TBuffers extends readonly NodeJS.ArrayBufferView[]>(
             fd: number,
-            buffers: readonly NodeJS.ArrayBufferView[],
+            buffers: TBuffers,
             position?: number,
-        ): Promise<ReadVResult>;
+        ): Promise<ReadVResult<TBuffers>>;
     }
     /**
      * For detailed information, see the documentation of the asynchronous version of
@@ -4220,7 +4233,7 @@ declare module "fs" {
         /**
          * @default false
          */
-        recursive?: boolean;
+        recursive?: boolean | undefined;
     }
     /**
      * Synchronously open a directory. See [`opendir(3)`](http://man7.org/linux/man-pages/man3/opendir.3.html).
@@ -4273,54 +4286,54 @@ declare module "fs" {
          * Dereference symlinks
          * @default false
          */
-        dereference?: boolean;
+        dereference?: boolean | undefined;
         /**
          * When `force` is `false`, and the destination
          * exists, throw an error.
          * @default false
          */
-        errorOnExist?: boolean;
+        errorOnExist?: boolean | undefined;
         /**
          * Overwrite existing file or directory. _The copy
          * operation will ignore errors if you set this to false and the destination
          * exists. Use the `errorOnExist` option to change this behavior.
          * @default true
          */
-        force?: boolean;
+        force?: boolean | undefined;
         /**
          * Modifiers for copy operation. See `mode` flag of {@link copyFileSync()}
          */
-        mode?: number;
+        mode?: number | undefined;
         /**
          * When `true` timestamps from `src` will
          * be preserved.
          * @default false
          */
-        preserveTimestamps?: boolean;
+        preserveTimestamps?: boolean | undefined;
         /**
          * Copy directories recursively.
          * @default false
          */
-        recursive?: boolean;
+        recursive?: boolean | undefined;
         /**
          * When true, path resolution for symlinks will be skipped
          * @default false
          */
-        verbatimSymlinks?: boolean;
+        verbatimSymlinks?: boolean | undefined;
     }
     export interface CopyOptions extends CopyOptionsBase {
         /**
          * Function to filter copied files/directories. Return
          * `true` to copy the item, `false` to ignore it.
          */
-        filter?(source: string, destination: string): boolean | Promise<boolean>;
+        filter?: ((source: string, destination: string) => boolean | Promise<boolean>) | undefined;
     }
     export interface CopySyncOptions extends CopyOptionsBase {
         /**
          * Function to filter copied files/directories. Return
          * `true` to copy the item, `false` to ignore it.
          */
-        filter?(source: string, destination: string): boolean;
+        filter?: ((source: string, destination: string) => boolean) | undefined;
     }
     /**
      * Asynchronously copies the entire directory structure from `src` to `dest`,

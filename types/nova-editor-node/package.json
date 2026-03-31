@@ -10,10 +10,5 @@
     "devDependencies": {
         "@types/nova-editor-node": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Cameron Little",
-            "githubUsername": "apexskier"
-        }
-    ]
+    "owners": []
 }

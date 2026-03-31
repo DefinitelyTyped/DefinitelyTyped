@@ -1,4 +1,4 @@
-import * as _ from "lodash";
+import _ = require("lodash");
 import * as ReactInstance from "react";
 import * as ReactDOMInstance from "react-dom";
 

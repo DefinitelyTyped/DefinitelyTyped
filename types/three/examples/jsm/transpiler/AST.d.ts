@@ -41,6 +41,7 @@ export type Statement =
     | While
     | Switch
     | SwitchCase
+    | StructMember
     | null;
 
 export class VariableDeclaration {
@@ -272,4 +273,20 @@ export class SwitchCase {
 
     isDefault: boolean;
     readonly isSwitchCase: true;
+}
+
+export class StructMember {
+    type: string;
+    name: string;
+    readonly isStructMember: true;
+
+    constructor(type: string, name: string);
+}
+
+export class StructDefinition {
+    name: string;
+    members: StructMember[];
+    readonly isStructDefinition: true;
+
+    constructor(name: string, members?: StructMember[]);
 }

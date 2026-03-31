@@ -1,4 +1,4 @@
-import * as crossfilter from "crossfilter";
+import crossfilter from "crossfilter";
 import * as d3 from "d3";
 import * as dc from "dc";
 

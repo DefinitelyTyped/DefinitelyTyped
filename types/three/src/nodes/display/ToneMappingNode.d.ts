@@ -2,10 +2,8 @@ import { ToneMapping } from "../../constants.js";
 import RendererReferenceNode from "../accessors/RendererReferenceNode.js";
 import Node from "../core/Node.js";
 import TempNode from "../core/TempNode.js";
-import { ShaderNodeObject } from "../tsl/TSLCore.js";
 
-declare class ToneMappingNode extends TempNode {
-    toneMapping: ToneMapping;
+declare class ToneMappingNode extends TempNode<"vec3"> {
     exposureNode: Node;
     colorNode: Node | null;
 
@@ -16,17 +14,16 @@ export default ToneMappingNode;
 
 export const toneMapping: (
     mapping: ToneMapping,
-    exposure: Node,
+    exposure: Node | number,
     color?: Node,
-) => ShaderNodeObject<ToneMappingNode>;
-export const toneMappingExposure: ShaderNodeObject<RendererReferenceNode>;
+) => ToneMappingNode;
+export const toneMappingExposure: RendererReferenceNode;
 
-declare module "../tsl/TSLCore.js" {
+declare module "../core/Node.js" {
     interface NodeElements {
         toneMapping: (
-            color: Node,
             mapping?: ToneMapping,
-            exposure?: Node,
-        ) => ShaderNodeObject<ToneMappingNode>;
+            exposure?: Node | number,
+        ) => ToneMappingNode;
     }
 }

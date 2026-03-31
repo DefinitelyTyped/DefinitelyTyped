@@ -1,4 +1,4 @@
-import * as PropTypes from "prop-types";
+import PropTypes from "prop-types";
 import { ReactElement, ReactNode } from "react";
 
 declare const uniqueType: unique symbol;

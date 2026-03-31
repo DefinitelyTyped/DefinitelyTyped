@@ -1,0 +1,17 @@
+export const ANGLE = 'angle';
+export const BOOLEAN = 'boolean';
+export const CEP = 'cep';
+export const CNPJ = 'cnpj';
+export const CPF = 'cpf';
+export const CPF_CNPJ = 'cpfcnpj';
+export const DATE = 'date';
+export const EMAIL = 'email';
+export const INT32 = 'int32';
+export const INT64 = 'int64';
+export const LATITUDE = 'latitude';
+export const LONGITUDE = 'longitude';
+export const NUMBER = 'number';
+export const PHONE = 'phone';
+export const PIS = 'pis';
+export const STRING = 'string';
+export const TIME = 'time';

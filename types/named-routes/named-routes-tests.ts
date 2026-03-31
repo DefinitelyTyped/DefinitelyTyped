@@ -1,5 +1,5 @@
 import NamedRouter = require("named-routes");
-import * as express from "express";
+import express from "express";
 const app = express();
 
 // constructor and `RouterOptions`

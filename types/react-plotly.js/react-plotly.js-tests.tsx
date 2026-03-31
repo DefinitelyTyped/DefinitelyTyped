@@ -1,4 +1,4 @@
-import * as Plotly from "plotly.js";
+import Plotly from "plotly.js";
 import * as React from "react";
 import Plot from "react-plotly.js";
 import createPlotlyComponent from "react-plotly.js/factory";

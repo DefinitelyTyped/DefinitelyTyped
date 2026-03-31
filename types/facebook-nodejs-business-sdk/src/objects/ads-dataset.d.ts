@@ -58,4 +58,8 @@ export default class AdsDataset extends AbstractCrudObject {
         usage: "usage";
         valid_entries: "valid_entries";
     }>;
+    static get SortBy(): Readonly<{
+        last_fired_time: "LAST_FIRED_TIME";
+        name: "NAME";
+    }>;
 }

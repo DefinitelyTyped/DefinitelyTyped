@@ -1,4 +1,4 @@
-import * as similarity from "similarity";
+import similarity from "similarity";
 
 // @ts-expect-error
 similarity();

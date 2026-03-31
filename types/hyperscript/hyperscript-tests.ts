@@ -1,4 +1,4 @@
-import * as h from "hyperscript";
+import h from "hyperscript";
 
 // Test/example code adapted from https://github.com/dominictarr/hyperscript/blob/master/README.md
 

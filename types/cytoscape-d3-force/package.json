@@ -6,7 +6,7 @@
         "https://github.com/shichuanpo/cytoscape.js-d3-force"
     ],
     "dependencies": {
-        "@types/cytoscape": "^3.0.9"
+        "cytoscape": "^3.31"
     },
     "devDependencies": {
         "@types/cytoscape-d3-force": "workspace:."

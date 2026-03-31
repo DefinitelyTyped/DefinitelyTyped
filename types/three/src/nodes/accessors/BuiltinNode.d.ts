@@ -1,5 +1,4 @@
 import Node from "../core/Node.js";
-import { ShaderNodeObject } from "../tsl/TSLCore.js";
 
 declare class BuiltinNode extends Node {
     name: string;
@@ -11,4 +10,4 @@ declare class BuiltinNode extends Node {
 
 export default BuiltinNode;
 
-export const builtin: (name: string) => ShaderNodeObject<BuiltinNode>;
+export const builtin: (name: string) => BuiltinNode;

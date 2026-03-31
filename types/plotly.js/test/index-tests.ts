@@ -1,7 +1,19 @@
 import * as Plotly from "plotly.js";
-import { Config, Datum, Layout, newPlot, PlotData, Template, XAxisName, YAxisName } from "plotly.js";
+import { Config, Datum, Font, Layout, newPlot, PlotData, Template, XAxisName, YAxisName } from "plotly.js";
 
 const graphDiv = "#test";
+
+const font: Font = {
+    color: "#fff",
+    family: "Arial, sans-serif",
+    lineposition: "under",
+    shadow: "auto",
+    size: 15,
+    style: "italic",
+    textcase: "word caps",
+    variant: "all-petite-caps",
+    weight: "bold",
+};
 
 const config: Partial<Config> = {
     staticPlot: false,
@@ -407,15 +419,15 @@ const config: Partial<Config> = {
         bgcolor: "#ffffff",
         bordercolor: "#444444",
         borderwidth: 1,
-        font: { size: 15 },
+        font,
         groupclick: "togglegroup",
-        grouptitlefont: { size: 15 },
+        grouptitlefont: font,
         itemclick: "toggleothers",
         itemdoubleclick: "toggle",
         itemsizing: "constant",
         itemwidth: 50,
         orientation: "h",
-        title: { font: { size: 15 }, side: "top right", text: "Legend Title" },
+        title: { font, side: "top right", text: "Legend Title" },
         tracegroupgap: 15,
         traceorder: "reversed+grouped",
         valign: "bottom",
@@ -498,7 +510,7 @@ const config: Partial<Config> = {
             colorbar: {
                 title: {
                     text: "Test",
-                    font: { size: 20, color: "#666" },
+                    font,
                     side: "top",
                 },
                 orientation: "v",
@@ -534,7 +546,7 @@ const config: Partial<Config> = {
                 ticklabelstep: 1,
                 showticklabels: true,
                 labelalias: "labelalias",
-                tickfont: { size: 10, color: "#666" },
+                tickfont: font,
                 tickangle: "auto",
                 tickformat: "",
                 tickformatstops: [],
@@ -574,7 +586,7 @@ const config: Partial<Config> = {
                     visible: true,
                     prefix: "Date:",
                     xanchor: "right",
-                    font: { size: 20, color: "#666" },
+                    font,
                 },
                 steps: [
                     {
@@ -724,9 +736,7 @@ const config: Partial<Config> = {
     const update = {
         title: {
             text: "some new title",
-            font: {
-                size: 1.2,
-            },
+            font,
             x: 0.9,
             pad: {
                 t: 20,
@@ -1146,10 +1156,7 @@ function rand() {
             type: "contour",
             contours: {
                 coloring: "lines",
-                labelfont: {
-                    color: "black",
-                    family: "monospace",
-                },
+                labelfont: font,
                 showlabels: true,
             },
             autocontour: true,
@@ -1225,7 +1232,197 @@ function rand() {
 
     const layout: Partial<Layout> = {
         dragmode: "zoom",
-        mapbox: { style: "open-street-map", center: { lat: 0, lon: -0 }, zoom: 3 },
+        mapbox: {
+            accesstoken: "accesstoken",
+            domain: { x: [0], y: [0], row: 0, column: 0 },
+            style: "open-street-map",
+            center: { lat: 0, lon: -0 },
+            zoom: 3,
+            bearing: 30,
+            bounds: { east: 0, west: 0, south: 0, north: 0 },
+            pitch: 0,
+            layers: [
+                {
+                    // Circle layer
+                    visible: true,
+                    sourcetype: "geojson",
+                    source: {
+                        type: "Feature",
+                        properties: {},
+                        geometry: {
+                            type: "Point",
+                            coordinates: [-74.0060, 40.7128],
+                        },
+                    },
+                    type: "circle",
+                    circle: { radius: 10 },
+                    color: "rgb(255, 0, 0)",
+                    opacity: 0.8,
+                    minzoom: 8,
+                    maxzoom: 15,
+                },
+                {
+                    // Line layer
+                    visible: true,
+                    sourcetype: "geojson",
+                    source: {
+                        type: "Feature",
+                        geometry: {
+                            type: "LineString",
+                            coordinates: [
+                                [-74.0060, 40.7128],
+                                [-73.9857, 40.7484],
+                            ],
+                        },
+                    },
+                    type: "line",
+                    line: {
+                        color: "#00ff00",
+                        width: 2,
+                        dash: "dashdot",
+                    },
+                    opacity: 0.6,
+                },
+                {
+                    // Symbol layer
+                    visible: true,
+                    sourcetype: "geojson",
+                    source: {
+                        type: "Feature",
+                        geometry: {
+                            type: "Point",
+                            coordinates: [-73.9857, 40.7484],
+                        },
+                    },
+                    type: "symbol",
+                    symbol: {
+                        icon: "monument",
+                        iconsize: 1.5,
+                        text: "Empire State",
+                        placement: "point",
+                        textposition: "top center",
+                        textfont: font,
+                    },
+                },
+                {
+                    // Raster layer
+                    visible: true,
+                    sourcetype: "raster",
+                    source: "mapbox://mapbox.satellite",
+                    type: "raster",
+                    opacity: 0.7,
+                    minzoom: 0,
+                    maxzoom: 22,
+                },
+            ],
+            uirevision: "uirevision",
+        },
+        margin: { r: 0, t: 0, b: 0, l: 0 },
+    };
+
+    Plotly.newPlot("myDiv", data, layout);
+})();
+
+//////////////////////////////////////////////////////////////////////
+// Map plot
+(() => {
+    const data: Array<Partial<PlotData>> = [
+        {
+            type: "scattermap",
+            text: ["A", "B", "C"],
+            lon: [0, 1, 2],
+            lat: [0, 1, 2],
+            marker: { color: "fuchsia", size: 4 },
+        },
+    ];
+
+    const layout: Partial<Layout> = {
+        dragmode: "zoom",
+        map: {
+            accesstoken: "accesstoken",
+            domain: { x: [0], y: [0], row: 0, column: 0 },
+            style: "open-street-map",
+            center: { lat: 0, lon: -0 },
+            zoom: 3,
+            bearing: 30,
+            bounds: { east: 0, west: 0, south: 0, north: 0 },
+            pitch: 0,
+            layers: [
+                {
+                    // Circle layer
+                    visible: true,
+                    sourcetype: "geojson",
+                    source: {
+                        type: "Feature",
+                        properties: {},
+                        geometry: {
+                            type: "Point",
+                            coordinates: [-74.0060, 40.7128],
+                        },
+                    },
+                    type: "circle",
+                    circle: { radius: 10 },
+                    color: "rgb(255, 0, 0)",
+                    opacity: 0.8,
+                    minzoom: 8,
+                    maxzoom: 15,
+                },
+                {
+                    // Line layer
+                    visible: true,
+                    sourcetype: "geojson",
+                    source: {
+                        type: "Feature",
+                        geometry: {
+                            type: "LineString",
+                            coordinates: [
+                                [-74.0060, 40.7128],
+                                [-73.9857, 40.7484],
+                            ],
+                        },
+                    },
+                    type: "line",
+                    line: {
+                        color: "#00ff00",
+                        width: 2,
+                        dash: "dashdot",
+                    },
+                    opacity: 0.6,
+                },
+                {
+                    // Symbol layer
+                    visible: true,
+                    sourcetype: "geojson",
+                    source: {
+                        type: "Feature",
+                        geometry: {
+                            type: "Point",
+                            coordinates: [-73.9857, 40.7484],
+                        },
+                    },
+                    type: "symbol",
+                    symbol: {
+                        icon: "monument",
+                        iconsize: 1.5,
+                        text: "Empire State",
+                        placement: "point",
+                        textposition: "top center",
+                        textfont: font,
+                    },
+                },
+                {
+                    // Raster layer
+                    visible: true,
+                    sourcetype: "raster",
+                    source: "mapbox://mapbox.satellite",
+                    type: "raster",
+                    opacity: 0.7,
+                    minzoom: 0,
+                    maxzoom: 22,
+                },
+            ],
+            uirevision: "uirevision",
+        },
         margin: { r: 0, t: 0, b: 0, l: 0 },
     };
 

@@ -2,7 +2,7 @@ import * as React from "react";
 import ReactImageGallery, { ReactImageGalleryItem, ReactImageGalleryProps } from "react-image-gallery";
 
 class ImageGallery extends React.Component {
-    private gallery: ReactImageGallery | null;
+    private gallery!: ReactImageGallery | null;
 
     onBeforeSlide(index: number) {
         const message = `onBeforeSlide ${index}`;

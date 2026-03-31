@@ -65,6 +65,7 @@ declare class MeshStandardNodeMaterial extends NodeMaterial {
      * @default true
      */
     readonly isMeshStandardNodeMaterial: boolean;
+    setValues(values?: MeshStandardNodeMaterialParameters): void;
     /**
      * Overwritten since this type of material uses {@link EnvironmentNode}
      * to implement the PBR (PMREM based) environment mapping. Besides, the

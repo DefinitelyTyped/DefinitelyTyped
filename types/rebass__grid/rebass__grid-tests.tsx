@@ -1,5 +1,5 @@
 import { Box, Flex } from "@rebass/grid";
-import * as Emotion from "@rebass/grid/emotion";
+import Emotion from "@rebass/grid/emotion";
 import * as React from "react";
 
 const test = () => (

@@ -1,4 +1,4 @@
-import * as Layzr from "layzr.js";
+import Layzr from "layzr.js";
 
 const options: Layzr.LayzrOptions = {
     normal: "data-normal",

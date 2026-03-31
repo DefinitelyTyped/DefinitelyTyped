@@ -60,6 +60,11 @@ class HighlighterTest extends React.Component {
                     unhighlightStyle={{ color: "red" }}
                     unhighlightTag={CustomUnhighlight}
                 />
+                <Highlighter
+                    highlightClassName={{ el: "highlight-el", or: "highlight-or" }}
+                    searchWords={["el", "or"]}
+                    textToHighlight="Hello World"
+                />
             </div>
         );
     }

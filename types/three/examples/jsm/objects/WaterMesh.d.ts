@@ -11,7 +11,7 @@ import {
 } from "three/webgpu";
 
 export interface WaterMeshOptions {
-    resolution?: number | undefined;
+    resolutionScale?: number | undefined;
     waterNormals: Texture;
     alpha?: number | undefined;
     size?: number | undefined;
@@ -24,15 +24,15 @@ export interface WaterMeshOptions {
 declare class WaterMesh extends Mesh<BufferGeometry, NodeMaterial> {
     readonly isWater: true;
 
-    resolution: number;
+    resolutionScale: number;
 
     waterNormals: TextureNode;
-    alpha: UniformNode<number>;
-    size: UniformNode<number>;
-    sunColor: UniformNode<Color>;
-    sunDirection: UniformNode<Vector3>;
-    waterColor: UniformNode<Color>;
-    distortionScale: UniformNode<number>;
+    alpha: UniformNode<"float", number>;
+    size: UniformNode<"float", number>;
+    sunColor: UniformNode<"color", Color>;
+    sunDirection: UniformNode<"vec3", Vector3>;
+    waterColor: UniformNode<"color", Color>;
+    distortionScale: UniformNode<"float", number>;
 
     constructor(geometry: BufferGeometry, options: WaterMeshOptions);
 }

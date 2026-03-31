@@ -9738,6 +9738,83 @@ const playlist: SpotifyApi.SinglePlaylistResponse = {
                     type: "track",
                     uri: "spotify:track:3bCmDqflFBHijgJfvtqev5",
                 },
+                item: {
+                    album: {
+                        album_type: "album",
+                        total_tracks: 10,
+                        artists: [
+                            {
+                                external_urls: {
+                                    spotify: "https://open.spotify.com/artist/7MSUfLeTdDEoZiJPDSBXgi",
+                                },
+                                href: "https://api.spotify.com/v1/artists/7MSUfLeTdDEoZiJPDSBXgi",
+                                id: "7MSUfLeTdDEoZiJPDSBXgi",
+                                name: "Brian Eno",
+                                type: "artist",
+                                uri: "spotify:artist:7MSUfLeTdDEoZiJPDSBXgi",
+                            },
+                        ],
+                        available_markets: ["AR", "AT", "AU", "BE", "BR", "CL", "CO", "CY", "CZ", "DE"],
+                        external_urls: {
+                            spotify: "https://open.spotify.com/album/063f8Ej8rLVTz9KkjQKEMa",
+                        },
+                        href: "https://api.spotify.com/v1/albums/063f8Ej8rLVTz9KkjQKEMa",
+                        id: "063f8Ej8rLVTz9KkjQKEMa",
+                        images: [
+                            {
+                                height: 640,
+                                url: "https://i.scdn.co/image/ab67616d0000b27369530c204f1fc99c5b9fa7a4",
+                                width: 640,
+                            },
+                            {
+                                height: 300,
+                                url: "https://i.scdn.co/image/ab67616d00001e0269530c204f1fc99c5b9fa7a4",
+                                width: 300,
+                            },
+                            {
+                                height: 64,
+                                url: "https://i.scdn.co/image/ab67616d0000485169530c204f1fc99c5b9fa7a4",
+                                width: 64,
+                            },
+                        ],
+                        name: "Ambient 1/Music For Airports",
+                        release_date: "1978",
+                        release_date_precision: "year",
+                        type: "album",
+                        uri: "spotify:album:063f8Ej8rLVTz9KkjQKEMa",
+                    },
+                    artists: [
+                        {
+                            external_urls: {
+                                spotify: "https://open.spotify.com/artist/7MSUfLeTdDEoZiJPDSBXgi",
+                            },
+                            href: "https://api.spotify.com/v1/artists/7MSUfLeTdDEoZiJPDSBXgi",
+                            id: "7MSUfLeTdDEoZiJPDSBXgi",
+                            name: "Brian Eno",
+                            type: "artist",
+                            uri: "spotify:artist:7MSUfLeTdDEoZiJPDSBXgi",
+                        },
+                    ],
+                    available_markets: ["AR", "AT", "AU", "BE", "BR", "CL", "CO", "CY", "CZ", "DE"],
+                    disc_number: 1,
+                    duration_ms: 1041520,
+                    explicit: false,
+                    external_ids: {
+                        isrc: "GBAAA0400426",
+                    },
+                    external_urls: {
+                        spotify: "https://open.spotify.com/track/3bCmDqflFBHijgJfvtqev5",
+                    },
+                    href: "https://api.spotify.com/v1/tracks/3bCmDqflFBHijgJfvtqev5",
+                    id: "3bCmDqflFBHijgJfvtqev5",
+                    name: "1/1 - Remastered 2004",
+                    popularity: 51,
+                    preview_url:
+                        "https://p.scdn.co/mp3-preview/b7cd7208aa6c68607b492c5298234cbe8b86c39d?cid=774b29d4f13844c495f206cafdad9c86",
+                    track_number: 1,
+                    type: "track",
+                    uri: "spotify:track:3bCmDqflFBHijgJfvtqev5",
+                },
             },
             {
                 added_at: "2015-10-05T06:05:23Z",
@@ -9752,6 +9829,82 @@ const playlist: SpotifyApi.SinglePlaylistResponse = {
                 },
                 is_local: false,
                 track: {
+                    album: {
+                        album_type: "compilation",
+                        total_tracks: 10,
+                        artists: [
+                            {
+                                external_urls: {
+                                    spotify: "https://open.spotify.com/artist/4xls23Ye9WR9yy3yYMpAMm",
+                                },
+                                href: "https://api.spotify.com/v1/artists/4xls23Ye9WR9yy3yYMpAMm",
+                                id: "4xls23Ye9WR9yy3yYMpAMm",
+                                name: "Little Richard",
+                                type: "artist",
+                                uri: "spotify:artist:4xls23Ye9WR9yy3yYMpAMm",
+                            },
+                        ],
+                        available_markets: [],
+                        external_urls: {
+                            spotify: "https://open.spotify.com/album/3LXNSUpx48PQxUn2StRqfu",
+                        },
+                        href: "https://api.spotify.com/v1/albums/3LXNSUpx48PQxUn2StRqfu",
+                        id: "3LXNSUpx48PQxUn2StRqfu",
+                        images: [
+                            {
+                                height: 640,
+                                url: "https://i.scdn.co/image/ab67616d0000b2737d92de948b22c8201f4467c5",
+                                width: 640,
+                            },
+                            {
+                                height: 300,
+                                url: "https://i.scdn.co/image/ab67616d00001e027d92de948b22c8201f4467c5",
+                                width: 300,
+                            },
+                            {
+                                height: 64,
+                                url: "https://i.scdn.co/image/ab67616d000048517d92de948b22c8201f4467c5",
+                                width: 64,
+                            },
+                        ],
+                        name: "The Very Best Of Little Richard",
+                        release_date: "2008-01-01",
+                        release_date_precision: "day",
+                        type: "album",
+                        uri: "spotify:album:3LXNSUpx48PQxUn2StRqfu",
+                    },
+                    artists: [
+                        {
+                            external_urls: {
+                                spotify: "https://open.spotify.com/artist/4xls23Ye9WR9yy3yYMpAMm",
+                            },
+                            href: "https://api.spotify.com/v1/artists/4xls23Ye9WR9yy3yYMpAMm",
+                            id: "4xls23Ye9WR9yy3yYMpAMm",
+                            name: "Little Richard",
+                            type: "artist",
+                            uri: "spotify:artist:4xls23Ye9WR9yy3yYMpAMm",
+                        },
+                    ],
+                    available_markets: [],
+                    disc_number: 1,
+                    duration_ms: 127386,
+                    explicit: false,
+                    external_ids: {
+                        isrc: "USC4R0817279",
+                    },
+                    external_urls: {
+                        spotify: "https://open.spotify.com/track/1fMMRoalpb7E8m5FsAta2y",
+                    },
+                    href: "https://api.spotify.com/v1/tracks/1fMMRoalpb7E8m5FsAta2y",
+                    id: "1fMMRoalpb7E8m5FsAta2y",
+                    name: "Good Golly Miss Molly",
+                    popularity: 11,
+                    preview_url: null,
+                    track_number: 3,
+                    type: "track",
+                    uri: "spotify:track:1fMMRoalpb7E8m5FsAta2y",
+                },
+                item: {
                     album: {
                         album_type: "compilation",
                         total_tracks: 10,
@@ -9926,6 +10079,619 @@ const playlist: SpotifyApi.SinglePlaylistResponse = {
                     type: "track",
                     uri: "spotify:track:3xhXKRGahWzcXF8rD5gUvd",
                 },
+                item: {
+                    album: {
+                        album_type: "album",
+                        total_tracks: 10,
+                        artists: [
+                            {
+                                external_urls: {
+                                    spotify: "https://open.spotify.com/artist/2Mu5NfyYm8n5iTomuKAEHl",
+                                },
+                                href: "https://api.spotify.com/v1/artists/2Mu5NfyYm8n5iTomuKAEHl",
+                                id: "2Mu5NfyYm8n5iTomuKAEHl",
+                                name: "Ms. Lauryn Hill",
+                                type: "artist",
+                                uri: "spotify:artist:2Mu5NfyYm8n5iTomuKAEHl",
+                            },
+                        ],
+                        available_markets: [],
+                        external_urls: {
+                            spotify: "https://open.spotify.com/album/2Uc0HAF0Cj0LAgyzYZX5e3",
+                        },
+                        href: "https://api.spotify.com/v1/albums/2Uc0HAF0Cj0LAgyzYZX5e3",
+                        id: "2Uc0HAF0Cj0LAgyzYZX5e3",
+                        images: [
+                            {
+                                height: 640,
+                                url: "https://i.scdn.co/image/ab67616d0000b2739196fafd1d6160480d3df68a",
+                                width: 640,
+                            },
+                            {
+                                height: 300,
+                                url: "https://i.scdn.co/image/ab67616d00001e029196fafd1d6160480d3df68a",
+                                width: 300,
+                            },
+                            {
+                                height: 64,
+                                url: "https://i.scdn.co/image/ab67616d000048519196fafd1d6160480d3df68a",
+                                width: 64,
+                            },
+                        ],
+                        name: "The Miseducation of Lauryn Hill",
+                        release_date: "1998-08-25",
+                        release_date_precision: "day",
+                        type: "album",
+                        uri: "spotify:album:2Uc0HAF0Cj0LAgyzYZX5e3",
+                    },
+                    artists: [
+                        {
+                            external_urls: {
+                                spotify: "https://open.spotify.com/artist/2Mu5NfyYm8n5iTomuKAEHl",
+                            },
+                            href: "https://api.spotify.com/v1/artists/2Mu5NfyYm8n5iTomuKAEHl",
+                            id: "2Mu5NfyYm8n5iTomuKAEHl",
+                            name: "Ms. Lauryn Hill",
+                            type: "artist",
+                            uri: "spotify:artist:2Mu5NfyYm8n5iTomuKAEHl",
+                        },
+                        {
+                            external_urls: {
+                                spotify: "https://open.spotify.com/artist/336vr2M3Va0FjyvB55lJEd",
+                            },
+                            href: "https://api.spotify.com/v1/artists/336vr2M3Va0FjyvB55lJEd",
+                            id: "336vr2M3Va0FjyvB55lJEd",
+                            name: "D'Angelo",
+                            type: "artist",
+                            uri: "spotify:artist:336vr2M3Va0FjyvB55lJEd",
+                        },
+                    ],
+                    available_markets: [],
+                    disc_number: 1,
+                    duration_ms: 350533,
+                    explicit: false,
+                    external_ids: {
+                        isrc: "USSM19803112",
+                    },
+                    external_urls: {
+                        spotify: "https://open.spotify.com/track/3xhXKRGahWzcXF8rD5gUvd",
+                    },
+                    href: "https://api.spotify.com/v1/tracks/3xhXKRGahWzcXF8rD5gUvd",
+                    id: "3xhXKRGahWzcXF8rD5gUvd",
+                    name: "Nothing Even Matters",
+                    popularity: 8,
+                    preview_url: null,
+                    track_number: 12,
+                    type: "track",
+                    uri: "spotify:track:3xhXKRGahWzcXF8rD5gUvd",
+                },
+            },
+        ],
+        limit: 100,
+        next: null,
+        offset: 0,
+        previous: null,
+        total: 3,
+    },
+    items: {
+        href: "https://api.spotify.com/v1/playlists/0r6srTg2RFfBWba9WZ6Dlq/tracks?offset=0&limit=100",
+        items: [
+            {
+                added_at: "2015-10-05T06:04:05Z",
+                added_by: {
+                    external_urls: {
+                        spotify: "https://open.spotify.com/user/physicaltunes",
+                    },
+                    href: "https://api.spotify.com/v1/users/physicaltunes",
+                    id: "physicaltunes",
+                    type: "user",
+                    uri: "spotify:user:physicaltunes",
+                },
+                is_local: false,
+                track: {
+                    album: {
+                        album_type: "album",
+                        total_tracks: 10,
+                        artists: [
+                            {
+                                external_urls: {
+                                    spotify: "https://open.spotify.com/artist/7MSUfLeTdDEoZiJPDSBXgi",
+                                },
+                                href: "https://api.spotify.com/v1/artists/7MSUfLeTdDEoZiJPDSBXgi",
+                                id: "7MSUfLeTdDEoZiJPDSBXgi",
+                                name: "Brian Eno",
+                                type: "artist",
+                                uri: "spotify:artist:7MSUfLeTdDEoZiJPDSBXgi",
+                            },
+                        ],
+                        available_markets: ["AR", "AT", "AU", "BE", "BR", "CL", "CO", "CY", "CZ", "DE"],
+                        external_urls: {
+                            spotify: "https://open.spotify.com/album/063f8Ej8rLVTz9KkjQKEMa",
+                        },
+                        href: "https://api.spotify.com/v1/albums/063f8Ej8rLVTz9KkjQKEMa",
+                        id: "063f8Ej8rLVTz9KkjQKEMa",
+                        images: [
+                            {
+                                height: 640,
+                                url: "https://i.scdn.co/image/ab67616d0000b27369530c204f1fc99c5b9fa7a4",
+                                width: 640,
+                            },
+                            {
+                                height: 300,
+                                url: "https://i.scdn.co/image/ab67616d00001e0269530c204f1fc99c5b9fa7a4",
+                                width: 300,
+                            },
+                            {
+                                height: 64,
+                                url: "https://i.scdn.co/image/ab67616d0000485169530c204f1fc99c5b9fa7a4",
+                                width: 64,
+                            },
+                        ],
+                        name: "Ambient 1/Music For Airports",
+                        release_date: "1978",
+                        release_date_precision: "year",
+                        type: "album",
+                        uri: "spotify:album:063f8Ej8rLVTz9KkjQKEMa",
+                    },
+                    artists: [
+                        {
+                            external_urls: {
+                                spotify: "https://open.spotify.com/artist/7MSUfLeTdDEoZiJPDSBXgi",
+                            },
+                            href: "https://api.spotify.com/v1/artists/7MSUfLeTdDEoZiJPDSBXgi",
+                            id: "7MSUfLeTdDEoZiJPDSBXgi",
+                            name: "Brian Eno",
+                            type: "artist",
+                            uri: "spotify:artist:7MSUfLeTdDEoZiJPDSBXgi",
+                        },
+                    ],
+                    available_markets: ["AR", "AT", "AU", "BE", "BR", "CL", "CO", "CY", "CZ", "DE"],
+                    disc_number: 1,
+                    duration_ms: 1041520,
+                    explicit: false,
+                    external_ids: {
+                        isrc: "GBAAA0400426",
+                    },
+                    external_urls: {
+                        spotify: "https://open.spotify.com/track/3bCmDqflFBHijgJfvtqev5",
+                    },
+                    href: "https://api.spotify.com/v1/tracks/3bCmDqflFBHijgJfvtqev5",
+                    id: "3bCmDqflFBHijgJfvtqev5",
+                    name: "1/1 - Remastered 2004",
+                    popularity: 51,
+                    preview_url:
+                        "https://p.scdn.co/mp3-preview/b7cd7208aa6c68607b492c5298234cbe8b86c39d?cid=774b29d4f13844c495f206cafdad9c86",
+                    track_number: 1,
+                    type: "track",
+                    uri: "spotify:track:3bCmDqflFBHijgJfvtqev5",
+                },
+                item: {
+                    album: {
+                        album_type: "album",
+                        total_tracks: 10,
+                        artists: [
+                            {
+                                external_urls: {
+                                    spotify: "https://open.spotify.com/artist/7MSUfLeTdDEoZiJPDSBXgi",
+                                },
+                                href: "https://api.spotify.com/v1/artists/7MSUfLeTdDEoZiJPDSBXgi",
+                                id: "7MSUfLeTdDEoZiJPDSBXgi",
+                                name: "Brian Eno",
+                                type: "artist",
+                                uri: "spotify:artist:7MSUfLeTdDEoZiJPDSBXgi",
+                            },
+                        ],
+                        available_markets: ["AR", "AT", "AU", "BE", "BR", "CL", "CO", "CY", "CZ", "DE"],
+                        external_urls: {
+                            spotify: "https://open.spotify.com/album/063f8Ej8rLVTz9KkjQKEMa",
+                        },
+                        href: "https://api.spotify.com/v1/albums/063f8Ej8rLVTz9KkjQKEMa",
+                        id: "063f8Ej8rLVTz9KkjQKEMa",
+                        images: [
+                            {
+                                height: 640,
+                                url: "https://i.scdn.co/image/ab67616d0000b27369530c204f1fc99c5b9fa7a4",
+                                width: 640,
+                            },
+                            {
+                                height: 300,
+                                url: "https://i.scdn.co/image/ab67616d00001e0269530c204f1fc99c5b9fa7a4",
+                                width: 300,
+                            },
+                            {
+                                height: 64,
+                                url: "https://i.scdn.co/image/ab67616d0000485169530c204f1fc99c5b9fa7a4",
+                                width: 64,
+                            },
+                        ],
+                        name: "Ambient 1/Music For Airports",
+                        release_date: "1978",
+                        release_date_precision: "year",
+                        type: "album",
+                        uri: "spotify:album:063f8Ej8rLVTz9KkjQKEMa",
+                    },
+                    artists: [
+                        {
+                            external_urls: {
+                                spotify: "https://open.spotify.com/artist/7MSUfLeTdDEoZiJPDSBXgi",
+                            },
+                            href: "https://api.spotify.com/v1/artists/7MSUfLeTdDEoZiJPDSBXgi",
+                            id: "7MSUfLeTdDEoZiJPDSBXgi",
+                            name: "Brian Eno",
+                            type: "artist",
+                            uri: "spotify:artist:7MSUfLeTdDEoZiJPDSBXgi",
+                        },
+                    ],
+                    available_markets: ["AR", "AT", "AU", "BE", "BR", "CL", "CO", "CY", "CZ", "DE"],
+                    disc_number: 1,
+                    duration_ms: 1041520,
+                    explicit: false,
+                    external_ids: {
+                        isrc: "GBAAA0400426",
+                    },
+                    external_urls: {
+                        spotify: "https://open.spotify.com/track/3bCmDqflFBHijgJfvtqev5",
+                    },
+                    href: "https://api.spotify.com/v1/tracks/3bCmDqflFBHijgJfvtqev5",
+                    id: "3bCmDqflFBHijgJfvtqev5",
+                    name: "1/1 - Remastered 2004",
+                    popularity: 51,
+                    preview_url:
+                        "https://p.scdn.co/mp3-preview/b7cd7208aa6c68607b492c5298234cbe8b86c39d?cid=774b29d4f13844c495f206cafdad9c86",
+                    track_number: 1,
+                    type: "track",
+                    uri: "spotify:track:3bCmDqflFBHijgJfvtqev5",
+                },
+            },
+            {
+                added_at: "2015-10-05T06:05:23Z",
+                added_by: {
+                    external_urls: {
+                        spotify: "https://open.spotify.com/user/physicaltunes",
+                    },
+                    href: "https://api.spotify.com/v1/users/physicaltunes",
+                    id: "physicaltunes",
+                    type: "user",
+                    uri: "spotify:user:physicaltunes",
+                },
+                is_local: false,
+                track: {
+                    album: {
+                        album_type: "compilation",
+                        total_tracks: 10,
+                        artists: [
+                            {
+                                external_urls: {
+                                    spotify: "https://open.spotify.com/artist/4xls23Ye9WR9yy3yYMpAMm",
+                                },
+                                href: "https://api.spotify.com/v1/artists/4xls23Ye9WR9yy3yYMpAMm",
+                                id: "4xls23Ye9WR9yy3yYMpAMm",
+                                name: "Little Richard",
+                                type: "artist",
+                                uri: "spotify:artist:4xls23Ye9WR9yy3yYMpAMm",
+                            },
+                        ],
+                        available_markets: [],
+                        external_urls: {
+                            spotify: "https://open.spotify.com/album/3LXNSUpx48PQxUn2StRqfu",
+                        },
+                        href: "https://api.spotify.com/v1/albums/3LXNSUpx48PQxUn2StRqfu",
+                        id: "3LXNSUpx48PQxUn2StRqfu",
+                        images: [
+                            {
+                                height: 640,
+                                url: "https://i.scdn.co/image/ab67616d0000b2737d92de948b22c8201f4467c5",
+                                width: 640,
+                            },
+                            {
+                                height: 300,
+                                url: "https://i.scdn.co/image/ab67616d00001e027d92de948b22c8201f4467c5",
+                                width: 300,
+                            },
+                            {
+                                height: 64,
+                                url: "https://i.scdn.co/image/ab67616d000048517d92de948b22c8201f4467c5",
+                                width: 64,
+                            },
+                        ],
+                        name: "The Very Best Of Little Richard",
+                        release_date: "2008-01-01",
+                        release_date_precision: "day",
+                        type: "album",
+                        uri: "spotify:album:3LXNSUpx48PQxUn2StRqfu",
+                    },
+                    artists: [
+                        {
+                            external_urls: {
+                                spotify: "https://open.spotify.com/artist/4xls23Ye9WR9yy3yYMpAMm",
+                            },
+                            href: "https://api.spotify.com/v1/artists/4xls23Ye9WR9yy3yYMpAMm",
+                            id: "4xls23Ye9WR9yy3yYMpAMm",
+                            name: "Little Richard",
+                            type: "artist",
+                            uri: "spotify:artist:4xls23Ye9WR9yy3yYMpAMm",
+                        },
+                    ],
+                    available_markets: [],
+                    disc_number: 1,
+                    duration_ms: 127386,
+                    explicit: false,
+                    external_ids: {
+                        isrc: "USC4R0817279",
+                    },
+                    external_urls: {
+                        spotify: "https://open.spotify.com/track/1fMMRoalpb7E8m5FsAta2y",
+                    },
+                    href: "https://api.spotify.com/v1/tracks/1fMMRoalpb7E8m5FsAta2y",
+                    id: "1fMMRoalpb7E8m5FsAta2y",
+                    name: "Good Golly Miss Molly",
+                    popularity: 11,
+                    preview_url: null,
+                    track_number: 3,
+                    type: "track",
+                    uri: "spotify:track:1fMMRoalpb7E8m5FsAta2y",
+                },
+                item: {
+                    album: {
+                        album_type: "compilation",
+                        total_tracks: 10,
+                        artists: [
+                            {
+                                external_urls: {
+                                    spotify: "https://open.spotify.com/artist/4xls23Ye9WR9yy3yYMpAMm",
+                                },
+                                href: "https://api.spotify.com/v1/artists/4xls23Ye9WR9yy3yYMpAMm",
+                                id: "4xls23Ye9WR9yy3yYMpAMm",
+                                name: "Little Richard",
+                                type: "artist",
+                                uri: "spotify:artist:4xls23Ye9WR9yy3yYMpAMm",
+                            },
+                        ],
+                        available_markets: [],
+                        external_urls: {
+                            spotify: "https://open.spotify.com/album/3LXNSUpx48PQxUn2StRqfu",
+                        },
+                        href: "https://api.spotify.com/v1/albums/3LXNSUpx48PQxUn2StRqfu",
+                        id: "3LXNSUpx48PQxUn2StRqfu",
+                        images: [
+                            {
+                                height: 640,
+                                url: "https://i.scdn.co/image/ab67616d0000b2737d92de948b22c8201f4467c5",
+                                width: 640,
+                            },
+                            {
+                                height: 300,
+                                url: "https://i.scdn.co/image/ab67616d00001e027d92de948b22c8201f4467c5",
+                                width: 300,
+                            },
+                            {
+                                height: 64,
+                                url: "https://i.scdn.co/image/ab67616d000048517d92de948b22c8201f4467c5",
+                                width: 64,
+                            },
+                        ],
+                        name: "The Very Best Of Little Richard",
+                        release_date: "2008-01-01",
+                        release_date_precision: "day",
+                        type: "album",
+                        uri: "spotify:album:3LXNSUpx48PQxUn2StRqfu",
+                    },
+                    artists: [
+                        {
+                            external_urls: {
+                                spotify: "https://open.spotify.com/artist/4xls23Ye9WR9yy3yYMpAMm",
+                            },
+                            href: "https://api.spotify.com/v1/artists/4xls23Ye9WR9yy3yYMpAMm",
+                            id: "4xls23Ye9WR9yy3yYMpAMm",
+                            name: "Little Richard",
+                            type: "artist",
+                            uri: "spotify:artist:4xls23Ye9WR9yy3yYMpAMm",
+                        },
+                    ],
+                    available_markets: [],
+                    disc_number: 1,
+                    duration_ms: 127386,
+                    explicit: false,
+                    external_ids: {
+                        isrc: "USC4R0817279",
+                    },
+                    external_urls: {
+                        spotify: "https://open.spotify.com/track/1fMMRoalpb7E8m5FsAta2y",
+                    },
+                    href: "https://api.spotify.com/v1/tracks/1fMMRoalpb7E8m5FsAta2y",
+                    id: "1fMMRoalpb7E8m5FsAta2y",
+                    name: "Good Golly Miss Molly",
+                    popularity: 11,
+                    preview_url: null,
+                    track_number: 3,
+                    type: "track",
+                    uri: "spotify:track:1fMMRoalpb7E8m5FsAta2y",
+                },
+            },
+            {
+                added_at: "2015-10-05T06:03:49Z",
+                added_by: {
+                    external_urls: {
+                        spotify: "https://open.spotify.com/user/physicaltunes",
+                    },
+                    href: "https://api.spotify.com/v1/users/physicaltunes",
+                    id: "physicaltunes",
+                    type: "user",
+                    uri: "spotify:user:physicaltunes",
+                },
+                is_local: false,
+                track: {
+                    album: {
+                        album_type: "album",
+                        total_tracks: 10,
+                        artists: [
+                            {
+                                external_urls: {
+                                    spotify: "https://open.spotify.com/artist/2Mu5NfyYm8n5iTomuKAEHl",
+                                },
+                                href: "https://api.spotify.com/v1/artists/2Mu5NfyYm8n5iTomuKAEHl",
+                                id: "2Mu5NfyYm8n5iTomuKAEHl",
+                                name: "Ms. Lauryn Hill",
+                                type: "artist",
+                                uri: "spotify:artist:2Mu5NfyYm8n5iTomuKAEHl",
+                            },
+                        ],
+                        available_markets: [],
+                        external_urls: {
+                            spotify: "https://open.spotify.com/album/2Uc0HAF0Cj0LAgyzYZX5e3",
+                        },
+                        href: "https://api.spotify.com/v1/albums/2Uc0HAF0Cj0LAgyzYZX5e3",
+                        id: "2Uc0HAF0Cj0LAgyzYZX5e3",
+                        images: [
+                            {
+                                height: 640,
+                                url: "https://i.scdn.co/image/ab67616d0000b2739196fafd1d6160480d3df68a",
+                                width: 640,
+                            },
+                            {
+                                height: 300,
+                                url: "https://i.scdn.co/image/ab67616d00001e029196fafd1d6160480d3df68a",
+                                width: 300,
+                            },
+                            {
+                                height: 64,
+                                url: "https://i.scdn.co/image/ab67616d000048519196fafd1d6160480d3df68a",
+                                width: 64,
+                            },
+                        ],
+                        name: "The Miseducation of Lauryn Hill",
+                        release_date: "1998-08-25",
+                        release_date_precision: "day",
+                        type: "album",
+                        uri: "spotify:album:2Uc0HAF0Cj0LAgyzYZX5e3",
+                    },
+                    artists: [
+                        {
+                            external_urls: {
+                                spotify: "https://open.spotify.com/artist/2Mu5NfyYm8n5iTomuKAEHl",
+                            },
+                            href: "https://api.spotify.com/v1/artists/2Mu5NfyYm8n5iTomuKAEHl",
+                            id: "2Mu5NfyYm8n5iTomuKAEHl",
+                            name: "Ms. Lauryn Hill",
+                            type: "artist",
+                            uri: "spotify:artist:2Mu5NfyYm8n5iTomuKAEHl",
+                        },
+                        {
+                            external_urls: {
+                                spotify: "https://open.spotify.com/artist/336vr2M3Va0FjyvB55lJEd",
+                            },
+                            href: "https://api.spotify.com/v1/artists/336vr2M3Va0FjyvB55lJEd",
+                            id: "336vr2M3Va0FjyvB55lJEd",
+                            name: "D'Angelo",
+                            type: "artist",
+                            uri: "spotify:artist:336vr2M3Va0FjyvB55lJEd",
+                        },
+                    ],
+                    available_markets: [],
+                    disc_number: 1,
+                    duration_ms: 350533,
+                    explicit: false,
+                    external_ids: {
+                        isrc: "USSM19803112",
+                    },
+                    external_urls: {
+                        spotify: "https://open.spotify.com/track/3xhXKRGahWzcXF8rD5gUvd",
+                    },
+                    href: "https://api.spotify.com/v1/tracks/3xhXKRGahWzcXF8rD5gUvd",
+                    id: "3xhXKRGahWzcXF8rD5gUvd",
+                    name: "Nothing Even Matters",
+                    popularity: 8,
+                    preview_url: null,
+                    track_number: 12,
+                    type: "track",
+                    uri: "spotify:track:3xhXKRGahWzcXF8rD5gUvd",
+                },
+                item: {
+                    album: {
+                        album_type: "album",
+                        total_tracks: 10,
+                        artists: [
+                            {
+                                external_urls: {
+                                    spotify: "https://open.spotify.com/artist/2Mu5NfyYm8n5iTomuKAEHl",
+                                },
+                                href: "https://api.spotify.com/v1/artists/2Mu5NfyYm8n5iTomuKAEHl",
+                                id: "2Mu5NfyYm8n5iTomuKAEHl",
+                                name: "Ms. Lauryn Hill",
+                                type: "artist",
+                                uri: "spotify:artist:2Mu5NfyYm8n5iTomuKAEHl",
+                            },
+                        ],
+                        available_markets: [],
+                        external_urls: {
+                            spotify: "https://open.spotify.com/album/2Uc0HAF0Cj0LAgyzYZX5e3",
+                        },
+                        href: "https://api.spotify.com/v1/albums/2Uc0HAF0Cj0LAgyzYZX5e3",
+                        id: "2Uc0HAF0Cj0LAgyzYZX5e3",
+                        images: [
+                            {
+                                height: 640,
+                                url: "https://i.scdn.co/image/ab67616d0000b2739196fafd1d6160480d3df68a",
+                                width: 640,
+                            },
+                            {
+                                height: 300,
+                                url: "https://i.scdn.co/image/ab67616d00001e029196fafd1d6160480d3df68a",
+                                width: 300,
+                            },
+                            {
+                                height: 64,
+                                url: "https://i.scdn.co/image/ab67616d000048519196fafd1d6160480d3df68a",
+                                width: 64,
+                            },
+                        ],
+                        name: "The Miseducation of Lauryn Hill",
+                        release_date: "1998-08-25",
+                        release_date_precision: "day",
+                        type: "album",
+                        uri: "spotify:album:2Uc0HAF0Cj0LAgyzYZX5e3",
+                    },
+                    artists: [
+                        {
+                            external_urls: {
+                                spotify: "https://open.spotify.com/artist/2Mu5NfyYm8n5iTomuKAEHl",
+                            },
+                            href: "https://api.spotify.com/v1/artists/2Mu5NfyYm8n5iTomuKAEHl",
+                            id: "2Mu5NfyYm8n5iTomuKAEHl",
+                            name: "Ms. Lauryn Hill",
+                            type: "artist",
+                            uri: "spotify:artist:2Mu5NfyYm8n5iTomuKAEHl",
+                        },
+                        {
+                            external_urls: {
+                                spotify: "https://open.spotify.com/artist/336vr2M3Va0FjyvB55lJEd",
+                            },
+                            href: "https://api.spotify.com/v1/artists/336vr2M3Va0FjyvB55lJEd",
+                            id: "336vr2M3Va0FjyvB55lJEd",
+                            name: "D'Angelo",
+                            type: "artist",
+                            uri: "spotify:artist:336vr2M3Va0FjyvB55lJEd",
+                        },
+                    ],
+                    available_markets: [],
+                    disc_number: 1,
+                    duration_ms: 350533,
+                    explicit: false,
+                    external_ids: {
+                        isrc: "USSM19803112",
+                    },
+                    external_urls: {
+                        spotify: "https://open.spotify.com/track/3xhXKRGahWzcXF8rD5gUvd",
+                    },
+                    href: "https://api.spotify.com/v1/tracks/3xhXKRGahWzcXF8rD5gUvd",
+                    id: "3xhXKRGahWzcXF8rD5gUvd",
+                    name: "Nothing Even Matters",
+                    popularity: 8,
+                    preview_url: null,
+                    track_number: 12,
+                    type: "track",
+                    uri: "spotify:track:3xhXKRGahWzcXF8rD5gUvd",
+                },
             },
         ],
         limit: 100,
@@ -9960,6 +10726,82 @@ const playlistTracks: SpotifyApi.PlaylistTrackResponse = {
             },
             is_local: false,
             track: {
+                album: {
+                    album_type: "single",
+                    total_tracks: 10,
+                    artists: [
+                        {
+                            external_urls: {
+                                spotify: "https://open.spotify.com/artist/7jVv8c5Fj3E9VhNjxT4snq",
+                            },
+                            href: "https://api.spotify.com/v1/artists/7jVv8c5Fj3E9VhNjxT4snq",
+                            id: "7jVv8c5Fj3E9VhNjxT4snq",
+                            name: "Lil Nas X",
+                            type: "artist",
+                            uri: "spotify:artist:7jVv8c5Fj3E9VhNjxT4snq",
+                        },
+                    ],
+                    available_markets: [],
+                    external_urls: {
+                        spotify: "https://open.spotify.com/album/6sC8l8bVvMckgES0c3VpCZ",
+                    },
+                    href: "https://api.spotify.com/v1/albums/6sC8l8bVvMckgES0c3VpCZ",
+                    id: "6sC8l8bVvMckgES0c3VpCZ",
+                    images: [
+                        {
+                            height: 640,
+                            url: "https://i.scdn.co/image/ab67616d0000b273d792735868f17bae3b6cda31",
+                            width: 640,
+                        },
+                        {
+                            height: 300,
+                            url: "https://i.scdn.co/image/ab67616d00001e02d792735868f17bae3b6cda31",
+                            width: 300,
+                        },
+                        {
+                            height: 64,
+                            url: "https://i.scdn.co/image/ab67616d00004851d792735868f17bae3b6cda31",
+                            width: 64,
+                        },
+                    ],
+                    name: "Old Town Road",
+                    release_date: "2018-12-17",
+                    release_date_precision: "day",
+                    type: "album",
+                    uri: "spotify:album:6sC8l8bVvMckgES0c3VpCZ",
+                },
+                artists: [
+                    {
+                        external_urls: {
+                            spotify: "https://open.spotify.com/artist/7jVv8c5Fj3E9VhNjxT4snq",
+                        },
+                        href: "https://api.spotify.com/v1/artists/7jVv8c5Fj3E9VhNjxT4snq",
+                        id: "7jVv8c5Fj3E9VhNjxT4snq",
+                        name: "Lil Nas X",
+                        type: "artist",
+                        uri: "spotify:artist:7jVv8c5Fj3E9VhNjxT4snq",
+                    },
+                ],
+                available_markets: [],
+                disc_number: 1,
+                duration_ms: 113005,
+                explicit: true,
+                external_ids: {
+                    isrc: "SE6A91836283",
+                },
+                external_urls: {
+                    spotify: "https://open.spotify.com/track/2pMl9Sx4glsuk5ikZtFBtX",
+                },
+                href: "https://api.spotify.com/v1/tracks/2pMl9Sx4glsuk5ikZtFBtX",
+                id: "2pMl9Sx4glsuk5ikZtFBtX",
+                name: "Old Town Road",
+                popularity: 20,
+                preview_url: null,
+                track_number: 1,
+                type: "track",
+                uri: "spotify:track:2pMl9Sx4glsuk5ikZtFBtX",
+            },
+            item: {
                 album: {
                     album_type: "single",
                     total_tracks: 10,

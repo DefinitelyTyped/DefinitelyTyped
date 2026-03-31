@@ -20,9 +20,9 @@
  * should generally include the module name to avoid collisions with data from
  * other modules.
  * @since v15.1.0, v14.17.0
- * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/diagnostics_channel.js)
+ * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/diagnostics_channel.js)
  */
-declare module "diagnostics_channel" {
+declare module "node:diagnostics_channel" {
     import { AsyncLocalStorage } from "node:async_hooks";
     /**
      * Check if there are active subscribers to the named channel. This is helpful if
@@ -189,7 +189,6 @@ declare module "diagnostics_channel" {
          * });
          * ```
          * @since v15.1.0, v14.17.0
-         * @deprecated Since v18.7.0,v16.17.0 - Use {@link subscribe(name, onMessage)}
          * @param onMessage The handler to receive channel messages
          */
         subscribe(onMessage: ChannelListener): void;
@@ -210,7 +209,6 @@ declare module "diagnostics_channel" {
          * channel.unsubscribe(onMessage);
          * ```
          * @since v15.1.0, v14.17.0
-         * @deprecated Since v18.7.0,v16.17.0 - Use {@link unsubscribe(name, onMessage)}
          * @param onMessage The previous subscribed handler to remove
          * @return `true` if the handler was found, `false` otherwise.
          */
@@ -573,6 +571,6 @@ declare module "diagnostics_channel" {
         readonly hasSubscribers: boolean;
     }
 }
-declare module "node:diagnostics_channel" {
-    export * from "diagnostics_channel";
+declare module "diagnostics_channel" {
+    export * from "node:diagnostics_channel";
 }

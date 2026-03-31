@@ -2,8 +2,8 @@ import loopback = require("loopback");
 import cookieParser = require("cookie-parser");
 
 class TestModel {
-    id: number;
-    name: string;
+    id!: number;
+    name!: string;
 }
 
 class Server {

@@ -1,5 +1,5 @@
 import * as AzureRelay from "hyco-ws";
-import * as WebSocket from "ws";
+import WebSocket from "ws";
 
 const wss = AzureRelay.createRelayedServer(
     {

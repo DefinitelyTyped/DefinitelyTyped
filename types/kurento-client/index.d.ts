@@ -5,7 +5,7 @@ declare namespace kurento {
         (ws_uri: string, options?: Options): Promise<ClientInstance>;
         getComplexType: (complex: "IceCandidate") => (value: any) => any;
         getSingleton(ws_uri: string, options?: Options): Promise<ClientInstance>;
-        register: (module: string | ReturnType<NodeRequire>) => void;
+        register: (module: string | ReturnType<NodeJS.Require>) => void;
         on: undefined;
     }
 

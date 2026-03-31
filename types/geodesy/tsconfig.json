@@ -10,7 +10,8 @@
         "strictFunctionTypes": true,
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true
     },
     "files": [
         "geodesy-tests.ts",

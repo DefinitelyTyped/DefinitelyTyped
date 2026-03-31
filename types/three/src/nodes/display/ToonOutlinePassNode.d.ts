@@ -2,7 +2,6 @@ import { Camera } from "../../cameras/Camera.js";
 import { Color } from "../../math/Color.js";
 import { Scene } from "../../scenes/Scene.js";
 import Node from "../core/Node.js";
-import { ShaderNodeObject } from "../tsl/TSLCore.js";
 import PassNode from "./PassNode.js";
 
 declare class ToonOutlinePassNode extends PassNode {
@@ -21,4 +20,4 @@ export const toonOutlinePass: (
     color?: Color,
     thickness?: number,
     alpha?: number,
-) => ShaderNodeObject<ToonOutlinePassNode>;
+) => ToonOutlinePassNode;

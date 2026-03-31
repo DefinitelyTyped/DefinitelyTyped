@@ -5,6 +5,7 @@ import Content from "./content";
  */
 export default class CustomData {
     _value: number;
+    _net_revenue: number;
     _currency: string;
     _content_name: string;
     _content_category: string;
@@ -21,6 +22,7 @@ export default class CustomData {
     _custom_properties: Record<string, any>;
     /**
      * @param {Number} value value of the item Eg: 123.45
+     * @param {Number} net_revenue net_revenue of the item Eg: 30.45
      * @param {String} currency currency involved in the transaction Eg: usd
      * @param {String} content_name name of the Content Eg: lettuce
      * @param {String} content_category category of the content Eg: grocery
@@ -36,7 +38,7 @@ export default class CustomData {
      * @param {String} delivery_category The type of delivery for a purchase event
      * @param {Object} custom_properties Custom Properties to be added to the Custom Data
      */
-    constructor(value?: number, currency?: string, content_name?: string, content_category?: string, content_ids?: string[], contents?: Content[], content_type?: string, order_id?: string, predicted_ltv?: number, num_items?: number, search_string?: string, status?: string, item_number?: string, delivery_category?: string, custom_properties?: Record<string, any>);
+    constructor(value?: number, net_revenue?: number, currency?: string, content_name?: string, content_category?: string, content_ids?: string[], contents?: Content[], content_type?: string, order_id?: string, predicted_ltv?: number, num_items?: number, search_string?: string, status?: string, item_number?: string, delivery_category?: string, custom_properties?: Record<string, any>);
     /**
      * Gets the value of the custom data.
      * A numeric value associated with this event. This could be a monetary value or a value in some other metric.
@@ -55,6 +57,24 @@ export default class CustomData {
      * Example: 142.54.
      */
     setValue(value: number): CustomData;
+    /**
+     * Gets the net_revenue of the custom data.
+     * A numeric net_revenue associated with this event. This could be a monetary net_revenue or a net_revenue in some other metric.
+     * Example: 30.54.
+     */
+    get net_revenue(): number;
+    /**
+     * Sets the net_revenue of the custom data.
+     * @param net_revenue A numeric net_revenue associated with this event. This could be a monetary net_revenue or a net_revenue in some other metric.
+     * Example: 30.54.
+     */
+    set net_revenue(net_revenue: number);
+    /**
+     * Sets the net_revenue of the custom data.
+     * @param {Number} value A numeric net_revenue associated with this event. This could be a monetary net_revenue or a net_revenue in some other metric.
+     * Example: 30.54.
+     */
+    setNetRevenue(net_revenue: number): CustomData;
     /**
      * Gets the currency for the custom data.
      * The currency for the value specified, if applicable. Currency must be a valid ISO 4217 three digit currency code.

@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/wtfnode",
-    "version": "0.7.9999",
+    "version": "0.10.9999",
     "projects": [
         "https://github.com/myndzi/wtfnode"
     ],

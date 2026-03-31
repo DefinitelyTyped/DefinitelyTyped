@@ -69,7 +69,7 @@ var el2 = document.createElement("my-element");
 
 // implicit implementation
 class MyElement2 {
-    is: string;
+    is!: string;
 
     beforeRegister() {
         this.is = "my-element2";
@@ -80,7 +80,7 @@ Polymer(MyElement2);
 
 // explicit implementation
 class MyElement3 implements polymer.Base {
-    is: string;
+    is!: string;
 
     beforeRegister() {
         this.is = "my-element3";

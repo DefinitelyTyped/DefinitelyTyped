@@ -15,8 +15,6 @@ export interface LineBasicNodeMaterialParameters
 
 /**
  * Node material version of {@link LineBasicMaterial}.
- *
- * @augments NodeMaterial
  */
 declare class LineBasicNodeMaterial extends NodeMaterial {
     /**
@@ -28,11 +26,10 @@ declare class LineBasicNodeMaterial extends NodeMaterial {
     /**
      * This flag can be used for type testing.
      *
-     * @type {boolean}
-     * @readonly
      * @default true
      */
     readonly isLineBasicNodeMaterial: boolean;
+    setValues(values?: LineBasicNodeMaterialParameters): void;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface

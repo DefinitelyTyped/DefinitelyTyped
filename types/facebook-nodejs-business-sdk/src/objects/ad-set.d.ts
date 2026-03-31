@@ -14,6 +14,7 @@ export default class AdSet extends AbstractCrudObject {
         adset_schedule: "adset_schedule";
         asset_feed_id: "asset_feed_id";
         attribution_spec: "attribution_spec";
+        automatic_manual_state: "automatic_manual_state";
         bid_adjustments: "bid_adjustments";
         bid_amount: "bid_amount";
         bid_constraints: "bid_constraints";
@@ -29,6 +30,7 @@ export default class AdSet extends AbstractCrudObject {
         configured_status: "configured_status";
         created_time: "created_time";
         creative_sequence: "creative_sequence";
+        creative_sequence_repetition_pattern: "creative_sequence_repetition_pattern";
         daily_budget: "daily_budget";
         daily_min_spend_target: "daily_min_spend_target";
         daily_spend_cap: "daily_spend_cap";
@@ -45,6 +47,7 @@ export default class AdSet extends AbstractCrudObject {
         is_ba_skip_delayed_eligible: "is_ba_skip_delayed_eligible";
         is_budget_schedule_enabled: "is_budget_schedule_enabled";
         is_dynamic_creative: "is_dynamic_creative";
+        is_incremental_attribution_enabled: "is_incremental_attribution_enabled";
         issues_info: "issues_info";
         learning_stage_info: "learning_stage_info";
         lifetime_budget: "lifetime_budget";
@@ -115,6 +118,7 @@ export default class AdSet extends AbstractCrudObject {
         ad_recall_lift: "AD_RECALL_LIFT";
         app_installs: "APP_INSTALLS";
         app_installs_and_offsite_conversions: "APP_INSTALLS_AND_OFFSITE_CONVERSIONS";
+        automatic_objective: "AUTOMATIC_OBJECTIVE";
         conversations: "CONVERSATIONS";
         derived_events: "DERIVED_EVENTS";
         engaged_users: "ENGAGED_USERS";
@@ -148,6 +152,19 @@ export default class AdSet extends AbstractCrudObject {
         deleted: "DELETED";
         paused: "PAUSED";
     }>;
+    static get AutomaticManualState(): Readonly<{
+        automatic: "AUTOMATIC";
+        manual: "MANUAL";
+        unset: "UNSET";
+    }>;
+    static get BudgetSource(): Readonly<{
+        none: "NONE";
+        rmn: "RMN";
+    }>;
+    static get CreativeSequenceRepetitionPattern(): Readonly<{
+        full_sequence: "FULL_SEQUENCE";
+        last_ad: "LAST_AD";
+    }>;
     static get DatePreset(): Readonly<{
         data_maximum: "DATA_MAXIMUM";
         last_14d: "LAST_14D";
@@ -174,8 +191,11 @@ export default class AdSet extends AbstractCrudObject {
         app: "APP";
         applinks_automatic: "APPLINKS_AUTOMATIC";
         facebook: "FACEBOOK";
+        facebook_live: "FACEBOOK_LIVE";
         facebook_page: "FACEBOOK_PAGE";
+        imagine: "IMAGINE";
         instagram_direct: "INSTAGRAM_DIRECT";
+        instagram_live: "INSTAGRAM_LIVE";
         instagram_profile: "INSTAGRAM_PROFILE";
         instagram_profile_and_facebook_page: "INSTAGRAM_PROFILE_AND_FACEBOOK_PAGE";
         messaging_instagram_direct_messenger: "MESSAGING_INSTAGRAM_DIRECT_MESSENGER";
@@ -226,6 +246,8 @@ export default class AdSet extends AbstractCrudObject {
         value_3: "3";
         value_4: "4";
         value_5: "5";
+        value_6: "6";
+        value_7: "7";
     }>;
     static get TuneForCategory(): Readonly<{
         credit: "CREDIT";

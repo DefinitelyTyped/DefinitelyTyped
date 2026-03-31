@@ -1,7 +1,5 @@
-import "chai";
+/// <reference types="chai" />
 
-declare global {
-    var assert: Chai.AssertStatic;
-    var expect: Chai.ExpectStatic;
-    var should: Chai.Should;
-}
+declare var assert: Chai.AssertStatic;
+declare var expect: Chai.ExpectStatic;
+declare var should: Chai.Should;

@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/socketcluster-server",
-    "version": "19.0.9999",
+    "version": "20.0.9999",
     "projects": [
         "https://github.com/SocketCluster/socketcluster-server"
     ],

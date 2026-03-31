@@ -15,7 +15,7 @@ import { Texture } from "./Texture.js";
  * @see {@link https://threejs.org/docs/index.html#api/en/textures/DepthTexture | Official Documentation}
  * @see {@link https://github.com/mrdoob/three.js/blob/master/src/textures/DepthTexture.js | Source}
  */
-export class DepthTexture extends Texture {
+export class DepthTexture extends Texture<DepthTextureImageData> {
     /**
      * Create a new instance of {@link DepthTexture}
      * @param width Width of the texture.
@@ -50,13 +50,6 @@ export class DepthTexture extends Texture {
      * @defaultValue `true`
      */
     readonly isDepthTexture: true;
-
-    /**
-     * Overridden with a record type holding width and height.
-     * @override
-     */
-    get image(): { width: number; height: number; depth: number };
-    set image(value: { width: number; height: number; depth: number });
 
     /**
      * @override
@@ -103,4 +96,10 @@ export class DepthTexture extends Texture {
      * See {@link THREE.TextureComparisonFunction} for functions.
      */
     compareFunction: TextureComparisonFunction | null;
+}
+
+export interface DepthTextureImageData {
+    width: number;
+    height: number;
+    depth: number;
 }

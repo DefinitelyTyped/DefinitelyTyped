@@ -7,11 +7,19 @@ const allowedCardNetworks = new Array<google.payments.api.CardNetwork>(
     "INTERAC",
 );
 
+const cardFundingSource = new Array<google.payments.api.CardFundingSource>(
+    "UNKNOWN",
+    "CREDIT",
+    "DEBIT",
+    "PREPAID",
+);
+
 const allowedPaymentMethods = new Array<google.payments.api.PaymentMethodSpecification>({
     type: "CARD",
     parameters: {
         allowedAuthMethods: ["PAN_ONLY", "CRYPTOGRAM_3DS"],
         allowedCardNetworks,
+        allowedIssuerCountryCodes: ["US", "CA"],
         billingAddressRequired: true,
         billingAddressParameters: {
             format: "MIN",
@@ -25,6 +33,12 @@ const allowedPaymentMethods = new Array<google.payments.api.PaymentMethodSpecifi
         },
     },
 });
+
+const checkoutOptions = new Array<google.payments.api.CheckoutOption>(
+    "DEFAULT",
+    "COMPLETE_IMMEDIATE_PURCHASE",
+    "CONTINUE_TO_REVIEW",
+);
 
 // @ts-expect-error
 allowedPaymentMethods[0].tokenizationSpecification = {
@@ -195,6 +209,10 @@ function getGooglePaymentDataConfiguration(): google.payments.api.PaymentDataReq
         },
         allowedPaymentMethods,
         shippingAddressRequired: true,
+        shippingAddressParameters: {
+            phoneNumberRequired: true,
+            format: "FULL-ISO3166",
+        },
         callbackIntents: ["OFFER", "PAYMENT_AUTHORIZATION", "PAYMENT_METHOD"],
     };
 }

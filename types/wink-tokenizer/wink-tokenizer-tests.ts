@@ -1,4 +1,4 @@
-import * as Tokenizer from "wink-tokenizer";
+import Tokenizer from "wink-tokenizer";
 
 const tokenizer = new Tokenizer();
 

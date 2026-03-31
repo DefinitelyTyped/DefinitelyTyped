@@ -1,4 +1,4 @@
-import * as ng from "angular";
+import ng from "angular";
 import * as angular from "angular";
 
 import uiRouterModule from "angular-ui-router";

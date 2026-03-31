@@ -35,6 +35,7 @@ export default class Targeting extends AbstractCrudObject {
         effective_instagram_positions: "effective_instagram_positions";
         effective_messenger_positions: "effective_messenger_positions";
         effective_publisher_platforms: "effective_publisher_platforms";
+        effective_threads_positions: "effective_threads_positions";
         engagement_specs: "engagement_specs";
         ethnic_affinity: "ethnic_affinity";
         exclude_reached_since: "exclude_reached_since";
@@ -89,6 +90,7 @@ export default class Targeting extends AbstractCrudObject {
         targeting_automation: "targeting_automation";
         targeting_optimization: "targeting_optimization";
         targeting_relaxation_types: "targeting_relaxation_types";
+        threads_positions: "threads_positions";
         user_adclusters: "user_adclusters";
         user_device: "user_device";
         user_event: "user_event";

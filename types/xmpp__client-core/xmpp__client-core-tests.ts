@@ -1,5 +1,7 @@
 import { Client, jid, xml } from "@xmpp/client-core";
-import Connection = require("@xmpp/connection");
+import _bind2 from "@xmpp/client-core/src/bind2/bind2.js";
+import Connection from "@xmpp/connection";
+import { SASL2 } from "@xmpp/sasl2";
 import { Element } from "@xmpp/xml";
 
 // test type exports
@@ -29,3 +31,5 @@ client.socketParameters("foo", "bar", 1); // $ExpectType unknown
 
 xml("foo");
 jid("foo@bar.baz");
+
+_bind2({} as { sasl2: SASL2; entity: Client }, {} as (string | undefined | (() => Promise<string>)));

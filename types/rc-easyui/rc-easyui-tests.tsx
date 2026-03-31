@@ -1,4 +1,4 @@
-import * as rcui from "rc-easyui";
+import rcui from "rc-easyui";
 import * as React from "react";
 
 type Element = React.ReactElement;

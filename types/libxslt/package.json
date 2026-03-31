@@ -6,7 +6,7 @@
         "https://github.com/albanm/node-libxslt"
     ],
     "dependencies": {
-        "@types/libxmljs": "*"
+        "@types/libxmljs": "<1"
     },
     "devDependencies": {
         "@types/libxslt": "workspace:."

@@ -1,4 +1,4 @@
-import { TemplateArray } from "@wordpress/blocks";
+import { BlockAttributes, TemplateArray } from "@wordpress/blocks";
 import { ComponentType, JSX, ReactElement, Ref } from "react";
 
 import { EditorTemplateLock } from "../";
@@ -7,7 +7,7 @@ import { Merged, Reserved } from "./use-block-props";
 
 declare namespace InnerBlocks {
     interface Props {
-        allowedBlocks?: string[] | undefined;
+        allowedBlocks?: string[] | boolean | undefined;
         /**
          * A 'render prop' function that can be used to customize the block's appender.
          */
@@ -56,6 +56,20 @@ declare namespace InnerBlocks {
          * `prioritizedInserterBlocks` takes an array of the form {blockName}/{variationName}, where {variationName} is optional.
          */
         prioritizedInserterBlocks?: string[] | undefined;
+
+        /**
+         * Determines which block type should be inserted by default and any attributes that should be set by default when the block is inserted.
+         * Takes an object in the form of `{ name: blockname, attributes: {blockAttributes} }`.
+         */
+        defaultBlock?: {
+            name: string;
+            attributes?: BlockAttributes;
+        } | undefined;
+
+        /**
+         * Determines whether the default block should be inserted directly into the InnerBlocks area by the block appender.
+         */
+        directInsert?: boolean | undefined;
     }
 }
 declare const InnerBlocks: {

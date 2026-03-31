@@ -1,4 +1,4 @@
-import * as sha1 from "js-sha1";
+import sha1 from "js-sha1";
 
 sha1("test"); // $ExpectType string
 

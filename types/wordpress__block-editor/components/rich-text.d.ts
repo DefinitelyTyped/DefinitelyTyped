@@ -17,6 +17,10 @@ declare namespace RichText {
         autocompleters?: ComponentProps<typeof Autocomplete>["completers"] | undefined;
         children?: never | undefined;
         className?: string | undefined;
+        /**
+         * Disables inserting line breaks on Enter when it is set to true
+         */
+        disableLineBreaks?: boolean | undefined;
         identifier?: string | undefined;
         inlineToolbar?: boolean | undefined;
         /**
@@ -66,6 +70,10 @@ declare namespace RichText {
          * if provided.
          */
         value: string;
+        /**
+         * By default, all formatting controls are present. This setting can be used to remove formatting controls that would make content interactive. This is useful if you want to make content that is already interactive editable.
+         */
+        withoutInteractiveFormatting?: boolean | undefined;
         wrapperClassName?: string | undefined;
     }
     interface ContentProps<T extends keyof HTMLElementTagNameMap> extends HTMLProps<T> {

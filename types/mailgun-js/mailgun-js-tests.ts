@@ -1,4 +1,4 @@
-import * as mailgunFactory from "mailgun-js";
+import mailgunFactory from "mailgun-js";
 import mailgunFactory2 = require("mailgun-js");
 
 import * as FormData from "form-data";

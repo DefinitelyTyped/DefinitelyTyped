@@ -1,4 +1,4 @@
-import * as BitArray from "minimal-bit-array";
+import BitArray from "minimal-bit-array";
 
 // @ts-expect-error
 new BitArray("abc");

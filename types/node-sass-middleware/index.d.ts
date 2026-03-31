@@ -1,4 +1,4 @@
-import * as express from "express";
+import express = require("express");
 import * as sass from "node-sass";
 
 interface Options extends sass.Options {

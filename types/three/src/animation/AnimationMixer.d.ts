@@ -1,13 +1,34 @@
 import { AnimationBlendMode } from "../constants.js";
 import { EventDispatcher } from "../core/EventDispatcher.js";
 import { Object3D } from "../core/Object3D.js";
+import { LinearInterpolant } from "../math/interpolants/LinearInterpolant.js";
 import { AnimationAction } from "./AnimationAction.js";
 import { AnimationClip } from "./AnimationClip.js";
 import { AnimationObjectGroup } from "./AnimationObjectGroup.js";
+import { PropertyMixer } from "./PropertyMixer.js";
 
 export interface AnimationMixerEventMap {
     loop: { action: AnimationAction; loopDelta: number };
     finished: { action: AnimationAction; direction: number };
+}
+
+export interface MixerControlInterpolant extends LinearInterpolant {
+    __cacheIndex: number;
+}
+
+export interface AnimationMixerStats {
+    actions: {
+        readonly total: number;
+        readonly inUse: number;
+    };
+    bindings: {
+        readonly total: number;
+        readonly inUse: number;
+    };
+    controlInterpolants: {
+        readonly total: number;
+        readonly inUse: number;
+    };
 }
 
 /**
@@ -28,6 +49,23 @@ export class AnimationMixer extends EventDispatcher<AnimationMixerEventMap> {
      * @default 0
      */
     time: number;
+    protected _root: Object3D | AnimationObjectGroup;
+    protected _actions: AnimationAction[];
+    protected _nActiveActions: number;
+    protected _bindings: PropertyMixer[];
+    protected _nActiveBindings: number;
+    protected _controlInterpolants: MixerControlInterpolant[];
+    protected _nActiveControlInterpolants: number;
+    protected _bindingsByRootAndName: {
+        [rootUuid: string]: { [trackName: string]: PropertyMixer };
+    };
+    protected _actionsByClip: {
+        [clipUuid: string]: {
+            knownActions: AnimationAction[];
+            actionByRoot: { [rootUuid: string]: AnimationAction };
+        };
+    };
+    protected _accuIndex: number;
     /**
      * A scaling factor for the global time.
      *
@@ -38,6 +76,10 @@ export class AnimationMixer extends EventDispatcher<AnimationMixerEventMap> {
      * @default 1
      */
     timeScale: number;
+    /**
+     * The AnimationMixer stats track the actions of the mixer.
+     */
+    stats: AnimationMixerStats;
     /**
      * Returns an instance of {@link AnimationAction} for the passed clip.
      *
@@ -74,7 +116,7 @@ export class AnimationMixer extends EventDispatcher<AnimationMixerEventMap> {
     /**
      * Deactivates all previously scheduled actions on this mixer.
      *
-     * @return {AnimationMixer} A reference to thi animation mixer.
+     * @return {AnimationMixer} A reference to this animation mixer.
      */
     stopAllAction(): AnimationMixer;
     /**
@@ -84,7 +126,7 @@ export class AnimationMixer extends EventDispatcher<AnimationMixerEventMap> {
      * time from {@link Clock} or {@link Timer}.
      *
      * @param {number} deltaTime - The delta time in seconds.
-     * @return {AnimationMixer} A reference to thi animation mixer.
+     * @return {AnimationMixer} A reference to this animation mixer.
      */
     update(deltaTime: number): AnimationMixer;
     /**
@@ -94,7 +136,7 @@ export class AnimationMixer extends EventDispatcher<AnimationMixerEventMap> {
      * input parameter will be scaled by {@link AnimationMixer#timeScale}
      *
      * @param {number} time - The time to set in seconds.
-     * @return {AnimationMixer} A reference to thi animation mixer.
+     * @return {AnimationMixer} A reference to this animation mixer.
      */
     setTime(time: number): AnimationMixer;
     /**

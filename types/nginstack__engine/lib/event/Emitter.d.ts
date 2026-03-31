@@ -11,7 +11,7 @@ declare class Emitter {
     ) => boolean;
     duplicationHandling: any;
     private listeners_;
-    on(type: string, listener: (arg0: Event) => any): void;
+    on(type: string, listener: (arg0: Event) => any): Emitter;
     replaceListeners(
         type: string,
         listener: Listener | ((arg0: Event, arg1: (arg0: Event) => any) => any)
@@ -20,8 +20,8 @@ declare class Emitter {
     unregisterEventType(type: string | string[]): void;
     listeners(opt_type?: string): Listener[];
     listenerHandlers(type: string): Array<(arg0: Event) => any>;
-    off(type: string, listener: Listener | ((arg0: Event) => any)): void;
-    offAll(opt_type?: string): void;
+    off(type: string, listener: Listener | ((arg0: Event) => any)): Emitter;
+    offAll(opt_type?: string): Emitter;
     emit(event: Event): boolean;
     assignListeners(emitter: Emitter, opt_type?: string | string[]): void;
     addListenersFromEmitter(emitter: Emitter, opt_type?: string): void;

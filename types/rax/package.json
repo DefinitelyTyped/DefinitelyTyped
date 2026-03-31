@@ -7,7 +7,7 @@
     ],
     "dependencies": {
         "@types/prop-types": "*",
-        "csstype": "^3.0.2"
+        "csstype": "^3.2.2"
     },
     "devDependencies": {
         "@types/rax": "workspace:."

@@ -1,4 +1,4 @@
-import * as Promise from "bluebird";
+import Promise = require("bluebird");
 import { ServerResponse } from "http";
 import * as Restler from "restler";
 

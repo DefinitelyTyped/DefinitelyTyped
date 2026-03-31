@@ -18,8 +18,12 @@ export default class OpenBridgeConfiguration extends AbstractCrudObject {
         instance_id: "instance_id";
         instance_version: "instance_version";
         is_sgw_instance: "is_sgw_instance";
+        is_sgw_pixel_from_meta_pixel: "is_sgw_pixel_from_meta_pixel";
         partner_name: "partner_name";
         pixel_id: "pixel_id";
+        sgw_account_id: "sgw_account_id";
+        sgw_instance_url: "sgw_instance_url";
+        sgw_pixel_id: "sgw_pixel_id";
     }>;
     delete(fields: string[], params?: Record<string, any>): Promise<AbstractObject>;
     get(fields: string[], params?: Record<string, any>): Promise<OpenBridgeConfiguration>;

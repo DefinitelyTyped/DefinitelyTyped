@@ -1,8 +1,8 @@
 import { JID } from "@xmpp/jid";
 import { Element } from "@xmpp/xml";
-import { Entity } from "../index";
+import { Entity } from "../index.js";
 
-export = Context;
+export default Context;
 
 declare class Context<TEntity extends Entity> {
     stanza: Element;

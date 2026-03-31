@@ -1,43 +1,54 @@
-import { ShaderNodeObject } from "../tsl/TSLCore.js";
 import Node from "./Node.js";
 
-export default class PropertyNode extends Node {
+interface PropertyNodeInterface {
     name: string | null;
     varying: boolean;
 
     readonly isPropertyNode: true;
-
-    constructor(nodeType?: string | null, name?: string | null, varying?: boolean);
 }
 
-export const property: (type?: string | null, name?: string | null) => ShaderNodeObject<PropertyNode>;
-export const varyingProperty: (type?: string | null, name?: string | null) => ShaderNodeObject<PropertyNode>;
+declare const PropertyNode: {
+    new<TNodeType>(
+        nodeType: TNodeType,
+        name?: string | null,
+        varying?: boolean,
+    ): PropertyNode<TNodeType>;
+};
 
-export const diffuseColor: ShaderNodeObject<PropertyNode>;
-export const emissive: ShaderNodeObject<PropertyNode>;
-export const roughness: ShaderNodeObject<PropertyNode>;
-export const metalness: ShaderNodeObject<PropertyNode>;
-export const clearcoat: ShaderNodeObject<PropertyNode>;
-export const clearcoatRoughness: ShaderNodeObject<PropertyNode>;
-export const sheen: ShaderNodeObject<PropertyNode>;
-export const sheenRoughness: ShaderNodeObject<PropertyNode>;
-export const iridescence: ShaderNodeObject<PropertyNode>;
-export const iridescenceIOR: ShaderNodeObject<PropertyNode>;
-export const iridescenceThickness: ShaderNodeObject<PropertyNode>;
-export const alphaT: ShaderNodeObject<PropertyNode>;
-export const anisotropy: ShaderNodeObject<PropertyNode>;
-export const anisotropyT: ShaderNodeObject<PropertyNode>;
-export const anisotropyB: ShaderNodeObject<PropertyNode>;
-export const specularColor: ShaderNodeObject<PropertyNode>;
-export const specularF90: ShaderNodeObject<PropertyNode>;
-export const shininess: ShaderNodeObject<PropertyNode>;
-export const output: ShaderNodeObject<PropertyNode>;
-export const dashSize: ShaderNodeObject<PropertyNode>;
-export const gapSize: ShaderNodeObject<PropertyNode>;
-export const pointWidth: ShaderNodeObject<PropertyNode>;
-export const ior: ShaderNodeObject<PropertyNode>;
-export const transmission: ShaderNodeObject<PropertyNode>;
-export const thickness: ShaderNodeObject<PropertyNode>;
-export const attenuationDistance: ShaderNodeObject<PropertyNode>;
-export const attenuationColor: ShaderNodeObject<PropertyNode>;
-export const dispersion: ShaderNodeObject<PropertyNode>;
+type PropertyNode<TNodeType> = Node<TNodeType> & PropertyNodeInterface;
+
+export default PropertyNode;
+
+export const property: <const TNodeType>(type: TNodeType, name?: string | null) => PropertyNode<TNodeType>;
+export const varyingProperty: <const TNodeType>(type: TNodeType, name?: string | null) => PropertyNode<TNodeType>;
+
+export const diffuseColor: PropertyNode<"vec4">;
+export const diffuseContribution: PropertyNode<"vec3">;
+export const emissive: PropertyNode<"vec3">;
+export const roughness: PropertyNode<"float">;
+export const metalness: PropertyNode<"float">;
+export const clearcoat: PropertyNode<"float">;
+export const clearcoatRoughness: PropertyNode<"float">;
+export const sheen: PropertyNode<"vec3">;
+export const sheenRoughness: PropertyNode<"float">;
+export const iridescence: PropertyNode<"float">;
+export const iridescenceIOR: PropertyNode<"float">;
+export const iridescenceThickness: PropertyNode<"float">;
+export const alphaT: PropertyNode<"float">;
+export const anisotropy: PropertyNode<"float">;
+export const anisotropyT: PropertyNode<"vec3">;
+export const anisotropyB: PropertyNode<"vec3">;
+export const specularColor: PropertyNode<"color">;
+export const specularColorBlended: PropertyNode<"color">;
+export const specularF90: PropertyNode<"float">;
+export const shininess: PropertyNode<"float">;
+export const output: PropertyNode<"vec4">;
+export const dashSize: PropertyNode<"float">;
+export const gapSize: PropertyNode<"float">;
+export const pointWidth: PropertyNode<"float">;
+export const ior: PropertyNode<"float">;
+export const transmission: PropertyNode<"float">;
+export const thickness: PropertyNode<"float">;
+export const attenuationDistance: PropertyNode<"float">;
+export const attenuationColor: PropertyNode<"color">;
+export const dispersion: PropertyNode<"float">;

@@ -6,7 +6,7 @@
         "https://github.com/kurttheviking/uuid-with-v6-js#readme"
     ],
     "dependencies": {
-        "@types/uuid": "*"
+        "@types/uuid": "^8"
     },
     "devDependencies": {
         "@types/uuid-with-v6": "workspace:."

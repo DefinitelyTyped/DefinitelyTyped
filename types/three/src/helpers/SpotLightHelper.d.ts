@@ -1,77 +1,50 @@
 import { Object3D } from "../core/Object3D.js";
-import { Light } from "../lights/Light.js";
+import { SpotLight } from "../lights/SpotLight.js";
 import { ColorRepresentation } from "../math/Color.js";
-import { Matrix4 } from "../math/Matrix4.js";
 import { LineSegments } from "../objects/LineSegments.js";
 
 /**
- * This displays a cone shaped helper object for a {@link THREE.SpotLight | SpotLight}.
- * @example
- * ```typescript
- * const spotLight = new THREE.SpotLight(0xffffff);
- * spotLight.position.set(10, 10, 10);
- * scene.add(spotLight);
- * const {@link SpotLightHelper} = new THREE.SpotLightHelper(spotLight);
- * scene.add(spotLightHelper);
+ * This displays a cone shaped helper object for a {@link SpotLight}.
+ *
+ * When the spot light or its target are transformed or light properties are
+ * changed, it's necessary to call the `update()` method of the respective helper.
+ *
+ * ```js
+ * const spotLight = new THREE.SpotLight( 0xffffff );
+ * spotLight.position.set( 10, 10, 10 );
+ * scene.add( spotLight );
+ *
+ * const spotLightHelper = new THREE.SpotLightHelper( spotLight );
+ * scene.add( spotLightHelper );
  * ```
- * @see Example: {@link https://threejs.org/examples/#webgl_lights_spotlights | WebGL/ lights / spotlights }
- * @see {@link https://threejs.org/docs/index.html#api/en/helpers/SpotLightHelper | Official Documentation}
- * @see {@link https://github.com/mrdoob/three.js/blob/master/src/helpers/SpotLightHelper.js | Source}
  */
 export class SpotLightHelper extends Object3D {
     /**
-     * Create a new instance of {@link SpotLightHelper}
-     * @param light The {@link THREE.SpotLight | SpotLight} to be visualized.
-     * @param color If this is not the set the helper will take the color of the light. Default `light.color`
+     * Constructs a new spot light helper.
+     *
+     * @param {HemisphereLight} light - The light to be visualized.
+     * @param {number|Color|string} [color] - The helper's color. If not set, the helper will take
+     * the color of the light.
      */
-    constructor(light: Light, color?: ColorRepresentation);
-
+    constructor(light: SpotLight, color?: ColorRepresentation);
     /**
-     * A Read-only _string_ to check if `this` object type.
-     * @remarks Sub-classes will update this value.
-     * @override
-     * @defaultValue `SpotLightHelper`
+     * The light being visualized.
      */
-    override readonly type: string | "SpotLightHelper";
-
-    /**
-     * {@link THREE.LineSegments | LineSegments} used to visualize the light.
-     */
-    cone: LineSegments;
-
-    /**
-     * Reference to the {@link THREE.SpotLight | SpotLight} being visualized.
-     */
-    light: Light;
-
-    /**
-     * Reference to the spotLight's {@link Object3D.matrixWorld | matrixWorld}.
-     */
-    matrix: Matrix4;
-
+    light: SpotLight;
     /**
      * The color parameter passed in the constructor.
-     * If this is changed, the helper's color will update the next time {@link SpotLightHelper.update | update} is called.
-     * @defaultValue `undefined`
+     * If not set, the helper will take the color of the light.
      */
     color: ColorRepresentation | undefined;
-
+    cone: LineSegments;
     /**
-     * Is set to `false`, as the helper is using the {@link THREE.Light.matrixWorld | light.matrixWorld}.
-     * @see {@link THREE.Object3D.matrixAutoUpdate | Object3D.matrixAutoUpdate}.
-     * @defaultValue `false`.
-     */
-    override matrixAutoUpdate: boolean;
-
-    /**
-     * Updates the light helper.
-     */
-    update(): void;
-
-    /**
-     * Frees the GPU-related resources allocated by this instance
-     * @remarks
-     * Call this method whenever this instance is no longer used in your app.
+     * Frees the GPU-related resources allocated by this instance. Call this
+     * method whenever this instance is no longer used in your app.
      */
     dispose(): void;
+    /**
+     * Updates the helper to match the position and direction of the
+     * light being visualized.
+     */
+    update(): void;
 }

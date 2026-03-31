@@ -1,5 +1,5 @@
 import cash from "cash-dom";
-import * as jQuery from "jquery";
+import jQuery from "jquery";
 import * as M from "materialize-css";
 
 // Test Component Initialization

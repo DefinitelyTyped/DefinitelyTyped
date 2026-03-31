@@ -14,6 +14,7 @@ declare class Security {
     changePassword(userKey: number, oldPassword: string, newPassword: string): void;
     setPassword(userKey: any, password: any): void;
     authenticateUser(userId: string, password: string): number;
+    authenticateAuthToken(authToken: string): AuthTokenInfo;
     createAuthToken(
         userId: string,
         password: string,
@@ -23,7 +24,11 @@ declare class Security {
     ): string;
     isAdministrator(userKey: number): boolean;
     isDeveloper(userKey: number): boolean;
-    authorizeToken(authToken: import('./AuthToken'), userId: string, password: string): string;
+    authorizeToken(
+        authToken: import('./AuthToken'),
+        userId: string | number | DBKey,
+        password?: string
+    ): string;
     restoreAuthToken(accessToken: string): import('./AuthToken');
     updateAuthToken(token: import('./AuthToken'), userId: string, password: string): void;
     revokeAuthToken(accessToken: string): void;
@@ -38,6 +43,7 @@ declare class Security {
     getUserAndGroupsKeys(userKey: number): any[];
     getAuthPolicy(userKey: DBKey | number): number;
     getAuthPolicyClass(userKey: DBKey | number): DBKey;
+    encryptSecret(key: DBKey | number, secret: string): string;
     hasPermissionControl(key: number): boolean;
     suggestPermissionApplyMode(parent: number): number | null;
     getMimeTypesWithPermissionControl(): number[];
@@ -46,10 +52,20 @@ declare class Security {
     userCanModifyRecord(ds: DataSet, userKey?: number): boolean;
     getUserScopes(userKey: DBKey | number): string[];
     userHasScope(userKey: DBKey | number, scope: string | DBKey | number): boolean;
+    grantScope(assignee: DBKey | number, scope: string | DBKey | number): void;
+    revokeScope(assignee: DBKey | number, scope: string | DBKey | number): void;
 }
 declare namespace Security {
-    export { getInstance, DataSet };
+    export { getInstance, DataSet, AuthTokenInfo };
 }
 import DBKey = require('../dbkey/DBKey.js');
 declare function getInstance(): Security;
 type DataSet = import('../dataset/DataSet');
+interface AuthTokenInfo {
+    userKey: number;
+    userName: string;
+    tokenKey: number;
+    providerKey: number;
+    scope: string;
+    data: string;
+}

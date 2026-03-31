@@ -1,7 +1,7 @@
-import * as DataSource from "@nginstack/datasource/lib/DataSource";
-import * as DataSourceColumnDef from "@nginstack/datasource/lib/DataSourceColumnDef";
-import * as DataSourceColumns from "@nginstack/datasource/lib/DataSourceColumns";
-import * as DataSourceFilters from "@nginstack/datasource/lib/DataSourceFilters";
+import DataSource from "@nginstack/datasource/lib/DataSource";
+import DataSourceColumnDef from "@nginstack/datasource/lib/DataSourceColumnDef";
+import DataSourceColumns from "@nginstack/datasource/lib/DataSourceColumns";
+import DataSourceFilters from "@nginstack/datasource/lib/DataSourceFilters";
 
 const datasource = new DataSource(1); // $ExpectType DataSource
 const filters = new DataSourceFilters(datasource); // $ExpectType DataSourceFilters
@@ -21,6 +21,6 @@ datasource.createColumns(columnDefs); // $ExpectType DataSourceColumns
 datasource.getDataSet(filters, columns); // $ExpectType DataSet
 
 function getVersion(): string {
-    return "72.0.5";
+    return "81.0.1";
 }
 getVersion(); // $ExpectType string

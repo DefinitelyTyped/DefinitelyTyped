@@ -1,5 +1,6 @@
+/// <reference types="chai/register-should" />
+
 import chaiLike = require("chai-like");
-import "chai/register-should";
 
 declare const expect: Chai.ExpectStatic;
 

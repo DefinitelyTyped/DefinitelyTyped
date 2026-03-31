@@ -45,6 +45,16 @@ navigator.usb.addEventListener("connect", evt => {
     // Add |device| to the UI.
     handleConnectedDevice(evt.device);
 });
+// `options: boolean`
+navigator.usb.addEventListener("connect", evt => {
+    // Add |device| to the UI.
+    handleConnectedDevice(evt.device);
+}, true);
+// `options: AddEventListenerOptions`
+navigator.usb.addEventListener("connect", evt => {
+    // Add |device| to the UI.
+    handleConnectedDevice(evt.device);
+}, { capture: true });
 
 navigator.usb.addEventListener("disconnect", evt => {
     // Remove |device| from the UI.
@@ -86,4 +96,58 @@ async function handleConnectedDevice(device: USBDevice) {
             await device.clearHalt("in", 1);
         }
     }
+}
+
+function testNullVsUndefined(device: USBDevice) {
+    // There are certain properties that are nullable, meaning they return null
+    // rather than undefined. These constructs test that this is the case.
+
+    if (device.manufacturerName !== null) {
+        device.manufacturerName.length;
+    }
+
+    if (device.productName !== null) {
+        device.productName.length;
+    }
+
+    if (device.serialNumber !== null) {
+        device.serialNumber.length;
+    }
+
+    if (device.configuration !== null) {
+        if (device.configuration.configurationName !== null) {
+            device.configuration.configurationName.length;
+        }
+
+        if (device.configuration.interfaces[0].alternate.interfaceName !== null) {
+            device.configuration.interfaces[0].alternate.interfaceName.length;
+        }
+    }
+}
+
+function testStatusIsNotUndefined(
+    r1: USBInTransferResult,
+    r2: USBOutTransferResult,
+    r3: USBIsochronousInTransferPacket,
+    r4: USBIsochronousOutTransferPacket,
+) {
+    if (r1.status !== "ok") {
+        r1.status.length;
+    }
+
+    if (r2.status !== "ok") {
+        r2.status.length;
+    }
+
+    if (r3.status !== "ok") {
+        r3.status.length;
+    }
+
+    if (r4.status !== "ok") {
+        r4.status.length;
+    }
+}
+
+function testWorkerNavigator(workerNavigator: WorkerNavigator) {
+    workerNavigator.usb.getDevices();
 }

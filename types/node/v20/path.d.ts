@@ -67,7 +67,7 @@ declare module "path" {
         interface PlatformPath {
             /**
              * Normalize a string path, reducing '..' and '.' parts.
-             * When multiple slashes are found, they're replaced by a single one; when the path contains a trailing slash, it is preserved. On Windows backslashes are used.
+             * When multiple slashes are found, they're replaced by a single one; when the path contains a trailing slash, it is preserved. On Windows backslashes are used. If the path is a zero-length string, '.' is returned, representing the current working directory.
              *
              * @param path string path to normalize.
              * @throws {TypeError} if `path` is not a string.

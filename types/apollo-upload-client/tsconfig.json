@@ -18,7 +18,7 @@
     "files": [
         "index.d.ts",
         "apollo-upload-client-tests.ts",
-        "createUploadLink.d.mts",
+        "UploadHttpLink.d.mts",
         "formDataAppendFile.d.mts",
         "isExtractableFile.d.mts"
     ]

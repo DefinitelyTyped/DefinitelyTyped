@@ -36,9 +36,9 @@
  * decoder.write(Buffer.from([0x82]));
  * console.log(decoder.end(Buffer.from([0xAC]))); // Prints: €
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/string_decoder.js)
+ * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/string_decoder.js)
  */
-declare module "string_decoder" {
+declare module "node:string_decoder" {
     class StringDecoder {
         constructor(encoding?: BufferEncoding);
         /**
@@ -48,7 +48,7 @@ declare module "string_decoder" {
          * @since v0.1.99
          * @param buffer The bytes to decode.
          */
-        write(buffer: string | Buffer | NodeJS.ArrayBufferView): string;
+        write(buffer: string | NodeJS.ArrayBufferView): string;
         /**
          * Returns any remaining input stored in the internal buffer as a string. Bytes
          * representing incomplete UTF-8 and UTF-16 characters will be replaced with
@@ -59,9 +59,9 @@ declare module "string_decoder" {
          * @since v0.9.3
          * @param buffer The bytes to decode.
          */
-        end(buffer?: string | Buffer | NodeJS.ArrayBufferView): string;
+        end(buffer?: string | NodeJS.ArrayBufferView): string;
     }
 }
-declare module "node:string_decoder" {
-    export * from "string_decoder";
+declare module "string_decoder" {
+    export * from "node:string_decoder";
 }

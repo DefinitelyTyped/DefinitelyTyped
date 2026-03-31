@@ -96,7 +96,7 @@ export function createRoot(container: Container, options?: RootOptions): Root;
  * hydrateRoot(document.querySelector('#root'), <App />)
  * ```
  *
- * @see https://reactjs.org/docs/react-dom-client.html#hydrateroot
+ * @see https://react.dev/reference/react-dom/client/hydrateRoot
  */
 export function hydrateRoot(
     container: Element | Document,

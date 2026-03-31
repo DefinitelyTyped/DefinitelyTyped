@@ -16,6 +16,7 @@ type NativeKeyboardEvent = KeyboardEvent;
 type NativeMouseEvent = MouseEvent;
 type NativeTouchEvent = TouchEvent;
 type NativePointerEvent = PointerEvent;
+type NativeSubmitEvent = SubmitEvent;
 type NativeToggleEvent = ToggleEvent;
 type NativeTransitionEvent = TransitionEvent;
 type NativeUIEvent = UIEvent;
@@ -225,12 +226,20 @@ declare namespace React {
 
     type ComponentState = any;
 
+    interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_KEY_TYPES {}
+
     /**
      * A value which uniquely identifies a node among items in an array.
      *
      * @see {@link https://react.dev/learn/rendering-lists#keeping-list-items-in-order-with-key React Docs}
      */
-    type Key = string | number | bigint;
+    type Key =
+        | string
+        | number
+        | bigint
+        | DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_KEY_TYPES[
+            keyof DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_KEY_TYPES
+        ];
 
     /**
      * @internal The props any component can receive.
@@ -1774,12 +1783,16 @@ declare namespace React {
      * @see {@link https://react.dev/reference/react/useEffect}
      */
     function useEffect(effect: EffectCallback, deps?: DependencyList): void;
+    /**
+     * @see {@link https://react.dev/reference/react/useEffectEvent `useEffectEvent()` documentation}
+     * @version 19.2.0
+     */
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
+    export function useEffectEvent<T extends Function>(callback: T): T;
     // NOTE: this does not accept strings, but this will have to be fixed by removing strings from type Ref<T>
     /**
      * `useImperativeHandle` customizes the instance value that is exposed to parent components when using
      * `ref`. As always, imperative code using refs should be avoided in most cases.
-     *
-     * `useImperativeHandle` should be used with `React.forwardRef`.
      *
      * @version 16.8.0
      * @see {@link https://react.dev/reference/react/useImperativeHandle}
@@ -1880,7 +1893,7 @@ declare namespace React {
      *
      * @param callback A synchronous, void callback that will execute as a single, complete React commit.
      *
-     * @see https://reactjs.org/blog/2019/02/06/react-v16.8.0.html#testing-hooks
+     * @see {@link https://reactjs.org/blog/2019/02/06/react-v16.8.0.html#testing-hooks}
      */
     // NOTES
     // - the order of these signatures matters - typescript will check the signatures in source order.
@@ -1922,7 +1935,31 @@ declare namespace React {
         reducer: (state: State, action: Action) => State,
     ): [State, (action: Action) => void];
 
-    export type Usable<T> = PromiseLike<T> | Context<T>;
+    interface UntrackedReactPromise<T> extends PromiseLike<T> {
+        status?: void;
+    }
+
+    export interface PendingReactPromise<T> extends PromiseLike<T> {
+        status: "pending";
+    }
+
+    export interface FulfilledReactPromise<T> extends PromiseLike<T> {
+        status: "fulfilled";
+        value: T;
+    }
+
+    export interface RejectedReactPromise<T> extends PromiseLike<T> {
+        status: "rejected";
+        reason: unknown;
+    }
+
+    export type ReactPromise<T> =
+        | UntrackedReactPromise<T>
+        | PendingReactPromise<T>
+        | FulfilledReactPromise<T>
+        | RejectedReactPromise<T>;
+
+    export type Usable<T> = ReactPromise<T> | Context<T>;
 
     export function use<T>(usable: Usable<T>): T;
 
@@ -1940,10 +1977,39 @@ declare namespace React {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
     export function cache<CachedFunction extends Function>(fn: CachedFunction): CachedFunction;
 
+    export interface CacheSignal {}
+    /**
+     * @version 19.2.0
+     */
+    export function cacheSignal(): null | CacheSignal;
+
+    export interface ActivityProps {
+        /**
+         * @default "visible"
+         */
+        mode?:
+            | "hidden"
+            | "visible"
+            | undefined;
+        /**
+         * A name for this Activity boundary for instrumentation purposes.
+         * The name will help identify this boundary in React DevTools.
+         */
+        name?: string | undefined;
+        children: ReactNode;
+    }
+
+    /**
+     * @see {@link https://react.dev/reference/react/Activity `<Activity>` documentation}
+     * @version 19.2.0
+     */
+    export const Activity: ExoticComponent<ActivityProps>;
+
     /**
      * Warning: Only available in development builds.
      *
      * @see {@link https://react.dev/reference/react/captureOwnerStack Reference docs}
+     * @version 19.1.0
      */
     function captureOwnerStack(): string | null;
 
@@ -2008,15 +2074,28 @@ declare namespace React {
         target: EventTarget & Target;
     }
 
+    /**
+     * @deprecated FormEvent doesn't actually exist.
+     *             You probably meant to use {@link ChangeEvent}, {@link InputEvent}, {@link SubmitEvent}, or just {@link SyntheticEvent} instead
+     *             depending on the event type.
+     */
     interface FormEvent<T = Element> extends SyntheticEvent<T> {
     }
 
     interface InvalidEvent<T = Element> extends SyntheticEvent<T> {
-        target: EventTarget & T;
     }
 
-    interface ChangeEvent<T = Element> extends SyntheticEvent<T> {
-        target: EventTarget & T;
+    /**
+     * change events bubble in React so their target is generally unknown.
+     * Only for form elements we know their target type because form events can't
+     * be nested.
+     * This type exists purely to narrow `target` for form elements. It doesn't
+     * reflect a DOM event. Change events are just fired as standard {@link SyntheticEvent}.
+     */
+    interface ChangeEvent<CurrentTarget = Element, Target = Element> extends SyntheticEvent<CurrentTarget> {
+        // TODO: This is wrong for change event handlers on arbitrary. Should
+        // be EventTarget & Target, but kept for backward compatibility until React 20.
+        target: EventTarget & CurrentTarget;
     }
 
     interface InputEvent<T = Element> extends SyntheticEvent<T, NativeInputEvent> {
@@ -2086,6 +2165,13 @@ declare namespace React {
         shiftKey: boolean;
     }
 
+    interface SubmitEvent<T = Element> extends SyntheticEvent<T, NativeSubmitEvent> {
+        // `submitter` is available in react@canary
+        // submitter: HTMLElement | null;
+        // SubmitEvents are always targetted at HTMLFormElements.
+        target: EventTarget & HTMLFormElement;
+    }
+
     interface TouchEvent<T = Element> extends UIEvent<T, NativeTouchEvent> {
         altKey: boolean;
         changedTouches: TouchList;
@@ -2141,11 +2227,19 @@ declare namespace React {
     type CompositionEventHandler<T = Element> = EventHandler<CompositionEvent<T>>;
     type DragEventHandler<T = Element> = EventHandler<DragEvent<T>>;
     type FocusEventHandler<T = Element> = EventHandler<FocusEvent<T>>;
+    /**
+     * @deprecated FormEventHandler doesn't actually exist.
+     *             You probably meant to use {@link ChangeEventHandler}, {@link InputEventHandler}, {@link SubmitEventHandler}, or just {@link EventHandler} instead
+     *             depending on the event type.
+     */
     type FormEventHandler<T = Element> = EventHandler<FormEvent<T>>;
-    type ChangeEventHandler<T = Element> = EventHandler<ChangeEvent<T>>;
+    type ChangeEventHandler<CurrentTarget = Element, Target = Element> = EventHandler<
+        ChangeEvent<CurrentTarget, Target>
+    >;
     type InputEventHandler<T = Element> = EventHandler<InputEvent<T>>;
     type KeyboardEventHandler<T = Element> = EventHandler<KeyboardEvent<T>>;
     type MouseEventHandler<T = Element> = EventHandler<MouseEvent<T>>;
+    type SubmitEventHandler<T = Element> = EventHandler<SubmitEvent<T>>;
     type TouchEventHandler<T = Element> = EventHandler<TouchEvent<T>>;
     type PointerEventHandler<T = Element> = EventHandler<PointerEvent<T>>;
     type UIEventHandler<T = Element> = EventHandler<UIEvent<T>>;
@@ -2199,19 +2293,19 @@ declare namespace React {
         onBlur?: FocusEventHandler<T> | undefined;
         onBlurCapture?: FocusEventHandler<T> | undefined;
 
-        // Form Events
-        onChange?: FormEventHandler<T> | undefined;
-        onChangeCapture?: FormEventHandler<T> | undefined;
+        // form related Events
+        onChange?: ChangeEventHandler<T> | undefined;
+        onChangeCapture?: ChangeEventHandler<T> | undefined;
         onBeforeInput?: InputEventHandler<T> | undefined;
-        onBeforeInputCapture?: FormEventHandler<T> | undefined;
-        onInput?: FormEventHandler<T> | undefined;
-        onInputCapture?: FormEventHandler<T> | undefined;
-        onReset?: FormEventHandler<T> | undefined;
-        onResetCapture?: FormEventHandler<T> | undefined;
-        onSubmit?: FormEventHandler<T> | undefined;
-        onSubmitCapture?: FormEventHandler<T> | undefined;
-        onInvalid?: FormEventHandler<T> | undefined;
-        onInvalidCapture?: FormEventHandler<T> | undefined;
+        onBeforeInputCapture?: InputEventHandler<T> | undefined;
+        onInput?: InputEventHandler<T> | undefined;
+        onInputCapture?: InputEventHandler<T> | undefined;
+        onReset?: ReactEventHandler<T> | undefined;
+        onResetCapture?: ReactEventHandler<T> | undefined;
+        onSubmit?: SubmitEventHandler<T> | undefined;
+        onSubmitCapture?: SubmitEventHandler<T> | undefined;
+        onInvalid?: ReactEventHandler<T> | undefined;
+        onInvalidCapture?: ReactEventHandler<T> | undefined;
 
         // Image Events
         onLoad?: ReactEventHandler<T> | undefined;
@@ -2749,13 +2843,13 @@ declare namespace React {
         unselectable?: "on" | "off" | undefined;
 
         // Popover API
-        popover?: "" | "auto" | "manual" | undefined;
+        popover?: "" | "auto" | "manual" | "hint" | undefined;
         popoverTargetAction?: "toggle" | "show" | "hide" | undefined;
         popoverTarget?: string | undefined;
 
         // Living Standard
         /**
-         * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert
+         * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert}
          */
         inert?: boolean | undefined;
         /**
@@ -3003,6 +3097,7 @@ declare namespace React {
     }
 
     interface DialogHTMLAttributes<T> extends HTMLAttributes<T> {
+        closedby?: "any" | "closerequest" | "none" | undefined;
         onCancel?: ReactEventHandler<T> | undefined;
         onClose?: ReactEventHandler<T> | undefined;
         open?: boolean | undefined;
@@ -3217,7 +3312,9 @@ declare namespace React {
         value?: string | readonly string[] | number | undefined;
         width?: number | string | undefined;
 
-        onChange?: ChangeEventHandler<T> | undefined;
+        // No other element dispatching change events can be nested in a <input>
+        // so we know the target will be a HTMLInputElement.
+        onChange?: ChangeEventHandler<T, HTMLInputElement> | undefined;
     }
 
     interface KeygenHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -3365,6 +3462,7 @@ declare namespace React {
         charSet?: string | undefined;
         crossOrigin?: CrossOrigin;
         defer?: boolean | undefined;
+        fetchPriority?: "high" | "low" | "auto" | undefined;
         integrity?: string | undefined;
         noModule?: boolean | undefined;
         referrerPolicy?: HTMLAttributeReferrerPolicy | undefined;
@@ -3381,7 +3479,9 @@ declare namespace React {
         required?: boolean | undefined;
         size?: number | undefined;
         value?: string | readonly string[] | number | undefined;
-        onChange?: ChangeEventHandler<T> | undefined;
+        // No other element dispatching change events can be nested in a <select>
+        // so we know the target will be a HTMLSelectElement.
+        onChange?: ChangeEventHandler<T, HTMLSelectElement> | undefined;
     }
 
     interface SourceHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -3433,7 +3533,9 @@ declare namespace React {
         value?: string | readonly string[] | number | undefined;
         wrap?: string | undefined;
 
-        onChange?: ChangeEventHandler<T> | undefined;
+        // No other element dispatching change events can be nested in a <textarea>
+        // so we know the target will be a HTMLTextAreaElement.
+        onChange?: ChangeEventHandler<T, HTMLTextAreaElement> | undefined;
     }
 
     interface TdHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -3505,6 +3607,9 @@ declare namespace React {
         method?: string | undefined;
         min?: number | string | undefined;
         name?: string | undefined;
+        nonce?: string | undefined;
+        part?: string | undefined;
+        slot?: string | undefined;
         style?: CSSProperties | undefined;
         target?: string | undefined;
         type?: string | undefined;
@@ -3572,7 +3677,21 @@ declare namespace React {
         direction?: number | string | undefined;
         display?: number | string | undefined;
         divisor?: number | string | undefined;
-        dominantBaseline?: number | string | undefined;
+        dominantBaseline?:
+            | "auto"
+            | "use-script"
+            | "no-change"
+            | "reset-size"
+            | "ideographic"
+            | "alphabetic"
+            | "hanging"
+            | "mathematical"
+            | "central"
+            | "middle"
+            | "text-after-edge"
+            | "text-before-edge"
+            | "inherit"
+            | undefined;
         dur?: number | string | undefined;
         dx?: number | string | undefined;
         dy?: number | string | undefined;
@@ -3719,7 +3838,7 @@ declare namespace React {
         tableValues?: number | string | undefined;
         targetX?: number | string | undefined;
         targetY?: number | string | undefined;
-        textAnchor?: string | undefined;
+        textAnchor?: "start" | "middle" | "end" | "inherit" | undefined;
         textDecoration?: number | string | undefined;
         textLength?: number | string | undefined;
         textRendering?: number | string | undefined;
@@ -4008,7 +4127,6 @@ declare namespace React {
          * Captures which component contained the exception, and its ancestors.
          */
         componentStack?: string | null;
-        digest?: string | null;
     }
 
     // Keep in sync with JSX namespace in ./jsx-runtime.d.ts and ./jsx-dev-runtime.d.ts

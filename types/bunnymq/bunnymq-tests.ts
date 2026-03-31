@@ -1,4 +1,4 @@
-import * as bunnymq from "bunnymq";
+import bunnymq from "bunnymq";
 
 // Basic usage
 const instance = bunnymq({ host: "amqp://localhost" });

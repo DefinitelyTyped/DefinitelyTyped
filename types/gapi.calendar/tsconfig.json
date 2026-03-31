@@ -11,7 +11,8 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "forceConsistentCasingInFileNames": true,
-        "noEmit": true
+        "noEmit": true,
+        "esModuleInterop": true
     },
     "files": [
         "index.d.ts",

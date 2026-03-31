@@ -40,7 +40,7 @@ export namespace NetworkStatus {
         /**
          * Returns the $(ref:NetworkLinkInfo) of the current network connection.
          */
-        getLinkInfo(): void;
+        getLinkInfo(): Promise<void>;
 
         /**
          * Fired when the network connection state changes.

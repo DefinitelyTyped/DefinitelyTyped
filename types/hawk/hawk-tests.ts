@@ -1,6 +1,6 @@
 import * as Hawk from "hawk";
 import * as Http from "http";
-import * as Request from "request";
+import Request from "request";
 
 {
     // Credentials lookup function

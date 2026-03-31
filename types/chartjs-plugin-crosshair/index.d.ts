@@ -1,4 +1,4 @@
-import * as Chart from "chart.js";
+import Chart = require("chart.js");
 
 declare module "chart.js" {
     interface ChartPluginsOptions {

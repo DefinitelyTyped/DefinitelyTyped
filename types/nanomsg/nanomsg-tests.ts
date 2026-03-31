@@ -13,6 +13,6 @@ sub.on("data", buf => {
     sub.close(); // $ExpectType void
 });
 
-setTimeout(_ => {
+setTimeout(() => {
     pub.send("Hello from nanomsg!"); // $ExpectType number
 }, 100);

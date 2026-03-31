@@ -2,6 +2,7 @@ function dropdown() {
     layui.use("dropdown", () => {
         const dropdown = layui.dropdown;
         const ret = dropdown.render({
+            trigger: "hover",
             elem: "#demo1", // 可绑定在任意元素中，此处以上述按钮为例
             data: [
                 {

@@ -1,4 +1,4 @@
-import * as Ajv from "ajv";
+import Ajv from "ajv";
 import JSONEditor, { AutoCompleteOptions, EditableNode, JSONEditorMode, JSONEditorOptions } from "jsoneditor";
 
 const autocomplete: AutoCompleteOptions = {};

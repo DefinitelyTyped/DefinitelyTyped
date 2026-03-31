@@ -16,7 +16,7 @@ export interface Event {
 const createEmitStatement = (event: Event): string[] => {
     const argsStr = event.args.map(arg => `${arg.name}: ${arg.type}`).join(", ");
     return [
-        `emit(event: '${event.name}'${event.args.length > 0 ? ", " : ""}${argsStr}): boolean;`,
+        `emit(event: "${event.name}"${event.args.length > 0 ? ", " : ""}${argsStr}): boolean;`,
     ];
 };
 
@@ -32,7 +32,7 @@ const createListenerFn = (fnName: string) => (event: Event): string[] => {
     return [
         ...event.comment && event.comment.length > 0 ? [""] : [],
         ...event.comment || [],
-        `${fnName}(event: '${event.name}', listener: (${argsStr}) => void): this;`,
+        `${fnName}(event: "${event.name}", listener: (${argsStr}) => void): this;`,
         ...event.comment && event.comment.length > 0 ? [""] : [],
     ];
 };

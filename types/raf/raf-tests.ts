@@ -1,4 +1,4 @@
-import * as raf from "raf";
+import raf from "raf";
 
 const handle = raf((timestamp) => {
     timestamp; // $ExpectType number

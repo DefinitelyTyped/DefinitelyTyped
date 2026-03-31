@@ -1,5 +1,5 @@
 import * as sql from "mssql";
-import * as msnodesqlv8 from "mssql/msnodesqlv8";
+import msnodesqlv8 from "mssql/msnodesqlv8";
 import { Readable } from "stream";
 
 interface Entity {
@@ -35,6 +35,8 @@ var config: sql.config = {
 };
 
 var connectionString = "Server=localhost,1433;Database=database;User Id=username;Password=password;Encrypt=true";
+
+var configOrConnectionString: sql.config | string;
 
 var minimalConfig: sql.config = { server: "ip" };
 
@@ -162,6 +164,8 @@ var connection: sql.ConnectionPool = new sql.ConnectionPool(config, function(err
         });
     }
 });
+
+var connectionUnionTypeTest = new sql.ConnectionPool(configOrConnectionString);
 
 function test_connection_string_parser() {
     var parsedConfig: sql.config = sql.ConnectionPool.parseConnectionString(connectionString);

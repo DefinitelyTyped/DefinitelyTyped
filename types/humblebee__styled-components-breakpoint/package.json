@@ -7,7 +7,7 @@
     ],
     "dependencies": {
         "@types/styled-components": "*",
-        "csstype": "^3.0.2"
+        "csstype": "^3.2.2"
     },
     "devDependencies": {
         "@types/humblebee__styled-components-breakpoint": "workspace:."

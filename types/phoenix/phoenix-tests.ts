@@ -19,6 +19,7 @@ class InMemoryStorage {
 
 function test_socket() {
     const socket = new Socket("/ws", {
+        authToken: "my-secret-token",
         binaryType: "arraybuffer",
         params: { userToken: "123" },
         reconnectAfterMs: tries => 1000,

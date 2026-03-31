@@ -37,5 +37,5 @@ export class Font {
 
     constructor(data: FontData);
 
-    generateShapes(text: string, size?: number): Shape[];
+    generateShapes(text: string, size?: number, direction?: "ltr" | "rtl" | "tb"): Shape[];
 }

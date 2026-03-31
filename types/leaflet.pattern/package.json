@@ -6,7 +6,7 @@
         "https://github.com/pixelizedPeanut/Leaflet.pattern#leafletpattern"
     ],
     "dependencies": {
-        "@types/leaflet": "*"
+        "@types/leaflet": "^1.9"
     },
     "devDependencies": {
         "@types/leaflet.pattern": "workspace:."

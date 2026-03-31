@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/chrome",
     "version": "0.1.9999",
+    "nonNpm": "conflict",
+    "nonNpmDescription": "The complete reference to all APIs made available to Chrome Extensions",
     "projects": [
         "https://developer.chrome.com/docs/extensions"
     ],

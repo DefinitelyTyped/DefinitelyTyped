@@ -8,7 +8,7 @@
     "dependencies": {
         "@types/fluent": "*",
         "@types/react": "*",
-        "csstype": "^3.0.2"
+        "csstype": "^3.2.2"
     },
     "devDependencies": {
         "@types/fluent-react": "workspace:."

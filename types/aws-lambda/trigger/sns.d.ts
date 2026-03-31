@@ -16,12 +16,12 @@ export interface SNSMessage {
     SignatureVersion: string;
     Timestamp: string;
     Signature: string;
-    SigningCertUrl: string;
+    SigningCertUrl: string; // Not SigningCertURL; see https://github.com/DefinitelyTyped/DefinitelyTyped/pull/73817#issuecomment-3367340170
     MessageId: string;
     Message: string;
     MessageAttributes: SNSMessageAttributes;
     Type: string;
-    UnsubscribeUrl: string;
+    UnsubscribeUrl: string; // Not UnsubscribeURL; see https://github.com/DefinitelyTyped/DefinitelyTyped/pull/73817#issuecomment-3367340170
     TopicArn: string;
     Subject?: string;
     Token?: string;

@@ -309,6 +309,8 @@ declare namespace formidable {
     type EnabledPlugins = {
         [P in Plugin]: PluginFunction;
     };
+
+    type FormidableError = InstanceType<typeof errors.default>;
 }
 
 declare const formidable: {
@@ -326,6 +328,11 @@ declare const formidable: {
     IncomingForm: typeof Formidable;
     // parsers and mapped parsers
     parsers: typeof parsers;
+    // add named plugin exports
+    octetstream: formidable.PluginFunction;
+    querystring: formidable.PluginFunction;
+    multipart: formidable.PluginFunction;
+    json: formidable.PluginFunction;
 } & formidable.MappedParsers;
 
 export = formidable;

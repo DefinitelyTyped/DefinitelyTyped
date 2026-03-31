@@ -1,5 +1,13 @@
 import { BufferGeometry } from "../core/BufferGeometry.js";
 
+export interface TorusGeometryJSON {
+    radius: number;
+    tube: number;
+    radialSegments: number;
+    tubularSegments: number;
+    arc: number;
+}
+
 /**
  * A class for generating torus geometries.
  * @example
@@ -21,8 +29,18 @@ export class TorusGeometry extends BufferGeometry {
      * @param radialSegments Default is `12`.
      * @param tubularSegments Default is `48`.
      * @param arc Central angle. Default is Math.PI * 2.
+     * @param {number} [thetaStart=0] - Start of the tubular sweep in radians.
+     * @param {number} [thetaLength=Math.PI times 2] - Length of the tubular sweep in radians.
      */
-    constructor(radius?: number, tube?: number, radialSegments?: number, tubularSegments?: number, arc?: number);
+    constructor(
+        radius?: number,
+        tube?: number,
+        radialSegments?: number,
+        tubularSegments?: number,
+        arc?: number,
+        thetaStart?: number,
+        thetaLength?: number,
+    );
 
     /**
      * A Read-only _string_ to check if `this` object type.
@@ -41,8 +59,9 @@ export class TorusGeometry extends BufferGeometry {
         readonly radialSegments: number;
         readonly tubularSegments: number;
         readonly arc: number;
+        readonly thetaStart: number;
+        readonly thetaLength: number;
     };
 
-    /** @internal */
-    static fromJSON(data: any): TorusGeometry;
+    static fromJSON(data: TorusGeometryJSON): TorusGeometry;
 }

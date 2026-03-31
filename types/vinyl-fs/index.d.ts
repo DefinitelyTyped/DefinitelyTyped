@@ -8,9 +8,9 @@ declare global {
     }
 }
 
-import * as _events from "events";
-import * as globStream from "glob-stream";
-import * as File from "vinyl";
+import _events = require("events");
+import globStream = require("glob-stream");
+import File = require("vinyl");
 
 export interface SrcOptions extends globStream.Options {
     /**

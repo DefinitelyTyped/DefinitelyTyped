@@ -6,11 +6,13 @@ import calendars from "plotly.js/lib/calendars";
 import candlestick from "plotly.js/lib/candlestick";
 import carpet from "plotly.js/lib/carpet";
 import choropleth from "plotly.js/lib/choropleth";
+import choroplethmap from "plotly.js/lib/choroplethmap";
 import choroplethmapbox from "plotly.js/lib/choroplethmapbox";
 import cone from "plotly.js/lib/cone";
 import contour from "plotly.js/lib/contour";
 import contourcarpet from "plotly.js/lib/contourcarpet";
 import Plotly from "plotly.js/lib/core";
+import densitymap from "plotly.js/lib/densitymap";
 import densitymapbox from "plotly.js/lib/densitymapbox";
 import filter from "plotly.js/lib/filter";
 import funnel from "plotly.js/lib/funnel";
@@ -37,6 +39,7 @@ import scatter3d from "plotly.js/lib/scatter3d";
 import scattercarpet from "plotly.js/lib/scattercarpet";
 import scattergeo from "plotly.js/lib/scattergeo";
 import scattergl from "plotly.js/lib/scattergl";
+import scattermap from "plotly.js/lib/scattermap";
 import scattermapbox from "plotly.js/lib/scattermapbox";
 import scatterpolar from "plotly.js/lib/scatterpolar";
 import scatterpolargl from "plotly.js/lib/scatterpolargl";
@@ -62,10 +65,12 @@ Plotly.register([
     candlestick,
     carpet,
     choropleth,
+    choroplethmap,
     choroplethmapbox,
     cone,
     contour,
     contourcarpet,
+    densitymap,
     densitymapbox,
     filter,
     funnel,
@@ -92,6 +97,7 @@ Plotly.register([
     scattercarpet,
     scattergeo,
     scattergl,
+    scattermap,
     scattermapbox,
     scatterpolar,
     scatterpolargl,

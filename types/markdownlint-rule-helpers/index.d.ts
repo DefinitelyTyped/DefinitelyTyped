@@ -1,7 +1,7 @@
 /// <reference types="node" />
 
-import * as MarkdownIt from "markdown-it";
-import * as markdownlint from "markdownlint";
+import MarkdownIt = require("markdown-it");
+import markdownlint = require("markdownlint");
 
 export const newLineRe: RegExp;
 

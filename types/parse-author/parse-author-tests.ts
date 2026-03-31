@@ -1,4 +1,4 @@
-import * as parse from "parse-author";
+import parse from "parse-author";
 
 const author = parse("Jon Schlinkert <jon.schlinkert@sellside.com> (https://github.com/jonschlinkert)");
 author.name === "Jon Schlinkert";

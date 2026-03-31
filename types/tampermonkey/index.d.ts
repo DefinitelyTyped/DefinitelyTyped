@@ -199,6 +199,8 @@ declare namespace Tampermonkey {
         abort(): TReturn;
     }
 
+    type PromiseWithAbort<T> = Promise<T> & AbortHandle<void>;
+
     interface OpenTabOptions {
         /** A boolean value indicating whether the new tab should be active (selected) or not (default is `false`). */
         active?: boolean;
@@ -1125,7 +1127,7 @@ declare var GM: Readonly<{
     xmlHttpRequest<TContext = any>(
         // onload and the like still work
         details: Tampermonkey.Request<TContext>, // eslint-disable-line @definitelytyped/no-unnecessary-generics
-    ): Promise<Tampermonkey.Response<TContext>>;
+    ): Tampermonkey.PromiseWithAbort<Tampermonkey.Response<TContext>>;
 
     // GM_download has two signatures, GM.download has one
     /**

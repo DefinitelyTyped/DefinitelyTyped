@@ -1,10 +1,16 @@
 import { CubeTexture, LightProbe, WebGLCubeRenderTarget, WebGLRenderer } from "three";
-import { WebGPURenderer } from "three/webgpu";
+import { CubeRenderTarget, WebGPURenderer } from "three/webgpu";
 
-export namespace LightProbeGenerator {
-    function fromCubeTexture(cubeTexture: CubeTexture): LightProbe;
-    function fromCubeRenderTarget(
-        renderer: WebGLRenderer | WebGPURenderer,
+declare class LightProbeGenerator {
+    static fromCubeTexture(cubeTexture: CubeTexture): LightProbe;
+    static fromCubeRenderTarget(
+        renderer: WebGLRenderer,
         cubeRenderTarget: WebGLCubeRenderTarget,
     ): Promise<LightProbe>;
+    static fromCubeRenderTarget(
+        renderer: WebGPURenderer,
+        cubeRenderTarget: CubeRenderTarget,
+    ): Promise<LightProbe>;
 }
+
+export { LightProbeGenerator };

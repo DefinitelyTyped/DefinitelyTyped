@@ -1,9 +1,9 @@
 /// <reference types="node" />
 
-import * as DockerModem from "docker-modem";
-import * as events from "events";
+import DockerModem = require("docker-modem");
+import events = require("events");
 import { ConnectConfig } from "ssh2";
-import * as stream from "stream";
+import stream = require("stream");
 
 declare namespace Dockerode {
     class Container {
@@ -130,9 +130,10 @@ declare namespace Dockerode {
         get(callback: Callback<NodeJS.ReadableStream>): void;
         get(): Promise<NodeJS.ReadableStream>;
 
-        push(options: ImagePushOptions, callback: Callback<NodeJS.ReadableStream>): void;
-        push(callback: Callback<NodeJS.ReadableStream>): void;
+        push(options: ImagePushOptions, callback: Callback<NodeJS.ReadableStream>, auth?: AuthConfig): void;
+        push(callback: Callback<NodeJS.ReadableStream>, auth?: AuthConfig): void;
         push(options?: ImagePushOptions): Promise<NodeJS.ReadableStream>;
+        push(options?: ImagePushOptions, callback?: undefined, auth?: AuthConfig): Promise<NodeJS.ReadableStream>;
 
         tag(options: ImageTagOptions, callback: Callback<any>): void;
         tag(callback: Callback<any>): void;
@@ -282,8 +283,8 @@ declare namespace Dockerode {
         modem: any;
         id: string;
 
-        inspect(callback: Callback<any>): void;
-        inspect(): Promise<any>;
+        inspect(callback: Callback<NetworkInspectInfo>): void;
+        inspect(): Promise<NetworkInspectInfo>;
 
         remove(options: {}, callback: Callback<any>): void;
         remove(callback: Callback<any>): void;
@@ -657,13 +658,10 @@ declare namespace Dockerode {
             Entrypoint?: string | string[] | undefined;
             OnBuild?: any;
             Labels: { [label: string]: string };
+            Healthcheck?: HealthConfig | undefined;
         };
         NetworkSettings: {
-            Bridge: string;
             SandboxID: string;
-            HairpinMode: boolean;
-            LinkLocalIPv6Address: string;
-            LinkLocalIPv6PrefixLen: number;
             Ports: {
                 [portAndProtocol: string]: Array<{
                     HostIp: string;
@@ -671,16 +669,6 @@ declare namespace Dockerode {
                 }>;
             };
             SandboxKey: string;
-            SecondaryIPAddresses?: any;
-            SecondaryIPv6Addresses?: any;
-            EndpointID: string;
-            Gateway: string;
-            GlobalIPv6Address: string;
-            GlobalIPv6PrefixLen: number;
-            IPAddress: string;
-            IPPrefixLen: number;
-            IPv6Gateway: string;
-            MacAddress: string;
             Networks: {
                 [type: string]: {
                     IPAMConfig?: any;
@@ -697,17 +685,6 @@ declare namespace Dockerode {
                     MacAddress: string;
                 };
             };
-            Node?:
-                | {
-                    ID: string;
-                    IP: string;
-                    Addr: string;
-                    Name: string;
-                    Cpus: number;
-                    Memory: number;
-                    Labels: any;
-                }
-                | undefined;
         };
     }
 
@@ -851,6 +828,9 @@ declare namespace Dockerode {
     }
 
     interface ContainerStats {
+        id?: string;
+        name?: string;
+        os_type?: string;
         read: string;
         preread: string;
         pids_stats?: PidsStats;
@@ -989,6 +969,7 @@ declare namespace Dockerode {
             Entrypoint?: string | string[] | undefined;
             OnBuild: any[];
             Labels: { [label: string]: string };
+            Healthcheck?: HealthConfig | undefined;
         };
         Architecture: string;
         Variant?: string | undefined;
@@ -1132,6 +1113,7 @@ declare namespace Dockerode {
         tag?: string | undefined;
         authconfig?: AuthConfig | undefined;
         abortSignal?: AbortSignal;
+        stream?: boolean | undefined;
     }
 
     interface ImageTagOptions {
@@ -1146,7 +1128,13 @@ declare namespace Dockerode {
         tag?: string;
     }
 
-    interface AuthConfig {
+    interface AuthConfigKey {
+        key: string;
+    }
+    interface AuthConfigBase64 {
+        base64: string;
+    }
+    interface AuthConfigObject {
         username?: string;
         password?: string;
         auth?: string;
@@ -1156,6 +1144,8 @@ declare namespace Dockerode {
         /** @deprecated */
         email?: string | undefined;
     }
+
+    type AuthConfig = AuthConfigKey | AuthConfigBase64 | AuthConfigObject;
 
     interface RegistryConfig {
         [registryAddress: string]: {
@@ -2031,6 +2021,14 @@ declare namespace Dockerode {
         SpaceReclaimed: number;
     }
 
+    interface PruneBuilderOptions {
+        abortSignal?: AbortSignal;
+    }
+
+    interface PruneBuilderInfo {
+        SpaceReclaimed: number;
+    }
+
     interface PruneVolumesInfo {
         VolumesDeleted: string[];
         SpaceReclaimed: number;
@@ -2256,6 +2254,10 @@ declare class Dockerode {
     pruneImages(options: {}, callback: Callback<Dockerode.PruneImagesInfo>): void;
     pruneImages(callback: Callback<Dockerode.PruneImagesInfo>): void;
     pruneImages(options?: {}): Promise<Dockerode.PruneImagesInfo>;
+
+    pruneBuilder(options: Dockerode.PruneBuilderOptions, callback: Callback<Dockerode.PruneBuilderInfo>): void;
+    pruneBuilder(callback: Callback<Dockerode.PruneBuilderInfo>): void;
+    pruneBuilder(options?: Dockerode.PruneBuilderOptions): Promise<Dockerode.PruneBuilderInfo>;
 
     pruneContainers(options: {}, callback: Callback<Dockerode.PruneContainersInfo>): void;
     pruneContainers(callback: Callback<Dockerode.PruneContainersInfo>): void;

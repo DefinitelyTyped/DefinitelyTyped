@@ -313,6 +313,7 @@ Papa.unparse(
 Papa.RECORD_SEP;
 Papa.UNIT_SEP;
 Papa.BAD_DELIMITERS;
+Papa.BYTE_ORDER_MARK;
 
 /**
  * Parser
@@ -321,3 +322,12 @@ const parser = new Papa.Parser({});
 parser.getCharIndex();
 parser.abort();
 parser.parse("", 0, false);
+
+Papa.parse("a,a,b,c", {
+    complete(results) {
+        // $ExpectType Record<string, string> | undefined
+        results.meta.renamedHeaders;
+        // $ExpectType string | undefined
+        const maybe = results.meta.renamedHeaders?.a;
+    },
+});

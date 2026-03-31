@@ -18,6 +18,10 @@ declare namespace webvis {
         settings?: object;
         token?: string;
         forwardURL?: string;
+        role?: MemberRole;
+        offeredMemberActions?: MemberAction[];
+        profile?: MemberProfile;
+        spaceAccessToken?: string;
     }
     interface JoinSessionResponseContent extends SessionMemberData {
         memberToken: string;
@@ -322,8 +326,39 @@ declare namespace webvis {
     interface RemoveMemberRequestContent {
         memberID: number;
     }
+    interface KickMemberRequestContent {
+        memberId: number;
+    }
     interface PromoteMemberRequestContent {
         memberID: number;
+        role?: MemberRole;
+        spaceAccessToken?: string;
+    }
+    interface DemoteMemberRequestContent {
+        memberID: number;
+        role?: MemberRole;
+        spaceAccessToken?: string;
+    }
+    interface SetMemberNameRequestContent {
+        memberId: number;
+        name: string;
+    }
+    interface SetMemberProfileEntryRequestContent {
+        memberId: number;
+        key: string;
+        value: Serializable;
+    }
+    interface DeleteMemberProfileEntryRequestContent {
+        memberId: number;
+        key: string;
+    }
+    interface AddOfferedMemberActionRequestContent {
+        memberId: number;
+        offeredMemberAction: MemberAction;
+    }
+    interface RemoveOfferedMemberActionRequestContent {
+        memberId: number;
+        offeredMemberAction: MemberAction;
     }
     interface AddToSelectionRequestContent {
         nodeID?: number[];
@@ -805,6 +840,12 @@ declare namespace webvis {
          */
         enabled?: boolean;
         /**
+         * Specifies a dash-gap sequence of the Polyline as [dash, gap, dash, gap], to allow line styles (dotted, dashed, etc.).
+         * If {@link useWorldUnits} is set to true, the values are interpreted in world space (meters), otherwise in screen space (pixels).
+         * @default [0,0,0,0]
+         */
+        sequence?: [number, number, number, number];
+        /**
          * Specifies the transform matrix of the Polyline.
          * @default identity
          */
@@ -828,9 +869,16 @@ declare namespace webvis {
         ];
         /**
          * Specifies the width of the Polyline.
+         * If {@link useWorldUnits} is set to true, the value is interpreted in world space (meters), otherwise in screen space (pixels).
          * @default 1
          */
         width?: number;
+        /**
+         * Specifies how the width and sequence values are interpreted.
+         * If set to true, the values are interpreted in world space (meters), otherwise in screen space (pixels).
+         * @default false
+         */
+        useWorldUnits?: boolean;
     }
     /**
      * The **ViewerPolylineAPI** provides basic functionalities to create and visualize Polylines.
@@ -882,6 +930,519 @@ declare namespace webvis {
          * @param polylineId - The Id of the Polyline which should be removed.
          */
         removePolyline(polylineId: number): void;
+    }
+    /**
+     * Defines the visual appearance of a set of {@link PointOfInterest}s.
+     */
+    interface POIStyleProperties {
+        /**
+         * The color of the POIs as RGBA values in the range [0, 1].
+         * @default [0, 0, 0, 1]
+         */
+        color?: [number, number, number, number];
+        /**
+         * The size of the POIs.
+         * By default, this is interpreted as screen space pixels.
+         * See sizeMode in {@link POISetProperties} for details.
+         * @default 15
+         */
+        size?: number;
+        /**
+         * The sprite image to use for the POIs.
+         * If not set, the POIs will be rendered as circles.
+         * To delete a sprite from an existing style, set the sprite to null.
+         * @default undefined
+         */
+        sprite?: HTMLImageElement | null;
+        /**
+         * Optional. Name of the POI style.
+         * @default undefined
+         */
+        name?: string;
+    }
+    interface POISetProperties {
+        /**
+         * Whether the POI set is enabled or not.
+         * @default true
+         */
+        enabled?: boolean;
+        /**
+         * The style of the POIs in the set that are visible.
+         */
+        styleVisible?: number;
+        /**
+         * The style of the POIs in the set that are occluded.
+         */
+        styleOccluded?: number;
+        /**
+         * The style of the POIs in the set that are hovered.
+         */
+        styleHovered?: number;
+        /**
+         * Specifies how the size specified in the POI set's style is interpreted (see {@link POIStyleProperties}).
+         * If set to true, the values are interpreted in world space (meters), otherwise in screen space (pixels).
+         *
+         * For pixel size on screen typical size values are in the range 15-30.
+         * For world unit size typical size values depend on the model.
+         * @default false
+         */
+        useWorldUnits?: boolean;
+        /**
+         * The list of {@link PointOfInterest}s to visualize.
+         */
+        points?: PointOfInterest[];
+        /**
+         * The color of the POI labels in the set as [R, G, B], each value in the range 0-1.
+         */
+        labelColor?: [number, number, number];
+        /**
+         * The outline color of the labels in the set as [R, G, B], each value in the range 0-1.
+         */
+        labelOutlineColor?: [number, number, number];
+        /**
+         * Optional. Name of the POS set.
+         * @default undefined
+         */
+        name?: string;
+    }
+    /**
+     * Defines an individual Point of Interest (POI).
+     */
+    interface PointOfInterest {
+        /**
+         * The unique identifier for the POI.
+         * Automatically assigned if not specified.
+         * @default undefined
+         */
+        id?: number;
+        /**
+         * The 3D position of a POI.
+         */
+        position: [number, number, number];
+        /**
+         * Text to display next to the POI.
+         * @default undefined
+         */
+        label?: string;
+    }
+    /**
+     * This interface serves as control point for the creation, management and visualization state of
+     * an individual set of {@link PointOfInterest}s for a viewer.
+     *
+     * Currently supported features:
+     * - POI placement in world space
+     * - rendering as colored points
+     * - rendering as sprites
+     * - occlusion checking
+     * - POI set events, e.g. hover/click
+     * - custom style for visible/occluded/hovered POIs
+     * - POI size definition in screen or world space
+     */
+    interface ViewerPointsOfInterestAPI {
+        /**
+         * *Experimental. May be changed in the future without notice.*
+         *
+         * Creates a new POI set.
+         *
+         * Triggers a {@link ViewerPOISetCreatedEvent} event if the set was created successfully.
+         *
+         * @param properties Initial properties of the created POI set.
+         *
+         * @returns The ID the newly created set.
+         */
+        createPOISet(properties?: POISetProperties): number;
+        /**
+         * *Experimental. May be changed in the future without notice.*
+         *
+         * Sets the properties for the POI set.
+         *
+         * Triggers a {@link ViewerPOISetChangedEvent} event if the properties were changed.
+         *
+         * @param id The ID of the POI set to change.
+         * @param properties The new properties of the POI set.
+         */
+        changePOISet(id: number, properties: POISetProperties): POISetProperties;
+        /**
+         * *Experimental. May be changed in the future without notice.*
+         *
+         * Removes the POI set with the given identifier.
+         *
+         * Triggers a {@link ViewerPOISetRemovedEvent} event if the set was removed successfully.
+         *
+         * @param id The ID of the POI set to be removed.
+         */
+        removePOISet(id: number): void;
+        /**
+         * *Experimental. May be changed in the future without notice.*
+         *
+         * Queries the properties of a POI set.
+         *
+         * @param id The ID of the POI set to query.
+         * @returns The properties of the queried POI set.
+         */
+        getPOISetData(id: number): POISetProperties | undefined;
+        /**
+         * *Experimental. May be changed in the future without notice.*
+         *
+         * Returns the IDs of all existing POI sets.
+         *
+         * @returns A number array representing the IDs of all POI sets.
+         */
+        getPOISets(): number[];
+        /**
+         * *Experimental. May be changed in the future without notice.*
+         *
+         * Adds points to an existing POI set.
+         *
+         * Triggers a {@link ViewerPOISetPointsAddedEvent} event if the points were added successfully.
+         *
+         * @param id The ID of the POI set
+         * @param pois The list of {@link PointOfInterest}s to add.
+         * @returns The IDs of the newly added POIs.
+         */
+        addPointsToSet(id: number, pois: PointOfInterest[]): number[];
+        /**
+         * *Experimental. May be changed in the future without notice.*
+         *
+         * Removes points from an existing POI set.
+         *
+         * Triggers a {@link ViewerPOISetPointsRemovedEvent} event if the points were removed successfully.
+         *
+         * @param id The ID of the POI set
+         * @param poiIds The IDs of the POIs to remove.
+         */
+        removePointsFromSet(id: number, poiIds: number[]): void;
+        /**
+         * *Experimental. May be changed in the future without notice.*
+         *
+         * Changes points in an existing POI set.
+         *
+         * Triggers a {@link ViewerPOISetPointsChangedEvent} event if the points were changed successfully.
+         * @param poiSetId The ID of the POI set
+         * @param poiIds The IDs of the POIs to change.
+         * @param pois The new {@link PointOfInterest} data. The length of this array must match the length of the poiIds array.
+         */
+        changePointsInSet(poiSetId: number, poiIds: number[], pois: PointOfInterest[]): void;
+        /**
+         * *Experimental. May be changed in the future without notice.*
+         *
+         * Creates a new POI style.
+         *
+         * Triggers a {@link ViewerPOIStyleCreatedEvent} event if the style was created successfully.
+         *
+         * @param properties Initial properties of the created POI style.
+         *
+         * @returns The ID the newly created style.
+         */
+        createPOIStyle(properties?: POIStyleProperties): number;
+        /**
+         * *Experimental. May be changed in the future without notice.*
+         *
+         * Sets the properties for the POI style.
+         *
+         * Triggers a {@link ViewerPOIStyleChangedEvent} event if the properties were changed.
+         *
+         * @param poiStyleId The ID of the POI style to change.
+         * @param properties The new properties of the POI style.
+         */
+        changePOIStyle(poiStyleId: number, properties: POIStyleProperties): POIStyleProperties;
+        /**
+         * *Experimental. May be changed in the future without notice.*
+         *
+         * Removes the POI style with the given identifier.
+         *
+         * Triggers a {@link ViewerPOIStyleRemovedEvent} event if the style was removed successfully.
+         *
+         * @param poiStyleId The ID of the POI style to be removed.
+         */
+        removePOIStyle(poiStyleId: number): void;
+        /**
+         * *Experimental. May be changed in the future without notice.*
+         *
+         * Queries the properties of a POI style.
+         *
+         * @param poiStyleId The ID of the POI style to query.
+         * @returns The properties of the queried POI style.
+         */
+        getPOIStyleData(poiStyleId: number): POIStyleProperties | undefined;
+        /**
+         * *Experimental. May be changed in the future without notice.*
+         *
+         * Returns the IDs of all existing POI styles.
+         *
+         * @returns A number array representing the IDs of all POI styles.
+         */
+        getPOIStyles(): number[];
+    }
+    /**
+     * *Experimental. May be changed in the future without notice.*
+     *
+     * Event that is fired when a {@link POIStyleProperties | POIStyle} is removed from a viewer.
+     *
+     * @event
+     * @hideconstructor
+     *
+     * @see {@link ViewerPointsOfInterestAPI}
+     * @see {@link EventType.VIEWER_POI_STYLE_REMOVED}
+     */
+    class ViewerPOIStyleRemovedEvent extends WebVisEvent {
+        poiStyleId: number;
+        viewerId: string;
+        /**
+         * @param poiStyleId The ID of the {@link POIStyleProperties | POIStyle} that was removed.
+         * @param viewerId The ID of the viewer that removed the {@link POIStyleProperties | POIStyle}.
+         */
+        constructor(poiStyleId: number, viewerId: string);
+    }
+    /**
+     * *Experimental. May be changed in the future without notice.*
+     *
+     * Event that is fired when a {@link POIStyleProperties | POIStyle} is created in a viewer.
+     *
+     * @event
+     * @hideconstructor
+     *
+     * @see {@link ViewerPointsOfInterestAPI}
+     * @see {@link EventType.VIEWER_POI_STYLE_CREATED}
+     */
+    class ViewerPOIStyleCreatedEvent extends WebVisEvent {
+        poiStyleId: number;
+        poiStyleProperties: POIStyleProperties;
+        viewerId: string;
+        /**
+         * @param poiStyleId The ID of the {@link POIStyleProperties | POIStyle} that was created.
+         * @param poiStyleProperties The properties of the {@link POIStyleProperties | POIStyle} that was created.
+         * @param viewerId The ID of the viewer that created the {@link POIStyleProperties | POIStyle}.
+         */
+        constructor(poiStyleId: number, poiStyleProperties: POIStyleProperties, viewerId: string);
+    }
+    /**
+     * *Experimental. May be changed in the future without notice.*
+     *
+     * Event that is fired when a {@link POIStyleProperties | POIStyle} is changed in a viewer.
+     *
+     * @event
+     * @hideconstructor
+     *
+     * @see {@link ViewerPointsOfInterestAPI}
+     * @see {@link EventType.VIEWER_POI_STYLE_CHANGED}
+     */
+    class ViewerPOIStyleChangedEvent extends WebVisEvent {
+        poiStyleId: number;
+        poiStyleProperties: POIStyleProperties;
+        viewerId: string;
+        /**
+         * @param poiStyleId The ID of the {@link POIStyleProperties | POIStyle} that was changed.
+         * @param poiStyleProperties The properties of the {@link POIStyleProperties | POIStyle} that was changed.
+         * @param viewerId The ID of the viewer that changed the {@link POIStyleProperties | POIStyle}.
+         */
+        constructor(poiStyleId: number, poiStyleProperties: POIStyleProperties, viewerId: string);
+    }
+    /**
+     * *Experimental. May be changed in the future without notice.*
+     *
+     * Event that is fired when a set of {@link PointOfInterest}s gets removed in a viewer.
+     *
+     * @event
+     * @hideconstructor
+     *
+     * @see {@link ViewerPointsOfInterestAPI}
+     * @see {@link EventType.VIEWER_POI_SET_REMOVED}
+     */
+    class ViewerPOISetRemovedEvent extends WebVisEvent {
+        poiSetId: number;
+        viewerId: string;
+        /**
+         * @param poiSetId The ID of the set of {@link PointOfInterest}s that was removed.
+         * @param viewerId The ID of the viewer that removed the set of {@link PointOfInterest}s.
+         */
+        constructor(poiSetId: number, viewerId: string);
+    }
+    /**
+     * *Experimental. May be changed in the future without notice.*
+     *
+     * Event that is fired when {@link PointOfInterest}s are removed from a set.
+     *
+     * @event
+     * @hideconstructor
+     *
+     * @see {@link ViewerPointsOfInterestAPI}
+     * @see {@link EventType.VIEWER_POI_SET_POINTS_REMOVED}
+     */
+    class ViewerPOISetPointsRemovedEvent extends WebVisEvent {
+        poiSetId: number;
+        poiIds: number[];
+        viewerId: string;
+        /**
+         * @param poiSetId The ID of the set of {@link PointOfInterest}s that was changed.
+         * @param poiIds The IDs of the removed {@link PointOfInterest}s.
+         * @param viewerId The ID of the viewer in which the set of {@link PointOfInterest}s was changed.
+         */
+        constructor(poiSetId: number, poiIds: number[], viewerId: string);
+    }
+    /**
+     * *Experimental. May be changed in the future without notice.*
+     *
+     * Event that is fired when individual {@link PointOfInterest}s are changed.
+     *
+     * @event
+     * @hideconstructor
+     *
+     * @see {@link ViewerPointsOfInterestAPI}
+     * @see {@link EventType.VIEWER_POI_SET_POINTS_CHANGED}
+     */
+    class ViewerPOISetPointsChangedEvent extends WebVisEvent {
+        poiSetId: number;
+        poiIds: number[];
+        properties: PointOfInterest[];
+        viewerId: string;
+        /**
+         * @param poiSetId The ID of the set of {@link PointOfInterest}s that was changed.
+         * @param poiIds The IDs of the changed {@link PointOfInterest}s.
+         * @param properties The new properies of the changed {@link PointOfInterest}s.
+         * @param viewerId The ID of the viewer in which the set of {@link PointOfInterest}s was changed.
+         */
+        constructor(poiSetId: number, poiIds: number[], properties: PointOfInterest[], viewerId: string);
+    }
+    /**
+     * *Experimental. May be changed in the future without notice.*
+     *
+     * Event that is fired when new {@link PointOfInterest}s are added to an existing set.
+     *
+     * @event
+     * @hideconstructor
+     *
+     * @see {@link ViewerPointsOfInterestAPI}
+     * @see {@link EventType.VIEWER_POI_SET_POINTS_ADDED}
+     */
+    class ViewerPOISetPointsAddedEvent extends WebVisEvent {
+        poiSetId: number;
+        poiIds: number[];
+        properties: PointOfInterest[];
+        viewerId: string;
+        /**
+         * @param poiSetId The ID of the set of {@link PointOfInterest}s that was changed.
+         * @param poiIds The IDs of the added {@link PointOfInterest}s.
+         * @param properties The properties of the added {@link PointOfInterest}s.
+         * @param viewerId The ID of the viewer in which the set of {@link PointOfInterest}s was changed.
+         */
+        constructor(poiSetId: number, poiIds: number[], properties: PointOfInterest[], viewerId: string);
+    }
+    /**
+     * *Experimental. May be changed in the future without notice.*
+     *
+     * Event that is fired when a set of {@link PointOfInterest}s is created in a viewer.
+     *
+     * @event
+     * @hideconstructor
+     *
+     * @see {@link ViewerPointsOfInterestAPI}
+     * @see {@link EventType.VIEWER_POI_SET_CREATED}
+     */
+    class ViewerPOISetCreatedEvent extends WebVisEvent {
+        poiSetId: number;
+        properties: POISetProperties;
+        viewerId: string;
+        /**
+         * @param poiSetId The ID of the set of {@link PointOfInterest}s that was created.
+         * @param properties The properties of the set of {@link PointOfInterest}s that was created.
+         * @param viewerId The ID of the viewer that created the set of {@link PointOfInterest}s.
+         */
+        constructor(poiSetId: number, properties: POISetProperties, viewerId: string);
+    }
+    /**
+     * *Experimental. May be changed in the future without notice.*
+     *
+     * Event that is fired when a set of {@link PointOfInterest}s gets changed in a viewer.
+     *
+     * @event
+     * @hideconstructor
+     *
+     * @see {@link ViewerPointsOfInterestAPI}
+     * @see {@link EventType.VIEWER_POI_SET_CHANGED}
+     */
+    class ViewerPOISetChangedEvent extends WebVisEvent {
+        poiSetId: number;
+        properties: POISetProperties;
+        viewerId: string;
+        /**
+         * @param poiSetId The ID of the set of {@link PointOfInterest}s that was changed.
+         * @param properties The new properties of the set of {@link PointOfInterest}s that was changed.
+         * @param viewerId The ID of the viewer in which the set of {@link PointOfInterest}s was changed.
+         */
+        constructor(poiSetId: number, properties: POISetProperties, viewerId: string);
+    }
+    /**
+     * *Experimental. May be changed in the future without notice.*
+     *
+     * Event that is fired when the mouse pointer leaves a {@link PointOfInterest}.
+     *
+     * @event
+     * @hideconstructor
+     *
+     * @see {@link ViewerPointsOfInterestAPI}
+     * @see {@link EventType.VIEWER_POI_POINTER_OUT}
+     */
+    class ViewerPOIPointerOutEvent extends WebVisEvent {
+        viewerId: string;
+        poiSetId: number;
+        poiId: number;
+        originalEvent: Event;
+        /**
+         * @param viewerId The ID of the viewer that contains the set of {@link PointOfInterest}s.
+         * @param poiSetId The ID of the set of {@link PointOfInterest}s that the POI belongs to.
+         * @param poiId The ID of the target POI.
+         * @param originalEvent The original mouse event.
+         */
+        constructor(viewerId: string, poiSetId: number, poiId: number, originalEvent: Event);
+    }
+    /**
+     * *Experimental. May be changed in the future without notice.*
+     *
+     * Event that is fired when the mouse pointer enters a {@link PointOfInterest}.
+     *
+     * @event
+     * @hideconstructor
+     *
+     * @see {@link ViewerPointsOfInterestAPI}
+     * @see {@link EventType.VIEWER_POI_POINTER_ENTER}
+     */
+    class ViewerPOIPointerEnterEvent extends WebVisEvent {
+        viewerId: string;
+        poiSetId: number;
+        poiId: number;
+        originalEvent: Event;
+        /**
+         * @param viewerId The ID of the viewer that contains the set of {@link PointOfInterest}s.
+         * @param poiSetId The ID of the set of {@link PointOfInterest}s that the POI belongs to.
+         * @param poiId The ID of the target POI.
+         * @param originalEvent The original mouse event.
+         */
+        constructor(viewerId: string, poiSetId: number, poiId: number, originalEvent: Event);
+    }
+    /**
+     * *Experimental. May be changed in the future without notice.*
+     *
+     * Event that is fired when a {@link PointOfInterest} is clicked.
+     *
+     * @event
+     * @hideconstructor
+     *
+     * @see {@link ViewerPointsOfInterestAPI}
+     * @see {@link EventType.VIEWER_POI_CLICKED}
+     */
+    class ViewerPOIClickedEvent extends WebVisEvent {
+        viewerId: string;
+        poiSetId: number;
+        poiId: number;
+        originalEvent: Event;
+        /**
+         * @param viewerId The ID of the viewer that contains the set of {@link PointOfInterest}s.
+         * @param poiSetId The ID of the set of {@link PointOfInterest}s that the POI belongs to.
+         * @param poiId  The ID of the target POI.
+         * @param originalEvent The original mouse event.
+         */
+        constructor(viewerId: string, poiSetId: number, poiId: number, originalEvent: Event);
     }
     /**
      * *Experimental. May be changed in the future without notice.*
@@ -1079,9 +1640,15 @@ declare namespace webvis {
         D_CAD = "D_CAD",
         XR_TURNTABLE = "XR_TURNTABLE",
     }
+    /**
+     * The properties associated with the magnifier of a {@link ViewerAPI | viewer}.
+     *
+     * @see {@link ViewerMagnifierAPI}
+     */
     interface ViewerMagnifierProperties {
         /**
          * Specifies the roundness of the magnifier between 0 and 100.
+         * 0 means a square magnifier, 100 means a circle.
          * @default 100
          */
         roundness?: number;
@@ -1091,7 +1658,8 @@ declare namespace webvis {
          */
         enabled?: boolean;
         /**
-         * Specifies the center X- and Y-Position of the magnifier in pixels.
+         * Specifies the center x- and y-position of the magnifier in pixels.
+         * @default [0,0]
          */
         position?: [number, number];
         /**
@@ -1106,31 +1674,42 @@ declare namespace webvis {
         zoomLevel?: number;
     }
     /**
-     * The ViewerMagnifierAPI allows to magnify a specified region of the current view.
+     * ## ViewerMagnifierAPI
      *
-     * **Example**
-     * ```typescript
-     * // Get an instance of the ContextAPI
-     * const myContext : ContextAPI = webvis.getContext( "example" )
+     * ### Overview
+     *
+     * The `ViewerMagnifierAPI` allows to magnify a specified region of the current view in a {@link ViewerAPI | viewer}.
+     *
+     * ### Quick Start
+     *
+     * ```javascript
+     * // Get an instance of the webvis context
+     * const myContext = webvis.getContext();
      *
      * // Get default viewer
      * const viewer = myContext.getViewer();
      *
      * // Enable magnifier for viewer
-     * viewer.changeMagnifier({enabled: true})
+     * viewer.changeMagnifier({enabled: true});
      *
      * // Change magnifier properties
-     * viewer.changeMagnifier({roundness: 50, position: [1000,720], size: [500,300], zoomLevel: 2})
+     * viewer.changeMagnifier({roundness: 50, position: [1000,720], size: [500,300], zoomLevel: 2}) ;
      *
      * // Alternatively, enable magnifier and set all properties in one call
-     * viewer.changeMagnifier({roundness: 50, enabled: true, position: [1000,720], size: [500,300], zoomLevel: 2})
+     * viewer.changeMagnifier({roundness: 50, enabled: true, position: [1000,720], size: [500,300], zoomLevel: 2});
      * ```
+     *
+     * ### Events
+     *
+     * The following events are associated with the ViewerMagnifierAPI:
+     *  - {@link ViewerMagnifierChangedEvent}
      */
     interface ViewerMagnifierAPI {
         /**
-         * Changes the properties of the viewers magnifier.
-         * @param properties - Object of Properties which should be changed.
-         * @returns An Object with the changed Properties.
+         * Changes the properties of the {@link ViewerAPI | viewer} magnifier.
+         *
+         * @param properties - Properties which should be changed.
+         * @returns The changed properties.
          */
         changeMagnifier(properties: ViewerMagnifierProperties): ViewerMagnifierProperties;
         /**
@@ -1141,27 +1720,36 @@ declare namespace webvis {
         getMagnifierProperties(): ViewerMagnifierProperties;
     }
     /**
-     * This event occurs if one or more properties of the viewers magnifier change.
+     * Event that is fired when the magnifier properties of a {@link ViewerAPI | viewer} are changed.
      *
      * @event
      * @hideconstructor
+     *
+     * @see {@link ViewerMagnifierAPI}
+     * @see {@link EventType.VIEWER_MAGNIFIER_CHANGED}
      */
     class ViewerMagnifierChangedEvent extends WebVisEvent {
         properties: ViewerMagnifierProperties;
         viewer: ViewerAPI;
         /**
          * @param properties An object with the changed properties.
-         * @param viewer Reference to the related Viewer.
+         * @param viewer Reference to the related {@link ViewerAPI | viewer}.
          */
         constructor(properties: ViewerMagnifierProperties, viewer: ViewerAPI);
     }
+    /**
+     * Holds the information about a pointer action in the viewer.
+     *
+     * An object of this type is propagated by all the events of the
+     * {@link ViewerInteractionAPI} interface.
+     */
     interface PointerInfo {
         /**
          * The normalized pointer coordinates between [0, 1].
          */
         normalizedPointerCoords: [number, number];
         /**
-         * The canvas pointer coordinates.
+         * The canvas pointer coordinates in pixels.
          */
         canvasCoords: [number, number];
         /**
@@ -1173,15 +1761,25 @@ declare namespace webvis {
          */
         normal: [number, number, number];
         /**
-         * The current Node ID of the pointer action depending on the expanded state of the Node structure.
+         * The current node ID of the pointer action depending on the expanded state of the node structure.
+         *
+         * Note: The `nodeID` can be different from the `targetNodeID` depending on the expanded state of
+         * the instance graph. The `nodeID` property stores the deepest clicked node ID webvis can find that
+         * is not yet expanded whereas the `targetNodeID` property stores the leaf node ID at the current pointer
+         * position.
          */
         nodeID: number;
         /**
-         * The target Node ID of the pointer action.
+         * The target node ID of the pointer action.
+         *
+         * Note: The `targetNodeID` can be different from the `nodeID` depending on the expanded state of
+         * the instance graph. The `targetNodeID` property stores the leaf node ID at the current pointer
+         * position whereas the `nodeID` property stores the deepest clicked node ID webvis can find that
+         * is not yet expanded.
          */
         targetNodeID: number;
         /**
-         * A reference to the related Viewer.
+         * A reference to the related viewer.
          */
         viewer: ViewerAPI;
         /**
@@ -1193,160 +1791,377 @@ declare namespace webvis {
          */
         actionTrigger: PointerActionTrigger;
         /**
-         * Returns the handle to the Topological Element at the current pointer coordinates
+         * Returns the handle to the topological entity at the current pointer coordinates
          */
         requestTopologyHandle(): Promise<TopologyHandle | undefined>;
     }
+    /**
+     * ## ViewerInteractionAPI
+     *
+     * ### Overview
+     *
+     * The `ViewerInteractionAPI` provides methods to control the user's interaction with a viewer.
+     *
+     * ### Quick Start
+     *
+     * The following example enables snapping to topological entities and then reacts to
+     * {@link NodeClickedEvent}s:
+     * ```javascript
+     * const context = webvis.getContext();
+     * const viewer = context.getViewer();
+     *
+     * // Render topological entities
+     * // This is required to enable interaction with and snapping
+     * // to topological entities
+     * viewer.forceRenderMode(webvis.RenderMode.FacesTopology);
+     *
+     * viewer.setInteractionLevel(webvis.ViewerInteractionLevel.TOPOLOGY);
+     * viewer.enableSnapping(true);
+     *
+     * // Disable the default node selection on click.
+     * // This is not required, but recommended to improve the user experience
+     * context.setInteractionMode(webvis.InteractionMode.NONE);
+     *
+     * const listenerId = context.registerListener([webvis.EventType.NODE_CLICKED], async (event) => {
+     *     const pointerInfo = event.pointerInfo;
+     *     console.log("Click position in 3D: ", pointerInfo.position);
+     *
+     *     const topologyHandle = await pointerInfo.requestTopologyHandle();
+     *     console.log("Topological entity: ", topologyHandle);
+     * }, 0, true); // Set option 'observeSubTree' to true to observe all entities
+     *
+     * //...
+     *
+     * // Don't forget to unregister the listener when you are done
+     * context.unregisterListener(listenerId);
+     * ```
+     *
+     * ### Interaction Levels
+     *
+     * Get the current {@link ViewerInteractionLevel | interaction level} of a viewer:
+     * ```javascript
+     * const viewer = webvis.getContext().getViewer("my-viewer");
+     * const interactionLevel = viewer.getInteractionLevel();
+     * ```
+     * By default, the interaction level is set to `NODE`, which means that the user will interact with viewer at the
+     * node level. In other words, on a desktop device using a mouse, the viewer will respond to clicks with the respective
+     * node under the mouse cursor.
+     *
+     * Changing the interaction level to `TOPOLOGY` will make the viewer respond to clicks with the respective topology
+     * under the mouse cursor:
+     * ```javascript
+     * viewer.setInteractionLevel(webvis.ViewerInteractionLevel.TOPOLOGY);
+     * ```
+     *
+     * ### Snapping
+     *
+     * The `ViewerInteractionAPI` also provides the option to enable or disable snapping.
+     * Snapping is a feature that allows the user to snap to the nearest edge or point.
+     *
+     * ```javascript
+     * viewer.enableSnapping(true); // Enable snapping
+     * ```
+     *
+     * ### Remarks
+     *
+     * Interaction and snapping only work on entities that are being rendered in the viewer.
+     * For example, if the {@link ViewerInteractionLevel} is set to {@link ViewerInteractionLevel.TOPOLOGY},
+     * but the viewer's {@link ViewerSettingStrings.RENDER_MODE} is set to
+     * {@link RenderMode.Faces} only, then snapping to edges will not work. To enable
+     * snapping to all topological entities, the render mode should be set to
+     * {@link RenderMode.FacesTopology} instead.
+     *
+     * ### Events
+     *
+     * The `ViewerInteractionAPI` emits the following events:
+     * - {@link BackgroundClickedEvent}
+     * - {@link NodeClickedEvent}
+     * - {@link NodePointerEnterEvent}
+     * - {@link NodePointerOutEvent}
+     * - {@link NodePointerOverEvent}
+     * - {@link TopologyPointerEnterEvent}
+     * - {@link TopologyPointerOutEvent}
+     */
     interface ViewerInteractionAPI {
+        /**
+         * Enables or disables snapping in the viewer.
+         *
+         * @param useSnapping Whether to enable or disable snapping.
+         */
         enableSnapping(useSnapping: boolean): void;
+        /**
+         * Returns whether snapping is enabled in the viewer.
+         *
+         * @returns `true` if snapping is enabled, `false` otherwise.
+         */
         isSnappingEnabled(): boolean;
         /**
-         * Sets the Viewer interaction level.
+         * Sets the viewer's interaction level.
          *
-         * @param {ViewerInteractionLevel} level - Specifies the interaction level.
+         * @param level Specifies the viewer's interaction level.
          */
         setInteractionLevel(level: ViewerInteractionLevel): void;
         /**
-         * Returns the Viewer interaction level.
+         * Returns the current interaction level of the viewer.
          *
-         * @returns {ViewerInteractionLevel} The current interaction level.
+         * @returns The current interaction level of the viewer.
          */
         getInteractionLevel(): ViewerInteractionLevel;
     }
     /**
-     * The TOPOLOGY_POINTER_OUT event occurs if the mouse pointer leaves one of the topological elements.
+     * Event that is fired when the mouse pointer leaves a topological entity.
+     *
+     * Note: This event only gets fired when the
+     * {@link ViewerInteractionAPI.setInteractionLevel | viewer interaction level}
+     * is set to {@link ViewerInteractionLevel.TOPOLOGY}.
      *
      * @event
      * @hideconstructor
+     *
+     * @see {@link ViewerInteractionAPI}
+     * @see {@link EventType.TOPOLOGY_POINTER_OUT}
+     * @see {@link TopologyAPI}
      */
     class TopologyPointerOutEvent extends WebVisEvent {
         topologyHandle: TopologyHandle;
         pointerInfo: PointerInfo;
         /**
-         * @param topologyHandle The Handle of the target topological element.
-         * @param pointerInfo Additional Pointer Information.
+         * @param topologyHandle - The handle of the target topological entity.
+         * @param pointerInfo - Additional pointer information.
          */
         constructor(topologyHandle: TopologyHandle, pointerInfo: PointerInfo);
     }
     /**
-     * The TOPOLOGY_POINTER_ENTER event occurs if the mouse pointer enters one of the topological elements.
+     * Event that is fired when the mouse pointer enters a topological entity.
+     *
+     * Note: This event only gets fired when the
+     * {@link ViewerInteractionAPI.setInteractionLevel | viewer interaction level}
+     * is set to {@link ViewerInteractionLevel.TOPOLOGY}.
      *
      * @event
      * @hideconstructor
+     *
+     * @see {@link ViewerInteractionAPI}
+     * @see {@link EventType.TOPOLOGY_POINTER_ENTER}
+     * @see {@link TopologyAPI}
      */
     class TopologyPointerEnterEvent extends WebVisEvent {
         topologyHandle: TopologyHandle;
         pointerInfo: PointerInfo;
         /**
-         * @param topologyHandle The Handle of the target topological element.
-         * @param pointerInfo Additional Pointer Information.
+         * @param topologyHandle - The handle of the target topological entity.
+         * @param pointerInfo - Additional pointer information.
          */
         constructor(topologyHandle: TopologyHandle, pointerInfo: PointerInfo);
     }
     /**
-     * The NODE_POINTER_OVER event occurs if the mouse pointer moves over one of the Nodes.
+     * Event that is fired when the mouse pointer moves over a node.
      *
      * @event
      * @hideconstructor
+     *
+     * @see {@link ViewerInteractionAPI}
+     * @see {@link EventType.NODE_POINTER_OVER}
      */
     class NodePointerOverEvent extends WebVisEvent {
         targetNodeID: number;
         pointerInfo: PointerInfo;
         originalEvent: Event;
         /**
-         * @param targetNodeID The ID of the target Node.
-         * @param pointerInfo Additional Pointer Information.
-         * @param originalEvent The original mouse event
+         * @param targetNodeID - The ID of the target node.
+         * @param pointerInfo - Additional pointer information.
+         * @param originalEvent - The original DOM event.
          */
         constructor(targetNodeID: number, pointerInfo: PointerInfo, originalEvent: Event);
     }
     /**
-     * The NODE_POINTER_OUT event occurs if the mouse pointer leaves one of the Nodes.
+     * Event that is fired when the mouse pointer leaves a node.
      *
      * @event
      * @hideconstructor
+     *
+     * @see {@link ViewerInteractionAPI}
+     * @see {@link EventType.NODE_POINTER_OUT}
      */
     class NodePointerOutEvent extends WebVisEvent {
         targetNodeID: number;
         pointerInfo: PointerInfo;
         originalEvent: Event;
         /**
-         * @param targetNodeID The ID of the target Node.
-         * @param pointerInfo Additional Pointer Information.
-         * @param originalEvent The original mouse event
+         * @param targetNodeID - The ID of the target node.
+         * @param pointerInfo - Additional pointer information.
+         * @param originalEvent - The original DOM event.
          */
         constructor(targetNodeID: number, pointerInfo: PointerInfo, originalEvent: Event);
     }
     /**
-     * The NODE_POINTER_ENTER event occurs if the mouse pointer enters one of the Nodes.
+     * Event that is fired when the mouse pointer enters a node.
      *
      * @event
      * @hideconstructor
+     *
+     * @see {@link ViewerInteractionAPI}
+     * @see {@link EventType.NODE_POINTER_ENTER}
      */
     class NodePointerEnterEvent extends WebVisEvent {
         targetNodeID: number;
         pointerInfo: PointerInfo;
         originalEvent: Event;
         /**
-         * @param targetNodeID The ID of the target Node.
-         * @param pointerInfo Additional Pointer Information.
-         * @param originalEvent The original mouse event
+         * @param targetNodeID - The ID of the target node.
+         * @param pointerInfo - Additional pointer information.
+         * @param originalEvent - The original DOM event.
          */
         constructor(targetNodeID: number, pointerInfo: PointerInfo, originalEvent: Event);
     }
     /**
-     * The NODE_CLICKED event occurs if one of the Nodes is clicked.
+     * Event that is fired when a node is clicked.
      *
      * @event
      * @hideconstructor
+     *
+     * @see {@link ViewerInteractionAPI}
+     * @see {@link EventType.NODE_CLICKED}
      */
     class NodeClickedEvent extends WebVisEvent {
         targetNodeID: number;
         pointerInfo: PointerInfo;
         originalEvent: Event;
         /**
-         * @param targetNodeID The ID of the target Node.
-         * @param pointerInfo Additional Pointer Information.
-         * @param originalEvent The original mouse event
+         * @param targetNodeID - The ID of the target node.
+         * @param pointerInfo - Additional pointer information.
+         * @param originalEvent - The original DOM event.
          */
         constructor(targetNodeID: number, pointerInfo: PointerInfo, originalEvent: Event);
     }
     /**
-     * The BACKGROUND_CLICKED event occurs if the Background is clicked.
+     * Event that is fired when the viewer background is clicked,
+     * i.e. when the viewer is clicked without any node being targeted.
      *
      * @event
      * @hideconstructor
+     *
+     * @see {@link ViewerInteractionAPI}
+     * @see {@link EventType.BACKGROUND_CLICKED}
      */
     class BackgroundClickedEvent extends WebVisEvent {
         originalEvent: Event;
         pointerInfo: PointerInfo;
         /**
-         * @param originalEvent The original mouse event
-         * @param pointerInfo Additional Pointer Information.
+         * @param originalEvent - The original DOM event.
+         * @param pointerInfo - Additional pointer information.
          */
         constructor(originalEvent: Event, pointerInfo: PointerInfo);
     }
+    /**
+     * Specifies the interaction level of a viewer.
+     * The interaction level determines which entities can be interacted with and
+     * which interaction events are emitted.
+     *
+     * @see {@link ViewerInteractionAPI}
+     */
     enum ViewerInteractionLevel {
+        /**
+         * Specifies an interaction level based on nodes.
+         *
+         * Note, that if set, the {@link TopologyPointerEnterEvent}
+         * and the {@link TopologyPointerOutEvent} will **not** be emitted.
+         *
+         * @see {@link InstanceGraphAPI}
+         */
         NODE = 0,
+        /**
+         * Specifies an interaction level based on topological entities.
+         *
+         * Note that you can only interact with topological entities which
+         * are rendered in the viewer. To enable interaction with all
+         * topological entities, the {@link ViewerSettingStrings.RENDER_MODE}
+         * must be set to {@link RenderMode.FacesTopology}.
+         *
+         * If set, the {@link TopologyPointerEnterEvent} and the
+         * {@link TopologyPointerOutEvent} will be emitted for all rendered topological entities.
+         *
+         * @see {@link TopologyAPI}
+         */
         TOPOLOGY = 1,
     }
+    /**
+     * Specifies the type of pointer action.
+     *
+     * @see {@link PointerInfo}
+     */
     enum PointerActionType {
+        /**
+         * No pointer action.
+         */
         NONE = 0,
+        /**
+         * Represents a click action.
+         */
         CLICKED = 1,
+        /**
+         * Represents a press action.
+         */
         PRESSED = 2,
+        /**
+         * Represents a release action.
+         */
         RELEASED = 3,
+        /**
+         * Represents a double click action.
+         */
         DOUBLECLICKED = 4,
+        /**
+         * Represents a touch pick action.
+         */
         TOUCH_PICKED = 5,
+        /**
+         * Represents a touch press action.
+         */
         TOUCH_PRESSED = 6,
+        /**
+         * Represents a touch double pick action.
+         */
         TOUCH_DOUBLE_PICKED = 7,
+        /**
+         * Placeholder for any pointer action type.
+         */
         ANY = 8,
     }
+    /**
+     * Specifies the trigger for a pointer action.
+     *
+     * @see {@link PointerInfo}
+     */
     enum PointerActionTrigger {
+        /**
+         * No trigger.
+         */
         NONE = 0,
+        /**
+         * Triggered by the primary mouse button.
+         * This typically refers to the left mouse button on a standard mouse.
+         */
         FIRST = 1,
+        /**
+         * Triggered by the secondary button.
+         * This typically refers to the right mouse button on a standard mouse.
+         */
         SECOND = 2,
+        /**
+         * Triggered by the tertiary button.
+         * This typically refers to the middle mouse button on a standard mouse.
+         */
         THIRD = 3,
+        /**
+         * Triggered by the wheel scroll.
+         * This typically refers to the mouse wheel or touchpad scroll gesture.
+         */
         WHEEL = 4,
+        /**
+         * Triggered by touch.
+         * This typically refers to touch events on touch-enabled devices.
+         */
         TOUCH = 5,
     }
     interface ViewerHighlightParameters {
@@ -1560,7 +2375,7 @@ declare namespace webvis {
      * const heatmapDataId = viewer.createHeatmap({ position: heatmapPositions });
      *
      * // configure the heatmap
-     * viewer.configureHeatmap({
+     * viewer.changeGlobalHeatmapConfig({
      *   // set a color scheme
      *   colorScheme: "Blackbody",
      *   // calculated density is normalized, upper end of color scheme is mapped to maxValue
@@ -1725,7 +2540,7 @@ declare namespace webvis {
          * const legend = document.createElement("canvas");
          * // fetch data
          * const legendData = viewer.getHeatmapColorSchemeLegend();
-         * // width matches colorResolution set using configureHeatmap
+         * // width matches colorResolution set using changeGlobalHeatmapConfig
          * const width = legendData.length / 4;
          * // canvas requires ImageData as source
          * const img = new ImageData(new Uint8ClampedArray(legendData), width, 1);
@@ -2074,18 +2889,37 @@ declare namespace webvis {
         CLIP_ROOM = 66,
         DRAWING_PLANE = 67,
     }
+    /**
+     * Specifies the result of a viewer drawing operation.
+     * The result contains the geometries of the drawing, a thumbnail of the drawing, and the version of data contained within the drawing.
+     *
+     * @see {@link ViewerDrawingGeometry}
+     */
     interface ViewerDrawingResult {
+        /**
+         * Contains the geometries of the drawing.
+         */
         geometries: ViewerDrawingGeometry[];
+        /**
+         * Thumbnail of the drawing, which is encoded as a base64 string.
+         */
         thumbnail: string;
+        /**
+         * Version of the data contained within the drawing. Current version: 1.0.2
+         */
         version: {
             major: number;
             minor: number;
             patch: number;
         };
     }
+    /**
+     * Contains options for the {@link ViewerDrawingAPI.leaveDrawingMode} method.
+     * The options are used to configure the result of the processing.
+     */
     interface ViewerDrawingProcessOptions {
         /**
-         * Specifies if the result contains a thumbnail of the Drawing.
+         * Specifies if the result contains a thumbnail of the drawing.
          * @default true
          */
         thumbnail?: boolean;
@@ -2102,17 +2936,17 @@ declare namespace webvis {
          */
         thumbnailHeight?: number;
         /**
-         * Specifies the output primitive type of the Brush-Drawings.
+         * Specifies the output primitive type of the brush-drawings.
          * @default "triangleStrip"
          */
         brushPrimitiveType?: "triangleStrip";
         /**
-         * Specifies the output primitive type of the Pen-Drawings.
+         * Specifies the output primitive type of the pen-drawings.
          * @default "triangleStrip"
          */
         penPrimitiveType?: "triangleStrip" | "lineStrip";
         /**
-         * Specifies the output primitive type of the Shape-Drawings.
+         * Specifies the output primitive type of the shape-drawings.
          * @default "triangleStrip"
          */
         shapePrimitiveType?: "triangleStrip" | "lineStrip";
@@ -2122,13 +2956,16 @@ declare namespace webvis {
          */
         subDivisions?: number;
     }
+    /**
+     * Contains the underlying geometry of drawing primitives.
+     */
     interface ViewerDrawingGeometry {
         /**
-         * Specifies the color of the Geometry.
+         * Specifies the color of the geometry.
          */
         color: [number, number, number, number];
         /**
-         * Specifies the vertex positions of the Geometry.
+         * Specifies the vertex positions of the geometry.
          */
         positions: number[];
         /**
@@ -2136,51 +2973,127 @@ declare namespace webvis {
          */
         slices?: number[];
         /**
-         * Specifies primitive type of the Geometry.
+         * Specifies primitive type of the geometry.
          */
         primitiveType: number;
         /**
-         * Specifies the volume of the Geometry.
+         * Specifies the volume of the geometry.
          */
         volume: [number, number, number, number, number, number];
         /**
-         * Specifies the width of the Geometry.
+         * Specifies the width of the geometry.
          * @default 1
          */
         width?: number;
+        /**
+         * Specifies how the width value is interpreted.
+         * If set to true, the width is interpreted in world space (meters) otherwise in screen space (pixels).
+         * @default false
+         */
+        useWorldUnits?: boolean;
     }
     /**
-     * The **ViewerDrawingAPI** provides basic functionalities to control the 2D Drawing Mode and the
-     * processed Output.
+     * The **ViewerDrawingAPI** provides basic functionalities to control the 2D drawing mode and the
+     * processed output.
+     *
+     * See the {@link ViewerDrawingProcessOptions} for the various configuration options for creating a drawing.
+     * ```javascript
+     * const ctx = webvis.getContext();
+     * const viewer = ctx.getViewer();
+     * // Create a new 2D drawing by entering the drawing mode, interacting with the viewer and finally leaving the drawing mode:
+     * viewer.enterDrawingMode(); // after that you can draw on top of your 3D model
+     * viewer.leaveDrawingMode(); // leaves the 2D drawing mode by committing the drawings and returns the processed 2D drawing data
+     *
+     * // You can also cancel any started drawing:
+     * viewer.enterDrawingMode();
+     * viewer.cancelDrawingMode(); // leaves the 2D drawing mode and discards all uncomitted drawings
+     * ```
      */
     interface ViewerDrawingAPI {
         /**
-         * Leaves the 2D Drawing Mode and discards all drawings.
+         * Leaves the 2D drawing mode and discards all uncomitted drawings.
          */
         cancelDrawingMode(): void;
         /**
-         * Enters the 2D drawing Mode where you can draw on top of your 3D Model.
+         * Enters the 2D drawing mode where you can draw on top of your 3D model.
          */
         enterDrawingMode(): void;
         /**
-         * Leaves the 2D Drawing Mode and returns the processed 2D drawing data which can be used to create
-         * a Drawing with the help of the {@link DrawingAPI}.
+         * Leaves the 2D drawing mode and returns the processed 2D drawing data which can be used to create
+         * a drawing with the help of the {@link DrawingAPI}.
          * @param options - Options to configure the result of the processing.
          * @returns The processed 2D drawing data.
          */
         leaveDrawingMode(options?: ViewerDrawingProcessOptions): Promise<ViewerDrawingResult | undefined>;
     }
+    /**
+     * List of different drawing modes. Can be configured via the {@link ViewerSettingStrings.DRAWING_MODE}.
+     */
     enum DrawingMode {
+        /**
+         * Using a brush to draw.
+         */
         BRUSH = 0,
+        /**
+         * Using a pen to draw.
+         */
         PEN = 1,
+        /**
+         * Selection mode, which is used to select the drawing.
+         * The selected drawing can be moved, resized, rotated or deleted.
+         */
         SELECT = 2,
+        /**
+         * Using an eraser to erase the drawing.
+         */
         ERASE = 3,
+        /**
+         * Draw the geometry as rectangle.
+         */
         RECTANGLE = 4,
+        /**
+         * Draw the geometry as ellipse.
+         */
         ELLIPSE = 5,
     }
+    /**
+     * The kind of arrowhead that should be used in the {@link DrawingMode}s `PEN` and `BRUSH`.
+     */
     enum DrawingArrowhead {
+        /**
+         * No arrowhead.
+         */
         NONE = 0,
+        /**
+         * A line with an arrowhead.
+         */
         LINE_ARROW = 1,
+    }
+    /**
+     * ## ViewerBackgroundAPI
+     *
+     * ### Overview
+     *
+     * The **ViewerBackgroundAPI** provides a method to clear the background of a viewer.
+     * This can be useful when restoring a snapshot that had a background image set (e.g. from an XR environment)
+     * and you want to remove it to have a transparent background again.
+     *
+     * ### Quick Start
+     *
+     * **Example**
+     * ```javascript
+     * // Get the current viewer
+     * const viewer = webvis.getViewer();
+     *
+     * // Clear the background and make it fully transparent
+     * viewer.clearBackground();
+     * ```
+     */
+    interface ViewerBackgroundAPI {
+        /**
+         * Clears the viewer's background.
+         */
+        clearBackground(): void;
     }
     /**
      * Keeps track of the progress of the viewer.
@@ -2379,7 +3292,9 @@ declare namespace webvis {
             ViewerMagnifierAPI,
             ViewerXREdgeCompareAPI,
             ViewerHeatmapAPI,
-            ViewerPointCloudAPI
+            ViewerPointCloudAPI,
+            ViewerBackgroundAPI,
+            ViewerPointsOfInterestAPI
     {
         /**
          * Returns the webvis context to which the viewer belongs.
@@ -2763,6 +3678,8 @@ declare namespace webvis {
         /**
          * Sets the enabled state of the 3D navigation to on or off.
          * If called without any flag, the state will be toggled.
+         *
+         * @deprecated use {@link ViewerSettingStrings.NAVIGATION_MODE} instead
          *
          * @param flag Specifies if the navigation should be enabled or disabled. Default: true.
          */
@@ -3326,119 +4243,161 @@ declare namespace webvis {
         createBoxVolume(min?: [number, number, number], max?: [number, number, number]): BoxVolume;
     }
     /**
-     * Describes a topological Torus element.
+     * Describes a topological torus entity.
+     *
+     * @see {@link TopologyDescriptor}
+     * @see {@link TopologyAPI}
      */
     interface TopologyTorusDescriptor {
         /**
-         * The area of the Torus.
+         * The area of the torus.
          */
         area: number;
         /**
-         * The axis of the Torus.
+         * The axis of the torus.
          */
         axis: [number, number, number];
         /**
-         * The center point of the Torus.
+         * The center point of the torus.
          */
         center: [number, number, number];
         /**
-         * The minor radius of the Torus.
+         * The minor radius of the torus.
          */
         minorRadius: number;
         /**
-         * The major radius of the Torus.
+         * The major radius of the torus.
          */
         majorRadius: number;
     }
     /**
-     * Describes a topological Sphere element.
+     * Describes a topological sphere entity.
+     *
+     * @see {@link TopologyDescriptor}
+     * @see {@link TopologyAPI}
      */
     interface TopologySphereDescriptor {
         /**
-         * The area of the Sphere.
+         * The area of the sphere.
          */
         area: number;
         /**
-         * The center point of the Sphere.
+         * The center point of the sphere.
          */
         center: [number, number, number];
         /**
-         * The radius of the Sphere.
+         * The radius of the sphere.
          */
         radius: number;
     }
     /**
-     * Describes a topological Shape element.
+     * Describes a topological shape entity.
+     *
+     * @see {@link TopologyDescriptor}
+     * @see {@link TopologyAPI}
      */
     interface TopologyShapeDescriptor {
         /**
-         * The volume of the Shape.
+         * The volume of the shape.
          */
         volume: number;
     }
+    /**
+     * Helper to map {@link TopologyProperty}s to the corresponding
+     * value types.
+     *
+     * @see {@link TopologyProperty}
+     * @see {@link TopologyAPI}
+     */
     interface TopologyPropertyTypeMap {
         "color": number[] | undefined;
         "selected": boolean;
         "highlighted": boolean;
     }
     /**
-     * Describes a topological Point element.
+     * Describes a topological point entity.
+     *
+     * @see {@link TopologyDescriptor}
+     * @see {@link TopologyAPI}
      */
     interface TopologyPointDescriptor {
         /**
-         * The point of the Point.
+         * The point.
          */
         point: [number, number, number];
     }
     /**
-     * Describes a topological planar Face element.
+     * Describes a topological planar face entity.
+     *
+     * @see {@link TopologyDescriptor}
+     * @see {@link TopologyAPI}
      */
     interface TopologyPlanarFaceDescriptor {
         /**
-         * The area of the planar Face.
+         * The area of the planar face.
          */
         area: number;
         /**
-         * The plane equation of the planar Face.
+         * The coefficients A, B, C, and D of the plane
+         * equation Ax + By + Cz = D of the planar face.
          */
         plane: [number, number, number, number];
     }
     /**
-     * Describes a topological Loop element.
+     * Describes a topological loop entity.
+     *
+     * @see {@link TopologyDescriptor}
+     * @see {@link TopologyAPI}
      */
     interface TopologyLoopDescriptor {
         /**
-         * The length of the Loop.
+         * The length of the loop.
          */
         length: number;
         /**
-         * The center point of the Loop.
+         * The center point of the loop.
          */
         center: [number, number, number];
     }
     /**
-     * Describes a topological Line segment.
+     * Describes a topological line segment entity.
+     *
+     * @see {@link TopologyDescriptor}
+     * @see {@link TopologyAPI}
      */
     interface TopologyLineSegmentDescriptor {
         /**
-         * The length of the Line segment.
+         * The length of the line segment.
          */
         length: number;
         /**
-         * The direction of the Line segment.
+         * The direction of the line segment.
          */
         direction: [number, number, number];
         /**
-         * The end point of the Line segment.
+         * The end point of the line segment.
          */
         end: [number, number, number];
         /**
-         * The start point of the Line segment.
+         * The start point of the line segment.
          */
         start: [number, number, number];
     }
     /**
-     * The **TopologyHandle** holds a Shape and/or Entity identifier.
+     * A handle for a topological entity, which can be used with the
+     * {@link TopologyAPI}. The handle represents either a shape or an
+     * entity within a shape. To get a more detailed
+     * {@link TopologyDescriptor descriptor} of the topological entity,
+     * the function {@link TopologyAPI.requestTopologyDescriptor} can
+     * be used. Besides performing actions such as selecting the
+     * topological entity, the handle can also be used together with
+     * the {@link MeasurementAPI} to perform different kinds of
+     * measurements.
+     *
+     * @see {@link TopologyDescriptor}
+     * @see {@link TopologyAPI.requestTopologyDescriptor}
+     * @see {@link TopologyAPI}
+     * @see {@link MeasurementAPI}
      */
     interface TopologyHandle {
         entityID?: number;
@@ -3446,48 +4405,65 @@ declare namespace webvis {
         shapeInstanceID: number;
     }
     /**
-     * Describes a topological Face element.
+     * Describes a topological face entity.
+     *
+     * @see {@link TopologyDescriptor}
+     * @see {@link TopologyAPI}
      */
     interface TopologyFaceDescriptor {
         /**
-         * The area of the Face.
+         * The area of the face.
          */
         area: number;
     }
     /**
-     * Describes a topological Ellipse element.
+     * Describes a topological ellipse entity.
+     *
+     * @see {@link TopologyDescriptor}
+     * @see {@link TopologyAPI}
      */
     interface TopologyEllipseDescriptor {
         /**
-         * The axis of the Ellipse.
+         * The axis of the ellipse.
          */
         axis: [number, number, number];
         /**
-         * The center point of the Ellipse.
+         * The center point of the ellipse.
          */
         center: [number, number, number];
         /**
-         * The circumference of the Ellipse.
+         * The circumference of the ellipse.
          */
         circumference: number;
         /**
-         * The major radius of the Ellipse.
+         * The major radius of the ellipse.
          */
         majorRadius: number;
         /**
-         * The minor radius of the Ellipse.
+         * The minor radius of the ellipse.
          */
         minorRadius: number;
     }
     /**
-     * Describes a topological Edge element.
+     * Describes a topological edge entity.
+     *
+     * @see {@link TopologyDescriptor}
+     * @see {@link TopologyAPI}
      */
     interface TopologyEdgeDescriptor {
         /**
-         * The length of the Edge.
+         * The length of the edge.
          */
         length: number;
     }
+    /**
+     * Helper to map {@link TopologySubType}s to the corresponding
+     * descriptor types.
+     *
+     * @see {@link TopologyDescriptor}
+     * @see {@link TopologySubType}
+     * @see {@link TopologyAPI}
+     */
     interface TopologyDescriptorMap {
         [TopologySubType.CIRCLE]: TopologyCircleDescriptor;
         [TopologySubType.CIRCULAR_ARC]: TopologyCircularArcDescriptor;
@@ -3506,191 +4482,314 @@ declare namespace webvis {
         [TopologySubType.BOX]: TopologyBoxDescriptor;
         [TopologySubType.POINT]: TopologyPointDescriptor;
     }
+    /**
+     * A descriptor for a topological entity. It contains the
+     * {@link TopologySubType subtype} and an object with a series
+     * of known attributes of the topological entity. For example,
+     * the attributes of a circle are defined in a
+     * {@link TopologyCircleDescriptor} and include
+     * the center, radius, axis, and circumference. A descriptor
+     * for a given topological entity can be requested via
+     * {@link TopologyAPI.requestTopologyDescriptor}.
+     *
+     * @see {@link TopologySubType}
+     * @see {@link TopologyDescriptorMap}
+     * @see {@link TopologyAPI.requestTopologyDescriptor}
+     */
     type TopologyDescriptor<K extends keyof TopologyDescriptorMap = keyof TopologyDescriptorMap> = {
         [P in K]: {
             /**
-             * The syb type of the Topological Element.
+             * The subtype of the topological entity.
              */
             type: P;
             /**
-             * The attributes of the Topological Element.
+             * The attributes of the topological entity.
              */
             descriptor: TopologyDescriptorMap[P];
         };
     }[K];
     /**
-     * Describes a topological Cylinder element.
+     * Describes a topological cylinder entity.
+     *
+     * @see {@link TopologyDescriptor}
+     * @see {@link TopologyAPI}
      */
     interface TopologyCylinderDescriptor {
         /**
-         * The length of the Cylinder.
+         * The area of the cylinder.
          */
         area: number;
         /**
-         * The center point of the Cylinder.
+         * The center point of the cylinder.
          */
         center: [number, number, number];
         /**
-         * The radius of the Cylinder.
+         * The radius of the cylinder.
          */
         radius: number;
         /**
-         * The height of the Cylinder.
+         * The height of the cylinder.
          */
         height: number;
         /**
-         * The axis of the Cylinder.
+         * The axis of the cylinder.
          */
         axis: [number, number, number];
     }
     /**
-     * Describes a topological Curve element.
+     * Describes a topological curve entity.
+     *
+     * @see {@link TopologyDescriptor}
+     * @see {@link TopologyAPI}
      */
     interface TopologyCurveDescriptor {
         /**
-         * The length of the Curve.
+         * The length of the curve.
          */
         length: number;
         /**
-         * The start point of the Curve.
+         * The start point of the curve.
          */
         start: [number, number, number];
         /**
-         * The end point of the Curve.
+         * The end point of the curve.
          */
         end: [number, number, number];
     }
     /**
-     * Describes a topological Cone element.
+     * Describes a topological cone entity.
+     *
+     * @see {@link TopologyDescriptor}
+     * @see {@link TopologyAPI}
      */
     interface TopologyConeDescriptor {
         /**
-         * The area of the Cone.
+         * The area of the cone.
          */
         area: number;
         /**
-         * The axis of the Cone.
+         * The axis of the cone.
          */
         axis: [number, number, number];
         /**
-         * The center point of the Cone.
+         * The center point of the cone.
          */
         center: [number, number, number];
         /**
-         * The radius of the Cone.
+         * The radius of the cone.
          */
         radius: number;
         /**
-         * The height of the Cone.
+         * The height of the cone.
          */
         height: number;
         /**
-         * The half angle of the Cone.
+         * The half angle of the cone.
          */
         halfAngle: number;
     }
     /**
-     * Describes a topological circular Ark element.
+     * Describes a topological circular arc entity.
+     *
+     * @see {@link TopologyDescriptor}
+     * @see {@link TopologyAPI}
      */
     interface TopologyCircularArcDescriptor {
         /**
-         * The angle of the circular Arc.
+         * The angle of the circular arc.
          */
         angle: number;
         /**
-         * The axis of the circular Arc.
+         * The axis of the circular arc.
          */
         axis: [number, number, number];
         /**
-         * The center point of the circular Arc.
+         * The center point of the circular arc.
          */
         center: [number, number, number];
         /**
-         * The arc length of the circular Arc.
+         * The length of the circular arc.
          */
         arcLength: number;
         /**
-         * The radius of the circular Arc.
+         * The radius of the circular arc.
          */
         radius: number;
         /**
-         * The end point of the circular Arc.
+         * The end point of the circular arc.
          */
         end: [number, number, number];
         /**
-         * The start point of the circular Arc.
+         * The start point of the circular arc.
          */
         start: [number, number, number];
     }
     /**
-     * Describes a topological Circle element.
+     * Describes a topological circle entity.
+     *
+     * @see {@link TopologyDescriptor}
+     * @see {@link TopologyAPI}
      */
     interface TopologyCircleDescriptor {
         /**
-         * The radius of the Circle.
+         * The radius of the circle.
          */
         radius: number;
         /**
-         * The center point of the Circle.
+         * The center point of the circle.
          */
         center: [number, number, number];
         /**
-         * The axis of the Circle.
+         * The axis of the circle.
          */
         axis: [number, number, number];
         /**
-         * The circumference of the Circle.
+         * The circumference of the circle.
          */
         circumference: number;
     }
     /**
-     * Describes a topological Box element.
+     * Describes a topological box entity.
+     *
+     * @see {@link TopologyDescriptor}
+     * @see {@link TopologyAPI}
      */
     interface TopologyBoxDescriptor {
         /**
-         * The center point of the Sphere.
+         * The center point of the box.
          */
         center: [number, number, number];
         /**
-         * The dimension of the Box.
+         * The dimension of the box.
          */
         dimension: [number, number, number];
         /**
-         * The volume of the Box
+         * The volume of the box
          */
         volume: number;
     }
     /**
-     * The **OriginalTopologyHandle** holds a Shape and/or Entity identifier from the original CAD File
+     * A handle that holds an entity and shape identifier from the original CAD file.
+     *
+     * @see {@link TopologyAPI.mapOriginalToInternalTopologyHandles}
+     * @see {@link TopologyAPI.mapInternalToOriginalTopologyHandles}
      */
     interface OriginalTopologyHandle {
         /**
-         * The Entity identifier from the original CAD File
+         * The entity identifier from the original CAD file
          */
         entityID: number;
         /**
-         * The Shape identifier from the original CAD File
+         * The shape identifier from the original CAD file
          */
         shapeID?: string | undefined;
     }
     /**
-     * The **TopologyAPI** provides multiple functionalities to operate on the Topology level of a Shape.
+     * ## TopologyAPI
+     *
+     * ### Overview
+     *
+     * The TopologyAPI provides access to low-level topological entities within a 3D model.
+     * A topological entity can be a point, some kind of edge or face, or a shape that groups
+     * several of these entities together.
+     *
+     * A topological entity is usually represented by a {@link TopologyHandle}. Each topological
+     * entity has a general {@link TopologyType type} and a more specific {@link TopologySubType subtype}.
+     *
+     * Given a {@link TopologyHandle}, a more detailed descriptor can be requested via the
+     * {@link TopologyAPI.requestTopologyDescriptor requestTopologyDescriptor} function. This
+     * descriptor contains the subtype and an object with a series of known attributes of the
+     * topological entity. For example, a descriptor for a circle includes the center and
+     * radius of the circle.
+     *
+     * ### Quick Start
+     *
+     * A topology handle can be obtained via {@link TopologyAPI.mapOriginalToInternalTopologyHandles mapOriginalToInternalTopologyHandles}
+     * by providing the identifier of the entity in the original CAD file.
+     *
+     * Alternatively, you can use a click event listener to obtain a handle for the topological
+     * entity under the mouse cursor:
+     *
+     * ```javascript
+     * const context = webvis.getContext();
+     * const viewer = context.getViewer();
+     *
+     * // Disable node selection on click and enable interaction
+     * // with topological entities
+     * context.setInteractionMode(webvis.InteractionMode.NONE);
+     * viewer.setInteractionLevel(webvis.ViewerInteractionLevel.TOPOLOGY);
+     * viewer.forceRenderMode(webvis.RenderMode.FacesTopology);
+     * viewer.enableSnapping(true);
+     *
+     * const listenerId = context.registerListener([webvis.EventType.NODE_CLICKED], async (event) => {
+     *     const pointerInfo = event.pointerInfo;
+     *     const topologyHandle = await pointerInfo.requestTopologyHandle();
+     *
+     *     await context.addTopologyToSelection(topologyHandle);
+     *
+     *     const topologyDescriptor = await context.requestTopologyDescriptor(topologyHandle);
+     *     console.log("Descriptor: ", topologyDescriptor);
+     *
+     *     const [originalIdentifier] = await context.mapInternalToOriginalTopologyHandles([topologyHandle]);
+     *     console.log("Identifier in original CAD file: ", originalIdentifier);
+     * }, 0, true); // Set option 'observeSubTree' to true to observe all entities
+     * ```
+     *
+     * ### Combination With Other APIs
+     *
+     * When the viewer interaction level is set to {@link ViewerInteractionLevel.TOPOLOGY TOPOLOGY}
+     * via the function {@link ViewerInteractionAPI.setInteractionLevel}, webvis will emit
+     * {@link TopologyPointerEnterEvent}s and {@link TopologyPointerOutEvent}s when the mouse
+     * cursor enters or leaves a topological entity:
+     *
+     * ```javascript
+     * // Setup as shown in the previous example, including setting
+     * // the viewer interaction level to TOPOLOGY
+     *
+     * const listenerId = context.registerListener([webvis.EventType.TOPOLOGY_POINTER_ENTER], (event) => {
+     *     const topologyHandle = event.topologyHandle;
+     *     viewer.highlightEntity(topologyHandle, {color: [1, 0.8, 0, 0.5]});
+     * }, 0, true); // Set option 'observeSubTree' to true to observe all entities
+     * ```
+     *
+     * As demonstrated in the example above, you can use the function {@link ViewerHighlightAPI.highlightEntity}
+     * to highlight a topological entity.
+     *
+     * In addition to that, the {@link MeasurementAPI} can be used to perform different kinds of
+     * measurements with topological entities. Examples include distance, angle, and thickness
+     * measurements, as well as tangent calculations.
      */
     interface TopologyAPI {
         /**
-         * Adds one or multiple Topology elements to the current selection.
-         * @param {TopologyHandle | TopologyHandle[]} handle - A Topology Element or the list of Topology Elements which should be added to the current selection.
+         * Adds one or more topological entities to the current selection.
+         *
+         * @see {@link TopologyAPI.setTopologySelection setTopologySelection}
+         * @see {@link TopologyAPI.removeTopologyFromSelection removeTopologyFromSelection}
+         * @see {@link TopologyAPI.clearTopologySelection clearTopologySelection}
+         * @see {@link TopologyAPI.getSelectedTopologyHandles getSelectedTopologyHandles}
+         *
+         * @param handle The topological entity or array of topological entities which
+         *               should be added to the current selection.
+         * @returns A promise which resolves when the operation is completed.
          */
         addTopologyToSelection(handle: TopologyHandle | TopologyHandle[]): Promise<void>;
         /**
-         * Clears the current Topology Selection.
+         * Clears the current topological entity selection.
+         *
+         * @see {@link TopologyAPI.setTopologySelection setTopologySelection}
+         * @see {@link TopologyAPI.addTopologyToSelection addTopologyToSelection}
+         * @see {@link TopologyAPI.removeTopologyFromSelection removeTopologyFromSelection}
+         * @see {@link TopologyAPI.getSelectedTopologyHandles getSelectedTopologyHandles}
+         *
+         * @returns A promise which resolves when the operation is completed.
          */
         clearTopologySelection(): Promise<void>;
         /**
-         * Create Circular arc descriptor by the three specified points.
-         * @param point0 - The first point.
-         * @param point1 - The second point.
-         * @param point2 - The third point.
+         * Creates a circular arc descriptor based on three points.
+         * @param point0 The first point.
+         * @param point1 The second point.
+         * @param point2 The third point.
+         * @returns A circular arc descriptor.
          */
         createCircularArcDescriptor(
             point0: [number, number, number],
@@ -3698,75 +4797,128 @@ declare namespace webvis {
             point2: [number, number, number],
         ): TopologyDescriptor<TopologySubType.CIRCULAR_ARC>;
         /**
-         * Create Point descriptor by the specified point.
-         * @param point - The point.
+         * Creates a point descriptor for the specified point.
+         * @param point The point.
+         * @returns A point descriptor.
          */
         createPointDescriptor(point: [number, number, number]): TopologyDescriptor<TopologySubType.POINT>;
         /**
-         * Returns a list of all selected topology elements.
-         * @returns {TopologyHandle[]} A List of all selected Topology elements.
+         * Returns all selected topological entities.
+         *
+         * @see {@link TopologyAPI.isTopologySelected isTopologySelected}
+         * @see {@link TopologyAPI.setTopologySelection setTopologySelection}
+         *
+         * @returns All selected topological entities.
          */
         getSelectedTopologyHandles(): Array<TopologyHandle>;
         /**
-         * Returns the type of the given topology element
-         * @param handle - The TopologyHandle.
-         * @returns {TopologyType} The type of the given topology element
+         * Returns the type of the given topological entity.
+         * @param handle The topology handle.
+         * @returns The type of the given topological entity.
          */
         getTopologyType(handle: TopologyHandle): TopologyType;
         /**
-         * Returns a handle to the corresponding Shape of the specified Topology Element.
-         * @param handle - The Topology Handle.
-         * @returns {TopologyHandle} - The corresponding Shape of the specified Topology Element.
+         * Returns a handle for the shape that contains the given topological entity.
+         * @param handle The topology handle.
+         * @returns A handle for the shape that contains the given topological entity.
          */
         getShapeHandle(handle: TopologyHandle): TopologyHandle;
         /**
-         * Checks if the specified Topology Element is part of the current selection.
-         * @param {TopologyHandle} handle - The topology element which should be checked if it selected.
-         * @returns {boolean} A boolean value which indicates if the specified Topology Element is part of the current selection or not.
+         * Returns true if the specified topological entity is selected, false otherwise.
+         *
+         * @see {@link TopologyAPI.getSelectedTopologyHandles getSelectedTopologyHandles}
+         * @see {@link TopologyAPI.setTopologySelection setTopologySelection}
+         *
+         * @param handle The topology handle.
+         * @returns True if the specified topological entity is selected, false otherwise.
          */
         isTopologySelected(handle: TopologyHandle): boolean;
         /**
-         * Maps the given original topology handles to webvis internal topology handles.
-         * @param {number} nodeID - The Node which specifies the Part the topology relates to.
-         * @param {TopologyHandle[]} handles - A list of original topology handles.
-         * @returns Promise<Array<TopologyHandle|undefined>> - A list of the corresponding webvis internal topology handles.
+         * Maps the given original topology handles to the corresponding webvis topology
+         * handles.
+         *
+         * @see {@link TopologyAPI.mapInternalToOriginalTopologyHandles mapInternalToOriginalTopologyHandles}
+         *
+         * @param nodeID  The node which represents the part that contains the
+         *                topological entities.
+         * @param handles The original topology handles to be mapped.
+         * @returns The corresponding webvis topology handles.
          */
         mapOriginalToInternalTopologyHandles(
             nodeID: number,
             handles: OriginalTopologyHandle[],
         ): Promise<Array<TopologyHandle | undefined>>;
         /**
-         * Maps the given webvis internal topology handles to original topology handles.
-         * @param {TopologyHandle[]} handles - A list of webvis internal topology handles.
-         * @returns Promise<Array<OriginalTopologyHandle|undefined>> - A list of the corresponding original topology handles.
+         * Maps the given webvis topology handles to the corresponding original topology
+         * handles.
+         *
+         * @see {@link TopologyAPI.mapOriginalToInternalTopologyHandles mapOriginalToInternalTopologyHandles}
+         *
+         * @param handles The webvis topology handles to be mapped.
+         * @returns The corresponding original topology handles.
          */
         mapInternalToOriginalTopologyHandles(
             handles: TopologyHandle[],
         ): Promise<Array<OriginalTopologyHandle | undefined>>;
         /**
-         * Removes one or multiple Topology elements to the current selection.
-         * @param {TopologyHandle | TopologyHandle[]} handle - A Topology Element or a list of Topology Elements which should be removed from the current selection.
+         * Removes one or more topological entities from the current selection.
+         *
+         * @see {@link TopologyAPI.setTopologySelection setTopologySelection}
+         * @see {@link TopologyAPI.addTopologyToSelection addTopologyToSelection}
+         * @see {@link TopologyAPI.clearTopologySelection clearTopologySelection}
+         * @see {@link TopologyAPI.getSelectedTopologyHandles getSelectedTopologyHandles}
+         *
+         * @param handle The topological entity or array of topological entities which
+         *               should be removed from the current selection.
+         * @return A promise which resolves when the operation is completed.
          */
         removeTopologyFromSelection(handle: TopologyHandle | TopologyHandle[]): Promise<void>;
         /**
-         * Returns a detailed description of the Topology Element.
-         * @param {TopologyHandle} handle - The Topology Element.
-         * @returns {Promise<TopologyDescriptor>} The detailed description of the Topological Element.
+         * Returns the neighboring edges of the specified topological entity.
+         * @param handle The topological entity for which the neighboring edges should be requested.
+         * @returns The neighboring edges of the specified topological entity.
+         */
+        requestNeighboringEdges(handle: TopologyHandle): Promise<TopologyHandle[]>;
+        /**
+         * Returns the neighboring faces of the specified topological entity.
+         * @param handle The topological entity for which the neighboring faces should be requested.
+         * @returns The neighboring faces of the specified topological entity.
+         */
+        requestNeighboringFaces(handle: TopologyHandle): Promise<TopologyHandle[]>;
+        /**
+         * Returns a list of shape handles for the specified node or subtree.
+         * @param nodeId The node ID which is used to collect the shape handles.
+         * @returns The list of shape handles for the specified node or subtree
+         */
+        requestShapeHandles(nodeId: number): Promise<TopologyHandle[]>;
+        /**
+         * Returns a detailed descriptor for the specified topological entity.
+         * The descriptor contains the {@link TopologySubType subtype} and an
+         * object with a series of known attributes of the topological entity.
+         * For example, a descriptor for a circle includes the center and
+         * radius of the circle.
+         * @param handle The topological entity.
+         * @returns A detailed descriptor for the specified topological entity.
          */
         requestTopologyDescriptor(handle: TopologyHandle): Promise<TopologyDescriptor>;
         /**
-         * Returns a Box descriptor by the specified list of Node Ids.
-         * @param nodeIds - List of Node Ids.
-         * @returns {Promise<TopologyDescriptor<TopologySubType.BOX>>} The Box descriptor for the given Node Ids.
+         * Returns a box descriptor for the combined bounding box of the
+         * specified nodes.
+         * @param nodeIds The nodes for which the box descriptor should
+         *                be created.
+         * @returns The box descriptor for the combined bounding box of
+         *          the specified nodes.
          */
         requestBoxDescriptor(nodeIds: number[]): Promise<TopologyDescriptor<TopologySubType.BOX>>;
         /**
-         * Sets a Property of one or multiple Topology Elements.
-         * @template {keyof TopologyPropertyTypeMap} T - The type of the property which should be set.
-         * @param {TopologyHandle | TopologyHandle[]} handle
-         * @param {T} property - The property which should be set.
-         * @param {TopologyPropertyTypeMap[T]} value - The new property value.
-         * @returns {Promise<PromiseSettledResult<void>[]>} A list of PromiseSettledResult which indicates the success of the operation.
+         * Sets a {@link TopologyProperty property} of one or more topological
+         * entities.
+         * @template T     The property which should be set.
+         * @param handle   The topological entity or array of topological
+         *                 entities which should be modified.
+         * @param property The property which should be set.
+         * @param value    The new value of the property.
+         * @returns A promise which resolves when the operation is completed.
          */
         setTopologyProperty<T extends keyof TopologyPropertyTypeMap>(
             handle: TopologyHandle | TopologyHandle[],
@@ -3774,45 +4926,331 @@ declare namespace webvis {
             value: TopologyPropertyTypeMap[T],
         ): Promise<PromiseSettledResult<void>[]>;
         /**
-         * Selects the specified Topology Elements.
-         * @param {TopologyHandle | TopologyHandle[]} handle - A Topology Element or a list of Topology Elements to select.
+         * Sets the current selection to the specified topological entities.
+         *
+         * @see {@link TopologyAPI.addTopologyToSelection addTopologyToSelection}
+         * @see {@link TopologyAPI.removeTopologyFromSelection removeTopologyFromSelection}
+         * @see {@link TopologyAPI.clearTopologySelection clearTopologySelection}
+         * @see {@link TopologyAPI.getSelectedTopologyHandles getSelectedTopologyHandles}
+         *
+         * @param handle One or more topological entities that should be selected.
+         * @returns A promise which resolves when the operation is completed.
          */
         setTopologySelection(handle: TopologyHandle | TopologyHandle[]): Promise<void>;
     }
+    /**
+     * The possible types of a topological entity. Each topological
+     * entity also has a more specific subtype, as defined in the
+     * {@link TopologySubType} enum.
+     *
+     * @see {@link TopologySubType}
+     * @see {@link TopologyAPI.getTopologyType}
+     */
     enum TopologyType {
+        /**
+         * A face within a shape. This can be a planar or
+         * non-planar face.
+         */
         FACE = 1,
+        /**
+         * An edge within a shape. This can be a line segment,
+         * circular arc, or other kind of edge.
+         */
         EDGE = 2,
+        /**
+         * A point within a shape.
+         */
         POINT = 3,
+        /**
+         * A shape, which can contain faces, edges, and points.
+         */
         SHAPE = 4,
     }
+    /**
+     * The possible subtypes of a topological entity.
+     *
+     * @see {@link TopologyDescriptor}
+     * @see {@link TopologyDescriptorMap}
+     * @see {@link TopologyAPI}
+     */
     enum TopologySubType {
+        /**
+         * A circle, which can be described by a {@link TopologyCircleDescriptor}.
+         */
         CIRCLE = 0,
+        /**
+         * A circular arc, which can be described by a {@link TopologyCircularArcDescriptor}.
+         */
         CIRCULAR_ARC = 1,
+        /**
+         * A cone, which can be described by a {@link TopologyConeDescriptor}.
+         */
         CONE = 2,
+        /**
+         * A curve, which can be described by a {@link TopologyCurveDescriptor}.
+         */
         CURVE = 3,
+        /**
+         * A cylinder, which can be described by a {@link TopologyCylinderDescriptor}.
+         */
         CYLINDER = 4,
+        /**
+         * An edge, which can be described by a {@link TopologyEdgeDescriptor}.
+         */
         EDGE = 5,
+        /**
+         * An ellipse, which can be described by a {@link TopologyEllipseDescriptor}.
+         */
         ELLIPSE = 6,
+        /**
+         * A face, which can be described by a {@link TopologyFaceDescriptor}.
+         */
         FACE = 7,
+        /**
+         * A line segment, which can be described by a {@link TopologyLineSegmentDescriptor}.
+         */
         LINE_SEGMENT = 8,
+        /**
+         * A loop, which can be described by a {@link TopologyLoopDescriptor}.
+         */
         LOOP = 9,
+        /**
+         * A planar face, which can be described by a {@link TopologyPlanarFaceDescriptor}.
+         */
         PLANAR_FACE = 10,
+        /**
+         * A shape, which can be described by a {@link TopologyShapeDescriptor}.
+         */
         SHAPE = 11,
+        /**
+         * A sphere, which can be described by a {@link TopologySphereDescriptor}.
+         */
         SPHERE = 12,
+        /**
+         * A torus, which can be described by a {@link TopologyTorusDescriptor}.
+         */
         TORUS = 13,
+        /**
+         * A box, which can be described by a {@link TopologyBoxDescriptor}.
+         */
         BOX = 14,
+        /**
+         * A point, which can be described by a {@link TopologyPointDescriptor}.
+         */
         POINT = 15,
     }
+    /**
+     * The properties of a topological entity that can be set via the
+     * {@link TopologyAPI}.
+     *
+     * @see {@link TopologyAPI}
+     * @see {@link TopologyAPI.setTopologyProperty}
+     */
     enum TopologyProperty {
+        /**
+         * The color of the topological entity. The value is an
+         * array of four numbers in the range from 0 to 1,
+         * representing the red, green, blue, and alpha components
+         * of the color. If the color is set to undefined, it will
+         * be reset to the default color.
+         *
+         * @default undefined
+         */
         COLOR = "color",
+        /**
+         * The highlighted state of the topological entity.
+         *
+         * @default false
+         */
         HIGHLIGHTED = "highlighted",
+        /**
+         * The selected state of the topological entity.
+         *
+         * @default false
+         */
         SELECTED = "selected",
     }
+    /**
+     * The possible types of a topological entity. Analogous to
+     * enum {@link TopologyType}. Each topological entity also
+     * has a more specific subtype, as defined in the
+     * {@link TopologySubType} enum.
+     *
+     * @see {@link TopologyHandle}
+     * @see {@link TopologySubType}
+     * @see {@link TopologyAPI}
+     */
     enum EntityType {
+        /**
+         * A face within a shape. This can be a planar or
+         * non-planar face.
+         */
         FACE = 1,
+        /**
+         * An edge within a shape. This can be a line segment,
+         * circular arc, or other kind of edge.
+         */
         EDGE = 2,
+        /**
+         * A point within a shape.
+         */
         POINT = 3,
+        /**
+         * A shape, which can contain faces, edges, and points.
+         */
         SHAPE = 4,
+    }
+    /**
+     * Defines the configuration options for creating or managing a {@link SpaceAPI | 3D space}.
+     */
+    interface SpaceConfiguration {
+        /**
+         * The retain policy for the space.
+         */
+        retainPolicy: SpaceRetainPolicy;
+        /**
+         * Optional tags associated with the space.
+         */
+        tags?: string[];
+        /**
+         * An optional description for the space.
+         */
+        description?: string;
+        /**
+         * An optional name for the space.
+         */
+        name?: string;
+        /**
+         * Optional mapping of member roles to their corresponding access tokens for the space. Set when creating a space.
+         */
+        tokens?: MemberRoleToSpaceAccessToken;
+    }
+    /**
+     * Maps each {@link MemberRole} to its corresponding {@link SpaceAPI | space} access token.
+     */
+    type MemberRoleToSpaceAccessToken = {
+        [K in MemberRole]: string;
+    };
+    /**
+     * ## Space API
+     *
+     * The Space API provides methods to interact with a 3D space.
+     *
+     * ### Overview
+     *
+     * To work with 3D spaces, you can use the Space API to open existing spaces, create new ones,
+     * and obtain shareable space handles.
+     *
+     * ### Quick Start
+     *
+     * ```javascript
+     * // User A: Gets a shareable handle for the current space
+     * const spaceHandle = await webvis.getContext().requestSpaceHandle();
+     *
+     * // User B: Opens an existing space using the handle of user A
+     * await webvis.getContext().openSpace(spaceHandle); // You're now in the existing space
+     *
+     * // You can also create a new, empty space
+     * await webvis.getContext().openSpace(); // You're now in a new, empty space
+     * ```
+     *
+     * ### Space Handles
+     *
+     * A space handle is a URL that can be used to open a specific 3D space. It contains the space ID and an optional access
+     * token for a specific member role. You can obtain a space handle for the current space using the `requestSpaceHandle`
+     * method.
+     *
+     * ```javascript
+     * // Get the webvis context
+     * const context = await webvis.getContext();
+     *
+     * // Get a space handle for the current space with the default role (Viewer)
+     * const viewerHandle = await context.requestSpaceHandle();
+     *
+     * // Get a space handle for the current space with a certain role
+     * const editorHandle = await context.requestSpaceHandle(MemberRole.EDITOR);
+     * ```
+     *
+     * ### Cloning Spaces
+     *
+     * You can create a new 3D space by cloning the current space using the `cloneIntoNewSpace` method.
+     * This creates a new space with the same content as the current one, allowing you to make changes
+     * without affecting the original space.
+     *
+     * ```javascript
+     * // Clone the current space into a new space
+     * await context.cloneIntoNewSpace(); // You're now in the cloned space
+     * ```
+     *
+     * ### Events
+     *
+     * The Space API emits the following events:
+     * - {@link SpaceOpenedEvent}
+     */
+    interface SpaceAPI {
+        /**
+         * Opens a 3D space.
+         *
+         * If a space handle is specified and it exists, switches to the 3D space referenced by the handle.
+         * If a space handle is specified and it does not exist, throws an error.
+         * If no space handle is specified, creates a new 3D space and clears the content.
+         *
+         * @param spaceHandle The handle of the space to open. If undefined, a new space is created.
+         * @returns A promise that resolves when the space has been opened.
+         *
+         * @see {@link requestSpaceHandle} to get a space handle.
+         */
+        openSpace(spaceHandle?: string): Promise<void>;
+        /**
+         * Opens a new 3D space by cloning the current space.
+         *
+         * @returns A promise that resolves when the new space has been opened.
+         */
+        cloneIntoNewSpace(): Promise<void>;
+        /**
+         * Requests a shareable space handle for the current 3D space.
+         *
+         * A space handle is a URL that can be used to open the current 3D space. It has the following format:
+         * - `<HUB_URL>/api/space/v2/<SPACE_ID>` if no role is specified.
+         * - `<HUB_URL>/api/space/v2/<SPACE_ID>?token=<TOKEN>` if a role is specified.
+         * where `<HUB_URL>` is the URL of the hub, `<SPACE_ID>` is the ID of the current space, and `<TOKEN>` is the
+         * access token for the specified role.
+         *
+         * @param role The role to assign when the space is opened via the handle. If undefined, the {@link MemberRole.VIEWER}
+         * role will be assigned when opening the space via the handle.
+         * @returns A promise that resolves to the space handle.
+         */
+        requestSpaceHandle(role?: MemberRole): Promise<string>;
+    }
+    /**
+     * Event that is fired when a {@link SpaceAPI | 3D space} is opened.
+     *
+     * @event
+     * @hideconstructor
+     *
+     * @see {@link EventType.SPACE_OPENED}
+     */
+    class SpaceOpenedEvent extends WebVisEvent {
+        constructor();
+    }
+    /**
+     * Lists all available space retain policies.
+     *
+     * A space retain policy defines the conditions under which a {@link SpaceAPI | 3D space} is preserved or discarded.
+     */
+    enum SpaceRetainPolicy {
+        /**
+         * Preserve the space even when the owner leaves.
+         */
+        PRESERVE = 1,
+        /**
+         * Discard the space when the owner leaves.
+         */
+        DISCARD_WHEN_OWNER_LEAVES = 2,
+        /**
+         * Discard the space when the last member leaves.
+         */
+        DISCARD_WHEN_LAST_MEMBER_LEAVES = 3,
     }
     type ViewerSettingType<T> = T extends "aaSetting" ? boolean
         : T extends "backgroundColor" ? string | undefined | null
@@ -4350,6 +5788,12 @@ declare namespace webvis {
          */
         INITIAL_FIT = "initialFit",
         /**
+         * Defines the direction which is used for the initial view fitting
+         *
+         * @default ViewDirection.CURRENT
+         */
+        INITIAL_FIT_DIRECTION = "initialFitDirection",
+        /**
          * Defines a view matrix to set on start.
          *
          * @default undefined
@@ -4552,6 +5996,8 @@ declare namespace webvis {
         /**
          * Defines whether a viewer shows the auxiliary geometries during navigation or not
          *
+         * @deprecated ViewerSettingStrings.SHOW_AUX_ON_NAVIGATION is deprecated and will be removed in a future version.
+         *
          * @default true
          *
          * @see {@link NodeType.AUX}
@@ -4732,45 +6178,183 @@ declare namespace webvis {
          */
         WEBGL_PRESERVE_DRAWINGBUFFER = "webglPreserveDrawingbuffer",
     }
+    /**
+     * This enum contains all the setting keys that are used to read, change and reset the **settings of a WebVis context**.
+     * For every setting key, its default value can be found here, as well as the type of the value.
+     *
+     * Please note, that a list of viewer-specific settings can be found in the {@link ViewerSettingStrings} enum.
+     *
+     * Furthermore, please notice the difference between context and viewer level settings, as described in the {@link ContextAPI}.
+     *
+     * **Example**
+     * ```ts
+     * webvis.getContext().changeSetting(webvis.SettingStrings.LOG_LEVEL, webvis.LogLevel.DEBUG);
+     * webvis.getContext().readSetting(webvis.SettingStrings.HUB_URL);
+     * webvis.getContext().resetSetting(webvis.SettingStrings.BATCHED_QUERIES);
+     * ```
+     *
+     * @see {@link ContextAPI.changeSetting}
+     * @see {@link ContextAPI.readSetting}
+     * @see {@link ContextAPI.resetSetting}
+     * @see {@link SettingChangedEvent}
+     */
     enum SettingStrings {
         /**
          * A list of cookies that are added to all requests.
          */
         ADDITIONAL_COOKIES = "additionalCookies",
         /**
-         * Specifies additional request headers
+         * Specifies custom HTTP headers to be included with all requests to the instant3Dhub backend.
+         *
+         * These headers can be used for various purposes including authentication, client identification,
+         * or providing additional context for server-side processing. Unlike cookies, headers are
+         * applied to all types of requests including XHR, WebSocket initialization, and fetch calls.
+         *
+         * Example usage:
+         * ```javascript
+         * // Get the webvis context
+         * const context = webvis.getContext();
+         *
+         * // Add authentication and tracking headers
+         * context.changeSetting(webvis.SettingStrings.ADDITIONAL_REQUEST_HEADERS, {
+         *   'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
+         *   'X-Client-Version': '3.5.2',
+         *   'X-Request-Source': 'webvis-frontend'
+         * });
+         *
+         * // Clear all custom headers
+         * context.changeSetting(webvis.SettingStrings.ADDITIONAL_REQUEST_HEADERS, {});
+         * ```
+         *
+         * Note that each change to this setting completely replaces all previously set headers.
+         * To preserve existing headers while adding new ones, you should read the current value,
+         * extend it with new headers, and then apply the combined set.
+         *
+         * @default {}
          */
         ADDITIONAL_REQUEST_HEADERS = "additionalRequestHeaders",
         /**
-         * Allows to specify additional key-value pairs passed as query parameters to the WebSocket URI.
-         * The following keys are currently not allowed "token", "memberId".
+         * Specifies additional query parameters to be included in WebSocket connection URLs.
+         *
+         * These parameters are appended to the WebSocket URI during connection establishment
+         * and can be used for custom authentication, session identification, or feature flags.
+         *
+         * Example usage:
+         * ```javascript
+         * // Get the webvis context
+         * const context = webvis.getContext();
+         *
+         * // Add custom identification parameters
+         * context.changeSetting(webvis.SettingStrings.ADDITIONAL_WS_QUERY_PARAMETERS, {
+         *   'client': 'engineering-department',
+         *   'version': '2.5.0',
+         *   'feature_flags': 'extended_logs,beta_features'
+         * });
+         *
+         * // Clear all custom parameters
+         * context.changeSetting(webvis.SettingStrings.ADDITIONAL_WS_QUERY_PARAMETERS, {});
+         * ```
+         *
+         * Note: Parameters are visible in the URL and cannot be modified after connection.
+         * Reserved names: "token", "memberId"
+         *
+         * @default {}
+         * @see {@link SettingStrings.ADDITIONAL_REQUEST_HEADERS} - For HTTP header-based configuration
          */
         ADDITIONAL_WS_QUERY_PARAMETERS = "additionalWSQueryParameters",
         /**
-         * Represents a custom application identifier that is transmitted alongside the usage data to the instant3Dhub.
+         * Specifies a custom identifier for your application included in pings and usage data.
+         *
+         * This identifier helps distinguish connections and track feature usage across different
+         * client applications. Set once at startup with a descriptive string.
+         *
+         * Note: Transmitted to server - avoid sensitive information.
+         *
          * @default undefined
          */
         APPLICATION_IDENTIFIER = "applicationIdentifier",
         /**
-         * Set if aux mode searches attached faces recursively
+         * Controls the depth of topology highlighting when working with auxiliary (PMI) objects.
+         *
+         * In AUX interaction mode, when an auxiliary node is selected, WebVis highlights its related
+         * faces in the 3D model. When this setting is enabled, the system also performs the reverse
+         * operation - finding and selecting additional auxiliary nodes that relate to the highlighted
+         * faces.
+         *
+         * This creates a cascading effect where:
+         * 1. Selecting an auxiliary node highlights its related faces
+         * 2. Those faces trigger selection of other auxiliary nodes related to them
+         * 3. Those new auxiliary nodes highlight additional faces
+         *
+         * This setting is particularly useful when exploring complex PMI relationships in manufacturing
+         * models, where multiple annotations may reference the same geometric features. When disabled,
+         * only the direct face-to-aux relationships for the explicitly selected node are shown.
+         *
+         * Note: Enabling this may lead to larger selections than expected in densely annotated models.
+         *
+         * @default false
+         * @see {@link InteractionMode.AUX} - This setting only affects the AUX interaction mode
          */
         AUX_MODE_RECURSIVE_SEARCH = "auxModeRecursiveSearch",
         /**
-         * Uncolor all faces when leaving the aux mode
+         * Controls whether topology coloring is cleared when exiting AUX interaction mode.
+         *
+         * When enabled (default), all colored faces related to auxiliary (PMI)
+         * nodes will return to their original appearance when switching from AUX mode to another
+         * interaction mode. This provides a clean visual state when returning to normal model
+         * navigation or selection.
+         *
+         * When disabled, the colored topology elements (faces) retain their visual
+         * emphasis even after leaving AUX mode. This can be useful for preserving the context
+         * of important manufacturing features while working with the model in other interaction
+         * modes.
+         *
+         * This setting only affects the appearance of topology elements that were colored
+         * through AUX mode operations - it does not affect other selections or highlighting.
+         *
+         * @default true
+         * @see {@link InteractionMode.AUX} - This setting relates to exiting AUX interaction mode
          */
         AUX_MODE_UNCOLOR_FACES_ON_LEAVE = "auxModeUncolorFacesOnLeave",
         /**
-         * Specifies if queries are sent per batch or individually
+         * Controls whether queries that span multiple resources are sent as a single batched request
+         * or as individual requests.
+         *
+         * In WebVis, complex 3D models can be composed of multiple resources, each representing
+         * a portion of the complete model. When enabled, this setting combines queries that would
+         * normally be sent separately to each resource into a single network request, which can
+         * significantly improve performance by reducing network round-trips and connection overhead.
+         *
+         * This is particularly beneficial when:
+         * - Working with assemblies composed of multiple separate resources
+         * - Searching for components across the entire model
+         * - Querying linked data that spans multiple resources
+         *
+         * @default false
+         * @see {@link QueryAPI.query} - For executing queries against the model
          */
         BATCHED_QUERIES = "batchedQueries",
         /**
          * @deprecated SettingStrings.BOOSTER_URL is deprecated and will be removed in a future version.
          *
-         * The endpoint where webvis tries to connect to the booster
+         * @default ""
          */
         BOOSTER_URL = "boosterURL",
         /**
-         * Specifies the color of the capping geometries
+         * Specifies the color of capping geometries generated when using clip planes.
+         *
+         * Capping geometries are surfaces that appear where a clip plane intersects with a 3D model,
+         * providing a visual representation of the model's interior. This setting controls the color
+         * of these surfaces using an RGBA hex color string.
+         *
+         * The default value "DDFFB6FF" represents a light green color with full opacity.
+         *
+         * Note: This setting only affects newly created capping geometries. To apply a color change
+         * to existing capping geometries, you'll need to remove and recreate them.
+         *
+         * @default "DDFFB6FF"
+         * @see {@link ClipPlaneAPI.createCapping} - For creating clipping geometries
+         * @see {@link ClipPlaneAPI.removeCapping} - For removing existing capping geometries
          */
         CAPPING_GEOMETRY_COLOR = "cappingGeometryColor",
         /**
@@ -4854,80 +6438,254 @@ declare namespace webvis {
          *          return defaultEntries;
          *       }
          *
-         * A function to modify the context menu's contents
+         * @default undefined
          */
         CONTEXT_MENU_FUNCTION = "contextMenuFunction",
         /**
-         * Default value for the link depth (resource links) for queries
+         * Controls the default traversal depth for querying related resources when no explicit
+         * linkDepth is specified in a query.
+         *
+         * When executing queries across the instance graph, this setting determines how many levels
+         * of linked resources will be traversed when searching for data. A value of:
+         *
+         * - 0: Only searches within the directly targeted resource (fastest)
+         * - 1: Includes the target resource and its directly connected resources (default)
+         * - 2+: Traverses additional levels of connected resources (progressively slower)
+         *
+         * Higher values provide more complete search results by examining more distantly related
+         * resources, but can significantly impact query performance, especially in complex models
+         * with many interconnected resources.
+         *
+         * This setting can be overridden for individual queries by setting the linkDepth parameter
+         * explicitly in the query object.
+         *
+         * Example:
+         * ```javascript
+         * // Get the webvis context
+         * const context = webvis.getContext();
+         *
+         * // Uses the default link depth (from this setting)
+         * await context.query({
+         *   select: ["nodeId", "label"],
+         *   conditions: [{nodeType: "structure"}]
+         * });
+         *
+         * // Overrides the default with explicit linkDepth
+         * await context.query({
+         *   select: ["nodeId", "label"],
+         *   conditions: [{nodeType: "structure"}],
+         *   linkDepth: 2
+         * });
+         * ```
+         *
+         * @default 1
+         * @see {@link QueryAPI.query} For more information on executing queries
          */
         DEFAULT_QUERY_LINK_DEPTH = "defaultQueryLinkDepth",
         /**
-         * Scaling factor for the the gizmo geometries
+         * Controls whether the default object selection interaction is enabled or disabled.
+         *
+         * When set to true, WebVis will operate in {@link InteractionMode.NONE} instead of the usual
+         * {@link InteractionMode.DEFAULT} mode, effectively disabling standard selection interactions.
+         * This provides a "view-only" experience where users can navigate around the model but not
+         * select or interact with individual components.
+         *
+         * When this setting changes, an {@link InteractionModeChangedEvent} is triggered, allowing
+         * applications to respond to the mode change. Applications can temporarily override this
+         * setting by explicitly calling {@link InteractionAPI.setInteractionMode} with a specific
+         * interaction mode.
+         *
+         * @default false
+         * @see {@link InteractionAPI.setInteractionMode} - To programmatically change interaction modes
          */
         DISABLE_DEFAULT_INTERACTION = "disableDefaultInteraction",
         /**
-         * Specifies the used coordinate system defined by the given front plane axis
+         * Defines the orientation of the front plane of the model in the 3D coordinate system.
+         * This setting determines which axes are used for the "right", "up", and "forward" vectors,
+         * which affects navigation, camera controls, and the interpretation of user interactions.
+         *
+         * Each option in the FrontPlaneAxis enum represents a specific orientation using a combination
+         * of two axes (e.g., POS_X_POS_Y means the right vector is +X and the up vector is +Y).
+         * The forward vector is automatically determined to form a right-handed coordinate system.
+         *
+         * @default FrontPlaneAxis.NEG_Y_POS_Z
+         * @see {@link CoordinateSystemAPI} for methods to access the resulting vectors and matrices
          */
         FRONT_PLANE_AXIS = "frontPlaneAxis",
-        /** */
+        /**
+         * Defines the URL of the instant3Dhub backend service.
+         *
+         * This setting determines the endpoint for all communications with the instant3Dhub service, including:
+         * - Data requests (model loading, queries, etc.)
+         * - Session management and authentication
+         * - WebSocket connections for real-time features
+         *
+         * The hub URL is resolved automatically by WebVis using the following priority sequence:
+         *
+         * 1. **URL Parameter:** If a hub URL is specified in the browser's URL parameters (e.g., `?hubURL=...`), it takes
+         * precedence and will be used.
+         * 2. **<webvis-config> Element:** If not found in the URL, WebVis searches for a `<webvis-config>` HTML element in
+         * the DOM and attempts to parse the hub URL from its attributes or content.
+         * 3. **Config File:** If still not found, WebVis tries to load the hub URL from a configuration file:
+         *    - It first looks for `webvis.config.json` at the root of the server.
+         *    - If not found there, it searches for a config file in the same directory as the script URL from which WebVis
+         * was imported.
+         * 4. **Script Parsing:** As a last resort, the hub URL is parsed directly from the imported WebVis script itself
+         * (if embedded or bundled).
+         *
+         * @default undefined
+         */
         HUB_URL = "hubURL",
         /**
-         * Check for initial state activation
+         * @deprecated SettingStrings.INITIAL_STATE_ACTIVATION is deprecated and will be removed in a future version.
+         *
+         * This setting was intended to check for initial state activation but is no longer used anywhere
+         * in the WebVis system.
+         *
+         * @default false
          */
         INITIAL_STATE_ACTIVATION = "initialStateActivation",
         /**
-         * Specifies if the configuration file of the instant3Dhub installation gets applied.
+         * Controls whether WebVis attempts to load settings from a remote configuration file.
+         *
+         * When enabled (default), WebVis will attempt to fetch a `webvis.config.json` file from the
+         * server during initialization. Settings from this file are merged with any explicitly
+         * provided settings, with explicit settings taking precedence.
+         *
+         * This capability is useful for:
+         * - Providing consistent default settings across multiple applications
+         * - Centralizing configuration management on the server side
+         * - Deploying configuration changes without updating application code
+         * - Supporting environment-specific settings (development, staging, production)
+         *
+         * The config file is loaded from the same path as the WebVis library itself. If the file
+         * cannot be found or accessed, initialization continues normally using only the explicitly
+         * provided settings.
+         *
+         * @default true
          */
         LOAD_REMOTE_CONFIG_FILE = "loadRemoteConfigFile",
         /**
-         * Sets the log level
+         * Controls the verbosity of messages output to the browser console by the WebVis logging system.
+         *
+         * The log level acts as a filter, where only messages at or above the specified level are displayed.
+         *
+         * Setting a lower level (e.g., ERROR) shows fewer, more important messages, while higher levels
+         * (e.g., TRACE) show more messages including less critical ones. This can be helpful for troubleshooting
+         * but may impact performance when set to high verbosity levels in production environments.
+         *
+         * @default LogLevel.WARNING
          */
         LOG_LEVEL = "logLevel",
         /**
-         * This limits the range of the active scene volume
+         * Limits the scene's active bounding volume size. Ensures rendering accuracy and visual fidelity,
+         * especially in scenes which contain expansive geometries, infinite lines, or helper geometries.
+         *
+         * @default 9007199254740991 (JavaScript's MAX_SAFE_INTEGER)
          */
         MAX_ACTIVE_SCENE_VOLUME_DIAMETER = "maxActiveSceneVolumeDiameter",
         /**
-         * Maximum number of concurrent downloads
+         * @deprecated SettingStrings.MAX_CONCURRENT_DOWNLOADS is deprecated and will be removed in a future version.
+         *
+         * Controls the maximum number of concurrent downloads that WebVis will attempt to perform
+         * when loading model resources. This setting has been superseded by internal adaptive download
+         * management that automatically optimizes download concurrency based on network conditions
+         * and available system resources.
+         *
+         * @default 50
          */
         MAX_CONCURRENT_DOWNLOADS = "maxConcurrentDownloads",
         /**
-         * Angular tolerance for measurements, in degrees.
-         * This value can be used to treat almost-perpendicular cases as perpendicular,
-         * which allows to measure orthogonal distances between almost-perpendicular planes or lines.
+         * Controls the angular tolerance (in degrees) used when determining parallelism in measurements.
+         *
+         * This setting defines a threshold (in degrees) for how much deviation from exact parallelism
+         * is acceptable when performing geometric measurements. When the angle between
+         * two geometric entities (like planes or lines) is within this tolerance of 0° or 180°,
+         * WebVis will treat them as exactly parallel.
+         *
+         * This is particularly useful in real-world CAD models where:
+         * - Manufacturing tolerances result in slightly imperfect geometry
+         * - Numerical precision issues create small deviations from ideal angles
+         *
+         * Note: Internally, the system adds a small epsilon value (0.001°) to this setting to ensure
+         * there's always a minimal tolerance. This additional value is maintained for backward
+         * compatibility.
+         *
+         * @default 0.1
+         * @see {@link MeasurementAPI} - For performing measurements between geometric entities
          */
         MEASUREMENT_ANGULAR_TOLERANCE = "measurementAngularTolerance",
         /**
-         * Measurement materials densities. The  is parsed as JSON and contains a map from material to density factor.
+         * @deprecated MEASUREMENT_MATERIAL_DENSITIES is deprecated and will be removed in a future version.
+         *
+         * Defines material density values for mass calculations in measurements.
+         *
+         * This setting allowed specifying a JSON string containing a mapping of material names to
+         * their corresponding density values, which were used when calculating the mass of measured
+         * objects. The format was a stringified JSON object where keys were material names and values
+         * were numeric density factors.
+         *
+         * @default undefined
+         * @see {@link MeasurementAPI} - For performing measurements
          */
         MEASUREMENT_MATERIAL_DENSITIES = "measurementMaterialDensities",
         /**
-         * @deprecated NOTIFICATION_LOG_LEVELS is deprecated, please use UISetting.NOTIFICATION_FILTER and the getSetting/setSetting functions on the webvisUI-Object"
+         * @deprecated NOTIFICATION_LOG_LEVELS is deprecated, please use UISetting.NOTIFICATION_FILTER and the
+         * getSetting/setSetting functions on the webvisUI-Object"
          */
         NOTIFICATION_LOG_LEVELS = "notificationLogLevels",
         /**
-         * Enables/disables the parent select feature
+         * Controls the hierarchical selection behavior when clicking on model objects.
+         *
+         * When enabled (default), clicking on an already selected component will select its parent
+         * in the hierarchy. Successive clicks at the same location will continue to traverse up the
+         * hierarchy, selecting each parent in turn. This allows easy navigation up the assembly
+         * structure without needing to locate and precisely click on parent components.
+         *
+         * Technically, this setting determines whether the interaction modifier is set to
+         * {@link InteractionModifier.EXPAND} during selection processing, which activates the
+         * parent traversal logic in the default interaction mode.
+         *
+         * When disabled, clicking on a selected object won't change the selection, making it
+         * more suitable for workflows that require stable selections.
+         *
+         * @default true
          */
         PARENT_SELECT_ENABLED = "parentSelectEnabled",
         /**
-         * Hint about the usage of credentials when issuing HTTP Requests.
-         * The given method is used as a first try, the alternative one afterwards, if errors occur.
+         * Controls whether credentials are included in cross-origin HTTP requests to the instant3Dhub backend.
+         *
+         * When enabled (default), WebVis will include authentication information such as cookies,
+         * HTTP authentication, and client-side SSL certificates in all cross-origin requests.
+         * This is required when your application needs to maintain authenticated sessions with the backend
+         * across different domains.
+         *
+         * Security note: Only enable this setting when connecting to trusted domains, as it allows
+         * those domains to access cookies that may contain sensitive authentication information.
+         * The server must also respond with appropriate CORS headers that allow credentialed requests.
+         *
+         * @default true
+         * @see {@link SettingStrings.ADDITIONAL_REQUEST_HEADERS} - For custom authentication headers
          */
         PREFER_XHR_WITH_CREDENTIALS = "preferXHRWithCredentials",
         /**
-         * Defines additional device tags that are communicated with the session
+         * @deprecated The whole SessionAPI is under consolidation and will be replaced in a future release.
+         * @ignore
          */
         SESSION_DEVICE_TAGS = "sessionDeviceTags",
         /**
-         * The URL the Session-Handler should forward to
+         * @deprecated The whole SessionAPI is under consolidation and will be replaced in a future release.
+         * @ignore
          */
         SESSION_FORWARD_URL = "sessionForwardUrl",
         /**
-         * A set of descriptors to interact with session members
+         * @deprecated The whole SessionAPI is under consolidation and will be replaced in a future release.
+         * @ignore
          */
         SESSION_INTERACTIONS = "sessionInteractions",
         /**
-         * The name that should be used when joining a shared session
+         * @deprecated The whole SessionAPI is under consolidation and will be replaced in a future release.
+         * @ignore
          */
         SESSION_MEMBER_NAME = "sessionMemberName",
         /**
@@ -4938,113 +6696,348 @@ declare namespace webvis {
          */
         SKIP_SSL_VERIFY = "skipSslVerify",
         /**
-         * sets the default loading behaviour on SnapshotRestore
+         * Controls which elements of a snapshot are restored when loading a snapshot.
+         *
+         * Snapshots in WebVis capture the complete state of a scene, including the scene hierarchy,
+         * camera position, selections, and various annotations. This setting allows applications to
+         * specify default behavior for which elements should be restored when loading a snapshot.
+         *
+         * This setting provides the default behavior, but individual calls to
+         * {@link SessionStorageAPI.restoreSnapshot | restoreSnapshot} can override these defaults with specific options.
+         *
+         * @default {
+         *      restoreTree: true,
+         *      restoreSelection: true,
+         *      restoreCamera: true,
+         *      restoreAnnotations: true,
+         *      restoreMeasurements: true,
+         *      restoreLayerFilter: true,
+         *      restoreBackground: true
+         * }
+         * @see {@link SessionStorageAPI.restoreSnapshot} - For restoring snapshots with specific options
+         * @see {@link SessionStorageAPI.createSnapshot} - For creating snapshots
          */
         SNAPSHOT_CONTENT_SELECTION = "snapshotContentSelection",
         /**
-         * A map to rewrite the uri to the network
+         * Defines a set of URL rewriting rules that are applied to all network requests made by WebVis.
+         *
+         * The URI_MAP is an array of objects, each containing a regex pattern and a replacement string.
+         * When WebVis makes any network request, the URL is passed through these rewriting rules in sequence,
+         * allowing you to transform URLs before they are sent to the network.
+         *
+         * This is particularly useful for:
+         * - Redirecting requests to local development servers
+         * - Mapping external URLs to internal resources
+         * - Handling URL differences between environments without changing application code
+         * - Implementing proxy patterns for specific resources
+         *
+         * Each entry in the array should have:
+         * - `regex`: A string containing a regular expression pattern to match
+         * - `replace`: A string containing the replacement text
+         *
+         * Example usage:
+         * ```javascript
+         * // Get the webvis context
+         * const context = webvis.getContext();
+         *
+         * // Redirect all requests from one domain to another
+         * context.changeSetting(webvis.SettingStrings.URI_MAP, [
+         *   {
+         *     regex: "^https://production-server\\.example\\.com/",
+         *     replace: "https://dev-server.example.com/"
+         *   },
+         *   {
+         *     regex: "\\.json$",
+         *     replace: ".json?cachebuster=" + Date.now()
+         *   }
+         * ]);
+         * ```
+         *
+         * The rules are processed in order, with each subsequent rule operating on the
+         * result of previous transformations.
+         *
+         * @default undefined
          */
         URI_MAP = "uriMap",
         /**
-         * This enables or disables the edge images to be send from the model tracker.
-         * Note: When enabled this will impact bandwidth and performance of the application, so we recommend using this only on demand.
-         * Default is false
+         * Specifies the usage group of the application, which is sent to the instant3Dhub alongside the usage data.
+         * This can be used to separate usage data for different applications using the same instant3Dhub installation.
+         *
+         * @default undefined
+         */
+        USAGE_GROUP = "usageGroup",
+        /**
+         * Controls whether edge images from the XR model tracker are transmitted to the client.
+         *
+         * When enabled, WebVis will send edge images that visualize the tracking state of the XR model tracker.
+         * These images contain the detected edges of the 3D model that the system is using for tracking.
+         * The images are made available through {@link XRModelTrackerEdgeImgReceivedEvent} events and
+         * can be displayed in debugging interfaces.
+         *
+         * This setting is primarily intended for debugging tracking issues in XR applications, allowing
+         * developers to visualize how well the model tracker is detecting edges in the camera feed and
+         * matching them to the 3D model.
+         *
+         * Important: Enabling this setting significantly increases bandwidth usage and can impact performance,
+         * especially on mobile devices or over limited network connections. It should be disabled in
+         * production environments and only enabled when needed for tracking diagnostics.
+         *
+         * @default false
+         * @see {@link XRModelTrackerEdgeImgReceivedEvent} - Event that delivers the edge images
+         * @see {@link XR_MODEL_TRACKER_QUALITY_THRESHOLD} - Setting to configure tracking quality threshold
          */
         XR_ENABLE_DEBUG_IMAGES = "xrEnableDebugImages",
         /**
-         * Sets the XR fusion mode which specifies which inputs will be used for the final visualization.
-         * Can be either {@link XRFusionMode.NONE}, {@link XRFusionMode.SLAM} or {@link XRFusionMode.SLAM_MODELTRACKER}.
-         * Default is {@link XRFusionMode.SLAM_MODELTRACKER}.
+         * Controls how different tracking inputs are combined in AR use cases to create the final camera view.
+         *
+         * See {@link XRFusionMode} for a detailed description of the individual fusion modes.
+         *
+         * Changes to this setting take effect immediately without requiring a restart of the tracking service.
+         *
+         * @default XRFusionMode.SLAM_MODELTRACKER
+         * @see {@link RealityAPI.connectXR} - For initializing AR functionality
+         * @see {@link XR_MODEL_TRACKER_QUALITY_THRESHOLD} - For adjusting model tracking sensitivity
+         * @see {@link XR_MODEL_TRACKER_SMOOTHING_FACTOR} - For controlling tracking smoothness
          */
         XR_FUSION_MODE = "xrFusionMode",
         /**
-         * XR configuration setting for desired image compression quality.
-         * A value between 0 and 1, where 0.0 implies maximum compression (smallest package size)
-         * and 1.0 provides maximum quality (biggest package size).
-         * Default is 0.75.
+         * Controls the image compression quality for XR camera frames transmitted during AR use cases.
+         *
+         * This setting defines a quality level for JPEG compression of the camera images used in
+         * AR experiences. It directly impacts both the visual quality of the AR camera feed and the
+         * bandwidth required for transmitting these images.
+         *
+         * The value is specified as a number between 0.0 (smallest file size, lowest visual quality) and 1.0 (largest file size, highest visual quality).
+         *
+         * @default 0.75
+         * @see {@link XR_IMAGE_RESOLUTION_PROFILE} - For another setting that affects AR image quality and performance
          */
         XR_IMAGE_COMPRESSION_QUALITY = "xrImageCompressionQuality",
         /**
-         * XR configuration setting for desired resolution profile.
-         * Can be either {@link XRImageResolutionProfile.LOW_RES} or {@link XRImageResolutionProfile.NATIVE}.
-         * Default is {@link XRImageResolutionProfile.LOW_RES}.
+         * Controls the resolution of camera images used in AR use cases.
+         *
+         * This setting determines whether the AR camera feed uses full native resolution or a
+         * downsampled lower resolution. It has a significant impact on performance, bandwidth
+         * usage, and visual quality.
+         *
+         * This setting works in conjunction with {@link XR_IMAGE_COMPRESSION_QUALITY} to determine
+         * the overall size and quality of the transmitted AR frames. For optimal performance in
+         * bandwidth-constrained environments, use LOW_RES with moderate compression. For maximum
+         * visual quality where bandwidth is not a concern, use NATIVE with high compression quality.
+         *
+         * @default XRImageResolutionProfile.LOW_RES
+         * @see {@link XR_IMAGE_COMPRESSION_QUALITY} - For controlling image compression level
          */
         XR_IMAGE_RESOLUTION_PROFILE = "xrImageResolutionProfile",
         /**
-         * XR configuration setting for the quality threshold for the model tracker.
-         * The model tracker will only track the model if the quality is above this threshold.
-         * The threshold determines the actual correspondence of the generated line model to the real world.
-         * A value of 1 means total correspondence, while a value of zero means no correspondence at all.
-         * Depending on that value the tracker will trigger a {@link XRStateChangedEvent} event with the modelTrackingState property set to {@link XRModelTrackingPhase.SNAPPED} and the anchored property set to true.
-         * Default is value if 0.65.
+         * Controls the confidence threshold required for the XR model tracker to consider a model "successfully tracked" in AR.
+         *
+         * Note: This setting is only relevant when the {@link XR_FUSION_MODE} is set to {@link XRFusionMode.SLAM_MODELTRACKER}.
+         *
+         * This setting defines the minimum level of confidence (between 0.0 and 1.0) that the model
+         * tracking system must have before transitioning the {@link XRState.modelTrackingPhase} to
+         * {@link XRModelTrackingPhase.SNAPPED | SNAPPED}. When the confidence level exceeds this threshold:
+         *
+         * 1. The tracking state changes to {@link XRModelTrackingPhase.SNAPPED}.
+         * 2. The XR system automatically sets {@link XRState.anchored} to `true`.
+         * 3. The model's position becomes fixed relative to the real world.
+         *
+         * This threshold directly affects how easily the AR system will "lock onto" the physical object:
+         * Lower values allow for a more permissive tracking that snaps more easily but may result in less accurate
+         * alignment with the physical world. This can be useful in challenging environments with poor lighting or when
+         * tracking complex models. Higher values require a very precise tracking and will only lead to snapping when there
+         * is high confidence. They can results in more accurate alignment but snapping may be difficult to achieve in
+         * suboptimal conditions.
+         *
+         * @default 0.65
+         * @see {@link XR_FUSION_MODE} - For controlling how tracking inputs are combined
+         * @see {@link XR_MODEL_TRACKER_SMOOTHING_FACTOR} - For adjusting how quickly tracking changes are applied
          */
         XR_MODEL_TRACKER_QUALITY_THRESHOLD = "xrModelTrackerQualityThreshold",
         /**
-         * XR configuration setting for the the smoothness of the model tracker.
-         * This is a normalized input value for smoothing of the incoming tracker pose,
-         * so frequent pose adjustments will be smoothed in, instead of applied directly.
-         * If the current value is greater than 0, the model tracker will linearly interpolate between the current * and the previous pose.
-         * A value of 0 will disable pose smoothing and a value of 1.0 will apply maximum smoothness.
-         * Default is value if 0.20
+         * Controls how smoothly the AR camera transitions between different poses during model tracking.
+         *
+         * Note: This setting is only relevant when the {@link XR_FUSION_MODE} is set to {@link XRFusionMode.SLAM_MODELTRACKER}.
+         *
+         * When the model tracker detects changes in the position or orientation of the tracked object,
+         * this setting determines how gradually these changes are applied to the AR view. The value
+         * ranges from 0.0 (no smoothing) to 1.0 (maximum smoothing, interpolate over 16 frames).
+         *
+         * Internally, this setting controls the interpolation factor used when blending between the
+         * previous camera pose and the newly detected pose, essentially creating a moving average
+         * that filters out rapid changes.
+         *
+         * @default 0.20
+         * @see {@link XR_FUSION_MODE} - For controlling how tracking inputs are combined
          */
         XR_MODEL_TRACKER_SMOOTHING_FACTOR = "xrModelTrackerSmoothingFactor",
     }
+    /**
+     * A callback function used to track the progress of storing a session.
+     *
+     * This callback is invoked during the session storage process to provide updates on the progress,
+     * including the current step and the total number of steps.
+     * When current equals total, the session storage process is complete.
+     *
+     * ### Use Case
+     * Use this callback to monitor the progress of session storage operations. For example, you can use it to
+     * update a progress bar or display status messages to the user.
+     *
+     * @param id - The unique identifier of the session being stored.
+     * @param current - The current progress step.
+     * @param total - The total number of steps in the session storage process.
+     *
+     * @see {@link SessionStorageAPI}
+     */
     type StoreSessionProgressCallback = (id: string, current: number, total: number) => void;
+    /**
+     * Options used for restoring a snapshot.
+     *
+     * These options allow customization of the snapshot restoration process, enabling selective restoration of specific elements such as annotations, camera settings, or measurements.
+     *
+     * ### Use Case
+     * Use this type to configure the snapshot restoration process. For example, you can choose to restore only the camera settings or specific elements of the session state.
+     *
+     * @see {@link SessionStorageAPI}
+     */
     interface SnapshotRestoreOptions {
+        /**
+         * Specifies whether annotations should be restored.
+         *
+         * @default true
+         */
         restoreAnnotations?: boolean;
+        /**
+         * Specifies whether the camera settings should be restored.
+         *
+         * @default true
+         */
         restoreCamera?: boolean;
+        /**
+         * Specifies whether clip planes should be restored.
+         *
+         * @default true
+         */
         restoreClipPlanes?: boolean;
+        /**
+         * Specifies whether the clip room should be restored.
+         *
+         * @default true
+         */
         restoreClipRoom?: boolean;
+        /**
+         * Specifies whether drawings should be restored.
+         *
+         * @default true
+         */
         restoreDrawings?: boolean;
+        /**
+         * Specifies whether drawing planes should be restored.
+         *
+         * @default true
+         */
         restoreDrawingPlanes?: boolean;
+        /**
+         * Specifies whether the layer filter should be restored.
+         *
+         * @default true
+         */
         restoreLayerFilter?: boolean;
+        /**
+         * Specifies whether measurements should be restored.
+         *
+         * @default true
+         */
         restoreMeasurements?: boolean;
+        /**
+         * Specifies whether the selection state should be restored.
+         *
+         * @default true
+         */
         restoreSelection?: boolean;
+        /**
+         * Specifies whether the tree structure should be restored.
+         *
+         * @default true
+         */
         restoreTree?: boolean;
+        /**
+         * Specifies whether the background should be restored when restoring camera settings.
+         *
+         * @default true
+         */
+        restoreBackground?: boolean;
     }
+    /**
+     * Represents the properties of a snapshot.
+     *
+     * These properties define the metadata and state of a snapshot, such as its name, order, thumbnail, and status.
+     *
+     * ### Use Case
+     * Use this type to manage and retrieve metadata about snapshots. For example, you can use it to display snapshot details
+     * in the UI or to determine the consistency of a snapshot.
+     *
+     * @see {@link SessionStorageAPI}
+     */
     interface SnapshotProperties {
         /**
-         * The name of the Snapshot.
+         * The name of the snapshot.
+         * This property represents the user-defined name of the snapshot.
          * @default undefined
          */
         name?: string | undefined;
         /**
-         * The order of the Snapshot.
+         * The order of the snapshot in the list of all snapshots.
          * @default undefined
          */
         order?: number | undefined;
         /**
-         * The thumbnail of the Snapshot as Base64 encoded jpg or png.
+         * The thumbnail of the snapshot as a Base64-encoded JPG or PNG image.
+         * This property provides a visual representation of the snapshot.
          * @default undefined
          */
         thumbnail?: string | undefined;
         /**
-         * The Status of the Snapshot.
+         * Describes the availability and integrity status of a snapshot's referenced data.
+         * See {@link SnapshotStatus} for more information about the possible values.
+         *
          * @default SnapshotStatus.CONSISTENT
          */
         status?: SnapshotStatus;
     }
     /**
-     * Different Options used for the Snapshot creation.
+     * Options used for the creation of a snapshot.
+     * These options allow customization of the snapshot creation process.
+     *
+     * ### Use Case
+     * Use this type to configure the snapshot creation process. For example, you can specify whether a thumbnail should be created
+     * and define its dimensions if needed.
+     *
+     * @see {@link SessionStorageAPI}
      */
     interface SnapshotCreationOptions {
         /**
-         * Specifies if a thumbnail is created or not.
+         * Specifies whether a thumbnail should be created for the snapshot.
          * @default true
          */
         thumbnail?: boolean;
         /**
-         * Specifies the height of the thumbnail.
-         * If the thumbnail height or width is not set the current viewer size is used.
+         * Specifies the height of the thumbnail in pixels.
+         * If neither `thumbnailHeight` nor `thumbnailWidth` is set, the current viewer size will be used.
          * @default undefined
          */
         thumbnailHeight?: number;
         /**
-         * Specifies the width of the thumbnail.
-         * If the thumbnail height or width is not set the current viewer size is used.
+         * Specifies the width of the thumbnail in pixels.
+         * If neither `thumbnailHeight` nor `thumbnailWidth` is set, the current viewer size will be used.
          * @default undefined
          */
         thumbnailWidth?: number;
+        /**
+         * Specifies whether the viewer's background should be stored in the snapshot.
+         * @default false
+         */
+        storeBackground?: boolean;
     }
     interface SessionStore {
         instances: {
@@ -5069,49 +7062,94 @@ declare namespace webvis {
         };
     }
     /**
-     * With these functions the user can control webvis' management of SessionStorage objects and Snapshots.
+     * ## SessionStorageAPI
      *
-     * The Session describes the whole state of the 3D Space, which can be shared, stored and restored.
-     * Snapshot are a subset of a 3D Space and describe a momentary state, which can include other elements of the 3D Space
-     * like Clipplanes and Measurements.
+     * ### Overview
+     *
+     * The **SessionStorageAPI** provides tools to manage session storage and snapshots in webvis.
+     * A session represents the entire state of the 3D space, which can be shared, stored, and restored.
+     * Snapshots are subsets of a session that capture a momentary state, including elements like clip planes and measurements.
+     *
+     * This API allows you to:
+     * - Create, change, restore, and delete snapshots.
+     * - Store and restore session states.
+     *
+     * ### Quick Start
+     * Example: Create a snapshot, modify its properties, and restore it.
+     *
+     * ```javascript
+     * // Get the WebVis context
+     * const context = webvis.getContext();
+     *
+     * // Create a snapshot
+     * const snapshotId = await context.createSnapshot("My Snapshot");
+     *
+     * // Change the snapshot's properties
+     * context.changeSnapshot(snapshotId, { name: "Updated Snapshot Name" });
+     *
+     * // Restore the snapshot
+     * await context.restoreSnapshot(snapshotId);
+     * ```
+     *
+     * ### Events
+     *
+     * The following events are associated with the SessionStorageAPI:
+     * - {@link SnapshotCreatedEvent}
+     * - {@link SnapshotCreationStartedEvent}
+     * - {@link SnapshotChangedEvent}
+     * - {@link SnapshotRestoredEvent}
+     * - {@link SnapshotRestoreStartedEvent}
+     * - {@link SnapshotRemovedEvent}
      */
     interface SessionStorageAPI {
         /**
-         * Creates a Snapshot of the current.
-         * @param {string} name - The Name of the Snapshot.
-         * @param {SnapshotCreationOptions} options - Options used for the Snapshot creation.
-         * @returns {Promise<number>} The Snapshot ID.
+         * Creates a snapshot of the current session state.
+         *
+         * Triggers a {@link SnapshotCreationStartedEvent} and, if successful, a {@link SnapshotCreatedEvent}.
+         *
+         * @param name The name of the snapshot.
+         * @param options Options used for the snapshot creation.
+         * @returns The ID of the created snapshot.
          */
         createSnapshot(name?: string, options?: SnapshotCreationOptions): Promise<number>;
         /**
-         * Restores the Snapshot for the given snapshotID.
-         * The settings parameter allows to control the subset of the Snapshot data to be restored.
-         * @param {number} snapshotID
-         * @param {SnapshotRestoreOptions} options
+         * Restores the snapshot for the given snapshot ID.
+         *
+         * Triggers a {@link SnapshotRestoreStartedEvent} and, if successful, a {@link SnapshotRestoredEvent}.
+         *
+         * @param snapshotID The ID of the snapshot to restore.
+         * @param options Options to control the subset of snapshot data to restore.
+         * @returns A Promise that resolves when the snapshot is restored.
          */
         restoreSnapshot(snapshotID: number, options?: SnapshotRestoreOptions): Promise<void>;
         /**
-         * Changes one or more properties of a Snapshot with the specified ID.
+         * Changes one or more properties of a snapshot with the specified ID.
          *
-         * @param {number} snapshotID - The ID of the Snapshot you want to change.
-         * @param {SnapshotProperties} properties - The properties of the Snapshot you want to change.
-         * @return An object with the changed Properties.
+         * Triggers a {@link SnapshotChangedEvent}.
+         *
+         * @param snapshotID The ID of the snapshot to change.
+         * @param properties The properties of the snapshot to change.
+         * @returns An object with the changed properties.
          */
         changeSnapshot(snapshotID: number, properties: SnapshotProperties): SnapshotProperties;
         /**
-         * This changes the textual description of the Snapshot for given snapshotID to the value of text.
+         * Changes the textual description of the snapshot with the specified ID to the value of text.
+         *
+         * Triggers a {@link SnapshotChangedEvent}.
          *
          * @deprecated Calling changeSnapshot with single parameters is deprecated, please use SnapshotProperties instead.
-         * @param {number} snapshotID The ID of the Snapshot.
-         * @param {string} name The new name of the Snapshot.
-         * @param {string} screenshotURL The new screenshot URL of the Snapshot.
-         * @param {number} order The order inside the List of Snapshots.
+         * @param {number} snapshotID The ID of the snapshot to change.
+         * @param {string} name The new name of the snapshot.
+         * @param {string} screenshotURL The new screenshot URL of the snapshot.
+         * @param {number} order The order inside the list of snapshots.
          */
         changeSnapshot(snapshotID: number, name?: string, screenshotURL?: string, order?: number): SnapshotProperties;
         /**
-         * Deletes the Snapshot for given snapshotID.
+         * Deletes the snapshot for the given snapshot ID.
          *
-         * @param {number} snapshotID
+         * Triggers a {@link SnapshotRemovedEvent}.
+         *
+         * @param snapshotID The ID of the snapshot to delete.
          */
         removeSnapshot(snapshotID: number): void;
         /**
@@ -5120,66 +7158,78 @@ declare namespace webvis {
          */
         exportSession(): SessionStore;
         /**
-         * Imports a session from the data string of the given format.
-         * Supported formats are: JSON.
+         * Imports a session from the given data string in the specified format.
          *
-         * @param {any} data the content of the file.
-         * @param {string} format
+         * Supported formats: xscn.
+         *
+         * @param data The content of the session file.
+         * @param format The format of the session file. Default: "xscn".
+         * @returns A Promise that resolves when the session is imported.
          */
         importSession(data: any, format?: "xscn" | undefined): Promise<any>;
         /**
          * @deprecated isOfflineStorageAvailable is deprecated.
          *
-         * Checks if offline storage is currently available which can be used to transfer a session via {@link transferSession}.
-         * @returns {Promise<boolean>}
+         * Checks if offline storage is currently available. This functionality is no longer relevant
+         * as offline storage is not supported anymore.
+         *
+         * @returns A Promise that always resolves to false, as offline storage is not used anymore.
          */
         isOfflineStorageAvailable(): Promise<boolean>;
         /**
-         * Temporarily stores the Session in the connected hub instance and returns an access handle. This function
-         * does not transfer Caches of referenced resources to the connected hub instance. For that, see {@link transferSession}.
+         * Temporarily stores the session in the connected hub instance and returns an access handle.
          *
-         * @returns {Promise<string>} The access handle of the stored Session.
+         * This function does not transfer caches of referenced resources to the hub instance.
+         * For transferring caches, see {@link transferSession}.
+         *
+         * @returns The access handle of the stored session.
          */
         storeSession(): Promise<string | undefined>;
         /**
          * @deprecated transferSession with progress callback is deprecated. Please use transferSession without
-         * parameters and utilize the returned Promise instead!
+         * parameters and utilize the returned promise instead!
          *
-         * Temporarily stores the Session in the connected hub instance and returns an access handle. Transfers
-         * Caches of referenced resources to the connected hub instance if they are not already present.
+         * Transfers the session to the connected hub instance and returns an access handle.
          *
-         * @param {StoreSessionProgressCallback} progressCallback - Can be used to track the progress of the transfer.
-         * @returns {Promise<string>} The access handle of the transferred Session.
+         * Transfers caches of referenced resources to the hub instance if they are not already present.
+         *
+         * @param progressCallback Can be used to track the progress of the transfer.
+         * @returns The access handle of the transferred session.
          */
         transferSession(progressCallback: StoreSessionProgressCallback): Promise<string | undefined>;
         /**
-         * Temporarily stores the Session in the connected hub instance and returns an access handle. Transfers
-         * Caches of referenced resources to the connected hub instance if they are not already present.
+         * Transfers the session to the connected hub instance and returns an access handle.
          *
-         * @returns {Promise<string>} The access handle of the transferred Session.
+         * Transfers caches of referenced resources to the hub instance if they are not already present.
+         *
+         * @returns The access handle of the transferred session.
          */
         transferSession(): Promise<string | undefined>;
         /**
-         * Restores a Session for the given access handle from the infrastructure.
+         * Restores a session for the given access handle from the infrastructure.
          *
-         * @param {string} handle
-         * @returns {Promise<void>}
+         * @param handle The access handle of the session to restore.
+         * @returns A Promise that resolves when the session is restored.
          */
         restoreSession(handle: string): Promise<void>;
         /**
-         * Returns the ids of all available Snapshots.
+         * Returns the IDs of all available snapshots.
          *
-         * @returns {Array<number>} The ids of all available Snapshots.
+         * @returns An array of snapshot IDs.
          */
         getSnapshots(): Array<number>;
         /**
-         * @returns {Promise<SnapshotProperties>} The data of the specified Snapshot.
+         * Requests the data of the specified snapshot.
+         *
+         * @param snapshotID The ID of the snapshot to request data for.
+         * @returns The data of the specified snapshot.
          */
         requestSnapshotData(snapshotID: number): Promise<SnapshotProperties | undefined>;
         /**
-         * @deprecated getSnapshotData is deprecated, please use {@link requestSnapshotData} instead.
+         * @deprecated getSnapshotData is deprecated. Please use {@link requestSnapshotData} instead.
          *
-         * @returns {{ name: string, attachmentID: number, order: number }} The data of the specified Snapshot.
+         * @param snapshotID The ID of the snapshot to request data for.
+         * @returns The data of the specified snapshot.
          */
         getSnapshotData(snapshotID: number): {
             name: string;
@@ -5188,115 +7238,189 @@ declare namespace webvis {
         } | undefined;
     }
     /**
-     * The SNAPSHOT_RESTORE_STARTED event occurs if a Snapshot is triggered to be restored.
+     * Event that is fired when the restoration of a snapshot starts.
+     *
+     * This event is triggered at the beginning of the snapshot restoration process.
+     * It provides the ID of the snapshot being restored, allowing listeners to react to the start of the restoration.
+     *
+     * ### Use Case
+     * Use this event to track the start of a snapshot restoration process. This can be useful for displaying loading indicators,
+     * preparing the application for the restoration workflow, or logging restoration attempts.
      *
      * @event
      * @hideconstructor
+     *
+     * @see {@link SessionStorageAPI}
+     * @see {@link EventType.SNAPSHOT_RESTORE_STARTED}
      */
     class SnapshotRestoreStartedEvent extends WebVisEvent {
         snapshotID: number;
         /**
-         * @param snapshotID The ID of the Snapshot.
+         * @param snapshotID The ID of the snapshot that is being restored.
          */
         constructor(snapshotID: number);
     }
     /**
-     * The SNAPSHOT_RESTORED event occurs if a Snapshot has been restored.
+     * Event that is fired when a snapshot has been restored.
+     *
+     * This event is triggered whenever a snapshot is successfully restored in the session.
+     * It provides the ID of the restored snapshot and the settings used during the restoration process,
+     * allowing listeners to react to the restoration.
+     *
+     * ### Use Case
+     * Use this event to monitor when a snapshot is restored. This can be useful for updating the UI,
+     * reloading specific components, or applying additional logic based on the restored snapshot.
      *
      * @event
      * @hideconstructor
+     *
+     * @see {@link SessionStorageAPI}
+     * @see {@link EventType.SNAPSHOT_RESTORED}
      */
     class SnapshotRestoredEvent extends WebVisEvent {
         snapshotID: number;
         settings: SnapshotRestoreOptions;
         /**
-         * @param snapshotID The ID of the Snapshot.
-         * @param settings The settings used for restoring the Snapshot.
+         * @param snapshotID The ID of the snapshot that was restored.
+         * @param settings The settings used during the snapshot restoration process.
          */
         constructor(snapshotID: number, settings: SnapshotRestoreOptions);
     }
     /**
-     * The SNAPSHOT_REMOVED event occurs if a snapshot has been removed.
+     * Event that is fired when a snapshot has been removed.
+     *
+     * This event is triggered whenever a snapshot is deleted from the session. It provides the ID of the removed snapshot, allowing listeners to react to the removal.
+     *
+     * ### Use Case
+     * Use this event to monitor the removal of snapshots. This can be useful for updating the UI, clearing references to the removed snapshot, or performing cleanup operations.
      *
      * @event
      * @hideconstructor
+     *
+     * @see {@link SessionStorageAPI}
+     * @see {@link EventType.SNAPSHOT_REMOVED}
      */
     class SnapshotRemovedEvent extends WebVisEvent {
         snapshotID: number;
         /**
-         * @param snapshotID The ID of the snapshot.
+         * @param snapshotID The ID of the snapshot that was removed.
          */
         constructor(snapshotID: number);
     }
     /**
-     * The SNAPSHOT_CREATION_STARTED event occurs at the beginning of a Snapshot creation.
+     * Event that is fired when the creation of a snapshot starts.
+     *
+     * This event is triggered at the beginning of the snapshot creation process, allowing listeners to react to the start of the operation.
+     *
+     * ### Use Case
+     * Use this event to track the start of a snapshot creation process.
+     * This can be useful for displaying loading indicators or preparing the application for the snapshot creation workflow.
      *
      * @event
      * @hideconstructor
+     *
+     * @see {@link SessionStorageAPI}
+     * @see {@link EventType.SNAPSHOT_CREATION_STARTED}
      */
     class SnapshotCreationStartedEvent extends WebVisEvent {
+        /** */
         constructor();
     }
     /**
-     * The SNAPSHOT_CREATED event occurs if a Snapshot has been created.
+     * Event that is fired when a snapshot has been successfully created.
+     * It provides information about the created snapshot, including its ID and properties.
+     *
+     * ### Use Case
+     * Use this event to monitor the creation of snapshots. This can be useful for updating the UI,
+     * displaying confirmation messages, or triggering additional workflows based on the created snapshot.
      *
      * @event
      * @hideconstructor
+     *
+     * @see {@link SessionStorageAPI}
+     * @see {@link EventType.SNAPSHOT_CREATED}
      */
     class SnapshotCreatedEvent extends WebVisEvent {
         snapshotID: number;
         properties: SnapshotProperties;
         private _attachmentId;
         /**
-         * @param snapshotID The ID of the Snapshot.
+         * @param snapshotID The ID of the created snapshot.
+         * @param properties The properties of the created snapshot, such as name, order, and thumbnail.
          */
         constructor(snapshotID: number, properties: SnapshotProperties, _attachmentId: number);
         /**
          * @deprecated attachmentID is deprecated, please use properties.thumbnail instead.
+         *
+         * @returns The ID of the attachment associated with the snapshot.
          */
         get attachmentID(): number;
         /**
          * @deprecated name is deprecated, please use properties.name instead.
+         *
+         * @returns The name of the snapshot.
          */
         get name(): string;
         /**
          * @deprecated order is deprecated, please use properties.order instead.
+         *
+         * @returns The order of the snapshot.
          */
         get order(): number;
     }
     /**
-     * The SNAPSHOT_CHANGED event occurs if a Snapshot has been changed.
+     * Event that is fired when a snapshot has been changed.
+     *
+     * It provides the ID of the snapshot and the updated properties, allowing listeners to react to the changes.
+     *
+     * ### Use Case
+     * Use this event to monitor changes to snapshots, such as updates to their name, order, or thumbnail.
+     * This is particularly useful for keeping the UI or other components in sync with the latest snapshot state.
      *
      * @event
      * @hideconstructor
+     *
+     * @see {@link SessionStorageAPI}
+     * @see {@link EventType.SNAPSHOT_CHANGED}
      */
     class SnapshotChangedEvent extends WebVisEvent {
         snapshotID: number;
         properties: SnapshotProperties;
         /**
          * @param snapshotID The ID of the Snapshot.
-         * @param properties An object with the changed Properties.
+         * @param {SnapshotProperties} properties An object with the changed properties.
          */
         constructor(snapshotID: number, properties: SnapshotProperties);
         /**
          * @deprecated order is deprecated, please use properties.order instead.
+         *
+         * @returns The order of the snapshot.
          */
         get order(): number;
         /**
          * @deprecated screenshot is deprecated, please use properties.screenshot instead.
+         *
+         * @returns The screenshot image (thumbnail) of the snapshot.
          */
         get screenshot(): string;
         /**
          * @deprecated text is deprecated, please use properties.name instead.
+         *
+         * @returns The name of the snapshot.
          */
         get text(): string;
     }
     /**
-     * The INTERNAL_SNAPSHOT_CREATED event occurs if a Snapshot is created.
+     * Event that is fired when an internal snapshot is created.
+     *
+     * This event is primarily used internally to handle snapshot creation processes. It provides detailed information
+     * about the created snapshot, including its ID, name, camera state, and additional synchronization data.
      *
      * @event
      * @hideconstructor
      * @ignore
+     *
+     * @see {@link SessionStorageAPI}
      */
     class InternalSnapshotCreatedEvent extends WebVisEvent {
         snapshotID: number;
@@ -5332,13 +7456,13 @@ declare namespace webvis {
         };
         sessionSyncData?: SessionSyncDataMap;
         /**
-         * @param snapshotID The ID of the Snapshot.
-         * @param name The name of the Snapshot.
-         * @param attachmentID The ID of the Attachment.
-         * @param cameraStore
-         * @param snapshotStore (only for navis)
-         * @param instanceStores (only for navis)
-         * @param sessionSyncData (only for navis)
+         * @param snapshotID The ID of the created snapshot.
+         * @param name The name of the snapshot.
+         * @param attachmentID The ID of the attachment associated with the snapshot.
+         * @param cameraStore The camera state at the time of snapshot creation.
+         * @param snapshotStore The snapshot store (only for navis).
+         * @param instanceStores A map of instance stores (only for navis).
+         * @param sessionSyncData The session synchronization data (only for navis).
          */
         constructor(
             snapshotID: number,
@@ -5375,8 +7499,24 @@ declare namespace webvis {
             sessionSyncData?: SessionSyncDataMap,
         );
     }
+    /**
+     * Describes the availability and integrity status of a snapshot's referenced data.
+     *
+     * @see {@link SessionStorageAPI}
+     */
     enum SnapshotStatus {
+        /**
+         * All data referenced by the snapshot is present and available.
+         *
+         * @see {@link SnapshotProperties}
+         */
         CONSISTENT = 0,
+        /**
+         * One or more pieces of data referenced by the snapshot have been removed,
+         * making the snapshot incomplete.
+         *
+         * @see {@link SnapshotProperties}
+         */
         INCONSISTENT = 1,
     }
     /**
@@ -5437,8 +7577,8 @@ declare namespace webvis {
         clipPlaneIDs: number[];
         drawingIDs: number[];
         drawingPlaneIDs: number[];
-        measurementIDs: number[];
         materialIDs: number[];
+        measurementIDs: number[];
         snapshotIDs: number[];
     }
     /**
@@ -5646,6 +7786,10 @@ declare namespace webvis {
     class StateSyncEvent extends WebVisEvent {
         isEmpty: boolean;
         sessionStore?: SessionStore;
+        members?: (MemberProperties & {
+            memberId: number;
+        })[];
+        offeredMemberActions?: Record<number, MemberAction[]>;
         sessionSyncData?: SessionSyncData | SessionSyncDataMap;
         /**
          * @param isEmpty Hints that the state is empty. Depending on this, the client might want to replace the session state with its own.
@@ -5655,6 +7799,10 @@ declare namespace webvis {
         constructor(
             isEmpty: boolean,
             sessionStore?: SessionStore,
+            members?: (MemberProperties & {
+                memberId: number;
+            })[],
+            offeredMemberActions?: Record<number, MemberAction[]>,
             sessionSyncData?: SessionSyncData | SessionSyncDataMap,
         );
     }
@@ -5867,6 +8015,8 @@ declare namespace webvis {
          */
         getSelectedNodes(): Array<number>;
         /**
+         * @deprecated selectCollection is deprecated, please use {@link setSelection} instead.
+         *
          * Replaces the current selection with the nodes from the given collection.
          *
          * Triggers a {@link SelectionChangedEvent} if silent is set to false.
@@ -7614,6 +9764,365 @@ declare namespace webvis {
         LINK_INDEX = 2,
     }
     /**
+     * Data associated with a {@link MemberAPI | member}.
+     *
+     * Can be requested via {@link MemberAPI.requestMemberProperties}.
+     */
+    interface MemberProperties {
+        /**
+         * The name of the member.
+         *
+         * Use {@link MemberAPI.setMemberName} to change the name.
+         */
+        name?: string;
+        /**
+         * The role of the member in the {@link SpaceAPI | space}.
+         *
+         * @see {@link MemberAction.PROMOTE} and {@link MemberAction.DEMOTE} for changing the role of a member.
+         */
+        role: MemberRole;
+        /**
+         * Custom data associated with the member.
+         *
+         * @see {@link MemberAPI.setMemberProfileEntry} and {@link MemberAPI.deleteMemberProfileEntry}
+         * for modifying profile entries.
+         */
+        profile?: MemberProfile;
+    }
+    /**
+     * App specific profile data associated with a {@link MemberAPI | member}.
+     *
+     * Can be modified via {@link MemberAPI.setMemberProfileEntry} and {@link MemberAPI.deleteMemberProfileEntry}.
+     */
+    interface MemberProfile {
+        /**
+         * Custom user data stored in the member profile.
+         */
+        userData: {
+            [key: string]: Serializable;
+        };
+    }
+    /**
+     * Maps {@link MemberAction}s to their corresponding options types.
+     *
+     * If the action does not require any options, the type is `undefined`.
+     */
+    interface MemberActionsToOptionsMap {
+        /**
+         * @see {@link MemberAction.FOLLOW_VIEW}
+         */
+        [MemberAction.FOLLOW_VIEW]: undefined;
+        /**
+         * @see {@link MemberAction.UNFOLLOW_VIEW}
+         */
+        [MemberAction.UNFOLLOW_VIEW]: undefined;
+        /**
+         * @see {@link MemberAction.FOLLOW_XR_VIEW}
+         */
+        [MemberAction.FOLLOW_XR_VIEW]: undefined;
+        /**
+         * @see {@link MemberAction.UNFOLLOW_XR_VIEW}
+         */
+        [MemberAction.UNFOLLOW_XR_VIEW]: undefined;
+        /**
+         * @see {@link MemberAction.KICK}
+         */
+        [MemberAction.KICK]: undefined;
+        /**
+         * @see {@link MemberAction.PROMOTE}
+         */
+        [MemberAction.PROMOTE]: {
+            role: MemberRole;
+        } | undefined;
+        /**
+         * @see {@link MemberAction.DEMOTE}
+         */
+        [MemberAction.DEMOTE]: {
+            role: MemberRole;
+        } | undefined;
+    }
+    /**
+     * ## Member API
+     *
+     * ### Overview
+     *
+     * The Member API provides methods to interact with members in the current {@link SpaceAPI | space}.
+     * Members represent users connected to the {@link SpaceAPI | space}. You can retrieve information about members,
+     * manage custom data associated with them, and perform actions on them.
+     *
+     * Every member has an ID, which is a continuous number starting from 0. The local member (the user of the current client)
+     * always has the ID 0. Other members are assigned IDs in the order they join the {@link SpaceAPI | space}.
+     *
+     * ### Quick Start
+     *
+     * ```javascript
+     * // Get the webvis context
+     * const context = await webvis.getContext();
+     *
+     * // Get the IDs of all members in the current space
+     * const memberIds = context.getMembers();
+     *
+     * // Request properties for the local member, which always has ID 0
+     * const localMemberProps = await context.requestMemberProperties(0);
+     *
+     * // Request properties for another member
+     * const otherMemberProps = await context.requestMemberProperties(1);
+     *
+     * // Set/get the name of the local member
+     * context.setMemberName("John Doe");
+     * const memberName = context.getMemberName();
+     * ```
+     *
+     * ### Custom member data
+     *
+     * You can manage custom data at the profile entries of a member using the
+     * `setMemberProfileEntry` and `deleteMemberProfileEntry` methods. This data
+     * is stored in the `profile` field of the {@link MemberProperties} object and will be
+     * available to other members in the same {@link SpaceAPI | space}.
+     *
+     * ```javascript
+     * // Set/get custom data at the profile entries of the local member
+     * await context.setMemberProfileEntry("status", "online");
+     * await context.setMemberProfileEntry("age", 30);
+     * const status = localMemberProps.profile["status"]; // "online"
+     * const age = localMemberProps.profile["age"]; // 30
+     *
+     * // Delete a profile entry of the local member
+     * await context.deleteMemberProfileEntry("age");
+     * ```
+     *
+     * ### Member actions
+     *
+     * You can request and use actions available on a member using the
+     * `requestMemberActions` and `useMemberAction` methods. Member actions
+     * allow you to perform predefined operations on members, see {@link MemberAction}
+     * for a list of available actions.
+     *
+     * ```javascript
+     * // Request available actions on another member
+     * const actions = await context.requestMemberActions(1);
+     *
+     * // Use an action on another member
+     * if (actions.includes(webvis.MemberAction.PROMOTE)) {
+     *   await context.useMemberAction(1, webvis.MemberAction.PROMOTE);
+     * }
+     * ```
+     *
+     * ### Events
+     *
+     * The Member API emits the following events:
+     * - {@link MemberActionAddedEvent}
+     * - {@link MemberActionRemovedEvent}
+     * - {@link MemberChangedEvent}
+     * - {@link MemberCreatedEvent}
+     * - {@link MemberRemovedEvent}
+     */
+    interface MemberAPI {
+        /**
+         * Deletes a profile entry of the local member.
+         * @param key The key of the profile entry to delete.
+         * @returns A promise that resolves when the profile entry has been deleted.
+         */
+        deleteMemberProfileEntry(key: string): Promise<void>;
+        /**
+         * Gets the name of the local member.
+         * @returns The name of the local member, or undefined if not set.
+         */
+        getMemberName(): string | undefined;
+        /**
+         * Gets a list of all member IDs in the current {@link SpaceAPI | space}.
+         * @returns An array of member IDs.
+         */
+        getMembers(): number[];
+        /**
+         * Requests the actions available on a member.
+         * @param memberId The ID of the member to request actions for.
+         * @returns A promise that resolves to an array of member actions.
+         */
+        requestMemberActions(memberId: number): Promise<MemberAction[]>;
+        /**
+         * Requests the properties of a member.
+         * @param id The ID of the member to request the properties for.
+         * @returns A promise that resolves to the member properties, or undefined if the member does not exist.
+         */
+        requestMemberProperties(id: number): Promise<MemberProperties | undefined>;
+        /**
+         * Sets the name of the local member.
+         * @param name The new name for the local member.
+         */
+        setMemberName(name: string): void;
+        /**
+         * Sets a profile entry of the local member.
+         * @param key The key of the profile entry to set.
+         * @param value The value to set for the profile entry.
+         * @returns A promise that resolves when the profile entry has been set.
+         */
+        setMemberProfileEntry(key: string, value: Serializable): Promise<void>;
+        /**
+         * Uses an action on a member.
+         *
+         * @param memberId The ID of the member to use the action on.
+         * @param action The action to use.
+         * @param options Optional parameters for the action.
+         * @returns A promise that resolves when the action has been used.
+         */
+        useMemberAction<A extends MemberAction>(
+            memberId: number,
+            action: A,
+            options?: MemberActionsToOptionsMap[A],
+        ): Promise<void>;
+    }
+    /**
+     * Event that is fired when a member has been removed.
+     *
+     * @event
+     * @hideconstructor
+     *
+     * @see {@link EventType.MEMBER_REMOVED}
+     */
+    class MemberRemovedEvent extends WebVisEvent {
+        memberId: number;
+        /**
+         * @param memberId The ID of the removed member.
+         */
+        constructor(memberId: number);
+    }
+    /**
+     * Event that is fired when a new member has been created.
+     *
+     * @event
+     * @hideconstructor
+     *
+     * @see {@link EventType.MEMBER_CREATED}
+     */
+    class MemberCreatedEvent extends WebVisEvent {
+        memberId: number;
+        memberProperties: MemberProperties;
+        /**
+         * @param memberId The ID of the created member.
+         * @param memberProperties Information about the joined member.
+         */
+        constructor(memberId: number, memberProperties: MemberProperties);
+    }
+    /**
+     * Event that is fired when a member has been changed.
+     *
+     * @event
+     * @hideconstructor
+     *
+     * @see {@link EventType.MEMBER_CHANGED}
+     */
+    class MemberChangedEvent extends WebVisEvent {
+        memberId: number;
+        memberProperties: Partial<MemberProperties>;
+        /**
+         * @param memberId The ID of the changed member.
+         * @param memberProperties Information about the changed member.
+         */
+        constructor(memberId: number, memberProperties: Partial<MemberProperties>);
+    }
+    /**
+     * Event that is fired when a member action is performed.
+     *
+     * @event
+     * @hideconstructor
+     *
+     * @ignore Out of scope for public API, but required for session handler
+     *
+     * @see {@link EventType.MEMBER_ACTION_USED}
+     */
+    class MemberActionUsedEvent extends WebVisEvent {
+        sourceMemberId: number;
+        targetMemberId: number;
+        memberAction: MemberAction;
+        details?: any;
+        /**
+         * @param sourceMemberId The memberId of the member that initiated the action
+         * @param targetMemberId The memberId of the member that is the target of the action
+         * @param memberAction The action that was performed
+         * @param details Additional details about the action. The content depends on the action.
+         */
+        constructor(sourceMemberId: number, targetMemberId: number, memberAction: MemberAction, details?: any);
+    }
+    /**
+     * Event that is fired when a member action is removed from a member.
+     *
+     * @event
+     * @hideconstructor
+     *
+     * @see {@link EventType.MEMBER_ACTION_REMOVED}
+     */
+    class MemberActionRemovedEvent extends WebVisEvent {
+        memberId: number;
+        memberAction: MemberAction;
+        /**
+         * @param memberId The id of the member the action belongs to.
+         * @param memberAction The action that was removed.
+         */
+        constructor(memberId: number, memberAction: MemberAction);
+    }
+    /**
+     * Event that is fired when a member action is added to a member.
+     *
+     * @event
+     * @hideconstructor
+     *
+     * @see {@link EventType.MEMBER_ACTION_ADDED}
+     */
+    class MemberActionAddedEvent extends WebVisEvent {
+        memberId: number;
+        memberAction: MemberAction;
+        /**
+         * @param memberId The id of the member the action belongs to.
+         * @param memberAction The action that was added.
+         */
+        constructor(memberId: number, memberAction: MemberAction);
+    }
+    /**
+     * Lists all available {@link MemberAPI | member} roles.
+     */
+    enum MemberRole {
+        OWNER = 1,
+        EDITOR = 2,
+        VIEWER = 3,
+    }
+    /**
+     * Lists all available member actions.
+     *
+     * A member action represents an action that can be performed on a member in the current space.
+     * It can be used via {@link MemberAPI.useMemberAction}.
+     */
+    enum MemberAction {
+        /**
+         * Starts following the view of the target member.
+         */
+        FOLLOW_VIEW = "followView",
+        /**
+         * Stops following the view of the target member.
+         */
+        UNFOLLOW_VIEW = "unfollowView",
+        /**
+         * Starts following the XR view of the target member.
+         */
+        FOLLOW_XR_VIEW = "followXRView",
+        /**
+         * Stops following the XR view of the target member.
+         */
+        UNFOLLOW_XR_VIEW = "unfollowXRView",
+        /**
+         * Changes the role of the target member to a higher role.
+         */
+        PROMOTE = "promote",
+        /**
+         * Changes the role of the target member to a lower role.
+         */
+        DEMOTE = "demote",
+        /**
+         * Kicks the target member from the {@link SpaceAPI | space}.
+         */
+        KICK = "kick",
+    }
+    /**
      * The result of a thickness measurement.
      *
      * @see {@link MeasurementAPI.measureThickness}
@@ -7641,6 +10150,21 @@ declare namespace webvis {
         tangent: [number, number, number];
         /**
          * The point on the topological edge used for the tangent calculation.
+         */
+        point: [number, number, number];
+    }
+    /**
+     * The result of a measurement of the normal of a face at a specific point.
+     *
+     * @see {@link MeasurementAPI.measureNormal}
+     */
+    interface NormalMeasurementResult {
+        /**
+         * The calculated normal vector.
+         */
+        normal: [number, number, number];
+        /**
+         * The point on the face used for the normal calculation.
          */
         point: [number, number, number];
     }
@@ -8041,6 +10565,19 @@ declare namespace webvis {
          * @returns The result of the measurement.
          */
         measureBetween(target0: MeasurementTarget, target1: MeasurementTarget): Promise<BetweenMeasurementResult>;
+        /**
+         * Measures the normal of a face at a given point. The face is specified by a measurement target that
+         * points to a corresponding {@link TopologyHandle}. If the point does not lie on the face, the closest
+         * point on the face is used.
+         *
+         * @param topology - The measurement target representing the face via a {@link TopologyHandle}.
+         * @param point - The point at which the normal should be measured.
+         * @returns The result of the normal measurement.
+         */
+        measureNormal(
+            topology: MeasurementTarget<MeasurementTargetClass.TOPOLOGY>,
+            point: MeasurementTarget<MeasurementTargetClass.POINT>,
+        ): Promise<NormalMeasurementResult>;
         /**
          * Measures the tangent of an edge at a given point. The edge is specified by a measurement target that
          * points to a corresponding {@link TopologyHandle}. If the point does not lie on the edge, the closest
@@ -8494,51 +11031,115 @@ declare namespace webvis {
         TRACE = 6,
     }
     /**
-     * The result of enabling or disabling a LayerFilter.
+     * The result of enabling or disabling a {@link LayerFilterAPI layer filter}.
+     *
+     * @see {@link LayerFilterAPI}
+     * @see {@link LayerFilterAPI.setLayerFilterEnabled}
      */
     interface SetLayerFilterEnabledResult {
+        /**
+         * The name of the layer filter.
+         */
         layerFilterName: string;
+        /**
+         * The new enabled state of the layer filter.
+         */
         value: boolean;
+        /**
+         * Indicates if the layer filter has changed its state.
+         */
         hasChanged: boolean;
     }
     /**
-     * The LayerFilterAPI is used to manage the visualization of Layers.
+     * ## LayerFilterAPI
+     *
+     * ### Overview
+     *
+     * The LayerFilterAPI is used to manage the visibility of layers and filter them.
      * These are additional metadata information from input data and are not always provided.
+     *
+     * The LayerFilterAPI provides methods to:
+     * - Retrieve the list of available layer filters and their states.
+     * - Enable or disable specific layer filters.
+     * - Check if a specific node is part of an enabled layer filter.
+     *
+     * This functionality is particularly useful for managing the visualization of complex models
+     * by toggling the visibility of specific layer filters based on user preferences or application logic.
+     *
+     * ### Quick Start
+     *
+     * To use the LayerFilterAPI, layer filters can be accessed via the context:
+     *
+     * ```javascript
+     * // Get the webvis context
+     * const context = webvis.getContext();
+     *
+     * context.getRegisteredLayerFilters();
+     * // -> example: {DEFAULT: false, LAYER1: false}
+     *
+     * // Enable a layer filter
+     * context.setLayerFilterEnabled('LAYER1', true);
+     * // -> example: {layerFilterName: 'LAYER1', value: true, hasChanged: true}
+     *
+     * context.getEnabledLayerFilters();
+     * // -> example: ['LAYER1']
+     *
+     * context.getRegisteredLayerFilters();
+     * // -> example: {DEFAULT: false, LAYER1: true}
+     *
+     * // Check if a node is part of an enabled layer
+     * await context.isNodePartOfEnabledLayers(nodeID);
+     * // -> example: true
+     * ```
+     *
+     * ### Events
+     *
+     * The following events are associated with the LayerFilterAPI:
+     * - {@link LayerFilterChangedEvent}
+     * - {@link LayerFilterRegisteredEvent}
+     * - {@link LayerFilterUnregisteredEvent}
      */
     interface LayerFilterAPI {
         /**
-         * Returns the currently defined list of LayerFilters.
+         * Returns the currently defined list of layer filters with their current state.
          *
-         * @return Returns the registered LayerFilters and their states.
+         * @return Returns a map of the registered layer filters and their states.
          */
         getRegisteredLayerFilters(): {
             [key: string]: boolean;
         };
         /**
-         * Returns the currently defined list of enabled LayerFilters.
+         * Returns the currently defined list of enabled layer filters.
          *
-         * @return An array of strings representing the names of the enabled LayerFilters.
+         * @return An array of strings representing the names of the enabled layer filters.
          */
         getEnabledLayerFilters(): Array<string>;
         /**
-         * Sets layers to enabled whose names are in the array of names.
+         * Sets the enabled state of a single layer filter.
          *
-         * @param name The name of the LayerFilter
+         * Triggers a {@link LayerFilterChangedEvent}.
+         *
+         * @param name The name of the layer filter
          * @param enabled The new enabled state.
+         * @returns The result of the operation.
          */
         setLayerFilterEnabled(name: string, enabled: boolean): SetLayerFilterEnabledResult;
         /**
-         * Returns true if the specified nodeID is part of an enabled Layer.
+         * Returns true if the specified node ID is part of an enabled layer.
          *
-         * @param nodeID The nodeID which should be checked.
+         * @param nodeID The node ID which should be checked.
+         * @return Returns a promise that resolves to true if the node is part of an enabled layer, false otherwise.
          */
         isNodePartOfEnabledLayers(nodeID: number): Promise<boolean>;
     }
     /**
-     * The LAYERFILTER_UNREGISTERED event occurs if a LayerFilter has been unregistered.
+     * Event that is fired when a layer filter has been unregistered.
      *
      * @event
      * @hideconstructor
+     *
+     * @see {@link LayerFilterAPI}
+     * @see {@link EventType.LAYERFILTER_UNREGISTERED}
      */
     class LayerFilterUnregisteredEvent extends WebVisEvent {
         name: string;
@@ -8548,74 +11149,125 @@ declare namespace webvis {
         constructor(name: string);
     }
     /**
-     * The LAYERFILTER_REGISTERED event occurs if a new layer filter has been registered.
+     * Event that is fired when a new layer filter has been registered.
      *
      * @event
      * @hideconstructor
+     *
+     * @see {@link LayerFilterAPI}
+     * @see {@link EventType.LAYERFILTER_REGISTERED}
      */
     class LayerFilterRegisteredEvent extends WebVisEvent {
         name: string;
         enabled: boolean;
         /**
-         * @param name The name of the registered LayerFilter.
-         * @param enabled The enabled state of the new LayerFilter.
+         * @param name The name of the registered layer filter.
+         * @param enabled The enabled state of the new layer filter.
          */
         constructor(name: string, enabled: boolean);
     }
     /**
-     * The LAYERFILTER_CHANGED event occurs if a layer filter has been changed.
+     * Event that is fired when a layer filter has been changed.
      *
      * @event
      * @hideconstructor
+     *
+     * @see {@link LayerFilterAPI}
+     * @see {@link EventType.LAYERFILTER_CHANGED}
      */
     class LayerFilterChangedEvent extends WebVisEvent {
         name: string;
         enabled: boolean;
         /**
-         * @param name The name of the changed LayerFilter.
-         * @param enabled The new enabled state of the changed LayerFilter.
+         * @param name The name of the changed layer filter.
+         * @param enabled The new enabled state of the changed layer filter.
          */
         constructor(name: string, enabled: boolean);
     }
     /**
-     * The interaction data.
+     * Contains the properties of an interaction.
+     *
+     * @see {@link InteractionAPI.processInteractionInput}
      */
     interface InteractionData {
+        /**
+         * The ID of the target node or node collection that the interaction is applied to.
+         *
+         * @see {@link CollectionAPI} for node collections as targetID
+         */
         targetID: number;
+        /**
+         * Optional property for transporting the target's name to the interaction.
+         */
         targetName?: string;
+        /**
+         * Whether the target was interacted with via picking or by ID.
+         */
         type?: InteractionType;
+        /**
+         * The interaction modifier that is applied to the interaction.
+         */
         modifier?: InteractionModifier;
+        /**
+         * The original event that triggered the interaction.
+         */
         originalEvent?: Event;
+        /**
+         * Optional property storing information about where the interaction originated from (e.g. the DOM element that triggered the interaction).
+         */
         origin?: any;
+        /**
+         * Pointer information related to the interaction.
+         */
         pointerInfo?: PointerInfo;
     }
     /**
+     * ## InteractionAPI
+     *
+     * ### Overview
+     *
      * The **InteractionAPI** provides functionalities to control the current interaction behavior by
-     * switching between different predefined interaction modes.
+     * switching between different predefined interaction modes {@link InteractionMode | interaction modes}.
+     *
+     * ### Quick Start
      *
      * **Example**
-     * ```typescript *
-     * // Activate the predefined mode to perform a double measurement.
+     * ```javascript
+     * // Get the webvis default context
+     * const myContext = webvis.getContext();
+     *
+     * // Switch to another interaction mode
      * myContext.setInteractionMode(webvis.InteractionMode.MEASUREMENT_DOUBLE);
      *
+     * // Get the current interaction mode
+     * const activeInteractionMode = myContext.getInteractionMode();
+     *
      * // Leave the double measurement mode and switch back to the default interaction behaviour.
-     * myContext.setInteractionMode(webvis.InteractionMode.DEFAULT);
+     * myContext.resetInteractionMode();
      * ```
+     *
+     * ### Events
+     * The InteractionAPI emits the following events:
+     * - {@link InteractionModeChangedEvent}
      */
     interface InteractionAPI {
         /**
          * Set the current interaction mode.
          *
          * @deprecated Calling setInteractionMode with the mode parameter of type string or string[] is deprecated, please use the InteractionMode enum instead.
-         * @param {string | string[]} mode - Specifies the interaction mode you want set.
-         * @param {boolean} [keepColorCompareActive=false] - Specifies if the color comparison mode should stay active. (Default: false)
+         * @param mode Specifies the interaction mode you want set.
+         * @param keepColorCompareActive Specifies if the color comparison mode should stay active. Default: false
+         *
+         * @see {@link isColorComparisonActive}
          */
         setInteractionMode(mode: string | Array<string>, keepColorCompareActive?: boolean): void;
         /**
          * Set the current interaction mode.
          *
-         * @param {InteractionMode} mode - Specifies the interaction mode you want set.
-         * @param {boolean} [keepColorCompareActive=false] - Specifies if the color comparison mode should stay active. (Default: false)
+         * @param mode Specifies the interaction mode you want set.
+         * @param keepColorCompareActive Specifies if the color comparison mode should stay active. Default: false
+         *
+         * @see {@link isColorComparisonActive}
          */
         setInteractionMode(mode: InteractionMode, keepColorCompareActive?: boolean): void;
         /**
@@ -8633,21 +11285,24 @@ declare namespace webvis {
         /**
          * Triggers an interaction on the current active interaction mode.
          *
-         * @param {InteractionData} interactionData - Definition of the triggered Interaction.
+         * @param interactionData - Definition of the triggered Interaction.
          */
         processInteractionInput(interactionData: InteractionData): void;
         /**
          * Sets the current interaction mode back to the Default mode.
          *
-         * @param {boolean} [keepColorCompareActive=false] - Specifies if the color comparison mode should stay active. (Default: false)
+         * @param keepColorCompareActive Specifies if the color comparison mode should stay active. (Default: false)
+         * @see {@link isColorComparisonActive}
          */
         resetInteractionMode(keepColorCompareActive?: boolean): void;
     }
     /**
-     * This event signals that the interaction mode has been changed.
+     * Event that is fired when the interaction mode is changed.
      *
      * @event
      * @hideconstructor
+     *
+     * @see {@link InteractionAPI}
      */
     class InteractionModeChangedEvent extends WebVisEvent {
         mode: InteractionMode;
@@ -8659,10 +11314,19 @@ declare namespace webvis {
         constructor(mode: InteractionMode, keepColorCompareActive: boolean);
     }
     /**
-     * The available interaction types.
+     * The available interaction types. They determine if a target was picked or interacted with by ID.
+     *
+     * @see {@link InteractionData}
+     * @see {@link InteractionAPI}
      */
     enum InteractionType {
+        /**
+         * Target is interacted with via picking.
+         */
         PICKING = 0,
+        /**
+         * Target is interacted with by ID.
+         */
         BY_ID = 1,
     }
     /**
@@ -8674,56 +11338,79 @@ declare namespace webvis {
         WAITING_THIRD_INPUT = 2,
         DONE = 3,
     }
+    /**
+     * The available interaction modifiers. They determine additional modifications of an interaction.
+     *
+     * @see {@link InteractionData}
+     * @see {@link InteractionAPI}
+     */
     enum InteractionModifier {
+        /**
+         * The default modifier. The interaction has no additional modifications.
+         */
         DEFAULT = 0,
+        /**
+         * Indicates that the current target node should be added to the current selection.
+         */
         ADD = 1,
+        /**
+         * Indicates that the parent of the selected node should be selected, too.
+         * Enable {@link SettingStrings.PARENT_SELECT_ENABLED} to set this modifier in interactions.
+         */
         EXPAND = 2,
+        /**
+         * Indicates that the secondary button of the pointer was used.
+         */
         SECONDARY = 3,
     }
     /**
-     * The **InteractionMode** Enumerations holds all available predefined interaction modes.
+     * The available interaction modes. They determine how interactions with the space and its entities are processed.
+     *
+     * @see {@link InteractionAPI}
      */
     enum InteractionMode {
         /**
-         * Mode to perform a rectangular selection.
+         * Allows to define a 2D box on the canvas. Entities contained by this box will be selected.
          */
         AREA_SELECTION = 0,
         /**
-         * Mode to perform a rectangular zoom.
+         * Allows to define a 2D box on the canvas. The viewer will zoom into the defined area.
          */
         AREA_ZOOM = 1,
         /**
-         * Mode to identify relations between PMI's and Faces.
+         * Allows to identify relations between PMI's and faces.
          */
         AUX = 2,
         /**
-         * Mode to create clip planes from geometrical features.
+         * Allows to create clip planes from geometrical features.
          */
         CLIP_PLANE = 3,
         /**
-         * Mode to compare two nodes.
+         * Allows to compare two nodes.
          */
         COLOR_COMPARISON = 4,
-        /** */
+        /**
+         * The default interaction mode. Will also be set when {@link InteractionAPI.resetInteractionMode} is being called.
+         */
         DEFAULT = 5,
         /**
-         * Mode to perform a explosion.
+         * Allows to perform an explosion.
          */
         EXPLOSION = 6,
         /**
-         * Mode to perform an arc measurement based on three points on a geometry.
+         * Allows to perform an arc measurement based on three points on a geometry.
          */
         MEASUREMENT_ARC = 7,
         /**
-         * Mode to perform a double measurement between two geometrical features.
+         * Allows to perform a double measurement between two geometrical features.
          */
         MEASUREMENT_DOUBLE = 8,
         /**
-         * Mode to perform a single measurement on a geometry.
+         * Allows to perform a single measurement on a geometry.
          */
         MEASUREMENT_SINGLE = 9,
         /**
-         * Mode to perform a thickness measurement on a geometry.
+         * Allows to perform a thickness measurement on a geometry.
          */
         MEASUREMENT_THICKNESS = 10,
         /**
@@ -8731,11 +11418,11 @@ declare namespace webvis {
          */
         NONE = 11,
         /**
-         * Mode to draw on geometries.
+         * Allows to draw on geometries.
          */
         PAINT = 12,
         /**
-         * Mode to transform nodes.
+         * Allows to transform nodes.
          */
         TRANSFORMATION = 13,
     }
@@ -8747,6 +11434,7 @@ declare namespace webvis {
     type PropertyType<T> = T extends "activatable" ? boolean : T extends "animation" ? {
             name: string;
         } & AnimationOptions
+    : T extends "appearancePattern" ? number | null
     : T extends "appearanceURI" ? string | number | undefined | null
     : T extends "attachment" ? any
     : T extends "auxContent" ? any
@@ -8839,6 +11527,15 @@ declare namespace webvis {
          * @see {@link Property.AUX_ENABLED}
          */
         auxEnabled?: boolean;
+        /**
+         * @ignore
+         * Specifies the initial appearance pattern of the added node.
+         *
+         * @default null
+         *
+         * @see {@link Property.APPEARANCE_PATTERN}
+         */
+        appearancePattern?: number | null;
         /**
          * Specifies the initial appearance URI of the added node.
          *
@@ -8946,6 +11643,14 @@ declare namespace webvis {
          * @see {@link Property.GHOSTED}
          */
         ghosted?: boolean;
+        /**
+         * Specifies the initial hidden state of the added node.
+         *
+         * @default false
+         *
+         * @see {@link Property.HIDDEN}
+         */
+        hidden?: boolean;
     }
     /**
      * Options for adding a new node to the scene.
@@ -9792,6 +12497,7 @@ declare namespace webvis {
      *
      * @event
      * @hideconstructor
+     * @deprecated This event is not used anymore. It has been replaced by the {@link NodeAddedEvent}.
      */
     class CustomNodeAddedEvent extends WebVisEvent {
         targetNodeID: number;
@@ -9882,6 +12588,14 @@ declare namespace webvis {
          * @see {@link AnimationAPI}
          */
         ANIMATION = "animation",
+        /**
+         * @ignore
+         *
+         * Overlay the node's appearance with a pattern.
+         *
+         * @default null
+         */
+        APPEARANCE_PATTERN = "appearancePattern",
         /**
          * The appearance URI of a node. This defines the node's visual appearance using a URN that encodes color and transparency.
          * Appearance URNs always start with `urn:X-l3d:color:` followed by a format and a color specification. Supported formats include:
@@ -10016,7 +12730,7 @@ declare namespace webvis {
          */
         HAS_VARIANTS = "hasVariants",
         /**
-         * @ignore The hidden property is hidden, heh heh. It is currently not used but might make its return in the future.
+         * Specifies whether a node is hidden. This property is used to fully hide nodes from the scene.
          *
          * @default false
          */
@@ -10710,41 +13424,80 @@ declare namespace webvis {
         SHUTDOWN = 6000,
     }
     /**
-     * Callback function which can be registered via the {@link FrameAPI}.
-     * @param {number} time - Total time in milliseconds since the start of the internal update loop.
-     * @param {number} elapsed - Elapsed time since the last run of the internal update loop.
+     * A listener which can be registered via the {@link FrameAPI}. When registered,
+     * it is executed on every tick of the internal update loop of the webvis
+     * context. The listener receives the timestamp of the current tick and
+     * the elapsed time since the last tick.
+     *
+     * @see {@link FrameAPI}
+     *
+     * @param time    Timestamp of the current tick of the internal update loop,
+     *                in milliseconds.
+     * @param elapsed Elapsed time since the last tick of the internal update loop,
+     *                in milliseconds.
      */
     type FrameListener = (time: number, elapsed: number) => void;
     /**
-     * The {@link FrameAPI} provides functionalities to register and unregister custom callback functions which are executed on every run of the {@link ContextAPI} internal update loop.
+     * ## FrameAPI
      *
-     * **Example**
-     * ```typescript
-     * // Create an instance of the ContextAPI
-     * const myContext : ContextAPI = webvis.createContext( "example" )
+     * ### Overview
+     *
+     * The FrameAPI provides functions for registering and unregistering
+     * {@link FrameListener frame listeners} which are executed on every tick
+     * of the internal update loop of the webvis context.
+     *
+     * The FrameAPI might be used to:
+     * - process events that have been collected between frames in a batched manner
+     * - perform complex animations that cannot be implemented using the {@link AnimationAPI}
+     * - record properties of the scene, like the camera position and orientation
+     *
+     * ### Quick Start
+     *
+     * To get started with the FrameAPI, you can register a listener via the webvis context:
+     * ```javascript
+     * const context = webvis.getContext();
      *
      * // Define your frame listener
-     * const myFrameListener : FrameListener = ( time : number, elapsed : number ) =>
+     * const myFrameListener = (time, elapsed) =>
      * {
-     *     console.log(`Current time ${time} ms. Time since last call ${elapsed} ms.`);
+     *     console.log(`Time of current tick: ${time} ms. Time since last tick: ${elapsed} ms.`);
      * };
      *
      * // Register your frame listener
-     * myContext.registerFrameListener( myFrameListener );
+     * context.registerFrameListener(myFrameListener);
      *
-     * // Unregister your frame listener
-     * myContext.registerFrameListener( myFrameListener );
+     * // Later unregister your frame listener
+     * context.unregisterFrameListener(myFrameListener);
      * ```
+     *
+     * ### Execution Behavior
+     *
+     * The execution frequency of a frame listener will usually match the refresh rate
+     * of the display, which is typically around 60 Hz. Frame listener execution might
+     * be throttled when the document is not visible (e.g., when the browser tab is in
+     * the background).
+     *
+     * When executed, a listener receives the timestamp of the current tick of the
+     * internal update loop and the elapsed time since the last tick. Custom logic
+     * should never assume a specific update rate, but instead be based on the provided
+     * timing information.
+     *
+     * @see {@link FrameListener}
+     * @see {@link AnimationAPI}
      */
     interface FrameAPI {
         /**
-         * Registers a listener function which get called once per internal update tick.
-         * @param {FrameListener} listener - The listener to register.
+         * Registers a frame listener which is executed on every tick of the
+         * internal update loop of the webvis context.
+         *
+         * @param listener The listener to register.
          */
         registerFrameListener(listener: FrameListener): void;
         /**
-         * Unregisters a previously registered listener via {@link registerFrameListener}.
-         * @param {FrameListener} listener - The listener to unregister.
+         * Unregisters a frame listener which has previously been registered via
+         * {@link registerFrameListener}.
+         *
+         * @param listener The listener to unregister.
          */
         unregisterFrameListener(listener: FrameListener): void;
     }
@@ -11536,7 +14289,98 @@ declare namespace webvis {
          * @see {@link ViewerPointCloudAPI}
          */
         VIEWER_POINT_CLOUD_REMOVED = 131,
-        EVENT_TYPE_COUNT = 132,
+        /**
+         * Event type corresponding to an {@link ViewerPOISetCreatedEvent}
+         * @see {@link ViewerPointsOfInterestAPI}
+         */
+        VIEWER_POI_SET_CREATED = 132,
+        /**
+         * Event type corresponding to an {@link ViewerPOISetChangedEvent}
+         * @see {@link ViewerPointsOfInterestAPI}
+         */
+        VIEWER_POI_SET_CHANGED = 133,
+        /**
+         * Event type corresponding to an {@link ViewerPOISetRemovedEvent}
+         * @see {@link ViewerPointsOfInterestAPI}
+         */
+        VIEWER_POI_SET_REMOVED = 134,
+        /**
+         * Event type corresponding to a {@link ViewerPOIClickedEvent}.
+         * @see {@link ViewerPointsOfInterestAPI}
+         */
+        VIEWER_POI_CLICKED = 135,
+        /**
+         * Event type corresponding to a {@link ViewerPOIPointerEnterEvent}.
+         * @see {@link ViewerPointsOfInterestAPI}
+         */
+        VIEWER_POI_POINTER_ENTER = 136,
+        /**
+         * Event type corresponding to a {@link ViewerPOIPointerOutEvent}.
+         * @see {@link ViewerPointsOfInterestAPI}
+         */
+        VIEWER_POI_POINTER_OUT = 137,
+        /**
+         * Event type corresponding to a {@link ViewerPOIStyleCreatedEvent}.
+         * @see {@link ViewerPointsOfInterestAPI}
+         */
+        VIEWER_POI_STYLE_CREATED = 138,
+        /**
+         * Event type corresponding to a {@link ViewerPOIStyleChangedEvent}.
+         * @see {@link ViewerPointsOfInterestAPI}
+         */
+        VIEWER_POI_STYLE_CHANGED = 139,
+        /**
+         * Event type corresponding to a {@link ViewerPOIStyleRemovedEvent}.
+         * @see {@link ViewerPointsOfInterestAPI}
+         */
+        VIEWER_POI_STYLE_REMOVED = 140,
+        /**
+         * Event type corresponding to an {@link ViewerPOISetPointsAddedEvent}
+         * @see {@link ViewerPointsOfInterestAPI}
+         */
+        VIEWER_POI_SET_POINTS_ADDED = 141,
+        /**
+         * Event type corresponding to an {@link ViewerPOISetPointsChangedEvent}
+         * @see {@link ViewerPointsOfInterestAPI}
+         */
+        VIEWER_POI_SET_POINTS_CHANGED = 142,
+        /**
+         * Event type corresponding to an {@link ViewerPOISetPointsRemovedEvent}
+         * @see {@link ViewerPointsOfInterestAPI}
+         */
+        VIEWER_POI_SET_POINTS_REMOVED = 143,
+        /**
+         * Event type corresponding to a {@link MemberCreatedEvent}.
+         * @see {@link MemberAPI}
+         */
+        MEMBER_CREATED = 144,
+        /**
+         * Event type corresponding to a {@link MemberChangedEvent}.
+         * @see {@link MemberAPI}
+         */
+        MEMBER_CHANGED = 145,
+        /**
+         * Event type corresponding to a {@link MemberRemovedEvent}.
+         * @see {@link MemberAPI}
+         */
+        MEMBER_REMOVED = 146,
+        /**
+         * @ignore
+         */
+        MEMBER_ACTION_USED = 147,
+        /** Event type corresponding to a {@link MemberActionAddedEvent}.
+         * @see {@link MemberAPI}
+         */
+        MEMBER_ACTION_ADDED = 148,
+        /** Event type corresponding to a {@link MemberActionRemovedEvent}.
+         * @see {@link MemberAPI}
+         */
+        MEMBER_ACTION_REMOVED = 149,
+        /** Event type corresponding to a {@link SpaceOpenedEvent}.
+         * @see {@link SpaceAPI}
+         */
+        SPACE_OPENED = 150,
+        EVENT_TYPE_COUNT = 151,
     }
     interface DrawingPlaneProperties {
         /**
@@ -11777,12 +14621,73 @@ declare namespace webvis {
          */
         REFERENCED_BY_SNAPSHOT = 2,
     }
+    /**
+     * ## CoordinateSystemAPI
+     *
+     * ### Overview
+     *
+     * The `CoordinateSystemAPI` provides methods to retrieve the current (right-handed) coordinate system's transformation matrix and its right,
+     * up, and forward vectors.
+     * All information are based on the {@link SettingStrings.FRONT_PLANE_AXIS | front plane axis setting} which defines the orientation of the
+     * front plane of the model in the 3D space.
+     *
+     * ### Quick Start
+     *
+     * To read out the current coordinate system as well as the currently set {@link SettingStrings.FRONT_PLANE_AXIS | front plane axis setting},
+     * you can use the following code:
+     * ```javascript
+     * // Get the webvis context
+     * const webvis = webvis.getContext();
+     *
+     * const csMat = context.getCoordinateSystemMatrix();
+     * const front = context.readSetting(webvis.SettingStrings.FRONT_PLANE_AXIS);
+     *
+     * // Print the current coordinate system matrix and the corresponding front plane axis.
+     * console.log('Front Plane Axis Setting:', front);
+     * console.log('Coordinate System Matrix (column-major):');
+     * console.table([
+     *   [csMat[0], csMat[4], csMat[8],  csMat[12]],  // First row
+     *   [csMat[1], csMat[5], csMat[9],  csMat[13]],  // Second row
+     *   [csMat[2], csMat[6], csMat[10], csMat[14]],  // Third row
+     *   [csMat[3], csMat[7], csMat[11], csMat[15]]   // Fourth row
+     * ]);
+     * ```
+     *
+     * To change the transformations, change the {@link SettingStrings.FRONT_PLANE_AXIS | front plane axis setting}:
+     * ```javascript
+     * // Change the front plane to be defined by right=-y, up=+z and thus forward=-x.
+     * const context = webvis.getContext();
+     * context.changeSetting(webvis.SettingStrings.FRONT_PLANE_AXIS, webvis.FrontPlaneAxis.NEG_Y_POS_Z);
+     *
+     * const csMat = context.getCoordinateSystemMatrix();
+     * const csRight = context.getCoordinateSystemRightVector();
+     * const csUp = context.getCoordinateSystemUpVector();
+     * const csForward = context.getCoordinateSystemForwardVector();
+     *
+     * console.log('Coordinate System Vectors:');
+     * console.log('  Right:',      csRight);
+     * console.log('  Up:',         csUp);
+     * console.log('  Forward:',    csForward);
+     *
+     * console.log('Coordinate System Matrix (column-major):');
+     * console.table([
+     *   [csMat[0], csMat[4], csMat[8],  csMat[12]],  // First row
+     *   [csMat[1], csMat[5], csMat[9],  csMat[13]],  // Second row
+     *   [csMat[2], csMat[6], csMat[10], csMat[14]],  // Third row
+     *   [csMat[3], csMat[7], csMat[11], csMat[15]]   // Fourth row
+     * ]);
+     * ```
+     *
+     * @see {@link SettingStrings.FRONT_PLANE_AXIS} for the corresponding setting
+     * @see {@link FrontPlaneAxis} for all possible front plane values
+     */
     interface CoordinateSystemAPI {
         /**
-         * Returns a 4x4 rotation matrix which is used to transform the internal default right-handed coordinate system
-         * with X and Y as front plane axis to the configured one.
+         * This function returns a 4x4 transformation matrix that transforms the default right-handed coordinate system,
+         * where the x-axis points right, the y-axis points up, and the z-axis points forward (towards the viewer),
+         * to a custom coordinate system defined by the {@link SettingStrings.FRONT_PLANE_AXIS | front plane axis setting}.
          *
-         * @returns The CoordinateSystem Matrix
+         * @returns The 4x4 coordinate system matrix
          */
         getCoordinateSystemMatrix(): [
             number,
@@ -11821,18 +14726,87 @@ declare namespace webvis {
          */
         getCoordinateSystemForwardVector(): [number, number, number] | Float32Array;
     }
+    /**
+     * Defines all possible definitions of the front plane axis in a right-handed coordinate system.
+     *
+     * The front plane axis is defined by the right and up vector of the coordinate system.
+     * The forward vector is then defined by the cross product of the right and up vector.
+     *
+     * @see {@link SettingStrings.FRONT_PLANE_AXIS}
+     * @see {@link CoordinateSystemAPI}
+     */
     enum FrontPlaneAxis {
+        /**
+         * Specifies a front plane which is defined by right=+x, up=+y and thus forward=+z.
+         * This means that the x-axis points to the right, the y-axis points up and
+         * the z-axis points towards the viewer.
+         */
         POS_X_POS_Y = "xy",
+        /**
+         * Specifies a front plane which is defined by right=-x, up=+y and thus forward=-z.
+         * This means that the x-axis points to the left, the y-axis points up and
+         * the z-axis points away from the viewer.
+         */
         NEG_X_POS_Y = "-xy",
+        /**
+         * Specifies a front plane which is defined by right=+x, up=-y and thus forward=-z.
+         * This means that the x-axis points to the right, the y-axis points down and
+         * the z-axis points away from the viewer.
+         */
         POS_X_NEG_Y = "x-y",
+        /**
+         * Specifies a front plane which is defined by right=-x, up=-y and thus forward=+z.
+         * This means that the x-axis points to the left, the y-axis points down and
+         * the z-axis points towards the viewer.
+         */
         NEG_X_NEG_Y = "-x-y",
+        /**
+         * Specifies a front plane which is defined by right=+x, up=+z and thus forward=-y.
+         * This means that the x-axis points to the right, the y-axis points away from the viewer and
+         * the z-axis points up.
+         */
         POS_X_POS_Z = "xz",
+        /**
+         * Specifies a front plane which is defined by right=-x, up=+z and thus forward=+y.
+         * This means that the x-axis points to the left, the y-axis points towards the viewer and
+         * the z-axis points up.
+         */
         NEG_X_POS_Z = "-xz",
+        /**
+         * Specifies a front plane which is defined by right=+x, up=-z and thus forward=+y.
+         * This means that the x-axis points to the right, the y-axis points towards the viewer and
+         * the z-axis points down.
+         */
         POS_X_NEG_Z = "x-z",
+        /**
+         * Specifies a front plane which is defined by right=-x, up=-z and thus forward=-y.
+         * This means that the x-axis points to the left, the y-axis points away from the viewer and
+         * the z-axis points down.
+         */
         NEG_X_NEG_Z = "-x-z",
+        /**
+         * Specifies a front plane which is defined by right=+y, up=+z and thus forward=+x.
+         * This means that the x-axis points towards the viewer, the y-axis points to the right and
+         * the z-axis points up.
+         */
         POS_Y_POS_Z = "yz",
+        /**
+         * Specifies a front plane which is defined by right=-y, up=+z and thus forward=-x.
+         * This means that the x-axis points away from the viewer, the y-axis points to the left and
+         * the z-axis points up.
+         */
         NEG_Y_POS_Z = "-yz",
+        /**
+         * Specifies a front plane which is defined by right=+y, up=-z and thus forward=-x.
+         * This means that the x-axis points away from the viewer, the y-axis points to the right and
+         * the z-axis points down.
+         */
         POS_Y_NEG_Z = "y-z",
+        /**
+         * Specifies a front plane which is defined by right=-y, up=-z and thus forward=+x.
+         * This means that the x-axis points towards the viewer, the y-axis points to the left and
+         * the z-axis points down.
+         */
         NEG_Y_NEG_Z = "-y-z",
     }
     interface ContextStateAPI {
@@ -11952,7 +14926,9 @@ declare namespace webvis {
             TopologyAPI,
             VariantsAPI,
             CoordinateSystemAPI,
-            MaterialAPI
+            MaterialAPI,
+            MemberAPI,
+            SpaceAPI
     {
         /**
          * Clears the whole Context by removing all Nodes, Snapshots, ClipPlanes, Drawings, Measurements, etc.
@@ -12050,11 +15026,15 @@ declare namespace webvis {
         getNodeCount(): number;
     }
     /**
+     * @deprecated The CollectionAPI is deprecated. Please use nodeId[] instead.
+     *
      * Collections store groups of nodes. They can be created empty or from a list of nodes.
      * There is also the way to create a collection by searching nodes matching a given property.
      */
     interface CollectionAPI {
         /**
+         * @deprecated createCollection is deprecated and will be removed in future versions. Please use a simple array of node IDs instead.
+         *
          * Returns the id of a new collection containing the nodes from the given list.
          *
          * @param nodeIDlist An array of node id's from which a new node collection should be created.
@@ -12063,18 +15043,24 @@ declare namespace webvis {
          */
         createCollection(nodeIDlist?: Array<number>): number;
         /**
+         * @deprecated createCollection is deprecated and will be removed in future versions. Please use a simple array of node IDs instead.
+         *
          * Creates a new, empty collection and returns its id.
          *
          * @return The id of the newly created collection.
          */
         createCollection(): number;
         /**
+         * @deprecated removeCollection is deprecated and will be removed in future versions.
+         *
          * Removes the collection with the given id.
          *
          * @param collectionID Specifies which collection should be removed
          */
         removeCollection(collectionID: number): void;
         /**
+         * @deprecated getCollection is deprecated and will be removed in future versions.
+         *
          * Returns the collection with the given id.
          *
          * @param collectionID  Specifies which collection should be returned
@@ -12083,6 +15069,8 @@ declare namespace webvis {
          */
         getCollection(collectionID: number): ICollection;
         /**
+         * @deprecated searchByVolume is deprecated and will be removed in future versions. Please use {@link InstanceGraphAPI.requestNodeIdsByBoxVolume} instead.
+         *
          * Finds nodes within the given BoxVolume (created using the createBoxVolume() function).
          * If includeOverlappingNodes is false, only nodes fully contained by the box volume are returned.
          * The rootNodeID specifies the node from which the subtree is searched.
@@ -12095,6 +15083,8 @@ declare namespace webvis {
          */
         searchByVolume(selectionBox: BoxVolume, includeOverlappingNodes: boolean, rootNodeID?: number): Promise<number>;
         /**
+         * @deprecated addToCollection is deprecated and will be removed in future versions.
+         *
          * Adds the node given by nodeID to the collection with id collectionID. If recursive is true,
          * the descendants of the node are also added. Returns the  number of nodes in the collection.
          *
@@ -12104,6 +15094,8 @@ declare namespace webvis {
          */
         addToCollection(collectionID: number, nodeID: number, recursive?: boolean): void;
         /**
+         * @deprecated removeFromCollection is deprecated and will be removed in future versions.
+         *
          * Removes a node given by nodeID from the collection with id collectionID. If recursive is true,
          * the descendants of the node are also removed.
          *
@@ -12113,6 +15105,8 @@ declare namespace webvis {
          */
         removeFromCollection(collectionID: number, nodeID: number, recursive?: boolean): void;
         /**
+         * @deprecated getCollectionElements is deprecated and will be removed in future versions.
+         *
          * Returns an array containing the ids of the nodes in the collection.
          * Modifying the returned array results in undefined behavior.
          *
@@ -12122,6 +15116,8 @@ declare namespace webvis {
          */
         getCollectionElements(collectionID: number): Promise<Array<number>>;
         /**
+         * @deprecated getCollectionNodeCount is deprecated and will be removed in future versions.
+         *
          * Returns the number of elements inside a collection.
          *
          * @param  collectionID The id of the collection
@@ -12130,109 +15126,94 @@ declare namespace webvis {
          */
         getCollectionNodeCount(collectionID: number): Promise<number>;
     }
+    /**
+     * Configuration properties for clip rooms.
+     *
+     * These properties control the size, position, appearance, and behavior
+     * of clip rooms in the scene. A clip room is a box-shaped clipping volume
+     * that hides geometry outside its boundaries, allowing you to examine
+     * internal structures of models.
+     *
+     * @see {@link ClipPlaneAPI}
+     * @see {@link ClipPlaneAPI.createClippingRoom}
+     * @see {@link ClipPlaneAPI.changeClippingRoom}
+     */
     interface ClipRoomProperties {
         /**
-         * The enabled state of the clip room.
+         * Controls whether the clip room is enabled or disabled.
+         *
+         * When set to false, the clip room exists but has no effect on the scene.
+         * This allows temporarily disabling clipping without removing the clip room.
+         *
          * @default true
          */
         enabled?: boolean;
         /**
-         * The invisible state of the clip room.
+         * Controls whether the visual representation of the clip room is hidden.
+         *
+         * When set to true, the clip room will still perform clipping, but its
+         * visual indicator (the wireframe box) will not be displayed.
+         *
          * @default false
          */
         invisible?: boolean;
         /**
-         * The name of the clip room.
+         * The display name of the clip room.
+         *
+         * This name can be used for identification in user interfaces or debugging.
+         *
          * @default undefined
          */
         name?: string;
         /**
-         * The size of the clip room.
+         * The dimensions of the clip room along the X, Y, and Z axes.
+         *
+         * These values define the width, height, and depth of the clip room
+         * in local space before any transformations are applied.
+         *
+         * Example:
+         * ```javascript
+         * // Get the webvis context
+         * const context = webvis.getContext();
+         *
+         * // Create a clip room that's 10 units wide, 5 units tall, and 8 units deep
+         * context.createClippingRoom({
+         *   size: [10, 5, 8]
+         * });
+         * ```
+         *
          * @default [1, 1, 1]
          */
         size?: [number, number, number] | Float32Array;
         /**
          * The transformation matrix of the clip room.
-         * @default [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1]
-         */
-        transform?: [
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-        ] | Float32Array;
-    }
-    interface ClipPlaneProperties {
-        /**
-         * TODO
-         */
-        animation?:
-            | ({
-                name: string;
-            } & AnimationOptions)
-            | null;
-        /**
-         * List of node IDs which should be exclusively clipped.
-         * The properties clippedNodes and excludedNodes are mutually exclusive.
-         * @default []
-         */
-        clippedNodes?: number[];
-        /**
-         * The enabled state of the clip plane.
-         * @default false
-         */
-        enabled?: boolean;
-        /**
-         * List of node IDs which should be excluded from the clipping.
-         * The properties clippedNodes and excludedNodes are mutually exclusive.
-         * @default []
-         */
-        excludedNodes?: number[];
-        /**
-         * The invisible state of the clip plane.
-         * @default false
-         */
-        invisible?: boolean;
-        /**
-         * The name of the clip plane.
-         * @default undefined
-         */
-        name?: string;
-        /**
-         * The normal vector of the clip plane.
-         * @default [0, 1, 0]
-         */
-        normal?: [number, number, number] | Float32Array;
-        /**
-         * The position of the clip plane.
-         * @default [0,0,0]
-         */
-        position?: [number, number, number] | Float32Array;
-        /**
-         * The tangent vector of the clip plane.
-         * @default [1, 0, 0]
-         */
-        tangent?: [number, number, number] | Float32Array;
-        /**
-         * The thickness of the clip plane.
-         * @default 0
-         */
-        thickness?: number;
-        /**
-         * The transformation matrix of the clip plane.
-         * @default [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1]
+         *
+         * This 4x4 matrix defines the complete transformation (position, rotation, and scale)
+         * of the clip room in world space. It allows positioning and orienting the clip room
+         * anywhere in the scene.
+         *
+         * Example:
+         * ```javascript
+         * // Get the webvis context
+         * const context = webvis.getContext();
+         *
+         * // Create a clip room rotated 45 degrees around the Y axis
+         * const angle = Math.PI / 4; // 45 degrees
+         * const c = Math.cos(angle);
+         * const s = Math.sin(angle);
+         *
+         * context.createClippingRoom({
+         *   size: [10, 5, 8],
+         *   transform: [
+         *     c, 0, s, 0,    // First row (rotation + scale)
+         *     0, 1, 0, 0,    // Second row (rotation + scale)
+         *     -s, 0, c, 0,   // Third row (rotation + scale)
+         *     0, 0, 0, 1     // Fourth row (translation + w)
+         *   ]
+         * });
+         * ```
+         *
+         * @default [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
          */
         transform?: [
             number,
@@ -12254,31 +15235,315 @@ declare namespace webvis {
         ] | Float32Array;
     }
     /**
-     * Clipplanes are used to spatially exclude parts of the geometry from the visualization
-     * by defining a separating plane.
+     * Configuration properties for clip planes.
+     *
+     * These properties control the position, orientation, appearance, and behavior
+     * of clip planes. They can be used when creating or modifying
+     * clip planes.
+     *
+     * @see {@link ClipPlaneAPI}
+     * @see {@link ClipPlaneAPI.createClipPlane}
+     * @see {@link ClipPlaneAPI.changeClipPlane}
+     */
+    interface ClipPlaneProperties {
+        /**
+         * Animation configuration for the clip plane.
+         *
+         * IMPORTANT: You must first create animation frames using {@link AnimationAPI.createAnimationFrames}
+         * with a specific name. Then you can reference those frames by providing that same name in this property.
+         *
+         * The {@link animation} property accepts a name (which must match the name used when creating the animation frames)
+         * and animation options that control how those frames are played. Animation only works when using
+         * {@link ClipPlaneAPI.changeClipPlane}, not when initially creating a clip plane.
+         *
+         * Setting this property to null stops any active animation.
+         *
+         * Example:
+         * ```javascript
+         * // Get the webvis context
+         * const context = webvis.getContext();
+         *
+         * // First, create animation frames with a specific name
+         * context.createAnimationFrames("clip_plane_motion", [
+         *   { time: 0, translation: [0, 0, 0], rotation: [0, 0, 0] },
+         *   { time: 0.5, translation: [10, 0, 0], rotation: [0, Math.PI/4, 0] },
+         *   { time: 1, translation: [0, 0, 0], rotation: [0, Math.PI/2, 0] }
+         * ]);
+         *
+         * // Create a clip plane (animation won't be applied here)
+         * const clipPlaneId = context.createClipPlane({
+         *   normal: [0, 0, 1],
+         *   position: [0, 0, 0]
+         * });
+         *
+         * // Apply animation to the existing clip plane, referencing the previously created frames
+         * context.changeClipPlane(clipPlaneId, {
+         *   animation: {
+         *     name: "clip_plane_motion",  // Must match the name used in createAnimationFrames
+         *     duration: 2000,
+         *     iterationCount: 3
+         *   }
+         * });
+         *
+         * // Stop animation
+         * context.changeClipPlane(clipPlaneId, {
+         *   animation: null
+         * });
+         * ```
+         *
+         * @see {@link AnimationOptions}
+         * @see {@link AnimationFrame}
+         * @see {@link AnimationAPI.createAnimationFrames}
+         * @default null
+         */
+        animation?:
+            | ({
+                name: string;
+            } & AnimationOptions)
+            | null;
+        /**
+         * List of node IDs which should be exclusively clipped by this clip plane.
+         *
+         * When specified, only these nodes will be affected by the clip plane, all others
+         * will be ignored. This property is mutually exclusive with excludedNodes.
+         *
+         * Example:
+         * ```javascript
+         * // Get the webvis context
+         * const context = webvis.getContext();
+         *
+         * // Only clip nodes 123 and 456
+         * context.createClipPlane({
+         *   normal: [0, 1, 0],
+         *   clippedNodes: [123, 456]
+         * });
+         * ```
+         *
+         * @default []
+         */
+        clippedNodes?: number[];
+        /**
+         * Controls whether the clip plane is enabled or disabled.
+         *
+         * When set to false, the clip plane exists but has no effect on the scene.
+         * This allows temporarily disabling clipping without removing the clip plane.
+         *
+         * @default true
+         */
+        enabled?: boolean;
+        /**
+         * List of node IDs which should be excluded from clipping.
+         *
+         * When specified, these nodes will not be affected by the clip plane, while all others
+         * will be clipped. This property is mutually exclusive with clippedNodes.
+         *
+         * Example:
+         * ```javascript
+         * // Get the webvis context
+         * const context = webvis.getContext();
+         *
+         * // Clip everything except nodes 123 and 456
+         * context.createClipPlane({
+         *   normal: [0, 1, 0],
+         *   excludedNodes: [123, 456]
+         * });
+         * ```
+         *
+         * @default []
+         */
+        excludedNodes?: number[];
+        /**
+         * Controls whether the visual representation of the clip plane is hidden.
+         *
+         * When set to true, the clip plane will still perform clipping, but its
+         * visual indicator (the plane outline) will not be displayed.
+         *
+         * @default false
+         */
+        invisible?: boolean;
+        /**
+         * The display name of the clip plane.
+         *
+         * This name can be used for identification in user interfaces or debugging.
+         *
+         * @default undefined
+         */
+        name?: string;
+        /**
+         * The normal vector of the clip plane.
+         *
+         * This vector defines the orientation of the clip plane, pointing in the
+         * direction where geometry will be clipped away. The vector will be normalized
+         * internally.
+         *
+         * @default [0, 1, 0]
+         */
+        normal?: [number, number, number] | Float32Array;
+        /**
+         * The position of the clip plane in 3D space.
+         *
+         * This defines a point on the clip plane, determining its location in the scene.
+         *
+         * @default [0, 0, 0]
+         */
+        position?: [number, number, number] | Float32Array;
+        /**
+         * The tangent vector of the clip plane.
+         *
+         * This vector is perpendicular to the normal and defines the orientation of the
+         * plane's visual representation. If not provided, it will be automatically calculated
+         * to be perpendicular to the normal.
+         *
+         * @default [1, 0, 0]
+         */
+        tangent?: [number, number, number] | Float32Array;
+        /**
+         * The thickness of the clip plane's non-clipping volume.
+         *
+         * When set to a value greater than zero, this creates a volume around the clip plane
+         * where geometry is not clipped. For example, if thickness is set to 1.0, then geometry
+         * within 1.0 units perpendicular distance on both sides of the plane will remain visible,
+         * regardless of which side of the plane it's on. This is useful for creating cross-section
+         * views that highlight geometry near the cut plane.
+         *
+         * @default 0
+         */
+        thickness?: number;
+        /**
+         * The transformation matrix of the clip plane.
+         *
+         * This 4x4 matrix defines the complete transformation (position, rotation, and scale)
+         * of the clip plane in world space.
+         *
+         * @default [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+         */
+        transform?: [
+            number,
+            number,
+            number,
+            number,
+            number,
+            number,
+            number,
+            number,
+            number,
+            number,
+            number,
+            number,
+            number,
+            number,
+            number,
+            number,
+        ] | Float32Array;
+    }
+    /**
+     * ## ClipPlaneAPI
+     *
+     * ### Overview
+     * Clip planes are used to visually cut through 3D models by defining a separating plane
+     * that hides geometry on one side. This makes it possible to examine internal structures
+     * and cross-sections of models that would otherwise be hidden.
+     *
+     * A clip room consists of six orthogonal planes forming a box that clips any geometry
+     * outside of it, useful for focusing on specific regions of interest.
+     *
+     * ### Key Features
+     *
+     * - Creating individual clip planes with specific orientation and position
+     * - Creating clip rooms (box-shaped clipping volumes)
+     * - Positioning clip planes relative to selected components
+     * - Enabling/disabling clip planes
+     * - Creating capping geometry to visualize cut surfaces
+     * - Configuring which nodes are affected by clipping
+     *
+     * ### Quick Start
+     *
+     * ```javascript
+     * // Get the webvis context
+     * const context = webvis.getContext();
+     *
+     * // Create a basic clip plane
+     * const clipPlaneId = context.createClipPlane({
+     *   normal: [0, 0, 1],     // Z-axis normal (up)
+     *   position: [0, 0, 0]    // Passing through origin
+     * });
+     *
+     * // Create a clip room around selected nodes
+     * const selectedNodes = context.getSelectedNodes();
+     * context.clipOtherParts(selectedNodes);
+     *
+     * // Create and visualize a cut surface
+     * await context.createCapping(clipPlaneId);
+     * ```
+     *
+     * ### Events
+     *
+     * The API triggers the following events:
+     *
+     * - {@link ClipPlaneCreatedEvent}
+     * - {@link ClipPlaneChangedEvent}
+     * - {@link ClipPlaneRemovedEvent}
+     * - {@link ClippingRoomCreatedEvent}
+     * - {@link ClippingRoomChangedEvent}
+     * - {@link ClippingRoomRemovedEvent}
+     *
+     * ### Related Types
+     *
+     * - {@link ClipPlaneProperties}
+     * - {@link ClipRoomProperties}
      */
     interface ClipPlaneAPI {
         /**
          * Creates a new clip plane.
-         * @param {ClipPlaneProperties} properties - Initial properties of the created clip plane.
-         * @returns {number} The id of the newly created clip plane.
+         *
+         * Clip planes create a visual cut through 3D models, allowing examination of internal structures
+         * by hiding geometry on one side of the plane. The orientation and position of the plane are
+         * defined by its normal vector and a point on the plane.
+         *
+         * A clip plane can be configured to exclude specific nodes from clipping or to clip only
+         * specific nodes, using the excludedNodes and clippedNodes properties respectively.
+         *
+         * Triggers a {@link ClipPlaneCreatedEvent} when the clip plane is created.
+         *
+         * Example usage:
+         * ```javascript
+         * // Get the webvis context
+         * const context = webvis.getContext();
+         *
+         * // Create a clip plane aligned with the XY plane
+         * const clipPlaneId = context.createClipPlane({
+         *   normal: [0, 0, 1],     // Z-axis normal
+         *   position: [0.04, -0.03, -0.15],   // Passing through a specific point
+         *   name: "Section View"
+         * });
+         *
+         * // Create a clip plane with excluded nodes
+         * const clipPlaneId = context.createClipPlane({
+         *   normal: [1, 0, 0],
+         *   excludedNodes: [1234, 5678],  // These nodes won't be clipped
+         *   invisible: true               // Hide the visual representation of the plane
+         * });
+         * ```
+         *
+         * @param properties Initial properties of the created clip plane. Default: {}
+         * @returns The ID of the newly created clip plane.
          */
         createClipPlane(properties?: ClipPlaneProperties): number;
         /**
-         * Creates a clip plane defined by the plane’s normal, positioned at an optional point (otherwise at
-         * the world space origin) and an optional name. Returns the ID of the clip plane.
-         *
          * @deprecated Calling createClipPlane with single parameters is deprecated, please use ClipPlaneProperties instead.
-         * @param normal The normal of the clip plane
-         * @param point  An arbitrary point in space which lies on the clip plane
-         * @param name   The name of the clip plane
-         * @param thickness   The thickness of the clip plane
-         * @param tangent   The tangent of the clip plane
-         * @param disabled   The state of the clip plane
-         * @param invisible   Invisible on the UI
-         * @param exclusive   set the exclusive flag to clip geometry when using exclusiveClipplanes property
          *
-         * @returns      The ID of the newly created clip plane
+         * Creates a clip plane defined by the plane's normal, positioned at an optional point (otherwise at
+         * the world space origin) and an optional name.
+         *
+         * @param normal The normal of the clip plane
+         * @param point An arbitrary point in space which lies on the clip plane
+         * @param name The name of the clip plane
+         * @param thickness The thickness of the clip plane
+         * @param tangent The tangent of the clip plane
+         * @param disabled The state of the clip plane
+         * @param invisible Invisible on the UI
+         * @param exclusive Set the exclusive flag to clip geometry when using exclusiveClipplanes property
+         * @returns The ID of the newly created clip plane
          */
         createClipPlane(
             normal?: Float32Array | Array<number>,
@@ -12291,26 +15556,53 @@ declare namespace webvis {
             exclusive?: boolean,
         ): number;
         /**
-         * Changes one or more properties of a clip plane with the specified id.
-         * @param {number} clipPlaneId - The id of the clip plane you want to change.
-         * @param {ClipPlaneProperties} properties - The properties of the clip plane you want change.
-         * @returns {ClipPlaneProperties} An Object with the changed Properties.
+         * Changes one or more properties of an existing clip plane .
+         *
+         * Allows modifying various aspects of a clip plane such as orientation, position,
+         * visibility, and selection of which nodes are affected. Only the properties
+         * specified in the properties object will be changed.
+         *
+         * Triggers a {@link ClipPlaneChangedEvent} when properties are modified.
+         *
+         * Example usage:
+         * ```javascript
+         * // Get the webvis context
+         * const context = webvis.getContext();
+         *
+         * // Change the position and orientation of a clip plane
+         * const updatedProps = context.changeClipPlane(clipPlaneId, {
+         *   normal: [0, 1, 0],     // Update to Y-axis normal
+         *   position: [0, 0, 5],   // Move to new position
+         *   invisible: true        // Hide the visual plane representation
+         * });
+         *
+         * // Exclude certain components from being clipped
+         * context.changeClipPlane(clipPlaneId, {
+         *   excludedNodes: [1234, 5678]  // These nodes won't be affected by the clip plane
+         * });
+         * ```
+         *
+         * @param clipPlaneId The ID of the clip plane to modify
+         * @param properties Properties to change on the clip plane
+         * @returns An object containing only the properties that were actually changed
          */
         changeClipPlane(clipPlaneId: number, properties: ClipPlaneProperties): ClipPlaneProperties;
         /**
-         * Changes the properties of the clip plane defined by the clipPlaneID with the optional parameters
-         * normal, points and name.
+         * @deprecated Calling changeClipPlane with single parameters is deprecated, please use the version with ClipPlaneProperties instead.
          *
-         * @deprecated Calling changeClipPlane with single parameters is deprecated, please use ClipPlaneProperties instead.
-         * @param clipPlaneID The ID of an existing clip plane which should be changed
-         * @param normal      The new normal of the clip plane
-         * @param point       An arbitrary new point in space which lies on the clip plane
-         * @param name        The new name for the clip plane
-         * @param thickness   The thickness for the clip plane
-         * @param tangent     The tangent of the clip plane
-         * @param disabled    The enabled state of the clip plane
-         * @param invisible   Invisible on the UI
-         * @param exclusive   set the exclusive flag to clip geometry when using exclusiveClipplanes property
+         * Changes properties of an existing clip plane using individual parameters.
+         *
+         * Triggers a {@link ClipPlaneChangedEvent} when properties are modified.
+         *
+         * @param clipPlaneID The ID of the clip plane to modify
+         * @param normal The new normal vector for the clip plane
+         * @param point A point in space that lies on the clip plane
+         * @param name The display name for the clip plane
+         * @param thickness The visual thickness of the clip plane
+         * @param tangent The tangent vector for the clip plane
+         * @param disabled Whether the clip plane is enabled (false) or disabled (true)
+         * @param invisible Whether the clip plane's visual representation is hidden
+         * @param exclusive Whether the clip plane only affects nodes with the exclusiveClipplanes property
          */
         changeClipPlane(
             clipPlaneID: number,
@@ -12324,26 +15616,130 @@ declare namespace webvis {
             exclusive?: boolean,
         ): void;
         /**
-         * Returns the ids of all available clip planes.
-         * @returns {Array<number>} The ids of all available clip planes.
+         * Returns the IDs of all clip planes.
+         *
+         * This method provides a list of all clip plane IDs that can be used with other
+         * ClipPlaneAPI methods like changeClipPlane, removeClipPlane, or requestClipPlaneData.
+         *
+         * Example usage:
+         * ```javascript
+         * // Get the webvis context
+         * const context = webvis.getContext();
+         *
+         * // Get all clip planes and print their properties
+         * const clipPlaneIds = context.getClipPlanes();
+         *
+         * clipPlaneIds.forEach(async (id) => {
+         *   const properties = await context.requestClipPlaneData(id);
+         *   console.log(`Clip plane ${id}: ${properties.name || 'unnamed'}`);
+         * });
+         * ```
+         *
+         * @returns An array of clip plane IDs. Empty array if no clip planes exist.
          */
         getClipPlanes(): Array<number>;
         /**
-         * Returns the ClipPlaneData for the specified clip plane id.
-         * @param {number} clipPlaneId - The id of the clip plane you want to request the data for.
-         * @returns {Promise<ClipPlaneProperties>} The requested clip plane data.
+         * Retrieves the properties of a specific clip plane.
+         *
+         * This method asynchronously fetches the current configuration of a clip plane,
+         * including its position, orientation, visibility settings, and any node exclusions.
+         * The data is returned as a ClipPlaneProperties object that can be inspected or used
+         * to create a similar clip plane.
+         *
+         * Example usage:
+         * ```javascript
+         * // Get the webvis context
+         * const context = webvis.getContext();
+         *
+         * const properties = await context.requestClipPlaneData(clipPlaneId);
+         * console.log(`Clip plane position: [${properties.position}]`);
+         * console.log(`Clip plane normal: [${properties.normal}]`);
+         *
+         * // Use the properties to create a similar clip plane
+         * const newClipPlaneId = context.createClipPlane({
+         *   ...properties,
+         *   name: properties.name + " (copy)"
+         * });
+         * ```
+         *
+         * @param clipPlaneId The ID of the clip plane to get data for
+         * @returns Promise resolving to the clip plane's properties
          */
         requestClipPlaneData(clipPlaneId: number): Promise<ClipPlaneProperties>;
         /**
-         * Removes a clip room with the specified id.
-         * @param {number} clipPlaneId - The id of the clip room you want to remove.
-         * @param {boolean} [safe=false] Performs a safe remove which interrupt the removal process if the ClipPlane is part of one or more Snapshots.
-         * @returns {RemoveState}
+         * Removes a clip plane from the scene.
+         *
+         * This method completely removes the specified clip plane from the scene. Any capping
+         * geometry associated with the clip plane will also be removed.
+         *
+         * When the `safe` parameter is set to true and the clip plane is referenced by snapshots,
+         * the removal will be prevented and the method will return `REFERENCED_BY_SNAPSHOT`.
+         * By default (`safe` is false), clip planes will be forcibly removed even if they're
+         * referenced by snapshots.
+         *
+         * Triggers a {@link ClipPlaneRemovedEvent} when the clip plane is successfully removed.
+         *
+         * Example usage:
+         * ```javascript
+         * // Get the webvis context
+         * const context = webvis.getContext();
+         *
+         * // Safe remove - will fail if referenced by snapshots
+         * const removeResult = context.removeClipPlane(clipPlaneId, true);
+         *
+         * if (removeResult === webvis.RemoveState.REFERENCED_BY_SNAPSHOT) {
+         *   console.log("Cannot remove clip plane - it's referenced by a snapshot");
+         * } else if (removeResult === webvis.RemoveState.OK) {
+         *   console.log("Clip plane successfully removed");
+         * }
+         *
+         * // Force remove even if referenced by snapshots (default behavior)
+         * context.removeClipPlane(clipPlaneId);
+         * ```
+         *
+         * @param clipPlaneId The ID of the clip plane to remove
+         * @param safe Whether to prevent removal if the clip plane is referenced by snapshots. Default: false
+         * @returns A RemoveState value indicating the result of the removal operation
          */
         removeClipPlane(clipPlaneId: number, safe?: boolean): RemoveState;
         /**
          * Creates a new clip room.
-         * @param {ClipRoomProperties} properties - Initial properties of the created clip room.
+         *
+         * A clip room consists of six orthogonal planes forming a box that clips any geometry
+         * outside of it. This is useful for examining internal structures of complex models
+         * or focusing on specific regions of interest.
+         *
+         * Clip rooms can be positioned and sized using the properties object, and can be
+         * made invisible (for clipping without showing the room boundaries) or disabled
+         * temporarily without removing them.
+         *
+         * Triggers a {@link ClippingRoomCreatedEvent} when the clip room is created.
+         *
+         * Example usage:
+         * ```javascript
+         * // Get the webvis context
+         * const context = webvis.getContext();
+         *
+         * // Create a basic clip room at the origin
+         * context.createClippingRoom({
+         *   size: [10, 10, 10],        // Size along X, Y, and Z axes
+         *   name: "Engine Section"
+         * });
+         *
+         * // Create a positioned and rotated clip room
+         * context.createClippingRoom({
+         *   size: [5, 5, 5],
+         *   // Matrix including rotation and translation
+         *   transform: [
+         *     0.866, 0.5, 0, 0,      // First row (rotation + scale)
+         *     -0.5, 0.866, 0, 0,     // Second row (rotation + scale)
+         *     0, 0, 1, 0,            // Third row (rotation + scale)
+         *     10, 5, 3, 1            // Fourth row (translation + w)
+         *   ]
+         * });
+         * ```
+         *
+         * @param properties Initial properties of the created clip room. Default: {}
          */
         createClippingRoom(properties?: ClipRoomProperties): void;
         /**
@@ -12365,9 +15761,42 @@ declare namespace webvis {
             invisible?: boolean,
         ): void;
         /**
-         * Changes one or more properties of the clip room.
-         * @param {ClipRoomProperties} properties - The properties of the clip room you want change.
-         * @returns {ClipRoomProperties} An object with the changed properties.
+         * Changes one or more properties of an existing clip room.
+         *
+         * Allows modifying various aspects of the clip room such as size, position,
+         * orientation (via transform matrix), visibility, and enabled state. Only the properties
+         * specified in the properties object will be changed.
+         *
+         * Since WebVis only supports a single clip room at a time, there's no need to specify
+         * a clip room ID. If no clip room exists when this method is called, it will create one.
+         *
+         * Triggers a {@link ClippingRoomChangedEvent} when properties are modified.
+         *
+         * Example usage:
+         * ```javascript
+         * // Get the webvis context
+         * const context = webvis.getContext();
+         *
+         * // Change the size and position of a clip room
+         * const updatedProps = context.changeClippingRoom({
+         *   size: [20, 15, 10],          // Resize the clip room
+         *   transform: [                 // Move to new position with rotation
+         *     1, 0, 0, 0,
+         *     0, 1, 0, 0,
+         *     0, 0, 1, 0,
+         *     5, 2, 3, 1                 // Translation component
+         *   ],
+         *   invisible: true              // Hide the visual representation
+         * });
+         *
+         * // Disable the clip room temporarily without removing it
+         * context.changeClippingRoom({
+         *   enabled: false
+         * });
+         * ```
+         *
+         * @param properties Properties to change on the clip room
+         * @returns An object containing only the properties that were actually changed
          */
         changeClippingRoom(properties?: ClipRoomProperties): ClipRoomProperties;
         /**
@@ -12390,91 +15819,313 @@ declare namespace webvis {
             invisible?: boolean,
         ): ClipRoomProperties;
         /**
-         * Removes the clip room from the scene and all related Snapshots.
-         * @param {boolean} [safe=false] Performs a safe remove which interrupt the removal process if the ClipRoom is part of one or more Snapshots.
+         * Removes the clip room from the scene.
+         *
+         * This method completely removes the clip room and disables its clipping effect.
+         * Only one clip room can exist at a time, so there's no need to specify an ID.
+         *
+         * When the `safe` parameter is set to true and the clip room is referenced by snapshots,
+         * the removal will be prevented and the method will return `REFERENCED_BY_SNAPSHOT`.
+         * By default (`safe` is false), the clip room will be forcibly removed even if it's
+         * referenced by snapshots.
+         *
+         * Triggers a {@link ClippingRoomRemovedEvent} when the clip room is successfully removed.
+         *
+         * Example usage:
+         * ```javascript
+         * // Get the webvis context
+         * const context = webvis.getContext();
+         *
+         * // Safe remove - will fail if referenced by snapshots
+         * const removeResult = context.removeClippingRoom(true);
+         *
+         * if (removeResult === webvis.RemoveState.REFERENCED_BY_SNAPSHOT) {
+         *   console.log("Cannot remove clip room - it's referenced by a snapshot");
+         * } else if (removeResult === webvis.RemoveState.OK) {
+         *   console.log("Clip room successfully removed");
+         * }
+         *
+         * // Force remove even if referenced by snapshots (default behavior)
+         * context.removeClippingRoom();
+         * ```
+         *
+         * @param safe Whether to prevent removal if the clip room is referenced by snapshots. Default: false
+         * @returns A RemoveState value indicating the result of the removal operation
          */
         removeClippingRoom(safe?: boolean): RemoveState;
         /**
-         * Returns the id the clip room.
+         * Returns the ID of the current clip room.
          *
-         * @returns {Array<number>} The id the clip room.
+         * Since WebVis only supports a single clip room at a time, this method returns
+         * a single ID value rather than an array. The ID can be used with other clip room
+         * methods like requestClipRoomData.
+         *
+         * Example usage:
+         * ```javascript
+         * // Get the webvis context
+         * const context = webvis.getContext();
+         *
+         * // Get the current clip room ID and retrieve its properties
+         * const clipRoomId = context.getClipRoom();
+         *
+         * if (clipRoomId !== undefined) {
+         *   const properties = await context.requestClipRoomData();
+         *   console.log(`Clip room size: [${properties.size}]`);
+         * } else {
+         *   console.log("No clip room exists in the scene");
+         * }
+         * ```
+         *
+         * @returns The ID of the current clip room, or undefined if no clip room exists
          */
-        getClipRoom(): number;
+        getClipRoom(): number | undefined;
         /**
-         * Returns the ClipRoomData.
+         * Retrieves the properties of the current clip room.
          *
-         * @returns {Promise<ClipRoomProperties>} The requested clip room data.
+         * This method asynchronously fetches the current configuration of the clip room,
+         * including its size, position, transformation matrix, and visibility settings.
+         * The data is returned as a ClipRoomProperties object that can be inspected or used
+         * to create a similar clip room after the current one is removed.
+         *
+         * Example usage:
+         * ```javascript
+         * // Get the webvis context
+         * const context = webvis.getContext();
+         *
+         * // Get the clip room properties and display information
+         * const properties = await context.requestClipRoomData();
+         * console.log(`Clip room size: [${properties.size}]`);
+         * console.log(`Clip room transform: [${properties.transform}]`);
+         *
+         * // Use the properties to create a similar clip room after removing the current one
+         * context.removeClippingRoom();
+         * context.createClippingRoom({
+         *   ...properties,
+         *   size: [properties.size[0] * 1.5, properties.size[1] * 1.5, properties.size[2] * 1.5],
+         *   name: properties.name ? properties.name + " (enlarged)" : "Enlarged Room"
+         * });
+         * ```
+         *
+         * @returns Promise resolving to the clip room's properties
          */
         requestClipRoomData(): Promise<ClipRoomProperties>;
         /**
-         * Creates a clip room around the box volume of the specified node.
+         * Creates a clip room that encompasses the selected node(s).
          *
-         * @param target ID(s) of the target Node(s).
+         * This method automatically calculates a bounding box around the specified target
+         * node(s) and creates a clip room with the exact dimensions of that box. It's an
+         * easy way to isolate specific components for closer examination by clipping away
+         * all surrounding geometry.
+         *
+         * The created clip room replaces any existing clip room .
+         *
+         * Example usage:
+         * ```javascript
+         * // Get the webvis context
+         * const context = webvis.getContext();
+         *
+         * // Create a clip room around a single component
+         * context.clipOtherParts(4567);
+         *
+         * // Create a clip room around multiple components
+         * context.clipOtherParts([1234, 5678, 9012]);
+         *
+         * // Create a clip room around the currently selected components
+         * const selectedNodes = context.getSelectedNodes();
+         * if (selectedNodes.length > 0) {
+         *   context.clipOtherParts(selectedNodes);
+         * }
+         * ```
+         *
+         * @param target ID or array of IDs of the nodes to create a clip room around
          */
         clipOtherParts(target: number | Array<number>): void;
         /**
-         * Generates capping geometry for the surface that is cut by the clip plane. The generated surfaces allow
-         * measurements and all other operations which can be performed on usual geometry.
+         * Generates capping geometry for the surface that is cut by a clip plane.
          *
-         * @param clipPlaneId the id of the clip plane
+         * This method creates visible geometry at the intersection of the clip plane and the model,
+         * allowing you to see and interact with the cut surface. The generated capping geometry
+         * supports measurements and all other operations that can be performed on regular geometry.
+         *
+         * Once generated, capping geometry can be enabled, disabled, or removed using the
+         * corresponding methods.
+         *
+         * Example usage:
+         * ```javascript
+         * // Get the webvis context
+         * const context = webvis.getContext();
+         *
+         * // Create a clip plane
+         * const clipPlaneId = context.createClipPlane({
+         *   normal: [0, 0, 1],
+         *   position: [0, 0, 0]
+         * });
+         *
+         * // Generate capping geometry for the cut surface
+         * await context.createCapping(clipPlaneId);
+         *
+         * // Later, disable the capping when not needed
+         * await context.disableCapping(clipPlaneId);
+         * ```
+         *
+         * @param clipPlaneId The ID of the clip plane to create capping geometry for
+         * @returns Promise that resolves when the capping geometry has been created
          */
         createCapping(clipPlaneId: number): Promise<void>;
         /**
-         * Enables the generated capping geometry.
+         * Enables the generated capping geometry for a clip plane.
          *
-         * @param clipPlaneId the id of the clip plane
+         * After capping geometry has been created for a clip plane, this method makes it visible
+         * . The capping geometry represents the intersection between the clip plane
+         * and the model, allowing visualization and interaction with the cut surface.
+         *
+         * Example usage:
+         * ```javascript
+         * // Get the webvis context
+         * const context = webvis.getContext();
+         *
+         * // Create a clip plane and generate capping geometry
+         * const clipPlaneId = context.createClipPlane({
+         *   normal: [0, 0, 1],
+         *   position: [0, 0, 0]
+         * });
+         *
+         * await context.createCapping(clipPlaneId);
+         *
+         * // Later disable capping and then re-enable it
+         * await context.disableCapping(clipPlaneId);
+         * // ...
+         * await context.enableCapping(clipPlaneId);
+         * ```
+         *
+         * @param clipPlaneId The ID of the clip plane whose capping geometry should be enabled
+         * @returns Promise that resolves when the capping geometry has been enabled
          */
         enableCapping(clipPlaneId: number): Promise<void>;
         /**
-         * Disables the generated capping geometry.
+         * Disables the generated capping geometry for a clip plane.
          *
-         * @param clipPlaneId the id of the clip plane
+         * This method temporarily hides the capping geometry without removing it from
+         * the scene. The capping geometry can be made visible again using {@link enableCapping}.
+         * This is useful when you need to switch between seeing the cut surface and
+         * seeing through to the interior of the model.
+         *
+         * Example usage:
+         * ```javascript
+         * // Get the webvis context
+         * const context = webvis.getContext();
+         *
+         * // Create a clip plane and generate capping geometry
+         * const clipPlaneId = context.createClipPlane({
+         *   normal: [0, 0, 1],
+         *   position: [0, 0, 0]
+         * });
+         *
+         * await context.createCapping(clipPlaneId);
+         *
+         * // Hide the capping geometry temporarily
+         * await context.disableCapping(clipPlaneId);
+         *
+         * // Show it again later
+         * await context.enableCapping(clipPlaneId);
+         * ```
+         *
+         * @param clipPlaneId The ID of the clip plane whose capping geometry should be disabled
+         * @returns Promise that resolves when the capping geometry has been disabled
          */
         disableCapping(clipPlaneId: number): Promise<void>;
         /**
-         * Removes the generated capping geometry.
+         * Completely removes the generated capping geometry for a clip plane.
          *
-         * @param clipPlaneId the id of the clip plane
+         * This method permanently deletes any capping geometry that was previously created
+         * for the specified clip plane. Unlike {@link disableCapping}, which merely hides the
+         * geometry, this method removes it entirely from the scene.
+         *
+         * If you later want to see capping geometry again, you'll need to call {@link createCapping}
+         * to regenerate it.
+         *
+         * Example usage:
+         * ```javascript
+         * // Get the webvis context
+         * const context = webvis.getContext();
+         *
+         * // Create a clip plane and generate capping geometry
+         * const clipPlaneId = context.createClipPlane({
+         *   normal: [0, 0, 1],
+         *   position: [0, 0, 0]
+         * });
+         *
+         * await context.createCapping(clipPlaneId);
+         *
+         * // Later, permanently remove the capping geometry
+         * await context.removeCapping(clipPlaneId);
+         * ```
+         *
+         * @param clipPlaneId The ID of the clip plane whose capping geometry should be removed
+         * @returns Promise that resolves when the capping geometry has been removed
          */
         removeCapping(clipPlaneId: number): Promise<void>;
     }
     /**
-     * The ClipPlaneRemovedEvent occurs if a clipplane was removed.
+     * Event that is fired when a clip plane is removed from the scene.
+     * Contains the ID of the clip plane that was removed.
      *
      * @event
      * @hideconstructor
+     *
+     * @see {@link ClipPlaneAPI}
+     * @see {@link EventType.CLIPPLANE_REMOVED}
      */
     class ClipPlaneRemovedEvent extends WebVisEvent {
         clipPlaneID: number;
         /**
-         * @param clipPlaneID The ID of the clipplane.
+         * @param clipPlaneID The ID of the clip plane that was removed
          */
         constructor(clipPlaneID: number);
     }
     /**
-     * The ClipPlaneCreatedEvent occurs if a clip plane was created.
+     * Event that is fired when a clip plane is created in the scene.
+     * Contains the clip plane ID and an object with all the initial properties of the clip plane.
      *
      * @event
      * @hideconstructor
+     *
+     * @see {@link ClipPlaneAPI}
+     * @see {@link EventType.CLIPPLANE_CREATED}
      */
     class ClipPlaneCreatedEvent extends WebVisEvent {
         clipPlaneID: number;
         properties: ClipPlaneProperties;
         /**
-         * @param clipPlaneID The ID of the clip plane.
-         * @param properties An object with the changed properties.
+         * @param clipPlaneID The ID of the clip plane that was created
+         * @param properties An object containing all properties of the created clip plane
          */
         constructor(clipPlaneID: number, properties: ClipPlaneProperties);
         /**
-         * @deprecated disabled is deprecated, please use properties.enabled instead.
+         * @deprecated The disabled getter is deprecated. Please use {@link ClipPlaneProperties.enabled} instead (note that disabled = !enabled).
+         *
+         * Returns whether the clip plane is disabled. This is the inverse of the enabled property
+         * in the properties object.
+         *
+         * @see {@link ClipPlaneProperties.enabled}
          */
         get disabled(): boolean;
         /**
-         * @deprecated invisible is deprecated, please use properties.invisible instead.
+         * @deprecated The invisible getter is deprecated. Please use {@link ClipPlaneProperties.invisible} instead.
+         *
+         * Returns whether the clip plane is visually hidden. When true, the clip plane's
+         * wireframe outline will not be displayed, though the clipping effect remains active.
+         *
+         * @see {@link ClipPlaneProperties.invisible}
          */
         get invisible(): boolean;
         /**
-         * @deprecated localTransform is deprecated, please use properties.transform instead.
+         * @deprecated The localTransform getter is deprecated. Please use {@link ClipPlaneProperties.transform} instead.
+         *
+         * Returns the 4x4 transformation matrix that defines the position, rotation, and scale
+         * of the clip plane in world space.
+         *
+         * @see {@link ClipPlaneProperties.transform}
          */
         get localTransform(): [
             number,
@@ -12495,53 +16146,90 @@ declare namespace webvis {
             number,
         ] | Float32Array;
         /**
-         * @deprecated name is deprecated, please use properties.name instead.
+         * @deprecated The name getter is deprecated. Please use {@link ClipPlaneProperties.name} instead.
+         *
+         * Returns the display name of the clip plane, which can be used for identification
+         * in user interfaces or for debugging purposes.
+         *
+         * @see {@link ClipPlaneProperties.name}
          */
         get name(): string;
         /**
-         * @deprecated normal is deprecated, please use properties.normal instead.
+         * @deprecated The normal getter is deprecated. Please use {@link ClipPlaneProperties.normal} instead.
+         *
+         * Returns the normal vector of the clip plane, which defines its orientation in space.
+         *
+         * @see {@link ClipPlaneProperties.normal}
          */
         get normal(): [number, number, number] | Float32Array;
         /**
-         * @deprecated position is deprecated, please use properties.position instead.
+         * @deprecated The position getter is deprecated. Please use {@link ClipPlaneProperties.position} instead.
+         *
+         * Returns the position of the clip plane in world space.
+         *
+         * @see {@link ClipPlaneProperties.position}
          */
         get position(): [number, number, number] | Float32Array;
         /**
-         * @deprecated point is deprecated, please use properties.position instead.
+         * @deprecated The point getter is deprecated. Please use {@link ClipPlaneProperties.position} instead.
+         *
+         * Returns the position of the clip plane in world space.
+         *
+         * @see {@link ClipPlaneProperties.position}
          */
         get point(): [number, number, number] | Float32Array;
         /**
-         * @deprecated tangent is deprecated, please use properties.tangent instead.
-         */
-        /**
-         * @deprecated thickness is deprecated, please use properties.thickness instead.
+         * @deprecated The thickness getter is deprecated. Please use {@link ClipPlaneProperties.thickness} instead.
+         *
+         * Returns the visual thickness of the clip plane representation in the scene.
+         *
+         * @see {@link ClipPlaneProperties.thickness}
          */
         get thickness(): number;
     }
     /**
-     * The ClipPlaneChangedEvent occurs if a clipplane was changed.
+     * Event that is fired when properties of a clip plane are changed.
+     * Contains the clip plane ID and an object with only the properties that were actually changed.
      *
-     * @event CLIPPLANE_CHANGED
+     * @event
      * @hideconstructor
+     *
+     * @see {@link ClipPlaneAPI}
+     * @see {@link EventType.CLIPPLANE_CHANGED}
      */
     class ClipPlaneChangedEvent extends WebVisEvent {
         clipPlaneID: number;
         properties: ClipPlaneProperties;
         /**
-         * @param {number} clipPlaneID The ID of the clipplane.
-         * @param {ClipPlaneProperties} properties An object with the changed properties.
+         * @param clipPlaneID The ID of the clip plane that was changed
+         * @param properties An object containing only the properties that were changed
          */
         constructor(clipPlaneID: number, properties: ClipPlaneProperties);
         /**
-         * @deprecated disabled is deprecated, please use properties.enabled instead.
+         * @deprecated The disabled getter is deprecated. Please use {@link ClipPlaneProperties.enabled} instead (note that disabled = !enabled).
+         *
+         * Returns whether the clip plane is disabled. This is the inverse of the enabled property
+         * in the properties object.
+         *
+         * @see {@link ClipPlaneProperties.enabled}
          */
         get disabled(): boolean;
         /**
-         * @deprecated invisible is deprecated, please use properties.invisible instead.
+         * @deprecated The invisible getter is deprecated. Please use {@link ClipPlaneProperties.invisible} instead.
+         *
+         * Returns whether the clip plane is visually hidden. When true, the clip plane's
+         * wireframe outline will not be displayed, though the clipping effect remains active.
+         *
+         * @see {@link ClipPlaneProperties.invisible}
          */
         get invisible(): boolean;
         /**
-         * @deprecated localTransform is deprecated, please use properties.transform instead.
+         * @deprecated The localTransform getter is deprecated. Please use {@link ClipPlaneProperties.transform} instead.
+         *
+         * Returns the 4x4 transformation matrix that defines the position, rotation, and scale
+         * of the clip plane in world space.
+         *
+         * @see {@link ClipPlaneProperties.transform}
          */
         get localTransform(): [
             number,
@@ -12562,74 +16250,125 @@ declare namespace webvis {
             number,
         ] | Float32Array;
         /**
-         * @deprecated name is deprecated, please use properties.name instead.
+         * @deprecated The name getter is deprecated. Please use {@link ClipPlaneProperties.name} instead.
+         *
+         * Returns the display name of the clip plane, which can be used for identification
+         * in user interfaces or for debugging purposes.
+         *
+         * @see {@link ClipPlaneProperties.name}
          */
         get name(): string;
         /**
-         * @deprecated normal is deprecated, please use properties.normal instead.
+         * @deprecated The normal getter is deprecated. Please use {@link ClipPlaneProperties.normal} instead.
+         *
+         * Returns the normal vector of the clip plane, which defines its orientation in space.
+         *
+         * @see {@link ClipPlaneProperties.normal}
          */
         get normal(): [number, number, number] | Float32Array;
         /**
-         * @deprecated position is deprecated, please use properties.position instead.
+         * @deprecated The position getter is deprecated. Please use {@link ClipPlaneProperties.position} instead.
+         *
+         * Returns the position of the clip plane in world space.
+         *
+         * @see {@link ClipPlaneProperties.position}
          */
         get position(): [number, number, number] | Float32Array;
         /**
-         * @deprecated point is deprecated, please use properties.position instead.
+         * @deprecated The point getter is deprecated. Please use {@link ClipPlaneProperties.position} instead.
+         *
+         * Returns the position of the clip plane in world space.
+         *
+         * @see {@link ClipPlaneProperties.position}
          */
         get point(): [number, number, number] | Float32Array;
         /**
-         * @deprecated tangent is deprecated, please use properties.tangent instead.
-         */
-        /**
-         * @deprecated thickness is deprecated, please use properties.thickness instead.
+         * @deprecated The thickness getter is deprecated. Please use {@link ClipPlaneProperties.thickness} instead.
+         *
+         * Returns the visual thickness of the clip plane representation in the scene.
+         *
+         * @see {@link ClipPlaneProperties.thickness}
          */
         get thickness(): number;
     }
     /**
-     * The ClippingRoomRemovedEvent occurs if a clip room was removed.
+     * Event that is fired when a clip room is removed from the scene.
+     * Contains the ID of the clip room that was removed.
      *
      * @event
      * @hideconstructor
+     *
+     * @see {@link ClipPlaneAPI}
+     * @see {@link EventType.CLIPPING_ROOM_REMOVED}
      */
     class ClippingRoomRemovedEvent extends WebVisEvent {
         clipRoomID: number;
         /**
-         * @param clipRoomID The ID of the clip room.
+         * @param clipRoomID The ID of the clip room that was removed
          */
         constructor(clipRoomID: number);
     }
     /**
-     * The ClippingRoomCreatedEvent occurs if a clip room was created.
+     * Event that is fired when a clip room is created in the scene.
+     * Contains the clip room ID and an object with all the initial properties of the clip room.
      *
      * @event
      * @hideconstructor
+     *
+     * @see {@link ClipPlaneAPI}
+     * @see {@link EventType.CLIPPING_ROOM_CREATED}
      */
     class ClippingRoomCreatedEvent extends WebVisEvent {
         clipRoomID: number;
         properties: ClipRoomProperties;
         /**
-         * @param clipRoomID The ID of the clip room.
-         * @param properties An object with the clip room properties.
+         * @param clipRoomID The ID of the clip room that was created
+         * @param properties An object containing all properties of the created clip room
          */
         constructor(clipRoomID: number, properties: ClipRoomProperties);
         /**
-         * @deprecated disabled is deprecated, please use properties.enabled instead.
+         * @deprecated The disabled getter is deprecated. Please use {@link ClipRoomProperties.enabled} instead (note that disabled = !enabled).
+         *
+         * Returns whether the clip room is disabled. This is the inverse of the enabled property
+         * in the properties object.
+         *
+         * @see {@link ClipRoomProperties.enabled}
          */
         get disabled(): boolean;
         /**
-         * @deprecated invisible is deprecated, please use properties.invisible instead.
+         * @deprecated The invisible getter is deprecated. Please use {@link ClipRoomProperties.invisible} instead.
+         *
+         * Returns whether the clip room is visually hidden. When true, the clip room's
+         * wireframe outline will not be displayed, though the clipping effect remains active.
+         *
+         * @see {@link ClipRoomProperties.invisible}
          */
         get invisible(): boolean;
         /**
-         * @deprecated name is deprecated, please use properties.name instead.
+         * @deprecated The name getter is deprecated. Please use {@link ClipRoomProperties.name} instead.
+         *
+         * Returns the display name of the clip room, which can be used for identification
+         * in user interfaces or for debugging purposes.
+         *
+         * @see {@link ClipRoomProperties.name}
          */
         get name(): string;
         /**
-         * @deprecated size is deprecated, please use properties.size instead.
+         * @deprecated The size getter is deprecated. Please use {@link ClipRoomProperties.size} instead.
+         *
+         * Returns the dimensions of the clip room along the X, Y, and Z axes.
+         * The size defines the extent of the clipping box in local space.
+         *
+         * @see {@link ClipRoomProperties.size}
          */
         get size(): [number, number, number] | Float32Array;
         /**
-         * @deprecated transformation is deprecated, please use properties.transformation instead.
+         * @deprecated The transformation getter is deprecated. Please use {@link ClipRoomProperties.transform} instead.
+         *
+         * Returns the 4x4 transformation matrix that defines the position, rotation, and scale
+         * of the clip room in world space.
+         *
+         * @see {@link ClipRoomProperties.transform}
          */
         get transformation(): [
             number,
@@ -12651,37 +16390,66 @@ declare namespace webvis {
         ] | Float32Array;
     }
     /**
-     * The ClippingRoomChangedEvent occurs if a clip room was changed.
+     * Event that is fired when properties of a clip room are changed.
+     * Contains the clip room ID and an object with only the properties that were actually changed.
      *
      * @event
      * @hideconstructor
+     *
+     * @see {@link ClipPlaneAPI}
+     * @see {@link EventType.CLIPPING_ROOM_CHANGED}
      */
     class ClippingRoomChangedEvent extends WebVisEvent {
         clipRoomID: number;
         properties: ClipRoomProperties;
         /**
          * @param clipRoomID The ID of the clip room.
-         * @param properties An object with the changed properties.
+         * @param properties An object containing only the properties that were changed
          */
         constructor(clipRoomID: number, properties: ClipRoomProperties);
         /**
-         * @deprecated disabled is deprecated, please use properties.enabled instead.
+         * @deprecated The disabled getter is deprecated. Please use {@link ClipRoomProperties.enabled} instead (note that disabled = !enabled).
+         *
+         * Returns whether the clip room is disabled. This is the inverse of the enabled property
+         * in the properties object.
+         *
+         * @see {@link ClipRoomProperties.enabled}
          */
         get disabled(): boolean;
         /**
-         * @deprecated invisible is deprecated, please use properties.invisible instead.
+         * @deprecated The invisible getter is deprecated. Please use {@link ClipRoomProperties.invisible} instead.
+         *
+         * Returns whether the clip room is visually hidden. When true, the clip room's
+         * wireframe outline will not be displayed, though the clipping effect remains active.
+         *
+         * @see {@link ClipRoomProperties.invisible}
          */
         get invisible(): boolean;
         /**
-         * @deprecated name is deprecated, please use properties.name instead.
+         * @deprecated The name getter is deprecated. Please use {@link ClipRoomProperties.name} instead.
+         *
+         * Returns the display name of the clip room, which can be used for identification
+         * in user interfaces or for debugging purposes.
+         *
+         * @see {@link ClipRoomProperties.name}
          */
         get name(): string;
         /**
-         * @deprecated size is deprecated, please use properties.size instead.
+         * @deprecated The size getter is deprecated. Please use {@link ClipRoomProperties.size} instead.
+         *
+         * Returns the dimensions of the clip room along the X, Y, and Z axes.
+         * The size defines the extent of the clipping box in local space.
+         *
+         * @see {@link ClipRoomProperties.size}
          */
         get size(): [number, number, number] | Float32Array;
         /**
-         * @deprecated transformation is deprecated, please use properties.transform instead.
+         * @deprecated The transformation getter is deprecated. Please use {@link ClipRoomProperties.transform} instead.
+         *
+         * Returns the 4x4 transformation matrix that defines the position, rotation, and scale
+         * of the clip room in world space.
+         *
+         * @see {@link ClipRoomProperties.transform}
          */
         get transformation(): [
             number,
@@ -13598,13 +17366,6 @@ declare namespace webvis {
          * The animation is paused and can be resumed.
          */
         PAUSED = "paused",
-    }
-    /**
-     * The direction in which the animation plays.
-     */
-    enum AnimationDirection {
-        FORWARD = "forward",
-        REVERSE = "reverse",
     }
     /**
      * An object that specifies characteristics about the event listener

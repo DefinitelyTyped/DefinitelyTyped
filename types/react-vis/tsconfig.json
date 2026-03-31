@@ -1,6 +1,5 @@
 {
     "compilerOptions": {
-        "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
         "jsx": "react",
         "lib": [

@@ -1,4 +1,4 @@
-import * as GoogleImages from "google-images";
+import GoogleImages from "google-images";
 
 const client = new GoogleImages("CSE ID", "API KEY");
 

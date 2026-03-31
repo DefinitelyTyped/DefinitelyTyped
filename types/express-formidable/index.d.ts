@@ -1,4 +1,4 @@
-import * as express from "express";
+import express = require("express");
 import { EventNames, Fields, Files } from "formidable";
 
 // Extend the express request object with attached formidable files and fields

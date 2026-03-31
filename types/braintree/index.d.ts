@@ -2,7 +2,7 @@
 
 export = braintree;
 export as namespace braintree;
-import * as stream from "stream";
+import stream = require("stream");
 
 declare namespace braintree {
     /**
@@ -118,6 +118,10 @@ declare namespace braintree {
         settledAt: RangeFieldSearchFn<Date>;
         submittedForSettlementAt: RangeFieldSearchFn<Date>;
         voidedAt: RangeFieldSearchFn<Date>;
+    }) => void;
+
+    export type DisputeSearchFn = (search: {
+        status: MultiValueSearchFn<DisputeStatus>;
     }) => void;
 
     export type GatewayConfig = KeyGatewayConfig | ClientGatewayConfig | AccessTokenGatewayConfig;
@@ -262,7 +266,7 @@ declare namespace braintree {
         finalize(disputeId: string): Promise<ValidatedResponse<Dispute>>;
         find(disputeId: string): Promise<Dispute>;
         removeEvidence(disputeId: string, evidenceId: string): Promise<ValidatedResponse<Dispute>>;
-        search(searchFn: any): stream.Readable;
+        search(searchFn: DisputeSearchFn): stream.Readable;
     }
 
     interface MerchantAccountGateway {
@@ -307,7 +311,10 @@ declare namespace braintree {
     }
 
     interface PlanGateway {
-        all(): Promise<{ plans: Plan[] }>;
+        all(): Promise<Plan[]>;
+        find(planId: string): Promise<Plan>;
+        create(request: PlanCreateRequest): Promise<ValidatedResponse<Plan>>;
+        update(planId: string, updates: PlanCreateRequest): Promise<ValidatedResponse<Plan>>;
     }
 
     interface SettlementBatchSummaryGateway {
@@ -318,14 +325,14 @@ declare namespace braintree {
     }
 
     interface SubscriptionGateway {
-        cancel(subscriptionId: string): Promise<void>;
+        cancel(subscriptionId: string): Promise<ValidatedResponse<Subscription>>;
         create(request: SubscriptionCreateRequest): Promise<ValidatedResponse<Subscription>>;
         find(subscriptionId: string): Promise<Subscription>;
         retryCharge(
             subscriptionId: string,
             amount?: string,
             submitForSettlement?: boolean,
-        ): Promise<ValidatedResponse<Subscription>>;
+        ): Promise<ValidatedResponse<Transaction>>;
         search(searchFn: any): stream.Readable;
         update(subscriptionId: string, updates: SubscriptionUpdateRequest): Promise<ValidatedResponse<Subscription>>;
     }
@@ -531,6 +538,7 @@ declare namespace braintree {
         expired: boolean;
         healthcare: HealthCare;
         imageUrl: string;
+        isNetworkTokenized: boolean;
         issuingBank: string;
         last4: string;
         maskedNumber: string;
@@ -786,9 +794,9 @@ declare namespace braintree {
         reason: string;
         reasonCode: string;
         reasonDescription: string;
-        receivedDate: Date;
+        receivedDate: string;
         referenceNumber: string;
-        replyByDate: Date;
+        replyByDate: string;
         status: DisputeStatus;
         statusHistory: DisputeStatusHistory[];
         transaction: {
@@ -805,17 +813,17 @@ declare namespace braintree {
     export type DisputeStatus = "Accepted" | "Disputed" | "Expired" | "Open" | "Lost" | "Won";
 
     export interface DisputeStatusHistory {
-        disbursementDate: Date;
-        effectiveDate: Date;
+        disbursementDate: string;
+        effectiveDate: string;
         status: DisputeStatus;
-        timestamp: Date;
+        timestamp: string;
     }
 
     export interface Evidence {
         comment?: string | undefined;
         createdAt: string;
         id: string;
-        sendToProcessorAt: Date;
+        sendToProcessorAt: string;
         url?: string | undefined;
     }
 
@@ -831,7 +839,7 @@ declare namespace braintree {
 
         id: string;
         amount: string;
-        disbursementDate: Date;
+        disbursementDate: string;
         disbursementType: DisbursementType;
         transactionIds: string[];
         merchantAccount: DisbursementMerchantAccount;
@@ -1120,7 +1128,7 @@ declare namespace braintree {
      * Account Updater
      */
     export class AccountUpdaterDailyReport {
-        reportDate: Date;
+        reportDate: string;
         reportUrl: string;
     }
 
@@ -1135,7 +1143,7 @@ declare namespace braintree {
 
     export interface BaseWebhookNotification {
         kind: WebhookNotificationKind;
-        timestamp: Date;
+        timestamp: string;
     }
 
     export interface TransactionNotification extends BaseWebhookNotification {
@@ -1211,7 +1219,8 @@ declare namespace braintree {
         | "subscription_expired"
         | "subscription_trial_ended"
         | "subscription_went_active"
-        | "subscription_went_past_due";
+        | "subscription_went_past_due"
+        | "subscription_billing_skipped";
 
     export type SubMerchantAccountApprovedNotificationKind = "sub_merchant_account_approved";
 
@@ -1269,6 +1278,36 @@ declare namespace braintree {
         updatedAt: string;
     }
 
+    export interface PlanCreateRequest {
+        addOns?:
+            | {
+                add?: AddOnAddRequest[] | undefined;
+                remove?: string[] | undefined;
+                update?: AddOnUpdateRequest[] | undefined;
+            }[]
+            | undefined;
+        billingDayOfMonth?: number | string | undefined;
+        billingFrequency: number | string;
+        currencyIsoCode: string;
+        description?: string | undefined;
+        discounts?:
+            | {
+                add?: DiscountAddRequest[] | undefined;
+                remove?: string[] | undefined;
+                update?: DiscountUpdateRequest[] | undefined;
+            }[]
+            | undefined;
+        id?: string | undefined;
+        modificationTokens?: string | undefined;
+        name: string;
+        neverExpires?: boolean | string | undefined;
+        numberOfBillingCycles?: number | string | undefined;
+        price: string | number;
+        trialDuration?: number | undefined;
+        trialDurationUnit?: string | undefined;
+        trialPeriod?: boolean | undefined;
+    }
+
     /**
      * Settlement Batch Summary
      */
@@ -1302,7 +1341,7 @@ declare namespace braintree {
         descriptor?: Descriptor | undefined;
         discounts?: Discount[] | undefined;
         failureCount?: number | undefined;
-        firstBillingDate?: Date | undefined;
+        firstBillingDate?: string | undefined;
         id: string;
         merchantAccountId: string;
         neverExpires?: boolean | undefined;
@@ -1310,7 +1349,7 @@ declare namespace braintree {
         nextBillingDate: string;
         nextBillingPeriodAmount: string;
         numberOfBillingCycles?: number | undefined;
-        paidThroughDate?: Date | undefined;
+        paidThroughDate?: string | undefined;
         paymentMethodToken: string;
         planId: string;
         price?: string | undefined;
@@ -1414,9 +1453,9 @@ declare namespace braintree {
         };
 
         static Source: {
-            Api: "Api";
-            ControlPanel: "ControlPanel";
-            Recurring: "Recurring";
+            Api: "api";
+            ControlPanel: "control_panel";
+            Recurring: "recurring";
         };
 
         static CreatedUsing: {
@@ -1503,7 +1542,7 @@ declare namespace braintree {
             }
             | undefined;
         authorizationAdjustments?: AuthorizationAdjustment[] | undefined;
-        authorizationExpiresAt?: Date | undefined;
+        authorizationExpiresAt?: string | undefined;
         avsErrorResponseCode: string;
         avsPostalCodeResponseCode: string;
         avsStreetAddressResponseCode: string;
@@ -1689,8 +1728,8 @@ declare namespace braintree {
         statusHistory?: TransactionStatusHistory[] | undefined;
         subscription?:
             | {
-                billingPeriodEndDate: Date;
-                billingPeriodStartDate: Date;
+                billingPeriodEndDate: string;
+                billingPeriodStartDate: string;
             }
             | undefined;
         subscriptionId?: string | undefined;
@@ -1876,7 +1915,7 @@ declare namespace braintree {
     export interface AuthorizationAdjustment {
         amount: string;
         success: boolean;
-        timestamp: Date;
+        timestamp: string;
         processorResponseType: string;
         processorResponseCode: string;
         processorResponseText: string;
@@ -1889,7 +1928,7 @@ declare namespace braintree {
     }
 
     export interface DisbursementDetails {
-        disbursementDate: Date;
+        disbursementDate: string;
         fundsHeld: boolean;
         settlementAmount: string;
         settlementCurrencyExchangeRate: string;
@@ -1961,12 +2000,12 @@ declare namespace braintree {
     export interface TransactionStatusHistory {
         amount: string;
         status: TransactionStatus;
-        timestamp: Date;
-        transactionsource: TransactionSource;
+        timestamp: string;
+        transactionSource: TransactionSource;
         user: string;
     }
 
-    export type TransactionSource = "Api" | "ControlPanel" | "Recurring";
+    export type TransactionSource = "api" | "control_panel" | "recurring";
 
     export interface TransactionThreeDSecureInfo {
         enrolled: string;
@@ -2045,6 +2084,7 @@ declare namespace braintree {
         expirationYear: string;
         expired: boolean;
         imageUrl: string;
+        isDeviceToken: boolean;
         last4: string;
         paymentInsuranceName: string;
         sourceDescription: string;
@@ -2306,20 +2346,41 @@ declare namespace braintree {
      * Errors
      */
 
-    export interface AuthenticationError extends Error {}
-    export interface AuthorizationError extends Error {}
-    export interface GatewayTimeoutError extends Error {}
-    export interface InvalidChallengeError extends Error {}
-    export interface InvalidKeysError extends Error {}
-    export interface InvalidSignatureError extends Error {}
-    export interface NotFoundError extends Error {}
-    export interface RequestTimeoutError extends Error {}
-    export interface ServerError extends Error {}
-    export interface ServiceUnavailableError extends Error {}
-    export interface TestOperationPerformedInProductionError extends Error {}
-    export interface TooManyRequestsError extends Error {}
-    export interface UnexpectedError extends Error {}
-    export interface UpgradeRequired extends Error {}
+    type ErrorType =
+        | "authenticationError"
+        | "authorizationError"
+        | "gatewayTimeoutError"
+        | "invalidChallengeError"
+        | "invalidKeysError"
+        | "invalidSignatureError"
+        | "notFoundError"
+        | "requestTimeoutError"
+        | "serverError"
+        | "serviceUnavailableError"
+        | "testOperationPerformedInProductionError"
+        | "tooManyRequestsError"
+        | "unexpectedError"
+        | "upgradeRequired";
+
+    export interface BraintreeError<T extends ErrorType> extends Error {
+        type: T;
+    }
+    export interface AuthenticationError extends BraintreeError<"authenticationError"> {}
+    export interface AuthorizationError extends BraintreeError<"authorizationError"> {}
+    export interface GatewayTimeoutError extends BraintreeError<"gatewayTimeoutError"> {}
+    export interface InvalidChallengeError extends BraintreeError<"invalidChallengeError"> {}
+    export interface InvalidKeysError extends BraintreeError<"invalidKeysError"> {}
+    export interface InvalidSignatureError extends BraintreeError<"invalidSignatureError"> {}
+    export interface NotFoundError extends BraintreeError<"notFoundError"> {}
+    export interface RequestTimeoutError extends BraintreeError<"requestTimeoutError"> {}
+    export interface ServerError extends BraintreeError<"serverError"> {}
+    export interface ServiceUnavailableError extends BraintreeError<"serviceUnavailableError"> {}
+    export interface TestOperationPerformedInProductionError
+        extends BraintreeError<"testOperationPerformedInProductionError">
+    {}
+    export interface TooManyRequestsError extends BraintreeError<"tooManyRequestsError"> {}
+    export interface UnexpectedError extends BraintreeError<"unexpectedError"> {}
+    export interface UpgradeRequired extends BraintreeError<"upgradeRequired"> {}
 
     /**
      * Validation errors

@@ -1,4 +1,4 @@
-import * as p5 from './index';
+import p5 = require("./index");
 
 declare module './index' {
     type ADD = 'lighter';

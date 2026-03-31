@@ -783,7 +783,7 @@ declare module "dns" {
          * The number of tries the resolver will try contacting each name server before giving up.
          * @default 4
          */
-        tries?: number;
+        tries?: number | undefined;
     }
     /**
      * An independent resolver for DNS requests.

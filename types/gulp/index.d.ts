@@ -1,7 +1,7 @@
 import * as chokidar from "chokidar";
 import * as fs from "fs";
 import { Duplex } from "stream";
-import * as Undertaker from "undertaker";
+import Undertaker = require("undertaker");
 import * as vfs from "vinyl-fs";
 
 declare namespace GulpClient {

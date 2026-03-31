@@ -1,4 +1,4 @@
-import * as stream from "stream";
+import stream = require("stream");
 import { AWSError } from "./error";
 import { HttpRequest } from "./http_request";
 import { Response } from "./response";

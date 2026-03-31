@@ -1,4 +1,4 @@
-import * as js2coffee from "js2coffee";
+import js2coffee from "js2coffee";
 
 const javaScriptFn = "function isUnique(v, i, a) {\n  return a.indexOf(v) == i;\n}";
 

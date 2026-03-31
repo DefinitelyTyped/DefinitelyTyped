@@ -1,4 +1,4 @@
-import * as Autocomplete from "react-autocomplete";
+import Autocomplete from "react-autocomplete";
 
 import * as React from "react";
 

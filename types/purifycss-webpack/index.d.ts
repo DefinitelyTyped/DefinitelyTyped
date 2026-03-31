@@ -1,4 +1,4 @@
-import * as webpack from "webpack";
+import webpack = require("webpack");
 
 declare class PurifyPlugin extends webpack.Plugin {
     constructor(options?: PurifyOptions);

@@ -212,6 +212,7 @@ declare class MeshPhysicalNodeMaterial extends MeshStandardNodeMaterial {
      * @default true
      */
     readonly isMeshPhysicalNodeMaterial: boolean;
+    setValues(values?: MeshPhysicalNodeMaterialParameters): void;
     /**
      * Whether the lighting model should use clearcoat or not.
      *

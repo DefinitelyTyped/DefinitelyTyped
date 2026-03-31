@@ -84,6 +84,7 @@ export class SpriteMaterial extends Material {
      * @default true
      */
     readonly isSpriteMaterial: boolean;
+    setValues(values?: SpriteMaterialParameters): void;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface

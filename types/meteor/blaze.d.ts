@@ -1,4 +1,4 @@
-import * as $ from 'jquery';
+import $ = require("jquery");
 
 import { Tracker } from 'meteor/tracker';
 import { Meteor } from 'meteor/meteor';

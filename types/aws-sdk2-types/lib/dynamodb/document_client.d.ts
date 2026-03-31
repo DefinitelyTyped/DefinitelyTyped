@@ -1,5 +1,5 @@
 import DynamoDB = require("../../clients/dynamodb");
-import * as stream from "stream";
+import stream = require("stream");
 import { AWSError } from "../error";
 import { Request } from "../request";
 

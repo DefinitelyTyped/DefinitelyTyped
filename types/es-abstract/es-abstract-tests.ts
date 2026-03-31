@@ -5,6 +5,12 @@ import "./test/es2016.test";
 import "./test/es2017.test";
 import "./test/es2018.test";
 import "./test/es2019.test";
+import "./test/es2020.test";
+import "./test/es2021.test";
+import "./test/es2022.test";
+import "./test/es2023.test";
+import "./test/es2024.test";
+import "./test/es2025.test";
 import "./test/index.test";
 
 // #region ./test/helpers/
@@ -26,7 +32,9 @@ import "./test/helpers/isNaN.test";
 import "./test/helpers/isPrefixOf.test";
 import "./test/helpers/isPrimitive.test";
 import "./test/helpers/isPropertyDescriptor.test";
+import "./test/helpers/isPropertyKey.test";
 import "./test/helpers/isSamePropertyDescriptor.test";
+import "./test/helpers/isStringOrUndefined.test";
 import "./test/helpers/maxSafeInteger.test";
 import "./test/helpers/mod.test";
 import "./test/helpers/padTimeComponent.test";

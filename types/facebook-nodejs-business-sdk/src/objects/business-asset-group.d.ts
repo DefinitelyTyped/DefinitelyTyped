@@ -43,6 +43,7 @@ export default class BusinessAssetGroup extends AbstractCrudObject {
         profile_plus_create_content: "PROFILE_PLUS_CREATE_CONTENT";
         profile_plus_facebook_access: "PROFILE_PLUS_FACEBOOK_ACCESS";
         profile_plus_full_control: "PROFILE_PLUS_FULL_CONTROL";
+        profile_plus_global_structure_management: "PROFILE_PLUS_GLOBAL_STRUCTURE_MANAGEMENT";
         profile_plus_manage: "PROFILE_PLUS_MANAGE";
         profile_plus_manage_leads: "PROFILE_PLUS_MANAGE_LEADS";
         profile_plus_messaging: "PROFILE_PLUS_MESSAGING";

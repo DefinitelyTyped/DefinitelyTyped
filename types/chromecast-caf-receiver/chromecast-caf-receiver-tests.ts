@@ -60,6 +60,7 @@ const items = qBase.fetchItems(1, 3, 4);
 const breakSeekData = new cast.framework.breaks.BreakSeekData(0, 100, []);
 const breakClipLoadContext = new cast.framework.breaks.BreakClipLoadInterceptorContext(adBreak);
 const breakManager: BreakManager = {
+    addBreak: () => true,
     getBreakById: () => adBreak,
     getBreakClipCurrentTimeSec: () => null,
     getBreakClipDurationSec: () => null,
@@ -67,6 +68,7 @@ const breakManager: BreakManager = {
     getBreakClips: () => [breakClip],
     getBreaks: () => [adBreak],
     getPlayWatchedBreak: () => true,
+    removeBreakById: () => true,
     setBreakClipLoadInterceptor: () => {},
     setBreakSeekInterceptor: () => {},
     setPlayWatchedBreak: () => {},
@@ -154,6 +156,11 @@ options.shakaVariant = cast.framework.ShakaVariant.DEBUG;
 cast.framework.CastReceiverContext.getInstance().addEventListener(
     [cast.framework.system.EventType.SENDER_CONNECTED, cast.framework.system.EventType.SENDER_DISCONNECTED],
     () => "¡hola!",
+);
+
+cast.framework.CastReceiverContext.getInstance().addCustomMessageListener(
+    "urn:x-cast:com.custom.app",
+    (event) => [event.data, event.type, event.senderId],
 );
 
 // send custom message to specific sender

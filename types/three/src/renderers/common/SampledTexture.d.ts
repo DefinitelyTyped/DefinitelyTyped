@@ -6,6 +6,8 @@ declare class SampledTexture extends Sampler {
 
     store: boolean;
 
+    mipLevel: number;
+
     readonly isSampledTexture: true;
 
     constructor(name: string, texture: Texture | null);

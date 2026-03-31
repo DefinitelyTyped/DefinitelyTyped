@@ -7,6 +7,7 @@ export let HIGHCHARTS: number;
 export let LIBRARIES: number;
 export let LOGIN: number;
 export let PENDING_TASKS: number;
+export let REPORTS: number;
 export let SEARCH: number;
 export let SECURITY: number;
 export let SESSION: number;

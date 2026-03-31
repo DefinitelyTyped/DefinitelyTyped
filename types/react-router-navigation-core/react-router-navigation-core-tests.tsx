@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { View } from "react-native";
 import { TabView } from "react-native-tab-view";
 import { TabBarProps, TabProps } from "react-router-navigation";

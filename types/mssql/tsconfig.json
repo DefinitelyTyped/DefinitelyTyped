@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "target": "ES5",
+        "target": "es6",
         "module": "node16",
         "lib": [
             "es6"

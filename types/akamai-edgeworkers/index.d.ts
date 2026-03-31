@@ -164,6 +164,69 @@ declare namespace EW {
         readonly cacheKey: CacheKey;
     }
 
+    interface BotScore {
+        /**
+         * An object for interacting with features related to Bot Management
+         */
+        readonly responseSegment: BotScoreResponseSegment;
+    }
+
+    interface BotScoreResponseSegment {
+        /**
+         * Indicates that this request hasn't triggered any detections, resulting in a bot score of zero.
+         */
+        isHuman(): boolean;
+
+        /**
+         * Indicates that this request has a low bot score.
+         *
+         * See: https://techdocs.akamai.com/bot-manager/docs/see-bot-activity-api-operation
+         */
+        isCautiousResponse(): boolean;
+
+        /**
+         * Indicates that this request has a middling bot score. You should apply a challenge to the traffic in this
+         * segment to prohibit bots but let humans through.
+         *
+         * See: https://techdocs.akamai.com/bot-manager/docs/see-bot-activity-api-operation
+         */
+        isStrictResponse(): boolean;
+
+        /**
+         * Indicates that this request is from a special class of traffic that Bot Manager sets aside.
+         * There are cases where a human could get endlessly trapped by certain detections, such as a network-based
+         * or device-based detection like user-agent. This detection would trip every request, but the person
+         * could never change the trigger. Where there's this danger that a human could never overcome a detection
+         * and get stuck, Bot Manager sets aside requests in a special response segment called Safeguard,
+         * so you can handle them differently. For best results, when you set bot score, leave Safeguard Traffic
+         * at the preset Strict Response if it uses a challenge action to let clients prove they are
+         * human and get through.
+         *
+         * See: https://techdocs.akamai.com/bot-manager/docs/see-bot-activity-api-operation
+         */
+        isSafeguardResponse(): boolean;
+
+        /**
+         * Indicates that this request has a high bot score, which is more likely to be from a bot.
+         *
+         * See: https://techdocs.akamai.com/bot-manager/docs/see-bot-activity-api-operation
+         */
+        isAggressiveResponse(): boolean;
+
+        /**
+         * Indicates that this request has an unknown bot score. This field is left as a placeholder for
+         * forwards compatibility.
+         */
+        isUnexpected(): boolean;
+    }
+
+    interface HasBotScore {
+        /**
+         * Object containing properties related to Bot Management.
+         */
+        readonly botScore: BotScore;
+    }
+
     interface ReadsBody {
         /**
          * A promise that reads the body to completion and resolves to a string containing the full
@@ -460,6 +523,12 @@ declare namespace EW {
     {
     }
 
+    // onBotSegmentAvailable
+    interface BotSegmentAvailableRequest
+        extends ReadsHeaders, ReadAllHeader, ReadsVariables, MutatesVariables, Request, HasRespondWith, HasBotScore
+    {
+    }
+
     // onOriginRequest
     interface IngressOriginRequest
         extends MutatesHeaders, ReadsHeaders, ReadAllHeader, ReadsVariables, Request, HasRespondWith, MutatesVariables
@@ -718,6 +787,7 @@ declare namespace EW {
     }
 
     export {
+        BotSegmentAvailableRequest,
         EgressClientRequest,
         EgressClientResponse,
         EgressOriginRequest,

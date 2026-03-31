@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import type * as NodeStream from "stream";
+import NodeStream = require("stream");
 
 declare class StringDecoder {
     constructor(encoding?: BufferEncoding | string);
@@ -26,7 +26,9 @@ interface StreamIterator<T> extends AsyncIterator<T, any, any>, AsyncIteratorObj
     [Symbol.asyncIterator](): StreamIterator<T>;
 }
 
-type ComposeFnParam = (source: any) => void;
+// @types/node's `EventEmitter.listeners()` returns true functions in >=v25, but `Function` objects
+// in <=v24. To maintain assignability to @types/node streams, use whichever variant is present.
+type EventListenerArray = ReturnType<NodeJS.EventEmitter["listeners"]>;
 
 interface _IEventEmitter {
     addListener(event: string | symbol, listener: (...args: any[]) => void): this;
@@ -36,17 +38,14 @@ interface _IEventEmitter {
     prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
     prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
     removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
-
     removeAllListeners(event?: string | symbol): this;
     off(eventName: string | symbol, listener: (...args: any[]) => void): this;
     setMaxListeners(n: number): this;
     getMaxListeners(): number;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
-    listeners(eventName: string | symbol): Function[];
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
-    rawListeners(eventName: string | symbol): Function[];
+    listeners(eventName: string | symbol): EventListenerArray;
+    rawListeners(eventName: string | symbol): EventListenerArray;
     listenerCount(eventName: string | symbol): number;
-    eventNames(): Array<string | symbol>;
+    eventNames(): (string | symbol)[];
 }
 
 interface SignalOption {
@@ -121,6 +120,16 @@ declare class _Readable extends NoAsyncDispose implements _IReadable {
     unshift(chunk: any): void;
     wrap(oldStream: _Readable.Readable): this;
     push(chunk: any, encoding?: string): boolean;
+    compose(
+        stream: _Readable.Writable | ((source: any) => void),
+        options?: SignalOption,
+    ): _Readable.Duplex;
+    // (Incorrect) legacy definition from @types/node v18-24, added as an overload
+    // to maintain assignability to @types/node streams when using older versions.
+    compose<T extends NodeJS.ReadableStream>(
+        stream: T | ((source: any) => any) | Iterable<T> | AsyncIterable<T>,
+        options?: { signal: AbortSignal },
+    ): T;
     map(fn: (data: any, options?: SignalOption) => any, options?: ArrayOptions): _Readable.Readable;
     filter(
         fn: (data: any, options?: SignalOption) => boolean | Promise<boolean>,
@@ -217,12 +226,10 @@ declare class _Readable extends NoAsyncDispose implements _IReadable {
     off(eventName: string | symbol, listener: (...args: any[]) => void): this;
     setMaxListeners(n: number): this;
     getMaxListeners(): number;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
-    listeners(eventName: string | symbol): Function[];
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
-    rawListeners(eventName: string | symbol): Function[];
+    listeners(eventName: string | symbol): EventListenerArray;
+    rawListeners(eventName: string | symbol): EventListenerArray;
     listenerCount(eventName: string | symbol): number;
-    eventNames(): Array<string | symbol>;
+    eventNames(): (string | symbol)[];
 
     iterator(options?: { destroyOnReturn?: boolean }): StreamIterator<any>;
     [Symbol.asyncIterator](): StreamIterator<any>;
@@ -434,10 +441,6 @@ declare namespace _Readable {
 
         constructor(options?: ReadableOptions);
         pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean | undefined }): T;
-        compose<T extends NodeJS.ReadableStream>(
-            stream: T | ComposeFnParam | Iterable<T> | AsyncIterable<T>,
-            options?: { signal: AbortSignal },
-        ): T;
     }
 
     // ==== _stream_transform ====
@@ -673,10 +676,6 @@ declare namespace _Readable {
     class Stream extends _Readable {
         constructor(options?: ReadableOptions);
         pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean | undefined }): T;
-        compose<T extends NodeJS.ReadableStream>(
-            stream: T | ComposeFnParam | Iterable<T> | AsyncIterable<T>,
-            options?: { signal: AbortSignal },
-        ): T;
     }
 
     const finished: typeof NodeStream.finished;

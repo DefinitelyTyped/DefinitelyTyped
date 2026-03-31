@@ -1,8 +1,3 @@
-// If lib.dom.d.ts or lib.webworker.d.ts is loaded, then use the global types.
-// Otherwise, use the types from node.
-type _Blob = typeof globalThis extends { onmessage: any; Blob: any } ? {} : import("buffer").Blob;
-type _File = typeof globalThis extends { onmessage: any; File: any } ? {} : import("buffer").File;
-
 /**
  * `Buffer` objects are used to represent a fixed-length sequence of bytes. Many
  * Node.js APIs support `Buffer`s.
@@ -46,11 +41,10 @@ type _File = typeof globalThis extends { onmessage: any; File: any } ? {} : impo
  * // Creates a Buffer containing the Latin-1 bytes [0x74, 0xe9, 0x73, 0x74].
  * const buf7 = Buffer.from('tést', 'latin1');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/buffer.js)
+ * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/buffer.js)
  */
-declare module "buffer" {
-    import { BinaryLike } from "node:crypto";
-    import { ReadableStream as WebReadableStream } from "node:stream/web";
+declare module "node:buffer" {
+    import { ReadableStream } from "node:stream/web";
     /**
      * This function returns `true` if `input` contains only valid UTF-8-encoded data,
      * including the case in which `input` is empty.
@@ -59,7 +53,7 @@ declare module "buffer" {
      * @since v19.4.0, v18.14.0
      * @param input The input to validate.
      */
-    export function isUtf8(input: Buffer | ArrayBuffer | NodeJS.TypedArray): boolean;
+    export function isUtf8(input: ArrayBuffer | NodeJS.TypedArray): boolean;
     /**
      * This function returns `true` if `input` contains only valid ASCII-encoded data,
      * including the case in which `input` is empty.
@@ -68,7 +62,7 @@ declare module "buffer" {
      * @since v19.6.0, v18.15.0
      * @param input The input to validate.
      */
-    export function isAscii(input: Buffer | ArrayBuffer | NodeJS.TypedArray): boolean;
+    export function isAscii(input: ArrayBuffer | NodeJS.TypedArray): boolean;
     export let INSPECT_MAX_BYTES: number;
     export const kMaxLength: number;
     export const kStringMaxLength: number;
@@ -113,7 +107,11 @@ declare module "buffer" {
      * @param fromEnc The current encoding.
      * @param toEnc To target encoding.
      */
-    export function transcode(source: Uint8Array, fromEnc: TranscodeEncoding, toEnc: TranscodeEncoding): Buffer;
+    export function transcode(
+        source: Uint8Array,
+        fromEnc: TranscodeEncoding,
+        toEnc: TranscodeEncoding,
+    ): NonSharedBuffer;
     /**
      * Resolves a `'blob:nodedata:...'` an associated `Blob` object registered using
      * a prior call to `URL.createObjectURL()`.
@@ -122,115 +120,11 @@ declare module "buffer" {
      */
     export function resolveObjectURL(id: string): Blob | undefined;
     export { type AllowSharedBuffer, Buffer, type NonSharedBuffer };
-    /**
-     * @experimental
-     */
-    export interface BlobOptions {
-        /**
-         * One of either `'transparent'` or `'native'`. When set to `'native'`, line endings in string source parts
-         * will be converted to the platform native line-ending as specified by `import { EOL } from 'node:os'`.
-         */
-        endings?: "transparent" | "native";
-        /**
-         * The Blob content-type. The intent is for `type` to convey
-         * the MIME media type of the data, however no validation of the type format
-         * is performed.
-         */
-        type?: string | undefined;
-    }
-    /**
-     * A [`Blob`](https://developer.mozilla.org/en-US/docs/Web/API/Blob) encapsulates immutable, raw data that can be safely shared across
-     * multiple worker threads.
-     * @since v15.7.0, v14.18.0
-     */
-    export class Blob {
-        /**
-         * The total size of the `Blob` in bytes.
-         * @since v15.7.0, v14.18.0
-         */
-        readonly size: number;
-        /**
-         * The content-type of the `Blob`.
-         * @since v15.7.0, v14.18.0
-         */
-        readonly type: string;
-        /**
-         * Creates a new `Blob` object containing a concatenation of the given sources.
-         *
-         * {ArrayBuffer}, {TypedArray}, {DataView}, and {Buffer} sources are copied into
-         * the 'Blob' and can therefore be safely modified after the 'Blob' is created.
-         *
-         * String sources are also copied into the `Blob`.
-         */
-        constructor(sources: Array<ArrayBuffer | BinaryLike | Blob>, options?: BlobOptions);
-        /**
-         * Returns a promise that fulfills with an [ArrayBuffer](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer) containing a copy of
-         * the `Blob` data.
-         * @since v15.7.0, v14.18.0
-         */
-        arrayBuffer(): Promise<ArrayBuffer>;
-        /**
-         * The `blob.bytes()` method returns the byte of the `Blob` object as a `Promise<Uint8Array>`.
-         *
-         * ```js
-         * const blob = new Blob(['hello']);
-         * blob.bytes().then((bytes) => {
-         *   console.log(bytes); // Outputs: Uint8Array(5) [ 104, 101, 108, 108, 111 ]
-         * });
-         * ```
-         */
-        bytes(): Promise<Uint8Array>;
-        /**
-         * Creates and returns a new `Blob` containing a subset of this `Blob` objects
-         * data. The original `Blob` is not altered.
-         * @since v15.7.0, v14.18.0
-         * @param start The starting index.
-         * @param end The ending index.
-         * @param type The content-type for the new `Blob`
-         */
-        slice(start?: number, end?: number, type?: string): Blob;
-        /**
-         * Returns a promise that fulfills with the contents of the `Blob` decoded as a
-         * UTF-8 string.
-         * @since v15.7.0, v14.18.0
-         */
-        text(): Promise<string>;
-        /**
-         * Returns a new `ReadableStream` that allows the content of the `Blob` to be read.
-         * @since v16.7.0
-         */
-        stream(): WebReadableStream;
-    }
-    export interface FileOptions {
-        /**
-         * One of either `'transparent'` or `'native'`. When set to `'native'`, line endings in string source parts will be
-         * converted to the platform native line-ending as specified by `import { EOL } from 'node:os'`.
-         */
-        endings?: "native" | "transparent";
-        /** The File content-type. */
-        type?: string;
-        /** The last modified date of the file. `Default`: Date.now(). */
-        lastModified?: number;
-    }
-    /**
-     * A [`File`](https://developer.mozilla.org/en-US/docs/Web/API/File) provides information about files.
-     * @since v19.2.0, v18.13.0
-     */
-    export class File extends Blob {
-        constructor(sources: Array<BinaryLike | Blob>, fileName: string, options?: FileOptions);
-        /**
-         * The name of the `File`.
-         * @since v19.2.0, v18.13.0
-         */
-        readonly name: string;
-        /**
-         * The last modified date of the `File`.
-         * @since v19.2.0, v18.13.0
-         */
-        readonly lastModified: number;
-    }
-    export import atob = globalThis.atob;
-    export import btoa = globalThis.btoa;
+    /** @deprecated This alias will be removed in a future version. Use the canonical `BlobPropertyBag` instead. */
+    // TODO: remove in future major
+    export interface BlobOptions extends BlobPropertyBag {}
+    /** @deprecated This alias will be removed in a future version. Use the canonical `FilePropertyBag` instead. */
+    export interface FileOptions extends FilePropertyBag {}
     export type WithImplicitCoercion<T> =
         | T
         | { valueOf(): T }
@@ -330,7 +224,7 @@ declare module "buffer" {
              * @return The number of bytes contained within `string`.
              */
             byteLength(
-                string: string | Buffer | NodeJS.ArrayBufferView | ArrayBuffer | SharedArrayBuffer,
+                string: string | NodeJS.ArrayBufferView | ArrayBufferLike,
                 encoding?: BufferEncoding,
             ): number;
             /**
@@ -1875,56 +1769,42 @@ declare module "buffer" {
             includes(value: string | number | Buffer, encoding: BufferEncoding): boolean;
         }
         var Buffer: BufferConstructor;
-        /**
-         * Decodes a string of Base64-encoded data into bytes, and encodes those bytes
-         * into a string using Latin-1 (ISO-8859-1).
-         *
-         * The `data` may be any JavaScript-value that can be coerced into a string.
-         *
-         * **This function is only provided for compatibility with legacy web platform APIs**
-         * **and should never be used in new code, because they use strings to represent**
-         * **binary data and predate the introduction of typed arrays in JavaScript.**
-         * **For code running using Node.js APIs, converting between base64-encoded strings**
-         * **and binary data should be performed using `Buffer.from(str, 'base64')` and `buf.toString('base64')`.**
-         * @since v15.13.0, v14.17.0
-         * @legacy Use `Buffer.from(data, 'base64')` instead.
-         * @param data The Base64-encoded input string.
-         */
-        function atob(data: string): string;
-        /**
-         * Decodes a string into bytes using Latin-1 (ISO-8859), and encodes those bytes
-         * into a string using Base64.
-         *
-         * The `data` may be any JavaScript-value that can be coerced into a string.
-         *
-         * **This function is only provided for compatibility with legacy web platform APIs**
-         * **and should never be used in new code, because they use strings to represent**
-         * **binary data and predate the introduction of typed arrays in JavaScript.**
-         * **For code running using Node.js APIs, converting between base64-encoded strings**
-         * **and binary data should be performed using `Buffer.from(str, 'base64')` and `buf.toString('base64')`.**
-         * @since v15.13.0, v14.17.0
-         * @legacy Use `buf.toString('base64')` instead.
-         * @param data An ASCII (Latin1) string.
-         */
-        function btoa(data: string): string;
-        interface Blob extends _Blob {}
-        /**
-         * `Blob` class is a global reference for `import { Blob } from 'node:buffer'`
-         * https://nodejs.org/api/buffer.html#class-blob
-         * @since v18.0.0
-         */
-        var Blob: typeof globalThis extends { onmessage: any; Blob: infer T } ? T
-            : typeof import("buffer").Blob;
-        interface File extends _File {}
-        /**
-         * `File` class is a global reference for `import { File } from 'node:buffer'`
-         * https://nodejs.org/api/buffer.html#class-file
-         * @since v20.0.0
-         */
-        var File: typeof globalThis extends { onmessage: any; File: infer T } ? T
-            : typeof import("buffer").File;
     }
+    // #region web types
+    export type BlobPart = NodeJS.BufferSource | Blob | string;
+    export interface BlobPropertyBag {
+        endings?: "native" | "transparent";
+        type?: string;
+    }
+    export interface FilePropertyBag extends BlobPropertyBag {
+        lastModified?: number;
+    }
+    export interface Blob {
+        readonly size: number;
+        readonly type: string;
+        arrayBuffer(): Promise<ArrayBuffer>;
+        bytes(): Promise<NodeJS.NonSharedUint8Array>;
+        slice(start?: number, end?: number, contentType?: string): Blob;
+        stream(): ReadableStream<NodeJS.NonSharedUint8Array>;
+        text(): Promise<string>;
+    }
+    export var Blob: {
+        prototype: Blob;
+        new(blobParts?: BlobPart[], options?: BlobPropertyBag): Blob;
+    };
+    export interface File extends Blob {
+        readonly lastModified: number;
+        readonly name: string;
+        readonly webkitRelativePath: string;
+    }
+    export var File: {
+        prototype: File;
+        new(fileBits: BlobPart[], fileName: string, options?: FilePropertyBag): File;
+    };
+    export import atob = globalThis.atob;
+    export import btoa = globalThis.btoa;
+    // #endregion
 }
-declare module "node:buffer" {
-    export * from "buffer";
+declare module "buffer" {
+    export * from "node:buffer";
 }

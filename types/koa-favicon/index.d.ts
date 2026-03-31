@@ -8,7 +8,7 @@
 
  =============================================== */
 
-import * as Koa from "koa";
+import Koa = require("koa");
 
 /**
  * Returns a middleware serving the favicon found on the given path.

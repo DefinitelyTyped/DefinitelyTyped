@@ -11,13 +11,13 @@ import * as url from "node:url";
     let server: http.Server = new http.Server();
 
     class MyIncomingMessage extends http.IncomingMessage {
-        foo: number;
+        foo!: number;
     }
 
     class MyServerResponse<Request extends http.IncomingMessage = http.IncomingMessage>
         extends http.ServerResponse<Request>
     {
-        foo: string;
+        foo!: string;
     }
 
     server = new http.Server({ IncomingMessage: MyIncomingMessage });
@@ -36,6 +36,7 @@ import * as url from "node:url";
         keepAlive: true,
         keepAliveInitialDelay: 1000,
         keepAliveTimeout: 100,
+        keepAliveTimeoutBuffer: 200,
         headersTimeout: 50000,
         requireHostHeader: false,
         rejectNonStandardBodyWrites: false,
@@ -51,6 +52,7 @@ import * as url from "node:url";
     const timeout: number = server.timeout;
     const listening: boolean = server.listening;
     const keepAliveTimeout: number = server.keepAliveTimeout;
+    const keepAliveTimeoutBuffer: number = server.keepAliveTimeoutBuffer;
     const requestTimeout: number = server.requestTimeout;
     server.setTimeout().setTimeout(1000);
     server.setTimeout((socket) => {
@@ -69,13 +71,13 @@ import * as url from "node:url";
     let bar: "bar";
 
     class MyIncomingMessage extends http.IncomingMessage {
-        foo: typeof foo;
+        foo!: typeof foo;
     }
 
     class MyServerResponse<
         Request extends MyIncomingMessage = MyIncomingMessage,
     > extends http.ServerResponse<Request> {
-        bar: typeof bar;
+        bar!: typeof bar;
 
         getFoo() {
             return this.req.foo;
@@ -729,4 +731,10 @@ import * as url from "node:url";
     http.validateHeaderValue("Location", "/");
 
     http.setMaxIdleHTTPParsers(1337);
+}
+
+{
+    new http.WebSocket("ws://example.com", ["protocol"]);
+    new http.CloseEvent("close");
+    new http.MessageEvent("message", { data: "data" });
 }

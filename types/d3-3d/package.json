@@ -7,7 +7,7 @@
     ],
     "type": "module",
     "dependencies": {
-        "csstype": "*"
+        "csstype": "^3.2.2"
     },
     "devDependencies": {
         "@types/d3-3d": "workspace:.",

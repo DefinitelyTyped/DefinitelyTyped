@@ -1,13 +1,12 @@
 import { Light } from "../../lights/Light.js";
 import Node from "../core/Node.js";
 import NodeBuilder from "../core/NodeBuilder.js";
-import { ShaderNodeObject } from "../tsl/TSLCore.js";
 import LightingNode from "./LightingNode.js";
 import { DirectLightData, DirectRectAreaLightData } from "./LightsNode.js";
 import ShadowNode from "./ShadowNode.js";
 
 declare module "../../lights/LightShadow.js" {
-    export interface LightShadow {
+    interface LightShadow {
         shadowNode?: Node;
     }
 }
@@ -17,13 +16,15 @@ declare class AnalyticLightNode<T extends Light> extends LightingNode {
 
     constructor(light?: T | null);
 
+    disposeShadow(): void;
+
     getLightVector(builder: NodeBuilder): Node;
 
     setupDirect(builder: NodeBuilder): DirectLightData | undefined;
 
     setupDirectRectArea(builder: NodeBuilder): DirectRectAreaLightData | undefined;
 
-    setupShadowNode(): ShaderNodeObject<ShadowNode>;
+    setupShadowNode(): ShadowNode;
 
     setupShadow(builder: NodeBuilder): void;
 }

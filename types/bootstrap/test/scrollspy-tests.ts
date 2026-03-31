@@ -1,5 +1,5 @@
 import { ScrollSpy } from "bootstrap";
-import * as $ from "jquery";
+import $ from "jquery";
 
 const element = new Element();
 

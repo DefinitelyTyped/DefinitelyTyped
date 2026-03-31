@@ -1,4 +1,4 @@
-import * as moment from "moment";
+import moment = require("moment");
 import * as React from "react";
 import { Props as ReactOutsideClickHandlerProps } from "react-outside-click-handler";
 import * as constants from "./constants";

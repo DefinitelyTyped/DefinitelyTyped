@@ -1,7 +1,7 @@
 import { Express as exExpress, NextFunction, Request } from "express";
 import { Router as coreRouter } from "express-serve-static-core";
 import { Server as httpServer } from "http";
-import * as WebSocket from "ws";
+import WebSocket = require("ws");
 
 declare function expressWsRoutes(): expressWsRoutes.Express;
 

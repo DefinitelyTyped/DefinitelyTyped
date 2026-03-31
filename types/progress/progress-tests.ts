@@ -1,4 +1,4 @@
-import * as ProgressBar from "progress";
+import ProgressBar from "progress";
 
 /**
  * Usage example from https://github.com/visionmedia/node-progress

@@ -1,4 +1,4 @@
-import * as Promise from "bluebird";
+import Promise = require("bluebird");
 
 declare namespace asana {
     var Client: ClientStatic;

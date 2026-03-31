@@ -1,7 +1,7 @@
-import Connection = require("@xmpp/connection");
+import Connection from "@xmpp/connection";
 import { Element } from "@xmpp/xml";
 
-export = debug;
+export default debug;
 
 /**
  * Prints logs and debug information to the console for an entity.
@@ -19,6 +19,4 @@ export = debug;
  */
 declare function debug(entity: Connection, force?: boolean): void;
 
-declare namespace debug {
-    function hideSensitive(el: Element): Element;
-}
+export function hideSensitive(el: Element): Element;

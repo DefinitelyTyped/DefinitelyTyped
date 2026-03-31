@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/openseadragon",
-    "version": "4.1.9999",
+    "version": "5.0.9999",
     "projects": [
         "https://openseadragon.github.io/"
     ],
@@ -32,6 +32,10 @@
         {
             "name": "Peter Blazejewicz",
             "githubUsername": "peterblazejewicz"
+        },
+        {
+            "name": "Ravi Shankar Saini",
+            "githubUsername": "rssaini01"
         }
     ]
 }

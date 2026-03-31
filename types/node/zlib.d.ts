@@ -9,7 +9,7 @@
  * ```
  *
  * Compression and decompression are built around the Node.js
- * [Streams API](https://nodejs.org/docs/latest-v24.x/api/stream.html).
+ * [Streams API](https://nodejs.org/docs/latest-v25.x/api/stream.html).
  *
  * Compressing or decompressing a stream (such as a file) can be accomplished by
  * piping the source stream through a `zlib` `Transform` stream into a destination
@@ -89,9 +89,10 @@
  *   });
  * ```
  * @since v0.5.8
- * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/zlib.js)
+ * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/zlib.js)
  */
-declare module "zlib" {
+declare module "node:zlib" {
+    import { NonSharedBuffer } from "node:buffer";
     import * as stream from "node:stream";
     interface ZlibOptions {
         /**
@@ -107,10 +108,14 @@ declare module "zlib" {
          */
         chunkSize?: number | undefined;
         windowBits?: number | undefined;
-        level?: number | undefined; // compression only
-        memLevel?: number | undefined; // compression only
-        strategy?: number | undefined; // compression only
-        dictionary?: NodeJS.ArrayBufferView | ArrayBuffer | undefined; // deflate/inflate only, empty dictionary by default
+        /** compression only */
+        level?: number | undefined;
+        /** compression only */
+        memLevel?: number | undefined;
+        /** compression only */
+        strategy?: number | undefined;
+        /** deflate/inflate only, empty dictionary by default */
+        dictionary?: NodeJS.ArrayBufferView | ArrayBuffer | undefined;
         /**
          * If `true`, returns an object with `buffer` and `engine`.
          */
@@ -143,7 +148,7 @@ declare module "zlib" {
             }
             | undefined;
         /**
-         * Limits output size when using [convenience methods](https://nodejs.org/docs/latest-v24.x/api/zlib.html#convenience-methods).
+         * Limits output size when using [convenience methods](https://nodejs.org/docs/latest-v25.x/api/zlib.html#convenience-methods).
          * @default buffer.kMaxLength
          */
         maxOutputLength?: number | undefined;
@@ -167,12 +172,12 @@ declare module "zlib" {
         chunkSize?: number | undefined;
         /**
          * Key-value object containing indexed
-         * [Zstd parameters](https://nodejs.org/docs/latest-v24.x/api/zlib.html#zstd-constants).
+         * [Zstd parameters](https://nodejs.org/docs/latest-v25.x/api/zlib.html#zstd-constants).
          */
         params?: { [key: number]: number | boolean } | undefined;
         /**
          * Limits output size when using
-         * [convenience methods](https://nodejs.org/docs/latest-v24.x/api/zlib.html#convenience-methods).
+         * [convenience methods](https://nodejs.org/docs/latest-v25.x/api/zlib.html#convenience-methods).
          * @default buffer.kMaxLength
          */
         maxOutputLength?: number | undefined;
@@ -180,6 +185,12 @@ declare module "zlib" {
          * If `true`, returns an object with `buffer` and `engine`.
          */
         info?: boolean | undefined;
+        /**
+         * Optional dictionary used to improve compression efficiency when compressing or decompressing data that
+         * shares common patterns with the dictionary.
+         * @since v24.6.0
+         */
+        dictionary?: NodeJS.ArrayBufferView | undefined;
     }
     interface Zlib {
         readonly bytesWritten: number;
@@ -194,24 +205,84 @@ declare module "zlib" {
     interface ZlibReset {
         reset(): void;
     }
+    /**
+     * @since v10.16.0
+     */
+    class BrotliCompress extends stream.Transform {
+        constructor(options?: BrotliOptions);
+    }
     interface BrotliCompress extends stream.Transform, Zlib {}
+    /**
+     * @since v10.16.0
+     */
+    class BrotliDecompress extends stream.Transform {
+        constructor(options?: BrotliOptions);
+    }
     interface BrotliDecompress extends stream.Transform, Zlib {}
+    /**
+     * @since v0.5.8
+     */
+    class Gzip extends stream.Transform {
+        constructor(options?: ZlibOptions);
+    }
     interface Gzip extends stream.Transform, Zlib {}
+    /**
+     * @since v0.5.8
+     */
+    class Gunzip extends stream.Transform {
+        constructor(options?: ZlibOptions);
+    }
     interface Gunzip extends stream.Transform, Zlib {}
+    /**
+     * @since v0.5.8
+     */
+    class Deflate extends stream.Transform {
+        constructor(options?: ZlibOptions);
+    }
     interface Deflate extends stream.Transform, Zlib, ZlibReset, ZlibParams {}
+    /**
+     * @since v0.5.8
+     */
+    class Inflate extends stream.Transform {
+        constructor(options?: ZlibOptions);
+    }
     interface Inflate extends stream.Transform, Zlib, ZlibReset {}
+    /**
+     * @since v0.5.8
+     */
+    class DeflateRaw extends stream.Transform {
+        constructor(options?: ZlibOptions);
+    }
     interface DeflateRaw extends stream.Transform, Zlib, ZlibReset, ZlibParams {}
+    /**
+     * @since v0.5.8
+     */
+    class InflateRaw extends stream.Transform {
+        constructor(options?: ZlibOptions);
+    }
     interface InflateRaw extends stream.Transform, Zlib, ZlibReset {}
+    /**
+     * @since v0.5.8
+     */
+    class Unzip extends stream.Transform {
+        constructor(options?: ZlibOptions);
+    }
     interface Unzip extends stream.Transform, Zlib {}
     /**
      * @since v22.15.0
      * @experimental
      */
+    class ZstdCompress extends stream.Transform {
+        constructor(options?: ZstdOptions);
+    }
     interface ZstdCompress extends stream.Transform, Zlib {}
     /**
      * @since v22.15.0
      * @experimental
      */
+    class ZstdDecompress extends stream.Transform {
+        constructor(options?: ZstdOptions);
+    }
     interface ZstdDecompress extends stream.Transform, Zlib {}
     /**
      * Computes a 32-bit [Cyclic Redundancy Check](https://en.wikipedia.org/wiki/Cyclic_redundancy_check) checksum of `data`.
@@ -221,7 +292,7 @@ declare module "zlib" {
      * @returns A 32-bit unsigned integer containing the checksum.
      * @since v22.2.0
      */
-    function crc32(data: string | Buffer | NodeJS.ArrayBufferView, value?: number): number;
+    function crc32(data: string | NodeJS.ArrayBufferView, value?: number): number;
     /**
      * Creates and returns a new `BrotliCompress` object.
      * @since v11.7.0, v10.16.0
@@ -285,124 +356,124 @@ declare module "zlib" {
      */
     function createZstdDecompress(options?: ZstdOptions): ZstdDecompress;
     type InputType = string | ArrayBuffer | NodeJS.ArrayBufferView;
-    type CompressCallback = (error: Error | null, result: Buffer) => void;
+    type CompressCallback = (error: Error | null, result: NonSharedBuffer) => void;
     /**
      * @since v11.7.0, v10.16.0
      */
     function brotliCompress(buf: InputType, options: BrotliOptions, callback: CompressCallback): void;
     function brotliCompress(buf: InputType, callback: CompressCallback): void;
     namespace brotliCompress {
-        function __promisify__(buffer: InputType, options?: BrotliOptions): Promise<Buffer>;
+        function __promisify__(buffer: InputType, options?: BrotliOptions): Promise<NonSharedBuffer>;
     }
     /**
      * Compress a chunk of data with `BrotliCompress`.
      * @since v11.7.0, v10.16.0
      */
-    function brotliCompressSync(buf: InputType, options?: BrotliOptions): Buffer;
+    function brotliCompressSync(buf: InputType, options?: BrotliOptions): NonSharedBuffer;
     /**
      * @since v11.7.0, v10.16.0
      */
     function brotliDecompress(buf: InputType, options: BrotliOptions, callback: CompressCallback): void;
     function brotliDecompress(buf: InputType, callback: CompressCallback): void;
     namespace brotliDecompress {
-        function __promisify__(buffer: InputType, options?: BrotliOptions): Promise<Buffer>;
+        function __promisify__(buffer: InputType, options?: BrotliOptions): Promise<NonSharedBuffer>;
     }
     /**
      * Decompress a chunk of data with `BrotliDecompress`.
      * @since v11.7.0, v10.16.0
      */
-    function brotliDecompressSync(buf: InputType, options?: BrotliOptions): Buffer;
+    function brotliDecompressSync(buf: InputType, options?: BrotliOptions): NonSharedBuffer;
     /**
      * @since v0.6.0
      */
     function deflate(buf: InputType, callback: CompressCallback): void;
     function deflate(buf: InputType, options: ZlibOptions, callback: CompressCallback): void;
     namespace deflate {
-        function __promisify__(buffer: InputType, options?: ZlibOptions): Promise<Buffer>;
+        function __promisify__(buffer: InputType, options?: ZlibOptions): Promise<NonSharedBuffer>;
     }
     /**
      * Compress a chunk of data with `Deflate`.
      * @since v0.11.12
      */
-    function deflateSync(buf: InputType, options?: ZlibOptions): Buffer;
+    function deflateSync(buf: InputType, options?: ZlibOptions): NonSharedBuffer;
     /**
      * @since v0.6.0
      */
     function deflateRaw(buf: InputType, callback: CompressCallback): void;
     function deflateRaw(buf: InputType, options: ZlibOptions, callback: CompressCallback): void;
     namespace deflateRaw {
-        function __promisify__(buffer: InputType, options?: ZlibOptions): Promise<Buffer>;
+        function __promisify__(buffer: InputType, options?: ZlibOptions): Promise<NonSharedBuffer>;
     }
     /**
      * Compress a chunk of data with `DeflateRaw`.
      * @since v0.11.12
      */
-    function deflateRawSync(buf: InputType, options?: ZlibOptions): Buffer;
+    function deflateRawSync(buf: InputType, options?: ZlibOptions): NonSharedBuffer;
     /**
      * @since v0.6.0
      */
     function gzip(buf: InputType, callback: CompressCallback): void;
     function gzip(buf: InputType, options: ZlibOptions, callback: CompressCallback): void;
     namespace gzip {
-        function __promisify__(buffer: InputType, options?: ZlibOptions): Promise<Buffer>;
+        function __promisify__(buffer: InputType, options?: ZlibOptions): Promise<NonSharedBuffer>;
     }
     /**
      * Compress a chunk of data with `Gzip`.
      * @since v0.11.12
      */
-    function gzipSync(buf: InputType, options?: ZlibOptions): Buffer;
+    function gzipSync(buf: InputType, options?: ZlibOptions): NonSharedBuffer;
     /**
      * @since v0.6.0
      */
     function gunzip(buf: InputType, callback: CompressCallback): void;
     function gunzip(buf: InputType, options: ZlibOptions, callback: CompressCallback): void;
     namespace gunzip {
-        function __promisify__(buffer: InputType, options?: ZlibOptions): Promise<Buffer>;
+        function __promisify__(buffer: InputType, options?: ZlibOptions): Promise<NonSharedBuffer>;
     }
     /**
      * Decompress a chunk of data with `Gunzip`.
      * @since v0.11.12
      */
-    function gunzipSync(buf: InputType, options?: ZlibOptions): Buffer;
+    function gunzipSync(buf: InputType, options?: ZlibOptions): NonSharedBuffer;
     /**
      * @since v0.6.0
      */
     function inflate(buf: InputType, callback: CompressCallback): void;
     function inflate(buf: InputType, options: ZlibOptions, callback: CompressCallback): void;
     namespace inflate {
-        function __promisify__(buffer: InputType, options?: ZlibOptions): Promise<Buffer>;
+        function __promisify__(buffer: InputType, options?: ZlibOptions): Promise<NonSharedBuffer>;
     }
     /**
      * Decompress a chunk of data with `Inflate`.
      * @since v0.11.12
      */
-    function inflateSync(buf: InputType, options?: ZlibOptions): Buffer;
+    function inflateSync(buf: InputType, options?: ZlibOptions): NonSharedBuffer;
     /**
      * @since v0.6.0
      */
     function inflateRaw(buf: InputType, callback: CompressCallback): void;
     function inflateRaw(buf: InputType, options: ZlibOptions, callback: CompressCallback): void;
     namespace inflateRaw {
-        function __promisify__(buffer: InputType, options?: ZlibOptions): Promise<Buffer>;
+        function __promisify__(buffer: InputType, options?: ZlibOptions): Promise<NonSharedBuffer>;
     }
     /**
      * Decompress a chunk of data with `InflateRaw`.
      * @since v0.11.12
      */
-    function inflateRawSync(buf: InputType, options?: ZlibOptions): Buffer;
+    function inflateRawSync(buf: InputType, options?: ZlibOptions): NonSharedBuffer;
     /**
      * @since v0.6.0
      */
     function unzip(buf: InputType, callback: CompressCallback): void;
     function unzip(buf: InputType, options: ZlibOptions, callback: CompressCallback): void;
     namespace unzip {
-        function __promisify__(buffer: InputType, options?: ZlibOptions): Promise<Buffer>;
+        function __promisify__(buffer: InputType, options?: ZlibOptions): Promise<NonSharedBuffer>;
     }
     /**
      * Decompress a chunk of data with `Unzip`.
      * @since v0.11.12
      */
-    function unzipSync(buf: InputType, options?: ZlibOptions): Buffer;
+    function unzipSync(buf: InputType, options?: ZlibOptions): NonSharedBuffer;
     /**
      * @since v22.15.0
      * @experimental
@@ -410,14 +481,14 @@ declare module "zlib" {
     function zstdCompress(buf: InputType, callback: CompressCallback): void;
     function zstdCompress(buf: InputType, options: ZstdOptions, callback: CompressCallback): void;
     namespace zstdCompress {
-        function __promisify__(buffer: InputType, options?: ZstdOptions): Promise<Buffer>;
+        function __promisify__(buffer: InputType, options?: ZstdOptions): Promise<NonSharedBuffer>;
     }
     /**
      * Compress a chunk of data with `ZstdCompress`.
      * @since v22.15.0
      * @experimental
      */
-    function zstdCompressSync(buf: InputType, options?: ZstdOptions): Buffer;
+    function zstdCompressSync(buf: InputType, options?: ZstdOptions): NonSharedBuffer;
     /**
      * @since v22.15.0
      * @experimental
@@ -425,14 +496,14 @@ declare module "zlib" {
     function zstdDecompress(buf: InputType, callback: CompressCallback): void;
     function zstdDecompress(buf: InputType, options: ZstdOptions, callback: CompressCallback): void;
     namespace zstdDecompress {
-        function __promisify__(buffer: InputType, options?: ZstdOptions): Promise<Buffer>;
+        function __promisify__(buffer: InputType, options?: ZstdOptions): Promise<NonSharedBuffer>;
     }
     /**
      * Decompress a chunk of data with `ZstdDecompress`.
      * @since v22.15.0
      * @experimental
      */
-    function zstdDecompressSync(buf: InputType, options?: ZstdOptions): Buffer;
+    function zstdDecompressSync(buf: InputType, options?: ZstdOptions): NonSharedBuffer;
     namespace constants {
         const BROTLI_DECODE: number;
         const BROTLI_DECODER_ERROR_ALLOC_BLOCK_TYPE_TREES: number;
@@ -605,70 +676,7 @@ declare module "zlib" {
         const Z_SYNC_FLUSH: number;
         const Z_VERSION_ERROR: number;
     }
-    // Allowed flush values.
-    /** @deprecated Use `constants.Z_NO_FLUSH` */
-    const Z_NO_FLUSH: number;
-    /** @deprecated Use `constants.Z_PARTIAL_FLUSH` */
-    const Z_PARTIAL_FLUSH: number;
-    /** @deprecated Use `constants.Z_SYNC_FLUSH` */
-    const Z_SYNC_FLUSH: number;
-    /** @deprecated Use `constants.Z_FULL_FLUSH` */
-    const Z_FULL_FLUSH: number;
-    /** @deprecated Use `constants.Z_FINISH` */
-    const Z_FINISH: number;
-    /** @deprecated Use `constants.Z_BLOCK` */
-    const Z_BLOCK: number;
-    // Return codes for the compression/decompression functions.
-    // Negative values are errors, positive values are used for special but normal events.
-    /** @deprecated Use `constants.Z_OK` */
-    const Z_OK: number;
-    /** @deprecated Use `constants.Z_STREAM_END` */
-    const Z_STREAM_END: number;
-    /** @deprecated Use `constants.Z_NEED_DICT` */
-    const Z_NEED_DICT: number;
-    /** @deprecated Use `constants.Z_ERRNO` */
-    const Z_ERRNO: number;
-    /** @deprecated Use `constants.Z_STREAM_ERROR` */
-    const Z_STREAM_ERROR: number;
-    /** @deprecated Use `constants.Z_DATA_ERROR` */
-    const Z_DATA_ERROR: number;
-    /** @deprecated Use `constants.Z_MEM_ERROR` */
-    const Z_MEM_ERROR: number;
-    /** @deprecated Use `constants.Z_BUF_ERROR` */
-    const Z_BUF_ERROR: number;
-    /** @deprecated Use `constants.Z_VERSION_ERROR` */
-    const Z_VERSION_ERROR: number;
-    // Compression levels.
-    /** @deprecated Use `constants.Z_NO_COMPRESSION` */
-    const Z_NO_COMPRESSION: number;
-    /** @deprecated Use `constants.Z_BEST_SPEED` */
-    const Z_BEST_SPEED: number;
-    /** @deprecated Use `constants.Z_BEST_COMPRESSION` */
-    const Z_BEST_COMPRESSION: number;
-    /** @deprecated Use `constants.Z_DEFAULT_COMPRESSION` */
-    const Z_DEFAULT_COMPRESSION: number;
-    // Compression strategy.
-    /** @deprecated Use `constants.Z_FILTERED` */
-    const Z_FILTERED: number;
-    /** @deprecated Use `constants.Z_HUFFMAN_ONLY` */
-    const Z_HUFFMAN_ONLY: number;
-    /** @deprecated Use `constants.Z_RLE` */
-    const Z_RLE: number;
-    /** @deprecated Use `constants.Z_FIXED` */
-    const Z_FIXED: number;
-    /** @deprecated Use `constants.Z_DEFAULT_STRATEGY` */
-    const Z_DEFAULT_STRATEGY: number;
-    /** @deprecated */
-    const Z_BINARY: number;
-    /** @deprecated */
-    const Z_TEXT: number;
-    /** @deprecated */
-    const Z_ASCII: number;
-    /** @deprecated  */
-    const Z_UNKNOWN: number;
-    /** @deprecated */
-    const Z_DEFLATED: number;
 }
-declare module "node:zlib" {
-    export * from "zlib";
+declare module "zlib" {
+    export * from "node:zlib";
 }

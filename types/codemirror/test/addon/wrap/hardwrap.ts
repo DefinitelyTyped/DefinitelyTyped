@@ -1,4 +1,4 @@
-import * as CodeMirror from "codemirror";
+import CodeMirror from "codemirror";
 import "codemirror/addon/wrap/hardwrap";
 
 const editor = CodeMirror(document.body);

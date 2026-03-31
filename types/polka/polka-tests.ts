@@ -1,5 +1,5 @@
-import * as compression from "compression";
-import * as Polka from "polka";
+import compression from "compression";
+import Polka from "polka";
 
 interface MyResponse {
     foo: string;

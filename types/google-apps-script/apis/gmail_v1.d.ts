@@ -69,7 +69,7 @@ declare namespace GoogleAppsScript {
                         remove(userId: string, forwardingEmail: string): void;
                     }
                     interface SendAsCollection {
-                        SmimeInfo?: Gmail.Collection.Users.Settings.SendAs.SmimeInfoCollection | undefined;
+                        SmimeInfo: Gmail.Collection.Users.Settings.SendAs.SmimeInfoCollection;
                         // Creates a custom "from" send-as alias. If an SMTP MSA is specified, Gmail will attempt to connect to the SMTP service to validate the configuration before creating the alias. If ownership verification is required for the alias, a message will be sent to the email address and the resource's verification status will be set to pending; otherwise, the resource will be created with verification status set to accepted. If a signature is provided, Gmail will sanitize the HTML before saving it with the alias.
                         // This method is only available to service account clients that have been delegated domain-wide authority.
                         create(resource: Schema.SendAs, userId: string): Gmail.Schema.SendAs;
@@ -136,7 +136,7 @@ declare namespace GoogleAppsScript {
                     update(resource: Schema.Label, userId: string, id: string): Gmail.Schema.Label;
                 }
                 interface MessagesCollection {
-                    Attachments?: Gmail.Collection.Users.Messages.AttachmentsCollection | undefined;
+                    Attachments: Gmail.Collection.Users.Messages.AttachmentsCollection;
                     // Deletes many messages by message ID. Provides no guarantees that messages were not already deleted or even existed at all.
                     batchDelete(resource: Schema.BatchDeleteMessagesRequest, userId: string): void;
                     // Modifies the labels on the specified messages.
@@ -185,10 +185,10 @@ declare namespace GoogleAppsScript {
                     untrash(userId: string, id: string): Gmail.Schema.Message;
                 }
                 interface SettingsCollection {
-                    Delegates?: Gmail.Collection.Users.Settings.DelegatesCollection | undefined;
-                    Filters?: Gmail.Collection.Users.Settings.FiltersCollection | undefined;
-                    ForwardingAddresses?: Gmail.Collection.Users.Settings.ForwardingAddressesCollection | undefined;
-                    SendAs?: Gmail.Collection.Users.Settings.SendAsCollection | undefined;
+                    Delegates: Gmail.Collection.Users.Settings.DelegatesCollection;
+                    Filters: Gmail.Collection.Users.Settings.FiltersCollection;
+                    ForwardingAddresses: Gmail.Collection.Users.Settings.ForwardingAddressesCollection;
+                    SendAs: Gmail.Collection.Users.Settings.SendAsCollection;
                     // Gets the auto-forwarding setting for the specified account.
                     getAutoForwarding(userId: string): Gmail.Schema.AutoForwarding;
                     // Gets IMAP settings.
@@ -227,12 +227,12 @@ declare namespace GoogleAppsScript {
                 }
             }
             interface UsersCollection {
-                Drafts?: Gmail.Collection.Users.DraftsCollection | undefined;
-                History?: Gmail.Collection.Users.HistoryCollection | undefined;
-                Labels?: Gmail.Collection.Users.LabelsCollection | undefined;
-                Messages?: Gmail.Collection.Users.MessagesCollection | undefined;
-                Settings?: Gmail.Collection.Users.SettingsCollection | undefined;
-                Threads?: Gmail.Collection.Users.ThreadsCollection | undefined;
+                Drafts: Gmail.Collection.Users.DraftsCollection;
+                History: Gmail.Collection.Users.HistoryCollection;
+                Labels: Gmail.Collection.Users.LabelsCollection;
+                Messages: Gmail.Collection.Users.MessagesCollection;
+                Settings: Gmail.Collection.Users.SettingsCollection;
+                Threads: Gmail.Collection.Users.ThreadsCollection;
                 // Gets the current user's Gmail profile.
                 getProfile(userId: string): Gmail.Schema.Profile;
                 // Stop receiving push notifications for the given user mailbox.
@@ -471,7 +471,7 @@ declare namespace GoogleAppsScript {
         }
     }
     interface Gmail {
-        Users?: Gmail.Collection.UsersCollection | undefined;
+        Users: Gmail.Collection.UsersCollection;
         // Create a new instance of AutoForwarding
         newAutoForwarding(): Gmail.Schema.AutoForwarding;
         // Create a new instance of BatchDeleteMessagesRequest
@@ -523,4 +523,7 @@ declare namespace GoogleAppsScript {
     }
 }
 
-declare var Gmail: GoogleAppsScript.Gmail;
+/**
+ * The `Gmail` advanced service must be enabled.
+ */
+declare var Gmail: GoogleAppsScript.Gmail | undefined;

@@ -1,12 +1,18 @@
-import { ShaderNodeObject } from "../tsl/TSLCore.js";
 import PropertyNode from "./PropertyNode.js";
 
-declare class ParameterNode extends PropertyNode {
+interface ParameterNodeInterface {
     readonly isParameterNode: true;
-
-    constructor(nodeType: string, name?: string | null);
 }
+
+declare const ParameterNode: {
+    new<TNodeType>(
+        nodeType: TNodeType,
+        name?: string | null,
+    ): ParameterNode<TNodeType>;
+};
+
+type ParameterNode<TNodeType> = PropertyNode<TNodeType> & ParameterNodeInterface;
 
 export default ParameterNode;
 
-export const parameter: (type: string, name?: string | null) => ShaderNodeObject<ParameterNode>;
+export const parameter: <TNodeType>(type: TNodeType, name?: string | null) => ParameterNode<TNodeType>;

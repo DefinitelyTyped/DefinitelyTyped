@@ -1,41 +1,11 @@
 import { RenderTarget } from "../../core/RenderTarget.js";
 import { Vector3 } from "../../math/Vector3.js";
-import { DepthTexture } from "../../textures/DepthTexture.js";
 import { Texture } from "../../textures/Texture.js";
 import Backend from "./Backend.js";
 import DataMap from "./DataMap.js";
 import Info from "./Info.js";
 import Renderer from "./Renderer.js";
-type SizeVector3Uninitialized = Vector3 & {
-    width?: number;
-    height?: number;
-    depth?: number;
-};
-type SizeVector3 = Vector3 & {
-    width: number;
-    height: number;
-    depth: number;
-};
-interface RenderTargetData {
-    depthTextureMips?: {
-        [activeMipmapLevel: number]: DepthTexture;
-    };
-    width?: number;
-    height?: number;
-    textures?: Texture[];
-    depthTexture?: DepthTexture;
-    depth?: boolean;
-    stencil?: boolean;
-    renderTarget?: RenderTarget;
-    sampleCount?: number;
-    initialized?: boolean;
-}
-interface TextureData {
-    initialized?: boolean;
-    version?: number;
-    isDefaultTexture?: boolean;
-    generation?: number;
-}
+
 interface TextureOptions {
     width?: number;
     height?: number;
@@ -43,25 +13,14 @@ interface TextureOptions {
     needsMipmaps?: boolean;
     levels?: number;
 }
+
 /**
  * This module manages the textures of the renderer.
  *
  * @private
  * @augments DataMap
  */
-declare class Textures extends DataMap<{
-    renderTarget: {
-        key: RenderTarget;
-        value: RenderTargetData;
-    };
-    texture: {
-        key: Texture;
-        value: TextureData;
-    };
-}> {
-    renderer: Renderer;
-    backend: Backend;
-    info: Info;
+declare class Textures extends DataMap {
     /**
      * Constructs a new texture management component.
      *
@@ -70,6 +29,24 @@ declare class Textures extends DataMap<{
      * @param {Info} info - Renderer component for managing metrics and monitoring data.
      */
     constructor(renderer: Renderer, backend: Backend, info: Info);
+    /**
+     * The renderer.
+     *
+     * @type {Renderer}
+     */
+    renderer: Renderer;
+    /**
+     * The backend.
+     *
+     * @type {Backend}
+     */
+    backend: Backend;
+    /**
+     * Renderer component for managing metrics and monitoring data.
+     *
+     * @type {Info}
+     */
+    info: Info;
     /**
      * Updates the given render target. Based on the given render target configuration,
      * it updates the texture states representing the attachments of the framebuffer.
@@ -88,6 +65,19 @@ declare class Textures extends DataMap<{
      */
     updateTexture(texture: Texture, options?: TextureOptions): void;
     /**
+     * Updates the sampler for the given texture. This method has no effect
+     * for the WebGL backend since it has no concept of samplers. Texture
+     * parameters are configured with the `texParameter()` command for each
+     * texture.
+     *
+     * In WebGPU, samplers are objects like textures and it's possible to share
+     * them when the texture parameters match.
+     *
+     * @param {Texture} texture - The texture to update the sampler for.
+     * @return {string} The current sampler key.
+     */
+    updateSampler(texture: Texture): string;
+    /**
      * Computes the size of the given texture and writes the result
      * into the target vector. This vector is also returned by the
      * method.
@@ -99,7 +89,7 @@ declare class Textures extends DataMap<{
      * @param {Vector3} target - The target vector.
      * @return {Vector3} The target vector.
      */
-    getSize(texture: Texture, target?: SizeVector3Uninitialized): SizeVector3;
+    getSize(texture: Texture, target?: Vector3): Vector3;
     /**
      * Computes the number of mipmap levels for the given texture.
      *
@@ -110,12 +100,19 @@ declare class Textures extends DataMap<{
      */
     getMipLevels(texture: Texture, width: number, height: number): number;
     /**
-     * Returns `true` if the given texture requires mipmaps.
+     * Returns `true` if the given texture makes use of mipmapping.
      *
      * @param {Texture} texture - The texture.
      * @return {boolean} Whether mipmaps are required or not.
      */
     needsMipmaps(texture: Texture): boolean;
+    /**
+     * Frees internal resources when the given render target isn't
+     * required anymore.
+     *
+     * @param {RenderTarget} renderTarget - The render target to destroy.
+     */
+    _destroyRenderTarget(renderTarget: RenderTarget): void;
     /**
      * Frees internal resource when the given texture isn't
      * required anymore.
@@ -124,4 +121,5 @@ declare class Textures extends DataMap<{
      */
     _destroyTexture(texture: Texture): void;
 }
+
 export default Textures;

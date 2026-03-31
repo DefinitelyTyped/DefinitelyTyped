@@ -1,10 +1,14 @@
-import { ShaderMaterial } from "three";
+import { IUniform, RawShaderMaterial } from "three";
 
-import { FullScreenQuad, Pass } from "./Pass.js";
+import { Pass } from "./Pass.js";
 
-export class OutputPass extends Pass {
+declare class OutputPass extends Pass {
+    readonly isOutputPass: true;
+
+    uniforms: Record<string, IUniform>;
+    material: RawShaderMaterial;
+
     constructor();
-    uniforms: object;
-    material: ShaderMaterial;
-    fsQuad: FullScreenQuad;
 }
+
+export { OutputPass };

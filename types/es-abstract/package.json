@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/es-abstract",
-    "version": "1.17.9999",
+    "version": "1.24.9999",
     "projects": [
         "https://github.com/ljharb/es-abstract"
     ],

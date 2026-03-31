@@ -7,7 +7,9 @@
         "https://github.com/brentvatne/react-native-video"
     ],
     "dependencies": {
-        "@types/react": "*",
+        "@types/react": "*"
+    },
+    "peerDependencies": {
         "react-native": "*"
     },
     "devDependencies": {

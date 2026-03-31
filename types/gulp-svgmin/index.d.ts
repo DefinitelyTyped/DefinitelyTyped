@@ -2,7 +2,7 @@
 
 import SVGO = require("svgo");
 import { Transform } from "stream";
-import * as File from "vinyl";
+import File = require("vinyl");
 
 export = GulpSvgmin;
 

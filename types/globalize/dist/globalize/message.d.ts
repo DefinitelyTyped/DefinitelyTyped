@@ -1,4 +1,4 @@
-import * as Globalize from "../globalize";
+import Globalize = require("../globalize");
 
 declare module "../globalize" {
     interface Static {

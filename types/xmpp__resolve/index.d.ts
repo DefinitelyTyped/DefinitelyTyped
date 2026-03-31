@@ -1,5 +1,5 @@
-import Connection = require("@xmpp/connection");
+import Connection from "@xmpp/connection";
 
-export = resolve;
+export default resolve;
 
 declare function resolve(params: { entity: Connection }): void;

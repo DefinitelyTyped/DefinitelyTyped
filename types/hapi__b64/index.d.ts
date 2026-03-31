@@ -1,6 +1,6 @@
 /// <reference types='node' />
 
-import * as stream from "stream";
+import stream = require("stream");
 
 export class Decoder extends stream.Transform {}
 export class Encoder extends stream.Transform {}

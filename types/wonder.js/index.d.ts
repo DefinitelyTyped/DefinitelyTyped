@@ -553,7 +553,6 @@ declare module "wonder.js/dist/es2015/core/Component" {
 declare module "wonder.js/dist/es2015/core/Director" {
     import "wonder-frp/dist/es2015/stream/ConcatStream";
     import "wonder-frp/dist/es2015/stream/IgnoreElementsStream";
-    import "wonder-frp/dist/es2015/extend/root";
     import { SceneDispatcher } from "wonder.js/dist/es2015/core/entityObject/scene/SceneDispatcher";
     import { Renderer } from "wonder.js/dist/es2015/renderer/renderer/Renderer";
     export class Director {

@@ -3,7 +3,7 @@
 import conventionalChangelogCore from "conventional-changelog-core";
 import { Context as WriterContext } from "conventional-changelog-writer";
 import { Commit } from "conventional-commits-parser";
-import * as Stream from "stream";
+import Stream = require("stream");
 
 /**
  * Returns a readable stream.

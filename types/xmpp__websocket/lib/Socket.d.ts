@@ -1,13 +1,13 @@
 import { SocketBase } from "@xmpp/connection";
 import { EventEmitter } from "events";
 import { URL } from "url";
-import WebSocket = require("ws");
 
-export = Socket;
+export default Socket;
 
 declare class Socket extends EventEmitter implements SocketBase {
-    url?: string | URL;
-    socket?: WebSocket;
+    url: string | URL | null;
+    socket: WebSocket | null;
+    secure: boolean;
 
     constructor();
 
@@ -36,16 +36,18 @@ declare class Socket extends EventEmitter implements SocketBase {
 
 declare namespace Socket {
     interface Events {
-        close: (hadError: boolean, event: WebSocket.CloseEvent) => void;
+        close: (hadError: boolean, event: CloseEvent) => void;
         connect: () => void;
-        data: (data: WebSocket.Data) => void;
+        data: (data: unknown) => void;
         error: (err: WebSocketError) => void;
     }
 
     interface WebSocketError extends Error {
         readonly errno?: "ECONNERROR";
         readonly code?: "ECONNERROR";
-        readonly event: WebSocket.ErrorEvent;
+        readonly event: Event;
         readonly url: string | URL;
     }
 }
+
+export function isSecure(url: string): boolean;

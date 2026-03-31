@@ -14,7 +14,8 @@ declare class Pop3 {
     private sendCommand_;
     private authLogin_;
     private authApop_;
-    login(username: string, password: string): void;
+    private authXoauth2_;
+    login(username: string, credential: string): void;
     logout(): void;
     noop(): void;
     reset(): void;

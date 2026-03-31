@@ -1,4 +1,4 @@
-// For Library Version: 1.138.0
+// For Library Version: 1.145.0
 
 declare module "sap/ui/fl/library" {}
 
@@ -12,10 +12,11 @@ declare module "sap/ui/fl/apply/api/ControlVariantApplyAPI" {
    */
   interface ControlVariantApplyAPI {
     /**
-     * Activates the passed variant applicable to the passed control/component. If the Variant is not available
-     * and the backend supports lazy loading, a backend request is made to fetch the variant. If the flag standardVariant
-     * is set to true, the standard variant is activated and the variantReference is ignored. In this scenario
-     * the passed element must be the variant management control.
+     * Activates the passed variant applicable to the passed control/component. The corresponding variant management
+     * control must be available when this function is called. If the variant is not found and the backend supports
+     * lazy loading, a backend request is made to fetch the variant. If the flag standardVariant is set to true,
+     * the standard variant is activated and the variantReference is ignored: in this scenario, the passed element
+     * must be the variant management control.
      *
      *
      * @returns Resolves after the variant is activated or rejects if an error occurs
@@ -711,7 +712,8 @@ declare module "sap/ui/fl/variants/VariantManagement" {
       mParameters?: VariantManagement$SelectEventParameters
     ): this;
     /**
-     * Gets the currently selected variant key.
+     * Gets the variant key that is currently selected in the VM control. Can be different to the actually selected
+     * variant in the state during a variant switch.
      *
      *
      * @returns Key of the currently selected variant. In case the model is not yet set `null` will be returned
@@ -1513,8 +1515,6 @@ declare namespace sap {
 
     "sap/ui/fl/apply/_internal/changes/descriptor/app/AddNewDataSource": undefined;
 
-    "sap/ui/fl/apply/_internal/changes/descriptor/app/AddNewInbound": undefined;
-
     "sap/ui/fl/apply/_internal/changes/descriptor/app/AddNewOutbound": undefined;
 
     "sap/ui/fl/apply/_internal/changes/descriptor/app/AddTechnicalAttributes": undefined;
@@ -1544,8 +1544,6 @@ declare namespace sap {
     "sap/ui/fl/apply/_internal/changes/descriptor/ovp/ChangeCard": undefined;
 
     "sap/ui/fl/apply/_internal/changes/descriptor/ovp/DeleteCard": undefined;
-
-    "sap/ui/fl/apply/_internal/changes/descriptor/Preprocessor": undefined;
 
     "sap/ui/fl/apply/_internal/changes/descriptor/Registration": undefined;
 
@@ -1605,11 +1603,9 @@ declare namespace sap {
 
     "sap/ui/fl/apply/_internal/flexState/compVariants/CompVariantManagementState": undefined;
 
-    "sap/ui/fl/apply/_internal/flexState/compVariants/CompVariantMerger": undefined;
-
-    "sap/ui/fl/apply/_internal/flexState/controlVariants/Switcher": undefined;
-
     "sap/ui/fl/apply/_internal/flexState/controlVariants/VariantManagementState": undefined;
+
+    "sap/ui/fl/apply/_internal/flexState/controlVariants/VariantManagerApply": undefined;
 
     "sap/ui/fl/apply/_internal/flexState/DataSelector": undefined;
 
@@ -1619,13 +1615,7 @@ declare namespace sap {
 
     "sap/ui/fl/apply/_internal/flexState/InitialPrepareFunctions": undefined;
 
-    "sap/ui/fl/apply/_internal/flexState/Loader": undefined;
-
     "sap/ui/fl/apply/_internal/flexState/UI2Personalization/UI2PersonalizationState": undefined;
-
-    "sap/ui/fl/apply/_internal/preprocessors/ComponentLifecycleHooks": undefined;
-
-    "sap/ui/fl/apply/_internal/preprocessors/ControllerExtension": undefined;
 
     "sap/ui/fl/apply/api/AnnotationChangeHandlerAPI": undefined;
 
@@ -1671,9 +1661,15 @@ declare namespace sap {
 
     "sap/ui/fl/initial/_internal/connectors/Utils": undefined;
 
+    "sap/ui/fl/initial/_internal/preprocessors/ComponentLifecycleHooks": undefined;
+
+    "sap/ui/fl/initial/_internal/preprocessors/ControllerExtension": undefined;
+
     "sap/ui/fl/initial/_internal/Settings": undefined;
 
     "sap/ui/fl/initial/_internal/Storage": undefined;
+
+    "sap/ui/fl/initial/_internal/StorageFeaturesMerger": undefined;
 
     "sap/ui/fl/initial/_internal/StorageUtils": undefined;
 
@@ -1696,6 +1692,8 @@ declare namespace sap {
     "sap/ui/fl/support/api/SupportAPI": undefined;
 
     "sap/ui/fl/transport/TransportDialog": undefined;
+
+    "sap/ui/fl/util/CancelError": undefined;
 
     "sap/ui/fl/Utils": undefined;
 
@@ -1746,8 +1744,6 @@ declare namespace sap {
     "sap/ui/fl/write/_internal/fieldExtensibility/SingleTenantABAPExtensibilityVariant": undefined;
 
     "sap/ui/fl/write/_internal/flexState/changes/UIChangeManager": undefined;
-
-    "sap/ui/fl/write/_internal/flexState/compVariants/CompVariantState": undefined;
 
     "sap/ui/fl/write/_internal/flexState/FlexObjectManager": undefined;
 

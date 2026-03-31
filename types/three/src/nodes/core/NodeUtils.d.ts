@@ -6,19 +6,9 @@ import { Vector3 } from "../../math/Vector3.js";
 import { Vector4 } from "../../math/Vector4.js";
 import Node from "./Node.js";
 
-export interface NodeChild {
-    property: string;
-    index?: number | string;
-    childNode: Node;
-}
-
 export const hashString: (str: string) => number;
 export const hashArray: (array: number[]) => number;
 export const hash: (...params: number[]) => number;
-
-export function getCacheKey(object: Node, force?: boolean): number;
-
-export function getNodeChildren(object: Node): Generator<NodeChild, void>;
 
 export function getTypeFromLength(length: number): string | undefined;
 
@@ -26,7 +16,7 @@ export function getLengthFromType(type: string): number | undefined;
 
 export function getMemoryLengthFromType(type: string): number | undefined;
 
-export function getByteBoundaryFromType(type: string): number | undefined;
+export function getAlignmentFromType(type: string): number | undefined;
 
 export function getValueType(value: unknown): string | null;
 

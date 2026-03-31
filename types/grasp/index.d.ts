@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import * as cliColor from "cli-color";
+import cliColor = require("cli-color");
 import * as fs from "fs";
 // Though Grasp does not use esprima, the parser it uses (flow-parser) has a compatible Node type and existing typedefs
 import { Node } from "estree";

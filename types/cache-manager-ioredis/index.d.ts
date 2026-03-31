@@ -1,5 +1,5 @@
 import { Cache, CacheOptions, CachingConfig, Store } from "cache-manager";
-import * as IORedis from "ioredis";
+import IORedis = require("ioredis");
 
 declare const methods: CacheManagerIORedis.RedisStoreConstructor;
 export = methods;

@@ -1,7 +1,6 @@
 import Node from "../core/Node.js";
-import { ShaderNodeObject } from "../tsl/TSLCore.js";
 
-export const getDirection: (uv_immutable: Node, face: Node) => ShaderNodeObject<Node>;
+export const getDirection: (uv_immutable: Node, face: Node) => Node;
 
 export const textureCubeUV: (
     envMap: Node,
@@ -10,7 +9,7 @@ export const textureCubeUV: (
     CUBEUV_TEXEL_WIDTH: Node,
     CUBEUV_TEXEL_HEIGHT: Node,
     CUBEUV_MAX_MIP: Node,
-) => ShaderNodeObject<Node>;
+) => Node;
 
 export const blur: (
     n: Node,
@@ -25,4 +24,4 @@ export const blur: (
     CUBEUV_TEXEL_WIDTH: Node,
     CUBEUV_TEXEL_HEIGHT: Node,
     CUBEUV_MAX_MIP: Node,
-) => ShaderNodeObject<Node>;
+) => Node;

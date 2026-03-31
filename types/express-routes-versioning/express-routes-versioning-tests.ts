@@ -1,5 +1,5 @@
-import * as express from "express";
-import * as routesVersioning from "express-routes-versioning";
+import express from "express";
+import routesVersioning from "express-routes-versioning";
 
 const app = express();
 

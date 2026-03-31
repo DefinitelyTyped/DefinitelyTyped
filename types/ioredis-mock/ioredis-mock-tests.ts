@@ -1,4 +1,4 @@
-import IORedis, { RedisOptions } from "ioredis-mock";
+import IORedis = require("ioredis-mock");
 
 // see https://www.npmjs.com/package/ioredis-mock for MockRedisInput input
 // see https://github.com/luin/ioredis/tree/master/examples
@@ -61,7 +61,7 @@ redis.hgetall("myhash").then(res => console.log(res));
 // All arguments are passed directly to the redis server:
 redis.set("key", 100, "EX", 10); // set's key to value 100 and expires it after 10 seconds
 
-const options: RedisOptions = {};
+const options: IORedis.RedisOptions = {};
 console.log(options.port);
 
 const f = async () => {

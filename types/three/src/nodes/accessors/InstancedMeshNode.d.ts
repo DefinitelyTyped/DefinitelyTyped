@@ -1,5 +1,4 @@
 import { InstancedMesh } from "../../objects/InstancedMesh.js";
-import { ShaderNodeObject } from "../tsl/TSLCore.js";
 import InstanceNode from "./InstanceNode.js";
 
 declare class InstancedMeshNode extends InstanceNode {
@@ -8,4 +7,4 @@ declare class InstancedMeshNode extends InstanceNode {
 
 export default InstancedMeshNode;
 
-export const instancedMesh: (instancedMesh: InstancedMesh) => ShaderNodeObject<InstancedMeshNode>;
+export const instancedMesh: (instancedMesh: InstancedMesh) => InstancedMeshNode;

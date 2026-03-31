@@ -1,4 +1,4 @@
-import * as backoff from "backoff";
+import backoff from "backoff";
 
 const fibonacciBackoff = backoff.fibonacci();
 fibonacciBackoff; // $ExpectType Backoff

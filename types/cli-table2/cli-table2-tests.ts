@@ -1,4 +1,4 @@
-import * as Table from "cli-table2";
+import Table from "cli-table2";
 
 // Code snippets from README.md
 

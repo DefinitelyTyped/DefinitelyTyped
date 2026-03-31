@@ -160,9 +160,9 @@ declare namespace GoogleAppsScript {
         }
     }
     interface AdminReseller {
-        Customers?: AdminReseller.Collection.CustomersCollection | undefined;
-        Resellernotify?: AdminReseller.Collection.ResellernotifyCollection | undefined;
-        Subscriptions?: AdminReseller.Collection.SubscriptionsCollection | undefined;
+        Customers: AdminReseller.Collection.CustomersCollection;
+        Resellernotify: AdminReseller.Collection.ResellernotifyCollection;
+        Subscriptions: AdminReseller.Collection.SubscriptionsCollection;
         // Create a new instance of Address
         newAddress(): AdminReseller.Schema.Address;
         // Create a new instance of ChangePlanRequest
@@ -186,4 +186,7 @@ declare namespace GoogleAppsScript {
     }
 }
 
-declare var AdminReseller: GoogleAppsScript.AdminReseller;
+/**
+ * The `AdminReseller` advanced service must be enabled.
+ */
+declare var AdminReseller: GoogleAppsScript.AdminReseller | undefined;

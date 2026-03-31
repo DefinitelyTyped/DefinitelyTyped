@@ -1,0 +1,104 @@
+{
+    "private": true,
+    "name": "@types/jquery",
+    "version": "3.5.9999",
+    "projects": [
+        "https://jquery.com"
+    ],
+    "dependencies": {
+        "@types/sizzle": "*"
+    },
+    "devDependencies": {
+        "@types/jquery": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Leonard Thieu",
+            "githubUsername": "leonard-thieu"
+        },
+        {
+            "name": "Boris Yankov",
+            "githubUsername": "borisyankov"
+        },
+        {
+            "name": "Christian Hoffmeister",
+            "githubUsername": "choffmeister"
+        },
+        {
+            "name": "Steve Fenton",
+            "githubUsername": "Steve-Fenton"
+        },
+        {
+            "name": "Diullei Gomes",
+            "githubUsername": "Diullei"
+        },
+        {
+            "name": "Tass Iliopoulos",
+            "githubUsername": "tasoili"
+        },
+        {
+            "name": "Sean Hill",
+            "githubUsername": "seanski"
+        },
+        {
+            "name": "Guus Goossens",
+            "githubUsername": "Guuz"
+        },
+        {
+            "name": "Kelly Summerlin",
+            "githubUsername": "ksummerlin"
+        },
+        {
+            "name": "Basarat Ali Syed",
+            "githubUsername": "basarat"
+        },
+        {
+            "name": "Nicholas Wolverson",
+            "githubUsername": "nwolverson"
+        },
+        {
+            "name": "Derek Cicerone",
+            "githubUsername": "derekcicerone"
+        },
+        {
+            "name": "Andrew Gaspar",
+            "githubUsername": "AndrewGaspar"
+        },
+        {
+            "name": "Seikichi Kondo",
+            "githubUsername": "seikichi"
+        },
+        {
+            "name": "Benjamin Jackman",
+            "githubUsername": "benjaminjackman"
+        },
+        {
+            "name": "Josh Strobl",
+            "githubUsername": "JoshStrobl"
+        },
+        {
+            "name": "John Reilly",
+            "githubUsername": "johnnyreilly"
+        },
+        {
+            "name": "Dick van den Brink",
+            "githubUsername": "DickvdBrink"
+        },
+        {
+            "name": "Thomas Schulz",
+            "githubUsername": "King2500"
+        },
+        {
+            "name": "Terry Mun",
+            "githubUsername": "terrymun"
+        },
+        {
+            "name": "Martin Badin",
+            "githubUsername": "martin-badin"
+        },
+        {
+            "name": "Chris Frewin",
+            "githubUsername": "princefishthrower"
+        }
+    ]
+}

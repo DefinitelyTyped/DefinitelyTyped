@@ -1,4 +1,4 @@
-import * as moment from "moment";
+import moment = require("moment");
 
 export = moment;
 

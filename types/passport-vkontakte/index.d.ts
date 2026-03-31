@@ -1,4 +1,4 @@
-import * as express from "express";
+import express = require("express");
 import * as passport from "passport";
 
 export interface Profile extends passport.Profile {

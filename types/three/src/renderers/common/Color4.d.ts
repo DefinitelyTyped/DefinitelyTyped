@@ -1,4 +1,5 @@
 import { Color, ColorRepresentation } from "../../math/Color.js";
+
 /**
  * A four-component version of {@link Color} which is internally
  * used by the renderer to represents clear color with alpha as
@@ -8,19 +9,22 @@ import { Color, ColorRepresentation } from "../../math/Color.js";
  * @augments Color
  */
 declare class Color4 extends Color {
-    a: number;
     /**
      * Constructs a new four-component color.
-     * You can also pass a single THREE.Color, hex or
+     * You can pass a single THREE.Color, hex or
      * string argument to this constructor.
+     */
+    constructor(color?: ColorRepresentation);
+    /**
+     * Constructs a new four-component color.
      *
-     * @param {number|string} [r=1] - The red value.
+     * @param {number} [r=1] - The red value.
      * @param {number} [g=1] - The green value.
      * @param {number} [b=1] - The blue value.
      * @param {number} [a=1] - The alpha value.
      */
-    constructor(color?: ColorRepresentation);
     constructor(r: number, g: number, b: number, a?: number);
+    a: number;
     /**
      * Overwrites the default to honor alpha.
      * You can also pass a single THREE.Color, hex or
@@ -39,7 +43,7 @@ declare class Color4 extends Color {
      * @param {Color4} color - The color to copy.
      * @return {Color4} A reference to this object.
      */
-    copy(color: Color): this;
+    copy(color: Color4): this;
     /**
      * Overwrites the default to honor alpha.
      *
@@ -47,4 +51,5 @@ declare class Color4 extends Color {
      */
     clone(): this;
 }
+
 export default Color4;

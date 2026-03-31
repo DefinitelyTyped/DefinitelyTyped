@@ -1,7 +1,7 @@
 import * as webdriver from "selenium-webdriver";
-import * as chrome from "selenium-webdriver/chrome";
+import chrome from "selenium-webdriver/chrome";
 import * as executors from "selenium-webdriver/executors";
-import * as firefox from "selenium-webdriver/firefox";
+import firefox from "selenium-webdriver/firefox";
 import * as remote from "selenium-webdriver/remote";
 import * as testing from "selenium-webdriver/testing";
 

@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as CountTo from "react-count-to";
+import CountTo from "react-count-to";
 
 export class Test extends React.Component<any> {
     render() {

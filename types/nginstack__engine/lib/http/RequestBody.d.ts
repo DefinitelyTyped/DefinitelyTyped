@@ -5,8 +5,10 @@ declare class RequestBody {
     private request_;
     asJson(): any;
     asText(): string;
+    asFile(): File;
 }
 declare namespace RequestBody {
     export { Request };
 }
+import File = require('../io/File.js');
 type Request = import('./Request');

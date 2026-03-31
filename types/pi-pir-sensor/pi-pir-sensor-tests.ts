@@ -1,4 +1,4 @@
-import * as Sensor from "pi-pir-sensor";
+import Sensor from "pi-pir-sensor";
 
 // With default loop of 1500
 const sensor: Sensor = new Sensor({ pin: 12 });

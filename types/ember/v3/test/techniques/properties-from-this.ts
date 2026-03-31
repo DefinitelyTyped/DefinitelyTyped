@@ -5,8 +5,8 @@
  */
 
 class BoxedProperty<Get, Set = Get> {
-    __getType: Get;
-    __setType: Set;
+    __getType!: Get;
+    __setType!: Set;
 }
 
 type UnboxGetProperty<T> = T extends BoxedProperty<infer V, any> ? V : T;

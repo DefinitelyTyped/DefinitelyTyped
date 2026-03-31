@@ -9,6 +9,7 @@ var PDFTilingPattern = PDFPattern.PDFTilingPattern;
 import mtext = require("pdfkit/js/mixins/text");
 
 import PDFDocument = require("pdfkit");
+import PDFDocumentStandalone = require("pdfkit/js/pdfkit.standalone");
 
 import font = require("pdfkit/js/mixins/fonts");
 import pdfData = require("pdfkit/js/data");
@@ -465,6 +466,28 @@ doc.table({
     ],
 });
 
+// Alternative way to define the same styles as above using arrays
+doc.table({
+    // Set the style for all cells
+    defaultStyle: { border: 1, borderColor: "gray" },
+    // Set the style for cells based on their column
+    columnStyles: [{ border: { left: 2 }, borderColor: { left: "black" } }, {
+        border: { right: 2 },
+        borderColor: { right: "black" },
+    }],
+    // Set the style for cells based on their row
+    rowStyles: [{ border: { top: 2 }, borderColor: { top: "black" } }, {
+        border: { bottom: 2 },
+        borderColor: { bottom: "black" },
+    }],
+    data: [
+        ["Header 1", "Header 2", "Header 3"],
+        ["Sample value 1", "Sample value 2", "Sample value 3"],
+        ["Sample value 1", "Sample value 2", "Sample value 3"],
+        ["Sample value 1", "Sample value 2", "Sample value 3"],
+    ],
+});
+
 doc.table({
     rowStyles: (i) => {
         if (i % 2 === 0) return { backgroundColor: "#ccc" };
@@ -558,6 +581,12 @@ doc.table({
             },
         ],
     ],
+});
+
+doc.table({
+    data: [["col 1", "col 2", "col 3"]],
+    rowStyles: { minHeight: 20 },
+    columnStyles: { maxWidth: 50 },
 });
 
 doc.text("Scale", { align: "justify" });
@@ -722,3 +751,5 @@ doc.boundsOfString("Bounds of string", 50, 100, {
 doc.boundsOfString("Bounds of string", {
     align: "left",
 });
+
+var docStandalone: PDFKit.PDFDocument = new PDFDocumentStandalone();

@@ -1,4 +1,4 @@
-declare module "buffer" {
+declare module "node:buffer" {
     type ImplicitArrayBuffer<T extends WithImplicitCoercion<ArrayBufferLike>> = T extends
         { valueOf(): infer V extends ArrayBufferLike } ? V : T;
     global {
@@ -451,13 +451,16 @@ declare module "buffer" {
              */
             subarray(start?: number, end?: number): Buffer<TArrayBuffer>;
         }
+        // TODO: remove globals in future version
+        /**
+         * @deprecated This is intended for internal use, and will be removed once `@types/node` no longer supports
+         * TypeScript versions earlier than 5.7.
+         */
         type NonSharedBuffer = Buffer<ArrayBuffer>;
+        /**
+         * @deprecated This is intended for internal use, and will be removed once `@types/node` no longer supports
+         * TypeScript versions earlier than 5.7.
+         */
         type AllowSharedBuffer = Buffer<ArrayBufferLike>;
     }
-    /** @deprecated Use `Buffer.allocUnsafeSlow()` instead. */
-    var SlowBuffer: {
-        /** @deprecated Use `Buffer.allocUnsafeSlow()` instead. */
-        new(size: number): Buffer<ArrayBuffer>;
-        prototype: Buffer;
-    };
 }

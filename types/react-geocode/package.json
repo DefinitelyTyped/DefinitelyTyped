@@ -8,10 +8,5 @@
     "devDependencies": {
         "@types/react-geocode": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Steve Mu",
-            "githubUsername": "stevemu"
-        }
-    ]
+    "owners": []
 }

@@ -8,7 +8,6 @@ import { Group } from "../../objects/Group.js";
 import ClippingContext from "../../renderers/common/ClippingContext.js";
 import Renderer from "../../renderers/common/Renderer.js";
 import { Scene } from "../../scenes/Scene.js";
-import { ShaderNodeObject } from "../tsl/TSLCore.js";
 import LightsNode from "./LightsNode.js";
 import ShadowBaseNode from "./ShadowBaseNode.js";
 
@@ -35,4 +34,4 @@ declare class ShadowNode extends ShadowBaseNode {
 
 export default ShadowNode;
 
-export const shadow: (light: Light, shadow?: LightShadow) => ShaderNodeObject<ShadowNode>;
+export const shadow: (light: Light, shadow?: LightShadow) => ShadowNode;

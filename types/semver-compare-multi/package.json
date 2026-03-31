@@ -8,10 +8,5 @@
     "devDependencies": {
         "@types/semver-compare-multi": "workspace:."
     },
-    "owners": [
-        {
-            "name": "ravenclaw900",
-            "githubUsername": "ravenclaw900"
-        }
-    ]
+    "owners": []
 }

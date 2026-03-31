@@ -1082,33 +1082,33 @@ declare namespace GoogleAppsScript {
         }
     }
     interface YoutubePartner {
-        AssetLabels?: YoutubePartner.Collection.AssetLabelsCollection | undefined;
-        AssetMatchPolicy?: YoutubePartner.Collection.AssetMatchPolicyCollection | undefined;
-        AssetRelationships?: YoutubePartner.Collection.AssetRelationshipsCollection | undefined;
-        AssetSearch?: YoutubePartner.Collection.AssetSearchCollection | undefined;
-        AssetShares?: YoutubePartner.Collection.AssetSharesCollection | undefined;
-        Assets?: YoutubePartner.Collection.AssetsCollection | undefined;
-        Campaigns?: YoutubePartner.Collection.CampaignsCollection | undefined;
-        ClaimHistory?: YoutubePartner.Collection.ClaimHistoryCollection | undefined;
-        ClaimSearch?: YoutubePartner.Collection.ClaimSearchCollection | undefined;
-        Claims?: YoutubePartner.Collection.ClaimsCollection | undefined;
-        ContentOwnerAdvertisingOptions?: YoutubePartner.Collection.ContentOwnerAdvertisingOptionsCollection | undefined;
-        ContentOwners?: YoutubePartner.Collection.ContentOwnersCollection | undefined;
-        LiveCuepoints?: YoutubePartner.Collection.LiveCuepointsCollection | undefined;
-        MetadataHistory?: YoutubePartner.Collection.MetadataHistoryCollection | undefined;
-        Orders?: YoutubePartner.Collection.OrdersCollection | undefined;
-        Ownership?: YoutubePartner.Collection.OwnershipCollection | undefined;
-        OwnershipHistory?: YoutubePartner.Collection.OwnershipHistoryCollection | undefined;
-        Package?: YoutubePartner.Collection.PackageCollection | undefined;
-        Policies?: YoutubePartner.Collection.PoliciesCollection | undefined;
-        Publishers?: YoutubePartner.Collection.PublishersCollection | undefined;
-        ReferenceConflicts?: YoutubePartner.Collection.ReferenceConflictsCollection | undefined;
-        References?: YoutubePartner.Collection.ReferencesCollection | undefined;
-        SpreadsheetTemplate?: YoutubePartner.Collection.SpreadsheetTemplateCollection | undefined;
-        Uploader?: YoutubePartner.Collection.UploaderCollection | undefined;
-        Validator?: YoutubePartner.Collection.ValidatorCollection | undefined;
-        VideoAdvertisingOptions?: YoutubePartner.Collection.VideoAdvertisingOptionsCollection | undefined;
-        Whitelists?: YoutubePartner.Collection.WhitelistsCollection | undefined;
+        AssetLabels: YoutubePartner.Collection.AssetLabelsCollection;
+        AssetMatchPolicy: YoutubePartner.Collection.AssetMatchPolicyCollection;
+        AssetRelationships: YoutubePartner.Collection.AssetRelationshipsCollection;
+        AssetSearch: YoutubePartner.Collection.AssetSearchCollection;
+        AssetShares: YoutubePartner.Collection.AssetSharesCollection;
+        Assets: YoutubePartner.Collection.AssetsCollection;
+        Campaigns: YoutubePartner.Collection.CampaignsCollection;
+        ClaimHistory: YoutubePartner.Collection.ClaimHistoryCollection;
+        ClaimSearch: YoutubePartner.Collection.ClaimSearchCollection;
+        Claims: YoutubePartner.Collection.ClaimsCollection;
+        ContentOwnerAdvertisingOptions: YoutubePartner.Collection.ContentOwnerAdvertisingOptionsCollection;
+        ContentOwners: YoutubePartner.Collection.ContentOwnersCollection;
+        LiveCuepoints: YoutubePartner.Collection.LiveCuepointsCollection;
+        MetadataHistory: YoutubePartner.Collection.MetadataHistoryCollection;
+        Orders: YoutubePartner.Collection.OrdersCollection;
+        Ownership: YoutubePartner.Collection.OwnershipCollection;
+        OwnershipHistory: YoutubePartner.Collection.OwnershipHistoryCollection;
+        Package: YoutubePartner.Collection.PackageCollection;
+        Policies: YoutubePartner.Collection.PoliciesCollection;
+        Publishers: YoutubePartner.Collection.PublishersCollection;
+        ReferenceConflicts: YoutubePartner.Collection.ReferenceConflictsCollection;
+        References: YoutubePartner.Collection.ReferencesCollection;
+        SpreadsheetTemplate: YoutubePartner.Collection.SpreadsheetTemplateCollection;
+        Uploader: YoutubePartner.Collection.UploaderCollection;
+        Validator: YoutubePartner.Collection.ValidatorCollection;
+        VideoAdvertisingOptions: YoutubePartner.Collection.VideoAdvertisingOptionsCollection;
+        Whitelists: YoutubePartner.Collection.WhitelistsCollection;
         // Create a new instance of AdBreak
         newAdBreak(): YoutubePartner.Schema.AdBreak;
         // Create a new instance of AdSlot
@@ -1214,4 +1214,7 @@ declare namespace GoogleAppsScript {
     }
 }
 
-declare var YoutubePartner: GoogleAppsScript.YoutubePartner;
+/**
+ * The `YoutubePartner` advanced service must be enabled.
+ */
+declare var YoutubePartner: GoogleAppsScript.YoutubePartner | undefined;

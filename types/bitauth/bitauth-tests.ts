@@ -1,5 +1,5 @@
 import * as bitauth from "bitauth";
-import * as express from "express";
+import express from "express";
 
 const keys = bitauth.generateSin();
 

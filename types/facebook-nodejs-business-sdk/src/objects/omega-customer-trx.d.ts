@@ -26,6 +26,10 @@ export default class OmegaCustomerTrx extends AbstractCrudObject {
         payment_term: "payment_term";
         type: "type";
     }>;
+    static get ProductTypes(): Readonly<{
+        facebook: "FACEBOOK";
+        whatsapp: "WHATSAPP";
+    }>;
     static get Type(): Readonly<{
         cm: "CM";
         dm: "DM";

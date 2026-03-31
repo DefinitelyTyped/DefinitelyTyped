@@ -2,15 +2,20 @@ async function topLevel() {
     // Language Model
 
     await LanguageModel.create({
-        // @ts-expect-error - System prompt must be first element of the initialPrompt array.
+        // @ts-expect-error - System prompt must be first element of the initialPrompts array.
         initialPrompts: [{ role: "user", content: "foo" }, { role: "system", content: "foo" }],
+    });
+
+    await LanguageModel.create({
+        // @ts-expect-error - Prefixes are not allowed in initialPrompts.
+        initialPrompts: [{ role: "assistant", content: "foo", prefix: true }],
     });
 
     const languageModel = await LanguageModel.create({
         topK: 1,
         temperature: 0,
-        expectedInputs: [{ type: "text", languages: ["de"] }],
-        expectedOutputs: [{ type: "text", languages: ["de"] }],
+        expectedInputs: [{ type: "text", languages: ["en"] }],
+        expectedOutputs: [{ type: "text", languages: ["en"] }],
         tools: [
             {
                 name: "getWeather",
@@ -31,7 +36,7 @@ async function topLevel() {
             },
         ],
         signal: (new AbortController()).signal,
-        initialPrompts: [{ role: "system", content: "foo" }, { role: "assistant", content: "foo", prefix: true }],
+        initialPrompts: [{ role: "system", content: "foo" }, { role: "assistant", content: "foo" }],
         monitor(m: CreateMonitor) {
             m.addEventListener("downloadprogress", (e) => {
                 console.log(e.loaded, e.total);
@@ -46,7 +51,7 @@ async function topLevel() {
         topK: 1,
         temperature: 0,
         expectedInputs: [{ type: "image" }],
-        expectedOutputs: [{ type: "text", languages: ["de"] }],
+        expectedOutputs: [{ type: "text", languages: ["en"] }],
     });
     console.log(languageModelAvailability2);
 
@@ -117,36 +122,47 @@ async function topLevel() {
     await languageModel.append("foo", { signal: (new AbortController()).signal });
     await languageModel.append([{ role: "assistant", content: "foo" }], { signal: (new AbortController()).signal });
 
-    const languageModelInputUsage1: number = await languageModel.measureInputUsage("foo", {
+    const languageModelContextUsage1: number = await languageModel.measureContextUsage("foo", {
         signal: (new AbortController()).signal,
     });
-    console.log(languageModelInputUsage1);
+    console.log(languageModelContextUsage1);
 
-    const languageModelInputUsage2: number = await languageModel.measureInputUsage([{
+    const languageModelContextUsage2: number = await languageModel.measureContextUsage([{
         role: "assistant",
         content: "foo",
     }], {
         signal: (new AbortController()).signal,
     });
-    console.log(languageModelInputUsage2);
+    console.log(languageModelContextUsage2);
 
-    const languageModelInputUsage3: number = await languageModel.measureInputUsage([
+    const languageModelContextUsage3: number = await languageModel.measureContextUsage([
         { role: "assistant", content: "foo" },
         { role: "user", content: "bar" },
     ], { signal: (new AbortController()).signal });
-    console.log(languageModelInputUsage3);
+    console.log(languageModelContextUsage3);
 
+    console.log(
+        languageModel.contextUsage,
+        languageModel.contextWindow,
+    );
+
+    // Legacy names (Deprecated in extensions, removed in web)
     console.log(
         languageModel.inputUsage,
         languageModel.inputQuota,
     );
 
-    const quotaOverflowListener = (e: Event) => {
+    const contextOverflowListener = (e: Event) => {
         console.log(e);
     };
-    languageModel.onquotaoverflow = quotaOverflowListener;
-    languageModel.addEventListener("quotaoverflow", quotaOverflowListener);
-    languageModel.removeEventListener("quotaoverflow", quotaOverflowListener);
+    languageModel.oncontextoverflow = contextOverflowListener;
+    languageModel.addEventListener("contextoverflow", contextOverflowListener);
+    languageModel.removeEventListener("contextoverflow", contextOverflowListener);
+
+    // Legacy (Deprecated in extensions, removed in web)
+    languageModel.onquotaoverflow = contextOverflowListener;
+    languageModel.addEventListener("quotaoverflow", contextOverflowListener);
+    languageModel.removeEventListener("quotaoverflow", contextOverflowListener);
 
     console.log(
         languageModel.topK,
@@ -167,9 +183,10 @@ async function topLevel() {
         type: "tldr",
         format: "plain-text",
         length: "short",
-        expectedInputLanguages: ["de"],
-        expectedContextLanguages: ["de"],
+        expectedInputLanguages: ["en"],
+        expectedContextLanguages: ["en"],
         outputLanguage: "en",
+        preference: "auto",
         sharedContext: "foo",
         signal: (new AbortController()).signal,
         monitor(m: CreateMonitor) {
@@ -186,8 +203,8 @@ async function topLevel() {
         type: "teaser",
         format: "plain-text",
         length: "long",
-        expectedInputLanguages: ["de"],
-        expectedContextLanguages: ["de"],
+        expectedInputLanguages: ["en"],
+        expectedContextLanguages: ["en"],
         outputLanguage: "en",
     });
     console.log(summarizerAvailability2);
@@ -228,8 +245,8 @@ async function topLevel() {
         tone: "casual",
         format: "plain-text",
         length: "long",
-        expectedInputLanguages: ["de"],
-        expectedContextLanguages: ["de"],
+        expectedInputLanguages: ["en"],
+        expectedContextLanguages: ["en"],
         outputLanguage: "en",
         sharedContext: "foo",
         signal: (new AbortController()).signal,
@@ -247,8 +264,8 @@ async function topLevel() {
         tone: "casual",
         format: "plain-text",
         length: "long",
-        expectedInputLanguages: ["de"],
-        expectedContextLanguages: ["de"],
+        expectedInputLanguages: ["en"],
+        expectedContextLanguages: ["en"],
         outputLanguage: "en",
     });
 
@@ -285,8 +302,8 @@ async function topLevel() {
         tone: "as-is",
         format: "plain-text",
         length: "as-is",
-        expectedInputLanguages: ["de"],
-        expectedContextLanguages: ["de"],
+        expectedInputLanguages: ["en"],
+        expectedContextLanguages: ["en"],
         outputLanguage: "en",
         sharedContext: "foo",
         signal: (new AbortController()).signal,
@@ -304,8 +321,8 @@ async function topLevel() {
         tone: "more-casual",
         format: "plain-text",
         length: "as-is",
-        expectedInputLanguages: ["de"],
-        expectedContextLanguages: ["de"],
+        expectedInputLanguages: ["en"],
+        expectedContextLanguages: ["en"],
         outputLanguage: "en",
     });
     console.log(rewriterAvailability2);
@@ -343,8 +360,8 @@ async function topLevel() {
     // Translator
 
     const translator = await Translator.create({
-        sourceLanguage: "de",
-        targetLanguage: "en",
+        sourceLanguage: "en",
+        targetLanguage: "es",
         signal: (new AbortController()).signal,
         monitor(m: CreateMonitor) {
             m.addEventListener("downloadprogress", (e) => {
@@ -354,8 +371,8 @@ async function topLevel() {
     });
 
     const translatorAvailability: Availability = await Translator.availability({
-        sourceLanguage: "de",
-        targetLanguage: "en",
+        sourceLanguage: "en",
+        targetLanguage: "es",
     });
 
     const translatorResult: string = await translator.translate("foo", {
@@ -399,7 +416,7 @@ async function topLevel() {
     console.log(languageDetectorAvailability1);
 
     const languageDetectorAvailability2: Availability = await LanguageDetector.availability({
-        expectedInputLanguages: ["de"],
+        expectedInputLanguages: ["en"],
     });
     console.log(languageDetectorAvailability2);
 
@@ -410,4 +427,47 @@ async function topLevel() {
     console.log(languageDetectorResult.confidence);
 
     languageDetector.destroy();
+
+    // Proofreader
+
+    const proofreader = await Proofreader.create({
+        includeCorrectionTypes: true,
+        includeCorrectionExplanations: true,
+        correctionExplanationLanguage: "en",
+        expectedInputLanguages: ["en"],
+        signal: (new AbortController()).signal,
+        monitor(m: CreateMonitor) {
+            m.addEventListener("downloadprogress", (e) => {
+                console.log(e.loaded, e.total);
+            });
+        },
+    });
+
+    const proofreaderAvailability1: Availability = await Proofreader.availability();
+    console.log(proofreaderAvailability1);
+
+    const proofreaderAvailability2: Availability = await Proofreader.availability({
+        expectedInputLanguages: ["en"],
+    });
+    console.log(proofreaderAvailability2);
+
+    const proofreaderResult: ProofreadResult = await proofreader.proofread("foo", {
+        signal: (new AbortController()).signal,
+    });
+    console.log(proofreaderResult);
+
+    // for await (
+    //     const chunk of proofreader.proofreadStreaming("foo", { signal: (new AbortController()).signal })
+    // ) {
+    //     console.log(chunk);
+    // }
+
+    console.log(
+        proofreader.expectedInputLanguages,
+        proofreader.correctionExplanationLanguage,
+        proofreader.includeCorrectionExplanations,
+        proofreader.includeCorrectionTypes,
+    );
+
+    proofreader.destroy();
 }

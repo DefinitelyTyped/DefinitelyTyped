@@ -1,4 +1,4 @@
-import * as MarkdownNavbar from "markdown-navbar";
+import MarkdownNavbar from "markdown-navbar";
 
 const article = `# Hello World!`;
 

@@ -49,8 +49,8 @@ class MyMap extends React.Component<{}, State> {
             minPitch: 0,
         },
     };
-    private mapboxMap: MapboxGL.Map;
-    private map: InteractiveMap;
+    private mapboxMap!: MapboxGL.Map;
+    private map!: InteractiveMap;
 
     render() {
         return (

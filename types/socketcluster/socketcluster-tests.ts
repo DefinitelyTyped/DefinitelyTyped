@@ -3,7 +3,7 @@ import SocketCluster = require("socketcluster");
 import { ChildProcess } from "child_process";
 import { SCServer } from "socketcluster-server";
 import path = require("path");
-import * as minimist from "minimist";
+import minimist from "minimist";
 import * as scHotReboot from "sc-hot-reboot";
 
 ////////////////////////////////////////////////////

@@ -1,4 +1,4 @@
-import * as pbkdf2 from "pbkdf2";
+import pbkdf2 from "pbkdf2";
 
 const passwordString = "password";
 const saltString = "salt";

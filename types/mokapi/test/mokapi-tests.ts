@@ -14,6 +14,7 @@ import {
     LdapSearchResponse,
     on,
     patch,
+    shared,
     sleep,
     SmtpEventHandler,
     SmtpEventMessage,
@@ -44,7 +45,41 @@ on("ldap", (req: LdapSearchRequest, res: LdapSearchResponse) => {});
 on("http", handler, "");
 on("http", handler, {});
 on("http", handler, { tags: { foo: "bar" } });
+on("http", handler, { track: true });
+on("http", handler, { priority: 12 });
+// @ts-expect-error
+on("http", handler, { priority: true });
 on("http", async () => {});
+on("http", (request) => {
+    request.querystring;
+});
+on("http", (request, response) => {
+    const s = request.toString();
+    const url = request.url.toString();
+    const api: string = request.api;
+
+    response.headers = {
+        "Content-Type": "application/json",
+    };
+    response.headers["Access-Control-Allow-Origin"] = "*";
+    response.headers["foo"] = { bar: 123 };
+
+    response.rebuild(200, "application/json");
+    // @ts-expect-error
+    response.rebuild("200", "application/json");
+    // @ts-expect-error
+    response.rebuild(200, {});
+});
+on("http", () => {}, { track: true });
+// @ts-expect-error
+on("http", () => {}, { track: 123 });
+on("http", () => {}, { track: () => true });
+// @ts-expect-error
+on("http", () => {}, { track: () => 123 });
+on("http", () => {}, { track: (req) => req.api === "foo" });
+on("http", () => {}, { track: (req, res) => res.body === "foo" });
+// @ts-expect-error
+on("http", () => {}, { track: (req, res) => res.foo === "foo" });
 
 // @ts-expect-error
 every(12, () => {});
@@ -129,7 +164,6 @@ h = (req: HttpRequest, res: HttpResponse) => {
     res.data = 12;
     res.data = "foo";
     res.data = {};
-    // @ts-expect-error
     res.headers.foo = 12;
     res.headers.foo = "bar";
     res.headers["Content-Type"] = "application/json";
@@ -174,6 +208,7 @@ kafka = (record: KafkaEventMessage) => {
     record.headers = null;
     record.headers = { foo: "bar" };
 };
+on("kafka", () => {}, { track: (record) => record.key === "foo" });
 
 let ldap: LdapEventHandler = () => {};
 // @ts-expect-error
@@ -202,6 +237,7 @@ ldap = (req: LdapSearchRequest, res: LdapSearchResponse) => {
     res.message = 12;
     res.message = "";
 };
+on("ldap", () => {}, { track: (request) => request.baseDN === "foo" });
 
 let smtp: SmtpEventHandler = () => {};
 // @ts-expect-error
@@ -301,9 +337,21 @@ smtp = (msg: SmtpEventMessage) => {
         data: new Uint8Array(2),
     }];
 };
+on("smtp", () => {}, { track: (mail) => mail.subject === "foo" });
 
 const i: number = patch(1, 2);
 patch({ x: 1 }, { y: 1 });
 patch({ x: 1 }, { x: Delete });
 patch([1, 2], [3, 4]);
 patch([1, 2], [undefined, Delete]);
+
+shared.set("foo", 123);
+shared.set("foo", {});
+shared.delete("foo");
+let s: string | undefined = shared.get("foo");
+let n: number | undefined = shared.get("foo");
+let b: boolean = shared.has("foo");
+let keys: string[] = shared.keys();
+shared.namespace("foo").set("bar", 123);
+shared.update("foo", (v) => v ?? "new value");
+shared.clear();

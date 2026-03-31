@@ -1,4 +1,4 @@
-import * as mudder from "mudder";
+import mudder from "mudder";
 
 const abc = new mudder.SymbolTable("abc");
 

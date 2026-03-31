@@ -1,4 +1,4 @@
-import * as Awesomplete from "awesomplete";
+import Awesomplete from "awesomplete";
 
 const input = document.getElementById("myinput");
 new Awesomplete(input, { list: "#mylist" });

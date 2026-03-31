@@ -6,7 +6,6 @@ import { Page } from "./Page/Page";
 import { Orientation, Render } from "./Render/Render";
 import { FlipSetting } from "./Settings";
 import { UI } from "./UI/UI";
-import "./Style/stPageFlip.css";
 /**
  * Class representing a main PageFlip object
  */

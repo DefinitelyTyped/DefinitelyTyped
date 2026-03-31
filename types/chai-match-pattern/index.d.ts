@@ -1,6 +1,6 @@
 /// <reference types="chai" />
 
-import * as matchPattern from "lodash-match-pattern";
+import matchPattern = require("lodash-match-pattern");
 
 declare global {
     namespace Chai {

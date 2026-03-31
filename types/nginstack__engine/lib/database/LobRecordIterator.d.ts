@@ -3,8 +3,6 @@ declare function LobRecordIterator(ds: DataSet): void;
 declare class LobRecordIterator {
     constructor(ds: DataSet);
     private ds_;
-    private decode_;
-    private decompress_;
     next(): {
         done: boolean;
         value: LargeObject;

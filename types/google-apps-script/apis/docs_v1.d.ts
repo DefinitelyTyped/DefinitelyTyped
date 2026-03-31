@@ -770,7 +770,7 @@ declare namespace GoogleAppsScript {
         }
     }
     interface Docs {
-        Documents?: Docs.Collection.DocumentsCollection | undefined;
+        Documents: Docs.Collection.DocumentsCollection;
         // Create a new instance of AutoText
         newAutoText(): Docs.Schema.AutoText;
         // Create a new instance of Background
@@ -906,4 +906,7 @@ declare namespace GoogleAppsScript {
     }
 }
 
-declare var Docs: GoogleAppsScript.Docs;
+/**
+ * The `Docs` advanced service must be enabled.
+ */
+declare var Docs: GoogleAppsScript.Docs | undefined;

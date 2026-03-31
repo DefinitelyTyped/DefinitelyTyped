@@ -5,7 +5,7 @@
 
 // Note: try to maintain the ordering and separators, and keep to the pattern
 
-import * as Bluebird from "bluebird";
+import Bluebird from "bluebird";
 
 let obj: object = {};
 let bool = false;
@@ -366,7 +366,7 @@ fooOrBarProm = fooProm.caught(Bluebird.CancellationError, (reason: any) => {
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 class CustomError extends Error {
-    customField: number;
+    customField!: number;
 }
 // $ExpectType Bluebird<void | Foo>
 fooProm.catch(CustomError, reason => {

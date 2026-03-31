@@ -280,7 +280,8 @@ declare namespace googletag {
     function setConfig(config: config.PageSettingsConfig): void;
 
     /**
-     * Gets general configuration options for the page set by {@link setConfig}.
+     * Gets a frozen copy of the general configuration options for the page set by
+     * {@link setConfig}.
      *
      * Not all `setConfig()` properties are supported by this method. Supported
      * properties are:
@@ -296,11 +297,11 @@ declare namespace googletag {
      *   const config = googletag.getConfig(['adsenseAttributes', 'disableInitialLoad']);
      *
      * @param keys The keys of the configuration options to get.
-     * @return The configuration options for the slot.
+     * @return A frozen copy of the configuration options for the page.
      */
     function getConfig(
         keys: string | string[],
-    ): Pick<config.PageSettingsConfig, "adsenseAttributes" | "disableInitialLoad" | "targeting">;
+    ): Readonly<Pick<config.PageSettingsConfig, "adsenseAttributes" | "disableInitialLoad" | "targeting">>;
 
     /**
      * The command array accepts a sequence of functions and invokes them in
@@ -841,7 +842,17 @@ declare namespace googletag {
 
         /**
          * Constructs and displays an ad slot with the given ad unit path and size.
-         * This method does not work with single request mode.
+         *
+         * This method is a shorthand equivalent to calling
+         * {@link googletag.defineSlot} followed immediately by
+         * {@link googletag.display}.
+         *
+         * The behavior of this method depends on whether
+         * {@link googletag.config.PageSettingsConfig.singleRequest | Single Request Architecture (SRA)}
+         * is enabled:
+         * * **SRA enabled:** All ad slots defined up to the point of this call will
+         * be batched and requested together.
+         * * **SRA disabled (default):** The ad slot will be requested individually.
          *
          * **Note:** When this method is called, a snapshot of the slot and page
          * state is created to ensure consistency when sending the ad request and
@@ -1675,11 +1686,13 @@ declare namespace googletag {
          * Sets general configuration options for this slot.
          *
          * @param slotConfig The configuration object.
+         * @return The slot object on which the method was called.
          */
-        setConfig(slotConfig: config.SlotSettingsConfig): void;
+        setConfig(slotConfig: config.SlotSettingsConfig): Slot;
 
         /**
-         * Gets general configuration options for the slot set by {@link setConfig}.
+         * Gets a frozen copy of the general configuration options for the slot set by
+         * {@link setConfig}.
          *
          * Not all `setConfig()` properties are supported by this method. Supported
          * properties are:
@@ -1697,29 +1710,37 @@ declare namespace googletag {
          *   const config = slot.getConfig(['adsenseAttributes', 'categoryExclusion']);
          *
          * @param keys The keys of the configuration options to get.
-         * @return The configuration options for the slot.
+         * @return A frozen copy of the configuration options for the slot.
          */
         getConfig(
             keys: string | string[],
-        ): Pick<config.SlotSettingsConfig, "categoryExclusion" | "targeting" | "adsenseAttributes">;
+        ): Readonly<Pick<config.SlotSettingsConfig, "categoryExclusion" | "targeting" | "adsenseAttributes">>;
     }
 
     /** Array of two numbers representing [width, height]. */
     type SingleSizeArray = [number, number];
 
     /**
+     * The size string where the ad container takes 100% width of its parent div and
+     * then resizes its height to fit the creative content. Similar to how regular
+     * block elements on a page behave. Used for native ads (see
+     * [related article](https://support.google.com/admanager/answer/6366845)).
+     */
+    type FluidSize = "fluid";
+
+    /**
      * Named sizes that a slot can have. In most cases size is a fixed-size
      * rectangle but there are some cases when we need other kinds of size
      * specifications. Only the following are valid named sizes:
      *
-     * - **fluid**: the ad container takes 100% width of parent div and then
-     *   resizes its height to fit creative content. Similar to how regular block
+     * - **fluid**: the ad container takes 100% width of its parent div and then
+     *   resizes its height to fit the creative content. Similar to how regular block
      *   elements on a page behave. Used for native ads (see
      *   [related article](https://support.google.com/admanager/answer/6366845)).
      *   Note that both `fluid` and `['fluid']` are acceptable forms to declare a
      *   slot size as fluid.
      */
-    type NamedSize = "fluid" | ["fluid"];
+    type NamedSize = FluidSize | [FluidSize];
 
     /**
      * A single valid size for a slot.
@@ -1844,6 +1865,27 @@ declare namespace googletag {
              * for production, non-test traffic.
              */
             adsense_test_mode?: "on" | null;
+        }
+
+        /**
+         * Auto refresh configuration settings.
+         */
+        interface AutoRefreshConfig {
+            /**
+             * Whether GPT will automatically refresh an ad slot if Chrome's Heavy Ad
+             * Intervention triggers on the slot's ad iframe. Defaults to `true`.
+             *
+             * @example
+             *   // Set the auto refresh configuration, disabling auto refresh on heavy
+             *   // ad intervention.
+             *   googletag.setConfig({autoRefresh: {heavyAds: false}});
+             *
+             *   // Clear the auto refresh configuration, restoring to default behavior.
+             *   googletag.setConfig({autoRefresh: null});
+             *
+             * @see [Understand Chrome's Heavy Ad Interventions](https://developer.chrome.com/docs/web-platform/heavy-ads-intervention)
+             */
+            heavyAds?: boolean;
         }
 
         /**
@@ -2261,6 +2303,18 @@ declare namespace googletag {
              *   googletag.setConfig({adsenseAttributes: null});
              */
             adsenseAttributes?: AdSenseAttributesConfig | null;
+
+            /**
+             * Setting to configure automatic ad refresh behavior.
+             *
+             * @example
+             *   // Set the auto refresh configuration.
+             *   googletag.setConfig({autoRefresh: {heavyAds: false}});
+             *
+             *   // Clear the auto refresh configuration.
+             *   googletag.setConfig({autoRefresh: null});
+             */
+            autoRefresh?: AutoRefreshConfig | null;
         }
 
         /**
@@ -2450,11 +2504,6 @@ declare namespace googletag {
          *   ```
          */
         interface SlotSettingsConfig {
-            /**
-             * An array of component auctions to be included in an on-device ad auction.
-             */
-            componentAuction?: ComponentAuctionConfig[] | null;
-
             /**
              * Settings that configure interstitial ad slot behavior.
              *
@@ -2653,82 +2702,6 @@ declare namespace googletag {
         }
 
         /**
-         * An object representing a single component auction in a on-device ad auction.
-         *
-         * @see [Protected Audience API Seller guide: run ad auctions](https://developer.chrome.com/docs/privacy-sandbox/fledge-api/ad-auction/)
-         */
-        interface ComponentAuctionConfig {
-            /**
-             * The configuration key associated with this component auction.
-             *
-             * This value must be non-empty and should be unique. If two
-             * `ComponentAuctionConfig` objects share the same configKey value,
-             * the last to be set will overwrite prior configurations.
-             */
-            configKey: string;
-
-            /**
-             * An auction configuration object for this component auction.
-             *
-             * If this value is set to `null`, any existing configuration for
-             * the specified `configKey` will be deleted.
-             *
-             * @example
-             *
-             * const componentAuctionConfig = {
-             *   // Seller URL should be https and the same as decisionLogicURL's origin
-             *   seller: 'https://testSeller.com',
-             *   decisionLogicURL: 'https://testSeller.com/ssp/decision-logic.js',
-             *   interestGroupBuyers: [
-             *     'https://example-buyer.com',
-             *   ],
-             *   auctionSignals: {auction_signals: 'auction_signals'},
-             *   sellerSignals: {seller_signals: 'seller_signals'},
-             *   perBuyerSignals: {
-             *     // listed on interestGroupBuyers
-             *     'https://example-buyer.com': {
-             *       per_buyer_signals: 'per_buyer_signals',
-             *     },
-             *   },
-             * };
-             *
-             * const auctionSlot = googletag.defineSlot('/1234567/example', [160, 600])!;
-             *
-             * // To add configKey to the component auction:
-             * auctionSlot.setConfig({
-             *   componentAuction: [{
-             *      configKey: 'https://testSeller.com',
-             *      auctionConfig: componentAuctionConfig
-             *   }]
-             * });
-             *
-             * // To remove configKey from the component auction:
-             * auctionSlot.setConfig({
-             *   componentAuction: [{
-             *      configKey: 'https://testSeller.com',
-             *      auctionConfig: null
-             *   }]
-             * });
-             *
-             * @see [Protected Audience API: Initiating an On-Device Auction](https://github.com/WICG/turtledove/blob/main/FLEDGE.md#21-initiating-an-on-device-auction)
-             */
-            auctionConfig: {
-                seller: string;
-                decisionLogicURL: string;
-                trustedScoringSignalsURL?: string;
-                interestGroupBuyers?: string[];
-                auctionSignals?: unknown;
-                sellerSignals?: unknown;
-                sellerTimeout?: number;
-                sellerExperimentGroupId?: number;
-                perBuyerSignals?: { [buyer: string]: unknown };
-                perBuyerTimeouts?: { [buyer: string]: number };
-                perBuyerGroupLimits?: { [buyer: string]: number };
-                perBuyerExperimentGroupIds?: { [buyer: string]: number };
-            } | null;
-        }
-
-        /**
          * An object which defines the behavior of a single interstitial ad slot.
          */
         interface InterstitialConfig {
@@ -2794,7 +2767,7 @@ declare namespace googletag {
         /**
          * Supported interstitial ad triggers.
          */
-        type InterstitialTrigger = "unhideWindow" | "navBar";
+        type InterstitialTrigger = "unhideWindow" | "navBar" | "inactivity" | "backward" | "endOfArticle";
 
         /**
          * Settings to configure video ad related settings.
@@ -3431,8 +3404,10 @@ declare namespace googletag {
             /**
              * Displays the rewarded ad. This method should not be called until the user
              * has consented to view the ad.
+             *
+             * @return Whether the rewarded ad was successfully displayed.
              */
-            makeRewardedVisible(): void;
+            makeRewardedVisible(): boolean;
         }
 
         /**
@@ -3473,8 +3448,10 @@ declare namespace googletag {
          * @see [Display a game manual interstitial ad](https://support.google.com/admanager/answer/14640119)
          */
         interface GameManualInterstitialSlotReadyEvent extends Event {
-            /** Displays the game manual interstitial ad to the user. */
-            makeGameManualInterstitialVisible(): void;
+            /** Displays the game manual interstitial ad to the user.
+             *  Returns whether the ad was successfully displayed.
+             */
+            makeGameManualInterstitialVisible(): boolean;
         }
 
         /**

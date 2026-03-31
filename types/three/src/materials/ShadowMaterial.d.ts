@@ -54,6 +54,7 @@ export class ShadowMaterial extends Material {
      * @default true
      */
     readonly isShadowMaterial: boolean;
+    setValues(values?: ShadowMaterialParameters): void;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface

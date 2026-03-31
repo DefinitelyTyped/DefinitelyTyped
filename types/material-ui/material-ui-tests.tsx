@@ -1,5 +1,4 @@
-import * as React from 'react';
-import {
+import React, {
   Component,
   ComponentClass,
   CSSProperties,

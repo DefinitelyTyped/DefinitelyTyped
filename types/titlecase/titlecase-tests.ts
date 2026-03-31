@@ -1,4 +1,4 @@
-import * as toTitleCase from "titlecase";
+import toTitleCase from "titlecase";
 
 toTitleCase("this is a test") === "This Is a Test";
 toTitleCase.toTitleCase("this is a test") === "This Is a Test";

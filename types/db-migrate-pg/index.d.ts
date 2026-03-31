@@ -1,6 +1,6 @@
 import * as pg from "pg";
 import DbMigrateBase = require("db-migrate-base");
-import * as Promise from "bluebird";
+import Promise = require("bluebird");
 
 // Yes, this is a dummy interface for now; the current implementation of the pg driver doesn't need any options.
 export interface CreateDatabaseOptions {}

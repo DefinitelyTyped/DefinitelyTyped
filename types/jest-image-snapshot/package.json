@@ -11,7 +11,8 @@
         "ssim.js": "^3.1.1"
     },
     "devDependencies": {
-        "@types/jest-image-snapshot": "workspace:."
+        "@types/jest-image-snapshot": "workspace:.",
+        "sharp": "*"
     },
     "owners": [
         {

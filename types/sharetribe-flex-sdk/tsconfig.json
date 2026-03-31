@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "types": []
+    },
+    "files": [
+        "index.d.ts",
+        "sharetribe-flex-sdk-tests.ts"
+    ]
+}

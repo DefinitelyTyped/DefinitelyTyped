@@ -1,7 +1,7 @@
 import routeCache = require("route-cache");
 import IoRedisStore = require("route-cache/ioRedisStore");
 import LruStore = require("route-cache/lruStore");
-import * as express from "express";
+import express from "express";
 import Redis from "ioredis";
 
 const redis = new Redis();

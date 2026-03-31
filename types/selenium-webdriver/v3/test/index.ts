@@ -1,10 +1,10 @@
 import * as webdriver from "selenium-webdriver";
-import * as chrome from "selenium-webdriver/chrome";
+import chrome from "selenium-webdriver/chrome";
 import * as edge from "selenium-webdriver/edge";
-import * as firefox from "selenium-webdriver/firefox";
+import firefox from "selenium-webdriver/firefox";
 import * as http from "selenium-webdriver/http";
 import * as remote from "selenium-webdriver/remote";
-import * as safari from "selenium-webdriver/safari";
+import safari from "selenium-webdriver/safari";
 import * as testing from "selenium-webdriver/testing";
 
 function TestBuilder() {

@@ -1,7 +1,7 @@
-import * as be from "@wordpress/block-editor";
+import be from "@wordpress/block-editor";
 import * as UseBlockProps from "@wordpress/block-editor/components/use-block-props";
 import { BlockInstance, createBlock } from "@wordpress/blocks";
-import { dispatch, select } from "@wordpress/data";
+import { dispatch, select, useDispatch, useSelect } from "@wordpress/data";
 import { useRef } from "react";
 
 declare const BLOCK_INSTANCE: BlockInstance;
@@ -20,6 +20,17 @@ const STYLES = [{ css: ".foo { color: red; }" }, { css: ".bar { color: blue; }",
 <be.AlignmentToolbar value={undefined} onChange={newValue => newValue && console.log(newValue.toUpperCase())} />;
 <be.AlignmentToolbar value="left" onChange={newValue => newValue && console.log(newValue.toUpperCase())} />;
 <be.AlignmentToolbar
+    alignmentControls={[{ align: "center", icon: "carrot", title: "Center" }]}
+    value="left"
+    onChange={newValue => newValue && console.log(newValue.toUpperCase())}
+/>;
+
+//
+// alignment-control
+//
+<be.AlignmentControl value={undefined} onChange={newValue => newValue && console.log(newValue.toUpperCase())} />;
+<be.AlignmentControl value="left" onChange={newValue => newValue && console.log(newValue.toUpperCase())} />;
+<be.AlignmentControl
     alignmentControls={[{ align: "center", icon: "carrot", title: "Center" }]}
     value="left"
     onChange={newValue => newValue && console.log(newValue.toUpperCase())}
@@ -86,6 +97,13 @@ const STYLES = [{ css: ".foo { color: red; }" }, { css: ".bar { color: blue; }",
 >
     Hello World
 </be.BlockControls>;
+
+//
+// BlockContextProvider
+//
+<be.BlockContextProvider value={{}}>
+    <div />
+</be.BlockContextProvider>;
 
 //
 // BlockEditorProvider
@@ -217,15 +235,26 @@ be.getFontSizeClass("foo");
 be.withFontSizes("fontSize")(() => <h1>Hello World</h1>);
 
 //
+// heading-level-dropdown
+//
+<be.HeadingLevelDropdown value={0} />;
+<be.HeadingLevelDropdown value={5} />;
+<be.HeadingLevelDropdown value={5} options={[4]} />;
+<be.HeadingLevelDropdown value={5} options={[4]} onChange={v => console.log(v)} />;
+
+//
 // inner-blocks
 //
 <be.InnerBlocks />;
+<be.InnerBlocks allowedBlocks={false} />;
 <be.InnerBlocks renderAppender={be.InnerBlocks.ButtonBlockAppender} />;
 <be.InnerBlocks.Content />;
 <be.InnerBlocks.DefaultBlockAppender />;
 <be.InnerBlocks orientation="vertical" />;
 <be.InnerBlocks prioritizedInserterBlocks={["core/navigation-link/page"]} />;
 <be.InnerBlocks templateLock="all" />;
+<be.InnerBlocks defaultBlock={{ name: "core/paragraph", attributes: { content: "Default content" } }} />;
+<be.InnerBlocks directInsert={true} />;
 
 //
 // inserter
@@ -245,6 +274,15 @@ be.withFontSizes("fontSize")(() => <h1>Hello World</h1>);
 <be.InspectorControls>Hello World</be.InspectorControls>;
 <be.InspectorControls group={"styles"}>Hello World</be.InspectorControls>;
 <be.InspectorControls.Slot />;
+
+//
+// link-control
+//
+<be.LinkControl
+    onChange={item => console.log(item)}
+    onRemove={() => console.log("removed")}
+    settings={be.LinkControl.DEFAULT_LINK_SETTINGS}
+/>;
 
 //
 // media-placeholder
@@ -299,7 +337,6 @@ be.withFontSizes("fontSize")(() => <h1>Hello World</h1>);
 //
 <be.PanelColorSettings
     title="Color Settings"
-    initialOpen={false}
     colorSettings={[
         {
             value: "#ff0000",
@@ -307,7 +344,6 @@ be.withFontSizes("fontSize")(() => <h1>Hello World</h1>);
                 color && console.log(color);
             },
             label: "Background Color",
-            disableCustomColors: true,
             colors: [
                 {
                     color: "#ff0000",
@@ -318,8 +354,12 @@ be.withFontSizes("fontSize")(() => <h1>Hello World</h1>);
                     name: "Yellow",
                 },
             ],
+            disableCustomColors: false,
         },
     ]}
+    disableCustomColors={true}
+    showTitle={true}
+    enableAlpha={true}
 />;
 <be.PanelColorSettings
     colorSettings={[
@@ -352,6 +392,8 @@ be.withFontSizes("fontSize")(() => <h1>Hello World</h1>);
     onReplace={blocks => blocks.forEach(b => console.log(b.clientId))}
     allowedFormats={["core/bold", "core/italic"]}
     onSplit={(value, isOriginal) => createBlock("core/paragraph", { content: value })}
+    disableLineBreaks
+    withoutInteractiveFormatting
 />;
 <be.RichText.Content value="foo" />;
 <be.RichText.Content tagName="p" style={{ color: "blue" }} className="foo" value="Hello World" dir="rtl" />;
@@ -556,6 +598,118 @@ dispatch("core/block-editor").updateSettings({
     richEditingEnabled: false,
 });
 
+for (const dispatchOrUseDispatch of [dispatch, useDispatch]) {
+    // $ExpectType Promise<void>
+    dispatchOrUseDispatch(be.store).insertBlock(BLOCK_INSTANCE);
+    dispatchOrUseDispatch(be.store).insertBlock(BLOCK_INSTANCE, 4);
+    dispatchOrUseDispatch(be.store).insertBlock(BLOCK_INSTANCE, 4, "foo");
+    dispatchOrUseDispatch(be.store).insertBlock(BLOCK_INSTANCE, 4, "foo", false);
+
+    // $ExpectType Promise<IterableIterator<void>>
+    dispatchOrUseDispatch(be.store).insertBlocks([BLOCK_INSTANCE]);
+    dispatchOrUseDispatch(be.store).insertBlocks([BLOCK_INSTANCE], 5);
+    dispatchOrUseDispatch(be.store).insertBlocks([BLOCK_INSTANCE], 5, "foo");
+    dispatchOrUseDispatch(be.store).insertBlocks([BLOCK_INSTANCE], 5, "foo", false);
+
+    // $ExpectType Promise<void>
+    dispatchOrUseDispatch(be.store).insertDefaultBlock();
+    dispatchOrUseDispatch(be.store).insertDefaultBlock({ foo: "bar" });
+    dispatchOrUseDispatch(be.store).insertDefaultBlock({ foo: "bar" }, "foo");
+    dispatchOrUseDispatch(be.store).insertDefaultBlock({ foo: "bar" }, "foo", 5);
+
+    // $ExpectType Promise<void>
+    dispatchOrUseDispatch(be.store).mergeBlocks("foo", "bar");
+
+    // $ExpectType Promise<void>
+    dispatchOrUseDispatch(be.store).moveBlocksUp("foo", "bar");
+    dispatchOrUseDispatch(be.store).moveBlocksUp(["foo", "baz"], "bar");
+
+    // $ExpectType Promise<IterableIterator<void>>
+    dispatchOrUseDispatch(be.store).moveBlockToPosition("foo", "bar", "baz", 1);
+    dispatchOrUseDispatch(be.store).moveBlockToPosition(undefined, "foo", undefined, 5);
+    dispatchOrUseDispatch(be.store).moveBlockToPosition(undefined, undefined, undefined, 5);
+
+    // $ExpectType Promise<void>
+    dispatchOrUseDispatch(be.store).multiSelect("foo", "bar");
+
+    // $ExpectType Promise<void>
+    dispatchOrUseDispatch(be.store).receiveBlocks([BLOCK_INSTANCE]);
+
+    // $ExpectType Promise<void>
+    dispatchOrUseDispatch(be.store).removeBlock("foo");
+    dispatchOrUseDispatch(be.store).removeBlock("foo", true);
+
+    // $ExpectType Promise<IterableIterator<void>>
+    dispatchOrUseDispatch(be.store).removeBlocks("foo");
+    dispatchOrUseDispatch(be.store).removeBlocks("foo", false);
+    dispatchOrUseDispatch(be.store).removeBlocks(["foo"]);
+    dispatchOrUseDispatch(be.store).removeBlocks(["foo"], false);
+
+    // $ExpectType Promise<void>
+    dispatchOrUseDispatch(be.store).replaceBlock("foo", BLOCK_INSTANCE);
+    dispatchOrUseDispatch(be.store).replaceBlock("foo", [BLOCK_INSTANCE]);
+    dispatchOrUseDispatch(be.store).replaceBlock(["foo"], BLOCK_INSTANCE);
+    dispatchOrUseDispatch(be.store).replaceBlock(["foo"], [BLOCK_INSTANCE]);
+
+    // $ExpectType Promise<IterableIterator<void>>
+    dispatchOrUseDispatch(be.store).replaceBlocks("foo", BLOCK_INSTANCE);
+    dispatchOrUseDispatch(be.store).replaceBlocks("foo", [BLOCK_INSTANCE], 3);
+    dispatchOrUseDispatch(be.store).replaceBlocks(["foo"], BLOCK_INSTANCE);
+    dispatchOrUseDispatch(be.store).replaceBlocks(["foo"], [BLOCK_INSTANCE], 0);
+
+    // $ExpectType Promise<void>
+    dispatchOrUseDispatch(be.store).replaceInnerBlocks("foo", [BLOCK_INSTANCE]);
+    dispatchOrUseDispatch(be.store).replaceInnerBlocks("foo", [BLOCK_INSTANCE], true);
+
+    // $ExpectType Promise<void>
+    dispatchOrUseDispatch(be.store).resetBlocks([BLOCK_INSTANCE]);
+
+    // $ExpectType Promise<void>
+    dispatchOrUseDispatch(be.store).selectBlock("foo");
+    dispatchOrUseDispatch(be.store).selectBlock("foo", 5);
+
+    // $ExpectType Promise<void>
+    dispatchOrUseDispatch(be.store).selectionChange("foo", "bar", 0, 5);
+
+    // $ExpectType Promise<IterableIterator<void>>
+    dispatchOrUseDispatch(be.store).selectNextBlock("foo");
+
+    // $ExpectType Promise<IterableIterator<void>>
+    dispatchOrUseDispatch(be.store).selectPreviousBlock("foo");
+
+    // $ExpectType Promise<void>
+    dispatchOrUseDispatch(be.store).setTemplateValidity(false);
+
+    // $ExpectType Promise<void>
+    dispatchOrUseDispatch(be.store).showInsertionPoint();
+    dispatchOrUseDispatch(be.store).showInsertionPoint("foo");
+    dispatchOrUseDispatch(be.store).showInsertionPoint("foo", 5);
+
+    // $ExpectType Promise<void>
+    dispatchOrUseDispatch(be.store).toggleBlockMode("foo");
+
+    // $ExpectType Promise<void>
+    dispatchOrUseDispatch(be.store).toggleSelection();
+    dispatchOrUseDispatch(be.store).toggleSelection(true);
+
+    // $ExpectType Promise<void>
+    dispatchOrUseDispatch(be.store).updateBlock("foo", { attributes: { foo: "bar" }, innerBlocks: [] });
+
+    // $ExpectType Promise<void>
+    dispatchOrUseDispatch(be.store).updateBlockAttributes("foo", { foo: "bar" });
+
+    // $ExpectType Promise<void>
+    dispatchOrUseDispatch(be.store).updateBlockListSettings("foo", { allowedBlocks: ["core/paragraph"] });
+
+    // $ExpectType Promise<void>
+    dispatchOrUseDispatch(be.store).updateSettings({
+        focusMode: true,
+        codeEditingEnabled: false,
+        maxUploadFileSize: 500,
+        richEditingEnabled: false,
+    });
+}
+
 // $ExpectType boolean
 select("core/block-editor").canInsertBlockType("core/paragraph");
 select("core/block-editor").canInsertBlockType("core/paragraph", "foo");
@@ -565,6 +719,38 @@ select("core/block-editor").getAdjacentBlockClientId();
 select("core/block-editor").getAdjacentBlockClientId("foo");
 select("core/block-editor").getAdjacentBlockClientId("foo", -1);
 select("core/block-editor").getAdjacentBlockClientId("foo", 1);
+
+// $ExpectType string[]
+select("core/block-editor").getBlockParents("foo");
+select("core/block-editor").getBlockParentsByBlockName("foo", ["core/query"]);
+select("core/block-editor").getBlockParents("foo", true);
+select("core/block-editor").getBlockParentsByBlockName("foo", ["core/query"], true);
+
+// $ExpectType string[]
+select("core/block-editor").getBlocksByName("core/group");
+select("core/block-editor").getBlocksByName(["core/group", "core/paragraph"]);
+
+for (const selectOrUseSelect of [select, useSelect]) {
+    // $ExpectType boolean
+    selectOrUseSelect(be.store).canInsertBlockType("core/paragraph");
+    selectOrUseSelect(be.store).canInsertBlockType("core/paragraph", "foo");
+
+    // $ExpectType string | null
+    selectOrUseSelect(be.store).getAdjacentBlockClientId();
+    selectOrUseSelect(be.store).getAdjacentBlockClientId("foo");
+    selectOrUseSelect(be.store).getAdjacentBlockClientId("foo", -1);
+    selectOrUseSelect(be.store).getAdjacentBlockClientId("foo", 1);
+
+    // $ExpectType string[]
+    selectOrUseSelect(be.store).getBlockParents("foo");
+    selectOrUseSelect(be.store).getBlockParentsByBlockName("foo", ["core/query"]);
+    selectOrUseSelect(be.store).getBlockParents("foo", true);
+    selectOrUseSelect(be.store).getBlockParentsByBlockName("foo", ["core/query"], true);
+
+    // $ExpectType string[]
+    selectOrUseSelect(be.store).getBlocksByName("core/group");
+    selectOrUseSelect(be.store).getBlocksByName(["core/group", "core/paragraph"]);
+}
 
 {
     const blockProps: UseBlockProps.Merged & UseBlockProps.Reserved = be.useBlockProps();
@@ -634,6 +820,9 @@ be.getTypographyClassesAndStyles({}, false).style;
 be.getTypographyClassesAndStyles({}, {}).style;
 be.getTypographyClassesAndStyles({}, { minFontSize: "33" }).style;
 
+// $ExpectType string
+be.getTypographyClassesAndStyles({}).className;
+
 // $ExpectType "HELLO"
 be.useCachedTruthy("HELLO");
 
@@ -648,3 +837,6 @@ be.useBlockBindingsUtils();
 
 // $ExpectType { name: string; isSelected?: boolean | undefined; clientId: string; layout: unknown; }
 be.useBlockEditContext();
+
+// $ExpectType BlockEditingMode
+be.useBlockEditingMode();

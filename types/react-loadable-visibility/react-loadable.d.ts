@@ -1,2 +1,2 @@
-import * as Loadable from "react-loadable";
+import Loadable = require("react-loadable");
 export default Loadable;

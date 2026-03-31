@@ -1,5 +1,5 @@
 /// <reference types="node"/>
-import * as Stream from "stream";
+import Stream = require("stream");
 
 /**
  * Return a promise which resolves when the input stream ends

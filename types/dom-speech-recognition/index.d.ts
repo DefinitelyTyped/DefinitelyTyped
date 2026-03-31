@@ -20,6 +20,7 @@ interface SpeechRecognition extends EventTarget {
     interimResults: boolean;
     lang: string;
     maxAlternatives: number;
+    processLocally: boolean;
     onaudioend: ((this: SpeechRecognition, ev: Event) => any) | null;
     onaudiostart: ((this: SpeechRecognition, ev: Event) => any) | null;
     onend: ((this: SpeechRecognition, ev: Event) => any) | null;
@@ -56,7 +57,25 @@ interface SpeechRecognition extends EventTarget {
     ): void;
 }
 
-declare var SpeechRecognition: { prototype: SpeechRecognition; new(): SpeechRecognition };
+// https://wicg.github.io/speech-api/#dictdef-speechrecognitionoptions
+interface SpeechRecognitionOptions {
+    langs: string[];
+    processLocally: boolean;
+}
+
+type AvailabilityStatus =
+    | "unavailable"
+    | "downloadable"
+    | "downloading"
+    | "available";
+
+// https://webaudio.github.io/web-speech-api/#speechrecognition
+declare var SpeechRecognition: {
+    prototype: SpeechRecognition;
+    new(): SpeechRecognition;
+    available(options: SpeechRecognitionOptions): Promise<AvailabilityStatus>;
+    install(options: SpeechRecognitionOptions): Promise<boolean>;
+};
 
 // https://wicg.github.io/speech-api/#speechrecognitionevent
 interface SpeechRecognitionEventInit extends EventInit {
@@ -76,15 +95,15 @@ declare var SpeechRecognitionEvent: {
 };
 
 // https://wicg.github.io/speech-api/#enumdef-speechrecognitionerrorcode
-type SpeechRecognitionErrorCode =
-    | "aborted"
-    | "audio-capture"
-    | "bad-grammar"
-    | "language-not-supported"
-    | "network"
-    | "no-speech"
-    | "not-allowed"
-    | "service-not-allowed";
+// type SpeechRecognitionErrorCode =
+//     | "aborted"
+//     | "audio-capture"
+//     | "bad-grammar"
+//     | "language-not-supported"
+//     | "network"
+//     | "no-speech"
+//     | "not-allowed"
+//     | "service-not-allowed";
 
 // https://wicg.github.io/speech-api/#dictdef-speechrecognitionerroreventinit
 interface SpeechRecognitionErrorEventInit extends EventInit {

@@ -219,21 +219,21 @@ export namespace UserScripts {
          *
          * @param scripts List of user scripts to be registered.
          */
-        register(scripts: RegisteredUserScript[]): void;
+        register(scripts: RegisteredUserScript[]): Promise<void>;
 
         /**
          * Updates one or more user scripts for this extension.
          *
          * @param scripts List of user scripts to be updated.
          */
-        update(scripts: UpdateScriptsItemType[]): void;
+        update(scripts: UpdateScriptsItemType[]): Promise<void>;
 
         /**
          * Unregisters all dynamically-registered user scripts for this extension.
          *
          * @param filter Optional. If specified, this method unregisters only the user scripts that match it.
          */
-        unregister(filter?: UserScriptFilter): void;
+        unregister(filter?: UserScriptFilter): Promise<void>;
 
         /**
          * Returns all dynamically-registered user scripts for this extension.
@@ -247,7 +247,7 @@ export namespace UserScripts {
          *
          * @param properties The desired configuration for a USER_SCRIPT world.
          */
-        configureWorld(properties: WorldProperties): void;
+        configureWorld(properties: WorldProperties): Promise<void>;
 
         /**
          * Resets the configuration for a given world. That world will fall back to the default world's configuration.
@@ -255,7 +255,7 @@ export namespace UserScripts {
          * @param worldId Optional. The ID of the USER_SCRIPT world to reset. If omitted or empty,
          * resets the default world's configuration.
          */
-        resetWorldConfiguration(worldId?: string): void;
+        resetWorldConfiguration(worldId?: string): Promise<void>;
 
         /**
          * Returns all registered USER_SCRIPT world configurations.

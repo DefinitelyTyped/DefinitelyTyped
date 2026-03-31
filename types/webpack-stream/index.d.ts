@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import * as webpack from "webpack";
+import webpack = require("webpack");
 
 export = webpackStream;
 

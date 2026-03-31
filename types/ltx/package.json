@@ -11,7 +11,9 @@
                 "import": "./index.d.mts",
                 "default": "./index.d.ts"
             }
-        }
+        },
+        "./src/*": "./src/*",
+        "./lib/*": "./lib/*"
     },
     "dependencies": {
         "@types/events": "*"

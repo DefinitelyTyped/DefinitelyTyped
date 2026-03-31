@@ -1,4 +1,4 @@
-import * as Koa from "koa";
+import Koa = require("koa");
 
 declare function cors(options?: cors.Options): Koa.Middleware;
 export = cors;

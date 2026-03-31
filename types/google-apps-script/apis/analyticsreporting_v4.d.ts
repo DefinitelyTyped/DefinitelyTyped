@@ -297,8 +297,8 @@ declare namespace GoogleAppsScript {
         }
     }
     interface AnalyticsReporting {
-        Reports?: AnalyticsReporting.Collection.ReportsCollection | undefined;
-        UserActivity?: AnalyticsReporting.Collection.UserActivityCollection | undefined;
+        Reports: AnalyticsReporting.Collection.ReportsCollection;
+        UserActivity: AnalyticsReporting.Collection.UserActivityCollection;
         // Create a new instance of Cohort
         newCohort(): AnalyticsReporting.Schema.Cohort;
         // Create a new instance of CohortGroup
@@ -354,4 +354,7 @@ declare namespace GoogleAppsScript {
     }
 }
 
-declare var AnalyticsReporting: GoogleAppsScript.AnalyticsReporting;
+/**
+ * The `AnalyticsReporting` advanced service must be enabled.
+ */
+declare var AnalyticsReporting: GoogleAppsScript.AnalyticsReporting | undefined;

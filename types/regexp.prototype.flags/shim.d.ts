@@ -1,3 +1,5 @@
 import implementation = require("./implementation");
 
-export = implementation;
+declare function shim(): typeof implementation;
+
+export = shim;

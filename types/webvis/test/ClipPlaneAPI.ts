@@ -51,7 +51,7 @@ function test(testContext: webvis.ContextAPI): void {
 
     const clipRoomRemoveState: webvis.RemoveState = testContext.removeClippingRoom(false);
 
-    const clipRoomId2: number = testContext.getClipRoom();
+    const clipRoomId2: number | undefined = testContext.getClipRoom();
 
     const clipRoomProps: Promise<webvis.ClipRoomProperties> = testContext.requestClipRoomData();
 

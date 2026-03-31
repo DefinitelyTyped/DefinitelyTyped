@@ -1,7 +1,7 @@
 "use strict";
 
 import notifier = require("node-notifier");
-import * as path from "path";
+import path from "path";
 
 notifier.notify();
 notifier.notify("Hello there");

@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import * as Stream from "stream";
+import Stream = require("stream");
 
 /**
  * Returns an transform stream. If there is any malformed commits it will be

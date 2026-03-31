@@ -5,12 +5,6 @@ import NodeMaterial, { NodeMaterialNodeProperties } from "./NodeMaterial.js";
 
 export interface Line2NodeMaterialNodeProperties extends NodeMaterialNodeProperties {
     /**
-     * Whether vertex colors should be used or not.
-     *
-     * @default false
-     */
-    useColor: boolean;
-    /**
      * The dash offset.
      *
      * @default 0
@@ -87,6 +81,7 @@ declare class Line2NodeMaterial extends NodeMaterial {
      * @default true
      */
     readonly isLine2NodeMaterial: boolean;
+    setValues(values?: Line2NodeMaterialParameters): void;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface

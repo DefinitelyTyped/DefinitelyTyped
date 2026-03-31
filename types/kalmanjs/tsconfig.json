@@ -13,7 +13,9 @@
         "forceConsistentCasingInFileNames": true,
         "esModuleInterop": true,
         "paths": {
-            "kalmanjs": ["./index.d.ts"]
+            "kalmanjs": [
+                "./index.d.ts"
+            ]
         }
     },
     "files": [

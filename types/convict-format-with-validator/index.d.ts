@@ -1,4 +1,4 @@
-import * as convict from "convict";
+import convict = require("convict");
 
 declare var validators: {
     email: convict.Format;

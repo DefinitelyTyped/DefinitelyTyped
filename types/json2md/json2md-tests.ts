@@ -1,4 +1,4 @@
-import * as json2md from "json2md";
+import json2md from "json2md";
 
 declare function describe(desc: string, f: () => void): void;
 declare function it(desc: string, f: () => void): void;

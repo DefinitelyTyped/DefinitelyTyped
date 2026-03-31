@@ -27,19 +27,17 @@ declare class AbstractTree {
     nId: number;
     level: number;
     index: number;
-    css: any;
     text: any;
     value: any;
     getHasChildren(): boolean;
-    addChild(text: any, value: any, index: any, css: any): any;
+    addChild(text: any, value: any, index: any): any;
     expand(): void;
     collapse(): void;
 }
-declare function TreeChild(treeView: any, parent: any, css: any): void;
+declare function TreeChild(treeView: any, parent: any): void;
 declare class TreeChild {
-    constructor(treeView: any, parent: any, css: any);
+    constructor(treeView: any, parent: any);
     nId: any;
-    css: any;
     fHtml: string;
     getHtml(): string;
     getLabelHtml(): string;

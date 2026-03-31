@@ -1,5 +1,3 @@
-import { type ObjectNested } from "./configuration.js";
-
 /**
  * Common helpers which do not require polyfill.
  *
@@ -7,18 +5,6 @@ import { type ObjectNested } from "./configuration.js";
  * so that the polyfill can be properly tree-shaken and does not burden
  * the components that do not need that helper
  */
-
-/**
- * Get hash fragment from URL
- *
- * Extract the hash fragment (everything after the hash) from a URL,
- * but not including the hash symbol
- *
- * @param {string} url - URL
- * @returns {string | undefined} Fragment from URL, without the hash
- */
-export function getFragmentFromUrl(url: string): string | undefined;
-
 /**
  * Get GOV.UK Frontend breakpoint value from CSS custom property
  *
@@ -75,13 +61,25 @@ export function isSupported($scope?: HTMLElement | null): boolean;
  * Check for an object
  *
  * @internal
- * @template {Partial<Record<keyof ObjectType, unknown>>} [ObjectType=ObjectNested]
+ * @template {Partial<Record<keyof ObjectType, unknown>>} ObjectType
  * @param {unknown | ObjectType} option - Option to check
  * @returns {option is ObjectType} Whether the option is an object
  */
 export function isObject<
-    ObjectType extends Partial<Record<keyof ObjectType, unknown>> = ObjectNested,
+    ObjectType extends Partial<Record<keyof ObjectType, unknown>>,
 >(option: unknown | ObjectType): option is ObjectType;
+
+/**
+ * Check for valid scope
+ *
+ * @internal
+ * @template {Element | Document} ScopeType
+ * @param {unknown | ScopeType} $scope - Scope of the document to search within
+ * @returns {$scope is ScopeType} Whether the scope can be queried
+ */
+export function isScope<ScopeType extends Element | Document>(
+    $scope: unknown | ScopeType,
+): $scope is ScopeType;
 
 /**
  * Format error message

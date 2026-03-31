@@ -1,18 +1,21 @@
 import { Camera } from "../../cameras/Camera.js";
 import { Layers } from "../../core/Layers.js";
+import { Object3D } from "../../core/Object3D.js";
 import { RenderTarget, RenderTargetOptions } from "../../core/RenderTarget.js";
+import { Material } from "../../materials/Material.js";
 import { Vector4 } from "../../math/Vector4.js";
 import Renderer from "../../renderers/common/Renderer.js";
-import { Scene } from "../../scenes/Scene.js";
 import { Texture } from "../../textures/Texture.js";
 import TextureNode from "../accessors/TextureNode.js";
+import ContextNode from "../core/ContextNode.js";
 import MRTNode from "../core/MRTNode.js";
 import Node from "../core/Node.js";
 import TempNode from "../core/TempNode.js";
-import { ShaderNodeObject } from "../tsl/TSLCore.js";
 
 declare class PassTextureNode extends TextureNode {
     passNode: PassNode;
+
+    readonly isPassTextureNode: boolean;
 
     constructor(passNode: PassNode, texture: Texture);
 }
@@ -21,24 +24,42 @@ declare class PassMultipleTextureNode extends PassTextureNode {
     textureName: string;
     previousTexture: boolean;
 
+    readonly isPassMultipleTextureNode: boolean;
+
     constructor(passNode: PassNode, textureName: string, previousTexture?: boolean);
 
     updateTexture(): void;
 }
 
-declare class PassNode extends TempNode {
+declare class PassNode extends TempNode<"vec4"> {
     scope: PassNodeScope;
-    scene: Scene;
+    scene: Object3D;
     camera: Camera;
 
     renderTarget: RenderTarget;
 
+    overrideMaterial: Material | null;
+    transparent: boolean;
+    opaque: boolean;
+
+    contextNode: ContextNode<unknown> | null;
+
     readonly isPassNode: true;
 
-    constructor(scope: PassNodeScope, scene: Scene, camera: Camera, options?: RenderTargetOptions);
+    constructor(scope: PassNodeScope, scene: Object3D, camera: Camera, options?: RenderTargetOptions);
 
+    setResolutionScale(resolution: number): this;
+
+    getResolutionScale(): number;
+
+    /**
+     * @deprecated Use {@link PassNode#setResolutionScale `setResolutionScale()`} instead.
+     */
     setResolution(resolution: number): this;
 
+    /**
+     * @deprecated Use {@link PassNode#getResolutionScale `getResolutionScale()`} instead.
+     */
     getResolution(): number;
 
     setLayers(layers: Layers): this;
@@ -55,13 +76,13 @@ declare class PassNode extends TempNode {
 
     toggleTexture(name: string): void;
 
-    getTextureNode(name?: string): ShaderNodeObject<TextureNode>;
+    getTextureNode(name?: string): TextureNode;
 
-    getPreviousTextureNode(name?: string): ShaderNodeObject<Node>;
+    getPreviousTextureNode(name?: string): TextureNode;
 
-    getViewZNode(name?: string): ShaderNodeObject<Node>;
+    getViewZNode(name?: string): Node<"float">;
 
-    getLinearDepthNode(name?: string): ShaderNodeObject<Node>;
+    getLinearDepthNode(name?: string): Node<"float">;
 
     compileAsync(renderer: Renderer): Promise<void>;
 
@@ -85,6 +106,6 @@ export type PassNodeScope = typeof PassNode.COLOR | typeof PassNode.DEPTH;
 
 export default PassNode;
 
-export const pass: (scene: Scene, camera: Camera, options?: RenderTargetOptions) => ShaderNodeObject<PassNode>;
-export const passTexture: (pass: PassNode, texture: Texture) => ShaderNodeObject<PassTextureNode>;
-export const depthPass: (scene: Scene, camera: Camera, options?: RenderTargetOptions) => ShaderNodeObject<PassNode>;
+export const pass: (scene: Object3D, camera: Camera, options?: RenderTargetOptions) => PassNode;
+export const passTexture: (pass: PassNode, texture: Texture) => PassTextureNode;
+export const depthPass: (scene: Object3D, camera: Camera, options?: RenderTargetOptions) => PassNode;

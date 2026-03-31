@@ -1,4 +1,4 @@
-import * as assert from "assert";
+import assert from "assert";
 import * as oracledb from "oracledb";
 
 /*
@@ -288,7 +288,7 @@ const runPromiseTests = async (): Promise<void> => {
         console.log("Testing pool.close()...");
 
         await pool.close(5);
-    } catch (err) {
+    } catch (err: any) {
         console.log(err.message);
     }
 };

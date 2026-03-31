@@ -35,7 +35,7 @@ app.use(async ctx => {
 app.use(async (ctx, next) => {
     try {
         return await next();
-    } catch (ex) {
+    } catch (ex: any) {
         ctx.errors = [ex];
     }
 });

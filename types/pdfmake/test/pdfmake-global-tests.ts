@@ -7,7 +7,7 @@ const fonts = {
     },
 };
 
-pdfMake.fonts = fonts;
+pdfMake.addFonts(fonts);
 
 const dd = {
     content: "Hello world!",
@@ -17,4 +17,4 @@ const dd = {
 pdfMake.createPdf(dd);
 
 // $ExpectType TCreatedPdf
-pdfMake.createPdf(dd, {}, fonts);
+pdfMake.createPdf(dd, {});

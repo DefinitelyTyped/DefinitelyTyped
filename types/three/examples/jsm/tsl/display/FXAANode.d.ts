@@ -1,4 +1,3 @@
-import { ShaderNodeObject } from "three/tsl";
 import { Node, TempNode, TextureNode } from "three/webgpu";
 
 declare class FXAANode extends TempNode {
@@ -9,4 +8,4 @@ declare class FXAANode extends TempNode {
 
 export default FXAANode;
 
-export const fxaa: (node: Node) => ShaderNodeObject<FXAANode>;
+export const fxaa: (node: Node) => FXAANode;

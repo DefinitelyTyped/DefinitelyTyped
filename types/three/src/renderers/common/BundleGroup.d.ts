@@ -1,4 +1,5 @@
 import { Group } from "../../objects/Group.js";
+
 /**
  * A specialized group which enables applications access to the
  * Render Bundle API of WebGPU. The group with all its descendant nodes
@@ -12,14 +13,22 @@ import { Group } from "../../objects/Group.js";
  * @augments Group
  */
 declare class BundleGroup extends Group {
-    readonly isBundleGroup: true;
-    readonly type: string;
-    static: boolean;
-    version: number;
     /**
-     * Constructs a new bundle group.
+     * This flag can be used for type testing.
+     *
+     * @type {boolean}
+     * @readonly
+     * @default true
      */
-    constructor();
+    readonly isBundleGroup: boolean;
+    /**
+     * The bundle group's version.
+     *
+     * @type {number}
+     * @readonly
+     * @default 0
+     */
+    readonly version: number;
     /**
      * Set this property to `true` when the bundle group has changed.
      *
@@ -29,4 +38,5 @@ declare class BundleGroup extends Group {
      */
     set needsUpdate(value: boolean);
 }
+
 export default BundleGroup;

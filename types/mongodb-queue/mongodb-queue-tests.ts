@@ -1,5 +1,5 @@
 import { MongoClient } from "mongodb";
-import * as queue from "mongodb-queue";
+import queue from "mongodb-queue";
 
 const mongoClient = new MongoClient("mongodb://localhost:27017");
 mongoClient.connect().then(() => {

@@ -1,46 +1,126 @@
-import Draggabilly from "draggabilly";
+import Draggabilly, {
+    DraggabillyClickEventName,
+    DraggabillyEventCallback,
+    DraggabillyMoveEventName,
+    DraggabillyOptions,
+    Position,
+} from "draggabilly";
 
-const elem = document.querySelector(".draggable") as Element;
+declare let bool: boolean;
+declare let drag: Draggabilly;
+declare let element: Element;
+declare let htmlElement: HTMLElement;
+declare let nodelist: NodeList;
 
-const draggieA = new Draggabilly(".test");
-const draggieB = new Draggabilly(elem);
+// constructor
+{
+    new Draggabilly(bool ? ".test" : element);
 
-const draggie = new Draggabilly(elem, {
-    axis: "x",
-    containment: true,
-    grid: [20, 20],
-    handle: ".handle",
-});
+    new Draggabilly(bool ? ".test" : element, {});
 
-const draggiePosX: number = draggie.position.x;
-const draggiePosY: number = draggie.position.y;
+    new Draggabilly(bool ? ".test" : element, {
+        axis: bool ? "x" : "y",
+        containment: bool ? true : bool ? element : ".test",
+        grid: [30, 40],
+        handle: bool ? ".handle" : bool ? htmlElement : bool ? [htmlElement] : nodelist,
+    });
+}
 
-draggie.on("dragMove", (event, pointer, moveVector) => {
-    const pointerPageX: number = pointer.pageX;
-    const pointePageY: number = pointer.pageY;
+// events
+{
+    drag = drag.on(
+        bool ? "dragStart" : bool ? "dragEnd" : bool ? "pointerDown" : bool ? "pointerUp" : "staticClick",
+        (event, pointer) => {
+            // $ExpectType Event
+            event;
+            // $ExpectType MouseEvent | Touch
+            pointer;
+        },
+    );
 
-    const moveVectorX: number = moveVector.x;
-    const moveVectorY: number = moveVector.y;
-});
+    drag = drag.off(
+        bool ? "dragStart" : bool ? "dragEnd" : bool ? "pointerDown" : bool ? "pointerUp" : "staticClick",
+        (event, pointer) => {
+            // $ExpectType Event
+            event;
+            // $ExpectType MouseEvent | Touch
+            pointer;
+        },
+    );
 
-draggie.on("dragStart", (event, pointer) => {});
+    drag = drag.once(
+        bool ? "dragStart" : bool ? "dragEnd" : bool ? "pointerDown" : bool ? "pointerUp" : "staticClick",
+        (event, pointer) => {
+            // $ExpectType Event
+            event;
+            // $ExpectType MouseEvent | Touch
+            pointer;
+        },
+    );
 
-draggie.on("dragEnd", (event, pointer) => {});
+    drag = drag.on(
+        bool ? "dragMove" : "pointerMove",
+        (event, pointer, moveVector) => {
+            // $ExpectType Event
+            event;
+            // $ExpectType MouseEvent | Touch
+            pointer;
+            // $ExpectType Position
+            moveVector;
+            // $ExpectType number
+            moveVector.x;
+            // $ExpectType number
+            moveVector.y;
+        },
+    );
 
-draggie.on("pointerDown", (event, pointer) => {});
+    drag = drag.off(
+        bool ? "dragMove" : "pointerMove",
+        (event, pointer, moveVector) => {
+            // $ExpectType Event
+            event;
+            // $ExpectType MouseEvent | Touch
+            pointer;
+            // $ExpectType Position
+            moveVector;
+            // $ExpectType number
+            moveVector.x;
+            // $ExpectType number
+            moveVector.y;
+        },
+    );
 
-draggie.on("pointerMove", (event, pointer, moveVector) => {});
+    drag = drag.once(
+        bool ? "dragMove" : "pointerMove",
+        (event, pointer, moveVector) => {
+            // $ExpectType Event
+            event;
+            // $ExpectType MouseEvent | Touch
+            pointer;
+            // $ExpectType Position
+            moveVector;
+            // $ExpectType number
+            moveVector.x;
+            // $ExpectType number
+            moveVector.y;
+        },
+    );
+}
 
-draggie.on("pointerUp", (event, pointer) => {});
+// methods
+{
+    // $ExpectType void
+    drag.disable();
 
-draggie.on("staticClick", (event, pointer) => {});
+    // $ExpectType void
+    drag.enable();
 
-draggie.off("dragMove", (event, pointer, moveVector) => {});
+    // $ExpectType void
+    drag.setPosition(3, 4);
 
-draggie.once("dragMove", (event, pointer, moveVector) => {});
+    // $ExpectType void
+    drag.dragEnd();
 
-draggie.enable();
-
-draggie.disable();
-
-draggie.destroy();
+    // $ExpectType void
+    drag.destroy();
+}

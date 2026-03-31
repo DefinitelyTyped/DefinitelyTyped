@@ -5,13 +5,25 @@
  * @abstract
  */
 declare class Pipeline {
-    cacheKey: string;
-    usedTimes: number;
     /**
      * Constructs a new pipeline.
      *
      * @param {string} cacheKey - The pipeline's cache key.
      */
     constructor(cacheKey: string);
+    /**
+     * The pipeline's cache key.
+     *
+     * @type {string}
+     */
+    cacheKey: string;
+    /**
+     * How often the pipeline is currently in use.
+     *
+     * @type {number}
+     * @default 0
+     */
+    usedTimes: number;
 }
+
 export default Pipeline;

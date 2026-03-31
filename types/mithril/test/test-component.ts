@@ -1,6 +1,4 @@
-import * as m from "mithril";
-
-import { Comp, Component } from "mithril";
+import m, { Comp, Component } from "mithril";
 
 ///////////////////////////////////////////////////////////
 // 0.

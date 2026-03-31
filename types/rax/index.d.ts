@@ -1683,6 +1683,9 @@ declare namespace Rax {
     }
 
     interface DialogHTMLAttributes<T> extends HTMLAttributes<T> {
+        closedby?: "any" | "closerequest" | "none" | undefined;
+        onCancel?: RaxEventHandler<T> | undefined;
+        onClose?: RaxEventHandler<T> | undefined;
         open?: boolean | undefined;
     }
 

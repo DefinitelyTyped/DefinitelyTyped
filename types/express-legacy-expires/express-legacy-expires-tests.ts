@@ -1,5 +1,5 @@
 import expressLegacyExpires = require("express-legacy-expires");
-import * as express from "express";
+import express from "express";
 
 const options: expressLegacyExpires.Options = { now: () => Date.parse("2023-09-26T09:00:00Z") };
 

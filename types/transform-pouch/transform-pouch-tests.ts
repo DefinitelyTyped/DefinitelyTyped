@@ -1,7 +1,7 @@
 /// <reference lib="dom" />
 
-import * as PouchDB from "pouchdb";
-import * as transform from "transform-pouch";
+import PouchDB from "pouchdb";
+import transform from "transform-pouch";
 PouchDB.plugin(transform);
 
 const db1 = new PouchDB<{ example: number }>();

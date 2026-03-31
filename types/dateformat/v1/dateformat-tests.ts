@@ -2,7 +2,7 @@
  * https://github.com/felixge/node-dateformat#usage
  */
 
-import * as dateFormat from "dateformat";
+import dateFormat from "dateformat";
 const now = new Date();
 
 // Basic usage

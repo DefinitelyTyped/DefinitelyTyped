@@ -22,7 +22,7 @@ declare namespace GoogleAppsScript {
                 }
             }
             interface PresentationsCollection {
-                Pages?: Slides.Collection.Presentations.PagesCollection | undefined;
+                Pages: Slides.Collection.Presentations.PagesCollection;
                 // Applies one or more updates to the presentation.
                 // Each request is validated before
                 // being applied. If any request is not valid, then the entire request will
@@ -772,7 +772,7 @@ declare namespace GoogleAppsScript {
         }
     }
     interface Slides {
-        Presentations?: Slides.Collection.PresentationsCollection | undefined;
+        Presentations: Slides.Collection.PresentationsCollection;
         // Create a new instance of AffineTransform
         newAffineTransform(): Slides.Schema.AffineTransform;
         // Create a new instance of AutoText
@@ -1006,4 +1006,7 @@ declare namespace GoogleAppsScript {
     }
 }
 
-declare var Slides: GoogleAppsScript.Slides;
+/**
+ * The `Slides` advanced service must be enabled.
+ */
+declare var Slides: GoogleAppsScript.Slides | undefined;

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import SimpleReactLightbox, { Elements, SRLWrapper, SRLWrapperOptions, useLightbox } from "simple-react-lightbox";
 
 const elements: Elements = [

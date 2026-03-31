@@ -28,6 +28,7 @@ export default class AdCreative extends AbstractCrudObject {
         creative_sourcing_spec: "creative_sourcing_spec";
         degrees_of_freedom_spec: "degrees_of_freedom_spec";
         destination_set_id: "destination_set_id";
+        destination_spec: "destination_spec";
         dynamic_ad_voice: "dynamic_ad_voice";
         effective_authorization_category: "effective_authorization_category";
         effective_instagram_media_id: "effective_instagram_media_id";
@@ -35,6 +36,7 @@ export default class AdCreative extends AbstractCrudObject {
         enable_direct_install: "enable_direct_install";
         enable_launch_instant_app: "enable_launch_instant_app";
         facebook_branded_content: "facebook_branded_content";
+        format_transformation_spec: "format_transformation_spec";
         id: "id";
         image_crops: "image_crops";
         image_hash: "image_hash";
@@ -66,6 +68,7 @@ export default class AdCreative extends AbstractCrudObject {
         product_set_id: "product_set_id";
         recommender_settings: "recommender_settings";
         regional_regulation_disclaimer_spec: "regional_regulation_disclaimer_spec";
+        source_facebook_post_id: "source_facebook_post_id";
         source_instagram_media_id: "source_instagram_media_id";
         status: "status";
         template_url: "template_url";
@@ -159,6 +162,7 @@ export default class AdCreative extends AbstractCrudObject {
         video_call: "VIDEO_CALL";
         view_cart: "VIEW_CART";
         view_channel: "VIEW_CHANNEL";
+        view_in_cart: "VIEW_IN_CART";
         view_product: "VIEW_PRODUCT";
         visit_pages_feed: "VISIT_PAGES_FEED";
         watch_live_video: "WATCH_LIVE_VIDEO";

@@ -1,16 +1,53 @@
 declare namespace GorillaEngine.UI {
     interface LottieAnimationProps extends Common, Bounds {
+        /**
+         * The file path to the Lottie animation JSON file.
+         */
         filePath: string;
+        /**
+         * If set to true, the animation will start playing automatically.
+         */
         autoplay: boolean;
+        /** If set to true, the animation will loop indefinitely. */
         loop: boolean;
+        /**
+         * Returns the total number of frames in the animation
+         */
         readonly totalFrames?: number;
+        /**
+         * The duration of the animation in seconds.
+         */
         readonly duration?: number;
+        /**
+         * The currently displayed frame of the animation.
+         */
         readonly currentFrame?: number;
+        /**
+         * Starts the animation playback at the current position.
+         */
         play(): void;
+        /**
+         * Stops the animation playback and resets the position.
+         */
         stop(): void;
+        /**
+         * Pauses the animation playback.
+         */
         pause(): void;
+        /**
+         * Sets the animation to a specific frame.
+         * @param frame The frame number to set the animation to.
+         */
         setFrame(frame: number): void;
+        /**
+         * TODO:: No idea what this does
+         * @param frame the target frame to set the animation to.
+         */
         setTargetFrame(frame: number): void;
+        /**
+         * TODO:: No idea what this does
+         * @param frame the target frame to set the animation to.
+         */
         setFrameFromLinearTransform(value: number, min: number, max: number): void;
         setProperties(
             selector: string,

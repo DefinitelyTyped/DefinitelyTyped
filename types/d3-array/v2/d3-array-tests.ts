@@ -901,9 +901,9 @@ const chars = ["x", "y"];
 const nums = [1, 2];
 
 crossed = d3Array.cross(chars, nums);
-crossed = d3Array.cross<string, number>(chars, nums);
+crossed = d3Array.cross<[string, number]>(chars, nums);
 
-let strArray: string[] = d3Array.cross<number, number, string>([2, 3], [5, 6], (a, b) => (a + b) + "px");
+let strArray: string[] = d3Array.cross<[number, number], string>([2, 3], [5, 6], (a, b) => (a + b) + "px");
 strArray = d3Array.cross([2, 3], [5, 6], (a, b) => {
     const aa: number = a;
     const bb: number = b;
@@ -914,9 +914,9 @@ const readonlyChars = chars as readonly string[];
 const readonlyNums = new Uint8Array(nums);
 
 crossed = d3Array.cross(readonlyChars, readonlyNums);
-crossed = d3Array.cross<string, number>(readonlyChars, readonlyNums);
+crossed = d3Array.cross<[string, number]>(readonlyChars, readonlyNums);
 
-strArray = d3Array.cross<number, number, string>(
+strArray = d3Array.cross<[number, number], string>(
     [2, 3] as readonly number[],
     new Uint8ClampedArray([5, 6]),
     (a, b) => (a + b) + "px",

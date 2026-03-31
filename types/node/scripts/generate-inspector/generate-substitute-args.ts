@@ -82,7 +82,7 @@ const createPostFunctions = (command: schema.Command, domain: string): string[] 
     if (hasElements(command.parameters || [])) {
         const parts = [
             `${fnName}(`,
-            `method: '${domain}.${command.name}', `,
+            `method: "${domain}.${command.name}", `,
             `params?: ${domain}.${capitalize(command.name)}ParameterType, `,
             `callback?: ${callbackStr}`,
             "): void;",
@@ -99,7 +99,7 @@ const createPostFunctions = (command: schema.Command, domain: string): string[] 
     }
     result.push([
         `${fnName}(`,
-        `method: '${domain}.${command.name}', `,
+        `method: "${domain}.${command.name}", `,
         `callback?: ${callbackStr}`,
         "): void;",
     ].join(""));
@@ -112,14 +112,14 @@ const createPostPromiseFunction = (command: schema.Command, domain: string): str
     if (hasElements(command.parameters || [])) {
         result.push([
             `${fnName}(`,
-            `method: '${domain}.${command.name}', `,
+            `method: "${domain}.${command.name}", `,
             `params?: ${domain}.${capitalize(command.name)}ParameterType`,
             `): ${promiseStr};`,
         ].join(""));
     } else {
         result.push([
             `${fnName}(`,
-            `method: '${domain}.${command.name}'`,
+            `method: "${domain}.${command.name}"`,
             `): ${promiseStr};`,
         ].join(""));
     }

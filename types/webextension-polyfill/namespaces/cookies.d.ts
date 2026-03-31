@@ -13,7 +13,7 @@ export namespace Cookies {
      * 'no_restriction' corresponds to a cookie set without a 'SameSite' attribute, 'lax' to 'SameSite=Lax',
      * and 'strict' to 'SameSite=Strict'.
      */
-    type SameSiteStatus = "no_restriction" | "lax" | "strict";
+    type SameSiteStatus = "unspecified" | "no_restriction" | "lax" | "strict";
 
     /**
      * The description of the storage partition of a cookie. This object may be omitted (null) if a cookie is not partitioned.

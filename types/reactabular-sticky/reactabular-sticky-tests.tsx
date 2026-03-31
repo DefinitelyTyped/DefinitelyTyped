@@ -1,6 +1,6 @@
 import * as React from "react";
-import * as Sticky from "reactabular-sticky";
-import * as Table from "reactabular-table";
+import Sticky from "reactabular-sticky";
+import Table from "reactabular-table";
 
 export interface Props {
     columns: Table.Column[];
@@ -21,8 +21,8 @@ class ReactabularStickyTestComponent extends React.Component<Props> {
         },
     };
 
-    private tableHeader: HTMLElement | null;
-    private tableBody: HTMLElement | null;
+    private tableHeader!: HTMLElement | null;
+    private tableBody!: HTMLElement | null;
 
     render() {
         return (

@@ -1,4 +1,4 @@
-import * as E from "express";
+import E = require("express");
 
 declare function conditional(
     condition: boolean | ((req: E.Request, res: E.Response, next: E.NextFunction) => boolean | undefined),

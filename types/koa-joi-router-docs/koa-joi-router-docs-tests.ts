@@ -1,5 +1,5 @@
-import * as Koa from "koa";
-import * as Router from "koa-joi-router";
+import Koa from "koa";
+import Router from "koa-joi-router";
 import { SwaggerAPI } from "koa-joi-router-docs";
 
 const Joi = Router.Joi;
