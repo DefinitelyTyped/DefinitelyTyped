@@ -891,7 +891,10 @@ export namespace SubscriptionEvent {
     }
 
     /** Create — accepts flat params (auto-wrapped) or envelope style */
-    function create(config: Config, data: NewSubscriptionEvent | { subscription_event: NewSubscriptionEvent }): Promise<SubscriptionEvent>;
+    function create(
+        config: Config,
+        data: NewSubscriptionEvent | { subscription_event: NewSubscriptionEvent },
+    ): Promise<SubscriptionEvent>;
     function all(config: Config, params?: ListSubscriptionEventsParams): Promise<SubscriptionEvents>;
     function modify(config: Config, data: { subscription_event: UpdateSubscriptionEvent }): Promise<SubscriptionEvent>;
     /** Update — accepts flat params (auto-wrapped) or envelope style */
