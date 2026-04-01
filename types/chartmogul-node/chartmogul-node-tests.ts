@@ -1138,6 +1138,24 @@ ChartMogul.Invoice.modify(config, "inv_f466e33d-ff2b-4a11-8f85-417eb02157a7", {
 // $ExpectType Promise<ResourceDestroyed>
 ChartMogul.Invoice.destroy(config, "");
 
+// $ExpectType Promise<ResourceDestroyed>
+ChartMogul.Invoice.destroy_all(config, "ds_uuid", "cus_uuid");
+
+// $ExpectType Promise<UpdateStatusResponse>
+ChartMogul.Invoice.updateStatus(config, "ds_uuid", "INV0001", { status: "voided" });
+
+// $ExpectType Promise<UpdateStatusResponse>
+ChartMogul.Invoice.updateStatus(config, "ds_uuid", "INV0001", { status: "written_off" });
+
+// $ExpectType Promise<Invoice>
+ChartMogul.Invoice.disable(config, "inv_565c73b2-85b9-49c9-a25e-2b7df6a677c9");
+
+// $ExpectType Promise<Invoice>
+ChartMogul.Invoice.disable(config, "inv_565c73b2-85b9-49c9-a25e-2b7df6a677c9", { reason: "duplicate" });
+
+// $ExpectType Promise<Invoice>
+ChartMogul.Invoice.enable(config, "inv_565c73b2-85b9-49c9-a25e-2b7df6a677c9");
+
 ChartMogul.Invoice.all(config, "", {
     page: 1,
 });
@@ -1453,6 +1471,35 @@ ChartMogul.SubscriptionEvent.deleteWithParams(config, {
         id: 23223966,
     },
 });
+
+// SubscriptionEvent flat params (auto-wrapped)
+
+// $ExpectType Promise<SubscriptionEvent>
+ChartMogul.SubscriptionEvent.create(config, {
+    data_source_uuid: "ds_14336c0c-ab0b-11ec-8c55-c3902af70e1c",
+    customer_external_id: "cus_001",
+    event_type: "subscription_cancelled",
+    event_date: "2022-04-09T12:30:00.000Z",
+    effective_date: "2022-04-09T12:30:00.000Z",
+    subscription_external_id: "sub_001",
+});
+
+// $ExpectType Promise<SubscriptionEvent>
+ChartMogul.SubscriptionEvent.updateWithParams(config, {
+    id: 12345,
+    event_type: "subscription_cancelled",
+});
+
+// $ExpectType Promise<ResourceDestroyed>
+ChartMogul.SubscriptionEvent.deleteWithParams(config, {
+    id: 12345,
+});
+
+// $ExpectType Promise<SubscriptionEvent>
+ChartMogul.SubscriptionEvent.disable(config, 12345);
+
+// $ExpectType Promise<SubscriptionEvent>
+ChartMogul.SubscriptionEvent.enable(config, 12345);
 
 // Metrics.ActivitiesExport.create
 

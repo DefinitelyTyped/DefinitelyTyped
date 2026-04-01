@@ -576,6 +576,19 @@ export namespace Invoice {
         date?: string;
         due_date?: string;
         external_id?: string;
+        customer_external_id?: string;
+        collection_method?: "automatic" | "manual" | null;
+        status?: string;
+        disabled?: boolean;
+        disabled_at?: string | null;
+        disabled_by?: string | null;
+        user_created?: boolean;
+        errors?: Record<string, string[]> | null;
+        edit_history_summary?: {
+            values_changed?: Record<string, { original_value: any; edited_value: any }>;
+            latest_edit_author?: string;
+            latest_edit_performed_at?: string;
+        } | null;
         line_items?: LineItem[];
         transactions?: Transaction[];
     }
@@ -598,6 +611,7 @@ export namespace Invoice {
         tax_amount_in_cents?: number;
         transaction_fees_in_cents?: number;
         type?: string;
+        error?: string | null;
     }
     interface Transaction {
         uuid?: string;
@@ -605,6 +619,7 @@ export namespace Invoice {
         external_id?: string;
         result?: string;
         type?: string;
+        error?: string | null;
     }
 
     interface NewLineItemBase {
@@ -703,8 +718,25 @@ export namespace Invoice {
     function retrieve(config: Config, uuid: string, params?: RetrieveInvoiceParams): Promise<Invoice>;
     function modify(config: Config, uuid: string, data: UpdateInvoice): Promise<Invoice>;
     function destroy(config: Config, uuid: string): Promise<ResourceDestroyed>;
+    function destroy_all(config: Config, dataSourceUuid: string, customerUuid: string): Promise<ResourceDestroyed>;
     function all(config: Config, uuid: string, params?: ListInvoicesParams): Promise<Invoices>;
     function all(config: Config, params?: ListInvoicesParams): Promise<Invoices>;
+
+    interface UpdateStatusResponse {
+        message: string;
+        invoice: Invoice;
+    }
+    /** Update invoice status. Expects data_source_uuid and invoice external_id as path params. */
+    function updateStatus(
+        config: Config,
+        dataSourceUuid: string,
+        invoiceExternalId: string,
+        data: { status: "voided" | "written_off" },
+    ): Promise<UpdateStatusResponse>;
+    /** Disable an invoice via PATCH /v1/invoices/:uuid/disabled_state */
+    function disable(config: Config, uuid: string, data?: object): Promise<Invoice>;
+    /** Re-enable a disabled invoice via PATCH /v1/invoices/:uuid/disabled_state */
+    function enable(config: Config, uuid: string): Promise<Invoice>;
 }
 
 export namespace Transaction {
@@ -791,6 +823,11 @@ export namespace SubscriptionEvent {
         tax_amount_in_cents?: number;
         event_order?: number | null;
         retracted_event_id?: string | null;
+        invoice_external_id?: string | null;
+        disabled?: boolean;
+        disabled_at?: string | null;
+        disabled_by?: string | null;
+        user_created?: boolean;
     }
 
     interface NewSubscriptionEvent {
@@ -853,21 +890,28 @@ export namespace SubscriptionEvent {
         id?: number;
     }
 
-    function create(config: Config, data: { subscription_event: NewSubscriptionEvent }): Promise<SubscriptionEvent>;
+    /** Create — accepts flat params (auto-wrapped) or envelope style */
+    function create(config: Config, data: NewSubscriptionEvent | { subscription_event: NewSubscriptionEvent }): Promise<SubscriptionEvent>;
     function all(config: Config, params?: ListSubscriptionEventsParams): Promise<SubscriptionEvents>;
     function modify(config: Config, data: { subscription_event: UpdateSubscriptionEvent }): Promise<SubscriptionEvent>;
+    /** Update — accepts flat params (auto-wrapped) or envelope style */
     function updateWithParams(
         config: Config,
-        data: { subscription_event: UpdateSubscriptionEvent },
+        data: UpdateSubscriptionEvent | { subscription_event: UpdateSubscriptionEvent },
     ): Promise<SubscriptionEvent>;
     function destroy(
         config: Config,
         data: { subscription_event: DestroySubscriptionEvent },
     ): Promise<ResourceDestroyed>;
+    /** Delete — accepts flat params (auto-wrapped) or envelope style */
     function deleteWithParams(
         config: Config,
-        data: { subscription_event: DestroySubscriptionEvent },
+        data: DestroySubscriptionEvent | { subscription_event: DestroySubscriptionEvent },
     ): Promise<ResourceDestroyed>;
+    /** Disable a subscription event via PATCH /v1/subscription_events/:id/disabled_state */
+    function disable(config: Config, id: number): Promise<SubscriptionEvent>;
+    /** Re-enable a disabled subscription event */
+    function enable(config: Config, id: number): Promise<SubscriptionEvent>;
 }
 
 export namespace Tag {
