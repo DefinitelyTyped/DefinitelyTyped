@@ -261,82 +261,85 @@ declare namespace YandexMoneySDK {
     }
 }
 
-import * as http from "http";
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
+declare module "yandex-money-sdk" {
+    import * as http from "http";
 
-export interface ResponseCallback<TBody> {
-    (err: any, body: TBody, response: http.IncomingMessage): any;
+    export interface ResponseCallback<TBody> {
+        (err: any, body: TBody, response: http.IncomingMessage): any;
+    }
+
+    export interface WalletStatic {
+        new(accessToken: string): Wallet;
+        buildObtainTokenUrl(clientId: string, redirectURI: string, scope: string[]): string;
+        getAccessToken(
+            clientId: string,
+            code: string,
+            redirectURI: string,
+            clientSecret: string,
+            callback: ResponseCallback<YandexMoneySDK.Wallet.GetAccessTokenResult>,
+        ): void;
+        revokeToken(token: string, revoke_all: any, callback: ResponseCallback<any>): void; // revoke_all missing in documentation
+    }
+
+    export interface Wallet {
+        sendAuthenticatedRequest(
+            params: YandexMoneySDK.Wallet.SendAuthenticatedRequestParams,
+            callback: ResponseCallback<any>,
+        ): void;
+        accountInfo(callback: ResponseCallback<YandexMoneySDK.Wallet.AccountInfoResult>): void;
+        operationHistory(
+            options: YandexMoneySDK.Wallet.OperationHistoryOptions,
+            callback: ResponseCallback<YandexMoneySDK.Wallet.OperationHistoryResult>,
+        ): void;
+        operationDetails(
+            operation_id: string,
+            callback: ResponseCallback<YandexMoneySDK.Wallet.OperationDetailsResult>,
+        ): void;
+        requestPayment(
+            options: YandexMoneySDK.Wallet.RequestPaymentOptions,
+            callback: ResponseCallback<YandexMoneySDK.Wallet.RequestPaymentResult>,
+        ): void;
+        processPayment(
+            options: YandexMoneySDK.Wallet.ProcessPaymentOptions,
+            callback: ResponseCallback<YandexMoneySDK.Wallet.ProcessPaymentResult>,
+        ): void;
+        incomingTransferAccept(
+            operation_id: string,
+            protectionCode: string,
+            callback: ResponseCallback<YandexMoneySDK.Wallet.IncomingTransferAcceptResult>,
+        ): void;
+        incomingTransferReject(
+            operation_id: string,
+            callback: ResponseCallback<YandexMoneySDK.Wallet.IncomingTransferRejectResult>,
+        ): void;
+    }
+
+    export interface ExternalPaymentStatic {
+        new(instanceId: string): ExternalPayment;
+        getInstanceId(
+            clientId: string,
+            callback: ResponseCallback<YandexMoneySDK.ExternalPayment.GetInstanceIdResult>,
+        ): void;
+    }
+
+    export interface ExternalPayment {
+        request(
+            options: YandexMoneySDK.ExternalPayment.RequestOptions,
+            callback: ResponseCallback<YandexMoneySDK.ExternalPayment.RequestResult>,
+        ): void;
+        process(
+            options: YandexMoneySDK.ExternalPayment.ProcessOptions,
+            callback: ResponseCallback<YandexMoneySDK.ExternalPayment.ProcessResult>,
+        ): void;
+    }
+
+    export interface Config {
+        MONEY_URL: string;
+        SP_MONEY_URL: string;
+    }
+
+    export var Wallet: WalletStatic;
+    export var ExternalPayment: ExternalPaymentStatic;
+    export var Config: Config;
 }
-
-export interface WalletStatic {
-    new(accessToken: string): Wallet;
-    buildObtainTokenUrl(clientId: string, redirectURI: string, scope: string[]): string;
-    getAccessToken(
-        clientId: string,
-        code: string,
-        redirectURI: string,
-        clientSecret: string,
-        callback: ResponseCallback<YandexMoneySDK.Wallet.GetAccessTokenResult>,
-    ): void;
-    revokeToken(token: string, revoke_all: any, callback: ResponseCallback<any>): void; // revoke_all missing in documentation
-}
-
-export interface Wallet {
-    sendAuthenticatedRequest(
-        params: YandexMoneySDK.Wallet.SendAuthenticatedRequestParams,
-        callback: ResponseCallback<any>,
-    ): void;
-    accountInfo(callback: ResponseCallback<YandexMoneySDK.Wallet.AccountInfoResult>): void;
-    operationHistory(
-        options: YandexMoneySDK.Wallet.OperationHistoryOptions,
-        callback: ResponseCallback<YandexMoneySDK.Wallet.OperationHistoryResult>,
-    ): void;
-    operationDetails(
-        operation_id: string,
-        callback: ResponseCallback<YandexMoneySDK.Wallet.OperationDetailsResult>,
-    ): void;
-    requestPayment(
-        options: YandexMoneySDK.Wallet.RequestPaymentOptions,
-        callback: ResponseCallback<YandexMoneySDK.Wallet.RequestPaymentResult>,
-    ): void;
-    processPayment(
-        options: YandexMoneySDK.Wallet.ProcessPaymentOptions,
-        callback: ResponseCallback<YandexMoneySDK.Wallet.ProcessPaymentResult>,
-    ): void;
-    incomingTransferAccept(
-        operation_id: string,
-        protectionCode: string,
-        callback: ResponseCallback<YandexMoneySDK.Wallet.IncomingTransferAcceptResult>,
-    ): void;
-    incomingTransferReject(
-        operation_id: string,
-        callback: ResponseCallback<YandexMoneySDK.Wallet.IncomingTransferRejectResult>,
-    ): void;
-}
-
-export interface ExternalPaymentStatic {
-    new(instanceId: string): ExternalPayment;
-    getInstanceId(
-        clientId: string,
-        callback: ResponseCallback<YandexMoneySDK.ExternalPayment.GetInstanceIdResult>,
-    ): void;
-}
-
-export interface ExternalPayment {
-    request(
-        options: YandexMoneySDK.ExternalPayment.RequestOptions,
-        callback: ResponseCallback<YandexMoneySDK.ExternalPayment.RequestResult>,
-    ): void;
-    process(
-        options: YandexMoneySDK.ExternalPayment.ProcessOptions,
-        callback: ResponseCallback<YandexMoneySDK.ExternalPayment.ProcessResult>,
-    ): void;
-}
-
-export interface Config {
-    MONEY_URL: string;
-    SP_MONEY_URL: string;
-}
-
-export var Wallet: WalletStatic;
-export var ExternalPayment: ExternalPaymentStatic;
-export var Config: Config;
