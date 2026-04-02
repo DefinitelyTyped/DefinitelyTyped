@@ -1,4 +1,4 @@
-// Type definitions for saml 1.0
+// Type definitions for saml 4.0
 // Project: https://github.com/auth0/node-saml#readme
 // Definitions by: Eric Heikes <https://github.com/eheikes>, Eva Sarafianou <https://github.com/esarafianou>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -6,7 +6,7 @@
 /// <reference types="node" />
 
 export interface SamlAttributes {
-    [key: string]: string;
+    [key: string]: string | ReadonlyArray<string>;
 }
 
 export interface KeyInfoProvider {
@@ -19,6 +19,7 @@ export interface SamlSignedOpts {
     audiences?: string | string[] | undefined;
     cert: Buffer;
     digestAlgorithm?: string | undefined;
+    disallowEncryptionWithInsecureAlgorithm?: boolean | undefined;
     encryptionAlgorithm?: string | undefined;
     encryptionCert?: Buffer | undefined;
     encryptionPublicKey?: Buffer | undefined;
@@ -36,10 +37,12 @@ export interface SamlSignedOpts {
     recipient?: string | undefined;
     sessionIndex?: string | undefined;
     signatureAlgorithm?: string | undefined;
+    signatureIdAttribute?: string | undefined;
     signatureNamespacePrefix?: string | undefined;
     subjectConfirmationMethod?: string | undefined;
     typedAttributes?: boolean | undefined;
     uid?: string | undefined;
+    warnOnInsecureEncryptionAlgorithm?: boolean | undefined;
     xpathToNodeBeforeSignature?: string | undefined;
 }
 
@@ -49,6 +52,7 @@ export interface SamlUnassignedOpts {
     audiences?: string | string[] | undefined;
     cert?: Buffer | undefined;
     digestAlgorithm?: string | undefined;
+    disallowEncryptionWithInsecureAlgorithm?: boolean | undefined;
     encryptionAlgorithm?: string | undefined;
     encryptionCert?: Buffer | undefined;
     encryptionPublicKey?: Buffer | undefined;
@@ -70,6 +74,7 @@ export interface SamlUnassignedOpts {
     subjectConfirmationMethod?: string | undefined;
     typedAttributes?: boolean | undefined;
     uid?: string | undefined;
+    warnOnInsecureEncryptionAlgorithm?: boolean | undefined;
     xpathToNodeBeforeSignature?: string | undefined;
 }
 export namespace Saml11 {
