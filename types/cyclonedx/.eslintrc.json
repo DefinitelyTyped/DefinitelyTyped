@@ -1,8 +1,0 @@
-{
-    "ignorePatterns": [
-        "cyclonedx-tests.json"
-    ],
-    "rules": {
-        "@definitelytyped/no-type-only-packages": "off"
-    }
-}

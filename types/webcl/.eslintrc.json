@@ -1,6 +1,0 @@
-{
-    "rules": {
-        "@definitelytyped/no-const-enum": "off",
-        "@typescript-eslint/explicit-member-accessibility": "off"
-    }
-}

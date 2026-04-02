@@ -1,1 +1,0 @@
-export function emojiSupport(): boolean;

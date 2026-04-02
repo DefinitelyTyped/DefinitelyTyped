@@ -1,8 +1,0 @@
-{
-    "rules": {
-        "@definitelytyped/no-declare-current-package": "off",
-        "@definitelytyped/no-single-declare-module": "off",
-        "@typescript-eslint/no-empty-interface": "off",
-        "@typescript-eslint/naming-convention": "off"
-    }
-}

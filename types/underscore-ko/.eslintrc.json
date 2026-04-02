@@ -1,7 +1,0 @@
-{
-    "rules": {
-        "@definitelytyped/no-type-only-packages": "off",
-        "@definitelytyped/no-unnecessary-generics": "off",
-        "@definitelytyped/strict-export-declare-modifiers": "off"
-    }
-}

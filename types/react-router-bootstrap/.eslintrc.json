@@ -1,7 +1,0 @@
-{
-    "rules": {
-        "@definitelytyped/no-self-import": "off",
-        "@definitelytyped/no-duplicate-imports": "off",
-        "@typescript-eslint/explicit-member-accessibility": "off"
-    }
-}

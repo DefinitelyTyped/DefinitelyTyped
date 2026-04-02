@@ -1,8 +1,0 @@
-{
-    "rules": {
-        "@definitelytyped/no-unnecessary-generics": "off",
-        "@definitelytyped/no-declare-current-package": "off",
-        "@definitelytyped/no-single-declare-module": "off",
-        "@typescript-eslint/adjacent-overload-signatures": "off"
-    }
-}

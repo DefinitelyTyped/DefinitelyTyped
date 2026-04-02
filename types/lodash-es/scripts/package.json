@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "devDependencies": {
-        "@types/node": "*"
-    }
-}

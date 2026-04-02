@@ -1,8 +1,0 @@
-{
-    "rules": {
-        "@definitelytyped/strict-export-declare-modifiers": "off",
-        "@typescript-eslint/triple-slash-reference": "off",
-        "@typescript-eslint/no-empty-interface": "off",
-        "@typescript-eslint/naming-convention": "off"
-    }
-}

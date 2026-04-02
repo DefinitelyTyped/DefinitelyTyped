@@ -1,2 +1,0 @@
-$("#form").serializeObject();
-$("#form").serializeJSON();

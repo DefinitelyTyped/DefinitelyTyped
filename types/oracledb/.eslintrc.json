@@ -1,8 +1,0 @@
-{
-    "rules": {
-        "@definitelytyped/export-just-namespace": "off",
-        "@definitelytyped/no-unnecessary-generics": "off",
-        "@definitelytyped/no-duplicate-imports": "off",
-        "no-duplicate-imports": "off"
-    }
-}

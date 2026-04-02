@@ -1,6 +1,0 @@
-{
-    "rules": {
-        "@typescript-eslint/prefer-namespace": "off",
-        "@typescript-eslint/no-empty-interface": "off"
-    }
-}
