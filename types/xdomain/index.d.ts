@@ -1,9 +1,9 @@
-declare interface XDomainCookies {
+interface XDomainCookies {
     master: string;
     slave: string;
 }
 
-declare interface IXDomain {
+interface IXDomain {
     /**
      * Will initialize as a master
      *

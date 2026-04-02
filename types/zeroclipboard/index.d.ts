@@ -18,7 +18,7 @@ declare namespace ZC {
     }
     type EventListenerOrEventListenerObject<T extends ZeroClipboardEvent> = EventListener<T> | EventListenerObject<T>;
 
-    export interface ZeroClipboardStatic extends ZeroClipboardCommon {
+    interface ZeroClipboardStatic extends ZeroClipboardCommon {
         new(elements?: Element | List<Element>): ZeroClipboardClient;
 
         /**
