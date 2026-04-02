@@ -488,10 +488,4 @@ declare namespace ZC {
  */
 declare var ZeroClipboard: ZC.ZeroClipboardStatic;
 
-/**
- * AMD and CommonJS module `zeroclipboard`
- * @module
- */
-declare module "zeroclipboard" {
-    export = ZeroClipboard;
-}
+export = ZeroClipboard;

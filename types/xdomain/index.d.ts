@@ -40,7 +40,3 @@ declare interface IXDomain {
 }
 
 declare var xdomain: IXDomain;
-
-declare module "xdomain" {
-    export const xdomain: IXDomain;
-}

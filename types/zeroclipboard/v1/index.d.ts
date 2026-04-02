@@ -69,6 +69,4 @@ interface ZeroClipboardOptions {
 }
 
 // Support AMD.
-declare module "zeroclipboard" {
-    export = ZeroClipboard;
-}
+export = ZeroClipboard;

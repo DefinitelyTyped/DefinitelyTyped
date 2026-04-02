@@ -30,12 +30,10 @@ declare namespace XmlPoke { // ghost module
     }
 }
 
-declare module "xmlpoke" {
-    const xmlpoke: {
-        (xml: string, modify: (api: XmlPoke.API) => void): string;
-        CDataValue: new(value: string) => XmlPoke.CDataValue;
-        XmlString: new(value: string) => XmlPoke.XmlValue;
-    };
-    namespace xmlpoke {}
-    export = xmlpoke;
-}
+declare const xmlpoke: {
+    (xml: string, modify: (api: XmlPoke.API) => void): string;
+    CDataValue: new(value: string) => XmlPoke.CDataValue;
+    XmlString: new(value: string) => XmlPoke.XmlValue;
+};
+declare namespace xmlpoke {}
+export = xmlpoke;

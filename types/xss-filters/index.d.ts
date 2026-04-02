@@ -33,6 +33,4 @@ interface XSSFilters {
 
 declare var xssFilters: XSSFilters;
 
-declare module "xss-filters" {
-    export = xssFilters;
-}
+export = xssFilters;
