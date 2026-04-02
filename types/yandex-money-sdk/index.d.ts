@@ -1,5 +1,3 @@
-/// <reference types="node" />
-
 declare namespace YandexMoneySDK {
     namespace Wallet {
         interface GetAccessTokenResult {

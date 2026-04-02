@@ -1,5 +1,3 @@
-/// <reference types="node" />
-
 declare namespace XmlPoke { // ghost module
     interface Transform {
         (node: Node, value: string): Value;

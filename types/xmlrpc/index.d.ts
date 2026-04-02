@@ -1,5 +1,3 @@
-/// <reference types="node" />
-
 import { EventEmitter } from "events";
 import { Server as HttpServer } from "http";
 import { Server as HttpsServer } from "https";
