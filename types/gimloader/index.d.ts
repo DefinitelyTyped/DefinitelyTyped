@@ -2273,6 +2273,7 @@ declare global {
                     immediate?: boolean,
                 ): () => void;
                 onChange(callback: () => void): () => void;
+                onRemove(callback: () => void): () => void;
             };
             type CollectionSchema<T, K> = ColyseusMethods & {
                 onAdd(callback: (value: T, index: K) => void, immediate?: boolean): () => void;
@@ -2874,6 +2875,8 @@ declare global {
         class BaseUIApi {
             /** Shows a customizable modal to the user */
             showModal(element: HTMLElement | React$1.ReactElement, options?: ModalOptions): void;
+            /** Forces Gimkit's react tree to fully rerender */
+            forceReactUpdate(): void;
             /**
              * Gimkit's notification object, only available when joining or playing a game
              *
@@ -2960,6 +2963,8 @@ declare global {
         ) => boolean | void;
 
         type PatcherInsteadCallback<T> = (thisVal: any, args: T extends BaseFunction ? Parameters<T> : any[]) => any;
+
+        type PatcherSwapCallback<T> = (...args: T extends BaseFunction ? Parameters<T> : any[]) => any;
         class PatcherApi {
             /**
              * Runs a callback after a function on an object has been run
@@ -2991,6 +2996,16 @@ declare global {
                 object: O,
                 method: K,
                 callback: PatcherInsteadCallback<O[K]>,
+            ): () => void;
+            /**
+             * Replaces a function on an object with another function
+             * @returns A function to remove the patch
+             */
+            swap<O extends object, K extends FunctionKeys<O>>(
+                id: string,
+                object: O,
+                method: K,
+                callback: PatcherSwapCallback<O[K]>,
             ): () => void;
             /** Removes all patches with a given id */
             unpatchAll(id: string): void;
@@ -3025,10 +3040,19 @@ declare global {
                 method: K,
                 callback: PatcherInsteadCallback<O[K]>,
             ): () => void;
+            /**
+             * Replaces a function on an object with another function
+             * @returns A function to remove the patch
+             */
+            swap<O extends object, K extends FunctionKeys<O>>(
+                object: O,
+                method: K,
+                callback: PatcherSwapCallback<O[K]>,
+            ): () => void;
         }
 
         // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-        type RunInScopeCallback = (code: string, run: (evalCode: string) => void) => true | void;
+        type RunInScopeCallback = (code: string, run: (evalCode: string) => any, initial: boolean) => true | void;
 
         interface Exposer {
             check?: string;

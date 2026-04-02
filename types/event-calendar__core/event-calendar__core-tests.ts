@@ -47,6 +47,7 @@ cal.removeEventById(345)
         end: new Date(Date.now() + 2 * 60 * 60 * 1000),
     });
 cal.refetchEvents();
+cal.refetchResources();
 cal.dateFromPoint(0, 0);
 cal.getView();
 cal.next();
@@ -136,10 +137,13 @@ cal = createCalendar(target, plugins, {
             click: () => undefined,
         },
     },
+    customScrollbars: true,
     date: "1997-04-12",
     dateClick: (_info: Calendar.DateClickInfo) => {},
+    dateIncrement: { days: 7 },
     datesAboveResources: false,
     datesSet: (_info: Calendar.DatesSetInfo) => {},
+    dayCellContent: { html: "" },
     dayCellFormat: dateFormat,
     dayHeaderAriaLabelFormat: dateFormat,
     dayHeaderFormat: dateFormat,
@@ -205,18 +209,22 @@ cal = createCalendar(target, plugins, {
     height: "100%",
     hiddenDays: [2],
     highlightedDates: ["2024-01-01", new Date()],
+    icons: { collapse: { html: "&minus;" }, expand: { html: "&plus;" } },
     lazyFetching: true,
     listDayFormat: dateFormat,
     listDaySideFormat: dateFormat,
     loading: (_isLoading: boolean) => {},
     locale: "en-US",
     longPressDelay: 100,
+    monthHeaderFormat: { month: "long" },
     moreLinkContent: "content",
     noEventsClick: (_info: Calendar.NoEventsClickInfo) => {},
     noEventsContent: "content",
     nowIndicator: true,
     pointer: true,
+    refetchResourcesOnNavigate: true,
     resizeConstraint: (_info: Calendar.EventResizeInfo) => true,
+    resourceExpand: (_info: Calendar.ResourceExpandInfo) => {},
     resources: [{ id: "foo" }, { id: "bar", extendedProps: { fred: "barney" } }],
     resourceLabelContent: "content",
     resourceLabelDidMount: (_info: Calendar.ResourceDidMountInfo) => {},
@@ -237,6 +245,7 @@ cal = createCalendar(target, plugins, {
     slotMinTime: 300,
     slotMaxTime: "04:00:00",
     slotWidth: 100,
+    snapDuration: 200,
     theme: defaultTheme,
     titleFormat: dateFormat,
     unselect: (_info: Calendar.UnselectInfo) => {},
@@ -265,6 +274,7 @@ cal.setOption("buttonText", () => {
         return customButtons;
     })
     .setOption("columnWidth", undefined)
+    .setOption("dayCellContent", (_arg: Calendar.DayCellContentArg) => "content")
     .setOption("dayCellFormat", (_d: Date) => "content")
     .setOption("dayHeaderAriaLabelFormat", (_d: Date) => "content")
     .setOption("dayHeaderFormat", (_d: Date) => "content")
@@ -275,8 +285,10 @@ cal.setOption("buttonText", () => {
     })
     .setOption("eventTimeFormat", (_start: Date, _end: Date) => "content")
     .setOption("flexibleSlotTimeLimits", { eventFilter: (_ev: Calendar.Event) => false })
+    .setOption("icons", (_icons: Calendar.Icons) => ({ expand: "content" }))
     .setOption("listDayFormat", (_d: Date) => "content")
     .setOption("listDaySideFormat", (_d: Date) => "content")
+    .setOption("monthHeaderFormat", (_date: Date) => "content")
     .setOption("moreLinkContent", (_info: Calendar.MoreLinkInfo) => "content")
     .setOption("noEventsContent", () => "content")
     .setOption("resourceLabelContent", (_info: Calendar.ResourceLabelInfo) => "content")
@@ -317,6 +329,7 @@ let validResource: Calendar.Resource = {
     title: "content",
     eventBackgroundColor: undefined,
     eventTextColor: undefined,
+    expanded: true,
     extendedProps: { a: 1, b: "two", c: [] },
 };
 const { title, ...rest } = validResource;

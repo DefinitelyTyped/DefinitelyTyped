@@ -432,3 +432,16 @@ const bindConfig = {
 
 const con = new Connection();
 con.bind(bindConfig, true);
+
+const poolWithOnConnect = new Pool({
+    onConnect: (client) => {
+        client.query("SELECT 1").then(result => {
+            console.log(result.rows[0].number);
+        });
+        console.log("onConnect callback is working!");
+    },
+});
+
+poolWithOnConnect.connect().then(client => {
+    console.log("client connected");
+});
