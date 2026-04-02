@@ -95,6 +95,12 @@ function reloadObject(resetCamera: boolean) {
 
     // only smooth when not rendering with flat colors to improve processing time
     const lDrawLoader = new LDrawLoader();
+    const materialLibrary: Record<string, THREE.Material> = lDrawLoader.materialLibrary;
+    void materialLibrary;
+
+    // @ts-expect-error -- runtime property is singular "materialLibrary"
+    lDrawLoader.materialsLibrary;
+
     lDrawLoader.setPath(ldrawPath).load(
         "",
         group2 => {
