@@ -140,8 +140,10 @@ cal = createCalendar(target, plugins, {
     customScrollbars: true,
     date: "1997-04-12",
     dateClick: (_info: Calendar.DateClickInfo) => {},
+    dateIncrement: { days: 7 },
     datesAboveResources: false,
     datesSet: (_info: Calendar.DatesSetInfo) => {},
+    dayCellContent: { html: "" },
     dayCellFormat: dateFormat,
     dayHeaderAriaLabelFormat: dateFormat,
     dayHeaderFormat: dateFormat,
@@ -272,6 +274,7 @@ cal.setOption("buttonText", () => {
         return customButtons;
     })
     .setOption("columnWidth", undefined)
+    .setOption("dayCellContent", (_arg: Calendar.DayCellContentArg) => "content")
     .setOption("dayCellFormat", (_d: Date) => "content")
     .setOption("dayHeaderAriaLabelFormat", (_d: Date) => "content")
     .setOption("dayHeaderFormat", (_d: Date) => "content")
@@ -326,6 +329,7 @@ let validResource: Calendar.Resource = {
     title: "content",
     eventBackgroundColor: undefined,
     eventTextColor: undefined,
+    expanded: true,
     extendedProps: { a: 1, b: "two", c: [] },
 };
 const { title, ...rest } = validResource;

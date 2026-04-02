@@ -3923,7 +3923,7 @@
 /types/jwt-then/                                        @phenomax
 /types/jxon/                                            @maxbogus
 /types/k-bucket/                                        @tomonari-t
-/types/k6/                                              @MStoykov @codebien @oleiade @ankur22 @inancgumus @joanlopez @AgnesToulet
+/types/k6/                                              @MStoykov @codebien @oleiade @ankur22 @inancgumus @joanlopez @AgnesToulet @szkiba
 /types/kafka-node-avro/                                 @alfamegaxq
 /types/kafkajs-snappy/                                  @matteodisabatino
 /types/kahoot.js-updated/                               @MysteryBlokHed
@@ -6478,6 +6478,7 @@
 /types/react-native-zeroconf/                           @mattapet
 /types/react-native-zss-rich-text-editor/               @naveen-ithappu
 /types/react-native__assets/                            @ZihanChen-MSFT
+/types/react-native__assets-registry/                   @YevheniiKotyrlo
 /types/react-nepal-map/                                 @ashiishme
 /types/react-netlify-form/                              @zhjngli
 /types/react-no-ssr/                                    @rafalfilipek
