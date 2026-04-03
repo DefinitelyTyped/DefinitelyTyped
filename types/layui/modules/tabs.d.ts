@@ -7,7 +7,7 @@ declare namespace Layui {
         /**
          * 组件渲染的唯一实例 ID
          */
-        id: string;
+        id?: string;
         /**
          * 给主容器追加 CSS 类名，以便自定义样式
          */
