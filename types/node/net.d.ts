@@ -116,9 +116,14 @@ declare module "node:net" {
          * See `Writable` stream `write()` method for more
          * information.
          * @since v0.1.90
-         * @param [encoding='utf8'] Only used when data is `string`.
          */
         write(buffer: Uint8Array | string, cb?: (err?: Error | null) => void): boolean;
+        /**
+         * Sends data on the socket, with an explicit encoding for string data.
+         * @see {@link Socket.write} for full details.
+         * @since v0.1.90
+         * @param [encoding='utf8'] Only used when data is `string`.
+         */
         write(str: Uint8Array | string, encoding?: BufferEncoding, cb?: (err?: Error | null) => void): boolean;
         /**
          * Initiate a connection on a given socket.
@@ -358,12 +363,26 @@ declare module "node:net" {
          *
          * See `writable.end()` for further details.
          * @since v0.1.90
-         * @param [encoding='utf8'] Only used when data is `string`.
          * @param callback Optional callback for when the socket is finished.
          * @return The socket itself.
          */
         end(callback?: () => void): this;
+        /**
+         * Half-closes the socket, with one final chunk of data.
+         * @see {@link Socket.end} for full details.
+         * @since v0.1.90
+         * @param callback Optional callback for when the socket is finished.
+         * @return The socket itself.
+         */
         end(buffer: Uint8Array | string, callback?: () => void): this;
+        /**
+         * Half-closes the socket, with one final chunk of data.
+         * @see {@link Socket.end} for full details.
+         * @since v0.1.90
+         * @param [encoding='utf8'] Only used when data is `string`.
+         * @param callback Optional callback for when the socket is finished.
+         * @return The socket itself.
+         */
         end(str: Uint8Array | string, encoding?: BufferEncoding, callback?: () => void): this;
         // #region InternalEventEmitter
         addListener<E extends keyof SocketEventMap>(eventName: E, listener: (...args: SocketEventMap[E]) => void): this;
