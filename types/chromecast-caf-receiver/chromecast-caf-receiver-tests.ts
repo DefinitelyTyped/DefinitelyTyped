@@ -1,3 +1,4 @@
+import { ContentProtection, LoggerLevel } from "chromecast-caf-receiver/cast.framework";
 import { BreakManager } from "chromecast-caf-receiver/cast.framework.breaks";
 import { DetailedErrorCode, EventType, MediaFinishedEvent } from "chromecast-caf-receiver/cast.framework.events";
 import {
@@ -9,6 +10,26 @@ import {
     TrackType,
 } from "chromecast-caf-receiver/cast.framework.messages";
 import { ApplicationData, LaunchedFrom } from "chromecast-caf-receiver/cast.framework.system";
+import { ControlsButton, ControlsSlot, State } from "chromecast-caf-receiver/cast.framework.ui";
+
+// Enums must remain non-const to avoid breaking projects that compile
+// with isolatedModules: true (the compiler cannot inline const enum
+// values from external .d.ts files).
+// A regular enum produces a runtime object, so it can be assigned to a
+// variable. A const enum does not, so the assignment below would fail
+// at compile time -- making these lines a regression guard.
+const _messageStreamType = StreamType;
+const _messageMessageType = MessageType;
+const _messageTrackType = TrackType;
+const _messageHlsSegmentFormat = HlsSegmentFormat;
+const _eventsEventType = EventType;
+const _eventsDetailedErrorCode = DetailedErrorCode;
+const _systemLaunchedFrom = LaunchedFrom;
+const _frameworkContentProtection = ContentProtection;
+const _frameworkLoggerLevel = LoggerLevel;
+const _uiState = State;
+const _uiControlsSlot = ControlsSlot;
+const _uiControlsButton = ControlsButton;
 
 // The following test showcases how you can import individual types directly from the namespace:
 
