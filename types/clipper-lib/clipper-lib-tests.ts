@@ -20,7 +20,6 @@ const pft: ClipperLib.PolyFillType = ClipperLib.PolyFillType.pftEvenOdd;
 const jt: ClipperLib.JoinType = ClipperLib.JoinType.jtRound;
 const et: ClipperLib.EndType = ClipperLib.EndType.etClosedPolygon;
 
-
 // Clipper - constructor
 const cpr = new ClipperLib.Clipper();
 const cpr2 = new ClipperLib.Clipper(
