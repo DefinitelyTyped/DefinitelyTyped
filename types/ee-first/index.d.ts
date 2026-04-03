@@ -26,7 +26,7 @@ declare namespace first {
     type Listener<TEmitter extends EventEmitter> = (
         err: any,
         ee: TEmitter,
-        event: string[],
+        event: string,
         args: any[],
     ) => void;
 

@@ -465,7 +465,7 @@ declare class Application<
      * @param {number} [options.subdomainOffset] Subdomain offset
      * @param {string} [options.proxyIpHeader] Proxy IP header, defaults to X-Forwarded-For
      * @param {number} [options.maxIpsCount] Max IPs read from proxy IP header, default to 0 (means infinity)
-     * @param {boolean} [options.asyncLocalStorage] Enable AsyncLocalStorage
+     * @param {boolean|AsyncLocalStorage} [options.asyncLocalStorage]  Pass `true` or an instance of `AsyncLocalStorage` to enable async local storage
      */
     constructor(options?: {
         env?: string | undefined;
@@ -474,7 +474,7 @@ declare class Application<
         subdomainOffset?: number | undefined;
         proxyIpHeader?: string | undefined;
         maxIpsCount?: number | undefined;
-        asyncLocalStorage?: boolean | undefined;
+        asyncLocalStorage?: boolean | AsyncLocalStorage<ContextT> | undefined;
     });
 
     /**

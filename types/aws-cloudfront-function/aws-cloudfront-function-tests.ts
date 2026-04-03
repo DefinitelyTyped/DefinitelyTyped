@@ -83,7 +83,12 @@ const cloudFrontFunctionEvent: AWSCloudFrontFunction.Event = {
     version: "1.0",
     context: cloudFrontFunctionContext,
     viewer: cloudFrontFunctionViewer,
-    request: cloudFrontFunctionRequest,
+    request: {
+        ...cloudFrontFunctionRequest,
+        rawQueryString() {
+            return undefined;
+        },
+    },
     response: cloudFrontResponse,
 };
 
@@ -138,6 +143,7 @@ function handler2(event: AWSCloudFrontFunction.Event): AWSCloudFrontFunction.Req
 import cf from "cloudfront";
 
 const kvsHandle = cf.kvs("example-kvs-id");
+const defaultKvsHandle = cf.kvs();
 
 async function handler3(
     event: AWSCloudFrontFunction.Event,
@@ -197,4 +203,12 @@ function testCreateRequestOriginGroup() {
         },
     };
     cf.createRequestOriginGroup(params);
+}
+
+function testEdgeLocation() {
+    cf.edgeLocation = {
+        name: "SEA",
+        serverIp: "1.2.3.4",
+        region: "us-west-2",
+    };
 }

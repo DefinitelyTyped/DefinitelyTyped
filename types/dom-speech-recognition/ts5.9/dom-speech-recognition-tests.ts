@@ -36,6 +36,7 @@ const speechRecognition2: SpeechRecognition = {
     interimResults: false,
     lang: "eng",
     maxAlternatives: 2,
+    processLocally: true,
     onaudioend: null,
     onaudiostart: null,
     onend: null,
@@ -84,3 +85,13 @@ const speechRecognitionErrorEventInit: SpeechRecognitionErrorEventInit = {
     message: "abcde",
 };
 const speechRecognitionErrorEvent = new SpeechRecognitionErrorEvent("type", speechRecognitionErrorEventInit);
+
+const speechRecognitionOptions: SpeechRecognitionOptions = {
+    langs: ["en-GB"],
+    processLocally: true,
+};
+
+(async () => {
+    const availability: AvailabilityStatus = await SpeechRecognition.available(speechRecognitionOptions);
+    const installOutcome: boolean = await SpeechRecognition.install(speechRecognitionOptions);
+});

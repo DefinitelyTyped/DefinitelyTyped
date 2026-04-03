@@ -668,6 +668,10 @@
             "libraryName": "canvaskit-wasm",
             "asOfVersion": "0.18.1"
         },
+        "carbon__feature-flags": {
+            "libraryName": "@carbon/feature-flags",
+            "asOfVersion": "1.1.0"
+        },
         "carbon__icon-helpers": {
             "libraryName": "@carbon/icon-helpers",
             "asOfVersion": "10.45.0"
@@ -1108,6 +1112,10 @@
             "libraryName": "codegen.macro",
             "asOfVersion": "4.1.0"
         },
+        "color-convert": {
+            "libraryName": "color-convert",
+            "asOfVersion": "3.0.1"
+        },
         "colorbrewer": {
             "libraryName": "colorbrewer",
             "asOfVersion": "1.6.0"
@@ -1163,6 +1171,10 @@
         "conf": {
             "libraryName": "conf",
             "asOfVersion": "3.0.0"
+        },
+        "config": {
+            "libraryName": "config",
+            "asOfVersion": "4.4.0"
         },
         "confirmdialog": {
             "libraryName": "confirmdialog",
@@ -4132,6 +4144,10 @@
         "marked": {
             "libraryName": "marked",
             "asOfVersion": "6.0.0"
+        },
+        "mastercard-oauth1-signer": {
+            "libraryName": "mastercard-oauth1-signer",
+            "asOfVersion": "1.2.0"
         },
         "match-sorter": {
             "libraryName": "match-sorter",

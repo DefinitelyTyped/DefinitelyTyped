@@ -17,7 +17,7 @@ const thunk = first<Foo | Bar>(
     (err, ee, event, args) => {
         err; // $ExpectType any
         ee; // $ExpectType Foo | Bar
-        event; // $ExpectType string[]
+        event; // $ExpectType string
         args; // $ExpectType any[]
     },
 );
@@ -25,7 +25,7 @@ const thunk = first<Foo | Bar>(
 thunk((err, ee, event, args) => {
     err; // $ExpectType any
     ee; // $ExpectType Foo | Bar
-    event; // $ExpectType string[]
+    event; // $ExpectType string
     args; // $ExpectType any[]
 });
 

@@ -1,66 +1,96 @@
 import hooker = require("hooker");
 
 function tests() {
-    var objectToHook: any = {
-        hello: "world",
-    };
-    hooker.hook(objectToHook, "hello", () => {});
-    hooker.hook(objectToHook, "hello", (): any => {
-        return null;
+    hooker.hook(Math, "max", function(
+        ...args // $ExpectType number[]
+    ) {});
+    hooker.unhook(Math, "max");
+
+    hooker.hook(Math, "max", function() {
+        if (arguments.length === 0) {
+            return hooker.override(9000);
+        }
     });
-    hooker.hook(objectToHook, ["hello", "foo"], () => {});
-    hooker.hook(objectToHook, ["hello", "bar"], (): any => {
-        return null;
+    // @ts-expect-error
+    hooker.hook(Math, "max", function() {
+        if (arguments.length === 0) {
+            return hooker.override("not a number");
+        }
     });
-    hooker.hook(objectToHook, "bar", () => {
-        return hooker.filter(this, ["foo", "bar"]);
-    });
-    hooker.hook(objectToHook, "bar", () => {
-        return hooker.override("good");
-    });
-    hooker.hook(objectToHook, "bar", () => {
-        return hooker.preempt("good");
-    });
-    hooker.orig(objectToHook, "hello");
-    hooker.orig(objectToHook, ["hello", "foo"]);
-    hooker.hook(objectToHook, "foo", {
-        pre: () => {},
-    });
-    hooker.hook(objectToHook, "foo", {
-        pre: () => {
-            return hooker.preempt(1);
-        },
-    });
-    hooker.hook(objectToHook, "foo", {
-        pre: () => {
-            return hooker.override(1);
-        },
-    });
-    hooker.hook(objectToHook, "foo", {
-        pre: () => {
-            return hooker.filter(1, ["abc"]);
-        },
-    });
-    hooker.hook(objectToHook, "foo", {
-        post: () => {},
-    });
-    hooker.hook(objectToHook, "foo", {
-        post: () => {
-            return hooker.filter(1, ["abc"]);
-        },
-    });
-    hooker.hook(objectToHook, "foo", {
-        once: false,
-    });
-    hooker.hook(objectToHook, "foo", {
-        passName: true,
-    });
-    hooker.hook(objectToHook, "foo", {
-        pre: () => {},
-        post: () => {
-            return hooker.filter(this, []);
-        },
+
+    hooker.hook(Math, "max", {
         once: true,
-        passName: false,
+        pre: function() {},
     });
+
+    hooker.hook(Math, "max", {
+        pre: function(...args) {
+            return hooker.filter(this, args.map(num => num * 2));
+        },
+    });
+
+    // @ts-expect-error
+    hooker.hook(Math, "max", {
+        pre: function(...args) {
+            return hooker.filter(this, args.map(num => num.toString()));
+        },
+    });
+
+    hooker.hook(Math, "max", {
+        post: function(result) {
+            return hooker.override(result * 1000);
+        },
+    });
+
+    hooker.orig(Math, "max"); // $ExpectType (...values: number[]) => number
+
+    hooker.hook(Math, Object.getOwnPropertyNames(Math), {
+        passName: true,
+        pre: function(name) {},
+        post: function(result, name) {},
+    });
+
+    hooker.hook(Number, "parseInt", function(
+        string, // $ExpectType string
+        radix, // $ExpectType number | undefined
+    ) {});
+
+    hooker.hook(Number, "parseInt", {
+        pre(
+            string, // $ExpectType string
+            radix, // $ExpectType number | undefined
+        ) {},
+        post(
+            result, // $ExpectType number
+            string, // $ExpectType string
+            radix, // $ExpectType number | undefined
+        ) {},
+    });
+
+    hooker.hook(Number, "parseInt", {
+        pre(string, radix) {
+            return hooker.preempt(0);
+        },
+    });
+
+    // @ts-expect-error
+    hooker.hook(Number, "parseInt", {
+        pre(string, radix) {
+            return hooker.preempt("not a number");
+        },
+    });
+
+    hooker.hook(Number, "parseInt", {
+        pre(string, radix) {
+            return hooker.filter(this, [string, radix] as [string, number | undefined]);
+        },
+    });
+    // @ts-expect-error
+    hooker.hook(Number, "parseInt", {
+        pre(string, radix) {
+            return hooker.filter(this, [0, "not a number"]);
+        },
+    });
+
+    hooker.orig(Number, "parseInt"); // $ExpectType (string: string, radix?: number | undefined) => number
 }

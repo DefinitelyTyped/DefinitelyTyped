@@ -20,5 +20,8 @@ function SliderTest() {
         x.config.disabled;
         x.setValue(1);
         x.setValue(1, 0);
+        x.reload({
+            value: [1, 2],
+        });
     });
 }

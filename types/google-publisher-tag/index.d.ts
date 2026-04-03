@@ -280,7 +280,8 @@ declare namespace googletag {
     function setConfig(config: config.PageSettingsConfig): void;
 
     /**
-     * Gets general configuration options for the page set by {@link setConfig}.
+     * Gets a frozen copy of the general configuration options for the page set by
+     * {@link setConfig}.
      *
      * Not all `setConfig()` properties are supported by this method. Supported
      * properties are:
@@ -296,11 +297,11 @@ declare namespace googletag {
      *   const config = googletag.getConfig(['adsenseAttributes', 'disableInitialLoad']);
      *
      * @param keys The keys of the configuration options to get.
-     * @return The configuration options for the slot.
+     * @return A frozen copy of the configuration options for the page.
      */
     function getConfig(
         keys: string | string[],
-    ): Pick<config.PageSettingsConfig, "adsenseAttributes" | "disableInitialLoad" | "targeting">;
+    ): Readonly<Pick<config.PageSettingsConfig, "adsenseAttributes" | "disableInitialLoad" | "targeting">>;
 
     /**
      * The command array accepts a sequence of functions and invokes them in
@@ -1685,11 +1686,13 @@ declare namespace googletag {
          * Sets general configuration options for this slot.
          *
          * @param slotConfig The configuration object.
+         * @return The slot object on which the method was called.
          */
-        setConfig(slotConfig: config.SlotSettingsConfig): void;
+        setConfig(slotConfig: config.SlotSettingsConfig): Slot;
 
         /**
-         * Gets general configuration options for the slot set by {@link setConfig}.
+         * Gets a frozen copy of the general configuration options for the slot set by
+         * {@link setConfig}.
          *
          * Not all `setConfig()` properties are supported by this method. Supported
          * properties are:
@@ -1707,11 +1710,11 @@ declare namespace googletag {
          *   const config = slot.getConfig(['adsenseAttributes', 'categoryExclusion']);
          *
          * @param keys The keys of the configuration options to get.
-         * @return The configuration options for the slot.
+         * @return A frozen copy of the configuration options for the slot.
          */
         getConfig(
             keys: string | string[],
-        ): Pick<config.SlotSettingsConfig, "categoryExclusion" | "targeting" | "adsenseAttributes">;
+        ): Readonly<Pick<config.SlotSettingsConfig, "categoryExclusion" | "targeting" | "adsenseAttributes">>;
     }
 
     /** Array of two numbers representing [width, height]. */
@@ -1862,6 +1865,27 @@ declare namespace googletag {
              * for production, non-test traffic.
              */
             adsense_test_mode?: "on" | null;
+        }
+
+        /**
+         * Auto refresh configuration settings.
+         */
+        interface AutoRefreshConfig {
+            /**
+             * Whether GPT will automatically refresh an ad slot if Chrome's Heavy Ad
+             * Intervention triggers on the slot's ad iframe. Defaults to `true`.
+             *
+             * @example
+             *   // Set the auto refresh configuration, disabling auto refresh on heavy
+             *   // ad intervention.
+             *   googletag.setConfig({autoRefresh: {heavyAds: false}});
+             *
+             *   // Clear the auto refresh configuration, restoring to default behavior.
+             *   googletag.setConfig({autoRefresh: null});
+             *
+             * @see [Understand Chrome's Heavy Ad Interventions](https://developer.chrome.com/docs/web-platform/heavy-ads-intervention)
+             */
+            heavyAds?: boolean;
         }
 
         /**
@@ -2279,6 +2303,18 @@ declare namespace googletag {
              *   googletag.setConfig({adsenseAttributes: null});
              */
             adsenseAttributes?: AdSenseAttributesConfig | null;
+
+            /**
+             * Setting to configure automatic ad refresh behavior.
+             *
+             * @example
+             *   // Set the auto refresh configuration.
+             *   googletag.setConfig({autoRefresh: {heavyAds: false}});
+             *
+             *   // Clear the auto refresh configuration.
+             *   googletag.setConfig({autoRefresh: null});
+             */
+            autoRefresh?: AutoRefreshConfig | null;
         }
 
         /**

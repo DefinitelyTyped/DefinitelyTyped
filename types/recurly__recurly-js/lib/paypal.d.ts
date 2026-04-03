@@ -27,10 +27,26 @@ export type DirectConfig = {
   };
 };
 
+export type UsagePattern =
+  | 'SUBSCRIPTION_PREPAID'
+  | 'SUBSCRIPTION_POSTPAID'
+  | 'RECURRING_PREPAID'
+  | 'RECURRING_POSTPAID'
+  | 'UNSCHEDULED_POSTPAID'
+  | 'UNSCHEDULED_PREPAID'
+  | 'INSTALLMENT_POSTPAID'
+  | 'INSTALLMENT_PREPAID';
+
+export type BillingPlan = {
+  [key: string]: any;
+};
+
 export type PayPalCompleteConfig = {
-  payPalComplete?: boolean;
+  payPalComplete?: boolean | { target: string; buttonOptions?: object };
   display?: PayPalDisplayConfig;
   gatewayCode?: string;
+  usagePattern?: UsagePattern;
+  billingPlan?: BillingPlan;
 };
 
 export type PayPalConfig = BraintreeConfig | DirectConfig | PayPalCompleteConfig;

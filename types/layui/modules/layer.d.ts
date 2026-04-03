@@ -548,9 +548,10 @@ declare namespace Layui {
          * - 0 文本输入框
          * - 1 密令输入框
          * - 2 多行文本输入框
+         * - [HTMLInputElement.type](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Reference/Elements/input#input_%E7%B1%BB%E5%9E%8B%22) 值(2.13.0+)
          * @default 0
          */
-        formType?: 0 | 1 | 2;
+        formType?: 0 | 1 | 2 | HTMLInputElement["type"];
         /**
          * 输入框初始值
          * @default ''
@@ -906,7 +907,7 @@ declare namespace Layui {
          * @param selector iframe 子页面的选择器或元素对象
          * @param index 打开弹层时返回的唯一索引
          */
-        getChildFrame(selector: string | Element | JQuery, index: number): JQuery;
+        getChildFrame(selector: string | globalThis.Element | JQuery, index: number): JQuery;
         /**
          * 在 iframe 页中获取弹层索引
          * @param windowName 即 window.name

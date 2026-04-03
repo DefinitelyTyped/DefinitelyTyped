@@ -1316,6 +1316,14 @@ function testDeclarativeContent() {
     const imageData = new ImageData(32, 32);
 
     new chrome.declarativeContent.SetIcon({ imageData }); // $ExpectType SetIcon
+    new chrome.declarativeContent.SetIcon({ imageData: { 32: imageData } }); // $ExpectType SetIcon
+    new chrome.declarativeContent.SetIcon({ path: "image.jpg" }); // $ExpectType SetIcon
+    new chrome.declarativeContent.SetIcon({ imageData, path: "image.jpg" }); // $ExpectType SetIcon
+    new chrome.declarativeContent.SetIcon({ imageData, path: { "32": "image.jpg" } }); // $ExpectType SetIcon
+    // @ts-expect-error Cannot use 'in' operator to search for 'iconIndex' in undefined
+    new chrome.declarativeContent.SetIcon();
+    // @ts-expect-error Uncaught Error: Either the path or imageData property must be specified
+    new chrome.declarativeContent.SetIcon({});
 
     const action = new chrome.declarativeContent.ShowAction(); // $ExpectType ShowAction
 
@@ -4528,7 +4536,7 @@ function testDocumentScan() {
     const optionSettings: chrome.documentScan.OptionSetting[] = [{
         name: "name",
         type: "GROUP",
-        value: "value",
+        value: [10],
     }];
     chrome.documentScan.setOptions(scannerHandle, optionSettings); // $ExpectType Promise<SetOptionsResponse<"handle">>
     chrome.documentScan.setOptions(scannerHandle, optionSettings, response => { // $ExpectType void
@@ -4595,6 +4603,18 @@ function testEnterpriseHardwarePlatform() {
     chrome.enterprise.hardwarePlatform.getHardwarePlatformInfo(); // $ExpectType Promise<HardwarePlatformInfo>
     // @ts-expect-error
     chrome.enterprise.hardwarePlatform.getHardwarePlatformInfo((info) => {}).then((info) => {});
+}
+
+// https://developer.chrome.com/docs/extensions/reference/api/enterprise/networkingAttributes
+function testEntrepriseNetworkingAttributes() {
+    chrome.enterprise.networkingAttributes.getNetworkDetails(); // $ExpectType Promise<NetworkDetails>
+    chrome.enterprise.networkingAttributes.getNetworkDetails((networkAddresses) => { // $ExpectType void
+        networkAddresses.ipv4; // $ExpectType string | undefined
+        networkAddresses.ipv6; // $ExpectType string | undefined
+        networkAddresses.macAddress; // $ExpectType string
+    });
+    // @ts-expect-error
+    chrome.enterprise.networkingAttributes.getNetworkDetails((networkAddresses) => {}).then((networkAddresses) => {});
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/enterprise/login
@@ -6626,7 +6646,7 @@ function testPrinterProvider() {
 // https://developer.chrome.com/docs/extensions/reference/api/platformKeys
 function testPlatformKeys() {
     chrome.platformKeys.ClientCertificateType.ECDSA_SIGN === "ecdsaSign";
-    chrome.platformKeys.ClientCertificateType.RAS_SIGN === "rasSign";
+    chrome.platformKeys.ClientCertificateType.RSA_SIGN === "rsaSign";
 
     const arrayBuffer = new ArrayBuffer(0);
 
@@ -6645,7 +6665,7 @@ function testPlatformKeys() {
         interactive: true,
         request: {
             certificateAuthorities: [],
-            certificateTypes: ["ecdsaSign", chrome.platformKeys.ClientCertificateType.RAS_SIGN],
+            certificateTypes: ["ecdsaSign", chrome.platformKeys.ClientCertificateType.RSA_SIGN],
         },
     };
 

@@ -56,8 +56,6 @@ declare namespace Layui {
         type: LiteralStringUnion<"add" | "update" | "del">;
     }
 
-    type TreeReloadReturn = Pick<Tree, "config" | "reload" | "getChecked" | "setChecked">;
-
     interface TreeOptions {
         /**
          * 绑定元素选择器
@@ -160,48 +158,49 @@ declare namespace Layui {
         dragend?(...args: any): any;
     }
 
+    class TreeClass extends Component<TreeOptions> {
+        reload(...args: any[]): any;
+        renderForm(...args: any[]): any;
+        tree(...args: any[]): any;
+        spread(...args: any[]): any;
+        updateFieldValue(...args: any[]): any;
+        syncCheckedState(...args: any[]): any;
+        checkClick(...args: any[]): any;
+        operate(...args: any[]): any;
+        getChecked(...args: any[]): any;
+        setChecked(...args: any[]): any;
+    }
+
+    interface TreeReturn extends ComponentReturn<TreeOptions> {
+        /**
+         * 获取选中的节点数据
+         */
+        getChecked(): ReturnType<Tree["getChecked"]>;
+        /**
+         * 设置选中的节点
+         * @param id 对应 tree 渲染时定义的 id 属性值
+         */
+        setChecked(id: string): void;
+    }
+
     /**
      * 树
      * @see https://layui.dev/docs/2/tree/
+     * @since 2.13.0 之后继承自 Component
      */
-    interface Tree {
-        /**
-         * 全局参数项
-         */
-        config: Record<string, any>;
+    interface Tree extends ComponentInterface<TreeOptions, TreeClass, TreeReturn> {
         /**
          * 获取选中的节点数据
          * @param id 对应 tree 渲染时定义的 id 属性值
          */
         getChecked(id: string): TreeData[];
         /**
-         * tree 实例数
-         */
-        index: number;
-        /**
-         * 绑定事件，内部 modName 默认为 tree，绑定参考 layui.onevent，触发参考 layui.event
-         * @param events
-         * @param callback
-         */
-        on(events: string, callback: (this: Layui, obj: any) => any): any;
-        /**
-         * 实例重载,重载一个已经创建的组件实例，覆盖基础属性
-         * @param id 对应 tree 渲染时定义的 id 属性值
-         * @param options 基础参数
-         */
-        reload(id: string, options: Partial<TreeOptions>): TreeReloadReturn;
-        /**
-         * 核心方法
+         * 核心渲染方法
          * @param option 基础参数
          */
-        render(option: TreeOptions): any;
+        render(option: TreeOptions): TreeReturn;
         /**
-         * 设置 tree全局 参数(预设基础参数值)
-         * @param option
-         */
-        set(option?: Partial<TreeOptions>): Tree;
-        /**
-         * 设置节点勾选
+         * 设置选中的节点
          * @param id 对应 tree 渲染时定义的 id 属性值
          * @param nodeId 对应 tree 渲染时的 data 中的 id 属性值。数组格式，可设置多个
          */

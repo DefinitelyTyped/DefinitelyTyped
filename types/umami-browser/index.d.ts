@@ -18,6 +18,7 @@ declare namespace umami {
 
     interface EventData {
         [key: string]:
+            | boolean
             | number
             | string
             | EventData

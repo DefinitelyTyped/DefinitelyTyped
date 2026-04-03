@@ -196,6 +196,55 @@ declare namespace Layui {
          * @since 2.8.18
          */
         code?: string;
+        /**
+         * 设置行高亮
+         * @since 2.12.0
+         */
+        highlightLine?: {
+            /**
+             * 高亮
+             */
+            hl?: CodeHighlightLineOptions;
+            /**
+             * diff++
+             */
+            "++"?: CodeHighlightLineOptions;
+            /**
+             * diff--
+             */
+            "--"?: CodeHighlightLineOptions;
+            /**
+             * 聚焦
+             */
+            focus?: CodeHighlightLineOptions;
+        } & Record<string, CodeHighlightLineOptions>;
+    }
+
+    interface CodeHighlightLineOptions {
+        /**
+         * 高亮范围，不可全局设置值
+         * @example
+         * '1,3-5,8'
+         */
+        range: string;
+        /**
+         * 是否解析行内的特定高亮注释。出于性能考虑，不建议全局开启。
+         *
+         * 注释格式：`[!code <type>:<lines>]`
+         * - `<type>` : `highlightLine` 的可选项，如 `hl, focus` 等
+         * - `<lines>` : 行数（含本行）
+         */
+        comment?: boolean;
+        /**
+         * 添加到高亮行上的类
+         * @internal
+         */
+        classActiveLine?: string;
+        /**
+         * 有高亮行时向根元素添加的类
+         * @internal
+         */
+        classActivePre?: string;
     }
 
     interface CodeReturn {

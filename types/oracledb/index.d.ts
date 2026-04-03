@@ -2760,6 +2760,7 @@ declare namespace OracleDB {
         poolIncrement: number;
         poolTimeout: number;
         poolPingInterval: number;
+        poolPingTimeout: number;
         poolMaxPerShard: number;
         stmtCacheSize: number;
         sodaMetaDataCache: boolean;
@@ -3245,6 +3246,13 @@ declare namespace OracleDB {
          * @default 60
          */
         poolPingInterval?: number | undefined;
+        /**
+         * The number of milliseconds that a connection should wait for a response from connection.ping().
+         * This optional property overrides the oracledb.poolPingTimeout property.
+         *
+         * @default 5000
+         */
+        poolPingTimeout?: number | undefined;
         /**
          * The number of seconds after which idle connections (unused in the pool) may be terminated.
          * Idle connections are terminated only when the pool is accessed.
