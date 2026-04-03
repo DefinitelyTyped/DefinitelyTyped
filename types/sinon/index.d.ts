@@ -1182,7 +1182,7 @@ declare namespace Sinon {
          * If set to true, the sandbox will have a clock property.
          * You can optionally pass in a configuration object that follows the specification for fake timers, such as { toFake: ["setTimeout", "setInterval"] }.
          */
-        useFakeTimers: boolean | Partial<FakeTimers.FakeTimerInstallOpts>;
+        useFakeTimers: boolean | Partial<Parameters<typeof FakeTimers['install']>[0]>;
         /**
          * The assert options can help limit the amount of output produced by assert.fail
          */
@@ -1332,7 +1332,7 @@ declare namespace Sinon {
          * * Important note: when faking `nextTick`, normal calls to `process.nextTick()` will not execute automatically as they would during normal event-loop phases. You would have to call either `clock.next()`, `clock.tick()`, `clock.runAll()` or `clock.runToLast()` manually (see example below). You can easily work around this using the `config.toFake` option. Please refer to the [`fake-timers`](https://github.com/sinonjs/fake-timers) documentation for more information.
          * @param config
          */
-        useFakeTimers(config?: number | Date | Partial<FakeTimers.FakeTimerInstallOpts>): SinonFakeTimers;
+        useFakeTimers(config?: number | Date | Partial<Parameters<typeof FakeTimers['install']>[0]>): SinonFakeTimers;
         /**
          * Restores all fakes created through sandbox.
          */
