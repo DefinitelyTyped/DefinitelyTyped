@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/correct-license-metadata",
+    "version": "1.5.9999",
+    "projects": [
+        "https://github.com/jslicense/correct-license-metadata.js"
+    ],
+    "devDependencies": {
+        "@types/correct-license-metadata": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jamie Magee",
+            "githubUsername": "JamieMagee"
+        }
+    ]
+}
