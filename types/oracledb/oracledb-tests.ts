@@ -3,6 +3,8 @@ import * as oracledb from "oracledb";
 import assert from "assert";
 import defaultOracledb from "oracledb";
 
+const expectType = <T>(value: T): T => value;
+
 /*
 
 TABLE SETUP FOR TESTING:
@@ -23,6 +25,27 @@ const {
     // DB_POOL_MIN,
     DB_USER,
 } = process.env;
+
+const typeCheckConnection = {} as oracledb.Connection;
+
+oracledb.createPool({} as oracledb.PoolAttributes, (error, pool) => {
+    expectType<oracledb.DBError | null>(error);
+    expectType<oracledb.Pool | undefined>(pool);
+});
+
+typeCheckConnection.createLob(oracledb.CLOB, (error, lob) => {
+    expectType<oracledb.DBError | null>(error);
+    expectType<oracledb.Lob | undefined>(lob);
+});
+
+typeCheckConnection.execute("SELECT 1 FROM dual", (error, result) => {
+    expectType<oracledb.DBError | null>(error);
+    expectType<oracledb.Result<unknown> | undefined>(result);
+});
+
+typeCheckConnection.commit(error => {
+    expectType<oracledb.DBError | null>(error);
+});
 
 const initSession = (connection: oracledb.Connection, requestedTag: string, callback: (e: unknown) => void): void => {
     connection.execute(`alter session set nls_date_format = 'YYYY-MM-DD' nls_language = AMERICAN`, callback);

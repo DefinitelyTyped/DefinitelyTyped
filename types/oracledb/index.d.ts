@@ -1305,7 +1305,7 @@ declare namespace OracleDB {
         beginSessionlessTransaction(
             opts: SessionlessTransactionOpts,
         ): Promise<SessionlessTransactionOpts["transactionId"]>;
-        beginSessionlessTransaction(opts: SessionlessTransactionOpts, callback: (error: DBError) => void): void;
+        beginSessionlessTransaction(opts: SessionlessTransactionOpts, callback: (error: DBError | null) => void): void;
         /**
          * Stops the currently running operation on the connection.
          *
@@ -1320,7 +1320,7 @@ declare namespace OracleDB {
          * @see https://node-oracledb.readthedocs.io/en/latest/user_guide/initialization.html#tnsadmin
          */
         break(): Promise<void>;
-        break(callback: (error: DBError) => void): void;
+        break(callback: (error: DBError | null) => void): void;
 
         /**
          * Changes the password of the specified user.
@@ -1339,7 +1339,7 @@ declare namespace OracleDB {
             user: string,
             oldPassword: string,
             newPassword: string,
-            callback: (error: DBError) => void,
+            callback: (error: DBError | null) => void,
         ): void;
 
         /**
@@ -1361,14 +1361,14 @@ declare namespace OracleDB {
          */
         close(options: CloseConnectionOptions): Promise<void>;
         close(): Promise<void>;
-        close(options: CloseConnectionOptions, callback: (error: DBError) => void): void;
-        close(callback: (error: DBError) => void): void;
+        close(options: CloseConnectionOptions, callback: (error: DBError | null) => void): void;
+        close(callback: (error: DBError | null) => void): void;
 
         /**
          * This call commits the current transaction in progress on the connection.
          */
         commit(): Promise<void>;
-        commit(callback: (error: DBError) => void): void;
+        commit(callback: (error: DBError | null) => void): void;
 
         /**
          * Creates a Lob as an Oracle temporary LOB. The LOB is initially empty. Data can be streamed to the LOB,
@@ -1387,7 +1387,7 @@ declare namespace OracleDB {
          * @see https://node-oracledb.readthedocs.io/en/latest/user_guide/bind.html#lobbinds
          */
         createLob(type: DbType): Promise<Lob>;
-        createLob(type: DbType, callback: (error: DBError, lob: Lob) => void): void;
+        createLob(type: DbType, callback: (error: DBError | null, lob?: Lob) => void): void;
         /**
          * This synchronous method decodes an OSON Buffer and returns a Javascript value. This method is useful for fetching BLOB columns that have the check constraint IS JSON FORMAT OSON enabled.
          * The parameters of the connection.decodeOSON() are: buf; Buffer; The OSON buffer that is to be decoded.
@@ -1424,7 +1424,7 @@ declare namespace OracleDB {
             sql: string,
             bindParams: BindParameters,
             options: ExecuteOptions,
-            callback: (error: DBError, result: Result<T>) => void,
+            callback: (error: DBError | null, result?: Result<T>) => void,
         ): void;
 
         /**
@@ -1442,7 +1442,7 @@ declare namespace OracleDB {
         execute<T>(
             sql: string,
             bindParams: BindParameters,
-            callback: (error: DBError, result: Result<T>) => void,
+            callback: (error: DBError | null, result?: Result<T>) => void,
         ): void;
 
         /**
@@ -1454,7 +1454,7 @@ declare namespace OracleDB {
          * @see https://node-oracledb.readthedocs.io/en/latest/api_manual/connection.html#connection.queryStream for an alternative
          */
         execute<T>(sql: string): Promise<Result<T>>;
-        execute<T>(sql: string, callback: (error: DBError, result: Result<T>) => void): void;
+        execute<T>(sql: string, callback: (error: DBError | null, result?: Result<T>) => void): void;
         /**
          * This call executes a single SQL or PL/SQL statement.
          *
@@ -1468,12 +1468,12 @@ declare namespace OracleDB {
          * @see https://github.com/oracle/node-oracledb/issues/1629
          */
         execute<T>(sql: object): Promise<Result<T>>;
-        execute<T>(sql: object, callback: (error: DBError, result: Result<T>) => void): void;
+        execute<T>(sql: object, callback: (error: DBError | null, result?: Result<T>) => void): void;
         execute<T>(sql: object, options: ExecuteOptions): Promise<Result<T>>;
         execute<T>(
             sql: object,
             options: ExecuteOptions,
-            callback: (error: DBError, result: Result<T>) => void,
+            callback: (error: DBError | null, result?: Result<T>) => void,
         ): void;
         /**
          * This method allows sets of data values to be bound to one DML or PL/SQL statement for execution.
@@ -1519,14 +1519,14 @@ declare namespace OracleDB {
             sql: string,
             binds: BindParameters[],
             options: ExecuteManyOptions,
-            callback: (error: DBError, result: Results<T>) => void,
+            callback: (error: DBError | null, result?: Results<T>) => void,
         ): void;
 
         executeMany<T>(sql: string, binds: BindParameters[]): Promise<Results<T>>;
         executeMany<T>(
             sql: string,
             binds: BindParameters[],
-            callback: (error: DBError, result: Results<T>) => void,
+            callback: (error: DBError | null, result?: Results<T>) => void,
         ): void;
 
         /**
@@ -1550,11 +1550,11 @@ declare namespace OracleDB {
             sql: string,
             iterations: number,
             options: ExecuteManyOptions,
-            callback: (error: DBError, result: Results<T>) => void,
+            callback: (error: DBError | null, result?: Results<T>) => void,
         ): void;
 
         executeMany<T>(sql: string, iterations: number): Promise<Results<T>>;
-        executeMany<T>(sql: string, iterations: number, callback: (error: DBError, result: Results<T>) => void): void;
+        executeMany<T>(sql: string, iterations: number, callback: (error: DBError | null, result?: Results<T>) => void): void;
 
         /**
          * Returns a DbObject prototype object representing the named Oracle Database object or collection.
@@ -1570,14 +1570,14 @@ declare namespace OracleDB {
          * @since 4.0
          */
         getDbObjectClass<T>(className: string): Promise<DBObjectClass<T>>;
-        getDbObjectClass<T>(className: string, callback: (error: DBError, dbObject: DBObjectClass<T>) => void): void;
+        getDbObjectClass<T>(className: string, callback: (error: DBError | null, dbObject?: DBObjectClass<T>) => void): void;
 
         getQueue<T>(name: string, options?: GetAdvancedQueueOptions): Promise<AdvancedQueue<T>>;
-        getQueue<T>(name: string, callback: (error: DBError, queue: AdvancedQueue<T>) => void): void;
+        getQueue<T>(name: string, callback: (error: DBError | null, queue?: AdvancedQueue<T>) => void): void;
         getQueue<T>(
             name: string,
             options: GetAdvancedQueueOptions,
-            callback: (error: DBError, queue: AdvancedQueue<T>) => void,
+            callback: (error: DBError | null, queue?: AdvancedQueue<T>) => void,
         ): void;
 
         /**
@@ -1604,7 +1604,7 @@ declare namespace OracleDB {
          * @since 2.2
          */
         getStatementInfo(sql: string): Promise<StatementInfo>;
-        getStatementInfo(sql: string, callback: (error: DBError, info: StatementInfo) => void): void;
+        getStatementInfo(sql: string, callback: (error: DBError | null, info?: StatementInfo) => void): void;
         /**
          * This synchronous function returns a boolean indicating the health status of a connection.
          * Connections may become unusable in several cases, such as if the network socket is broken, if an Oracle error indicates the connection is unusable or after receiving a planned down notification from the database.
@@ -1628,7 +1628,7 @@ declare namespace OracleDB {
          * @since 2.2
          */
         ping(): Promise<void>;
-        ping(callback: (error: DBError) => void): void;
+        ping(callback: (error: DBError | null) => void): void;
 
         /**
          * This function provides query streaming support. The parameters are the same as execute() except
@@ -1671,8 +1671,8 @@ declare namespace OracleDB {
          */
         release(options: CloseConnectionOptions): Promise<void>;
         release(): Promise<void>;
-        release(options: CloseConnectionOptions, callback: (error: DBError) => void): void;
-        release(callback: (error: DBError) => void): void;
+        release(options: CloseConnectionOptions, callback: (error: DBError | null) => void): void;
+        release(callback: (error: DBError | null) => void): void;
 
         /**
          * Resumes an existing sessionless transaction using the specified transaction identifier.
@@ -1684,12 +1684,12 @@ declare namespace OracleDB {
             transactionId: SessionlessTransactionOpts["transactionId"],
             resTxnOpts?: ResumeSessionlessTxnOpts,
         ): Promise<SessionlessTransactionOpts["transactionId"]>;
-        resumeSessionlessTransaction(callback: (error: DBError) => void): void;
+        resumeSessionlessTransaction(callback: (error: DBError | null) => void): void;
         /**
          * Rolls back the current transaction in progress on the connection.
          */
         rollback(): Promise<void>;
-        rollback(callback: (error: DBError) => void): void;
+        rollback(callback: (error: DBError | null) => void): void;
 
         /**
          * Used to shut down a database instance. This is the flexible version of oracledb.shutdown(), allowing more control over behavior.
@@ -1751,7 +1751,7 @@ declare namespace OracleDB {
         subscribe(
             name: string,
             options: SubscribeOptions,
-            callback: (error: DBError, result: Subscription) => void,
+            callback: (error: DBError | null, result?: Subscription) => void,
         ): void;
 
         /**
@@ -1763,7 +1763,7 @@ declare namespace OracleDB {
          * @since 6.9
          */
         suspendSessionlessTransaction(): Promise<void>;
-        suspendSessionlessTransaction(callback: (error: DBError) => void): void;
+        suspendSessionlessTransaction(callback: (error: DBError | null) => void): void;
         /**
          * Unregister a Continuous Query Notification (CQN) subscription previously created with connection.subscribe().
          * No further notifications will be sent. The notification callback does not receive a notification of the
@@ -1778,7 +1778,7 @@ declare namespace OracleDB {
          * @param name Name of the subscription used in connection.subscribe().
          */
         unsubscribe(name: string): Promise<void>;
-        unsubscribe(name: string, callback: (error: DBError) => void): void;
+        unsubscribe(name: string, callback: (error: DBError | null) => void): void;
     }
 
     /**
@@ -2609,7 +2609,7 @@ declare namespace OracleDB {
          * @see https://node-oracledb.readthedocs.io/en/latest/user_guide/lob_data.html#closinglobs
          */
         close(): Promise<void>;
-        close(callback: (error: DBError) => void): void;
+        close(callback: (error: DBError | null) => void): void;
 
         /**
          * Return all the LOB data. CLOBs and NCLOBs will be returned as strings. BLOBs will be returned as a Buffer.
@@ -2629,7 +2629,7 @@ declare namespace OracleDB {
          * @since 4.0
          */
         getData(): Promise<string | Buffer>;
-        getData(callback: (error: DBError, data: string | Buffer) => void): void;
+        getData(callback: (error: DBError | null, data?: string | Buffer) => void): void;
 
         /**
          * Returns a portion (or all) of the data in the LOB object. Note that
@@ -2652,9 +2652,9 @@ declare namespace OracleDB {
          * @param amount The number of bytes(BLOB) or characters(CLOB) returned starting from offset.
          */
         getData(offset: number): Promise<string | Buffer>;
-        getData(offset: number, callback: (error: DBError, data: string | Buffer) => void): void;
+        getData(offset: number, callback: (error: DBError | null, data?: string | Buffer) => void): void;
         getData(offset: number, amount: number): Promise<string | Buffer>;
-        getData(offset: number, amount: number, callback: (error: DBError, data: string | Buffer) => void): void;
+        getData(offset: number, amount: number, callback: (error: DBError | null, data?: string | Buffer) => void): void;
     }
 
     /**
@@ -2871,8 +2871,8 @@ declare namespace OracleDB {
          * @since 1.9
          */
         close(drainTime?: number): Promise<void>;
-        close(drainTime: number, callback: (error: DBError) => void): void;
-        close(callback: (error: DBError) => void): void;
+        close(drainTime: number, callback: (error: DBError | null) => void): void;
+        close(callback: (error: DBError | null) => void): void;
 
         /**
          * This method obtains a connection from the connection pool.
@@ -2912,9 +2912,9 @@ declare namespace OracleDB {
         getConnection(poolAttributes?: GetPooledConnectionOptions): Promise<Connection>;
         getConnection(
             poolAttributes: GetPooledConnectionOptions,
-            callback: (error: DBError, connection: Connection) => void,
+            callback: (error: DBError | null, connection?: Connection) => void,
         ): void;
-        getConnection(callback: (error: DBError, connection: Connection) => void): void;
+        getConnection(callback: (error: DBError | null, connection?: Connection) => void): void;
         /**
          * This call closes connections in the pool and terminates the connection pool.
          *
@@ -2943,8 +2943,8 @@ declare namespace OracleDB {
          * @alias close
          */
         terminate(drainTime?: number): Promise<void>;
-        terminate(drainTime: number, callback: (error: DBError) => void): void;
-        terminate(callback: (error: DBError) => void): void;
+        terminate(drainTime: number, callback: (error: DBError | null) => void): void;
+        terminate(callback: (error: DBError | null) => void): void;
 
         /**
          * If enableStatistics is true, this method can be used to output statistics to the console.
@@ -2965,7 +2965,7 @@ declare namespace OracleDB {
          * If an error such as an invalid value occurs when changing one property, then an error will be thrown but any already changed properties will retain their new values.
          */
         reconfigure(poolAttrs: PoolAttributes): Promise<void>;
-        reconfigure(poolAttrs: PoolAttributes, callback: (error: DBError) => void): void;
+        reconfigure(poolAttrs: PoolAttributes, callback: (error: DBError | null) => void): void;
     }
 
     /**
@@ -3470,14 +3470,14 @@ declare namespace OracleDB {
         deqMany(maxMessages: number): Promise<Array<AdvancedQueueMessage<T>>>;
         deqMany(
             maxMessages: number,
-            callback: (error: DBError, messages: Array<AdvancedQueueMessage<T>>) => void,
+            callback: (error: DBError | null, messages?: Array<AdvancedQueueMessage<T>>) => void,
         ): void;
 
         /**
          * Dequeues a single message. Depending on the dequeue options, the message may also be returned as undefined if no message is available.
          */
         deqOne(): Promise<AdvancedQueueMessage<T> | undefined>;
-        deqOne(callback: (error: DBError, message?: AdvancedQueueMessage<T>) => void): void;
+        deqOne(callback: (error: DBError | null, message?: AdvancedQueueMessage<T>) => void): void;
 
         /**
          * Enqueues multiple messages.
@@ -3492,7 +3492,7 @@ declare namespace OracleDB {
         enqMany(messages: Array<EnqueueMessage<T>>): Promise<AdvancedQueueMessage<T>>;
         enqMany(
             messages: Array<EnqueueMessage<T>>,
-            callback: (error: DBError) => AdvancedQueueMessage<T>,
+            callback: (error: DBError | null) => AdvancedQueueMessage<T>,
         ): AdvancedQueueMessage<T>;
 
         /**
@@ -3505,7 +3505,7 @@ declare namespace OracleDB {
         enqOne(message: EnqueueMessage<T>): Promise<AdvancedQueueMessage<T>>;
         enqOne(
             message: EnqueueMessage<T>,
-            callback: (error: DBError) => AdvancedQueueMessage<T>,
+            callback: (error: DBError | null) => AdvancedQueueMessage<T>,
         ): AdvancedQueueMessage<T>;
     }
 
@@ -3917,7 +3917,7 @@ declare namespace OracleDB {
          * It should also be called if no rows are ever going to be fetched from the ResultSet.
          */
         close(): Promise<void>;
-        close(callback: (error: DBError) => void): void;
+        close(callback: (error: DBError | null) => void): void;
 
         /**
          * This call fetches one row of the ResultSet as an object or an array of column values,
@@ -3929,7 +3929,7 @@ declare namespace OracleDB {
          * the execute() option fetchArraySize.
          */
         getRow(): Promise<T>;
-        getRow(callback: (error: DBError, row: T) => void): void;
+        getRow(callback: (error: DBError | null, row?: T) => void): void;
 
         /**
          * This call fetches numRows rows of the ResultSet as an object or an array of column values,
@@ -3943,8 +3943,8 @@ declare namespace OracleDB {
          * @param numRows The number of rows to fetch
          */
         getRows(numRows?: number): Promise<T[]>;
-        getRows(callback: (error: DBError, rows: T[]) => void): void;
-        getRows(numRows: number, callback: (error: DBError, rows: T[]) => void): void;
+        getRows(callback: (error: DBError | null, rows?: T[]) => void): void;
+        getRows(numRows: number, callback: (error: DBError | null, rows?: T[]) => void): void;
 
         /**
          * This synchronous method converts a ResultSet into a stream.
@@ -4003,9 +4003,9 @@ declare namespace OracleDB {
         createCollection(
             collectionName: string,
             options: SodaCollectionOptions,
-            callback: (error: DBError, collection: SodaCollection) => void,
+            callback: (error: DBError | null, collection?: SodaCollection) => void,
         ): void;
-        createCollection(collectionName: string, callback: (error: DBError, collection: SodaCollection) => void): void;
+        createCollection(collectionName: string, callback: (error: DBError | null, collection?: SodaCollection) => void): void;
 
         /**
          * A synchronous method that constructs a proto SodaDocument object usable for SODA insert and replace methods.
@@ -4032,9 +4032,9 @@ declare namespace OracleDB {
         getCollectionNames(options?: SodaCollectionNamesOptions): string[];
         getCollectionNames(
             options: SodaCollectionNamesOptions,
-            callback: (error: DBError, names: string[]) => void,
+            callback: (error: DBError | null, names?: string[]) => void,
         ): void;
-        getCollectionNames(callback: (error: DBError, names: string[]) => void): void;
+        getCollectionNames(callback: (error: DBError | null, names?: string[]) => void): void;
 
         /**
          * Opens an existing SodaCollection of the given name. The collection can then be used to access documents.
@@ -4050,7 +4050,7 @@ declare namespace OracleDB {
          * @since 3.0
          */
         openCollection(collectionName: string): Promise<SodaCollection | undefined>;
-        openCollection(collectionName: string, callback: (error: DBError, collection?: SodaCollection) => void): void;
+        openCollection(collectionName: string, callback: (error: DBError | null, collection?: SodaCollection) => void): void;
     }
 
     /**
@@ -4114,7 +4114,7 @@ declare namespace OracleDB {
          * @see https://www.oracle.com/pls/topic/lookup?ctx=dblatest&id=GUID-4848E6A0-58A7-44FD-8D6D-A033D0CCF9CB
          */
         createIndex(indexSpec: BTreeIndex | SpatialIndex | SearchIndex): Promise<void>;
-        createIndex(indexSpec: BTreeIndex | SpatialIndex | SearchIndex, callback: (error: DBError) => void): void;
+        createIndex(indexSpec: BTreeIndex | SpatialIndex | SearchIndex, callback: (error: DBError | null) => void): void;
 
         /**
          * Drops the current collection.
@@ -4140,7 +4140,7 @@ declare namespace OracleDB {
          * @since 3.0
          */
         drop(): Promise<DropCollectionResult>;
-        drop(callback: (error: DBError, result: DropCollectionResult) => void): void;
+        drop(callback: (error: DBError | null, result?: DropCollectionResult) => void): void;
 
         /**
          * Drops the specified index.
@@ -4157,7 +4157,7 @@ declare namespace OracleDB {
         dropIndex(
             indexName: string,
             options: DropIndexOptions,
-            callback: (error: DBError, result: DropCollectionResult) => void,
+            callback: (error: DBError | null, result?: DropCollectionResult) => void,
         ): void;
 
         /**
@@ -4187,7 +4187,7 @@ declare namespace OracleDB {
          * @since 3.0
          */
         getDataGuide(): Promise<SodaDocument>;
-        getDataGuide(callback: (error: DBError, document: SodaDocument) => void): void;
+        getDataGuide(callback: (error: DBError | null, document?: SodaDocument) => void): void;
 
         /**
          * Inserts a given document to the collection. The input document can be either a JavaScript object representing
@@ -4206,7 +4206,7 @@ declare namespace OracleDB {
          * @since 3.0
          */
         insertOne(newDocument: SodaDocument | Record<string, any>): Promise<void>;
-        insertOne(newDocument: SodaDocument | Record<string, any>, callback: (error: DBError) => void): void;
+        insertOne(newDocument: SodaDocument | Record<string, any>, callback: (error: DBError | null) => void): void;
 
         /**
          * Similar to sodaCollection.insertOne() but also returns the inserted document so system managed properties,
@@ -4234,7 +4234,7 @@ declare namespace OracleDB {
 
         insertOneAndGet(
             newDocument: SodaDocument | Record<string, any>,
-            callback: (error: DBError, document: SodaDocument) => void,
+            callback: (error: DBError | null, document?: SodaDocument) => void,
             options?: { hint: string },
         ): void;
 
@@ -4253,7 +4253,7 @@ declare namespace OracleDB {
          * @since 4.0
          */
         insertMany(documents: Array<SodaDocument | Record<string, any>>): Promise<void>;
-        insertMany(documents: Array<SodaDocument | Record<string, any>>, callback: (error: DBError) => void): void;
+        insertMany(documents: Array<SodaDocument | Record<string, any>>, callback: (error: DBError | null) => void): void;
 
         /**
          * Similar to sodaCollection.insertMany() but also returns an array of the inserted documents so system managed properties,
@@ -4274,7 +4274,7 @@ declare namespace OracleDB {
         ): Promise<SodaDocument[]>;
         insertManyAndGet(
             documents: Array<SodaDocument | Record<string, any>>,
-            callback: (error: DBError, documents: SodaDocument[]) => void,
+            callback: (error: DBError | null, documents?: SodaDocument[]) => void,
             options?: { hint: string },
         ): void;
 
@@ -4386,7 +4386,7 @@ declare namespace OracleDB {
          * @since 3.0
          */
         close(): Promise<void>;
-        close(callback: (error: DBError) => void): void;
+        close(callback: (error: DBError | null) => void): void;
 
         /**
          * This method returns the next SodaDocument in the cursor returned by a find() terminal method read operation.
@@ -4396,7 +4396,7 @@ declare namespace OracleDB {
          * @since 3.0
          */
         getNext(): Promise<SodaDocument | undefined>;
-        getNext(callback: (error: DBError, document?: SodaDocument) => void): void;
+        getNext(callback: (error: DBError | null, document?: SodaDocument) => void): void;
     }
 
     /**
@@ -4533,7 +4533,7 @@ declare namespace OracleDB {
          * connection is committed.
          */
         count(): Promise<SodaCountResult>;
-        count(callback: (error: DBError, result: SodaCountResult) => void): void;
+        count(callback: (error: DBError | null, result?: SodaCountResult) => void): void;
         /**
          * Returns a SodaDocumentCursor for documents that match the SodaOperation query criteria.
          * The cursor can be iterated over with sodaDocumentCursor.getNext() to access each SodaDocument.
@@ -4547,7 +4547,7 @@ declare namespace OracleDB {
          * @since 3.0
          */
         getCursor(): Promise<SodaDocumentCursor>;
-        getCursor(callback: (error: DBError, cursor: SodaDocumentCursor) => void): void;
+        getCursor(callback: (error: DBError | null, cursor?: SodaDocumentCursor) => void): void;
         /**
          * Gets an array of SodaDocuments matching the SodaOperation query criteria. An empty array will be
          * returned when no documents match.
@@ -4561,7 +4561,7 @@ declare namespace OracleDB {
          * @since 3.0
          */
         getDocuments(): Promise<SodaDocument[]>;
-        getDocuments(callback: (error: DBError, documents: SodaDocument[]) => void): void;
+        getDocuments(callback: (error: DBError | null, documents?: SodaDocument[]) => void): void;
         /**
          * Obtains one document matching the SodaOperation query criteria. If the criteria match more
          * than one document, then only the first is returned.
@@ -4574,7 +4574,7 @@ declare namespace OracleDB {
          * @since 3.0
          */
         getOne(): Promise<SodaDocument | undefined>;
-        getOne(callback: (error: DBError, document?: SodaDocument) => void): void;
+        getOne(callback: (error: DBError | null, document?: SodaDocument) => void): void;
         /**
          * Removes a set of documents matching the SodaOperation query criteria.
          *
@@ -4586,7 +4586,7 @@ declare namespace OracleDB {
          * @since 3.0
          */
         remove(): Promise<SodaRemoveResult>;
-        remove(callback: (error: DBError, result: SodaRemoveResult) => void): void;
+        remove(callback: (error: DBError | null, result?: SodaRemoveResult) => void): void;
         /**
          * Replaces a document in a collection. The input document can be either a JavaScript object representing the
          * data content, or it can be an existing SodaDocument.
@@ -4610,7 +4610,7 @@ declare namespace OracleDB {
          * @since 3.0
          */
         replaceOne(newDocument: SodaDocument): Promise<SodaReplaceOneResult>;
-        replaceOne(newDocument: SodaDocument, callback: (error: DBError, result: SodaReplaceOneResult) => void): void;
+        replaceOne(newDocument: SodaDocument, callback: (error: DBError | null, result?: SodaReplaceOneResult) => void): void;
         /**
          * Replaces a document in a collection. The input document can be either a JavaScript object representing the
          * data content, or it can be an existing SodaDocument.
@@ -4636,7 +4636,7 @@ declare namespace OracleDB {
         replaceOne(newDocumentContent: Record<string, any>): Promise<SodaReplaceOneResult>;
         replaceOne(
             newDocumentContent: Record<string, any>,
-            callback: (error: DBError, result: SodaReplaceOneResult) => void,
+            callback: (error: DBError | null, result?: SodaReplaceOneResult) => void,
         ): void;
         /**
          * Replaces a document in a collection. This is similar to replaceOne(), but also returns the result document,
@@ -4652,7 +4652,7 @@ declare namespace OracleDB {
          * @since 3.0
          */
         replaceOneAndGet(newDocument: SodaDocument): Promise<SodaDocument | undefined>;
-        replaceOneAndGet(newDocument: SodaDocument, callback: (error: DBError, document?: SodaDocument) => void): void;
+        replaceOneAndGet(newDocument: SodaDocument, callback: (error: DBError | null, document?: SodaDocument) => void): void;
         /**
          * Replaces a document in a collection. This is similar to replaceOne(), but also returns the result document,
          * which contains all SodaDocument components (key, version, etc.) except for content.
@@ -4669,7 +4669,7 @@ declare namespace OracleDB {
         replaceOneAndGet(newDocumentContent: Record<string, any>): Promise<SodaDocument>;
         replaceOneAndGet(
             newDocumentContent: Record<string, any>,
-            callback: (error: DBError, document: SodaDocument) => void,
+            callback: (error: DBError | null, document?: SodaDocument) => void,
         ): void;
     }
 
@@ -4981,7 +4981,7 @@ declare namespace OracleDB {
      * @param poolAttributes Provides connection credentials and pool-specific configuration properties, overriding the defualt pooling properties of the Oracledb object.
      */
     function createPool(poolAttributes: PoolAttributes): Promise<Pool>;
-    function createPool(poolAttributes: PoolAttributes, callback: (error: DBError, pool: Pool) => void): void;
+    function createPool(poolAttributes: PoolAttributes, callback: (error: DBError | null, pool?: Pool) => void): void;
 
     /**
      * Obtains a connection from a pool in the connection pool cache.
@@ -4992,7 +4992,7 @@ declare namespace OracleDB {
      * @param poolAlias Specifies which previously created pool in the connection pool cache to use to obtain the connection.
      */
     function getConnection(poolAlias: string): Promise<Connection>;
-    function getConnection(poolAlias: string, callback: (error: DBError, connection: Connection) => void): void;
+    function getConnection(poolAlias: string, callback: (error: DBError | null, connection?: Connection) => void): void;
 
     /**
      * Obtains a connection from the default pool.
@@ -5001,7 +5001,7 @@ declare namespace OracleDB {
      * However, in most cases, Oracle recommends getting connections from a connection pool.
      */
     function getConnection(): Promise<Connection>;
-    function getConnection(callback: (error: DBError, connection: Connection) => void): void;
+    function getConnection(callback: (error: DBError | null, connection?: Connection) => void): void;
 
     /**
      * Creates a new, standalone, non-pooled connection.
@@ -5014,7 +5014,7 @@ declare namespace OracleDB {
     function getConnection(connectionAttributes: ConnectionAttributes): Promise<Connection>;
     function getConnection(
         connectionAttributes: ConnectionAttributes,
-        callback: (error: DBError, connection: Connection) => void,
+        callback: (error: DBError | null, connection?: Connection) => void,
     ): void;
 
     /**
