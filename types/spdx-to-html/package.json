@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/spdx-to-html",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/jslicense/spdx-to-html.js"
+    ],
+    "devDependencies": {
+        "@types/spdx-to-html": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jamie Magee",
+            "githubUsername": "JamieMagee"
+        }
+    ]
+}
