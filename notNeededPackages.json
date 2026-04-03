@@ -2289,6 +2289,10 @@
             "libraryName": "feedme",
             "asOfVersion": "2.0.2"
         },
+        "feedparser": {
+            "libraryName": "feedparser",
+            "asOfVersion": "2.3.0"
+        },
         "feedsub": {
             "libraryName": "feedsub",
             "asOfVersion": "0.7.5"
