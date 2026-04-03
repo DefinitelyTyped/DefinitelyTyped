@@ -1554,7 +1554,11 @@ declare namespace OracleDB {
         ): void;
 
         executeMany<T>(sql: string, iterations: number): Promise<Results<T>>;
-        executeMany<T>(sql: string, iterations: number, callback: (error: DBError | null, result?: Results<T>) => void): void;
+        executeMany<T>(
+            sql: string,
+            iterations: number,
+            callback: (error: DBError | null, result?: Results<T>) => void,
+        ): void;
 
         /**
          * Returns a DbObject prototype object representing the named Oracle Database object or collection.
@@ -1570,7 +1574,10 @@ declare namespace OracleDB {
          * @since 4.0
          */
         getDbObjectClass<T>(className: string): Promise<DBObjectClass<T>>;
-        getDbObjectClass<T>(className: string, callback: (error: DBError | null, dbObject?: DBObjectClass<T>) => void): void;
+        getDbObjectClass<T>(
+            className: string,
+            callback: (error: DBError | null, dbObject?: DBObjectClass<T>) => void,
+        ): void;
 
         getQueue<T>(name: string, options?: GetAdvancedQueueOptions): Promise<AdvancedQueue<T>>;
         getQueue<T>(name: string, callback: (error: DBError | null, queue?: AdvancedQueue<T>) => void): void;
@@ -2654,7 +2661,11 @@ declare namespace OracleDB {
         getData(offset: number): Promise<string | Buffer>;
         getData(offset: number, callback: (error: DBError | null, data?: string | Buffer) => void): void;
         getData(offset: number, amount: number): Promise<string | Buffer>;
-        getData(offset: number, amount: number, callback: (error: DBError | null, data?: string | Buffer) => void): void;
+        getData(
+            offset: number,
+            amount: number,
+            callback: (error: DBError | null, data?: string | Buffer) => void,
+        ): void;
     }
 
     /**
@@ -4005,7 +4016,10 @@ declare namespace OracleDB {
             options: SodaCollectionOptions,
             callback: (error: DBError | null, collection?: SodaCollection) => void,
         ): void;
-        createCollection(collectionName: string, callback: (error: DBError | null, collection?: SodaCollection) => void): void;
+        createCollection(
+            collectionName: string,
+            callback: (error: DBError | null, collection?: SodaCollection) => void,
+        ): void;
 
         /**
          * A synchronous method that constructs a proto SodaDocument object usable for SODA insert and replace methods.
@@ -4050,7 +4064,10 @@ declare namespace OracleDB {
          * @since 3.0
          */
         openCollection(collectionName: string): Promise<SodaCollection | undefined>;
-        openCollection(collectionName: string, callback: (error: DBError | null, collection?: SodaCollection) => void): void;
+        openCollection(
+            collectionName: string,
+            callback: (error: DBError | null, collection?: SodaCollection) => void,
+        ): void;
     }
 
     /**
@@ -4114,7 +4131,10 @@ declare namespace OracleDB {
          * @see https://www.oracle.com/pls/topic/lookup?ctx=dblatest&id=GUID-4848E6A0-58A7-44FD-8D6D-A033D0CCF9CB
          */
         createIndex(indexSpec: BTreeIndex | SpatialIndex | SearchIndex): Promise<void>;
-        createIndex(indexSpec: BTreeIndex | SpatialIndex | SearchIndex, callback: (error: DBError | null) => void): void;
+        createIndex(
+            indexSpec: BTreeIndex | SpatialIndex | SearchIndex,
+            callback: (error: DBError | null) => void,
+        ): void;
 
         /**
          * Drops the current collection.
@@ -4253,7 +4273,10 @@ declare namespace OracleDB {
          * @since 4.0
          */
         insertMany(documents: Array<SodaDocument | Record<string, any>>): Promise<void>;
-        insertMany(documents: Array<SodaDocument | Record<string, any>>, callback: (error: DBError | null) => void): void;
+        insertMany(
+            documents: Array<SodaDocument | Record<string, any>>,
+            callback: (error: DBError | null) => void,
+        ): void;
 
         /**
          * Similar to sodaCollection.insertMany() but also returns an array of the inserted documents so system managed properties,
@@ -4610,7 +4633,10 @@ declare namespace OracleDB {
          * @since 3.0
          */
         replaceOne(newDocument: SodaDocument): Promise<SodaReplaceOneResult>;
-        replaceOne(newDocument: SodaDocument, callback: (error: DBError | null, result?: SodaReplaceOneResult) => void): void;
+        replaceOne(
+            newDocument: SodaDocument,
+            callback: (error: DBError | null, result?: SodaReplaceOneResult) => void,
+        ): void;
         /**
          * Replaces a document in a collection. The input document can be either a JavaScript object representing the
          * data content, or it can be an existing SodaDocument.
@@ -4652,7 +4678,10 @@ declare namespace OracleDB {
          * @since 3.0
          */
         replaceOneAndGet(newDocument: SodaDocument): Promise<SodaDocument | undefined>;
-        replaceOneAndGet(newDocument: SodaDocument, callback: (error: DBError | null, document?: SodaDocument) => void): void;
+        replaceOneAndGet(
+            newDocument: SodaDocument,
+            callback: (error: DBError | null, document?: SodaDocument) => void,
+        ): void;
         /**
          * Replaces a document in a collection. This is similar to replaceOne(), but also returns the result document,
          * which contains all SodaDocument components (key, version, etc.) except for content.
