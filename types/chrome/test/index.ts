@@ -1033,6 +1033,63 @@ function testGetManifest() {
         manifest.author.email; // $ExpectType string
     }
 
+    if (manifest.cross_origin_embedder_policy) {
+        manifest.cross_origin_embedder_policy.value; // $ExpectType string
+    }
+
+    if (manifest.cross_origin_opener_policy) {
+        manifest.cross_origin_opener_policy.value; // $ExpectType string
+    }
+
+    if (manifest.declarative_net_request?.rule_resources) {
+        manifest.declarative_net_request.rule_resources[0].id; // $ExpectType string
+        manifest.declarative_net_request.rule_resources[0].path; // $ExpectType string
+        manifest.declarative_net_request.rule_resources[0].enabled; // $ExpectType boolean
+    }
+
+    if (manifest.file_system_provider_capabilities) {
+        manifest.file_system_provider_capabilities.configurable; // $ExpectType boolean | undefined
+        manifest.file_system_provider_capabilities.watchable; // $ExpectType boolean | undefined
+        manifest.file_system_provider_capabilities.multiple_mounts; // $ExpectType boolean | undefined
+        manifest.file_system_provider_capabilities.source; // $ExpectType "file" | "device" | "network"
+    }
+
+    if (manifest.import) {
+        manifest.import[0].id; // $ExpectType string
+        manifest.import[0].minimum_version; // $ExpectType string | undefined
+    }
+
+    if (manifest.export) {
+        manifest.export.allowlist; // $ExpectType string[] | undefined
+    }
+
+    if (manifest.file_system_provider_capabilities) {
+        manifest.file_system_provider_capabilities.configurable; // $ExpectType boolean | undefined
+        manifest.file_system_provider_capabilities.watchable; // $ExpectType boolean | undefined
+        manifest.file_system_provider_capabilities.source; // $ExpectType "file" | "device" | "network"
+    }
+
+    manifest.incognito; // $ExpectType "spanning" | "split" | "not_allowed" | undefined
+
+    if (manifest.input_components) {
+        manifest.input_components[0].name; // $ExpectType string
+        manifest.input_components[0].id; // $ExpectType string | undefined
+        manifest.input_components[0].language; // $ExpectType string | string[] | undefined
+        manifest.input_components[0].layouts; // $ExpectType string | string[] | undefined
+        manifest.input_components[0].input_view; // $ExpectType string | undefined
+        manifest.input_components[0].options_page; // $ExpectType string | undefined
+    }
+
+    if (manifest.options_ui) {
+        manifest.options_ui.page; // $ExpectType string
+        manifest.options_ui.open_in_tab; // $ExpectType boolean
+    }
+
+    if (manifest.sandbox) {
+        manifest.sandbox.pages; // $ExpectType string[]
+        manifest.sandbox.content_security_policy; // $ExpectType string | undefined
+    }
+
     if (manifest.manifest_version === 2) {
         manifest.browser_action; // $ExpectType ManifestAction | undefined
         manifest.page_action; // $ExpectType ManifestAction | undefined
@@ -1063,6 +1120,17 @@ function testGetManifest() {
         manifest.optional_permissions; // $ExpectType ManifestOptionalPermission[] | undefined
         manifest.optional_host_permissions; // $ExpectType string[] | undefined
         manifest.permissions; // $ExpectType ManifestPermission[] | undefined
+
+        if (manifest.file_handlers) {
+            manifest.file_handlers[0].action; // $ExpectType string
+            manifest.file_handlers[0].name; // $ExpectType string
+            manifest.file_handlers[0].accept; // $ExpectType { [mime_type: string]: string[] }
+            manifest.file_handlers[0].launch_type; // $ExpectType "multiple-clients" | "single-client" | undefined
+        }
+
+        if (manifest.side_panel) {
+            manifest.side_panel.default_path; // $ExpectType string
+        }
 
         manifest.web_accessible_resources = [{
             resources: ["resource.js"],
@@ -1121,6 +1189,12 @@ function testGetManifest() {
                 16: "icon-16.png",
             },
         },
+        content_scripts: [
+            {
+                matches: ["https://github.com/*"],
+                js: ["cs.js"],
+            },
+        ],
         content_security_policy: "default-src 'self'",
         optional_permissions: ["https://*/*"],
         permissions: ["https://*/*"],
