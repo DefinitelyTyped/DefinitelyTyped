@@ -3026,7 +3026,7 @@ declare namespace Xrm {
              * A collection of all the controls on the form that interface with this attribute.
              * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
              */
-            controls: Collection.ItemCollection<Controls.OptionSetControl>;
+            controls: Collection.ItemCollection<Controls.MultiSelectOptionSetControl>;
         }
 
         /**
