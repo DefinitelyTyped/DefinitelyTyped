@@ -917,6 +917,7 @@
 /types/client-sessions/                                 @netroy @DiabolusGX
 /types/clientjs/                                        @icopp
 /types/cliff/                                           @brynbellomy
+/types/clipper-lib/                                     @kwnt-dev
 /types/clmtrackr/                                       @hellochar
 /types/clndr/                                           @jasperjn
 /types/clockpicker/                                     @jfcere
@@ -1488,6 +1489,7 @@
 /types/dhtmlxgantt/                                     @mkozhukh @chriscamicas
 /types/di/                                              @johnjbarton
 /types/di-lite/                                         @dcrusader
+/types/diacritic/                                       @TurtIeSocks
 /types/diacritics/                                      @otociulis
 /types/dialogify-browser/                               @moontai0724
 /types/dicer/                                           @BendingBender
@@ -2061,7 +2063,6 @@
 /types/feathersjs__authentication-oauth1/               @j2L4e
 /types/feathersjs__authentication-oauth2/               @j2L4e @NickBolles
 /types/feathersjs__socket-commons/                      @j2L4e @deskoh
-/types/feedparser/                                      @cortopy
 /types/feflow__cli/                                     @nikewu
 /types/fernet/                                          @BendingBender
 /types/fetch-meta-tags/                                 @silversonicaxel
@@ -4739,7 +4740,6 @@
 /types/massive/v3/                                      @swissspidy @clarenceh
 /types/massive/v4/                                      @swissspidy @clarenceh @AmazingTurtle
 /types/mastercard-client-encryption/                    @eLoyyyyy
-/types/mastercard-oauth1-signer/                        @deanpienaar
 /types/match-it/                                        @BendingBender
 /types/match-media-mock/                                @asvetliakov
 /types/matchdep/                                        @tpluscode
@@ -5251,6 +5251,7 @@
 /types/nodejs-license-file/                             @trodi
 /types/nodemailer/                                      @rogierschouten @dex4er @bioball
 /types/nodemailer/v6/                                   @rogierschouten @dex4er @bioball
+/types/nodemailer/v7/                                   @rogierschouten @dex4er @bioball
 /types/nodemailer-direct-transport/                     @rogierschouten
 /types/nodemailer-express-handlebars/                   @th3rius
 /types/nodemailer-html-to-text/                         @fagundes
@@ -6924,6 +6925,7 @@
 /types/round/                                           @ChocolateLoverRaj
 /types/round-tofixed/                                   @DesselBane
 /types/route-cache/                                     @yutak23
+/types/route-matcher/                                   @mchevestrier
 /types/route-parser/                                    @ianks @bobbuehler
 /types/routie/                                          @Adilson
 /types/rox-browser/                                     @asafRollout
@@ -7406,6 +7408,7 @@
 /types/spatialite/                                      @atd-schubert
 /types/spdx-correct/                                    @jinwoo
 /types/spdx-expression-parse/                           @peterblazejewicz
+/types/spdx-license-ids/                                @JamieMagee
 /types/spdx-satisfies/                                  @jinwoo
 /types/spdy/                                            @tony19
 /types/speakeasy/                                       @legendecas @mrOlorin @xeoneux
@@ -7768,6 +7771,7 @@
 /types/textarea-caret/                                  @shiftkey
 /types/textdiff-create/                                 @ensconced
 /types/textdiff-patch/                                  @ensconced
+/types/textile-js/                                      @phothinmg
 /types/textract/                                        @lal12
 /types/textversionjs/                                   @aaronosher
 /types/tg-ads-mediation__ads-cdn/                       @barinbritva
