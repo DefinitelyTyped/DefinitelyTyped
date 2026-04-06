@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "module": "node16",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "types": [ "node" ],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "node-bzip2": ["./index.d.ts"]
+        }
+    },
+    "files": [
+        "index.d.ts",
+        "node-bzip2-tests.ts"
+    ]
+}
