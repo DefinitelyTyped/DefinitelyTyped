@@ -12,10 +12,6 @@
             "libraryName": "hyphenate-style-name",
             "asOfVersion": "1.1.0"
         },
-        "@types/mongoose-geojson-schema": {
-            "libraryName": "mongoose-geojson-schema",
-            "asOfVersion": "3.0.0"
-        },
         "a11y-dialog": {
             "libraryName": "a11y-dialog",
             "asOfVersion": "5.3.2"
@@ -4617,9 +4613,17 @@
             "libraryName": "mongoose-autopopulate",
             "asOfVersion": "0.16.0"
         },
+        "mongoose-geojson-schema": {
+            "libraryName": "mongoose-geojson-schema",
+            "asOfVersion": "3.0.0"
+        },
         "mongoose-paginate-v2": {
             "libraryName": "mongoose-paginate-v2",
             "asOfVersion": "1.6.0"
+        },
+        "mongoose-unique-validator": {
+            "libraryName": "mongoose-unique-validator",
+            "asOfVersion": "6.1.0"
         },
         "monk": {
             "libraryName": "monk",
