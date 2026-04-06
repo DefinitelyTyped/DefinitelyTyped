@@ -4,6 +4,12 @@ export interface ResourceDestroyed {
     message: string;
 }
 
+/** Query params used to identify a resource by data_source_uuid + external_id */
+export interface ExternalIdParams {
+    data_source_uuid: string;
+    external_id: string;
+}
+
 export class Config {
     VERSION: string;
     API_BASE: string;
@@ -737,6 +743,63 @@ export namespace Invoice {
     function disable(config: Config, uuid: string, data?: object): Promise<Invoice>;
     /** Re-enable a disabled invoice via PATCH /v1/invoices/:uuid/disabled_state */
     function enable(config: Config, uuid: string): Promise<Invoice>;
+
+    /** PATCH /v1/invoices?data_source_uuid&external_id with body — use { qs: {...}, ...body } */
+    function update(config: Config, data: { qs: ExternalIdParams } & UpdateInvoice): Promise<Invoice>;
+    /** DELETE /v1/invoices?data_source_uuid&external_id */
+    function destroyByExternalId(config: Config, data: { qs: ExternalIdParams }): Promise<ResourceDestroyed>;
+    /** Disable by query params: PATCH /v1/invoices/disabled_state?data_source_uuid&external_id */
+    function disableByExternalId(config: Config, params: ExternalIdParams): Promise<Invoice>;
+    /** Enable by query params: PATCH /v1/invoices/disabled_state?data_source_uuid&external_id */
+    function enableByExternalId(config: Config, params: ExternalIdParams): Promise<Invoice>;
+}
+
+export namespace LineItem {
+    interface LineItem {
+        uuid?: string;
+        external_id?: string;
+        type?: string;
+        amount_in_cents?: number;
+        quantity?: number;
+        discount_code?: string;
+        discount_amount_in_cents?: number;
+        tax_amount_in_cents?: number;
+        transaction_fees_in_cents?: number;
+        account_code?: string;
+        plan_uuid?: string;
+        plan_external_id?: string;
+        service_period_start?: string;
+        service_period_end?: string;
+        subscription_uuid?: string;
+        subscription_external_id?: string;
+        subscription_set_external_id?: string;
+        prorated?: boolean;
+        proration_type?: string;
+        description?: string;
+        event_order?: number;
+        balance_transfer?: boolean;
+        transaction_fees_currency?: string | null;
+        discount_description?: string | null;
+        disabled?: boolean;
+        disabled_at?: string | null;
+        disabled_by?: string | null;
+        user_created?: boolean;
+        error?: string | null;
+    }
+    interface LineItems {
+        line_items: LineItem[];
+    }
+
+    /** GET /v1/line_items?data_source_uuid&external_id */
+    function all(config: Config, params: ExternalIdParams): Promise<LineItems>;
+    /** PATCH /v1/line_items?data_source_uuid&external_id with body */
+    function update(config: Config, data: { qs: ExternalIdParams } & Record<string, any>): Promise<LineItem>;
+    /** DELETE /v1/line_items?data_source_uuid&external_id */
+    function destroy(config: Config, data: { qs: ExternalIdParams }): Promise<ResourceDestroyed>;
+    /** Disable: PATCH /v1/line_items/disabled_state?data_source_uuid&external_id */
+    function disable(config: Config, params: ExternalIdParams): Promise<LineItem>;
+    /** Enable: PATCH /v1/line_items/disabled_state?data_source_uuid&external_id */
+    function enable(config: Config, params: ExternalIdParams): Promise<LineItem>;
 }
 
 export namespace Transaction {
@@ -765,7 +828,21 @@ export namespace Transaction {
         transaction_fees_currency?: string;
     }
 
+    interface Transactions {
+        transactions: Transaction[];
+    }
+
     function create(config: Config, invoiceUuid: string, data: NewTransaction): Promise<Transaction>;
+    /** GET /v1/transactions?data_source_uuid&external_id */
+    function all(config: Config, params: ExternalIdParams): Promise<Transactions>;
+    /** PATCH /v1/transactions?data_source_uuid&external_id with body */
+    function update(config: Config, data: { qs: ExternalIdParams } & Record<string, any>): Promise<Transaction>;
+    /** DELETE /v1/transactions?data_source_uuid&external_id */
+    function destroy(config: Config, data: { qs: ExternalIdParams }): Promise<ResourceDestroyed>;
+    /** Disable: PATCH /v1/transactions/disabled_state?data_source_uuid&external_id */
+    function disable(config: Config, params: ExternalIdParams): Promise<Transaction>;
+    /** Enable: PATCH /v1/transactions/disabled_state?data_source_uuid&external_id */
+    function enable(config: Config, params: ExternalIdParams): Promise<Transaction>;
 }
 
 export namespace Subscription {
