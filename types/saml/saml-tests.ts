@@ -85,3 +85,30 @@ Saml20.createUnsignedAssertion(
     },
     () => {},
 );
+
+// v4.0 encryption options
+Saml20.create(
+    {
+        cert: Buffer.from("certificate"),
+        key: Buffer.from("key"),
+        encryptionCert: Buffer.from("encryption-cert"),
+        encryptionAlgorithm: "http://www.w3.org/2009/xmlenc11#aes256-gcm",
+        keyEncryptionAlgorithm: "http://www.w3.org/2001/04/xmlenc#rsa-oaep-mgf1p",
+        disallowEncryptionWithInsecureAlgorithm: true,
+        warnOnInsecureEncryptionAlgorithm: false,
+    },
+    () => {},
+);
+
+// v4.0 signatureIdAttribute option
+Saml11.create({
+    cert: Buffer.from("certificate"),
+    key: Buffer.from("key"),
+    signatureIdAttribute: "ID",
+});
+
+// ReadonlyArray attribute values
+const attrs: SamlAttributes = {
+    email: "foo@bar.com",
+    groups: ["Group1", "Group2"] as ReadonlyArray<string>,
+};
