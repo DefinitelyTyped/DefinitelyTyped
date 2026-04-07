@@ -1,3 +1,4 @@
+/// <reference types="node" />
 /**
 * Configuration options for BZip2 compression.
 * @typedef {Object} CompressionOptions
