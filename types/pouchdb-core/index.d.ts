@@ -593,7 +593,7 @@ declare namespace PouchDB {
         | PluginProps
         | ((
             db:
-                & Database
+                & Static
                 & {
                     -readonly [PluginProp in keyof PluginProps]: PluginProps[PluginProp];
                 },
