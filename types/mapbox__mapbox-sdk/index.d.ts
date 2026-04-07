@@ -919,7 +919,7 @@ declare module "@mapbox/mapbox-sdk/services/geocoding-v6" {
          * Bias local results based on a provided coordinate location or a
          * user's IP address.
          */
-        proximity?: Coordinates | "ip";
+        proximity?: MapiRequestCoordinates | "ip";
         /**
          * Filter results by feature types.
          */
