@@ -1,0 +1,17 @@
+{
+  "private": true,
+  "name": "@types/spdx-compare",
+  "version": "1.0.9999",
+  "projects": [
+    "https://github.com/jslicense/spdx-compare.js"
+  ],
+  "devDependencies": {
+    "@types/spdx-compare": "workspace:."
+  },
+  "owners": [
+    {
+      "name": "Jamie Magee",
+      "githubUsername": "JamieMagee"
+    }
+  ]
+}
