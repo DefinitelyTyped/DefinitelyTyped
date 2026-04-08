@@ -23,6 +23,15 @@ const infos: Info[] = [
         license: "MIT",
     },
     {
+        license: "GPL-2.0-only",
+        exception: "Classpath-exception-2.0",
+    },
+    {
+        license: "Apache-2.0",
+        plus: true,
+        exception: "LLVM-exception",
+    },
+    {
         left: {
             license: "MIT",
         },
