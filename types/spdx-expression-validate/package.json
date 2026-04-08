@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/spdx-expression-validate",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/jslicense/spdx-expression-validate.js"
+    ],
+    "devDependencies": {
+        "@types/spdx-expression-validate": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jamie Magee",
+            "githubUsername": "JamieMagee"
+        }
+    ]
+}
