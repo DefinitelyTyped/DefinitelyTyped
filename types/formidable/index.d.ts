@@ -193,7 +193,7 @@ declare namespace formidable {
          */
         filename?: (name: string, ext: string, part: Part, form: Formidable) => string;
 
-        enabledPlugins?: string[] | undefined;
+        enabledPlugins?: formidable.PluginFunction[] | undefined;
 
         filter?: (part: Part) => boolean;
     }
