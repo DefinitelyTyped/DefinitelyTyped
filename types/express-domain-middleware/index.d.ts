@@ -1,7 +1,4 @@
-/// <reference types="express" />
+import express = require("express");
 
-declare module "express-domain-middleware" {
-    import express = require("express");
-    function e(req: express.Request, res: express.Response, next: express.NextFunction): any;
-    export = e;
-}
+declare function e(req: express.Request, res: express.Response, next: express.NextFunction): void;
+export = e;
