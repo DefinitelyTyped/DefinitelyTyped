@@ -3,7 +3,7 @@ export interface CompressOptions {
     /** Compression level from 1 (fastest) to 9 (best). Default is 9. */
     level?: number;
     /** Buffering behavior, e.g., 'auto'. */
-    buffering?: 'auto' | string;
+    buffering?: "auto" | string;
 }
 
 export interface DecompressOptions {

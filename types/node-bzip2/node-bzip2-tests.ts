@@ -1,4 +1,4 @@
-import * as bzip2 from 'node-bzip2';
+import * as bzip2 from "node-bzip2";
 
 interface Result {
     data: Buffer | null;
