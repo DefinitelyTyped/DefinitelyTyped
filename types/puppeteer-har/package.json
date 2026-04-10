@@ -6,7 +6,7 @@
         "https://github.com/Everettss/puppeteer-har#readme"
     ],
     "dependencies": {
-        "@types/puppeteer": "*"
+        "puppeteer": "*"
     },
     "devDependencies": {
         "@types/puppeteer-har": "workspace:."
@@ -15,6 +15,10 @@
         {
             "name": "Julian Ordaz",
             "githubUsername": "jordaz14"
+        },
+        {
+            "name": "Deniz Caglar",
+            "githubUsername": "CaglarDeniz"
         }
     ]
 }
