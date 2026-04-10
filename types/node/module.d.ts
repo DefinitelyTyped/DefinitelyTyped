@@ -1,6 +1,3 @@
-/**
- * @since v0.3.7
- */
 declare module "node:module" {
     import { URL } from "node:url";
     class Module {

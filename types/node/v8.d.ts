@@ -1,11 +1,3 @@
-/**
- * The `node:v8` module exposes APIs that are specific to the version of [V8](https://developers.google.com/v8/) built into the Node.js binary. It can be accessed using:
- *
- * ```js
- * import v8 from 'node:v8';
- * ```
- * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/v8.js)
- */
 declare module "node:v8" {
     import { NonSharedBuffer } from "node:buffer";
     import { Readable } from "node:stream";

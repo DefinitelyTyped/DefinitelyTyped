@@ -1,9 +1,3 @@
-/**
- * @deprecated The `node:constants` module is deprecated. When requiring access to constants
- * relevant to specific Node.js builtin modules, developers should instead refer
- * to the `constants` property exposed by the relevant module. For instance,
- * `require('node:fs').constants` and `require('node:os').constants`.
- */
 declare module "node:constants" {
     const constants:
         & typeof import("node:os").constants.dlopen

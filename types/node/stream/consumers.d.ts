@@ -1,8 +1,3 @@
-/**
- * The utility consumer functions provide common options for consuming
- * streams.
- * @since v16.7.0
- */
 declare module "node:stream/consumers" {
     import { Blob, NonSharedBuffer } from "node:buffer";
     import { ReadableStream } from "node:stream/web";

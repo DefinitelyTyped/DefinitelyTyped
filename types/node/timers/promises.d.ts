@@ -1,18 +1,3 @@
-/**
- * The `timers/promises` API provides an alternative set of timer functions
- * that return `Promise` objects. The API is accessible via
- * `require('node:timers/promises')`.
- *
- * ```js
- * import {
- *   setTimeout,
- *   setImmediate,
- *   setInterval,
- * } from 'node:timers/promises';
- * ```
- * @since v15.0.0
- * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/timers/promises.js)
- */
 declare module "node:timers/promises" {
     import { TimerOptions } from "node:timers";
     /**

@@ -1,13 +1,3 @@
-/**
- * The `node:util` module supports the needs of Node.js internal APIs. Many of the
- * utilities are useful for application and module developers as well. To access
- * it:
- *
- * ```js
- * import util from 'node:util';
- * ```
- * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/util.js)
- */
 declare module "node:util" {
     export * as types from "node:util/types";
     export type InspectStyle =
