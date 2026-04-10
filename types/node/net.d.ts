@@ -38,6 +38,7 @@ declare module "node:net" {
         keepAlive?: boolean | undefined;
         keepAliveInitialDelay?: number | undefined;
         blockList?: BlockList | undefined;
+        typeOfService?: number | undefined;
     }
     interface OnReadOpts {
         buffer: Uint8Array | (() => Uint8Array);
@@ -231,6 +232,37 @@ declare module "node:net" {
          * @return The socket itself.
          */
         setKeepAlive(enable?: boolean, initialDelay?: number): this;
+        /**
+         * Returns the current Type of Service (TOS) field for IPv4 packets or Traffic
+         * Class for IPv6 packets for this socket.
+         *
+         * `setTypeOfService()` may be called before the socket is connected; the value
+         * will be cached and applied when the socket establishes a connection.
+         * `getTypeOfService()` will return the currently set value even before connection.
+         *
+         * On some platforms (e.g., Linux), certain TOS/ECN bits may be masked or ignored,
+         * and behavior can differ between IPv4 and IPv6 or dual-stack sockets. Callers
+         * should verify platform-specific semantics.
+         * @since v25.6.0
+         * @returns The current TOS value.
+         */
+        getTypeOfService(): number;
+        /**
+         * Sets the Type of Service (TOS) field for IPv4 packets or Traffic Class for IPv6
+         * Packets sent from this socket. This can be used to prioritize network traffic.
+         *
+         * `setTypeOfService()` may be called before the socket is connected; the value
+         * will be cached and applied when the socket establishes a connection.
+         * `getTypeOfService()` will return the currently set value even before connection.
+         *
+         * On some platforms (e.g., Linux), certain TOS/ECN bits may be masked or ignored,
+         * and behavior can differ between IPv4 and IPv6 or dual-stack sockets. Callers
+         * should verify platform-specific semantics.
+         * @since v25.6.0
+         * @param tos The TOS value to set (0-255).
+         * @returns The socket itself.
+         */
+        setTypeOfService(tos: number): this;
         /**
          * Returns the bound `address`, the address `family` name and `port` of the
          * socket as reported by the operating system:`{ port: 12346, family: 'IPv4', address: '127.0.0.1' }`

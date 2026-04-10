@@ -409,6 +409,13 @@ declare module "node:test" {
              * @default 0
              */
             functionCoverage?: number | undefined;
+            /**
+             * Specify environment variables to be passed along to the test process.
+             * This options is not compatible with `isolation='none'`. These variables will override
+             * those from the main process, and are not merged with `process.env`.
+             * @since v25.6.0
+             */
+            env?: NodeJS.ProcessEnv | undefined;
         }
         interface TestsStreamEventMap extends ReadableEventMap {
             "data": [data: TestEvent];
