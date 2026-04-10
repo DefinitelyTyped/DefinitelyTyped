@@ -88,7 +88,7 @@ declare namespace session {
          * Settings object for the session ID cookie.
          * @see CookieOptions
          */
-        cookie?: CookieOptions | undefined;
+        cookie?: CookieOptions | ((req: express.Request) => CookieOptions) | undefined;
 
         /**
          * Force the session identifier cookie to be set on every response. The expiration is reset to the original `maxAge`, resetting the expiration countdown.
