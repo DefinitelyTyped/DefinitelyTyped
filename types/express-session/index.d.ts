@@ -85,7 +85,7 @@ declare namespace session {
         store?: Store | undefined;
 
         /**
-         * Settings object for the session ID cookie.
+         * Settings object for the session ID cookie, or a callback that dynamically generates it based on the incoming request.
          * @see CookieOptions
          */
         cookie?: CookieOptions | ((req: express.Request) => CookieOptions) | undefined;
