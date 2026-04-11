@@ -13,7 +13,7 @@
     "dependencies": {
         "@types/node": "*",
         "@types/tough-cookie": "*",
-        "parse5": "^7.0.0",
+        "parse5": "^8.0.0",
         "undici-types": "^7.21.0"
     },
     "devDependencies": {
