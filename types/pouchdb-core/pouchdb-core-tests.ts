@@ -355,3 +355,47 @@ function heterogeneousGenericsDatabase(db: PouchDB.Database) {
             }
         });
 }
+
+function testActiveTasks() {
+    const db = new PouchDB();
+
+    // list tasks
+    const tasks = db.activeTasks.list();
+
+    tasks.forEach(task => {
+        // basic checks
+        isString(task.id);
+        isString(task.name);
+
+        // optional fields
+        if (task.total_items !== undefined) {
+            isNumber(task.total_items);
+        }
+        if (task.completed_items !== undefined) {
+            isNumber(task.completed_items);
+        }
+    });
+
+    // add task
+    const id = db.activeTasks.add({
+        name: "test-task",
+        total_items: 10,
+    });
+
+    isString(id);
+
+    // get task
+    const task = db.activeTasks.get(id);
+    if (task) {
+        isString(task.id);
+        isString(task.name);
+    }
+
+    // update task
+    db.activeTasks.update(id, {
+        completed_items: 5,
+    });
+
+    // remove task
+    db.activeTasks.remove(id);
+}
