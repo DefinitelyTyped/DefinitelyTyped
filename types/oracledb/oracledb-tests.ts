@@ -3,6 +3,10 @@ import * as oracledb from "oracledb";
 import assert from "assert";
 import defaultOracledb from "oracledb";
 
+/* eslint-disable @definitelytyped/no-single-element-tuple-type */
+
+const expectType = <T>(value: T): T => value;
+
 /*
 
 TABLE SETUP FOR TESTING:
@@ -24,8 +28,32 @@ const {
     DB_USER,
 } = process.env;
 
+const typeCheckConnection = {} as oracledb.Connection;
+
+oracledb.createPool({} as oracledb.PoolAttributes, (...args) => {
+    expectType<[oracledb.DBError] | [null, oracledb.Pool]>(args);
+});
+
+typeCheckConnection.createLob(oracledb.CLOB, (...args) => {
+    expectType<[oracledb.DBError] | [null, oracledb.Lob]>(args);
+});
+
+typeCheckConnection.execute("SELECT 1 FROM dual", (...args) => {
+    expectType<[oracledb.DBError] | [null, oracledb.Result<unknown>]>(args);
+});
+
+typeCheckConnection.commit(error => {
+    expectType<oracledb.DBError | null>(error);
+});
+
 const initSession = (connection: oracledb.Connection, requestedTag: string, callback: (e: unknown) => void): void => {
-    connection.execute(`alter session set nls_date_format = 'YYYY-MM-DD' nls_language = AMERICAN`, callback);
+    connection.execute(
+        `alter session set nls_date_format = 'YYYY-MM-DD' nls_language = AMERICAN`,
+        ((...args) => {
+            const [error] = args;
+            callback(error);
+        }) as oracledb.ResultCallback<oracledb.Result<unknown>>,
+    );
 };
 
 const testBreak = (connection: oracledb.Connection): Promise<void> =>
@@ -38,7 +66,10 @@ const testBreak = (connection: oracledb.Connection): Promise<void> =>
                     END;
                 `,
             [2],
-            (error: oracledb.DBError): void => {
+            (error: oracledb.DBError | null, _result?: oracledb.Result<unknown>): void => {
+                if (!error) {
+                    throw new Error("Expected error from dbms_lock.sleep");
+                }
                 // ORA-01013: user requested cancel of current operation
                 assert(error.message.includes("ORA-01013"), "message not defined for DB error");
                 assert(error.errorNum !== undefined, "errorNum not defined for DB error");
