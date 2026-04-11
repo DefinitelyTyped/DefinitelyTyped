@@ -3783,6 +3783,12 @@ declare module "node:crypto" {
         interface ContextParams extends Algorithm {
             context?: NodeJS.BufferSource;
         }
+        interface Ed25519KeyGenParams extends Algorithm {
+            name: "Ed25519";
+        }
+        interface Ed448KeyGenParams extends Algorithm {
+            name: "Ed448";
+        }
         interface EcKeyAlgorithm extends KeyAlgorithm {
             namedCurve: NamedCurve;
         }
@@ -3884,6 +3890,12 @@ declare module "node:crypto" {
         interface RsaPssParams extends Algorithm {
             saltLength: number;
         }
+        interface X25519KeyGenParams extends Algorithm {
+            name: "X25519";
+        }
+        interface X448KeyGenParams extends Algorithm {
+            name: "X448";
+        }
         interface Crypto {
             readonly subtle: SubtleCrypto;
             getRandomValues<
@@ -3966,7 +3978,13 @@ declare module "node:crypto" {
             exportKey(format: Exclude<KeyFormat, "jwk">, key: CryptoKey): Promise<ArrayBuffer>;
             exportKey(format: KeyFormat, key: CryptoKey): Promise<ArrayBuffer | JsonWebKey>;
             generateKey(
-                algorithm: RsaHashedKeyGenParams | EcKeyGenParams,
+                algorithm:
+                    | RsaHashedKeyGenParams
+                    | EcKeyGenParams
+                    | Ed25519KeyGenParams
+                    | Ed448KeyGenParams
+                    | X25519KeyGenParams
+                    | X448KeyGenParams,
                 extractable: boolean,
                 keyUsages: KeyUsage[],
             ): Promise<CryptoKeyPair>;
