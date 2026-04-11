@@ -206,6 +206,7 @@ request.get("http://example.com/search").retry(2, callback).end(callback);
 
 // Attaching files
 const blob = new Blob([]);
+const globalBlob = new globalThis.Blob([]);
 request
     .post("/upload")
     .attach("avatar", "path/to/tobi.png", "user.png")
@@ -213,6 +214,7 @@ request
     .attach("file", "path/to/jane.png")
     .attach("fileWithOptions", "path/to/file.png", { filename: "filename", contentType: "contentType" })
     .attach("blob", blob)
+    .attach("globalBlob", globalBlob)
     .end(callback);
 
 // Field values
