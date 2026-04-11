@@ -242,9 +242,10 @@ function logNamespaceMember(member: webidl2.IDLNamespaceMemberType) {
             break;
         case "const":
             member; // $ExpectType ConstantMemberType
-            member.parent; // $ExpectType InterfaceMixinType | InterfaceType | NamespaceType
+            member.parent; // $ExpectType CallbackInterfaceType | InterfaceMixinType | InterfaceType
             console.log(member.name);
-            console.log(member.value);
+            logIdlType(member.idlType);
+            logValueDescription(member.value);
             break;
 
         default:
