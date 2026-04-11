@@ -1389,14 +1389,36 @@ declare module "react-native" {
             | AriaRole;
         // @deprecated
         accessibilityRole?:
-            | "button"
-            | "header"
-            | "heading"
-            | "label"
-            | "link"
-            | "listitem"
             | "none"
-            | "text";
+            | "button"
+            | "togglebutton"
+            | "link"
+            | "search"
+            | "image"
+            | "keyboardkey"
+            | "text"
+            | "adjustable"
+            | "imagebutton"
+            | "header"
+            | "summary"
+            | "alert"
+            | "checkbox"
+            | "combobox"
+            | "menu"
+            | "menubar"
+            | "menuitem"
+            | "progressbar"
+            | "radio"
+            | "radiogroup"
+            | "scrollbar"
+            | "spinbutton"
+            | "switch"
+            | "tab"
+            | "tabbar"
+            | "tablist"
+            | "timer"
+            | "list"
+            | "toolbar";
     }
 
     /**
@@ -1481,6 +1503,7 @@ declare module "react-native" {
         paddingRight?: CSSProperties["paddingRight"] | DimensionValue | undefined;
         paddingBottom?: CSSProperties["paddingBottom"] | DimensionValue | undefined;
         paddingLeft?: CSSProperties["paddingLeft"] | DimensionValue | undefined;
+        userSelect?: CSSProperties["userSelect"] | "contain" | undefined;
     }
 
     interface TextStyle extends WebStyle {

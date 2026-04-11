@@ -135,6 +135,7 @@ const viewStyle: ViewStyle = {
     top: "1px",
     bottom: "50%",
     display: "-webkit-inline-flex",
+    userSelect: "contain",
 };
 
 const textStyle: TextStyle = {
@@ -301,7 +302,14 @@ const accessibility: AccessibilityProps = {
     "aria-current": "page",
     accessibilityAtomic: true,
     accessibilityControls: ["control1", "control2"],
+    accessibilityRole: "none",
 };
+
+const accessibilityRoleButton: AccessibilityProps = { accessibilityRole: "button" };
+const accessibilityRoleCheckbox: AccessibilityProps = { accessibilityRole: "checkbox" };
+const accessibilityRoleSwitch: AccessibilityProps = { accessibilityRole: "switch" };
+const accessibilityRoleToolbar: AccessibilityProps = { accessibilityRole: "toolbar" };
+const accessibilityRoleList: AccessibilityProps = { accessibilityRole: "list" };
 
 // RNW components
 const activityIndicator = <ActivityIndicator color="blue" size="large" />;
