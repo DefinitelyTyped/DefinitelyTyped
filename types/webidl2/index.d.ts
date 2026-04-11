@@ -27,7 +27,7 @@ export type IDLInterfaceMemberType =
 
 export type IDLInterfaceMixinMemberType = AttributeMemberType | ConstantMemberType | OperationMemberType;
 
-export type IDLNamespaceMemberType = AttributeMemberType | OperationMemberType;
+export type IDLNamespaceMemberType = AttributeMemberType | ConstantMemberType | OperationMemberType;
 
 export type IDLTypeDescription = GenericTypeDescription | SingleTypeDescription | UnionTypeDescription;
 
@@ -388,8 +388,6 @@ export interface AttributeMemberType extends AbstractBase {
 
 export interface ConstantMemberType extends AbstractBase {
     type: "const";
-    /** Whether its type is nullable. */
-    nullable: boolean;
     /** An IDL Type of the constant that represents a simple type, the type name. */
     idlType: IDLTypeDescription;
     /** The name of the constant. */
