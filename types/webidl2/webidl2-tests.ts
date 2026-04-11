@@ -209,7 +209,6 @@ function logCallbackInterfaceMember(member: webidl2.IDLCallbackInterfaceMemberTy
             console.log(member.name);
             logIdlType(member.idlType);
             logValueDescription(member.value);
-            console.log(member.nullable);
             break;
 
         default:
@@ -240,6 +239,12 @@ function logNamespaceMember(member: webidl2.IDLNamespaceMemberType) {
             member.parent; // $ExpectType InterfaceMixinType | InterfaceType | NamespaceType
             console.log(member.name);
             console.log(member.special, member.readonly, member.inherit);
+            break;
+        case "const":
+            member; // $ExpectType ConstantMemberType
+            member.parent; // $ExpectType InterfaceMixinType | InterfaceType | NamespaceType
+            console.log(member.name);
+            console.log(member.value);
             break;
 
         default:
