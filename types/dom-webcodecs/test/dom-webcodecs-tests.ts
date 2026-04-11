@@ -266,6 +266,17 @@ new AudioData({
     sampleRate: 48000,
 });
 
+const audioDataInit: AudioDataInit = {
+    data: audioBuffer,
+    timestamp: 100,
+    format: "f32",
+    numberOfChannels: 2,
+    numberOfFrames: 1,
+    sampleRate: 48000,
+};
+
+const audioDataBufferSource: BufferSource = audioDataInit.data;
+
 // $ExpectType AudioData
 audioFrame.clone();
 
