@@ -332,6 +332,10 @@ console.info("info");
 console.warn("warn");
 console.error("error");
 console.log("Console can use %s and %d format string.", "hello", 2);
+console.log(42);
+console.info(true);
+console.warn(null);
+console.error(undefined);
 
 // Data Studio Request
 const request: GoogleAppsScript.Data_Studio.Request<any> = {
