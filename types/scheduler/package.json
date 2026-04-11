@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/scheduler",
-    "version": "0.26.9999",
+    "version": "0.27.9999",
     "projects": [
         "https://react.dev/"
     ],
