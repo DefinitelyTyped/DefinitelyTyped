@@ -14,6 +14,7 @@
     },
     "files": [
         "index.d.ts",
-        "actions__github-script-tests.ts"
+        "test/actions__github-script-tests.cts",
+        "test/actions__github-script-tests.mts"
     ]
 }
