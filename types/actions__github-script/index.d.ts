@@ -5,11 +5,11 @@
  * https://github.com/actions/github-script/issues/487#issuecomment-2824376694
  */
 /// <reference types="node" />
-import type * as core from "@actions/core" with { "resolution-mode": "import" };
-import type * as exec from "@actions/exec" with { "resolution-mode": "import" };
+import * as core from "@actions/core";
+import * as exec from "@actions/exec";
 import { context, getOctokit } from "@actions/github";
-import type * as glob from "@actions/glob" with { "resolution-mode": "import" };
-import type * as io from "@actions/io" with { "resolution-mode": "import" };
+import * as glob from "@actions/glob";
+import * as io from "@actions/io";
 export interface AsyncFunctionArguments {
     context: typeof context;
     core: typeof core;
