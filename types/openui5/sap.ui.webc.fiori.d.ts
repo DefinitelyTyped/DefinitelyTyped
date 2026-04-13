@@ -1,4 +1,4 @@
-// For Library Version: 1.145.0
+// For Library Version: 1.146.0
 
 declare module "sap/ui/webc/fiori/library" {
   /**

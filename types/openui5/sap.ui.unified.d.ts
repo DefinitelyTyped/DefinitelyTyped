@@ -1,4 +1,4 @@
-// For Library Version: 1.145.0
+// For Library Version: 1.146.0
 
 declare module "sap/ui/unified/library" {
   /**
@@ -16049,6 +16049,9 @@ declare module "sap/ui/unified/FileUploader" {
      *
      * Allows users to upload all files from a given directory and its corresponding subdirectories.
      *
+     * **Note:** This feature is supported on all WebKit-based browsers as well as Microsoft Edge and Firefox
+     * after version 50. **Note:** Multiple directory selection is not supported.
+     *
      * Default value is `false`.
      *
      * @since 1.105.0
@@ -16091,7 +16094,7 @@ declare module "sap/ui/unified/FileUploader" {
      *
      * Chosen HTTP request method for file upload.
      *
-     * Default value is `Post`.
+     * Default value is `POST`.
      *
      * @since 1.81.0
      *
@@ -16279,6 +16282,10 @@ declare module "sap/ui/unified/FileUploader" {
      * Gets current value of property {@link #getRequired required}.
      *
      * Indicates whether the file uploader is required.
+     *
+     * **Note:** The control can be marked as required either by setting this property to `true` or by using
+     * the legacy approach of setting the `required` property to `true` on a `sap.m.Label` that has its `labelFor`
+     * property pointing to this control.
      *
      * Default value is `false`.
      *
@@ -16622,6 +16629,9 @@ declare module "sap/ui/unified/FileUploader" {
      *
      * Allows users to upload all files from a given directory and its corresponding subdirectories.
      *
+     * **Note:** This feature is supported on all WebKit-based browsers as well as Microsoft Edge and Firefox
+     * after version 50. **Note:** Multiple directory selection is not supported.
+     *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
@@ -16681,7 +16691,7 @@ declare module "sap/ui/unified/FileUploader" {
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
-     * Default value is `Post`.
+     * Default value is `POST`.
      *
      * @since 1.81.0
      *
@@ -16915,6 +16925,10 @@ declare module "sap/ui/unified/FileUploader" {
      * Sets a new value for property {@link #getRequired required}.
      *
      * Indicates whether the file uploader is required.
+     *
+     * **Note:** The control can be marked as required either by setting this property to `true` or by using
+     * the legacy approach of setting the `required` property to `true` on a `sap.m.Label` that has its `labelFor`
+     * property pointing to this control.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -17358,12 +17372,19 @@ declare module "sap/ui/unified/FileUploader" {
     /**
      * Allows users to upload all files from a given directory and its corresponding subdirectories.
      *
+     * **Note:** This feature is supported on all WebKit-based browsers as well as Microsoft Edge and Firefox
+     * after version 50. **Note:** Multiple directory selection is not supported.
+     *
      * @since 1.105.0
      */
     directory?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Indicates whether the file uploader is required.
+     *
+     * **Note:** The control can be marked as required either by setting this property to `true` or by using
+     * the legacy approach of setting the `required` property to `true` on a `sap.m.Label` that has its `labelFor`
+     * property pointing to this control.
      *
      * @since 1.144
      */
@@ -17812,9 +17833,21 @@ declare module "sap/ui/unified/FileUploaderHttpRequestMethod" {
     /**
      * HTTP request POST method.
      */
+    POST = "POST",
+    /**
+     * HTTP request POST method.
+     *
+     * @deprecated As of version 1.145.0. use {@link sap.ui.unified.FileUploaderHttpRequestMethod.POST} instead
+     */
     Post = "POST",
     /**
      * HTTP request PUT method.
+     */
+    PUT = "PUT",
+    /**
+     * HTTP request PUT method.
+     *
+     * @deprecated As of version 1.145.0. use {@link sap.ui.unified.FileUploaderHttpRequestMethod.PUT} instead
      */
     Put = "PUT",
   }
