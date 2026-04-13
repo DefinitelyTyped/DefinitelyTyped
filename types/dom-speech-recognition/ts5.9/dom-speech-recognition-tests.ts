@@ -94,4 +94,8 @@ const speechRecognitionOptions: SpeechRecognitionOptions = {
 (async () => {
     const availability: AvailabilityStatus = await SpeechRecognition.available(speechRecognitionOptions);
     const installOutcome: boolean = await SpeechRecognition.install(speechRecognitionOptions);
+
+    // "webkit" prefixed vars should have the same static methods
+    const webkitAvailability: AvailabilityStatus = await webkitSpeechRecognition.available(speechRecognitionOptions);
+    const webkitInstallOutcome: boolean = await webkitSpeechRecognition.install(speechRecognitionOptions);
 });
