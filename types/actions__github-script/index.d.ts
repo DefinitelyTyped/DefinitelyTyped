@@ -5,7 +5,6 @@
  * https://github.com/actions/github-script/issues/487#issuecomment-2824376694
  */
 /// <reference types="node" />
-export as namespace GithubScript;
 import type * as core from "@actions/core" with { "resolution-mode": "import" };
 import type * as exec from "@actions/exec" with { "resolution-mode": "import" };
 import { context, getOctokit } from "@actions/github";
