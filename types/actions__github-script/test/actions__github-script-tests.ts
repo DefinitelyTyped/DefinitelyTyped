@@ -20,8 +20,7 @@ const args: AsyncFunctionArguments = {
     __original_require__: require,
 };
 
-const handler: AsyncFunction<number> = async function(args, source) {
+const handler: AsyncFunction<number> = async (args) => {
     const t: AsyncFunctionArguments = args;
-    const s: string = source;
     return 0;
 };

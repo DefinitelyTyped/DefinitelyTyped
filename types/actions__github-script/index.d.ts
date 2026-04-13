@@ -31,5 +31,5 @@ export interface AsyncFunctionArguments {
     __original_require__: NodeJS.Require;
 }
 export interface AsyncFunction<T = any> {
-    (args: AsyncFunctionArguments, source: string): Promise<T>;
+    (args: AsyncFunctionArguments): Promise<T>;
 }
