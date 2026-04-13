@@ -3,7 +3,7 @@
     "name": "@types/actions__github-script",
     "version": "9.0.9999",
     "nonNpm": true,
-    "nonNpmDescription": "Github-script actions definition",
+    "nonNpmDescription": "actions/github-script",
     "projects": [
         "https://github.com/actions/github-script"
     ],
@@ -17,11 +17,11 @@
         }
     ],
     "dependencies": {
-        "@actions/core": "^3.0.0",
-        "@actions/exec": "^3.0.0",
-        "@actions/github": "^9.1.0",
-        "@actions/glob": "^0.6.1",
-        "@actions/io": "^3.0.2",
-        "@types/node": "^25.6.9999"
+        "@actions/core": "*",
+        "@actions/exec": "*",
+        "@actions/github": "*",
+        "@actions/glob": "*",
+        "@actions/io": "*",
+        "@types/node": "*"
     }
 }
