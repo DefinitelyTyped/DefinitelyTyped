@@ -1125,6 +1125,7 @@
 /types/core-object/                                     @dfreeman
 /types/core-util-is/                                    @LeoDog896
 /types/cornerstone-core/                                @deminoth
+/types/correct-license-metadata/                        @JamieMagee
 /types/cors/                                            @pluma @gtpan77 @bjohansebas
 /types/cose-js/                                         @k-yle
 /types/cote/                                            @makepost @roblabat
@@ -3773,6 +3774,7 @@
 /types/jsan/                                            @Methuselah96
 /types/jsbarcode/                                       @domienbakker
 /types/jsbn/                                            @Evgenus
+/types/jsbox-app/                                       @Gandum2077
 /types/jsboxmuller/                                     @EthanRBrown
 /types/jschannel/                                       @yitzchok @McFlat
 /types/jscodeshift/                                     @brieb @bjacobel @willtn @sztobar
@@ -4240,6 +4242,7 @@
 /types/libxslt/                                         @alejo90 @daniel-pedersen
 /types/license-checker/                                 @rogierschouten @unindented @alechemy
 /types/license-key-gen/                                 @abh80
+/types/licensee/                                        @JamieMagee
 /types/liferay/                                         @jwanner83 @JannikJost
 /types/liftoff/                                         @BendingBender @crutchcorn
 /types/light-sdk/                                       @cklwblove
@@ -4749,7 +4752,7 @@
 /types/material-ui/                                     @ngbrown @theigor @alitaheri @herrmanno @DaIgeb @allienna @schlesingermatthias @InsidersByte @artyomsv @dan-j @minodisk @samwalshnz @reggino
 /types/material-ui-datatables/                          @coding2012
 /types/material__base/                                  @BrentDouglas @ckosti
-/types/materialize-css/                                 @huww98 @MaximBalaganskiy @MonizDave @broccoliarchy @SnowyLeopard
+/types/materialize-css/                                 @huww98 @MaximBalaganskiy @MonizDave @SnowyLeopard
 /types/materialize-css/v0/                              @eriklieben @leonyu @jfcere @scote @LiadIdan
 /types/math-random/                                     @Richienb
 /types/math-sign/                                       @djcsdy
@@ -5144,6 +5147,7 @@
 /types/node-array-ext/                                  @Beng89
 /types/node-barion/                                     @aron123
 /types/node-browser-history/                            @arindamdawn
+/types/node-bzip2/                                      @shadowslasher410
 /types/node-calendar/                                   @luzianz
 /types/node-canvas-text/                                @carboneater
 /types/node-cleanup/                                    @agadar
@@ -5292,6 +5296,7 @@
 /types/npm-cache-filename/                              @ffflorian
 /types/npm-dependants/                                  @LinqLover
 /types/npm-install-webpack-plugin/                      @peterblazejewicz
+/types/npm-license-corrections/                         @JamieMagee
 /types/npm-license-crawler/                             @ffflorian
 /types/npm-list-author-packages/                        @ffflorian
 /types/npm-package-arg/                                 @mgroenhoff @OiYouYeahYou
@@ -5962,7 +5967,7 @@
 /types/pump/                                            @tlaziuk @jcordial
 /types/pumpify/                                         @JustinBeckwith @aoberoi
 /types/punycode/                                        @yavanosta
-/types/puppeteer-har/                                   @jordaz14
+/types/puppeteer-har/                                   @jordaz14 @CaglarDeniz
 /types/puppeteer-lottie/                                @peterblazejewicz
 /types/puppeteer-screenshot-tester/                     @ferllop
 /types/purdy/                                           @YellowKirby
@@ -7406,10 +7411,20 @@
 /types/sparqljs/v2/                                     @AlexeyMz
 /types/sparse-bitfield/                                 @BendingBender
 /types/spatialite/                                      @atd-schubert
+/types/spdx-compare/                                    @JamieMagee
+/types/spdx-copyleft/                                   @JamieMagee
 /types/spdx-correct/                                    @jinwoo
+/types/spdx-exceptions/                                 @JamieMagee
 /types/spdx-expression-parse/                           @peterblazejewicz
+/types/spdx-expression-validate/                        @JamieMagee
+/types/spdx-id-to-url/                                  @JamieMagee
+/types/spdx-is-osi/                                     @JamieMagee
 /types/spdx-license-ids/                                @JamieMagee
+/types/spdx-osi/                                        @JamieMagee
+/types/spdx-ranges/                                     @JamieMagee
 /types/spdx-satisfies/                                  @jinwoo
+/types/spdx-to-html/                                    @JamieMagee
+/types/spdx-whitelisted/                                @JamieMagee
 /types/spdy/                                            @tony19
 /types/speakeasy/                                       @legendecas @mrOlorin @xeoneux
 /types/speakingurl/                                     @Goldsmith42
@@ -8581,7 +8596,7 @@
 /types/yarnpkg__lockfile/                               @fa93hws
 /types/yauzl/                                           @ffflorian
 /types/yayson/                                          @Codesleuth
-/types/yazl/                                            @taoqf @seangenabe @luxass
+/types/yazl/                                            @taoqf @seangenabe
 /types/ydn-db/                                          @yathit @gabrielmaldi
 /types/yeast/                                           @schmollmolch
 /types/yelp-fusion-plus/                                @kob490
