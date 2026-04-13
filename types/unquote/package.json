@@ -8,10 +8,5 @@
     "devDependencies": {
         "@types/unquote": "workspace:."
     },
-    "owners": [
-        {
-            "name": "yuta katayama",
-            "githubUsername": "shift-yuta-katayama"
-        }
-    ]
+    "owners": []
 }
