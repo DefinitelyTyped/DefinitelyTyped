@@ -30,4 +30,6 @@ export interface AsyncFunctionArguments {
     require: NodeJS.Require;
     __original_require__: NodeJS.Require;
 }
-export function callAsyncFunction(args: AsyncFunctionArguments, source: string): Promise<any>;
+export interface AsyncFunction<T = any> {
+    (args: AsyncFunctionArguments, source: string): Promise<T>;
+}
