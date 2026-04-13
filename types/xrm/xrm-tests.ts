@@ -807,12 +807,12 @@ function testItemCollectionGet(formContext: Xrm.FormContext) {
     formContext.ui.tabs.get(0);
 
     // $ExpectType Tab | null
-    formContext.ui.tabs.get("quickFormName");
+    formContext.ui.tabs.get("tabName");
 
     // With explicit type parameter: returns TSubType (caller asserts item exists)
     // $ExpectType Tab
     formContext.ui.tabs.get<Xrm.Controls.Tab>(0);
 
     // $ExpectType Tab
-    formContext.ui.tabs.get<Xrm.Controls.Tab>("quickFormName");
+    formContext.ui.tabs.get<Xrm.Controls.Tab>("tabName");
 }
