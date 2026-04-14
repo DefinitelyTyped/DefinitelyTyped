@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/mapbox__geojson-rewind",
+    "version": "0.5.9999",
+    "projects": [
+        "https://github.com/mapbox/geojson-rewind"
+    ],
+    "dependencies": {
+        "@types/geojson": "*"
+    },
+    "devDependencies": {
+        "@types/mapbox__geojson-rewind": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Kyle Hensel",
+            "githubUsername": "k-yle"
+        }
+    ]
+}
