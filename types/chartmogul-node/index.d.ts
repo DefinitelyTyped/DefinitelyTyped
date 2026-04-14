@@ -838,7 +838,7 @@ export namespace Invoice {
     function retrieve(config: Config, uuid: string, params?: RetrieveInvoiceParams): Promise<Invoice>;
     function modify(config: Config, uuid: string, data: UpdateInvoice): Promise<Invoice>;
     function destroy(config: Config, uuid: string): Promise<ResourceDestroyed>;
-
+    function destroy_all(config: Config, dataSourceUuid: string, customerUuid: string): Promise<ResourceDestroyed>;
     function all(config: Config, uuid: string, params?: ListInvoicesParams): Promise<Invoices>;
     function all(config: Config, params?: ListInvoicesParams): Promise<Invoices>;
 
