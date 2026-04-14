@@ -63,6 +63,25 @@ ChartMogul.DataSource.all(config, {
     with_invoice_handling_setting: true,
 });
 
+// $ExpectType Promise<JsonImportStatus>
+ChartMogul.JsonImport.create(config, "ds_1fm3eaac-62d0-31ec-clf4-4bf0mbe81aba", {
+    external_id: "ds_import_1",
+    customers: [{ external_id: "cus_001", name: "Test Customer" }],
+    plans: [{ name: "Gold", external_id: "gold", interval_count: 1, interval_unit: "month" }],
+    invoices: [{ external_id: "inv_001", date: "2023-04-02", currency: "USD", customer_external_id: "cus_001" }],
+    line_items: [{ type: "subscription", amount_in_cents: 1000, invoice_external_id: "inv_001" }],
+    transactions: [{ type: "payment", result: "successful", date: "2023-04-02", invoice_external_id: "inv_001" }],
+    subscription_events: [{ event_type: "subscription_start", event_date: "2023-04-02" }],
+});
+
+// $ExpectType Promise<JsonImportStatus>
+ChartMogul.JsonImport.create(config, "ds_1fm3eaac-62d0-31ec-clf4-4bf0mbe81aba", {
+    external_id: "ds_import_2",
+});
+
+// $ExpectType Promise<JsonImportStatus>
+ChartMogul.JsonImport.retrieve(config, "ds_1fm3eaac-62d0-31ec-clf4-4bf0mbe81aba", "ds_import_1");
+
 // $ExpectType Promise<Customer>
 ChartMogul.Customer.create(config, {
     data_source_uuid: "",

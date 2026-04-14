@@ -119,6 +119,33 @@ export namespace DataSource {
     function all(config: Config, params?: ListDataSourcesParams): Promise<DataSources>;
 }
 
+export namespace JsonImport {
+    interface JsonImportStatus {
+        id: string;
+        data_source_uuid: string;
+        status: "queued" | "processing" | "completed" | "failed" | (string & {});
+        external_id: string;
+        status_details: Record<string, any>;
+        created_at?: string;
+        updated_at?: string;
+    }
+
+    interface NewJsonImport {
+        external_id: string;
+        customers?: Array<Record<string, any>>;
+        plans?: Array<Record<string, any>>;
+        invoices?: Array<Record<string, any>>;
+        line_items?: Array<Record<string, any>>;
+        transactions?: Array<Record<string, any>>;
+        subscription_events?: Array<Record<string, any>>;
+    }
+
+    /** POST /v1/data_sources/{dataSourceUuid}/json_imports — import data in bulk */
+    function create(config: Config, dataSourceUuid: string, data: NewJsonImport): Promise<JsonImportStatus>;
+    /** GET /v1/data_sources/{dataSourceUuid}/json_imports/{importId} — track import status */
+    function retrieve(config: Config, dataSourceUuid: string, importId: string): Promise<JsonImportStatus>;
+}
+
 export namespace Customer {
     interface Customer {
         id?: number;
