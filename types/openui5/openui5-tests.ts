@@ -290,3 +290,5 @@ const p13nEngine = new Engine();
 // version 1.144.0 added - tests are not required as the type definitions are generated and the generator is sufficiently tested
 
 // version 1.145.0 added - tests are not required as the type definitions are generated and the generator is sufficiently tested
+
+// version 1.146.0 added - tests are not required as the type definitions are generated and the generator is sufficiently tested
