@@ -2,6 +2,7 @@ export interface Map {
     [key: string]: any;
 }
 export interface CursorParams {
+    /** @deprecated Use cursor-based pagination instead */
     page?: number;
     per_page?: number;
     cursor?: string;

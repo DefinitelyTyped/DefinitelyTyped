@@ -68,10 +68,32 @@ ChartMogul.JsonImport.create(config, "ds_1fm3eaac-62d0-31ec-clf4-4bf0mbe81aba", 
     external_id: "ds_import_1",
     customers: [{ external_id: "cus_001", name: "Test Customer" }],
     plans: [{ name: "Gold", external_id: "gold", interval_count: 1, interval_unit: "month" }],
-    invoices: [{ external_id: "inv_001", date: "2023-04-02", currency: "USD", customer_external_id: "cus_001" }],
-    line_items: [{ type: "subscription", amount_in_cents: 1000, invoice_external_id: "inv_001" }],
-    transactions: [{ type: "payment", result: "successful", date: "2023-04-02", invoice_external_id: "inv_001" }],
-    subscription_events: [{ event_type: "subscription_start", event_date: "2023-04-02" }],
+    invoices: [{
+        external_id: "inv_001",
+        date: "2023-04-02",
+        currency: "USD",
+        customer_external_id: "cus_001",
+    }],
+    line_items: [{
+        type: "subscription",
+        amount_in_cents: 1000,
+        invoice_external_id: "inv_001",
+        subscription_external_id: "sub_001",
+        plan_external_id: "gold",
+    }],
+    transactions: [{
+        type: "payment",
+        result: "successful",
+        date: "2023-04-02",
+        invoice_external_id: "inv_001",
+    }],
+    subscription_events: [{
+        customer_external_id: "cus_001",
+        event_type: "subscription_start",
+        event_date: "2023-04-02",
+        effective_date: "2023-04-02",
+        subscription_external_id: "sub_001",
+    }],
 });
 
 // $ExpectType Promise<JsonImportStatus>
@@ -1605,7 +1627,13 @@ ChartMogul.SubscriptionEvent.deleteWithParams(config, {
 ChartMogul.SubscriptionEvent.disable(config, 12345);
 
 // $ExpectType Promise<SubscriptionEvent>
+ChartMogul.SubscriptionEvent.disable(config, "12345");
+
+// $ExpectType Promise<SubscriptionEvent>
 ChartMogul.SubscriptionEvent.enable(config, 12345);
+
+// $ExpectType Promise<SubscriptionEvent>
+ChartMogul.SubscriptionEvent.enable(config, "12345");
 
 // Metrics.ActivitiesExport.create
 

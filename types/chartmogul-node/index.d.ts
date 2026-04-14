@@ -121,7 +121,7 @@ export namespace DataSource {
 
 export namespace JsonImport {
     interface JsonImportStatus {
-        id: string;
+        id?: string;
         data_source_uuid: string;
         status: "queued" | "processing" | "completed" | "failed" | (string & {});
         external_id: string;
@@ -130,14 +130,83 @@ export namespace JsonImport {
         updated_at?: string;
     }
 
+    interface BulkCustomer {
+        external_id: string;
+        name?: string;
+        email?: string;
+        company?: string;
+        country?: string;
+        state?: string;
+        city?: string;
+        zip?: string;
+        lead_created_at?: string;
+        free_trial_started_at?: string;
+        [key: string]: any;
+    }
+
+    interface BulkPlan {
+        name: string;
+        interval_count: number;
+        interval_unit: "day" | "month" | "year";
+        external_id?: string;
+        [key: string]: any;
+    }
+
+    interface BulkInvoice {
+        customer_external_id: string;
+        external_id: string;
+        date: string;
+        due_date?: string;
+        currency?: string;
+        collection_method?: "automatic" | "manual";
+        [key: string]: any;
+    }
+
+    interface BulkLineItem {
+        invoice_external_id: string;
+        type: "subscription" | "one_time" | "trial";
+        amount_in_cents: number;
+        external_id?: string;
+        subscription_external_id?: string;
+        plan_external_id?: string;
+        service_period_start?: string;
+        service_period_end?: string;
+        quantity?: number;
+        [key: string]: any;
+    }
+
+    interface BulkTransaction {
+        invoice_external_id: string;
+        type: "payment" | "refund";
+        result: "successful" | "failed";
+        date: string;
+        external_id?: string;
+        amount_in_cents?: number;
+        [key: string]: any;
+    }
+
+    interface BulkSubscriptionEvent {
+        customer_external_id: string;
+        event_type: string;
+        event_date: string;
+        effective_date: string;
+        subscription_external_id: string;
+        plan_external_id?: string;
+        currency?: string;
+        amount_in_cents?: number;
+        quantity?: number;
+        external_id?: string;
+        [key: string]: any;
+    }
+
     interface NewJsonImport {
         external_id: string;
-        customers?: Array<Record<string, any>>;
-        plans?: Array<Record<string, any>>;
-        invoices?: Array<Record<string, any>>;
-        line_items?: Array<Record<string, any>>;
-        transactions?: Array<Record<string, any>>;
-        subscription_events?: Array<Record<string, any>>;
+        customers?: BulkCustomer[];
+        plans?: BulkPlan[];
+        invoices?: BulkInvoice[];
+        line_items?: BulkLineItem[];
+        transactions?: BulkTransaction[];
+        subscription_events?: BulkSubscriptionEvent[];
     }
 
     /** POST /v1/data_sources/{dataSourceUuid}/json_imports — import data in bulk */
@@ -627,23 +696,34 @@ export namespace Invoice {
     }
     interface LineItem {
         uuid?: string;
-        account_code?: string;
-        amount_in_cents?: number;
-        cancelled_at?: string;
-        description?: string;
-        discount_amount_in_cents?: number;
-        discount_code?: string;
         external_id?: string;
-        plan_uuid?: string;
-        prorated?: boolean;
+        type?: string;
+        amount_in_cents?: number;
         quantity?: number;
-        service_period_end?: string;
-        service_period_start?: string;
-        subscription_external_id?: string;
-        subscription_uuid?: string;
+        discount_code?: string;
+        discount_amount_in_cents?: number;
         tax_amount_in_cents?: number;
         transaction_fees_in_cents?: number;
-        type?: string;
+        account_code?: string;
+        plan_uuid?: string;
+        plan_external_id?: string;
+        service_period_start?: string;
+        service_period_end?: string;
+        subscription_uuid?: string;
+        subscription_external_id?: string;
+        subscription_set_external_id?: string;
+        prorated?: boolean;
+        proration_type?: string;
+        description?: string;
+        cancelled_at?: string;
+        event_order?: number;
+        balance_transfer?: boolean;
+        transaction_fees_currency?: string | null;
+        discount_description?: string | null;
+        disabled?: boolean;
+        disabled_at?: string | null;
+        disabled_by?: string | null;
+        user_created?: boolean;
         error?: string | null;
     }
     interface Transaction {
@@ -652,6 +732,13 @@ export namespace Invoice {
         external_id?: string;
         result?: string;
         type?: string;
+        amount_in_cents?: number | null;
+        transaction_fees_in_cents?: number | null;
+        transaction_fees_currency?: string | null;
+        disabled?: boolean;
+        disabled_at?: string | null;
+        disabled_by?: string | null;
+        user_created?: boolean;
         error?: string | null;
     }
 
@@ -757,7 +844,6 @@ export namespace Invoice {
 
     interface UpdateStatusResponse {
         message: string;
-        invoice: Invoice;
     }
     /** Update invoice status. Expects data_source_uuid and invoice external_id as path params. */
     function updateStatus(
@@ -766,8 +852,12 @@ export namespace Invoice {
         invoiceExternalId: string,
         data: { status: "voided" | "written_off" },
     ): Promise<UpdateStatusResponse>;
+    interface DisableInvoiceParams {
+        reason?: string;
+        [key: string]: any;
+    }
     /** Disable an invoice via PATCH /v1/invoices/:uuid/disabled_state */
-    function disable(config: Config, uuid: string, data?: object): Promise<Invoice>;
+    function disable(config: Config, uuid: string, data?: DisableInvoiceParams): Promise<Invoice>;
     /** Re-enable a disabled invoice via PATCH /v1/invoices/:uuid/disabled_state */
     function enable(config: Config, uuid: string): Promise<Invoice>;
 
@@ -816,11 +906,24 @@ export namespace LineItem {
     interface LineItems {
         line_items: LineItem[];
     }
+    interface UpdateLineItem {
+        amount_in_cents?: number;
+        quantity?: number;
+        plan_uuid?: string;
+        service_period_start?: string;
+        service_period_end?: string;
+        description?: string;
+        discount_amount_in_cents?: number;
+        discount_code?: string;
+        tax_amount_in_cents?: number;
+        transaction_fees_in_cents?: number;
+        event_order?: number;
+    }
 
     /** GET /v1/line_items?data_source_uuid&external_id */
     function all(config: Config, params: ExternalIdParams): Promise<LineItems>;
     /** PATCH /v1/line_items?data_source_uuid&external_id with body */
-    function update(config: Config, data: { qs: ExternalIdParams } & Record<string, any>): Promise<LineItem>;
+    function update(config: Config, data: { qs: ExternalIdParams } & UpdateLineItem): Promise<LineItem>;
     /** DELETE /v1/line_items?data_source_uuid&external_id */
     function destroy(config: Config, data: { qs: ExternalIdParams }): Promise<ResourceDestroyed>;
     /** Disable: PATCH /v1/line_items/disabled_state?data_source_uuid&external_id */
@@ -858,12 +961,18 @@ export namespace Transaction {
     interface Transactions {
         transactions: Transaction[];
     }
+    interface UpdateTransaction {
+        type?: "payment" | "refund";
+        date?: string;
+        result?: "successful" | "failed";
+        amount_in_cents?: number;
+    }
 
     function create(config: Config, invoiceUuid: string, data: NewTransaction): Promise<Transaction>;
     /** GET /v1/transactions?data_source_uuid&external_id */
     function all(config: Config, params: ExternalIdParams): Promise<Transactions>;
     /** PATCH /v1/transactions?data_source_uuid&external_id with body */
-    function update(config: Config, data: { qs: ExternalIdParams } & Record<string, any>): Promise<Transaction>;
+    function update(config: Config, data: { qs: ExternalIdParams } & UpdateTransaction): Promise<Transaction>;
     /** DELETE /v1/transactions?data_source_uuid&external_id */
     function destroy(config: Config, data: { qs: ExternalIdParams }): Promise<ResourceDestroyed>;
     /** Disable: PATCH /v1/transactions/disabled_state?data_source_uuid&external_id */
@@ -1016,9 +1125,9 @@ export namespace SubscriptionEvent {
         data: DestroySubscriptionEvent | { subscription_event: DestroySubscriptionEvent },
     ): Promise<ResourceDestroyed>;
     /** Disable a subscription event via PATCH /v1/subscription_events/:id/disabled_state */
-    function disable(config: Config, id: number): Promise<SubscriptionEvent>;
+    function disable(config: Config, id: number | string): Promise<SubscriptionEvent>;
     /** Re-enable a disabled subscription event */
-    function enable(config: Config, id: number): Promise<SubscriptionEvent>;
+    function enable(config: Config, id: number | string): Promise<SubscriptionEvent>;
 }
 
 export namespace Tag {
