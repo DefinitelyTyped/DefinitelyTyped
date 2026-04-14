@@ -3,7 +3,7 @@
 import { EventEmitter } from "events";
 import { Duplex } from "stream";
 import Agent = require("./lib/agent");
-import { Connection } from "./lib/client";
+import { Connection, Snapshot } from "./lib/client";
 import * as ShareDB from "./lib/sharedb";
 
 interface PubSubOptions {
@@ -56,6 +56,27 @@ declare class sharedb extends EventEmitter {
      *   or session info.
      */
     listen(stream: Duplex, request?: any): Agent;
+    fetch<T>(
+        agent: Agent,
+        index: string,
+        id: string,
+        callback?: (error: Error | null, snapshot?: Snapshot<T>) => void,
+    ): void;
+    fetch<T>(
+        agent: Agent,
+        index: string,
+        id: string,
+        options?: ShareDB.BackendFetchOptions,
+        callback?: (error: Error | null, snapshot?: Snapshot<T>) => void,
+    ): void;
+    submit(
+        agent: Agent,
+        index: string,
+        id: string,
+        op: any,
+        options?: ShareDB.BackendSubmitOptions,
+        callback?: (error: Error | null, ops: any[], request?: SubmitRequest) => void,
+    ): void;
     close(callback?: BasicCallback): void;
     /**
      * Registers a server middleware function.

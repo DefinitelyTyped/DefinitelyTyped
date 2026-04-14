@@ -154,6 +154,13 @@ export interface ShareDBSourceOptions {
 // interface ShareDBCreateOptions extends ShareDBSourceOptions {}
 // interface ShareDBDelOptions extends ShareDBSourceOptions {}
 // interface ShareDBSubmitOpOptions extends ShareDBSourceOptions {}
+export interface BackendFetchOptions {
+    snapshotOptions?: Record<string, unknown>;
+    [key: string]: unknown;
+}
+export interface BackendSubmitOptions {
+    [key: string]: unknown;
+}
 
 export type Callback = (err: Error) => any;
 
