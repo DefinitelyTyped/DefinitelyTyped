@@ -1180,7 +1180,10 @@ ChartMogul.Invoice.modify(config, "inv_f466e33d-ff2b-4a11-8f85-417eb02157a7", {
 ChartMogul.Invoice.destroy(config, "");
 
 // $ExpectType Promise<ResourceDestroyed>
-ChartMogul.Invoice.destroy_all(config, "ds_uuid", "cus_uuid");
+ChartMogul.Invoice.destroyAll(config, "ds_uuid", "cus_uuid");
+
+// $ExpectType Promise<ResourceDestroyed>
+ChartMogul.Invoice.destroy_all(config, "ds_uuid", "cus_uuid"); // deprecated alias
 
 // $ExpectType Promise<UpdateStatusResponse>
 ChartMogul.Invoice.updateStatus(config, "ds_uuid", "INV0001", { status: "voided" });
