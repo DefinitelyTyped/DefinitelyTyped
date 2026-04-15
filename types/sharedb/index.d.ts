@@ -60,20 +60,20 @@ declare class sharedb extends EventEmitter {
         agent: Agent,
         index: string,
         id: string,
-        callback?: (error: Error | null, snapshot?: Snapshot<T>) => void,
+        callback: (error: Error | null, snapshot?: Snapshot<T>) => void,
     ): void;
     fetch<T>(
         agent: Agent,
         index: string,
         id: string,
-        options?: ShareDB.BackendFetchOptions,
-        callback?: (error: Error | null, snapshot?: Snapshot<T>) => void,
+        options: ShareDB.BackendFetchOptions,
+        callback: (error: Error | null, snapshot?: Snapshot<T>) => void,
     ): void;
     submit(
         agent: Agent,
         index: string,
         id: string,
-        op: any,
+        op: ShareDB.CreateOp | ShareDB.DeleteOp | ShareDB.EditOp,
         options?: ShareDB.BackendSubmitOptions,
         callback?: (error: Error | null, ops: any[], request?: SubmitRequest) => void,
     ): void;
