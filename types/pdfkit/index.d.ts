@@ -1,5 +1,7 @@
 /// <reference types="node" />
 
+type PDFKitReadable = import("stream").Readable;
+
 declare namespace PDFKit {
     interface PDFGradient {
         new(document: any): PDFGradient;
@@ -862,7 +864,7 @@ declare namespace PDFKit {
 
     interface PDFDocument
         extends
-            NodeJS.ReadableStream,
+            PDFKitReadable,
             Mixins.PDFMetadata,
             Mixins.PDFAnnotation,
             Mixins.PDFColor,
