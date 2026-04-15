@@ -92,7 +92,7 @@ console.log(backend.extraDbs);
 backend.addProjection("notes_minimal", "notes", { title: true, creator: true, lastUpdateTime: true });
 const readonlyProjection = backend.projections["notes_minimal"];
 console.log(readonlyProjection.target, readonlyProjection.fields);
-backend.submit({} as any, "notes_minimal", "doc1", { p: [], si: "value" }, {
+backend.submit({} as Agent, "notes_minimal", "doc1", { create: { data: {}, type: 'json uri type' } }, {
     customField: true,
     anotherOption: { nested: "value" },
 }, (error, ops, request) => {
@@ -101,7 +101,7 @@ backend.submit({} as any, "notes_minimal", "doc1", { p: [], si: "value" }, {
     }
     console.log(ops, request && request.collection);
 });
-backend.fetch({} as any, "notes_minimal", "doc1", {
+backend.fetch({} as Agent, "notes_minimal", "doc1", {
     snapshotOptions: { foo: "bar" },
     extraField: 123,
 }, (error, snapshot) => {
@@ -153,9 +153,9 @@ for (const action of submitRelatedActions) {
             request.snapshot,
             request.ops,
             request.channels,
-            request.op.op,
-            request.op.create,
-            request.op.del,
+            (request.op as ShareDB.EditOp).op,
+            (request.op as ShareDB.CreateOp).create,
+            (request.op as ShareDB.DeleteOp).del,
             request.extra.source,
         );
         callback();
