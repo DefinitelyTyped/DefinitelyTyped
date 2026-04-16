@@ -28,28 +28,24 @@ export interface MJMLParsingOptions {
     keepComments?: boolean | undefined;
 
     /**
-     * @deprecated use js-beautify directly after processing the MJML
-     *
-     * Option to beautify the HTML output
+     * Beautify the HTML output using prettier (parser: 'html', printWidth: 240).
+     * Mutually exclusive with minify — if minify is true, beautify is skipped.
+     * Note: the CLI defaults this to true; the programmatic API defaults to false.
      * default: false
      */
     beautify?: boolean | undefined;
 
     /**
-     * @deprecated use html-minifier directly after processing the MJML
-     *
-     * Option to minify the HTML output
-     *
+     * Minify the HTML output using htmlnano (with cssnano-preset-lite for CSS).
+     * Takes priority over beautify when both are true.
      * default: false
      */
     minify?: boolean | undefined;
+
     /**
-     * @deprecated @see minify
-     *
-     * Options for html minifier, see mjml-cli documentation for more info
-     * Passed directly to html-minifier as options
-     *
-     * default: @see htmlMinify usage in mjml-core/src/index.js
+     * Options passed to htmlnano when minify is true.
+     * The minifyCss field accepts false, true, 'lite', or a cssnano options object.
+     * All htmlnano v3 options are accepted.
      */
     minifyOptions?: MJMLMinifyOptions | undefined;
 
@@ -116,8 +112,17 @@ export interface MJMLParsingOptions {
 
 export interface MJMLMinifyOptions {
     collapseWhitespace?: boolean | undefined;
+    /**
+     * CSS minification options passed to cssnano-preset-lite.
+     * Accepts false (disable), true/'lite' (use lite preset), or a cssnano options object.
+     * @see https://cssnano.co/docs/presets
+     */
+    minifyCss?: boolean | "lite" | { preset?: "lite" | object | [object, object] } | object | undefined;
+    /** @deprecated use minifyCss instead */
     minifyCSS?: boolean | undefined;
     removeEmptyAttributes?: boolean | undefined;
+    minifyJs?: boolean | undefined;
+    removeComments?: false | "safe" | "all" | undefined;
 }
 
 export interface MJMLParseResults {
