@@ -2743,7 +2743,7 @@ declare namespace googletag {
              * interstitial ads. However, users who have not provided local storage
              * consent are still eligible to be served interstitial ads. Setting this
              * property to `true` opts out of the default behavior, and ensures
-             * interstial ads are only shown to users who have provided local storage
+             * interstitial ads are only shown to users who have provided local storage
              * consent.
              *
              * @example
