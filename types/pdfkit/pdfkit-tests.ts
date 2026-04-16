@@ -10,6 +10,7 @@ import mtext = require("pdfkit/js/mixins/text");
 
 import PDFDocument = require("pdfkit");
 import PDFDocumentStandalone = require("pdfkit/js/pdfkit.standalone");
+import stream = require("stream");
 
 import font = require("pdfkit/js/mixins/fonts");
 import pdfData = require("pdfkit/js/data");
@@ -33,6 +34,15 @@ var doc: PDFKit.PDFDocument = new PDFDocument({
     font: "Arial",
     fontLayoutCache: true,
 });
+
+const readable: stream.Readable = doc;
+
+// $ExpectType PDFDocument
+doc.destroy();
+// $ExpectType boolean
+doc.destroyed;
+// $ExpectType boolean
+doc.readableEnded;
 
 // $ExpectType PDFDocument
 doc.addPage();
