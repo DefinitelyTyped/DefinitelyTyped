@@ -84,6 +84,10 @@ export interface TextureJSON {
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface OffscreenCanvas extends EventTarget {}
 
+export interface TextureEventMap {
+    dispose: {};
+}
+
 /**
  * Create a {@link Texture} to apply to a surface or as a reflection or refraction map.
  * @remarks
@@ -102,7 +106,9 @@ export interface OffscreenCanvas extends EventTarget {}
  * @see {@link https://threejs.org/docs/index.html#api/en/textures/Texture | Official Documentation}
  * @see {@link https://github.com/mrdoob/three.js/blob/master/src/Textures/Texture.js | Source}
  */
-export class Texture<TImage = unknown> extends EventDispatcher<{ dispose: {} }> {
+export class Texture<TImage = unknown, TEventMap extends TextureEventMap = TextureEventMap>
+    extends EventDispatcher<TEventMap>
+{
     /**
      * This creates a new {@link THREE.Texture | Texture} object.
      * @param image See {@link Texture.image | .image}. Default {@link THREE.Texture.DEFAULT_IMAGE}
@@ -451,6 +457,15 @@ export class Texture<TImage = unknown> extends EventDispatcher<{ dispose: {} }> 
      * textures)
      */
     pmremVersion: number;
+
+    /**
+     * Whether the texture should use one of the 16 bit integer formats which are normalized
+     * to [0, 1] or [-1, 1] (depending on signed/unsigned) when sampled.
+     *
+     * @type {boolean}
+     * @default false
+     */
+    normalized: boolean;
 
     /**
      * Set this to `true` to trigger an update next time the texture is used. Particularly important for setting the wrap mode.

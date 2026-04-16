@@ -1,6 +1,5 @@
 import Node from "../core/Node.js";
 import NodeBuilder from "../core/NodeBuilder.js";
-import { VarNode } from "../Nodes.js";
 
 type LoopNodeType = "int" | "uint" | "float";
 
@@ -12,7 +11,7 @@ interface LoopNodeObjectParameter<TNodeType extends LoopNodeType> {
     start: Node<TNodeType> | number;
     end: Node<TNodeType> | number;
     condition?: string;
-    update?: VarNode | number | string;
+    update?: Node | number | string;
 }
 
 declare class LoopNode extends Node<"void"> {

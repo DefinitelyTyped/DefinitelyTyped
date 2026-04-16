@@ -6,6 +6,8 @@ export interface WebGLBackendParameters extends BackendParameters {
 }
 
 export default class WebGLBackend extends Backend {
+    readonly isWebGLBackend: boolean;
+
     constructor(parameters?: BackendParameters);
 
     get coordinateSystem(): CoordinateSystem;

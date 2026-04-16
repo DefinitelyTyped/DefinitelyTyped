@@ -29,12 +29,6 @@ declare class BindGroup {
      */
     bindings: Binding[];
     /**
-     * The group index.
-     *
-     * @type {number}
-     */
-    index: number;
-    /**
      * The group's ID.
      *
      * @type {number}

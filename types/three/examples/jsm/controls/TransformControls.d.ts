@@ -38,6 +38,9 @@ export interface TransformControlsEventMap {
     "showX-changed": { value: unknown };
     "showY-changed": { value: unknown };
     "showZ-changed": { value: unknown };
+    "showXY-changed": { value: unknown };
+    "showYZ-changed": { value: unknown };
+    "showXZ-changed": { value: unknown };
     "minX-changed": { value: unknown };
     "maxX-changed": { value: unknown };
     "minY-changed": { value: unknown };
@@ -127,6 +130,27 @@ declare class TransformControls extends Controls<TransformControlsEventMap> {
      * Whether or not the z-axis helper should be visible. Default is `true`.
      */
     showZ: boolean;
+
+    /**
+     * Whether the xy-plane helper should be visible or not.
+     *
+     * @default true
+     */
+    showXY: boolean;
+
+    /**
+     * Whether the xy-plane helper should be visible or not.
+     *
+     * @default true
+     */
+    showYZ: boolean;
+
+    /**
+     * Whether the xy-plane helper should be visible or not.
+     *
+     * @default true
+     */
+    showXZ: boolean;
 
     /**
      * The minimum allowed X position during translation. Default is `-Infinity`.

@@ -15,7 +15,7 @@ declare class StackNode extends Node {
 
     Switch(expression: Node): this;
 
-    Case(...params: Node[]): this;
+    Case(...params: [...Node[], () => void]): this;
 
     Default(method: () => void): this;
 }

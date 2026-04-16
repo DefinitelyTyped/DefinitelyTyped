@@ -1,6 +1,7 @@
 import { AttributeGPUType, Usage } from "../constants.js";
 import { Matrix3 } from "../math/Matrix3.js";
 import { Matrix4 } from "../math/Matrix4.js";
+import { EventDispatcher } from "./EventDispatcher.js";
 
 export type TypedArray =
     | Int8Array
@@ -34,6 +35,10 @@ export interface BufferAttributeJSON {
     usage?: Usage;
 }
 
+export interface BufferAttributeEventMap {
+    dispose: {};
+}
+
 /**
  * This class stores data for an attribute (such as vertex positions, face indices, normals, colors, UVs, and any custom attributes )
  * associated with a {@link THREE.BufferGeometry | BufferGeometry}, which allows for more efficient passing of data to the GPU
@@ -48,7 +53,9 @@ export interface BufferAttributeJSON {
  * @see {@link https://threejs.org/docs/index.html#api/en/core/BufferAttribute | Official Documentation}
  * @see {@link https://github.com/mrdoob/three.js/blob/master/src/core/BufferAttribute.js | Source}
  */
-export class BufferAttribute {
+export class BufferAttribute<TEventMap extends BufferAttributeEventMap = BufferAttributeEventMap>
+    extends EventDispatcher<TEventMap>
+{
     /**
      * This creates a new {@link THREE.GLBufferAttribute | GLBufferAttribute} object.
      * @param array Must be a `TypedArray`. Used to instantiate the buffer.
@@ -348,6 +355,11 @@ export class BufferAttribute {
      * Convert this object to three.js to the `data.attributes` part of {@link https://github.com/mrdoob/three.js/wiki/JSON-Geometry-format-4 | JSON Geometry format v4},
      */
     toJSON(): BufferAttributeJSON;
+
+    /**
+     * Disposes of the buffer attribute. Available only in {@link WebGPURenderer}.
+     */
+    dispose(): void;
 }
 
 /**
