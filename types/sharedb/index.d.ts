@@ -56,13 +56,13 @@ declare class sharedb extends EventEmitter {
      *   or session info.
      */
     listen(stream: Duplex, request?: any): Agent;
-    fetch<T>(
+    fetch<T = unknown>(
         agent: Agent,
         index: string,
         id: string,
         callback: (error: Error | null, snapshot?: Snapshot<T>) => void,
     ): void;
-    fetch<T>(
+    fetch<T = unknown>(
         agent: Agent,
         index: string,
         id: string,
@@ -73,7 +73,7 @@ declare class sharedb extends EventEmitter {
         agent: Agent,
         index: string,
         id: string,
-        op: ShareDB.CreateOp | ShareDB.DeleteOp | ShareDB.EditOp,
+        op: SubmitRequest[''],
         options: ShareDB.BackendSubmitOptions | null,
         callback: (error: Error | null, ops: any[], request?: SubmitRequest) => void,
     ): void;

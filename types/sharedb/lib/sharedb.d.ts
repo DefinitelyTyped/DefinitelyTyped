@@ -156,7 +156,6 @@ export interface ShareDBSourceOptions {
 // interface ShareDBSubmitOpOptions extends ShareDBSourceOptions {}
 export interface BackendFetchOptions {
     snapshotOptions?: Record<string, unknown>;
-    [key: string]: unknown;
 }
 export interface BackendSubmitOptions {
     [key: string]: unknown;
