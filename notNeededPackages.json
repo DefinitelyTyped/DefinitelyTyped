@@ -676,6 +676,10 @@
             "libraryName": "@carbon/icons-react",
             "asOfVersion": "11.29.0"
         },
+        "carbon__motion": {
+            "libraryName": "@carbon/motion",
+            "asOfVersion": "11.44.0"
+        },
         "carbon__pictograms-react": {
             "libraryName": "@carbon/pictograms-react",
             "asOfVersion": "11.89.0"
