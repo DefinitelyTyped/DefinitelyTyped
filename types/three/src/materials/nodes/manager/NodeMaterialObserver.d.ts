@@ -1,4 +1,5 @@
 import { BufferAttribute } from "../../../core/BufferAttribute.js";
+import { BufferGeometry } from "../../../core/BufferGeometry.js";
 import { Light } from "../../../lights/Light.js";
 import NodeBuilder from "../../../nodes/core/NodeBuilder.js";
 import NodeFrame from "../../../nodes/core/NodeFrame.js";
@@ -89,6 +90,14 @@ declare class NodeMaterialObserver {
      */
     containsNode(builder: NodeBuilder): boolean;
     /**
+     * Returns a geometry data structure holding the geometry property values for
+     * monitoring.
+     *
+     * @param {BufferGeometry} geometry - The geometry.
+     * @return {Object} An object for monitoring geometry properties.
+     */
+    getGeometryData(geometry: BufferGeometry): unknown;
+    /**
      * Returns a material data structure holding the material property values for
      * monitoring.
      *
@@ -101,9 +110,10 @@ declare class NodeMaterialObserver {
      *
      * @param {RenderObject} renderObject - The render object.
      * @param {Array<Light>} lightsData - The current material lights.
+     * @param {number} renderId - The current render ID.
      * @return {boolean} Whether the given render object has changed its state or not.
      */
-    equals(renderObject: RenderObject, lightsData: Light[]): boolean;
+    equals(renderObject: RenderObject, lightsData: Light[], renderId: number): boolean;
     /**
      * Returns the lights data for the given material lights.
      *

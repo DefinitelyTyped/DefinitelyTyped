@@ -22,7 +22,7 @@ export interface VolumeNodeMaterialNodeProperties extends NodeMaterialNodeProper
      *
      * @default null
      */
-    scatteringNode: (params: { positionRay: Node }) => Node | null;
+    scatteringNode: (params: { positionRay: Node<"vec3"> }) => Node | null;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface

@@ -37,7 +37,7 @@ export interface ColorManagement {
 
     getTransfer: (colorSpace: string) => ColorSpaceTransfer;
 
-    getLuminanceCoefficients: (target: Vector3, colorSpace?: string) => [number, number, number];
+    getLuminanceCoefficients: (target: Vector3, colorSpace?: string) => Vector3;
 
     define: (colorSpaces: Record<string, ColorSpaceDefinition>) => void;
 

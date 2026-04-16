@@ -21,7 +21,7 @@ export interface MeshToonMaterialProperties extends MaterialProperties {
     map: Texture | null;
     /**
      * Gradient map for toon shading. It's required to set
-     * {@link Texture#minFilter} and {@link Texture#magFilter} to {@linkNearestFilter}
+     * {@link Texture#minFilter} and {@link Texture#magFilter} to {@link NearestFilter}
      * when using this type of texture.
      *
      * @default null

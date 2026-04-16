@@ -31,7 +31,7 @@ export class Plane {
     distanceToPoint(point: Vector3): number;
     distanceToSphere(sphere: Sphere): number;
     projectPoint(point: Vector3, target: Vector3): Vector3;
-    intersectLine(line: Line3, target: Vector3): Vector3 | null;
+    intersectLine(line: Line3, target: Vector3, clampToLine?: boolean): Vector3 | null;
     intersectsLine(line: Line3): boolean;
     intersectsBox(box: Box3): boolean;
     intersectsSphere(sphere: Sphere): boolean;

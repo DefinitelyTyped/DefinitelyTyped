@@ -20,7 +20,7 @@ declare class Bindings extends DataMap {
      * Constructs a new bindings management component.
      *
      * @param {Backend} backend - The renderer's backend.
-     * @param {Nodes} nodes - Renderer component for managing nodes related logic.
+     * @param {NodeManager} nodes - Renderer component for managing nodes related logic.
      * @param {Textures} textures - Renderer component for managing textures.
      * @param {Attributes} attributes - Renderer component for managing attributes.
      * @param {Pipelines} pipelines - Renderer component for managing pipelines.
@@ -61,7 +61,7 @@ declare class Bindings extends DataMap {
     /**
      * Renderer component for managing nodes related logic.
      *
-     * @type {Nodes}
+     * @type {NodeManager}
      */
     nodes: NodeManager;
     /**

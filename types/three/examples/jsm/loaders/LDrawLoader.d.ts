@@ -4,7 +4,7 @@ import { LDrawConditionalLineMaterial as LDrawConditionalLineNodeMaterial } from
 
 export class LDrawLoader extends Loader<Group> {
     materials: Material[];
-    materialsLibrary: Record<string, Material>;
+    materialLibrary: Record<string, Material>;
 
     fileMap: Record<string, string>;
 

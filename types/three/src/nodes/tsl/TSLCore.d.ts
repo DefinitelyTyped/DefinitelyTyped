@@ -6,9 +6,12 @@ import { Vector2 } from "../../math/Vector2.js";
 import { Vector3 } from "../../math/Vector3.js";
 import { Vector4 } from "../../math/Vector4.js";
 import ConstNode from "../core/ConstNode.js";
-import Node, { NumOrBoolType } from "../core/Node.js";
+import Node, { MatType, NumOrBoolType } from "../core/Node.js";
 import NodeBuilder from "../core/NodeBuilder.js";
 import StackNode from "../core/StackNode.js";
+import VarNode from "../core/VarNode.js";
+import ConvertNode from "../utils/ConvertNode.js";
+import JoinNode from "../utils/JoinNode.js";
 
 export function addMethodChaining(name: string, nodeElement: unknown): void;
 
@@ -1371,9 +1374,6 @@ interface SetSwizzle3<TNumOrBool extends NumOrBoolType> {
     setXY(value: Node<NumOrBoolToVec2<TNumOrBool>> | NumOrBool<TNumOrBool>): Node<NumOrBoolToVec3<TNumOrBool>>;
     setRG(value: Node<NumOrBoolToVec2<TNumOrBool>> | NumOrBool<TNumOrBool>): Node<NumOrBoolToVec3<TNumOrBool>>;
     setST(value: Node<NumOrBoolToVec2<TNumOrBool>> | NumOrBool<TNumOrBool>): Node<NumOrBoolToVec3<TNumOrBool>>;
-    setXZ(value: Node<NumOrBoolToVec2<TNumOrBool>> | NumOrBool<TNumOrBool>): Node<NumOrBoolToVec3<TNumOrBool>>;
-    setRB(value: Node<NumOrBoolToVec2<TNumOrBool>> | NumOrBool<TNumOrBool>): Node<NumOrBoolToVec3<TNumOrBool>>;
-    setSP(value: Node<NumOrBoolToVec2<TNumOrBool>> | NumOrBool<TNumOrBool>): Node<NumOrBoolToVec3<TNumOrBool>>;
     setYZ(value: Node<NumOrBoolToVec2<TNumOrBool>> | NumOrBool<TNumOrBool>): Node<NumOrBoolToVec3<TNumOrBool>>;
     setGB(value: Node<NumOrBoolToVec2<TNumOrBool>> | NumOrBool<TNumOrBool>): Node<NumOrBoolToVec3<TNumOrBool>>;
     setTP(value: Node<NumOrBoolToVec2<TNumOrBool>> | NumOrBool<TNumOrBool>): Node<NumOrBoolToVec3<TNumOrBool>>;
@@ -1398,30 +1398,15 @@ interface SetSwizzle4<TNumOrBool extends NumOrBoolType> {
     setXY(value: Node<NumOrBoolToVec2<TNumOrBool>> | NumOrBool<TNumOrBool>): Node<NumOrBoolToVec4<TNumOrBool>>;
     setRG(value: Node<NumOrBoolToVec2<TNumOrBool>> | NumOrBool<TNumOrBool>): Node<NumOrBoolToVec4<TNumOrBool>>;
     setST(value: Node<NumOrBoolToVec2<TNumOrBool>> | NumOrBool<TNumOrBool>): Node<NumOrBoolToVec4<TNumOrBool>>;
-    setXZ(value: Node<NumOrBoolToVec2<TNumOrBool>> | NumOrBool<TNumOrBool>): Node<NumOrBoolToVec4<TNumOrBool>>;
-    setRB(value: Node<NumOrBoolToVec2<TNumOrBool>> | NumOrBool<TNumOrBool>): Node<NumOrBoolToVec4<TNumOrBool>>;
-    setSP(value: Node<NumOrBoolToVec2<TNumOrBool>> | NumOrBool<TNumOrBool>): Node<NumOrBoolToVec4<TNumOrBool>>;
     setYZ(value: Node<NumOrBoolToVec2<TNumOrBool>> | NumOrBool<TNumOrBool>): Node<NumOrBoolToVec4<TNumOrBool>>;
     setGB(value: Node<NumOrBoolToVec2<TNumOrBool>> | NumOrBool<TNumOrBool>): Node<NumOrBoolToVec4<TNumOrBool>>;
     setTP(value: Node<NumOrBoolToVec2<TNumOrBool>> | NumOrBool<TNumOrBool>): Node<NumOrBoolToVec4<TNumOrBool>>;
-    setXW(value: Node<NumOrBoolToVec2<TNumOrBool>> | NumOrBool<TNumOrBool>): Node<NumOrBoolToVec4<TNumOrBool>>;
-    setRA(value: Node<NumOrBoolToVec2<TNumOrBool>> | NumOrBool<TNumOrBool>): Node<NumOrBoolToVec4<TNumOrBool>>;
-    setSQ(value: Node<NumOrBoolToVec2<TNumOrBool>> | NumOrBool<TNumOrBool>): Node<NumOrBoolToVec4<TNumOrBool>>;
-    setYW(value: Node<NumOrBoolToVec2<TNumOrBool>> | NumOrBool<TNumOrBool>): Node<NumOrBoolToVec4<TNumOrBool>>;
-    setGA(value: Node<NumOrBoolToVec2<TNumOrBool>> | NumOrBool<TNumOrBool>): Node<NumOrBoolToVec4<TNumOrBool>>;
-    setTQ(value: Node<NumOrBoolToVec2<TNumOrBool>> | NumOrBool<TNumOrBool>): Node<NumOrBoolToVec4<TNumOrBool>>;
     setZW(value: Node<NumOrBoolToVec2<TNumOrBool>> | NumOrBool<TNumOrBool>): Node<NumOrBoolToVec4<TNumOrBool>>;
     setBA(value: Node<NumOrBoolToVec2<TNumOrBool>> | NumOrBool<TNumOrBool>): Node<NumOrBoolToVec4<TNumOrBool>>;
     setPQ(value: Node<NumOrBoolToVec2<TNumOrBool>> | NumOrBool<TNumOrBool>): Node<NumOrBoolToVec4<TNumOrBool>>;
     setXYZ(value: Node<NumOrBoolToVec3<TNumOrBool>> | NumOrBool<TNumOrBool>): Node<NumOrBoolToVec4<TNumOrBool>>;
     setRGB(value: Node<NumOrBoolToVec3<TNumOrBool>> | NumOrBool<TNumOrBool>): Node<NumOrBoolToVec4<TNumOrBool>>;
     setSTP(value: Node<NumOrBoolToVec3<TNumOrBool>> | NumOrBool<TNumOrBool>): Node<NumOrBoolToVec4<TNumOrBool>>;
-    setXYW(value: Node<NumOrBoolToVec3<TNumOrBool>> | NumOrBool<TNumOrBool>): Node<NumOrBoolToVec4<TNumOrBool>>;
-    setRGA(value: Node<NumOrBoolToVec3<TNumOrBool>> | NumOrBool<TNumOrBool>): Node<NumOrBoolToVec4<TNumOrBool>>;
-    setSTQ(value: Node<NumOrBoolToVec3<TNumOrBool>> | NumOrBool<TNumOrBool>): Node<NumOrBoolToVec4<TNumOrBool>>;
-    setXZW(value: Node<NumOrBoolToVec3<TNumOrBool>> | NumOrBool<TNumOrBool>): Node<NumOrBoolToVec4<TNumOrBool>>;
-    setRBA(value: Node<NumOrBoolToVec3<TNumOrBool>> | NumOrBool<TNumOrBool>): Node<NumOrBoolToVec4<TNumOrBool>>;
-    setSPQ(value: Node<NumOrBoolToVec3<TNumOrBool>> | NumOrBool<TNumOrBool>): Node<NumOrBoolToVec4<TNumOrBool>>;
     setYZW(value: Node<NumOrBoolToVec3<TNumOrBool>> | NumOrBool<TNumOrBool>): Node<NumOrBoolToVec4<TNumOrBool>>;
     setGBA(value: Node<NumOrBoolToVec3<TNumOrBool>> | NumOrBool<TNumOrBool>): Node<NumOrBoolToVec4<TNumOrBool>>;
     setTPQ(value: Node<NumOrBoolToVec3<TNumOrBool>> | NumOrBool<TNumOrBool>): Node<NumOrBoolToVec4<TNumOrBool>>;
@@ -1564,21 +1549,51 @@ declare module "../core/Node.js" {
     }
 }
 
-/** anything that can be passed to {@link nodeObject} */
-export type NodeObjectOption = Node | number | string;
-
-// same logic as in ShaderNodeObject: number,boolean,node->node, otherwise do nothing
 export type NodeObject<T> = T extends Node ? T
     : T extends number ? Node<"float">
     : T extends boolean ? Node<"bool">
+    : T extends (...args: never) => unknown ? unknown // FIXME This should return an FnNode
+    : T extends Vector2 ? Node<"vec2">
+    : T extends Vector3 ? Node<"vec3">
+    : T extends Vector4 ? Node<"vec4">
+    : T extends Matrix2 ? Node<"mat2">
+    : T extends Matrix3 ? Node<"mat3">
+    : T extends Matrix4 ? Node<"mat4">
+    : T extends Color ? Node<"color">
+    : T extends ArrayBuffer ? Node<"ArrayBuffer">
     : T;
 
-// opposite of NodeObject: node -> node|boolean|number, otherwise do nothing
-type Proxied<T> = T extends Node | number ? Node | number : T;
+type Proxied<T> = T extends Node<infer TNodeType>
+    ? Node<TNodeType> extends T ? TNodeType extends "float" ? Node<"float"> | Node<"uint"> | number // FIXME remove Node<"uint">
+        : TNodeType extends "bool" ? Node<"bool"> | boolean
+        : TNodeType extends "vec2" ? Node<"vec2"> | Vector2
+        : TNodeType extends "vec3" ? Node<"vec3"> | Vector3
+        : TNodeType extends "vec4" ? Node<"vec4"> | Vector4
+        : TNodeType extends "mat2" ? Node<"mat2"> | Matrix2
+        : TNodeType extends "mat3" ? Node<"mat3"> | Matrix3
+        : TNodeType extends "mat4" ? Node<"mat4"> | Matrix4
+        : TNodeType extends "color" ? Node<"color"> | Color
+        : TNodeType extends "ArrayBuffer" ? Node<"ArrayBuffer"> | ArrayBuffer
+        : T
+    : T
+    : T;
+
+type CoercibleToNodeType<TNodeType> = TNodeType extends "float" ? Node<"float"> | Node<"int"> | Node<"uint"> | number
+    : TNodeType extends "bool" ? Node<"bool"> | boolean
+    : TNodeType extends "vec2" ? Node<"vec2"> | Node<"ivec2"> | Node<"uvec2"> | Vector2
+    : TNodeType extends "vec3" ? Node<"vec3"> | Node<"ivec3"> | Node<"uvec3"> | Vector3
+    : TNodeType extends "vec4" ? Node<"vec4"> | Node<"ivec4"> | Node<"uvec4"> | Vector4
+    : TNodeType extends "mat2" ? Node<"mat2"> | Matrix2
+    : TNodeType extends "vec3" ? Node<"mat3"> | Matrix3
+    : TNodeType extends "vec4" ? Node<"mat4"> | Matrix4
+    : TNodeType extends "color" ? Node<"color"> | Color
+    : TNodeType extends "ArrayBuffer" ? Node<"ArrayBuffer"> | ArrayBuffer
+    : Node<TNodeType>;
+
 // https://github.com/microsoft/TypeScript/issues/42435#issuecomment-765557874
 // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
-export type ProxiedTuple<T extends readonly [...unknown[]]> = [...{ [index in keyof T]: Proxied<T[index]> }];
-export type ProxiedObject<T> = { [index in keyof T]: Proxied<T[index]> };
+export type ProxiedTuple<T extends readonly [...unknown[]]> = [...{ [Index in keyof T]: Proxied<T[Index]> }];
+export type ProxiedObject<T> = { [Index in keyof T]: Proxied<T[Index]> };
 // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
 type RemoveTail<T extends readonly [...unknown[]]> = T extends [unknown, ...infer X] ? X : [];
 // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
@@ -1664,8 +1679,8 @@ type GetConstructorsByScope<T, S> = ConstructorUnion<FilterConstructorsByScope<O
 type GetConstructors<T> = ConstructorUnion<OverloadedConstructorsOf<T>>;
 type GetPossibleScopes<T> = ExtractScopes<OverloadedConstructorsOf<T>>;
 
-type NodeArray<T extends NodeObjectOption[]> = { [index in keyof T]: NodeObject<T[index]> };
-type NodeObjects<T> = { [key in keyof T]: T[key] extends NodeObjectOption ? NodeObject<T[key]> : T[key] };
+type NodeArray<T extends unknown[]> = { [Index in keyof T]: NodeObject<T[Index]> };
+type NodeObjects<T> = { [Key in keyof T]: NodeObject<T[Key]> };
 type ConstructedNode<T> = T extends new(...args: any[]) => infer R ? (R extends Node ? R : never) : never;
 
 export type NodeOrType = Node | string;
@@ -1686,12 +1701,12 @@ export class ShaderNode<T = {}, R extends Node = Node> {
     ) => R;
 }
 
-export function nodeObject<T extends NodeObjectOption>(obj: T): NodeObject<T>;
-export function nodeObjectIntent<T extends NodeObjectOption>(obj: T): NodeObject<T>;
+export function nodeObject<T>(obj: T): NodeObject<T>;
+export function nodeObjectIntent<T>(obj: T): NodeObject<T>;
 export function nodeObjects<T>(obj: T): NodeObjects<T>;
 
 // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
-export function nodeArray<T extends NodeObjectOption[]>(obj: readonly [...T]): NodeArray<T>;
+export function nodeArray<T extends unknown[]>(obj: readonly [...T]): NodeArray<T>;
 
 export function nodeProxy<T>(
     nodeClass: T,
@@ -1705,7 +1720,7 @@ export function nodeProxy<T, S extends GetPossibleScopes<T>>(
 export function nodeProxy<T, S extends GetPossibleScopes<T>>(
     nodeClass: T,
     scope: S,
-    factor: NodeObjectOption,
+    factor: unknown,
 ): (...params: ProxiedTuple<RemoveHeadAndTail<GetConstructorsByScope<T, S>>>) => ConstructedNode<T>;
 
 export function nodeImmutable<T>(
@@ -1725,10 +1740,10 @@ export function nodeProxyIntent<T, S extends GetPossibleScopes<T>>(
 export function nodeProxyIntent<T, S extends GetPossibleScopes<T>>(
     nodeClass: T,
     scope: S,
-    factor: NodeObjectOption,
+    factor: unknown,
 ): (...params: ProxiedTuple<RemoveHeadAndTail<GetConstructorsByScope<T, S>>>) => ConstructedNode<T>;
 
-interface Layout {
+interface FullLayout {
     name: string;
     type: string;
     inputs: {
@@ -1738,32 +1753,38 @@ interface Layout {
     }[];
 }
 
-export interface FnNode<Args extends readonly unknown[], TReturn> {
+interface AbbreviatedLayout {
+    [inputName: string]: string;
+    return: string;
+}
+
+type Layout = FullLayout | AbbreviatedLayout;
+
+export interface FnNode<TArgs extends readonly unknown[], TReturn> {
     // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-    (...args: Args): TReturn extends void ? ShaderCallNodeInternal<void> : TReturn;
+    (...args: TArgs): TReturn extends void ? ShaderCallNodeInternal<void> : TReturn;
 
     shaderNode: ShaderNodeInternal<TReturn>;
     id: number;
 
-    getNodeType: (builder: NodeBuilder) => string | null;
-    getCacheKey: (force?: boolean) => number;
+    setLayout(layout: Layout): this;
 
-    setLayout: (layout: Layout) => this;
+    generateNodeType(builder: NodeBuilder): string;
 
-    once: (subBuilds?: string[] | null) => this;
+    once(subBuilds?: string[] | null): this;
 }
 
 export function Fn<TReturn>(
     jsFunc: (builder: NodeBuilder) => TReturn,
-    layout?: string | Record<string, string>,
+    layout?: Layout | string,
 ): FnNode<[], TReturn>;
 export function Fn<TArgs extends readonly unknown[], TReturn>(
     jsFunc: (args: TArgs, builder: NodeBuilder) => TReturn,
-    layout?: string | Record<string, string>,
+    layout?: Layout | string,
 ): FnNode<ProxiedTuple<TArgs>, TReturn>;
 export function Fn<TArgs extends { readonly [key: string]: unknown }, TReturn>(
     jsFunc: (args: TArgs, builder: NodeBuilder) => TReturn,
-    layout?: string | Record<string, string>,
+    layout?: Layout | string,
     // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
 ): FnNode<[ProxiedObject<TArgs>], TReturn>;
 
@@ -1782,48 +1803,80 @@ declare module "../core/Node.js" {
     }
 }
 
+/**
+ * Can be implicitly converted to a float
+ */
+type ScalarNode = Node<"float"> | Node<"int"> | Node<"uint"> | Node<"bool">;
+
+/**
+ * Can be implicitly converted to a float
+ */
+type Scalar = ScalarNode | number | boolean;
+
 interface ColorFunction {
     // The first branch in `ConvertType` will forward the parameters to the `Color` constructor if there are no
     //   parameters or all the parameters are non-objects
-    (color?: string | number): ConstNode<"color", Color>;
-    (r: number, g: number, b: number): ConstNode<"color", Color>;
+    (color?: string | number): VarNode<"color", ConstNode<"color", Color>>;
+    (r: number, g: number, b: number): VarNode<"color", ConstNode<"color", Color>>;
 
     // The second branch does not apply because `cacheMap` is `null`
 
-    // The third branch will be triggered if there is a single parameter.
-    (color: Color): ConstNode<"color", Color>;
-    (node: Node): Node<"color">;
+    // The third branch will be triggered if there is a single parameter
+    // ConstNode
+    (color: Color | Vector3): VarNode<"color", ConstNode<"color", Color>>;
+    // ConvertNode
+    (node: Node<"float">): VarNode<"color", ConvertNode<"color">>;
+    (node: Node<"color"> | Node<"vec3">): VarNode<"color", ConvertNode<"color">>;
 
-    // The fall-through branch will be triggered if there is more than one parameter, or one of the parameters is an
-    // object. Not sure which cases are worth considering here.
+    // The fall-through branch will be triggered if there is more than one parameter, and one of the parameters is an
+    //   object
+    (
+        x: Node<"float"> | number,
+        y: Node<"float"> | number,
+        z: Node<"float"> | number,
+    ): VarNode<"vec3", JoinNode<"vec3">>;
+    (xy: Node<"vec2"> | Vector2, z: Node<"float"> | number): VarNode<"vec3", JoinNode<"vec3">>;
+    (x: Node<"float"> | number, yz: Node<"vec2"> | Vector2): VarNode<"vec3", JoinNode<"vec3">>;
 }
 
 export const color: ColorFunction;
 
 interface FloatFunction {
-    (value?: number): ConstNode<"float", number>;
-    (node: Node): Node<"float">;
+    // ConstNode
+    (value?: number): VarNode<"float", ConstNode<"float", number>>;
+
+    // ConvertNode
+    (node: ScalarNode): VarNode<"float", ConvertNode<"float">>;
 }
 
 export const float: FloatFunction;
 
 interface IntFunction {
-    (value?: number): ConstNode<"int", number>;
-    (node: Node): Node<"int">;
+    // ConstNode
+    (value?: number): VarNode<"int", ConstNode<"int", number>>;
+
+    // ConvertNode
+    (node: ScalarNode): VarNode<"int", ConvertNode<"int">>;
 }
 
 export const int: IntFunction;
 
 interface UintFunction {
-    (value?: number): ConstNode<"uint", number>;
-    (node: Node): Node<"uint">;
+    // ConstNode
+    (value?: number): VarNode<"uint", ConstNode<"uint", number>>;
+
+    // ConvertNode
+    (node: ScalarNode): VarNode<"uint", ConvertNode<"uint">>;
 }
 
 export const uint: UintFunction;
 
 interface BoolFunction {
-    (value?: boolean): ConstNode<"bool", boolean>;
-    (node: Node): Node<"bool">;
+    // ConstNode
+    (value?: boolean): VarNode<"bool", ConstNode<"bool", boolean>>;
+
+    // ConvertNode
+    (node: ScalarNode): VarNode<"bool", ConvertNode<"bool">>;
 }
 
 export const bool: BoolFunction;
@@ -1831,162 +1884,517 @@ export const bool: BoolFunction;
 interface Vec2Function {
     // The first branch in `ConvertType` will forward the parameters to the `Vector2` constructor if there are no
     //   parameters or all the parameters are non-objects
-    (x?: number, y?: number): ConstNode<"vec2", Vector2>;
+    (x?: number, y?: number): VarNode<"vec2", ConstNode<"vec2", Vector2>>;
 
     // The second branch does not apply because `cacheMap` is `null`
 
-    // The third branch will be triggered if there is a single parameter.
-    (value: Vector2): ConstNode<"vec2", Vector2>;
-    (node: Node): Node<"vec2">;
+    // The third branch will be triggered if there is a single parameter
+    // ConstNode
+    (value: Vector2): VarNode<"vec2", ConstNode<"vec2", Vector2>>;
+    // ConvertNode
+    (node: ScalarNode): VarNode<"vec2", ConvertNode<"vec2">>;
+    (node: Node<"vec2"> | Node<"ivec2"> | Node<"uvec2"> | Node<"bvec2">): VarNode<"vec2", ConvertNode<"vec2">>;
 
-    // The fall-through branch will be triggered if there is more than one parameter, or one of the parameters is an
-    // object.
-    (x: Node | number, y: Node | number): Node<"vec2">;
+    // The fall-through branch will be triggered if there is more than one parameter, and one of the parameters is an
+    //   object
+    (x: Scalar, y: Scalar): VarNode<"vec2", JoinNode<"vec2">>;
 }
 
 export const vec2: Vec2Function;
 
 interface Ivec2Function {
-    (x: number, y: number): ConstNode<"ivec2", Vector2>;
-    (x: Node, y: Node): Node<"ivec2">;
+    // The first branch in `ConvertType` will forward the parameters to the `Vector2` constructor if there are no
+    //   parameters or all the parameters are non-objects
+    (x?: number, y?: number): VarNode<"ivec2", ConstNode<"ivec2", Vector2>>;
+
+    // The second branch does not apply because `cacheMap` is `null`
+
+    // The third branch will be triggered if there is a single parameter
+    // ConstNode
+    (value: Vector2): VarNode<"ivec2", ConstNode<"ivec2", Vector2>>;
+    // ConvertNode
+    (node: Node<"int">): VarNode<"ivec2", ConvertNode<"ivec2">>;
+    (node: Node<"vec2"> | Node<"ivec2"> | Node<"uvec2"> | Node<"bvec2">): VarNode<"ivec2", ConvertNode<"ivec2">>;
+
+    // The fall-through branch will be triggered if there is more than one parameter, and one of the parameters is an
+    //   object
+    (x: Node<"int"> | number, y: Node<"int"> | number): VarNode<"ivec2", JoinNode<"ivec2">>;
 }
 
 export const ivec2: Ivec2Function;
 
-export const uvec2: (x: Node, y: Node) => Node<"uvec2">;
-export const bvec2: (node: Node) => Node<"bvec2">;
+interface Uvec2Function {
+    // The first branch in `ConvertType` will forward the parameters to the `Vector2` constructor if there are no
+    //   parameters or all the parameters are non-objects
+    (x?: number, y?: number): VarNode<"uvec2", ConstNode<"uvec2", Vector2>>;
+
+    // The second branch does not apply because `cacheMap` is `null`
+
+    // The third branch will be triggered if there is a single parameter
+    // ConstNode
+    (value: Vector2): VarNode<"uvec2", ConstNode<"uvec2", Vector2>>;
+    // ConvertNode
+    (node: Node<"uint">): VarNode<"uvec2", ConvertNode<"uvec2">>;
+    (node: Node<"vec2"> | Node<"ivec2"> | Node<"uvec2"> | Node<"bvec2">): VarNode<"uvec2", ConvertNode<"uvec2">>;
+
+    // The fall-through branch will be triggered if there is more than one parameter, and one of the parameters is an
+    //   object
+    (x: Node<"uint"> | number, y: Node<"uint"> | number): VarNode<"uvec2", JoinNode<"uvec2">>;
+}
+
+export const uvec2: Uvec2Function;
+
+interface Bvec2Function {
+    // The first branch in `ConvertType` will forward the parameters to the `Vector2` constructor if there are no
+    //   parameters or all the parameters are non-objects
+    (x?: boolean, y?: boolean): VarNode<"bvec2", ConstNode<"bvec2", Vector2>>;
+
+    // The second branch does not apply because `cacheMap` is `null`
+
+    // The third branch will be triggered if there is a single parameter
+    // ConstNode
+    (value: Vector2): VarNode<"bvec2", ConstNode<"bvec2", Vector2>>;
+    // ConvertNode
+    (node: Node<"bool">): VarNode<"bvec2", ConvertNode<"bvec2">>;
+    (node: Node<"vec2"> | Node<"ivec2"> | Node<"uvec2"> | Node<"bvec2">): VarNode<"bvec2", ConvertNode<"bvec2">>;
+
+    // The fall-through branch will be triggered if there is more than one parameter, and one of the parameters is an
+    //   object
+    (x: Node<"bool"> | boolean, y: Node<"bool"> | boolean): VarNode<"bvec2", JoinNode<"bvec2">>;
+}
+
+export const bvec2: Bvec2Function;
 
 interface Vec3Function {
     // The first branch in `ConvertType` will forward the parameters to the `Vector3` constructor if there are no
     //   parameters or all the parameters are non-objects
-    (x?: number, y?: number, z?: number): ConstNode<"vec3", Vector3>;
+    (x?: number, y?: number, z?: number): VarNode<"vec3", ConstNode<"vec3", Vector3>>;
 
     // The second branch does not apply because `cacheMap` is `null`
 
-    // The third branch will be triggered if there is a single parameter.
-    (value: Vector3): ConstNode<"vec3", Vector3>;
-    (value: [number, number, number]): ConstNode<"vec3", Vector3>;
-    (node: Node): Node<"vec3">;
+    // The third branch will be triggered if there is a single parameter
+    // ConstNode
+    (value: Vector3): VarNode<"vec3", ConstNode<"vec3", Vector3>>;
+    // ConvertNode
+    (node: ScalarNode): VarNode<"vec3", ConvertNode<"vec3">>;
+    (node: Node<"vec3"> | Node<"ivec3"> | Node<"uvec3"> | Node<"bvec3">): VarNode<"vec3", ConvertNode<"vec3">>;
 
-    // The fall-through branch will be triggered if there is more than one parameter, or one of the parameters is an
-    // object.
-    (x: Node | number, y: Node | number, z?: Node | number): Node<"vec3">;
+    // The fall-through branch will be triggered if there is more than one parameter, and one of the parameters is an
+    //   object
+    (x: Scalar, y: Scalar, z: Scalar): VarNode<"vec3", JoinNode<"vec3">>;
+    (xy: Node<"vec2"> | Vector2, z: Scalar): VarNode<"vec3", JoinNode<"vec3">>;
+    (x: Scalar, yz: Node<"vec2"> | Vector2): VarNode<"vec3", JoinNode<"vec3">>;
 }
 
 export const vec3: Vec3Function;
-export const ivec3: (node: Node) => Node<"ivec3">;
-export const uvec3: (node: Node) => Node<"uvec3">;
-export const bvec3: (node: Node) => Node<"bvec3">;
+
+interface Ivec3Function {
+    // The first branch in `ConvertType` will forward the parameters to the `Vector3` constructor if there are no
+    //   parameters or all the parameters are non-objects
+    (x?: number, y?: number, z?: number): VarNode<"ivec3", ConstNode<"ivec3", Vector3>>;
+
+    // The second branch does not apply because `cacheMap` is `null`
+
+    // The third branch will be triggered if there is a single parameter
+    // ConstNode
+    (value: Vector3): VarNode<"ivec3", ConstNode<"ivec3", Vector3>>;
+    // ConvertNode
+    (node: Node<"int">): VarNode<"ivec3", ConvertNode<"ivec3">>;
+    (node: Node<"vec3"> | Node<"ivec3"> | Node<"uvec3"> | Node<"bvec3">): VarNode<"ivec3", ConvertNode<"ivec3">>;
+
+    // The fall-through branch will be triggered if there is more than one parameter, and one of the parameters is an
+    //   object
+    (x: Node<"int"> | number, y: Node<"int"> | number, z: Node<"int"> | number): VarNode<"ivec3", JoinNode<"ivec3">>;
+    (xy: Node<"ivec2"> | Vector2, z: Node<"int"> | number): VarNode<"ivec3", JoinNode<"ivec3">>;
+    (x: Node<"int"> | number, yz: Node<"ivec2"> | Vector2): VarNode<"ivec3", JoinNode<"ivec3">>;
+}
+
+export const ivec3: Ivec3Function;
+
+interface Uvec3Function {
+    // The first branch in `ConvertType` will forward the parameters to the `Vector3` constructor if there are no
+    //   parameters or all the parameters are non-objects
+    (x?: number, y?: number, z?: number): VarNode<"uvec3", ConstNode<"uvec3", Vector3>>;
+
+    // The second branch does not apply because `cacheMap` is `null`
+
+    // The third branch will be triggered if there is a single parameter
+    // ConstNode
+    (value: Vector3): VarNode<"uvec3", ConstNode<"uvec3", Vector3>>;
+    // ConvertNode
+    (node: Node<"uint">): VarNode<"uvec3", ConvertNode<"uvec3">>;
+    (node: Node<"vec3"> | Node<"ivec3"> | Node<"uvec3"> | Node<"bvec3">): VarNode<"uvec3", ConvertNode<"uvec3">>;
+
+    // The fall-through branch will be triggered if there is more than one parameter, and one of the parameters is an
+    //   object
+    (x: Node<"uint"> | number, y: Node<"uint"> | number, z: Node<"uint"> | number): VarNode<"uvec3", JoinNode<"uvec3">>;
+    (xy: Node<"uvec2"> | Vector2, z: Node<"uint"> | number): VarNode<"uvec3", JoinNode<"uvec3">>;
+    (x: Node<"uint"> | number, yz: Node<"uvec2"> | Vector2): VarNode<"uvec3", JoinNode<"uvec3">>;
+}
+
+export const uvec3: Uvec3Function;
+
+interface Bvec3Function {
+    // The first branch in `ConvertType` will forward the parameters to the `Vector3` constructor if there are no
+    //   parameters or all the parameters are non-objects
+    (x?: boolean, y?: boolean, z?: boolean): VarNode<"bvec3", ConstNode<"bvec3", Vector3>>;
+
+    // The second branch does not apply because `cacheMap` is `null`
+
+    // The third branch will be triggered if there is a single parameter
+    // ConstNode
+    (value: Vector3): VarNode<"bvec3", ConstNode<"bvec3", Vector3>>;
+    // ConvertNode
+    (node: Node<"bool">): VarNode<"bvec3", ConvertNode<"bvec3">>;
+    (node: Node<"vec3"> | Node<"ivec3"> | Node<"uvec3"> | Node<"bvec3">): VarNode<"bvec3", ConvertNode<"bvec3">>;
+
+    // The fall-through branch will be triggered if there is more than one parameter, and one of the parameters is an
+    //   object
+    (
+        x: Node<"bool"> | boolean,
+        y: Node<"bool"> | boolean,
+        z: Node<"bool"> | boolean,
+    ): VarNode<"bvec3", JoinNode<"bvec3">>;
+    (xy: Node<"bvec2"> | Vector2, z: Node<"bool"> | boolean): VarNode<"bvec3", JoinNode<"bvec3">>;
+    (x: Node<"bool"> | boolean, yz: Node<"bvec2"> | Vector2): VarNode<"bvec3", JoinNode<"bvec3">>;
+}
+
+export const bvec3: Bvec3Function;
 
 interface Vec4Function {
     // The first branch in `ConvertType` will forward the parameters to the `Vector4` constructor if there are no
     //   parameters or all the parameters are non-objects
-    (x?: number, y?: number, z?: number, w?: number): ConstNode<"vec4", Vector4>;
+    (x?: number, y?: number, z?: number, w?: number): VarNode<"vec4", ConstNode<"vec4", Vector4>>;
 
     // The second branch does not apply because `cacheMap` is `null`
 
-    // The third branch will be triggered if there is a single parameter.
-    (value: Vector4): ConstNode<"vec4", Vector4>;
-    (node: Node): Node<"vec4">;
+    // The third branch will be triggered if there is a single parameter
+    // ConstNode
+    (value: Vector4): VarNode<"vec4", ConstNode<"vec4", Vector4>>;
+    // ConvertNode
+    (node: ScalarNode): VarNode<"vec4", ConvertNode<"vec4">>;
+    (node: Node<"vec4"> | Node<"ivec4"> | Node<"uvec4"> | Node<"bvec4">): VarNode<"vec4", ConvertNode<"vec4">>;
 
-    // The fall-through branch will be triggered if there is more than one parameter, or one of the parameters is an
-    // object.
-    (x: Node | number, y: Node | number, z?: Node | number, w?: Node | number): Node<"vec4">;
+    // The fall-through branch will be triggered if there is more than one parameter, and one of the parameters is an
+    //   object
+    (x: Scalar, y: Scalar, z: Scalar, w: Scalar): VarNode<"vec4", JoinNode<"vec4">>;
+    (x: Scalar, yz: Node<"vec2"> | Vector2, w: Scalar): VarNode<"vec4", JoinNode<"vec4">>;
+    (x: Scalar, y: Scalar, zw: Node<"vec2"> | Vector2): VarNode<"vec4", JoinNode<"vec4">>;
+    (xy: Node<"vec2"> | Vector2, zw: Node<"vec2"> | Vector2): VarNode<"vec4", JoinNode<"vec4">>;
+    (xy: Node<"vec2"> | Vector2, z: Scalar, w: Scalar): VarNode<"vec4", JoinNode<"vec4">>;
+    (xyz: Node<"vec3"> | Node<"color"> | Vector3 | Color, w: Scalar): VarNode<"vec4", JoinNode<"vec4">>;
+    (x: Scalar, yzw: Node<"vec3"> | Node<"color"> | Vector3 | Color): VarNode<"vec4", JoinNode<"vec4">>;
 }
 
 export const vec4: Vec4Function;
-export const ivec4: (node: Node) => Node<"ivec4">;
-export const uvec4: (node: Node) => Node<"uvec4">;
-export const bvec4: (node: Node) => Node<"bvec4">;
+
+interface Ivec4Function {
+    // The first branch in `ConvertType` will forward the parameters to the `Vector4` constructor if there are no
+    //   parameters or all the parameters are non-objects
+    (x?: number, y?: number, z?: number, w?: number): VarNode<"ivec4", ConstNode<"ivec4", Vector4>>;
+
+    // The second branch does not apply because `cacheMap` is `null`
+
+    // The third branch will be triggered if there is a single parameter
+    // ConstNode
+    (value: Vector4): VarNode<"ivec4", ConstNode<"ivec4", Vector4>>;
+    // ConvertNode
+    (node: Node<"int">): VarNode<"ivec4", ConvertNode<"ivec4">>;
+    (node: Node<"vec4"> | Node<"ivec4"> | Node<"uvec4"> | Node<"bvec4">): VarNode<"ivec4", ConvertNode<"ivec4">>;
+
+    // The fall-through branch will be triggered if there is more than one parameter, and one of the parameters is an
+    //   object
+    (
+        x: Node<"int"> | number,
+        y: Node<"int"> | number,
+        z: Node<"int"> | number,
+        w: Node<"int"> | number,
+    ): VarNode<"ivec4", JoinNode<"ivec4">>;
+    (
+        x: Node<"int"> | number,
+        yz: Node<"ivec2"> | Vector2,
+        w: Node<"int"> | number,
+    ): VarNode<"ivec4", JoinNode<"ivec4">>;
+    (
+        x: Node<"int"> | number,
+        y: Node<"int"> | number,
+        zw: Node<"ivec2"> | Vector2,
+    ): VarNode<"ivec4", JoinNode<"ivec4">>;
+    (xy: Node<"ivec2"> | Vector2, zw: Node<"ivec2"> | Vector2): VarNode<"ivec4", JoinNode<"ivec4">>;
+    (
+        xy: Node<"ivec2"> | Vector2,
+        z: Node<"int"> | number,
+        w: Node<"int"> | number,
+    ): VarNode<"ivec4", JoinNode<"ivec4">>;
+    (xyz: Node<"ivec3"> | Vector3, w: Node<"int"> | number): VarNode<"ivec4", JoinNode<"ivec4">>;
+    (x: Node<"int"> | number, yzw: Node<"ivec3"> | Vector3): VarNode<"ivec4", JoinNode<"ivec4">>;
+}
+
+export const ivec4: Ivec4Function;
+
+interface Uvec4Function {
+    // The first branch in `ConvertType` will forward the parameters to the `Vector4` constructor if there are no
+    //   parameters or all the parameters are non-objects
+    (x?: number, y?: number, z?: number, w?: number): VarNode<"uvec4", ConstNode<"uvec4", Vector4>>;
+
+    // The second branch does not apply because `cacheMap` is `null`
+
+    // The third branch will be triggered if there is a single parameter
+    // ConstNode
+    (value: Vector4): VarNode<"uvec4", ConstNode<"uvec4", Vector4>>;
+    // ConvertNode
+    (node: Node<"uint">): VarNode<"uvec4", ConvertNode<"uvec4">>;
+    (node: Node<"vec4"> | Node<"ivec4"> | Node<"uvec4"> | Node<"bvec4">): VarNode<"uvec4", ConvertNode<"uvec4">>;
+
+    // The fall-through branch will be triggered if there is more than one parameter, and one of the parameters is an
+    //   object
+    (
+        x: Node<"uint"> | number,
+        y: Node<"uint"> | number,
+        z: Node<"uint"> | number,
+        w: Node<"uint"> | number,
+    ): VarNode<"uvec4", JoinNode<"uvec4">>;
+    (
+        x: Node<"uint"> | number,
+        yz: Node<"uvec2"> | Vector2,
+        w: Node<"uint"> | number,
+    ): VarNode<"uvec4", JoinNode<"uvec4">>;
+    (
+        x: Node<"uint"> | number,
+        y: Node<"uint"> | number,
+        zw: Node<"uvec2"> | Vector2,
+    ): VarNode<"uvec4", JoinNode<"uvec4">>;
+    (xy: Node<"uvec2"> | Vector2, zw: Node<"uvec2"> | Vector2): VarNode<"uvec4", JoinNode<"uvec4">>;
+    (
+        xy: Node<"uvec2"> | Vector2,
+        z: Node<"uint"> | number,
+        w: Node<"uint"> | number,
+    ): VarNode<"uvec4", JoinNode<"uvec4">>;
+    (xyz: Node<"uvec3"> | Vector3, w: Node<"uint"> | number): VarNode<"uvec4", JoinNode<"uvec4">>;
+    (x: Node<"uint"> | number, yzw: Node<"uvec3"> | Vector3): VarNode<"uvec4", JoinNode<"uvec4">>;
+}
+
+export const uvec4: Uvec4Function;
+
+interface Bvec4Function {
+    // The first branch in `ConvertType` will forward the parameters to the `Vector4` constructor if there are no
+    //   parameters or all the parameters are non-objects
+    (x?: boolean, y?: boolean, z?: boolean, w?: boolean): VarNode<"bvec4", ConstNode<"bvec4", Vector4>>;
+
+    // The second branch does not apply because `cacheMap` is `null`
+
+    // The third branch will be triggered if there is a single parameter
+    // ConstNode
+    (value: Vector4): VarNode<"bvec4", ConstNode<"bvec4", Vector4>>;
+    // ConvertNode
+    (node: Node<"bool">): VarNode<"bvec4", ConvertNode<"bvec4">>;
+    (node: Node<"vec4"> | Node<"ivec4"> | Node<"uvec4"> | Node<"bvec4">): VarNode<"bvec4", ConvertNode<"bvec4">>;
+
+    // The fall-through branch will be triggered if there is more than one parameter, and one of the parameters is an
+    //   object
+    (
+        x: Node<"bool"> | boolean,
+        y: Node<"bool"> | boolean,
+        z: Node<"bool"> | boolean,
+        w: Node<"bool"> | boolean,
+    ): VarNode<"bvec4", JoinNode<"bvec4">>;
+    (
+        x: Node<"bool"> | boolean,
+        yz: Node<"bvec2"> | Vector2,
+        w: Node<"bool"> | boolean,
+    ): VarNode<"bvec4", JoinNode<"bvec4">>;
+    (
+        x: Node<"bool"> | boolean,
+        y: Node<"bool"> | boolean,
+        zw: Node<"bvec2"> | Vector2,
+    ): VarNode<"bvec4", JoinNode<"bvec4">>;
+    (xy: Node<"bvec2"> | Vector2, zw: Node<"bvec2"> | Vector2): VarNode<"bvec4", JoinNode<"bvec4">>;
+    (
+        xy: Node<"bvec2"> | Vector2,
+        z: Node<"bool"> | boolean,
+        w: Node<"bool"> | boolean,
+    ): VarNode<"bvec4", JoinNode<"bvec4">>;
+    (xyz: Node<"bvec3"> | Vector3, w: Node<"bool"> | boolean): VarNode<"bvec4", JoinNode<"bvec4">>;
+    (x: Node<"bool"> | boolean, yzw: Node<"bvec3"> | Vector3): VarNode<"bvec4", JoinNode<"bvec4">>;
+}
+
+export const bvec4: Bvec4Function;
 
 interface Mat2Function {
-    (value: Matrix2): ConstNode<"mat2", Matrix2>;
-    (node: Node): Node<"mat2">;
+    // The first branch in `ConvertType` will forward the parameters to the `Matrix2` constructor if there are no
+    //   parameters or all the parameters are non-objects
+    (): VarNode<"mat2", ConstNode<"mat2", Matrix2>>;
+    (n11: number, n12: number, n21: number, n22: number): VarNode<"mat2", ConstNode<"mat2", Matrix2>>;
+
+    // The second branch does not apply because `cacheMap` is `null`
+
+    // The third branch will be triggered if there is a single parameter
+    // ConstNode
+    (value: Matrix2): VarNode<"mat2", ConstNode<"mat2", Matrix2>>;
+    // ConvertNode
+    (node: Node<"mat2">): VarNode<"mat2", ConvertNode<"mat2">>;
+
+    // The fall-through branch will be triggered if there is more than one parameter, and one of the parameters is an
+    //   object
+    (n1: Node<"vec2"> | Vector2, n2: Node<"vec2"> | Vector2): VarNode<"mat2", JoinNode<"mat2">>;
+    (
+        n11: Node<"float"> | number,
+        n12: Node<"float"> | number,
+        n21: Node<"float"> | number,
+        n22: Node<"float"> | number,
+    ): VarNode<"mat2", JoinNode<"mat2">>;
 }
 
 export const mat2: Mat2Function;
 
 interface Mat3Function {
-    (value: Matrix3): ConstNode<"mat3", Matrix3>;
+    // The first branch in `ConvertType` will forward the parameters to the `Matrix3` constructor if there are no
+    //   parameters or all the parameters are non-objects
+    (): VarNode<"mat3", ConstNode<"mat3", Matrix3>>;
     (
-        n11: number | Node,
-        n12: number | Node,
-        n13: number | Node,
-        n21: number | Node,
-        n22: number | Node,
-        n23: number | Node,
-        n31: number | Node,
-        n32: number | Node,
-        n33: number | Node,
-    ): Node<"mat3">;
-    (): ConstNode<"mat3", Matrix3>;
+        n11: number,
+        n12: number,
+        n13: number,
+        n21: number,
+        n22: number,
+        n23: number,
+        n31: number,
+        n32: number,
+        n33: number,
+    ): VarNode<"mat3", ConstNode<"mat3", Matrix3>>;
+
+    // The second branch does not apply because `cacheMap` is `null`
+
+    // The third branch will be triggered if there is a single parameter
+    // ConstNode
+    (value: Matrix3): VarNode<"mat3", ConstNode<"mat3", Matrix3>>;
+    // ConvertNode
+    (node: Node<"mat3">): VarNode<"mat3", ConvertNode<"mat3">>;
+
+    // The fall-through branch will be triggered if there is more than one parameter, and one of the parameters is an
+    //   object
     (
-        p1: Node,
-        p2: Node,
-        p3: Node,
-    ): Node<"mat3">;
-    (node: Node): Node<"mat3">;
+        n1: Node<"vec3"> | Vector3,
+        n2: Node<"vec3"> | Vector3,
+        n3: Node<"vec3"> | Vector3,
+    ): VarNode<"mat3", JoinNode<"mat3">>;
+    (
+        n11: Node<"float"> | number,
+        n12: Node<"float"> | number,
+        n13: Node<"float"> | number,
+        n21: Node<"float"> | number,
+        n22: Node<"float"> | number,
+        n23: Node<"float"> | number,
+        n31: Node<"float"> | number,
+        n32: Node<"float"> | number,
+        n33: Node<"float"> | number,
+    ): VarNode<"mat3", JoinNode<"mat3">>;
 }
 
 export const mat3: Mat3Function;
 
 interface Mat4Function {
-    (value: Matrix4): ConstNode<"mat4", Matrix4>;
+    // The first branch in `ConvertType` will forward the parameters to the `Matrix4` constructor if there are no
+    //   parameters or all the parameters are non-objects
+    (): VarNode<"mat4", ConstNode<"mat4", Matrix4>>;
     (
-        n11: number | Node,
-        n12: number | Node,
-        n13: number | Node,
-        n14: number | Node,
-        n21: number | Node,
-        n22: number | Node,
-        n23: number | Node,
-        n24: number | Node,
-        n31: number | Node,
-        n32: number | Node,
-        n33: number | Node,
-        n34: number | Node,
-        n41: number | Node,
-        n42: number | Node,
-        n43: number | Node,
-        n44: number | Node,
-    ): Node<"mat4">;
-    (): ConstNode<"mat4", Matrix4>;
+        n11: number,
+        n12: number,
+        n13: number,
+        n14: number,
+        n21: number,
+        n22: number,
+        n23: number,
+        n24: number,
+        n31: number,
+        n32: number,
+        n33: number,
+        n34: number,
+        n41: number,
+        n42: number,
+        n43: number,
+        n44: number,
+    ): VarNode<"mat4", ConstNode<"mat4", Matrix4>>;
+
+    // The second branch does not apply because `cacheMap` is `null`
+
+    // The third branch will be triggered if there is a single parameter
+    // ConstNode
+    (value: Matrix4): VarNode<"mat4", ConstNode<"mat4", Matrix4>>;
+    // ConvertNode
+    (node: Node<"mat4">): VarNode<"mat4", ConvertNode<"mat4">>;
+
+    // The fall-through branch will be triggered if there is more than one parameter, and one of the parameters is an
+    //   object
     (
-        p1: Node,
-        p2: Node,
-        p3: Node,
-        p4: Node,
-    ): Node<"mat4">;
-    (node: Node): Node<"mat4">;
+        n1: Node<"vec4"> | Vector4,
+        n2: Node<"vec4"> | Vector4,
+        n3: Node<"vec4"> | Vector4,
+        n4: Node<"vec4"> | Vector4,
+    ): VarNode<"mat4", JoinNode<"mat4">>;
+    (
+        n11: Node<"float"> | number,
+        n12: Node<"float"> | number,
+        n13: Node<"float"> | number,
+        n14: Node<"float"> | number,
+        n21: Node<"float"> | number,
+        n22: Node<"float"> | number,
+        n23: Node<"float"> | number,
+        n24: Node<"float"> | number,
+        n31: Node<"float"> | number,
+        n32: Node<"float"> | number,
+        n33: Node<"float"> | number,
+        n34: Node<"float"> | number,
+        n41: Node<"float"> | number,
+        n42: Node<"float"> | number,
+        n43: Node<"float"> | number,
+        n44: Node<"float"> | number,
+    ): VarNode<"mat4", JoinNode<"mat4">>;
 }
 
 export const mat4: Mat4Function;
 
-export const string: (value?: string) => Node<"string">;
-export const arrayBuffer: (value: ArrayBuffer) => Node<"ArrayBuffer">;
+export const string: unknown;
+export const arrayBuffer: unknown;
 
 declare module "../core/Node.js" {
-    interface NodeElements {
-        toColor: () => Node<"color">;
-        toFloat: () => Node<"float">;
-        toInt: () => Node<"int">;
-        toUint: () => Node<"uint">;
-        toBool: () => Node<"bool">;
-        toVec2: () => Node<"vec2">;
-        toIVec2: () => Node<"ivec2">;
-        toUVec2: () => Node<"uvec2">;
-        toBVec2: () => Node<"bvec2">;
-        toVec3: () => Node<"vec3">;
-        toIVec3: () => Node<"ivec3">;
-        toUVec3: () => Node<"uvec3">;
-        toBVec3: () => Node<"bvec3">;
-        toVec4: () => Node<"vec4">;
-        toIVec4: () => Node<"ivec4">;
-        toUVec4: () => Node<"uvec4">;
-        toBVec4: () => Node<"bvec4">;
-        toMat2: () => Node<"mat2">;
-        toMat3: () => Node<"mat3">;
-        toMat4: () => Node<"mat4">;
+    interface ColorExtensions {
+        toColor: () => VarNode<"color", ConvertNode<"color">>;
+    }
+
+    interface NumOrBoolExtensions<TNumOrBool extends NumOrBoolType> {
+        toFloat: () => VarNode<"float", ConvertNode<"float">>;
+        toInt: () => VarNode<"int", ConvertNode<"int">>;
+        toUint: () => VarNode<"uint", ConvertNode<"uint">>;
+        toBool: () => VarNode<"bool", ConvertNode<"bool">>;
+    }
+
+    interface NumOrBoolVec2Extensions<TNumOrBool extends NumOrBoolType> {
+        toVec2: () => VarNode<"vec2", ConvertNode<"vec2">>;
+        toIVec2: () => VarNode<"ivec2", ConvertNode<"ivec2">>;
+        toUVec2: () => VarNode<"uvec2", ConvertNode<"uvec2">>;
+        toBVec2: () => VarNode<"bvec2", ConvertNode<"bvec2">>;
+    }
+
+    interface NumOrBoolVec3Extensions<TNumOrBool extends NumOrBoolType> {
+        toColor: () => VarNode<"color", ConvertNode<"color">>;
+        toVec3: () => VarNode<"vec3", ConvertNode<"vec3">>;
+        toIVec3: () => VarNode<"ivec3", ConvertNode<"ivec3">>;
+        toUVec3: () => VarNode<"uvec3", ConvertNode<"uvec3">>;
+        toBVec3: () => VarNode<"bvec3", ConvertNode<"bvec3">>;
+    }
+
+    interface NumOrBoolVec4Extensions<TNumOrBool extends NumOrBoolType> {
+        toVec4: () => VarNode<"vec4", ConvertNode<"vec4">>;
+        toIVec4: () => VarNode<"ivec4", ConvertNode<"ivec4">>;
+        toUVec4: () => VarNode<"uvec4", ConvertNode<"uvec4">>;
+        toBVec4: () => VarNode<"bvec4", ConvertNode<"bvec4">>;
+    }
+
+    interface MatExtensions<TMat extends MatType> {
+        toMat2: () => VarNode<"mat2", ConvertNode<"mat2">>;
+        toMat3: () => VarNode<"mat3", ConvertNode<"mat3">>;
+        toMat4: () => VarNode<"mat4", ConvertNode<"mat4">>;
     }
 }
 
