@@ -1,4 +1,4 @@
-import { BlockIconNormalized } from "@wordpress/blocks";
+import { BlockTypeIconDescriptor } from "@wordpress/blocks";
 import { ReduxStoreConfig, StoreDescriptor } from "@wordpress/data";
 
 export * from "./components";
@@ -75,7 +75,7 @@ export interface EditorInserterItem {
     /**
      * Icon for the item, as it appears in the inserter.
      */
-    icon: BlockIconNormalized;
+    icon: BlockTypeIconDescriptor;
     /**
      * Block category that the item is associated with.
      */

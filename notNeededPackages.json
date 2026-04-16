@@ -8275,6 +8275,10 @@
             "libraryName": "@wordpress/block-serialization-default-parser",
             "asOfVersion": "4.17.0"
         },
+        "wordpress__blocks": {
+            "libraryName": "@wordpress/blocks",
+            "asOfVersion": "15.17.0"
+        },
         "wordpress__components": {
             "libraryName": "@wordpress/components",
             "asOfVersion": "23.8.0"

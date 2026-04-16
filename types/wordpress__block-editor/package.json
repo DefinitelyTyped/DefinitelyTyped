@@ -7,7 +7,7 @@
     ],
     "dependencies": {
         "@types/react": "^18",
-        "@types/wordpress__blocks": "*",
+        "@wordpress/blocks": "^15.17.0",
         "@wordpress/components": "^30.9.0",
         "@wordpress/data": "^10.36.0",
         "@wordpress/element": "^6.36.0",

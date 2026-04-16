@@ -1,9 +1,12 @@
-import { BlockAttributes, TemplateArray } from "@wordpress/blocks";
+import { Block } from "@wordpress/blocks";
 import { ComponentType, JSX, ReactElement, Ref } from "react";
 
 import { EditorTemplateLock } from "../";
 
 import { Merged, Reserved } from "./use-block-props";
+
+type Template = readonly [string, Readonly<Record<string, unknown>>?, TemplateArray?];
+type TemplateArray = ReadonlyArray<Template>;
 
 declare namespace InnerBlocks {
     interface Props {
@@ -63,7 +66,7 @@ declare namespace InnerBlocks {
          */
         defaultBlock?: {
             name: string;
-            attributes?: BlockAttributes;
+            attributes?: Block["attributes"];
         } | undefined;
 
         /**
