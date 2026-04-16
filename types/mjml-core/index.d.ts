@@ -2,7 +2,10 @@
  * The main parser for MJML.
  * This version doesn't contain any of the core components registered in the 'mjml' package.
  */
-export default function mjml2html(input: string | MJMLJsonObject, options?: MJMLParsingOptions): Promise<MJMLParseResults>;
+export default function mjml2html(
+    input: string | MJMLJsonObject,
+    options?: MJMLParsingOptions,
+): Promise<MJMLParseResults>;
 
 /**
  * Options passed as an object to the mjml2html function
