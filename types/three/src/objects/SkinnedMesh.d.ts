@@ -6,6 +6,7 @@ import { Box3 } from "../math/Box3.js";
 import { Matrix4, Matrix4Tuple } from "../math/Matrix4.js";
 import { Sphere } from "../math/Sphere.js";
 import { Vector3 } from "../math/Vector3.js";
+import { Vector4 } from "../math/Vector4.js";
 import { Mesh, MeshJSON, MeshJSONObject } from "./Mesh.js";
 import { Skeleton } from "./Skeleton.js";
 
@@ -155,6 +156,8 @@ export class SkinnedMesh<
      * @param vector
      */
     applyBoneTransform(index: number, vector: Vector3): Vector3;
+    applyBoneTransform(index: number, vector: Vector4): Vector4;
+    applyBoneTransform(index: number, vector: Vector3 | Vector4): Vector3 | Vector4;
 
     toJSON(meta?: JSONMeta): SkinnedMeshJSON;
 }

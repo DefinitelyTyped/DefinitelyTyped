@@ -38,13 +38,11 @@
         "test/unit/src/audio/AudioContext.ts",
         "test/unit/src/core/EventDispatcher.ts",
         "test/unit/src/core/Uniform.ts",
-        "test/unit/src/nodes/code/FunctionNode.ts",
         "test/unit/src/nodes/display/ColorAdjustment.ts",
         "test/unit/src/nodes/materialx/lib/mx_hsv.ts",
         "test/unit/src/nodes/materialx/lib/mx_noise.ts",
         "test/unit/src/nodes/materialx/lib/mx_transform_color.ts",
         "test/unit/src/nodes/materialx/MaterialXNodes.ts",
-        "test/unit/src/nodes/tsl/TSLCore.ts",
         "test/unit/src/extras/Earcut.ts",
         "test/unit/src/renderers/webgl/WebGLUtils.ts",
         "test/unit/src/textures/Texture.ts"

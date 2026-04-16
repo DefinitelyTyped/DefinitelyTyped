@@ -70,12 +70,16 @@ export interface NodeChild {
     childNode: Node;
 }
 
+export interface NodeClassEventMap {
+    dispose: {};
+}
+
 /**
  * Base class for all nodes.
  *
  * @augments EventDispatcher
  */
-declare class NodeClass extends EventDispatcher<{ dispose: {} }> {
+declare class NodeClass<TEventMap extends NodeClassEventMap = NodeClassEventMap> extends EventDispatcher<TEventMap> {
     static get type(): string;
     /**
      * Constructs a new node.
@@ -111,13 +115,6 @@ declare class NodeClass extends EventDispatcher<{ dispose: {} }> {
      * @default 'none'
      */
     updateAfterType: NodeUpdateType;
-    /**
-     * The UUID of the node.
-     *
-     * @type {string}
-     * @readonly
-     */
-    readonly uuid: string;
     /**
      * The version of the node. The version automatically is increased when {@link Node#needsUpdate} is set to `true`.
      *
@@ -166,6 +163,14 @@ declare class NodeClass extends EventDispatcher<{ dispose: {} }> {
      */
     private _cacheKey;
     /**
+     * The UUID of the node.
+     *
+     * @type {string}
+     * @default null
+     * @private
+     */
+    private _uuid;
+    /**
      * The cache key's version.
      *
      * @private
@@ -173,6 +178,13 @@ declare class NodeClass extends EventDispatcher<{ dispose: {} }> {
      * @default 0
      */
     private _cacheKeyVersion;
+    /**
+     * The unique ID of the node.
+     *
+     * @type {number}
+     * @readonly
+     */
+    readonly id: number;
     /**
      * The stack trace of the node for debugging purposes.
      *
@@ -188,6 +200,13 @@ declare class NodeClass extends EventDispatcher<{ dispose: {} }> {
      * @param {boolean} value
      */
     set needsUpdate(value: boolean);
+    /**
+     * The UUID of the node.
+     *
+     * @type {string}
+     * @readonly
+     */
+    get uuid(): string;
     /**
      * The type of the class. The value is usually the constructor name.
      *
@@ -354,9 +373,18 @@ declare class NodeClass extends EventDispatcher<{ dispose: {} }> {
      * Returns the node's type.
      *
      * @param {NodeBuilder} builder - The current node builder.
+     * @param {string} [output=null] - The output of the node.
      * @return {string} The type of the node.
      */
-    getNodeType(builder: NodeBuilder): string;
+    getNodeType(builder: NodeBuilder, output?: string): string;
+    /**
+     * Returns the node's type.
+     *
+     * @param {NodeBuilder} builder - The current node builder.
+     * @param {string} [output=null] - The output of the node.
+     * @return {string} The type of the node.
+     */
+    generateNodeType(builder: NodeBuilder, output?: string): string;
     /**
      * This method is used during the build process of a node and ensures
      * equal nodes are not built multiple times but just once. For example if

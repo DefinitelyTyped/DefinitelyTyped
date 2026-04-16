@@ -3,9 +3,7 @@ import Node from "../core/Node.js";
 import ViewportTextureNode from "./ViewportTextureNode.js";
 
 declare class ViewportDepthTextureNode extends ViewportTextureNode {
-    constructor(uvNode?: Node, levelNode?: Node | null);
-
-    getTextureForReference(): DepthTexture;
+    constructor(uvNode?: Node, levelNode?: Node | null, depthTexture?: DepthTexture | null);
 }
 
 export default ViewportDepthTextureNode;

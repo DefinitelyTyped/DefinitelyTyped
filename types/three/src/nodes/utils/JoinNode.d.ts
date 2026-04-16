@@ -1,10 +1,14 @@
 import Node from "../core/Node.js";
 import { TempNode } from "../Nodes.js";
 
-/**
- * This node constructs given type from elements, like vec3(a,b,c)
- */
-export default class JoinNode extends TempNode {
+interface JoinNodeInterface {
     nodes: Node[];
-    constructor(nodes: Node[]);
 }
+
+declare const JoinNode: {
+    new<TNodeType>(nodes: Node[]): JoinNode<TNodeType>;
+};
+
+type JoinNode<TNodeType> = TempNode<TNodeType> & JoinNodeInterface;
+
+export default JoinNode;

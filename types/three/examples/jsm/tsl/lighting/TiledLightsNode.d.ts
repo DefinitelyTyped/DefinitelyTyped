@@ -12,7 +12,7 @@ declare class TiledLightsNode extends LightsNode {
 
     updateLightsTexture(): void;
 
-    getBlock(block?: number): Node;
+    getBlock(block?: number): Node<"ivec4">;
 
     setSize(width: number, height: number): this;
 }

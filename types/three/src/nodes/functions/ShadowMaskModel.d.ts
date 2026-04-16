@@ -1,8 +1,8 @@
 import LightingModel from "../core/LightingModel.js";
-import VarNode from "../core/VarNode.js";
+import Node from "../core/Node.js";
 
 export default class ShadowMaskModel extends LightingModel {
-    shadowNode: VarNode;
+    shadowNode: Node;
 
     constructor();
 }

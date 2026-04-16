@@ -38,17 +38,6 @@ export type { WebGLUniforms } from "./renderers/webgl/WebGLUniforms.js";
 export * from "./renderers/webgl/WebGLUtils.js";
 export * from "./renderers/WebGLCubeRenderTarget.js";
 export * from "./renderers/WebGLRenderer.js";
-export type {
-    WebXRController,
-    WebXRSpaceEventMap,
-    XRControllerEventType,
-    XRGripSpace,
-    XRHandInputState,
-    XRHandJoints,
-    XRHandSpace,
-    XRJointSpace,
-    XRTargetRaySpace,
-} from "./renderers/webxr/WebXRController.js";
 export type { WebXRDepthSensing } from "./renderers/webxr/WebXRDepthSensing.js";
 export type {
     WebXRArrayCamera,

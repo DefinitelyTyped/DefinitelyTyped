@@ -29,6 +29,8 @@ export interface Vector3Like {
  * c.crossVectors( a, b );
  */
 export class Vector3 {
+    static readonly isVector3: boolean;
+
     constructor(x?: number, y?: number, z?: number);
 
     /**
@@ -45,7 +47,6 @@ export class Vector3 {
      * @default 0
      */
     z: number;
-    readonly isVector3: true;
 
     /**
      * Sets value of this vector.

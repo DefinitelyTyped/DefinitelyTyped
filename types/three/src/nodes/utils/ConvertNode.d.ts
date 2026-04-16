@@ -1,7 +1,14 @@
 import Node from "../core/Node.js";
 
-export default class ConvertNode extends Node {
+interface ConvertNodeInterface {
     node: Node;
     convertTo: string;
-    constructor(node: Node, convertTo: string);
 }
+
+declare const ConvertNode: {
+    new<TNodeType>(node: Node, convertTo: string): ConvertNode<TNodeType>;
+};
+
+type ConvertNode<TNodeType> = Node<TNodeType> & ConvertNodeInterface;
+
+export default ConvertNode;

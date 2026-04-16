@@ -19,7 +19,14 @@ export interface RenderTargetOptions extends TextureParameters {
     multiview?: boolean | undefined;
 }
 
-export class RenderTarget<TTexture extends Texture | Texture[] = Texture> extends EventDispatcher<{ dispose: {} }> {
+export interface RenderTargetEventMap {
+    dispose: {};
+}
+
+export class RenderTarget<
+    TTexture extends Texture | Texture[] = Texture,
+    TEventMap extends RenderTargetEventMap = RenderTargetEventMap,
+> extends EventDispatcher<TEventMap> {
     readonly isRenderTarget: true;
 
     width: number;

@@ -12,7 +12,7 @@ export type Matrix2Tuple = [
  * const m = new Matrix2();
  */
 export class Matrix2 {
-    readonly isMatrix2: true;
+    static readonly isMatrix2: boolean;
 
     /**
      * A {@link https://en.wikipedia.org/wiki/Row-_and_column-major_order column-major} list of matrix values.

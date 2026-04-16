@@ -75,6 +75,20 @@ declare class NodeManager extends DataMap {
      */
     groupsData: ChainMap;
     /**
+     * Queue for pending async builds to limit concurrent compilation.
+     *
+     * @private
+     * @type {Array<Function>}
+     */
+    private _buildQueue;
+    /**
+     * Whether an async build is currently in progress.
+     *
+     * @private
+     * @type {boolean}
+     */
+    private _buildInProgress;
+    /**
      * A cache for managing node objects of
      * scene properties like fog or environments.
      *
@@ -98,12 +112,46 @@ declare class NodeManager extends DataMap {
      */
     getForRenderCacheKey(renderObject: RenderObject): number;
     /**
+     * Creates a node builder configured for the given render object and material.
+     *
+     * @private
+     * @param {RenderObject} renderObject - The render object.
+     * @param {Material} material - The material to use.
+     * @return {NodeBuilder} The configured node builder.
+     */
+    private _createNodeBuilder;
+    /**
      * Returns a node builder state for the given render object.
      *
      * @param {RenderObject} renderObject - The render object.
-     * @return {NodeBuilderState} The node builder state.
+     * @param {boolean} [useAsync=false] - Whether to use async build with yielding.
+     * @return {NodeBuilderState|Promise<NodeBuilderState>} The node builder state (or Promise if async).
      */
-    getForRender(renderObject: RenderObject): NodeBuilderState;
+    getForRender(renderObject: RenderObject, useAsync?: boolean): NodeBuilderState | Promise<NodeBuilderState>;
+    /**
+     * Async version of getForRender() that yields to main thread during build.
+     * Use this in compileAsync() to prevent blocking the main thread.
+     *
+     * @param {RenderObject} renderObject - The render object.
+     * @return {Promise<NodeBuilderState>} A promise that resolves to the node builder state.
+     */
+    getForRenderAsync(renderObject: RenderObject): Promise<NodeBuilderState>;
+    /**
+     * Returns nodeBuilderState if ready, null if pending async build.
+     * Queues async build on first call for cache miss.
+     * Use this in render() path to enable non-blocking compilation.
+     *
+     * @param {RenderObject} renderObject - The render object.
+     * @return {?NodeBuilderState} The node builder state, or null if still building.
+     */
+    getForRenderDeferred(renderObject: RenderObject): NodeBuilderState | null;
+    /**
+     * Processes the build queue one item at a time.
+     * This ensures builds don't all run simultaneously and freeze the main thread.
+     *
+     * @private
+     */
+    private _processBuildQueue;
     /**
      * Deletes the given object from the internal data map
      *
@@ -214,14 +262,6 @@ declare class NodeManager extends DataMap {
      */
     getOutputCacheKey(): string;
     /**
-     * Checks if the output configuration (tone mapping and color space) for
-     * the given target has changed.
-     *
-     * @param {Texture} outputTarget - The output target.
-     * @return {boolean} Whether the output configuration has changed or not.
-     */
-    hasOutputChange(outputTarget: Texture): boolean;
-    /**
      * Returns a node that represents the output configuration (tone mapping and
      * color space) for the current target.
      *
@@ -252,7 +292,7 @@ declare class NodeManager extends DataMap {
     updateForCompute(computeNode: ComputeNode): void;
     /**
      * Triggers the call of `update()` methods
-     * for all nodes of the given compute node.
+     * for all nodes of the given render object.
      *
      * @param {RenderObject} renderObject - The render object.
      */
