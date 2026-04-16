@@ -103,7 +103,6 @@ backend.submit({} as Agent, "notes_minimal", "doc1", { create: { data: {}, type:
 });
 backend.fetch({} as Agent, "notes_minimal", "doc1", {
     snapshotOptions: { foo: "bar" },
-    extraField: 123,
 }, (error, snapshot) => {
     if (error) {
         console.error(error.message);
