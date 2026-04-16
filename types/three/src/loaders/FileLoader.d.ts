@@ -1,12 +1,12 @@
 import { Loader } from "./Loader.js";
 import { LoadingManager } from "./LoadingManager.js";
 
-export class FileLoader extends Loader<string | ArrayBuffer> {
+export class FileLoader<TData = string | ArrayBuffer> extends Loader<TData> {
     constructor(manager?: LoadingManager);
 
     load(
         url: string,
-        onLoad?: (data: string | ArrayBuffer) => void,
+        onLoad?: (data: TData) => void,
         onProgress?: (event: ProgressEvent) => void,
         onError?: (err: unknown) => void,
     ): void;

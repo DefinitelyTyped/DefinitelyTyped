@@ -109,7 +109,7 @@ declare class BufferAttributeNodeClass extends InputNode<unknown, TypedArray | I
      * @param {NodeBuilder} builder - The current node builder.
      * @return {string} The node type.
      */
-    getNodeType(builder: NodeBuilder): string;
+    generateNodeType(builder: NodeBuilder): string;
     /**
      * Depending on which value was passed to the node, `setup()` behaves
      * differently. If no instance of `BufferAttribute` was passed, the method

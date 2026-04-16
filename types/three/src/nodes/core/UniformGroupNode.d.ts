@@ -1,3 +1,4 @@
+import { NodeUpdateType } from "./constants.js";
 import Node from "./Node.js";
 
 export default class UniformGroupNode extends Node {
@@ -8,13 +9,13 @@ export default class UniformGroupNode extends Node {
 
     readonly isUniformGroup: true;
 
-    constructor(name: string, shared?: boolean);
+    constructor(name: string, shared?: boolean, order?: number, updateType?: NodeUpdateType | null);
 
     set needsUpdate(value: boolean);
 }
 
-export const uniformGroup: (name: string) => UniformGroupNode;
-export const sharedUniformGroup: (name: string) => UniformGroupNode;
+export const uniformGroup: (name: string, order?: number, updateType?: NodeUpdateType | null) => UniformGroupNode;
+export const sharedUniformGroup: (name: string, order?: number, updateType?: NodeUpdateType | null) => UniformGroupNode;
 
 export const frameGroup: UniformGroupNode;
 export const renderGroup: UniformGroupNode;

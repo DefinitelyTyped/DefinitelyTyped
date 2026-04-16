@@ -1,15 +1,19 @@
 import Renderer from "../../renderers/common/Renderer.js";
 import Node from "../core/Node.js";
+import UniformNode from "../core/UniformNode.js";
 
 export default class ComputeNode extends Node {
-    readonly isComputeNode: true;
+    readonly isComputeNode: boolean;
 
     computeNode: Node;
     workgroupSize: number[];
     count: number | number[] | null;
+    dispatchSize: number | number[] | null;
     name: string;
 
     onInitFunction: ((args: { renderer: Renderer }) => void) | null;
+
+    countNode: UniformNode<"uint", number> | null;
 
     constructor(computeNode: Node, workgroupSize: number[]);
 
@@ -23,7 +27,7 @@ export default class ComputeNode extends Node {
      */
     label: (name: string) => this;
 
-    onInit(callback: ((args: { renderer: Renderer }) => void) | null): void;
+    onInit(callback: ((args: { renderer: Renderer }) => void) | null): this;
 }
 
 export const computeKernel: (node: Node, workgroupSize?: number[]) => ComputeNode;

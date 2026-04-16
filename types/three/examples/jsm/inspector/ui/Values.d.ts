@@ -2,7 +2,13 @@ import { ColorRepresentation, EventDispatcher } from "three";
 
 type KeyToValueOfType<T, V> = { [K in keyof T]: T[K] extends V ? K : never }[keyof T];
 
-declare class Value<T = Record<string, unknown>, K extends keyof T = keyof T> extends EventDispatcher {
+export interface ValueEventMap {}
+
+declare class Value<
+    T = Record<string, unknown>,
+    K extends keyof T = keyof T,
+    TEventMap extends ValueEventMap = ValueEventMap,
+> extends EventDispatcher<TEventMap> {
     onChange(callback: (value: T[K]) => void): this;
 }
 
@@ -74,7 +80,21 @@ declare class ValueButton<
     T = Record<string, unknown>,
     K extends KeyToValueOfType<T, (this: T) => void> = KeyToValueOfType<T, (this: T) => void>,
 > extends Value<T, K> {
-    constructor(params: ValueColorParams);
+    constructor(params: ValueButtonParams);
 }
 
-export { Value, ValueButton, ValueCheckbox, ValueColor, ValueNumber, ValueSelect, ValueSlider };
+export interface ValueStringParams {
+    value?: string;
+}
+
+declare class ValueString<
+    T = Record<string, unknown>,
+    K extends KeyToValueOfType<T, string> = KeyToValueOfType<T, string>,
+> extends Value<T, K> {
+    constructor(params: ValueStringParams);
+
+    setValue(val: string): this;
+    getValue(): string;
+}
+
+export { Value, ValueButton, ValueCheckbox, ValueColor, ValueNumber, ValueSelect, ValueSlider, ValueString };

@@ -10,10 +10,4 @@ export class WebGLIndexedBufferRenderer {
     render: (start: number, count: number) => void;
     renderInstances: (start: number, count: number, primcount: number) => void;
     renderMultiDraw: (starts: Int32Array, counts: Int32Array, drawCount: number) => void;
-    renderMultiDrawInstances: (
-        starts: Int32Array,
-        counts: Int32Array,
-        drawCount: number,
-        primcount: Int32Array,
-    ) => void;
 }

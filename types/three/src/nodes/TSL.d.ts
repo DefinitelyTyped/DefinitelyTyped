@@ -38,7 +38,7 @@ export * from "./utils/Oscillators.js";
 export * from "./utils/Packing.js";
 export * from "./utils/PostProcessingUtils.js";
 export * from "./utils/ReflectorNode.js";
-export * from "./utils/RemapNode.js";
+export * from "./utils/Remap.js";
 export * from "./utils/RotateNode.js";
 export * from "./utils/RTTNode.js";
 export * from "./utils/SampleNode.js";

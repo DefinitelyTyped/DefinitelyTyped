@@ -1,4 +1,9 @@
-import { InspectorBase } from "three/webgpu";
+import { InspectorBase, InspectorBaseEventMap } from "three/webgpu";
 
-export class RendererInspector extends InspectorBase {
+export interface RendererInspectorEventMap extends InspectorBaseEventMap {
+}
+
+export class RendererInspector<TEventMap extends RendererInspectorEventMap = RendererInspectorEventMap>
+    extends InspectorBase<TEventMap>
+{
 }
