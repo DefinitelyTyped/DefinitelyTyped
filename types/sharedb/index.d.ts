@@ -73,7 +73,7 @@ declare class sharedb extends EventEmitter {
         agent: Agent,
         index: string,
         id: string,
-        op: SubmitRequest['op'],
+        op: SubmitRequest["op"],
         options: ShareDB.BackendSubmitOptions | null,
         callback: (error: Error | null, ops: any[], request?: SubmitRequest) => void,
     ): void;

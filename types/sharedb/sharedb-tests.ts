@@ -92,7 +92,7 @@ console.log(backend.extraDbs);
 backend.addProjection("notes_minimal", "notes", { title: true, creator: true, lastUpdateTime: true });
 const readonlyProjection = backend.projections["notes_minimal"];
 console.log(readonlyProjection.target, readonlyProjection.fields);
-backend.submit({} as Agent, "notes_minimal", "doc1", { create: { data: {}, type: 'json uri type' } }, {
+backend.submit({} as Agent, "notes_minimal", "doc1", { create: { data: {}, type: "json uri type" } }, {
     customField: true,
     anotherOption: { nested: "value" },
 }, (error, ops, request) => {
