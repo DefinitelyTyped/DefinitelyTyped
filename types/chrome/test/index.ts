@@ -1301,6 +1301,9 @@ function testTabCapture() {
 
 // https://developer.chrome.com/docs/extensions/reference/api/debugger
 function testDebugger() {
+    // @ts-expect-error Property '_debugger' does not exist on type 'typeof chrome'
+    chrome._debugger;
+
     chrome.debugger.DetachReason.CANCELED_BY_USER === "canceled_by_user";
     chrome.debugger.DetachReason.TARGET_CLOSED === "target_closed";
 
@@ -1459,9 +1462,6 @@ function testStorage() {
             z?: number;
         };
     }
-
-    // @ts-expect-error
-    const testNoInferX: chrome.storage.NoInferX<string> = "This test checks if NoInferX is accidentally exported";
 
     const StorageArea = ["sync", "managed", "local", "session"] as const;
 
