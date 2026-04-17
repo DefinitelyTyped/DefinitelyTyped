@@ -1,4 +1,4 @@
-import { BlockInstance } from "@wordpress/blocks";
+import { Block } from "@wordpress/blocks";
 
 import { EditorBlockListSettings, EditorSettings } from "../";
 
@@ -33,7 +33,7 @@ export function hideInsertionPoint(): void;
  *                          will not change. Defaults to true.
  */
 export function insertBlock(
-    block: BlockInstance,
+    block: Block,
     index?: number,
     rootClientId?: string,
     updateSelection?: boolean,
@@ -50,7 +50,7 @@ export function insertBlock(
  *                          not change. Defaults to `true`.
  */
 export function insertBlocks(
-    blocks: BlockInstance[],
+    blocks: Block[],
     index?: number,
     rootClientId?: string,
     updateSelection?: boolean,
@@ -107,7 +107,7 @@ export function multiSelect(start: string, end: string): void;
  *
  * @param blocks - Array of block instances.
  */
-export function receiveBlocks(blocks: BlockInstance[]): void;
+export function receiveBlocks(blocks: Block[]): void;
 
 /**
  * Signals that the block with the specified client ID is to be removed.
@@ -133,7 +133,7 @@ export function removeBlocks(clientIds: string | string[], selectPrevious?: bool
  * @param clientId - Block client ID to replace.
  * @param block - Replacement block(s).
  */
-export function replaceBlock(clientId: string | string[], block: BlockInstance | BlockInstance[]): void;
+export function replaceBlock(clientId: string | string[], block: Block | Block[]): void;
 
 /**
  * Signals that a blocks should be replaced with one or more replacement blocks.
@@ -144,7 +144,7 @@ export function replaceBlock(clientId: string | string[], block: BlockInstance |
  */
 export function replaceBlocks(
     clientIds: string | string[],
-    blocks: BlockInstance | BlockInstance[],
+    blocks: Block | Block[],
     indexToSelect?: number,
 ): IterableIterator<void>;
 
@@ -156,7 +156,7 @@ export function replaceBlocks(
  * @param updateSelection - If `true` block selection will be updated. If `false`, block selection
  *                          will not change. Defaults to `true`.
  */
-export function replaceInnerBlocks(rootClientId: string, blocks: BlockInstance[], updateSelection?: boolean): void;
+export function replaceInnerBlocks(rootClientId: string, blocks: Block[], updateSelection?: boolean): void;
 
 /**
  * Returns an action object used in signalling that blocks state should be reset to the specified
@@ -164,7 +164,7 @@ export function replaceInnerBlocks(rootClientId: string, blocks: BlockInstance[]
  *
  * @param blocks - Array of blocks.
  */
-export function resetBlocks(blocks: BlockInstance[]): void;
+export function resetBlocks(blocks: Block[]): void;
 
 /**
  * Signals that the block with the specified client ID has been selected, optionally accepting a
@@ -262,7 +262,7 @@ export function toggleSelection(isSelectionEnabled?: boolean): void;
  * @param clientId - Block client ID.
  * @param updates - Block attributes to be merged.
  */
-export function updateBlock(clientId: string, updates: Partial<BlockInstance>): void;
+export function updateBlock(clientId: string, updates: Partial<Block>): void;
 
 /**
  * Signals that the block attributes with the specified client ID has been updated.

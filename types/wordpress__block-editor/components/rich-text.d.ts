@@ -1,5 +1,5 @@
 /* eslint-disable @definitelytyped/no-unnecessary-generics */
-import { BlockInstance } from "@wordpress/blocks";
+import { Block } from "@wordpress/blocks";
 import { Autocomplete, ToolbarButton } from "@wordpress/components";
 import { displayShortcut, rawShortcut } from "@wordpress/keycodes";
 import { ComponentProps, ComponentType, HTMLProps, JSX } from "react";
@@ -46,7 +46,7 @@ declare namespace RichText {
         /**
          * Called when the `RichText` instance can be replaced with the given blocks.
          */
-        onReplace?(blocks: BlockInstance[]): void;
+        onReplace?(blocks: Block[]): void;
         /**
          * Called when the content can be split, where `value` is a piece of content being split
          * off. Here you should create a new block with that content and return it. Note that you
