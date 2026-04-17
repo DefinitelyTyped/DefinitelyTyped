@@ -3,9 +3,11 @@ import * as React from "react";
 export type IconType =
     | "3d"
     | "acrobat"
+    | "android"
     | "audio"
     | "binary"
     | "code"
+    | "code2"
     | "compressed"
     | "document"
     | "drive"

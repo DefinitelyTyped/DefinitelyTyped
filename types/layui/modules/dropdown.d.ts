@@ -45,7 +45,7 @@ declare namespace Layui {
         /**
          * 绑定元素选择器或 DOM 对象
          */
-        elem?: string | Element | JQuery;
+        elem?: string | globalThis.Element | JQuery;
         /**
          * 菜单列数据项，也可用 {@link content|content} 选项自定义模板
          */

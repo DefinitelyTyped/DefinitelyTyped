@@ -73,6 +73,13 @@ app.use(
     }),
 );
 
+app.use(
+    session({
+        secret: "keyboard cat",
+        cookie: (req) => ({ secure: req.secure }),
+    }),
+);
+
 // Various `crypto.CipherKey` types
 app.use(session({ secret: Buffer.from("keyboard cat", "utf8") }));
 app.use(session({ secret: crypto.createSecretKey(Buffer.from("keyboard cat", "utf8")) }));

@@ -16,7 +16,6 @@ import {
     isTypeLiteralNode,
     JSDocParameterTag,
     JSDocReturnTag,
-    JSDocSeeTag,
     JSDocTag,
     JSDocUnknownTag,
     MethodDeclaration,
@@ -29,13 +28,7 @@ import {
     TransformationContext,
     TypeChecker,
 } from "typescript";
-import {
-    getIndent,
-    getPropertyName,
-    isNamedModuleDeclaration,
-    nodeWarning,
-    removeCommentsRecursive,
-} from "./ast-utils";
+import { getIndent, getPropertyName, nodeWarning, removeCommentsRecursive } from "./ast-utils";
 import { fixupHtmlDocs, fixupLocalLinks } from "./html-doc-processing";
 import { ClassDocNode, MethodDocNode, ModuleDocNode, PropertyDocNode, SignatureDocNode } from "./node-doc-processing";
 import { contextDeduper, replaceLineBreaks, wordWrap } from "./utils";
@@ -147,15 +140,6 @@ class TagHelper {
 
     createLegacyTag(text: string): JSDocUnknownTag {
         return this.createUnknownTag("legacy", this.fixupCommentFormatting(text, "legacy"));
-    }
-
-    createSeeLinkTag(url: string, text: string): JSDocSeeTag {
-        const { factory } = this.docContext.transformationContext;
-        return this.docContext.transformationContext.factory.createJSDocSeeTag(
-            factory.createIdentifier("see"),
-            undefined,
-            `[${text}](${url})`,
-        );
     }
 
     private createReturnTag(text: string): JSDocReturnTag {
@@ -403,31 +387,6 @@ export class NodeProcessingContext {
     }
 
     /**
-     * Processes named module declarations.
-     */
-    private handleModuleDeclaration(): JSDocResult {
-        const { moduleDocs } = this.context;
-        const tags = this.tagHelper.extractCommonTags(moduleDocs, moduleDocs.name);
-
-        // Get rid of bloaty source label
-        let desc = moduleDocs.desc ?? "";
-        const removeSourceRegex = /<p><strong>Source Code:<\/strong> <a href="(.*?)">.*?<\/a><\/p>/;
-        const match = removeSourceRegex.exec(desc);
-        if (match) {
-            tags.push(this.tagHelper.createSeeLinkTag(match[1]!, "source"));
-            desc = desc.replace(removeSourceRegex, ``);
-        }
-
-        return {
-            status: JSDocMatchResult.Ok,
-            data: {
-                text: this.fixupDescriptionFormatting(desc, moduleDocs.name),
-                tags,
-            },
-        };
-    }
-
-    /**
      * Processes class declarations
      */
     private handleClassDeclaration(node: ClassDeclaration): JSDocResult {
@@ -522,12 +481,6 @@ export class NodeProcessingContext {
         this.context.indent = getIndent(node);
         if (isFunctionDeclaration(node)) {
             processRes = this.processFunctionDeclaration(node);
-        } else if (
-            isNamedModuleDeclaration(node)
-            && !(node.name.text.startsWith("node:") && node.name.text !== "node:test"
-                && node.name.text !== "node:sqlite") // apparently everything is a module
-        ) {
-            processRes = this.handleModuleDeclaration();
         } else if (isClassDeclaration(node)) {
             processRes = this.handleClassDeclaration(node);
         } else if (isMethodDeclaration(node) || isMethodSignature(node)) {

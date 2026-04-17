@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 import fs = require("fs");
 
 import initSqlJs, { Database as SqlJsDatabase } from "sql.js";

@@ -1,5 +1,4 @@
 import Node from "../../core/Node.js";
-import VarNode from "../../core/VarNode.js";
 
 export const mx_select: (
     b_immutable: Node | boolean,
@@ -14,7 +13,7 @@ export const mx_negate_if: (
 
 export const mx_floor: (x_immutable: Node | number) => Node;
 
-export const mx_floorfrac: (x_immutable: Node | number, i: VarNode) => Node;
+export const mx_floorfrac: (x_immutable: Node | number, i: Node) => Node;
 
 export const mx_bilerp_0: (
     v0_immutable: Node | number,
@@ -140,9 +139,9 @@ export const mx_gradient_scale3d: (v_immutable: Node | number) => Node;
 export const mx_rotl32: (x_immutable: Node | number, k_immutable: Node | number) => Node;
 
 export const mx_bjmix: (
-    a: VarNode,
-    b: VarNode,
-    c: VarNode,
+    a: Node,
+    b: Node,
+    c: Node,
 ) => Node;
 
 export const mx_bjfinal: (

@@ -71,25 +71,16 @@ declare namespace Layui {
     /**
      * 颜色选择器
      * @see https://layui.dev/docs/2/colorpicker/
+     * @since 2.13.0 之后继承自 Component 组件
      */
-    interface ColorPicker {
-        config: Record<string, any>;
-        index: number;
+    interface ColorPicker
+        extends
+            ComponentInterface<ColorPickerOptions, Component<ColorPickerOptions>, ComponentReturn<ColorPickerOptions>>
+    {
         /**
          * colorpicker 组件渲染方法
          * @param option 属性选项
          */
-        render(option: ColorPickerOptions): ColorPicker;
-        /**
-         * 全局设置
-         * @param option 属性选项
-         */
-        set(option: ColorPickerOptions): ColorPicker;
-        /**
-         * 绑定切换事件
-         * @param event 事件名
-         * @param callback 回调函数
-         */
-        on(event: string, callback: (this: Layui, params: any) => any): any;
+        render(option: ColorPickerOptions): ComponentReturn<ColorPickerOptions>;
     }
 }

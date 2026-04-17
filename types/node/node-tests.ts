@@ -30,6 +30,7 @@ import "./node-tests/repl";
 import "./node-tests/sea";
 import "./node-tests/sqlite";
 import "./node-tests/stream";
+import "./node-tests/stream-web";
 import "./node-tests/string_decoder";
 import "./node-tests/test";
 import "./node-tests/timers_promises";

@@ -301,6 +301,22 @@ geocodeServiceV6
         });
     });
 
+geocodeServiceV6.forwardGeocode({
+    query: "Berlin",
+    proximity: [13.405, 52.52],
+});
+
+geocodeServiceV6.forwardGeocode({
+    query: "Berlin",
+    proximity: "ip",
+});
+
+geocodeServiceV6.forwardGeocode({
+    query: "Berlin",
+    // @ts-expect-error - object form should not be accepted for request proximity
+    proximity: { longitude: 13.405, latitude: 52.52 },
+});
+
 const optimizationService: OptimizationService = Optimization(config);
 optimizationService.getOptimization({
     profile: "driving",

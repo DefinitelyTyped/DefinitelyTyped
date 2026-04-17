@@ -18,11 +18,17 @@ export type MathNodeMethod1 =
     | typeof MathNode.NORMALIZE
     | typeof MathNode.FRACT
     | typeof MathNode.SIN
+    | typeof MathNode.SINH
     | typeof MathNode.COS
+    | typeof MathNode.COSH
     | typeof MathNode.TAN
+    | typeof MathNode.TANH
     | typeof MathNode.ASIN
+    | typeof MathNode.ASINH
     | typeof MathNode.ACOS
+    | typeof MathNode.ACOSH
     | typeof MathNode.ATAN
+    | typeof MathNode.ATANH
     | typeof MathNode.ABS
     | typeof MathNode.SIGN
     | typeof MathNode.LENGTH
@@ -77,11 +83,17 @@ export default class MathNode extends TempNode {
     static NORMALIZE: "normalize";
     static FRACT: "fract";
     static SIN: "sin";
+    static SINH: "sinh";
     static COS: "cos";
+    static COSH: "cosh";
     static TAN: "tan";
+    static TANH: "tanh";
     static ASIN: "asin";
+    static ASINH: "asinh";
     static ACOS: "acos";
+    static ACOSH: "acosh";
     static ATAN: "atan";
+    static ATANH: "atanh";
     static ABS: "abs";
     static SIGN: "sign";
     static LENGTH: "length";
@@ -236,20 +248,66 @@ declare module "../core/Node.js" {
     }
 }
 
-export const sin: (x: FloatOrNumber) => Node<"float">;
-export const cos: (x: FloatOrNumber) => Node<"float">;
-export const tan: (x: FloatOrNumber) => Node<"float">;
-export const asin: (x: FloatOrNumber) => Node<"float">;
-export const acos: (x: FloatOrNumber) => Node<"float">;
-export const atan: (y: FloatOrNumber, x?: FloatOrNumber) => Node<"float">;
+interface TrigonometricFunction {
+    (x: FloatOrNumber): Node<"float">;
+    (x: Node<"vec2">): Node<"vec2">;
+    (x: Node<"vec3">): Node<"vec3">;
+    (x: Node<"vec4">): Node<"vec4">;
+}
+interface ArcTanFunction {
+    (y: FloatOrNumber, x?: FloatOrNumber): Node<"float">;
+    (y: Node<"vec2">, x?: Vec2OrLessOrFloat): Node<"vec2">;
+    (y: Node<"vec3">, x?: Vec3OrLessOrFloat): Node<"vec3">;
+    (y: Node<"vec4">, x?: Vec4OrLessOrFloat): Node<"vec4">;
+}
+export const sin: TrigonometricFunction;
+export const sinh: TrigonometricFunction;
+export const cos: TrigonometricFunction;
+export const cosh: TrigonometricFunction;
+export const tan: TrigonometricFunction;
+export const tanh: TrigonometricFunction;
+export const asin: TrigonometricFunction;
+export const asinh: TrigonometricFunction;
+export const acos: TrigonometricFunction;
+export const acosh: TrigonometricFunction;
+export const atan: ArcTanFunction;
+export const atanh: TrigonometricFunction;
 declare module "../core/Node.js" {
     interface FloatExtensions {
         sin: () => Node<"float">;
+        sinh: () => Node<"float">;
         cos: () => Node<"float">;
+        cosh: () => Node<"float">;
         tan: () => Node<"float">;
+        tanh: () => Node<"float">;
         asin: () => Node<"float">;
+        asinh: () => Node<"float">;
         acos: () => Node<"float">;
+        acosh: () => Node<"float">;
         atan: (x?: FloatOrNumber) => Node<"float">;
+        atanh: () => Node<"float">;
+    }
+    interface FloatVecExtensions<TVec extends FloatVecType> {
+        sin: () => Node<TVec>;
+        sinh: () => Node<TVec>;
+        cos: () => Node<TVec>;
+        cosh: () => Node<TVec>;
+        tan: () => Node<TVec>;
+        tanh: () => Node<TVec>;
+        asin: () => Node<TVec>;
+        asinh: () => Node<TVec>;
+        acos: () => Node<TVec>;
+        acosh: () => Node<TVec>;
+        atanh: () => Node<TVec>;
+    }
+    interface Vec2Extensions {
+        atan: (x?: Vec2OrLessOrFloat) => Node<"vec2">;
+    }
+    interface Vec3Extensions {
+        atan: (x?: Vec3OrLessOrFloat) => Node<"vec3">;
+    }
+    interface Vec4Extensions {
+        atan: (x?: Vec4OrLessOrFloat) => Node<"vec4">;
     }
 }
 

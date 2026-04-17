@@ -13,6 +13,7 @@ export class XRHandMeshModel {
         handedness: string,
         loader?: Loader<GLTF> | null,
         onLoad?: ((object: Object3D) => void) | null,
+        customCache?: Record<string, GLTF> | null,
     );
 
     updateMesh(): void;

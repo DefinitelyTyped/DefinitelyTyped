@@ -1,4 +1,4 @@
-import { BlockAttributes } from "@wordpress/blocks";
+import { Block } from "@wordpress/blocks";
 import { GlobalStylesSettings } from "@wordpress/global-styles-engine";
 
 /**
@@ -12,6 +12,6 @@ import { GlobalStylesSettings } from "@wordpress/global-styles-engine";
  * @return Typography block support derived CSS classes & styles.
  */
 export function getTypographyClassesAndStyles(
-    attributes: BlockAttributes,
+    attributes: Block["attributes"],
     fluidTypographySettings?: { minFontSize?: string } | GlobalStylesSettings | boolean,
 ): { className: string; style: Record<string, string> };

@@ -1,13 +1,3 @@
-/**
- * The `node:tls` module provides an implementation of the Transport Layer Security
- * (TLS) and Secure Socket Layer (SSL) protocols that is built on top of OpenSSL.
- * The module can be accessed using:
- *
- * ```js
- * import tls from 'node:tls';
- * ```
- * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/tls.js)
- */
 declare module "node:tls" {
     import { NonSharedBuffer } from "node:buffer";
     import { X509Certificate } from "node:crypto";
@@ -200,12 +190,6 @@ declare module "node:tls" {
          * An optional Buffer instance containing a TLS session.
          */
         session?: Buffer | undefined;
-        /**
-         * If true, specifies that the OCSP status request extension will be
-         * added to the client hello and an 'OCSPResponse' event will be
-         * emitted on the socket before establishing a secure communication
-         */
-        requestOCSP?: boolean | undefined;
     }
     interface TLSSocketEventMap extends net.SocketEventMap {
         "keylog": [line: NonSharedBuffer];
@@ -577,6 +561,12 @@ declare module "node:tls" {
          * @default true
          */
         rejectUnauthorized?: boolean | undefined;
+        /**
+         * If true, specifies that the OCSP status request extension will be
+         * added to the client hello and an 'OCSPResponse' event will be
+         * emitted on the socket before establishing a secure communication.
+         */
+        requestOCSP?: boolean | undefined;
     }
     interface TlsOptions extends SecureContextOptions, CommonConnectionOptions, net.ServerOpts {
         /**

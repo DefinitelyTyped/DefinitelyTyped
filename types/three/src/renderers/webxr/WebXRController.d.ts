@@ -43,7 +43,11 @@ export class XRTargetRaySpace extends Group<WebXRSpaceEventMap> {
     readonly angularVelocity: Vector3;
 }
 
-export class XRGripSpace extends Group<WebXRSpaceEventMap> {
+export interface WebXRGripSpaceEventMap extends WebXRSpaceEventMap {
+    gripUpdated: { data: XRInputSource; target: WebXRController }; // This Event break the THREE.EventDispatcher contract, replacing the target to the wrong instance.
+}
+
+export class XRGripSpace extends Group<WebXRGripSpaceEventMap> {
     hasLinearVelocity: boolean;
     readonly linearVelocity: Vector3;
     hasAngularVelocity: boolean;

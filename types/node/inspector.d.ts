@@ -1,8 +1,3 @@
-/**
- * The `node:inspector` module provides an API for interacting with the V8
- * inspector.
- * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/inspector.js)
- */
 declare module "node:inspector" {
     import { EventEmitter } from "node:events";
     /**

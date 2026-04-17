@@ -69,10 +69,6 @@ declare namespace picomatch {
          */
         contains?: boolean | undefined;
         /**
-         * Current working directory. Used by `picomatch.split()`
-         */
-        cwd?: string | undefined;
-        /**
          * Debug regular expressions when an error is thrown.
          */
         debug?: boolean | undefined;
@@ -87,10 +83,6 @@ declare namespace picomatch {
          */
         expandRange?(from: string, to: string, options: PicomatchOptions): string;
         expandRange?(from: string, to: string, step: string, options: PicomatchOptions): string;
-        /**
-         * Throws an error if no matches are found. Based on the bash option of the same name.
-         */
-        failglob?: boolean | undefined;
         /**
          * To speed up processing, full parsing is skipped for a handful common glob patterns. Disable this behavior by setting this option to `false`.
          */
@@ -136,12 +128,6 @@ declare namespace picomatch {
          */
         nocase?: boolean | undefined;
         /**
-         * @deprecated use `nounique` instead.
-         * This option will be removed in a future major release. By default duplicates are removed.
-         * Disable uniquification by setting this option to false.
-         */
-        nodupes?: boolean | undefined;
-        /**
          * Alias for `noextglob`
          */
         noext?: boolean | undefined;
@@ -158,10 +144,6 @@ declare namespace picomatch {
          */
         nonegate?: boolean | undefined;
         /**
-         * Disable support for regex quantifiers (like `a{1,2}`) and treat them as brace patterns to be expanded.
-         */
-        noquantifiers?: boolean | undefined;
-        /**
          * Function to be called on ignored items.
          */
         onIgnore?: ((result: Result) => void) | undefined;
@@ -177,10 +159,6 @@ declare namespace picomatch {
          * Support POSIX character classes ("posix brackets").
          */
         posix?: boolean | undefined;
-        /**
-         * Convert all slashes in file paths to forward slashes. This does not convert slashes in the glob pattern itself.
-         */
-        posixSlashes?: boolean | undefined;
         /**
          * String to prepend to the generated regex used for matching.
          */

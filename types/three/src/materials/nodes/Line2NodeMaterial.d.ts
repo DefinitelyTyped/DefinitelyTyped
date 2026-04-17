@@ -82,6 +82,13 @@ declare class Line2NodeMaterial extends NodeMaterial {
      */
     readonly isLine2NodeMaterial: boolean;
     setValues(values?: Line2NodeMaterialParameters): void;
+    /**
+     * Copies the properties of the given material to this instance.
+     *
+     * @param {Line2NodeMaterial} source - The material to copy.
+     * @return {Line2NodeMaterial} A reference to this material.
+     */
+    copy(source: Line2NodeMaterial): this;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface

@@ -1,6 +1,14 @@
 import { Item } from "../ui/Item.js";
 import { Tab } from "../ui/Tab.js";
-import { ValueButton, ValueCheckbox, ValueColor, ValueNumber, ValueSelect, ValueSlider } from "../ui/Values.js";
+import {
+    ValueButton,
+    ValueCheckbox,
+    ValueColor,
+    ValueNumber,
+    ValueSelect,
+    ValueSlider,
+    ValueString,
+} from "../ui/Values.js";
 
 type KeyToValueOfType<T, V> = { [K in keyof T]: T[K] extends V ? K : never }[keyof T];
 
@@ -31,6 +39,14 @@ interface ValueCheckboxWithParameters<
     T = Record<string, unknown>,
     K extends KeyToValueOfType<T, boolean> = KeyToValueOfType<T, boolean>,
 > extends ValueCheckbox<T, K> {
+    name: (name: string) => this;
+    listen: () => this;
+}
+
+interface ValueStringWithParameters<
+    T = Record<string, unknown>,
+    K extends KeyToValueOfType<T, string> = KeyToValueOfType<T, string>,
+> extends ValueString<T, K> {
     name: (name: string) => this;
     listen: () => this;
 }
@@ -79,6 +95,11 @@ declare class ParametersGroup {
         property: K,
         options?: never,
     ): ValueCheckboxWithParameters<T, K>;
+    add<T, K extends KeyToValueOfType<T, string>>(
+        object: T,
+        property: K,
+        options?: never,
+    ): ValueStringWithParameters<T, K>;
     add<T, K extends KeyToValueOfType<T, (this: T) => void>>(
         object: T,
         property: K,

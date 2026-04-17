@@ -1,59 +1,3 @@
-/**
- * The `node:worker_threads` module enables the use of threads that execute
- * JavaScript in parallel. To access it:
- *
- * ```js
- * import worker from 'node:worker_threads';
- * ```
- *
- * Workers (threads) are useful for performing CPU-intensive JavaScript operations.
- * They do not help much with I/O-intensive work. The Node.js built-in
- * asynchronous I/O operations are more efficient than Workers can be.
- *
- * Unlike `child_process` or `cluster`, `worker_threads` can share memory. They do
- * so by transferring `ArrayBuffer` instances or sharing `SharedArrayBuffer` instances.
- *
- * ```js
- * import {
- *   Worker,
- *   isMainThread,
- *   parentPort,
- *   workerData,
- * } from 'node:worker_threads';
- *
- * if (!isMainThread) {
- *   const { parse } = await import('some-js-parsing-library');
- *   const script = workerData;
- *   parentPort.postMessage(parse(script));
- * }
- *
- * export default function parseJSAsync(script) {
- *   return new Promise((resolve, reject) => {
- *     const worker = new Worker(new URL(import.meta.url), {
- *       workerData: script,
- *     });
- *     worker.on('message', resolve);
- *     worker.once('error', reject);
- *     worker.once('exit', (code) => {
- *       if (code !== 0)
- *         reject(new Error(`Worker stopped with exit code ${code}`));
- *     });
- *   });
- * };
- * ```
- *
- * The above example spawns a Worker thread for each `parseJSAsync()` call. In
- * practice, use a pool of Workers for these kinds of tasks. Otherwise, the
- * overhead of creating Workers would likely exceed their benefit.
- *
- * When implementing a worker pool, use the `AsyncResource` API to inform
- * diagnostic tools (e.g. to provide asynchronous stack traces) about the
- * correlation between tasks and their outcomes. See `"Using AsyncResource for a Worker thread pool"` in the `async_hooks` documentation for an example implementation.
- *
- * Worker threads inherit non-process-specific options by default. Refer to `Worker constructor options` to know how to customize worker thread options,
- * specifically `argv` and `execArgv` options.
- * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/worker_threads.js)
- */
 declare module "node:worker_threads" {
     import {
         EventEmitter,
@@ -396,11 +340,15 @@ declare module "node:worker_threads" {
     interface Worker extends InternalEventEmitter<WorkerEventMap> {}
     /**
      * Mark an object as not transferable. If `object` occurs in the transfer list of
-     * a `port.postMessage()` call, it is ignored.
+     * a [`port.postMessage()`](https://nodejs.org/docs/latest-v25.x/api/worker_threads.html#portpostmessagevalue-transferlist) call, an error is thrown. This is a no-op if
+     * `object` is a primitive value.
      *
      * In particular, this makes sense for objects that can be cloned, rather than
      * transferred, and which are used by other objects on the sending side.
-     * For example, Node.js marks the `ArrayBuffer`s it uses for its `Buffer pool` with this.
+     * For example, Node.js marks the `ArrayBuffer`s it uses for its
+     * [`Buffer` pool](https://nodejs.org/docs/latest-v25.x/api/buffer.html#static-method-bufferallocunsafesize) with this.
+     * `ArrayBuffer.prototype.transfer()` is disallowed on such array buffer
+     * instances.
      *
      * This operation cannot be undone.
      *
@@ -414,11 +362,17 @@ declare module "node:worker_threads" {
      * markAsUntransferable(pooledBuffer);
      *
      * const { port1 } = new MessageChannel();
-     * port1.postMessage(typedArray1, [ typedArray1.buffer ]);
+     * try {
+     *   // This will throw an error, because pooledBuffer is not transferable.
+     *   port1.postMessage(typedArray1, [ typedArray1.buffer ]);
+     * } catch (error) {
+     *   // error.name === 'DataCloneError'
+     * }
      *
      * // The following line prints the contents of typedArray1 -- it still owns
-     * // its memory and has been cloned, not transferred. Without
-     * // `markAsUntransferable()`, this would print an empty Uint8Array.
+     * // its memory and has not been transferred. Without
+     * // `markAsUntransferable()`, this would print an empty Uint8Array and the
+     * // postMessage call would have succeeded.
      * // typedArray2 is intact as well.
      * console.log(typedArray1);
      * console.log(typedArray2);

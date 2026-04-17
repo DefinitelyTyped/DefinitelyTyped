@@ -190,3 +190,17 @@ function test_newly_added_options() {
         },
     });
 }
+
+function test_hideDSN_option() {
+    const smtpServerInstance = new SMTPServer({
+        hideDSN: true,
+    });
+}
+
+function test_onData_with_message() {
+    const smtpServerInstance = new SMTPServer({
+        onData(stream, session, callback) {
+            callback(null, "Message queued");
+        },
+    });
+}

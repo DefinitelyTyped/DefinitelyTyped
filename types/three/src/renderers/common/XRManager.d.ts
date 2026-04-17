@@ -33,7 +33,7 @@ export interface LayerAttributes {
  *
  * @augments EventDispatcher
  */
-declare class XRManager extends EventDispatcher<XRManagerEventMap> {
+declare class XRManager<TEventMap extends XRManagerEventMap = XRManagerEventMap> extends EventDispatcher<TEventMap> {
     /**
      * Constructs a new XR manager.
      *
@@ -162,12 +162,6 @@ declare class XRManager extends EventDispatcher<XRManagerEventMap> {
      * @readonly
      */
     private readonly _supportsGlBinding;
-    _frameBufferTargets:
-        | WeakMap<XRRenderTarget, {
-            frameBufferTarget: RenderTarget | null;
-            quad: QuadMesh;
-        }>
-        | null;
     /**
      * Helper function to create native WebXR Layer.
      *

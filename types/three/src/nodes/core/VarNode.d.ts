@@ -1,7 +1,7 @@
 import Node from "./Node.js";
 
-interface VarNodeInterface {
-    node: Node;
+interface VarNodeInterface<TNode> {
+    node: TNode;
     name: string | null;
 
     readonly isVarNode: true;
@@ -15,25 +15,31 @@ interface VarNodeInterface {
 }
 
 declare const VarNode: {
-    new<TNodeType>(node: Node<TNodeType>, name?: string | null, readOnly?: boolean): VarNode<TNodeType>;
+    new<TNodeType, TNode>(node: TNode, name?: string | null, readOnly?: boolean): VarNode<TNodeType, TNode>;
 };
 
-type VarNode<TNodeType = unknown> = Node<TNodeType> & VarNodeInterface;
+type VarNode<TNodeType, TNode> = Node<TNodeType> & VarNodeInterface<TNode>;
 
 export default VarNode;
 
-export const Var: <TNodeType>(node: Node<TNodeType>, name?: string | null) => VarNode<TNodeType>;
+export const Var: <TNodeType, TNode extends Node<TNodeType>>(
+    node: TNode,
+    name?: string | null,
+) => VarNode<TNodeType, TNode>;
 
-export const Const: <TNodeType>(node: Node<TNodeType>, name?: string | null) => VarNode<TNodeType>;
+export const Const: <TNodeType, TNode extends Node<TNodeType>>(
+    node: TNode,
+    name?: string | null,
+) => VarNode<TNodeType, TNode>;
 
-export const VarIntent: <TNodeType>(node: Node<TNodeType>) => Node<TNodeType>;
+export const VarIntent: <TNodeType, TNode extends Node<TNodeType>>(node: TNode) => VarNode<TNodeType, TNode>;
 
 declare module "./Node.js" {
     interface NodeExtensions<TNodeType> {
-        toVar: (name?: string | null) => VarNode<TNodeType>;
+        toVar: (name?: string | null) => VarNode<TNodeType, this>;
 
-        toConst: (name?: string | null) => VarNode<TNodeType>;
+        toConst: (name?: string | null) => VarNode<TNodeType, this>;
 
-        toVarIntent: () => Node<TNodeType>;
+        toVarIntent: () => VarNode<TNodeType, this>;
     }
 }

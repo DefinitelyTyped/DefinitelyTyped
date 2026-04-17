@@ -10,5 +10,5 @@ at https://www.w3.org/TR/webrtc/.
 This particular set of definitions does not use any vendor-specific prefixes.
 Instead, you should probably use [adapter.js](https://github.com/webrtc/adapter).
 
-The definitions track the currently published working draft. Deprecated
+The definitions track the [currently published working draft](https://w3c.github.io/webrtc-pc/). Deprecated
 features are dropped.

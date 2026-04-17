@@ -1,17 +1,3 @@
-/**
- * > Stability: 2 - Stable
- *
- * The `node:net` module provides an asynchronous network API for creating stream-based
- * TCP or `IPC` servers ({@link createServer}) and clients
- * ({@link createConnection}).
- *
- * It can be accessed using:
- *
- * ```js
- * import net from 'node:net';
- * ```
- * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/net.js)
- */
 declare module "node:net" {
     import { NonSharedBuffer } from "node:buffer";
     import * as dns from "node:dns";
@@ -38,6 +24,7 @@ declare module "node:net" {
         keepAlive?: boolean | undefined;
         keepAliveInitialDelay?: number | undefined;
         blockList?: BlockList | undefined;
+        typeOfService?: number | undefined;
     }
     interface OnReadOpts {
         buffer: Uint8Array | (() => Uint8Array);
@@ -116,9 +103,14 @@ declare module "node:net" {
          * See `Writable` stream `write()` method for more
          * information.
          * @since v0.1.90
-         * @param [encoding='utf8'] Only used when data is `string`.
          */
         write(buffer: Uint8Array | string, cb?: (err?: Error | null) => void): boolean;
+        /**
+         * Sends data on the socket, with an explicit encoding for string data.
+         * @see {@link Socket.write} for full details.
+         * @since v0.1.90
+         * @param [encoding='utf8'] Only used when data is `string`.
+         */
         write(str: Uint8Array | string, encoding?: BufferEncoding, cb?: (err?: Error | null) => void): boolean;
         /**
          * Initiate a connection on a given socket.
@@ -226,6 +218,37 @@ declare module "node:net" {
          * @return The socket itself.
          */
         setKeepAlive(enable?: boolean, initialDelay?: number): this;
+        /**
+         * Returns the current Type of Service (TOS) field for IPv4 packets or Traffic
+         * Class for IPv6 packets for this socket.
+         *
+         * `setTypeOfService()` may be called before the socket is connected; the value
+         * will be cached and applied when the socket establishes a connection.
+         * `getTypeOfService()` will return the currently set value even before connection.
+         *
+         * On some platforms (e.g., Linux), certain TOS/ECN bits may be masked or ignored,
+         * and behavior can differ between IPv4 and IPv6 or dual-stack sockets. Callers
+         * should verify platform-specific semantics.
+         * @since v25.6.0
+         * @returns The current TOS value.
+         */
+        getTypeOfService(): number;
+        /**
+         * Sets the Type of Service (TOS) field for IPv4 packets or Traffic Class for IPv6
+         * Packets sent from this socket. This can be used to prioritize network traffic.
+         *
+         * `setTypeOfService()` may be called before the socket is connected; the value
+         * will be cached and applied when the socket establishes a connection.
+         * `getTypeOfService()` will return the currently set value even before connection.
+         *
+         * On some platforms (e.g., Linux), certain TOS/ECN bits may be masked or ignored,
+         * and behavior can differ between IPv4 and IPv6 or dual-stack sockets. Callers
+         * should verify platform-specific semantics.
+         * @since v25.6.0
+         * @param tos The TOS value to set (0-255).
+         * @returns The socket itself.
+         */
+        setTypeOfService(tos: number): this;
         /**
          * Returns the bound `address`, the address `family` name and `port` of the
          * socket as reported by the operating system:`{ port: 12346, family: 'IPv4', address: '127.0.0.1' }`
@@ -358,12 +381,26 @@ declare module "node:net" {
          *
          * See `writable.end()` for further details.
          * @since v0.1.90
-         * @param [encoding='utf8'] Only used when data is `string`.
          * @param callback Optional callback for when the socket is finished.
          * @return The socket itself.
          */
         end(callback?: () => void): this;
+        /**
+         * Half-closes the socket, with one final chunk of data.
+         * @see {@link Socket.end} for full details.
+         * @since v0.1.90
+         * @param callback Optional callback for when the socket is finished.
+         * @return The socket itself.
+         */
         end(buffer: Uint8Array | string, callback?: () => void): this;
+        /**
+         * Half-closes the socket, with one final chunk of data.
+         * @see {@link Socket.end} for full details.
+         * @since v0.1.90
+         * @param [encoding='utf8'] Only used when data is `string`.
+         * @param callback Optional callback for when the socket is finished.
+         * @return The socket itself.
+         */
         end(str: Uint8Array | string, encoding?: BufferEncoding, callback?: () => void): this;
         // #region InternalEventEmitter
         addListener<E extends keyof SocketEventMap>(eventName: E, listener: (...args: SocketEventMap[E]) => void): this;

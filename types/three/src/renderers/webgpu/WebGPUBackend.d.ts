@@ -1,14 +1,19 @@
-/// <reference types="@webgpu/types" />
-
 import { CoordinateSystem, HalfFloatType, UnsignedByteType } from "../../constants.js";
 import Backend, { BackendParameters } from "../common/Backend.js";
 
+interface GPUDevice {}
+
+interface GPUCanvasContext {}
+
 export interface WebGPUBackendParameters extends BackendParameters {
     alpha?: boolean | undefined;
-    requiredLimits?: Record<string, GPUSize64> | undefined;
+    requiredLimits?: Record<string, number> | undefined;
     trackTimestamp?: boolean | undefined;
     device?: GPUDevice | undefined;
-    powerPreference?: GPUPowerPreference | undefined;
+    powerPreference?:
+        | "low-power"
+        | "high-performance"
+        | undefined;
     context?: GPUCanvasContext | undefined;
     outputType?: typeof UnsignedByteType | typeof HalfFloatType | undefined;
 }

@@ -3,6 +3,8 @@ import Node from "../core/Node.js";
 declare class BarrierNode extends Node {
     scope: string;
 
+    readonly isBarrierNode: boolean;
+
     constructor(scope: string);
 }
 

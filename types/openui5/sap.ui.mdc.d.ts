@@ -1,4 +1,4 @@
-// For Library Version: 1.145.0
+// For Library Version: 1.146.0
 
 declare module "sap/ui/mdc/AggregationBaseDelegate" {
   import BaseDelegate from "sap/ui/mdc/BaseDelegate";
@@ -23253,7 +23253,7 @@ declare module "sap/ui/mdc/util/PropertyHelper" {
     visible?: boolean;
     /**
      * Key of the group in which the property is located. Used to visually group properties in personalization
-     * dialogs.
+     * dialogs. The group with the `basic` key is always shown as the first group.
      */
     group?: string;
     /**

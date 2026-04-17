@@ -346,9 +346,10 @@ declare namespace chrome {
         export function setIcon(details: TabIconDetails, callback: () => void): void;
 
         /**
-         * Sets the html document to be opened as a popup when the user clicks on the action's icon.
+         * Sets the HTML document to be opened as a popup when the user clicks on the action's icon.
          *
          * Can return its result via Promise.
+         * @since Chrome 96
          */
         export function setPopup(details: PopupDetails): Promise<void>;
         export function setPopup(details: PopupDetails, callback: () => void): void;
@@ -1165,6 +1166,7 @@ declare namespace chrome {
          * Clears websites' cache storage data.
          *
          * Can return its result via Promise in Manifest V3 or later since Chrome 96.
+         * @since Chrome 72
          */
         export function removeCacheStorage(options: RemovalOptions): Promise<void>;
         export function removeCacheStorage(options: RemovalOptions, callback: () => void): void;
@@ -2433,7 +2435,17 @@ declare namespace chrome {
          * Exactly one of `imageData` or `path` must be specified. Both are dictionaries mapping a number of pixels to an image representation. The image representation in `imageData` is an `ImageData` object; for example, from a `canvas` element, while the image representation in `path` is the path to an image file relative to the extension's manifest. If `scale` screen pixels fit into a device-independent pixel, the `scale * n` icon is used. If that scale is missing, another image is resized to the required size.
          */
         export class SetIcon {
-            constructor(options?: { imageData?: ImageData | { [size: string]: ImageData } | undefined });
+            constructor(
+                options:
+                    | {
+                        imageData: ImageData | { [index: number]: ImageData };
+                        path?: string | { [index: number]: string } | undefined;
+                    }
+                    | {
+                        imageData?: ImageData | { [index: number]: ImageData } | undefined;
+                        path: string | { [index: number]: string };
+                    },
+            );
         }
 
         /** Provides the Declarative Event API consisting of {@link events.Event.addRules addRules}, {@link events.Event.removeRules removeRules}, and {@link events.Event.getRules getRules}. */
@@ -3330,7 +3342,7 @@ declare namespace chrome {
             /** Indicates the data type of the option. The requested data type must match the real data type of the underlying option. */
             type: `${OptionType}`;
             /** Indicates the value to set. Leave unset to request automatic setting for options that have `autoSettable` enabled. The data type supplied for `value` must match `type`. */
-            value?: string | number | boolean | number;
+            value?: string | number | boolean | number[];
         }
 
         /**
@@ -3560,6 +3572,8 @@ declare namespace chrome {
         /**
          * Performs a document scan and returns a Promise that resolves with a {@link ScanResults} object. If a callback is passed to this function, the returned data is passed to it instead.
          * @param options An object containing scan parameters.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          */
         export function scan(options: ScanOptions): Promise<ScanResults>;
         export function scan(options: ScanOptions, callback: (result: ScanResults) => void): void;
@@ -4364,9 +4378,12 @@ declare namespace chrome {
         }
 
         /**
-         * Retrieves the network details of the device's default network. If the user is not affiliated or the device is not connected to a network, runtime.lastError will be set with a failure reason.
+         * Retrieves the network details of the device's default network. If the user is not affiliated or the device is not connected to a network, {@link runtime.lastError} will be set with a failure reason.
          * @param callback Called with the device's default network's NetworkDetails.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          */
+        export function getNetworkDetails(): Promise<NetworkDetails>;
         export function getNetworkDetails(callback: (networkDetails: NetworkDetails) => void): void;
     }
 
@@ -6308,7 +6325,7 @@ declare namespace chrome {
          * This API is different from identity.getAccounts in two ways. The information returned is available offline, and it only applies to the primary account for the profile.
          * @param details Profile options.
          *
-         * Can return its result via Promise since Chrome 105.
+         * Can return its result via Promise since Chrome 106.
          */
         export function getProfileUserInfo(details?: ProfileDetails): Promise<ProfileUserInfo>;
         export function getProfileUserInfo(
@@ -6323,7 +6340,7 @@ declare namespace chrome {
          * If an access token is discovered to be invalid, it should be passed to removeCachedAuthToken to remove it from the cache. The app may then retrieve a fresh token with `getAuthToken`.
          * @param details Token information.
          *
-         * Can return its result via Promise since Chrome 105.
+         * Can return its result via Promise since Chrome 106.
          */
         export function removeCachedAuthToken(details: InvalidTokenDetails): Promise<void>;
         export function removeCachedAuthToken(details: InvalidTokenDetails, callback: () => void): void;
@@ -7911,7 +7928,7 @@ declare namespace chrome {
 
         export enum ClientCertificateType {
             ECDSA_SIGN = "ecdsaSign",
-            RAS_SIGN = "rasSign",
+            RSA_SIGN = "rsaSign",
         }
 
         export interface SelectDetails {
@@ -8806,7 +8823,7 @@ declare namespace chrome {
         export type QueryInfo =
             & {
                 /** String to query with the default search provider. */
-                text?: string | undefined;
+                text: string;
             }
             & (
                 | {
@@ -9247,36 +9264,37 @@ declare namespace chrome {
 
         export interface ManifestBase {
             // Required
+            /** An integer specifying the version of the manifest file format that your extension uses. */
             manifest_version: number;
+            /** A string that identifies the extension in the Chrome Web Store, the install dialog, and the user's Chrome Extensions page (`chrome://extensions`). The maximum length is 75 characters. */
             name: string;
+            /** A string that identifies the extension's version number. */
             version: string;
 
             // Recommended
+            /** A string that defines the default language of an extension that supports multiple locales. Examples include "en" and "pt_BR". This key is required in localized extensions, and must not be used in extensions that aren't localized. */
             default_locale?: string | undefined;
+            /** A string that describes the extension on both the Chrome Web Store and the user's extension management page. The maximum length is 132 characters. */
             description?: string | undefined;
+            /** One or more icons that represent your extension. */
             icons?: ManifestIcons | undefined;
 
             // Optional
-            author?: {
-                email: string;
-            } | undefined;
-            background_page?: string | undefined;
+            /** @deprecated As of February 2024, the `author` key is no longer supported by Chrome or the Chrome Web Store. If present, it's silently ignored. */
+            author?: { email: string } | undefined;
+            /** Defines overrides for selected Chrome settings.  */
             chrome_settings_overrides?: {
                 homepage?: string | undefined;
                 search_provider?: SearchProvider | undefined;
                 startup_pages?: string[] | undefined;
             } | undefined;
-            chrome_ui_overrides?: {
-                bookmarks_ui?: {
-                    remove_bookmark_shortcut?: boolean | undefined;
-                    remove_button?: boolean | undefined;
-                } | undefined;
-            } | undefined;
+            /** Defines overrides for default Chrome pages. */
             chrome_url_overrides?: {
                 bookmarks?: string | undefined;
                 history?: string | undefined;
                 newtab?: string | undefined;
             } | undefined;
+            /** Defines keyboard shortcuts within the extension. */
             commands?: {
                 [name: string]: {
                     suggested_key?: {
@@ -9294,38 +9312,30 @@ declare namespace chrome {
                 matches?: string[] | undefined;
                 permissions?: string[] | undefined;
             } | undefined;
-            content_scripts?:
-                | Array<{
-                    matches?: string[] | undefined;
-                    exclude_matches?: string[] | undefined;
-                    css?: string[] | undefined;
-                    js?: string[] | undefined;
-                    run_at?: string | undefined;
-                    all_frames?: boolean | undefined;
-                    match_about_blank?: boolean | undefined;
-                    include_globs?: string[] | undefined;
-                    exclude_globs?: string[] | undefined;
-                }>
-                | undefined;
             converted_from_user_script?: boolean | undefined;
+            /** Specifies a value for the Cross-Origin-Embedder-Policy HTTP header, which configures embedding of cross-origin resources in an extension page. */
+            cross_origin_embedder_policy?: { value: string } | undefined;
+            /** Specifies a value for the Cross-Origin-Opener-Policy HTTP header, which lets you ensure that a top-level extension page doesn't share a browsing context group with cross-origin documents. */
+            cross_origin_opener_policy?: { value: string } | undefined;
             current_locale?: string | undefined;
+            /** Defines static rules for the declarativeNetRequest API, which allows blocking and modifying of network requests. */
+            declarative_net_request?: { rule_resources?: declarativeNetRequest.Ruleset[] } | undefined;
+            /** Defines pages that use the DevTools APIs. */
             devtools_page?: string | undefined;
             event_rules?:
                 | Array<{
                     event?: string | undefined;
-                    actions?:
-                        | Array<{
-                            type: string;
-                        }>
-                        | undefined;
+                    actions?: Array<{ type: string }> | undefined;
                     conditions?: chrome.declarativeContent.PageStateMatcherProperties[] | undefined;
                 }>
                 | undefined;
+            /** Specifies what other pages and extensions can connect to your extensions. */
             externally_connectable?: {
                 ids?: string[] | undefined;
                 matches?: string[] | undefined;
                 accepts_tls_channel_id?: boolean | undefined;
             } | undefined;
+            /** Provides access to the fileBrowserHandler API, which lets extensions access the ChromeOS file browser. */
             file_browser_handlers?:
                 | Array<{
                     id?: string | undefined;
@@ -9333,35 +9343,44 @@ declare namespace chrome {
                     file_filters?: string[] | undefined;
                 }>
                 | undefined;
+            /** Allows access to the fileSystemProvider API, which lets extensions create file systems that ChromeOS can use. */
             file_system_provider_capabilities?: {
+                /** Whether configuring via onConfigureRequested is supported. By default: false. */
                 configurable?: boolean | undefined;
+                /** Whether setting watchers and notifying about changes is supported. By default: false. */
                 watchable?: boolean | undefined;
+                /** Whether multiple (more than one) mounted file systems are supported. By default: false. */
                 multiple_mounts?: boolean | undefined;
-                source?: string | undefined;
+                /** Files app uses above information in order to render related UI elements appropriately. For example, if `configurable` is set to true, then a menu item for configuring volumes will be rendered. Similarly, if `multiple_mounts` is set to true, then Files app will allow to add more than one mount points from the UI. If `watchable` is false, then a refresh button will be rendered. Note, that if possible you should add support for watchers, so changes on the file system can be reflected immediately and automatically. */
+                source: "file" | "device" | "network";
             } | undefined;
+            /**  string specifying a URL for the extension's homepage. If this is undefined, the homepage defaults to the extension's Chrome Web Store page. This field is particularly useful if you host the extension on your own site. */
             homepage_url?: string | undefined;
+            /** Allows resources to be imported into the extension. */
             import?:
                 | Array<{
                     id: string;
                     minimum_version?: string | undefined;
                 }>
                 | undefined;
-            export?: {
-                whitelist?: string[] | undefined;
-            } | undefined;
-            incognito?: string | undefined;
+            /** Allows resources to be exported from the extension. */
+            export?: { allowlist?: string[] | undefined } | undefined;
+            /** Defines how the extension behaves in incognito mode. */
+            incognito?: "spanning" | "split" | "not_allowed" | undefined;
+            /** Allows the use of the Input Method Editor API. */
             input_components?:
                 | Array<{
-                    name?: string | undefined;
-                    type?: string | undefined;
+                    name: string;
                     id?: string | undefined;
-                    description?: string | undefined;
                     language?: string[] | string | undefined;
-                    layouts?: string[] | undefined;
-                    indicator?: string | undefined;
+                    layouts?: string[] | string | undefined;
+                    input_view?: string | undefined;
+                    options_page?: string | undefined;
                 }>
                 | undefined;
+            /** Specifies your extension's ID for various development use cases. */
             key?: string | undefined;
+            /** Defines the oldest Chrome version that can install your extension. The value must be a substring of an existing Chrome browser version string, such as "107" or "107.0.5304.87". Users with versions of Chrome older than the minimum version see a "Not compatible" warning in the Chrome Web Store, and are unable to install your extension. If you add this to an existing extension, users whose Chrome version is older won't receive automatic updates to your extension. This includes business users in ephemeral mode. */
             minimum_chrome_version?: string | undefined;
             nacl_modules?:
                 | Array<{
@@ -9369,53 +9388,39 @@ declare namespace chrome {
                     mime_type: string;
                 }>
                 | undefined;
+            /** Allows the use of an OAuth 2.0 security ID. The value of this key must be an object with "client_id" and "scopes" properties. */
             oauth2?: {
                 client_id: string;
                 scopes?: string[] | undefined;
             } | undefined;
             offline_enabled?: boolean | undefined;
-            omnibox?: {
-                keyword: string;
-            } | undefined;
+            /** Allows the extension to register a keyword in Chrome's address bar. */
+            omnibox?: { keyword: string } | undefined;
+            /** Specifies a path to an options.html file for the extension to use as an options page. */
             options_page?: string | undefined;
+            /** Specifies a path to an HTML file that lets a user change extension options from the Chrome Extensions page. */
             options_ui?: {
-                page?: string | undefined;
-                chrome_style?: boolean | undefined;
-                open_in_tab?: boolean | undefined;
+                /** Path to the options page, relative to the extension's root. */
+                page: string;
+                /** Specify as `false` to declare an embedded options page. If `true`, the extension's options page will be opened in a new tab rather than embedded in `chrome://extensions`. */
+                open_in_tab: boolean;
             } | undefined;
-            platforms?:
-                | Array<{
-                    nacl_arch?: string | undefined;
-                    sub_package_path: string;
-                }>
-                | undefined;
-            plugins?:
-                | Array<{
-                    path: string;
-                }>
-                | undefined;
+            /** Lists technologies required to use the extension. */
             requirements?: {
-                "3D"?: {
-                    features?: string[] | undefined;
-                } | undefined;
-                plugins?: {
-                    npapi?: boolean | undefined;
-                } | undefined;
+                "3D"?: { features?: string[] | undefined } | undefined;
+                /** @deprecated NPAPI Plugin support for extensions has been discontinued as of Chrome version 45 */
+                plugins?: { npapi?: boolean | undefined } | undefined;
             } | undefined;
+            /** Defines a set of extension pages that don't have access to extension APIs or direct access to non-sandboxed pages. */
             sandbox?: {
                 pages: string[];
                 content_security_policy?: string | undefined;
             } | undefined;
+            /** A string containing a shortened version of the extension's name to be used when character space is limited. The maximum length is 12 characters. If this is undefined, a truncated version of the "name" key displays instead. */
             short_name?: string | undefined;
-            spellcheck?: {
-                dictionary_language?: string | undefined;
-                dictionary_locale?: string | undefined;
-                dictionary_format?: string | undefined;
-                dictionary_path?: string | undefined;
-            } | undefined;
-            storage?: {
-                managed_schema: string;
-            } | undefined;
+            /** Declares a JSON schema for the managed storage area. */
+            storage?: { managed_schema: string } | undefined;
+            /** Registers the extension as a text to speech engine. */
             tts_engine?: {
                 voices: Array<{
                     voice_name: string;
@@ -9424,13 +9429,14 @@ declare namespace chrome {
                     event_types?: string[] | undefined;
                 }>;
             } | undefined;
+            /** A string containing the URL of the extension's updates page. Use this key if you're hosting your extension outside the Chrome Web Store. */
             update_url?: string | undefined;
+            /** A string describing the extension's version. Examples include "1.0 beta" and "build rc2". If this is unspecified, the "version" value displays on the extension management page instead. */
             version_name?: string | undefined;
             [key: string]: any;
         }
 
         export interface ManifestV2 extends ManifestBase {
-            // Required
             manifest_version: 2;
 
             // Pick one (or none)
@@ -9445,24 +9451,50 @@ declare namespace chrome {
                     persistent?: boolean | undefined;
                 }
                 | undefined;
+            /** Specifies JavaScript or CSS files to be used when the user opens certain web pages. */
+            content_scripts?:
+                | Array<{
+                    matches?: string[] | undefined;
+                    exclude_matches?: string[] | undefined;
+                    css?: string[] | undefined;
+                    js?: string[] | undefined;
+                    run_at?: string | undefined;
+                    all_frames?: boolean | undefined;
+                    match_about_blank?: boolean | undefined;
+                    include_globs?: string[] | undefined;
+                    exclude_globs?: string[] | undefined;
+                }>
+                | undefined;
+            /** Defines restrictions on the scripts, styles, and other resources an extension can use. */
             content_security_policy?: string | undefined;
+            /** Declares optional permissions for your extension. */
             optional_permissions?: (ManifestOptionalPermission | string)[] | undefined;
+            /** Enables use of particular extension APIs. */
             permissions?: (ManifestPermission | string)[] | undefined;
+            platforms?:
+                | Array<{
+                    nacl_arch?: string | undefined;
+                    sub_package_path: string;
+                }>
+                | undefined;
+            /** Defines files within the extension that can be accessed by web pages or other extensions. */
             web_accessible_resources?: string[] | undefined;
         }
 
         export interface ManifestV3 extends ManifestBase {
-            // Required
             manifest_version: 3;
 
             // Optional
+            /** Defines the appearance and behavior of the extension's icon in the Google Toolbar. */
             action?: ManifestAction | undefined;
+            /** Specifies the JavaScript file containing the extension's service worker, which acts as an event handler. */
             background?:
                 | {
                     service_worker: string;
-                    type?: "module"; // If the service worker uses ES modules
+                    type?: "module";
                 }
                 | undefined;
+            /** Specifies JavaScript or CSS files to be used when the user opens certain web pages. */
             content_scripts?:
                 | Array<{
                     matches?: string[] | undefined;
@@ -9477,14 +9509,35 @@ declare namespace chrome {
                     world?: "ISOLATED" | "MAIN" | undefined;
                 }>
                 | undefined;
+            /** Defines restrictions on the scripts, styles, and other resources an extension can use. */
             content_security_policy?: {
                 extension_pages?: string;
                 sandbox?: string;
-            };
+            } | undefined;
+            /** Specifies file types for ChromeOS extensions to handle. */
+            file_handlers?:
+                | Array<{
+                    /** Specifies an HTML file to show when a file is opened. The file must be within your extension. Processing the file, whether it's displayed or used in some other way, is done with JavaScript using appropriate web platform APIs. This code must be in a separate JavaScript file included via a `<script>` tag. */
+                    action: string;
+                    /** A user friendly description of the action. */
+                    name: string;
+                    /** The file types that can be processed by the page specified in "action". The items in the dictionary are a key/value pair where the key is a MIME type and the value is an array of file extensions. Only known MIME types are allowed for the key. Custom file types are allowed but the key for a custom type must be a known MIME type, and the mapping between the MIME type and the custom file type must be supported by the underlying operating system. */
+                    accept: { [mime_type: string]: string[] };
+                    /** Specifies whether multiple files should be opened in a single client or multiple clients. The default value is "single-client". */
+                    launch_type?: "multiple-clients" | "single-client" | undefined;
+                }>
+                | undefined;
+            /** Lists the web pages your extension is allowed to interact with, defined using URL match patterns. User permission for these sites is requested at install time. */
             host_permissions?: string[] | undefined;
+            /** Declares optional permissions for your extension. */
             optional_permissions?: ManifestOptionalPermission[] | undefined;
+            /** Declares optional host permissions for your extension. */
             optional_host_permissions?: string[] | undefined;
+            /** Enables use of particular extension APIs. */
             permissions?: ManifestPermission[] | undefined;
+            /** Identifies an HTML file to display in a sidePanel. */
+            side_panel?: { default_path: string } | undefined;
+            /** Defines files within the extension that can be accessed by web pages or other extensions. */
             web_accessible_resources?:
                 | Array<
                     & {
@@ -12142,7 +12195,7 @@ declare namespace chrome {
          * Called when the list of {@link TtsVoice} that would be returned by getVoices has changed.
          * @since Chrome 124
          */
-        const onVoicesChanged: chrome.events.Event<() => void>;
+        export const onVoicesChanged: chrome.events.Event<() => void>;
     }
 
     ////////////////////
@@ -13094,7 +13147,7 @@ declare namespace chrome {
             EXTRA_HEADERS = "extraHeaders",
         }
 
-        /** @since Chrome 44 */
+        /** @since Chrome 79 */
         export enum OnErrorOccurredOptions {
             /** Specifies that headers can violate Cross-Origin Resource Sharing (CORS). */
             EXTRA_HEADERS = "extraHeaders",
@@ -13286,14 +13339,14 @@ declare namespace chrome {
             extends SetPartial<WebRequestDetails, "documentId" | "documentLifecycle" | "frameType">
         {
             /** Contains the HTTP request body data. Only provided if extraInfoSpec contains 'requestBody'. */
-            requestBody: {
+            requestBody?: {
                 /** Errors when obtaining request body data. */
                 error?: string;
                 /** If the request method is POST and the body is a sequence of key-value pairs encoded in UTF8, encoded as either multipart/form-data, or application/x-www-form-urlencoded, this dictionary is present and for each key contains the list of all values for that key. If the data is of another media type, or if it is malformed, the dictionary is not present. An example value of this dictionary is {'key': \['value1', 'value2'\]}. */
                 formData?: { [key: string]: FormDataItem[] };
                 /** If the request method is PUT or POST, and the body is not already parsed in formData, then the unparsed request body elements are contained in this array. */
                 raw?: UploadData[];
-            } | undefined;
+            };
         }
 
         export interface OnBeforeSendHeadersDetails extends WebRequestDetails {
@@ -14345,7 +14398,7 @@ declare namespace chrome {
              * The headers provided by a hypothetical response if the request does not get blocked or redirected before it is sent. Represented as an object which maps a header name to a list of string values. If not specified, the hypothetical response would return empty response headers, which can match rules which match on the non-existence of headers. E.g. `{"content-type": ["text/html; charset=utf-8", "multipart/form-data"]}`
              * @since Chrome 129
              */
-            responseHeaders?: { [name: string]: unknown };
+            responseHeaders?: { [name: string]: string[] };
             /** The ID of the tab in which the hypothetical request takes place. Does not need to correspond to a real tab ID. Default is -1, meaning that the request isn't related to a tab. */
             tabId?: number;
             /**
@@ -14683,13 +14736,13 @@ declare namespace chrome {
          * Fired when the extension's side panel is closed.
          * @since Chrome 142
          */
-        const onClosed: events.Event<(info: PanelClosedInfo) => void>;
+        export const onClosed: events.Event<(info: PanelClosedInfo) => void>;
 
         /**
          * Fired when the extension's side panel is opened.
          * @since Chrome 141
          */
-        const onOpened: events.Event<(info: PanelOpenedInfo) => void>;
+        export const onOpened: events.Event<(info: PanelOpenedInfo) => void>;
     }
 
     ////////////////////
@@ -14795,7 +14848,7 @@ declare namespace chrome {
             /** Specifies wildcard patterns for pages this user script will be injected into. */
             includeGlobs?: string[] | undefined;
             /** The list of ScriptSource objects defining sources of scripts to be injected into matching pages. This property must be specified for {@link register}, and when specified it must be a non-empty array.*/
-            js: ScriptSource[];
+            js?: ScriptSource[] | undefined;
             /** Specifies which pages this user script will be injected into. See Match Patterns for more details on the syntax of these strings. This property must be specified for {@link register}. */
             matches?: string[] | undefined;
             /** Specifies when JavaScript files are injected into the web page. The preferred and default value is `document_idle` */

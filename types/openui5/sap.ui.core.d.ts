@@ -279,7 +279,7 @@ declare namespace sap {
     "sap/ui/thirdparty/qunit-2": undefined;
   }
 }
-// For Library Version: 1.145.0
+// For Library Version: 1.146.0
 
 declare module "sap/base/assert" {
   /**
@@ -5531,211 +5531,418 @@ declare module "sap/ui/events/ControlEvents" {
 
 declare module "sap/ui/events/KeyCodes" {
   /**
+   * KeyCodes enumeration.
+   *
    * @since 1.58
    */
   enum KeyCodes {
+    /**
+     * Letter A key
+     */
     A = "65",
-
+    /**
+     * Alt key
+     */
     ALT = "18",
-
+    /**
+     * Down arrow key
+     */
     ARROW_DOWN = "40",
-
+    /**
+     * Left arrow key
+     */
     ARROW_LEFT = "37",
-
+    /**
+     * Right arrow key
+     */
     ARROW_RIGHT = "39",
-
+    /**
+     * Up arrow key
+     */
     ARROW_UP = "38",
-
+    /**
+     * Letter B key
+     */
     B = "66",
-
+    /**
+     * Backslash (\) key
+     */
     BACKSLASH = "226",
-
+    /**
+     * Backspace key
+     */
     BACKSPACE = "8",
-
+    /**
+     * Pause/Break key
+     */
     BREAK = "19",
-
+    /**
+     * Letter C key
+     */
     C = "67",
-
+    /**
+     * Caps Lock key
+     */
     CAPS_LOCK = "20",
-
+    /**
+     * Comma (,) key
+     */
     COMMA = "188",
-
+    /**
+     * Context menu key
+     */
     CONTEXT_MENU = "93",
-
+    /**
+     * Control key
+     */
     CONTROL = "17",
-
+    /**
+     * Letter D key
+     */
     D = "68",
-
+    /**
+     * Delete key
+     */
     DELETE = "46",
-
+    /**
+     * Digit 0 key
+     */
     DIGIT_0 = "48",
-
+    /**
+     * Digit 1 key
+     */
     DIGIT_1 = "49",
-
+    /**
+     * Digit 2 key
+     */
     DIGIT_2 = "50",
-
+    /**
+     * Digit 3 key
+     */
     DIGIT_3 = "51",
-
+    /**
+     * Digit 4 key
+     */
     DIGIT_4 = "52",
-
+    /**
+     * Digit 5 key
+     */
     DIGIT_5 = "53",
-
+    /**
+     * Digit 6 key
+     */
     DIGIT_6 = "54",
-
+    /**
+     * Digit 7 key
+     */
     DIGIT_7 = "55",
-
+    /**
+     * Digit 8 key
+     */
     DIGIT_8 = "56",
-
+    /**
+     * Digit 9 key
+     */
     DIGIT_9 = "57",
-
+    /**
+     * Dot/period (.) key
+     */
     DOT = "190",
-
+    /**
+     * Letter E key
+     */
     E = "69",
-
+    /**
+     * End key
+     */
     END = "35",
-
+    /**
+     * Enter key
+     */
     ENTER = "13",
-
+    /**
+     * Equals (=) key
+     */
     EQUALS = "221",
-
+    /**
+     * Escape key
+     */
     ESCAPE = "27",
-
+    /**
+     * Letter F key
+     */
     F = "70",
-
+    /**
+     * F1 function key
+     */
     F1 = "112",
-
+    /**
+     * F10 function key
+     */
     F10 = "121",
-
+    /**
+     * F11 function key
+     */
     F11 = "122",
-
+    /**
+     * F12 function key
+     */
     F12 = "123",
-
+    /**
+     * F2 function key
+     */
     F2 = "113",
-
+    /**
+     * F3 function key
+     */
     F3 = "114",
-
+    /**
+     * F4 function key
+     */
     F4 = "115",
-
+    /**
+     * F5 function key
+     */
     F5 = "116",
-
+    /**
+     * F6 function key
+     */
     F6 = "117",
-
+    /**
+     * F7 function key
+     */
     F7 = "118",
-
+    /**
+     * F8 function key
+     */
     F8 = "119",
-
+    /**
+     * F9 function key
+     */
     F9 = "120",
-
+    /**
+     * Letter G key
+     */
     G = "71",
-
+    /**
+     * Grave accent (`) key
+     */
     GREAT_ACCENT = "220",
-
+    /**
+     * Letter H key
+     */
     H = "72",
-
+    /**
+     * Home key
+     */
     HOME = "36",
-
+    /**
+     * Letter I key
+     */
     I = "73",
-
+    /**
+     * Insert key
+     */
     INSERT = "45",
-
+    /**
+     * Letter J key
+     */
     J = "74",
-
+    /**
+     * Letter K key
+     */
     K = "75",
-
+    /**
+     * Letter L key
+     */
     L = "76",
-
+    /**
+     * Letter M key
+     */
     M = "77",
-
+    /**
+     * Minus (-) key
+     */
     MINUS = "219",
-
+    /**
+     * Letter N key
+     */
     N = "78",
-
+    /**
+     * Num Lock key
+     */
     NUM_LOCK = "144",
-
+    /**
+     * Numpad 0 key
+     */
     NUMPAD_0 = "96",
-
+    /**
+     * Numpad 1 key
+     */
     NUMPAD_1 = "97",
-
+    /**
+     * Numpad 2 key
+     */
     NUMPAD_2 = "98",
-
+    /**
+     * Numpad 3 key
+     */
     NUMPAD_3 = "99",
-
+    /**
+     * Numpad 4 key
+     */
     NUMPAD_4 = "100",
-
+    /**
+     * Numpad 5 key
+     */
     NUMPAD_5 = "101",
-
+    /**
+     * Numpad 6 key
+     */
     NUMPAD_6 = "102",
-
+    /**
+     * Numpad 7 key
+     */
     NUMPAD_7 = "103",
-
+    /**
+     * Numpad 8 key
+     */
     NUMPAD_8 = "104",
-
+    /**
+     * Numpad 9 key
+     */
     NUMPAD_9 = "105",
-
+    /**
+     * Numpad asterisk (*) key
+     */
     NUMPAD_ASTERISK = "106",
-
+    /**
+     * Numpad comma/decimal (.) key
+     */
     NUMPAD_COMMA = "110",
-
+    /**
+     * Numpad minus (-) key
+     */
     NUMPAD_MINUS = "109",
-
+    /**
+     * Numpad plus (+) key
+     */
     NUMPAD_PLUS = "107",
-
+    /**
+     * Numpad slash (/) key
+     */
     NUMPAD_SLASH = "111",
-
+    /**
+     * Letter O key
+     */
     O = "79",
-
+    /**
+     * Open bracket ([) key
+     */
     OPEN_BRACKET = "186",
-
+    /**
+     * Letter P key
+     */
     P = "80",
-
+    /**
+     * Page Down key
+     */
     PAGE_DOWN = "34",
-
+    /**
+     * Page Up key
+     */
     PAGE_UP = "33",
-
+    /**
+     * Pipe (|) key
+     */
     PIPE = "191",
-
+    /**
+     * Plus (+) key
+     */
     PLUS = "187",
-
+    /**
+     * Print Screen key
+     */
     PRINT = "44",
-
+    /**
+     * Letter Q key
+     */
     Q = "81",
-
+    /**
+     * Letter R key
+     */
     R = "82",
-
+    /**
+     * Letter S key
+     */
     S = "83",
-
+    /**
+     * Scroll Lock key
+     */
     SCROLL_LOCK = "145",
-
+    /**
+     * Semicolon (;) key
+     */
     SEMICOLON = "192",
-
+    /**
+     * Shift key
+     */
     SHIFT = "16",
-
+    /**
+     * Single quote (') key
+     */
     SINGLE_QUOTE = "222",
-
+    /**
+     * Slash (/) key
+     */
     SLASH = "189",
-
+    /**
+     * Sleep key
+     */
     SLEEP = "95",
-
+    /**
+     * Space bar key
+     */
     SPACE = "32",
-
+    /**
+     * Letter T key
+     */
     T = "84",
-
+    /**
+     * Tab key
+     */
     TAB = "9",
-
+    /**
+     * Turn off key
+     */
     TURN_OFF = "94",
-
+    /**
+     * Letter U key
+     */
     U = "85",
-
+    /**
+     * Letter V key
+     */
     V = "86",
-
+    /**
+     * Letter W key
+     */
     W = "87",
-
+    /**
+     * Windows key (or Meta key on Mac)
+     */
     WINDOWS = "91",
-
+    /**
+     * Letter X key
+     */
     X = "88",
-
+    /**
+     * Letter Y key
+     */
     Y = "89",
-
+    /**
+     * Letter Z key
+     */
     Z = "90",
   }
   export default KeyCodes;
@@ -5795,6 +6002,24 @@ declare module "sap/ui/model/FilterProcessor" {
    * @since 1.71
    */
   interface FilterProcessor {
+    /**
+     * Combines control filters and application filters using AND and returns the resulting filter
+     *
+     * @since 1.146.0
+     *
+     * @returns A single filter containing all filters of the arrays combined or `undefined` if no filters are
+     * given
+     */
+    combineFilters(
+      /**
+       * The control filters
+       */
+      aFilters?: Filter[],
+      /**
+       * The application filters
+       */
+      aApplicationFilters?: Filter[]
+    ): Filter | undefined;
     /**
      * Groups filters according to their path and combines filters on the same path using "OR" and filters on
      * different paths using "AND", all multi-filters contained are ANDed.
@@ -11310,7 +11535,7 @@ declare module "sap/ui/app/Application" {
      * Returns the application root component.
      *
      * @since 1.13.1
-     * @deprecated As of version 1.14.
+     * @deprecated As of version 1.14. superseded by {@link sap.ui.core.Component}.
      *
      * @returns The root component
      */
@@ -12392,8 +12617,8 @@ declare module "sap/ui/base/ManagedObject" {
      * ```
      *
      *
-     * Note that when setting string values, any curly braces in those values need to be escaped, so they are
-     * not interpreted as binding expressions. Use {@link #escapeSettingsValue} to do so.
+     * Note that when setting string values, any curly braces and backslashes in those values need to be escaped,
+     * so they are not interpreted as binding expressions. Use {@link #escapeSettingsValue} to do so.
      *
      * **Note:** As of version 1.120, providing aggregation content via an object literal is deprecated, in
      * case the object's type is given via the property 'Type' as a string, or is derived via the defined type
@@ -12514,8 +12739,8 @@ declare module "sap/ui/base/ManagedObject" {
      * ```
      *
      *
-     * Note that when setting string values, any curly braces in those values need to be escaped, so they are
-     * not interpreted as binding expressions. Use {@link #escapeSettingsValue} to do so.
+     * Note that when setting string values, any curly braces and backslashes in those values need to be escaped,
+     * so they are not interpreted as binding expressions. Use {@link #escapeSettingsValue} to do so.
      *
      * **Note:** As of version 1.120, providing aggregation content via an object literal is deprecated, in
      * case the object's type is given via the property 'Type' as a string, or is derived via the defined type
@@ -12579,17 +12804,46 @@ declare module "sap/ui/base/ManagedObject" {
     );
 
     /**
-     * Escapes the given value so it can be used in the constructor's settings object. Should be used when property
-     * values are initialized with static string values which could contain binding characters (curly braces).
+     * Escapes the given value so it can be used in the constructor's settings object.
+     *
+     * Use this method when passing static string values that might contain binding syntax characters. Without
+     * escaping, curly braces in strings would be misinterpreted as data binding expressions.
+     *
+     * **Characters that are escaped:**
+     * 	 - `{` (opening curly brace) - binding expression start
+     * 	 - `}` (closing curly brace) - binding expression end
+     * 	 - `\` (backslash) - escape character itself
+     *
+     * Each of the above characters is prefixed with a backslash, e.g. `{foo}` becomes `\{foo\}`.
+     *
+     * **When to use:**
+     * 	 - Static string values containing curly braces that should be displayed literally
+     * 	 - Rendering escaped backslashes (e.g. expecting `\\\\` to result in `\\`)
+     * 	 - User input or external data used as property values in constructors
+     * 	 - JSON content that should not be parsed as bindings
+     *
+     * Example usage:
+     * ```javascript
+     *
+     * new MyControl({
+     *    // Without escaping: "{info}" would be interpreted as a binding to the path "info"
+     *    // With escaping: displays the literal text "{info}"
+     *    text: ManagedObject.escapeSettingsValue("{info}")
+     * });
+     * ```
+     *
+     *
+     * **Note:** This is only needed when setting values via the constructor or {@link #applySettings}. Setter
+     * method calls, e.g. `setText("{info}")` do not interpret binding syntax and thus do not require escaping.
      *
      * @since 1.52
      *
-     * @returns The given value, escaped for usage as static property value in the constructor's settings object
-     * (or unchanged, if not of type string)
+     * @returns The escaped string value, or the original value if not a string
      */
     static escapeSettingsValue(
       /**
-       * Value to escape; only needs to be done for string values, but the call will work for all types
+       * Value to escape; only strings are escaped, other types (e.g. objects) are returned through unchanged.
+       * Strings nested in objects must be escaped individually.
        */
       vValue: any
     ): any;
@@ -13264,9 +13518,18 @@ declare module "sap/ui/base/ManagedObject" {
      * Destroys (all) the managed object(s) in the aggregation named `sAggregationName` and empties the aggregation.
      * If the aggregation did contain any object, this ManagedObject is marked as changed.
      *
+     * **Note:** Destroying an aggregation by calling this method (or indirectly via `destroyXYZ`) does
+     * not call the named aggregation mutators (`setXYZ` for a 0..1 aggregation, `removeXYZ` for
+     * a 0..n aggregation) for the aggregated children. Controls that implement side effects in those methods
+     * therefore must also implement similar side effects in their `destroyXYZ` method.
+     *
+     * While this is understood as inconvenient, it was decided (February 2026, after a thorough investigation),
+     * not to change it. Too many existing controls depend on the current behavior, and, even worse, would have
+     * severe problems with a changed behavior.
+     *
      * **Note:** This method is a low-level API as described in the class documentation.
      * Applications or frameworks must not use this method to generically destroy all objects in an aggregation.
-     * Use the concrete method destroyXYZ for aggregation 'XYZ' instead.
+     * Use the concrete method `destroyXYZ` for aggregation 'XYZ' instead.
      *
      * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
@@ -14507,13 +14770,20 @@ declare module "sap/ui/base/ManagedObject" {
      */
     length?: int;
     /**
-     * The initial sort order (optional)
+     * The initial sort order
      */
     sorter?: Sorter | Sorter[];
     /**
-     * The predefined filters for this aggregation (optional)
+     * The predefined {@link sap.ui.model.FilterType.Application application filters} for this aggregation where
+     * filter values are constants.
      */
     filters?: Filter | Filter[];
+    /**
+     * The predefined {@link sap.ui.model.FilterType.ApplicationBound bound application filters} for this aggregation.
+     * Filter values support binding expressions. The aggregation updates its filters whenever a filter value
+     * changes through data binding. Supported since 1.146.0.
+     */
+    boundFilters?: Filter | Filter[];
     /**
      * Name of the key property or a function getting the context as only parameter to calculate a key for entries.
      * This can be used to improve update behaviour in models, where a key is not already available.
@@ -18507,55 +18777,55 @@ declare module "sap/ui/core/CommandExecution" {
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
   /**
+   * The CommandExecution registers a shortcut when it is added to the dependent aggregation of a control.
+   * The shortcut information is retrieved from the owner components manifest (`/sap.ui5/commands/<command>`).
+   *
+   * You can use a CommandExecution instead of an event handler in XMLViews by using `cmd:` plus the command
+   * name.
+   *
+   * Example for `sap.m.Button`:
+   *
+   *
+   * ```javascript
+   *
+   * <Button press="cmd:MyCommand" />
+   * ```
+   *
+   *
+   * When the press event is fired, the CommandExecution will be triggered and the `execute` event is fired.
+   *
+   * When using commands, the component will create a model named `$cmd`. The model data provides the enabled
+   * and visible state of all CommandExecutions. With that, action-triggering controls (e.g. a button) can
+   * be bound to the enable/visible property of the CommandExecution to centrally control their state.
+   *
+   * **Note: The usage of the `$cmd` model is restricted to `sap.suite.ui.generic`**
+   *
+   * When binding a button's enabled state to this model, it follows the enabled state of the CommandExecution.
+   * The binding path must be relative like `myCommand/enabled`:
+   *
+   *
+   * ```javascript
+   *
+   * <Button press="cmd:MyCommand" enabled="$cmd>MyCommand/enabled" />
+   * ```
+   *
+   *
+   * A CommandExecution can have three states:
+   * 	 - the CommandExecution is visible and enabled. If the configured shortcut is executed, the configured
+   *     event handler of this CommandExecution is called
+   * 	 - the CommandExecution is visible but not enabled. If the configured shortcut is executed, neither
+   *     the configured event handler of this CommandExecution nor any event handler configured on CommandExecutions
+   *     in the ancestor chain is called
+   * 	 - the CommandExecution is not visible. If the configured shortcut is executed, the configured event
+   *     handler of this CommandExecution is not called, but the event is propagated to its parent, which can
+   *     then handle the event by a configured CommandExecution or propagate the event to its parent, until no
+   *     parent exits anymore and the browser can handle the executed shortcut
+   *
    * @since 1.70
    */
   export default class CommandExecution extends UI5Element {
     /**
      * Creates and initializes a new CommandExecution.
-     *
-     * The CommandExecution registers a shortcut when it is added to the dependent aggregation of a control.
-     * The shortcut information is retrieved from the owner components manifest (`/sap.ui5/commands/<command>`).
-     *
-     * You can use a CommandExecution instead of an event handler in XMLViews by using `cmd:` plus the command
-     * name.
-     *
-     * Example for `sap.m.Button`:
-     *
-     *
-     * ```javascript
-     *
-     * <Button press="cmd:MyCommand" />
-     * ```
-     *
-     *
-     * When the press event is fired, the CommandExecution will be triggered and the `execute` event is fired.
-     *
-     * When using commands, the component will create a model named `$cmd`. The model data provides the enabled
-     * and visible state of all CommandExecutions. With that, action-triggering controls (e.g. a button) can
-     * be bound to the enable/visible property of the CommandExecution to centrally control their state.
-     *
-     * **Note: The usage of the `$cmd` model is restricted to `sap.suite.ui.generic`**
-     *
-     * When binding a button's enabled state to this model, it follows the enabled state of the CommandExecution.
-     * The binding path must be relative like `myCommand/enabled`:
-     *
-     *
-     * ```javascript
-     *
-     * <Button press="cmd:MyCommand" enabled="$cmd>MyCommand/enabled" />
-     * ```
-     *
-     *
-     * A CommandExecution can have three states:
-     * 	 - the CommandExecution is visible and enabled. If the configured shortcut is executed, the configured
-     *     event handler of this CommandExecution is called
-     * 	 - the CommandExecution is visible but not enabled. If the configured shortcut is executed, neither
-     *     the configured event handler of this CommandExecution nor any event handler configured on CommandExecutions
-     *     in the ancestor chain is called
-     * 	 - the CommandExecution is not visible. If the configured shortcut is executed, the configured event
-     *     handler of this CommandExecution is not called, but the event is propagated to its parent, which can
-     *     then handle the event by a configured CommandExecution or propagate the event to its parent, until no
-     *     parent exits anymore and the browser can handle the executed shortcut
      *
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
@@ -24531,24 +24801,24 @@ declare module "sap/ui/core/Core" {
      * ```
      *
      *
-     * If parts of the theme are at different locations (e.g. because you provide a standard theme like "sap_belize"
+     * If parts of the theme are at different locations (e.g. because you provide a standard theme like "sap_horizon"
      * for a custom control library and this self-made part of the standard theme is at a different location
      * than the UI5 resources), you can also specify for which control libraries the setting should be used,
      * by giving an array with the names of the respective control libraries as second parameter:
      * ```javascript
      *
-     *   sap.ui.getCore().setThemeRoot("sap_belize", ["my.own.library"], "https://mythemeserver.com/allThemes");
+     *   sap.ui.getCore().setThemeRoot("sap_horizon", ["my.own.library"], "https://mythemeserver.com/allThemes");
      * ```
      *
      *
-     * This will cause the Belize theme to be loaded from the UI5 location for all standard libraries. Resources
+     * This will cause the Horizon theme to be loaded from the UI5 location for all standard libraries. Resources
      * for styling the `my.own.library` controls will be loaded from the configured location:
      * ```javascript
      *
-     *   https://sdk.openui5.org/resources/sap/ui/core/themes/sap_belize/library.css
-     *   https://sdk.openui5.org/resources/sap/ui/layout/themes/sap_belize/library.css
-     *   https://sdk.openui5.org/resources/sap/m/themes/sap_belize/library.css
-     *   https://mythemeserver.com/allThemes/my/own/library/themes/sap_belize/library.css
+     *   https://sdk.openui5.org/resources/sap/ui/core/themes/sap_horizon/library.css
+     *   https://sdk.openui5.org/resources/sap/ui/layout/themes/sap_horizon/library.css
+     *   https://sdk.openui5.org/resources/sap/m/themes/sap_horizon/library.css
+     *   https://mythemeserver.com/allThemes/my/own/library/themes/sap_horizon/library.css
      * ```
      *
      *
@@ -24602,24 +24872,24 @@ declare module "sap/ui/core/Core" {
      * ```
      *
      *
-     * If parts of the theme are at different locations (e.g. because you provide a standard theme like "sap_belize"
+     * If parts of the theme are at different locations (e.g. because you provide a standard theme like "sap_horizon"
      * for a custom control library and this self-made part of the standard theme is at a different location
      * than the UI5 resources), you can also specify for which control libraries the setting should be used,
      * by giving an array with the names of the respective control libraries as second parameter:
      * ```javascript
      *
-     *   sap.ui.getCore().setThemeRoot("sap_belize", ["my.own.library"], "https://mythemeserver.com/allThemes");
+     *   sap.ui.getCore().setThemeRoot("sap_horizon", ["my.own.library"], "https://mythemeserver.com/allThemes");
      * ```
      *
      *
-     * This will cause the Belize theme to be loaded from the UI5 location for all standard libraries. Resources
+     * This will cause the Horizon theme to be loaded from the UI5 location for all standard libraries. Resources
      * for styling the `my.own.library` controls will be loaded from the configured location:
      * ```javascript
      *
-     *   https://sdk.openui5.org/resources/sap/ui/core/themes/sap_belize/library.css
-     *   https://sdk.openui5.org/resources/sap/ui/layout/themes/sap_belize/library.css
-     *   https://sdk.openui5.org/resources/sap/m/themes/sap_belize/library.css
-     *   https://mythemeserver.com/allThemes/my/own/library/themes/sap_belize/library.css
+     *   https://sdk.openui5.org/resources/sap/ui/core/themes/sap_horizon/library.css
+     *   https://sdk.openui5.org/resources/sap/ui/layout/themes/sap_horizon/library.css
+     *   https://sdk.openui5.org/resources/sap/m/themes/sap_horizon/library.css
+     *   https://mythemeserver.com/allThemes/my/own/library/themes/sap_horizon/library.css
      * ```
      *
      *
@@ -31432,12 +31702,16 @@ declare module "sap/ui/core/Fragment" {
     /**
      * Gets current value of property {@link #getType type}.
      *
+     * The Fragment type.
+     *
      *
      * @returns Value of property `type`
      */
     getType(): string;
     /**
      * Sets a new value for property {@link #getType type}.
+     *
+     * The Fragment type.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -31455,6 +31729,9 @@ declare module "sap/ui/core/Fragment" {
    * Describes the settings that can be provided to the Fragment constructor.
    */
   export interface $FragmentSettings extends $ManagedObjectSettings {
+    /**
+     * The Fragment type.
+     */
     type?: string | PropertyBindingInfo;
 
     fragmentName?: string;
@@ -34236,8 +34513,9 @@ declare module "sap/ui/core/Lib" {
      *     is e.g. useful when an application merges the CSS for multiple libraries and already loaded the resulting
      *     stylesheet.
      *
-     * If a list of library `dependencies` is specified in the info object, those libraries will be loaded
-     * synchronously if they haven't been loaded yet.
+     *
+     * 	 - If a list of library `dependencies` is specified in the info object, those libraries will be loaded
+     *     synchronously if they haven't been loaded yet.
      *
      * **Note:** Dependencies between libraries have to be modeled consistently in several places:
      * 	 - Both eager and lazy dependencies have to be modelled in the `.library` file.
@@ -34268,10 +34546,72 @@ declare module "sap/ui/core/Lib" {
      * Library API-Version 2:
      *
      * The Library API Version 2 has been introduced to avoid access to the global namespace when retrieving
-     * enum types. With Library API Version 2 a library must declare its enum types via {@link module:sap/ui/base/DataType.registerEnum DataType.registerEnum}.
+     * enum types. With Library API Version 2 a library must declare its enum types via {@link sap.ui.base.DataType.registerEnum }
+     * as described in the "Defining Enums" section below.
+     *
+     * Library API version 2 is defined as a number (int) in the library's `init()` call:
+     * ```javascript
+     *
+     * var thisLib = Library.init({
+     *     apiVersion: 2,
+     *     name: "my.library",
+     *     ...
+     * });
+     * ```
      *
      *
-     * @returns Returns the library namespace, based on the given library name.
+     * **Important:** The object returned by `Library.init()` should be used as the return value of the `library.js`
+     * module.
+     *
+     * **Defining Enums**
+     *
+     * Enums that are exposed through a library (not as separate modules) should be defined as properties on
+     * the object returned by `Library.init()`. Each enum must be registered via {@link sap.ui.base.DataType.registerEnum }
+     * to make it available to the framework.
+     *
+     * Example for a simple enum definition:
+     * ```javascript
+     *
+     * // The return value "thisLib" will be used to expose enums
+     * var thisLib = Library.init({
+     *     apiVersion: 2,
+     *     name: "my.library",
+     *     ...
+     * });
+     *
+     * // Note that enum keys and values must match
+     * thisLib.MyEnumType = {
+     *     Small: "Small",
+     *     Medium: "Medium",
+     *     Large: "Large"
+     * };
+     *
+     * // make sure to register the enum and make it know to the framework for later type checks
+     * DataType.registerEnum("my.library.MyEnumType", thisLib.MyEnumType);
+     * ```
+     *
+     *
+     * **Special case: enums in nested namespaces**
+     *
+     * Ensure to create the namespace first and then define the enum:
+     *
+     *
+     * ```javascript
+     *
+     * thisLib.cards = thisLib.cards || {};
+     *
+     * thisLib.cards.HeaderPosition = {
+     *     Top: "Top",
+     *     Bottom: "Bottom"
+     * };
+     *
+     * DataType.registerEnum("my.library.cards.HeaderPosition", thisLib.cards.HeaderPosition);
+     * ```
+     *
+     *
+     *
+     * @returns Returns an object with the exports of the library (enums, helpers, ...). This object should
+     * be used as the return value of the `library.js` module from which `Library.init` is called.
      */
     static init(
       /**
@@ -39710,7 +40050,8 @@ declare module "sap/ui/core/mvc/ViewType" {
     /**
      * JS View
      *
-     * @deprecated As of version 1.90.
+     * @deprecated As of version 1.90. Consider using {@link sap.ui.core.mvx.XMLView XMLViews} or "typed views"
+     * (view classes written in JavaScript) instead.
      */
     JS = "JS",
     /**
@@ -39723,7 +40064,8 @@ declare module "sap/ui/core/mvc/ViewType" {
     /**
      * Template View
      *
-     * @deprecated As of version 1.56.
+     * @deprecated As of version 1.56. Consider using {@link sap.ui.core.mvx.XMLView XMLViews} or "typed views"
+     * (view classes written in JavaScript) instead.
      */
     Template = "Template",
     /**
@@ -40366,6 +40708,9 @@ declare module "sap/ui/core/Popup" {
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
      * otherwise it will be bound to this `sap.ui.core.Popup` itself.
      *
+     * Fired when the popup has completely closed (after any animation).
+     *
+     * @since 1.2
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -40390,6 +40735,9 @@ declare module "sap/ui/core/Popup" {
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
      * otherwise it will be bound to this `sap.ui.core.Popup` itself.
      *
+     * Fired when the popup has completely closed (after any animation).
+     *
+     * @since 1.2
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -40409,6 +40757,9 @@ declare module "sap/ui/core/Popup" {
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
      * otherwise it will be bound to this `sap.ui.core.Popup` itself.
      *
+     * Fired when the popup has completely opened (after any animation).
+     *
+     * @since 1.2
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -40433,6 +40784,9 @@ declare module "sap/ui/core/Popup" {
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
      * otherwise it will be bound to this `sap.ui.core.Popup` itself.
      *
+     * Fired when the popup has completely opened (after any animation).
+     *
+     * @since 1.2
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -40470,6 +40824,7 @@ declare module "sap/ui/core/Popup" {
      *
      * The passed function and listener object must match the ones used for event registration.
      *
+     * @since 1.2
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -40488,6 +40843,7 @@ declare module "sap/ui/core/Popup" {
      *
      * The passed function and listener object must match the ones used for event registration.
      *
+     * @since 1.2
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -40509,6 +40865,7 @@ declare module "sap/ui/core/Popup" {
     /**
      * Fires event {@link #event:closed closed} to attached listeners.
      *
+     * @since 1.2
      * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -40522,6 +40879,7 @@ declare module "sap/ui/core/Popup" {
     /**
      * Fires event {@link #event:opened opened} to attached listeners.
      *
+     * @since 1.2
      * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -40877,34 +41235,65 @@ declare module "sap/ui/core/Popup" {
    * This enum is part of the 'sap/ui/core/Popup' module export and must be accessed by the property 'Dock'.
    */
   enum Dock {
+    /**
+     * Docks the popup at the begin of the reference element, at the bottom.
+     */
     BeginBottom = "BeginBottom",
-
+    /**
+     * Docks the popup at the begin of the reference element, vertically centered.
+     */
     BeginCenter = "BeginCenter",
-
+    /**
+     * Docks the popup at the begin of the reference element, at the top.
+     */
     BeginTop = "BeginTop",
-
+    /**
+     * Docks the popup horizontally centered to the reference element, at the bottom.
+     */
     CenterBottom = "CenterBottom",
-
+    /**
+     * Docks the popup horizontally and vertically centered to the reference element.
+     */
     CenterCenter = "CenterCenter",
-
+    /**
+     * Docks the popup horizontally centered to the reference element, at the top.
+     */
     CenterTop = "CenterTop",
-
+    /**
+     * Docks the popup at the end of the reference element, at the bottom.
+     */
     EndBottom = "EndBottom",
-
+    /**
+     * Docks the popup at the end of the reference element, vertically centered.
+     */
     EndCenter = "EndCenter",
-
+    /**
+     * Docks the popup at the end of the reference element, at the top.
+     */
     EndTop = "EndTop",
-
+    /**
+     * Docks the popup at the left side of the reference element, at the bottom.
+     */
     LeftBottom = "LeftBottom",
-
+    /**
+     * Docks the popup at the left side of the reference element, vertically centered.
+     */
     LeftCenter = "LeftCenter",
-
+    /**
+     * Docks the popup at the left side of the reference element, at the top.
+     */
     LeftTop = "LeftTop",
-
+    /**
+     * Docks the popup at the right side of the reference element, at the bottom.
+     */
     RightBottom = "RightBottom",
-
+    /**
+     * Docks the popup at the right side of the reference element, vertically centered.
+     */
     RightCenter = "RightCenter",
-
+    /**
+     * Docks the popup at the right side of the reference element, at the top.
+     */
     RightTop = "RightTop",
   }
 
@@ -40927,8 +41316,18 @@ declare module "sap/ui/core/Popup" {
    * Describes the settings that can be provided to the Popup constructor.
    */
   export interface $PopupSettings extends $ManagedObjectSettings {
+    /**
+     * Fired when the popup has completely opened (after any animation).
+     *
+     * @since 1.2
+     */
     opened?: (oEvent: Event) => void;
 
+    /**
+     * Fired when the popup has completely closed (after any animation).
+     *
+     * @since 1.2
+     */
     closed?: (oEvent: Event) => void;
   }
 
@@ -43192,34 +43591,6 @@ declare module "sap/ui/core/routing/Target" {
      */
     static getMetadata(): Metadata;
     /**
-     * This function is called between the target view is loaded and the view is added to the container.
-     *
-     * This function can be used for applying modification on the view or the container to make the rerendering
-     * occur together with the later aggregation change.
-     *
-     * @since 1.46.1
-     * @ui5-protected Do not call from applications (only from related classes in the framework)
-     */
-    _beforePlacingViewIntoContainer(
-      /**
-       * the object containing the arguments
-       */
-      mArguments: {
-        /**
-         * the container where the view will be added
-         */
-        container: Control;
-        /**
-         * the view which will be added to the container
-         */
-        view: Control;
-        /**
-         * the data passed from {@link sap.ui.core.routing.Target#display} method
-         */
-        data?: object;
-      }
-    ): void;
-    /**
      * Attaches event handler `fnFunction` to the {@link #event:display display} event of this `sap.ui.core.routing.Target`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -43262,6 +43633,37 @@ declare module "sap/ui/core/routing/Target" {
        */
       oListener?: object
     ): this;
+    /**
+     * This function is called between the target view is loaded and the view is added to the container.
+     *
+     * This function can be used for applying modification on the view or the container to make the rerendering
+     * occur together with the later aggregation change.
+     *
+     * **Note:** This function was previously named `_beforePlacingViewIntoContainer` (with a leading underscore)
+     * and has been renamed to be protected instead of private.
+     *
+     * @since 1.46.1
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     */
+    beforePlacingViewIntoContainer(
+      /**
+       * the object containing the arguments
+       */
+      mArguments: {
+        /**
+         * the container where the view will be added
+         */
+        container: Control;
+        /**
+         * the view which will be added to the container
+         */
+        view: Control;
+        /**
+         * the data passed from {@link sap.ui.core.routing.Target#display} method
+         */
+        data?: object;
+      }
+    ): void;
     /**
      * Destroys the target, will be called by {@link sap.m.routing.Targets} don't call this directly.
      *
@@ -51746,16 +52148,29 @@ declare module "sap/ui/core/util/MockServer" {
    * 'HTTPMETHOD'.
    */
   enum HTTPMETHOD {
+    /**
+     * HTTP DELETE method.
+     */
     DELETE = "DELETE",
-
+    /**
+     * HTTP GET method.
+     */
     GET = "GET",
-
+    /**
+     * HTTP MERGE method.
+     */
     MERGE = "MERGE",
-
+    /**
+     * HTTP PATCH method.
+     */
     PATCH = "PATCH",
-
+    /**
+     * HTTP POST method.
+     */
     POST = "POST",
-
+    /**
+     * HTTP PUT method.
+     */
     PUT = "PUT",
   }
 
@@ -54002,7 +54417,7 @@ declare module "sap/ui/Device" {
      * have the possibility to customize the user agent, and to explicitly add this information.
      *
      * @since 1.31.0
-     * @deprecated As of version 1.98.
+     * @deprecated As of version 1.98. without replacement, refer to the above note.
      */
     export const webview: boolean;
 
@@ -58174,7 +58589,9 @@ declare module "sap/ui/model/ClientListBinding" {
       aFilters?: Filter[] | Filter,
       /**
        * The type of the filter to replace; if no type is given, all filters previously configured with type {@link sap.ui.model.FilterType.Application }
-       * are cleared, and the given filters are used as filters of type {@link sap.ui.model.FilterType.Control}
+       * are cleared, and the given filters are used as filters of type {@link sap.ui.model.FilterType.Control}.
+       * Since 1.146.0, you may use {@link sap.ui.model.FilterType.ApplicationBound} to set bound application
+       * filters.
        */
       sFilterType?: FilterType | keyof typeof FilterType
     ): this;
@@ -58218,6 +58635,8 @@ declare module "sap/ui/model/ClientModel" {
   import Model from "sap/ui/model/Model";
 
   import Context from "sap/ui/model/Context";
+
+  import ClientContextBinding from "sap/ui/model/ClientContextBinding";
 
   import PropertyBinding from "sap/ui/model/PropertyBinding";
 
@@ -58269,6 +58688,26 @@ declare module "sap/ui/model/ClientModel" {
      */
     static getMetadata(): Metadata;
     /**
+     * Creates a `sap.ui.model.ClientContextBinding`.
+     *
+     *
+     * @returns The newly created `ClientContextBinding`
+     */
+    bindContext(
+      /**
+       * The path pointing to the property that should be bound
+       */
+      sPath: string,
+      /**
+       * The context object for this databinding
+       */
+      oContext?: Context,
+      /**
+       * Additional model-specific parameters
+       */
+      mParameters?: object
+    ): ClientContextBinding;
+    /**
      * Creates a new property binding for this model.
      * See:
      * 	sap.ui.model.Model#bindProperty
@@ -58292,14 +58731,14 @@ declare module "sap/ui/model/ClientModel" {
        */
       mParameters?: {
         /**
-         * Whether this binding does not propagate model messages to the control; supported since 1.119.0. Some
-         * composite types like {@link sap.ui.model.type.Currency} automatically ignore model messages for some
-         * of their parts depending on their format options; setting this parameter to `true` or `false` overrules
-         * the automatism of the type.
+         * Whether this binding ignores model messages instead of propagating them to the control. Supported since
+         * 1.119.0. Some composite types like {@link sap.ui.model.type.Currency} automatically ignore model messages
+         * for some of their parts, depending on their format options. Setting this parameter to `true` or `false`
+         * overrules the automatism of the type.
          *
-         * For example, a binding for a currency code is used in a composite binding for rendering the proper number
-         * of decimals, but the currency code is not displayed in the attached control. In that case, messages for
-         * the currency code shall not be displayed at that control, only messages for the amount.
+         * **Example:** A binding for a currency code is used in a composite binding for rendering the proper number
+         * of decimals, but the currency code itself is not displayed in the attached control. In this case, messages
+         * for the currency code aren't displayed at that control, only messages for the amount.
          */
         ignoreMessages?: boolean;
       }
@@ -58551,7 +58990,9 @@ declare module "sap/ui/model/ClientTreeBinding" {
       aFilters?: Filter[] | Filter,
       /**
        * The type of the filter to replace; if no type is given, all filters previously configured with type {@link sap.ui.model.FilterType.Application }
-       * are cleared, and the given filters are used as filters of type {@link sap.ui.model.FilterType.Control}
+       * are cleared, and the given filters are used as filters of type {@link sap.ui.model.FilterType.Control}.
+       * Since 1.146.0, you may use {@link sap.ui.model.FilterType.ApplicationBound} to set bound application
+       * filters.
        */
       sFilterType?: FilterType | keyof typeof FilterType
     ): this;
@@ -60231,9 +60672,20 @@ declare module "sap/ui/model/FilterType" {
    */
   enum FilterType {
     /**
-     * Filters which are provided by the application.
+     * Filters which are provided by the application and have constant values. Filters defined via the property
+     * `filters` in {@link sap.ui.base.ManagedObject.AggregationBindingInfo} have this type. Filters of this
+     * type are called "unbound application filters".
      */
     Application = "Application",
+    /**
+     * Filters provided by the application that may have values which are binding expressions. Filters defined
+     * via the property `boundFilters` in {@link sap.ui.base.ManagedObject.AggregationBindingInfo} have this
+     * type. Filters of this type are called "bound application filters". When a filter value changes through
+     * data binding, the aggregation binding that uses this filter is filtered automatically.
+     *
+     * @since 1.146.0
+     */
+    ApplicationBound = "ApplicationBound",
     /**
      * Filters which are set by a control itself.
      *
@@ -60269,7 +60721,21 @@ declare module "sap/ui/model/FormatException" {
 declare module "sap/ui/model/json/JSONListBinding" {
   import ClientListBinding from "sap/ui/model/ClientListBinding";
 
-  import JSONModel from "sap/ui/model/json/JSONModel";
+  /**
+   * List binding implementation for JSON model.
+   *
+   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   */
+  export default class JSONListBinding extends ClientListBinding {
+    /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     */
+    protected constructor();
+  }
+}
+
+declare module "sap/ui/model/json/JSONModel" {
+  import ClientModel from "sap/ui/model/ClientModel";
 
   import Context from "sap/ui/model/Context";
 
@@ -60277,57 +60743,13 @@ declare module "sap/ui/model/json/JSONListBinding" {
 
   import Filter from "sap/ui/model/Filter";
 
-  /**
-   * List binding implementation for JSON format.
-   *
-   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
-   */
-  export default class JSONListBinding extends ClientListBinding {
-    /**
-     * Creates a new JSONListBinding.
-     *
-     * This constructor should only be called by subclasses or model implementations, not by application or
-     * control code. Such code should use {@link sap.ui.model.json.JSONModel#bindList JSONModel#bindList} on
-     * the corresponding model instance instead.
-     *
-     * @ui5-protected Do not call from applications (only from related classes in the framework)
-     */
-    protected constructor(
-      /**
-       * Model instance that this binding is created for and that it belongs to
-       */
-      oModel: JSONModel,
-      /**
-       * Binding path to be used for this binding
-       */
-      sPath: string,
-      /**
-       * Binding context relative to which a relative binding path will be resolved
-       */
-      oContext: Context,
-      /**
-       * The sorters used initially; call {@link #sort} to replace them
-       */
-      aSorters?: Sorter[] | Sorter,
-      /**
-       * The filters to be used initially with type {@link sap.ui.model.FilterType.Application}; call {@link #filter }
-       * to replace them
-       */
-      aFilters?: Filter[] | Filter,
-      /**
-       * Map of optional parameters as defined by subclasses; this class does not introduce any own parameters
-       */
-      mParameters?: object
-    );
-  }
-}
+  import JSONListBinding from "sap/ui/model/json/JSONListBinding";
 
-declare module "sap/ui/model/json/JSONModel" {
-  import ClientModel from "sap/ui/model/ClientModel";
+  import JSONPropertyBinding from "sap/ui/model/json/JSONPropertyBinding";
+
+  import JSONTreeBinding from "sap/ui/model/json/JSONTreeBinding";
 
   import Metadata from "sap/ui/base/Metadata";
-
-  import Context from "sap/ui/model/Context";
 
   /**
    * Model implementation for the JSON format.
@@ -60427,6 +60849,107 @@ declare module "sap/ui/model/json/JSONModel" {
        */
       oContext?: Context
     ): any | null | undefined;
+    /**
+     * Creates a new {@link sap.ui.model.json.JSONListBinding}.
+     *
+     *
+     * @returns The newly created JSONListBinding
+     */
+    bindList(
+      /**
+       * The path to the list or array to bind
+       */
+      sPath: string,
+      /**
+       * The context for the binding. This is mandatory when a relative binding path is provided.
+       */
+      oContext?: Context,
+      /**
+       * The sorters used initially. To replace them, call {@link sap.ui.model.ListBinding#sort}.
+       */
+      aSorters?: Sorter[] | Sorter,
+      /**
+       * The filters initially used with type {@link sap.ui.model.FilterType.Application}. To replace them, call
+       * {@link sap.ui.model.ListBinding#filter}.
+       */
+      aFilters?: Filter[] | Filter,
+      /**
+       * Map of optional parameters as defined by subclasses. This class does not introduce any own parameters.
+       */
+      mParameters?: Record<string, any>
+    ): JSONListBinding;
+    /**
+     * Creates a new {@link sap.ui.model.json.JSONPropertyBinding}.
+     *
+     *
+     * @returns The newly created JSONPropertyBinding
+     */
+    bindProperty(
+      /**
+       * The path to the property to bind
+       */
+      sPath: string,
+      /**
+       * The context for the binding. This is mandatory when a relative binding path is provided.
+       */
+      oContext?: Context,
+      /**
+       * Additional model-specific parameters
+       */
+      mParameters?: {
+        /**
+         * Whether this binding ignores model messages instead of propagating them to the control. Supported since
+         * 1.119.0. Some composite types like {@link sap.ui.model.type.Currency} automatically ignore model messages
+         * for some of their parts, depending on their format options. Setting this parameter to `true` or `false`
+         * overrules the automatism of the type.
+         *
+         * **Example:** A binding for a currency code is used in a composite binding for rendering the proper number
+         * of decimals, but the currency code itself is not displayed in the attached control. In this case, messages
+         * for the currency code aren't displayed at that control, only messages for the amount.
+         */
+        ignoreMessages?: boolean;
+      }
+    ): JSONPropertyBinding;
+    /**
+     * Creates a new {@link sap.ui.model.json.JSONTreeBinding}. The bound data can contain JSON objects and
+     * arrays. Both are used to build the tree structure.
+     *
+     *
+     * @returns The newly created JSONTreeBinding
+     */
+    bindTree(
+      /**
+       * The path pointing to the tree or array that is bound
+       */
+      sPath: string,
+      /**
+       * The context for the binding. This is mandatory when a relative binding path is provided.
+       */
+      oContext?: Context,
+      /**
+       * The filters initially used with type {@link sap.ui.model.FilterType.Application}. To replace them, call
+       * {@link sap.ui.model.TreeBinding#filter}.
+       */
+      aFilters?: Filter[] | Filter,
+      /**
+       * Additional model-specific parameters
+       */
+      mParameters?: {
+        /**
+         * Keys of arrays to be used for building the tree structure. If not specified, all arrays and objects in
+         * the bound data are used. Note: For arrays nested within other arrays with different names, add both array
+         * names to `arrayNames`. To include a nested array in the hierarchy, you must list the names of all containing
+         * arrays. If an array name is missing from the list, its child arrays are also excluded from the hierarchy,
+         * even if you add them to `arrayNames`. If this parameter is set, all other objects and arrays in the bound
+         * data are ignored.
+         */
+        arrayNames?: string[];
+      },
+      /**
+       * The sorters used initially. To replace them, call {@link sap.ui.model.TreeBinding#sort}.
+       */
+      aSorters?: Sorter[] | Sorter
+    ): JSONTreeBinding;
     /**
      * Returns a Promise of the current data-loading state. Every currently running {@link sap.ui.model.json.JSONModel#loadData }
      * call is respected by the returned Promise. This also includes a potential loadData call from the JSONModel's
@@ -60828,45 +61351,18 @@ declare module "sap/ui/model/json/TypedJSONContext" {
 declare module "sap/ui/model/json/JSONPropertyBinding" {
   import ClientPropertyBinding from "sap/ui/model/ClientPropertyBinding";
 
-  import JSONModel from "sap/ui/model/json/JSONModel";
-
-  import Context from "sap/ui/model/Context";
-
   import Metadata from "sap/ui/base/Metadata";
 
   /**
-   * Property binding implementation for JSON format.
+   * Property binding implementation for JSON model.
    *
    * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    */
   export default class JSONPropertyBinding extends ClientPropertyBinding {
     /**
-     * Creates a new JSONListBinding.
-     *
-     * This constructor should only be called by subclasses or model implementations, not by application or
-     * control code. Such code should use {@link sap.ui.model.json.JSONModel#bindProperty JSONModel#bindProperty }
-     * on the corresponding model instance instead.
-     *
      * @ui5-protected Do not call from applications (only from related classes in the framework)
      */
-    protected constructor(
-      /**
-       * Model instance that this binding is created for and that it belongs to
-       */
-      oModel: JSONModel,
-      /**
-       * Binding path to be used for this binding
-       */
-      sPath: string,
-      /**
-       * Binding context relative to which a relative binding path will be resolved
-       */
-      oContext: Context,
-      /**
-       * Map of optional parameters as defined by subclasses; this class does not introduce any own parameters
-       */
-      mParameters?: object
-    );
+    protected constructor();
 
     /**
      * Creates a new subclass of class sap.ui.model.json.JSONPropertyBinding with name `sClassName` and enriches
@@ -60907,66 +61403,16 @@ declare module "sap/ui/model/json/JSONPropertyBinding" {
 declare module "sap/ui/model/json/JSONTreeBinding" {
   import ClientTreeBinding from "sap/ui/model/ClientTreeBinding";
 
-  import JSONModel from "sap/ui/model/json/JSONModel";
-
-  import Filter from "sap/ui/model/Filter";
-
-  import Sorter from "sap/ui/model/Sorter";
-
   /**
-   * Tree binding implementation for JSON format.
-   *
-   * The bound data can contain JSON objects and arrays. Both will be used to build the tree structure. You
-   * can optionally define a set of arrays to be used for the tree structure in the parameter `arrayNames`.
-   * If this parameter is set, all other objects and arrays will be ignored.
+   * Tree binding implementation for JSON model. See {@link sap.ui.model.json.JSONModel#bindTree}
    *
    * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    */
   export default class JSONTreeBinding extends ClientTreeBinding {
     /**
-     * Creates a new JSONListBinding.
-     *
-     * This constructor should only be called by subclasses or model implementations, not by application or
-     * control code. Such code should use {@link sap.ui.model.json.JSONModel#bindTree JSONModel#bindTree} on
-     * the corresponding model instance instead.
-     *
      * @ui5-protected Do not call from applications (only from related classes in the framework)
      */
-    protected constructor(
-      /**
-       * Model instance that this binding is created for and that it belongs to
-       */
-      oModel: JSONModel,
-      /**
-       * Path pointing to the tree or array that should be bound
-       */
-      sPath: string,
-      /**
-       * Context object for this binding, mandatory when a relative binding path is given
-       */
-      oContext?: object,
-      /**
-       * The filters to be used initially with type {@link sap.ui.model.FilterType.Application}; call {@link #filter }
-       * to replace them
-       */
-      aFilters?: Filter[] | Filter,
-      /**
-       * Additional model-specific parameters
-       */
-      mParameters?: {
-        /**
-         * Keys of arrays to be used for building the tree structure. If not specified, all arrays and objects in
-         * the bound data will be used. Note that for arrays nested inside differently named arrays, you need to
-         * add both to `arrayNames`. You always have to add the complete parent chain. If any array is ignored,
-         * its child arrays will be ignored as well even if they have been added to `arrayNames`.
-         */
-        arrayNames?: string[];
-      },
-      /**
-       * The sorters used initially; call {@link #sort} to replace them
-       */
-      aSorters?: Sorter[] | Sorter
-    );
+    protected constructor();
   }
 }
 
@@ -61098,6 +61544,26 @@ declare module "sap/ui/model/ListBinding" {
       oListener?: object
     ): void;
     /**
+     * Computes the binding's application filters by replacing application filters of the given type with the
+     * given new filters. Subclasses call this method from their filter method implementation.
+     *
+     * @since 1.146.0
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns The new application filters
+     */
+    computeApplicationFilters(
+      /**
+       * The new filters for the given filter type
+       */
+      vFilter?: Filter[] | Filter,
+      /**
+       * The type of the application filters to replace
+       */
+      sFilterType?: /* was: sap.ui.model.FilterType.Application */
+      any | /* was: sap.ui.model.FilterType.ApplicationBound */ any
+    ): Filter[] | Filter | undefined;
+    /**
      * Detaches event handler `fnFunction` from the {@link #event:filter filter} event of this `sap.ui.model.ListBinding`.
      *
      * @deprecated As of version 1.11. use the `change` event.
@@ -61209,7 +61675,9 @@ declare module "sap/ui/model/ListBinding" {
        */
       aFilters?: Filter[] | Filter,
       /**
-       * The type of the filter to replace; if no type is given, the behavior depends on the model implementation
+       * The type of filter to replace. If no type is specified, the behavior depends on the model implementation.
+       * Since 1.146.0, you can use `sap.ui.model.FilterType.ApplicationBound` to replace bound application filters
+       * if the model implementation supports it.
        */
       sFilterType?: FilterType | keyof typeof FilterType
     ): this;
@@ -72852,7 +73320,7 @@ declare module "sap/ui/model/odata/v4/Context" {
      * (for example due to a filter), and the group ID must not have {@link sap.ui.model.odata.v4.SubmitMode.API}.
      * Such a deletion is not a pending change.
      *
-     * When using data aggregation without group levels, single entities can be deleted (@experimental as of
+     * When using data aggregation without `groupLevels`, single entities can be deleted (@experimental as of
      * version 1.144.0, see {@link #isAggregated}). The same restrictions as for a recursive hierarchy apply.
      * See:
      * 	#hasPendingChanges
@@ -73410,6 +73878,12 @@ declare module "sap/ui/model/odata/v4/Context" {
      * 	 'dataRequested', can instead be done before calling {@link #requestSideEffects}.  'dataReceived',
      * can instead be done once the `oPromise` returned by {@link #requestSideEffects} fulfills or rejects (using
      * `oPromise.then(function () {...}, function () {...})`).
+     *
+     * Since 1.109.0, this context can also represent a node in a recursive hierarchy (see {@link sap.ui.model.odata.v4.ODataListBinding#setAggregation}).
+     *
+     * When using data aggregation but no recursive hierarchy, and without `groupLevels` or `"grandTotal like
+     * 1.84"` (see {@link sap.ui.model.odata.v4.ODataListBinding#setAggregation}), this context can also represent
+     * a single entity (see {@link #isAggregated}, @experimental as of version 1.146.0).
      * See:
      * 	sap.ui.model.odata.v4.ODataContextBinding#getBoundContext
      * 	sap.ui.model.odata.v4.ODataContextBinding#invoke
@@ -73418,8 +73892,8 @@ declare module "sap/ui/model/odata/v4/Context" {
      *
      * @since 1.61.0
      *
-     * @returns A promise which is resolved without a defined result, or rejected with an error if loading of
-     * side effects fails. Use it to set fields affected by side effects to read-only before {@link #requestSideEffects }
+     * @returns A promise which is resolved without a defined result, or rejected with an error if the side
+     * effects fail to load. Use it to set fields affected by side effects to read-only before {@link #requestSideEffects }
      * and make them editable again when the promise resolves; in the error handler, you can repeat the loading
      * of side effects.
      *  The promise is rejected if the call wants to refresh a whole list binding (via header context or an
@@ -73439,9 +73913,11 @@ declare module "sap/ui/model/odata/v4/Context" {
        *
        * Since 1.82.0, absolute paths are supported. Absolute paths must start with the entity container (example
        * "/com.sap.gateway.default.iwbep.tea_busi.v0001.Container/TEAMS") of the service. All (navigation) properties
-       * in the complete model matching such an absolute path are updated. Since 1.85.0, "14.3.11 Expression edm:String"
-       * is accepted as well. Since 1.145.0, you can use `null` values (and `{$Null : null}`) as synonyms for
-       * empty navigation property paths.
+       * in the complete model matching such an absolute path are updated. Since 1.146.0, {@link sap.ui.model.odata.v4.ODataModel#requestSideEffects }
+       * can be used as well.
+       *
+       * Since 1.85.0, "14.3.11 Expression edm:String" is accepted as well. Since 1.145.0, you can use `null`
+       * values (and `{$Null : null}`) as synonyms for empty navigation property paths.
        *
        * Since 1.108.8, a property path matching the "com.sap.vocabularies.Common.v1.Messages" annotation of a
        * list binding's entity type is treated specially for a row context of a list binding: It is loaded even
@@ -73452,8 +73928,8 @@ declare module "sap/ui/model/odata/v4/Context" {
         NavigationPropertyPathExpression | PropertyPathExpression | string
       >,
       /**
-       * The group ID to be used (since 1.69.0); if not specified, the update group ID for the context's binding
-       * is used, see {@link #getUpdateGroupId}. If a different group ID is specified, make sure that {@link #requestSideEffects }
+       * The group ID to be used (since 1.69.0). If not specified, the {@link #getUpdateGroupId update group ID }
+       * for the context's binding is used. If a different group ID is specified, make sure that {@link #requestSideEffects }
        * is called after the corresponding updates have been successfully processed by the server and that there
        * are no pending changes for the affected properties.
        */
@@ -74582,6 +75058,9 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
      * is set to `undefined`.  The created context always knows its {@link sap.ui.model.odata.v4.Context#getPath path},
      * which can be used for {@link #getKeepAliveContext}.
      *
+     * When using data aggregation without `groupLevels` and without `"grandTotal like 1.84"` (see {@link #setAggregation}),
+     * single entities can be created (@experimental as of version 1.146.0, see {@link sap.ui.model.odata.v4.Context#isAggregated}).
+     *
      * @since 1.43.0
      *
      * @returns The context object for the created entity; its method {@link sap.ui.model.odata.v4.Context#created }
@@ -74786,7 +75265,8 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
        */
       vFilters?: Filter | Filter[],
       /**
-       * The filter type to be used
+       * The filter type to be used. Since 1.146.0, you may use {@link sap.ui.model.FilterType.ApplicationBound }
+       * to replace bound application filters.
        */
       sFilterType?: FilterType | keyof typeof FilterType
     ): this;
@@ -75294,10 +75774,10 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
          */
         aggregate?: object;
         /**
-         * Whether created nodes are shown in place at the position specified by the service (since 1.130.0); only
-         * the value `true` is allowed. Otherwise, created nodes are displayed out of place as the first children
-         * of their parent or as the first roots, but not in their usual position as defined by the service and
-         * the current sort order.
+         * Whether created nodes are shown in place at the position specified by the service (since 1.130.0), supported
+         * only if a `hierarchyQualifier` is given; only the value `true` is allowed. Otherwise, created nodes are
+         * displayed out of place as the first children of their parent or as the first roots, but not in their
+         * usual position as defined by the service and the current sort order.
          */
         createInPlace?: boolean;
         /**
@@ -76557,7 +77037,7 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
    *
    * Every resource path (relative to the service root URL, no query options) according to "4 Resource Path" in specification "OData Version 4.01. Part 2: URL Conventions" is a valid data
    * binding path within this model if a leading slash is added; for example "/" + "SalesOrderList('A%2FB%26C')"
-   * to access an entity instance with key "A/B&C". Note that appropriate URI encoding is necessary, see the
+   * to access an entity instance with key "A/B&C". Note that appropriate URL encoding is necessary, see the
    * example of {@link sap.ui.model.odata.v4.ODataUtils.formatLiteral}. "4.5.1 Addressing Actions" needs an
    * operation binding, see {@link sap.ui.model.odata.v4.ODataContextBinding}.
    *
@@ -77389,7 +77869,7 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
      *
      * @since 1.107.0
      *
-     * @returns The proper URI-encoded key predicate, for example "(Sector='A%2FB%26C',ID='42')" or "('42')",
+     * @returns The proper URL-encoded key predicate, for example "(Sector='A%2FB%26C',ID='42')" or "('42')",
      * or `undefined` if at least one key property is undefined.
      */
     getKeyPredicate(
@@ -77551,7 +78031,7 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
      *
      * @since 1.107.0
      *
-     * @returns A promise that gets resolved with the proper URI-encoded key predicate, for example "(Sector='A%2FB%26C',ID='42')"
+     * @returns A promise that gets resolved with the proper URL-encoded key predicate, for example "(Sector='A%2FB%26C',ID='42')"
      * or "('42')", or `undefined` if at least one key property is undefined. It gets rejected if the metadata
      * cannot be fetched, or in case the entity has no key properties according to the metadata.
      */
@@ -77565,6 +78045,25 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
        */
       oEntity: object
     ): Promise<string | undefined>;
+    /**
+     * Loads side effects for the given absolute paths on all affected bindings. For more information about
+     * side effects in general, see {@link sap.ui.model.odata.v4.Context#requestSideEffects}.
+     *
+     * @since 1.146.0
+     *
+     * @returns A promise which is resolved without a defined result, or rejected with an error if the side
+     * effects fail to load.
+     */
+    requestSideEffects(
+      /**
+       * The absolute paths for which to request side effects, for example "/SalesOrderList/SO_2_SOITEM/Note".
+       */
+      aAbsolutePaths: string[],
+      /**
+       * The group ID to be used. If not specified, the {@link #getUpdateGroupId update group ID} is used.
+       */
+      sGroupId?: string
+    ): Promise<void>;
     /**
      * Resets all property changes, created entities, and entity deletions associated with the given group ID
      * which have not been successfully submitted via {@link #submitBatch}. Resets also invalid user input for
@@ -77712,12 +78211,16 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
 
   /**
    * Parameters of the ODataModel#parseError event.
+   *
+   * @deprecated As of version 1.37.0. this event is not supported
    */
   export interface ODataModel$ParseErrorEventParameters
     extends Model$ParseErrorEventParameters {}
 
   /**
    * Event object of the ODataModel#parseError event.
+   *
+   * @deprecated As of version 1.37.0. this event is not supported
    */
   export type ODataModel$ParseErrorEvent = Event<
     ODataModel$ParseErrorEventParameters,
@@ -77751,12 +78254,16 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
 
   /**
    * Parameters of the ODataModel#requestCompleted event.
+   *
+   * @deprecated As of version 1.37.0. this event is not supported
    */
   export interface ODataModel$RequestCompletedEventParameters
     extends Model$RequestCompletedEventParameters {}
 
   /**
    * Event object of the ODataModel#requestCompleted event.
+   *
+   * @deprecated As of version 1.37.0. this event is not supported
    */
   export type ODataModel$RequestCompletedEvent = Event<
     ODataModel$RequestCompletedEventParameters,
@@ -77765,12 +78272,16 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
 
   /**
    * Parameters of the ODataModel#requestFailed event.
+   *
+   * @deprecated As of version 1.37.0. this event is not supported
    */
   export interface ODataModel$RequestFailedEventParameters
     extends Model$RequestFailedEventParameters {}
 
   /**
    * Event object of the ODataModel#requestFailed event.
+   *
+   * @deprecated As of version 1.37.0. this event is not supported
    */
   export type ODataModel$RequestFailedEvent = Event<
     ODataModel$RequestFailedEventParameters,
@@ -77779,12 +78290,16 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
 
   /**
    * Parameters of the ODataModel#requestSent event.
+   *
+   * @deprecated As of version 1.37.0. this event is not supported
    */
   export interface ODataModel$RequestSentEventParameters
     extends Model$RequestSentEventParameters {}
 
   /**
    * Event object of the ODataModel#requestSent event.
+   *
+   * @deprecated As of version 1.37.0. this event is not supported
    */
   export type ODataModel$RequestSentEvent = Event<
     ODataModel$RequestSentEventParameters,
@@ -79709,6 +80224,26 @@ declare module "sap/ui/model/TreeBinding" {
       oListener?: object
     ): void;
     /**
+     * Computes the binding's application filters by replacing application filters of the given type with the
+     * given new filters. Subclasses call this method from their filter method implementation.
+     *
+     * @since 1.146.0
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns The new application filters
+     */
+    computeApplicationFilters(
+      /**
+       * The new filters for the given filter type
+       */
+      vFilter?: Filter[] | Filter,
+      /**
+       * The type of the application filters to replace
+       */
+      sFilterType?: /* was: sap.ui.model.FilterType.Application */
+      any | /* was: sap.ui.model.FilterType.ApplicationBound */ any
+    ): Filter[] | Filter | undefined;
+    /**
      * Detaches event handler `fnFunction` from the {@link #event:_filter _filter} event of this `sap.ui.model.TreeBinding`.
      *
      * The passed function and listener object must match the ones used for event registration.
@@ -79737,7 +80272,9 @@ declare module "sap/ui/model/TreeBinding" {
        */
       aFilters?: Filter[] | Filter,
       /**
-       * The type of the filter to replace; if no type is given, the behavior depends on the model implementation
+       * The type of filter to replace. If no type is specified, the behavior depends on the model implementation.
+       * Since 1.146.0, you can use `sap.ui.model.FilterType.ApplicationBound` to set bound application filters
+       * if the model implementation supports it.
        */
       sFilterType?: FilterType | keyof typeof FilterType
     ): void;
@@ -82114,8 +82651,12 @@ declare module "sap/ui/test/actions/EnterText" {
     /**
      * Gets current value of property {@link #getKeepFocus keepFocus}.
      *
+     * If it is set to `true`, the input will remain focused after text is entered. Use this for inputs with
+     * a suggestion list that you want to keep open.
+     *
      * Default value is `false`.
      *
+     * @since 1.67
      *
      * @returns Value of property `keepFocus`
      */
@@ -82123,8 +82664,13 @@ declare module "sap/ui/test/actions/EnterText" {
     /**
      * Gets current value of property {@link #getPressEnterKey pressEnterKey}.
      *
+     * If it is set to `true`, an ENTER key will be entered after the text. Use this for inputs that shouldn't
+     * lose the focus after a text is entered. (e.g. inputs in a sap.m.Popover shouldn't be focused out, as
+     * this will make the popover close in FF and IE11)
+     *
      * Default value is `false`.
      *
+     * @since 1.76
      *
      * @returns Value of property `pressEnterKey`
      */
@@ -82164,10 +82710,14 @@ declare module "sap/ui/test/actions/EnterText" {
     /**
      * Sets a new value for property {@link #getKeepFocus keepFocus}.
      *
+     * If it is set to `true`, the input will remain focused after text is entered. Use this for inputs with
+     * a suggestion list that you want to keep open.
+     *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
      *
+     * @since 1.67
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -82180,10 +82730,15 @@ declare module "sap/ui/test/actions/EnterText" {
     /**
      * Sets a new value for property {@link #getPressEnterKey pressEnterKey}.
      *
+     * If it is set to `true`, an ENTER key will be entered after the text. Use this for inputs that shouldn't
+     * lose the focus after a text is entered. (e.g. inputs in a sap.m.Popover shouldn't be focused out, as
+     * this will make the popover close in FF and IE11)
+     *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
      *
+     * @since 1.76
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -82231,8 +82786,21 @@ declare module "sap/ui/test/actions/EnterText" {
      */
     clearTextFirst?: boolean | PropertyBindingInfo | `{${string}}`;
 
+    /**
+     * If it is set to `true`, the input will remain focused after text is entered. Use this for inputs with
+     * a suggestion list that you want to keep open.
+     *
+     * @since 1.67
+     */
     keepFocus?: boolean | PropertyBindingInfo | `{${string}}`;
 
+    /**
+     * If it is set to `true`, an ENTER key will be entered after the text. Use this for inputs that shouldn't
+     * lose the focus after a text is entered. (e.g. inputs in a sap.m.Popover shouldn't be focused out, as
+     * this will make the popover close in FF and IE11)
+     *
+     * @since 1.76
+     */
     pressEnterKey?: boolean | PropertyBindingInfo | `{${string}}`;
   }
 }
@@ -82348,7 +82916,8 @@ declare module "sap/ui/test/actions/Press" {
     static getMetadata(): ManagedObjectMetadata;
     /**
      * Sets focus on given control and triggers a 'tap' event on it (which is internally translated into a 'press'
-     * event). Logs an error if control is not visible (i.e. has no dom representation)
+     * event). If `keyDown` or `keyUp` is set to `true`, dispatches the corresponding keyboard event instead
+     * of mouse events. Logs an error if control is not visible (i.e. has no dom representation)
      */
     executeOn(
       /**
@@ -82376,6 +82945,28 @@ declare module "sap/ui/test/actions/Press" {
      * @returns Value of property `ctrlKey`
      */
     getCtrlKey(): boolean;
+    /**
+     * Gets current value of property {@link #getKeyDown keyDown}.
+     *
+     * If it is set to `true`, a `keydown` keyboard event will be dispatched instead of mouse events. The modifier
+     * keys (shiftKey, altKey, ctrlKey) will be applied to the keyboard event if set.
+     *
+     * @since 1.146
+     *
+     * @returns Value of property `keyDown`
+     */
+    getKeyDown(): boolean;
+    /**
+     * Gets current value of property {@link #getKeyUp keyUp}.
+     *
+     * If it is set to `true`, a `keyup` keyboard event will be dispatched instead of mouse events. The modifier
+     * keys (shiftKey, altKey, ctrlKey) will be applied to the keyboard event if set.
+     *
+     * @since 1.146
+     *
+     * @returns Value of property `keyUp`
+     */
+    getKeyUp(): boolean;
     /**
      * Gets current value of property {@link #getShiftKey shiftKey}.
      *
@@ -82441,6 +83032,42 @@ declare module "sap/ui/test/actions/Press" {
        * New value for property `ctrlKey`
        */
       bCtrlKey: boolean
+    ): this;
+    /**
+     * Sets a new value for property {@link #getKeyDown keyDown}.
+     *
+     * If it is set to `true`, a `keydown` keyboard event will be dispatched instead of mouse events. The modifier
+     * keys (shiftKey, altKey, ctrlKey) will be applied to the keyboard event if set.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @since 1.146
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setKeyDown(
+      /**
+       * New value for property `keyDown`
+       */
+      bKeyDown: boolean
+    ): this;
+    /**
+     * Sets a new value for property {@link #getKeyUp keyUp}.
+     *
+     * If it is set to `true`, a `keyup` keyboard event will be dispatched instead of mouse events. The modifier
+     * keys (shiftKey, altKey, ctrlKey) will be applied to the keyboard event if set.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @since 1.146
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setKeyUp(
+      /**
+       * New value for property `keyUp`
+       */
+      bKeyUp: boolean
     ): this;
     /**
      * Sets a new value for property {@link #getShiftKey shiftKey}.
@@ -82536,6 +83163,22 @@ declare module "sap/ui/test/actions/Press" {
      * @since 1.98
      */
     yPercentage?: float | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * If it is set to `true`, a `keydown` keyboard event will be dispatched instead of mouse events. The modifier
+     * keys (shiftKey, altKey, ctrlKey) will be applied to the keyboard event if set.
+     *
+     * @since 1.146
+     */
+    keyDown?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * If it is set to `true`, a `keyup` keyboard event will be dispatched instead of mouse events. The modifier
+     * keys (shiftKey, altKey, ctrlKey) will be applied to the keyboard event if set.
+     *
+     * @since 1.146
+     */
+    keyUp?: boolean | PropertyBindingInfo | `{${string}}`;
   }
 }
 
@@ -82619,6 +83262,8 @@ declare module "sap/ui/test/actions/Scroll" {
     /**
      * Gets current value of property {@link #getX x}.
      *
+     * The x scroll position.
+     *
      * Default value is `0`.
      *
      *
@@ -82628,6 +83273,8 @@ declare module "sap/ui/test/actions/Scroll" {
     /**
      * Gets current value of property {@link #getY y}.
      *
+     * The y scroll position.
+     *
      * Default value is `0`.
      *
      *
@@ -82636,6 +83283,8 @@ declare module "sap/ui/test/actions/Scroll" {
     getY(): int;
     /**
      * Sets a new value for property {@link #getX x}.
+     *
+     * The x scroll position.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -82652,6 +83301,8 @@ declare module "sap/ui/test/actions/Scroll" {
     ): this;
     /**
      * Sets a new value for property {@link #getY y}.
+     *
+     * The y scroll position.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -82671,8 +83322,14 @@ declare module "sap/ui/test/actions/Scroll" {
    * Describes the settings that can be provided to the Scroll constructor.
    */
   export interface $ScrollSettings extends $ActionSettings {
+    /**
+     * The x scroll position.
+     */
     x?: int | PropertyBindingInfo | `{${string}}`;
 
+    /**
+     * The y scroll position.
+     */
     y?: int | PropertyBindingInfo | `{${string}}`;
   }
 }
@@ -86628,8 +87285,13 @@ declare module "sap/ui/test/RecordReplay" {
    * 'InteractionType'.
    */
   enum InteractionType {
+    /**
+     * "EnterText" interaction type.
+     */
     EnterText = "ENTER_TEXT",
-
+    /**
+     * "Press" Interaction type.
+     */
     Press = "PRESS",
   }
 }

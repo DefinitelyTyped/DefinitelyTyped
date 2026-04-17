@@ -6,10 +6,12 @@ import { Vector2 } from "../../math/Vector2.js";
 import { Vector3 } from "../../math/Vector3.js";
 import { Vector4 } from "../../math/Vector4.js";
 import { NodeUpdateType } from "./constants.js";
+import ConstNode from "./ConstNode.js";
 import InputNode from "./InputNode.js";
 import NodeBuilder from "./NodeBuilder.js";
 import NodeFrame from "./NodeFrame.js";
 import UniformGroupNode from "./UniformGroupNode.js";
+import VarNode from "./VarNode.js";
 
 /**
  * Class for representing a uniform.
@@ -99,6 +101,7 @@ interface Uniform {
     (value: Matrix4): UniformNode<"mat4", Matrix4>;
     (value: Color): UniformNode<"color", Color>;
     <TNodeType, TValue>(value: InputNode<TNodeType, TValue>): UniformNode<TNodeType, TValue>;
+    <TNodeType, TValue>(value: VarNode<TNodeType, ConstNode<TNodeType, TValue>>): UniformNode<TNodeType, TValue>;
 }
 
 /**

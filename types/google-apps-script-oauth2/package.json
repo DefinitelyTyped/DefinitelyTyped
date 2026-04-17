@@ -1,11 +1,11 @@
 {
     "private": true,
     "name": "@types/google-apps-script-oauth2",
-    "version": "38.0.9999",
+    "version": "43.0.9999",
     "nonNpm": true,
     "nonNpmDescription": "google-apps-script-oauth2",
     "projects": [
-        "https://github.com/googlesamples/apps-script-oauth2"
+        "https://github.com/googleworkspace/apps-script-oauth2"
     ],
     "dependencies": {
         "@types/google-apps-script": "*"

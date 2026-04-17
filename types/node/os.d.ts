@@ -1,12 +1,3 @@
-/**
- * The `node:os` module provides operating system-related utility methods and
- * properties. It can be accessed using:
- *
- * ```js
- * import os from 'node:os';
- * ```
- * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/os.js)
- */
 declare module "node:os" {
     import { NonSharedBuffer } from "buffer";
     interface CpuInfo {

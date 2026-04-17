@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/spdx-license-ids",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/jslicense/spdx-license-ids"
+    ],
+    "devDependencies": {
+        "@types/spdx-license-ids": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jamie Magee",
+            "githubUsername": "JamieMagee"
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/spdx-exceptions",
+    "version": "2.5.9999",
+    "projects": [
+        "https://github.com/jslicense/spdx-exceptions.json"
+    ],
+    "devDependencies": {
+        "@types/spdx-exceptions": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jamie Magee",
+            "githubUsername": "JamieMagee"
+        }
+    ]
+}

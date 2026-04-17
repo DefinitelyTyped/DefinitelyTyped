@@ -3,110 +3,82 @@ import { ExtrudeGeometry, ExtrudeGeometryOptions, Shape } from "three";
 import { Font } from "../loaders/FontLoader.js";
 
 export interface TextGeometryParameters extends ExtrudeGeometryOptions {
+    /**
+     * The font.
+     */
     font: Font;
 
     /**
-     * Size of the text
-     * Expects a `Float`.
-     * @defaultValue `100`
+     * The text size.
+     * @default 100
      */
     size?: number | undefined;
 
     /**
-     * Thickness to extrude text.
-     * Expects a `Float`.
-     * @defaultValue `50`
+     * Depth to extrude the shape.
+     * @default 50
      */
     depth?: number | undefined;
 
     /**
-     * @override
-     * @defaultValue `12`
-     */
-    curveSegments?: number | undefined;
-
-    /**
-     * @defaultValue `false`
+     * Whether to beveling to the shape or not.
+     * @default false
      */
     bevelEnabled?: boolean | undefined;
 
     /**
-     * How deep into text bevel goes.
-     * Expects a `Float`.
-     * @override
-     * @defaultValue `10`
+     * How deep into the original shape the bevel goes.
+     * @default 10
      */
     bevelThickness?: number | undefined;
 
     /**
-     * How far from text outline is bevel.
-     * Expects a `Float`.
-     * @override
-     * @defaultValue `8`
+     * Distance from the shape outline that the bevel extends.
+     * @default 8
      */
     bevelSize?: number | undefined;
-
-    /**
-     * How far from text outline bevel starts.
-     * Expects a `Float`.
-     * @override
-     * @defaultValue `0`
-     */
-    bevelOffset?: number | undefined;
-
-    /**
-     * @override
-     * @defaultValue `3`
-     */
-    bevelSegments?: number | undefined;
 
     direction?: "ltr" | "rtl" | "tb" | undefined;
 }
 
 /**
- * A class for generating text as a single geometry
- * @remarks
- * It is constructed by providing a string of text, and a set of parameters consisting of a loaded font and settings for the geometry's parent {@link THREE.ExtrudeGeometry | ExtrudeGeometry}
- * See the {@link THREE.FontLoader | FontLoader} page for additional details.
- * @example
- * ```typescript
+ * A class for generating text as a single geometry. It is constructed by providing a string of text, and a set of
+ * parameters consisting of a loaded font and extrude settings.
+ *
+ * See the {@link FontLoader} page for additional details.
+ *
+ * `TextGeometry` uses [typeface.json](http://gero3.github.io/facetype.js/) generated fonts.
+ * Some existing fonts can be found located in `/examples/fonts`.
+ *
+ * ```js
  * const loader = new FontLoader();
- * loader.load('fonts/helvetiker_regular.typeface.json', function (font) {
- *     const geometry = new TextGeometry('Hello three.js!', {
- *         font: font,
- *         size: 80,
- *         height: 5,
- *         curveSegments: 12,
- *         bevelEnabled: true,
- *         bevelThickness: 10,
- *         bevelSize: 8,
- *         bevelOffset: 0,
- *         bevelSegments: 5
- *     });
- * });
+ * const font = await loader.loadAsync( 'fonts/helvetiker_regular.typeface.json' );
+ * const geometry = new TextGeometry( 'Hello three.js!', {
+ * 	font: font,
+ * 	size: 80,
+ * 	depth: 5,
+ * 	curveSegments: 12
+ * } );
  * ```
- * @see Example: {@link https://threejs.org/examples/#webgl_geometry_text | geometry / text }
- * @see {@link https://threejs.org/docs/index.html#api/en/C:/rafaelsc/Source/threejs/three.js/docs/examples/en/geometries/TextGeometry | Official Documentation}
- * @see {@link https://github.com/mrdoob/three.js/blob/master/examples/jsm/geometries/TextGeometry.js | Source}
+ *
+ * @augments ExtrudeGeometry
+ * @three_import import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
  */
-export class TextGeometry extends ExtrudeGeometry {
+declare class TextGeometry extends ExtrudeGeometry {
     /**
-     * Create a new instance of {@link TextGeometry}
-     * @param text The text that needs to be shown.
-     * @param parameters Object that can contain the following parameters. @see {@link TextGeometryParameters} for defaults.
+     * Constructs a new text geometry.
+     *
+     * @param {string} text - The text that should be transformed into a geometry.
+     * @param {TextGeometry~Options} [parameters] - The text settings.
      */
     constructor(text: string, parameters?: TextGeometryParameters);
 
     /**
-     * A Read-only _string_ to check if `this` object type.
-     * @remarks Sub-classes will update this value.
-     * @defaultValue `TextGeometry`
-     */
-    override readonly type: string | "TextGeometry";
-
-    /**
-     * An object with a property for each of the constructor parameters.
-     * @remarks Any modification after instantiation does not change the geometry.
+     * Holds the constructor parameters that have been
+     * used to generate the geometry. Any modification
+     * after instantiation does not change the geometry.
+     *
+     * @type {Object}
      */
     readonly parameters: {
         readonly shapes: Shape | Shape[];
@@ -114,4 +86,4 @@ export class TextGeometry extends ExtrudeGeometry {
     };
 }
 
-export { TextGeometry as TextBufferGeometry };
+export { TextGeometry };

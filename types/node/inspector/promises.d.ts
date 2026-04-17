@@ -1,9 +1,3 @@
-/**
- * The `node:inspector/promises` module provides an API for interacting with the V8
- * inspector.
- * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/inspector/promises.js)
- * @since v19.0.0
- */
 declare module "node:inspector/promises" {
     import { EventEmitter } from "node:events";
     export { close, console, NetworkResources, open, url, waitForDebugger } from "node:inspector";

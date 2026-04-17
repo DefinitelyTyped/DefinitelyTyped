@@ -17,6 +17,7 @@ import { WebGLCapabilities, WebGLCapabilitiesParameters } from "./webgl/WebGLCap
 import { WebGLExtensions } from "./webgl/WebGLExtensions.js";
 import { WebGLInfo } from "./webgl/WebGLInfo.js";
 import { WebGLProgram } from "./webgl/WebGLProgram.js";
+import { WebGLProgramParametersWithUniforms } from "./webgl/WebGLPrograms.js";
 import { WebGLProperties } from "./webgl/WebGLProperties.js";
 import { WebGLRenderLists } from "./webgl/WebGLRenderLists.js";
 import { WebGLShadowMap } from "./webgl/WebGLShadowMap.js";
@@ -114,6 +115,13 @@ export interface Effect {
         deltaTime: number,
         maskActive: boolean,
     ): void;
+}
+
+export interface NodesHandler {
+    setRenderer(renderer: WebGLRenderer): void;
+    renderStart(scene: Object3D, camera: Camera): void;
+    renderEnd(): void;
+    build(material: Material, object: Object3D, parameters: WebGLProgramParametersWithUniforms): void;
 }
 
 /**
@@ -315,7 +323,8 @@ export class WebGLRenderer {
     clearColor(): void;
     clearDepth(): void;
     clearStencil(): void;
-    clearTarget(renderTarget: WebGLRenderTarget, color: boolean, depth: boolean, stencil: boolean): void;
+
+    setNodesHandler(nodesHandler: NodesHandler): void;
 
     dispose(): void;
 

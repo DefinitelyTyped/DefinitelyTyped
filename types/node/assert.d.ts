@@ -1,8 +1,3 @@
-/**
- * The `node:assert` module provides a set of assertion functions for verifying
- * invariants.
- * @see [source](https://github.com/nodejs/node/blob/v25.x/lib/assert.js)
- */
 declare module "node:assert" {
     import strict = require("node:assert/strict");
     /**

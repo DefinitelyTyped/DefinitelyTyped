@@ -1,5 +1,7 @@
 import { CoordinateSystem } from "../../constants.js";
+import NodeBuilder from "../../nodes/core/NodeBuilder.js";
 import Renderer from "./Renderer.js";
+import RenderObject from "./RenderObject.js";
 
 declare module "../../core/Object3D.js" {
     interface Object3D {
@@ -25,4 +27,6 @@ export default abstract class Backend {
     abstract get coordinateSystem(): CoordinateSystem;
 
     getDomElement(): HTMLCanvasElement | OffscreenCanvas;
+
+    createNodeBuilder(renderObject: RenderObject, renderer: Renderer): NodeBuilder;
 }

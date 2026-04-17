@@ -29,6 +29,7 @@ import "./test/repl";
 import "./test/sea";
 import "./test/sqlite";
 import "./test/stream";
+import "./test/stream-web";
 import "./test/string_decoder";
 import "./test/test";
 import "./test/timers_promises";

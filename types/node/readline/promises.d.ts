@@ -1,6 +1,3 @@
-/**
- * @since v17.0.0
- */
 declare module "node:readline/promises" {
     import { Abortable } from "node:events";
     import {

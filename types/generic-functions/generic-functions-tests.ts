@@ -1,6 +1,6 @@
 import g = require("generic-functions");
 
-var tvShow: Object = {
+var tvShow = {
     seasons: 2,
     show: "Better Call Saul",
 };

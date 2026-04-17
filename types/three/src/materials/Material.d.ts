@@ -519,6 +519,10 @@ export interface MaterialJSON {
     images?: SourceJSON[];
 }
 
+export interface MaterialEventMap {
+    dispose: {};
+}
+
 /**
  * Abstract base class for materials.
  *
@@ -526,7 +530,7 @@ export interface MaterialJSON {
  *
  * @abstract
  */
-export class Material extends EventDispatcher<{ dispose: {} }> {
+export class Material<TEventMap extends MaterialEventMap = MaterialEventMap> extends EventDispatcher<TEventMap> {
     /**
      * This flag can be used for type testing.
      *
