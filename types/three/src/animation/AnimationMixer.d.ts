@@ -36,7 +36,9 @@ export interface AnimationMixerStats {
  * the scene. When multiple objects in the scene are animated independently,
  * one `AnimationMixer` may be used for each object.
  */
-export class AnimationMixer extends EventDispatcher<AnimationMixerEventMap> {
+export class AnimationMixer<TEventMap extends AnimationMixerEventMap = AnimationMixerEventMap>
+    extends EventDispatcher<TEventMap>
+{
     /**
      * Constructs a new animation mixer.
      *

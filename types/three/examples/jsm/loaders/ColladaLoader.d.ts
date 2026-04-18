@@ -21,6 +21,7 @@ export interface ColladaLibrary {
     kinematicsModels: Record<string, unknown>;
     physicsModels: Record<string, unknown>;
     kinematicsScenes: Record<string, unknown>;
+    joints: Record<string, unknown>;
 }
 
 export interface Collada {

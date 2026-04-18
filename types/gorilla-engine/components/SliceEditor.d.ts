@@ -69,6 +69,9 @@ declare namespace GorillaEngine.UI {
         overlayColorRight?: string;
         enforceValueOnConstraintViolation?: boolean;
         valueOffsetOnConstraintViolation?: number;
+        handleDragMode?: "full" | "handle";
+        handleHeight?: number;
+        handlePosition?: "top" | "bottom";
         styles?: {
             normal: SliceStyle;
             hover: SliceStyle;
@@ -101,6 +104,7 @@ declare namespace GorillaEngine.UI {
             enabled: boolean;
             backgroundColor: string;
             backgroundImage: string;
+            measureScale: number;
             measures: GridMeasure[];
             addMeasure(measure: GridMeasure): void;
         }>;
@@ -108,6 +112,9 @@ declare namespace GorillaEngine.UI {
             normal: Partial<SliceStyle>;
             hover: Partial<SliceStyle>;
             selected: Partial<SliceStyle>;
+            handleDragMode: "full" | "handle";
+            handleHeight: number;
+            handlePosition: "top" | "bottom";
         }>;
         selectionAreaStyle: Partial<{
             backgroundColor: string;

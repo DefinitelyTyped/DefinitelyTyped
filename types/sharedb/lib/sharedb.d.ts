@@ -104,9 +104,9 @@ export interface RawOp {
     d: DocumentID;
 }
 
-export type CreateOp = RawOp & { create: { type: string; data: any }; del: undefined; op: undefined };
-export type DeleteOp = RawOp & { del: boolean; create: undefined; op: undefined };
-export type EditOp = RawOp & { op: any[]; create: undefined; del: undefined };
+export type CreateOp = Partial<RawOp> & { create: { type: string; data: any } };
+export type DeleteOp = Partial<RawOp> & { del: boolean };
+export type EditOp = Partial<RawOp> & { op: any[] };
 
 export type OTType = "ot-text" | "ot-json0" | "ot-json1" | "ot-text-tp2" | "rich-text";
 
@@ -154,6 +154,12 @@ export interface ShareDBSourceOptions {
 // interface ShareDBCreateOptions extends ShareDBSourceOptions {}
 // interface ShareDBDelOptions extends ShareDBSourceOptions {}
 // interface ShareDBSubmitOpOptions extends ShareDBSourceOptions {}
+export interface BackendFetchOptions {
+    snapshotOptions?: Record<string, unknown>;
+}
+export interface BackendSubmitOptions {
+    [key: string]: unknown;
+}
 
 export type Callback = (err: Error) => any;
 

@@ -1,4 +1,4 @@
-import { BlockInstance } from "@wordpress/blocks";
+import { Block } from "@wordpress/blocks";
 
 import { EditorBlockListSettings, EditorBlockMode, EditorInserterItem, EditorSelection, EditorSettings } from "../";
 
@@ -33,7 +33,7 @@ export function getAdjacentBlockClientId(startClientId?: string, modifier?: 1 | 
  *
  * @returns Parsed block object.
  */
-export function getBlock(clientId: string): BlockInstance | null;
+export function getBlock(clientId: string): Block | null;
 
 /**
  * Returns a block's attributes given its client ID, or null if no block exists with the client ID.
@@ -182,14 +182,14 @@ export function getBlockSelectionStart(): string | undefined;
  *
  * @returns Post blocks.
  */
-export function getBlocks(rootClientId?: string): BlockInstance[];
+export function getBlocks(rootClientId?: string): Block[];
 
 /**
  * Given an array of block client IDs, returns the corresponding array of block objects or `null`.
  *
  * @param clientIds - Client IDs for which blocks are to be returned.
  */
-export function getBlocksByClientId(clientIds: string | string[]): Array<BlockInstance | null>;
+export function getBlocksByClientId(clientIds: string | string[]): Array<Block | null>;
 
 /**
  * Returns all blocks that match a blockName. Results include nested blocks.
@@ -284,7 +284,7 @@ export function getMultiSelectedBlockClientIds(): string[];
  *
  * @returns Multi-selected block objects.
  */
-export function getMultiSelectedBlocks(): BlockInstance[];
+export function getMultiSelectedBlocks(): Block[];
 
 /**
  * Returns the client ID of the block which ends the multi-selection set, or `null` if there is no
@@ -335,7 +335,7 @@ export function getPreviousBlockClientId(startClientId?: string): string | null;
  *
  * @returns Selected block.
  */
-export function getSelectedBlock(): BlockInstance | null;
+export function getSelectedBlock(): Block | null;
 
 /**
  * Returns the currently selected block client ID, or `null` if there is no selected block.

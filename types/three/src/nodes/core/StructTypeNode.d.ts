@@ -51,10 +51,6 @@ declare class StructTypeNode extends Node {
      * @returns {number} The length of the struct.
      */
     getLength(): number;
-    getMemberType(builder: NodeBuilder, name: string): string;
-    getNodeType(builder: NodeBuilder): string;
-    setup(builder: NodeBuilder): undefined;
-    generate(builder: NodeBuilder): string;
 }
 
 export default StructTypeNode;

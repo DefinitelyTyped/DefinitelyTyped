@@ -676,6 +676,10 @@
             "libraryName": "@carbon/icons-react",
             "asOfVersion": "11.29.0"
         },
+        "carbon__motion": {
+            "libraryName": "@carbon/motion",
+            "asOfVersion": "11.44.0"
+        },
         "carbon__pictograms-react": {
             "libraryName": "@carbon/pictograms-react",
             "asOfVersion": "11.89.0"
@@ -8275,6 +8279,10 @@
             "libraryName": "@wordpress/block-serialization-default-parser",
             "asOfVersion": "4.17.0"
         },
+        "wordpress__blocks": {
+            "libraryName": "@wordpress/blocks",
+            "asOfVersion": "15.17.0"
+        },
         "wordpress__components": {
             "libraryName": "@wordpress/components",
             "asOfVersion": "23.8.0"
@@ -8386,6 +8394,14 @@
         "wordpress__url": {
             "libraryName": "@wordpress/url",
             "asOfVersion": "2.14.0"
+        },
+        "wordpress__viewport": {
+            "libraryName": "@wordpress/viewport",
+            "asOfVersion": "6.44.0"
+        },
+        "wordpress__wordcount": {
+            "libraryName": "@wordpress/wordcount",
+            "asOfVersion": "4.32.0"
         },
         "words-to-numbers": {
             "libraryName": "words-to-numbers",

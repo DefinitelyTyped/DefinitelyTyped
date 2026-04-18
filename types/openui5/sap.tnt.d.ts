@@ -1,4 +1,4 @@
-// For Library Version: 1.145.0
+// For Library Version: 1.146.0
 
 declare module "sap/tnt/library" {
   /**
@@ -18,7 +18,6 @@ declare module "sap/tnt/library" {
    * This enum is part of the 'sap/tnt/library' module export and must be accessed by the property 'NavigationListItemDesign'.
    *
    * @since 1.133.0
-   * @experimental Behavior might change.
    */
   export enum NavigationListItemDesign {
     /**
@@ -51,7 +50,6 @@ declare module "sap/tnt/library" {
    * This enum is part of the 'sap/tnt/library' module export and must be accessed by the property 'SideNavigationDesign'.
    *
    * @since 1.134.0
-   * @experimental Behavior might change.
    */
   export enum SideNavigationDesign {
     /**
@@ -1664,7 +1662,6 @@ declare module "sap/tnt/NavigationListItem" {
      * Default value is `Default`.
      *
      * @since 1.133.0
-     * @experimental Behavior might change.
      *
      * @returns Value of property `design`
      */
@@ -1716,8 +1713,6 @@ declare module "sap/tnt/NavigationListItem" {
      * Default value is `true`.
      *
      * @since 1.116
-     * @experimental As of version 1.116. Disclaimer: this property is in a beta state - incompatible API changes
-     * may be done before its official public release.
      *
      * @returns Value of property `selectable`
      */
@@ -1833,7 +1828,6 @@ declare module "sap/tnt/NavigationListItem" {
      * Default value is `Default`.
      *
      * @since 1.133.0
-     * @experimental Behavior might change.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -1900,8 +1894,6 @@ declare module "sap/tnt/NavigationListItem" {
      * Default value is `true`.
      *
      * @since 1.116
-     * @experimental As of version 1.116. Disclaimer: this property is in a beta state - incompatible API changes
-     * may be done before its official public release.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -1988,8 +1980,6 @@ declare module "sap/tnt/NavigationListItem" {
      * 	 - Items that trigger actions (with design "Action") should not be selectable.
      *
      * @since 1.116
-     * @experimental As of version 1.116. Disclaimer: this property is in a beta state - incompatible API changes
-     * may be done before its official public release.
      */
     selectable?: boolean | PropertyBindingInfo | `{${string}}`;
 
@@ -2017,7 +2007,6 @@ declare module "sap/tnt/NavigationListItem" {
      * sub-items cannot be added.
      *
      * @since 1.133.0
-     * @experimental Behavior might change.
      */
     design?:
       | (NavigationListItemDesign | keyof typeof NavigationListItemDesign)
@@ -3080,10 +3069,14 @@ declare module "sap/tnt/ToolHeader" {
    * 	 - If an app implements side navigation in addition to the tool header menu, the menu icon must be the
    *     first item on the left-hand side of the tool header.
    * 	 - The app menu and the side navigation must not have any dependencies and must work independently.
-   *      Horizon theme specifics: Only the following controls are supported: sap.m.Button, sap.m.Image,
-   *     sap.m.Title, sap.m.Text, sap.m.SearchField, sap.m.Avatar. Fiori 3 theme specifics: In Fiori 3 Default
-   *     theme the ToolHeader is with dark design unlike most of the other controls. This defines the usage of
-   *     limited controls inside it, which will result in good design combination.
+   *
+   * 	 - Not recommended: In accordance with the UX Consistency initiative, it is recommended to use the seamlessly
+   *     integrated UI5 Web Components' ui5-shellbar, as demonstrated in this UXC
+   *     integration sample app with UXC integration
+   *     sample source code.  Horizon theme specifics: Only the following controls are supported: sap.m.Button,
+   *     sap.m.Image, sap.m.Title, sap.m.Text, sap.m.SearchField, sap.m.Avatar. Fiori 3 theme specifics: In Fiori
+   *     3 Default theme the ToolHeader is with dark design unlike most of the other controls. This defines the
+   *     usage of limited controls inside it, which will result in good design combination.
    *  The ToolHeader stylizes the contained controls with the Shell color parameters, to match the dark design
    * requirement. However, that's not a dark theme.
    *

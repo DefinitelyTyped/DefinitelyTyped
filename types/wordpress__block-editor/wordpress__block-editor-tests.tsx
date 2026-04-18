@@ -1,10 +1,10 @@
 import be from "@wordpress/block-editor";
 import * as UseBlockProps from "@wordpress/block-editor/components/use-block-props";
-import { BlockInstance, createBlock } from "@wordpress/blocks";
+import { Block, createBlock } from "@wordpress/blocks";
 import { dispatch, select, useDispatch, useSelect } from "@wordpress/data";
 import { useRef } from "react";
 
-declare const BLOCK_INSTANCE: BlockInstance;
+declare const BLOCK_INSTANCE: Block;
 
 const COLORS = [{ name: "Red", slug: "red", color: "#ff0000" }, { name: "Blue", slug: "blue", color: "#0000ff" }];
 const FONT_SIZES = [{ name: "Small", slug: "small", size: 12 }, { name: "Large", slug: "large", size: 18 }];

@@ -1,4 +1,4 @@
-import { BlockInstance } from "@wordpress/blocks";
+import { Block } from "@wordpress/blocks";
 import { ComponentType, ReactNode } from "react";
 
 import { EditorBlockListSettings, EditorSettings } from "../";
@@ -27,20 +27,20 @@ declare namespace BlockEditorProvider {
          * be reflected immediately (`onInput`), you may only want history entries to reflect change
          * milestones (`onChange`).
          */
-        onChange?(blocks: BlockInstance[]): void;
+        onChange?(blocks: Block[]): void;
         /**
          * A callback invoked when the blocks have been modified in a non-persistent manner.
          * Contrasted with `onChange`, a "non-persistent" change is one which is part of a composed
          * input. Any sequence of updates to the same block attribute are treated as non-persistent,
          * except for the first.
          */
-        onInput?(blocks: BlockInstance[]): void;
+        onInput?(blocks: Block[]): void;
         settings?: Partial<EditorSettings & EditorBlockListSettings> | undefined;
         useSubRegistry?: boolean | undefined;
         /**
          * The current array of blocks.
          */
-        value?: BlockInstance[] | undefined;
+        value?: Block[] | undefined;
     }
 }
 declare const BlockEditorProvider: ComponentType<BlockEditorProvider.Props>;

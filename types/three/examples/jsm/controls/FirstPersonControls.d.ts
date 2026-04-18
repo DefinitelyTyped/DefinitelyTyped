@@ -25,11 +25,6 @@ declare class FirstPersonControls extends Controls<{}> {
     autoForward: boolean;
 
     /**
-     * Whether or not it's possible to look around. Default is `true`.
-     */
-    activeLook: boolean;
-
-    /**
      * Whether or not the camera's height influences the forward movement speed. Default is `false`.
      * Use the properties {@link .heightCoef}, {@link .heightMin} and {@link .heightMax} for configuration
      */
@@ -79,11 +74,6 @@ declare class FirstPersonControls extends Controls<{}> {
     constructor(object: Camera, domElement?: HTMLElement | SVGElement);
 
     /**
-     * Should be called if the application window is resized.
-     */
-    handleResize(): void;
-
-    /**
      * Ensures the controls orient the camera towards the defined target position.
      * @param vector A vector representing the target position.
      */
@@ -96,6 +86,11 @@ declare class FirstPersonControls extends Controls<{}> {
      * @param z The z component of the world space position.
      */
     lookAt(x: number, y: number, z: number): this;
+
+    /**
+     * @deprecated The controls now handle resize internally.
+     */
+    handleResize(): void;
 }
 
 export { FirstPersonControls };

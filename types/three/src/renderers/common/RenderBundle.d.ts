@@ -1,5 +1,6 @@
 import { Camera } from "../../cameras/Camera.js";
 import BundleGroup from "./BundleGroup.js";
+import RenderContext from "./RenderContext.js";
 
 /**
  * This module is used to represent render bundles inside the renderer
@@ -13,10 +14,12 @@ declare class RenderBundle {
      *
      * @param {BundleGroup} bundleGroup - The bundle group.
      * @param {Camera} camera - The camera the bundle group is rendered with.
+     * @param {RenderContext} renderContext - The render context the bundle is rendered with.
      */
-    constructor(bundleGroup: BundleGroup, camera: Camera);
+    constructor(bundleGroup: BundleGroup, camera: Camera, renderContext: RenderContext);
     bundleGroup: BundleGroup;
     camera: Camera;
+    renderContext: RenderContext;
 }
 
 export default RenderBundle;

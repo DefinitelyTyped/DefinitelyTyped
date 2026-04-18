@@ -12,6 +12,7 @@ declare class SkyMesh extends Mesh<BoxGeometry, NodeMaterial> {
     cloudCoverage: UniformNode<"float", number>;
     cloudDensity: UniformNode<"float", number>;
     cloudElevation: UniformNode<"float", number>;
+    showSunDisc: UniformNode<"float", number>;
 
     /**
      * @deprecated

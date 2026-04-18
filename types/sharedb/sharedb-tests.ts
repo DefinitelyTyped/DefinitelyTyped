@@ -92,6 +92,23 @@ console.log(backend.extraDbs);
 backend.addProjection("notes_minimal", "notes", { title: true, creator: true, lastUpdateTime: true });
 const readonlyProjection = backend.projections["notes_minimal"];
 console.log(readonlyProjection.target, readonlyProjection.fields);
+backend.submit({} as Agent, "notes_minimal", "doc1", { create: { data: {}, type: "json uri type" } }, {
+    customField: true,
+    anotherOption: { nested: "value" },
+}, (error, ops, request) => {
+    if (error) {
+        console.error(error.message);
+    }
+    console.log(ops, request && request.collection);
+});
+backend.fetch({} as Agent, "notes_minimal", "doc1", {
+    snapshotOptions: { foo: "bar" },
+}, (error, snapshot) => {
+    if (error) {
+        console.error(error.message);
+    }
+    console.log(snapshot && snapshot.data);
+});
 // backend.projections is used by sharedb internally, so they shouldn't be messed with.
 // Test that marking as readonly in API prevents external modification.
 // @ts-expect-error
@@ -135,9 +152,9 @@ for (const action of submitRelatedActions) {
             request.snapshot,
             request.ops,
             request.channels,
-            request.op.op,
-            request.op.create,
-            request.op.del,
+            (request.op as ShareDB.EditOp).op,
+            (request.op as ShareDB.CreateOp).create,
+            (request.op as ShareDB.DeleteOp).del,
             request.extra.source,
         );
         callback();
