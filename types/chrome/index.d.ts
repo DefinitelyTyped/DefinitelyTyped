@@ -9748,12 +9748,20 @@ declare namespace chrome {
 
         /** Fired when a message is sent from either {@link runtime.sendMessage} or {@link tabs.sendMessage}. */
         export const onMessage: events.Event<
-            (message: any, sender: MessageSender, sendResponse: (response?: any) => void) => void
+            (
+                message: any,
+                sender: MessageSender,
+                sendResponse: (response?: any) => void,
+            ) => boolean | Promise<any> | undefined
         >;
 
         /** Fired when a message is sent from another extension (by {@link runtime.sendMessage}). Cannot be used in a content script. */
         export const onMessageExternal: events.Event<
-            (message: any, sender: MessageSender, sendResponse: (response?: any) => void) => void
+            (
+                message: any,
+                sender: MessageSender,
+                sendResponse: (response?: any) => void,
+            ) => boolean | Promise<any> | undefined
         >;
 
         /** Fired when an app or the device that it runs on needs to be restarted. The app should close all its windows at its earliest convenient time to let the restart to happen. If the app does nothing, a restart will be enforced after a 24-hour grace period has passed. Currently, this event is only fired for Chrome OS kiosk apps. */

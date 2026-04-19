@@ -986,12 +986,30 @@ function testRuntime() {
         message; // $ExpectType any
         sender; // $ExpectType MessageSender
         sendResponse(); // $ExpectType void
+        return undefined;
+    });
+
+    chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+        return true;
+    });
+
+    chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+        return Promise.resolve("Test response");
+    });
+
+    chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+        return undefined;
     });
 
     checkChromeEvent(chrome.runtime.onMessageExternal, (message, sender, sendResponse) => {
         message; // $ExpectType any
         sender; // $ExpectType MessageSender
         sendResponse(); // $ExpectType void
+        return undefined;
+    });
+
+    chrome.runtime.onMessageExternal.addListener((message, sender, sendResponse) => {
+        return true;
     });
 
     checkChromeEvent(chrome.runtime.onRestartRequired, (reason) => {
