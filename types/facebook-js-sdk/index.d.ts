@@ -18,7 +18,7 @@ declare namespace facebook {
 
     type FacebookEventCallback<
         TEvent extends FacebookEventType,
-    > = TEvent extends "xfbl.render" ? () => void
+    > = TEvent extends "xfbml.render" ? () => void
         : (response: StatusResponse) => void;
 
     type UserField =
