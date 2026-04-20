@@ -23,7 +23,7 @@ concurrency:
 
 jobs:
   setup-matrix:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     if: github.repository == 'DefinitelyTyped/DefinitelyTyped'
 
     outputs:
@@ -125,7 +125,7 @@ jobs:
         if: ${{ github.event_name == 'pull_request' }}
 
   dangerbot:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     if: github.repository == 'DefinitelyTyped/DefinitelyTyped' && github.event_name == 'pull_request'
 
     needs:
@@ -158,7 +158,7 @@ jobs:
           DANGER_GITHUB_API_TOKEN=$TOKEN pnpm danger ci || $( exit 0 )
 
   scripts:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     if: github.repository == 'DefinitelyTyped/DefinitelyTyped'
 
     steps:
