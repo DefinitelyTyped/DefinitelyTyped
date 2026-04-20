@@ -19,7 +19,7 @@ previewEmail(message, {
     template: "./dir/template.pug",
     urlTransform: path => `./dir/${path}`,
     openSimulator: true,
-    returnHtml: true,
+    returnHTML: true,
     hasDownloadOriginalButton: true,
 });
 

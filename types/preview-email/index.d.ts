@@ -53,7 +53,7 @@ declare namespace previewEmail {
          * whether or not to return HTML only – and subsequently not write nor open the file preview file
          * @default false
          */
-        returnHtml?: boolean | undefined;
+        returnHTML?: boolean | undefined;
         /**
          * whether or not to render a "Download Original" button to download via base64 inline onclick JavaScript.
          * @default true
