@@ -117,7 +117,7 @@ export interface MJMLMinifyOptions {
      * Accepts false (disable), true/'lite' (use lite preset), or a cssnano options object.
      * @see https://cssnano.co/docs/presets
      */
-    minifyCss?: boolean | "lite" | { preset?: "lite" | object | [object, object] } | object | undefined;
+    minifyCss?: boolean | "lite" | { preset?: any; plugins?: any[]; configFile?: string } | undefined;
     /** @deprecated use minifyCss instead */
     minifyCSS?: boolean | undefined;
     removeEmptyAttributes?: boolean | undefined;
