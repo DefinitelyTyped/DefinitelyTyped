@@ -345,7 +345,7 @@
 /types/assertrc/                                        @Soldy
 /types/assertsharp/                                     @brunolm
 /types/assets-webpack-plugin/                           @kryops
-/types/asterisk-manager/                                @uchkunrakhimow @pipobscure
+/types/asterisk-manager/                                @pipobscure
 /types/async/                                           @borisyankov @kern0 @fenying @pascalmartin @erossignon @Juliiii @brendtumi @apnsngr
 /types/async-alpine/                                    @bastienrobert
 /types/async-busboy/                                    @hirochachacha @bendingbender
@@ -4683,6 +4683,7 @@
 /types/mapbox__geo-viewport/                            @fnberta
 /types/mapbox__geojson-area/                            @n0nick
 /types/mapbox__geojson-extent/                          @alesjiranek
+/types/mapbox__geojson-rewind/                          @k-yle
 /types/mapbox__hast-util-table-cell-style/              @remcohaszing
 /types/mapbox__link-hijacker/                           @tpluscode
 /types/mapbox__maki/                                    @peterblazejewicz @mbullington
@@ -8055,7 +8056,6 @@
 /types/unordered-array-remove/                          @BendingBender
 /types/unorm/                                           @chbrown
 /types/unpaginated/                                     @reediculous456
-/types/unquote/                                         @shift-yuta-katayama
 /types/untar.js/                                        @andrewbranch
 /types/until-promise/                                   @Miladiir
 /types/unused-files-webpack-plugin/                     @maxbogus
@@ -8465,12 +8465,9 @@
 /types/wordpress__block-editor/                         @dsifford @sirreal @dmsnell @joshualip-plaudit
 /types/wordpress__block-library/                        @dsifford
 /types/wordpress__block-serialization-spec-parser/      @dsifford
-/types/wordpress__blocks/                               @dsifford @sirreal @dmsnell @tomasztunik @sunyatasattva @bastolen @joshualip-plaudit
 /types/wordpress__customize-browser/                    @marekdedic
 /types/wordpress__edit-post/                            @dsifford
 /types/wordpress__server-side-render/                   @rafaucau
-/types/wordpress__viewport/                             @dsifford
-/types/wordpress__wordcount/                            @dsifford
 /types/words-to-time-converter/                         @peterblazejewicz
 /types/wordwrap/                                        @ark120202
 /types/wordwrapjs/                                      @stoyan-karev
