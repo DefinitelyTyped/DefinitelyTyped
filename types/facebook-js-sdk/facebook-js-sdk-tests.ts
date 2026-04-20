@@ -214,6 +214,18 @@ FB.Event.subscribe("auth.authResponseChange", response => {
 
 FB.Event.unsubscribe("auth.authResponseChange", () => {});
 
+FB.Event.subscribe("xfbml.render", () => {
+    console.log("all plugins rendered");
+});
+
+FB.Event.subscribe("xfbml.ready", message => {
+    console.log(message.type);
+    console.log(message.id);
+    console.log(message.instance);
+});
+
+FB.Event.unsubscribe("xfbml.ready", () => {});
+
 FB.api("/me", response => {});
 FB.api("/me", "get", { fields: ["last_name"] }, response => {});
 FB.api("/me", { fields: ["last_name", "age_range"] }, response => {
