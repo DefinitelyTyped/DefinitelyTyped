@@ -917,6 +917,15 @@ export const version7Tests = async (): Promise<void> => {
         user: "test",
     });
 
+    const appCtx: oracledb.AppContextKeyValue[] = [
+        { traceCtx: "12" },
+        { version: "1" },
+    ];
+    connection.appContext("CLIENTCONTEXT", appCtx);
+    connection.clearAppContext("CLIENTCONTEXT");
+    // @ts-expect-error
+    connection.appContext("CLIENTCONTEXT", [{ traceCtx: 12 }]);
+
     const columns: oracledb.DirectPathLoadColumns = ["ID", "NAME"];
     const data: oracledb.DirectPathLoadData = [
         [1, "first"],
