@@ -1465,6 +1465,7 @@ declare namespace OracleDB {
          * Performs a direct path load into the specified table.
          *
          * This method can only be used in node-oracledb Thin mode.
+         * It is not supported for BFILE data.
          *
          * @param schema The name of the database schema.
          * @param table The name of the table into which data is to be loaded.
@@ -1483,6 +1484,7 @@ declare namespace OracleDB {
          * Performs a direct path load into the specified table.
          *
          * This method can only be used in node-oracledb Thin mode.
+         * It is not supported for BFILE data.
          *
          * @param schema The name of the database schema.
          * @param table The name of the table into which data is to be loaded.
@@ -1805,6 +1807,10 @@ declare namespace OracleDB {
          * results, each entry corresponding to an operation executed in the
          * pipeline.
          *
+         * True pipelining requires Oracle AI Database 26ai (or later) in Thin
+         * mode. In Thick mode or older database versions, operations are
+         * executed sequentially.
+         *
          * @param pipeline The pipeline to be run.
          * @param continueOnError Determines whether operations should continue
          * to run after an error has occurred.
@@ -1822,6 +1828,10 @@ declare namespace OracleDB {
         /**
          * Runs all of the operations in a pipeline and invokes the callback with
          * the results.
+         *
+         * True pipelining requires Oracle AI Database 26ai (or later) in Thin
+         * mode. In Thick mode or older database versions, operations are
+         * executed sequentially.
          *
          * @param pipeline The pipeline to be run.
          * @param continueOnError Determines whether operations should continue
@@ -1843,6 +1853,10 @@ declare namespace OracleDB {
         /**
          * Runs all of the operations in a pipeline and invokes the callback with
          * the results.
+         *
+         * True pipelining requires Oracle AI Database 26ai (or later) in Thin
+         * mode. In Thick mode or older database versions, operations are
+         * executed sequentially.
          *
          * @param pipeline The pipeline to be run.
          * @param callback Callback where error is NULL on success, otherwise
