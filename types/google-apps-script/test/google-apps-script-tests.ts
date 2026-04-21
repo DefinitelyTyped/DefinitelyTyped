@@ -1598,3 +1598,35 @@ function testGmailDraftReplyWithSubject() {
         attachments: [DriveApp.getFileById("file-id").getBlob()],
     });
 }
+
+function testSheetsV4ColorStyle() {
+    const style: GoogleAppsScript.Sheets.Schema.ColorStyle = Sheets!.newColorStyle();
+
+    // Validate all new properties across all updated interfaces
+    const banding: GoogleAppsScript.Sheets.Schema.BandingProperties = {
+        firstBandColorStyle: style,
+        footerColorStyle: style,
+        headerColorStyle: style,
+        secondBandColorStyle: style,
+    };
+
+    const border: GoogleAppsScript.Sheets.Schema.Border = { colorStyle: style };
+
+    const cellFormat: GoogleAppsScript.Sheets.Schema.CellFormat = { backgroundColorStyle: style };
+
+    const filter: GoogleAppsScript.Sheets.Schema.FilterCriteria = {
+        visibleBackgroundColorStyle: style,
+        visibleForegroundColorStyle: style,
+    };
+
+    const interpolation: GoogleAppsScript.Sheets.Schema.InterpolationPoint = { colorStyle: style };
+
+    const sheetProps: GoogleAppsScript.Sheets.Schema.SheetProperties = { tabColorStyle: style };
+
+    const sortSpec: GoogleAppsScript.Sheets.Schema.SortSpec = {
+        foregroundColorStyle: style,
+        backgroundColorStyle: style,
+    };
+
+    const textFormat: GoogleAppsScript.Sheets.Schema.TextFormat = { foregroundColorStyle: style };
+}
