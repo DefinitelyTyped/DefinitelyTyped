@@ -916,6 +916,18 @@ declare namespace OracleDB {
      */
     let thin: boolean;
     /**
+     * This property is a boolean that determines whether connect strings in
+     * node-oracledb Thick mode are passed unchanged to Oracle Client libraries
+     * or parsed by node-oracledb.
+     *
+     * This property must be set before creating the first standalone
+     * connection or pool.
+     *
+     * @default true
+     * @since 7.0
+     */
+    let thickModeDSNPassthrough: boolean;
+    /**
      * This readonly property gives a numeric representation of the node-oracledb version.
      * For version x.y.z, this property gives the number: (10000 * x) + (100 * y) + z
      */
@@ -1151,6 +1163,16 @@ declare namespace OracleDB {
          */
         dbOp?: string | undefined;
         /**
+         * This read-only property is a string that identifies a globally
+         * unique name for the database. This property returns the same value
+         * as the SQL expression:
+         * SELECT UPPER(SYS_CONTEXT('USERENV', 'DB_UNIQUE_NAME')) FROM DUAL;
+         * Available only in node-oracledb Thin mode.
+         *
+         * @since 7.0
+         */
+        readonly dbUniqueName?: string | undefined;
+        /**
          * This write-only property is a string that sets the execution context identifier.
          * The value is available in the ECID column of the V$SESSION view. It is also shown in audit logs.
          * Note: This property can only be used in the node-oracledb Thick mode. See Enabling node-oracledb Thick Mode.
@@ -1217,6 +1239,15 @@ declare namespace OracleDB {
          * @since 2.2
          */
         readonly oracleServerVersionString: string;
+        /**
+         * This read-only property is a string that identifies the name of the
+         * pluggable database associated with the connection. This property
+         * returns the same value as the SQL expression:
+         * SELECT UPPER(SYS_CONTEXT('USERENV', 'CON_NAME')) FROM DUAL;
+         *
+         * @since 7.0
+         */
+        readonly pdbName?: string | undefined;
         /**
          * This read-only property identifies the port to which the client is connected.
          * Available only in node-oracledb Thin mode.
@@ -3038,6 +3069,18 @@ declare namespace OracleDB {
             amount: number,
             callback: ResultCallback<string | Buffer>,
         ): void;
+        /**
+         * Trims the non-BFILE LOB to the specified size.
+         *
+         * If newSize is omitted, the LOB is trimmed to size 0.
+         * Values greater than or equal to 2^32 are not supported.
+         *
+         * @param newSize The size to which the LOB is to be trimmed.
+         *
+         * @since 7.0
+         */
+        trim(newSize?: number): Promise<void>;
+        trim(callback: (error: DBError | null) => void): void;
     }
 
     /**

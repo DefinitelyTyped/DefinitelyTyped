@@ -913,9 +913,14 @@ export const version6_10Tests = async (): Promise<void> => {
 };
 
 export const version7Tests = async (): Promise<void> => {
+    defaultOracledb.thickModeDSNPassthrough = false;
+    expectType<boolean>(defaultOracledb.thickModeDSNPassthrough);
+
     const connection = await oracledb.getConnection({
         user: "test",
     });
+    expectType<string | undefined>(connection.pdbName);
+    expectType<string | undefined>(connection.dbUniqueName);
 
     const appCtx: oracledb.AppContextKeyValue[] = [
         { traceCtx: "12" },
@@ -933,6 +938,13 @@ export const version7Tests = async (): Promise<void> => {
     ];
     await connection.directPathLoad("TEST_SCHEMA", "TEST_TABLE", columns, data);
     connection.directPathLoad("TEST_SCHEMA", "TEST_TABLE", columns, data, error => {
+        expectType<oracledb.DBError | null>(error);
+    });
+
+    const lob = await connection.createLob(oracledb.CLOB);
+    await lob.trim();
+    await lob.trim(10);
+    lob.trim(error => {
         expectType<oracledb.DBError | null>(error);
     });
 
