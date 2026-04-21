@@ -919,6 +919,30 @@ export const version7Tests = async (): Promise<void> => {
     const connection = await oracledb.getConnection({
         user: "test",
     });
+
+    class PoolTraceHandler extends oracledb.traceHandler.TraceHandlerBase {
+        // some representative methods for testing,
+        // others can be similarly tested.
+        override onPoolAcquire(pool: oracledb.Pool): void {
+            expectType<oracledb.Pool>(pool);
+        }
+        override onPoolWait(pool: oracledb.Pool): void {
+            expectType<oracledb.Pool>(pool);
+        }
+        override onPoolConnectionMiss(pool: oracledb.Pool): void {
+            expectType<oracledb.Pool>(pool);
+        }
+    }
+
+    defaultOracledb.traceHandler.setTraceInstance(new PoolTraceHandler());
+    expectType<oracledb.TraceHandlerBase | undefined>(defaultOracledb.traceHandler.getTraceInstance());
+
+    // negative test
+    class InvalidPoolTraceHandler extends oracledb.traceHandler.TraceHandlerBase {
+        // @ts-expect-error
+        override onPoolClose(pool: string): void {}
+    }
+
     expectType<string | undefined>(connection.pdbName);
     expectType<string | undefined>(connection.dbUniqueName);
 

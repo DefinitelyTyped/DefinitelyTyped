@@ -5705,6 +5705,60 @@ declare namespace OracleDB {
          * @param traceContext input/output trace context object.
          */
         onEndRoundTrip(traceContext: TraceContext): void;
+
+        /**
+         * Called when the pool expands by creating new connections.
+         * @param pool the pool instance.
+         */
+        onPoolExpand(pool: Pool): void;
+
+        /**
+         * Called when the pool shrinks by removing connections.
+         * @param pool the pool instance.
+         */
+        onPoolShrink(pool: Pool): void;
+
+        /**
+         * Called when a connection is acquired from the pool.
+         * @param pool the pool instance.
+         */
+        onPoolAcquire(pool: Pool): void;
+
+        /**
+         * Called when a connection is released back to the pool.
+         * @param pool the pool instance.
+         */
+        onPoolRelease(pool: Pool): void;
+
+        /**
+         * Called when a connection request is queued.
+         * @param pool the pool instance.
+         */
+        onPoolWait(pool: Pool): void;
+
+        /**
+         * Called when a queued connection request times out.
+         * @param pool the pool instance.
+         */
+        onPoolRequestTimeout(pool: Pool): void;
+
+        /**
+         * Called when a pool free connection is reused.
+         * @param pool the pool instance.
+         */
+        onPoolConnectionHit(pool: Pool): void;
+
+        /**
+         * Called when a new request is created for a connection.
+         * @param pool the pool instance.
+         */
+        onPoolConnectionMiss(pool: Pool): void;
+
+        /**
+         * Called when the pool is closed.
+         * @param pool the pool instance.
+         */
+        onPoolClose(pool: Pool): void;
     }
 
     /*
