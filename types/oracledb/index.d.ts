@@ -1365,6 +1365,14 @@ declare namespace OracleDB {
         close(callback: (error: DBError | null) => void): void;
 
         /**
+         * Implements Explicit Resource Management. Equivalent to calling
+         * connection.close().
+         *
+         * @since 7.0
+         */
+        [Symbol.asyncDispose](): Promise<void>;
+
+        /**
          * This call commits the current transaction in progress on the connection.
          */
         commit(): Promise<void>;
@@ -1399,6 +1407,47 @@ declare namespace OracleDB {
          * @see https://node-oracledb.readthedocs.io/en/latest/user_guide/json_data_type.html#osontype
          */
         decodeOSON(buf: Buffer): any;
+
+        /**
+         * Performs a direct path load into the specified table.
+         *
+         * This method can only be used in node-oracledb Thin mode.
+         *
+         * @param schema The name of the database schema.
+         * @param table The name of the table into which data is to be loaded.
+         * @param columns The names of the columns to be populated.
+         * @param data The data to be loaded.
+         *
+         * @since 7.0
+         */
+        directPathLoad(
+            schema: string,
+            table: string,
+            columns: DirectPathLoadColumns,
+            data: DirectPathLoadData,
+        ): Promise<void>;
+        /**
+         * Performs a direct path load into the specified table.
+         *
+         * This method can only be used in node-oracledb Thin mode.
+         *
+         * @param schema The name of the database schema.
+         * @param table The name of the table into which data is to be loaded.
+         * @param columns The names of the columns to be populated.
+         * @param data The data to be loaded.
+         * @param callback If directPathLoad() succeeds, error is NULL.
+         * If an error occurs, error contains the error message.
+         *
+         * @since 7.0
+         */
+        directPathLoad(
+            schema: string,
+            table: string,
+            columns: DirectPathLoadColumns,
+            data: DirectPathLoadData,
+            callback: (error: DBError | null) => void,
+        ): void;
+
         /**
          * This synchronous method encodes a JavaScript value to OSON bytes and returns a Buffer. This method is useful for inserting OSON bytes directly into BLOB columns that have the check constraint IS JSON FORMAT OSON enabled.
          *
@@ -1697,6 +1746,65 @@ declare namespace OracleDB {
          */
         rollback(): Promise<void>;
         rollback(callback: (error: DBError | null) => void): void;
+
+        /**
+         * Runs all of the operations in a pipeline and returns an array of
+         * results, each entry corresponding to an operation executed in the
+         * pipeline.
+         *
+         * @param pipeline The pipeline to be run.
+         * @param continueOnError Determines whether operations should continue
+         * to run after an error has occurred.
+         * If true, errors are stored as a corresponding pipeline operation result.
+         * If false, an error is raised as soon as it occurs and subsequent
+         * operations are terminated.
+         * Default is false.
+         *
+         * @since 7.0
+         */
+        runPipeline(
+            pipeline: Pipeline,
+            continueOnError?: boolean,
+        ): Promise<PipelineOperationResult[]>;
+        /**
+         * Runs all of the operations in a pipeline and invokes the callback with
+         * the results.
+         *
+         * @param pipeline The pipeline to be run.
+         * @param continueOnError Determines whether operations should continue
+         * to run after an error has occurred.
+         * @param callback Callback where error is NULL on success, otherwise
+         * contains the error message; results is the array that contains the
+         * results of the executed pipeline operations.
+         *
+         * @since 7.0
+         */
+        runPipeline(
+            pipeline: Pipeline,
+            continueOnError: boolean,
+            callback: (
+                error: DBError | null,
+                results: PipelineOperationResult[],
+            ) => void,
+        ): void;
+        /**
+         * Runs all of the operations in a pipeline and invokes the callback with
+         * the results.
+         *
+         * @param pipeline The pipeline to be run.
+         * @param callback Callback where error is NULL on success, otherwise
+         * contains the error message; results is the array that contains the
+         * results of the executed pipeline operations.
+         *
+         * @since 7.0
+         */
+        runPipeline(
+            pipeline: Pipeline,
+            callback: (
+                error: DBError | null,
+                results: PipelineOperationResult[],
+            ) => void,
+        ): void;
 
         /**
          * Used to shut down a database instance. This is the flexible version of oracledb.shutdown(), allowing more control over behavior.
@@ -2347,6 +2455,240 @@ declare namespace OracleDB {
         stack?: string;
     }
 
+    /**
+     * The names of table columns populated by directPathLoad().
+     * Each entry corresponds to a target column in the destination table.
+     *
+     * @since 7.0
+     */
+    type DirectPathLoadColumns = Array<string>;
+
+    /**
+     * Data supplied to directPathLoad().
+     * This is an array of rows, where each row is an array of column values.
+     *
+     * @since 7.0
+     */
+    type DirectPathLoadData = Array<Array<any>>;
+
+    /**
+     * Bind values supplied to pipeline operations.
+     * This can be an object for bind-by-name or an array for bind-by-position.
+     *
+     * @since 7.0
+     */
+    type PipelineBindParameters = BindParameters;
+    /**
+     * Bind values supplied to pipeline addExecuteMany().
+     * This should be an array of bind-by-name objects or bind-by-position
+     * arrays.
+     *
+     * @since 7.0
+     */
+    type PipelineExecuteManyBindParameters = BindParameters[];
+
+    /**
+     * Options supported in pipeline addExecute(), addFetchAll(),
+     * addFetchMany(), and addFetchOne().
+     *
+     * @since 7.0
+     */
+    interface PipelineExecuteOptions {
+        /**
+         * Determines whether a commit occurs at the end of statement execution.
+         */
+        autoCommit?: boolean | undefined;
+        /**
+         * The size of the internal buffer used for fetching query rows.
+         */
+        fetchArraySize?: number | undefined;
+        /**
+         * The maximum number of rows that are fetched from a query.
+         */
+        maxRows?: number | undefined;
+        /**
+         * The format of query rows, such as OUT_FORMAT_ARRAY or
+         * OUT_FORMAT_OBJECT.
+         */
+        outFormat?: number | undefined;
+        /**
+         * The number of rows prefetched from Oracle Database.
+         */
+        prefetchRows?: number | undefined;
+    }
+
+    /**
+     * Options supported in pipeline addExecuteMany().
+     *
+     * @since 7.0
+     */
+    interface PipelineExecuteManyOptions extends PipelineExecuteOptions {
+        /**
+         * Bind variable definitions for array DML operations.
+         */
+        bindDefs?: Record<string, BindDefinition> | BindDefinition[] | undefined;
+    }
+
+    /**
+     * Result object for each pipeline operation.
+     *
+     * @since 7.0
+     */
+    interface PipelineOperationResult {
+        /**
+         * Defined if the statement executed in the operation returned implicit
+         * results.
+         */
+        implicitResults?: any[] | undefined;
+        /**
+         * Error encountered when running the operation.
+         * Only available if continueOnError is true.
+         */
+        error?: DBError | undefined;
+        /**
+         * ROWID of a row affected by DML.
+         * If multiple rows were affected, this is the last ROWID.
+         */
+        lastRowid?: string | undefined;
+        /**
+         * Array describing each column in a query executed by the operation.
+         */
+        metaData?: Array<Metadata<any>> | undefined;
+        /**
+         * Array or object containing output values of OUT and IN OUT binds used
+         * in an operation.
+         */
+        outBinds?: Record<string, any> | any[] | undefined;
+        /**
+         * Array containing the rows fetched by the operation, if a query was
+         * executed.
+         */
+        rows?: any[] | undefined;
+        /**
+         * Number of rows affected by the operation.
+         */
+        rowsAffected?: number | undefined;
+        /**
+         * Warning encountered when running the operation.
+         */
+        warning?: DBError | undefined;
+    }
+
+    /**
+     * Pipeline objects represent a list of operations to be executed by
+     * connection.runPipeline().
+     *
+     * @since 7.0
+     */
+    class Pipeline {
+        constructor();
+        /**
+         * Adds a commit operation to the pipeline.
+         */
+        addCommit(): void;
+        /**
+         * Adds an execute operation to the pipeline.
+         *
+         * @param statement The SQL statement to be executed.
+         * @param parameters The values or variables to be bound to the executed
+         * statement.
+         * @param options Optional parameter that may be used to control statement
+         * execution.
+         */
+        addExecute(
+            statement: string,
+            parameters?: PipelineBindParameters,
+            options?: PipelineExecuteOptions,
+        ): void;
+        /**
+         * Adds an executeMany operation to the pipeline.
+         *
+         * @param statement The SQL or PL/SQL statement to be executed.
+         * @param parameters The values or variables to be bound to the executed
+         * statement. It must be an array of arrays (for bind by position) or an
+         * array of objects whose keys match the bind variable names in the SQL
+         * statement (for bind by name).
+         * @param options Optional parameter that may be used to control statement
+         * execution.
+         */
+        addExecuteMany(
+            statement: string,
+            parameters: PipelineExecuteManyBindParameters,
+            options?: PipelineExecuteManyOptions,
+        ): void;
+        /**
+         * Adds an executeMany operation to the pipeline with a specified number
+         * of iterations when using previously-bound values.
+         *
+         * @param statement The SQL or PL/SQL statement to be executed.
+         * @param numIterations The number of iterations.
+         * @param options Optional parameter that may be used to control statement
+         * execution.
+         */
+        addExecuteMany(
+            statement: string,
+            numIterations: number,
+            options?: PipelineExecuteManyOptions,
+        ): void;
+        /**
+         * Adds a fetch operation to the pipeline that returns all rows.
+         *
+         * @param statement The SQL or PL/SQL statement to be executed.
+         * @param parameters The values or variables to be bound to the executed
+         * statement.
+         * @param options Optional parameter that may be used to control statement
+         * execution.
+         * @param fetchArraySize The size of an internal buffer used for fetching
+         * query rows from Oracle Database.
+         * @param fetchLobs Determines whether to return LOB objects, or string or
+         * buffer values when fetching LOB columns. Default is true.
+         */
+        addFetchAll(
+            statement: string,
+            parameters?: PipelineBindParameters,
+            options?: PipelineExecuteOptions,
+            fetchArraySize?: number,
+            fetchLobs?: boolean,
+        ): void;
+        /**
+         * Adds a fetch operation to the pipeline that returns up to numRows rows.
+         *
+         * @param statement The SQL or PL/SQL statement to be executed.
+         * @param parameters The values or variables to be bound to the executed
+         * statement.
+         * @param options Optional parameter that may be used to control statement
+         * execution.
+         * @param numRows The number of rows to be fetched.
+         * Default is the value of oracledb.fetchArraySize.
+         * @param fetchLobs Determines whether to return LOB objects, or string or
+         * buffer values when fetching LOB columns. Default is true.
+         */
+        addFetchMany(
+            statement: string,
+            parameters?: PipelineBindParameters,
+            options?: PipelineExecuteOptions,
+            numRows?: number,
+            fetchLobs?: boolean,
+        ): void;
+        /**
+         * Adds a fetch operation to the pipeline that returns at most one row.
+         *
+         * @param statement The SQL or PL/SQL statement to be executed.
+         * @param parameters The values or variables to be bound to the executed
+         * statement.
+         * @param options Optional parameter that may be used to control statement
+         * execution.
+         * @param fetchLobs Determines whether to return LOB objects, or string or
+         * buffer values when fetching LOB columns. Default is true.
+         */
+        addFetchOne(
+            statement: string,
+            parameters?: PipelineBindParameters,
+            options?: PipelineExecuteOptions,
+            fetchLobs?: boolean,
+        ): void;
+    }
+
     // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
     type ResultCallback<T> = (...args: [DBError] | [null, T]) => void;
 
@@ -2887,6 +3229,14 @@ declare namespace OracleDB {
         close(drainTime?: number): Promise<void>;
         close(drainTime: number, callback: (error: DBError | null) => void): void;
         close(callback: (error: DBError | null) => void): void;
+
+        /**
+         * Implements Explicit Resource Management. Equivalent to calling
+         * pool.close().
+         *
+         * @since 7.0
+         */
+        [Symbol.asyncDispose](): Promise<void>;
 
         /**
          * This method obtains a connection from the connection pool.
@@ -3932,6 +4282,14 @@ declare namespace OracleDB {
          */
         close(): Promise<void>;
         close(callback: (error: DBError | null) => void): void;
+
+        /**
+         * Implements Explicit Resource Management. Equivalent to calling
+         * resultSet.close().
+         *
+         * @since 7.0
+         */
+        [Symbol.asyncDispose](): Promise<void>;
 
         /**
          * This call fetches one row of the ResultSet as an object or an array of column values,

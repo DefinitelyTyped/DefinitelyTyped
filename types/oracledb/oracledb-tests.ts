@@ -911,3 +911,43 @@ export const version6_10Tests = async (): Promise<void> => {
 
     const messages = await queue.deqMany(5);
 };
+
+export const version7Tests = async (): Promise<void> => {
+    const connection = await oracledb.getConnection({
+        user: "test",
+    });
+
+    const columns: oracledb.DirectPathLoadColumns = ["ID", "NAME"];
+    const data: oracledb.DirectPathLoadData = [
+        [1, "first"],
+        [2, "second"],
+    ];
+    await connection.directPathLoad("TEST_SCHEMA", "TEST_TABLE", columns, data);
+    connection.directPathLoad("TEST_SCHEMA", "TEST_TABLE", columns, data, error => {
+        expectType<oracledb.DBError | null>(error);
+    });
+
+    const pipeline = new oracledb.Pipeline();
+    pipeline.addExecute("insert into test_table values (:1)", [1]);
+    pipeline.addExecuteMany("insert into test_table values (:1)", [[1], [2]]);
+    pipeline.addFetchAll("select * from test_table", [], { outFormat: oracledb.OUT_FORMAT_OBJECT }, 50, true);
+    pipeline.addFetchMany("select * from test_table", [], { outFormat: oracledb.OUT_FORMAT_OBJECT }, 10, false);
+    pipeline.addFetchOne(
+        "select * from test_table where id = :1",
+        [1],
+        { outFormat: oracledb.OUT_FORMAT_OBJECT },
+        false,
+    );
+    pipeline.addCommit();
+
+    const pipelineResults = await connection.runPipeline(pipeline, true);
+    expectType<oracledb.PipelineOperationResult[]>(pipelineResults);
+    connection.runPipeline(pipeline, (error, results) => {
+        expectType<oracledb.DBError | null>(error);
+        expectType<oracledb.PipelineOperationResult[]>(results);
+    });
+    connection.runPipeline(pipeline, true, (error, results) => {
+        expectType<oracledb.DBError | null>(error);
+        expectType<oracledb.PipelineOperationResult[]>(results);
+    });
+};
