@@ -915,6 +915,19 @@ export const version6_10Tests = async (): Promise<void> => {
 export const version7Tests = async (): Promise<void> => {
     defaultOracledb.thickModeDSNPassthrough = false;
     expectType<boolean>(defaultOracledb.thickModeDSNPassthrough);
+    expectType<string>(defaultOracledb.enquoteLiteral("O'Reilly"));
+    expectType<string>(defaultOracledb.enquoteName("Department_Name"));
+    expectType<string>(defaultOracledb.enquoteName("Department_Name", false));
+    expectType<boolean>(defaultOracledb.isSimpleSqlName("employee_id"));
+    expectType<boolean>(defaultOracledb.isQualifiedSqlName("HR.employees@db1"));
+    // @ts-expect-error
+    defaultOracledb.enquoteLiteral(123);
+    // @ts-expect-error
+    defaultOracledb.enquoteName("abc", "no");
+    // @ts-expect-error
+    defaultOracledb.isSimpleSqlName(true);
+    // @ts-expect-error
+    defaultOracledb.isQualifiedSqlName();
 
     const connection = await oracledb.getConnection({
         user: "test",

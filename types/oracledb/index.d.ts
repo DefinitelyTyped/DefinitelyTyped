@@ -5437,6 +5437,60 @@ declare namespace OracleDB {
     }
 
     /**
+     * This synchronous method returns the input value as a string that can safely
+     * be included in a SQL statement as a string literal.
+     *
+     * Embedded single quote characters are doubled.
+     * Non-string values fail standard parameter validation.
+     *
+     * @param value The value to be converted to a SQL string literal.
+     * @since 7.0
+     */
+    function enquoteLiteral(value: string): string;
+
+    /**
+     * This synchronous method returns the input string enclosed in double quotes
+     * so it can be included in a SQL statement as an identifier.
+     *
+     * The default value of capitalize is `true`, so the input is converted to
+     * uppercase using locale-independent Unicode rules before quoting.
+     * Set capitalize to `false` to preserve case.
+     * Any input containing a double quote character is rejected.
+     *
+     * Uppercasing is done in the Node.js client and can differ from Oracle
+     * Database `DBMS_ASSERT.ENQUOTE_NAME()` behavior for some characters.
+     *
+     * @param name The string to be quoted for identifier use.
+     * @param capitalize Indicates whether the input string is converted to uppercase before quoting. The default is `true`.
+     * @since 7.0
+     */
+    function enquoteName(name: string, capitalize?: boolean): string;
+
+    /**
+     * This synchronous method returns whether the input string is a qualified SQL name.
+     *
+     * Leading and trailing whitespace is ignored. Components may be separated
+     * by dots, and one optional trailing '@' database link name is allowed.
+     * The database link name can itself be dotted.
+     * Invalid SQL name strings return `false`.
+     *
+     * @param name The string to be validated.
+     * @since 7.0
+     */
+    function isQualifiedSqlName(name: string): boolean;
+
+    /**
+     * This synchronous method returns whether the input string is a simple SQL name.
+     *
+     * Leading and trailing whitespace is ignored.
+     * Invalid SQL name strings return `false`.
+     *
+     * @param name The string to be validated.
+     * @since 7.0
+     */
+    function isSimpleSqlName(name: string): boolean;
+
+    /**
      * This method creates a pool of connections with the specified user name, password and connection string.
      * A pool is typically created once during application initialization.
      *
