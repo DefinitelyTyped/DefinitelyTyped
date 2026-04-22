@@ -67,7 +67,7 @@ declare class CEconItem {
     app_data?: any;
     /** An array of objects containing the item's asset properties. These are not always present, and their contents are entirely arbitrary and up to the game. */ asset_properties?:
         Array<
-            & { propertyid: number; name: string }
+            & { propertyid: number; name?: string }
             & (
                 | { int_value: string; float_value?: never; string_value?: never }
                 | { float_value: string; int_value?: never; string_value?: never }
