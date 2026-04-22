@@ -1,5 +1,5 @@
-// Tests for Google Publisher Tag 1.20260413
-// Synced from: https://github.com/googleads/google-publisher-tag-types/commit/a7102d4da14f534c852664c73adb77db8b803545
+// Tests for Google Publisher Tag 1.20260420
+// Synced from: https://github.com/googleads/google-publisher-tag-types/commit/fec849a853dfba65b7059ba9c2f6a30bbcfa4add
 
 // Test for googletag.cmd
 function test_googletag_cmd() {
@@ -120,6 +120,19 @@ function test_googletag_privacySettingsConfig_trafficSource() {
     // Indicate requests represent purchased traffic.
     googletag.pubads().setPrivacySettings({
         trafficSource: googletag.enums.TrafficSource.PURCHASED,
+    });
+}
+
+// Test for googletag.PrivacySettingsConfig.tagForAgeTreatment
+function test_googletag_privacySettingsConfig_tagForAgeTreatment() {
+    // Enable teen privacy treatment.
+    googletag.pubads().setPrivacySettings({
+        tagForAgeTreatment: googletag.enums.TagForAgeTreatment.TEEN,
+    });
+
+    // Clear age treatment configuration.
+    googletag.pubads().setPrivacySettings({
+        tagForAgeTreatment: googletag.enums.TagForAgeTreatment.UNSPECIFIED,
     });
 }
 

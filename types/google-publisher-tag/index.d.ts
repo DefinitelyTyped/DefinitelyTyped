@@ -442,6 +442,33 @@ declare namespace googletag {
          *   });
          */
         trafficSource?: enums.TrafficSource;
+
+        /**
+         * The age-restricted treatment, indicating whether the ad request should be
+         * treated as child, teen, or unspecified.
+         *
+         * Consult your own legal counsel to determine the age treatment settings for
+         * your users based on your legal and regulatory requirements. For more
+         * information on this setting, review this [Help Center article](
+         * https://support.google.com/adsense/answer/9007197).
+         *
+         * By setting this property, you certify that this notification is accurate
+         * and you are authorized to act on behalf of the owner of the site. You
+         * understand that abuse of this setting may result in termination of your
+         * Google account.
+         *
+         * @example
+         *   // Enable teen privacy treatment.
+         *   googletag.pubads().setPrivacySettings({
+         *     tagForAgeTreatment: googletag.enums.TagForAgeTreatment.TEEN
+         *   });
+         *
+         *   // Clear age treatment configuration.
+         *   googletag.pubads().setPrivacySettings({
+         *     tagForAgeTreatment: googletag.enums.TagForAgeTreatment.UNSPECIFIED
+         *   });
+         */
+        tagForAgeTreatment?: enums.TagForAgeTreatment;
     }
 
     /**
@@ -2858,6 +2885,29 @@ declare namespace googletag {
             PURCHASED,
             /** Direct URL entry, site search, or app download. */
             ORGANIC,
+        }
+
+        /**
+         * Age treatment settings supported by GPT.
+         *
+         * @see {@link PrivacySettingsConfig.tagForAgeTreatment}
+         */
+        enum TagForAgeTreatment {
+            /**
+             * Default value. Indicates that no specific age restricted treatment signal
+             * applies to the ad request.
+             */
+            UNSPECIFIED,
+
+            /**
+             * Indicates that ad requests should receive CHILD age treatment.
+             */
+            CHILD,
+
+            /**
+             * Indicates that ad requests should receive TEEN age treatment.
+             */
+            TEEN,
         }
     }
 
