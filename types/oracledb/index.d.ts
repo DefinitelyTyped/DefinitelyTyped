@@ -5483,6 +5483,7 @@ declare namespace OracleDB {
      * This synchronous method returns whether the input string is a simple SQL name.
      *
      * Leading and trailing whitespace is ignored.
+     * Valid names are either unquoted identifiers that begin with a Unicode letter and then use Unicode letters, Unicode combining marks, Unicode digits, '_', '$', or '#', or quoted identifiers enclosed in double quotes with no embedded double quotes or the NUL character ('\u0000').
      * Invalid SQL name strings return `false`.
      *
      * @param name The string to be validated.
