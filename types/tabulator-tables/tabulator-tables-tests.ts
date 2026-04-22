@@ -1508,7 +1508,7 @@ table = new Tabulator("#test", {
     ],
     dataTreeChildColumnCalcs: true,
     placeholder() {
-        return this.getHeaderFilters().length ? "No Matching Data" : "No Data";
+        return this.getHeaderFilters().length ? "No Matching Data" : new HTMLDivElement();
     },
     placeholderHeaderFilter: "No Matching Data",
     persistence: {
