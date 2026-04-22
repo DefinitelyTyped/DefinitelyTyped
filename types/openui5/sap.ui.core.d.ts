@@ -279,7 +279,7 @@ declare namespace sap {
     "sap/ui/thirdparty/qunit-2": undefined;
   }
 }
-// For Library Version: 1.146.0
+// For Library Version: 1.147.0
 
 declare module "sap/base/assert" {
   /**
@@ -7745,9 +7745,9 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
      * has been resolved!
      *
      *
-     * @returns The meta model for this `ODataModel`
+     * @returns The meta model for this `ODataModel`, or `undefined` if the model has been destroyed
      */
-    getMetaModel(): ODataMetaModel;
+    getMetaModel(): ODataMetaModel | undefined;
     /**
      * Returns a JSON object that is a copy of the entity data referenced by the given `sPath` and `oContext`.
      * It does not load any data and may not return all requested data if it is not available.
@@ -17444,7 +17444,6 @@ declare module "sap/ui/core/library" {
   /**
    * Implementing this interface allows a control to be accessible via access keys.
    *
-   * @since 1.104
    * @experimental As of version 1.104.
    */
   export interface IAccessKeySupport {
@@ -17454,21 +17453,18 @@ declare module "sap/ui/core/library" {
      * Returns a refence to DOM element to be focused during Access key navigation. If not implemented getFocusDomRef()
      * method is used.
      *
-     * @since 1.104
      * @experimental As of version 1.104.
      */
     getAccessKeysFocusTarget?(): void;
     /**
      * If implemented called when access keys feature is enabled and highlighting is over
      *
-     * @since 1.104
      * @experimental As of version 1.104.
      */
     onAccKeysHighlightEnd?(): void;
     /**
      * If implemented called when access keys feature is enabled and highlighting is ongoing
      *
-     * @since 1.104
      * @experimental As of version 1.104.
      */
     onAccKeysHighlightStart?(): void;
@@ -42243,6 +42239,59 @@ declare module "sap/ui/core/RenderManager" {
       oTargetDomNode: Element
     ): void;
     /**
+     * Executes a rendering callback and flushes the result into the provided DOM node.
+     *
+     * The rendering callback receives a RenderManager instance with the semantic rendering API implementation
+     * (DOM interface methods like `openStart`, `attr`, `openEnd`, `text`, `close`, etc.).
+     *
+     * This method combines rendering and flushing in a single call, automatically handling non-HTML namespaces
+     * (e.g., SVG, MathML) by detecting the namespace of the target DOM node.
+     *
+     * **Difference from calling render() then flush() separately:** When rendering into a non-HTML namespace
+     * context (e.g., SVG or MathML elements), this method automatically detects the target node's namespace
+     * and applies it as a fallback namespace for the rendering operation. This ensures that elements created
+     * without an explicit parent element (such as when rendering into a DocumentFragment initially) inherit
+     * the correct namespace.
+     *
+     * This function must not be called within control renderers.
+     *
+     * Usage:
+     * ```javascript
+     *
+     *   const oRM = new RenderManager().getInterface();
+     *
+     *   // assume that oSvgContainer is already part of the DOM and we want to render a circle into it
+     *   oRM.renderAndFlush(function(oRM) {
+     *     oRM.openStart("circle").attr("cx", "50").attr("cy", "50").attr("r", "40");
+     *     oRM.openEnd();
+     *     oRM.close("circle");
+     *   }, oSvgContainer);
+     *
+     *   oRM.destroy();
+     * ```
+     *
+     *
+     * @since 1.147
+     *
+     * @returns Reference to `this` to allow method chaining
+     */
+    renderAndFlush(
+      /**
+       * Rendering callback that receives a RenderManager instance with the semantic rendering API implementation
+       * (DOM interface methods like `openStart`, `attr`, `openEnd`, `text`, `close`, etc.)
+       */
+      fnRender: (p1: RenderManager) => void,
+      /**
+       * Node in the DOM where the result should be flushed into
+       */
+      oTargetDomNode: Element,
+      /**
+       * Determines whether the buffer of the target DOM node is expanded (`true`) or replaced (`false`), or the
+       * new entry is inserted at a specific position (value of type `int`)
+       */
+      vInsert?: boolean | int
+    ): this;
+    /**
      * Turns the given control into its HTML representation and appends it to the rendering buffer.
      *
      * If the given control is undefined or null, then nothing is rendered.
@@ -53254,6 +53303,9 @@ declare module "sap/ui/core/ws/SapPcpWebSocket" {
    * 'SUPPORTED_PROTOCOLS'.
    */
   enum SUPPORTED_PROTOCOLS {
+    /**
+     * Protocol v10.pcp.sap.com
+     */
     v10 = "v10.pcp.sap.com",
   }
   /**
@@ -62981,7 +63033,7 @@ declare module "sap/ui/model/Model" {
     /**
      * HTTP status code returned by the request (if available)
      */
-    statusCode?: string;
+    statusCode?: string | number;
 
     /**
      * The status as a text, details not specified, intended only for diagnosis output
@@ -73617,10 +73669,23 @@ declare module "sap/ui/model/odata/v4/Context" {
      */
     isKeepAlive(): boolean;
     /**
+     * Tells whether this context is outdated:
+     * 	`undefined`: The outdated state has not been determined yet `true`: The context is outdated `false`:
+     * The context is up to date
+     *
+     * The outdated state can also be accessed via the instance annotation "@$ui5.context.isOutdated".
+     *
+     * @experimental As of version 1.147.
+     *
+     * @returns Whether this context is outdated, or `undefined` if the outdated state has not been determined
+     * yet
+     */
+    isOutdated(): boolean | undefined;
+    /**
      * Tells whether this context is currently selected, but not {@link #delete deleted} on the client. Selection
-     * was experimental as of version 1.111.0. Since 1.122.0, the selection state can also be accessed via instance
-     * annotation "@$ui5.context.isSelected" at the entity. Note that the annotation does not take the deletion
-     * state into account.
+     * was experimental as of version 1.111.0. Since 1.122.0, the selection state can also be accessed via the
+     * instance annotation "@$ui5.context.isSelected" at the entity. Note that the annotation does not take
+     * the deletion state into account.
      * See:
      * 	#setSelected
      *
@@ -73896,9 +73961,11 @@ declare module "sap/ui/model/odata/v4/Context" {
      * effects fail to load. Use it to set fields affected by side effects to read-only before {@link #requestSideEffects }
      * and make them editable again when the promise resolves; in the error handler, you can repeat the loading
      * of side effects.
-     *  The promise is rejected if the call wants to refresh a whole list binding (via header context or an
-     * absolute path), but the deletion of a row context (see {@link #delete}) is pending with a different group
-     * ID.
+     *  The promise is rejected if
+     * 	 the call attempts to refresh an entire list binding (via header context or an absolute path) while
+     * the deletion of a row context (see {@link #delete}) is pending with a different group ID,  this is
+     * the row context of a list binding with data aggregation which has `groupLevels` or `"grandTotal like
+     * 1.84"`, or  this context does not represent a single entity
      */
     requestSideEffects(
       /**
@@ -75427,9 +75494,11 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
      */
     getGroupId(): string;
     /**
-     * Returns the header context which allows binding to `$count` or `@$ui5.context.isSelected`.
+     * Returns the header context which allows binding to `$count`, `@$ui5.context.isOutdated`, or `@$ui5.context.isSelected`.
      * See:
      * 	#getCount
+     * 	sap.ui.model.odata.v4.Context#isOutdated
+     * 	sap.ui.model.odata.v4.Context#isSelected
      *
      * @since 1.45.0
      *
@@ -79912,6 +79981,11 @@ declare module "sap/ui/model/Sorter" {
              */
             group?: boolean | Function;
             /**
+             * An array of paths that are required for grouping. Supported since 1.147.0; consult the documentation
+             * of the specific model implementation whether it evaluates these paths.
+             */
+            groupPaths?: string[];
+            /**
              * The binding path for this sorter
              */
             path?: string;
@@ -80020,6 +80094,14 @@ declare module "sap/ui/model/Sorter" {
      * @returns The group function
      */
     getGroupFunction(): Function;
+    /**
+     * Returns the group paths.
+     *
+     * @since 1.147.0
+     *
+     * @returns The array of group paths or `undefined` if this sorter has no group paths.
+     */
+    getGroupPaths(): string[] | undefined;
     /**
      * Returns the binding path for this sorter; see the path parameter of {@link sap.ui.model.Sorter#constructor}.
      *
@@ -82821,6 +82903,10 @@ declare module "sap/ui/test/actions/Press" {
    * The `Press` action is used to simulate a press interaction with a control. Most controls are supported,
    * for example buttons, links, list items, tables, filters, and form controls.
    *
+   * The `Press` action can also simulate right-click (context menu) interactions by setting the `rightClick`
+   * property to true. This is useful for testing controls with custom context menus, such as `sap.ui.table.Table`
+   * and `sap.m.Table`.
+   *
    * The `Press` action targets a special DOM element representing the control. This DOM element can be customized.
    *
    * For most most controls (even custom ones), the DOM focus reference is an appropriate choice. You can
@@ -82917,7 +83003,9 @@ declare module "sap/ui/test/actions/Press" {
     /**
      * Sets focus on given control and triggers a 'tap' event on it (which is internally translated into a 'press'
      * event). If `keyDown` or `keyUp` is set to `true`, dispatches the corresponding keyboard event instead
-     * of mouse events. Logs an error if control is not visible (i.e. has no dom representation)
+     * of mouse events. If `rightClick` property is set to `true`, triggers a `contextmenu` event instead, along
+     * with appropriate `mousedown` and `mouseup` events. Logs an error if control is not visible (i.e. has
+     * no dom representation)
      */
     executeOn(
       /**
@@ -82967,6 +83055,21 @@ declare module "sap/ui/test/actions/Press" {
      * @returns Value of property `keyUp`
      */
     getKeyUp(): boolean;
+    /**
+     * Gets current value of property {@link #getRightClick rightClick}.
+     *
+     * If set to `true`, a right-click (context menu) event will be triggered instead of a left-click. This
+     * simulates the native browser right-click behavior by dispatching `mousedown` and `mouseup` with `button:
+     * 2`, followed by a `contextmenu` event. The `xPercentage` and `yPercentage` properties can be used to
+     * specify the position of the right-click event.
+     *
+     * Default value is `false`.
+     *
+     * @since 1.147
+     *
+     * @returns Value of property `rightClick`
+     */
+    getRightClick(): boolean;
     /**
      * Gets current value of property {@link #getShiftKey shiftKey}.
      *
@@ -83068,6 +83171,28 @@ declare module "sap/ui/test/actions/Press" {
        * New value for property `keyUp`
        */
       bKeyUp: boolean
+    ): this;
+    /**
+     * Sets a new value for property {@link #getRightClick rightClick}.
+     *
+     * If set to `true`, a right-click (context menu) event will be triggered instead of a left-click. This
+     * simulates the native browser right-click behavior by dispatching `mousedown` and `mouseup` with `button:
+     * 2`, followed by a `contextmenu` event. The `xPercentage` and `yPercentage` properties can be used to
+     * specify the position of the right-click event.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     *
+     * @since 1.147
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setRightClick(
+      /**
+       * New value for property `rightClick`
+       */
+      bRightClick?: boolean
     ): this;
     /**
      * Sets a new value for property {@link #getShiftKey shiftKey}.
@@ -83179,6 +83304,16 @@ declare module "sap/ui/test/actions/Press" {
      * @since 1.146
      */
     keyUp?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * If set to `true`, a right-click (context menu) event will be triggered instead of a left-click. This
+     * simulates the native browser right-click behavior by dispatching `mousedown` and `mouseup` with `button:
+     * 2`, followed by a `contextmenu` event. The `xPercentage` and `yPercentage` properties can be used to
+     * specify the position of the right-click event.
+     *
+     * @since 1.147
+     */
+    rightClick?: boolean | PropertyBindingInfo | `{${string}}`;
   }
 }
 
@@ -86655,6 +86790,27 @@ declare module "sap/ui/test/Opa5" {
      * Use when there are multiple views with the same viewName.
      */
     viewId?: string;
+    /**
+     * The namespace to be prepended to the view name defined in the `viewName` parameter. When set, all `waitFor`
+     * calls inside the page object will resolve the view by `viewNamespace + "." + viewName`.
+     *
+     * Example:
+     * ```javascript
+     *
+     *     Opa5.createPageObjects({
+     *       onMyPage: {
+     *         viewName: "myView",
+     *         viewNamespace: "my.app.namespace",
+     *         assertions: { ... }
+     *       }
+     *     });
+     *   ```
+     *
+     *
+     * Note: If all page objects share the same `viewNamespace`, consider setting it globally via {@link sap.ui.test.Opa5.extendConfig }
+     * to avoid repetition.
+     */
+    viewNamespace?: string;
     /**
      * Base class for the page object's actions and assertions
      */
