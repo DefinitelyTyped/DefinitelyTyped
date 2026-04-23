@@ -1,0 +1,27 @@
+{
+    "private": true,
+    "name": "@types/actions__github-script",
+    "version": "9.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "actions/github-script",
+    "projects": [
+        "https://github.com/actions/github-script"
+    ],
+    "devDependencies": {
+        "@types/actions__github-script": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "jiw-mh",
+            "githubUsername": "jiw-mh"
+        }
+    ],
+    "dependencies": {
+        "@actions/core": "*",
+        "@actions/exec": "*",
+        "@actions/github": "*",
+        "@actions/glob": "*",
+        "@actions/io": "*",
+        "@types/node": "*"
+    }
+}
