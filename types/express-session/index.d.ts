@@ -15,7 +15,7 @@ declare global {
              *
              * @see SessionData
              */
-            session: session.Session & Partial<session.SessionData>;
+            session: session.Session & session.SessionData
 
             /**
              * This request's session ID.
