@@ -162,6 +162,15 @@ const testCases = [
         <button popoverTarget="popover-target" popoverTargetAction="toggle">Toggle</button>
         <button popoverTarget="popover-target" popoverTargetAction="show">Show</button>
         <button popoverTarget="popover-target" popoverTargetAction="hide">Hide</button>
+        <button commandFor="command-target" command="toggle-popover">Toggle</button>
+        <button commandFor="command-target" command="--custom-command">Custom</button>
+        <button
+            commandFor="command-target"
+            // @ts-expect-error accidental boolean
+            command
+        >
+            Invalid
+        </button>
         <button
             popoverTarget="popover-target"
             // @ts-expect-error
