@@ -1897,6 +1897,10 @@ import { promisify } from "node:util";
     subtle.encrypt({ name: "AES-CBC", iv: new Uint8Array(16) }, key, new TextEncoder().encode("hello")); // $ExpectType Promise<ArrayBuffer>
     subtle.exportKey("jwk", key); // $ExpectType Promise<JsonWebKey>
     subtle.generateKey({ name: "ECDH", namedCurve: "P-256" }, false, ["deriveKey", "deriveBits"]); // $ExpectType Promise<CryptoKeyPair>
+    subtle.generateKey({ name: "Ed25519" }, true, ["sign", "verify"]); // $ExpectType Promise<CryptoKeyPair>
+    subtle.generateKey({ name: "Ed448" }, true, ["sign", "verify"]); // $ExpectType Promise<CryptoKeyPair>
+    subtle.generateKey({ name: "X25519" }, true, ["deriveKey", "deriveBits"]); // $ExpectType Promise<CryptoKeyPair>
+    subtle.generateKey({ name: "X448" }, true, ["deriveKey", "deriveBits"]); // $ExpectType Promise<CryptoKeyPair>
     subtle.getPublicKey(key, ["sign", "verify", "deriveBits"]); // $ExpectType Promise<CryptoKey>
     subtle.importKey("pkcs8", buf, { name: "RSA-PSS", hash: "SHA-1" }, false, []); // $ExpectType Promise<CryptoKey>
     subtle.sign({ name: "RSA-PSS", saltLength: 64 }, key, buf); // $ExpectType Promise<ArrayBuffer>
