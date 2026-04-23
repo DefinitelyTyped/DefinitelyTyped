@@ -146,7 +146,12 @@ declare var SpeechGrammarList: { prototype: SpeechGrammarList; new(): SpeechGram
 
 // prefixed global variables in Chrome; should match the equivalents above
 // https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API/Using_the_Web_Speech_API#chrome_support
-declare var webkitSpeechRecognition: { prototype: SpeechRecognition; new(): SpeechRecognition };
+declare var webkitSpeechRecognition: {
+    prototype: SpeechRecognition;
+    new(): SpeechRecognition;
+    available(options: SpeechRecognitionOptions): Promise<AvailabilityStatus>;
+    install(options: SpeechRecognitionOptions): Promise<boolean>;
+};
 declare var webkitSpeechGrammarList: { prototype: SpeechGrammarList; new(): SpeechGrammarList };
 declare var webkitSpeechRecognitionEvent: {
     prototype: SpeechRecognitionEvent;
