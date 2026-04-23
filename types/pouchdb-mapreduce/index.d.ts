@@ -7,7 +7,10 @@ declare namespace PouchDB {
      *
      * @param emit CouchDB does not support emit as an argument and maps defined this way will always run locally
      */
-    type Map<Content extends {}, Result> = (doc: Content, emit?: (key: any, value: Content | Result) => void) => void;
+    type Map<Content extends {}, Result> = (
+        doc: Content,
+        emit?: (key: Core.DocumentKey, value: Content | Result) => void,
+    ) => void;
     /**
      * CouchDB-style Reduction function
      *
@@ -15,7 +18,7 @@ declare namespace PouchDB {
      *             PouchDB may pass a simple array and also supports complex keys.
      */
     type Reducer<Content extends {}, Reduction> = (
-        keys: any | null,
+        keys: Core.DocumentId[] | null,
         values: Content[] | Reduction[],
         rereduce: boolean,
     ) => Reduction[] | Reduction;
@@ -39,9 +42,9 @@ declare namespace PouchDB {
             /** Return attachment data as Blobs/Buffers, instead of as base64-encoded strings. */
             binary?: boolean | undefined;
             /** Get rows with keys in a certain range (inclusive/inclusive). */
-            startkey?: any;
+            startkey?: Core.DocumentKey;
             /** Get rows with keys in a certain range (inclusive/inclusive). */
-            endkey?: any;
+            endkey?: Core.DocumentKey;
             /** Include rows having a key equal to the given options.endkey. */
             inclusive_end?: boolean | undefined;
             /** Maximum number of rows to return. */
@@ -51,9 +54,9 @@ declare namespace PouchDB {
             /** Reverse the order of the output rows. */
             descending?: boolean | undefined;
             /** Only return rows matching this key. */
-            key?: any;
+            key?: Core.DocumentKey;
             /** Array of keys to fetch in a single shot. */
-            keys?: any[] | undefined;
+            keys?: Core.DocumentId[] | undefined;
             /** True if you want the reduce function to group results by keys, rather than returning a single result. */
             group?: boolean | undefined;
             /**
@@ -78,9 +81,9 @@ declare namespace PouchDB {
             total_rows: number;
             offset: number;
             rows: Array<{
-                id: any;
-                key: any;
-                value: any;
+                id: Core.DocumentId;
+                key: Core.DocumentKey;
+                value: Content | null;
                 doc?: Core.ExistingDocument<Content & Core.AllDocsMeta> | undefined;
             }>;
         }
