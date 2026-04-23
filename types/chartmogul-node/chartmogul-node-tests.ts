@@ -1263,6 +1263,37 @@ ChartMogul.Transaction.create(config, "inv_565c73b2-85b9-49c9-a25e-2b7df6a677c9"
     transaction_fees_currency: "EUR",
 });
 
+// LineItem UUID-based methods
+
+// $ExpectType Promise<LineItem>
+ChartMogul.LineItem.create(config, "inv_79eaad44-3379-4239-af83-2e0047dbebe6", {
+    type: "subscription",
+    amount_in_cents: 10000,
+    quantity: 1,
+    external_id: "li_ext_id_00762",
+    subscription_external_id: "sub_added_line_item_via_api_1",
+    plan_uuid: "pl_3eb4efb2-d101-4dce-a664-be271b0da4de",
+    service_period_start: "2022-11-01T00:00:00.000Z",
+    service_period_end: "2022-12-01T00:00:00.000Z",
+});
+
+// $ExpectType Promise<LineItem>
+ChartMogul.LineItem.retrieve(config, "li_592f4699-107b-41b9-b7bc-a2aa2ca7a67b");
+
+// $ExpectType Promise<LineItem>
+ChartMogul.LineItem.modify(config, "li_592f4699-107b-41b9-b7bc-a2aa2ca7a67b", {
+    amount_in_cents: 20000,
+});
+
+// $ExpectType Promise<ResourceDestroyed>
+ChartMogul.LineItem.destroy(config, "li_592f4699-107b-41b9-b7bc-a2aa2ca7a67b");
+
+// $ExpectType Promise<LineItem>
+ChartMogul.LineItem.disable(config, "li_592f4699-107b-41b9-b7bc-a2aa2ca7a67b");
+
+// $ExpectType Promise<LineItem>
+ChartMogul.LineItem.enable(config, "li_592f4699-107b-41b9-b7bc-a2aa2ca7a67b");
+
 // LineItem query-param methods (PIP-306)
 
 // $ExpectType Promise<LineItems>
@@ -1278,7 +1309,7 @@ ChartMogul.LineItem.update(config, {
 });
 
 // $ExpectType Promise<ResourceDestroyed>
-ChartMogul.LineItem.destroy(config, {
+ChartMogul.LineItem.destroyByExternalId(config, {
     qs: { data_source_uuid: "ds_uuid", external_id: "li_ext_001" },
 });
 
@@ -1290,6 +1321,18 @@ ChartMogul.LineItem.disable(config, {
 
 // $ExpectType Promise<LineItem>
 ChartMogul.LineItem.enable(config, {
+    data_source_uuid: "ds_uuid",
+    external_id: "li_ext_001",
+});
+
+// $ExpectType Promise<LineItem>
+ChartMogul.LineItem.disableByExternalId(config, {
+    data_source_uuid: "ds_uuid",
+    external_id: "li_ext_001",
+});
+
+// $ExpectType Promise<LineItem>
+ChartMogul.LineItem.enableByExternalId(config, {
     data_source_uuid: "ds_uuid",
     external_id: "li_ext_001",
 });

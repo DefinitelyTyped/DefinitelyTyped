@@ -922,16 +922,32 @@ export namespace LineItem {
         event_order?: number;
     }
 
+    /** POST /v1/import/invoices/:invoiceUuid/line_items */
+    function create(config: Config, invoiceUuid: string, data: Invoice.NewLineItem): Promise<LineItem>;
+    /** GET /v1/line_items/:lineItemUuid */
+    function retrieve(config: Config, lineItemUuid: string): Promise<LineItem>;
+    /** PATCH /v1/line_items/:lineItemUuid */
+    function modify(config: Config, lineItemUuid: string, data: UpdateLineItem): Promise<LineItem>;
     /** GET /v1/line_items?data_source_uuid&external_id */
     function all(config: Config, params: ExternalIdParams): Promise<LineItems>;
     /** PATCH /v1/line_items?data_source_uuid&external_id with body */
     function update(config: Config, data: { qs: ExternalIdParams } & UpdateLineItem): Promise<LineItem>;
+    /** DELETE /v1/line_items/:lineItemUuid */
+    function destroy(config: Config, lineItemUuid: string): Promise<ResourceDestroyed>;
     /** DELETE /v1/line_items?data_source_uuid&external_id */
-    function destroy(config: Config, data: { qs: ExternalIdParams }): Promise<ResourceDestroyed>;
+    function destroyByExternalId(config: Config, data: { qs: ExternalIdParams }): Promise<ResourceDestroyed>;
+    /** Disable: PATCH /v1/line_items/:lineItemUuid/disabled_state */
+    function disable(config: Config, lineItemUuid: string): Promise<LineItem>;
     /** Disable: PATCH /v1/line_items/disabled_state?data_source_uuid&external_id */
     function disable(config: Config, params: ExternalIdParams): Promise<LineItem>;
+    /** Enable: PATCH /v1/line_items/:lineItemUuid/disabled_state */
+    function enable(config: Config, lineItemUuid: string): Promise<LineItem>;
     /** Enable: PATCH /v1/line_items/disabled_state?data_source_uuid&external_id */
     function enable(config: Config, params: ExternalIdParams): Promise<LineItem>;
+    /** Disable by query params: PATCH /v1/line_items/disabled_state?data_source_uuid&external_id */
+    function disableByExternalId(config: Config, params: ExternalIdParams): Promise<LineItem>;
+    /** Enable by query params: PATCH /v1/line_items/disabled_state?data_source_uuid&external_id */
+    function enableByExternalId(config: Config, params: ExternalIdParams): Promise<LineItem>;
 }
 
 export namespace Transaction {
