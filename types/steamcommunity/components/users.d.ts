@@ -1,4 +1,5 @@
-import { appid, Callback, contextid, userid } from "../index";
+import { appid, Callback, CallbackError, contextid, userid } from "../index";
+import CEconItem = require("../classes/CEconItem");
 
 export interface Users {
     /**
@@ -53,7 +54,20 @@ export interface Users {
 
     getUserProfileBackground(userID: userid, callback: Callback): void;
 
-    getUserInventoryContexts(userID: userid, callback: Callback): void;
+    /**
+     * Gets info about what inventories are available to a user. Calling this for your own logged-in account will reset the number of new items you have to 0.
+     *
+     * @param userID The user's SteamID as a SteamID object or a string which can parse into one
+     * @param callback Required. Called when the requested data is available.
+     */
+    getUserInventoryContexts(
+        userID: userid,
+        callback: (
+            err: CallbackError,
+            /** An object whose keys are AppIDs and values are objects containing app and context data. */
+            apps: any,
+        ) => any,
+    ): void;
 
     /**
      * Get the contents of a user's inventory context.
@@ -69,7 +83,13 @@ export interface Users {
         appID: appid,
         contextID: contextid,
         tradableOnly: boolean,
-        callback: Callback,
+        callback: (
+            err: CallbackError,
+            /** An array containing `CEconItem` objects for the user's inventory items. */
+            inventory: CEconItem[],
+            /** An array containing `CEconItem` objects for the user's currency items (only used by Spiral Knights to the extent of my knowledge). */
+            currency: CEconItem[],
+        ) => any,
     ): void;
 
     /**
@@ -87,8 +107,16 @@ export interface Users {
         contextID: contextid,
         tradableOnly: boolean,
         language: string,
-        callback: Callback,
-    ): any;
+        callback: (
+            err: CallbackError,
+            /** An array containing `CEconItem` objects for the user's inventory items. */
+            inventory: CEconItem[],
+            /** An array containing `CEconItem` objects for the user's currency items (only used by Spiral Knights to the extent of my knowledge). */
+            currency: CEconItem[],
+            /** A number containing the total number of items in this contextid. */
+            totalItems: number,
+        ) => any,
+    ): void;
 
     /**
      * Upload an image to Steam and send it to another user over Steam chat.
