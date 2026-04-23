@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "module": "node16",
+        "module": "commonjs",
         "lib": [
             "es6"
         ],
@@ -14,6 +14,10 @@
     },
     "files": [
         "index.d.ts",
-        "test/scheduler.ts"
+        "unstable_mock.d.ts",
+        "unstable_post_task.d.ts",
+        "scheduler-tests.ts",
+        "unstable_mock-tests.ts",
+        "unstable_post_task-tests.ts"
     ]
 }
