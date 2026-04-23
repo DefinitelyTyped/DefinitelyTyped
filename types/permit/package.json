@@ -11,10 +11,5 @@
     "devDependencies": {
         "@types/permit": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Jannik Keye",
-            "githubUsername": "jannikkeye"
-        }
-    ]
+    "owners": []
 }
