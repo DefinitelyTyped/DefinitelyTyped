@@ -14,6 +14,7 @@ function MessageExample() {
         if (message === `How are you?`) {
             sendResponse(`I'm fine thank you and you?`);
         }
+        return undefined;
     });
 
     // contentScript
@@ -54,6 +55,7 @@ function MessageExample() {
         // 그러므로 sidebarAction.show() 의 콜백에서 보내는 메시지는 이곳에 도달하지 않습니다.
         whale.runtime.onMessage.addListener(message => {
             console.log(message);
+            return undefined;
         });
     });
 }
