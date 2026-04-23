@@ -988,16 +988,30 @@ export namespace Transaction {
     }
 
     function create(config: Config, invoiceUuid: string, data: NewTransaction): Promise<Transaction>;
+    /** GET /v1/transactions/:transactionUuid */
+    function retrieve(config: Config, transactionUuid: string): Promise<Transaction>;
+    /** PATCH /v1/transactions/:transactionUuid */
+    function modify(config: Config, transactionUuid: string, data: UpdateTransaction): Promise<Transaction>;
     /** GET /v1/transactions?data_source_uuid&external_id */
     function all(config: Config, params: ExternalIdParams): Promise<Transactions>;
     /** PATCH /v1/transactions?data_source_uuid&external_id with body */
     function update(config: Config, data: { qs: ExternalIdParams } & UpdateTransaction): Promise<Transaction>;
+    /** DELETE /v1/transactions/:transactionUuid */
+    function destroy(config: Config, transactionUuid: string): Promise<ResourceDestroyed>;
     /** DELETE /v1/transactions?data_source_uuid&external_id */
-    function destroy(config: Config, data: { qs: ExternalIdParams }): Promise<ResourceDestroyed>;
+    function destroyByExternalId(config: Config, data: { qs: ExternalIdParams }): Promise<ResourceDestroyed>;
+    /** Disable: PATCH /v1/transactions/:transactionUuid/disabled_state */
+    function disable(config: Config, transactionUuid: string): Promise<Transaction>;
     /** Disable: PATCH /v1/transactions/disabled_state?data_source_uuid&external_id */
     function disable(config: Config, params: ExternalIdParams): Promise<Transaction>;
+    /** Enable: PATCH /v1/transactions/:transactionUuid/disabled_state */
+    function enable(config: Config, transactionUuid: string): Promise<Transaction>;
     /** Enable: PATCH /v1/transactions/disabled_state?data_source_uuid&external_id */
     function enable(config: Config, params: ExternalIdParams): Promise<Transaction>;
+    /** Disable by query params: PATCH /v1/transactions/disabled_state?data_source_uuid&external_id */
+    function disableByExternalId(config: Config, params: ExternalIdParams): Promise<Transaction>;
+    /** Enable by query params: PATCH /v1/transactions/disabled_state?data_source_uuid&external_id */
+    function enableByExternalId(config: Config, params: ExternalIdParams): Promise<Transaction>;
 }
 
 export namespace Subscription {

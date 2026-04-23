@@ -1337,6 +1337,25 @@ ChartMogul.LineItem.enableByExternalId(config, {
     external_id: "li_ext_001",
 });
 
+// Transaction UUID-based methods
+
+// $ExpectType Promise<Transaction>
+ChartMogul.Transaction.retrieve(config, "tr_592f4699-107b-41b9-b7bc-a2aa2ca7a67b");
+
+// $ExpectType Promise<Transaction>
+ChartMogul.Transaction.modify(config, "tr_592f4699-107b-41b9-b7bc-a2aa2ca7a67b", {
+    result: "failed",
+});
+
+// $ExpectType Promise<ResourceDestroyed>
+ChartMogul.Transaction.destroy(config, "tr_592f4699-107b-41b9-b7bc-a2aa2ca7a67b");
+
+// $ExpectType Promise<Transaction>
+ChartMogul.Transaction.disable(config, "tr_592f4699-107b-41b9-b7bc-a2aa2ca7a67b");
+
+// $ExpectType Promise<Transaction>
+ChartMogul.Transaction.enable(config, "tr_592f4699-107b-41b9-b7bc-a2aa2ca7a67b");
+
 // Transaction query-param methods (PIP-306)
 
 // $ExpectType Promise<Transactions>
@@ -1352,7 +1371,7 @@ ChartMogul.Transaction.update(config, {
 });
 
 // $ExpectType Promise<ResourceDestroyed>
-ChartMogul.Transaction.destroy(config, {
+ChartMogul.Transaction.destroyByExternalId(config, {
     qs: { data_source_uuid: "ds_uuid", external_id: "tr_ext_001" },
 });
 
@@ -1364,6 +1383,18 @@ ChartMogul.Transaction.disable(config, {
 
 // $ExpectType Promise<Transaction>
 ChartMogul.Transaction.enable(config, {
+    data_source_uuid: "ds_uuid",
+    external_id: "tr_ext_001",
+});
+
+// $ExpectType Promise<Transaction>
+ChartMogul.Transaction.disableByExternalId(config, {
+    data_source_uuid: "ds_uuid",
+    external_id: "tr_ext_001",
+});
+
+// $ExpectType Promise<Transaction>
+ChartMogul.Transaction.enableByExternalId(config, {
     data_source_uuid: "ds_uuid",
     external_id: "tr_ext_001",
 });
