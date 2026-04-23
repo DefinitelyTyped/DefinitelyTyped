@@ -1,6 +1,7 @@
+import events = require("events");
 import notifier = require("../");
 
-declare class WindowsBalloon {
+declare class WindowsBalloon extends events.EventEmitter {
     constructor(option?: notifier.Option);
     notify(notification?: WindowsBalloon.Notification, callback?: notifier.NotificationCallback): WindowsBalloon;
 }

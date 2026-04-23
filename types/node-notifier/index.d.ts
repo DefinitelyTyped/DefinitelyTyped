@@ -7,6 +7,13 @@ import WindowsBalloon = require("./notifiers/balloon");
 import Growl = require("./notifiers/growl");
 
 declare namespace nodeNotifier {
+    type NotificationConstructor =
+        | typeof NotificationCenter
+        | typeof NotifySend
+        | typeof WindowsToaster
+        | typeof WindowsBalloon
+        | typeof Growl;
+
     interface NodeNotifier extends NodeJS.EventEmitter {
         notify(notification?: NotificationCenter.Notification, callback?: NotificationCallback): NotificationCenter;
         notify(notification?: WindowsToaster.Notification, callback?: NotificationCallback): WindowsToaster;
@@ -19,6 +26,7 @@ declare namespace nodeNotifier {
         WindowsToaster: typeof WindowsToaster;
         WindowsBalloon: typeof WindowsBalloon;
         Growl: typeof Growl;
+        Notification: NotificationConstructor;
     }
 
     interface Notification {

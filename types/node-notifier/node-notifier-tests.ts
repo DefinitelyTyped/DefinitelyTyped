@@ -48,6 +48,11 @@ new notifier.WindowsToaster(options).notify(options);
 new notifier.WindowsBalloon(options).notify(options);
 new notifier.Growl(options).notify(options);
 
+const Notification = notifier.Notification;
+const platformNotifier = new Notification(options);
+platformNotifier.notify();
+platformNotifier.on("click", () => {});
+
 //
 // All notification options with their defaults:
 //
@@ -87,6 +92,8 @@ const notifier3 = new notifier.WindowsToaster({
     customPath: void 0, // Relative path if you want to use your fork of toast.exe
 });
 
+notifier3.on("click", () => {});
+
 notifier3.notify(
     {
         title: void 0,
@@ -95,7 +102,9 @@ notifier3.notify(
         sound: false, // true | false.
         wait: false, // if wait for notification to end
         appID: "",
+        appName: "com.example.app",
         id: 1,
+        actions: ["Open"],
         install: "/",
         remove: 1,
     },
@@ -113,6 +122,8 @@ const notifier4 = new notifier.Growl({
     host: "localhost",
     port: 23053,
 });
+
+notifier4.on("click", () => {});
 
 notifier4.notify({
     title: "Foo",
@@ -152,7 +163,11 @@ notifier5.notify(
 // Usage NotifySend
 //
 
-const notifier6 = new notifier.NotifySend();
+const notifier6 = new notifier.NotifySend({
+    suppressOsdCheck: true,
+});
+
+notifier6.on("timeout", () => {});
 
 notifier6.notify({
     title: "Foo",
@@ -163,6 +178,7 @@ notifier6.notify({
     timeout: void 0,
     category: void 0,
     hint: void 0,
+    "app-name": "node-notifier",
 });
 
 notifier6.notify({
@@ -185,4 +201,25 @@ notifier6.notify({
     urgency: void 0,
     category: void 0,
     hint: void 0,
+});
+
+notifier2.on("replied", () => {});
+
+notifier2.notify({
+    list: "ALL",
+});
+
+notifier2.notify({
+    group: "demo",
+    remove: "demo",
+});
+
+notifier2.notify({
+    title: "Foo",
+    message: "Hello World",
+    activate: "com.apple.Terminal",
+    sender: "com.apple.Terminal",
+    execute: "/usr/bin/open",
+    appIcon: path.join(__dirname, "coulson.jpg"),
+    ignoreDnD: true,
 });

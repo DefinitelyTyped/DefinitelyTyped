@@ -1,6 +1,7 @@
+import events = require("events");
 import notifier = require("../");
 
-declare class Growl {
+declare class Growl extends events.EventEmitter {
     constructor(option?: Growl.Option);
     notify(notification?: Growl.Notification, callback?: notifier.NotificationCallback): Growl;
 }
