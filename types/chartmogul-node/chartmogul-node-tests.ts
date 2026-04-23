@@ -1325,6 +1325,10 @@ ChartMogul.Transaction.enable(config, {
     external_id: "tr_ext_001",
 });
 
+const txnWithError: ChartMogul.Transaction.Transaction = {};
+// $ExpectType string | null | undefined
+txnWithError.error;
+
 ChartMogul.Subscription.cancel(config, "", {
     cancelled_at: "",
 });

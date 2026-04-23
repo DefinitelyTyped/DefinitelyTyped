@@ -948,6 +948,7 @@ export namespace Transaction {
         disabled_at?: string | null;
         disabled_by?: string | null;
         user_created?: boolean;
+        error?: string | null;
     }
 
     interface NewTransaction {
