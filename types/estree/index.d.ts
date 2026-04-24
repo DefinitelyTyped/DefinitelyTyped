@@ -316,7 +316,7 @@ export interface PrivateIdentifier extends BaseNode {
 
 export interface Property extends BaseNode {
     type: "Property";
-    key: Expression | PrivateIdentifier;
+    key: Expression;
     value: Expression | Pattern; // Could be an AssignmentProperty
     kind: "init" | "get" | "set";
     method: boolean;
