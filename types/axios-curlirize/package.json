@@ -6,7 +6,7 @@
         "https://github.com/delirius325/axios-curlirize#readme"
     ],
     "dependencies": {
-        "axios": ">=0.19.0"
+        "axios": "^1.15.0"
     },
     "devDependencies": {
         "@types/axios-curlirize": "workspace:."

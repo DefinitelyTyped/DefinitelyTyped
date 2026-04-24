@@ -6,7 +6,7 @@
         "https://github.com/circa10a/easy-soap-request"
     ],
     "dependencies": {
-        "axios": "^1.6.7"
+        "axios": "^1.15.0"
     },
     "devDependencies": {
         "@types/easy-soap-request": "workspace:."
