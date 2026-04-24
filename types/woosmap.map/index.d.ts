@@ -1540,7 +1540,7 @@ declare namespace woosmap.map {
          */
         disableDefaultUI?: boolean;
         /**
-         * Disable the tilt control for the users, (default: false).
+         * Disable the tilt and rotation controls for the users. When set to `true`, this prevents map tilt as well as rotation via touch gestures (two-finger rotate) and keyboard shortcuts (Shift+Arrow keys), (default: false).
          */
         disableTilt?: boolean;
         /**
