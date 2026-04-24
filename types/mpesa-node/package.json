@@ -6,7 +6,7 @@
         "https://github.com/safaricom/mpesa-node-library#readme"
     ],
     "dependencies": {
-        "axios": "^0.19.2"
+        "axios": "^1.15.0"
     },
     "devDependencies": {
         "@types/mpesa-node": "workspace:."

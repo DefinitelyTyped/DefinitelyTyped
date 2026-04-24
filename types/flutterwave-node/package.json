@@ -6,7 +6,7 @@
         "https://github.com/Flutterwave/ravepay-nodejs"
     ],
     "dependencies": {
-        "axios": "^0.21.0"
+        "axios": "^1.15.0"
     },
     "devDependencies": {
         "@types/flutterwave-node": "workspace:."
