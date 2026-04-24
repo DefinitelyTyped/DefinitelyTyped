@@ -355,6 +355,11 @@ function testMultipleConstructors() {
     y.div(3); // 1.6666666667
 }
 
+function bigintTests() {
+    const x: Big = new Big(123n);
+    Big(456n).plus(789n);
+}
+
 function multipleTypesAccepted(n: number | Big | string) {
     const y = Big(n).minus(n).mod(n).plus(n).times(n);
     y.cmp(n);
