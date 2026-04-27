@@ -804,6 +804,7 @@ function testRuntime() {
     chrome.runtime.PlatformOs.ANDROID === "android";
     chrome.runtime.PlatformOs.CROS === "cros";
     chrome.runtime.PlatformOs.FUCHSIA === "fuchsia";
+    chrome.runtime.PlatformOs.IOS === "ios";
     chrome.runtime.PlatformOs.LINUX === "linux";
     chrome.runtime.PlatformOs.MAC === "mac";
     chrome.runtime.PlatformOs.OPENBSD === "openbsd";
