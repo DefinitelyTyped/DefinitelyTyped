@@ -8886,6 +8886,8 @@ declare namespace chrome {
             OPENBSD = "openbsd",
             /** Specifies the Fuchsia operating system. */
             FUCHSIA = "fuchsia",
+            /** Specifies the iOS operating system. */
+            IOS = "ios",
         }
 
         /**
