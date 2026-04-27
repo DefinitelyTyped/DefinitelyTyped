@@ -19,6 +19,7 @@ declare const ERR_NO_BODYPART: ERR_NO_BODYPART;
 declare const ERR_NOT_ENOUGH_EXTENSIONS: ERR_NOT_ENOUGH_EXTENSIONS;
 declare const ERR_RCL_NOT_ENOUGH: ERR_RCL_NOT_ENOUGH;
 declare const ERR_GCL_NOT_ENOUGH: ERR_GCL_NOT_ENOUGH;
+declare const ERR_ACCESS_DENIED: ERR_ACCESS_DENIED;
 
 declare const FIND_EXIT_TOP: FIND_EXIT_TOP;
 declare const FIND_EXIT_RIGHT: FIND_EXIT_RIGHT;
@@ -372,10 +373,8 @@ declare const GCL_POW: number;
 declare const GCL_MULTIPLY: number;
 declare const GCL_NOVICE: number;
 
-declare const MODE_SIMULATION: string;
-declare const MODE_SURVIVAL: string;
-declare const MODE_WORLD: string;
-declare const MODE_ARENA: string;
+declare const MODE_SIMULATION: null;
+declare const MODE_WORLD: null;
 
 declare const TERRAIN_MASK_WALL: TERRAIN_MASK_WALL;
 declare const TERRAIN_MASK_SWAMP: TERRAIN_MASK_SWAMP;
@@ -406,10 +405,10 @@ declare const MINERAL_DENSITY_PROBABILITY: {
 
 declare const MINERAL_DENSITY_CHANGE: number;
 
-declare const DENSITY_LOW: number;
-declare const DENSITY_MODERATE: number;
-declare const DENSITY_HIGH: number;
-declare const DENSITY_ULTRA: number;
+declare const DENSITY_LOW: DENSITY_LOW;
+declare const DENSITY_MODERATE: DENSITY_MODERATE;
+declare const DENSITY_HIGH: DENSITY_HIGH;
+declare const DENSITY_ULTRA: DENSITY_ULTRA;
 
 declare const DEPOSIT_EXHAUST_MULTIPLY: number;
 declare const DEPOSIT_EXHAUST_POW: number;
@@ -730,18 +729,14 @@ declare const BOOSTS: {
 
 declare const INTERSHARD_RESOURCES: InterShardResourceConstant[];
 
-declare const COMMODITIES: Record<
-    CommodityConstant | MineralConstant | RESOURCE_GHODIUM | RESOURCE_ENERGY,
-    {
-        level?: number;
-        amount: number;
-        cooldown: number;
-        components: Record<
-            DepositConstant | CommodityConstant | MineralConstant | RESOURCE_ENERGY | RESOURCE_GHODIUM,
-            number
-        >;
-    }
->;
+type CommoditiesTypes = CommodityConstant | MineralConstant | RESOURCE_GHODIUM | RESOURCE_ENERGY;
+interface CommodityEntry {
+    level?: number;
+    amount: number;
+    cooldown: number;
+    components: Record<DepositConstant | CommoditiesTypes, number>;
+}
+declare const COMMODITIES: Record<CommoditiesTypes, CommodityEntry>;
 
 declare const LOOK_CREEPS: LOOK_CREEPS;
 declare const LOOK_ENERGY: LOOK_ENERGY;
@@ -761,6 +756,7 @@ declare const LOOK_RUINS: LOOK_RUINS;
 declare const ORDER_SELL: ORDER_SELL;
 declare const ORDER_BUY: ORDER_BUY;
 
+declare const MARKET_FEE: 0.05;
 declare const MARKET_MAX_ORDERS: 300;
 declare const MARKET_ORDER_LIFE_TIME: 2592000000; // 1000*60*60*24*30
 
@@ -833,7 +829,7 @@ declare const PWR_OPERATE_FACTORY: PWR_OPERATE_FACTORY;
 declare const EFFECT_INVULNERABILITY: EFFECT_INVULNERABILITY;
 declare const EFFECT_COLLAPSE_TIMER: EFFECT_COLLAPSE_TIMER;
 
-declare const INVADER_CORE_HITS: 1000000;
+declare const INVADER_CORE_HITS: 100000;
 declare const INVADER_CORE_CREEP_SPAWN_TIME: {
     0: 0;
     1: 0;
@@ -842,11 +838,24 @@ declare const INVADER_CORE_CREEP_SPAWN_TIME: {
     4: 2;
     5: 1;
 };
-declare const INVADER_CORE_EXPAND_TIME: 15000;
-declare const INVADER_CORE_CONTROLLER_POWER: 100;
+declare const INVADER_CORE_EXPAND_TIME: {
+    1: 4000;
+    2: 3500;
+    3: 3000;
+    4: 2500;
+    5: 2000;
+};
+declare const INVADER_CORE_CONTROLLER_POWER: 2;
 declare const INVADER_CORE_CONTROLLER_DOWNGRADE: 5000;
-declare const STRONGHOLD_RAMPART_HITS: { 0: 0; 1: 50000; 2: 200000; 3: 500000; 4: 1000000; 5: 2000000 };
-declare const STRONGHOLD_DECAY_TICKS: 150000;
+declare const STRONGHOLD_RAMPART_HITS: {
+    0: 0;
+    1: 100000;
+    2: 200000;
+    3: 500000;
+    4: 1000000;
+    5: 2000000;
+};
+declare const STRONGHOLD_DECAY_TICKS: 75000;
 
 declare const POWER_INFO: {
     [powerID: number]: {
@@ -1021,11 +1030,19 @@ declare const POWER_INFO: {
 };
 /**
  * A site of a structure which is currently under construction.
+ *
+ * A construction site can be created using the 'Construct' button at the left of the game field or the {@link Room.createConstructionSite} method.
+ *
+ * To build a structure on the construction site, give a worker creep some amount of energy and perform {@link Creep.build} action.
+ *
+ * You can remove enemy construction sites by moving a creep on it.
  */
 interface ConstructionSite<T extends BuildableStructureConstant = BuildableStructureConstant> extends RoomObject {
     readonly prototype: ConstructionSite;
     /**
-     * A unique object identifier. You can use `Game.getObjectById` method to retrieve an object instance by its `id`.
+     * A unique object identifier.
+     *
+     * You can use {@link Game.getObjectById} to retrieve an object instance by its `id`.
      */
     id: Id<this>;
     /**
@@ -1045,7 +1062,7 @@ interface ConstructionSite<T extends BuildableStructureConstant = BuildableStruc
      */
     progressTotal: number;
     /**
-     * One of the `STRUCTURE_*` constants.
+     * One of the {@link StructureConstant STRUCTURE_*} constants.
      */
     structureType: T;
     /**
@@ -1060,8 +1077,30 @@ interface ConstructionSiteConstructor extends _Constructor<ConstructionSite>, _C
 declare const ConstructionSite: ConstructionSiteConstructor;
 /**
  * Creeps are your units.
+ *
  * Creeps can move, harvest energy, construct structures, attack another creeps, and perform other actions.
- * Each creep consists of up to 50 body parts with the following possible types:
+ * Each creep consists of up to 50 body parts represented by {@link BodyPartConstant}:.
+ *
+ * | Body part       | Build cost | Effect per one body part
+ * | :-------------- | :--------: | :-----------------------
+ * | MOVE            | 50         | Decreases fatigue by 2 points per tick.
+ * | WORK            | 100        | Harvests 2 energy units from a source per tick.
+ * |                 |            | Harvests 1 resource unit from a mineral or a deposit per tick.
+ * |                 |            | Builds a structure for 5 energy units per tick.
+ * |                 |            | Repairs a structure for 100 hits per tick consuming 1 energy unit per tick.
+ * |                 |            | Dismantles a structure for 50 hits per tick returning 0.25 energy unit per tick.
+ * |                 |            | Upgrades a controller for 1 energy unit per tick.
+ * | CARRY           | 50         | Can contain up to 50 resource units.
+ * | ATTACK          | 80         | Attacks another creep/structure with 30 hits per tick in a short-ranged attack.
+ * | RANGED_ATTACK   | 150        | Attacks another single creep/structure with 10 hits per tick in a long-range attack up to 3 squares long.
+ * |                 |            | Attacks all hostile creeps/structures within 3 squares range with 1-4-10 hits (depending on the range).
+ * | HEAL            | 250        | Heals self or another creep restoring 12 hits per tick in short range or 4 hits per tick at a distance.
+ * | CLAIM           | 600        | Claims a neutral room controller.
+ * |                 |            | Reserves a neutral room controller for 1 tick per body part.
+ * |                 |            | Attacks a hostile room controller downgrading its timer by 300 ticks per body parts.
+ * |                 |            | Attacks a neutral room controller reservation timer by 1 tick per body parts.
+ * |                 |            | A creep with this body part will have a reduced life time of 600 ticks and cannot be renewed.
+ * | TOUGH           | 10         | No effect, just additional hit points to the creep's body. Can be boosted to resist damage.
  */
 interface Creep extends RoomObject {
     readonly prototype: Creep;
@@ -1077,11 +1116,13 @@ interface Creep extends RoomObject {
     carry: StoreDefinition;
     /**
      * The total amount of resources the creep can carry.
-     * @deprecated alias for Creep.store.getCapacity
+     * @deprecated alias for {@link Creep.store.getCapacity}
      */
     carryCapacity: number;
     /**
-     * The movement fatigue indicator. If it is greater than zero, the creep cannot move.
+     * The movement fatigue indicator.
+     *
+     * If it is greater than zero, the creep cannot move.
      */
     fatigue: number;
     /**
@@ -1093,11 +1134,15 @@ interface Creep extends RoomObject {
      */
     hitsMax: number;
     /**
-     * A unique object identifier. You can use `Game.getObjectById` method to retrieve an object instance by its `id`.
+     * A unique object identifier.
+     *
+     * You can use {@link Game.getObjectById} to retrieve an object instance by its `id`.
      */
     id: Id<this>;
     /**
-     * A shorthand to `Memory.creeps[creep.name]`. You can use it for quick access the creep’s specific memory data object.
+     * A shorthand to `Memory.creeps[creep.name]`.
+     *
+     * You can use it for quick access the creep’s specific memory data object.
      */
     memory: CreepMemory;
     /**
@@ -1105,7 +1150,10 @@ interface Creep extends RoomObject {
      */
     my: boolean;
     /**
-     * Creep’s name. You can choose the name while creating a new creep, and it cannot be changed later. This name is a hash key to access the creep via the `Game.creeps` object.
+     * The creep’s name.
+     *
+     * You can choose the name while creating a new creep, and it cannot be changed later.
+     * This name is a hash key to access the creep via the {@link Game.creeps} object.
      */
     name: string;
     /**
@@ -1113,7 +1161,9 @@ interface Creep extends RoomObject {
      */
     owner: Owner;
     /**
-     * The link to the Room object. Always defined because creeps give visibility into the room they're in.
+     * The {@link Room} the creep is in.
+     *
+     * Always defined because creeps give visibility into the room they're in.
      */
     room: Room;
     /**
@@ -1135,78 +1185,136 @@ interface Creep extends RoomObject {
      */
     ticksToLive: number | undefined;
     /**
-     * Attack another creep or structure in a short-ranged attack. Needs the
-     * ATTACK body part. If the target is inside a rampart, then the rampart is
-     * attacked instead.
+     * Attack another creep or structure in a short-ranged attack.
      *
-     * The target has to be at adjacent square to the creep. If the target is a
-     * creep with ATTACK body parts and is not inside a rampart, it will
+     * Needs the ATTACK body part.
+     * If the target is inside a rampart, then the rampart is attacked instead.
+     *
+     * The target has to be at adjacent square to the creep.
+     * If the target is a creep with ATTACK body parts and is not inside a rampart, it will
      * automatically hit back at the attacker.
      *
-     * @returns Result Code: OK, ERR_NOT_OWNER, ERR_BUSY, ERR_INVALID_TARGET, ERR_NOT_IN_RANGE, ERR_NO_BODYPART
+     * @returns One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of this creep.
+     * - ERR_BUSY: The creep is still being spawned.
+     * - ERR_INVALID_TARGET: The target is not a valid attackable object.
+     * - ERR_NOT_IN_RANGE: The target is too far away.
+     * - ERR_NO_BODYPART: There are no ATTACK body parts in this creep’s body.
      */
     attack(target: AnyCreep | Structure): CreepActionReturnCode;
     /**
-     * Decreases the controller's downgrade or reservation timer for 1 tick per
-     * every 5 `CLAIM` body parts (so the creep must have at least 5x`CLAIM`).
+     * Attack a controller.
+     *
+     * Decreases the controller's downgrade or reservation timer for 1 tick per every 5 `CLAIM` body parts (so the creep must have at least 5x`CLAIM`).
      *
      * The controller under attack cannot be upgraded for the next 1,000 ticks.
      * The target has to be at adjacent square to the creep.
      *
-     * @returns Result Code: OK, ERR_NOT_OWNER, ERR_BUSY, ERR_INVALID_TARGET, ERR_NOT_IN_RANGE, ERR_NO_BODYPART, ERR_TIRED
+     * @returns One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of this creep.
+     * - ERR_BUSY: The creep is still being spawned.
+     * - ERR_INVALID_TARGET: The target is not a valid owned or reserved controller object.
+     * - ERR_NOT_IN_RANGE: The target is too far away.
+     * - ERR_TIRED: You have to wait until the next attack is possible.
+     * - ERR_NO_BODYPART: There are not enough CLAIM body parts in this creep’s body.
      */
     attackController(target: StructureController): CreepActionReturnCode;
     /**
      * Build a structure at the target construction site using carried energy.
-     * Needs WORK and CARRY body parts.
      *
+     * Needs WORK and CARRY body parts.
      * The target has to be within 3 squares range of the creep.
      *
      * @param target The target construction site to be built.
-     * @returns Result Code: OK, ERR_NOT_OWNER, ERR_BUSY, ERR_NOT_ENOUGH_RESOURCES, ERR_INVALID_TARGET, ERR_NOT_IN_RANGE, ERR_NO_BODYPART, ERR_RCL_NOT_ENOUGH
+     * @returns One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of this creep.
+     * - ERR_BUSY: The creep is still being spawned.
+     * - ERR_NOT_ENOUGH_RESOURCES: The creep does not have any carried energy.
+     * - ERR_INVALID_TARGET: The target is not a valid construction site object or the structure cannot be built here (probably because of a creep at the same square).
+     * - ERR_NOT_IN_RANGE: The target is too far away.
+     * - ERR_NO_BODYPART: There are no WORK body parts in this creep’s body.
      */
     build(target: ConstructionSite): CreepActionReturnCode | ERR_NOT_ENOUGH_RESOURCES | ERR_RCL_NOT_ENOUGH;
     /**
      * Cancel the order given during the current game tick.
      * @param methodName The name of a creep's method to be cancelled.
-     * @returns Result Code: OK, ERR_NOT_FOUND
+     * @returns One of the following codes:
+     * - OK: The operation has been cancelled successfully.
+     * - ERR_NOT_FOUND: The order with the specified name is not found.
      */
     cancelOrder(methodName: string): OK | ERR_NOT_FOUND;
     /**
-     * Requires the CLAIM body part.
+     * Claim a controller.
      *
+     * Requires the CLAIM body part.
      * If applied to a neutral controller, claims it under your control.
      * If applied to a hostile controller, decreases its downgrade or reservation timer depending on the CLAIM body parts count.
      *
      * The target has to be at adjacent square to the creep.
      * @param target The target controller object.
-     * @returns Result Code: OK, ERR_NOT_OWNER, ERR_BUSY, ERR_INVALID_TARGET, ERR_FULL, ERR_NOT_IN_RANGE, ERR_NO_BODYPART, ERR_GCL_NOT_ENOUGH
+     * @returns One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of this creep.
+     * - ERR_BUSY: The creep is still being spawned.
+     * - ERR_INVALID_TARGET: The target is not a valid neutral controller object.
+     * - ERR_FULL: You cannot claim more than 3 rooms in the Novice Area.
+     * - ERR_NOT_IN_RANGE: The target is too far away.
+     * - ERR_NO_BODYPART: There are no CLAIM body parts in this creep’s body.
+     * - ERR_GCL_NOT_ENOUGH: Your Global Control Level is not enough.
+     * - ERR_ACCESS_DENIED: The shard access is restricted.
      */
-    claimController(target: StructureController): CreepActionReturnCode | ERR_FULL | ERR_GCL_NOT_ENOUGH;
+    claimController(target: StructureController): CreepActionReturnCode | ERR_FULL | ERR_GCL_NOT_ENOUGH | ERR_ACCESS_DENIED;
     /**
-     * Dismantles any (even hostile) structure returning 50% of the energy spent on its repair.
+     * Dismantles any structure that can be constructed (even hostile) returning 50% of the energy spent on its repair.
      *
-     * Requires the WORK body part. If the creep has an empty CARRY body part, the energy is put into it; otherwise it is dropped on the ground.
-     *
+     * Requires the WORK body part.
+     * If the creep has an empty CARRY body part, the energy is put into it; otherwise it is dropped on the ground.
      * The target has to be at adjacent square to the creep.
      * @param target The target structure.
+     * @returns One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of this creep.
+     * - ERR_BUSY: The creep is still being spawned.
+     * - ERR_INVALID_TARGET: The target is not a valid structure object.
+     * - ERR_NOT_IN_RANGE: The target is too far away.
+     * - ERR_NO_BODYPART: There are no WORK body parts in this creep’s body.
      */
     dismantle(target: Structure): CreepActionReturnCode;
     /**
      * Drop this resource on the ground.
-     * @param resourceType One of the RESOURCE_* constants.
+     *
+     * @param resourceType One of the {@link ResourceConstant RESOURCE_*} constants.
      * @param amount The amount of resource units to be dropped. If omitted, all the available carried amount is used.
+     * @returns One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of this creep.
+     * - ERR_BUSY: The creep is still being spawned.
+     * - ERR_NOT_ENOUGH_RESOURCES: The creep does not have the given amount of resources.
+     * - ERR_INVALID_ARGS: The resourceType is not a valid RESOURCE_* constants.
      */
     drop(resourceType: ResourceConstant, amount?: number): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_NOT_ENOUGH_RESOURCES;
     /**
-     * Add one more available safe mode activation to a room controller. The creep has to be at adjacent square to the target room controller and have 1000 ghodium resource.
+     * Add one more available safe mode activation to a room controller.
+     *
+     * The creep has to be at adjacent square to the target room controller and have 1000 ghodium resource.
      * @param target The target room controller.
-     * @returns Result Code: OK, ERR_NOT_OWNER, ERR_BUSY, ERR_NOT_ENOUGH_RESOURCES, ERR_INVALID_TARGET, ERR_NOT_IN_RANGE
+     * @returns One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of this creep.
+     * - ERR_BUSY: The creep is still being spawned.
+     * - ERR_NOT_ENOUGH_RESOURCES: The creep does not have enough ghodium.
+     * - ERR_INVALID_TARGET: The target is not a valid controller object.
+     * - ERR_NOT_IN_RANGE: The target is too far away.
      */
     generateSafeMode(target: StructureController): CreepActionReturnCode;
     /**
-     * Get the quantity of live body parts of the given type. Fully damaged parts do not count.
-     * @param type A body part type, one of the following body part constants: MOVE, WORK, CARRY, ATTACK, RANGED_ATTACK, HEAL, TOUGH, CLAIM
+     * Get the quantity of live body parts of the given type.
+     *
+     * Fully damaged parts do not count.
+     * @param type A body part type, one of the {@link BodyPartConstant} constants.
      */
     getActiveBodyparts(type: BodyPartConstant): number;
     /**
@@ -1218,28 +1326,58 @@ interface Creep extends RoomObject {
      *
      * The target has to be at an adjacent square to the creep.
      * @param target The source object to be harvested.
+     * @return One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of this creep, or the room controller is owned or reserved by another player.
+     * - ERR_BUSY: The creep is still being spawned.
+     * - ERR_NOT_FOUND: Extractor not found. You must build an extractor structure to harvest minerals. Learn more
+     * - ERR_NOT_ENOUGH_RESOURCES: The target does not contain any harvestable energy or mineral.
+     * - ERR_INVALID_TARGET: The target is not a valid source or mineral object.
+     * - ERR_NOT_IN_RANGE: The target is too far away.
+     * - ERR_TIRED: The extractor or the deposit is still cooling down.
+     * - ERR_NO_BODYPART: There are no WORK body parts in this creep’s body.
      */
     harvest(target: Source | Mineral | Deposit): CreepActionReturnCode | ERR_NOT_FOUND | ERR_NOT_ENOUGH_RESOURCES;
     /**
-     * Heal self or another creep. It will restore the target creep’s damaged body parts function and increase the hits counter.
+     * Heal self or another creep.
+     *
+     * It will restore the target creep’s damaged body parts function and increase the hits counter.
      *
      * Needs the HEAL body part.
      *
      * The target has to be at adjacent square to the creep.
      * @param target The target creep object.
+     * @returns One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of this creep.
+     * - ERR_BUSY: The creep is still being spawned.
+     * - ERR_INVALID_TARGET: The target is not a valid creep object.
+     * - ERR_NOT_IN_RANGE: The target is too far away.
+     * - ERR_NO_BODYPART: There are no HEAL body parts in this creep’s body.
      */
     heal(target: AnyCreep): CreepActionReturnCode;
     /**
      * Move the creep one square in the specified direction or towards a creep that is pulling it.
      *
      * Requires the MOVE body part if not being pulled.
-     * @param direction The direction to move in (`TOP`, `TOP_LEFT`...)
+     * @param direction The direction to move in ({@link DirectionConstant `TOP`, `TOP_LEFT`...}).
+     * @param creep A creep nearby.
+     * @return One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of this creep.
+     * - ERR_BUSY: The creep is still being spawned.
+     * - ERR_NOT_IN_RANGE: The target creep is too far away
+     * - ERR_INVALID_ARGS: The provided direction is incorrect.
+     * - ERR_TIRED: The fatigue indicator of the creep is non-zero.
+     * - ERR_NO_BODYPART: There are no MOVE body parts in this creep’s body.
      */
     move(direction: DirectionConstant): CreepMoveReturnCode;
     move(target: Creep): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_NOT_IN_RANGE | ERR_INVALID_ARGS;
     /**
-     * Move the creep using the specified predefined path. Needs the MOVE body part.
-     * @param path A path value as returned from Room.findPath or RoomPosition.findPathTo methods. Both array form and serialized string form are accepted.
+     * Move the creep using the specified predefined path.
+     *
+     * Needs the MOVE body part.
+     * @param path A path value as returned from {@link Room.findPath} or {@link RoomPosition.findPathTo} methods. Both array form and serialized string form are accepted.
      */
     moveByPath(path: PathStep[] | RoomPosition[] | string): CreepMoveReturnCode | ERR_NOT_FOUND | ERR_INVALID_ARGS;
     /**
@@ -1267,29 +1405,65 @@ interface Creep extends RoomObject {
         opts?: MoveToOpts,
     ): CreepMoveReturnCode | ERR_NO_PATH | ERR_INVALID_TARGET | ERR_NOT_FOUND;
     /**
-     * Toggle auto notification when the creep is under attack. The notification will be sent to your account email. Turned on by default.
+     * Toggle auto notification when the creep is under attack.
+     *
+     * The notification will be sent to your account email. Turned on by default.
      * @param enabled Whether to enable notification or disable.
+     * @returns One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of this creep.
+     * - ERR_BUSY: The creep is still being spawned.
+     * - ERR_INVALID_ARGS: enable argument is not a boolean value.
      */
     notifyWhenAttacked(enabled: boolean): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_INVALID_ARGS;
     /**
-     * Pick up an item (a dropped piece of energy). Needs the CARRY body part. The target has to be at adjacent square to the creep or at the same square.
+     * Pick up an item (a dropped piece of energy).
+     *
+     * Needs the CARRY body part.
+     * The target has to be at adjacent square to the creep or at the same square.
      * @param target The target object to be picked up.
+     * @returns One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of this creep.
+     * - ERR_BUSY: The creep is still being spawned.
+     * - ERR_INVALID_TARGET: The target is not a valid object to pick up.
+     * - ERR_FULL: The creep cannot receive any more resource.
+     * - ERR_NOT_IN_RANGE: The target is too far away.
+     * - ERR_NO_BODYPART: There are no CARRY body parts in this creep’s body.
      */
     pickup(target: Resource): CreepActionReturnCode | ERR_FULL;
     /**
-     * Allow another creep to follow this creep. The fatigue generated for the target's move will be added to the creep instead of the target.
+     * Allow another creep to follow this creep.
      *
-     * Requires the MOVE body part. The target must be adjacent to the creep. The creep must move elsewhere, and the target must move towards the creep.
+     * Requires the MOVE body part.
+     *
+     * The fatigue generated for the target's move will be added to the creep instead of the target.
+     * The target must be adjacent to the creep. The creep must move elsewhere, and the target must move towards the creep.
      * @param target The target creep to be pulled.
+     * @returns One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of this creep.
+     * - ERR_BUSY: The creep is still being spawned.
+     * - ERR_INVALID_TARGET: The target provided is invalid.
+     * - ERR_NOT_IN_RANGE: The target is too far away.
+     * - ERR_NO_BODYPART: There are no MOVE body parts in this creep’s body.
      */
     pull(target: Creep): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_INVALID_TARGET | ERR_NOT_IN_RANGE | ERR_NO_BODYPART;
     /**
      * A ranged attack against another creep or structure.
      *
-     * Needs the RANGED_ATTACK body part. If the target is inside a rampart, the rampart is attacked instead.
+     * Needs the RANGED_ATTACK body part.
      *
+     * If the target is inside a rampart, the rampart is attacked instead.
      * The target has to be within 3 squares range of the creep.
      * @param target The target object to be attacked.
+     * @returns One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of this creep.
+     * - ERR_BUSY: The creep is still being spawned.
+     * - ERR_INVALID_TARGET: The target is not a valid attackable object.
+     * - ERR_NOT_IN_RANGE: The target is too far away.
+     * - ERR_NO_BODYPART: There are no RANGED_ATTACK body parts in this creep’s body.
      */
     rangedAttack(target: AnyCreep | Structure): CreepActionReturnCode;
     /**
@@ -1299,6 +1473,13 @@ interface Creep extends RoomObject {
      *
      * Needs the HEAL body part. The target has to be within 3 squares range of the creep.
      * @param target The target creep object.
+     * @returns One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of this creep.
+     * - ERR_BUSY: The creep is still being spawned.
+     * - ERR_INVALID_TARGET: The target is not a valid creep object.
+     * - ERR_NOT_IN_RANGE: The target is too far away.
+     * - ERR_NO_BODYPART: There are no HEAL body parts in this creep’s body.
      */
     rangedHeal(target: AnyCreep): CreepActionReturnCode;
     /**
@@ -1307,11 +1488,24 @@ interface Creep extends RoomObject {
      * Needs the RANGED_ATTACK body part.
      *
      * The attack power depends on the range to each target. Friendly units are not affected.
+     * @returns One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of this creep.
+     * - ERR_BUSY: The creep is still being spawned.
+     * - ERR_NO_BODYPART: There are no RANGED_ATTACK body parts in this creep’s body.
      */
     rangedMassAttack(): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_NO_BODYPART;
     /**
      * Repair a damaged structure using carried energy. Needs the WORK and CARRY body parts. The target has to be within 3 squares range of the creep.
      * @param target The target structure to be repaired.
+     * @returns One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of this creep.
+     * - ERR_BUSY: The creep is still being spawned.
+     * - ERR_NOT_ENOUGH_RESOURCES: The creep does not carry any energy.
+     * - ERR_INVALID_TARGET: The target is not a valid structure object.
+     * - ERR_NOT_IN_RANGE: The target is too far away.
+     * - ERR_NO_BODYPART: There are no WORK body parts in this creep’s body.
      */
     repair(target: Structure): CreepActionReturnCode | ERR_NOT_ENOUGH_RESOURCES;
     /**
@@ -1323,9 +1517,16 @@ interface Creep extends RoomObject {
      *
      * The target has to be at adjacent square to the creep....
      * @param target The target controller object to be reserved.
-     * @return Result code: OK, ERR_NOT_OWNER, ERR_BUSY, ERR_INVALID_TARGET, ERR_NOT_IN_RANGE, ERR_NO_BODYPART
+     * @return One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of this creep.
+     * - ERR_BUSY: The creep is still being spawned.
+     * - ERR_INVALID_TARGET: The target is not a valid neutral controller object.
+     * - ERR_NOT_IN_RANGE: The target is too far away.
+     * - ERR_NO_BODYPART: There are no CLAIM body parts in this creep’s body.
+     * - ERR_ACCESS_DENIED: The shard access is restricted.
      */
-    reserveController(target: StructureController): CreepActionReturnCode;
+    reserveController(target: StructureController): CreepActionReturnCode | ERR_ACCESS_DENIED;
     /**
      * Display a visual speech balloon above the creep with the specified message.
      *
@@ -1334,53 +1535,99 @@ interface Creep extends RoomObject {
      * Only the creep's owner can see the speech message unless toPublic is true.
      * @param message The message to be displayed. Maximum length is 10 characters.
      * @param set to 'true' to allow other players to see this message. Default is 'false'.
+     * @returns One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of this creep.
+     * - ERR_BUSY: The creep is still being spawned.
      */
     say(message: string, toPublic?: boolean): OK | ERR_NOT_OWNER | ERR_BUSY;
     /**
-     * Sign a controller with a random text visible to all players. This text will appear in the room UI, in the world map, and can be accessed via the API.
-     * You can sign unowned and hostile controllers. The target has to be at adjacent square to the creep. Pass an empty string to remove the sign.
+     * Sign a controller with a random text visible to all players.
+     *
+     * This text will appear in the room UI, in the world map, and can be accessed via the API.
+     * You can sign unowned and hostile controllers.
+     *
+     * The target has to be at adjacent square to the creep. Pass an empty string to remove the sign.
      * @param target The target controller object to be signed.
      * @param text The sign text. The maximum text length is 100 characters.
-     * @returns Result Code: OK, ERR_BUSY, ERR_INVALID_TARGET, ERR_NOT_IN_RANGE
+     * @returns One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_BUSY: The creep is still being spawned.
+     * - ERR_INVALID_TARGET: The target is not a valid controller object.
+     * - ERR_NOT_IN_RANGE: The target is too far away.
      */
     signController(target: StructureController, text: string): OK | ERR_BUSY | ERR_INVALID_TARGET | ERR_NOT_IN_RANGE;
     /**
      * Kill the creep immediately.
+     *
+     * @returns One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of this creep.
+     * - ERR_BUSY: The creep is still being spawned.
      */
     suicide(): OK | ERR_NOT_OWNER | ERR_BUSY;
     /**
-     * Transfer resource from the creep to another object. The target has to be at adjacent square to the creep.
+     * Transfer resource from the creep to another object.
+     *
+     * The target has to be at adjacent square to the creep.
      * @param target The target object.
-     * @param resourceType One of the RESOURCE_* constants
+     * @param resourceType One of the {@link ResourceConstant RESOURCE_*} constants
      * @param amount The amount of resources to be transferred. If omitted, all the available carried amount is used.
+     * @returns One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of this creep.
+     * - ERR_BUSY: The creep is still being spawned.
+     * - ERR_NOT_ENOUGH_RESOURCES: The creep does not have the given amount of resources.
+     * - ERR_INVALID_TARGET: The target is not a valid object which can contain the specified resource.
+     * - ERR_FULL: The target cannot receive any more resources.
+     * - ERR_NOT_IN_RANGE: The target is too far away.
+     * - ERR_INVALID_ARGS: The resourceType is not one of the {@link ResourceConstant RESOURCE_*} constants, or the amount is incorrect.
      */
     transfer(target: AnyCreep | Structure, resourceType: ResourceConstant, amount?: number): ScreepsReturnCode;
     /**
      * Upgrade your controller to the next level using carried energy.
      *
      * Upgrading controllers raises your Global Control Level in parallel.
+     * Requires WORK and CARRY body parts. The target has to be within 3 squares range of the creep.
      *
-     * Needs WORK and CARRY body parts.
-     *
-     * The target has to be at adjacent square to the creep.
-     *
-     * A fully upgraded level 8 controller can't be upgraded with the power over 15 energy units per tick regardless of creeps power.
-     *
+     * A fully upgraded level 8 controller can't be upgraded over 15 energy units per tick regardless of creeps abilities.
      * The cumulative effect of all the creeps performing upgradeController in the current tick is taken into account.
+     * This limit can be increased by using ghodium mineral boost.
+     *
+     * Upgrading the controller raises its ticksToDowngrade timer by 100. The timer must be full in order for controller to be levelled up.
      * @param target The target controller object to be upgraded.
+     * @returns One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of this creep or the target controller.
+     * - ERR_BUSY: The creep is still being spawned.
+     * - ERR_NOT_ENOUGH_RESOURCES: The creep does not have any carried energy.
+     * - ERR_INVALID_TARGET: The target is not a valid controller object, or the controller upgrading is blocked.
+     * - ERR_NOT_IN_RANGE: The target is too far away.
+     * - ERR_NO_BODYPART: There are no WORK body parts in this creep’s body.
+     * - ERR_ACCESS_DENIED: The shard access is restricted.
      */
-    upgradeController(target: StructureController): ScreepsReturnCode;
+    upgradeController(target: StructureController): ScreepsReturnCode | ERR_ACCESS_DENIED;
     /**
      * Withdraw resources from a structure, a tombstone or a ruin.
      *
-     * The target has to be at adjacent square to the creep.
+     * The target has to be at adjacent square to the creep. Multiple creeps can withdraw from the same object in the same tick.
+     * Your creeps can withdraw resources from hostile structures/tombstones as well, in case if there is no hostile rampart on top of it.
      *
-     * Multiple creeps can withdraw from the same structure in the same tick.
+     * This method should not be used to transfer resources between creeps.
+     * To transfer between creeps, use the {@link Creep.transfer} method on the original creep.
      *
-     * Your creeps can withdraw resources from hostile structures as well, in case if there is no hostile rampart on top of it.
      * @param target The target object.
-     * @param resourceType The target One of the RESOURCE_* constants..
+     * @param resourceType One of the {@link ResourceConstant RESOURCE_*} constants.
      * @param amount The amount of resources to be transferred. If omitted, all the available amount is used.
+     * @returns One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of this creep, or there is a hostile rampart on top of the target.
+     * - ERR_BUSY: The creep is still being spawned.
+     * - ERR_NOT_ENOUGH_RESOURCES: The target does not have the given amount of resources.
+     * - ERR_INVALID_TARGET: The target is not a valid object which can contain the specified resource.
+     * - ERR_FULL: The creep's carry is full.
+     * - ERR_NOT_IN_RANGE: The target is too far away.
+     * - ERR_INVALID_ARGS: The resourceType is not one of the {@link ResourceConstant RESOURCE_*} constants, or the amount is incorrect.
      */
     withdraw(target: Structure | Tombstone | Ruin, resourceType: ResourceConstant, amount?: number): ScreepsReturnCode;
 }
@@ -1390,21 +1637,29 @@ interface CreepConstructor extends _Constructor<Creep>, _ConstructorById<Creep> 
 declare const Creep: CreepConstructor;
 /**
  * A rare resource deposit needed for producing commodities.
- * Can be harvested by creeps with a WORK body part.
- * Each harvest operation triggers a cooldown period, which becomes longer and longer over time.
+ *
+ * Can be harvested by creeps with a WORK body part. Each harvest operation triggers a cooldown period, which becomes longer and longer over time.
+ *
+ * Learn more about deposits from [this article](https://docs.screeps.com/resources.html).
+ *
+ * |              |             |
+ * | ------------ | ----------- |
+ * | **Cooldown** | 0.001 * totalHarvested ^ 1.2
+ * | **Decay**    | 50,000 ticks after appearing or last harvest operation
  */
 interface Deposit extends RoomObject {
     /**
-     * A unique object identificator.
-     * You can use {@link Game.getObjectById} method to retrieve an object instance by its id.
+     * A unique object identifier.
+     *
+     * You can use {@link Game.getObjectById} to retrieve an object instance by its id.
      */
     id: Id<this>;
     /**
-     * The deposit type, one of the following constants:
-     * * `RESOURCE_MIST`
-     * * `RESOURCE_BIOMASS`
-     * * `RESOURCE_METAL`
-     * * `RESOURCE_SILICON`
+     * The deposit type, one of the {@link DepositConstant}:
+     * - `RESOURCE_MIST`
+     * - `RESOURCE_BIOMASS`
+     * - `RESOURCE_METAL`
+     * - `RESOURCE_SILICON`
      */
     depositType: DepositConstant;
     /**
@@ -1425,29 +1680,33 @@ interface DepositConstructor extends _Constructor<Deposit>, _ConstructorById<Dep
 
 declare const Deposit: DepositConstructor;
 /**
- * A flag. Flags can be used to mark particular spots in a room. Flags are visible to their owners only.
+ * A flag.
+ *
+ * Flags can be used to mark particular spots in a room. Flags are visible to their owners only. You cannot have more than 10,000 flags.
  */
 interface Flag extends RoomObject {
     readonly prototype: Flag;
 
     /**
-     * Flag color. One of the `COLOR_*` constants.
+     * Flag color. One of the {@link ColorConstant COLOR_*} constants.
      */
     color: ColorConstant;
     /**
+     * The flag's memory.
+     *
      * A shorthand to Memory.flags[flag.name]. You can use it for quick access the flag's specific memory data object.
      */
     memory: FlagMemory;
     /**
-     * Flag’s name.
+     * The flag’s name.
      *
      * You can choose the name while creating a new flag, and it cannot be changed later.
      *
-     * This name is a hash key to access the flag via the `Game.flags` object. The maximum name length is 60 characters.
+     * This name is a hash key to access the flag via the {@link Game.flags} object. The maximum name length is 60 characters.
      */
     name: string;
     /**
-     * Flag secondary color. One of the `COLOR_*` constants.
+     * Flag secondary color. One of the {@link ColorConstant COLOR_*} constants.
      */
     secondaryColor: ColorConstant;
     /**
@@ -1457,35 +1716,34 @@ interface Flag extends RoomObject {
     remove(): OK;
     /**
      * Set new color of the flag.
-     * @param color One of the following constants: COLOR_WHITE, COLOR_GREY, COLOR_RED, COLOR_PURPLE, COLOR_BLUE, COLOR_CYAN, COLOR_GREEN, COLOR_YELLOW, COLOR_ORANGE, COLOR_BROWN
-     * @param secondaryColor Secondary color of the flag. One of the COLOR_* constants.
-     * @returns Result Code: OK, ERR_INVALID_ARGS
+     * @param color One of the {@link ColorConstant COLOR_*} constants.
+     * @param secondaryColor Secondary color of the flag. One of the {@link ColorConstant COLOR_*} constants.
+     * @returns One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_INVALID_ARGS: color or secondaryColor is not a valid color constant.
      */
     setColor(color: ColorConstant, secondaryColor?: ColorConstant): OK | ERR_INVALID_ARGS;
     /**
      * Set new position of the flag.
      * @param x The X position in the room.
      * @param y The Y position in the room.
-     * @returns Result Code: OK, ERR_INVALID_TARGET
+     * @returns One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_INVALID_TARGET: The target provided is invalid.
      */
     setPosition(x: number, y: number): OK | ERR_INVALID_ARGS;
     /**
      * Set new position of the flag.
-     * @param pos Can be a RoomPosition object or any object containing RoomPosition.
-     * @returns Result Code: OK, ERR_INVALID_TARGET
+     * @param pos Can be a {@link RoomPosition} object or any object containing RoomPosition.
+     * @returns One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_INVALID_TARGET: The target provided is invalid.
      */
     setPosition(pos: RoomPosition | { pos: RoomPosition }): OK | ERR_INVALID_ARGS;
 }
 
 interface FlagConstructor extends _Constructor<Flag> {
-    new(
-        name: string,
-        color: ColorConstant,
-        secondaryColor: ColorConstant,
-        roomName: string,
-        x: number,
-        y: number,
-    ): Flag;
+    new (name: string, color: ColorConstant, secondaryColor: ColorConstant, roomName: string, x: number, y: number): Flag;
     (name: string, color: ColorConstant, secondaryColor: ColorConstant, roomName: string, x: number, y: number): Flag;
 }
 
@@ -1523,15 +1781,20 @@ interface Game {
      */
     market: Market;
     /**
-     * A hash containing all your power creeps with their names as hash keys. Even power creeps not spawned in the world can be accessed here.
+     * A hash containing all your power creeps with their names as hash keys.
+     *
+     * Even power creeps not spawned in the world can be accessed here.
      */
     powerCreeps: { [creepName: string]: PowerCreep };
     /**
-     * An object with your global resources that are bound to the account, like pixels or cpu unlocks. Each object key is a resource constant, values are resources amounts.
+     * An object with your global resources that are bound to the account, like pixels or cpu unlocks.
+     *
+     * Each object key is a resource constant, values are resources amounts.
      */
     resources: { [key: string]: any };
     /**
      * A hash containing all the rooms available to you with room names as hash keys.
+     *
      * A room is visible if you have a creep or an owned structure in it.
      */
     rooms: { [roomName: string]: Room };
@@ -1542,7 +1805,7 @@ interface Game {
     /**
      * A hash containing all your structures with structure id as hash keys.
      */
-    structures: { [structureId: string]: Structure };
+    structures: { [structureId: string]: OwnedStructure };
 
     /**
      * A hash containing all your construction sites with their id as hash keys.
@@ -1555,38 +1818,50 @@ interface Game {
     shard: Shard;
 
     /**
-     * System game tick counter. It is automatically incremented on every tick.
+     * System game tick counter.
+     *
+     * It is automatically incremented on every tick.
      */
     time: number;
 
     /**
-     * Get an object with the specified unique ID. It may be a game object of any type. Only objects from the rooms which are visible to you can be accessed.
+     * Get an object with the specified unique ID.
+     *
+     * It may be a game object of any type. Only objects from the rooms which are visible to you can be accessed.
      * @param id The unique identifier.
      * @returns an object instance or null if it cannot be found.
      */
     getObjectById<T extends Id<_HasId>>(id: T): fromId<T> | null;
     getObjectById<T extends _HasId>(id: Id<T>): T | null;
-
     /**
-     * Get an object with the specified unique ID. It may be a game object of any type. Only objects from the rooms which are visible to you can be accessed.
+     * Get an object with the specified unique ID.
+     *
+     * It may be a game object of any type. Only objects from the rooms which are visible to you can be accessed.
      * @param id The unique identifier.
      * @returns an object instance or null if it cannot be found.
-     * @deprecated Use Id<T>, instead of strings, to increase type safety
+     * @deprecated Use Id<T>, instead of strings, to increase type safety.
+     *
+     * If you are using JavaScript, just ignore this deprecation warning.
+     *
+     * If you are using TypeScript, and you are using strings as IDs, you should change your code to use Id<T> instead.
+     *
+     * see [this section of README](https://github.com/screepers/typed-screeps?tab=readme-ov-file#Game.getObjectById()) for more information.
      */
-    // tslint:disable-next-line:unified-signatures
     getObjectById<T extends _HasId>(id: string): T | null;
-
     /**
      * Send a custom message at your profile email.
      *
      * This way, you can set up notifications to yourself on any occasion within the game.
      *
-     * You can schedule up to 20 notifications during one game tick. Not available in the Simulation Room.
+     * You can schedule up to 20 notifications during one game tick. Not available in the Simulator.
      * @param message Custom text which will be sent in the message. Maximum length is 1000 characters.
      * @param groupInterval If set to 0 (default), the notification will be scheduled immediately.
      * Otherwise, it will be grouped with other notifications and mailed out later using the specified time in minutes.
+     * @returns One of the following codes:
+     * - OK: The message has been sent successfully.
+     * - ERR_FULL: More than 20 notifications sent this tick.
      */
-    notify(message: string, groupInterval?: number): undefined;
+    notify(message: string, groupInterval?: number): OK | ERR_FULL;
 }
 
 declare var Game: Game;
@@ -1641,6 +1916,31 @@ interface Shard {
      * Whether this shard belongs to the PTR.
      */
     ptr: boolean;
+    /**
+     * Whether you currently have access to this shard.
+     *
+     * Always true on non-restricted shards. On restricted shards, requires either an active ACCESS_KEY resource or an unlimited access subscription.
+     * Use {@link Game.shard.activateAccess} to activate access.
+     */
+    access?: boolean;
+    /**
+     * The time in milliseconds since UNIX epoch time until access to this restricted shard is active.
+     * This property is not defined when access is unlimited or when access is not currently active.
+     */
+    accessTime?: number;
+    /**
+     * Activate access to the current restricted shard for additional 30 days.
+     *
+     * This method will consume 1 ACCESS_KEY resource bound to your account (See Game.resources).
+     * This method is only available on restricted shards (when {@link Game.shard.access} is defined).
+     *
+     * @returns One of the following codes:
+     * - OK:The operation has been scheduled successfully.
+     * - ERR_NOT_ENOUGH_RESOURCES: Your account does not have enough ACCESS_KEY resources.
+     * - ERR_INVALID_TARGET: This shard is not restricted.
+     * - ERR_FULL: Your access is unlimited.
+     */
+    activateAccess?(): OK | ERR_INVALID_TARGET | ERR_FULL | ERR_NOT_ENOUGH_RESOURCES;
 }
 
 interface CPU {
@@ -1649,16 +1949,21 @@ interface CPU {
      */
     limit: number;
     /**
-     * An amount of available CPU time at the current game tick. Usually it is higher than `Game.cpu.limit`.
+     * An amount of available CPU time at the current game tick.
+     *
+     * Usually it is higher than {@link Game.cpu.limit}.
      */
     tickLimit: number;
     /**
      * An amount of unused CPU accumulated in your bucket.
+     *
      * @see http://docs.screeps.com/cpu-limit.html#Bucket
      */
     bucket: number;
     /**
-     * An object with limits for each shard with shard names as keys. You can use `setShardLimits` method to re-assign them.
+     * An object with limits for each shard with shard names as keys.
+     *
+     * You can use {@link Game.cpu.setShardLimits} method to re-assign them.
      */
     shardLimits: CPUShardLimits;
     /**
@@ -1667,20 +1972,28 @@ interface CPU {
     unlocked: boolean;
     /**
      * The time in milliseconds since UNIX epoch time until full CPU is unlocked for your account.
+     *
      * This property is not defined when full CPU is not unlocked for your account or it's unlocked with a subscription.
      */
     unlockedTime: number | undefined;
 
     /**
-     * Get amount of CPU time used from the beginning of the current game tick. Always returns 0 in the Simulation mode.
+     * Get amount of CPU time used from the beginning of the current game tick.
+     *
+     * Always returns 0 in the simulator.
      */
     getUsed(): number;
     /**
-     * Allocate CPU limits to different shards. Total amount of CPU should remain equal to `Game.cpu.shardLimits`.
+     * Allocate CPU limits to different shards.
+     *
+     * Total amount of CPU should remain equal to {@link Game.cpu.shardLimits}.
      * This method can be used only once per 12 hours.
      *
-     * @param limits An object with CPU values for each shard in the same format as `Game.cpu.shardLimits`.
-     * @returns One of the following codes: `OK | ERR_BUSY | ERR_INVALID_ARGS`
+     * @param limits An object with CPU values for each shard in the same format as {@link Game.cpu.shardLimits}.
+     * @returns One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_BUSY: 12-hours cooldown period is not over yet.
+     * - ERR_INVALID_ARGS: The argument is not a valid shard limits object.
      */
     setShardLimits(limits: CPUShardLimits): OK | ERR_BUSY | ERR_INVALID_ARGS;
 
@@ -1689,7 +2002,8 @@ interface CPU {
      *
      * This method will be undefined if you are not using IVM.
      *
-     * The return value is almost identical to the Node.js function v8.getHeapStatistics().
+     * The return value is almost identical to Node's [v8.getHeapStatistics()](https://nodejs.org/docs/latest-v10.x/api/v8.html#v8_v8_getheapstatistics).
+     *
      * This function returns one additional property: externally_allocated_size which is the total amount of currently
      * allocated memory which is not included in the v8 heap but counts against this isolate's memory limit.
      * ArrayBuffer instances over a certain size are externally allocated and will be counted here.
@@ -1705,13 +2019,22 @@ interface CPU {
     halt?(): never;
     /**
      * Generate 1 pixel resource unit for 10000 CPU from your bucket.
+     *
+     * @returns One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_ENOUGH_RESOURCES: Your bucket does not have enough CPU.
      */
     generatePixel(): OK | ERR_NOT_ENOUGH_RESOURCES;
 
     /**
      * Unlock full CPU for your account for additional 24 hours.
-     * This method will consume 1 CPU unlock bound to your account (See `Game.resources`).
+     *
+     * This method will consume 1 CPU unlock bound to your account (See {@link Game.resources}).
      * If full CPU is not currently unlocked for your account, it may take some time (up to 5 minutes) before unlock is applied to your account.
+     * @returns One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_ENOUGH_RESOURCES: Your account does not have enough cpuUnlock resource.
+     * - ERR_FULL: Your CPU is unlocked with a subscription.
      */
     unlock(): OK | ERR_NOT_ENOUGH_RESOURCES | ERR_FULL;
 }
@@ -1732,22 +2055,23 @@ interface HeapStatistics {
 /**
  * Describes one part of a creep’s body.
  */
-type BodyPartDefinition<T extends BodyPartConstant = BodyPartConstant> = T extends any ? {
-        /**
-         * One of the `RESOURCE_*` constants.
-         *
-         * If the body part is boosted, this property specifies the mineral type which is used for boosting.
-         */
-        boost?: keyof (typeof BOOSTS)[T];
-        /**
-         * One of the body part types constants.
-         */
-        type: T;
-        /**
-         * The remaining amount of hit points of this body part.
-         */
-        hits: number;
-    }
+type BodyPartDefinition<T extends BodyPartConstant = BodyPartConstant> = T extends any
+    ? {
+          /**
+           * One of the {@link ResourceConstant RESOURCE_*} constants.
+           *
+           * If the body part is boosted, this property specifies the mineral type which is used for boosting.
+           */
+          boost?: keyof (typeof BOOSTS)[T];
+          /**
+           * One of the body part types constants.
+           */
+          type: T;
+          /**
+           * The remaining amount of hit points of this body part.
+           */
+          hits: number;
+      }
     : never;
 
 interface Owner {
@@ -1777,29 +2101,32 @@ type StoreDefinition = Store<ResourceConstant, false>;
 /** A general purpose Store, which has an unlimited capacity */
 type StoreDefinitionUnlimited = Store<ResourceConstant, true>;
 
-// type SD<K extends ResourceConstant> = {
-//   [P in K]: number;
-//   energy: number;
-// }
-
+/**
+ * @example
+ * {
+ *   "1": "W8N4",       // TOP
+ *   "3": "W7N3",       // RIGHT
+ *   // "5": "W8N2",    // BOTTOM
+ *   "7": "W9N3"        // LEFT
+ * }
+ */
 type ExitsInformation = Partial<Record<ExitKey, string>>;
 
 interface AllLookAtTypes {
-    constructionSite: ConstructionSite;
-    creep: Creep;
-    energy: Resource<RESOURCE_ENERGY>;
-    exit: any; // TODO what type is this?
-    flag: Flag;
-    mineral: Mineral;
-    deposit: Deposit;
-    nuke: Nuke;
-    resource: Resource;
-    source: Source;
-    structure: Structure;
-    terrain: Terrain;
-    tombstone: Tombstone;
-    powerCreep: PowerCreep;
-    ruin: Ruin;
+    [LOOK_CONSTRUCTION_SITES]: ConstructionSite;
+    [LOOK_CREEPS]: Creep;
+    [LOOK_ENERGY]: Resource<RESOURCE_ENERGY>;
+    [LOOK_FLAGS]: Flag;
+    [LOOK_MINERALS]: Mineral;
+    [LOOK_DEPOSITS]: Deposit;
+    [LOOK_NUKES]: Nuke;
+    [LOOK_RESOURCES]: Resource;
+    [LOOK_SOURCES]: Source;
+    [LOOK_STRUCTURES]: AnyStructure;
+    [LOOK_TERRAIN]: Terrain;
+    [LOOK_TOMBSTONES]: Tombstone;
+    [LOOK_POWER_CREEPS]: PowerCreep;
+    [LOOK_RUINS]: Ruin;
 }
 
 type LookAtTypes = Partial<AllLookAtTypes>;
@@ -1817,22 +2144,17 @@ interface LookAtResultMatrix<K extends LookConstant = LookConstant> {
     };
 }
 
-interface LookForAtAreaResultMatrix<T, K extends keyof LookAtTypes = keyof LookAtTypes> {
+interface LookForAtAreaResultMatrix<T> {
     [y: number]: {
-        [x: number]: Array<LookForAtAreaResult<T, K>>;
+        [x: number]: T[];
     };
 }
 
 type LookForAtAreaResult<T, K extends keyof LookAtTypes = keyof LookAtTypes> = { type: K } & { [P in K]: T };
 
-type LookForAtAreaResultWithPos<T, K extends keyof LookAtTypes = keyof LookAtTypes> = LookForAtAreaResult<T, K> & {
-    x: number;
-    y: number;
-};
+type LookForAtAreaResultWithPos<T, K extends keyof LookAtTypes = keyof LookAtTypes> = LookForAtAreaResult<T, K> & { x: number; y: number };
 
-type LookForAtAreaResultArray<T, K extends keyof LookAtTypes = keyof LookAtTypes> = Array<
-    LookForAtAreaResultWithPos<T, K>
->;
+type LookForAtAreaResultArray<T, K extends keyof LookAtTypes = keyof LookAtTypes> = Array<LookForAtAreaResultWithPos<T, K>>;
 
 interface FindTypes {
     [key: number]:
@@ -1848,142 +2170,175 @@ interface FindTypes {
         | Tombstone
         | Deposit
         | Ruin;
-    1: RoomPosition; // FIND_EXIT_TOP
-    3: RoomPosition; // FIND_EXIT_RIGHT
-    5: RoomPosition; // FIND_EXIT_BOTTOM
-    7: RoomPosition; // FIND_EXIT_LEFT
-    10: RoomPosition; // FIND_EXIT
-    101: Creep; // FIND_CREEPS
-    102: Creep; // FIND_MY_CREEPS
-    103: Creep; // FIND_HOSTILE_CREEPS
-    104: Source; // FIND_SOURCES_ACTIVE
-    105: Source; // FIND_SOURCES
-    106: Resource; // FIND_DROPPED_RESOURCES
-    107: AnyStructure; // FIND_STRUCTURES
-    108: AnyOwnedStructure; // FIND_MY_STRUCTURES
-    109: AnyOwnedStructure; // FIND_HOSTILE_STRUCTURES
-    110: Flag; // FIND_FLAGS
-    111: ConstructionSite; // FIND_CONSTRUCTION_SITES
-    112: StructureSpawn; // FIND_MY_SPAWNS
-    113: StructureSpawn; // FIND_HOSTILE_SPAWNS
-    114: ConstructionSite; // FIND_MY_CONSTRUCTION_SITES
-    115: ConstructionSite; // FIND_HOSTILE_CONSTRUCTION_SITES
-    116: Mineral; // FIND_MINERALS
-    117: Nuke; // FIND_NUKES
-    118: Tombstone; // FIND_TOMBSTONES
-    119: PowerCreep; // FIND_POWER_CREEPS
-    120: PowerCreep; // FIND_MY_POWER_CREEPS
-    121: PowerCreep; // FIND_HOSTILE_POWER_CREEPS
-    122: Deposit; // FIND_DEPOSITS
-    123: Ruin; // FIND_RUINS
+    [FIND_EXIT_TOP]: RoomPosition;
+    [FIND_EXIT_RIGHT]: RoomPosition;
+    [FIND_EXIT_BOTTOM]: RoomPosition;
+    [FIND_EXIT_LEFT]: RoomPosition;
+    [FIND_EXIT]: RoomPosition;
+    [FIND_CREEPS]: Creep;
+    [FIND_MY_CREEPS]: Creep;
+    [FIND_HOSTILE_CREEPS]: Creep;
+    [FIND_SOURCES_ACTIVE]: Source;
+    [FIND_SOURCES]: Source;
+    [FIND_DROPPED_RESOURCES]: Resource;
+    [FIND_STRUCTURES]: AnyStructure;
+    [FIND_MY_STRUCTURES]: AnyOwnedStructure;
+    [FIND_HOSTILE_STRUCTURES]: AnyOwnedStructure;
+    [FIND_FLAGS]: Flag;
+    [FIND_CONSTRUCTION_SITES]: ConstructionSite;
+    [FIND_MY_SPAWNS]: StructureSpawn;
+    [FIND_HOSTILE_SPAWNS]: StructureSpawn;
+    [FIND_MY_CONSTRUCTION_SITES]: ConstructionSite;
+    [FIND_HOSTILE_CONSTRUCTION_SITES]: ConstructionSite;
+    [FIND_MINERALS]: Mineral;
+    [FIND_NUKES]: Nuke;
+    [FIND_TOMBSTONES]: Tombstone;
+    [FIND_POWER_CREEPS]: PowerCreep;
+    [FIND_MY_POWER_CREEPS]: PowerCreep;
+    [FIND_HOSTILE_POWER_CREEPS]: PowerCreep;
+    [FIND_DEPOSITS]: Deposit;
+    [FIND_RUINS]: Ruin;
 }
 
 interface FindPathOpts {
     /**
-     * Treat squares with creeps as walkable. Can be useful with too many moving creeps around or in some other cases. The default
-     * value is false.
+     * Treat squares with creeps as walkable.
+     *
+     * Can be useful with too many moving creeps around or in some other cases.
+     * @default false
      */
     ignoreCreeps?: boolean;
 
     /**
-     * Treat squares with destructible structures (constructed walls, ramparts, spawns, extensions) as walkable. Use this flag when
-     * you need to move through a territory blocked by hostile structures. If a creep with an ATTACK body part steps on such a square,
-     * it automatically attacks the structure. The default value is false.
+     * Treat squares with destructible structures (constructed walls, ramparts, spawns, extensions) as walkable.
+     *
+     * Use this flag when you need to move through a territory blocked by hostile structures.
+     * If a creep with an ATTACK body part steps on such a square, it automatically attacks the structure.
+     * @default false
      */
     ignoreDestructibleStructures?: boolean;
 
     /**
-     * Ignore road structures. Enabling this option can speed up the search. The default value is false. This is only used when the
-     * new PathFinder is enabled.
+     * Ignore road structures.
+     *
+     * Enabling this option can speed up the search. This is only used when the new PathFinder is enabled.
+     *
+     * @default false
      */
     ignoreRoads?: boolean;
 
     /**
-     * You can use this callback to modify a CostMatrix for any room during the search. The callback accepts two arguments, roomName
-     * and costMatrix. Use the costMatrix instance to make changes to the positions costs. If you return a new matrix from this callback,
-     * it will be used instead of the built-in cached one. This option is only used when the new PathFinder is enabled.
+     * You can use this callback to modify a CostMatrix for any room during the search.
+     *
+     * The callback accepts two arguments, roomName and costMatrix. Use the costMatrix instance to make changes to the positions costs.
+     * If you return a new matrix from this callback, it will be used instead of the built-in cached one.
+     * This option is only used when the new PathFinder is enabled.
      *
      * @param roomName The name of the room.
      * @param costMatrix The current CostMatrix
      * @returns The new CostMatrix to use
      */
-    // tslint:disable-next-line: invalid-void
     // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     costCallback?: (roomName: string, costMatrix: CostMatrix) => void | CostMatrix;
 
     /**
-     * An array of the room's objects or RoomPosition objects which should be treated as walkable tiles during the search. This option
-     * cannot be used when the new PathFinder is enabled (use costCallback option instead).
+     * An array of the room's objects or RoomPosition objects which should be treated as walkable tiles during the search.
+     *
+     * This option cannot be used when the new PathFinder is enabled (use costCallback option instead).
      */
     ignore?: any[] | RoomPosition[];
 
     /**
-     * An array of the room's objects or RoomPosition objects which should be treated as obstacles during the search. This option cannot
-     * be used when the new PathFinder is enabled (use costCallback option instead).
+     * An array of the room's objects or RoomPosition objects which should be treated as obstacles during the search.
+     *
+     * This option cannot be used when the new PathFinder is enabled (use costCallback option instead).
      */
     avoid?: any[] | RoomPosition[];
 
     /**
-     * The maximum limit of possible pathfinding operations. You can limit CPU time used for the search based on ratio 1 op ~ 0.001 CPU.
-     * The default value is 2000.
+     * The maximum limit of possible pathfinding operations.
+     *
+     * You can limit CPU time used for the search based on ratio 1 op ~ 0.001 CPU.
+     * @default 2000
      */
     maxOps?: number;
 
     /**
-     * Weight to apply to the heuristic in the A* formula F = G + weight * H. Use this option only if you understand the underlying
-     * A* algorithm mechanics! The default value is 1.2.
+     * Weight to apply to the heuristic in the A* formula `F = G + weight * H`.
+     *
+     * Use this option only if you understand the underlying A* algorithm mechanics!
+     * @default 1.2
      */
     heuristicWeight?: number;
 
     /**
-     * If true, the result path will be serialized using Room.serializePath. The default is false.
+     * If true, the result path will be serialized using {@link Room.serializePath}.
+     * @default false
      */
     serialize?: boolean;
 
     /**
-     * The maximum allowed rooms to search. The default (and maximum) is 16. This is only used when the new PathFinder is enabled.
+     * The maximum allowed rooms to search.
+     *
+     * This is only used when the new PathFinder is enabled.
+     * @default 16 (also maximum)
      */
     maxRooms?: number;
 
     /**
-     * Path to within (range) tiles of target tile. The default is to path to the tile that the target is on (0).
+     * Path to within (range) tiles of target tile.
+     *
+     * The default is to path to the tile that the target is on.
+     *
+     * @default 0
      */
     range?: number;
 
     /**
-     * Cost for walking on plain positions. The default is 1.
+     * Cost for walking on plain positions.
+     * @default 1
      */
     plainCost?: number;
 
     /**
-     * Cost for walking on swamp positions. The default is 5.
+     * Cost for walking on swamp positions.
+     * @default 5
      */
     swampCost?: number;
 }
 
 interface MoveToOpts extends FindPathOpts {
     /**
-     * This option enables reusing the path found along multiple game ticks. It allows to save CPU time, but can result in a slightly
-     * slower creep reaction behavior. The path is stored into the creep's memory to the `_move` property. The `reusePath` value defines
-     * the amount of ticks which the path should be reused for. The default value is 5. Increase the amount to save more CPU, decrease
-     * to make the movement more consistent. Set to 0 if you want to disable path reusing.
+     * This option enables reusing the path found along multiple game ticks.
+     *
+     * It allows to save CPU time, but can result in a slightly slower creep reaction behavior.
+     * The path is stored into the creep's memory to the `_move` property.
+     * The `reusePath` value defines the amount of ticks which the path should be reused for.
+     * Increase the amount to save more CPU, decrease to make the movement more consistent.
+     * Set to 0 if you want to disable path reusing.
+     * @default 5
      */
     reusePath?: number;
 
     /**
-     * If `reusePath` is enabled and this option is set to true, the path will be stored in memory in the short serialized form using
-     * `Room.serializePath`. The default value is true.
+     * If `reusePath` is enabled and this option is set to true, the path will be stored in memory in the short serialized form using {@link Room.serializePath}.
+     * @default true
      */
     serializeMemory?: boolean;
 
     /**
-     * If this option is set to true, `moveTo` method will return `ERR_NOT_FOUND` if there is no memorized path to reuse. This can
-     * significantly save CPU time in some cases. The default value is false.
+     * Force the use of a cached path.
+     *
+     * If this option is set to true, `moveTo` method will return `ERR_NOT_FOUND` if there is no memorized path to reuse.
+     * This can significantly save CPU time in some cases.
+     * @default false
      */
     noPathFinding?: boolean;
 
     /**
-     * Draw a line along the creep’s path using `RoomVisual.poly`. You can provide either an empty object or custom style parameters.
+     * Draw a line along the creep’s path using {@link RoomVisual.poly}.
+     *
+     * You can provide either an empty object or custom style parameters.
      */
     visualizePathStyle?: PolyStyle;
 }
@@ -1996,30 +2351,12 @@ interface PathStep {
     direction: DirectionConstant;
 }
 
-/**
- * An object with survival game info
- */
-interface SurvivalGameInfo {
-    /**
-     * Current score.
-     */
-    score: number;
-    /**
-     * Time to the next wave of invaders.
-     */
-    timeToWave: number;
-    /**
-     * The number of the next wave.
-     */
-    wave: number;
-}
-
 interface _Constructor<T> {
     readonly prototype: T;
 }
 
 interface _ConstructorById<T extends _HasId> extends _Constructor<T> {
-    new(id: Id<T>): T;
+    new (id: Id<T>): T;
     (id: Id<T>): T;
 }
 
@@ -2030,12 +2367,15 @@ declare namespace Tag {
         private [OpaqueTagSymbol]: T;
     }
 }
+
 type Id<T extends _HasId> = string & Tag.OpaqueTag<T>;
+
 type fromId<T> = T extends Id<infer R> ? R : never;
 /**
  * `InterShardMemory` object provides an interface for communicating between shards.
- * Your script is executed separatedly on each shard, and their `Memory` objects are isolated from each other.
- * In order to pass messages and data between shards, you need to use `InterShardMemory` instead.
+ *
+ * Your script is executed separatedly on each shard, and their {@link Memory} objects are isolated from each other.
+ * In order to pass messages and data between shards, you need to use {@link InterShardMemory} instead.
  *
  * Every shard can have its own data string that can be accessed by all other shards.
  * A shard can write only to its own data, other shards' data is read-only.
@@ -2048,15 +2388,17 @@ interface InterShardMemory {
      */
     getLocal(): string;
     /**
-     * Replace the current shard's data with the new value
+     * Replace the current shard's data with the new value.
+     *
      * @param value New data value in string format.
+     * @throws if `value` isn't a string or contains more than `100 * 2014` characters.
      */
     setLocal(value: string): void;
     /**
      * Returns the string contents of another shard's data, null if shard exists but data is not set.
      *
      * @param shard Shard name.
-     * @throws Error if shard name is invalid
+     * @throws if shard name is invalid
      */
     getRemote(shard: string): string | null;
 }
@@ -2115,15 +2457,9 @@ type ERR_NO_BODYPART = -12;
 type ERR_NOT_ENOUGH_EXTENSIONS = -6;
 type ERR_RCL_NOT_ENOUGH = -14;
 type ERR_GCL_NOT_ENOUGH = -15;
+type ERR_ACCESS_DENIED = -16;
 
-type CreepActionReturnCode =
-    | OK
-    | ERR_NOT_OWNER
-    | ERR_BUSY
-    | ERR_INVALID_TARGET
-    | ERR_NOT_IN_RANGE
-    | ERR_NO_BODYPART
-    | ERR_TIRED;
+type CreepActionReturnCode = OK | ERR_NOT_OWNER | ERR_BUSY | ERR_INVALID_TARGET | ERR_NOT_IN_RANGE | ERR_NO_BODYPART | ERR_TIRED;
 
 type CreepMoveReturnCode = OK | ERR_NOT_OWNER | ERR_BUSY | ERR_TIRED | ERR_NO_BODYPART;
 
@@ -2192,13 +2528,15 @@ type FIND_RUINS = 123;
 
 // Filter Options
 
-interface FilterOptions<T extends FindConstant, S extends FindTypes[T] = FindTypes[T]> {
-    filter: FilterFunction<FindTypes[T], S> | FilterObject | string;
+interface FilterOptions<T, S extends T> {
+    filter?: PredicateFilterFunction<T, S> | FilterFunction<T> | FilterObject<T> | string;
 }
-type FilterFunction<T, S extends T> = (object: T) => object is S;
-interface FilterObject {
-    [key: string]: any;
-}
+
+type PredicateFilterFunction<T, S extends T> = (object: T, index: number, collection: T[]) => object is S;
+type FilterFunction<T> = (object: T, index: number, collection: T[]) => unknown;
+type FilterObject<T> = DeepPartial<T>;
+
+type DeepPartial<T> = T extends object ? { [P in keyof T]?: DeepPartial<T[P]> } : T;
 
 // Body Part Constants
 
@@ -2366,11 +2704,7 @@ type MineralConstant =
     | RESOURCE_CATALYST;
 
 /** The compounds which can't boost */
-type MineralBaseCompoundsConstant =
-    | RESOURCE_HYDROXIDE
-    | RESOURCE_ZYNTHIUM_KEANITE
-    | RESOURCE_UTRIUM_LEMERGITE
-    | RESOURCE_GHODIUM;
+type MineralBaseCompoundsConstant = RESOURCE_HYDROXIDE | RESOURCE_ZYNTHIUM_KEANITE | RESOURCE_UTRIUM_LEMERGITE | RESOURCE_GHODIUM;
 
 /** The boosts (from tier 1 to tier 3) */
 type MineralBoostConstant =
@@ -2608,65 +2942,65 @@ type EventDestroyType = "creep" | StructureConstant;
 
 type EventItem =
     | {
-        event: EVENT_ATTACK;
-        objectId: string;
-        data: EventData[EVENT_ATTACK];
-    }
+          event: EVENT_ATTACK;
+          objectId: string;
+          data: EventData[EVENT_ATTACK];
+      }
     | {
-        event: EVENT_OBJECT_DESTROYED;
-        objectId: string;
-        data: EventData[EVENT_OBJECT_DESTROYED];
-    }
+          event: EVENT_OBJECT_DESTROYED;
+          objectId: string;
+          data: EventData[EVENT_OBJECT_DESTROYED];
+      }
     | {
-        event: EVENT_ATTACK_CONTROLLER;
-        objectId: string;
-        data: EventData[EVENT_ATTACK_CONTROLLER];
-    }
+          event: EVENT_ATTACK_CONTROLLER;
+          objectId: string;
+          data: EventData[EVENT_ATTACK_CONTROLLER];
+      }
     | {
-        event: EVENT_BUILD;
-        objectId: string;
-        data: EventData[EVENT_BUILD];
-    }
+          event: EVENT_BUILD;
+          objectId: string;
+          data: EventData[EVENT_BUILD];
+      }
     | {
-        event: EVENT_HARVEST;
-        objectId: string;
-        data: EventData[EVENT_HARVEST];
-    }
+          event: EVENT_HARVEST;
+          objectId: string;
+          data: EventData[EVENT_HARVEST];
+      }
     | {
-        event: EVENT_HEAL;
-        objectId: string;
-        data: EventData[EVENT_HEAL];
-    }
+          event: EVENT_HEAL;
+          objectId: string;
+          data: EventData[EVENT_HEAL];
+      }
     | {
-        event: EVENT_REPAIR;
-        objectId: string;
-        data: EventData[EVENT_REPAIR];
-    }
+          event: EVENT_REPAIR;
+          objectId: string;
+          data: EventData[EVENT_REPAIR];
+      }
     | {
-        event: EVENT_RESERVE_CONTROLLER;
-        objectId: string;
-        data: EventData[EVENT_RESERVE_CONTROLLER];
-    }
+          event: EVENT_RESERVE_CONTROLLER;
+          objectId: string;
+          data: EventData[EVENT_RESERVE_CONTROLLER];
+      }
     | {
-        event: EVENT_UPGRADE_CONTROLLER;
-        objectId: string;
-        data: EventData[EVENT_UPGRADE_CONTROLLER];
-    }
+          event: EVENT_UPGRADE_CONTROLLER;
+          objectId: string;
+          data: EventData[EVENT_UPGRADE_CONTROLLER];
+      }
     | {
-        event: EVENT_EXIT;
-        objectId: string;
-        data: EventData[EVENT_EXIT];
-    }
+          event: EVENT_EXIT;
+          objectId: string;
+          data: EventData[EVENT_EXIT];
+      }
     | {
-        event: EVENT_POWER;
-        objectId: string;
-        data: EventData[EVENT_POWER];
-    }
+          event: EVENT_POWER;
+          objectId: string;
+          data: EventData[EVENT_POWER];
+      }
     | {
-        event: EVENT_TRANSFER;
-        objectId: string;
-        data: EventData[EVENT_TRANSFER];
-    };
+          event: EVENT_TRANSFER;
+          objectId: string;
+          data: EventData[EVENT_TRANSFER];
+      };
 
 interface EventData {
     [EVENT_ATTACK]: {
@@ -2681,7 +3015,10 @@ interface EventData {
     [EVENT_BUILD]: {
         targetId: string;
         amount: number;
-        energySpent: number;
+        structureType: BuildableStructureConstant;
+        x: number;
+        y: number;
+        incomplete: boolean;
     };
     [EVENT_HARVEST]: {
         targetId: string;
@@ -2735,8 +3072,6 @@ type PowerConstant =
     | PWR_OPERATE_EXTENSION
     | PWR_OPERATE_OBSERVER
     | PWR_OPERATE_TERMINAL
-    | PWR_OPERATE_SPAWN
-    | PWR_OPERATE_TOWER
     | PWR_DISRUPT_SPAWN
     | PWR_DISRUPT_TOWER
     | PWR_DISRUPT_SOURCE
@@ -2773,11 +3108,25 @@ type EffectConstant = EFFECT_INVULNERABILITY | EFFECT_COLLAPSE_TIMER;
 
 type EFFECT_INVULNERABILITY = 1001;
 type EFFECT_COLLAPSE_TIMER = 1002;
+
+type DENSITY_LOW = 1;
+type DENSITY_MODERATE = 2;
+type DENSITY_HIGH = 3;
+type DENSITY_ULTRA = 4;
+
+type DensityConstant = DENSITY_LOW | DENSITY_MODERATE | DENSITY_HIGH | DENSITY_ULTRA;
 /**
  * The options that can be accepted by `findRoute()` and friends.
  */
 interface RouteOptions {
-    routeCallback: (roomName: string, fromRoomName: string) => any;
+    /**
+     * This callback can be used to calculate the cost of entering that room.
+     * You can use this to do things like prioritize your own rooms, or avoid some rooms.
+     * @param roomName The room being considered
+     * @param fromRoomName The room we're coming from
+     * @returns a floating point to steer the route toward a given room, or Infinity to block it entirely.
+     */
+    routeCallback: (roomName: string, fromRoomName: string) => number;
 }
 
 interface RoomStatusPermanent {
@@ -2793,7 +3142,9 @@ interface RoomStatusTemporary {
 type RoomStatus = RoomStatusPermanent | RoomStatusTemporary;
 
 /**
- * A global object representing world map. Use it to navigate between rooms. The object is accessible via Game.map property.
+ * A global object representing world map.
+ *
+ * Use it to navigate between rooms. The object is accessible via the {@link Game.map} property.
  */
 interface GameMap {
     /**
@@ -2801,7 +3152,7 @@ interface GameMap {
      * @param roomName The room name.
      * @returns The exits information or null if the room not found.
      */
-    describeExits(roomName: string): ExitsInformation;
+    describeExits(roomName: string): ExitsInformation | null;
     /**
      * Find the exit direction from the given room en route to another room.
      * @param fromRoom Start room name or room object.
@@ -2812,31 +3163,19 @@ interface GameMap {
      * Or one of the following Result codes:
      * ERR_NO_PATH, ERR_INVALID_ARGS
      */
-    findExit(
-        fromRoom: string | Room,
-        toRoom: string | Room,
-        opts?: RouteOptions,
-    ): ExitConstant | ERR_NO_PATH | ERR_INVALID_ARGS;
+    findExit(fromRoom: string | Room, toRoom: string | Room, opts?: RouteOptions): ExitConstant | ERR_NO_PATH | ERR_INVALID_ARGS;
     /**
      * Find route from the given room to another room.
      * @param fromRoom Start room name or room object.
      * @param toRoom Finish room name or room object.
      * @param opts (optional) An object with the pathfinding options.
-     * @returns the route array or ERR_NO_PATH code
+     * @returns either an array of room exits / room name, or ERR_NO_PATH if the destination room cannot be reached.
      */
-    findRoute(
-        fromRoom: string | Room,
-        toRoom: string | Room,
-        opts?: RouteOptions,
-    ):
-        | Array<{
-            exit: ExitConstant;
-            room: string;
-        }>
-        | ERR_NO_PATH;
+    findRoute(fromRoom: string | Room, toRoom: string | Room, opts?: RouteOptions): { exit: ExitConstant; room: string }[] | ERR_NO_PATH;
     /**
-     * Get the linear distance (in rooms) between two rooms. You can use this function to estimate the energy cost of
-     * sending resources through terminals, or using observers and nukes.
+     * Get the linear distance (in rooms) between two rooms.
+     *
+     * You can use this function to estimate the energy cost of sending resources through terminals, or using observers and nukes.
      * @param roomName1 The name of the first room.
      * @param roomName2 The name of the second room.
      * @param continuous Whether to treat the world map continuous on borders. Set to true if you
@@ -2844,26 +3183,34 @@ interface GameMap {
      */
     getRoomLinearDistance(roomName1: string, roomName2: string, continuous?: boolean): number;
     /**
-     * Get terrain type at the specified room position. This method works for any room in the world even if you have no access to it.
+     * Get terrain type at the specified room position.
+     *
+     * This method works for any room in the world even if you have no access to it.
      * @param x X position in the room.
      * @param y Y position in the room.
      * @param roomName The room name.
-     * @deprecated use `Game.map.getRoomTerrain` instead
+     * @deprecated use {@link Game.map.getRoomTerrain} instead
      */
     getTerrainAt(x: number, y: number, roomName: string): Terrain;
     /**
-     * Get terrain type at the specified room position. This method works for any room in the world even if you have no access to it.
+     * Get terrain type at the specified room position.
+     *
+     * This method works for any room in the world even if you have no access to it.
      * @param pos The position object.
-     * @deprecated use `Game.map.getRoomTerrain` instead
+     * @deprecated use {@link Game.map.getRoomTerrain} instead
      */
     getTerrainAt(pos: RoomPosition): Terrain;
     /**
-     * Get room terrain for the specified room. This method works for any room in the world even if you have no access to it.
+     * Get room terrain for the specified room.
+     *
+     * This method works for any room in the world even if you have no access to it.
      * @param roomName String name of the room.
      */
     getRoomTerrain(roomName: string): RoomTerrain;
     /**
-     * Returns the world size as a number of rooms between world corners. For example, for a world with rooms from W50N50 to E50S50 this method will return 102.
+     * Returns the world size as a number of rooms between world corners.
+     *
+     * For example, for a world with rooms from W50N50 to E50S50 this method will return 102.
      */
     getWorldSize(): number;
 
@@ -2878,13 +3225,13 @@ interface GameMap {
     /**
      * Get the room status to determine if it's available, or in a reserved area.
      * @param roomName The room name.
-     * @returns An object with the following properties {status: "normal" | "closed" | "novice" | "respawn", timestamp: number}
+     * @returns A {@link RoomStatus} object.
      */
     getRoomStatus(roomName: string): RoomStatus;
 
     /**
      * Map visuals provide a way to show various visual debug info on the game map.
-     * You can use the `Game.map.visual` object to draw simple shapes that are visible only to you.
+     * You can use the {@link Game.map.visual} object to draw simple shapes that are visible only to you.
      *
      * Map visuals are not stored in the database, their only purpose is to display something in your browser.
      * All drawings will persist for one tick and will disappear if not updated.
@@ -2896,8 +3243,18 @@ interface GameMap {
     visual: MapVisual;
 }
 
-// No static is available
-
+/**
+ * Map visuals provide a way to show various visual debug info on the game map.
+ *
+ * You can use the {@link Game.map.visual} object to draw simple shapes that are visible only to you.
+ *
+ *  Map visuals are not stored in the database, their only purpose is to display something in your browser.
+ * All drawings will persist for one tick and will disappear if not updated.
+ * All `Game.map.visual` calls have no added CPU cost (their cost is natural and mostly related to simple `JSON.serialize` calls).
+ * However, there is a usage limit: you cannot post more than 1000 KB of serialized data.
+ *
+ * All draw coordinates are measured in global game coordinates ({@link RoomPosition}).
+ */
 interface MapVisual {
     /**
      * Draw a line.
@@ -2950,7 +3307,9 @@ interface MapVisual {
     clear(): MapVisual;
 
     /**
-     * Get the stored size of all visuals added on the map in the current tick. It must not exceed 1024,000 (1000 KB).
+     * Get the stored size of all visuals added on the map in the current tick.
+     *
+     * It must not exceed 1024,000 (1000 KB).
      * @returns The size of the visuals in bytes.
      */
     getSize(): number;
@@ -2962,7 +3321,7 @@ interface MapVisual {
     export(): string;
 
     /**
-     * Add previously exported (with `Game.map.visual.export`) map visuals to the map visual data of the current tick.
+     * Add previously exported (with {@link Game.map.visual.export}) map visuals to the map visual data of the current tick.
      * @param data The string returned from `Game.map.visual.export`.
      * @returns The MapVisual object itself, so that you can chain calls.
      */
@@ -2971,64 +3330,77 @@ interface MapVisual {
 
 interface MapLineStyle {
     /**
-     * Line width, default is 0.1.
+     * Line width.
+     * @default 0.1
      */
     width?: number;
     /**
-     * Line color in the following format: #ffffff (hex triplet). Default is #ffffff.
+     * Line color in the following format: #ffffff (hex triplet).
+     * @default #ffffff
      */
     color?: string;
     /**
-     * Opacity value, default is 0.5.
+     * Opacity value
+     * @default 0.5
      */
     opacity?: number;
     /**
-     * Either undefined (solid line), dashed, or dotted. Default is undefined.
+     * Either undefined (solid line), dashed, or dotted.
+     * @default undefined.
      */
     lineStyle?: "dashed" | "dotted" | "solid" | undefined;
 }
 
 interface MapPolyStyle {
     /**
-     * Fill color in the following format: #ffffff (hex triplet). Default is undefined (no fill).
+     * Fill color in the following format: #ffffff (hex triplet).
+     * @default undefined (no fill).
      */
     fill?: string | undefined;
     /**
-     * Opacity value, default is 0.5.
+     * Opacity value
+     * @default 0.5
      */
     opacity?: number;
     /**
-     * Stroke color in the following format: #ffffff (hex triplet). Default is #ffffff.
+     * Stroke color in the following format: #ffffff (hex triplet).
+     * @default #ffffff
      */
     stroke?: string;
     /**
-     * Stroke line width, default is 0.5.
+     * Stroke line width.
+     * @default 0.5
      */
     strokeWidth?: number;
     /**
-     * Either undefined (solid line), dashed, or dotted. Default is undefined.
+     * Either undefined (solid line), dashed, or dotted.
+     * @default is undefined
      */
     lineStyle?: "dashed" | "dotted" | "solid" | undefined;
 }
 
 interface MapCircleStyle extends MapPolyStyle {
     /**
-     * Circle radius, default is 10.
+     * Circle radius.
+     * @default 10
      */
     radius?: number;
 }
 
 interface MapTextStyle {
     /**
-     * Font color in the following format: #ffffff (hex triplet). Default is #ffffff.
+     * Font color in the following format: #ffffff (hex triplet).
+     * @default #ffffff
      */
     color?: string;
     /**
-     * The font family, default is sans-serif
+     * The font family.
+     * @default sans-serif
      */
     fontFamily?: string;
     /**
-     * The font size in game coordinates, default is 10
+     * The font size in game coordinates.
+     * @default 10
      */
     fontSize?: number;
     /**
@@ -3040,33 +3412,45 @@ interface MapTextStyle {
      */
     fontVariant?: string;
     /**
-     * Stroke color in the following format: #ffffff (hex triplet). Default is undefined (no stroke).
+     * Stroke color in the following format: #ffffff (hex triplet)
+     * @default undefined (no stroke).
      */
     stroke?: string | undefined;
     /**
-     * Stroke width, default is 0.15.
+     * Stroke width.
+     * @default 0.15
      */
     strokeWidth?: number;
     /**
-     * Background color in the following format: #ffffff (hex triplet). Default is undefined (no background). When background is enabled, text vertical align is set to middle (default is baseline).
+     * Background color in the following format: #ffffff (hex triplet).
+     *
+     * When background is enabled, text vertical align is set to middle (default is baseline).
+     * @default undefined (no background).
      */
     backgroundColor?: string | undefined;
     /**
-     * Background rectangle padding, default is 2.
+     * Background rectangle padding.
+     * @default 2
      */
     backgroundPadding?: number;
     /**
-     * Text align, either center, left, or right. Default is center.
+     * Text align, either center, left, or right.
+     * @default center
      */
     align?: "center" | "left" | "right";
     /**
-     * Opacity value, default is 0.5.
+     * Opacity value.
+     * @default 0.5
      */
     opacity?: number;
 }
 /**
- * A global object representing the in-game market. You can use this object to track resource transactions to/from your
- * terminals, and your buy/sell orders. The object is accessible via the singleton Game.market property.
+ * A global object representing the in-game market.
+ *
+ * You can use this object to track resource transactions to/from your terminals, and your buy/sell orders.
+ * The object is accessible via the singleton {@link Game.market} property.
+ *
+ * Learn more about the market system from [this article](https://docs.screeps.com/market.html).
  */
 interface Market {
     /**
@@ -3086,10 +3470,12 @@ interface Market {
      */
     outgoingTransactions: Transaction[];
     /**
-     * Estimate the energy transaction cost of StructureTerminal.send and Market.deal methods. The formula:
+     * Estimate the energy transaction cost of {@link StructureTerminal.send} and {@link Market.deal} methods.
+     *
+     * The formula:
      *
      * ```
-     * Math.ceil( amount * (Math.log(0.1*linearDistanceBetweenRooms + 0.9) + 0.1) )
+     * Math.ceil(amount * (1 - Math.exp(-linearDistanceBetweenRooms / 30)))
      * ```
      *
      * @param amount Amount of resources to be sent.
@@ -3099,48 +3485,83 @@ interface Market {
      */
     calcTransactionCost(amount: number, roomName1: string, roomName2: string): number;
     /**
-     * Cancel a previously created order. The 5% fee is not returned.
+     * Cancel a previously created order.
+     *
+     * The 5% fee is not returned.
      * @param orderId The order ID as provided in Game.market.orders
-     * @returns Result Code: OK, ERR_INVALID_ARGS
+     * @returns One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_INVALID_ARGS: The order ID is not valid.
      */
     cancelOrder(orderId: string): ScreepsReturnCode;
     /**
-     * Change the price of an existing order. If `newPrice` is greater than old price, you will be charged `(newPrice-oldPrice)*remainingAmount*0.05` credits.
+     * Change the price of an existing order.
+     *
+     * If `newPrice` is greater than old price, you will be charged `(newPrice-oldPrice)*remainingAmount*0.05` credits.
      * @param orderId The order ID as provided in Game.market.orders
      * @param newPrice The new order price.
-     * @returns Result Code: OK, ERR_NOT_OWNER, ERR_NOT_ENOUGH_RESOURCES, ERR_INVALID_ARGS
+     * @returns One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of the room's terminal or there is no terminal.
+     * - ERR_NOT_ENOUGH_RESOURCES: You don't have enough credits to pay a fee.
+     * - ERR_INVALID_ARGS: The arguments provided are invalid.
      */
     changeOrderPrice(orderId: string, newPrice: number): ScreepsReturnCode;
     /**
-     * Create a market order in your terminal. You will be charged `price*amount*0.05` credits when the order is placed.
+     * Create a market order in your terminal.
+     *
+     * You will be charged `price*amount*0.05` credits when the order is placed.
      *
      * The maximum orders count is 300 per player. You can create an order at any time with any amount,
      * it will be automatically activated and deactivated depending on the resource/credits availability.
      *
      * An order expires in 30 days after its creation, and the remaining market fee is returned.
+     *
+     * @param params A object describing the order.
+     * @returns One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of the room's terminal or there is no terminal.
+     * - ERR_NOT_ENOUGH_RESOURCES: You don't have enough credits to pay a fee.
+     * - ERR_FULL: You cannot create more than 50 orders.
+     * - ERR_INVALID_ARGS: The arguments provided are invalid.
      */
-    createOrder(params: {
-        type: ORDER_BUY | ORDER_SELL;
-        resourceType: MarketResourceConstant;
-        price: number;
-        totalAmount: number;
-        roomName?: string;
-    }): ScreepsReturnCode;
+    createOrder(params: CreateOrderParam): ScreepsReturnCode;
     /**
      * Execute a trade deal from your Terminal to another player's Terminal using the specified buy/sell order.
      *
      * Your Terminal will be charged energy units of transfer cost regardless of the order resource type.
-     * You can use Game.market.calcTransactionCost method to estimate it.
+     * You can use {@link Game.market.calcTransactionCost} method to estimate it.
      *
      * When multiple players try to execute the same deal, the one with the shortest distance takes precedence.
+     *
+     * You cannot execute more than 10 deals during one tick.
+     *
+     * @param orderId The order ID as provided in Game.market.orders
+     * @param amount The amount of resources to transfer.
+     * @param yourRoomName The name of your room which has to contain an active Terminal with enough amount of energy.
+     * This argument is not used when the order resource type is one of account-bound resources (@see {@link InterShardResourceConstant}).
+     *
+     * @returns One of the following error codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You don't have a terminal in the target room.
+     * - ERR_NOT_ENOUGH_RESOURCES: You don't have enough credits or resource units.
+     * - ERR_FULL: You cannot execute more than 10 deals during one tick.
+     * - ERR_INVALID_ARGS: The arguments provided are invalid.
+     * - ERR_TIRED: The target terminal is still cooling down.
      */
-    deal(orderId: string, amount: number, targetRoomName?: string): ScreepsReturnCode;
+    deal(orderId: string, amount: number, yourRoomName?: string): ScreepsReturnCode;
     /**
-     * Add more capacity to an existing order. It will affect `remainingAmount` and `totalAmount` properties. You will be charged `price*addAmount*0.05` credits.
+     * Add more capacity to an existing order.
+     *
+     * It will affect `remainingAmount` and `totalAmount` properties. You will be charged `price*addAmount*0.05` credits.
      * Extending the order doesn't update its expiration time.
+     *
      * @param orderId The order ID as provided in Game.market.orders
      * @param addAmount How much capacity to add. Cannot be a negative value.
-     * @returns One of the following codes: `OK`, `ERR_NOT_ENOUGH_RESOURCES`, `ERR_INVALID_ARGS`
+     * @returns One of the following error codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_ENOUGH_RESOURCES: You don't have enough credits to pay a fee.
+     * - ERR_INVALID_ARGS:  The arguments provided are invalid.
      */
     extendOrder(orderId: string, addAmount: number): ScreepsReturnCode;
     /**
@@ -3151,14 +3572,14 @@ interface Market {
     getAllOrders(filter?: OrderFilter | ((o: Order) => boolean)): Order[];
     /**
      * Get daily price history of the specified resource on the market for the last 14 days.
-     * @param resource One of the RESOURCE_* constants. If undefined, returns history data for all resources. Optional
+     * @param resource One of the {@link MarketResourceConstant RESOURCE_*} constants. If undefined, returns history data for all resources. Optional
      * @returns An array of objects with resource info.
      */
     getHistory(resource?: MarketResourceConstant): PriceHistory[];
     /**
      * Retrieve info for specific market order.
      * @param orderId The order ID.
-     * @returns An object with the order info. See `getAllOrders` for properties explanation.
+     * @returns An object with the order info. See {@link Order}.
      */
     getOrderById(id: string): Order | null;
 }
@@ -3179,15 +3600,33 @@ interface Transaction {
 }
 
 interface Order {
+    /** The unique order ID. */
     id: string;
+    /**
+     * The order creation time in milliseconds since UNIX epoch time.
+     *
+     * This property is absent for old orders.
+     */
     created: number;
+    /** Whether the order is active or not.
+     *
+     * Only exists for your own orders. */
     active?: boolean;
-    type: string;
+    /** The order type. */
+    type: ORDER_BUY | ORDER_SELL;
+    /**
+     * The type of resource requested by the order. See {@link MarketResourceConstant}.
+     */
     resourceType: MarketResourceConstant;
+    /** The room where this order is placed. */
     roomName?: string;
+    /** Currently available quantity of resource to trade. */
     amount: number;
+    /** Remaining quantity of resources to trade. */
     remainingAmount: number;
+    /** Total quantity of resources traded */
     totalAmount?: number;
+    /** The current price per unit. */
     price: number;
 }
 
@@ -3216,6 +3655,37 @@ interface PriceHistory {
     avgPrice: number;
     stddevPrice: number;
 }
+
+/** Parameters to {@link Game.market.createOrder} */
+interface CreateOrderParam {
+    /**
+     * The order type.
+     */
+    type: ORDER_BUY | ORDER_SELL;
+    /**
+     * The resource type to trade.
+     *
+     * If your Terminal doesn't have the specified resource, the order will be temporary inactive.
+     */
+    resourceType: MarketResourceConstant;
+    /**
+     * The price for one resource unit in credits.
+     *
+     * Can be a decimal number.
+     */
+    price: number;
+    /**
+     * The amount of resources to be traded in total.
+     */
+    totalAmount: number;
+    /**
+     * The room where your order will be created.
+     *
+     * You must have your own Terminal structure in this room, otherwise the created order will be temporary inactive.
+     * This argument is not used when `resourceType` is one of the {@link InterShardResourceConstant} resources.
+     */
+    roomName?: string;
+}
 interface Memory {
     creeps: { [name: string]: CreepMemory };
     powerCreeps: { [name: string]: PowerCreepMemory };
@@ -3232,8 +3702,23 @@ interface SpawnMemory {}
 
 declare const Memory: Memory;
 /**
- * A mineral deposit object. Can be harvested by creeps with a WORK body part using the extractor structure.
- * @see http://docs.screeps.com/api/#Mineral
+ * A mineral deposit.
+ *
+ * Can be harvested by creeps with a WORK body part using the extractor structure.
+ * Learn more about minerals from [this article](http://docs.screeps.com/api/#Mineral).
+ *
+ *
+ * |                            |                              |
+ * | ---------------------------| ---------------------------- |
+ * | Regeneration amount        | DENSITY_LOW: 15,000
+ * |                            | DENSITY_MODERATE: 35,000
+ * |                            | DENSITY_HIGH: 70,000
+ * |                            | DENSITY_ULTRA: 100,000
+ * | Regeneration time          | 50,000 ticks
+ * | Density change probability | DENSITY_LOW: 100% chance
+ * |                            | DENSITY_MODERATE: 5% chance
+ * |                            | DENSITY_HIGH: 5% chance
+ * |                            | DENSITY_ULTRA: 100% chance*
  */
 interface Mineral<T extends MineralConstant = MineralConstant> extends RoomObject {
     /**
@@ -3241,19 +3726,21 @@ interface Mineral<T extends MineralConstant = MineralConstant> extends RoomObjec
      */
     readonly prototype: Mineral;
     /**
-     * The density of this mineral deposit, one of the `DENSITY_*` constants.
+     * The density of this mineral deposit, one of the {@link DensityConstant DENSITY_*} constants.
      */
-    density: number;
+    density: DensityConstant;
     /**
      * The remaining amount of resources.
      */
     mineralAmount: number;
     /**
-     * The resource type, one of the `RESOURCE_*` constants.
+     * The resource type, one of the {@link MineralConstant RESOURCE_*} constants.
      */
     mineralType: T;
     /**
-     * A unique object identifier. You can use `Game.getObjectById` method to retrieve an object instance by its `id`.
+     * A unique object identifier.
+     *
+     * You can use {@link Game.getObjectById} to retrieve an object instance by its `id`.
      */
     id: Id<this>;
     /**
@@ -3266,13 +3753,32 @@ interface MineralConstructor extends _Constructor<Mineral>, _ConstructorById<Min
 
 declare const Mineral: MineralConstructor;
 /**
- * A nuke landing position. This object cannot be removed or modified. You can find incoming nukes in the room using the FIND_NUKES constant.
+ * A nuke landing position.
+ *
+ * This object cannot be removed or modified. You can find incoming nukes in the room using the {@link FIND_NUKES} constant.
+ *
+ * Landing time: 50,000 ticks
+ * All creeps, construction sites and dropped resources in the room are removed immediately, even inside ramparts.
+ *
+ * Damage to structures:
+ * - 10,000,000 hits at the landing position;
+ * - 5,000,000 hits to all structures in 5x5 area.
+ *
+ * Note that you can stack multiple nukes from different rooms at the same target position to increase damage.
+ *
+ * Nuke landing does not generate tombstones and ruins, and destroys all existing tombstones and ruins in the room.
+ *
+ * If the room is in safe mode, then the safe mode is cancelled immediately, and the safe mode cooldown is reset to 0.
+ *
+ * The room controller is hit by triggering {@link StructureController.upgradeBlocked} period, which means it is unavailable to activate safe mode again within the next 200 ticks.
  */
 interface Nuke extends RoomObject {
     readonly prototype: Nuke;
 
     /**
-     * A unique object identifier. You can use Game.getObjectById method to retrieve an object instance by its id.
+     * A unique object identifier.
+     *
+     * You can use {@link Game.getObjectById} to retrieve an object instance by its id.
      */
     id: Id<this>;
     /**
@@ -3289,14 +3795,17 @@ interface NukeConstructor extends _Constructor<Nuke>, _ConstructorById<Nuke> {}
 
 declare const Nuke: NukeConstructor;
 /**
- * Contains powerful methods for pathfinding in the game world. Support exists for custom navigation costs and paths which span multiple rooms.
+ * Contains powerful methods for pathfinding in the game world.
+ *
+ * This module is written in fast native C++ code and supports custom navigation costs and paths which span multiple rooms.
+ *
  * Additionally PathFinder can search for paths through rooms you can't see, although you won't be able to detect any dynamic obstacles like creeps or buildings.
  */
 interface PathFinder {
     /**
-     * Container for custom navigation cost data.
+     * Creates a new {@link CostMatrix} containing 0's for all positions.
      */
-    CostMatrix: CostMatrix;
+    CostMatrix: CostMatrixConstructor;
 
     /**
      * Find an optimal path between origin and goal.
@@ -3307,19 +3816,16 @@ interface PathFinder {
      */
     search(
         origin: RoomPosition,
-        goal:
-            | RoomPosition
-            | { pos: RoomPosition; range: number }
-            | Array<RoomPosition | { pos: RoomPosition; range: number }>,
+        goal: RoomPosition | { pos: RoomPosition; range: number } | Array<RoomPosition | { pos: RoomPosition; range: number }>,
         opts?: PathFinderOpts,
     ): PathFinderPath;
     /**
      * Specify whether to use this new experimental pathfinder in game objects methods.
      * This method should be invoked every tick. It affects the following methods behavior:
-     * * `Room.findPath`
-     * * `RoomPosition.findPathTo`
-     * * `RoomPosition.findClosestByPath`
-     * * `Creep.moveTo`
+     * - {@link Room.findPath}
+     * - {@link RoomPosition.findPathTo}
+     * - {@link RoomPosition.findClosestByPath}
+     * - {@link Creep.moveTo}
      *
      * @deprecated This method is deprecated and will be removed soon.
      * @param isEnabled Whether to activate the new pathfinder or deactivate.
@@ -3337,7 +3843,7 @@ interface PathFinder {
  */
 interface PathFinderPath {
     /**
-     * An array of RoomPosition objects.
+     * An array of {@link RoomPosition} objects.
      */
     path: RoomPosition[];
     /**
@@ -3345,7 +3851,7 @@ interface PathFinderPath {
      */
     ops: number;
     /**
-     * The total cost of the path as derived from `plainCost`, `swampCost` and any given CostMatrix instances.
+     * The total cost of the path as derived from `plainCost`, `swampCost` and any given {@link CostMatrix} instances.
      */
     cost: number;
     /**
@@ -3361,56 +3867,84 @@ interface PathFinderPath {
  */
 interface PathFinderOpts {
     /**
-     * Cost for walking on plain positions. The default is 1.
+     * Cost for walking on plain positions.
+     * @default 1
      */
     plainCost?: number;
     /**
-     * Cost for walking on swamp positions. The default is 5.
+     * Cost for walking on swamp positions.
+     * @default 5
      */
     swampCost?: number;
     /**
      * Instead of searching for a path to the goals this will search for a path away from the goals.
-     * The cheapest path that is out of range of every goal will be returned. The default is false.
+     *
+     * The cheapest path that is out of range of every goal will be returned.
+     * @default false
      */
     flee?: boolean;
     /**
-     * The maximum allowed pathfinding operations. You can limit CPU time used for the search based on ratio 1 op ~ 0.001 CPU. The default value is 2000.
+     * The maximum allowed pathfinding operations.
+     *
+     * You can limit CPU time used for the search based on ratio 1 op ~ 0.001 CPU.
+     * @default 2000
      */
     maxOps?: number;
     /**
-     * The maximum allowed rooms to search. The default (and maximum) is 16.
+     * The maximum allowed rooms to search.
+     * @default 16 (also maximum)
      */
     maxRooms?: number;
     /**
-     * The maximum allowed cost of the path returned. If at any point the pathfinder detects that it is impossible to find
-     * a path with a cost less than or equal to maxCost it will immediately halt the search. The default is Infinity.
+     * The maximum allowed cost of the path returned.
+     *
+     * If at any point the pathfinder detects that it is impossible to find a path with a cost less than or equal to maxCost it will immediately halt the search.
+     * @default Infinity
      */
     maxCost?: number;
     /**
-     * Weight to apply to the heuristic in the A* formula F = G + weight * H. Use this option only if you understand
-     * the underlying A* algorithm mechanics! The default value is 1.
+     * Weight to apply to the heuristic in the A* formula `F = G + weight * H`.
+     *
+     * Use this option only if you understand the underlying A* algorithm mechanics!
+     * @default 1.2
      */
     heuristicWeight?: number;
 
     /**
-     * Request from the pathfinder to generate a CostMatrix for a certain room. The callback accepts one argument, roomName.
+     * Request from the pathfinder to generate a CostMatrix for a certain room.
+     *
+     * The callback accepts one argument, roomName.
      * This callback will only be called once per room per search. If you are running multiple pathfinding operations in a
-     * single room and in a single tick you may consider caching your CostMatrix to speed up your code. Please read the
-     * CostMatrix documentation below for more information on CostMatrix.
+     * single room and in a single tick you may consider caching your {@link CostMatrix} to speed up your code.
+     * Please read the {@link CostMatrix} documentation below for more information on CostMatrix.
      *
      * @param roomName The name of the room the pathfinder needs a cost matrix for.
      */
     roomCallback?(roomName: string): boolean | CostMatrix;
 }
 
+interface CostMatrixConstructor extends _Constructor<CostMatrix> {
+    new (): CostMatrix;
+
+    /**
+     * Static method which deserializes a new CostMatrix using the return value of serialize.
+     * @param val Whatever serialize returned
+     */
+    deserialize(val: number[]): CostMatrix;
+}
+
 /**
  * Container for custom navigation cost data.
+ *
+ * By default PathFinder will only consider terrain data (plain, swamp, wall) — if you need to route around obstacles such as buildings or creeps you must put them into a CostMatrix.
+ *
+ * Generally you will create your CostMatrix from within {@link PathFinderOpts.roomCallback}.
+ * If a non-0 value is found in a room's CostMatrix then that value will be used instead of the default terrain cost.
+ *
+ * You should avoid using large values in your CostMatrix and terrain cost flags.
+ * For example, running {@link PathFinder.search} with `{ plainCost: 1, swampCost: 5 }` is faster than running it with `{plainCost: 2, swampCost: 10 }` even though your paths will be the same.
  */
 interface CostMatrix {
-    /**
-     * Creates a new CostMatrix containing 0's for all positions.
-     */
-    new(): CostMatrix;
     /**
      * Set the cost of a position in this CostMatrix.
      * @param x X position in the room.
@@ -3432,17 +3966,21 @@ interface CostMatrix {
      * Returns a compact representation of this CostMatrix which can be stored via JSON.stringify.
      */
     serialize(): number[];
-    /**
-     * Static method which deserializes a new CostMatrix using the return value of serialize.
-     * @param val Whatever serialize returned
-     */
-    deserialize(val: number[]): CostMatrix;
 }
 
 declare const PathFinder: PathFinder;
 /**
  * Power Creeps are immortal "heroes" that are tied to your account and can be respawned in any PowerSpawn after death.
- * You can upgrade their abilities ("powers") up to your account Global Power Level (see `Game.gpl`).
+ *
+ * You can upgrade their abilities ("powers") up to your account Global Power Level (see {@link Game.gpl}).
+ *
+ * |                   |                  |
+ * | ----------------- | ---------------- |
+ * | **Time to live**  | 5,000
+ * | **Hits**          | 1,000 per level
+ * | **Capacity**      | 100 per level
+ *
+ * [Full list of available powers](https://docs.screeps.com/power.html#Powers)
  */
 interface PowerCreep extends RoomObject {
     /**
@@ -3456,7 +3994,7 @@ interface PowerCreep extends RoomObject {
      */
     carryCapacity: number;
     /**
-     * The power creep's class, one of the `POWER_CLASS` constants.
+     * The power creep's class, one of the {@link PowerClassConstant POWER_CLASS} constants.
      */
     className: PowerClassConstant;
     /**
@@ -3472,7 +4010,9 @@ interface PowerCreep extends RoomObject {
      */
     hitsMax: number;
     /**
-     * A unique identifier. You can use `Game.getObjectById` method to retrieve an object instance by its id.
+     * A unique identifier.
+     *
+     * You can use the {@link Game.getObjectById} to retrieve an object instance by its id.
      */
     id: Id<this>;
     /**
@@ -3480,7 +4020,11 @@ interface PowerCreep extends RoomObject {
      */
     level: number;
     /**
-     * A shorthand to `Memory.powerCreeps[creep.name]`. You can use it for quick access to the creep's specific memory data object.
+     * The power creep's memory.
+     *
+     * A shorthand to `Memory.powerCreeps[creep.name]`.
+     *
+     * You can use it for quick access to the creep's specific memory data object.
      */
     memory: PowerCreepMemory;
     /**
@@ -3488,7 +4032,10 @@ interface PowerCreep extends RoomObject {
      */
     my: boolean;
     /**
-     * Power creep name. You can choose the name while creating a new power creep, and `rename` it while unspawned. This name is a hash key to access the creep via the `Game.powerCreeps` object.
+     * The power creep name.
+     *
+     * You can choose the name while creating a new power creep, and `rename` it while unspawned.
+     * This name is a hash key to access the creep via the {@link Game.powerCreeps} object.
      */
     name: string;
     /**
@@ -3512,93 +4059,165 @@ interface PowerCreep extends RoomObject {
      */
     shard: string | undefined;
     /**
-     * The timestamp when spawning or deleting this creep will become available. Undefined if the power creep is spawned in the world.
+     * The timestamp when spawning or deleting this creep will become available.
+     *
+     * Undefined if the power creep is spawned in the world.
+     *
      * Note: This is a timestamp, not ticks as powerCreeps are not shard dependent.
      */
     spawnCooldownTime: number | undefined;
     /**
-     * The remaining amount of game ticks after which the creep will die and become unspawned. Undefined if the creep is not spawned in the world.
+     * The remaining amount of game ticks after which the creep will die and become unspawned.
+     *
+     * Undefined if the creep is not spawned in the world.
      */
     ticksToLive: number | undefined;
     /**
+     * Cancel the order given during the current game tick.
      * @param methodName Cancel the order given during the current game tick.
+     * @returns One of the following codes:
+     * - OK: The operation has been cancelled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of the creep.
+     * - ERR_BUSY: The power creep is not spawned in the world.
+     * - ERR_NOT_FOUND: The order with the specified name is not found.
      */
     cancelOrder(methodName: string): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_NOT_FOUND;
     /**
      * Delete the power creep permanently from your account.
-     * It should NOT be spawned in the world. The creep is not deleted immediately, but a 24-hour delete time is started (see `deleteTime`).
+     *
+     * It should NOT be spawned in the world.
+     * The creep is not deleted immediately, but a 24-hour delete time is started (see {@link PowerCreep.deleteTime}).
      * You can cancel deletion by calling `delete(true)`.
+     * @returns One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of the creep.
+     * - ERR_BUSY: The power creep is spawned in the world.
      */
     delete(cancel?: boolean): OK | ERR_NOT_OWNER | ERR_BUSY;
     /**
      * Drop this resource on the ground.
-     * @param resourceType One of the RESOURCE_* constants.
+     * @param resourceType One of the {@link ResourceConstant RESOURCE_*} constants.
      * @param amount The amount of resource units to be dropped. If omitted, all the available carried amount is used.
+     * @returns One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of this creep.
+     * - ERR_BUSY: The power creep is not spawned in the world.
+     * - ERR_NOT_ENOUGH_RESOURCES: The creep does not have the given amount of energy.
+     * - ERR_INVALID_ARGS: The resourceType is not a valid {@link ResourceConstant RESOURCE_*} constants.
      */
     drop(resourceType: ResourceConstant, amount?: number): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_NOT_ENOUGH_RESOURCES;
     /**
-     * Enable power usage in this room. The room controller should be at adjacent tile.
+     * Enable power usage in this room.
+     *
+     * The room controller should be at adjacent tile.
      * @param controller The room controller
+     * @returns One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of this creep.
+     * - ERR_INVALID_TARGET: The target is not a controller structure.
+     * - ERR_NOT_IN_RANGE: The target is too far away.
      */
     enableRoom(controller: StructureController): OK | ERR_NOT_OWNER | ERR_INVALID_TARGET | ERR_NOT_IN_RANGE;
     /**
      * Move the creep one square in the specified direction or towards a creep that is pulling it.
      *
      * Requires the MOVE body part if not being pulled.
-     * @param direction The direction to move in (`TOP`, `TOP_LEFT`...)
+     * @param direction The direction to move in ({@link DirectionConstant `TOP`, `TOP_LEFT`...})
+     * @returns One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of this creep.
+     * - ERR_BUSY: The power creep is not spawned in the world.
+     * - ERR_NOT_IN_RANGE: The target creep is too far away
+     * - ERR_INVALID_ARGS: The provided direction is incorrect.
      */
     move(direction: DirectionConstant): CreepMoveReturnCode;
     move(target: Creep): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_NOT_IN_RANGE | ERR_INVALID_ARGS;
     /**
-     * Move the creep using the specified predefined path. Needs the MOVE body part.
-     * @param path A path value as returned from Room.findPath or RoomPosition.findPathTo methods. Both array form and serialized string form are accepted.
+     * Move the creep using the specified predefined path.
+     *
+     * @param path A path value as returned from {@link Room.findPath} or {@link RoomPosition.findPathTo} methods.
+     * Both array form and serialized string form are accepted.
+     * @returns One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of this creep.
+     * - ERR_BUSY: The power creep is not spawned in the world.
+     * - ERR_NOT_FOUND: The specified path doesn't match the creep's location.
+     * - ERR_INVALID_ARGS: path is not a valid path array.
      */
     moveByPath(path: PathStep[] | RoomPosition[] | string): CreepMoveReturnCode | ERR_NOT_FOUND | ERR_INVALID_ARGS;
     /**
      * Find the optimal path to the target within the same room and move to it.
-     * A shorthand to consequent calls of pos.findPathTo() and move() methods.
+     *
+     * A shorthand to consequent calls of {@link RoomPosition.findPathTo()} and {@link Creep.move()} methods.
      * If the target is in another room, then the corresponding exit will be used as a target.
      *
-     * Needs the MOVE body part.
      * @param x X position of the target in the room.
      * @param y Y position of the target in the room.
-     * @param opts An object containing pathfinding options flags (see Room.findPath for more info) or one of the following: reusePath, serializeMemory, noPathFinding
-     */
-    moveTo(x: number, y: number, opts?: MoveToOpts): CreepMoveReturnCode | ERR_NO_PATH | ERR_INVALID_TARGET;
-    /**
-     * Find the optimal path to the target within the same room and move to it.
-     * A shorthand to consequent calls of pos.findPathTo() and move() methods.
-     * If the target is in another room, then the corresponding exit will be used as a target.
-     *
-     * Needs the MOVE body part.
      * @param target Can be a RoomPosition object or any object containing RoomPosition.
-     * @param opts An object containing pathfinding options flags (see Room.findPath for more info) or one of the following: reusePath, serializeMemory, noPathFinding
+     * @param opts An object containing pathfinding options flags (see {@link Room.findPath} for more info) or one of the following: reusePath, serializeMemory, noPathFinding
+     * @returns One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of this creep.
+     * - ERR_NO_PATH: No path to the target could be found.
+     * - ERR_BUSY: The power creep is not spawned in the world.
+     * - ERR_NOT_FOUND: The creep has no memorized path to reuse.
+     * - ERR_INVALID_TARGET: The target provided is invalid.
      */
+    moveTo(x: number, y: number, opts?: MoveToOpts): OK | ERR_NOT_OWNER | ERR_NO_PATH | ERR_BUSY | ERR_NOT_FOUND | ERR_INVALID_TARGET;
     moveTo(
         target: RoomPosition | { pos: RoomPosition },
         opts?: MoveToOpts,
     ): CreepMoveReturnCode | ERR_NO_PATH | ERR_INVALID_TARGET | ERR_NOT_FOUND;
     /**
-     * Toggle auto notification when the creep is under attack. The notification will be sent to your account email. Turned on by default.
+     * Toggle auto notification when the creep is under attack.
+     *
+     * The notification will be sent to your account email. Turned on by default.
      * @param enabled Whether to enable notification or disable.
+     * * @returns One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of this creep.
+     * - ERR_BUSY: The power creep is not spawned in the world.
+     * - ERR_INVALID_ARGS: enable argument is not a boolean value.
      */
     notifyWhenAttacked(enabled: boolean): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_INVALID_ARGS;
     /**
-     * Pick up an item (a dropped piece of energy). Needs the CARRY body part. The target has to be at adjacent square to the creep or at the same square.
+     * Pick up an item (a dropped piece of energy).
+     *
+     * The target has to be at adjacent square to the creep or at the same square.
      * @param target The target object to be picked up.
+     * @returns One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of this creep.
+     * - ERR_BUSY: The power creep is not spawned in the world.
+     * - ERR_INVALID_TARGET: The target is not a valid object to pick up.
+     * - ERR_FULL: The creep cannot receive any more resource.
+     * - ERR_NOT_IN_RANGE: The target is too far away.
      */
     pickup(target: Resource): CreepActionReturnCode | ERR_FULL;
     /**
-     * Rename the power creep. It must not be spawned in the world.
+     * Rename the power creep.
+     *
+     * It must not be spawned in the world.
+     * @returns One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of the creep.
+     * - ERR_NAME_EXISTS: A power creep with the specified name already exists.
+     * - ERR_BUSY: The power creep is spawned in the world.
      */
     rename(name: string): OK | ERR_NOT_OWNER | ERR_NAME_EXISTS | ERR_BUSY;
     /**
-     * Instantly restore time to live to the maximum using a Power Spawn or a Power Bank nearby. It has to be at adjacent tile.
+     * Instantly restore time to live to the maximum using a Power Spawn or a Power Bank nearby.
+     *
+     * It has to be at adjacent tile.
      * @param target The target structure
+     * @returns One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of this creep.
+     * - ERR_BUSY: The power creep is not spawned in the world.
+     * - ERR_INVALID_TARGET: The target is not a valid power bank or power spawn.
+     * - ERR_NOT_IN_RANGE: The target is too far away.
      */
-    renew(
-        target: StructurePowerBank | StructurePowerSpawn,
-    ): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_INVALID_TARGET | ERR_NOT_IN_RANGE;
+    renew(target: StructurePowerBank | StructurePowerSpawn): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_INVALID_TARGET | ERR_NOT_IN_RANGE;
     /**
      * Display a visual speech balloon above the creep with the specified message.
      *
@@ -3607,32 +4226,81 @@ interface PowerCreep extends RoomObject {
      * Only the creep's owner can see the speech message unless toPublic is true.
      * @param message The message to be displayed. Maximum length is 10 characters.
      * @param set to 'true' to allow other players to see this message. Default is 'false'.
+     * @returns One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of this creep.
+     * - ERR_BUSY: The power creep is not spawned in the world.
      */
     say(message: string, toPublic?: boolean): OK | ERR_NOT_OWNER | ERR_BUSY;
     /**
      * Spawn this power creep in the specified Power Spawn.
      * @param powerSpawn Your Power Spawn structure
+     * @returns One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of the creep or the spawn.
+     * - ERR_BUSY: The power creep is already spawned in the world.
+     * - ERR_INVALID_TARGET: The specified object is not a Power Spawn.
+     * - ERR_TIRED: The power creep cannot be spawned because of the cooldown.
+     * - ERR_RCL_NOT_ENOUGH: Room Controller Level insufficient to use the spawn.
      */
-    spawn(
-        powerSpawn: StructurePowerSpawn,
-    ): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_INVALID_TARGET | ERR_TIRED | ERR_RCL_NOT_ENOUGH;
+    spawn(powerSpawn: StructurePowerSpawn): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_INVALID_TARGET | ERR_TIRED | ERR_RCL_NOT_ENOUGH;
     /**
-     * Kill the power creep immediately. It will not be destroyed permanently, but will become unspawned, so that you can `spawn` it again.
+     * Kill the power creep immediately.
+     *
+     * It will not be destroyed permanently, but will become unspawned, so that you can `spawn` it again.
+     * @returns One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of this creep.
+     * - ERR_BUSY: The power creep is not spawned in the world.
      */
     suicide(): OK | ERR_NOT_OWNER | ERR_BUSY;
     /**
-     * Transfer resource from the creep to another object. The target has to be at adjacent square to the creep.
+     * Transfer resource from the creep to another object.
+     *
+     * The target has to be at adjacent square to the creep.
      * @param target The target object.
-     * @param resourceType One of the RESOURCE_* constants
+     * @param resourceType One of the {@link ResourceConstant RESOURCE_*} constants
      * @param amount The amount of resources to be transferred. If omitted, all the available carried amount is used.
+     * @returns
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of this creep.
+     * - ERR_BUSY: The power creep is not spawned in the world.
+     * - ERR_NOT_ENOUGH_RESOURCES: The creep does not have the given amount of resources.
+     * - ERR_INVALID_TARGET: The target is not a valid object which can contain the specified resource.
+     * - ERR_FULL: The target cannot receive any more resources.
+     * - ERR_NOT_IN_RANGE: The target is too far away.
+     * - ERR_INVALID_ARGS: The resourceType is not one of the {@link ResourceConstant RESOURCE_*} constants, or the amount is incorrect.
      */
     transfer(target: AnyCreep | Structure, resourceType: ResourceConstant, amount?: number): ScreepsReturnCode;
     /**
-     * Upgrade the creep, adding a new power ability to it or increasing the level of the existing power. You need one free Power Level in your account to perform this action.
+     * Upgrade the creep, adding a new power ability to it or increasing the level of the existing power.
+     *
+     * You need one free Power Level in your account to perform this action.
+     * @param power	The power ability to upgrade, one of the {@link PowerConstant PWR_*} constants.
+     * @returns
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of the creep.
+     * - ERR_NOT_ENOUGH_RESOURCES: You account Power Level is not enough.
+     * - ERR_FULL: The specified power cannot be upgraded on this creep's level, or the creep reached the maximum level.
+     * - ERR_INVALID_ARGS: The specified power ID is not valid.
      */
     upgrade(power: PowerConstant): OK | ERR_NOT_OWNER | ERR_NOT_ENOUGH_RESOURCES | ERR_FULL | ERR_INVALID_ARGS;
     /**
      * Apply one of the creep's powers on the specified target.
+     *
+     * @param power The power ability to use, one of the {@link PowerConstant PWR_*} constants.
+     * @param target A target object in the room.
+     * @returns
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of the creep.
+     * - ERR_BUSY: The creep is not spawned in the world.
+     * - ERR_NOT_ENOUGH_RESOURCES: The creep doesn't have enough resources to use the power.
+     * - ERR_INVALID_TARGET: The specified target is not valid.
+     * - ERR_FULL: The target has the same active effect of a higher level.
+     * - ERR_NOT_IN_RANGE: The specified target is too far away.
+     * - ERR_INVALID_ARGS: Using powers is not enabled on the Room Controller.
+     * - ERR_TIRED: The power ability is still on cooldown.
+     * - ERR_NO_BODYPART: The creep doesn't have the specified power ability.
      */
     usePower(power: PowerConstant, target?: RoomObject): ScreepsReturnCode;
     /**
@@ -3644,21 +4312,31 @@ interface PowerCreep extends RoomObject {
      *
      * Your creeps can withdraw resources from hostile structures as well, in case if there is no hostile rampart on top of it.
      * @param target The target object.
-     * @param resourceType The target One of the RESOURCE_* constants..
+     * @param resourceType The target One of the {@link ResourceConstant RESOURCE_*} constants.
      * @param amount The amount of resources to be transferred. If omitted, all the available amount is used.
+     * @returns
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of this creep, or there is a hostile rampart on top of the target.
+     * - ERR_BUSY: The power creep is not spawned in the world.
+     * - ERR_NOT_ENOUGH_RESOURCES: The target does not have the given amount of resources.
+     * - ERR_INVALID_TARGET: The target is not a valid object which can contain the specified resource.
+     * - ERR_FULL: The creep's carry is full.
+     * - ERR_NOT_IN_RANGE: The target is too far away.
+     * - ERR_INVALID_ARGS: The resourceType is not one of the {@link ResourceConstant RESOURCE_*} constants, or the amount is incorrect.
      */
     withdraw(target: Structure | Tombstone | Ruin, resourceType: ResourceConstant, amount?: number): ScreepsReturnCode;
 }
 
 interface PowerCreepConstructor extends _Constructor<PowerCreep>, _ConstructorById<PowerCreep> {
     /**
-     * A static method to create new Power Creep instance in your account. It will be added in an unspawned state,
-     * use spawn method to spawn it in the world.
+     * A static method to create new Power Creep instance in your account.
+     *
+     * It will be added in an unspawned state, use the {@link PowerCreep.spawn} method to spawn it in the world.
      *
      * You need one free Power Level in your account to perform this action.
      *
      * @param name The name of the power creep.
-     * @param className The class of the new power creep, one of the `POWER_CLASS` constants
+     * @param className The class of the new power creep, one of the {@link PowerClassConstant POWER_CLASS} constants
      */
     create(name: string, className: PowerClassConstant): OK | ERR_NAME_EXISTS | ERR_NOT_ENOUGH_RESOURCES;
 }
@@ -3675,23 +4353,31 @@ interface PowerCreepPowers {
          */
         level: number;
         /**
-         * Cooldown ticks remaining, or undefined if the power creep is not spawned in the world.
+         * Cooldown ticks remaining
+         *
+         * Will be undefined if the power creep is not spawned in the world.
          */
         cooldown: number | undefined;
     };
 }
 /**
  * RawMemory object allows to implement your own memory stringifier instead of built-in serializer based on JSON.stringify.
+ *
+ * It also allows to request up to 10 MB of additional memory using asynchronous memory segments feature.
+ *
+ * You can also access memory segments of other players using methods below.
  */
 interface RawMemory {
     /**
-     * An object with asynchronous memory segments available on this tick. Each object key is the segment ID with data in string values.
-     * Use RawMemory.setActiveSegments to fetch segments on the next tick. Segments data is saved automatically in the end of the tick.
+     * An object with asynchronous memory segments available on this tick.
+     *
+     * Each object key is the segment ID with data in string values.
+     * Use {@link RawMemory.setActiveSegments} to fetch segments on the next tick. Segments data is saved automatically in the end of the tick.
      */
     segments: { [segmentId: number]: string };
 
     /**
-     * An object with a memory segment of another player available on this tick. Use `setActiveForeignSegment` to fetch segments on the next tick.
+     * An object with a memory segment of another player available on this tick. Use {@link RawMemory.setActiveForeignSegment} to fetch segments on the next tick.
      */
     foreignSegment: {
         username: string;
@@ -3708,6 +4394,7 @@ interface RawMemory {
      * data. When the segment contents is changed by two shards simultaneously, you may lose some data, since the segment
      * string value is written all at once atomically. You must implement your own system to determine when each shard is
      * allowed to rewrite the inter-shard memory, e.g. based on mutual exclusions.
+     *
      */
     interShardSegment: string;
 
@@ -3718,43 +4405,60 @@ interface RawMemory {
     /**
      * Set new memory value.
      * @param value New memory value as a string.
+     * @throws if the new value is not a string or contains more than `2 * 1024 * 1024` characters.
      */
     set(value: string): undefined;
     /**
-     * Request memory segments using the list of their IDs. Memory segments will become available on the next tick in RawMemory.segments object.
-     * @param ids An array of segment IDs. Each ID should be a number from 0 to 99. Maximum 10 segments can be active at the same time. Subsequent calls of setActiveSegments override previous ones.
+     * Request memory segments using the list of their IDs.
+     *
+     * Memory segments will become available on the next tick in {@link RawMemory.segments} object.
+     * Segment IDs are a number from 0 to 99. A maximum of 10 segments can be active at the same time.
+     * Subsequent calls to {@link RawMemory.setActiveSegments} overrides previous ones.
+     *
+     * @param ids An array of segment IDs.
+     * @throws if `ids` isn't an array, more than 10 segments are active, or the ids aren't all integers.
      */
     setActiveSegments(ids: number[]): undefined;
     /**
      * Request a memory segment of another user.
      *
-     * The segment should be marked by its owner as public using `setPublicSegments`.
+     * The segment should be marked by its owner as public using {@link RawMemory.setPublicSegments}.
      *
-     * The segment data will become available on the next tick in `foreignSegment` object.
+     * The segment data will become available on the next tick in {@link foreignSegment} object.
      *
      * You can only have access to one foreign segment at the same time.
      *
      * @param username The name of another user. Pass `null` to clear the foreign segment.
-     * @param id The ID of the requested segment from 0 to 99. If undefined, the user's default public segment is requested as set by `setDefaultPublicSegment`.
+     * @param id The ID of the requested segment from 0 to 99. If undefined, the user's default public segment is requested as set by {@link RawMemory.setDefaultPublicSegment}.
+     * @throws if `id` is passed and isn't an integer.
      */
     setActiveForeignSegment(username: string | null, id?: number): undefined;
     /**
-     * Set the specified segment as your default public segment. It will be returned if no id parameter is passed to `setActiveForeignSegment` by another user.
+     * Set the specified segment as your default public segment.
+     *
+     * It will be returned if no id parameter is passed to {@link RawMemory.setActiveForeignSegment} by another user.
      *
      * @param id The ID of the requested segment from 0 to 99. Pass `null` to clear the foreign segment.
+     * @throws if `id` is passed and isn't an integer.
      */
     setDefaultPublicSegment(id: number | null): undefined;
     /**
-     * Set specified segments as public. Other users will be able to request access to them using `setActiveForeignSegment`.
+     * Set specified segments as public.
      *
-     * @param ids An array of segment IDs. Each ID should be a number from 0 to 99. Subsequent calls of `setPublicSegments` override previous ones.
+     * Other users will be able to request access to them using {@link setActiveForeignSegment}.
+     *
+     * @param ids An array of segment IDs. Each ID should be a number from 0 to 99. Subsequent calls of {@link RawMemory.setPublicSegments} override previous ones.
+     * @throws if `ids` isn't an array or the ids aren't all integers.
      */
     setPublicSegments(ids: number[]): undefined;
 }
 
 declare const RawMemory: RawMemory;
 /**
- * A dropped piece of resource. It will decay after a while if not picked up. Dropped resource pile decays for ceil(amount/1000) units per tick.
+ * A dropped piece of resource.
+ *
+ * It will decay after a while if not picked up.
+ * Dropped resource pile decays for `ceil(amount/1000)` units per tick.
  */
 
 interface Resource<T extends ResourceConstant = ResourceConstant> extends RoomObject {
@@ -3765,11 +4469,13 @@ interface Resource<T extends ResourceConstant = ResourceConstant> extends RoomOb
      */
     amount: number;
     /**
-     * A unique object identifier. You can use `Game.getObjectById` method to retrieve an object instance by its `id`.
+     * A unique object identifier.
+     *
+     * You can use {@link Game.getObjectById} to retrieve an object instance by its `id`.
      */
     id: Id<this>;
     /**
-     * One of the `RESOURCE_*` constants.
+     * One of the {@link ResourceConstant RESOURCE_*} constants.
      */
     resourceType: T;
 }
@@ -3778,30 +4484,32 @@ interface ResourceConstructor extends _Constructor<Resource>, _ConstructorById<R
 
 declare const Resource: ResourceConstructor;
 /**
- * Any object with a position in a room. Almost all game objects prototypes
- * are derived from RoomObject.
+ * Any object with a position in a room.
+ *
+ * Almost all game objects prototypes are derived from RoomObject.
  */
 
 interface RoomObject {
     readonly prototype: RoomObject;
     /**
-     * Applied effects, an array of objects with the following properties:
+     * Effects currently being applied to the object.
      */
-    effects: RoomObjectEffect[];
+    effects?: RoomObjectEffect[];
     /**
      * An object representing the position of this object in the room.
      */
     pos: RoomPosition;
     /**
-     * The link to the Room object. May be undefined in case if an object is a
-     * flag or a construction site and is placed in a room that is not visible
+     * The link to the {@link Room} object.
+     *
+     * May be `undefined` if the object is a {@link Flag} or a {@link ConstructionSite} and is placed in a room that is not visible
      * to you.
      */
     room: Room | undefined;
 }
 
 interface RoomObjectConstructor extends _Constructor<RoomObject> {
-    new(x: number, y: number, roomName: string): RoomObject;
+    new (x: number, y: number, roomName: string): RoomObject;
     (x: number, y: number, roomName: string): RoomObject;
 }
 
@@ -3817,7 +4525,9 @@ type RoomObjectEffect = NaturalEffect | PowerEffect;
  */
 interface NaturalEffect {
     /**
-     * Effect ID of the applied effect. `EFFECT_*` constant.
+     * Effect ID of the applied effect.
+     *
+     * One of the {@link EffectConstant EFFECT_*} constants.
      */
     effect: EffectConstant;
     /**
@@ -3827,7 +4537,7 @@ interface NaturalEffect {
 }
 
 /**
- * Effect applied to room object as result of a `PowerCreep.usePower`.
+ * Effect applied to room object as result of a {@link PowerCreep.usePower}.
  */
 interface PowerEffect {
     /**
@@ -3835,11 +4545,17 @@ interface PowerEffect {
      */
     level: number;
     /**
-     * Effect ID of the applied effect. `PWR_*` constant.
+     * Effect ID of the applied effect.
+     *
+     * One of the {@link PowerConstant PWR_*} constants.
      */
     effect: PowerConstant;
     /**
-     * @deprecated Power ID of the applied effect. `PWR_*` constant. No longer documented, will be removed.
+     * Power ID of the applied effect.
+     *
+     * @deprecated Use {@link PowerEffect.effect} instead.
+     *
+     * One of the {@link PowerConstant PWR_*} constants.
      */
     power: PowerConstant;
     /**
@@ -3850,9 +4566,9 @@ interface PowerEffect {
 /**
  * An object representing the specified position in the room.
  *
- * Every object in the room contains RoomPosition as the pos property.
+ * Every object in the room contains one of these as its `pos` property.
  *
- * The position object of a custom location can be obtained using the Room.getPositionAt() method or using the constructor.
+ * The position object of a custom location can be obtained using the {@link Room.getPositionAt()} method or using the constructor.
  */
 interface RoomPosition {
     readonly prototype: RoomPosition;
@@ -3870,130 +4586,121 @@ interface RoomPosition {
      */
     y: number;
     /**
-     * Create new ConstructionSite at the specified location.
-     * @param structureType One of the following constants:
-     *  * STRUCTURE_EXTENSION
-     *  * STRUCTURE_RAMPART
-     *  * STRUCTURE_ROAD
-     *  * STRUCTURE_SPAWN
-     *  * STRUCTURE_WALL
-     *  * STRUCTURE_LINK
+     * Create a new {@link ConstructionSite} at the specified location.
+     * @param structureType One of {@link BuildableStructureConstant Buildable STRUCTURE_*}.
+     * @returns
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You don't have ownership of the targetted room.
+     * - ERR_INVALID_TARGET: The structure cannot be placed at the specified location.
+     * - ERR_FULL: You have too many construction sites. The maximum number of construction sites per player is 100.
+     * - ERR_INVALID_ARGS: The location is incorrect.
+     * - ERR_RCL_NOT_ENOUGH: Room Controller Level insufficient.
      */
     createConstructionSite(structureType: BuildableStructureConstant): ScreepsReturnCode;
     /**
-     * Create new ConstructionSite at the specified location.
-     * @param structureType One of the following constants:
-     *  * STRUCTURE_EXTENSION
-     *  * STRUCTURE_RAMPART
-     *  * STRUCTURE_ROAD
-     *  * STRUCTURE_SPAWN
-     *  * STRUCTURE_WALL
-     *  * STRUCTURE_LINK
-     * @param name The name of the structure, for structures that support it (currently only spawns).
+     * Create a new {@link ConstructionSite} at the specified location.
+     * @param structureType One of {@link BuildableStructureConstant Buildable STRUCTURE_*}.
+     * @param name The name of the structure, for structures that support it (currently only spawns). The name length limit is 100 characters.
+     * @returns
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You don't have ownership of the targetted room.
+     * - ERR_INVALID_TARGET: The structure cannot be placed at the specified location.
+     * - ERR_FULL: You have too many construction sites. The maximum number of construction sites per player is 100.
+     * - ERR_INVALID_ARGS: The location is incorrect.
+     * - ERR_RCL_NOT_ENOUGH: Room Controller Level insufficient.
      */
     createConstructionSite(structureType: STRUCTURE_SPAWN, name?: string): ScreepsReturnCode;
     /**
-     * Create new Flag at the specified location.
+     * Create a new {@link Flag} at the specified location.
      * @param name The name of a new flag.
      * It should be unique, i.e. the Game.flags object should not contain another flag with the same name (hash key).
      * If not defined, a random name will be generated.
-     * @param color The color of a new flag. Should be one of the COLOR_* constants
-     * @param secondaryColor The secondary color of a new flag. Should be one of the COLOR_* constants. The default value is equal to color.
+     * @param color The color of a new flag. Should be one of the {@link ColorConstant COLOR_*} constants
+     * @param secondaryColor The secondary color of a new flag. Should be one of the {@link ColorConstant COLOR_*} constants. The default value is equal to color.
      * @returns The name of the flag if created, or one of the following error codes: ERR_NAME_EXISTS, ERR_INVALID_ARGS
      */
-    createFlag(
-        name?: string,
-        color?: ColorConstant,
-        secondaryColor?: ColorConstant,
-    ): ERR_NAME_EXISTS | ERR_INVALID_ARGS | string;
+    createFlag(name?: string, color?: ColorConstant, secondaryColor?: ColorConstant): ERR_NAME_EXISTS | ERR_INVALID_ARGS | string;
     /**
-     * Find the object with the shortest path from the given position. Uses A* search algorithm and Dijkstra's algorithm.
-     * @param type Any of the FIND_* constants.
-     * @param opts An object containing pathfinding options (see Room.findPath), or one of the following: filter, algorithm
+     * Find the object with the shortest path from the given position.
+     *
+     * Uses A* search algorithm and Dijkstra's algorithm.
+     * @param type Any of the {@link FindConstant FIND_*} constants.
+     * @param opts An object containing pathfinding options (see {@link Room.findPath}), or one of the following: filter, algorithm
      * @returns An instance of a RoomObject.
      */
     findClosestByPath<K extends FindConstant, S extends FindTypes[K]>(
         type: K,
-        opts?: FindPathOpts & Partial<FilterOptions<K, S>> & { algorithm?: FindClosestByPathAlgorithm },
+        opts?: FindPathOpts & FilterOptions<FindTypes[K], S> & { algorithm?: FindClosestByPathAlgorithm },
     ): S | null;
     findClosestByPath<S extends AnyStructure>(
         type: FIND_STRUCTURES | FIND_MY_STRUCTURES | FIND_HOSTILE_STRUCTURES,
-        opts?: FindPathOpts & Partial<FilterOptions<FIND_STRUCTURES, S>> & { algorithm?: FindClosestByPathAlgorithm },
+        opts?: FindPathOpts & FilterOptions<FindTypes[FIND_STRUCTURES], S> & { algorithm?: FindClosestByPathAlgorithm },
     ): S | null;
     /**
-     * Find the object with the shortest path from the given position. Uses A* search algorithm and Dijkstra's algorithm.
+     * Find the object with the shortest path from the given position.
+     *
+     * Uses A* search algorithm and Dijkstra's algorithm.
      * @param objects An array of RoomPositions or objects with a RoomPosition
-     * @param opts An object containing pathfinding options (see Room.findPath), or one of the following: filter, algorithm
+     * @param opts An object containing pathfinding options (see {@link Room.findPath}), or one of the following: filter, algorithm
      * @returns One of the supplied objects
      */
-    findClosestByPath<T extends _HasRoomPosition | RoomPosition>(
+    findClosestByPath<T extends _HasRoomPosition | RoomPosition, S extends T = T>(
         objects: T[],
-        opts?: FindPathOpts & {
-            filter?: ((object: T) => boolean) | FilterObject | string;
-            algorithm?: FindClosestByPathAlgorithm;
-        },
-    ): T | null;
+        opts?: FindPathOpts &
+            FilterOptions<T, S> & {
+                algorithm?: FindClosestByPathAlgorithm;
+            },
+    ): S | null;
     /**
      * Find the object with the shortest linear distance from the given position.
-     * @param type Any of the FIND_* constants.
-     * @param opts An object containing pathfinding options (see Room.findPath), or one of the following: filter, algorithm
+     * @param type Any of the {@link FindConstant FIND_*} constants.
+     * @param opts An object containing pathfinding options (see {@link Room.findPath}), or one of the following: filter, algorithm
      */
-    findClosestByRange<K extends FindConstant, S extends FindTypes[K]>(type: K, opts?: FilterOptions<K, S>): S | null;
+    findClosestByRange<K extends FindConstant, S extends FindTypes[K]>(type: K, opts?: FilterOptions<FindTypes[K], S>): S | null;
     findClosestByRange<S extends AnyStructure>(
         type: FIND_STRUCTURES | FIND_MY_STRUCTURES | FIND_HOSTILE_STRUCTURES,
-        opts?: FilterOptions<FIND_STRUCTURES, S>,
+        opts?: FilterOptions<FindTypes[FIND_STRUCTURES], S>,
     ): S | null;
     /**
      * Find the object with the shortest linear distance from the given position.
      * @param objects An array of RoomPositions or objects with a RoomPosition.
-     * @param opts An object containing pathfinding options (see Room.findPath), or one of the following: filter, algorithm
+     * @param opts An object containing pathfinding options (see {@link Room.findPath}), or one of the following: filter, algorithm
      */
-    findClosestByRange<T extends _HasRoomPosition | RoomPosition>(
-        objects: T[],
-        opts?: { filter: any | string },
-    ): T | null;
+    findClosestByRange<T extends _HasRoomPosition | RoomPosition, S extends T = T>(objects: T[], opts?: FilterOptions<T, S>): S | null;
     /**
      * Find all objects in the specified linear range.
-     * @param type Any of the FIND_* constants.
+     * @param type Any of the {@link FindConstant FIND_*} constants.
      * @param range The range distance.
      * @param opts See Room.find.
      */
-    findInRange<K extends FindConstant, S extends FindTypes[K]>(
-        type: K,
-        range: number,
-        opts?: FilterOptions<K, S>,
-    ): S[];
+    findInRange<K extends FindConstant, S extends FindTypes[K]>(type: K, range: number, opts?: FilterOptions<FindTypes[K], S>): S[];
     findInRange<S extends AnyStructure>(
         type: FIND_STRUCTURES | FIND_MY_STRUCTURES | FIND_HOSTILE_STRUCTURES,
         range: number,
-        opts?: FilterOptions<FIND_STRUCTURES, S>,
+        opts?: FilterOptions<FindTypes[FIND_STRUCTURES], S>,
     ): S[];
     /**
      * Find all objects in the specified linear range.
      * @param objects An array of room's objects or RoomPosition objects that the search should be executed against.
      * @param range The range distance.
-     * @param opts See Room.find.
+     * @param opts See {@link Room.find}.
      */
-    findInRange<T extends _HasRoomPosition | RoomPosition>(
-        objects: T[],
-        range: number,
-        opts?: { filter?: any | string },
-    ): T[];
+    findInRange<T extends _HasRoomPosition | RoomPosition, S extends T = T>(objects: T[], range: number, opts?: FilterOptions<T, S>): S[];
     /**
      * Find an optimal path to the specified position using A* search algorithm.
      *
-     * This method is a shorthand for Room.findPath. If the target is in another room, then the corresponding exit will be used as a target.
+     * This method is a shorthand for {@link Room.findPath}. If the target is in another room, then the corresponding exit will be used as a target.
      * @param x X position in the room.
      * @param y Y position in the room.
-     * @param opts An object containing pathfinding options flags (see Room.findPath for more details).
+     * @param opts An object containing pathfinding options flags (see {@link Room.findPath} for more details).
      */
     findPathTo(x: number, y: number, opts?: FindPathOpts): PathStep[];
     /**
      * Find an optimal path to the specified position using A* search algorithm.
      *
-     * This method is a shorthand for Room.findPath. If the target is in another room, then the corresponding exit will be used as a target.
+     * This method is a shorthand for {@link Room.findPath}. If the target is in another room, then the corresponding exit will be used as a target.
      * @param target Can be a RoomPosition object or any object containing RoomPosition.
-     * @param opts An object containing pathfinding options flags (see Room.findPath for more details).
+     * @param opts An object containing pathfinding options flags (see {@link Room.findPath} for more details).
      */
     findPathTo(target: RoomPosition | _HasRoomPosition, opts?: FindPathOpts): PathStep[];
     /**
@@ -4043,13 +4750,17 @@ interface RoomPosition {
      */
     isEqualTo(target: RoomPosition | { pos: RoomPosition }): boolean;
     /**
-     * Check whether this position is on the adjacent square to the specified position. The same as inRangeTo(target, 1).
+     * Check whether this position is on the adjacent square to the specified position.
+     *
+     * Equivalent to `inRangeTo(target, 1)`.
      * @param x X position in the room.
      * @param y Y position in the room.
      */
     isNearTo(x: number, y: number): boolean;
     /**
-     * Check whether this position is on the adjacent square to the specified position. The same as inRangeTo(target, 1).
+     * Check whether this position is on the adjacent square to the specified position.
+     *
+     * Equivalent to inRangeTo(target, 1).
      * @param target Can be a RoomPosition object or any object containing RoomPosition.
      */
     isNearTo(target: RoomPosition | { pos: RoomPosition }): boolean;
@@ -4070,32 +4781,75 @@ interface RoomPositionConstructor extends _Constructor<RoomPosition> {
      * @param x X position in the room.
      * @param y Y position in the room.
      * @param roomName The room name.
+     * @throws if `x` or `y` are out of bounds, or `roomName` isn't a valid room name.
      */
-    new(x: number, y: number, roomName: string): RoomPosition;
+    new (x: number, y: number, roomName: string): RoomPosition;
     (x: number, y: number, roomName: string): RoomPosition;
 }
 
 declare const RoomPosition: RoomPositionConstructor;
 /**
- * Result of Object that contains all terrain for a room
+ * An object which provides fast access to room terrain data.
+ *
+ * These objects can be constructed for any room in the world even if you have no access to it.
+ *
+ * Technically every Room.Terrain object is a very lightweight adapter to underlying static terrain buffers with corresponding minimal accessors.
  */
 interface RoomTerrain {
     /**
-     * Get terrain type at the specified room position. This method works for any room in the world even if you have no access to it.
+     * Get terrain type at the specified room position.
+     *
+     * This method works for any room in the world even if you have no access to it.
      * @param x X position in the room.
      * @param y Y position in the room.
-     * @return number Number of terrain mask like: TERRAIN_MASK_SWAMP | TERRAIN_MASK_WALL
+     * @return A bitmask of {@link TERRAIN_MASK_WALL}, {@link TERRAIN_MASK_SWAMP}.
      */
     get(x: number, y: number): 0 | TERRAIN_MASK_WALL | TERRAIN_MASK_SWAMP;
+    /**
+     * Get a copy of the underlying static terrain buffer.
+     * @param destinationArray (optional) A typed array view in which terrain will be copied to.
+     * @throws {RangeError} if `destinationArray` is provided, it must have a length of at least 2500 (`50*50`).
+     * @return Copy of underlying room terrain as a new typed array of size 2500.
+     */
+    getRawBuffer<
+        T extends
+            | Int8Array
+            | Uint8Array
+            | Int16Array
+            | Uint16Array
+            | Int32Array
+            | Uint32Array
+            | Uint8ClampedArray
+            | Float32Array
+            | Float64Array,
+    >(
+        destinationArray: T,
+    ): T;
+    getRawBuffer(): Uint8Array;
 }
 
 interface RoomTerrainConstructor extends _Constructor<RoomTerrain> {
     /**
-     * Get room terrain for the specified room. This method works for any room in the world even if you have no access to it.
+     * Get room terrain for the specified room.
+     *
+     * This method works for any room in the world even if you have no access to it.
      * @param roomName String name of the room.
      */
-    new(roomName: string): RoomTerrain;
+    new (roomName: string): RoomTerrain;
 }
+/**
+ * Room visuals provide a way to show various visual debug info in game rooms.
+ *
+ * You can use the RoomVisual object to draw simple shapes that are visible only to you.
+ * Every existing Room object already contains the visual property, but you also can create new RoomVisual objects for any room (even without visibility) using the constructor.
+ *
+ * Room visuals are not stored in the database, their only purpose is to display something in your browser.
+ * All drawings will persist for one tick and will disappear if not updated. All RoomVisual API calls have no added CPU cost (their cost is natural and mostly related to simple `JSON.serialize` calls).
+ * However, there is a usage limit: you cannot post more than 500 KB of serialized data per one room (see {@link RoomVisual.getSize} method).
+ *
+ * All draw coordinates are measured in game coordinates and centered to tile centers, i.e. (10,10) will point to the center of the creep at x:10; y:10 position.
+ * Fractional coordinates are allowed.
+ */
 declare class RoomVisual {
     /**
      * You can create new RoomVisual object using its constructor.
@@ -4184,7 +4938,9 @@ declare class RoomVisual {
     text(text: string, x: number, y: number, style?: TextStyle): RoomVisual;
 
     /**
-     * Draw a text label. You can use any valid Unicode characters, including emoji.
+     * Draw a text label.
+     *
+     * You can use any valid Unicode characters, including emoji.
      * @param text The text message.
      * @param pos The position object of the center.
      * @param style An object describing the style.
@@ -4212,7 +4968,7 @@ declare class RoomVisual {
     export(): string;
 
     /**
-     * Add previously exported (with `RoomVisual.export`) room visuals to the room visual data of the current tick.
+     * Add previously exported (with {@link RoomVisual.export}) room visuals to the room visual data of the current tick.
      * @param data The string returned from `RoomVisual.export`.
      * @returns The RoomVisual object itself, so that you can chain calls.
      */
@@ -4221,26 +4977,31 @@ declare class RoomVisual {
 
 interface LineStyle {
     /**
-     * Line width, default is 0.1.
+     * Line width.
+     * @default 0.1
      */
     width?: number;
     /**
-     * Line color in any web format, default is #ffffff(white).
+     * Line color in any web format.
+     * @default #ffffff (white)
      */
     color?: string;
     /**
-     * Opacity value, default is 0.5.
+     * Opacity value.
+     * @default 0.5
      */
     opacity?: number;
     /**
-     * Either undefined (solid line), dashed, or dotted.Default is undefined.
+     * Either undefined (solid line), dashed, or dotted.
+     * @default undefined
      */
     lineStyle?: "dashed" | "dotted" | "solid" | undefined;
 }
 
 interface PolyStyle {
     /**
-     * Fill color in any web format, default is undefined (no fill).
+     * Fill color in any web format.
+     * @default undefined (no fill).
      */
     fill?: string | undefined;
     /**
@@ -4248,59 +5009,70 @@ interface PolyStyle {
      */
     opacity?: number;
     /**
-     * Stroke color in any web format, default is #ffffff (white).
+     * Stroke color in any web format.
+     * @default #ffffff (white)
      */
     stroke?: string;
     /**
-     * Stroke line width, default is 0.1.
+     * Stroke line width.
+     * @default 0.1
      */
     strokeWidth?: number;
     /**
-     * Either undefined (solid line), dashed, or dotted. Default is undefined.
+     * Either undefined (solid line), dashed, or dotted.
+     * @default undefined
      */
     lineStyle?: "dashed" | "dotted" | "solid" | undefined;
 }
 
 interface CircleStyle extends PolyStyle {
     /**
-     * Circle radius, default is 0.15.
+     * Circle radius.
+     * @default 0.15
      */
     radius?: number;
 }
 
 interface TextStyle {
     /**
-     * Font color in any web format, default is #ffffff(white).
+     * Font color in any web format.
+     * @default #ffffff (white)
      */
     color?: string;
     /**
      * Either a number or a string in one of the following forms:
-     * 0.7 - relative size in game coordinates
-     * 20px - absolute size in pixels
-     * 0.7 serif
-     * bold italic 1.5 Times New Roman
+     * - 0.7 - relative size in game coordinates
+     * - 20px - absolute size in pixels
+     * - 0.7 serif
+     * - bold italic 1.5 Times New Roman
      */
     font?: number | string;
     /**
-     * Stroke color in any web format, default is undefined (no stroke).
+     * Stroke color in any web format.
+     * @default undefined (no stroke)
      */
     stroke?: string | undefined;
     /**
-     * Stroke width, default is 0.15.
+     * Stroke width.
+     * @default 0.15
      */
     strokeWidth?: number;
     /**
-     * Background color in any web format, default is undefined (no background).When background is enabled, text vertical align is set to middle (default is baseline).
+     * Background color in any web format.
+     * When background is enabled, text vertical align is set to middle (default is baseline).
+     * @default undefined (no background)
      */
     backgroundColor?: string | undefined;
 
     /**
-     * Background rectangle padding, default is 0.3.
+     * Background rectangle padding
+     * @default 0.3
      */
     backgroundPadding?: number;
     align?: "center" | "left" | "right";
     /**
-     * Opacity value, default is 1.0.
+     * Opacity value.
+     * @default 1.0
      */
     opacity?: number;
 }
@@ -4309,7 +5081,7 @@ interface TextStyle {
  *
  * It can be used to look around, find paths, etc.
  *
- * Every object in the room contains its linked Room instance in the room property.
+ * Every object in the room contains its linked Room instance in the {@link RoomObject.room} property.
  */
 interface Room {
     readonly prototype: Room;
@@ -4329,69 +5101,91 @@ interface Room {
     /**
      * Returns an array of events happened on the previous tick in this room.
      */
-    getEventLog(raw?: boolean): EventItem[];
+    getEventLog(raw?: false): EventItem[];
     /**
+     * Returns an raw JSON string of events happened on the previous tick in this room.
+     */
+    getEventLog(raw: true): string;
+    /**
+     * The room's memory.
+     *
      * A shorthand to `Memory.rooms[room.name]`. You can use it for quick access the room’s specific memory data object.
      */
     memory: RoomMemory;
-    /**
-     * One of the `MODE_*` constants.
-     */
-    mode: string;
     /**
      * The name of the room.
      */
     readonly name: string;
     /**
-     * The Storage structure of this room, if present, otherwise undefined.
+     * The {@link StructureStorage} of this room, if present, otherwise undefined.
      */
     storage?: StructureStorage;
     /**
-     * The Terminal structure of this room, if present, otherwise undefined.
+     * The {@link StructureTerminal} of this room, if present, otherwise undefined.
      */
     terminal?: StructureTerminal;
     /**
-     * A RoomVisual object for this room. You can use this object to draw simple shapes (lines, circles, text labels) in the room.
+     * A {@link RoomVisual} object for this room.
+     *
+     * You can use this object to draw simple shapes (lines, circles, text labels) in the room.
      */
     visual: RoomVisual;
     /**
-     * Create new ConstructionSite at the specified location.
-     * @param x The X position.
-     * @param y The Y position.
-     * @param structureType One of the following constants: STRUCTURE_EXTENSION, STRUCTURE_RAMPART, STRUCTURE_ROAD, STRUCTURE_SPAWN, STRUCTURE_WALL, STRUCTURE_LINK
-     * @returns Result Code: OK, ERR_INVALID_TARGET, ERR_INVALID_ARGS, ERR_RCL_NOT_ENOUGH
+     * Create new {@link ConstructionSite} at the specified location.
+     * @param x The X position
+     * @param y The Y position
+     * @param structureType One of {@link BuildableStructureConstant Buildable STRUCTURE_*}.
+     * @returns
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: The room is claimed or reserved by a hostile player.
+     * - ERR_INVALID_TARGET: The structure cannot be placed at the specified location.
+     * - ERR_FULL: You have too many construction sites. The maximum number of construction sites per player is 100.
+     * - ERR_INVALID_ARGS: The location is incorrect.
+     * - ERR_RCL_NOT_ENOUGH: Room Controller Level insufficient.
      */
     createConstructionSite(x: number, y: number, structureType: BuildableStructureConstant): ScreepsReturnCode;
     /**
-     * Create new ConstructionSite at the specified location.
-     * @param pos Can be a RoomPosition object or any object containing RoomPosition.
-     * @param structureType One of the following constants: STRUCTURE_EXTENSION, STRUCTURE_RAMPART, STRUCTURE_ROAD, STRUCTURE_SPAWN, STRUCTURE_WALL, STRUCTURE_LINK
-     * @returns Result Code: OK, ERR_INVALID_TARGET, ERR_INVALID_ARGS, ERR_RCL_NOT_ENOUGH
+     * Create new {@link ConstructionSite} at the specified location.
+     * @param pos Can be a {@link RoomPosition} object or any object containing RoomPosition.
+     * @param structureType One of {@link BuildableStructureConstant Buildable STRUCTURE_*}.
+     * @returns
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: The room is claimed or reserved by a hostile player.
+     * - ERR_INVALID_TARGET: The structure cannot be placed at the specified location.
+     * - ERR_FULL: You have too many construction sites. The maximum number of construction sites per player is 100.
+     * - ERR_INVALID_ARGS: The location is incorrect.
+     * - ERR_RCL_NOT_ENOUGH: Room Controller Level insufficient.
      */
     createConstructionSite(pos: RoomPosition | _HasRoomPosition, structureType: StructureConstant): ScreepsReturnCode;
     /**
-     * Create new ConstructionSite at the specified location.
-     * @param x The X position.
-     * @param y The Y position.
-     * @param structureType One of the following constants: STRUCTURE_EXTENSION, STRUCTURE_RAMPART, STRUCTURE_ROAD, STRUCTURE_SPAWN, STRUCTURE_WALL, STRUCTURE_LINK
-     * @param name The name of the structure, for structures that support it (currently only spawns).
-     * @returns Result Code: OK, ERR_INVALID_TARGET, ERR_INVALID_ARGS, ERR_RCL_NOT_ENOUGH
+     * Create new {@link ConstructionSite} at the specified location.
+     * @param x The X position
+     * @param y The Y position
+     * @param structureType One of {@link BuildableStructureConstant Buildable STRUCTURE_*}.
+     * @returns
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: The room is claimed or reserved by a hostile player.
+     * - ERR_INVALID_TARGET: The structure cannot be placed at the specified location.
+     * - ERR_FULL: You have too many construction sites. The maximum number of construction sites per player is 100.
+     * - ERR_INVALID_ARGS: The location is incorrect.
+     * - ERR_RCL_NOT_ENOUGH: Room Controller Level insufficient.
      */
     createConstructionSite(x: number, y: number, structureType: STRUCTURE_SPAWN, name?: string): ScreepsReturnCode;
     /**
-     * Create new ConstructionSite at the specified location.
-     * @param pos Can be a RoomPosition object or any object containing RoomPosition.
-     * @param structureType One of the following constants: STRUCTURE_EXTENSION, STRUCTURE_RAMPART, STRUCTURE_ROAD, STRUCTURE_SPAWN, STRUCTURE_WALL, STRUCTURE_LINK
-     * @param name The name of the structure, for structures that support it (currently only spawns).
-     * @returns Result Code: OK, ERR_INVALID_TARGET, ERR_INVALID_ARGS, ERR_RCL_NOT_ENOUGH
+     * Create new {@link ConstructionSite} at the specified location.
+     * @param pos Can be a {@link RoomPosition} object or any object containing RoomPosition.
+     * @param structureType One of {@link BuildableStructureConstant Buildable STRUCTURE_*}.
+     * @returns
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: The room is claimed or reserved by a hostile player.
+     * - ERR_INVALID_TARGET: The structure cannot be placed at the specified location.
+     * - ERR_FULL: You have too many construction sites. The maximum number of construction sites per player is 100.
+     * - ERR_INVALID_ARGS: The location is incorrect.
+     * - ERR_RCL_NOT_ENOUGH: Room Controller Level insufficient.
      */
-    createConstructionSite(
-        pos: RoomPosition | _HasRoomPosition,
-        structureType: STRUCTURE_SPAWN,
-        name?: string,
-    ): ScreepsReturnCode;
+    createConstructionSite(pos: RoomPosition | _HasRoomPosition, structureType: STRUCTURE_SPAWN, name?: string): ScreepsReturnCode;
     /**
-     * Create new Flag at the specified location.
+     * Create new {@link Flag} at the specified location.
      * @param x The X position.
      * @param y The Y position.
      * @param name (optional) The name of a new flag.
@@ -4403,7 +5197,10 @@ interface Room {
      * The maximum length is 60 characters.
      * @param color The color of a new flag. Should be one of the COLOR_* constants. The default value is COLOR_WHITE.
      * @param secondaryColor The secondary color of a new flag. Should be one of the COLOR_* constants. The default value is equal to color.
-     * @returns The name of a new flag, or one of the following error codes: ERR_NAME_EXISTS, ERR_INVALID_ARGS
+     * @returns The name of a new flag, or one of the following error codes:
+     * - ERR_NAME_EXISTS: There is a flag with the same name already.
+     * - ERR_FULL: You have too many flags. The maximum number of flags per player is 10000.
+     * - ERR_INVALID_ARGS: The location or the name or the color constant is incorrect.
      */
     createFlag(
         x: number,
@@ -4413,8 +5210,8 @@ interface Room {
         secondaryColor?: ColorConstant,
     ): ERR_NAME_EXISTS | ERR_INVALID_ARGS | string;
     /**
-     * Create new Flag at the specified location.
-     * @param pos Can be a RoomPosition object or any object containing RoomPosition.
+     * Create new {@link Flag} at the specified location.
+     * @param pos Can be a {@link RoomPosition} object or any object containing RoomPosition.
      * @param name (optional) The name of a new flag.
      *
      * It should be unique, i.e. the Game.flags object should not contain another flag with the same name (hash key).
@@ -4424,7 +5221,10 @@ interface Room {
      * The maximum length is 60 characters.
      * @param color The color of a new flag. Should be one of the COLOR_* constants. The default value is COLOR_WHITE.
      * @param secondaryColor The secondary color of a new flag. Should be one of the COLOR_* constants. The default value is equal to color.
-     * @returns The name of a new flag, or one of the following error codes: ERR_NAME_EXISTS, ERR_INVALID_ARGS
+     * @returns The name of a new flag, or one of the following error codes:
+     * - ERR_NAME_EXISTS: There is a flag with the same name already.
+     * - ERR_FULL: You have too many flags. The maximum number of flags per player is 10000.
+     * - ERR_INVALID_ARGS: The location or the name or the color constant is incorrect.
      */
     createFlag(
         pos: RoomPosition | { pos: RoomPosition },
@@ -4434,32 +5234,14 @@ interface Room {
     ): ERR_NAME_EXISTS | ERR_INVALID_ARGS | string;
     /**
      * Find all objects of the specified type in the room.
-     * @param type One of the following constants:
-     *  * FIND_CREEPS
-     *  * FIND_MY_CREEPS
-     *  * FIND_HOSTILE_CREEPS
-     *  * FIND_MY_SPAWNS
-     *  * FIND_HOSTILE_SPAWNS
-     *  * FIND_SOURCES
-     *  * FIND_SOURCES_ACTIVE
-     *  * FIND_DROPPED_RESOURCES
-     *  * FIND_STRUCTURES
-     *  * FIND_MY_STRUCTURES
-     *  * FIND_HOSTILE_STRUCTURES
-     *  * FIND_FLAGS
-     *  * FIND_CONSTRUCTION_SITES
-     *  * FIND_EXIT_TOP
-     *  * FIND_EXIT_RIGHT
-     *  * FIND_EXIT_BOTTOM
-     *  * FIND_EXIT_LEFT
-     *  * FIND_EXIT
+     * @param type One of the {@link FindConstant FIND_*} constants.
      * @param opts An object with additional options
      * @returns An array with the objects found.
      */
-    find<K extends FindConstant, S extends FindTypes[K]>(type: K, opts?: FilterOptions<K, S>): S[];
+    find<K extends FindConstant, S extends FindTypes[K]>(type: K, opts?: FilterOptions<FindTypes[K], S>): S[];
     find<S extends AnyStructure>(
         type: FIND_STRUCTURES | FIND_MY_STRUCTURES | FIND_HOSTILE_STRUCTURES,
-        opts?: FilterOptions<FIND_STRUCTURES, S>,
+        opts?: FilterOptions<FindTypes[FIND_STRUCTURES], S>,
     ): S[];
     /**
      * Find the exit direction en route to another room.
@@ -4472,19 +5254,20 @@ interface Room {
      * Find an optimal path inside the room between fromPos and toPos using A* search algorithm.
      * @param fromPos The start position.
      * @param toPos The end position.
-     * @param opts (optional) An object containing additonal pathfinding flags
+     * @param opts (optional) An object containing additional pathfinding flags
      * @returns An array with path steps
      */
     findPath(fromPos: RoomPosition, toPos: RoomPosition, opts?: FindPathOpts): PathStep[];
     /**
-     * Creates a RoomPosition object at the specified location.
+     * Creates a {@link RoomPosition} object at the specified location.
      * @param x The X position.
      * @param y The Y position.
      * @returns A RoomPosition object or null if it cannot be obtained.
      */
     getPositionAt(x: number, y: number): RoomPosition | null;
     /**
-     * Get a Room.Terrain object which provides fast access to static terrain data.
+     * Get a {@link RoomTerrain} object which provides fast access to static terrain data.
+     *
      * This method works for any room in the world even if you have no access to it.
      */
     getTerrain(): RoomTerrain;
@@ -4493,6 +5276,7 @@ interface Room {
      * @param x The X position.
      * @param y The Y position.
      * @returns An array with objects at the specified position
+     * @throws if `x` or `y` are out of bounds.
      */
     lookAt(x: number, y: number): LookAtResult[];
     /**
@@ -4502,7 +5286,9 @@ interface Room {
      */
     lookAt(target: RoomPosition | { pos: RoomPosition }): LookAtResult[];
     /**
-     * Get the list of objects at the specified room area. This method is more CPU efficient in comparison to multiple lookAt calls.
+     * Get the list of objects at the specified room area.
+     *
+     * This method is more CPU efficient in comparison to multiple {@link Room.lookAt} calls.
      * @param top The top Y boundary of the area.
      * @param left The left X boundary of the area.
      * @param bottom The bottom Y boundary of the area.
@@ -4511,43 +5297,33 @@ interface Room {
      * @returns An object with all the objects in the specified area
      */
     lookAtArea(top: number, left: number, bottom: number, right: number, asArray?: false): LookAtResultMatrix;
-    /**
-     * Get the list of objects at the specified room area. This method is more CPU efficient in comparison to multiple lookAt calls.
-     * @param top The top Y boundary of the area.
-     * @param left The left X boundary of the area.
-     * @param bottom The bottom Y boundary of the area.
-     * @param right The right X boundary of the area.
-     * @param asArray Set to true if you want to get the result as a plain array.
-     * @returns An object with all the objects in the specified area
-     */
     lookAtArea(top: number, left: number, bottom: number, right: number, asArray: true): LookAtResultWithPos[];
     /**
      * Get the objects at the given position.
-     * @param type One of the LOOK_* constants.
+     *
+     * @param type One of the {@link LookConstant LOOK_*} constants.
      * @param x The X position.
      * @param y The Y position.
-     * @returns An array of Creep at the given position.
+     * @returns An array of objects of the requested type at the given position, or ERR_INVALID_ARGS.
      */
     lookForAt<T extends keyof AllLookAtTypes>(type: T, x: number, y: number): Array<AllLookAtTypes[T]>;
     /**
-     * Get the objects at the given RoomPosition.
-     * @param type One of the LOOK_* constants.
-     * @param target Can be a RoomPosition object or any object containing RoomPosition.
-     * @returns An array of Creeps at the specified position if found.
+     * Get the objects at the given position.
+     *
+     * @param type One of the {@link LookConstant LOOK_*} constants.
+     * @param target A RoomPosition. Its room name will be ignored.
+     * @returns An array of objects of the requested type at the given position, or ERR_INVALID_ARGS.
      */
-    lookForAt<T extends keyof AllLookAtTypes>(
-        type: T,
-        target: RoomPosition | _HasRoomPosition,
-    ): Array<AllLookAtTypes[T]>;
+    lookForAt<T extends keyof AllLookAtTypes>(type: T, target: RoomPosition | _HasRoomPosition): Array<AllLookAtTypes[T]>;
     /**
-     * Get the given objets in the supplied area.
-     * @param type One of the LOOK_* constants
-     * @param top The top (Y) boundry of the area.
-     * @param left The left (X) boundry of the area.
-     * @param bottom The bottom (Y) boundry of the area.
-     * @param right The right(X) boundry of the area.
+     * Get the given objects in the supplied area.
+     * @param type One of the {@link LookConstant LOOK_*} constants
+     * @param top The top (Y) boundary of the area.
+     * @param left The left (X) boundary of the area.
+     * @param bottom The bottom (Y) boundary of the area.
+     * @param right The right(X) boundary of the area.
      * @param asArray Flatten the results into an array?
-     * @returns An object with the sstructure object[X coord][y coord] as an array of found objects.
+     * @returns Either an array of found objects with an x & y property or a nested object keyed by x, then y coordinate.
      */
     lookForAtArea<T extends keyof AllLookAtTypes>(
         type: T,
@@ -4556,17 +5332,7 @@ interface Room {
         bottom: number,
         right: number,
         asArray?: false,
-    ): LookForAtAreaResultMatrix<AllLookAtTypes[T], T>;
-    /**
-     * Get the given objets in the supplied area.
-     * @param type One of the LOOK_* constants
-     * @param top The top (Y) boundry of the area.
-     * @param left The left (X) boundry of the area.
-     * @param bottom The bottom (Y) boundry of the area.
-     * @param right The right(X) boundry of the area.
-     * @param asArray Flatten the results into an array?
-     * @returns An array of found objects with an x & y property for their position
-     */
+    ): LookForAtAreaResultMatrix<AllLookAtTypes[T]>;
     lookForAtArea<T extends keyof AllLookAtTypes>(
         type: T,
         top: number,
@@ -4575,28 +5341,16 @@ interface Room {
         right: number,
         asArray: true,
     ): LookForAtAreaResultArray<AllLookAtTypes[T], T>;
-
-    /**
-     * Serialize a path array into a short string representation, which is suitable to store in memory.
-     * @param path A path array retrieved from Room.findPath.
-     * @returns A serialized string form of the given path.
-     */
-
-    /**
-     * Deserialize a short string path representation into an array form.
-     * @param path A serialized path string.
-     * @returns A path array.
-     */
 }
 
 interface RoomConstructor extends _Constructor<Room> {
-    new(id: string): Room;
+    new (id: string): Room;
 
     Terrain: RoomTerrainConstructor;
 
     /**
      * Serialize a path array into a short string representation, which is suitable to store in memory.
-     * @param path A path array retrieved from `Room.findPath`.
+     * @param path A path array retrieved from {@link Room.findPath}.
      * @returns A serialized string form of the given path.
      */
     serializePath(path: PathStep[]): string;
@@ -4610,15 +5364,16 @@ interface RoomConstructor extends _Constructor<Room> {
 
 declare const Room: RoomConstructor;
 /**
- * A destroyed structure. This is a walkable object.
- * <ul>
- *     <li>Decay: 500 ticks except some special cases</li>
- * </ul>
+ * A destroyed structure.
+ *
+ * This is a walkable object.
+ *
+ * Usually decays in 500 ticks except some special cases.
  */
 interface Ruin extends RoomObject {
     /**
-     * A unique object identificator.
-     * You can use {@link Game.getObjectById} method to retrieve an object instance by its id.
+     * A unique object identifier.
+     * You can use {@link Game.getObjectById} to retrieve an object instance by its id.
      */
     id: Id<this>;
     /**
@@ -4643,7 +5398,16 @@ interface RuinConstructor extends _Constructor<Ruin>, _ConstructorById<Ruin> {}
 
 declare const Ruin: RuinConstructor;
 /**
- * An energy source object. Can be harvested by creeps with a WORK body part.
+ * An energy source object.
+ *
+ * Can be harvested by creeps with a WORK body part.
+ *
+ * |                     |                                    |
+ * | ------------------- | ---------------------------------- |
+ * | Energy amount       | 4000 in center rooms
+ * |                     | 3000 in an owned or reserved room
+ * |                     | 1500 in an unreserved room
+ * | Energy regeneration | Every 300 game ticks
  */
 interface Source extends RoomObject {
     /**
@@ -4655,16 +5419,19 @@ interface Source extends RoomObject {
      */
     energy: number;
     /**
-     * The total amount of energy in the source. Equals to 3000 in most cases.
+     * The total amount of energy in the source.
+     *
+     * Equals to 3000 in most cases.
      */
     energyCapacity: number;
     /**
-     * A unique object identifier. You can use Game.getObjectById method to retrieve an object instance by its id.
+     * A unique object identifier.
+     *
+     * You can use {@link Game.getObjectById} to retrieve an object instance by its id.
      */
     id: Id<this>;
     /**
-     * If you can get an instance of Source, you can see it.
-     * If you can see a Source, you can see the room it's in.
+     * The room the source is in.
      */
     room: Room;
     /**
@@ -4677,10 +5444,25 @@ interface SourceConstructor extends _Constructor<Source>, _ConstructorById<Sourc
 
 declare const Source: SourceConstructor;
 /**
- * Spawns are your colony centers. This structure can create, renew, and recycle
- * creeps. All your spawns are accessible through `Game.spawns` hash list.
- * Spawns auto-regenerate a little amount of energy each tick, so that you can
- * easily recover even if all your creeps died.
+ * Spawns are your colony centers.
+ *
+ * This structure can create, renew, and recycle creeps.
+ * All your spawns are accessible through {@link Game.spawns} hash list.
+ * Spawns auto-regenerate a little amount of energy each tick, so that you can easily recover even if all your creeps died.
+ *
+ * | Controller level |          |
+ * | ---------------- | -------- |
+ * |  1-6             | 1 spawn  |
+ * |  7               | 2 spawns |
+ * |  8               | 3 spawns |
+ *
+ * |                               |               |
+ * | ----------------------------- | ------------- |
+ * | **Cost**                      | 15,000
+ * | **Hits**                      | 5,000
+ * | **Capacity**                  | 300
+ * | **Spawn time**                | 3 ticks per each body part
+ * | **Energy auto-regeneration**  | 1 energy unit per tick while energy available | in the room (in all spawns and extensions) is less than 300
  */
 interface StructureSpawn extends OwnedStructure<STRUCTURE_SPAWN> {
     readonly prototype: StructureSpawn;
@@ -4690,21 +5472,23 @@ interface StructureSpawn extends OwnedStructure<STRUCTURE_SPAWN> {
      */
     energy: number;
     /**
-     * The total amount of energy the spawn can contain
+     * The total amount of energy the spawn can contain.
      * @deprecated An alias for .store.getCapacity(RESOURCE_ENERGY).
      */
     energyCapacity: number;
     /**
-     * A shorthand to `Memory.spawns[spawn.name]`. You can use it for quick access
-     * the spawn’s specific memory data object.
+     * The spawn memory.
+     *
+     * A shorthand to `Memory.spawns[spawn.name]`. You can use it for quick access the spawn’s specific memory data object.
      *
      * @see http://docs.screeps.com/global-objects.html#Memory-object
      */
     memory: SpawnMemory;
     /**
-     * Spawn's name. You choose the name upon creating a new spawn, and it cannot
-     * be changed later. This name is a hash key to access the spawn via the
-     * `Game.spawns` object.
+     * The spawn name.
+     *
+     * You choose the name upon creating a new spawn, and it cannot be changed later.
+     * This name is a hash key to access the spawn via the {@link Game.spawns} object.
      */
     name: string;
     /**
@@ -4718,20 +5502,44 @@ interface StructureSpawn extends OwnedStructure<STRUCTURE_SPAWN> {
     /**
      * Check if a creep can be created.
      *
-     * @deprecated This method is deprecated and will be removed soon. Please use `StructureSpawn.spawnCreep` with `dryRun` flag instead.
-     * @param body An array describing the new creep’s body. Should contain 1 to 50 elements with one of these constants: WORK, MOVE, CARRY, ATTACK, RANGED_ATTACK, HEAL, TOUGH, CLAIM
+     * @deprecated This method is deprecated and will be removed soon. Please use {@link StructureSpawn.spawnCreep} with `dryRun` flag instead.
+     * @param body An array describing the new creep’s body. Should contain 1 to 50 elements with one of the {@link BodyPartConstant} constants:
+     * - WORK
+     * - MOVE
+     * - CARRY
+     * - ATTACK
+     * - RANGED_ATTACK
+     * - HEAL
+     * - TOUGH
+     * - CLAIM
      * @param name The name of a new creep.
      *
      * It should be unique creep name, i.e. the Game.creeps object should not contain another creep with the same name (hash key).
      *
      * If not defined, a random name will be generated.
+     * @returns One of the following codes:
+     * - OK: A creep with the given body and name can be created.
+     * - ERR_NOT_OWNER: You are not the owner of this spawn.
+     * - ERR_NAME_EXISTS: There is a creep with the same name already.
+     * - ERR_BUSY: The spawn is already in process of spawning another creep.
+     * - ERR_NOT_ENOUGH_ENERGY: The spawn and its extensions contain not enough energy to create a creep with the given body.
+     * - ERR_INVALID_ARGS: Body is not properly described.
+     * - ERR_RCL_NOT_ENOUGH: Your Room Controller level is insufficient to use this spawn.
      */
     canCreateCreep(body: BodyPartConstant[], name?: string): ScreepsReturnCode;
     /**
      * Start the creep spawning process.
      *
-     * @deprecated This method is deprecated and will be removed soon. Please use `StructureSpawn.spawnCreep` instead.
-     * @param body An array describing the new creep’s body. Should contain 1 to 50 elements with one of these constants: WORK, MOVE, CARRY, ATTACK, RANGED_ATTACK, HEAL, TOUGH, CLAIM
+     * @deprecated This method is deprecated and will be removed soon. Please use {@link StructureSpawn.spawnCreep} instead.
+     * @param body An array describing the new creep’s body. Should contain 1 to 50 elements with one of the {@link BodyPartConstant} constants:
+     * - WORK
+     * - MOVE
+     * - CARRY
+     * - ATTACK
+     * - RANGED_ATTACK
+     * - HEAL
+     * - TOUGH
+     * - CLAIM
      * @param name The name of a new creep.
      *
      * It should be unique creep name, i.e. the Game.creeps object should not contain another creep with the same name (hash key).
@@ -4739,57 +5547,38 @@ interface StructureSpawn extends OwnedStructure<STRUCTURE_SPAWN> {
      * If not defined, a random name will be generated.
      * @param memory The memory of a new creep. If provided, it will be immediately stored into Memory.creeps[name].
      * @returns The name of a new creep or one of these error codes:
-     * ```
-     * ERR_NOT_OWNER            -1  You are not the owner of this spawn.
-     * ERR_NAME_EXISTS          -3  There is a creep with the same name already.
-     * ERR_BUSY                 -4  The spawn is already in process of spawning another creep.
-     * ERR_NOT_ENOUGH_ENERGY    -6  The spawn and its extensions contain not enough energy to create a creep with the given body.
-     * ERR_INVALID_ARGS         -10 Body is not properly described.
-     * ERR_RCL_NOT_ENOUGH       -14 Your Room Controller level is not enough to use this spawn.
-     * ```
+     * - ERR_NOT_OWNER: You are not the owner of this spawn.
+     * - ERR_NAME_EXISTS: There is a creep with the same name already.
+     * - ERR_BUSY: The spawn is already in process of spawning another creep.
+     * - ERR_NOT_ENOUGH_ENERGY: The spawn and its extensions contain not enough energy to create a creep with the given body.
+     * - ERR_INVALID_ARGS: Body is not properly described.
+     * - ERR_RCL_NOT_ENOUGH: Your Room Controller level is not enough to use this spawn.
      */
     createCreep(body: BodyPartConstant[], name?: string, memory?: CreepMemory): ScreepsReturnCode | string;
-
     /**
      * Start the creep spawning process. The required energy amount can be withdrawn from all spawns and extensions in the room.
      *
-     * @param body An array describing the new creep’s body. Should contain 1 to 50 elements with one of these constants:
-     *  * WORK
-     *  * MOVE
-     *  * CARRY
-     *  * ATTACK
-     *  * RANGED_ATTACK
-     *  * HEAL
-     *  * TOUGH
-     *  * CLAIM
+     * @param body An array describing the new creep’s body. Should contain 1 to 50 elements with one of the {@link BodyPartConstant} constants:
+     * - WORK
+     * - MOVE
+     * - CARRY
+     * - ATTACK
+     * - RANGED_ATTACK
+     * - HEAL
+     * - TOUGH
+     * - CLAIM
      * @param name The name of a new creep. It must be a unique creep name, i.e. the Game.creeps object should not contain another creep with the same name (hash key).
      * @param opts An object with additional options for the spawning process.
      * @returns One of the following codes:
-     * ```
-     * OK                       0   The operation has been scheduled successfully.
-     * ERR_NOT_OWNER            -1  You are not the owner of this spawn.
-     * ERR_NAME_EXISTS          -3  There is a creep with the same name already.
-     * ERR_BUSY                 -4  The spawn is already in process of spawning another creep.
-     * ERR_NOT_ENOUGH_ENERGY    -6  The spawn and its extensions contain not enough energy to create a creep with the given body.
-     * ERR_INVALID_ARGS         -10 Body is not properly described or name was not provided.
-     * ERR_RCL_NOT_ENOUGH       -14 Your Room Controller level is insufficient to use this spawn.
-     * ```
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of this spawn.
+     * - ERR_NAME_EXISTS: There is a creep with the same name already.
+     * - ERR_BUSY: The spawn is already in process of spawning another creep.
+     * - ERR_NOT_ENOUGH_ENERGY: The spawn and its extensions contain not enough energy to create a creep with the given body.
+     * - ERR_INVALID_ARGS: Body is not properly described or name was not provided.
+     * - ERR_RCL_NOT_ENOUGH: Your Room Controller level is insufficient to use this spawn.
      */
     spawnCreep(body: BodyPartConstant[], name: string, opts?: SpawnOptions): ScreepsReturnCode;
-
-    /**
-     * Destroy this spawn immediately.
-     */
-    destroy(): ScreepsReturnCode;
-    /**
-     * Check whether this structure can be used. If the room controller level is not enough, then this method will return false, and the structure will be highlighted with red in the game.
-     */
-    isActive(): boolean;
-    /**
-     * Toggle auto notification when the spawn is under attack. The notification will be sent to your account email. Turned on by default.
-     * @param enabled Whether to enable notification or disable.
-     */
-    notifyWhenAttacked(enabled: boolean): ScreepsReturnCode;
     /**
      * Increase the remaining time to live of the target creep.
      *
@@ -4797,15 +5586,33 @@ interface StructureSpawn extends OwnedStructure<STRUCTURE_SPAWN> {
      *
      * The spawn should not be busy with the spawning process.
      *
-     * Each execution increases the creep's timer by amount of ticks according to this formula: floor(600/body_size).
+     * Each execution increases the creep's timer by amount of ticks according to this formula: `floor(600/body_size)`.
      *
-     * Energy required for each execution is determined using this formula: ceil(creep_cost/2.5/body_size).
+     * Energy required for each execution is determined using this formula: `ceil(creep_cost/2.5/body_size)`.
      * @param target The target creep object.
+     * @returns One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of the spawn, or the creep.
+     * - ERR_BUSY: The spawn is spawning another creep.
+     * - ERR_NOT_ENOUGH_ENERGY: The spawn does not have enough energy.
+     * - ERR_INVALID_TARGET: The specified target object is not a creep, or the creep has CLAIM body part.
+     * - ERR_FULL: The target creep's time to live timer is full.
+     * - ERR_NOT_IN_RANGE: The target creep is too far away.
+     * - ERR_RCL_NOT_ENOUGH: Your Room Controller level is insufficient to use this spawn.
      */
     renewCreep(target: Creep): ScreepsReturnCode;
     /**
-     * Kill the creep and drop up to 100% of resources spent on its spawning and boosting depending on remaining life time. The target should be at adjacent square.
+     * Kill the creep and drop up to 100% of resources spent on its spawning and boosting depending on remaining life time.
+     *
+     * The target should be at adjacent square. Energy return is limited to 125 units per body part.
+     *
      * @param target The target creep object.
+     * @returns One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of this spawn or the target creep.
+     * - ERR_INVALID_TARGET: The specified target object is not a creep.
+     * - ERR_NOT_IN_RANGE: The target creep is too far away.
+     * - ERR_RCL_NOT_ENOUGH: Your Room Controller level is insufficient to use this spawn.
      */
     recycleCreep(target: Creep): ScreepsReturnCode;
 }
@@ -4823,9 +5630,10 @@ interface Spawning {
 
     /**
      * An array with the spawn directions
+     *
      * @see http://docs.screeps.com/api/#StructureSpawn.Spawning.setDirections
      */
-    directions: DirectionConstant[];
+    directions?: DirectionConstant[];
 
     /**
      * The name of the creep
@@ -4848,13 +5656,23 @@ interface Spawning {
     spawn: StructureSpawn;
 
     /**
-     * Cancel spawning immediately. Energy spent on spawning is not returned.
+     * Cancel spawning immediately.
+     *
+     * Energy spent on spawning is not returned.
+     * @returns One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of this spawn.
      */
     cancel(): ScreepsReturnCode & (OK | ERR_NOT_OWNER);
 
     /**
-     * Set desired directions where the creep should move when spawned.
+     * Set allowed directions the creep can move when spawned.
+     *
      * @param directions An array with the spawn directions
+     * @return One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of this spawn.
+     * - ERR_INVALID_ARGS: The directions is array is invalid.
      */
     setDirections(directions: DirectionConstant[]): ScreepsReturnCode & (OK | ERR_NOT_OWNER | ERR_INVALID_ARGS);
 }
@@ -4864,41 +5682,49 @@ interface Spawning {
  */
 interface SpawnOptions {
     /**
-     * Memory of the new creep. If provided, it will be immediately stored into Memory.creeps[name].
+     * Memory of the new creep.
+     *
+     * If provided, it will be immediately stored into Memory.creeps[name].
      */
     memory?: CreepMemory;
     /**
      * Array of spawns/extensions from which to draw energy for the spawning process.
+     *
      * Structures will be used according to the array order.
      */
     energyStructures?: Array<StructureSpawn | StructureExtension>;
     /**
-     * If dryRun is <code>true</code>, the operation will only check if it is possible to create a creep.
+     * If dryRun is `true`, the operation will only check if it is possible to create a creep.
      */
     dryRun?: boolean;
     /**
-     * Set desired directions where the creep should move when spawned.
-     * An array with the direction constants.
+     * Set allowed directions the creep can move when spawned.
      */
     directions?: DirectionConstant[];
 }
 
 interface SpawningConstructor extends _Constructor<Spawning> {
-    new(id: Id<StructureSpawn>): Spawning;
+    new (id: Id<StructureSpawn>): Spawning;
     (id: Id<StructureSpawn>): Spawning;
 }
 interface StoreBase<POSSIBLE_RESOURCES extends ResourceConstant, UNLIMITED_STORE extends boolean> {
     /**
-     * Returns capacity of this store for the specified resource. For a general purpose store, it returns total capacity if `resource` is undefined.
+     * Returns capacity of this store for the specified resource.
+     *
+     * For a general purpose store, it returns total capacity if `resource` is undefined.
      * @param resource The type of the resource.
      * @returns Returns capacity number, or `null` in case of an invalid `resource` for this store type.
      */
     getCapacity<R extends ResourceConstant | undefined = undefined>(
         resource?: R,
-    ): UNLIMITED_STORE extends true ? null
-        : R extends undefined ? ResourceConstant extends POSSIBLE_RESOURCES ? number
+    ): UNLIMITED_STORE extends true
+        ? null
+        : R extends undefined
+        ? ResourceConstant extends POSSIBLE_RESOURCES
+            ? number
             : null
-        : R extends POSSIBLE_RESOURCES ? number
+        : R extends POSSIBLE_RESOURCES
+        ? number
         : null;
     /**
      * Returns the capacity used by the specified resource, or total used capacity for general purpose stores if `resource` is undefined.
@@ -4907,34 +5733,53 @@ interface StoreBase<POSSIBLE_RESOURCES extends ResourceConstant, UNLIMITED_STORE
      */
     getUsedCapacity<R extends ResourceConstant | undefined = undefined>(
         resource?: R,
-    ): R extends undefined ? ResourceConstant extends POSSIBLE_RESOURCES ? number
-        : null
-        : R extends POSSIBLE_RESOURCES ? number
-        : null;
+    ): R extends undefined ? (ResourceConstant extends POSSIBLE_RESOURCES ? number : null) : R extends POSSIBLE_RESOURCES ? number : null;
     /**
-     * Returns free capacity for the store. For a limited store, it returns the capacity available for the specified resource if `resource` is defined and valid for this store.
+     * Returns free capacity for the store.
+     *
+     * For a limited store, it returns the capacity available for the specified resource if `resource` is defined and valid for this store.
      * @param resource The type of the resource.
      * @returns Returns available capacity number, or `null` in case of an invalid `resource` for this store type.
      */
     getFreeCapacity<R extends ResourceConstant | undefined = undefined>(
         resource?: R,
-    ): R extends undefined ? ResourceConstant extends POSSIBLE_RESOURCES ? number
-        : null
-        : R extends POSSIBLE_RESOURCES ? number
+    ): UNLIMITED_STORE extends true
+        ? null
+        : R extends undefined
+        ? ResourceConstant extends POSSIBLE_RESOURCES
+            ? number
+            : null
+        : R extends POSSIBLE_RESOURCES
+        ? number
         : null;
 }
 
-type Store<POSSIBLE_RESOURCES extends ResourceConstant, UNLIMITED_STORE extends boolean> =
-    & StoreBase<
-        POSSIBLE_RESOURCES,
-        UNLIMITED_STORE
-    >
-    & { [P in POSSIBLE_RESOURCES]: number }
-    & { [P in Exclude<ResourceConstant, POSSIBLE_RESOURCES>]: 0 };
+type Store<POSSIBLE_RESOURCES extends ResourceConstant, UNLIMITED_STORE extends boolean> = StoreBase<
+    POSSIBLE_RESOURCES,
+    UNLIMITED_STORE
+> & { [P in POSSIBLE_RESOURCES]: number } & { [P in Exclude<ResourceConstant, POSSIBLE_RESOURCES>]: 0 };
 
+/**
+ * An object that can contain resources in its cargo.
+ *
+ * There are two types of stores in the game: general purpose stores and limited stores.
+ *
+ * General purpose stores can contain any resource within its capacity (e.g. creeps, containers, storages, terminals).
+ *
+ * Limited stores can contain only a few types of resources needed for that particular object (e.g. spawns, extensions, labs, nukers).
+ *
+ * The Store prototype is the same for both types of stores, but they have different behavior depending on the resource argument in its methods.
+ *
+ * You can get specific resources from the store by addressing them as object properties:
+ * ```
+ * console.log(creep.store[RESOURCE_ENERGY]);
+ * ```
+ */
 interface GenericStoreBase {
     /**
-     * Returns capacity of this store for the specified resource. For a general purpose store, it returns total capacity if `resource` is undefined.
+     * Returns capacity of this store for the specified resource.
+     *
+     * For a general purpose store, it returns total capacity if `resource` is undefined.
      * @param resource The type of the resource.
      * @returns Returns capacity number, or `null` in case of an invalid `resource` for this store type.
      */
@@ -4946,7 +5791,9 @@ interface GenericStoreBase {
      */
     getUsedCapacity(resource?: ResourceConstant): number | null;
     /**
-     * Returns free capacity for the store. For a limited store, it returns the capacity available for the specified resource if `resource` is defined and valid for this store.
+     * Returns free capacity for the store.
+     *
+     * For a limited store, it returns the capacity available for the specified resource if `resource` is defined and valid for this store.
      * @param resource The type of the resource.
      * @returns Returns available capacity number, or `null` in case of an invalid `resource` for this store type.
      */
@@ -4955,7 +5802,7 @@ interface GenericStoreBase {
 
 type GenericStore = GenericStoreBase & { [P in ResourceConstant]: number };
 /**
- * Parent object for structure classes
+ * The base prototype object of all structures.
  */
 interface Structure<T extends StructureConstant = StructureConstant> extends RoomObject {
     readonly prototype: Structure;
@@ -4969,20 +5816,28 @@ interface Structure<T extends StructureConstant = StructureConstant> extends Roo
      */
     hitsMax: number;
     /**
-     * A unique object identifier. You can use Game.getObjectById method to retrieve an object instance by its id.
+     * A unique object identifier.
+     *
+     * You can use {@link Game.getObjectById} to retrieve an object instance by its id.
      */
     id: Id<this>;
     /**
+     * The room the structure is in.
+     *
      * If you can get an instance of a Structure, you can see it.
      * If you can see the Structure, you can see the room it's in.
      */
     room: Room;
     /**
-     * One of the STRUCTURE_* constants.
+     * One of the {@link StructureConstant STRUCTURE_*} constants.
      */
     structureType: T;
     /**
      * Destroy this structure immediately.
+     * @returns One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of this structure.
+     * - ERR_BUSY: Hostile creeps are in the room.
      */
     destroy(): ScreepsReturnCode;
     /**
@@ -4992,6 +5847,10 @@ interface Structure<T extends StructureConstant = StructureConstant> extends Roo
     /**
      * Toggle auto notification when the structure is under attack. The notification will be sent to your account email. Turned on by default.
      * @param enabled Whether to enable notification or disable.
+     * @returns One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of this structure.
+     * - ERR_INVALID_ARGS: enable argument is not a boolean value.
      */
     notifyWhenAttacked(enabled: boolean): ScreepsReturnCode;
 }
@@ -5001,22 +5860,27 @@ interface StructureConstructor extends _Constructor<Structure>, _ConstructorById
 declare const Structure: StructureConstructor;
 
 /**
- * The base prototype for a structure that has an owner. Such structures can be
- * found using `FIND_MY_STRUCTURES` and `FIND_HOSTILE_STRUCTURES` constants.
+ * The base prototype for a structure that has an owner.
+ *
+ * Such structures can be found using {@link Room.find} and the {@link FIND_MY_STRUCTURES} & {@link FIND_HOSTILE_STRUCTURES} constants.
  */
 interface OwnedStructure<T extends StructureConstant = StructureConstant> extends Structure<T> {
     readonly prototype: OwnedStructure;
 
     /**
-     * Whether this is your own structure. Walls and roads don't have this property as they are considered neutral structures.
+     * Whether this is your own structure.
+     *
+     * Walls and roads don't have this property as they are considered neutral structures.
      */
     my: boolean;
     /**
-     * An object with the structure’s owner info (if present) containing the following properties: username
+     * An object with the structure’s owner info (if present).
      */
     owner: T extends STRUCTURE_CONTROLLER ? Owner | undefined : Owner;
     /**
-     * The link to the Room object. Is always present because owned structures give visibility.
+     * The link to the Room object.
+     *
+     * Is always present because owned structures give visibility.
      */
     room: Room;
 }
@@ -5026,9 +5890,10 @@ interface OwnedStructureConstructor extends _Constructor<OwnedStructure>, _Const
 declare const OwnedStructure: OwnedStructureConstructor;
 
 /**
- * Claim this structure to take control over the room. The controller structure
- * cannot be damaged or destroyed. It can be addressed by `Room.controller`
- * property.
+ * Claim this structure to take control over the room.
+ *
+ * The controller structure cannot be damaged or destroyed.
+ * It can be addressed by {@link Room.controller} property.
  */
 interface StructureController extends OwnedStructure<STRUCTURE_CONTROLLER> {
     readonly prototype: StructureController;
@@ -5036,7 +5901,7 @@ interface StructureController extends OwnedStructure<STRUCTURE_CONTROLLER> {
     /**
      * Whether using power is enabled in this room.
      *
-     * Use `PowerCreep.enableRoom()` to turn powers on.
+     * Use {@link PowerCreep.enableRoom()} to turn powers on.
      */
     isPowerEnabled: boolean;
     /**
@@ -5052,7 +5917,9 @@ interface StructureController extends OwnedStructure<STRUCTURE_CONTROLLER> {
      */
     progressTotal: number;
     /**
-     * An object with the controller reservation info if present: username, ticksToEnd
+     * The reservation info for the controller.
+     *
+     * Can be undefined if the controller isn't reserved.
      */
     reservation: ReservationDefinition | undefined;
     /**
@@ -5072,7 +5939,9 @@ interface StructureController extends OwnedStructure<STRUCTURE_CONTROLLER> {
      */
     sign: SignDefinition | undefined;
     /**
-     * The amount of game ticks when this controller will lose one level. This timer can be reset by using Creep.upgradeController.
+     * The amount of game ticks when this controller will lose one level.
+     *
+     * This timer can be reset by using {@link Creep.upgradeController}
      */
     ticksToDowngrade: number;
     /**
@@ -5081,36 +5950,44 @@ interface StructureController extends OwnedStructure<STRUCTURE_CONTROLLER> {
     upgradeBlocked: number;
     /**
      * Activate safe mode if available.
-     * @returns Result Code: OK, ERR_NOT_OWNER, ERR_BUSY, ERR_NOT_ENOUGH_RESOURCES, ERR_TIRED
+     * @returns One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of this controller.
+     * - ERR_BUSY: There is another room in safe mode already.
+     * - ERR_NOT_ENOUGH_RESOURCES: There is no safe mode activations available.
+     * - ERR_TIRED: The previous safe mode is still cooling down, or the controller is upgradeBlocked, or the controller is downgraded for 50% plus 5000 ticks or more.
      */
     activateSafeMode(): ScreepsReturnCode;
     /**
      * Make your claimed controller neutral again.
+     * @returns One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of this controller.
      */
     unclaim(): ScreepsReturnCode;
 }
 
-interface StructureControllerConstructor
-    extends _Constructor<StructureController>, _ConstructorById<StructureController>
-{}
+interface StructureControllerConstructor extends _Constructor<StructureController>, _ConstructorById<StructureController> {}
 
 declare const StructureController: StructureControllerConstructor;
 
 /**
- * Contains energy which can be spent on spawning bigger creeps. Extensions can
- * be placed anywhere in the room, any spawns will be able to use them regardless
- * of distance.
+ * Contains energy which can be spent on spawning bigger creeps.
+ *
+ * Extensions can be placed anywhere in the room, any spawns will be able to use them regardless of distance.
  */
 interface StructureExtension extends OwnedStructure<STRUCTURE_EXTENSION> {
     readonly prototype: StructureExtension;
 
     /**
      * The amount of energy containing in the extension.
+     *
      * @deprecated An alias for .store[RESOURCE_ENERGY].
      */
     energy: number;
     /**
      * The total amount of energy the extension can contain.
+     *
      * @deprecated An alias for .store.getCapacity(RESOURCE_ENERGY).
      */
     energyCapacity: number;
@@ -5121,9 +5998,7 @@ interface StructureExtension extends OwnedStructure<STRUCTURE_EXTENSION> {
     store: Store<RESOURCE_ENERGY, false>;
 }
 
-interface StructureExtensionConstructor
-    extends _Constructor<StructureExtension>, _ConstructorById<StructureExtension>
-{}
+interface StructureExtensionConstructor extends _Constructor<StructureExtension>, _ConstructorById<StructureExtension> {}
 
 declare const StructureExtension: StructureExtensionConstructor;
 
@@ -5152,17 +6027,25 @@ interface StructureLink extends OwnedStructure<STRUCTURE_LINK> {
      */
     store: Store<RESOURCE_ENERGY, false>;
     /**
-     * Transfer energy from the link to another link or a creep.
+     * Transfer energy from the link to another link.
      *
-     * If the target is a creep, it has to be at adjacent square to the link.
-     *
-     * If the target is a link, it can be at any location in the same room.
+     * The target link can be at any position within the room.
      *
      * Remote transfer process implies 3% energy loss and cooldown delay depending on the distance.
      * @param target The target object.
      * @param amount The amount of energy to be transferred. If omitted, all the available energy is used.
+     * @returns One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of this link.
+     * - ERR_NOT_ENOUGH_RESOURCES: The structure does not have the given amount of energy.
+     * - ERR_INVALID_TARGET: The target is not a valid StructureLink object.
+     * - ERR_FULL: The target cannot receive any more energy.
+     * - ERR_NOT_IN_RANGE: The target is too far away.
+     * - ERR_INVALID_ARGS: The energy amount is incorrect.
+     * - ERR_TIRED: The link is still cooling down.
+     * - ERR_RCL_NOT_ENOUGH: Room Controller Level insufficient to use this link.
      */
-    transferEnergy(target: Creep | StructureLink, amount?: number): ScreepsReturnCode;
+    transferEnergy(target: StructureLink, amount?: number): ScreepsReturnCode;
 }
 
 interface StructureLinkConstructor extends _Constructor<StructureLink>, _ConstructorById<StructureLink> {}
@@ -5170,8 +6053,10 @@ interface StructureLinkConstructor extends _Constructor<StructureLink>, _Constru
 declare const StructureLink: StructureLinkConstructor;
 
 /**
- * Non-player structure. Spawns NPC Source Keepers that guards energy sources
- * and minerals in some rooms. This structure cannot be destroyed.
+ * Non-player structure.
+ *
+ * Spawns NPC Source Keepers that guards energy sources and minerals in some rooms.
+ * This structure cannot be destroyed.
  */
 interface StructureKeeperLair extends OwnedStructure<STRUCTURE_KEEPER_LAIR> {
     readonly prototype: StructureKeeperLair;
@@ -5182,9 +6067,7 @@ interface StructureKeeperLair extends OwnedStructure<STRUCTURE_KEEPER_LAIR> {
     ticksToSpawn?: number;
 }
 
-interface StructureKeeperLairConstructor
-    extends _Constructor<StructureKeeperLair>, _ConstructorById<StructureKeeperLair>
-{}
+interface StructureKeeperLairConstructor extends _Constructor<StructureKeeperLair>, _ConstructorById<StructureKeeperLair> {}
 
 declare const StructureKeeperLair: StructureKeeperLairConstructor;
 
@@ -5195,8 +6078,16 @@ interface StructureObserver extends OwnedStructure<STRUCTURE_OBSERVER> {
     readonly prototype: StructureObserver;
 
     /**
-     * Provide visibility into a distant room from your script. The target room object will be available on the next tick. The maximum range is 5 rooms.
+     * Provide visibility into a distant room from your script.
+     *
+     * The target room object will be available on the next tick. The maximum range is 5 rooms.
      * @param roomName The room to observe.
+     * @returns One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of this structure.
+     * - ERR_NOT_IN_RANGE: Room roomName is not in observing range.
+     * - ERR_INVALID_ARGS: roomName argument is not a valid room name value.
+     * - ERR_RCL_NOT_ENOUGH: Room Controller Level insufficient to use this structure.
      */
     observeRoom(roomName: string): ScreepsReturnCode;
 }
@@ -5206,7 +6097,10 @@ interface StructureObserverConstructor extends _Constructor<StructureObserver>, 
 declare const StructureObserver: StructureObserverConstructor;
 
 /**
- * Non-player structure. Contains power resource which can be obtained by destroying the structure. Hits the attacker creep back on each attack.
+ * Non-player structure.
+ *
+ * Contains power resource which can be obtained by destroying the structure.
+ * Hits the attacker creep back on each attack.
  */
 interface StructurePowerBank extends OwnedStructure<STRUCTURE_POWER_BANK> {
     readonly prototype: StructurePowerBank;
@@ -5221,15 +6115,15 @@ interface StructurePowerBank extends OwnedStructure<STRUCTURE_POWER_BANK> {
     ticksToDecay: number;
 }
 
-interface StructurePowerBankConstructor
-    extends _Constructor<StructurePowerBank>, _ConstructorById<StructurePowerBank>
-{}
+interface StructurePowerBankConstructor extends _Constructor<StructurePowerBank>, _ConstructorById<StructurePowerBank> {}
 
 declare const StructurePowerBank: StructurePowerBankConstructor;
 
 /**
- * Non-player structure. Contains power resource which can be obtained by
- * destroying the structure. Hits the attacker creep back on each attack.
+ * Non-player structure.
+ *
+ * Contains power resource which can be obtained by destroying the structure.
+ * Hits the attacker creep back on each attack.
  */
 interface StructurePowerSpawn extends OwnedStructure<STRUCTURE_POWER_SPAWN> {
     readonly prototype: StructurePowerSpawn;
@@ -5253,22 +6147,31 @@ interface StructurePowerSpawn extends OwnedStructure<STRUCTURE_POWER_SPAWN> {
      * @deprecated An alias for .store.getCapacity(RESOURCE_POWER).
      */
     powerCapacity: number;
-    /** */
+    /**
+     * A Store object that contains cargo of this structure.
+     */
     store: Store<RESOURCE_ENERGY | RESOURCE_POWER, false>;
 
     /**
-     * Register power resource units into your account. Registered power allows to develop power creeps skills. Consumes 1 power resource unit and 50 energy resource units.
+     * Register power resource units into your account.
+     *
+     * Registered power allows to develop power creeps skills. Consumes 1 power resource unit and 50 energy resource units.
+     * @returns One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of this structure.
+     * - ERR_NOT_ENOUGH_RESOURCES: The structure does not have enough energy or power resource units.
+     * - ERR_RCL_NOT_ENOUGH: Room Controller Level insufficient to use this structure.
      */
     processPower(): ScreepsReturnCode;
 }
 
-interface StructurePowerSpawnConstructor
-    extends _Constructor<StructurePowerSpawn>, _ConstructorById<StructurePowerSpawn>
-{}
+interface StructurePowerSpawnConstructor extends _Constructor<StructurePowerSpawn>, _ConstructorById<StructurePowerSpawn> {}
 
 declare const StructurePowerSpawn: StructurePowerSpawnConstructor;
 
 /**
+ * A rampart structure.
+ *
  * Blocks movement of hostile creeps, and defends your creeps and structures on
  * the same tile. Can be used as a controllable gate.
  */
@@ -5281,13 +6184,19 @@ interface StructureRampart extends OwnedStructure<STRUCTURE_RAMPART> {
     ticksToDecay: number;
 
     /**
-     * If false (default), only your creeps can step on the same square. If true, any hostile creeps can pass through.
+     * Whether the rampart is open to the public or not.
+     *
+     * If false (default), only your creeps can step on the same square.
+     * If true, any hostile creeps can pass through.
      */
     isPublic: boolean;
 
     /**
      * Make this rampart public to allow other players' creeps to pass through.
      * @param isPublic Whether this rampart should be public or non-public
+     * @returns One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of this structure.
      */
     setPublic(isPublic: boolean): undefined;
 }
@@ -5297,8 +6206,9 @@ interface StructureRampartConstructor extends _Constructor<StructureRampart>, _C
 declare const StructureRampart: StructureRampartConstructor;
 
 /**
- * Decreases movement cost to 1. Using roads allows creating creeps with less
- * `MOVE` body parts.
+ * Decreases movement cost to 1.
+ *
+ * Using roads allows creating creeps with less `MOVE` body parts.
  */
 interface StructureRoad extends Structure<STRUCTURE_ROAD> {
     readonly prototype: StructureRoad;
@@ -5314,8 +6224,9 @@ interface StructureRoadConstructor extends _Constructor<StructureRoad>, _Constru
 declare const StructureRoad: StructureRoadConstructor;
 
 /**
- * A structure that can store huge amount of resource units. Only one structure
- * per room is allowed that can be addressed by `Room.storage` property.
+ * A structure that can store huge amount of resource units.
+ *
+ * Only one structure per room is allowed that can be addressed by {@link Room.storage} property.
  */
 interface StructureStorage extends OwnedStructure<STRUCTURE_STORAGE> {
     readonly prototype: StructureStorage;
@@ -5336,8 +6247,9 @@ interface StructureStorageConstructor extends _Constructor<StructureStorage>, _C
 declare const StructureStorage: StructureStorageConstructor;
 
 /**
- * Remotely attacks or heals creeps, or repairs structures. Can be targeted to
- * any object in the room. However, its effectiveness highly depends on the
+ * Remotely attacks or heals creeps, or repairs structures.
+ *
+ * Can be targeted to any object in the room. However, its effectiveness highly depends on the
  * distance. Each action consumes energy.
  */
 interface StructureTower extends OwnedStructure<STRUCTURE_TOWER> {
@@ -5359,18 +6271,42 @@ interface StructureTower extends OwnedStructure<STRUCTURE_TOWER> {
     store: Store<RESOURCE_ENERGY, false>;
 
     /**
-     * Remotely attack any creep or structure in the room. Consumes 10 energy units per tick. Attack power depends on the distance to the target: from 600 hits at range 10 to 300 hits at range 40.
+     * Remotely attack any creep or structure in the room.
+     *
+     * Consumes 10 energy units per tick. Attack power depends on the distance to the target: from 600 hits at range 10 to 300 hits at range 40.
      * @param target The target creep.
+     * @returns One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of this structure.
+     * - ERR_NOT_ENOUGH_ENERGY: The tower does not have enough energy.
+     * - ERR_INVALID_TARGET: The target is not a valid attackable object.
+     * - ERR_RCL_NOT_ENOUGH: Room Controller Level insufficient to use this structure.
      */
     attack(target: AnyCreep | Structure): ScreepsReturnCode;
     /**
-     * Remotely heal any creep in the room. Consumes 10 energy units per tick. Heal power depends on the distance to the target: from 400 hits at range 10 to 200 hits at range 40.
+     * Remotely heal any creep in the room.
+     *
+     * Consumes 10 energy units per tick. Heal power depends on the distance to the target: from 400 hits at range 10 to 200 hits at range 40.
      * @param target The target creep.
+     * @returns One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of this structure.
+     * - ERR_NOT_ENOUGH_ENERGY: The tower does not have enough energy.
+     * - ERR_INVALID_TARGET: The target is not a valid attackable object.
+     * - ERR_RCL_NOT_ENOUGH: Room Controller Level insufficient to use this structure.
      */
     heal(target: AnyCreep): ScreepsReturnCode;
     /**
-     * Remotely repair any structure in the room. Consumes 10 energy units per tick. Repair power depends on the distance to the target: from 600 hits at range 10 to 300 hits at range 40.
+     * Remotely repair any structure in the room.
+     *
+     * Consumes 10 energy units per tick. Repair power depends on the distance to the target: from 600 hits at range 10 to 300 hits at range 40.
      * @param target The target structure.
+     * @returns One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of this structure.
+     * - ERR_NOT_ENOUGH_ENERGY: The tower does not have enough energy.
+     * - ERR_INVALID_TARGET: The target is not a valid attackable object.
+     * - ERR_RCL_NOT_ENOUGH: Room Controller Level insufficient to use this structure.
      */
     repair(target: Structure): ScreepsReturnCode;
 }
@@ -5405,9 +6341,7 @@ interface StructureExtractor extends OwnedStructure<STRUCTURE_EXTRACTOR> {
     cooldown: number;
 }
 
-interface StructureExtractorConstructor
-    extends _Constructor<StructureExtractor>, _ConstructorById<StructureExtractor>
-{}
+interface StructureExtractorConstructor extends _Constructor<StructureExtractor>, _ConstructorById<StructureExtractor> {}
 
 declare const StructureExtractor: StructureExtractorConstructor;
 
@@ -5436,7 +6370,9 @@ interface StructureLab extends OwnedStructure<STRUCTURE_LAB> {
      */
     mineralAmount: number;
     /**
-     * The type of minerals containing in the lab. Labs can contain only one mineral type at the same time.
+     * The type of minerals containing in the lab.
+     *
+     * Labs can contain only one mineral type at the same time.
      * Null in case there is no mineral resource in the lab.
      */
     mineralType: MineralConstant | MineralCompoundConstant | null;
@@ -5450,32 +6386,74 @@ interface StructureLab extends OwnedStructure<STRUCTURE_LAB> {
      */
     store: Store<RESOURCE_ENERGY | MineralConstant | MineralCompoundConstant, false>;
     /**
-     * Boosts creep body part using the containing mineral compound. The creep has to be at adjacent square to the lab. Boosting one body part consumes 30 mineral units and 20 energy units.
+     * Boosts creep body part using the containing mineral compound.
+     *
+     * The creep has to be at adjacent square to the lab. Boosting one body part consumes 30 mineral units and 20 energy units.
      * @param creep The target creep.
      * @param bodyPartsCount The number of body parts of the corresponding type to be boosted.
-     *
      * Body parts are always counted left-to-right for TOUGH, and right-to-left for other types.
-     *
      * If undefined, all the eligible body parts are boosted.
+     * @returns One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of this lab.
+     * - ERR_NOT_FOUND: The mineral containing in the lab cannot boost any of the creep's body parts.
+     * - ERR_NOT_ENOUGH_RESOURCES: The lab does not have enough energy or minerals.
+     * - ERR_INVALID_TARGET: The targets is not valid creep object.
+     * - ERR_NOT_IN_RANGE: The targets are too far away.
+     * - ERR_RCL_NOT_ENOUGH: Room Controller Level insufficient to use this structure.
      */
     boostCreep(creep: Creep, bodyPartsCount?: number): ScreepsReturnCode;
     /**
+     * Unboost a creep.
+     *
      * Immediately remove boosts from the creep and drop 50% of the mineral compounds used to boost it onto the ground regardless of the creep's remaining time to live.
      * The creep has to be at adjacent square to the lab.
      * Unboosting requires cooldown time equal to the total sum of the reactions needed to produce all the compounds applied to the creep.
      * @param creep The target creep.
+     * @returns One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of this lab, or the target creep.
+     * - ERR_NOT_FOUND: The target has no boosted parts.
+     * - ERR_INVALID_TARGET: The target is not a valid Creep object.
+     * - ERR_NOT_IN_RANGE: The target is too far away.
+     * - ERR_TIRED: The lab is still cooling down.
+     * - ERR_RCL_NOT_ENOUGH: Room Controller Level insufficient to use this structure.
      */
     unboostCreep(creep: Creep): ScreepsReturnCode;
     /**
-     * Breaks mineral compounds back into reagents. The same output labs can be used by many source labs.
+     * Breaks mineral compounds back into reagents.
+     *
+     * The same output labs can be used by many source labs.
      * @param lab1 The first result lab.
      * @param lab2 The second result lab.
+     * @returns One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of this lab.
+     * - ERR_NOT_ENOUGH_RESOURCES: The source lab do not have enough resources.
+     * - ERR_INVALID_TARGET: The targets are not valid lab objects.
+     * - ERR_FULL: One of targets cannot receive any more resource.
+     * - ERR_NOT_IN_RANGE: The targets are too far away.
+     * - ERR_INVALID_ARGS: The reaction cannot be reversed into this resources.
+     * - ERR_TIRED: The lab is still cooling down.
+     * - ERR_RCL_NOT_ENOUGH: Room Controller Level insufficient to use this structure.
      */
     reverseReaction(lab1: StructureLab, lab2: StructureLab): ScreepsReturnCode;
     /**
-     * Produce mineral compounds using reagents from two another labs. Each lab has to be within 2 squares range. The same input labs can be used by many output labs
+     * Produce mineral compounds using reagents from two another labs.
+     *
+     * Each lab has to be within 2 squares range. The same input labs can be used by many output labs
      * @param lab1 The first source lab.
      * @param lab2 The second source lab.
+     * @returns One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of this lab.
+     * - ERR_NOT_ENOUGH_RESOURCES: The source lab do not have enough resources.
+     * - ERR_INVALID_TARGET: The targets are not valid lab objects.
+     * - ERR_FULL: The target cannot receive any more resource.
+     * - ERR_NOT_IN_RANGE: The targets are too far away.
+     * - ERR_INVALID_ARGS: The reaction cannot be run using this resources.
+     * - ERR_TIRED: The lab is still cooling down.
+     * - ERR_RCL_NOT_ENOUGH: Room Controller Level insufficient to use this structure.
      */
     runReaction(lab1: StructureLab, lab2: StructureLab): ScreepsReturnCode;
 }
@@ -5490,7 +6468,7 @@ declare const StructureLab: StructureLabConstructor;
 interface StructureTerminal extends OwnedStructure<STRUCTURE_TERMINAL> {
     readonly prototype: StructureTerminal;
     /**
-     * The remaining amount of ticks while this terminal cannot be used to make StructureTerminal.send or Game.market.deal calls.
+     * The remaining amount of ticks while this terminal cannot be used to make {@link StructureTerminal.send} or {@link Game.market.deal} calls.
      */
     cooldown: number;
     /**
@@ -5504,10 +6482,16 @@ interface StructureTerminal extends OwnedStructure<STRUCTURE_TERMINAL> {
     storeCapacity: number;
     /**
      * Sends resource to a Terminal in another room with the specified name.
-     * @param resourceType One of the RESOURCE_* constants.
+     * @param resourceType One of the {@link ResourceConstant RESOURCE_*} constants.
      * @param amount The amount of resources to be sent.
      * @param destination The name of the target room. You don't have to gain visibility in this room.
      * @param description The description of the transaction. It is visible to the recipient. The maximum length is 100 characters.
+     * @returns One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of this structure.
+     * - ERR_NOT_ENOUGH_RESOURCES: The structure does not have the required amount of resources.
+     * - ERR_INVALID_ARGS: The arguments provided are incorrect.
+     * - ERR_TIRED: The terminal is still cooling down.
      */
     send(resourceType: ResourceConstant, amount: number, destination: string, description?: string): ScreepsReturnCode;
 }
@@ -5517,13 +6501,17 @@ interface StructureTerminalConstructor extends _Constructor<StructureTerminal>, 
 declare const StructureTerminal: StructureTerminalConstructor;
 
 /**
+ * A small resource store.
+ *
  * Contains up to 2,000 resource units. Can be constructed in neutral rooms. Decays for 5,000 hits per 100 ticks.
  */
 interface StructureContainer extends Structure<STRUCTURE_CONTAINER> {
     readonly prototype: StructureContainer;
     /**
-     * An object with the structure contents. Each object key is one of the RESOURCE_* constants, values are resources
-     * amounts. Use _.sum(structure.store) to get the total amount of contents
+     * An object with the structure contents.
+     *
+     * Each object key is one of the {@link ResourceConstant RESOURCE_*} constants, values are resources
+     * amounts. Use `_.sum(structure.store)` to get the total amount of contents.
      */
     store: StoreDefinition;
     /**
@@ -5537,14 +6525,13 @@ interface StructureContainer extends Structure<STRUCTURE_CONTAINER> {
     ticksToDecay: number;
 }
 
-interface StructureContainerConstructor
-    extends _Constructor<StructureContainer>, _ConstructorById<StructureContainer>
-{}
+interface StructureContainerConstructor extends _Constructor<StructureContainer>, _ConstructorById<StructureContainer> {}
 
 declare const StructureContainer: StructureContainerConstructor;
 
 /**
  * Launches a nuke to another room dealing huge damage to the landing area.
+ *
  * Each launch has a cooldown and requires energy and ghodium resources. Launching
  * creates a Nuke object at the target room position which is visible to any player
  * until it is landed. Incoming nuke cannot be moved or cancelled. Nukes cannot
@@ -5583,6 +6570,15 @@ interface StructureNuker extends OwnedStructure<STRUCTURE_NUKER> {
     /**
      * Launch a nuke to the specified position.
      * @param pos The target room position.
+     * @returns One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of this structure.
+     * - ERR_NOT_ENOUGH_RESOURCES: The structure does not have enough energy and/or ghodium.
+     * - ERR_INVALID_TARGET: The nuke can't be launched to the specified RoomPosition (see Start Areas).
+     * - ERR_NOT_IN_RANGE: The target room is out of range.
+     * - ERR_INVALID_ARGS: The target is not a valid RoomPosition.
+     * - ERR_TIRED: This structure is still cooling down.
+     * - ERR_RCL_NOT_ENOUGH: Room Controller Level insufficient to use this structure.
      */
     launchNuke(pos: RoomPosition): ScreepsReturnCode;
 }
@@ -5593,13 +6589,16 @@ declare const StructureNuker: StructureNukerConstructor;
 
 /**
  * A non-player structure.
+ *
  * Instantly teleports your creeps to a distant room acting as a room exit tile.
  * Portals appear randomly in the central room of each sector.
  */
 interface StructurePortal extends Structure<STRUCTURE_PORTAL> {
     readonly prototype: StructurePortal;
     /**
-     * If this is an inter-room portal, then this property contains a RoomPosition object leading to the point in the destination room.
+     * The portal's destination.
+     *
+     * If this is an inter-room portal, then this property contains a {@link RoomPosition} object leading to the point in the destination room.
      * If this is an inter-shard portal, then this property contains an object with shard and room string properties.
      * Exact coordinates are undetermined, the creep will appear at any free spot in the destination room.
      */
@@ -5625,7 +6624,8 @@ interface StructureFactory extends OwnedStructure<STRUCTURE_FACTORY> {
     cooldown: number;
     /**
      * The level of the factory.
-     * Can be set by applying the PWR_OPERATE_FACTORY power to a newly built factory.
+     *
+     * Can be set by applying the {@link PWR_OPERATE_FACTORY} power to a newly built factory.
      * Once set, the level cannot be changed.
      */
     level?: number;
@@ -5635,9 +6635,21 @@ interface StructureFactory extends OwnedStructure<STRUCTURE_FACTORY> {
     store: StoreDefinition;
     /**
      * Produces the specified commodity.
+     *
      * All ingredients should be available in the factory store.
+     * @param resource One of the {@link CommoditiesTypes producible RESOURCE_*} constants.
+     * @returns One of the following codes:
+     * - OK: The operation has been scheduled successfully.
+     * - ERR_NOT_OWNER: You are not the owner of this structure.
+     * - ERR_BUSY: The factory is not operated by the PWR_OPERATE_FACTORY power.
+     * - ERR_NOT_ENOUGH_RESOURCES: The structure does not have the required amount of resources.
+     * - ERR_INVALID_TARGET: The factory cannot produce the commodity of this level.
+     * - ERR_FULL: The factory cannot contain the produce.
+     * - ERR_INVALID_ARGS: The arguments provided are incorrect.
+     * - ERR_TIRED: The factory is still cooling down.
+     * - ERR_RCL_NOT_ENOUGH: Your Room Controller level is insufficient to use the factory.
      */
-    produce(resource: CommodityConstant | MineralConstant | RESOURCE_ENERGY | RESOURCE_GHODIUM): ScreepsReturnCode;
+    produce(resource: CommoditiesTypes): ScreepsReturnCode;
 }
 
 interface StructureFactoryConstructor extends _Constructor<StructureFactory>, _ConstructorById<StructureFactory> {}
@@ -5650,7 +6662,9 @@ declare const StructureFactory: StructureFactoryConstructor;
 interface StructureInvaderCore extends OwnedStructure<STRUCTURE_INVADER_CORE> {
     readonly prototype: StructureInvaderCore;
     /**
-     * The level of the stronghold. The amount and quality of the loot depends on the level.
+     * The level of the stronghold.
+     *
+     * The amount and quality of the loot depends on the level.
      */
     level: number;
     /**
@@ -5658,14 +6672,12 @@ interface StructureInvaderCore extends OwnedStructure<STRUCTURE_INVADER_CORE> {
      */
     ticksToDeploy: number;
     /**
-     * If the core is in process of spawning a new creep, this object will contain a `StructureSpawn.Spawning` object, or `null` otherwise.
+     * If the core is in process of spawning a new creep, this object will contain a {@link StructureSpawn.Spawning} object, or `null` otherwise.
      */
     spawning: Spawning | null;
 }
 
-interface StructureInvaderCoreConstructor
-    extends _Constructor<StructureInvaderCore>, _ConstructorById<StructureInvaderCore>
-{}
+interface StructureInvaderCoreConstructor extends _Constructor<StructureInvaderCore>, _ConstructorById<StructureInvaderCore> {}
 
 declare const StructureInvaderCore: StructureInvaderCoreConstructor;
 
@@ -5705,7 +6717,7 @@ type AnyStoreStructure =
     | StructureContainer;
 
 /**
- * A discriminated union on Structure.type of all structure types
+ * A discriminated union on {@link Structure.structureType} of all structure types
  */
 type AnyStructure = AnyOwnedStructure | StructureContainer | StructurePortal | StructureRoad | StructureWall;
 
@@ -5738,19 +6750,21 @@ interface ConcreteStructureMap {
 
 /**
  * Conditional type for all concrete implementations of Structure.
- * Unlike Structure<T>, ConcreteStructure<T> gives you the actual concrete class that extends Structure<T>.
+ *
+ * Unlike {@link Structure<T>}, {@link ConcreteStructure<T>} gives you the actual concrete class that extends {@link Structure<T>}.
  */
 type ConcreteStructure<T extends StructureConstant> = ConcreteStructureMap[T];
 /**
- * A remnant of dead creeps. This is a walkable structure.
- * <ul>
- *     <li>Decay: 5 ticks per body part of the deceased creep</li>
- * </ul>
+ * A creep's final resting place.
+ *
+ * This is a walkable structure.
+ * Will decay 5 ticks per body part of the deceased creep.
  */
 interface Tombstone extends RoomObject {
     /**
-     * A unique object identificator.
-     * You can use {@link Game.getObjectById} method to retrieve an object instance by its id.
+     * A unique object identifier.
+     *
+     * You can use {@link Game.getObjectById} to retrieve an object instance by its id.
      */
     id: Id<this>;
     /**
@@ -5759,10 +6773,10 @@ interface Tombstone extends RoomObject {
     deathTime: number;
     /**
      * An object with the tombstone contents.
-     * Each object key is one of the RESOURCE_* constants, values are resources amounts.
-     * RESOURCE_ENERGY is always defined and equals to 0 when empty,
-     * other resources are undefined when empty.
-     * You can use lodash.sum to get the total amount of contents.
+     *
+     * Each object key is one of the {@link ResourceConstant RESOURCE_*} constants, values are resources amounts.
+     * {@link RESOURCE_ENERGY} is always defined and equals to 0 when empty, other resources are undefined when empty.
+     * You can use `_.sum(tombstone.store)` to get the total amount of contents.
      */
     store: StoreDefinitionUnlimited;
     /**
