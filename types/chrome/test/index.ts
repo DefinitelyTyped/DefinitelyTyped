@@ -868,7 +868,7 @@ function testRuntime() {
     chrome.runtime.getPlatformInfo((platformInfo) => { // $ExpectType void
         platformInfo.arch; // $ExpectType "arm" | "arm64" | "x86-32" | "x86-64" | "mips" | "mips64" | "riscv64"
         platformInfo.nacl_arch; // $ExpectType "arm" | "mips" | "mips64" | "x86-32" | "x86-64" | undefined
-        platformInfo.os; // $ExpectType "android" | "cros" | "fuchsia" | "linux" | "mac" | "openbsd" | "win"
+        platformInfo.os; // $ExpectType "android" | "cros" | "fuchsia" | "ios" | "linux" | "mac" | "openbsd" | "win"
     });
     // @ts-expect-error
     chrome.runtime.getPlatformInfo(() => {}).then(() => {});
