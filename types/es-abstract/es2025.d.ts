@@ -39,9 +39,11 @@ interface ES2025 {
     readonly Get: typeof import("./2025/Get");
     readonly GetIterator: typeof import("./2025/GetIterator");
     readonly GetMethod: typeof import("./2025/GetMethod");
+    readonly GetNamedTimeZoneEpochNanoseconds: typeof import("./2025/GetNamedTimeZoneEpochNanoseconds");
     readonly GetOwnPropertyKeys: typeof import("./2025/GetOwnPropertyKeys");
     readonly GetPrototypeFromConstructor: typeof import("./2025/GetPrototypeFromConstructor");
     readonly GetSubstitution: typeof import("./2025/GetSubstitution");
+    readonly GetUTCEpochNanoseconds: typeof import("./2025/GetUTCEpochNanoseconds");
     readonly GetV: typeof import("./2025/GetV");
     readonly HasOwnProperty: typeof import("./2025/HasOwnProperty");
     readonly HasProperty: typeof import("./2025/HasProperty");
@@ -62,6 +64,7 @@ interface ES2025 {
     readonly IsPromise: typeof import("./2025/IsPromise");
     readonly IsRegExp: typeof import("./2025/IsRegExp");
     readonly IsStrictlyEqual: typeof import("./2025/IsStrictlyEqual");
+    readonly IsTimeZoneOffsetString: typeof import("./2025/IsTimeZoneOffsetString");
     readonly IteratorClose: typeof import("./2025/IteratorClose");
     readonly IteratorComplete: typeof import("./2025/IteratorComplete");
     readonly IteratorNext: typeof import("./2025/IteratorNext");

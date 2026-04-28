@@ -197,6 +197,9 @@ ES2015.GetPrototypeFromConstructor(Bar, "unknown"); // $ExpectType object
 ES2015.GetPrototypeFromConstructor(Baz, "unknown"); // $ExpectType object
 ES2015.GetPrototypeFromConstructor(Biz, "unknown"); // $ExpectType object
 
+ES2015.GetSubstitution("a", "abc", 0, ["x"], "$&"); // $ExpectType string
+ES2015.GetSubstitution("a", "abc", 0, ["x", undefined], "$1"); // $ExpectType string
+
 // Removed in ES2015:
 // @ts-expect-error
 ES2015.CheckObjectCoercible;

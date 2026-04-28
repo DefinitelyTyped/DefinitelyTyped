@@ -40,9 +40,11 @@ interface ES2023 {
     readonly Get: typeof import("./2023/Get");
     readonly GetIterator: typeof import("./2023/GetIterator");
     readonly GetMethod: typeof import("./2023/GetMethod");
+    readonly GetNamedTimeZoneEpochNanoseconds: typeof import("./2023/GetNamedTimeZoneEpochNanoseconds");
     readonly GetOwnPropertyKeys: typeof import("./2023/GetOwnPropertyKeys");
     readonly GetPrototypeFromConstructor: typeof import("./2023/GetPrototypeFromConstructor");
     readonly GetSubstitution: typeof import("./2023/GetSubstitution");
+    readonly GetUTCEpochNanoseconds: typeof import("./2023/GetUTCEpochNanoseconds");
     readonly GetV: typeof import("./2023/GetV");
     readonly HasOwnProperty: typeof import("./2023/HasOwnProperty");
     readonly HasProperty: typeof import("./2023/HasProperty");
@@ -65,6 +67,7 @@ interface ES2023 {
     readonly IsPropertyKey: typeof import("./2023/IsPropertyKey");
     readonly IsRegExp: typeof import("./2023/IsRegExp");
     readonly IsStrictlyEqual: typeof import("./2023/IsStrictlyEqual");
+    readonly IsTimeZoneOffsetString: typeof import("./2023/IsTimeZoneOffsetString");
     readonly IteratorClose: typeof import("./2023/IteratorClose");
     readonly IteratorComplete: typeof import("./2023/IteratorComplete");
     readonly IteratorNext: typeof import("./2023/IteratorNext");

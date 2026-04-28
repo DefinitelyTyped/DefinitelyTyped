@@ -1,2 +1,2 @@
-declare function CodePointsToString(codePoints: readonly string[]): string;
+declare function CodePointsToString(codePoints: readonly number[]): string;
 export = CodePointsToString;

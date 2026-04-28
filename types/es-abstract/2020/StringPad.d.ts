@@ -1,7 +1,7 @@
 declare function StringPad(
-    O: string,
-    maxLength: number,
-    fillString: string | undefined,
+    O: unknown,
+    maxLength: unknown,
+    fillString: unknown,
     placement: "start" | "end",
 ): string;
 export = StringPad;
