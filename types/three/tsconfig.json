@@ -38,6 +38,7 @@
         "test/unit/src/audio/AudioContext.ts",
         "test/unit/src/core/EventDispatcher.ts",
         "test/unit/src/core/Uniform.ts",
+        "test/unit/src/math/Vector3.ts",
         "test/unit/src/nodes/display/ColorAdjustment.ts",
         "test/unit/src/nodes/materialx/lib/mx_hsv.ts",
         "test/unit/src/nodes/materialx/lib/mx_noise.ts",
