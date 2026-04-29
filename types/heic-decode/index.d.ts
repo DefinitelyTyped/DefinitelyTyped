@@ -1,5 +1,5 @@
 interface HasBuffer {
-    buffer: ArrayBufferLike;
+    buffer: Uint8Array;
 }
 
 interface DecodedImage {
