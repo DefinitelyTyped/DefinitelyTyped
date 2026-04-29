@@ -20,16 +20,12 @@
     },
     "owners": [
         {
-            "name": "Bradford Smith",
-            "githubUsername": "brad4d"
-        },
-        {
-            "name": "Ben Lickly",
-            "githubUsername": "blickly"
-        },
-        {
             "name": "James Wright",
             "githubUsername": "12wrigja"
+        },
+        {
+            "name": "Tony Herre",
+            "githubUsername": "tonyherre"
         }
     ]
 }

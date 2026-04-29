@@ -2,7 +2,7 @@
     "private": true,
     "name": "@types/behavior3",
     "version": "0.2.9999",
-    "nonNpm": true,
+    "nonNpm": "conflict",
     "nonNpmDescription": "behavior3",
     "projects": [
         "https://github.com/behavior3/behavior3js"

@@ -2,7 +2,7 @@
     "private": true,
     "name": "@types/microsoftteams",
     "version": "1.9.9999",
-    "nonNpm": true,
+    "nonNpm": "conflict",
     "nonNpmDescription": "microsoftteams",
     "projects": [
         "https://github.com/OfficeDev/microsoft-teams-library-js"
