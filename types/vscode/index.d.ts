@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 /**
- * Type Definition for Visual Studio Code 1.116 Extension API
+ * Type Definition for Visual Studio Code 1.118 Extension API
  * See https://code.visualstudio.com/api for more information
  */
 
@@ -135,7 +135,7 @@ declare module 'vscode' {
 		 * 'iso88597', 'windows1255', 'iso88598', 'iso885910', 'iso885916', 'windows1254',
 		 * 'iso88599', 'windows1258', 'gbk', 'gb18030', 'cp950', 'big5hkscs', 'shiftjis',
 		 * 'eucjp', 'euckr', 'windows874', 'iso885911', 'koi8ru', 'koi8t', 'gb2312',
-		 * 'cp865', 'cp850'.
+		 * 'cp865', 'cp850', 'cp857'.
 		 */
 		readonly encoding: string;
 
