@@ -287,6 +287,42 @@ export interface OptionsPagination {
 
     /** Specify that a specific page should be loaded when the table first load. */
     paginationInitialPage?: number | undefined;
+
+    /**
+     * Handles the behavior when the current page number exceeds the last available page.
+     * This can happen when data is filtered or rows are deleted, leaving fewer pages than before.
+     *
+     * @default false
+     * @since 6.0
+     *
+     * **Options:**
+     * - `false` - Do nothing, leave current page as is (default)
+     * - `function` - Custom function that receives lastPage and currentPage, can perform custom logic
+     * - `number` - Jump to specific page number
+     * - `"first"` - Jump to first page
+     * - `"last"` - Jump to last page
+     * - `"prev"` - Go to previous page
+     * - `"next"` - Go to next page
+     *
+     * @example
+     * ```typescript
+     * // Jump to last page when out of range
+     * new Tabulator("#table", {
+     *     pagination: true,
+     *     paginationOutOfRange: "last",
+     * });
+     *
+     * // Custom handler
+     * new Tabulator("#table", {
+     *     pagination: true,
+     *     paginationOutOfRange: (lastPage, currentPage) => {
+     *         console.log(`Page ${currentPage} exceeds ${lastPage}`);
+     *         table.setPage(lastPage);
+     *     },
+     * });
+     * ```
+     */
+    paginationOutOfRange?: false | ((lastPage: number, currentPage: number) => void) | number | "first" | "prev" | "next" | "last" | undefined;
 }
 
 export type GroupArg =
@@ -348,9 +384,9 @@ export interface OptionsRowGrouping {
     groupUpdateOnCellEdit?: boolean | undefined;
 }
 
-export interface Filter {
-    field: string;
-    type: FilterType;
+export interface Filter<TConfig = any> {
+    field: string | ((data: any, filterParams: any) => boolean);
+    type: FilterType | ((data: any, filterParams: any) => boolean) | TConfig;
     value: any;
 }
 
@@ -401,9 +437,33 @@ export interface OptionsData {
 
     /** Array to hold data that should be loaded on table creation. */
     data?: any[] | undefined;
-    importFormat?: "array" | "csv" | "json" | ((fileContents: string) => unknown[]);
+
+    /** Format for importing data files. */
+    importFormat?: "array" | "csv" | "json" | ((fileContents: string) => unknown[]) | undefined;
+
     /** By default Tabulator will read in the file as plain text, which is the format used by all the built in importers. If you need to read the file data in a different format then you can use the importReader option to instruct the file reader to read in the file in a different format. */
-    importReader?: "binary" | "buffer" | "text" | "url" | undefined;
+    importReader?: "binary" | "buffer" | "text" | "url" | ((file: File) => Promise<string | ArrayBuffer>) | undefined;
+
+    /**
+     * Transform function applied to each header during import.
+     */
+    importHeaderTransform?: ((header: string) => string) | undefined;
+
+    /**
+     * Transform function applied to each value during import.
+     */
+    importValueTransform?: ((value: any, header: string) => any) | undefined;
+
+    /**
+     * Validator function for imported data.
+     */
+    importDataValidator?: ((data: any[]) => boolean) | undefined;
+
+    /**
+     * Validator function for import file.
+     */
+    importFileValidator?: ((file: File) => boolean) | undefined;
+
     autoTables?: boolean;
 
     /** If you wish to retrieve your data from a remote source you can set the URL for the request in the ajaxURL option. */
@@ -568,6 +628,38 @@ export interface OptionsRows {
      * });
      */
     selectableRangeClearCellsValue?: unknown;
+
+    /**
+     * Automatically focus on a cell after ranges are reset or removed.
+     * When enabled, focus will automatically be placed on a cell after range operations complete.
+     *
+     * @default true
+     * @since 6.0
+     * @example
+     * ```typescript
+     * new Tabulator("#table", {
+     *     selectableRange: true,
+     *     selectableRangeAutoFocus: false, // Don't auto-focus after range changes
+     * });
+     * ```
+     */
+    selectableRangeAutoFocus?: boolean | undefined;
+
+    /**
+     * Controls whether cell editing is prevented when navigating through selectable ranges.
+     * When set to `true`, prevents automatic edit mode when navigating to cells within a range.
+     *
+     * @default undefined
+     * @since 6.0
+     * @example
+     * ```typescript
+     * new Tabulator("#table", {
+     *     selectableRange: true,
+     *     selectableRangeBlurEditOnNavigate: true, // Prevent editing on navigation
+     * });
+     * ```
+     */
+    selectableRangeBlurEditOnNavigate?: boolean | undefined;
 
     /**
      * By default you can select a range of rows by holding down the shift key and click dragging over a number of rows
@@ -911,6 +1003,35 @@ export interface OptionsGeneral {
      * The function to determine if the value is empty.
      */
     editorEmptyValueFunc?: (value: unknown) => boolean;
+
+    /**
+     * Define external dependencies that can be used by modules.
+     * This allows you to pass in libraries that Tabulator modules may need.
+     *
+     * @example
+     * ```typescript
+     * new Tabulator("#table", {
+     *   dependencies: {
+     *     DateTime: luxon.DateTime,
+     *   }
+     * });
+     * ```
+     */
+    dependencies?: Record<string, any> | undefined;
+
+    /**
+     * Delay in milliseconds before showing tooltips when hovering over cells or headers.
+     *
+     * @default 300
+     * @since 6.0
+     * @example
+     * ```typescript
+     * new Tabulator("#table", {
+     *     tooltipDelay: 500, // Show tooltips after 500ms
+     * });
+     * ```
+     */
+    tooltipDelay?: number | undefined;
 }
 
 export interface OptionsSpreadsheet {
@@ -920,12 +1041,22 @@ export interface OptionsSpreadsheet {
      * The SpreadsheetModule must be installed to use this functionality.
      */
     spreadsheet?: boolean | undefined;
-    spreadsheetRows?: number;
-    spreadsheetColumns?: number;
-    spreadsheetColumnDefinition?: { editor: string; resizable: string };
+    spreadsheetRows?: number | undefined;
+    spreadsheetColumns?: number | undefined;
+    spreadsheetColumnDefinition?: ColumnDefinition | undefined;
     spreadsheetSheets?: SpreadsheetSheet[] | undefined;
     spreadsheetSheetTabs?: boolean | undefined;
     spreadsheetOutputFull?: boolean | undefined;
+
+    /**
+     * Initial data for spreadsheet mode as 2D array.
+     */
+    spreadsheetData?: unknown[][] | undefined;
+
+    /**
+     * Element or selector to hold spreadsheet sheet tabs.
+     */
+    spreadsheetSheetTabsElement?: HTMLElement | string | undefined;
 }
 
 export interface SpreadsheetSheet {
@@ -1290,6 +1421,47 @@ export interface ColumnDefinition extends ColumnLayout, CellCallbacks {
     mutatorClipboardParams?: CustomMutatorParams | undefined;
 
     /**
+     * Mutator function called during data import/parsing operations to transform raw imported data before it's added to the table.
+     * This mutator is specifically used when importing data from external sources (CSV, JSON files, etc.).
+     * @since 6.0
+     * @example
+     * ```typescript
+     * // Clean imported phone numbers
+     * mutatorImport: (value, data) => {
+     *   return value.replace(/[^0-9]/g, '');
+     * }
+     * ```
+     * @see https://tabulator.info/docs/6.2/mutators
+     */
+    mutatorImport?: CustomMutator | undefined;
+
+    /**
+     * Additional parameters to pass to the import mutator function.
+     * These params are accessible as the fourth argument in the mutatorImport function.
+     * @since 6.0
+     * @example
+     * ```typescript
+     * mutatorImportParams: { dateFormat: 'MM/DD/YYYY', timezone: 'UTC' }
+     * ```
+     */
+    mutatorImportParams?: CustomMutatorParams | undefined;
+
+    /**
+     * Defines how mutations on linked cells should behave when cells are linked together.
+     * - `true`: Mutations propagate to all linked cells
+     * - `false`: No mutation propagation
+     * - `string`: Name of a specific link group for selective propagation
+     * @since 6.0
+     * @default false
+     * @example
+     * ```typescript
+     * // Link cells in the same group
+     * mutateLink: "priceGroup"
+     * ```
+     */
+    mutateLink?: boolean | string | undefined;
+
+    /**
      * Accessors are used to alter data as it is extracted from the table, through commands, the clipboard, or download.
      *
      * You can set accessors on a per column basis using the accessor option in the column definition object.
@@ -1352,6 +1524,74 @@ export interface ColumnDefinition extends ColumnLayout, CellCallbacks {
     headerDblClick?: ColumnEventCallback | undefined;
     headerMouseDown?: ColumnEventCallback | undefined;
     headerMouseUp?: ColumnEventCallback | undefined;
+
+    /**
+     * Callback triggered when the mouse pointer enters the header element boundaries.
+     * Fires once when the pointer first enters the header element from outside.
+     * @since 6.0
+     * @example
+     * ```typescript
+     * headerMouseEnter: (e, column) => {
+     *   console.log("Mouse entered header:", column.getField());
+     * }
+     * ```
+     */
+    headerMouseEnter?: ColumnEventCallback | undefined;
+
+    /**
+     * Callback triggered when the mouse pointer leaves the header element boundaries.
+     * Fires once when the pointer exits the header element completely.
+     * @since 6.0
+     * @example
+     * ```typescript
+     * headerMouseLeave: (e, column) => {
+     *   console.log("Mouse left header:", column.getField());
+     * }
+     * ```
+     */
+    headerMouseLeave?: ColumnEventCallback | undefined;
+
+    /**
+     * Callback triggered when the mouse pointer moves over the header or enters any of its child elements.
+     * This can fire multiple times as the pointer moves over different child elements.
+     * @since 6.0
+     * @example
+     * ```typescript
+     * headerMouseOver: (e, column) => {
+     *   column.getElement().classList.add("highlighted");
+     * }
+     * ```
+     */
+    headerMouseOver?: ColumnEventCallback | undefined;
+
+    /**
+     * Callback triggered when the mouse pointer leaves the header or any of its child elements.
+     * This can fire multiple times as the pointer moves between child elements and exits them.
+     * @since 6.0
+     * @example
+     * ```typescript
+     * headerMouseOut: (e, column) => {
+     *   column.getElement().classList.remove("highlighted");
+     * }
+     * ```
+     */
+    headerMouseOut?: ColumnEventCallback | undefined;
+
+    /**
+     * Callback triggered continuously as the mouse pointer moves within the header element.
+     * Fires repeatedly while the mouse is moving over the header.
+     * @since 6.0
+     * @example
+     * ```typescript
+     * headerMouseMove: (e, column) => {
+     *   // Track mouse position for custom interactions
+     *   const rect = column.getElement().getBoundingClientRect();
+     *   const x = e.clientX - rect.left;
+     *   console.log("Mouse X position:", x);
+     * }
+     * ```
+     */
+    headerMouseMove?: ColumnEventCallback | undefined;
 
     /** Callback for when user right clicks on the header for this column. */
     headerContext?: ColumnEventCallback | undefined;
@@ -1447,8 +1687,125 @@ export interface ColumnDefinition extends ColumnLayout, CellCallbacks {
 
     /** You can add a right click context menu to any column by passing an array of menu items to the headerContextMenu option in that columns definition. */
     headerContextMenu?: Array<MenuObject<ColumnComponent> | MenuSeparator> | undefined;
-    headerDblClickPopup?: string;
-    dblClickPopup?: string;
+
+    /**
+     * Defines custom popup content to display for the column header.
+     * Can be an HTML string selector, or a function that returns the popup content.
+     * @since 6.0
+     * @example
+     * ```typescript
+     * // Simple HTML string
+     * headerPopup: "#myPopupTemplate"
+     *
+     * // Dynamic content function
+     * headerPopup: (e, column, onRendered) => {
+     *   const div = document.createElement("div");
+     *   div.textContent = `Column: ${column.getDefinition().title}`;
+     *   onRendered(); // Call when content is ready
+     *   return div;
+     * }
+     * ```
+     * @see https://tabulator.info/docs/6.2/popups
+     */
+    headerPopup?: string | ((e: MouseEvent, component: ColumnComponent, onRendered: () => any) => any) | undefined;
+
+    /**
+     * Defines the icon element that triggers the header popup.
+     * Can be an HTML string, DOM element, or a function returning either.
+     * @since 6.0
+     * @example
+     * ```typescript
+     * // Font Awesome icon
+     * headerPopupIcon: '<i class="fas fa-info-circle"></i>'
+     *
+     * // Dynamic icon based on column
+     * headerPopupIcon: (column) => {
+     *   return column.getDefinition().required ? '<i class="fas fa-exclamation"></i>' : '<i class="fas fa-info"></i>';
+     * }
+     * ```
+     */
+    headerPopupIcon?: string | HTMLElement | ((component: ColumnComponent) => HTMLElement | string) | undefined;
+
+    /**
+     * Popup content displayed when right-clicking the column header.
+     * Alternative to headerContextMenu for custom popup content instead of menu items.
+     * @since 6.0
+     * @example
+     * ```typescript
+     * headerContextPopup: (e, column, onRendered) => {
+     *   return `<div>Header options for ${column.getField()}</div>`;
+     * }
+     * ```
+     * @see https://tabulator.info/docs/6.2/popups
+     */
+    headerContextPopup?: string | ((e: MouseEvent, component: ColumnComponent, onRendered: () => any) => any) | undefined;
+
+    /**
+     * Popup content displayed when clicking the column header.
+     * @since 6.0
+     * @example
+     * ```typescript
+     * headerClickPopup: (e, column, onRendered) => {
+     *   return `<div>You clicked ${column.getDefinition().title}</div>`;
+     * }
+     * ```
+     * @see https://tabulator.info/docs/6.2/popups
+     */
+    headerClickPopup?: string | ((e: MouseEvent, component: ColumnComponent, onRendered: () => any) => any) | undefined;
+
+    /**
+     * Popup content displayed when double-clicking the column header.
+     * @since 6.0
+     * @example
+     * ```typescript
+     * headerDblClickPopup: (e, column, onRendered) => {
+     *   return `<div><input type="text" placeholder="Rename column..." /></div>`;
+     * }
+     * ```
+     * @see https://tabulator.info/docs/6.2/popups
+     */
+    headerDblClickPopup?: string | ((e: MouseEvent, component: ColumnComponent, onRendered: () => any) => any) | undefined;
+
+    /**
+     * Popup content displayed when right-clicking cells in this column.
+     * Alternative to contextMenu for custom popup content instead of menu items.
+     * @since 6.0
+     * @example
+     * ```typescript
+     * contextPopup: (e, cell, onRendered) => {
+     *   const value = cell.getValue();
+     *   return `<div>Cell value: ${value}<br><button>Copy</button></div>`;
+     * }
+     * ```
+     * @see https://tabulator.info/docs/6.2/popups
+     */
+    contextPopup?: string | ((e: MouseEvent, component: CellComponent, onRendered: () => any) => any) | undefined;
+
+    /**
+     * Popup content displayed when clicking cells in this column.
+     * @since 6.0
+     * @example
+     * ```typescript
+     * clickPopup: (e, cell, onRendered) => {
+     *   return `<div>Quick actions for: ${cell.getValue()}</div>`;
+     * }
+     * ```
+     * @see https://tabulator.info/docs/6.2/popups
+     */
+    clickPopup?: string | ((e: MouseEvent, component: CellComponent, onRendered: () => any) => any) | undefined;
+
+    /**
+     * Popup content displayed when double-clicking cells in this column.
+     * @since 6.0
+     * @example
+     * ```typescript
+     * dblClickPopup: (e, cell, onRendered) => {
+     *   return `<div><textarea>${cell.getValue()}</textarea></div>`;
+     * }
+     * ```
+     * @see https://tabulator.info/docs/6.2/popups
+     */
+    dblClickPopup?: string | ((e: MouseEvent, component: CellComponent, onRendered: () => any) => any) | undefined;
 
     /** You can add a right click context menu to any columns cells by passing an array of menu items to the contextMenu option in that columns definition. */
     contextMenu?: Array<MenuObject<CellComponent> | MenuSeparator> | undefined;
@@ -2795,12 +3152,13 @@ declare class Tabulator {
     downloadToTab: (downloadType: DownloadType, fileName: string, params?: DownloadOptions) => void;
 
     /**
-     * Load data from a local file
-     * @param data - The data to be loaded into the table
-     * @param extension - The extensions for files that can be selected
-     * @param format - The format of the data. Defaults to 'text'
+     * Load data from a local file by triggering a file picker dialog.
+     * @param importFormat - The format of the data to import (e.g., 'csv', 'json', 'array') or a custom importer function
+     * @param extension - The file extensions that can be selected (e.g., '.csv', ['.csv', '.txt'])
+     * @param importReader - How to read the file: 'text' (default), 'buffer', 'binary', or 'url'
+     * @returns Promise that resolves when data is imported and loaded into the table
      */
-    import: (data: any, extension: string | string[], format?: "buffer" | "binary" | "url" | "text") => any;
+    import: (importFormat?: string | ((data: any) => any[]), extension?: string | string[], importReader?: "buffer" | "binary" | "url" | "text") => Promise<void>;
 
     /**
      * The copyToClipboard function allows you to copy the current table data to the clipboard.
@@ -3051,6 +3409,18 @@ declare class Tabulator {
     /** If you want to manually change the height of the table at any time, you can use the setHeight function, which will also redraw the virtual DOM if necessary. */
     setHeight: (height: number | string) => void;
 
+    /**
+     * Manually set the maximum height of the table.
+     * @param height - Maximum height as number (pixels) or CSS string
+     */
+    setMaxHeight: (height: number | string) => void;
+
+    /**
+     * Manually set the minimum height of the table.
+     * @param height - Minimum height as number (pixels) or CSS string
+     */
+    setMinHeight: (height: number | string) => void;
+
     /** You can trigger sorting using the setSort function. */
     setSort: (sortList: string | Sorter[], dir?: SortDirection) => void;
 
@@ -3074,8 +3444,18 @@ declare class Tabulator {
         filterParams?: FilterParams,
     ) => void;
 
-    /** If you want to add another filter to the existing filters then you can call the addFilter function: */
-    addFilter: FilterFunction;
+    /**
+     * Add a filter to the table.
+     * Can be used with field/type/value, custom filter function, or array of filters.
+     */
+    addFilter: {
+        /** Standard field-based filter */
+        (field: string, type: FilterType, value: any, filterParams?: FilterParams): void;
+        /** Custom filter function with optional config */
+        (filterFunc: (data: any, filterParams?: any) => boolean, config?: any): void;
+        /** Array of multiple filters */
+        (filters: Filter[]): void;
+    };
 
     /** You can retrieve an array of the current programmatic filters using the getFilters function, this will not include any of the header filters: */
     getFilters: (includeHeaderFilters?: boolean) => Filter[];
@@ -3333,6 +3713,15 @@ declare class Tabulator {
     activeSheet: (lookup: string | SpreadsheetComponent) => void;
     removeSheet: (lookup: string | SpreadsheetComponent) => void;
 
+    /**
+     * Updates the configuration of the table.
+     * It should be noted that changing an option will not automatically update the table to reflect that change,
+     * you will likely need to call the refreshData function to trigger the update.
+     * @param key Key to update
+     * @param value value to set
+     */
+    setOption<K extends keyof Options>(key: K, value: Options[K]): void;
+
     on: <K extends keyof EventCallBackMethods>(event: K, callback?: EventCallBackMethods[K]) => void;
     off: <K extends keyof EventCallBackMethods>(event: K, callback?: EventCallBackMethods[K]) => void;
 }
@@ -3402,15 +3791,6 @@ declare class Module {
      * @param callback Function to call when subscribing
      */
     unsubscribe(eventName: string, callback: (...args: unknown[]) => unknown): void;
-
-    /**
-     * Updates the configuration of the grid.
-     * It should be noted that changing an option will not automatically update the table to reflect that change,
-     * you will likely need to call the refreshData function to trigger the update.
-     * @param key Key to update
-     * @param value value to set
-     */
-    setOption(key: keyof Options, value: unknown): void;
 
     /**
      * Uses the data loader to reload the data in the grid

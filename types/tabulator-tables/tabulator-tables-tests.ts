@@ -1665,7 +1665,7 @@ table = new Tabulator("#example-table", {
     spreadsheet: true,
     spreadsheetRows: 50,
     spreadsheetColumns: 50,
-    spreadsheetColumnDefinition: { editor: "input", resizable: "header" },
+    spreadsheetColumnDefinition: { title: "Column", field: "col", editor: "input" },
     spreadsheetSheets: sheets,
     spreadsheetSheetTabs: true,
 
@@ -1875,3 +1875,174 @@ FilterModule.filters[0];
 // setSort can take a string or an array of Sorters
 table.setSort("title", "asc");
 table.setSort([{ column: "title", dir: "asc" }]);
+
+// ============================================================================
+// Tests for Tabulator 6.4.0 New Features
+// ============================================================================
+
+// Test 1: dependencies option
+const tableWithDeps = new Tabulator("#test-dependencies", {
+    dependencies: {
+        DateTime: {} as any,
+        customLib: { version: "1.0" },
+    },
+    columns: [
+        { title: "Name", field: "name" },
+    ],
+});
+
+// Test 2: Spreadsheet options
+const spreadsheetTable = new Tabulator("#test-spreadsheet", {
+    spreadsheet: true,
+    spreadsheetRows: 100,
+    spreadsheetColumns: 26,
+    spreadsheetColumnDefinition: { title: "Column", field: "col" },
+    spreadsheetOutputFull: true,
+    spreadsheetData: [["A1", "B1"], ["A2", "B2"]],
+    spreadsheetSheets: [{ key: "sheet1", title: "Sheet 1", data: [["A1", "B1"]] }],
+    spreadsheetSheetTabs: true,
+    spreadsheetSheetTabsElement: "#tabs",
+});
+
+// Test 3: Import options
+const importTable = new Tabulator("#test-import", {
+    importFormat: "csv",
+    importReader: "text",
+    importHeaderTransform: (header) => header.toUpperCase(),
+    importValueTransform: (value, header) => value,
+    importDataValidator: (data) => data.length > 0,
+    importFileValidator: (file) => file.size < 1000000,
+    columns: [
+        { title: "Name", field: "name" },
+    ],
+});
+
+// Test 4: Height setter methods
+const heightTable = new Tabulator("#test-height", {
+    columns: [{ title: "Name", field: "name" }],
+});
+
+heightTable.setHeight(500);
+heightTable.setHeight("500px");
+heightTable.setMaxHeight(800);
+heightTable.setMaxHeight("80vh");
+heightTable.setMinHeight(200);
+heightTable.setMinHeight("200px");
+
+// Test 5: setOption with type safety
+const optionTable = new Tabulator("#test-options", {
+    columns: [{ title: "Name", field: "name" }],
+});
+
+optionTable.setOption("height", 500);
+optionTable.setOption("rowContextMenu", [{ label: "Delete" }]);
+optionTable.setOption("dependencies", { DateTime: {} as any });
+optionTable.setOption("spreadsheet", true);
+optionTable.setOption("spreadsheetRows", 50);
+
+// Test 6: Custom filter with config
+interface DateFilterConfig {
+    field: string;
+    operator: ">" | "<" | "=";
+    threshold: Date;
+}
+
+const dateFilter = (data: any, params: DateFilterConfig): boolean => {
+    const dateValue = new Date(data[params.field]);
+    const threshold = params.threshold;
+    switch (params.operator) {
+        case ">":
+            return dateValue > threshold;
+        case "<":
+            return dateValue < threshold;
+        case "=":
+            return dateValue.getTime() === threshold.getTime();
+    }
+};
+
+const config: DateFilterConfig = {
+    field: "date",
+    operator: ">",
+    threshold: new Date("2024-01-01"),
+};
+
+const filterTable = new Tabulator("#test-filter", {
+    columns: [
+        { title: "Date", field: "date" },
+        { title: "Name", field: "name" },
+    ],
+});
+
+// Test addFilter with custom function and config
+filterTable.addFilter(dateFilter, config);
+
+// Test addFilter with standard field/type/value
+filterTable.addFilter("name", "=", "John");
+
+// Test addFilter with array of filters
+filterTable.addFilter([
+    { field: "age", type: ">", value: 18 },
+    { field: "active", type: "=", value: true },
+]);
+
+// Test 7: Get filters with proper typing
+const filters = filterTable.getFilters(false);
+filters.forEach(filter => {
+    if (typeof filter.field === "function") {
+        // Custom filter function
+        const customConfig = filter.type as DateFilterConfig;
+        console.log(customConfig.field);
+        console.log(customConfig.operator);
+    } else {
+        // Standard filter
+        console.log(filter.field);
+        console.log(filter.type);
+        console.log(filter.value);
+    }
+});
+
+// Test 8: Complex configuration with all new features
+const complexTable = new Tabulator("#test-complex", {
+    // New options
+    dependencies: {
+        DateTime: {} as any,
+    },
+    spreadsheet: false,
+    spreadsheetRows: 100,
+    importFormat: "csv",
+    importReader: "text",
+
+    // Standard options
+    height: 400,
+    columns: [
+        {
+            title: "Date",
+            field: "date",
+            headerFilter: "input",
+        },
+        {
+            title: "Name",
+            field: "name",
+        },
+    ],
+});
+
+// Use new methods
+complexTable.setMaxHeight("90vh");
+complexTable.setMinHeight(300);
+complexTable.setOption("height", 500);
+
+// Custom filter with type parameter
+interface CustomFilterType {
+    customField: string;
+    customValue: number;
+}
+
+const customFilterFunc = (data: any, params: CustomFilterType) => {
+    return data[params.customField] > params.customValue;
+};
+
+complexTable.addFilter(customFilterFunc, {
+    customField: "score",
+    customValue: 50,
+});
