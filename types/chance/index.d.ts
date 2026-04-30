@@ -140,11 +140,11 @@ interface ChanceInstance extends Seeded {
     capitalize(str: string): string;
     mixin(desc: MixinDescriptor): any;
     pad(num: number, width: number, padChar?: string): string;
+    pickone<T>(arr: readonly T[]): T;
     /**
-     * @deprecated Use pickone
+     * @deprecated Use pickset
      */
     pick<T>(arr: readonly T[]): T;
-    pickone<T>(arr: readonly T[]): T;
     /**
      * @deprecated Use pickset
      */
@@ -314,7 +314,7 @@ interface Setter {
     (key: "months", values: string[]): any;
     (key: "cc_types", values: string[]): any;
     (key: "currency_types", values: string[]): any;
-    <T>(key: string, values: T[]): any;
+    (key: string, values: unknown[]): any;
 }
 
 interface Name {
