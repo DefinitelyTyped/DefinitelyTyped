@@ -1,8 +1,14 @@
-import { Chance } from "chance";
+import { Chance, type Currency, type Options, type Seed } from "chance";
 
 // Instantiation
 const chance = new Chance();
 const createYourOwn = new Chance(Math.random);
+
+const moduleSeed: Seed = "module-seed";
+const moduleChance: Chance = new Chance(moduleSeed);
+const moduleOptions: Options = { likelihood: 30, min: 1, max: 10 };
+const moduleOptionValue = moduleOptions.likelihood;
+const moduleCurrency: Currency = moduleChance.currency();
 
 // Basic usage
 let bool: boolean = chance.bool();
