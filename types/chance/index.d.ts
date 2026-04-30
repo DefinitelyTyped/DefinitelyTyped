@@ -1,18 +1,22 @@
+interface ChanceStatic {
+    (): Chance.Chance;
+    (...seed: Chance.Seed[]): Chance.Chance;
+    (generator: () => any): Chance.Chance;
+
+    new(): Chance.Chance;
+    new(...seed: Chance.Seed[]): Chance.Chance;
+    new(generator: () => any): Chance.Chance;
+
+    Chance: ChanceStatic;
+}
+
+declare var Chance: ChanceStatic;
+
 declare namespace Chance {
     type Seed = number | string;
 
     interface Seeded {
         seed: Seed;
-    }
-
-    interface ChanceStatic {
-        (): Chance;
-        (...seed: Seed[]): Chance;
-        (generator: () => any): Chance;
-
-        new(): Chance;
-        new(...seed: Seed[]): Chance;
-        new(generator: () => any): Chance;
     }
 
     type FalsyType = false | null | undefined | 0 | typeof NaN | "";
@@ -329,11 +333,56 @@ declare namespace Chance {
     }
 }
 
-declare module "chance" {
-    interface ExportedChance extends Chance.ChanceStatic {
-        Chance: ExportedChance;
-    }
-    var Chance: ExportedChance;
+export = Chance;
 
-    export = Chance;
+import ChanceModule = require("./index");
+
+declare global {
+    namespace Chance {
+        type Seed = ChanceModule.Seed;
+
+        type Seeded = ChanceModule.Seeded;
+        interface Chance extends ChanceModule.Chance {
+            seed: ChanceModule.Seed;
+        }
+
+        type FalsyType = ChanceModule.FalsyType;
+        type FalsyOptions = ChanceModule.FalsyOptions;
+
+        type Options = ChanceModule.Options;
+        type WordOptions = ChanceModule.WordOptions;
+        type CharacterOptions = ChanceModule.CharacterOptions;
+        type StringOptions = ChanceModule.StringOptions;
+        type UrlOptions = ChanceModule.UrlOptions;
+        type MacOptions = ChanceModule.MacOptions;
+
+        type IntegerOptions = ChanceModule.IntegerOptions;
+
+        type FirstNameNationalities = ChanceModule.FirstNameNationalities;
+        type LastNameNationalities = ChanceModule.LastNameNationalities;
+
+        type FullNameOptions = ChanceModule.FullNameOptions;
+        type FirstNameOptions = ChanceModule.FirstNameOptions;
+        type LastNameOptions = ChanceModule.LastNameOptions;
+        type SuffixOptions = ChanceModule.SuffixOptions;
+        type PrefixOptions = ChanceModule.PrefixOptions;
+        type NameOptions = ChanceModule.NameOptions;
+
+        type EmailOptions = ChanceModule.EmailOptions;
+        type SentenceOptions = ChanceModule.SentenceOptions;
+        type DateOptions = ChanceModule.DateOptions;
+
+        type UniqueOptions<T> = ChanceModule.UniqueOptions<T>;
+
+        type Month = ChanceModule.Month;
+        type CreditCardType = ChanceModule.CreditCardType;
+        type Currency = ChanceModule.Currency;
+        type CreditCardExpiration = ChanceModule.CreditCardExpiration;
+
+        type MixinDescriptor = ChanceModule.MixinDescriptor;
+        type Setter = ChanceModule.Setter;
+
+        type Name = ChanceModule.Name;
+        type Timezone = ChanceModule.Timezone;
+    }
 }
