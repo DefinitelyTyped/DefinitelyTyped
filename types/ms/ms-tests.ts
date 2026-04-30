@@ -10,3 +10,5 @@ ms(ms("10 hours")); // "10h"
 ms(60000, { long: true }); // "1 minute"
 ms(2 * 60000, { long: true }); // "2 minutes"
 ms(ms("10 hours"), { long: true }); // "10 hours"
+
+ms("Invalid hours") // undefined

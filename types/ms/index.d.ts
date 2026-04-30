@@ -15,6 +15,15 @@ declare function ms(value: number, options?: { long: boolean }): string;
  */
 declare function ms(value: ms.StringValue): number;
 
+/**
+ * Parse the given `value` and return milliseconds.
+ * If `value` is an invalid {@link ms.StringValue StringValue}, it will return `undefined`.
+ *
+ * @param {string} value
+ * @return {Number | undefined}
+ */
+declare function ms(value: string): number | undefined;
+
 declare namespace ms {
     // Unit, UnitAnyCase, and StringValue are backported from ms@3
     // https://github.com/vercel/ms/blob/8b5923d1d86c84a9f6aba8022d416dcf2361aa8d/src/index.ts
