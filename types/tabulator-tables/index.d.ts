@@ -3118,20 +3118,18 @@ declare class Tabulator {
     ) => void;
 
     /**
-     * Add a filter to the table.
+     * Add a filter to the existing filters on the table.
      *
-     * For standard field-based filters, provide:
-     * @param field - Column field name
-     * @param type - Filter operator (=, !=, like, <, >, <=, >=, etc.)
-     * @param value - Value to filter against
-     * @param filterParams - Optional additional parameters
+     * This function will add the specified filter to any existing filters on the table.
      *
-     * For custom function filters, provide:
-     * @param field - Custom filter function that receives row data and returns boolean
-     * @param filterParams - Parameters object passed to the filter function
+     * If you want to perform a more complicated filter then you can pass a callback function, you can also pass an optional second argument, an object with parameters to be passed to the filter function.
      */
-    addFilter(field: string, type: FilterType, value: any, filterParams?: FilterParams): void;
-    addFilter(field: (data: any, filterParams: any) => boolean, filterParams?: any): void;
+    addFilter: (
+        p1: string | Filter[] | any[] | ((data: any, filterParams: any) => boolean),
+        p2?: FilterType | {},
+        value?: any,
+        filterParams?: FilterParams,
+    ) => void;
 
     /** You can retrieve an array of the current programmatic filters using the getFilters function, this will not include any of the header filters: */
     getFilters: (includeHeaderFilters?: boolean) => Filter[];
@@ -3151,17 +3149,14 @@ declare class Tabulator {
     /**
      * Remove a filter from the table.
      *
-     * For standard field-based filters, provide:
-     * @param field - Column field name
-     * @param type - Filter operator that was used
-     * @param value - Filter value that was used
-     *
-     * For custom function filters, provide:
-     * @param field - The same function reference that was passed to addFilter
-     * @param filterParams - Parameters object (used for matching)
+     * If you want to remove one filter from the current list of filters you can use the removeFilter function, passing the field you wish to filter, the comparison type and the value to filter for.
      */
-    removeFilter(field: string, type: FilterType, value: any): void;
-    removeFilter(field: (data: any, filterParams: any) => boolean, filterParams?: any): void;
+    removeFilter: (
+        p1: string | Filter[] | any[] | ((data: any, filterParams: any) => boolean),
+        p2?: FilterType | {},
+        value?: any,
+        filterParams?: FilterParams,
+    ) => void;
 
     /** To remove all filters from the table, use the clearFilter function. */
     clearFilter: (includeHeaderFilters: boolean) => void;
