@@ -993,6 +993,34 @@ declare module "node:test" {
              */
             readonly attempt: number;
             /**
+             * The unique identifier of the worker running the current test file. This value is
+             * derived from the `NODE_TEST_WORKER_ID` environment variable. When running tests
+             * with `--test-isolation=process` (the default), each test file runs in a separate
+             * child process and is assigned a worker ID from 1 to N, where N is the number of
+             * concurrent workers. When running with `--test-isolation=none`, all tests run in
+             * the same process and the worker ID is always 1. This value is `undefined` when
+             * not running in a test context.
+             *
+             * This property is useful for splitting resources (like database connections or
+             * server ports) across concurrent test files:
+             *
+             * ```js
+             * import { test } from 'node:test';
+             * import { process } from 'node:process';
+             *
+             * test('database operations', async (t) => {
+             *   // Worker ID is available via context
+             *   console.log(`Running in worker ${t.workerId}`);
+             *
+             *   // Or via environment variable (available at import time)
+             *   const workerId = process.env.NODE_TEST_WORKER_ID;
+             *   // Use workerId to allocate separate resources per worker
+             * });
+             * ```
+             * @since v25.8.0
+             */
+            readonly workerId: number | undefined;
+            /**
              * This function is used to set the number of assertions and subtests that are expected to run
              * within the test. If the number of assertions and subtests that run does not match the
              * expected count, the test will fail.
