@@ -132,6 +132,7 @@ interface ES2025 {
     readonly ToUint32: typeof import("./2025/ToUint32");
     readonly ToUint8: typeof import("./2025/ToUint8");
     readonly ToUint8Clamp: typeof import("./2025/ToUint8Clamp");
+    readonly ToZeroPaddedDecimalString: typeof import("./2025/ToZeroPaddedDecimalString");
     readonly TrimString: typeof import("./2025/TrimString");
     readonly truncate: typeof import("./2025/truncate");
     readonly ValidateAndApplyPropertyDescriptor: typeof import("./2025/ValidateAndApplyPropertyDescriptor");

@@ -9,5 +9,6 @@ declare function GetNamedTimeZoneEpochNanoseconds(
     millisecond: number,
     microsecond: number,
     nanosecond: number,
+    // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
 ): [bigint];
 export = GetNamedTimeZoneEpochNanoseconds;

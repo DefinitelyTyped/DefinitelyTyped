@@ -44,6 +44,7 @@ ES2015.ToLength(any); // $ExpectType number
 
 ES2015.Call<bigint, readonly [], string>(Object.prototype.toString, BigInt(Number.MAX_SAFE_INTEGER), []); // $ExpectType string
 ES2015.Call(Object.prototype.hasOwnProperty, [], ["length"] as const); // $ExpectType boolean
+// eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
 ES2015.Call(Object.prototype.hasOwnProperty, any, args as IArguments & [PropertyKey]); // $ExpectType boolean
 
 // $ExpectType IterableIterator<number> || ArrayIterator<number>
@@ -56,6 +57,7 @@ function* generable() {
 
 declare function iterNext<T, TReturn = any, TNext = unknown>(
     this: Iterator<T, TReturn, TNext>,
+    // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
     ...args: [] | [TNext]
 ): IteratorResult<T, TReturn>;
 
@@ -63,6 +65,7 @@ declare function iterNext<T, TReturn = any, TNext = unknown>(
 ES2015.Call(iterNext, generable());
 
 // $ExpectType IteratorResult<number, boolean>
+// eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
 ES2015.Invoke(generable(), "next", args as IArguments & [string]);
 ES2015.Invoke(generable(), Symbol.iterator, args as IArguments & []);
 

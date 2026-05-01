@@ -24,3 +24,6 @@ ES2023.GetUTCEpochNanoseconds(2024, 1, 1, 0, 0, 0, 0, 0, 0); // $ExpectType bigi
 
 // GetNamedTimeZoneEpochNanoseconds
 ES2023.GetNamedTimeZoneEpochNanoseconds("UTC", 2024, 1, 1, 0, 0, 0, 0, 0, 0); // $ExpectType [bigint]
+
+// ToZeroPaddedDecimalString (re-exported from ES2022)
+ES2023.ToZeroPaddedDecimalString(7, 4); // $ExpectType string

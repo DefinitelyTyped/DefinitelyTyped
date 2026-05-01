@@ -140,6 +140,7 @@ interface ES2022 {
     readonly ToUint32: typeof import("./2022/ToUint32");
     readonly ToUint8: typeof import("./2022/ToUint8");
     readonly ToUint8Clamp: typeof import("./2022/ToUint8Clamp");
+    readonly ToZeroPaddedDecimalString: typeof import("./2022/ToZeroPaddedDecimalString");
     readonly TrimString: typeof import("./2022/TrimString");
     readonly Type: typeof import("./2022/Type");
     readonly ValidateAndApplyPropertyDescriptor: typeof import("./2022/ValidateAndApplyPropertyDescriptor");

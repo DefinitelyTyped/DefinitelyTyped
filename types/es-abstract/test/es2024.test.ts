@@ -9,3 +9,4 @@ ES2024.truncate(truncateNum); // $ExpectType number
 ES2024.truncate(truncateBig); // $ExpectType bigint
 ES2024.CanBeHeldWeakly({}); // $ExpectType boolean
 ES2024.ToIntegerOrInfinity(5); // $ExpectType number
+ES2024.ToZeroPaddedDecimalString(7, 4); // $ExpectType string

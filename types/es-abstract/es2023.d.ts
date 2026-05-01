@@ -141,6 +141,7 @@ interface ES2023 {
     readonly ToUint32: typeof import("./2023/ToUint32");
     readonly ToUint8: typeof import("./2023/ToUint8");
     readonly ToUint8Clamp: typeof import("./2023/ToUint8Clamp");
+    readonly ToZeroPaddedDecimalString: typeof import("./2023/ToZeroPaddedDecimalString");
     readonly TrimString: typeof import("./2023/TrimString");
     readonly truncate: typeof import("./2023/truncate");
     readonly Type: typeof import("./2023/Type");

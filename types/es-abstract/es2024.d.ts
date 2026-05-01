@@ -134,6 +134,7 @@ interface ES2024 {
     readonly ToUint32: typeof import("./2024/ToUint32");
     readonly ToUint8: typeof import("./2024/ToUint8");
     readonly ToUint8Clamp: typeof import("./2024/ToUint8Clamp");
+    readonly ToZeroPaddedDecimalString: typeof import("./2024/ToZeroPaddedDecimalString");
     readonly TrimString: typeof import("./2024/TrimString");
     readonly truncate: typeof import("./2024/truncate");
     readonly Type: typeof import("./2024/Type");

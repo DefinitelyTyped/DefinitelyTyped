@@ -13,3 +13,4 @@ ES2025.truncate(truncateNum); // $ExpectType number
 ES2025.truncate(truncateBig); // $ExpectType bigint
 ES2025.ToIntegerOrInfinity(5); // $ExpectType number
 ES2025.StringIndexOf("hello", "l", 0); // $ExpectType number
+ES2025.ToZeroPaddedDecimalString(7, 4); // $ExpectType string
