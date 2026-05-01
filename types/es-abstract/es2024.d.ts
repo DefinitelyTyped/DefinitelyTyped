@@ -108,6 +108,7 @@ interface ES2024 {
     readonly StringToNumber: typeof import("./2024/StringToNumber");
     readonly substring: typeof import("./2024/substring");
     readonly SymbolDescriptiveString: typeof import("./2024/SymbolDescriptiveString");
+    readonly SystemTimeZoneIdentifier: typeof import("./2024/SystemTimeZoneIdentifier");
     readonly TestIntegrityLevel: typeof import("./2024/TestIntegrityLevel");
     readonly TimeClip: typeof import("./2024/TimeClip");
     readonly TimeFromYear: typeof import("./2024/TimeFromYear");

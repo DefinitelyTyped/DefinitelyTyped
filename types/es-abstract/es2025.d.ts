@@ -106,6 +106,7 @@ interface ES2025 {
     readonly StringToNumber: typeof import("./2025/StringToNumber");
     readonly substring: typeof import("./2025/substring");
     readonly SymbolDescriptiveString: typeof import("./2025/SymbolDescriptiveString");
+    readonly SystemTimeZoneIdentifier: typeof import("./2025/SystemTimeZoneIdentifier");
     readonly TestIntegrityLevel: typeof import("./2025/TestIntegrityLevel");
     readonly TimeClip: typeof import("./2025/TimeClip");
     readonly TimeFromYear: typeof import("./2025/TimeFromYear");
