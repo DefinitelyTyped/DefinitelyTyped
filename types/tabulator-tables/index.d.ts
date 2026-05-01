@@ -348,17 +348,43 @@ export interface OptionsRowGrouping {
     groupUpdateOnCellEdit?: boolean | undefined;
 }
 
-export interface Filter {
+/**
+ * Standard filter with a string field name and FilterType operator.
+ */
+export interface StandardFilter {
     field: string;
     type: FilterType;
     value: any;
+    params?: FilterParams | undefined;
 }
+
+/**
+ * Custom function filter where the field is a function that receives row data.
+ * When using a function filter, the `type` parameter becomes the filter parameters object.
+ */
+export interface CustomFunctionFilter {
+    field: (data: any, filterParams: any) => boolean;
+    type?: any;
+    value?: never;
+    params?: never;
+}
+
+/**
+ * Filter can be either a standard field-based filter or a custom function filter.
+ */
+export type Filter = StandardFilter | CustomFunctionFilter;
 
 export interface FilterParams {
     separator?: string | undefined;
     matchAll?: boolean | undefined;
 }
+
+/**
+ * Standard filter function type for field-based filters.
+ * This represents the signature for adding/removing standard filters.
+ */
 export type FilterFunction = (field: string, type: FilterType, value: any, filterParams?: FilterParams) => void;
+
 export interface OptionsFiltering {
     /** Array of filters to be applied on load. */
     initialFilter?: Filter[] | undefined;
@@ -835,6 +861,23 @@ export interface OptionsGeneral {
 
     /** With a variable table height you can set the minimum height of the table either defined in the min-height CSS property for the element or set it using the minHeight option in the table constructor, this can be set to any valid CSS value. */
     minHeight?: string | number | undefined;
+
+    /**
+     * External library dependencies that can be used in custom formatters, sorters, and filters.
+     * This allows you to pass libraries like Luxon DateTime, moment.js, etc. to Tabulator.
+     *
+     * @example
+     * ```typescript
+     * import { DateTime } from 'luxon';
+     *
+     * new Tabulator('#table', {
+     *   dependencies: {
+     *     DateTime: DateTime,
+     *   }
+     * });
+     * ```
+     */
+    dependencies?: Record<string, any> | undefined;
     renderVertical?: RenderMode;
     renderHorizontal?: RenderMode;
     rowHeight?: number;
@@ -3074,8 +3117,21 @@ declare class Tabulator {
         filterParams?: FilterParams,
     ) => void;
 
-    /** If you want to add another filter to the existing filters then you can call the addFilter function: */
-    addFilter: FilterFunction;
+    /**
+     * Add a filter to the table.
+     *
+     * For standard field-based filters, provide:
+     * @param field - Column field name
+     * @param type - Filter operator (=, !=, like, <, >, <=, >=, etc.)
+     * @param value - Value to filter against
+     * @param filterParams - Optional additional parameters
+     *
+     * For custom function filters, provide:
+     * @param field - Custom filter function that receives row data and returns boolean
+     * @param filterParams - Parameters object passed to the filter function
+     */
+    addFilter(field: string, type: FilterType, value: any, filterParams?: FilterParams): void;
+    addFilter(field: (data: any, filterParams: any) => boolean, filterParams?: any): void;
 
     /** You can retrieve an array of the current programmatic filters using the getFilters function, this will not include any of the header filters: */
     getFilters: (includeHeaderFilters?: boolean) => Filter[];
@@ -3092,8 +3148,20 @@ declare class Tabulator {
     /** You get the current header filter value of a column. */
     getHeaderFilterValue: (column: ColumnLookup) => string;
 
-    /** If you want to remove one filter from the current list of filters you can use the removeFilter function: */
-    removeFilter: FilterFunction;
+    /**
+     * Remove a filter from the table.
+     *
+     * For standard field-based filters, provide:
+     * @param field - Column field name
+     * @param type - Filter operator that was used
+     * @param value - Filter value that was used
+     *
+     * For custom function filters, provide:
+     * @param field - The same function reference that was passed to addFilter
+     * @param filterParams - Parameters object (used for matching)
+     */
+    removeFilter(field: string, type: FilterType, value: any): void;
+    removeFilter(field: (data: any, filterParams: any) => boolean, filterParams?: any): void;
 
     /** To remove all filters from the table, use the clearFilter function. */
     clearFilter: (includeHeaderFilters: boolean) => void;
