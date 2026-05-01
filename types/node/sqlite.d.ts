@@ -87,6 +87,29 @@ declare module "node:sqlite" {
          * @default true
          */
         defensive?: boolean | undefined;
+        /**
+         * Configuration for various SQLite limits. These limits
+         * can be used to prevent excessive resource consumption when handling
+         * potentially malicious input. See [Run-Time Limits](https://www.sqlite.org/c3ref/c_limit_attached.html) and [Limit Constants](https://www.sqlite.org/c3ref/limit.html)
+         * in the SQLite documentation for details. Default values are determined by
+         * SQLite's compile-time defaults and may vary depending on how SQLite was
+         * built. The following properties are supported:
+         * @since v25.8.0
+         */
+        limits?: NodeJS.PartialOptions<DatabaseLimits> | undefined;
+    }
+    interface DatabaseLimits {
+        length: number;
+        sqlLength: number;
+        column: number;
+        exprDepth: number;
+        compoundSelect: number;
+        vdbeOp: number;
+        functionArg: number;
+        attach: number;
+        likePatternLength: number;
+        variableNumber: number;
+        triggerDepth: number;
     }
     interface CreateSessionOptions {
         /**
@@ -391,6 +414,31 @@ declare module "node:sqlite" {
          * @since v24.0.0
          */
         readonly isTransaction: boolean;
+        /**
+         * An object for getting and setting SQLite database limits at runtime.
+         * Each property corresponds to an SQLite limit and can be read or written.
+         *
+         * ```js
+         * const db = new DatabaseSync(':memory:');
+         *
+         * // Read current limit
+         * console.log(db.limits.length);
+         *
+         * // Set a new limit
+         * db.limits.sqlLength = 100000;
+         *
+         * // Reset a limit to its compile-time maximum
+         * db.limits.sqlLength = Infinity;
+         * ```
+         *
+         * Available properties: `length`, `sqlLength`, `column`, `exprDepth`,
+         * `compoundSelect`, `vdbeOp`, `functionArg`, `attach`, `likePatternLength`,
+         * `variableNumber`, `triggerDepth`.
+         *
+         * Setting a property to `Infinity` resets the limit to its compile-time maximum value.
+         * @since v25.8.0
+         */
+        readonly limits: DatabaseLimits;
         /**
          * Opens the database specified in the `path` argument of the `DatabaseSync`constructor. This method should only be used when the database is not opened via
          * the constructor. An exception is thrown if the database is already open.

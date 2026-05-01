@@ -1,4 +1,4 @@
-import { backup, constants, DatabaseSync, StatementSync } from "node:sqlite";
+import { backup, constants, DatabaseLimits, DatabaseSync, StatementSync } from "node:sqlite";
 import { TextEncoder } from "node:util";
 
 {
@@ -188,4 +188,14 @@ import { TextEncoder } from "node:util";
         }
         return constants.SQLITE_OK;
     });
+}
+
+{
+    const db = new DatabaseSync(":memory:", {
+        limits: { attach: 10, column: 2000, compoundSelect: 500 },
+    });
+
+    let k!: keyof DatabaseLimits;
+    db.limits[k]; // $ExpectType number
+    db.limits[k] = 100;
 }
