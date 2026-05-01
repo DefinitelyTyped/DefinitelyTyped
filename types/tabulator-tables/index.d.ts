@@ -3155,7 +3155,6 @@ declare class Tabulator {
         p1: string | Filter[] | any[] | ((data: any, filterParams: any) => boolean),
         p2?: FilterType | {},
         value?: any,
-        filterParams?: FilterParams,
     ) => void;
 
     /** To remove all filters from the table, use the clearFilter function. */
