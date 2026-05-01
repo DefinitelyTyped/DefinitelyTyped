@@ -1,6 +1,7 @@
 import ES2023 = require("./es2023");
 
 interface ES2024 {
+    readonly abs: typeof import("./2024/abs");
     readonly AddEntriesFromIterable: typeof import("./2024/AddEntriesFromIterable");
     readonly AdvanceStringIndex: typeof import("./2024/AdvanceStringIndex");
     readonly ArrayCreate: typeof import("./2024/ArrayCreate");

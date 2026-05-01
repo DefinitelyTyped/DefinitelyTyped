@@ -57,3 +57,5 @@ ES5.FromPropertyDescriptor({ "[[Value]]": "456" }); // $ExpectType TypedProperty
 
 ES5["Abstract Relational Comparison"](1, 2, true); // $ExpectType boolean | undefined
 ES5["Abstract Relational Comparison"](any, any, false); // $ExpectType boolean | undefined
+
+ES5.abs(-3); // $ExpectType number
