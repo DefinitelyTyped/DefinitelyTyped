@@ -277,6 +277,7 @@ import { URL } from "node:url";
         streamResetBurst: 1000,
         streamResetRate: 33,
         strictFieldWhitespaceValidation: false,
+        strictSingleValueFields: true,
     };
     const secureServerOptions: SecureServerOptions = { ...serverOptions, ca: "..." };
     const onRequestHandler = (request: Http2ServerRequest, response: Http2ServerResponse) => {

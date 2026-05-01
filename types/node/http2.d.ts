@@ -1249,6 +1249,7 @@ declare module "node:http2" {
         http1Options?: Http1Options<Http1Request, Http1Response> | undefined;
         Http2ServerRequest?: Http2Request | undefined;
         Http2ServerResponse?: Http2Response | undefined;
+        strictSingleValueFields?: boolean | undefined;
     }
     interface SecureClientSessionOptions extends ClientSessionOptions, tls.ConnectionOptions {}
     interface SecureServerSessionOptions<
