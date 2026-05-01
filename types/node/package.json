@@ -18,7 +18,7 @@
         }
     },
     "dependencies": {
-        "undici-types": "~7.21.0"
+        "undici-types": ">=7.24.0 <7.24.7"
     },
     "devDependencies": {
         "@types/node": "workspace:."
