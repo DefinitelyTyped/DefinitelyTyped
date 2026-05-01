@@ -66,8 +66,8 @@ dogapi.metric.send_all(
         {
             metric: "metricName",
             points: [
-                ["123", 500],
-                ["124", 600],
+                [123, 500],
+                [124, 600],
             ],
             metric_type: "type",
         },
