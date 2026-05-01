@@ -101,3 +101,12 @@ async function queuingStrategySizeReceivesTheChunk() {
     assert.deepStrictEqual(result, { done: false, value: "size" });
     assert.deepStrictEqual(sizeChunks, ["size"]);
 }
+
+// Transformer's `cancel` callback, absent from @types/web
+{
+    new TransformStream({
+        cancel(reason) {
+            reason; // $ExpectType any
+        },
+    });
+}
