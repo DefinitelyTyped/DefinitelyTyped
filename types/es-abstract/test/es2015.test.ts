@@ -65,8 +65,7 @@ declare function iterNext<T, TReturn = any, TNext = unknown>(
 ES2015.Call(iterNext, generable());
 
 // $ExpectType IteratorResult<number, boolean>
-// eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
-ES2015.Invoke(generable(), "next", args as IArguments & [string]);
+ES2015.Invoke(generable(), "next", args as IArguments & [string]); // eslint-disable-line @definitelytyped/no-single-element-tuple-type
 ES2015.Invoke(generable(), Symbol.iterator, args as IArguments & []);
 
 // $ExpectType boolean
