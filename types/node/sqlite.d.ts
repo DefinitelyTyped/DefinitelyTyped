@@ -311,18 +311,17 @@ declare module "node:sqlite" {
          * @since v22.13.0
          * @param name The name of the SQLite function to create.
          * @param options Optional configuration settings for the function.
-         * @param func The JavaScript function to call when the SQLite
-         * function is invoked. The return value of this function should be a valid
-         * SQLite data type: see
-         * [Type conversion between JavaScript and SQLite](https://nodejs.org/docs/latest-v25.x/api/sqlite.html#type-conversion-between-javascript-and-sqlite).
-         * The result defaults to `NULL` if the return value is `undefined`.
+         * @param fn The JavaScript function to call when the SQLite function is
+         * invoked. The return value of this function should be a valid SQLite data type:
+         * see [Type conversion between JavaScript and SQLite](https://nodejs.org/docs/latest-v25.x/api/sqlite.html#type-conversion-between-javascript-and-sqlite). The result defaults to
+         * `NULL` if the return value is `undefined`.
          */
         function(
             name: string,
             options: FunctionOptions,
-            func: (...args: SQLOutputValue[]) => SQLInputValue,
+            fn: (...args: SQLOutputValue[]) => SQLInputValue,
         ): void;
-        function(name: string, func: (...args: SQLOutputValue[]) => SQLInputValue): void;
+        function(name: string, fn: (...args: SQLOutputValue[]) => SQLInputValue): void;
         /**
          * Sets an authorizer callback that SQLite will invoke whenever it attempts to
          * access data or modify the database schema through prepared statements.
