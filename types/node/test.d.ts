@@ -346,6 +346,7 @@ declare module "node:test" {
             "test:diagnostic": [data: EventData.TestDiagnostic];
             "test:enqueue": [data: EventData.TestEnqueue];
             "test:fail": [data: EventData.TestFail];
+            "test:interrupted": [data: EventData.TestInterrupted];
             "test:pass": [data: EventData.TestPass];
             "test:plan": [data: EventData.TestPlan];
             "test:start": [data: EventData.TestStart];
@@ -736,6 +737,13 @@ declare module "node:test" {
                  * Present if `context.skip` is called.
                  */
                 skip?: string | boolean;
+            }
+            interface TestInterrupted {
+                /**
+                 * An array of objects containing information about the
+                 * interrupted tests.
+                 */
+                tests: TestStart[];
             }
             interface TestPass extends LocationInfo {
                 /**
