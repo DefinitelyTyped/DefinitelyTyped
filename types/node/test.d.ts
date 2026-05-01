@@ -1,5 +1,5 @@
 declare module "node:test" {
-    import { AssertMethodNames } from "node:assert";
+    import { AssertMethodNames, AssertPredicate } from "node:assert";
     import { Readable, ReadableEventMap } from "node:stream";
     import { TestEvent } from "node:test/reporters";
     import { URL } from "node:url";
@@ -111,7 +111,12 @@ declare module "node:test" {
             function only(name?: string, fn?: SuiteFn): Promise<void>;
             function only(options?: TestOptions, fn?: SuiteFn): Promise<void>;
             function only(fn?: SuiteFn): Promise<void>;
-            // added in v25.5.0, undocumented
+            /**
+             * This flips the pass/fail reporting for a specific test or suite: a flagged test
+             * case must throw in order to pass, and a flagged test case that does not throw
+             * fails.
+             * @since v25.5.0
+             */
             function expectFailure(name?: string, options?: TestOptions, fn?: SuiteFn): Promise<void>;
             function expectFailure(name?: string, fn?: SuiteFn): Promise<void>;
             function expectFailure(options?: TestOptions, fn?: SuiteFn): Promise<void>;
@@ -1301,6 +1306,17 @@ declare module "node:test" {
              */
             concurrency?: number | boolean | undefined;
             /**
+             * If truthy, the test is expected to fail. If a non-empty string is provided, that string is displayed
+             * in the test results as the reason why the test is expected to fail. If a
+             * `RegExp`, `Function`, `Object`, or `Error` is provided directly (without wrapping in `{ match: … }`), the test passes
+             * only if the thrown error matches, following the behavior of
+             * `assert.throws`. To provide both a reason and validation, pass an object
+             * with `label` (string) and `match` (RegExp, Function, Object, or Error).
+             * @since v25.5.0
+             * @default false
+             */
+            expectFailure?: boolean | string | AssertPredicate | undefined;
+            /**
              * If truthy, and the test context is configured to run `only` tests, then this test will be
              * run. Otherwise, the test is skipped.
              * @default false
@@ -1338,8 +1354,6 @@ declare module "node:test" {
              * @since v22.2.0
              */
             plan?: number | undefined;
-            // added in v25.5.0, undocumented
-            expectFailure?: boolean | undefined;
         }
         /**
          * This function creates a hook that runs before executing a suite.

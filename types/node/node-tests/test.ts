@@ -382,6 +382,13 @@ it.expectFailure("x", {
     timeout: Infinity,
 });
 
+// expectFailure predicates
+test({ expectFailure: "message" });
+test({ expectFailure: Error });
+test({ expectFailure: /error/ });
+test({ expectFailure: { code: "ERR_INVALID_ARG_TYPE" } });
+test({ expectFailure: (err) => err instanceof TypeError });
+
 // Test with suite context
 describe(s => {
     // $ExpectType SuiteContext
