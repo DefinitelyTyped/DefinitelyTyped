@@ -1,3 +1,4 @@
+import { IncomingMessage, ServerResponse } from "node:http";
 import {
     ClientHttp2Session,
     ClientHttp2Stream,
@@ -434,6 +435,62 @@ import { URL } from "node:url";
     const packet: Buffer = getPackedSettings(settings);
     settings = getUnpackedSettings(Buffer.from([]));
     settings = getUnpackedSettings(Uint8Array.from([]));
+}
+
+// Http1IncomingMessage, Http1ServerResponse
+{
+    class MyHttp1ServerRequest extends IncomingMessage {
+        foo!: number;
+    }
+
+    class MyHttp1ServerResponse<Request extends IncomingMessage = IncomingMessage> extends ServerResponse<Request> {
+        bar!: string;
+    }
+
+    // $ExpectType Http2Server<typeof MyHttp1ServerRequest, typeof MyHttp1ServerResponse, typeof Http2ServerRequest, typeof Http2ServerResponse>
+    createServer({
+        http1Options: {
+            IncomingMessage: MyHttp1ServerRequest,
+            ServerResponse: MyHttp1ServerResponse,
+            keepAliveTimeout: 500,
+        },
+    });
+
+    // $ExpectType Http2SecureServer<typeof MyHttp1ServerRequest, typeof MyHttp1ServerResponse, typeof Http2ServerRequest, typeof Http2ServerResponse>
+    createSecureServer({
+        allowHTTP1: true,
+        http1Options: {
+            IncomingMessage: MyHttp1ServerRequest,
+            ServerResponse: MyHttp1ServerResponse,
+            keepAliveTimeout: 500,
+        },
+    });
+
+    // $ExpectType Http2Server<typeof IncomingMessage, typeof ServerResponse, typeof Http2ServerRequest, typeof Http2ServerResponse>
+    createServer({
+        http1Options: { keepAliveTimeout: 500 },
+    });
+
+    // $ExpectType Http2SecureServer<typeof IncomingMessage, typeof ServerResponse, typeof Http2ServerRequest, typeof Http2ServerResponse>
+    createSecureServer({
+        allowHTTP1: true,
+        http1Options: { keepAliveTimeout: 500 },
+    });
+
+    // Deprecated
+    // $ExpectType Http2Server<typeof MyHttp1ServerRequest, typeof MyHttp1ServerResponse, typeof Http2ServerRequest, typeof Http2ServerResponse>
+    createServer({
+        Http1IncomingMessage: MyHttp1ServerRequest,
+        Http1ServerResponse: MyHttp1ServerResponse,
+    });
+
+    // Deprecated
+    // $ExpectType Http2SecureServer<typeof MyHttp1ServerRequest, typeof MyHttp1ServerResponse, typeof Http2ServerRequest, typeof Http2ServerResponse>
+    createSecureServer({
+        allowHTTP1: true,
+        Http1IncomingMessage: MyHttp1ServerRequest,
+        Http1ServerResponse: MyHttp1ServerResponse,
+    });
 }
 
 // Http2ServerRequest, Http2ServerResponse,
