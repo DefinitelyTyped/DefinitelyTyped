@@ -853,15 +853,12 @@ test("mocks a module", (t) => {
     // module specifier as a string
     // $ExpectType MockModuleContext
     const mock = t.mock.module("node:readline", {
-        namedExports: {
-            fn() {
+        exports: {
+            default: class Exported {},
+            foo() {
                 return 42;
             },
-        },
-        defaultExport: {
-            foo() {
-                return "bar";
-            },
+            bar: 42,
         },
         cache: true,
     });
