@@ -66,6 +66,12 @@ import { Context } from "node:vm";
             this;
             return "";
         },
+        handleError(err) {
+            if (err instanceof SyntaxError) {
+                return "print";
+            }
+            return "unhandled";
+        },
     });
 
     function test() {
