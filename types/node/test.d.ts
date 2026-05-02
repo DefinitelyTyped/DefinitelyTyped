@@ -1666,6 +1666,11 @@ declare module "node:test" {
              * [`--experimental-test-module-mocks`](https://nodejs.org/docs/latest-v25.x/api/cli.html#--experimental-test-module-mocks)
              * command-line flag.
              *
+             * **Note**: [module customization hooks](https://nodejs.org/docs/latest-v25.x/api/module.html#customization-hooks) registered via the **synchronous** API effect resolution of
+             * the `specifier` provided to `mock.module`. Customization hooks registered via the **asynchronous**
+             * API are currently ignored (because the test runner's loader is synchronous, and node does not
+             * support multi-chain / cross-chain loading).
+             *
              * The following example demonstrates how a mock is created for a module.
              *
              * ```js
