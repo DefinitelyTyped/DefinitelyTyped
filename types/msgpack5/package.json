@@ -8,7 +8,7 @@
     "dependencies": {
         "@types/readable-stream": "*",
         "@types/node": "*",
-        "bl": ">=5.1.0"
+        "bl": ">=5.1.0 <6.0.0"
     },
     "devDependencies": {
         "@types/msgpack5": "workspace:."
