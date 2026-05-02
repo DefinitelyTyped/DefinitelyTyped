@@ -3778,7 +3778,7 @@ declare module "node:crypto" {
         interface CShakeParams extends Algorithm {
             customization?: NodeJS.BufferSource;
             functionName?: NodeJS.BufferSource;
-            length: number;
+            outputLength: number;
         }
         interface ContextParams extends Algorithm {
             context?: NodeJS.BufferSource;
@@ -3849,7 +3849,7 @@ declare module "node:crypto" {
         }
         interface KmacParams extends Algorithm {
             customization?: NodeJS.BufferSource;
-            length: number;
+            outputLength: number;
         }
         interface Pbkdf2Params extends Algorithm {
             hash: HashAlgorithmIdentifier;
