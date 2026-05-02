@@ -3815,6 +3815,10 @@ declare module "node:crypto" {
             hash: HashAlgorithmIdentifier;
             length?: number;
         }
+        interface KangarooTwelveParams {
+            customization?: NodeJS.BufferSource;
+            outputLength: number;
+        }
         interface JsonWebKey {
             alg?: string;
             crv?: string;
@@ -3884,6 +3888,10 @@ declare module "node:crypto" {
         interface RsaPssParams extends Algorithm {
             saltLength: number;
         }
+        interface TurboShakeParams {
+            domainSeparation?: number;
+            outputLength: number;
+        }
         interface Crypto {
             readonly subtle: SubtleCrypto;
             getRandomValues<
@@ -3945,7 +3953,10 @@ declare module "node:crypto" {
                 extractable: boolean,
                 keyUsages: readonly KeyUsage[],
             ): Promise<CryptoKey>;
-            digest(algorithm: AlgorithmIdentifier | CShakeParams, data: NodeJS.BufferSource): Promise<ArrayBuffer>;
+            digest(
+                algorithm: AlgorithmIdentifier | CShakeParams | TurboShakeParams | KangarooTwelveParams,
+                data: NodeJS.BufferSource,
+            ): Promise<ArrayBuffer>;
             encapsulateBits(
                 encapsulationAlgorithm: AlgorithmIdentifier,
                 encapsulationKey: CryptoKey,
