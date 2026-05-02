@@ -179,7 +179,7 @@ declare module "node:quic" {
          * The TLS crypto keys to use for sessions.
          * @since v23.8.0
          */
-        keys?: KeyObject | webcrypto.CryptoKey | ReadonlyArray<KeyObject | webcrypto.CryptoKey> | undefined;
+        keys?: KeyObject | readonly KeyObject[] | undefined;
         /**
          * Specifies the maximum UDP packet payload size.
          * @since v23.8.0
