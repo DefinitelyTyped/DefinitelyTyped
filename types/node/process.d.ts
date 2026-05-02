@@ -823,6 +823,28 @@ declare module "node:process" {
                  */
                 abort(): never;
                 /**
+                 * The `process.addUncaughtExceptionCaptureCallback()` function adds a callback
+                 * that will be invoked when an uncaught exception occurs, receiving the exception
+                 * value as its first argument.
+                 *
+                 * Unlike `process.setUncaughtExceptionCaptureCallback()`, this function allows
+                 * multiple callbacks to be registered and does not conflict with the
+                 * [`domain`](https://nodejs.org/docs/latest-v25.x/api/domain.html) module. Callbacks are called in reverse order of registration
+                 * (most recent first). If a callback returns `true`, subsequent callbacks
+                 * and the default uncaught exception handling are skipped.
+                 *
+                 * ```js
+                 * import process from 'node:process';
+                 *
+                 * process.addUncaughtExceptionCaptureCallback((err) => {
+                 *   console.error('Caught exception:', err.message);
+                 *   return true; // Indicates exception was handled
+                 * });
+                 * ```
+                 * @since v25.9.0
+                 */
+                addUncaughtExceptionCaptureCallback(fn: (err: unknown) => boolean): void;
+                /**
                  * The `process.chdir()` method changes the current working directory of the
                  * Node.js process or throws an exception if doing so fails (for instance, if
                  * the specified `directory` does not exist).
@@ -1418,9 +1440,11 @@ declare module "node:process" {
                  * method with a non-`null` argument while another capture function is set will
                  * throw an error.
                  *
-                 * Using this function is mutually exclusive with using the deprecated `domain` built-in module.
+                 * To register multiple callbacks that can coexist, use
+                 * `process.addUncaughtExceptionCaptureCallback()` instead.
                  * @since v9.3.0
                  */
+                // TODO: callback parameter should be `unknown`
                 setUncaughtExceptionCaptureCallback(cb: ((err: Error) => void) | null): void;
                 /**
                  * Indicates whether a callback has been set using {@link setUncaughtExceptionCaptureCallback}.
