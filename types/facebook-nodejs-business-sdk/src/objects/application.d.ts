@@ -233,9 +233,7 @@ export default class Application extends AbstractCrudObject {
     getSgwDatasetStatus(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getSgwInstallDeferralLink(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getSubscribedDomains(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createSubscribedDomain(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Application>;
     getSubscribedDomainsPhishing(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createSubscribedDomainsPhishing(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Application>;
     deleteSubscriptions(params?: Record<string, any>): Promise<any>;
     getSubscriptions(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createSubscription(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AbstractObject>;

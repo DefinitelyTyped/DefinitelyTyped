@@ -36,6 +36,6 @@ export default class FacebookAdsApi {
      * @param  {Object} [files]
      * @return {Promise}
      */
-    call<T>(method: string, path: string | string[] | string, params?: Record<string, any>, files?: Record<string, any>, useMultipartFormData?: boolean, urlOverride?: string): Promise<T>;
+    call(method: string, path: string | string[] | String, params?: Record<string, any>, files?: Record<string, any>, useMultipartFormData?: boolean, urlOverride?: string): Promise<any>;
     static _encodeParams(params: Record<string, any>): string;
 }

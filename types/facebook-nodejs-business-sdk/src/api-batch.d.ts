@@ -36,10 +36,10 @@ declare class FacebookAdsApiBatch {
      * @return {Object} An object describing the call
      */
     add(method: string, relativePath: string[] | string, params?: Record<string, any>, files?: Record<string, any>, successCallback?: (...args: any[]) => any, failureCallback?: (...args: any[]) => any, request?: APIRequest): {
-        attachedFiles: undefined | string;
-        body: undefined | string;
+        attachedFiles: void | string;
+        body: void | string;
         method: string;
-        name: any;
+        name: void | any;
         relative_url: string;
     };
     /**
@@ -52,10 +52,10 @@ declare class FacebookAdsApiBatch {
      * @return {Object} An object describing the call
      */
     addRequest(request: APIRequest, successCallback?: (...args: any[]) => any, failureCallback?: (...args: any[]) => any): {
-        attachedFiles: undefined | string;
-        body: undefined | string;
+        attachedFiles: void | string;
+        body: void | string;
         method: string;
-        name: any;
+        name: void | any;
         relative_url: string;
     };
     /**
@@ -69,6 +69,6 @@ declare class FacebookAdsApiBatch {
      *   returns a new FacebookAdsApiBatch object with those calls.
      *   Otherwise, returns None.
      */
-    execute(): undefined | Promise<unknown>;
+    execute(): void | Promise<unknown>;
 }
 export default FacebookAdsApiBatch;
