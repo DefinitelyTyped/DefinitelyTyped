@@ -26,7 +26,6 @@
         "./browser": "./browser/index.d.ts",
         "./experimental/csv": "./experimental/csv/index.d.ts",
         "./experimental/fs": "./experimental/fs/index.d.ts",
-        "./experimental/redis": "./experimental/redis/index.d.ts",
         "./experimental/streams": "./experimental/streams/index.d.ts",
         "./websockets": "./websockets/index.d.ts"
     },
