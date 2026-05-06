@@ -858,7 +858,7 @@ function testRuntime() {
 
     chrome.runtime.getPackageDirectoryEntry(); // $ExpectType Promise<FileSystemDirectoryEntry>
     chrome.runtime.getPackageDirectoryEntry((directoryEntry) => { // $ExpectType void
-        directoryEntry; // $ExpectType FileSystemDirectoryEntry
+        directoryEntry; // $ExpectType DirectoryEntry
     });
     // @ts-expect-error
     chrome.runtime.getPackageDirectoryEntry(() => {}).then(() => {});

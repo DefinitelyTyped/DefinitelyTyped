@@ -718,6 +718,13 @@ declare namespace chrome {
             playbackRate?: number | undefined;
         }
 
+        interface LoadRequest {
+            credentials?: string;
+            credentialsType?: string;
+            atvCredentials?: string;
+            atvCredentialsType?: string;
+        }
+
         export class EditTracksInfoRequest {
             /**
              * @param opt_activeTrackIds

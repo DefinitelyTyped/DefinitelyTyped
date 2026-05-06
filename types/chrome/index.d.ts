@@ -1,4 +1,3 @@
-/// <reference types="filesystem" />
 /// <reference path="./har-format/index.d.ts" />
 /// <reference path="./chrome-cast/index.d.ts" />
 
@@ -11,6 +10,20 @@ type SetPartial<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
 ////////////////////
 interface Window {
     chrome: typeof chrome;
+}
+interface Entry {
+  readonly isFile: boolean;
+  readonly isDirectory: boolean;
+  readonly name: string;
+  readonly fullPath: string;
+}
+
+interface DirectoryEntry extends Entry {
+  readonly isDirectory: true;
+}
+
+interface FileSystemDirectoryEntry extends DirectoryEntry {
+  readonly isDirectory: true;
 }
 
 declare namespace chrome {
@@ -9600,7 +9613,7 @@ declare namespace chrome {
          *
          * Can return its result via Promise in Manifest V3 or later since Chrome 122.
          */
-        export function getPackageDirectoryEntry(): Promise<DirectoryEntry>;
+        export function getPackageDirectoryEntry(): Promise<FileSystemDirectoryEntry>;
         export function getPackageDirectoryEntry(callback: (directoryEntry: DirectoryEntry) => void): void;
 
         /**
