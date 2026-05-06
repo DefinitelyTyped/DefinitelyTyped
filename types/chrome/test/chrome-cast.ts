@@ -13,4 +13,9 @@ function testCreateLoadRequest() {
     // playbackRate must be type number
     // @ts-expect-error
     loadRequest.playbackRate = "foo";
+
+    loadRequest.credentials = 'user-123';
+    loadRequest.credentialsType = 'token';
+    loadRequest.atvCredentials = 'user-123-atv';
+    loadRequest.atvCredentialsType = 'token';
 }
