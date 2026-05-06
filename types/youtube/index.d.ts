@@ -1035,7 +1035,3 @@ declare namespace YT {
         getVideoData(): VideoData;
     }
 }
-
-// eslint-disable-next-line @definitelytyped/export-just-namespace
-export = YT;
-export as namespace YT;
