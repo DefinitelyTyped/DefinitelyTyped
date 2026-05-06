@@ -1212,6 +1212,14 @@ function testGetManifest() {
                 js: ["cs.js"],
                 world: "MAIN",
             },
+            {
+                matches: ["https://example.com/*"],
+                js: ["cs-example.js"],
+                world: "MAIN",
+                all_frames: true,
+                match_origin_as_fallback: true,
+                run_at: "document_start"
+            },
         ],
         content_security_policy: {
             extension_pages: "default-src 'self'",
