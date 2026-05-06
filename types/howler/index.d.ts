@@ -158,6 +158,12 @@ export interface HowlOptions extends HowlListeners {
             withCredentials?: boolean | undefined;
         }
         | undefined;
+
+    /**
+     * Sets the panner node's attributes for a sound or group of sounds. See the pannerAttr method 
+     * for all available options.
+     */
+    pannerAttr?: PannerAttributes
 }
 
 export class Howl {
