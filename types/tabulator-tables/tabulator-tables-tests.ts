@@ -6,7 +6,6 @@ import {
     ColumnComponent,
     ColumnDefinition,
     ColumnDefinitionSorterParams,
-    CustomFunctionFilter,
     DataTreeModule,
     Filter,
     FilterModule,
@@ -24,7 +23,6 @@ import {
     RowComponent,
     SortDirection,
     SorterFromTable,
-    StandardFilter,
     Tabulator,
     TabulatorFull,
     TextAreaParams,
@@ -85,26 +83,6 @@ table = new Tabulator("#test", {
         customLib: { version: "1.0" },
     },
 });
-
-// Test Filter type with StandardFilter
-const standardFilter: StandardFilter = {
-    field: "age",
-    type: ">",
-    value: 21,
-    params: { separator: "," },
-};
-
-// Test Filter type with CustomFunctionFilter
-const functionFilter: CustomFunctionFilter = {
-    field: (data: any, params: any) => data.age > params.min,
-    type: { min: 18 },
-};
-
-// Test Filter union type
-const mixedFilters: Filter[] = [
-    { field: "name", type: "=", value: "John" },
-    { field: (data: any, params: any) => data.active, type: {} },
-];
 
 table
     .setPageToRow(12)
