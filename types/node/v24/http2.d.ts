@@ -1475,7 +1475,13 @@ declare module "http2" {
             event: "session",
             listener: (session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>) => void,
         ): this;
-        addListener(event: "sessionError", listener: (err: Error) => void): this;
+        addListener(
+            event: "sessionError",
+            listener: (
+                err: Error,
+                session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>,
+            ) => void,
+        ): this;
         addListener(
             event: "stream",
             listener: (
@@ -1497,7 +1503,11 @@ declare module "http2" {
             event: "session",
             session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>,
         ): boolean;
-        emit(event: "sessionError", err: Error): boolean;
+        emit(
+            event: "sessionError",
+            err: Error,
+            session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>,
+        ): boolean;
         emit(
             event: "stream",
             stream: ServerHttp2Stream,
@@ -1519,7 +1529,13 @@ declare module "http2" {
             event: "session",
             listener: (session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>) => void,
         ): this;
-        on(event: "sessionError", listener: (err: Error) => void): this;
+        on(
+            event: "sessionError",
+            listener: (
+                err: Error,
+                session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>,
+            ) => void,
+        ): this;
         on(
             event: "stream",
             listener: (
@@ -1543,7 +1559,13 @@ declare module "http2" {
             event: "session",
             listener: (session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>) => void,
         ): this;
-        once(event: "sessionError", listener: (err: Error) => void): this;
+        once(
+            event: "sessionError",
+            listener: (
+                err: Error,
+                session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>,
+            ) => void,
+        ): this;
         once(
             event: "stream",
             listener: (
@@ -1567,7 +1589,13 @@ declare module "http2" {
             event: "session",
             listener: (session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>) => void,
         ): this;
-        prependListener(event: "sessionError", listener: (err: Error) => void): this;
+        prependListener(
+            event: "sessionError",
+            listener: (
+                err: Error,
+                session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>,
+            ) => void,
+        ): this;
         prependListener(
             event: "stream",
             listener: (
@@ -1591,7 +1619,13 @@ declare module "http2" {
             event: "session",
             listener: (session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>) => void,
         ): this;
-        prependOnceListener(event: "sessionError", listener: (err: Error) => void): this;
+        prependOnceListener(
+            event: "sessionError",
+            listener: (
+                err: Error,
+                session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>,
+            ) => void,
+        ): this;
         prependOnceListener(
             event: "stream",
             listener: (
@@ -1622,7 +1656,11 @@ declare module "http2" {
             event: "session",
             listener: (session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>) => void,
         ): this;
-        addListener(event: "sessionError", listener: (err: Error) => void): this;
+        addListener(
+            event: "sessionError",
+            listener: (err: Error) => void,
+            session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>,
+        ): this;
         addListener(
             event: "stream",
             listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void,
@@ -1640,7 +1678,11 @@ declare module "http2" {
             event: "session",
             session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>,
         ): boolean;
-        emit(event: "sessionError", err: Error): boolean;
+        emit(
+            event: "sessionError",
+            err: Error,
+            session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>,
+        ): boolean;
         emit(event: "stream", stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number): boolean;
         emit(event: "timeout"): boolean;
         emit(event: "unknownProtocol", socket: tls.TLSSocket): boolean;
@@ -1657,7 +1699,13 @@ declare module "http2" {
             event: "session",
             listener: (session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>) => void,
         ): this;
-        on(event: "sessionError", listener: (err: Error) => void): this;
+        on(
+            event: "sessionError",
+            listener: (
+                err: Error,
+                session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>,
+            ) => void,
+        ): this;
         on(
             event: "stream",
             listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void,
@@ -1677,7 +1725,13 @@ declare module "http2" {
             event: "session",
             listener: (session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>) => void,
         ): this;
-        once(event: "sessionError", listener: (err: Error) => void): this;
+        once(
+            event: "sessionError",
+            listener: (
+                err: Error,
+                session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>,
+            ) => void,
+        ): this;
         once(
             event: "stream",
             listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void,
@@ -1697,7 +1751,13 @@ declare module "http2" {
             event: "session",
             listener: (session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>) => void,
         ): this;
-        prependListener(event: "sessionError", listener: (err: Error) => void): this;
+        prependListener(
+            event: "sessionError",
+            listener: (
+                err: Error,
+                session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>,
+            ) => void,
+        ): this;
         prependListener(
             event: "stream",
             listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void,
@@ -1717,7 +1777,13 @@ declare module "http2" {
             event: "session",
             listener: (session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>) => void,
         ): this;
-        prependOnceListener(event: "sessionError", listener: (err: Error) => void): this;
+        prependOnceListener(
+            event: "sessionError",
+            listener: (
+                err: Error,
+                session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>,
+            ) => void,
+        ): this;
         prependOnceListener(
             event: "stream",
             listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void,

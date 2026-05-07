@@ -240,7 +240,7 @@ import { URL } from "node:url";
     const s1: Server = http2Server;
     const s2: Server = http2SecureServer;
     [http2Server, http2SecureServer].forEach((server) => {
-        server.on("sessionError", (err: Error) => {});
+        server.on("sessionError", (err: Error, session: ServerHttp2Session) => {});
         server.on("session", (session: ServerHttp2Session) => {});
         server.on("checkContinue", (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => {});
         server.on(
