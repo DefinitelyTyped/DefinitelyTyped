@@ -15,8 +15,6 @@ export interface Vector4Like {
  * 4D vector.
  */
 export class Vector4 {
-    static readonly isVector4: boolean;
-
     constructor(x?: number, y?: number, z?: number, w?: number);
 
     /**
@@ -41,6 +39,7 @@ export class Vector4 {
 
     width: number;
     height: number;
+    readonly isVector4: true;
 
     /**
      * Sets value of this vector.

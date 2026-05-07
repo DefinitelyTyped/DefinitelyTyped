@@ -1555,6 +1555,7 @@
 /types/dom-eyedropper/                                  @nathanbabcock
 /types/dom-inputevent/                                  @diagramatics
 /types/dom-matches/                                     @AviVahl
+/types/dom-mediacapture-fromelement/                    @haykam821
 /types/dom-mediacapture-record/                         @elsmr @AppLover69
 /types/dom-mediacapture-transform/                      @dogben
 /types/dom-navigation/                                  @tbondwilkinson
@@ -1562,7 +1563,7 @@
 /types/dom-parser/                                      @gbidkar
 /types/dom-screen-wake-lock/                            @chrismilson
 /types/dom-serial/                                      @maciejmrozinski
-/types/dom-speech-recognition/                          @brad4d @blickly @12wrigja
+/types/dom-speech-recognition/                          @12wrigja @tonyherre
 /types/dom-to-image/                                    @JipSterk
 /types/dom-trust-token/                                 @taymonbeal
 /types/dom-view-transitions/                            @jakearchibald @tbondwilkinson
@@ -2074,7 +2075,7 @@
 /types/ffmpeg.js/                                       @maxbogus
 /types/ffmpeg__libav-core/                              @jeromewu
 /types/fg-loadcss/                                      @ncovercash
-/types/fhir/                                            @meirgottlieb @jhuenges @bkaney
+/types/fhir/                                            @meirgottlieb @jhuenges @bkaney @ginocanessa
 /types/fhir-js-client/                                  @rmchndrng
 /types/fibers/                                          @soywiz @smac89
 /types/fibjs/                                           @richardo2016

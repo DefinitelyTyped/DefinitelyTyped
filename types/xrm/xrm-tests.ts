@@ -630,13 +630,13 @@ function booleanAttributeControls(formContext: Xrm.FormContext) {
     // @ts-expect-error
     const notString: string = booleanAttribute.getValue();
 
-    booleanAttribute = booleanAttribute.controls.get(0).getAttribute();
+    booleanAttribute = booleanAttribute.controls.get<Xrm.Controls.BooleanControl>(0).getAttribute();
 
     booleanAttribute.controls.forEach((c: Xrm.Controls.BooleanControl) => c.setDisabled(true));
 
-    booleanAttribute.controls.get(0).getAttribute().getAttributeType() === "boolean";
+    booleanAttribute.controls.get<Xrm.Controls.BooleanControl>(0).getAttribute().getAttributeType() === "boolean";
     // @ts-expect-error
-    booleanAttribute.controls.get(0).getAttribute().getAttributeType() === "optionset";
+    booleanAttribute.controls.get<Xrm.Controls.OptionSetControl>(0).getAttribute().getAttributeType() === "optionset";
 }
 
 // Demonstrate add and remove methods for formContext.data.process
@@ -799,3 +799,20 @@ const framedControlSetVisible = (formContext: Xrm.FormContext) => {
     // setVisible
     framedControl.setVisible(true);
 };
+
+// Demonstrate ItemCollection.get() overloads
+function testItemCollectionGet(formContext: Xrm.FormContext) {
+    // Without explicit type parameter: returns T | null
+    // $ExpectType Tab | null
+    formContext.ui.tabs.get(0);
+
+    // $ExpectType Tab | null
+    formContext.ui.tabs.get("tabName");
+
+    // With explicit type parameter: returns TSubType (caller asserts item exists)
+    // $ExpectType Tab
+    formContext.ui.tabs.get<Xrm.Controls.Tab>(0);
+
+    // $ExpectType Tab
+    formContext.ui.tabs.get<Xrm.Controls.Tab>("tabName");
+}

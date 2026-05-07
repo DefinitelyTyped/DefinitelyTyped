@@ -65,6 +65,15 @@ declare class CEconItem {
     tags: any[];
     /** Not always present. An object containing arbitrary data as reported by the game's item server. */
     app_data?: any;
+    /** An array of objects containing the item's asset properties. These are not always present, and their contents are entirely arbitrary and up to the game. */ asset_properties?:
+        Array<
+            & { propertyid: number; name?: string }
+            & (
+                | { int_value: string; float_value?: never; string_value?: never }
+                | { float_value: string; int_value?: never; string_value?: never }
+                | { string_value: string; int_value?: never; float_value?: never }
+            )
+        >;
 
     /**
      * Returns a URL where this item's image can be downloaded.
