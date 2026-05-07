@@ -394,7 +394,7 @@ export interface ConstantMemberType extends AbstractBase {
     name: string;
     /** The constant value */
     value: ValueDescription;
-    parent: CallbackInterfaceType | InterfaceMixinType | InterfaceType;
+    parent: CallbackInterfaceType | InterfaceMixinType | InterfaceType | NamespaceType;
 }
 
 interface AbstractDeclarationMemberType extends AbstractBase {
