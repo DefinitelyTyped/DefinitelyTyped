@@ -15,15 +15,19 @@ export default class AdPreview extends AbstractCrudObject {
         audience_network_rewarded_video: "AUDIENCE_NETWORK_REWARDED_VIDEO";
         biz_disco_feed_mobile: "BIZ_DISCO_FEED_MOBILE";
         desktop_feed_standard: "DESKTOP_FEED_STANDARD";
+        facebook_ifu_reels_mobile: "FACEBOOK_IFU_REELS_MOBILE";
         facebook_profile_feed_desktop: "FACEBOOK_PROFILE_FEED_DESKTOP";
         facebook_profile_feed_mobile: "FACEBOOK_PROFILE_FEED_MOBILE";
         facebook_profile_reels_mobile: "FACEBOOK_PROFILE_REELS_MOBILE";
         facebook_reels_banner: "FACEBOOK_REELS_BANNER";
         facebook_reels_banner_desktop: "FACEBOOK_REELS_BANNER_DESKTOP";
+        facebook_reels_banner_feed_android: "FACEBOOK_REELS_BANNER_FEED_ANDROID";
+        facebook_reels_banner_feed_android_large: "FACEBOOK_REELS_BANNER_FEED_ANDROID_LARGE";
         facebook_reels_banner_fullscreen_ios: "FACEBOOK_REELS_BANNER_FULLSCREEN_IOS";
         facebook_reels_banner_fullscreen_mobile: "FACEBOOK_REELS_BANNER_FULLSCREEN_MOBILE";
         facebook_reels_mobile: "FACEBOOK_REELS_MOBILE";
         facebook_reels_postloop: "FACEBOOK_REELS_POSTLOOP";
+        facebook_reels_postloop_feed: "FACEBOOK_REELS_POSTLOOP_FEED";
         facebook_reels_sticker: "FACEBOOK_REELS_STICKER";
         facebook_story_mobile: "FACEBOOK_STORY_MOBILE";
         facebook_story_sticker_mobile: "FACEBOOK_STORY_STICKER_MOBILE";
@@ -39,6 +43,7 @@ export default class AdPreview extends AbstractCrudObject {
         instagram_reels_instream: "INSTAGRAM_REELS_INSTREAM";
         instagram_reels_overlay: "INSTAGRAM_REELS_OVERLAY";
         instagram_reels_web: "INSTAGRAM_REELS_WEB";
+        instagram_reels_web_m_site: "INSTAGRAM_REELS_WEB_M_SITE";
         instagram_search_chain: "INSTAGRAM_SEARCH_CHAIN";
         instagram_search_grid: "INSTAGRAM_SEARCH_GRID";
         instagram_standard: "INSTAGRAM_STANDARD";
@@ -49,6 +54,7 @@ export default class AdPreview extends AbstractCrudObject {
         instant_article_recirculation_ad: "INSTANT_ARTICLE_RECIRCULATION_AD";
         instant_article_standard: "INSTANT_ARTICLE_STANDARD";
         instream_banner_desktop: "INSTREAM_BANNER_DESKTOP";
+        instream_banner_feed_ios: "INSTREAM_BANNER_FEED_IOS";
         instream_banner_fullscreen_ios: "INSTREAM_BANNER_FULLSCREEN_IOS";
         instream_banner_fullscreen_mobile: "INSTREAM_BANNER_FULLSCREEN_MOBILE";
         instream_banner_immersive_mobile: "INSTREAM_BANNER_IMMERSIVE_MOBILE";
@@ -84,7 +90,6 @@ export default class AdPreview extends AbstractCrudObject {
         profile_card: "profile_card";
         standard_enhancements_catalog: "standard_enhancements_catalog";
         text_overlay_translation: "text_overlay_translation";
-        video_to_image: "video_to_image";
     }>;
     static get RenderType(): Readonly<{
         fallback: "FALLBACK";

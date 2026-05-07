@@ -5,9 +5,11 @@ import { AbstractCrudObject } from "./../abstract-crud-object";
  */
 export default class AdCreativeBrandedContentAds extends AbstractCrudObject {
     static get Fields(): Readonly<{
+        acting_business_id: "acting_business_id";
         ad_format: "ad_format";
         content_search_input: "content_search_input";
         creator_ad_permission_type: "creator_ad_permission_type";
+        deliver_dynamic_partner_content: "deliver_dynamic_partner_content";
         facebook_boost_post_access_token: "facebook_boost_post_access_token";
         instagram_boost_post_access_token: "instagram_boost_post_access_token";
         is_mca_internal: "is_mca_internal";

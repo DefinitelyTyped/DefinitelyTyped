@@ -18,7 +18,6 @@ export default class MediaCopyrightAttribution extends AbstractCrudObject {
         is_enabled: "is_enabled";
         link_title: "link_title";
         match_count: "match_count";
-        owner: "owner";
         status: "status";
         title: "title";
     }>;

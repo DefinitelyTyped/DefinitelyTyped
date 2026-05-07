@@ -15,6 +15,7 @@ export default class AdAssetCustomizationRuleCustomizationSpec extends AbstractC
         locales: "locales";
         messenger_positions: "messenger_positions";
         publisher_platforms: "publisher_platforms";
+        threads_positions: "threads_positions";
     }>;
     static get DevicePlatforms(): Readonly<{
         desktop: "desktop";

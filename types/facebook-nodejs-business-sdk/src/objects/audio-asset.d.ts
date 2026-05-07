@@ -9,6 +9,7 @@ export default class AudioAsset extends AbstractCrudObject {
         all_ddex_main_artists: "all_ddex_main_artists";
         audio_cluster_id: "audio_cluster_id";
         cover_image_source: "cover_image_source";
+        description: "description";
         display_artist: "display_artist";
         download_hd_url: "download_hd_url";
         download_sd_url: "download_sd_url";

@@ -6,9 +6,11 @@ import { AbstractCrudObject } from "./../abstract-crud-object";
 export default class AdAssetFeedSpecLinkURL extends AbstractCrudObject {
     static get Fields(): Readonly<{
         adlabels: "adlabels";
+        android_url: "android_url";
         carousel_see_more_url: "carousel_see_more_url";
         deeplink_url: "deeplink_url";
         display_url: "display_url";
+        ios_url: "ios_url";
         object_store_urls: "object_store_urls";
         url_tags: "url_tags";
         website_url: "website_url";

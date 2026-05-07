@@ -30,6 +30,7 @@ export default class AdStudy extends AbstractCrudObject {
     static get Type(): Readonly<{
         backend_ab_testing: "BACKEND_AB_TESTING";
         continuous_lift_config: "CONTINUOUS_LIFT_CONFIG";
+        creative_spend_enforcement: "CREATIVE_SPEND_ENFORCEMENT";
         geo_lift: "GEO_LIFT";
         lift: "LIFT";
         split_test: "SPLIT_TEST";
