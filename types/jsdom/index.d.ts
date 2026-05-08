@@ -198,8 +198,6 @@ export interface DOMWindow extends Omit<Window, "top" | "self" | "window"> {
 
     /* ECMAScript Globals */
     globalThis: DOMWindow;
-    readonly ["Infinity"]: number;
-    readonly ["NaN"]: number;
     readonly undefined: undefined;
 
     eval(script: string): unknown;
