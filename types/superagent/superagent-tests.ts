@@ -1,9 +1,9 @@
 // via: http://visionmedia.github.io/superagent/
 import request = require("superagent");
-import * as fs from "fs";
-import assert = require("assert");
 import { Blob } from "buffer";
+import * as fs from "fs";
 import { Agent } from "https";
+import assert = require("assert");
 
 // Examples taken from https://github.com/visionmedia/superagent/blob/gh-pages/docs/index.md
 // and https://github.com/visionmedia/superagent/blob/master/Readme.md
@@ -373,3 +373,11 @@ request("POST", "/").http2().end(callback);
 agent.get("/").http2().end(callback);
 
 void testDefaultOptions();
+
+// generic body
+interface RequestBody {
+    a: boolean;
+    b: number;
+}
+request.post("/").send<string>("generic");
+request.post("/").send<RequestBody>({ a: true, b: 42 });

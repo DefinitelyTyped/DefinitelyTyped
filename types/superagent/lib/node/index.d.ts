@@ -1,18 +1,18 @@
+import { Blob } from "buffer";
+import { AppendOptions } from "form-data";
+import { ReadStream } from "fs";
 import * as http from "http";
 import * as http2 from "http2";
 import * as https from "https";
+import { LookupFunction } from "net";
 import { Stream } from "stream";
+import { AgentOptions as SAgentOptions, CBHandler, URLType } from "../../types";
+import { Request as Http2Request } from "./http2wrapper";
 import methods = require("methods");
 
 import SAgent = require("./agent");
-import { Blob } from "buffer";
-import { ReadStream } from "fs";
-import { LookupFunction } from "net";
 import RequestBase = require("../request-base");
 import ResponseBase = require("./response");
-import { AppendOptions } from "form-data";
-import { AgentOptions as SAgentOptions, CBHandler, URLType } from "../../types";
-import { Request as Http2Request } from "./http2wrapper";
 
 type HttpMethod<Req extends request.Request> =
     | ((url: URLType, callback?: CBHandler) => Req)
@@ -87,7 +87,7 @@ declare class SARequest extends Stream implements RequestBase {
     redirects(n: number): this;
     responseType(type: string): this;
     retry(count?: number, callback?: CBHandler): this;
-    send(data?: string | object): this;
+    send<T extends string | object = string | object>(data?: T): this;
     serialize(serializer: (obj: any) => string): this;
     set(field: "Cookie", val: string[]): this;
     set(field: http.IncomingHttpHeaders): this;
