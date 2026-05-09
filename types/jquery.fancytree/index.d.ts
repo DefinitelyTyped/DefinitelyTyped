@@ -14,7 +14,11 @@ interface JQuery {
     fancytree(option: "getRootNode"): Fancytree.FancytreeNode;
     fancytree(option: "getNodeByKey", key: string): Fancytree.FancytreeNode | null;
     fancytree<K extends keyof Fancytree.FancytreeOptions>(option: "option", name: K): Fancytree.FancytreeOptions[K];
-    fancytree<K extends keyof Fancytree.FancytreeOptions>(option: "option", name: K, value: Fancytree.FancytreeOptions[K]): JQuery;
+    fancytree<K extends keyof Fancytree.FancytreeOptions>(
+        option: "option",
+        name: K,
+        value: Fancytree.FancytreeOptions[K],
+    ): JQuery;
     fancytree(option: "option", name: string): unknown;
     fancytree(option: "option", name: string, value: unknown): JQuery;
     fancytree(option: "enable" | "disable" | "destroy" | "clear"): JQuery;
@@ -192,7 +196,10 @@ declare namespace Fancytree {
          * @param keyPathList one or more key paths  (e.g. '/3/2_1/7')
          * @param callback callback(node, status) is called for every visited node ('loading', 'loaded', 'ok', 'error')
          */
-        loadKeyPath(keyPathList: string[], callback: (node: FancytreeNode, status: string) => void): JQueryPromise<unknown>;
+        loadKeyPath(
+            keyPathList: string[],
+            callback: (node: FancytreeNode, status: string) => void,
+        ): JQueryPromise<unknown>;
 
         /** Make sure that a node with a given ID is loaded, by traversing - and loading - its parents. This method is ment for lazy hierarchies. A callback is executed for every node as we go.
          *
@@ -1319,7 +1326,13 @@ declare namespace Fancytree {
         fixPositionOptions(opts: Object): Object;
 
         /** Evaluate a tree option that may be callback-backed or overridden on node data. */
-        evalOption(optionName: string, node: FancytreeNode, nodeObject: Object, treeOptions: Object, defaultValue?: unknown): unknown;
+        evalOption(
+            optionName: string,
+            node: FancytreeNode,
+            nodeObject: Object,
+            treeOptions: Object,
+            defaultValue?: unknown,
+        ): unknown;
 
         getEventTarget(event: Event): Object;
 
@@ -1341,7 +1354,12 @@ declare namespace Fancytree {
         parseHtml($ul: JQuery): NodeData[];
 
         /** Override method on an object, preserving access to `_super` and `_superApply`. */
-        overrideMethod(instance: Object, methodName: string, handler: (...args: any[]) => unknown, context?: unknown): void;
+        overrideMethod(
+            instance: Object,
+            methodName: string,
+            handler: (...args: any[]) => unknown,
+            context?: unknown,
+        ): void;
 
         /** Add Fancytree extension definition to the list of globally available extensions. */
         registerExtension(definition: Object): void;
