@@ -2919,7 +2919,7 @@ declare namespace Xrm {
              * @param value The enumeration value of the option desired.
              * @returns The option.
              */
-            getOption(value: number): OptionSetValue;
+            getOption(value: T): OptionSetValue;
 
             /**
              * Gets the option matching a label.
@@ -2954,7 +2954,7 @@ declare namespace Xrm {
              *              OptionSet attribute. Attributes on Quick Create Forms will not save values set
              *              with this method.
              */
-            setValue(value: number | null): void;
+            setValue(value: T | null): void;
 
             /**
              * A collection of all the controls on the form that interface with this attribute.
@@ -2985,7 +2985,7 @@ declare namespace Xrm {
              * @param value The enumeration value of the option desired.
              * @returns The option.
              */
-            getOption(value: number): OptionSetValue;
+            getOption(value: T): OptionSetValue;
 
             /**
              * Gets the option matching a label.
@@ -3020,7 +3020,7 @@ declare namespace Xrm {
              *              OptionSet attribute. Attributes on Quick Create Forms will not save values set
              *              with this method.
              */
-            setValue(value: number[] | null): void;
+            setValue(value: T[] | null): void;
 
             /**
              * A collection of all the controls on the form that interface with this attribute.

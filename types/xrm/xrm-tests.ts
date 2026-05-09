@@ -180,6 +180,11 @@ enum TestOptionSet {
 const optionSetAttributeEnum = formContext.getAttribute<Xrm.Attributes.OptionSetAttribute<TestOptionSet>>("statuscode");
 if (optionSetAttributeEnum !== null) {
     const optionEnumValue: TestOptionSet | null = optionSetAttributeEnum.getValue();
+    optionSetAttributeEnum.getOption(TestOptionSet.Option1);
+    optionSetAttributeEnum.setValue(TestOptionSet.Option1);
+    optionSetAttributeEnum.setValue(null);
+    // @ts-expect-error — plain number is not assignable to TestOptionSet
+    optionSetAttributeEnum.setValue(123);
 }
 
 /// Demonstrate MultiSelectOptionSet Value as int
@@ -203,6 +208,11 @@ const multiSelectOptionSetAttributeEnum = formContext.getAttribute<
 >("statuscode");
 if (multiSelectOptionSetAttributeEnum !== null) {
     const multiSelectOptionEnumValue: TestMultiSelectOptionSet[] | null = multiSelectOptionSetAttributeEnum.getValue();
+    multiSelectOptionSetAttributeEnum.getOption(TestMultiSelectOptionSet.Option1);
+    multiSelectOptionSetAttributeEnum.setValue([TestMultiSelectOptionSet.Option1]);
+    multiSelectOptionSetAttributeEnum.setValue(null);
+    // @ts-expect-error — plain number is not assignable to TestMultiSelectOptionSet
+    multiSelectOptionSetAttributeEnum.setValue([123]);
 }
 
 // Demonstrate that controls on a MultiSelectOptionSetAttribute are typed as MultiSelectOptionSetControl
