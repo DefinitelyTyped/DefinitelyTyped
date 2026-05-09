@@ -1286,7 +1286,10 @@ declare module "node:http2" {
         "checkContinue": [request: InstanceType<Http2Request>, response: InstanceType<Http2Response>];
         "request": [request: InstanceType<Http2Request>, response: InstanceType<Http2Response>];
         "session": [session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>];
-        "sessionError": [err: Error];
+        "sessionError": [
+            err: Error,
+            session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>,
+        ];
     }
     interface Http2Server<
         Http1Request extends typeof IncomingMessage = typeof IncomingMessage,

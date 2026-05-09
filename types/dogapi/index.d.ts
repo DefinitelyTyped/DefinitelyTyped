@@ -49,7 +49,7 @@ interface metric {
     send_all(
         metrics: Array<{
             metric: string;
-            points: number | number[] | Array<[string, number]>;
+            points: number | number[] | Array<[number, number]>;
             tags?: string[] | undefined;
             type?: string | undefined;
             metric_type?: string | undefined;

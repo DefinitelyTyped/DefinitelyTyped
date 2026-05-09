@@ -1,2 +1,2 @@
-declare function ToBigInt64(argument: bigint): bigint;
+declare function ToBigInt64(argument: unknown): bigint;
 export = ToBigInt64;
