@@ -54,3 +54,8 @@ ES5.CheckObjectCoercible(any);
 
 ES5.ToPropertyDescriptor({ value: 123 }); // $ExpectType PropertyDescriptor<number>
 ES5.FromPropertyDescriptor({ "[[Value]]": "456" }); // $ExpectType TypedPropertyDescriptor<string>
+
+ES5["Abstract Relational Comparison"](1, 2, true); // $ExpectType boolean | undefined
+ES5["Abstract Relational Comparison"](any, any, false); // $ExpectType boolean | undefined
+
+ES5.abs(-3); // $ExpectType number

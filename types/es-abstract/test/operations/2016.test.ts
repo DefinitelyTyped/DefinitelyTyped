@@ -44,7 +44,6 @@ export type AllAddedKeys =
     | "OrdinarySetPrototypeOf";
 
 export type AddedKeys =
-    | "abs"
     | "AddRestrictedFunctionProperties"
     | "AllocateArrayBuffer"
     | "AllocateTypedArray"

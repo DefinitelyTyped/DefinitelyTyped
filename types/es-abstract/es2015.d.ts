@@ -2,6 +2,7 @@ import ES5 = require("./es5");
 import type { PropertyKey as ESPropertyKey } from "./index";
 
 interface ES2015 {
+    readonly abs: typeof import("./2015/abs");
     readonly "Abstract Equality Comparison": typeof import("./2015/AbstractEqualityComparison");
     readonly "Abstract Relational Comparison": typeof import("./2015/AbstractRelationalComparison");
     readonly "Strict Equality Comparison": typeof import("./2015/StrictEqualityComparison");

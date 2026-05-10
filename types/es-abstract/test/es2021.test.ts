@@ -21,7 +21,9 @@ ES2021.IsIntegralNumber(any); // $ExpectType boolean
 ES2021.clamp(5, 0, 10); // $ExpectType number
 
 // CodePointsToString
-ES2021.CodePointsToString(["a", "b", "c"]); // $ExpectType string
+ES2021.CodePointsToString([0x61, 0x62, 0x63]); // $ExpectType string
+// @ts-expect-error
+ES2021.CodePointsToString(["a", "b", "c"]);
 
 // StringToCodePoints
 ES2021.StringToCodePoints("abc"); // $ExpectType string[]

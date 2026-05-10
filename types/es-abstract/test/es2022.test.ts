@@ -21,3 +21,6 @@ ES2022.IsStrictlyEqual(any, any); // $ExpectType boolean
 
 // CreateNonEnumerableDataPropertyOrThrow
 ES2022.CreateNonEnumerableDataPropertyOrThrow({}, "foo", "bar"); // $ExpectType void
+
+// ToZeroPaddedDecimalString
+ES2022.ToZeroPaddedDecimalString(7, 4); // $ExpectType string

@@ -2,7 +2,7 @@ declare function GetSubstitution(
     matched: string,
     str: string,
     position: number,
-    captures: string[],
+    captures: ReadonlyArray<string | undefined>,
     replacement: string,
 ): string;
 export = GetSubstitution;
