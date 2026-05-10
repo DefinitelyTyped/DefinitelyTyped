@@ -3157,6 +3157,13 @@ declare module "node:crypto" {
      * @since v15.6.0, v14.17.0
      */
     function randomUUID(options?: RandomUUIDOptions): UUID;
+    /**
+     * Generates a random [RFC 9562](https://www.rfc-editor.org/rfc/rfc9562.txt) version 7 UUID. The UUID contains a
+     * millisecond precision Unix timestamp in the most significant 48 bits, followed by
+     * cryptographically secure random bits for the remaining fields.
+     * @since v26.1.0
+     */
+    function randomUUIDv7(options?: RandomUUIDOptions): UUID;
     interface X509CheckOptions {
         /**
          * @default 'always'
