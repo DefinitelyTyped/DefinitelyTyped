@@ -2997,6 +2997,7 @@ declare module "node:crypto" {
          */
         disableEntropyCache?: boolean | undefined;
     }
+    interface RandomUUIDV7Options extends RandomUUIDOptions {}
     type UUID = `${string}-${string}-${string}-${string}-${string}`;
     /**
      * Generates a random [RFC 4122](https://www.rfc-editor.org/rfc/rfc4122.txt) version 4 UUID. The UUID is generated using a
@@ -3004,6 +3005,14 @@ declare module "node:crypto" {
      * @since v15.6.0, v14.17.0
      */
     function randomUUID(options?: RandomUUIDOptions): UUID;
+    /**
+     * Generates a random [RFC 9562](https://www.rfc-editor.org/rfc/rfc9562.txt) version 7 UUID. The UUID contains a millisecond
+     * precision Unix timestamp in the most significant 48 bits, followed by
+     * cryptographically secure random bits for the remaining fields, making it
+     * suitable for use as a database key with time-based sorting.
+     * @since v26.1.0
+     */
+    function randomUUIDv7(options?: RandomUUIDV7Options): UUID;
     interface X509CheckOptions {
         subject?: "always" | "default" | "never" | undefined;
         wildcards?: boolean | undefined;
