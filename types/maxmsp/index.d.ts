@@ -552,15 +552,9 @@ declare class Folder {
     extension: string;
 
     /**
-     * [reset description]
-     * Documentation is faulty, this has been reported.
+     * Start iterating at the beginning of the list of files. Re-opens the folder if it was previously closed with the `close()` function.
      */
     reset(): void;
-
-    /**
-     * Start iterating at the beginning of the list of files. Re-opens the folder if it was previously closed with the close() function.
-     */
-    append(): void;
 
     /**
      * Moves to the next file.
@@ -618,9 +612,16 @@ declare class LiveAPI {
 
     /**
      * The id of the Live object referred to by the LiveAPI object. These ids are dynamic and awarded in realtime from the Live application, so should not be stored and used over multiple runs of Max
-     * for Live.
+     * for Live. The runtime returns a string (e.g. `"1"`) even though it represents an integer; coerce with `Number()` if you need a numeric form. `id "0"` indicates no object.
      */
-    id: number;
+    id: string;
+
+    /**
+     * Whether the LiveAPI object refers to a valid Live object. Note: in practice the
+     * value reported by this property has been observed as `0` even when `id` is non-zero;
+     * verify in your specific Live version before using as a guard.
+     */
+    readonly valid: number;
 
     /**
      * The path to the Live object referred to by the LiveAPI object. These paths are dependent on the currently open Set in Live, but are otherwise stable: live_set tracks 0 devices 0 will always
@@ -713,7 +714,7 @@ declare class Max {
     /**
      * The pathname of the Max application
      */
-    readonly appath: string;
+    readonly apppath: string;
 
     /**
      * 1 if the command (Macintosh) or control (Windows) key is currently held down
@@ -1610,9 +1611,10 @@ declare class PolyBuffer {
  */
 declare class Task {
     /**
-     * The object argument represents the this during the execution of the function. Use the this keyword (referring to the jsthis object) to be able to use outlets and other js object features. The
-     * function argument represents the function you want to execute, and arguments (an array) represents the arguments to pass to the function. The object and arguments arguments are optional. If not
-     * present, the parent of the function object (typically jsthis) will be assumed, and there will be no arguments supplied to the function.
+     * The `obj` argument represents the `this` during the execution of the function. Use the `this` keyword (referring to the jsthis object) to be able to use outlets and other js object features. The
+     * `func` argument represents the function you want to execute. The optional third+ arguments are spread as the arguments to the function — each becomes a separate `arguments[i]` entry (passing
+     * a single array as the third arg results in `arguments[0]` being that array, not three separate arguments). If `obj` is not present, the parent of the function object (typically jsthis) will be
+     * assumed, and there will be no arguments supplied to the function.
      */
     constructor(func: any, obj?: any, ...args: any[]);
 
@@ -1795,7 +1797,7 @@ declare class SQLite {
      * Start an SQL transaction on the database. This allows you to batch database updates, and to roll back sets of changes if they do not all complete. When you are done with batch updates, a call
      * to endtransaction() should be executed.
      */
-    begintransaction(): void;
+    starttransaction(): void;
 
     /**
      * Complete a transaction and flush all database writes to the file.
@@ -2306,6 +2308,37 @@ declare class MGraphics {
      * A combination of the above two routines, this will draw the line, preserve the path, and override the alpha value in a single routine call.
      */
     stroke_preserve_with_alpha(alpha: number): void;
+
+    /**
+     * Force a redraw of the display area. Equivalent of calling the `paint()` function on the jsthis object.
+     */
+    paint(): void;
+
+    /**
+     * As `paint()`, but multiplied by a global alpha override.
+     */
+    paint_with_alpha(alpha: number): void;
+
+    /**
+     * Clear the contents of the surface.
+     */
+    clear_surface(): void;
+
+    /**
+     * Begin a fresh path, discarding any current path data.
+     */
+    new_path(): void;
+
+    /**
+     * Faster variant of `image_surface_draw` for hot paths. The signature matches `image_surface_draw`.
+     */
+    image_surface_draw_fast(
+        myImage: Image,
+        source_top?: number,
+        source_left?: number,
+        source_width?: number,
+        source_height?: number,
+    ): void;
 }
 
 /**
@@ -2695,7 +2728,13 @@ declare class Sketch {
      */
     ortho3d(): void;
 
-    glbegin(draw_prim: any[]): void;
+    /**
+     * Begin OpenGL primitive drawing. The `draw_prim` string selects the primitive type;
+     * legal values match those of `shapeprim`: "lines", "line_loop", "line_strip",
+     * "points", "polygon", "quads", "quad_grid", "quad_strip", "triangles", "tri_grid",
+     * "tri_fan", "tri_strip".
+     */
+    glbegin(draw_prim: string): void;
     glbindtexture(image_object: string): void;
     glblendfunc(src_function: string, dst_function: string): void;
     glclear(): void;

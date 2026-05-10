@@ -136,7 +136,7 @@ liveApiInstance.mode = 0;
 const testmax = this.max;
 
 // Access properties
-post(testmax.appath);
+post(testmax.apppath);
 post(testmax.cmdkeydown);
 post(testmax.ctrlkeydown);
 post(testmax.db);
@@ -391,7 +391,7 @@ mySQLite.open("example.db", 1, 1);
 mySQLite.close();
 const mySQLResult = new SQLResult();
 mySQLite.exec("SELECT * FROM example_table", mySQLResult);
-mySQLite.begintransaction();
+mySQLite.starttransaction();
 mySQLite.endtransaction();
 
 // ------------- SQLResult usage examples -------------
@@ -573,7 +573,7 @@ sketchInstance.screentoworld(10, 10);
 sketchInstance.worldtoscreen(10, 10, 10);
 
 // Test gl methods - only a few methods are demonstrated
-sketchInstance.glbegin(["LINES"]);
+sketchInstance.glbegin("lines");
 sketchInstance.glvertex(20, 20);
 sketchInstance.glvertex(100, 100);
 sketchInstance.glend();
