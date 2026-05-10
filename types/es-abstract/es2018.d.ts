@@ -1,6 +1,7 @@
 import ES2017 = require("./es2017");
 
 interface ES2018 {
+    readonly abs: typeof import("./2018/abs");
     readonly "Abstract Equality Comparison": typeof import("./2018/AbstractEqualityComparison");
     readonly "Abstract Relational Comparison": typeof import("./2018/AbstractRelationalComparison");
     readonly "Strict Equality Comparison": typeof import("./2018/StrictEqualityComparison");

@@ -19,6 +19,9 @@ ES2018.PromiseResolve(FakePromise, any);
 // TODO: This should be: FakePromise<string>
 ES2018.PromiseResolve(FakePromise, "");
 
+ES2018.GetSubstitution("a", "abc", 0, ["x"], undefined, "$&"); // $ExpectType string
+ES2018.GetSubstitution("a", "abc", 0, ["x", undefined], { name: "y" }, "$<name>"); // $ExpectType string
+
 // Removed in ES2018:
 // @ts-expect-error
 ES2018.EnumerableOwnProperties;

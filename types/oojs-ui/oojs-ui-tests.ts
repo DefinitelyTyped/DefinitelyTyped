@@ -3103,6 +3103,14 @@
         progress: true,
     });
 
+    const instance3 = new OO.ui.ProgressBarWidget({
+        inline: true,
+    });
+
+    const instance4 = new OO.ui.ProgressBarWidget({
+        inline: false,
+    });
+
     instance.getProgress(); // $ExpectType number | false
 
     instance.setProgress(100); // $ExpectType void
@@ -3111,6 +3119,12 @@
 
     // @ts-expect-error
     instance.setProgress(true);
+
+    // @ts-expect-error
+    instance.setInline(true);
+
+    // @ts-expect-error
+    instance.setInline(false);
 }
 // #endregion
 

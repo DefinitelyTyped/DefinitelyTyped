@@ -1,6 +1,7 @@
 import ES2023 = require("./es2023");
 
 interface ES2024 {
+    readonly abs: typeof import("./2024/abs");
     readonly AddEntriesFromIterable: typeof import("./2024/AddEntriesFromIterable");
     readonly AdvanceStringIndex: typeof import("./2024/AdvanceStringIndex");
     readonly ArrayCreate: typeof import("./2024/ArrayCreate");
@@ -39,9 +40,11 @@ interface ES2024 {
     readonly Get: typeof import("./2024/Get");
     readonly GetIterator: typeof import("./2024/GetIterator");
     readonly GetMethod: typeof import("./2024/GetMethod");
+    readonly GetNamedTimeZoneEpochNanoseconds: typeof import("./2024/GetNamedTimeZoneEpochNanoseconds");
     readonly GetOwnPropertyKeys: typeof import("./2024/GetOwnPropertyKeys");
     readonly GetPrototypeFromConstructor: typeof import("./2024/GetPrototypeFromConstructor");
     readonly GetSubstitution: typeof import("./2024/GetSubstitution");
+    readonly GetUTCEpochNanoseconds: typeof import("./2024/GetUTCEpochNanoseconds");
     readonly GetV: typeof import("./2024/GetV");
     readonly HasOwnProperty: typeof import("./2024/HasOwnProperty");
     readonly HasProperty: typeof import("./2024/HasProperty");
@@ -64,6 +67,7 @@ interface ES2024 {
     readonly IsPropertyKey: typeof import("./2024/IsPropertyKey");
     readonly IsRegExp: typeof import("./2024/IsRegExp");
     readonly IsStrictlyEqual: typeof import("./2024/IsStrictlyEqual");
+    readonly IsTimeZoneOffsetString: typeof import("./2024/IsTimeZoneOffsetString");
     readonly IteratorClose: typeof import("./2024/IteratorClose");
     readonly IteratorComplete: typeof import("./2024/IteratorComplete");
     readonly IteratorNext: typeof import("./2024/IteratorNext");
@@ -104,6 +108,7 @@ interface ES2024 {
     readonly StringToNumber: typeof import("./2024/StringToNumber");
     readonly substring: typeof import("./2024/substring");
     readonly SymbolDescriptiveString: typeof import("./2024/SymbolDescriptiveString");
+    readonly SystemTimeZoneIdentifier: typeof import("./2024/SystemTimeZoneIdentifier");
     readonly TestIntegrityLevel: typeof import("./2024/TestIntegrityLevel");
     readonly TimeClip: typeof import("./2024/TimeClip");
     readonly TimeFromYear: typeof import("./2024/TimeFromYear");
@@ -131,6 +136,7 @@ interface ES2024 {
     readonly ToUint32: typeof import("./2024/ToUint32");
     readonly ToUint8: typeof import("./2024/ToUint8");
     readonly ToUint8Clamp: typeof import("./2024/ToUint8Clamp");
+    readonly ToZeroPaddedDecimalString: typeof import("./2024/ToZeroPaddedDecimalString");
     readonly TrimString: typeof import("./2024/TrimString");
     readonly truncate: typeof import("./2024/truncate");
     readonly Type: typeof import("./2024/Type");
