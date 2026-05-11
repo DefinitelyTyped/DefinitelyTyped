@@ -3,7 +3,9 @@ import AttributionData from "./attribution-data";
 import CustomData from "./custom-data";
 import OriginalEventData from "./original-event-data";
 import UserData from "./user-data";
-import type { StandardEvents } from "./standard-events";
+import type {StandardEvents} from './standard-events'
+
+
 /**
  * ServerEvent
  * @see {@link https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/server-event}
