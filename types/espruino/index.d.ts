@@ -14,7 +14,7 @@ declare module "Wifi" {
 
     interface connectionOptions {
         password?: string,
-        dnsServers?: [string, string] // Max 2 DNS servers
+        dnsServers?: [string, string] | [string] // Max 2 DNS servers
         channel?: number,
         bssid?: string,
         authMode?: WifiAuth
