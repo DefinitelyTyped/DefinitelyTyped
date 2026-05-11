@@ -214,7 +214,7 @@ declare module "node:process" {
                 readonly ipv6: boolean;
                 /**
                  * A boolean value that is `true` if the current Node.js build supports
-                 * [loading ECMAScript modules using `require()`](https://nodejs.org/docs/latest-v25.x/api/modules.md#loading-ecmascript-modules-using-require).
+                 * [loading ECMAScript modules using `require()`](https://nodejs.org/docs/latest-v26.x/api/modules.md#loading-ecmascript-modules-using-require).
                  * @since v22.10.0
                  */
                 readonly require_module: boolean;
@@ -729,7 +729,7 @@ declare module "node:process" {
                  * arguments passed when the Node.js process was launched. The first element will
                  * be {@link execPath}. See `process.argv0` if access to the original value
                  * of `argv[0]` is needed. The second element will be the path to the JavaScript
-                 * file being executed. If a [program entry point](https://nodejs.org/docs/latest-v25.x/api/cli.html#program-entry-point) was provided, the second element
+                 * file being executed. If a [program entry point](https://nodejs.org/docs/latest-v26.x/api/cli.html#program-entry-point) was provided, the second element
                  * will be the absolute path to it. The remaining elements are additional command-line
                  * arguments.
                  *
@@ -871,7 +871,7 @@ declare module "node:process" {
                  * should not be used directly, except in special cases. In other words, `require()` should be preferred over `process.dlopen()`
                  * unless there are specific reasons such as custom dlopen flags or loading from ES modules.
                  *
-                 * The `flags` argument is an integer that allows to specify dlopen behavior. See the `[os.constants.dlopen](https://nodejs.org/docs/latest-v25.x/api/os.html#dlopen-constants)`
+                 * The `flags` argument is an integer that allows to specify dlopen behavior. See the `[os.constants.dlopen](https://nodejs.org/docs/latest-v26.x/api/os.html#dlopen-constants)`
                  * documentation for details.
                  *
                  * An important requirement when calling `process.dlopen()` is that the `module` instance must be passed. Functions exported by the C++ Addon
@@ -1711,7 +1711,7 @@ declare module "node:process" {
                 constrainedMemory(): number;
                 /**
                  * Gets the amount of free memory that is still available to the process (in bytes).
-                 * See [`uv_get_available_memory`](https://nodejs.org/docs/latest-v25.x/api/process.html#processavailablememory) for more information.
+                 * See [`uv_get_available_memory`](https://nodejs.org/docs/latest-v26.x/api/process.html#processavailablememory) for more information.
                  * @since v20.13.0
                  */
                 availableMemory(): number;
@@ -2003,7 +2003,7 @@ declare module "node:process" {
                 allowedNodeEnvironmentFlags: ReadonlySet<string>;
                 /**
                  * `process.report` is an object whose methods are used to generate diagnostic reports for the current process.
-                 * Additional documentation is available in the [report documentation](https://nodejs.org/docs/latest-v25.x/api/report.html).
+                 * Additional documentation is available in the [report documentation](https://nodejs.org/docs/latest-v26.x/api/report.html).
                  * @since v11.8.0
                  */
                 report: ProcessReport;

@@ -51,7 +51,7 @@ declare module "node:test/reporters" {
     }
     /**
      * The `lcov` reporter outputs test coverage when used with the
-     * [`--experimental-test-coverage`](https://nodejs.org/docs/latest-v25.x/api/cli.html#--experimental-test-coverage) flag.
+     * [`--experimental-test-coverage`](https://nodejs.org/docs/latest-v26.x/api/cli.html#--experimental-test-coverage) flag.
      * @since v22.0.0
      */
     const lcov: ReporterConstructorWrapper<typeof LcovReporter>;

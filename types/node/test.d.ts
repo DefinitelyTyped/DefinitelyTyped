@@ -175,14 +175,14 @@ declare module "node:test" {
             /**
              * Specifies the current working directory to be used by the test runner.
              * Serves as the base path for resolving files according to the
-             * [test runner execution model](https://nodejs.org/docs/latest-v25.x/api/test.html#test-runner-execution-model).
+             * [test runner execution model](https://nodejs.org/docs/latest-v26.x/api/test.html#test-runner-execution-model).
              * @since v23.0.0
              * @default process.cwd()
              */
             cwd?: string | undefined;
             /**
              * An array containing the list of files to run. If omitted, files are run according to the
-             * [test runner execution model](https://nodejs.org/docs/latest-v25.x/api/test.html#test-runner-execution-model).
+             * [test runner execution model](https://nodejs.org/docs/latest-v26.x/api/test.html#test-runner-execution-model).
              */
             files?: readonly string[] | undefined;
             /**
@@ -195,7 +195,7 @@ declare module "node:test" {
             /**
              * An array containing the list of glob patterns to match test files.
              * This option cannot be used together with `files`. If omitted, files are run according to the
-             * [test runner execution model](https://nodejs.org/docs/latest-v25.x/api/test.html#test-runner-execution-model).
+             * [test runner execution model](https://nodejs.org/docs/latest-v26.x/api/test.html#test-runner-execution-model).
              * @since v22.6.0
              */
             globPatterns?: readonly string[] | undefined;
@@ -283,7 +283,7 @@ declare module "node:test" {
              */
             rerunFailuresFilePath?: string | undefined;
             /**
-             * enable [code coverage](https://nodejs.org/docs/latest-v25.x/api/test.html#collecting-code-coverage) collection.
+             * enable [code coverage](https://nodejs.org/docs/latest-v26.x/api/test.html#collecting-code-coverage) collection.
              * @since v22.10.0
              * @default false
              */
@@ -1160,7 +1160,7 @@ declare module "node:test" {
              * highlighting.
              * @since v22.14.0
              * @param value A value to serialize to a string. If Node.js was started with
-             * the [`--test-update-snapshots`](https://nodejs.org/docs/latest-v25.x/api/cli.html#--test-update-snapshots)
+             * the [`--test-update-snapshots`](https://nodejs.org/docs/latest-v26.x/api/cli.html#--test-update-snapshots)
              * flag, the serialized value is written to
              * `path`. Otherwise, the serialized value is compared to the contents of the
              * existing snapshot file.
@@ -1183,7 +1183,7 @@ declare module "node:test" {
              * ```
              * @since v22.3.0
              * @param value A value to serialize to a string. If Node.js was started with
-             * the [`--test-update-snapshots`](https://nodejs.org/docs/latest-v25.x/api/cli.html#--test-update-snapshots)
+             * the [`--test-update-snapshots`](https://nodejs.org/docs/latest-v26.x/api/cli.html#--test-update-snapshots)
              * flag, the serialized value is written to
              * the snapshot file. Otherwise, the serialized value is compared to the
              * corresponding value in the existing snapshot file.
@@ -1621,7 +1621,7 @@ declare module "node:test" {
              * This function is used to mock the exports of ECMAScript modules, CommonJS modules, JSON modules, and
              * Node.js builtin modules. Any references to the original module prior to mocking are not impacted. In
              * order to enable module mocking, Node.js must be started with the
-             * [`--experimental-test-module-mocks`](https://nodejs.org/docs/latest-v25.x/api/cli.html#--experimental-test-module-mocks)
+             * [`--experimental-test-module-mocks`](https://nodejs.org/docs/latest-v26.x/api/cli.html#--experimental-test-module-mocks)
              * command-line flag.
              *
              * The following example demonstrates how a mock is created for a module.

@@ -79,7 +79,7 @@ declare module "node:crypto" {
         verifySpkac(spkac: NodeJS.ArrayBufferView): boolean;
     }
     namespace constants {
-        // https://nodejs.org/dist/latest-v25.x/docs/api/crypto.html#crypto-constants
+        // https://nodejs.org/dist/latest-v26.x/docs/api/crypto.html#crypto-constants
         const OPENSSL_VERSION_NUMBER: number;
         /** Applies multiple bug workarounds within OpenSSL. See https://www.openssl.org/docs/man1.0.2/ssl/SSL_CTX_set_options.html for detail. */
         const SSL_OP_ALL: number;
@@ -482,6 +482,7 @@ declare module "node:crypto" {
         digest(encoding: BinaryToTextEncoding): string;
     }
     type KeyFormat = "pem" | "der" | "jwk";
+    type RawKeyFormat = "raw-public" | "raw-private" | "raw-seed";
     type KeyObjectType = "secret" | "public" | "private";
     type PublicKeyExportType = "pkcs1" | "spki";
     type PrivateKeyExportType = "pkcs1" | "pkcs8" | "sec1";
@@ -489,7 +490,8 @@ declare module "node:crypto" {
         | SymmetricKeyExportOptions
         | PublicKeyExportOptions
         | PrivateKeyExportOptions
-        | JwkKeyExportOptions;
+        | JwkKeyExportOptions
+        | RawKeyExportOptions;
     interface SymmetricKeyExportOptions {
         format?: "buffer" | undefined;
     }
@@ -506,6 +508,9 @@ declare module "node:crypto" {
     interface JwkKeyExportOptions {
         format: "jwk";
     }
+    interface RawKeyExportOptions {
+        format: RawKeyFormat;
+    }
     interface KeyPairExportOptions<
         TPublic extends PublicKeyExportType = PublicKeyExportType,
         TPrivate extends PrivateKeyExportType = PrivateKeyExportType,
@@ -513,9 +518,11 @@ declare module "node:crypto" {
         publicKeyEncoding?: PublicKeyExportOptions<TPublic> | JwkKeyExportOptions | undefined;
         privateKeyEncoding?: PrivateKeyExportOptions<TPrivate> | JwkKeyExportOptions | undefined;
     }
-    type KeyExportResult<T, Default> = T extends { format: infer F extends KeyFormat }
-        ? { der: NonSharedBuffer; jwk: webcrypto.JsonWebKey; pem: string }[F]
-        : Default;
+    type KeyExportResult<T, Default> = T extends { format: infer F extends RawKeyFormat }
+        ? NonSharedBuffer
+        : T extends { format: infer F extends KeyFormat }
+            ? { der: NonSharedBuffer; jwk: webcrypto.JsonWebKey; pem: string }[F]
+            : Default;
     interface KeyPairExportResult<T extends KeyPairExportOptions> {
         publicKey: KeyExportResult<T["publicKeyEncoding"], KeyObject>;
         privateKey: KeyExportResult<T["privateKeyEncoding"], KeyObject>;
@@ -608,7 +615,7 @@ declare module "node:crypto" {
         static from(key: webcrypto.CryptoKey): KeyObject;
         /**
          * For asymmetric keys, this property represents the type of the key. See the
-         * supported [asymmetric key types](https://nodejs.org/docs/latest-v25.x/api/crypto.html#asymmetric-key-types).
+         * supported [asymmetric key types](https://nodejs.org/docs/latest-v26.x/api/crypto.html#asymmetric-key-types).
          *
          * This property is `undefined` for unrecognized `KeyObject` types and symmetric
          * keys.
@@ -1216,14 +1223,14 @@ declare module "node:crypto" {
     }
     interface PrivateKeyInput {
         key: string | Buffer;
-        format?: KeyFormat | undefined;
+        format?: KeyFormat | RawKeyFormat | undefined;
         type?: PrivateKeyExportType | undefined;
         passphrase?: string | Buffer | undefined;
         encoding?: string | undefined;
     }
     interface PublicKeyInput {
         key: string | Buffer;
-        format?: KeyFormat | undefined;
+        format?: KeyFormat | RawKeyFormat | undefined;
         type?: PublicKeyExportType | undefined;
         encoding?: string | undefined;
     }
@@ -2565,7 +2572,7 @@ declare module "node:crypto" {
     interface X448KeyPairOptions extends KeyPairExportOptions<"spki", "pkcs8"> {}
     /**
      * Generates a new asymmetric key pair of the given `type`. See the
-     * supported [asymmetric key types](https://nodejs.org/docs/latest-v25.x/api/crypto.html#asymmetric-key-types).
+     * supported [asymmetric key types](https://nodejs.org/docs/latest-v26.x/api/crypto.html#asymmetric-key-types).
      *
      * If a `publicKeyEncoding` or `privateKeyEncoding` was specified, this function
      * behaves as if `keyObject.export()` had been called on its result. Otherwise,
@@ -2603,7 +2610,7 @@ declare module "node:crypto" {
      * it will be a buffer containing the data encoded as DER.
      * @since v10.12.0
      * @param type The asymmetric key type to generate. See the
-     * supported [asymmetric key types](https://nodejs.org/docs/latest-v25.x/api/crypto.html#asymmetric-key-types).
+     * supported [asymmetric key types](https://nodejs.org/docs/latest-v26.x/api/crypto.html#asymmetric-key-types).
      */
     function generateKeyPairSync<T extends DHKeyPairOptions>(
         type: "dh",
@@ -2655,7 +2662,7 @@ declare module "node:crypto" {
     ): KeyPairExportResult<T>;
     /**
      * Generates a new asymmetric key pair of the given `type`. See the
-     * supported [asymmetric key types](https://nodejs.org/docs/latest-v25.x/api/crypto.html#asymmetric-key-types).
+     * supported [asymmetric key types](https://nodejs.org/docs/latest-v26.x/api/crypto.html#asymmetric-key-types).
      *
      * If a `publicKeyEncoding` or `privateKeyEncoding` was specified, this function
      * behaves as if `keyObject.export()` had been called on its result. Otherwise,
@@ -2691,7 +2698,7 @@ declare module "node:crypto" {
      * a `Promise` for an `Object` with `publicKey` and `privateKey` properties.
      * @since v10.12.0
      * @param type The asymmetric key type to generate. See the
-     * supported [asymmetric key types](https://nodejs.org/docs/latest-v25.x/api/crypto.html#asymmetric-key-types).
+     * supported [asymmetric key types](https://nodejs.org/docs/latest-v26.x/api/crypto.html#asymmetric-key-types).
      */
     function generateKeyPair<T extends DHKeyPairOptions>(
         type: "dh",
@@ -3639,7 +3646,7 @@ declare module "node:crypto" {
      * random and at least 16 bytes long. See [NIST SP 800-132](https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-132.pdf) for details.
      *
      * When passing strings for `message`, `nonce`, `secret` or `associatedData`, please
-     * consider [caveats when using strings as inputs to cryptographic APIs](https://nodejs.org/docs/latest-v25.x/api/crypto.html#using-strings-as-inputs-to-cryptographic-apis).
+     * consider [caveats when using strings as inputs to cryptographic APIs](https://nodejs.org/docs/latest-v26.x/api/crypto.html#using-strings-as-inputs-to-cryptographic-apis).
      *
      * The `callback` function is called with two arguments: `err` and `derivedKey`.
      * `err` is an exception object when key derivation fails, otherwise `err` is
@@ -3683,7 +3690,7 @@ declare module "node:crypto" {
      * random and at least 16 bytes long. See [NIST SP 800-132](https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-132.pdf) for details.
      *
      * When passing strings for `message`, `nonce`, `secret` or `associatedData`, please
-     * consider [caveats when using strings as inputs to cryptographic APIs](https://nodejs.org/docs/latest-v25.x/api/crypto.html#using-strings-as-inputs-to-cryptographic-apis).
+     * consider [caveats when using strings as inputs to cryptographic APIs](https://nodejs.org/docs/latest-v26.x/api/crypto.html#using-strings-as-inputs-to-cryptographic-apis).
      *
      * An exception is thrown when key derivation fails, otherwise the derived key is
      * returned as a `Buffer`.

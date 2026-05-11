@@ -21,7 +21,7 @@ declare module "node:assert/strict" {
         strictEqual,
         throws,
     } from "node:assert";
-    function strict(value: unknown, message?: string | Error): asserts value;
+    function strict(value: unknown, message?: string | Error | ((actual: unknown, expected: unknown) => string), ...args: unknown[]): asserts value;
     namespace strict {
         export {
             Assert,

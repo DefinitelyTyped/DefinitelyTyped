@@ -1942,3 +1942,20 @@ import { promisify } from "node:util";
     const publicKey = crypto.decapsulate(privateKey, Buffer.from("the quick brown fox jumped over the lazy dog"));
     const { sharedKey, ciphertext } = crypto.encapsulate(publicKey);
 }
+
+// Raw key format export/import (v26.0.0+)
+{
+    const { publicKey, privateKey } = crypto.generateKeyPairSync("ed25519");
+
+    // Export with raw formats
+    const rawPublic = publicKey.export({ format: "raw-public" });
+    rawPublic; // $ExpectType NonSharedBuffer
+    const rawPrivate = privateKey.export({ format: "raw-private" });
+    rawPrivate; // $ExpectType NonSharedBuffer
+    const rawSeed = privateKey.export({ format: "raw-seed" });
+    rawSeed; // $ExpectType NonSharedBuffer
+
+    // Import with raw formats
+    const importedPublic = crypto.createPublicKey({ key: rawPublic, format: "raw-public" });
+    const importedPrivate = crypto.createPrivateKey({ key: rawPrivate, format: "raw-private" });
+}

@@ -20,7 +20,7 @@ declare module "node:readline" {
     }
     /**
      * Instances of the `readline.Interface` class are constructed using the `readline.createInterface()` method. Every instance is associated with a
-     * single `input` [Readable](https://nodejs.org/docs/latest-v25.x/api/stream.html#readable-streams) stream and a single `output` [Writable](https://nodejs.org/docs/latest-v25.x/api/stream.html#writable-streams) stream.
+     * single `input` [Readable](https://nodejs.org/docs/latest-v26.x/api/stream.html#readable-streams) stream and a single `output` [Writable](https://nodejs.org/docs/latest-v26.x/api/stream.html#writable-streams) stream.
      * The `output` stream is used to print prompts for user input that arrives on,
      * and is read from, the `input` stream.
      * @since v0.1.104
@@ -32,7 +32,7 @@ declare module "node:readline" {
          * > Instances of the `readline.Interface` class are constructed using the
          * > `readline.createInterface()` method.
          *
-         * @see https://nodejs.org/dist/latest-v25.x/docs/api/readline.html#class-interfaceconstructor
+         * @see https://nodejs.org/dist/latest-v26.x/docs/api/readline.html#class-interfaceconstructor
          */
         protected constructor(
             input: NodeJS.ReadableStream,
@@ -46,7 +46,7 @@ declare module "node:readline" {
          * > Instances of the `readline.Interface` class are constructed using the
          * > `readline.createInterface()` method.
          *
-         * @see https://nodejs.org/dist/latest-v25.x/docs/api/readline.html#class-interfaceconstructor
+         * @see https://nodejs.org/dist/latest-v26.x/docs/api/readline.html#class-interfaceconstructor
          */
         protected constructor(options: ReadLineOptions);
         readonly terminal: boolean;
@@ -230,11 +230,11 @@ declare module "node:readline" {
     type CompleterResult = [string[], string];
     interface ReadLineOptions {
         /**
-         * The [`Readable`](https://nodejs.org/docs/latest-v25.x/api/stream.html#readable-streams) stream to listen to
+         * The [`Readable`](https://nodejs.org/docs/latest-v26.x/api/stream.html#readable-streams) stream to listen to
          */
         input: NodeJS.ReadableStream;
         /**
-         * The [`Writable`](https://nodejs.org/docs/latest-v25.x/api/stream.html#writable-streams) stream to write readline data to.
+         * The [`Writable`](https://nodejs.org/docs/latest-v26.x/api/stream.html#writable-streams) stream to write readline data to.
          */
         output?: NodeJS.WritableStream | undefined;
         /**
@@ -279,7 +279,7 @@ declare module "node:readline" {
          * `crlfDelay` will be coerced to a number no less than `100`.
          * It can be set to `Infinity`, in which case
          * `\r` followed by `\n` will always be considered a single newline
-         * (which may be reasonable for [reading files](https://nodejs.org/docs/latest-v25.x/api/readline.html#example-read-file-stream-line-by-line) with `\r\n` line delimiter).
+         * (which may be reasonable for [reading files](https://nodejs.org/docs/latest-v26.x/api/readline.html#example-read-file-stream-line-by-line) with `\r\n` line delimiter).
          * @default 100
          */
         crlfDelay?: number | undefined;
@@ -467,7 +467,7 @@ declare module "node:readline" {
         cols: number;
     }
     /**
-     * The `readline.clearLine()` method clears current line of given [TTY](https://nodejs.org/docs/latest-v25.x/api/tty.html) stream
+     * The `readline.clearLine()` method clears current line of given [TTY](https://nodejs.org/docs/latest-v26.x/api/tty.html) stream
      * in a specified direction identified by `dir`.
      * @since v0.7.7
      * @param callback Invoked once the operation completes.
@@ -475,7 +475,7 @@ declare module "node:readline" {
      */
     function clearLine(stream: NodeJS.WritableStream, dir: Direction, callback?: () => void): boolean;
     /**
-     * The `readline.clearScreenDown()` method clears the given [TTY](https://nodejs.org/docs/latest-v25.x/api/tty.html) stream from
+     * The `readline.clearScreenDown()` method clears the given [TTY](https://nodejs.org/docs/latest-v26.x/api/tty.html) stream from
      * the current position of the cursor down.
      * @since v0.7.7
      * @param callback Invoked once the operation completes.
@@ -484,7 +484,7 @@ declare module "node:readline" {
     function clearScreenDown(stream: NodeJS.WritableStream, callback?: () => void): boolean;
     /**
      * The `readline.cursorTo()` method moves cursor to the specified position in a
-     * given [TTY](https://nodejs.org/docs/latest-v25.x/api/tty.html) `stream`.
+     * given [TTY](https://nodejs.org/docs/latest-v26.x/api/tty.html) `stream`.
      * @since v0.7.7
      * @param callback Invoked once the operation completes.
      * @return `false` if `stream` wishes for the calling code to wait for the `'drain'` event to be emitted before continuing to write additional data; otherwise `true`.
@@ -492,7 +492,7 @@ declare module "node:readline" {
     function cursorTo(stream: NodeJS.WritableStream, x: number, y?: number, callback?: () => void): boolean;
     /**
      * The `readline.moveCursor()` method moves the cursor _relative_ to its current
-     * position in a given [TTY](https://nodejs.org/docs/latest-v25.x/api/tty.html) `stream`.
+     * position in a given [TTY](https://nodejs.org/docs/latest-v26.x/api/tty.html) `stream`.
      * @since v0.7.7
      * @param callback Invoked once the operation completes.
      * @return `false` if `stream` wishes for the calling code to wait for the `'drain'` event to be emitted before continuing to write additional data; otherwise `true`.
