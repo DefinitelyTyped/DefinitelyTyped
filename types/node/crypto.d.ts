@@ -518,11 +518,10 @@ declare module "node:crypto" {
         publicKeyEncoding?: PublicKeyExportOptions<TPublic> | JwkKeyExportOptions | undefined;
         privateKeyEncoding?: PrivateKeyExportOptions<TPrivate> | JwkKeyExportOptions | undefined;
     }
-    type KeyExportResult<T, Default> = T extends { format: infer F extends RawKeyFormat }
-        ? NonSharedBuffer
+    type KeyExportResult<T, Default> = T extends { format: infer F extends RawKeyFormat } ? NonSharedBuffer
         : T extends { format: infer F extends KeyFormat }
             ? { der: NonSharedBuffer; jwk: webcrypto.JsonWebKey; pem: string }[F]
-            : Default;
+        : Default;
     interface KeyPairExportResult<T extends KeyPairExportOptions> {
         publicKey: KeyExportResult<T["publicKeyEncoding"], KeyObject>;
         privateKey: KeyExportResult<T["privateKeyEncoding"], KeyObject>;
