@@ -968,6 +968,29 @@ export const version7Tests = async (): Promise<void> => {
     // @ts-expect-error
     connection.appContext("CLIENTCONTEXT", [{ traceCtx: 12 }]);
 
+    const endUserSecurityContext = new oracledb.EndUserSecurityContext({
+        databaseAccessToken: "db-access-token",
+        endUserToken: "end-user-token",
+        dataRoles: ["ANALYST_ROLE"],
+        attributes: {
+            department: "sales",
+        },
+    });
+    connection.setEndUserSecurityContext(endUserSecurityContext);
+    connection.clearEndUserSecurityContext();
+
+    const endUserSecurityContextByName = new oracledb.EndUserSecurityContext({
+        databaseAccessToken: "db-access-token",
+        endUserName: "APP_USER",
+        key: "ctx-key",
+    });
+    connection.setEndUserSecurityContext(endUserSecurityContextByName);
+
+    // @ts-expect-error databaseAccessToken is required
+    new oracledb.EndUserSecurityContext({
+        endUserToken: "end-user-token",
+    });
+
     const columns: oracledb.DirectPathLoadColumns = ["ID", "NAME"];
     const data: oracledb.DirectPathLoadData = [
         [1, "first"],
