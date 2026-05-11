@@ -982,6 +982,14 @@ class TestReporter extends Transform {
                 );
                 break;
             }
+            case "test:interrupted": {
+                const { tests } = event.data;
+                callback(
+                    null,
+                    tests.map((test) => `${test.name}/${test.nesting}/${test.file}/${test.column}/${test.line}`),
+                );
+                break;
+            }
             case "test:pass": {
                 const { file, column, line, details, name, nesting, testNumber, skip, todo } = event.data;
                 callback(
