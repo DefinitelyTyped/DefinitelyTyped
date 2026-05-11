@@ -54,7 +54,7 @@ declare module "node:http2" {
     interface Http2StreamEventMap extends stream.DuplexEventMap {
         "aborted": [];
         "data": [chunk: string | NonSharedBuffer];
-        "frameError": [type: number, code: number, streamID: number];
+        "frameError": [type: number, code: number, id: number];
         "ready": [];
         "streamClosed": [code: number];
         "timeout": [];
@@ -605,7 +605,7 @@ declare module "node:http2" {
         "close": [];
         "connect": [session: Http2Session, socket: net.Socket | tls.TLSSocket];
         "error": [err: Error];
-        "frameError": [type: number, code: number, streamID: number];
+        "frameError": [type: number, code: number, id: number];
         "goaway": [errorCode: number, lastStreamID: number, opaqueData?: NonSharedBuffer];
         "localSettings": [settings: Settings];
         "ping": [payload: Buffer];
