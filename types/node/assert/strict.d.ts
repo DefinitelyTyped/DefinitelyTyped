@@ -3,6 +3,7 @@ declare module "node:assert/strict" {
         Assert,
         AssertionError,
         AssertionErrorOptions,
+        AssertMessageFunction,
         AssertOptions,
         AssertPredicate,
         AssertStrict,
@@ -21,7 +22,15 @@ declare module "node:assert/strict" {
         strictEqual,
         throws,
     } from "node:assert";
-    function strict(value: unknown, message?: string | Error): asserts value;
+    function strict(
+        value: unknown,
+        message?: Error | AssertMessageFunction,
+    ): asserts value;
+    function strict(
+        value: unknown,
+        message: string,
+        ...args: unknown[]
+    ): asserts value;
     namespace strict {
         export {
             Assert,
