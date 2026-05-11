@@ -481,7 +481,7 @@ declare module "node:crypto" {
         digest(): NonSharedBuffer;
         digest(encoding: BinaryToTextEncoding): string;
     }
-    type KeyFormat = "pem" | "der" | "jwk";
+    type KeyFormat = "pem" | "der" | "jwk" | "raw-public" | "raw-private" | "raw-seed";
     type KeyObjectType = "secret" | "public" | "private";
     type PublicKeyExportType = "pkcs1" | "spki";
     type PrivateKeyExportType = "pkcs1" | "pkcs8" | "sec1";
@@ -489,32 +489,54 @@ declare module "node:crypto" {
         | SymmetricKeyExportOptions
         | PublicKeyExportOptions
         | PrivateKeyExportOptions
-        | JwkKeyExportOptions;
+        | JwkKeyExportOptions
+        | RawPublicKeyExportOptions
+        | RawPrivateKeyExportOptions;
     interface SymmetricKeyExportOptions {
         format?: "buffer" | undefined;
     }
     interface PublicKeyExportOptions<T extends PublicKeyExportType = PublicKeyExportType> {
         type: T;
-        format: Exclude<KeyFormat, "jwk">;
+        format: "pem" | "der";
     }
     interface PrivateKeyExportOptions<T extends PrivateKeyExportType = PrivateKeyExportType> {
         type: T;
-        format: Exclude<KeyFormat, "jwk">;
+        format: "pem" | "der";
         cipher?: string | undefined;
         passphrase?: string | Buffer | undefined;
     }
     interface JwkKeyExportOptions {
         format: "jwk";
     }
+    interface RawPublicKeyExportOptions {
+        format: "raw-public";
+    }
+    interface RawPrivateKeyExportOptions {
+        format: "raw-private" | "raw-seed";
+    }
     interface KeyPairExportOptions<
         TPublic extends PublicKeyExportType = PublicKeyExportType,
         TPrivate extends PrivateKeyExportType = PrivateKeyExportType,
     > {
-        publicKeyEncoding?: PublicKeyExportOptions<TPublic> | JwkKeyExportOptions | undefined;
-        privateKeyEncoding?: PrivateKeyExportOptions<TPrivate> | JwkKeyExportOptions | undefined;
+        publicKeyEncoding?:
+            | PublicKeyExportOptions<TPublic>
+            | RawPublicKeyExportOptions
+            | JwkKeyExportOptions
+            | undefined;
+        privateKeyEncoding?:
+            | PrivateKeyExportOptions<TPrivate>
+            | RawPrivateKeyExportOptions
+            | JwkKeyExportOptions
+            | undefined;
     }
-    type KeyExportResult<T, Default> = T extends { format: infer F extends KeyFormat }
-        ? { der: NonSharedBuffer; jwk: webcrypto.JsonWebKey; pem: string }[F]
+    type KeyExportResult<T, Default> = T extends { format: infer F extends KeyFormat } ? {
+            "der": NonSharedBuffer;
+            "jwk": webcrypto.JsonWebKey;
+            "pem": string;
+            "raw-public": NonSharedBuffer;
+            "raw-private": NonSharedBuffer;
+            "raw-seed": NonSharedBuffer;
+        }[F]
         : Default;
     interface KeyPairExportResult<T extends KeyPairExportOptions> {
         publicKey: KeyExportResult<T["publicKeyEncoding"], KeyObject>;
@@ -630,26 +652,18 @@ declare module "node:crypto" {
          */
         asymmetricKeyDetails?: AsymmetricKeyDetails;
         /**
-         * For symmetric keys, the following encoding options can be used:
-         *
-         * For public keys, the following encoding options can be used:
-         *
-         * For private keys, the following encoding options can be used:
-         *
          * The result type depends on the selected encoding format, when PEM the
          * result is a string, when DER it will be a buffer containing the data
-         * encoded as DER, when [JWK](https://tools.ietf.org/html/rfc7517) it will be an object.
+         * encoded as DER, when [JWK](https://tools.ietf.org/html/rfc7517) it will be an object. Raw formats return a
+         * `Buffer` containing the raw key material.
          *
-         * When [JWK](https://tools.ietf.org/html/rfc7517) encoding format was selected, all other encoding options are
-         * ignored.
-         *
-         * PKCS#1, SEC1, and PKCS#8 type keys can be encrypted by using a combination of
-         * the `cipher` and `format` options. The PKCS#8 `type` can be used with any`format` to encrypt any key algorithm (RSA, EC, or DH) by specifying a`cipher`. PKCS#1 and SEC1 can only be
-         * encrypted by specifying a `cipher`when the PEM `format` is used. For maximum compatibility, use PKCS#8 for
-         * encrypted private keys. Since PKCS#8 defines its own
-         * encryption mechanism, PEM-level encryption is not supported when encrypting
-         * a PKCS#8 key. See [RFC 5208](https://www.rfc-editor.org/rfc/rfc5208.txt) for PKCS#8 encryption and [RFC 1421](https://www.rfc-editor.org/rfc/rfc1421.txt) for
-         * PKCS#1 and SEC1 encryption.
+         * Private keys can be encrypted by specifying a `cipher` and `passphrase`.
+         * The PKCS#8 `type` supports encryption with both PEM and DER `format` for any
+         * key algorithm. PKCS#1 and SEC1 can only be encrypted when the PEM `format` is
+         * used. For maximum compatibility, use PKCS#8 for encrypted private keys. Since
+         * PKCS#8 defines its own encryption mechanism, PEM-level encryption is not
+         * supported when encrypting a PKCS#8 key. See [RFC 5208](https://www.rfc-editor.org/rfc/rfc5208.txt) for PKCS#8 encryption
+         * and [RFC 1421](https://www.rfc-editor.org/rfc/rfc1421.txt) for PKCS#1 and SEC1 encryption.
          * @since v11.6.0
          */
         export<T extends KeyExportOptions = {}>(options?: T): KeyExportResult<T, NonSharedBuffer>;
@@ -1216,17 +1230,33 @@ declare module "node:crypto" {
         ): this;
     }
     interface PrivateKeyInput {
-        key: string | Buffer;
-        format?: KeyFormat | undefined;
+        key: string | NodeJS.ArrayBufferView;
+        format?: "pem" | "der" | undefined;
         type?: PrivateKeyExportType | undefined;
         passphrase?: string | Buffer | undefined;
         encoding?: string | undefined;
     }
     interface PublicKeyInput {
-        key: string | Buffer;
-        format?: KeyFormat | undefined;
+        key: string | NodeJS.ArrayBufferView;
+        format?: "pem" | "der" | undefined;
         type?: PublicKeyExportType | undefined;
         encoding?: string | undefined;
+    }
+    interface RawPrivateKeyInput {
+        key: NodeJS.ArrayBufferView;
+        format: "raw-private" | "raw-seed";
+        asymmetricKeyType: AsymmetricKeyType;
+        namedCurve?: string | undefined;
+    }
+    interface RawPublicKeyInput {
+        key: NodeJS.ArrayBufferView;
+        format: "raw-public";
+        asymmetricKeyType: AsymmetricKeyType;
+        namedCurve?: string | undefined;
+    }
+    interface JsonWebKeyInput {
+        key: webcrypto.JsonWebKey;
+        format: "jwk";
     }
     /**
      * Asynchronously generates a new random secret key of the given `length`. The `type` will determine which validations will be performed on the `length`.
@@ -1277,10 +1307,6 @@ declare module "node:crypto" {
             length: number;
         },
     ): KeyObject;
-    interface JsonWebKeyInput {
-        key: webcrypto.JsonWebKey;
-        format: "jwk";
-    }
     /**
      * Creates and returns a new key object containing a private key. If `key` is a
      * string or `Buffer`, `format` is assumed to be `'pem'`; otherwise, `key` must be an object with the properties described above.
@@ -1289,7 +1315,9 @@ declare module "node:crypto" {
      * of the passphrase is limited to 1024 bytes.
      * @since v11.6.0
      */
-    function createPrivateKey(key: PrivateKeyInput | string | Buffer | JsonWebKeyInput): KeyObject;
+    function createPrivateKey(
+        key: PrivateKeyInput | RawPrivateKeyInput | JsonWebKeyInput | string | NodeJS.ArrayBufferView,
+    ): KeyObject;
     /**
      * Creates and returns a new key object containing a public key. If `key` is a
      * string or `Buffer`, `format` is assumed to be `'pem'`; if `key` is a `KeyObject` with type `'private'`, the public key is derived from the given private key;
@@ -1304,7 +1332,9 @@ declare module "node:crypto" {
      * and it will be impossible to extract the private key from the returned object.
      * @since v11.6.0
      */
-    function createPublicKey(key: PublicKeyInput | string | Buffer | KeyObject | JsonWebKeyInput): KeyObject;
+    function createPublicKey(
+        key: PublicKeyInput | RawPublicKeyInput | JsonWebKeyInput | string | NodeJS.ArrayBufferView | KeyObject,
+    ): KeyObject;
     /**
      * Creates and returns a new key object containing a secret key for symmetric
      * encryption or `Hmac`.
@@ -1338,15 +1368,17 @@ declare module "node:crypto" {
         context?: ArrayBuffer | NodeJS.ArrayBufferView | undefined;
     }
     interface SignPrivateKeyInput extends PrivateKeyInput, SigningOptions {}
+    interface SignRawPrivateKeyInput extends RawPrivateKeyInput, SigningOptions {}
+    interface SignJsonWebKeyInput extends JsonWebKeyInput, SigningOptions {}
     interface SignKeyObjectInput extends SigningOptions {
         key: KeyObject;
     }
-    interface SignJsonWebKeyInput extends JsonWebKeyInput, SigningOptions {}
     interface VerifyPublicKeyInput extends PublicKeyInput, SigningOptions {}
+    interface VerifyRawPublicKeyInput extends RawPublicKeyInput, SigningOptions {}
+    interface VerifyJsonWebKeyInput extends JsonWebKeyInput, SigningOptions {}
     interface VerifyKeyObjectInput extends SigningOptions {
         key: KeyObject;
     }
-    interface VerifyJsonWebKeyInput extends JsonWebKeyInput, SigningOptions {}
     type KeyLike = string | Buffer | KeyObject;
     /**
      * The `Sign` class is a utility for generating signatures. It can be used in one
@@ -1437,9 +1469,21 @@ declare module "node:crypto" {
          * called. Multiple calls to `sign.sign()` will result in an error being thrown.
          * @since v0.1.92
          */
-        sign(privateKey: KeyLike | SignKeyObjectInput | SignPrivateKeyInput | SignJsonWebKeyInput): NonSharedBuffer;
         sign(
-            privateKey: KeyLike | SignKeyObjectInput | SignPrivateKeyInput | SignJsonWebKeyInput,
+            privateKey:
+                | KeyLike
+                | SignKeyObjectInput
+                | SignPrivateKeyInput
+                | SignRawPrivateKeyInput
+                | SignJsonWebKeyInput,
+        ): NonSharedBuffer;
+        sign(
+            privateKey:
+                | KeyLike
+                | SignKeyObjectInput
+                | SignPrivateKeyInput
+                | SignRawPrivateKeyInput
+                | SignJsonWebKeyInput,
             outputFormat: BinaryToTextEncoding,
         ): string;
     }
@@ -1505,13 +1549,23 @@ declare module "node:crypto" {
          * @since v0.1.92
          */
         verify(
-            object: KeyLike | VerifyKeyObjectInput | VerifyPublicKeyInput | VerifyJsonWebKeyInput,
+            object:
+                | KeyLike
+                | VerifyKeyObjectInput
+                | VerifyPublicKeyInput
+                | VerifyRawPublicKeyInput
+                | VerifyJsonWebKeyInput,
             signature: NodeJS.ArrayBufferView,
         ): boolean;
         verify(
-            object: KeyLike | VerifyKeyObjectInput | VerifyPublicKeyInput | VerifyJsonWebKeyInput,
+            object:
+                | KeyLike
+                | VerifyKeyObjectInput
+                | VerifyPublicKeyInput
+                | VerifyRawPublicKeyInput
+                | VerifyJsonWebKeyInput,
             signature: string,
-            signature_format?: BinaryToTextEncoding,
+            signatureEncoding?: BinaryToTextEncoding,
         ): boolean;
     }
     /**
@@ -2883,11 +2937,11 @@ declare module "node:crypto" {
      * @since v24.7.0
      */
     function decapsulate(
-        key: KeyLike | PrivateKeyInput | JsonWebKeyInput,
+        key: KeyLike | PrivateKeyInput | RawPrivateKeyInput | JsonWebKeyInput,
         ciphertext: ArrayBuffer | NodeJS.ArrayBufferView,
     ): NonSharedBuffer;
     function decapsulate(
-        key: KeyLike | PrivateKeyInput | JsonWebKeyInput,
+        key: KeyLike | PrivateKeyInput | RawPrivateKeyInput | JsonWebKeyInput,
         ciphertext: ArrayBuffer | NodeJS.ArrayBufferView,
         callback: (err: Error, sharedKey: NonSharedBuffer) => void,
     ): void;
@@ -2924,10 +2978,10 @@ declare module "node:crypto" {
      * @since v24.7.0
      */
     function encapsulate(
-        key: KeyLike | PublicKeyInput | JsonWebKeyInput,
+        key: KeyLike | PublicKeyInput | RawPublicKeyInput | JsonWebKeyInput,
     ): { sharedKey: NonSharedBuffer; ciphertext: NonSharedBuffer };
     function encapsulate(
-        key: KeyLike | PublicKeyInput | JsonWebKeyInput,
+        key: KeyLike | PublicKeyInput | RawPublicKeyInput | JsonWebKeyInput,
         callback: (err: Error, result: { sharedKey: NonSharedBuffer; ciphertext: NonSharedBuffer }) => void,
     ): void;
     interface OneShotDigestOptions {
