@@ -8,10 +8,5 @@
     "devDependencies": {
         "@types/layzr.js": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Rostislav Shermenyov",
-            "githubUsername": "shermendev"
-        }
-    ]
+    "owners": []
 }
