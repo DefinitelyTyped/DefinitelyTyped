@@ -23,7 +23,11 @@ declare module "node:assert/strict" {
     } from "node:assert";
     function strict(
         value: unknown,
-        message?: string | Error | ((actual: unknown, expected: unknown) => string),
+        message?: Error | ((actual: unknown, expected: unknown) => string),
+    ): asserts value;
+    function strict(
+        value: unknown,
+        message: string,
         ...args: unknown[]
     ): asserts value;
     namespace strict {

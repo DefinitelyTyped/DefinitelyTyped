@@ -138,6 +138,19 @@ assert.partialDeepStrictEqual({ a: 1, b: 2, c: 3 }, { a: 1, b: 2 });
     assert(true, (actual, expected) => `failed`);
 }
 
+// Printf-style extras only permitted with string message (v26.0.0+)
+{
+    // OK: printf-style with string message
+    assert.strictEqual(1, 2, "got %s expected %s", "ONE", "TWO");
+    // OK: plain string message, no extras
+    assert.strictEqual(1, 2, "plain");
+
+    // @ts-expect-error extras not allowed with Error message
+    assert.strictEqual(1, 2, new Error("boom"), "extra");
+    // @ts-expect-error extras not allowed with function message
+    assert.strictEqual(1, 2, (a, b) => `${String(a)}/${String(b)}`, "extra");
+}
+
 // Test assert predicates
 {
     let a!: Error | null;

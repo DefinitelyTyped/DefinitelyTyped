@@ -7,7 +7,11 @@ declare module "node:assert" {
      */
     function assert(
         value: unknown,
-        message?: string | Error | ((actual: unknown, expected: unknown) => string),
+        message?: Error | ((actual: unknown, expected: unknown) => string),
+    ): asserts value;
+    function assert(
+        value: unknown,
+        message: string,
         ...args: unknown[]
     ): asserts value;
     const kOptions: unique symbol;
@@ -261,7 +265,11 @@ declare module "node:assert" {
          */
         function ok(
             value: unknown,
-            message?: string | Error | ((actual: unknown, expected: unknown) => string),
+            message?: Error | ((actual: unknown, expected: unknown) => string),
+        ): asserts value;
+        function ok(
+            value: unknown,
+            message: string,
             ...args: unknown[]
         ): asserts value;
         /**
@@ -300,7 +308,12 @@ declare module "node:assert" {
         function equal(
             actual: unknown,
             expected: unknown,
-            message?: string | Error | ((actual: unknown, expected: unknown) => string),
+            message?: Error | ((actual: unknown, expected: unknown) => string),
+        ): void;
+        function equal(
+            actual: unknown,
+            expected: unknown,
+            message: string,
             ...args: unknown[]
         ): void;
         /**
@@ -335,7 +348,12 @@ declare module "node:assert" {
         function notEqual(
             actual: unknown,
             expected: unknown,
-            message?: string | Error | ((actual: unknown, expected: unknown) => string),
+            message?: Error | ((actual: unknown, expected: unknown) => string),
+        ): void;
+        function notEqual(
+            actual: unknown,
+            expected: unknown,
+            message: string,
             ...args: unknown[]
         ): void;
         /**
@@ -358,7 +376,12 @@ declare module "node:assert" {
         function deepEqual(
             actual: unknown,
             expected: unknown,
-            message?: string | Error | ((actual: unknown, expected: unknown) => string),
+            message?: Error | ((actual: unknown, expected: unknown) => string),
+        ): void;
+        function deepEqual(
+            actual: unknown,
+            expected: unknown,
+            message: string,
             ...args: unknown[]
         ): void;
         /**
@@ -413,7 +436,12 @@ declare module "node:assert" {
         function notDeepEqual(
             actual: unknown,
             expected: unknown,
-            message?: string | Error | ((actual: unknown, expected: unknown) => string),
+            message?: Error | ((actual: unknown, expected: unknown) => string),
+        ): void;
+        function notDeepEqual(
+            actual: unknown,
+            expected: unknown,
+            message: string,
             ...args: unknown[]
         ): void;
         /**
@@ -456,7 +484,12 @@ declare module "node:assert" {
         function strictEqual<T>(
             actual: unknown,
             expected: T,
-            message?: string | Error | ((actual: unknown, expected: unknown) => string),
+            message?: Error | ((actual: unknown, expected: unknown) => string),
+        ): asserts actual is T;
+        function strictEqual<T>(
+            actual: unknown,
+            expected: T,
+            message: string,
             ...args: unknown[]
         ): asserts actual is T;
         /**
@@ -486,7 +519,12 @@ declare module "node:assert" {
         function notStrictEqual(
             actual: unknown,
             expected: unknown,
-            message?: string | Error | ((actual: unknown, expected: unknown) => string),
+            message?: Error | ((actual: unknown, expected: unknown) => string),
+        ): void;
+        function notStrictEqual(
+            actual: unknown,
+            expected: unknown,
+            message: string,
             ...args: unknown[]
         ): void;
         /**
@@ -498,7 +536,12 @@ declare module "node:assert" {
         function deepStrictEqual<T>(
             actual: unknown,
             expected: T,
-            message?: string | Error | ((actual: unknown, expected: unknown) => string),
+            message?: Error | ((actual: unknown, expected: unknown) => string),
+        ): asserts actual is T;
+        function deepStrictEqual<T>(
+            actual: unknown,
+            expected: T,
+            message: string,
             ...args: unknown[]
         ): asserts actual is T;
         /**
@@ -521,7 +564,12 @@ declare module "node:assert" {
         function notDeepStrictEqual(
             actual: unknown,
             expected: unknown,
-            message?: string | Error | ((actual: unknown, expected: unknown) => string),
+            message?: Error | ((actual: unknown, expected: unknown) => string),
+        ): void;
+        function notDeepStrictEqual(
+            actual: unknown,
+            expected: unknown,
+            message: string,
             ...args: unknown[]
         ): void;
         /**
@@ -953,7 +1001,12 @@ declare module "node:assert" {
         function match(
             value: string,
             regExp: RegExp,
-            message?: string | Error | ((actual: unknown, expected: unknown) => string),
+            message?: Error | ((actual: unknown, expected: unknown) => string),
+        ): void;
+        function match(
+            value: string,
+            regExp: RegExp,
+            message: string,
             ...args: unknown[]
         ): void;
         /**
@@ -981,7 +1034,12 @@ declare module "node:assert" {
         function doesNotMatch(
             value: string,
             regExp: RegExp,
-            message?: string | Error | ((actual: unknown, expected: unknown) => string),
+            message?: Error | ((actual: unknown, expected: unknown) => string),
+        ): void;
+        function doesNotMatch(
+            value: string,
+            regExp: RegExp,
+            message: string,
             ...args: unknown[]
         ): void;
         /**
@@ -998,7 +1056,12 @@ declare module "node:assert" {
         function partialDeepStrictEqual(
             actual: unknown,
             expected: unknown,
-            message?: string | Error | ((actual: unknown, expected: unknown) => string),
+            message?: Error | ((actual: unknown, expected: unknown) => string),
+        ): void;
+        function partialDeepStrictEqual(
+            actual: unknown,
+            expected: unknown,
+            message: string,
             ...args: unknown[]
         ): void;
     }
