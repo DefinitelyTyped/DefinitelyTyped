@@ -618,13 +618,13 @@ function onChangeFormField(executionContext: Xrm.Events.EventContext): void {
 
 // Demonstrate Navigating to a generative page
 Xrm.Navigation.navigateTo({
-  pageType: "generative",
-  pageId: "84fd907e-8bfe-11ec-a8a3-0242ac120002",
-  recordId: "84fd907e-8bfe-11ec-a8a3-0242ac120002",
-  entityName: "contact",
-  data: {
-  "custom": "value"
-  }
+    pageType: "generative",
+    pageId: "84fd907e-8bfe-11ec-a8a3-0242ac120002",
+    recordId: "84fd907e-8bfe-11ec-a8a3-0242ac120002",
+    entityName: "contact",
+    data: {
+        "custom": "value",
+    },
 }).then(
     (success) => {
         console.log("Generative page opened");
