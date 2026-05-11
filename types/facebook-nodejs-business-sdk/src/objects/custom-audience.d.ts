@@ -19,6 +19,7 @@ export default class CustomAudience extends AbstractCrudObject {
         description: "description";
         excluded_custom_audiences: "excluded_custom_audiences";
         external_event_source: "external_event_source";
+        fields_violating_integrity_policy: "fields_violating_integrity_policy";
         household_audience: "household_audience";
         id: "id";
         included_custom_audiences: "included_custom_audiences";

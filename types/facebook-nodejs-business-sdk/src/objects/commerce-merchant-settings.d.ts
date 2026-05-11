@@ -19,12 +19,9 @@ export default class CommerceMerchantSettings extends AbstractCrudObject {
         merchant_page: "merchant_page";
         merchant_status: "merchant_status";
         offsite_iab_checkout_enabled_countries: "offsite_iab_checkout_enabled_countries";
-        onsite_commerce_merchant: "onsite_commerce_merchant";
         payment_provider: "payment_provider";
         privacy_policy_localized: "privacy_policy_localized";
         return_policy_localized: "return_policy_localized";
-        review_rejection_messages: "review_rejection_messages";
-        review_rejection_reasons: "review_rejection_reasons";
         shops_ads_setup: "shops_ads_setup";
         terms: "terms";
     }>;
@@ -33,11 +30,9 @@ export default class CommerceMerchantSettings extends AbstractCrudObject {
     getCommercePayouts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getCommerceTransactions(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getOrderManagementApps(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createOrderManagementApp(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<CommerceMerchantSettings>;
     getProductCatalogs(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getReturns(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getSetupStatus(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getShippingProfiles(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createShippingProfile(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AbstractObject>;
     getShops(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getTaxSettings(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;

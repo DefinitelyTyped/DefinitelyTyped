@@ -33,6 +33,7 @@ export default class Business extends AbstractCrudObject {
         id: "id";
         is_hidden: "is_hidden";
         link: "link";
+        marketing_messages_onboarding_status: "marketing_messages_onboarding_status";
         name: "name";
         payment_account_id: "payment_account_id";
         primary_page: "primary_page";
@@ -45,6 +46,7 @@ export default class Business extends AbstractCrudObject {
         verification_status: "verification_status";
         vertical: "vertical";
         vertical_id: "vertical_id";
+        whatsapp_business_manager_messaging_limit: "whatsapp_business_manager_messaging_limit";
     }>;
     static get VerificationStatus(): Readonly<{
         expired: "expired";
@@ -57,6 +59,14 @@ export default class Business extends AbstractCrudObject {
         rejected: "rejected";
         revoked: "revoked";
         verified: "verified";
+    }>;
+    static get WhatsappBusinessManagerMessagingLimit(): Readonly<{
+        tier_100k: "TIER_100K";
+        tier_10k: "TIER_10K";
+        tier_250: "TIER_250";
+        tier_2k: "TIER_2K";
+        tier_unlimited: "TIER_UNLIMITED";
+        untiered: "UNTIERED";
     }>;
     static get TwoFactorType(): Readonly<{
         admin_required: "admin_required";
@@ -871,6 +881,7 @@ export default class Business extends AbstractCrudObject {
     createAccessToken(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Business>;
     getAdAccountInfos(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     deleteAdAccounts(params?: Record<string, any>): Promise<any>;
+    getAdCustomDerivedMetrics(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createAdReviewRequest(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AbstractObject>;
     getAdStudies(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createAdStudy(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AdStudy>;
@@ -955,7 +966,7 @@ export default class Business extends AbstractCrudObject {
     getOwnedWhatsAppBusinessAccounts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     deletePages(params?: Record<string, any>): Promise<any>;
     getPartnerAccountLinking(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createPartnerPremiumOption(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AbstractObject>;
+    createPartnerPremiumOptIOn(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AbstractObject>;
     getPassbackAttributionMetadataConfigs(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getPendingClientAdAccounts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getPendingClientApps(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;

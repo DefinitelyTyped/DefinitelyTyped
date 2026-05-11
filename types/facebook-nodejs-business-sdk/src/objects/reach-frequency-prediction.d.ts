@@ -93,6 +93,7 @@ export default class ReachFrequencyPrediction extends AbstractCrudObject {
         timezone_id: "timezone_id";
         timezone_name: "timezone_name";
         topline_id: "topline_id";
+        trending_topics_spec: "trending_topics_spec";
         video_view_length_constraint: "video_view_length_constraint";
         viewtag: "viewtag";
     }>;

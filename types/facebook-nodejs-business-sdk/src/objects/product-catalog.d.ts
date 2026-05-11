@@ -124,6 +124,7 @@ export default class ProductCatalog extends AbstractCrudObject {
     getCategories(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createCategory(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<ProductCatalogCategory>;
     getCheckBatchRequestStatus(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getCheckMarketplacePartnerDealsStatus(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getCheckMarketplacePartnerSellersStatus(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getCollaborativeAdsLsbImageBank(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getCollaborativeAdsShareSettings(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
@@ -146,6 +147,7 @@ export default class ProductCatalog extends AbstractCrudObject {
     createHotel(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Hotel>;
     createItemsBatch(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<ProductCatalog>;
     createLocalizedItemsBatch(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<ProductCatalog>;
+    createMarketPlacePartnerDealsDetail(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<ProductCatalog>;
     createMarketPlacePartnerSellersDetail(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<ProductCatalog>;
     createMarketPlacePartnerSignal(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<ProductCatalog>;
     getPricingVariablesBatch(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
