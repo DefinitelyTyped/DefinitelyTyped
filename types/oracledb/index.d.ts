@@ -1058,6 +1058,57 @@ declare namespace OracleDB {
         deferRoundTrip?: boolean;
     }
 
+    /**
+     * Configuration options used to create an EndUserSecurityContext object.
+     *
+     * Use either endUserToken, or the endUserName/key combination.
+     *
+     * @since 7.0
+     */
+    interface EndUserSecurityContextOptions {
+        /**
+         * A security token issued by an external Identity and Access Management (IAM)
+         * system that authorizes access to Oracle Database.
+         */
+        databaseAccessToken: string;
+        /**
+         * The unique identification of an end user managed by an external IAM system.
+         *
+         * This attribute should not be set when `endUserName` is specified.
+         */
+        endUserToken?: string | undefined;
+        /**
+         * The unique identification of an end user managed by Oracle Database.
+         *
+         * This attribute should not be set when `endUserToken` is specified.
+         */
+        endUserName?: string | undefined;
+        /**
+         * The lookup identifier that the database maps to stored context attributes.
+         * This is required when `endUserName` is set.
+         */
+        key?: string | undefined;
+        /**
+         * The names of data roles granted to the application or local database user.
+         */
+        dataRoles?: string[] | undefined;
+        /**
+         * The attribute-value pairs provided by the application.
+         */
+        attributes?: Record<string, any> | undefined;
+    }
+
+    /**
+     * Defines end user security context information for an end user.
+     *
+     * In this release, Deep Data Security is only supported in node-oracledb Thin mode.
+     *
+     * @since 7.0
+     */
+    class EndUserSecurityContext {
+        constructor(options: EndUserSecurityContextOptions);
+    }
+
     interface Connection {
         /**
          * The action attribute for end-to-end application tracing.
@@ -1394,6 +1445,19 @@ declare namespace OracleDB {
          * @since 7.0
          */
         clearAppContext(namespaceName: string): void;
+
+        /**
+         * This synchronous method clears the end user security context specified
+         * on a connection.
+         *
+         * This reverts the connection to its original state in which subsequent
+         * database operations are executed without any end user security context.
+         *
+         * Currently, this method is only relevant to node-oracledb Thin mode.
+         *
+         * @since 7.0
+         */
+        clearEndUserSecurityContext(): void;
 
         /**
          * Releases a connection.
@@ -1872,6 +1936,19 @@ declare namespace OracleDB {
                 results: PipelineOperationResult[],
             ) => void,
         ): void;
+
+        /**
+         * This synchronous method sets the end user security context on a connection
+         * using the specified context.
+         *
+         * Once this method is called, the specified end user security context is
+         * applicable to all database operations performed in the connection.
+         *
+         * Currently, this method is only relevant to node-oracledb Thin mode.
+         *
+         * @since 7.0
+         */
+        setEndUserSecurityContext(context: EndUserSecurityContext): void;
 
         /**
          * Used to shut down a database instance. This is the flexible version of oracledb.shutdown(), allowing more control over behavior.
