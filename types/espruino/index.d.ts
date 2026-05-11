@@ -3,8 +3,82 @@ declare interface Object {
 }
 
 declare module "Wifi" {
-    function connect(ssid: string, options: any, callback: (err: any) => any): any;
-    function startAP(ssid: string, options: any, callback: (err: any) => any): any;
+    type status = "off" | "connecting" | "wrong_password" | "no_ap_found" | "connect_fail" | "connected"
+    type WifiAuth =  "open" | "wpa2" | "wpa" | "wpa_wpa2"
+    interface APOptions {
+        authMode?: WifiAuth,
+        password?: string,
+        channel?: number,
+        hidden?: boolean
+    }
+
+    interface connectionOptions {
+        password?: string,
+        dnsServers?: [string, string] // Max 2 DNS servers
+        channel?: number,
+        bssid?: string,
+        authMode?: WifiAuth
+    }
+
+    function connect(ssid: string, options: connectionOptions, callback?: (err: string|null) => void): void;
+    function startAP(ssid: string, options: APOptions, callback: (err: string|null) => void): void;
+    function disconnect(callback: () => void): void
+
+    function getAPDetails(callback?: (details: any|undefined) => void): {
+        status: "enabled" | "disabled"
+        stations: {ip:any}[],
+        ssid: string,
+        password: string,
+        authMode: WifiAuth,
+        hidden: boolean,
+        maxConn: number,
+        savedSsid: string | null
+    }
+
+    type IPInfo = {ip:string, netmask:string, gw:string, mac:string}
+    function getAPIP(callback?: (err:any, ipinfo:IPInfo) => void): IPInfo
+    
+    type details = {
+        status: status
+        rssi: any,
+        ssid: string,
+        password: string,
+        authMode: WifiAuth,
+        savedSsid: string
+    }
+    function getDetails(callback?: (details: any) => void): details
+    
+    function getHostByName(hostname:string, callback: (ip:string) => void): string
+    function getHostname(callback?: (hostname: string) => void): string
+    function getIP(callback?: (err:any, ipinfo:IPInfo) => void): IPInfo
+    
+    type StatusCallback = {
+        status: status,
+        ap: "enabled" | "disabled",
+        mode: "off" | "sta" | "ap" | "sta+ap",
+        phy: "11b" | "11g" | "11n",
+        powersave: "none" | "ps-poll",
+        savedMode: "off" | "sta" | "ap" | "sta+ap"
+    }
+    function getStatus(callback?: (status: StatusCallback) => void): StatusCallback 
+
+    function ping(hostname: string, callback: (time: string | number) => void): void
+    function restore(): void
+    function save(what: "clear" | "sta+ap"): void
+    function scan(callback: (err:string|null, ap_list:{ssid:string, mac:string, authMode:WifiAuth, channel: number, rssi:number | string}[])=> void): void
+    function setAPIP(settings:{ip:string,gw:string, netmask:string}, callback:(err: string) => void): void
+    function setConfig(settings:{phy:"11b"|"11g"|"11n", powersave:"none"|"ps-poll"}): void
+    function setHostname(hostname:string, callback?: () => void): void
+    function setIP(settings:{ip:string,gw:string, netmask:string}, callback:(err: string) => void): void
+    function setSNTP(server: string, tz_offset:number):void
+    function stopAP(callback:()=>void): void
+    function turbo(enable: boolean|number,callback:()=>void): void
+
+
+    // EVENTS
+    type events = "connected" | "dhcp_timeout" | "disconnected" | "probe_recv" | "sta_joined" | "sta_left" | "associated" | "auth_change"
+    function on(event:events, callback:(details:any|undefined) => void): void
+
 }
 
 declare module "InfluxDB" {

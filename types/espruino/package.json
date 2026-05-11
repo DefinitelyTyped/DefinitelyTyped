@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/espruino",
-    "version": "1.94.9999",
+    "version": "1.95.0",
     "projects": [
         "http://www.espruino.com/",
         "https://github.com/espruino/espruinotools"
@@ -17,6 +17,13 @@
         {
             "name": "Jurand Niemczycki",
             "githubUsername": "createdbyjurand"
+        }
+    ],
+    "contributors": [
+        {
+            "name": "Joshua Winter",
+            "url": "https://github.com/p4ncak3s-R0ck",
+            "email": "winterj@pancakes4ever.org"
         }
     ]
 }
