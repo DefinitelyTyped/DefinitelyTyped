@@ -72,6 +72,21 @@ interface ErrorConstructor {
  */
 declare var gc: NodeJS.GCFunction | undefined;
 
+interface QuotaExceededErrorOptions {
+    quota?: number | undefined;
+    requested?: number | undefined;
+}
+
+/**
+ * Thrown when a quota is exceeded. Extends {@link DOMException}.
+ * @since v26.0.0
+ */
+declare class QuotaExceededError extends DOMException {
+    constructor(message?: string, options?: QuotaExceededErrorOptions);
+    readonly quota: number | null;
+    readonly requested: number | null;
+}
+
 declare namespace NodeJS {
     interface CallSite {
         getColumnNumber(): number | null;

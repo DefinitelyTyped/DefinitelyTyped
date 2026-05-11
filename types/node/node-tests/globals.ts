@@ -95,3 +95,12 @@ declare var RANDOM_GLOBAL_VARIABLE: true;
     // @ts-expect-error The pseudoglobal `NodeJS` namespace should not be addressable outside ambient contexts
     NodeJS;
 }
+
+{
+    // QuotaExceededError global (v26.0.0+)
+    const e = new QuotaExceededError("over", { quota: 100, requested: 200 }); // $ExpectType QuotaExceededError
+    e.quota; // $ExpectType number | null
+    e.requested; // $ExpectType number | null
+    const _de: DOMException = e;
+    const _er: Error = e;
+}

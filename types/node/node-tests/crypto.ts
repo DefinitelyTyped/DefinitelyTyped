@@ -1959,3 +1959,18 @@ import { promisify } from "node:util";
     const importedPublic = crypto.createPublicKey({ key: rawPublic, format: "raw-public" });
     const importedPrivate = crypto.createPrivateKey({ key: rawPrivate, format: "raw-private" });
 }
+
+// Raw key formats in generateKeyPair (v26.0.0+)
+{
+    const ed = crypto.generateKeyPairSync("ed25519", {
+        publicKeyEncoding: { format: "raw-public" },
+        privateKeyEncoding: { format: "raw-private" },
+    });
+    ed.publicKey; // $ExpectType NonSharedBuffer
+    ed.privateKey; // $ExpectType NonSharedBuffer
+
+    const pq = crypto.generateKeyPairSync("ml-dsa-44", {
+        privateKeyEncoding: { format: "raw-seed" },
+    });
+    pq.privateKey; // $ExpectType NonSharedBuffer
+}

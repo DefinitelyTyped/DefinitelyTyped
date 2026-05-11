@@ -515,8 +515,8 @@ declare module "node:crypto" {
         TPublic extends PublicKeyExportType = PublicKeyExportType,
         TPrivate extends PrivateKeyExportType = PrivateKeyExportType,
     > {
-        publicKeyEncoding?: PublicKeyExportOptions<TPublic> | JwkKeyExportOptions | undefined;
-        privateKeyEncoding?: PrivateKeyExportOptions<TPrivate> | JwkKeyExportOptions | undefined;
+        publicKeyEncoding?: PublicKeyExportOptions<TPublic> | JwkKeyExportOptions | RawKeyExportOptions | undefined;
+        privateKeyEncoding?: PrivateKeyExportOptions<TPrivate> | JwkKeyExportOptions | RawKeyExportOptions | undefined;
     }
     type KeyExportResult<T, Default> = T extends { format: infer F extends RawKeyFormat } ? NonSharedBuffer
         : T extends { format: infer F extends KeyFormat }
