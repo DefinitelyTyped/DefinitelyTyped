@@ -1,2 +1,2 @@
-declare function truncate(x: number): number;
+declare function truncate<T extends bigint | number>(x: T): T;
 export = truncate;

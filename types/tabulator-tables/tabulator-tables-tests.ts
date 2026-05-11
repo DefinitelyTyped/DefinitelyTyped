@@ -7,6 +7,7 @@ import {
     ColumnDefinition,
     ColumnDefinitionSorterParams,
     DataTreeModule,
+    Filter,
     FilterModule,
     GroupComponent,
     InputParams,
@@ -58,6 +59,30 @@ table.setFilter([
         { field: "name", type: "=", value: "steve" }, // or a name of steve
     ],
 ]);
+
+// Test addFilter with standard field-based filter
+table.addFilter("name", "=", "John");
+table.addFilter("age", ">", 21, { separator: "," });
+
+// Test addFilter with custom function filter
+const customFilter = (data: any, filterParams: any): boolean => {
+    return data.age > filterParams.minAge && data.name.includes(filterParams.searchTerm);
+};
+table.addFilter(customFilter, { minAge: 18, searchTerm: "John" });
+
+// Test removeFilter with standard field-based filter
+table.removeFilter("name", "=", "John");
+
+// Test removeFilter with custom function filter (must use same function reference)
+table.removeFilter(customFilter, { minAge: 18, searchTerm: "John" });
+
+// Test dependencies option with external libraries
+table = new Tabulator("#test", {
+    dependencies: {
+        DateTime: {} as any, // Mock DateTime library
+        customLib: { version: "1.0" },
+    },
+});
 
 table
     .setPageToRow(12)
@@ -1508,7 +1533,7 @@ table = new Tabulator("#test", {
     ],
     dataTreeChildColumnCalcs: true,
     placeholder() {
-        return this.getHeaderFilters().length ? "No Matching Data" : "No Data";
+        return this.getHeaderFilters().length ? "No Matching Data" : new HTMLDivElement();
     },
     placeholderHeaderFilter: "No Matching Data",
     persistence: {

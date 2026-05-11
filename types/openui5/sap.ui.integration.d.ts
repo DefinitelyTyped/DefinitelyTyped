@@ -1,4 +1,4 @@
-// For Library Version: 1.146.0
+// For Library Version: 1.147.0
 
 declare module "sap/ui/integration/library" {
   import { URI } from "sap/ui/core/library";
@@ -1449,11 +1449,15 @@ declare module "sap/ui/integration/widgets/Card" {
     /**
      * Gets current value of property {@link #getBaseUrl baseUrl}.
      *
-     * Defines the base URL of the card manifest. It should be used when manifest property is an object instead
-     * of a URL. If both manifest URL and base URL are defined - the base URL will be used for loading dependencies.
-     * If both manifest URL and base URL are not defined - relative resources might not be loaded correctly.
+     * Defines the base URL of the card manifest. It must be provided when the manifest is an object and not
+     * a URL. The base URL is used to load relatively referenced resources.
      *
-     * @experimental As of version 1.70.
+     * If the base URL is not defined and the manifest URL is defined, the manifest URL is used as the base
+     * URL.
+     * 	 - If both the manifest URL and the base URL are defined, the base URL is used.
+     * 	 - If neither the manifest URL nor the base URL is defined, relative resources will not load correctly.
+     *
+     *
      *
      * @returns Value of property `baseUrl`
      */
@@ -1878,13 +1882,17 @@ declare module "sap/ui/integration/widgets/Card" {
     /**
      * Sets a new value for property {@link #getBaseUrl baseUrl}.
      *
-     * Defines the base URL of the card manifest. It should be used when manifest property is an object instead
-     * of a URL. If both manifest URL and base URL are defined - the base URL will be used for loading dependencies.
-     * If both manifest URL and base URL are not defined - relative resources might not be loaded correctly.
+     * Defines the base URL of the card manifest. It must be provided when the manifest is an object and not
+     * a URL. The base URL is used to load relatively referenced resources.
+     *
+     * If the base URL is not defined and the manifest URL is defined, the manifest URL is used as the base
+     * URL.
+     * 	 - If both the manifest URL and the base URL are defined, the base URL is used.
+     * 	 - If neither the manifest URL nor the base URL is defined, relative resources will not load correctly.
+     *
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
-     * @experimental As of version 1.70.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -2248,18 +2256,6 @@ declare module "sap/ui/integration/widgets/Card" {
      * @experimental As of version 1.85.
      */
     getActionDefinitions(): ActionDefinition[];
-    /**
-     * Gets current value of property {@link #getBaseUrl baseUrl}.
-     *
-     * Defines the base URL of the card manifest. It should be used when manifest property is an object instead
-     * of a URL. If both manifest URL and base URL are defined - the base URL will be used for loading dependencies.
-     * If both manifest URL and base URL are not defined - relative resources might not be loaded correctly.
-     *
-     * @experimental As of version 1.70.
-     *
-     * @returns Value of property `baseUrl`
-     */
-    getBaseUrl(): URI;
     /**
      * Get information about the blocking message in the card.
      *
@@ -2632,11 +2628,13 @@ declare module "sap/ui/integration/widgets/Card" {
       | `{${string}}`;
 
     /**
-     * Defines the base URL of the card manifest. It should be used when manifest property is an object instead
-     * of a URL. If both manifest URL and base URL are defined - the base URL will be used for loading dependencies.
-     * If both manifest URL and base URL are not defined - relative resources might not be loaded correctly.
+     * Defines the base URL of the card manifest. It must be provided when the manifest is an object and not
+     * a URL. The base URL is used to load relatively referenced resources.
      *
-     * @experimental As of version 1.70.
+     * If the base URL is not defined and the manifest URL is defined, the manifest URL is used as the base
+     * URL.
+     * 	 - If both the manifest URL and the base URL are defined, the base URL is used.
+     * 	 - If neither the manifest URL nor the base URL is defined, relative resources will not load correctly.
      */
     baseUrl?: URI | PropertyBindingInfo | `{${string}}`;
 

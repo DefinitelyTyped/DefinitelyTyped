@@ -1,4 +1,4 @@
-// For Library Version: 1.146.0
+// For Library Version: 1.147.0
 
 declare module "sap/ui/unified/library" {
   /**
@@ -33,7 +33,6 @@ declare module "sap/ui/unified/library" {
    * This enum is part of the 'sap/ui/unified/library' module export and must be accessed by the property
    * 'CalendarAppointmentRoundWidth'.
    *
-   * @since 1.81.0
    * @experimental As of version 1.81.0.
    */
   export enum CalendarAppointmentRoundWidth {
@@ -232,8 +231,9 @@ declare module "sap/ui/unified/library" {
    * This enum is part of the 'sap/ui/unified/library' module export and must be accessed by the property
    * 'ContentSwitcherAnimation'.
    *
-   * @since 1.16.0
-   * @experimental As of version 1.16.0. API is not yet finished and might change completely
+   * @deprecated As of version 1.147.0. the concept has been discarded. API is not yet finished and might
+   * change completely
+   * @experimental As of version 1.16.0.
    */
   export enum ContentSwitcherAnimation {
     /**
@@ -20245,7 +20245,6 @@ declare module "sap/ui/unified/NonWorkingPeriod" {
   /**
    * NonWorkingPeriod
    *
-   * @since 1.27.0
    * @experimental As of version 1.127.0.
    */
   export default class NonWorkingPeriod extends UI5Element {
@@ -20404,7 +20403,6 @@ declare module "sap/ui/unified/RecurringNonWorkingPeriod" {
    *
    * Applications can inherit from this element to add own fields.
    *
-   * @since 1.127.0
    * @experimental As of version 1.127.0.
    */
   export default class RecurringNonWorkingPeriod extends NonWorkingPeriod {
@@ -23266,8 +23264,7 @@ declare module "sap/ui/unified/TimeRange" {
   /**
    * Time range for use in `NonWorkingPeriod`
    *
-   * @since 1.127.0
-   * @experimental As of version 1.127.0.
+   * @experimental As of version 1.127.
    */
   export default class TimeRange extends UI5Element {
     /**
@@ -23433,7 +23430,7 @@ declare module "sap/ui/unified/TimeRange" {
   /**
    * Describes the settings that can be provided to the TimeRange constructor.
    *
-   * @experimental As of version 1.127.0.
+   * @experimental As of version 1.127.
    */
   export interface $TimeRangeSettings extends $ElementSettings {
     /**

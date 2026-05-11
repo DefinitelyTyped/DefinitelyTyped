@@ -52,11 +52,15 @@ declare module "node:stream/web" {
         signal?: AbortSignal;
     }
     interface Transformer<I = any, O = any> {
+        cancel?: TransformerCancelCallback;
         flush?: TransformerFlushCallback<O>;
         readableType?: undefined;
         start?: TransformerStartCallback<O>;
         transform?: TransformerTransformCallback<I, O>;
         writableType?: undefined;
+    }
+    interface TransformerCancelCallback {
+        (reason: any): void | PromiseLike<void>;
     }
     interface TransformerFlushCallback<O> {
         (controller: TransformStreamDefaultController<O>): void | PromiseLike<void>;

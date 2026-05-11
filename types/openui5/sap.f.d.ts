@@ -1,4 +1,4 @@
-// For Library Version: 1.146.0
+// For Library Version: 1.147.0
 
 declare module "sap/tnt/library" {
   export interface IToolHeader {
@@ -112,6 +112,31 @@ declare module "sap/f/library" {
      * Badge will not be hidden after header is focused.
      */
     Persist = "Persist",
+  }
+  /**
+   * Defines the media breakpoints for DynamicPage.
+   *
+   * This enum is part of the 'sap/f/library' module export and must be accessed by the property 'DynamicPageMediaRange'.
+   *
+   * @since 1.147
+   */
+  export enum DynamicPageMediaRange {
+    /**
+     * Desktop breakpoint (1025px to 1439px).
+     */
+    Desktop = "Desktop",
+    /**
+     * Desktop Extra Large breakpoint (1440px and above).
+     */
+    DesktopExtraLarge = "DesktopExtraLarge",
+    /**
+     * Phone breakpoint (up to 600px).
+     */
+    Phone = "Phone",
+    /**
+     * Tablet breakpoint (601px to 1024px).
+     */
+    Tablet = "Tablet",
   }
   /**
    * Defines the areas within the `sap.f.DynamicPageTitle` control.
@@ -4507,7 +4532,10 @@ declare module "sap/f/DynamicPage" {
 
   import DynamicPageTitle from "sap/f/DynamicPageTitle";
 
-  import { IDynamicPageStickyContent } from "sap/f/library";
+  import {
+    IDynamicPageStickyContent,
+    DynamicPageMediaRange,
+  } from "sap/f/library";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
@@ -4632,6 +4660,59 @@ declare module "sap/f/DynamicPage" {
      */
     static getMetadata(): ElementMetadata;
     /**
+     * Attaches event handler `fnFunction` to the {@link #event:breakpointChange breakpointChange} event of
+     * this `sap.f.DynamicPage`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.f.DynamicPage` itself.
+     *
+     * The event is fired when the media breakpoint changes. Applications can use this event to adjust content
+     * based on the current screen size.
+     *
+     * @since 1.147
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachBreakpointChange(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: DynamicPage$BreakpointChangeEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.f.DynamicPage` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:breakpointChange breakpointChange} event of
+     * this `sap.f.DynamicPage`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.f.DynamicPage` itself.
+     *
+     * The event is fired when the media breakpoint changes. Applications can use this event to adjust content
+     * based on the current screen size.
+     *
+     * @since 1.147
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachBreakpointChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: DynamicPage$BreakpointChangeEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.f.DynamicPage` itself
+       */
+      oListener?: object
+    ): this;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:pinnedStateChange pinnedStateChange} event of
      * this `sap.f.DynamicPage`.
      *
@@ -4719,6 +4800,26 @@ declare module "sap/f/DynamicPage" {
      */
     destroyTitle(): this;
     /**
+     * Detaches event handler `fnFunction` from the {@link #event:breakpointChange breakpointChange} event of
+     * this `sap.f.DynamicPage`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     * @since 1.147
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachBreakpointChange(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: DynamicPage$BreakpointChangeEvent) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
      * Detaches event handler `fnFunction` from the {@link #event:pinnedStateChange pinnedStateChange} event
      * of this `sap.f.DynamicPage`.
      *
@@ -4737,6 +4838,20 @@ declare module "sap/f/DynamicPage" {
        * Context object on which the given function had to be called
        */
       oListener?: object
+    ): this;
+    /**
+     * Fires event {@link #event:breakpointChange breakpointChange} to attached listeners.
+     *
+     * @since 1.147
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    fireBreakpointChange(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: DynamicPage$BreakpointChangeEventParameters
     ): this;
     /**
      * Fires event {@link #event:pinnedStateChange pinnedStateChange} to attached listeners.
@@ -5334,7 +5449,38 @@ declare module "sap/f/DynamicPage" {
      * @since 1.93
      */
     pinnedStateChange?: (oEvent: DynamicPage$PinnedStateChangeEvent) => void;
+
+    /**
+     * The event is fired when the media breakpoint changes. Applications can use this event to adjust content
+     * based on the current screen size.
+     *
+     * @since 1.147
+     */
+    breakpointChange?: (oEvent: DynamicPage$BreakpointChangeEvent) => void;
   }
+
+  /**
+   * Parameters of the DynamicPage#breakpointChange event.
+   */
+  export interface DynamicPage$BreakpointChangeEventParameters {
+    /**
+     * The current media range as defined by {@link sap.f.DynamicPageMediaRange}.
+     */
+    currentRange?: DynamicPageMediaRange | keyof typeof DynamicPageMediaRange;
+
+    /**
+     * The current width of the control in pixels.
+     */
+    currentWidth?: int;
+  }
+
+  /**
+   * Event object of the DynamicPage#breakpointChange event.
+   */
+  export type DynamicPage$BreakpointChangeEvent = Event<
+    DynamicPage$BreakpointChangeEventParameters,
+    DynamicPage
+  >;
 
   /**
    * Parameters of the DynamicPage#pinnedStateChange event.

@@ -352,13 +352,20 @@ export interface Filter {
     field: string;
     type: FilterType;
     value: any;
+    params?: FilterParams | undefined;
 }
 
 export interface FilterParams {
     separator?: string | undefined;
     matchAll?: boolean | undefined;
 }
+
+/**
+ * Standard filter function type for field-based filters.
+ * This represents the signature for adding/removing standard filters.
+ */
 export type FilterFunction = (field: string, type: FilterType, value: any, filterParams?: FilterParams) => void;
+
 export interface OptionsFiltering {
     /** Array of filters to be applied on load. */
     initialFilter?: Filter[] | undefined;
@@ -835,6 +842,23 @@ export interface OptionsGeneral {
 
     /** With a variable table height you can set the minimum height of the table either defined in the min-height CSS property for the element or set it using the minHeight option in the table constructor, this can be set to any valid CSS value. */
     minHeight?: string | number | undefined;
+
+    /**
+     * External library dependencies that can be used in custom formatters, sorters, and filters.
+     * This allows you to pass libraries like Luxon DateTime, moment.js, etc. to Tabulator.
+     *
+     * @example
+     * ```typescript
+     * import { DateTime } from 'luxon';
+     *
+     * new Tabulator('#table', {
+     *   dependencies: {
+     *     DateTime: DateTime,
+     *   }
+     * });
+     * ```
+     */
+    dependencies?: Record<string, any> | undefined;
     renderVertical?: RenderMode;
     renderHorizontal?: RenderMode;
     rowHeight?: number;
@@ -843,7 +867,7 @@ export interface OptionsGeneral {
     renderVerticalBuffer?: boolean | number | undefined;
 
     /** placeholder element to display on empty table. */
-    placeholder?: string | HTMLElement | ((this: Tabulator | TabulatorFull) => string) | undefined;
+    placeholder?: string | HTMLElement | ((this: Tabulator | TabulatorFull) => string | HTMLElement) | undefined;
     placeholderHeaderFilter?: string | HTMLElement | ((this: Tabulator | TabulatorFull) => string) | undefined;
 
     /** Footer  element to display for the table. */
@@ -3074,8 +3098,19 @@ declare class Tabulator {
         filterParams?: FilterParams,
     ) => void;
 
-    /** If you want to add another filter to the existing filters then you can call the addFilter function: */
-    addFilter: FilterFunction;
+    /**
+     * Add a filter to the existing filters on the table.
+     *
+     * This function will add the specified filter to any existing filters on the table.
+     *
+     * If you want to perform a more complicated filter then you can pass a callback function, you can also pass an optional second argument, an object with parameters to be passed to the filter function.
+     */
+    addFilter: (
+        p1: string | Filter[] | any[] | ((data: any, filterParams: any) => boolean),
+        p2?: FilterType | {},
+        value?: any,
+        filterParams?: FilterParams,
+    ) => void;
 
     /** You can retrieve an array of the current programmatic filters using the getFilters function, this will not include any of the header filters: */
     getFilters: (includeHeaderFilters?: boolean) => Filter[];
@@ -3092,8 +3127,16 @@ declare class Tabulator {
     /** You get the current header filter value of a column. */
     getHeaderFilterValue: (column: ColumnLookup) => string;
 
-    /** If you want to remove one filter from the current list of filters you can use the removeFilter function: */
-    removeFilter: FilterFunction;
+    /**
+     * Remove a filter from the table.
+     *
+     * If you want to remove one filter from the current list of filters you can use the removeFilter function, passing the field you wish to filter, the comparison type and the value to filter for.
+     */
+    removeFilter: (
+        p1: string | Filter[] | any[] | ((data: any, filterParams: any) => boolean),
+        p2?: FilterType | {},
+        value?: any,
+    ) => void;
 
     /** To remove all filters from the table, use the clearFilter function. */
     clearFilter: (includeHeaderFilters: boolean) => void;

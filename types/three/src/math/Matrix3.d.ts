@@ -17,7 +17,7 @@ export type Matrix3Tuple = [
 ];
 
 export class Matrix3 {
-    static readonly isMatrix3: boolean;
+    readonly isMatrix3: true;
 
     /**
      * Array with matrix values.

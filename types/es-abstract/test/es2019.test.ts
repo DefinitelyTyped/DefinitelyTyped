@@ -15,3 +15,5 @@ ES2019.FlattenIntoArray(array1, array2, array2.length, 0, 5, (el: number | Itera
 ES2019.TrimString("foo", "start"); // $ExpectType string
 ES2019.TrimString("foo", "end"); // $ExpectType string
 ES2019.TrimString("foo", "start+end"); // $ExpectType string
+ES2019.TrimString(123, "start"); // $ExpectType string
+ES2019.TrimString({ toString: () => "x" }, "end"); // $ExpectType string

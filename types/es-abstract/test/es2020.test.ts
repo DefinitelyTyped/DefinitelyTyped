@@ -34,9 +34,11 @@ ES2020.ToBigInt(any); // $ExpectType bigint
 
 // ToBigInt64
 ES2020.ToBigInt64(BigInt(1)); // $ExpectType bigint
+ES2020.ToBigInt64(any); // $ExpectType bigint
 
 // ToBigUint64
 ES2020.ToBigUint64(BigInt(1)); // $ExpectType bigint
+ES2020.ToBigUint64(any); // $ExpectType bigint
 
 // ToNumeric
 ES2020.ToNumeric(any); // $ExpectType number | bigint
@@ -53,6 +55,7 @@ ES2020.thisBigIntValue(BigInt(1)); // $ExpectType bigint
 // StringPad
 ES2020.StringPad("foo", 5, " ", "start"); // $ExpectType string
 ES2020.StringPad("foo", 5, undefined, "end"); // $ExpectType string
+ES2020.StringPad(any, any, any, "start"); // $ExpectType string
 
 // NumberBitwiseOp
 ES2020.NumberBitwiseOp("&", 1, 2); // $ExpectType number

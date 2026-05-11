@@ -1862,14 +1862,14 @@ declare namespace Xrm {
              * @param itemNameOrNumber The item name or item number to get.
              * @returns The T matching the key itemName or the T in the itemNumber-th place.
              */
-            get<TSubType extends T>(itemNameOrNumber: string | number): TSubType;
+            get(itemNameOrNumber: string | number): T | null;
 
             /**
              * Gets the item given by key or index.
              * @param itemNameOrNumber The item name or item number to get.
              * @returns The T matching the key itemName or the T in the itemNumber-th place.
              */
-            get(itemNameOrNumber: string | number): T | null;
+            get<TSubType extends T>(itemNameOrNumber: string | number): TSubType;
 
             /**
              * Gets the item using a delegate matching function or the entire array of T if delegate is not provided.
@@ -2919,7 +2919,7 @@ declare namespace Xrm {
              * @param value The enumeration value of the option desired.
              * @returns The option.
              */
-            getOption(value: number): OptionSetValue;
+            getOption(value: T): OptionSetValue;
 
             /**
              * Gets the option matching a label.
@@ -2954,7 +2954,7 @@ declare namespace Xrm {
              *              OptionSet attribute. Attributes on Quick Create Forms will not save values set
              *              with this method.
              */
-            setValue(value: number | null): void;
+            setValue(value: T | null): void;
 
             /**
              * A collection of all the controls on the form that interface with this attribute.
@@ -2985,7 +2985,7 @@ declare namespace Xrm {
              * @param value The enumeration value of the option desired.
              * @returns The option.
              */
-            getOption(value: number): OptionSetValue;
+            getOption(value: T): OptionSetValue;
 
             /**
              * Gets the option matching a label.
@@ -3020,7 +3020,7 @@ declare namespace Xrm {
              *              OptionSet attribute. Attributes on Quick Create Forms will not save values set
              *              with this method.
              */
-            setValue(value: number[] | null): void;
+            setValue(value: T[] | null): void;
 
             /**
              * A collection of all the controls on the form that interface with this attribute.

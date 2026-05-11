@@ -2,9 +2,10 @@ export interface Map {
     [key: string]: any;
 }
 export interface CursorParams {
-    page?: number;
-    per_page?: number;
     cursor?: string;
+    per_page?: number;
+    /** @deprecated Use cursor-based pagination instead */
+    page?: number;
 }
 export type Strings = string[];
 

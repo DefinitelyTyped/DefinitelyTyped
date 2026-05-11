@@ -9,7 +9,7 @@ declare function readFileCallback(
 declare function readFileSync(path: string, encoding: "utf8" | "ascii"): string;
 declare function readFileAsync(path: string, encoding: "utf8" | "ascii"): Promise<string>;
 
-// $ExpectType Gensync<[path: string, encoding: "utf8" | "ascii"], string, unknown>
+// $ExpectType Gensync<[path: string, encoding: "utf8" | "ascii"], string, any>
 const readFileFromSync = gensync({
     name: "readFile",
     arity: 2,
@@ -22,10 +22,10 @@ readFileFromSync.sync;
 // $ExpectType (path: string, encoding: "utf8" | "ascii") => Promise<string>
 readFileFromSync.async;
 
-// $ExpectType (path: string, encoding: "utf8" | "ascii", callback: (err: unknown, result: string) => void) => void
+// $ExpectType (path: string, encoding: "utf8" | "ascii", callback: (err: any, result: string) => void) => void
 readFileFromSync.errback;
 
-// $ExpectType Gensync<[path: string, encoding: "utf8" | "ascii"], string, unknown>
+// $ExpectType Gensync<[path: string, encoding: "utf8" | "ascii"], string, any>
 const readFileFromAsync = gensync({
     name: "readFile",
     sync: readFileSync,
@@ -38,7 +38,7 @@ readFileFromAsync.sync;
 // $ExpectType (path: string, encoding: "utf8" | "ascii") => Promise<string>
 readFileFromAsync.async;
 
-// $ExpectType (path: string, encoding: "utf8" | "ascii", callback: (err: unknown, result: string) => void) => void
+// $ExpectType (path: string, encoding: "utf8" | "ascii", callback: (err: any, result: string) => void) => void
 readFileFromAsync.errback;
 
 // $ExpectType Gensync<[path: string, encoding: "utf8" | "ascii"], string, Error>
@@ -57,7 +57,7 @@ readFileFromErrback.async;
 // $ExpectType (path: string, encoding: "utf8" | "ascii", callback: (err: Error, result: string) => void) => void
 readFileFromErrback.errback;
 
-// $ExpectType Gensync<[], void, unknown>
+// $ExpectType Gensync<[], void, any>
 const noop = gensync(function*() {});
 
 // $ExpectType () => void
@@ -66,7 +66,7 @@ noop.sync;
 // $ExpectType () => Promise<void>
 noop.async;
 
-// $ExpectType (callback: (err: unknown) => void) => void
+// $ExpectType (callback: (err: any) => void) => void
 noop.errback;
 
 gensync({
@@ -99,7 +99,7 @@ async function readContentsAsync() {
 }
 
 readContents.errback("foo", (err, result) => {
-    // $ExpectType unknown
+    // $ExpectType any
     err;
     // $ExpectType string
     result;
@@ -190,4 +190,9 @@ gensync({
         // @ts-expect-error
         callback(new Error(), "some result");
     },
+});
+
+gensync(function*() {}).errback((err: Error) => {
+    // $ExpectType Error
+    err;
 });

@@ -1,4 +1,4 @@
-// For Library Version: 1.146.0
+// For Library Version: 1.147.0
 
 declare module "sap/tnt/library" {
   /**
@@ -2705,7 +2705,6 @@ declare module "sap/tnt/SideNavigation" {
      * Default value is `Decorated`.
      *
      * @since 1.134
-     * @experimental As of version 1.134.
      *
      * @returns Value of property `design`
      */
@@ -2800,7 +2799,6 @@ declare module "sap/tnt/SideNavigation" {
      * Default value is `Decorated`.
      *
      * @since 1.134
-     * @experimental As of version 1.134.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -2950,7 +2948,6 @@ declare module "sap/tnt/SideNavigation" {
      * to achieve a Side Navigation Overlay Mode.
      *
      * @since 1.134
-     * @experimental As of version 1.134.
      */
     design?:
       | (SideNavigationDesign | keyof typeof SideNavigationDesign)

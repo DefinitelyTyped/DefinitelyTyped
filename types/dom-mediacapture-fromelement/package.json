@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/dom-mediacapture-fromelement",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Media Capture from DOM Elements",
+    "projects": [
+        "https://w3c.github.io/mediacapture-fromelement/"
+    ],
+    "devDependencies": {
+        "@types/dom-mediacapture-fromelement": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "haykam821",
+            "githubUsername": "haykam821"
+        }
+    ]
+}

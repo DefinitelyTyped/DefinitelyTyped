@@ -1,4 +1,4 @@
-// For Library Version: 1.146.0
+// For Library Version: 1.147.0
 
 declare module "sap/ui/fl/library" {}
 
@@ -1663,6 +1663,8 @@ declare namespace sap {
 
     "sap/ui/fl/initial/_internal/connectors/Utils": undefined;
 
+    "sap/ui/fl/initial/_internal/FlexConfiguration": undefined;
+
     "sap/ui/fl/initial/_internal/preprocessors/ComponentLifecycleHooks": undefined;
 
     "sap/ui/fl/initial/_internal/preprocessors/ControllerExtension": undefined;
@@ -1770,6 +1772,8 @@ declare namespace sap {
     "sap/ui/fl/write/api/ContextSharingAPI": undefined;
 
     "sap/ui/fl/write/api/ControlPersonalizationWriteAPI": undefined;
+
+    "sap/ui/fl/write/api/ControlVariantWriteAPI": undefined;
 
     "sap/ui/fl/write/api/FeaturesAPI": undefined;
 

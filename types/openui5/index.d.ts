@@ -31,7 +31,4 @@
 /// <reference path="./sap.ui.testrecorder.d.ts"/>
 /// <reference path="./sap.ui.unified.d.ts"/>
 /// <reference path="./sap.ui.ux3.d.ts"/>
-/// <reference path="./sap.ui.webc.common.d.ts"/>
-/// <reference path="./sap.ui.webc.fiori.d.ts"/>
-/// <reference path="./sap.ui.webc.main.d.ts"/>
 /// <reference path="./sap.uxap.d.ts"/>
