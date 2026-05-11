@@ -32,7 +32,7 @@ declare namespace AV {
         length?: number | undefined;
     }
 
-    const HTTPSource: { new(url: string, opts?: HttpSourceOpts): Source; };
-    const FileSource: { new(file: File): Source; };
-    const BufferSource: { new(input: BufferFormats): Source; };
+    const HTTPSource: { new(url: string, opts?: HttpSourceOpts): Source };
+    const FileSource: { new(file: File): Source };
+    const BufferSource: { new(input: BufferFormats): Source };
 }

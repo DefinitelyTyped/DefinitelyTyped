@@ -1,9 +1,3 @@
-// Type definitions for color-thief-node 1.0
-// Project: https://github.com/zicodeng/color-thief-node#readme
-// Definitions by: Almeida <https://github.com/almeidx>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.0
-
 export type Palette = [red: number, green: number, blue: number];
 
 /**

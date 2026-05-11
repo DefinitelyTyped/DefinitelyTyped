@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/winrt-uwp",
+        "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "winrt-uwp",
+    "projects": [
+        "http://msdn.microsoft.com/en-us/library/windows/apps/br211377.aspx"
+    ],
+    "devDependencies": {
+        "@types/winrt-uwp": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Kagami Sascha Rosylight",
+            "githubUsername": "saschanaz"
+        },
+        {
+            "name": "Taylor Starfield",
+            "githubUsername": "taylor224"
+        }
+    ]
+}

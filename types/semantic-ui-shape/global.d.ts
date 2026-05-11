@@ -9,83 +9,83 @@ declare namespace SemanticUI {
         /**
          * Flips the shape upward
          */
-        (behavior: 'flip up'): JQuery;
+        (behavior: "flip up"): JQuery;
         /**
          * Flips the shape downward
          */
-        (behavior: 'flip down'): JQuery;
+        (behavior: "flip down"): JQuery;
         /**
          * Flips the shape right
          */
-        (behavior: 'flip right'): JQuery;
+        (behavior: "flip right"): JQuery;
         /**
          * Flips the shape left
          */
-        (behavior: 'flip left'): JQuery;
+        (behavior: "flip left"): JQuery;
         /**
          * Flips the shape over clock-wise
          */
-        (behavior: 'flip over'): JQuery;
+        (behavior: "flip over"): JQuery;
         /**
          * Flips the shape over counter-clockwise
          */
-        (behavior: 'flip back'): JQuery;
+        (behavior: "flip back"): JQuery;
         /**
          * Set the next side to a specific selector
          */
-        (behavior: 'set next side', selector: string | JQuery): JQuery;
+        (behavior: "set next side", selector: string | JQuery): JQuery;
         /**
          * Returns whether shape is currently animating
          */
-        (behavior: 'is animating'): boolean;
+        (behavior: "is animating"): boolean;
         /**
          * Removes all inline styles
          */
-        (behavior: 'reset'): JQuery;
+        (behavior: "reset"): JQuery;
         /**
          * Queues an animation until after current animation
          */
-        (behavior: 'queue', animation: string): JQuery;
+        (behavior: "queue", animation: string): JQuery;
         /**
          * Forces a reflow on element
          */
-        (behavior: 'repaint'): JQuery;
+        (behavior: "repaint"): JQuery;
         /**
          * Set the next side to next sibling to active element
          */
-        (behavior: 'set default side'): JQuery;
+        (behavior: "set default side"): JQuery;
         /**
          * Sets shape to the content size of the next side
          */
-        (behavior: 'set stage size'): JQuery;
+        (behavior: "set stage size"): JQuery;
         /**
          * Refreshes the selector cache for element sides
          */
-        (behavior: 'refresh'): JQuery;
+        (behavior: "refresh"): JQuery;
         /**
          * Returns translation for next side staged below
          */
-        (behavior: 'get transform down'): Shape.Translation;
+        (behavior: "get transform down"): Shape.Translation;
         /**
          * Returns translation for next side staged left
          */
-        (behavior: 'get transform left'): Shape.Translation;
+        (behavior: "get transform left"): Shape.Translation;
         /**
          * Returns translation for next side staged right
          */
-        (behavior: 'get transform right'): Shape.Translation;
+        (behavior: "get transform right"): Shape.Translation;
         /**
          * Returns translation for next side staged up
          */
-        (behavior: 'get transform up'): Shape.Translation;
+        (behavior: "get transform up"): Shape.Translation;
         /**
          * Returns translation for next side staged down
          */
-        (behavior: 'get transform down'): Shape.Translation;
-        (behavior: 'destroy'): JQuery;
-        <K extends keyof ShapeSettings>(behavior: 'setting', name: K, value?: undefined): ShapeSettings._Impl[K];
-        <K extends keyof ShapeSettings>(behavior: 'setting', name: K, value: ShapeSettings._Impl[K]): JQuery;
-        (behavior: 'setting', value: ShapeSettings): JQuery;
+        (behavior: "get transform down"): Shape.Translation;
+        (behavior: "destroy"): JQuery;
+        <K extends keyof ShapeSettings>(behavior: "setting", name: K, value?: undefined): ShapeSettings._Impl[K];
+        <K extends keyof ShapeSettings>(behavior: "setting", name: K, value: ShapeSettings._Impl[K]): JQuery;
+        (behavior: "setting", value: ShapeSettings): JQuery;
         (settings?: ShapeSettings): JQuery;
     }
 
@@ -95,21 +95,24 @@ declare namespace SemanticUI {
     type ShapeSettings = ShapeSettings.Param;
 
     namespace ShapeSettings {
-        type Param = (Pick<_Impl, 'duration'> |
-            Pick<_Impl, 'width'> |
-            Pick<_Impl, 'height'> |
-            Pick<_Impl, 'beforeChange'> |
-            Pick<_Impl, 'onChange'> |
-            Pick<_Impl, 'selector'> |
-            Pick<_Impl, 'className'> |
-            Pick<_Impl, 'error'> |
-            Pick<_Impl, 'namespace'> |
-            Pick<_Impl, 'name'> |
-            Pick<_Impl, 'silent'> |
-            Pick<_Impl, 'debug'> |
-            Pick<_Impl, 'performance'> |
-            Pick<_Impl, 'verbose'>) &
-            Partial<Pick<_Impl, keyof _Impl>>;
+        type Param =
+            & (
+                | Pick<_Impl, "duration">
+                | Pick<_Impl, "width">
+                | Pick<_Impl, "height">
+                | Pick<_Impl, "beforeChange">
+                | Pick<_Impl, "onChange">
+                | Pick<_Impl, "selector">
+                | Pick<_Impl, "className">
+                | Pick<_Impl, "error">
+                | Pick<_Impl, "namespace">
+                | Pick<_Impl, "name">
+                | Pick<_Impl, "silent">
+                | Pick<_Impl, "debug">
+                | Pick<_Impl, "performance">
+                | Pick<_Impl, "verbose">
+            )
+            & Partial<Pick<_Impl, keyof _Impl>>;
 
         interface _Impl {
             // region Shape Settings
@@ -128,7 +131,7 @@ declare namespace SemanticUI {
              * @default 'initial'
              * @since 2.2
              */
-            width: 'next' | 'initial' | number;
+            width: "next" | "initial" | number;
             /**
              * When set to next will use the height of the next side during the shape's animation.
              * When set to initial it will use the height of the shape at initialization.
@@ -137,7 +140,7 @@ declare namespace SemanticUI {
              * @default 'initial'
              * @since 2.2
              */
-            height: 'next' | 'initial' | number;
+            height: "next" | "initial" | number;
 
             // endregion
 
@@ -215,9 +218,12 @@ declare namespace SemanticUI {
         type SelectorSettings = SelectorSettings.Param;
 
         namespace SelectorSettings {
-            type Param = (Pick<_Impl, 'sides'> |
-                Pick<_Impl, 'side'>) &
-                Partial<Pick<_Impl, keyof _Impl>>;
+            type Param =
+                & (
+                    | Pick<_Impl, "sides">
+                    | Pick<_Impl, "side">
+                )
+                & Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**
@@ -234,11 +240,14 @@ declare namespace SemanticUI {
         type ClassNameSettings = ClassNameSettings.Param;
 
         namespace ClassNameSettings {
-            type Param = (Pick<_Impl, 'animating'> |
-                Pick<_Impl, 'hidden'> |
-                Pick<_Impl, 'loading'> |
-                Pick<_Impl, 'active'>) &
-                Partial<Pick<_Impl, keyof _Impl>>;
+            type Param =
+                & (
+                    | Pick<_Impl, "animating">
+                    | Pick<_Impl, "hidden">
+                    | Pick<_Impl, "loading">
+                    | Pick<_Impl, "active">
+                )
+                & Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**
@@ -263,9 +272,12 @@ declare namespace SemanticUI {
         type ErrorSettings = ErrorSettings.Param;
 
         namespace ErrorSettings {
-            type Param = (Pick<_Impl, 'side'> |
-                Pick<_Impl, 'method'>) &
-                Partial<Pick<_Impl, keyof _Impl>>;
+            type Param =
+                & (
+                    | Pick<_Impl, "side">
+                    | Pick<_Impl, "method">
+                )
+                & Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**

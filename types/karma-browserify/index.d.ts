@@ -1,14 +1,8 @@
-// Type definitions for karma-browserify 7.0
-// Project: https://github.com/nikku/karma-browserify#readme
-// Definitions by: Piotr Błażejewicz (Peter Blazejewicz) <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
+import "karma";
+import watchify = require("watchify");
+import browserify = require("browserify");
 
-import 'karma';
-import watchify = require('watchify');
-import browserify = require('browserify');
-
-declare module 'karma' {
+declare module "karma" {
     interface ConfigOptions {
         /**
          * Config entry to configure how the bundle gets created

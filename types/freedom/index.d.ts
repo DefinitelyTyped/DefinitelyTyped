@@ -1,13 +1,10 @@
-// Type definitions for freedom v0.6.29
-// Project: https://github.com/freedomjs/freedom
-// Definitions by: Jonathan Pevarnek <https://github.com/jpevarnek>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace freedom {
     // Common on/emit for message passing interfaces.
-    interface EventDispatchFn<T> { (eventType: string, value?: T): void; }
+    interface EventDispatchFn<T> {
+        (eventType: string, value?: T): void;
+    }
     interface EventHandlerFn<T> {
-        (eventType: string, handler: (eventData:T) => void): void;
+        (eventType: string, handler: (eventData: T) => void): void;
     }
 
     interface Error {
@@ -16,7 +13,7 @@ declare namespace freedom {
     }
 
     // TODO: replace OnAndEmit with EventHandler and EventEmitter;
-    interface OnAndEmit<T,T2> {
+    interface OnAndEmit<T, T2> {
         on: EventHandlerFn<T>;
         emit: EventDispatchFn<T2>;
     }
@@ -38,7 +35,7 @@ declare namespace freedom {
     interface ModuleSelfConstructor {
         // Identifies a named API's provider class.
         provideSynchronous: (classFn?: Function) => void;
-        provideAsynchronous :(classFn?: Function) => void;
+        provideAsynchronous: (classFn?: Function) => void;
         providePromises: (classFn?: Function) => void;
     }
 
@@ -66,17 +63,17 @@ declare namespace freedom {
     }
 
     // Channels are ways that freedom modules can send each other messages.
-    interface Channel extends OnAndEmit<any,any> {
+    interface Channel extends OnAndEmit<any, any> {
         close(): void;
     }
 
     // Specification for a channel.
     interface ChannelSpecifier {
-        channel: Channel;  // How to communicate over this channel.
-         // A freedom channel endpoint identifier. Can be passed over a freedom
-         // message-passing boundary.  It is used to create a channel to the freedom
-         // module that called createChannel and created this ChannelSpecifier.
-         identifier: string;
+        channel: Channel; // How to communicate over this channel.
+        // A freedom channel endpoint identifier. Can be passed over a freedom
+        // message-passing boundary.  It is used to create a channel to the freedom
+        // module that called createChannel and created this ChannelSpecifier.
+        identifier: string;
     }
 
     // This is the first argument given to a core provider's constructor. It is an
@@ -85,7 +82,7 @@ declare namespace freedom {
     interface CoreProviderParentApp {
         manifestId: string;
         config: {
-            views: {[viewName: string]: Object};
+            views: { [viewName: string]: Object };
         };
         global: {
             removeEventListener: (s: string, f: Function, b: boolean) => void;
@@ -106,17 +103,16 @@ declare namespace freedom {
     }
 
     interface FreedomInCoreEnvOptions {
-        debug?: string | undefined;  // debug level
-        logger?: string | undefined;  // string to json for logging provider.
+        debug?: string | undefined; // debug level
+        logger?: string | undefined; // string to json for logging provider.
     }
 
-    interface FreedomInCoreEnv extends OnAndEmit<any,any> {
+    interface FreedomInCoreEnv extends OnAndEmit<any, any> {
         // Represents the call to freedom when you create a root module. Returns a
         // promise to a factory constructor for the freedom module. The
         // |manifestPath| should be a path to a json string that specifies the
         // freedom module.
-        (manifestPath: string, options?: FreedomInCoreEnvOptions):
-                Promise<FreedomModuleFactoryManager<any>>;
+        (manifestPath: string, options?: FreedomInCoreEnvOptions): Promise<FreedomModuleFactoryManager<any>>;
     }
 
     interface FreedomInModuleEnv {
@@ -127,15 +123,15 @@ declare namespace freedom {
         // Creates an interface to the freedom core provider which can be used to
         // create loggers and channels.
         // Note: unlike other providers, core is a getter.
-        'core': FreedomModuleFactoryManager<Core>;
-        'core.console': FreedomModuleFactoryManager<Console.Console>;
-        'core.rtcdatachannel': FreedomModuleFactoryManager<RTCDataChannel.RTCDataChannel>;
-        'core.rtcpeerconnection': FreedomModuleFactoryManager<RTCPeerConnection.RTCPeerConnection>;
-        'core.storage': FreedomModuleFactoryManager<Storage.Storage>;
-        'core.tcpsocket': FreedomModuleFactoryManager<TcpSocket.Socket>;
-        'core.udpsocket': FreedomModuleFactoryManager<UdpSocket.Socket>;
-        'pgp': FreedomModuleFactoryManager<PgpProvider.PgpProvider>;
-        'portControl': FreedomModuleFactoryManager<PortControl.PortControl>;
+        "core": FreedomModuleFactoryManager<Core>;
+        "core.console": FreedomModuleFactoryManager<Console.Console>;
+        "core.rtcdatachannel": FreedomModuleFactoryManager<RTCDataChannel.RTCDataChannel>;
+        "core.rtcpeerconnection": FreedomModuleFactoryManager<RTCPeerConnection.RTCPeerConnection>;
+        "core.storage": FreedomModuleFactoryManager<Storage.Storage>;
+        "core.tcpsocket": FreedomModuleFactoryManager<TcpSocket.Socket>;
+        "core.udpsocket": FreedomModuleFactoryManager<UdpSocket.Socket>;
+        "pgp": FreedomModuleFactoryManager<PgpProvider.PgpProvider>;
+        "portControl": FreedomModuleFactoryManager<PortControl.PortControl>;
 
         // We use this specification so that you can reference freedom sub-modules by
         // an array-lookup of its name. One day, maybe we'll have a nicer way to do
@@ -155,7 +151,7 @@ declare namespace freedom {
         reckless: (a: T) => void;
     }
     interface Method2<T, U, R> {
-        (a: T, b: U) : Promise<R>;
+        (a: T, b: U): Promise<R>;
         reckless: (a: T, b: U) => void;
     }
     interface Method3<T, U, V, R> {
@@ -179,7 +175,7 @@ declare namespace freedom.RTCDataChannel {
         // Exactly one of the below must be specified.
         text?: string | undefined;
         buffer?: ArrayBuffer | undefined;
-        binary?: Blob | undefined;  // Not yet supported in Chrome.
+        binary?: Blob | undefined; // Not yet supported in Chrome.
     }
 
     // Constructed by |freedom['rtcdatachannel'](id)| where |id| is a string
@@ -195,10 +191,10 @@ declare namespace freedom.RTCDataChannel {
         getReadyState(): Promise<string>;
         getBufferedAmount(): Promise<number>;
 
-        on(t: 'onopen', f: () => void): void;
-        on(t: 'onerror', f: () => void): void;
-        on(t: 'onclose', f: () => void): void;
-        on(t: 'onmessage', f: (m: Message) => void): void;
+        on(t: "onopen", f: () => void): void;
+        on(t: "onerror", f: () => void): void;
+        on(t: "onclose", f: () => void): void;
+        on(t: "onmessage", f: (m: Message) => void): void;
         on(t: string, f: Function): void;
 
         close(): Promise<void>;
@@ -241,7 +237,7 @@ declare namespace freedom.RTCPeerConnection {
     }
 
     interface OnIceCandidateEvent {
-        candidate: RTCIceCandidate
+        candidate: RTCIceCandidate;
     }
 
     interface RTCDataChannelInit {
@@ -288,13 +284,13 @@ declare namespace freedom.RTCPeerConnection {
 
         getStats(selector?: string): Promise<any>;
 
-        on(t: 'ondatachannel', f: (d: {channel: string}) => void): void;
-        on(t: 'onnegotiationneeded', f: () => void): void;
-        on(t: 'onicecandidate', f: (d: OnIceCandidateEvent) => void): void;
-        on(t: 'onsignalingstatechange', f: () => void): void;
-        on(t: 'onaddstream', f: (d: {stream: number}) => void): void;
-        on(t: 'onremovestream', f: (d: {stream: number}) => void): void;
-        on(t: 'oniceconnectionstatechange', f: () => void): void;
+        on(t: "ondatachannel", f: (d: { channel: string }) => void): void;
+        on(t: "onnegotiationneeded", f: () => void): void;
+        on(t: "onicecandidate", f: (d: OnIceCandidateEvent) => void): void;
+        on(t: "onsignalingstatechange", f: () => void): void;
+        on(t: "onaddstream", f: (d: { stream: number }) => void): void;
+        on(t: "onremovestream", f: (d: { stream: number }) => void): void;
+        on(t: "oniceconnectionstatechange", f: () => void): void;
         on(t: string, f: Function): void;
     }
 }
@@ -312,7 +308,7 @@ declare namespace freedom.Storage {
         remove(key: string): Promise<string>;
         // Remove all data from storage.
         clear(): Promise<void>;
-    }  // class Storage
+    } // class Storage
 }
 
 declare namespace freedom.TcpSocket {
@@ -354,10 +350,10 @@ declare namespace freedom.TcpSocket {
         getInfo(): Promise<SocketInfo>;
         close(): Promise<void>;
         // TcpSockets have 3 types of events:
-        on(type: 'onConnection', f: (i: ConnectInfo) => void): void;
-        on(type: 'onData', f: (i:ReadInfo) => void): void;
-        off(type: 'onData', f: (i: ReadInfo) => void): void;
-        on(type: 'onDisconnect', f: (i: DisconnectInfo) => void): void;
+        on(type: "onConnection", f: (i: ConnectInfo) => void): void;
+        on(type: "onData", f: (i: ReadInfo) => void): void;
+        off(type: "onData", f: (i: ReadInfo) => void): void;
+        on(type: "onDisconnect", f: (i: DisconnectInfo) => void): void;
         on(eventType: string, f: (i: Object) => void): void;
         off(eventType: string, f: (i: Object) => void): void;
     }
@@ -384,9 +380,8 @@ declare namespace freedom.UdpSocket {
     }
 
     interface Implementation {
-        bind(address: string, port: number, continuation: () => void) : void;
-        sendTo(data: ArrayBuffer, address: string, port: number,
-               continuation: (bytesWritten: number) => void): void;
+        bind(address: string, port: number, continuation: () => void): void;
+        sendTo(data: ArrayBuffer, address: string, port: number, continuation: (bytesWritten: number) => void): void;
         destroy(continuation: () => void): void;
         getInfo(continuation: (socketInfo: SocketInfo) => void): void;
     }
@@ -424,10 +419,8 @@ declare namespace freedom.PgpProvider {
         exportKey(): Promise<PublicKey>;
         getFingerprint(publicKey: string): Promise<KeyFingerprint>;
         ecdhBob(curve: string, pubKey: string): Promise<ArrayBuffer>;
-        signEncrypt(data: ArrayBuffer, encryptKey?: string,
-                    sign?: boolean): Promise<ArrayBuffer>;
-        verifyDecrypt(data: ArrayBuffer,
-                      verifyKey?: string): Promise<VerifyDecryptResult>;
+        signEncrypt(data: ArrayBuffer, encryptKey?: string, sign?: boolean): Promise<ArrayBuffer>;
+        verifyDecrypt(data: ArrayBuffer, verifyKey?: string): Promise<VerifyDecryptResult>;
         armor(data: ArrayBuffer, type?: string): Promise<string>;
         dearmor(data: string): Promise<ArrayBuffer>;
     }
@@ -473,8 +466,7 @@ declare namespace freedom.PortControl {
         deleteMappingPcp(extPort: number): Promise<boolean>;
 
         probeUpnpSupport(): Promise<boolean>;
-        addMappingUpnp(intPort: number, extPort: number, lifetime: number,
-                controlUrl?: string): Promise<Mapping>;
+        addMappingUpnp(intPort: number, extPort: number, lifetime: number, controlUrl?: string): Promise<Mapping>;
         deleteMappingUpnp(extPort: number): Promise<boolean>;
 
         getActiveMappings(): Promise<ActiveMappings>;
@@ -488,7 +480,7 @@ declare namespace freedom.Social {
     interface ClientState {
         userId: string;
         clientId: string;
-        status: string;  // Either ONLINE, OFFLINE, or ONLINE_WITH_OTHER_APP
+        status: string; // Either ONLINE, OFFLINE, or ONLINE_WITH_OTHER_APP
         timestamp: number;
     }
 
@@ -546,14 +538,14 @@ declare namespace freedom.Social {
         //
         // Message type |onMessage| happens when the user receives a message from
         // another contact.
-        on(eventType: string, f: Function) : void;
-        on(eventType: 'onMessage', f: (message: IncomingMessage) => void): void;
+        on(eventType: string, f: Function): void;
+        on(eventType: "onMessage", f: (message: IncomingMessage) => void): void;
         // Message type |onRosterProfile| events are received when another user's
         // profile is received or when a client changes status.
-        on(eventType: 'onUserProfile', f: (profile: UserProfile) => void): void;
+        on(eventType: "onUserProfile", f: (profile: UserProfile) => void): void;
         // Message type |onMyStatus| is received when the user's client's status
         // changes, e.g. when disconnected and online status becomes offline.
-        on(eventType: 'onClientState', f: (status: ClientState) => void): void;
+        on(eventType: "onClientState", f: (status: ClientState) => void): void;
 
         // Do a singleton event binding: |f| will only be called once, on the next
         // event of type |eventType|. Same events as above.

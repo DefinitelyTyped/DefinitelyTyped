@@ -1,8 +1,3 @@
-// Type definitions for jwk-to-pem 2.0
-// Project: https://github.com/Brightspace/node-jwk-to-pem#readme
-// Definitions by: Erik Silkensen <https://github.com/esilkensen>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = jwkToBuffer;
 
 declare function jwkToBuffer(jwk: jwkToBuffer.JWK, opts?: jwkToBuffer.Options): string;

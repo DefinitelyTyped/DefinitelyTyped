@@ -1,4 +1,4 @@
-import mm = require('micromatch');
+import mm = require("micromatch");
 
 // options type is accessible
 const micromatchOptions: mm.Options = {
@@ -8,68 +8,68 @@ const micromatchOptions: mm.Options = {
 
 let strArrResult: string[];
 let boolResult: boolean;
-const readonlyStrArr: ReadonlyArray<string> = [];
+const readonlyStrArr: readonly string[] = [];
 
 // main function
-strArrResult = mm(['a.js', 'a.txt'], '*.js', micromatchOptions);
-strArrResult = mm(['a.js', 'a.txt'], ['*.js']);
+strArrResult = mm(["a.js", "a.txt"], "*.js", micromatchOptions);
+strArrResult = mm(["a.js", "a.txt"], ["*.js"]);
 strArrResult = mm(readonlyStrArr, readonlyStrArr);
 
 // .match
-strArrResult = mm.match(['a.a', 'a.aa', 'a.b', 'a.c'], '*.a');
+strArrResult = mm.match(["a.a", "a.aa", "a.b", "a.c"], "*.a");
 
 // .isMatch
-boolResult = mm.isMatch('a.a', '*.a');
+boolResult = mm.isMatch("a.a", "*.a");
 
 // .some
-boolResult = mm.some('foo.js', '*.js');
-boolResult = mm.some(['foo.js', 'bar.js'], ['*.js', '!foo.js']);
-boolResult = mm.some(['foo.js', 'bar.js'], '*.js');
+boolResult = mm.some("foo.js", "*.js");
+boolResult = mm.some(["foo.js", "bar.js"], ["*.js", "!foo.js"]);
+boolResult = mm.some(["foo.js", "bar.js"], "*.js");
 
 // .every
-boolResult = mm.every('foo.js', ['foo.js']);
-boolResult = mm.every(['foo.js', 'bar.js'], ['*.js', '!foo.js']);
-boolResult = mm.every(['foo.js', 'bar.js'], '*.js');
+boolResult = mm.every("foo.js", ["foo.js"]);
+boolResult = mm.every(["foo.js", "bar.js"], ["*.js", "!foo.js"]);
+boolResult = mm.every(["foo.js", "bar.js"], "*.js");
 
 // .any
-boolResult = mm.any('foo.js', ['foo.js']);
-boolResult = mm.any(['foo.js', 'bar.js'], ['*.js', '!foo.js'], micromatchOptions);
-boolResult = mm.any(['foo.js', 'bar.js'], '*.js');
+boolResult = mm.any("foo.js", ["foo.js"]);
+boolResult = mm.any(["foo.js", "bar.js"], ["*.js", "!foo.js"], micromatchOptions);
+boolResult = mm.any(["foo.js", "bar.js"], "*.js");
 
 // .all
-boolResult = mm.all('foo.js', ['foo.js']);
-boolResult = mm.all(['foo.js', 'bar.js'], ['*.js', '!foo.js']);
-boolResult = mm.all(['foo.js', 'bar.js'], '*.js');
+boolResult = mm.all("foo.js", ["foo.js"]);
+boolResult = mm.all(["foo.js", "bar.js"], ["*.js", "!foo.js"]);
+boolResult = mm.all(["foo.js", "bar.js"], "*.js");
 
 // .not
-strArrResult = mm.not(['a.a', 'b.b', 'c.c'], '*.a');
+strArrResult = mm.not(["a.a", "b.b", "c.c"], "*.a");
 
 // .contains
-boolResult = mm.contains('aa/bb/cc', '*b');
-boolResult = mm.contains('aa/bb/cc', ['*b', '*a']);
+boolResult = mm.contains("aa/bb/cc", "*b");
+boolResult = mm.contains("aa/bb/cc", ["*b", "*a"]);
 
 // .matchKeys
-const obj = { aa: 'a', ab: 'b', ac: 'c' };
-const partialObj: Partial<typeof obj> = mm.matchKeys(obj, '*b');
+const obj = { aa: "a", ab: "b", ac: "c" };
+const partialObj: Partial<typeof obj> = mm.matchKeys(obj, "*b");
 
 // .matcher
-const matcherFn: (str: string) => boolean = mm.matcher('*.!(*a)');
+const matcherFn: (str: string) => boolean = mm.matcher("*.!(*a)");
 
 // .capture
-const strArrResultNullable: string[] | null = mm.capture('test/*.js', 'test/foo.js');
+const strArrResultNullable: string[] | null = mm.capture("test/*.js", "test/foo.js");
 
 // .makeRe
-const regex: RegExp = mm.makeRe('*.js');
+const regex: RegExp = mm.makeRe("*.js");
 
 // .braces
-strArrResult = mm.braces('*.js');
-strArrResult = mm.braces('*.js', { expand: true });
+strArrResult = mm.braces("*.js");
+strArrResult = mm.braces("*.js", { expand: true });
 
 // $ExpectType ScanInfo
-mm.scan('*');
+mm.scan("*");
 
 // $ExpectType ScanInfoWithTokens
-mm.scan('*', { tokens: true });
+mm.scan("*", { tokens: true });
 
 // $ExpectType ScanInfoWithParts
-mm.scan('*', { parts: true });
+mm.scan("*", { parts: true });

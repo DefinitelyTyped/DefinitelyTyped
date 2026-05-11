@@ -4,14 +4,14 @@
 
 import { Vector3, Vehicle } from "yuka";
 
-import { HideBehavior } from './HideBehavior';
+import { HideBehavior } from "./HideBehavior";
 import { Player } from "./Player";
-import world from './World';
+import world from "./World";
 
 export class Enemy extends Vehicle {
     geometry: {};
-    deathAnimDuration: number;
-    currentTime: number;
+    deathAnimDuration!: number;
+    currentTime!: number;
     dead: boolean;
     notifiedWorld: boolean;
     spawningPoint: Vector3 | null;
@@ -30,7 +30,7 @@ export class Enemy extends Vehicle {
         if (!this.manager) {
             return this;
         }
-        const player = this.manager.getEntityByName('player');
+        const player = this.manager.getEntityByName("player");
         if (!(player instanceof Player)) {
             throw new Error();
         }

@@ -1,4 +1,4 @@
-// tslint:disable-next-line interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export default interface IPageWidget {
     Title: string;
     PageId: string;

@@ -1,8 +1,3 @@
-// Type definitions for teslajs 4.9
-// Project: https://github.com/mseminatore/TeslaJS#readme
-// Definitions by: Felipe Castillo <https://github.com/fcastilloec>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface Vehicle {
     id: string;
     vehicleID: number;
@@ -73,7 +68,9 @@ export function logoutAsync(authToken: string): Promise<void>;
 export function vehicle(options: optionsType, callback: nodeBack): Vehicle;
 export function vehicleAsync(options: optionsType): Promise<Vehicle>;
 export function vehicles(options: optionsType, callback: nodeBack): void;
-export function vehiclesAsync(options: optionsType): Promise<Array<{[key: string]: string | number | boolean | null}>>;
+export function vehiclesAsync(
+    options: optionsType,
+): Promise<Array<{ [key: string]: string | number | boolean | null }>>;
 export function get_command(options: optionsType, command: string, callback: nodeBack): void;
 export function get_commandAsync(options: optionsType, command: string): Promise<any>;
 export function post_command(options: optionsType, command: string, body: object, callback: nodeBack): void;
@@ -112,8 +109,19 @@ export function scheduleSoftwareUpdate(options: optionsType, offset: number, cal
 export function scheduleSoftwareUpdateAsync(options: optionsType): Promise<Result>;
 export function cancelSoftwareUpdate(options: optionsType, callback: any): any;
 export function cancelSoftwareUpdateAsync(options: optionsType): Promise<Result>;
-export function navigationRequest(options: optionsType, subject: string, text: string, locale: string, callback: any): any;
-export function navigationRequestAsync(options: optionsType, subject: string, text: string, locale: string): Promise<Result>;
+export function navigationRequest(
+    options: optionsType,
+    subject: string,
+    text: string,
+    locale: string,
+    callback: any,
+): any;
+export function navigationRequestAsync(
+    options: optionsType,
+    subject: string,
+    text: string,
+    locale: string,
+): Promise<Result>;
 export function mediaTogglePlayback(options: optionsType, callback: any): any;
 export function mediaTogglePlaybackAsync(options: optionsType): Promise<Result>;
 export function mediaPlayNext(options: optionsType, callback: any): any;
@@ -178,7 +186,14 @@ export function resetValetPin(options: optionsType, callback: nodeBack): void;
 export function resetValetPinAsync(options: optionsType): Promise<Result>;
 export function calendar(options: optionsType, entry: any, callback: nodeBack): void;
 export function calendarAsync(options: optionsType, entry: any): Promise<Result>;
-export function makeCalendarEntry(eventName: string, location: string, startTime: number, endTime: number, accountName: string, phoneName: string): object;
+export function makeCalendarEntry(
+    eventName: string,
+    location: string,
+    startTime: number,
+    endTime: number,
+    accountName: string,
+    phoneName: string,
+): object;
 export function homelink(options: optionsType, lat: number, long: number, token: string, callback: nodeBack): void;
 export function homelinkAsync(options: optionsType, lat: number, long: number, token: string): Promise<Result>;
 export function products(options: optionsType, callback: nodeBack): void;

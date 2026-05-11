@@ -1,9 +1,6 @@
-import { Material } from '../materials/Material';
-import { Object3D } from '../core/Object3D';
-import { BufferGeometry, NormalOrGLBufferAttributes } from '../core/BufferGeometry';
-import { BufferAttribute } from '../core/BufferAttribute';
-import { InterleavedBufferAttribute } from '../core/InterleavedBufferAttribute';
-import { GLBufferAttribute } from '../core/GLBufferAttribute';
+import { BufferGeometry, NormalOrGLBufferAttributes } from "../core/BufferGeometry.js";
+import { Object3D, Object3DEventMap } from "../core/Object3D.js";
+import { Material } from "../materials/Material.js";
 
 /**
  * A class for displaying {@link Points}
@@ -15,7 +12,8 @@ import { GLBufferAttribute } from '../core/GLBufferAttribute';
 export class Points<
     TGeometry extends BufferGeometry<NormalOrGLBufferAttributes> = BufferGeometry,
     TMaterial extends Material | Material[] = Material | Material[],
-> extends Object3D {
+    TEventMap extends Object3DEventMap = Object3DEventMap,
+> extends Object3D<TEventMap> {
     /**
      * Create a new instance of {@link Points}
      * @param geometry An instance of {@link THREE.BufferGeometry | BufferGeometry}. Default {@link THREE.BufferGeometry | `new THREE.BufferGeometry()`}.
@@ -34,7 +32,7 @@ export class Points<
      * @override
      * @defaultValue `Points`
      */
-    override readonly type: string | 'Points';
+    override readonly type: string | "Points";
 
     /**
      * An array of weights typically from `0-1` that specify how much of the morph is applied.
@@ -45,7 +43,6 @@ export class Points<
     /**
      * A dictionary of morphTargets based on the `morphTarget.name` property.
      * @defaultValue `undefined`, _but rebuilt by {@link updateMorphTargets | .updateMorphTargets()}._
-     *
      */
     morphTargetDictionary?: { [key: string]: number } | undefined;
 

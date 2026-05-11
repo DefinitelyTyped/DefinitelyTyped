@@ -1,2 +1,2 @@
-import { promap } from '../index';
+import { promap } from "../index.js";
 export default promap;

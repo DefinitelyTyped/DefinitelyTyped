@@ -3,24 +3,25 @@ import {
     BufferAttribute,
     BufferGeometry,
     Camera,
+    FileLoader,
     Group,
+    ImageBitmapLoader,
     InterleavedBufferAttribute,
     Loader,
     LoadingManager,
+    Material,
     Mesh,
     MeshStandardMaterial,
     Object3D,
-    Material,
+    Skeleton,
     SkinnedMesh,
     Texture,
     TextureLoader,
-    FileLoader,
-    ImageBitmapLoader,
-    Skeleton,
-} from '../../../src/Three';
+} from "three";
 
-import { DRACOLoader } from './DRACOLoader';
-import { KTX2Loader } from './KTX2Loader';
+import { MeshoptDecoder } from "../libs/meshopt_decoder.module.js";
+import { DRACOLoader } from "./DRACOLoader.js";
+import { KTX2Loader } from "./KTX2Loader.js";
 
 export interface GLTF {
     animations: AnimationClip[];
@@ -36,28 +37,22 @@ export interface GLTF {
         extras?: any;
     };
     parser: GLTFParser;
-    userData: any;
+    userData: Record<string, any>;
 }
 
-export class GLTFLoader extends Loader {
-    constructor(manager?: LoadingManager);
+export class GLTFLoader extends Loader<GLTF> {
     dracoLoader: DRACOLoader | null;
+    ktx2Loader: KTX2Loader | null;
+    meshoptDecoder: typeof MeshoptDecoder | null;
 
-    load(
-        url: string,
-        onLoad: (gltf: GLTF) => void,
-        onProgress?: (event: ProgressEvent) => void,
-        onError?: (event: ErrorEvent) => void,
-    ): void;
-    loadAsync(url: string, onProgress?: (event: ProgressEvent) => void): Promise<GLTF>;
+    constructor(manager?: LoadingManager);
 
-    setDRACOLoader(dracoLoader: DRACOLoader): GLTFLoader;
+    setDRACOLoader(dracoLoader: DRACOLoader): this;
+    setKTX2Loader(ktx2Loader: KTX2Loader | null): this;
+    setMeshoptDecoder(meshoptDecoder: typeof MeshoptDecoder | null): this;
 
-    register(callback: (parser: GLTFParser) => GLTFLoaderPlugin): GLTFLoader;
-    unregister(callback: (parser: GLTFParser) => GLTFLoaderPlugin): GLTFLoader;
-
-    setKTX2Loader(ktx2Loader: KTX2Loader): GLTFLoader;
-    setMeshoptDecoder(meshoptDecoder: /* MeshoptDecoder */ any): GLTFLoader;
+    register(callback: (parser: GLTFParser) => GLTFLoaderPlugin): this;
+    unregister(callback: (parser: GLTFParser) => GLTFLoaderPlugin): this;
 
     parse(
         data: ArrayBuffer | string,
@@ -69,7 +64,7 @@ export class GLTFLoader extends Loader {
     parseAsync(data: ArrayBuffer | string, path: string): Promise<GLTF>;
 }
 
-export type GLTFReferenceType = 'materials' | 'nodes' | 'textures' | 'meshes';
+export type GLTFReferenceType = "materials" | "nodes" | "textures" | "meshes";
 
 export interface GLTFReference {
     materials?: number;
@@ -117,7 +112,8 @@ export class GLTFParser {
             texCoord?: number | undefined;
             extensions?: any;
         },
-    ) => Promise<void>;
+        colorSpace?: string | undefined,
+    ) => Promise<Texture | null>;
     assignFinalMaterial: (object: Mesh) => void;
     getMaterialType: () => typeof MeshStandardMaterial;
     loadMaterial: (materialIndex: number) => Promise<Material>;
@@ -139,6 +135,7 @@ export class GLTFParser {
 }
 
 export interface GLTFLoaderPlugin {
+    readonly name: string;
     beforeRoot?: (() => Promise<void> | null) | undefined;
     afterRoot?: ((result: GLTF) => Promise<void> | null) | undefined;
     loadNode?: ((nodeIndex: number) => Promise<Object3D> | null) | undefined;

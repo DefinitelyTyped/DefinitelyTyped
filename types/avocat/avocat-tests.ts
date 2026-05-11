@@ -1,5 +1,5 @@
-import * as Avocat from 'avocat';
-import * as Boom from '@hapi/boom';
+import * as Boom from "@hapi/boom";
+import * as Avocat from "avocat";
 
 const notFound: Boom.Boom = Avocat.rethrow(Boom.notFound(), { return: true });
 notFound.message;

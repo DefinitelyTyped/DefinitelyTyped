@@ -1,3 +1,3 @@
-export const LOCK_SCREEN: number;
-export const LOG_OUT: number;
-export const NONE: number;
+export let LOCK_SCREEN: number;
+export let LOG_OUT: number;
+export let NONE: number;

@@ -85,7 +85,7 @@ function compilerOptions(): object {
     };
 }
 
-function lodashTsconfig(moduleNames: ReadonlyArray<string>): string {
+function lodashTsconfig(moduleNames: readonly string[]): string {
     return JSON.stringify({
         compilerOptions: compilerOptions(),
         files: [

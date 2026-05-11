@@ -46,7 +46,7 @@ export class DescriptionCard extends React.Component<Props> {
                 Read more
             </Text>
         );
-    }
+    };
 
     _renderRevealedFooter = (handlePress: () => void) => {
         return (
@@ -57,9 +57,9 @@ export class DescriptionCard extends React.Component<Props> {
                 Show less
             </Text>
         );
-    }
+    };
 
     _handleTextReady = () => {
         // ...
-    }
+    };
 }

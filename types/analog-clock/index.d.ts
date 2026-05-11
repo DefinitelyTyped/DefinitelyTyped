@@ -1,8 +1,3 @@
-// Type definitions for analog-clock 1.0
-// Project: https://github.com/matthewp/analog-clock#readme
-// Definitions by: ihatecsv <https://github.com/ihatecsv>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // Custom HTMLElement for the analog clock
 export class AnalogClock extends HTMLElement {
     static observedAttributes: string[];

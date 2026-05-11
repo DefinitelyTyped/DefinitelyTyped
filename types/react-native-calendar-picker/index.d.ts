@@ -1,12 +1,5 @@
-// Type definitions for react-native-calendar-picker 7.0
-// Project: https://github.com/stephy/CalendarPicker
-// Definitions by: Tobias Hann <https://github.com/automatensalat>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import * as React from 'react';
-import { StyleProp, TextStyle, ViewStyle } from 'react-native';
-import { Moment, MomentInput } from 'moment';
+import * as React from "react";
+import { StyleProp, TextStyle, ViewStyle } from "react-native";
 
 export default class CalendarPicker extends React.Component<CalendarPickerProps> {
     handleOnPressDay(date: HandleOnPressDayArg): void;
@@ -36,8 +29,8 @@ export interface CalendarPickerProps {
     selectedDisabledDatesTextStyle?: StyleProp<TextStyle> | undefined;
     disabledDates?: Date[] | DisabledDatesFunc | undefined;
     disabledDatesTextStyle?: StyleProp<TextStyle> | undefined;
-    selectedStartDate?: Date | undefined;
-    selectedEndDate?: Date | undefined;
+    selectedStartDate?: DateParsable | undefined;
+    selectedEndDate?: DateParsable | undefined;
     minRangeDuration?: number | MinDurationArrayItem[] | undefined;
     maxRangeDuration?: number | MaxDurationArrayItem[] | undefined;
     todayBackgroundColor?: string | undefined;
@@ -45,8 +38,8 @@ export interface CalendarPickerProps {
     textStyle?: StyleProp<TextStyle> | undefined;
     customDatesStyles?: CustomDateStyle[] | CustomDatesStylesFunc | undefined;
     scaleFactor?: number | undefined;
-    minDate?: Date | undefined;
-    maxDate?: Date | undefined;
+    minDate?: DateParsable | undefined;
+    maxDate?: DateParsable | undefined;
     initialDate?: Date | undefined;
     width?: number | undefined;
     height?: number | undefined;
@@ -56,7 +49,7 @@ export interface CalendarPickerProps {
     restrictMonthNavigation?: boolean | undefined;
     onDateChange?: DateChangedCallback | undefined;
     onMonthChange?: DateChangedCallback | undefined;
-    dayShape?: 'circle' | 'square' | undefined;
+    dayShape?: "circle" | "square" | undefined;
     headingLevel?: number | undefined;
     selectMonthTitle?: string | undefined;
     selectYearTitle?: string | undefined;
@@ -70,18 +63,16 @@ export interface CalendarPickerProps {
     monthTitleStyle?: StyleProp<TextStyle> | undefined;
     yearTitleStyle?: StyleProp<TextStyle> | undefined;
     customDayHeaderStyles?: CustomDayHeaderStylesFunc | undefined;
-    initialView?: 'years' | 'months' | 'days' | undefined;
+    initialView?: "years" | "months" | "days" | undefined;
 }
 
 export type DayOfWeekStyle = {
-    [key in '0' | '1' | '2' | '3' | '4' | '5' | '6']?: TextStyle;
+    [key in "0" | "1" | "2" | "3" | "4" | "5" | "6"]?: TextStyle;
 };
 
-export type DisabledDatesFunc = (date: Moment) => boolean;
+export type DisabledDatesFunc = (date: Date) => boolean;
 
-export type CustomDatesStylesFunc = (
-    date: Moment,
-) => {
+export type CustomDatesStylesFunc = (date: Date) => {
     containerStyle?: ViewStyle | undefined;
     style?: ViewStyle | undefined;
     textStyle?: TextStyle | undefined;
@@ -93,27 +84,25 @@ export interface CustomDayHeaderStylesFuncDateArg {
     year: number;
 }
 
-export type CustomDayHeaderStylesFunc = (
-    date: CustomDayHeaderStylesFuncDateArg,
-) => {
+export type CustomDayHeaderStylesFunc = (date: CustomDayHeaderStylesFuncDateArg) => {
     textStyle?: TextStyle | undefined;
     style?: ViewStyle | undefined;
 };
 
-export type MomentParsable = MomentInput;
+export type DateParsable = Date | number | string;
 
 export interface MinDurationArrayItem {
-    date: MomentParsable;
+    date: DateParsable;
     minDuration: number;
 }
 
 export interface MaxDurationArrayItem {
-    date: MomentParsable;
+    date: DateParsable;
     maxDuration: number;
 }
 
 export interface CustomDateStyle {
-    date: MomentParsable;
+    date: DateParsable;
     containerStyle?: ViewStyle | undefined;
     style?: ViewStyle | undefined;
     textStyle?: TextStyle | undefined;
@@ -125,6 +114,8 @@ export interface HandleOnPressDayArg {
     year: number;
 }
 
-export type DateChangedCallback = (date: Moment, type: 'START_DATE' | 'END_DATE') => void;
+export type ChangedDate = "START_DATE" | "END_DATE";
 
-export type MonthChangedCallback = (date: Moment) => void;
+export type DateChangedCallback = (date: Date, type: ChangedDate) => void;
+
+export type MonthChangedCallback = (date: Date) => void;

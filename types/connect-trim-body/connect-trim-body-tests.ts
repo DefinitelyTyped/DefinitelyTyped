@@ -1,5 +1,5 @@
-import connectTrimBody from 'connect-trim-body';
-import express from 'express';
+import connectTrimBody from "connect-trim-body";
+import express from "express";
 
 const app = express();
 

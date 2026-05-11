@@ -11,4 +11,3 @@ function testElement(el: Element) {
     el.firstElementChild.getAttribute("foo");
     el.lastElementChild.getAttribute("bar");
 }
-

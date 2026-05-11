@@ -1,29 +1,39 @@
-// Type definitions for screenshot-desktop 1.12
-// Project: https://github.com/bencevans/screenshot-desktop
-// Definitions by: Usama Ahsan <https://github.com/usama8800>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export = screenshotDesktop;
 
-declare function screenshotDesktop(options?: { format?: screenshotDesktop.ImageFormat, screen?: screenshotDesktop.DisplayID }): Promise<Buffer>;
-declare function screenshotDesktop(options?: { filename: string, format?: screenshotDesktop.ImageFormat, screen?: screenshotDesktop.DisplayID }): Promise<string>;
+declare function screenshotDesktop(
+    options?: screenshotDesktop.ScreenshotOptionsWithoutFilename,
+): Promise<NonSharedBuffer>;
+declare function screenshotDesktop(
+    options?: screenshotDesktop.ScreenshotOptionsWithFilename,
+): Promise<string>;
 
 declare namespace screenshotDesktop {
-    type DisplayID = number;
+    interface ScreenshotOptions {
+        filename?: string;
+        format?: ImageFormat;
+        screen?: DisplayID;
+        linuxLibrary?: "scrot" | "imagemagick";
+    }
 
-    type ImageFormat =
-        'bmp' |
-        'emf' |
-        'exif' |
-        'jpg' |
-        'jpeg' |
-        'gif' |
-        'png' |
-        'tiff' |
-        'wmf';
+    interface ScreenshotOptionsWithFilename extends ScreenshotOptions {
+        filename: string;
+    }
 
-    function listDisplays(): Promise<Array<{ id: DisplayID, name: string }>>;
-    function all(): Promise<Array<{ id: DisplayID, name: string }>>;
+    interface ScreenshotOptionsWithoutFilename extends ScreenshotOptions {
+        filename?: "";
+    }
+
+    interface Display {
+        id: number | string;
+        name: string;
+    }
+
+    type DisplayID = Display["id"];
+
+    type ImageFormat = "jpg" | "png";
+
+    function listDisplays(): Promise<Array<Display>>;
+    function all(): Promise<Array<NonSharedBuffer>>;
 }

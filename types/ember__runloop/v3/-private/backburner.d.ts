@@ -22,6 +22,7 @@ export interface DebugInfo {
 export interface Backburner {
     join(...args: any[]): void;
     on(...args: any[]): void;
+    off(...args: any[]): void;
     scheduleOnce(...args: any[]): void;
     schedule(queueName: string, target: object | null, method: () => void | string): void;
     ensureInstance(): void;

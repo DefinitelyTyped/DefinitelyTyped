@@ -1,9 +1,3 @@
-// Type definitions for sorted-array-functions 1.3
-// Project: https://github.com/mafintosh/sorted-array-functions
-// Definitions by: Behind The Math <https://github.com/BehindTheMath>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 export type CompareFn<T = any> = (a: T, b: T) => -1 | 0 | 1;
 
 /**
@@ -26,36 +20,36 @@ export function remove<T>(list: T[], value: T, compareFn?: CompareFn<T>): boolea
 /**
  * Check if a value is in the list.
  */
-export function has<T>(list: ReadonlyArray<T>, value: T, compareFn?: CompareFn<T>): boolean;
+export function has<T>(list: readonly T[], value: T, compareFn?: CompareFn<T>): boolean;
 
 /**
  * Get the index of a value in the list (uses binary search).
  * If the value could not be found, -1 is returned.
  */
-export function eq<T>(list: ReadonlyArray<T>, value: T, compareFn?: CompareFn<T>): number;
+export function eq<T>(list: readonly T[], value: T, compareFn?: CompareFn<T>): number;
 
 /**
  * Get the index of the first value that is >=.
  * If the value could not be found, -1 is returned.
  */
-export function gte<T>(list: ReadonlyArray<T>, value: T, compareFn?: CompareFn<T>): number;
+export function gte<T>(list: readonly T[], value: T, compareFn?: CompareFn<T>): number;
 
 /**
  * Get the index of the first value that is >.
  * If the value could not be found, -1 is returned.
  */
-export function gt<T>(list: ReadonlyArray<T>, value: T, compareFn?: CompareFn<T>): number;
+export function gt<T>(list: readonly T[], value: T, compareFn?: CompareFn<T>): number;
 
 /**
  * Get the index of the first value that is <=.
  * If the value could not be found, -1 is returned.
  */
-export function lte<T>(list: ReadonlyArray<T>, value: T, compareFn?: CompareFn<T>): number;
+export function lte<T>(list: readonly T[], value: T, compareFn?: CompareFn<T>): number;
 
 /**
  * Get the index of the first value that is <.
  * If the value could not be found, -1 is returned.
  */
-export function lt<T>(list: ReadonlyArray<T>, value: T, compareFn?: CompareFn<T>): number;
+export function lt<T>(list: readonly T[], value: T, compareFn?: CompareFn<T>): number;
 
-export function nearest<T>(list: ReadonlyArray<T>, value: T, compareFn?: CompareFn<T>): number;
+export function nearest<T>(list: readonly T[], value: T, compareFn?: CompareFn<T>): number;

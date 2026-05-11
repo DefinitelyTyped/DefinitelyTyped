@@ -1,12 +1,12 @@
-import { OffscreenCanvas, Texture } from './Texture';
 import {
+    MagnificationTextureFilter,
     Mapping,
-    Wrapping,
+    MinificationTextureFilter,
     PixelFormat,
     TextureDataType,
-    MagnificationTextureFilter,
-    MinificationTextureFilter,
-} from '../constants';
+    Wrapping,
+} from "../constants.js";
+import { Texture } from "./Texture.js";
 
 /**
  * Creates a texture from a {@link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/canvas | canvas element}.
@@ -17,7 +17,7 @@ import {
  * @see {@link https://threejs.org/docs/index.html#api/en/textures/CanvasTexture | Official Documentation}
  * @see {@link https://github.com/mrdoob/three.js/blob/master/src/textures/CanvasTexture.js | Source}
  */
-export class CanvasTexture extends Texture {
+export class CanvasTexture<TCanvas = HTMLCanvasElement> extends Texture<TCanvas> {
     /**
      * This creates a new {@link THREE.CanvasTexture | CanvasTexture} object.
      * @param canvas The HTML canvas element from which to load the texture.
@@ -31,7 +31,7 @@ export class CanvasTexture extends Texture {
      * @param anisotropy See {@link Texture.anisotropy | .anisotropy}. Default {@link THREE.Texture.DEFAULT_ANISOTROPY}
      */
     constructor(
-        canvas: TexImageSource | OffscreenCanvas,
+        canvas?: TCanvas,
         mapping?: Mapping,
         wrapS?: Wrapping,
         wrapT?: Wrapping,

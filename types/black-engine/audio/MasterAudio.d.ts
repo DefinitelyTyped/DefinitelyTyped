@@ -32,8 +32,8 @@ export class MasterAudio extends System {
     looseListener(): void;
     _newGainNode(): GainNode;
 }
-import { System } from '../core/System';
-import { SoundAtlasClip } from './SoundAtlasClip';
-import { SoundChannel } from './SoundChannel';
-import { SoundInstance } from './SoundInstance';
-import { SoundListener } from './SoundListener';
+import { System } from "../core/System";
+import { SoundAtlasClip } from "./SoundAtlasClip";
+import { SoundChannel } from "./SoundChannel";
+import { SoundInstance } from "./SoundInstance";
+import { SoundListener } from "./SoundListener";

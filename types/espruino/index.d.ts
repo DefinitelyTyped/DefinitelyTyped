@@ -1,9 +1,3 @@
-// Type definitions for Espruino 1.94
-// Project: http://www.espruino.com/, https://github.com/espruino/espruinotools
-// Definitions by: Stanislav Berkov <https://github.com/stasberkov>
-//                 Jurand Niemczycki <https://github.com/createdbyjurand>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare interface Object {
     removeListener(event: string, listener: any): any;
 }
@@ -19,259 +13,212 @@ declare module "InfluxDB" {
 }
 
 /**
-* <p>This is the built-in class for the Arduino-style pin namings on ST Nucleo boards</p>
-*
-* @url http://www.espruino.com/Reference#Nucleo
-*/
+ * <p>This is the built-in class for the Arduino-style pin namings on ST Nucleo boards</p>
+ *
+ * @url http://www.espruino.com/Reference#Nucleo
+ */
 declare interface Nucleo {
-
     /**
-     *
      * @return
      */
     new(): Nucleo;
 }
 
-/**
-*
-*/
+/** */
 declare namespace Nucleo {
-
     /**
-     *
      * @url http://www.espruino.com/Reference#l_Nucleo_A0
      */
     var A0: Pin;
 
     /**
-     *
      * @url http://www.espruino.com/Reference#l_Nucleo_A1
      */
     var A1: Pin;
 
     /**
-     *
      * @url http://www.espruino.com/Reference#l_Nucleo_A2
      */
     var A2: Pin;
 
     /**
-     *
      * @url http://www.espruino.com/Reference#l_Nucleo_A3
      */
     var A3: Pin;
 
     /**
-     *
      * @url http://www.espruino.com/Reference#l_Nucleo_A4
      */
     var A4: Pin;
 
     /**
-     *
      * @url http://www.espruino.com/Reference#l_Nucleo_A5
      */
     var A5: Pin;
 
     /**
-     *
      * @url http://www.espruino.com/Reference#l_Nucleo_D0
      */
     var D0: Pin;
 
     /**
-     *
      * @url http://www.espruino.com/Reference#l_Nucleo_D1
      */
     var D1: Pin;
 
     /**
-     *
      * @url http://www.espruino.com/Reference#l_Nucleo_D2
      */
     var D2: Pin;
 
     /**
-     *
      * @url http://www.espruino.com/Reference#l_Nucleo_D3
      */
     var D3: Pin;
 
     /**
-     *
      * @url http://www.espruino.com/Reference#l_Nucleo_D4
      */
     var D4: Pin;
 
     /**
-     *
      * @url http://www.espruino.com/Reference#l_Nucleo_D5
      */
     var D5: Pin;
 
     /**
-     *
      * @url http://www.espruino.com/Reference#l_Nucleo_D6
      */
     var D6: Pin;
 
     /**
-     *
      * @url http://www.espruino.com/Reference#l_Nucleo_D7
      */
     var D7: Pin;
 
     /**
-     *
      * @url http://www.espruino.com/Reference#l_Nucleo_D8
      */
     var D8: Pin;
 
     /**
-     *
      * @url http://www.espruino.com/Reference#l_Nucleo_D9
      */
     var D9: Pin;
 
     /**
-     *
      * @url http://www.espruino.com/Reference#l_Nucleo_D10
      */
     var D10: Pin;
 
     /**
-     *
      * @url http://www.espruino.com/Reference#l_Nucleo_D11
      */
     var D11: Pin;
 
     /**
-     *
      * @url http://www.espruino.com/Reference#l_Nucleo_D12
      */
     var D12: Pin;
 
     /**
-     *
      * @url http://www.espruino.com/Reference#l_Nucleo_D13
      */
     var D13: Pin;
 
     /**
-     *
      * @url http://www.espruino.com/Reference#l_Nucleo_D14
      */
     var D14: Pin;
 
     /**
-     *
      * @url http://www.espruino.com/Reference#l_Nucleo_D15
      */
     var D15: Pin;
 }
 
 /**
-* <p>This is a built-in class to allow you to use the ESP8266 NodeMCU boards&#39;s pin namings to access pins. It is only available on ESP8266-based boards.</p>
-*
-* @url http://www.espruino.com/Reference#NodeMCU
-*/
+ * <p>This is a built-in class to allow you to use the ESP8266 NodeMCU boards&#39;s pin namings to access pins. It is only available on ESP8266-based boards.</p>
+ *
+ * @url http://www.espruino.com/Reference#NodeMCU
+ */
 declare interface NodeMCU {
-
     /**
-     *
      * @return
      */
     new(): NodeMCU;
 }
 
-
-/**
-*
-*/
+/** */
 declare namespace NodeMCU {
-
     /**
-     *
      * @url http://www.espruino.com/Reference#l_NodeMCU_A0
      */
     var A0: Pin;
 
     /**
-     *
      * @url http://www.espruino.com/Reference#l_NodeMCU_D0
      */
     var D0: Pin;
 
     /**
-     *
      * @url http://www.espruino.com/Reference#l_NodeMCU_D1
      */
     var D1: Pin;
 
     /**
-     *
      * @url http://www.espruino.com/Reference#l_NodeMCU_D2
      */
     var D2: Pin;
 
     /**
-     *
      * @url http://www.espruino.com/Reference#l_NodeMCU_D3
      */
     var D3: Pin;
 
     /**
-     *
      * @url http://www.espruino.com/Reference#l_NodeMCU_D4
      */
     var D4: Pin;
 
     /**
-     *
      * @url http://www.espruino.com/Reference#l_NodeMCU_D5
      */
     var D5: Pin;
 
     /**
-     *
      * @url http://www.espruino.com/Reference#l_NodeMCU_D6
      */
     var D6: Pin;
 
     /**
-     *
      * @url http://www.espruino.com/Reference#l_NodeMCU_D7
      */
     var D7: Pin;
 
     /**
-     *
      * @url http://www.espruino.com/Reference#l_NodeMCU_D8
      */
     var D8: Pin;
 
     /**
-     *
      * @url http://www.espruino.com/Reference#l_NodeMCU_D9
      */
     var D9: Pin;
 
     /**
-     *
      * @url http://www.espruino.com/Reference#l_NodeMCU_D10
      */
     var D10: Pin;
 }
 
 /**
-* <p>Creates a Queue Object</p>
-*
-* @url http://www.espruino.com/Reference#l_Queue_Queue
-*/
+ * <p>Creates a Queue Object</p>
+ *
+ * @url http://www.espruino.com/Reference#l_Queue_Queue
+ */
 declare interface Queue {
-
     /**
-     *
      * @param queueName
      * @return
      */
@@ -301,14 +248,12 @@ declare interface Queue {
 }
 
 /**
-* <p>Creates a Task Object</p>
-*
-* @url http://www.espruino.com/Reference#l_Task_Task
-*/
+ * <p>Creates a Task Object</p>
+ *
+ * @url http://www.espruino.com/Reference#l_Task_Task
+ */
 declare interface Task {
-
     /**
-     *
      * @param taskName
      * @return
      */
@@ -352,14 +297,12 @@ declare interface Task {
 }
 
 /**
-* <p>Creates a Timer Object</p>
-*
-* @url http://www.espruino.com/Reference#l_Timer_Timer
-*/
+ * <p>Creates a Timer Object</p>
+ *
+ * @url http://www.espruino.com/Reference#l_Timer_Timer
+ */
 declare interface Timer {
-
     /**
-     *
      * @param timerName
      * @param group
      * @param index
@@ -392,23 +335,19 @@ declare interface Timer {
     log(): void;
 }
 
-
 // write(data: any[]): any;
 // on(event: string, handler: (data: any) => any): any;
 // setup(boudrate: number, options: any): any;
 // read(chars?: number): string;
 
-
 /**
-* <p>This class allows use of the built-in USARTs</p>
-* <p>Methods may be called on the USB, Serial1, Serial2, Serial3, Serial4, Serial5 and Serial6 objects. While different processors provide different numbers of USARTs, you can always rely on at least Serial1 and Serial2</p>
-*
-* @url http://www.espruino.com/Reference#Serial
-*/
+ * <p>This class allows use of the built-in USARTs</p>
+ * <p>Methods may be called on the USB, Serial1, Serial2, Serial3, Serial4, Serial5 and Serial6 objects. While different processors provide different numbers of USARTs, you can always rely on at least Serial1 and Serial2</p>
+ *
+ * @url http://www.espruino.com/Reference#Serial
+ */
 declare interface Serial extends Object {
-
     /**
-     *
      * @return
      */
     new(): Serial;
@@ -454,7 +393,6 @@ declare interface Serial extends Object {
      */
     write(data: any): void;
 
-
     /**
      * <p>Return how many bytes are available to read. If there is already a listener for data, this will always return 0.</p>
      *
@@ -493,104 +431,97 @@ declare interface Serial extends Object {
 }
 
 /**
-* <p>The USB Serial port</p>
-*
-* @url http://www.espruino.com/Reference#l__global_USB
-*/
+ * <p>The USB Serial port</p>
+ *
+ * @url http://www.espruino.com/Reference#l__global_USB
+ */
 declare var USB: Serial;
 
 /**
-* <p>The first Serial (USART) port</p>
-*
-* @url http://www.espruino.com/Reference#l__global_Serial1
-*/
+ * <p>The first Serial (USART) port</p>
+ *
+ * @url http://www.espruino.com/Reference#l__global_Serial1
+ */
 declare var Serial1: Serial;
 
 /**
-* <p>The second Serial (USART) port</p>
-*
-* @url http://www.espruino.com/Reference#l__global_Serial2
-*/
+ * <p>The second Serial (USART) port</p>
+ *
+ * @url http://www.espruino.com/Reference#l__global_Serial2
+ */
 declare var Serial2: Serial;
 
 /**
-* <p>The third Serial (USART) port</p>
-*
-* @url http://www.espruino.com/Reference#l__global_Serial3
-*/
+ * <p>The third Serial (USART) port</p>
+ *
+ * @url http://www.espruino.com/Reference#l__global_Serial3
+ */
 declare var Serial3: Serial;
 
 /**
-* <p>The fourth Serial (USART) port</p>
-*
-* @url http://www.espruino.com/Reference#l__global_Serial4
-*/
+ * <p>The fourth Serial (USART) port</p>
+ *
+ * @url http://www.espruino.com/Reference#l__global_Serial4
+ */
 declare var Serial4: Serial;
 
 /**
-* <p>The fifth Serial (USART) port</p>
-*
-* @url http://www.espruino.com/Reference#l__global_Serial5
-*/
+ * <p>The fifth Serial (USART) port</p>
+ *
+ * @url http://www.espruino.com/Reference#l__global_Serial5
+ */
 declare var Serial5: Serial;
 
 /**
-* <p>The sixth Serial (USART) port</p>
-*
-* @url http://www.espruino.com/Reference#l__global_Serial6
-*/
+ * <p>The sixth Serial (USART) port</p>
+ *
+ * @url http://www.espruino.com/Reference#l__global_Serial6
+ */
 declare var Serial6: Serial;
 
 /**
-* <p>A loopback serial device. Data sent to LoopbackA comes out of LoopbackB and vice versa</p>
-*
-* @url http://www.espruino.com/Reference#l__global_LoopbackA
-*/
+ * <p>A loopback serial device. Data sent to LoopbackA comes out of LoopbackB and vice versa</p>
+ *
+ * @url http://www.espruino.com/Reference#l__global_LoopbackA
+ */
 declare var LoopbackA: Serial;
 
 /**
-* <p>A loopback serial device. Data sent to LoopbackA comes out of LoopbackB and vice versa</p>
-*
-* @url http://www.espruino.com/Reference#l__global_LoopbackB
-*/
+ * <p>A loopback serial device. Data sent to LoopbackA comes out of LoopbackB and vice versa</p>
+ *
+ * @url http://www.espruino.com/Reference#l__global_LoopbackB
+ */
 declare var LoopbackB: Serial;
 
 /**
-* <p>A telnet serial device that maps to the built-in telnet console server (devices that have
-* built-in wifi only).</p>
-*
-* @url http://www.espruino.com/Reference#l__global_Telnet
-*/
-declare var Telnet: {
-};
+ * <p>A telnet serial device that maps to the built-in telnet console server (devices that have
+ * built-in wifi only).</p>
+ *
+ * @url http://www.espruino.com/Reference#l__global_Telnet
+ */
+declare var Telnet: {};
 
 /**
-* <p>This module allows access to read and write the STM32&#39;s flash memory.</p>
-* <p>It should be used with extreme caution, as it is easy to overwrite parts of Flash
-* memory belonging to Espruino or even its bootloader. If you damage the bootloader
-* then you may need external hardware such as a USB-TTL converter to restore it. For
-* more information on restoring the bootloader see <code>Advanced Reflashing</code> in your
-* board&#39;s reference pages.</p>
-* <p>To see which areas of memory you can and can&#39;t overwrite, look at the values
-* reported by <code>process.memory()</code>.</p>
-*
-* @url http://www.espruino.com/Reference#l_Flash_undefined
-*/
+ * <p>This module allows access to read and write the STM32&#39;s flash memory.</p>
+ * <p>It should be used with extreme caution, as it is easy to overwrite parts of Flash
+ * memory belonging to Espruino or even its bootloader. If you damage the bootloader
+ * then you may need external hardware such as a USB-TTL converter to restore it. For
+ * more information on restoring the bootloader see <code>Advanced Reflashing</code> in your
+ * board&#39;s reference pages.</p>
+ * <p>To see which areas of memory you can and can&#39;t overwrite, look at the values
+ * reported by <code>process.memory()</code>.</p>
+ *
+ * @url http://www.espruino.com/Reference#l_Flash_undefined
+ */
 declare interface Flash {
-
     /**
-     *
      * @return
      */
     new(): Flash;
 }
 
-
-/**
-*
-*/
+/** */
 declare namespace Flash {
-
     /**
      * <p>Returns the start and length of the flash page containing the given address.</p>
      *
@@ -645,25 +576,19 @@ declare namespace Flash {
 }
 
 /**
-* <p>This is the built-in JavaScript class for Espruino utility functions.</p>
-*
-* @url http://www.espruino.com/Reference#E
-*/
+ * <p>This is the built-in JavaScript class for Espruino utility functions.</p>
+ *
+ * @url http://www.espruino.com/Reference#E
+ */
 declare interface E {
-
     /**
-     *
      * @return
      */
     new(): E;
 }
 
-
-/**
-*
-*/
+/** */
 declare namespace E {
-
     /**
      * <p>Use the STM32&#39;s internal thermistor to work out the temperature.</p>
      * <p>While this is implemented on Espruino boards, it may not be implemented on other devices. If so it&#39;ll return NaN.</p>
@@ -748,9 +673,7 @@ declare namespace E {
      * @url http://www.espruino.com/Reference#l_E_FFT
      */
     interface FFT {
-
         /**
-         *
          * @param arrReal
          * @param arrImage
          * @param inverse
@@ -758,7 +681,6 @@ declare namespace E {
          */
         new(arrReal: any, arrImage: any, inverse: boolean): FFT;
     }
-
 
     /**
      * <p>Interpolate between two adjacent values in the Typed Array</p>
@@ -987,9 +909,7 @@ declare namespace E {
      * @url http://www.espruino.com/Reference#l_E_HSBtoRGB
      */
     interface HSBtoRGB {
-
         /**
-         *
          * @param hue
          * @param sat
          * @param bri
@@ -997,7 +917,6 @@ declare namespace E {
          */
         new(hue: number, sat: number, bri: number): number;
     }
-
 
     /**
      * <p>Set a password on the console (REPL). When powered on, Espruino will
@@ -1044,7 +963,6 @@ declare namespace E {
     function setUSBHID(opts: any): void;
 
     /**
-     *
      * @param data
      * @return
      * @url http://www.espruino.com/Reference#l_E_sendUSBHID
@@ -1070,14 +988,12 @@ declare namespace E {
 }
 
 /**
-* <p>Creates a pin from the given argument (or returns undefined if no argument)</p>
-*
-* @url http://www.espruino.com/Reference#l_Pin_Pin
-*/
+ * <p>Creates a pin from the given argument (or returns undefined if no argument)</p>
+ *
+ * @url http://www.espruino.com/Reference#l_Pin_Pin
+ */
 declare interface Pin {
-
     /**
-     *
      * @param value
      * @return
      */
@@ -1155,25 +1071,19 @@ declare interface Pin {
 }
 
 /**
-* <p>Built-in class that caches the modules used by the <code>require</code> command</p>
-*
-* @url http://www.espruino.com/Reference#Modules
-*/
+ * <p>Built-in class that caches the modules used by the <code>require</code> command</p>
+ *
+ * @url http://www.espruino.com/Reference#Modules
+ */
 declare interface Modules {
-
     /**
-     *
      * @return
      */
     new(): Modules;
 }
 
-
-/**
-*
-*/
+/** */
 declare namespace Modules {
-
     /**
      * <p>Return an array of module names that have been cached</p>
      *
@@ -1208,15 +1118,13 @@ declare namespace Modules {
 }
 
 /**
-* <p>Create a waveform class. This allows high speed input and output of waveforms. It has an internal variable called <code>buffer</code> (as well as <code>buffer2</code> when double-buffered - see <code>options</code> below) which contains the data to input/output.</p>
-* <p>When double-buffered, a &#39;buffer&#39; event will be emitted each time a buffer is finished with (the argument is that buffer). When the recording stops, a &#39;finish&#39; event will be emitted (with the first argument as the buffer).</p>
-*
-* @url http://www.espruino.com/Reference#l_Waveform_Waveform
-*/
+ * <p>Create a waveform class. This allows high speed input and output of waveforms. It has an internal variable called <code>buffer</code> (as well as <code>buffer2</code> when double-buffered - see <code>options</code> below) which contains the data to input/output.</p>
+ * <p>When double-buffered, a &#39;buffer&#39; event will be emitted each time a buffer is finished with (the argument is that buffer). When the recording stops, a &#39;finish&#39; event will be emitted (with the first argument as the buffer).</p>
+ *
+ * @url http://www.espruino.com/Reference#l_Waveform_Waveform
+ */
 declare interface Waveform {
-
     /**
-     *
      * @param samples
      * @param options
      * @return
@@ -1252,14 +1160,12 @@ declare interface Waveform {
 }
 
 /**
-* <p>Create a software OneWire implementation on the given pin</p>
-*
-* @url http://www.espruino.com/Reference#l_OneWire_OneWire
-*/
+ * <p>Create a software OneWire implementation on the given pin</p>
+ *
+ * @url http://www.espruino.com/Reference#l_OneWire_OneWire
+ */
 declare interface OneWire {
-
     /**
-     *
      * @param pin
      * @return
      */
@@ -1317,15 +1223,13 @@ declare interface OneWire {
 }
 
 /**
-* <p>Create a software SPI port. This has limited functionality (no baud rate), but it can work on any pins.</p>
-* <p>Use <code>SPI.setup</code> to configure this port.</p>
-*
-* @url http://www.espruino.com/Reference#l_SPI_SPI
-*/
+ * <p>Create a software SPI port. This has limited functionality (no baud rate), but it can work on any pins.</p>
+ * <p>Use <code>SPI.setup</code> to configure this port.</p>
+ *
+ * @url http://www.espruino.com/Reference#l_SPI_SPI
+ */
 declare interface SPI {
-
     /**
-     *
      * @return
      */
     new(): SPI;
@@ -1395,24 +1299,24 @@ declare interface SPI {
 }
 
 /**
-* <p>The first SPI port</p>
-*
-* @url http://www.espruino.com/Reference#l__global_SPI1
-*/
+ * <p>The first SPI port</p>
+ *
+ * @url http://www.espruino.com/Reference#l__global_SPI1
+ */
 declare var SPI1: SPI;
 
 /**
-* <p>The second SPI port</p>
-*
-* @url http://www.espruino.com/Reference#l__global_SPI2
-*/
+ * <p>The second SPI port</p>
+ *
+ * @url http://www.espruino.com/Reference#l__global_SPI2
+ */
 declare var SPI2: SPI;
 
 /**
-* <p>The third SPI port</p>
-*
-* @url http://www.espruino.com/Reference#l__global_SPI3
-*/
+ * <p>The third SPI port</p>
+ *
+ * @url http://www.espruino.com/Reference#l__global_SPI3
+ */
 declare var SPI3: SPI;
 
 declare interface I2CSetupOptions {
@@ -1422,15 +1326,13 @@ declare interface I2CSetupOptions {
 }
 
 /**
-* <p>Create a software I2C port. This has limited functionality (no baud rate), but it can work on any pins.</p>
-* <p>Use <code>SPI.setup</code> to configure this port.</p>
-*
-* @url http://www.espruino.com/Reference#l_I2C_I2C
-*/
+ * <p>Create a software I2C port. This has limited functionality (no baud rate), but it can work on any pins.</p>
+ * <p>Use <code>SPI.setup</code> to configure this port.</p>
+ *
+ * @url http://www.espruino.com/Reference#l_I2C_I2C
+ */
 declare interface I2C {
-
     /**
-     *
      * @return
      */
     new(): I2C;
@@ -1475,58 +1377,50 @@ declare interface I2C {
 }
 
 /**
-* <p>The first I2C port</p>
-*
-* @url http://www.espruino.com/Reference#l__global_I2C1
-*/
+ * <p>The first I2C port</p>
+ *
+ * @url http://www.espruino.com/Reference#l__global_I2C1
+ */
 declare var I2C1: I2C;
 
 /**
-* <p>The second I2C port</p>
-*
-* @url http://www.espruino.com/Reference#l__global_I2C2
-*/
+ * <p>The second I2C port</p>
+ *
+ * @url http://www.espruino.com/Reference#l__global_I2C2
+ */
 declare var I2C2: I2C;
 
 /**
-* <p>The third I2C port</p>
-*
-* @url http://www.espruino.com/Reference#l__global_I2C3
-*/
+ * <p>The third I2C port</p>
+ *
+ * @url http://www.espruino.com/Reference#l__global_I2C3
+ */
 declare var I2C3: I2C;
 
 /**
-* <p>This library provides TV out capability on the Espruino and Espruino Pico.</p>
-* <p>See the [[Television]] page for more information.</p>
-*
-* @url http://www.espruino.com/Reference#l_tv_undefined
-*/
+ * <p>This library provides TV out capability on the Espruino and Espruino Pico.</p>
+ * <p>See the [[Television]] page for more information.</p>
+ *
+ * @url http://www.espruino.com/Reference#l_tv_undefined
+ */
 declare function tv(): void;
 
-
 /**
-* <p>Class containing AES encryption/decryption</p>
-* <p><strong>Note:</strong> This library is currently only included in builds for the Espruino Pico and Espruino WiFi. For other boards you will have to make build your own firmware, and you may need to remove other features in order to make room.</p>
-*
-* @url http://www.espruino.com/Reference#AES
-*/
+ * <p>Class containing AES encryption/decryption</p>
+ * <p><strong>Note:</strong> This library is currently only included in builds for the Espruino Pico and Espruino WiFi. For other boards you will have to make build your own firmware, and you may need to remove other features in order to make room.</p>
+ *
+ * @url http://www.espruino.com/Reference#AES
+ */
 declare interface AES {
-
     /**
-     *
      * @return
      */
     new(): AES;
 }
 
-
-/**
-*
-*/
+/** */
 declare namespace AES {
-
     /**
-     *
      * @param passphrase
      * @param key
      * @param options
@@ -1536,7 +1430,6 @@ declare namespace AES {
     function encrypt(passphrase: any, key: any, options: any): ArrayBuffer;
 
     /**
-     *
      * @param passphrase
      * @param key
      * @param options
@@ -1547,26 +1440,20 @@ declare namespace AES {
 }
 
 /**
-* <p>The NRF class is for controlling functionality of the Nordic nRF51/nRF52 chips. Currently these only used in <a href="http://puck-js.com">Puck.js</a> and the <a href="/MicroBit">BBC micro:bit</a>.</p>
-* <p>The main part of this is control of Bluetooth Low Energy - both searching for devices, and changing advertising data.</p>
-*
-* @url http://www.espruino.com/Reference#NRF
-*/
+ * <p>The NRF class is for controlling functionality of the Nordic nRF51/nRF52 chips. Currently these only used in <a href="http://puck-js.com">Puck.js</a> and the <a href="/MicroBit">BBC micro:bit</a>.</p>
+ * <p>The main part of this is control of Bluetooth Low Energy - both searching for devices, and changing advertising data.</p>
+ *
+ * @url http://www.espruino.com/Reference#NRF
+ */
 declare interface NRF {
-
     /**
-     *
      * @return
      */
     new(): NRF;
 }
 
-
-/**
-*
-*/
+/** */
 declare namespace NRF {
-
     type BLE_UUID = string | number;
 
     /**
@@ -1576,7 +1463,10 @@ declare namespace NRF {
      * @url https://www.espruino.com/Reference#l_NRF_servicesDiscover
      * @url https://www.espruino.com/Reference#l_NRF_characteristicsDiscover
      */
-    function on(event: 'connect' | 'disconnect' | 'HID' | 'servicesDiscover' | 'characteristicsDiscover', callback: (addr: string) => void): void;
+    function on(
+        event: "connect" | "disconnect" | "HID" | "servicesDiscover" | "characteristicsDiscover",
+        callback: (addr: string) => void,
+    ): void;
 
     /**
      * <p>If a device is connected to Espruino, disconnect from it.</p>
@@ -1661,42 +1551,47 @@ declare namespace NRF {
      * @param options An optional object of options
      * @url https://www.espruino.com/Reference#l_NRF_setAdvertising
      */
-    function setAdvertising(data: {
-        [uuid in BLE_UUID]: number[] | Uint8Array;
-    } | Array<number | string>, options?: {
-        /**
-         * The name of the device
-         */
-        name?: string,
-        /**
-         * Include full name, or nothing
-         */
-        showName?: boolean,
-        /**
-         * General discoverable, or limited - default is limited
-         */
-        discoverable?: boolean,
-        /**
-         * Whether device is connectable - default is true
-         */
-        connectable?: boolean,
-        /**
-         * Whether device can be scanned for scan response packets - default is true
-         */
-        scannable?: boolean,
-        /**
-         * Advertising interval in msec, between 20 and 10000 (default is 375 ms)
-         */
-        interval?: number,
-        /**
-         * If sending manufacturer data, this is the manufacturer ID
-         */
-        manufacturer?: number,
-        /**
-         * If sending manufacturer data, this is an array of data
-         */
-        manufacturerData?: string | number,
-    }): void;
+    function setAdvertising(
+        data:
+            | {
+                [uuid in BLE_UUID]: number[] | Uint8Array;
+            }
+            | Array<number | string>,
+        options?: {
+            /**
+             * The name of the device
+             */
+            name?: string;
+            /**
+             * Include full name, or nothing
+             */
+            showName?: boolean;
+            /**
+             * General discoverable, or limited - default is limited
+             */
+            discoverable?: boolean;
+            /**
+             * Whether device is connectable - default is true
+             */
+            connectable?: boolean;
+            /**
+             * Whether device can be scanned for scan response packets - default is true
+             */
+            scannable?: boolean;
+            /**
+             * Advertising interval in msec, between 20 and 10000 (default is 375 ms)
+             */
+            interval?: number;
+            /**
+             * If sending manufacturer data, this is the manufacturer ID
+             */
+            manufacturer?: number;
+            /**
+             * If sending manufacturer data, this is an array of data
+             */
+            manufacturerData?: string | number;
+        },
+    ): void;
 
     /**
      * When connected, Bluetooth LE devices communicate at a set interval.
@@ -1713,8 +1608,7 @@ declare namespace NRF {
      * @param interval The connection interval to use
      * @url https://www.espruino.com/Reference#l_NRF_setConnectionInterval
      */
-    function setConnectionInterval(interval?:
-        number | "auto" | { minInterval: number, maxInterval: number }): void;
+    function setConnectionInterval(interval?: number | "auto" | { minInterval: number; maxInterval: number }): void;
 
     /**
      * <p>Set the BLE radio transmit power. The default TX power is 0 dBm.</p>
@@ -1756,54 +1650,60 @@ declare namespace NRF {
      * @param options Optional object containing options
      * @url https://www.espruino.com/Reference#l_NRF_setServices
      */
-    function setServices(data: undefined | {
-        [service in BLE_UUID]: {
-            [characteristic in BLE_UUID]: {
-                value?: string | number[],
-                maxLen?: number,
-                broadcast?: boolean,
-                readable?: boolean,
-                writable?: boolean,
-                notify?: boolean,
-                indicate?: boolean,
-                description?: string,
-                security?: {
-                    read?: {
-                        encrypted?: boolean,
-                        mitm?: boolean,
-                        lesc?: boolean,
-                        signed?: boolean,
-                    },
-                    write?: {
-                        encrypted?: boolean,
-                        mitm?: boolean,
-                        lesc?: boolean,
-                        signed?: boolean,
-                    }
-                },
-                onWrite?: (event: any) => void;
-            } };
-    }, options?: {
-        hid?: Uint8Array,
-        /**
-         * Present a UART service that provides serial port-like access to the REPL.
-         * @url https://www.espruino.com/BLE%20UART
-         */
-        uart?: boolean,
-        advertise?: string[],
-        ancs?: boolean,
-        ams?: boolean,
-    }): void;
+    function setServices(
+        data:
+            | undefined
+            | {
+                [service in BLE_UUID]: {
+                    [characteristic in BLE_UUID]: {
+                        value?: string | number[];
+                        maxLen?: number;
+                        broadcast?: boolean;
+                        readable?: boolean;
+                        writable?: boolean;
+                        notify?: boolean;
+                        indicate?: boolean;
+                        description?: string;
+                        security?: {
+                            read?: {
+                                encrypted?: boolean;
+                                mitm?: boolean;
+                                lesc?: boolean;
+                                signed?: boolean;
+                            };
+                            write?: {
+                                encrypted?: boolean;
+                                mitm?: boolean;
+                                lesc?: boolean;
+                                signed?: boolean;
+                            };
+                        };
+                        onWrite?: (event: any) => void;
+                    };
+                };
+            },
+        options?: {
+            hid?: Uint8Array;
+            /**
+             * Present a UART service that provides serial port-like access to the REPL.
+             * @url https://www.espruino.com/BLE%20UART
+             */
+            uart?: boolean;
+            advertise?: string[];
+            ancs?: boolean;
+            ams?: boolean;
+        },
+    ): void;
 
     function requestDevice(options: {
         filters: Array<{
-            id?: string,
-            name?: string,
-            namePrefix?: string,
-            serviceData?: any,
-            manufacturerData?: any,
-            services?: string[],
-        }>
+            id?: string;
+            name?: string;
+            namePrefix?: string;
+            serviceData?: any;
+            manufacturerData?: any;
+            services?: string[];
+        }>;
     }): Promise<BluetoothDevice>;
 
     /**
@@ -1830,21 +1730,19 @@ declare namespace NRF {
 }
 
 /**
-* <p>The Bluetooth Serial port - used when data is sent or received over Bluetooth Smart on nRF51/nRF52 chips.</p>
-*
-* @url http://www.espruino.com/Reference#l__global_Bluetooth
-*/
+ * <p>The Bluetooth Serial port - used when data is sent or received over Bluetooth Smart on nRF51/nRF52 chips.</p>
+ *
+ * @url http://www.espruino.com/Reference#l__global_Bluetooth
+ */
 declare var Bluetooth: Serial;
 
 /**
-* <p>Web Bluetooth-style device - get this using <code>NRF.requestDevice(address)</code></p>
-*
-* @url http://www.espruino.com/Reference#BluetoothDevice
-*/
+ * <p>Web Bluetooth-style device - get this using <code>NRF.requestDevice(address)</code></p>
+ *
+ * @url http://www.espruino.com/Reference#BluetoothDevice
+ */
 declare interface BluetoothDevice {
-
     /**
-     *
      * @return
      */
     new(): BluetoothDevice;
@@ -1858,16 +1756,14 @@ declare interface BluetoothDevice {
 }
 
 /**
-* <p>Web Bluetooth-style GATT server - get this using <code>NRF.connect(address)</code>
-* or <code>NRF.requestDevice(options)</code> then <code>response.gatt.connect</code></p>
-* <p><a href="https://webbluetoothcg.github.io/web-bluetooth/#bluetoothremotegattserver">https://webbluetoothcg.github.io/web-bluetooth/#bluetoothremotegattserver</a></p>
-*
-* @url http://www.espruino.com/Reference#BluetoothRemoteGATTServer
-*/
+ * <p>Web Bluetooth-style GATT server - get this using <code>NRF.connect(address)</code>
+ * or <code>NRF.requestDevice(options)</code> then <code>response.gatt.connect</code></p>
+ * <p><a href="https://webbluetoothcg.github.io/web-bluetooth/#bluetoothremotegattserver">https://webbluetoothcg.github.io/web-bluetooth/#bluetoothremotegattserver</a></p>
+ *
+ * @url http://www.espruino.com/Reference#BluetoothRemoteGATTServer
+ */
 declare interface BluetoothRemoteGATTServer {
-
     /**
-     *
      * @return
      */
     new(): BluetoothRemoteGATTServer;
@@ -1882,8 +1778,8 @@ declare interface BluetoothRemoteGATTServer {
      * @url http://www.espruino.com/Reference#l_BluetoothRemoteGATTServer_connect
      */
     connect(options: {
-        minInterval?: number,
-        maxInterval?: number,
+        minInterval?: number;
+        maxInterval?: number;
     }): Promise<BluetoothRemoteGATTServer>;
 
     /**
@@ -1915,15 +1811,13 @@ declare interface BluetoothRemoteGATTServer {
 }
 
 /**
-* <p>Web Bluetooth-style GATT service - get this using <code>BluetoothRemoteGATTServer.getPrimaryService(s)</code></p>
-* <p><a href="https://webbluetoothcg.github.io/web-bluetooth/#bluetoothremotegattservice">https://webbluetoothcg.github.io/web-bluetooth/#bluetoothremotegattservice</a></p>
-*
-* @url http://www.espruino.com/Reference#BluetoothRemoteGATTService
-*/
+ * <p>Web Bluetooth-style GATT service - get this using <code>BluetoothRemoteGATTServer.getPrimaryService(s)</code></p>
+ * <p><a href="https://webbluetoothcg.github.io/web-bluetooth/#bluetoothremotegattservice">https://webbluetoothcg.github.io/web-bluetooth/#bluetoothremotegattservice</a></p>
+ *
+ * @url http://www.espruino.com/Reference#BluetoothRemoteGATTService
+ */
 declare interface BluetoothRemoteGATTService {
-
     /**
-     *
      * @return
      */
     new(): BluetoothRemoteGATTService;
@@ -1947,15 +1841,13 @@ declare interface BluetoothRemoteGATTService {
 }
 
 /**
-* <p>Web Bluetooth-style GATT characteristic - get this using <code>BluetoothRemoteGATTService.getCharacteristic(s)</code></p>
-* <p><a href="https://webbluetoothcg.github.io/web-bluetooth/#bluetoothremotegattcharacteristic">https://webbluetoothcg.github.io/web-bluetooth/#bluetoothremotegattcharacteristic</a></p>
-*
-* @url http://www.espruino.com/Reference#BluetoothRemoteGATTCharacteristic
-*/
+ * <p>Web Bluetooth-style GATT characteristic - get this using <code>BluetoothRemoteGATTService.getCharacteristic(s)</code></p>
+ * <p><a href="https://webbluetoothcg.github.io/web-bluetooth/#bluetoothremotegattcharacteristic">https://webbluetoothcg.github.io/web-bluetooth/#bluetoothremotegattcharacteristic</a></p>
+ *
+ * @url http://www.espruino.com/Reference#BluetoothRemoteGATTCharacteristic
+ */
 declare interface BluetoothRemoteGATTCharacteristic {
-
     /**
-     *
      * @return
      */
     new(): BluetoothRemoteGATTCharacteristic;
@@ -1970,26 +1862,20 @@ declare interface BluetoothRemoteGATTCharacteristic {
 }
 
 /**
-* <p>This class exists in order to interface Espruino with fast-moving trigger wheels. Trigger wheels are physical discs with evenly spaced teeth cut into them, and often with one or two teeth next to each other missing. A sensor sends a signal whenever a tooth passed by, and this allows a device to measure not only RPM, but absolute position.</p>
-* <p>This class is currently in testing - it is NOT AVAILABLE on normal boards.</p>
-*
-* @url http://www.espruino.com/Reference#Trig
-*/
+ * <p>This class exists in order to interface Espruino with fast-moving trigger wheels. Trigger wheels are physical discs with evenly spaced teeth cut into them, and often with one or two teeth next to each other missing. A sensor sends a signal whenever a tooth passed by, and this allows a device to measure not only RPM, but absolute position.</p>
+ * <p>This class is currently in testing - it is NOT AVAILABLE on normal boards.</p>
+ *
+ * @url http://www.espruino.com/Reference#Trig
+ */
 declare interface Trig {
-
     /**
-     *
      * @return
      */
     new(): Trig;
 }
 
-
-/**
-*
-*/
+/** */
 declare namespace Trig {
-
     /**
      * <p>Get the position of the trigger wheel at the given time (from getTime)</p>
      *
@@ -2062,42 +1948,35 @@ declare namespace Trig {
 }
 
 /**
-* <p>This library allows you to write to Neopixel/WS281x/APA10x LED strips</p>
-* <p>These use a high speed single-wire protocol which needs platform-specific
-* implementation on some devices - hence this library to simplify things.</p>
-*
-* @url http://www.espruino.com/Reference#l_neopixel_undefined
-*/
+ * <p>This library allows you to write to Neopixel/WS281x/APA10x LED strips</p>
+ * <p>These use a high speed single-wire protocol which needs platform-specific
+ * implementation on some devices - hence this library to simplify things.</p>
+ *
+ * @url http://www.espruino.com/Reference#l_neopixel_undefined
+ */
 declare function neopixel(): void;
 
 /**
-* <p>The ESP8266 library is specific to the ESP8266 version of Espruino, i.e., running Espruino on an ESP8266 module (not to be confused with using the ESP8266 as Wifi add-on to an Espruino board).  This library contains functions to handle ESP8266-specific actions.
-* For example: <code>var esp8266 = require(&#39;ESP8266&#39;); esp8266.reboot();</code> performs a hardware reset of the module.</p>
-*
-* @url http://www.espruino.com/Reference#l_ESP8266_undefined
-*/
+ * <p>The ESP8266 library is specific to the ESP8266 version of Espruino, i.e., running Espruino on an ESP8266 module (not to be confused with using the ESP8266 as Wifi add-on to an Espruino board).  This library contains functions to handle ESP8266-specific actions.
+ * For example: <code>var esp8266 = require(&#39;ESP8266&#39;); esp8266.reboot();</code> performs a hardware reset of the module.</p>
+ *
+ * @url http://www.espruino.com/Reference#l_ESP8266_undefined
+ */
 declare interface ESP8266 {
-
     /**
-     *
      * @return
      */
     new(): ESP8266;
 }
 
-
-/**
-*
-*/
+/** */
 declare namespace ESP8266 {
-
     /**
      * <p>Perform a hardware reset/reboot of the esp8266.</p>
      *
      * @url http://www.espruino.com/Reference#l_ESP8266_reboot
      */
     function reboot(): void;
-
 
     /**
      * <p>Enable or disable the logging of debug information.  A value of <code>true</code> enables debug logging while a value of <code>false</code> disables debug logging.  Debug output is sent to UART1 (gpio2).</p>
@@ -2173,7 +2052,6 @@ declare namespace ESP8266 {
     function getFreeFlash(): any;
 
     /**
-     *
      * @param arrayOfData
      * @return
      * @url http://www.espruino.com/Reference#l_ESP8266_crc32
@@ -2219,19 +2097,16 @@ declare namespace ESP8266 {
 }
 
 /**
-* <p>This library allows you to create http servers and make http requests</p>
-* <p>In order to use this, you will need an extra module to get network connectivity such as the <a href="/CC3000">TI CC3000</a> or <a href="/WIZnet">WIZnet W5500</a>.</p>
-* <p>This is designed to be a cut-down version of the <a href="https://nodejs.org/api/http.html">node.js library</a>. Please see the <a href="/Internet">Internet</a> page for more information on how to use it.</p>
-*
-* @url http://www.espruino.com/Reference#l_http_undefined
-*/
+ * <p>This library allows you to create http servers and make http requests</p>
+ * <p>In order to use this, you will need an extra module to get network connectivity such as the <a href="/CC3000">TI CC3000</a> or <a href="/WIZnet">WIZnet W5500</a>.</p>
+ * <p>This is designed to be a cut-down version of the <a href="https://nodejs.org/api/http.html">node.js library</a>. Please see the <a href="/Internet">Internet</a> page for more information on how to use it.</p>
+ *
+ * @url http://www.espruino.com/Reference#l_http_undefined
+ */
 declare function http(): void;
 
-/**
-*
-*/
+/** */
 declare namespace http {
-
     /**
      * <p>Create an HTTP Server</p>
      * <p>When a request to the server is made, the callback is called. In the callback you can use the methods on the response (httpSRs) to send data. You can also add <code>request.on(&#39;data&#39;,function() { ... })</code> to listen for POSTed data</p>
@@ -2244,14 +2119,12 @@ declare namespace http {
 }
 
 /**
-* <p>The HTTP server created by <code>require(&#39;http&#39;).createServer</code></p>
-*
-* @url http://www.espruino.com/Reference#httpSrv
-*/
+ * <p>The HTTP server created by <code>require(&#39;http&#39;).createServer</code></p>
+ *
+ * @url http://www.espruino.com/Reference#httpSrv
+ */
 declare interface httpSrv {
-
     /**
-     *
      * @return
      */
     new(): httpSrv;
@@ -2273,14 +2146,12 @@ declare interface httpSrv {
 }
 
 /**
-* <p>The HTTP server request</p>
-*
-* @url http://www.espruino.com/Reference#httpSRq
-*/
+ * <p>The HTTP server request</p>
+ *
+ * @url http://www.espruino.com/Reference#httpSRq
+ */
 declare interface httpSRq {
-
     /**
-     *
      * @return
      */
     new(): httpSRq;
@@ -2313,14 +2184,12 @@ declare interface httpSRq {
 }
 
 /**
-* <p>The HTTP server response</p>
-*
-* @url http://www.espruino.com/Reference#httpSRs
-*/
+ * <p>The HTTP server response</p>
+ *
+ * @url http://www.espruino.com/Reference#httpSRs
+ */
 declare interface httpSRs {
-
     /**
-     *
      * @return
      */
     new(): httpSRs;
@@ -2345,7 +2214,6 @@ declare interface httpSRs {
     end(data: any): void;
 
     /**
-     *
      * @param statusCode
      * @param headers
      * @url http://www.espruino.com/Reference#l_httpSRs_writeHead
@@ -2354,14 +2222,12 @@ declare interface httpSRs {
 }
 
 /**
-* <p>The HTTP client request, returned by <code>http.request()</code> and <code>http.get()</code>.</p>
-*
-* @url http://www.espruino.com/Reference#httpCRq
-*/
+ * <p>The HTTP client request, returned by <code>http.request()</code> and <code>http.get()</code>.</p>
+ *
+ * @url http://www.espruino.com/Reference#httpCRq
+ */
 declare interface httpCRq {
-
     /**
-     *
      * @return
      */
     new(): httpCRq;
@@ -2388,14 +2254,12 @@ declare interface httpCRq {
 }
 
 /**
-* <p>The HTTP client response, passed to the callback of <code>http.request()</code> an <code>http.get()</code>.</p>
-*
-* @url http://www.espruino.com/Reference#httpCRs
-*/
+ * <p>The HTTP client response, passed to the callback of <code>http.request()</code> an <code>http.get()</code>.</p>
+ *
+ * @url http://www.espruino.com/Reference#httpCRs
+ */
 declare interface httpCRs {
-
     /**
-     *
      * @return
      */
     new(): httpCRs;
@@ -2428,24 +2292,17 @@ declare interface httpCRs {
 }
 
 /**
-*
-* @url http://www.espruino.com/Reference#l_CC3000_undefined
-*/
+ * @url http://www.espruino.com/Reference#l_CC3000_undefined
+ */
 declare interface CC3000 {
-
     /**
-     *
      * @return
      */
     new(): CC3000;
 }
 
-
-/**
-*
-*/
+/** */
 declare namespace CC3000 {
-
     /**
      * <p>Initialise the CC3000 and return a WLAN object</p>
      *
@@ -2460,14 +2317,12 @@ declare namespace CC3000 {
 }
 
 /**
-* <p>An instantiation of a WiFi network adaptor</p>
-*
-* @url http://www.espruino.com/Reference#WLAN
-*/
+ * <p>An instantiation of a WiFi network adaptor</p>
+ *
+ * @url http://www.espruino.com/Reference#WLAN
+ */
 declare interface WLAN {
-
     /**
-     *
      * @return
      */
     new(): WLAN;
@@ -2517,30 +2372,23 @@ declare interface WLAN {
 }
 
 /**
-* <p>This library implements a telnet console for the Espruino interpreter. It requires a network
-* connection, e.g. Wifi, and <strong>currently only functions on the ESP8266 and on Linux </strong>. It uses
-* port 23 on the ESP8266 and port 2323 on Linux.</p>
-* <p><strong>Note:</strong> To enable on Linux, run <code>./espruino --telnet</code></p>
-*
-* @url http://www.espruino.com/Reference#l_TelnetServer_undefined
-*/
+ * <p>This library implements a telnet console for the Espruino interpreter. It requires a network
+ * connection, e.g. Wifi, and <strong>currently only functions on the ESP8266 and on Linux </strong>. It uses
+ * port 23 on the ESP8266 and port 2323 on Linux.</p>
+ * <p><strong>Note:</strong> To enable on Linux, run <code>./espruino --telnet</code></p>
+ *
+ * @url http://www.espruino.com/Reference#l_TelnetServer_undefined
+ */
 declare interface TelnetServer {
-
     /**
-     *
      * @return
      */
     new(): TelnetServer;
 }
 
-
-/**
-*
-*/
+/** */
 declare namespace TelnetServer {
-
     /**
-     *
      * @param options
      * @url http://www.espruino.com/Reference#l_TelnetServer_setOptions
      */
@@ -2548,25 +2396,19 @@ declare namespace TelnetServer {
 }
 
 /**
-* <p>Library for communication with the WIZnet Ethernet module</p>
-*
-* @url http://www.espruino.com/Reference#l_WIZnet_undefined
-*/
+ * <p>Library for communication with the WIZnet Ethernet module</p>
+ *
+ * @url http://www.espruino.com/Reference#l_WIZnet_undefined
+ */
 declare interface WIZnet {
-
     /**
-     *
      * @return
      */
     new(): WIZnet;
 }
 
-
-/**
-*
-*/
+/** */
 declare namespace WIZnet {
-
     /**
      * <p>Initialise the WIZnet module and return an Ethernet object</p>
      *
@@ -2579,14 +2421,12 @@ declare namespace WIZnet {
 }
 
 /**
-* <p>An instantiation of an Ethernet network adaptor</p>
-*
-* @url http://www.espruino.com/Reference#Ethernet
-*/
+ * <p>An instantiation of an Ethernet network adaptor</p>
+ *
+ * @url http://www.espruino.com/Reference#Ethernet
+ */
 declare interface Ethernet {
-
     /**
-     *
      * @return
      */
     new(): Ethernet;
@@ -2611,32 +2451,26 @@ declare interface Ethernet {
 }
 
 /**
-* <p>Library that initialises a network device that calls into JavaScript</p>
-*
-* @url http://www.espruino.com/Reference#l_NetworkJS_undefined
-*/
+ * <p>Library that initialises a network device that calls into JavaScript</p>
+ *
+ * @url http://www.espruino.com/Reference#l_NetworkJS_undefined
+ */
 declare interface NetworkJS {
-
     /**
-     *
      * @return
      */
     new(): NetworkJS;
 }
 
-
 /**
-* <p>This class helps to convert URLs into Objects of information ready for http.request/get</p>
-*
-* @url http://www.espruino.com/Reference#url
-*/
+ * <p>This class helps to convert URLs into Objects of information ready for http.request/get</p>
+ *
+ * @url http://www.espruino.com/Reference#url
+ */
 declare function url(): void;
 
-/**
-*
-*/
+/** */
 declare namespace url {
-
     /**
      * <p>A utility function to split a URL into parts</p>
      * <p>This is useful in web servers for instance when handling a request.</p>
@@ -2651,19 +2485,16 @@ declare namespace url {
 }
 
 /**
-* <p>This library allows you to create TCPIP servers and clients</p>
-* <p>In order to use this, you will need an extra module to get network connectivity.</p>
-* <p>This is designed to be a cut-down version of the <a href="https://nodejs.org/api/net.html">node.js library</a>. Please see the <a href="/Internet">Internet</a> page for more information on how to use it.</p>
-*
-* @url http://www.espruino.com/Reference#l_net_undefined
-*/
+ * <p>This library allows you to create TCPIP servers and clients</p>
+ * <p>In order to use this, you will need an extra module to get network connectivity.</p>
+ * <p>This is designed to be a cut-down version of the <a href="https://nodejs.org/api/net.html">node.js library</a>. Please see the <a href="/Internet">Internet</a> page for more information on how to use it.</p>
+ *
+ * @url http://www.espruino.com/Reference#l_net_undefined
+ */
 declare function net(): void;
 
-/**
-*
-*/
+/** */
 declare namespace net {
-
     /**
      * <p>Create a Server</p>
      * <p>When a request to the server is made, the callback is called. In the callback you can use the methods on the connection to send data. You can also add <code>connection.on(&#39;data&#39;,function() { ... })</code> to listen for received data</p>
@@ -2686,14 +2517,12 @@ declare namespace net {
 }
 
 /**
-* <p>The socket server created by <code>require(&#39;net&#39;).createServer</code></p>
-*
-* @url http://www.espruino.com/Reference#Server
-*/
+ * <p>The socket server created by <code>require(&#39;net&#39;).createServer</code></p>
+ *
+ * @url http://www.espruino.com/Reference#Server
+ */
 declare interface Server {
-
     /**
-     *
      * @return
      */
     new(): Server;
@@ -2715,14 +2544,12 @@ declare interface Server {
 }
 
 /**
-* <p>An actual socket connection - allowing transmit/receive of TCP data</p>
-*
-* @url http://www.espruino.com/Reference#Socket
-*/
+ * <p>An actual socket connection - allowing transmit/receive of TCP data</p>
+ *
+ * @url http://www.espruino.com/Reference#Socket
+ */
 declare interface Socket {
-
     /**
-     *
      * @return
      */
     new(): Socket;
@@ -2764,29 +2591,25 @@ declare interface Socket {
 }
 
 /**
-* <p>This library allows you to create TCPIP servers and clients using TLS encryption</p>
-* <p>In order to use this, you will need an extra module to get network connectivity.</p>
-* <p>This is designed to be a cut-down version of the <a href="https://nodejs.org/api/tls.html">node.js library</a>. Please see the <a href="/Internet">Internet</a> page for more information on how to use it.</p>
-*
-* @url http://www.espruino.com/Reference#l_tls_undefined
-*/
+ * <p>This library allows you to create TCPIP servers and clients using TLS encryption</p>
+ * <p>In order to use this, you will need an extra module to get network connectivity.</p>
+ * <p>This is designed to be a cut-down version of the <a href="https://nodejs.org/api/tls.html">node.js library</a>. Please see the <a href="/Internet">Internet</a> page for more information on how to use it.</p>
+ *
+ * @url http://www.espruino.com/Reference#l_tls_undefined
+ */
 declare function tls(): void;
 
 /**
-* <p><strong>Note:</strong> This library is currently only included in builds for the original Espruino boards.
-* For other boards you will have to make build your own firmware.</p>
-*
-* @url http://www.espruino.com/Reference#l_hashlib_undefined
-*/
+ * <p><strong>Note:</strong> This library is currently only included in builds for the original Espruino boards.
+ * For other boards you will have to make build your own firmware.</p>
+ *
+ * @url http://www.espruino.com/Reference#l_hashlib_undefined
+ */
 declare function hashlib(): void;
 
-/**
-*
-*/
+/** */
 declare namespace hashlib {
-
     /**
-     *
      * @param message
      * @return
      * @url http://www.espruino.com/Reference#l_hashlib_sha224
@@ -2794,7 +2617,6 @@ declare namespace hashlib {
     function sha224(message: any): HASH;
 
     /**
-     *
      * @param message
      * @return
      * @url http://www.espruino.com/Reference#l_hashlib_sha256
@@ -2803,28 +2625,24 @@ declare namespace hashlib {
 }
 
 /**
-* <p><strong>Note:</strong> This class is currently only included in builds for the original Espruino boards.
-* For other boards you will have to make build your own firmware.</p>
-*
-* @url http://www.espruino.com/Reference#HASH
-*/
+ * <p><strong>Note:</strong> This class is currently only included in builds for the original Espruino boards.
+ * For other boards you will have to make build your own firmware.</p>
+ *
+ * @url http://www.espruino.com/Reference#HASH
+ */
 declare interface HASH {
-
     /**
-     *
      * @return
      */
     new(): HASH;
 
     /**
-     *
      * @param message
      * @url http://www.espruino.com/Reference#l_HASH_update
      */
     update(message: any): void;
 
     /**
-     *
      * @param message
      * @return
      * @url http://www.espruino.com/Reference#l_HASH_digest
@@ -2832,7 +2650,6 @@ declare interface HASH {
     digest(message: any): any;
 
     /**
-     *
      * @param message
      * @return
      * @url http://www.espruino.com/Reference#l_HASH_hexdigest
@@ -2841,34 +2658,26 @@ declare interface HASH {
 }
 
 /**
-* <p>Class containing utility functions for the Seeed WIO LTE board</p>
-*
-* @url http://www.espruino.com/Reference#WioLTE
-*/
+ * <p>Class containing utility functions for the Seeed WIO LTE board</p>
+ *
+ * @url http://www.espruino.com/Reference#WioLTE
+ */
 declare interface WioLTE {
-
     /**
-     *
      * @return
      */
     new(): WioLTE;
 }
 
-
-/**
-*
-*/
+/** */
 declare namespace WioLTE {
-
     /**
      * <p>Set the WIO&#39;s LED</p>
      *
      * @url http://www.espruino.com/Reference#l_WioLTE_LED
      */
     interface LED {
-
         /**
-         *
          * @param red
          * @param green
          * @param blue
@@ -2876,7 +2685,6 @@ declare namespace WioLTE {
          */
         new(red: number, green: number, blue: number): LED;
     }
-
 
     /**
      * <p>Set the power of Grove connectors, except for <code>D38</code> and <code>D39</code> which are always on.</p>
@@ -2896,59 +2704,49 @@ declare namespace WioLTE {
     function setLEDPower(onoff: boolean): void;
 
     /**
-     *
      * @url http://www.espruino.com/Reference#l_WioLTE_D38
      */
     var D38: any;
 
     /**
-     *
      * @url http://www.espruino.com/Reference#l_WioLTE_D20
      */
     var D20: any;
 
     /**
-     *
      * @url http://www.espruino.com/Reference#l_WioLTE_A6
      */
     var A6: any;
 
     /**
-     *
      * @url http://www.espruino.com/Reference#l_WioLTE_I2C
      */
     var I2C: any;
 
     /**
-     *
      * @url http://www.espruino.com/Reference#l_WioLTE_UART
      */
     var UART: any;
 
     /**
-     *
      * @url http://www.espruino.com/Reference#l_WioLTE_A4
      */
     var A4: any;
 }
 
 /**
-* <p>This library handles interfacing with a FAT32 filesystem on an SD card. The API is designed to be similar to node.js&#39;s - However Espruino does not currently support asynchronous file IO, so the functions behave like node.js&#39;s xxxxSync functions. Versions of the functions with &#39;Sync&#39; after them are also provided for compatibility.</p>
-* <p>Currently this provides minimal file IO - it&#39;s great for logging and loading/saving settings, but not good for loading large amounts of data as you will soon fill your memory up.</p>
-* <p>It is currently only available on boards that contain an SD card slot, such as the Olimexino and the HY. It can not currently be added to boards that did not ship with a card slot.</p>
-* <p>To use this, you must type <code>var fs = require(&#39;fs&#39;)</code> to get access to the library</p>
-*
-* @url http://www.espruino.com/Reference#l_fs_undefined
-*/
+ * <p>This library handles interfacing with a FAT32 filesystem on an SD card. The API is designed to be similar to node.js&#39;s - However Espruino does not currently support asynchronous file IO, so the functions behave like node.js&#39;s xxxxSync functions. Versions of the functions with &#39;Sync&#39; after them are also provided for compatibility.</p>
+ * <p>Currently this provides minimal file IO - it&#39;s great for logging and loading/saving settings, but not good for loading large amounts of data as you will soon fill your memory up.</p>
+ * <p>It is currently only available on boards that contain an SD card slot, such as the Olimexino and the HY. It can not currently be added to boards that did not ship with a card slot.</p>
+ * <p>To use this, you must type <code>var fs = require(&#39;fs&#39;)</code> to get access to the library</p>
+ *
+ * @url http://www.espruino.com/Reference#l_fs_undefined
+ */
 declare function fs(): void;
 
-/**
-*
-*/
+/** */
 declare namespace fs {
-
     /**
-     *
      * @param source
      * @param destination
      * @param options
@@ -3090,16 +2888,14 @@ declare namespace fs {
 }
 
 /**
-* <p>This is the File object - it allows you to stream data to and from files (As opposed to the <code>require(&#39;fs&#39;).readFile(..)</code> style functions that read an entire file).</p>
-* <p>To create a File object, you must type <code>var fd = E.openFile(&#39;filepath&#39;,&#39;mode&#39;)</code> - see <a href="#l_E_openFile">E.openFile</a> for more information.</p>
-* <p><strong>Note:</strong> If you want to remove an SD card after you have started using it, you <em>must</em> call <code>E.unmountSD()</code> or you may cause damage to the card.</p>
-*
-* @url http://www.espruino.com/Reference#File
-*/
+ * <p>This is the File object - it allows you to stream data to and from files (As opposed to the <code>require(&#39;fs&#39;).readFile(..)</code> style functions that read an entire file).</p>
+ * <p>To create a File object, you must type <code>var fd = E.openFile(&#39;filepath&#39;,&#39;mode&#39;)</code> - see <a href="#l_E_openFile">E.openFile</a> for more information.</p>
+ * <p><strong>Note:</strong> If you want to remove an SD card after you have started using it, you <em>must</em> call <code>E.unmountSD()</code> or you may cause damage to the card.</p>
+ *
+ * @url http://www.espruino.com/Reference#File
+ */
 declare interface File {
-
     /**
-     *
      * @return
      */
     new(): File;
@@ -3156,16 +2952,14 @@ declare interface File {
 }
 
 /**
-* <p>This class provides Graphics operations that can be applied to a surface.</p>
-* <p>Use Graphics.createXXX to create a graphics object that renders in the way you want. See <a href="/Graphics">the Graphics page</a> for more information.</p>
-* <p><strong>Note:</strong> On boards that contain an LCD, there is a built-in &#39;LCD&#39; object of type Graphics. For instance to draw a line you&#39;d type: <code>LCD.drawLine(0,0,100,100)</code></p>
-*
-* @url http://www.espruino.com/Reference#Graphics
-*/
+ * <p>This class provides Graphics operations that can be applied to a surface.</p>
+ * <p>Use Graphics.createXXX to create a graphics object that renders in the way you want. See <a href="/Graphics">the Graphics page</a> for more information.</p>
+ * <p><strong>Note:</strong> On boards that contain an LCD, there is a built-in &#39;LCD&#39; object of type Graphics. For instance to draw a line you&#39;d type: <code>LCD.drawLine(0,0,100,100)</code></p>
+ *
+ * @url http://www.espruino.com/Reference#Graphics
+ */
 declare interface Graphics {
-
     /**
-     *
      * @return
      */
     new(): Graphics;
@@ -3440,25 +3234,19 @@ declare interface Graphics {
 }
 
 /**
-* <p>Class containing <a href="http://www.puck-js.com">Puck.js&#39;s</a> utility functions.</p>
-*
-* @url http://www.espruino.com/Reference#Puck
-*/
+ * <p>Class containing <a href="http://www.puck-js.com">Puck.js&#39;s</a> utility functions.</p>
+ *
+ * @url http://www.espruino.com/Reference#Puck
+ */
 declare interface Puck {
-
     /**
-     *
      * @return
      */
     new(): Puck;
 }
 
-
-/**
-*
-*/
+/** */
 declare namespace Puck {
-
     /**
      * <p>Turn on the magnetometer, take a single reading, and then turn it off again.</p>
      * <p>An object of the form <code>{x,y,z}</code> is returned containing magnetometer readings.
@@ -3509,9 +3297,7 @@ declare namespace Puck {
      * @url http://www.espruino.com/Reference#l_Puck_IR
      */
     interface IR {
-
         /**
-         *
          * @param data
          * @param cathode
          * @param anode
@@ -3519,7 +3305,6 @@ declare namespace Puck {
          */
         new(data: any, cathode: Pin, anode: Pin): IR;
     }
-
 
     /**
      * <p>Capacitive sense - the higher the capacitance, the higher the number returned.</p>
@@ -3574,25 +3359,19 @@ declare namespace Puck {
 }
 
 /**
-* <p>Class containing utility functions for accessing IO on the hexagonal badge</p>
-*
-* @url http://www.espruino.com/Reference#Badge
-*/
+ * <p>Class containing utility functions for accessing IO on the hexagonal badge</p>
+ *
+ * @url http://www.espruino.com/Reference#Badge
+ */
 declare interface Badge {
-
     /**
-     *
      * @return
      */
     new(): Badge;
 }
 
-
-/**
-*
-*/
+/** */
 declare namespace Badge {
-
     /**
      * <p>Capacitive sense - the higher the capacitance, the higher the number returned.</p>
      * <p>Supply a corner between 1 and 6, and a</p>
@@ -3622,539 +3401,531 @@ declare namespace Badge {
 }
 
 /**
-*
-* @url http://www.espruino.com/Reference#l__global_HIGH
-*/
+ * @url http://www.espruino.com/Reference#l__global_HIGH
+ */
 declare var HIGH: number;
 
 /**
-*
-* @url http://www.espruino.com/Reference#l__global_LOW
-*/
+ * @url http://www.espruino.com/Reference#l__global_LOW
+ */
 declare var LOW: number;
 
 /**
-* <p>Read 8 bits of memory at the given location - DANGEROUS!</p>
-*
-* @param addr
-* @param count
-* @return
-* @url http://www.espruino.com/Reference#l__global_peek8
-*/
+ * <p>Read 8 bits of memory at the given location - DANGEROUS!</p>
+ *
+ * @param addr
+ * @param count
+ * @return
+ * @url http://www.espruino.com/Reference#l__global_peek8
+ */
 declare function peek8(addr: number, count: number): any;
 
 /**
-* <p>Write 8 bits of memory at the given location - VERY DANGEROUS!</p>
-*
-* @param addr
-* @param value
-* @url http://www.espruino.com/Reference#l__global_poke8
-*/
+ * <p>Write 8 bits of memory at the given location - VERY DANGEROUS!</p>
+ *
+ * @param addr
+ * @param value
+ * @url http://www.espruino.com/Reference#l__global_poke8
+ */
 declare function poke8(addr: number, value: any): void;
 
 /**
-* <p>Read 16 bits of memory at the given location - DANGEROUS!</p>
-*
-* @param addr
-* @param count
-* @return
-* @url http://www.espruino.com/Reference#l__global_peek16
-*/
+ * <p>Read 16 bits of memory at the given location - DANGEROUS!</p>
+ *
+ * @param addr
+ * @param count
+ * @return
+ * @url http://www.espruino.com/Reference#l__global_peek16
+ */
 declare function peek16(addr: number, count: number): any;
 
 /**
-* <p>Write 16 bits of memory at the given location - VERY DANGEROUS!</p>
-*
-* @param addr
-* @param value
-* @url http://www.espruino.com/Reference#l__global_poke16
-*/
+ * <p>Write 16 bits of memory at the given location - VERY DANGEROUS!</p>
+ *
+ * @param addr
+ * @param value
+ * @url http://www.espruino.com/Reference#l__global_poke16
+ */
 declare function poke16(addr: number, value: any): void;
 
 /**
-* <p>Read 32 bits of memory at the given location - DANGEROUS!</p>
-*
-* @param addr
-* @param count
-* @return
-* @url http://www.espruino.com/Reference#l__global_peek32
-*/
+ * <p>Read 32 bits of memory at the given location - DANGEROUS!</p>
+ *
+ * @param addr
+ * @param count
+ * @return
+ * @url http://www.espruino.com/Reference#l__global_peek32
+ */
 declare function peek32(addr: number, count: number): any;
 
 /**
-* <p>Write 32 bits of memory at the given location - VERY DANGEROUS!</p>
-*
-* @param addr
-* @param value
-* @url http://www.espruino.com/Reference#l__global_poke32
-*/
+ * <p>Write 32 bits of memory at the given location - VERY DANGEROUS!</p>
+ *
+ * @param addr
+ * @param value
+ * @url http://www.espruino.com/Reference#l__global_poke32
+ */
 declare function poke32(addr: number, value: any): void;
 
 /**
-* <p>Get the analog value of the given pin</p>
-* <p>This is different to Arduino which only returns an integer between 0 and 1023</p>
-* <p>However only pins connected to an ADC will work (see the datasheet)</p>
-* <p> <strong>Note:</strong> if you didn&#39;t call <code>pinMode</code> beforehand then this function will also reset pin&#39;s state to <code>&quot;analog&quot;</code></p>
-*
-* @param pin
-* @return
-* @url http://www.espruino.com/Reference#l__global_analogRead
-*/
+ * <p>Get the analog value of the given pin</p>
+ * <p>This is different to Arduino which only returns an integer between 0 and 1023</p>
+ * <p>However only pins connected to an ADC will work (see the datasheet)</p>
+ * <p> <strong>Note:</strong> if you didn&#39;t call <code>pinMode</code> beforehand then this function will also reset pin&#39;s state to <code>&quot;analog&quot;</code></p>
+ *
+ * @param pin
+ * @return
+ * @url http://www.espruino.com/Reference#l__global_analogRead
+ */
 declare function analogRead(pin: Pin): number;
 
 /**
-* <p>Set the analog Value of a pin. It will be output using PWM.</p>
-* <p>Objects can contain:</p>
-* <ul>
-* <li><code>freq</code> - pulse frequency in Hz, eg. <code>analogWrite(A0,0.5,{ freq : 10 });</code> - specifying a frequency will force PWM output, even if the pin has a DAC</li>
-* <li><code>soft</code> - boolean, If true software PWM is used if available.</li>
-* <li><p><code>forceSoft</code> - boolean, If true software PWM is used even</p>
-* <p><strong>Note:</strong> if you didn&#39;t call <code>pinMode</code> beforehand then this function will also reset pin&#39;s state to <code>&quot;output&quot;</code></p>
-* </li>
-* </ul>
-*
-* @param pin
-* @param value
-* @param options
-* @url http://www.espruino.com/Reference#l__global_analogWrite
-*/
+ * <p>Set the analog Value of a pin. It will be output using PWM.</p>
+ * <p>Objects can contain:</p>
+ * <ul>
+ * <li><code>freq</code> - pulse frequency in Hz, eg. <code>analogWrite(A0,0.5,{ freq : 10 });</code> - specifying a frequency will force PWM output, even if the pin has a DAC</li>
+ * <li><code>soft</code> - boolean, If true software PWM is used if available.</li>
+ * <li><p><code>forceSoft</code> - boolean, If true software PWM is used even</p>
+ * <p><strong>Note:</strong> if you didn&#39;t call <code>pinMode</code> beforehand then this function will also reset pin&#39;s state to <code>&quot;output&quot;</code></p>
+ * </li>
+ * </ul>
+ *
+ * @param pin
+ * @param value
+ * @param options
+ * @url http://www.espruino.com/Reference#l__global_analogWrite
+ */
 declare function analogWrite(pin: Pin, value: number, options: any): void;
 
 /**
-* <p>Pulse the pin with the value for the given time in milliseconds. It uses a hardware timer to produce accurate pulses, and returns immediately (before the pulse has finished). Use <code>digitalPulse(A0,1,0)</code> to wait until a previous pulse has finished.</p>
-* <p>eg. <code>digitalPulse(A0,1,5);</code> pulses A0 high for 5ms. <code>digitalPulse(A0,1,[5,2,4]);</code> pulses A0 high for 5ms, low for 2ms, and high for 4ms</p>
-* <p> <strong>Note:</strong> if you didn&#39;t call <code>pinMode</code> beforehand then this function will also reset pin&#39;s state to <code>&quot;output&quot;</code></p>
-* <p>digitalPulse is for SHORT pulses that need to be very accurate. If you&#39;re doing anything over a few milliseconds, use setTimeout instead.</p>
-*
-* @param pin
-* @param value
-* @param time
-* @url http://www.espruino.com/Reference#l__global_digitalPulse
-*/
+ * <p>Pulse the pin with the value for the given time in milliseconds. It uses a hardware timer to produce accurate pulses, and returns immediately (before the pulse has finished). Use <code>digitalPulse(A0,1,0)</code> to wait until a previous pulse has finished.</p>
+ * <p>eg. <code>digitalPulse(A0,1,5);</code> pulses A0 high for 5ms. <code>digitalPulse(A0,1,[5,2,4]);</code> pulses A0 high for 5ms, low for 2ms, and high for 4ms</p>
+ * <p> <strong>Note:</strong> if you didn&#39;t call <code>pinMode</code> beforehand then this function will also reset pin&#39;s state to <code>&quot;output&quot;</code></p>
+ * <p>digitalPulse is for SHORT pulses that need to be very accurate. If you&#39;re doing anything over a few milliseconds, use setTimeout instead.</p>
+ *
+ * @param pin
+ * @param value
+ * @param time
+ * @url http://www.espruino.com/Reference#l__global_digitalPulse
+ */
 declare function digitalPulse(pin: Pin, value: boolean, time: any): void;
 
 /**
-* <p>Set the digital value of the given pin.</p>
-* <p> <strong>Note:</strong> if you didn&#39;t call <code>pinMode</code> beforehand then this function will also reset pin&#39;s state to <code>&quot;output&quot;</code></p>
-* <p>If pin argument is an array of pins (eg. <code>[A2,A1,A0]</code>) the value argument will be treated
-* as an array of bits where the last array element is the least significant bit.</p>
-* <p>In this case, pin values are set least significant bit first (from the right-hand side
-* of the array of pins). This means you can use the same pin multiple times, for
-* example <code>digitalWrite([A1,A1,A0,A0],0b0101)</code> would pulse A0 followed by A1.</p>
-*
-* @param pin
-* @param value
-* @url http://www.espruino.com/Reference#l__global_digitalWrite
-*/
+ * <p>Set the digital value of the given pin.</p>
+ * <p> <strong>Note:</strong> if you didn&#39;t call <code>pinMode</code> beforehand then this function will also reset pin&#39;s state to <code>&quot;output&quot;</code></p>
+ * <p>If pin argument is an array of pins (eg. <code>[A2,A1,A0]</code>) the value argument will be treated
+ * as an array of bits where the last array element is the least significant bit.</p>
+ * <p>In this case, pin values are set least significant bit first (from the right-hand side
+ * of the array of pins). This means you can use the same pin multiple times, for
+ * example <code>digitalWrite([A1,A1,A0,A0],0b0101)</code> would pulse A0 followed by A1.</p>
+ *
+ * @param pin
+ * @param value
+ * @url http://www.espruino.com/Reference#l__global_digitalWrite
+ */
 declare function digitalWrite(pin: Pin, value: number | boolean): void;
 
 /**
-* <p>Get the digital value of the given pin.</p>
-* <p> <strong>Note:</strong> if you didn&#39;t call <code>pinMode</code> beforehand then this function will also reset pin&#39;s state to <code>&quot;input&quot;</code></p>
-* <p>If the pin argument is an array of pins (eg. <code>[A2,A1,A0]</code>) the value returned will be an number where
-* the last array element is the least significant bit, for example if <code>A0=A1=1</code> and <code>A2=0</code>, <code>digitalRead([A2,A1,A0]) == 0b011</code></p>
-*
-* @param pin
-* @return
-* @url http://www.espruino.com/Reference#l__global_digitalRead
-*/
+ * <p>Get the digital value of the given pin.</p>
+ * <p> <strong>Note:</strong> if you didn&#39;t call <code>pinMode</code> beforehand then this function will also reset pin&#39;s state to <code>&quot;input&quot;</code></p>
+ * <p>If the pin argument is an array of pins (eg. <code>[A2,A1,A0]</code>) the value returned will be an number where
+ * the last array element is the least significant bit, for example if <code>A0=A1=1</code> and <code>A2=0</code>, <code>digitalRead([A2,A1,A0]) == 0b011</code></p>
+ *
+ * @param pin
+ * @return
+ * @url http://www.espruino.com/Reference#l__global_digitalRead
+ */
 declare function digitalRead(pin: Pin): number;
 
 /**
-* <p>Set the mode of the given pin.</p>
-* <ul>
-* <li><code>auto</code>/<code>undefined</code> - Don&#39;t change state, but allow <code>digitalWrite</code>/etc to automatically change state as appropriate</li>
-* <li><code>analog</code> - Analog input</li>
-* <li><code>input</code> - Digital input</li>
-* <li><code>input_pullup</code> - Digital input with internal ~40k pull-up resistor</li>
-* <li><code>input_pulldown</code> - Digital input with internal ~40k pull-down resistor</li>
-* <li><code>output</code> - Digital output</li>
-* <li><code>opendrain</code> - Digital output that only ever pulls down to 0v. Sending a logical <code>1</code> leaves the pin open circuit</li>
-* <li><code>opendrain_pullup</code> - Digital output that pulls down to 0v. Sending a logical <code>1</code> enables internal ~40k pull-up resistor</li>
-* <li><code>af_output</code> - Digital output from built-in peripheral</li>
-* <li><p><code>af_opendrain</code> - Digital output from built-in peripheral that only ever pulls down to 0v. Sending a logical <code>1</code> leaves the pin open circuit</p>
-* <p><strong>Note:</strong> <code>digitalRead</code>/<code>digitalWrite</code>/etc set the pin mode automatically <em>unless</em> <code>pinMode</code> has been called first.
-* If you want <code>digitalRead</code>/etc to set the pin mode automatically after you have called <code>pinMode</code>, simply call it again
-* with no mode argument (<code>pinMode(pin)</code>), <code>auto</code> as the argument (<code>pinMode(pin, &quot;auto&quot;)</code>), or with the 3rd &#39;automatic&#39;
-* argument set to true (<code>pinMode(pin, &quot;output&quot;, true)</code>).</p>
-* </li>
-* </ul>
-*
-* @param pin
-* @param mode
-* @param automatic
-* @url http://www.espruino.com/Reference#l__global_pinMode
-*/
+ * <p>Set the mode of the given pin.</p>
+ * <ul>
+ * <li><code>auto</code>/<code>undefined</code> - Don&#39;t change state, but allow <code>digitalWrite</code>/etc to automatically change state as appropriate</li>
+ * <li><code>analog</code> - Analog input</li>
+ * <li><code>input</code> - Digital input</li>
+ * <li><code>input_pullup</code> - Digital input with internal ~40k pull-up resistor</li>
+ * <li><code>input_pulldown</code> - Digital input with internal ~40k pull-down resistor</li>
+ * <li><code>output</code> - Digital output</li>
+ * <li><code>opendrain</code> - Digital output that only ever pulls down to 0v. Sending a logical <code>1</code> leaves the pin open circuit</li>
+ * <li><code>opendrain_pullup</code> - Digital output that pulls down to 0v. Sending a logical <code>1</code> enables internal ~40k pull-up resistor</li>
+ * <li><code>af_output</code> - Digital output from built-in peripheral</li>
+ * <li><p><code>af_opendrain</code> - Digital output from built-in peripheral that only ever pulls down to 0v. Sending a logical <code>1</code> leaves the pin open circuit</p>
+ * <p><strong>Note:</strong> <code>digitalRead</code>/<code>digitalWrite</code>/etc set the pin mode automatically <em>unless</em> <code>pinMode</code> has been called first.
+ * If you want <code>digitalRead</code>/etc to set the pin mode automatically after you have called <code>pinMode</code>, simply call it again
+ * with no mode argument (<code>pinMode(pin)</code>), <code>auto</code> as the argument (<code>pinMode(pin, &quot;auto&quot;)</code>), or with the 3rd &#39;automatic&#39;
+ * argument set to true (<code>pinMode(pin, &quot;output&quot;, true)</code>).</p>
+ * </li>
+ * </ul>
+ *
+ * @param pin
+ * @param mode
+ * @param automatic
+ * @url http://www.espruino.com/Reference#l__global_pinMode
+ */
 declare function pinMode(pin: Pin, mode: any, automatic: boolean): void;
 
 /**
-* <p>Return the current mode of the given pin. See <code>pinMode</code> for more information on returned values.</p>
-*
-* @param pin
-* @return
-* @url http://www.espruino.com/Reference#l__global_getPinMode
-*/
+ * <p>Return the current mode of the given pin. See <code>pinMode</code> for more information on returned values.</p>
+ *
+ * @param pin
+ * @return
+ * @url http://www.espruino.com/Reference#l__global_getPinMode
+ */
 declare function getPinMode(pin: Pin): any;
 
 /**
-* <p>Call the function specified when the pin changes. Watches set with <code>setWatch</code> can be removed using <code>clearWatch</code>.</p>
-* <p>The function may also take an argument, which is an object of type <code>{state:bool, time:float, lastTime:float}</code>.</p>
-* <ul>
-* <li><code>state</code> is whether the pin is currently a <code>1</code> or a <code>0</code></li>
-* <li><code>time</code> is the time in seconds at which the pin changed state</li>
-* <li><code>lastTime</code> is the time in seconds at which the <strong>pin last changed state</strong>. When using <code>edge:&#39;rising&#39;</code> or <code>edge:&#39;falling&#39;</code>, this is not the same as when the function was last called.</li>
-* </ul>
-* <p>For instance, if you want to measure the length of a positive pulse you could use <code>setWatch(function(e) { console.log(e.time-e.lastTime); }, BTN, { repeat:true, edge:&#39;falling&#39; });</code>.
-* This will only be called on the falling edge of the pulse, but will be able to measure the width of the pulse because <code>e.lastTime</code> is the time of the rising edge.</p>
-* <p>Internally, an interrupt writes the time of the pin&#39;s state change into a queue, and the function
-* supplied to <code>setWatch</code> is executed only from the main message loop. However, if the callback is a
-* native function <code>void (bool state)</code> then you can add <code>irq:true</code> to options, which will cause the
-* function to be called from within the IRQ. When doing this, interrupts will happen on both edges
-* and there will be no debouncing.</p>
-* <p><strong>Note:</strong> The STM32 chip (used in the <a href="/EspruinoBoard">Espruino Board</a> and <a href="/Pico">Pico</a>) cannot
-* watch two pins with the same number - eg <code>A0</code> and <code>B0</code>.</p>
-*
-* @param function
-* @param pin
-* @param options
-* @return
-* @url http://www.espruino.com/Reference#l__global_setWatch
-*/
+ * <p>Call the function specified when the pin changes. Watches set with <code>setWatch</code> can be removed using <code>clearWatch</code>.</p>
+ * <p>The function may also take an argument, which is an object of type <code>{state:bool, time:float, lastTime:float}</code>.</p>
+ * <ul>
+ * <li><code>state</code> is whether the pin is currently a <code>1</code> or a <code>0</code></li>
+ * <li><code>time</code> is the time in seconds at which the pin changed state</li>
+ * <li><code>lastTime</code> is the time in seconds at which the <strong>pin last changed state</strong>. When using <code>edge:&#39;rising&#39;</code> or <code>edge:&#39;falling&#39;</code>, this is not the same as when the function was last called.</li>
+ * </ul>
+ * <p>For instance, if you want to measure the length of a positive pulse you could use <code>setWatch(function(e) { console.log(e.time-e.lastTime); }, BTN, { repeat:true, edge:&#39;falling&#39; });</code>.
+ * This will only be called on the falling edge of the pulse, but will be able to measure the width of the pulse because <code>e.lastTime</code> is the time of the rising edge.</p>
+ * <p>Internally, an interrupt writes the time of the pin&#39;s state change into a queue, and the function
+ * supplied to <code>setWatch</code> is executed only from the main message loop. However, if the callback is a
+ * native function <code>void (bool state)</code> then you can add <code>irq:true</code> to options, which will cause the
+ * function to be called from within the IRQ. When doing this, interrupts will happen on both edges
+ * and there will be no debouncing.</p>
+ * <p><strong>Note:</strong> The STM32 chip (used in the <a href="/EspruinoBoard">Espruino Board</a> and <a href="/Pico">Pico</a>) cannot
+ * watch two pins with the same number - eg <code>A0</code> and <code>B0</code>.</p>
+ *
+ * @param function
+ * @param pin
+ * @param options
+ * @return
+ * @url http://www.espruino.com/Reference#l__global_setWatch
+ */
 declare function setWatch(f: (a?: any) => any, pin: Pin, options: {
-    repeat?: boolean,
-    edge?: 'rising' | 'falling' | 'both',
-    debounce?: number,
-    irq?: boolean,
-    data?: Pin,
+    repeat?: boolean;
+    edge?: "rising" | "falling" | "both";
+    debounce?: number;
+    irq?: boolean;
+    data?: Pin;
 }): string;
 
 /**
-* <p>Clear the Watch that was created with setWatch. If no parameter is supplied, all watches will be removed.</p>
-*
-* @param id
-* @url http://www.espruino.com/Reference#l__global_clearWatch
-*/
+ * <p>Clear the Watch that was created with setWatch. If no parameter is supplied, all watches will be removed.</p>
+ *
+ * @param id
+ * @url http://www.espruino.com/Reference#l__global_clearWatch
+ */
 declare function clearWatch(id: any): void;
 
 /**
-* <p>A reference to the global scope, where everything is defined.</p>
-*
-* @url http://www.espruino.com/Reference#l__global_global
-*/
+ * <p>A reference to the global scope, where everything is defined.</p>
+ *
+ * @url http://www.espruino.com/Reference#l__global_global
+ */
 declare var global: typeof globalThis;
 
 /**
-* <p>When Espruino is busy, set the pin specified here high. Set this to undefined to disable the feature.</p>
-*
-* @param pin
-* @url http://www.espruino.com/Reference#l__global_setBusyIndicator
-*/
+ * <p>When Espruino is busy, set the pin specified here high. Set this to undefined to disable the feature.</p>
+ *
+ * @param pin
+ * @url http://www.espruino.com/Reference#l__global_setBusyIndicator
+ */
 declare function setBusyIndicator(pin: Pin): void;
 
 /**
-* <p>When Espruino is asleep, set the pin specified here low (when it&#39;s awake, set it high). Set this to undefined to disable the feature.</p>
-* <p>Please see <a href="http://www.espruino.com/Power+Consumption">http://www.espruino.com/Power+Consumption</a> for more details on this.</p>
-*
-* @param pin
-* @url http://www.espruino.com/Reference#l__global_setSleepIndicator
-*/
+ * <p>When Espruino is asleep, set the pin specified here low (when it&#39;s awake, set it high). Set this to undefined to disable the feature.</p>
+ * <p>Please see <a href="http://www.espruino.com/Power+Consumption">http://www.espruino.com/Power+Consumption</a> for more details on this.</p>
+ *
+ * @param pin
+ * @url http://www.espruino.com/Reference#l__global_setSleepIndicator
+ */
 declare function setSleepIndicator(pin: Pin): void;
 
 /**
-* <p>Set whether we can enter deep sleep mode, which reduces power consumption to around 100uA. This only works on STM32 Espruino Boards.</p>
-* <p>Please see <a href="http://www.espruino.com/Power+Consumption">http://www.espruino.com/Power+Consumption</a> for more details on this.</p>
-*
-* @param sleep
-* @url http://www.espruino.com/Reference#l__global_setDeepSleep
-*/
+ * <p>Set whether we can enter deep sleep mode, which reduces power consumption to around 100uA. This only works on STM32 Espruino Boards.</p>
+ * <p>Please see <a href="http://www.espruino.com/Power+Consumption">http://www.espruino.com/Power+Consumption</a> for more details on this.</p>
+ *
+ * @param sleep
+ * @url http://www.espruino.com/Reference#l__global_setDeepSleep
+ */
 declare function setDeepSleep(sleep: boolean): void;
 
 /**
-* <p>Output debugging information</p>
-* <p>Note: This is not included on boards with low amounts of flash memory, or the Espruino board.</p>
-*
-* @param root
-* @url http://www.espruino.com/Reference#l__global_trace
-*/
+ * <p>Output debugging information</p>
+ * <p>Note: This is not included on boards with low amounts of flash memory, or the Espruino board.</p>
+ *
+ * @param root
+ * @url http://www.espruino.com/Reference#l__global_trace
+ */
 declare function trace(root: any): void;
 
 /**
-* <p>Output current interpreter state in a text form such that it can be copied to a new device</p>
-* <p>Note: &#39;Internal&#39; functions are currently not handled correctly. You will need to recreate these in the <code>onInit</code> function.</p>
-*
-* @url http://www.espruino.com/Reference#l__global_dump
-*/
+ * <p>Output current interpreter state in a text form such that it can be copied to a new device</p>
+ * <p>Note: &#39;Internal&#39; functions are currently not handled correctly. You will need to recreate these in the <code>onInit</code> function.</p>
+ *
+ * @url http://www.espruino.com/Reference#l__global_dump
+ */
 declare function dump(): void;
 
 /**
-* <p>Restart and load the program out of flash - this has an effect similar to
-* completely rebooting Espruino (power off/power on), but without actually
-* performing a full reset of the hardware.</p>
-* <p>This command only executes when the Interpreter returns to the Idle state - for
-* instance <code>a=1;load();a=2;</code> will still leave &#39;a&#39; as undefined (or what it was
-* set to in the saved program).</p>
-* <p>Espruino will resume from where it was when you last typed <code>save()</code>.
-* If you want code to be executed right after loading (for instance to initialise
-* devices connected to Espruino), add an <code>init</code> event handler to <code>E</code> with
-* <code>E.on(&#39;init&#39;, function() { ... your_code ... });</code>. This will then be automatically
-* executed by Espruino every time it starts.</p>
-*
-* @url http://www.espruino.com/Reference#l__global_load
-*/
+ * <p>Restart and load the program out of flash - this has an effect similar to
+ * completely rebooting Espruino (power off/power on), but without actually
+ * performing a full reset of the hardware.</p>
+ * <p>This command only executes when the Interpreter returns to the Idle state - for
+ * instance <code>a=1;load();a=2;</code> will still leave &#39;a&#39; as undefined (or what it was
+ * set to in the saved program).</p>
+ * <p>Espruino will resume from where it was when you last typed <code>save()</code>.
+ * If you want code to be executed right after loading (for instance to initialise
+ * devices connected to Espruino), add an <code>init</code> event handler to <code>E</code> with
+ * <code>E.on(&#39;init&#39;, function() { ... your_code ... });</code>. This will then be automatically
+ * executed by Espruino every time it starts.</p>
+ *
+ * @url http://www.espruino.com/Reference#l__global_load
+ */
 declare function load(): void;
 
 /**
-* <p>Save program memory into flash. It will then be loaded automatically every time
-* Espruino powers on or is hard-reset.</p>
-* <p>This command only executes when the Interpreter returns to the Idle state - for
-* instance <code>a=1;save();a=2;</code> will save &#39;a&#39; as 2.</p>
-* <p>When Espruino powers on, it will resume from where it was when you typed <code>save()</code>.
-* If you want code to be executed right after loading (for instance to initialise
-* devices connected to Espruino), add an <code>init</code> event handler to <code>E</code> with
-* <code>E.on(&#39;init&#39;, function() { ... your_code ... });</code>. This will then be automatically
-* executed by Espruino every time it starts.</p>
-* <p>In order to stop the program saved with this command being loaded automatically,
-* hold down Button 1 while also pressing reset. On some boards, Button 1 enters
-* bootloader mode, so you will need to press Reset with Button 1 raised, and then
-* hold Button 1 down a fraction of a second later.</p>
-*
-* @url http://www.espruino.com/Reference#l__global_save
-*/
+ * <p>Save program memory into flash. It will then be loaded automatically every time
+ * Espruino powers on or is hard-reset.</p>
+ * <p>This command only executes when the Interpreter returns to the Idle state - for
+ * instance <code>a=1;save();a=2;</code> will save &#39;a&#39; as 2.</p>
+ * <p>When Espruino powers on, it will resume from where it was when you typed <code>save()</code>.
+ * If you want code to be executed right after loading (for instance to initialise
+ * devices connected to Espruino), add an <code>init</code> event handler to <code>E</code> with
+ * <code>E.on(&#39;init&#39;, function() { ... your_code ... });</code>. This will then be automatically
+ * executed by Espruino every time it starts.</p>
+ * <p>In order to stop the program saved with this command being loaded automatically,
+ * hold down Button 1 while also pressing reset. On some boards, Button 1 enters
+ * bootloader mode, so you will need to press Reset with Button 1 raised, and then
+ * hold Button 1 down a fraction of a second later.</p>
+ *
+ * @url http://www.espruino.com/Reference#l__global_save
+ */
 declare function save(): void;
 
 /**
-* <p>Reset the interpreter - clear program memory in RAM, and do not load a saved program from flash. This does NOT reset the underlying hardware (which allows you to reset the device without it disconnecting from USB).</p>
-* <p>This command only executes when the Interpreter returns to the Idle state - for instance <code>a=1;reset();a=2;</code> will still leave &#39;a&#39; as undefined.</p>
-* <p>The safest way to do a full reset is to hit the reset button.</p>
-* <p>If <code>reset()</code> is called with no arguments, it will reset the board&#39;s state in
-* RAM but will not reset the state in flash. When next powered on (or when
-* <code>load()</code> is called) the board will load the previously saved code.</p>
-* <p>Calling <code>reset(true)</code> will cause <em>all saved code in flash memory to
-* be cleared as well</em>.</p>
-*
-* @param clearFlash
-* @url http://www.espruino.com/Reference#l__global_reset
-*/
+ * <p>Reset the interpreter - clear program memory in RAM, and do not load a saved program from flash. This does NOT reset the underlying hardware (which allows you to reset the device without it disconnecting from USB).</p>
+ * <p>This command only executes when the Interpreter returns to the Idle state - for instance <code>a=1;reset();a=2;</code> will still leave &#39;a&#39; as undefined.</p>
+ * <p>The safest way to do a full reset is to hit the reset button.</p>
+ * <p>If <code>reset()</code> is called with no arguments, it will reset the board&#39;s state in
+ * RAM but will not reset the state in flash. When next powered on (or when
+ * <code>load()</code> is called) the board will load the previously saved code.</p>
+ * <p>Calling <code>reset(true)</code> will cause <em>all saved code in flash memory to
+ * be cleared as well</em>.</p>
+ *
+ * @param clearFlash
+ * @url http://www.espruino.com/Reference#l__global_reset
+ */
 declare function reset(clearFlash: boolean): void;
 
 /**
-* <p>Print the supplied string(s) to the console</p>
-* <p> <strong>Note:</strong> If you&#39;re connected to a computer (not a wall adaptor) via USB but <strong>you are not running a terminal app</strong> then when you print data Espruino may pause execution and wait until the computer requests the data it is trying to print.</p>
-*
-* @param text
-* @url http://www.espruino.com/Reference#l__global_print
-*/
+ * <p>Print the supplied string(s) to the console</p>
+ * <p> <strong>Note:</strong> If you&#39;re connected to a computer (not a wall adaptor) via USB but <strong>you are not running a terminal app</strong> then when you print data Espruino may pause execution and wait until the computer requests the data it is trying to print.</p>
+ *
+ * @param text
+ * @url http://www.espruino.com/Reference#l__global_print
+ */
 declare function print(text: any): void;
 
 /**
-* <p>Fill the console with the contents of the given function, so you can edit it.</p>
-* <p>NOTE: This is a convenience function - it will not edit &#39;inner functions&#39;. For that, you must edit the &#39;outer function&#39; and re-execute it.</p>
-*
-* @param funcName
-* @url http://www.espruino.com/Reference#l__global_edit
-*/
+ * <p>Fill the console with the contents of the given function, so you can edit it.</p>
+ * <p>NOTE: This is a convenience function - it will not edit &#39;inner functions&#39;. For that, you must edit the &#39;outer function&#39; and re-execute it.</p>
+ *
+ * @param funcName
+ * @url http://www.espruino.com/Reference#l__global_edit
+ */
 declare function edit(funcName: any): void;
 
 /**
-* <p>Should TinyJS echo what you type back to you? true = yes (Default), false = no. When echo is off, the result of executing a command is not returned. Instead, you must use &#39;print&#39; to send output.</p>
-*
-* @param echoOn
-* @url http://www.espruino.com/Reference#l__global_echo
-*/
+ * <p>Should TinyJS echo what you type back to you? true = yes (Default), false = no. When echo is off, the result of executing a command is not returned. Instead, you must use &#39;print&#39; to send output.</p>
+ *
+ * @param echoOn
+ * @url http://www.espruino.com/Reference#l__global_echo
+ */
 declare function echo(echoOn: boolean): void;
 
 /**
-* <p>Return the current system time in Seconds (as a floating point number)</p>
-*
-* @return
-* @url http://www.espruino.com/Reference#l__global_getTime
-*/
+ * <p>Return the current system time in Seconds (as a floating point number)</p>
+ *
+ * @return
+ * @url http://www.espruino.com/Reference#l__global_getTime
+ */
 declare function getTime(): number;
 
 /**
-* <p>Set the current system time in seconds (to the nearest second)</p>
-*
-* @param time
-* @url http://www.espruino.com/Reference#l__global_setTime
-*/
+ * <p>Set the current system time in seconds (to the nearest second)</p>
+ *
+ * @param time
+ * @url http://www.espruino.com/Reference#l__global_setTime
+ */
 declare function setTime(time: number): void;
 
 /**
-* <p>Get the serial number of this board</p>
-*
-* @return
-* @url http://www.espruino.com/Reference#l__global_getSerial
-*/
+ * <p>Get the serial number of this board</p>
+ *
+ * @return
+ * @url http://www.espruino.com/Reference#l__global_getSerial
+ */
 declare function getSerial(): any;
 
 /**
-* <p>Clear the Interval that was created with setInterval, for example:</p>
-* <p><code>var id = setInterval(function () { print(&#39;foo&#39;); }, 1000);</code></p>
-* <p><code>clearInterval(id);</code></p>
-* <p>If no argument is supplied, all timers and intervals are stopped</p>
-*
-* @param id
-* @url http://www.espruino.com/Reference#l__global_clearInterval
-*/
+ * <p>Clear the Interval that was created with setInterval, for example:</p>
+ * <p><code>var id = setInterval(function () { print(&#39;foo&#39;); }, 1000);</code></p>
+ * <p><code>clearInterval(id);</code></p>
+ * <p>If no argument is supplied, all timers and intervals are stopped</p>
+ *
+ * @param id
+ * @url http://www.espruino.com/Reference#l__global_clearInterval
+ */
 declare function clearInterval(id: any): void;
 
 /**
-* <p>Clear the Timeout that was created with setTimeout, for example:</p>
-* <p><code>var id = setTimeout(function () { print(&#39;foo&#39;); }, 1000);</code></p>
-* <p><code>clearTimeout(id);</code></p>
-* <p>If no argument is supplied, all timers and intervals are stopped</p>
-*
-* @param id
-* @url http://www.espruino.com/Reference#l__global_clearTimeout
-*/
+ * <p>Clear the Timeout that was created with setTimeout, for example:</p>
+ * <p><code>var id = setTimeout(function () { print(&#39;foo&#39;); }, 1000);</code></p>
+ * <p><code>clearTimeout(id);</code></p>
+ * <p>If no argument is supplied, all timers and intervals are stopped</p>
+ *
+ * @param id
+ * @url http://www.espruino.com/Reference#l__global_clearTimeout
+ */
 declare function clearTimeout(id: any): void;
 
 /**
-* <p>Change the Interval on a callback created with setInterval, for example:</p>
-* <p><code>var id = setInterval(function () { print(&#39;foo&#39;); }, 1000); // every second</code></p>
-* <p><code>changeInterval(id, 1500); // now runs every 1.5 seconds</code></p>
-* <p>This takes effect immediately and resets the timeout, so in the example above,
-* regardless of when you call <code>changeInterval</code>, the next interval will occur 1500ms
-* after it.</p>
-*
-* @param id
-* @param time
-* @url http://www.espruino.com/Reference#l__global_changeInterval
-*/
+ * <p>Change the Interval on a callback created with setInterval, for example:</p>
+ * <p><code>var id = setInterval(function () { print(&#39;foo&#39;); }, 1000); // every second</code></p>
+ * <p><code>changeInterval(id, 1500); // now runs every 1.5 seconds</code></p>
+ * <p>This takes effect immediately and resets the timeout, so in the example above,
+ * regardless of when you call <code>changeInterval</code>, the next interval will occur 1500ms
+ * after it.</p>
+ *
+ * @param id
+ * @param time
+ * @url http://www.espruino.com/Reference#l__global_changeInterval
+ */
 declare function changeInterval(id: any, time: number): void;
 
 /**
-* <p>A variable containing the arguments given to the function</p>
-*
-* @url http://www.espruino.com/Reference#l__global_arguments
-*/
+ * <p>A variable containing the arguments given to the function</p>
+ *
+ * @url http://www.espruino.com/Reference#l__global_arguments
+ */
 declare var arguments: any;
 
 /**
-* <p>Evaluate a string containing JavaScript code</p>
-*
-* @param code
-* @return
-* @url http://www.espruino.com/Reference#l__global_eval
-*/
+ * <p>Evaluate a string containing JavaScript code</p>
+ *
+ * @param code
+ * @return
+ * @url http://www.espruino.com/Reference#l__global_eval
+ */
 declare function eval(code: any): any;
 
 /**
-* <p>Convert a string representing a number into an integer</p>
-*
-* @param string
-* @param radix
-* @return
-* @url http://www.espruino.com/Reference#l__global_parseInt
-*/
+ * <p>Convert a string representing a number into an integer</p>
+ *
+ * @param string
+ * @param radix
+ * @return
+ * @url http://www.espruino.com/Reference#l__global_parseInt
+ */
 declare function parseInt(string: any, radix: any): any;
 
 /**
-* <p>Convert a string representing a number into an float</p>
-*
-* @param string
-* @return
-* @url http://www.espruino.com/Reference#l__global_parseFloat
-*/
+ * <p>Convert a string representing a number into an float</p>
+ *
+ * @param string
+ * @return
+ * @url http://www.espruino.com/Reference#l__global_parseFloat
+ */
 declare function parseFloat(string: any): number;
 
 /**
-* <p>Whether the x is NaN (Not a Number) or not</p>
-*
-* @param x
-* @return
-* @url http://www.espruino.com/Reference#l__global_isNaN
-*/
+ * <p>Whether the x is NaN (Not a Number) or not</p>
+ *
+ * @param x
+ * @return
+ * @url http://www.espruino.com/Reference#l__global_isNaN
+ */
 declare function isNaN(x: any): boolean;
 
 /**
-* <p>Encode the supplied string (or array) into a base64 string</p>
-*
-* @param binaryData
-* @return
-* @url http://www.espruino.com/Reference#l__global_btoa
-*/
+ * <p>Encode the supplied string (or array) into a base64 string</p>
+ *
+ * @param binaryData
+ * @return
+ * @url http://www.espruino.com/Reference#l__global_btoa
+ */
 declare function btoa(binaryData: any): any;
 
 /**
-* <p>Decode the supplied base64 string into a normal string</p>
-*
-* @param binaryData
-* @return
-* @url http://www.espruino.com/Reference#l__global_atob
-*/
+ * <p>Decode the supplied base64 string into a normal string</p>
+ *
+ * @param binaryData
+ * @return
+ * @url http://www.espruino.com/Reference#l__global_atob
+ */
 declare function atob(binaryData: any): any;
 
 /**
-* <p>Convert a string with any character not alphanumeric or <code>- _ . ! ~ * &#39; ( )</code> converted to the form <code>%XY</code> where <code>XY</code> is its hexadecimal representation</p>
-*
-* @param str
-* @return
-* @url http://www.espruino.com/Reference#l__global_encodeURIComponent
-*/
+ * <p>Convert a string with any character not alphanumeric or <code>- _ . ! ~ * &#39; ( )</code> converted to the form <code>%XY</code> where <code>XY</code> is its hexadecimal representation</p>
+ *
+ * @param str
+ * @return
+ * @url http://www.espruino.com/Reference#l__global_encodeURIComponent
+ */
 declare function encodeURIComponent(str: any): any;
 
 /**
-* <p>Convert any groups of characters of the form &#39;%ZZ&#39;, into characters with hex code &#39;0xZZ&#39;</p>
-*
-* @param str
-* @return
-* @url http://www.espruino.com/Reference#l__global_decodeURIComponent
-*/
+ * <p>Convert any groups of characters of the form &#39;%ZZ&#39;, into characters with hex code &#39;0xZZ&#39;</p>
+ *
+ * @param str
+ * @return
+ * @url http://www.espruino.com/Reference#l__global_decodeURIComponent
+ */
 declare function decodeURIComponent(str: any): any;
 
 /**
-* <p><strong>Note:</strong> This function is only available on the <a href="/MicroBit">BBC micro:bit</a> board</p>
-* <p>Get the current acceleration of the micro:bit from the on-board accelerometer</p>
-*
-* @return
-* @url http://www.espruino.com/Reference#l__global_acceleration
-*/
+ * <p><strong>Note:</strong> This function is only available on the <a href="/MicroBit">BBC micro:bit</a> board</p>
+ * <p>Get the current acceleration of the micro:bit from the on-board accelerometer</p>
+ *
+ * @return
+ * @url http://www.espruino.com/Reference#l__global_acceleration
+ */
 declare function acceleration(): any;
 
 /**
-* <p><strong>Note:</strong> This function is only available on the <a href="/MicroBit">BBC micro:bit</a> board</p>
-* <p>Get the current compass position for the micro:bit from the on-board magnetometer</p>
-*
-* @return
-* @url http://www.espruino.com/Reference#l__global_compass
-*/
+ * <p><strong>Note:</strong> This function is only available on the <a href="/MicroBit">BBC micro:bit</a> board</p>
+ * <p>Get the current compass position for the micro:bit from the on-board magnetometer</p>
+ *
+ * @return
+ * @url http://www.espruino.com/Reference#l__global_compass
+ */
 declare function compass(): any;
 
 /**
-*
-* @url http://www.espruino.com/Reference#l__global_BTNA
-*/
+ * @url http://www.espruino.com/Reference#l__global_BTNA
+ */
 declare var BTNA: Pin;
 
 /**
-*
-* @url http://www.espruino.com/Reference#l__global_BTNB
-*/
+ * @url http://www.espruino.com/Reference#l__global_BTNB
+ */
 declare var BTNB: Pin;
 
 /**
-*
-* @url http://www.espruino.com/Reference#l__global_BTNU
-*/
+ * @url http://www.espruino.com/Reference#l__global_BTNU
+ */
 declare var BTNU: Pin;
 
 /**
-*
-* @url http://www.espruino.com/Reference#l__global_BTND
-*/
+ * @url http://www.espruino.com/Reference#l__global_BTND
+ */
 declare var BTND: Pin;
 
 /**
-*
-* @url http://www.espruino.com/Reference#l__global_BTNL
-*/
+ * @url http://www.espruino.com/Reference#l__global_BTNL
+ */
 declare var BTNL: Pin;
 
 /**
-*
-* @url http://www.espruino.com/Reference#l__global_BTNR
-*/
+ * @url http://www.espruino.com/Reference#l__global_BTNR
+ */
 declare var BTNR: Pin;
 
 declare var D0: Pin;

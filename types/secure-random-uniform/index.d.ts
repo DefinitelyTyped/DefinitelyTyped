@@ -1,8 +1,3 @@
-// Type definitions for secure-random-uniform 4.0
-// Project: https://github.com/emilbayes/secure-random-uniform
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = secureRandom;
 
 /**

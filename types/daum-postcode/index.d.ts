@@ -1,8 +1,3 @@
-// Type definitions for non-npm package Daum Postcode 2.0
-// Project: https://postcode.map.daum.net/guide
-// Definitions by: doinki <https://github.com/doinki>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /** @see [Daum Postcode](https://postcode.map.daum.net/guide) */
 declare namespace daum {
     /**
@@ -134,7 +129,15 @@ declare namespace daum {
          * 입력하지 않거나 1~10을 벗어나는 수를 입력시 기본값으로 셋팅됩니다.
          * @default 10
          */
-        maxSuggestItems?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
+        maxSuggestItems?: number;
+
+        /**
+         * 우편번호 찾기 팝업 또는 레이어모드의 최소 너비를 지정합니다.\
+         * 기본값은 300이며, 숫자만 입력가능합니다. 단위는 자동으로 'px'로 고정됩니다.\
+         * 0과 기본값인 300사이로 설정가능합니다.
+         * @default 300
+         */
+        minWidth?: number;
 
         /**
          * 우편번호 찾기 화면을 팝업으로 띄운 후, 검색 결과를 선택하거나 브라우저의 닫기버튼을 통해 닫았을 때 실행되는 콜백 함수를 정의하는 부분입니다.
@@ -158,10 +161,12 @@ declare namespace daum {
 
         /**
          * 검색결과가 많을시 검색바 아래의 가이드 영역을 강조시켜 주는 기능입니다.\
-         * 가이드 문구는 첫화면의 가이드 문구와 동일하며, 조합방식과 예시를 설명하여 사용자에게 재검색을 유도할 수 있도록 하는 기능입니다.
+         * 가이드 문구는 첫화면의 가이드 문구와 동일하며, 조합방식과 예시를 설명하여 사용자에게 재검색을 유도할 수 있도록 하는 기능입니다.\
+         * 입력값으로는 페이지 넘버가 들어가게 되며, 3~20까지 입력 가능합니다.\
+         * (ex. '5' 입력 시 검색결과가 5페이지 이상일 경우 무조건 가이드 문구를 강조하게 됩니다. 그 이하에서는 아무런 변화 없습니다.)
          * @default 0
          */
-        pleaseReadGuide?: 0 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20;
+        pleaseReadGuide?: number;
 
         /**
          * pleaseReadGuide 옵션과 같이 사용되는 옵션으로 선택사항입니다.\
@@ -176,7 +181,7 @@ declare namespace daum {
          * - 광주광역시 -> 광주
          * - 전라북도 -> 전북
          *
-         * 단, '세종특별자치시' '제주특별자치도'는 지자체의 요청에 의해 제외
+         * 단, '세종특별자치시', '제주특별자치도', '강원특별자치도', '전북특별자치도'는 지자체의 요청에 의해 제외.
          * @default true
          */
         shorthand?: boolean;
@@ -236,10 +241,10 @@ declare namespace daum {
         addressEnglish: string;
 
         /** 검색된 기본 주소 타입 */
-        addressType: 'J' | 'R';
+        addressType: "J" | "R";
 
         /** 공동주택 여부 */
-        apartment: 'N' | 'Y';
+        apartment: "N" | "Y";
 
         /**
          * 도로명주소에 매핑된 지번주소가 여러 개인 경우, 사용자가 선택안함 또는 도로명주소를 클릭했을 때 연관된 지번주소 중 임의로 첫 번째 매핑 주소를 넣어서 반환합니다.
@@ -331,16 +336,16 @@ declare namespace daum {
         jibunAddressEnglish: string;
 
         /** 연관 주소에서 선택안함 부분을 선택했을 때를 구분할 수 있는 상태 변수 */
-        noSelected: 'N' | 'Y';
+        noSelected: "N" | "Y";
 
         /** @deprecated 구 우편번호 */
-        postcode: '';
+        postcode: "";
         /** @deprecated 구 우편번호 앞 3자리 */
-        postcode1: '';
+        postcode1: "";
         /** @deprecated 구 우편번호 뒤 3자리 */
-        postcode2: '';
+        postcode2: "";
         /** @deprecated 구 우편번호 일련번호 */
-        postcodeSeq: '';
+        postcodeSeq: "";
 
         /**
          * 사용자가 입력한 검색어
@@ -409,10 +414,10 @@ declare namespace daum {
         sigunguEnglish: string;
 
         /** 검색 결과에서 사용자가 선택한 주소의 언어 타입 */
-        userLanguageType: 'E' | 'K';
+        userLanguageType: "E" | "K";
 
         /** 검색 결과에서 사용자가 선택한 주소의 타입 */
-        userSelectedType: 'J' | 'R';
+        userSelectedType: "J" | "R";
 
         /**
          * 국가기초구역번호. 2015년 8월 1일부터 시행된 새 우편번호.
@@ -421,7 +426,7 @@ declare namespace daum {
         zonecode: string;
     }
 
-    type PostcodeState = 'COMPLETE_CLOSE' | 'FORCE_CLOSE';
+    type PostcodeState = "COMPLETE_CLOSE" | "FORCE_CLOSE";
 
     interface PostcodeSize {
         /**

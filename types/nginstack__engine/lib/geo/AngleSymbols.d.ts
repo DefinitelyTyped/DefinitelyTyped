@@ -1,5 +1,10 @@
-export type exports = string;
-declare const DEGREE: any;
-declare const MINUTES: string;
-declare const SECONDS: string;
-export {};
+declare namespace _exports {
+    export { exports };
+}
+declare namespace _exports {
+    let DEGREE: string;
+    let MINUTES: string;
+    let SECONDS: string;
+}
+export = _exports;
+type exports = string;

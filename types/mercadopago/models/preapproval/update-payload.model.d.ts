@@ -1,7 +1,7 @@
 export interface UpdatePreApprovalPayload {
-  /** PreApproval id. */
-  id: number;
+    /** PreApproval id. */
+    id: number;
 
-  /** PreApproval status. */
-  status: 'pending' | 'paused' | 'cancelled';
+    /** PreApproval status. */
+    status: "pending" | "paused" | "cancelled";
 }

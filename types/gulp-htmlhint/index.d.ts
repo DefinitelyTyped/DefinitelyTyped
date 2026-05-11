@@ -1,12 +1,7 @@
-// Type definitions for gulp-htmlhint 4.0
-// Project: https://github.com/bezoerb/gulp-htmlhint
-// Definitions by: Martin Badin <https://github.com/martin-badin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import { Transform } from 'stream';
-import { Rule } from 'htmlhint/types';
+import { Rule } from "htmlhint/types";
+import { Transform } from "stream";
 
 declare namespace gulpHtmlhint {
     interface Options {
@@ -22,7 +17,7 @@ declare namespace gulpHtmlhint {
 
     type ReporterFunction = () => void;
 
-    type Reported = 'fail' | 'failOn' | 'failAfter';
+    type Reported = "fail" | "failOn" | "failAfter";
 
     interface Plugin {
         (options?: Options | string, customRules?: Rule[]): Transform;

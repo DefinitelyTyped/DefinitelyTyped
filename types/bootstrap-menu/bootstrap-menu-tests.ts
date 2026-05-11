@@ -6,7 +6,7 @@ const menu = new BootstrapMenu("#main", {
             name: "Main menu action",
             onClick: (element: any) => {
                 console.log(element);
-            }
-        }
-    ]
+            },
+        },
+    ],
 });

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/rasha",
+    "version": "1.2.9999",
+    "projects": [
+        "https://git.coolaj86.com/coolaj86/rasha.js"
+    ],
+    "devDependencies": {
+        "@types/rasha": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Justin Baroux",
+            "githubUsername": "Just1B"
+        }
+    ]
+}

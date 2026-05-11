@@ -1,2 +1,2 @@
-import { prop } from '../index';
+import { prop } from "../index.js";
 export default prop;

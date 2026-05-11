@@ -1,6 +1,5 @@
-import { PureComponent, Validator, Requireable } from 'react';
-import * as PropTypes from 'prop-types';
-import { RenderedSection } from './Grid';
+import { PureComponent } from "react";
+import { RenderedSection } from "./Grid";
 
 export type OnSectionRenderedParams = RenderedSection;
 
@@ -17,7 +16,7 @@ export type ArrowKeyStepperProps = {
     className?: string | undefined;
     columnCount: number;
     rowCount: number;
-    mode?: 'edges' | 'cells' | undefined;
+    mode?: "edges" | "cells" | undefined;
     disabled?: boolean | undefined;
     isControlled?: boolean | undefined;
     onScrollToChange?: ((params: ScrollIndices) => void) | undefined;
@@ -43,7 +42,7 @@ export class ArrowKeyStepper extends PureComponent<ArrowKeyStepperProps, ScrollI
     static defaultProps: {
         disabled: false;
         isControlled: false;
-        mode: 'edges';
+        mode: "edges";
         scrollToColumn: 0;
         scrollToRow: 0;
     };

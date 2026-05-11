@@ -1,4 +1,4 @@
-import { BinaryFunction } from '../internal/types';
+import { BinaryFunction } from "../internal/types";
 
 /**
  * liftA2 :: Applicative m => (a -> b -> c) -> m a -> m b -> m c

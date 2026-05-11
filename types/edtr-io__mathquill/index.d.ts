@@ -1,9 +1,3 @@
-// Type definitions for @edtr-io/mathquill 0.11
-// Project: https://github.com/edtr-io/mathquill#readme
-// Definitions by: Marco Gonzalez <https://github.com/magonzalez9>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
-
 export interface MathField {
     focus(): MQ;
     blur(): MQ;

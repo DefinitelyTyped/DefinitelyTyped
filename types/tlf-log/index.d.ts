@@ -1,8 +1,3 @@
-// Type definitions for tlf-log 1.3
-// Project: https://github.com/thislooksfun/tlf-log
-// Definitions by: thislooksfun <https://github.com/thislooksfun>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface NewLevel {
     afterLog?: (() => void) | undefined;
 }

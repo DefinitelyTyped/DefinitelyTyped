@@ -1,9 +1,4 @@
-// Type definitions for d3-simple-slider 1.5
-// Project: https://github.com/johnwalley/d3-simple-slider
-// Definitions by: John Walley <https://github.com/johnwalley>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { Selection, TransitionLike } from 'd3-selection';
+import { Selection, TransitionLike } from "d3-selection";
 
 export as namespace d3;
 
@@ -127,6 +122,7 @@ export interface Slider<Domain> {
      * @param types An event typename.
      * @param callback A callback.
      */
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     on(typenames: string): (val: Domain) => void | undefined;
 
     /**

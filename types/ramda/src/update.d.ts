@@ -1,2 +1,2 @@
-import { update } from '../index';
+import { update } from "../index";
 export default update;

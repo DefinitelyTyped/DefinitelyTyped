@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/mapbox__s3urls",
+    "version": "1.5.9999",
+    "projects": [
+        "https://github.com/mapbox/s3urls"
+    ],
+    "devDependencies": {
+        "@types/mapbox__s3urls": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sebastian Vera",
+            "githubUsername": "sebastianvera"
+        }
+    ]
+}

@@ -5,5 +5,5 @@
  *
  * If a file is not found, prints a warning message and returns `false`.
  */
-declare function checkRequiredFiles(files: ReadonlyArray<string>): boolean;
+declare function checkRequiredFiles(files: readonly string[]): boolean;
 export = checkRequiredFiles;

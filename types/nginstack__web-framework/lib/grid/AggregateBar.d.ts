@@ -11,5 +11,14 @@ declare class AggregateBar {
     clear(): void;
     add(aggr: any): void;
     resetLastSentValues(): void;
-    getChanges(): string;
+    getChanges(): AggregateState[];
+}
+declare namespace AggregateBar {
+    export { AggregateState };
+}
+interface AggregateState {
+    name: string;
+    type: string;
+    value: any;
+    readOnly: boolean;
 }

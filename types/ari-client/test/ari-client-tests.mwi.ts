@@ -1,28 +1,27 @@
-import Ari from 'ari-client';
-import util = require('util');
+import Ari from "ari-client";
+import util = require("util");
 
 // TypeScript version of example published on project https://github.com/asterisk/node-ari-client.
 
 // replace ari.js with your Asterisk instance
-Ari.connect('http://ari.js:8088', 'user', 'secret', (err, client) => {
+Ari.connect("http://ari.js:8088", "user", "secret", (err, client) => {
     // Create new mailbox
-    const mailbox = client.Mailbox('mwi-example');
+    const mailbox = client.Mailbox("mwi-example");
     let messages = 0;
 
     client.on(
-        'StasisStart',
-
+        "StasisStart",
         (event, channel) => {
-            channel.on('ChannelDtmfReceived', (event, channel) => {
+            channel.on("ChannelDtmfReceived", (event, channel) => {
                 const digit = event.digit;
                 switch (digit) {
-                    case '5':
+                    case "5":
                         // Record message
                         const recording = client.LiveRecording();
 
-                        recording.once('RecordingFinished', (event, newRecording) => {
+                        recording.once("RecordingFinished", (event, newRecording) => {
                             const playback = client.Playback();
-                            playback.once('PlaybackFinished', (event, newPlayback) => {
+                            playback.once("PlaybackFinished", (event, newPlayback) => {
                                 // Update MWI
                                 messages += 1;
                                 const opts = {
@@ -34,12 +33,12 @@ Ari.connect('http://ari.js:8088', 'user', 'secret', (err, client) => {
                                 channel.hangup(err => {});
                             });
 
-                            channel.play({ media: 'sound:vm-msgsaved' }, playback, err => {});
+                            channel.play({ media: "sound:vm-msgsaved" }, playback, err => {});
                         });
 
                         const opts = {
                             name: channel.id, // name parameter is required. See channels.json fixture file.
-                            format: 'wav',
+                            format: "wav",
                             maxSilenceSeconds: 2,
                             beep: true,
                         };
@@ -47,16 +46,16 @@ Ari.connect('http://ari.js:8088', 'user', 'secret', (err, client) => {
                         // Record a message
                         channel.record(opts, recording, err => {});
                         break;
-                    case '6':
+                    case "6":
                         // Playback last message
                         client.recordings.listStored((err, recordings) => {
                             const playback = client.Playback();
                             const recording = recordings[recordings.length - 1];
 
                             if (!recording) {
-                                channel.play({ media: 'sound:vm-nomore' }, playback, err => {});
+                                channel.play({ media: "sound:vm-nomore" }, playback, err => {});
                             } else {
-                                playback.once('PlaybackFinished', (event, newPlayback) => {
+                                playback.once("PlaybackFinished", (event, newPlayback) => {
                                     recording.deleteStored(err => {
                                         // Remove MWI
                                         messages -= 1;
@@ -67,12 +66,12 @@ Ari.connect('http://ari.js:8088', 'user', 'secret', (err, client) => {
                                         mailbox.update(opts, err => {});
 
                                         const playback = client.Playback();
-                                        channel.play({ media: 'sound:vm-next' }, playback, err => {});
+                                        channel.play({ media: "sound:vm-next" }, playback, err => {});
                                     });
                                 });
 
                                 const opts = {
-                                    media: util.format('recording:%s', recording.name),
+                                    media: util.format("recording:%s", recording.name),
                                 };
 
                                 // Play the latest message
@@ -86,16 +85,16 @@ Ari.connect('http://ari.js:8088', 'user', 'secret', (err, client) => {
             channel.answer(err => {
                 let playback = client.Playback();
 
-                playback.once('PlaybackFinished', (err, newPlayback) => {
+                playback.once("PlaybackFinished", (err, newPlayback) => {
                     playback = client.Playback();
-                    channel.play({ media: 'sound:vm-next' }, playback, err => {});
+                    channel.play({ media: "sound:vm-next" }, playback, err => {});
                 });
 
-                channel.play({ media: 'sound:vm-leavemsg' }, playback, err => {});
+                channel.play({ media: "sound:vm-leavemsg" }, playback, err => {});
             });
         },
     );
 
     // can also use client.start(['app-name'...]) to start multiple applications
-    client.start('mwi-example');
+    client.start("mwi-example");
 });

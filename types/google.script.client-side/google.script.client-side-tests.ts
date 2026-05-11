@@ -5,12 +5,12 @@ google.script.url.getLocation(location => {
 });
 
 google.script.history.push(null);
-google.script.history.push({ timestamp: Date.now() }, { foo: 'bar', fiz: 'baz' });
-google.script.history.push({ timestamp: Date.now() }, { foo: ['bar', 'cat'], fiz: 'baz' }, 'anchor1');
+google.script.history.push({ timestamp: Date.now() }, { foo: "bar", fiz: "baz" });
+google.script.history.push({ timestamp: Date.now() }, { foo: ["bar", "cat"], fiz: "baz" }, "anchor1");
 
 google.script.history.replace(null);
-google.script.history.replace({ timestamp: Date.now() }, { foo: 'bar', fiz: 'baz' });
-google.script.history.replace({ timestamp: Date.now() }, { foo: ['bar', 'cat'], fiz: 'baz' }, 'anchor1');
+google.script.history.replace({ timestamp: Date.now() }, { foo: "bar", fiz: "baz" });
+google.script.history.replace({ timestamp: Date.now() }, { foo: ["bar", "cat"], fiz: "baz" }, "anchor1");
 
 google.script.history.setChangeHandler(e => {
     e.state; // $ExpectType State
@@ -61,8 +61,8 @@ google.script.run.testFunctionWithArray([
         nullValue: null,
         undef: undefined,
         array: [0, true, "", null, undefined, [], {}],
-        object: {}
-    }
+        object: {},
+    },
 ]);
 google.script.run.testFunctionWithObject({
     number: 0,
@@ -71,7 +71,7 @@ google.script.run.testFunctionWithObject({
     nullValue: null,
     undef: undefined,
     array: [0, true, "", null, undefined, [], {}],
-    object: {}
+    object: {},
 });
 google.script.run.testFunctionWithMultipleParameters(
     0,
@@ -86,7 +86,7 @@ google.script.run.testFunctionWithMultipleParameters(
         null,
         undefined,
         [],
-        {}
+        {},
     ],
     {
         number: 0,
@@ -95,8 +95,8 @@ google.script.run.testFunctionWithMultipleParameters(
         nullValue: null,
         undef: undefined,
         array: [0, true, "", null, undefined, [], {}],
-        object: {}
-    }
+        object: {},
+    },
 );
 google.script.run.testFunctionWithForm(new HTMLFormElement());
 // @ts-expect-error

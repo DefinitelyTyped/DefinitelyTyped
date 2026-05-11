@@ -1,5 +1,5 @@
 import * as Mapbox from "mapbox-gl";
-import * as MapboxTraffic from "mapbox__mapbox-gl-traffic";
+import MapboxTraffic from "mapbox__mapbox-gl-traffic";
 
 const options: MapboxTraffic.Options = {
     showTraffic: true,

@@ -1,9 +1,3 @@
-// Type definitions for nearley 2.11
-// Project: https://github.com/Hardmath123/nearley#readme
-// Definitions by: Nikita Litvin <https://github.com/deltaidea>
-//                 BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace nearley;
 
 export class Parser {
@@ -38,8 +32,8 @@ export class Parser {
      */
     feed(chunk: string): this;
     finish(): any[];
-    restore(column: {[key: string]: any, lexerState: LexerState}): void;
-    save(): {[key: string]: any, lexerState: LexerState};
+    restore(column: { [key: string]: any; lexerState: LexerState }): void;
+    save(): { [key: string]: any; lexerState: LexerState };
 }
 
 export interface ParserOptions {
@@ -65,7 +59,7 @@ export class Grammar {
 
     rules: Rule[];
     start: string;
-    byName: {[ruleName: string]: Rule[]};
+    byName: { [ruleName: string]: Rule[] };
     lexer?: Lexer | undefined;
 
     constructor(rules: Rule[]);
@@ -107,7 +101,7 @@ export interface Lexer {
     formatError(token: Token, message: string): string;
 }
 
-export type Token = string | { value: string; };
+export type Token = string | { value: string };
 
 export interface LexerState {
     [x: string]: any;

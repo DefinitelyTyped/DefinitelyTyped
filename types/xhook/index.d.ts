@@ -1,8 +1,3 @@
-// Type definitions for xhook 1.5
-// Project: https://github.com/jpillora/xhook#readme
-// Definitions by: Sudarsan Balaji <https://github.com/artfuldev>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace xhook {
     interface Request {
         method: string;
@@ -26,6 +21,7 @@ declare namespace xhook {
     }
 
     interface BeforeHandler {
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         (request: Request, callback: (response?: Response) => void): Response | void;
     }
 

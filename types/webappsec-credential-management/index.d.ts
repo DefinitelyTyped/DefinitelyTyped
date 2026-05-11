@@ -1,11 +1,3 @@
-// Type definitions for non-npm package W3C (WebAppSec) Credential Management API Level 1, 0.6
-// Project: https://github.com/w3c/webappsec-credential-management
-// Definitions by: Iain McGinniss <https://github.com/iainmcgin>
-//                 Joao Peixoto <https://github.com/Hartimer>
-//                 Michael J. Currie <https://github.com/Basaingeal>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 5.1
-
 // Spec: https://www.w3.org/TR/2017/WD-credential-management-1-20170804
 
 /* ************************* FETCH MODIFICATIONS *******************************
@@ -124,7 +116,7 @@ interface CredentialData {
     readonly id: string;
 }
 
-type CredentialType = PasswordCredential | FederatedCredential | PublicKeyCredential;
+type CredentialType = PasswordCredential | FederatedCredential | PublicKeyCredential | OTPCredential;
 
 /**
  * A generic and extensible Credential interface from which all credentials
@@ -166,7 +158,7 @@ interface SiteBoundCredentialData extends CredentialData {
  * agent’s credential
  * store.
  */
-// tslint:disable-next-line no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface SiteBoundCredential extends Credential {}
 declare abstract class SiteBoundCredential {
     /**
@@ -209,7 +201,7 @@ declare class PasswordCredential extends SiteBoundCredential {
      */
     constructor(data: PasswordCredentialData | HTMLFormElement);
 
-    readonly type: 'password';
+    readonly type: "password";
 
     /**
      * Represents the name which will be used for the ID field when submitting
@@ -260,7 +252,7 @@ interface FederatedCredentialData extends SiteBoundCredentialData {
 declare class FederatedCredential extends SiteBoundCredential {
     constructor(data: FederatedCredentialData);
 
-    readonly type: 'federated';
+    readonly type: "federated";
 
     /**
      * The credential’s federated identity provider. Must be a absolute,
@@ -276,6 +268,24 @@ declare class FederatedCredential extends SiteBoundCredential {
      * @see {@link https://www.w3.org/TR/credential-management-1/#dom-federatedcredential-protocol}
      */
     readonly protocol: string | null;
+}
+
+/**
+ * @see {@link https://wicg.github.io/web-otp}
+ */
+interface OTPCredentialData extends SiteBoundCredentialData {
+    code?: string;
+}
+
+declare class OTPCredential extends SiteBoundCredential {
+    constructor(data: OTPCredentialData);
+
+    readonly type: `otp`;
+
+    /**
+     * The credential’s One Time Password Code
+     */
+    readonly code: string | null;
 }
 
 /**
@@ -295,6 +305,12 @@ interface CredentialRequestOptions {
     federated?: FederatedCredentialRequestOptions | undefined;
 
     /**
+     * If set, the user agent will request {@link OTPCredential} objects
+     * Defaults to {@code null}.
+     */
+    otp?: OTPCredentialRequestOptions | undefined;
+
+    /**
      * If {@code true}, the user agent will only attempt to provide a Credential
      * without user interaction. Defaults to {@code false}.
      *
@@ -306,7 +322,7 @@ interface CredentialRequestOptions {
      * This property specifies the mediation requirements for a given credential
      * request.
      */
-    mediation?: 'silent' | 'optional' | 'required' | 'conditional' | undefined;
+    mediation?: "silent" | "optional" | "required" | "conditional" | undefined;
 
     /**
      * This property specifies options for requesting a public-key signature.
@@ -368,6 +384,11 @@ interface FederatedCredentialRequestOptions {
     protocols?: string[] | undefined;
 }
 
+interface OTPCredentialRequestOptions {
+    // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
+    transport: ["sms"];
+}
+
 // Type definitions for webauthn
 // Spec: https://w3c.github.io/webauthn/
 interface txAuthGenericArg {
@@ -394,7 +415,7 @@ interface PublicKeyCredentialRequestOptions {
     timeout?: number | undefined;
     rpId?: string | undefined;
     allowCredentials?: PublicKeyCredentialDescriptor[] | undefined;
-    userVerification?: 'required' | 'preferred' | 'discouraged' | undefined;
+    userVerification?: "required" | "preferred" | "discouraged" | undefined;
     extensions?: AuthenticationExtensionsClientInputs | undefined;
 }
 
@@ -425,7 +446,7 @@ interface PublicKeyCredentialUserEntity extends PublicKeyCredentialEntity {
  * @see {@link https://w3c.github.io/webauthn/#dictdef-publickeycredentialparameters}
  */
 interface PublicKeyCredentialParameters {
-    type: 'public-key';
+    type: "public-key";
     alg: number;
 }
 
@@ -433,7 +454,7 @@ interface PublicKeyCredentialParameters {
  * @see {@link https://w3c.github.io/webauthn/#dictdef-publickeycredentialdescriptor}
  */
 interface PublicKeyCredentialDescriptor {
-    type: 'public-key';
+    type: "public-key";
     id: BufferSource;
     transports?: AuthenticatorTransport[];
 }
@@ -442,9 +463,9 @@ interface PublicKeyCredentialDescriptor {
  * @see {@link https://w3c.github.io/webauthn/#dictdef-authenticatorselectioncriteria}
  */
 interface AuthenticatorSelectionCriteria {
-    authenticatorAttachment?: 'platform' | 'cross-platform' | undefined;
+    authenticatorAttachment?: "platform" | "cross-platform" | undefined;
     requireResidentKey?: boolean | undefined;
-    userVerification?: 'required' | 'preferred' | 'discouraged' | undefined;
+    userVerification?: "required" | "preferred" | "discouraged" | undefined;
 }
 
 /**
@@ -491,7 +512,7 @@ interface AuthenticatorAssertionResponse extends AuthenticatorResponse {
  * @see {@link https://w3c.github.io/webauthn/#publickeycredential}
  */
 interface PublicKeyCredential extends Credential {
-    readonly type: 'public-key';
+    readonly type: "public-key";
     readonly rawId: ArrayBuffer;
     readonly response: AuthenticatorResponse;
 }

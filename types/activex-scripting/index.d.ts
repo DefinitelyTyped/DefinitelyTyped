@@ -1,20 +1,14 @@
-// Type definitions for non-npm package Microsoft Scripting Runtime 1.0
-// Project: https://msdn.microsoft.com/en-us/library/bstcxhf7(v=vs.84).aspx
-// Definitions by: Zev Spitz <https://github.com/zspitz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
-
 /// <reference types="activex-interop" />
 
 declare namespace Scripting {
-    // eslint-disable-next-line no-const-enum
+    // eslint-disable-next-line @definitelytyped/no-const-enum
     const enum CompareMethod {
         BinaryCompare = 0,
         DatabaseCompare = 2,
         TextCompare = 1,
     }
 
-    // eslint-disable-next-line no-const-enum
+    // eslint-disable-next-line @definitelytyped/no-const-enum
     const enum DriveTypeConst {
         CDRom = 4,
         Fixed = 2,
@@ -24,7 +18,7 @@ declare namespace Scripting {
         UnknownType = 0,
     }
 
-    // eslint-disable-next-line no-const-enum
+    // eslint-disable-next-line @definitelytyped/no-const-enum
     const enum FileAttribute {
         Alias = 1024,
         Archive = 32,
@@ -37,28 +31,28 @@ declare namespace Scripting {
         Volume = 8,
     }
 
-    // eslint-disable-next-line no-const-enum
+    // eslint-disable-next-line @definitelytyped/no-const-enum
     const enum IOMode {
         ForAppending = 8,
         ForReading = 1,
         ForWriting = 2,
     }
 
-    // eslint-disable-next-line no-const-enum
+    // eslint-disable-next-line @definitelytyped/no-const-enum
     const enum SpecialFolderConst {
         SystemFolder = 1,
         TemporaryFolder = 2,
         WindowsFolder = 0,
     }
 
-    // eslint-disable-next-line no-const-enum
+    // eslint-disable-next-line @definitelytyped/no-const-enum
     const enum StandardStreamTypes {
         StdErr = 2,
         StdIn = 0,
         StdOut = 1,
     }
 
-    // eslint-disable-next-line no-const-enum
+    // eslint-disable-next-line @definitelytyped/no-const-enum
     const enum Tristate {
         TristateFalse = 0,
         TristateMixed = -2,
@@ -106,7 +100,7 @@ declare namespace Scripting {
     /** Drive Object */
     class Drive {
         private constructor();
-        private 'Scripting.Drive_typekey': Drive;
+        private "Scripting.Drive_typekey": Drive;
 
         /** Get available space */
         readonly AvailableSpace: number;
@@ -169,7 +163,7 @@ declare namespace Scripting {
     /** File object */
     class File {
         private constructor();
-        private 'Scripting.File_typekey': File;
+        private "Scripting.File_typekey": File;
 
         /** File attributes */
         Attributes: FileAttribute;
@@ -245,7 +239,7 @@ declare namespace Scripting {
     /** FileSystem Object */
     class FileSystemObject {
         private constructor();
-        private 'Scripting.FileSystemObject_typekey': FileSystemObject;
+        private "Scripting.FileSystemObject_typekey": FileSystemObject;
 
         /** Generate a path from an existing path and a name */
         BuildPath(Path: string, Name: string): string;
@@ -356,7 +350,7 @@ declare namespace Scripting {
     /** Folder object */
     class Folder {
         private constructor();
-        private 'Scripting.Folder_typekey': Folder;
+        private "Scripting.Folder_typekey": Folder;
 
         /** Folder attributes */
         Attributes: FileAttribute;
@@ -444,7 +438,7 @@ declare namespace Scripting {
     /** TextStream object */
     class TextStream {
         private constructor();
-        private 'Scripting.TextStream_typekey': TextStream;
+        private "Scripting.TextStream_typekey": TextStream;
 
         /** Is the current position at the end of a line? */
         readonly AtEndOfLine: boolean;
@@ -491,15 +485,20 @@ declare namespace Scripting {
 }
 
 interface ActiveXObject {
-    set<TKey = any, TValue = any>(obj: Scripting.Dictionary<TKey, TValue>, propertyName: 'Item', parameterTypes: [TKey], newValue: TValue): void;
+    set<TKey = any, TValue = any>(
+        obj: Scripting.Dictionary<TKey, TValue>,
+        propertyName: "Item",
+        parameterTypes: [TKey],
+        newValue: TValue,
+    ): void;
 }
 
 interface ActiveXObjectNameMap {
-    'Scripting.Dictionary': Scripting.Dictionary;
-    'Scripting.Encoder': Scripting.Encoder;
-    'Scripting.FileSystemObject': Scripting.FileSystemObject;
+    "Scripting.Dictionary": Scripting.Dictionary;
+    "Scripting.Encoder": Scripting.Encoder;
+    "Scripting.FileSystemObject": Scripting.FileSystemObject;
 }
 
 interface EnumeratorConstructor {
-    new <TKey>(dict: Scripting.Dictionary<TKey>): Enumerator<TKey>;
+    new<TKey>(dict: Scripting.Dictionary<TKey>): Enumerator<TKey>;
 }

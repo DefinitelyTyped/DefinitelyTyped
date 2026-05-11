@@ -1,29 +1,27 @@
-// Type definitions for react-native-material-ui 1.32
-// Project: https://github.com/xotahal/react-native-material-ui
-// Definitions by: Kyle Roach <https://github.com/iRoachie>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import { Component } from 'react';
-import { StyleProp, ViewStyle as ViewStyleRaw, TextStyle as TextStyleRaw, Image } from 'react-native';
+import { Component, JSX } from "react";
+import { Image, StyleProp, TextStyle as TextStyleRaw, ViewStyle as ViewStyleRaw } from "react-native";
 
 export type ViewStyle = StyleProp<ViewStyleRaw>;
 export type TextStyle = StyleProp<TextStyleRaw>;
 
 export interface ActionButtonProps {
-    actions?: string[] | JSX.Element[] | Array<{
-        icon: string | JSX.Element
-        label: string
-        name: string
-    }> | undefined;
+    actions?:
+        | string[]
+        | JSX.Element[]
+        | Array<{
+            icon: string | JSX.Element;
+            label: string;
+            name: string;
+        }>
+        | undefined;
     hidden?: boolean | undefined;
     icon?: string | undefined;
     style?: {
-        container?: ViewStyle | undefined
-        icon?: TextStyle | undefined
-        positionContainer?: ViewStyle | undefined
+        container?: ViewStyle | undefined;
+        icon?: TextStyle | undefined;
+        positionContainer?: ViewStyle | undefined;
     } | undefined;
-    transition?: 'toolbar' | 'speedDial' | undefined;
+    transition?: "toolbar" | "speedDial" | undefined;
     onPress?(): void;
     onLongPress?(): void;
 }
@@ -41,8 +39,8 @@ export interface AvatarProps {
     text?: string | undefined;
     size?: number | undefined;
     style?: {
-        container?: ViewStyle | undefined
-        content?: ViewStyle | undefined
+        container?: ViewStyle | undefined;
+        content?: ViewStyle | undefined;
     } | undefined;
 }
 
@@ -54,14 +52,14 @@ export class Avatar extends Component<AvatarProps, any> {}
 export interface BadgeProps {
     children?: JSX.Element | undefined;
     text?: string | undefined;
-    icon?: string | { name: string, color: string, size: number } | undefined;
+    icon?: string | { name: string; color: string; size: number } | undefined;
     size?: number | undefined;
     stroke?: number | undefined;
     accent?: boolean | undefined;
     style?: {
-        container?: ViewStyle | undefined
-        content?: ViewStyle | undefined
-        strokeContainer?: ViewStyle | undefined
+        container?: ViewStyle | undefined;
+        content?: ViewStyle | undefined;
+        strokeContainer?: ViewStyle | undefined;
     } | undefined;
 }
 
@@ -75,7 +73,7 @@ export interface BottomNavigationProps {
     children: JSX.Element | JSX.Element[];
     hidden?: boolean | undefined;
     style?: {
-        container?: ViewStyle | undefined
+        container?: ViewStyle | undefined;
     } | undefined;
 }
 
@@ -92,9 +90,9 @@ export interface BottomNavigationAction {
     active: boolean;
     disabled?: boolean | undefined;
     style?: {
-        container?: ViewStyle | undefined
-        active?: TextStyle | undefined
-        disabled?: TextStyle | undefined
+        container?: ViewStyle | undefined;
+        active?: TextStyle | undefined;
+        disabled?: TextStyle | undefined;
     } | undefined;
     onPress?(): void;
 }
@@ -113,8 +111,8 @@ export interface ButtonProps {
     upperCase?: boolean | undefined;
     icon?: string | JSX.Element | undefined;
     style?: {
-        container?: ViewStyle | undefined
-        text?: TextStyle | undefined
+        container?: ViewStyle | undefined;
+        text?: TextStyle | undefined;
     } | undefined;
     onPress?(): void;
     onLongPress?(): void;
@@ -128,7 +126,7 @@ export class Button extends Component<ButtonProps, any> {}
 export interface CardProps {
     children?: JSX.Element | undefined;
     style?: {
-        container?: ViewStyle | undefined
+        container?: ViewStyle | undefined;
     } | undefined;
     onPress?(): void;
 }
@@ -146,9 +144,9 @@ export interface CheckBoxProps {
     uncheckedIcon?: string | undefined;
     checkedIcon?: string | undefined;
     style?: {
-        icon?: TextStyle | undefined
-        container?: ViewStyle | undefined
-        label?: TextStyle | undefined
+        icon?: TextStyle | undefined;
+        container?: ViewStyle | undefined;
+        label?: TextStyle | undefined;
     } | undefined;
     onCheck(checked: boolean): void;
 }
@@ -161,7 +159,7 @@ export class Checkbox extends Component<CheckBoxProps> {}
 export interface DialogProps {
     children: JSX.Element | JSX.Element[];
     style?: {
-        container?: ViewStyle | undefined
+        container?: ViewStyle | undefined;
     } | undefined;
     onPress?(): void;
 }
@@ -175,22 +173,22 @@ export class Dialog extends Component<DialogProps, any> {}
 export interface DialogTitleProps {
     children: JSX.Element;
     style?: {
-        titleContainer?: ViewStyle | undefined
-        titleText?: TextStyle | undefined
+        titleContainer?: ViewStyle | undefined;
+        titleText?: TextStyle | undefined;
     } | undefined;
 }
 
 export interface DialogContentProps {
     children: JSX.Element;
     style?: {
-        contentContainer?: ViewStyle | undefined
+        contentContainer?: ViewStyle | undefined;
     } | undefined;
 }
 
 export interface DialogActionsProps {
     children: JSX.Element;
     style?: {
-        actionsContainer?: ViewStyle | undefined
+        actionsContainer?: ViewStyle | undefined;
     } | undefined;
 }
 
@@ -203,7 +201,7 @@ export namespace Dialog {
 export interface DialogDefaultActionsProps {
     actions: string[];
     style?: {
-        defaultActionsContainer?: ViewStyle | undefined
+        defaultActionsContainer?: ViewStyle | undefined;
     } | undefined;
     onActionPress(action: string): void;
 }
@@ -216,7 +214,7 @@ export class DialogDefaultActions extends Component<DialogDefaultActionsProps, a
 export interface DialogStackedActionsProps {
     actions: string[];
     style?: {
-        stackedActionsContainer?: ViewStyle | undefined
+        stackedActionsContainer?: ViewStyle | undefined;
     } | undefined;
     onActionPress(action: string): void;
 }
@@ -229,7 +227,7 @@ export class DialogStackedActions extends Component<DialogStackedActionsProps, a
 export interface DividerProps {
     inset?: boolean | undefined;
     style?: {
-        container?: ViewStyle | undefined
+        container?: ViewStyle | undefined;
     } | undefined;
 }
 
@@ -241,7 +239,7 @@ export class Divider extends Component<DividerProps, any> {}
 export interface DrawerProps {
     children: JSX.Element;
     style?: {
-        container?: ViewStyle | undefined
+        container?: ViewStyle | undefined;
     } | undefined;
 }
 
@@ -250,8 +248,8 @@ export interface DrawerHeaderProps {
     backgroundColor?: string | undefined;
     children?: JSX.Element | undefined;
     style?: {
-        container?: ViewStyle | undefined
-        contentContainer?: ViewStyle | undefined
+        container?: ViewStyle | undefined;
+        contentContainer?: ViewStyle | undefined;
     } | undefined;
 }
 
@@ -270,29 +268,31 @@ export interface DrawerSectionProps {
     items: DrawerSectionItem[];
     divider?: boolean | undefined;
     style?: {
-        container?: ViewStyle | undefined
-        item?: ViewStyle | undefined
-        subheader?: TextStyle | undefined
-        icon?: ViewStyle | undefined
-        value?: TextStyle | undefined
-        label?: TextStyle | undefined
+        container?: ViewStyle | undefined;
+        item?: ViewStyle | undefined;
+        subheader?: TextStyle | undefined;
+        icon?: ViewStyle | undefined;
+        value?: TextStyle | undefined;
+        label?: TextStyle | undefined;
     } | undefined;
 }
 
 export interface DrawerHeaderAccountProps {
     avatar?: JSX.Element | undefined;
-    accounts?: Array<{
-        avatar?: JSX.Element | undefined
-        onPress?(): void
-    }> | undefined;
+    accounts?:
+        | Array<{
+            avatar?: JSX.Element | undefined;
+            onPress?(): void;
+        }>
+        | undefined;
     footer?: {} | undefined;
     style?: {
-        container?: ViewStyle | undefined
-        accountContainer?: ViewStyle | undefined
-        topContainer?: ViewStyle | undefined
-        avatarsContainer?: ViewStyle | undefined
-        activeAvatarContainer?: ViewStyle | undefined
-        inactiveAvatarContainer?: ViewStyle | undefined
+        container?: ViewStyle | undefined;
+        accountContainer?: ViewStyle | undefined;
+        topContainer?: ViewStyle | undefined;
+        avatarsContainer?: ViewStyle | undefined;
+        activeAvatarContainer?: ViewStyle | undefined;
+        inactiveAvatarContainer?: ViewStyle | undefined;
     } | undefined;
 }
 
@@ -332,8 +332,8 @@ export interface IconToggleProps {
     name: string;
     children?: JSX.Element | undefined;
     style?: {
-        container?: ViewStyle | undefined
-        icon?: ViewStyle | undefined
+        container?: ViewStyle | undefined;
+        icon?: ViewStyle | undefined;
     } | undefined;
     onPress?(): void;
 }
@@ -368,7 +368,7 @@ export interface ListItemStyle {
 
 export interface ListItemProps {
     testID?: string | undefined;
-    numberOfLines?: 1 | 2 | 3 | 'dynamic' | undefined;
+    numberOfLines?: 1 | 2 | 3 | "dynamic" | undefined;
     leftElement?: JSX.Element | string | undefined;
     rightElement?: JSX.Element | string | undefined;
     centerElement: JSX.Element | string | ListItemCenterElement;
@@ -404,8 +404,8 @@ export interface SubheaderProps {
     inset?: boolean | undefined;
     lines?: number | undefined;
     style?: {
-        container?: ViewStyle | undefined
-        text?: TextStyle | undefined
+        container?: ViewStyle | undefined;
+        text?: TextStyle | undefined;
     } | undefined;
 }
 
@@ -427,7 +427,7 @@ export interface ToolbarStyle {
 export interface Searchable {
     placeholder?: string | undefined;
     autoFocus?: boolean | undefined;
-    autoCapitalize?: 'none' | 'sentences' | 'words' | 'characters' | undefined;
+    autoCapitalize?: "none" | "sentences" | "words" | "characters" | undefined;
     autoCorrect?: boolean | undefined;
     onChangeText?(text: string): void;
     onSearchClosed?(): void;
@@ -438,7 +438,7 @@ export interface Searchable {
 
 export interface ToolBarRightElement {
     actions?: Array<JSX.Element | string> | undefined;
-    menu?: {icon: string, labels: string[]} | undefined;
+    menu?: { icon: string; labels: string[] } | undefined;
 }
 
 export interface RightElementPressEvent {
@@ -474,8 +474,8 @@ export interface SnackbarProps {
     actionText?: string | undefined;
     button?: ButtonProps | undefined;
     style?: {
-        container?: ViewStyle | undefined
-        message?: ViewStyle | undefined
+        container?: ViewStyle | undefined;
+        message?: ViewStyle | undefined;
     } | undefined;
     onRequestClose(): void;
     onActionPress?(): void;

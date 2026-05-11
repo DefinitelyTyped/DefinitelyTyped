@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/mediawiki-title",
+    "version": "0.7.9999",
+    "projects": [
+        "https://github.com/wikimedia/mediawiki-title#readme"
+    ],
+    "devDependencies": {
+        "@types/mediawiki-title": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "ud2",
+            "githubUsername": "0f-0b"
+        }
+    ]
+}

@@ -1,9 +1,3 @@
-// Type definitions for Traverson v6.1.1
-// Project: https://github.com/traverson/traverson
-// Definitions by: Marcin Porębski <https://github.com/marcinporebski>
-//                 Vladimir Jelovac <https://github.com/jelovac>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare var traverson: Traverson.TraversonMethods;
 
 export = traverson;

@@ -1,6 +1,6 @@
 Frida.version; // $ExpectType string
 
-const opts: HexdumpOptions = { address: ptr('0x1000') };
+const opts: HexdumpOptions = { address: ptr("0x1000") };
 // $ExpectType NativePointer | undefined
 opts.address;
 
@@ -13,7 +13,9 @@ Script.runtime;
 // $ExpectType any
 Script.evaluate("/true.js", "true");
 
-const screenshot = Script.load("/plugins/screenshot.js", `
+const screenshot = Script.load(
+    "/plugins/screenshot.js",
+    `
 import { registerPlugin } from "/agent.js";
 
 registerPlugin({
@@ -26,7 +28,8 @@ registerPlugin({
 export function screenshot() {
     // TODO
 }
-`) as Promise<ScreenshotPlugin>;
+`,
+) as Promise<ScreenshotPlugin>;
 
 interface ScreenshotPlugin {
     screenshot(): void;
@@ -70,6 +73,9 @@ p.blend(ptr(42));
 // @ts-expect-error
 p.blend();
 
+// $ExpectType ArrayBuffer | null
+p.readVolatile(2);
+
 // $ExpectType NativePointer
 Memory.alloc(1);
 // $ExpectType NativePointer
@@ -80,6 +86,13 @@ Memory.alloc(1, { near: ptr(1234), maxDistance: 42 });
 Memory.alloc(1, { near: ptr(1234) });
 // @ts-expect-error
 Memory.alloc(1, { maxDistance: 42 });
+// $ExpectType NativePointer
+Memory.alloc(Process.pageSize, { protection: "rwx" });
+// $ExpectType NativePointer
+Memory.alloc(Process.pageSize, { protection: "rx", near: ptr(1234), maxDistance: 42 });
+
+// $ExpectType string
+Memory.queryProtection(Process.mainModule.base);
 
 new NativeCallback(
     (a, b) => {
@@ -126,7 +139,7 @@ const nf2 = new NativeFunction(NULL, "void", ["long", "...", "pointer"]);
 nf2(34, NULL, nf2, { handle: ptr(0xbeef) });
 
 // $ExpectType NativeFunction<number, [NativePointerValue]>
-const puts = new NativeFunction(Module.getExportByName(null, "puts"), "int", ["pointer"]);
+const puts = new NativeFunction(Module.getGlobalExportByName("puts"), "int", ["pointer"]);
 
 // $ExpectType NativePointer
 const message = Memory.allocUtf8String("Hello!");
@@ -141,7 +154,7 @@ puts.apply(otherPuts, [message]);
 puts(message);
 
 // $ExpectType SystemFunction<number, [NativePointerValue, number]>
-const open = new SystemFunction(Module.getExportByName(null, "open"), "int", ["pointer", "int"]);
+const open = new SystemFunction(Module.getGlobalExportByName("open"), "int", ["pointer", "int"]);
 
 const path = Memory.allocUtf8String("/etc/hosts");
 
@@ -157,8 +170,21 @@ result.value;
 // $ExpectType Promise<void>
 Memory.scan(ptr("0x1234"), Process.pageSize, new MatchPattern("13 37"), {
     onMatch(address, size) {
-    }
+    },
 });
+
+// $ExpectType Module
+Process.mainModule;
+
+// $ExpectType string | null
+Process.mainModule.version;
+
+const art = Process.getModuleByName("libart.so");
+// $ExpectType NativePointer
+art.getSymbolByName("ExecuteNterpImpl");
+
+// $ExpectType ApiResolver
+const resolver = new ApiResolver("swift");
 
 // $ExpectType number
 File.SEEK_SET;
@@ -245,6 +271,12 @@ Interceptor.attach(puts, {
 
 Interceptor.flush();
 
+// $ExpectType void
+Interceptor.replace(ptr("0x1234"), new NativeCallback(() => {}, "void", []));
+
+// $ExpectType NativePointer
+Interceptor.replaceFast(ptr("0x1234"), new NativeCallback(() => {}, "void", []));
+
 const ccode = `
 #include <gum/gumstalker.h>
 
@@ -285,83 +317,100 @@ Stalker.follow(Process.getCurrentThreadId(), {
     events: {
         compile: true,
         call: true,
-        ret: true
+        ret: true,
     },
     onEvent: cm.process,
-    data: ptr(42)
+    data: ptr(42),
+    transform(iterator: StalkerX86Iterator) {
+        let instruction = iterator.next();
+
+        if (instruction == null) {
+            return;
+        }
+
+        const startAddress = instruction.address;
+        do {
+            if (startAddress == ptr(0)) {
+                iterator.putChainingReturn();
+            }
+            iterator.keep();
+        } while ((instruction = iterator.next()) !== null);
+    },
 });
 
 const basicBlockStartAddress = ptr("0x400000");
 Stalker.invalidate(basicBlockStartAddress);
 Stalker.invalidate(Process.getCurrentThreadId(), basicBlockStartAddress);
 
-const obj = new ObjC.Object(ptr("0x42"));
+// $ExpectType boolean
+Cloak.hasCurrentThread();
 
-// $ExpectType Object
-obj;
-
-const b = new ObjC.Block(ptr(0x1234));
-b.declare({ retType: "void", argTypes: ["int"] });
-b.declare({ types: "v12@?0i8" });
-
-Java.enumerateClassLoadersSync()
-    .forEach(classLoader => {
-        // $ExpectType ClassFactory
-        const factory = Java.ClassFactory.get(classLoader);
-        interface Props {
-            myMethod: Java.MethodDispatcher;
-            myField: Java.Field<number>;
-        }
-        // $ExpectType Wrapper<Props>
-        const MyJavaClass = factory.use<Props>("my.java.class");
-        // @ts-expect-error
-        factory.use<{ illegal: string }>("");
-        // $ExpectType string
-        MyJavaClass.$className;
-        // $ExpectType MethodDispatcher<Props>
-        MyJavaClass.myMethod;
-        // $ExpectType Wrapper<Props>
-        MyJavaClass.myMethod.holder;
-        // $ExpectType Wrapper<Props>
-        MyJavaClass.myMethod.holder.myField.holder.myMethod.holder;
-        MyJavaClass.myMethod.implementation = function(...args) {
-            // $ExpectType MethodDispatcher<Props>
-            this.myMethod;
-            // $ExpectType Field<number, Props>
-            this.myField;
-            // $ExpectType number
-            this.myField.value;
-        };
-        // $ExpectType Wrapper<Props>
-        Java.retain(MyJavaClass);
-        interface AnotherProps {
-            anotherMethod: Java.MethodDispatcher;
-            anotherField: Java.Field<string>;
-        }
-        const MyAnotherJavaClass = factory.use<AnotherProps>("my.another.java.class");
-        // $ExpectType Wrapper<AnotherProps>
-        Java.cast(MyJavaClass, MyAnotherJavaClass);
-    });
-
-Java.perform(() => {
-    // $ExpectType void
-    Java.deoptimizeBootImage();
-
-    Java.enumerateMethods("*!*game*/i").forEach(group => {
-        const factory = Java.ClassFactory.get(group.loader);
-        group.classes.forEach(klass => {
-            const C = factory.use(klass.name);
-            klass.methods.forEach(methodName => {
-                const method: Java.MethodDispatcher = C[methodName];
-                method.implementation = function(...args) {
-                    return method.apply(this, args);
-                };
-            });
-        });
-    });
-
-    // $ExpectType Backtrace
-    Java.backtrace();
-    // $ExpectType Backtrace
-    Java.backtrace({ limit: 42 });
+Process.enumerateThreads().forEach(t => {
+    t.setHardwareBreakpoint(0, puts);
 });
+
+Process.enumerateThreads().forEach(t => {
+    t.unsetHardwareBreakpoint(0);
+});
+
+Process.enumerateThreads().forEach(t => {
+    t.setHardwareWatchpoint(0, puts, 4, "rw");
+});
+
+Process.enumerateThreads().forEach(t => {
+    t.unsetHardwareWatchpoint(0);
+});
+
+const threadObserver = Process.attachThreadObserver({
+    onAdded(thread) {
+        // $ExpectType StableThreadDetails
+        thread;
+    },
+    onRemoved(thread) {
+        // $ExpectType StableThreadDetails
+        thread;
+    },
+    onRenamed(thread, previousName) {
+        // $ExpectType StableThreadDetails
+        thread;
+        // $ExpectType string | null
+        previousName;
+    },
+});
+threadObserver.detach();
+
+// $ExpectType Promise<void>
+Process.runOnThread(1, () => {});
+
+// $ExpectType Promise<boolean>
+Process.runOnThread(1, () => true);
+
+const moduleObserver = Process.attachModuleObserver({
+    onAdded(module) {
+        // $ExpectType Module
+        module;
+    },
+    onRemoved(module) {
+        // $ExpectType Module
+        module;
+    },
+});
+moduleObserver.detach();
+
+const db = SqliteDatabase.openInline("AAAA");
+const stmt = db.prepare("SELECT * from tab;");
+// $ExpectType string[]
+stmt.columnNames;
+// $ExpectType SqliteColumnType[]
+stmt.columnTypes;
+// $ExpectType (string | null)[]
+stmt.declaredTypes;
+// $ExpectType number
+stmt.paramsCount;
+
+// $ExpectType Profiler
+const profiler = new Profiler();
+const sampler = new BusyCycleSampler();
+for (const e of Process.getModuleByName("libc.so").enumerateExports().filter(e => e.type === "function")) {
+    profiler.instrument(e.address, sampler);
+}

@@ -13,6 +13,6 @@ declare class Element {
 declare namespace Element {
     export { Attr, NamedNodeMap, NodeList };
 }
-type NamedNodeMap = import('./NamedNodeMap');
 type Attr = import('./Attr');
+type NamedNodeMap = import('./NamedNodeMap');
 type NodeList = import('./NodeList');

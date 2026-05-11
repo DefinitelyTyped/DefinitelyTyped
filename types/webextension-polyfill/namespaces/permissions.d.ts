@@ -2,35 +2,45 @@
 // BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
 //////////////////////////////////////////////////////
 
+import { Events } from "./events";
+import { Manifest } from "./manifest";
+
 /**
  * Namespace: browser.permissions
  */
-import { Manifest } from "./manifest";
-import { Events } from "./events";
-
 export namespace Permissions {
     interface Permissions {
         /**
          * Optional.
          */
-        permissions?: Manifest.OptionalPermission[];
+        permissions?: Array<Manifest.OptionalPermission | Manifest.OptionalOnlyPermission>;
 
         /**
          * Optional.
          */
         origins?: Manifest.MatchPattern[];
+
+        /**
+         * Optional.
+         */
+        data_collection?: Manifest.OptionalDataCollectionPermission[];
     }
 
     interface AnyPermissions {
         /**
          * Optional.
          */
-        permissions?: Manifest.Permission[];
+        permissions?: Array<Manifest.Permission | Manifest.OptionalOnlyPermission>;
 
         /**
          * Optional.
          */
         origins?: Manifest.MatchPattern[];
+
+        /**
+         * Optional.
+         */
+        data_collection?: Manifest.OptionalDataCollectionPermission[];
     }
 
     interface Static {
@@ -41,36 +51,26 @@ export namespace Permissions {
 
         /**
          * Check if the extension has the given permissions.
-         *
-         * @param permissions
          */
         contains(permissions: AnyPermissions): Promise<boolean>;
 
         /**
          * Request the given permissions.
-         *
-         * @param permissions
          */
         request(permissions: Permissions): Promise<boolean>;
 
         /**
          * Relinquish the given permissions.
-         *
-         * @param permissions
          */
         remove(permissions: Permissions): Promise<boolean>;
 
         /**
          * Fired when the extension acquires new permissions.
-         *
-         * @param permissions
          */
         onAdded: Events.Event<(permissions: Permissions) => void>;
 
         /**
          * Fired when permissions are removed from the extension.
-         *
-         * @param permissions
          */
         onRemoved: Events.Event<(permissions: Permissions) => void>;
     }

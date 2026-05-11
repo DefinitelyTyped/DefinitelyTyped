@@ -1,8 +1,3 @@
-// Type definitions for create-html 4.1
-// Project: https://github.com/sethvincent/create-html#readme
-// Definitions by: Ciarán Ingle <https://github.com/inglec-arista>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare function createHtml(opts: {
     /** Content to insert into <body> tag. */
     body?: string | undefined;

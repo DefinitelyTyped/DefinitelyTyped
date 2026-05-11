@@ -16,6 +16,7 @@ declare class ControlChannel {
     requestScreenLock(): void;
     isScreenLockPending(): boolean;
     unlockSessionByNavigator(userName: string, password: string, newPassword?: string): string;
+    unlockSessionByNavigatorWithToken(userName: any, idToken: any): string;
     isScreenLocked(): boolean;
     getScreenLockedAt(): number;
     getScreenUnlockedAt(): number;
@@ -37,17 +38,29 @@ declare class ControlChannel {
     getMessageForNavigator(
         sequenceToListen: any,
         retry: any,
-        disableContinueOptimization: any
+        disableContinueOptimization: any,
     ): any;
-    handleNavigatorResponse(ctrlMessage: any): 'ctrl:continue' | 'ctrl:stop:-1' | 'ctrl:setok';
+    handleNavigatorResponse(ctrlMessage: any): "ctrl:continue" | "ctrl:stop:-1" | "ctrl:setok";
 }
 declare namespace ControlChannel {
-    function formatErrorPayload(
-        error: any,
-        info: {
-            stackTrace?: string | string[];
-            ticket?: string;
-        }
-    ): any;
-    function getInstance(): ControlChannel;
+    export { DetailedError, formatErrorPayload, getInstance, TaskProgressData };
 }
+declare function formatErrorPayload(
+    error: Error | DetailedError,
+    info: {
+        stackTrace?: string | string[];
+        ticket?: string;
+        dialogTitle?: string;
+    },
+): string;
+declare function getInstance(): ControlChannel;
+interface TaskProgressData {
+    taskName: string;
+    index: number;
+    indeterminate: boolean;
+    totalWork: number;
+    completedWork: number;
+    updated: boolean;
+    startTime: Date;
+}
+type DetailedError = import("@nginstack/engine/lib/error/DetailedError");

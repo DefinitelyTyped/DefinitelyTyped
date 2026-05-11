@@ -1,10 +1,3 @@
-// Type definitions for pako 2.0
-// Project: https://github.com/nodeca/pako
-// Definitions by: Caleb Eggensperger <https://github.com/calebegg>
-//                 Muhammet Öztürk <https://github.com/hlthi>
-//                 Thibault Poisson <https://github.com/OrIOg>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = Pako;
 export as namespace pako;
 
@@ -84,14 +77,14 @@ declare namespace Pako {
         windowBits?: number | undefined;
         dictionary?: any;
         raw?: boolean | undefined;
-        to?: 'string' | undefined;
+        to?: "string" | undefined;
         chunkSize?: number | undefined;
     }
 
     interface InflateFunctionOptions {
         windowBits?: number | undefined;
         raw?: boolean | undefined;
-        to?: 'string' | undefined;
+        to?: "string" | undefined;
     }
 
     interface Header {
@@ -106,46 +99,49 @@ declare namespace Pako {
 
     type Data = Uint8Array | ArrayBuffer;
 
+    // For TS <=5.6 compatibility: Uint8Array<ArrayBuffer> in TS >=5.7, Uint8Array in TS <=5.6
+    type Uint8ArrayReturnType = InstanceType<typeof Uint8Array>;
+
     /**
      * Compress data with deflate algorithm and options.
      */
-    function deflate(data: Data | string, options?: DeflateFunctionOptions): Uint8Array;
+    function deflate(data: Data | string, options?: DeflateFunctionOptions): Uint8ArrayReturnType;
 
     /**
      * The same as deflate, but creates raw data, without wrapper (header and adler32 crc).
      */
-    function deflateRaw(data: Data | string, options?: DeflateFunctionOptions): Uint8Array;
+    function deflateRaw(data: Data | string, options?: DeflateFunctionOptions): Uint8ArrayReturnType;
 
     /**
      * The same as deflate, but create gzip wrapper instead of deflate one.
      */
-    function gzip(data: Data | string, options?: DeflateFunctionOptions): Uint8Array;
+    function gzip(data: Data | string, options?: DeflateFunctionOptions): Uint8ArrayReturnType;
 
     /**
      * Decompress data with inflate/ungzip and options. Autodetect format via wrapper header
      * by default. That's why we don't provide separate ungzip method.
      */
-    function inflate(data: Data, options: InflateFunctionOptions & { to: 'string' }): string;
-    function inflate(data: Data, options?: InflateFunctionOptions): Uint8Array;
+    function inflate(data: Data, options: InflateFunctionOptions & { to: "string" }): string;
+    function inflate(data: Data, options?: InflateFunctionOptions): Uint8ArrayReturnType;
 
     /**
      * The same as inflate, but creates raw data, without wrapper (header and adler32 crc).
      */
-    function inflateRaw(data: Data, options: InflateFunctionOptions & { to: 'string' }): string;
-    function inflateRaw(data: Data, options?: InflateFunctionOptions): Uint8Array;
+    function inflateRaw(data: Data, options: InflateFunctionOptions & { to: "string" }): string;
+    function inflateRaw(data: Data, options?: InflateFunctionOptions): Uint8ArrayReturnType;
 
     /**
      * Just shortcut to inflate, because it autodetects format by header.content. Done for convenience.
      */
-    function ungzip(data: Data, options: InflateFunctionOptions & { to: 'string' }): string;
-    function ungzip(data: Data, options?: InflateFunctionOptions): Uint8Array;
+    function ungzip(data: Data, options: InflateFunctionOptions & { to: "string" }): string;
+    function ungzip(data: Data, options?: InflateFunctionOptions): Uint8ArrayReturnType;
 
     // https://github.com/nodeca/pako/blob/893381abcafa10fa2081ce60dae7d4d8e873a658/lib/deflate.js
     class Deflate {
         constructor(options?: DeflateOptions);
         err: ReturnCodes;
         msg: string;
-        result: Uint8Array;
+        result: Uint8ArrayReturnType;
         onData(chunk: Data): void;
         onEnd(status: number): void;
         push(data: Data | string, mode?: FlushValues | boolean): boolean;
@@ -157,7 +153,7 @@ declare namespace Pako {
         header?: Header | undefined;
         err: ReturnCodes;
         msg: string;
-        result: Uint8Array | string;
+        result: Uint8ArrayReturnType | string;
         onData(chunk: Data): void;
         onEnd(status: number): void;
         push(data: Data, mode?: FlushValues | boolean): boolean;

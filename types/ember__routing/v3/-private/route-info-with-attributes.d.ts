@@ -1,4 +1,4 @@
-import RouteInfo from './route-info';
+import RouteInfo from "./route-info";
 
 // https://api.emberjs.com/ember/3.6/classes/RouteInfoWithAttributes
 /**

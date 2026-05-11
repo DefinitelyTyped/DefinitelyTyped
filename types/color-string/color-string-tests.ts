@@ -1,40 +1,40 @@
-import * as colorString from 'color-string';
+import * as colorString from "color-string";
 
 let colorDescriptor: colorString.ColorDescriptor | null;
-colorDescriptor = colorString.get('#FFF');
-colorDescriptor = colorString.get('#FFFA');
-colorDescriptor = colorString.get('#FFFFFFAA');
-colorDescriptor = colorString.get('hsl(360, 100%, 50%)');
-colorDescriptor = colorString.get('hwb(60, 3%, 60%)');
+colorDescriptor = colorString.get("#FFF");
+colorDescriptor = colorString.get("#FFFA");
+colorDescriptor = colorString.get("#FFFFFFAA");
+colorDescriptor = colorString.get("hsl(360, 100%, 50%)");
+colorDescriptor = colorString.get("hwb(60, 3%, 60%)");
 
 let color: colorString.Color | null;
-color = colorString.get.rgb('#FFF');
-color = colorString.get.rgb('blue');
-color = colorString.get.rgb('rgba(200, 60, 60, 0.3)');
-color = colorString.get.rgb('rgb(200, 200, 200)');
+color = colorString.get.rgb("#FFF");
+color = colorString.get.rgb("blue");
+color = colorString.get.rgb("rgba(200, 60, 60, 0.3)");
+color = colorString.get.rgb("rgb(200, 200, 200)");
 
-color = colorString.get.hsl('hsl(360, 100%, 50%)');
-color = colorString.get.hsl('hsla(360, 60%, 50%, 0.4)');
-color = colorString.get.hwb('hwb(60, 3%, 60%)');
+color = colorString.get.hsl("hsl(360, 100%, 50%)");
+color = colorString.get.hsl("hsla(360, 60%, 50%, 0.4)");
+color = colorString.get.hwb("hwb(60, 3%, 60%)");
 
-color = colorString.get.hwb('hwb(60, 3%, 60%, 0.6)');
+color = colorString.get.hwb("hwb(60, 3%, 60%, 0.6)");
 
-color = colorString.get.rgb('invalid color string');
+color = colorString.get.rgb("invalid color string");
 
 colorString.get.rgb(null); // $ExpectType null
-colorString.get.rgb('#FFF'); // $ExpectType Color
+colorString.get.rgb("#FFF"); // $ExpectType Color
 colorString.get.rgb(null as string | null); // $ExpectType Color | null
 // @ts-expect-error
 colorString.get.rgb();
 
 colorString.get.hwb(null); // $ExpectType null
-colorString.get.hwb('hwb(60, 3%, 60%)'); // $ExpectType Color
+colorString.get.hwb("hwb(60, 3%, 60%)"); // $ExpectType Color
 colorString.get.hwb(null as string | null); // $ExpectType Color | null
 // @ts-expect-error
 colorString.get.hwb();
 
 colorString.get.hsl(null); // $ExpectType null
-colorString.get.hsl('hsl(360, 100%, 50%)'); // $ExpectType Color
+colorString.get.hsl("hsl(360, 100%, 50%)"); // $ExpectType Color
 colorString.get.hsl(null as string | null); // $ExpectType Color | null
 // @ts-expect-error
 colorString.get.hsl();

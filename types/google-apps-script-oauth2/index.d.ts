@@ -1,9 +1,3 @@
-// Type definitions for non-npm package google-apps-script-oauth2 38.0
-// Project: https://github.com/googlesamples/apps-script-oauth2
-// Definitions by: dhayab <https://github.com/dhayab>, George Dietrich <https://github.com/blacksmoke16>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 /// <reference types="google-apps-script" />
 
 declare namespace GoogleAppsScriptOAuth2 {
@@ -23,6 +17,13 @@ declare namespace GoogleAppsScriptOAuth2 {
          * Often this URI needs to be entered into a configuration screen of your OAuth provider.
          */
         getRedirectUri(scriptId?: string): string;
+        /**
+         * Gets the list of services with tokens stored in the given property store.
+         * This is useful if you connect to the same API with multiple accounts and
+         * need to keep track of them. If no stored tokens are found this will return
+         * an empty array.
+         */
+        getServiceNames(propertyStore: GoogleAppsScript.Properties.PropertiesService): string[];
     }
 
     interface Storage {
@@ -201,7 +202,7 @@ declare namespace GoogleAppsScriptOAuth2 {
          * If the scope value is an array it will be joined using the separator before being sent to the server,
          * which is is a space character by default.
          */
-        setScope(scope: string | ReadonlyArray<string>, separator?: string): OAuth2Service;
+        setScope(scope: string | readonly string[], separator?: string): OAuth2Service;
         /**
          * Sets the subject (sub) value to use for Service Account authorization.
          */
@@ -223,17 +224,42 @@ declare namespace GoogleAppsScriptOAuth2 {
          * For Google services this URL should be `https://accounts.google.com/o/oauth2/token`.
          */
         setTokenUrl(tokenUrl: string): OAuth2Service;
+        /**
+         * Sets the HTTP method to use when retrieving or refreshing the access token.
+         * Default: `post`.
+         */
+        setTokenMethod(tokenMethod: string): OAuth2Service;
+        /**
+         * Set the code verifier used for PKCE. For most use cases,
+         * prefer `generateCodeVerifier` to automatically initialize the
+         * value with a generated challenge string.
+         */
+        setCodeVerififer(codeVerifier: string): OAuth2Service;
+        /**
+         * Sets the code verifier to a randomly generated challenge string.
+         */
+        generateCodeVerifier(): OAuth2Service;
+        /**
+         * Set the code challenge method for PKCE. The default value method
+         * when a code verifier is set is `S256`.
+         */
+        setCodeChallengeMethod(method: CodeChallengeMethod): OAuth2Service;
     }
 
     enum TokenFormat {
         /**
          * JSON format, for example `{"access_token": "..."}`.
          */
-        JSON = 'application/json',
+        JSON = "application/json",
         /**
          * Form URL-encoded, for example `access_token=...`.
          */
-        FORM_URL_ENCODED = 'application/x-www-form-urlencoded',
+        FORM_URL_ENCODED = "application/x-www-form-urlencoded",
+    }
+
+    enum CodeChallengeMethod {
+        S256 = "S256",
+        PLAIN = "plain",
     }
 
     interface TokenPayload {

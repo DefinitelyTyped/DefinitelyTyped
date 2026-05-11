@@ -1,19 +1,12 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "node16",
         "lib": [
             "es6",
             "dom"
-         ],
-        "strict": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
         ],
+        "strict": true,
         "types": [],
-        "paths": {
-            "@ember/*": ["ember__*"]
-        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },

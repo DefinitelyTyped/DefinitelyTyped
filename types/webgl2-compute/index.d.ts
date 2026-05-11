@@ -1,9 +1,3 @@
-// Type definitions for non-npm package webgl2-compute 0.0
-// Project: https://www.khronos.org/registry/webgl/specs/latest/2.0-compute/
-// Definitions by: Aneta Suns <https://github.com/suns-echoes>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.6
-
 // Constants and methods found in Chromium 87.0.4280.141 (nw.js 0.50.3)
 // WebGL 2 Compute was removed in Chromium 88.0.4324.11 (19 November 2020), see:
 // https://chromereleases.googleblog.com/2020/11/dev-channel-update-for-desktop_19.html
@@ -111,7 +105,15 @@ interface WebGL2ComputeRenderingContext extends WebGL2RenderingContext {
     readonly VERTEX_ATTRIB_ARRAY_BARRIER_BIT: number; // 1
     readonly WRITE_ONLY: number; // 35001
 
-    bindImageTexture(unit: number, texture: WebGLTexture | null, level: number, layered: boolean, layer: number, access: number, format: number): void;
+    bindImageTexture(
+        unit: number,
+        texture: WebGLTexture | null,
+        level: number,
+        layered: boolean,
+        layer: number,
+        access: number,
+        format: number,
+    ): void;
 
     dispatchCompute(num_groups_x: number, num_groups_y: number, num_groups_z: number): void;
     dispatchComputeIndirect(offset: number): void;
@@ -187,7 +189,7 @@ interface WebGL2ComputeRenderingContext extends WebGL2RenderingContext {
 
 declare var WebGL2ComputeRenderingContext: {
     prototype: WebGL2ComputeRenderingContext;
-    new (): WebGL2ComputeRenderingContext;
+    new(): WebGL2ComputeRenderingContext;
 
     // WebGL constants
     readonly ACTIVE_ATTRIBUTES: number; // 35721

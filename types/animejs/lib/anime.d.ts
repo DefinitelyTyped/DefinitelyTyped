@@ -1,2 +1,2 @@
-import anime = require('..');
+import anime = require("..");
 export = anime;

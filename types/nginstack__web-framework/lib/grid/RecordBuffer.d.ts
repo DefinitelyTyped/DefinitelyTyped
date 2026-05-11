@@ -11,8 +11,9 @@ declare class RecordBuffer {
     hintValue: any;
     version: number;
     resendRecord: boolean;
-    field(idx: number): any;
+    field(idx: number): FieldBuffer;
     reset(): void;
     setLength(len: number): void;
     private toString;
 }
+import FieldBuffer = require("./FieldBuffer.js");

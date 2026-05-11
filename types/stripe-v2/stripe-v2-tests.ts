@@ -7,7 +7,7 @@ describe("Stripe", () => {
             console.log(card.brand && card.brand.toString());
         }
 
-        const cardNumber = '4242424242424242';
+        const cardNumber = "4242424242424242";
 
         const isValid = Stripe.validateCardNumber(cardNumber);
         if (isValid) {
@@ -15,7 +15,7 @@ describe("Stripe", () => {
                 number: cardNumber,
                 exp_month: 1,
                 exp_year: 2100,
-                cvc: '111'
+                cvc: "111",
             };
             Stripe.card.createToken(tokenData, (status, response) => {
                 if (response.error) {

@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/auth0.widget",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "auth0.widget",
+    "projects": [
+        "http://auth0.com"
+    ],
+    "dependencies": {
+        "@types/auth0-js": "*"
+    },
+    "devDependencies": {
+        "@types/auth0.widget": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Robert McLaws",
+            "githubUsername": "advancedrei"
+        }
+    ]
+}

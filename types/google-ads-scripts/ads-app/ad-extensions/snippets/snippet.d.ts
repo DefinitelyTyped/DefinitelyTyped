@@ -34,11 +34,13 @@ declare namespace GoogleAdsScripts {
         interface SnippetOperation extends Base.Operation<Snippet> {}
 
         interface SnippetSelector
-            extends Base.Selector<SnippetIterator>,
+            extends
+                Base.Selector<SnippetIterator>,
                 Base.SelectorForDateRange,
                 Base.SelectorOrderBy,
                 Base.SelectorWithCondition,
                 Base.SelectorWithIds,
-                Base.SelectorWithLimit {}
+                Base.SelectorWithLimit
+        {}
     }
 }

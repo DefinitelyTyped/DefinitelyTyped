@@ -9,17 +9,20 @@ import {
     SelectorStoreUpdater,
     UploadableMap,
     VariablesOf,
-} from 'relay-runtime';
+} from "relay-runtime";
 
 export interface UseMutationConfig<TMutation extends MutationParameters> {
     variables: VariablesOf<TMutation>;
-    updater?: SelectorStoreUpdater<TMutation['response']> | null | undefined;
+    updater?: SelectorStoreUpdater<TMutation["response"]> | null | undefined;
     uploadables?: UploadableMap | undefined;
-    optimisticUpdater?: SelectorStoreUpdater<TMutation['response']> | null | undefined;
-    optimisticResponse?: TMutation['rawResponse'] | undefined;
+    optimisticUpdater?: SelectorStoreUpdater<TMutation["response"]> | null | undefined;
+    optimisticResponse?: TMutation["rawResponse"] | undefined;
     configs?: DeclarativeMutationConfig[] | undefined;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onError?: ((error: Error) => void | null) | undefined;
-    onCompleted?: ((response: TMutation['response'], errors: PayloadError[] | null) => void | null) | undefined;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    onCompleted?: ((response: TMutation["response"], errors: PayloadError[] | null) => void | null) | undefined;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onUnsubscribe?: (() => void | null) | undefined;
 }
 

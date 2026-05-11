@@ -1,6 +1,7 @@
-import { IUniform } from '../../../src/Three';
+import { IUniform } from "three";
 
 export const WaterRefractionShader: {
+    name: string;
     uniforms: {
         color: IUniform;
         time: IUniform;

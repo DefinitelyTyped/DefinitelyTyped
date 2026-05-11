@@ -119,14 +119,17 @@ declare namespace GoldenLayout {
          *                  when popIn is clicked
          * @param indexInParent The index at which the child window's contents will be appended to. Default: null
          */
-        createPopout(configOrContentItem: ItemConfigType | ContentItem,
+        createPopout(
+            configOrContentItem: ItemConfigType | ContentItem,
             dimensions: {
-                width: number,
-                height: number,
-                left: number,
-                top: number
-            }, parentId?: string,
-            indexInParent?: number): void;
+                width: number;
+                height: number;
+                left: number;
+                top: number;
+            },
+            parentId?: string,
+            indexInParent?: number,
+        ): void;
 
         /**
          * Turns a DOM element into a dragSource, meaning that the user can drag the element directly onto the layout
@@ -642,8 +645,8 @@ declare namespace GoldenLayout {
         title: string;
 
         /*
-            * A reference to the GoldenLayout instance this container belongs to
-            */
+         * A reference to the GoldenLayout instance this container belongs to
+         */
         layoutManager: GoldenLayout;
 
         /**
@@ -716,14 +719,14 @@ declare namespace GoldenLayout {
          */
         toConfig(): {
             dimensions: {
-                width: number,
-                height: number,
-                left: number,
-                top: number
-            },
-            content: Config,
-            parentId: string,
-            indexInParent: number
+                width: number;
+                height: number;
+                left: number;
+                top: number;
+            };
+            content: Config;
+            parentId: string;
+            indexInParent: number;
         };
 
         /**

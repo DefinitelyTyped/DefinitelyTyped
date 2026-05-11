@@ -6,15 +6,15 @@
  * are not intended as functional tests.
  */
 
-import * as d3ScaleChromatic from 'd3-scale-chromatic';
+import * as d3ScaleChromatic from "d3-scale-chromatic";
 
 // -----------------------------------------------------------------------
 // Preparatory Steps
 // -----------------------------------------------------------------------
 
 let colorInterpolator: (t: number) => string;
-let simpleScheme: ReadonlyArray<string>;
-let nestedScheme: ReadonlyArray<ReadonlyArray<string>>;
+let simpleScheme: readonly string[];
+let nestedScheme: ReadonlyArray<readonly string[]>;
 
 // -----------------------------------------------------------------------
 // Categorical

@@ -1,19 +1,19 @@
-import Koa = require('koa');
+import Koa = require("koa");
 
-import { MemoryStore, Session } from 'koa-generic-session';
-import session = require('koa-generic-session');
+import { MemoryStore, Session } from "koa-generic-session";
+import session = require("koa-generic-session");
 
 const app = new Koa();
 
 app.use(
     session({
-        key: 'sessionKey',
+        key: "sessionKey",
         store: new MemoryStore(),
         ttl: 60 * 60,
-        prefix: 'a-prefix',
+        prefix: "a-prefix",
         cookie: {
-            path: '/test',
-            domain: 'localhost',
+            path: "/test",
+            domain: "localhost",
             signed: false,
             maxAge: 60 * 60,
             secure: true,
@@ -26,23 +26,23 @@ app.use(
         rolling: false,
         sessionIdStore: {
             get() {
-              return this.cookies.get('koa.sid', { signed: true });
+                return this.cookies.get("koa.sid", { signed: true });
             },
 
             set(sid, session) {
-              this.cookies.set('koa.sid', sid, session.cookie);
+                this.cookies.set("koa.sid", sid, session.cookie);
             },
 
             reset() {
-              this.cookies.set('koa.sid', null, { expires: new Date(0) });
-            }
+                this.cookies.set("koa.sid", null, { expires: new Date(0) });
+            },
         },
         genSid(length: number) {
-          if (this.hostname === 'foo' && length > 20) {
-            return 'aSid';
-          } else {
-            return Promise.resolve('bSid');
-          }
+            if (this.hostname === "foo" && length > 20) {
+                return "aSid";
+            } else {
+                return Promise.resolve("bSid");
+            }
         },
         errorHandler: (error: Error, type: string, ctx: Koa.Context) => {},
         valid: (ctx: Koa.Context, session: Session) => true,
@@ -51,13 +51,13 @@ app.use(
 );
 
 // Test module augmentation
-declare module 'koa-generic-session' {
-  interface Session {
-    foo: 'bar';
-  }
+declare module "koa-generic-session" {
+    interface Session {
+        foo: "bar";
+    }
 }
 
-app.use((context: Koa.Context) => {
+app.use(context => {
     if (!context.session) {
         return;
     }
@@ -67,9 +67,12 @@ app.use((context: Koa.Context) => {
     }
 
     context.regenerateSession();
+    context.sessionSave; // $ExpectType boolean | null
     context.sessionSave = true;
+    context.session; // $ExpectType Session
     context.session.cookie;
-    context.session.foo = 'bar';
+    context.session.foo; // $ExpectType "bar"
+    context.session.foo = "bar";
     context.session = null;
 });
 

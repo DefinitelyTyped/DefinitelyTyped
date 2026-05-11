@@ -1,50 +1,38 @@
-// Type definitions for backbone-fetch-cache 1.4
-// Project: https://github.com/madglory/backbone-fetch-cache
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as Backbone from "backbone";
 
 interface SuperMethods {
-
     modelFetch(options?: Backbone.ModelFetchOptions): JQueryXHR;
     modelSync(...arg: any[]): JQueryXHR;
     collectionFetch(options?: Backbone.CollectionFetchOptions): JQueryXHR;
 }
 
 interface GetCacheOptions {
-
     data?: any;
-    url?:  string | undefined;
+    url?: string | undefined;
 }
 
 interface SetCacheOptions extends GetCacheOptions {
-
-    cache:          boolean;
-    expires:        boolean | number;
-    prefill:        boolean;
+    cache: boolean;
+    expires: boolean | number;
+    prefill: boolean;
     prefillExpires: boolean | number;
 }
 
 interface Cache {
-
-    expires:        number;
-    lastSync:       number;
+    expires: number;
+    lastSync: number;
     prefillExpires: number;
-    value:          any;
+    value: any;
 }
 
 interface GetCacheKeyObject {
-
     getCacheKey?: ((opts?: GetCacheOptions) => string) | undefined;
-    url?:         (() => string) | undefined;
+    url?: (() => string) | undefined;
 }
 
-type GetCacheKeyOptions = string | {url: string} | GetCacheKeyObject;
+type GetCacheKeyOptions = string | { url: string } | GetCacheKeyObject;
 
 interface Static {
-
     /**
      * Global flag to enable/disable caching
      */
@@ -107,7 +95,6 @@ interface Static {
 }
 
 declare module "backbone" {
-
     var fetchCache: Static;
 
     /**
@@ -116,22 +103,21 @@ declare module "backbone" {
      * method to get behaviour particular to Backbone Fetch Cache.
      */
     interface ModelFetchWithCacheOptions extends ModelFetchOptions {
-
         /**
          * Calls to modelInstance.fetch or collectionInstance.fetch will be
          * fulfilled from the cache (if possible) when cache: true is set in
          * the options hash.
          */
-        cache?:          boolean | undefined;
+        cache?: boolean | undefined;
 
-        context?:        any;
+        context?: any;
 
         /**
          * Cache values expire after 5 minutes by default. You can adjust this
          * by passing expires: <seconds> to the fetch call. Set to false to
          * never expire.
          */
-        expires?:        number | undefined;
+        expires?: number | undefined;
 
         /**
          * This option allows the model/collection to be populated from the
@@ -160,23 +146,20 @@ declare module "backbone" {
          *  prefill expired, use the prefill callback and do a fetch (usual
          *  prefill behaviour)
          */
-        prefill?:        boolean | undefined;
+        prefill?: boolean | undefined;
         prefillExpires?: number | undefined;
         prefillSuccess?: ((self: any, attributes: any, opts: ModelFetchWithCacheOptions) => void) | undefined;
     }
 
     interface CollectionFetchWithCacheOptions extends ModelFetchWithCacheOptions {
-
         prefillSuccess?: ((self: any) => void) | undefined;
     }
 
     interface ModelWithCache extends Model {
-
         fetch(options?: ModelFetchWithCacheOptions): JQueryXHR;
     }
 
     interface CollectionWithCache extends Collection {
-
         fetch(options?: CollectionFetchWithCacheOptions): JQueryXHR;
     }
 }

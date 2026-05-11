@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/xmpp__id",
+    "version": "0.14.9999",
+    "type": "module",
+    "projects": [
+        "https://github.com/xmppjs/xmpp.js/tree/main/packages/id"
+    ],
+    "devDependencies": {
+        "@types/xmpp__id": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

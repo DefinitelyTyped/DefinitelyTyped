@@ -1,6 +1,26 @@
 {
-  "private": true,
-  "dependencies": {
-    "got": "^11.8.2"
-  }
+    "private": true,
+    "name": "@types/got-resume",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/overlookmotel/got-resume#readme"
+    ],
+    "dependencies": {
+        "@types/bluebird": "*",
+        "got": "^11.8.2"
+    },
+    "devDependencies": {
+        "@types/got-resume": "workspace:.",
+        "@types/node": "*"
+    },
+    "owners": [
+        {
+            "name": "Ciarán Ingle",
+            "githubUsername": "inglec-arista"
+        },
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
 }

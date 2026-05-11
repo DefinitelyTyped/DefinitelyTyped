@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/check-error",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/chaijs/check-error#readme"
+    ],
+    "devDependencies": {
+        "@types/check-error": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Porama Ignoi Ruengrairatanaroj",
+            "githubUsername": "Seally"
+        }
+    ]
+}

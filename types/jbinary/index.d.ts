@@ -1,10 +1,3 @@
-// Type definitions for jBinary 2.1
-// Project: https://github.com/jDataView/jBinary
-// Definitions by: Tim Bureck <https://github.com/tbureck>
-//                 Krisztián Balla <https://github.com/krisztianb>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4
-
 // Additional notes:
 // Method stubs and types are taken from the official jBinary documentation, which can be found here:
 // https://github.com/jDataView/jBinary/wiki/jBinary-Constructor
@@ -130,7 +123,7 @@ declare class jBinary {
      * @param data The binary data as a numeric array.
      * @param typeSet Typeset object with all the defined types.
      */
-    constructor(data: Array<number>, typeSet?: jBinary.TypeSet);
+    constructor(data: number[], typeSet?: jBinary.TypeSet);
 
     /**
      * Creates a new jBinary instance with a jDataView object as data.

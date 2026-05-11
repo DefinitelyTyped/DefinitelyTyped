@@ -1,7 +1,7 @@
+import { Channel } from "../Channel";
+import { ApplyImageBlendMode, ApplyImageChannel, ApplyImageLayer } from "../Constants";
 import { Document } from "../Document";
 import { Layer } from "../Layer";
-import { Channel } from "../Channel";
-import { ApplyImageBlendMode, ApplyImageLayer, ApplyImageChannel } from "../Constants";
 /**
  * Type for the Layer choice in [[ApplyImageSource]].
  * Select [ApplyImageLayer.MERGED](../constants/#applyimagelayer) to use the pixels from a merged
@@ -17,7 +17,13 @@ export declare type ApplyImageLayerType = Layer | ApplyImageLayer.MERGED;
  * @optionobject
  * @minVersion 24.5
  */
-export declare type ApplyImageChannelType = Channel | ApplyImageChannel.RGB | ApplyImageChannel.CMYK | ApplyImageChannel.LAB | ApplyImageChannel.SELECTION | ApplyImageChannel.TRANSPARENCY;
+export declare type ApplyImageChannelType =
+    | Channel
+    | ApplyImageChannel.RGB
+    | ApplyImageChannel.CMYK
+    | ApplyImageChannel.LAB
+    | ApplyImageChannel.SELECTION
+    | ApplyImageChannel.TRANSPARENCY;
 /**
  * Reference for sources to be used in Apply Image operations
  * @targetfolder objects/options
@@ -48,7 +54,22 @@ export interface ApplyImageSource {
     invert?: boolean;
 }
 /**
- * Options to use with [[Layer.applyImage]]
+ * An object literal can be constructed with the following properties
+ * and passed to [Layer.applyImage](/ps_reference/classes/layer/#applyimage).
+ * As a type, `ApplyImageOptions` can be used in Typescript development.
+ *
+ * ```javascript
+ * const options = {
+ *     source: {
+ *         document: require('photoshop').app.documents[0],
+ *         layer: require('photoshop').app.documents[0].layers[1],
+ *         channel: require('photoshop').app.documents[0].channels[2],
+ *     },
+ *     blending: require('photoshop').constants.ApplyImageBlendMode.SCREEN,
+ * };
+ * await require('photoshop').app.activeDocument.layers[0].applyImage(options);
+ * ```
+ *
  * @targetfolder objects/options
  * @optionobject
  * @minVersion 24.5

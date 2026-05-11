@@ -1,5 +1,6 @@
 {
-  "rules": {
-      "no-const-enum": "off"
-  }
+    "rules": {
+        "@definitelytyped/no-const-enum": "off",
+        "@typescript-eslint/naming-convention": "off"
+    }
 }

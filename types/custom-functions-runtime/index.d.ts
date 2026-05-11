@@ -1,12 +1,3 @@
-// Type definitions for non-npm package custom-functions-runtime 1.6
-// Project: https://github.com/OfficeDev/office-js
-// Definitions by: OfficeDev <https://github.com/OfficeDev>,
-//                 Adam Krantz <https://github.com/akrantz>,
-//                 David Chesnut <https://github.com/davidchesnut>,
-//                 Alison McKay <https://github.com/alison-mk>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 /*
 custom-functions-runtime
 Copyright (c) Microsoft Corporation
@@ -84,6 +75,16 @@ declare namespace CustomFunctions {
          * [Api set: CustomFunctionsRuntime 1.3]
          */
         parameterAddresses?: string[];
+
+        /**
+         * Indicates whether the function is invoked as part of the formula value preview.
+         * `isInValuePreview` is read-only and can't be set by a custom functions add-in.
+         * This value is `true` if the function is invoked to preview the formula value; otherwise it is `false`.
+         * 
+         * @remarks
+         * [Api set: CustomFunctionsRuntime 1.5]
+         */
+        isInValuePreview?: string;
     }
 
     /**
@@ -104,7 +105,7 @@ declare namespace CustomFunctions {
          *
          * @eventproperty
          */
-        onCanceled: () => void;
+        onCanceled?: () => void;
     }
 
     /**

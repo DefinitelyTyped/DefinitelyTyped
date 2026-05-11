@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/mfiles",
+    "version": "11.3.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "M-Files UI Extensibility",
+    "projects": [
+        "http://www.m-files.com/UI_Extensibility_Framework/"
+    ],
+    "devDependencies": {
+        "@types/mfiles": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Arsène von Wyss",
+            "githubUsername": "avonwyss"
+        }
+    ]
+}

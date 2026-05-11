@@ -1,5 +1,5 @@
-import parseTorrentFile = require('parse-torrent-file');
-import * as fs from 'fs';
+import parseTorrentFile = require("parse-torrent-file");
+import * as fs from "fs";
 
 const torrent = fs.readFileSync(__filename);
 try {

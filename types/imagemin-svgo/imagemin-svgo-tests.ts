@@ -1,7 +1,7 @@
-import imagemin from 'imagemin';
-import imageminSvgo from 'imagemin-svgo';
+import imagemin from "imagemin";
+import imageminSvgo from "imagemin-svgo";
 
-imagemin(['*.svg'], {
+imagemin(["*.svg"], {
     plugins: [
         imageminSvgo(),
         imageminSvgo({}),
@@ -9,8 +9,14 @@ imagemin(['*.svg'], {
             floatPrecision: 2,
             plugins: [
                 {
-                    name: 'removeViewBox',
-                    active: true,
+                    name: "preset-default",
+                    params: {
+                        overrides: {
+                            convertShapeToPath: {
+                                convertArcs: false,
+                            },
+                        },
+                    },
                 },
             ],
             multipass: false,

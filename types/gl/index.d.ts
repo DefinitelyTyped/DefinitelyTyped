@@ -1,8 +1,3 @@
-// Type definitions for gl 6.0
-// Project: https://github.com/stackgl/headless-gl#readme
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace createContext {
     interface STACKGL_destroy_context {
         destroy(): void;
@@ -23,6 +18,10 @@ declare namespace createContext {
     };
 }
 
-declare function createContext(width: number, height: number, options?: WebGLContextAttributes): WebGLRenderingContext & createContext.StackGLExtension;
+declare function createContext(
+    width: number,
+    height: number,
+    options?: WebGLContextAttributes,
+): WebGLRenderingContext & createContext.StackGLExtension;
 
 export = createContext;

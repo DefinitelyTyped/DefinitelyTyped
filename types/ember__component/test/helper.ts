@@ -1,4 +1,4 @@
-import Helper, { ExpandSignature, helper } from '@ember/component/helper';
+import Helper, { ExpandSignature, helper } from "@ember/component/helper";
 
 class DeprecatedSignatureForm extends Helper<{
     PositionalArgs: [offset: Date];
@@ -9,7 +9,7 @@ class DeprecatedSignatureForm extends Helper<{
     init() {
         super.init();
         this.timer = setInterval(() => {
-            this.set('now', new Date());
+            this.set("now", new Date());
             this.recompute();
         }, 100);
     }
@@ -97,11 +97,11 @@ const typeInferenceOnNamed = helper(([], { cool }: { cool: boolean }) => {
     // $ExpectType boolean
     cool;
 
-    return cool ? 123 : 'neat';
+    return cool ? 123 : "neat";
 });
 
 // $ExpectType FunctionBasedHelper<{ Args: { Positional: [string]; Named: { delim?: string; }; }; Return: string; }>
-const dasherizeHelper = helper(function dasherize([str]: [string], { delim = '-' }: { delim?: string }) {
+const dasherizeHelper = helper(function dasherize([str]: [string], { delim = "-" }: { delim?: string }) {
     return str.split(/[\s\n\_\.]+/g).join(delim);
 });
 

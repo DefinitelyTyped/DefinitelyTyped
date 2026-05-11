@@ -1,4 +1,4 @@
-import * as CloudmersiveVirusApiClient from 'cloudmersive-virus-api-client';
+import * as CloudmersiveVirusApiClient from "cloudmersive-virus-api-client";
 // $ExpectType typeof WebsiteThreatType
 CloudmersiveVirusApiClient.WebsiteThreatType;
 // $ExpectType typeof CollectionFormatEnum
@@ -16,7 +16,7 @@ CloudmersiveVirusApiClient.WebsiteScanRequest;
 // $ExpectType ApiClient
 const defaultClient = CloudmersiveVirusApiClient.ApiClient;
 // $ExpectType Date
-defaultClient.parseDate('1970-01-01');
+defaultClient.parseDate("1970-01-01");
 // $ExpectType void
 defaultClient.constructFromObject({}, {}, {});
 // $ExpectType any
@@ -27,7 +27,7 @@ defaultClient.CollectionFormatEnum;
 const defaultInstance = defaultClient.instance;
 // $ExpectType ApiInstanceAuthentications
 const APKey = defaultInstance.authentications.Apikey;
-APKey.apiKey = '';
+APKey.apiKey = "";
 // $ExpectType ScanApi
 const apinstance = new CloudmersiveVirusApiClient.ScanApi();
 // $ExpectType any
@@ -38,8 +38,11 @@ apinstance.scanFile(
 // $ExpectType any
 apinstance.scanFileAdvanced(
     Buffer.alloc(10),
-    { allowExecutables: false, allowInvalidFiles: false, allowScripts: false, restrictFileTypes: '' },
+    { allowExecutables: false, allowInvalidFiles: false, allowScripts: false, restrictFileTypes: "" },
     (error: any, data: CloudmersiveVirusApiClient.VirusScanAdvancedResult, response: any) => {},
 );
 // $ExpectType any
-apinstance.scanWebsite({ Url: '' }, (error: any, data: CloudmersiveVirusApiClient.WebsiteScanResult, response: any) => {});
+apinstance.scanWebsite(
+    { Url: "" },
+    (error: any, data: CloudmersiveVirusApiClient.WebsiteScanResult, response: any) => {},
+);

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/json2md",
+    "version": "1.5.9999",
+    "projects": [
+        "https://github.com/IonicaBizau/json2md#readme"
+    ],
+    "devDependencies": {
+        "@types/json2md": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "MartynasZilinskas",
+            "githubUsername": "MartynasZilinskas"
+        }
+    ]
+}

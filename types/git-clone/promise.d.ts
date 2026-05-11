@@ -1,4 +1,4 @@
-import { Options } from '.';
+import { Options } from ".";
 
 /**
  * Clone `repo` to `targetPath` asynchronously.

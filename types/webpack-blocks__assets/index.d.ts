@@ -1,10 +1,4 @@
-// Type definitions for @webpack-blocks/assets 2.0
-// Project: https://github.com/andywer/webpack-blocks/tree/master/packages/assets
-// Definitions by: Max Boguslavskiy <https://github.com/maxbogus>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
-import { Block } from 'webpack-blocks';
+import { Block } from "webpack-blocks";
 
 export namespace css {
     type UrlFilter = (url: string, resourcePath: string) => boolean;
@@ -31,7 +25,7 @@ export namespace css {
          * 2 => postcss-loader, sass-loader
          */
         importLoaders?: 0 | 1 | 2 | undefined;
-        localsConvention?: 'asIs'  | 'camelCase' | 'camelCaseOnly' | 'dashes' | 'dashesOnly' | undefined;
+        localsConvention?: "asIs" | "camelCase" | "camelCaseOnly" | "dashes" | "dashesOnly" | undefined;
         onlyLocals?: boolean | undefined;
     }
 

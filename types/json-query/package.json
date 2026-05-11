@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/json-query",
+    "version": "2.2.9999",
+    "projects": [
+        "https://github.com/mmckegg/json-query#readme"
+    ],
+    "devDependencies": {
+        "@types/json-query": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Matt Traynham",
+            "githubUsername": "mtraynham"
+        }
+    ]
+}

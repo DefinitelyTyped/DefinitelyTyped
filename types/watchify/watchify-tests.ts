@@ -1,6 +1,6 @@
-import browserify = require('browserify');
-import watchify = require('watchify');
-import fs = require('fs');
+import browserify = require("browserify");
+import watchify = require("watchify");
+import fs = require("fs");
 
 const setupWatchifyTest = (srcPath: string, opts: watchify.Options, stream: NodeJS.ReadWriteStream) => {
     // new syntax
@@ -10,7 +10,7 @@ const setupWatchifyTest = (srcPath: string, opts: watchify.Options, stream: Node
         plugin: [watchify],
     });
 
-    bfyWatched.pipeline.get('deps').push(stream);
+    bfyWatched.pipeline.get("deps").push(stream);
 
     // old syntax
     const bfy = browserify(srcPath);
@@ -21,26 +21,26 @@ const setupWatchifyTest = (srcPath: string, opts: watchify.Options, stream: Node
         poll: opts.poll || 0,
     });
 
-    bfy.pipeline.get('wrap').on('error', () => {});
+    bfy.pipeline.get("wrap").on("error", () => {});
 };
 
 const b = browserify({
-    entries: ['path/to/entry.js'],
+    entries: ["path/to/entry.js"],
     cache: {},
     packageCache: {},
     plugin: [watchify],
 });
 
-b.on('update', bundle);
-b.on('update', ids => {});
-b.on('bytes', bytes => {});
-b.on('time', time => {});
-b.on('log', msg => {});
+b.on("update", bundle);
+b.on("update", ids => {});
+b.on("bytes", bytes => {});
+b.on("time", time => {});
+b.on("log", msg => {});
 
 bundle();
 
 function bundle() {
     b.bundle()
-        .on('error', console.error)
-        .pipe(fs.createWriteStream('output.js'));
+        .on("error", console.error)
+        .pipe(fs.createWriteStream("output.js"));
 }

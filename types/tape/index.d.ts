@@ -1,16 +1,7 @@
-// Type definitions for tape v5.6
-// Project: https://github.com/ljharb/tape
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds>
-//                 Haoqun Jiang <https://github.com/sodatea>
-//                 Dennis Schwartz <https://github.com/DennisSchwartz>
-//                 Michael Henretty <https://github.com/mikehenrty>
-//                 Rafał Ostrowski <https://github.com/rostrowski>
-//                 Jordan Harband <https://github.com/ljharb>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-export = tape;
+import Through = require("@ljharb/through");
+import mockProperty = require("mock-property");
 
 /**
  * Create a new test with an optional name string and optional opts object.
@@ -32,7 +23,7 @@ declare namespace tape {
      */
     interface TestOptions {
         /** See test.skip. */
-        skip?: boolean | undefined;
+        skip?: boolean | string | undefined;
         /** Set a timeout for the test, after which it will fail. See tape.timeoutAfter. */
         timeout?: number | undefined;
         /**
@@ -42,7 +33,7 @@ declare namespace tape {
          */
         objectPrintDepth?: number | undefined;
         /** Test will be allowed to fail. */
-        todo?: boolean | undefined;
+        todo?: boolean | string | undefined;
     }
 
     /**
@@ -102,7 +93,7 @@ declare namespace tape {
         opts?: {
             noOnly?: boolean;
             exit?: boolean;
-            stream?: ReturnType<typeof import('through')>;
+            stream?: ReturnType<typeof Through>;
         } & StreamOptions,
     ): typeof tape;
 
@@ -112,6 +103,8 @@ declare namespace tape {
      */
     export function createStream(opts?: tape.StreamOptions): NodeJS.ReadableStream;
 
+    type WithRequired<T, K extends keyof T> = T & { [P in K]-?: T[P] };
+
     export interface Test {
         /**
          * Create a subtest with a new test handle st from cb(st) inside the current test.
@@ -120,6 +113,11 @@ declare namespace tape {
          */
         test(name: string, cb: tape.TestCase): void;
         test(name: string, opts: TestOptions, cb: tape.TestCase): void;
+        test(
+            name: string,
+            opts: WithRequired<TestOptions, "skip"> | WithRequired<TestOptions, "todo">,
+            cb?: tape.TestCase,
+        ): void;
 
         /**
          * Declare that n assertions should be run. end() will be called automatically after the nth assertion.
@@ -157,79 +155,79 @@ declare namespace tape {
          * Assert that value is truthy with an optional description message msg.
          */
         ok(value: any, msg?: string, extra?: AssertOptions): void;
-        true: Test['ok'];
-        assert: Test['ok'];
+        true: Test["ok"];
+        assert: Test["ok"];
 
         /**
          * Assert that value is falsy with an optional description message msg.
          */
         notOk(value: any, msg?: string, extra?: AssertOptions): void;
-        false: Test['notOk'];
-        notok: Test['notOk'];
+        false: Test["notOk"];
+        notok: Test["notOk"];
 
         /**
          * Assert that err is falsy.
          * If err is non-falsy, use its err.message as the description message.
          */
         error(err: any, msg?: string, extra?: AssertOptions): void;
-        ifError: Test['error'];
-        ifErr: Test['error'];
-        iferror: Test['error'];
+        ifError: Test["error"];
+        ifErr: Test["error"];
+        iferror: Test["error"];
 
         /**
          * Assert that a === b with an optional description msg.
          */
         equal(actual: any, expected: any, msg?: string, extra?: AssertOptions): void;
-        equals: Test['equal'];
-        isEqual: Test['equal'];
-        is: Test['equal'];
-        strictEqual: Test['equal'];
-        strictEquals: Test['equal'];
+        equals: Test["equal"];
+        isEqual: Test["equal"];
+        is: Test["equal"];
+        strictEqual: Test["equal"];
+        strictEquals: Test["equal"];
 
         /**
          * Assert that a !== b with an optional description msg.
          */
         notEqual(actual: any, expected: any, msg?: string, extra?: AssertOptions): void;
-        notEquals: Test['notEqual'];
-        notStrictEqual: Test['notEqual'];
-        notStrictEquals: Test['notEqual'];
-        isNotEqual: Test['notEqual'];
-        isNot: Test['notEqual'];
-        not: Test['notEqual'];
-        doesNotEqual: Test['notEqual'];
-        isInequal: Test['notEqual'];
+        notEquals: Test["notEqual"];
+        notStrictEqual: Test["notEqual"];
+        notStrictEquals: Test["notEqual"];
+        isNotEqual: Test["notEqual"];
+        isNot: Test["notEqual"];
+        not: Test["notEqual"];
+        doesNotEqual: Test["notEqual"];
+        isInequal: Test["notEqual"];
 
         /**
          * Assert that actual == expected with an optional description of the assertion msg.
          */
         looseEqual(actual: any, expected: any, msg?: string, extra?: AssertOptions): void;
-        looseEquals: Test['looseEqual'];
+        looseEquals: Test["looseEqual"];
 
         /**
          * Assert that actual != expected with an optional description of the assertion msg.
          */
         notLooseEqual(actual: any, expected: any, msg?: string, extra?: AssertOptions): void;
-        notLooseEquals: Test['looseEqual'];
+        notLooseEquals: Test["looseEqual"];
 
         /**
          * Assert that a and b have the same structure and nested values using node's deepEqual() algorithm with strict comparisons (===) on leaf nodes and an optional description msg.
          */
         deepEqual(actual: any, expected: any, msg?: string, extra?: AssertOptions): void;
-        deepEquals: Test['deepEqual'];
-        isEquivalent: Test['deepEqual'];
-        same: Test['deepEqual'];
+        deepEquals: Test["deepEqual"];
+        isEquivalent: Test["deepEqual"];
+        same: Test["deepEqual"];
 
         /**
          * Assert that a and b do not have the same structure and nested values using node's deepEqual() algorithm with strict comparisons (===) on leaf nodes and an optional description msg.
          */
         notDeepEqual(actual: any, expected: any, msg?: string, extra?: AssertOptions): void;
-        notEquivalent: Test['notDeepEqual'];
-        notDeeply: Test['notDeepEqual'];
-        notSame: Test['notDeepEqual'];
-        isNotDeepEqual: Test['notDeepEqual'];
-        isNotDeeply: Test['notDeepEqual'];
-        isNotEquivalent: Test['notDeepEqual'];
-        isInequivalent: Test['notDeepEqual'];
+        notEquivalent: Test["notDeepEqual"];
+        notDeeply: Test["notDeepEqual"];
+        notSame: Test["notDeepEqual"];
+        isNotDeepEqual: Test["notDeepEqual"];
+        isNotDeeply: Test["notDeepEqual"];
+        isNotEquivalent: Test["notDeepEqual"];
+        isInequivalent: Test["notDeepEqual"];
 
         /**
          * Assert that a and b have the same structure and nested values using node's deepEqual() algorithm with loose comparisons (==) on leaf nodes and an optional description msg.
@@ -251,6 +249,7 @@ declare namespace tape {
          * Assert that the function call fn() does not throw an exception.
          */
         doesNotThrow(fn: () => void, msg?: string, extra?: AssertOptions): void;
+        // we actually do want any function-like value here, especially constructors
         doesNotThrow(fn: () => void, exceptionExpected: RegExp | Function, msg?: string, extra?: AssertOptions): void;
 
         /**
@@ -273,5 +272,76 @@ declare namespace tape {
          * Register a callback to run after the individual test has completed. Multiple registered teardown callbacks will run in order.
          */
         teardown(callback: () => void | Promise<void>): void;
+
+        captureFn<X extends SyncOrAsyncCallback>(this: Test, original: X): WrappedFn<X>;
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+        capture<T extends SyncOrAsyncCallback>(
+            this: Test,
+            obj: Record<PropertyKey, unknown> | unknown[],
+            method: PropertyKey,
+            implementation?: T,
+        ): WrapResults;
+        intercept(
+            obj: Record<PropertyKey, unknown> | unknown[],
+            property: PropertyKey,
+            desc?: PropertyDescriptor,
+        ): InterceptResults;
+
+        assertion<Args extends readonly any[], R>(
+            this: Test,
+            fn: (this: Test, ...args: Args) => R,
+            ...args: Args
+        ): R;
+    }
+
+    export type SyncCallback = (...args: unknown[]) => unknown;
+    export type SyncOrAsyncCallback = (...args: unknown[]) => unknown;
+
+    export interface ReturnCall {
+        args: unknown[];
+        receiver: {};
+        returned: unknown;
+    }
+
+    export interface ThrowCall {
+        args: unknown[];
+        receiver: {};
+        threw: true;
+    }
+
+    export interface Call {
+        type: "get" | "set";
+        success: boolean;
+        value: unknown;
+        args: unknown[];
+        receiver: unknown;
+    }
+
+    export type RestoreFunction = ReturnType<typeof mockProperty>;
+
+    export interface WrapResults {
+        (): WrappedCall[];
+        restore?: RestoreFunction;
+    }
+
+    export interface WrappedFn<T extends SyncOrAsyncCallback> {
+        (this: ThisParameterType<T>, ...args: Parameters<T>): ReturnType<T>;
+        calls?: WrappedCall[];
+    }
+
+    export interface WrapObject<T extends SyncOrAsyncCallback> {
+        __proto__: null;
+        wrapped: WrappedFn<T>;
+        calls: WrappedCall[];
+        results: WrapResults;
+    }
+
+    export type WrappedCall = ReturnCall | ThrowCall;
+
+    export interface InterceptResults {
+        (): Call[];
+        restore: RestoreFunction;
     }
 }
+
+export = tape;

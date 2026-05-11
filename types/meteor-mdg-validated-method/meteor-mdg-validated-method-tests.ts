@@ -2,52 +2,52 @@
 // Some new tests added
 
 import {
+    GenericMixin,
+    Mixin,
     ValidatedMethod,
     ValidatedMethodOptions,
     ValidatedMethodOptionsMixinFields,
     ValidatedMethodOptionsWithMixins,
-    Mixin,
-    GenericMixin,
-} from 'meteor/mdg:validated-method';
-import { SimpleSchema, SimpleSchemaDefinition } from 'simpl-schema';
+} from "meteor/mdg:validated-method";
+import { SimpleSchema, SimpleSchemaDefinition } from "simpl-schema";
 
 const plainMethod = new ValidatedMethod({
-    name: 'plainMethod',
+    name: "plainMethod",
     validate: new SimpleSchema({}).validator(),
     run() {
-        return 'result';
+        return "result";
     },
 });
 
 const noArgsMethod = new ValidatedMethod({
-    name: 'noArgsMethod',
+    name: "noArgsMethod",
     validate: null,
     run() {
-        return 'result';
+        return "result";
     },
 });
 
 const methodWithArgs = new ValidatedMethod({
-    name: 'methodWithArgs',
+    name: "methodWithArgs",
     validate: new SimpleSchema({
         int: { type: Number },
         string: { type: String },
     }).validator(),
     run(args: { int: number; string: string }) {
-        return 'result';
+        return "result";
     },
 });
 
 const methodThrowsImmediately = new ValidatedMethod({
-    name: 'methodThrowsImmediately',
+    name: "methodThrowsImmediately",
     validate: null,
     run() {
-        throw new Meteor.Error('error');
+        throw new Meteor.Error("error");
     },
 });
 
 const methodReturnsName = new ValidatedMethod({
-    name: 'methodReturnsName',
+    name: "methodReturnsName",
     validate: null,
     run() {
         return this.name;
@@ -55,7 +55,7 @@ const methodReturnsName = new ValidatedMethod({
 });
 
 // mixins can add fields to ValidatedMethodOptions
-declare module 'meteor/mdg:validated-method' {
+declare module "meteor/mdg:validated-method" {
     interface ValidatedMethodOptionsMixinFields<TRunArg, TRunReturn> {
         schema?: SimpleSchema | undefined;
     }
@@ -67,7 +67,7 @@ function schemaMixin(methodOptions: ValidatedMethodOptions<any, any>) {
 }
 
 const methodWithSchemaMixin = new ValidatedMethod({
-    name: 'methodWithSchemaMixin',
+    name: "methodWithSchemaMixin",
     mixins: [schemaMixin],
     // note that "validate: null," had to be added here - schemaMixin populates validate, but leaving off validate will *normally* crash,
     // and mixins changing the type of ValidatedMethodObjects options is not yet supported
@@ -77,13 +77,13 @@ const methodWithSchemaMixin = new ValidatedMethod({
         string: { type: String },
     }),
     run(args: { int: number; string: string }) {
-        return 'result';
+        return "result";
     },
 });
 
 let resultReceived = false;
 const methodWithApplyOptions = new ValidatedMethod({
-    name: 'methodWithApplyOptions',
+    name: "methodWithApplyOptions",
     validate: new SimpleSchema({}).validator(),
     applyOptions: {
         onResultReceived() {
@@ -91,7 +91,7 @@ const methodWithApplyOptions = new ValidatedMethod({
         },
     },
     run() {
-        return 'result';
+        return "result";
     },
 });
 
@@ -112,7 +112,7 @@ methodWithArgs.call({}, (error, result) => {});
 methodWithArgs.call(
     {
         int: 5,
-        string: 'what',
+        string: "what",
     },
     (error, result) => {},
 );
@@ -121,7 +121,7 @@ methodWithArgs.call(
 // $ExpectType string
 methodWithArgs.call({
     int: 5,
-    string: 'what',
+    string: "what",
 });
 
 // can't call methods that have args without those args
@@ -133,7 +133,7 @@ methodWithSchemaMixin.call({}, (error, result) => {});
 methodWithSchemaMixin.call(
     {
         int: 5,
-        string: 'what',
+        string: "what",
     },
     (error, result) => {},
 );
@@ -142,36 +142,36 @@ methodWithSchemaMixin.call(
 // $ExpectType string
 methodWithSchemaMixin.call({
     int: 5,
-    string: 'what',
+    string: "what",
 });
 
 // mixin can't return void
 new ValidatedMethod({
-    name: 'methodWithFaultySchemaMixin',
+    name: "methodWithFaultySchemaMixin",
     // @ts-expect-error
     mixins: [function nonReturningFunction() {}],
     run() {
-        return 'result';
+        return "result";
     },
 });
 
 // mixin can't return void, even with multiple mixins
 new ValidatedMethod({
-    name: 'methodWithFaultySchemaMixin',
+    name: "methodWithFaultySchemaMixin",
     // @ts-expect-error
     mixins: [args => args, () => {}],
     run() {
-        return 'result';
+        return "result";
     },
 });
 
 // identity function is legal mixin
 new ValidatedMethod({
-    name: 'methodWithIdentityMixin',
+    name: "methodWithIdentityMixin",
     mixins: [args => args],
     validate: null,
     run() {
-        return 'result';
+        return "result";
     },
 });
 
@@ -182,16 +182,16 @@ function numberToStringMixin(options: ValidatedMethodOptions<any, (arg: number) 
 
 // $ExpectType string
 new ValidatedMethod({
-    name: 'methodWithRightTypedMixin',
+    name: "methodWithRightTypedMixin",
     mixins: [numberToStringMixin],
     validate: null,
     run(arg: number) {
-        return 'result';
+        return "result";
     },
 }).call(3);
 
 new ValidatedMethod({
-    name: 'methodWithWrongTypedMixin',
+    name: "methodWithWrongTypedMixin",
     // @ts-expect-error
     mixins: [numberToStringMixin],
     validate: null,
@@ -206,7 +206,7 @@ methodReturnsName.call();
 
 // method has all expected "this" properties
 new ValidatedMethod({
-    name: 'methodThatUsesThis',
+    name: "methodThatUsesThis",
     validate: null,
     run() {
         // $ExpectType "methodThatUsesThis"
@@ -223,7 +223,7 @@ new ValidatedMethod({
         this.randomSeed();
         // $ExpectType void
         this.unblock();
-    }
+    },
 });
 
 methodReturnsName.call((error, result) => {

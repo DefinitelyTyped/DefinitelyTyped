@@ -1,145 +1,195 @@
-import { Data, Node, Point, Position } from 'unist';
-import {
-    Parent,
+import type {
+    Data,
     Literal,
-    Root,
+    Node,
     Paragraph,
-    Sentence,
-    Word,
-    Symbol,
-    WhiteSpace,
+    Parent,
     Punctuation,
+    Root,
+    Sentence,
     Source,
+    Symbol,
     Text,
-} from 'nlcst';
+    WhiteSpace,
+    Word,
+} from "nlcst";
 
-const data: Data = {
-    string: 'string',
-    number: 1,
-    object: {
-        key: 'value',
-    },
-    array: [],
-    boolean: true,
-    null: null,
-};
+const data: Data = {};
 
-const point: Point = {
-    line: 1,
-    column: 1,
-    offset: 0,
-};
-
-const position: Position = {
-    start: point,
-    end: point,
-};
-
-const literal: Literal = {
-    type: 'TextNode',
-    data,
-    position,
-    value: 'value',
+const position = {
+    start: { line: 1, column: 1, offset: 0 },
+    end: { line: 1, column: 2, offset: 1 },
 };
 
 const symbol: Symbol = {
-    type: 'SymbolNode',
-    data,
+    type: "SymbolNode",
+    value: "value",
     position,
-    value: 'value',
+    data,
 };
 
 const punctuation: Punctuation = {
-    type: 'PunctuationNode',
-    data,
+    type: "PunctuationNode",
+    value: "value",
     position,
-    value: 'value',
+    data,
 };
 
 const text: Text = {
-    type: 'TextNode',
-    data,
+    type: "TextNode",
+    value: "value",
     position,
-    value: 'value',
+    data,
 };
 
 const source: Source = {
-    type: 'SourceNode',
-    data,
+    type: "SourceNode",
+    value: "value",
     position,
-    value: 'value',
+    data,
 };
 
 const whiteSpace: WhiteSpace = {
-    type: 'WhiteSpaceNode',
-    data,
+    type: "WhiteSpaceNode",
+    value: "value",
     position,
-    value: 'value',
+    data,
 };
 
-let paragraph: Paragraph = getParagraph();
+const word: Word = {
+    type: "WordNode",
+    children: [punctuation, source, symbol, text],
+};
 
-const sentence: Sentence = getSentence();
+const sentence: Sentence = {
+    type: "SentenceNode",
+    children: [punctuation, source, symbol, whiteSpace, word],
+};
 
-const word: Word = getWord();
-
-const parent: Parent = {
-    type: 'parent',
-    data,
-    position,
-    children: [getParagraph(), getSentence(), getWord(), punctuation, source, symbol, text, whiteSpace],
+const paragraph: Paragraph = {
+    type: "ParagraphNode",
+    children: [sentence, source, whiteSpace],
 };
 
 const root: Root = {
-    type: 'RootNode',
-    data,
+    type: "RootNode",
+    children: [paragraph, punctuation, sentence, source, symbol, text, whiteSpace, word],
     position,
-    children: [getParagraph(), getSentence(), getWord(), punctuation, source, symbol, text, whiteSpace],
+    data,
 };
 
-function getParagraph(): Paragraph {
-    return {
-        type: 'ParagraphNode',
-        children: [getSentence(), source, whiteSpace],
-    };
-}
+const parent: Parent = {
+    type: "ParentNode",
+    children: [paragraph, punctuation, sentence, source, symbol, text, whiteSpace, word],
+    position,
+    data,
+};
 
-function getSentence(): Sentence {
-    return {
-        type: 'SentenceNode',
-        children: [punctuation, source, symbol, whiteSpace, getWord()],
-    };
-}
+const wordWithWrongChild: Word = {
+    type: "WordNode",
+    children: [
+        // @ts-expect-error: paragraphs are not valid in words.
+        paragraph,
+    ],
+};
 
-function getWord(): Word {
-    return {
-        type: 'WordNode',
-        children: [punctuation, source, symbol, text],
-    };
-}
+const sentenceWithWrongChild: Sentence = {
+    type: "SentenceNode",
+    children: [
+        // @ts-expect-error: paragraphs are not valid in sentences.
+        paragraph,
+    ],
+};
 
-// Test custom nlcst node registration
+const paragraphWithWrongChild: Paragraph = {
+    type: "ParagraphNode",
+    children: [
+        // @ts-expect-error: words are not valid in sentences.
+        word,
+    ],
+};
+
+// Test custom nlcst node registration.
 interface Custom extends Node {
-    type: 'CustomNode';
+    type: "CustomNode";
 }
 
-declare module 'nlcst' {
-    interface ParagraphContentMap {
+declare module "nlcst" {
+    interface RootContentMap {
+        custom: Custom;
+    }
+
+    interface SentenceContentMap {
         custom: Custom;
     }
 }
 
-paragraph = {
-    type: 'ParagraphNode',
-    data,
-    position,
-    children: [{ type: 'CustomNode' }],
+const rootOther: Root = {
+    type: "RootNode",
+    children: [{ type: "CustomNode" }],
 };
 
-paragraph = {
-    type: 'ParagraphNode',
+const sentenceOther: Sentence = {
+    type: "SentenceNode",
+    children: [{ type: "CustomNode" }],
+};
+
+const rootAnother: Root = {
+    type: "RootNode",
     data,
     position,
-    // @ts-expect-error
-    children: [{ type: 'invalid' }],
+    children: [
+        // @ts-expect-error: node not registered in `RootContentMap`.
+        { type: "InvalidNode" },
+    ],
+};
+
+const sentenceAnother: Sentence = {
+    type: "SentenceNode",
+    children: [
+        // @ts-expect-error: node not registered in `SentenceContentMap`.
+        { type: "InvalidNode" },
+    ],
+};
+
+// Register a field on `Data`, which will be available on all nodes.
+declare module "nlcst" {
+    interface Data {
+        someField?: string | undefined;
+    }
+
+    interface SymbolData {
+        someOtherField?: number | undefined;
+    }
+}
+
+const textWithData: Text = {
+    type: "TextNode",
+    value: "value",
+    data: {
+        someField: "a",
+        // @ts-expect-error: not registered on all nlcst nodes.
+        someOtherField: 1,
+    },
+};
+
+const textWithOtherData: Text = {
+    type: "TextNode",
+    value: "value",
+    data: {
+        someField: "a",
+        // @ts-expect-error: not registered on text nodes.
+        someUnknownField: true,
+    },
+};
+
+const symbolWithData: Symbol = {
+    type: "SymbolNode",
+    value: "value",
+    data: {
+        someField: "a",
+        someOtherField: 1,
+        // @ts-expect-error: not registered.
+        someUnknownField: true,
+    },
 };

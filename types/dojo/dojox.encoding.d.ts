@@ -191,7 +191,7 @@ declare namespace dojox {
                  */
                 RSAKey(): void;
             }
-            module _base {
+            namespace _base {
                 /**
                  * Permalink: http://dojotoolkit.org/api/1.9/dojox/encoding/crypto/_base.RSAKey.html
                  *
@@ -358,7 +358,7 @@ declare namespace dojox {
              * @param outputType       Optional
              */
             interface SHA512{(data: String, outputType?: number): void}
-            module _sha_32 {
+            namespace _sha_32 {
             }
 
             /**
@@ -424,7 +424,7 @@ declare namespace dojox {
                  */
                 wordToString(wa: String[]): void;
             }
-            module _base {
+            namespace _base {
                 /**
                  * Permalink: http://dojotoolkit.org/api/1.9/dojox/encoding/digests/_base.outputTypes.html
                  *

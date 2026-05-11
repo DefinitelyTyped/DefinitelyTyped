@@ -1,8 +1,8 @@
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
-import Lasso, { LassoConfig } from '../Lasso';
-import LassoContext from '../LassoContext';
-import { Bundle } from '../dependencies';
+import { Bundle } from "../dependencies";
+import Lasso, { LassoConfig } from "../Lasso";
+import LassoContext from "../LassoContext";
 
 export default interface Writer extends EventEmitter {
     impl: any;

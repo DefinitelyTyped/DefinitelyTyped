@@ -1,4 +1,4 @@
-import keycloakConnectRoles = require('keycloak-connect-roles');
+import keycloakConnectRoles = require("keycloak-connect-roles");
 
 // $ExpectType KConnect
 keycloakConnectRoles.init();

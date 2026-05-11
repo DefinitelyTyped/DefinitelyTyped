@@ -1,4 +1,4 @@
-import { Status } from './Status';
+import { Status } from "./Status";
 export {};
 
 export namespace Tunnel {
@@ -35,7 +35,7 @@ export namespace Tunnel {
 }
 
 export abstract class Tunnel {
-    static readonly INTERNAL_DATA_OPCODE: '';
+    static readonly INTERNAL_DATA_OPCODE: "";
     /**
      * The maximum amount of time to wait for data to be received, in
      * milliseconds. If data is not received within this amount of time,
@@ -53,6 +53,15 @@ export abstract class Tunnel {
      * be null.
      */
     uuid: string | null;
+
+    /**
+     * Fired when the UUID that uniquely identifies this tunnel is known.
+     *
+     * @event
+     * @param uuid
+     *     The UUID uniquely identifying this tunnel.
+     */
+    onuuid: null | ((uuid: string) => void);
 
     /**
      * The amount of time to wait for data to be received before considering

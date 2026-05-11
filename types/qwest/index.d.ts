@@ -1,12 +1,5 @@
-// Type definitions for qwest v1.7.0
-// Project: https://github.com/pyrsmk/qwest
-// Definitions by: Lindsay Evans <https://github.com/lindsayevans>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace Qwest {
-
     interface Static {
-
         /** Base URI for requests. Prepended to request URIs */
         base: string;
 
@@ -27,7 +20,7 @@ declare namespace Qwest {
          * @param url URL that the request is sent to
          * @param data Data to send to the server
          * @param options Configuration options for the AJAX request
-         * */
+         */
         get(url: string, data?: any, options?: Options): Promise;
 
         /**
@@ -35,7 +28,7 @@ declare namespace Qwest {
          * @param url URL that the request is sent to
          * @param data Data to send to the server
          * @param options Configuration options for the AJAX request
-         * */
+         */
         post(url: string, data?: any, options?: Options): Promise;
 
         /**
@@ -43,7 +36,7 @@ declare namespace Qwest {
          * @param url URL that the request is sent to
          * @param data Data to send to the server
          * @param options Configuration options for the AJAX request
-         * */
+         */
         put(url: string, data?: any, options?: Options): Promise;
 
         /**
@@ -51,7 +44,7 @@ declare namespace Qwest {
          * @param url URL that the request is sent to
          * @param data Data to send to the server
          * @param options Configuration options for the AJAX request
-         * */
+         */
         delete(url: string, data?: any, options?: Options): Promise;
     }
 
@@ -60,14 +53,13 @@ declare namespace Qwest {
         then(callback: (xhr: any, response?: any) => any): Promise;
 
         /** Request has failed */
-        catch(callback: (e: any, xhr? : any, response?: any) => any): Promise;
+        catch(callback: (e: any, xhr?: any, response?: any) => any): Promise;
 
         /** Always run */
         complete(callback: () => any): Promise;
     }
 
     interface Options {
-
         /** post (by default), json, text, arraybuffer, blob, document or formdata */
         dataType?: string | undefined;
 
@@ -87,7 +79,7 @@ declare namespace Qwest {
         password?: string | undefined;
 
         /** javascript object containing headers to be sent */
-        headers?: { [key: string]: any; } | undefined;
+        headers?: { [key: string]: any } | undefined;
 
         /** false by default; sends credentials with your XHR2 request */
         withCredentials?: boolean | undefined;
@@ -97,9 +89,7 @@ declare namespace Qwest {
 
         /** the total number of times to attempt the request through timeouts; 1 by default; if you want to remove the limit set it to null */
         attempts?: number | undefined;
-
     }
-
 }
 
 declare module "qwest" {

@@ -3,107 +3,107 @@ export type n = string; // NOTE: Ideally this would be number but it would force
 /**
  * Listing of supported data model elements
  */
-export type CMIElementCoreChildren = 'cmi.core._children';
+export type CMIElementCoreChildren = "cmi.core._children";
 
 /**
  * Identifies the student on behalf of whom the SCO was launched
  */
-export type CMIElementCoreStudentId = 'cmi.core.student_id';
+export type CMIElementCoreStudentId = "cmi.core.student_id";
 
 /**
  * Name provided for the student by the LMS
  */
-export type CMIElementCoreStudentName = 'cmi.core.student_name';
+export type CMIElementCoreStudentName = "cmi.core.student_name";
 
 /**
  * The learner’s current location in the SCO
  */
-export type CMIElementCoreLessonLocation = 'cmi.core.lesson_location';
+export type CMIElementCoreLessonLocation = "cmi.core.lesson_location";
 
 /**
  * Indicates whether the learner will be credited for performance in the SCO
  */
-export type CMIElementCoreCredit = 'cmi.core.credit';
+export type CMIElementCoreCredit = "cmi.core.credit";
 
 /**
  * Indicates whether the learner has completed and satisfied the requirements for the SCO
  */
-export type CMIElementCoreLessonStatus = 'cmi.core.lesson_status';
+export type CMIElementCoreLessonStatus = "cmi.core.lesson_status";
 
 /**
  * Asserts whether the learner has previously accessed the SCO
  */
-export type CMIElementCoreEntry = 'cmi.core.entry';
+export type CMIElementCoreEntry = "cmi.core.entry";
 
 /**
  * Listing of supported data model elements
  */
-export type CMIElementCoreScoreChildren = 'cmi.core.score_children';
+export type CMIElementCoreScoreChildren = "cmi.core.score_children";
 
 /**
  * Number that reflects the performance of the learner relative to the range bounded by the values of min and max
  */
-export type CMIElementCoreScoreRaw = 'cmi.core.score.raw';
+export type CMIElementCoreScoreRaw = "cmi.core.score.raw";
 
 /**
  * Maximum value in the range for the raw score
  */
-export type CMIElementCoreScoreMax = 'cmi.core.score.max';
+export type CMIElementCoreScoreMax = "cmi.core.score.max";
 
 /**
  * Minimum value in the range for the raw score
  */
-export type CMIElementCoreScoreMin = 'cmi.core.score.min';
+export type CMIElementCoreScoreMin = "cmi.core.score.min";
 
 /**
  * Sum of all of the learner’s session times accumulated in the current learner attempt
  */
-export type CMIElementCoreTotalTime = 'cmi.core.total_time';
+export type CMIElementCoreTotalTime = "cmi.core.total_time";
 
 /**
  * Identifies one of three possible modes in which the SCO may be presented to the learner
  */
-export type CMIElementCoreLessonMode = 'cmi.core.lesson_mode';
+export type CMIElementCoreLessonMode = "cmi.core.lesson_mode";
 
 /**
  * Indicates how or why the learner left the SCO
  */
-export type CMIElementCoreExit = 'cmi.core.exit';
+export type CMIElementCoreExit = "cmi.core.exit";
 
 /**
  * Amount of time that the learner has spent in the current learner session for this SCO
  */
-export type CMIElementCoreSessionTime = 'cmi.core.session_time';
+export type CMIElementCoreSessionTime = "cmi.core.session_time";
 
 /**
  * Provides space to store and retrieve data between learner sessions
  */
-export type CMIElementSuspendData = 'cmi.suspend_data';
+export type CMIElementSuspendData = "cmi.suspend_data";
 
 /**
  * Data provided to a SCO after launch, initialized from the dataFromLMS manifest element
  */
-export type CMIElementLaunchData = 'cmi.launch_data';
+export type CMIElementLaunchData = "cmi.launch_data";
 
 /**
  * Textual input from the learner about the SCO
  */
-export type CMIElementComments = 'cmi.comments';
+export type CMIElementComments = "cmi.comments";
 
 /**
  * Comments or annotations associated with a SCO
  */
-export type CMIElementCommentsFromLMS = 'cmi.comments_from_lms';
+export type CMIElementCommentsFromLMS = "cmi.comments_from_lms";
 
 /**
  * Listing of supported data model elements
  */
-export type CMIElementObjectivesChildren = 'cmi.objectives._children';
+export type CMIElementObjectivesChildren = "cmi.objectives._children";
 
 /**
  * Current number of objectives being stored by the LMS
  */
-export type CMIElementObjectivesCount = 'cmi.objectives._count';
+export type CMIElementObjectivesCount = "cmi.objectives._count";
 
 /**
  * Unique label for the objective
@@ -138,57 +138,57 @@ export type CMIElementObjectivesNStatus = `cmi.objectives.${n}.status`;
 /**
  * Listing of supported data model elements
  */
-export type CMIElementStudentDataChildren = 'cmi.student_data._children';
+export type CMIElementStudentDataChildren = "cmi.student_data._children";
 
 /**
  * Passing score required to master the SCO
  */
-export type CMIElementStudentDataMasteryScore = 'cmi.student_data.mastery_score';
+export type CMIElementStudentDataMasteryScore = "cmi.student_data.mastery_score";
 
 /**
  * Amount of accumulated time the learner is allowed to use a SCO
  */
-export type CMIElementStudentDataMaxTimeAllowed = 'cmi.student_data.max_time_allowed';
+export type CMIElementStudentDataMaxTimeAllowed = "cmi.student_data.max_time_allowed";
 
 /**
  * Indicates what the SCO should do when max_time_allowed is exceeded
  */
-export type CMIElementStudentDataTimeLimitAction = 'cmi.student_data.time_limit_action';
+export type CMIElementStudentDataTimeLimitAction = "cmi.student_data.time_limit_action";
 
 /**
  * Listing of supported data model elements
  */
-export type CMIElementStudentPreferenceChildren = 'cmi.student_preference._children';
+export type CMIElementStudentPreferenceChildren = "cmi.student_preference._children";
 
 /**
  * Specifies an intended change in perceived audio level
  */
-export type CMIElementStudentPreferenceAudio = 'cmi.student_preference.audio';
+export type CMIElementStudentPreferenceAudio = "cmi.student_preference.audio";
 
 /**
  * The student’s preferred language for SCOs with multilingual capability
  */
-export type CMIElementStudentPreferenceLanguage = 'cmi.student_preference.language';
+export type CMIElementStudentPreferenceLanguage = "cmi.student_preference.language";
 
 /**
  * The learner’s preferred relative speed of content delivery
  */
-export type CMIElementStudentPreferenceSpeed = 'cmi.student_preference.speed';
+export type CMIElementStudentPreferenceSpeed = "cmi.student_preference.speed";
 
 /**
  * Specifies whether captioning text corresponding to audio is displayed
  */
-export type CMIElementStudentPreferenceText = 'cmi.student_preference.text';
+export type CMIElementStudentPreferenceText = "cmi.student_preference.text";
 
 /**
  * Listing of supported data model elements
  */
-export type CMIElementInteractionsChildren = 'cmi.interactions._children';
+export type CMIElementInteractionsChildren = "cmi.interactions._children";
 
 /**
  * Current number of interactions being stored by the LMS
  */
-export type CMIElementInteractionsCount = 'cmi.interactions._count';
+export type CMIElementInteractionsCount = "cmi.interactions._count";
 
 /**
  * Unique label for the interaction
@@ -248,4 +248,4 @@ export type CMIElementInteractionsNLatency = `cmi.interactions.${n}.latency`;
 /**
  * The version of the data model supported by the LMS
  */
-export type CMIElementVersion = 'cmi._version';
+export type CMIElementVersion = "cmi._version";

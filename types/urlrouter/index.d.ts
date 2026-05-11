@@ -1,24 +1,15 @@
-// Type definitions for urlrouter
-// Project: https://github.com/fengmk2/urlrouter
-// Definitions by: soywiz <https://github.com/soywiz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
-
 
 import http = require("http");
 
 declare function UrlRouterInternal(handler: (app: UrlRouterInternal.App) => void): UrlRouterInternal.HttpHandler;
 
 declare namespace UrlRouterInternal {
-
-
     interface ServerRequest extends http.IncomingMessage {
         params: any;
     }
 
     interface ServerResponse extends http.ServerResponse {
-
     }
 
     interface App {

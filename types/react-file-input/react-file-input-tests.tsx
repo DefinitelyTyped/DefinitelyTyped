@@ -1,11 +1,11 @@
 import * as React from "react";
-import FileInput = require('react-file-input');
+import FileInput = require("react-file-input");
 
 class Form extends React.Component {
     handleChange = (event: React.SyntheticEvent<any>) => {
         const target: any = event.target;
-        console.log('Selected file:', target.files[0]);
-    }
+        console.log("Selected file:", target.files[0]);
+    };
 
     render(): React.ReactElement<{}> {
         return (
@@ -17,7 +17,7 @@ class Form extends React.Component {
                     className="inputClass"
                     disabled={false}
                     onChange={this.handleChange}
-                    />
+                />
             </form>
         );
     }

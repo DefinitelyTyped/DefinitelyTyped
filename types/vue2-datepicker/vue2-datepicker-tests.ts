@@ -1,5 +1,5 @@
-import Vue, { ComponentOptions } from 'vue';
-import DatePicker from 'vue2-datepicker';
+import Vue, { ComponentOptions } from "vue";
+import DatePicker from "vue2-datepicker";
 
 // excerpt from vue-class-component/src/declarations.ts
 type VueClass<V> = {
@@ -7,12 +7,14 @@ type VueClass<V> = {
 } & typeof Vue;
 
 // excerpt from vue-class-component/src/index.ts
-declare function Component<V extends Vue>(options: ComponentOptions<V> & ThisType<V>): <VC extends VueClass<V>>(target: VC) => VC;
+declare function Component<V extends Vue>(
+    options: ComponentOptions<V> & ThisType<V>,
+): <VC extends VueClass<V>>(target: VC) => VC;
 
 new Vue({
-    el: '#app',
+    el: "#app",
     components: {
-        DatePicker
+        DatePicker,
     },
     template: `
         <date-picker
@@ -26,13 +28,13 @@ new Vue({
         </date-picker>
     `,
     data() {
-        return {dateOfBirth: new Date()};
-    }
+        return { dateOfBirth: new Date() };
+    },
 });
 
 @Component({
     components: {
-        DatePicker
+        DatePicker,
     },
     template: `
         <date-picker
@@ -44,7 +46,7 @@ new Vue({
                 <span class="input-datepicker__icon"></span>
             </template>
         </date-picker>
-    `
+    `,
 })
 class App extends Vue {
     dateOfBirth = new Date();

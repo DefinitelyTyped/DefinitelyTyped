@@ -2,9 +2,9 @@ export = FieldGroupSet;
 declare function FieldGroupSet(): void;
 declare class FieldGroupSet {
     items: any;
-    add(fieldGroup: any): void;
+    add(fieldGroup: import('@nginstack/engine/lib/classdef/FieldGroup')): void;
     private _find;
-    findByName(name: string): any;
-    assign(obj: any): void;
+    findByName(name: string): import('@nginstack/engine/lib/classdef/FieldGroup');
+    assign(obj: FieldGroupSet): void;
     clone(): FieldGroupSet;
 }

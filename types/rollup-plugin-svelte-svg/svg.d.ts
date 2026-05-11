@@ -1,4 +1,4 @@
-declare module '*.svg' {
-    import { SvelteComponent } from 'svelte';
+declare module "*.svg" {
+    import { SvelteComponent } from "svelte";
     export default SvelteComponent;
 }

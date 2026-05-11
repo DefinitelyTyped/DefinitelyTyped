@@ -1,10 +1,3 @@
-// Type definitions for js_beautify 1.13
-// Project: https://github.com/beautify-web/js-beautify/
-// Definitions by: Hans Windhoff <https://github.com/hansrwindhoff>
-//                 Gavin Rehkemper <https://github.com/gavinr/>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace js_beautify {
     interface CoreBeautifyOptions {
         disabled?: boolean | undefined;
@@ -22,7 +15,7 @@ declare namespace js_beautify {
     }
 
     interface JSBeautifyOptions extends CoreBeautifyOptions {
-        brace_style?: 'collapse' | 'expand' | 'end-expand' | 'none' | 'preserve-inline' | undefined;
+        brace_style?: "collapse" | "expand" | "end-expand" | "none" | "preserve-inline" | undefined;
         unindent_chained_methods?: boolean | undefined;
         break_chained_methods?: boolean | undefined;
         space_in_paren?: boolean | undefined;
@@ -35,7 +28,7 @@ declare namespace js_beautify {
         unescape_strings?: boolean | undefined;
         e4x?: boolean | undefined;
         comma_first?: boolean | undefined;
-        operator_position?: 'before-newline' | 'after-newline' | 'preserve-newline' | undefined;
+        operator_position?: "before-newline" | "after-newline" | "preserve-newline" | undefined;
         test_output_raw?: boolean | undefined;
     }
 
@@ -46,13 +39,14 @@ declare namespace js_beautify {
         indent_head_inner_html?: boolean | undefined;
         indent_handlebars?: boolean | undefined;
         wrap_attributes?:
-            | 'auto'
-            | 'force'
-            | 'force-aligned'
-            | 'force-expand-multiline'
-            | 'aligned-multiple'
-            | 'preserve'
-            | 'preserve-aligned' | undefined;
+            | "auto"
+            | "force"
+            | "force-aligned"
+            | "force-expand-multiline"
+            | "aligned-multiple"
+            | "preserve"
+            | "preserve-aligned"
+            | undefined;
         wrap_attributes_indent_size?: number | undefined;
         extra_liners?: string[] | undefined;
         inline?: string[] | undefined;
@@ -60,7 +54,8 @@ declare namespace js_beautify {
         unformatted?: string[] | undefined;
         content_unformatted?: string[] | undefined;
         unformatted_content_delimiter?: string | undefined;
-        indent_scripts?: 'normal' | 'keep' | 'separate' | undefined;
+        indent_scripts?: "normal" | "keep" | "separate" | undefined;
+        inline_custom_elements?: boolean | undefined;
     }
 
     interface CSSBeautifyOptions extends CoreBeautifyOptions {

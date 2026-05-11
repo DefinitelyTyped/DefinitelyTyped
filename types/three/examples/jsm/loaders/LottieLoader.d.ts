@@ -1,15 +1,18 @@
-import { CanvasTexture, Loader, LoadingManager } from '../../../src/Three';
+import { CanvasTexture, Loader, LoadingManager } from "three";
 
-export class LottieLoader extends Loader {
+export class LottieLoader extends Loader<CanvasTexture> {
+    /**
+     * @deprecated The loader has been deprecated and will be removed with r186. Use lottie-web instead and create your
+     * animated texture manually.
+     */
     constructor(manager?: LoadingManager);
 
     load(
         url: string,
-        onLoad: (texture: CanvasTexture) => void,
+        onLoad?: (data: CanvasTexture) => void,
         onProgress?: (event: ProgressEvent) => void,
-        onError?: (event: ErrorEvent) => void,
-    ): void;
-    loadAsync(url: string, onProgress?: (event: ProgressEvent) => void): Promise<CanvasTexture>;
+        onError?: (err: unknown) => void,
+    ): CanvasTexture;
 
     setQuality(value: number): void;
 }

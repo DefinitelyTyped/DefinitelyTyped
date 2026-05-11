@@ -1,11 +1,3 @@
-// Type definitions for react-tagsinput 3.20
-// Project: https://github.com/olahol/react-tagsinput
-// Definitions by: Michael Macnair <https://github.com/mykter>
-//                 Richard Tan <https://github.com/chardos>
-//                 Prakhar Goel <https://github.com/Prakhargoel8c>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 
 export as namespace ReactTagsInput;
@@ -40,13 +32,16 @@ declare namespace TagsInput {
         readonly getTagDisplayValue: (tag: Tag) => string;
         readonly onRemove: (tagIndex: number) => void;
         readonly tag: Tag;
+        readonly key: number;
     }
 
-    type RenderLayout = (tagElements: React.ReactElement[], inputElement: React.ReactElement) => React.ReactChild;
+    type RenderLayout = (
+        tagElements: React.ReactElement[],
+        inputElement: React.ReactElement,
+    ) => React.ReactElement | number | string;
 
-    interface ReactTagsInputProps<Tag = any> {
+    interface ReactTagsInputProps<Tag = any> extends React.RefAttributes<TagsInput<Tag>> {
         children?: React.ReactNode;
-        ref?: React.LegacyRef<TagsInput<Tag>> | undefined;
         value: Tag[];
         onChange: (tags: Tag[], changed: Tag[], changedIndexes: number[]) => void;
         onChangeInput?: ((value: string) => void) | undefined;

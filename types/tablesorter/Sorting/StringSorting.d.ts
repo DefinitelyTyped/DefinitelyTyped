@@ -5,24 +5,20 @@ export type StringSorting =
     /**
      * Indicates that the cells are pinned to the top.
      */
-    "top" |
-
+    | "top"
     /**
      * Indicates that the cells are pinned to the bottom.
      */
-    "bottom" |
-
+    | "bottom"
     /**
      * Indicates that the cells are treated like a value lesser than the minimal numeric value.
      */
-    "min" |
-
+    | "min"
     /**
      * Indicates that the cells are treated like a value greater than the maximal numeric value.
      */
-    "max" |
-
+    | "max"
     /**
      * Indicates that the cells are treated like a value equal to `0`.
      */
-    "zero";
+    | "zero";

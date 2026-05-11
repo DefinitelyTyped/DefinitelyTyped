@@ -1,21 +1,14 @@
-// Type definitions for @xmpp/websocket 0.13
-// Project: https://github.com/xmppjs/xmpp.js/tree/main/packages/websocket
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+import Connection from "@xmpp/connection";
 
-import Connection = require('@xmpp/connection');
-
-export = websocket;
+export default websocket;
 
 /**
  * WebSocket transport for `@xmpp/client`.
  *
  * Included and enabled in `@xmpp/client`.
  */
-declare function websocket({ entity }: { entity: websocket.Entity }): void;
+declare function websocket({ entity }: { entity: Entity }): void;
 
-declare namespace websocket {
-    interface Entity {
-        transports: Array<typeof Connection>;
-    }
+export interface Entity {
+    transports: Array<typeof Connection>;
 }

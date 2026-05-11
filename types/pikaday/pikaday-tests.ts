@@ -3,39 +3,39 @@
 import Pikaday = require("pikaday");
 import moment = require("moment");
 
-new Pikaday({field: document.getElementById('datepicker')});
-new Pikaday({field: $('#datepicker')[0]});
+new Pikaday({ field: document.getElementById("datepicker") });
+new Pikaday({ field: $("#datepicker")[0] });
 
 (() => {
-    const field: HTMLInputElement = <HTMLInputElement> document.getElementById('datepicker');
+    const field: HTMLInputElement = <HTMLInputElement> document.getElementById("datepicker");
     const picker = new Pikaday({
         onSelect: (date: Date) => {
             field.value = picker.toString();
             console.log(date.toISOString());
-        }
+        },
     });
     field.parentNode!.insertBefore(picker.el, field.nextSibling);
 })();
 
 (() => {
     const picker = new Pikaday({
-        field: document.getElementById('datepicker'),
-        format: 'D MMM YYYY',
+        field: document.getElementById("datepicker"),
+        format: "D MMM YYYY",
         onSelect() {
-            console.log(this.getMoment()!.format('Do MMMM YYYY'));
-        }
+            console.log(this.getMoment()!.format("Do MMMM YYYY"));
+        },
     });
 
     picker.toString();
-    picker.toString('YYYY-MM-DD');
+    picker.toString("YYYY-MM-DD");
     picker.getDate();
-    picker.setDate('2015-01-01');
-    picker.setDate('2015-01-01', true);
+    picker.setDate("2015-01-01");
+    picker.setDate("2015-01-01", true);
     picker.setDate(null);
     picker.setDate(null, true);
     picker.getMoment();
-    picker.setMoment(moment('14th February 2014', 'DDo MMMM YYYY'));
-    picker.setMoment(moment('14th February 2014', 'DDo MMMM YYYY'), true);
+    picker.setMoment(moment("14th February 2014", "DDo MMMM YYYY"));
+    picker.setMoment(moment("14th February 2014", "DDo MMMM YYYY"), true);
     picker.gotoDate(new Date(2014, 1));
     picker.gotoToday();
     picker.gotoMonth(2);
@@ -60,63 +60,76 @@ new Pikaday({field: $('#datepicker')[0]});
 
 (() => {
     const i18n: Pikaday.PikadayI18nConfig = {
-        previousMonth: 'Previous Month',
-        nextMonth: 'Next Month',
-        months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-        weekdays: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-        weekdaysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+        previousMonth: "Previous Month",
+        nextMonth: "Next Month",
+        months: [
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December",
+        ],
+        weekdays: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+        weekdaysShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
     };
-    new Pikaday({i18n});
+    new Pikaday({ i18n });
 })();
 
 (() => {
     new Pikaday({
-        field: document.getElementById('datepicker'),
-        format: 'YYYY-MM-DD',
-        trigger: document.getElementById('datepicker'),
+        field: document.getElementById("datepicker"),
+        format: "YYYY-MM-DD",
+        trigger: document.getElementById("datepicker"),
         bound: false,
-        ariaLabel: 'myLabel',
-        position: 'top right',
+        ariaLabel: "myLabel",
+        position: "top right",
         reposition: false,
-        container: document.getElementById('myTag'),
+        container: document.getElementById("myTag"),
         defaultDate: new Date(),
         setDefaultDate: true,
         firstDay: 1,
-        minDate: new Date('2000-01-01'),
-        maxDate: new Date('2020-12-31'),
+        minDate: new Date("2000-01-01"),
+        maxDate: new Date("2020-12-31"),
         disableWeekends: true,
         disableDayFn: (date) => true,
         yearRange: [2000, 2020],
         showWeekNumber: true,
         pickWholeWeek: true,
         isRTL: true,
-        yearSuffix: 'r',
+        yearSuffix: "r",
         showMonthAfterYear: false,
         showDaysInNextAndPreviousMonths: true,
         enableSelectionDaysInNextAndPreviousMonths: true,
         numberOfMonths: 2,
-        mainCalendar: 'right',
-        events: ['Sat Jun 28 2017'],
-        theme: 'myTheme',
+        mainCalendar: "right",
+        events: ["Sat Jun 28 2017"],
+        theme: "myTheme",
         blurFieldOnSelect: false,
         formatStrict: true,
-        toString: (date) => '2017-08-23',
-        parse: () => new Date('2017-08-23'),
+        toString: (date) => "2017-08-23",
+        parse: () => new Date("2017-08-23"),
         onSelect: () => {},
         onOpen: () => {},
         onClose: () => {},
         onDraw: () => {},
-        keyboardInput: false
+        keyboardInput: false,
     });
 })();
 
 (() => {
     new Pikaday({
         yearRange: 5,
-        toString: (date, format) => '2017-08-23'
+        toString: (date, format) => "2017-08-23",
     });
 })();
 
 new Pikaday({
-    parse: (date) => null
+    parse: (date) => null,
 });

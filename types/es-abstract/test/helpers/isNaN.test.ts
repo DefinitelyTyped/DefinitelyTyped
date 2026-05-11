@@ -1,4 +1,4 @@
-import $isNaN = require('es-abstract/helpers/isNaN');
+import $isNaN = require("es-abstract/helpers/isNaN");
 
 const number = Math.random() / Math.random();
 

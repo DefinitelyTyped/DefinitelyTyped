@@ -1,5 +1,5 @@
-import * as http from 'http';
-import originalUrl = require('original-url');
+import * as http from "http";
+import originalUrl = require("original-url");
 
 // test type exports
 type OriginalUrl = originalUrl.OriginalUrl;

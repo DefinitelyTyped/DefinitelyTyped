@@ -1,9 +1,4 @@
-// Type definitions for libnpmdiff 2.0
-// Project: https://github.com/npm/libnpmdiff#readme
-// Definitions by: Oscar Busk <https://github.com/oBusk>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import * as pacote from 'pacote';
+import * as pacote from "pacote";
 
 declare namespace libnpmdiff {
     /**
@@ -138,7 +133,6 @@ declare function libnpmdiff(
      * take a look at [`npm-package-arg`](https://github.com/npm/npm-package-arg)
      */
     specs: libnpmdiff.Specs,
-
     /**
      * Options for `libnpmdiff`.
      *

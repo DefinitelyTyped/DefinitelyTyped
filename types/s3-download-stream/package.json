@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/s3-download-stream",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/jb55/s3-download-stream"
+    ],
+    "dependencies": {
+        "@types/aws-sdk2-types": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/s3-download-stream": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Caleb Everett",
+            "githubUsername": "everettcaleb"
+        }
+    ]
+}

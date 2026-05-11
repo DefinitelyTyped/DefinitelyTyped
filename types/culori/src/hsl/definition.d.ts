@@ -1,15 +1,16 @@
-import convertHslToRgb from './convertHslToRgb';
-import convertRgbToHsl from './convertRgbToHsl';
-import parseHsl from './parseHsl';
-import { fixupHueShorter } from '../fixup/hue';
-import { fixupAlpha } from '../fixup/alpha';
-import { interpolatorLinear } from '../interpolate/linear';
-import { differenceHueSaturation } from '../difference';
-import { averageAngle } from '../average';
-import { Hsl } from './types';
+import { averageAngle } from "../average.js";
+import { differenceHueSaturation } from "../difference.js";
+import { fixupAlpha } from "../fixup/alpha.js";
+import { fixupHueShorter } from "../fixup/hue.js";
+import { interpolatorLinear } from "../interpolate/linear.js";
+import convertHslToRgb from "./convertHslToRgb.js";
+import convertRgbToHsl from "./convertRgbToHsl.js";
+import parseHsl from "./parseHsl.js";
+import parseHslLegacy from "./parseHslLegacy.js";
+import { Hsl } from "./types.js";
 
-declare const definition: {
-    mode: 'hsl';
+declare const modeHsl: {
+    mode: "hsl";
 
     toMode: {
         rgb: typeof convertHslToRgb;
@@ -19,14 +20,16 @@ declare const definition: {
         rgb: typeof convertRgbToHsl;
     };
 
-    channels: ['h', 's', 'l', 'alpha'];
+    channels: ["h", "s", "l", "alpha"];
 
     ranges: {
         h: [0, 360];
     };
 
-    parse: [typeof parseHsl];
-    serialize: (c: Omit<Hsl, 'mode'>) => string;
+    gamut: "rgb";
+
+    parse: [typeof parseHsl, typeof parseHslLegacy];
+    serialize: (c: Omit<Hsl, "mode">) => string;
 
     interpolate: {
         h: { use: typeof interpolatorLinear; fixup: typeof fixupHueShorter };
@@ -44,4 +47,4 @@ declare const definition: {
     };
 };
 
-export default definition;
+export default modeHsl;

@@ -1,15 +1,9 @@
-// Type definitions for temp-fs v0.9.8
-// Project: https://github.com/jakwings/node-temp-fs
-// Definitions by: MEDIA CHECK s.r.o. <http://www.mediacheck.cz/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * A temporary file and directory creator.
  */
 export = tempfs;
 
 declare namespace tempfs {
-
     /**
      * A tempdir.
      */
@@ -32,7 +26,7 @@ declare namespace tempfs {
          *
          * @param callback makes it asynchronous.
          */
-        unlink(callback?:(error:Error)=>any): any;
+        unlink(callback?: (error: Error) => any): any;
     }
 
     /**
@@ -57,7 +51,7 @@ declare namespace tempfs {
          *
          * @param callback makes it asynchronous.
          */
-        unlink(callback?:(error:Error)=>any): any;
+        unlink(callback?: (error: Error) => any): any;
     }
 
     /**
@@ -132,12 +126,12 @@ declare namespace tempfs {
     /**
      * Remove all tracked files and directories asynchronously.
      */
-    function clear(callback?:()=>any):any;
+    function clear(callback?: () => any): any;
 
     /**
      * Remove all tracked files and directories synchronously.
      */
-    function clearSync():any;
+    function clearSync(): any;
 
     /**
      * Return the path of a system-provided tempdir as
@@ -148,7 +142,7 @@ declare namespace tempfs {
      * fixed path, and it can be changed by the user environment. When in doubt,
      * check it first.
      */
-    function dir():string;
+    function dir(): string;
 
     /**
      * Try to create a new tempdir asynchronously.
@@ -158,19 +152,19 @@ declare namespace tempfs {
      *                 <code>null</code>, <code>dir</code> has the properties of
      *                 {@link dir}.
      */
-    function mkdir(options?:options, callback?:(err:any, dir:dir)=>any):any;
+    function mkdir(options?: options, callback?: (err: any, dir: dir) => any): any;
 
     /**
      * The synchronous version of {@link mkdir}.
      *
      * @throws when an error happens.
      */
-    function mkdirSync(options?:options):dir;
+    function mkdirSync(options?: options): dir;
 
     /**
      * Return a customized/random filename/dirname.
      */
-    function name(options?:options):string;
+    function name(options?: options): string;
 
     /**
      * Try to open a unique tempfile asynchronously.
@@ -180,15 +174,15 @@ declare namespace tempfs {
      *                 <code>null</code>, <code>file</code> has the properties
      *                 of {@link file}.
      */
-    function open(callback?:(err:any, file:file)=>any):any;
-    function open(options?:options, callback?:(err:any, file:file)=>any):any;
+    function open(callback?: (err: any, file: file) => any): any;
+    function open(options?: options, callback?: (err: any, file: file) => any): any;
 
     /**
      * The synchronous version of {@link open}.
      *
      * @throws when an error happens.
      */
-    function openSync(options?:options):file;
+    function openSync(options?: options): file;
 
     /**
      * Use it to switch global files/directories tracking on or off.
@@ -203,5 +197,5 @@ declare namespace tempfs {
      * <b>Note: When an uncaught exception occurs, all tracked temporary files
      * and directories will be removed no matter it is on or off.</b>
      */
-    function track(on?:Boolean):void;
+    function track(on?: Boolean): void;
 }

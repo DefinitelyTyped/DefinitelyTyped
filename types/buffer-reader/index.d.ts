@@ -1,9 +1,3 @@
-// Type definitions for buffer-reader 0.1
-// Project: https://github.com/villadora/node-buffer-reader
-// Definitions by: nrlquaker <https://github.com/nrlquaker>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
-
 /// <reference types="node"/>
 
 export = BufferReader;
@@ -12,7 +6,7 @@ declare class BufferReader {
     /**
      * Create a new reader, if no buffer provided, a empty buffer will be used.
      */
-    constructor(buffer?: Buffer)
+    constructor(buffer?: Buffer);
     /**
      * Append new buffer to the end of current reader.
      * @param buffer buffer to append

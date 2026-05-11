@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/liamcottle__meshcore.js",
+    "version": "1.10.9999",
+    "type": "module",
+    "projects": [
+        "https://github.com/meshcore-dev/meshcore.js"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/liamcottle__meshcore.js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Manuel Bahamondez-Honores",
+            "githubUsername": "mabahamo"
+        }
+    ]
+}

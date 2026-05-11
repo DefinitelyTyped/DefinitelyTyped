@@ -7,7 +7,7 @@ checker.init(
         start: "/path/to/start/looking",
         production: true,
         customPath: {
-            licenseText: ""
+            licenseText: "",
         },
         json: false,
         csv: false,
@@ -40,8 +40,8 @@ checker.init(
                     memo.push(license);
                     return memo;
                 },
-                [] as checker.ModuleInfo[]
+                [] as checker.ModuleInfo[],
             );
         }
-    }
+    },
 );

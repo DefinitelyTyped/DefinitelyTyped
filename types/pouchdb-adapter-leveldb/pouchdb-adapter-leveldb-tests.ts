@@ -4,9 +4,9 @@ function testConstructor() {
     }
 
     let db = new PouchDB<MyModel>(null, {
-        adapter: 'leveldb',
+        adapter: "leveldb",
     });
-    db = new PouchDB<MyModel>('myDb', {
-        adapter: 'leveldb',
+    db = new PouchDB<MyModel>("myDb", {
+        adapter: "leveldb",
     });
 }

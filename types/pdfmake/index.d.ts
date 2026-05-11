@@ -1,22 +1,41 @@
-// Type definitions for pdfmake 0.2
-// Project: http://pdfmake.org
-// Definitions by: Milen Stefanov <https://github.com/m1llen1um>
-//                 Rajab Shakirov <https://github.com/radziksh>
-//                 Enzo Volkmann <https://github.com/evolkmann>
-//                 Andi Pätzold <https://github.com/andipaetzold>
-//                 Neal Mummau <https://github.com/nmummau>
-//                 Jean-Raphaël Matte <https://github.com/jeralm>
-//                 Michael Strobel <https://github.com/kryops>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+import {
+    BufferOptions,
+    CustomTableLayout,
+    ProgressCallback,
+    TCreatedPdf,
+    TDocumentDefinitions,
+    TFontContainer,
+    TFontDictionary,
+    TVirtualFileSystem,
+} from "./interfaces";
 
-/// <reference types="pdfkit" />
+export type { TCreatedPdf };
+export type { Alignment, Content, CustomTableLayout, Size, Style, Table, TableCell, TableLayout } from "./interfaces";
 
-import { BufferOptions, TDocumentDefinitions, TFontDictionary } from './interfaces';
+export function createPdf(
+    documentDefinitions: TDocumentDefinitions,
+    options?: BufferOptions,
+): TCreatedPdf;
 
-declare class PdfPrinter {
-    constructor(fontDescriptors: TFontDictionary);
-    createPdfKitDocument(docDefinition: TDocumentDefinitions, options?: BufferOptions): PDFKit.PDFDocument;
-}
+export function setProgressCallback(callback: ProgressCallback): void;
 
-export = PdfPrinter;
+export function addTableLayouts(tableLayouts: Record<string, CustomTableLayout>): void;
+export function setTableLayouts(tableLayouts: Record<string, CustomTableLayout>): void;
+export function clearTableLayouts(): void;
+
+export let fonts: TFontDictionary;
+export function addFonts(fonts: TFontDictionary): void;
+export function setFonts(fonts: TFontDictionary): void;
+export function clearFonts(): void;
+
+/**
+ * **Note:** Only supported in the browser.
+ */
+export function addVirtualFileSystem(vfs: TVirtualFileSystem): void;
+
+/**
+ * **Note:** Only supported in the browser.
+ */
+export function addFontContainer(fontContainer: TFontContainer): void;
+
+export as namespace pdfMake;

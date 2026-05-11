@@ -1,8 +1,3 @@
-// Type definitions for humanize-plus 1.8
-// Project: https://github.com/HubSpot/humanize
-// Definitions by: Denis Carriere <https://github.com/DenisCarriere>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // Numbers
 export function formatNumber(number: number, decimals?: number): string;
 export function intComma(number: number, decimals?: number): string;

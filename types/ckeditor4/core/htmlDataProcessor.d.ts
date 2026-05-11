@@ -1,6 +1,6 @@
 declare namespace CKEDITOR {
     interface CKEditorStatic {
-        readonly htmlDataProcessor: { new (editor: editor): htmlDataProcessor };
+        readonly htmlDataProcessor: { new(editor: editor): htmlDataProcessor };
     }
     /** https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_htmlDataProcessor.html */
     interface htmlDataProcessor extends dataProcessor {
@@ -13,10 +13,10 @@ declare namespace CKEDITOR {
             options?:
                 | string
                 | {
-                      context?: string | undefined;
-                      filter?: filter | undefined;
-                      enterMode?: number | undefined;
-                  },
+                    context?: string | undefined;
+                    filter?: filter | undefined;
+                    enterMode?: number | undefined;
+                },
         ): string;
 
         toHtml(data: string, options?: string | htmlDataProcessorOptions): string;

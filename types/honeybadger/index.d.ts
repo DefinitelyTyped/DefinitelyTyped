@@ -1,12 +1,5 @@
-// Type definitions for honeybadger 1.4
-// Project: https://github.com/honeybadger-io/honeybadger-node
-// Definitions by: Ryan Skrzypek <https://github.com/rskrz>
-//                 Levi Bostian <https://github.com/levibostian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
-
-import { RequestHandler, ErrorRequestHandler } from 'express';
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
+import { ErrorRequestHandler, RequestHandler } from "express";
 
 declare namespace honeybadger {
     interface ConfigureOptions {
@@ -16,8 +9,8 @@ declare namespace honeybadger {
         environment?: string | undefined;
         projectRoot?: string | undefined;
         logger?: Console | undefined;
-        developmentEnvironments?: ReadonlyArray<string> | undefined;
-        filters?: ReadonlyArray<string> | undefined;
+        developmentEnvironments?: readonly string[] | undefined;
+        filters?: readonly string[] | undefined;
     }
     interface metadata {
         name?: string | undefined;

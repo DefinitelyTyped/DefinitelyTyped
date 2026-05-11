@@ -1,5 +1,5 @@
-import webpack = require('webpack');
-import WebpackDevServer = require('webpack-dev-server');
+import webpack = require("webpack");
+import WebpackDevServer = require("webpack-dev-server");
 
 export interface Urls {
     lanUrlForConfig?: string | undefined;

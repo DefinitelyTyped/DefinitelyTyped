@@ -1,5 +1,7 @@
 {
     "rules": {
-        "trim-file": "off"
+        "@definitelytyped/strict-export-declare-modifiers": "off",
+        "@typescript-eslint/triple-slash-reference": "off",
+        "@typescript-eslint/naming-convention": "off"
     }
 }

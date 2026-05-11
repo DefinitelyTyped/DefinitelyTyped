@@ -1,4 +1,4 @@
-import { ISubscriber, ISubscription } from 'rsocket-types';
+import { ISubscriber, ISubscription } from "rsocket-types";
 /**
  * An operator that requests a fixed number of values from its source
  * `Subscription` and forwards them to its `Subscriber`, cancelling the

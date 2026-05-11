@@ -1,27 +1,26 @@
-import * as React from 'react';
-import CSSTransitionGroup = require('react-addons-css-transition-group');
-import createReactClass = require('create-react-class');
+import * as React from "react";
+import CSSTransitionGroup = require("react-addons-css-transition-group");
+
+declare const ComponentClass: React.ClassicComponentClass;
 
 React.createFactory(CSSTransitionGroup)({
-    component: createReactClass({
-        render: (): null => null,
-    }),
+    component: ComponentClass,
     childFactory: c => c,
-    transitionName: 'transition',
+    transitionName: "transition",
     transitionAppear: false,
     transitionEnter: true,
     transitionLeave: true,
-    id: 'some-id',
-    className: 'some-class',
+    id: "some-id",
+    className: "some-class",
 });
 
 React.createFactory(CSSTransitionGroup)({
     transitionName: {
-        enter: 'enter',
-        enterActive: 'enterActive',
-        leave: 'leave',
-        leaveActive: 'leaveActive',
-        appear: 'appear',
-        appearActive: 'appearActive',
+        enter: "enter",
+        enterActive: "enterActive",
+        leave: "leave",
+        leaveActive: "leaveActive",
+        appear: "appear",
+        appearActive: "appearActive",
     },
 });

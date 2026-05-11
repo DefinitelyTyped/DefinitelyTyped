@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/rbush",
+    "version": "4.0.9999",
+    "type": "module",
+    "projects": [
+        "https://github.com/mourner/rbush"
+    ],
+    "exports": "./index.d.ts",
+    "devDependencies": {
+        "@types/rbush": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Dan Vanderkam",
+            "githubUsername": "danvk"
+        },
+        {
+            "name": "Chris Lewis",
+            "githubUsername": "cmslewis"
+        }
+    ]
+}

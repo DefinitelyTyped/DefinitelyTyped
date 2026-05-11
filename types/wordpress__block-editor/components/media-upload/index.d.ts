@@ -1,11 +1,12 @@
-/* eslint-disable no-unnecessary-generics */
-import { ComponentType } from 'react';
+/* eslint-disable @definitelytyped/no-unnecessary-generics */
+import { ComponentType, JSX } from "react";
 
-import { default as MediaPlaceholder } from '../media-placeholder';
+import { default as MediaPlaceholder } from "../media-placeholder";
 
 declare namespace MediaUpload {
     interface Props<T extends boolean>
-        extends Pick<MediaPlaceholder.Props<T>, 'addToGallery' | 'allowedTypes' | 'multiple' | 'onSelect' | 'value'> {
+        extends Pick<MediaPlaceholder.Props<T>, "addToGallery" | "allowedTypes" | "multiple" | "onSelect" | "value">
+    {
         children?: never | undefined;
         /**
          * If `true`, the component will initiate all the states required to represent a gallery. By

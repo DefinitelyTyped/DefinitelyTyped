@@ -1,16 +1,16 @@
-import RedisServer = require('redis-server');
+import RedisServer = require("redis-server");
 
 (async () => {
     new RedisServer();
     new RedisServer(1000);
-    new RedisServer('1000');
+    new RedisServer("1000");
     new RedisServer({});
 
     const server = new RedisServer({
-        bin: 'bin',
-        conf: 'conf',
+        bin: "bin",
+        conf: "conf",
         port: 1000,
-        slaveof: 'slaveof',
+        slaveof: "slaveof",
     });
 
     // $ExpectType void

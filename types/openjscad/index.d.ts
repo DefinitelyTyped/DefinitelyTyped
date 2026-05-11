@@ -1,9 +1,3 @@
-// Type definitions for OpenJsCad.js
-// Project: https://github.com/joostn/OpenJsCad
-// Definitions by: Dan Marshall <https://github.com/danmarshall>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.6
-
 /// <reference types="three" />
 
 declare module "three" {
@@ -315,7 +309,7 @@ declare namespace OpenJsCad {
 }
 interface Window {
     Worker: Worker;
-//    URL: URL;
+    //    URL: URL;
     webkitURL: URL;
     requestFileSystem: any;
     webkitRequestFileSystem: any;
@@ -529,21 +523,20 @@ declare namespace CSG {
         toString(): string;
         projectToOrthoNormalBasis(orthobasis: OrthoNormalBasis): CAG;
         /**
-            * Creates solid from slices (CSG.Polygon) by generating walls
-            * @param {Object} options Solid generating options
-            *  - numslices {Number} Number of slices to be generated
-            *  - callback(t, slice) {Function} Callback function generating slices.
-            *          arguments: t = [0..1], slice = [0..numslices - 1]
-            *          return: CSG.Polygon or null to skip
-            *  - loop {Boolean} no flats, only walls, it's used to generate solids like a tor
-            */
+         * Creates solid from slices (CSG.Polygon) by generating walls
+         * @param {Object} options Solid generating options
+         *  - numslices {Number} Number of slices to be generated
+         *  - callback(t, slice) {Function} Callback function generating slices.
+         *          arguments: t = [0..1], slice = [0..numslices - 1]
+         *          return: CSG.Polygon or null to skip
+         *  - loop {Boolean} no flats, only walls, it's used to generate solids like a tor
+         */
         solidFromSlices(options: any): CSG;
         /**
-            *
-            * @param walls Array of wall polygons
-            * @param bottom Bottom polygon
-            * @param top Top polygon
-            */
+         * @param walls Array of wall polygons
+         * @param bottom Bottom polygon
+         * @param top Top polygon
+         */
         private _addWalls(walls, bottom, top, bFlipped);
         static verticesConvex(vertices: Vertex[], planenormal: any): boolean;
         static createFromPoints(points: number[][], shared?: CSG.Polygon.Shared, plane?: Plane): Polygon;
@@ -577,8 +570,20 @@ declare namespace CSG {
         invert(): void;
         getPolygon(): Polygon;
         getPolygons(result: Polygon[]): void;
-        splitByPlane(plane: any, coplanarfrontnodes: any, coplanarbacknodes: any, frontnodes: any, backnodes: any): void;
-        _splitByPlane(plane: any, coplanarfrontnodes: any, coplanarbacknodes: any, frontnodes: any, backnodes: any): void;
+        splitByPlane(
+            plane: any,
+            coplanarfrontnodes: any,
+            coplanarbacknodes: any,
+            frontnodes: any,
+            backnodes: any,
+        ): void;
+        _splitByPlane(
+            plane: any,
+            coplanarfrontnodes: any,
+            coplanarbacknodes: any,
+            frontnodes: any,
+            backnodes: any,
+        ): void;
         addChild(polygon: Polygon): PolygonTreeNode;
         invertSub(): void;
         recursivelyInvalidatePolygon(): void;
@@ -834,7 +839,12 @@ declare class CAG extends CxG implements ICenter {
     static fromPoints(points: CSG.Vector2D[]): CAG;
     static fromPointsNoCheck(points: CSG.Vector2D[]): CAG;
     static fromFakeCSG(csg: CSG): CAG;
-    static linesIntersect(p0start: CSG.Vector2D, p0end: CSG.Vector2D, p1start: CSG.Vector2D, p1end: CSG.Vector2D): boolean;
+    static linesIntersect(
+        p0start: CSG.Vector2D,
+        p0end: CSG.Vector2D,
+        p1start: CSG.Vector2D,
+        p1end: CSG.Vector2D,
+    ): boolean;
     static circle(options: CSG.ICircleOptions): CAG;
     static rectangle(options: CSG.IRectangleOptions): CAG;
     static roundedRectangle(options: any): CAG;
@@ -865,7 +875,7 @@ declare class CAG extends CxG implements ICenter {
     check(): void;
     canonicalized(): CAG;
     toCompactBinary(): {
-        'class': string;
+        "class": string;
         sideVertexIndices: Uint32Array;
         vertexData: Float64Array;
     };

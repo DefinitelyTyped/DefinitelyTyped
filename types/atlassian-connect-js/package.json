@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/atlassian-connect-js",
+    "version": "5.2.9999",
+    "projects": [
+        "https://bitbucket.org/atlassian/atlassian-connect-js#readme"
+    ],
+    "devDependencies": {
+        "@types/atlassian-connect-js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Josh Parnham",
+            "githubUsername": "josh-"
+        },
+        {
+            "name": "Tobias Theobald",
+            "githubUsername": "tobias-theobald"
+        }
+    ]
+}

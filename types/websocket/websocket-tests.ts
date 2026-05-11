@@ -1,6 +1,6 @@
-import websocket = require('websocket');
-import http = require('http');
-import os = require('os');
+import websocket = require("websocket");
+import http = require("http");
+import os = require("os");
 
 /*
 function serverTest() {
@@ -149,7 +149,7 @@ function serverTest2() {
 
     const wsServer = new websocket.server({
         httpServer: server,
-        autoAcceptConnections: true
+        autoAcceptConnections: true,
     });
 
     wsServer.on("connect", (conn) => {
@@ -166,10 +166,11 @@ function serverAcceptNullParameterTest() {
 
     const wsServer = new websocket.server({
         httpServer: server,
-        autoAcceptConnections: true
+        autoAcceptConnections: true,
     });
 
     wsServer.on("request", (request) => {
+        console.log("token parameter:", request.resourceURL.query.token);
         request.accept(null, request.origin);
     });
 }
@@ -178,23 +179,23 @@ function clientTest2() {
     const ipArray = getLocalIpArray();
 
     const client = new websocket.client();
-    client.on('connect', conn => {
+    client.on("connect", conn => {
         console.log(`on connect`);
-        conn.on('frame', frame => {
+        conn.on("frame", frame => {
             console.log(`on frame - ${frame.binaryPayload.toString()}`);
         });
-        conn.on('message', data => {
-            if (data.type === 'utf8') {
+        conn.on("message", data => {
+            if (data.type === "utf8") {
                 console.log(`on message - ${data.utf8Data}`);
-            } else if (data.type === 'binary') {
+            } else if (data.type === "binary") {
                 console.log(`on message - ${data.binaryData}`);
             }
         });
     });
-    client.on('connectFailed', err => {
+    client.on("connectFailed", err => {
         console.log(`on failed: ${err}`);
     });
-    client.on('httpResponse', resp => {
+    client.on("httpResponse", resp => {
         console.log(`got ${resp.statusCode} ${resp.statusMessage}, expected 101 Switching Protocols`);
     });
     client.connect(`ws://${ipArray[0]}:8888`, null, null, null, {
@@ -206,20 +207,20 @@ function clientTest3() {
     const ipArray = getLocalIpArray();
 
     const client = new websocket.w3cwebsocket(`${ipArray[0]}:8888`, null, null, {
-        foo: 'bar',
-        'set-cookie': ['foo=bar', 'bar=baz'],
+        foo: "bar",
+        "set-cookie": ["foo=bar", "bar=baz"],
     });
     client.onopen = () => {
-        console.log('opened');
+        console.log("opened");
     };
 
     client.onmessage = event => {
-        console.log('message');
+        console.log("message");
         console.log(event);
     };
 
     client.onclose = event => {
-        console.log('closed');
+        console.log("closed");
         console.log(event);
     };
 }
@@ -228,7 +229,7 @@ function testClientAbortApi() {
     const ipArray = getLocalIpArray();
     const client = new websocket.client();
     client.connect(`ws://${ipArray[0]}:8888`, undefined, undefined, undefined, {
-        localAddress: ipArray[0]
+        localAddress: ipArray[0],
     });
     client.abort();
 }

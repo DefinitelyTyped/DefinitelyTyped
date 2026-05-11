@@ -12,7 +12,7 @@ App({
 
 Page({
     data: {
-        title: 'Mini Program',
+        title: "Mini Program",
     },
     onLoad(query) {
         // Page loading
@@ -48,17 +48,17 @@ Page({
     // Custom event handler
     viewTap() {
         this.setData({
-            text: 'Set data for update.',
+            text: "Set data for update.",
         });
     },
     // Custom event handler
     go() {
         // Jump with parameters, read type from query of onLoad function in page/ui/index
-        my.navigateTo({ url: '/page/ui/index?type=mini' });
+        my.navigateTo({ url: "/page/ui/index?type=mini" });
     },
     // Custom data object
     customData: {
-        name: 'Mini Program',
+        name: "Mini Program",
     },
 });
 
@@ -71,8 +71,8 @@ my.showNavigationBarLoading();
 my.hideNavigationBarLoading();
 
 my.setNavigationBar({
-    title: '',
-    backgroundColor: '',
+    title: "",
+    backgroundColor: "",
     success() {},
     fail() {},
     complete() {},
@@ -83,11 +83,11 @@ my.hideTabBar({
 });
 
 my.switchTab({
-    url: 'url',
+    url: "url",
 });
 
 my.navigateTo({
-    url: 'url',
+    url: "url",
 });
 
 my.navigateBack({
@@ -95,31 +95,31 @@ my.navigateBack({
 });
 
 my.redirectTo({
-    url: '',
+    url: "",
 });
 
 my.reLaunch({
-    url: '',
+    url: "",
 });
 
 my.alert({
-    content: '',
+    content: "",
 });
 
 my.confirm({});
 
 my.prompt({
-    message: '',
+    message: "",
 });
 
 my.showLoading({
-    content: '',
+    content: "",
 });
 
 my.hideLoading();
 
 my.showToast({
-    content: '',
+    content: "",
 });
 
 my.hideToast();
@@ -132,7 +132,7 @@ my.choosePhoneContact({});
 const animate = my.createAnimation();
 animate
     .opacity(1)
-    .backgroundColor('')
+    .backgroundColor("")
     .width(1)
     .height(1)
     .top(1)
@@ -161,8 +161,8 @@ animate
     .matrix3d(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16)
     .step();
 
-const ctx = my.createCanvasContext('id');
-ctx.addColorStop(1, '');
+const ctx = my.createCanvasContext("id");
+ctx.addColorStop(1, "");
 ctx.arc(100, 75, 50, 0, 2 * Math.PI);
 ctx.beginPath();
 ctx.bezierCurveTo(1, 2, 3, 4, 5, 6);
@@ -172,10 +172,10 @@ ctx.closePath();
 ctx.createCircularGradient(1, 2, 3);
 ctx.createLinearGradient(1, 2, 3, 4);
 ctx.draw(true, () => {});
-ctx.drawImage('', 1, 2, 3, 4);
+ctx.drawImage("", 1, 2, 3, 4);
 ctx.fill();
 ctx.fillRect(1, 2, 3, 4);
-ctx.fillText('', 1, 2);
+ctx.fillText("", 1, 2);
 ctx.getImageData({
     x: 1,
     y: 1,
@@ -189,7 +189,7 @@ ctx.getImageData({
     },
 });
 ctx.lineTo(1, 2);
-ctx.measureText('');
+ctx.measureText("");
 ctx.moveTo(1, 2);
 ctx.putImageData({
     data: new Uint8ClampedArray([255, 0, 0, 1]),
@@ -205,18 +205,18 @@ ctx.rotate(1);
 ctx.rotate(1);
 ctx.save();
 ctx.scale(1, 2);
-ctx.setFillStyle('');
+ctx.setFillStyle("");
 ctx.setFontSize(1);
 ctx.setGlobalAlpha(1);
-ctx.setLineCap('');
+ctx.setLineCap("");
 ctx.setLineDash([1]);
-ctx.setLineJoin('');
+ctx.setLineJoin("");
 ctx.setLineWidth(1);
 ctx.setMiterLimit(1);
-ctx.setShadow(1, 1, 1, '');
-ctx.setStrokeStyle('');
-ctx.setTextAlign('');
-ctx.setTextBaseline('');
+ctx.setShadow(1, 1, 1, "");
+ctx.setStrokeStyle("");
+ctx.setTextAlign("");
+ctx.setTextBaseline("");
 ctx.setTransform(1, 2, 3, 4, 5, 6);
 ctx.stroke();
 ctx.strokeRect(1, 2, 3, 4);
@@ -246,13 +246,13 @@ my.pageScrollTo({
 });
 
 my.createSelectorQuery()
-    .select('#non-exists')
+    .select("#non-exists")
     .boundingClientRect()
-    .select('#one')
+    .select("#one")
     .boundingClientRect()
-    .selectAll('.all')
+    .selectAll(".all")
     .boundingClientRect()
-    .select('#scroll')
+    .select("#scroll")
     .scrollOffset()
     .selectViewport()
     .boundingClientRect()
@@ -266,13 +266,13 @@ my.createSelectorQuery()
 
 my.multiLevelSelect({
     list: [],
-    name: '',
+    name: "",
 });
 
 my.setBackgroundColor({
-    backgroundColor: '',
-    backgroundColorBottom: '',
-    backgroundColorTop: '',
+    backgroundColor: "",
+    backgroundColorBottom: "",
+    backgroundColorTop: "",
 });
 
 my.setCanPullDown({ canPullDown: true });
@@ -287,24 +287,24 @@ my.chooseImage({
 my.previewImage({
     current: 2,
     urls: [
-        'https://img.example.com/example1.jpg',
-        'https://img.example.com/example2.jpg',
-        'https://img.example.com/example3.jpg',
+        "https://img.example.com/example1.jpg",
+        "https://img.example.com/example2.jpg",
+        "https://img.example.com/example3.jpg",
     ],
 });
 
 my.saveImage({
-    url: 'https://img.example.com/example1.jpg',
+    url: "https://img.example.com/example1.jpg",
     showActionSheet: true,
     success: () => {
         my.alert({
-            title: 'Save success',
+            title: "Save success",
         });
     },
 });
 
 my.getImageInfo({
-    src: 'image/api.png',
+    src: "image/api.png",
     success: res => {
         res.height;
         res.orientation;
@@ -315,33 +315,33 @@ my.getImageInfo({
 });
 
 my.getStorage({
-    key: '',
+    key: "",
 });
 
-my.getStorageSync({ key: '' });
+my.getStorageSync({ key: "" });
 
-my.setStorage({ key: '', data: '' });
+my.setStorage({ key: "", data: "" });
 
-my.setStorageSync({ key: '', data: {} });
+my.setStorageSync({ key: "", data: {} });
 
-my.removeStorage({ key: '' });
+my.removeStorage({ key: "" });
 
-my.removeStorageSync({ key: '' });
+my.removeStorageSync({ key: "" });
 
 my.clearStorage();
 
 my.clearStorageSync();
 
 my.saveFile({
-    apFilePath: '',
+    apFilePath: "",
     success: res => {
         res.apFilePath;
     },
 });
 
 my.getFileInfo({
-    apFilePath: '',
-    digestAlgorithm: 'sha1',
+    apFilePath: "",
+    digestAlgorithm: "sha1",
     success: res => {
         res.digest;
         res.size;
@@ -349,7 +349,7 @@ my.getFileInfo({
 });
 
 my.getSavedFileInfo({
-    apFilePath: '',
+    apFilePath: "",
     success: resu => {
         resu.size;
         resu.createTime;
@@ -363,7 +363,7 @@ my.getSavedFileList({
 });
 
 my.removeSavedFile({
-    apFilePath: '',
+    apFilePath: "",
 });
 
 my.getLocation({
@@ -373,22 +373,22 @@ my.getLocation({
     },
 });
 
-my.request({ url: '' });
+my.request({ url: "" });
 
 my.uploadFile({
-    url: 'Please use your own server address',
-    fileType: 'image',
-    fileName: 'file',
-    filePath: '...',
+    url: "Please use your own server address",
+    fileType: "image",
+    fileName: "file",
+    filePath: "...",
     success: res => {
         my.alert({
-            content: 'Upload success',
+            content: "Upload success",
         });
     },
 });
 
 my.downloadFile({
-    url: ' ',
+    url: " ",
     success({ apFilePath }) {
         my.previewImage({
             urls: [apFilePath],
@@ -396,7 +396,7 @@ my.downloadFile({
     },
 });
 
-my.canIUse('getFileInfo');
+my.canIUse("getFileInfo");
 
 my.SDKVersion;
 
@@ -455,12 +455,12 @@ my.getClipboard({
 });
 
 my.setClipboard({
-    text: '',
+    text: "",
 });
 
 my.vibrate({});
 
-my.makePhoneCall({ number: '00000' });
+my.makePhoneCall({ number: "00000" });
 
 my.getServerTime({
     success(res) {
@@ -487,54 +487,54 @@ my.setKeepScreenOn({
 });
 
 my.addPhoneContact({
-    photoFilePath: '/sdcard/DCIM/Camera/a.jpg',
-    nickName: 'Baking July',
-    lastName: 'Last',
-    middleName: 'Middle',
-    firstName: 'First',
-    remark: 'This is remarks',
-    mobilePhoneNumber: '13800000000',
-    homePhoneNumber: '11111115',
-    workPhoneNumber: '11111112',
-    homeFaxNumber: '11111114',
-    workFaxNumber: '11111111',
-    hostNumber: '11111113',
-    addressCountry: 'address country',
-    addressState: 'address state',
-    addressCity: 'address city',
-    addressStreet: 'address street',
-    addressPostalCode: '94016',
-    workAddressCountry: 'work country',
-    workAddressState: 'work state',
-    workAddressCity: 'work city',
-    workAddressStreet: 'work street',
-    workAddressPostalCode: '111111',
-    homeAddressCountry: 'home country',
-    homeAddressState: 'home state',
-    homeAddressCity: 'home city',
-    homeAddressStreet: 'home street',
-    homeAddressPostalCode: '123456',
-    organization: 'organization',
-    title: 'Developer',
-    email: 'liuhuo01@miniprogram.com',
-    url: 'www.miniprogram.com',
+    photoFilePath: "/sdcard/DCIM/Camera/a.jpg",
+    nickName: "Baking July",
+    lastName: "Last",
+    middleName: "Middle",
+    firstName: "First",
+    remark: "This is remarks",
+    mobilePhoneNumber: "13800000000",
+    homePhoneNumber: "11111115",
+    workPhoneNumber: "11111112",
+    homeFaxNumber: "11111114",
+    workFaxNumber: "11111111",
+    hostNumber: "11111113",
+    addressCountry: "address country",
+    addressState: "address state",
+    addressCity: "address city",
+    addressStreet: "address street",
+    addressPostalCode: "94016",
+    workAddressCountry: "work country",
+    workAddressState: "work state",
+    workAddressCity: "work city",
+    workAddressStreet: "work street",
+    workAddressPostalCode: "111111",
+    homeAddressCountry: "home country",
+    homeAddressState: "home state",
+    homeAddressCity: "home city",
+    homeAddressStreet: "home street",
+    homeAddressPostalCode: "123456",
+    organization: "organization",
+    title: "Developer",
+    email: "liuhuo01@miniprogram.com",
+    url: "www.miniprogram.com",
     success: res => {
         res.success;
     },
 });
 
 my.showAuthGuide({
-    authType: 'LBS',
+    authType: "LBS",
     success: res => {
         res.shown;
     },
 });
 
 my.scan({
-    type: 'qr',
+    type: "qr",
 });
 
-const webViewContext = my.createWebViewContext('web-view-1');
+const webViewContext = my.createWebViewContext("web-view-1");
 webViewContext.postMessage({});
 
 my.getSiteInfo({
@@ -544,20 +544,20 @@ my.getSiteInfo({
 });
 
 my.navigateToMiniProgram({
-    appId: 'xxxx',
+    appId: "xxxx",
     extraData: {
-        data1: 'test',
+        data1: "test",
     },
 });
 
 my.navigateBackMiniProgram({
     extraData: {
-        data1: 'test',
+        data1: "test",
     },
 });
 
 my.getAuthCode({
-    scopes: ['USER_ID', 'USER_NICKNAME', 'USER_AVATAR'],
+    scopes: ["USER_ID", "USER_NICKNAME", "USER_AVATAR"],
     success: res => {
         my.alert({
             content: res.authCode,
@@ -572,7 +572,7 @@ my.getOpenUserInfo({
 });
 
 my.tradePay({
-    tradeNO: '201711152100110410533667792', // get the tradeNo from the server first
+    tradeNO: "201711152100110410533667792", // get the tradeNo from the server first
     success: res => {
         res.resultCode;
         my.alert({
@@ -587,7 +587,7 @@ my.tradePay({
 });
 
 my.signContract({
-    signStr: 'https://openauth.xxx.com/authentication.htm?authId=FBF16F91-28FB-47EC-B9BE-27B285C23CD3',
+    signStr: "https://openauth.xxx.com/authentication.htm?authId=FBF16F91-28FB-47EC-B9BE-27B285C23CD3",
     success: res => {
         my.alert({
             content: JSON.stringify(res),
@@ -609,5 +609,5 @@ my.offMemoryWarning(arg => arg.level);
 my.hideBackHome();
 
 my.showActionSheet({
-    items: ['item 1', 'item 2'],
+    items: ["item 1", "item 2"],
 });

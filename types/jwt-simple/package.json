@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/jwt-simple",
+    "version": "0.5.9999",
+    "projects": [
+        "https://github.com/hokaccha/node-jwt-simple"
+    ],
+    "devDependencies": {
+        "@types/jwt-simple": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ken Fukuyama",
+            "githubUsername": "kenfdev"
+        },
+        {
+            "name": "Gael Magnan",
+            "githubUsername": "GaelMagnan"
+        }
+    ]
+}

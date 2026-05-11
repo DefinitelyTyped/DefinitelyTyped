@@ -14,31 +14,31 @@
     limitations under the License.
 */
 
-import * as React from 'react';
-import { View, TouchableOpacity, Text, ScrollView, TextInput } from 'react-native';
+import * as React from "react";
+import { ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
 
-import { HmsLocalNotification } from '@hmscore/react-native-hms-push';
+import { HmsLocalNotification } from "@hmscore/react-native-hms-push";
 
 const defaultNotification = {
-    [HmsLocalNotification.Attr.title]: 'Notification Title',
-    [HmsLocalNotification.Attr.message]: 'Notification Message', // (required)
-    [HmsLocalNotification.Attr.ticker]: 'Optional Ticker',
+    [HmsLocalNotification.Attr.title]: "Notification Title",
+    [HmsLocalNotification.Attr.message]: "Notification Message", // (required)
+    [HmsLocalNotification.Attr.ticker]: "Optional Ticker",
     [HmsLocalNotification.Attr.showWhen]: true,
     // [HmsLocalNotification.Attr.largeIconUrl]: 'https://developer.huawei.com/Enexport/sites/default/images/en/Develop/hms/push/push2-tuidedao.png', //
-    [HmsLocalNotification.Attr.largeIcon]: 'ic_launcher',
-    [HmsLocalNotification.Attr.smallIcon]: 'ic_notification',
-    [HmsLocalNotification.Attr.bigText]: 'This is a bigText',
-    [HmsLocalNotification.Attr.subText]: 'This is a subText',
-    [HmsLocalNotification.Attr.color]: 'white',
+    [HmsLocalNotification.Attr.largeIcon]: "ic_launcher",
+    [HmsLocalNotification.Attr.smallIcon]: "ic_notification",
+    [HmsLocalNotification.Attr.bigText]: "This is a bigText",
+    [HmsLocalNotification.Attr.subText]: "This is a subText",
+    [HmsLocalNotification.Attr.color]: "white",
     [HmsLocalNotification.Attr.vibrate]: false,
     [HmsLocalNotification.Attr.vibrateDuration]: 1000,
-    [HmsLocalNotification.Attr.tag]: 'hms_tag',
+    [HmsLocalNotification.Attr.tag]: "hms_tag",
     [HmsLocalNotification.Attr.groupSummary]: false,
     [HmsLocalNotification.Attr.ongoing]: false,
     [HmsLocalNotification.Attr.importance]: HmsLocalNotification.Importance.max,
     [HmsLocalNotification.Attr.dontNotifyInForeground]: false,
     [HmsLocalNotification.Attr.autoCancel]: false, // for Custom Actions, it should be false
-    [HmsLocalNotification.Attr.actions]: '["Yes", "No"]',
+    [HmsLocalNotification.Attr.actions]: "[\"Yes\", \"No\"]",
     [HmsLocalNotification.Attr.invokeApp]: false,
     // [HmsLocalNotification.Attr.channelId]: 'huawei-hms-rn-push-channel-id', // Please read the documentation before using this param
 };
@@ -57,10 +57,10 @@ export default class App extends React.Component<{}, State> {
         super(props);
 
         this.state = {
-            title: 'HMS Push',
-            message: 'This is Local Notification',
-            bigText: 'This is a bigText',
-            subText: 'This is a subText',
+            title: "HMS Push",
+            message: "This is Local Notification",
+            bigText: "This is a bigText",
+            subText: "This is a subText",
             tag: undefined,
         };
     }
@@ -83,10 +83,10 @@ export default class App extends React.Component<{}, State> {
             [HmsLocalNotification.Attr.allowWhileIdle]: true,
         })
             .then(result => {
-                console.log('LocalNotification Scheduled', result);
+                console.log("LocalNotification Scheduled", result);
             })
             .catch(err => {
-                console.log('[LocalNotification Scheduled] Error/Exception: ' + JSON.stringify(err));
+                console.log("[LocalNotification Scheduled] Error/Exception: " + JSON.stringify(err));
             });
     }
 
@@ -100,10 +100,10 @@ export default class App extends React.Component<{}, State> {
             [HmsLocalNotification.Attr.tag]: this.state.tag,
         })
             .then(result => {
-                console.log('LocalNotification Default', result);
+                console.log("LocalNotification Default", result);
             })
             .catch(err => {
-                console.log('[LocalNotification Default] Error/Exception: ' + JSON.stringify(err));
+                console.log("[LocalNotification Default] Error/Exception: " + JSON.stringify(err));
             });
     }
 
@@ -119,10 +119,10 @@ export default class App extends React.Component<{}, State> {
             [HmsLocalNotification.Attr.vibrateDuration]: 5000,
         })
             .then(result => {
-                console.log('LocalNotification Vibrate', result);
+                console.log("LocalNotification Vibrate", result);
             })
             .catch(err => {
-                console.log('[LocalNotification Vibrate] Error/Exception: ' + JSON.stringify(err));
+                console.log("[LocalNotification Vibrate] Error/Exception: " + JSON.stringify(err));
             });
     }
 
@@ -137,10 +137,10 @@ export default class App extends React.Component<{}, State> {
             [HmsLocalNotification.Attr.repeatType]: HmsLocalNotification.RepeatType.minute,
         })
             .then(result => {
-                console.log('LocalNotification Repeat', result);
+                console.log("LocalNotification Repeat", result);
             })
             .catch(err => {
-                console.log('[LocalNotification Repeat] Error/Exception: ' + JSON.stringify(err));
+                console.log("[LocalNotification Repeat] Error/Exception: " + JSON.stringify(err));
             });
     }
     localNotificationSound() {
@@ -152,13 +152,13 @@ export default class App extends React.Component<{}, State> {
             [HmsLocalNotification.Attr.subText]: this.state.subText,
             [HmsLocalNotification.Attr.tag]: this.state.tag,
             [HmsLocalNotification.Attr.playSound]: true,
-            [HmsLocalNotification.Attr.soundName]: 'huawei_bounce.mp3',
+            [HmsLocalNotification.Attr.soundName]: "huawei_bounce.mp3",
         })
             .then(result => {
-                console.log('LocalNotification Sound', result);
+                console.log("LocalNotification Sound", result);
             })
             .catch(err => {
-                console.log('[LocalNotification Sound] Error/Exception: ' + JSON.stringify(err));
+                console.log("[LocalNotification Sound] Error/Exception: " + JSON.stringify(err));
             });
     }
     localNotificationPriority() {
@@ -172,10 +172,10 @@ export default class App extends React.Component<{}, State> {
             [HmsLocalNotification.Attr.priority]: HmsLocalNotification.Priority.max,
         })
             .then(result => {
-                console.log('LocalNotification Priority', result);
+                console.log("LocalNotification Priority", result);
             })
             .catch(err => {
-                console.log('[LocalNotification Priority] Error/Exception: ' + JSON.stringify(err));
+                console.log("[LocalNotification Priority] Error/Exception: " + JSON.stringify(err));
             });
     }
 
@@ -190,10 +190,10 @@ export default class App extends React.Component<{}, State> {
             [HmsLocalNotification.Attr.ongoing]: true,
         })
             .then(result => {
-                console.log('LocalNotification Ongoing', result);
+                console.log("LocalNotification Ongoing", result);
             })
             .catch(err => {
-                console.log('[LocalNotification Ongoing] Error/Exception: ' + JSON.stringify(err));
+                console.log("[LocalNotification Ongoing] Error/Exception: " + JSON.stringify(err));
             });
     }
     localNotificationBigImage() {
@@ -205,13 +205,13 @@ export default class App extends React.Component<{}, State> {
             [HmsLocalNotification.Attr.subText]: this.state.subText,
             [HmsLocalNotification.Attr.tag]: this.state.tag,
             [HmsLocalNotification.Attr.bigPictureUrl]:
-                'https://www-file.huawei.com/-/media/corp/home/image/logo_400x200.png',
+                "https://www-file.huawei.com/-/media/corp/home/image/logo_400x200.png",
         })
             .then(result => {
-                console.log('LocalNotification BigImage', result);
+                console.log("LocalNotification BigImage", result);
             })
             .catch(err => {
-                console.log('[LocalNotification BigImage] Error/Exception: ' + JSON.stringify(err));
+                console.log("[LocalNotification BigImage] Error/Exception: " + JSON.stringify(err));
             });
     }
 
@@ -223,12 +223,12 @@ export default class App extends React.Component<{}, State> {
                     <TextInput
                         value={this.state.title}
                         placeholder="title"
-                        onChangeText={e => this.changeNotificationValue('title', e)}
+                        onChangeText={e => this.changeNotificationValue("title", e)}
                     />
                     <TextInput
                         value={this.state.tag}
                         placeholder="tag"
-                        onChangeText={e => this.changeNotificationValue('tag', e)}
+                        onChangeText={e => this.changeNotificationValue("tag", e)}
                     />
                 </View>
                 <View>
@@ -236,7 +236,7 @@ export default class App extends React.Component<{}, State> {
                     <TextInput
                         value={this.state.message}
                         placeholder="message"
-                        onChangeText={e => this.changeNotificationValue('message', e)}
+                        onChangeText={e => this.changeNotificationValue("message", e)}
                     />
                 </View>
                 <View>
@@ -244,7 +244,7 @@ export default class App extends React.Component<{}, State> {
                     <TextInput
                         value={this.state.bigText}
                         placeholder="bigText"
-                        onChangeText={e => this.changeNotificationValue('bigText', e)}
+                        onChangeText={e => this.changeNotificationValue("bigText", e)}
                     />
                 </View>
                 <View>
@@ -252,7 +252,7 @@ export default class App extends React.Component<{}, State> {
                     <TextInput
                         value={this.state.subText}
                         placeholder="subText"
-                        onChangeText={e => this.changeNotificationValue('subText', e)}
+                        onChangeText={e => this.changeNotificationValue("subText", e)}
                     />
                 </View>
 
@@ -291,10 +291,10 @@ export default class App extends React.Component<{}, State> {
                         onPress={() => {
                             HmsLocalNotification.cancelAllNotifications()
                                 .then(result => {
-                                    console.log('cancelAllNotifications', result);
+                                    console.log("cancelAllNotifications", result);
                                 })
                                 .catch(err => {
-                                    console.log('[cancelAllNotifications] Error/Exception: ' + JSON.stringify(err));
+                                    console.log("[cancelAllNotifications] Error/Exception: " + JSON.stringify(err));
                                 });
                         }}
                     >
@@ -304,10 +304,10 @@ export default class App extends React.Component<{}, State> {
                         onPress={() => {
                             HmsLocalNotification.getNotifications()
                                 .then(result => {
-                                    console.log('getNotifications', result);
+                                    console.log("getNotifications", result);
                                 })
                                 .catch(err => {
-                                    console.log('[getNotifications] Error/Exception: ' + JSON.stringify(err));
+                                    console.log("[getNotifications] Error/Exception: " + JSON.stringify(err));
                                 });
                         }}
                     >
@@ -319,11 +319,11 @@ export default class App extends React.Component<{}, State> {
                         onPress={() => {
                             HmsLocalNotification.cancelScheduledNotifications()
                                 .then(result => {
-                                    console.log('cancelScheduledNotifications', result);
+                                    console.log("cancelScheduledNotifications", result);
                                 })
                                 .catch(err => {
                                     console.log(
-                                        '[cancelScheduledNotifications] Error/Exception: ' + JSON.stringify(err),
+                                        "[cancelScheduledNotifications] Error/Exception: " + JSON.stringify(err),
                                     );
                                 });
                         }}
@@ -334,10 +334,10 @@ export default class App extends React.Component<{}, State> {
                         onPress={() => {
                             HmsLocalNotification.getScheduledNotifications()
                                 .then(result => {
-                                    console.log('getScheduledNotifications', result);
+                                    console.log("getScheduledNotifications", result);
                                 })
                                 .catch(err => {
-                                    console.log('[getScheduledNotifications] Error/Exception: ' + JSON.stringify(err));
+                                    console.log("[getScheduledNotifications] Error/Exception: " + JSON.stringify(err));
                                 });
                         }}
                     >
@@ -347,12 +347,12 @@ export default class App extends React.Component<{}, State> {
                 <View>
                     <TouchableOpacity
                         onPress={() => {
-                            HmsLocalNotification.cancelNotificationsWithTag('tag')
+                            HmsLocalNotification.cancelNotificationsWithTag("tag")
                                 .then(result => {
-                                    console.log('cancelNotificationsWithTag', result);
+                                    console.log("cancelNotificationsWithTag", result);
                                 })
                                 .catch(err => {
-                                    console.log('[cancelNotificationsWithTag] Error/Exception: ' + JSON.stringify(err));
+                                    console.log("[cancelNotificationsWithTag] Error/Exception: " + JSON.stringify(err));
                                 });
                         }}
                     >
@@ -362,10 +362,10 @@ export default class App extends React.Component<{}, State> {
                         onPress={() => {
                             HmsLocalNotification.getChannels()
                                 .then(result => {
-                                    console.log('getChannels', result);
+                                    console.log("getChannels", result);
                                 })
                                 .catch(err => {
-                                    console.log('[getChannels] Error/Exception: ' + JSON.stringify(err));
+                                    console.log("[getChannels] Error/Exception: " + JSON.stringify(err));
                                 });
                         }}
                     >
@@ -377,10 +377,10 @@ export default class App extends React.Component<{}, State> {
                         onPress={() => {
                             HmsLocalNotification.cancelNotifications()
                                 .then(result => {
-                                    console.log('cancelNotifications', result);
+                                    console.log("cancelNotifications", result);
                                 })
                                 .catch(err => {
-                                    console.log('[cancelNotifications] Error/Exception: ' + JSON.stringify(err));
+                                    console.log("[cancelNotifications] Error/Exception: " + JSON.stringify(err));
                                 });
                         }}
                     >
@@ -388,12 +388,12 @@ export default class App extends React.Component<{}, State> {
                     </TouchableOpacity>
                     <TouchableOpacity
                         onPress={() => {
-                            HmsLocalNotification.deleteChannel('hms-channel-custom')
+                            HmsLocalNotification.deleteChannel("hms-channel-custom")
                                 .then(result => {
-                                    console.log('deleteChannel', result);
+                                    console.log("deleteChannel", result);
                                 })
                                 .catch(err => {
-                                    console.log('[deleteChannel] Error/Exception: ' + JSON.stringify(err));
+                                    console.log("[deleteChannel] Error/Exception: " + JSON.stringify(err));
                                 });
                         }}
                     >
@@ -403,12 +403,12 @@ export default class App extends React.Component<{}, State> {
                 <View>
                     <TouchableOpacity
                         onPress={() => {
-                            HmsLocalNotification.channelBlocked('huawei-hms-rn-push-channel-id')
+                            HmsLocalNotification.channelBlocked("huawei-hms-rn-push-channel-id")
                                 .then(result => {
-                                    console.log('channelBlocked', result);
+                                    console.log("channelBlocked", result);
                                 })
                                 .catch(err => {
-                                    console.log('[channelBlocked] Error/Exception: ' + JSON.stringify(err));
+                                    console.log("[channelBlocked] Error/Exception: " + JSON.stringify(err));
                                 });
                         }}
                     >
@@ -416,12 +416,12 @@ export default class App extends React.Component<{}, State> {
                     </TouchableOpacity>
                     <TouchableOpacity
                         onPress={() => {
-                            HmsLocalNotification.channelExists('huawei-hms-rn-push-channel-id')
+                            HmsLocalNotification.channelExists("huawei-hms-rn-push-channel-id")
                                 .then(result => {
-                                    console.log('channelExists', result);
+                                    console.log("channelExists", result);
                                 })
                                 .catch(err => {
-                                    console.log('[channelExists] Error/Exception: ' + JSON.stringify(err));
+                                    console.log("[channelExists] Error/Exception: " + JSON.stringify(err));
                                 });
                         }}
                     >

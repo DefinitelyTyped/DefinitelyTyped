@@ -1,11 +1,5 @@
-// Type definitions for redux-first-router-restore-scroll 1.2
-// Project: https://github.com/faceyspacey/redux-first-router-restore-scroll#readme
-// Definitions by: icopp <https://github.com/icopp>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import { History, Location } from 'history';
-import { LocationState } from 'redux-first-router';
+import { History, Location } from "history";
+import { LocationState } from "redux-first-router";
 
 /**
  * This package provides complete scroll restoration for redux-first-router
@@ -22,7 +16,7 @@ export default function restoreScroll(options?: {
     /** @default false */
     manual?: boolean | undefined;
     /** Use to implement custom scroll positioning. */
-    shouldUpdateScroll?(prev: LocationState, locationState: LocationState): boolean | 'profile-box' | [number, number];
+    shouldUpdateScroll?(prev: LocationState, locationState: LocationState): boolean | "profile-box" | [number, number];
     /**
      * To implement a custom backend storage for scroll state, pass a custom
      * stateStorage object. The object should implement the methods as described

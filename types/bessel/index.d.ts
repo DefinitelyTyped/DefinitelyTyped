@@ -1,8 +1,3 @@
-// Type definitions for bessel 1.0
-// Project: https://oss.sheetjs.com/bessel/
-// Definitions by: LeoDog896 <https://github.com/LeoDog896>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace BESSEL;
 
 export const version: string;

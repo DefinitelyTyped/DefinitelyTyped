@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/koa-csrf",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/koajs/csrf"
+    ],
+    "dependencies": {
+        "@types/koa": "*"
+    },
+    "devDependencies": {
+        "@types/koa-csrf": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Haskaalo",
+            "githubUsername": "haskaalo"
+        },
+        {
+            "name": "Kirill Shvets",
+            "githubUsername": "kirillshvets"
+        }
+    ]
+}

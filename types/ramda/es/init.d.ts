@@ -1,2 +1,2 @@
-import { init } from '../index';
+import { init } from "../index.js";
 export default init;

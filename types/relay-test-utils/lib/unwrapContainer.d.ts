@@ -1,5 +1,5 @@
-import { ComponentType } from 'react';
-import { RelayProp, RelayPaginationProp, RelayRefetchProp } from 'react-relay';
+import { ComponentType } from "react";
+import { RelayPaginationProp, RelayProp, RelayRefetchProp } from "react-relay";
 
 /**
  * Returns original component class wrapped by e.g. createFragmentContainer

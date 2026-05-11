@@ -1,6 +1,7 @@
-import { PureComponent, Validator, Requireable } from 'react';
-import { GridProps } from './Grid';
-import { CellPosition } from './CellMeasurer';
+import type * as PropTypes from "prop-types";
+import { PureComponent } from "react";
+import { CellPosition } from "./CellMeasurer";
+import { GridProps } from "./Grid";
 
 export type MultiGridProps = {
     classNameBottomLeftGrid?: string | undefined;
@@ -32,26 +33,26 @@ export type MultiGridState = {
  */
 export class MultiGrid extends PureComponent<MultiGridProps, MultiGridState> {
     static propTypes: {
-        classNameBottomLeftGrid: Validator<string>;
-        classNameBottomRightGrid: Validator<string>;
-        classNameTopLeftGrid: Validator<string>;
-        classNameTopRightGrid: Validator<string>;
-        enableFixedColumnScroll: Validator<boolean>;
-        enableFixedRowScroll: Validator<boolean>;
-        fixedColumnCount: Validator<number>;
-        fixedRowCount: Validator<number>;
-        style: Validator<React.CSSProperties>;
-        styleBottomLeftGrid: Validator<React.CSSProperties>;
-        styleBottomRightGrid: Validator<React.CSSProperties>;
-        styleTopLeftGrid: Validator<React.CSSProperties>;
-        styleTopRightGrid: Validator<React.CSSProperties>;
+        classNameBottomLeftGrid: PropTypes.Validator<string>;
+        classNameBottomRightGrid: PropTypes.Validator<string>;
+        classNameTopLeftGrid: PropTypes.Validator<string>;
+        classNameTopRightGrid: PropTypes.Validator<string>;
+        enableFixedColumnScroll: PropTypes.Validator<boolean>;
+        enableFixedRowScroll: PropTypes.Validator<boolean>;
+        fixedColumnCount: PropTypes.Validator<number>;
+        fixedRowCount: PropTypes.Validator<number>;
+        style: PropTypes.Validator<React.CSSProperties>;
+        styleBottomLeftGrid: PropTypes.Validator<React.CSSProperties>;
+        styleBottomRightGrid: PropTypes.Validator<React.CSSProperties>;
+        styleTopLeftGrid: PropTypes.Validator<React.CSSProperties>;
+        styleTopRightGrid: PropTypes.Validator<React.CSSProperties>;
     };
 
     static defaultProps: {
-        classNameBottomLeftGrid: '';
-        classNameBottomRightGrid: '';
-        classNameTopLeftGrid: '';
-        classNameTopRightGrid: '';
+        classNameBottomLeftGrid: "";
+        classNameBottomRightGrid: "";
+        classNameTopLeftGrid: "";
+        classNameTopRightGrid: "";
         enableFixedColumnScroll: false;
         enableFixedRowScroll: false;
         fixedColumnCount: 0;

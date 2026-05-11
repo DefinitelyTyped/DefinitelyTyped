@@ -6,11 +6,11 @@ myTimer.start();
 myTimer.stop();
 myTimer.time();
 
-Timer.get('my').start();
-Timer.get('my').time();
-Timer.destroy('my');
+Timer.get("my").start();
+Timer.get("my").time();
+Timer.destroy("my");
 
-myTimer = Timer.get('my');
+myTimer = Timer.get("my");
 
 const timer1 = new Timer();
 timer1.start();
@@ -44,11 +44,11 @@ timer.isStopped();
 timer.start();
 timer.isStopped();
 
-timer.on('start', () => {
+timer.on("start", () => {
 });
 
-timer.on('stop',  () => {
+timer.on("stop", () => {
 });
 
-timer.on('time',  () => {
+timer.on("time", () => {
 });

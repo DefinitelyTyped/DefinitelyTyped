@@ -1,8 +1,3 @@
-// Type definitions for node-wit 6.0
-// Project: https://github.com/wit-ai/node-wit#readme
-// Definitions by: Julien Dufresne <https://github.com/julienduf>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export namespace log {
     class Logger {
         constructor(level: string);
@@ -48,6 +43,7 @@ export interface WitOption {
     accessToken: string;
     actions?: any;
     logger?: log.Logger | undefined;
+    apiVersion?: number | undefined;
 }
 
 export interface MessageResponseEntity {
@@ -66,7 +62,7 @@ export interface MessageResponse {
     text: string;
     intents: WitIntent[];
     entities: any;
-    traits: any;
+    traits: { [key: string]: MessageResponseEntity[] };
 }
 
 export class Wit {

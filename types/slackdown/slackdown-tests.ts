@@ -1,3 +1,3 @@
-import * as slackdown from 'slackdown';
+import * as slackdown from "slackdown";
 
-slackdown.parse('xxx <http://xxxxx.jp|xxxxx.jp>');
+slackdown.parse("xxx <http://xxxxx.jp|xxxxx.jp>");

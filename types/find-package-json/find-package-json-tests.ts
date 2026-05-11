@@ -1,6 +1,6 @@
-'use strict';
+"use strict";
 
-import find = require('find-package-json');
+import find = require("find-package-json");
 
 const f = find();
 find(__dirname); // $ExpectType FinderIterator

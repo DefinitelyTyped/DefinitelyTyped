@@ -37,5 +37,5 @@ declare const HorizontalScroller: {
     /**
      * 水平滚动组件。
      */
-    new (): HorizontalScroller;
+    new(): HorizontalScroller;
 };

@@ -13,17 +13,17 @@ var template = dust.compileFn("template", "template name");
 dust.register("template name", template);
 dust.loadSource("template source");
 
-// context 
+// context
 var context = dust.makeBase({ anyProperty: "anyvalue" });
 context = dust.makeBase(context);
 
 // render and renderSource overloads
-dust.render("template name", { anyProperty: "anyvalue" }, (err, out) => { });
-dust.render("template name", context, (err, out) => { });
+dust.render("template name", { anyProperty: "anyvalue" }, (err, out) => {});
+dust.render("template name", context, (err, out) => {});
 
 dust.renderSource("template source", { anyProperty: "anyvalue" });
-dust.renderSource("template source", { anyProperty: "anyvalue" }, (err, out) => { });
-dust.renderSource("template source", context, (err, out) => { });
+dust.renderSource("template source", { anyProperty: "anyvalue" }, (err, out) => {});
+dust.renderSource("template source", context, (err, out) => {});
 dust.renderSource("template source", context);
 
 // stream
@@ -36,4 +36,3 @@ filter("value");
 
 dust.escapeHtml("<html/>");
 dust.escapeJs("['a', 124]");
-

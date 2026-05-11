@@ -1,6 +1,4 @@
-export type exports = number;
-declare const NONE: number;
-declare const COOKIE: number;
-declare const LOCALSTORAGE: number;
-declare const DBSTORAGE: number;
-export {};
+export const NONE = 0;
+export const COOKIE = 1;
+export const LOCALSTORAGE = 2;
+export const DBSTORAGE = 3;

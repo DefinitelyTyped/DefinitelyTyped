@@ -1,7 +1,7 @@
 declare namespace AMap {
     namespace TileLayer {
         interface EventMap {
-            complete: Event<'complete'>;
+            complete: Event<"complete">;
         }
 
         interface Options extends Layer.Options {
@@ -41,11 +41,11 @@ declare namespace AMap {
         /**
          * 卫星图层
          */
-        class Satellite extends TileLayer { }
+        class Satellite extends TileLayer {}
         /**
          * 路网图层
          */
-        class RoadNet extends TileLayer { }
+        class RoadNet extends TileLayer {}
 
         namespace Traffic {
             interface Options extends TileLayer.Options {

@@ -1,5 +1,5 @@
-import express = require('express');
-import hpp = require('hpp');
+import express = require("express");
+import hpp = require("hpp");
 
 const app = express();
 
@@ -7,11 +7,11 @@ app.use(hpp());
 
 app.use(hpp({
     checkBody: true,
-    checkBodyOnlyForContentType: 'urlencoded',
+    checkBodyOnlyForContentType: "urlencoded",
     checkQuery: true,
-    whitelist: ['foo', 'bar']
+    whitelist: ["foo", "bar"],
 }));
 
 app.use(hpp({
-    whitelist: 'foobar'
+    whitelist: "foobar",
 }));

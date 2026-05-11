@@ -1,4 +1,4 @@
-import pull = require('..');
+import pull = require("..");
 
 /**
  * Output the stream to `console.log`.

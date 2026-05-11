@@ -28,11 +28,11 @@ class TestController implements TestScope {
         const lsKeys = this.localStorageService.keys();
 
         // bind
-        this.localStorageService.set('property', 'oldValue');
-        this.unbind = this.localStorageService.bind(this.$scope, 'property');
+        this.localStorageService.set("property", "oldValue");
+        this.unbind = this.localStorageService.bind(this.$scope, "property");
 
         // deriveKey
-        console.log(this.localStorageService.deriveKey('property')); // ls.property
+        console.log(this.localStorageService.deriveKey("property")); // ls.property
 
         // length
         const lsLength: number = this.localStorageService.length();
@@ -58,19 +58,19 @@ class TestController implements TestScope {
         return this.localStorageService.clearAll();
     }
     update(val: string) {
-        this.localStorageService.set('property', val);
+        this.localStorageService.set("property", val);
     }
 }
 
-TestController.$inject = ['localStorageService', '$scope'];
+TestController.$inject = ["localStorageService", "$scope"];
 
-const app = angular.module('angular-local-storage-tests', ['LocalStorageModule']);
+const app = angular.module("angular-local-storage-tests", ["LocalStorageModule"]);
 app.config((localStorageServiceProvider: ng.local.storage.ILocalStorageServiceProvider) => {
     localStorageServiceProvider
-        .setPrefix('myApp')
-        .setStorageType('sessionStorage')
+        .setPrefix("myApp")
+        .setStorageType("sessionStorage")
         .setDefaultToCookie(false)
         .setNotify(true, true);
 });
 
-app.controller('TestController', TestController);
+app.controller("TestController", TestController);

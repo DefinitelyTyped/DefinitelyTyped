@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/confusing-browser-globals",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/facebook/create-react-app/tree/master/packages/confusing-browser-globals#readme"
+    ],
+    "devDependencies": {
+        "@types/confusing-browser-globals": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

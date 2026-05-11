@@ -6,10 +6,10 @@
         "strictFunctionTypes": true,
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-        "module": "commonjs",
-        "lib": ["es5"],
-        "baseUrl": "../",
-        "typeRoots": ["../"],
+        "module": "node16",
+        "lib": [
+            "es5"
+        ],
         "types": []
     },
     "files": [

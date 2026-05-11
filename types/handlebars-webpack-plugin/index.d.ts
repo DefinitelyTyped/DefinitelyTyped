@@ -1,15 +1,8 @@
-// Type definitions for handlebars-webpack-plugin 2.2
-// Project: https://github.com/sagold/handlebars-webpack-plugin
-// Definitions by: odas0R <https://github.com/Odas0R>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-// Minimum TypeScript Version: 3.7
+import { HelperDeclareSpec } from "handlebars";
+import { Options } from "html-webpack-plugin";
+import { Compiler, WebpackPluginInstance } from "webpack";
 
-import { Compiler, WebpackPluginInstance } from 'webpack';
-import { HelperDeclareSpec } from 'handlebars';
-import { Options } from 'html-webpack-plugin';
-
-import HtmlWebpackPlugin = require('html-webpack-plugin');
+import HtmlWebpackPlugin = require("html-webpack-plugin");
 
 declare class HandlebarsWebpackPlugin implements WebpackPluginInstance {
     constructor(options?: HandlebarsWebpackPlugin.PluginOptions);
@@ -68,7 +61,9 @@ declare namespace HandlebarsWebpackPlugin {
         /**
          * Modify the default output path of each entry-template
          */
-        getTargetFilepath?: ((filepath: string, outputTemplate: string, rootFolder: string) => string | undefined) | undefined;
+        getTargetFilepath?:
+            | ((filepath: string, outputTemplate: string, rootFolder: string) => string | undefined)
+            | undefined;
 
         /**
          * Modify the hbs partial-id created for a loaded partial

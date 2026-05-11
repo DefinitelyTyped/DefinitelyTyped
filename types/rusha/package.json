@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/rusha",
+    "version": "0.8.9999",
+    "projects": [
+        "https://github.com/srijs/rusha#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/rusha": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jacopo Scazzosi",
+            "githubUsername": "jacoscaz"
+        }
+    ]
+}

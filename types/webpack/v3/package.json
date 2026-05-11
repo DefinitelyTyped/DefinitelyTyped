@@ -1,6 +1,63 @@
 {
     "private": true,
+    "name": "@types/webpack",
+    "version": "3.8.9999",
+    "projects": [
+        "https://github.com/webpack/webpack"
+    ],
     "dependencies": {
+        "@types/node": "*",
+        "@types/tapable": "^0",
+        "@types/uglify-js": "*",
         "source-map": "^0.6.0"
-    }
+    },
+    "devDependencies": {
+        "@types/webpack": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Qubo",
+            "githubUsername": "tkqubo"
+        },
+        {
+            "name": "Benjamin Lim",
+            "githubUsername": "bumbleblym"
+        },
+        {
+            "name": "Boris Cherny",
+            "githubUsername": "bcherny"
+        },
+        {
+            "name": "Tommy Troy Lin",
+            "githubUsername": "tommytroylin"
+        },
+        {
+            "name": "Mohsen Azimi",
+            "githubUsername": "mohsen1"
+        },
+        {
+            "name": "Jonathan Creamer",
+            "githubUsername": "jcreamer898"
+        },
+        {
+            "name": "Alan Agius",
+            "githubUsername": "alan-agius4"
+        },
+        {
+            "name": "Spencer Elliott",
+            "githubUsername": "elliottsj"
+        },
+        {
+            "name": "Christophe Hurpeau",
+            "githubUsername": "christophehurpeau"
+        },
+        {
+            "name": "Ryan Waskiewicz",
+            "githubUsername": "rwaskiewicz"
+        },
+        {
+            "name": "Kyle Uehlein",
+            "githubUsername": "kuehlein"
+        }
+    ]
 }

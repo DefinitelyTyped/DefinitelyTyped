@@ -1,15 +1,15 @@
-import { assertType } from './lib/assert';
-import EmberObject from '@ember/object';
+import EmberObject from "@ember/object";
+import { assertType } from "./lib/assert";
 
 class Foo extends EmberObject {
     hello() {
-        return 'world';
+        return "world";
     }
     protected bar() {
-        return 'bar';
+        return "bar";
     }
     private baz() {
-        return 'baz';
+        return "baz";
     }
 }
 const f = new Foo();

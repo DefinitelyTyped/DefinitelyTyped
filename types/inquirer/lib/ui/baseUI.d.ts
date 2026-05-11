@@ -1,5 +1,5 @@
-import { Interface as ReadlineInterface } from 'readline';
-import inquirer, { StreamOptions } from '../../index.js';
+import { Interface as ReadlineInterface } from "readline";
+import inquirer, { StreamOptions } from "../../index.js";
 
 /**
  * Represents a ui.

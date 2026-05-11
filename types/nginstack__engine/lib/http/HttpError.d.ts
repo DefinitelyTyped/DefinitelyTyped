@@ -1,7 +1,12 @@
 export = HttpError;
-declare function HttpError(error: string, solution?: string, details?: string, code?: number): void;
+declare function HttpError(
+    error: string | Error,
+    solution?: string,
+    details?: string,
+    code?: number
+): void;
 declare class HttpError {
-    constructor(error: string, solution?: string, details?: string, code?: number);
+    constructor(error: string | Error, solution?: string, details?: string, code?: number);
     private _name;
 }
 declare namespace HttpError {

@@ -1,4 +1,4 @@
-import dlv = require('dlv');
+import dlv = require("dlv");
 
 const obj = {
     undef: undefined,
@@ -16,35 +16,37 @@ const obj = {
         },
     },
     array: [
-        ['a', 'b'],
-        ['c', 'd'],
+        ["a", "b"],
+        ["c", "d"],
     ],
 };
 
-// Test without defaults
-dlv(obj, '');
-dlv(obj, 'one');
-dlv(obj, 'one.two');
-dlv(obj, 'a');
-dlv(obj, 'a.two');
-dlv(obj, 'a.b');
-dlv(obj, 'a.b.three');
-dlv(obj, 'a.b.c');
-dlv(obj, 'a.b.c.four');
-dlv(obj, 'n');
-dlv(obj, 'n.badkey');
-dlv(obj, 'f');
-dlv(obj, 'f.badkey');
-dlv(obj, ['array', 0, 1]);
-dlv(obj, ['array', 1, 1]);
+[obj, undefined].forEach((v) => {
+    // Test without defaults
+    dlv(v, "");
+    dlv(v, "one");
+    dlv(v, "one.two");
+    dlv(v, "a");
+    dlv(v, "a.two");
+    dlv(v, "a.b");
+    dlv(v, "a.b.three");
+    dlv(v, "a.b.c");
+    dlv(v, "a.b.c.four");
+    dlv(v, "n");
+    dlv(v, "n.badkey");
+    dlv(v, "f");
+    dlv(v, "f.badkey");
+    dlv(v, ["array", 0, 1]);
+    dlv(v, ["array", 1, 1]);
 
-// Test defaults
-dlv(obj, '', 'foo');
-dlv(obj, 'undef', 'foo');
-dlv(obj, 'n', null);
-dlv(obj, 'n.badkey', 'foo');
-dlv(obj, 'zero', 0);
-dlv(obj, 'a.badkey', 'foo');
-dlv(obj, 'a.badkey.anotherbadkey', 'foo');
-dlv(obj, 'f', false);
-dlv(obj, 'f.badkey', 'foo');
+    // Test defaults
+    dlv(v, "", "foo");
+    dlv(v, "undef", "foo");
+    dlv(v, "n", null);
+    dlv(v, "n.badkey", "foo");
+    dlv(v, "zero", 0);
+    dlv(v, "a.badkey", "foo");
+    dlv(v, "a.badkey.anotherbadkey", "foo");
+    dlv(v, "f", false);
+    dlv(v, "f.badkey", "foo");
+});

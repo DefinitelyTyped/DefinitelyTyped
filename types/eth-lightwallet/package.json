@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/eth-lightwallet",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/ConsenSys/eth-lightwallet#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/eth-lightwallet": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Leonid Logvinov",
+            "githubUsername": "LogvinovLeon"
+        }
+    ]
+}

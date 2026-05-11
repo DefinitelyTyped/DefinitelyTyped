@@ -1,6 +1,23 @@
 {
     "private": true,
+    "name": "@types/activex-diskquota",
+    "version": "1.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "DiskQuotaTypeLibrary",
+    "projects": [
+        "https://msdn.microsoft.com/en-us/library/windows/desktop/bb773938(v=vs.85).aspx"
+    ],
     "dependencies": {
+        "@types/activex-interop": "*",
         "activex-helpers": "*"
-    }
+    },
+    "devDependencies": {
+        "@types/activex-diskquota": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Zev Spitz",
+            "githubUsername": "zspitz"
+        }
+    ]
 }

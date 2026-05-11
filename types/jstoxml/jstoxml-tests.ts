@@ -291,14 +291,14 @@ toXML(
 toXML(
     {
         foo: "<a>",
-        bar: '"b"',
+        bar: "\"b\"",
         baz: "'&whee'",
     },
     {
-        filter: {
+        contentReplacements: {
             "<": "&lt;",
             ">": "&gt;",
-            '"': "&quot;",
+            "\"": "&quot;",
             "'": "&apos;",
             "&": "&amp;",
         },
@@ -309,13 +309,13 @@ toXML(
 toXML(
     {
         _name: "foo",
-        _attrs: { a: '<"\'&"foo>' },
+        _attrs: { a: "<\"'&\"foo>" },
     },
     {
-        attributesFilter: {
+        attributeReplacements: {
             "<": "&lt;",
             ">": "&gt;",
-            '"': "&quot;",
+            "\"": "&quot;",
             "'": "&apos;",
             "&": "&amp;",
         },
@@ -329,7 +329,7 @@ toXML(
         bar: undefined,
     },
     {
-        _selfCloseTag: false,
+        selfCloseTags: false,
     },
 );
 
@@ -339,7 +339,7 @@ toXML(
         foo: "bar",
     },
     {
-        header: '<?xml version="1.0" encoding="UTF-16" standalone="yes"?>',
+        header: "<?xml version=\"1.0\" encoding=\"UTF-16\" standalone=\"yes\"?>",
     },
 );
 
@@ -364,4 +364,26 @@ toXML({
             },
         ],
     },
+});
+
+// Full config-set provided to test all options
+
+toXML({
+    a: "content",
+}, {
+    depth: 2,
+    indent: "  ",
+    header: true,
+    attributeReplacements: {
+        "<": "&lt;",
+        2: 3,
+        true: false,
+    },
+    attributeFilter: (key, val) => key === "a" || val === null,
+    attributeExplicitTrue: true,
+    contentMap: (value) => `<![CDATA[` + value + "]]>",
+    contentReplacements: {
+        "<": "&lt;",
+    },
+    selfCloseTags: true,
 });

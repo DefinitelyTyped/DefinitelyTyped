@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/react-hook-mousetrap",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/olup/react-hook-mousetrap"
+    ],
+    "devDependencies": {
+        "@types/react-hook-mousetrap": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Barry Michael Doyle",
+            "githubUsername": "barrymichaeldoyle"
+        }
+    ]
+}

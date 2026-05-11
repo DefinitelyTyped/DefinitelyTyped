@@ -34,33 +34,31 @@
 //
 // Suspense-related handling can be found in ReactFiberThrow.js.
 
-import React = require('./canary');
+import React = require("./canary");
 
 export {};
 
 declare const UNDEFINED_VOID_ONLY: unique symbol;
 type VoidOrUndefinedOnly = void | { [UNDEFINED_VOID_ONLY]: never };
 
-declare module '.' {
-    // Need an interface to not cause ReactNode to be a self-referential type.
-    interface PromiseLikeOfReactNode extends PromiseLike<ReactNode> {}
-    interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_REACT_NODES {
-        promises: PromiseLikeOfReactNode;
-    }
-
+declare module "." {
     export interface SuspenseProps {
+        // @enableCPUSuspense
         /**
          * The presence of this prop indicates that the content is computationally expensive to render.
          * In other words, the tree is CPU bound and not I/O bound (e.g. due to fetching data).
          * @see {@link https://github.com/facebook/react/pull/19936}
          */
-        unstable_expectedLoadTime?: number | undefined;
+        defer?: boolean | undefined;
     }
 
-    export type SuspenseListRevealOrder = 'forwards' | 'backwards' | 'together';
-    export type SuspenseListTailMode = 'collapsed' | 'hidden';
+    export type SuspenseListRevealOrder = "forwards" | "backwards" | "together" | "independent";
+    export type SuspenseListTailMode = "collapsed" | "hidden" | "visible";
 
     export interface SuspenseListCommonProps {
+    }
+
+    interface DirectionalSuspenseListProps extends SuspenseListCommonProps {
         /**
          * Note that SuspenseList require more than one child;
          * it is a runtime warning to provide only a single child.
@@ -68,33 +66,34 @@ declare module '.' {
          * It does, however, allow those children to be wrapped inside a single
          * level of `<React.Fragment>`.
          */
-        children: ReactElement | Iterable<ReactElement>;
-    }
-
-    interface DirectionalSuspenseListProps extends SuspenseListCommonProps {
+        children: Iterable<ReactElement> | AsyncIterable<ReactElement>;
         /**
          * Defines the order in which the `SuspenseList` children should be revealed.
+         * @default "forwards"
          */
-        revealOrder: 'forwards' | 'backwards';
+        revealOrder?: "forwards" | "backwards" | "unstable_legacy-backwards" | undefined;
         /**
          * Dictates how unloaded items in a SuspenseList is shown.
          *
-         * - By default, `SuspenseList` will show all fallbacks in the list.
          * - `collapsed` shows only the next fallback in the list.
-         * - `hidden` doesn’t show any unloaded items.
+         * - `hidden` doesn't show any unloaded items.
+         * - `visible` shows all fallbacks in the list.
+         *
+         * @default "hidden"
          */
         tail?: SuspenseListTailMode | undefined;
     }
 
     interface NonDirectionalSuspenseListProps extends SuspenseListCommonProps {
+        children: ReactNode;
         /**
          * Defines the order in which the `SuspenseList` children should be revealed.
          */
-        revealOrder?: Exclude<SuspenseListRevealOrder, DirectionalSuspenseListProps['revealOrder']> | undefined;
+        revealOrder: Exclude<SuspenseListRevealOrder, DirectionalSuspenseListProps["revealOrder"]>;
         /**
          * The tail property is invalid when not using the `forwards` or `backwards` reveal orders.
          */
-        tail?: never | undefined;
+        tail?: never;
     }
 
     export type SuspenseListProps = DirectionalSuspenseListProps | NonDirectionalSuspenseListProps;
@@ -107,34 +106,79 @@ declare module '.' {
      * However, if you wrap these items in a `SuspenseList`, React will not show an item in the list
      * until previous items have been displayed (this behavior is adjustable).
      *
-     * @see https://reactjs.org/docs/concurrent-mode-reference.html#suspenselist
-     * @see https://reactjs.org/docs/concurrent-mode-patterns.html#suspenselist
+     * @see {@link https://reactjs.org/docs/concurrent-mode-reference.html#suspenselist}
+     * @see {@link https://reactjs.org/docs/concurrent-mode-patterns.html#suspenselist}
      */
-    export const SuspenseList: ExoticComponent<SuspenseListProps>;
+    export const unstable_SuspenseList: ExoticComponent<SuspenseListProps>;
 
-    // tslint:disable-next-line ban-types
-    export function experimental_useEffectEvent<T extends Function>(event: T): T;
+    type Reference = object;
+    type TaintableUniqueValue = string | bigint | ArrayBufferView;
+    function experimental_taintUniqueValue(
+        message: string | undefined,
+        lifetime: Reference,
+        value: TaintableUniqueValue,
+    ): void;
+    function experimental_taintObjectReference(message: string | undefined, object: Reference): void;
 
-    interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS {
-        functions: (formData: FormData) => void;
+    // @enableGestureTransition
+    // Implemented by the specific renderer e.g. `react-dom`.
+    // Keep in mind that augmented interfaces merge their JSDoc so if you put
+    // JSDoc here and in the renderer, the IDE will display both.
+    export interface GestureProvider {}
+    export interface GestureOptions {
+        rangeStart?: number | undefined;
+        rangeEnd?: number | undefined;
+    }
+    export type GestureOptionsRequired = {
+        [P in keyof GestureOptions]-?: NonNullable<GestureOptions[P]>;
+    };
+    /** */
+    export function unstable_startGestureTransition(
+        provider: GestureProvider,
+        scope: () => void,
+        options?: GestureOptions,
+    ): () => void;
+
+    interface ViewTransitionProps {
+        onGestureEnter?: (
+            timeline: GestureProvider,
+            options: GestureOptionsRequired,
+            instance: ViewTransitionInstance,
+            types: Array<string>,
+        ) => void | (() => void);
+        onGestureExit?: (
+            timeline: GestureProvider,
+            options: GestureOptionsRequired,
+            instance: ViewTransitionInstance,
+            types: Array<string>,
+        ) => void | (() => void);
+        onGestureShare?: (
+            timeline: GestureProvider,
+            options: GestureOptionsRequired,
+            instance: ViewTransitionInstance,
+            types: Array<string>,
+        ) => void | (() => void);
+        onGestureUpdate?: (
+            timeline: GestureProvider,
+            options: GestureOptionsRequired,
+            instance: ViewTransitionInstance,
+            types: Array<string>,
+        ) => void | (() => void);
     }
 
-    export interface TransitionStartFunction {
-        /**
-         * Marks all state updates inside the async function as transitions
-         *
-         * @see {https://react.dev/reference/react/ts5.0/useTransition#starttransition}
-         *
-         * @param callback
-         */
-        (callback: () => Promise<VoidOrUndefinedOnly>): void;
+    // @enableSrcObject
+    interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_IMG_SRC_TYPES {
+        srcObject: Blob;
     }
 
-    function experimental_useOptimistic<State>(
-        passthrough: State,
-    ): [State, (action: State | ((pendingState: State) => State)) => void];
-    function experimental_useOptimistic<State, Action>(
-        passthrough: State,
-        reducer: (state: State, action: Action) => State,
-    ): [State, (action: Action) => void];
+    interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_MEDIA_SRC_TYPES {
+        srcObject: Blob | MediaSource | MediaStream;
+    }
+
+    // @enableOptimisticKey
+    export const optimisticKey: unique symbol;
+
+    interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_KEY_TYPES {
+        optimisticKey: typeof optimisticKey;
+    }
 }

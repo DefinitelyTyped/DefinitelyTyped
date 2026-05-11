@@ -1,10 +1,12 @@
-// For Library Version: 1.115.1
+// For Library Version: 1.147.0
 
 declare module "sap/ui/table/library" {
   import TreeAutoExpandMode1 from "sap/ui/model/TreeAutoExpandMode";
 
   /**
    * Details about the group event to distinguish between different actions associated with grouping
+   *
+   * This enum is part of the 'sap/ui/table/library' module export and must be accessed by the property 'GroupEventType'.
    */
   export enum GroupEventType {
     /**
@@ -38,15 +40,19 @@ declare module "sap/ui/table/library" {
   }
   /**
    * Navigation mode of the table
+   *
+   * This enum is part of the 'sap/ui/table/library' module export and must be accessed by the property 'NavigationMode'.
+   *
+   * @deprecated As of version 1.38. the concept has been discarded.
    */
   export enum NavigationMode {
     /**
-     * @deprecated (since 1.38) - replaced by {@link sap.ui.table.NavigationMode.Scrollbar}
-     *
      * Uses the paginator control. This option must no longer be used. Using a scrollbar is the only navigation
      * mode which is supported by the `sap.ui.table` library. The `navigationMode` property has always been
      * a visual representation. No matter which navigation mode is used, data fetched from an OData service
      * is loaded page-wise.
+     *
+     * @deprecated As of version 1.38. replaced by {@link sap.ui.table.NavigationMode.Scrollbar}
      */
     Paginator = "Paginator",
     /**
@@ -56,6 +62,10 @@ declare module "sap/ui/table/library" {
   }
   /**
    * Enumeration of the `ResetAllMode` that can be used in a `TablePersoController`.
+   *
+   * This enum is part of the 'sap/ui/table/library' module export and must be accessed by the property 'ResetAllMode'.
+   *
+   * @deprecated As of version 1.115. replaced by {@link sap.m.p13n.Engine}
    */
   export enum ResetAllMode {
     /**
@@ -73,6 +83,8 @@ declare module "sap/ui/table/library" {
   }
   /**
    * Row Action types.
+   *
+   * This enum is part of the 'sap/ui/table/library' module export and must be accessed by the property 'RowActionType'.
    */
   export enum RowActionType {
     /**
@@ -90,6 +102,8 @@ declare module "sap/ui/table/library" {
   }
   /**
    * Selection behavior of the table
+   *
+   * This enum is part of the 'sap/ui/table/library' module export and must be accessed by the property 'SelectionBehavior'.
    */
   export enum SelectionBehavior {
     /**
@@ -107,12 +121,14 @@ declare module "sap/ui/table/library" {
   }
   /**
    * Selection mode of the table
+   *
+   * This enum is part of the 'sap/ui/table/library' module export and must be accessed by the property 'SelectionMode'.
    */
   export enum SelectionMode {
     /**
-     * @deprecated (since 1.38) - replaced by {@link sap.ui.table.SelectionMode.MultiToggle}
-     *
      * Select multiple rows at a time.
+     *
+     * @deprecated As of version 1.38. replaced by {@link sap.ui.table.SelectionMode.MultiToggle}
      */
     Multi = "Multi",
     /**
@@ -133,6 +149,8 @@ declare module "sap/ui/table/library" {
    *
    * Contains IDs of shared DOM references, which should be accessible to inheriting controls via getDomRef()
    * function.
+   *
+   * This enum is part of the 'sap/ui/table/library' module export and must be accessed by the property 'SharedDomRef'.
    */
   export enum SharedDomRef {
     /**
@@ -146,6 +164,10 @@ declare module "sap/ui/table/library" {
   }
   /**
    * Sort order of a column
+   *
+   * This enum is part of the 'sap/ui/table/library' module export and must be accessed by the property 'SortOrder'.
+   *
+   * @deprecated As of version 1.120. replaced with `sap.ui.core.SortOrder`
    */
   export enum SortOrder {
     /**
@@ -161,11 +183,17 @@ declare module "sap/ui/table/library" {
    * Different modes for setting the auto expand mode on tree or analytical bindings.
    *
    * This is an alias for {@link sap.ui.model.TreeAutoExpandMode} and kept for compatibility reasons.
+   *
+   * @deprecated As of version 1.120. replaced by `sap.ui.model.TreeAutoExpandMode`
    */
   export type TreeAutoExpandMode = TreeAutoExpandMode1;
 
   /**
    * VisibleRowCountMode of the table
+   *
+   * This enum is part of the 'sap/ui/table/library' module export and must be accessed by the property 'VisibleRowCountMode'.
+   *
+   * @deprecated As of version 1.119. see the `rowMode` aggregation of `sap.ui.table.Table` for more details.
    */
   export enum VisibleRowCountMode {
     /**
@@ -178,6 +206,13 @@ declare module "sap/ui/table/library" {
     Fixed = "Fixed",
     /**
      * The user can change the `visibleRowCount` by dragging a resizer.
+     *
+     * The following restrictions apply:
+     * 	 - The functionality targets only the mouse interaction (drag and drop). There is no keyboard alternative
+     *     available. An accessible alternative must be provided by applications, for example, by giving the user
+     *     the possibility to enter the number of required rows in an input field.
+     * 	 - The resize interaction is not optimized for touch devices from a design and interaction perspective.
+     *     We do not recommend to use this mode in such scenarios.
      */
     Interactive = "Interactive",
   }
@@ -232,6 +267,7 @@ declare module "sap/ui/table/AnalyticalColumn" {
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.table.Column.extend}.
      *
+     *
      * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
@@ -252,13 +288,27 @@ declare module "sap/ui/table/AnalyticalColumn" {
     /**
      * Returns a metadata object for class sap.ui.table.AnalyticalColumn.
      *
+     *
      * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
+     * Gets current value of property {@link #getGrouped grouped}.
+     *
+     * Indicates if the column is grouped.
+     *
+     * Default value is `false`.
+     *
+     * @since 1.118
+     *
+     * @returns Value of property `grouped`
+     */
+    getGrouped(): boolean;
+    /**
      * Gets current value of property {@link #getGroupHeaderFormatter groupHeaderFormatter}.
      *
      * If the column is grouped, this formatter is used to format the value in the group header
+     *
      *
      * @returns Value of property `groupHeaderFormatter`
      */
@@ -271,6 +321,7 @@ declare module "sap/ui/table/AnalyticalColumn" {
      *
      * Default value is `false`.
      *
+     *
      * @returns Value of property `inResult`
      */
     getInResult(): boolean;
@@ -279,6 +330,7 @@ declare module "sap/ui/table/AnalyticalColumn" {
      *
      * Defines the primary model property which is used inside the Column. In case of the analytical extension
      * this means the property which is grouped by for dimensions or the property which is summed for measures.
+     *
      *
      * @returns Value of property `leadingProperty`
      */
@@ -291,6 +343,7 @@ declare module "sap/ui/table/AnalyticalColumn" {
      *
      * Default value is `false`.
      *
+     *
      * @returns Value of property `showIfGrouped`
      */
     getShowIfGrouped(): boolean;
@@ -301,15 +354,36 @@ declare module "sap/ui/table/AnalyticalColumn" {
      *
      * Default value is `false`.
      *
+     *
      * @returns Value of property `summed`
      */
     getSummed(): boolean;
+    /**
+     * Sets a new value for property {@link #getGrouped grouped}.
+     *
+     * Indicates if the column is grouped.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     *
+     * @since 1.118
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setGrouped(
+      /**
+       * New value for property `grouped`
+       */
+      bGrouped?: boolean
+    ): this;
     /**
      * Sets a new value for property {@link #getGroupHeaderFormatter groupHeaderFormatter}.
      *
      * If the column is grouped, this formatter is used to format the value in the group header
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -329,6 +403,7 @@ declare module "sap/ui/table/AnalyticalColumn" {
      *
      * Default value is `false`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setInResult(
@@ -344,6 +419,7 @@ declare module "sap/ui/table/AnalyticalColumn" {
      * this means the property which is grouped by for dimensions or the property which is summed for measures.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -363,6 +439,7 @@ declare module "sap/ui/table/AnalyticalColumn" {
      *
      * Default value is `false`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setShowIfGrouped(
@@ -380,6 +457,7 @@ declare module "sap/ui/table/AnalyticalColumn" {
      *
      * Default value is `false`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setSummed(
@@ -389,7 +467,9 @@ declare module "sap/ui/table/AnalyticalColumn" {
       bSummed?: boolean
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the AnalyticalColumn constructor.
+   */
   export interface $AnalyticalColumnSettings extends $ColumnSettings {
     /**
      * Defines the primary model property which is used inside the Column. In case of the analytical extension
@@ -418,6 +498,13 @@ declare module "sap/ui/table/AnalyticalColumn" {
      * If the column is grouped, this formatter is used to format the value in the group header
      */
     groupHeaderFormatter?: Function | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Indicates if the column is grouped.
+     *
+     * @since 1.118
+     */
+    grouped?: boolean | PropertyBindingInfo | `{${string}}`;
   }
 }
 
@@ -430,9 +517,10 @@ declare module "sap/ui/table/AnalyticalColumnMenu" {
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   /**
-   * @experimental (since 1.21) - The AnalyticalColumnMenu will be productized soon.
-   *
    * A column menu which is used by the analytical column
+   *
+   * @deprecated As of version 1.117. replaced by the `headerMenu` association of `sap.ui.table.Column`.
+   * @experimental As of version 1.21.
    */
   export default class AnalyticalColumnMenu extends ColumnMenu {
     /**
@@ -478,6 +566,7 @@ declare module "sap/ui/table/AnalyticalColumnMenu" {
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.table.ColumnMenu.extend}.
      *
+     *
      * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
@@ -498,18 +587,28 @@ declare module "sap/ui/table/AnalyticalColumnMenu" {
     /**
      * Returns a metadata object for class sap.ui.table.AnalyticalColumnMenu.
      *
+     *
      * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
   }
-
+  /**
+   * Describes the settings that can be provided to the AnalyticalColumnMenu constructor.
+   *
+   * @deprecated As of version 1.117. replaced by the `headerMenu` association of `sap.ui.table.Column`.
+   * @experimental As of version 1.21.
+   */
   export interface $AnalyticalColumnMenuSettings extends $ColumnMenuSettings {}
 }
 
 declare module "sap/ui/table/AnalyticalTable" {
-  import { default as Table, $TableSettings } from "sap/ui/table/Table";
+  import {
+    default as Table,
+    $TableSettings,
+    Table$GroupEventParameters,
+  } from "sap/ui/table/Table";
 
-  import Context from "sap/ui/model/Context";
+  import AnalyticalColumn from "sap/ui/table/AnalyticalColumn";
 
   import { ID } from "sap/ui/core/library";
 
@@ -519,10 +618,14 @@ declare module "sap/ui/table/AnalyticalTable" {
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
+  import Event from "sap/ui/base/Event";
+
   /**
-   * Table which handles analytical OData backends. The AnalyticalTable only works with an AnalyticalBinding
-   * and correctly annotated OData services. Please check on the SAP Annotations for OData Version 2.0 documentation
-   * for further details.
+   * Table that handles analytical OData V2 back-end scenarios. The `AnalyticalTable` only works with {@link sap.ui.model.analytics.AnalyticalBinding AnalyticalBinding }
+   * and correctly annotated OData services. Please check out the functionality of analytical binding and
+   * the SAP Annotations for OData Version 2.0 documentation for further details. For an analytical-table-like
+   * behavior with OData V4 services, use the {@link sap.ui.table.Table Table} control with the {@link sap.ui.table.plugins.ODataV4Aggregation ODataV4Aggregation }
+   * plugin.
    */
   export default class AnalyticalTable extends Table {
     /**
@@ -533,6 +636,7 @@ declare module "sap/ui/table/AnalyticalTable" {
      * of the syntax of the settings object.
      * See:
      * 	https://github.com/SAP/odata-vocabularies/blob/main/docs/v2-annotations.md
+     * 	{@link https://ui5.sap.com/#/topic/148892ff9aea4a18b912829791e38f3e Tables: Which One Should I Choose?}
      * 	{@link https://ui5.sap.com/#/topic/08197fa68e4f479cbe30f639cc1cd22c sap.ui.table}
      * 	{@link fiori:/analytical-table-alv/ Analytical Table}
      */
@@ -550,6 +654,7 @@ declare module "sap/ui/table/AnalyticalTable" {
      * of the syntax of the settings object.
      * See:
      * 	https://github.com/SAP/odata-vocabularies/blob/main/docs/v2-annotations.md
+     * 	{@link https://ui5.sap.com/#/topic/148892ff9aea4a18b912829791e38f3e Tables: Which One Should I Choose?}
      * 	{@link https://ui5.sap.com/#/topic/08197fa68e4f479cbe30f639cc1cd22c sap.ui.table}
      * 	{@link fiori:/analytical-table-alv/ Analytical Table}
      */
@@ -569,6 +674,7 @@ declare module "sap/ui/table/AnalyticalTable" {
      * the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.table.Table.extend}.
+     *
      *
      * @returns Created class / constructor function
      */
@@ -590,6 +696,7 @@ declare module "sap/ui/table/AnalyticalTable" {
     /**
      * Returns a metadata object for class sap.ui.table.AnalyticalTable.
      *
+     *
      * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
@@ -601,6 +708,7 @@ declare module "sap/ui/table/AnalyticalTable" {
      *
      * Please also take notice of the fact, that "addSelectionInterval" does not change any other selection.
      * To override the current selection, please use "setSelectionInterval" or for a single entry use "setSelectedIndex".
+     *
      *
      * @returns a reference to the `AnalyticalTable` control, can be used for chaining
      */
@@ -615,7 +723,57 @@ declare module "sap/ui/table/AnalyticalTable" {
       iToIndex: int
     ): this;
     /**
+     * Attaches event handler `fnFunction` to the {@link #event:group group} event of this `sap.ui.table.AnalyticalTable`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.table.AnalyticalTable` itself.
+     *
+     * Fired when the table is grouped.
+     *
+     * @since 1.118
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachGroup(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: AnalyticalTable$GroupEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.table.AnalyticalTable` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:group group} event of this `sap.ui.table.AnalyticalTable`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.table.AnalyticalTable` itself.
+     *
+     * Fired when the table is grouped.
+     *
+     * @since 1.118
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachGroup(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: AnalyticalTable$GroupEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.table.AnalyticalTable` itself
+       */
+      oListener?: object
+    ): this;
+    /**
      * Collapses one or more rows.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -628,11 +786,32 @@ declare module "sap/ui/table/AnalyticalTable" {
     /**
      * Collapses all nodes (and their child nodes if collapseRecursive is activated).
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     collapseAll(): this;
     /**
+     * Detaches event handler `fnFunction` from the {@link #event:group group} event of this `sap.ui.table.AnalyticalTable`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     * @since 1.118
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachGroup(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: AnalyticalTable$GroupEvent) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
      * Expands one or more rows.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -643,18 +822,33 @@ declare module "sap/ui/table/AnalyticalTable" {
       vRowIndex: int | int[]
     ): this;
     /**
-     * @since 1.70
-     *
      * Expands all nodes. The current selection is removed, and the table scrolls back to the top. If this method
      * is called, not all groups might be loaded. If the user then scrolls to the bottom of the table, additional
      * groups are loaded, which increases the scroll range, and the scroll thumb moves up.
+     *
+     * @since 1.70
      *
      * @returns Reference to `this` in order to allow method chaining
      */
     expandAll(): this;
     /**
-     * @deprecated (since 1.44) - replaced by the `autoExpandMode` binding parameter
+     * Fires event {@link #event:group group} to attached listeners.
      *
+     * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
+     * event object. The return value of this method indicates whether the default action should be executed.
+     *
+     * @since 1.118
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Whether or not to prevent the default action
+     */
+    fireGroup(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: AnalyticalTable$GroupEventParameters
+    ): boolean;
+    /**
      * Gets current value of property {@link #getAutoExpandMode autoExpandMode}.
      *
      * The kind of auto expansion algorithm, e.g. optimized filter conditions, per level requests, ... Must
@@ -678,12 +872,12 @@ declare module "sap/ui/table/AnalyticalTable" {
      *
      * Default value is `"Bundled"`.
      *
+     * @deprecated As of version 1.44. replaced by the `autoExpandMode` binding parameter
+     *
      * @returns Value of property `autoExpandMode`
      */
     getAutoExpandMode(): string;
     /**
-     * @deprecated (since 1.76) - replaced by the `collapseRecursive` binding parameter
-     *
      * Gets current value of property {@link #getCollapseRecursive collapseRecursive}.
      *
      * Setting collapseRecursive to true means, that when collapsing a node all subsequent child nodes will
@@ -706,54 +900,51 @@ declare module "sap/ui/table/AnalyticalTable" {
      *
      * Default value is `true`.
      *
+     * @deprecated As of version 1.76. replaced by the `collapseRecursive` binding parameter
+     *
      * @returns Value of property `collapseRecursive`
      */
     getCollapseRecursive(): boolean;
+    /**
+     * Returns the Columns of the AnalyticalTable.
+     */
+    getColumns(): AnalyticalColumn[];
     /**
      * Gets current value of property {@link #getColumnVisibilityMenuSorter columnVisibilityMenuSorter}.
      *
      * Functions which is used to sort the column visibility menu entries e.g.: function(ColumnA, ColumnB) {
      * return 0 = equals, <0 lower, >0 greater }; Other values than functions will be ignored.
      *
+     * @deprecated As of version 1.117. see the `showColumnVisibilityMenu` property of `sap.ui.table.Table`
+     * for details.
+     *
      * @returns Value of property `columnVisibilityMenuSorter`
      */
     getColumnVisibilityMenuSorter(): any;
     /**
-     * Returns the context of a row by its index.
-     *
-     * @returns The context of a row by its index
-     */
-    getContextByIndex(
-      /**
-       * Index of the row to return the context from.
-       */
-      iIndex: int
-    ): Context;
-    /**
-     * @deprecated (since 1.21.2) - replaced by {@link sap.ui.table.Table#setShowOverlay}
-     *
      * Gets current value of property {@link #getDirty dirty}.
      *
      * If dirty the content of the Table will be overlayed.
+     *
+     * @deprecated As of version 1.21.2. replaced by {@link sap.ui.table.Table#setShowOverlay}
      *
      * @returns Value of property `dirty`
      */
     getDirty(): boolean;
     /**
-     * @deprecated (since 1.28)
+     * The `enableGrouping` property is not supported by the `AnalyticalTable` control.
      *
-     * The property `enableGrouping` is not supported by the `AnalyticalTable` control.
+     * @deprecated As of version 1.28. the `enableGrouping` property is not supported by the `AnalyticalTable`
+     * control.
      */
     getEnableGrouping(): boolean;
     /**
-     * @deprecated (since 1.28)
-     *
      * The `groupBy` association is not supported by the `AnalyticalTable` control.
+     *
+     * @deprecated As of version 1.28. the `groupBy` association is not supported by the `AnalyticalTable` control.
      */
     getGroupBy(): ID;
     /**
-     * @deprecated (since 1.44) - replaced by the `numberOfExpandedLevels` binding parameter
-     *
      * Gets current value of property {@link #getNumberOfExpandedLevels numberOfExpandedLevels}.
      *
      * Number of levels, which should be opened initially (on first load of data).
@@ -776,6 +967,8 @@ declare module "sap/ui/table/AnalyticalTable" {
      *
      * Default value is `0`.
      *
+     * @deprecated As of version 1.44. replaced by the `numberOfExpandedLevels` binding parameter
+     *
      * @returns Value of property `numberOfExpandedLevels`
      */
     getNumberOfExpandedLevels(): int;
@@ -784,6 +977,7 @@ declare module "sap/ui/table/AnalyticalTable" {
      *
      * The lead selection index is, among other things, used to determine the start/end of a selection range,
      * when using Shift-Click to select multiple entries at once.
+     *
      *
      * @returns Current lead selection index.
      */
@@ -795,12 +989,11 @@ declare module "sap/ui/table/AnalyticalTable" {
      * function returns only all indices of actually selected rows/tree nodes. Unknown rows/nodes (as in "not
      * yet loaded" to the client), will not be returned.
      *
+     *
      * @returns an array containing all selected indices
      */
     getSelectedIndices(): int[];
     /**
-     * @deprecated (since 1.44) - replaced by the `sumOnTop` binding parameter
-     *
      * Gets current value of property {@link #getSumOnTop sumOnTop}.
      *
      * Specifies if the total values should be displayed in the group headers or on bottom of the row. Does
@@ -824,17 +1017,21 @@ declare module "sap/ui/table/AnalyticalTable" {
      *
      * Default value is `false`.
      *
+     * @deprecated As of version 1.44. replaced by the `sumOnTop` binding parameter
+     *
      * @returns Value of property `sumOnTop`
      */
     getSumOnTop(): boolean;
     /**
      * Returns the total size of the data entries.
      *
+     *
      * @returns The total size of the data entries
      */
     getTotalSize(): int;
     /**
      * Checks whether the row is expanded or collapsed.
+     *
      *
      * @returns `true` if the row is expanded, `false` if it is collapsed
      */
@@ -846,6 +1043,7 @@ declare module "sap/ui/table/AnalyticalTable" {
     ): boolean;
     /**
      * Checks if the row at the given index is selected.
+     *
      *
      * @returns true if the index is selected, false otherwise
      */
@@ -861,6 +1059,7 @@ declare module "sap/ui/table/AnalyticalTable" {
      * is visualized by the `AnalyticalTable` control. Invisible nodes (collapsed child nodes) will not be taken
      * into account.
      *
+     *
      * @returns a reference to the `AnalyticalTable` control, can be used for chaining
      */
     removeSelectionInterval(
@@ -874,9 +1073,9 @@ declare module "sap/ui/table/AnalyticalTable" {
       iToIndex: int
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
-     *
      * This function is used by some composite controls to force updating the AnalyticalInfo
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      */
     resumeUpdateAnalyticalInfo(
       /**
@@ -896,12 +1095,11 @@ declare module "sap/ui/table/AnalyticalTable" {
      * are also immediately selected. However, due to obvious performance/network traffic reasons, the SelectAll
      * function will NOT retrieve any data from the backend.
      *
+     *
      * @returns a reference to the `AnalyticalTable` control, can be used for chaining
      */
     selectAll(): this;
     /**
-     * @deprecated (since 1.44) - replaced by the `autoExpandMode` binding parameter
-     *
      * Sets a new value for property {@link #getAutoExpandMode autoExpandMode}.
      *
      * The kind of auto expansion algorithm, e.g. optimized filter conditions, per level requests, ... Must
@@ -927,6 +1125,8 @@ declare module "sap/ui/table/AnalyticalTable" {
      *
      * Default value is `"Bundled"`.
      *
+     * @deprecated As of version 1.44. replaced by the `autoExpandMode` binding parameter
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setAutoExpandMode(
@@ -936,8 +1136,6 @@ declare module "sap/ui/table/AnalyticalTable" {
       sAutoExpandMode?: string
     ): this;
     /**
-     * @deprecated (since 1.76) - replaced by the `collapseRecursive` binding parameter
-     *
      * Sets a new value for property {@link #getCollapseRecursive collapseRecursive}.
      *
      * Setting collapseRecursive to true means, that when collapsing a node all subsequent child nodes will
@@ -962,6 +1160,8 @@ declare module "sap/ui/table/AnalyticalTable" {
      *
      * Default value is `true`.
      *
+     * @deprecated As of version 1.76. replaced by the `collapseRecursive` binding parameter
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setCollapseRecursive(
@@ -978,6 +1178,9 @@ declare module "sap/ui/table/AnalyticalTable" {
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
+     * @deprecated As of version 1.117. see the `showColumnVisibilityMenu` property of `sap.ui.table.Table`
+     * for details.
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setColumnVisibilityMenuSorter(
@@ -987,13 +1190,13 @@ declare module "sap/ui/table/AnalyticalTable" {
       oColumnVisibilityMenuSorter?: any
     ): this;
     /**
-     * @deprecated (since 1.21.2) - replaced by {@link sap.ui.table.Table#setShowOverlay}
-     *
      * Sets a new value for property {@link #getDirty dirty}.
      *
      * If dirty the content of the Table will be overlayed.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @deprecated As of version 1.21.2. replaced by {@link sap.ui.table.Table#setShowOverlay}
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -1004,24 +1207,23 @@ declare module "sap/ui/table/AnalyticalTable" {
       bDirty?: boolean
     ): this;
     /**
-     * @deprecated (since 1.28)
+     * The `enableGrouping` property is not supported by the `AnalyticalTable` control.
      *
-     * The property `enableGrouping` is not supported by the `AnalyticalTable` control.
+     * @deprecated As of version 1.28. the `enableGrouping` property is not supported by the `AnalyticalTable`
+     * control.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
     setEnableGrouping(bValue: boolean): this;
     /**
-     * @deprecated (since 1.28)
-     *
      * The `groupBy` association is not supported by the `AnalyticalTable` control.
+     *
+     * @deprecated As of version 1.28. the `groupBy` association is not supported by the `AnalyticalTable` control.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
     setGroupBy(oGroupBy: ID | Column): this;
     /**
-     * @deprecated (since 1.44) - replaced by the `numberOfExpandedLevels` binding parameter
-     *
      * Sets a new value for property {@link #getNumberOfExpandedLevels numberOfExpandedLevels}.
      *
      * Number of levels, which should be opened initially (on first load of data).
@@ -1046,6 +1248,8 @@ declare module "sap/ui/table/AnalyticalTable" {
      *
      * Default value is `0`.
      *
+     * @deprecated As of version 1.44. replaced by the `numberOfExpandedLevels` binding parameter
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setNumberOfExpandedLevels(
@@ -1058,6 +1262,7 @@ declare module "sap/ui/table/AnalyticalTable" {
      * In an `AnalyticalTable` control you can only select indices, which correspond to the currently visualized
      * tree. Invisible nodes (e.g. collapsed child nodes) cannot be selected via Index, because they do not
      * correspond to an `AnalyticalTable` row.
+     *
      *
      * @returns a reference to the `AnalyticalTable` control, can be used for chaining
      */
@@ -1073,6 +1278,7 @@ declare module "sap/ui/table/AnalyticalTable" {
      * **Note:** The previous selection will be lost/overridden. If this is not the required behavior, please
      * use `addSelectionInterval` and `removeSelectionInterval`.
      *
+     *
      * @returns a reference to the `AnalyticalTable` control, can be used for chaining
      */
     setSelectionInterval(
@@ -1086,8 +1292,6 @@ declare module "sap/ui/table/AnalyticalTable" {
       iToIndex: int
     ): this;
     /**
-     * @deprecated (since 1.44) - replaced by the `sumOnTop` binding parameter
-     *
      * Sets a new value for property {@link #getSumOnTop sumOnTop}.
      *
      * Specifies if the total values should be displayed in the group headers or on bottom of the row. Does
@@ -1113,6 +1317,8 @@ declare module "sap/ui/table/AnalyticalTable" {
      *
      * Default value is `false`.
      *
+     * @deprecated As of version 1.44. replaced by the `sumOnTop` binding parameter
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setSumOnTop(
@@ -1122,19 +1328,19 @@ declare module "sap/ui/table/AnalyticalTable" {
       bSumOnTop?: boolean
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
-     *
      * This function is used by some composite controls to avoid updating the AnalyticalInfo when several column
      * are added to the table. In order to finally update the AnalyticalInfo and request data, resumeUpdateAnalyticalInfo
      * must be called.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      */
     suspendUpdateAnalyticalInfo(): void;
   }
-
+  /**
+   * Describes the settings that can be provided to the AnalyticalTable constructor.
+   */
   export interface $AnalyticalTableSettings extends $TableSettings {
     /**
-     * @deprecated (since 1.44) - replaced by the `sumOnTop` binding parameter
-     *
      * Specifies if the total values should be displayed in the group headers or on bottom of the row. Does
      * not affect the total sum.
      *
@@ -1152,12 +1358,13 @@ declare module "sap/ui/table/AnalyticalTable" {
      *     }
      *   });
      * ```
+     *
+     *
+     * @deprecated As of version 1.44. replaced by the `sumOnTop` binding parameter
      */
     sumOnTop?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @deprecated (since 1.44) - replaced by the `numberOfExpandedLevels` binding parameter
-     *
      * Number of levels, which should be opened initially (on first load of data).
      *
      * The value of the property is only taken into account if no parameter is given in the binding information.
@@ -1174,12 +1381,13 @@ declare module "sap/ui/table/AnalyticalTable" {
      *     }
      *   });
      * ```
+     *
+     *
+     * @deprecated As of version 1.44. replaced by the `numberOfExpandedLevels` binding parameter
      */
     numberOfExpandedLevels?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @deprecated (since 1.44) - replaced by the `autoExpandMode` binding parameter
-     *
      * The kind of auto expansion algorithm, e.g. optimized filter conditions, per level requests, ... Must
      * be a value of `sap.ui.table.TreeAutoExpandMode`.
      *
@@ -1197,18 +1405,22 @@ declare module "sap/ui/table/AnalyticalTable" {
      *     }
      *   });
      * ```
+     *
+     *
+     * @deprecated As of version 1.44. replaced by the `autoExpandMode` binding parameter
      */
     autoExpandMode?: string | PropertyBindingInfo;
 
     /**
      * Functions which is used to sort the column visibility menu entries e.g.: function(ColumnA, ColumnB) {
      * return 0 = equals, <0 lower, >0 greater }; Other values than functions will be ignored.
+     *
+     * @deprecated As of version 1.117. see the `showColumnVisibilityMenu` property of `sap.ui.table.Table`
+     * for details.
      */
     columnVisibilityMenuSorter?: any | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @deprecated (since 1.76) - replaced by the `collapseRecursive` binding parameter
-     *
      * Setting collapseRecursive to true means, that when collapsing a node all subsequent child nodes will
      * also be collapsed.
      *
@@ -1225,16 +1437,40 @@ declare module "sap/ui/table/AnalyticalTable" {
      *     }
      *   });
      * ```
+     *
+     *
+     * @deprecated As of version 1.76. replaced by the `collapseRecursive` binding parameter
      */
     collapseRecursive?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @deprecated (since 1.21.2) - replaced by {@link sap.ui.table.Table#setShowOverlay}
-     *
      * If dirty the content of the Table will be overlayed.
+     *
+     * @deprecated As of version 1.21.2. replaced by {@link sap.ui.table.Table#setShowOverlay}
      */
     dirty?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Fired when the table is grouped.
+     *
+     * @since 1.118
+     */
+    group?: (oEvent: AnalyticalTable$GroupEvent) => void;
   }
+
+  /**
+   * Parameters of the AnalyticalTable#group event.
+   */
+  export interface AnalyticalTable$GroupEventParameters
+    extends Table$GroupEventParameters {}
+
+  /**
+   * Event object of the AnalyticalTable#group event.
+   */
+  export type AnalyticalTable$GroupEvent = Event<
+    AnalyticalTable$GroupEventParameters,
+    AnalyticalTable
+  >;
 }
 
 declare module "sap/ui/table/Column" {
@@ -1245,6 +1481,7 @@ declare module "sap/ui/table/Column" {
   import {
     HorizontalAlign,
     ID,
+    SortOrder,
     CSSSize,
     IColumnHeaderMenu,
   } from "sap/ui/core/library";
@@ -1252,8 +1489,6 @@ declare module "sap/ui/table/Column" {
   import Menu from "sap/ui/unified/Menu";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
-
-  import { SortOrder } from "sap/ui/table/library";
 
   import {
     PropertyBindingInfo,
@@ -1303,6 +1538,7 @@ declare module "sap/ui/table/Column" {
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
      *
+     *
      * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
@@ -1323,13 +1559,14 @@ declare module "sap/ui/table/Column" {
     /**
      * Returns a metadata object for class sap.ui.table.Column.
      *
+     *
      * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
-     * @since 1.13.1
-     *
      * Adds some multiLabel to the aggregation {@link #getMultiLabels multiLabels}.
+     *
+     * @since 1.13.1
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -1340,8 +1577,6 @@ declare module "sap/ui/table/Column" {
       oMultiLabel: Control
     ): this;
     /**
-     * @since 1.33.0
-     *
      * Attaches event handler `fnFunction` to the {@link #event:columnMenuOpen columnMenuOpen} event of this
      * `sap.ui.table.Column`.
      *
@@ -1349,6 +1584,9 @@ declare module "sap/ui/table/Column" {
      * otherwise it will be bound to this `sap.ui.table.Column` itself.
      *
      * Fires before the column menu is opened.
+     *
+     * @since 1.33.0
+     * @deprecated As of version 1.117. see the `headerMenu` aggregation for details.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -1368,8 +1606,6 @@ declare module "sap/ui/table/Column" {
       oListener?: object
     ): this;
     /**
-     * @since 1.33.0
-     *
      * Attaches event handler `fnFunction` to the {@link #event:columnMenuOpen columnMenuOpen} event of this
      * `sap.ui.table.Column`.
      *
@@ -1377,6 +1613,9 @@ declare module "sap/ui/table/Column" {
      * otherwise it will be bound to this `sap.ui.table.Column` itself.
      *
      * Fires before the column menu is opened.
+     *
+     * @since 1.33.0
+     * @deprecated As of version 1.117. see the `headerMenu` aggregation for details.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -1391,7 +1630,27 @@ declare module "sap/ui/table/Column" {
       oListener?: object
     ): this;
     /**
+     * The column is resized to the width of the widest cell content that is currently displayed. This can be
+     * the content of a column header cell, or a data cell. Only rows that are currently scrolled into view
+     * are taken into consideration. The content of cells that span multiple columns is not taken into consideration,
+     * for example, if the `headerSpan` property is used.
+     *
+     * The width might not be accurate if the cell content is not rendered yet, for example, because the data
+     * is still being loaded.
+     *
+     * This behavior only works if the cell content is one of the following controls:
+     * 	 - `sap.m.Text`
+     * 	 - `sap.m.Label`
+     * 	 - `sap.m.Link`
+     * 	 - `sap.m.CheckBox`  Otherwise, the width might not be accurate either. This includes cases where
+     *     the listed control is wrapped in another control.
+     *
+     * @since 1.125
+     */
+    autoResize(): void;
+    /**
      * Destroys the label in the aggregation {@link #getLabel label}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -1399,13 +1658,15 @@ declare module "sap/ui/table/Column" {
     /**
      * Destroys the menu in the aggregation {@link #getMenu menu}.
      *
+     * @deprecated As of version 1.117. use the `headerMenu` association instead.
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     destroyMenu(): this;
     /**
-     * @since 1.13.1
-     *
      * Destroys all the multiLabels in the aggregation {@link #getMultiLabels multiLabels}.
+     *
+     * @since 1.13.1
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -1413,16 +1674,18 @@ declare module "sap/ui/table/Column" {
     /**
      * Destroys the template in the aggregation {@link #getTemplate template}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     destroyTemplate(): this;
     /**
-     * @since 1.33.0
-     *
      * Detaches event handler `fnFunction` from the {@link #event:columnMenuOpen columnMenuOpen} event of this
      * `sap.ui.table.Column`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @since 1.33.0
+     * @deprecated As of version 1.117. see the `headerMenu` aggregation for details.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -1437,13 +1700,14 @@ declare module "sap/ui/table/Column" {
       oListener?: object
     ): this;
     /**
-     * @since 1.33.0
-     * Protected:  Do not call from applications (only from related classes in the framework)
-     *
      * Fires event {@link #event:columnMenuOpen columnMenuOpen} to attached listeners.
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
      * event object. The return value of this method indicates whether the default action should be executed.
+     *
+     * @since 1.33.0
+     * @deprecated As of version 1.117. see the `headerMenu` aggregation for details.
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Whether or not to prevent the default action
      */
@@ -1454,17 +1718,14 @@ declare module "sap/ui/table/Column" {
       mParameters?: Column$ColumnMenuOpenEventParameters
     ): boolean;
     /**
-     * @since 1.21.1
-     *
      * Gets current value of property {@link #getAutoResizable autoResizable}.
      *
-     * Enables auto-resizing of the column on double clicking the resize bar. The width is determined on the
-     * widest currently displayed content. It does not consider rows which are currently not scrolled into view.
-     * Currently only implemented to work with the following controls: `sap.m.Text, sap.m.Label, sap.m.Link,
-     * sap.m.Input, sap.ui.commons.TextView, sap.ui.commons.Label, sap.ui.commons.Link and sap.ui.commons.TextField,
-     * sap.ui.commons.Checkbox, sap.m.CheckBox`
+     * Enables auto-resizing of the column on double-clicking the resize bar, if the column is resizable depending
+     * on the `resizable` property. See {@link #autoResize} for details about the auto-resize feature.
      *
      * Default value is `false`.
+     *
+     * @since 1.21.1
      *
      * @returns Value of property `autoResizable`
      */
@@ -1474,6 +1735,7 @@ declare module "sap/ui/table/Column" {
      *
      * If this property is set, the default filter operator of the column is overridden. By default `Contains`
      * is used for string and `EQ` for other types. A valid `sap.ui.model.FilterOperator` needs to be passed.
+     *
      *
      * @returns Value of property `defaultFilterOperator`
      */
@@ -1486,6 +1748,7 @@ declare module "sap/ui/table/Column" {
      *
      * Default value is `false`.
      *
+     *
      * @returns Value of property `filtered`
      */
     getFiltered(): boolean;
@@ -1493,6 +1756,7 @@ declare module "sap/ui/table/Column" {
      * Gets current value of property {@link #getFilterOperator filterOperator}.
      *
      * Filter operator to use when filtering this column.
+     *
      *
      * @returns Value of property `filterOperator`
      */
@@ -1505,15 +1769,14 @@ declare module "sap/ui/table/Column" {
      * Therefore the binding property for filtering must be specified. For example, if the first name and last
      * name are displayed in the same column, only one of the two can be defined as `filterProperty`.
      *
-     * A column menu entry for filtering can only be generated if the `filterProperty` is set. The default menu
-     * entry is a text input field.
+     * A column menu entry for filtering can only be generated if the `headerMenu` association and `filterProperty`
+     * are set. The default menu entry is a text input field.
+     *
      *
      * @returns Value of property `filterProperty`
      */
     getFilterProperty(): string;
     /**
-     * @since 1.9.2
-     *
      * Gets current value of property {@link #getFilterType filterType}.
      *
      * Type of filter. It is used to transform the search term into the specified type and should be the same
@@ -1523,6 +1786,12 @@ declare module "sap/ui/table/Column" {
      * \{\} \}"`. Here the escaping is mandatory to avoid handling by the binding parser. As an alternative,
      * a function can be passed that takes over the conversion. This cannot be done in the XMLView, use {@link #setFilterType }
      * instead.
+     *
+     * **Note:** The usage of string-based type definitions without explicitly loading these types (`sap.ui.require`)
+     * in the controller has been deprecated and might no longer work in future releases. Please ensure that
+     * the types are requested correctly before setting this property.
+     *
+     * @since 1.9.2
      *
      * @returns Value of property `filterType`
      */
@@ -1548,13 +1817,11 @@ declare module "sap/ui/table/Column" {
      * ```
      *
      *
+     *
      * @returns Value of property `filterValue`
      */
     getFilterValue(): string;
     /**
-     * @deprecated (since 1.44) - this property has no effect. Use the property `minWidth` in combination with
-     * the property `width="auto"` instead.
-     *
      * Gets current value of property {@link #getFlexible flexible}.
      *
      * If the table is wider than the sum of widths of the visible columns, the columns will be resized proportionally
@@ -1563,6 +1830,9 @@ declare module "sap/ui/table/Column" {
      * of the table.
      *
      * Default value is `true`.
+     *
+     * @deprecated As of version 1.44. this property has no effect. Use the property `minWidth` in combination
+     * with the property `width="auto"` instead.
      *
      * @returns Value of property `flexible`
      */
@@ -1573,6 +1843,8 @@ declare module "sap/ui/table/Column" {
      * Indicates if the column is grouped.
      *
      * Default value is `false`.
+     *
+     * @deprecated As of version 1.118. see the `enableGrouping` property of `sap.ui.table.Table` for details.
      *
      * @returns Value of property `grouped`
      */
@@ -1585,16 +1857,17 @@ declare module "sap/ui/table/Column" {
      *
      * Default value is `Begin`.
      *
+     *
      * @returns Value of property `hAlign`
      */
-    getHAlign(): HorizontalAlign | keyof typeof HorizontalAlign;
+    getHAlign(): HorizontalAlign;
     /**
-     * @since 1.110
-     *
      * ID of the element which is the current target of the association {@link #getHeaderMenu headerMenu}, or
      * `null`.
+     *
+     * @since 1.110
      */
-    getHeaderMenu(): ID;
+    getHeaderMenu(): ID | null;
     /**
      * Gets current value of property {@link #getHeaderSpan headerSpan}.
      *
@@ -1607,6 +1880,7 @@ declare module "sap/ui/table/Column" {
      *
      * Default value is `1`.
      *
+     *
      * @returns Value of property `headerSpan`
      */
     getHeaderSpan(): any;
@@ -1616,6 +1890,8 @@ declare module "sap/ui/table/Column" {
      * Label of the column which is displayed in the column header. This aggregation is for the standard behavior,
      * where you only want to display one single row header. If a string is supplied, a default label control
      * will be created. Which control this is depends on the loaded libraries.
+     *
+     * **Note:** The `altType` string is deprecated as of version 1.118. Use a `Control` instead.
      */
     getLabel(): Control | string;
     /**
@@ -1626,11 +1902,11 @@ declare module "sap/ui/table/Column" {
      * **Note:** Applications must not use or change the default `sap.ui.table.ColumnMenu` of a column in any
      * way or create own instances of `sap.ui.table.ColumnMenu`. To add a custom menu to a column, use the aggregation
      * `menu` with a new instance of `sap.ui.unified.Menu`.
+     *
+     * @deprecated As of version 1.117. use the `headerMenu` association instead.
      */
     getMenu(): Menu;
     /**
-     * @since 1.44.1
-     *
      * Gets current value of property {@link #getMinWidth minWidth}.
      *
      * Defines the minimum width of a column in pixels. This property only has an effect if the given column
@@ -1640,26 +1916,31 @@ declare module "sap/ui/table/Column" {
      *
      * Default value is `0`.
      *
+     * @since 1.44.1
+     *
      * @returns Value of property `minWidth`
      */
     getMinWidth(): int;
     /**
-     * @since 1.13.1
-     *
      * Gets content of aggregation {@link #getMultiLabels multiLabels}.
      *
      * Labels of the column which are displayed in the column header. Define a control for each header row in
      * the table. Use this aggregation if you want to use multiple headers per column.
+     *
+     *  The {@link sap.m.plugins.ColumnAIAction ColumnAIAction} plugin is not compatible with multi
+     * labels.
+     *
+     * @since 1.13.1
      */
     getMultiLabels(): Control[];
     /**
-     * @since 1.11.1
-     *
      * Gets current value of property {@link #getName name}.
      *
      * The name of the column which is used for the text representation of this column, for example, in menus.
      * If not set, the text from the multiLabels aggregation or the label aggregation (in that order) is used
      * as a fallback option.
+     *
+     * @since 1.11.1
      *
      * @returns Value of property `name`
      */
@@ -1672,29 +1953,32 @@ declare module "sap/ui/table/Column" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Value of property `resizable`
      */
     getResizable(): boolean;
     /**
-     * @since 1.13.0
-     *
      * Gets current value of property {@link #getShowFilterMenuEntry showFilterMenuEntry}.
      *
-     * Defines if the filter menu entry is displayed
+     * Defines if the filter menu entry is displayed. **Note**: It only takes effect if the `headerMenu` association
+     * is set.
      *
      * Default value is `true`.
+     *
+     * @since 1.13.0
      *
      * @returns Value of property `showFilterMenuEntry`
      */
     getShowFilterMenuEntry(): boolean;
     /**
-     * @since 1.13.0
-     *
      * Gets current value of property {@link #getShowSortMenuEntry showSortMenuEntry}.
      *
-     * Defines if the sort menu entries are displayed
+     * Defines if the sort menu entries are displayed. **Note**: It only takes effect if the `headerMenu` association
+     * is set.
      *
      * Default value is `true`.
+     *
+     * @since 1.13.0
      *
      * @returns Value of property `showSortMenuEntry`
      */
@@ -1705,7 +1989,17 @@ declare module "sap/ui/table/Column" {
      * Indicates if the column is sorted. This property only controls if a sort indicator is displayed in the
      * column header - it does not trigger the sort function. The column can be sorted using {@link sap.ui.table.Table#sort}.
      *
+     * If this property is set to `true` and the `sortOrder` property is `None`, `sortOrder` is automatically
+     * set to `Ascending`. If this property is `true` and `sortOrder` is `None`, the sort indicator is not shown.
+     *
+     * **Note:** Even though the `sorted` property has been deprecated, is still required in the UI5 1.x versions
+     * to show the sort indicator. With UI5 2.x, the `sorted` property will be removed and the sort indicator
+     * will be shown based on the `sortOrder`.
+     *
      * Default value is `false`.
+     *
+     * @deprecated As of version 1.120. replaced by {@link sap.ui.core.SortOrder SortOrder.None} for the `sortOrder`
+     * property
      *
      * @returns Value of property `sorted`
      */
@@ -1713,14 +2007,15 @@ declare module "sap/ui/table/Column" {
     /**
      * Gets current value of property {@link #getSortOrder sortOrder}.
      *
-     * This property indicates the sort direction (Ascending or Descending). The corresponding icon will be
-     * rendered if the property `sorted` is `true`
+     * Controls whether a sort indicator is displayed in the column header. **Note:** Setting this property
+     * does not sort the table. The column can be sorted using {@link sap.ui.table.Table#sort}.
      *
-     * Default value is `Ascending`.
+     * Default value is `None`.
+     *
      *
      * @returns Value of property `sortOrder`
      */
-    getSortOrder(): SortOrder | keyof typeof SortOrder;
+    getSortOrder(): SortOrder;
     /**
      * Gets current value of property {@link #getSortProperty sortProperty}.
      *
@@ -1729,7 +2024,9 @@ declare module "sap/ui/table/Column" {
      * the binding property for sorting must be specified. For example, if the first name and last name are
      * displayed in the same column, only one of the two can be defined as `sortProperty`.
      *
-     * A column menu entry for sorting can only be generated if the `sortProperty` is set.
+     * A column menu entry for sorting can only be generated if the `headerMenu` association and `sortProperty`
+     * are set.
+     *
      *
      * @returns Value of property `sortProperty`
      */
@@ -1737,21 +2034,28 @@ declare module "sap/ui/table/Column" {
     /**
      * Gets content of aggregation {@link #getTemplate template}.
      *
-     * Template (cell renderer) of this column. A template is decoupled from the column. Each time the template's
-     * properties or aggregations have been changed, the template has to be applied again via `setTemplate`
-     * for the changes to take effect. If a string is defined, a default text control will be created with its
-     * text property bound to the value of the string. The default template depends on the libraries loaded.
-     * If there is no template, the column will not be rendered in the table. The set of supported controls
-     * is limited. See section "{@link https://ui5.sap.com/#/topic/148892ff9aea4a18b912829791e38f3e Tables: Which One Should I Choose?}"
+     * Template (cell renderer) of this column.
+     *
+     * A template is decoupled from the column. Each time the template's properties or aggregations have been
+     * changed, the template has to be applied again via `setTemplate` for the changes to take effect.
+     *
+     * If there is no template, the column will not be rendered in the table.
+     *
+     * The set of supported controls is limited. See section "{@link https://ui5.sap.com/#/topic/148892ff9aea4a18b912829791e38f3e Tables: Which One Should I Choose?}"
      * in the documentation for more details. While it is technically possible to also use other controls, doing
      * so might lead to issues with regards to scrolling, alignment, condensed mode, screen reader support,
      * and keyboard support.
+     *
+     * If a string is defined, this string is interpreted as the binding path. Internally, a default text control
+     * will be created with its `text` property bound to the value of the string. The default template depends
+     * on the libraries loaded. **Note:** The `altType` string is deprecated as of version 1.118. Use a `Control`
+     * instead.
      */
     getTemplate(): Control | string;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
-     *
      * Returns a template clone. It either finds an unused clone or clones a new one from the template.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Clone of the template, or `null` if no template is defined
      */
@@ -1768,6 +2072,7 @@ declare module "sap/ui/table/Column" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Value of property `visible`
      */
     getVisible(): boolean;
@@ -1780,14 +2085,15 @@ declare module "sap/ui/table/Column" {
      * If a user adjusts the column width manually, the resulting value is always set in pixels. In addition,
      * other columns with width `auto` get a fixed minimum width and do not shrink after the resizing.
      *
+     *
      * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
-     * @since 1.13.1
-     *
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getMultiLabels multiLabels}.
      * and returns its index if found or -1 otherwise.
+     *
+     * @since 1.13.1
      *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
@@ -1798,9 +2104,9 @@ declare module "sap/ui/table/Column" {
       oMultiLabel: Control
     ): int;
     /**
-     * @since 1.13.1
-     *
      * Inserts a multiLabel into the aggregation {@link #getMultiLabels multiLabels}.
+     *
+     * @since 1.13.1
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -1817,19 +2123,19 @@ declare module "sap/ui/table/Column" {
       iIndex: int
     ): this;
     /**
-     * @since 1.13.1
-     *
      * Removes all the controls from the aggregation {@link #getMultiLabels multiLabels}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @since 1.13.1
      *
      * @returns An array of the removed elements (might be empty)
      */
     removeAllMultiLabels(): Control[];
     /**
-     * @since 1.13.1
-     *
      * Removes a multiLabel from the aggregation {@link #getMultiLabels multiLabels}.
+     *
+     * @since 1.13.1
      *
      * @returns The removed multiLabel or `null`
      */
@@ -1840,19 +2146,16 @@ declare module "sap/ui/table/Column" {
       vMultiLabel: int | string | Control
     ): Control | null;
     /**
-     * @since 1.21.1
-     *
      * Sets a new value for property {@link #getAutoResizable autoResizable}.
      *
-     * Enables auto-resizing of the column on double clicking the resize bar. The width is determined on the
-     * widest currently displayed content. It does not consider rows which are currently not scrolled into view.
-     * Currently only implemented to work with the following controls: `sap.m.Text, sap.m.Label, sap.m.Link,
-     * sap.m.Input, sap.ui.commons.TextView, sap.ui.commons.Label, sap.ui.commons.Link and sap.ui.commons.TextField,
-     * sap.ui.commons.Checkbox, sap.m.CheckBox`
+     * Enables auto-resizing of the column on double-clicking the resize bar, if the column is resizable depending
+     * on the `resizable` property. See {@link #autoResize} for details about the auto-resize feature.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @since 1.21.1
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -1869,6 +2172,7 @@ declare module "sap/ui/table/Column" {
      * is used for string and `EQ` for other types. A valid `sap.ui.model.FilterOperator` needs to be passed.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -1888,6 +2192,7 @@ declare module "sap/ui/table/Column" {
      *
      * Default value is `false`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setFiltered(
@@ -1902,6 +2207,7 @@ declare module "sap/ui/table/Column" {
      * Filter operator to use when filtering this column.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -1919,10 +2225,11 @@ declare module "sap/ui/table/Column" {
      * Therefore the binding property for filtering must be specified. For example, if the first name and last
      * name are displayed in the same column, only one of the two can be defined as `filterProperty`.
      *
-     * A column menu entry for filtering can only be generated if the `filterProperty` is set. The default menu
-     * entry is a text input field.
+     * A column menu entry for filtering can only be generated if the `headerMenu` association and `filterProperty`
+     * are set. The default menu entry is a text input field.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -1936,6 +2243,7 @@ declare module "sap/ui/table/Column" {
      * The filter type can be the class name of a type, an expression similar to the binding syntax, or a function.
      * A function receives the entered filter value as a parameter and should return the appropriate value for
      * the filter expression.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -1968,6 +2276,7 @@ declare module "sap/ui/table/Column" {
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setFilterValue(
@@ -1977,9 +2286,6 @@ declare module "sap/ui/table/Column" {
       sFilterValue?: string
     ): this;
     /**
-     * @deprecated (since 1.44) - this property has no effect. Use the property `minWidth` in combination with
-     * the property `width="auto"` instead.
-     *
      * Sets a new value for property {@link #getFlexible flexible}.
      *
      * If the table is wider than the sum of widths of the visible columns, the columns will be resized proportionally
@@ -1990,6 +2296,9 @@ declare module "sap/ui/table/Column" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @deprecated As of version 1.44. this property has no effect. Use the property `minWidth` in combination
+     * with the property `width="auto"` instead.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -2007,6 +2316,8 @@ declare module "sap/ui/table/Column" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @deprecated As of version 1.118. see the `enableGrouping` property of `sap.ui.table.Table` for details.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -2026,6 +2337,7 @@ declare module "sap/ui/table/Column" {
      *
      * Default value is `Begin`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setHAlign(
@@ -2035,9 +2347,9 @@ declare module "sap/ui/table/Column" {
       sHAlign?: HorizontalAlign | keyof typeof HorizontalAlign
     ): this;
     /**
-     * @since 1.110
-     *
      * Sets the associated {@link #getHeaderMenu headerMenu}.
+     *
+     * @since 1.110
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -2062,6 +2374,7 @@ declare module "sap/ui/table/Column" {
      *
      * Default value is `1`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setHeaderSpan(
@@ -2072,6 +2385,7 @@ declare module "sap/ui/table/Column" {
     ): this;
     /**
      * Sets the aggregated {@link #getLabel label}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -2084,6 +2398,8 @@ declare module "sap/ui/table/Column" {
     /**
      * Sets the aggregated {@link #getMenu menu}.
      *
+     * @deprecated As of version 1.117. use the `headerMenu` association instead.
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setMenu(
@@ -2093,8 +2409,6 @@ declare module "sap/ui/table/Column" {
       oMenu: Menu
     ): this;
     /**
-     * @since 1.44.1
-     *
      * Sets a new value for property {@link #getMinWidth minWidth}.
      *
      * Defines the minimum width of a column in pixels. This property only has an effect if the given column
@@ -2106,6 +2420,8 @@ declare module "sap/ui/table/Column" {
      *
      * Default value is `0`.
      *
+     * @since 1.44.1
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setMinWidth(
@@ -2115,8 +2431,6 @@ declare module "sap/ui/table/Column" {
       iMinWidth?: int
     ): this;
     /**
-     * @since 1.11.1
-     *
      * Sets a new value for property {@link #getName name}.
      *
      * The name of the column which is used for the text representation of this column, for example, in menus.
@@ -2124,6 +2438,8 @@ declare module "sap/ui/table/Column" {
      * as a fallback option.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @since 1.11.1
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -2143,6 +2459,7 @@ declare module "sap/ui/table/Column" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setResizable(
@@ -2152,15 +2469,16 @@ declare module "sap/ui/table/Column" {
       bResizable?: boolean
     ): this;
     /**
-     * @since 1.13.0
-     *
      * Sets a new value for property {@link #getShowFilterMenuEntry showFilterMenuEntry}.
      *
-     * Defines if the filter menu entry is displayed
+     * Defines if the filter menu entry is displayed. **Note**: It only takes effect if the `headerMenu` association
+     * is set.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @since 1.13.0
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -2171,15 +2489,16 @@ declare module "sap/ui/table/Column" {
       bShowFilterMenuEntry?: boolean
     ): this;
     /**
-     * @since 1.13.0
-     *
      * Sets a new value for property {@link #getShowSortMenuEntry showSortMenuEntry}.
      *
-     * Defines if the sort menu entries are displayed
+     * Defines if the sort menu entries are displayed. **Note**: It only takes effect if the `headerMenu` association
+     * is set.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @since 1.13.0
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -2195,9 +2514,19 @@ declare module "sap/ui/table/Column" {
      * Indicates if the column is sorted. This property only controls if a sort indicator is displayed in the
      * column header - it does not trigger the sort function. The column can be sorted using {@link sap.ui.table.Table#sort}.
      *
+     * If this property is set to `true` and the `sortOrder` property is `None`, `sortOrder` is automatically
+     * set to `Ascending`. If this property is `true` and `sortOrder` is `None`, the sort indicator is not shown.
+     *
+     * **Note:** Even though the `sorted` property has been deprecated, is still required in the UI5 1.x versions
+     * to show the sort indicator. With UI5 2.x, the `sorted` property will be removed and the sort indicator
+     * will be shown based on the `sortOrder`.
+     *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @deprecated As of version 1.120. replaced by {@link sap.ui.core.SortOrder SortOrder.None} for the `sortOrder`
+     * property
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -2210,12 +2539,13 @@ declare module "sap/ui/table/Column" {
     /**
      * Sets a new value for property {@link #getSortOrder sortOrder}.
      *
-     * This property indicates the sort direction (Ascending or Descending). The corresponding icon will be
-     * rendered if the property `sorted` is `true`
+     * Controls whether a sort indicator is displayed in the column header. **Note:** Setting this property
+     * does not sort the table. The column can be sorted using {@link sap.ui.table.Table#sort}.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
-     * Default value is `Ascending`.
+     * Default value is `None`.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -2233,9 +2563,11 @@ declare module "sap/ui/table/Column" {
      * the binding property for sorting must be specified. For example, if the first name and last name are
      * displayed in the same column, only one of the two can be defined as `sortProperty`.
      *
-     * A column menu entry for sorting can only be generated if the `sortProperty` is set.
+     * A column menu entry for sorting can only be generated if the `headerMenu` association and `sortProperty`
+     * are set.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -2247,6 +2579,7 @@ declare module "sap/ui/table/Column" {
     ): this;
     /**
      * Sets the aggregated {@link #getTemplate template}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -2264,6 +2597,7 @@ declare module "sap/ui/table/Column" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -2284,6 +2618,7 @@ declare module "sap/ui/table/Column" {
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setWidth(
@@ -2293,17 +2628,17 @@ declare module "sap/ui/table/Column" {
       sWidth?: CSSSize
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
-     *
      * Returns whether the column should be rendered.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Returns `true`, if the column should be rendered
      */
     shouldRender(): boolean;
     /**
-     * @deprecated (since 1.5.1) - Please use the function "sap.ui.Table.prototype.sort".
-     *
      * Sorts the current column ascending or descending.
+     *
+     * @deprecated As of version 1.5.1. Please use the function "sap.ui.Table.prototype.sort".
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -2314,13 +2649,15 @@ declare module "sap/ui/table/Column" {
       bDescending: boolean
     ): this;
     /**
-     * @deprecated (since 1.5.1) - Please use the function "sap.ui.Table.prototype.sort".
-     *
      * Toggles the sort order of the column.
+     *
+     * @deprecated As of version 1.5.1. Please use the function "sap.ui.Table.prototype.sort".
      */
     toggleSort(): void;
   }
-
+  /**
+   * Describes the settings that can be provided to the Column constructor.
+   */
   export interface $ColumnSettings extends $ElementSettings {
     /**
      * Width of the column in CSS units. Default value is `auto`, see
@@ -2332,23 +2669,23 @@ declare module "sap/ui/table/Column" {
     width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @since 1.44.1
-     *
      * Defines the minimum width of a column in pixels. This property only has an effect if the given column
      * width is flexible, for example with width `auto`. This property only influences the automatic behavior.
      * If a user adjusts the column width manually, the column width can become smaller. Minimal column width
      * is device-dependent, for example on desktop devices the column will not be smaller than 48px.
+     *
+     * @since 1.44.1
      */
     minWidth?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @deprecated (since 1.44) - this property has no effect. Use the property `minWidth` in combination with
-     * the property `width="auto"` instead.
-     *
      * If the table is wider than the sum of widths of the visible columns, the columns will be resized proportionally
      * to their widths that were set originally. If set to false, the column will be displayed in the original
      * width. If all columns are set to not be flexible, an extra "dummy" column will be created at the end
      * of the table.
+     *
+     * @deprecated As of version 1.44. this property has no effect. Use the property `minWidth` in combination
+     * with the property `width="auto"` instead.
      */
     flexible?: boolean | PropertyBindingInfo | `{${string}}`;
 
@@ -2370,12 +2707,22 @@ declare module "sap/ui/table/Column" {
     /**
      * Indicates if the column is sorted. This property only controls if a sort indicator is displayed in the
      * column header - it does not trigger the sort function. The column can be sorted using {@link sap.ui.table.Table#sort}.
+     *
+     * If this property is set to `true` and the `sortOrder` property is `None`, `sortOrder` is automatically
+     * set to `Ascending`. If this property is `true` and `sortOrder` is `None`, the sort indicator is not shown.
+     *
+     * **Note:** Even though the `sorted` property has been deprecated, is still required in the UI5 1.x versions
+     * to show the sort indicator. With UI5 2.x, the `sorted` property will be removed and the sort indicator
+     * will be shown based on the `sortOrder`.
+     *
+     * @deprecated As of version 1.120. replaced by {@link sap.ui.core.SortOrder SortOrder.None} for the `sortOrder`
+     * property
      */
     sorted?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * This property indicates the sort direction (Ascending or Descending). The corresponding icon will be
-     * rendered if the property `sorted` is `true`
+     * Controls whether a sort indicator is displayed in the column header. **Note:** Setting this property
+     * does not sort the table. The column can be sorted using {@link sap.ui.table.Table#sort}.
      */
     sortOrder?:
       | (SortOrder | keyof typeof SortOrder)
@@ -2388,7 +2735,8 @@ declare module "sap/ui/table/Column" {
      * the binding property for sorting must be specified. For example, if the first name and last name are
      * displayed in the same column, only one of the two can be defined as `sortProperty`.
      *
-     * A column menu entry for sorting can only be generated if the `sortProperty` is set.
+     * A column menu entry for sorting can only be generated if the `headerMenu` association and `sortProperty`
+     * are set.
      */
     sortProperty?: string | PropertyBindingInfo;
 
@@ -2404,8 +2752,8 @@ declare module "sap/ui/table/Column" {
      * Therefore the binding property for filtering must be specified. For example, if the first name and last
      * name are displayed in the same column, only one of the two can be defined as `filterProperty`.
      *
-     * A column menu entry for filtering can only be generated if the `filterProperty` is set. The default menu
-     * entry is a text input field.
+     * A column menu entry for filtering can only be generated if the `headerMenu` association and `filterProperty`
+     * are set. The default menu entry is a text input field.
      */
     filterProperty?: string | PropertyBindingInfo;
 
@@ -2441,8 +2789,6 @@ declare module "sap/ui/table/Column" {
     defaultFilterOperator?: string | PropertyBindingInfo;
 
     /**
-     * @since 1.9.2
-     *
      * Type of filter. It is used to transform the search term into the specified type and should be the same
      * as defined in the binding for the column template. Default value is `sap.ui.model.type.String`. It can
      * be set to the class name of the type, e.g.: `sap.ui.model.type.Date`, or an expression similar to the
@@ -2450,11 +2796,19 @@ declare module "sap/ui/table/Column" {
      * \{\} \}"`. Here the escaping is mandatory to avoid handling by the binding parser. As an alternative,
      * a function can be passed that takes over the conversion. This cannot be done in the XMLView, use {@link #setFilterType }
      * instead.
+     *
+     * **Note:** The usage of string-based type definitions without explicitly loading these types (`sap.ui.require`)
+     * in the controller has been deprecated and might no longer work in future releases. Please ensure that
+     * the types are requested correctly before setting this property.
+     *
+     * @since 1.9.2
      */
     filterType?: any | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Indicates if the column is grouped.
+     *
+     * @deprecated As of version 1.118. see the `enableGrouping` property of `sap.ui.table.Table` for details.
      */
     grouped?: boolean | PropertyBindingInfo | `{${string}}`;
 
@@ -2464,25 +2818,27 @@ declare module "sap/ui/table/Column" {
     visible?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @since 1.11.1
-     *
      * The name of the column which is used for the text representation of this column, for example, in menus.
      * If not set, the text from the multiLabels aggregation or the label aggregation (in that order) is used
      * as a fallback option.
+     *
+     * @since 1.11.1
      */
     name?: string | PropertyBindingInfo;
 
     /**
-     * @since 1.13.0
+     * Defines if the filter menu entry is displayed. **Note**: It only takes effect if the `headerMenu` association
+     * is set.
      *
-     * Defines if the filter menu entry is displayed
+     * @since 1.13.0
      */
     showFilterMenuEntry?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @since 1.13.0
+     * Defines if the sort menu entries are displayed. **Note**: It only takes effect if the `headerMenu` association
+     * is set.
      *
-     * Defines if the sort menu entries are displayed
+     * @since 1.13.0
      */
     showSortMenuEntry?: boolean | PropertyBindingInfo | `{${string}}`;
 
@@ -2497,13 +2853,10 @@ declare module "sap/ui/table/Column" {
     headerSpan?: any | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @since 1.21.1
+     * Enables auto-resizing of the column on double-clicking the resize bar, if the column is resizable depending
+     * on the `resizable` property. See {@link #autoResize} for details about the auto-resize feature.
      *
-     * Enables auto-resizing of the column on double clicking the resize bar. The width is determined on the
-     * widest currently displayed content. It does not consider rows which are currently not scrolled into view.
-     * Currently only implemented to work with the following controls: `sap.m.Text, sap.m.Label, sap.m.Link,
-     * sap.m.Input, sap.ui.commons.TextView, sap.ui.commons.Label, sap.ui.commons.Link and sap.ui.commons.TextField,
-     * sap.ui.commons.Checkbox, sap.m.CheckBox`
+     * @since 1.21.1
      */
     autoResizable?: boolean | PropertyBindingInfo | `{${string}}`;
 
@@ -2511,27 +2864,39 @@ declare module "sap/ui/table/Column" {
      * Label of the column which is displayed in the column header. This aggregation is for the standard behavior,
      * where you only want to display one single row header. If a string is supplied, a default label control
      * will be created. Which control this is depends on the loaded libraries.
+     *
+     * **Note:** The `altType` string is deprecated as of version 1.118. Use a `Control` instead.
      */
     label?: string | Control | PropertyBindingInfo;
 
     /**
-     * @since 1.13.1
-     *
      * Labels of the column which are displayed in the column header. Define a control for each header row in
      * the table. Use this aggregation if you want to use multiple headers per column.
+     *
+     *  The {@link sap.m.plugins.ColumnAIAction ColumnAIAction} plugin is not compatible with multi
+     * labels.
+     *
+     * @since 1.13.1
      */
     multiLabels?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
 
     /**
-     * Template (cell renderer) of this column. A template is decoupled from the column. Each time the template's
-     * properties or aggregations have been changed, the template has to be applied again via `setTemplate`
-     * for the changes to take effect. If a string is defined, a default text control will be created with its
-     * text property bound to the value of the string. The default template depends on the libraries loaded.
-     * If there is no template, the column will not be rendered in the table. The set of supported controls
-     * is limited. See section "{@link https://ui5.sap.com/#/topic/148892ff9aea4a18b912829791e38f3e Tables: Which One Should I Choose?}"
+     * Template (cell renderer) of this column.
+     *
+     * A template is decoupled from the column. Each time the template's properties or aggregations have been
+     * changed, the template has to be applied again via `setTemplate` for the changes to take effect.
+     *
+     * If there is no template, the column will not be rendered in the table.
+     *
+     * The set of supported controls is limited. See section "{@link https://ui5.sap.com/#/topic/148892ff9aea4a18b912829791e38f3e Tables: Which One Should I Choose?}"
      * in the documentation for more details. While it is technically possible to also use other controls, doing
      * so might lead to issues with regards to scrolling, alignment, condensed mode, screen reader support,
      * and keyboard support.
+     *
+     * If a string is defined, this string is interpreted as the binding path. Internally, a default text control
+     * will be created with its `text` property bound to the value of the string. The default template depends
+     * on the libraries loaded. **Note:** The `altType` string is deprecated as of version 1.118. Use a `Control`
+     * instead.
      */
     template?: string | Control | PropertyBindingInfo;
 
@@ -2541,26 +2906,32 @@ declare module "sap/ui/table/Column" {
      * **Note:** Applications must not use or change the default `sap.ui.table.ColumnMenu` of a column in any
      * way or create own instances of `sap.ui.table.ColumnMenu`. To add a custom menu to a column, use the aggregation
      * `menu` with a new instance of `sap.ui.unified.Menu`.
+     *
+     * @deprecated As of version 1.117. use the `headerMenu` association instead.
      */
     menu?: Menu;
 
     /**
-     * @since 1.110
-     *
      * The menu that can be opened by the header element of this column.
+     *
+     * @since 1.110
      */
     headerMenu?: IColumnHeaderMenu | string;
 
     /**
-     * @since 1.33.0
-     *
      * Fires before the column menu is opened.
+     *
+     * @since 1.33.0
+     * @deprecated As of version 1.117. see the `headerMenu` aggregation for details.
      */
-    columnMenuOpen?: (
-      oEvent: Event<Column$ColumnMenuOpenEventParameters>
-    ) => void;
+    columnMenuOpen?: (oEvent: Column$ColumnMenuOpenEvent) => void;
   }
 
+  /**
+   * Parameters of the Column#columnMenuOpen event.
+   *
+   * @deprecated As of version 1.117. see the `headerMenu` aggregation for details.
+   */
   export interface Column$ColumnMenuOpenEventParameters {
     /**
      * Refence to the selected `menu` instance to be opened.
@@ -2569,12 +2940,14 @@ declare module "sap/ui/table/Column" {
   }
 
   /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Column$ColumnMenuOpenEventParameters'
-   * in 1.115.1 and any later releases.
+   * Event object of the Column#columnMenuOpen event.
+   *
+   * @deprecated As of version 1.117. see the `headerMenu` aggregation for details.
    */
-  export type $ColumnColumnMenuOpenEventParameters = Column$ColumnMenuOpenEventParameters;
-
-  export type Column$ColumnMenuOpenEvent = Event<Column$ColumnMenuOpenEventParameters>;
+  export type Column$ColumnMenuOpenEvent = Event<
+    Column$ColumnMenuOpenEventParameters,
+    Column
+  >;
 }
 
 declare module "sap/ui/table/ColumnMenu" {
@@ -2584,6 +2957,8 @@ declare module "sap/ui/table/ColumnMenu" {
 
   /**
    * The column menu provides all common actions that can be performed on a column.
+   *
+   * @deprecated As of version 1.117. use the {@link sap.m.table.columnmenu.Menu} instead.
    */
   export default class ColumnMenu extends Menu {
     /**
@@ -2637,6 +3012,7 @@ declare module "sap/ui/table/ColumnMenu" {
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.unified.Menu.extend}.
      *
+     *
      * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
@@ -2657,11 +3033,16 @@ declare module "sap/ui/table/ColumnMenu" {
     /**
      * Returns a metadata object for class sap.ui.table.ColumnMenu.
      *
+     *
      * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
   }
-
+  /**
+   * Describes the settings that can be provided to the ColumnMenu constructor.
+   *
+   * @deprecated As of version 1.117. use the {@link sap.m.table.columnmenu.Menu} instead.
+   */
   export interface $ColumnMenuSettings extends $MenuSettings {}
 }
 
@@ -2672,6 +3053,10 @@ declare module "sap/ui/table/plugins/MultiSelectionPlugin" {
     SelectionPlugin$SelectionChangeEventParameters,
   } from "sap/ui/table/plugins/SelectionPlugin";
 
+  import Table from "sap/ui/table/Table";
+
+  import UI5Element from "sap/ui/core/Element";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { SelectionMode } from "sap/ui/table/library";
@@ -2681,11 +3066,12 @@ declare module "sap/ui/table/plugins/MultiSelectionPlugin" {
   import Event from "sap/ui/base/Event";
 
   /**
-   * @since 1.64
-   *
    * Implements a plugin to enable a special multi-selection behavior:
-   * 	 - No Select All checkbox, select all can only be done via range selection
-   * 	 - Dedicated Deselect All button to clear the selection
+   * 	 - Select All checkbox for selecting rows up to the set limit.
+   * If the number of selected rows is smaller than the limit, all these rows can be selected at once with
+   * a single operation. If there are more rows than the limit, the first x rows are selected until the limit
+   * x has been reached.
+   * 	 - Dedicated Deselect All button for removing the selection
    * 	 - The number of indices which can be selected in a range is defined by the `limit` property. If the
    *     user tries to select more indices, the selection is automatically limited, and the table scrolls to the
    *     last selected index.
@@ -2696,10 +3082,16 @@ declare module "sap/ui/table/plugins/MultiSelectionPlugin" {
    * This plugin is intended for server-side models and multi-selection mode. Range selections, including
    * Select All, only work properly if the count is known. Make sure the model/binding is configured to request
    * the count from the service. For ease of use, client-side models and single selection are also supported.
+   *
+   * With ODataV4, use the {@link sap.ui.table.plugins.ODataV4MultiSelection ODataV4MultiSelection} plugin
+   * or the {@link sap.ui.table.plugins.ODataV4SingleSelection ODataV4SingleSelection} plugin instead of this
+   * one.
+   *
+   * @since 1.64
    */
   export default class MultiSelectionPlugin extends SelectionPlugin {
     /**
-     * Constructs an instance of sap.ui.table.plugins.MultiSelectionPlugin
+     * Constructs an instance of sap.ui.table.plugins.MultiSelectionPlugin.
      *
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
@@ -2712,6 +3104,7 @@ declare module "sap/ui/table/plugins/MultiSelectionPlugin" {
      * enriches it with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.table.plugins.SelectionPlugin.extend}.
+     *
      *
      * @returns Created class / constructor function
      */
@@ -2731,7 +3124,21 @@ declare module "sap/ui/table/plugins/MultiSelectionPlugin" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Searches a plugin of the corresponding type in the aggregations of the given `Table` instance. The first
+     * plugin that is found is returned.
+     *
+     *
+     * @returns The found plugin instance or `undefined` if not found
+     */
+    static findOn(
+      /**
+       * The `Table` instance to check for
+       */
+      oTable: Table
+    ): UI5Element | undefined;
+    /**
      * Returns a metadata object for class sap.ui.table.plugins.MultiSelectionPlugin.
+     *
      *
      * @returns Metadata object describing this class
      */
@@ -2742,6 +3149,7 @@ declare module "sap/ui/table/plugins/MultiSelectionPlugin" {
      *
      * If the number of indices in the range is greater than the value of the `limit` property, only n=limit
      * indices, starting from `iIndexFrom`, are selected. The table is scrolled to display the index last selected.
+     *
      *
      * @returns A Promise that resolves after the selection has been completed or is rejected with an error
      */
@@ -2769,6 +3177,7 @@ declare module "sap/ui/table/plugins/MultiSelectionPlugin" {
      *
      * This event is fired when the selection is changed.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachSelectionChange(
@@ -2795,6 +3204,7 @@ declare module "sap/ui/table/plugins/MultiSelectionPlugin" {
      * otherwise it will be bound to this `sap.ui.table.plugins.MultiSelectionPlugin` itself.
      *
      * This event is fired when the selection is changed.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -2825,6 +3235,7 @@ declare module "sap/ui/table/plugins/MultiSelectionPlugin" {
      *
      * The passed function and listener object must match the ones used for event registration.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     detachSelectionChange(
@@ -2838,9 +3249,9 @@ declare module "sap/ui/table/plugins/MultiSelectionPlugin" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
-     *
      * Fires event {@link #event:selectionChange selectionChange} to attached listeners.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -2851,13 +3262,13 @@ declare module "sap/ui/table/plugins/MultiSelectionPlugin" {
       mParameters?: MultiSelectionPlugin$SelectionChangeEventParameters
     ): this;
     /**
-     * @since 1.71
-     *
      * Gets current value of property {@link #getEnableNotification enableNotification}.
      *
      * Enables notifications that are displayed once a selection has been limited.
      *
      * Default value is `false`.
+     *
+     * @since 1.71
      *
      * @returns Value of property `enableNotification`
      */
@@ -2879,11 +3290,13 @@ declare module "sap/ui/table/plugins/MultiSelectionPlugin" {
      *
      * Default value is `200`.
      *
+     *
      * @returns Value of property `limit`
      */
     getLimit(): int;
     /**
      * Zero-based indices of selected indices, wrapped in an array. An empty array means nothing has been selected.
+     *
      *
      * @returns An array containing all selected indices
      */
@@ -2897,9 +3310,10 @@ declare module "sap/ui/table/plugins/MultiSelectionPlugin" {
      *
      * Default value is `MultiToggle`.
      *
+     *
      * @returns Value of property `selectionMode`
      */
-    getSelectionMode(): SelectionMode | keyof typeof SelectionMode;
+    getSelectionMode(): SelectionMode;
     /**
      * Gets current value of property {@link #getShowHeaderSelector showHeaderSelector}.
      *
@@ -2907,11 +3321,13 @@ declare module "sap/ui/table/plugins/MultiSelectionPlugin" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Value of property `showHeaderSelector`
      */
     getShowHeaderSelector(): boolean;
     /**
      * Returns the information whether the given index is selected.
+     *
      *
      * @returns `true` if the index is selected
      */
@@ -2944,6 +3360,7 @@ declare module "sap/ui/table/plugins/MultiSelectionPlugin" {
      * Requests the binding contexts and adds all indices to the selection if the limit is disabled or the binding
      * length is smaller then the limit.
      *
+     *
      * @returns A Promise that resolves after the selection has been completed or is rejected with an error
      */
     selectAll(
@@ -2954,8 +3371,6 @@ declare module "sap/ui/table/plugins/MultiSelectionPlugin" {
       oEventPayload?: object
     ): Promise<any>;
     /**
-     * @since 1.71
-     *
      * Sets a new value for property {@link #getEnableNotification enableNotification}.
      *
      * Enables notifications that are displayed once a selection has been limited.
@@ -2963,6 +3378,8 @@ declare module "sap/ui/table/plugins/MultiSelectionPlugin" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @since 1.71
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -2991,6 +3408,7 @@ declare module "sap/ui/table/plugins/MultiSelectionPlugin" {
      *
      * Default value is `200`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setLimit(
@@ -3001,6 +3419,7 @@ declare module "sap/ui/table/plugins/MultiSelectionPlugin" {
     ): this;
     /**
      * Requests the context and sets the selected index to `iIndex`.
+     *
      *
      * @returns A Promise that resolves after the selection has been completed or is rejected with an error
      */
@@ -3021,6 +3440,7 @@ declare module "sap/ui/table/plugins/MultiSelectionPlugin" {
      *
      * If the number of indices in the range is greater than the value of the `limit` property, only n=limit
      * indices, starting from `iIndexFrom`, are selected. The table is scrolled to display the index last selected.
+     *
      *
      * @returns A Promise that resolves after the selection has been completed or is rejected with an error
      */
@@ -3050,6 +3470,7 @@ declare module "sap/ui/table/plugins/MultiSelectionPlugin" {
      *
      * Default value is `MultiToggle`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setSelectionMode(
@@ -3067,6 +3488,7 @@ declare module "sap/ui/table/plugins/MultiSelectionPlugin" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setShowHeaderSelector(
@@ -3076,7 +3498,9 @@ declare module "sap/ui/table/plugins/MultiSelectionPlugin" {
       bShowHeaderSelector?: boolean
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the MultiSelectionPlugin constructor.
+   */
   export interface $MultiSelectionPluginSettings
     extends $SelectionPluginSettings {
     /**
@@ -3095,9 +3519,9 @@ declare module "sap/ui/table/plugins/MultiSelectionPlugin" {
     limit?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @since 1.71
-     *
      * Enables notifications that are displayed once a selection has been limited.
+     *
+     * @since 1.71
      */
     enableNotification?: boolean | PropertyBindingInfo | `{${string}}`;
 
@@ -3120,10 +3544,13 @@ declare module "sap/ui/table/plugins/MultiSelectionPlugin" {
      * This event is fired when the selection is changed.
      */
     selectionChange?: (
-      oEvent: Event<MultiSelectionPlugin$SelectionChangeEventParameters>
+      oEvent: MultiSelectionPlugin$SelectionChangeEvent
     ) => void;
   }
 
+  /**
+   * Parameters of the MultiSelectionPlugin#selectionChange event.
+   */
   export interface MultiSelectionPlugin$SelectionChangeEventParameters
     extends SelectionPlugin$SelectionChangeEventParameters {
     /**
@@ -3143,12 +3570,574 @@ declare module "sap/ui/table/plugins/MultiSelectionPlugin" {
   }
 
   /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'MultiSelectionPlugin$SelectionChangeEventParameters'
-   * in 1.115.1 and any later releases.
+   * Event object of the MultiSelectionPlugin#selectionChange event.
    */
-  export type $MultiSelectionPluginSelectionChangeEventParameters = MultiSelectionPlugin$SelectionChangeEventParameters;
+  export type MultiSelectionPlugin$SelectionChangeEvent = Event<
+    MultiSelectionPlugin$SelectionChangeEventParameters,
+    MultiSelectionPlugin
+  >;
+}
 
-  export type MultiSelectionPlugin$SelectionChangeEvent = Event<MultiSelectionPlugin$SelectionChangeEventParameters>;
+declare module "sap/ui/table/plugins/ODataV4Aggregation" {
+  import { default as UI5Element, $ElementSettings } from "sap/ui/core/Element";
+
+  import Table from "sap/ui/table/Table";
+
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  /**
+   * Integrates the information about the data structure of the {@link sap.ui.model.odata.v4.ODataListBinding }
+   * and the table. The table is enabled to visualize grouped data with summary rows. Works only in combination
+   * with a {@link sap.ui.model.odata.v4.ODataModel}.
+   *
+   * For details about data aggregation, see {@link sap.ui.model.odata.v4.ODataListBinding#setAggregation}.
+   *
+   * In combination with the {@link sap.ui.table.Table Table} control, this plugin offers a UI for OData V4
+   * that is similar to the one the {@link sap.ui.table.AnalyticalTable AnalyticalTable} offers for OData
+   * V2.
+   *
+   * @since 1.140
+   */
+  export default class ODataV4Aggregation extends UI5Element {
+    /**
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     * See:
+     * 	{@link https://ui5.sap.com/#/topic/7d914317c0b64c23824bf932cc8a4ae1 OData V4: Data Aggregation and Recursive Hierarchy}
+     */
+    constructor();
+
+    /**
+     * Creates a new subclass of class sap.ui.table.plugins.ODataV4Aggregation with name `sClassName` and enriches
+     * it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     *
+     *
+     * @returns Created class / constructor function
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, ODataV4Aggregation>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Searches a plugin of the corresponding type in the aggregations of the given `Table` instance. The first
+     * plugin that is found is returned.
+     *
+     *
+     * @returns The found plugin instance or `undefined` if not found
+     */
+    static findOn(
+      /**
+       * The `Table` instance to check for
+       */
+      oTable: Table
+    ): UI5Element | undefined;
+    /**
+     * Returns a metadata object for class sap.ui.table.plugins.ODataV4Aggregation.
+     *
+     *
+     * @returns Metadata object describing this class
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Gets current value of property {@link #getEnabled enabled}.
+     *
+     * Indicates whether this plugin is enabled.
+     *
+     * Default value is `true`.
+     *
+     *
+     * @returns Value of property `enabled`
+     */
+    getEnabled(): boolean;
+    /**
+     * Gets current value of property {@link #getGroupHeaderFormatter groupHeaderFormatter}.
+     *
+     * Provides a custom group header title.
+     *
+     * This function is called for each group header row in the table. It receives the binding context of the
+     * row and the group level property path according to `groupLevels` in {@link sap.ui.model.odata.v4.ODataListBinding#setAggregation}).
+     * The function must return a string that is used as the title of the group header row.
+     *
+     * Function signature: `groupHeaderFormatter(oContext: sap.ui.model.odata.v4.Context, sPropertyPath: string):
+     * string`
+     *
+     *
+     * @returns Value of property `groupHeaderFormatter`
+     */
+    getGroupHeaderFormatter(): Function;
+    /**
+     * Sets a new value for property {@link #getEnabled enabled}.
+     *
+     * Indicates whether this plugin is enabled.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `true`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setEnabled(
+      /**
+       * New value for property `enabled`
+       */
+      bEnabled?: boolean
+    ): this;
+    /**
+     * Sets a new value for property {@link #getGroupHeaderFormatter groupHeaderFormatter}.
+     *
+     * Provides a custom group header title.
+     *
+     * This function is called for each group header row in the table. It receives the binding context of the
+     * row and the group level property path according to `groupLevels` in {@link sap.ui.model.odata.v4.ODataListBinding#setAggregation}).
+     * The function must return a string that is used as the title of the group header row.
+     *
+     * Function signature: `groupHeaderFormatter(oContext: sap.ui.model.odata.v4.Context, sPropertyPath: string):
+     * string`
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setGroupHeaderFormatter(
+      /**
+       * New value for property `groupHeaderFormatter`
+       */
+      fnGroupHeaderFormatter: Function
+    ): this;
+  }
+  /**
+   * Describes the settings that can be provided to the ODataV4Aggregation constructor.
+   */
+  export interface $ODataV4AggregationSettings extends $ElementSettings {
+    /**
+     * Indicates whether this plugin is enabled.
+     */
+    enabled?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Provides a custom group header title.
+     *
+     * This function is called for each group header row in the table. It receives the binding context of the
+     * row and the group level property path according to `groupLevels` in {@link sap.ui.model.odata.v4.ODataListBinding#setAggregation}).
+     * The function must return a string that is used as the title of the group header row.
+     *
+     * Function signature: `groupHeaderFormatter(oContext: sap.ui.model.odata.v4.Context, sPropertyPath: string):
+     * string`
+     */
+    groupHeaderFormatter?: Function | PropertyBindingInfo | `{${string}}`;
+  }
+}
+
+declare module "sap/ui/table/plugins/ODataV4Hierarchy" {
+  import { default as UI5Element, $ElementSettings } from "sap/ui/core/Element";
+
+  import Table from "sap/ui/table/Table";
+
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  /**
+   * Integrates the information about the data structure of the {@link sap.ui.model.odata.v4.ODataListBinding }
+   * and the table. The table is enabled to visualize hierarchical data. Works only in combination with a
+   * {@link sap.ui.model.odata.v4.ODataModel}.
+   *
+   * For details about hierarchies, see {@link sap.ui.model.odata.v4.ODataListBinding#setAggregation}.
+   *
+   * In combination with the {@link sap.ui.table.Table Table} control, this plugin offers a UI for OData V4
+   * that is similar to the one the {@link sap.ui.table.TreeTable TreeTable} offers for other models.
+   *
+   * @since 1.140
+   */
+  export default class ODataV4Hierarchy extends UI5Element {
+    /**
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     * See:
+     * 	{@link https://ui5.sap.com/#/topic/7d914317c0b64c23824bf932cc8a4ae1 OData V4: Data Aggregation and Recursive Hierarchy}
+     */
+    constructor();
+
+    /**
+     * Creates a new subclass of class sap.ui.table.plugins.ODataV4Hierarchy with name `sClassName` and enriches
+     * it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     *
+     *
+     * @returns Created class / constructor function
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, ODataV4Hierarchy>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Searches a plugin of the corresponding type in the aggregations of the given `Table` instance. The first
+     * plugin that is found is returned.
+     *
+     *
+     * @returns The found plugin instance or `undefined` if not found
+     */
+    static findOn(
+      /**
+       * The `Table` instance to check for
+       */
+      oTable: Table
+    ): UI5Element | undefined;
+    /**
+     * Returns a metadata object for class sap.ui.table.plugins.ODataV4Hierarchy.
+     *
+     *
+     * @returns Metadata object describing this class
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Gets current value of property {@link #getEnabled enabled}.
+     *
+     * Indicates whether this plugin is enabled.
+     *
+     * Default value is `true`.
+     *
+     *
+     * @returns Value of property `enabled`
+     */
+    getEnabled(): boolean;
+    /**
+     * Sets a new value for property {@link #getEnabled enabled}.
+     *
+     * Indicates whether this plugin is enabled.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `true`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setEnabled(
+      /**
+       * New value for property `enabled`
+       */
+      bEnabled?: boolean
+    ): this;
+  }
+  /**
+   * Describes the settings that can be provided to the ODataV4Hierarchy constructor.
+   */
+  export interface $ODataV4HierarchySettings extends $ElementSettings {
+    /**
+     * Indicates whether this plugin is enabled.
+     */
+    enabled?: boolean | PropertyBindingInfo | `{${string}}`;
+  }
+}
+
+declare module "sap/ui/table/plugins/ODataV4MultiSelection" {
+  import {
+    default as SelectionPlugin,
+    $SelectionPluginSettings,
+  } from "sap/ui/table/plugins/SelectionPlugin";
+
+  import Table from "sap/ui/table/Table";
+
+  import UI5Element from "sap/ui/core/Element";
+
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import Context from "sap/ui/model/odata/v4/Context";
+
+  import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  /**
+   * Integrates the selection of the {@link sap.ui.model.odata.v4.ODataListBinding} and the table. Works only
+   * in combination with a {@link sap.ui.model.odata.v4.ODataModel}.
+   *
+   * The selection of a context that is not selectable is not allowed. The following contexts are not selectable:
+   *
+   * 	 - Header context
+   * 	 - Contexts that represent group headers
+   * 	 - Contexts that contain totals
+   *
+   * All binding-related limitations also apply in the context of this plugin. For details, see {@link sap.ui.model.odata.v4.Context#setSelected }
+   * and {@link sap.ui.model.odata.v4.ODataModel#bindList}.
+   *
+   * @since 1.140
+   */
+  export default class ODataV4MultiSelection extends SelectionPlugin {
+    /**
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     * See:
+     * 	{@link https://ui5.sap.com/#/topic/ec55312f796f45e8883810af3b68b46c OData V4: Selection}
+     */
+    constructor();
+
+    /**
+     * Creates a new subclass of class sap.ui.table.plugins.ODataV4MultiSelection with name `sClassName` and
+     * enriches it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.table.plugins.SelectionPlugin.extend}.
+     *
+     *
+     * @returns Created class / constructor function
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, ODataV4MultiSelection>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Searches a plugin of the corresponding type in the aggregations of the given `Table` instance. The first
+     * plugin that is found is returned.
+     *
+     *
+     * @returns The found plugin instance or `undefined` if not found
+     */
+    static findOn(
+      /**
+       * The `Table` instance to check for
+       */
+      oTable: Table
+    ): UI5Element | undefined;
+    /**
+     * Returns a metadata object for class sap.ui.table.plugins.ODataV4MultiSelection.
+     *
+     *
+     * @returns Metadata object describing this class
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Clears the selection.
+     */
+    clearSelection(): void;
+    /**
+     * Gets current value of property {@link #getEnableNotification enableNotification}.
+     *
+     * Enables notifications that are displayed once a selection has been limited.
+     *
+     * Default value is `false`.
+     *
+     *
+     * @returns Value of property `enableNotification`
+     */
+    getEnableNotification(): boolean;
+    /**
+     * Gets current value of property {@link #getHideHeaderSelector hideHeaderSelector}.
+     *
+     * Hide the header selector.
+     *
+     * Default value is `false`.
+     *
+     *
+     * @returns Value of property `hideHeaderSelector`
+     */
+    getHideHeaderSelector(): boolean;
+    /**
+     * Returns the selected contexts.
+     *
+     *
+     * @returns The selected contexts
+     */
+    getSelectedContexts(): Context[];
+    /**
+     * Sets a new value for property {@link #getEnableNotification enableNotification}.
+     *
+     * Enables notifications that are displayed once a selection has been limited.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setEnableNotification(
+      /**
+       * New value for property `enableNotification`
+       */
+      bEnableNotification?: boolean
+    ): this;
+    /**
+     * Sets a new value for property {@link #getHideHeaderSelector hideHeaderSelector}.
+     *
+     * Hide the header selector.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setHideHeaderSelector(
+      /**
+       * New value for property `hideHeaderSelector`
+       */
+      bHideHeaderSelector?: boolean
+    ): this;
+  }
+  /**
+   * Describes the settings that can be provided to the ODataV4MultiSelection constructor.
+   */
+  export interface $ODataV4MultiSelectionSettings
+    extends $SelectionPluginSettings {
+    /**
+     * Enables notifications that are displayed once a selection has been limited.
+     */
+    enableNotification?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Hide the header selector.
+     */
+    hideHeaderSelector?: boolean | PropertyBindingInfo | `{${string}}`;
+  }
+}
+
+declare module "sap/ui/table/plugins/ODataV4SingleSelection" {
+  import {
+    default as SelectionPlugin,
+    $SelectionPluginSettings,
+  } from "sap/ui/table/plugins/SelectionPlugin";
+
+  import Table from "sap/ui/table/Table";
+
+  import UI5Element from "sap/ui/core/Element";
+
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import Context from "sap/ui/model/odata/v4/Context";
+
+  /**
+   * Integrates the selection of the {@link sap.ui.model.odata.v4.ODataListBinding} and the table. Works only
+   * in combination with a {@link sap.ui.model.odata.v4.ODataModel}. The selection of multiple contexts is
+   * not allowed. Only one context can be selected at a time.
+   *
+   * The selection of a context that is not selectable is not allowed. The following contexts are not selectable:
+   *
+   * 	 - Header context
+   * 	 - Contexts that represent group headers
+   * 	 - Contexts that contain totals
+   *
+   * All binding-related limitations also apply in the context of this plugin. For details, see {@link sap.ui.model.odata.v4.Context#setSelected }
+   * and {@link sap.ui.model.odata.v4.ODataModel#bindList}.
+   *
+   * @since 1.140
+   */
+  export default class ODataV4SingleSelection extends SelectionPlugin {
+    /**
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.table.plugins.SelectionPlugin#constructor sap.ui.table.plugins.SelectionPlugin }
+     * can be used.
+     * See:
+     * 	{@link https://ui5.sap.com/#/topic/ec55312f796f45e8883810af3b68b46c OData V4: Selection}
+     */
+    constructor();
+
+    /**
+     * Creates a new subclass of class sap.ui.table.plugins.ODataV4SingleSelection with name `sClassName` and
+     * enriches it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.table.plugins.SelectionPlugin.extend}.
+     *
+     *
+     * @returns Created class / constructor function
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, ODataV4SingleSelection>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Searches a plugin of the corresponding type in the aggregations of the given `Table` instance. The first
+     * plugin that is found is returned.
+     *
+     *
+     * @returns The found plugin instance or `undefined` if not found
+     */
+    static findOn(
+      /**
+       * The `Table` instance to check for
+       */
+      oTable: Table
+    ): UI5Element | undefined;
+    /**
+     * Returns a metadata object for class sap.ui.table.plugins.ODataV4SingleSelection.
+     *
+     *
+     * @returns Metadata object describing this class
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Clears the selection.
+     */
+    clearSelection(): void;
+    /**
+     * Returns the selected context.
+     *
+     *
+     * @returns The selected context
+     */
+    getSelectedContext(): Context;
+  }
+  /**
+   * Describes the settings that can be provided to the ODataV4SingleSelection constructor.
+   */
+  export interface $ODataV4SingleSelectionSettings
+    extends $SelectionPluginSettings {}
 }
 
 declare module "sap/ui/table/plugins/SelectionPlugin" {
@@ -3156,23 +4145,23 @@ declare module "sap/ui/table/plugins/SelectionPlugin" {
 
   import Event from "sap/ui/base/Event";
 
+  import Table from "sap/ui/table/Table";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
   /**
-   * @since 1.64
-   * @experimental (since 1.64)
+   * Base class for the selection plugins. A selection plugin is responsible for the selection behavior of
+   * the table. It handles the selection state and provides information about the selection state to the table.
+   * The subclass is also responsible for firing the `selectionChange` event when the selection is changed.
    *
-   * Implements the selection methods for a table.
+   * Do not add more than one selection plugin to a table.
+   *
+   * @since 1.64
    */
-  export default class SelectionPlugin extends UI5Element {
+  export default abstract class SelectionPlugin extends UI5Element {
     /**
-     * Constructs an instance of sap.ui.table.plugins.SelectionPlugin
-     *
-     * The following restrictions apply:
-     * 	 - Do not create subclasses of the SelectionPlugin. The API is subject to change.
-     *
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
@@ -3184,6 +4173,7 @@ declare module "sap/ui/table/plugins/SelectionPlugin" {
      * it with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     *
      *
      * @returns Created class / constructor function
      */
@@ -3203,7 +4193,21 @@ declare module "sap/ui/table/plugins/SelectionPlugin" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Searches a plugin of the corresponding type in the aggregations of the given `Table` instance. The first
+     * plugin that is found is returned.
+     *
+     *
+     * @returns The found plugin instance or `undefined` if not found
+     */
+    static findOn(
+      /**
+       * The `Table` instance to check for
+       */
+      oTable: Table
+    ): UI5Element | undefined;
+    /**
      * Returns a metadata object for class sap.ui.table.plugins.SelectionPlugin.
+     *
      *
      * @returns Metadata object describing this class
      */
@@ -3216,6 +4220,7 @@ declare module "sap/ui/table/plugins/SelectionPlugin" {
      * otherwise it will be bound to this `sap.ui.table.plugins.SelectionPlugin` itself.
      *
      * This event is fired when the selection is changed.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -3244,6 +4249,7 @@ declare module "sap/ui/table/plugins/SelectionPlugin" {
      *
      * This event is fired when the selection is changed.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachSelectionChange(
@@ -3263,6 +4269,7 @@ declare module "sap/ui/table/plugins/SelectionPlugin" {
      *
      * The passed function and listener object must match the ones used for event registration.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     detachSelectionChange(
@@ -3276,9 +4283,9 @@ declare module "sap/ui/table/plugins/SelectionPlugin" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
-     *
      * Fires event {@link #event:selectionChange selectionChange} to attached listeners.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -3295,6 +4302,7 @@ declare module "sap/ui/table/plugins/SelectionPlugin" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Value of property `enabled`
      */
     getEnabled(): boolean;
@@ -3307,6 +4315,7 @@ declare module "sap/ui/table/plugins/SelectionPlugin" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setEnabled(
@@ -3316,7 +4325,9 @@ declare module "sap/ui/table/plugins/SelectionPlugin" {
       bEnabled?: boolean
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the SelectionPlugin constructor.
+   */
   export interface $SelectionPluginSettings extends $ElementSettings {
     /**
      * Indicates whether this plugin is enabled.
@@ -3329,15 +4340,18 @@ declare module "sap/ui/table/plugins/SelectionPlugin" {
     selectionChange?: (oEvent: Event) => void;
   }
 
+  /**
+   * Parameters of the SelectionPlugin#selectionChange event.
+   */
   export interface SelectionPlugin$SelectionChangeEventParameters {}
 
   /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'SelectionPlugin$SelectionChangeEventParameters'
-   * in 1.115.1 and any later releases.
+   * Event object of the SelectionPlugin#selectionChange event.
    */
-  export type $SelectionPluginSelectionChangeEventParameters = SelectionPlugin$SelectionChangeEventParameters;
-
-  export type SelectionPlugin$SelectionChangeEvent = Event<SelectionPlugin$SelectionChangeEventParameters>;
+  export type SelectionPlugin$SelectionChangeEvent = Event<
+    SelectionPlugin$SelectionChangeEventParameters,
+    SelectionPlugin
+  >;
 }
 
 declare module "sap/ui/table/Row" {
@@ -3390,6 +4404,7 @@ declare module "sap/ui/table/Row" {
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
      *
+     *
      * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
@@ -3410,11 +4425,13 @@ declare module "sap/ui/table/Row" {
     /**
      * Returns a metadata object for class sap.ui.table.Row.
      *
+     *
      * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some cell to the aggregation {@link #getCells cells}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -3426,6 +4443,7 @@ declare module "sap/ui/table/Row" {
     ): this;
     /**
      * Destroys all the cells in the aggregation {@link #getCells cells}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -3442,12 +4460,14 @@ declare module "sap/ui/table/Row" {
      * Returns the index of the row in the table or -1 if not added to a table. This function considers the
      * scroll position of the table and also takes fixed rows and fixed bottom rows into account.
      *
+     *
      * @returns index of the row (considers scroll position and fixed rows)
      */
     getIndex(): int;
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getCells cells}. and returns
      * its index if found or -1 otherwise.
+     *
      *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
@@ -3459,6 +4479,7 @@ declare module "sap/ui/table/Row" {
     ): int;
     /**
      * Inserts a cell into the aggregation {@link #getCells cells}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -3479,11 +4500,13 @@ declare module "sap/ui/table/Row" {
      *
      * Additionally, it unregisters them from the hosting UIArea.
      *
+     *
      * @returns An array of the removed elements (might be empty)
      */
     removeAllCells(): Control[];
     /**
      * Removes a cell from the aggregation {@link #getCells cells}.
+     *
      *
      * @returns The removed cell or `null`
      */
@@ -3494,7 +4517,9 @@ declare module "sap/ui/table/Row" {
       vCell: int | string | Control
     ): Control | null;
   }
-
+  /**
+   * Describes the settings that can be provided to the Row constructor.
+   */
   export interface $RowSettings extends $ElementSettings {
     /**
      * The actual cells are a table-internal construct. The controls in this aggregation are the content of
@@ -3518,11 +4543,14 @@ declare module "sap/ui/table/RowAction" {
   } from "sap/ui/base/ManagedObject";
 
   /**
-   * @since 1.45
-   *
    * The `RowAction` control allows to display multiple action items which can be selected by the user. If
    * more action items are available as the available space allows to display an overflow mechanism is provided.
    * This control must only be used in the context of the `sap.ui.table.Table` control to define row actions.
+   *
+   * **Note**: The `RowActionItem` of type `Navigation` has a special role and is shown as the rightmost icon
+   * independent of the order in the `items` aggregation.
+   *
+   * @since 1.45
    */
   export default class RowAction extends Control {
     /**
@@ -3562,6 +4590,7 @@ declare module "sap/ui/table/RowAction" {
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
      *
+     *
      * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
@@ -3582,11 +4611,13 @@ declare module "sap/ui/table/RowAction" {
     /**
      * Returns a metadata object for class sap.ui.table.RowAction.
      *
+     *
      * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some item to the aggregation {@link #getItems items}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -3598,6 +4629,7 @@ declare module "sap/ui/table/RowAction" {
     ): this;
     /**
      * Destroys all the items in the aggregation {@link #getItems items}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -3615,12 +4647,14 @@ declare module "sap/ui/table/RowAction" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Value of property `visible`
      */
     getVisible(): boolean;
     /**
      * Checks for the provided `sap.ui.table.RowActionItem` in the aggregation {@link #getItems items}. and
      * returns its index if found or -1 otherwise.
+     *
      *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
@@ -3632,6 +4666,7 @@ declare module "sap/ui/table/RowAction" {
     ): int;
     /**
      * Inserts a item into the aggregation {@link #getItems items}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -3652,11 +4687,13 @@ declare module "sap/ui/table/RowAction" {
      *
      * Additionally, it unregisters them from the hosting UIArea.
      *
+     *
      * @returns An array of the removed elements (might be empty)
      */
     removeAllItems(): RowActionItem[];
     /**
      * Removes a item from the aggregation {@link #getItems items}.
+     *
      *
      * @returns The removed item or `null`
      */
@@ -3675,6 +4712,7 @@ declare module "sap/ui/table/RowAction" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setVisible(
@@ -3684,7 +4722,9 @@ declare module "sap/ui/table/RowAction" {
       bVisible?: boolean
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the RowAction constructor.
+   */
   export interface $RowActionSettings extends $ControlSettings {
     /**
      * Whether the control should be visible on the screen. If set to `false`, the control is hidden.
@@ -3713,15 +4753,15 @@ declare module "sap/ui/table/RowActionItem" {
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
-  import Event from "sap/ui/base/Event";
-
   import Row from "sap/ui/table/Row";
 
+  import Event from "sap/ui/base/Event";
+
   /**
-   * @since 1.45
-   *
    * An action items to be displayed in a `RowAction` control. This element must only be used in the context
    * of the `sap.ui.table.Table` control to define row actions.
+   *
+   * @since 1.45
    */
   export default class RowActionItem extends UI5Element {
     /**
@@ -3761,6 +4801,7 @@ declare module "sap/ui/table/RowActionItem" {
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
      *
+     *
      * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
@@ -3781,6 +4822,7 @@ declare module "sap/ui/table/RowActionItem" {
     /**
      * Returns a metadata object for class sap.ui.table.RowActionItem.
      *
+     *
      * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
@@ -3791,6 +4833,7 @@ declare module "sap/ui/table/RowActionItem" {
      * otherwise it will be bound to this `sap.ui.table.RowActionItem` itself.
      *
      * The `press` is fired when the user triggers the corresponding action.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -3817,6 +4860,7 @@ declare module "sap/ui/table/RowActionItem" {
      *
      * The `press` is fired when the user triggers the corresponding action.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachPress(
@@ -3834,6 +4878,7 @@ declare module "sap/ui/table/RowActionItem" {
      *
      * The passed function and listener object must match the ones used for event registration.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     detachPress(
@@ -3847,9 +4892,9 @@ declare module "sap/ui/table/RowActionItem" {
       oListener?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
-     *
      * Fires event {@link #event:press press} to attached listeners.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -3864,6 +4909,7 @@ declare module "sap/ui/table/RowActionItem" {
      *
      * The icon of the item.
      *
+     *
      * @returns Value of property `icon`
      */
     getIcon(): URI;
@@ -3873,6 +4919,7 @@ declare module "sap/ui/table/RowActionItem" {
      * The text of the item. It is used as tooltip and for accessibility purposes.
      *
      * Default value is `empty string`.
+     *
      *
      * @returns Value of property `text`
      */
@@ -3885,15 +4932,17 @@ declare module "sap/ui/table/RowActionItem" {
      *
      * Default value is `Custom`.
      *
+     *
      * @returns Value of property `type`
      */
-    getType(): RowActionType | keyof typeof RowActionType;
+    getType(): RowActionType;
     /**
      * Gets current value of property {@link #getVisible visible}.
      *
      * Whether the item should be visible on the screen.
      *
      * Default value is `true`.
+     *
      *
      * @returns Value of property `visible`
      */
@@ -3904,6 +4953,7 @@ declare module "sap/ui/table/RowActionItem" {
      * The icon of the item.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -3921,6 +4971,7 @@ declare module "sap/ui/table/RowActionItem" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -3940,6 +4991,7 @@ declare module "sap/ui/table/RowActionItem" {
      *
      * Default value is `Custom`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setType(
@@ -3957,6 +5009,7 @@ declare module "sap/ui/table/RowActionItem" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setVisible(
@@ -3966,7 +5019,9 @@ declare module "sap/ui/table/RowActionItem" {
       bVisible?: boolean
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the RowActionItem constructor.
+   */
   export interface $RowActionItemSettings extends $ElementSettings {
     /**
      * The icon of the item.
@@ -3995,9 +5050,12 @@ declare module "sap/ui/table/RowActionItem" {
     /**
      * The `press` is fired when the user triggers the corresponding action.
      */
-    press?: (oEvent: Event<RowActionItem$PressEventParameters>) => void;
+    press?: (oEvent: RowActionItem$PressEvent) => void;
   }
 
+  /**
+   * Parameters of the RowActionItem#press event.
+   */
   export interface RowActionItem$PressEventParameters {
     /**
      * The item which was pressed.
@@ -4011,12 +5069,924 @@ declare module "sap/ui/table/RowActionItem" {
   }
 
   /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'RowActionItem$PressEventParameters'
-   * in 1.115.1 and any later releases.
+   * Event object of the RowActionItem#press event.
    */
-  export type $RowActionItemPressEventParameters = RowActionItem$PressEventParameters;
+  export type RowActionItem$PressEvent = Event<
+    RowActionItem$PressEventParameters,
+    RowActionItem
+  >;
+}
 
-  export type RowActionItem$PressEvent = Event<RowActionItem$PressEventParameters>;
+declare module "sap/ui/table/rowmodes/Auto" {
+  import {
+    default as RowMode,
+    $RowModeSettings,
+  } from "sap/ui/table/rowmodes/RowMode";
+
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  /**
+   * The number of rows displayed in the table is calculated based on the space it is allowed to cover (limited
+   * by the surrounding container). The table must be rendered without siblings in the DOM. The only exception
+   * is if the table's parent element is a flexbox, and the table is a flex item allowed to grow and shrink.
+   * The number of rows to be displayed can only be determined after the layout has been completed. The data
+   * can already be requested before that. To avoid multiple data requests, the amount of initially requested
+   * data is based on the maximum number of potentially displayed rows, which takes the window size into consideration,
+   * for example.
+   *
+   * @since 1.119
+   */
+  export default class Auto extends RowMode {
+    /**
+     * Constructor for a new `Auto` row mode.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * initial settings for the new control
+       */
+      mSettings?: $AutoSettings
+    );
+    /**
+     * Constructor for a new `Auto` row mode.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * id for the new control, generated automatically if no id is given
+       */
+      sId?: string,
+      /**
+       * initial settings for the new control
+       */
+      mSettings?: $AutoSettings
+    );
+
+    /**
+     * Creates a new subclass of class sap.ui.table.rowmodes.Auto with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.table.rowmodes.RowMode.extend}.
+     *
+     *
+     * @returns Created class / constructor function
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Auto>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.table.rowmodes.Auto.
+     *
+     *
+     * @returns Metadata object describing this class
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Gets current value of property {@link #getFixedBottomRowCount fixedBottomRowCount}.
+     *
+     * The number of rows in the fixed area at the bottom. If the number of fixed rows exceeds the number of
+     * displayed rows, the number of fixed rows is reduced. The table may limit the possible number of fixed
+     * rows.
+     *
+     * Default value is `0`.
+     *
+     *
+     * @returns Value of property `fixedBottomRowCount`
+     */
+    getFixedBottomRowCount(): int;
+    /**
+     * Gets current value of property {@link #getFixedTopRowCount fixedTopRowCount}.
+     *
+     * The number of rows in the fixed area at the top. If the number of fixed rows exceeds the number of displayed
+     * rows, the number of fixed rows is reduced. The table may limit the possible number of fixed rows.
+     *
+     * Default value is `0`.
+     *
+     *
+     * @returns Value of property `fixedTopRowCount`
+     */
+    getFixedTopRowCount(): int;
+    /**
+     * Gets current value of property {@link #getMaxRowCount maxRowCount}.
+     *
+     * The maximum number of displayed rows. The `minRowCount` is ignored if the maximum is lower than the minimum.
+     *
+     * Default value is `-1`.
+     *
+     *
+     * @returns Value of property `maxRowCount`
+     */
+    getMaxRowCount(): int;
+    /**
+     * Gets current value of property {@link #getMinRowCount minRowCount}.
+     *
+     * The minimum number of displayed rows.
+     *
+     * Default value is `5`.
+     *
+     *
+     * @returns Value of property `minRowCount`
+     */
+    getMinRowCount(): int;
+    /**
+     * Gets current value of property {@link #getRowContentHeight rowContentHeight}.
+     *
+     * The row content height in pixel. The actual row height is also influenced by other factors, such as the
+     * border width. If no value is set (includes 0), a default height is applied based on the content density
+     * configuration.
+     *
+     * Default value is `0`.
+     *
+     *
+     * @returns Value of property `rowContentHeight`
+     */
+    getRowContentHeight(): int;
+    /**
+     * Sets a new value for property {@link #getFixedBottomRowCount fixedBottomRowCount}.
+     *
+     * The number of rows in the fixed area at the bottom. If the number of fixed rows exceeds the number of
+     * displayed rows, the number of fixed rows is reduced. The table may limit the possible number of fixed
+     * rows.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `0`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setFixedBottomRowCount(
+      /**
+       * New value for property `fixedBottomRowCount`
+       */
+      iFixedBottomRowCount?: int
+    ): this;
+    /**
+     * Sets a new value for property {@link #getFixedTopRowCount fixedTopRowCount}.
+     *
+     * The number of rows in the fixed area at the top. If the number of fixed rows exceeds the number of displayed
+     * rows, the number of fixed rows is reduced. The table may limit the possible number of fixed rows.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `0`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setFixedTopRowCount(
+      /**
+       * New value for property `fixedTopRowCount`
+       */
+      iFixedTopRowCount?: int
+    ): this;
+    /**
+     * Sets a new value for property {@link #getMaxRowCount maxRowCount}.
+     *
+     * The maximum number of displayed rows. The `minRowCount` is ignored if the maximum is lower than the minimum.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `-1`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setMaxRowCount(
+      /**
+       * New value for property `maxRowCount`
+       */
+      iMaxRowCount?: int
+    ): this;
+    /**
+     * Sets a new value for property {@link #getMinRowCount minRowCount}.
+     *
+     * The minimum number of displayed rows.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `5`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setMinRowCount(
+      /**
+       * New value for property `minRowCount`
+       */
+      iMinRowCount?: int
+    ): this;
+    /**
+     * Sets a new value for property {@link #getRowContentHeight rowContentHeight}.
+     *
+     * The row content height in pixel. The actual row height is also influenced by other factors, such as the
+     * border width. If no value is set (includes 0), a default height is applied based on the content density
+     * configuration.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `0`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setRowContentHeight(
+      /**
+       * New value for property `rowContentHeight`
+       */
+      iRowContentHeight?: int
+    ): this;
+  }
+  /**
+   * Describes the settings that can be provided to the Auto constructor.
+   */
+  export interface $AutoSettings extends $RowModeSettings {
+    /**
+     * The minimum number of displayed rows.
+     */
+    minRowCount?: int | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * The maximum number of displayed rows. The `minRowCount` is ignored if the maximum is lower than the minimum.
+     */
+    maxRowCount?: int | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * The number of rows in the fixed area at the top. If the number of fixed rows exceeds the number of displayed
+     * rows, the number of fixed rows is reduced. The table may limit the possible number of fixed rows.
+     */
+    fixedTopRowCount?: int | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * The number of rows in the fixed area at the bottom. If the number of fixed rows exceeds the number of
+     * displayed rows, the number of fixed rows is reduced. The table may limit the possible number of fixed
+     * rows.
+     */
+    fixedBottomRowCount?: int | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * The row content height in pixel. The actual row height is also influenced by other factors, such as the
+     * border width. If no value is set (includes 0), a default height is applied based on the content density
+     * configuration.
+     */
+    rowContentHeight?: int | PropertyBindingInfo | `{${string}}`;
+  }
+}
+
+declare module "sap/ui/table/rowmodes/Fixed" {
+  import {
+    default as RowMode,
+    $RowModeSettings,
+  } from "sap/ui/table/rowmodes/RowMode";
+
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  /**
+   * A fixed number of rows is displayed in the table.
+   *
+   * @since 1.119
+   */
+  export default class Fixed extends RowMode {
+    /**
+     * Constructor for a new `Fixed` row mode.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * initial settings for the new control
+       */
+      mSettings?: $FixedSettings
+    );
+    /**
+     * Constructor for a new `Fixed` row mode.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * id for the new control, generated automatically if no id is given
+       */
+      sId?: string,
+      /**
+       * initial settings for the new control
+       */
+      mSettings?: $FixedSettings
+    );
+
+    /**
+     * Creates a new subclass of class sap.ui.table.rowmodes.Fixed with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.table.rowmodes.RowMode.extend}.
+     *
+     *
+     * @returns Created class / constructor function
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Fixed>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.table.rowmodes.Fixed.
+     *
+     *
+     * @returns Metadata object describing this class
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Gets current value of property {@link #getFixedBottomRowCount fixedBottomRowCount}.
+     *
+     * The number of rows in the fixed area at the bottom. If the number of fixed rows exceeds the number of
+     * displayed rows, the number of fixed rows is reduced. The table may limit the possible number of fixed
+     * rows.
+     *
+     * Default value is `0`.
+     *
+     *
+     * @returns Value of property `fixedBottomRowCount`
+     */
+    getFixedBottomRowCount(): int;
+    /**
+     * Gets current value of property {@link #getFixedTopRowCount fixedTopRowCount}.
+     *
+     * The number of rows in the fixed area at the top. If the number of fixed rows exceeds the number of displayed
+     * rows, the number of fixed rows is reduced. The table may limit the possible number of fixed rows.
+     *
+     * Default value is `0`.
+     *
+     *
+     * @returns Value of property `fixedTopRowCount`
+     */
+    getFixedTopRowCount(): int;
+    /**
+     * Gets current value of property {@link #getRowContentHeight rowContentHeight}.
+     *
+     * The row content height in pixel. The actual row height is also influenced by other factors, such as the
+     * border width. If no value is set (includes 0), a default height is applied based on the content density
+     * configuration.
+     *
+     * Default value is `0`.
+     *
+     *
+     * @returns Value of property `rowContentHeight`
+     */
+    getRowContentHeight(): int;
+    /**
+     * Gets current value of property {@link #getRowCount rowCount}.
+     *
+     * The number of rows displayed in the table. The number of rows in the scrollable area is reduced by the
+     * number of fixed rows.
+     *
+     * Default value is `10`.
+     *
+     *
+     * @returns Value of property `rowCount`
+     */
+    getRowCount(): int;
+    /**
+     * Sets a new value for property {@link #getFixedBottomRowCount fixedBottomRowCount}.
+     *
+     * The number of rows in the fixed area at the bottom. If the number of fixed rows exceeds the number of
+     * displayed rows, the number of fixed rows is reduced. The table may limit the possible number of fixed
+     * rows.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `0`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setFixedBottomRowCount(
+      /**
+       * New value for property `fixedBottomRowCount`
+       */
+      iFixedBottomRowCount?: int
+    ): this;
+    /**
+     * Sets a new value for property {@link #getFixedTopRowCount fixedTopRowCount}.
+     *
+     * The number of rows in the fixed area at the top. If the number of fixed rows exceeds the number of displayed
+     * rows, the number of fixed rows is reduced. The table may limit the possible number of fixed rows.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `0`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setFixedTopRowCount(
+      /**
+       * New value for property `fixedTopRowCount`
+       */
+      iFixedTopRowCount?: int
+    ): this;
+    /**
+     * Sets a new value for property {@link #getRowContentHeight rowContentHeight}.
+     *
+     * The row content height in pixel. The actual row height is also influenced by other factors, such as the
+     * border width. If no value is set (includes 0), a default height is applied based on the content density
+     * configuration.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `0`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setRowContentHeight(
+      /**
+       * New value for property `rowContentHeight`
+       */
+      iRowContentHeight?: int
+    ): this;
+    /**
+     * Sets a new value for property {@link #getRowCount rowCount}.
+     *
+     * The number of rows displayed in the table. The number of rows in the scrollable area is reduced by the
+     * number of fixed rows.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `10`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setRowCount(
+      /**
+       * New value for property `rowCount`
+       */
+      iRowCount?: int
+    ): this;
+  }
+  /**
+   * Describes the settings that can be provided to the Fixed constructor.
+   */
+  export interface $FixedSettings extends $RowModeSettings {
+    /**
+     * The number of rows displayed in the table. The number of rows in the scrollable area is reduced by the
+     * number of fixed rows.
+     */
+    rowCount?: int | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * The number of rows in the fixed area at the top. If the number of fixed rows exceeds the number of displayed
+     * rows, the number of fixed rows is reduced. The table may limit the possible number of fixed rows.
+     */
+    fixedTopRowCount?: int | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * The number of rows in the fixed area at the bottom. If the number of fixed rows exceeds the number of
+     * displayed rows, the number of fixed rows is reduced. The table may limit the possible number of fixed
+     * rows.
+     */
+    fixedBottomRowCount?: int | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * The row content height in pixel. The actual row height is also influenced by other factors, such as the
+     * border width. If no value is set (includes 0), a default height is applied based on the content density
+     * configuration.
+     */
+    rowContentHeight?: int | PropertyBindingInfo | `{${string}}`;
+  }
+}
+
+declare module "sap/ui/table/rowmodes/Interactive" {
+  import {
+    default as RowMode,
+    $RowModeSettings,
+  } from "sap/ui/table/rowmodes/RowMode";
+
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  /**
+   * The user can change the number of displayed rows by dragging a resizer. The resizer is focusable and
+   * allows resizing via keyboard shortcuts and context menu. Double clicking the bar performs a quick resize
+   * that toggles between the minimum, the default, and the maximum row count.
+   *
+   * @since 1.119
+   */
+  export default class Interactive extends RowMode {
+    /**
+     * Constructor for a new `Interactive` row mode.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * initial settings for the new control
+       */
+      mSettings?: $InteractiveSettings
+    );
+    /**
+     * Constructor for a new `Interactive` row mode.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * id for the new control, generated automatically if no id is given
+       */
+      sId?: string,
+      /**
+       * initial settings for the new control
+       */
+      mSettings?: $InteractiveSettings
+    );
+
+    /**
+     * Returns a metadata object for class sap.ui.table.rowmodes.Interactive.
+     *
+     *
+     * @returns Metadata object describing this class
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Gets current value of property {@link #getFixedBottomRowCount fixedBottomRowCount}.
+     *
+     * The number of rows in the fixed area at the bottom. If the number of fixed rows exceeds the number of
+     * displayed rows, the number of fixed rows is reduced. The table may limit the possible number of fixed
+     * rows.
+     *
+     * Default value is `0`.
+     *
+     *
+     * @returns Value of property `fixedBottomRowCount`
+     */
+    getFixedBottomRowCount(): int;
+    /**
+     * Gets current value of property {@link #getFixedTopRowCount fixedTopRowCount}.
+     *
+     * The number of rows in the fixed area at the top. If the number of fixed rows exceeds the number of displayed
+     * rows, the number of fixed rows is reduced. The table may limit the possible number of fixed rows.
+     *
+     * Default value is `0`.
+     *
+     *
+     * @returns Value of property `fixedTopRowCount`
+     */
+    getFixedTopRowCount(): int;
+    /**
+     * Gets current value of property {@link #getMaxRowCount maxRowCount}.
+     *
+     * The maximum number of displayed rows. If not set, the maximum number of rows is determined by the viewport
+     * height of the device.
+     *
+     * Default value is `-1`.
+     *
+     *
+     * @returns Value of property `maxRowCount`
+     */
+    getMaxRowCount(): int;
+    /**
+     * Gets current value of property {@link #getMinRowCount minRowCount}.
+     *
+     * The minimum number of displayed rows.
+     *
+     * Default value is `5`.
+     *
+     *
+     * @returns Value of property `minRowCount`
+     */
+    getMinRowCount(): int;
+    /**
+     * Gets current value of property {@link #getRowContentHeight rowContentHeight}.
+     *
+     * The row content height in pixel. The actual row height is also influenced by other factors, such as the
+     * border width. If no value is set (includes 0), a default height is applied based on the content density
+     * configuration.
+     *
+     * Default value is `0`.
+     *
+     *
+     * @returns Value of property `rowContentHeight`
+     */
+    getRowContentHeight(): int;
+    /**
+     * Gets current value of property {@link #getRowCount rowCount}.
+     *
+     * The number of rows displayed in the table. The number of rows in the scrollable area is reduced by the
+     * number of fixed rows.
+     *
+     * Default value is `10`.
+     *
+     *
+     * @returns Value of property `rowCount`
+     */
+    getRowCount(): int;
+    /**
+     * Sets a new value for property {@link #getFixedBottomRowCount fixedBottomRowCount}.
+     *
+     * The number of rows in the fixed area at the bottom. If the number of fixed rows exceeds the number of
+     * displayed rows, the number of fixed rows is reduced. The table may limit the possible number of fixed
+     * rows.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `0`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setFixedBottomRowCount(
+      /**
+       * New value for property `fixedBottomRowCount`
+       */
+      iFixedBottomRowCount?: int
+    ): this;
+    /**
+     * Sets a new value for property {@link #getFixedTopRowCount fixedTopRowCount}.
+     *
+     * The number of rows in the fixed area at the top. If the number of fixed rows exceeds the number of displayed
+     * rows, the number of fixed rows is reduced. The table may limit the possible number of fixed rows.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `0`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setFixedTopRowCount(
+      /**
+       * New value for property `fixedTopRowCount`
+       */
+      iFixedTopRowCount?: int
+    ): this;
+    /**
+     * Sets a new value for property {@link #getMaxRowCount maxRowCount}.
+     *
+     * The maximum number of displayed rows. If not set, the maximum number of rows is determined by the viewport
+     * height of the device.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `-1`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setMaxRowCount(
+      /**
+       * New value for property `maxRowCount`
+       */
+      iMaxRowCount?: int
+    ): this;
+    /**
+     * Sets a new value for property {@link #getMinRowCount minRowCount}.
+     *
+     * The minimum number of displayed rows.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `5`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setMinRowCount(
+      /**
+       * New value for property `minRowCount`
+       */
+      iMinRowCount?: int
+    ): this;
+    /**
+     * Sets a new value for property {@link #getRowContentHeight rowContentHeight}.
+     *
+     * The row content height in pixel. The actual row height is also influenced by other factors, such as the
+     * border width. If no value is set (includes 0), a default height is applied based on the content density
+     * configuration.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `0`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setRowContentHeight(
+      /**
+       * New value for property `rowContentHeight`
+       */
+      iRowContentHeight?: int
+    ): this;
+    /**
+     * Sets a new value for property {@link #getRowCount rowCount}.
+     *
+     * The number of rows displayed in the table. The number of rows in the scrollable area is reduced by the
+     * number of fixed rows.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `10`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setRowCount(
+      /**
+       * New value for property `rowCount`
+       */
+      iRowCount?: int
+    ): this;
+  }
+  /**
+   * Describes the settings that can be provided to the Interactive constructor.
+   */
+  export interface $InteractiveSettings extends $RowModeSettings {
+    /**
+     * The number of rows displayed in the table. The number of rows in the scrollable area is reduced by the
+     * number of fixed rows.
+     */
+    rowCount?: int | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * The minimum number of displayed rows.
+     */
+    minRowCount?: int | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * The maximum number of displayed rows. If not set, the maximum number of rows is determined by the viewport
+     * height of the device.
+     */
+    maxRowCount?: int | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * The number of rows in the fixed area at the top. If the number of fixed rows exceeds the number of displayed
+     * rows, the number of fixed rows is reduced. The table may limit the possible number of fixed rows.
+     */
+    fixedTopRowCount?: int | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * The number of rows in the fixed area at the bottom. If the number of fixed rows exceeds the number of
+     * displayed rows, the number of fixed rows is reduced. The table may limit the possible number of fixed
+     * rows.
+     */
+    fixedBottomRowCount?: int | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * The row content height in pixel. The actual row height is also influenced by other factors, such as the
+     * border width. If no value is set (includes 0), a default height is applied based on the content density
+     * configuration.
+     */
+    rowContentHeight?: int | PropertyBindingInfo | `{${string}}`;
+  }
+}
+
+declare module "sap/ui/table/rowmodes/RowMode" {
+  import { default as UI5Element, $ElementSettings } from "sap/ui/core/Element";
+
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  /**
+   * Base class for row modes. Note: Do not create subclasses.
+   *
+   * @since 1.119
+   */
+  export default abstract class RowMode extends UI5Element {
+    /**
+     * Constructor for a new `RowMode`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.Element#constructor sap.ui.core.Element }
+     * can be used.
+     */
+    constructor(
+      /**
+       * initial settings for the new control
+       */
+      mSettings?: $RowModeSettings
+    );
+    /**
+     * Constructor for a new `RowMode`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.Element#constructor sap.ui.core.Element }
+     * can be used.
+     */
+    constructor(
+      /**
+       * id for the new control, generated automatically if no id is given
+       */
+      sId?: string,
+      /**
+       * initial settings for the new control
+       */
+      mSettings?: $RowModeSettings
+    );
+
+    /**
+     * Creates a new subclass of class sap.ui.table.rowmodes.RowMode with name `sClassName` and enriches it
+     * with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     *
+     *
+     * @returns Created class / constructor function
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, RowMode>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.table.rowmodes.RowMode.
+     *
+     *
+     * @returns Metadata object describing this class
+     */
+    static getMetadata(): ElementMetadata;
+  }
+  /**
+   * Describes the settings that can be provided to the RowMode constructor.
+   */
+  export interface $RowModeSettings extends $ElementSettings {}
+}
+
+declare module "sap/ui/table/rowmodes/Type" {
+  /**
+   * Defines the row mode.
+   *
+   * @since 1.119
+   */
+  enum Type {
+    /**
+     * Equivalent to the default configuration of {@link sap.ui.table.rowmodes.Auto}
+     */
+    Auto = "Auto",
+    /**
+     * Equivalent to the default configuration of {@link sap.ui.table.rowmodes.Fixed}
+     */
+    Fixed = "Fixed",
+    /**
+     * Equivalent to the default configuration of {@link sap.ui.table.rowmodes.Interactive}
+     */
+    Interactive = "Interactive",
+  }
+  export default Type;
 }
 
 declare module "sap/ui/table/RowSettings" {
@@ -4027,10 +5997,10 @@ declare module "sap/ui/table/RowSettings" {
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
   /**
-   * @since 1.48.0
-   *
    * The `RowSettings` control allows you to configure a row. You can only use this control in the context
    * of the `sap.ui.table.Table` control to define row settings.
+   *
+   * @since 1.48.0
    */
   export default class RowSettings extends UI5Element {
     /**
@@ -4070,6 +6040,7 @@ declare module "sap/ui/table/RowSettings" {
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
      *
+     *
      * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
@@ -4090,33 +6061,34 @@ declare module "sap/ui/table/RowSettings" {
     /**
      * Returns a metadata object for class sap.ui.table.RowSettings.
      *
+     *
      * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
-     * @since 1.48.0
-     *
      * Gets current value of property {@link #getHighlight highlight}.
      *
      * The highlight state of the rows.
      *
-     * If the highlight is set to {@link sap.ui.core.MessageType sap.ui.core.MessageType.None} (default), no
-     * highlights are visible. Valid values for the `highlight` property are values of the enumerations {@link sap.ui.core.MessageType }
-     * or {@link sap.ui.core.IndicationColor}.
+     * If the highlight is set to {@link module:sap/ui/core/message/MessageType MessageType.None} (default),
+     * no highlights are visible. Valid values for the `highlight` property are values of the enumerations {@link module:sap/ui/core/message/MessageType }
+     * or {@link sap.ui.core.IndicationColor} (only values of `Indication01` to `Indication10` are supported
+     * for accessibility contrast reasons).
      *
      * Accessibility support is provided through the associated {@link sap.ui.table.RowSettings#setHighlightText highlightText }
-     * property. If the `highlight` property is set to a value of {@link sap.ui.core.MessageType}, the `highlightText`
-     * property does not need to be set because a default text is used. However, the default text can be overridden
-     * by setting the `highlightText` property. In all other cases the `highlightText` property must be set.
+     * property. If the `highlight` property is set to a value of {@link module:sap/ui/core/message/MessageType},
+     * the `highlightText` property does not need to be set because a default text is used. However, the default
+     * text can be overridden by setting the `highlightText` property. In all other cases the `highlightText`
+     * property must be set.
      *
      * Default value is `"None"`.
+     *
+     * @since 1.48.0
      *
      * @returns Value of property `highlight`
      */
     getHighlight(): string;
     /**
-     * @since 1.62
-     *
      * Gets current value of property {@link #getHighlightText highlightText}.
      *
      * Defines the semantics of the {@link sap.ui.table.RowSettings#setHighlight highlight} property for accessibility
@@ -4125,12 +6097,12 @@ declare module "sap/ui/table/RowSettings" {
      *
      * Default value is `empty string`.
      *
+     * @since 1.62
+     *
      * @returns Value of property `highlightText`
      */
     getHighlightText(): string;
     /**
-     * @since 1.72
-     *
      * Gets current value of property {@link #getNavigated navigated}.
      *
      * The navigated state of a row.
@@ -4140,28 +6112,32 @@ declare module "sap/ui/table/RowSettings" {
      *
      * Default value is `false`.
      *
+     * @since 1.72
+     *
      * @returns Value of property `navigated`
      */
     getNavigated(): boolean;
     /**
-     * @since 1.48.0
-     *
      * Sets a new value for property {@link #getHighlight highlight}.
      *
      * The highlight state of the rows.
      *
-     * If the highlight is set to {@link sap.ui.core.MessageType sap.ui.core.MessageType.None} (default), no
-     * highlights are visible. Valid values for the `highlight` property are values of the enumerations {@link sap.ui.core.MessageType }
-     * or {@link sap.ui.core.IndicationColor}.
+     * If the highlight is set to {@link module:sap/ui/core/message/MessageType MessageType.None} (default),
+     * no highlights are visible. Valid values for the `highlight` property are values of the enumerations {@link module:sap/ui/core/message/MessageType }
+     * or {@link sap.ui.core.IndicationColor} (only values of `Indication01` to `Indication10` are supported
+     * for accessibility contrast reasons).
      *
      * Accessibility support is provided through the associated {@link sap.ui.table.RowSettings#setHighlightText highlightText }
-     * property. If the `highlight` property is set to a value of {@link sap.ui.core.MessageType}, the `highlightText`
-     * property does not need to be set because a default text is used. However, the default text can be overridden
-     * by setting the `highlightText` property. In all other cases the `highlightText` property must be set.
+     * property. If the `highlight` property is set to a value of {@link module:sap/ui/core/message/MessageType},
+     * the `highlightText` property does not need to be set because a default text is used. However, the default
+     * text can be overridden by setting the `highlightText` property. In all other cases the `highlightText`
+     * property must be set.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `"None"`.
+     *
+     * @since 1.48.0
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -4172,8 +6148,6 @@ declare module "sap/ui/table/RowSettings" {
       sHighlight?: string
     ): this;
     /**
-     * @since 1.62
-     *
      * Sets a new value for property {@link #getHighlightText highlightText}.
      *
      * Defines the semantics of the {@link sap.ui.table.RowSettings#setHighlight highlight} property for accessibility
@@ -4184,6 +6158,8 @@ declare module "sap/ui/table/RowSettings" {
      *
      * Default value is `empty string`.
      *
+     * @since 1.62
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setHighlightText(
@@ -4193,8 +6169,6 @@ declare module "sap/ui/table/RowSettings" {
       sHighlightText?: string
     ): this;
     /**
-     * @since 1.72
-     *
      * Sets a new value for property {@link #getNavigated navigated}.
      *
      * The navigated state of a row.
@@ -4206,6 +6180,8 @@ declare module "sap/ui/table/RowSettings" {
      *
      * Default value is `false`.
      *
+     * @since 1.72
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setNavigated(
@@ -4215,40 +6191,44 @@ declare module "sap/ui/table/RowSettings" {
       bNavigated?: boolean
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the RowSettings constructor.
+   */
   export interface $RowSettingsSettings extends $ElementSettings {
     /**
-     * @since 1.48.0
-     *
      * The highlight state of the rows.
      *
-     * If the highlight is set to {@link sap.ui.core.MessageType sap.ui.core.MessageType.None} (default), no
-     * highlights are visible. Valid values for the `highlight` property are values of the enumerations {@link sap.ui.core.MessageType }
-     * or {@link sap.ui.core.IndicationColor}.
+     * If the highlight is set to {@link module:sap/ui/core/message/MessageType MessageType.None} (default),
+     * no highlights are visible. Valid values for the `highlight` property are values of the enumerations {@link module:sap/ui/core/message/MessageType }
+     * or {@link sap.ui.core.IndicationColor} (only values of `Indication01` to `Indication10` are supported
+     * for accessibility contrast reasons).
      *
      * Accessibility support is provided through the associated {@link sap.ui.table.RowSettings#setHighlightText highlightText }
-     * property. If the `highlight` property is set to a value of {@link sap.ui.core.MessageType}, the `highlightText`
-     * property does not need to be set because a default text is used. However, the default text can be overridden
-     * by setting the `highlightText` property. In all other cases the `highlightText` property must be set.
+     * property. If the `highlight` property is set to a value of {@link module:sap/ui/core/message/MessageType},
+     * the `highlightText` property does not need to be set because a default text is used. However, the default
+     * text can be overridden by setting the `highlightText` property. In all other cases the `highlightText`
+     * property must be set.
+     *
+     * @since 1.48.0
      */
     highlight?: string | PropertyBindingInfo;
 
     /**
-     * @since 1.62
-     *
      * Defines the semantics of the {@link sap.ui.table.RowSettings#setHighlight highlight} property for accessibility
      * purposes. It is only used as an invisible text for screen reader support and does not add a tooltip to
      * the highlight.
+     *
+     * @since 1.62
      */
     highlightText?: string | PropertyBindingInfo;
 
     /**
-     * @since 1.72
-     *
      * The navigated state of a row.
      *
      * If set to `true`, a navigation indicator is displayed at the end of the row. **Note:** This property
      * must be set for **one** row only.
+     *
+     * @since 1.72
      */
     navigated?: boolean | PropertyBindingInfo | `{${string}}`;
   }
@@ -4257,7 +6237,13 @@ declare module "sap/ui/table/RowSettings" {
 declare module "sap/ui/table/Table" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
-  import { ID, IContextMenu, Toolbar, CSSSize } from "sap/ui/core/library";
+  import {
+    ID,
+    IContextMenu,
+    Toolbar,
+    CSSSize,
+    SortOrder,
+  } from "sap/ui/core/library";
 
   import Column from "sap/ui/table/Column";
 
@@ -4287,10 +6273,13 @@ declare module "sap/ui/table/Table" {
     SelectionBehavior,
     SelectionMode,
     VisibleRowCountMode,
-    SortOrder,
   } from "sap/ui/table/library";
 
   import RowAction from "sap/ui/table/RowAction";
+
+  import RowMode from "sap/ui/table/rowmodes/RowMode";
+
+  import Type from "sap/ui/table/rowmodes/Type";
 
   import RowSettings from "sap/ui/table/RowSettings";
 
@@ -4305,8 +6294,10 @@ declare module "sap/ui/table/Table" {
    * This allows the Table control to handle huge amounts of data. Nevertheless, restrictions apply regarding
    * the number of displayed columns. Keep the number as low as possible to improve performance. Due to the
    * nature of tables, the used control for column templates also has a big influence on the performance.
-   *   The Table control relies completely on data binding, and its supported feature set is tightly
-   * coupled to the data model and binding being used.
+   * Because of the described reuse of the controls during scrolling, all data-related changes must be based
+   * on bindings. Static changes, such as calling mutator functions or defining a one-time binding, must be
+   * avoided.   The Table control relies completely on data binding, and its supported feature set
+   * is tightly coupled to the data model and binding being used.
    */
   export default class Table extends Control {
     /**
@@ -4354,6 +6345,7 @@ declare module "sap/ui/table/Table" {
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
      *
+     *
      * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
@@ -4374,11 +6366,13 @@ declare module "sap/ui/table/Table" {
     /**
      * Returns a metadata object for class sap.ui.table.Table.
      *
+     *
      * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -4391,6 +6385,7 @@ declare module "sap/ui/table/Table" {
     /**
      * Adds some column to the aggregation {@link #getColumns columns}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     addColumn(
@@ -4402,6 +6397,7 @@ declare module "sap/ui/table/Table" {
     /**
      * Adds some extension to the aggregation {@link #getExtension extension}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     addExtension(
@@ -4411,9 +6407,10 @@ declare module "sap/ui/table/Table" {
       oExtension: Control
     ): this;
     /**
-     * @since 1.64
-     *
      * Adds some plugin to the aggregation {@link #getPlugins plugins}.
+     *
+     * @since 1.64
+     * @deprecated As of version 1.120. Please add plugins to the `dependents` aggregation instead.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -4426,6 +6423,7 @@ declare module "sap/ui/table/Table" {
     /**
      * Adds some row to the aggregation {@link #getRows rows}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     addRow(
@@ -4437,6 +6435,10 @@ declare module "sap/ui/table/Table" {
     /**
      * Adds the given selection interval to the selection. In case of a single selection, only `iIndexTo` is
      * added to the selection.
+     *
+     * **Note:** The built-in selection API has limited functionality, especially when it is combined with paging
+     * (e.g. OData). Therefore, it is recommended to use a selection plugin instead.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -4451,15 +6453,16 @@ declare module "sap/ui/table/Table" {
       iIndexTo: int
     ): this;
     /**
-     * @since 1.54
-     *
      * Attaches event handler `fnFunction` to the {@link #event:beforeOpenContextMenu beforeOpenContextMenu }
      * event of this `sap.ui.table.Table`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
      * otherwise it will be bound to this `sap.ui.table.Table` itself.
      *
-     * Fired when the user requests the context menu for a table cell.
+     * Fired when the {@link sap.ui.table.Table#setContextMenu context menu} is opened. When the context menu
+     * is opened, the binding context of the row is set to the context menu.
+     *
+     * @since 1.54
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -4479,15 +6482,16 @@ declare module "sap/ui/table/Table" {
       oListener?: object
     ): this;
     /**
-     * @since 1.54
-     *
      * Attaches event handler `fnFunction` to the {@link #event:beforeOpenContextMenu beforeOpenContextMenu }
      * event of this `sap.ui.table.Table`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
      * otherwise it will be bound to this `sap.ui.table.Table` itself.
      *
-     * Fired when the user requests the context menu for a table cell.
+     * Fired when the {@link sap.ui.table.Table#setContextMenu context menu} is opened. When the context menu
+     * is opened, the binding context of the row is set to the context menu.
+     *
+     * @since 1.54
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -4502,8 +6506,6 @@ declare module "sap/ui/table/Table" {
       oListener?: object
     ): this;
     /**
-     * @since 1.37.0
-     *
      * Attaches event handler `fnFunction` to the {@link #event:busyStateChanged busyStateChanged} event of
      * this `sap.ui.table.Table`.
      *
@@ -4511,6 +6513,9 @@ declare module "sap/ui/table/Table" {
      * otherwise it will be bound to this `sap.ui.table.Table` itself.
      *
      * This event gets fired when the busy state of the table changes. It should only be used by composite controls.
+     *
+     * @since 1.37.0
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -4530,8 +6535,6 @@ declare module "sap/ui/table/Table" {
       oListener?: object
     ): this;
     /**
-     * @since 1.37.0
-     *
      * Attaches event handler `fnFunction` to the {@link #event:busyStateChanged busyStateChanged} event of
      * this `sap.ui.table.Table`.
      *
@@ -4539,6 +6542,9 @@ declare module "sap/ui/table/Table" {
      * otherwise it will be bound to this `sap.ui.table.Table` itself.
      *
      * This event gets fired when the busy state of the table changes. It should only be used by composite controls.
+     *
+     * @since 1.37.0
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -4553,14 +6559,14 @@ declare module "sap/ui/table/Table" {
       oListener?: object
     ): this;
     /**
-     * @since 1.21.0
-     *
      * Attaches event handler `fnFunction` to the {@link #event:cellClick cellClick} event of this `sap.ui.table.Table`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
      * otherwise it will be bound to this `sap.ui.table.Table` itself.
      *
      * fired when the user clicks a cell of the table (experimental!).
+     *
+     * @since 1.21.0
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -4580,14 +6586,14 @@ declare module "sap/ui/table/Table" {
       oListener?: object
     ): this;
     /**
-     * @since 1.21.0
-     *
      * Attaches event handler `fnFunction` to the {@link #event:cellClick cellClick} event of this `sap.ui.table.Table`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
      * otherwise it will be bound to this `sap.ui.table.Table` itself.
      *
      * fired when the user clicks a cell of the table (experimental!).
+     *
+     * @since 1.21.0
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -4602,9 +6608,6 @@ declare module "sap/ui/table/Table" {
       oListener?: object
     ): this;
     /**
-     * @since 1.21.0
-     * @deprecated (since 1.54) - replaced by `beforeOpenContextMenu`.
-     *
      * Attaches event handler `fnFunction` to the {@link #event:cellContextmenu cellContextmenu} event of this
      * `sap.ui.table.Table`.
      *
@@ -4612,6 +6615,9 @@ declare module "sap/ui/table/Table" {
      * otherwise it will be bound to this `sap.ui.table.Table` itself.
      *
      * fired when the user clicks a cell of the table.
+     *
+     * @since 1.21.0
+     * @deprecated As of version 1.54. replaced by `beforeOpenContextMenu`.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -4631,9 +6637,6 @@ declare module "sap/ui/table/Table" {
       oListener?: object
     ): this;
     /**
-     * @since 1.21.0
-     * @deprecated (since 1.54) - replaced by `beforeOpenContextMenu`.
-     *
      * Attaches event handler `fnFunction` to the {@link #event:cellContextmenu cellContextmenu} event of this
      * `sap.ui.table.Table`.
      *
@@ -4641,6 +6644,9 @@ declare module "sap/ui/table/Table" {
      * otherwise it will be bound to this `sap.ui.table.Table` itself.
      *
      * fired when the user clicks a cell of the table.
+     *
+     * @since 1.21.0
+     * @deprecated As of version 1.54. replaced by `beforeOpenContextMenu`.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -4655,14 +6661,14 @@ declare module "sap/ui/table/Table" {
       oListener?: object
     ): this;
     /**
-     * @since 1.21.0
-     *
      * Attaches event handler `fnFunction` to the {@link #event:columnFreeze columnFreeze} event of this `sap.ui.table.Table`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
      * otherwise it will be bound to this `sap.ui.table.Table` itself.
      *
      * fired when a column of the table should be freezed
+     *
+     * @since 1.21.0
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -4682,14 +6688,14 @@ declare module "sap/ui/table/Table" {
       oListener?: object
     ): this;
     /**
-     * @since 1.21.0
-     *
      * Attaches event handler `fnFunction` to the {@link #event:columnFreeze columnFreeze} event of this `sap.ui.table.Table`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
      * otherwise it will be bound to this `sap.ui.table.Table` itself.
      *
      * fired when a column of the table should be freezed
+     *
+     * @since 1.21.0
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -4710,6 +6716,7 @@ declare module "sap/ui/table/Table" {
      * otherwise it will be bound to this `sap.ui.table.Table` itself.
      *
      * fired when a table column is moved.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -4735,6 +6742,7 @@ declare module "sap/ui/table/Table" {
      * otherwise it will be bound to this `sap.ui.table.Table` itself.
      *
      * fired when a table column is moved.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -4755,6 +6763,7 @@ declare module "sap/ui/table/Table" {
      * otherwise it will be bound to this `sap.ui.table.Table` itself.
      *
      * fired when a table column is resized.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -4780,6 +6789,7 @@ declare module "sap/ui/table/Table" {
      * otherwise it will be bound to this `sap.ui.table.Table` itself.
      *
      * fired when a table column is resized.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -4800,6 +6810,8 @@ declare module "sap/ui/table/Table" {
      * otherwise it will be bound to this `sap.ui.table.Table` itself.
      *
      * fired when a column of the table has been selected
+     *
+     * @deprecated As of version 1.117. see the `headerMenu` aggregation of `sap.ui.table.Column` for details.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -4825,6 +6837,8 @@ declare module "sap/ui/table/Table" {
      * otherwise it will be bound to this `sap.ui.table.Table` itself.
      *
      * fired when a column of the table has been selected
+     *
+     * @deprecated As of version 1.117. see the `headerMenu` aggregation of `sap.ui.table.Column` for details.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -4846,6 +6860,9 @@ declare module "sap/ui/table/Table" {
      * otherwise it will be bound to this `sap.ui.table.Table` itself.
      *
      * fired when the visibility of a table column is changed.
+     *
+     * @deprecated As of version 1.117. see the `showColumnVisibilityMenu` property of `sap.ui.table.Table`
+     * for details.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -4873,6 +6890,9 @@ declare module "sap/ui/table/Table" {
      *
      * fired when the visibility of a table column is changed.
      *
+     * @deprecated As of version 1.117. see the `showColumnVisibilityMenu` property of `sap.ui.table.Table`
+     * for details.
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachColumnVisibility(
@@ -4886,8 +6906,6 @@ declare module "sap/ui/table/Table" {
       oListener?: object
     ): this;
     /**
-     * @since 1.23.0
-     *
      * Attaches event handler `fnFunction` to the {@link #event:customFilter customFilter} event of this `sap.ui.table.Table`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -4895,6 +6913,8 @@ declare module "sap/ui/table/Table" {
      *
      * This event is triggered when the custom filter item of the column menu is pressed. The column on which
      * the event was triggered is passed as parameter.
+     *
+     * @since 1.23.0
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -4914,8 +6934,6 @@ declare module "sap/ui/table/Table" {
       oListener?: object
     ): this;
     /**
-     * @since 1.23.0
-     *
      * Attaches event handler `fnFunction` to the {@link #event:customFilter customFilter} event of this `sap.ui.table.Table`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -4923,6 +6941,8 @@ declare module "sap/ui/table/Table" {
      *
      * This event is triggered when the custom filter item of the column menu is pressed. The column on which
      * the event was triggered is passed as parameter.
+     *
+     * @since 1.23.0
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -4946,6 +6966,7 @@ declare module "sap/ui/table/Table" {
      * call or user interaction with the column header.
      *
      * Filters that are directly applied to the table binding will not fire this event.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -4975,6 +6996,7 @@ declare module "sap/ui/table/Table" {
      *
      * Filters that are directly applied to the table binding will not fire this event.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachFilter(
@@ -4988,8 +7010,6 @@ declare module "sap/ui/table/Table" {
       oListener?: object
     ): this;
     /**
-     * @since 1.37.0
-     *
      * Attaches event handler `fnFunction` to the {@link #event:firstVisibleRowChanged firstVisibleRowChanged }
      * event of this `sap.ui.table.Table`.
      *
@@ -4998,6 +7018,9 @@ declare module "sap/ui/table/Table" {
      *
      * This event gets fired when the first visible row is changed. It should only be used by composite controls.
      * The event even is fired when setFirstVisibleRow is called programmatically.
+     *
+     * @since 1.37.0
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -5017,8 +7040,6 @@ declare module "sap/ui/table/Table" {
       oListener?: object
     ): this;
     /**
-     * @since 1.37.0
-     *
      * Attaches event handler `fnFunction` to the {@link #event:firstVisibleRowChanged firstVisibleRowChanged }
      * event of this `sap.ui.table.Table`.
      *
@@ -5027,6 +7048,9 @@ declare module "sap/ui/table/Table" {
      *
      * This event gets fired when the first visible row is changed. It should only be used by composite controls.
      * The event even is fired when setFirstVisibleRow is called programmatically.
+     *
+     * @since 1.37.0
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -5047,6 +7071,8 @@ declare module "sap/ui/table/Table" {
      * otherwise it will be bound to this `sap.ui.table.Table` itself.
      *
      * fired when the table is grouped (experimental!).
+     *
+     * @deprecated As of version 1.118. see the `enableGrouping` property for details.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -5073,6 +7099,8 @@ declare module "sap/ui/table/Table" {
      *
      * fired when the table is grouped (experimental!).
      *
+     * @deprecated As of version 1.118. see the `enableGrouping` property for details.
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachGroup(
@@ -5086,8 +7114,6 @@ declare module "sap/ui/table/Table" {
       oListener?: object
     ): this;
     /**
-     * @since 1.60
-     *
      * Attaches event handler `fnFunction` to the {@link #event:paste paste} event of this `sap.ui.table.Table`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -5095,6 +7121,8 @@ declare module "sap/ui/table/Table" {
      *
      * This event gets fired when the user pastes content from the clipboard to the table. Pasting can be done
      * with the standard keyboard shortcut, if the focus is inside the table.
+     *
+     * @since 1.60
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -5114,8 +7142,6 @@ declare module "sap/ui/table/Table" {
       oListener?: object
     ): this;
     /**
-     * @since 1.60
-     *
      * Attaches event handler `fnFunction` to the {@link #event:paste paste} event of this `sap.ui.table.Table`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -5123,6 +7149,8 @@ declare module "sap/ui/table/Table" {
      *
      * This event gets fired when the user pastes content from the clipboard to the table. Pasting can be done
      * with the standard keyboard shortcut, if the focus is inside the table.
+     *
+     * @since 1.60
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -5143,10 +7171,16 @@ declare module "sap/ui/table/Table" {
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
      * otherwise it will be bound to this `sap.ui.table.Table` itself.
      *
-     * fired when the row selection of the table has been changed (the event parameters can be used to determine
-     * selection changes - to find out the selected rows you should better use the table selection API)
+     * Fired if the row selection of the table has been changed.
      *
-     * **Note:** If a selection plugin is applied to the table, this event won't be fired.
+     * The event parameters can be used to determine selection changes. To find the selected rows, you should
+     * use {@link sap.ui.table.Table#getSelectedIndices} or the related function of the used selection plugin
+     * if it exists.
+     *
+     * **Note:** The built-in selection API has limited functionality, especially when it is combined with paging
+     * (e.g. OData). Therefore, it is recommended to use a selection plugin instead. **Note:** If a selection
+     * plugin is used with the table, this event won't be fired.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -5172,10 +7206,16 @@ declare module "sap/ui/table/Table" {
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
      * otherwise it will be bound to this `sap.ui.table.Table` itself.
      *
-     * fired when the row selection of the table has been changed (the event parameters can be used to determine
-     * selection changes - to find out the selected rows you should better use the table selection API)
+     * Fired if the row selection of the table has been changed.
      *
-     * **Note:** If a selection plugin is applied to the table, this event won't be fired.
+     * The event parameters can be used to determine selection changes. To find the selected rows, you should
+     * use {@link sap.ui.table.Table#getSelectedIndices} or the related function of the used selection plugin
+     * if it exists.
+     *
+     * **Note:** The built-in selection API has limited functionality, especially when it is combined with paging
+     * (e.g. OData). Therefore, it is recommended to use a selection plugin instead. **Note:** If a selection
+     * plugin is used with the table, this event won't be fired.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -5190,8 +7230,6 @@ declare module "sap/ui/table/Table" {
       oListener?: object
     ): this;
     /**
-     * @since 1.86
-     *
      * Attaches event handler `fnFunction` to the {@link #event:rowsUpdated rowsUpdated} event of this `sap.ui.table.Table`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -5201,6 +7239,8 @@ declare module "sap/ui/table/Table" {
      * interaction, for example.
      *
      * **Note**: This event is fired often and must not be used for performance-critical tasks.
+     *
+     * @since 1.86
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -5220,8 +7260,6 @@ declare module "sap/ui/table/Table" {
       oListener?: object
     ): this;
     /**
-     * @since 1.86
-     *
      * Attaches event handler `fnFunction` to the {@link #event:rowsUpdated rowsUpdated} event of this `sap.ui.table.Table`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -5231,6 +7269,8 @@ declare module "sap/ui/table/Table" {
      * interaction, for example.
      *
      * **Note**: This event is fired often and must not be used for performance-critical tasks.
+     *
+     * @since 1.86
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -5254,6 +7294,7 @@ declare module "sap/ui/table/Table" {
      * call or user interaction with the column header.
      *
      * Sorters that are directly applied to the table binding will not fire this event.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -5283,6 +7324,7 @@ declare module "sap/ui/table/Table" {
      *
      * Sorters that are directly applied to the table binding will not fire this event.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachSort(
@@ -5296,10 +7338,11 @@ declare module "sap/ui/table/Table" {
       oListener?: object
     ): this;
     /**
-     * @experimental - Experimental! Presently implemented to only work with a very limited set of controls
-     * (e.g. sap.m.Text).
-     *
      * Triggers automatic resizing of a column to the widest content.
+     *
+     * See {@link sap.ui.table.Column#autoResize} for details about the auto-resize feature.
+     *
+     * @deprecated As of version 1.125. replaced by {@link sap.ui.table.Column#autoResize}
      */
     autoResizeColumn(
       /**
@@ -5312,6 +7355,7 @@ declare module "sap/ui/table/Table" {
      *
      * See {@link sap.ui.base.ManagedObject#bindAggregation ManagedObject.bindAggregation} for a detailed description
      * of the possible properties of `oBindingInfo`.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -5327,6 +7371,7 @@ declare module "sap/ui/table/Table" {
      * See {@link sap.ui.base.ManagedObject#bindAggregation ManagedObject.bindAggregation} for a detailed description
      * of the possible properties of `oBindingInfo`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     bindRows(
@@ -5338,19 +7383,24 @@ declare module "sap/ui/table/Table" {
     /**
      * Removes complete selection.
      *
+     * **Note:** The built-in selection API has limited functionality, especially when it is combined with paging
+     * (e.g. OData). Therefore, it is recommended to use a selection plugin instead.
+     *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     clearSelection(): this;
     /**
      * Destroys all the columns in the aggregation {@link #getColumns columns}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     destroyColumns(): this;
     /**
-     * @since 1.54
-     *
      * Destroys the contextMenu in the aggregation {@link #getContextMenu contextMenu}.
+     *
+     * @since 1.54
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -5358,11 +7408,13 @@ declare module "sap/ui/table/Table" {
     /**
      * Destroys all the extension in the aggregation {@link #getExtension extension}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     destroyExtension(): this;
     /**
      * Destroys the footer in the aggregation {@link #getFooter footer}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -5370,13 +7422,15 @@ declare module "sap/ui/table/Table" {
     /**
      * Destroys the noData in the aggregation {@link #getNoData noData}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     destroyNoData(): this;
     /**
-     * @since 1.64
-     *
      * Destroys all the plugins in the aggregation {@link #getPlugins plugins}.
+     *
+     * @since 1.64
+     * @deprecated As of version 1.120. Please add plugins to the `dependents` aggregation instead.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -5384,11 +7438,21 @@ declare module "sap/ui/table/Table" {
     /**
      * Destroys the rowActionTemplate in the aggregation {@link #getRowActionTemplate rowActionTemplate}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     destroyRowActionTemplate(): this;
     /**
+     * Destroys the rowMode in the aggregation {@link #getRowMode rowMode}.
+     *
+     * @since 1.119
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    destroyRowMode(): this;
+    /**
      * Destroys all the rows in the aggregation {@link #getRows rows}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -5396,32 +7460,34 @@ declare module "sap/ui/table/Table" {
     /**
      * Destroys the rowSettingsTemplate in the aggregation {@link #getRowSettingsTemplate rowSettingsTemplate}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     destroyRowSettingsTemplate(): this;
     /**
-     * @deprecated (since 1.72) - Use, for example, a `sap.m.Title` control in the `extension` aggregation instead.
-     *
      * Destroys the title in the aggregation {@link #getTitle title}.
+     *
+     * @deprecated As of version 1.72. Use, for example, a `sap.m.Title` control in the `extension` aggregation
+     * instead.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
     destroyTitle(): this;
     /**
-     * @deprecated (since 1.38) - This aggregation is deprecated, use the `extension` aggregation instead.
-     *
      * Destroys the toolbar in the aggregation {@link #getToolbar toolbar}.
+     *
+     * @deprecated As of version 1.38. This aggregation is deprecated, use the `extension` aggregation instead.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
     destroyToolbar(): this;
     /**
-     * @since 1.54
-     *
      * Detaches event handler `fnFunction` from the {@link #event:beforeOpenContextMenu beforeOpenContextMenu }
      * event of this `sap.ui.table.Table`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @since 1.54
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -5436,12 +7502,13 @@ declare module "sap/ui/table/Table" {
       oListener?: object
     ): this;
     /**
-     * @since 1.37.0
-     *
      * Detaches event handler `fnFunction` from the {@link #event:busyStateChanged busyStateChanged} event of
      * this `sap.ui.table.Table`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @since 1.37.0
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -5456,11 +7523,11 @@ declare module "sap/ui/table/Table" {
       oListener?: object
     ): this;
     /**
-     * @since 1.21.0
-     *
      * Detaches event handler `fnFunction` from the {@link #event:cellClick cellClick} event of this `sap.ui.table.Table`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @since 1.21.0
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -5475,13 +7542,13 @@ declare module "sap/ui/table/Table" {
       oListener?: object
     ): this;
     /**
-     * @since 1.21.0
-     * @deprecated (since 1.54) - replaced by `beforeOpenContextMenu`.
-     *
      * Detaches event handler `fnFunction` from the {@link #event:cellContextmenu cellContextmenu} event of
      * this `sap.ui.table.Table`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @since 1.21.0
+     * @deprecated As of version 1.54. replaced by `beforeOpenContextMenu`.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -5496,11 +7563,11 @@ declare module "sap/ui/table/Table" {
       oListener?: object
     ): this;
     /**
-     * @since 1.21.0
-     *
      * Detaches event handler `fnFunction` from the {@link #event:columnFreeze columnFreeze} event of this `sap.ui.table.Table`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @since 1.21.0
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -5519,6 +7586,7 @@ declare module "sap/ui/table/Table" {
      *
      * The passed function and listener object must match the ones used for event registration.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     detachColumnMove(
@@ -5536,6 +7604,7 @@ declare module "sap/ui/table/Table" {
      *
      * The passed function and listener object must match the ones used for event registration.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     detachColumnResize(
@@ -5552,6 +7621,8 @@ declare module "sap/ui/table/Table" {
      * Detaches event handler `fnFunction` from the {@link #event:columnSelect columnSelect} event of this `sap.ui.table.Table`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @deprecated As of version 1.117. see the `headerMenu` aggregation of `sap.ui.table.Column` for details.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -5571,6 +7642,9 @@ declare module "sap/ui/table/Table" {
      *
      * The passed function and listener object must match the ones used for event registration.
      *
+     * @deprecated As of version 1.117. see the `showColumnVisibilityMenu` property of `sap.ui.table.Table`
+     * for details.
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     detachColumnVisibility(
@@ -5584,11 +7658,11 @@ declare module "sap/ui/table/Table" {
       oListener?: object
     ): this;
     /**
-     * @since 1.23.0
-     *
      * Detaches event handler `fnFunction` from the {@link #event:customFilter customFilter} event of this `sap.ui.table.Table`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @since 1.23.0
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -5607,6 +7681,7 @@ declare module "sap/ui/table/Table" {
      *
      * The passed function and listener object must match the ones used for event registration.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     detachFilter(
@@ -5620,12 +7695,13 @@ declare module "sap/ui/table/Table" {
       oListener?: object
     ): this;
     /**
-     * @since 1.37.0
-     *
      * Detaches event handler `fnFunction` from the {@link #event:firstVisibleRowChanged firstVisibleRowChanged }
      * event of this `sap.ui.table.Table`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @since 1.37.0
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -5644,6 +7720,8 @@ declare module "sap/ui/table/Table" {
      *
      * The passed function and listener object must match the ones used for event registration.
      *
+     * @deprecated As of version 1.118. see the `enableGrouping` property for details.
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     detachGroup(
@@ -5657,11 +7735,11 @@ declare module "sap/ui/table/Table" {
       oListener?: object
     ): this;
     /**
-     * @since 1.60
-     *
      * Detaches event handler `fnFunction` from the {@link #event:paste paste} event of this `sap.ui.table.Table`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @since 1.60
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -5681,6 +7759,7 @@ declare module "sap/ui/table/Table" {
      *
      * The passed function and listener object must match the ones used for event registration.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     detachRowSelectionChange(
@@ -5694,11 +7773,11 @@ declare module "sap/ui/table/Table" {
       oListener?: object
     ): this;
     /**
-     * @since 1.86
-     *
      * Detaches event handler `fnFunction` from the {@link #event:rowsUpdated rowsUpdated} event of this `sap.ui.table.Table`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @since 1.86
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -5717,6 +7796,7 @@ declare module "sap/ui/table/Table" {
      *
      * The passed function and listener object must match the ones used for event registration.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     detachSort(
@@ -5730,15 +7810,15 @@ declare module "sap/ui/table/Table" {
       oListener?: object
     ): this;
     /**
-     * @deprecated (since 1.56) - replaced by the `sap.ui.export` library.
-     * @experimental - Experimental because the property for the column/cell definitions (sortProperty) could
-     * change in future.
-     *
      * Creates a new {@link sap.ui.core.util.Export} object and fills row/column information from the table
      * if not provided. For the cell content, the column's "sortProperty" will be used (experimental!)
      *
      * **Please note: This method uses synchronous requests. Support and functioning ends with the support
      * for synchronous requests in browsers.**
+     *
+     * @deprecated As of version 1.56. replaced by the `sap.ui.export` library.
+     * @experimental Experimental because the property for the column/cell definitions (sortProperty) could
+     * change in future.
      *
      * @returns Export object
      */
@@ -5763,13 +7843,13 @@ declare module "sap/ui/table/Table" {
       sValue?: string
     ): void;
     /**
-     * @since 1.54
-     * Protected:  Do not call from applications (only from related classes in the framework)
-     *
      * Fires event {@link #event:beforeOpenContextMenu beforeOpenContextMenu} to attached listeners.
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
      * event object. The return value of this method indicates whether the default action should be executed.
+     *
+     * @since 1.54
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Whether or not to prevent the default action
      */
@@ -5780,10 +7860,10 @@ declare module "sap/ui/table/Table" {
       mParameters?: Table$BeforeOpenContextMenuEventParameters
     ): boolean;
     /**
-     * @since 1.37.0
-     * Protected:  Do not call from applications (only from related classes in the framework)
-     *
      * Fires event {@link #event:busyStateChanged busyStateChanged} to attached listeners.
+     *
+     * @since 1.37.0
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -5794,13 +7874,13 @@ declare module "sap/ui/table/Table" {
       mParameters?: Table$BusyStateChangedEventParameters
     ): this;
     /**
-     * @since 1.21.0
-     * Protected:  Do not call from applications (only from related classes in the framework)
-     *
      * Fires event {@link #event:cellClick cellClick} to attached listeners.
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
      * event object. The return value of this method indicates whether the default action should be executed.
+     *
+     * @since 1.21.0
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Whether or not to prevent the default action
      */
@@ -5811,14 +7891,14 @@ declare module "sap/ui/table/Table" {
       mParameters?: Table$CellClickEventParameters
     ): boolean;
     /**
-     * @since 1.21.0
-     * @deprecated (since 1.54) - replaced by `beforeOpenContextMenu`.
-     * Protected:  Do not call from applications (only from related classes in the framework)
-     *
      * Fires event {@link #event:cellContextmenu cellContextmenu} to attached listeners.
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
      * event object. The return value of this method indicates whether the default action should be executed.
+     *
+     * @since 1.21.0
+     * @deprecated As of version 1.54. replaced by `beforeOpenContextMenu`.
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Whether or not to prevent the default action
      */
@@ -5829,13 +7909,13 @@ declare module "sap/ui/table/Table" {
       mParameters?: Table$CellContextmenuEventParameters
     ): boolean;
     /**
-     * @since 1.21.0
-     * Protected:  Do not call from applications (only from related classes in the framework)
-     *
      * Fires event {@link #event:columnFreeze columnFreeze} to attached listeners.
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
      * event object. The return value of this method indicates whether the default action should be executed.
+     *
+     * @since 1.21.0
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Whether or not to prevent the default action
      */
@@ -5846,12 +7926,12 @@ declare module "sap/ui/table/Table" {
       mParameters?: Table$ColumnFreezeEventParameters
     ): boolean;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
-     *
      * Fires event {@link #event:columnMove columnMove} to attached listeners.
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
      * event object. The return value of this method indicates whether the default action should be executed.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Whether or not to prevent the default action
      */
@@ -5862,12 +7942,12 @@ declare module "sap/ui/table/Table" {
       mParameters?: Table$ColumnMoveEventParameters
     ): boolean;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
-     *
      * Fires event {@link #event:columnResize columnResize} to attached listeners.
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
      * event object. The return value of this method indicates whether the default action should be executed.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Whether or not to prevent the default action
      */
@@ -5878,12 +7958,13 @@ declare module "sap/ui/table/Table" {
       mParameters?: Table$ColumnResizeEventParameters
     ): boolean;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
-     *
      * Fires event {@link #event:columnSelect columnSelect} to attached listeners.
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
      * event object. The return value of this method indicates whether the default action should be executed.
+     *
+     * @deprecated As of version 1.117. see the `headerMenu` aggregation of `sap.ui.table.Column` for details.
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Whether or not to prevent the default action
      */
@@ -5894,12 +7975,14 @@ declare module "sap/ui/table/Table" {
       mParameters?: Table$ColumnSelectEventParameters
     ): boolean;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
-     *
      * Fires event {@link #event:columnVisibility columnVisibility} to attached listeners.
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
      * event object. The return value of this method indicates whether the default action should be executed.
+     *
+     * @deprecated As of version 1.117. see the `showColumnVisibilityMenu` property of `sap.ui.table.Table`
+     * for details.
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Whether or not to prevent the default action
      */
@@ -5910,10 +7993,10 @@ declare module "sap/ui/table/Table" {
       mParameters?: Table$ColumnVisibilityEventParameters
     ): boolean;
     /**
-     * @since 1.23.0
-     * Protected:  Do not call from applications (only from related classes in the framework)
-     *
      * Fires event {@link #event:customFilter customFilter} to attached listeners.
+     *
+     * @since 1.23.0
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -5924,12 +8007,12 @@ declare module "sap/ui/table/Table" {
       mParameters?: Table$CustomFilterEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
-     *
      * Fires event {@link #event:filter filter} to attached listeners.
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
      * event object. The return value of this method indicates whether the default action should be executed.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Whether or not to prevent the default action
      */
@@ -5940,10 +8023,10 @@ declare module "sap/ui/table/Table" {
       mParameters?: Table$FilterEventParameters
     ): boolean;
     /**
-     * @since 1.37.0
-     * Protected:  Do not call from applications (only from related classes in the framework)
-     *
      * Fires event {@link #event:firstVisibleRowChanged firstVisibleRowChanged} to attached listeners.
+     *
+     * @since 1.37.0
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -5954,12 +8037,13 @@ declare module "sap/ui/table/Table" {
       mParameters?: Table$FirstVisibleRowChangedEventParameters
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
-     *
      * Fires event {@link #event:group group} to attached listeners.
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
      * event object. The return value of this method indicates whether the default action should be executed.
+     *
+     * @deprecated As of version 1.118. see the `enableGrouping` property for details.
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Whether or not to prevent the default action
      */
@@ -5970,13 +8054,13 @@ declare module "sap/ui/table/Table" {
       mParameters?: Table$GroupEventParameters
     ): boolean;
     /**
-     * @since 1.60
-     * Protected:  Do not call from applications (only from related classes in the framework)
-     *
      * Fires event {@link #event:paste paste} to attached listeners.
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
      * event object. The return value of this method indicates whether the default action should be executed.
+     *
+     * @since 1.60
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Whether or not to prevent the default action
      */
@@ -5987,9 +8071,9 @@ declare module "sap/ui/table/Table" {
       mParameters?: Table$PasteEventParameters
     ): boolean;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
-     *
      * Fires event {@link #event:rowSelectionChange rowSelectionChange} to attached listeners.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -6000,10 +8084,10 @@ declare module "sap/ui/table/Table" {
       mParameters?: Table$RowSelectionChangeEventParameters
     ): this;
     /**
-     * @since 1.86
-     * Protected:  Do not call from applications (only from related classes in the framework)
-     *
      * Fires event {@link #event:rowsUpdated rowsUpdated} to attached listeners.
+     *
+     * @since 1.86
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -6014,12 +8098,12 @@ declare module "sap/ui/table/Table" {
       mParameters?: object
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
-     *
      * Fires event {@link #event:sort sort} to attached listeners.
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
      * event object. The return value of this method indicates whether the default action should be executed.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Whether or not to prevent the default action
      */
@@ -6052,13 +8136,13 @@ declare module "sap/ui/table/Table" {
       }
     ): void;
     /**
-     * @since 1.52
-     *
      * Gets current value of property {@link #getAlternateRowColors alternateRowColors}.
      *
      * Enables alternating table row colors. Alternate row coloring is not available for the tree mode.
      *
      * Default value is `false`.
+     *
+     * @since 1.52
      *
      * @returns Value of property `alternateRowColors`
      */
@@ -6069,6 +8153,7 @@ declare module "sap/ui/table/Table" {
     getAriaLabelledBy(): ID[];
     /**
      * Get the binding object for a specific aggregation/property.
+     *
      *
      * @returns The binding for the given name
      */
@@ -6089,6 +8174,7 @@ declare module "sap/ui/table/Table" {
      * **Note**: In a {@link sap.ui.table.Column#getMultiLabels MultiLabel} scenario, the height is applied
      * to each individual row of the table's header.
      *
+     *
      * @returns Value of property `columnHeaderHeight`
      */
     getColumnHeaderHeight(): int;
@@ -6102,6 +8188,7 @@ declare module "sap/ui/table/Table" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Value of property `columnHeaderVisible`
      */
     getColumnHeaderVisible(): boolean;
@@ -6113,14 +8200,15 @@ declare module "sap/ui/table/Table" {
     getColumns(): Column[];
     /**
      * Returns the context of a row by its index. Please note that for server-based models like OData, the supplied
-     * index might not have been loaded yet. If the context is not available at the client, the binding will
+     * index might not have been loaded yet. If the context is not available at the client, the binding may
      * trigger a backend request and request this single context. Although this API looks synchronous it may
      * not return a context but load it and fire a change event on the binding.
      *
      * For server-based models you should consider to only make this API call when the index is within the currently
      * visible scroll area.
      *
-     * @returns The context at this index or `null`
+     *
+     * @returns The context at this index if available
      */
     getContextByIndex(
       /**
@@ -6129,8 +8217,6 @@ declare module "sap/ui/table/Table" {
       iIndex: int
     ): Context | null;
     /**
-     * @since 1.54
-     *
      * Gets content of aggregation {@link #getContextMenu contextMenu}.
      *
      * Defines the context menu for the table.
@@ -6141,11 +8227,11 @@ declare module "sap/ui/table/Table" {
      * The custom context menu will not be shown in group header and summary rows.
      *
      * If this aggregation is set, then the `enableCellFilter` property will have no effect.
+     *
+     * @since 1.54
      */
     getContextMenu(): IContextMenu;
     /**
-     * @since 1.52
-     *
      * Gets content of aggregation `dragDropConfig` which defines the drag-and-drop configuration.
      *
      * The following restrictions apply:
@@ -6160,11 +8246,11 @@ declare module "sap/ui/table/Table" {
      * 	 - Empty rows
      * 	 - Group header rows
      * 	 - Sum rows
+     *
+     * @since 1.52
      */
     getDragDropConfig(): DragDropBase[];
     /**
-     * @deprecated (since 1.115)
-     *
      * Gets current value of property {@link #getEditable editable}.
      *
      * Flag whether the controls of the Table are editable or not (currently this only controls the background
@@ -6172,12 +8258,12 @@ declare module "sap/ui/table/Table" {
      *
      * Default value is `true`.
      *
+     * @deprecated As of version 1.115. the concept has been discarded.
+     *
      * @returns Value of property `editable`
      */
     getEditable(): boolean;
     /**
-     * @since 1.27.0
-     *
      * Gets current value of property {@link #getEnableBusyIndicator enableBusyIndicator}.
      *
      * If set to `true`, the table changes its busy state, resulting in showing or hiding the busy indicator.
@@ -6188,29 +8274,31 @@ declare module "sap/ui/table/Table" {
      *
      * Default value is `false`.
      *
+     * @since 1.27.0
+     *
      * @returns Value of property `enableBusyIndicator`
      */
     getEnableBusyIndicator(): boolean;
     /**
-     * @since 1.21.0
-     *
      * Gets current value of property {@link #getEnableCellFilter enableCellFilter}.
      *
      * Flag whether to enable or disable the context menu on cells to trigger a filtering with the cell value.
      *
      * Default value is `false`.
      *
+     * @since 1.21.0
+     *
      * @returns Value of property `enableCellFilter`
      */
     getEnableCellFilter(): boolean;
     /**
-     * @since 1.21.0
-     *
      * Gets current value of property {@link #getEnableColumnFreeze enableColumnFreeze}.
      *
      * Flag whether to show or hide the column menu item to freeze or unfreeze a column.
      *
      * Default value is `false`.
+     *
+     * @since 1.21.0
      *
      * @returns Value of property `enableColumnFreeze`
      */
@@ -6220,14 +8308,17 @@ declare module "sap/ui/table/Table" {
      *
      * Flag to enable or disable column reordering
      *
+     * **Note**: Column reordering is possible via drag&drop and keyboard shortcuts. Single-pointer alternative
+     * is not provided out-of-the-box and should be implemented on application side. For example the {@link sap.m.p13n.Engine }
+     * can be used, see the following sample: {@link https://ui5.sap.com/#/entity/sap.ui.table.Table/sample/sap.m.sample.p13n.EngineGridTable Personalization for grid table}.
+     *
      * Default value is `true`.
+     *
      *
      * @returns Value of property `enableColumnReordering`
      */
     getEnableColumnReordering(): boolean;
     /**
-     * @since 1.23.0
-     *
      * Gets current value of property {@link #getEnableCustomFilter enableCustomFilter}.
      *
      * Set this parameter to true to implement your own filter behaviour. Instead of the filter input box a
@@ -6235,12 +8326,12 @@ declare module "sap/ui/table/Table" {
      *
      * Default value is `false`.
      *
+     * @since 1.23.0
+     *
      * @returns Value of property `enableCustomFilter`
      */
     getEnableCustomFilter(): boolean;
     /**
-     * @deprecated (since 1.110) - this feature has a limited functionality and should not be used anymore.
-     *
      * Gets current value of property {@link #getEnableGrouping enableGrouping}.
      *
      * Enables or disables grouping. If grouping is enabled, the table is grouped by the column which is defined
@@ -6261,18 +8352,20 @@ declare module "sap/ui/table/Table" {
      *
      * Default value is `false`.
      *
+     * @deprecated As of version 1.110. the concept has been discarded.
+     *
      * @returns Value of property `enableGrouping`
      */
     getEnableGrouping(): boolean;
     /**
-     * @since 1.23.0
-     *
      * Gets current value of property {@link #getEnableSelectAll enableSelectAll}.
      *
      * Specifies if a select all button should be displayed in the top left corner. This button is only displayed
      * if the row selector is visible and the selection mode is set to any kind of multi selection.
      *
      * Default value is `true`.
+     *
+     * @since 1.23.0
      *
      * @returns Value of property `enableSelectAll`
      */
@@ -6291,20 +8384,20 @@ declare module "sap/ui/table/Table" {
      *
      * Default value is `0`.
      *
+     *
      * @returns Value of property `firstVisibleRow`
      */
     getFirstVisibleRow(): int;
     /**
-     * @since 1.18.7
-     *
      * Gets current value of property {@link #getFixedBottomRowCount fixedBottomRowCount}.
      *
      * Number of rows that are fix on the bottom. When you use a vertical scrollbar, only the rows which are
      * not fixed, will scroll.
      *
-     * This property is only supported if the `rows` aggregation is bound to a {@link sap.ui.model.ClientModel client model}.
-     *
      * Default value is `0`.
+     *
+     * @since 1.18.7
+     * @deprecated As of version 1.119. use the `rowMode` aggregation instead.
      *
      * @returns Value of property `fixedBottomRowCount`
      */
@@ -6322,6 +8415,7 @@ declare module "sap/ui/table/Table" {
      *
      * Default value is `0`.
      *
+     *
      * @returns Value of property `fixedColumnCount`
      */
     getFixedColumnCount(): int;
@@ -6331,9 +8425,9 @@ declare module "sap/ui/table/Table" {
      * Number of rows that are fix on the top. When you use a vertical scrollbar, only the rows which are not
      * fixed, will scroll.
      *
-     * This property is only supported if the `rows` aggregation is bound to a {@link sap.ui.model.ClientModel client model}.
-     *
      * Default value is `0`.
+     *
+     * @deprecated As of version 1.119. use the `rowMode` aggregation instead.
      *
      * @returns Value of property `fixedRowCount`
      */
@@ -6341,15 +8435,18 @@ declare module "sap/ui/table/Table" {
     /**
      * Gets content of aggregation {@link #getFooter footer}.
      *
-     * Control or text of footer section of the Table (if not set it will be hidden)
+     * Control or text of footer section of the Table (if not set it will be hidden).
+     *
+     * **Note:** The `altType` string is deprecated as of version 1.118. Use a `Control` instead.
      */
     getFooter(): Control | string;
     /**
-     * @experimental (since 1.28) - This feature has a limited functionality.
-     *
      * ID of the element which is the current target of the association {@link #getGroupBy groupBy}, or `null`.
+     *
+     * @deprecated As of version 1.110. see the `enableGrouping` property for details.
+     * @experimental As of version 1.28. This feature has a limited functionality.
      */
-    getGroupBy(): ID;
+    getGroupBy(): ID | null;
     /**
      * Gets current value of property {@link #getMinAutoRowCount minAutoRowCount}.
      *
@@ -6358,22 +8455,24 @@ declare module "sap/ui/table/Table" {
      *
      * Default value is `5`.
      *
+     * @deprecated As of version 1.119. use the `rowMode` aggregation instead.
+     *
      * @returns Value of property `minAutoRowCount`
      */
     getMinAutoRowCount(): int;
     /**
-     * @deprecated (since 1.38)
-     *
      * Gets current value of property {@link #getNavigationMode navigationMode}.
      *
      * This property has been deprecated and must not be used anymore, since `Scrollbar` is the only supported
      * option.
      *
-     * Default value is `Scrollbar`.
+     * Default value is `"Scrollbar"`.
+     *
+     * @deprecated As of version 1.38. the concept has been discarded.
      *
      * @returns Value of property `navigationMode`
      */
-    getNavigationMode(): NavigationMode | keyof typeof NavigationMode;
+    getNavigationMode(): NavigationMode;
     /**
      * Gets content of aggregation {@link #getNoData noData}.
      *
@@ -6383,27 +8482,27 @@ declare module "sap/ui/table/Table" {
      */
     getNoData(): Control | string;
     /**
-     * @since 1.64
-     *
      * Gets content of aggregation {@link #getPlugins plugins}.
      *
      * Plugin section of the table. Multiple plugins are possible, but always only **one** of a certain type.
      *
-     * The following restrictions apply:
-     * 	 - If a selection plugin is applied to the table, the table's selection API must not be used. Instead,
-     *     use the API of the plugin.
-     * 	 - Only one MultiSelectionPlugin can be applied. No other plugins can be applied.
+     * If a selection plugin is used, the table's selection API must not be used. Instead, use the API of the
+     * plugin.
+     *
+     * @since 1.64
+     * @deprecated As of version 1.120. Please add plugins to the `dependents` aggregation instead.
      */
     getPlugins(): SelectionPlugin[];
     /**
-     * @since 1.45.0
-     *
      * Gets current value of property {@link #getRowActionCount rowActionCount}.
      *
-     * Number of row actions made visible which determines the width of the row action column. The values `0`,
-     * `1` and `2` are possible.
+     * Number of row actions made visible, hence this property also determines the width of the row action column.
+     * The maximum number of visible row actions is 3. If the `rowActionTemplate` contains more `rowActionItems`,
+     * they are shown in an overflow menu.
      *
      * Default value is `0`.
+     *
+     * @since 1.45.0
      *
      * @returns Value of property `rowActionCount`
      */
@@ -6433,9 +8532,20 @@ declare module "sap/ui/table/Table" {
      * If no value is set (includes 0), a default height is applied based on the content density configuration.
      * In any `visibleRowCountMode`, the actual height can increase based on the content.
      *
+     * @deprecated As of version 1.119. use the `rowMode` aggregation instead.
+     *
      * @returns Value of property `rowHeight`
      */
     getRowHeight(): int;
+    /**
+     * Gets content of aggregation {@link #getRowMode rowMode}.
+     *
+     * Defines how the table handles the rows. By default, the table operates in {@link sap.ui.table.rowmodes.Type Fixed }
+     * mode.
+     *
+     * @since 1.119
+     */
+    getRowMode(): RowMode | Type;
     /**
      * Gets content of aggregation {@link #getRows rows}.
      *
@@ -6469,15 +8579,44 @@ declare module "sap/ui/table/Table" {
      */
     getRowSettingsTemplate(): RowSettings;
     /**
-     * @deprecated (since 1.69) - replaced by {@link sap.ui.table.Table#getSelectedIndices}
+     * Gets current value of property {@link #getScrollThreshold scrollThreshold}.
      *
+     * Defines how many additional data records are requested from the back-end system when the user scrolls
+     * vertically in the table. The `scrollThreshold` is always added to the number of rows. If the number of
+     * rows is 10 and the `scrollThreshold` is 100, 110 records will be fetched during scrolling. The threshold
+     * that is applied to requests that are not initiated by scrolling can be configured with the `threshold`
+     * property. If the `scrollThreshold` is lower than the number of rows in the scrollable area (number of
+     * rows minus number of fixed rows), this number is used as the `scrollThreshold`. If the value is 0, no
+     * threshold is applied during scrolling. The value -1 applies the same value as the `threshold` property.
+     *
+     *  **Note:** This property only takes effect if it is set to a positive integer value.
+     *
+     * The value of the `scrollThreshold` should be higher than the `threshold` value to avoid unnecessary requests.
+     *
+     * For `AnalyticalTable` and `TreeTable`, the `scrollThreshold` property must be higher than the `threshold`
+     * property to take effect.
+     *
+     * Default value is `-1`.
+     *
+     * @since 1.128
+     *
+     * @returns Value of property `scrollThreshold`
+     */
+    getScrollThreshold(): int;
+    /**
      * Retrieves the lead selection index.
+     *
+     * @deprecated As of version 1.69. replaced by {@link sap.ui.table.Table#getSelectedIndices}
      *
      * @returns Currently Selected Index.
      */
     getSelectedIndex(): int;
     /**
      * Zero-based indices of selected items, wrapped in an array. An empty array means "no selection".
+     *
+     * **Note:** The built-in selection API has limited functionality, especially when it is combined with paging
+     * (e.g. OData). Therefore, it is recommended to use a selection plugin instead.
+     *
      *
      * @returns Selected indices
      */
@@ -6492,9 +8631,10 @@ declare module "sap/ui/table/Table" {
      *
      * Default value is `RowSelector`.
      *
+     *
      * @returns Value of property `selectionBehavior`
      */
-    getSelectionBehavior(): SelectionBehavior | keyof typeof SelectionBehavior;
+    getSelectionBehavior(): SelectionBehavior;
     /**
      * Gets current value of property {@link #getSelectionMode selectionMode}.
      *
@@ -6502,14 +8642,17 @@ declare module "sap/ui/table/Table" {
      * how the selection can be extended. It may also influence the visual appearance. When the selection mode
      * is changed, the current selection is removed. **Note:** Since the group header visualization relies on
      * the row selectors, the row selectors are always shown if the grouping functionality (depends on table
-     * type) is enabled, even if `sap.ui.table.SelectionMode.None` is set. **Note:** If a selection plugin is
-     * applied to the table, the selection mode is controlled by the plugin.
+     * type) is enabled, even if `sap.ui.table.SelectionMode.None` is set. **Note:** The built-in selection
+     * API has limited functionality, especially when it is combined with paging (e.g. OData). Therefore, it
+     * is recommended to use a selection plugin instead. **Note:** If a selection plugin is used with the table,
+     * the selection mode is controlled by the plugin.
      *
      * Default value is `MultiToggle`.
      *
+     *
      * @returns Value of property `selectionMode`
      */
-    getSelectionMode(): SelectionMode | keyof typeof SelectionMode;
+    getSelectionMode(): SelectionMode;
     /**
      * Gets current value of property {@link #getShowColumnVisibilityMenu showColumnVisibilityMenu}.
      *
@@ -6517,6 +8660,9 @@ declare module "sap/ui/table/Table" {
      * header menu. It allows to show or hide columns
      *
      * Default value is `false`.
+     *
+     * @deprecated As of version 1.117. use a `ColumnMenu` with a custom menu item in the `headerMenu` association
+     * instead.
      *
      * @returns Value of property `showColumnVisibilityMenu`
      */
@@ -6529,12 +8675,11 @@ declare module "sap/ui/table/Table" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Value of property `showNoData`
      */
     getShowNoData(): boolean;
     /**
-     * @since 1.21.2
-     *
      * Gets current value of property {@link #getShowOverlay showOverlay}.
      *
      * Setting this property to true will show an overlay on top of the Table content and users cannot click
@@ -6542,15 +8687,18 @@ declare module "sap/ui/table/Table" {
      *
      * Default value is `false`.
      *
+     * @since 1.21.2
+     *
      * @returns Value of property `showOverlay`
      */
     getShowOverlay(): boolean;
     /**
      * Gets the sorted columns in the order in which sorting was performed through the {@link sap.ui.table.Table#sort }
      * method and menus. Does not reflect sorting at binding level or the columns sort visualization set with
-     * {@link sap.ui.table.Column#setSorted} and {@link sap.ui.table.Column#setSortOrder}.
+     * {@link sap.ui.table.Column#setSortOrder}.
      * See:
      * 	sap.ui.table.Table#sort
+     *
      *
      * @returns Array of sorted columns
      */
@@ -6559,31 +8707,35 @@ declare module "sap/ui/table/Table" {
      * Gets current value of property {@link #getThreshold threshold}.
      *
      * Defines how many additional (not yet visible) data records from the back-end system are pre-fetched to
-     * enable smooth scrolling. The threshold is always added to the `visibleRowCount`. If the `visibleRowCount`
-     * is 10 and the `threshold` is 100, there will be 110 records fetched with the initial load. If the `threshold`
-     * is lower than the number of rows in the scrollable area (`visibleRowCount` minus number of fixed rows),
-     * this number is used as the `threshold`. If the value is 0, thresholding is disabled.
+     * enable smooth scrolling. The threshold is always added to the number of rows. If the number of rows is
+     * 10 and the `threshold` is 100, 110 records will be fetched with the initial load. This property affects
+     * requests triggered by changes in the binding, for example, initial loading, sorting, filtering, etc.
+     * The threshold that is applied during scrolling can be configured with the `scrollThreshold` property.
+     * If the `threshold` is lower than the number of rows in the scrollable area (`visibleRowCount` minus number
+     * of fixed rows), this number is used as the `threshold`. If the value is 0, thresholding is disabled.
      *
      * Default value is `100`.
+     *
      *
      * @returns Value of property `threshold`
      */
     getThreshold(): int;
     /**
-     * @deprecated (since 1.72) - Use, for example, a `sap.m.Title` control in the `extension` aggregation instead.
-     *
      * Gets content of aggregation {@link #getTitle title}.
      *
      * Control or text of title section of the Table (if not set it will be hidden)
+     *
+     * @deprecated As of version 1.72. Use, for example, a `sap.m.Title` control in the `extension` aggregation
+     * instead.
      */
     getTitle(): Control | string;
     /**
-     * @deprecated (since 1.38) - This aggregation is deprecated, use the `extension` aggregation instead.
-     *
      * Gets content of aggregation {@link #getToolbar toolbar}.
      *
      * Toolbar of the Table If not set, no toolbar area will be rendered. Note: The CSS class sapMTBHeader-CTX
      * is applied on the given toolbar.
+     *
+     * @deprecated As of version 1.38. This aggregation is deprecated, use the `extension` aggregation instead.
      */
     getToolbar(): Toolbar;
     /**
@@ -6593,12 +8745,12 @@ declare module "sap/ui/table/Table" {
      *
      * Default value is `10`.
      *
+     * @deprecated As of version 1.119. use the `rowMode` aggregation instead.
+     *
      * @returns Value of property `visibleRowCount`
      */
     getVisibleRowCount(): int;
     /**
-     * @since 1.9.2
-     *
      * Gets current value of property {@link #getVisibleRowCountMode visibleRowCountMode}.
      *
      * Defines how the table handles the visible rows in the table.
@@ -6617,13 +8769,14 @@ declare module "sap/ui/table/Table" {
      * In the `"Interactive"` mode, the table has as many rows as defined in the `visibleRowCount` property
      * after rendering. The user can change the `visibleRowCount` by dragging a resizer.
      *
-     * Default value is `Fixed`.
+     * Default value is `"Fixed"`.
+     *
+     * @since 1.9.2
+     * @deprecated As of version 1.119. use the `rowMode` aggregation instead.
      *
      * @returns Value of property `visibleRowCountMode`
      */
-    getVisibleRowCountMode():
-      | VisibleRowCountMode
-      | keyof typeof VisibleRowCountMode;
+    getVisibleRowCountMode(): VisibleRowCountMode;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
@@ -6631,12 +8784,14 @@ declare module "sap/ui/table/Table" {
      *
      * Default value is `'auto'`.
      *
+     *
      * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
      * Checks for the provided `sap.ui.table.Column` in the aggregation {@link #getColumns columns}. and returns
      * its index if found or -1 otherwise.
+     *
      *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
@@ -6650,6 +8805,7 @@ declare module "sap/ui/table/Table" {
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getExtension extension}. and
      * returns its index if found or -1 otherwise.
      *
+     *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfExtension(
@@ -6659,10 +8815,11 @@ declare module "sap/ui/table/Table" {
       oExtension: Control
     ): int;
     /**
-     * @since 1.64
-     *
      * Checks for the provided `sap.ui.table.plugins.SelectionPlugin` in the aggregation {@link #getPlugins plugins}.
      * and returns its index if found or -1 otherwise.
+     *
+     * @since 1.64
+     * @deprecated As of version 1.120. Please add plugins to the `dependents` aggregation instead.
      *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
@@ -6676,6 +8833,7 @@ declare module "sap/ui/table/Table" {
      * Checks for the provided `sap.ui.table.Row` in the aggregation {@link #getRows rows}. and returns its
      * index if found or -1 otherwise.
      *
+     *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfRow(
@@ -6686,6 +8844,7 @@ declare module "sap/ui/table/Table" {
     ): int;
     /**
      * Inserts a column into the aggregation {@link #getColumns columns}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -6704,6 +8863,7 @@ declare module "sap/ui/table/Table" {
     /**
      * Inserts a extension into the aggregation {@link #getExtension extension}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     insertExtension(
@@ -6719,9 +8879,10 @@ declare module "sap/ui/table/Table" {
       iIndex: int
     ): this;
     /**
-     * @since 1.64
-     *
      * Inserts a plugin into the aggregation {@link #getPlugins plugins}.
+     *
+     * @since 1.64
+     * @deprecated As of version 1.120. Please add plugins to the `dependents` aggregation instead.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -6740,6 +8901,7 @@ declare module "sap/ui/table/Table" {
     /**
      * Inserts a row into the aggregation {@link #getRows rows}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     insertRow(
@@ -6757,6 +8919,10 @@ declare module "sap/ui/table/Table" {
     /**
      * Checks whether an index is selected.
      *
+     * **Note:** The built-in selection API has limited functionality, especially when it is combined with paging
+     * (e.g. OData). Therefore, it is recommended to use a selection plugin instead.
+     *
+     *
      * @returns Whether the index is selected
      */
     isIndexSelected(
@@ -6768,6 +8934,7 @@ declare module "sap/ui/table/Table" {
     /**
      * Removes all the controls in the association named {@link #getAriaLabelledBy ariaLabelledBy}.
      *
+     *
      * @returns An array of the removed elements (might be empty)
      */
     removeAllAriaLabelledBy(): ID[];
@@ -6775,6 +8942,7 @@ declare module "sap/ui/table/Table" {
      * Removes all the controls from the aggregation {@link #getColumns columns}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
      *
      * @returns An array of the removed elements (might be empty)
      */
@@ -6784,15 +8952,17 @@ declare module "sap/ui/table/Table" {
      *
      * Additionally, it unregisters them from the hosting UIArea.
      *
+     *
      * @returns An array of the removed elements (might be empty)
      */
     removeAllExtension(): Control[];
     /**
-     * @since 1.64
-     *
      * Removes all the controls from the aggregation {@link #getPlugins plugins}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @since 1.64
+     * @deprecated As of version 1.120. Please add plugins to the `dependents` aggregation instead.
      *
      * @returns An array of the removed elements (might be empty)
      */
@@ -6802,11 +8972,13 @@ declare module "sap/ui/table/Table" {
      *
      * Additionally, it unregisters them from the hosting UIArea.
      *
+     *
      * @returns An array of the removed elements (might be empty)
      */
     removeAllRows(): Row[];
     /**
      * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
      *
      * @returns The removed ariaLabelledBy or `null`
      */
@@ -6819,6 +8991,7 @@ declare module "sap/ui/table/Table" {
     /**
      * Removes a column from the aggregation {@link #getColumns columns}.
      *
+     *
      * @returns The removed column or `null`
      */
     removeColumn(
@@ -6830,6 +9003,7 @@ declare module "sap/ui/table/Table" {
     /**
      * Removes a extension from the aggregation {@link #getExtension extension}.
      *
+     *
      * @returns The removed extension or `null`
      */
     removeExtension(
@@ -6839,9 +9013,10 @@ declare module "sap/ui/table/Table" {
       vExtension: int | string | Control
     ): Control | null;
     /**
-     * @since 1.64
-     *
      * Removes a plugin from the aggregation {@link #getPlugins plugins}.
+     *
+     * @since 1.64
+     * @deprecated As of version 1.120. Please add plugins to the `dependents` aggregation instead.
      *
      * @returns The removed plugin or `null`
      */
@@ -6854,6 +9029,7 @@ declare module "sap/ui/table/Table" {
     /**
      * Removes a row from the aggregation {@link #getRows rows}.
      *
+     *
      * @returns The removed row or `null`
      */
     removeRow(
@@ -6865,6 +9041,10 @@ declare module "sap/ui/table/Table" {
     /**
      * Removes the given selection interval from the selection. In case of single selection, only `iIndexTo`
      * is removed from the selection.
+     *
+     * **Note:** The built-in selection API has limited functionality, especially when it is combined with paging
+     * (e.g. OData). Therefore, it is recommended to use a selection plugin instead.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -6883,12 +9063,14 @@ declare module "sap/ui/table/Table" {
      * are considered to be selected might not be available at the client yet. Calling getContextByIndex might
      * not return a result but trigger a roundtrip to request this single entity.
      *
+     * **Note:** The built-in selection API has limited functionality, especially when it is combined with paging
+     * (e.g. OData). Therefore, it is recommended to use a selection plugin instead.
+     *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     selectAll(): this;
     /**
-     * @since 1.52
-     *
      * Sets a new value for property {@link #getAlternateRowColors alternateRowColors}.
      *
      * Enables alternating table row colors. Alternate row coloring is not available for the tree mode.
@@ -6896,6 +9078,8 @@ declare module "sap/ui/table/Table" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @since 1.52
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -6918,6 +9102,7 @@ declare module "sap/ui/table/Table" {
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setColumnHeaderHeight(
@@ -6938,6 +9123,7 @@ declare module "sap/ui/table/Table" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setColumnHeaderVisible(
@@ -6947,9 +9133,9 @@ declare module "sap/ui/table/Table" {
       bColumnHeaderVisible?: boolean
     ): this;
     /**
-     * @since 1.54
-     *
      * Sets the aggregated {@link #getContextMenu contextMenu}.
+     *
+     * @since 1.54
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -6960,8 +9146,6 @@ declare module "sap/ui/table/Table" {
       oContextMenu: IContextMenu
     ): this;
     /**
-     * @deprecated (since 1.115)
-     *
      * Sets a new value for property {@link #getEditable editable}.
      *
      * Flag whether the controls of the Table are editable or not (currently this only controls the background
@@ -6970,6 +9154,8 @@ declare module "sap/ui/table/Table" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @deprecated As of version 1.115. the concept has been discarded.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -6980,8 +9166,6 @@ declare module "sap/ui/table/Table" {
       bEditable?: boolean
     ): this;
     /**
-     * @since 1.27.0
-     *
      * Sets a new value for property {@link #getEnableBusyIndicator enableBusyIndicator}.
      *
      * If set to `true`, the table changes its busy state, resulting in showing or hiding the busy indicator.
@@ -6994,6 +9178,8 @@ declare module "sap/ui/table/Table" {
      *
      * Default value is `false`.
      *
+     * @since 1.27.0
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setEnableBusyIndicator(
@@ -7003,8 +9189,6 @@ declare module "sap/ui/table/Table" {
       bEnableBusyIndicator?: boolean
     ): this;
     /**
-     * @since 1.21.0
-     *
      * Sets a new value for property {@link #getEnableCellFilter enableCellFilter}.
      *
      * Flag whether to enable or disable the context menu on cells to trigger a filtering with the cell value.
@@ -7012,6 +9196,8 @@ declare module "sap/ui/table/Table" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @since 1.21.0
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -7022,8 +9208,6 @@ declare module "sap/ui/table/Table" {
       bEnableCellFilter?: boolean
     ): this;
     /**
-     * @since 1.21.0
-     *
      * Sets a new value for property {@link #getEnableColumnFreeze enableColumnFreeze}.
      *
      * Flag whether to show or hide the column menu item to freeze or unfreeze a column.
@@ -7031,6 +9215,8 @@ declare module "sap/ui/table/Table" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @since 1.21.0
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -7045,9 +9231,14 @@ declare module "sap/ui/table/Table" {
      *
      * Flag to enable or disable column reordering
      *
+     * **Note**: Column reordering is possible via drag&drop and keyboard shortcuts. Single-pointer alternative
+     * is not provided out-of-the-box and should be implemented on application side. For example the {@link sap.m.p13n.Engine }
+     * can be used, see the following sample: {@link https://ui5.sap.com/#/entity/sap.ui.table.Table/sample/sap.m.sample.p13n.EngineGridTable Personalization for grid table}.
+     *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -7058,8 +9249,6 @@ declare module "sap/ui/table/Table" {
       bEnableColumnReordering?: boolean
     ): this;
     /**
-     * @since 1.23.0
-     *
      * Sets a new value for property {@link #getEnableCustomFilter enableCustomFilter}.
      *
      * Set this parameter to true to implement your own filter behaviour. Instead of the filter input box a
@@ -7068,6 +9257,8 @@ declare module "sap/ui/table/Table" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @since 1.23.0
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -7078,8 +9269,6 @@ declare module "sap/ui/table/Table" {
       bEnableCustomFilter?: boolean
     ): this;
     /**
-     * @deprecated (since 1.110) - this feature has a limited functionality and should not be used anymore.
-     *
      * Sets a new value for property {@link #getEnableGrouping enableGrouping}.
      *
      * Enables or disables grouping. If grouping is enabled, the table is grouped by the column which is defined
@@ -7102,6 +9291,8 @@ declare module "sap/ui/table/Table" {
      *
      * Default value is `false`.
      *
+     * @deprecated As of version 1.110. the concept has been discarded.
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setEnableGrouping(
@@ -7111,8 +9302,6 @@ declare module "sap/ui/table/Table" {
       bEnableGrouping?: boolean
     ): this;
     /**
-     * @since 1.23.0
-     *
      * Sets a new value for property {@link #getEnableSelectAll enableSelectAll}.
      *
      * Specifies if a select all button should be displayed in the top left corner. This button is only displayed
@@ -7121,6 +9310,8 @@ declare module "sap/ui/table/Table" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @since 1.23.0
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -7139,6 +9330,7 @@ declare module "sap/ui/table/Table" {
      *
      * Default value is `0`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setFirstVisibleRow(
@@ -7148,18 +9340,17 @@ declare module "sap/ui/table/Table" {
       iFirstVisibleRow?: int
     ): this;
     /**
-     * @since 1.18.7
-     *
      * Sets a new value for property {@link #getFixedBottomRowCount fixedBottomRowCount}.
      *
      * Number of rows that are fix on the bottom. When you use a vertical scrollbar, only the rows which are
      * not fixed, will scroll.
      *
-     * This property is only supported if the `rows` aggregation is bound to a {@link sap.ui.model.ClientModel client model}.
-     *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `0`.
+     *
+     * @since 1.18.7
+     * @deprecated As of version 1.119. use the `rowMode` aggregation instead.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -7184,6 +9375,7 @@ declare module "sap/ui/table/Table" {
      *
      * Default value is `0`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setFixedColumnCount(
@@ -7198,11 +9390,11 @@ declare module "sap/ui/table/Table" {
      * Number of rows that are fix on the top. When you use a vertical scrollbar, only the rows which are not
      * fixed, will scroll.
      *
-     * This property is only supported if the `rows` aggregation is bound to a {@link sap.ui.model.ClientModel client model}.
-     *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `0`.
+     *
+     * @deprecated As of version 1.119. use the `rowMode` aggregation instead.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -7215,6 +9407,7 @@ declare module "sap/ui/table/Table" {
     /**
      * Sets the aggregated {@link #getFooter footer}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setFooter(
@@ -7224,9 +9417,10 @@ declare module "sap/ui/table/Table" {
       vFooter: Control | string
     ): this;
     /**
-     * @experimental (since 1.28) - This feature has a limited functionality.
-     *
      * Sets the associated {@link #getGroupBy groupBy}.
+     *
+     * @deprecated As of version 1.110. see the `enableGrouping` property for details.
+     * @experimental As of version 1.28. This feature has a limited functionality.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -7247,6 +9441,8 @@ declare module "sap/ui/table/Table" {
      *
      * Default value is `5`.
      *
+     * @deprecated As of version 1.119. use the `rowMode` aggregation instead.
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setMinAutoRowCount(
@@ -7256,8 +9452,6 @@ declare module "sap/ui/table/Table" {
       iMinAutoRowCount?: int
     ): this;
     /**
-     * @deprecated (since 1.38)
-     *
      * Sets a new value for property {@link #getNavigationMode navigationMode}.
      *
      * This property has been deprecated and must not be used anymore, since `Scrollbar` is the only supported
@@ -7265,7 +9459,9 @@ declare module "sap/ui/table/Table" {
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
-     * Default value is `Scrollbar`.
+     * Default value is `"Scrollbar"`.
+     *
+     * @deprecated As of version 1.38. the concept has been discarded.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -7278,6 +9474,7 @@ declare module "sap/ui/table/Table" {
     /**
      * Sets the aggregated {@link #getNoData noData}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setNoData(
@@ -7287,16 +9484,17 @@ declare module "sap/ui/table/Table" {
       vNoData: Control | string
     ): this;
     /**
-     * @since 1.45.0
-     *
      * Sets a new value for property {@link #getRowActionCount rowActionCount}.
      *
-     * Number of row actions made visible which determines the width of the row action column. The values `0`,
-     * `1` and `2` are possible.
+     * Number of row actions made visible, hence this property also determines the width of the row action column.
+     * The maximum number of visible row actions is 3. If the `rowActionTemplate` contains more `rowActionItems`,
+     * they are shown in an overflow menu.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `0`.
+     *
+     * @since 1.45.0
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -7308,6 +9506,7 @@ declare module "sap/ui/table/Table" {
     ): this;
     /**
      * Sets the aggregated {@link #getRowActionTemplate rowActionTemplate}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -7336,6 +9535,8 @@ declare module "sap/ui/table/Table" {
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
+     * @deprecated As of version 1.119. use the `rowMode` aggregation instead.
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setRowHeight(
@@ -7345,7 +9546,21 @@ declare module "sap/ui/table/Table" {
       iRowHeight?: int
     ): this;
     /**
+     * Sets the aggregated {@link #getRowMode rowMode}.
+     *
+     * @since 1.119
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setRowMode(
+      /**
+       * The rowMode to set
+       */
+      vRowMode: RowMode | (Type | keyof typeof Type)
+    ): this;
+    /**
      * Sets the aggregated {@link #getRowSettingsTemplate rowSettingsTemplate}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -7356,7 +9571,24 @@ declare module "sap/ui/table/Table" {
       oRowSettingsTemplate: RowSettings
     ): this;
     /**
+     * Sets the threshold value, which will be added to all data requests initiated by scrolling if the `Table`
+     * is bound against an OData service.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setScrollThreshold(
+      /**
+       * The threshold for scrolling
+       */
+      iThreshold: int
+    ): this;
+    /**
      * Sets the selected index. The previous selection is removed.
+     *
+     * **Note:** The built-in selection API has limited functionality, especially when it is combined with paging
+     * (e.g. OData). Therefore, it is recommended to use a selection plugin instead.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -7378,6 +9610,7 @@ declare module "sap/ui/table/Table" {
      *
      * Default value is `RowSelector`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setSelectionBehavior(
@@ -7388,6 +9621,10 @@ declare module "sap/ui/table/Table" {
     ): this;
     /**
      * Sets the given selection interval as selection. In case of a single selection, only `iIndexTo` is selected.
+     *
+     * **Note:** The built-in selection API has limited functionality, especially when it is combined with paging
+     * (e.g. OData). Therefore, it is recommended to use a selection plugin instead.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -7403,6 +9640,10 @@ declare module "sap/ui/table/Table" {
     ): this;
     /**
      * Sets the selection mode. The current selection is lost.
+     *
+     * **Note:** The built-in selection API has limited functionality, especially when it is combined with paging
+     * (e.g. OData). Therefore, it is recommended to use a selection plugin instead.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -7422,6 +9663,9 @@ declare module "sap/ui/table/Table" {
      *
      * Default value is `false`.
      *
+     * @deprecated As of version 1.117. use a `ColumnMenu` with a custom menu item in the `headerMenu` association
+     * instead.
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setShowColumnVisibilityMenu(
@@ -7440,6 +9684,7 @@ declare module "sap/ui/table/Table" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setShowNoData(
@@ -7449,8 +9694,6 @@ declare module "sap/ui/table/Table" {
       bShowNoData?: boolean
     ): this;
     /**
-     * @since 1.21.2
-     *
      * Sets a new value for property {@link #getShowOverlay showOverlay}.
      *
      * Setting this property to true will show an overlay on top of the Table content and users cannot click
@@ -7459,6 +9702,8 @@ declare module "sap/ui/table/Table" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @since 1.21.2
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -7472,6 +9717,7 @@ declare module "sap/ui/table/Table" {
      * Sets the threshold value, which will be added to all data requests in case the Table is bound against
      * an OData service.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setThreshold(
@@ -7481,9 +9727,10 @@ declare module "sap/ui/table/Table" {
       iThreshold: int
     ): this;
     /**
-     * @deprecated (since 1.72) - Use, for example, a `sap.m.Title` control in the `extension` aggregation instead.
-     *
      * Sets the aggregated {@link #getTitle title}.
+     *
+     * @deprecated As of version 1.72. Use, for example, a `sap.m.Title` control in the `extension` aggregation
+     * instead.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -7494,9 +9741,9 @@ declare module "sap/ui/table/Table" {
       vTitle: Control | string
     ): this;
     /**
-     * @deprecated (since 1.38) - This aggregation is deprecated, use the `extension` aggregation instead.
-     *
      * Sets the aggregated {@link #getToolbar toolbar}.
+     *
+     * @deprecated As of version 1.38. This aggregation is deprecated, use the `extension` aggregation instead.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -7515,6 +9762,7 @@ declare module "sap/ui/table/Table" {
      * Please note that tooltips are not rendered for the table. The tooltip property will be set but it won't
      * effect the DOM.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setTooltip(
@@ -7532,6 +9780,8 @@ declare module "sap/ui/table/Table" {
      *
      * Default value is `10`.
      *
+     * @deprecated As of version 1.119. use the `rowMode` aggregation instead.
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setVisibleRowCount(
@@ -7541,8 +9791,6 @@ declare module "sap/ui/table/Table" {
       iVisibleRowCount?: int
     ): this;
     /**
-     * @since 1.9.2
-     *
      * Sets a new value for property {@link #getVisibleRowCountMode visibleRowCountMode}.
      *
      * Defines how the table handles the visible rows in the table.
@@ -7563,7 +9811,10 @@ declare module "sap/ui/table/Table" {
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
-     * Default value is `Fixed`.
+     * Default value is `"Fixed"`.
+     *
+     * @since 1.9.2
+     * @deprecated As of version 1.119. use the `rowMode` aggregation instead.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -7584,6 +9835,7 @@ declare module "sap/ui/table/Table" {
      *
      * Default value is `'auto'`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setWidth(
@@ -7593,24 +9845,27 @@ declare module "sap/ui/table/Table" {
       sWidth?: CSSSize
     ): this;
     /**
-     * Sorts the given column ascending or descending.
+     * Changes or removes sorting from the table.
      */
     sort(
       /**
        * Column to be sorted or undefined to clear sorting
        */
-      oColumn: Column | undefined,
+      oColumn?: Column,
       /**
-       * Sort order of the column (if undefined the default will be ascending)
+       * Sort order of the column
        */
-      oSortOrder: SortOrder | keyof typeof SortOrder,
+      sSortOrder?: SortOrder | keyof typeof SortOrder,
       /**
-       * Set to true to add the new sort criterion to the existing sort criteria
+       * Set to `true` to add the new sort criterion to the existing sort criteria, otherwise to replace it. If
+       * the sort order is `sap.ui.core.SortOrder.None`, this parameter has no effect, and only the sort criterion
+       * for this column is removed from the sort criteria.
        */
-      bAdd: boolean
+      bAdd?: boolean
     ): void;
     /**
      * Unbinds aggregation {@link #getColumns columns} from model data.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -7618,11 +9873,14 @@ declare module "sap/ui/table/Table" {
     /**
      * Unbinds aggregation {@link #getRows rows} from model data.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     unbindRows(): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the Table constructor.
+   */
   export interface $TableSettings extends $ControlSettings {
     /**
      * Width of the Table.
@@ -7643,6 +9901,8 @@ declare module "sap/ui/table/Table" {
      *
      * If no value is set (includes 0), a default height is applied based on the content density configuration.
      * In any `visibleRowCountMode`, the actual height can increase based on the content.
+     *
+     * @deprecated As of version 1.119. use the `rowMode` aggregation instead.
      */
     rowHeight?: int | PropertyBindingInfo | `{${string}}`;
 
@@ -7667,6 +9927,8 @@ declare module "sap/ui/table/Table" {
 
     /**
      * Number of visible rows of the table.
+     *
+     * @deprecated As of version 1.119. use the `rowMode` aggregation instead.
      */
     visibleRowCount?: int | PropertyBindingInfo | `{${string}}`;
 
@@ -7680,8 +9942,10 @@ declare module "sap/ui/table/Table" {
      * how the selection can be extended. It may also influence the visual appearance. When the selection mode
      * is changed, the current selection is removed. **Note:** Since the group header visualization relies on
      * the row selectors, the row selectors are always shown if the grouping functionality (depends on table
-     * type) is enabled, even if `sap.ui.table.SelectionMode.None` is set. **Note:** If a selection plugin is
-     * applied to the table, the selection mode is controlled by the plugin.
+     * type) is enabled, even if `sap.ui.table.SelectionMode.None` is set. **Note:** The built-in selection
+     * API has limited functionality, especially when it is combined with paging (e.g. OData). Therefore, it
+     * is recommended to use a selection plugin instead. **Note:** If a selection plugin is used with the table,
+     * the selection mode is controlled by the plugin.
      */
     selectionMode?:
       | (SelectionMode | keyof typeof SelectionMode)
@@ -7700,29 +9964,29 @@ declare module "sap/ui/table/Table" {
       | `{${string}}`;
 
     /**
-     * @deprecated (since 1.69) - replaced by {@link sap.ui.table.Table#getSelectedIndices} and {@link sap.ui.table.Table#setSelectedIndex}
-     *
      * Zero-based index of selected item. Index value for no selection is -1. When multi-selection is enabled
      * and multiple items are selected, the method returns the lead selected item. Sets the zero-based index
      * of the currently selected item. This method removes any previous selections. When the given index is
      * invalid, the call is ignored. **Note:** If the rows of the table are bound, the value of the property
      * is reset to -1. If a selection plugin is applied to the table, the property is not bindable.
+     *
+     * @deprecated As of version 1.69. replaced by {@link sap.ui.table.Table#getSelectedIndices} and {@link sap.ui.table.Table#setSelectedIndex}
      */
     selectedIndex?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @deprecated (since 1.115)
-     *
      * Flag whether the controls of the Table are editable or not (currently this only controls the background
      * color in certain themes!)
+     *
+     * @deprecated As of version 1.115. the concept has been discarded.
      */
     editable?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @deprecated (since 1.38)
-     *
      * This property has been deprecated and must not be used anymore, since `Scrollbar` is the only supported
      * option.
+     *
+     * @deprecated As of version 1.38. the concept has been discarded.
      */
     navigationMode?:
       | (NavigationMode | keyof typeof NavigationMode)
@@ -7731,21 +9995,45 @@ declare module "sap/ui/table/Table" {
 
     /**
      * Defines how many additional (not yet visible) data records from the back-end system are pre-fetched to
-     * enable smooth scrolling. The threshold is always added to the `visibleRowCount`. If the `visibleRowCount`
-     * is 10 and the `threshold` is 100, there will be 110 records fetched with the initial load. If the `threshold`
-     * is lower than the number of rows in the scrollable area (`visibleRowCount` minus number of fixed rows),
-     * this number is used as the `threshold`. If the value is 0, thresholding is disabled.
+     * enable smooth scrolling. The threshold is always added to the number of rows. If the number of rows is
+     * 10 and the `threshold` is 100, 110 records will be fetched with the initial load. This property affects
+     * requests triggered by changes in the binding, for example, initial loading, sorting, filtering, etc.
+     * The threshold that is applied during scrolling can be configured with the `scrollThreshold` property.
+     * If the `threshold` is lower than the number of rows in the scrollable area (`visibleRowCount` minus number
+     * of fixed rows), this number is used as the `threshold`. If the value is 0, thresholding is disabled.
      */
     threshold?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
+     * Defines how many additional data records are requested from the back-end system when the user scrolls
+     * vertically in the table. The `scrollThreshold` is always added to the number of rows. If the number of
+     * rows is 10 and the `scrollThreshold` is 100, 110 records will be fetched during scrolling. The threshold
+     * that is applied to requests that are not initiated by scrolling can be configured with the `threshold`
+     * property. If the `scrollThreshold` is lower than the number of rows in the scrollable area (number of
+     * rows minus number of fixed rows), this number is used as the `scrollThreshold`. If the value is 0, no
+     * threshold is applied during scrolling. The value -1 applies the same value as the `threshold` property.
+     *
+     *  **Note:** This property only takes effect if it is set to a positive integer value.
+     *
+     * The value of the `scrollThreshold` should be higher than the `threshold` value to avoid unnecessary requests.
+     *
+     * For `AnalyticalTable` and `TreeTable`, the `scrollThreshold` property must be higher than the `threshold`
+     * property to take effect.
+     *
+     * @since 1.128
+     */
+    scrollThreshold?: int | PropertyBindingInfo | `{${string}}`;
+
+    /**
      * Flag to enable or disable column reordering
+     *
+     * **Note**: Column reordering is possible via drag&drop and keyboard shortcuts. Single-pointer alternative
+     * is not provided out-of-the-box and should be implemented on application side. For example the {@link sap.m.p13n.Engine }
+     * can be used, see the following sample: {@link https://ui5.sap.com/#/entity/sap.ui.table.Table/sample/sap.m.sample.p13n.EngineGridTable Personalization for grid table}.
      */
     enableColumnReordering?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @deprecated (since 1.110) - this feature has a limited functionality and should not be used anymore.
-     *
      * Enables or disables grouping. If grouping is enabled, the table is grouped by the column which is defined
      * in the `groupBy` association.
      *
@@ -7761,12 +10049,17 @@ declare module "sap/ui/table/Table" {
      *
      * 	 - The column, by which the table is grouped, is not visible. It will become visible again only if the
      *     table is grouped by another column or grouping is disabled.
+     *
+     * @deprecated As of version 1.110. the concept has been discarded.
      */
     enableGrouping?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Flag to show or hide the column visibility menu. This menu will get displayed in each generated column
      * header menu. It allows to show or hide columns
+     *
+     * @deprecated As of version 1.117. use a `ColumnMenu` with a custom menu item in the `headerMenu` association
+     * instead.
      */
     showColumnVisibilityMenu?: boolean | PropertyBindingInfo | `{${string}}`;
 
@@ -7777,8 +10070,6 @@ declare module "sap/ui/table/Table" {
     showNoData?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @since 1.9.2
-     *
      * Defines how the table handles the visible rows in the table.
      *
      * In the `"Fixed"` mode, the table always has as many rows as defined in the `visibleRowCount` property.
@@ -7794,6 +10085,9 @@ declare module "sap/ui/table/Table" {
      *
      * In the `"Interactive"` mode, the table has as many rows as defined in the `visibleRowCount` property
      * after rendering. The user can change the `visibleRowCount` by dragging a resizer.
+     *
+     * @since 1.9.2
+     * @deprecated As of version 1.119. use the `rowMode` aggregation instead.
      */
     visibleRowCountMode?:
       | (VisibleRowCountMode | keyof typeof VisibleRowCountMode)
@@ -7803,6 +10097,8 @@ declare module "sap/ui/table/Table" {
     /**
      * This property is used to set the minimum count of visible rows when the property visibleRowCountMode
      * is set to Auto or Interactive. For any other visibleRowCountMode, it is ignored.
+     *
+     * @deprecated As of version 1.119. use the `rowMode` aggregation instead.
      */
     minAutoRowCount?: int | PropertyBindingInfo | `{${string}}`;
 
@@ -7821,101 +10117,104 @@ declare module "sap/ui/table/Table" {
      * Number of rows that are fix on the top. When you use a vertical scrollbar, only the rows which are not
      * fixed, will scroll.
      *
-     * This property is only supported if the `rows` aggregation is bound to a {@link sap.ui.model.ClientModel client model}.
+     * @deprecated As of version 1.119. use the `rowMode` aggregation instead.
      */
     fixedRowCount?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @since 1.18.7
-     *
      * Number of rows that are fix on the bottom. When you use a vertical scrollbar, only the rows which are
      * not fixed, will scroll.
      *
-     * This property is only supported if the `rows` aggregation is bound to a {@link sap.ui.model.ClientModel client model}.
+     * @since 1.18.7
+     * @deprecated As of version 1.119. use the `rowMode` aggregation instead.
      */
     fixedBottomRowCount?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @since 1.21.0
-     *
      * Flag whether to show or hide the column menu item to freeze or unfreeze a column.
+     *
+     * @since 1.21.0
      */
     enableColumnFreeze?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @since 1.21.0
-     *
      * Flag whether to enable or disable the context menu on cells to trigger a filtering with the cell value.
+     *
+     * @since 1.21.0
      */
     enableCellFilter?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @since 1.21.2
-     *
      * Setting this property to true will show an overlay on top of the Table content and users cannot click
      * anymore on the Table content.
+     *
+     * @since 1.21.2
      */
     showOverlay?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @since 1.23.0
-     *
      * Specifies if a select all button should be displayed in the top left corner. This button is only displayed
      * if the row selector is visible and the selection mode is set to any kind of multi selection.
+     *
+     * @since 1.23.0
      */
     enableSelectAll?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @since 1.23.0
-     *
      * Set this parameter to true to implement your own filter behaviour. Instead of the filter input box a
      * button will be rendered for which' press event (customFilter) you can register an event handler.
+     *
+     * @since 1.23.0
      */
     enableCustomFilter?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @since 1.27.0
-     *
      * If set to `true`, the table changes its busy state, resulting in showing or hiding the busy indicator.
      * The table will switch to busy as soon as data is retrieved to be displayed in the currently visible rows.
      * This happens, for example, during scrolling, filtering, or sorting. As soon as the data has been retrieved,
      * the table switches back to not busy. The busy state of the table can still be set manually by calling
      * {@link sap.ui.core.Control#setBusy}.
+     *
+     * @since 1.27.0
      */
     enableBusyIndicator?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @since 1.45.0
+     * Number of row actions made visible, hence this property also determines the width of the row action column.
+     * The maximum number of visible row actions is 3. If the `rowActionTemplate` contains more `rowActionItems`,
+     * they are shown in an overflow menu.
      *
-     * Number of row actions made visible which determines the width of the row action column. The values `0`,
-     * `1` and `2` are possible.
+     * @since 1.45.0
      */
     rowActionCount?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @since 1.52
-     *
      * Enables alternating table row colors. Alternate row coloring is not available for the tree mode.
+     *
+     * @since 1.52
      */
     alternateRowColors?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @deprecated (since 1.72) - Use, for example, a `sap.m.Title` control in the `extension` aggregation instead.
-     *
      * Control or text of title section of the Table (if not set it will be hidden)
+     *
+     * @deprecated As of version 1.72. Use, for example, a `sap.m.Title` control in the `extension` aggregation
+     * instead.
      */
     title?: string | Control | PropertyBindingInfo;
 
     /**
-     * Control or text of footer section of the Table (if not set it will be hidden)
+     * Control or text of footer section of the Table (if not set it will be hidden).
+     *
+     * **Note:** The `altType` string is deprecated as of version 1.118. Use a `Control` instead.
      */
     footer?: string | Control | PropertyBindingInfo;
 
     /**
-     * @deprecated (since 1.38) - This aggregation is deprecated, use the `extension` aggregation instead.
-     *
      * Toolbar of the Table If not set, no toolbar area will be rendered. Note: The CSS class sapMTBHeader-CTX
      * is applied on the given toolbar.
+     *
+     * @deprecated As of version 1.38. This aggregation is deprecated, use the `extension` aggregation instead.
      */
     toolbar?: Toolbar;
 
@@ -7954,6 +10253,18 @@ declare module "sap/ui/table/Table" {
     rows?: Row[] | Row | AggregationBindingInfo | `{${string}}`;
 
     /**
+     * Defines how the table handles the rows. By default, the table operates in {@link sap.ui.table.rowmodes.Type Fixed }
+     * mode.
+     *
+     * @since 1.119
+     */
+    rowMode?:
+      | (Type | keyof typeof Type)
+      | RowMode
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
      * The value for the noData aggregation can be either a string value or a control instance. The control
      * is shown, in case there is no data for the Table available. In case of a string value this will simply
      * replace the no data text.
@@ -7975,8 +10286,6 @@ declare module "sap/ui/table/Table" {
     rowSettingsTemplate?: RowSettings;
 
     /**
-     * @since 1.54
-     *
      * Defines the context menu for the table.
      *
      * **Note:** The context menu will also be available for the row selectors as well as in the row actions
@@ -7985,18 +10294,19 @@ declare module "sap/ui/table/Table" {
      * The custom context menu will not be shown in group header and summary rows.
      *
      * If this aggregation is set, then the `enableCellFilter` property will have no effect.
+     *
+     * @since 1.54
      */
     contextMenu?: IContextMenu;
 
     /**
-     * @since 1.64
-     *
      * Plugin section of the table. Multiple plugins are possible, but always only **one** of a certain type.
      *
-     * The following restrictions apply:
-     * 	 - If a selection plugin is applied to the table, the table's selection API must not be used. Instead,
-     *     use the API of the plugin.
-     * 	 - Only one MultiSelectionPlugin can be applied. No other plugins can be applied.
+     * If a selection plugin is used, the table's selection API must not be used. Instead, use the API of the
+     * plugin.
+     *
+     * @since 1.64
+     * @deprecated As of version 1.120. Please add plugins to the `dependents` aggregation instead.
      */
     plugins?:
       | SelectionPlugin[]
@@ -8005,11 +10315,12 @@ declare module "sap/ui/table/Table" {
       | `{${string}}`;
 
     /**
-     * @experimental (since 1.28) - This feature has a limited functionality.
-     *
      * The column by which the table is grouped. Grouping will only be performed if `enableGrouping` is set
      * to `true`. Setting `groupBy` in the view does not work and throws an error. It can only be set if the
      * column by which the table is grouped is already part of the `columns` aggregation of the table.
+     *
+     * @deprecated As of version 1.110. see the `enableGrouping` property for details.
+     * @experimental As of version 1.28. This feature has a limited functionality.
      */
     groupBy?: Column | string;
 
@@ -8019,29 +10330,34 @@ declare module "sap/ui/table/Table" {
     ariaLabelledBy?: Array<Control | string>;
 
     /**
-     * fired when the row selection of the table has been changed (the event parameters can be used to determine
-     * selection changes - to find out the selected rows you should better use the table selection API)
+     * Fired if the row selection of the table has been changed.
      *
-     * **Note:** If a selection plugin is applied to the table, this event won't be fired.
+     * The event parameters can be used to determine selection changes. To find the selected rows, you should
+     * use {@link sap.ui.table.Table#getSelectedIndices} or the related function of the used selection plugin
+     * if it exists.
+     *
+     * **Note:** The built-in selection API has limited functionality, especially when it is combined with paging
+     * (e.g. OData). Therefore, it is recommended to use a selection plugin instead. **Note:** If a selection
+     * plugin is used with the table, this event won't be fired.
      */
-    rowSelectionChange?: (
-      oEvent: Event<Table$RowSelectionChangeEventParameters>
-    ) => void;
+    rowSelectionChange?: (oEvent: Table$RowSelectionChangeEvent) => void;
 
     /**
      * fired when a column of the table has been selected
+     *
+     * @deprecated As of version 1.117. see the `headerMenu` aggregation of `sap.ui.table.Column` for details.
      */
-    columnSelect?: (oEvent: Event<Table$ColumnSelectEventParameters>) => void;
+    columnSelect?: (oEvent: Table$ColumnSelectEvent) => void;
 
     /**
      * fired when a table column is resized.
      */
-    columnResize?: (oEvent: Event<Table$ColumnResizeEventParameters>) => void;
+    columnResize?: (oEvent: Table$ColumnResizeEvent) => void;
 
     /**
      * fired when a table column is moved.
      */
-    columnMove?: (oEvent: Event<Table$ColumnMoveEventParameters>) => void;
+    columnMove?: (oEvent: Table$ColumnMoveEvent) => void;
 
     /**
      * This event is fired before a sort order is applied to a column, if the table is sorted via {@link sap.ui.table.Table#sort }
@@ -8049,7 +10365,7 @@ declare module "sap/ui/table/Table" {
      *
      * Sorters that are directly applied to the table binding will not fire this event.
      */
-    sort?: (oEvent: Event<Table$SortEventParameters>) => void;
+    sort?: (oEvent: Table$SortEvent) => void;
 
     /**
      * This event is fired before a filter is applied to a column, if the table is filtered via {@link sap.ui.table.Table#filter }
@@ -8057,99 +10373,102 @@ declare module "sap/ui/table/Table" {
      *
      * Filters that are directly applied to the table binding will not fire this event.
      */
-    filter?: (oEvent: Event<Table$FilterEventParameters>) => void;
+    filter?: (oEvent: Table$FilterEvent) => void;
 
     /**
      * fired when the table is grouped (experimental!).
+     *
+     * @deprecated As of version 1.118. see the `enableGrouping` property for details.
      */
-    group?: (oEvent: Event<Table$GroupEventParameters>) => void;
+    group?: (oEvent: Table$GroupEvent) => void;
 
     /**
      * fired when the visibility of a table column is changed.
+     *
+     * @deprecated As of version 1.117. see the `showColumnVisibilityMenu` property of `sap.ui.table.Table`
+     * for details.
      */
-    columnVisibility?: (
-      oEvent: Event<Table$ColumnVisibilityEventParameters>
-    ) => void;
+    columnVisibility?: (oEvent: Table$ColumnVisibilityEvent) => void;
 
     /**
-     * @since 1.21.0
-     *
      * fired when the user clicks a cell of the table (experimental!).
+     *
+     * @since 1.21.0
      */
-    cellClick?: (oEvent: Event<Table$CellClickEventParameters>) => void;
+    cellClick?: (oEvent: Table$CellClickEvent) => void;
 
     /**
-     * @since 1.21.0
-     * @deprecated (since 1.54) - replaced by `beforeOpenContextMenu`.
-     *
      * fired when the user clicks a cell of the table.
-     */
-    cellContextmenu?: (
-      oEvent: Event<Table$CellContextmenuEventParameters>
-    ) => void;
-
-    /**
-     * @since 1.54
      *
-     * Fired when the user requests the context menu for a table cell.
-     */
-    beforeOpenContextMenu?: (
-      oEvent: Event<Table$BeforeOpenContextMenuEventParameters>
-    ) => void;
-
-    /**
      * @since 1.21.0
-     *
-     * fired when a column of the table should be freezed
+     * @deprecated As of version 1.54. replaced by `beforeOpenContextMenu`.
      */
-    columnFreeze?: (oEvent: Event<Table$ColumnFreezeEventParameters>) => void;
+    cellContextmenu?: (oEvent: Table$CellContextmenuEvent) => void;
 
     /**
-     * @since 1.23.0
+     * Fired when the {@link sap.ui.table.Table#setContextMenu context menu} is opened. When the context menu
+     * is opened, the binding context of the row is set to the context menu.
      *
+     * @since 1.54
+     */
+    beforeOpenContextMenu?: (oEvent: Table$BeforeOpenContextMenuEvent) => void;
+
+    /**
+     * fired when a column of the table should be freezed
+     *
+     * @since 1.21.0
+     */
+    columnFreeze?: (oEvent: Table$ColumnFreezeEvent) => void;
+
+    /**
      * This event is triggered when the custom filter item of the column menu is pressed. The column on which
      * the event was triggered is passed as parameter.
+     *
+     * @since 1.23.0
      */
-    customFilter?: (oEvent: Event<Table$CustomFilterEventParameters>) => void;
+    customFilter?: (oEvent: Table$CustomFilterEvent) => void;
 
     /**
-     * @since 1.37.0
-     *
      * This event gets fired when the first visible row is changed. It should only be used by composite controls.
      * The event even is fired when setFirstVisibleRow is called programmatically.
+     *
+     * @since 1.37.0
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      */
     firstVisibleRowChanged?: (
-      oEvent: Event<Table$FirstVisibleRowChangedEventParameters>
+      oEvent: Table$FirstVisibleRowChangedEvent
     ) => void;
 
     /**
-     * @since 1.37.0
-     *
      * This event gets fired when the busy state of the table changes. It should only be used by composite controls.
+     *
+     * @since 1.37.0
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      */
-    busyStateChanged?: (
-      oEvent: Event<Table$BusyStateChangedEventParameters>
-    ) => void;
+    busyStateChanged?: (oEvent: Table$BusyStateChangedEvent) => void;
 
     /**
-     * @since 1.60
-     *
      * This event gets fired when the user pastes content from the clipboard to the table. Pasting can be done
      * with the standard keyboard shortcut, if the focus is inside the table.
+     *
+     * @since 1.60
      */
-    paste?: (oEvent: Event<Table$PasteEventParameters>) => void;
+    paste?: (oEvent: Table$PasteEvent) => void;
 
     /**
-     * @since 1.86
-     *
      * This event is fired after the table rows have been updated due to rendering, a model update, or a user
      * interaction, for example.
      *
      * **Note**: This event is fired often and must not be used for performance-critical tasks.
+     *
+     * @since 1.86
      */
     rowsUpdated?: (oEvent: Event) => void;
   }
 
+  /**
+   * Parameters of the Table#beforeOpenContextMenu event.
+   */
   export interface Table$BeforeOpenContextMenuEventParameters {
     /**
      * Row index where the context menu opens.
@@ -8168,13 +10487,16 @@ declare module "sap/ui/table/Table" {
   }
 
   /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Table$BeforeOpenContextMenuEventParameters'
-   * in 1.115.1 and any later releases.
+   * Event object of the Table#beforeOpenContextMenu event.
    */
-  export type $TableBeforeOpenContextMenuEventParameters = Table$BeforeOpenContextMenuEventParameters;
+  export type Table$BeforeOpenContextMenuEvent = Event<
+    Table$BeforeOpenContextMenuEventParameters,
+    Table
+  >;
 
-  export type Table$BeforeOpenContextMenuEvent = Event<Table$BeforeOpenContextMenuEventParameters>;
-
+  /**
+   * Parameters of the Table#busyStateChanged event.
+   */
   export interface Table$BusyStateChangedEventParameters {
     /**
      * busy state
@@ -8183,13 +10505,16 @@ declare module "sap/ui/table/Table" {
   }
 
   /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Table$BusyStateChangedEventParameters'
-   * in 1.115.1 and any later releases.
+   * Event object of the Table#busyStateChanged event.
    */
-  export type $TableBusyStateChangedEventParameters = Table$BusyStateChangedEventParameters;
+  export type Table$BusyStateChangedEvent = Event<
+    Table$BusyStateChangedEventParameters,
+    Table
+  >;
 
-  export type Table$BusyStateChangedEvent = Event<Table$BusyStateChangedEventParameters>;
-
+  /**
+   * Parameters of the Table#cellClick event.
+   */
   export interface Table$CellClickEventParameters {
     /**
      * The control of the cell.
@@ -8224,13 +10549,18 @@ declare module "sap/ui/table/Table" {
   }
 
   /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Table$CellClickEventParameters'
-   * in 1.115.1 and any later releases.
+   * Event object of the Table#cellClick event.
    */
-  export type $TableCellClickEventParameters = Table$CellClickEventParameters;
+  export type Table$CellClickEvent = Event<
+    Table$CellClickEventParameters,
+    Table
+  >;
 
-  export type Table$CellClickEvent = Event<Table$CellClickEventParameters>;
-
+  /**
+   * Parameters of the Table#cellContextmenu event.
+   *
+   * @deprecated As of version 1.54. replaced by `beforeOpenContextMenu`.
+   */
   export interface Table$CellContextmenuEventParameters {
     /**
      * The control of the cell.
@@ -8265,13 +10595,18 @@ declare module "sap/ui/table/Table" {
   }
 
   /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Table$CellContextmenuEventParameters'
-   * in 1.115.1 and any later releases.
+   * Event object of the Table#cellContextmenu event.
+   *
+   * @deprecated As of version 1.54. replaced by `beforeOpenContextMenu`.
    */
-  export type $TableCellContextmenuEventParameters = Table$CellContextmenuEventParameters;
+  export type Table$CellContextmenuEvent = Event<
+    Table$CellContextmenuEventParameters,
+    Table
+  >;
 
-  export type Table$CellContextmenuEvent = Event<Table$CellContextmenuEventParameters>;
-
+  /**
+   * Parameters of the Table#columnFreeze event.
+   */
   export interface Table$ColumnFreezeEventParameters {
     /**
      * reference to the column to freeze
@@ -8280,13 +10615,16 @@ declare module "sap/ui/table/Table" {
   }
 
   /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Table$ColumnFreezeEventParameters'
-   * in 1.115.1 and any later releases.
+   * Event object of the Table#columnFreeze event.
    */
-  export type $TableColumnFreezeEventParameters = Table$ColumnFreezeEventParameters;
+  export type Table$ColumnFreezeEvent = Event<
+    Table$ColumnFreezeEventParameters,
+    Table
+  >;
 
-  export type Table$ColumnFreezeEvent = Event<Table$ColumnFreezeEventParameters>;
-
+  /**
+   * Parameters of the Table#columnMove event.
+   */
   export interface Table$ColumnMoveEventParameters {
     /**
      * moved column.
@@ -8300,13 +10638,16 @@ declare module "sap/ui/table/Table" {
   }
 
   /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Table$ColumnMoveEventParameters'
-   * in 1.115.1 and any later releases.
+   * Event object of the Table#columnMove event.
    */
-  export type $TableColumnMoveEventParameters = Table$ColumnMoveEventParameters;
+  export type Table$ColumnMoveEvent = Event<
+    Table$ColumnMoveEventParameters,
+    Table
+  >;
 
-  export type Table$ColumnMoveEvent = Event<Table$ColumnMoveEventParameters>;
-
+  /**
+   * Parameters of the Table#columnResize event.
+   */
   export interface Table$ColumnResizeEventParameters {
     /**
      * resized column.
@@ -8320,13 +10661,18 @@ declare module "sap/ui/table/Table" {
   }
 
   /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Table$ColumnResizeEventParameters'
-   * in 1.115.1 and any later releases.
+   * Event object of the Table#columnResize event.
    */
-  export type $TableColumnResizeEventParameters = Table$ColumnResizeEventParameters;
+  export type Table$ColumnResizeEvent = Event<
+    Table$ColumnResizeEventParameters,
+    Table
+  >;
 
-  export type Table$ColumnResizeEvent = Event<Table$ColumnResizeEventParameters>;
-
+  /**
+   * Parameters of the Table#columnSelect event.
+   *
+   * @deprecated As of version 1.117. see the `headerMenu` aggregation of `sap.ui.table.Column` for details.
+   */
   export interface Table$ColumnSelectEventParameters {
     /**
      * reference to the selected column
@@ -8335,13 +10681,21 @@ declare module "sap/ui/table/Table" {
   }
 
   /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Table$ColumnSelectEventParameters'
-   * in 1.115.1 and any later releases.
+   * Event object of the Table#columnSelect event.
+   *
+   * @deprecated As of version 1.117. see the `headerMenu` aggregation of `sap.ui.table.Column` for details.
    */
-  export type $TableColumnSelectEventParameters = Table$ColumnSelectEventParameters;
+  export type Table$ColumnSelectEvent = Event<
+    Table$ColumnSelectEventParameters,
+    Table
+  >;
 
-  export type Table$ColumnSelectEvent = Event<Table$ColumnSelectEventParameters>;
-
+  /**
+   * Parameters of the Table#columnVisibility event.
+   *
+   * @deprecated As of version 1.117. see the `showColumnVisibilityMenu` property of `sap.ui.table.Table`
+   * for details.
+   */
   export interface Table$ColumnVisibilityEventParameters {
     /**
      * affected column.
@@ -8355,13 +10709,19 @@ declare module "sap/ui/table/Table" {
   }
 
   /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Table$ColumnVisibilityEventParameters'
-   * in 1.115.1 and any later releases.
+   * Event object of the Table#columnVisibility event.
+   *
+   * @deprecated As of version 1.117. see the `showColumnVisibilityMenu` property of `sap.ui.table.Table`
+   * for details.
    */
-  export type $TableColumnVisibilityEventParameters = Table$ColumnVisibilityEventParameters;
+  export type Table$ColumnVisibilityEvent = Event<
+    Table$ColumnVisibilityEventParameters,
+    Table
+  >;
 
-  export type Table$ColumnVisibilityEvent = Event<Table$ColumnVisibilityEventParameters>;
-
+  /**
+   * Parameters of the Table#customFilter event.
+   */
   export interface Table$CustomFilterEventParameters {
     /**
      * The column instance on which the custom filter button was pressed.
@@ -8375,13 +10735,16 @@ declare module "sap/ui/table/Table" {
   }
 
   /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Table$CustomFilterEventParameters'
-   * in 1.115.1 and any later releases.
+   * Event object of the Table#customFilter event.
    */
-  export type $TableCustomFilterEventParameters = Table$CustomFilterEventParameters;
+  export type Table$CustomFilterEvent = Event<
+    Table$CustomFilterEventParameters,
+    Table
+  >;
 
-  export type Table$CustomFilterEvent = Event<Table$CustomFilterEventParameters>;
-
+  /**
+   * Parameters of the Table#filter event.
+   */
   export interface Table$FilterEventParameters {
     /**
      * filtered column.
@@ -8395,13 +10758,13 @@ declare module "sap/ui/table/Table" {
   }
 
   /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Table$FilterEventParameters'
-   * in 1.115.1 and any later releases.
+   * Event object of the Table#filter event.
    */
-  export type $TableFilterEventParameters = Table$FilterEventParameters;
+  export type Table$FilterEvent = Event<Table$FilterEventParameters, Table>;
 
-  export type Table$FilterEvent = Event<Table$FilterEventParameters>;
-
+  /**
+   * Parameters of the Table#firstVisibleRowChanged event.
+   */
   export interface Table$FirstVisibleRowChangedEventParameters {
     /**
      * First visible row
@@ -8410,13 +10773,18 @@ declare module "sap/ui/table/Table" {
   }
 
   /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Table$FirstVisibleRowChangedEventParameters'
-   * in 1.115.1 and any later releases.
+   * Event object of the Table#firstVisibleRowChanged event.
    */
-  export type $TableFirstVisibleRowChangedEventParameters = Table$FirstVisibleRowChangedEventParameters;
+  export type Table$FirstVisibleRowChangedEvent = Event<
+    Table$FirstVisibleRowChangedEventParameters,
+    Table
+  >;
 
-  export type Table$FirstVisibleRowChangedEvent = Event<Table$FirstVisibleRowChangedEventParameters>;
-
+  /**
+   * Parameters of the Table#group event.
+   *
+   * @deprecated As of version 1.118. see the `enableGrouping` property for details.
+   */
   export interface Table$GroupEventParameters {
     /**
      * grouped column.
@@ -8425,13 +10793,15 @@ declare module "sap/ui/table/Table" {
   }
 
   /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Table$GroupEventParameters'
-   * in 1.115.1 and any later releases.
+   * Event object of the Table#group event.
+   *
+   * @deprecated As of version 1.118. see the `enableGrouping` property for details.
    */
-  export type $TableGroupEventParameters = Table$GroupEventParameters;
+  export type Table$GroupEvent = Event<Table$GroupEventParameters, Table>;
 
-  export type Table$GroupEvent = Event<Table$GroupEventParameters>;
-
+  /**
+   * Parameters of the Table#paste event.
+   */
   export interface Table$PasteEventParameters {
     /**
      * 2D array of strings with data from the clipboard. The first dimension represents the rows, and the second
@@ -8441,13 +10811,13 @@ declare module "sap/ui/table/Table" {
   }
 
   /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Table$PasteEventParameters'
-   * in 1.115.1 and any later releases.
+   * Event object of the Table#paste event.
    */
-  export type $TablePasteEventParameters = Table$PasteEventParameters;
+  export type Table$PasteEvent = Event<Table$PasteEventParameters, Table>;
 
-  export type Table$PasteEvent = Event<Table$PasteEventParameters>;
-
+  /**
+   * Parameters of the Table#rowSelectionChange event.
+   */
   export interface Table$RowSelectionChangeEventParameters {
     /**
      * row index which has been clicked so that the selection has been changed (either selected or deselected)
@@ -8477,47 +10847,50 @@ declare module "sap/ui/table/Table" {
   }
 
   /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Table$RowSelectionChangeEventParameters'
-   * in 1.115.1 and any later releases.
+   * Event object of the Table#rowSelectionChange event.
    */
-  export type $TableRowSelectionChangeEventParameters = Table$RowSelectionChangeEventParameters;
+  export type Table$RowSelectionChangeEvent = Event<
+    Table$RowSelectionChangeEventParameters,
+    Table
+  >;
 
-  export type Table$RowSelectionChangeEvent = Event<Table$RowSelectionChangeEventParameters>;
-
+  /**
+   * Parameters of the Table#rowsUpdated event.
+   */
   export interface Table$RowsUpdatedEventParameters {}
 
   /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Table$RowsUpdatedEventParameters'
-   * in 1.115.1 and any later releases.
+   * Event object of the Table#rowsUpdated event.
    */
-  export type $TableRowsUpdatedEventParameters = Table$RowsUpdatedEventParameters;
+  export type Table$RowsUpdatedEvent = Event<
+    Table$RowsUpdatedEventParameters,
+    Table
+  >;
 
-  export type Table$RowsUpdatedEvent = Event<Table$RowsUpdatedEventParameters>;
-
+  /**
+   * Parameters of the Table#sort event.
+   */
   export interface Table$SortEventParameters {
     /**
-     * sorted column.
+     * The column for which the sorting is changed
      */
     column?: Column;
 
     /**
-     * Sort Order
+     * The new sort order
      */
     sortOrder?: SortOrder | keyof typeof SortOrder;
 
     /**
-     * If column was added to sorter this is true. If new sort is started this is set to false
+     * Indicates that the column is added to the list of sorted columns
      */
     columnAdded?: boolean;
   }
 
   /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'Table$SortEventParameters'
-   * in 1.115.1 and any later releases.
+   * Event object of the Table#sort event.
    */
-  export type $TableSortEventParameters = Table$SortEventParameters;
-
-  export type Table$SortEvent = Event<Table$SortEventParameters>;
+  export type Table$SortEvent = Event<Table$SortEventParameters, Table>;
 }
 
 declare module "sap/ui/table/TablePersoController" {
@@ -8536,10 +10909,11 @@ declare module "sap/ui/table/TablePersoController" {
   import Table from "sap/ui/table/Table";
 
   /**
-   * @since 1.21.1
-   * @deprecated (since 1.115) - Please use the {@link sap.m.p13n.Engine Engine} for personalization instead.
-   *
    * The TablePersoController can be used to connect a table with a persistence service.
+   *
+   * @since 1.21.1
+   * @deprecated As of version 1.115. Please use the {@link sap.m.p13n.Engine Engine} for personalization
+   * instead.
    */
   export default class TablePersoController extends ManagedObject {
     /**
@@ -8579,6 +10953,7 @@ declare module "sap/ui/table/TablePersoController" {
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.base.ManagedObject.extend}.
      *
+     *
      * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
@@ -8599,6 +10974,7 @@ declare module "sap/ui/table/TablePersoController" {
     /**
      * Returns a metadata object for class sap.ui.table.TablePersoController.
      *
+     *
      * @returns Metadata object describing this class
      */
     static getMetadata(): ManagedObjectMetadata;
@@ -8608,6 +10984,7 @@ declare module "sap/ui/table/TablePersoController" {
      * Auto save state
      *
      * Default value is `true`.
+     *
      *
      * @returns Value of property `autoSave`
      */
@@ -8621,6 +10998,7 @@ declare module "sap/ui/table/TablePersoController" {
      *
      * Default value is `"persoKey"`.
      *
+     *
      * @returns Value of property `customDataKey`
      */
     getCustomDataKey(): string;
@@ -8631,6 +11009,7 @@ declare module "sap/ui/table/TablePersoController" {
      * 	 - getPersData() : `jQuery Promise` (http://api.jquery.com/promise/)
      * 	 - setPersData(oBundle) : `jQuery Promise` (http://api.jquery.com/promise/)
      * 	 - delPersData() : `jQuery Promise` (http://api.jquery.com/promise/)
+     *
      *
      * @returns Value of property `persoService`
      */
@@ -8649,9 +11028,10 @@ declare module "sap/ui/table/TablePersoController" {
      *
      * Default value is `Default`.
      *
+     *
      * @returns Value of property `resetAllMode`
      */
-    getResetAllMode(): ResetAllMode | keyof typeof ResetAllMode;
+    getResetAllMode(): ResetAllMode;
     /**
      * Gets current value of property {@link #getShowResetAll showResetAll}.
      *
@@ -8660,30 +11040,33 @@ declare module "sap/ui/table/TablePersoController" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Value of property `showResetAll`
      */
     getShowResetAll(): boolean;
     /**
      * ID of the element which is the current target of the association {@link #getTable table}, or `null`.
      */
-    getTable(): ID;
+    getTable(): ID | null;
     /**
-     * @experimental (since 1.21.2) - API might change / feature requires the sap.m library!
-     *
      * Opens the personalization dialog for the Table to modify the visibility and the order of the columns.
      *
      * Using this functionality will require to load the sap.m library because the personalization dialog
      * is only available in this library for now.
+     *
+     * @experimental As of version 1.21.2. API might change / feature requires the sap.m library!
      */
     openDialog(mSettings: object): void;
     /**
      * Refresh the personalizations (reloads data from service).
+     *
      *
      * @returns `jQuery Promise` which is resolved once the refresh is finished
      */
     refresh(): jQuery.Promise;
     /**
      * Saves the current personalization state.
+     *
      *
      * @returns `jQuery Promise` which is resolved once the save is finished
      */
@@ -8696,6 +11079,7 @@ declare module "sap/ui/table/TablePersoController" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -8716,6 +11100,7 @@ declare module "sap/ui/table/TablePersoController" {
      *
      * Default value is `"persoKey"`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setCustomDataKey(
@@ -8733,6 +11118,7 @@ declare module "sap/ui/table/TablePersoController" {
      * 	 - delPersData() : `jQuery Promise` (http://api.jquery.com/promise/)
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -8758,6 +11144,7 @@ declare module "sap/ui/table/TablePersoController" {
      *
      * Default value is `Default`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setResetAllMode(
@@ -8776,6 +11163,7 @@ declare module "sap/ui/table/TablePersoController" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setShowResetAll(
@@ -8787,6 +11175,7 @@ declare module "sap/ui/table/TablePersoController" {
     /**
      * Sets the associated {@link #getTable table}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setTable(
@@ -8797,7 +11186,12 @@ declare module "sap/ui/table/TablePersoController" {
       oTable: ID | Table
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the TablePersoController constructor.
+   *
+   * @deprecated As of version 1.115. Please use the {@link sap.m.p13n.Engine Engine} for personalization
+   * instead.
+   */
   export interface $TablePersoControllerSettings
     extends $ManagedObjectSettings {
     /**
@@ -8860,7 +11254,10 @@ declare module "sap/ui/table/TreeTable" {
   import Event from "sap/ui/base/Event";
 
   /**
-   * The TreeTable control provides a comprehensive set of features to display hierarchical data.
+   * The TreeTable control provides a comprehensive set of features to display hierarchical data. The control
+   * can be used in combination with {@link sap.ui.model.json.JSONModel JSONModel} and {@link sap.ui.model.odata.v2.ODataModel ODataModel V2}.
+   * For a tree-table-like behavior with OData V4 services, use the {@link sap.ui.table.Table Table} control
+   * with the {@link sap.ui.table.plugins.ODataV4Hierarchy ODataV4Hierarchy} plugin.
    */
   export default class TreeTable extends Table {
     /**
@@ -8908,6 +11305,7 @@ declare module "sap/ui/table/TreeTable" {
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.table.Table.extend}.
      *
+     *
      * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
@@ -8928,6 +11326,7 @@ declare module "sap/ui/table/TreeTable" {
     /**
      * Returns a metadata object for class sap.ui.table.TreeTable.
      *
+     *
      * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
@@ -8937,6 +11336,7 @@ declare module "sap/ui/table/TreeTable" {
      *
      * Please also take notice of the fact, that "addSelectionInterval" does not change any other selection.
      * To override the current selection, please use "setSelectionInterval" or for a single entry use "setSelectedIndex".
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -8958,6 +11358,7 @@ declare module "sap/ui/table/TreeTable" {
      * otherwise it will be bound to this `sap.ui.table.TreeTable` itself.
      *
      * Fired when a row has been expanded or collapsed by user interaction. Only available in hierarchical mode.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -8985,6 +11386,7 @@ declare module "sap/ui/table/TreeTable" {
      *
      * Fired when a row has been expanded or collapsed by user interaction. Only available in hierarchical mode.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachToggleOpenState(
@@ -9000,6 +11402,7 @@ declare module "sap/ui/table/TreeTable" {
     /**
      * Collapses one or more rows.
      *
+     *
      * @returns `this` to allow method chaining
      */
     collapse(
@@ -9011,6 +11414,7 @@ declare module "sap/ui/table/TreeTable" {
     /**
      * Collapses all nodes (and lower if collapseRecursive is activated)
      *
+     *
      * @returns `this` to allow method chaining
      */
     collapseAll(): this;
@@ -9019,6 +11423,7 @@ declare module "sap/ui/table/TreeTable" {
      * this `sap.ui.table.TreeTable`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -9034,6 +11439,7 @@ declare module "sap/ui/table/TreeTable" {
     ): this;
     /**
      * Expands one or more rows.
+     *
      *
      * @returns `this` to allow method chaining
      */
@@ -9051,6 +11457,7 @@ declare module "sap/ui/table/TreeTable" {
      *
      * Please also see `sap.ui.model.odata.OperationMode`.
      *
+     *
      * @returns a reference on the TreeTable control, can be used for chaining
      */
     expandToLevel(
@@ -9060,9 +11467,9 @@ declare module "sap/ui/table/TreeTable" {
       iLevel: int
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
-     *
      * Fires event {@link #event:toggleOpenState toggleOpenState} to attached listeners.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -9073,9 +11480,6 @@ declare module "sap/ui/table/TreeTable" {
       mParameters?: TreeTable$ToggleOpenStateEventParameters
     ): this;
     /**
-     * @deprecated (since 1.76) - replaced by the `collapseRecursive` binding parameter. May not work with all
-     * bindings.
-     *
      * Gets current value of property {@link #getCollapseRecursive collapseRecursive}.
      *
      * Setting collapseRecursive to true means, that when collapsing a node all subsequent child nodes will
@@ -9098,19 +11502,19 @@ declare module "sap/ui/table/TreeTable" {
      *
      * Default value is `true`.
      *
+     * @deprecated As of version 1.76. replaced by the `collapseRecursive` binding parameter. May not work with
+     * all bindings.
+     *
      * @returns Value of property `collapseRecursive`
      */
     getCollapseRecursive(): boolean;
     /**
-     * @deprecated (since 1.28)
+     * The `enableGrouping` property is not supported by the `TreeTable` control.
      *
-     * The property `enableGrouping` is not supported by the `TreeTable` control.
+     * @deprecated As of version 1.28. the `enableGrouping` property is not supported by the `TreeTable` control.
      */
     getEnableGrouping(): boolean;
     /**
-     * @deprecated (since 1.46.3) - replaced by the `numberOfExpandedLevels` binding parameter. May not work
-     * with all bindings.
-     *
      * Gets current value of property {@link #getExpandFirstLevel expandFirstLevel}.
      *
      * Specifies whether the first level is expanded.
@@ -9133,13 +11537,16 @@ declare module "sap/ui/table/TreeTable" {
      *
      * Default value is `false`.
      *
+     * @deprecated As of version 1.46.3. replaced by the `numberOfExpandedLevels` binding parameter. May not
+     * work with all bindings.
+     *
      * @returns Value of property `expandFirstLevel`
      */
     getExpandFirstLevel(): boolean;
     /**
-     * @deprecated (since 1.28)
-     *
      * The `groupBy` association is not supported by the `TreeTable` control.
+     *
+     * @deprecated As of version 1.28. the `groupBy` association is not supported by the `TreeTable` control.
      */
     getGroupBy(): ID;
     /**
@@ -9147,12 +11554,11 @@ declare module "sap/ui/table/TreeTable" {
      *
      * The property name of the rows data which will be displayed as a group header if the group mode is enabled
      *
+     *
      * @returns Value of property `groupHeaderProperty`
      */
     getGroupHeaderProperty(): string;
     /**
-     * @deprecated (since 1.76) - replaced by the `rootLevel` binding parameter. May not work with all bindings.
-     *
      * Gets current value of property {@link #getRootLevel rootLevel}.
      *
      * The root level is the level of the topmost tree nodes, which will be used as an entry point for OData
@@ -9174,6 +11580,9 @@ declare module "sap/ui/table/TreeTable" {
      *
      * Default value is `0`.
      *
+     * @deprecated As of version 1.76. replaced by the `rootLevel` binding parameter. May not work with all
+     * bindings.
+     *
      * @returns Value of property `rootLevel`
      */
     getRootLevel(): int;
@@ -9183,6 +11592,7 @@ declare module "sap/ui/table/TreeTable" {
      * Please be aware of the following: Due to performance/network traffic reasons, the getSelectedIndices
      * function returns only all indices of actually selected rows/tree nodes. Unknown rows/nodes (as in "not
      * yet loaded" to the client), will not be returned.
+     *
      *
      * @returns an array containing all selected indices
      */
@@ -9195,11 +11605,13 @@ declare module "sap/ui/table/TreeTable" {
      *
      * Default value is `false`.
      *
+     *
      * @returns Value of property `useGroupMode`
      */
     getUseGroupMode(): boolean;
     /**
      * Checks whether the row is expanded or collapsed.
+     *
      *
      * @returns `true` if the row is expanded, `false` if it is collapsed
      */
@@ -9212,6 +11624,7 @@ declare module "sap/ui/table/TreeTable" {
     /**
      * Removes the given selection interval from the selection. In case of single selection, only `iIndexTo`
      * is removed from the selection. Invisible nodes (collapsed child nodes) will not be regarded.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -9233,13 +11646,11 @@ declare module "sap/ui/table/TreeTable" {
      * also selected immediately as soon as they get visible. However, `SelectAll` does not retrieve any data
      * from the back end in order to improve performance and reduce the network traffic.
      *
+     *
      * @returns a reference on the TreeTable control, can be used for chaining
      */
     selectAll(): this;
     /**
-     * @deprecated (since 1.76) - replaced by the `collapseRecursive` binding parameter. May not work with all
-     * bindings.
-     *
      * Sets a new value for property {@link #getCollapseRecursive collapseRecursive}.
      *
      * Setting collapseRecursive to true means, that when collapsing a node all subsequent child nodes will
@@ -9264,6 +11675,9 @@ declare module "sap/ui/table/TreeTable" {
      *
      * Default value is `true`.
      *
+     * @deprecated As of version 1.76. replaced by the `collapseRecursive` binding parameter. May not work with
+     * all bindings.
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setCollapseRecursive(
@@ -9273,19 +11687,17 @@ declare module "sap/ui/table/TreeTable" {
       bCollapseRecursive?: boolean
     ): this;
     /**
-     * @deprecated (since 1.28) - To get a group-like visualization the `useGroupMode` property can be used.
-     *
-     * The property `enableGrouping` is not supported by the `TreeTable` control.
+     * The `enableGrouping` property is not supported by the `TreeTable` control.
      * See:
      * 	sap.ui.table.TreeTable#setUseGroupMode
+     *
+     * @deprecated As of version 1.28. the `enableGrouping` property is not supported by the `TreeTable` control.
+     * To get a group-like visualization the `useGroupMode` property can be used.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
     setEnableGrouping(bValue: boolean): this;
     /**
-     * @deprecated (since 1.46.3) - replaced by the `numberOfExpandedLevels` binding parameter. May not work
-     * with all bindings.
-     *
      * Sets a new value for property {@link #getExpandFirstLevel expandFirstLevel}.
      *
      * Specifies whether the first level is expanded.
@@ -9310,6 +11722,9 @@ declare module "sap/ui/table/TreeTable" {
      *
      * Default value is `false`.
      *
+     * @deprecated As of version 1.46.3. replaced by the `numberOfExpandedLevels` binding parameter. May not
+     * work with all bindings.
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setExpandFirstLevel(
@@ -9325,6 +11740,7 @@ declare module "sap/ui/table/TreeTable" {
      *
      * Default value is `0`
      *
+     *
      * @returns `this` to allow method chaining
      */
     setFixedRowCount(
@@ -9334,9 +11750,9 @@ declare module "sap/ui/table/TreeTable" {
       iRowCount: int
     ): this;
     /**
-     * @deprecated (since 1.28)
-     *
      * The `groupBy` association is not supported by the `TreeTable` control.
+     *
+     * @deprecated As of version 1.28. the `groupBy` association is not supported by the `TreeTable` control.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -9348,6 +11764,7 @@ declare module "sap/ui/table/TreeTable" {
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setGroupHeaderProperty(
@@ -9357,8 +11774,6 @@ declare module "sap/ui/table/TreeTable" {
       sGroupHeaderProperty?: string
     ): this;
     /**
-     * @deprecated (since 1.76) - replaced by the `rootLevel` binding parameter. May not work with all bindings.
-     *
      * Sets a new value for property {@link #getRootLevel rootLevel}.
      *
      * The root level is the level of the topmost tree nodes, which will be used as an entry point for OData
@@ -9382,6 +11797,9 @@ declare module "sap/ui/table/TreeTable" {
      *
      * Default value is `0`.
      *
+     * @deprecated As of version 1.76. replaced by the `rootLevel` binding parameter. May not work with all
+     * bindings.
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setRootLevel(
@@ -9394,6 +11812,7 @@ declare module "sap/ui/table/TreeTable" {
      * Sets the selected index In a TreeTable you can only select indices, which correspond to the currently
      * visualized tree. Invisible tree nodes (e.g. collapsed child nodes) can not be selected via Index, because
      * they do not correspond to a TreeTable row.
+     *
      *
      * @returns a reference on the TreeTable control, can be used for chaining
      */
@@ -9408,6 +11827,7 @@ declare module "sap/ui/table/TreeTable" {
      * will be lost/overridden. If this is not wanted, please use "addSelectionInterval" and "removeSelectionInterval".
      * Please be aware, that the absolute row index only applies to the tree which is visualized by the TreeTable.
      *
+     *
      * @returns a reference on the TreeTable control, can be used for chaining
      */
     setSelectionInterval(
@@ -9421,8 +11841,6 @@ declare module "sap/ui/table/TreeTable" {
       iToIndex: int
     ): this;
     /**
-     * Protected:  Do not call from applications (only from related classes in the framework)
-     *
      * Allows to hide the tree structure (tree icons, indentation) in tree mode (property `useGroupMode` is
      * set to `false`).
      *
@@ -9432,6 +11850,8 @@ declare module "sap/ui/table/TreeTable" {
      * **Note:** In flat mode the user of the table cannot expand or collapse certain nodes and the hierarchy
      * is not visible to the user. The caller of this function has to ensure to use this option only with non-hierarchical
      * data.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -9451,6 +11871,7 @@ declare module "sap/ui/table/TreeTable" {
      *
      * Default value is `false`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setUseGroupMode(
@@ -9460,12 +11881,11 @@ declare module "sap/ui/table/TreeTable" {
       bUseGroupMode?: boolean
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the TreeTable constructor.
+   */
   export interface $TreeTableSettings extends $TableSettings {
     /**
-     * @deprecated (since 1.46.3) - replaced by the `numberOfExpandedLevels` binding parameter. May not work
-     * with all bindings.
-     *
      * Specifies whether the first level is expanded.
      *
      * The value of the property is only taken into account if no parameter `numberOfExpandedLevels` is given
@@ -9482,6 +11902,10 @@ declare module "sap/ui/table/TreeTable" {
      *     }
      *   });
      * ```
+     *
+     *
+     * @deprecated As of version 1.46.3. replaced by the `numberOfExpandedLevels` binding parameter. May not
+     * work with all bindings.
      */
     expandFirstLevel?: boolean | PropertyBindingInfo | `{${string}}`;
 
@@ -9497,9 +11921,6 @@ declare module "sap/ui/table/TreeTable" {
     groupHeaderProperty?: string | PropertyBindingInfo;
 
     /**
-     * @deprecated (since 1.76) - replaced by the `collapseRecursive` binding parameter. May not work with all
-     * bindings.
-     *
      * Setting collapseRecursive to true means, that when collapsing a node all subsequent child nodes will
      * also be collapsed. This property is only supported with sap.ui.model.odata.v2.ODataModel. **Note:** collapseRecursive
      * is currently **not** supported if your OData service exposes the hierarchy annotation `hierarchy-node-descendant-count-for`.
@@ -9516,12 +11937,14 @@ declare module "sap/ui/table/TreeTable" {
      *     }
      *   });
      * ```
+     *
+     *
+     * @deprecated As of version 1.76. replaced by the `collapseRecursive` binding parameter. May not work with
+     * all bindings.
      */
     collapseRecursive?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @deprecated (since 1.76) - replaced by the `rootLevel` binding parameter. May not work with all bindings.
-     *
      * The root level is the level of the topmost tree nodes, which will be used as an entry point for OData
      * services. This property is only supported when the TreeTable uses an underlying odata services with hierarchy
      * annotations. This property is only supported with sap.ui.model.odata.v2.ODataModel The hierarchy annotations
@@ -9537,17 +11960,22 @@ declare module "sap/ui/table/TreeTable" {
      *     }
      *   });
      * ```
+     *
+     *
+     * @deprecated As of version 1.76. replaced by the `rootLevel` binding parameter. May not work with all
+     * bindings.
      */
     rootLevel?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Fired when a row has been expanded or collapsed by user interaction. Only available in hierarchical mode.
      */
-    toggleOpenState?: (
-      oEvent: Event<TreeTable$ToggleOpenStateEventParameters>
-    ) => void;
+    toggleOpenState?: (oEvent: TreeTable$ToggleOpenStateEvent) => void;
   }
 
+  /**
+   * Parameters of the TreeTable#toggleOpenState event.
+   */
   export interface TreeTable$ToggleOpenStateEventParameters {
     /**
      * Index of the expanded/collapsed row
@@ -9566,12 +11994,12 @@ declare module "sap/ui/table/TreeTable" {
   }
 
   /**
-   * @deprecated (since 1.115.1) - This name was introduced in 1.115.0, but will be 'TreeTable$ToggleOpenStateEventParameters'
-   * in 1.115.1 and any later releases.
+   * Event object of the TreeTable#toggleOpenState event.
    */
-  export type $TreeTableToggleOpenStateEventParameters = TreeTable$ToggleOpenStateEventParameters;
-
-  export type TreeTable$ToggleOpenStateEvent = Event<TreeTable$ToggleOpenStateEventParameters>;
+  export type TreeTable$ToggleOpenStateEvent = Event<
+    TreeTable$ToggleOpenStateEventParameters,
+    TreeTable
+  >;
 }
 
 declare namespace sap {
@@ -9592,6 +12020,14 @@ declare namespace sap {
 
     "sap/ui/table/plugins/MultiSelectionPlugin": undefined;
 
+    "sap/ui/table/plugins/ODataV4Aggregation": undefined;
+
+    "sap/ui/table/plugins/ODataV4Hierarchy": undefined;
+
+    "sap/ui/table/plugins/ODataV4MultiSelection": undefined;
+
+    "sap/ui/table/plugins/ODataV4SingleSelection": undefined;
+
     "sap/ui/table/plugins/SelectionPlugin": undefined;
 
     "sap/ui/table/Row": undefined;
@@ -9600,13 +12036,15 @@ declare namespace sap {
 
     "sap/ui/table/RowActionItem": undefined;
 
-    "sap/ui/table/rowmodes/AutoRowMode": undefined;
+    "sap/ui/table/rowmodes/Auto": undefined;
 
-    "sap/ui/table/rowmodes/FixedRowMode": undefined;
+    "sap/ui/table/rowmodes/Fixed": undefined;
 
-    "sap/ui/table/rowmodes/InteractiveRowMode": undefined;
+    "sap/ui/table/rowmodes/Interactive": undefined;
 
     "sap/ui/table/rowmodes/RowMode": undefined;
+
+    "sap/ui/table/rowmodes/Type": undefined;
 
     "sap/ui/table/RowSettings": undefined;
 

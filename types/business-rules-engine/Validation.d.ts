@@ -1,1 +1,3 @@
-declare module "node-validation" {export = Validation;}
+declare module "node-validation" {
+    export = Validation;
+}

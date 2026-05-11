@@ -1,31 +1,31 @@
-import convertJabToJch from './convertJabToJch';
-import convertJchToJab from './convertJchToJab';
+import convertJabToJch from "./convertJabToJch.js";
+import convertJchToJab from "./convertJchToJab.js";
 
-import { fixupHueShorter } from '../fixup/hue';
-import { fixupAlpha } from '../fixup/alpha';
-import { interpolatorLinear } from '../interpolate/linear';
-import { differenceHueChroma } from '../difference';
-import { averageAngle } from '../average';
-import { Rgb } from '../rgb/types';
-import { Jch } from './types';
+import { averageAngle } from "../average.js";
+import { differenceHueChroma } from "../difference.js";
+import { fixupAlpha } from "../fixup/alpha.js";
+import { fixupHueShorter } from "../fixup/hue.js";
+import { interpolatorLinear } from "../interpolate/linear.js";
+import { Rgb } from "../rgb/types.js";
+import { Jch } from "./types.js";
 
-declare const definition: {
-    mode: 'jch';
+declare const modeJch: {
+    mode: "jch";
 
-    parse: ['--jzczhz'];
-    serialize: '--jzczhz';
+    parse: ["--jzczhz"];
+    serialize: "--jzczhz";
 
     toMode: {
         jab: typeof convertJchToJab;
-        rgb: (c: Omit<Jch, 'mode'>) => Rgb;
+        rgb: (c: Omit<Jch, "mode">) => Rgb;
     };
 
     fromMode: {
-        rgb: (c: Omit<Rgb, 'mode'>) => Jch;
+        rgb: (c: Omit<Rgb, "mode">) => Jch;
         jab: typeof convertJabToJch;
     };
 
-    channels: ['j', 'c', 'h', 'alpha'];
+    channels: ["j", "c", "h", "alpha"];
 
     ranges: {
         j: [0, 0.221];
@@ -49,4 +49,4 @@ declare const definition: {
     };
 };
 
-export default definition;
+export default modeJch;

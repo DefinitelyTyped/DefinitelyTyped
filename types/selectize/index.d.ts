@@ -1,14 +1,7 @@
-// Type definitions for Selectize 0.12.14
-// Project: https://github.com/brianreavis/selectize.js
-// Definitions by: Adi Dahiya <https://github.com/adidahiya>, Natalie Bausch <https://github.com/naBausch>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 declare namespace Selectize {
     // see https://github.com/brianreavis/selectize.js/blob/master/docs/usage.md
     // option identifiers are parameterized by T; data is parameterized by U
     interface IOptions<T, U> {
-
         // General
         // ------------------------------------------------------------------------------------------------------------
 
@@ -16,7 +9,7 @@ declare namespace Selectize {
          * An array of the initial selected values. By default this is populated from the original input element.
          */
         items?: T[] | undefined;
-        
+
         /**
          * The placeholder of the control (displayed when nothing is selected / typed).
          * Defaults to input element's placeholder, unless this one is specified.
@@ -143,7 +136,7 @@ declare namespace Selectize {
          *
          * Default: false
          */
-        preload?: boolean | 'focus' | undefined;
+        preload?: boolean | "focus" | undefined;
 
         /**
          * The element the dropdown menu is appended to. This should be "body" or null.
@@ -254,7 +247,7 @@ declare namespace Selectize {
          *
          * Default: "$order"
          */
-        sortField?: string | { field: string, direction?: 'asc' | 'desc' | undefined }[] | undefined;
+        sortField?: string | Array<{ field: string; direction?: "asc" | "desc" | undefined }> | undefined;
 
         /**
          * An array of property names to analyze when filtering options.

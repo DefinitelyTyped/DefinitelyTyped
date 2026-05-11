@@ -1,8 +1,3 @@
-// Type definitions for tls-keygen 3.7
-// Project: https://gitlab.com/sebdeckers/tls-keygen
-// Definitions by: Yi Hong <https://github.com/hongyiweiwu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export function keygen(options: KeyGenOptions): Promise<KeyGenResult>;

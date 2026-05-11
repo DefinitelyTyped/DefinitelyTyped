@@ -1,9 +1,9 @@
-import Traverser from '@rdfjs/traverser/Traverser';
-import TraverserFactory from '@rdfjs/traverser/Factory';
-import { Quad, DatasetCore, NamedNode } from "@rdfjs/types";
-import { GraphPointer } from 'clownface';
-import { DatasetExt } from 'rdf-ext/lib/Dataset';
-import Environment from '@rdfjs/environment/Environment.js';
+import Environment from "@rdfjs/environment/Environment.js";
+import TraverserFactory from "@rdfjs/traverser/Factory";
+import Traverser from "@rdfjs/traverser/Traverser";
+import { DatasetCore, NamedNode, Quad } from "@rdfjs/types";
+import { GraphPointer } from "clownface";
+import { DatasetExt } from "rdf-ext/lib/Dataset";
 
 function filter(arg: { dataset: DatasetCore; quad: Quad; level: number }): boolean {
     return true;

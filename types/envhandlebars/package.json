@@ -1,6 +1,21 @@
 {
-  "private": true,
-  "dependencies": {
-    "handlebars": "^4.7.6"
-  }
+    "private": true,
+    "name": "@types/envhandlebars",
+    "version": "1.4.9999",
+    "projects": [
+        "https://github.com/cgmartin/envhandlebars#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "handlebars": "^4.7.6"
+    },
+    "devDependencies": {
+        "@types/envhandlebars": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
 }

@@ -1,11 +1,15 @@
-import EmberObject from '@ember/object';
-import ActionHandler from '@ember/object/-private/action-handler';
-import Transition from '@ember/routing/transition';
-import Evented from '@ember/object/evented';
-import { RouteQueryParam } from '@ember/routing/types';
-import Controller from '@ember/controller';
+import EmberObject from "@ember/object";
+import ActionHandler from "@ember/object/-private/action-handler";
+// eslint-disable-next-line @definitelytyped/no-self-import
+import Evented from "@ember/object/evented";
+// eslint-disable-next-line @definitelytyped/no-self-import
+import Transition from "@ember/routing/transition";
+// eslint-disable-next-line @definitelytyped/no-self-import
+import Controller from "@ember/controller";
+// eslint-disable-next-line @definitelytyped/no-self-import
+import { RouteQueryParam } from "@ember/routing/types";
 
-// tslint:disable-next-line:strict-export-declare-modifiers
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 type RouteModel = object | string | number;
 
 /**
@@ -523,5 +527,5 @@ export default class Route<Model = unknown, Params extends object = object> exte
     buildRouteInfoMetadata(): unknown;
 }
 
-// tslint:disable-next-line:no-empty-interface -- used for declaration merge
+// eslint-disable-next-line @typescript-eslint/no-empty-interface -- used for declaration merge
 export default interface Route<Model = unknown, Params extends object = object> extends ActionHandler, Evented {}

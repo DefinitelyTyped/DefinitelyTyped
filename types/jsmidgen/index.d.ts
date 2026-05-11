@@ -1,9 +1,3 @@
-// Type definitions for jsmidgen 0.1
-// Project: https://github.com/dingram/jsmidgen#readme
-// Definitions by: Jimmy Cuadra <https://github.com/jimmycuadra>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.5
-
 export as namespace Midi;
 
 export type MidiEventType =
@@ -17,9 +11,8 @@ export type MidiEventType =
 
 export type MidiChannel = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15;
 
-export type Enumerate<N extends number, Acc extends number[] = []> = Acc['length'] extends N
-    ? Acc[number]
-    : Enumerate<N, [...Acc, Acc['length']]>;
+export type Enumerate<N extends number, Acc extends number[] = []> = Acc["length"] extends N ? Acc[number]
+    : Enumerate<N, [...Acc, Acc["length"]]>;
 
 export type Range<F extends number, T extends number> = Exclude<Enumerate<T>, Enumerate<F>>;
 
@@ -75,13 +68,13 @@ export class File {
 
     toBytes(): number[];
 
-    static HDR_CHUNKID: 'MThd';
+    static HDR_CHUNKID: "MThd";
 
-    static HDR_CHUNK_SIZE: '\x00\x00\x00\x06';
+    static HDR_CHUNK_SIZE: "\x00\x00\x00\x06";
 
-    static HDR_TYPE0: '\x00\x00';
+    static HDR_TYPE0: "\x00\x00";
 
-    static HDR_TYPE1: '\x00\x01';
+    static HDR_TYPE1: "\x00\x01";
 }
 
 export type MetaEventType =
@@ -188,11 +181,11 @@ export const DEFAULT_VOLUME: 90;
 
 export namespace Util {
     const midi_flattened_notes: {
-        'a#': 'bb';
-        'c#': 'db';
-        'd#': 'eb';
-        'f#': 'gb';
-        'g#': 'ab';
+        "a#": "bb";
+        "c#": "db";
+        "d#": "eb";
+        "f#": "gb";
+        "g#": "ab";
     };
 
     const midi_letter_pitches: {
@@ -206,18 +199,18 @@ export namespace Util {
     };
 
     const midi_pitches_letter: {
-        '12': 'c';
-        '13': 'c#';
-        '14': 'd';
-        '15': 'd#';
-        '16': 'e';
-        '17': 'f';
-        '18': 'f#';
-        '19': 'g';
-        '20': 'g#';
-        '21': 'a';
-        '22': 'a#';
-        '23': 'b';
+        "12": "c";
+        "13": "c#";
+        "14": "d";
+        "15": "d#";
+        "16": "e";
+        "17": "f";
+        "18": "f#";
+        "19": "g";
+        "20": "g#";
+        "21": "a";
+        "22": "a#";
+        "23": "b";
     };
 
     function bpmFromMpqn(mpqn: number): number;

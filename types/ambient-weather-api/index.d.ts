@@ -1,8 +1,3 @@
-// Type definitions for ambient-weather-api 0.0
-// Project: https://github.com/owise1/ambient-weather-api#readme
-// Definitions by: Alex Wayne <https://github.com/AlexJWayne>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare class AmbientWeatherApi {
     constructor(credentials: AmbientWeatherApi.Credentials);
 
@@ -25,15 +20,15 @@ declare class AmbientWeatherApi {
     disconnect(): void;
 
     /** Subscribe to updates from your devices. */
-    subscribe(apiKeyOrApiKeys: string | ReadonlyArray<string>): void;
+    subscribe(apiKeyOrApiKeys: string | readonly string[]): void;
 
     /** Unsubscribe from updates from your devices. */
-    unsubscribe(apiKeyOrApiKeys: string | ReadonlyArray<string>): void;
+    unsubscribe(apiKeyOrApiKeys: string | readonly string[]): void;
 
-    on(eventname: 'connect', callback: () => void): void;
-    on(eventname: 'subscribed', callback: (data: { devices: AmbientWeatherApi.Device[] }) => void): void;
+    on(eventname: "connect", callback: () => void): void;
+    on(eventname: "subscribed", callback: (data: { devices: AmbientWeatherApi.Device[] }) => void): void;
     on(
-        eventname: 'data',
+        eventname: "data",
         callback: (data: AmbientWeatherApi.DeviceData & { device: AmbientWeatherApi.Device }) => void,
     ): void;
 }
@@ -57,7 +52,7 @@ declare namespace AmbientWeatherApi {
 
     interface DeviceLocation {
         geo: {
-            type: 'Point';
+            type: "Point";
             coordinates: [number, number];
         };
         elevation: number;
@@ -278,7 +273,7 @@ declare namespace AmbientWeatherApi {
         dailyrainin?: number | undefined;
 
         /** 24 Hour Rain, in */
-        '24hourrainin'?: number | undefined;
+        "24hourrainin"?: number | undefined;
 
         /** Weekly Rain, in */
         weeklyrainin?: number | undefined;

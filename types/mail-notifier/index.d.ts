@@ -1,13 +1,7 @@
-// Type definitions for mail-notifier 0.5
-// Project: https://github.com/jcreigno/nodejs-mail-notifier#readme
-// Definitions by: Jack Hedaya <https://github.com/jackHedaya>
-//                 BendingBender <https://github.com/bendingbender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import { Config as ImapConfig } from 'imap';
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
+import { Config as ImapConfig } from "imap";
 
 export = mailNotifier;
 
@@ -124,7 +118,7 @@ declare namespace mailNotifier {
         /**
          * Priority of the e-mail.
          */
-        priority?: 'normal' | 'high' | 'low' | undefined;
+        priority?: "normal" | "high" | "low" | undefined;
         /**
          * If date could not be resolved or is not found this field is not set. Check the original date string from headers.date.
          */
@@ -135,26 +129,26 @@ declare namespace mailNotifier {
     }
 
     interface EmailHeaders {
-        'delivered-to'?: string | undefined;
+        "delivered-to"?: string | undefined;
         received?: string[] | undefined;
-        'x-received'?: string[] | undefined;
-        'arc-seal'?: string | undefined;
-        'arc-message-signature'?: string | undefined;
-        'arc-authentication-results'?: string | undefined;
-        'return-path'?: string | undefined;
-        'received-spf'?: string | undefined;
-        'authentication-results'?: string | undefined;
-        'dkim-signature'?: string | undefined;
-        'x-google-dkim-signature'?: string | undefined;
-        'x-gm-message-state'?: string | undefined;
-        'x-google-smtp-source'?: string | undefined;
-        'mime-version'?: string | undefined;
+        "x-received"?: string[] | undefined;
+        "arc-seal"?: string | undefined;
+        "arc-message-signature"?: string | undefined;
+        "arc-authentication-results"?: string | undefined;
+        "return-path"?: string | undefined;
+        "received-spf"?: string | undefined;
+        "authentication-results"?: string | undefined;
+        "dkim-signature"?: string | undefined;
+        "x-google-dkim-signature"?: string | undefined;
+        "x-gm-message-state"?: string | undefined;
+        "x-google-smtp-source"?: string | undefined;
+        "mime-version"?: string | undefined;
         from?: string | undefined;
         date?: string | undefined;
-        'message-id'?: string | undefined;
+        "message-id"?: string | undefined;
         subject?: string | undefined;
         to?: string | undefined;
-        'content-type'?: string | undefined;
+        "content-type"?: string | undefined;
         [key: string]: any;
     }
 

@@ -1,6 +1,6 @@
-import './foldcode';
+import "./foldcode";
 
-declare module './foldcode' {
+declare module "./foldcode" {
     interface FoldHelpers {
         indent: FoldRangeFinder;
     }

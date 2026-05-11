@@ -1,26 +1,11 @@
-/**
- * We strongly discourage the use of the `async_hooks` API.
- * Other APIs that can cover most of its use cases include:
- *
- * * `AsyncLocalStorage` tracks async context
- * * `process.getActiveResourcesInfo()` tracks active resources
- *
- * The `node:async_hooks` module provides an API to track asynchronous resources.
- * It can be accessed using:
- *
- * ```js
- * import async_hooks from 'node:async_hooks';
- * ```
- * @experimental
- * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/async_hooks.js)
- */
-declare module 'async_hooks' {
+declare module "node:async_hooks" {
     /**
      * ```js
      * import { executionAsyncId } from 'node:async_hooks';
      * import fs from 'node:fs';
      *
      * console.log(executionAsyncId());  // 1 - bootstrap
+     * const path = '.';
      * fs.open(path, 'r', (err, fd) => {
      *   console.log(executionAsyncId());  // 6 - open()
      * });
@@ -43,7 +28,7 @@ declare module 'async_hooks' {
      * ```
      *
      * Promise contexts may not get precise `executionAsyncIds` by default.
-     * See the section on `promise execution tracking`.
+     * See the section on [promise execution tracking](https://nodejs.org/docs/latest-v25.x/api/async_hooks.html#promise-execution-tracking).
      * @since v8.1.0
      * @return The `asyncId` of the current execution context. Useful to track when something calls.
      */
@@ -76,7 +61,7 @@ declare module 'async_hooks' {
      *   executionAsyncId,
      *   executionAsyncResource,
      *   createHook,
-     * } from 'async_hooks';
+     * } from 'node:async_hooks';
      * const sym = Symbol('state'); // Private symbol to avoid pollution
      *
      * createHook({
@@ -116,41 +101,37 @@ declare module 'async_hooks' {
      * ```
      *
      * Promise contexts may not get valid `triggerAsyncId`s by default. See
-     * the section on `promise execution tracking`.
+     * the section on [promise execution tracking](https://nodejs.org/docs/latest-v25.x/api/async_hooks.html#promise-execution-tracking).
      * @return The ID of the resource responsible for calling the callback that is currently being executed.
      */
     function triggerAsyncId(): number;
     interface HookCallbacks {
         /**
-         * Called when a class is constructed that has the possibility to emit an asynchronous event.
-         * @param asyncId a unique ID for the async resource
-         * @param type the type of the async resource
-         * @param triggerAsyncId the unique ID of the async resource in whose execution context this async resource was created
-         * @param resource reference to the resource representing the async operation, needs to be released during destroy
+         * The [`init` callback](https://nodejs.org/docs/latest-v25.x/api/async_hooks.html#initasyncid-type-triggerasyncid-resource).
          */
         init?(asyncId: number, type: string, triggerAsyncId: number, resource: object): void;
         /**
-         * When an asynchronous operation is initiated or completes a callback is called to notify the user.
-         * The before callback is called just before said callback is executed.
-         * @param asyncId the unique identifier assigned to the resource about to execute the callback.
+         * The [`before` callback](https://nodejs.org/docs/latest-v25.x/api/async_hooks.html#beforeasyncid).
          */
         before?(asyncId: number): void;
         /**
-         * Called immediately after the callback specified in before is completed.
-         * @param asyncId the unique identifier assigned to the resource which has executed the callback.
+         * The [`after` callback](https://nodejs.org/docs/latest-v25.x/api/async_hooks.html#afterasyncid).
          */
         after?(asyncId: number): void;
         /**
-         * Called when a promise has resolve() called. This may not be in the same execution id
-         * as the promise itself.
-         * @param asyncId the unique id for the promise that was resolve()d.
+         * The [`promiseResolve` callback](https://nodejs.org/docs/latest-v25.x/api/async_hooks.html#promiseresolveasyncid).
          */
         promiseResolve?(asyncId: number): void;
         /**
-         * Called after the resource corresponding to asyncId is destroyed
-         * @param asyncId a unique ID for the async resource
+         * The [`destroy` callback](https://nodejs.org/docs/latest-v25.x/api/async_hooks.html#destroyasyncid).
          */
         destroy?(asyncId: number): void;
+        /**
+         * Whether the hook should track `Promise`s. Cannot be `false` if
+         * `promiseResolve` is set.
+         * @default true
+         */
+        trackPromises?: boolean | undefined;
     }
     interface AsyncHook {
         /**
@@ -171,7 +152,8 @@ declare module 'async_hooks' {
      *
      * All callbacks are optional. For example, if only resource cleanup needs to
      * be tracked, then only the `destroy` callback needs to be passed. The
-     * specifics of all functions that can be passed to `callbacks` is in the `Hook Callbacks` section.
+     * specifics of all functions that can be passed to `callbacks` is in the
+     * [Hook Callbacks](https://nodejs.org/docs/latest-v25.x/api/async_hooks.html#hook-callbacks) section.
      *
      * ```js
      * import { createHook } from 'node:async_hooks';
@@ -199,12 +181,13 @@ declare module 'async_hooks' {
      * ```
      *
      * Because promises are asynchronous resources whose lifecycle is tracked
-     * via the async hooks mechanism, the `init()`, `before()`, `after()`, and`destroy()` callbacks _must not_ be async functions that return promises.
+     * via the async hooks mechanism, the `init()`, `before()`, `after()`, and
+     * `destroy()` callbacks _must not_ be async functions that return promises.
      * @since v8.1.0
-     * @param callbacks The `Hook Callbacks` to register
-     * @return Instance used for disabling and enabling hooks
+     * @param options The [Hook Callbacks](https://nodejs.org/docs/latest-v25.x/api/async_hooks.html#hook-callbacks) to register
+     * @returns Instance used for disabling and enabling hooks
      */
-    function createHook(callbacks: HookCallbacks): AsyncHook;
+    function createHook(options: HookCallbacks): AsyncHook;
     interface AsyncResourceOptions {
         /**
          * The ID of the execution context that created this async event.
@@ -274,7 +257,11 @@ declare module 'async_hooks' {
          * @param fn The function to bind to the current execution context.
          * @param type An optional name to associate with the underlying `AsyncResource`.
          */
-        static bind<Func extends (this: ThisArg, ...args: any[]) => any, ThisArg>(fn: Func, type?: string, thisArg?: ThisArg): Func;
+        static bind<Func extends (this: ThisArg, ...args: any[]) => any, ThisArg>(
+            fn: Func,
+            type?: string,
+            thisArg?: ThisArg,
+        ): Func;
         /**
          * Binds the given function to execute to this `AsyncResource`'s scope.
          * @since v14.8.0, v12.19.0
@@ -291,7 +278,11 @@ declare module 'async_hooks' {
          * @param thisArg The receiver to be used for the function call.
          * @param args Optional arguments to pass to the function.
          */
-        runInAsyncScope<This, Result>(fn: (this: This, ...args: any[]) => Result, thisArg?: This, ...args: any[]): Result;
+        runInAsyncScope<This, Result>(
+            fn: (this: This, ...args: any[]) => Result,
+            thisArg?: This,
+            ...args: any[]
+        ): Result;
         /**
          * Call all `destroy` hooks. This should only ever be called once. An error will
          * be thrown if it is called more than once. This **must** be manually called. If
@@ -305,15 +296,24 @@ declare module 'async_hooks' {
          */
         asyncId(): number;
         /**
-         *
          * @return The same `triggerAsyncId` that is passed to the `AsyncResource` constructor.
          */
         triggerAsyncId(): number;
     }
+    interface AsyncLocalStorageOptions {
+        /**
+         * The default value to be used when no store is provided.
+         */
+        defaultValue?: any;
+        /**
+         * A name for the `AsyncLocalStorage` value.
+         */
+        name?: string | undefined;
+    }
     /**
      * This class creates stores that stay coherent through asynchronous operations.
      *
-     * While you can create your own implementation on top of the `node:async_hooks`module, `AsyncLocalStorage` should be preferred as it is a performant and memory
+     * While you can create your own implementation on top of the `node:async_hooks` module, `AsyncLocalStorage` should be preferred as it is a performant and memory
      * safe implementation that involves significant optimizations that are non-obvious
      * to implement.
      *
@@ -348,8 +348,8 @@ declare module 'async_hooks' {
      * http.get('http://localhost:8080');
      * // Prints:
      * //   0: start
-     * //   1: start
      * //   0: finish
+     * //   1: start
      * //   1: finish
      * ```
      *
@@ -360,9 +360,13 @@ declare module 'async_hooks' {
      */
     class AsyncLocalStorage<T> {
         /**
+         * Creates a new instance of `AsyncLocalStorage`. Store is only provided within a
+         * `run()` call or after an `enterWith()` call.
+         */
+        constructor(options?: AsyncLocalStorageOptions);
+        /**
          * Binds the given function to the current execution context.
          * @since v19.8.0
-         * @experimental
          * @param fn The function to bind to the current execution context.
          * @return A new function that calls `fn` within the captured execution context.
          */
@@ -393,18 +397,17 @@ declare module 'async_hooks' {
          * console.log(asyncLocalStorage.run(321, () => foo.get())); // returns 123
          * ```
          * @since v19.8.0
-         * @experimental
          * @return A new function with the signature `(fn: (...args) : R, ...args) : R`.
          */
         static snapshot(): <R, TArgs extends any[]>(fn: (...args: TArgs) => R, ...args: TArgs) => R;
         /**
          * Disables the instance of `AsyncLocalStorage`. All subsequent calls
-         * to `asyncLocalStorage.getStore()` will return `undefined` until`asyncLocalStorage.run()` or `asyncLocalStorage.enterWith()` is called again.
+         * to `asyncLocalStorage.getStore()` will return `undefined` until `asyncLocalStorage.run()` or `asyncLocalStorage.enterWith()` is called again.
          *
          * When calling `asyncLocalStorage.disable()`, all current contexts linked to the
          * instance will be exited.
          *
-         * Calling `asyncLocalStorage.disable()` is required before the`asyncLocalStorage` can be garbage collected. This does not apply to stores
+         * Calling `asyncLocalStorage.disable()` is required before the `asyncLocalStorage` can be garbage collected. This does not apply to stores
          * provided by the `asyncLocalStorage`, as those objects are garbage collected
          * along with the corresponding async resources.
          *
@@ -422,6 +425,11 @@ declare module 'async_hooks' {
          * @since v13.10.0, v12.17.0
          */
         getStore(): T | undefined;
+        /**
+         * The name of the `AsyncLocalStorage` instance if provided.
+         * @since v24.0.0
+         */
+        readonly name: string;
         /**
          * Runs a function synchronously within a context and returns its
          * return value. The store is not accessible outside of the callback function.
@@ -452,11 +460,12 @@ declare module 'async_hooks' {
          * ```
          * @since v13.10.0, v12.17.0
          */
+        run<R>(store: T, callback: () => R): R;
         run<R, TArgs extends any[]>(store: T, callback: (...args: TArgs) => R, ...args: TArgs): R;
         /**
          * Runs a function synchronously outside of a context and returns its
          * return value. The store is not accessible within the callback function or
-         * the asynchronous operations created within the callback. Any `getStore()`call done within the callback function will always return `undefined`.
+         * the asynchronous operations created within the callback. Any `getStore()` call done within the callback function will always return `undefined`.
          *
          * The optional `args` are passed to the callback function.
          *
@@ -502,7 +511,7 @@ declare module 'async_hooks' {
          * This transition will continue for the _entire_ synchronous execution.
          * This means that if, for example, the context is entered within an event
          * handler subsequent event handlers will also run within that context unless
-         * specifically bound to another context with an `AsyncResource`. That is why`run()` should be preferred over `enterWith()` unless there are strong reasons
+         * specifically bound to another context with an `AsyncResource`. That is why `run()` should be preferred over `enterWith()` unless there are strong reasons
          * to use the latter method.
          *
          * ```js
@@ -524,7 +533,71 @@ declare module 'async_hooks' {
          */
         enterWith(store: T): void;
     }
+    /**
+     * @since v17.2.0, v16.14.0
+     * @return A map of provider types to the corresponding numeric id.
+     * This map contains all the event types that might be emitted by the `async_hooks.init()` event.
+     */
+    namespace asyncWrapProviders {
+        const NONE: number;
+        const DIRHANDLE: number;
+        const DNSCHANNEL: number;
+        const ELDHISTOGRAM: number;
+        const FILEHANDLE: number;
+        const FILEHANDLECLOSEREQ: number;
+        const FIXEDSIZEBLOBCOPY: number;
+        const FSEVENTWRAP: number;
+        const FSREQCALLBACK: number;
+        const FSREQPROMISE: number;
+        const GETADDRINFOREQWRAP: number;
+        const GETNAMEINFOREQWRAP: number;
+        const HEAPSNAPSHOT: number;
+        const HTTP2SESSION: number;
+        const HTTP2STREAM: number;
+        const HTTP2PING: number;
+        const HTTP2SETTINGS: number;
+        const HTTPINCOMINGMESSAGE: number;
+        const HTTPCLIENTREQUEST: number;
+        const JSSTREAM: number;
+        const JSUDPWRAP: number;
+        const MESSAGEPORT: number;
+        const PIPECONNECTWRAP: number;
+        const PIPESERVERWRAP: number;
+        const PIPEWRAP: number;
+        const PROCESSWRAP: number;
+        const PROMISE: number;
+        const QUERYWRAP: number;
+        const SHUTDOWNWRAP: number;
+        const SIGNALWRAP: number;
+        const STATWATCHER: number;
+        const STREAMPIPE: number;
+        const TCPCONNECTWRAP: number;
+        const TCPSERVERWRAP: number;
+        const TCPWRAP: number;
+        const TTYWRAP: number;
+        const UDPSENDWRAP: number;
+        const UDPWRAP: number;
+        const SIGINTWATCHDOG: number;
+        const WORKER: number;
+        const WORKERHEAPSNAPSHOT: number;
+        const WRITEWRAP: number;
+        const ZLIB: number;
+        const CHECKPRIMEREQUEST: number;
+        const PBKDF2REQUEST: number;
+        const KEYPAIRGENREQUEST: number;
+        const KEYGENREQUEST: number;
+        const KEYEXPORTREQUEST: number;
+        const CIPHERREQUEST: number;
+        const DERIVEBITSREQUEST: number;
+        const HASHREQUEST: number;
+        const RANDOMBYTESREQUEST: number;
+        const RANDOMPRIMEREQUEST: number;
+        const SCRYPTREQUEST: number;
+        const SIGNREQUEST: number;
+        const TLSWRAP: number;
+        const VERIFYREQUEST: number;
+    }
 }
-declare module 'node:async_hooks' {
-    export * from 'async_hooks';
+declare module "async_hooks" {
+    export * from "node:async_hooks";
 }

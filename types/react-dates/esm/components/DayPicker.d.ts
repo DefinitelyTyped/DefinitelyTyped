@@ -1,3 +1,3 @@
-import { DayPicker } from '../../index';
+import { DayPicker } from "../../index";
 
 export default DayPicker;

@@ -1,8 +1,3 @@
-// Type definitions for esrever 0.2
-// Project: https://github.com/mathiasbynens/esrever
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace esrever;
 
 /**

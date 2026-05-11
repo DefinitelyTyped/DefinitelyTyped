@@ -1,9 +1,3 @@
-// Type definitions for relateurl v0.2.6
-// Project: https://github.com/stevenvachon/relateurl
-// Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-
 declare namespace RelateUrl {
     interface Options {
         /**
@@ -20,7 +14,7 @@ declare namespace RelateUrl {
          *
          * Extend the list with any resources you need. Works with options.removeDirectoryIndexes.
          */
-        directoryIndexes?: Array<string> | undefined;
+        directoryIndexes?: string[] | undefined;
 
         /**
          * Type: Boolean
@@ -49,7 +43,7 @@ declare namespace RelateUrl {
          *
          * Extend the list with any additional schemes. Example: javascript:something will not be modified.
          */
-        rejectedSchemes?: Array<string> | undefined;
+        rejectedSchemes?: string[] | undefined;
 
         /**
          * Type: Boolean

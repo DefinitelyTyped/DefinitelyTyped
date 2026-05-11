@@ -1,6 +1,6 @@
-import '../../';
+import "../../";
 
-declare module '../../' {
+declare module "../../" {
     interface EditorConfiguration {
         /**
          * Adds a placeholder option that can be used to make content appear in the editor when it is empty and not focused.

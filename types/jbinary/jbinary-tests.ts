@@ -3,7 +3,7 @@ import jBinary = require("jbinary");
 
 // #region as
 (() => {
-    const title = '"as"';
+    const title = "\"as\"";
     const binary1 = new jBinary([0x05, 0x03, 0x7f, 0x1e]);
     const binary2 = binary1.as({ "jBinary.all": "uint8" });
     const data2 = binary2.readAll();
@@ -15,7 +15,7 @@ import jBinary = require("jbinary");
 })();
 
 (() => {
-    const title = '"as" (with modifyOriginal)';
+    const title = "\"as\" (with modifyOriginal)";
     const binary1 = new jBinary([0x05, 0x03, 0x7f, 0x1e]);
     const binary2 = binary1.as({ "jBinary.all": "uint8" }, true);
     const data1 = binary1.readAll();
@@ -30,7 +30,7 @@ import jBinary = require("jbinary");
 
 // #region load
 (() => {
-    const title = '"load" (with Callback and ReadableStream)';
+    const title = "\"load\" (with Callback and ReadableStream)";
     const inputStream = fs.createReadStream("./test.bin");
     jBinary.load(inputStream, undefined, (err, jb) => {
         if (err) {
@@ -42,7 +42,7 @@ import jBinary = require("jbinary");
 })();
 
 (() => {
-    const title = '"load" (with Promise and file path)';
+    const title = "\"load\" (with Promise and file path)";
     jBinary
         .load("./test.bin")
         .then(jb => {
@@ -58,7 +58,7 @@ import jBinary = require("jbinary");
 
 // #region loadData
 (() => {
-    const title = '"loadData" (with Callback and file path)';
+    const title = "\"loadData\" (with Callback and file path)";
     jBinary.loadData("./test.bin", (err, data) => {
         if (err) {
             console.log(`[ERR] ${title} => Error reading file: ${err.message}`);
@@ -71,7 +71,7 @@ import jBinary = require("jbinary");
 })();
 
 (() => {
-    const title = '"loadData" (with Promise and ReadableStream)';
+    const title = "\"loadData\" (with Promise and ReadableStream)";
     const inputStream = fs.createReadStream("./test.bin");
     jBinary
         .loadData(inputStream)
@@ -88,7 +88,7 @@ import jBinary = require("jbinary");
 
 // #region read
 (() => {
-    const title = '"read"';
+    const title = "\"read\"";
     const binary = new jBinary([0x05, 0x03, 0x7f, 0x1e]);
     const data = binary.read("uint8");
     if (data === 5) {
@@ -99,7 +99,7 @@ import jBinary = require("jbinary");
 })();
 
 (() => {
-    const title = '"read" (with custom position)';
+    const title = "\"read\" (with custom position)";
     const binary = new jBinary([0x05, 0x03, 0x7f, 0x1e]);
     const data = binary.read("uint8", 1);
     if (data === 3) {
@@ -112,7 +112,7 @@ import jBinary = require("jbinary");
 
 // #region readAll
 (() => {
-    const title = '"readAll" (with typeset)';
+    const title = "\"readAll\" (with typeset)";
     const binary = new jBinary([0x05, 0x03, 0x7f, 0x1e], { "jBinary.all": "uint8" });
     const data = binary.readAll();
     if (data === 5) {
@@ -125,7 +125,7 @@ import jBinary = require("jbinary");
 
 // #region saveAs
 (() => {
-    const title = '"saveAs" (with Callback, file path and text as data)';
+    const title = "\"saveAs\" (with Callback, file path and text as data)";
     const filePath = "./test-saveas-callback.txt";
     const binary = new jBinary("ABCDEFG");
     binary.saveAs(filePath, "text/plain", err => {
@@ -139,7 +139,7 @@ import jBinary = require("jbinary");
 })();
 
 (() => {
-    const title = '"saveAs" (with Promise, WritableStream and Array<number> as data)';
+    const title = "\"saveAs\" (with Promise, WritableStream and Array<number> as data)";
     const filePath = "./test-saveas-promise.bin";
     const outputStream = fs.createWriteStream(filePath);
     const binary = new jBinary([0x05, 0x03, 0x7f, 0x1e]);
@@ -162,7 +162,7 @@ import jBinary = require("jbinary");
 
 // #region seek
 (() => {
-    const title = '"seek"';
+    const title = "\"seek\"";
     const binary = new jBinary([0x05, 0x03, 0x7f, 0x1e]);
     binary.seek(3);
     const data = binary.read("uint8");
@@ -174,7 +174,7 @@ import jBinary = require("jbinary");
 })();
 
 (() => {
-    const title = '"seek" (with Callback)';
+    const title = "\"seek\" (with Callback)";
     const binary = new jBinary([0x05, 0x03, 0x7f, 0x1e]);
     const data = binary.seek(3, () => {
         return binary.read("uint8");
@@ -189,7 +189,7 @@ import jBinary = require("jbinary");
 
 // #region skip
 (() => {
-    const title = '"skip"';
+    const title = "\"skip\"";
     const binary = new jBinary([0x05, 0x03, 0x7f, 0x1e]);
     binary.skip(2);
     const data = binary.read("uint8");
@@ -201,7 +201,7 @@ import jBinary = require("jbinary");
 })();
 
 (() => {
-    const title = '"skip" (with Callback)';
+    const title = "\"skip\" (with Callback)";
     const binary = new jBinary([0x05, 0x03, 0x7f, 0x1e]);
     const data = binary.skip(2, () => {
         return binary.read("uint8");
@@ -216,7 +216,7 @@ import jBinary = require("jbinary");
 
 // #region slice
 (() => {
-    const title = '"slice"';
+    const title = "\"slice\"";
     const binary1 = new jBinary([0x05, 0x03, 0x7f, 0x1e]);
     const binary2 = binary1.slice(1, 2);
     const data = binary2.read("uint8");
@@ -230,7 +230,7 @@ import jBinary = require("jbinary");
 
 // #region tell
 (() => {
-    const title = '"tell"';
+    const title = "\"tell\"";
     const binary = new jBinary([0x05, 0x03, 0x7f, 0x1e]);
     binary.skip(1);
     const pos = binary.tell();
@@ -244,7 +244,7 @@ import jBinary = require("jbinary");
 
 // #region toURI
 (() => {
-    const title = '"toURI"';
+    const title = "\"toURI\"";
     const binary = new jBinary([0x05, 0x03, 0x7f, 0x1e]);
     if (binary.toURI() === "data:application/octet-stream;base64,BQN/Hg==") {
         console.log(`[OK.] ${title} => URI generation went fine.`);
@@ -254,7 +254,7 @@ import jBinary = require("jbinary");
 })();
 
 (() => {
-    const title = '"toURI" (with MIME type)';
+    const title = "\"toURI\" (with MIME type)";
     const binary = new jBinary("ABCDEFG");
     if (binary.toURI("text/plain") === "data:text/plain;base64,QUJDREVGRw==") {
         console.log(`[OK.] ${title} => URI generation went fine.`);
@@ -266,7 +266,7 @@ import jBinary = require("jbinary");
 
 // #region Template
 (() => {
-    const title = '"Template"';
+    const title = "\"Template\"";
     const binary = new jBinary([0x00, 0x03, 0x04, 0x05, 0x06, 0x07], {
         DynamicArray: jBinary.Template({
             setParams(itemType) {
@@ -298,7 +298,7 @@ import jBinary = require("jbinary");
 
 // #region Type
 (() => {
-    const title = '"Type"';
+    const title = "\"Type\"";
     const binary = new jBinary([0x00, 0x03, 0x04, 0x05, 0x06, 0x07], {
         DynamicArray: jBinary.Type({
             params: ["itemType"],
@@ -327,7 +327,7 @@ import jBinary = require("jbinary");
 
 // #region write
 (() => {
-    const title = '"write"';
+    const title = "\"write\"";
     const binary = new jBinary([0x05, 0x03, 0x7f, 0x1e]);
     binary.write("uint8", 21);
     binary.seek(0);
@@ -340,7 +340,7 @@ import jBinary = require("jbinary");
 })();
 
 (() => {
-    const title = '"write" (with offset)';
+    const title = "\"write\" (with offset)";
     const binary = new jBinary([0x05, 0x03, 0x7f, 0x1e]);
     binary.write("uint8", 21, 3);
     binary.seek(3);
@@ -355,7 +355,7 @@ import jBinary = require("jbinary");
 
 // #region writeAll
 (() => {
-    const title = '"writeAll"';
+    const title = "\"writeAll\"";
     const binary = new jBinary([0x05, 0x03, 0x7f, 0x1e], { "jBinary.all": "uint8" });
     binary.writeAll(128);
     binary.seek(0);
@@ -366,4 +366,4 @@ import jBinary = require("jbinary");
         console.log(`[ERR] ${title} => Unexpected result when reading updated data.`);
     }
 })();
-//#endregion writeAll
+// #endregion writeAll

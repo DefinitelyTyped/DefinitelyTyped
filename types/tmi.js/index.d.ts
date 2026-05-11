@@ -1,12 +1,3 @@
-// Type definitions for tmi.js 1.8
-// Project: https://github.com/tmijs/tmi.js
-// Definitions by: William Papsco <https://github.com/wpapsco>
-//                 Corbin Crutchley <https://github.com/crutchcorn>
-//                 Daniel Fischer <https://github.com/d-fischer>
-//                 Samil Deliogullari <https://github.com/samildeli>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.3
-
 // Twitch IRC docs: https://dev.twitch.tv/docs/irc/
 // Last updated: 2023/2/10
 
@@ -39,7 +30,12 @@ export interface Actions {
     slowoff(channel: string): Promise<[string]>;
     subscribers(channel: string): Promise<[string]>;
     subscribersoff(channel: string): Promise<[string]>;
-    timeout(channel: string, username: string, length?: number, reason?: string): Promise<[string, string, number, string]>;
+    timeout(
+        channel: string,
+        username: string,
+        length?: number,
+        reason?: string,
+    ): Promise<[string, string, number, string]>;
     unban(channel: string, username: string): Promise<[string, string]>;
     unhost(channel: string): Promise<[string]>;
     unmod(channel: string, username: string): Promise<[string, string]>;
@@ -52,9 +48,20 @@ export interface Actions {
 export interface Events {
     action(channel: string, userstate: ChatUserstate, message: string, self: boolean): void;
     anongiftpaidupgrade(channel: string, username: string, userstate: AnonSubGiftUpgradeUserstate): void;
-    anonsubmysterygift(channel: string, numbOfSubs: number, methods: SubMethods, userstate: AnonSubMysteryGiftUserstate): void;
-    anonsubgift(channel: string, streakMonths: number, recipient: string, methods: SubMethods, userstate: AnonSubGiftUserstate): void;
-    automod(channel: string, msgID: 'msg_rejected' | 'msg_rejected_mandatory', message: string): void;
+    anonsubmysterygift(
+        channel: string,
+        numbOfSubs: number,
+        methods: SubMethods,
+        userstate: AnonSubMysteryGiftUserstate,
+    ): void;
+    anonsubgift(
+        channel: string,
+        streakMonths: number,
+        recipient: string,
+        methods: SubMethods,
+        userstate: AnonSubGiftUserstate,
+    ): void;
+    automod(channel: string, msgID: "msg_rejected" | "msg_rejected_mandatory", message: string): void;
     ban(channel: string, username: string, reason: string, userstate: BanUserstate): void;
     chat(channel: string, userstate: ChatUserstate, message: string, self: boolean): void;
     cheer(channel: string, userstate: ChatUserstate, message: string): void;
@@ -84,15 +91,46 @@ export interface Events {
     "raw_message": (messageCloned: { [property: string]: any }, message: { [property: string]: any }) => void;
     reconnect(): void;
     // additional string literals for autocomplete
-    redeem(channel: string, username: string, rewardType: 'highlighted-message' | 'skip-subs-mode-message' | string, tags: ChatUserstate): void;
-    resub(channel: string, username: string, months: number, message: string, userstate: SubUserstate, methods: SubMethods): void;
+    redeem(
+        channel: string,
+        username: string,
+        rewardType: "highlighted-message" | "skip-subs-mode-message" | string,
+        tags: ChatUserstate,
+    ): void;
+    resub(
+        channel: string,
+        username: string,
+        months: number,
+        message: string,
+        userstate: SubUserstate,
+        methods: SubMethods,
+    ): void;
     roomstate(channel: string, state: RoomState): void;
     serverchange(channel: string): void;
     slowmode(channel: string, enabled: boolean, length: number): void;
-    subgift(channel: string, username: string, streakMonths: number, recipient: string, methods: SubMethods, userstate: SubGiftUserstate): void;
-    submysterygift(channel: string, username: string, numbOfSubs: number, methods: SubMethods, userstate: SubMysteryGiftUserstate): void;
+    subgift(
+        channel: string,
+        username: string,
+        streakMonths: number,
+        recipient: string,
+        methods: SubMethods,
+        userstate: SubGiftUserstate,
+    ): void;
+    submysterygift(
+        channel: string,
+        username: string,
+        numbOfSubs: number,
+        methods: SubMethods,
+        userstate: SubMysteryGiftUserstate,
+    ): void;
     subscribers(channel: string, enabled: boolean): void;
-    subscription(channel: string, username: string, methods: SubMethods, message: string, userstate: SubUserstate): void;
+    subscription(
+        channel: string,
+        username: string,
+        methods: SubMethods,
+        message: string,
+        userstate: SubUserstate,
+    ): void;
     timeout(channel: string, username: string, reason: string, duration: number, userstate: TimeoutUserstate): void;
     unhost(channel: string, viewers: number): void;
     unmod(channel: string, username: string): void;
@@ -130,8 +168,8 @@ export interface Badges {
     turbo?: string | undefined;
     premium?: string | undefined;
     founder?: string | undefined;
-    ['bits-leader']?: string | undefined;
-    ['sub-gifter']?: string | undefined;
+    ["bits-leader"]?: string | undefined;
+    ["sub-gifter"]?: string | undefined;
     [other: string]: string | undefined;
 }
 
@@ -154,19 +192,19 @@ export interface DeleteUserstate {
 
 export interface CommonUserstate {
     badges?: Badges | undefined;
-    'badge-info'?: BadgeInfo | undefined;
+    "badge-info"?: BadgeInfo | undefined;
     color?: string | undefined;
     "display-name"?: string | undefined;
     emotes?: { [emoteid: string]: string[] } | undefined;
     id?: string | undefined;
     mod?: boolean | undefined;
     turbo?: boolean | undefined;
-    'emotes-raw'?: string | undefined;
-    'badges-raw'?: string | undefined;
-    'badge-info-raw'?: string | undefined;
+    "emotes-raw"?: string | undefined;
+    "badges-raw"?: string | undefined;
+    "badge-info-raw"?: string | undefined;
     "room-id"?: string | undefined;
     subscriber?: boolean | undefined;
-    'user-type'?: "" | "mod" | "global_mod" | "admin" | "staff" | undefined;
+    "user-type"?: "" | "mod" | "global_mod" | "admin" | "staff" | undefined;
     "user-id"?: string | undefined;
     "tmi-sent-ts"?: string | undefined;
     flags?: string | undefined;
@@ -192,28 +230,28 @@ export interface CommonGiftSubUserstate extends CommonSubUserstate {
 }
 
 export interface ChatUserstate extends CommonUserstate {
-    'message-type'?: "chat" | "action" | "whisper" | undefined;
+    "message-type"?: "chat" | "action" | "whisper" | undefined;
     username?: string | undefined;
     bits?: string | undefined;
 }
 
 export interface SubUserstate extends CommonSubUserstate {
-    'message-type'?: "sub" | "resub" | undefined;
+    "message-type"?: "sub" | "resub" | undefined;
     "msg-param-cumulative-months"?: string | boolean | undefined;
     "msg-param-should-share-streak"?: boolean | undefined;
     "msg-param-streak-months"?: string | boolean | undefined;
 }
 
 export interface SubMysteryGiftUserstate extends CommonSubUserstate {
-    'message-type'?: "submysterygift" | undefined;
+    "message-type"?: "submysterygift" | undefined;
     "msg-param-sender-count"?: string | boolean | undefined;
-    'msg-param-origin-id': string;
+    "msg-param-origin-id": string;
 }
 
 export interface SubGiftUserstate extends CommonGiftSubUserstate {
-    'message-type'?: "subgift" | undefined;
+    "message-type"?: "subgift" | undefined;
     "msg-param-sender-count"?: string | boolean | undefined;
-    'msg-param-origin-id': string;
+    "msg-param-origin-id": string;
 }
 
 export interface AnonSubGiftUserstate extends CommonGiftSubUserstate {
@@ -221,7 +259,7 @@ export interface AnonSubGiftUserstate extends CommonGiftSubUserstate {
 }
 
 export interface AnonSubMysteryGiftUserstate extends CommonSubUserstate {
-    'message-type'?: "anonsubmysterygift" | undefined;
+    "message-type"?: "anonsubmysterygift" | undefined;
 }
 
 export interface SubGiftUpgradeUserstate extends CommonSubUserstate {
@@ -251,26 +289,27 @@ export interface RitualUserstate extends UserNoticeState {
 }
 
 export interface BanUserstate {
-    'room-id'?: string | undefined;
-    'target-user-id'?: string | undefined;
-    'tmi-sent-ts'?: string | undefined;
+    "room-id"?: string | undefined;
+    "target-user-id"?: string | undefined;
+    "tmi-sent-ts"?: string | undefined;
 }
 
 export interface TimeoutUserstate extends BanUserstate {
     "ban-duration"?: string | undefined;
 }
 
-export type Userstate = ChatUserstate |
-    SubUserstate |
-    SubGiftUserstate |
-    SubGiftUpgradeUserstate |
-    AnonSubGiftUserstate |
-    SubMysteryGiftUserstate |
-    AnonSubGiftUpgradeUserstate |
-    RaidUserstate |
-    RitualUserstate |
-    BanUserstate |
-    TimeoutUserstate;
+export type Userstate =
+    | ChatUserstate
+    | SubUserstate
+    | SubGiftUserstate
+    | SubGiftUpgradeUserstate
+    | AnonSubGiftUserstate
+    | SubMysteryGiftUserstate
+    | AnonSubGiftUpgradeUserstate
+    | RaidUserstate
+    | RitualUserstate
+    | BanUserstate
+    | TimeoutUserstate;
 
 export interface EmoteObj {
     [id: string]: [{
@@ -279,82 +318,83 @@ export interface EmoteObj {
     }];
 }
 
-export type MsgID = "already_banned" |
-    "already_emote_only_on" |
-    "already_emote_only_off" |
-    "already_subs_on" |
-    "already_subs_off" |
-    "bad_ban_admin" |
-    "bad_ban_anon" |
-    "bad_ban_broadcaster" |
-    "bad_ban_global_mod" |
-    "bad_ban_mod" |
-    "bad_ban_self" |
-    "bad_ban_staff" |
-    "bad_commercial_error" |
-    "bad_host_hosting" |
-    "bad_host_rate_exceeded" |
-    "bad_mod_mod" |
-    "bad_mod_banned" |
-    "bad_timeout_admin" |
-    "bad_timeout_anon" |
-    "bad_timeout_global_mod" |
-    "bad_timeout_mod" |
-    "bad_timeout_self" |
-    "bad_timeout_staff" |
-    "bad_unban_no_ban" |
-    "bad_unmod_mod" |
-    "ban_success" |
-    "cmds_available" |
-    "color_changed" |
-    "commercial_success" |
-    "emote_only_on" |
-    "emote_only_off" |
-    "hosts_remaining" |
-    "host_target_went_offline" |
-    "mod_success" |
-    "msg_banned" |
-    "msg_censored_broadcaster" |
-    "msg_channel_suspended" |
-    "msg_duplicate" |
-    "msg_emoteonly" |
-    "msg_ratelimit" |
-    "msg_subsonly" |
-    "msg_timedout" |
-    "msg_verified_email" |
-    "no_help" |
-    "no_permission" |
-    "not_hosting" |
-    "timeout_success" |
-    "unban_success" |
-    "unmod_success" |
-    "unrecognized_cmd" |
-    "usage_ban" |
-    "usage_clear" |
-    "usage_color" |
-    "usage_commercial" |
-    "usage_disconnect" |
-    "usage_emote_only_on" |
-    "usage_emote_only_off" |
-    "usage_help" |
-    "usage_host" |
-    "usage_me" |
-    "usage_mod" |
-    "usage_mods" |
-    "usage_r9k_on" |
-    "usage_r9k_off" |
-    "usage_slow_on" |
-    "usage_slow_off" |
-    "usage_subs_on" |
-    "usage_subs_off" |
-    "usage_timeout" |
-    "usage_unban" |
-    "usage_unhost" |
-    "usage_unmod" |
-    "whisper_invalid_self" |
-    "whisper_limit_per_min" |
-    "whisper_limit_per_sec" |
-    "whisper_restricted_recipient";
+export type MsgID =
+    | "already_banned"
+    | "already_emote_only_on"
+    | "already_emote_only_off"
+    | "already_subs_on"
+    | "already_subs_off"
+    | "bad_ban_admin"
+    | "bad_ban_anon"
+    | "bad_ban_broadcaster"
+    | "bad_ban_global_mod"
+    | "bad_ban_mod"
+    | "bad_ban_self"
+    | "bad_ban_staff"
+    | "bad_commercial_error"
+    | "bad_host_hosting"
+    | "bad_host_rate_exceeded"
+    | "bad_mod_mod"
+    | "bad_mod_banned"
+    | "bad_timeout_admin"
+    | "bad_timeout_anon"
+    | "bad_timeout_global_mod"
+    | "bad_timeout_mod"
+    | "bad_timeout_self"
+    | "bad_timeout_staff"
+    | "bad_unban_no_ban"
+    | "bad_unmod_mod"
+    | "ban_success"
+    | "cmds_available"
+    | "color_changed"
+    | "commercial_success"
+    | "emote_only_on"
+    | "emote_only_off"
+    | "hosts_remaining"
+    | "host_target_went_offline"
+    | "mod_success"
+    | "msg_banned"
+    | "msg_censored_broadcaster"
+    | "msg_channel_suspended"
+    | "msg_duplicate"
+    | "msg_emoteonly"
+    | "msg_ratelimit"
+    | "msg_subsonly"
+    | "msg_timedout"
+    | "msg_verified_email"
+    | "no_help"
+    | "no_permission"
+    | "not_hosting"
+    | "timeout_success"
+    | "unban_success"
+    | "unmod_success"
+    | "unrecognized_cmd"
+    | "usage_ban"
+    | "usage_clear"
+    | "usage_color"
+    | "usage_commercial"
+    | "usage_disconnect"
+    | "usage_emote_only_on"
+    | "usage_emote_only_off"
+    | "usage_help"
+    | "usage_host"
+    | "usage_me"
+    | "usage_mod"
+    | "usage_mods"
+    | "usage_r9k_on"
+    | "usage_r9k_off"
+    | "usage_slow_on"
+    | "usage_slow_off"
+    | "usage_subs_on"
+    | "usage_subs_off"
+    | "usage_timeout"
+    | "usage_unban"
+    | "usage_unhost"
+    | "usage_unmod"
+    | "whisper_invalid_self"
+    | "whisper_limit_per_min"
+    | "whisper_limit_per_sec"
+    | "whisper_restricted_recipient";
 
 export type SubMethod = "Prime" | "1000" | "2000" | "3000";
 
@@ -408,7 +448,7 @@ export interface Options {
 
 export interface ClientConstructor {
     (opts: Options): Client;
-    new (opts: Options): Client;
+    new(opts: Options): Client;
 }
 
 export const client: ClientConstructor;

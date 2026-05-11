@@ -1,11 +1,6 @@
-// Type definitions for simple-url-cache
-// Project: https://github.com/a-lucas/simple-url-cache
-// Definitions by: Antoine LUCAS <https://github.com/a-lucas>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="redis" />
 
-declare module 'simple-url-cache' {
+declare module "simple-url-cache" {
     import redis = require("redis");
 
     export class CacheEngine {
@@ -16,80 +11,80 @@ declare module 'simple-url-cache' {
     }
 
     export interface RegexRule {
-        regex:RegExp
+        regex: RegExp;
     }
 
     export interface MaxAgeRegexRule extends RegexRule {
-        maxAge:number
+        maxAge: number;
     }
 
     export interface CacheRules {
-        cacheMaxAge:MaxAgeRegexRule[],
-        cacheAlways:RegexRule[],
-        cacheNever:RegexRule[],
-        default:string
+        cacheMaxAge: MaxAgeRegexRule[];
+        cacheAlways: RegexRule[];
+        cacheNever: RegexRule[];
+        default: string;
     }
 
     export interface FileStorageConfig extends privateN.StorageConfig {
-        dir:string;
+        dir: string;
     }
 
     export interface RedisStorageConfig extends privateN.StorageConfig {
-        host:string;
-        port:number;
-        path?:string | undefined;
-        url?:string | undefined;
-        socket_keepalive?:boolean | undefined;
-        password?:string | undefined;
-        db?:string | undefined;
+        host: string;
+        port: number;
+        path?: string | undefined;
+        url?: string | undefined;
+        socket_keepalive?: boolean | undefined;
+        password?: string | undefined;
+        db?: string | undefined;
     }
 
     namespace privateN {
         interface StorageConfig {
-            type:string
+            type: string;
         }
 
         interface CacheStorage {
-            isCached():Promise<boolean>;
-            removeUrl():Promise<boolean>;
-            getUrl():Promise<string>;
-            cache(html:string):Promise<boolean>;
-            cache(html:string, force:boolean):Promise<boolean>;
+            isCached(): Promise<boolean>;
+            removeUrl(): Promise<boolean>;
+            getUrl(): Promise<string>;
+            cache(html: string): Promise<boolean>;
+            cache(html: string, force: boolean): Promise<boolean>;
             destroy(): void;
         }
 
         abstract class CacheCategory {
-            constructor(currentUrl:string, _config:CacheRules) ;
-            private getRegexTest(u:RegexRule):boolean;
-            private getCacheCategory():string;
-            public getCategory():string;
-            public getCurrentUrl():string;
+            constructor(currentUrl: string, _config: CacheRules);
+            private getRegexTest(u: RegexRule): boolean;
+            private getCacheCategory(): string;
+            public getCategory(): string;
+            public getCurrentUrl(): string;
         }
 
-        module RedisPool {
-            export function connect(config:RedisStorageConfig): redis.RedisClient;
-            export function isOnline():boolean;
-            export function kill():void;
+        namespace RedisPool {
+            export function connect(config: RedisStorageConfig): redis.RedisClient;
+            export function isOnline(): boolean;
+            export function kill(): void;
         }
     }
 
     export class FileStorage extends privateN.CacheCategory implements privateN.CacheStorage {
-        constructor(_url:string, _storageConfig: FileStorageConfig, _regexRules: CacheRules);
-        isCached():Promise<boolean>;
-        removeUrl():Promise<boolean>;
-        getUrl():Promise<string>;
-        cache(html:string):Promise<boolean>
-        cache(html:string, force:boolean):Promise<boolean>;
+        constructor(_url: string, _storageConfig: FileStorageConfig, _regexRules: CacheRules);
+        isCached(): Promise<boolean>;
+        removeUrl(): Promise<boolean>;
+        getUrl(): Promise<string>;
+        cache(html: string): Promise<boolean>;
+        cache(html: string, force: boolean): Promise<boolean>;
         destroy(): void;
     }
 
     export class RedisStorage extends privateN.CacheCategory implements privateN.CacheStorage {
-        constructor(_url:string, _storageConfig: RedisStorageConfig, _regexRules: CacheRules);
-        isCached():Promise<boolean>;
-        removeUrl():Promise<boolean>;
-        getUrl():Promise<string>;
-        cache(html:string):Promise<boolean>;
-        cache(html:string, force:boolean):Promise<boolean>;
+        constructor(_url: string, _storageConfig: RedisStorageConfig, _regexRules: CacheRules);
+        isCached(): Promise<boolean>;
+        removeUrl(): Promise<boolean>;
+        getUrl(): Promise<string>;
+        cache(html: string): Promise<boolean>;
+        cache(html: string, force: boolean): Promise<boolean>;
         destroy(): void;
     }
 }

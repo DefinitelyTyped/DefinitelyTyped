@@ -1,2 +1,2 @@
-import { lift } from '../index';
+import { lift } from "../index";
 export default lift;

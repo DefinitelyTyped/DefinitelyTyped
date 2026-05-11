@@ -1,8 +1,3 @@
-// Type definitions for mariasql v0.1.23
-// Project: https://github.com/mscdex/node-mariasql
-// Definitions by: MichaelBennett <https://github.com/bennett000>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare var mariasql: mariasql.Client;
 
 export = mariasql;
@@ -10,31 +5,31 @@ export as namespace mariasql;
 
 declare namespace mariasql {
     export interface MariaCallBackError {
-        (error:Error):void
+        (error: Error): void;
     }
 
     export interface MariaCallBackResult {
-        (result:MariaResult):void
+        (result: MariaResult): void;
     }
 
     export interface MariaCallBackRow {
-        (result:Array<any>):void
+        (result: any[]): void;
     }
 
     export interface MariaCallBackBoolean {
-        (result:boolean):void
+        (result: boolean): void;
     }
 
     export interface MariaCallBackObject {
-        (result:Object):void
+        (result: Object): void;
     }
 
     export interface MariaCallBackInfo {
-        (result:MariaInfo):void
+        (result: MariaInfo): void;
     }
 
     export interface MariaCallBackVoid {
-        ():void
+        (): void;
     }
 
     export interface Dictionary {
@@ -44,12 +39,12 @@ declare namespace mariasql {
     export interface MariaInfo {
         affectedRows: number;
         insertId: number;
-        numRows: number
+        numRows: number;
     }
 
     export interface MariaPreparedQuery {
-        (values:Dictionary):string;
-        (values:Array<any>):string;
+        (values: Dictionary): string;
+        (values: any[]): string;
     }
 
     export interface ClientConfig {
@@ -65,51 +60,51 @@ declare namespace mariasql {
         pingInterval?: number | undefined;
         secureAuth?: boolean | undefined;
         compress?: boolean | undefined;
-        ssl?:any;
+        ssl?: any;
         local_infile?: boolean | undefined;
         read_default_group?: string | undefined;
         charset?: string | undefined;
     }
 
     export interface MariaResult {
-        on(signal:'end', cb:MariaCallBackInfo):MariaResult;
-        on(signal:'error', cb:MariaCallBackError):MariaResult;
-        on(signal:'row', cb:MariaCallBackRow):MariaResult;
-        on(signal:'abort', cb:MariaCallBackVoid):MariaResult;
-        on(signal:string, cb:MariaCallBackVoid):MariaResult;
-        abort():void;
+        on(signal: "end", cb: MariaCallBackInfo): MariaResult;
+        on(signal: "error", cb: MariaCallBackError): MariaResult;
+        on(signal: "row", cb: MariaCallBackRow): MariaResult;
+        on(signal: "abort", cb: MariaCallBackVoid): MariaResult;
+        on(signal: string, cb: MariaCallBackVoid): MariaResult;
+        abort(): void;
     }
 
     export interface MariaQuery {
-        on(signal:'result', cb:MariaCallBackResult):MariaQuery;
-        on(signal:'end', cb:MariaCallBackVoid):MariaQuery;
-        on(signal:'abort', cb:MariaCallBackVoid):MariaQuery;
-        on(signal:'error', cb:MariaCallBackError):MariaQuery;
-        on(signal:string, cb:MariaCallBackVoid):MariaQuery;
-        abort():void;
+        on(signal: "result", cb: MariaCallBackResult): MariaQuery;
+        on(signal: "end", cb: MariaCallBackVoid): MariaQuery;
+        on(signal: "abort", cb: MariaCallBackVoid): MariaQuery;
+        on(signal: "error", cb: MariaCallBackError): MariaQuery;
+        on(signal: string, cb: MariaCallBackVoid): MariaQuery;
+        abort(): void;
     }
 
     export interface MariaClient {
-        connect(config:ClientConfig):void;
-        end():void;
-        destroy():void;
-        escape(query:string):string;
-        query(q:string, placeHolders?:Dictionary, useArray?:boolean):MariaQuery;
-        query(q:string, placeHolders?:Array<any>, useArray?:boolean):MariaQuery;
-        query(q:string, useArray?:boolean):MariaQuery;
-        prepare(query:string): MariaPreparedQuery;
-        isMariaDB():boolean;
-        on(signal:'error', cb:MariaCallBackError): MariaClient;
-        on(signal:'close', cb:MariaCallBackObject): MariaClient;
-        on(signal:'connect', cb:MariaCallBackVoid): MariaClient;
-        on(signal:string, cb:MariaCallBackVoid): MariaClient;
+        connect(config: ClientConfig): void;
+        end(): void;
+        destroy(): void;
+        escape(query: string): string;
+        query(q: string, placeHolders?: Dictionary, useArray?: boolean): MariaQuery;
+        query(q: string, placeHolders?: any[], useArray?: boolean): MariaQuery;
+        query(q: string, useArray?: boolean): MariaQuery;
+        prepare(query: string): MariaPreparedQuery;
+        isMariaDB(): boolean;
+        on(signal: "error", cb: MariaCallBackError): MariaClient;
+        on(signal: "close", cb: MariaCallBackObject): MariaClient;
+        on(signal: "connect", cb: MariaCallBackVoid): MariaClient;
+        on(signal: string, cb: MariaCallBackVoid): MariaClient;
         connected: boolean;
         threadId: string;
     }
 
     export interface Client {
-        new ():MariaClient;
-        ():MariaClient;
+        new(): MariaClient;
+        (): MariaClient;
         prototype: MariaClient;
     }
 }

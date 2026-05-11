@@ -1,6 +1,7 @@
 declare namespace GorillaEngine.UI {
-    interface TriggerProps extends Common, Bounds, Font, Clickable, Background, KeyboardFocus {
+    interface TriggerProps extends Common, Bounds, Font, Clickable, Background, KeyboardFocus, Keyable {
         text: string;
+        isDumb: boolean;
         images: {
             normal?: string;
             hover?: string;
@@ -8,7 +9,7 @@ declare namespace GorillaEngine.UI {
         };
         animation: LottieAnimation;
     }
-
+    // tslint:disable-next-line:no-empty-interface
     interface Trigger extends TriggerProps {}
     class Trigger extends Component {
         constructor(options: Partial<TriggerProps>);

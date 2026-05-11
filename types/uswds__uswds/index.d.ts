@@ -1,11 +1,7 @@
-// Type definitions for @uswds/uswds 3.3
-// Project: https://github.com/uswds/uswds
-// Definitions by: Morgan Spencer <https://github.com/morganmspencer>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import {
     accordion,
     banner,
+    button,
     characterCount,
     comboBox,
     datePicker,
@@ -19,17 +15,19 @@ import {
     modal,
     navigation,
     password,
+    range,
     search,
     skipnav,
     table,
     timePicker,
     tooltip,
     validator,
-} from './js';
+} from "./js";
 
 export {
     accordion,
     banner,
+    button,
     characterCount,
     comboBox,
     datePicker,
@@ -43,6 +41,7 @@ export {
     modal,
     navigation,
     password,
+    range,
     search,
     skipnav,
     table,

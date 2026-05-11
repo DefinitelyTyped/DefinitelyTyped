@@ -1,15 +1,4 @@
-import { Data, Point, Position, Node, Literal, Parent, NodeData } from 'unist';
-
-const data: Data = {
-    string: 'string',
-    number: 1,
-    object: {
-        key: 'value',
-    },
-    array: [],
-    boolean: true,
-    null: null,
-};
+import { Literal, Node, Parent, Point, Position } from "unist";
 
 const point: Point = {
     line: 1,
@@ -20,129 +9,83 @@ const point: Point = {
 const position: Position = {
     start: point,
     end: point,
-    indent: [1],
 };
 
 const node: Node = {
-    type: 'node',
-    data,
+    type: "node",
     position,
 };
 
 const text: Literal = {
-    type: 'text',
-    data,
+    type: "text",
     position,
-    value: 'value',
+    value: "value",
 };
 
 const parent: Parent = {
-    type: 'parent',
-    data,
+    type: "parent",
     position,
     children: [node, text],
 };
 
 const noExtraKeysInNode: Node = {
-    type: 'noExtraKeysInNode',
-    // @ts-expect-error
-    extra: 'extra',
+    type: "noExtraKeysInNode",
+    // @ts-expect-error: `extra` does not exist on the abstract `Node` type: extend `Node` to add it.
+    extra: "extra",
 };
 
 const noChildrenInNode: Node = {
-    type: 'noChildrenInNode',
-    // @ts-expect-error
+    type: "noChildrenInNode",
+    // @ts-expect-error: `children` does not exist on the abstract `Node` type: use `Parent` to get it.
     children: [],
 };
 
-const stringLiteral: Literal<string> = {
-    type: 'text',
-    data,
+const stringLiteral: Literal = {
+    type: "text",
     position,
-    value: 'value',
+    value: "value",
 };
 
-const literalParent: Parent<Literal<string>> = {
-    type: 'literalParent',
-    data,
+const literalParent: Parent = {
+    type: "literalParent",
     position,
     children: [stringLiteral],
 };
 
-const nodeData: Node<{ key: string }> = {
-    type: 'nodeData',
+// Register a field on `Data`, which will be available on all nodes.
+declare module "unist" {
+    interface Data {
+        someField?: string | undefined;
+    }
+}
+
+const nodeDataKeyOk: Node = {
+    type: "nodeData",
+    data: { someField: "value" },
+};
+
+const nodeDataKeyNok: Node = {
+    type: "nodeData",
     data: {
-        key: 'value',
+        // @ts-expect-error: `someField` is supposed to be `string | undefined`.
+        someField: 123,
     },
-};
-
-const nodeData2: Node<{ key: string }> = {
-    type: 'nodeData',
-    // @ts-expect-error
-    data: {},
-};
-
-// @ts-expect-error
-type DataType = NodeData<Node<string>>;
-
-const literalData: Literal<string, { key: string }> = {
-    type: 'literalData',
-    data: {
-        key: 'value',
-    },
-    value: 'value',
-};
-
-const literalParentData: Parent<Literal<string>, Data> = {
-    type: 'literalParent',
-    data,
-    position,
-    children: [stringLiteral],
-};
-
-const data1 = {
-    key1: 'value1',
-};
-
-const data2 = {
-    key2: 'value2',
-};
-
-const nestedliteralParentData: Parent<Literal<string, typeof data1>, typeof data2> = {
-    type: 'literalParent',
-    data: data2,
-    position,
-    children: [
-        {
-            ...stringLiteral,
-            data: data1,
-        },
-    ],
 };
 
 function exampleNodeUtil(node: Node) {}
 
-const inferredNode = { type: 'example' };
-const inferredNotNode = { notType: 'whoops' };
-
-exampleNodeUtil(inferredNode);
-// @ts-expect-error
-exampleNodeUtil(inferredNotNode);
+exampleNodeUtil({ type: "example" });
+// @ts-expect-error: `type` is needed by the abstract `Node` interface.
+exampleNodeUtil({ notType: "whoops" });
 
 function exampleLiteralUtil(node: Literal) {}
 
-const inferredLiteral = { type: 'example', value: 'value' };
-const inferredNotLiteral = { type: 'example' };
-
-exampleLiteralUtil(inferredLiteral);
-// @ts-expect-error
-exampleLiteralUtil(inferredNotLiteral);
+exampleLiteralUtil({ type: "example", value: "value" });
+// @ts-expect-error: `value` is needed by the abstract `Literal` interface.
+exampleLiteralUtil({ type: "example" });
 
 function exampleParentUtil(node: Parent) {}
 
-const inferredParent = { type: 'example', children: [inferredNode] };
-const inferredNotParent = { type: 'example', children1: [] };
-
-exampleParentUtil(inferredParent);
-// @ts-expect-error
-exampleParentUtil(inferredNotParent);
+exampleParentUtil({ type: "example", children: [{ type: "example" }] });
+// @ts-expect-error: `children` is needed by the abstract `Parent` interface.
+exampleParentUtil({ type: "example" });

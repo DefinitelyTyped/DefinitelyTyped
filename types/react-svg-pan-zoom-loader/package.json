@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-svg-pan-zoom-loader",
+    "version": "1.5.9999",
+    "projects": [
+        "https://github.com/chrvadala/react-svg-pan-zoom-loader#readme"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-svg-pan-zoom": "*",
+        "@types/react-svg-pan-zoom-loader": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Rafal Witczak",
+            "githubUsername": "rafw87"
+        }
+    ]
+}

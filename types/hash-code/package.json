@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/hash-code",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/coderhaoxin/hash-code"
+    ],
+    "devDependencies": {
+        "@types/hash-code": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "dunal",
+            "githubUsername": "dunal"
+        }
+    ]
+}

@@ -1,15 +1,15 @@
-import bwipjs = require('bwip-js');
-import * as http from 'http';
-import * as fs from 'fs';
+import bwipjs = require("bwip-js");
+import * as fs from "fs";
+import * as http from "http";
 
-bwipjs.loadFont('Inconsolata', 108, fs.readFileSync('fonts/Inconsolata.otf', 'binary'));
+bwipjs.loadFont("Inconsolata", 108, fs.readFileSync("fonts/Inconsolata.otf", "binary"));
 
-http.createServer(function (req, res) {
+http.createServer(function(req, res) {
     // If the url does not begin /?bcid= then 404.  Otherwise, we end up
     // returning 400 on requests like favicon.ico.
-    if (req.url!.indexOf('/?bcid=') != 0) {
-        res.writeHead(404, { 'Content-Type': 'text/plain' });
-        res.end('BWIPJS: Unknown request format.', 'utf8');
+    if (req.url!.indexOf("/?bcid=") != 0) {
+        res.writeHead(404, { "Content-Type": "text/plain" });
+        res.end("BWIPJS: Unknown request format.", "utf8");
     } else {
         bwipjs(req, res);
     }
@@ -17,16 +17,16 @@ http.createServer(function (req, res) {
 
 bwipjs.toBuffer(
     {
-        bcid: 'code128', // Barcode type
-        text: '0123456789', // Text to encode
+        bcid: "code128", // Barcode type
+        text: "0123456789", // Text to encode
         scale: 3, // 3x scaling factor
         height: 10, // Bar height, in millimeters
         includetext: true, // Show human-readable text
-        textxalign: 'center', // Always good to set this
-        textfont: 'Inconsolata', // Use your custom font
+        textxalign: "center", // Always good to set this
+        textfont: "Inconsolata", // Use your custom font
         textsize: 13, // Font size, in points
     },
-    function (err: string | Error, png: Buffer) {
+    function(err: string | Error, png: Buffer) {
         if (err) {
             console.log(err);
         } else {
@@ -40,13 +40,13 @@ bwipjs.toBuffer(
 
 bwipjs
     .toBuffer({
-        bcid: 'code128', // Barcode type
-        text: '0123456789', // Text to encode
+        bcid: "code128", // Barcode type
+        text: "0123456789", // Text to encode
         scale: 3, // 3x scaling factor
         height: 10, // Bar height, in millimeters
         includetext: true, // Show human-readable text
-        textxalign: 'center', // Always good to set this
-        textfont: 'Inconsolata', // Use your custom font
+        textxalign: "center", // Always good to set this
+        textfont: "Inconsolata", // Use your custom font
         textsize: 13, // Font size, in points
     })
     .then((png: Buffer) => {
@@ -61,13 +61,13 @@ bwipjs
 
 bwipjs
     .toDataURL({
-        bcid: 'code128', // Barcode type
-        text: '0123456789', // Text to encode
+        bcid: "code128", // Barcode type
+        text: "0123456789", // Text to encode
         scale: 3, // 3x scaling factor
         height: 10, // Bar height, in millimeters
         includetext: true, // Show human-readable text
-        textxalign: 'center', // Always good to set this
-        textfont: 'Inconsolata', // Use your custom font
+        textxalign: "center", // Always good to set this
+        textfont: "Inconsolata", // Use your custom font
         textsize: 13, // Font size, in points
     })
     .then((data: { width: number; height: number; uri: string }) => {})
@@ -109,38 +109,38 @@ const testRender: bwipjs.DrawingOption<void> = {
 
 bwipjs.render(
     {
-        bcid: 'code128', // Barcode type
-        text: '0123456789', // Text to encode
+        bcid: "code128", // Barcode type
+        text: "0123456789", // Text to encode
         scale: 3, // 3x scaling factor
         height: 10, // Bar height, in millimeters
         includetext: true, // Show human-readable text
-        textxalign: 'center', // Always good to set this
-        textfont: 'Inconsolata', // Use your custom font
+        textxalign: "center", // Always good to set this
+        textfont: "Inconsolata", // Use your custom font
         textsize: 13, // Font size, in points
     },
     testRender,
 );
 
 const rawRes = bwipjs.raw({
-    bcid: 'code128', // Barcode type
-    text: '0123456789', // Text to encode
+    bcid: "code128", // Barcode type
+    text: "0123456789", // Text to encode
 });
-if ('bbs' in rawRes[0]) {
+if ("bbs" in rawRes[0]) {
     rawRes[0].bbs;
 }
 
 bwipjs.fixupOptions({
-    bcid: 'code128', // Barcode type
-    text: '0123456789', // Text to encode
+    bcid: "code128", // Barcode type
+    text: "0123456789", // Text to encode
 });
 
 // Browser canvas implementation
-const canvas = document.createElement('canvas') as HTMLCanvasElement;
+const canvas = document.createElement("canvas") as HTMLCanvasElement;
 bwipjs(
     canvas,
     {
-        bcid: 'qrcode',
-        text: 'example',
+        bcid: "qrcode",
+        text: "example",
     },
     (err?: string | Error, cvs?: HTMLCanvasElement): void => {
         if (err) {
@@ -153,20 +153,20 @@ bwipjs(
 
 // Browser canvas implementation using .toCanvas()
 // See: https://github.com/metafloor/bwip-js#browser-usage
-const canvasElement = document.createElement('canvas') as HTMLCanvasElement;
-canvasElement.setAttribute('id', 'canvas2');
-const toCanvas = bwipjs.toCanvas('canvas2', {
-    bcid: 'code128',
-    text: 'testing',
+const canvasElement = document.createElement("canvas") as HTMLCanvasElement;
+canvasElement.setAttribute("id", "canvas2");
+const toCanvas = bwipjs.toCanvas("canvas2", {
+    bcid: "code128",
+    text: "testing",
 });
 toCanvas; // $ExpectType HTMLCanvasElement
 
 // Test the alttext fix as a browser implementation
-const canvasElement2 = document.createElement('canvasTextTest') as HTMLCanvasElement;
-canvasElement2.setAttribute('id', 'canvasTextTest');
-const toCanvasText = bwipjs.toCanvas('canvasTextTest', {
-    bcid: 'code128',
-    text: '1123581321345589',
-    alttext: 'Alternative text',
+const canvasElement2 = document.createElement("canvasTextTest") as HTMLCanvasElement;
+canvasElement2.setAttribute("id", "canvasTextTest");
+const toCanvasText = bwipjs.toCanvas("canvasTextTest", {
+    bcid: "code128",
+    text: "1123581321345589",
+    alttext: "Alternative text",
 });
 toCanvasText; // $ExpectType HTMLCanvasElement

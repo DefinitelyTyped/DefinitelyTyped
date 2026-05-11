@@ -11,7 +11,7 @@ declare namespace OO.ui {
     interface Element extends Element.Props, Element.Prototype {}
 
     namespace Element {
-        type ScrollDirection = 'x' | 'y';
+        type ScrollDirection = "x" | "y";
 
         interface Dimension {
             border: Rectangle;
@@ -39,7 +39,7 @@ declare namespace OO.ui {
              * Additional padding on the container to scroll past. Object containing any of 'top',
              * 'bottom', 'left', or 'right' as numbers.
              */
-            padding?: Rectangle;
+            padding?: Partial<Rectangle>;
             /**
              * Scroll container. Defaults to {@link Static.getClosestScrollableContainer getClosestScrollableContainer}
              * of the element.
@@ -414,7 +414,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): Element;
+            new(config?: ConfigOptions): Element;
             prototype: Prototype;
             static: Static;
         }

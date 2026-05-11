@@ -1,5 +1,5 @@
-import videojs from 'video.js';
-import { Item } from '..';
+import videojs from "video.js";
+import { Item } from "..";
 
 /**
  * Extend vjs button class for quality button.

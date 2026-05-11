@@ -1,8 +1,3 @@
-// Type definitions for non-npm package https://dadata.ru/api/ 0.0
-// Project: https://dadata.ru/api/
-// Definitions by: kTelyakov <https://github.com/kTelyakov>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export namespace DaDataApi {
     type Nullable<T> = T | null;
     interface Suggestion<T> {
@@ -15,7 +10,7 @@ export namespace DaDataApi {
         line: string;
         distance: number;
     }
-    type AddressBeltwayHit = 'IN_MKAD' | 'OUT_MKAD' | 'IN_KAD' | 'OUT_KAD';
+    type AddressBeltwayHit = "IN_MKAD" | "OUT_MKAD" | "IN_KAD" | "OUT_KAD";
 
     interface Address {
         area: Nullable<string>;
@@ -30,7 +25,7 @@ export namespace DaDataApi {
         block_type: Nullable<string>;
         block_type_full: Nullable<string>;
         federal_district: Nullable<string>;
-        capital_marker: '0' | '1' | '2' | '3' | '4';
+        capital_marker: "0" | "1" | "2" | "3" | "4";
         city: Nullable<string>;
         city_area: Nullable<string>;
         city_district: Nullable<string>;
@@ -74,7 +69,7 @@ export namespace DaDataApi {
         postal_code: Nullable<string>;
         qc: null;
         qc_complete: null;
-        qc_geo: Nullable<'0' | '1' | '2' | '3' | '4' | '5'>;
+        qc_geo: Nullable<"0" | "1" | "2" | "3" | "4" | "5">;
         qc_house: null;
         region: string;
         region_fias_id: string;
@@ -113,16 +108,16 @@ export namespace DaDataApi {
         divisions?: unknown;
     }
 
-    type AddressBounds = 'country' | 'region' | 'area' | 'city' | 'settlement' | 'street' | 'houses';
+    type AddressBounds = "country" | "region" | "area" | "city" | "settlement" | "street" | "houses";
 
-    type PartyType = 'LEGAL' | 'INDIVIDUAL';
+    type PartyType = "LEGAL" | "INDIVIDUAL";
 
-    type PartyBranchType = 'MAIN' | 'BRANCH';
+    type PartyBranchType = "MAIN" | "BRANCH";
 
-    type PartyStatus = 'ACTIVE' | 'LIQUIDATING' | 'LIQUIDATED' | 'REORGANIZING' | 'BANKRUPT';
+    type PartyStatus = "ACTIVE" | "LIQUIDATING" | "LIQUIDATED" | "REORGANIZING" | "BANKRUPT";
 
-    interface PartyAddress extends Omit<Address, 'qc' | 'house_cadnum' | 'stead_kladr_id' | 'floor' | 'flat_price'> {
-        qc: '0' | '1' | '3';
+    interface PartyAddress extends Omit<Address, "qc" | "house_cadnum" | "stead_kladr_id" | "floor" | "flat_price"> {
+        qc: "0" | "1" | "3";
         house_cadnum: Nullable<string>;
         floor: Nullable<string>;
         flat_price: Nullable<string>;
@@ -194,9 +189,9 @@ export namespace DaDataApi {
         qc: null;
     }
 
-    type BankType = 'BANK' | 'BANK_BRANCH' | 'NKO' | 'NKO_BRANCH' | 'RKC' | 'OTHER';
+    type BankType = "BANK" | "BANK_BRANCH" | "NKO" | "NKO_BRANCH" | "RKC" | "OTHER";
 
-    type BankStatus = 'ACTIVE' | 'LIQUIDATING' | 'LIQUIDATED';
+    type BankStatus = "ACTIVE" | "LIQUIDATING" | "LIQUIDATED";
 
     interface DaDataBank {
         bic: string;
@@ -228,14 +223,14 @@ export namespace DaDataApi {
         rkc: number;
     }
 
-    type Gender = 'MALE' | 'FEMALE' | 'UNKNOWN';
+    type Gender = "MALE" | "FEMALE" | "UNKNOWN";
 
     interface Fio {
         surname: Nullable<string>;
         name: Nullable<string>;
         patronymic: Nullable<string>;
         gender: Gender;
-        qc: '0' | '1';
+        qc: "0" | "1";
         source: null;
     }
 

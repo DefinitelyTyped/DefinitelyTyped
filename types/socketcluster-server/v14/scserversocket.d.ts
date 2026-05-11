@@ -1,7 +1,7 @@
 import Emitter = require("component-emitter");
 import { IncomingMessage } from "http";
-import { SCExchange } from "sc-broker-cluster";
 import { SignOptions } from "jsonwebtoken";
+import { SCExchange } from "sc-broker-cluster";
 import WebSocket = require("ws");
 
 import SCServer = require("./scserver");
@@ -60,7 +60,15 @@ declare class SCServerSocket extends Emitter {
     destroy(code?: number, data?: any): void;
     terminate(): void;
 
-    send(data: any, options: { mask?: boolean | undefined; binary?: boolean | undefined; compress?: boolean | undefined; fin?: boolean | undefined }): void;
+    send(
+        data: any,
+        options: {
+            mask?: boolean | undefined;
+            binary?: boolean | undefined;
+            compress?: boolean | undefined;
+            fin?: boolean | undefined;
+        },
+    ): void;
 
     decode(message: any): any;
     encode(object: any): any;

@@ -1,8 +1,3 @@
-// Type definitions for cookie-signature 1.1
-// Project: https://github.com/tj/node-cookie-signature, https://github.com/visionmedia/node-cookie-signature
-// Definitions by: Junyoung Choi <https://github.com/Rokt33r>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import type { CipherKey } from "node:crypto";

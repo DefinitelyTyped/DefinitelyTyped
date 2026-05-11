@@ -1,4 +1,4 @@
-import Reveal = require('../../../.');
+import Reveal = require("../../../.");
 
 /**
  * Reveal plugin notes
@@ -8,3 +8,10 @@ import Reveal = require('../../../.');
 declare const RevealNotes: Reveal.PluginFunction;
 
 export = RevealNotes;
+
+declare module "reveal.js" {
+    interface Options {
+        totalTime?: number | undefined;
+        minTimePerSlide?: number | undefined;
+    }
+}

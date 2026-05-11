@@ -1,14 +1,14 @@
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
+pdfMake.addVirtualFileSystem(pdfFonts);
 
 const dd = {
-    content: 'Hello world!'
+    content: "Hello world!",
 };
 
 // $ExpectType TCreatedPdf
 pdfMake.createPdf(dd);
 
 // $ExpectType TCreatedPdf
-pdfMake.createPdf(dd, {}, fonts);
+pdfMake.createPdf(dd, {});

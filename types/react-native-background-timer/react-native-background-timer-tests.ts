@@ -1,12 +1,11 @@
 // Tests taken from Examples at https://github.com/ocetnik/react-native-background-timer
-import BackgroundTimer from 'react-native-background-timer';
+import BackgroundTimer from "react-native-background-timer";
 
 BackgroundTimer.runBackgroundTimer(() => {
     // do stuff
-    },
-    3000);
-    // rest of code will be performing for iOS on background too
-    BackgroundTimer.stopBackgroundTimer();
+}, 3000);
+// rest of code will be performing for iOS on background too
+BackgroundTimer.stopBackgroundTimer();
 
 BackgroundTimer.start();
 // Do whatever you want incuding setTimeout;

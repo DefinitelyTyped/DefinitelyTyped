@@ -1,13 +1,4 @@
-// Type definitions for react-paginate 4.3
-// Project: https://github.com/AdeleD/react-paginate
-// Definitions by: Simon Hartcher <https://github.com/deevus>
-//                 Wouter Hardeman <https://github.com/wouterhardeman>
-//                 pegel03 <https://github.com/pegel03>
-//                 Simon Archer <https://github.com/archy-bold>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import * as React from 'react';
+import * as React from "react";
 
 interface ReactPaginateProps {
     /**
@@ -28,22 +19,22 @@ interface ReactPaginateProps {
     /**
      * Label for the `previous` button.
      */
-    previousLabel?: string | JSX.Element | undefined;
+    previousLabel?: string | React.JSX.Element | undefined;
 
     /**
      * Label for the `next` button.
      */
-    nextLabel?: string | JSX.Element | undefined;
+    nextLabel?: string | React.JSX.Element | undefined;
 
     /**
      * Label for ellipsis.
      */
-    breakLabel?: string | JSX.Element | undefined;
+    breakLabel?: string | React.JSX.Element | undefined;
 
     /**
      * The classname on tag `li` of the ellipsis element.
      */
-    breakClassName?: string | JSX.Element | undefined;
+    breakClassName?: string | React.JSX.Element | undefined;
 
     /**
      * The method to call when a page is clicked. Exposes the current page object as an argument.

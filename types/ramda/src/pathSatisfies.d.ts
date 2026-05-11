@@ -1,2 +1,2 @@
-import { pathSatisfies } from '../index';
+import { pathSatisfies } from "../index";
 export default pathSatisfies;

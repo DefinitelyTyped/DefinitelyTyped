@@ -1,9 +1,3 @@
-// Type definitions for webicon 0.10
-// Project: https://icons8.github.io/webicon/
-// Definitions by: Manuel Thalmann <https://github.com/manuth>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 import { CssClassConfig } from "./Icon/CssClassConfig";
 import { CssIconSet } from "./Icon/CssIconSet";
 import { IconClassGenerator } from "./Icon/IconClassGenerator";
@@ -29,29 +23,29 @@ import { StaticUrlDeclaration } from "./Web/StaticUrlDeclaration";
 import { UrlConfig } from "./Web/UrlConfig";
 
 export {
-    CssClassConfig,
-    CssIconSet,
-    IconClassGenerator,
-    ImageIcon,
     AliasOptions,
-    CssIconSetOptions,
-    ImageIconOptions,
-    SvgCumulativeIconSetOptions,
-    SvgIconOptions,
-    SvgIconSetOptions,
-    SvgCumulativeIconSet,
-    SvgIcon,
-    SvgIconSet,
     Config,
     ConfigurationHandler,
+    CssClassConfig,
+    CssIconSet,
+    CssIconSetOptions,
+    DynamicUrlDeclaration,
+    IconClassGenerator,
     IconLoadedEventHandler,
     IconPreloader,
     Identifiable,
+    ImageIcon,
+    ImageIconOptions,
     Injector,
     PublicApi,
-    DynamicUrlDeclaration,
     StaticUrlDeclaration,
-    UrlConfig
+    SvgCumulativeIconSet,
+    SvgCumulativeIconSetOptions,
+    SvgIcon,
+    SvgIconOptions,
+    SvgIconSet,
+    SvgIconSetOptions,
+    UrlConfig,
 };
 
 declare global {

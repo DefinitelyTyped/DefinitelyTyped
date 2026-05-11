@@ -1,12 +1,3 @@
-// Type definitions for D3JS d3-dispatch module 1.0
-// Project: https://github.com/d3/d3-dispatch/, https://d3js.org/d3-dispatch
-// Definitions by: Tom Wanzek <https://github.com/tomwanzek>
-//                 Alex Ford <https://github.com/gustavderdrache>
-//                 Boris Yankov <https://github.com/borisyankov>
-//                 denisname <https://github.com/denisname>
-//                 Nathan Bierema <https://github.com/Methuselah96>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // Last module patch version validated against: 1.0.6
 
 export interface Dispatch<T extends object> {
@@ -31,7 +22,7 @@ export interface Dispatch<T extends object> {
      * @param args Additional arguments to be passed to the callback.
      * @throws "unknown type" on unknown event type.
      */
-     call(type: string, that?: T, ...args: any[]): void;
+    call(type: string, that?: T, ...args: any[]): void;
 
     /**
      * Returns a copy of this dispatch object.

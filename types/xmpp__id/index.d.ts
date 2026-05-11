@@ -1,9 +1,4 @@
-// Type definitions for @xmpp/id 0.13
-// Project: https://github.com/xmppjs/xmpp.js/tree/main/packages/id
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-export = id;
+export default id;
 
 /**
  * XMPP id generator for JavaScript.

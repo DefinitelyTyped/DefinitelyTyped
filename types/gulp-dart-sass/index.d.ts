@@ -1,11 +1,6 @@
-// Type definitions for gulp-dart-sass 1.0
-// Project: https://github.com/mattdsteele/gulp-dart-sass#readme
-// Definitions by: Jacob Malone <https://github.com/jcbmln>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import { LegacySharedOptions as Options } from 'sass';
+import { LegacySharedOptions as Options } from "sass";
 
 interface SassResults {
     css: string;
@@ -19,7 +14,7 @@ interface SassResults {
     };
 }
 
-type SassOptions = Options<'sync'> & {
+type SassOptions = Options<"sync"> & {
     success?: ((results: SassResults) => any) | undefined;
     error?: ((err: Error) => any) | undefined;
     imagePaths?: string[] | undefined;

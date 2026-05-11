@@ -1,4 +1,4 @@
-import * as Cldr from "cldrjs";
+import Cldr from "cldrjs";
 import "cldrjs/cldr/supplemental";
 
 const myCldr = new Cldr("en");
@@ -15,5 +15,3 @@ const preferred = timeData.preferred();
 const weekData = supplemental.weekData;
 const firstDay = weekData.firstDay();
 const minDays = weekData.minDays();
-
-

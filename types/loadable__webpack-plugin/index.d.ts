@@ -1,34 +1,38 @@
-// Type definitions for @loadable/webpack-plugin 5.7
-// Project: https://github.com/smooth-code/loadable-components
-// Definitions by: Spencer Miskoviak <https://github.com/skovy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
+import webpack = require("webpack");
 
-import * as webpack from 'webpack';
+declare namespace LoadablePlugin {
+    interface PluginOptions {
+        /**
+         * The stats filename.
+         *
+         * @default loadable-stats.json
+         */
+        filename?: string | undefined;
 
-interface PluginOptions {
-    /**
-     * The stats filename.
-     *
-     * @default loadable-stats.json
-     */
-    filename?: string | undefined;
+        /**
+         * Always write stats file to disk.
+         *
+         * @default false
+         */
+        writeToDisk?:
+            | boolean
+            | {
+                /** Write assets to disk at given `filename` location */
+                filename: string;
+            }
+            | undefined;
 
-    /**
-     * Always write stats file to disk.
-     *
-     * @default false
-     */
-    writeToDisk?: boolean | { filename: string } | undefined;
-
-    /**
-     * @default true
-     */
-    outputAsset?: boolean | undefined;
+        /**
+         * Always write stats file to the `output.path` directory.
+         *
+         * @default true
+         */
+        outputAsset?: boolean | undefined;
+    }
 }
 
 declare class LoadablePlugin extends webpack.Plugin {
-    constructor(options?: PluginOptions);
+    constructor(options?: LoadablePlugin.PluginOptions);
 }
 
-export default LoadablePlugin;
+export = LoadablePlugin;

@@ -1,22 +1,22 @@
-import convertOklabToOkhsv from './convertOklabToOkhsv';
-import convertOkhsvToOklab from './convertOkhsvToOklab';
+import convertOkhsvToOklab from "./convertOkhsvToOklab.js";
+import convertOklabToOkhsv from "./convertOklabToOkhsv.js";
 
-import modeHsv from '../hsv/definition';
-import { Okhsv } from './types';
-import { Rgb } from '../rgb/types';
+import modeHsv from "../hsv/definition.js";
+import { Rgb } from "../rgb/types.js";
+import { Okhsv } from "./types.js";
 
 interface OkhsvDefinitionMixin {
-    mode: 'okhsv';
-    channels: ['h', 's', 'v', 'alpha'];
-    parse: ['--okhsv'];
-    serialize: '--okhsv';
+    mode: "okhsv";
+    channels: ["h", "s", "v", "alpha"];
+    parse: ["--okhsv"];
+    serialize: "--okhsv";
     fromMode: {
         oklab: typeof convertOklabToOkhsv;
-        rgb: (color: Omit<Rgb, 'mode'>) => Okhsv;
+        rgb: (color: Omit<Rgb, "mode">) => Okhsv;
     };
     toMode: {
         oklab: typeof convertOkhsvToOklab;
-        rgb: (color: Omit<Okhsv, 'mode'>) => Rgb;
+        rgb: (color: Omit<Okhsv, "mode">) => Rgb;
     };
 }
 

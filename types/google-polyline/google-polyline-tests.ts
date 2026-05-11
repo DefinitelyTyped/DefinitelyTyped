@@ -1,4 +1,4 @@
-import { encode, decode } from "google-polyline";
+import { decode, encode } from "google-polyline";
 
 const encodedPolyline = "_p~iF~ps|U_ulLnnqC_mqNvxq`@";
 decode(encodedPolyline).length;

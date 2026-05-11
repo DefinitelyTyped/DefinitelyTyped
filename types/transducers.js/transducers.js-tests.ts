@@ -1,4 +1,4 @@
-import * as t from "transducers.js";
+import t from "transducers.js";
 
 const stringAppendFn: t.Reducer<string, number> = (acc, x) => acc + x;
 const stringAppendTransformer = t.transformer(stringAppendFn);

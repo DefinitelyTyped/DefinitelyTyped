@@ -1,7 +1,7 @@
-import setTZ = require('set-tz');
+import setTZ = require("set-tz");
 
 // $ExpectType void
-setTZ('UTC');
+setTZ("UTC");
 
 // $ExpectType void
 setTZ();

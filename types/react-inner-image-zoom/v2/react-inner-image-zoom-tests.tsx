@@ -1,5 +1,5 @@
-import * as React from 'react';
-import InnerImageZoom from 'react-inner-image-zoom';
+import * as React from "react";
+import InnerImageZoom from "react-inner-image-zoom";
 
 const afterZoomIn = () => {};
 const afterZoomOut = () => {};
@@ -10,8 +10,8 @@ const afterZoomOut = () => {};
     src="/path/to/image.jpg"
     srcSet="/path/to/small-image.jpg, /path/to/small-image-2x.jpg 2x"
     sources={[{
-        srcSet: '/path/to/large-image.jpg, /path/to/large-image-2x.jpg 2x',
-        media: '(min-width: 768px)'
+        srcSet: "/path/to/large-image.jpg, /path/to/large-image-2x.jpg 2x",
+        media: "(min-width: 768px)",
     }]}
     width={500}
     height={500}

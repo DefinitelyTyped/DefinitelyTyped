@@ -1,8 +1,3 @@
-// Type definitions for openpay 1.0
-// Project: https://github.com/open-pay/openpay-node
-// Definitions by: Bruno Jardón <https://github.com/bjardon>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = Openpay;
 
 declare class Openpay {
@@ -189,16 +184,39 @@ declare namespace Openpay {
 
                 interface Charges {
                     create(merchantId: string, customerId: string, data: any, callback: Callback<any>): void;
-                    capture(merchantId: string, customerId: string, transactionId: string, data: any, callback: Callback<any>): void;
-                    refund(merchantId: string, customerId: string, transactionId: string, data: any, callback: Callback<any>): void;
+                    capture(
+                        merchantId: string,
+                        customerId: string,
+                        transactionId: string,
+                        data: any,
+                        callback: Callback<any>,
+                    ): void;
+                    refund(
+                        merchantId: string,
+                        customerId: string,
+                        transactionId: string,
+                        data: any,
+                        callback: Callback<any>,
+                    ): void;
                 }
 
                 interface Subscriptions {
                     create(merchantId: string, customerId: string, data: any, callback: Callback<any>): void;
                     list(merchantId: string, customerId: string, data: any, callback: Callback<any>): void;
                     get(merchantId: string, customerId: string, subscriptionId: string, callback: Callback<any>): void;
-                    update(merchantId: string, customerId: string, subscriptionId: string, data: any, callback: Callback<any>): void;
-                    delete(merchantId: string, customerId: string, subscriptionId: string, callback: Callback<any>): void;
+                    update(
+                        merchantId: string,
+                        customerId: string,
+                        subscriptionId: string,
+                        data: any,
+                        callback: Callback<any>,
+                    ): void;
+                    delete(
+                        merchantId: string,
+                        customerId: string,
+                        subscriptionId: string,
+                        callback: Callback<any>,
+                    ): void;
                 }
             }
         }
@@ -232,12 +250,12 @@ declare namespace Openpay {
     }
 
     interface Callback<T> {
-        (error: ErrorResponse|null, body: T): void;
+        (error: ErrorResponse | null, body: T): void;
     }
 
     interface ErrorResponse {
         category: string;
-        error_code: ResponseError|number;
+        error_code: ResponseError | number;
         description: string;
         http_code: string;
         request_id: string;
@@ -276,6 +294,6 @@ declare namespace Openpay {
         RestrictedCard = 3010,
         RetainedCard = 3011,
         BankAuthorizationRequired = 3012,
-        InsufficientAccountFunds = 4001
+        InsufficientAccountFunds = 4001,
     }
 }

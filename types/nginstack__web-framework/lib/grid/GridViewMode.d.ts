@@ -1,4 +1,2 @@
-export type exports = number;
-declare const FORM_VIEW: number;
-declare const TABLE_VIEW: number;
-export {};
+export const FORM_VIEW = 0;
+export const TABLE_VIEW = 1;

@@ -79,5 +79,5 @@ declare const List: {
     /**
      * 列表组件。
      */
-    new (): List;
+    new(): List;
 };

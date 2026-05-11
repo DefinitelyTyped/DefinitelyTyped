@@ -1,4 +1,4 @@
-import when = require('saywhen');
+import when = require("saywhen");
 
 // This interface is needed to get around the fact that the new jasmine
 // `createSpy` method takes a generic type while the old typings don't.
@@ -8,7 +8,7 @@ import when = require('saywhen');
 interface JasmineSpy extends jasmine.Spy {
     (...params: any[]): any;
 }
-const spy: JasmineSpy = jasmine.createSpy('test');
+const spy: JasmineSpy = jasmine.createSpy("test");
 
 when(spy); // $ExpectType CallHandler<JasmineSpy>
 when(spy).isCalled; // $ExpectType Proxy<JasmineSpy>
@@ -18,5 +18,5 @@ type Top = typeof top;
 declare function expectMatcherProxyTop(x: (arg: Top) => boolean): void;
 
 expectMatcherProxyTop(when.captor());
-when.captor(jasmine.any(Number));    // $ExpectType MatcherProxy<AsymmetricMatcher<any>>
-when.noConflict();    // $ExpectType void
+when.captor(jasmine.any(Number)); // $ExpectType MatcherProxy<AsymmetricMatcher<any>>
+when.noConflict(); // $ExpectType void

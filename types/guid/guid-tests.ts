@@ -1,4 +1,4 @@
-import guid = require('guid');
+import guid = require("guid");
 
 // $ExpectType object
 guid.create();

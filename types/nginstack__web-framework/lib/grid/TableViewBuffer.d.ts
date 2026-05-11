@@ -14,10 +14,7 @@ declare class TableViewBuffer {
     resyncRecord(recNo: any): void;
     syncBookmarkAfterInsert: boolean;
     editedRecBuffer: any;
-    clientBufferIndex: any;
-    fEditingRecBuffer: any;
-    setEditingRecBuffer(value: any): void;
-    getEditingRecBuffer(): any;
+    fEditingRecBuffer: number;
     lastRecordIndex: number;
     reset(): void;
     clear(): void;
@@ -30,12 +27,12 @@ declare class TableViewBuffer {
     private _searchRecordBufferByRecNo;
     getRecordBufferByRecNo(recNo: any): any;
     setFieldRecordBuffer(fieldIndex: any, recNo: any, value: any): void;
-    toString(): any;
+    toString(): string;
 }
 declare namespace TableViewBuffer {
-    const BM_INACTIVE: number;
-    const BM_EDIT: number;
-    const BM_INSERT: number;
-    const BM_BROWSE: number;
-    const BM_DELETING: number;
+    let BM_INACTIVE: number;
+    let BM_EDIT: number;
+    let BM_INSERT: number;
+    let BM_BROWSE: number;
+    let BM_DELETING: number;
 }

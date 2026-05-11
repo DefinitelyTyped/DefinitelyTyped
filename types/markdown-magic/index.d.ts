@@ -1,15 +1,10 @@
-// Type definitions for markdown-magic 1.0
-// Project: https://github.com/DavidWells/markdown-magic#readme
-// Definitions by: Piotr Błażejewicz (Peter Blazejewicz) <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * @param path Path or glob pattern
  * @param config See configuration options below
  * @param callback callback to run after markdown updates
  */
 declare function markdownMagic(
-    path: string | ReadonlyArray<string>,
+    path: string | readonly string[],
     config?: markdownMagic.Configuration,
     callback?: markdownMagic.Callback,
 ): void;
@@ -51,7 +46,7 @@ declare namespace markdownMagic {
     }
 
     interface Callback {
-        (error: Error | undefined, output: ReadonlyArray<ProcessedConfig>): void;
+        (error: Error | undefined, output: readonly ProcessedConfig[]): void;
     }
 }
 

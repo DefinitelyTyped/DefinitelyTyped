@@ -2,7 +2,7 @@ const options: domtagger.Options = {
     attribute(node, name) {
         return value => {
             const type = typeof value;
-            if (type === 'boolean' || type === 'function') {
+            if (type === "boolean" || type === "function") {
                 (node as any)[name] = value;
             } else if (value == null) {
                 node.removeAttribute(name);
@@ -36,17 +36,17 @@ function createOptions<T extends string>(type: T): domtagger.Options & { type: T
 }
 
 // $ExpectType (template: TemplateStringsArray, ...args: any[]) => HTMLElement
-const html = domtagger(createOptions('html'));
+const html = domtagger(createOptions("html"));
 
 // $ExpectType (template: TemplateStringsArray, ...args: any[]) => SVGElement
-const svg = domtagger(createOptions('svg'));
+const svg = domtagger(createOptions("svg"));
 
 // $ExpectType HTMLElement
 html`
-    <div class="${'foo'}" />
+    <div class="${"foo"}" />
 `;
 
 // $ExpectType SVGElement
 svg`
-    <g class="${'foo'}" />
+    <g class="${"foo"}" />
 `;

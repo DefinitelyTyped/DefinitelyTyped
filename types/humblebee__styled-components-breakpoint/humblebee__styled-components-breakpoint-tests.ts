@@ -5,7 +5,7 @@ const breakpoint = getMedia({
     medium: 640,
     large: 1023,
     xlarge: 1200,
-    xxlarge: 1440
+    xxlarge: 1440,
 });
 
 breakpoint.down("small");

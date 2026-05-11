@@ -1,9 +1,3 @@
-// Type definitions for eLang 0.5.1
-// Project: https://github.com/sumegizoltan/ELang/
-// Definitions by: Zoltan Sumegi <https://github.com/sumegizoltan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery" />
 
 interface IPageResource {
@@ -141,13 +135,15 @@ interface IELangBase {
 
     createContent(): void;
 
-    createRadioGroup(node: JQuery,
-                     isMethodAppend: boolean,
-                     buttonNumber: number,
-                     defaultButton: number,
-                     btnLabels: string[],
-                     clickHandler: Function,
-                     btnTooltips?: string[]): void;
+    createRadioGroup(
+        node: JQuery,
+        isMethodAppend: boolean,
+        buttonNumber: number,
+        defaultButton: number,
+        btnLabels: string[],
+        clickHandler: Function,
+        btnTooltips?: string[],
+    ): void;
     appendAsLastChild(node: JQuery, element: JQuery): JQuery;
     getLastChild(node: JQuery): JQuery;
     isRdoChecked(eSrc: HTMLElement, rdoId: string): boolean;
@@ -246,7 +242,6 @@ interface IELangEdit extends IELangBase {
     _onSelect(): void;
     _onSelectCallback(): void;
 
-
     _insert(): void;
     _modify(): void;
     _remove(): void;
@@ -301,15 +296,9 @@ interface IELangTest extends IELangBase {
 // interfaces for jQuery.fn.__plugin
 
 interface IFnNewInstance {
-    createInstance(el: HTMLElement,
-                   options: any,
-                   pluginName: string): JQuery;
+    createInstance(el: HTMLElement, options: any, pluginName: string): JQuery;
 }
 
 interface IFnJQuery {
-    fnPlugin(context: JQuery,
-             options: any,
-             command: string,
-             pluginName: string,
-             pluginDataAttribute: string): JQuery;
+    fnPlugin(context: JQuery, options: any, command: string, pluginName: string, pluginDataAttribute: string): JQuery;
 }

@@ -1,4 +1,4 @@
-import { Class } from './Class';
+import { Class } from "./Class";
 
 export class Value<T> extends Class {
     _value: T;

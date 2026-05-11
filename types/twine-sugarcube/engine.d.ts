@@ -14,7 +14,7 @@ export interface EngineAPI {
      *   so implies "playing".
      * @since 2.7.0
      */
-    readonly state: 'idle' | 'playing' | 'rendering';
+    readonly state: "idle" | "playing" | "rendering";
 
     /**
      * Moves backward one moment within the full history (past + future), if possible, activating and showing the

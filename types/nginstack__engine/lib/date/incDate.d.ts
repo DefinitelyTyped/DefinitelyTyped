@@ -1,2 +1,2 @@
-declare function _exports(date: Date, opt_days?: number): Date;
+declare function _exports(date: Date, days?: number): Date;
 export = _exports;

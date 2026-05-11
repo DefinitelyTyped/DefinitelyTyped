@@ -1,20 +1,43 @@
-// Type definitions for natural-drag-animation-rbdnd 2.1
-// Project: https://github.com/rokborf/natural-drag-animation-rbdnd#readme
-// Definitions by: Prajwal Kulkarni <https://github.com/prajwalkulkarni>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+import * as React from "react";
+import { DraggableStateSnapshot, DraggingStyle, NotDraggingStyle } from "react-beautiful-dnd";
 
-import * as React from 'react';
-import { DraggingStyle, NotDraggingStyle, DraggableStateSnapshot } from 'react-beautiful-dnd';
+declare namespace NaturalDragAnimation {
+    interface NaturalDragAnimationType {
+        /**
+         * Pass `snapshot` from `Draggable`.
+         */
+        snapshot: DraggableStateSnapshot;
 
-export default NaturalDragAnimation;
+        /**
+         * In most cases just pass `provided.draggableProps.style` from `Draggable`.
+         * `NaturalDragAnimation` patches `transform` from it.
+         */
+        style: DraggingStyle | NotDraggingStyle | undefined;
 
-interface NaturalDragAnimationType {
-    snapshot: DraggableStateSnapshot;
-    style: DraggingStyle | NotDraggingStyle | undefined;
-    animationRotationFade?: number;
-    rotationMultiplier?: number;
-    sigmoidFunction?: (x: number) => number;
-    children: (style: React.CSSProperties) => React.ReactNode;
+        /**
+         * Use it to define fade speed of end rotation animation.
+         * Must be 0 < `animationRotationFade` < 1.
+         *
+         * @default 0.9
+         */
+        animationRotationFade?: number;
+
+        /**
+         * Use it to define rotation multiplier.
+         *
+         * @default 1.3
+         */
+        rotationMultiplier?: number;
+
+        /**
+         * @default x => x / (1 + Math.abs(x))
+         */
+        sigmoidFunction?: (x: number) => number;
+
+        children: (style: React.CSSProperties) => React.ReactNode;
+    }
 }
 
-declare class NaturalDragAnimation extends React.Component<NaturalDragAnimationType> {}
+declare class NaturalDragAnimation extends React.Component<NaturalDragAnimation.NaturalDragAnimationType> {}
+
+export = NaturalDragAnimation;

@@ -1,3 +1,3 @@
-import { polyfill } from 'smoothscroll-polyfill';
+import { polyfill } from "smoothscroll-polyfill";
 
 polyfill();

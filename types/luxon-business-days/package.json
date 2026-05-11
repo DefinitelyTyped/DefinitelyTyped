@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/luxon-business-days",
+    "version": "3.0.9999",
+    "minimumTypeScriptVersion": "4.9",
+    "projects": [
+        "https://github.com/amaidah/luxon-business-days#readme"
+    ],
+    "dependencies": {
+        "@types/luxon": "*"
+    },
+    "devDependencies": {
+        "@types/luxon-business-days": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Bradley C Bailey",
+            "githubUsername": "bcbailey"
+        }
+    ]
+}

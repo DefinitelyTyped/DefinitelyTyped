@@ -1,16 +1,10 @@
-// Type definitions for wepy 1.7
-// Project: https://github.com/Tencent/wepy#readme, https://github.com/wepyjs/wepy
-// Definitions by: Jiayu Liu <https://github.com/Jimexist>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
-import component from "./component";
-import mixin from "./mixin";
-import event from "./event";
-import page from "./page";
 import app from "./app";
-import util from "./util";
 import base from "./base";
+import component from "./component";
+import event from "./event";
+import mixin from "./mixin";
+import page from "./page";
+import util from "./util";
 import { WxEnhances } from "./wx_enhanced";
 
 export as namespace wepy;

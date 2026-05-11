@@ -1,8 +1,3 @@
-// Type definitions for textfit 2.4
-// Project: https://github.com/STRML/textFit
-// Definitions by: Muhun Kim <https://github.com/x86chi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="jquery" />
 
 declare function textFit(

@@ -1,4 +1,4 @@
-import * as tlre from "time-limited-regular-expressions";
+import tlre from "time-limited-regular-expressions";
 
 tlre(); // $ExpectType TLRE
 tlre({ limit: 1 }); // $ExpectType TLRE

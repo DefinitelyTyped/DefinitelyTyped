@@ -1,17 +1,12 @@
-// Type definitions for redux-react-session 2.6
-// Project: https://github.com/bernabe9/redux-react-session
-// Definitions by: João Neto <https://github.com/joaomlneto>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { Reducer, Action, Store } from 'redux';
+import { Action, Reducer, Store } from "redux";
 import {
-    GetSessionSuccessAction,
     GetSessionErrorAction,
-    GetUserSessionSuccessAction,
+    GetSessionSuccessAction,
     GetUserSessionErrorAction,
+    GetUserSessionSuccessAction,
     InvalidSessionAction,
-} from './actions';
-import { SessionState } from './reducer';
+} from "./actions";
+import { SessionState } from "./reducer";
 
 export type ActionTypes<UserType> =
     | GetSessionSuccessAction

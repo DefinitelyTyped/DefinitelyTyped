@@ -1,13 +1,13 @@
-import * as React from 'react';
-import { confirmable, createConfirmation, ReactConfirmProps } from 'react-confirm';
+import * as React from "react";
+import { confirmable, createConfirmation, ReactConfirmProps } from "react-confirm";
 
 interface CustomModalProps {
-  title: string;
+    title: string;
 }
 
 class CustomModal extends React.Component<CustomModalProps & ReactConfirmProps> {
     modalStyle() {
-        return this.props.show ? { display: 'none' } : undefined;
+        return this.props.show ? { display: "none" } : undefined;
     }
 
     render() {
@@ -36,29 +36,29 @@ const ConfirmModal = confirmable(CustomModal);
 const confirm = createConfirmation(ConfirmModal);
 
 const markup = (
-  <div>
-    <b>Are you sure you want to delete this item?</b>
-  </div>
+    <div>
+        <b>Are you sure you want to delete this item?</b>
+    </div>
 );
 
 // This is how you can detect what option ("Yes" or "No") the user has chosen.
 confirm({ confirmation: markup })
-  .then((result) => {
-    // User chose "Yes"
-  })
-  .catch((result) => {
-    // User chose "No"
-  });
+    .then((result) => {
+        // User chose "Yes"
+    })
+    .catch((result) => {
+        // User chose "No"
+    });
 
 const text = "Are you sure you want to buy this product?";
 
 confirm({ confirmation: text })
-  .then((result) => {
-    // User chose "Yes"
-  })
-  .catch((result) => {
-    // User chose "No"
-  });
+    .then((result) => {
+        // User chose "Yes"
+    })
+    .catch((result) => {
+        // User chose "No"
+    });
 
 // This is the function you need to call to override your confirmation object mount
 //   Promise object it returns to handle "proceed()" or "cancel()" functions.
@@ -67,9 +67,9 @@ document.body.appendChild(mountedNode);
 const mountedConfirm = createConfirmation(ConfirmModal, 1000, mountedNode);
 
 mountedConfirm({ confirmation: markup })
-  .then((result) => {
-    // User chose "Yes"
-  })
-  .catch((result) => {
-    // User chose "No"
-  });
+    .then((result) => {
+        // User chose "Yes"
+    })
+    .catch((result) => {
+        // User chose "No"
+    });

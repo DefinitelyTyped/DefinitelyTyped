@@ -1,5 +1,5 @@
-import { PID, PV1, OBX, ORC, OBR, AIS, AIL } from '../segments';
-import { Base } from './base.event';
+import { AIL, AIS, OBR, OBX, ORC, PID, PV1 } from "../segments";
+import { Base } from "./base.event";
 
 export interface SIU extends Base {
     PID: PID;

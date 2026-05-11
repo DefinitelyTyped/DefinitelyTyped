@@ -1,8 +1,3 @@
-// Type definitions for vanilla-masker 1.2
-// Project: https://fleury.io/vanilla-masker/
-// Definitions by: BenLorantfy <https://github.com/BenLorantfy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface MoneyOptions {
     // Decimal precision -> "90"
     precision?: number | undefined;
@@ -34,17 +29,17 @@ interface PatternOptions {
 }
 
 declare const VMasker: {
-    (el: Element|NodeListOf<Element>): {
+    (el: Element | NodeListOf<Element>): {
         maskMoney: (options?: MoneyOptions) => void;
         maskNumber: () => void;
         maskAlphaNum: () => void;
         maskPattern: (pattern: string) => void;
         unMask: () => void;
-    }
-    toMoney: (value: string|number, options?: MoneyOptions) => string;
-    toPattern: (value: string|number, options?: string|PatternOptions) => string;
-    toNumber: (value: string|number) => string;
-    toAlphaNumeric: (value: string|number) => string;
+    };
+    toMoney: (value: string | number, options?: MoneyOptions) => string;
+    toPattern: (value: string | number, options?: string | PatternOptions) => string;
+    toNumber: (value: string | number) => string;
+    toAlphaNumeric: (value: string | number) => string;
 };
 
 export = VMasker;

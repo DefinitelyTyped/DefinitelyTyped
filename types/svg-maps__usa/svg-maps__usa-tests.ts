@@ -1,25 +1,25 @@
-import USA, { Map } from '@svg-maps/usa';
+import USA, { Map } from "@svg-maps/usa";
 
 const map: Map = USA;
 
 const SVGMapContainer: Map = {
-    viewBox: 'viewBox',
+    viewBox: "viewBox",
     locations: [
         {
-            path: 'path',
-            id: 'id',
-            name: 'name',
+            path: "path",
+            id: "id",
+            name: "name",
         },
     ],
-    label: 'label',
+    label: "label",
 };
 
 const SVGMapContainerNoOptional: Map = {
-    viewBox: 'viewBox',
+    viewBox: "viewBox",
     locations: [
         {
-            path: 'path',
-            id: 'id',
+            path: "path",
+            id: "id",
         },
     ],
 };

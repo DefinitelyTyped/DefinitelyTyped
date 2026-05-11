@@ -1,12 +1,19 @@
-// Type definitions for typedarray-pool v1.1.0
-// Project: https://github.com/mikolalysenko/typedarray-pool
-// Definitions by: Giff Song <https://github.com/pawsong>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 type DataType =
-    'uint8' | 'uint16' | 'uint32' | 'int8' | 'int16' | 'int32' |
-    'float' | 'float32' | 'double' | 'float64' | 'arraybuffer' |
-    'data' | 'dataview' | 'uint8_clamped' | 'buffer';
+    | "uint8"
+    | "uint16"
+    | "uint32"
+    | "int8"
+    | "int16"
+    | "int32"
+    | "float"
+    | "float32"
+    | "double"
+    | "float64"
+    | "arraybuffer"
+    | "data"
+    | "dataview"
+    | "uint8_clamped"
+    | "buffer";
 
 export function malloc(n: number, dtype?: DataType): any;
 

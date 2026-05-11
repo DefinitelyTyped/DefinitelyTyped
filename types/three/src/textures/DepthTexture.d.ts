@@ -1,23 +1,21 @@
-import { Texture } from './Texture';
 import {
-    Mapping,
-    Wrapping,
-    TextureDataType,
-    DeepTexturePixelFormat,
+    DepthTexturePixelFormat,
     MagnificationTextureFilter,
+    Mapping,
     MinificationTextureFilter,
-} from '../constants';
+    TextureComparisonFunction,
+    TextureDataType,
+    Wrapping,
+} from "../constants.js";
+import { Texture } from "./Texture.js";
 
 /**
  * This class can be used to automatically save the depth information of a rendering into a texture
- * @remarks
- * When using a **WebGL1** rendering context, {@link DepthTexture} requires support for the
- * {@link https://www.khronos.org/registry/webgl/extensions/WEBGL_depth_texture/ | WEBGL_depth_texture} extension.
  * @see Example: {@link https://threejs.org/examples/#webgl_depth_texture | depth / texture}
  * @see {@link https://threejs.org/docs/index.html#api/en/textures/DepthTexture | Official Documentation}
  * @see {@link https://github.com/mrdoob/three.js/blob/master/src/textures/DepthTexture.js | Source}
  */
-export class DepthTexture extends Texture {
+export class DepthTexture extends Texture<DepthTextureImageData> {
     /**
      * Create a new instance of {@link DepthTexture}
      * @param width Width of the texture.
@@ -30,6 +28,7 @@ export class DepthTexture extends Texture {
      * @param minFilter  See {@link Texture.minFilter | .minFilter}. Default {@link THREE.NearestFilter}
      * @param anisotropy See {@link Texture.anisotropy | .anisotropy}. Default {@link THREE.Texture.DEFAULT_ANISOTROPY}
      * @param format See {@link DepthTexture.format | .format}. Default {@link THREE.DepthFormat}
+     * @param {number} [depth=1] - The depth of the texture.
      */
     constructor(
         width: number,
@@ -41,7 +40,8 @@ export class DepthTexture extends Texture {
         magFilter?: MagnificationTextureFilter,
         minFilter?: MinificationTextureFilter,
         anisotropy?: number,
-        format?: DeepTexturePixelFormat,
+        format?: DepthTexturePixelFormat,
+        depth?: number,
     );
 
     /**
@@ -50,13 +50,6 @@ export class DepthTexture extends Texture {
      * @defaultValue `true`
      */
     readonly isDepthTexture: true;
-
-    /**
-     * Overridden with a record type holding width and height.
-     * @override
-     */
-    get image(): { width: number; height: number };
-    set image(value: { width: number; height: number });
 
     /**
      * @override
@@ -87,7 +80,7 @@ export class DepthTexture extends Texture {
      * @see {@link Texture.format | Texture.format}
      * @defaultValue {@link THREE.DepthFormat}.
      */
-    format: DeepTexturePixelFormat;
+    format: DepthTexturePixelFormat;
 
     /**
      * @override
@@ -95,4 +88,18 @@ export class DepthTexture extends Texture {
      * @defaultValue {@link THREE.UnsignedInt248Type} when {@link format | .format} === {@link THREE.DepthStencilFormat}
      */
     type: TextureDataType;
+
+    /**
+     * This is used to define the comparison function used when comparing texels in the depth texture to the value in
+     * the depth buffer. Default is `null` which means comparison is disabled.
+     *
+     * See {@link THREE.TextureComparisonFunction} for functions.
+     */
+    compareFunction: TextureComparisonFunction | null;
+}
+
+export interface DepthTextureImageData {
+    width: number;
+    height: number;
+    depth: number;
 }

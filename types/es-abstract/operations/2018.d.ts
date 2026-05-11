@@ -1,17 +1,18 @@
-import ES2017Operations = require('./2017');
-import ES2018 = require('../es2018');
+import ES2017Operations = require("./2017");
+import ES2018 = require("../es2018");
 
-interface ES2018Operations
-    extends Record<keyof ES2018, string>,
-        Omit<
-            ES2017Operations,
-            | 'EnumerableOwnProperties'
-            | 'IsPropertyDescriptor'
-            | 'CreateListIterator'
-            | 'EvaluateDirectCall'
-            | 'ToString Applied to the Number Type'
-            | 'AsyncFunctionAwait'
-        > {
+interface ES2018Operations extends
+    Record<keyof ES2018, string>,
+    Omit<
+        ES2017Operations,
+        | "EnumerableOwnProperties"
+        | "IsPropertyDescriptor"
+        | "CreateListIterator"
+        | "EvaluateDirectCall"
+        | "ToString Applied to the Number Type"
+        | "AsyncFunctionAwait"
+    >
+{
     AsyncGeneratorEnqueue: string;
     AsyncGeneratorFunctionCreate: string;
     AsyncGeneratorReject: string;

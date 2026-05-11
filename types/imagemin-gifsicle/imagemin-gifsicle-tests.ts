@@ -1,7 +1,7 @@
-import imagemin from 'imagemin';
-import imageminGifsicle = require('imagemin-gifsicle');
+import imagemin from "imagemin";
+import imageminGifsicle = require("imagemin-gifsicle");
 
-imagemin(['*.gif'], {
+imagemin(["*.gif"], {
     plugins: [
         imageminGifsicle(),
         imageminGifsicle({}),

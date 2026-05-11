@@ -1,7 +1,7 @@
 /// <reference types="react" />
-import * as React from 'react';
-import { LabelColors } from '../enums';
-import { FlexboxPropTypes } from '../utils';
+import * as React from "react";
+import { LabelColors } from "../enums";
+import { FlexboxPropTypes } from "../utils";
 /**
  * Label component.
  * http://foundation.zurb.com/sites/docs/label.html

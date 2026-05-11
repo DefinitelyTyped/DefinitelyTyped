@@ -1,11 +1,11 @@
-import { Price } from './price';
-import { OrderConditionals } from './order-conditionals';
-import { OrderCollected } from './order-collected';
-import { Currency } from './currency';
+import { Currency } from "./currency";
+import { OrderCollected } from "./order-collected";
+import { OrderConditionals } from "./order-conditionals";
+import { Price } from "./price";
 
-export type PaymentStatus = 'paid' | 'not_paid' | 'partially_paid' | 'refunded' | 'authorized';
+export type PaymentStatus = "paid" | "not_paid" | "partially_paid" | "refunded" | "authorized";
 
-export type FulfillmentStatus = 'fulfilled' | 'not_fulfilled' | 'partially_fulfilled' | 'returned';
+export type FulfillmentStatus = "fulfilled" | "not_fulfilled" | "partially_fulfilled" | "returned";
 
 export interface CheckoutCaptureResponse {
     id: string;

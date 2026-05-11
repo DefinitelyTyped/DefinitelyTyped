@@ -1,8 +1,3 @@
-// Type definitions for non-npm package kamailio-kemi 5.3
-// Project: https://github.com/kamailio/kamailio/
-// Definitions by: bonan <https://github.com/bonan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // Types and comments extracted from:
 // https://kamailio.org/docs/tutorials/5.3.x/kamailio-kemi-framework/
 
@@ -13,7 +8,39 @@ declare global {
 
 declare namespace KamailioKemi {
     // Allowed flags
-    type Flag = 0|1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|25|26|27|28|29|30|31;
+    type Flag =
+        | 0
+        | 1
+        | 2
+        | 3
+        | 4
+        | 5
+        | 6
+        | 7
+        | 8
+        | 9
+        | 10
+        | 11
+        | 12
+        | 13
+        | 14
+        | 15
+        | 16
+        | 17
+        | 18
+        | 19
+        | 20
+        | 21
+        | 22
+        | 23
+        | 24
+        | 25
+        | 26
+        | 27
+        | 28
+        | 29
+        | 30
+        | 31;
 
     // Write a log message to DEBUG level
     export function dbg(logStr: string): void;
@@ -93,7 +120,7 @@ declare namespace KamailioKemi {
     export function is_myself_turi(): boolean;
 
     // Write a log message specifying the level value.
-    export function log(level: "dbg"|"info"|"warn"|"crit"|"err", msg: string): void;
+    export function log(level: "dbg" | "info" | "warn" | "crit" | "err", msg: string): void;
 
     // Set the SIP message/transaction flag at the index provided by the parameter. The flag parameter has to be a number from 0 to 31.
     export function setflag(flag: Flag): boolean;
@@ -190,30 +217,27 @@ declare namespace KamailioKemi {
 
     // noinspection ReservedWordAsName
     // TypeScript Version: 2.2
-    export {
-        _debugger as debugger,
-        _enum as enum
-    };
+    export { _debugger as debugger, _enum as enum };
 
     export namespace pv {
         // Return the value of pseudo-variable `pvname`.
         // The returned value can be string or integer
-        function get(pvname: string): string|number|null;
+        function get(pvname: string): string | number | null;
 
         // Same as get(), but returns empty string on null
-        function gete(pvname: string): string|number;
+        function gete(pvname: string): string | number;
 
         // Same as get(), but returns `vn` on null
-        function getvn(pvname: string, vn: number): string|number;
+        function getvn(pvname: string, vn: number): string | number;
 
         // Return the value of pseudo-variable pvname if it is different than $null or
         // the parameter vs if the variable is having the $null value.
-        function getvs(pvname: string, vn: number): string|number;
+        function getvs(pvname: string, vn: number): string | number;
 
         // Return the value of pseudo-variable pvname if it is different than $null or the string <<null>> if the
         // variable is having the $null value. This should be used instead of KSR.pv.get(...) in the scripting
         // languages that throw and error when attempting to print a NULL (or NIL) value.
-        function getw(pvname: string): string|number;
+        function getw(pvname: string): string | number;
 
         // Set the value of pseudo-variable pvname to integer value provided by parameter val.
         function seti(pvname: string, val: number): void;
@@ -804,7 +828,13 @@ declare namespace KamailioKemi {
         function pres_auth_status(watcher_uri: string, presentity_uri: string): number;
         function pres_has_subscribers(pres_uri: string, wevent: string): number;
         function pres_refresh_watchers(pres: string, event: string, type: number): number;
-        function pres_refresh_watchers_file(pres: string, event: string, type: number, file_uri: string, filename: string): number;
+        function pres_refresh_watchers_file(
+            pres: string,
+            event: string,
+            type: number,
+            file_uri: string,
+            filename: string,
+        ): number;
         function pres_update_watchers(pres_uri: string, event: string): number;
     }
 
@@ -832,7 +862,13 @@ declare namespace KamailioKemi {
 
     export namespace rabbitmq {
         function publish(exchange: string, routingkey: string, contenttype: string, messagebody: string): number;
-        function publish_consume(exchange: string, routingkey: string, contenttype: string, messagebody: string, dpv: string): number;
+        function publish_consume(
+            exchange: string,
+            routingkey: string,
+            contenttype: string,
+            messagebody: string,
+            dpv: string,
+        ): number;
     }
 
     export namespace regex {
@@ -1174,7 +1210,14 @@ declare namespace KamailioKemi {
         function t_set_max_lifetime(t1: number, t2: number): number;
         function t_set_no_e2e_cancel_reason(state: number): number;
         function t_set_retr(t1: number, t2: number): number;
-        function t_uac_send(method: string, ruri: string, nexthop: string, ssock: string, hdrs: string, body: string): number;
+        function t_uac_send(
+            method: string,
+            ruri: string,
+            nexthop: string,
+            ssock: string,
+            hdrs: string,
+            body: string,
+        ): number;
         function t_use_uac_headers(): number;
     }
 

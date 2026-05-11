@@ -1,51 +1,45 @@
-// Type definitions for non-npm package Windows Image Acquisition 2.0
-// Project: https://msdn.microsoft.com/en-us/library/windows/desktop/ms630368(v=vs.85).aspx
-// Definitions by: Zev Spitz <https://github.com/zspitz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
-
 /// <reference types="activex-interop" />
 
 declare namespace WIA {
     /** String versions of globally unique identifiers (GUIDs) that identify common Device and Item commands. */
     const enum CommandID {
-        wiaCommandChangeDocument = '{04E725B0-ACAE-11D2-A093-00C04F72DC3C}',
-        wiaCommandDeleteAllItems = '{E208C170-ACAD-11D2-A093-00C04F72DC3C}',
-        wiaCommandSynchronize = '{9B26B7B2-ACAD-11D2-A093-00C04F72DC3C}',
-        wiaCommandTakePicture = '{AF933CAC-ACAD-11D2-A093-00C04F72DC3C}',
-        wiaCommandUnloadDocument = '{1F3B3D8E-ACAE-11D2-A093-00C04F72DC3C}',
+        wiaCommandChangeDocument = "{04E725B0-ACAE-11D2-A093-00C04F72DC3C}",
+        wiaCommandDeleteAllItems = "{E208C170-ACAD-11D2-A093-00C04F72DC3C}",
+        wiaCommandSynchronize = "{9B26B7B2-ACAD-11D2-A093-00C04F72DC3C}",
+        wiaCommandTakePicture = "{AF933CAC-ACAD-11D2-A093-00C04F72DC3C}",
+        wiaCommandUnloadDocument = "{1F3B3D8E-ACAE-11D2-A093-00C04F72DC3C}",
     }
 
     /** String versions of globally unique identifiers (GUIDs) that identify DeviceManager events. */
     const enum EventID {
-        wiaEventDeviceConnected = '{A28BBADE-64B6-11D2-A231-00C04FA31809}',
-        wiaEventDeviceDisconnected = '{143E4E83-6497-11D2-A231-00C04FA31809}',
-        wiaEventItemCreated = '{4C8F4EF5-E14F-11D2-B326-00C04F68CE61}',
-        wiaEventItemDeleted = '{1D22A559-E14F-11D2-B326-00C04F68CE61}',
-        wiaEventScanEmailImage = '{C686DCEE-54F2-419E-9A27-2FC7F2E98F9E}',
-        wiaEventScanFaxImage = '{C00EB793-8C6E-11D2-977A-0000F87A926F}',
-        wiaEventScanFilmImage = '{9B2B662C-6185-438C-B68B-E39EE25E71CB}',
-        wiaEventScanImage = '{A6C5A715-8C6E-11D2-977A-0000F87A926F}',
-        wiaEventScanImage2 = '{FC4767C1-C8B3-48A2-9CFA-2E90CB3D3590}',
-        wiaEventScanImage3 = '{154E27BE-B617-4653-ACC5-0FD7BD4C65CE}',
-        wiaEventScanImage4 = '{A65B704A-7F3C-4447-A75D-8A26DFCA1FDF}',
-        wiaEventScanOCRImage = '{9D095B89-37D6-4877-AFED-62A297DC6DBE}',
-        wiaEventScanPrintImage = '{B441F425-8C6E-11D2-977A-0000F87A926F}',
+        wiaEventDeviceConnected = "{A28BBADE-64B6-11D2-A231-00C04FA31809}",
+        wiaEventDeviceDisconnected = "{143E4E83-6497-11D2-A231-00C04FA31809}",
+        wiaEventItemCreated = "{4C8F4EF5-E14F-11D2-B326-00C04F68CE61}",
+        wiaEventItemDeleted = "{1D22A559-E14F-11D2-B326-00C04F68CE61}",
+        wiaEventScanEmailImage = "{C686DCEE-54F2-419E-9A27-2FC7F2E98F9E}",
+        wiaEventScanFaxImage = "{C00EB793-8C6E-11D2-977A-0000F87A926F}",
+        wiaEventScanFilmImage = "{9B2B662C-6185-438C-B68B-E39EE25E71CB}",
+        wiaEventScanImage = "{A6C5A715-8C6E-11D2-977A-0000F87A926F}",
+        wiaEventScanImage2 = "{FC4767C1-C8B3-48A2-9CFA-2E90CB3D3590}",
+        wiaEventScanImage3 = "{154E27BE-B617-4653-ACC5-0FD7BD4C65CE}",
+        wiaEventScanImage4 = "{A65B704A-7F3C-4447-A75D-8A26DFCA1FDF}",
+        wiaEventScanOCRImage = "{9D095B89-37D6-4877-AFED-62A297DC6DBE}",
+        wiaEventScanPrintImage = "{B441F425-8C6E-11D2-977A-0000F87A926F}",
     }
 
     /** String versions of globally unique identifiers (GUIDs) that indicate the file format of an image. */
     const enum FormatID {
-        wiaFormatBMP = '{B96B3CAB-0728-11D3-9D7B-0000F81EF32E}',
-        wiaFormatGIF = '{B96B3CB0-0728-11D3-9D7B-0000F81EF32E}',
-        wiaFormatJPEG = '{B96B3CAE-0728-11D3-9D7B-0000F81EF32E}',
-        wiaFormatPNG = '{B96B3CAF-0728-11D3-9D7B-0000F81EF32E}',
-        wiaFormatTIFF = '{B96B3CB1-0728-11D3-9D7B-0000F81EF32E}',
+        wiaFormatBMP = "{B96B3CAB-0728-11D3-9D7B-0000F81EF32E}",
+        wiaFormatGIF = "{B96B3CB0-0728-11D3-9D7B-0000F81EF32E}",
+        wiaFormatJPEG = "{B96B3CAE-0728-11D3-9D7B-0000F81EF32E}",
+        wiaFormatPNG = "{B96B3CAF-0728-11D3-9D7B-0000F81EF32E}",
+        wiaFormatTIFF = "{B96B3CB1-0728-11D3-9D7B-0000F81EF32E}",
     }
 
     /** Miscellaneous string constants */
     const enum Miscellaneous {
-        wiaAnyDeviceID = '*',
-        wiaIDUnknown = '{00000000-0000-0000-0000-000000000000}',
+        wiaAnyDeviceID = "*",
+        wiaIDUnknown = "{00000000-0000-0000-0000-000000000000}",
     }
 
     /**
@@ -191,7 +185,7 @@ declare namespace WIA {
      */
     class CommonDialog {
         private constructor();
-        private 'WIA.CommonDialog_typekey': CommonDialog;
+        private "WIA.CommonDialog_typekey": CommonDialog;
 
         /**
          * Displays one or more dialog boxes that enable the user to acquire an image from a hardware device for image acquisition and returns an ImageFile
@@ -204,8 +198,15 @@ declare namespace WIA {
          * @param boolean [UseCommonUI=true]
          * @param boolean [CancelError=false]
          */
-        ShowAcquireImage(DeviceType?: WiaDeviceType, Intent?: WiaImageIntent, Bias?: WiaImageBias, FormatID?: string, AlwaysSelectDevice?: boolean, UseCommonUI?: boolean,
-            CancelError?: boolean): ImageFile | null;
+        ShowAcquireImage(
+            DeviceType?: WiaDeviceType,
+            Intent?: WiaImageIntent,
+            Bias?: WiaImageBias,
+            FormatID?: string,
+            AlwaysSelectDevice?: boolean,
+            UseCommonUI?: boolean,
+            CancelError?: boolean,
+        ): ImageFile | null;
 
         /** Launches the Windows Scanner and Camera Wizard and returns Nothing. Future versions may return a collection of ImageFile objects. */
         ShowAcquisitionWizard(Device: Device): null;
@@ -232,7 +233,11 @@ declare namespace WIA {
          * @param boolean [AlwaysSelectDevice=false]
          * @param boolean [CancelError=false]
          */
-        ShowSelectDevice(DeviceType?: WiaDeviceType, AlwaysSelectDevice?: boolean, CancelError?: boolean): Device | null;
+        ShowSelectDevice(
+            DeviceType?: WiaDeviceType,
+            AlwaysSelectDevice?: boolean,
+            CancelError?: boolean,
+        ): Device | null;
 
         /**
          * Displays a dialog box that enables the user to select an item for transfer from a hardware device for image acquisition. Returns the selection as an
@@ -243,7 +248,14 @@ declare namespace WIA {
          * @param boolean [UseCommonUI=true]
          * @param boolean [CancelError=false]
          */
-        ShowSelectItems(Device: Device, Intent?: WiaImageIntent, Bias?: WiaImageBias, SingleSelect?: boolean, UseCommonUI?: boolean, CancelError?: boolean): Items | null;
+        ShowSelectItems(
+            Device: Device,
+            Intent?: WiaImageIntent,
+            Bias?: WiaImageBias,
+            SingleSelect?: boolean,
+            UseCommonUI?: boolean,
+            CancelError?: boolean,
+        ): Items | null;
 
         /**
          * Displays a progress dialog box while transferring the specified Item to the local machine. See Item.Transfer for additional information.
@@ -256,7 +268,7 @@ declare namespace WIA {
     /** The Device object represents an active connection to an imaging device. */
     class Device {
         private constructor();
-        private 'WIA.Device_typekey': Device;
+        private "WIA.Device_typekey": Device;
 
         /** A collection of all commands for this imaging device */
         readonly Commands: DeviceCommands;
@@ -289,7 +301,7 @@ declare namespace WIA {
     /** The DeviceCommand object describes a CommandID that can be used when calling ExecuteCommand on a Device or Item object. */
     class DeviceCommand {
         private constructor();
-        private 'WIA.DeviceCommand_typekey': DeviceCommand;
+        private "WIA.DeviceCommand_typekey": DeviceCommand;
 
         /** Returns the commandID for this Command */
         readonly CommandID: string;
@@ -319,7 +331,7 @@ declare namespace WIA {
     /** The DeviceEvent object describes an EventID that can be used when calling RegisterEvent or RegisterPersistentEvent on a DeviceManager object. */
     class DeviceEvent {
         private constructor();
-        private 'WIA.DeviceEvent_typekey': DeviceEvent;
+        private "WIA.DeviceEvent_typekey": DeviceEvent;
 
         /** Returns the event Description */
         readonly Description: string;
@@ -355,7 +367,7 @@ declare namespace WIA {
      */
     class DeviceInfo {
         private constructor();
-        private 'WIA.DeviceInfo_typekey': DeviceInfo;
+        private "WIA.DeviceInfo_typekey": DeviceInfo;
 
         /** Establish a connection with this device and return a Device object */
         Connect(): Device;
@@ -391,7 +403,7 @@ declare namespace WIA {
      */
     class DeviceManager {
         private constructor();
-        private 'WIA.DeviceManager_typekey': DeviceManager;
+        private "WIA.DeviceManager_typekey": DeviceManager;
 
         /** A collection of all imaging devices connected to this computer */
         readonly DeviceInfos: DeviceInfos;
@@ -408,7 +420,14 @@ declare namespace WIA {
          * path name and the appropriate command-line arguments needed to invoke the application.
          * @param string [DeviceID='*']
          */
-        RegisterPersistentEvent(Command: string, Name: string, Description: string, Icon: string, EventID: string, DeviceID?: string): void;
+        RegisterPersistentEvent(
+            Command: string,
+            Name: string,
+            Description: string,
+            Icon: string,
+            EventID: string,
+            DeviceID?: string,
+        ): void;
 
         /**
          * Unregisters the specified EventID for the specified DeviceID. UnregisterEvent should only be called for EventID and DeviceID for which you called
@@ -422,7 +441,14 @@ declare namespace WIA {
          * Command, Name, Description, Icon, EventID and DeviceID for which you called RegisterPersistentEvent.
          * @param string [DeviceID='*']
          */
-        UnregisterPersistentEvent(Command: string, Name: string, Description: string, Icon: string, EventID: string, DeviceID?: string): void;
+        UnregisterPersistentEvent(
+            Command: string,
+            Name: string,
+            Description: string,
+            Icon: string,
+            EventID: string,
+            DeviceID?: string,
+        ): void;
     }
 
     /**
@@ -431,7 +457,7 @@ declare namespace WIA {
      */
     class Filter {
         private constructor();
-        private 'WIA.Filter_typekey': Filter;
+        private "WIA.Filter_typekey": Filter;
 
         /** Returns a Description of what the filter does */
         readonly Description: string;
@@ -452,7 +478,7 @@ declare namespace WIA {
      */
     class FilterInfo {
         private constructor();
-        private 'WIA.FilterInfo_typekey': FilterInfo;
+        private "WIA.FilterInfo_typekey": FilterInfo;
 
         /** Returns a technical Description of what the filter does and how to use it in a filter chain */
         readonly Description: string;
@@ -521,7 +547,7 @@ declare namespace WIA {
      */
     class ImageFile {
         private constructor();
-        private 'WIA.ImageFile_typekey': ImageFile;
+        private "WIA.ImageFile_typekey": ImageFile;
 
         /** Returns/Sets the current frame in the image */
         ActiveFrame: number;
@@ -581,7 +607,7 @@ declare namespace WIA {
     /** The ImageProcess object manages the filter chain. An ImageProcess object can be created using "WIA.ImageProcess" in a call to CreateObject. */
     class ImageProcess {
         private constructor();
-        private 'WIA.ImageProcess_typekey': ImageProcess;
+        private "WIA.ImageProcess_typekey": ImageProcess;
 
         /** Takes the specified ImageFile and returns the new ImageFile with all the filters applied on success */
         Apply(Source: ImageFile): ImageFile;
@@ -599,7 +625,7 @@ declare namespace WIA {
      */
     class Item {
         private constructor();
-        private 'WIA.Item_typekey': Item;
+        private "WIA.Item_typekey": Item;
 
         /** A collection of all commands for this item */
         readonly Commands: DeviceCommands;
@@ -669,7 +695,7 @@ declare namespace WIA {
      */
     class Property {
         private constructor();
-        private 'WIA.Property_typekey': Property;
+        private "WIA.Property_typekey": Property;
 
         /** Indicates whether the Property Value is read only */
         readonly IsReadOnly: boolean;
@@ -714,7 +740,7 @@ declare namespace WIA {
      */
     class Rational {
         private constructor();
-        private 'WIA.Rational_typekey': Rational;
+        private "WIA.Rational_typekey": Rational;
 
         /** Returns/Sets the Rational Value Denominator */
         Denominator: number;
@@ -792,16 +818,23 @@ declare namespace WIA {
 }
 
 interface ActiveXObject {
-    on(obj: WIA.DeviceManager, event: 'OnEvent', argNames: ['EventID', 'DeviceID', 'ItemID'], handler: (
-        this: WIA.DeviceManager, parameter: { readonly EventID: string, readonly DeviceID: string, readonly ItemID: string }) => void): void;
-    set<TItem>(obj: WIA.Vector<TItem>, propertyName: 'Item', parameterTypes: [number], newValue: TItem): void;
+    on(
+        obj: WIA.DeviceManager,
+        event: "OnEvent",
+        argNames: ["EventID", "DeviceID", "ItemID"],
+        handler: (
+            this: WIA.DeviceManager,
+            parameter: { readonly EventID: string; readonly DeviceID: string; readonly ItemID: string },
+        ) => void,
+    ): void;
+    set<TItem>(obj: WIA.Vector<TItem>, propertyName: "Item", parameterTypes: [number], newValue: TItem): void;
 }
 
 interface ActiveXObjectNameMap {
-    'WIA.CommonDialog': WIA.CommonDialog;
-    'WIA.DeviceManager': WIA.DeviceManager;
-    'WIA.ImageFile': WIA.ImageFile;
-    'WIA.ImageProcess': WIA.ImageProcess;
-    'WIA.Rational': WIA.Rational;
-    'WIA.Vector': WIA.Vector;
+    "WIA.CommonDialog": WIA.CommonDialog;
+    "WIA.DeviceManager": WIA.DeviceManager;
+    "WIA.ImageFile": WIA.ImageFile;
+    "WIA.ImageProcess": WIA.ImageProcess;
+    "WIA.Rational": WIA.Rational;
+    "WIA.Vector": WIA.Vector;
 }

@@ -1,3 +1,6 @@
+import { GraphQLResponse } from "../network/RelayNetworkTypes";
+import { RelayObservable, Sink } from "../network/RelayObservable";
+import { GetDataID } from "./RelayResponseNormalizer";
 import {
     OperationDescriptor,
     OperationLoader,
@@ -7,12 +10,9 @@ import {
     ReactFlightPayloadDeserializer,
     SelectorStoreUpdater,
     Store,
-} from './RelayStoreTypes';
-import { GraphQLResponse } from '../network/RelayNetworkTypes';
-import { Sink, RelayObservable } from '../network/RelayObservable';
-import { GetDataID } from './RelayResponseNormalizer';
+} from "./RelayStoreTypes";
 
-export type ActiveState = 'active' | 'inactive';
+export type ActiveState = "active" | "inactive";
 
 export interface ExecuteConfig {
     readonly getDataID: GetDataID;

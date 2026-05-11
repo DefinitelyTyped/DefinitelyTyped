@@ -1,5 +1,5 @@
-import * as React from 'react';
-import SwaggerUI from 'swagger-ui-react';
+import React from "react";
+import SwaggerUI from "swagger-ui-react";
 
 <div>
     <SwaggerUI
@@ -20,7 +20,7 @@ import SwaggerUI from 'swagger-ui-react';
                 },
             },
         ]}
-        supportedSubmitMethods={[]}
+        supportedSubmitMethods={["get", "post"]}
         deepLinking
         showMutatedRequest={false}
         showExtensions={true}

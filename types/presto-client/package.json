@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/presto-client",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/tagomoris/presto-client-node"
+    ],
+    "devDependencies": {
+        "@types/presto-client": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Matthew Peveler",
+            "githubUsername": "MasterOdin"
+        }
+    ]
+}

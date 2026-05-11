@@ -6,7 +6,7 @@ const server = new Server({
     load: {
         sampleInterval: 1000,
         concurrent: 123,
-    }
+    },
 });
 server.start();
 

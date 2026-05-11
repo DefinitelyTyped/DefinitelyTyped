@@ -1,8 +1,3 @@
-// Type definitions for hunspell-spellchecker 1.0
-// Project: https://github.com/GitbookIO/hunspell-spellchecker
-// Definitions by: Kyle Hensel <https://github.com/k-yle>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 declare namespace Spellchecker {

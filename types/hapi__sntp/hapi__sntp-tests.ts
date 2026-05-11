@@ -1,7 +1,7 @@
-import Sntp = require('@hapi/sntp');
+import Sntp = require("@hapi/sntp");
 
 const options = {
-    host: 'abc',
+    host: "abc",
     port: 123,
 };
 

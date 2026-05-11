@@ -1,4 +1,4 @@
-import {Token, TokenOptions} from '../token';
+import { Token, TokenOptions } from "../token";
 
 export class StaticTokenProvider extends Token {
     /**

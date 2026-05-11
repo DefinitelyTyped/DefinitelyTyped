@@ -1,6 +1,6 @@
 // This file was auto-generated. Please do not edit it.
 
-import * as p5 from '../../index';
+import p5 = require("../../index");
 
 declare module '../../index' {
     class Renderer extends Element {
@@ -15,6 +15,6 @@ declare module '../../index' {
          *   @param [isMainCanvas] whether we're using it as
          *   main canvas
          */
-        constructor(elt: string, pInst?: p5, isMainCanvas?: boolean);
+        constructor(elt: HTMLElement, pInst?: p5, isMainCanvas?: boolean);
     }
 }

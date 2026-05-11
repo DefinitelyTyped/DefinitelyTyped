@@ -1,7 +1,7 @@
-import { Interface as ReadLineInterface } from 'readline';
-import { Observable } from 'rxjs';
-import inquirer = require('../..');
-import ScreenManager = require('../utils/screen-manager');
+import { Interface as ReadLineInterface } from "readline";
+import { Observable } from "rxjs";
+import inquirer = require("../..");
+import ScreenManager = require("../utils/screen-manager");
 
 /**
  * The question-options for the {@link Prompt `Prompt<TQuestion>`}.

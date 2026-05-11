@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/phonetic",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/TomFrost/node-phonetic"
+    ],
+    "devDependencies": {
+        "@types/phonetic": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Emmanuel N Kyeyune",
+            "githubUsername": "emmanuelnk"
+        }
+    ]
+}

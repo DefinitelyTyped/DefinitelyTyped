@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/gulp-concat-css",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/mariocasciaro/gulp-concat-css"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/gulp": "*",
+        "@types/gulp-concat-css": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Igor Voropaev",
+            "githubUsername": "snakeego"
+        }
+    ]
+}

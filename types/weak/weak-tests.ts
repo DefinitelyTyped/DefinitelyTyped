@@ -1,6 +1,6 @@
-import weak = require('weak');
+import weak = require("weak");
 
-const obj = {a: 123};
+const obj = { a: 123 };
 
 const weakReference = weak(obj, () => {
     // collected
@@ -8,7 +8,7 @@ const weakReference = weak(obj, () => {
 
 const sameType = weak.get(weakReference);
 
-function foo(a: {a: number}) {}
+function foo(a: { a: number }) {}
 
 if (sameType) {
     foo(sameType);

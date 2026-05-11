@@ -11,7 +11,7 @@ export interface NetStatInfo {
 }
 
 export interface NetStatMetrics {
-    total: { inputMb: number; outputMb: number; };
+    total: { inputMb: number; outputMb: number };
 
-    [key: string]: { inputMb: number; outputMb: number; };
+    [key: string]: { inputMb: number; outputMb: number };
 }

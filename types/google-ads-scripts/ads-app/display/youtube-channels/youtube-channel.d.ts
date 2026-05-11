@@ -80,11 +80,13 @@ declare namespace GoogleAdsScripts {
          *      }
          */
         interface YouTubeChannelSelector
-            extends Base.Selector<YouTubeChannelIterator>,
+            extends
+                Base.Selector<YouTubeChannelIterator>,
                 Base.SelectorForDateRange,
                 Base.SelectorOrderBy,
                 Base.SelectorWithCondition,
                 Base.SelectorWithIds,
-                Base.SelectorWithLimit {}
+                Base.SelectorWithLimit
+        {}
     }
 }

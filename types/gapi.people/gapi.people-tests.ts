@@ -3,11 +3,11 @@
 {
     // Your Client ID can be retrieved from your project in the Google
     // Developer Console, https://console.developers.google.com
-    var CLIENT_ID = '<YOUR_CLIENT_ID>';
+    var CLIENT_ID = "<YOUR_CLIENT_ID>";
 
     var SCOPES = [
-        'https://www.googleapis.com/auth/contacts.readonly',
-        'https://www.googleapis.com/auth/contacts.other.readonly',
+        "https://www.googleapis.com/auth/contacts.readonly",
+        "https://www.googleapis.com/auth/contacts.other.readonly",
     ];
 
     /**
@@ -17,7 +17,7 @@
         gapi.auth.authorize(
             {
                 client_id: CLIENT_ID,
-                scope: SCOPES.join(' '),
+                scope: SCOPES.join(" "),
                 immediate: true,
             },
             handleAuthResult,
@@ -30,15 +30,15 @@
      * @param {Object} authResult Authorization result.
      */
     function handleAuthResult(authResult: GoogleApiOAuth2TokenObject) {
-        var authorizeDiv = document.getElementById('authorize-div')!;
+        var authorizeDiv = document.getElementById("authorize-div")!;
         if (authResult && !authResult.error) {
             // Hide auth UI, then load client library.
-            authorizeDiv.style.display = 'none';
+            authorizeDiv.style.display = "none";
             loadPeopleApi();
         } else {
             // Show auth UI, allowing the user to initiate authorization by
             // clicking authorize button.
-            authorizeDiv.style.display = 'inline';
+            authorizeDiv.style.display = "inline";
         }
     }
 
@@ -57,7 +57,7 @@
      * of 10 connections.
      */
     function loadPeopleApi() {
-        gapi.client.load('https://people.googleapis.com/$discovery/rest', 'v1', listContacts);
+        gapi.client.load("https://people.googleapis.com/$discovery/rest", "v1", listContacts);
     }
 
     function listContacts() {
@@ -70,19 +70,19 @@
      */
     function listConnectionNames() {
         var request = gapi.client.people.people.connections.list({
-            resourceName: 'people/me',
+            resourceName: "people/me",
             pageSize: 10,
-            personFields: 'names',
+            personFields: "names",
         });
 
-        request.execute(function (resp) {
+        request.execute(function(resp) {
             var connections = resp.connections || [];
-            appendPre('Connections:');
+            appendPre("Connections:");
 
             if (connections.length > 0) {
                 listNames(connections);
             } else {
-                appendPre('No upcoming events found.');
+                appendPre("No upcoming events found.");
             }
         });
     }
@@ -93,17 +93,17 @@
     function listOtherContactNames() {
         var request = gapi.client.people.otherContacts.list({
             pageSize: 10,
-            readMask: 'names',
+            readMask: "names",
         });
 
-        request.execute(function (resp) {
+        request.execute(function(resp) {
             var otherContacts = resp.otherContacts || [];
-            appendPre('Other contacts:');
+            appendPre("Other contacts:");
 
             if (otherContacts.length > 0) {
                 listNames(otherContacts);
             } else {
-                appendPre('No upcoming events found.');
+                appendPre("No upcoming events found.");
             }
         });
     }
@@ -112,17 +112,17 @@
      */
     function searchAndListContactNames() {
         var request = gapi.client.people.otherContacts.search({
-            query: 'Name',
+            query: "Name",
             pageSize: 10,
-            readMask: 'names',
+            readMask: "names",
         });
 
-        request.execute(function (resp) {
+        request.execute(function(resp) {
             if (resp.results && resp.results.length > 0) {
-                appendPre('Contacts found:');
+                appendPre("Contacts found:");
                 listNames(resp.results.map(result => result.person));
             } else {
-                appendPre('No contacts found.');
+                appendPre("No contacts found.");
             }
         });
     }
@@ -133,7 +133,7 @@
             if (person.names && person.names.length > 0) {
                 appendPre(person.names[0].displayName);
             } else {
-                appendPre('No display name found for the contact.');
+                appendPre("No display name found for the contact.");
             }
         }
     }
@@ -145,15 +145,15 @@
      * @param {string} message Text to be placed in pre element.
      */
     function appendPre(message: string) {
-        var pre = document.getElementById('output')!;
-        var textContent = document.createTextNode(message + '\n');
+        var pre = document.getElementById("output")!;
+        var textContent = document.createTextNode(message + "\n");
         pre.appendChild(textContent);
     }
 
     function get() {
         const request = gapi.client.people.people.get({
-            resourceName: 'resourceName',
-            personFields: 'personFields',
+            resourceName: "resourceName",
+            personFields: "personFields",
         });
 
         request.execute(response => {

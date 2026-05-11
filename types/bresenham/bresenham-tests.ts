@@ -1,5 +1,5 @@
-import bresenham = require('bresenham');
-import generatorFn = require('bresenham/generator');
+import bresenham = require("bresenham");
+import generatorFn = require("bresenham/generator");
 
 // $ExpectType Point[]
 bresenham(0, 0, 10, 12);
@@ -8,5 +8,5 @@ bresenham(0, 0, 10, 12);
 bresenham(0, 0, 10, 12, (x: number, y: number) => {
 });
 
-// $ExpectType Generator<Point, any, unknown>
+// $ExpectType Generator<Point, any, unknown> || Generator<Point, any, any>
 generatorFn(0, 0, 10, 12);

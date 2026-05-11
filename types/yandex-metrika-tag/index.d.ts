@@ -1,44 +1,39 @@
-// Type definitions for non-npm package Yandex.Metrika Tag API 2.0
-// Project: https://yandex.ru/support/metrica/code/counter-initialize.html
-// Definitions by: hikiko4ern <https://github.com/hikiko4ern>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare var ym: ym.Event;
 
 declare namespace ym {
     interface Event {
-        (counterId: number, eventName: 'init', parameters: InitParameters): void;
-        (counterId: number, eventName: 'addFileExtension', extensions: string | string[]): void;
-        // eslint-disable-next-line no-unnecessary-generics
-        <CTX>(counterId: number, eventName: 'extLink', url: string, options?: ExtLinkOptions<CTX>): void;
-        // eslint-disable-next-line no-unnecessary-generics
-        <CTX>(counterId: number, eventName: 'file', url: string, options?: FileOptions<CTX>): void;
-        (counterId: number, eventName: 'getClientID', cb: (clientID: string) => void): void;
-        // eslint-disable-next-line no-unnecessary-generics
-        <CTX>(counterId: number, eventName: 'hit', url: string, options?: HitOptions<CTX>): void;
+        (counterId: number, eventName: "init", parameters: InitParameters): void;
+        (counterId: number, eventName: "addFileExtension", extensions: string | string[]): void;
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+        <CTX>(counterId: number, eventName: "extLink", url: string, options?: ExtLinkOptions<CTX>): void;
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+        <CTX>(counterId: number, eventName: "file", url: string, options?: FileOptions<CTX>): void;
+        (counterId: number, eventName: "getClientID", cb: (clientID: string) => void): void;
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+        <CTX>(counterId: number, eventName: "hit", url: string, options?: HitOptions<CTX>): void;
         /** @deprecated */
         (
             counterId: number,
-            eventName: 'hit',
+            eventName: "hit",
             url: string,
             title?: string,
             referer?: string,
             params?: VisitParameters,
         ): void;
-        // eslint-disable-next-line no-unnecessary-generics
-        <CTX>(counterId: number, eventName: 'notBounce', options?: NotBounceOptions<CTX>): void;
-        (counterId: number, eventName: 'params', parameters: VisitParameters | VisitParameters[]): void;
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+        <CTX>(counterId: number, eventName: "notBounce", options?: NotBounceOptions<CTX>): void;
+        (counterId: number, eventName: "params", parameters: VisitParameters | VisitParameters[]): void;
         <CTX>(
             counterId: number,
-            eventName: 'reachGoal',
+            eventName: "reachGoal",
             target: string,
             params?: VisitParameters,
             callback?: (this: CTX) => void,
             ctx?: CTX,
         ): void;
-        (counterId: number, eventName: 'replacePhones'): void;
-        (counterId: number, eventName: 'setUserID', userID: string): void;
-        (counterId: number, eventName: 'userParams', parameters: UserParameters): void;
+        (counterId: number, eventName: "replacePhones"): void;
+        (counterId: number, eventName: "setUserID", userID: string): void;
+        (counterId: number, eventName: "userParams", parameters: UserParameters): void;
     }
 
     interface VisitParameters {
@@ -64,7 +59,7 @@ declare namespace ym {
         trackLinks?: boolean | undefined;
         trustedDomains?: string[] | undefined;
         type?: number | undefined;
-        ut?: 'noindex' | undefined;
+        ut?: "noindex" | undefined;
         webvisor?: boolean | undefined;
         triggerEvent?: boolean | undefined;
     }

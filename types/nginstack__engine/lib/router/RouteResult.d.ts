@@ -44,11 +44,11 @@ declare namespace RouteResult {
 }
 import Status = require('../http/Status.js');
 import MediaType = require('../http/MediaType.js');
-type Response = import('../http/Response');
 declare function transform(result: RouteResult, request: Request): RouteResult;
-declare var MAX_BASE_CHAIN: number;
+declare let MAX_BASE_CHAIN: number;
 declare function addTransformer(
     transformer: (arg0: RouteResult, arg1: Request) => RouteResult | any[]
 ): void;
 declare function removeAllTransformers(): void;
+type Response = import('../http/Response');
 type Request = import('../http/Request');

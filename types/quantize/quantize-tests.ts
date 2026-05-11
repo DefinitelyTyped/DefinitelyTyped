@@ -1,4 +1,4 @@
-import quantize = require('quantize');
+import quantize = require("quantize");
 
 // $ExpectType false | ColorMap
 const colorMap = quantize(
@@ -34,4 +34,4 @@ quantize([[255, 0]], 2);
 quantize([[255, 0, 0]]);
 
 // @ts-expect-error
-quantize([[255, 0, 0]], '2');
+quantize([[255, 0, 0]], "2");

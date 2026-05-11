@@ -1,9 +1,3 @@
-// Type definitions for simple-swizzle 0.2
-// Project: https://github.com/qix-/node-simple-swizzle
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.1
-
 export = swizzle;
 
 /**

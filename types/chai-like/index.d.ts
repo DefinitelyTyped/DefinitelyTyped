@@ -1,9 +1,3 @@
-// Type definitions for chai-like 1.1
-// Project: https://github.com/zation/chai-like
-// Definitions by: Chayim Refael Friedman <https://github.com/ChayimFriedman2>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /// <reference types="chai" />
 
 declare global {

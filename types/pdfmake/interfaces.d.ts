@@ -1,3 +1,4 @@
+/// <reference lib="dom" />
 /// <reference types="node" />
 /// <reference types="pdfkit" />
 
@@ -19,7 +20,7 @@ export interface CustomPageSize {
      * Page height in `pt`, or `auto` to adapt the page height to the document's content
      * (the document will always have a single page).
      */
-    height: number | 'auto';
+    height: number | "auto";
 }
 
 /**
@@ -48,13 +49,54 @@ export interface Position {
  * - American loose sizes (e.g. `TABLOID`)
  */
 export type PredefinedPageSize =
-    | '4A0' | '2A0'
-    | 'A0' | 'A1' | 'A2' | 'A3' | 'A4' | 'A5' | 'A6' | 'A7' | 'A8' | 'A9' | 'A10'
-    | 'B0' | 'B1' | 'B2' | 'B3' | 'B4' | 'B5' | 'B6' | 'B7' | 'B8' | 'B9' | 'B10'
-    | 'C0' | 'C1' | 'C2' | 'C3' | 'C4' | 'C5' | 'C6' | 'C7' | 'C8' | 'C9' | 'C10'
-    | 'RA1' | 'RA2' | 'RA3' | 'RA4'
-    | 'SRA1' | 'SRA2' | 'SRA3' | 'SRA4'
-    | 'EXECUTIVE' | 'FOLIO' | 'LEGAL' | 'LETTER' | 'TABLOID';
+    | "4A0"
+    | "2A0"
+    | "A0"
+    | "A1"
+    | "A2"
+    | "A3"
+    | "A4"
+    | "A5"
+    | "A6"
+    | "A7"
+    | "A8"
+    | "A9"
+    | "A10"
+    | "B0"
+    | "B1"
+    | "B2"
+    | "B3"
+    | "B4"
+    | "B5"
+    | "B6"
+    | "B7"
+    | "B8"
+    | "B9"
+    | "B10"
+    | "C0"
+    | "C1"
+    | "C2"
+    | "C3"
+    | "C4"
+    | "C5"
+    | "C6"
+    | "C7"
+    | "C8"
+    | "C9"
+    | "C10"
+    | "RA1"
+    | "RA2"
+    | "RA3"
+    | "RA4"
+    | "SRA1"
+    | "SRA2"
+    | "SRA3"
+    | "SRA4"
+    | "EXECUTIVE"
+    | "FOLIO"
+    | "LEGAL"
+    | "LETTER"
+    | "TABLOID";
 
 /**
  * Orientation of a page:
@@ -63,7 +105,7 @@ export type PredefinedPageSize =
  *
  * A page's orientation does not rotate its content; it is always rendered top to bottom.
  */
-export type PageOrientation = 'portrait' | 'landscape';
+export type PageOrientation = "portrait" | "landscape";
 
 /**
  * Different types of page breaks:
@@ -73,7 +115,7 @@ export type PageOrientation = 'portrait' | 'landscape';
  * - `beforeOdd`/`afterOdd` adds one or two page breaks before/after an element
  *   so that the content after the page break is on an odd page
  */
-export type PageBreak = 'before' | 'beforeEven' | 'beforeOdd' | 'after' | 'afterEven' | 'afterOdd';
+export type PageBreak = "before" | "beforeEven" | "beforeOdd" | "after" | "afterEven" | "afterOdd";
 
 /**
  * Sizes for the width of stand-alone columns and table columns.
@@ -87,8 +129,8 @@ export type PageBreak = 'before' | 'beforeEven' | 'beforeOdd' | 'after' | 'after
  */
 export type Size =
     | number
-    | 'auto'
-    | '*'
+    | "auto"
+    | "*"
     | string;
 
 /**
@@ -106,6 +148,21 @@ export type PatternFill = [string, string];
  */
 export interface TFontDictionary {
     [fontName: string]: TFontFamilyTypes;
+}
+
+/**
+ * Dictionary of a virtual file system, mapping file paths to base64 file contents.
+ */
+export interface TVirtualFileSystem {
+    [filePath: string]: string;
+}
+
+/**
+ * Container combining a virtual file system and its contained font definitions.
+ */
+export interface TFontContainer {
+    vfs: TVirtualFileSystem;
+    fonts: TFontDictionary;
 }
 
 /**
@@ -171,7 +228,7 @@ export interface TDocumentInformation {
     modDate?: Date | undefined;
 
     /** Indicates whether the document has been corrected for color misregistrations. */
-    trapped?: 'True' | 'False' | 'Unknown' | undefined;
+    trapped?: "True" | "False" | "Unknown" | undefined;
 }
 
 /**
@@ -206,17 +263,17 @@ export type Margins = number | [number, number] | [number, number, number, numbe
  * Available types of decorations.
  * Can be combined with a {@link DecorationStyle}.
  */
-export type Decoration = 'underline' | 'lineThrough' | 'overline';
+export type Decoration = "underline" | "lineThrough" | "overline";
 
 /**
  * Available {@link Decoration} styles.
  */
-export type DecorationStyle = 'solid' | 'dashed' | 'dotted' | 'double' | 'wavy';
+export type DecorationStyle = "solid" | "dashed" | "dotted" | "double" | "wavy";
 
 /**
  * Available horizontal alignment options.
  */
-export type Alignment = 'left' | 'right' | 'justify' | 'center';
+export type Alignment = "left" | "right" | "justify" | "center";
 
 /**
  * Callback to define a height in `pt` for a table row based on its row number
@@ -224,7 +281,7 @@ export type Alignment = 'left' | 'right' | 'justify' | 'center';
  *
  * `auto` sets the height based on the row's content.
  */
-export type DynamicRowSize = (rowIndex: number) => number | 'auto';
+export type DynamicRowSize = (rowIndex: number) => number | "auto";
 
 /**
  * Custom layout to control borders, cell padding, and cell background of a table.
@@ -480,7 +537,7 @@ export interface TableCellProperties {
  * - Use empty objects (`{}`) as placeholders for cells that are covered by other cells
  *   spanning multiple rows or columns.
  */
-export type TableCell = {} | (Content & TableCellProperties);
+export type TableCell = Record<PropertyKey, never> | (Content & TableCellProperties);
 
 /**
  * A table.
@@ -505,7 +562,7 @@ export interface Table {
      *
      * Defaults to `auto`.
      */
-    widths?: '*' | 'auto' | Size[] | undefined;
+    widths?: "*" | "auto" | Size[] | undefined;
 
     /**
      * Row heights of the table.
@@ -517,7 +574,7 @@ export interface Table {
      *
      * Defaults to `auto`.
      */
-    heights?: number | 'auto' | Array<number | 'auto'> | DynamicRowSize | undefined;
+    heights?: number | "auto" | Array<number | "auto"> | DynamicRowSize | undefined;
 
     /**
      * Number of rows from the top that make up the table's header.
@@ -550,7 +607,7 @@ export interface Table {
  * - `headerLineOnly` only renders a horizontal border below the rows marked as header
  * - `lightHorizontalLines` renders gray horizontal borders
  */
-export type PredefinedTableLayout = 'noBorders' | 'headerLineOnly' | 'lightHorizontalLines';
+export type PredefinedTableLayout = "noBorders" | "headerLineOnly" | "lightHorizontalLines";
 
 /**
  * A table layout.
@@ -651,7 +708,7 @@ export interface Style {
     /**
      * Text decoration to apply.
      */
-    decoration?: Decoration | undefined;
+    decoration?: Decoration | Decoration[] | undefined;
 
     /**
      * Style to apply to the given {@link decoration}.
@@ -670,10 +727,20 @@ export interface Style {
     decorationColor?: string | undefined;
 
     /**
+     * Line thickness of the {@link decoration} in `pt`.
+     *
+     * If used in combination with a {@link decorationStyle}, this value is only used as a baseline
+     * for the computation of the actual line width.
+     *
+     * Defaults to a value derived from the {@link fontSize}.
+     */
+    decorationThickness?: number | undefined;
+
+    /**
      * Margins to apply.
      *
      * Overrides the single-side `marginXXX` properties, unless this value is inherited
-     * from a style and they are set directly on the content object.
+     * from another style.
      *
      * Ignored for content within an inline text array
      * (`{ text: [{ ... }] }`).
@@ -684,7 +751,7 @@ export interface Style {
      * Margin in `pt` to apply above the content.
      *
      * If {@link margin} is set, this value is ignored, unless the margin was inherited
-     * from a style and the value is set directly on the content object.
+     * from another style.
      */
     marginTop?: number | undefined;
 
@@ -692,7 +759,7 @@ export interface Style {
      * Margin in `pt` to apply to the right of the content.
      *
      * If {@link margin} is set, this value is ignored, unless the margin was inherited
-     * from a style and the value is set directly on the content object.
+     * from another style.
      */
     marginRight?: number | undefined;
 
@@ -700,7 +767,7 @@ export interface Style {
      * Margin in `pt` to apply below the content.
      *
      * If {@link margin} is set, this value is ignored, unless the margin was inherited
-     * from a style and the value is set directly on the content object.
+     * from another style.
      */
     marginBottom?: number | undefined;
 
@@ -708,7 +775,7 @@ export interface Style {
      * Margin in `pt` to apply to the left of the content.
      *
      * If {@link margin} is set, this value is ignored, unless the margin was inherited
-     * from a style and the value is set directly on the content object.
+     * from another style.
      */
     marginLeft?: number | undefined;
 
@@ -796,6 +863,16 @@ export interface Style {
     noWrap?: boolean | undefined;
 
     /**
+     * Controls the line breaking behavior.
+     *
+     * - `normal` breaks lines at spaces
+     * - `break-all` breaks lines anywhere
+     *
+     * Defaults to `normal`.
+     */
+    wordBreak?: "normal" | "break-all" | undefined;
+
+    /**
      * Space between columns in `pt`.
      *
      * Only applies to {@link ContentColumns} elements.
@@ -803,6 +880,21 @@ export interface Style {
      * Defaults to `0`.
      */
     columnGap?: number | undefined;
+}
+
+/**
+ * Named style defined in {@link TDocumentDefinitions.styles}.
+ */
+export interface NamedStyle extends Style {
+    /**
+     * Names of other styles in {@link TDocumentDefinitions.styles} to extend.
+     *
+     * An array applies the styles in the given order, later styles overriding
+     * properties from the earlier ones.
+     *
+     * Extended styles are overridden by the properties on this style.
+     */
+    extends?: string | string[] | undefined;
 }
 
 /**
@@ -826,6 +918,7 @@ export type StyleReference = string | Style | Array<string | Style>;
  */
 export type Content =
     | string
+    | number
     | Content[]
     | ContentText
     | ContentColumns
@@ -841,7 +934,11 @@ export type Content =
     | ContentImage
     | ContentSvg
     | ContentQr
-    | ContentCanvas;
+    | ContentCanvas
+    // Even though only allowed on the document root level, sections can be nested e.g. in stacks,
+    // so we treat them like normal content elements
+    | ContentSection
+    | ContentAttachment;
 
 /**
  * Internal helper type to prevent TypeScript from allowing
@@ -864,6 +961,8 @@ interface ForbiddenElementProperties {
     svg?: never;
     qr?: never;
     canvas?: never;
+    section?: never;
+    attachment?: never;
 }
 
 /**
@@ -885,11 +984,31 @@ type ForbidOtherElementProperties<TProperty extends keyof ForbiddenElementProper
 >;
 
 /**
+ * Document attachment.
+ *
+ * For linking an attachment to a custom image, use {@link ContentImage.linkToFile} instead.
+ */
+export interface ContentAttachment extends ForbidOtherElementProperties<"attachment"> {
+    /**
+     * Attachment to the document, either declared inline or referenced by name from
+     * {@link TDocumentDefinitions.attachments} or {@link TDocumentDefinitions.files}.
+     */
+    attachment: Attachment | string;
+
+    /**
+     * Icon for the attachment.
+     *
+     * Defaults to `Push`.
+     */
+    icon?: "Push" | "GraphPush" | "Paperclip" | undefined;
+}
+
+/**
  * Text element.
  *
  * For simple text without other properties, a string can be used instead of this element.
  */
-export interface ContentText extends ContentLink, ContentBase, ForbidOtherElementProperties<'text'> {
+export interface ContentText extends ContentLink, ContentBase, ForbidOtherElementProperties<"text"> {
     /**
      * Text content.
      *
@@ -902,7 +1021,7 @@ export interface ContentText extends ContentLink, ContentBase, ForbidOtherElemen
 /**
  * Element that divides its children into multiple columns.
  */
-export interface ContentColumns extends ContentBase, ForbidOtherElementProperties<'columns'> {
+export interface ContentColumns extends ContentBase, ForbidOtherElementProperties<"columns"> {
     /** Divides the given elements into multiple columns. */
     columns: Column[];
 }
@@ -912,7 +1031,7 @@ export interface ContentColumns extends ContentBase, ForbidOtherElementPropertie
  *
  * For simple stacks without properties, a content array can be used instead.
  */
-export interface ContentStack extends ContentBase, ForbidOtherElementProperties<'stack'> {
+export interface ContentStack extends ContentBase, ForbidOtherElementProperties<"stack"> {
     /**
      * Stack that renders the given elements as multiple paragraphs.
      *
@@ -924,7 +1043,7 @@ export interface ContentStack extends ContentBase, ForbidOtherElementProperties<
 /**
  * Element that renders an ordered / numbered list.
  */
-export interface ContentOrderedList extends ContentBase, ForbidOtherElementProperties<'ol'> {
+export interface ContentOrderedList extends ContentBase, ForbidOtherElementProperties<"ol"> {
     /**
      * Renders the given elements as an ordered / numbered list.
      */
@@ -968,7 +1087,7 @@ export interface ContentOrderedList extends ContentBase, ForbidOtherElementPrope
 /**
  * Element that renders an unordered / bulleted list element.
  */
-export interface ContentUnorderedList extends ContentBase, ForbidOtherElementProperties<'ul'> {
+export interface ContentUnorderedList extends ContentBase, ForbidOtherElementProperties<"ul"> {
     /**
      * Renders the given elements as an unordered / bulleted list.
      */
@@ -985,7 +1104,7 @@ export interface ContentUnorderedList extends ContentBase, ForbidOtherElementPro
 /**
  * Canvas / vector element.
  */
-export interface ContentCanvas extends ContentBase, ForbidOtherElementProperties<'canvas'> {
+export interface ContentCanvas extends ContentBase, ForbidOtherElementProperties<"canvas"> {
     /**
      * Renders the given vector elements on a canvas.
      *
@@ -999,15 +1118,15 @@ export interface ContentCanvas extends ContentBase, ForbidOtherElementProperties
  *
  * For images other than SVG, use a {@link ContentImage} instead.
  */
-export interface ContentSvg extends ContentBase, ForbidOtherElementProperties<'svg'> {
+export interface ContentSvg extends ContentBase, ContentLink, ForbidOtherElementProperties<"svg"> {
     /**
-     * Renders the given SVG content string as an image.
+     * Renders the given SVG element or content string as an image.
      *
      * For images other than SVG, use the `image` property instead.
      *
      * Simple vectors can also be rendered using the `canvas` property instead.
      */
-    svg: string;
+    svg: string | SVGElement;
 
     /**
      * Width of the image in `pt`.
@@ -1053,7 +1172,7 @@ export interface ContentSvg extends ContentBase, ForbidOtherElementProperties<'s
  *
  * For SVG images, use a {@link ContentSvg} element instead.
  */
-export interface ContentImage extends ContentLink, ContentBase, ForbidOtherElementProperties<'image'> {
+export interface ContentImage extends ContentLink, ContentBase, ForbidOtherElementProperties<"image"> {
     /**
      * Renders the given value as image.
      *
@@ -1109,12 +1228,18 @@ export interface ContentImage extends ContentLink, ContentBase, ForbidOtherEleme
      * or vertically.
      */
     cover?: ImageCover | undefined;
+
+    /**
+     * Links the image to an attachment, either declared inline or referenced by name from
+     * {@link TDocumentDefinitions.attachments} or {@link TDocumentDefinitions.files}.
+     */
+    linkToFile?: Attachment | string | undefined;
 }
 
 /**
  * Table element.
  */
-export interface ContentTable extends ContentBase, ForbidOtherElementProperties<'table'> {
+export interface ContentTable extends ContentBase, ForbidOtherElementProperties<"table"> {
     /**
      * Renders a table.
      *
@@ -1136,7 +1261,7 @@ export interface ContentTable extends ContentBase, ForbidOtherElementProperties<
  *
  * Anchors can contain text content only.
  */
-export interface ContentAnchor extends ContentBase, ForbidOtherElementProperties<'text'> {
+export interface ContentAnchor extends ContentBase, ForbidOtherElementProperties<"text"> {
     /**
      * Text content of the anchor.
      */
@@ -1153,7 +1278,7 @@ export interface ContentAnchor extends ContentBase, ForbidOtherElementProperties
 /**
  * Text element to be displayed in a table of contents.
  */
-export interface ContentTocItem extends ContentBase, ForbidOtherElementProperties<'text'> {
+export interface ContentTocItem extends ContentBase, ForbidOtherElementProperties<"text"> {
     /**
      * Text content of the element.
      *
@@ -1196,7 +1321,7 @@ export interface ContentTocItem extends ContentBase, ForbidOtherElementPropertie
 /**
  * Reference to an anchor element, displaying its page number.
  */
-export interface ContentPageReference extends ContentBase, ForbidOtherElementProperties<'pageReference'> {
+export interface ContentPageReference extends ContentBase, ForbidOtherElementProperties<"pageReference"> {
     /**
      * `id` of a {@link ContentAnchor} to reference.
      *
@@ -1212,7 +1337,7 @@ export interface ContentPageReference extends ContentBase, ForbidOtherElementPro
 /**
  * Reference to an anchor element, displaying its text content.
  */
-export interface ContentTextReference extends ContentBase, ForbidOtherElementProperties<'textReference'> {
+export interface ContentTextReference extends ContentBase, ForbidOtherElementProperties<"textReference"> {
     /**
      * `id` of a {@link ContentAnchor} to reference.
      *
@@ -1226,7 +1351,7 @@ export interface ContentTextReference extends ContentBase, ForbidOtherElementPro
 /**
  * Table of contents element.
  */
-export interface ContentToc extends ContentBase, ForbidOtherElementProperties<'toc'> {
+export interface ContentToc extends ContentBase, ForbidOtherElementProperties<"toc"> {
     /**
      * Renders a table of contents.
      *
@@ -1240,7 +1365,7 @@ export interface ContentToc extends ContentBase, ForbidOtherElementProperties<'t
 /**
  * QR code element.
  */
-export interface ContentQr extends ContentBase, ForbidOtherElementProperties<'qr'> {
+export interface ContentQr extends ContentBase, ForbidOtherElementProperties<"qr"> {
     /**
      * Renders the given string as a QR code.
      */
@@ -1298,14 +1423,14 @@ export interface ContentQr extends ContentBase, ForbidOtherElementProperties<'qr
      *
      * Defaults to `L`.
      */
-    eccLevel?: 'L' | 'M' | 'Q' | 'H' | undefined;
+    eccLevel?: "L" | "M" | "Q" | "H" | undefined;
 
     /**
      * QR code encoding mode.
      *
      * Defaults to the mode that produces the smallest payload for the given {@link qr} data.
      */
-    mode?: 'numeric' | 'alphanumeric' | 'octet' | undefined;
+    mode?: "numeric" | "alphanumeric" | "octet" | undefined;
 
     /**
      * QR code mask pattern from 0-7.
@@ -1314,6 +1439,15 @@ export interface ContentQr extends ContentBase, ForbidOtherElementProperties<'qr
      * avoid problematic patterns in the resulting QR code.
      */
     mask?: number | undefined;
+
+    /**
+     * Padding on all sides of the QR code, specified as multiples of the size of a QR code pixel.
+     *
+     * The padding does not affect the size of the QR code itself, even if {@link fit} is specified.
+     *
+     * Defaults to `0`.
+     */
+    padding?: number | undefined;
 }
 
 /**
@@ -1412,6 +1546,65 @@ export interface ContentLink {
 }
 
 /**
+ * Document section. Only allowed at the root level of the document.
+ */
+export interface ContentSection extends ForbidOtherElementProperties<"section"> {
+    /**
+     * Content within the document section.
+     */
+    section: Content;
+
+    /**
+     * Size of the section's pages.
+     *
+     * Defaults to the document-wide value.
+     */
+    pageSize?: TDocumentDefinitions["pageSize"] | "inherit" | null;
+
+    /**
+     * Orientation of the section's pages.
+     *
+     * Defaults to the document-wide value.
+     */
+    pageOrientation?: TDocumentDefinitions["pageOrientation"] | "inherit" | null;
+
+    /**
+     * Margins around the content on each page of the section.
+     *
+     * Defaults to the document-wide value.
+     */
+    pageMargins?: TDocumentDefinitions["pageMargins"] | "inherit" | null;
+
+    /**
+     * Header content that is repeated on every page of the section.
+     *
+     * Defaults to the document-wide value.
+     */
+    header?: TDocumentDefinitions["header"] | "inherit" | null;
+
+    /**
+     * Footer content that is repeated on every page of the section.
+     *
+     * Defaults to the document-wide value.
+     */
+    footer?: TDocumentDefinitions["footer"] | "inherit" | null;
+
+    /**
+     * Content that is rendered behind the section's content, and repeated for every page.
+     *
+     * Defaults to the document-wide value.
+     */
+    background?: TDocumentDefinitions["background"] | "inherit" | null;
+
+    /**
+     * Watermark that is rendered on top of each page of the section.
+     *
+     * Defaults to the document-wide value.
+     */
+    watermark?: TDocumentDefinitions["watermark"] | "inherit" | null;
+}
+
+/**
  * Table of contents.
  *
  * One document may contain more than one table of contents.
@@ -1455,6 +1648,27 @@ export interface TableOfContent {
      *   {@link ContentTocItem.tocItem} to its ID
      */
     id?: string | undefined;
+
+    /**
+     * If set to `true`, the table of contents is hidden when it contains no items.
+     */
+    hideEmpty?: boolean | undefined;
+
+    /**
+     * Controls how the items are sorted.
+     *
+     * Defaults to `page`.
+     */
+    sortBy?: "page" | "title" | undefined;
+
+    /**
+     * Specifies the locale used for sorting as BCP 47 language tag, e.g. `en-US`.
+     *
+     * Only relevant if {@link sortBy} is set to `title`.
+     *
+     * Defaults to the system locale.
+     */
+    sortLocale?: string | undefined;
 }
 
 /**
@@ -1484,12 +1698,12 @@ export type Column = Content & ColumnProperties;
  * - `none`: no marker
  */
 export type OrderedListType =
-    | 'decimal'
-    | 'lower-alpha'
-    | 'upper-alpha'
-    | 'lower-roman'
-    | 'upper-roman'
-    | 'none';
+    | "decimal"
+    | "lower-alpha"
+    | "upper-alpha"
+    | "lower-roman"
+    | "upper-roman"
+    | "none";
 
 /**
  * Additional properties of {@link Content} objects that are used as items
@@ -1512,6 +1726,15 @@ export interface OrderedListElementProperties {
      * Defaults to the list's {@link ContentOrderedList.type}.
      */
     listType?: OrderedListType | undefined;
+
+    /**
+     * Color of the list marker (i.e. number).
+     *
+     * Supports well-known color names like `blue` or hexadecimal color strings like `#ccffcc`.
+     *
+     * Defaults to the list's marker color.
+     */
+    markerColor?: string | undefined;
 }
 
 /**
@@ -1526,7 +1749,7 @@ export type OrderedListElement = Content & OrderedListElementProperties;
  * - `circle`: an outlined circle
  * - `none`: no marker
  */
-export type UnorderedListType = 'disc' | 'square' | 'circle' | 'none';
+export type UnorderedListType = "disc" | "square" | "circle" | "none";
 
 /**
  * Additional properties of {@link Content} objects that are used as items
@@ -1539,6 +1762,15 @@ export interface UnorderedListElementProperties {
      * Defaults to the list's {@link ContentUnorderedList.type}.
      */
     listType?: UnorderedListType | undefined;
+
+    /**
+     * Color of the list marker (i.e. bullet point).
+     *
+     * Supports well-known color names like `blue` or hexadecimal color strings like `#ccffcc`.
+     *
+     * Defaults to the list's marker color.
+     */
+    markerColor?: string | undefined;
 }
 
 /**
@@ -1557,7 +1789,7 @@ export type CanvasElement = CanvasRect | CanvasPolyline | CanvasLine | CanvasEll
  * - `square` renders a long square line end
  * - `round` renders a long round line end
  */
-export type CanvasLineCap = 'butt' | 'round' | 'square';
+export type CanvasLineCap = "butt" | "round" | "square";
 
 /**
  * Type to render joints between lines of different angles in a canvas:
@@ -1565,13 +1797,13 @@ export type CanvasLineCap = 'butt' | 'round' | 'square';
  * - `round` renders round edges
  * - `bevel` adds diagonal edges
  */
-export type CanvasLineJoin = 'miter' | 'round' | 'bevel';
+export type CanvasLineJoin = "miter" | "round" | "bevel";
 
 /**
  * A rectangle as part of a {@link ContentCanvas}.
  */
 export interface CanvasRect extends CanvasLineElement, CanvasFilledElement {
-    type: 'rect';
+    type: "rect";
 
     /** Horizontal position from the left edge of the canvas element in `pt`. */
     x: number;
@@ -1608,7 +1840,7 @@ export interface Point {
  * A line or shape consisting of multiple points as part of a {@link ContentCanvas}.
  */
 export interface CanvasPolyline extends CanvasLineElement, CanvasFilledElement {
-    type: 'polyline';
+    type: "polyline";
 
     /**
      * The points that make up the line.
@@ -1634,7 +1866,7 @@ export interface CanvasPolyline extends CanvasLineElement, CanvasFilledElement {
  * A simple line as part of a {@link ContentCanvas}.
  */
 export interface CanvasLine extends CanvasLineElement {
-    type: 'line';
+    type: "line";
 
     /** Horizontal line start position from the left in `pt`. */
     x1: number;
@@ -1660,7 +1892,7 @@ export interface CanvasLine extends CanvasLineElement {
  * An ellipse or circle as part of a {@link ContentCanvas}.
  */
 export interface CanvasEllipse extends CanvasLineElement, CanvasFilledElement {
-    type: 'ellipse';
+    type: "ellipse";
 
     /** Horizontal position from the left edge of the canvas element in `pt`. */
     x: number;
@@ -1759,12 +1991,12 @@ export interface CanvasLineElement {
 /**
  * Horizontal image alignment within its container.
  */
-export type ImageAlignment = 'left' | 'right' | 'center';
+export type ImageAlignment = "left" | "right" | "center";
 
 /**
  * Vertical image alignment within its container.
  */
-export type ImageVerticalAlignment = 'top' | 'bottom' | 'center';
+export type ImageVerticalAlignment = "top" | "bottom" | "center";
 
 /**
  * Container to completely cover with an image, possibly cutting it off horizontally
@@ -1804,13 +2036,28 @@ export interface ImageCover {
  * Dictionary of reusable style definitions that can be referenced by their key.
  */
 export interface StyleDictionary {
-    [name: string]: Style;
+    [name: string]: NamedStyle;
 }
 
 /**
  * Supported PDF versions.
  */
-export type PDFVersion = '1.3' | '1.4' | '1.5' | '1.6' | '1.7' | '1.7ext3';
+export type PDFVersion = "1.3" | "1.4" | "1.5" | "1.6" | "1.7" | "1.7ext3";
+
+/**
+ * Supported PDF subsets.
+ */
+export type PDFSubset =
+    | "PDF/A-1"
+    | "PDF/A-1a"
+    | "PDF/A-1b"
+    | "PDF/A-2"
+    | "PDF/A-2a"
+    | "PDF/A-2b"
+    | "PDF/A-3"
+    | "PDF/A-3a"
+    | "PDF/A-3b"
+    | "PDF/UA";
 
 /**
  * Watermark that is rendered on top of each page.
@@ -1918,6 +2165,31 @@ export interface ImageDefinition {
 }
 
 /**
+ * Document attachment.
+ */
+export interface Attachment {
+    /**
+     * Attachment source.
+     *
+     * Available options:
+     * - Data URLs
+     * - Remote URLs via http:// or https://
+     * - File paths (on the server)
+     */
+    src: string;
+
+    /**
+     * File name of the attachment.
+     */
+    name?: string | undefined;
+
+    /**
+     * Description of the attachment.
+     */
+    description?: string | undefined;
+}
+
+/**
  * Complete definition of a PDF document.
  */
 export interface TDocumentDefinitions {
@@ -2002,18 +2274,13 @@ export interface TDocumentDefinitions {
      * Not called for nodes that have `pageBreak: 'before'` set.
      *
      * @param currentNode - The current content node to check.
-     * @param followingNodesOnPage - The content nodes defined after the current node on the same page.
-     * @param nodesOnNextPage - The content nodes on the page after the current node's page.
-     * @param previousNodesOnPage - The content nodes defined before the current node on the same page.
+     * @param nodeQueries - container to request additional information about the node.
      *
      * @returns whether to insert a page break before the current node.
      */
-    pageBreakBefore?: ((
-        currentNode: Node,
-        followingNodesOnPage: Node[],
-        nodesOnNextPage: Node[],
-        previousNodesOnPage: Node[],
-    ) => boolean) | undefined;
+    pageBreakBefore?:
+        | ((currentNode: Node, nodeQueries: NodeQueries) => boolean)
+        | undefined;
 
     /**
      * Margins around the {@link content} on each page.
@@ -2043,7 +2310,7 @@ export interface TDocumentDefinitions {
     /**
      * Dictionary for reusable styles to be referenced by their key throughout the document.
      *
-     * To define styles that should apply by default, use {@link defaultStyles} instead.
+     * To define styles that should apply by default, use {@link defaultStyle} instead.
      */
     styles?: StyleDictionary | undefined;
 
@@ -2091,6 +2358,25 @@ export interface TDocumentDefinitions {
     version?: PDFVersion | undefined;
 
     /**
+     * Subset of the PDF specification the document is created with.
+     */
+    subset?: PDFSubset | undefined;
+
+    /**
+     * Controls whether the document is marked as a tagged PDF.
+     *
+     * Defaults to `false`.
+     */
+    tagged?: boolean | undefined;
+
+    /**
+     * Controls whether the document title should be displayed in the window title of the PDF viewer.
+     *
+     * Defaults to `false`.
+     */
+    displayTitle?: boolean | undefined;
+
+    /**
      * Watermark that is rendered on top of each page.
      */
     watermark?: string | Watermark | undefined;
@@ -2099,6 +2385,23 @@ export interface TDocumentDefinitions {
      * Dictionary of reusable pattern definitions that can be referenced by their key.
      */
     patterns?: Record<string, Pattern> | undefined;
+
+    /**
+     * Document language as BCP 47 language tag, e.g. `en-US`.
+     */
+    language?: string | undefined;
+
+    /**
+     * Document attachments that can be referenced by their key.
+     *
+     * To embed attachment files, use {@link files} instead.
+     */
+    attachments?: Record<string, Attachment> | undefined;
+
+    /**
+     * Document attachment files to embed into the document, that can be referenced by their key.
+     */
+    files?: Record<string, Attachment> | undefined;
 }
 
 /**
@@ -2196,6 +2499,26 @@ export interface Node {
 }
 
 /**
+ * Container to request additional information about a {@link Node}.
+ */
+export interface NodeQueries {
+    /**
+     * Returns the nodes after the current one on the same page.
+     */
+    getFollowingNodesOnPage: () => Node[];
+
+    /**
+     * Returns the nodes on the next page.
+     */
+    getNodesOnNextPage: () => Node[];
+
+    /**
+     * Returns the nodes before the current one on the same page.
+     */
+    getPreviousNodesOnPage: () => Node[];
+}
+
+/**
  * Information about the effective page size.
  */
 export interface ContextPageSize {
@@ -2212,10 +2535,76 @@ export interface ContextPageSize {
 export interface BufferOptions {
     fontLayoutCache?: boolean | undefined;
     bufferPages?: boolean | undefined;
-    tableLayouts?: { [key: string]: CustomTableLayout } | undefined;
     autoPrint?: boolean | undefined;
-    progressCallback?: ((progress: number) => void) | undefined;
 }
+
+export interface TCreatedPdf {
+    /**
+     * Returns a promise to the streamable PDFKit document.
+     */
+    getStream(): Promise<PDFKit.PDFDocument>;
+
+    /**
+     * Generates the PDF as a binary buffer.
+     */
+    getBuffer(): Promise<Buffer>;
+
+    /**
+     * Generates the PDF as a base64 string.
+     */
+    getBase64(): Promise<string>;
+
+    /**
+     * Generates the PDF as a data URL.
+     */
+    getDataUrl(): Promise<string>;
+
+    /**
+     * Writes the PDF on disk.
+     *
+     * **Note:** Only supported on the server.
+     */
+    write(fileName: string): Promise<void>;
+
+    /**
+     * Generates the PDF as a blob object.
+     *
+     * **Note:** Only supported in the browser.
+     */
+    getBlob(): Promise<Blob>;
+
+    /**
+     * Downloads the generated PDF.
+     *
+     * **Note:** Only supported in the browser.
+     */
+    download(defaultFileName?: string): Promise<void>;
+
+    /**
+     * Opens the generated PDF.
+     *
+     * @param window defaults to opening a new window.
+     *
+     * **Note:** Only supported in the browser.
+     */
+    open(win?: Window | null): Promise<void>;
+
+    /**
+     * Prints the generated PDF.
+     *
+     * @param window defaults to opening a new window.
+     *
+     * **Note:** Only supported in the browser.
+     */
+    print(win?: Window | null): Promise<void>;
+}
+
+/**
+ * Callback to track the document generation process.
+ *
+ * @param progress Current progress between 0 and 1.
+ */
+export type ProgressCallback = (progress: number) => void;
 
 // disable automatic exporting
 export {};

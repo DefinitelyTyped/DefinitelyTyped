@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/shippo",
+    "version": "1.7.9999",
+    "projects": [
+        "https://github.com/goshippo/shippo-node-client"
+    ],
+    "devDependencies": {
+        "@types/shippo": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "James Lismore",
+            "githubUsername": "jlismore"
+        },
+        {
+            "name": "Christopher Alexander",
+            "githubUsername": "clalexander"
+        }
+    ]
+}

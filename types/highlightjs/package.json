@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/highlightjs",
+    "version": "9.12.9999",
+    "projects": [
+        "https://github.com/isagalaev/highlight.js"
+    ],
+    "devDependencies": {
+        "@types/highlightjs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Andrew Branch",
+            "githubUsername": "andrewbranch"
+        }
+    ]
+}

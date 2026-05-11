@@ -1,2 +1,2 @@
-import validator from '../../';
+import validator from "../../";
 export default validator.isDataURI;

@@ -1,11 +1,3 @@
-// Type definitions for SystemJS 0.20
-// Project: https://github.com/systemjs/systemjs
-// Definitions by: Ludovic HENIN <https://github.com/ludohenin>
-//                 Nathan Walker <https://github.com/NathanWalker>
-//                 Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
-//                 Aluan Haddad <https://github.com/aluanhaddad>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = SystemJSLoader;
 
 export as namespace SystemJSLoader;
@@ -39,7 +31,6 @@ declare namespace SystemJSLoader {
      * - amd: Asynchronous Module Definition
      * - global: Global shim module format
      * - register: System.register or System.registerDynamic compatibility module format
-     *
      */
     type ModuleFormat = "esm" | "cjs" | "amd" | "global" | "register";
 
@@ -48,7 +39,14 @@ declare namespace SystemJSLoader {
      * Represents a module name for System.import that must resolve to either Traceur, Babel or TypeScript.
      * When set to traceur, babel or typescript, loading will be automatically configured as far as possible.
      */
-    type Transpiler = "plugin-traceur" | "plugin-babel" | "plugin-typescript" | "traceur" | "babel" | "typescript" | false;
+    type Transpiler =
+        | "plugin-traceur"
+        | "plugin-babel"
+        | "plugin-typescript"
+        | "traceur"
+        | "babel"
+        | "typescript"
+        | false;
 
     type ConfigMap = PackageList<string | PackageList<string>>;
 
@@ -259,9 +257,9 @@ declare namespace SystemJSLoader {
              * which will be resolved using normal SystemJS resolution.
              * Note: This setting is specific to plugin-typescript.
              */
-            tsconfig?: boolean | string | undefined,
+            tsconfig?: boolean | string | undefined;
 
-            [key: string]: any
+            [key: string]: any;
         } | undefined;
     }
 
@@ -285,7 +283,7 @@ declare namespace SystemJSLoader {
         /**
          * This represents the System base class, which can be extended or reinstantiated to create a custom System instance.
          */
-        constructor: new () => System;
+        constructor: new() => System;
 
         /**
          * Deletes a module from the registry by normalized name.
@@ -335,7 +333,12 @@ declare namespace SystemJSLoader {
          * Companion module format to System.register for non-ES6 modules.
          * Provides a <script>-injection-compatible module format that any CommonJS or Global module can be converted into for CSP compatibility.
          */
-        registerDynamic(name: string, deps: string[], executingRequire: boolean, declare: (...modules: any[]) => any): void;
+        registerDynamic(
+            name: string,
+            deps: string[],
+            executingRequire: boolean,
+            declare: (...modules: any[]) => any,
+        ): void;
         registerDynamic(deps: string[], executingRequire: boolean, declare: (...modules: any[]) => any): void;
 
         /**

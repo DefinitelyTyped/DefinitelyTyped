@@ -1,11 +1,11 @@
-/* eslint-disable no-unnecessary-generics */
-import { BlockInstance } from '@wordpress/blocks';
-import { Autocomplete, ToolbarButton } from '@wordpress/components';
-import { ComponentType, HTMLProps, ReactNode } from 'react';
-import { displayShortcut, rawShortcut } from '@wordpress/keycodes';
+/* eslint-disable @definitelytyped/no-unnecessary-generics */
+import { Block } from "@wordpress/blocks";
+import { Autocomplete, ToolbarButton } from "@wordpress/components";
+import { displayShortcut, rawShortcut } from "@wordpress/keycodes";
+import { ComponentProps, ComponentType, HTMLProps, JSX } from "react";
 
 declare namespace RichText {
-    interface Props<T extends keyof HTMLElementTagNameMap> extends Omit<HTMLProps<T>, 'onChange'> {
+    interface Props<T extends keyof HTMLElementTagNameMap> extends Omit<HTMLProps<T>, "onChange"> {
         /**
          * By default, all registered formats are allowed. This setting can be used to fine-tune
          * the allowed formats.
@@ -14,9 +14,13 @@ declare namespace RichText {
         /**
          * A list of autocompleters to use instead of the default.
          */
-        autocompleters?: Array<Autocomplete.Completer<any>> | undefined;
+        autocompleters?: ComponentProps<typeof Autocomplete>["completers"] | undefined;
         children?: never | undefined;
         className?: string | undefined;
+        /**
+         * Disables inserting line breaks on Enter when it is set to true
+         */
+        disableLineBreaks?: boolean | undefined;
         identifier?: string | undefined;
         inlineToolbar?: boolean | undefined;
         /**
@@ -42,13 +46,13 @@ declare namespace RichText {
         /**
          * Called when the `RichText` instance can be replaced with the given blocks.
          */
-        onReplace?(blocks: BlockInstance[]): void;
+        onReplace?(blocks: Block[]): void;
         /**
          * Called when the content can be split, where `value` is a piece of content being split
          * off. Here you should create a new block with that content and return it. Note that you
          * also need to provide `onReplace` in order for this to take any effect.
          */
-        onSplit?(value: string): void;
+        onSplit?(value: string, isOriginal?: boolean): void;
         onTagNameChange?(tagName: keyof HTMLElementTagNameMap): void;
         /**
          * Placeholder text to show when the field is empty, similar to the `input` and `textarea`
@@ -66,21 +70,25 @@ declare namespace RichText {
          * if provided.
          */
         value: string;
+        /**
+         * By default, all formatting controls are present. This setting can be used to remove formatting controls that would make content interactive. This is useful if you want to make content that is already interactive editable.
+         */
+        withoutInteractiveFormatting?: boolean | undefined;
         wrapperClassName?: string | undefined;
     }
     interface ContentProps<T extends keyof HTMLElementTagNameMap> extends HTMLProps<T> {
         children?: never | undefined;
-        multiline?: boolean | 'p' | 'li' | undefined;
+        multiline?: boolean | "p" | "li" | undefined;
         tagName?: T | undefined;
         value: string;
     }
 }
 declare const RichText: {
-    <T extends keyof HTMLElementTagNameMap = 'div'>(props: RichText.Props<T>): JSX.Element;
+    <T extends keyof HTMLElementTagNameMap = "div">(props: RichText.Props<T>): JSX.Element;
     /**
      * Should be used in the `save` function of your block to correctly save rich text content.
      */
-    Content<T extends keyof HTMLElementTagNameMap = 'div'>(props: RichText.ContentProps<T>): JSX.Element;
+    Content<T extends keyof HTMLElementTagNameMap = "div">(props: RichText.ContentProps<T>): JSX.Element;
     isEmpty(value: string | string[]): boolean;
 };
 
@@ -94,7 +102,7 @@ export namespace RichTextShortcut {
 export const RichTextShortcut: ComponentType<RichTextShortcut.Props>;
 
 export namespace RichTextToolbarButton {
-    interface Props extends ToolbarButton.Props {
+    interface Props extends ComponentProps<typeof ToolbarButton> {
         name?: string | undefined;
         shortcutType?: keyof typeof displayShortcut | undefined;
         shortcutCharacter?: string | undefined;

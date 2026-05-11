@@ -1,9 +1,9 @@
-import postcss from 'postcss';
-import * as postcssJs from 'postcss-js';
+import postcss from "postcss";
+import * as postcssJs from "postcss-js";
 
 const style = {
     top: 10,
-    '&:hover': {
+    "&:hover": {
         top: 5,
     },
 };
@@ -12,16 +12,18 @@ const style = {
 postcss()
     .process(style, { parser: postcssJs.parse })
     .then(result => {
-        result; // $ExpectType Result_
+        result; // $ExpectType Result_<Document_ | Root_> | Result_<Root_>
     });
 
 // Try to parse random object with postcss-js parser (errors)
 // @ts-expect-error
-postcss().process('.a {}', { parser: postcssJs.parse });
+postcss().process(".a {}", { parser: postcssJs.parse });
 
 postcssJs.parse(style);
 
 postcssJs.objectify(postcss.root());
+postcssJs.objectify(postcss.root(), {});
+postcssJs.objectify(postcss.root(), { stringifyImportant: true });
 
 // Sync and async fail to work if no parameters are passed
 // @ts-expect-error

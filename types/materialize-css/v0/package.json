@@ -1,0 +1,37 @@
+{
+    "private": true,
+    "name": "@types/materialize-css",
+    "version": "0.100.9999",
+    "projects": [
+        "http://materializecss.com/"
+    ],
+    "dependencies": {
+        "@types/jquery": "*",
+        "@types/pickadate": "*"
+    },
+    "devDependencies": {
+        "@types/materialize-css": "workspace:."
+    },
+    "owners": [
+        {
+            "name": " Erik Lieben",
+            "githubUsername": "eriklieben"
+        },
+        {
+            "name": "Leon Yu",
+            "githubUsername": "leonyu"
+        },
+        {
+            "name": "Jean-Francois Cere",
+            "githubUsername": "jfcere"
+        },
+        {
+            "name": "Sebastien Cote",
+            "githubUsername": "scote"
+        },
+        {
+            "name": "Liad Idan",
+            "githubUsername": "LiadIdan"
+        }
+    ]
+}

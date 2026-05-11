@@ -20,6 +20,6 @@ stringifier.end();
 // Option: emitInvalidLines
 const parser2 = jsonlines.parse({ emitInvalidLines: true }); // $ExpectType Parser
 
-parser2.on('invalid-line', err => {
+parser2.on("invalid-line", err => {
     err; // $ExpectType Error
 });

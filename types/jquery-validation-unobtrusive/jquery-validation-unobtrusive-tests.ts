@@ -1,11 +1,9 @@
-
-
 // Test overloads for `add` method
-$.validator.unobtrusive.adapters.add("adapter", () => { });
-$.validator.unobtrusive.adapters.add("adapter", function () {
+$.validator.unobtrusive.adapters.add("adapter", () => {});
+$.validator.unobtrusive.adapters.add("adapter", function() {
     return true;
 });
-$.validator.unobtrusive.adapters.add("adapter", ["param1", "param2"], () => { });
+$.validator.unobtrusive.adapters.add("adapter", ["param1", "param2"], () => {});
 
 // Test overloads for `addMinMax` method
 $.validator.unobtrusive.adapters.addMinMax("adapter", "minRule", "maxRule", "minMaxRule");
@@ -27,7 +25,7 @@ $.validator.unobtrusive.adapters.addMethod("adapter", (value, element, params) =
 
 // Test method chaining
 $.validator.unobtrusive.adapters
-    .add("required", () => { })
+    .add("required", () => {})
     .addMinMax("length", "minlength", "maxlength", "rangelength")
     .addSingleVal("regex", "pattern")
     .addBool("url")
@@ -39,14 +37,14 @@ $.validator.unobtrusive.adapters
 var adapterName = $.validator.unobtrusive.adapters[0].name;
 
 // Test `Adapters` iterator
-$.each($.validator.unobtrusive.adapters, function (index, adapter) {
+$.each($.validator.unobtrusive.adapters, function(index, adapter) {
     console.log(adapter.name);
     console.log(adapter.params);
     console.log(adapter.adapt);
 });
 
 // Test `Adapters` array
-$.validator.unobtrusive.adapters.push({ name: "adapter", params: ["param1"], adapt: () => { } });
+$.validator.unobtrusive.adapters.push({ name: "adapter", params: ["param1"], adapt: () => {} });
 
 // Test overloads for `parseElement`
 $.validator.unobtrusive.parseElement("form");

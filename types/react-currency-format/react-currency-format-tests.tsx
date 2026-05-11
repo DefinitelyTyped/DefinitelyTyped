@@ -1,5 +1,5 @@
-import React = require('react');
-import CurrencyFormat = require('react-currency-format');
+import React = require("react");
+import CurrencyFormat = require("react-currency-format");
 
 // When displayType is text, the component should have attributes of a span element.
 <CurrencyFormat displayType="text" contentEditable />;
@@ -39,16 +39,16 @@ import CurrencyFormat = require('react-currency-format');
 
 <CurrencyFormat format="#### #### #### ####" mask="_" />;
 
-<CurrencyFormat format="##/##" placeholder="MM/YY" mask={['M', 'M', 'Y', 'Y']} />;
+<CurrencyFormat format="##/##" placeholder="MM/YY" mask={["M", "M", "Y", "Y"]} />;
 
 function limit(val: string, max: string) {
     if (val.length === 1 && val[0] > max[0]) {
-        val = '0' + val;
+        val = "0" + val;
     }
 
     if (val.length === 2) {
         if (Number(val) === 0) {
-            val = '01';
+            val = "01";
         } else if (val > max) {
             val = max;
         }
@@ -58,10 +58,10 @@ function limit(val: string, max: string) {
 }
 
 function cardExpiry(val: string) {
-    const month = limit(val.substring(0, 2), '12');
+    const month = limit(val.substring(0, 2), "12");
     const year = val.substring(2, 4);
 
-    return month + (year.length ? '/' + year : '');
+    return month + (year.length ? "/" + year : "");
 }
 
 <CurrencyFormat format={cardExpiry} />;
@@ -70,7 +70,7 @@ function cardExpiry(val: string) {
 
 const TextField = ({ title }: { title: string }) => <input title={title} />;
 
-TextField.displayName = 'Custom Text Field';
+TextField.displayName = "Custom Text Field";
 
 <CurrencyFormat title="Input title" customInput={TextField} format="#### #### #### ####" />;
 

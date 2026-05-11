@@ -1,10 +1,3 @@
-// Type definitions for karma-coverage 2.0
-// Project: https://github.com/karma-runner/karma-coverage
-// Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
-//                 Yaroslav Admin <https://github.com/devoto13>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import "karma";
 import { Store } from "istanbul";
 

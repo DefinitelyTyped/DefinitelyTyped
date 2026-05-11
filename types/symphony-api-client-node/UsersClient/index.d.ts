@@ -45,4 +45,10 @@ export function getUsersFromEmailList(commaSeparatedEmails: string, local?: bool
 
 export function getUsersFromIdList(commaSeparatedIds: string, local?: boolean): Promise<UsersList>;
 
-export function searchUsers(query: string, local?: boolean, skip?: number, limit?: number, filter?: UserFilter): Promise<SearchUserResponse>;
+export function searchUsers(
+    query: string,
+    local?: boolean,
+    skip?: number,
+    limit?: number,
+    filter?: UserFilter,
+): Promise<SearchUserResponse>;

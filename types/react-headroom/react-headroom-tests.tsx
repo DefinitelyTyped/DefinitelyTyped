@@ -1,5 +1,5 @@
-import * as React from 'react';
-import Headroom from 'react-headroom';
+import * as React from "react";
+import Headroom from "react-headroom";
 
 class HeadroomWrapper extends React.Component {
     render() {

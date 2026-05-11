@@ -6,16 +6,16 @@ new AMap.LineSearch({});
 new AMap.LineSearch({
     pageIndex: 1,
     pageSize: 2,
-    city: '深圳',
-    extensions: 'all'
+    city: "深圳",
+    extensions: "all",
 });
 
 // $ExpectType void
-lineSearch.searchById('buslineId', (status, result) => {
-    const temp: 'error' | 'complete' | 'no_data' = status;
+lineSearch.searchById("buslineId", (status, result) => {
+    const temp: "error" | "complete" | "no_data" = status;
     // $ExpectType string | SearchResult
     result;
-    if (typeof result !== 'string') {
+    if (typeof result !== "string") {
         // $ExpectType string
         result.info;
         {
@@ -34,7 +34,7 @@ lineSearch.searchById('buslineId', (status, result) => {
             lineInfo.start_stop;
             // $ExpectType string
             lineInfo.type;
-            if ('basic_price' in lineInfo) {
+            if ("basic_price" in lineInfo) {
                 // $ExpectType string
                 lineInfo.basic_price;
                 // $ExpectType Bounds
@@ -86,8 +86,8 @@ lineSearch.searchById('buslineId', (status, result) => {
     }
 });
 
-lineSearch.search('keyword', (status, result) => {
-    const temp: 'error' | 'complete' | 'no_data' = status;
+lineSearch.search("keyword", (status, result) => {
+    const temp: "error" | "complete" | "no_data" = status;
     // $ExpectType string | SearchResult
     result;
 });
@@ -103,11 +103,11 @@ lineSearch.setPageSize(10);
 lineSearch.setPageSize();
 
 // $ExpectType void
-lineSearch.setCity('ctiy');
+lineSearch.setCity("ctiy");
 // $ExpectType void
 lineSearch.setCity();
 
-lineSearch.on('complete', (event: AMap.LineSearch.EventMap['complete']) => {
+lineSearch.on("complete", (event: AMap.LineSearch.EventMap["complete"]) => {
     // $ExpectType "complete"
     event.type;
     // $ExpectType string
@@ -116,7 +116,7 @@ lineSearch.on('complete', (event: AMap.LineSearch.EventMap['complete']) => {
     event.lineInfo;
 });
 
-lineSearch.on('error', (event: AMap.LineSearch.EventMap['error']) => {
+lineSearch.on("error", (event: AMap.LineSearch.EventMap["error"]) => {
     // $ExpectType "error"
     event.type;
     // $ExpectType string

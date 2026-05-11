@@ -6,23 +6,23 @@
   Minor changes have been made such as adding variable definitions where required.
 */
 
-import Big, { RoundingMode } from 'big.js';
+import Big, { RoundingMode } from "big.js";
 
 function constructorTests() {
     const x: Big = new Big(9); // '9'
     const y = new Big(x); // '9'
     const d = Big(435.345); // 'new' is optional
-    const e = Big('435.345'); // 'new' is optional
-    const a = new Big('5032485723458348569331745.33434346346912144534543');
-    const b = new Big('4.321e+4'); // '43210'
-    const c = new Big('-735.0918e-430'); // '-7.350918e-428'
+    const e = Big("435.345"); // 'new' is optional
+    const a = new Big("5032485723458348569331745.33434346346912144534543");
+    const b = new Big("4.321e+4"); // '43210'
+    const c = new Big("-735.0918e-430"); // '-7.350918e-428'
 }
 
 function staticPropertiesTests() {
     Big.DP = 40;
     Big.RM = 3;
-    Big.RM = RoundingMode.RoundUp;
     Big.RM = Big.roundUp;
+    const roundUp: RoundingMode = Big.roundUp;
 }
 
 function staticReadonlyPropertiesTests() {
@@ -56,7 +56,7 @@ function divTests() {
 function eqTests() {
     0 === 1e-324; // true
     const x = new Big(0);
-    x.eq('1e-324'); // false
+    x.eq("1e-324"); // false
     Big(-0).eq(x); // true  ( -0 === 0 )
 }
 
@@ -156,8 +156,8 @@ function timesTests() {
     0.6 * 3; // 1.7999999999999998
     const x = new Big(0.6);
     const y = x.times(3); // '1.8'
-    Big('7e+500').times(y); // '1.26e+501'
-    Big('7e+500').mul(y); // '1.26e+501'
+    Big("7e+500").times(y); // '1.26e+501'
+    Big("7e+500").mul(y); // '1.26e+501'
 }
 
 function toExponentialTests() {
@@ -292,50 +292,50 @@ function toPrecisionWithRoundingModeTests() {
 }
 
 function toStringTests() {
-    const x = new Big('9.99e+20');
+    const x = new Big("9.99e+20");
     x.toString(); // '999000000000000000000'
-    const y = new Big('1E21');
+    const y = new Big("1E21");
     x.toString(); // '1e+21'
 }
 
 function toNumberTests() {
-    const x = new Big('123.45');
+    const x = new Big("123.45");
     x.toNumber(); // 123.45
-    const y = new Big('1.0000000000000000001');
+    const y = new Big("1.0000000000000000001");
     y.toNumber(); // 1
 }
 
 function valueOfTests() {
-    const x = new Big('177.7e+457');
+    const x = new Big("177.7e+457");
     x.valueOf(); // '1.777e+459'
 }
 
 function toJSONTests() {
-    const x = new Big('177.7e+457');
+    const x = new Big("177.7e+457");
     const y = new Big(235.4325);
-    const z = new Big('0.0098074');
+    const z = new Big("0.0098074");
     const str = JSON.stringify([x, y, z]);
 
-    const a = new Big('123').toJSON();
+    const a = new Big("123").toJSON();
 
-    JSON.parse(str, (k, v) => (k === '' ? v : new Big(v))); // Returns an array of three Big numbers.
+    JSON.parse(str, (k, v) => (k === "" ? v : new Big(v))); // Returns an array of three Big numbers.
 }
 
 // test Big.c
 function coefficientTests() {
-    const x = new Big('123');
+    const x = new Big("123");
     x.c; // [1, 2, 3]
 }
 
 // test Big.e
 function exponentTests() {
-    const x = new Big('123e+20');
+    const x = new Big("123e+20");
     x.e; // 22
 }
 
 // test Big.s
 function signTests() {
-    const x = new Big('-123');
+    const x = new Big("-123");
     x.s; // -1
 }
 

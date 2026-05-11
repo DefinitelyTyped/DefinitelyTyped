@@ -1,19 +1,19 @@
-import Ember from 'ember';
 import {
-    UnwrapComputedPropertySetters,
+    UnwrapComputedPropertyGetter,
     UnwrapComputedPropertyGetters,
     UnwrapComputedPropertySetter,
-    UnwrapComputedPropertyGetter,
-} from '@ember/object/-private/types';
-import { assertType } from '../lib/assert';
+    UnwrapComputedPropertySetters,
+} from "@ember/object/-private/types";
+import Ember from "ember";
+import { assertType } from "../lib/assert";
 
 class Example1 extends Ember.Object.extend({
-    firstName: '',
-    lastName: '',
-    allNames: Ember.computed('fullName', function () {
+    firstName: "",
+    lastName: "",
+    allNames: Ember.computed("fullName", function() {
         return [this.fullName];
     }) as Ember.ComputedProperty<string[]>,
-    fullName: Ember.computed('firstName', 'lastName', function () {
+    fullName: Ember.computed("firstName", "lastName", function() {
         // tslint:disable-next-line:no-unnecessary-type-assertion
         return `${this.firstName} ${this.lastName}` as string;
     }),
@@ -32,26 +32,26 @@ unwrappedSetters1.fullName; // $ExpectType string
 unwrappedSetters1.allNames; // $ExpectType string[]
 
 class Example2 extends Ember.Object.extend({
-    allNames: Ember.computed('fullName', function () {
-        return [this.fullName + ''];
+    allNames: Ember.computed("fullName", function() {
+        return [this.fullName + ""];
     }),
-    fullName: Ember.computed('firstName', 'lastName', function () {
+    fullName: Ember.computed("firstName", "lastName", function() {
         // tslint:disable-next-line:no-unnecessary-type-assertion
         return `${this.firstName} ${this.lastName}` as string;
     }),
 }) {
-    firstName = '';
-    lastName = '';
+    firstName = "";
+    lastName = "";
     foo() {
         this.fullName; // $ExpectType ComputedProperty<string, string>
         this.allNames; // $ExpectType ComputedProperty<string[], string[]>
         this.firstName; // $ExpectType string
         this.lastName; // $ExpectType string
 
-        this.get('fullName').split(','); // $ExpectType string[]
-        this.get('allNames')[0]; // $ExpectType string
-        this.get('firstName').split(','); // $ExpectType string[]
-        this.get('lastName').split(','); // $ExpectType string[]
+        this.get("fullName").split(","); // $ExpectType string[]
+        this.get("allNames")[0]; // $ExpectType string
+        this.get("firstName").split(","); // $ExpectType string[]
+        this.get("lastName").split(","); // $ExpectType string[]
     }
 }
 const ex2 = new Example2();

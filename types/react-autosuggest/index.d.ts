@@ -1,17 +1,4 @@
-// Type definitions for react-autosuggest 10.1
-// Project: http://react-autosuggest.js.org/, https://github.com/moroshko/react-autosuggest
-// Definitions by: Nicolas Schmitt <https://github.com/nicolas-schmitt>
-//                 Philip Ottesen <https://github.com/pjo256>
-//                 Robert Essig <https://github.com/robessog>
-//                 Terry Bayne <https://github.com/tbayne>
-//                 Christopher Deutsch <https://github.com/cdeutsch>
-//                 Thomas den Hollander <https://github.com/ThomasdenH>
-//                 ulrichb <https://github.com/ulrichb>
-//                 Arthur Fücher <https://github.com/afucher>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
-
-import * as React from 'react';
+import * as React from "react";
 
 declare class Autosuggest<T = any, T2 = any> extends React.Component<
     Autosuggest.AutosuggestProps<T, T2>,
@@ -39,20 +26,20 @@ declare namespace Autosuggest {
     >;
 
     type FetchRequestedReasons =
-        | 'input-changed'
-        | 'input-focused'
-        | 'escape-pressed'
-        | 'suggestions-revealed'
-        | 'suggestion-selected';
+        | "input-changed"
+        | "input-focused"
+        | "escape-pressed"
+        | "suggestions-revealed"
+        | "suggestion-selected";
 
     type ShouldRenderReasons =
-        | 'input-changed'
-        | 'input-focused'
-        | 'input-blurred'
-        | 'escape-pressed'
-        | 'suggestions-revealed'
-        | 'suggestions-updated'
-        | 'render';
+        | "input-changed"
+        | "input-focused"
+        | "input-blurred"
+        | "escape-pressed"
+        | "suggestions-revealed"
+        | "suggestions-updated"
+        | "render";
 
     interface SuggestionsFetchRequestedParams {
         value: string;
@@ -70,7 +57,7 @@ declare namespace Autosuggest {
 
     interface ChangeEvent {
         newValue: string;
-        method: 'down' | 'up' | 'escape' | 'enter' | 'click' | 'type';
+        method: "down" | "up" | "escape" | "enter" | "click" | "type";
     }
 
     interface BlurEvent<TSuggestion> {
@@ -82,7 +69,7 @@ declare namespace Autosuggest {
         ref?: React.Ref<HTMLInputElement> | undefined;
     }
 
-    interface InputProps<TSuggestion> extends Omit<React.InputHTMLAttributes<HTMLElement>, 'onChange' | 'onBlur'> {
+    interface InputProps<TSuggestion> extends Omit<React.InputHTMLAttributes<HTMLElement>, "onChange" | "onBlur"> {
         onChange: (event: React.FormEvent<HTMLElement>, params: ChangeEvent) => void;
         onBlur?: ((event: React.FocusEvent<HTMLElement>, params?: BlurEvent<TSuggestion>) => void) | undefined;
         value: string;
@@ -96,24 +83,24 @@ declare namespace Autosuggest {
         suggestionValue: string;
         suggestionIndex: number;
         sectionIndex: number | null;
-        method: 'click' | 'enter';
+        method: "click" | "enter";
     }
 
     type ThemeKey =
-        | 'container'
-        | 'containerOpen'
-        | 'input'
-        | 'inputOpen'
-        | 'inputFocused'
-        | 'suggestionsContainer'
-        | 'suggestionsContainerOpen'
-        | 'suggestionsList'
-        | 'suggestion'
-        | 'suggestionFirst'
-        | 'suggestionHighlighted'
-        | 'sectionContainer'
-        | 'sectionContainerFirst'
-        | 'sectionTitle';
+        | "container"
+        | "containerOpen"
+        | "input"
+        | "inputOpen"
+        | "inputFocused"
+        | "suggestionsContainer"
+        | "suggestionsContainerOpen"
+        | "suggestionsList"
+        | "suggestion"
+        | "suggestionFirst"
+        | "suggestionHighlighted"
+        | "sectionContainer"
+        | "sectionContainerFirst"
+        | "sectionTitle";
 
     type Theme = Record<string, string | React.CSSProperties> | Partial<Record<ThemeKey, string | React.CSSProperties>>;
 
@@ -228,7 +215,7 @@ declare namespace Autosuggest {
         /**
          * These are the suggestions that will be displayed. Items can take an arbitrary shape.
          */
-        suggestions: ReadonlyArray<TSuggestion>;
+        suggestions: readonly TSuggestion[];
     }
 
     interface AutosuggestPropsMultiSection<TSuggestion, TSection> extends AutosuggestPropsBase<TSuggestion> {
@@ -239,7 +226,7 @@ declare namespace Autosuggest {
         /**
          * These are the suggestions that will be displayed. Items can take an arbitrary shape.
          */
-        suggestions: ReadonlyArray<TSection>;
+        suggestions: readonly TSection[];
         /**
          * Implement it to teach Autosuggest where to find the suggestions for every section.
          */

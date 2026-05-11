@@ -1,5 +1,5 @@
-import * as React from 'react';
-import windowSize, { WindowSizeProps } from 'react-window-size';
+import * as React from "react";
+import windowSize, { WindowSizeProps } from "react-window-size";
 
 interface TestProps {
     foo: string;
@@ -7,17 +7,7 @@ interface TestProps {
 
 type TestInnerProps = TestProps & WindowSizeProps;
 
-const TestComponent: React.ComponentType<TestInnerProps> = ({ foo, windowHeight, windowWidth }) => {
-    foo; // $ExpectType string
-    windowHeight; // $ExpectType number
-    windowWidth; // $ExpectType number
-    return (
-        <div>
-            <p>Foo: {foo}</p>
-            <p>Window height: {windowHeight}</p>
-            <p>Window width: {windowWidth}</p>
-        </div>
-    );
-};
+declare const TestComponent: React.ComponentType<TestInnerProps>;
 
-windowSize(TestComponent); // $ExpectType ComponentType<TestProps>
+// $ExpectType ComponentType<TestProps>
+windowSize(TestComponent);

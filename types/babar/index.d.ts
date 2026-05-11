@@ -1,13 +1,8 @@
-// Type definitions for babar 0.2
-// Project: https://github.com/stephan83/babar#readme
-// Definitions by: Matt Bachmann <https://github.com/Bachmann1234>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-type color = 'yellow' | 'cyan' | 'white' | 'magenta' | 'green' | 'red' | 'grey' | 'blue';
+type color = "yellow" | "cyan" | "white" | "magenta" | "green" | "red" | "grey" | "blue";
 
 interface Options {
     caption?: string | undefined;
-    color?: color | 'ascii' | undefined;
+    color?: color | "ascii" | undefined;
     grid?: color | undefined;
     width?: number | undefined;
     height?: number | undefined;

@@ -1,13 +1,13 @@
-import JsReport = require('jsreport-core');
-import JsReportDocx = require('jsreport-docx');
+import JsReport = require("jsreport-core");
+import JsReportDocx = require("jsreport-docx");
 
 const template: JsReport.TemplateLike = {
-    content: '',
-    recipe: 'docx',
-    engine: 'handlebars',
+    content: "",
+    recipe: "docx",
+    engine: "handlebars",
     docx: {
-        templateAsetShortid: 'aaaa'
-    }
+        templateAsetShortid: "aaaa",
+    },
 };
 
 (async () => {
@@ -16,7 +16,7 @@ const template: JsReport.TemplateLike = {
 
     try {
         await jsreport.render({
-            template
+            template,
         });
     } catch (e) {
         // intentional

@@ -1,9 +1,9 @@
 import { EventEmitter } from "events";
-import { Secret } from "jsonwebtoken";
-import { ServerOptions } from "https";
 import { IncomingMessage, Server } from "http";
+import { ServerOptions } from "https";
+import { Secret } from "jsonwebtoken";
 import { SCAuthEngine } from "sc-auth";
-import { SCExchange, Client } from "sc-broker-cluster";
+import { Client, SCExchange } from "sc-broker-cluster";
 import WebSocket = require("ws");
 
 import SCServerSocket = require("./scserversocket");
@@ -42,21 +42,63 @@ declare class SCServer extends EventEmitter {
     on(event: "handshake", listener: SCServer.handshakeListenerFunction): this;
     on(event: "badSocketAuthToken", listener: SCServer.badSocketAuthTokenListenerFunction): this;
 
-    addMiddleware(type: "handshakeWS", middlewareFn: (req: IncomingMessage, next: SCServer.nextMiddlewareFunction) => void): void;
-    addMiddleware(type: "handshakeSC", middlewareFn: (req: SCServer.HandshakeSCRequest, next: SCServer.nextHandshakeSCMiddlewareFunction) => void): void;
-    addMiddleware(type: "authenticate", middlewareFn: (req: SCServer.AuthenticateRequest, next: SCServer.nextAuthenticateMiddlewareFunction) => void): void;
-    addMiddleware(type: "subscribe", middlewareFn: (req: SCServer.SubscribeRequest, next: SCServer.nextMiddlewareFunction) => void): void;
-    addMiddleware(type: "publishIn", middlewareFn: (req: SCServer.PublishInRequest, next: SCServer.nextMiddlewareFunction) => void): void;
-    addMiddleware(type: "publishOut", middlewareFn: (req: SCServer.PublishOutRequest, next: SCServer.nextMiddlewareFunction) => void): void;
-    addMiddleware(type: "emit", middlewareFn: (req: SCServer.EmitRequest, next: SCServer.nextMiddlewareFunction) => void): void;
+    addMiddleware(
+        type: "handshakeWS",
+        middlewareFn: (req: IncomingMessage, next: SCServer.nextMiddlewareFunction) => void,
+    ): void;
+    addMiddleware(
+        type: "handshakeSC",
+        middlewareFn: (req: SCServer.HandshakeSCRequest, next: SCServer.nextHandshakeSCMiddlewareFunction) => void,
+    ): void;
+    addMiddleware(
+        type: "authenticate",
+        middlewareFn: (req: SCServer.AuthenticateRequest, next: SCServer.nextAuthenticateMiddlewareFunction) => void,
+    ): void;
+    addMiddleware(
+        type: "subscribe",
+        middlewareFn: (req: SCServer.SubscribeRequest, next: SCServer.nextMiddlewareFunction) => void,
+    ): void;
+    addMiddleware(
+        type: "publishIn",
+        middlewareFn: (req: SCServer.PublishInRequest, next: SCServer.nextMiddlewareFunction) => void,
+    ): void;
+    addMiddleware(
+        type: "publishOut",
+        middlewareFn: (req: SCServer.PublishOutRequest, next: SCServer.nextMiddlewareFunction) => void,
+    ): void;
+    addMiddleware(
+        type: "emit",
+        middlewareFn: (req: SCServer.EmitRequest, next: SCServer.nextMiddlewareFunction) => void,
+    ): void;
 
-    removeMiddleware(type: "handshakeWS", middlewareFn: (req: IncomingMessage, next: SCServer.nextMiddlewareFunction) => void): void;
-    removeMiddleware(type: "handshakeSC", middlewareFn: (req: SCServer.HandshakeSCRequest, next: SCServer.nextHandshakeSCMiddlewareFunction) => void): void;
-    removeMiddleware(type: "authenticate", middlewareFn: (req: SCServer.AuthenticateRequest, next: SCServer.nextAuthenticateMiddlewareFunction) => void): void;
-    removeMiddleware(type: "subscribe", middlewareFn: (req: SCServer.SubscribeRequest, next: SCServer.nextMiddlewareFunction) => void): void;
-    removeMiddleware(type: "publishIn", middlewareFn: (req: SCServer.PublishInRequest, next: SCServer.nextMiddlewareFunction) => void): void;
-    removeMiddleware(type: "publishOut", middlewareFn: (req: SCServer.PublishOutRequest, next: SCServer.nextMiddlewareFunction) => void): void;
-    removeMiddleware(type: "emit", middlewareFn: (req: SCServer.EmitRequest, next: SCServer.nextMiddlewareFunction) => void): void;
+    removeMiddleware(
+        type: "handshakeWS",
+        middlewareFn: (req: IncomingMessage, next: SCServer.nextMiddlewareFunction) => void,
+    ): void;
+    removeMiddleware(
+        type: "handshakeSC",
+        middlewareFn: (req: SCServer.HandshakeSCRequest, next: SCServer.nextHandshakeSCMiddlewareFunction) => void,
+    ): void;
+    removeMiddleware(
+        type: "authenticate",
+        middlewareFn: (req: SCServer.AuthenticateRequest, next: SCServer.nextAuthenticateMiddlewareFunction) => void,
+    ): void;
+    removeMiddleware(
+        type: "subscribe",
+        middlewareFn: (req: SCServer.SubscribeRequest, next: SCServer.nextMiddlewareFunction) => void,
+    ): void;
+    removeMiddleware(
+        type: "publishIn",
+        middlewareFn: (req: SCServer.PublishInRequest, next: SCServer.nextMiddlewareFunction) => void,
+    ): void;
+    removeMiddleware(
+        type: "publishOut",
+        middlewareFn: (req: SCServer.PublishOutRequest, next: SCServer.nextMiddlewareFunction) => void,
+    ): void;
+    removeMiddleware(
+        type: "emit",
+        middlewareFn: (req: SCServer.EmitRequest, next: SCServer.nextMiddlewareFunction) => void,
+    ): void;
 
     setAuthEngine(authEngine: SCAuthEngine): void;
     auth: SCAuthEngine;
@@ -70,8 +112,19 @@ declare class SCServer extends EventEmitter {
     generateId(): string;
 
     verifyHandshake(info: SCServer.VerifyHandshakeInfo, cb: SCServer.verifyHandshakeFunction): void;
-    verifyInboundEvent(socket: SCServerSocket, eventName: string, eventData: any, cb: (err: Error, eventData: any, ackData?: any) => void): void;
-    verifyOutboundEvent(socket: SCServerSocket, eventName: string, eventData: any, options: {} | null, cb: (err: Error | null, eventData: any) => void): void;
+    verifyInboundEvent(
+        socket: SCServerSocket,
+        eventName: string,
+        eventData: any,
+        cb: (err: Error, eventData: any, ackData?: any) => void,
+    ): void;
+    verifyOutboundEvent(
+        socket: SCServerSocket,
+        eventName: string,
+        eventData: any,
+        options: {} | null,
+        cb: (err: Error | null, eventData: any) => void,
+    ): void;
 
     isAuthTokenExpired(token: SCServer.AuthToken): boolean;
 }

@@ -1,5 +1,5 @@
-import { CheckoutOptions } from './checkout-options';
-import { FetchOptions } from './fetch-options';
+import { CheckoutOptions } from "./checkout-options";
+import { FetchOptions } from "./fetch-options";
 
 export interface SubmoduleUpdateOptions {
     version?: number | undefined;

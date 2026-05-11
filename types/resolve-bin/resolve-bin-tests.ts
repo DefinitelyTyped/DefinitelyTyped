@@ -1,8 +1,8 @@
-import resolveBin from 'resolve-bin';
+import resolveBin from "resolve-bin";
 
 // Asynchronous
 (() => {
-    resolveBin('my-package', (error, path) => {
+    resolveBin("my-package", (error, path) => {
         error; // $ExpectType Error | null
         path; // $ExpectType string
     });
@@ -10,7 +10,7 @@ import resolveBin from 'resolve-bin';
 
 // Asynchronous with options
 (() => {
-    resolveBin('my-package', { executable: 'custom-package-name' }, (error, path) => {
+    resolveBin("my-package", { executable: "custom-package-name" }, (error, path) => {
         error; // $ExpectType Error | null
         path; // $ExpectType string
     });
@@ -18,10 +18,10 @@ import resolveBin from 'resolve-bin';
 
 // Synchronous
 (() => {
-    resolveBin.sync('my-package'); // $ExpectType string
+    resolveBin.sync("my-package"); // $ExpectType string
 })();
 
 // Synchronous with options
 (() => {
-    resolveBin.sync('my-package', { executable: 'custom-package-name' }); // $ExpectType string
+    resolveBin.sync("my-package", { executable: "custom-package-name" }); // $ExpectType string
 })();

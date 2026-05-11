@@ -1,8 +1,3 @@
-// Type definitions for cabarc 0.4
-// Project: https://github.com/jhermsmeier/node-cabarc
-// Definitions by: Zlatko Andonovski <https://github.com/Goldsmith42>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export namespace Cabinet {
@@ -12,7 +7,7 @@ export namespace Cabinet {
         NONE = 0x0000,
         MSZIP = 0x0100,
         QUANTUM = 0x0200,
-        LZX = 0x0300
+        LZX = 0x0300,
     }
 }
 

@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/jquery-sortable",
+    "version": "0.9.9999",
+    "projects": [
+        "http://johnny.github.io/jquery-sortable/"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/jquery-sortable": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nathan Pitman",
+            "githubUsername": "Seltzer"
+        }
+    ]
+}

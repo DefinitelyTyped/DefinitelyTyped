@@ -1,0 +1,35 @@
+{
+    "private": true,
+    "name": "@types/babel-types",
+    "version": "7.0.9999",
+    "projects": [
+        "https://github.com/babel/babel/tree/master/packages/babel-types",
+        "https://babeljs.io"
+    ],
+    "devDependencies": {
+        "@types/babel-traverse": "*",
+        "@types/babel-types": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Troy Gerwien",
+            "githubUsername": "yortus"
+        },
+        {
+            "name": "Sam Baxter",
+            "githubUsername": "baxtersa"
+        },
+        {
+            "name": "Marvin Hagemeister",
+            "githubUsername": "marvinhagemeister"
+        },
+        {
+            "name": "Boris Cherny",
+            "githubUsername": "bcherny"
+        },
+        {
+            "name": "ExE Boss",
+            "githubUsername": "ExE-Boss"
+        }
+    ]
+}

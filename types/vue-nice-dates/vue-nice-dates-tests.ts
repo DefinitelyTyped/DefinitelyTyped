@@ -1,18 +1,18 @@
-import Vue from 'vue';
-import { DatePicker, DateRangePicker, START_DATE, END_DATE } from 'vue-nice-dates';
-import { enGB } from 'date-fns/locale';
+import { enGB } from "date-fns/locale";
+import Vue from "vue";
+import { DatePicker, DateRangePicker, END_DATE, START_DATE } from "vue-nice-dates";
 
 new Vue({
-    el: '#app',
+    el: "#app",
     components: {
         DatePicker,
         DateRangePicker,
     },
     data() {
         return {
-            date: '',
-            startDate: '',
-            endDate: '',
+            date: "",
+            startDate: "",
+            endDate: "",
             START_DATE,
             END_DATE,
             locale: enGB,

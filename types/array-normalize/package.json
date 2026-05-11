@@ -1,5 +1,10 @@
 {
     "private": true,
+    "name": "@types/array-normalize",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/dy/array-normalize#readme"
+    ],
     "exports": {
         ".": {
             "types": {
@@ -7,5 +12,14 @@
                 "default": "./index.d.ts"
             }
         }
-    }
+    },
+    "devDependencies": {
+        "@types/array-normalize": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
 }

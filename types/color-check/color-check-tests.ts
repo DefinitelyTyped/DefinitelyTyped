@@ -1,9 +1,9 @@
-import colorCheck, { RGB, Color } from 'color-check';
+import colorCheck, { Color, RGB } from "color-check";
 
 const r1: RGB = { r: 1, g: 2, b: 3 };
-const r2: RGB = { r: '1', g: '2', b: '3' };
-const c1: Color = { r: 3, g: '5', b: 244 };
-const c2: Color = '#ffffff';
+const r2: RGB = { r: "1", g: "2", b: "3" };
+const c1: Color = { r: 3, g: "5", b: 244 };
+const c2: Color = "#ffffff";
 
 // $ExpectType boolean
 colorCheck.colorDifference(r1, c1);

@@ -1,2 +1,2 @@
-import { concat } from '../index';
+import { concat } from "../index.js";
 export default concat;

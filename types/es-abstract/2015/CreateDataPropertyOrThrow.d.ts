@@ -1,4 +1,4 @@
-import type { PropertyKey } from '../index';
+import type { PropertyKey } from "../index";
 
 /**
  * @throws {TypeError} If the property can't be created.

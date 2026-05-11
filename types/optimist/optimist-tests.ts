@@ -1,5 +1,4 @@
-
-import optimist = require('optimist');
+import optimist = require("optimist");
 
 var checkFn: (argv: any) => any;
 var logFn: (message: string) => void;

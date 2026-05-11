@@ -1,5 +1,6 @@
 {
     "rules": {
-        "export-just-namespace": "off"
+        "@definitelytyped/export-just-namespace": "off",
+        "@typescript-eslint/no-empty-interface": "off"
     }
 }

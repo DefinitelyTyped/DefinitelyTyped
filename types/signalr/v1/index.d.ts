@@ -1,9 +1,3 @@
-// Type definitions for SignalR 1.0
-// Project: http://www.asp.net/signalr
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>, T. Michael Keesey <https://github.com/keesey/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery" />
 
 interface HubMethod {
@@ -87,7 +81,7 @@ interface HubConnectionSettings {
 }
 
 interface HubConnection extends SignalR {
-    //(url?: string, queryString?: any, logging?: boolean): HubConnection;
+    // (url?: string, queryString?: any, logging?: boolean): HubConnection;
     proxies: any;
     transport: { name: string; supportsKeepAlive: () => boolean };
     received(callback: (data: { Id: any; Method: any; Hub: any; State: any; Args: any }) => void): HubConnection;

@@ -12,11 +12,11 @@ const collectionToArray = <T>(col: { Item(key: any): T }): T[] => {
     return results;
 };
 
-let app = new ActiveXObject('Word.Application');
+let app = new ActiveXObject("Word.Application");
 app.Visible = true;
 let dlg = app.FileDialog(Office.MsoFileDialogType.msoFileDialogFolderPicker);
 dlg.AllowMultiSelect = true;
-dlg.Title = 'Select one or more folders';
+dlg.Title = "Select one or more folders";
 dlg.Execute();
 for (const item of collectionToArray(dlg.SelectedItems)) {
     WScript.Echo(item);

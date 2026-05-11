@@ -1,4 +1,4 @@
-import { RandomFunc } from '../';
+import { RandomFunc } from "../";
 
 /**
  * Weighted returns a Function additionally available as `weighted.select`

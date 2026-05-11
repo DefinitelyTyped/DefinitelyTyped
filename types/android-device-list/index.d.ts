@@ -1,8 +1,3 @@
-// Type definitions for android-device-list 1.2
-// Project: https://github.com/pbakondy/android-device-list#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Returns the full device list
  */

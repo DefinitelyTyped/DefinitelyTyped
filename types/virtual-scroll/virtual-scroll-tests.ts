@@ -1,4 +1,4 @@
-import VirtualScroll = require('virtual-scroll');
+import VirtualScroll = require("virtual-scroll");
 
 const scrollOptions: VirtualScroll.VirtualScrollOptions = {
     el: document.body,
@@ -7,7 +7,7 @@ const scrollOptions: VirtualScroll.VirtualScrollOptions = {
     mouseMultiplier: 1,
     passive: true,
     preventTouch: true,
-    unpreventTouchClass: 'touchmove-allowed',
+    unpreventTouchClass: "touchmove-allowed",
     touchMultiplier: 1.8,
     useKeyboard: false,
     useTouch: false,
@@ -15,7 +15,9 @@ const scrollOptions: VirtualScroll.VirtualScrollOptions = {
 
 const scroll = new VirtualScroll(scrollOptions);
 
-const callback: VirtualScroll.VirtualScrollCallback = ({ deltaX, deltaY, originalEvent, x, y }: VirtualScroll.VirtualScrollEvent) => {
+const callback: VirtualScroll.VirtualScrollCallback = (
+    { deltaX, deltaY, originalEvent, x, y }: VirtualScroll.VirtualScrollEvent,
+) => {
     scroll.off(callback);
     scroll.destroy();
 };

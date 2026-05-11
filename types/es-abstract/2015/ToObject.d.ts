@@ -1,2 +1,2 @@
-import ToObject = require('../5/ToObject');
+import ToObject = require("../5/ToObject");
 export = ToObject;

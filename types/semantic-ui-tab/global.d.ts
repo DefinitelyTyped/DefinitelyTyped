@@ -14,35 +14,35 @@ declare namespace SemanticUI {
         /**
          * Changes tab to path
          */
-        (behavior: 'change tab', path: string): JQuery;
+        (behavior: "change tab", path: string): JQuery;
         /**
          * Sets current path to state
          */
-        (behavior: 'set state', path: string): JQuery;
+        (behavior: "set state", path: string): JQuery;
         /**
          * Returns current path
          */
-        (behavior: 'get path'): string;
+        (behavior: "get path"): string;
         /**
          * Returns whether tab exists
          */
-        (behavior: 'is tab'): boolean;
+        (behavior: "is tab"): boolean;
         /**
          * Returns cached HTML for path
          */
-        (behavior: 'cache read', path: string): string | false;
+        (behavior: "cache read", path: string): string | false;
         /**
          * Sets cached HTML for path
          */
-        (behavior: 'cache add', path: string, html: string): JQuery;
+        (behavior: "cache add", path: string, html: string): JQuery;
         /**
          * Removes cached HTML for path
          */
-        (behavior: 'cache remove', path: string): JQuery;
-        (behavior: 'destroy'): JQuery;
-        <K extends keyof TabSettings>(behavior: 'setting', name: K, value?: undefined): TabSettings._Impl[K];
-        <K extends keyof TabSettings>(behavior: 'setting', name: K, value: TabSettings._Impl[K]): JQuery;
-        (behavior: 'setting', value: TabSettings): JQuery;
+        (behavior: "cache remove", path: string): JQuery;
+        (behavior: "destroy"): JQuery;
+        <K extends keyof TabSettings>(behavior: "setting", name: K, value?: undefined): TabSettings._Impl[K];
+        <K extends keyof TabSettings>(behavior: "setting", name: K, value: TabSettings._Impl[K]): JQuery;
+        (behavior: "setting", value: TabSettings): JQuery;
         (settings?: TabSettings): JQuery;
     }
 
@@ -52,37 +52,40 @@ declare namespace SemanticUI {
     type TabSettings = TabSettings.Param;
 
     namespace TabSettings {
-        type Param = (Pick<_Impl, 'auto'> |
-            Pick<_Impl, 'deactivate'> |
-            Pick<_Impl, 'history'> |
-            Pick<_Impl, 'ignoreFirstLoad'> |
-            Pick<_Impl, 'evaluateScripts'> |
-            Pick<_Impl, 'alwaysRefresh'> |
-            Pick<_Impl, 'cacheType'> |
-            Pick<_Impl, 'cache'> |
-            Pick<_Impl, 'apiSettings'> |
-            Pick<_Impl, 'historyType'> |
-            Pick<_Impl, 'path'> |
-            Pick<_Impl, 'context'> |
-            Pick<_Impl, 'childrenOnly'> |
-            Pick<_Impl, 'maxDepth'> |
-            Pick<_Impl, 'loadOnce'> |
-            Pick<_Impl, 'onFirstLoad'> |
-            Pick<_Impl, 'onLoad'> |
-            Pick<_Impl, 'onRequest'> |
-            Pick<_Impl, 'onVisible'> |
-            Pick<_Impl, 'templates'> |
-            Pick<_Impl, 'selector'> |
-            Pick<_Impl, 'metadata'> |
-            Pick<_Impl, 'className'> |
-            Pick<_Impl, 'error'> |
-            Pick<_Impl, 'namespace'> |
-            Pick<_Impl, 'name'> |
-            Pick<_Impl, 'silent'> |
-            Pick<_Impl, 'debug'> |
-            Pick<_Impl, 'performance'> |
-            Pick<_Impl, 'verbose'>) &
-            Partial<Pick<_Impl, keyof _Impl>>;
+        type Param =
+            & (
+                | Pick<_Impl, "auto">
+                | Pick<_Impl, "deactivate">
+                | Pick<_Impl, "history">
+                | Pick<_Impl, "ignoreFirstLoad">
+                | Pick<_Impl, "evaluateScripts">
+                | Pick<_Impl, "alwaysRefresh">
+                | Pick<_Impl, "cacheType">
+                | Pick<_Impl, "cache">
+                | Pick<_Impl, "apiSettings">
+                | Pick<_Impl, "historyType">
+                | Pick<_Impl, "path">
+                | Pick<_Impl, "context">
+                | Pick<_Impl, "childrenOnly">
+                | Pick<_Impl, "maxDepth">
+                | Pick<_Impl, "loadOnce">
+                | Pick<_Impl, "onFirstLoad">
+                | Pick<_Impl, "onLoad">
+                | Pick<_Impl, "onRequest">
+                | Pick<_Impl, "onVisible">
+                | Pick<_Impl, "templates">
+                | Pick<_Impl, "selector">
+                | Pick<_Impl, "metadata">
+                | Pick<_Impl, "className">
+                | Pick<_Impl, "error">
+                | Pick<_Impl, "namespace">
+                | Pick<_Impl, "name">
+                | Pick<_Impl, "silent">
+                | Pick<_Impl, "debug">
+                | Pick<_Impl, "performance">
+                | Pick<_Impl, "verbose">
+            )
+            & Partial<Pick<_Impl, keyof _Impl>>;
 
         interface _Impl {
             // region Tab Settings
@@ -100,7 +103,7 @@ declare namespace SemanticUI {
              * @default 'siblings'
              * @since 2.2
              */
-            deactivate: 'siblings' | 'all';
+            deactivate: "siblings" | "all";
             /**
              * Whether to record history events for tab changes
              *
@@ -120,7 +123,7 @@ declare namespace SemanticUI {
              *
              * @default 'once'
              */
-            evaluateScripts: 'once' | boolean;
+            evaluateScripts: "once" | boolean;
             /**
              * Tab should reload content every time it is opened
              */
@@ -133,7 +136,7 @@ declare namespace SemanticUI {
              *
              * @default 'response'
              */
-            cacheType: 'response' | 'DOM' | 'html';
+            cacheType: "response" | "DOM" | "html";
             /**
              * Tab should cache content after loading locally to avoid server trip on second load
              *
@@ -155,7 +158,7 @@ declare namespace SemanticUI {
              * @default 'hash'
              * @see {@link https://developer.mozilla.org/en-US/docs/Web/Guide/API/DOM/Manipulating_the_browser_history}
              */
-            historyType: 'hash' | 'state';
+            historyType: "hash" | "state";
             /**
              * When using historyType state you must specify the base URL for all internal links.
              *
@@ -282,8 +285,9 @@ declare namespace SemanticUI {
         type TemplatesSettings = TemplatesSettings.Param;
 
         namespace TemplatesSettings {
-            type Param = (Pick<_Impl, 'determineTitle'>) &
-                Partial<Pick<_Impl, keyof _Impl>>;
+            type Param =
+                & (Pick<_Impl, "determineTitle">)
+                & Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**
@@ -296,9 +300,12 @@ declare namespace SemanticUI {
         type SelectorSettings = SelectorSettings.Param;
 
         namespace SelectorSettings {
-            type Param = (Pick<_Impl, 'tabs'> |
-                Pick<_Impl, 'parent'>) &
-                Partial<Pick<_Impl, keyof _Impl>>;
+            type Param =
+                & (
+                    | Pick<_Impl, "tabs">
+                    | Pick<_Impl, "parent">
+                )
+                & Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**
@@ -315,10 +322,13 @@ declare namespace SemanticUI {
         type MetadataSettings = MetadataSettings.Param;
 
         namespace MetadataSettings {
-            type Param = (Pick<_Impl, 'tab'> |
-                Pick<_Impl, 'loaded'> |
-                Pick<_Impl, 'promise'>) &
-                Partial<Pick<_Impl, keyof _Impl>>;
+            type Param =
+                & (
+                    | Pick<_Impl, "tab">
+                    | Pick<_Impl, "loaded">
+                    | Pick<_Impl, "promise">
+                )
+                & Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**
@@ -339,9 +349,12 @@ declare namespace SemanticUI {
         type ClassNameSettings = ClassNameSettings.Param;
 
         namespace ClassNameSettings {
-            type Param = (Pick<_Impl, 'loading'> |
-                Pick<_Impl, 'active'>) &
-                Partial<Pick<_Impl, keyof _Impl>>;
+            type Param =
+                & (
+                    | Pick<_Impl, "loading">
+                    | Pick<_Impl, "active">
+                )
+                & Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**
@@ -358,14 +371,17 @@ declare namespace SemanticUI {
         type ErrorSettings = ErrorSettings.Param;
 
         namespace ErrorSettings {
-            type Param = (Pick<_Impl, 'api'> |
-                Pick<_Impl, 'method'> |
-                Pick<_Impl, 'missingTab'> |
-                Pick<_Impl, 'noContent'> |
-                Pick<_Impl, 'path'> |
-                Pick<_Impl, 'recursion'> |
-                Pick<_Impl, 'state'>) &
-                Partial<Pick<_Impl, keyof _Impl>>;
+            type Param =
+                & (
+                    | Pick<_Impl, "api">
+                    | Pick<_Impl, "method">
+                    | Pick<_Impl, "missingTab">
+                    | Pick<_Impl, "noContent">
+                    | Pick<_Impl, "path">
+                    | Pick<_Impl, "recursion">
+                    | Pick<_Impl, "state">
+                )
+                & Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**

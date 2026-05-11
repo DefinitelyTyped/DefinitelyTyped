@@ -1,5 +1,5 @@
-import Writer from '../Writer';
-import Pair from './Pair';
+import Writer from "../Writer";
+import Pair from "./Pair";
 
 /**
  * writerToPair :: Monoid m => Writer m a -> Pair m a

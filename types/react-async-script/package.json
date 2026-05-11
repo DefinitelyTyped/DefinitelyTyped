@@ -1,7 +1,22 @@
 {
-  "private": true,
-  "dependencies": {
-    "@types/hoist-non-react-statics": "^3.3.1",
-    "hoist-non-react-statics": "^3.3.1"
-  }
+    "private": true,
+    "name": "@types/react-async-script",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/dozoisch/react-async-script"
+    ],
+    "dependencies": {
+        "@types/hoist-non-react-statics": "^3.3.1",
+        "@types/react": "*",
+        "hoist-non-react-statics": "^3.3.1"
+    },
+    "devDependencies": {
+        "@types/react-async-script": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Michalis Zachariadis",
+            "githubUsername": "mzachariadis"
+        }
+    ]
 }

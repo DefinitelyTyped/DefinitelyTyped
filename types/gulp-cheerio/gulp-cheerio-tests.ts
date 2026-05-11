@@ -1,89 +1,86 @@
-import cheerio = require('cheerio');
-import gulpCheerio = require('gulp-cheerio');
-import gulp = require('gulp');
-import Vinyl = require('vinyl');
+import cheerio = require("cheerio");
+import gulpCheerio = require("gulp-cheerio");
+import gulp = require("gulp");
+import Vinyl = require("vinyl");
 
 //
 // There are two ways to use gulp-cheerio: synchronous and asynchronous. See the following usage examples:
 //
 
-gulp.task('sync', function () {
+gulp.task("sync", function() {
     return gulp
-        .src(['src/*.html'])
-        .pipe(gulpCheerio(function ($: cheerio.Root, file: Vinyl) {
+        .src(["src/*.html"])
+        .pipe(gulpCheerio(function($: cheerio.Root, file: Vinyl) {
             // Each file will be run through cheerio and each corresponding `$` will be passed here.
             // `file` is the gulp file object
             // Make all h1 tags uppercase
-            $('h1').each(function () {
+            $("h1").each(function() {
                 var h1 = $(this);
                 h1.text(h1.text().toUpperCase());
             });
         }))
-        .pipe(gulp.dest('dist/'));
+        .pipe(gulp.dest("dist/"));
 });
-gulp.task('async', function () {
+gulp.task("async", function() {
     return gulp
-        .src(['src/*.html'])
-        .pipe(gulpCheerio(function ($: cheerio.Root, file: Vinyl, done: Function) {
+        .src(["src/*.html"])
+        .pipe(gulpCheerio(function($: cheerio.Root, file: Vinyl, done: Function) {
             // The only difference here is the inclusion of a `done` parameter.
             // Call `done` when everything is finished. `done` accepts an error if applicable.
             done();
         }))
-        .pipe(gulp.dest('dist/'));
+        .pipe(gulp.dest("dist/"));
 });
-//TODO
-
+// TODO
 
 //
 // Additional options can be passed by passing an object as the main argument with your function as the run option:
 //
 
-
-gulp.task('sync', function () {
+gulp.task("sync", function() {
     return gulp
-        .src(['src/*.html'])
+        .src(["src/*.html"])
         .pipe(gulpCheerio({
-            run: function ($: cheerio.Root, file: Vinyl) {
+            run: function($: cheerio.Root, file: Vinyl) {
                 // Each file will be run through cheerio and each corresponding `$` will be passed here.
                 // `file` is the gulp file object
                 // Make all h1 tags uppercase
-                $('h1').each(function () {
+                $("h1").each(function() {
                     var h1 = $(this);
                     h1.text(h1.text().toUpperCase());
                 });
-            }
+            },
         }))
-        .pipe(gulp.dest('dist/'));
+        .pipe(gulp.dest("dist/"));
 });
 
-gulp.task('async', function () {
+gulp.task("async", function() {
     return gulp
-        .src(['src/*.html'])
+        .src(["src/*.html"])
         .pipe(gulpCheerio({
-            run: function ($: cheerio.Root, file: Vinyl, done: Function) {
+            run: function($: cheerio.Root, file: Vinyl, done: Function) {
                 // The only difference here is the inclusion of a `done` parameter.
                 // Call `done` when everything is finished. `done` accepts an error if applicable.
                 done();
-            }
+            },
         }))
-        .pipe(gulp.dest('dist/'));
+        .pipe(gulp.dest("dist/"));
 });
 
 cheerio({
-    run: function () {},
+    run: function() {},
     parserOptions: {
         // Options here
-    }
+    },
 });
 
-
 cheerio({
-    run: function () {},
+    run: function() {},
     parserOptions: {
-        xmlMode: true
-    }
+        xmlMode: true,
+    },
 });
 
 cheerio({
-    cheerio: require('../cheerio/cheerio.d.ts')
+    cheerio: require("../cheerio/cheerio.d.ts"),
 });

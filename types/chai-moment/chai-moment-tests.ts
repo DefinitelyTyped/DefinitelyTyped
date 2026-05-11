@@ -1,16 +1,18 @@
-import { assert, expect, use } from 'chai';
-import chaiMoment = require('chai-moment');
+import chaiMoment = require("chai-moment");
 
-use(chaiMoment);
+declare const assert: Chai.AssertStatic;
+declare const expect: Chai.ExpectStatic;
 
-const g: ChaiMoment.Granularity = 'month';
+import("chai").then(({ use }) => use(chaiMoment));
+
+const g: ChaiMoment.Granularity = "month";
 
 // bdd style
-expect('2019-03-14').to.be.afterMoment('2019-03-12', 'day');
-expect('2019-03-14').to.be.beforeMoment('2019-03-16');
-expect('2019-03-14').to.be.sameMoment('2019-03-14', g);
+expect("2019-03-14").to.be.afterMoment("2019-03-12", "day");
+expect("2019-03-14").to.be.beforeMoment("2019-03-16");
+expect("2019-03-14").to.be.sameMoment("2019-03-14", g);
 
 // tdd style
-assert.afterMoment('2019-03-14', '2019-03-12');
-assert.beforeMoment('2019-03-14', '2019-03-18', 'day');
-assert.sameMoment('2019-03-14', '2019-03-14', 'day');
+assert.afterMoment("2019-03-14", "2019-03-12");
+assert.beforeMoment("2019-03-14", "2019-03-18", "day");
+assert.sameMoment("2019-03-14", "2019-03-14", "day");

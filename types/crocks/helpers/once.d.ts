@@ -1,4 +1,4 @@
-import { VariadicFunction } from '../internal/types';
+import { VariadicFunction } from "../internal/types";
 
 /**
  * once :: ((*) -> a) -> ((*) -> a)

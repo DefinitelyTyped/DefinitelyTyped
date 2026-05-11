@@ -28,7 +28,7 @@ declare namespace AV {
     }
 
     interface DeviceConstructor {
-        new (sampleRate: number, channels: number): Device;
+        new(sampleRate: number, channels: number): Device;
     }
 
     interface Device {

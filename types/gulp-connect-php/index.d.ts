@@ -1,8 +1,3 @@
-// Type definitions for gulp-connect-php 1.0
-// Project: https://github.com/micahblu/gulp-connect-php
-// Definitions by: Adam Thompson-Sharpe <https://github.com/MysteryBlokHed>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace PhpDevelopmentServerConnection {
     interface Options {
         /**
@@ -65,16 +60,16 @@ declare namespace PhpDevelopmentServerConnection {
      * @param options Options
      * @param callback Called when the sever is connected. May be passed an error
      */
-    let server: PhpDevelopmentServerConnection['server'];
+    let server: PhpDevelopmentServerConnection["server"];
 
     /**
      * Close/Shutdown the PHP development server
      * @param callback Optional callback, passed the return of `ChildProcess.kill(...)` or nothing if not started
      */
-    let closeServer: PhpDevelopmentServerConnection['closeServer'];
+    let closeServer: PhpDevelopmentServerConnection["closeServer"];
 
-    let OPTIONS_SPAWN_OBJ: 'spawn';
-    let OPTIONS_PHP_CLI_ARR: 'php_args';
+    let OPTIONS_SPAWN_OBJ: "spawn";
+    let OPTIONS_PHP_CLI_ARR: "php_args";
 }
 
 declare class PhpDevelopmentServerConnection {

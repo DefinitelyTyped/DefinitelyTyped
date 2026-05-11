@@ -1,9 +1,4 @@
-// Type definitions for conductor-animate 1.0
-// Project: https://github.com/TaeKimJR/conductor-animate#readme
-// Definitions by: Tae Kim <https://github.com/TaeKimJR>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-import * as React from 'react';
+import * as React from "react";
 
 interface Animations {
     [K: string]: React.ComponentClass<any> | React.FunctionComponent<any>;
@@ -15,18 +10,18 @@ interface Config {
 
 interface AnimatedProps {
     additional?: object | undefined;
-    children?: React.ReactNode | React.ReactNodeArray | null | undefined;
+    children?: React.ReactNode | readonly React.ReactNode[] | null | undefined;
     id: string;
 }
 
-declare class Animated extends React.PureComponent<AnimatedProps> { }
+declare class Animated extends React.PureComponent<AnimatedProps> {}
 
 interface ConductorProps {
     animations: Animations;
-    children: React.ReactNode | React.ReactNodeArray;
+    children: React.ReactNode | readonly React.ReactNode[];
     config: { [K: string]: Config } | ((id: string, additional: object) => Config);
 }
 
-declare class Conductor extends React.PureComponent<ConductorProps> { }
+declare class Conductor extends React.PureComponent<ConductorProps> {}
 
 export { Animated, Conductor };

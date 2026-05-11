@@ -1,6 +1,6 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
-() => {
+(() => {
     function isEven(n: number) {
         return n % 2 === 0;
     }
@@ -17,14 +17,21 @@ import * as R from 'ramda';
     const isLengthNotEqual = R.complement(isLengthEqual);
 
     // @ts-expect-error
-    isLengthNotEqual('FOO', 'BAR');
-    isLengthNotEqual('BAZ', 4); // => true
+    isLengthNotEqual("FOO", "BAR");
+    isLengthNotEqual("BAZ", 4); // => true
 
-    // $ExpectType (value: any) => value is any
+    // $ExpectType <T>(value: T) => value is Exclude<T, (null | undefined) & T>
     R.complement(R.isNil);
+
+    function fn(a: string | undefined) {
+        if (R.complement(R.isNil)(a)) {
+            // $ExpectType string
+            a;
+        }
+    }
 
     const isStringAndNotNumber = (value: string | number): value is string => true;
 
     // $ExpectType (value: string | number) => value is number
     const isNumberAndNotString = R.complement(isStringAndNotNumber);
-};
+});

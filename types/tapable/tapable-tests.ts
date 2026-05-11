@@ -1,2 +1,2 @@
 import { HookFactory } from "tapable";
-const hf: HookFactory<boolean> = (key, hook) => !!hook;
+const hf: HookFactory<boolean> = (key) => !!key;

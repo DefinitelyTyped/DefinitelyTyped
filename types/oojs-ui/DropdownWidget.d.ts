@@ -46,12 +46,14 @@ declare namespace OO.ui {
         interface EventMap extends Widget.EventMap, mixin.LabelElement.EventMap {}
 
         interface ConfigOptions
-            extends Widget.ConfigOptions,
+            extends
+                Widget.ConfigOptions,
                 mixin.IconElement.ConfigOptions,
                 mixin.IndicatorElement.ConfigOptions,
                 mixin.LabelElement.ConfigOptions,
                 mixin.TitledElement.ConfigOptions,
-                mixin.TabIndexedElement.ConfigOptions {
+                mixin.TabIndexedElement.ConfigOptions
+        {
             /** Configuration options to pass to {@link OO.ui.MenuSelectWidget menu select widget}. */
             menu?: MenuSelectWidget.ConfigOptions;
             /**
@@ -65,30 +67,36 @@ declare namespace OO.ui {
         }
 
         interface Static
-            extends Widget.Static,
+            extends
+                Widget.Static,
                 mixin.IconElement.Static,
                 mixin.IndicatorElement.Static,
                 mixin.LabelElement.Static,
-                mixin.TitledElement.Static {}
+                mixin.TitledElement.Static
+        {}
 
         interface Props
-            extends Widget.Props,
+            extends
+                Widget.Props,
                 mixin.IconElement.Props,
                 mixin.IndicatorElement.Props,
                 mixin.LabelElement.Props,
                 mixin.TitledElement.Props,
-                mixin.TabIndexedElement.Props {
+                mixin.TabIndexedElement.Props
+        {
             $handle: JQuery;
             $overlay: JQuery;
         }
 
         interface Prototype
-            extends Widget.Prototype,
+            extends
+                Widget.Prototype,
                 mixin.IconElement.Prototype,
                 mixin.IndicatorElement.Prototype,
                 mixin.LabelElement.Prototype,
                 mixin.TitledElement.Prototype,
-                mixin.TabIndexedElement.Prototype {
+                mixin.TabIndexedElement.Prototype
+        {
             /**
              * Get the menu.
              *
@@ -133,21 +141,21 @@ declare namespace OO.ui {
             emitThrow<K extends keyof EventMap>(event: K, ...args: EventMap[K]): boolean;
             emitThrow<K extends string>(event: K extends keyof EventMap ? never : K, ...args: any[]): boolean;
 
-            connect<T extends Partial<Record<keyof EventMap, any>>, C>(
+            connect<T extends Partial<Record<keyof EventMap, any>>, C>( // eslint-disable-line @definitelytyped/no-unnecessary-generics
                 context: C,
-                methods: EventConnectionMap<T, C, EventMap>, // eslint-disable-line no-unnecessary-generics
+                methods: EventConnectionMap<T, C, EventMap>,
             ): this;
 
-            disconnect<T extends Partial<Record<keyof EventMap, any>>, C>(
+            disconnect<T extends Partial<Record<keyof EventMap, any>>, C>( // eslint-disable-line @definitelytyped/no-unnecessary-generics
                 context: C,
-                methods?: EventConnectionMap<T, C, EventMap>, // eslint-disable-line no-unnecessary-generics
+                methods?: EventConnectionMap<T, C, EventMap>,
             ): this;
             // #endregion
         }
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): DropdownWidget;
+            new(config?: ConfigOptions): DropdownWidget;
             prototype: Prototype;
             static: Static;
             super: Widget.Constructor;

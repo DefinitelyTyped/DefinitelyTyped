@@ -1,8 +1,3 @@
-// Type definitions for procfs-stats 1.0
-// Project: https://github.com/soldair/node-procfs-stats
-// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare function procfs(pid: number): procfs.StatStatic;
 declare namespace procfs {
     type Callback<Value> = (error: any, value: Value) => void;
@@ -84,11 +79,11 @@ declare namespace procfs {
         Cached: string;
         SwapCached: string;
         Active: string;
-        Inactive: '136524';
-        'Active(anon)': string;
-        'Inactive(anon)': string;
-        'Active(file)': string;
-        'Inactive(file)': string;
+        Inactive: "136524";
+        "Active(anon)": string;
+        "Inactive(anon)": string;
+        "Active(file)": string;
+        "Inactive(file)": string;
         Unevictable: string;
         Mlocked: string;
         SwapTotal: string;
@@ -133,16 +128,16 @@ declare namespace procfs {
 
     interface Net {
         Interface: string;
-        bytes: { Receive: string; Transmit: string; };
-        packets: { Receive: string; Transmit: string; };
-        errs: { Receive: string; Transmit: string; };
-        drop: { Receive: string; Transmit: string; };
-        fifo: { Receive: string; Transmit: string; };
-        frame: { Receive: string; };
-        compressed: { Receive: string; Transmit: string; };
-        multicast: { Receive: string; };
-        colls: { Transmit: string; };
-        carrier: { Transmit: string; };
+        bytes: { Receive: string; Transmit: string };
+        packets: { Receive: string; Transmit: string };
+        errs: { Receive: string; Transmit: string };
+        drop: { Receive: string; Transmit: string };
+        fifo: { Receive: string; Transmit: string };
+        frame: { Receive: string };
+        compressed: { Receive: string; Transmit: string };
+        multicast: { Receive: string };
+        colls: { Transmit: string };
+        carrier: { Transmit: string };
     }
 
     interface Io {
@@ -252,12 +247,12 @@ declare namespace procfs {
         tx_queue: string;
         rx_queue: string;
         tr: string;
-        'tm->when': string;
+        "tm->when": string;
         retrnsmt: string;
         uid: string;
         timeout: string;
         inode: string;
-        _: { [key: string]: string; };
+        _: { [key: string]: string };
     }
 
     interface Udp {
@@ -268,7 +263,7 @@ declare namespace procfs {
         tx_queue: string;
         rx_queue: string;
         tr: string;
-        'tm->when': string;
+        "tm->when": string;
         retrnsmt: string;
         uid: string;
         timeout: string;
@@ -295,11 +290,11 @@ declare namespace procfs {
         link: { Quality: string };
         level: { Quality: string };
         noise: { Quality: string };
-        nwid: { 'Discarded packets': string };
-        crypt: { 'Discarded packets': string };
-        frag: { 'Discarded packets': string };
-        retry: { 'Discarded packets': string };
-        misc: { 'Discarded packets': string };
+        nwid: { "Discarded packets": string };
+        crypt: { "Discarded packets": string };
+        frag: { "Discarded packets": string };
+        retry: { "Discarded packets": string };
+        misc: { "Discarded packets": string };
         beacon: { Missed: string };
     }
 

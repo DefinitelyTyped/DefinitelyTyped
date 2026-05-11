@@ -1,12 +1,12 @@
 import express = require("express");
-import { RequestListener } from 'http';
-import greenlock = require('greenlock-express');
+import { RequestListener } from "http";
+import greenlock = require("greenlock-express");
 
 const o: greenlock.Options = {
-  packageRoot: './',
-  maintainerEmail: 'user@example.com',
-  configDir: './greenlock.d',
-  cluster: false
+    packageRoot: "./",
+    maintainerEmail: "user@example.com",
+    configDir: "./greenlock.d",
+    cluster: false,
 };
 
 const expressApp = express();

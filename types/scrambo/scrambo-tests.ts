@@ -1,4 +1,4 @@
-import Scrambo = require('scrambo');
+import Scrambo = require("scrambo");
 
 (async () => {
     const scrambo = new Scrambo();
@@ -6,6 +6,6 @@ import Scrambo = require('scrambo');
 
     const originalType = scrambo.type();
 
-    scrambo.type('minx').length(15).get();
+    scrambo.type("minx").length(15).get();
     scrambo.type(originalType).get(5);
 })();

@@ -1,10 +1,10 @@
-import postcss = require('postcss');
-import postcssGapProperties = require('postcss-gap-properties');
+import postcss = require("postcss");
+import postcssGapProperties = require("postcss-gap-properties");
 
-postcssGapProperties.process('.some-css {}');
+postcssGapProperties.process(".some-css {}");
 
 postcss([
     postcssGapProperties({
-        preserve: false
+        preserve: false,
     }),
-]).process('.some-css {}');
+]).process(".some-css {}");

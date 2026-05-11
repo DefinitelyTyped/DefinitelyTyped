@@ -1,10 +1,4 @@
-// Type definitions for license-checker-webpack-plugin 0.2
-// Project: https://github.com/Microsoft/license-checker-webpack-plugin#readme
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
-import { Compiler, WebpackPluginInstance } from 'webpack';
+import { Compiler, WebpackPluginInstance } from "webpack";
 
 declare class LicenseCheckerWebpackPlugin implements WebpackPluginInstance {
     constructor(options?: Partial<LicenseCheckerWebpackPlugin.Options>);
@@ -25,7 +19,7 @@ declare namespace LicenseCheckerWebpackPlugin {
         dependencies: Dependency[];
     }
 
-    type OutputWriter = (args: OutputWriterArgs) => string;
+    type OutputWriter = (args: OutputWriterArgs) => string | Promise<string>;
 
     interface Options {
         /**

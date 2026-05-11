@@ -1,3 +1,3 @@
-import * as PoiCore from "poi";
+import PoiCore from "poi";
 
 const poi = new PoiCore();

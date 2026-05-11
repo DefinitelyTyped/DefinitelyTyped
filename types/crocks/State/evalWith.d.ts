@@ -1,4 +1,4 @@
-import State from './State';
+import State from "./State";
 
 // evalWith :: s -> State s a -> a
 declare function evalWith(val: unknown, state: State): any;

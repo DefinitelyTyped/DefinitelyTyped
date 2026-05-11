@@ -1,12 +1,12 @@
-import { MutableRecordSource, RecordMap, Record } from './RelayStoreTypes';
-import { DataID } from '../util/RelayRuntimeTypes';
-import { RecordState } from './RelayRecordState';
+import { DataID } from "../util/RelayRuntimeTypes";
+import { RecordState } from "./RelayRecordState";
+import { MutableRecordSource, Record, RecordMap } from "./RelayStoreTypes";
 
 export class RelayRecordSource implements MutableRecordSource {
     constructor(records?: RecordMap);
 
     static create(records?: RecordMap): MutableRecordSource;
-    // eslint-disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     get<T extends object = {}>(dataID: DataID): Record<T> | null | undefined;
     getRecordIDs(): DataID[];
     getStatus(dataID: DataID): RecordState;

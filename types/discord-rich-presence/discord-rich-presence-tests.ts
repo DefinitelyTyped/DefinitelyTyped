@@ -1,4 +1,4 @@
-import * as createClient from "discord-rich-presence";
+import createClient from "discord-rich-presence";
 
 const client = createClient("180984871685062656");
 

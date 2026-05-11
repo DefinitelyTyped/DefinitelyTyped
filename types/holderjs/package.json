@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/holderjs",
+    "version": "2.9.9999",
+    "projects": [
+        "http://holderjs.com"
+    ],
+    "devDependencies": {
+        "@types/holderjs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Soner Köksal",
+            "githubUsername": "renjfk"
+        }
+    ]
+}

@@ -1,37 +1,32 @@
-// Type definitions for struct 0.0
-// Project: https://github.com/xdenser/node-struct#readme
-// Definitions by: Ben Allfree <https://github.com/benallfree>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node"/>
 
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export default function Factory<T>(): Struct<T>;
 
 export type StructBaseTypes =
-    | 'word8'
-    | 'word8Sle'
-    | 'word8Sbe'
-    | 'word16Sle'
-    | 'word16Sbe'
-    | 'word16Ule'
-    | 'word16Ube'
-    | 'word32Sle'
-    | 'word32Sbe'
-    | 'word32Ule'
-    | 'word32Ube'
-    | 'word64Sle'
-    | 'word64Sbe'
-    | 'word64Ule'
-    | 'word64Ube'
-    | 'floatle'
-    | 'floatbe'
-    | 'doublele'
-    | 'doublebe';
+    | "word8"
+    | "word8Sle"
+    | "word8Sbe"
+    | "word16Sle"
+    | "word16Sbe"
+    | "word16Ule"
+    | "word16Ube"
+    | "word32Sle"
+    | "word32Sbe"
+    | "word32Ule"
+    | "word32Ube"
+    | "word64Sle"
+    | "word64Sbe"
+    | "word64Ule"
+    | "word64Ube"
+    | "floatle"
+    | "floatbe"
+    | "doublele"
+    | "doublebe";
 
-export type StructCharsTypes = 'chars' | 'charsnt';
+export type StructCharsTypes = "chars" | "charsnt";
 
-export type StructArrayType = 'array';
+export type StructArrayType = "array";
 
 export type StructTypes =
     | StructBaseTypes

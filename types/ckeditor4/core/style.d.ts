@@ -35,7 +35,7 @@ declare namespace CKEDITOR {
     }
 
     interface styleStatic<T extends style> {
-        new (styleDefinition: style.definition, variableValues?: Record<string, string>): T;
+        new(styleDefinition: style.definition, variableValues?: Record<string, string>): T;
         addCustomHandler(defintion: style.customHandler): T;
 
         getStyleText(style: style.definition): string;

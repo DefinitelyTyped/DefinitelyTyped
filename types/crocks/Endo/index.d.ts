@@ -1,2 +1,2 @@
-import Endo from './Endo';
+import Endo from "./Endo";
 export default Endo;

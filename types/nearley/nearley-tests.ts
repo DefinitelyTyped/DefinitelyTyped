@@ -1,4 +1,4 @@
-import { Parser, Rule, Grammar, CompiledRules, Lexer } from 'nearley';
+import { CompiledRules, Grammar, Lexer, Parser, Rule } from "nearley";
 
 declare const compiledRules: CompiledRules;
 declare const lexer: Lexer;
@@ -10,14 +10,18 @@ compiledRules.ParserRules[0].name; // $ExpectType string
 compiledRules.ParserRules[0].symbols; // $ExpectType any[]
 compiledRules.ParserRules[0].postprocess; // $ExpectType Postprocessor | undefined
 
-lexer.reset('');
-lexer.reset('', {});
+lexer.reset("");
+lexer.reset("", {});
 lexer.next(); // $ExpectType string | { value: string; } | undefined || Token | undefined
 lexer.save(); // $ExpectType LexerState
-lexer.formatError('', ''); // $ExpectType string
-lexer.formatError({value: ''}, '');
+lexer.formatError("", ""); // $ExpectType string
+lexer.formatError({ value: "" }, "");
 
-const rule = new Rule(compiledRules.ParserRules[0].name, compiledRules.ParserRules[0].symbols, compiledRules.ParserRules[0].postprocess);
+const rule = new Rule(
+    compiledRules.ParserRules[0].name,
+    compiledRules.ParserRules[0].symbols,
+    compiledRules.ParserRules[0].postprocess,
+);
 
 rule.id; // $ExpectType number
 rule.name; // $ExpectType string
@@ -38,8 +42,8 @@ grammar.lexer; // $ExpectType Lexer | undefined
 Parser.fail; // $ExpectType {}
 
 const parser = new Parser(grammar);
-new Parser(grammar, {lexer});
-new Parser(grammar, {keepHistory: false});
+new Parser(grammar, { lexer });
+new Parser(grammar, { keepHistory: false });
 
 parser.grammar; // $ExpectType Grammar
 parser.options; // $ExpectType ParserOptions
@@ -48,7 +52,7 @@ parser.lexerState; // $ExpectType LexerState | undefined
 parser.current; // $ExpectType number
 parser.results; // $ExpectType any[]
 
-parser.feed(''); // $ExpectType Parser
+parser.feed(""); // $ExpectType Parser
 parser.finish(); // $ExpectType any[]
 const state = parser.save();
 state; // $ExpectType { [key: string]: any; lexerState: LexerState; }

@@ -1,6 +1,6 @@
-import React = require('react');
-import ReactRailsUJS = require('react_ujs');
-import { handleMount, mountComponents, unmountComponents, useContext } from 'react_ujs';
+import React = require("react");
+import ReactRailsUJS = require("react_ujs");
+import { handleMount, mountComponents, unmountComponents, useContext } from "react_ujs";
 
 function TestComponent() {
     return <div>Hello world</div>;
@@ -13,9 +13,9 @@ ReactRailsUJS.getConstructor = (className: string) => <TestComponent />;
 ReactRailsUJS.getConstructor = (className: string) => <div />;
 
 // @ts-expect-error
-ReactRailsUJS.components[''] = TestComponent;
-ReactRailsUJS.components[''] = <TestComponent />;
-ReactRailsUJS.components[''] = <div />;
+ReactRailsUJS.components[""] = TestComponent;
+ReactRailsUJS.components[""] = <TestComponent />;
+ReactRailsUJS.components[""] = <div />;
 
 const components = [TestComponent];
 
@@ -43,4 +43,4 @@ handleMount({ target: undefined });
 handleMount({ target: document });
 // @ts-expect-error
 handleMount({ target: 1 });
-document.addEventListener('DOMContentLoaded', ReactRailsUJS.handleMount);
+document.addEventListener("DOMContentLoaded", ReactRailsUJS.handleMount);

@@ -5,5 +5,5 @@ export class RenderSession {
     customTransform: Matrix | null;
     reset(): void;
 }
-import { Renderer } from './Renderer';
-import { Matrix } from '../geom/Matrix';
+import { Matrix } from "../geom/Matrix";
+import { Renderer } from "./Renderer";

@@ -1,4 +1,4 @@
-import * as BJSON from 'buffer-json';
+import * as BJSON from "buffer-json";
 
-BJSON.parse('{ foo: \'bar\' }');
-BJSON.stringify({ foo: 'bar' });
+BJSON.parse("{ foo: 'bar' }");
+BJSON.stringify({ foo: "bar" });

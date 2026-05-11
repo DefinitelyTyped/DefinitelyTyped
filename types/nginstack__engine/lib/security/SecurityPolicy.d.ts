@@ -28,9 +28,5 @@ declare namespace SecurityPolicy {
     export { userCanAccessRemotely, SecurityPolicyApplication };
 }
 import NetworkUtilities = require('../net/NetworkUtilities.js');
-interface SecurityPolicyApplication {
-    IDE: string;
-    iWeb: string;
-    FrameworkHTML: string;
-}
 declare function userCanAccessRemotely(userKey: number): boolean;
+type SecurityPolicyApplication = typeof import('./SecurityPolicyApplication');

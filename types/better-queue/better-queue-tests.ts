@@ -1,4 +1,4 @@
-import Queue = require('better-queue');
+import Queue = require("better-queue");
 
 interface TestTask {
     taskId: string;
@@ -21,14 +21,14 @@ new Queue((task: TestTask[]) => {
 
 new Queue<TestTask>((task: TestTask, cb) => {
     const id = task.taskId;
-    cb(null, 'result');
+    cb(null, "result");
     cb();
 }, {});
 
 new Queue<TestTask, TestResult>({
     process(task: TestTask, cb) {
         const id = task.taskId;
-        cb(null, { some: 'prop' });
+        cb(null, { some: "prop" });
     },
     filter(task, cb) {
         const id = task.taskId;
@@ -55,44 +55,44 @@ new Queue<TestTask, TestResult>({
     concurrent: 123,
     failTaskOnProcessException: true,
     filo: true,
-    id: 'taskId',
+    id: "taskId",
     maxRetries: 1,
     maxTimeout: 1,
     retryDelay: 1,
     storeMaxRetries: 1,
     storeRetryTimeout: 1,
     preconditionRetryTimeout: 1,
-    store: 'test'
+    store: "test",
 });
 
 new Queue<TestTask, TestResult>({
     process(task: TestTask[], cb) {
         const firstId = task[0].taskId;
-        cb(null, { some: 'prop' });
-    }
+        cb(null, { some: "prop" });
+    },
 });
 
-new Queue<TestTask, TestResult>(() => { }, {
+new Queue<TestTask, TestResult>(() => {}, {
     id(task, cb) {
         const id = task.taskId;
-        cb(null, 'taskId');
-    }
+        cb(null, "taskId");
+    },
 });
 
-new Queue<TestTask, TestResult>(() => { }, {
+new Queue<TestTask, TestResult>(() => {}, {
     store: {
-        type: 'test'
-    }
+        type: "test",
+    },
 });
 
 const q = new Queue<TestTask, TestResult>(() => {});
 
-const testTask = {taskId: '', taskPayload: ''};
+const testTask = { taskId: "", taskPayload: "" };
 
 q.push(testTask);
 q.push(testTask, (error, result) => {});
 
-q.cancel('id', () => {});
+q.cancel("id", () => {});
 
 class TestStore implements Queue.Store<TestTask> {
     connect(cb: (error: any, length: number) => void) {
@@ -100,7 +100,7 @@ class TestStore implements Queue.Store<TestTask> {
     }
 
     getTask(taskId: any, cb: (error: any, task: TestTask) => void) {
-        cb(null, { taskId: '', taskPayload: '' });
+        cb(null, { taskId: "", taskPayload: "" });
     }
 
     deleteTask(taskId: any, cb: () => void) {
@@ -112,16 +112,16 @@ class TestStore implements Queue.Store<TestTask> {
     }
 
     takeFirstN(n: number, cb: (error: any, lockId: string) => void) {
-        cb(null, '');
+        cb(null, "");
     }
 
     takeLastN(n: number, cb: (error: any, lockId: string) => void) {
-        cb(null, '');
+        cb(null, "");
     }
 
     getLock(lockId: string, cb: (error: any, tasks: { [taskId: string]: TestTask }) => void) {
         cb(null, {
-            id: { taskId: 'id', taskPayload: 'payload' }
+            id: { taskId: "id", taskPayload: "payload" },
         });
     }
 

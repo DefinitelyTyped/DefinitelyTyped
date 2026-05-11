@@ -1,6 +1,6 @@
 /// <reference types="jquery" />
 
-import jDataView = require('jdataview');
+import jDataView = require("jdataview");
 
 interface TARMetaData {
     name: string;
@@ -21,7 +21,7 @@ interface TARMetaData {
 }
 
 // Download the file
-$.get('jquery.tar', function (data) {
+$.get("jquery.tar", function(data) {
     // Make a view on the data
     var view = new jDataView(data);
 
@@ -32,7 +32,7 @@ $.get('jquery.tar', function (data) {
     while (view.tell() < view.byteLength) {
         // Parse the file meta data
         var metadata: TARMetaData = {
-            name: view.getString(100).replace(/\0+$/, ''),
+            name: view.getString(100).replace(/\0+$/, ""),
             mode: parseInt(view.getString(8), 8),
             owner: parseInt(view.getString(8), 8),
             group: parseInt(view.getString(8), 8),
@@ -40,13 +40,13 @@ $.get('jquery.tar', function (data) {
             modtime: parseInt(view.getString(12), 8),
             checksum: parseInt(view.getString(8), 8),
             link: view.getChar(),
-            name_linked: view.getString(100).replace(/\0+$/, ''),
+            name_linked: view.getString(100).replace(/\0+$/, ""),
             ustar: view.getString(6),
             ustar_version: parseInt(view.getString(2), 8),
-            owner_name: view.getString(32).replace(/\0+$/, ''),
-            group_name: view.getString(32).replace(/\0+$/, ''),
+            owner_name: view.getString(32).replace(/\0+$/, ""),
+            group_name: view.getString(32).replace(/\0+$/, ""),
             device: [parseInt(view.getString(8), 8), parseInt(view.getString(8), 8)],
-            name_prefix: view.getString(155).replace(/\0+$/, '')
+            name_prefix: view.getString(155).replace(/\0+$/, ""),
         };
 
         // Padding
@@ -66,10 +66,10 @@ $.get('jquery.tar', function (data) {
         }
 
         // Print the file
-        $(document.body).append($('<pre></pre>').html(JSON.stringify(metadata, null, '  ')));
+        $(document.body).append($("<pre></pre>").html(JSON.stringify(metadata, null, "  ")));
 
         if (metadata.size) {
-            $('body').append($('<textarea></textarea>').val(content));
+            $("body").append($("<textarea></textarea>").val(content));
         }
     }
 });

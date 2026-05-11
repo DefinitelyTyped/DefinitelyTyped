@@ -1,9 +1,9 @@
 /// <reference types="jquery" />
 
-import { jui } from 'jui-core';
-import { GridTable, GridXTable, GridRow } from "jui-grid";
+import { jui } from "jui-core";
+import { GridRow, GridTable, GridXTable } from "jui-grid";
 
-jui.ready([ "grid.table" ], (table: GridTable) => {
+jui.ready(["grid.table"], (table: GridTable) => {
     const table_1: GridTable = table("#table_1", {
         data: [
             { name: "Hong", age: "20", location: "Ilsan" },
@@ -13,14 +13,14 @@ jui.ready([ "grid.table" ], (table: GridTable) => {
             { name: "Song", age: "12", location: "Gwangju" },
             { name: "Yoon", age: "22", location: "Damyang" },
             { name: "Kim", age: "33", location: "Busan" },
-            { name: "Hwang", age: "21", location: "Seoul" }
-        ]
+            { name: "Hwang", age: "21", location: "Seoul" },
+        ],
     });
 
     table_1.scroll(100);
 });
 
-jui.ready([ "grid.table" ], (table: GridTable) => {
+jui.ready(["grid.table"], (table: GridTable) => {
     const table_3: GridTable = table("#table_3", {
         event: {
             expand(row: any, e: any): void {
@@ -28,15 +28,15 @@ jui.ready([ "grid.table" ], (table: GridTable) => {
             },
             expandend(row: any, e: any): void {
                 $(row.list[0]).html("<i class='icon-left'></i>");
-            }
+            },
         },
-        expand: true
+        expand: true,
     });
 
     table_3.update([
         { name: "Hong", age: "20", location: "Ilsan" },
         { name: "Jung", age: "30", location: "Seoul" },
-        { name: "Park", age: "10", location: "Dangjin" }
+        { name: "Park", age: "10", location: "Dangjin" },
     ]);
 
     const table_3_submit: Function = (index: number) => {
@@ -44,21 +44,21 @@ jui.ready([ "grid.table" ], (table: GridTable) => {
         const age = $(table_3.root).find(".age").val();
         const location = $(table_3.root).find(".location").val();
 
-        //noinspection TypeScriptValidateTypes
+        // noinspection TypeScriptValidateTypes
         table_3.update(index, { name, age, location });
         table_3.hideExpand();
     };
 });
 
-jui.ready([ "grid.xtable" ], (xtable: GridXTable) => {
+jui.ready(["grid.xtable"], (xtable: GridXTable) => {
     let page = 1;
 
     const xtable_2: GridXTable = xtable("#xtable_2", {
-        fields: [ "name", "age", "location" ],
+        fields: ["name", "age", "location"],
         resize: true,
         sort: true,
         buffer: "page",
-        bufferCount: 20
+        bufferCount: 20,
     });
 
     const xtable_2_submit: Function = () => {
@@ -73,25 +73,25 @@ jui.ready([ "grid.xtable" ], (xtable: GridXTable) => {
         xtable_2.resize();
     };
 
-    const xtable_2_page: Function  = (no: number) => {
+    const xtable_2_page: Function = (no: number) => {
         page += no;
         page = (page < 1) ? 1 : page;
         xtable_2.page(page);
     };
 });
 
-jui.ready([ "grid.xtable" ], (xtable: GridXTable) => {
-    const xtable_4: GridXTable  = xtable("#xtable_4", {
-        fields: [ "name", "age", "location" ],
+jui.ready(["grid.xtable"], (xtable: GridXTable) => {
+    const xtable_4: GridXTable = xtable("#xtable_4", {
+        fields: ["name", "age", "location"],
         data: [
             { name: "Hong", age: "20", location: "Ilsan" },
             { name: "Jung", age: "30", location: "Seoul" },
-            { name: "Park", age: "10", location: "Dangjin" }
+            { name: "Park", age: "10", location: "Dangjin" },
         ],
         resize: true,
         sort: true,
         buffer: "s-page",
-        bufferCount: 20
+        bufferCount: 20,
     });
 
     const xtable_4_submit: Function = (isMulti: boolean) => {
@@ -111,9 +111,9 @@ jui.ready([ "grid.xtable" ], (xtable: GridXTable) => {
     };
 });
 
-jui.ready([ "grid.xtable" ], (xtable: GridXTable) => {
+jui.ready(["grid.xtable"], (xtable: GridXTable) => {
     const xtable_6: GridXTable = xtable("#xtable_6", {
-        fields: [ "name", "age", "location" ],
+        fields: ["name", "age", "location"],
         resize: true,
         sort: true,
         width: 800,
@@ -123,8 +123,8 @@ jui.ready([ "grid.xtable" ], (xtable: GridXTable) => {
         buffer: "vscroll",
         tpl: {
             row: "<tr><td><!= name !></td><td><!= age !></td><td><!= location !></td></tr>",
-            none: "<tr><td colspan='3' class='none' align='center'>Data does not exist.</td></tr>"
-        }
+            none: "<tr><td colspan='3' class='none' align='center'>Data does not exist.</td></tr>",
+        },
     });
 
     const xtable_6_submit: Function = () => {
@@ -138,16 +138,16 @@ jui.ready([ "grid.xtable" ], (xtable: GridXTable) => {
     };
 });
 
-jui.ready([ "grid.xtable" ], (xtable: GridXTable) => {
+jui.ready(["grid.xtable"], (xtable: GridXTable) => {
     const xtable_8: GridXTable = xtable("#xtable_8", {
-        fields: [ "url", "count" ],
+        fields: ["url", "count"],
         resize: true,
         buffer: "vscroll",
         rowHeight: 27,
         scrollHeight: 300,
         tpl: {
             row: $("#tpl_row").html(),
-            none: $("#tpl_none").html()
+            none: $("#tpl_none").html(),
         },
         event: {
             select(row: GridRow, e: any) {
@@ -156,8 +156,8 @@ jui.ready([ "grid.xtable" ], (xtable: GridXTable) => {
                 } else {
                     xtable_8.fold(row.index);
                 }
-            }
-        }
+            },
+        },
     });
 
     xtable_8.updateTree([
@@ -174,6 +174,6 @@ jui.ready([ "grid.xtable" ], (xtable: GridXTable) => {
         { index: "0.3", type: "fold", data: { url: "/main.jsp", count: 10 } },
         { index: "0.4", type: "fold", data: { url: "/login.jsp", count: 10 } },
         { index: "0.5", type: "fold", data: { url: "/sitemap.xml", count: 10 } },
-        { index: "0.6", type: "fold", data: { url: "/package.json", count: 5 } }
+        { index: "0.6", type: "fold", data: { url: "/package.json", count: 5 } },
     ]);
 });

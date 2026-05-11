@@ -1,21 +1,5 @@
-/**
- * **This module is pending deprecation.** Once a replacement API has been
- * finalized, this module will be fully deprecated. Most developers should
- * **not** have cause to use this module. Users who absolutely must have
- * the functionality that domains provide may rely on it for the time being
- * but should expect to have to migrate to a different solution
- * in the future.
- *
- * Domains provide a way to handle multiple different IO operations as a
- * single group. If any of the event emitters or callbacks registered to a
- * domain emit an `'error'` event, or throw an error, then the domain object
- * will be notified, rather than losing the context of the error in the`process.on('uncaughtException')` handler, or causing the program to
- * exit immediately with an error code.
- * @deprecated Since v1.4.2 - Deprecated
- * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/domain.js)
- */
-declare module 'domain' {
-    import EventEmitter = require('node:events');
+declare module "node:domain" {
+    import { EventEmitter } from "node:events";
     /**
      * The `Domain` class encapsulates the functionality of routing errors and
      * uncaught exceptions to the active `Domain` object.
@@ -24,12 +8,11 @@ declare module 'domain' {
      */
     class Domain extends EventEmitter {
         /**
-         * An array of timers and event emitters that have been explicitly added
-         * to the domain.
+         * An array of event emitters that have been explicitly added to the domain.
          */
-        members: Array<EventEmitter | NodeJS.Timer>;
+        members: EventEmitter[];
         /**
-         * The `enter()` method is plumbing used by the `run()`, `bind()`, and`intercept()` methods to set the active domain. It sets `domain.active` and`process.domain` to the domain, and implicitly
+         * The `enter()` method is plumbing used by the `run()`, `bind()`, and `intercept()` methods to set the active domain. It sets `domain.active` and `process.domain` to the domain, and implicitly
          * pushes the domain onto the domain
          * stack managed by the domain module (see {@link exit} for details on the
          * domain stack). The call to `enter()` delimits the beginning of a chain of
@@ -47,7 +30,7 @@ declare module 'domain' {
          * The call to `exit()` delimits either the end of or an interruption to the chain
          * of asynchronous calls and I/O operations bound to a domain.
          *
-         * If there are multiple, nested domains bound to the current execution context,`exit()` will exit any domains nested within this domain.
+         * If there are multiple, nested domains bound to the current execution context, `exit()` will exit any domains nested within this domain.
          *
          * Calling `exit()` changes only the active domain, and does not alter the domain
          * itself. `enter()` and `exit()` can be called an arbitrary number of times on a
@@ -63,8 +46,8 @@ declare module 'domain' {
          * This is the most basic way to use a domain.
          *
          * ```js
-         * const domain = require('node:domain');
-         * const fs = require('node:fs');
+         * import domain from 'node:domain';
+         * import fs from 'node:fs';
          * const d = domain.create();
          * d.on('error', (er) => {
          *   console.error('Caught error!', er);
@@ -91,20 +74,17 @@ declare module 'domain' {
          * will be routed to the domain's `'error'` event, just like with implicit
          * binding.
          *
-         * This also works with timers that are returned from `setInterval()` and `setTimeout()`. If their callback function throws, it will be caught by
-         * the domain `'error'` handler.
-         *
-         * If the Timer or `EventEmitter` was already bound to a domain, it is removed
-         * from that one, and bound to this one instead.
-         * @param emitter emitter or timer to be added to the domain
+         * If the `EventEmitter` was already bound to a domain, it is removed from that
+         * one, and bound to this one instead.
+         * @param emitter emitter to be added to the domain
          */
-        add(emitter: EventEmitter | NodeJS.Timer): void;
+        add(emitter: EventEmitter): void;
         /**
          * The opposite of {@link add}. Removes domain handling from the
          * specified emitter.
-         * @param emitter emitter or timer to be removed from the domain
+         * @param emitter emitter to be removed from the domain
          */
-        remove(emitter: EventEmitter | NodeJS.Timer): void;
+        remove(emitter: EventEmitter): void;
         /**
          * The returned function will be a wrapper around the supplied callback
          * function. When the returned function is called, any errors that are
@@ -165,6 +145,6 @@ declare module 'domain' {
     }
     function create(): Domain;
 }
-declare module 'node:domain' {
-    export * from 'domain';
+declare module "domain" {
+    export * from "node:domain";
 }

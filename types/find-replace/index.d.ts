@@ -1,8 +1,3 @@
-// Type definitions for find-replace 4.0
-// Project: https://github.com/75lb/find-replace#readme
-// Definitions by: Renat Zamaletdinov <https://github.com/Zamaletdinov>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Replace or remove multiple items in an array
  *

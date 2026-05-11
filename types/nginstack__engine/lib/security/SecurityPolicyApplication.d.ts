@@ -1,5 +1,3 @@
-export type exports = string;
-declare const IDE: string;
-declare const iWeb: string;
-declare const FrameworkHTML: string;
-export {};
+export const IDE = 'iIDEEnabled';
+export const iWeb = 'iiWebEnabled';
+export const FrameworkHTML = 'iFrameworkHTMLEnabled';

@@ -1,7 +1,7 @@
 // Adapted from the README
 
-import eetase = require('eetase');
-import http = require('http');
+import eetase = require("eetase");
+import http = require("http");
 
 // The Node.js HTTP server is an EventEmitter.
 // Normally works using server.on('request', handler);
@@ -21,7 +21,7 @@ const eeServer = eetase(server);
     // This is needed because emitter.emit(eventName, ...)
     // can have multiple arguments.
     // tslint:disable-next-line: await-promise Bug in tslint: https://github.com/palantir/tslint/issues/3997
-    for await (const [req] of eeServer.listener('request')) {
+    for await (const [req] of eeServer.listener("request")) {
         // $ExpectType any
         req;
     }

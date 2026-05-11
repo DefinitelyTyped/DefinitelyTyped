@@ -1,18 +1,42 @@
-// Type definitions for react-show-more 2.0
-// Project: https://github.com/One-com/react-show-more
-// Definitions by: Naor Torgeman <https://github.com/naortor>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+import * as React from "react";
 
-import * as React from 'react';
+declare namespace ReactShowMore {
+    interface ReactShowMoreProps {
+        /**
+         * Specifies how many lines of text should be preserved until it gets truncated. false and
+         * any integer < 1 will result in the text not getting clipped at all.
+         *
+         * @default false
+         */
+        lines?: number | false | undefined;
 
-export interface ReactShowMoreProps {
-    lines?: number | undefined;
-    more?: string | undefined;
-    less?: string | undefined;
-    children?: string | undefined;
-    anchorClass?: string | undefined;
+        /**
+         * The text to display in the anchor element to show more.
+         *
+         * @default "Show more"
+         */
+        more?: React.ReactNode | undefined;
+
+        /**
+         * The text to display in the anchor element to show less.
+         *
+         * @default "Show less"
+         */
+        less?: React.ReactNode | undefined;
+
+        /**
+         * The text to be truncated. Anything that can be evaluated as text.
+         */
+        children?: React.ReactNode | undefined;
+
+        /**
+         * Class name(s) to add to the anchor elements.
+         *
+         * @default ""
+         */
+        anchorClass?: string | undefined;
+    }
 }
 
-declare const ShowMore: React.ClassicComponentClass<ReactShowMoreProps>;
-export default ShowMore;
+declare class ReactShowMore extends React.Component<ReactShowMore.ReactShowMoreProps> {}
+export = ReactShowMore;

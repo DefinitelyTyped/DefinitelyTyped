@@ -1,9 +1,9 @@
-import fs = require('fs');
-import stream = require('stream');
+import fs = require("fs");
+import stream = require("stream");
 
-import through = require('through');
-import through2 = require('through2');
-import MultiStream = require('multistream');
+import through = require("through");
+import through2 = require("through2");
+import MultiStream = require("multistream");
 
 const readable = new stream.Readable();
 const writable = new stream.Writable();
@@ -18,19 +18,19 @@ const streams = [
     pass,
     through(),
     through2(),
-    fs.createReadStream('.filepath'),
-    () => fs.createWriteStream('.filepath2'),
+    fs.createReadStream(".filepath"),
+    () => fs.createWriteStream(".filepath2"),
 ];
 
 const factory: MultiStream.FactoryStream = cb => {
-    cb(null, fs.createReadStream('.filepath'));
+    cb(null, fs.createReadStream(".filepath"));
 
-    cb(null, fs.createReadStream('.filepath'));
+    cb(null, fs.createReadStream(".filepath"));
     cb(null, null);
-    cb(new Error('some error'), null);
+    cb(new Error("some error"), null);
 
     // @ts-expect-error
-    cb(new Error('some error'), fs.createReadStream('.filepath'));
+    cb(new Error("some error"), fs.createReadStream(".filepath"));
 };
 
 // $ExpectType MultiStream

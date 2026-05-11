@@ -45,7 +45,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): ButtonSelectWidget;
+            new(config?: ConfigOptions): ButtonSelectWidget;
             prototype: Prototype;
             static: Static;
             super: SelectWidget.Constructor;

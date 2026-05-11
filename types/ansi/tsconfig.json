@@ -4,8 +4,8 @@
         "ansi-tests.ts"
     ],
     "compilerOptions": {
-        "module": "commonjs",
-        "target": "es5",
+        "module": "node16",
+        "target": "es6",
         "lib": [
             "es6"
         ],
@@ -13,10 +13,6 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "noEmit": true,
         "types": [],
         "forceConsistentCasingInFileNames": true

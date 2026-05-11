@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/bluebird-global",
+    "version": "3.5.9999",
+    "projects": [
+        "https://github.com/kaatt/bluebird-global"
+    ],
+    "dependencies": {
+        "@types/bluebird": "*"
+    },
+    "devDependencies": {
+        "@types/bluebird-global": "workspace:.",
+        "@types/jquery": "*"
+    },
+    "owners": [
+        {
+            "name": "d-ph",
+            "githubUsername": "d-ph"
+        }
+    ]
+}

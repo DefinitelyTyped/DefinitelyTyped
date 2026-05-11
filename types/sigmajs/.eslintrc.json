@@ -1,5 +1,5 @@
 {
     "rules": {
-        "dt-header": "off"
+        "@typescript-eslint/no-misused-new": "off"
     }
 }

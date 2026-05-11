@@ -31,6 +31,7 @@ with the following stubs:
 
 export function onClientRequest(request: EW.IngressClientRequest) {}
 export function onOriginRequest(request: EW.IngressOriginRequest) {}
+export function onBotSegmentAvailable(request: EW.BotSegmentAvailableRequest) {}
 export function responseProvider(request: EW.ResponseProviderRequest) {}
 export function onOriginResponse(request: EW.EgressOriginRequest, response: EW.EgressOriginResponse) {}
 export function onClientResponse(request: EW.EgressClientRequest, response: EW.EgressClientResponse) {}
@@ -42,13 +43,14 @@ namespace.
 ## Using Built-In Modules
 
 TypeScript Bindings are available for [built-in modules], including:
-* `cookies` - Parsing and manipulation of cookie-related headers
-* `create-response` - Helper for the `reponseProvider()` callback
-* `http-request` - Fetch remote resources via HTTP and HTTPS
-* `log` - Console-style logging
-* `streams` - Compatibility with the WHATWG Streams standard
-* `text-encode-transform` - Compatibility with the WHATWG Encoding standard
-* `url-search-params` - Parsing query parameters
+
+- `cookies` - Parsing and manipulation of cookie-related headers
+- `create-response` - Helper for the `reponseProvider()` callback
+- `http-request` - Fetch remote resources via HTTP and HTTPS
+- `log` - Console-style logging
+- `streams` - Compatibility with the WHATWG Streams standard
+- `text-encode-transform` - Compatibility with the WHATWG Encoding standard
+- `url-search-params` - Parsing query parameters
 
 Once you've added the triple-slash reference to `akamai-edgeworkers`
 you can import them normally:
@@ -56,11 +58,11 @@ you can import them normally:
 ```typescript
 /// <reference types="akamai-edgeworkers"/>
 
-import { Cookies } from 'cookies';
+import { Cookies } from "cookies";
 
 function onClientRequest(request: EW.IngressClientRequest) {
-    const cookie = new Cookies(request.getHeader('cookies') || undefined);
-    //...
+    const cookie = new Cookies(request.getHeader("cookies") || undefined);
+    // ...
 }
 ```
 

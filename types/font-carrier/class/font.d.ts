@@ -1,6 +1,6 @@
-import Base = require('./base');
-import FontFace = require('./fontface');
-import Glyph = require('./glyph');
+import Base = require("./base");
+import FontFace = require("./fontface");
+import Glyph = require("./glyph");
 
 declare namespace Font {
     interface FontOptions {
@@ -11,7 +11,7 @@ declare namespace Font {
         /** 字体的垂直画布大小，默认是 1024 */
         vertAdvY: number;
     }
-    type FontType = 'ttf' | 'eot' | 'woff' | 'woff2' | 'svg';
+    type FontType = "ttf" | "eot" | "woff" | "woff2" | "svg";
 
     interface FileOptions {
         /** 支持文件地址，也支持文件 buffer */

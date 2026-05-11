@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/fullpage.js",
+    "version": "2.9.9999",
+    "projects": [
+        "http://alvarotrigo.com/fullPage/"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/fullpage.js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Andrew Roberts",
+            "url": "http://www.atroberts.org"
+        },
+        {
+            "name": "Jodi Warren",
+            "githubUsername": "jodiwarren"
+        }
+    ]
+}

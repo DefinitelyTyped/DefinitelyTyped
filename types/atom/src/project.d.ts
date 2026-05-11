@@ -6,7 +6,7 @@ import {
     GitRepository,
     PathWatcher,
     TextBuffer,
-} from '../index';
+} from "../index";
 
 /** Represents a project that's opened in Atom. */
 export interface Project {

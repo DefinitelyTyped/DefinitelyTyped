@@ -1,23 +1,22 @@
-import { Loader } from './Loader';
-import { LoadingManager } from './LoadingManager';
+import { Loader } from "./Loader.js";
+import { LoadingManager } from "./LoadingManager.js";
 
-export class ImageBitmapLoader extends Loader {
-    constructor(manager?: LoadingManager);
+export class ImageBitmapLoader extends Loader<ImageBitmap> {
+    readonly isImageBitmapLoader: true;
 
     /**
      * @default { premultiplyAlpha: 'none' }
      */
-    options: undefined | object;
+    options: ImageBitmapOptions;
 
-    readonly isImageBitmapLoader: true;
+    constructor(manager?: LoadingManager);
 
-    setOptions(options: object): ImageBitmapLoader;
+    setOptions(options: ImageBitmapOptions): this;
+
     load(
         url: string,
-        onLoad?: (response: ImageBitmap) => void,
-        onProgress?: (request: ProgressEvent) => void,
-        onError?: (event: ErrorEvent) => void,
-    ): any;
-
-    loadAsync(url: string, onProgress?: (event: ProgressEvent) => void): Promise<ImageBitmap>;
+        onLoad?: (data: ImageBitmap) => void,
+        onProgress?: (event: ProgressEvent) => void,
+        onError?: (err: unknown) => void,
+    ): void;
 }

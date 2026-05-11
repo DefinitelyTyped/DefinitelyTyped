@@ -18,7 +18,7 @@ const credentials: oauth2lib.ModuleOptions = {
 const oauth2AuthorizationCode = new oauth2lib.AuthorizationCode(credentials);
 const oauth2ClientCredentials = new oauth2lib.ClientCredentials(credentials);
 const oauth2ResourceOwnerPassword = new oauth2lib.ResourceOwnerPassword(
-  credentials
+    credentials,
 );
 
 // Test custom `idParamName`
@@ -59,7 +59,7 @@ const oauth2ResourceOwnerPassword = new oauth2lib.ResourceOwnerPassword(
     try {
         const result = await oauth2AuthorizationCode.getToken(tokenConfig);
         const accessToken = oauth2AuthorizationCode.createToken(result.token);
-    } catch (error) {
+    } catch (error: any) {
         console.log("Access Token Error", error.message);
     }
 })();
@@ -76,7 +76,7 @@ const oauth2ResourceOwnerPassword = new oauth2lib.ResourceOwnerPassword(
     try {
         const result = await oauth2ResourceOwnerPassword.getToken(tokenConfig);
         const accessToken = oauth2ResourceOwnerPassword.createToken(result.token);
-    } catch (error) {
+    } catch (error: any) {
         console.log("Access Token Error", error.message);
     }
 })();
@@ -89,17 +89,17 @@ const oauth2ResourceOwnerPassword = new oauth2lib.ResourceOwnerPassword(
     try {
         const result = await oauth2ClientCredentials.getToken(tokenConfig);
         const accessToken = oauth2ClientCredentials.createToken(result.token);
-    } catch (error) {
+    } catch (error: any) {
         console.log("Access Token error", error.message);
     }
 })();
 
 // #Access Token object
 async function TestFnAccessTokenObject(
-  oauthSubject:
-    | oauth2lib.AuthorizationCode
-    | oauth2lib.ClientCredentials
-    | oauth2lib.ResourceOwnerPassword
+    oauthSubject:
+        | oauth2lib.AuthorizationCode
+        | oauth2lib.ClientCredentials
+        | oauth2lib.ResourceOwnerPassword,
 ) {
     // Sample of a JSON access token (you got it through previous steps)
     const tokenObject = {
@@ -115,7 +115,7 @@ async function TestFnAccessTokenObject(
     if (accessToken.expired()) {
         try {
             accessToken = await accessToken.refresh();
-        } catch (error) {
+        } catch (error: any) {
             console.log("Error refreshing access token: ", error.message);
         }
     }
@@ -130,7 +130,7 @@ async function TestFnAccessTokenObject(
         await accessToken.revoke("refresh_token");
 
         console.log("Token revoked");
-    } catch (error) {
+    } catch (error: any) {
         console.log("Error revoking token: ", error.message);
     }
 
@@ -139,7 +139,7 @@ async function TestFnAccessTokenObject(
     try {
         // Revokes both tokens, refresh token is only revoked if the access_token is properly revoked
         await accessToken.revokeAll();
-    } catch (error) {
+    } catch (error: any) {
         console.log("Error revoking token: ", error.message);
     }
 }
@@ -174,7 +174,7 @@ TestFnAccessTokenObject(oauth2ResourceOwnerPassword);
     try {
         const result = await oauth2ResourceOwnerPassword.getToken(tokenConfig);
         const accessToken = oauth2ResourceOwnerPassword.createToken(result.token);
-    } catch (error) {
+    } catch (error: any) {
         console.log("Access Token Error", error.message);
     }
 })();

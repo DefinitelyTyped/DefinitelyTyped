@@ -1,19 +1,31 @@
-import Drawer from 'rmc-drawer';
-import * as React from 'react';
+import * as React from "react";
+import Drawer from "rmc-drawer";
 
-const sidebar = (<div>
-    <h3>
-        sidebar
-    </h3>
-    <p>this is content!</p>
-</div>);
-
-const drawer = <Drawer sidebar={sidebar} docked={false} open={false}
-    style={{ overflow: 'auto' }} touch={true} enableDragHandle={true}
-    position="left" dragToggleDistance={30} transitions={true}
-    onOpenChange={_open => {}}>
-    <div className="main">
-        <p>React component</p>
-        Testcontent
+const sidebar = (
+    <div>
+        <h3>
+            sidebar
+        </h3>
+        <p>this is content!</p>
     </div>
-</Drawer>;
+);
+
+const drawer = (
+    <Drawer
+        sidebar={sidebar}
+        docked={false}
+        open={false}
+        style={{ overflow: "auto" }}
+        touch={true}
+        enableDragHandle={true}
+        position="left"
+        dragToggleDistance={30}
+        transitions={true}
+        onOpenChange={_open => {}}
+    >
+        <div className="main">
+            <p>React component</p>
+            Testcontent
+        </div>
+    </Drawer>
+);

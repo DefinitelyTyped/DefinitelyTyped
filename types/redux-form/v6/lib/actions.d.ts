@@ -1,5 +1,5 @@
 import { Action } from "redux";
-import { FormErrors, FormWarnings, FieldType } from "../index";
+import { FieldType, FormErrors, FormWarnings } from "../index";
 
 export interface FormAction extends Action {
     meta?: any;
@@ -71,7 +71,13 @@ export function blur(form: string, field: string, value: any, touch?: boolean): 
 /**
  * Saves the value to the field
  */
-export function change(form: string, field: string, value: any, touch?: boolean, persistentSubmitErrors?: boolean): FormAction;
+export function change(
+    form: string,
+    field: string,
+    value: any,
+    touch?: boolean,
+    persistentSubmitErrors?: boolean,
+): FormAction;
 
 /**
  * Destroys the form, removing all it's state
@@ -94,7 +100,12 @@ interface InitializeOptions {
     keepSubmitSucceeded: boolean;
 }
 
-export function initialize(form: string, data: any, keepDirty?: boolean | InitializeOptions, options?: InitializeOptions): FormAction;
+export function initialize(
+    form: string,
+    data: any,
+    keepDirty?: boolean | InitializeOptions,
+    options?: InitializeOptions,
+): FormAction;
 
 /**
  * Registers a field with the form.

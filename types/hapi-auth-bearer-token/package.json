@@ -1,7 +1,23 @@
 {
-  "private": true,
-  "dependencies": {
-    "@hapi/hapi": "^21.1.0",
-    "joi": "^17.7.0"
-  }
+    "private": true,
+    "name": "@types/hapi-auth-bearer-token",
+    "version": "6.1.9999",
+    "projects": [
+        "https://github.com/johnbrett/hapi-auth-bearer-token"
+    ],
+    "minimumTypeScriptVersion": "4.9",
+    "dependencies": {
+        "@hapi/hapi": "^21.1.0",
+        "@types/node": "*",
+        "joi": "^17.7.0"
+    },
+    "devDependencies": {
+        "@types/hapi-auth-bearer-token": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Rodrigo Saboya",
+            "githubUsername": "saboya"
+        }
+    ]
 }

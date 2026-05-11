@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/ethereum-blockies",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/ethereum/blockies"
+    ],
+    "devDependencies": {
+        "@types/ethereum-blockies": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jack Works",
+            "githubUsername": "Jack-Works"
+        }
+    ]
+}

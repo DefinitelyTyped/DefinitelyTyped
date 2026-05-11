@@ -1,11 +1,5 @@
-// Type definitions for getenv 1.0
-// Project: https://github.com/ctavan/node-getenv
-// Definitions by: Ivan Pankratov <https://github.com/impankratov>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="node" />
-import { UrlWithStringQuery } from 'url';
+import { UrlWithStringQuery } from "url";
 
 interface ParseMappings {
     string: string;
@@ -16,23 +10,23 @@ interface ParseMappings {
     url: UrlWithStringQuery;
 }
 type ParseTypes = keyof ParseMappings;
-type ParseWithFallback = [string, ParseMappings['string']];
+type ParseWithFallback = [string, ParseMappings["string"]];
 type ParseWithType<T extends ParseTypes> = [string, ParseMappings[T], T];
 type ParseWithEachType =
-    | ParseWithType<'string'>
-    | ParseWithType<'int'>
-    | ParseWithType<'float'>
-    | ParseWithType<'bool'>
-    | ParseWithType<'boolish'>
-    | ParseWithType<'url'>;
+    | ParseWithType<"string">
+    | ParseWithType<"int">
+    | ParseWithType<"float">
+    | ParseWithType<"bool">
+    | ParseWithType<"boolish">
+    | ParseWithType<"url">;
 
 /**
  * Alias for `env.string(name, [fallback])`
  */
 declare function getenv(
     name: string,
-    fallback?: string
-): ParseMappings['string'];
+    fallback?: string,
+): ParseMappings["string"];
 
 declare namespace getenv {
     /**
@@ -40,50 +34,50 @@ declare namespace getenv {
      */
     function string(
         name: string,
-        fallback?: ParseMappings['string']
-    ): ParseMappings['string'];
+        fallback?: ParseMappings["string"],
+    ): ParseMappings["string"];
 
     /**
      * Return as integer number.
      */
     function int(
         name: string,
-        fallback?: ParseMappings['int']
-    ): ParseMappings['int'];
+        fallback?: ParseMappings["int"],
+    ): ParseMappings["int"];
 
     /**
      * Return as float number.
      */
     function float(
         name: string,
-        fallback?: ParseMappings['float']
-    ): ParseMappings['float'];
+        fallback?: ParseMappings["float"],
+    ): ParseMappings["float"];
 
     /**
      * Return as boolean. Only allows true/false as valid values.
      */
     function bool(
         name: string,
-        fallback?: ParseMappings['bool']
-    ): ParseMappings['bool'];
+        fallback?: ParseMappings["bool"],
+    ): ParseMappings["bool"];
 
     /**
      * Return as boolean. Allows true/false/1/0 as valid values.
      */
     function boolish(
         name: string,
-        fallback?: ParseMappings['boolish']
-    ): ParseMappings['boolish'];
+        fallback?: ParseMappings["boolish"],
+    ): ParseMappings["boolish"];
 
     /**
      * Split value of the environment variable at each comma and return the resulting array
      * where each value has been typecast according to the `type` parameter. An array can be
      * provided as `fallback`.
      */
-    function array<T extends ParseTypes = 'string'>(
+    function array<T extends ParseTypes = "string">(
         name: string,
         type?: T,
-        fallback?: Array<ParseMappings[T]>
+        fallback?: Array<ParseMappings[T]>,
     ): Array<ParseMappings[T]>;
 
     /**
@@ -100,13 +94,12 @@ declare namespace getenv {
     function multi<
         S extends {
             [k: string]: string | ParseWithFallback | ParseWithEachType;
-        }
+        },
     >(
-        spec: S
+        spec: S,
     ): {
-        [P in keyof S]: S[P][2] extends ParseTypes
-            ? ParseMappings[S[P][2]]
-            : string
+        [P in keyof S]: S[P][2] extends ParseTypes ? ParseMappings[S[P][2]]
+            : string;
     };
 
     /**
@@ -114,8 +107,8 @@ declare namespace getenv {
      */
     function url(
         name: string,
-        fallback?: ParseMappings['url']
-    ): ParseMappings['url'];
+        fallback?: ParseMappings["url"],
+    ): ParseMappings["url"];
 
     /**
      * Disallows fallbacks in environments where you don't want to rely on brittle development

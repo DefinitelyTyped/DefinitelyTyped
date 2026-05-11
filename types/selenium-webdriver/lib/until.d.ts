@@ -1,4 +1,4 @@
-import { Alert, By, ByHash, Condition, Locator, WebDriver, WebElement, WebElementCondition } from '../';
+import { Alert, By, ByHash, Condition, Locator, WebDriver, WebElement, WebElementCondition } from "../";
 
 /**
  * Creates a condition that will wait until the input driver is able to switch

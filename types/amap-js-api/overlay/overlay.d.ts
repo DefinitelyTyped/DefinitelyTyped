@@ -1,16 +1,16 @@
 declare namespace AMap {
     namespace Overlay {
         interface EventMap<I> {
-            touchstart: MapsEvent<'touchstart', I>;
-            touchmove: MapsEvent<'touchmove', I>;
-            touchend: MapsEvent<'touchend', I>;
-            click: MapsEvent<'click', I>;
-            rightclick: MapsEvent<'rightclick', I>;
-            dblclick: MapsEvent<'dblclick', I>;
-            mousemove: MapsEvent<'mousemove', I>;
-            mouseover: MapsEvent<'mouseover', I>;
-            mousedown: MapsEvent<'mousedown', I>;
-            mouseup: MapsEvent<'mouseup', I>;
+            touchstart: MapsEvent<"touchstart", I>;
+            touchmove: MapsEvent<"touchmove", I>;
+            touchend: MapsEvent<"touchend", I>;
+            click: MapsEvent<"click", I>;
+            rightclick: MapsEvent<"rightclick", I>;
+            dblclick: MapsEvent<"dblclick", I>;
+            mousemove: MapsEvent<"mousemove", I>;
+            mouseover: MapsEvent<"mouseover", I>;
+            mousedown: MapsEvent<"mousedown", I>;
+            mouseup: MapsEvent<"mouseup", I>;
         }
         interface Options<ExtraData = any> {
             /**

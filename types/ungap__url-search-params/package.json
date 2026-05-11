@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/ungap__url-search-params",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/ungap/url-search-params"
+    ],
+    "devDependencies": {
+        "@types/ungap__url-search-params": "workspace:.",
+        "@types/url-search-params": "*"
+    },
+    "owners": [
+        {
+            "name": "Nick",
+            "githubUsername": "nick121212"
+        },
+        {
+            "name": "Neha",
+            "githubUsername": "nrathi"
+        }
+    ]
+}

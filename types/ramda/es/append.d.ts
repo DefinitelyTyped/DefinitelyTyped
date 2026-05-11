@@ -1,2 +1,2 @@
-import { append } from '../index';
+import { append } from "../index.js";
 export default append;

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/telegraph.md",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/telegraf/telegraph.md"
+    ],
+    "devDependencies": {
+        "@types/telegraph.md": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Fırat Özden",
+            "githubUsername": "fir4tozden"
+        }
+    ]
+}

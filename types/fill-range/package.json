@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/fill-range",
+    "version": "7.0.9999",
+    "projects": [
+        "https://github.com/jonschlinkert/fill-range"
+    ],
+    "devDependencies": {
+        "@types/fill-range": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Richie Bendall",
+            "githubUsername": "Richienb"
+        }
+    ]
+}

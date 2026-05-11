@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/istanbuljs__nyc-config-babel",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/istanbuljs/istanbuljs/tree/master/packages/nyc-config-babel"
+    ],
+    "devDependencies": {
+        "@types/istanbuljs__nyc-config-babel": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Paul Sanchez",
+            "githubUsername": "basicdays"
+        }
+    ]
+}

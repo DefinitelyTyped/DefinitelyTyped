@@ -1,8 +1,3 @@
-// Type definitions for Vortex Web 1.2
-// Project: http://www.prismtech.com/vortex/vortex-web
-// Definitions by: Stefan Profanter <https://github.com/Pro>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /*
  Vortex Web
 
@@ -15,13 +10,10 @@
  */
 
 declare namespace DDS {
-
-
     /**
      * Base class for all policies
      */
     interface Policy {
-
     }
 
     /**
@@ -29,7 +21,7 @@ declare namespace DDS {
      */
     export enum HistoryKind {
         KeepAll = 0,
-        KeepLast = 1
+        KeepLast = 1,
     }
 
     /**
@@ -39,11 +31,11 @@ declare namespace DDS {
         /**
          * KeepAll - KEEP_ALL qos policy
          */
-        static KeepAll:any;
+        static KeepAll: any;
         /**
          * KeepLast - KEEP_LAST qos policy
          */
-        static KeepLast:any;
+        static KeepLast: any;
     }
 
     /**
@@ -52,7 +44,7 @@ declare namespace DDS {
      */
     export enum ReliabilityKind {
         Reliable = 0,
-        BestEffort = 1
+        BestEffort = 1,
     }
 
     /**
@@ -62,11 +54,11 @@ declare namespace DDS {
         /**
          * Reliable - 'Reliable' reliability policy
          */
-        static Reliable:any;
+        static Reliable: any;
         /**
          * BestEffort - 'BestEffort' reliability policy
          */
-        static BestEffort:any;
+        static BestEffort: any;
     }
 
     /**
@@ -75,7 +67,7 @@ declare namespace DDS {
      * @param policies - partition names
      * @example var qos = Partition('p1', 'p2')
      */
-    export function Partition(...policies:string[]):Policy;
+    export function Partition(...policies: string[]): Policy;
 
     /**
      * Create new content filter policy
@@ -83,8 +75,7 @@ declare namespace DDS {
      * @param expr - filter expression
      * @example var filter = ContentFilter("x>10 AND y<50")
      */
-    export function ContentFilter(expr:string):Policy;
-
+    export function ContentFilter(expr: string): Policy;
 
     /**
      * Create new time filter policy
@@ -92,7 +83,7 @@ declare namespace DDS {
      * @param period - time duration (unit ?)
      * @example var filter = TimeFilter(100)
      */
-    export function TimeFilter(period:number):Policy;
+    export function TimeFilter(period: number): Policy;
 
     /**
      * Durability Policy
@@ -101,7 +92,7 @@ declare namespace DDS {
         Volatile = 0,
         TransientLocal = 1,
         Transient = 2,
-        Persistent = 3
+        Persistent = 3,
     }
 
     /**
@@ -111,21 +102,20 @@ declare namespace DDS {
         /**
          * Volatile - Volatile durability policy
          */
-        static Volatile:any;
+        static Volatile: any;
         /**
          * TransientLocal - TransientLocal durability policy
          */
-        static TransientLocal:any;
+        static TransientLocal: any;
         /**
          * Transient - Transient durability policy
          */
-        static Transient:any;
+        static Transient: any;
         /**
          * Persistent - Persistent durability policy
          */
-        static Persistent:any;
+        static Persistent: any;
     }
-
 
     interface EntityQos {
         /**
@@ -133,30 +123,29 @@ declare namespace DDS {
          *
          * @param policies - list of policies for the Qos entity
          */
-        new (...policies:Policy[]): EntityQos;
+        new(...policies: Policy[]): EntityQos;
 
         /**
          * Adds the given policy to this instance.
          * @param policy - the policy to add
          * @return A new copy of this instance with the combined policies
          */
-        add (policy:Policy): EntityQos;
+        add(policy: Policy): EntityQos;
     }
-
 
     /**
      * Topic quality of service object
      */
-    export var TopicQos:EntityQos;
+    export var TopicQos: EntityQos;
     /**
      * DataReader quality of service object
      */
-    export var DataReaderQos:EntityQos;
+    export var DataReaderQos: EntityQos;
 
     /**
      * DataWriter quality of service object
      */
-    export var DataWriterQos:EntityQos;
+    export var DataWriterQos: EntityQos;
 
     export class Topic {
         /**
@@ -168,17 +157,17 @@ declare namespace DDS {
          * @param {string} ttype - topic type. If not specified, a generic type is used.
          * @param {string} tregtype - topic registered type name. If not specified, 'ttype' is used.
          */
-        constructor(did:number, tname:string, qos:EntityQos, ttype?:string, tregtype?:string);
+        constructor(did: number, tname: string, qos: EntityQos, ttype?: string, tregtype?: string);
 
         /**
          * Called when topic gets registered in the runtime
          */
-        onregistered():void;
+        onregistered(): void;
 
         /**
          * Called when topic gets unregistered in the runtime
          */
-        onunregistered():void;
+        onunregistered(): void;
     }
 
     export class DataReader {
@@ -195,9 +184,9 @@ declare namespace DDS {
          * @param topic - DDS Topic
          * @param qos - DataReader quality of service
          */
-        constructor(runtime:Runtime, topic:Topic, qos:EntityQos);
+        constructor(runtime: Runtime, topic: Topic, qos: EntityQos);
 
-        resetStats():void;
+        resetStats(): void;
 
         /**
          * Attaches the  listener `l` to this data reader and returns
@@ -205,18 +194,18 @@ declare namespace DDS {
          * @param l - listener code
          * @returns listener handle
          */
-        addListener(l:(msg:any) => void):number;
+        addListener(l: (msg: any) => void): number;
 
         /**
          * removes a listener from this data reader.
          * @param idx - listener id
          */
-        removeListener(idx:number):void;
+        removeListener(idx: number): void;
 
         /**
          * closes the DataReader
          */
-        close():void;
+        close(): void;
     }
 
     export class DataWriter {
@@ -235,20 +224,19 @@ declare namespace DDS {
          * @param topic - DDS Topic
          * @param qos - DataWriter quality of service
          */
-        constructor(runtime:Runtime, topic:Topic, qos:EntityQos);
+        constructor(runtime: Runtime, topic: Topic, qos: EntityQos);
 
         /**
          * Writes one or more samples.
          * @param ds - data sample
          */
-        write(...ds:any[]):void;
+        write(...ds: any[]): void;
 
         /**
          * Closes the DataWriter
          */
-        close():void;
+        close(): void;
     }
-
 
     export class DataCache {
         /**
@@ -263,7 +251,7 @@ declare namespace DDS {
          * @param depth - cache size
          * @param cache - cache data structure
          */
-        constructor(depth:number, cache:any);
+        constructor(depth: number, cache: any);
 
         /**
          * Register a listener to be notified whenever data which matches a predicate is written into the cache.
@@ -272,7 +260,7 @@ declare namespace DDS {
          * @param l - listener function
          * @param p - predicate
          */
-        addListener(l:(data:any) => void, p?:(data:any) => boolean):void;
+        addListener(l: (data: any) => void, p?: (data: any) => boolean): void;
 
         /**
          * Write the element `data` with key `k` into the cache.
@@ -281,7 +269,7 @@ declare namespace DDS {
          * @param data - data value
          * @returns the written data value
          */
-        write(k:any, data:any):any;
+        write(k: any, data: any): any;
 
         /**
          * Same as forEach but applied, for each key, only to the first `n` samples of the cache
@@ -289,7 +277,7 @@ declare namespace DDS {
          * @param f - the function to be applied
          * @param n - samples set size
          */
-        forEachN(f:(data:any) => any, n:number):any[];
+        forEachN(f: (data: any) => any, n: number): any[];
 
         /**
          * Execute the function `f` for each element of the cache.
@@ -298,7 +286,7 @@ declare namespace DDS {
          * @param f - the function to be applied
          * @returns results of the function execution
          */
-        forEach(f:(data:any) => any):any[];
+        forEach(f: (data: any) => any): any[];
 
         /**
          * Returns a cache that is the result of applying `f` to each element of the cache.
@@ -306,7 +294,7 @@ declare namespace DDS {
          * @param f - the function to be applied
          * @returns A cache holding the results of the function execution
          */
-        map(f:(data:any) => any):DataCache;
+        map(f: (data: any) => any): DataCache;
 
         /**
          * Returns the list of elements in the cache that satisfy the predicate `f`.
@@ -314,7 +302,7 @@ declare namespace DDS {
          * @param f - the predicate to be applied to filter the cache values
          * @returns An array holding the filtered values
          */
-        filter(f:(data:any) => boolean):any[];
+        filter(f: (data: any) => boolean): any[];
 
         /**
          * Returns the list of elements in the cache that doesn't satisfy the predicate `f`.
@@ -322,35 +310,35 @@ declare namespace DDS {
          * @returns An array holding the filtered values
          * @see DataCache#filter
          */
-        filterNot(f:(data:any) => boolean):any[];
+        filterNot(f: (data: any) => boolean): any[];
 
         /**
          * Returns the values included in the cache as an array.
          *
          * @return All the cache values
          */
-        read():any[];
+        read(): any[];
 
         /**
          * Returns the last value of the cache in an array.
          *
          * @return the last value of the cache
          */
-        readLast():any;
+        readLast(): any;
 
         /**
          * Returns all the values included in the cache as an array and empties the cache.
          *
          * @return All the cache values
          */
-        takeAll():any[];
+        takeAll(): any[];
 
         /**
          * Returns the `K`ith value of the cache as Monad, ie: `coffez.Some` if it exists, `coffez.None` if not.
          *
          * @return the 'k'th value
          */
-        take():any;
+        take(): any;
 
         /**
          * Takes elements from the cache up to when the predicate `f` is satisfied
@@ -358,7 +346,7 @@ declare namespace DDS {
          * @param f - the predicate
          * @return taken cache values
          */
-        takeWithFilter(f:(data:any) => boolean):any[];
+        takeWithFilter(f: (data: any) => boolean): any[];
 
         /**
          * Return `coffez.Some(v)` if there is an element in the cache corresponding to the
@@ -366,7 +354,7 @@ declare namespace DDS {
          *
          * @param k - key
          */
-        get(k:any):any;
+        get(k: any): any;
 
         /**
          * Return `coffez.Some(v)` if there is an element in the cache corresponding to the
@@ -375,7 +363,7 @@ declare namespace DDS {
          * @param k - key
          * @param f - the function to apply
          */
-        getOrElse(k:any, f:(data:any)=> any):any;
+        getOrElse(k: any, f: (data: any) => any): any;
 
         /**
          * folds the element of the cache using `z` as the `zero` element and
@@ -384,13 +372,12 @@ declare namespace DDS {
          * @param z - initial value
          * @param {function} f - reduce function
          */
-        fold(z:any, f:(data:any) => any):void;
+        fold(z: any, f: (data: any) => any): void;
 
         /**
          * clears the data cache
          */
-        clear():void;
-
+        clear(): void;
     }
 
     interface Runtime {
@@ -400,7 +387,7 @@ declare namespace DDS {
          * maintains the connection with the server, re-establish the connection
          * if dropped and mediates the `DataReader` and `DataWriter` communication.
          */
-        new (): Runtime;
+        new(): Runtime;
 
         /**
          * Connect the runtime to the server. If the runtime is already connected an exception is thrown
@@ -408,7 +395,7 @@ declare namespace DDS {
          * @param srv - Vortex Web server WebSocket URL
          * @param authToken - Authorization token
          */
-        connect(server:string, authToken?:string): void;
+        connect(server: string, authToken?: string): void;
 
         /**
          * Disconnects, withouth closing, a `Runtime`. Notice that upon re-connection all existing
@@ -421,26 +408,24 @@ declare namespace DDS {
          *
          * @param t - Topic to be registered
          */
-        registerTopic(t:Topic): void;
+        registerTopic(t: Topic): void;
 
         /**
          * Function called when runtime is connected.
          *
          * @param e
          */
-        onconnect(e:any): void;
-
+        onconnect(e: any): void;
 
         /**
          * Function called when runtime is disconnected.
          *
          * @param e
          */
-        ondisconnect(e:any): void;
+        ondisconnect(e: any): void;
 
         /**
          * Closes the DDS runtime and as a consequence all the `DataReaders` and `DataWriters` that belong to this runtime.
-         *
          */
         close(): void;
 
@@ -448,24 +433,24 @@ declare namespace DDS {
          * Checks whether the Runtime is connected.
          * @return `true` if connected, `false` if not
          */
-        isConnected() : boolean;
+        isConnected(): boolean;
 
         /**
          * Checks whether the Runtime is closed.
          * @return `true` if connected, `false` if not
          */
-        isClosed() : boolean;
+        isClosed(): boolean;
     }
 
-    export var runtime:{
-        Runtime : Runtime;
+    export var runtime: {
+        Runtime: Runtime;
     };
 
-    export var VERSION:string;
+    export var VERSION: string;
 }
 
 /**
  * Defines the core Vortex-Web-Client javascript library. It includes the JavaScript API for DDS. This API allows
  * web applications to share data among them as well as with native DDS applications.
  */
-declare var dds:typeof DDS;
+declare var dds: typeof DDS;

@@ -1,35 +1,35 @@
 import {
-    initialize as initializeFE,
-    createBridge as createBridgeFE,
-    createStore,
-} from 'react-devtools-inline/frontend';
-import {
     activate,
-    createBridge as createBridgeBE,
-    initialize as initializeBE,
-    ElementType,
-    Plugins,
-    StyleXPlugin,
+    Bridge,
     BrowserTheme,
     CanViewElementSource,
+    Context,
+    createBridge as createBridgeBE,
     DevtoolsProps,
+    ElementType,
+    FetchFileWithCaching,
+    FrontendBridge,
+    HooksNode,
+    HookSource,
+    HookSourceAndMetadata,
+    initialize as initializeBE,
+    InspectedElement,
+    ParseHookNames,
+    ParseSourceAndMetadata,
+    Plugins,
+    SerializedElement,
+    Source,
+    StyleXPlugin,
     TabID,
     ViewAttributeSource,
     ViewElementSource,
-    InspectedElement,
-    SerializedElement,
-    Source,
-    FetchFileWithCaching,
-    Context,
-    ParseHookNames,
-    HooksNode,
-    HookSourceAndMetadata,
-    ParseSourceAndMetadata,
     Wall,
-    HookSource,
-    Bridge,
-    FrontendBridge,
-} from 'react-devtools-inline/backend';
+} from "react-devtools-inline/backend";
+import {
+    createBridge as createBridgeFE,
+    createStore,
+    initialize as initializeFE,
+} from "react-devtools-inline/frontend";
 
 const sendWall = (some: string, payload = { a: 1 }) => {};
 
@@ -88,9 +88,9 @@ activate(window, { bridge: backendBridgeWithoutWall });
 const elementType: ElementType = 1;
 
 const styleXpPlugin: StyleXPlugin = {
-    sources: ['str'],
+    sources: ["str"],
     resolvedStyles: {
-        str: 'str',
+        str: "str",
         number: 5,
         array: [],
     },
@@ -103,26 +103,26 @@ const pluginsNull: Plugins = {
     stylex: null,
 };
 
-const browserThemeDark: BrowserTheme = 'dark';
-const browserThemeLight: BrowserTheme = 'light';
+const browserThemeDark: BrowserTheme = "dark";
+const browserThemeLight: BrowserTheme = "light";
 
-const tabIdComponents: TabID = 'components';
-const tabIdProfiler: TabID = 'profiler';
+const tabIdComponents: TabID = "components";
+const tabIdProfiler: TabID = "profiler";
 
-const viewAttributeSourceString: ViewAttributeSource = (id = 5, path = ['s', 't', 'r']) => {};
+const viewAttributeSourceString: ViewAttributeSource = (id = 5, path = ["s", "t", "r"]) => {};
 
 const viewAttributeSourceFunction: ViewAttributeSource = (id = 5, path = [1, 2, 3]) => {};
 
 const serializedElement: SerializedElement = {
-    displayName: 'str',
+    displayName: "str",
     id: 5,
-    key: 'str',
-    hocDisplayNames: ['str'],
+    key: "str",
+    hocDisplayNames: ["str"],
     type: elementType,
 };
 
 const sourceObj: Source = {
-    fileName: 'fileName',
+    fileName: "fileName",
     lineNumber: 5,
 };
 
@@ -140,44 +140,44 @@ const inspectedElementObj: InspectedElement = {
     canToggleSuspense: true,
     canViewSource: true,
     hasLegacyContext: true,
-    context: { str: 'anything' },
-    hooks: { str: 'anything' },
-    props: { str: 'anything' },
-    state: { str: 'anything' },
+    context: { str: "anything" },
+    hooks: { str: "anything" },
+    props: { str: "anything" },
+    state: { str: "anything" },
     key: 2,
-    errors: [['str', 5]],
-    warnings: [['str', 5]],
+    errors: [["str", 5]],
+    warnings: [["str", 5]],
     owners: [serializedElement],
     source: sourceObj,
     type: 5,
-    rootType: 'str',
-    rendererPackageName: 'str',
-    rendererVersion: 'str',
+    rootType: "str",
+    rendererPackageName: "str",
+    rendererVersion: "str",
     plugins: pluginsObj,
 };
 
 const canViewElementSource: CanViewElementSource = (inspectedElement = inspectedElementObj) => true;
 const viewElementSource: ViewElementSource = (id = 5, inspectedElement = inspectedElementObj) => {};
 
-const fetchFileWithCachingFunc: FetchFileWithCaching = (url = 'str') => Promise.resolve(url);
+const fetchFileWithCachingFunc: FetchFileWithCaching = (url = "str") => Promise.resolve(url);
 const context: Context = fetchFileWithCachingFunc;
 
-const hookNode: HooksNode = { id: 1, isStateEditable: true, name: 'some-name', value: 4, subHooks: [] };
+const hookNode: HooksNode = { id: 1, isStateEditable: true, name: "some-name", value: 4, subHooks: [] };
 const parseHookNames: ParseHookNames = async ([hookNode], fetchFileWithCachingFunc) => null;
 
 const hookSourceObj: HookSource = {
     lineNumber: 1,
     columnNumber: 2,
-    fileName: 'str',
-    functionName: 'str',
+    fileName: "str",
+    functionName: "str",
 };
 
-const locationKeyToHookSourceAndMetadata: Map<string, HookSourceAndMetadata> = new Map().set('str', {
+const locationKeyToHookSourceAndMetadata: Map<string, HookSourceAndMetadata> = new Map().set("str", {
     hookSource: hookSourceObj,
-    runtimeSourceCode: 'str',
-    runtimeSourceURL: 'str',
+    runtimeSourceCode: "str",
+    runtimeSourceURL: "str",
     sourceMapJSON: null,
-    sourceMapURL: 'str',
+    sourceMapURL: "str",
 });
 
 const parseSourceAndMetadata: ParseSourceAndMetadata = async ([hookNode], locationKeyToHookSourceAndMetadata) => null;
@@ -204,10 +204,10 @@ const props: DevtoolsProps = {
     hideLogAction: true,
     hideViewSourceAction: true,
     overrideTab: tabIdComponents,
-    componentsPortalContainer: document.createElement('div'),
-    profilerPortalContainer: document.createElement('div'),
+    componentsPortalContainer: document.createElement("div"),
+    profilerPortalContainer: document.createElement("div"),
     fetchFileWithCaching: fetchFileWithCachingFunc,
     hookNamesModuleLoaderFunction: () =>
-        Promise.resolve({ parseHookNames, parseSourceAndMetadata, purgeCachedMetadata: () => { } }),
+        Promise.resolve({ parseHookNames, parseSourceAndMetadata, purgeCachedMetadata: () => {} }),
     viewUrlSourceFunction: () => {},
 };

@@ -1,6 +1,8 @@
 {
     "rules": {
-        "no-unnecessary-generics": "off",
-        "no-declare-current-package": "off"
+        "@definitelytyped/no-unnecessary-generics": "off",
+        "@definitelytyped/no-declare-current-package": "off",
+        "@typescript-eslint/no-unsafe-function-type": "off",
+        "@typescript-eslint/no-wrapper-object-types": "off"
     }
 }

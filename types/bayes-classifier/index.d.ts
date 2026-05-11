@@ -1,9 +1,3 @@
-// Type definitions for bayes-classifier 0.0
-// Project: https://github.com/miguelmota/bayes-classifier
-// Definitions by: Jason Harrison <https://github.com/jasonharrison>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
-
 interface Classifications {
     label: string;
     value: number;

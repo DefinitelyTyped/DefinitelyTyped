@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/react-native-easy-upgrade",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/react-native-org/react-native-easy-upgrade#readme"
+    ],
+    "devDependencies": {
+        "react-native": "*",
+        "@types/react-native-easy-upgrade": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "taoqf",
+            "githubUsername": "taoqf"
+        }
+    ]
+}

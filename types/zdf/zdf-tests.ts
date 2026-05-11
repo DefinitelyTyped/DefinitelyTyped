@@ -4,11 +4,11 @@ import * as zdf from "zdf";
 zdf.getSources(
     "",
     (
-        result // $ExpectType ZdfInfo
+        result, // $ExpectType ZdfInfo
     ) => {},
     (
-        result // $ExpectType ZdfInfoMeta
-    ) => {}
+        result, // $ExpectType ZdfInfoMeta
+    ) => {},
 );
 
 // $ExpectType void
@@ -16,6 +16,6 @@ zdf.downloadStream(
     "",
     undefined,
     (
-        progress // $ExpectType ZdfProgress
-    ) => {}
+        progress, // $ExpectType ZdfProgress
+    ) => {},
 );

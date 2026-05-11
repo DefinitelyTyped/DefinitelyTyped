@@ -1,8 +1,3 @@
-// Type definitions for obsolete-web 0.5
-// Project: https://github.elenet.me/fe/obsolete-webpack-plugin
-// Definitions by: Piotr Błażejewicz (Peter Blazejewicz) <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare class Obsolete {
     constructor(options?: Options);
     static defaultOptions: Readonly<Required<Options>>;
@@ -25,7 +20,7 @@ interface Options {
      * If set 'beforeend', the template will be injected into the end of body
      * @default 'afterbegin'
      */
-    position?: 'afterbeing' | 'beforened' | undefined;
+    position?: "afterbeing" | "beforened" | undefined;
     /**
      * If the current browser useragent doesn't match one of the target browsers, it's considered as unsupported.
      * Thus, the prompt will be shown.

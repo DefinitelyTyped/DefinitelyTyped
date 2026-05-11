@@ -63,8 +63,8 @@ declare namespace BMap {
         changeView(): void;
         setSize(size: Size): void;
         getSize(): Size;
-        onviewchanged: (event: { type: string, target: any, isOpen: boolean }) => void;
-        onviewchanging: (event: { type: string, target: any }) => void;
+        onviewchanged: (event: { type: string; target: any; isOpen: boolean }) => void;
+        onviewchanging: (event: { type: string; target: any }) => void;
     }
     type LengthUnit = string;
     class MapTypeControl extends Control {

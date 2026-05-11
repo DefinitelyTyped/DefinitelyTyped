@@ -1,6 +1,6 @@
 export = TokenType;
 declare function TokenType(): void;
-type TokenType = any;
+declare class TokenType {}
 declare namespace TokenType {
     export {
         NO_TOKEN,
@@ -13,23 +13,25 @@ declare namespace TokenType {
         PROCESSING_INSTRUCTION,
         DOCTYPE_DEFINITION,
         CDATA,
+        GENERAL_REF,
         END_DOCUMENT,
         ERROR,
         TokenString,
     };
 }
-declare var NO_TOKEN: string;
-declare var DECLARATION: string;
-declare var START_ELEMENT: string;
-declare var END_ELEMENT: string;
-declare var EMPTY_ELEMENT: string;
-declare var CHARACTERS: string;
-declare var COMMENT: string;
-declare var PROCESSING_INSTRUCTION: string;
-declare var DOCTYPE_DEFINITION: string;
-declare var CDATA: string;
-declare var END_DOCUMENT: string;
-declare var ERROR: string;
+declare let NO_TOKEN: string;
+declare let DECLARATION: string;
+declare let START_ELEMENT: string;
+declare let END_ELEMENT: string;
+declare let EMPTY_ELEMENT: string;
+declare let CHARACTERS: string;
+declare let COMMENT: string;
+declare let PROCESSING_INSTRUCTION: string;
+declare let DOCTYPE_DEFINITION: string;
+declare let CDATA: string;
+declare let GENERAL_REF: string;
+declare let END_DOCUMENT: string;
+declare let ERROR: string;
 type TokenString =
     | 'NoToken'
     | 'Declaration'
@@ -41,4 +43,5 @@ type TokenString =
     | 'ProcessingInstruction'
     | 'DoctypeDefinition'
     | 'CData'
-    | 'EndDocument';
+    | 'EndDocument'
+    | 'GeneralRef';

@@ -1,6 +1,23 @@
 {
-  "private": true,
-  "dependencies": {
-    "terser": "^4.0.0"
-  }
+    "private": true,
+    "name": "@types/gulp-terser",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/duan602728596/gulp-terser#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "terser": "^4.0.0"
+    },
+    "devDependencies": {
+        "@types/gulp": "*",
+        "@types/gulp-terser": "workspace:.",
+        "@types/pump": "*"
+    },
+    "owners": [
+        {
+            "name": "Jeroen \"Favna\" Claassens",
+            "githubUsername": "favna"
+        }
+    ]
 }

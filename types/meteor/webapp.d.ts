@@ -11,7 +11,7 @@ declare module 'meteor/webapp' {
             type: string;
         };
     }
-    module WebApp {
+    namespace WebApp {
         var defaultArch: string;
         var clientPrograms: {
             [key: string]: {
@@ -39,7 +39,7 @@ declare module 'meteor/webapp' {
         function decodeRuntimeConfig(rtimeConfigString: string): unknown;
         function encodeRuntimeConfig(rtimeConfig: unknown): string;
     }
-    module WebAppInternals {
+    namespace WebAppInternals {
         var NpmModules: {
             [key: string]: {
                 version: string;

@@ -1,9 +1,3 @@
-// Type definitions for regenerate 1.4
-// Project: https://github.com/mathiasbynens/regenerate
-// Definitions by: ExE Boss <https://github.com/ExE-Boss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 export as namespace regenerate;
 export = regenerate;
 

@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/png-chunk-text",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/hughsk/png-chunk-text"
+    ],
+    "devDependencies": {
+        "@types/node": "*",
+        "@types/png-chunk-text": "workspace:.",
+        "@types/png-chunks-encode": "*",
+        "@types/png-chunks-extract": "*"
+    },
+    "owners": [
+        {
+            "name": "Nikita",
+            "githubUsername": "phaux"
+        }
+    ]
+}

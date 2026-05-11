@@ -1,8 +1,3 @@
-// Type definitions for unicode-properties 1.3
-// Project: https://github.com/foliojs/unicode-properties
-// Definitions by: Lionel Rowe <https://github.com/lionel-rowe>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Checks the Unicode general category for the given code point
  *

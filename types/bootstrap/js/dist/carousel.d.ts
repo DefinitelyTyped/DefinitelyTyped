@@ -1,4 +1,4 @@
-import BaseComponent, { GetInstanceFactory, GetOrCreateInstanceFactory } from './base-component';
+import BaseComponent, { GetInstanceFactory, GetOrCreateInstanceFactory } from "./base-component";
 
 declare class Carousel extends BaseComponent {
     /**
@@ -90,7 +90,7 @@ declare namespace Carousel {
          *
          * @default "hover"
          */
-        pause: 'hover' | false;
+        pause: "hover" | false;
 
         /**
          * Autoplays the carousel after the user manually cycles the first item. If
@@ -98,7 +98,7 @@ declare namespace Carousel {
          *
          * @default false
          */
-        ride: 'carousel' | boolean;
+        ride: "carousel" | boolean;
 
         /**
          * Whether the carousel should cycle continuously or have hard stops.
@@ -120,15 +120,15 @@ declare namespace Carousel {
         /**
          * Fires immediately when the slide instance method is invoked.
          */
-        slide = 'slide.bs.carousel',
+        slide = "slide.bs.carousel",
 
         /**
          * Fired when the carousel has completed its slide transition.
          */
-        slid = 'slid.bs.carousel',
+        slid = "slid.bs.carousel",
     }
 
-    type Direction = 'left' | 'right';
+    type Direction = "left" | "right";
 
     interface Event {
         /**
@@ -154,7 +154,7 @@ declare namespace Carousel {
     }
 
     type jQueryInterface = (
-        config?: Partial<Options> | number | 'cycle' | 'pause' | 'prev' | 'next' | 'nextWhenVisible' | 'to' | 'dispose',
+        config?: Partial<Options> | number | "cycle" | "pause" | "prev" | "next" | "nextWhenVisible" | "to" | "dispose",
     ) => JQuery;
 }
 

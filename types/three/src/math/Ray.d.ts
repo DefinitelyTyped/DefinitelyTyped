@@ -1,8 +1,8 @@
-import { Vector3 } from './Vector3';
-import { Sphere } from './Sphere';
-import { Plane } from './Plane';
-import { Box3 } from './Box3';
-import { Matrix4 } from './Matrix4';
+import { Box3 } from "./Box3.js";
+import { Matrix4 } from "./Matrix4.js";
+import { Plane } from "./Plane.js";
+import { Sphere } from "./Sphere.js";
+import { Vector3 } from "./Vector3.js";
 
 export class Ray {
     constructor(origin?: Vector3, direction?: Vector3);

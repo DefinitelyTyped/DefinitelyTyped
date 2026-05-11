@@ -1,28 +1,28 @@
-import { ConsoleBrowser, ServerApp, InputForm } from 'webprogbase-console-view';
+import { ConsoleBrowser, InputForm, ServerApp } from "webprogbase-console-view";
 
-const students = ['First', 'Second', 'Third'];
+const students = ["First", "Second", "Third"];
 
 const app = new ServerApp();
 
 app.use("/", (req, res) => {
     const links = {
-        f:  "Form sample",
+        f: "Form sample",
         f2: "Form sample many fields",
         f3: "Form sample many fields with default and value",
         fe: "Form with field error",
-        n:  "Just a state",
-        e:  "No handler error",
-        t:  "Response timeout",
-        r:  "Redirect to n",
+        n: "Just a state",
+        e: "No handler error",
+        t: "Response timeout",
+        r: "Redirect to n",
         d: {
             description: "state link with data",
             data: {
                 userId: 13,
                 x: "Y",
-            }
+            },
         },
-        rd:   "Redirect to d with data",
-        rde:  "Redirect to d with invalid data",
+        rd: "Redirect to d with data",
+        rde: "Redirect to d with invalid data",
         rde2: "Redirect to d with invalid data (circular structure)",
     };
     res.send("Hello!", links);
@@ -35,23 +35,23 @@ app.use("f", (req, res) => {
     });
     const text = `Select student index:\n\n${studentsListStr}`;
     const indexForm = new InputForm("formaccept", {
-        index: "Index of student"
+        index: "Index of student",
     });
     res.send(text, indexForm);
 });
 
 app.use("f2", (req, res) => {
-    const text = 'Hello!';
+    const text = "Hello!";
     const form = new InputForm("formaccept", {
         index: "Just",
-        name:  "Student name",
-        score: "Hmmmm"
+        name: "Student name",
+        score: "Hmmmm",
     });
     res.send(text, form);
 });
 
 app.use("f3", (req, res) => {
-    const text = 'Hello!';
+    const text = "Hello!";
     const form = new InputForm("formaccept", {
         id: {
             description: "Enter id",
@@ -76,7 +76,7 @@ app.use("f3", (req, res) => {
 });
 
 app.use("fe", (req, res) => {
-    const text = 'Hello!';
+    const text = "Hello!";
     const form = new InputForm("formaccept", {
         id: {
             description: "Enter id",
@@ -95,12 +95,12 @@ app.use("r", (req, res) => {
 });
 
 app.use("t", (req, res) => {
-    void res;  // unused
+    void res; // unused
     // error: no response
 });
 
 app.use("rd", (req, res) => {
-    res.redirect("d", {some: "Data in redirect"});
+    res.redirect("d", { some: "Data in redirect" });
 });
 
 app.use("rde", (req, res) => {

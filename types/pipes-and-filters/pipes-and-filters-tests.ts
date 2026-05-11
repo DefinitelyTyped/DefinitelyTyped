@@ -1,10 +1,10 @@
-import * as Pipeline from 'pipes-and-filters';
+import * as Pipeline from "pipes-and-filters";
 
-const unknownTypePipeline = Pipeline.create('test');
+const unknownTypePipeline = Pipeline.create("test");
 // $ExpectType Pipeline<unknown, unknown>
 unknownTypePipeline;
 
-const stronglyTypedPipeline = Pipeline.create<number, string>('strong-test');
+const stronglyTypedPipeline = Pipeline.create<number, string>("strong-test");
 
 // $ExpectType Pipeline<number, string>
 stronglyTypedPipeline;

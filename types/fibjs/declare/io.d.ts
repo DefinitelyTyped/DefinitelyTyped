@@ -202,7 +202,7 @@
 declare module "io" {
     
 
-    module io {
+    namespace io {
         
         
         

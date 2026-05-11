@@ -1,6 +1,6 @@
-import { UnaryFunction } from '../internal/types';
-import Pred from '../Pred';
-import Maybe from './Maybe';
+import { UnaryFunction } from "../internal/types";
+import Pred from "../Pred";
+import Maybe from "./Maybe";
 
 /**
  * safeLift :: ((c -> Boolean) | Pred) -> (a -> b) -> c -> Maybe b

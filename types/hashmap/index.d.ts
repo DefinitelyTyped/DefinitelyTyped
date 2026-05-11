@@ -1,8 +1,3 @@
-// Type definitions for HashMap 2.3
-// Project: https://github.com/flesler/hashmap
-// Definitions by: Rafał Wrzeszcz <https://github.com/rafalwrzeszcz>, Vasya Aksyonov <https://github.com/outring>, Edoardo Morandi <https://github.com/dodomorandi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare class HashMap<TKey, TValue> {
     /**
      * Creates an empty hashmap.
@@ -21,7 +16,7 @@ declare class HashMap<TKey, TValue> {
      *
      * @param keysAndValues key1, value1, key2, value2...
      */
-    constructor(...keysAndValues: Array<(TKey|TValue)>);
+    constructor(...keysAndValues: Array<(TKey | TValue)>);
 
     /**
      * Return value from hashmap.
@@ -46,7 +41,7 @@ declare class HashMap<TKey, TValue> {
      * @param keysAndValues key1, value1, key2, value2...
      * @return Self.
      */
-    multi(...keysAndValues: Array<TKey|TValue>): HashMap<TKey, TValue>;
+    multi(...keysAndValues: Array<TKey | TValue>): HashMap<TKey, TValue>;
 
     /**
      * Copy all key-value pairs from other to this instance.

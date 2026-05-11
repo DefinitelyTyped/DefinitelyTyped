@@ -1,4 +1,4 @@
-import { IotData, PublishParams } from 'aws-greengrass-core-sdk';
+import { IotData, PublishParams } from "aws-greengrass-core-sdk";
 import {
     ClientException,
     ConnectFailedException,
@@ -37,17 +37,20 @@ import {
     UnknownOperationException,
     UpdateFailedException,
     UpdateNotAllowedException,
-    ValidationException
-} from 'aws-greengrass-core-sdk/stream-manager';
-import { deserializeJsonBytesToObj, validateAndSerializeToJsonBytes } from 'aws-greengrass-core-sdk/stream-manager/util';
+    ValidationException,
+} from "aws-greengrass-core-sdk/stream-manager";
+import {
+    deserializeJsonBytesToObj,
+    validateAndSerializeToJsonBytes,
+} from "aws-greengrass-core-sdk/stream-manager/util";
 
 const client = new IotData();
 
 client.publish(
     {
-        topic: 'foo',
-        payload: 'bar',
-        queueFullPolicy: 'BestEffort',
+        topic: "foo",
+        payload: "bar",
+        queueFullPolicy: "BestEffort",
     },
     (error, data) => {
         if (error) {
@@ -121,60 +124,61 @@ const streamDefinition = new MessageStreamDefinition()
     .withStrategyOnFull(StrategyOnFull.OverwriteOldestData)
     .withStreamSegmentSize(123)
     .withTimeToLiveMillis(123)
-    .withExportDefinition(new ExportDefinition()
-        .withHttp([
-            new HTTPConfig()
-                .withBatchIntervalMillis(123)
-                .withBatchSize(10)
-                .withDisabled(false)
-                .withExportFormat(ExportFormat.RAW_NOT_BATCHED)
-                .withIdentifier("id")
-                .withPriority(0)
-                .withStartSequenceNumber(0)
-                .withUri("uri")
-        ])
-        .withIotAnalytics([
-            new IoTAnalyticsConfig()
-                .withBatchIntervalMillis(123)
-                .withBatchSize(10)
-                .withDisabled(true)
-                .withIdentifier("id")
-                .withIotChannel("channel")
-                .withIotMsgIdPrefix("prefix")
-                .withPriority(0)
-                .withStartSequenceNumber(0)
-        ])
-        .withIotSitewise([
-            new IoTSiteWiseConfig()
-                .withBatchIntervalMillis(123)
-                .withBatchSize(100)
-                .withDisabled(true)
-                .withIdentifier("id")
-                .withPriority(0)
-                .withStartSequenceNumber(0)
-        ])
-        .withKinesis([
-            new KinesisConfig()
-                .withBatchIntervalMillis(123)
-                .withBatchSize(10)
-                .withDisabled(true)
-                .withIdentifier("id")
-                .withKinesisStreamName("stream-name")
-                .withPriority(0)
-                .withStartSequenceNumber(0)
-        ])
-        .withS3TaskExecutor([
-            new S3ExportTaskExecutorConfig()
-                .withDisabled(true)
-                .withIdentifier("id")
-                .withPriority(0)
-                .withSizeThresholdForMultipartUploadBytes(100)
-                .withStatusConfig(
-                    new StatusConfig()
-                        .withStatusLevel(StatusLevel.ERROR)
-                        .withStatusStreamName("status-stream")
-                )
-        ])
+    .withExportDefinition(
+        new ExportDefinition()
+            .withHttp([
+                new HTTPConfig()
+                    .withBatchIntervalMillis(123)
+                    .withBatchSize(10)
+                    .withDisabled(false)
+                    .withExportFormat(ExportFormat.RAW_NOT_BATCHED)
+                    .withIdentifier("id")
+                    .withPriority(0)
+                    .withStartSequenceNumber(0)
+                    .withUri("uri"),
+            ])
+            .withIotAnalytics([
+                new IoTAnalyticsConfig()
+                    .withBatchIntervalMillis(123)
+                    .withBatchSize(10)
+                    .withDisabled(true)
+                    .withIdentifier("id")
+                    .withIotChannel("channel")
+                    .withIotMsgIdPrefix("prefix")
+                    .withPriority(0)
+                    .withStartSequenceNumber(0),
+            ])
+            .withIotSitewise([
+                new IoTSiteWiseConfig()
+                    .withBatchIntervalMillis(123)
+                    .withBatchSize(100)
+                    .withDisabled(true)
+                    .withIdentifier("id")
+                    .withPriority(0)
+                    .withStartSequenceNumber(0),
+            ])
+            .withKinesis([
+                new KinesisConfig()
+                    .withBatchIntervalMillis(123)
+                    .withBatchSize(10)
+                    .withDisabled(true)
+                    .withIdentifier("id")
+                    .withKinesisStreamName("stream-name")
+                    .withPriority(0)
+                    .withStartSequenceNumber(0),
+            ])
+            .withS3TaskExecutor([
+                new S3ExportTaskExecutorConfig()
+                    .withDisabled(true)
+                    .withIdentifier("id")
+                    .withPriority(0)
+                    .withSizeThresholdForMultipartUploadBytes(100)
+                    .withStatusConfig(
+                        new StatusConfig()
+                            .withStatusLevel(StatusLevel.ERROR)
+                            .withStatusStreamName("status-stream"),
+                    ),
+            ]),
     );
 // $ExpectType Promise<void>
 smClient.createMessageStream(streamDefinition);
@@ -189,7 +193,7 @@ smClient.readMessages(
         .withDesiredStartSequenceNumber(0)
         .withMaxMessageCount(10)
         .withMinMessageCount(10)
-        .withReadTimeoutMillis(1000)
+        .withReadTimeoutMillis(1000),
 );
 
 // $ExpectType Promise<string[]>
@@ -211,12 +215,13 @@ new MessageStreamInfo()
             .withExportedBytesFromStream(123)
             .withExportedMessagesCount(1)
             .withLastExportTime(123)
-            .withLastExportedSequenceNumber(0)
+            .withLastExportedSequenceNumber(0),
     ])
-    .withStorageStatus(new MessageStreamInfo._storageStatus()
-        .withNewestSequenceNumber(0)
-        .withOldestSequenceNumber(0)
-        .withTotalBytes(10)
+    .withStorageStatus(
+        new MessageStreamInfo._storageStatus()
+            .withNewestSequenceNumber(0)
+            .withOldestSequenceNumber(0)
+            .withTotalBytes(10),
     );
 
 Status.Success;

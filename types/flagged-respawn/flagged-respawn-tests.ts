@@ -1,6 +1,6 @@
-import flaggedRespawn = require('flagged-respawn');
+import flaggedRespawn = require("flagged-respawn");
 
-const flags = ['--flag'];
+const flags = ["--flag"];
 
 flaggedRespawn(flags, process.argv, (ready, child, argv) => {
     // $ExpectType boolean
@@ -10,5 +10,5 @@ flaggedRespawn(flags, process.argv, (ready, child, argv) => {
     // $ExpectType string[]
     argv;
 });
-flaggedRespawn(flags, process.argv, '--flag', () => {});
-flaggedRespawn(flags, process.argv, ['--flag'], () => {});
+flaggedRespawn(flags, process.argv, "--flag", () => {});
+flaggedRespawn(flags, process.argv, ["--flag"], () => {});

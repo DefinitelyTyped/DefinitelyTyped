@@ -1,9 +1,3 @@
-// Type definitions for koa-json v2.x
-// Project: https://github.com/koajs/json
-// Definitions by: Alex Friedman <https://github.com/brooklyndev>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /* =================== USAGE ===================
 
     import * as Koa from 'koa';
@@ -14,24 +8,23 @@
 
  =============================================== */
 
-import * as Koa from "koa";
+import Koa = require("koa");
 
 declare function json(opts?: {
-
     /**
      * default to pretty response [true]
-    */
-    pretty?: boolean | undefined,
+     */
+    pretty?: boolean | undefined;
 
     /**
      * optional query-string param for pretty responses [none]
      */
-    param?: string | undefined,
+    param?: string | undefined;
 
     /**
      * JSON spaces [2]
      */
-    spaces?: number | undefined
+    spaces?: number | undefined;
 }): Koa.Middleware;
-declare namespace json { }
+declare namespace json {}
 export = json;

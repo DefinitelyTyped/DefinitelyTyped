@@ -9,29 +9,29 @@ import {
     StrategyOptions,
     TokenError,
     VerifyCallback,
-} from 'passport-openidconnect';
-import OpenIDConnectStrategy = require('passport-openidconnect');
-import { Request } from 'express';
+} from "passport-openidconnect";
+import OpenIDConnectStrategy = require("passport-openidconnect");
+import { Request } from "express";
 
 const opts: StrategyOptions = {
-    authorizationURL: 'https://example.com/auth',
-    callbackURL: 'https://example.com/callback',
-    clientID: 'dummy',
-    clientSecret: 'secret',
-    issuer: 'https://example.com/issuer',
-    tokenURL: 'https://example.com/token',
-    userInfoURL: 'https://example.com/userinfo',
+    authorizationURL: "https://example.com/auth",
+    callbackURL: "https://example.com/callback",
+    clientID: "dummy",
+    clientSecret: "secret",
+    issuer: "https://example.com/issuer",
+    tokenURL: "https://example.com/token",
+    userInfoURL: "https://example.com/userinfo",
 };
 
 function testVerifyFunc3(i: string, p: Profile, cb: VerifyCallback) {
-    cb(new Error('Not implemented'));
+    cb(new Error("Not implemented"));
 }
 
 function testVerifyFunc4(i: string, p: Profile, ctx: object, cb: VerifyCallback) {
-    cb(new Error('Not Implemented'));
+    cb(new Error("Not Implemented"));
 }
 function testVerifyFunc5(i: string, p: Profile, ctx: object, _idToken: string | object, cb: VerifyCallback) {
-    cb(new Error('Not implemented'));
+    cb(new Error("Not implemented"));
 }
 
 function testVerifyFunc7(
@@ -43,7 +43,7 @@ function testVerifyFunc7(
     _refreshToken: string | object,
     cb: VerifyCallback,
 ) {
-    cb(new Error('Not implemented'));
+    cb(new Error("Not implemented"));
 }
 
 function testVerifyFunc8(
@@ -56,7 +56,7 @@ function testVerifyFunc8(
     _params: any,
     cb: VerifyCallback,
 ) {
-    cb(new Error('Not implemented'));
+    cb(new Error("Not implemented"));
 }
 
 function testVerifyFunc9(
@@ -70,15 +70,15 @@ function testVerifyFunc9(
     _params: any,
     cb: VerifyCallback,
 ) {
-    cb(new Error('Not implemented'));
+    cb(new Error("Not implemented"));
 }
 
 function testVerifyFuncReq4(r: Request, i: string, p: Profile, cb: VerifyCallback) {
-    cb(new Error('Not implemented'));
+    cb(new Error("Not implemented"));
 }
 
 function testVerifyFuncReq5(r: Request, i: string, p: Profile, ctx: object, cb: VerifyCallback) {
-    cb(new Error('Not Implemented'));
+    cb(new Error("Not Implemented"));
 }
 function testVerifyFuncReq6(
     r: Request,
@@ -88,7 +88,7 @@ function testVerifyFuncReq6(
     _idToken: string | object,
     cb: VerifyCallback,
 ) {
-    cb(new Error('Not implemented'));
+    cb(new Error("Not implemented"));
 }
 
 function testVerifyFuncReq8(
@@ -101,7 +101,7 @@ function testVerifyFuncReq8(
     _refreshToken: string | object,
     cb: VerifyCallback,
 ) {
-    cb(new Error('Not implemented'));
+    cb(new Error("Not implemented"));
 }
 
 function testVerifyFuncReq9(
@@ -115,7 +115,7 @@ function testVerifyFuncReq9(
     _params: any,
     cb: VerifyCallback,
 ) {
-    cb(new Error('Not implemented'));
+    cb(new Error("Not implemented"));
 }
 
 function testVerifyFuncReq10(
@@ -130,7 +130,7 @@ function testVerifyFuncReq10(
     _params: any,
     cb: VerifyCallback,
 ) {
-    cb(new Error('Not implemented'));
+    cb(new Error("Not implemented"));
 }
 
 let strat: OpenIDConnectStrategy = new OpenIDConnectStrategy(opts, testVerifyFunc3);
@@ -146,17 +146,17 @@ strat = new OpenIDConnectStrategy(opts, testVerifyFuncReq8);
 strat = new OpenIDConnectStrategy(opts, testVerifyFuncReq9);
 strat = new OpenIDConnectStrategy(opts, testVerifyFuncReq10);
 
-const authErr1 = new AuthorizationError('Description', 'invalid_request');
-const authErr2 = new AuthorizationError('Description', 'invalid_request', undefined);
-const authErr3 = new AuthorizationError('Description', 'invalid_request', undefined, 500);
-const authErr4 = new AuthorizationError('Description', 'invalid_request', 'some_random_uri', 500);
+const authErr1 = new AuthorizationError("Description", "invalid_request");
+const authErr2 = new AuthorizationError("Description", "invalid_request", undefined);
+const authErr3 = new AuthorizationError("Description", "invalid_request", undefined, 500);
+const authErr4 = new AuthorizationError("Description", "invalid_request", "some_random_uri", 500);
 
-const tokenErr1 = new TokenError('undefined');
-const tokenErr2 = new TokenError('undefined', 'invalid_request');
-const tokenErr3 = new TokenError('undefined', 'invalid_request', undefined, 500);
-const tokenErr4 = new TokenError('undefined', 'invalid_request', 'some_random_uri', 500);
+const tokenErr1 = new TokenError("undefined");
+const tokenErr2 = new TokenError("undefined", "invalid_request");
+const tokenErr3 = new TokenError("undefined", "invalid_request", undefined, 500);
+const tokenErr4 = new TokenError("undefined", "invalid_request", "some_random_uri", 500);
 
-const intErr1 = new InternalOAuthError('Hello', new Error('Hello Error'));
+const intErr1 = new InternalOAuthError("Hello", new Error("Hello Error"));
 
 class TestStore extends SessionStore {
     store(
@@ -170,7 +170,7 @@ class TestStore extends SessionStore {
     verify(req: Request, reqState: string, cb: SessionVerifyCallback): void {}
 }
 
-const testStore = new TestStore({ key: 'test' });
+const testStore = new TestStore({ key: "test" });
 
 const opt2 = { ...opts, store: testStore };
 

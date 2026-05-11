@@ -1,10 +1,4 @@
-// Type definitions for react-rangeslider 2.2
-// Project: https://github.com/whoisandy/react-rangeslider
-// Definitions by: Riku Kallio <https://github.com/RichieRock>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import * as React from 'react';
+import * as React from "react";
 
 export interface SliderProps {
     disabled?: boolean | undefined;

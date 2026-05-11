@@ -1,6 +1,6 @@
-import { trap, untrap } from 'makeup-screenreader-trap';
+import { trap, untrap } from "makeup-screenreader-trap";
 
-const widgetEl: HTMLElement | null = document.querySelector('.expander');
+const widgetEl: HTMLElement | null = document.querySelector(".expander");
 
 if (widgetEl) {
     trap(widgetEl);

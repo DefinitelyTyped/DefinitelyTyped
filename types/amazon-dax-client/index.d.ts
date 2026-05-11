@@ -1,10 +1,5 @@
-// Type definitions for amazon-dax-client 1.2
-// Project: https://aws.amazon.com/dynamodb/dax/
-// Definitions by: Courtney Pitcher <https://github.com/IgniparousTempest>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node"/>
-import * as AWS from 'aws-sdk2-types';
+import * as AWS from "aws-sdk2-types";
 
 declare class AmazonDaxClient {
     constructor(options: AmazonDaxClientOptions);
@@ -14,7 +9,7 @@ declare class AmazonDaxClient {
 interface AmazonDaxClientOptions {
     params?: Map<string, any> | undefined;
     endpoint?: string | undefined;
-    endpoints?: ReadonlyArray<string> | undefined;
+    endpoints?: readonly string[] | undefined;
     accessKeyId?: string | undefined;
     secretAccessKey?: string | undefined;
     sessionToken?: string | undefined;

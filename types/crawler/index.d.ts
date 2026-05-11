@@ -1,34 +1,28 @@
-// Type definitions for crawler 1.2
-// Project: https://github.com/bda-research/node-crawler
-// Definitions by: Paweł Zmarzły <https://github.com/pzmarzly>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.5
-
 // Based on https://github.com/bda-research/node-crawler/issues/297
 
 /// <reference types="cheerio" />
 
-import { EventEmitter } from 'events';
-import { Url } from 'url';
+import { EventEmitter } from "events";
+import { Url } from "url";
 
 declare class Crawler extends EventEmitter {
     constructor(options: Crawler.CreateCrawlerOptions);
     readonly queueSize: number;
 
-    on(channel: 'schedule' | 'request', listener: (options: Crawler.CrawlerRequestOptions) => void): this;
-    on(channel: 'limiterChange', listener: (options: Crawler.CrawlerRequestOptions, limiter: string) => void): this;
-    on(channel: 'drain', listener: () => void): this;
+    on(channel: "schedule" | "request", listener: (options: Crawler.CrawlerRequestOptions) => void): this;
+    on(channel: "limiterChange", listener: (options: Crawler.CrawlerRequestOptions, limiter: string) => void): this;
+    on(channel: "drain", listener: () => void): this;
 
     queue(
         urisOrOptions:
             | string
-            | ReadonlyArray<string>
+            | readonly string[]
             | Crawler.CrawlerRequestOptions
-            | ReadonlyArray<Crawler.CrawlerRequestOptions>,
+            | readonly Crawler.CrawlerRequestOptions[],
     ): void;
 
     direct(
-        options: Omit<Crawler.CrawlerRequestOptions, 'callback'> & {
+        options: Omit<Crawler.CrawlerRequestOptions, "callback"> & {
             callback: (error: Error, response: Crawler.CrawlerRequestResponse) => void;
         },
     ): void;
@@ -97,7 +91,7 @@ declare namespace Crawler {
         http2?: boolean | undefined;
         debug?: boolean | undefined;
         logger?: {
-            log: (level: string, ...args: ReadonlyArray<any>) => void;
+            log: (level: string, ...args: readonly any[]) => void;
         } | undefined;
         seenreq?: any;
         headers?: Headers | undefined;

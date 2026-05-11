@@ -1,6 +1,6 @@
 // This file was auto-generated. Please do not edit it.
 
-import * as p5 from '../../index';
+import p5 = require("../../index");
 
 declare module '../../index' {
     interface p5InstanceExtensions {
@@ -219,6 +219,18 @@ declare module '../../index' {
          *   if the window is focused and "false" if not.
          */
         focused: boolean;
+
+        /**
+         *   If the sketch was created in WebGL mode, then
+         *   weglVersion will indicate which version of WebGL
+         *   it is using. It will try to create a WebGL2 canvas
+         *   unless you have requested WebGL1 via
+         *   setAttributes({ version: 1 }), and will fall back
+         *   to WebGL1 if WebGL2 is not available. webglVersion
+         *   will always be either WEBGL2, WEBGL, or P2D if not
+         *   in WebGL mode.
+         */
+        webglVersion: string;
 
         /**
          *   System variable that stores the width of the

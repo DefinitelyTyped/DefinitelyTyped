@@ -1,13 +1,6 @@
-// Type definitions for validatorjs v3.15.0
-// Project: https://github.com/skaterdav85/validatorjs
-// Definitions by: Karol Janyst <https://github.com/LKay>
-//                 Dan Manastireanu <https://github.com/danmana>
-//                 Matías Olivera <https://github.com/MatiasOlivera>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace Validator {
     interface TypeCheckingRule {
-        [attribute: string]: Array<any>;
+        [attribute: string]: any[];
     }
 
     interface Rules {
@@ -15,7 +8,7 @@ declare namespace Validator {
     }
 
     interface ValidationErrors {
-        [field: string]: Array<string>;
+        [field: string]: string[];
     }
 
     interface ErrorMessages {
@@ -31,7 +24,7 @@ declare namespace Validator {
     interface Errors {
         errors: ValidationErrors;
         add(attribute: string, message: string): void;
-        get(attribute: string): Array<string>;
+        get(attribute: string): string[];
         first(attribute: string): string | false;
         all(): ValidationErrors;
         has(attribute: string): boolean;
@@ -40,33 +33,33 @@ declare namespace Validator {
     type RegisterCallback = (
         value: string | number | boolean,
         args: string,
-        attribute: string
+        attribute: string,
     ) => boolean;
 
     type RegisterAsyncCallback = (
         value: string | number | boolean,
         args: string,
         attribute: string,
-        passes: (success?: boolean, message?: string) => void
+        passes: (success?: boolean, message?: string) => void,
     ) => void;
 
     interface ValidatorStatic {
-        new <A>(
+        new<A>(
             data: A,
             rules: Rules,
-            customMessages?: ErrorMessages
+            customMessages?: ErrorMessages,
         ): Validator<A>;
         setMessages(lang: string, messages: ErrorMessages): any;
         getMessages(lang: string): ErrorMessages;
         useLang(lang: string): void;
         getDefaultLang(): string;
         setAttributeFormatter(func: AttributeFormatter): void;
-        stopOnError(attributes: boolean | Array<string>): void;
+        stopOnError(attributes: boolean | string[]): void;
         register(name: string, fn: RegisterCallback, message?: string): void;
         registerAsync(
             name: string,
             fn: RegisterAsyncCallback,
-            message: string
+            message: string,
         ): void;
     }
 
@@ -78,15 +71,18 @@ declare namespace Validator {
         errorCount: number;
         hasAsync: boolean;
         rules: Rules;
-        numericRules: Array<string>;
+        numericRules: string[];
         attributeFormatter: AttributeFormatter;
         check(): boolean;
         checkAsync(passes?: Function, fails?: Function): void;
         setAttributeNames(attributes: AttributeNames): void;
         setAttributeFormatter(func: AttributeFormatter): void;
         getRule(name: string): Function;
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         stopOnError(passes?: Function): boolean | void;
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         passes(passes?: Function): boolean | void;
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         fails(fails?: Function): boolean | void;
     }
 }

@@ -1,76 +1,76 @@
-import { Client, Server } from 'soupbintcp';
+import { Client, Server } from "soupbintcp";
 
 // Arrange
-const client = new Client({port: 8000, host: ''});
-const server = new Server({port: 8000, host: ''});
+const client = new Client({ port: 8000, host: "" });
+const server = new Server({ port: 8000, host: "" });
 
 // Act & Assert
 // $ExpectType Client
-new Client({port: 8000, host: ''});
+new Client({ port: 8000, host: "" });
 
 // $ExpectType Server
-new Server({port: 8000, host: ''});
+new Server({ port: 8000, host: "" });
 
 // Invalid type
 // @ts-expect-error
-new Client({host: ''});
+new Client({ host: "" });
 // Invalid type
 
 // @ts-expect-error
-new Client({host: 8000});
+new Client({ host: 8000 });
 
 // @ts-expect-error
-new Client({port: ''});
+new Client({ port: "" });
 
 // @ts-expect-error
-new Client({port: 8000});
+new Client({ port: 8000 });
 
 // @ts-expect-error
 new Client();
 
 // Invalid type
 // @ts-expect-error
-new Server({host: ''});
+new Server({ host: "" });
 // Invalid type
 
 // @ts-expect-error
-new Server({host: 8000});
+new Server({ host: 8000 });
 
 // @ts-expect-error
-new Server({port: ''});
+new Server({ port: "" });
 
 // @ts-expect-error
-new Server({port: 8000});
+new Server({ port: 8000 });
 
 // @ts-expect-error
 new Server();
 
 // @ts-expect-error
 client.login({
-    password: '',
-    requestedSession: '',
-    requestedSequenceNumber: 8000
+    password: "",
+    requestedSession: "",
+    requestedSequenceNumber: 8000,
 });
 
 // @ts-expect-error
 client.login({
-    username: '',
-    requestedSession: '',
-    requestedSequenceNumber: 8000
+    username: "",
+    requestedSession: "",
+    requestedSequenceNumber: 8000,
 });
 
 // @ts-expect-error
 client.login({
-    username: '',
-    password: '',
-    requestedSequenceNumber: 8000
+    username: "",
+    password: "",
+    requestedSequenceNumber: 8000,
 });
 
 // @ts-expect-error
 client.login({
-    username: '',
-    password: '',
-    requestedSession: '',
+    username: "",
+    password: "",
+    requestedSession: "",
 });
 
 // @ts-expect-error

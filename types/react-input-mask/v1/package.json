@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/react-input-mask",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/sanniassin/react-input-mask"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-input-mask": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alexandre Paré",
+            "githubUsername": "apare"
+        }
+    ]
+}

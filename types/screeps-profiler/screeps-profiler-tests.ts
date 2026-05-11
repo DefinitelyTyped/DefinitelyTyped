@@ -4,7 +4,7 @@ function testFunction() {
 }
 
 class TestClass {
-    private readonly dummy: string;
+    private readonly dummy!: string;
 }
 
 const testObj = {

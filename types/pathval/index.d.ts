@@ -1,9 +1,3 @@
-// Type definitions for pathval 1.1
-// Project: https://www.npmjs.com/package/pathval
-// Definitions by: Rebecca Turner <https://github.com/9999years>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 export interface PathInfo {
     parent: object;
     name: string;

@@ -1,11 +1,5 @@
-// Type definitions for tdigest 0.1
-// Project: https://github.com/welch/tdigest
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export class TDigest {
     /**
-     *
      * @param delta The compression factor, the max fraction of mass that
      * can be owned by one centroid (bigger, up to 1.0, means more
      * compression). `false` switches off `TDigest` behavior and treats
@@ -30,7 +24,7 @@ export class TDigest {
      * console.log(td.summary());
      * console.log("median ~ " + td.percentile(0.5));
      */
-    constructor(delta: number | false, K?: number, CX?: number);
+    constructor(delta?: number | false, K?: number, CX?: number);
 
     /**
      * Prepare to digest new points.
@@ -132,7 +126,7 @@ export interface FullCentroid extends Centroid {
 
 export interface DigestConfiguration {
     /** @default 'auto' */
-    mode: 'disc' | 'cont' | 'auto';
+    mode: "disc" | "cont" | "auto";
     /** @default 0.9 */
     ratio: number;
     /** @default 1000 */

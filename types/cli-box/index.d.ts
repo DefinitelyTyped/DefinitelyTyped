@@ -1,9 +1,3 @@
-// Type definitions for cli-box 6.0
-// Project: https://github.com/IonicaBizau/node-cli-box
-// Definitions by: Kent Wong <https://github.com/athasach>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /*~ Note that ES6 modules cannot directly export callable functions.
  *~ This file should be imported using the CommonJS-style:
  *~   import x = require('someLibrary');
@@ -17,7 +11,7 @@
  */
 export = Box;
 
-type MarksKeys = 'nw' | 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'b';
+type MarksKeys = "nw" | "n" | "ne" | "e" | "se" | "s" | "sw" | "w" | "b";
 type Marks = Record<MarksKeys, string>;
 
 interface Options {
@@ -34,8 +28,8 @@ interface Text {
     text?: string | undefined;
     stretch?: boolean | undefined;
     autoEOL?: boolean | undefined;
-    hAlign?: 'left' | 'middle' | 'right' | undefined;
-    vAlign?: 'top' | 'center' | 'bottom' | undefined;
+    hAlign?: "left" | "middle" | "right" | undefined;
+    vAlign?: "top" | "center" | "bottom" | undefined;
 }
 
 interface Box {
@@ -48,8 +42,8 @@ interface Box {
             text: string;
             offset: {
                 y: number;
-            }
-        }>
+            };
+        }>;
     };
     options: {
         width: number;
@@ -62,7 +56,7 @@ interface Box {
 
 interface BoxConstructor {
     new(options: Options | string, text?: Text | string): Box;
-    (options: (Exclude<Options, 'stringify'> & { stringify: true }), text?: Text | string): string;
+    (options: Exclude<Options, "stringify"> & { stringify: true }, text?: Text | string): string;
     (options: Options | string, text?: Text | string): Box;
     defaults: { marks: Marks };
 }

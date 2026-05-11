@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/objects-to-csv",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/anton-bot/objects-to-csv#readme"
+    ],
+    "devDependencies": {
+        "@types/objects-to-csv": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tom Plant",
+            "githubUsername": "pl4nty"
+        }
+    ]
+}

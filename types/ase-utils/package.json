@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/ase-utils",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/DominikGuzei/node-ase-utils"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/ase-utils": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Chocobo1",
+            "githubUsername": "Chocobo1"
+        }
+    ]
+}

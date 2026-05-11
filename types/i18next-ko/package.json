@@ -1,6 +1,17 @@
 {
     "private": true,
+    "name": "@types/i18next-ko",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/leMaik/i18next-ko"
+    ],
     "dependencies": {
+        "@types/knockout": "*",
         "i18next": ">=17.0.11"
-    }
+    },
+    "devDependencies": {
+        "@types/i18next-ko": "workspace:."
+    },
+    "owners": [],
+    "minimumTypeScriptVersion": "5.0"
 }

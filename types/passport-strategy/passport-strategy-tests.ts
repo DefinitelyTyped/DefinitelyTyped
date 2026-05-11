@@ -1,21 +1,19 @@
-
-import express = require('express');
-import passport = require('passport-strategy');
-
+import express = require("express");
+import passport = require("passport-strategy");
 
 export class Strategy extends passport.Strategy {
     constructor(options: any, verify?: Function) {
-        if (typeof options == 'function') {
+        if (typeof options == "function") {
             verify = options;
             options = {};
         }
         if (!verify) {
-            throw new TypeError('DummyStrategy requires a verify callback');
+            throw new TypeError("DummyStrategy requires a verify callback");
         }
 
         super();
 
-        this.name = 'dummy';
+        this.name = "dummy";
         this._verify = verify;
         this._passReqToCallback = options.passReqToCallback;
     }
@@ -29,7 +27,7 @@ export class Strategy extends passport.Strategy {
         options = options || {};
 
         // Test fail method.
-        this.fail({ message: options.missingTokenMessage || 'Missing token' }, 400);
+        this.fail({ message: options.missingTokenMessage || "Missing token" }, 400);
 
         var self = this;
 

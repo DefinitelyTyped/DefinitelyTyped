@@ -1,11 +1,3 @@
-// Type definitions for hls-parser 0.8
-// Project: https://github.com/kuu/hls-parser#readme
-// Definitions by: Christian Rackerseder <https://github.com/screendriver>
-//                 Christopher Manouvrier <https://github.com/cmanou>
-//                 Joe Flateau <https://github.com/joeflateau>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4
-
 /// <reference types="node" />
 
 export interface Byterange {
@@ -20,7 +12,7 @@ export interface Options {
 }
 
 export class Data {
-    type: 'playlist' | 'segment';
+    type: "playlist" | "segment";
 }
 
 export namespace types {
@@ -88,7 +80,7 @@ export namespace types {
 
         endlist: boolean;
 
-        playlistType?: 'EVENT' | 'VOD' | undefined;
+        playlistType?: "EVENT" | "VOD" | undefined;
 
         isIFrame: boolean;
 
@@ -110,7 +102,7 @@ export namespace types {
                 mediaSequenceBase?: number | undefined;
                 discontinuitySequenceBase?: number | undefined;
                 endlist?: boolean | undefined;
-                playlistType?: 'EVENT' | 'VOD' | undefined;
+                playlistType?: "EVENT" | "VOD" | undefined;
                 isIFrame?: boolean | undefined;
                 segments?: readonly Segment[] | undefined;
                 prefetchSegments?: readonly PrefetchSegment[] | undefined;
@@ -140,13 +132,13 @@ export namespace types {
 
         hdcpLevel?: string | undefined;
 
-        audio: ReadonlyArray<Rendition<'AUDIO'>>;
+        audio: ReadonlyArray<Rendition<"AUDIO">>;
 
-        video: ReadonlyArray<Rendition<'VIDEO'>>;
+        video: ReadonlyArray<Rendition<"VIDEO">>;
 
-        subtitles: ReadonlyArray<Rendition<'SUBTITLES'>>;
+        subtitles: ReadonlyArray<Rendition<"SUBTITLES">>;
 
-        closedCaptions: ReadonlyArray<Rendition<'CLOSED-CAPTIONS'>>;
+        closedCaptions: ReadonlyArray<Rendition<"CLOSED-CAPTIONS">>;
 
         currentRenditions: {
             audio?: number | undefined;
@@ -164,17 +156,17 @@ export namespace types {
             resolution?: { width: number; height: number } | undefined;
             frameRate?: number | undefined;
             hdcpLevel?: string | undefined;
-            audio?: ReadonlyArray<Rendition<'AUDIO'>> | undefined;
-            video?: ReadonlyArray<Rendition<'VIDEO'>> | undefined;
-            subtitles?: ReadonlyArray<Rendition<'SUBTITLES'>> | undefined;
-            closedCaptions?: ReadonlyArray<Rendition<'CLOSED-CAPTIONS'>> | undefined;
+            audio?: ReadonlyArray<Rendition<"AUDIO">> | undefined;
+            video?: ReadonlyArray<Rendition<"VIDEO">> | undefined;
+            subtitles?: ReadonlyArray<Rendition<"SUBTITLES">> | undefined;
+            closedCaptions?: ReadonlyArray<Rendition<"CLOSED-CAPTIONS">> | undefined;
             currentRenditions?:
                 | {
-                      audio?: number | undefined;
-                      video?: number | undefined;
-                      subtitles?: number | undefined;
-                      closedCaptions?: number | undefined;
-                  }
+                    audio?: number | undefined;
+                    video?: number | undefined;
+                    subtitles?: number | undefined;
+                    closedCaptions?: number | undefined;
+                }
                 | undefined;
         });
     }

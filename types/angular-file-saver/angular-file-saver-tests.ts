@@ -7,4 +7,4 @@ class ExampleCtrl {
 
 angular
     .module("fileSaverExample", ["ngFileSaver"])
-    .controller("ExampleCtrl",  ExampleCtrl);
+    .controller("ExampleCtrl", ExampleCtrl);

@@ -1,5 +1,5 @@
-import http = require('http');
-import BufferStream = require('./index');
+import http = require("http");
+import BufferStream = require("./index");
 
 export = PostBuffer;
 declare class PostBuffer extends BufferStream {

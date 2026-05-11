@@ -134,8 +134,8 @@ declare namespace Remarkable {
     interface Presets {
         components: {
             [name: string]: {
-                rules: Rules,
-            },
+                rules: Rules;
+            };
         };
 
         options: Options;
@@ -160,7 +160,7 @@ declare namespace Remarkable {
         /** loose/tight mode for lists */
         tight: boolean;
         /** If `list`, block parser stops on two newlines */
-        parentType: 'root' | 'list';
+        parentType: "root" | "list";
         /** Indent of the current dd block, -1 if there isn't any */
         ddIndent: number;
         level: number;
@@ -199,13 +199,13 @@ declare namespace Remarkable {
         labelUnmatchedScopes: number;
         push: (token: ContentToken) => void;
         pushPending: () => void;
-        }
+    }
 
-        /**
-         * Return `true` if the parsing function has recognized the current position
-         * in the input as one if its tokens.
-         */
-        type CoreParsingRule = (
+    /**
+     * Return `true` if the parsing function has recognized the current position
+     * in the input as one if its tokens.
+     */
+    type CoreParsingRule = (
         /**
          * Representation of the current input stream, and the results of
          * parsing it so far.
@@ -223,12 +223,11 @@ declare namespace Remarkable {
          * parsing it so far.
          */
         state: StateInline,
-
         /**
          * If `true` we just do the recognition part, and don't bother to push a
          * token.
          */
-        silent: boolean
+        silent: boolean,
     ) => boolean;
 
     /**
@@ -241,22 +240,19 @@ declare namespace Remarkable {
          * parsing it so far.
          */
         state: StateBlock,
-
         /**
          * The index of the current line.
          */
         startLine: number,
-
         /**
          * The index of the last available line.
          */
         endLine: number,
-
         /**
          * If `true` we just do the recognition part, and don't bother to push a
          * token.
          */
-        silent: boolean
+        silent: boolean,
     ) => boolean;
 
     type Rule<T extends TagToken = TagToken, R extends string = string> = (
@@ -264,22 +260,18 @@ declare namespace Remarkable {
          * The list of tokens currently being processed.
          */
         tokens: T[],
-
         /**
          * The index of the token currently being processed.
          */
         idx: number,
-
         /**
          * The options given to remarkable.
          */
         options?: Options,
-
         /**
          * The key-value store created by the parsing rules.
          */
         env?: Env,
-
         /**
          * The possible instance of Remarkable. See `fence` renderer function.
          */
@@ -412,10 +404,10 @@ declare namespace Remarkable {
 
     interface BlockquoteToken extends TagToken {}
     interface BlockquoteOpenToken extends BlockquoteToken {
-        type: 'blockquote_open';
+        type: "blockquote_open";
     }
     interface BlockquoteCloseToken extends BlockquoteToken {
-        type: 'blockquote_close';
+        type: "blockquote_close";
     }
 
     interface CodeToken extends BlockContentToken {
@@ -424,26 +416,26 @@ declare namespace Remarkable {
          */
         block: boolean;
 
-        type: 'code';
+        type: "code";
     }
 
     interface DlOpenToken extends TagToken {
-        type: 'dl_open';
+        type: "dl_open";
     }
     interface DlCloseToken extends TagToken {
-        type: 'dl_close';
+        type: "dl_close";
     }
     interface DtOpenToken extends TagToken {
-        type: 'dt_open';
+        type: "dt_open";
     }
     interface DtCloseToken extends TagToken {
-        type: 'dt_close';
+        type: "dt_close";
     }
     interface DdOpenToken extends TagToken {
-        type: 'dd_open';
+        type: "dd_open";
     }
     interface DdCloseToken extends TagToken {
-        type: 'dd_close';
+        type: "dd_close";
     }
 
     interface FenceToken extends ContentToken {
@@ -454,7 +446,7 @@ declare namespace Remarkable {
          * Fenced block params.
          */
         params: string;
-        type: 'fence';
+        type: "fence";
     }
 
     interface FootnoteGenericToken extends TagToken {
@@ -471,10 +463,10 @@ declare namespace Remarkable {
     interface FootnoteReferenceToken extends FootnoteGenericToken {}
     interface FootnoteReferenceOpenToken extends FootnoteReferenceToken {
         label: string;
-        type: 'footnote_reference_open';
+        type: "footnote_reference_open";
     }
     interface FootnoteReferenceCloseToken extends FootnoteReferenceToken {
-        type: 'footnote_reference_close';
+        type: "footnote_reference_close";
     }
 
     type HeadingValue = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
@@ -482,20 +474,20 @@ declare namespace Remarkable {
         hLevel: HeadingValue;
     }
     interface HeadingOpenToken extends HeadingToken {
-        type: 'heading_open';
+        type: "heading_open";
     }
     interface HeadingCloseToken extends HeadingToken {
-        type: 'heading_close';
+        type: "heading_close";
     }
 
     interface HrToken extends TagToken {
-        type: 'hr';
+        type: "hr";
     }
 
     interface HtmlBlockToken extends ContentToken {
         content: string;
         block: false;
-        type: 'htmlblock';
+        type: "htmlblock";
     }
 
     interface LHeadingOpenToken extends HeadingOpenToken {}
@@ -507,24 +499,24 @@ declare namespace Remarkable {
          * Ordered list marker value.
          */
         order: number;
-        type: 'ordered_list_open';
+        type: "ordered_list_open";
     }
     interface OrderedListCloseToken extends OrderedListToken {
-        type: 'ordered_list_close';
+        type: "ordered_list_close";
     }
     interface BulletListToken extends TagToken {}
     interface BulletListOpenToken extends BulletListToken {
-        type: 'bullet_list_open';
+        type: "bullet_list_open";
     }
     interface BulletListCloseToken extends BulletListToken {
-        type: 'bullet_list_close';
+        type: "bullet_list_close";
     }
     interface ListItemToken extends TagToken {}
     interface ListItemOpenToken extends ListItemToken {
-        type: 'list_item_open';
+        type: "list_item_open";
     }
     interface ListItemCloseToken extends ListItemToken {
-        type: 'list_item_close';
+        type: "list_item_close";
     }
 
     interface ParagraphToken extends TagToken {
@@ -536,67 +528,67 @@ declare namespace Remarkable {
     }
 
     interface ParagraphOpenToken extends ParagraphToken {
-        type: 'paragraph_open';
+        type: "paragraph_open";
     }
 
     interface ParagraphCloseToken extends ParagraphToken {
-        type: 'paragraph_close';
+        type: "paragraph_close";
     }
 
     interface TextToken extends TagToken {
         content?: string | undefined;
-        type: 'text';
+        type: "text";
     }
 
     interface StrongToken extends TagToken {}
     interface StrongOpenToken extends TagToken {
-        type: 'strong_open';
+        type: "strong_open";
     }
     interface StrongCloseToken extends TagToken {
-        type: 'strong_close';
+        type: "strong_close";
     }
 
     interface TableToken extends TagToken {}
     interface TableOpenToken extends TableToken {
-        type: 'table_open';
+        type: "table_open";
     }
     interface TableCloseToken extends TableToken {
-        type: 'table_close';
+        type: "table_close";
     }
     interface THeadToken extends TagToken {}
     interface THeadOpenToken extends THeadToken {
-        type: 'thead_open';
+        type: "thead_open";
     }
     interface THeadCloseToken extends THeadToken {
-        type: 'thead_close';
+        type: "thead_close";
     }
     interface TBodyToken extends TagToken {}
     interface TBodyOpenToken extends TBodyToken {
-        type: 'tbody_open';
+        type: "tbody_open";
     }
     interface TBodyCloseToken extends TBodyToken {
-        type: 'tbody_close';
+        type: "tbody_close";
     }
     interface TRToken extends TagToken {}
     interface TROpenToken extends TRToken {
-        type: 'tr_open';
+        type: "tr_open";
     }
     interface TRCloseToken extends TRToken {
-        type: 'tr_close';
+        type: "tr_close";
     }
     interface THToken extends TagToken {}
     interface THOpenToken extends THToken {
-        type: 'th_open';
+        type: "th_open";
     }
     interface THCloseToken extends THToken {
-        type: 'th_close';
+        type: "th_close";
     }
     interface TDToken extends TagToken {}
     interface TDOpenToken extends TDToken {
-        type: 'td_open';
+        type: "td_open";
     }
     interface TDCloseToken extends TDToken {
-        type: 'td_close';
+        type: "td_close";
     }
 
     // ---------------
@@ -613,50 +605,50 @@ declare namespace Remarkable {
          * Link title.
          */
         title?: string | undefined;
-        type: 'link_open';
+        type: "link_open";
     }
     interface LinkCloseToken extends LinkToken {
-        type: 'link_close';
+        type: "link_close";
     }
 
     interface DelToken extends TagToken {}
     interface DelOpenToken extends DelToken {
-        type: 'del_open';
+        type: "del_open";
     }
     interface DelCloseToken extends DelToken {
-        type: 'del_open';
+        type: "del_open";
     }
 
     interface EmToken extends TagToken {}
     interface EmOpenToken extends EmToken {
-        type: 'em_open';
+        type: "em_open";
     }
     interface EmCloseToken extends EmToken {
-        type: 'em_close';
+        type: "em_close";
     }
 
     interface HardbreakToken extends TagToken {
-        type: 'hardbreak';
+        type: "hardbreak";
     }
     interface SoftbreakToken extends TagToken {
-        type: 'softbreak';
+        type: "softbreak";
     }
 
     interface FootnoteInlineToken extends FootnoteGenericToken {
-        type: 'footnote_ref';
+        type: "footnote_ref";
     }
 
     interface HtmlTagToken extends ContentToken {
         content: string;
-        type: 'htmltag';
+        type: "htmltag";
     }
 
     interface InsToken extends TagToken {}
     interface InsOpenToken extends InsToken {
-        type: 'ins_open';
+        type: "ins_open";
     }
     interface InsCloseToken extends InsToken {
-        type: 'ins_close';
+        type: "ins_close";
     }
 
     interface ImageToken extends ContentToken {
@@ -675,25 +667,25 @@ declare namespace Remarkable {
          */
         title: string;
 
-        type: 'image';
+        type: "image";
     }
 
     interface MarkToken extends TagToken {}
     interface MarkOpenToken extends MarkToken {
-        type: 'mark_open';
+        type: "mark_open";
     }
     interface MarkCloseToken extends MarkToken {
-        type: 'mark_close';
+        type: "mark_close";
     }
 
     interface SubToken extends ContentToken {
         content: string;
-        type: 'sub';
+        type: "sub";
     }
 
     interface SupToken extends ContentToken {
         content: string;
-        type: 'sup';
+        type: "sup";
     }
 
     // ---------------
@@ -706,30 +698,30 @@ declare namespace Remarkable {
          * Abbreviation title.
          */
         title: string;
-        type: 'abbr_open';
+        type: "abbr_open";
     }
     interface AbbrCloseToken extends AbbrToken {
-        type: 'abbr_close';
+        type: "abbr_close";
     }
 
     interface FootnoteToken extends FootnoteGenericToken {}
     interface FootnoteOpenToken extends FootnoteToken {
-        type: 'footnote_open';
+        type: "footnote_open";
     }
     interface FootnoteCloseToken extends FootnoteToken {
-        type: 'footnote_close';
+        type: "footnote_close";
     }
 
     interface FootnoteBlockToken extends TagToken {}
     interface FootnoteBlockOpenToken extends FootnoteBlockToken {
-        type: 'footnote_block_open';
+        type: "footnote_block_open";
     }
     interface FootnoteBlockCloseToken extends FootnoteBlockToken {
-        type: 'footnote_block_close';
+        type: "footnote_block_close";
     }
 
     interface FootnoteAnchorToken extends FootnoteGenericToken {
-        type: 'footnote_anchor';
+        type: "footnote_anchor";
     }
 
     type Token =

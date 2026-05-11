@@ -31,7 +31,7 @@ declare namespace jsrsasign.KJUR.asn1.cms {
      */
     class SignedData extends ASN1Object {
         signerInfoList: SignerInfo[];
-        constructor();
+        constructor(params?: object);
         addCertificatesByPEM(certPEM: string): void;
         getEncodedHex(): string;
         getContentInfo(): ContentInfo;

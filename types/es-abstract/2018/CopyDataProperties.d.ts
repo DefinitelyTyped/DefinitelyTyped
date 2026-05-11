@@ -1,4 +1,4 @@
-import type { PropertyKey } from '../index';
+import type { PropertyKey } from "../index";
 declare function CopyDataProperties<T, S, E extends PropertyKey>(
     target: T,
     source: S,

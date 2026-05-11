@@ -1,14 +1,7 @@
-// Type definitions for busboy 1.5
-// Project: https://github.com/mscdex/busboy
-// Definitions by: Jacob Baskin <https://github.com/jacobbaskin>
-//                 BendingBender <https://github.com/BendingBender>
-//                 Martin Badin <https://github.com/martin-badin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import { IncomingHttpHeaders } from 'http';
-import { Readable, Writable } from 'stream';
+import { IncomingHttpHeaders } from "http";
+import { Readable, Writable } from "stream";
 
 declare namespace busboy {
     interface Limits {
@@ -162,7 +155,7 @@ declare namespace busboy {
          * @param listener.transferEncoding Contains the 'Content-Transfer-Encoding' value for the file stream.
          * @param listener.mimeType Contains the 'Content-Type' value for the file stream.
          */
-        file: (name: string, stream: Readable, info: FileInfo) => void;
+        file: (name: string, stream: Readable & { truncated?: boolean }, info: FileInfo) => void;
 
         /**
          * Emitted for each new non-file field found.

@@ -1,5 +1,9 @@
-import { Vector2 } from './../../math/Vector2';
-import { CurvePath } from './CurvePath';
+import { Vector2, Vector2Tuple } from "../../math/Vector2.js";
+import { CurvePath, CurvePathJSON } from "./CurvePath.js";
+
+export interface PathJSON extends CurvePathJSON {
+    currentPoint: Vector2Tuple;
+}
 
 /**
  * A 2D {@link Path} representation.
@@ -37,7 +41,7 @@ export class Path extends CurvePath<Vector2> {
      * @remarks Sub-classes will update this value.
      * @defaultValue `Path`
      */
-    override readonly type: string | 'Path';
+    override readonly type: string | "Path";
 
     /**
      * The current offset of the path. Any new {@link THREE.Curve | Curve} added will start here.
@@ -52,9 +56,9 @@ export class Path extends CurvePath<Vector2> {
      * @param radius The radius of the arc. Expects a `Float`
      * @param startAngle The start angle in radians. Expects a `Float`
      * @param endAngle The end angle in radians. Expects a `Float`
-     * @param clockwise Sweep the arc clockwise. . Default `false`
+     * @param clockwise Sweep the arc clockwise. Default `false`
      */
-    absarc(aX: number, aY: number, aRadius: number, aStartAngle: number, aEndAngle: number, aClockwise: boolean): this;
+    absarc(aX: number, aY: number, aRadius: number, aStartAngle: number, aEndAngle: number, aClockwise?: boolean): this;
 
     /**
      * Adds an absolutely positioned {@link THREE.EllipseCurve | EllipseCurve} to the path.
@@ -64,7 +68,7 @@ export class Path extends CurvePath<Vector2> {
      * @param yRadius The radius of the ellipse in the y axis. Expects a `Float`
      * @param startAngle The start angle in radians. Expects a `Float`
      * @param endAngle The end angle in radians. Expects a `Float`
-     * @param clockwise Sweep the ellipse clockwise. . Default `false`
+     * @param clockwise Sweep the ellipse clockwise. Default `false`
      * @param rotation The rotation angle of the ellipse in radians, counterclockwise from the positive X axis. Optional, Expects a `Float`. Default `0`
      */
     absellipse(
@@ -74,8 +78,8 @@ export class Path extends CurvePath<Vector2> {
         yRadius: number,
         aStartAngle: number,
         aEndAngle: number,
-        aClockwise: boolean,
-        aRotation: number,
+        aClockwise?: boolean,
+        aRotation?: number,
     ): this;
 
     /**
@@ -85,9 +89,9 @@ export class Path extends CurvePath<Vector2> {
      * @param radius The radius of the arc. Expects a `Float`
      * @param startAngle The start angle in radians. Expects a `Float`
      * @param endAngle The end angle in radians. Expects a `Float`
-     * @param clockwise Sweep the arc clockwise. . Default `false`
+     * @param clockwise Sweep the arc clockwise. Default `false`
      */
-    arc(aX: number, aY: number, aRadius: number, aStartAngle: number, aEndAngle: number, aClockwise: boolean): this;
+    arc(aX: number, aY: number, aRadius: number, aStartAngle: number, aEndAngle: number, aClockwise?: boolean): this;
 
     /**
      * This creates a bezier curve from {@link .currentPoint} with (cp1X, cp1Y) and (cp2X, cp2Y) as control points and updates {@link .currentPoint} to x and y.
@@ -108,7 +112,7 @@ export class Path extends CurvePath<Vector2> {
      * @param yRadius The radius of the ellipse in the y axis. Expects a `Float`
      * @param startAngle The start angle in radians. Expects a `Float`
      * @param endAngle The end angle in radians. Expects a `Float`
-     * @param clockwise Sweep the ellipse clockwise. . Default `false`
+     * @param clockwise Sweep the ellipse clockwise. Default `false`
      * @param rotation The rotation angle of the ellipse in radians, counterclockwise from the positive X axis. Optional, Expects a `Float`. Default `0`
      */
     ellipse(
@@ -118,8 +122,8 @@ export class Path extends CurvePath<Vector2> {
         yRadius: number,
         aStartAngle: number,
         aEndAngle: number,
-        aClockwise: boolean,
-        aRotation: number,
+        aClockwise?: boolean,
+        aRotation?: number,
     ): this;
 
     /**
@@ -156,4 +160,7 @@ export class Path extends CurvePath<Vector2> {
      * @param points An array of {@link Vector2 | Vector2's}
      */
     splineThru(pts: Vector2[]): this;
+
+    toJSON(): PathJSON;
+    fromJSON(json: PathJSON): this;
 }

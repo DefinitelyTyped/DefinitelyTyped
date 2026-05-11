@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "node16",
         "lib": [
             "es6",
             "dom"
@@ -11,11 +11,7 @@
         "strictFunctionTypes": true,
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-        "types": [],
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ]
+        "types": []
     },
     "files": [
         "index.d.ts",

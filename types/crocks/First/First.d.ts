@@ -1,4 +1,4 @@
-import Maybe from '../Maybe';
+import Maybe from "../Maybe";
 
 declare function First(val: unknown): First;
 

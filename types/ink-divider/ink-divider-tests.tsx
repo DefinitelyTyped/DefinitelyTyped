@@ -1,4 +1,4 @@
-import * as Divider from "ink-divider";
+import Divider from "ink-divider";
 import * as React from "react";
 
 const test1 = () => {
@@ -10,6 +10,7 @@ const test1 = () => {
             titlePadding={10}
             titleColor="white"
             dividerChar="-"
-            dividerColor="white" />
+            dividerColor="white"
+        />
     );
 };

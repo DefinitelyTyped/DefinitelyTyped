@@ -1,4 +1,4 @@
-import { Plugin } from 'webpack';
+import { Plugin } from "webpack";
 
 export = SVGSpriteLoaderPlugin;
 
@@ -7,10 +7,10 @@ declare class SVGSpriteLoaderPlugin extends Plugin {
 }
 
 declare namespace SVGSpriteLoaderPlugin {
-  interface Options {
-    /** Render plain sprite without styles and usages */
-    plainSprite?: boolean | undefined;
-    /** Custom tag attributes for the svg */
-    spriteAttrs?: {[key: string]: any} | undefined;
-  }
+    interface Options {
+        /** Render plain sprite without styles and usages */
+        plainSprite?: boolean | undefined;
+        /** Custom tag attributes for the svg */
+        spriteAttrs?: { [key: string]: any } | undefined;
+    }
 }

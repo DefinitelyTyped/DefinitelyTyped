@@ -1,27 +1,33 @@
-import { EmitterBase } from '../base';
-import { ApplicationInfo } from './application';
-import { WindowInfo } from './window';
-import { Identity } from '../../identity';
-import { MonitorInfo } from './monitor';
-import { PointTopLeft } from './point';
-import { GetLogRequestType, LogInfo, LogLevel } from './log';
-import { ProxyInfo, ProxyConfig } from './proxy';
-import { ProcessInfo } from './process';
-import { AppAssetInfo, AppAssetRequest, RuntimeDownloadOptions, RuntimeDownloadProgress } from './download-asset';
-import { RVMInfo } from './rvm';
-import { RuntimeInfo } from './runtime-info';
-import { Entity, EntityInfo } from './entity';
-import { HostSpecs } from './host-specs';
-import { ExternalProcessRequestType, TerminateExternalRequestType, ExternalConnection, ExternalProcessInfo, ServiceConfiguration } from './external-process';
-import Transport from '../../transport/transport';
-import { CookieInfo, CookieOption } from './cookie';
-import { RegistryInfo } from './registry-info';
-import { DownloadPreloadOption, DownloadPreloadInfo } from './download-preload';
-import { ClearCacheOption } from './clearCacheOption';
-import { CrashReporterOption } from './crashReporterOption';
-import { SystemEvents } from '../events/system';
-import { InstalledApps } from './installedApps';
-import { CertifiedAppInfo } from './certifiedAppInfo';
+import { Identity } from "../../identity";
+import Transport from "../../transport/transport";
+import { EmitterBase } from "../base";
+import { SystemEvents } from "../events/system";
+import { ApplicationInfo } from "./application";
+import { CertifiedAppInfo } from "./certifiedAppInfo";
+import { ClearCacheOption } from "./clearCacheOption";
+import { CookieInfo, CookieOption } from "./cookie";
+import { CrashReporterOption } from "./crashReporterOption";
+import { AppAssetInfo, AppAssetRequest, RuntimeDownloadOptions, RuntimeDownloadProgress } from "./download-asset";
+import { DownloadPreloadInfo, DownloadPreloadOption } from "./download-preload";
+import { Entity, EntityInfo } from "./entity";
+import {
+    ExternalConnection,
+    ExternalProcessInfo,
+    ExternalProcessRequestType,
+    ServiceConfiguration,
+    TerminateExternalRequestType,
+} from "./external-process";
+import { HostSpecs } from "./host-specs";
+import { InstalledApps } from "./installedApps";
+import { GetLogRequestType, LogInfo, LogLevel } from "./log";
+import { MonitorInfo } from "./monitor";
+import { PointTopLeft } from "./point";
+import { ProcessInfo } from "./process";
+import { ProxyConfig, ProxyInfo } from "./proxy";
+import { RegistryInfo } from "./registry-info";
+import { RuntimeInfo } from "./runtime-info";
+import { RVMInfo } from "./rvm";
+import { WindowInfo } from "./window";
 export interface ServiceIdentifier {
     name: string;
 }
@@ -484,13 +490,13 @@ export default class System extends EmitterBase<SystemEvents> {
      * @return {Promise.Array.<WindowInfo>}
      * @tutorial System.getAllWindows
      */
-    getAllWindows(): Promise<Array<WindowInfo>>;
+    getAllWindows(): Promise<WindowInfo[]>;
     /**
      * Retrieves an array of data for all applications.
      * @return {Promise.Array.<ApplicationInfo>}
      * @tutorial System.getAllApplications
      */
-    getAllApplications(): Promise<Array<ApplicationInfo>>;
+    getAllApplications(): Promise<ApplicationInfo[]>;
     /**
      * Retrieves the command line argument string that started OpenFin Runtime.
      * @return {Promise.<string>}
@@ -591,7 +597,7 @@ export default class System extends EmitterBase<SystemEvents> {
      * @return {Promise.Array<LogInfo>}
      * @tutorial System.getLogList
      */
-    getLogList(): Promise<Array<LogInfo>>;
+    getLogList(): Promise<LogInfo[]>;
     /**
      * Retrieves an object that contains data about the monitor setup of the
      * computer that the runtime is running on.
@@ -612,7 +618,7 @@ export default class System extends EmitterBase<SystemEvents> {
      * @return {Promise.Array.<ProcessInfo>}
      * @tutorial System.getProcessList
      */
-    getProcessList(): Promise<Array<ProcessInfo>>;
+    getProcessList(): Promise<ProcessInfo[]>;
     /**
      * Retrieves the Proxy settings.
      * @return {Promise.<ProxyInfo>}
@@ -718,20 +724,23 @@ export default class System extends EmitterBase<SystemEvents> {
      * @return {Promise.<void>}
      * @tutorial System.downloadRuntime
      */
-    downloadRuntime(options: RuntimeDownloadOptions, progressListener: (progress: RuntimeDownloadProgress) => void): Promise<void>;
+    downloadRuntime(
+        options: RuntimeDownloadOptions,
+        progressListener: (progress: RuntimeDownloadProgress) => void,
+    ): Promise<void>;
     /**
      * Download preload scripts from given URLs
      * @param {DownloadPreloadOption[]} scripts - URLs of preload scripts. See tutorial for more details.
      * @return {Promise.Array<DownloadPreloadInfo>}
      * @tutorial System.downloadPreloadScripts
      */
-    downloadPreloadScripts(scripts: Array<DownloadPreloadOption>): Promise<Array<DownloadPreloadInfo>>;
+    downloadPreloadScripts(scripts: DownloadPreloadOption[]): Promise<DownloadPreloadInfo[]>;
     /**
      * Retrieves an array of data (name, ids, bounds) for all application windows.
      * @return {Promise.Array.<Identity>}
      * @tutorial System.getAllExternalApplications
      */
-    getAllExternalApplications(): Promise<Array<Identity>>;
+    getAllExternalApplications(): Promise<Identity[]>;
     /**
      * Retrieves an array of objects representing information about currently
      * running user-friendly native windows on the system.<br>
@@ -740,7 +749,7 @@ export default class System extends EmitterBase<SystemEvents> {
      * @return {Promise.Array.<Identity>}
      * @experimental
      */
-    getAllExternalWindows(): Promise<Array<Identity>>;
+    getAllExternalWindows(): Promise<Identity[]>;
     /**
      * Retrieves app asset information.
      * @param { AppAssetRequest } options
@@ -754,7 +763,7 @@ export default class System extends EmitterBase<SystemEvents> {
      * @return {Promise.Array.<CookieInfo>}
      * @tutorial System.getCookies
      */
-    getCookies(options: CookieOption): Promise<Array<CookieInfo>>;
+    getCookies(options: CookieOption): Promise<CookieInfo[]>;
     /**
      * Set the minimum log level above which logs will be written to the OpenFin log
      * @param { LogLevel } The minimum level (inclusive) above which all calls to log will be written

@@ -1,5 +1,5 @@
+import jQuery = require("jquery");
 import { FieldGUID, IITC, LinkGUID, PortalGUID } from "./iitctypes";
-import * as jQuery from 'jquery';
 import { Intel } from "./inteltypes";
 import { MapDataRequest } from "./map_data_request";
 

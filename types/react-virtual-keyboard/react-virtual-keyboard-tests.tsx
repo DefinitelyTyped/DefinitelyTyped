@@ -7,17 +7,29 @@ export interface KbState {
 
 export default class MyKeyboard extends React.Component<{}, KbState> {
     state = {
-        textarea: ''
+        textarea: "",
     };
     onTextareaChanged = (newState: string) => {
         this.setState({ textarea: newState });
-    }
+    };
 
     render() {
-        return (<Keyboard
-            value={ this.state.textarea }
-            name='thetextareaname'
-            options={{type: 'textarea', layout: 'qwerty', autoAccept: true, alwaysOpen: false, appendLocally: true, color: 'light', class: 'sxcycx', updateOnChange: true }}
-            callbackParent={this.onTextareaChanged} />);
+        return (
+            <Keyboard
+                value={this.state.textarea}
+                name="thetextareaname"
+                options={{
+                    type: "textarea",
+                    layout: "qwerty",
+                    autoAccept: true,
+                    alwaysOpen: false,
+                    appendLocally: true,
+                    color: "light",
+                    class: "sxcycx",
+                    updateOnChange: true,
+                }}
+                callbackParent={this.onTextareaChanged}
+            />
+        );
     }
 }

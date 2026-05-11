@@ -1,12 +1,6 @@
-// Type definitions for carlo 0.9
-// Project: https://github.com/GoogleChromeLabs/carlo#readme
-// Definitions by: Adam Dierkens <https://github.com/adierkens>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /// <reference types="node" />
 
-import { Serializable, Browser, Page } from "puppeteer";
+import { Browser, Page, Serializable } from "puppeteer";
 
 export type Channel = string;
 
@@ -21,7 +15,10 @@ export type Channel = string;
  * If the function passed to the Window.evaluate returns a non-Serializable value,
  * then Window.evaluate resolves to undefined.
  */
-export type EvaluateFunction = (pageFunction: ((...args: any[]) => any) | string, ...args: Serializable[]) => Promise<Serializable>;
+export type EvaluateFunction = (
+    pageFunction: ((...args: any[]) => any) | string,
+    ...args: Serializable[]
+) => Promise<Serializable>;
 
 export interface WindowOptions {
     /**
@@ -95,8 +92,8 @@ export interface LaunchOptions extends WindowOptions {
     args?: string[] | undefined;
 }
 
-export type AppEvent = 'exit' | 'window';
-export type WindowEvent = 'close';
+export type AppEvent = "exit" | "window";
+export type WindowEvent = "close";
 
 export interface Bounds {
     /**
@@ -397,4 +394,4 @@ export function fileInfo(file: any): Promise<{
  * This method is available in the Web world and returns parameters passed into the window.load().
  * This is how Carlo passes initial set of <rpc> handles to Node objects into the web world.
  */
-export function loadParams(): Promise<ReadonlyArray<any>>;
+export function loadParams(): Promise<readonly any[]>;

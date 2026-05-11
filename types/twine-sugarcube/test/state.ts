@@ -24,10 +24,6 @@ b = State.hasPlayed("passage");
 
 testStoryMoment(State.index(1));
 
-State.initPRNG();
-State.initPRNG("seedString");
-State.initPRNG("seedStr", b);
-
 b = State.isEmpty();
 
 n = State.length;

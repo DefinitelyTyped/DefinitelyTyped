@@ -1,16 +1,11 @@
-// Type definitions for hafas-client 6.0
-// Project: https://github.com/public-transport/hafas-client
-// Definitions by: Jürgen Bergmann <https://github.com/bergmannjg>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * A ProductType relates to how a means of transport "works" in local context.
  * Example: Even though S-Bahn and U-Bahn in Berlin are both trains, they have different operators, service patterns,
  * stations and look different. Therefore, they are two distinct products subway and suburban.
  */
- export interface ProductType {
+export interface ProductType {
     id: string;
-    mode: 'train' | 'bus' | 'watercraft' | 'taxi' | 'gondola' | 'aircraft' | 'car' | 'bicycle' | 'walking';
+    mode: "train" | "bus" | "watercraft" | "taxi" | "gondola" | "aircraft" | "car" | "bicycle" | "walking";
     name: string;
     short: string;
     bitmasks: number[];
@@ -24,7 +19,7 @@ export interface Profile {
     locale: string;
     timezone: string;
     endpoint: string;
-    products: ReadonlyArray<ProductType>;
+    products: readonly ProductType[];
     trip?: boolean;
     radar?: boolean;
     refreshJourney?: boolean;
@@ -40,7 +35,7 @@ export interface Profile {
  * A location object is used by other items to indicate their locations.
  */
 export interface Location {
-    type: 'location';
+    type: "location";
     id?: string;
     name?: string;
     poi?: boolean;
@@ -73,20 +68,20 @@ export interface ReisezentrumOpeningHours {
  * that may span across multiple levels or buildings.
  */
 export interface Station {
-    type: 'station';
+    type: "station";
     id?: string;
     name?: string;
     station?: Station;
     location?: Location;
     products?: Products;
-    lines?: ReadonlyArray<Line>;
+    lines?: readonly Line[];
     isMeta?: boolean;
     /** region ids */
-    regions?: ReadonlyArray<string>;
+    regions?: readonly string[];
     facilities?: Facilities;
     reisezentrumOpeningHours?: ReisezentrumOpeningHours;
-    stops?: ReadonlyArray<Station | Stop | Location>;
-    entrances?: ReadonlyArray<Location>;
+    stops?: readonly (Station | Stop | Location)[];
+    entrances?: readonly Location[];
     transitAuthority?: string;
     distance?: number;
 }
@@ -101,18 +96,19 @@ export interface Ids {
  * A stop always belongs to a station. It may for example be a sign, a basic shelter or a railway platform.
  */
 export interface Stop {
-    type: 'stop';
+    type: "stop";
     id?: string;
     name?: string;
     location?: Location;
     station?: Station;
     products?: Products;
-    lines?: ReadonlyArray<Line>;
+    lines?: readonly Line[];
     isMeta?: boolean;
+    facilities?: Facilities;
     reisezentrumOpeningHours?: ReisezentrumOpeningHours;
     ids?: Ids;
     loadFactor?: string;
-    entrances?: ReadonlyArray<Location>;
+    entrances?: readonly Location[];
     transitAuthority?: string;
     distance?: number;
 }
@@ -120,14 +116,14 @@ export interface Stop {
  * A region is a group of stations, for example a metropolitan area or a geographical or cultural region.
  */
 export interface Region {
-    type: 'region';
+    type: "region";
     id: string;
     name: string;
     /** station ids */
-    stations: ReadonlyArray<string>;
+    stations: readonly string[];
 }
 export interface Line {
-    type: 'line';
+    type: "line";
     id?: string;
     name?: string;
     adminCode?: string;
@@ -135,16 +131,16 @@ export interface Line {
     additionalName?: string;
     product?: string;
     public?: boolean;
-    mode?: 'train' | 'bus' | 'watercraft' | 'taxi' | 'gondola' | 'aircraft' | 'car' | 'bicycle' | 'walking';
+    mode?: "train" | "bus" | "watercraft" | "taxi" | "gondola" | "aircraft" | "car" | "bicycle" | "walking";
     /** routes ids */
-    routes?: ReadonlyArray<string>;
+    routes?: readonly string[];
     operator?: Operator;
     express?: boolean;
     metro?: boolean;
     night?: boolean;
     nr?: number;
     symbol?: string;
-    directions?: ReadonlyArray<string>;
+    directions?: readonly string[];
     productName?: string;
 }
 export interface RealtimeDataUpdatedAt {
@@ -154,12 +150,12 @@ export interface RealtimeDataUpdatedAt {
  * A route represents a single set of stations, of a single line.
  */
 export interface Route {
-    type: 'route';
+    type: "route";
     id: string;
     line: string;
-    mode: 'train' | 'bus' | 'watercraft' | 'taxi' | 'gondola' | 'aircraft' | 'car' | 'bicycle' | 'walking';
+    mode: "train" | "bus" | "watercraft" | "taxi" | "gondola" | "aircraft" | "car" | "bicycle" | "walking";
     /** stop ids */
-    stops: ReadonlyArray<string>;
+    stops: readonly string[];
 }
 export interface Cycle {
     min?: number;
@@ -176,28 +172,28 @@ export interface ArrivalDeparture {
  * It is specifically geared towards urban public transport, with frequent trains and homogenous travels.
  */
 export interface Schedule {
-    type: 'schedule';
+    type: "schedule";
     id: string;
     route: string;
-    mode: 'train' | 'bus' | 'watercraft' | 'taxi' | 'gondola' | 'aircraft' | 'car' | 'bicycle' | 'walking';
-    sequence: ReadonlyArray<ArrivalDeparture>;
+    mode: "train" | "bus" | "watercraft" | "taxi" | "gondola" | "aircraft" | "car" | "bicycle" | "walking";
+    sequence: readonly ArrivalDeparture[];
     /** array of Unix timestamps */
-    starts: ReadonlyArray<string>;
+    starts: readonly string[];
 }
 export interface Operator {
-    type: 'operator';
+    type: "operator";
     id: string;
     name: string;
 }
 export interface Hint {
-    type: 'hint' | 'status' | 'foreign-id' | 'local-fare-zone' | 'stop-website' | 'stop-dhid' | 'transit-authority';
+    type: "hint" | "status" | "foreign-id" | "local-fare-zone" | "stop-website" | "stop-dhid" | "transit-authority";
     code?: string;
     summary?: string;
     text: string;
     tripId?: string;
 }
 export interface Status {
-    type: 'hint' | 'status' | 'foreign-id' | 'local-fare-zone' | 'stop-website' | 'stop-dhid' | 'transit-authority';
+    type: "hint" | "status" | "foreign-id" | "local-fare-zone" | "stop-website" | "stop-dhid" | "transit-authority";
     code?: string;
     summary?: string;
     text: string;
@@ -223,7 +219,7 @@ export interface Event {
     sections?: string[];
 }
 export interface Warning {
-    type: 'status' | 'warning';
+    type: "status" | "warning";
     id?: string;
     icon?: object;
     summary?: string;
@@ -239,23 +235,23 @@ export interface Warning {
     company?: string;
     categories?: number[];
     affectedLines?: Line[];
-    fromStops?: ReadonlyArray<Station | Stop | Location>;
-    toStops?: ReadonlyArray<Station | Stop | Location>;
+    fromStops?: readonly (Station | Stop | Location)[];
+    toStops?: readonly (Station | Stop | Location)[];
 }
 export interface Geometry {
-    type: 'Point';
+    type: "Point";
     coordinates: number[];
 }
 export interface Feature {
-    type: 'Feature';
-    properties: Station | Stop | Location | {};
+    type: "Feature";
+    properties: Station | Stop | Location | object;
     geometry: Geometry;
 }
 export interface FeatureCollection {
-    type: 'FeatureCollection';
-    features: ReadonlyArray<Feature>;
+    type: "FeatureCollection";
+    features: readonly Feature[];
 }
-export type PrognosisType = 'prognosed' | 'calculated';
+export type PrognosisType = "prognosed" | "calculated";
 /**
  * A stopover represents a vehicle stopping at a stop/station at a specific time.
  */
@@ -277,11 +273,12 @@ export interface StopOver {
     arrivalPlatform?: string;
     prognosedArrivalPlatform?: string;
     plannedArrivalPlatform?: string;
-    remarks?: ReadonlyArray<Hint | Status | Warning>;
+    remarks?: readonly (Hint | Status | Warning)[];
     passBy?: boolean;
     cancelled?: boolean;
     departurePrognosisType?: PrognosisType;
     arrivalPrognosisType?: PrognosisType;
+    additional?: boolean;
 }
 /**
  * Trip – a vehicle stopping at a set of stops at specific times
@@ -304,13 +301,12 @@ export interface Trip {
     arrivalPlatform?: string;
     prognosedArrivalPlatform?: string;
     plannedArrivalPlatform?: string;
-    stopovers?: ReadonlyArray<StopOver>;
+    stopovers?: readonly StopOver[];
     schedule?: number;
     price?: Price;
     operator?: number;
     direction?: string;
     line?: Line;
-    reachable?: boolean;
     cancelled?: boolean;
     walking?: boolean;
     loadFactor?: string;
@@ -318,27 +314,41 @@ export interface Trip {
     public?: boolean;
     transfer?: boolean;
     cycle?: Cycle;
-    alternatives?: ReadonlyArray<Alternative>;
+    alternatives?: readonly Alternative[];
     polyline?: FeatureCollection;
-    remarks?: ReadonlyArray<Hint | Status | Warning>;
+    remarks?: readonly (Hint | Status | Warning)[];
+    currentLocation?: Location;
+    departurePrognosisType?: PrognosisType;
+    arrivalPrognosisType?: PrognosisType;
+    checkin?: boolean;
     scheduledDays?: ScheduledDays;
 }
 export interface TripWithRealtimeData extends RealtimeDataUpdatedAt {
     trip: Trip;
 }
 export interface TripsWithRealtimeData extends RealtimeDataUpdatedAt {
-    trips: ReadonlyArray<Trip>;
+    trips: readonly Trip[];
 }
 export interface WarningsWithRealtimeData extends RealtimeDataUpdatedAt {
-    remarks: ReadonlyArray<Warning>;
+    remarks: readonly Warning[];
 }
 export interface LinesWithRealtimeData extends RealtimeDataUpdatedAt {
-    lines?: ReadonlyArray<Line>;
+    lines?: readonly Line[];
 }
 export interface Price {
     amount: number;
-    currency: string;
+    currency?: string;
     hint?: string;
+}
+export interface PriceObj {
+    /** amount in cents of currency */
+    amount: number;
+}
+export interface Ticket {
+    name: string;
+    priceObj?: PriceObj;
+    /** *bahn.de* URL to the tickets, see {@link JourneysOptionsDbProfile.generateUnreliableTicketUrls} */
+    url?: string;
 }
 export interface Alternative {
     tripId: string;
@@ -353,24 +363,22 @@ export interface Alternative {
     platform?: string;
     plannedPlatform?: string;
     prognosedPlatform?: string;
-    remarks?: ReadonlyArray<Hint | Status | Warning>;
+    remarks?: readonly (Hint | Status | Warning)[];
     cancelled?: boolean;
     loadFactor?: string;
     provenance?: string;
-    previousStopovers?: ReadonlyArray<StopOver>;
-    nextStopovers?: ReadonlyArray<StopOver>;
-    frames?: Frame[];
-    polyline?: FeatureCollection;
+    previousStopovers?: readonly StopOver[];
+    nextStopovers?: readonly StopOver[];
     currentTripPosition?: Location;
     origin?: Station | Stop | Location;
     destination?: Station | Stop | Location;
     prognosisType?: PrognosisType;
 }
 export interface Departures extends RealtimeDataUpdatedAt {
-    departures: ReadonlyArray<Alternative>;
+    departures: readonly Alternative[];
 }
 export interface Arrivals extends RealtimeDataUpdatedAt {
-    arrivals: ReadonlyArray<Alternative>;
+    arrivals: readonly Alternative[];
 }
 /**
  * Leg of journey
@@ -393,7 +401,7 @@ export interface Leg {
     arrivalPlatform?: string;
     prognosedArrivalPlatform?: string;
     plannedArrivalPlatform?: string;
-    stopovers?: ReadonlyArray<StopOver>;
+    stopovers?: readonly StopOver[];
     schedule?: number;
     price?: Price;
     operator?: number;
@@ -407,9 +415,9 @@ export interface Leg {
     public?: boolean;
     transfer?: boolean;
     cycle?: Cycle;
-    alternatives?: ReadonlyArray<Alternative>;
+    alternatives?: readonly Alternative[];
     polyline?: FeatureCollection;
-    remarks?: ReadonlyArray<Hint | Status | Warning>;
+    remarks?: readonly (Hint | Status | Warning)[];
     currentLocation?: Location;
     departurePrognosisType?: PrognosisType;
     arrivalPrognosisType?: PrognosisType;
@@ -423,28 +431,29 @@ export interface ScheduledDays {
  * It would typically be the result of a route planning algorithm.
  */
 export interface Journey {
-    type: 'journey';
-    legs: ReadonlyArray<Leg>;
+    type: "journey";
+    legs: readonly Leg[];
     refreshToken?: string;
-    remarks?: ReadonlyArray<Hint | Status | Warning>;
+    remarks?: readonly (Hint | Status | Warning)[];
     price?: Price;
+    tickets?: Ticket[];
     cycle?: Cycle;
     scheduledDays?: ScheduledDays;
 }
 export interface Journeys extends RealtimeDataUpdatedAt {
     earlierRef?: string;
     laterRef?: string;
-    journeys?: ReadonlyArray<Journey>;
+    journeys?: readonly Journey[];
 }
 export interface JourneyWithRealtimeData extends RealtimeDataUpdatedAt {
     journey: Journey;
 }
 export interface Duration {
     duration: number;
-    stations: ReadonlyArray<Station | Stop | Location>;
+    stations: readonly (Station | Stop | Location)[];
 }
 export interface DurationsWithRealtimeData extends RealtimeDataUpdatedAt {
-    reachable: ReadonlyArray<Duration>;
+    reachable: readonly Duration[];
 }
 export interface Frame {
     origin: Stop | Location;
@@ -456,12 +465,12 @@ export interface Movement {
     tripId?: string;
     line?: Line;
     location?: Location;
-    nextStopovers?: ReadonlyArray<StopOver>;
+    nextStopovers?: readonly StopOver[];
     frames?: Frame[];
     polyline?: FeatureCollection;
 }
 export interface Radar extends RealtimeDataUpdatedAt {
-    movements?: ReadonlyArray<Movement>;
+    movements?: readonly Movement[];
 }
 export interface ServerInfo extends RealtimeDataUpdatedAt {
     hciVersion?: string;
@@ -469,12 +478,7 @@ export interface ServerInfo extends RealtimeDataUpdatedAt {
     timetableEnd?: string;
     serverTime?: string | number;
 }
-export interface LoyaltyCard {
-    type: string;
-    discount?: number;
-    class?: number;
-}
-export interface JourneysOptions {
+export interface JourneysOptionsCommon {
     /**
      * departure date, undefined corresponds to Date.Now
      * @default undefined
@@ -577,10 +581,31 @@ export interface JourneysOptions {
      */
     scheduledDays?: boolean;
     /**
+     * @deprecated
+     */
+    when?: Date;
+}
+export interface LoyaltyCard {
+    type: string;
+    discount?: number;
+    class?: number;
+}
+export type AgeGroup = "B" | "K" | "Y" | "E" | "S";
+export type RoutingMode = "OFF" | "INFOS" | "FULL" | "REALTIME" | "SERVER_DEFAULT" | "HYBRID";
+/**
+ * JourneysOptions specific to Db Profile
+ */
+export interface JourneysOptionsDbProfile {
+    /**
      * firstClass
      * @default false
      */
     firstClass?: boolean;
+    /**
+     * ageGroup
+     * @default none
+     */
+    ageGroup?: AgeGroup;
     /**
      * age
      * @default none
@@ -592,10 +617,17 @@ export interface JourneysOptions {
      */
     loyaltyCard?: LoyaltyCard;
     /**
-     * @deprecated
+     *  RoutingMode
+     *  @default none
      */
-    when?: Date;
+    routingMode?: RoutingMode;
+    /**
+     * try to generate *bahn.de* URLs to the tickets
+     * @default false
+     */
+    generateUnreliableTicketUrls?: boolean;
 }
+export type JourneysOptions = JourneysOptionsCommon & JourneysOptionsDbProfile;
 export interface JourneysFromTripOptions {
     /**
      * return stations on the way?
@@ -862,6 +894,11 @@ export interface RefreshJourneyOptions {
      */
     scheduledDays?: boolean;
     /**
+     * try to generate *bahn.de* URLs to the tickets
+     * @default false
+     */
+    generateUnreliableTicketUrls?: boolean;
+    /**
      * language
      * @default en
      */
@@ -1065,13 +1102,20 @@ export interface HafasClient {
      * @param to uid of station
      * @param options options
      */
-    journeys: (from: string | Station | Stop | Location, to: string | Station | Stop | Location, options: JourneysOptions | undefined) => Promise<Journeys>;
+    journeys: (
+        from: string | Station | Stop | Location,
+        to: string | Station | Stop | Location,
+        options: JourneysOptions | undefined,
+    ) => Promise<Journeys>;
     /**
      * refreshes a Journey
      * @param refreshToken refreshToken must be a string, taken from {@link journey#refreshToken}
      * @param options options
      */
-    refreshJourney?: (refreshToken: string, options: RefreshJourneyOptions | undefined) => Promise<JourneyWithRealtimeData>;
+    refreshJourney?: (
+        refreshToken: string,
+        options: RefreshJourneyOptions | undefined,
+    ) => Promise<JourneyWithRealtimeData>;
     /**
      * Refetch information about a trip
      * @param id trip id, see {@link Leg#tripId}
@@ -1084,13 +1128,19 @@ export interface HafasClient {
      * @param station uid of station
      * @param options options
      */
-    departures: (station: string | Station | Stop | Location, options: DeparturesArrivalsOptions | undefined) => Promise<Departures>;
+    departures: (
+        station: string | Station | Stop | Location,
+        options: DeparturesArrivalsOptions | undefined,
+    ) => Promise<Departures>;
     /**
      * Retrieves arrivals
      * @param station uid of station
      * @param options options
      */
-    arrivals: (station: string | Station | Stop | Location, options: DeparturesArrivalsOptions | undefined) => Promise<Arrivals>;
+    arrivals: (
+        station: string | Station | Stop | Location,
+        options: DeparturesArrivalsOptions | undefined,
+    ) => Promise<Arrivals>;
     /**
      * Retrieves journeys from trip id to station
      * @param fromTripId id of trip
@@ -1098,13 +1148,18 @@ export interface HafasClient {
      * @param to uid of station or Station or Stop
      * @param options options
      */
-    journeysFromTrip?: (fromTripId: string, previousStopover: StopOver, to: string | Station | Stop | Location, opt: JourneysFromTripOptions | undefined) => Promise<Journeys>;
+    journeysFromTrip?: (
+        fromTripId: string,
+        previousStopover: StopOver,
+        to: string | Station | Stop | Location,
+        opt: JourneysFromTripOptions | undefined,
+    ) => Promise<Journeys>;
     /**
      * Retrieves locations or stops
      * @param name name of station
      * @param options options for search
      */
-    locations: (name: string, options: LocationsOptions | undefined) => Promise<ReadonlyArray<Station | Stop | Location>>;
+    locations: (name: string, options: LocationsOptions | undefined) => Promise<readonly (Station | Stop | Location)[]>;
     /**
      * Retrieves information about a stop
      * @param id uid of station
@@ -1116,13 +1171,16 @@ export interface HafasClient {
      * @param location location
      * @param options options for search
      */
-    nearby: (location: Location, options: NearByOptions | undefined) => Promise<ReadonlyArray<Station | Stop | Location>>;
+    nearby: (location: Location, options: NearByOptions | undefined) => Promise<readonly (Station | Stop | Location)[]>;
     /**
      * Retrieves stations reachable within a certain time from a location
      * @param address location
      * @param options options for search
      */
-    reachableFrom?: (address: Location, options: ReachableFromOptions | undefined) => Promise<DurationsWithRealtimeData>;
+    reachableFrom?: (
+        address: Location,
+        options: ReachableFromOptions | undefined,
+    ) => Promise<DurationsWithRealtimeData>;
     /**
      * Retrieves all vehicles currently in an area.
      * @param box area
@@ -1134,7 +1192,10 @@ export interface HafasClient {
      * @param lineNameOrFahrtNr string
      * @param options options for search
      */
-    tripsByName?: (lineNameOrFahrtNr: string, options: TripsByNameOptions | undefined) => Promise<TripsWithRealtimeData>;
+    tripsByName?: (
+        lineNameOrFahrtNr: string,
+        options: TripsByNameOptions | undefined,
+    ) => Promise<TripsWithRealtimeData>;
     /**
      * Fetches all remarks known to the HAFAS endpoint
      * @param opt RemarksOptions

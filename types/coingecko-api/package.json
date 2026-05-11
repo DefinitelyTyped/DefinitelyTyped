@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/coingecko-api",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/miscavage/CoinGecko-API#readme"
+    ],
+    "devDependencies": {
+        "@types/coingecko-api": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jan Klimo",
+            "githubUsername": "janklimo"
+        },
+        {
+            "name": "Artem Ilinykh",
+            "githubUsername": "singlesly"
+        }
+    ]
+}

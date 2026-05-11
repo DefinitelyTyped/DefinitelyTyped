@@ -1,9 +1,4 @@
-// Type definitions for iput 1.1
-// Project: https://github.com/lizheming/iput
-// Definitions by: DongKyoo Kim <https://github.com/kdk8747>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import * as React from 'react';
+import * as React from "react";
 
 export interface IputProp {
     className?: string;
@@ -19,5 +14,5 @@ export default class IPut extends React.Component<IputProp, IputState> {
     handleChange(e: React.ChangeEvent<HTMLInputElement>, i: number): void;
     handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>, i: number): void;
     handlePaste(e: React.ClipboardEvent<HTMLInputElement>, i: number): void;
-    render(): JSX.Element;
+    render(): React.JSX.Element;
 }

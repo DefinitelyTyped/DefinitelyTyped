@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/aws4",
+    "version": "1.11.9999",
+    "projects": [
+        "https://github.com/mhart/aws4"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/aws4": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Andrew Crites",
+            "githubUsername": "ajcrites"
+        }
+    ]
+}

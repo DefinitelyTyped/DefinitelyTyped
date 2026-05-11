@@ -1,34 +1,34 @@
-$('.fancybox').fancybox();
-$('.fancybox').fancybox({
+$(".fancybox").fancybox();
+$(".fancybox").fancybox({
     gutter: 0,
-    transitionEffect: 'slide'
+    transitionEffect: "slide",
 });
 $.fancybox.open([
-    { src: 'img1.jpg', type: 'image' },
-    { src: 'img2.jpg', type: 'image', opts: { caption: (instance, elem) => "Test" } }
+    { src: "img1.jpg", type: "image" },
+    { src: "img2.jpg", type: "image", opts: { caption: (instance, elem) => "Test" } },
 ]);
-$.fancybox.open({ src: 'image.jpg', opts: { caption: "Test" } });
-$.fancybox.open('image.jpg');
-$.fancybox.open('<h1>Lorem lipsum</h1>');
+$.fancybox.open({ src: "image.jpg", opts: { caption: "Test" } });
+$.fancybox.open("image.jpg");
+$.fancybox.open("<h1>Lorem lipsum</h1>");
 
 $.fancybox.close(true);
 
 $(".fancybox-button").fancybox({
-    afterClose: () => { },
-    afterLoad: () => { },
-    afterShow: () => { },
-    beforeClose: () => { },
-    beforeLoad: () => { },
-    beforeShow: () => { },
+    afterClose: () => {},
+    afterLoad: () => {},
+    afterShow: () => {},
+    beforeClose: () => {},
+    beforeLoad: () => {},
+    beforeShow: () => {},
     clickContent: "next",
     clickOutside: () => "close",
     clickSlide: "zoom",
     dblclickContent: "nextOrClose",
     dblclickOutside: "toggleControls",
     dblclickSlide: () => "nextOrClose",
-    onInit: () => { },
-    onActivate: () => { },
-    onDeactivate: () => { }
+    onInit: () => {},
+    onActivate: () => {},
+    onDeactivate: () => {},
 });
 $(".fancybox-thumb").fancybox({
     animationDuration: 300,
@@ -39,7 +39,7 @@ $(".fancybox-thumb").fancybox({
     baseClass: "some-class",
     baseTpl: "<div></div>",
     btnTpl: {
-        download: "<div></div>"
+        download: "<div></div>",
     },
     buttons: ["close", "download"],
     caption: "Test",
@@ -74,5 +74,5 @@ $(".fancybox-thumb").fancybox({
     lang: "en",
     keyboard: false,
     infobar: false,
-    ajax: { settings: { data: { fancybox: true } } }
+    ajax: { settings: { data: { fancybox: true } } },
 });

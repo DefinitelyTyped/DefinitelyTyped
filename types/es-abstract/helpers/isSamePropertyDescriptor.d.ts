@@ -1,4 +1,4 @@
-import type { PropertyDescriptor } from '../index';
+import type { PropertyDescriptor } from "../index";
 
 declare function isSamePropertyDescriptor(
     ES: {

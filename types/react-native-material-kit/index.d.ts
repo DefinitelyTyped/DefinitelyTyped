@@ -1,18 +1,5 @@
-// Type definitions for react-native-material-kit 0.5
-// Project: https://github.com/xinthink/react-native-material-kit
-// Definitions by: Kyle Roach <https://github.com/iRoachie>
-//                 Tim Wang <https://github.com/timwangdev>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import * as React from 'react';
-import {
-    ViewStyle,
-    TextStyle,
-    TextInputProps,
-    TouchableWithoutFeedbackProps,
-    ViewProps,
-} from 'react-native';
+import * as React from "react";
+import { TextInputProps, TextStyle, TouchableWithoutFeedbackProps, ViewProps, ViewStyle } from "react-native";
 
 ///////////////////////////////
 // COMPONENT STYLES
@@ -94,14 +81,14 @@ export interface CardImageStyle {
 }
 
 export interface CardTitleStyle {
-    position?: 'absolute' | 'relative' | undefined;
+    position?: "absolute" | "relative" | undefined;
     top?: number | undefined;
     left?: number | undefined;
     backgroundColor?: string | undefined;
     padding?: number | undefined;
     fontSize?: number | undefined;
     color?: string | undefined;
-    fontWeight?: 'normal' | 'bold' | '100' | '200' | '300' | '400' | '500' | '600' | '700' | '800' | '900' | undefined;
+    fontWeight?: "normal" | "bold" | "100" | "200" | "300" | "400" | "500" | "600" | "700" | "800" | "900" | undefined;
 }
 
 export interface CardContentStyle {
@@ -110,14 +97,14 @@ export interface CardContentStyle {
 }
 
 export interface CardActionStyle {
-    borderStyle?: 'solid' | 'dotted' | 'dashed' | undefined;
+    borderStyle?: "solid" | "dotted" | "dashed" | undefined;
     borderTopColor?: string | undefined;
     borderTopWidth?: number | undefined;
     padding?: number | undefined;
 }
 
 export interface CardMenuStyle {
-    position?: 'absolute' | 'relative' | undefined;
+    position?: "absolute" | "relative" | undefined;
     top?: number | undefined;
     right?: number | undefined;
     backgroundColor?: string | undefined;
@@ -170,12 +157,24 @@ export namespace MKPropTypes {
     interface font {
         color?: string | undefined;
         fontSize?: number | undefined;
-        fontWeight?: 'normal' | 'bold' | '100' | '200' | '300' | '400' | '500' | '600' | '700' | '800' | '900' | undefined;
-        fontStyle?: 'normal' | 'italic' | undefined;
+        fontWeight?:
+            | "normal"
+            | "bold"
+            | "100"
+            | "200"
+            | "300"
+            | "400"
+            | "500"
+            | "600"
+            | "700"
+            | "800"
+            | "900"
+            | undefined;
+        fontStyle?: "normal" | "italic" | undefined;
         fontFamily?: string | undefined;
     }
 
-    type rippleLocation = 'tapLocation' | 'center';
+    type rippleLocation = "tapLocation" | "center";
 }
 
 export interface TickProperties extends ViewProps {
@@ -250,10 +249,9 @@ export interface MKColorStatic {
     palette_yellow_600: string;
 }
 
-export interface MKButtonProperties extends
-    TouchableWithoutFeedbackProps, MKRippleProperties {
-        fab?: boolean | undefined;
-        enabled?: boolean | undefined;
+export interface MKButtonProperties extends TouchableWithoutFeedbackProps, MKRippleProperties {
+    fab?: boolean | undefined;
+    enabled?: boolean | undefined;
 }
 
 export interface MKTextFieldProperties extends TextInputProps, FloatingLabelProperties {
@@ -336,8 +334,8 @@ export interface MKRangeSliderProperties extends BaseSlider {
     minValue?: number | undefined;
     maxValue?: number | undefined;
     onStart?(): void;
-    onConfirm?(curValue: { min: number, max: number }): void;
-    onChange?(curValue: { min: number, max: number }): void;
+    onConfirm?(curValue: { min: number; max: number }): void;
+    onChange?(curValue: { min: number; max: number }): void;
 }
 
 export interface MKSpinnerProperties extends ViewProps {
@@ -410,7 +408,7 @@ export namespace MKRadioButton {
         buttons: any[];
         constructor(
             onAdd?: (btn: MKRadioButton) => void,
-            onRemove?: (btn: MKRadioButton) => void
+            onRemove?: (btn: MKRadioButton) => void,
         );
         add: (btn: MKRadioButton) => void;
         onChecked: (btn: MKRadioButton, checked: boolean) => void;

@@ -1,4 +1,4 @@
-import { Disposable, CompositeDisposable, Emitter } from "event-kit";
+import { CompositeDisposable, Disposable, Emitter } from "event-kit";
 
 declare let bool: boolean;
 declare let subscription: Disposable;
@@ -8,7 +8,7 @@ declare let emitter: Emitter;
 // NPM Usage Tests ============================================================
 class User {
     private readonly emitter: Emitter;
-    name: string;
+    name!: string;
 
     constructor() {
         this.emitter = new Emitter();
@@ -56,7 +56,7 @@ subscriptions.dispose();
 subscriptions.add(subscription);
 subscriptions.add(
     subscription,
-    { dispose() {} }
+    { dispose() {} },
 );
 
 subscriptions.remove(subscription);

@@ -1,5 +1,5 @@
-import * as cfn from "cfn-response";
 import { CloudFormationCustomResourceEvent, Context } from "aws-lambda";
+import * as cfn from "cfn-response";
 
 declare const event: CloudFormationCustomResourceEvent;
 declare const context: Context;

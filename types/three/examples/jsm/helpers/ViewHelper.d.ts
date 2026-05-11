@@ -1,15 +1,20 @@
-import { Camera, Object3D, Vector3, WebGLRenderer } from '../../../src/Three';
+import { Camera, Object3D, Vector3, WebGLRenderer } from "three";
 
-export class ViewHelper extends Object3D {
-    animating: boolean;
-    center: Vector3;
-
+declare class ViewHelper extends Object3D {
     readonly isViewHelper: true;
 
-    constructor(camera: Camera, domElement: HTMLElement);
+    animating: boolean;
+    center: Vector3;
+    location: { top: number | null; right: number; bottom: number; left: number | null };
 
-    render(renderer: WebGLRenderer): void;
-    handleClick(event: MouseEvent): boolean;
-    update(delta: number): void;
-    dispose(): void;
+    render: (renderer: WebGLRenderer) => void;
+    handleClick: (event: MouseEvent) => boolean;
+    setLabels: (labelX?: string, labelY?: string, labelZ?: string) => void;
+    setLabelStyle: (font?: string, color?: string, radius?: number) => void;
+    update: (delta: number) => void;
+    dispose: () => void;
+
+    constructor(camera: Camera, domElement: HTMLElement);
 }
+
+export { ViewHelper };

@@ -2,17 +2,20 @@ export interface Map {
     [key: string]: any;
 }
 export interface CursorParams {
-    page?: number | undefined;
-    per_page?: number | undefined;
+    cursor?: string;
+    per_page?: number;
+    /** @deprecated Use cursor-based pagination instead */
+    page?: number;
 }
 export type Strings = string[];
 
 export interface Cursor {
-    page?: number | undefined;
-    per_page?: number | undefined;
-    has_more?: boolean | undefined;
-    current_page?: number | undefined;
-    total_pages?: number | undefined;
+    page?: number;
+    per_page?: number;
+    cursor?: string;
+    has_more?: boolean;
+    current_page?: number;
+    total_pages?: number;
 }
 export interface Entries<T> extends Cursor {
     entries: T[];
@@ -20,7 +23,7 @@ export interface Entries<T> extends Cursor {
 export interface Summary {
     current: number;
     previous: number;
-    ['percentage-change']: number;
+    ["percentage-change"]: number;
 }
 export interface EntriesSummary<T> {
     entries: T[];

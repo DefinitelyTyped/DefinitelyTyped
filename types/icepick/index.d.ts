@@ -1,8 +1,3 @@
-// Type definitions for icepick 2.3
-// Project: https://github.com/aearly/icepick
-// Definitions by: Nathan Brown <https://github.com/ngbrown>, Tobias Cohen <https://github.com/tobico>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export function freeze<T>(collection: T): T;
 export function thaw<T>(collection: T): T;
 export function assoc<T>(collection: T, key: number | string, value: any): T;
@@ -31,17 +26,17 @@ export { assign as extend };
 
 export function merge<T, S1>(target: T, source: S1): T & S1;
 
-export function push<T>(array: ReadonlyArray<T>, element: T): T[];
-export function pop<T>(array: ReadonlyArray<T>): T[];
-export function shift<T>(array: ReadonlyArray<T>): T[];
-export function unshift<T>(array: ReadonlyArray<T>, element: T): T[];
-export function reverse<T>(array: ReadonlyArray<T>): T[];
-export function sort<T>(array: ReadonlyArray<T>, compareFunction?: (a: T, b: T) => number): T[];
-export function splice<T>(array: ReadonlyArray<T>, start: number, deleteCount: number, ...items: T[]): T[];
-export function slice<T>(array: ReadonlyArray<T>, begin?: number, end?: number): T[];
+export function push<T>(array: readonly T[], element: T): T[];
+export function pop<T>(array: readonly T[]): T[];
+export function shift<T>(array: readonly T[]): T[];
+export function unshift<T>(array: readonly T[], element: T): T[];
+export function reverse<T>(array: readonly T[]): T[];
+export function sort<T>(array: readonly T[], compareFunction?: (a: T, b: T) => number): T[];
+export function splice<T>(array: readonly T[], start: number, deleteCount: number, ...items: T[]): T[];
+export function slice<T>(array: readonly T[], begin?: number, end?: number): T[];
 
-export function map<T, U>(fn: (value: T) => U, array: ReadonlyArray<T>): U[];
-export function filter<T>(fn: (value: T) => boolean, array: ReadonlyArray<T>): T[];
+export function map<T, U>(fn: (value: T) => U, array: readonly T[]): U[];
+export function filter<T>(fn: (value: T) => boolean, array: readonly T[]): T[];
 
 interface IcepickWrapper<T> {
     value(): T;

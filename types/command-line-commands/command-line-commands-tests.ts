@@ -1,7 +1,5 @@
-import commandLineCommands = require('command-line-commands');
+import commandLineCommands = require("command-line-commands");
 
-const commands = [null, 'first', 'second'];
+const commands = [null, "first", "second"];
 
-const { command, argv } = commandLineCommands(commands, ['first', '--arg']);
-
-
+const { command, argv } = commandLineCommands(commands, ["first", "--arg"]);

@@ -15,7 +15,7 @@ declare namespace AMap {
                     y: number,
                     z: number,
                     success: (tile: HTMLImageElement | HTMLCanvasElement) => void,
-                    fail: () => void
+                    fail: () => void,
                 ): void;
                 /**
                  * 内存中缓存的切片的数量上限

@@ -1,10 +1,10 @@
-import Redact = require('redact-secrets');
+import Redact = require("redact-secrets");
 
-const redact = Redact('[REDACTED]');
+const redact = Redact("[REDACTED]");
 
 const info = {
-    username: 'watson',
-    password: 'hhGu38gf',
+    username: "watson",
+    password: "hhGu38gf",
 };
 
 redact.map(info); // $ExpectType { username: string; password: string; }

@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/wiiu",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "wiiu",
+    "projects": [
+        "https://www.nintendo.co.jp/wiiu/hardware/internetbrowser/extended_functionality.html"
+    ],
+    "devDependencies": {
+        "@types/wiiu": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "MIZUSHIMA Junki",
+            "githubUsername": "mzsm"
+        }
+    ]
+}

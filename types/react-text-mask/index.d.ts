@@ -1,12 +1,4 @@
-// Type definitions for react-text-mask 5.4
-// Project: https://github.com/text-mask/text-mask/tree/master/react
-// Definitions by: Guilherme Hübner <https://github.com/guilhermehubner>
-//                 Deividi Cavarzan <https://github.com/cavarzan>
-//                 Artem Lyubchuk <https://github.com/needpower>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.9
-
-import * as React from 'react';
+import * as React from "react";
 
 export type Mask = Array<string | RegExp> | false;
 
@@ -20,7 +12,7 @@ export interface PipeConfig {
     previousConformedValue: string | undefined;
 }
 
-export type ConformToMaskConfig = Partial<Omit<PipeConfig, 'rawValue'>>;
+export type ConformToMaskConfig = Partial<Omit<PipeConfig, "rawValue">>;
 
 export interface MaskedInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     mask: Mask | ((value: string) => Mask);

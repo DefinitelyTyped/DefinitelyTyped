@@ -11,7 +11,13 @@ declare class VfsFileStorage {
     findFileByName(fileName: string): FileInfo;
     getFilesSize(fileKeys: number[]): number;
     addFile(fileName: string, content: string | File | MemoryStream): number;
-    updateFile(fileKey: number, content: string | File | MemoryStream): void;
+    updateFile(
+        fileKey: number,
+        content: string | File | MemoryStream,
+        options?: {
+            fileName?: string;
+        }
+    ): void;
 }
 declare namespace VfsFileStorage {
     export { File, MemoryStream };

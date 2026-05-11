@@ -1,0 +1,30 @@
+{
+    "private": true,
+    "name": "@types/bullbone",
+    "version": "1.3.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "A front-end library developed for EspoCRM.",
+    "projects": [
+        "https://github.com/espocrm/bullbone"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/bullbone": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "leonbahley",
+            "githubUsername": "leonbahley"
+        },
+        {
+            "name": "TarasOP",
+            "githubUsername": "TarasOP"
+        },
+        {
+            "name": "malikalimoekhamedov",
+            "githubUsername": "malikalimoekhamedov"
+        }
+    ]
+}

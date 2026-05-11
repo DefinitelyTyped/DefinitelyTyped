@@ -1,7 +1,7 @@
 /// <reference types="node" />
 
-import NpmInstallPlugin = require('npm-install-webpack-plugin');
-import { Configuration } from 'webpack';
+import NpmInstallPlugin = require("npm-install-webpack-plugin");
+import { Configuration } from "webpack";
 
 const _: Configuration = {
     // tests
@@ -10,13 +10,13 @@ const _: Configuration = {
             dev: false,
             peerDependencies: true,
             quiet: false,
-            npm: 'npm',
+            npm: "npm",
         }),
         new NpmInstallPlugin({
             dev: (module, path) => {
                 return (
-                    ['babel-preset-react-hmre', 'webpack-dev-middleware', 'webpack-hot-middleware'].indexOf(module) !==
-                    -1
+                    ["babel-preset-react-hmre", "webpack-dev-middleware", "webpack-hot-middleware"].indexOf(module)
+                        !== -1
                 );
             },
         }),

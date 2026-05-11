@@ -1,1 +1,0 @@
-node-ffi-napi-buffer.d.ts

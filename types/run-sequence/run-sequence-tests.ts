@@ -1,30 +1,23 @@
-import gulp = require("gulp");
-import tmp = require("run-sequence");
-var runSequence = tmp.use(gulp);
+import gulp from "gulp";
+import tmp, { Task } from "run-sequence";
 
-gulp.task("run-sequence", (callback: any) => {
-    runSequence("task1",
-        ["task2", "task3"],
-        "taks4",
-        callback);
-});
+const runSequence = tmp.use(gulp);
 
-gulp.task("task1", () => {
-    gulp.src("file1.txt")
-        .pipe(gulp.dest("build"));
-});
+{
+    gulp.task("run-sequence", (callback) => {
+        runSequence("task1", ["task2", "task3"], "task4");
+        runSequence("task1", ["task2", "task3"], "task4", callback);
+    });
 
-gulp.task("task2", () => {
-    gulp.src("file2.txt")
-        .pipe(gulp.dest("build"));
-});
+    gulp.task("task1", () => {});
+    gulp.task("task2", () => {});
+    gulp.task("task3", () => {});
+    gulp.task("task4", () => {});
+}
 
-gulp.task("task3", () => {
-    gulp.src("file3.txt")
-        .pipe(gulp.dest("build"));
-});
-
-gulp.task("task4", () => {
-    gulp.src("file4.txt")
-        .pipe(gulp.dest("build"));
-});
+{
+    runSequence.options.ignoreUndefinedTasks = true;
+    gulp.task("task", function() {
+        runSequence("foo", null, "bar"); // no longer errors on `null`
+    });
+}

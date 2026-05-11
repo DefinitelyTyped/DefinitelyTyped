@@ -1,9 +1,29 @@
 {
     "private": true,
+    "name": "@types/schwifty",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/hapipal/schwifty"
+    ],
+    "minimumTypeScriptVersion": "4.9",
     "dependencies": {
         "@hapi/hapi": "^21.1.0",
+        "@types/node": "*",
         "joi": "^17.7.0",
         "knex": "^0.16.1",
         "objection": "^1.1.9"
-    }
+    },
+    "devDependencies": {
+        "@types/schwifty": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "ozum",
+            "githubUsername": "ozum"
+        },
+        {
+            "name": "timcosta",
+            "githubUsername": "timcosta"
+        }
+    ]
 }

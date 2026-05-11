@@ -1,13 +1,13 @@
 import * as materialize from "materialize-css";
 
-const elem = document.querySelector('.whatever')!;
+const elem = document.querySelector(".whatever")!;
 
 // $ExpectType Pushpin
 const _pushpin = new M.Pushpin(elem);
 // $ExpectType Pushpin
 const el = M.Pushpin.init(elem);
 // $ExpectType Pushpin[]
-const els = M.Pushpin.init(document.querySelectorAll('.whatever'));
+const els = M.Pushpin.init(document.querySelectorAll(".whatever"));
 
 // $ExpectType Pushpin
 const pushpin = new materialize.Pushpin(elem, {
@@ -17,7 +17,7 @@ const pushpin = new materialize.Pushpin(elem, {
         // $ExpectType "pinned" | "pin-top" | "pin-bottom"
         position;
     },
-    top: 1
+    top: 1,
 });
 
 // $ExpectType void

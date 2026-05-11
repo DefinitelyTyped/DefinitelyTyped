@@ -1,2 +1,2 @@
-import DayFromYear = require('../2016/DayFromYear');
+import DayFromYear = require("../2016/DayFromYear");
 export = DayFromYear;

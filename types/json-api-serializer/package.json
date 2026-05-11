@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/json-api-serializer",
+    "version": "2.6.9999",
+    "projects": [
+        "https://github.com/danivek/json-api-serializer#readme"
+    ],
+    "devDependencies": {
+        "@types/json-api-serializer": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Emric",
+            "githubUsername": "Istanful"
+        }
+    ]
+}

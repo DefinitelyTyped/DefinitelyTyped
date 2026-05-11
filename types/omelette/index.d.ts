@@ -1,9 +1,3 @@
-// Type definitions for omelette 0.4
-// Project: https://github.com/f/omelette
-// Definitions by: Kamontat Chantrachirathumrong <https://github.com/kamontat>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
-
 declare var omelette: omelette.Omelette;
 
 export = omelette;
@@ -16,7 +10,7 @@ declare namespace omelette {
     }
 
     interface Instance {
-        cleanupShellInitFile(): void;
+        cleanupShellInitFile(initFile?: string): void;
 
         init(): void;
         next(fn: () => void): void;

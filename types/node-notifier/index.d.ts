@@ -1,16 +1,10 @@
-// Type definitions for node-notifier 8.0
-// Project: https://github.com/mikaelbr/node-notifier
-// Definitions by: Qubo <https://github.com/tkQubo>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import NotificationCenter = require('./notifiers/notificationcenter');
-import NotifySend = require('./notifiers/notifysend');
-import WindowsToaster = require('./notifiers/toaster');
-import WindowsBalloon = require('./notifiers/balloon');
-import Growl = require('./notifiers/growl');
+import NotificationCenter = require("./notifiers/notificationcenter");
+import NotifySend = require("./notifiers/notifysend");
+import WindowsToaster = require("./notifiers/toaster");
+import WindowsBalloon = require("./notifiers/balloon");
+import Growl = require("./notifiers/growl");
 
 declare namespace nodeNotifier {
     interface NodeNotifier extends NodeJS.EventEmitter {

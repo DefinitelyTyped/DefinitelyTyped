@@ -4,15 +4,15 @@ export function close(offcanvas: {
 export function open(offcanvas: {
     selector: string;
     content: string;
-    edge?: 'start' | 'end' | 'top' | 'bottom';
-    displayMode?: 'push' | 'overlay';
-    autoDismiss?: 'focusLoss' | 'none';
+    edge?: "start" | "end" | "top" | "bottom";
+    displayMode?: "push" | "overlay";
+    autoDismiss?: "focusLoss" | "none";
     size?: string;
-    modality?: 'modal' | 'modeless';
+    modality?: "modal" | "modeless";
 }): Promise<boolean>;
 export function setupResponsive(offcanvas: {
     selector: string;
-    edge?: 'start' | 'end' | 'top' | 'bottom';
+    edge?: "start" | "end" | "top" | "bottom";
     query: string | null;
 }): void;
 export function tearDownResponsive(offcanvas: {
@@ -21,9 +21,9 @@ export function tearDownResponsive(offcanvas: {
 export function toggle(offcanvas: {
     selector: string;
     content: string;
-    edge?: 'start' | 'end' | 'top' | 'bottom';
-    displayMode?: 'push' | 'overlay';
-    autoDismiss?: 'focusLoss' | 'none';
+    edge?: "start" | "end" | "top" | "bottom";
+    displayMode?: "push" | "overlay";
+    autoDismiss?: "focusLoss" | "none";
     size?: string;
-    modality?: 'modal' | 'modeless';
+    modality?: "modal" | "modeless";
 }): Promise<boolean>;

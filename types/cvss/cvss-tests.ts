@@ -1,6 +1,6 @@
-import cvss = require('cvss');
+import cvss = require("cvss");
 
-const CVSS_EXAMPLE = 'CVSS:3.0/AV:P/AC:H/PR:N/UI:R/S:C/C:L/I:H/A:L';
+const CVSS_EXAMPLE = "CVSS:3.0/AV:P/AC:H/PR:N/UI:R/S:C/C:L/I:H/A:L";
 
 const OPTIONS_EXAMPLE: cvss.CVSSOptions = {
     throw: false,

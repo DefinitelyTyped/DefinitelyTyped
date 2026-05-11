@@ -26,7 +26,7 @@ function genericCodec(codec: AudioDecoder | AudioEncoder | VideoDecoder | VideoE
     codec.close();
 }
 
-function errorCallback(error: DOMException): void { }
+function errorCallback(error: DOMException): void {}
 
 //////////////////////////////////////////////////
 // audio-decoder.any.js
@@ -73,9 +73,9 @@ AudioDecoder.isConfigSupported({
 });
 
 AudioDecoder.isConfigSupported(audioDecoderConfig).then((result: AudioDecoderSupport) => {
-    // $ExpectType boolean
+    // $ExpectType boolean | undefined
     result.supported;
-    // $ExpectType AudioDecoderConfig
+    // $ExpectType AudioDecoderConfig | undefined
     result.config;
 });
 
@@ -128,6 +128,11 @@ AudioDecoder.isConfigSupported(futureAudioDecoderConfig);
 // $ExpectType void
 audioDecoder.configure(futureAudioDecoderConfig);
 
+audioDecoder.ondequeue = () => "";
+
+// $ExpectType void
+audioDecoder.addEventListener("dequeue", (e) => e, { once: true });
+
 genericCodec(audioDecoder);
 
 //////////////////////////////////////////////////
@@ -169,9 +174,9 @@ AudioEncoder.isConfigSupported({
 });
 
 AudioEncoder.isConfigSupported(audioEncoderConfig).then((result: AudioEncoderSupport) => {
-    // $ExpectType boolean
+    // $ExpectType boolean | undefined
     result.supported;
-    // $ExpectType AudioEncoderConfig
+    // $ExpectType AudioEncoderConfig | undefined
     result.config;
 });
 
@@ -222,6 +227,9 @@ audioEncoder.configure(futureAudioEncoderConfig);
 
 // $ExpectType void
 audioEncoder.encode(audioFrame);
+
+// $ExpectType void
+audioEncoder.addEventListener("dequeue", (e) => e, { once: true });
 
 // $ExpectType void
 audioFrame.close();
@@ -355,6 +363,12 @@ const videoDecoderConfig: VideoDecoderConfig = {
     codec: "avc1.64000c",
 };
 
+const videoDecoderConfigWithRotationAndFlip: VideoDecoderConfig = {
+    codec: "avc1.64000c",
+    rotation: 180,
+    flip: false,
+};
+
 // @ts-expect-error
 VideoDecoder.isConfigSupported();
 
@@ -362,6 +376,13 @@ VideoDecoder.isConfigSupported();
 VideoDecoder.isConfigSupported({ description: new Uint8Array(0) });
 
 VideoDecoder.isConfigSupported(videoDecoderConfig).then((result: VideoDecoderSupport) => {
+    // $ExpectType boolean | undefined
+    result.supported;
+    // $ExpectType VideoDecoderConfig | undefined
+    result.config;
+});
+
+VideoDecoder.isConfigSupported(videoDecoderConfigWithRotationAndFlip).then((result: VideoDecoderSupport) => {
     // $ExpectType boolean | undefined
     result.supported;
     // $ExpectType VideoDecoderConfig | undefined
@@ -410,6 +431,9 @@ videoDecoder.configure({ description: new Uint8Array(0) });
 // $ExpectType void
 videoDecoder.configure(videoDecoderConfig);
 
+// $ExpectType void
+videoDecoder.configure(videoDecoderConfigWithRotationAndFlip);
+
 // additional properties are allowed
 const futureVideoDecoderConfig = {
     codec: "avc1.64000c",
@@ -423,6 +447,9 @@ VideoDecoder.isConfigSupported(futureVideoDecoderConfig);
 videoDecoder.configure(futureVideoDecoderConfig);
 
 genericCodec(videoDecoder);
+
+// $ExpectType void
+videoDecoder.addEventListener("dequeue", () => {}, { once: true });
 
 // $ExpectType void
 videoDecoder.decode(encodedVideoChunk);
@@ -545,6 +572,9 @@ videoEncoder.configure(futureVideoEncoderConfig);
 videoEncoder.encodeQueueSize;
 
 // $ExpectType void
+videoEncoder.addEventListener("dequeue", () => {}, { once: true });
+
+// $ExpectType void
 videoEncoder.encode(videoFrame);
 
 // $ExpectType Promise<void>
@@ -579,6 +609,10 @@ videoFrame.visibleRect?.height;
 videoFrame.displayWidth;
 // $ExpectType number
 videoFrame.displayHeight;
+// $ExpectType number | undefined
+videoFrame.rotation;
+// $ExpectType boolean | undefined
+videoFrame.flip;
 
 // @ts-expect-error
 new VideoFrame(new ArrayBuffer(1024), {
@@ -599,7 +633,7 @@ new VideoFrame(new ArrayBuffer(1024), {
 });
 
 const videoFramePlaneInit: VideoFrameBufferInit = {
-    format: 'BGRA',
+    format: "BGRA",
     timestamp: 1234,
     codedWidth: 4,
     codedHeight: 2,
@@ -608,7 +642,7 @@ const videoFramePlaneInit: VideoFrameBufferInit = {
 new VideoFrame(new ArrayBuffer(1024), videoFramePlaneInit);
 
 new VideoFrame(new ArrayBuffer(1024), {
-    format: 'BGRA',
+    format: "BGRA",
     timestamp: 1234,
     duration: 4321,
     codedWidth: 4,

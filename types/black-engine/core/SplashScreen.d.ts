@@ -14,4 +14,4 @@ export class SplashScreen extends MessageDispatcher {
         height: number;
     };
 }
-import { MessageDispatcher } from '../messages/MessageDispatcher';
+import { MessageDispatcher } from "../messages/MessageDispatcher";

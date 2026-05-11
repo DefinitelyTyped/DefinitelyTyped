@@ -1,9 +1,3 @@
-// Type definitions for @sap/xsenv 3.3
-// Project: https://www.npmjs.com/package/@sap/xsenv
-// Definitions by: Michael Müller <https://github.com/mad-mike>
-//                 Wojciech Stachowski <https://github.com/Antiavanti>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export type JSONValue = string | number | boolean | null | { [k: string]: JSONValue } | JSONValue[];
 export type ServiceCredentials = Record<string, JSONValue>;
 export interface ServiceBinding<T = ServiceCredentials> {

@@ -1,10 +1,5 @@
-// Type definitions for webpack-watch-files-plugin 1.1
-// Project: https://github.com/Fridus/webpack-watch-files-plugin
-// Definitions by: Ben Grynhaus <https://github.com/bengry>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
-import { Compiler } from 'webpack';
+import { Compiler } from "webpack";
 
 interface Options {
     /**

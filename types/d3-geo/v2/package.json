@@ -1,0 +1,38 @@
+{
+    "private": true,
+    "name": "@types/d3-geo",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/d3/d3-geo/",
+        "https://d3js.org/d3-geo"
+    ],
+    "dependencies": {
+        "@types/geojson": "*"
+    },
+    "devDependencies": {
+        "@types/d3-geo": "workspace:.",
+        "@types/d3-selection": "*"
+    },
+    "owners": [
+        {
+            "name": "Hugues Stefanski",
+            "githubUsername": "ledragon"
+        },
+        {
+            "name": "Tom Wanzek",
+            "githubUsername": "tomwanzek"
+        },
+        {
+            "name": "Alex Ford",
+            "githubUsername": "gustavderdrache"
+        },
+        {
+            "name": "Boris Yankov",
+            "githubUsername": "borisyankov"
+        },
+        {
+            "name": "Nathan Bierema",
+            "githubUsername": "Methuselah96"
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/hasura",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/hasura/graphql-engine"
+    ],
+    "devDependencies": {
+        "@types/hasura": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Toan Nguyen",
+            "githubUsername": "hgiasac"
+        }
+    ]
+}

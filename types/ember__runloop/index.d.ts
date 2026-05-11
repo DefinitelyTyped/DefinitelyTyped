@@ -1,16 +1,11 @@
-// Type definitions for non-npm package @ember/runloop 4.0
-// Project: https://emberjs.com/api/ember/4.0/modules/@ember%2Frunloop
-// Definitions by: Chris Krycho <https://github.com/chriskrycho>
-//                 Krystan HuffMenne <https://github.com/gitKrystan>
-//                 James C. Davis <https://github.com/jamescdavis>
-//                 Peter Wagenet <https://github.com/wagenet>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.4
+import { AnyFn, EmberMethod, EmberMethodParams, EmberMethodReturn } from "ember/-private/type-utils";
+import { EmberRunQueues } from "./-private/types";
+// eslint-disable-next-line @definitelytyped/no-self-import
+import { EmberRunTimer } from "@ember/runloop/types";
+// eslint-disable-next-line @definitelytyped/no-self-import
+import "@ember/runloop/-private/backburner";
 
-import { EmberMethod, EmberMethodParams, AnyFn, EmberMethodReturn } from 'ember/-private/type-utils';
-import { EmberRunQueues } from './-private/types';
-import { EmberRunTimer } from '@ember/runloop/types';
-import '@ember/runloop/-private/backburner';
+export type Timer = string | number;
 
 /**
  * Runs the passed target and method inside of a RunLoop, ensuring any

@@ -4,7 +4,7 @@
 
 import { GoalEvaluator } from "yuka";
 import { Girl } from "./Girl";
-import { GatherGoal, RestGoal } from './Goals';
+import { GatherGoal, RestGoal } from "./Goals";
 
 export class RestEvaluator extends GoalEvaluator<Girl> {
     calculateDesirability(girl: Girl): number {

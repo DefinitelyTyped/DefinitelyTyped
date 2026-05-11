@@ -1,4 +1,4 @@
-import Maybe from '../Maybe';
+import Maybe from "../Maybe";
 
 export function Tuple(val1: unknown, val2: unknown): Tuple;
 

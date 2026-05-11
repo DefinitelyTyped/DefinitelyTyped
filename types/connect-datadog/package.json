@@ -1,6 +1,29 @@
 {
-  "private": true,
-  "dependencies": {
-    "hot-shots": "^6.3.0"
-  }
+    "private": true,
+    "name": "@types/connect-datadog",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/datadog/node-connect-datadog"
+    ],
+    "dependencies": {
+        "@types/express": "*",
+        "hot-shots": "^6.3.0"
+    },
+    "devDependencies": {
+        "@types/connect-datadog": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Moshe Good",
+            "githubUsername": "moshegood"
+        },
+        {
+            "name": "Michael Mifsud",
+            "githubUsername": "xzyfer"
+        },
+        {
+            "name": "Lewis Vail",
+            "githubUsername": "lewisvail3"
+        }
+    ]
 }

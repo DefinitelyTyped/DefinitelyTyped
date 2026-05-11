@@ -1,8 +1,6 @@
-export type exports = string;
-declare const FIRST: string;
-declare const MAX: string;
-declare const MIN: string;
-declare const DISTINCT: string;
-declare const NO_INHERITANCE: string;
-declare const CONCAT: string;
-export {};
+export const FIRST = 'first';
+export const MAX = 'max';
+export const MIN = 'min';
+export const DISTINCT = 'distinct';
+export const NO_INHERITANCE = 'withoutInheritance';
+export const CONCAT = 'concat';

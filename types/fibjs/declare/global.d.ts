@@ -208,7 +208,7 @@ declare module "global" {
     import consoleNS = require('console')
     import processNS = require('process')
 
-    module global {
+    namespace global {
         
         
         /**

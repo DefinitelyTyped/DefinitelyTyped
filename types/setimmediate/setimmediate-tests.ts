@@ -1,4 +1,4 @@
-import 'setimmediate';
+import "setimmediate";
 
 // $ExpectType number
 const i1 = setImmediate((...args) => {
@@ -11,11 +11,16 @@ const i2 = setImmediate((...args) => {
 }, 1);
 
 // $ExpectType number
-const i3 = setImmediate((foo, bar, baz) => {
-    foo; // $ExpectType number
-    bar; // $ExpectType string
-    baz; // $ExpectType boolean
-}, 1, 'a', true);
+const i3 = setImmediate(
+    (foo, bar, baz) => {
+        foo; // $ExpectType number
+        bar; // $ExpectType string
+        baz; // $ExpectType boolean
+    },
+    1,
+    "a",
+    true,
+);
 
 clearImmediate(i1);
 clearImmediate(i2);
@@ -34,7 +39,7 @@ clearImmediate(null);
 // @ts-expect-error
 clearImmediate(undefined);
 // @ts-expect-error
-clearImmediate('string');
+clearImmediate("string");
 // @ts-expect-error
 clearImmediate(Symbol.iterator);
 // @ts-expect-error

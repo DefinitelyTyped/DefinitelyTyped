@@ -1,4 +1,4 @@
+import absolute from "absolute";
 
-import absolute from 'absolute';
-
-const x: boolean = absolute('/home/foo');
+// $ExpectType boolean
+absolute("/home/foo");

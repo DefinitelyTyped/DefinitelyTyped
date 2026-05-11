@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/to-space-case",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/ianstormtaylor/to-space-case"
+    ],
+    "devDependencies": {
+        "@types/to-space-case": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Richie Bendall",
+            "githubUsername": "Richienb"
+        }
+    ]
+}

@@ -1,0 +1,26 @@
+{
+    "private": true,
+    "name": "@types/webpack-hot-client",
+    "version": "4.1.9999",
+    "projects": [
+        "https://github.com/webpack-contrib/webpack-hot-client"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@types/webpack": "^4",
+        "@types/ws": "*"
+    },
+    "devDependencies": {
+        "@types/webpack-hot-client": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "ZSkycat",
+            "githubUsername": "ZSkycat"
+        },
+        {
+            "name": "Brian Armstrong",
+            "githubUsername": "barm"
+        }
+    ]
+}

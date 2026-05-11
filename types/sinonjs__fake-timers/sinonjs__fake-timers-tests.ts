@@ -1,4 +1,4 @@
-import * as FakeTimers from '@sinonjs/fake-timers';
+import * as FakeTimers from "@sinonjs/fake-timers";
 
 const global: FakeTimers.FakeTimerWithContext = FakeTimers.withGlobal({});
 const timers: FakeTimers.GlobalTimers<FakeTimers.TimerId> = FakeTimers.timers;
@@ -11,6 +11,7 @@ const fakeDate: Date = new timers.Date();
 timers.clearTimeout(fakeTimeout);
 timers.clearInterval(fakeInterval);
 timers.clearImmediate(fakeImmediate);
+timers.queueMicrotask(() => {});
 
 let browserClock: FakeTimers.BrowserClock = FakeTimers.createClock() as FakeTimers.BrowserClock;
 let nodeClock: FakeTimers.NodeClock = FakeTimers.createClock() as FakeTimers.NodeClock;
@@ -29,7 +30,8 @@ const browserInstalledClock = FakeTimers.install({
     now: 0,
     shouldAdvanceTime: true,
     shouldClearNativeTimers: true,
-    toFake: ['setTimeout', 'requestAnimationFrame', 'queueMicrotask', 'performance'],
+    toFake: ["setTimeout", "requestAnimationFrame", "queueMicrotask", "performance"],
+    ignoreMissingTimers: true,
 }) as FakeTimers.BrowserClock & FakeTimers.InstalledClock;
 
 const nodeInstalledClock = FakeTimers.install({
@@ -38,7 +40,7 @@ const nodeInstalledClock = FakeTimers.install({
     now: new Date(0),
     shouldAdvanceTime: true,
     shouldClearNativeTimers: false,
-    toFake: ['setTimeout', 'nextTick', 'hrtime', 'performance'],
+    toFake: ["setTimeout", "nextTick", "hrtime", "performance"],
 }) as FakeTimers.NodeClock & FakeTimers.InstalledClock;
 
 const browserNow: number = browserClock.now;
@@ -66,6 +68,7 @@ const nodeIdleCallbackWithTimeout: FakeTimers.NodeTimer = nodeClock.requestIdleC
 nodeTimeout.ref().unref();
 nodeTimeout.unref().ref();
 nodeTimeout.refresh().refresh();
+const hasRef: boolean = nodeTimeout.hasRef();
 
 browserClock.clearTimeout(browserTimeout);
 browserClock.clearInterval(browserInterval);
@@ -82,16 +85,16 @@ nodeClock.cancelIdleCallback(nodeIdleCallback);
 nodeClock.cancelIdleCallback(nodeIdleCallbackWithTimeout);
 
 browserClock.tick(7);
-browserClock.tick('08');
+browserClock.tick("08");
 
 nodeClock.tick(7);
-nodeClock.tick('08:03');
+nodeClock.tick("08:03");
 
 browserClock.tickAsync(7).then(val => val.toExponential());
-browserClock.tickAsync('08').then(val => val.toExponential());
+browserClock.tickAsync("08").then(val => val.toExponential());
 
 nodeClock.tickAsync(7).then(val => val.toExponential());
-nodeClock.tickAsync('08:03').then(val => val.toExponential());
+nodeClock.tickAsync("08:03").then(val => val.toExponential());
 
 browserClock.next();
 nodeClock.next();
@@ -108,6 +111,7 @@ nodeClock.runAll();
 browserClock.runAllAsync().then(val => val.toExponential());
 nodeClock.runAllAsync().then(val => val.toExponential());
 
+browserClock.runMicrotasks();
 nodeClock.runMicrotasks();
 
 browserClock.runToFrame();
@@ -119,6 +123,15 @@ nodeClock.runToLast();
 browserClock.runToLastAsync().then(val => val.toExponential());
 nodeClock.runToLastAsync().then(val => val.toExponential());
 
+browserClock.queueMicrotask(() => {});
+nodeClock.queueMicrotask(() => {});
+
+browserClock.jump(7);
+browserClock.jump("08:03");
+
+nodeClock.jump(7);
+nodeClock.jump("08:03");
+
 browserClock.setSystemTime();
 browserClock.setSystemTime(7);
 browserClock.setSystemTime(new Date());
@@ -127,8 +140,11 @@ nodeClock.setSystemTime();
 nodeClock.setSystemTime(7);
 nodeClock.setSystemTime(new Date());
 
+nodeClock.setTickMode({ mode: "manual" });
+nodeClock.setTickMode({ mode: "nextAsync" });
+nodeClock.setTickMode({ mode: "interval", delta: 200 });
+
 nodeClock.nextTick(() => undefined);
-nodeClock.queueMicrotask(() => {});
 
 const browserTimersCount: number = browserClock.countTimers();
 const nodeTimersCount: number = nodeClock.countTimers();

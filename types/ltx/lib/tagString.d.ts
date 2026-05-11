@@ -1,3 +1,3 @@
-import tagString from '../src/tagString';
+import tagString from "../src/tagString";
 
 export = tagString;

@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-native-toast-native",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/onemolegames/react-native-toast-native"
+    ],
+    "dependencies": {
+        "react-native": "*"
+    },
+    "devDependencies": {
+        "@types/react": "*",
+        "@types/react-native-toast-native": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Michele Bombardi",
+            "githubUsername": "bm-software"
+        }
+    ]
+}

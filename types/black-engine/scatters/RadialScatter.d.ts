@@ -6,5 +6,5 @@ export class RadialScatter extends VectorScatterBase {
     maxRadius: number;
     getValue(): Vector;
 }
-import { Vector } from '../geom/Vector';
-import { VectorScatterBase } from './VectorScatterBase';
+import { Vector } from "../geom/Vector";
+import { VectorScatterBase } from "./VectorScatterBase";

@@ -1,10 +1,10 @@
-import countImport = require('./count');
-import emptyImport = require('./empty');
-import errorImport = require('./error');
-import infiniteImport = require('./infinite');
-import keysImport = require('./keys');
-import onceImport = require('./once');
-import valuesImport = require('./values');
+import countImport = require("./count");
+import emptyImport = require("./empty");
+import errorImport = require("./error");
+import infiniteImport = require("./infinite");
+import keysImport = require("./keys");
+import onceImport = require("./once");
+import valuesImport = require("./values");
 
 export const count: typeof countImport;
 export const empty: typeof emptyImport;

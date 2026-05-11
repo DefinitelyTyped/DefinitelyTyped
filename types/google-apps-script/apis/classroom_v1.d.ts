@@ -148,7 +148,9 @@ declare namespace GoogleAppsScript {
                     remove(courseId: string, id: string): void;
                 }
                 interface CourseWorkCollection {
-                    StudentSubmissions?: Classroom.Collection.Courses.CourseWork.StudentSubmissionsCollection | undefined;
+                    StudentSubmissions?:
+                        | Classroom.Collection.Courses.CourseWork.StudentSubmissionsCollection
+                        | undefined;
                     // Creates course work. The resulting course work (and corresponding student submissions) are associated with the Developer Console project of the [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to make the request. Classroom API requests to modify course work and student submissions must be made with an OAuth client ID from the associated Developer Console project. This method returns the following error codes:
                     // *`PERMISSION_DENIED` if the requesting user is not permitted to access the requested course, create course work in the requested course, share a Drive attachment, or for access errors.
                     // *`INVALID_ARGUMENT` if the request is malformed.
@@ -419,13 +421,13 @@ declare namespace GoogleAppsScript {
                 }
             }
             interface CoursesCollection {
-                Aliases?: Classroom.Collection.Courses.AliasesCollection | undefined;
-                Announcements?: Classroom.Collection.Courses.AnnouncementsCollection | undefined;
-                CourseWork?: Classroom.Collection.Courses.CourseWorkCollection | undefined;
-                CourseWorkMaterials?: Classroom.Collection.Courses.CourseWorkMaterialsCollection | undefined;
-                Students?: Classroom.Collection.Courses.StudentsCollection | undefined;
-                Teachers?: Classroom.Collection.Courses.TeachersCollection | undefined;
-                Topics?: Classroom.Collection.Courses.TopicsCollection | undefined;
+                Aliases: Classroom.Collection.Courses.AliasesCollection;
+                Announcements: Classroom.Collection.Courses.AnnouncementsCollection;
+                CourseWork: Classroom.Collection.Courses.CourseWorkCollection;
+                CourseWorkMaterials: Classroom.Collection.Courses.CourseWorkMaterialsCollection;
+                Students: Classroom.Collection.Courses.StudentsCollection;
+                Teachers: Classroom.Collection.Courses.TeachersCollection;
+                Topics: Classroom.Collection.Courses.TopicsCollection;
                 // Creates a course. The user specified in `ownerId` is the owner of the created course and added as a teacher. This method returns the following error codes:
                 // *`PERMISSION_DENIED` if the requesting user is not permitted to create courses or for access errors.
                 // *`NOT_FOUND` if the primary teacher is not a valid user.
@@ -505,8 +507,8 @@ declare namespace GoogleAppsScript {
                 remove(registrationId: string): void;
             }
             interface UserProfilesCollection {
-                GuardianInvitations?: Classroom.Collection.UserProfiles.GuardianInvitationsCollection | undefined;
-                Guardians?: Classroom.Collection.UserProfiles.GuardiansCollection | undefined;
+                GuardianInvitations: Classroom.Collection.UserProfiles.GuardianInvitationsCollection;
+                Guardians: Classroom.Collection.UserProfiles.GuardiansCollection;
                 // Returns a user profile. This method returns the following error codes:
                 // *`PERMISSION_DENIED` if the requesting user is not permitted to access this user profile, if no profile exists with the requested ID, or for access errors.
                 get(userId: string): Classroom.Schema.UserProfile;
@@ -846,10 +848,10 @@ declare namespace GoogleAppsScript {
         }
     }
     interface Classroom {
-        Courses?: Classroom.Collection.CoursesCollection | undefined;
-        Invitations?: Classroom.Collection.InvitationsCollection | undefined;
-        Registrations?: Classroom.Collection.RegistrationsCollection | undefined;
-        UserProfiles?: Classroom.Collection.UserProfilesCollection | undefined;
+        Courses: Classroom.Collection.CoursesCollection;
+        Invitations: Classroom.Collection.InvitationsCollection;
+        Registrations: Classroom.Collection.RegistrationsCollection;
+        UserProfiles: Classroom.Collection.UserProfilesCollection;
         // Create a new instance of Announcement
         newAnnouncement(): Classroom.Schema.Announcement;
         // Create a new instance of Assignment
@@ -941,4 +943,7 @@ declare namespace GoogleAppsScript {
     }
 }
 
-declare var Classroom: GoogleAppsScript.Classroom;
+/**
+ * The `Classroom` advanced service must be enabled.
+ */
+declare var Classroom: GoogleAppsScript.Classroom | undefined;

@@ -8,7 +8,7 @@ var pagerOptions: JqueryBootpag.Options = {
     first: "<i class='fa fa-fw fa-fast-backward txt-sm'></i>",
     last: "<i class='fa fa-fw fa-fast-forward  txt-sm'></i>",
     prev: "<i class='fa fa-fw fa-step-backward txt-sm'></i>",
-    next: "<i class='fa fa-fw fa-step-forward  txt-sm'></i>"
+    next: "<i class='fa fa-fw fa-step-forward  txt-sm'></i>",
 };
 
 $pager.bootpag(pagerOptions);

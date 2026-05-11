@@ -1,1 +1,1 @@
-export * from '../src/escape';
+export * from "../src/escape";

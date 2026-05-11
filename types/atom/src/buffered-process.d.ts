@@ -1,5 +1,5 @@
-import { ChildProcess } from 'child_process';
-import { Disposable, HandleableErrorEvent } from '../index';
+import { ChildProcess } from "child_process";
+import { Disposable, HandleableErrorEvent } from "../index";
 
 /**
  *  A wrapper which provides standard error/output line buffering for
@@ -32,7 +32,7 @@ export interface NodeProcessOptions {
     command: string;
 
     /** The array of arguments to pass to the command. */
-    args?: ReadonlyArray<string> | undefined;
+    args?: readonly string[] | undefined;
 
     /** The options object to pass to Node's ChildProcess.spawn method. */
     options?: SpawnProcessOptions | undefined;

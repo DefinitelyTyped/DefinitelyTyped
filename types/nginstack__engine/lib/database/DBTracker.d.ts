@@ -25,5 +25,5 @@ declare class DBTracker {
 declare namespace DBTracker {
     export { finishAbandoned, Database };
 }
+declare function finishAbandoned(database?: Database): number;
 type Database = import('./Database');
-declare function finishAbandoned(opt_database?: Database): number;

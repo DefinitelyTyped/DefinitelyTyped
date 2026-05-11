@@ -8,4 +8,4 @@ export class DistortionEffect extends SoundEffect {
     get distortion(): number;
     private __makeDistortionCurve;
 }
-import { SoundEffect } from '../SoundEffect';
+import { SoundEffect } from "../SoundEffect";

@@ -2,22 +2,14 @@
 // BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
 //////////////////////////////////////////////////////
 
-/**
- * Namespace: browser.tabs
- *
- * Use the <code>browser.tabs</code> API to interact with the browser's tab system. You can use this API to create, modify,
- * and rearrange tabs in the browser.
- *
- * Comments found in source JSON schema files:
- * Copyright (c) 2012 The Chromium Authors. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be
- * found in the LICENSE file.
- */
+import { Events } from "./events";
+import { ExtensionTypes } from "./extensionTypes";
 import { Runtime } from "./runtime";
 import { Windows } from "./windows";
-import { ExtensionTypes } from "./extensionTypes";
-import { Events } from "./events";
 
+/**
+ * Namespace: browser.tabs
+ */
 export namespace Tabs {
     /**
      * An event that caused a muted state change.
@@ -237,6 +229,13 @@ export namespace Tabs {
          * Optional.
          */
         successorTabId?: number;
+
+        /**
+         * The ID of the group that the tab belongs to. $(ref:tabGroups.TAB_GROUP_ID_NONE) (-1)
+         * if the tab does not belong to a tab group.
+         * Optional.
+         */
+        groupId?: number;
 
         /**
          * The URL the tab is navigating to, before it has committed. This property is only present if the extension's manifest
@@ -461,6 +460,7 @@ export namespace Tabs {
         | "autoDiscardable"
         | "discarded"
         | "favIconUrl"
+        | "groupId"
         | "hidden"
         | "isArticle"
         | "mutedInfo"
@@ -496,6 +496,11 @@ export namespace Tabs {
          * Optional.
          */
         windowId?: number;
+
+        /**
+         * Optional.
+         */
+        cookieStoreId?: string;
     }
 
     interface ConnectConnectInfoType {
@@ -725,6 +730,12 @@ export namespace Tabs {
         openerTabId?: number;
 
         /**
+         * The ID of the group that the tabs are in, or $(ref:tabGroups.TAB_GROUP_ID_NONE) (-1) for ungrouped tabs.
+         * Optional.
+         */
+        groupId?: number;
+
+        /**
          * True for any screen sharing, or a string to specify type of screen sharing.
          * Optional.
          */
@@ -860,6 +871,25 @@ export namespace Tabs {
         insert?: boolean;
     }
 
+    interface GroupOptionsType {
+        /**
+         * The tab ID or list of tab IDs to add to the specified group.
+         */
+        tabIds: number | number[];
+
+        /**
+         * The ID of the group to add the tabs to. If not specified, a new group will be created.
+         * Optional.
+         */
+        groupId?: number;
+
+        /**
+         * Configurations for creating a group. Cannot be used if groupId is already specified.
+         * Optional.
+         */
+        createProperties?: GroupOptionsTypeCreatePropertiesType;
+    }
+
     /**
      * Lists the changes to the state of the tab that was updated.
      */
@@ -894,6 +924,12 @@ export namespace Tabs {
          * Optional.
          */
         favIconUrl?: string;
+
+        /**
+         * The tab's new group ID. $(ref:tabGroups.TAB_GROUP_ID_NONE) (-1) if the tab no longer belongs to a tab group.
+         * Optional.
+         */
+        groupId?: number;
 
         /**
          * The tab's new hidden state.
@@ -1019,10 +1055,22 @@ export namespace Tabs {
     }
 
     /**
+     * Configurations for creating a group. Cannot be used if groupId is already specified.
+     */
+    interface GroupOptionsTypeCreatePropertiesType {
+        /**
+         * The window of the new group. Defaults to the current window.
+         * Optional.
+         */
+        windowId?: number;
+    }
+
+    /**
      * Fired when a tab is updated.
      */
-    interface onUpdatedEvent
-        extends Events.Event<(tabId: number, changeInfo: OnUpdatedChangeInfoType, tab: Tab) => void> {
+    interface OnUpdatedEvent
+        extends Events.Event<(tabId: number, changeInfo: OnUpdatedChangeInfoType, tab: Tab) => void>
+    {
         /**
          * Registers an event listener <em>callback</em> to an event.
          *
@@ -1031,15 +1079,13 @@ export namespace Tabs {
          */
         addListener(
             callback: (tabId: number, changeInfo: OnUpdatedChangeInfoType, tab: Tab) => void,
-            filter?: UpdateFilter
+            filter?: UpdateFilter,
         ): void;
     }
 
     interface Static {
         /**
          * Retrieves details about the specified tab.
-         *
-         * @param tabId
          */
         get(tabId: number): Promise<Tab>;
 
@@ -1054,7 +1100,6 @@ export namespace Tabs {
          * event is fired in each content script running in the specified tab for the current extension. For more details,
          * see $(topic:messaging)[Content Script Messaging].
          *
-         * @param tabId
          * @param connectInfo Optional.
          * @returns A port that can be used to communicate with the content scripts running in the specified tab.
          * The port's $(ref:runtime.Port) event is fired if the tab closes or does not exist.
@@ -1066,16 +1111,17 @@ export namespace Tabs {
          * is sent back.  The $(ref:runtime.onMessage) event is fired in each content script running in the specified tab for the
          * current extension.
          *
-         * @param tabId
-         * @param message
          * @param options Optional.
          */
-        sendMessage(tabId: number, message: any, options?: SendMessageOptionsType): Promise<any>;
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+        sendMessage<TMessage = unknown, TResponse = unknown>(
+            tabId: number,
+            message: TMessage,
+            options?: SendMessageOptionsType,
+        ): Promise<TResponse>;
 
         /**
          * Creates a new tab.
-         *
-         * @param createProperties
          */
         create(createProperties: CreateCreatePropertiesType): Promise<Tab>;
 
@@ -1089,15 +1135,11 @@ export namespace Tabs {
 
         /**
          * Gets all tabs that have the specified properties, or all tabs if no properties are specified.
-         *
-         * @param queryInfo
          */
         query(queryInfo: QueryQueryInfoType): Promise<Tab[]>;
 
         /**
          * Highlights the given tabs.
-         *
-         * @param highlightInfo
          */
         highlight(highlightInfo: HighlightHighlightInfoType): Promise<Windows.Window>;
 
@@ -1105,14 +1147,11 @@ export namespace Tabs {
          * Modifies the properties of a tab. Properties that are not specified in <var>updateProperties</var> are not modified.
          *
          * @param tabId Optional. Defaults to the selected tab of the $(topic:current-window)[current window].
-         * @param updateProperties
          */
         update(tabId: number | undefined, updateProperties: UpdateUpdatePropertiesType): Promise<Tab>;
 
         /**
          * Modifies the properties of a tab. Properties that are not specified in <var>updateProperties</var> are not modified.
-         *
-         * @param updateProperties
          */
         update(updateProperties: UpdateUpdatePropertiesType): Promise<Tab>;
 
@@ -1121,7 +1160,6 @@ export namespace Tabs {
          * from normal (window.type === "normal") windows.
          *
          * @param tabIds The tab or list of tabs to move.
-         * @param moveProperties
          */
         move(tabIds: number | number[], moveProperties: MoveMovePropertiesType): Promise<Tab | Tab[]>;
 
@@ -1138,7 +1176,7 @@ export namespace Tabs {
          *
          * @param tabId The ID of the tab to warm up.
          */
-        warmup(tabId: number): void;
+        warmup(tabId: number): Promise<void>;
 
         /**
          * Closes one or more tabs.
@@ -1178,8 +1216,8 @@ export namespace Tabs {
         captureTab(tabId?: number, options?: ExtensionTypes.ImageDetails): Promise<string>;
 
         /**
-         * Captures an area of the currently active tab in the specified window. You must have $(topic:declare_permissions)
-         * [&lt;all_urls&gt;] permission to use this method.
+         * Captures an area of the currently active tab in the specified window. You must have &lt;all_urls&gt; or activeTab
+         * permission to use this method.
          *
          * @param windowId Optional. The target window. Defaults to the $(topic:current-window)[current window].
          * @param options Optional.
@@ -1194,7 +1232,7 @@ export namespace Tabs {
          * @param details Details of the script to run.
          * @returns Called after all the JavaScript has been executed.
          */
-        executeScript(tabId: number | undefined, details: ExtensionTypes.InjectDetails): Promise<any[]>;
+        executeScript(tabId: number | undefined, details: ExtensionTypes.InjectDetails): Promise<unknown[]>;
 
         /**
          * Injects JavaScript code into a page. For details, see the $(topic:content_scripts)[programmatic injection]
@@ -1203,7 +1241,7 @@ export namespace Tabs {
          * @param details Details of the script to run.
          * @returns Called after all the JavaScript has been executed.
          */
-        executeScript(details: ExtensionTypes.InjectDetails): Promise<any[]>;
+        executeScript(details: ExtensionTypes.InjectDetails): Promise<unknown[]>;
 
         /**
          * Injects CSS into a page. For details, see the $(topic:content_scripts)[programmatic injection]
@@ -1349,7 +1387,7 @@ export namespace Tabs {
          * first tab in the array instead.
          * @param options Optional.
          */
-        moveInSuccession(tabIds: number[], tabId?: number, options?: MoveInSuccessionOptionsType): void;
+        moveInSuccession(tabIds: number[], tabId?: number, options?: MoveInSuccessionOptionsType): Promise<void>;
 
         /**
          * Navigate to next page in tab's history, if available
@@ -1366,6 +1404,18 @@ export namespace Tabs {
         goBack(tabId?: number): Promise<void>;
 
         /**
+         * Adds one or more tabs to a specified group, or if no group is specified, adds the given tabs to a newly created group.
+         */
+        group(options: GroupOptionsType): Promise<number>;
+
+        /**
+         * Removes one or more tabs from their respective groups. If any groups become empty, they are deleted.
+         *
+         * @param tabIds The tab ID or list of tab IDs to remove from their respective groups.
+         */
+        ungroup(tabIds: number | number[]): Promise<void>;
+
+        /**
          * Fired when a tab is created. Note that the tab's URL may not be set at the time this event fired,
          * but you can listen to onUpdated events to be notified when a URL is set.
          *
@@ -1376,69 +1426,48 @@ export namespace Tabs {
         /**
          * Fired when a tab is updated.
          */
-        onUpdated: onUpdatedEvent;
+        onUpdated: OnUpdatedEvent;
 
         /**
          * Fired when a tab is moved within a window. Only one move event is fired, representing the tab the user directly moved.
          * Move events are not fired for the other tabs that must move in response. This event is not fired when a tab is moved
          * between windows. For that, see $(ref:tabs.onDetached).
-         *
-         * @param tabId
-         * @param moveInfo
          */
         onMoved: Events.Event<(tabId: number, moveInfo: OnMovedMoveInfoType) => void>;
 
         /**
          * Fires when the active tab in a window changes. Note that the tab's URL may not be set at the time this event fired,
          * but you can listen to onUpdated events to be notified when a URL is set.
-         *
-         * @param activeInfo
          */
         onActivated: Events.Event<(activeInfo: OnActivatedActiveInfoType) => void>;
 
         /**
          * Fired when the highlighted or selected tabs in a window changes.
-         *
-         * @param highlightInfo
          */
         onHighlighted: Events.Event<(highlightInfo: OnHighlightedHighlightInfoType) => void>;
 
         /**
          * Fired when a tab is detached from a window, for example because it is being moved between windows.
-         *
-         * @param tabId
-         * @param detachInfo
          */
         onDetached: Events.Event<(tabId: number, detachInfo: OnDetachedDetachInfoType) => void>;
 
         /**
          * Fired when a tab is attached to a window, for example because it was moved between windows.
-         *
-         * @param tabId
-         * @param attachInfo
          */
         onAttached: Events.Event<(tabId: number, attachInfo: OnAttachedAttachInfoType) => void>;
 
         /**
          * Fired when a tab is closed.
-         *
-         * @param tabId
-         * @param removeInfo
          */
         onRemoved: Events.Event<(tabId: number, removeInfo: OnRemovedRemoveInfoType) => void>;
 
         /**
          * Fired when a tab is replaced with another tab due to prerendering or instant.
-         *
-         * @param addedTabId
-         * @param removedTabId
          */
         onReplaced: Events.Event<(addedTabId: number, removedTabId: number) => void>;
 
         /**
          * Fired when a tab is zoomed.
-         *
-         * @param ZoomChangeInfo
          */
         onZoomChange: Events.Event<(ZoomChangeInfo: OnZoomChangeZoomChangeInfoType) => void>;
 

@@ -1,4 +1,4 @@
-import numberIsNan = require('number-is-nan');
+import numberIsNan = require("number-is-nan");
 
 numberIsNan(NaN);
 numberIsNan();
@@ -8,7 +8,7 @@ numberIsNan(null);
 numberIsNan(0);
 numberIsNan(Infinity);
 numberIsNan(-Infinity);
-numberIsNan('');
-numberIsNan('unicorn');
+numberIsNan("");
+numberIsNan("unicorn");
 numberIsNan({});
 numberIsNan([]);

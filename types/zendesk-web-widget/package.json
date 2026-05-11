@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/zendesk-web-widget",
+    "version": "1.0.9999",
+    "projects": [
+        "https://developer.zendesk.com/api-reference/widget-messaging/introduction/"
+    ],
+    "nonNpm": true,
+    "nonNpmDescription": "Zendesk Web Widget API",
+    "devDependencies": {
+        "@types/zendesk-web-widget": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Emily M Klassen",
+            "githubUsername": "forivall"
+        }
+    ]
+}

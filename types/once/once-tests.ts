@@ -1,4 +1,4 @@
-import once = require('once');
+import once = require("once");
 
 // $ExpectType (() => number) & FnProps<number>
 once(() => 3);
@@ -21,15 +21,29 @@ once((t1: string, t2: null, t3: string, t4: null, t5: number, t6: null, t7: stri
 // $ExpectType ((t1: string, t2: null, t3: string, t4: null, t5: number, t6: null, t7: string, t8: null, t9: string) => number) & FnProps<number>
 once((t1: string, t2: null, t3: string, t4: null, t5: number, t6: null, t7: string, t8: null, t9: string) => 3);
 // $ExpectType ((t1: string, t2: null, t3: string, t4: null, t5: number, t6: null, t7: string, t8: null, t9: string, t10: null) => number) & FnProps<number>
-once((t1: string, t2: null, t3: string, t4: null, t5: number, t6: null, t7: string, t8: null, t9: string, t10: null) => 3);
+once((t1: string, t2: null, t3: string, t4: null, t5: number, t6: null, t7: string, t8: null, t9: string, t10: null) =>
+    3
+);
 // $ExpectType ((...args: any[]) => number) & FnProps<number>
-once((t1: string, t2: null, t3: string, t4: null, t5: number, t6: null, t7: string, t8: null, t9: string, t10: null, t11: string) => 3);
+once((
+    t1: string,
+    t2: null,
+    t3: string,
+    t4: null,
+    t5: number,
+    t6: null,
+    t7: string,
+    t8: null,
+    t9: string,
+    t10: null,
+    t11: string,
+) => 3);
 
 once(() => 3)(); // $ExpectType number
-once(() => ({foo: 1}))(); // $ExpectType { foo: number; }
+once(() => ({ foo: 1 }))(); // $ExpectType { foo: number; }
 
 once(() => 3).called; // $ExpectType boolean
-once(() => ({foo: 1})).value; // $ExpectType { foo: number; } | undefined
+once(() => ({ foo: 1 })).value; // $ExpectType { foo: number; } | undefined
 
 once.proto();
 
@@ -42,8 +56,8 @@ function fn() {
 fn.once(); // $ExpectType Function & FnProps<any>
 
 function greet(name: string | null, cb: (greeting: string) => void) {
-    if (!name) cb('Hello anonymous');
-    cb('Hello ' + name);
+    if (!name) cb("Hello anonymous");
+    cb("Hello " + name);
 }
 function log(msg: any) {
 }

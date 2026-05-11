@@ -1,6 +1,6 @@
-import * as L from 'leaflet';
+import * as L from "leaflet";
 
-const map = L.map('map', {
+const map = L.map("map", {
     center: [51.505, -0.09],
     zoom: 13,
     rotate: true,
@@ -31,5 +31,6 @@ point.rotateFrom(60, point2);
 const marker = new L.Marker([0, 0], {
     rotation: 30,
     rotateWithView: true,
+    scale: 0.5,
 });
 marker.setRotation(30);

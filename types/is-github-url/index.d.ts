@@ -1,8 +1,3 @@
-// Type definitions for is-github-url 1.2
-// Project: https://github.com/alferov/is-github-url
-// Definitions by: Ivan Nikolić <https://github.com/niksy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface Options {
     /**
      * Match only URLs ending with .git

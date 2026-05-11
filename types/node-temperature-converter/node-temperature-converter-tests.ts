@@ -1,13 +1,13 @@
-import Converter = require('node-temperature-converter');
+import Converter = require("node-temperature-converter");
 
 const celsius = new Converter.Celsius(35);
 
 const obc = {
-    name: 'Celsius',
+    name: "Celsius",
     deg: celsius.degrees,
     fah: celsius.toFahrenheit(),
     kel: celsius.toKelvin(),
-    str: celsius.toString()
+    str: celsius.toString(),
 };
 
 console.table(obc);

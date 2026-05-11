@@ -1,8 +1,3 @@
-// Type definitions for accumulator-hash 1.0
-// Project: https://github.com/chm-diederichs/accumulator-hash
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export = RollingHash;

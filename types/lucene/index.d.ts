@@ -1,9 +1,3 @@
-// Type definitions for lucene 2.1
-// Project: https://github.com/bripkens/lucene#readme
-// Definitions by: Ben Grynhaus <https://github.com/bengry>
-//                 Hugo Muller <https://github.com/HugoMuller>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface TermLocation {
     column: number;
     line: number;
@@ -11,7 +5,7 @@ export interface TermLocation {
 }
 
 export interface NodeField {
-    field: string | '<implicit>';
+    field: string | "<implicit>";
     fieldLocation: null | {
         end: TermLocation;
         start: TermLocation;
@@ -39,10 +33,9 @@ export interface NodeRangedTerm extends NodeField {
 
 export type Node =
     | NodeTerm
-    | NodeRangedTerm
-;
+    | NodeRangedTerm;
 
-export type Operator = '<implicit>' | 'NOT' | 'OR' | 'AND' | 'AND NOT' | 'OR NOT';
+export type Operator = "<implicit>" | "NOT" | "OR" | "AND" | "AND NOT" | "OR NOT";
 
 export interface ASTField {
     field?: string;

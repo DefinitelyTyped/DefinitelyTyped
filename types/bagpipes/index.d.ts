@@ -1,8 +1,3 @@
-// Type definitions for bagpipes 0.1
-// Project: https://github.com/apigee-127/bagpipes
-// Definitions by: Michael Mrowetz <https://github.com/micmro>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface FittingContext {
     /**
      * The input defined in the fitting definition
@@ -49,7 +44,8 @@ export interface FittingDef {
  */
 export type Fitting = (
     context: FittingContext,
-    next: {(err: Error | null | undefined, res?: any): void}) => void;
+    next: { (err: Error | null | undefined, res?: any): void },
+) => void;
 
 /**
  * Fitting creation Function

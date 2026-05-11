@@ -1,6 +1,6 @@
-import '../../';
+import "../../";
 
-declare module '../../' {
+declare module "../../" {
     interface ScrollbarModels {
         simple: ScrollbarModelConstructor;
         overlay: ScrollbarModelConstructor;

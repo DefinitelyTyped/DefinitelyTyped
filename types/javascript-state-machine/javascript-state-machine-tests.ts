@@ -1,4 +1,4 @@
-import { StateMachine, StateMachineEvent, create } from 'javascript-state-machine';
+import { create, StateMachine, StateMachineEvent } from "javascript-state-machine";
 
 interface StateMachineTest extends StateMachine {
     warn?: StateMachineEvent | undefined;
@@ -8,20 +8,30 @@ interface StateMachineTest extends StateMachine {
 }
 
 const fsm: StateMachineTest = StateMachine.create({
-    initial: 'green',
+    initial: "green",
     events: [
-        { name: 'warn', from: 'green', to: 'yellow' },
-        { name: 'panic', from: 'yellow', to: 'red' },
-        { name: 'calm', from: 'red', to: 'yellow' },
-        { name: 'clear', from: 'yellow', to: 'green' }
+        { name: "warn", from: "green", to: "yellow" },
+        { name: "panic", from: "yellow", to: "red" },
+        { name: "calm", from: "red", to: "yellow" },
+        { name: "clear", from: "yellow", to: "green" },
     ],
     callbacks: {
-        onpanic(event?, from?, to?, msg?) { alert('panic! ' + msg); },
-        onclear(event?, from?, to?, msg?) { alert('thanks to ' + msg); },
-        ongreen(event?, from?, to?) { document.body.className = 'green'; },
-        onyellow(event?, from?, to?) { document.body.className = 'yellow'; },
-        onred(event?, from?, to?) { document.body.className = 'red'; },
-    }
+        onpanic(event?, from?, to?, msg?) {
+            alert("panic! " + msg);
+        },
+        onclear(event?, from?, to?, msg?) {
+            alert("thanks to " + msg);
+        },
+        ongreen(event?, from?, to?) {
+            document.body.className = "green";
+        },
+        onyellow(event?, from?, to?) {
+            document.body.className = "yellow";
+        },
+        onred(event?, from?, to?) {
+            document.body.className = "red";
+        },
+    },
 });
 
 // fsm.warn();                    // transition from green to yellow

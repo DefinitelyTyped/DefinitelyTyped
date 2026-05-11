@@ -1,8 +1,3 @@
-// Type definitions for compress.js 1.1
-// Project: - (link to the repo is missing)
-// Definitions by: Yuri Drabik <https://github.com/yurist38>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = Compress;
 
 declare class Compress {

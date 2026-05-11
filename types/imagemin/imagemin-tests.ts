@@ -1,25 +1,25 @@
-import imagemin, { Result } from 'imagemin';
+import imagemin, { Result } from "imagemin";
 
-imagemin(['*.png'], { destination: 'dist', plugins: [] }).then((results: Result[]) => {
+imagemin(["*.png"], { destination: "dist", plugins: [] }).then((results: Result[]) => {
     /* ... */
 });
 
 imagemin
     .buffer(
-        Buffer.from([
+        Uint8Array.from([
             /* ... */
         ]),
     )
-    .then((result: Buffer) => {
+    .then((result: Uint8Array) => {
         /* ... */
     });
 imagemin
     .buffer(
-        Buffer.from([
+        Uint8Array.from([
             /* ... */
         ]),
         { plugins: [] },
     )
-    .then((result: Buffer) => {
+    .then((result: Uint8Array) => {
         /* ... */
     });

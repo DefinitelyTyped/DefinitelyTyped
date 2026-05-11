@@ -1,3 +1,3 @@
-import { isInclusivelyAfterDay } from '../../index';
+import { isInclusivelyAfterDay } from "../../index";
 
 export default isInclusivelyAfterDay;

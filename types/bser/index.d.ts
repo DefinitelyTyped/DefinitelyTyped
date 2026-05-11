@@ -1,9 +1,3 @@
-// Type definitions for bser 2.0
-// Project: https://facebook.github.io/watchman/docs/bser.html
-// Definitions by: Claas Ahlrichs <https://github.com/claasahl>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
-
 /// <reference types="node" />
 
 import { EventEmitter } from "events";
@@ -68,7 +62,7 @@ export class BunserBuf extends EventEmitter {
 
     append(
         buf: InputWrapper,
-        synchronous?: false
+        synchronous?: false,
     ): AnyWrapper | AnyWrapper[] | undefined;
     append(buf: InputWrapper, synchronous: true): void;
 

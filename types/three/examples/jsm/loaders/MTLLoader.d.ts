@@ -1,14 +1,4 @@
-import {
-    Material,
-    LoadingManager,
-    Mapping,
-    Loader,
-    BufferGeometry,
-    Side,
-    Texture,
-    Vector2,
-    Wrapping,
-} from '../../../src/Three';
+import { BufferGeometry, Loader, LoadingManager, Mapping, Material, Side, Texture, Vector2, Wrapping } from "three";
 
 export interface MaterialCreatorOptions {
     /**
@@ -39,25 +29,17 @@ export interface MaterialCreatorOptions {
     invertTrProperty?: boolean | undefined;
 }
 
-export class MTLLoader extends Loader {
+export class MTLLoader extends Loader<MTLLoader.MaterialCreator> {
     constructor(manager?: LoadingManager);
     materialOptions: MaterialCreatorOptions;
 
-    load(
-        url: string,
-        onLoad: (materialCreator: MTLLoader.MaterialCreator) => void,
-        onProgress?: (event: ProgressEvent) => void,
-        onError?: (event: ErrorEvent) => void,
-    ): void;
     parse(text: string, path: string): MTLLoader.MaterialCreator;
     setMaterialOptions(value: MaterialCreatorOptions): void;
-
-    loadAsync(url: string, onProgress?: (event: ProgressEvent) => void): Promise<MTLLoader.MaterialCreator>;
 }
 
 export interface MaterialInfo {
-    ks?: number[] | undefined;
     kd?: number[] | undefined;
+    ks?: number[] | undefined;
     ke?: number[] | undefined;
     map_kd?: string | undefined;
     map_ks?: string | undefined;
@@ -65,6 +47,7 @@ export interface MaterialInfo {
     norm?: string | undefined;
     map_bump?: string | undefined;
     bump?: string | undefined;
+    disp?: string | undefined;
     map_d?: string | undefined;
     ns?: number | undefined;
     d?: number | undefined;

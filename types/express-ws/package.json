@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/express-ws",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/HenningM/express-ws"
+    ],
+    "dependencies": {
+        "@types/express": "*",
+        "@types/express-serve-static-core": "*",
+        "@types/ws": "*"
+    },
+    "devDependencies": {
+        "@types/express-ws": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "AJ Livingston",
+            "githubUsername": "ajliv"
+        }
+    ]
+}

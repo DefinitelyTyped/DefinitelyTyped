@@ -1,5 +1,5 @@
-import QuickPicker from 'quick-picker';
-import * as React from 'react';
+import QuickPicker from "quick-picker";
+import * as React from "react";
 
 interface CustomItem {
     foo: string;
@@ -8,18 +8,18 @@ interface CustomItem {
 
 const items: CustomItem[] = [
     {
-        foo: 'foo',
+        foo: "foo",
         bar: 1,
     },
     {
-        foo: 'baz',
+        foo: "baz",
         bar: 2,
     },
 ];
 
 QuickPicker.open<CustomItem>({
     item: {
-        foo: 'bar',
+        foo: "bar",
         bar: 1,
     },
     items,
@@ -29,9 +29,9 @@ QuickPicker.open<CustomItem>({
     onPressDone: item => {
         // typeof item is CustomItem
     },
-    display: 'calendar',
-    doneButtonText: 'Picking is done',
-    pickerType: 'normal',
+    display: "calendar",
+    doneButtonText: "Picking is done",
+    pickerType: "normal",
     topRow: <div>asdasddas</div>,
     disableTopRow: false,
     is24Hour: true,

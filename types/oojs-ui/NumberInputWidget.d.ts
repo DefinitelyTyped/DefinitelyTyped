@@ -42,7 +42,7 @@ declare namespace OO.ui {
             showButtons?: boolean;
 
             /** @deprecated */
-            input?: Omit<this, 'input'>;
+            input?: Omit<this, "input">;
             /** @deprecated */
             allowInteger?: boolean;
             /** @deprecated */
@@ -54,7 +54,7 @@ declare namespace OO.ui {
         type Props = TextInputWidget.Props;
 
         // HACK: Omit to fix LSP violation
-        interface Prototype extends Omit<TextInputWidget.Prototype, 'getRange'> {
+        interface Prototype extends Omit<TextInputWidget.Prototype, "getRange"> {
             /** @deprecated */
             setAllowInteger(flag: boolean): void;
             /** @deprecated */
@@ -115,7 +115,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): NumberInputWidget;
+            new(config?: ConfigOptions): NumberInputWidget;
             prototype: Prototype;
             static: Static;
             super: TextInputWidget.Constructor;

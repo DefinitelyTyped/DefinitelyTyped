@@ -1,12 +1,3 @@
-// Type definitions for ot 0.0
-// Project: https://github.com/Operational-Transformation/ot.js
-// Definitions by: Christian Alfoni <https://github.com/christianalfoni>
-//                 Ives van Hoorne <https://github.com/CompuIves>
-//                 Michaël De Boey <https://github.com/MichaelDeBoey>
-//                 Philippe Poulard <https://github.com/ppoulard>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.1
-
 import { EventEmitter } from "events";
 
 /**
@@ -53,7 +44,7 @@ export namespace Selection {
         equals(other: Range): boolean;
         isEmpty(): boolean;
         transform(operation: TextOperation): Range;
-        static fromJSON(object: { anchor: number; head: number; }): Range;
+        static fromJSON(object: { anchor: number; head: number }): Range;
     }
 }
 
@@ -275,7 +266,7 @@ export class Server {
      * @param document The doc
      * @param operations The ops
      */
-    constructor(document: string, operations?: TextOperation[])
+    constructor(document: string, operations?: TextOperation[]);
     /**
      * Call this method whenever you receive an operation from a client.
      * @param revision The revision
@@ -328,7 +319,7 @@ export interface EditorSocketIOServer<S extends { id: string } = any, C = any> e
 }
 
 export {};
-type UndoState = 'normal' | 'undoing' | 'redoing';
+type UndoState = "normal" | "undoing" | "redoing";
 
 export class UndoManager {
     /**
@@ -473,7 +464,7 @@ export class EditorClient extends Client {
 
 // TODO
 export namespace EditorClient {
-     class SelfMeta {}
-     class OtherClient {}
+    class SelfMeta {}
+    class OtherClient {}
 }
 export const version: string;

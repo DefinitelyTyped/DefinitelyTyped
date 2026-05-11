@@ -1,4 +1,4 @@
-import * as THREE from 'three';
+import * as THREE from "three";
 import ParticleSystem, {
     Alpha,
     ArraySpan,
@@ -13,6 +13,7 @@ import ParticleSystem, {
     CrossZone,
     CustomRenderer,
     Debug,
+    ease,
     Emitter,
     Force,
     GPURenderer,
@@ -43,16 +44,15 @@ import ParticleSystem, {
     Texture,
     Vector3D,
     VectorVelocity,
-    ease,
-} from 'three-nebula';
+} from "three-nebula";
 
 let System;
 
 // @ts-expect-error - wrong type
-System = new ParticleSystem('string');
+System = new ParticleSystem("string");
 
 // @ts-expect-error - wrong type
-System = new ParticleSystem({ properties: 'string' });
+System = new ParticleSystem({ properties: "string" });
 
 // $ExpectType System
 System = new ParticleSystem();
@@ -64,13 +64,13 @@ let emitter;
 const emitter2 = new Emitter();
 
 // @ts-expect-error - wrong type
-emitter = new Emitter('string');
+emitter = new Emitter("string");
 
 // @ts-expect-error - wrong type
 emitter = new Emitter(122);
 
 // @ts-expect-error - wrong type
-emitter.addInitializers('string');
+emitter.addInitializers("string");
 
 // @ts-expect-error - wrong type
 emitter.addInitializers(122);
@@ -82,13 +82,13 @@ emitter.addInitializers([122]);
 emitter.addInitializers([new Alpha({})]);
 
 // @ts-expect-error - wrong type
-emitter.addInitializers([new Alpha({ properties: 'string' })]);
+emitter.addInitializers([new Alpha({ properties: "string" })]);
 
 // @ts-expect-error - wrong type
 emitter.addInitializers([new Alpha({ properties: 122 })]);
 
 // @ts-expect-error - wrong type
-emitter.addInitializer('string');
+emitter.addInitializer("string");
 
 // @ts-expect-error - wrong type
 emitter.addInitializer(122);
@@ -104,7 +104,7 @@ emitter.addInitializer([new Alpha({})]);
  */
 
 // @ts-expect-error - wrong type
-emitter.addInitializers([new Alpha({ properties: 'string' })]);
+emitter.addInitializers([new Alpha({ properties: "string" })]);
 
 // $ExpectType Emitter
 emitter.addInitializer(new Life(100, 200));
@@ -134,7 +134,7 @@ emitter.addInitializer(new Rate(1, 2));
 emitter.addInitializer(new Texture(THREE, new THREE.Texture()));
 
 // $ExpectType Emitter
-emitter.addInitializer(new BodySprite(THREE, 'path/to/texture.png'));
+emitter.addInitializer(new BodySprite(THREE, "path/to/texture.png"));
 
 // $ExpectType Emitter
 emitter.addInitializer(new PolarVelocity(new Polar3D(1, 2, 3), 1, true));
@@ -159,7 +159,7 @@ emitter.addBehaviour(new Collision(emitter2, true));
 emitter.addBehaviour(new Color(new THREE.Color(0xff0000), new THREE.Color(0x00ff00)));
 
 // $ExpectType Emitter
-emitter.addBehaviour(new CrossZone(new PointZone(new Vector3D(1, 2, 3)), 'bound'));
+emitter.addBehaviour(new CrossZone(new PointZone(new Vector3D(1, 2, 3)), "bound"));
 
 // $ExpectType Emitter
 emitter.addBehaviour(new Force(1, 2, 3, Infinity, ease.easeInSine));
@@ -183,27 +183,27 @@ emitter.addBehaviour(new Scale(1, 2, Infinity, ease.easeInSine));
 emitter.addBehaviour(new Spring(1, 2, 3, 10, 2, Infinity, ease.easeInSine));
 
 // @ts-expect-error - wrong type
-System.addEmitter('default', emitter);
+System.addEmitter("default", emitter);
 
 // $ExpectType System
 System.addEmitter(emitter);
 
 // @ts-expect-error - wrong type
-System.addRenderer('string');
+System.addRenderer("string");
 
 // $ExpectType System
 System.addRenderer(new THREE.WebGLRenderer());
 
 // $ExpectType string
 const testJson = JSON.stringify({
-    test: 'data',
+    test: "data",
 });
 
 // @ts-expect-error - wrong type
 ParticleSystem.fromJSONAsync();
 
 // @ts-expect-error - wrong type
-ParticleSystem.fromJSONAsync('s');
+ParticleSystem.fromJSONAsync("s");
 
 // @ts-expect-error - wrong type
 ParticleSystem.fromJSONAsync(JSON.parse(testJson));
@@ -215,7 +215,7 @@ ParticleSystem.fromJSONAsync(JSON.parse(testJson), THREE);
 ParticleSystem.fromJSONAsync(JSON.parse(testJson), THREE, { options: true });
 
 // @ts-expect-error - wrong type
-Debug.addEventListener('emitterAdded', emitter => {
+Debug.addEventListener("emitterAdded", emitter => {
     console.log(emitter);
 });
 
@@ -225,7 +225,7 @@ Debug.addEventListener(System, emitter => {
 });
 
 // @ts-expect-error - wrong type
-MathUtils.toColor16('0xff0000');
+MathUtils.toColor16("0xff0000");
 
 // $ExpectType string
 MathUtils.toColor16(0xff0000);
@@ -264,7 +264,7 @@ const span = new Span(1, 2);
 const arraySpan = new ArraySpan([1, 2, 3]);
 
 // $ExpectType ColorSpan
-const colorSpan = new ColorSpan(['0xff0000', '0x00ff00']);
+const colorSpan = new ColorSpan(["0xff0000", "0x00ff00"]);
 
 // $ExpectType Polar3D
 const polar3d = new Polar3D(1, 2, 3);

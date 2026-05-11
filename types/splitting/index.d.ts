@@ -1,7 +1,3 @@
-// Type definitions for splitting 1.0
-// Project: https://github.com/shshaw/splitting
-// Definitions by: Adam Thompson-Sharpe <https://github.com/MysteryBlokHed>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 export = Splitting;
 
 export as namespace Splitting;
@@ -26,7 +22,7 @@ export as namespace Splitting;
  * ```
  * @see {@link <https://splitting.js.org/guide.html#basic-usage>}
  */
-declare function Splitting(options?: Splitting.Options): Splitting.Result;
+declare function Splitting(options?: Splitting.Options): Splitting.Result[];
 
 declare namespace Splitting {
     /**
@@ -114,7 +110,7 @@ declare namespace Splitting {
     }
 }
 
-// eslint-disable-next-line no-declare-current-package
-declare module 'splitting/dist/splitting.css';
-// eslint-disable-next-line no-declare-current-package
-declare module 'splitting/dist/splitting-cells.css';
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
+declare module "splitting/dist/splitting.css";
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
+declare module "splitting/dist/splitting-cells.css";

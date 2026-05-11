@@ -1,10 +1,5 @@
-// Type definitions for telnetlib 1.0
-// Project: https://github.com/cadpnq/telnetlib
-// Definitions by: Martin Badin <https://github.com/martin-badin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import * as net from 'net';
-import * as events from 'events';
+import * as events from "events";
+import * as net from "net";
 
 export as namespace telnetlib;
 
@@ -29,38 +24,38 @@ export enum Commands {
 }
 
 export enum OptionState {
-    NO = 'NO',
-    YES = 'YES',
-    WANTNO = 'WANTNO',
-    WANTYES = 'WANTYES',
+    NO = "NO",
+    YES = "YES",
+    WANTNO = "WANTNO",
+    WANTYES = "WANTYES",
 }
 
 export enum Q {
-    EMPTY = 'EMPTY',
-    OPPOSITE = 'OPPOSITE',
+    EMPTY = "EMPTY",
+    OPPOSITE = "OPPOSITE",
 }
 
 export enum Where {
-    REMOTE = 'REMOTE',
-    LOCAL = 'LOCAL',
+    REMOTE = "REMOTE",
+    LOCAL = "LOCAL",
 }
 
 export enum State {
-    DATA = 'DATA',
-    IAC = 'IAC',
-    WILL = 'WILL',
-    WONT = 'WONT',
-    DO = 'DO',
-    DONT = 'DONT',
-    SB = 'SB',
-    SBIAC = 'SBIAC',
+    DATA = "DATA",
+    IAC = "IAC",
+    WILL = "WILL",
+    WONT = "WONT",
+    DO = "DO",
+    DONT = "DONT",
+    SB = "SB",
+    SBIAC = "SBIAC",
 }
 
 export enum Reason {
-    DATA = 'DATA',
-    GA = 'GA',
-    EOR = 'EOR',
-    CHUNK = 'CHUNK',
+    DATA = "DATA",
+    GA = "GA",
+    EOR = "EOR",
+    CHUNK = "CHUNK",
 }
 
 /**
@@ -148,7 +143,7 @@ export interface Options<T extends TelnetOption = TelnetOption> {
     subnegotiationBufferMax?: number;
 }
 
-export type At = 'LOCAL' | 'REMOTE';
+export type At = "LOCAL" | "REMOTE";
 
 export const options: {
     ECHO: ECHO;

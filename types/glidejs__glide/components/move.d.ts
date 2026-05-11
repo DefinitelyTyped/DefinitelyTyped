@@ -1,4 +1,4 @@
-export type MoveEvents = 'move' | 'move.after';
+export type MoveEvents = "move" | "move.after";
 
 export interface MoveEventContext {
     readonly movement: number;

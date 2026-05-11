@@ -1,4 +1,4 @@
-import '../../';
+import "../../";
 
 export interface HardwrapOptions {
     column?: number | undefined;
@@ -9,7 +9,7 @@ export interface HardwrapOptions {
     forceBreak?: boolean | undefined;
 }
 
-declare module '../../' {
+declare module "../../" {
     interface CommandActions {
         wrapLines(cm: Editor): void;
     }

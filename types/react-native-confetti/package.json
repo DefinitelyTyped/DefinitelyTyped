@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-native-confetti",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/cdvntr/react-native-confetti"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "react-native": "*",
+        "@types/react-native-confetti": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Maurice el-Banna",
+            "githubUsername": "MauriceNino"
+        }
+    ]
+}

@@ -1,5 +1,5 @@
 /// <reference types="node" />
-import hmac = require('hmac-blake2b');
+import hmac = require("hmac-blake2b");
 
 hmac.BYTES; // $ExpectType 64
 hmac.KEYBYTES; // $ExpectType 128

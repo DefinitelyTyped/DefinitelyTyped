@@ -1,8 +1,7 @@
 const aceRangeTests = {
-
     name: "ACE range.js",
 
-    "test: create range": function () {
+    "test: create range": function() {
         var range = new AceAjax.Range(1, 2, 3, 4);
 
         assert.equal(range.start.row, 1);
@@ -11,7 +10,7 @@ const aceRangeTests = {
         assert.equal(range.end.column, 4);
     },
 
-    "test: create from points": function () {
+    "test: create from points": function() {
         var range = AceAjax.Range.fromPoints({ row: 1, column: 2 }, { row: 3, column: 4 });
 
         assert.equal(range.start.row, 1);
@@ -20,7 +19,7 @@ const aceRangeTests = {
         assert.equal(range.end.column, 4);
     },
 
-    "test: clip to rows": function () {
+    "test: clip to rows": function() {
         assert.range(new AceAjax.Range(0, 20, 100, 30).clipRows(10, 30), 10, 0, 31, 0);
         assert.range(new AceAjax.Range(0, 20, 30, 10).clipRows(10, 30), 10, 0, 30, 10);
 
@@ -31,7 +30,7 @@ const aceRangeTests = {
         assert.range(range, 10, 0, 10, 0);
     },
 
-    "test: isEmpty": function () {
+    "test: isEmpty": function() {
         var range = new AceAjax.Range(1, 2, 1, 2);
         assert.ok(range.isEmpty());
 
@@ -39,7 +38,7 @@ const aceRangeTests = {
         assert.notOk(range.isEmpty());
     },
 
-    "test: is multi line": function () {
+    "test: is multi line": function() {
         var range = new AceAjax.Range(1, 2, 1, 6);
         assert.notOk(range.isMultiLine());
 
@@ -47,7 +46,7 @@ const aceRangeTests = {
         assert.ok(range.isMultiLine());
     },
 
-    "test: clone": function () {
+    "test: clone": function() {
         var range = new AceAjax.Range(1, 2, 3, 4);
         var clone = range.clone();
 
@@ -61,7 +60,7 @@ const aceRangeTests = {
         assert.position(range.end, 3, 4);
     },
 
-    "test: contains for multi line ranges": function () {
+    "test: contains for multi line ranges": function() {
         var range = new AceAjax.Range(1, 10, 5, 20);
 
         assert.ok(range.contains(1, 10));
@@ -75,7 +74,7 @@ const aceRangeTests = {
         assert.notOk(range.contains(5, 21));
     },
 
-    "test: contains for single line ranges": function () {
+    "test: contains for single line ranges": function() {
         var range = new AceAjax.Range(1, 10, 1, 20);
 
         assert.ok(range.contains(1, 10));
@@ -88,7 +87,7 @@ const aceRangeTests = {
         assert.notOk(range.contains(1, 21));
     },
 
-    "test: extend range": function () {
+    "test: extend range": function() {
         var range = new AceAjax.Range(2, 10, 2, 30);
 
         var range = range.extend(2, 5);
@@ -107,7 +106,7 @@ const aceRangeTests = {
         assert.range(range, 1, 4, 6, 10);
     },
 
-    "test: collapse rows": function () {
+    "test: collapse rows": function() {
         var range = new AceAjax.Range(0, 2, 1, 2);
         assert.range(range.collapseRows(), 0, 0, 1, 0);
 
@@ -121,7 +120,7 @@ const aceRangeTests = {
         assert.range(range.collapseRows(), 2, 0, 2, 0);
     },
 
-    "test: to screen range": function () {
+    "test: to screen range": function() {
         var session = new AceAjax.EditSession([
             "juhu",
             "12\t\t34",
@@ -140,5 +139,5 @@ const aceRangeTests = {
 
         var range = new AceAjax.Range(3, 0, 3, 4);
         assert.range(range.toScreenRange(session), 3, 0, 3, 10);
-    }
+    },
 };

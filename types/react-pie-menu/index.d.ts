@@ -1,8 +1,3 @@
-// Type definitions for react-pie-menu 1.0
-// Project: https://github.com/psychobolt/react-pie-menu#readme
-// Definitions by: Joel Keyser <https://github.com/keyserj>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export type Callback = (_event: React.SyntheticEvent<unknown>) => unknown;
 
 export interface SliceContext {
@@ -50,8 +45,8 @@ export interface PieCenterProps {
 export interface ContextSelectorProps<T> {
     theme: {
         context: {
-            [key: string]: T
-        }
+            [key: string]: T;
+        };
     };
 }
 

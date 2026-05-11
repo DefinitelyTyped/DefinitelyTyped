@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/bootstrap-maxlength",
+    "version": "1.7.9999",
+    "projects": [
+        "https://github.com/mimo84/bootstrap-maxlength"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/bootstrap-maxlength": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Dan Manastireanu",
+            "githubUsername": "danmana"
+        }
+    ]
+}

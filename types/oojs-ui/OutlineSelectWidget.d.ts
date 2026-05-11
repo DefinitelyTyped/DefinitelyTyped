@@ -24,7 +24,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): OutlineSelectWidget;
+            new(config?: ConfigOptions): OutlineSelectWidget;
             prototype: Prototype;
             static: Static;
             super: SelectWidget.Constructor;

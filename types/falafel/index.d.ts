@@ -1,9 +1,3 @@
-// Type definitions for falafel 2.2
-// Project: https://github.com/substack/node-falafel
-// Definitions by: Przemysław Struciński <https://github.com/delprzemo>
-//                 leumasme <https://github.com/leumasme>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
 /// <reference types="node" />
 interface OptionsObject {
     parser: any;

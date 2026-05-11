@@ -1,4 +1,4 @@
-import snapShot = require('snap-shot-core');
+import snapShot = require("snap-shot-core");
 
 declare const process: any;
 
@@ -15,10 +15,10 @@ const opts: snapShot.Opts = {
 
 const out0 = snapShot.core({
     what: 42,
-    file: 'file',
-    specName: 'my test',
+    file: "file",
+    specName: "my test",
     store: x => x,
-    ext: '.test',
+    ext: ".test",
     opts,
 });
 out0.key; // $ExpectType string
@@ -27,8 +27,8 @@ out0.value; // $ExpectType number
 // Test type mapping of `store` function.
 const out1 = snapShot.core({
     what: 42,
-    file: 'file',
-    specName: 'my test',
+    file: "file",
+    specName: "my test",
     store: x => ({ mapped: x }),
 });
 out1.key; // $ExpectType string
@@ -42,41 +42,41 @@ snapShot.core({ what: undefined });
 snapShot.restore();
 // @ts-expect-error
 snapShot.restore({});
-snapShot.restore({ file: 'file', specName: 'spec' });
+snapShot.restore({ file: "file", specName: "spec" });
 
 // prune()
 
 snapShot.prune({ tests: [] });
-snapShot.prune({ tests: [{ specFile: 'file', key: 'key' }], ext: '.snapshot.js' }, { sortSnapshots: true });
+snapShot.prune({ tests: [{ specFile: "file", key: "key" }], ext: ".snapshot.js" }, { sortSnapshots: true });
 
 // throwCannotSaveOnCI()
 // (the tests are wrapped in functions to get rid of the "unreachable code" warning)
 
-() => {
-    snapShot.throwCannotSaveOnCI({ fileParameter: 'file', exactSpecName: 'spec' }); // $ExpectType never
-};
-() => {
-    snapShot.throwCannotSaveOnCI({ fileParameter: 'file', specName: 'spec', index: 0, value: 42 }); // $ExpectType never
-};
+(() => {
+    snapShot.throwCannotSaveOnCI({ fileParameter: "file", exactSpecName: "spec" }); // $ExpectType never
+});
+(() => {
+    snapShot.throwCannotSaveOnCI({ fileParameter: "file", specName: "spec", index: 0, value: 42 }); // $ExpectType never
+});
 
 // savedSnapshotName()
 
 snapShot.savedSnapshotName(); // $ExpectType string
-snapShot.savedSnapshotName({ exactSpecName: 'spec' });
-snapShot.savedSnapshotName({ specName: 'spec', index: 0 });
+snapShot.savedSnapshotName({ exactSpecName: "spec" });
+snapShot.savedSnapshotName({ specName: "spec", index: 0 });
 
 // storeValue()
 
 snapShot.storeValue({
-    file: 'file',
+    file: "file",
     // @ts-expect-error
     value: undefined,
 });
 snapShot.storeValue({
-    file: 'file',
+    file: "file",
     value: 42,
-    comment: 'comment',
+    comment: "comment",
     opts,
-    ext: '.snapshot.js',
-    exactSpecName: 'spec',
+    ext: ".snapshot.js",
+    exactSpecName: "spec",
 });

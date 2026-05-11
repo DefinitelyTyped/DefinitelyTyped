@@ -1,4 +1,4 @@
-import * as projections from 'projections';
+import * as projections from "projections";
 
 const point: projections.Point = { x: 0, y: 0 };
 const coordinate: projections.Coordinate = { lon: 0, lat: 0 };

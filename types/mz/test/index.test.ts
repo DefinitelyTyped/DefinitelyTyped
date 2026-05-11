@@ -1,11 +1,11 @@
-import mz = require('mz');
+import mz = require("mz");
 
-import child_process = require('mz/child_process');
-import crypto = require('mz/crypto');
-import dns = require('mz/dns');
-import fs = require('mz/fs');
-import readline = require('mz/readline');
-import zlib = require('mz/zlib');
+import child_process = require("mz/child_process");
+import crypto = require("mz/crypto");
+import dns = require("mz/dns");
+import fs = require("mz/fs");
+import readline = require("mz/readline");
+import zlib = require("mz/zlib");
 
 /**
  * The `expectType` function from https://www.npmjs.com/package/tsd,

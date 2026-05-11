@@ -1,6 +1,6 @@
-import { PerspectiveCamera, CubeTexture, Mesh, Scene } from '../../../src/Three';
+import { CubeTexture, Mesh, PerspectiveCamera, Scene } from "three";
 
-import { Pass, FullScreenQuad } from './Pass';
+import { FullScreenQuad, Pass } from "./Pass.js";
 
 export class CubeTexturePass extends Pass {
     constructor(camera: PerspectiveCamera, envMap?: CubeTexture, opacity?: number);

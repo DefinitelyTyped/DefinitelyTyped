@@ -1,12 +1,8 @@
-// Type definitions for @xmpp/stream-management 0.13
-// Project: https://github.com/xmppjs/xmpp.js/tree/main/packages/stream-management
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+import { Entity, Middleware } from "@xmpp/middleware";
+import { StreamFeatures } from "@xmpp/stream-features";
+import { Element } from "@xmpp/xml";
 
-import { StreamFeatures } from '@xmpp/stream-features';
-import { Entity, Middleware } from '@xmpp/middleware';
-
-export = streamManagement;
+export default streamManagement;
 
 /**
  * [Stream Management](https://xmpp.org/extensions/xep-0198.html) for `@xmpp/client`.
@@ -29,16 +25,21 @@ declare function streamManagement<TEntity extends Entity>({
     streamFeatures: StreamFeatures<TEntity>;
     entity: TEntity;
     middleware: Middleware<TEntity>;
-}): streamManagement.StreamManagement;
+}): StreamManagement;
 
-declare namespace streamManagement {
-    interface StreamManagement {
-        allowResume: boolean;
-        preferredMaximum: number | null;
-        enabled: boolean;
-        id: string;
-        outbound: number;
-        inbound: number;
-        max: number | null;
-    }
+export interface StreamManagement {
+    allowResume: boolean;
+    preferredMaximum: number | null;
+    enabled: boolean;
+    id: string;
+    outbound: number;
+    inbound: number;
+    max: number | null;
 }
+
+declare const NS: string;
+
+export function makeEnableElement(params: { sm: StreamManagement }): Element;
+export function makeResumeElement(params: { sm: StreamManagement }): Element;
+
+export { NS };

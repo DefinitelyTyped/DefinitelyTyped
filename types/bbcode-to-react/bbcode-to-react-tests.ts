@@ -1,24 +1,24 @@
-import parser, { Tag, Parser } from 'bbcode-to-react';
+import parser, { Parser, Renderer, Tag, TagType } from "bbcode-to-react";
 
 // $ExpectType void
-parser.registerTag('br', Tag);
+parser.registerTag("br", Tag);
 
 // $ExpectType string
-parser.toHTML('[B]strong[/B]');
+parser.toHTML("[B]strong[/B]");
 
 // $ExpectType ReactNode
-parser.toReact('[B]strong[/B]');
+parser.toReact("[B]strong[/B]");
 
 new (class extends Parser {
     testParser() {
         // $ExpectType { [name: string]: Tag<{ linkify: boolean; }>; }
-        this.tags;
+        this.tags as { [name: string]: Tag<{ linkify: boolean }> };
 
         // $ExpectType Renderer<{ linkify: boolean; }>
-        this.renderer;
+        this.renderer as Renderer<{ linkify: boolean }>;
 
         // $ExpectType Tag<{ linkify: boolean; }>
-        this.parse('');
+        this.parse("");
     }
 
     testRenderer() {
@@ -29,19 +29,19 @@ new (class extends Parser {
         this.renderer.contexts;
 
         // $ExpectType () => string[]
-        this.renderer.context({ linkify: false }, () => ['']);
+        this.renderer.context({ linkify: false }, () => [""]);
 
         // $ExpectType string
-        this.renderer.escape('');
+        this.renderer.escape("");
 
         // $ExpectType string
-        this.renderer.linkify('');
+        this.renderer.linkify("");
 
         // $ExpectType string
-        this.renderer.strip('');
+        this.renderer.strip("");
 
         // $ExpectType string
-        this.renderer.cosmeticReplace('');
+        this.renderer.cosmeticReplace("");
     }
 
     testTag() {
@@ -74,9 +74,9 @@ new (class extends Parser {
                 // @ExpectedType ReactNode
                 this.toReact();
             }
-        })(this.renderer);
+        })(this.renderer) as Tag;
     }
-})();
+})() as Parser;
 
 new (class extends Parser<{ canEscape: boolean }> {
     testParser() {
@@ -91,4 +91,4 @@ new (class extends Parser<{ canEscape: boolean }> {
         // $ExpectType { canEscape: boolean; }[]
         this.renderer.contexts;
     }
-})();
+})() as Parser<{ canEscape: boolean }>;

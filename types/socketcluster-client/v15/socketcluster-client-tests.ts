@@ -1,53 +1,53 @@
 // Adapted from README
 
-import { create, AGClientSocket } from 'socketcluster-client';
-import AuthEngine = require('socketcluster-client/lib/auth');
+import { AGClientSocket, create } from "socketcluster-client";
+import AuthEngine = require("socketcluster-client/lib/auth");
 
 const socket = create({
-    hostname: 'localhost',
+    hostname: "localhost",
     port: 8000,
 });
 
-socket.transmit('foo', 123);
+socket.transmit("foo", 123);
 
 (async () => {
     // $ExpectType any
-    await socket.invoke('myProc', 123);
+    await socket.invoke("myProc", 123);
 })();
 
 (async () => {
     // Subscribe to a channel.
-    const myChannel = socket.subscribe('myChannel');
+    const myChannel = socket.subscribe("myChannel");
 
-    await myChannel.listener('subscribe').once();
+    await myChannel.listener("subscribe").once();
 
     // $ExpectType ChannelState
     myChannel.state;
 })();
 
 (async () => {
-    const myChannel = socket.channel('myChannel');
+    const myChannel = socket.channel("myChannel");
 
     myChannel.subscribe();
-    await myChannel.listener('subscribe').once();
+    await myChannel.listener("subscribe").once();
 
     // $ExpectType ChannelState
     myChannel.state;
 
-    myChannel.transmitPublish('This is a message');
+    myChannel.transmitPublish("This is a message");
 })();
 
-socket.transmitPublish('myChannel', 'This is a message');
+socket.transmitPublish("myChannel", "This is a message");
 
 (async () => {
-    const myChannel = socket.channel('myChannel');
+    const myChannel = socket.channel("myChannel");
 
     try {
-        await myChannel.invokePublish('This is a message');
+        await myChannel.invokePublish("This is a message");
     } catch (error) {}
 
     try {
-        const response = await socket.invokePublish('myChannel', 'This is a message');
+        const response = await socket.invokePublish("myChannel", "This is a message");
 
         // $ExpectType string
         response.channel;
@@ -58,7 +58,7 @@ socket.transmitPublish('myChannel', 'This is a message');
 })();
 
 (async () => {
-    const myChannel = socket.channel('myChannel');
+    const myChannel = socket.channel("myChannel");
 
     // tslint:disable-next-line: await-promise Bug in tslint: https://github.com/palantir/tslint/issues/3997
     for await (const data of myChannel) {
@@ -69,14 +69,14 @@ socket.transmitPublish('myChannel', 'This is a message');
 
 (async () => {
     const secureOptions = {
-        hostname: 'securedomain.com',
+        hostname: "securedomain.com",
         secure: true,
         port: 443,
         rejectUnauthorized: false, // Only necessary during debug if using a self-signed certificate
     };
 
     const secureSocket = create(secureOptions);
-    const authStatus = await secureSocket.authenticate('abc');
+    const authStatus = await secureSocket.authenticate("abc");
 
     // $ExpectType Error
     authStatus.authError;
@@ -87,7 +87,7 @@ socket.transmitPublish('myChannel', 'This is a message');
 
 (async () => {
     // tslint:disable-next-line: await-promise Bug in tslint: https://github.com/palantir/tslint/issues/3997
-    for await (const event of socket.listener('subscribeStateChange')) {
+    for await (const event of socket.listener("subscribeStateChange")) {
         // $ExpectType string
         event.channel;
 
@@ -111,9 +111,9 @@ if (authToken) {
 const authEngine = new AuthEngine();
 
 const mostOptions: AGClientSocket.ClientOptions = {
-    path: '/socketcluster/',
+    path: "/socketcluster/",
     port: 8000,
-    hostname: '127.0.0.1',
+    hostname: "127.0.0.1",
     autoConnect: true,
     secure: false,
     connectTimeout: 10000,
@@ -130,7 +130,7 @@ const mostOptions: AGClientSocket.ClientOptions = {
     codecEngine: null,
     subscriptionRetryOptions: {},
     query: {
-        yourparam: 'hello',
+        yourparam: "hello",
     },
 };
 
@@ -138,7 +138,7 @@ create(mostOptions);
 
 const oldVersionSocket = create({
     protocolVersion: 1,
-    path: '/socketcluster/',
+    path: "/socketcluster/",
 });
 
 // $ExpectType ProtocolVersions

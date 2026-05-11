@@ -1,33 +1,33 @@
-import * as React from 'react';
 import {
-    Platform,
-    ListView,
-    Modal,
-    Navigator,
-    RefreshWrapper,
-    ScrollView,
-    TextInput,
-    ViewPager,
-    View,
-    Text,
-    Image,
-    WaterfallView,
-    HippyEventEmitter,
-    callNativeWithPromise,
-    UIManagerModule,
-    Dimensions,
     Animation,
     AnimationSet,
     AsyncStorage,
-    NetInfo,
-    Hippy,
+    callNativeWithPromise,
     Clipboard,
     ConsoleModule,
+    Dimensions,
+    Hippy,
+    HippyEventEmitter,
+    Image,
+    ListView,
+    Modal,
+    Navigator,
+    NetInfo,
     NetworkModule,
     PixelRatio,
-    WebView,
+    Platform,
+    RefreshWrapper,
+    ScrollView,
     StyleSheet,
-} from '@hippy/react';
+    Text,
+    TextInput,
+    UIManagerModule,
+    View,
+    ViewPager,
+    WaterfallView,
+    WebView,
+} from "@hippy/react";
+import * as React from "react";
 
 function Comp() {
     const textInput = React.useRef<TextInput>(null);
@@ -37,20 +37,20 @@ function Comp() {
     }, []);
 
     React.useEffect(() => {
-        NetInfo.addEventListener('change', () => {});
+        NetInfo.addEventListener("change", () => {});
     }, [NetInfo]);
 
     React.useEffect(() => {
         (async () => {
             const str = await Clipboard.getString();
-            ConsoleModule.log('Clipboard.getString', str);
-            Clipboard.setString('something');
+            ConsoleModule.log("Clipboard.getString", str);
+            Clipboard.setString("something");
         })();
     }, []);
 
     return (
-        <View overflow="hidden" style={{ overflow: 'hidden', collapsable: true }}>
-            <View overflow="visible" style={{ overflow: 'visible', collapsable: false }} />
+        <View overflow="hidden" style={{ overflow: "hidden", collapsable: true }}>
+            <View overflow="visible" style={{ overflow: "visible", collapsable: false }} />
             <Text>
                 'test'
                 <Text>'nested'</Text>
@@ -74,7 +74,7 @@ function Comp() {
 }
 
 new Hippy({
-    appName: 'demo',
+    appName: "demo",
     entryPage: () => {
         return <View />;
     },
@@ -83,7 +83,7 @@ new Hippy({
 
 const styles = StyleSheet.create({
     style1: {
-        borderStyle: 'solid',
-        overflow: 'visible',
+        borderStyle: "solid",
+        overflow: "visible",
     },
 });

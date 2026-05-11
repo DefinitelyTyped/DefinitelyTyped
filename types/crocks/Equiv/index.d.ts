@@ -1,2 +1,2 @@
-import Equiv from './Equiv';
+import Equiv from "./Equiv";
 export default Equiv;

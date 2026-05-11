@@ -1,6 +1,6 @@
-import imageToBase64 = require('image-to-base64');
+import imageToBase64 = require("image-to-base64");
 
-imageToBase64('path/to/file.jpg') // Path to the image
+imageToBase64("path/to/file.jpg") // Path to the image
     .then(response => {
         response; // $ExpectType string
     })
@@ -8,7 +8,7 @@ imageToBase64('path/to/file.jpg') // Path to the image
         error; // $ExpectType Error
     });
 
-imageToBase64('https://whatever-image/') // Image URL
+imageToBase64("https://whatever-image/") // Image URL
     .then(response => {
         response; // $ExpectType string
     })
@@ -17,8 +17,8 @@ imageToBase64('https://whatever-image/') // Image URL
     });
 (async () => {
     try {
-        await imageToBase64('path/to/file.jpg'); // $ExpectType string
-    } catch (error) {
+        await imageToBase64("path/to/file.jpg"); // $ExpectType string
+    } catch (error: any) {
         error; // $ExpectType any
     }
 })();

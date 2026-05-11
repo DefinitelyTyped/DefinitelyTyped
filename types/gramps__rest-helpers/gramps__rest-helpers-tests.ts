@@ -1,4 +1,4 @@
-import { GraphQLConnector, GraphQLModel } from '@gramps/rest-helpers';
+import { GraphQLConnector, GraphQLModel } from "@gramps/rest-helpers";
 
 const myConnector = new GraphQLConnector();
 

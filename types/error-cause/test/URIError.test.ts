@@ -1,14 +1,14 @@
-import URIError from 'error-cause/URIError';
+import URIError from "error-cause/URIError";
 
 // $ExpectType URIError
 new URIError();
 // $ExpectType URIError
-new URIError('reason');
+new URIError("reason");
 // $ExpectType URIError
-new URIError('reason', {});
+new URIError("reason", {});
 // $ExpectType URIError
-new URIError('reason', { cause: null });
+new URIError("reason", { cause: null });
 // $ExpectType URIError
-new URIError('reason', { cause: 'stupidity' });
+new URIError("reason", { cause: "stupidity" });
 // $ExpectType URIError
-new URIError('reason', { cause: new URIError() });
+new URIError("reason", { cause: new URIError() });

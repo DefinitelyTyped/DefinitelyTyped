@@ -1,9 +1,3 @@
-// Type definitions for package ffmpeg.js 3.1
-// Project: https://github.com/Kagami/ffmpeg.js
-// Definitions by: Max Boguslavskiy <https://github.com/maxbogus>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 declare namespace ffmpeg {
     interface Options {
         arguments: string[];

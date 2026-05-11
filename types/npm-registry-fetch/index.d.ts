@@ -1,17 +1,11 @@
-// Type definitions for npm-registry-fetch 8.0
-// Project: https://github.com/npm/registry-fetch#readme
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /// <reference types="node" />
 
-import { Response } from 'node-fetch';
-import { Readable, Stream } from 'stream';
-import { Agent } from 'http';
-import { Integrity } from 'ssri';
-import { Logger } from 'npmlog';
-import * as npa from 'npm-package-arg';
+import { Agent } from "http";
+import { Response } from "node-fetch";
+import npa = require("npm-package-arg");
+import { Logger } from "npmlog";
+import { Integrity } from "ssri";
+import { Readable, Stream } from "stream";
 
 /**
  * Performs a request to a given URL.
@@ -46,7 +40,7 @@ declare namespace fetch {
     type Options = FetchOptions & FetchRetryOptions & AuthOptions;
 
     interface AuthOptions {
-        'always-auth'?: boolean | undefined;
+        "always-auth"?: boolean | undefined;
         alwaysAuth?: boolean | undefined;
         email?: string | undefined;
         /**
@@ -145,6 +139,26 @@ declare namespace fetch {
          * object.
          */
         fetchRetryMaxtimeout?: number | undefined;
+    }
+
+    interface FetchRetryObjectOptions {
+        /**
+         * The "retries" config for `retry` to use when fetching packages from
+         * the registry.
+         */
+        retries?: number | undefined;
+        /**
+         * The "factor" config for `retry` to use when fetching packages.
+         */
+        factor?: number | undefined;
+        /**
+         * The "minTimeout" config for `retry` to use when fetching packages.
+         */
+        minTimeout?: number | undefined;
+        /**
+         * The "maxTimeout" config for `retry` to use when fetching packages.
+         */
+        maxTimeout?: number | undefined;
     }
 
     /**
@@ -397,7 +411,7 @@ declare namespace fetch {
          * Single-object configuration for request retry settings. If passed in,
          * will override individually-passed `fetchRetry*` settings.
          */
-        retry?: Partial<FetchRetryOptions> | undefined;
+        retry?: Partial<FetchRetryObjectOptions> | undefined;
         /**
          * Associate an operation with a scope for a scoped registry. This
          * option can force lookup of scope-specific registries and

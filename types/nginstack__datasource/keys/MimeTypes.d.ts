@@ -1,2 +1,2 @@
-export const APP_DATASOURCE: number;
-export const APP_DATASOURCE_QUERY: number;
+export let APP_DATASOURCE: number;
+export let APP_DATASOURCE_QUERY: number;

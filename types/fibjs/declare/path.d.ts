@@ -202,7 +202,7 @@
 declare module "path" {
     
 
-    module path {
+    namespace path {
         
         
         /**

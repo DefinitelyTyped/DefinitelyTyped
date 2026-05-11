@@ -1,18 +1,14 @@
-import Connection = require('@xmpp/connection');
-import middleware = require('@xmpp/middleware');
-import streamFeatures = require('@xmpp/stream-features');
-import route = require('@xmpp/stream-features/route');
-import { Element } from '@xmpp/xml';
+import Connection from "@xmpp/connection";
+import middleware, { Entity } from "@xmpp/middleware";
+import streamFeatures, { StreamFeatures } from "@xmpp/stream-features";
+import { Element } from "@xmpp/xml";
 
-// test type exports
-type StreamFeatures<TEntity extends middleware.Entity> = streamFeatures.StreamFeatures<TEntity>;
-
-class Foo extends Connection implements middleware.Entity {
+class Foo extends Connection implements Entity {
     domain?: string;
     hookOutgoing?: (stanza: Element) => Promise<void>;
 
     headerElement() {
-        return new Element('foo');
+        return new Element("foo");
     }
 
     socketParameters(service: string) {
@@ -20,10 +16,10 @@ class Foo extends Connection implements middleware.Entity {
     }
 }
 
-const mw = middleware({ entity: new Foo({ service: 'foo', domain: 'foo.bar' }) });
+const mw = middleware({ entity: new Foo({ service: "foo", domain: "foo.bar" }) });
 const sf = streamFeatures({ middleware: mw }); // $ExpectType StreamFeatures<Foo>
 // $ExpectType Middleware<IncomingContext<Foo>>
-sf.use('foo', 'ns', (ctx, next, features) => {
+sf.use("foo", "ns", (ctx, next, features) => {
     ctx; // $ExpectType IncomingContext<Foo>
     next; // $ExpectType Next
     features; // $ExpectType Element
@@ -31,13 +27,10 @@ sf.use('foo', 'ns', (ctx, next, features) => {
     return Promise.resolve();
 });
 // $ExpectType Middleware<IncomingContext<Foo>>
-sf.use('foo', undefined, (ctx, next, features) => {
+sf.use("foo", undefined, (ctx, next, features) => {
     ctx; // $ExpectType IncomingContext<Foo>
     next; // $ExpectType Next
     features; // $ExpectType Element
 
     return Promise.resolve();
 });
-
-route(); // $ExpectType (context: IncomingContext<Entity>, next: Next) => Promise<any>
-route()(null as any as middleware.IncomingContext<Foo>, async () => {}); // $ExpectType Promise<any>

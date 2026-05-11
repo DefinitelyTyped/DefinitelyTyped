@@ -1,16 +1,9 @@
-// Type definitions for webpack (module API) 1.18
-// Project: https://github.com/webpack/webpack
-// Definitions by: use-strict <https://github.com/use-strict>
-//                 rhonsby <https://github.com/rhonsby>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 /**
  * Webpack module API - variables and global functions available inside modules
  */
 
 declare namespace __WebpackModuleApi {
-    type ModuleId = string|number;
+    type ModuleId = string | number;
 
     interface RequireResolve {
         (id: string): ModuleId;
@@ -40,9 +33,19 @@ declare namespace __WebpackModuleApi {
          *
          * This creates a chunk. The chunk can be named. If a chunk with this name already exists, the dependencies are merged into that chunk and that chunk is used.
          */
-        ensure(paths: string[], callback: (require: NodeRequire) => void, chunkName?: string): void;
-        ensure(paths: string[], callback: (require: NodeRequire) => void, errorCallback?: (error: any) => void, chunkName?: string): void;
-        context(path: string, deep?: boolean, filter?: RegExp, mode?: "sync" | "eager" | "weak" | "lazy" | "lazy-once"): RequireContext;
+        ensure(paths: string[], callback: (require: NodeJS.Require) => void, chunkName?: string): void;
+        ensure(
+            paths: string[],
+            callback: (require: NodeJS.Require) => void,
+            errorCallback?: (error: any) => void,
+            chunkName?: string,
+        ): void;
+        context(
+            path: string,
+            deep?: boolean,
+            filter?: RegExp,
+            mode?: "sync" | "eager" | "weak" | "lazy" | "lazy-once",
+        ): RequireContext;
         /**
          * Returns the module id of a dependency. The call is sync. No request to the server is fired. The compiler ensures that the dependency is available.
          *
@@ -61,8 +64,8 @@ declare namespace __WebpackModuleApi {
          * Multiple requires to the same module result in only one module execution and only one export. Therefore a cache in the runtime exists. Removing values from this cache cause new module execution and a new export. This is only needed in rare cases (for compatibility!).
          */
         cache: {
-            [id: string]: NodeModule | undefined;
-        }
+            [id: string]: NodeJS.Module | undefined;
+        };
     }
 
     interface Module {
@@ -70,21 +73,21 @@ declare namespace __WebpackModuleApi {
         id: ModuleId;
         filename: string;
         loaded: boolean;
-        parent: NodeModule | null | undefined;
-        children: NodeModule[];
+        parent: NodeJS.Module | null | undefined;
+        children: NodeJS.Module[];
         hot?: Hot | undefined;
     }
 
     interface HotNotifierInfo {
         type:
-          | 'self-declined'
-          | 'declined'
-          | 'unaccepted'
-          | 'accepted'
-          | 'disposed'
-          | 'accept-errored'
-          | 'self-accept-errored'
-          | 'self-accept-error-handler-errored';
+            | "self-declined"
+            | "declined"
+            | "unaccepted"
+            | "accepted"
+            | "disposed"
+            | "accept-errored"
+            | "self-accept-errored"
+            | "self-accept-error-handler-errored";
         /**
          * The module in question.
          */
@@ -109,7 +112,7 @@ declare namespace __WebpackModuleApi {
          * For accepted: The location of accept handlers that will handle the update
          */
         outdatedDependencies?: {
-          [dependencyId: number]: number[];
+            [dependencyId: number]: number[];
         } | undefined;
         /**
          * For errors: the thrown error
@@ -120,7 +123,7 @@ declare namespace __WebpackModuleApi {
          * before the error handler tried to handle it.
          */
         originalError?: Error | undefined;
-      }
+    }
 
     interface Hot {
         /**
@@ -129,7 +132,11 @@ declare namespace __WebpackModuleApi {
          * @param callback
          * @param errorHandler
          */
-        accept(dependencies: string[], callback?: (updatedDependencies: ModuleId[]) => void, errorHandler?: (err: Error) => void): void;
+        accept(
+            dependencies: string[],
+            callback?: (updatedDependencies: ModuleId[]) => void,
+            errorHandler?: (err: Error) => void,
+        ): void;
         /**
          * Accept code updates for the specified dependencies. The callback is called when dependencies were replaced.
          * @param dependency
@@ -190,7 +197,7 @@ declare namespace __WebpackModuleApi {
          * If autoApply is not set the callback will be called with all modules that will be disposed on apply().
          * @param autoApply
          */
-        check(autoApply?: boolean): Promise<null|ModuleId[]>;
+        check(autoApply?: boolean): Promise<null | ModuleId[]>;
         /**
          * If status() != "ready" it throws an error.
          * Continue the update process.
@@ -254,8 +261,8 @@ declare namespace __WebpackModuleApi {
         autoApply?: boolean | undefined;
     }
     /**
-    * Inside env you can pass any variable
-    */
+     * Inside env you can pass any variable
+     */
     interface NodeProcess {
         env?: any;
     }
@@ -263,11 +270,12 @@ declare namespace __WebpackModuleApi {
     type __Require1 = (id: string) => any;
     type __Require2 = <T>(id: string) => T;
     type RequireLambda = __Require1 & __Require2;
+
+    namespace __NodeGlobalInterfacePolyfill {
+        type Module = NodeJS.Process extends { version: string } ? {} : NodeJS.Module;
+        type Require = NodeJS.Process extends { version: string } ? {} : NodeJS.Require;
+    }
 }
-
-interface NodeRequire extends NodeJS.Require {}
-
-declare var require: NodeRequire;
 
 /**
  * The resource query of the current module.
@@ -313,7 +321,7 @@ declare var __non_webpack_require__: any;
 /**
  * Initializes the shared scope. Fills it with known provided modules from this build and all remotes
  */
- declare var __webpack_init_sharing__: (scope: string) => Promise<void>;
+declare var __webpack_init_sharing__: (scope: string) => Promise<void>;
 
 /**
  * Adds nonce to all scripts that webpack loads.
@@ -344,33 +352,32 @@ interface ImportMeta {
      * `import.meta.webpackContext` as ESM alternative to `require.context`
      * Available: 5.70.0+
      */
-    webpackContext?: (
+    webpackContext: (
         request: string,
         options?: {
-          recursive?: boolean;
-          regExp?: RegExp;
-          include?: RegExp;
-          exclude?: RegExp;
-          preload?: boolean | number;
-          prefetch?: boolean | number;
-          chunkName?: string;
-          exports?: string | string[][];
-          mode?: 'sync' | 'eager' | 'weak' | 'lazy' | 'lazy-once';
-        }
-      ) => __WebpackModuleApi.RequireContext;
+            recursive?: boolean;
+            regExp?: RegExp;
+            include?: RegExp;
+            exclude?: RegExp;
+            preload?: boolean | number;
+            prefetch?: boolean | number;
+            chunkName?: string;
+            exports?: string | string[][];
+            mode?: "sync" | "eager" | "weak" | "lazy" | "lazy-once";
+        },
+    ) => __WebpackModuleApi.RequireContext;
 }
 
-interface NodeModule extends NodeJS.Module {}
-
-declare var module: NodeModule;
-
-/**
-* Declare process variable
-*/
 declare namespace NodeJS {
-    interface Process extends __WebpackModuleApi.NodeProcess {}
-    interface RequireResolve extends __WebpackModuleApi.RequireResolve {}
     interface Module extends __WebpackModuleApi.Module {}
     interface Require extends __WebpackModuleApi.RequireFunction {}
+    interface RequireResolve extends __WebpackModuleApi.RequireResolve {}
+    interface Process extends __WebpackModuleApi.NodeProcess {}
 }
+
+interface NodeModule extends __WebpackModuleApi.__NodeGlobalInterfacePolyfill.Module {}
+interface NodeRequire extends __WebpackModuleApi.__NodeGlobalInterfacePolyfill.Require {}
+
+declare var module: NodeJS.Module;
 declare var process: NodeJS.Process;
+declare var require: NodeJS.Require;

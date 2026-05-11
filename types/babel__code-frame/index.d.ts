@@ -1,9 +1,3 @@
-// Type definitions for @babel/code-frame 7.0
-// Project: https://github.com/babel/babel/tree/master/packages/babel-code-frame, https://babeljs.io
-// Definitions by: Mohsen Azimi <https://github.com/mohsen1>
-//                 Forbes Lindesay <https://github.com/ForbesLindesay>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface SourceLocation {
     start: { line: number; column?: number | undefined };
     end?: { line: number; column?: number | undefined } | undefined;
@@ -11,7 +5,7 @@ export interface SourceLocation {
 export function codeFrameColumns(
     rawLines: string,
     location: SourceLocation,
-    options?: BabelCodeFrameOptions
+    options?: BabelCodeFrameOptions,
 ): string;
 
 export interface BabelCodeFrameOptions {
@@ -50,5 +44,14 @@ export default function codeFrame(
     rawLines: string,
     lineNumber: number,
     colNumber: number,
-    options?: BabelCodeFrameOptions
+    options?: BabelCodeFrameOptions,
 ): string;
+
+/**
+ * Add syntax highlighting to a code snippet, to be displayed in a terminal.
+ *
+ * @param code Raw code to be highlighted
+ *
+ * @returns Highlighted code
+ */
+export function highlight(code: string): string;

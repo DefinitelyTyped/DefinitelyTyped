@@ -1,16 +1,16 @@
-import convertLuvToLchuv from './convertLuvToLchuv';
-import convertLchuvToLuv from './convertLchuvToLuv';
-import convertXyz50ToRgb from '../xyz50/convertXyz50ToRgb';
-import convertRgbToXyz50 from '../xyz50/convertRgbToXyz50';
+import convertRgbToXyz50 from "../xyz50/convertRgbToXyz50.js";
+import convertXyz50ToRgb from "../xyz50/convertXyz50ToRgb.js";
+import convertLchuvToLuv from "./convertLchuvToLuv.js";
+import convertLuvToLchuv from "./convertLuvToLchuv.js";
 
-import { fixupHueShorter } from '../fixup/hue';
-import { fixupAlpha } from '../fixup/alpha';
-import { interpolatorLinear } from '../interpolate/linear';
-import { differenceHueChroma } from '../difference';
-import { averageAngle } from '../average';
+import { averageAngle } from "../average.js";
+import { differenceHueChroma } from "../difference.js";
+import { fixupAlpha } from "../fixup/alpha.js";
+import { fixupHueShorter } from "../fixup/hue.js";
+import { interpolatorLinear } from "../interpolate/linear.js";
 
-declare const definition: {
-    mode: 'lchuv';
+declare const modeLchuv: {
+    mode: "lchuv";
 
     toMode: {
         luv: typeof convertLchuvToLuv;
@@ -22,10 +22,10 @@ declare const definition: {
         luv: typeof convertLuvToLchuv;
     };
 
-    channels: ['l', 'c', 'h', 'alpha'];
+    channels: ["l", "c", "h", "alpha"];
 
-    parse: ['--lchuv'];
-    serialize: '--lchuv';
+    parse: ["--lchuv"];
+    serialize: "--lchuv";
 
     ranges: {
         l: [0, 100];
@@ -49,4 +49,4 @@ declare const definition: {
     };
 };
 
-export default definition;
+export default modeLchuv;

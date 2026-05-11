@@ -1,16 +1,16 @@
 import {
+    ByteRange,
     CallbackType,
+    CharsetType,
     LoadCallbackType,
+    TagFrameFlags,
+    TagFrameHeader,
     TagFrames,
     TagHeader,
-    TagFrameHeader,
-    TagFrameFlags,
-    CharsetType,
-    ByteRange,
     TagType,
-} from '../types';
-import MediaTagReader from './MediaTagReader';
-import MediaFileReader from './MediaFileReader';
+} from "../types";
+import MediaFileReader from "./MediaFileReader";
+import MediaTagReader from "./MediaTagReader";
 
 export default class ID3v2TagReader extends MediaTagReader {
     static getTagIdentifierByteRange(): ByteRange;
@@ -23,5 +23,5 @@ export default class ID3v2TagReader extends MediaTagReader {
 
     _getFrameData(frames: TagFrames, ids: string[]): any;
 
-    getShortcuts(): {[key: string]: string|string[]};
+    getShortcuts(): { [key: string]: string | string[] };
 }

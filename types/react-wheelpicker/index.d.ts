@@ -1,8 +1,3 @@
-// Type definitions for react-wheelpicker 1.0
-// Project: https://github.com/sahilverma2209/react-wheelpicker
-// Definitions by: Timothy Odei Yirenkyi <https://github.com/tyirenkyi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import React = require("react");
 
 interface Props {

@@ -1,9 +1,3 @@
-// Type definitions for elasticlunr 0.9
-// Project: http://weixsong.github.io
-// Definitions by: Luis Rodrigues <https://github.com/goblindegook>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.1
-
 export = elasticlunr;
 
 declare function elasticlunr<T extends {}>(
@@ -51,7 +45,7 @@ declare namespace elasticlunr {
         static load<T>(serialisedData: SerialisedDocumentStore<T>): DocumentStore<T>;
     }
 
-    type EventType = 'add' | 'update' | 'remove';
+    type EventType = "add" | "update" | "remove";
     type EventHandler = (...args: any[]) => void;
 
     class EventEmitter {
@@ -85,7 +79,7 @@ declare namespace elasticlunr {
         [key: string]: T;
     }
 
-    type Bool = 'OR' | 'AND';
+    type Bool = "OR" | "AND";
 
     type FieldSearchConfig<T extends {}> = {
         [K in keyof T]?: {
@@ -149,7 +143,7 @@ declare namespace elasticlunr {
 
         idf(term: string, field: keyof T): number;
 
-        mergeScores(accumScores: SearchScores | null, scores: SearchScores, op: 'AND' | 'OR'): SearchScores;
+        mergeScores(accumScores: SearchScores | null, scores: SearchScores, op: "AND" | "OR"): SearchScores;
 
         off(name: EventType, fn: EventHandler): void;
 
@@ -247,6 +241,7 @@ declare namespace elasticlunr {
 
     type SerialisedPipeline = string[];
 
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     type PipelineFunction = (token: string, i: number, tokens: string[]) => string | undefined | null | void;
 
     class Pipeline {

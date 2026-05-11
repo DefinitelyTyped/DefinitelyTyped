@@ -1,51 +1,47 @@
-import gulpResponsiveImages = require('gulp-responsive-images');
+import gulpResponsiveImages = require("gulp-responsive-images");
 
 // @ts-expect-error
 gulpResponsiveImages();
 
-gulpResponsiveImages({});       // $ExpectType Transform
+gulpResponsiveImages({}); // $ExpectType Transform
 
 // @ts-expect-error
 gulpResponsiveImages({ 1: "abcd" });
 
 gulpResponsiveImages({
-    'hero.png': [
-        {
-        }
-    ]
-}
-);
+    "hero.png": [
+        {},
+    ],
+});
 
 gulpResponsiveImages({
-    'hero.png': [
+    "hero.png": [
         {
             crop: false,
-            gravity: 'Center',
+            gravity: "Center",
             height: 100,
             overwrite: true,
             quality: 100,
             sharpen: false,
-            suffix: '-100',
+            suffix: "-100",
             upscale: false,
-            width: 100
-        }
-    ]
-}
-);
+            width: 100,
+        },
+    ],
+});
 
 gulpResponsiveImages({
-    'hero.png': [
+    "hero.png": [
         {
             format: "jpeg",
             rename: "image.jpg",
-            percentage: 50
-        }
-    ]
-}
-);
+            percentage: 50,
+        },
+    ],
+});
 
 gulpResponsiveImages({
-    'hero.png': [
+    "hero.png": [
         {
             crop: undefined,
             gravity: undefined,
@@ -58,8 +54,7 @@ gulpResponsiveImages({
             width: undefined,
             format: undefined,
             rename: undefined,
-            percentage: undefined
-        }
-    ]
-}
-);
+            percentage: undefined,
+        },
+    ],
+});

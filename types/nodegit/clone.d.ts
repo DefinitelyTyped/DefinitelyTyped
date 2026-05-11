@@ -1,5 +1,5 @@
-import { Repository } from './repository';
-import { CloneOptions } from './clone-options';
+import { CloneOptions } from "./clone-options";
+import { Repository } from "./repository";
 
 export namespace Clone {
     const enum LOCAL {

@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/jquery-drawer",
+    "version": "3.2.9999",
+    "projects": [
+        "http://git.blivesta.com/drawer"
+    ],
+    "dependencies": {
+        "@types/iscroll": "*",
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/jquery-drawer": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Pine Mizune",
+            "githubUsername": "pine"
+        }
+    ]
+}

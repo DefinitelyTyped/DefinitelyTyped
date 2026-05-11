@@ -27,27 +27,28 @@
 // See https://github.com/facebook/react/blob/main/packages/react-dom/index.experimental.js to see how the exports are declared,
 // but confirm with published source code (e.g. https://unpkg.com/react-dom@experimental) that these exports end up in the published code
 
-import React = require('react');
-import ReactDOM = require('./canary');
+import React = require("react");
+import ReactDOM = require("./canary");
 
 export {};
 
-declare module '.' {
-    interface FormStatusNotPending {
-        pending: false;
-        data: null;
-        method: null;
-        action: null;
+declare const UNDEFINED_VOID_ONLY: unique symbol;
+type VoidOrUndefinedOnly = void | { [UNDEFINED_VOID_ONLY]: never };
+
+declare module "." {
+}
+
+declare module "react" {
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
+    interface GestureProvider extends AnimationTimeline {}
+}
+
+declare module "./client" {
+    type TransitionIndicatorCleanup = () => VoidOrUndefinedOnly;
+    interface RootOptions {
+        onDefaultTransitionIndicator?: (() => void | TransitionIndicatorCleanup) | undefined;
     }
-
-    interface FormStatusPending {
-        pending: true;
-        data: FormData;
-        method: string;
-        action: string | ((formData: FormData) => void | Promise<void>);
+    interface HydrationOptions {
+        onDefaultTransitionIndicator?: (() => void | TransitionIndicatorCleanup) | undefined;
     }
-
-    type FormStatus = FormStatusPending | FormStatusNotPending;
-
-    function experimental_useFormStatus(): FormStatus;
 }

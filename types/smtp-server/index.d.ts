@@ -1,20 +1,11 @@
-// Type definitions for smtp-server 3.5
-// Project: https://github.com/nodemailer/smtp-server, https://github.com/andris9/smtp-server
-// Definitions by: markisme <https://github.com/markisme>
-//                 taisiias <https://github.com/Taisiias>
-//                 Piotr Roszatycki <https://github.com/dex4er>
-//                 Paul Oms <https://github.com/paul-oms>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.3
-
 /// <reference types="node" />
 /// <reference types="nodemailer" />
 
-import { EventEmitter } from 'events';
-import * as net from 'net';
-import * as shared from 'nodemailer/lib/shared';
-import { PassThrough } from 'stream';
-import * as tls from 'tls';
+import { EventEmitter } from "events";
+import * as net from "net";
+import * as shared from "nodemailer/lib/shared";
+import { PassThrough } from "stream";
+import * as tls from "tls";
 
 export type ms = number;
 
@@ -33,7 +24,7 @@ export interface SMTPServerAuthentication {
     /**
      * indicates the authentication method used, 'PLAIN', 'LOGIN' or 'XOAUTH2'
      */
-    method: 'PLAIN' | 'LOGIN' | 'XOAUTH2';
+    method: "PLAIN" | "LOGIN" | "XOAUTH2";
     /**
      * the username of the user
      */
@@ -114,8 +105,8 @@ export interface SMTPServerSession {
     tlsOptions: tls.TlsOptions;
 
     /*
-    * Optional parameter that is added to the session object if provided to the onAuth callback
-    */
+     * Optional parameter that is added to the session object if provided to the onAuth callback
+     */
     user?: string | undefined;
 }
 
@@ -167,9 +158,13 @@ export interface SMTPServerOptions extends tls.TlsOptions {
     banner?: string | undefined;
     /**
      * optional maximum allowed message size in bytes
-     * ([see details](https://github.com/andris9/smtp-server#using-size-extension))
+     * ([see details](https://nodemailer.com/extras/smtp-server#using-the-size-extension))
      */
     size?: number | undefined;
+    /**
+     * Hide the SIZE limit from clients but still track `stream.sizeExceeded`
+     */
+    hideSize?: boolean | undefined;
     /**
      * optional array of allowed authentication methods, defaults to ['PLAIN', 'LOGIN'].
      * Only the methods listed in this array are allowed,
@@ -209,6 +204,15 @@ export interface SMTPServerOptions extends tls.TlsOptions {
      * optional boolean, if set to true then does not show SMTPUTF8 in features list
      */
     hideSMTPUTF8?: boolean | undefined;
+    /**
+     * Enable or disable the ENHANCEDSTATUSCODES capability in EHLO response.
+     * Enhanced status codes are disabled by default.
+     */
+    hideENHANCEDSTATUSCODES?: boolean | undefined;
+    /**
+     * optional boolean, if set to true then does not show DSN in features list, by default DSN is disabled
+     */
+    hideDSN?: boolean;
     /**
      * optional boolean, if set to true allows authentication even if connection is not secured first
      */
@@ -265,25 +269,41 @@ export interface SMTPServerOptions extends tls.TlsOptions {
      */
     closeTimeout?: ms | undefined;
     /**
-     * The callback to handle authentications ([see details](https://github.com/andris9/smtp-server#handling-authentication))
+     * The callback to handle authentications ([see details](https://nodemailer.com/extras/smtp-server#handling-authentication-onauth))
      */
-    onAuth?(auth: SMTPServerAuthentication, session: SMTPServerSession, callback: (err: Error | null | undefined, response?: SMTPServerAuthenticationResponse) => void): void;
+    onAuth?(
+        auth: SMTPServerAuthentication,
+        session: SMTPServerSession,
+        callback: (err: Error | null | undefined, response?: SMTPServerAuthenticationResponse) => void,
+    ): void;
     /**
-     * The callback to handle the client connection. ([see details](https://github.com/andris9/smtp-server#validating-client-connection))
+     * The callback to handle the client connection. ([see details](https://nodemailer.com/extras/smtp-server#validating-client-connection-onconnect--onclose))
      */
     onConnect?(session: SMTPServerSession, callback: (err?: Error | null) => void): void;
     /**
-     * the callback to validate MAIL FROM commands ([see details](https://github.com/andris9/smtp-server#validating-sender-addresses))
+     * [see details](https://nodemailer.com/extras/smtp-server#validating-tls-information-onsecure)
+     */
+    onSecure?(
+        socket: net.Socket | tls.TLSSocket,
+        session: SMTPServerSession,
+        callback: (err?: Error | null) => void,
+    ): void;
+    /**
+     * the callback to validate MAIL FROM commands ([see details](https://nodemailer.com/extras/smtp-server#validating-sender-onmailfrom))
      */
     onMailFrom?(address: SMTPServerAddress, session: SMTPServerSession, callback: (err?: Error | null) => void): void;
     /**
-     * The callback to validate RCPT TO commands ([see details](https://github.com/andris9/smtp-server#validating-recipient-addresses))
+     * The callback to validate RCPT TO commands ([see details](https://nodemailer.com/extras/smtp-server#validating-recipients-onrcptto))
      */
     onRcptTo?(address: SMTPServerAddress, session: SMTPServerSession, callback: (err?: Error | null) => void): void;
     /**
-     * the callback to handle incoming messages ([see details](https://github.com/andris9/smtp-server#processing-incoming-message))
+     * the callback to handle incoming messages ([see details](https://nodemailer.com/extras/smtp-server#processing-incoming-messages-ondata))
      */
-    onData?(stream: SMTPServerDataStream, session: SMTPServerSession, callback: (err?: Error | null) => void): void;
+    onData?(
+        stream: SMTPServerDataStream,
+        session: SMTPServerSession,
+        callback: (err?: Error | null, message?: string) => void,
+    ): void;
     /**
      * the callback that informs about closed client connection
      */
@@ -317,49 +337,57 @@ export class SMTPServer extends EventEmitter {
     updateSecureContext(options: tls.TlsOptions): void;
 
     /** Authentication handler. Override this */
-    onAuth(auth: SMTPServerAuthentication, session: SMTPServerSession, callback: (err: Error | null | undefined, response?: SMTPServerAuthenticationResponse) => void): void;
+    onAuth(
+        auth: SMTPServerAuthentication,
+        session: SMTPServerSession,
+        callback: (err: Error | null | undefined, response?: SMTPServerAuthenticationResponse) => void,
+    ): void;
     /** Override this */
     onClose(session: SMTPServerSession, callback: (err?: Error | null) => void): void;
     /** Override this */
     onConnect(session: SMTPServerSession, callback: (err?: Error | null) => void): void;
     /** Override this */
-    onData(stream: SMTPServerDataStream, session: SMTPServerSession, callback: (err?: Error | null) => void): void;
+    onData(
+        stream: SMTPServerDataStream,
+        session: SMTPServerSession,
+        callback: (err?: Error | null, message?: string) => void,
+    ): void;
     /** Override this */
     onMailFrom(address: SMTPServerAddress, session: SMTPServerSession, callback: (err?: Error | null) => void): void;
     /** Override this */
     onRcptTo(address: SMTPServerAddress, session: SMTPServerSession, callback: (err?: Error | null) => void): void;
 
-    addListener(event: 'close', listener: () => void): this;
-    addListener(event: 'error', listener: (err: Error) => void): this;
+    addListener(event: "close", listener: () => void): this;
+    addListener(event: "error", listener: (err: Error) => void): this;
 
-    emit(event: 'close'): boolean;
-    emit(event: 'error', err: Error): boolean;
+    emit(event: "close"): boolean;
+    emit(event: "error", err: Error): boolean;
 
-    listenerCount(event: 'close' | 'error'): number;
+    listenerCount(event: "close" | "error"): number;
 
-    listeners(event: 'close'): Array<() => void>;
-    listeners(event: 'error'): Array<(err: Error) => void>;
+    listeners(event: "close"): Array<() => void>;
+    listeners(event: "error"): Array<(err: Error) => void>;
 
-    off(event: 'close', listener: () => void): this;
-    off(event: 'error', listener: (err: Error) => void): this;
+    off(event: "close", listener: () => void): this;
+    off(event: "error", listener: (err: Error) => void): this;
 
-    on(event: 'close', listener: () => void): this;
-    on(event: 'error', listener: (err: Error) => void): this;
+    on(event: "close", listener: () => void): this;
+    on(event: "error", listener: (err: Error) => void): this;
 
-    once(event: 'close', listener: () => void): this;
-    once(event: 'error', listener: (err: Error) => void): this;
+    once(event: "close", listener: () => void): this;
+    once(event: "error", listener: (err: Error) => void): this;
 
-    prependListener(event: 'close', listener: () => void): this;
-    prependListener(event: 'error', listener: (err: Error) => void): this;
+    prependListener(event: "close", listener: () => void): this;
+    prependListener(event: "error", listener: (err: Error) => void): this;
 
-    prependOnceListener(event: 'close', listener: () => void): this;
-    prependOnceListener(event: 'error', listener: (err: Error) => void): this;
+    prependOnceListener(event: "close", listener: () => void): this;
+    prependOnceListener(event: "error", listener: (err: Error) => void): this;
 
-    rawListeners(event: 'close'): Array<() => void>;
-    rawListeners(event: 'error'): Array<(err: Error) => void>;
+    rawListeners(event: "close"): Array<() => void>;
+    rawListeners(event: "error"): Array<(err: Error) => void>;
 
-    removeAllListener(event: 'close' | 'error'): this;
+    removeAllListener(event: "close" | "error"): this;
 
-    removeListener(event: 'close', listener: () => void): this;
-    removeListener(event: 'error', listener: (err: Error) => void): this;
+    removeListener(event: "close", listener: () => void): this;
+    removeListener(event: "error", listener: (err: Error) => void): this;
 }

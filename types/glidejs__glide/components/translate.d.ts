@@ -1,4 +1,4 @@
-export type TranslateEvents = 'translate.jump';
+export type TranslateEvents = "translate.jump";
 
 export interface TranslateEventsBus {
     on(event: TranslateEvents, handler: () => void): { remove(): void };

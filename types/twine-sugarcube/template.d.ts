@@ -1,4 +1,4 @@
-export  interface TemplateExpansionContext {
+export interface TemplateExpansionContext {
     /**
      * The template's name.
      */
@@ -67,7 +67,7 @@ export interface TemplateAPI {
      * // Deletes the templates ?yolo and ?nolf.
      * Template.delete(['yolo', 'nolf']);
      */
-    delete(name: string|string[]): void;
+    delete(name: string | string[]): void;
 
     /**
      * Return the named template definition, or null on failure.

@@ -1,11 +1,11 @@
-import OrcidStrategy = require('passport-orcid');
+import OrcidStrategy = require("passport-orcid");
 import {
     Strategy,
     StrategyOptions,
     StrategyOptionsWithRequest,
     VerifyFunction,
     VerifyFunctionWithRequest,
-} from 'passport-orcid';
+} from "passport-orcid";
 
 const strategy: OrcidStrategy = {} as any;
 const options1: StrategyOptions = {} as any;
@@ -41,23 +41,23 @@ const options1WithNoClientSecret: StrategyOptions = {
 const options1withAuthorizationUrl: StrategyOptions = {
     ...options1,
     // @ts-expect-error
-    authorizationURL: 'http://www.example.com/auth',
+    authorizationURL: "http://www.example.com/auth",
 };
 
 const options1withTokenUrl: StrategyOptions = {
     ...options1,
     // @ts-expect-error
-    tokenURL: 'http://www.example.com/token',
+    tokenURL: "http://www.example.com/token",
 };
 
 const options2withAuthorizationUrl: StrategyOptionsWithRequest = {
     ...options2,
     // @ts-expect-error
-    authorizationURL: 'http://www.example.com/auth',
+    authorizationURL: "http://www.example.com/auth",
 };
 
 const options2withTokenUrl: StrategyOptionsWithRequest = {
     ...options2,
     // @ts-expect-error
-    tokenURL: 'http://www.example.com/token',
+    tokenURL: "http://www.example.com/token",
 };

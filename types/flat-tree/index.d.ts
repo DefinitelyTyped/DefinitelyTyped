@@ -1,8 +1,3 @@
-// Type definitions for flat-tree 1.9
-// Project: https://github.com/mafintosh/flat-tree
-// Definitions by: Martin Heidegger <https://github.com/martinheidegger>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * @returns an array index for the tree element at the given depth and offset.
  */

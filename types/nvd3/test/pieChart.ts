@@ -1,5 +1,4 @@
 namespace nvd3_test_pieChart {
-
     var testdata = [
         { key: "One", y: 5, color: "#5F5" },
         { key: "Two", y: 2 },
@@ -7,7 +6,7 @@ namespace nvd3_test_pieChart {
         { key: "Four", y: 7 },
         { key: "Five", y: 4 },
         { key: "Six", y: 3 },
-        { key: "Seven", y: 0.5 }
+        { key: "Seven", y: 0.5 },
     ];
     var testdata2 = [
         { key: "One", y: 5 },
@@ -16,28 +15,32 @@ namespace nvd3_test_pieChart {
         { key: "Four", y: 7 },
         { key: "Five", y: 4 },
         { key: "Six", y: 3 },
-        { key: "Seven", y: 0.5 }
+        { key: "Seven", y: 0.5 },
     ];
 
     var height = 350;
     var width = 350;
 
-    nv.addGraph(function () {
+    nv.addGraph(function() {
         var chart = nv.models.pieChart()
-            .x(function (d) { return d.key })
-            .y(function (d) { return d.y })
+            .x(function(d) {
+                return d.key;
+            })
+            .y(function(d) {
+                return d.y;
+            })
             .width(width)
             .height(height);
 
         d3.select("#test1")
             .datum(testdata2)
             .transition().duration(1200)
-            .attr('width', width)
-            .attr('height', height)
+            .attr("width", width)
+            .attr("height", height)
             .call(chart);
 
         // update chart data values randomly
-        setInterval(function () {
+        setInterval(function() {
             testdata2[0].y = Math.floor(Math.random() * 10);
             testdata2[1].y = Math.floor(Math.random() * 10);
             chart.update();
@@ -46,25 +49,33 @@ namespace nvd3_test_pieChart {
         return chart;
     });
 
-    nv.addGraph(function () {
+    nv.addGraph(function() {
         var chart = nv.models.pieChart()
-            .x(function (d) { return d.key })
-            .y(function (d) { return d.y })
-            //.labelThreshold(.08)
-            //.showLabels(false)
+            .x(function(d) {
+                return d.key;
+            })
+            .y(function(d) {
+                return d.y;
+            })
+            // .labelThreshold(.08)
+            // .showLabels(false)
             .color(d3.scale.category20().range().slice(8))
             .growOnHover(false)
-            .labelType('value')
+            .labelType("value")
             .width(width)
             .height(height);
 
         // make it a half circle
         chart.pie
-            .startAngle(function (d) { return d.startAngle / 2 - Math.PI / 2 })
-            .endAngle(function (d) { return d.endAngle / 2 - Math.PI / 2 });
+            .startAngle(function(d) {
+                return d.startAngle / 2 - Math.PI / 2;
+            })
+            .endAngle(function(d) {
+                return d.endAngle / 2 - Math.PI / 2;
+            });
 
         // MAKES LABELS OUTSIDE OF PIE/DONUT
-        //chart.pie.donutLabelsOutside(true).donut(true);
+        // chart.pie.donutLabelsOutside(true).donut(true);
 
         // LISTEN TO CLICK EVENTS ON SLICES OF THE PIE/DONUT
         // chart.pie.dispatch.on('elementClick', function() {
@@ -91,18 +102,17 @@ namespace nvd3_test_pieChart {
         d3.select("#test2")
             .datum(testdata)
             .transition().duration(1200)
-            .attr('width', width)
-            .attr('height', height)
+            .attr("width", width)
+            .attr("height", height)
             .call(chart);
 
         // disable and enable some of the sections
         var is_disabled = false;
-        setInterval(function () {
-            chart.dispatch['changeState']({ disabled: { 2: !is_disabled, 4: !is_disabled } });
+        setInterval(function() {
+            chart.dispatch["changeState"]({ disabled: { 2: !is_disabled, 4: !is_disabled } });
             is_disabled = !is_disabled;
         }, 3000);
 
         return chart;
     });
-
 }

@@ -1,8 +1,3 @@
-// Type definitions for gulp-changed
-// Project: https://github.com/sindresorhus/gulp-changed
-// Definitions by: Thomas Corbière <https://github.com/tomc974>, Jordy van Dortmont <https://github.com/jordyvandortmont>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node"/>
 /// <reference types="vinyl" />
 
@@ -39,7 +34,7 @@ interface IOptions {
      * @default changed.compareLastModifiedTime
      */
     hasChanged?: IComparator | undefined;
-    
+
     /**
      * Function to transform the path to the destination file. Should return the absolute path to the (renamed) destination file.
      */

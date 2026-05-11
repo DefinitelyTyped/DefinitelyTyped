@@ -1,4 +1,4 @@
-import { ConfigValues, Disposable, ScopeDescriptor } from '../index';
+import { ConfigValues, Disposable, ScopeDescriptor } from "../index";
 
 /** Used to access all of Atom's configuration details. */
 export interface Config {
@@ -72,7 +72,11 @@ export interface Config {
      */
     getAll<T extends keyof ConfigValues>(
         keyPath: T,
-        options?: { sources?: string[] | undefined; excludeSources?: string[] | undefined; scope?: ScopeDescriptor | undefined },
+        options?: {
+            sources?: string[] | undefined;
+            excludeSources?: string[] | undefined;
+            scope?: ScopeDescriptor | undefined;
+        },
     ): Array<{ scopeDescriptor: ScopeDescriptor; value: ConfigValues[T] }>;
 
     /**

@@ -1,4 +1,4 @@
-import pauseMe = require('pause-me');
+import pauseMe = require("pause-me");
 
 const myTimeout: pauseMe.PausableTimeout = pauseMe(() => {}, 5000);
 myTimeout.pause();

@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/node-dogstatsd",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/joybro/node-dogstatsd"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/node-dogstatsd": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Chris Bobo",
+            "githubUsername": "chrisbobo"
+        },
+        {
+            "name": "Michael Mifsud",
+            "githubUsername": "xzyfer"
+        }
+    ]
+}

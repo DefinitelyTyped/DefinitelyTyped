@@ -1,4 +1,4 @@
-import CircuitBreaker = require('circuit-breaker-js');
+import CircuitBreaker = require("circuit-breaker-js");
 
 const breaker = new CircuitBreaker();
 breaker.isOpen();

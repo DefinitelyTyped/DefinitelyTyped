@@ -1,1 +1,1 @@
-export * from '../with-selector';
+export * from "../with-selector";

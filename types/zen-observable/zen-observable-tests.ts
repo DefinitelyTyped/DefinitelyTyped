@@ -1,4 +1,4 @@
-import Observable = require('zen-observable');
+import Observable = require("zen-observable");
 
 // $ExpectType Subscription
 new Observable<number>(
@@ -103,7 +103,7 @@ Observable.of(1, 2, 3).reduce(
 Observable.of(1, 2, 3).reduce(
     // $ExpectType (acc: string, val: number) => string
     (acc, val) => acc + val,
-    '',
+    "",
 );
 
 /**

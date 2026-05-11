@@ -202,7 +202,7 @@
 declare module "uuid" {
     
 
-    module uuid {
+    namespace uuid {
         
         /**
          * 

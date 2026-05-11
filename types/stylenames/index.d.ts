@@ -1,17 +1,13 @@
-// Type definitions for stylenames 1.1
-// Project: https://github.com/kmathmann/stylenames
-// Definitions by: Ben Grynhaus <https://github.com/bengry>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
+declare namespace styleNames {
+    type StyleValueConditionFunction = () => boolean | null | undefined;
 
-export type StyleValueConditionFunction = () => boolean | null | undefined;
+    type StyleValueObject = Record<string | number, boolean | StyleValueConditionFunction>;
 
-export type StyleValueObject = Record<string | number, boolean | StyleValueConditionFunction>;
+    type StyleValue = null | undefined | string | StyleValueObject;
 
-export type StyleValue = null | undefined | string | StyleValueObject;
+    type StyleObject = Partial<Record<keyof CSSStyleDeclaration, StyleValue>>;
+}
 
-export type StyleObject = Partial<Record<keyof CSSStyleDeclaration, StyleValue>>;
+declare function styleNames(styles: styleNames.StyleObject): string;
 
-declare function styleNames(styles: StyleObject): string;
-
-export default styleNames;
+export = styleNames;

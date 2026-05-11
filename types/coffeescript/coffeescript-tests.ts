@@ -9,11 +9,11 @@ const outputWithoutOptions = CoffeeScript.compile(coffeeScriptFn);
 const outputWithOptions = CoffeeScript.compile(coffeeScriptFn, {
     ast: false,
     bare: true,
-    filename: 'isUnique-polyfill.js',
+    filename: "isUnique-polyfill.js",
     header: true,
     inlineMap: true,
     sourceMap: false,
-    transpile: { presets: ["@babel/env"] }
+    transpile: { presets: ["@babel/env"] },
 });
 
 // $ExpectType CodeWithSourceMap

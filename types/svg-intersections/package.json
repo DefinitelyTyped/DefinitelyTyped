@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/svg-intersections",
+    "version": "0.4.9999",
+    "projects": [
+        "https://github.com/effektif/svg-intersections#readme"
+    ],
+    "devDependencies": {
+        "@types/svg-intersections": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "xWiiLLz",
+            "githubUsername": "xWiiLLz"
+        }
+    ]
+}

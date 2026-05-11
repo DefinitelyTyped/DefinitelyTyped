@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/agiledigital__mule-preview",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/agiledigital/mule-preview"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/agiledigital__mule-preview": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sean Dawson",
+            "githubUsername": "NoxHarmonium"
+        }
+    ]
+}

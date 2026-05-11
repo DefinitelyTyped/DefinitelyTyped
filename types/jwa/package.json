@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/jwa",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/auth0/node-jwa#readme"
+    ],
+    "devDependencies": {
+        "@types/jwa": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Daniel Hritzkiv",
+            "githubUsername": "dhritzkiv"
+        }
+    ]
+}

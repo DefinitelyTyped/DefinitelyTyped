@@ -1,6 +1,6 @@
-import emptyDir = require('empty-dir');
+import emptyDir = require("empty-dir");
 
-emptyDir('./', (err, isEmpty) => {
+emptyDir("./", (err, isEmpty) => {
     // $ExpectType ErrnoException
     err;
     // $ExpectType boolean
@@ -10,7 +10,7 @@ emptyDir('./', (err, isEmpty) => {
 // $ExpectType boolean
 emptyDir.sync(["./test", "./array"]);
 
-emptyDir(['x'], (err, isEmpty) => {
+emptyDir(["x"], (err, isEmpty) => {
     // $ExpectType ErrnoException
     err;
     // $ExpectType boolean
@@ -18,13 +18,13 @@ emptyDir(['x'], (err, isEmpty) => {
 });
 
 // $ExpectType boolean
-emptyDir.sync('./test/empty');
+emptyDir.sync("./test/empty");
 
 function filter(filepath: string) {
     return !/(Thumbs\.db|\.DS_Store)$/i.test(filepath);
 }
 
-emptyDir('./', filter, (err, isEmpty) => {
+emptyDir("./", filter, (err, isEmpty) => {
     // $ExpectType ErrnoException
     err;
     // $ExpectType boolean
@@ -32,10 +32,10 @@ emptyDir('./', filter, (err, isEmpty) => {
 });
 
 // $ExpectType boolean
-emptyDir.sync('./test/empty', filter);
+emptyDir.sync("./test/empty", filter);
 
 // $ExpectType Promise<boolean>
-emptyDir('./');
+emptyDir("./");
 
 // $ExpectType Promise<boolean>
-emptyDir('./', filter);
+emptyDir("./", filter);

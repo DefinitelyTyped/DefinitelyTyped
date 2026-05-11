@@ -1,8 +1,3 @@
-// Type definitions for PDFObject 2.2
-// Project: https://github.com/pipwerks/PDFObject
-// Definitions by: Niels Boogaard <https://github.com/nielsboogaard>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 export as namespace PDFObject;
 export function embed(url: string, target?: any, options?: Options): HTMLElement;
 export const pdfobjectversion: "2.2.3";

@@ -46,7 +46,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): SearchInputWidget;
+            new(config?: ConfigOptions): SearchInputWidget;
             prototype: Prototype;
             static: Static;
             super: TextInputWidget.Constructor;

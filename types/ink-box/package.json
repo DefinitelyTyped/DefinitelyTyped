@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/ink-box",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/sindresorhus/ink-box#readme"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/ink-box": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "omjadas",
+            "githubUsername": "omjadas"
+        }
+    ]
+}

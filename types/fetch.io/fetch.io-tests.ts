@@ -1,68 +1,68 @@
-import Fetch from 'fetch.io';
+import Fetch from "fetch.io";
 
 const request = new Fetch();
 
 request
-  .get('')
-  .query({})
-  .json();
+    .get("")
+    .query({})
+    .json();
 
 request
-  .delete('')
-  .json();
+    .delete("")
+    .json();
 
 request
-  .head('')
-  .json();
+    .head("")
+    .json();
 
 request
-  .options('')
-  .json();
+    .options("")
+    .json();
 
 request
-  .put('')
-  .json();
+    .put("")
+    .json();
 
 request
-  .patch('')
-  .json();
+    .patch("")
+    .json();
 
 request
-  .config('key', 'value')
-  .json();
+    .config("key", "value")
+    .json();
 
 request
-  .config({key: 'value'})
-  .json();
+    .config({ key: "value" })
+    .json();
 
 request
-  .config('set', 'value')
-  .json();
+    .config("set", "value")
+    .json();
 
 request
-  .set({key: 'value'})
-  .json();
+    .set({ key: "value" })
+    .json();
 
 request
-  .type('json')
-  .json();
+    .type("json")
+    .json();
 
 request
-  .get('')
-  .query({})
-  .text();
+    .get("")
+    .query({})
+    .text();
 
 request
-  .get('')
-  .query({})
-  .then(() => {});
+    .get("")
+    .query({})
+    .then(() => {});
 
 request
-  .post('')
-  .send({})
-  .json();
+    .post("")
+    .send({})
+    .json();
 
 request
-  .post('')
-  .append('key', 'value')
-  .append({key: 'value'});
+    .post("")
+    .append("key", "value")
+    .append({ key: "value" });

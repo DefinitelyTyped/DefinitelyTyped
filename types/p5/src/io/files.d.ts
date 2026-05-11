@@ -1,6 +1,6 @@
 // This file was auto-generated. Please do not edit it.
 
-import * as p5 from '../../index';
+import p5 = require("../../index");
 
 declare module '../../index' {
     class PrintWriter {
@@ -128,7 +128,7 @@ declare module '../../index' {
          *   array of its individual lines. If the name of the
          *   file is used as the parameter, as in the above
          *   example, the file must be located in the sketch
-         *   directory/folder. Alternatively, the file maybe be
+         *   directory/folder. Alternatively, the file may be
          *   loaded from anywhere on the local computer using
          *   an absolute path (something that starts with / on
          *   Unix and Linux, or a drive letter on Windows), or

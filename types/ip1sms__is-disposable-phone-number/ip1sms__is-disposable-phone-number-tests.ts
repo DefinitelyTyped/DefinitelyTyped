@@ -1,3 +1,3 @@
-import disposable = require('@ip1sms/is-disposable-phone-number');
+import disposable = require("@ip1sms/is-disposable-phone-number");
 
-disposable(''); // $ExpectType boolean
+disposable(""); // $ExpectType boolean

@@ -1,6 +1,23 @@
 {
     "private": true,
+    "name": "@types/activex-stdole",
+    "version": "2.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "OLE Automation - stdole",
+    "projects": [
+        "https://msdn.microsoft.com/en-us/library/hh272953.aspx"
+    ],
     "dependencies": {
+        "@types/activex-interop": "*",
         "activex-helpers": "*"
-    }
+    },
+    "devDependencies": {
+        "@types/activex-stdole": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Zev Spitz",
+            "githubUsername": "zspitz"
+        }
+    ]
 }

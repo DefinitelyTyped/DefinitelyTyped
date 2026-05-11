@@ -1,6 +1,6 @@
-import { Browser, Page, BrowserContext } from 'puppeteer';
-import JestEnvironmentPuppeteer from 'jest-environment-puppeteer';
-import { Config, Circus } from '@jest/types';
+import { Circus, Config } from "@jest/types";
+import JestEnvironmentPuppeteer from "jest-environment-puppeteer";
+import { Browser, BrowserContext, Page } from "puppeteer";
 
 const myBrowser: Browser = browser; // $ExpectType Browser
 const myPage: Page = page; // $ExpectType Page
@@ -17,7 +17,7 @@ class CustomJestEnvironment extends JestEnvironmentPuppeteer {
 
     async setup() {
         await super.setup();
-        await this.global.page.goto('https://www.google.com');
+        await this.global.page.goto("https://www.google.com");
     }
 
     async teardown() {
@@ -26,12 +26,12 @@ class CustomJestEnvironment extends JestEnvironmentPuppeteer {
     }
 
     async handleTestEvent(event: Circus.Event, state: Circus.State) {
-        if (event.name === 'test_fn_failure') {
-            console.error('woaw your test failed, you should feel bad!');
+        if (event.name === "test_fn_failure") {
+            console.error("woaw your test failed, you should feel bad!");
         }
     }
 }
 
-type JestEnvironmentPuppeteerGlobal = JestEnvironmentPuppeteer['global']; // $ExpectType Global
-type JestEnvironmentPuppeteerGlobalPuppeteer = JestEnvironmentPuppeteer['global']['jestPuppeteer']; // $ExpectType JestPuppeteer
-type JestEnvironmentPuppeteerFakeTimers = JestEnvironmentPuppeteer['fakeTimers']; // $ExpectType FakeTimers<Timer> | null
+type JestEnvironmentPuppeteerGlobal = JestEnvironmentPuppeteer["global"]; // $ExpectType Global
+type JestEnvironmentPuppeteerGlobalPuppeteer = JestEnvironmentPuppeteer["global"]["jestPuppeteer"]; // $ExpectType JestPuppeteer
+type JestEnvironmentPuppeteerFakeTimers = JestEnvironmentPuppeteer["fakeTimers"]; // $ExpectType FakeTimers<Timer> | null

@@ -1,13 +1,16 @@
 import { Emitter } from './emitter';
 
+export type PayPalDisplayConfig = {
+  locale?: string;
+  displayName?: string;
+  amount?: string;
+};
+
 export type BraintreeConfig = {
   braintree: {
     clientAuthorization: string;
   };
-  display?: {
-    locale?: string;
-    displayName?: string;
-    amount?: string;
+  display?: PayPalDisplayConfig & {
     enableShippingAddress?: boolean;
     shippingAddressOverride?: any;
     shippingAddressEditable?: boolean;
@@ -18,16 +21,35 @@ export type BraintreeConfig = {
 
 export type DirectConfig = {
   gatewayCode?: string;
-  display?: {
-    locale?: string;
-    displayName?: string;
-    amount?: string;
+  display?: PayPalDisplayConfig & {
     logoImageUrl?: string;
     headerImageUrl?: string;
   };
 };
 
-export type PayPalConfig = BraintreeConfig | DirectConfig;
+export type UsagePattern =
+  | 'SUBSCRIPTION_PREPAID'
+  | 'SUBSCRIPTION_POSTPAID'
+  | 'RECURRING_PREPAID'
+  | 'RECURRING_POSTPAID'
+  | 'UNSCHEDULED_POSTPAID'
+  | 'UNSCHEDULED_PREPAID'
+  | 'INSTALLMENT_POSTPAID'
+  | 'INSTALLMENT_PREPAID';
+
+export type BillingPlan = {
+  [key: string]: any;
+};
+
+export type PayPalCompleteConfig = {
+  payPalComplete?: boolean | { target: string; buttonOptions?: object };
+  display?: PayPalDisplayConfig;
+  gatewayCode?: string;
+  usagePattern?: UsagePattern;
+  billingPlan?: BillingPlan;
+};
+
+export type PayPalConfig = BraintreeConfig | DirectConfig | PayPalCompleteConfig;
 
 export type PayPalEvent = 'error' | 'token' | 'cancel' | 'ready';
 

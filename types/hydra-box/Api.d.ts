@@ -1,5 +1,5 @@
-import { Term, DatasetCore, NamedNode } from '@rdfjs/types';
-import { LoaderRegistry } from 'rdf-loaders-registry';
+import { DatasetCore, NamedNode, Term } from "@rdfjs/types";
+import { LoaderRegistry } from "rdf-loaders-registry";
 
 declare namespace Api {
     interface ApiInit<D extends DatasetCore = DatasetCore> {
@@ -22,7 +22,7 @@ declare namespace Api {
     }
 }
 
-interface Api<D extends DatasetCore = DatasetCore> extends Api.Api<D> { }
+interface Api<D extends DatasetCore = DatasetCore> extends Api.Api<D> {}
 
 // tslint:disable-next-line no-unnecessary-class
 declare class Api<D extends DatasetCore = DatasetCore> {

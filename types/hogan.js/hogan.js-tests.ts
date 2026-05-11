@@ -1,4 +1,4 @@
-import Hogan = require('hogan.js');
+import Hogan = require("hogan.js");
 
 // $ExpectType HoganTemplate
 const compiled = Hogan.compile("{{#if}}{{value}}{{/if}}");
@@ -7,11 +7,11 @@ const compiled = Hogan.compile("{{#if}}{{value}}{{/if}}");
 Hogan.compile("<%_foo%><%value%><%/foo%>", {
     asString: true,
     sectionTags: [{
-        o: '_foo',
-        c: 'foo'
+        o: "_foo",
+        c: "foo",
     }],
-    delimiters: '<% %>',
-    disableLambda: true
+    delimiters: "<% %>",
+    disableLambda: true,
 });
 
 // $ExpectType string

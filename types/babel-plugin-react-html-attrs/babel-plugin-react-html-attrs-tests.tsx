@@ -36,7 +36,19 @@ const htmlAttributesTest = (
 
         <del datetime="test" />
 
-        <dialog open="" />
+        <dialog />
+        <dialog
+            closedby="closerequest"
+            onCancel={event => {
+                // $ExpectType SyntheticEvent<HTMLDialogElement, Event>
+                event;
+            }}
+            onClose={event => {
+                // $ExpectType SyntheticEvent<HTMLDialogElement, Event>
+                event;
+            }}
+            open
+        />
 
         <fieldset disabled="" />
 

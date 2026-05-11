@@ -1,6 +1,6 @@
-import './show-hint';
+import "./show-hint";
 
-declare module '../../' {
+declare module "../../" {
     interface HintHelpers {
         javascript: HintFunction;
         coffeescript: HintFunction;

@@ -1,0 +1,32 @@
+{
+    "private": true,
+    "name": "@types/mock-fs",
+    "version": "4.13.9999",
+    "projects": [
+        "https://github.com/tschaub/mock-fs"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/mock-fs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Wim Looman",
+            "githubUsername": "Nemo157"
+        },
+        {
+            "name": "Qubo",
+            "githubUsername": "tkqubo"
+        },
+        {
+            "name": "Porama Ruengrairatanaroj",
+            "githubUsername": "Seally"
+        },
+        {
+            "name": "Chris Shaw",
+            "githubUsername": "cshawaus"
+        }
+    ]
+}

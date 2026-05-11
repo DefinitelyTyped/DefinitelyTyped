@@ -1,7 +1,7 @@
-import one = require('one-time');
+import one = require("one-time");
 
 const fn = (foo: boolean) => {
-    return 'bar';
+    return "bar";
 };
 
 one(fn); // $ExpectType (foo: boolean) => string

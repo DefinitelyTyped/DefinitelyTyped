@@ -1,4 +1,4 @@
-import { BinaryFunction, UnaryFunction } from '../internal/types';
+import { BinaryFunction, UnaryFunction } from "../internal/types";
 
 declare function Pair(val1: unknown, val2: unknown): Pair;
 

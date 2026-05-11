@@ -1,6 +1,6 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
-() => {
+(() => {
     function square(value: number) {
         return value * value;
     }
@@ -69,4 +69,4 @@ import * as R from 'ramda';
         square,
         square,
     ]);
-};
+});

@@ -1,7 +1,7 @@
-import { BufferAttribute } from './BufferAttribute';
-import { InterleavedBuffer } from './InterleavedBuffer';
-import { Matrix4 } from './../math/Matrix4';
-import { Matrix } from './../math/Matrix3';
+import { Matrix3 } from "../math/Matrix3.js";
+import { Matrix4 } from "../math/Matrix4.js";
+import { BufferAttribute, TypedArray } from "./BufferAttribute.js";
+import { InterleavedBuffer } from "./InterleavedBuffer.js";
 
 /**
  * @see {@link https://threejs.org/docs/index.html#api/en/core/InterleavedBufferAttribute | Official Documentation}
@@ -57,7 +57,7 @@ export class InterleavedBufferAttribute {
      * The value of {@link InterleavedBufferAttribute.data | data}.{@link InterleavedBuffer.array | array}.
      * @remarks _get-only property_.
      */
-    get array(): ArrayLike<number>;
+    get array(): TypedArray;
 
     /**
      * Flag to indicate that the {@link data | .data} ({@link InterleavedBuffer}) attribute has changed and should be re-sent to the GPU.
@@ -84,13 +84,23 @@ export class InterleavedBufferAttribute {
      * Applies normal matrix {@link Matrix3 | m} to every Vector3 element of this InterleavedBufferAttribute.
      * @param m
      */
-    applyNormalMatrix(matrix: Matrix): this;
+    applyNormalMatrix(m: Matrix3): this;
 
     /**
      * Applies matrix {@link Matrix4 | m} to every Vector3 element of this InterleavedBufferAttribute, interpreting the elements as a direction vectors.
      * @param m
      */
-    transformDirection(matrix: Matrix): this;
+    transformDirection(m: Matrix4): this;
+
+    /**
+     * Returns the given component of the vector at the given index.
+     */
+    getComponent(index: number, component: number): number;
+
+    /**
+     * Sets the given component of the vector at the given index.
+     */
+    setComponent(index: number, component: number, value: number): this;
 
     /**
      * Returns the x component of the item at the given index.

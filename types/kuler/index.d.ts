@@ -1,8 +1,3 @@
-// Type definitions for kuler 2.0
-// Project: https://github.com/3rd-Eden/kuler
-// Definitions by: Tristan F. <https://github.com/LeoDog896>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface KulerInstance {
     prefix: string;
     suffix: string;

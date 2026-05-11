@@ -9,9 +9,9 @@ printer.getSelectedPaperSize("printerName"); // $ExpectType string
 printer.getSupportedJobCommands(); // $ExpectType string[]
 printer.getSupportedPrintFormats(); // $ExpectType string[]
 printer.printDirect({
-    data: 'test'
+    data: "test",
 });
 printer.printFile({
-    filename: 'test'
+    filename: "test",
 });
 printer.setJob("printerName", 5, "CANCEL"); // $ExpectType void

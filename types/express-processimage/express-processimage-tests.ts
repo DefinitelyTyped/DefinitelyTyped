@@ -1,7 +1,7 @@
-import { getCurves } from 'crypto';
-import express = require('express');
-import processImage = require('express-processimage');
-const root = '/path/to/my/static/files';
+import { getCurves } from "crypto";
+import express = require("express");
+import processImage = require("express-processimage");
+const root = "/path/to/my/static/files";
 
 express()
     .use(
@@ -15,7 +15,7 @@ express()
             filters: {
                 gfsicle: true,
             },
-            allowedImageSourceContentTypes: ['image/png'],
+            allowedImageSourceContentTypes: ["image/png"],
             allowOperation: operationName => true,
         }),
     )

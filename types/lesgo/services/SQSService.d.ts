@@ -1,11 +1,11 @@
-import SQS = require('aws-sdk2-types/clients/sqs');
+import SQS = require("aws-sdk2-types/clients/sqs");
 
 // { ClientConfiguration, BucketName, ObjectKey, GetObjectOutput }
 
 export interface SQSServiceParams {
-    accessKeyId: SQS.ClientConfiguration['accessKeyId'];
-    secretAccessKey: SQS.ClientConfiguration['secretAccessKey'];
-    region: SQS.ClientConfiguration['region'];
+    accessKeyId: SQS.ClientConfiguration["accessKeyId"];
+    secretAccessKey: SQS.ClientConfiguration["secretAccessKey"];
+    region: SQS.ClientConfiguration["region"];
 }
 
 export interface QueueConfig {

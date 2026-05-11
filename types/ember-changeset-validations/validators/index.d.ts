@@ -1,4 +1,4 @@
-import { ValidatorMapFunc } from '../index';
+import { ValidatorMapFunc } from "../index";
 
 export function validateFormat(
     options: {
@@ -7,7 +7,7 @@ export function validateFormat(
         regex?: RegExp;
         type?: string;
         inverse?: boolean;
-    }
+    },
 ): ValidatorMapFunc;
 
 export function validatePresence(
@@ -16,7 +16,7 @@ export function validatePresence(
         message?: string;
         ignoreBlank?: boolean;
         on?: string | string[];
-    } | boolean
+    } | boolean,
 ): ValidatorMapFunc;
 
 export function validateConfirmation(
@@ -24,7 +24,7 @@ export function validateConfirmation(
         on?: string;
         message?: string;
         allowBlank?: boolean;
-    }
+    },
 ): ValidatorMapFunc;
 
 export function validateDate(
@@ -35,7 +35,7 @@ export function validateDate(
         after?: Date | number;
         onOrAfter?: Date | number;
         message?: string;
-    }
+    },
 ): ValidatorMapFunc;
 
 export function validateExclusion(
@@ -45,7 +45,7 @@ export function validateExclusion(
         range?: number[];
         allowBlank?: boolean;
         message?: string;
-    }
+    },
 ): ValidatorMapFunc;
 
 export function validateInclusion(
@@ -55,7 +55,7 @@ export function validateInclusion(
         range?: number[];
         allowBlank?: boolean;
         message?: string;
-    }
+    },
 ): ValidatorMapFunc;
 
 export function validateLength(
@@ -65,7 +65,7 @@ export function validateLength(
         is?: number;
         allowBlank?: boolean;
         message?: string;
-    }
+    },
 ): ValidatorMapFunc;
 
 export function validateNumber(
@@ -80,7 +80,7 @@ export function validateNumber(
         positive?: boolean;
         odd?: boolean;
         even?: boolean;
-        multipleOf?: number
+        multipleOf?: number;
         message?: string;
-    }
+    },
 ): ValidatorMapFunc;

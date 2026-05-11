@@ -1,8 +1,3 @@
-// Type definitions for redux-watch 1.1
-// Project: https://github.com/jprichardson/redux-watch#readme
-// Definitions by: zoltan.boros <https://github.com/zoltan-boros>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * This type is suitable to describe path to a field of an object.
  * For details refer

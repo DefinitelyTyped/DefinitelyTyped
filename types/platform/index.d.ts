@@ -1,9 +1,3 @@
-// Type definitions for Platform 1.3
-// Project: https://github.com/bestiejs/platform.js
-// Definitions by: Jake Hickman <https://github.com/JakeH>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace platform;
 
 /**

@@ -1,4 +1,4 @@
-import Taglib from '../taglib-loader/Taglib';
+import Taglib from "../taglib-loader/Taglib";
 
 export function find(dirname: string, registeredTaglibs: Taglib[]): Taglib[];
 

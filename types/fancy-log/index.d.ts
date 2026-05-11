@@ -1,8 +1,3 @@
-// Type definitions for fancy-log 2.0
-// Project: https://github.com/gulpjs/fancy-log
-// Definitions by: Pine Mizune <https://github.com/pine>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace FancyLog {
     interface Logger {
         (...args: any[]): Logger;

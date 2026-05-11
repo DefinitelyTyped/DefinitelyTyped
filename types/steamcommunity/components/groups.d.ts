@@ -1,8 +1,15 @@
-import SteamID = require('steamid');
-import { gid, Callback, cid } from '../index';
+import SteamID = require("steamid");
+import { Callback, cid, gid } from "../index";
 
 export interface Groups {
-    getGroupMembers(gid: gid, callback: Callback, members: any[], link: string, addresses: any[], addressIdx: number): any;
+    getGroupMembers(
+        gid: gid,
+        callback: Callback,
+        members: any[],
+        link: string,
+        addresses: any[],
+        addressIdx: number,
+    ): any;
 
     getGroupMembersEx(gid: gid, addresses: any[], callback: Callback): void;
 
@@ -18,9 +25,26 @@ export interface Groups {
 
     deleteGroupAnnouncement(gid: gid, aid: any, callback: Callback): void;
 
-    scheduleGroupEvent(gid: gid, name: any, type: any, description: string, time: Date, server: any, callback: Callback): void;
+    scheduleGroupEvent(
+        gid: gid,
+        name: any,
+        type: any,
+        description: string,
+        time: Date,
+        server: any,
+        callback: Callback,
+    ): void;
 
-    editGroupEvent(gid: gid, id: any, name: string, type: any, description: string, time: Date, server: any, callback: Callback): void;
+    editGroupEvent(
+        gid: gid,
+        id: any,
+        name: string,
+        type: any,
+        description: string,
+        time: Date,
+        server: any,
+        callback: Callback,
+    ): void;
 
     deleteGroupEvent(gid: gid, id: any, callback: Callback): void;
 
@@ -50,7 +74,12 @@ export interface Groups {
      * @param approve - True to put them in the group, false to deny their membership
      * @param callback - Takes only an Error object/null as the first argument
      */
-    respondToGroupJoinRequests(gid: gid, steamIDs: SteamID | string | SteamID[] | string[], approve: boolean, callback: Callback): void;
+    respondToGroupJoinRequests(
+        gid: gid,
+        steamIDs: SteamID | string | SteamID[] | string[],
+        approve: boolean,
+        callback: Callback,
+    ): void;
 
     /**
      * Respond to *ALL* pending group-join requests for a particular group.

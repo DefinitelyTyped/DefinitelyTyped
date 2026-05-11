@@ -47,6 +47,10 @@ declare namespace OO.ui {
              * By default, the progress bar is indeterminate.
              */
             progress?: number | false;
+            /**
+             * Use a smaller inline variant on the progress bar
+             */
+            inline?: boolean;
         }
 
         type Static = Widget.Static;
@@ -72,7 +76,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): ProgressBarWidget;
+            new(config?: ConfigOptions): ProgressBarWidget;
             prototype: Prototype;
             static: Static;
             super: Widget.Constructor;

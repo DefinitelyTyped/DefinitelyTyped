@@ -1,6 +1,6 @@
-import CameraPhoto, { FACING_MODES, IMAGE_TYPES, CaptureConfigOption } from 'jslib-html5-camera-photo';
+import CameraPhoto, { CaptureConfigOption, FACING_MODES, IMAGE_TYPES } from "jslib-html5-camera-photo";
 
-const videoElement = document.createElement('video');
+const videoElement = document.createElement("video");
 
 // pass the video element to the constructor.
 const cameraPhoto = new CameraPhoto(videoElement);
@@ -82,8 +82,8 @@ const dataUri2 = cameraPhoto.getDataUri(config2);
 const cameraSettings = cameraPhoto.getCameraSettings();
 if (cameraSettings) {
     const { aspectRatio, frameRate, height, width } = cameraSettings;
-    const settingsStr =
-        `aspectRatio:${aspectRatio} ` + `frameRate: ${frameRate} ` + `height: ${height} ` + `width: ${width}`;
+    const settingsStr = `aspectRatio:${aspectRatio} ` + `frameRate: ${frameRate} ` + `height: ${height} `
+        + `width: ${width}`;
     console.log(settingsStr);
 }
 

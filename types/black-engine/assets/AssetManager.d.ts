@@ -57,11 +57,11 @@ export class AssetManager extends MessageDispatcher {
     get numErrors(): number;
     get state(): string;
 }
-import { MessageDispatcher } from '../messages/MessageDispatcher';
-import { Asset } from './Asset';
-import { Texture } from '../textures/Texture';
-import { Message } from '../messages/Message';
-import { BitmapFontData } from './BitmapFontAsset';
-import { GraphicsData } from '../display/GraphicsData';
-import { AtlasTexture } from '../textures/AtlasTexture';
-import { SoundClip } from '../audio/SoundClip';
+import { SoundClip } from "../audio/SoundClip";
+import { GraphicsData } from "../display/GraphicsData";
+import { Message } from "../messages/Message";
+import { MessageDispatcher } from "../messages/MessageDispatcher";
+import { AtlasTexture } from "../textures/AtlasTexture";
+import { Texture } from "../textures/Texture";
+import { Asset } from "./Asset";
+import { BitmapFontData } from "./BitmapFontAsset";

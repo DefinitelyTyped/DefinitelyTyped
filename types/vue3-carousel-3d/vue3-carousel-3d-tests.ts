@@ -1,10 +1,9 @@
-import { createApp } from 'vue';
-import { Carousel3d, Slide } from 'vue3-carousel-3d';
-import 'vue3-carousel-3d/dist/index.css';
+import { createApp } from "vue";
+import { Carousel3d, Slide } from "vue3-carousel-3d";
 
 createApp({
     components: {
-        'carousel-3d': Carousel3d,
+        "carousel-3d": Carousel3d,
         slide: Slide,
     },
     template: `
@@ -39,4 +38,4 @@ createApp({
         </slide>
     </carousel-3d>
 `,
-}).mount('#app');
+}).mount("#app");

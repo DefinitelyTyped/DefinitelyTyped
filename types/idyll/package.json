@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/idyll",
+    "version": "2.10.9999",
+    "projects": [
+        "https://github.com/idyll-lang/idyll/tree/master/packages/idyll-cli",
+        "https://github.com/idyll-lang/idyll"
+    ],
+    "dependencies": {
+        "@types/idyll-compiler": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/idyll": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Thanh Ngo",
+            "githubUsername": "iocat"
+        }
+    ]
+}

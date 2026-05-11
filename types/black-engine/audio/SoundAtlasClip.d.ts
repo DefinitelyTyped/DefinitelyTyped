@@ -8,5 +8,5 @@ export class SoundAtlasClip extends SoundClip {
         [x: string]: SoundClip;
     };
 }
-import { SoundClip } from './SoundClip';
-import { SoundInstance } from './SoundInstance';
+import { SoundClip } from "./SoundClip";
+import { SoundInstance } from "./SoundInstance";

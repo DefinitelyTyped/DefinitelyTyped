@@ -1,8 +1,3 @@
-// Type definitions for content-type v0.0.1
-// Project: https://github.com/deoxxa/content-type
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace ContentType {
     interface MediaType {
         type: string;
@@ -17,7 +12,7 @@ declare namespace ContentType {
     }
 
     interface MediaTypeStatic {
-        new (s: string, p?: any): MediaType;
+        new(s: string, p?: any): MediaType;
         parseMedia(type: string): MediaType;
         splitQuotedString(str: string, delimiter?: string, quote?: string): string[];
         splitContentTypes(str: string): string[];

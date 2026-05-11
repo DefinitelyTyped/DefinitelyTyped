@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/jquery.elang",
+    "version": "0.5.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jquery.elang",
+    "projects": [
+        "https://github.com/sumegizoltan/ELang/"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/jquery.elang": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Zoltan Sumegi",
+            "githubUsername": "sumegizoltan"
+        }
+    ]
+}

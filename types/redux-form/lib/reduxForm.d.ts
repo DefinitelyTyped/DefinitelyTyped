@@ -1,22 +1,15 @@
-import {
-    Context,
-    Component,
-    ComponentType,
-    SyntheticEvent
-} from "react";
+import { Component, ComponentType, Context, SyntheticEvent } from "react";
 import { Dispatch } from "redux";
-import {
-    FieldType,
-    FormErrors,
-    FormStateMap,
-    FormWarnings,
-    RegisteredFieldState
-} from "../index";
-import { FormState } from "./reducer";
+import { FieldType, FormErrors, FormStateMap, FormWarnings, RegisteredFieldState } from "../index";
 import { Validator } from "./Field";
+import { FormState } from "./reducer";
 
-export type FormSubmitHandler<FormData = {}, P = {}, ErrorType = string> =
-    (values: FormData, dispatch: Dispatch<any>, props: DecoratedFormProps<FormData, P, ErrorType>) => void | FormErrors<FormData, ErrorType> | Promise<any>;
+export type FormSubmitHandler<FormData = {}, P = {}, ErrorType = string> = (
+    values: FormData,
+    dispatch: Dispatch<any>,
+    props: DecoratedFormProps<FormData, P, ErrorType>,
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+) => void | FormErrors<FormData, ErrorType> | Promise<any>;
 
 export type GetFormState = (state: any) => FormStateMap;
 export interface SubmitHandler<FormData = {}, P = {}, ErrorType = string> {
@@ -25,7 +18,7 @@ export interface SubmitHandler<FormData = {}, P = {}, ErrorType = string> {
         props?: DecoratedFormProps<FormData, P, ErrorType>,
         valid?: boolean,
         asyncValidate?: any,
-        fields?: string[]
+        fields?: string[],
     ): any;
     (event: SyntheticEvent<any>): void;
 }
@@ -102,7 +95,12 @@ export interface ConfigProps<FormData = {}, P = {}, ErrorType = string> {
     form: string;
     asyncBlurFields?: string[] | undefined;
     asyncChangeFields?: string[] | undefined;
-    asyncValidate?(values: FormData, dispatch: Dispatch<any>, props: DecoratedFormProps<FormData, P, ErrorType>, blurredField: string): Promise<any>;
+    asyncValidate?(
+        values: FormData,
+        dispatch: Dispatch<any>,
+        props: DecoratedFormProps<FormData, P, ErrorType>,
+        blurredField: string,
+    ): Promise<any>;
     destroyOnUnmount?: boolean | undefined;
     enableReinitialize?: boolean | undefined;
     forceUnregisterOnUnmount?: boolean | undefined;
@@ -112,13 +110,18 @@ export interface ConfigProps<FormData = {}, P = {}, ErrorType = string> {
     keepDirtyOnReinitialize?: boolean | undefined;
     updateUnregisteredFields?: boolean | undefined;
     keepValues?: boolean | undefined;
-    onChange?(values: Partial<FormData>, dispatch: Dispatch<any>, props: DecoratedFormProps<FormData, P, ErrorType>, previousValues: Partial<FormData>): void;
+    onChange?(
+        values: Partial<FormData>,
+        dispatch: Dispatch<any>,
+        props: DecoratedFormProps<FormData, P, ErrorType>,
+        previousValues: Partial<FormData>,
+    ): void;
     onSubmit?: FormSubmitHandler<FormData, P, ErrorType> | SubmitHandler<FormData, P, ErrorType> | undefined;
     onSubmitFail?(
         errors: FormErrors<FormData, ErrorType> | undefined,
         dispatch: Dispatch<any>,
         submitError: any,
-        props: DecoratedFormProps<FormData, P, ErrorType>
+        props: DecoratedFormProps<FormData, P, ErrorType>,
     ): void;
     onSubmitSuccess?(result: any, dispatch: Dispatch<any>, props: DecoratedFormProps<FormData, P, ErrorType>): void;
     propNamespace?: string | undefined;
@@ -139,7 +142,7 @@ export interface FormContext {
     form: string;
     getFormState: GetFormState;
     asyncValidate: {
-        (name?: string, value?: any, trigger?: 'blur' | 'change'): Promise<any>;
+        (name?: string, value?: any, trigger?: "blur" | "change"): Promise<any>;
     };
     getValues: { (): any };
     sectionPrefix?: string | undefined;
@@ -147,8 +150,8 @@ export interface FormContext {
     register: (
         name: string,
         type: string,
-        getValidator?: () => (Validator | Validator[]),
-        getWarner?: () => (Validator | Validator[])
+        getValidator?: () => Validator | Validator[],
+        getWarner?: () => Validator | Validator[],
     ) => void;
     unregister: (name: string) => void;
     registerInnerOnSubmit: (innerOnSubmit: () => void) => void;
@@ -180,7 +183,7 @@ export type SubmitAction = () => void;
 export type InitializeAction<FormData> = (
     initialValues: Partial<FormData>,
     keepDirty: boolean,
-    otherMeta?: any
+    otherMeta?: any,
 ) => void;
 export type AutoFillAction = (field: string, value: any) => void;
 export type BlurAction = (field: string, value: any) => void;
@@ -192,7 +195,7 @@ export type ArraySpliceAction = (
     field: string,
     index: number,
     removeNum: number,
-    value: any
+    value: any,
 ) => void;
 export type ArrayInsertAction = (field: string, index: number, value: any) => void;
 export type ArrayMoveAction = (field: string, from: number, to: number) => void;
@@ -231,7 +234,7 @@ export type DecoratedFormState<FormData, ErrorType> = FormState & {
     pristine: boolean;
     submitSucceeded: boolean;
     syncErrors?: FormErrors<FormData, ErrorType> | undefined;
-    syncWarnings?: FormWarnings<any, any> | undefined,
+    syncWarnings?: FormWarnings<any, any> | undefined;
     triggerSubmit?: boolean | undefined;
     valid: boolean;
     validExceptSubmit: boolean;
@@ -279,7 +282,7 @@ export interface DecoratedFormActions<ErrorType> {
 }
 
 export type DecoratedFormProps<FormData = {}, P = {}, ErrorType = string> =
-    P
+    & P
     & Partial<ConfigProps<FormData, P, ErrorType>>
     & Partial<DecoratedFormState<FormData, ErrorType>>
     & Partial<DecoratedFormActions<ErrorType>>
@@ -289,9 +292,9 @@ export interface DecoratedComponentClass<FormData, P> {
     new(props?: P, context?: any): FormInstance<FormData, P>;
 }
 
-export type FormDecorator<FormData, P, ErrorType = string> =
-    (component: ComponentType<P & InjectedFormProps<FormData, P, ErrorType>>) =>
-        DecoratedComponentClass<FormData, DecoratedFormProps<FormData, P, ErrorType>>;
+export type FormDecorator<FormData, P, ErrorType = string> = (
+    component: ComponentType<P & InjectedFormProps<FormData, P, ErrorType>>,
+) => DecoratedComponentClass<FormData, DecoratedFormProps<FormData, P, ErrorType>>;
 
 export declare function reduxForm<FormData = {}, P = {}, ErrorType = string>(
     config:

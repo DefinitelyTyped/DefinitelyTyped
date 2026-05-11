@@ -1,166 +1,166 @@
 import gulp = require("gulp");
 import codecov = require("gulp-codecov");
 
-gulp.task('test', () => {
-    gulp.src('src/**/*.js')
+gulp.task("test", () => {
+    gulp.src("src/**/*.js")
         .pipe(codecov())
-        .pipe(gulp.dest('dist'));
+        .pipe(gulp.dest("dist"));
 });
 
-gulp.task('test', () => {
-    gulp.src('src/**/*.js')
+gulp.task("test", () => {
+    gulp.src("src/**/*.js")
         .pipe(codecov({}))
-        .pipe(gulp.dest('dist'));
+        .pipe(gulp.dest("dist"));
 });
 
-gulp.task('test', () => {
-    gulp.src('src/**/*.js')
+gulp.task("test", () => {
+    gulp.src("src/**/*.js")
         .pipe(codecov({
-            branch: '',
+            branch: "",
         }))
-        .pipe(gulp.dest('dist'));
+        .pipe(gulp.dest("dist"));
 });
 
-gulp.task('test', () => {
-    gulp.src('src/**/*.js')
+gulp.task("test", () => {
+    gulp.src("src/**/*.js")
         .pipe(codecov({
-            build: '',
+            build: "",
         }))
-        .pipe(gulp.dest('dist'));
+        .pipe(gulp.dest("dist"));
 });
 
-gulp.task('test', () => {
-    gulp.src('src/**/*.js')
+gulp.task("test", () => {
+    gulp.src("src/**/*.js")
         .pipe(codecov({
             clear: true,
         }))
-        .pipe(gulp.dest('dist'));
+        .pipe(gulp.dest("dist"));
 });
 
-gulp.task('test', () => {
-    gulp.src('src/**/*.js')
+gulp.task("test", () => {
+    gulp.src("src/**/*.js")
         .pipe(codecov({
-            commit: '',
+            commit: "",
         }))
-        .pipe(gulp.dest('dist'));
+        .pipe(gulp.dest("dist"));
 });
 
-gulp.task('test', () => {
-    gulp.src('src/**/*.js')
+gulp.task("test", () => {
+    gulp.src("src/**/*.js")
         .pipe(codecov({
-            disable: '',
+            disable: "",
         }))
-        .pipe(gulp.dest('dist'));
+        .pipe(gulp.dest("dist"));
 });
 
-gulp.task('test', () => {
-    gulp.src('src/**/*.js')
+gulp.task("test", () => {
+    gulp.src("src/**/*.js")
         .pipe(codecov({
             dump: true,
         }))
-        .pipe(gulp.dest('dist'));
+        .pipe(gulp.dest("dist"));
 });
 
-gulp.task('test', () => {
-    gulp.src('src/**/*.js')
+gulp.task("test", () => {
+    gulp.src("src/**/*.js")
         .pipe(codecov({
-            env: '',
+            env: "",
         }))
-        .pipe(gulp.dest('dist'));
+        .pipe(gulp.dest("dist"));
 });
 
-gulp.task('test', () => {
-    gulp.src('src/**/*.js')
+gulp.task("test", () => {
+    gulp.src("src/**/*.js")
         .pipe(codecov({
-            file: '',
+            file: "",
         }))
-        .pipe(gulp.dest('dist'));
+        .pipe(gulp.dest("dist"));
 });
 
-gulp.task('test', () => {
-    gulp.src('src/**/*.js')
+gulp.task("test", () => {
+    gulp.src("src/**/*.js")
         .pipe(codecov({
-            flags: '',
+            flags: "",
         }))
-        .pipe(gulp.dest('dist'));
+        .pipe(gulp.dest("dist"));
 });
 
-gulp.task('test', () => {
-    gulp.src('src/**/*.js')
+gulp.task("test", () => {
+    gulp.src("src/**/*.js")
         .pipe(codecov({
-            'gcov-args': '',
+            "gcov-args": "",
         }))
-        .pipe(gulp.dest('dist'));
+        .pipe(gulp.dest("dist"));
 });
 
-gulp.task('test', () => {
-    gulp.src('src/**/*.js')
+gulp.task("test", () => {
+    gulp.src("src/**/*.js")
         .pipe(codecov({
-            'gcov-exec': '',
+            "gcov-exec": "",
         }))
-        .pipe(gulp.dest('dist'));
+        .pipe(gulp.dest("dist"));
 });
 
-gulp.task('test', () => {
-    gulp.src('src/**/*.js')
+gulp.task("test", () => {
+    gulp.src("src/**/*.js")
         .pipe(codecov({
-            'gcov-glob': '',
+            "gcov-glob": "",
         }))
-        .pipe(gulp.dest('dist'));
+        .pipe(gulp.dest("dist"));
 });
 
-gulp.task('test', () => {
-    gulp.src('src/**/*.js')
+gulp.task("test", () => {
+    gulp.src("src/**/*.js")
         .pipe(codecov({
-            'gcov-root': '',
+            "gcov-root": "",
         }))
-        .pipe(gulp.dest('dist'));
+        .pipe(gulp.dest("dist"));
 });
 
-gulp.task('test', () => {
-    gulp.src('src/**/*.js')
+gulp.task("test", () => {
+    gulp.src("src/**/*.js")
         .pipe(codecov({
             pipe: true,
         }))
-        .pipe(gulp.dest('dist'));
+        .pipe(gulp.dest("dist"));
 });
 
-gulp.task('test', () => {
-    gulp.src('src/**/*.js')
+gulp.task("test", () => {
+    gulp.src("src/**/*.js")
         .pipe(codecov({
-            root: '',
+            root: "",
         }))
-        .pipe(gulp.dest('dist'));
+        .pipe(gulp.dest("dist"));
 });
 
-gulp.task('test', () => {
-    gulp.src('src/**/*.js')
+gulp.task("test", () => {
+    gulp.src("src/**/*.js")
         .pipe(codecov({
-            slug: '',
+            slug: "",
         }))
-        .pipe(gulp.dest('dist'));
+        .pipe(gulp.dest("dist"));
 });
 
-gulp.task('test', () => {
-    gulp.src('src/**/*.js')
+gulp.task("test", () => {
+    gulp.src("src/**/*.js")
         .pipe(codecov({
-            token: '',
+            token: "",
         }))
-        .pipe(gulp.dest('dist'));
+        .pipe(gulp.dest("dist"));
 });
 
-gulp.task('test', () => {
-    gulp.src('src/**/*.js')
+gulp.task("test", () => {
+    gulp.src("src/**/*.js")
         .pipe(codecov({
-            url: '',
+            url: "",
         }))
-        .pipe(gulp.dest('dist'));
+        .pipe(gulp.dest("dist"));
 });
 
-gulp.task('test', () => {
-    gulp.src('src/**/*.js')
+gulp.task("test", () => {
+    gulp.src("src/**/*.js")
         .pipe(codecov({
-            yml: '',
+            yml: "",
         }))
-        .pipe(gulp.dest('dist'));
+        .pipe(gulp.dest("dist"));
 });

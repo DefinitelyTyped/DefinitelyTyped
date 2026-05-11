@@ -1,11 +1,6 @@
-// Type definitions for bufferstream 0.6
-// Project: https://github.com/dodo/node-bufferstream
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import stream = require('stream');
+import stream = require("stream");
 
 export = BufferStream;
 
@@ -85,5 +80,5 @@ declare namespace BufferStream {
         // String or Buffer
         split?: any;
     }
-    const fn: {warn: boolean};
+    const fn: { warn: boolean };
 }

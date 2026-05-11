@@ -1,8 +1,3 @@
-// Type definitions for nodemark 0.3
-// Project: https://github.com/JoshuaWise/nodemark
-// Definitions by: Beeno Tung <https://github.com/beenotung>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace benchmark {
     type SyncFn = () => void;
 
@@ -10,7 +5,7 @@ declare namespace benchmark {
 
     type DoneCallback = () => void;
 
-    type Unit = 'nanoseconds' | 'microseconds' | 'milliseconds' | 'seconds' | 'hz';
+    type Unit = "nanoseconds" | "microseconds" | "milliseconds" | "seconds" | "hz";
 
     interface BenchmarkResult {
         mean: number; // the average measured time in nanoseconds

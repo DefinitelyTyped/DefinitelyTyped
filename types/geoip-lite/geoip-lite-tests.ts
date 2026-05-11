@@ -1,7 +1,7 @@
-import geoip = require('geoip-lite');
+import geoip = require("geoip-lite");
 
 // lookup an IP addres
-const stringLookup = geoip.lookup('199.16.156.125');
+const stringLookup = geoip.lookup("199.16.156.125");
 
 const numberLookup = geoip.lookup(3339754621);
 
@@ -15,12 +15,13 @@ if (stringLookup) {
 geoip.startWatchingDataUpdate();
 
 geoip.startWatchingDataUpdate(err => {
-    // prettier-ignore
-    err
-        ?
-        err // $ExpectType Error
-        :
-        err; // $ExpectType undefined
+    if (err) {
+        // $ExpectType Error
+        err;
+    } else {
+        // $ExpectType undefined
+        err;
+    }
 });
 
 // stop the data update watcher

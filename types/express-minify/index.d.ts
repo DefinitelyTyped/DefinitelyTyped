@@ -1,9 +1,3 @@
-// Type definitions for express-minify v0.1.6
-// Project: https://github.com/SummerWish/express-minify
-// Definitions by: Borislav Zhivkov <https://github.com/borislavjivkov>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="express" />
 /// <reference types="node" />
 
@@ -21,12 +15,12 @@ declare namespace ExpressMinifyInterfaces {
         /**
          * Customize UglifyJS instance (require('uglify-js')).
          */
-        uglifyJS?: NodeRequire | undefined;
+        uglifyJS?: NodeJS.Require | undefined;
 
         /**
          * Customize cssmin instance (require('cssmin')).
          */
-        cssmin?: NodeRequire | undefined;
+        cssmin?: NodeJS.Require | undefined;
 
         /**
          * Handle compiling errors or minifying errors. You can determine what to respond when facing such errors.
@@ -103,7 +97,7 @@ declare namespace ExpressMinifyInterfaces {
 }
 
 declare module "express-minify" {
-    import express = require('express');
+    import express = require("express");
 
     function minify(options?: ExpressMinifyInterfaces.ExpressMinifyOptions): express.RequestHandler;
     export = minify;

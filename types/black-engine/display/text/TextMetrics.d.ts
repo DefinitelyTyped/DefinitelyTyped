@@ -18,6 +18,6 @@ export class TextMetricsEx {
     static __measure(text: string, style: TextStyle, outBounds?: Rectangle | null): Rectangle;
     static measureBitmap(text: string, data: BitmapFontData, lineHeight: number, outBounds: Rectangle): Rectangle;
 }
-import { BitmapFontData } from '../../assets/BitmapFontAsset';
-import { Rectangle } from '../../geom/Rectangle';
-import { TextStyle } from './TextStyle';
+import { BitmapFontData } from "../../assets/BitmapFontAsset";
+import { Rectangle } from "../../geom/Rectangle";
+import { TextStyle } from "./TextStyle";

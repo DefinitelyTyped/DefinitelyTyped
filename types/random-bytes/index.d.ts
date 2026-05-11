@@ -1,8 +1,3 @@
-// Type definitions for random-bytes 1.0
-// Project: https://github.com/crypto-utils/random-bytes
-// Definitions by: Steve Ripberger <https://github.com/sripberger>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 interface RandomBytesStatic {

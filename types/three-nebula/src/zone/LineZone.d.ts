@@ -1,5 +1,5 @@
-import Vector3D from '../math/Vector3D';
-import Zone from './Zone';
+import Vector3D from "../math/Vector3D";
+import Zone from "./Zone";
 
 export default class LineZone extends Zone {
     /**
@@ -12,7 +12,6 @@ export default class LineZone extends Zone {
     constructor(x1: VectorOrNumber, y1: VectorOrNumber, z1?: number, x2?: number, y2?: number, z2?: number);
     /**
      * Returns true to indicate this is a LineZone.
-     *
      */
     isLineZone(): boolean;
 

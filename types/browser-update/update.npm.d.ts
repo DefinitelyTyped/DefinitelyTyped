@@ -1,3 +1,3 @@
-import buo = require('./');
+import buo = require("./");
 
 export = buo;

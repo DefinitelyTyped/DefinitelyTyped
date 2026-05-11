@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-native-material-ripple",
+    "version": "0.9.9999",
+    "projects": [
+        "https://github.com/n4kz/react-native-material-ripple"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "react-native": "*"
+    },
+    "devDependencies": {
+        "@types/react-native-material-ripple": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Serhiy Zhelizniak",
+            "githubUsername": "SerhiyZheliznjak"
+        }
+    ]
+}

@@ -3,5 +3,5 @@ export declare enum EntityType {
     IFRAME = "iframe",
     EXTERNAL = "external connection",
     VIEW = "view",
-    UNKNOWN = "unknown"
+    UNKNOWN = "unknown",
 }

@@ -1,2 +1,2 @@
-import IterableToList = require('../2017/IterableToList');
+import IterableToList = require("../2017/IterableToList");
 export = IterableToList;

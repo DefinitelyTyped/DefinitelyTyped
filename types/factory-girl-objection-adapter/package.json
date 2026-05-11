@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/factory-girl-objection-adapter",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/smooth-code/factory-girl-objection-adapter"
+    ],
+    "devDependencies": {
+        "@types/factory-girl": "*",
+        "@types/factory-girl-objection-adapter": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mike Wu",
+            "githubUsername": "mkwu"
+        }
+    ]
+}

@@ -1,4 +1,4 @@
-import windowSize, { Size } from 'window-size';
+import windowSize, { Size } from "window-size";
 
 let size: Size;
 

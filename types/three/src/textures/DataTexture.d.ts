@@ -1,14 +1,13 @@
-import { Texture } from './Texture';
 import {
+    MagnificationTextureFilter,
     Mapping,
-    Wrapping,
+    MinificationTextureFilter,
     PixelFormat,
     TextureDataType,
-    MagnificationTextureFilter,
-    MinificationTextureFilter,
-    ColorSpace,
-} from '../constants';
-import { TextureImageData } from './types';
+    Wrapping,
+} from "../constants.js";
+import { TypedArray } from "../core/BufferAttribute.js";
+import { Texture } from "./Texture.js";
 
 /**
  * Creates a texture directly from raw data, width and height.
@@ -37,7 +36,7 @@ import { TextureImageData } from './types';
  * @see {@link https://threejs.org/docs/index.html#api/en/textures/DataTexture | Official Documentation}
  * @see {@link https://github.com/mrdoob/three.js/blob/master/src/textures/DataTexture.js | Source}
  */
-export class DataTexture extends Texture {
+export class DataTexture extends Texture<DataTextureImageData> {
     /**
      * @param data {@link https://developer.mozilla.org/en-US/docs/Web/API/ArrayBufferView | ArrayBufferView} of the texture. Default `null`.
      * @param width Width of the texture. Default `1`.
@@ -53,7 +52,7 @@ export class DataTexture extends Texture {
      * @param colorSpace See {@link Texture.colorSpace | .colorSpace}. Default {@link NoColorSpace}
      */
     constructor(
-        data?: BufferSource | null,
+        data?: TypedArray | null,
         width?: number,
         height?: number,
         format?: PixelFormat,
@@ -64,7 +63,7 @@ export class DataTexture extends Texture {
         magFilter?: MagnificationTextureFilter,
         minFilter?: MinificationTextureFilter,
         anisotropy?: number,
-        colorSpace?: ColorSpace,
+        colorSpace?: string,
     );
 
     /**
@@ -73,13 +72,6 @@ export class DataTexture extends Texture {
      * @defaultValue `true`
      */
     readonly isDataTexture: true;
-
-    /**
-     * Overridden with a record type holding data, width and height and depth.
-     * @override
-     */
-    get image(): TextureImageData;
-    set image(value: TextureImageData);
 
     /**
      * @override
@@ -110,4 +102,10 @@ export class DataTexture extends Texture {
      * @defaultValue `1`
      */
     unpackAlignment: number;
+}
+
+export interface DataTextureImageData {
+    data: TypedArray | null;
+    width: number;
+    height: number;
 }

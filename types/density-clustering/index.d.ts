@@ -1,9 +1,3 @@
-// Type definitions for density-clustering 1.3
-// Project: https://github.com/uhho/density-clustering
-// Definitions by:  Matt Fedderly <https://github.com/mfedderly>
-//                  Levi Gruspe <https://github.com/lggruspe>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export class DBSCAN {
     run(
         dataset: number[][],

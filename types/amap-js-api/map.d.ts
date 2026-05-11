@@ -1,7 +1,7 @@
 declare namespace AMap {
     namespace Map {
-        type Feature = 'bg' | 'point' | 'road' | 'building';
-        type ViewMode = '2D' | '3D';
+        type Feature = "bg" | "point" | "road" | "building";
+        type ViewMode = "2D" | "3D";
         interface Options {
             /**
              * 地图视口，用于控制影响地图静态显示的属性
@@ -38,7 +38,7 @@ declare namespace AMap {
             /**
              * 地图显示的参考坐标系
              */
-            crs?: 'EPSG3857' | 'EPSG3395' | 'EPSG4326' | undefined;
+            crs?: "EPSG3857" | "EPSG3395" | "EPSG4326" | undefined;
             /**
              * 地图平移过程中是否使用动画
              */
@@ -110,7 +110,7 @@ declare namespace AMap {
             /**
              * 设置地图上显示的元素种类
              */
-            features?: Feature[] | 'all' | Feature | undefined;
+            features?: Feature[] | "all" | Feature | undefined;
             /**
              * 设置地图显示3D楼块效果
              */
@@ -142,14 +142,18 @@ declare namespace AMap {
             /**
              * 为 Map 实例指定掩模的路径，各图层将只显示路径范围内图像
              */
-            mask?: Array<[number, number]> | Array<Array<[number, number]>> | Array<Array<Array<[number, number]>>> | undefined;
+            mask?:
+                | Array<[number, number]>
+                | Array<Array<[number, number]>>
+                | Array<Array<Array<[number, number]>>>
+                | undefined;
             maxPitch?: number | undefined;
             rotation?: number | undefined;
             forceVector?: boolean | undefined;
 
             // internal
-            baseRender?: 'vw' | 'd' | 'dv' | 'v' | undefined;
-            overlayRender?: 'c' | 'd' | undefined;
+            baseRender?: "vw" | "d" | "dv" | "v" | undefined;
+            overlayRender?: "c" | "d" | undefined;
             showLabel?: boolean | undefined;
             gridMapForeign?: boolean | undefined;
             logoUrl?: string | undefined;
@@ -228,36 +232,36 @@ declare namespace AMap {
             isIndoorPOI: boolean;
         }>;
         interface EventMap {
-            click: MapsEvent<'click', Map>;
-            dblclick: MapsEvent<'dblclick', Map>;
-            rightclick: MapsEvent<'rightclick', Map>;
-            rdblclick: MapsEvent<'rdblclick', Map>;
-            mouseup: MapsEvent<'mouseup', Map>;
-            mousedown: MapsEvent<'mousedown', Map>;
-            mousemove: MapsEvent<'mousemove', Map>;
-            mousewheel: MapsEvent<'mousewheel', Map>;
-            mouseover: MapsEvent<'mouseover', Map>;
-            mouseout: MapsEvent<'mouseout', Map>;
-            touchstart: MapsEvent<'touchstart', Map>;
-            touchmove: MapsEvent<'touchmove', Map>;
-            touchend: MapsEvent<'touchend', Map>;
-            contextmenu: MapsEvent<'contextmenu', Map>;
+            click: MapsEvent<"click", Map>;
+            dblclick: MapsEvent<"dblclick", Map>;
+            rightclick: MapsEvent<"rightclick", Map>;
+            rdblclick: MapsEvent<"rdblclick", Map>;
+            mouseup: MapsEvent<"mouseup", Map>;
+            mousedown: MapsEvent<"mousedown", Map>;
+            mousemove: MapsEvent<"mousemove", Map>;
+            mousewheel: MapsEvent<"mousewheel", Map>;
+            mouseover: MapsEvent<"mouseover", Map>;
+            mouseout: MapsEvent<"mouseout", Map>;
+            touchstart: MapsEvent<"touchstart", Map>;
+            touchmove: MapsEvent<"touchmove", Map>;
+            touchend: MapsEvent<"touchend", Map>;
+            contextmenu: MapsEvent<"contextmenu", Map>;
 
-            hotspotclick: HotspotEvent<'hotspotclick'>;
-            hotspotover: HotspotEvent<'hotspotover'>;
-            hotspotout: HotspotEvent<'hotspotout'>;
+            hotspotclick: HotspotEvent<"hotspotclick">;
+            hotspotover: HotspotEvent<"hotspotover">;
+            hotspotout: HotspotEvent<"hotspotout">;
 
-            complete: Event<'complete'>;
-            mapmove: Event<'mapmove'>;
-            movestart: Event<'movestart'>;
-            moveend: Event<'moveend'>;
-            zoomchange: Event<'zoomchange'>;
-            zoomstart: Event<'zoomstart'>;
-            zoomend: Event<'zoomend'>;
-            dragstart: Event<'dragstart'>;
-            dragging: Event<'dragging'>;
-            dragend: Event<'dragend'>;
-            resize: Event<'resize'>;
+            complete: Event<"complete">;
+            mapmove: Event<"mapmove">;
+            movestart: Event<"movestart">;
+            moveend: Event<"moveend">;
+            zoomchange: Event<"zoomchange">;
+            zoomstart: Event<"zoomstart">;
+            zoomend: Event<"zoomend">;
+            dragstart: Event<"dragstart">;
+            dragging: Event<"dragging">;
+            dragend: Event<"dragend">;
+            resize: Event<"resize">;
         }
     }
 
@@ -297,24 +301,26 @@ declare namespace AMap {
         /**
          * 获取地图中心点所在区域
          */
-        getCity(callback: (cityData: {
-            /**
-             * 市名称
-             */
-            city: string;
-            /**
-             * 市代码
-             */
-            citycode: string;
-            /**
-             * 区名称
-             */
-            district: string;
-            /**
-             * 省
-             */
-            province: string | never[]; // province is empty array when getCity fail
-        }) => void): void;
+        getCity(
+            callback: (cityData: {
+                /**
+                 * 市名称
+                 */
+                city: string;
+                /**
+                 * 市代码
+                 */
+                citycode: string;
+                /**
+                 * 区名称
+                 */
+                district: string;
+                /**
+                 * 省
+                 */
+                province: string | never[]; // province is empty array when getCity fail
+            }) => void,
+        ): void;
         /**
          * 获取当前地图视图范围，获取当前可视区域
          */
@@ -386,7 +392,7 @@ declare namespace AMap {
          * 返回添加的覆盖物对象
          * @param type 覆盖物类型
          */
-        getAllOverlays(type?: 'marker' | 'circle' | 'polyline' | 'polygon'): Overlay[];
+        getAllOverlays(type?: "marker" | "circle" | "polyline" | "polygon"): Overlay[];
         /**
          * 设置地图显示的中心点
          * @param center 中心点经纬度
@@ -468,7 +474,7 @@ declare namespace AMap {
             overlayList?: Overlay | Overlay[],
             immediately?: boolean,
             avoid?: [number, number, number, number],
-            maxZoom?: number
+            maxZoom?: number,
         ): Bounds | false | undefined;
         /**
          * 删除地图上所有的覆盖物
@@ -541,11 +547,11 @@ declare namespace AMap {
          * 设置地图上显示的元素种类
          * @param feature 元素
          */
-        setFeatures(feature: Map.Feature | Map.Feature[] | 'all'): void;
+        setFeatures(feature: Map.Feature | Map.Feature[] | "all"): void;
         /**
          * 获取地图显示元素种类
          */
-        getFeatures(): Map.Feature | Map.Feature[] | 'all';
+        getFeatures(): Map.Feature | Map.Feature[] | "all";
         /**
          * 修改底图图层
          * @param layer 图层

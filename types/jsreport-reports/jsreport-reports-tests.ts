@@ -1,5 +1,5 @@
-import JsReport = require('jsreport-core');
-import JsReportReports = require('jsreport-reports');
+import JsReport = require("jsreport-core");
+import JsReportReports = require("jsreport-reports");
 
 (async () => {
     const jsreport = JsReport();
@@ -7,15 +7,15 @@ import JsReportReports = require('jsreport-reports');
 
     await jsreport.render({
         template: {
-            content: '',
-            recipe: 'html',
-            engine: 'handlebars',
+            content: "",
+            recipe: "html",
+            engine: "handlebars",
         },
         options: {
             reports: {
-                save: true
-            }
-        }
+                save: true,
+            },
+        },
     });
 
     await jsreport.init();

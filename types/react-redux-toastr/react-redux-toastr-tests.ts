@@ -1,21 +1,25 @@
-import { toastr, reducer as toastrReducer, actions } from 'react-redux-toastr';
-import ReduxToastr from 'react-redux-toastr';
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import {createStore, combineReducers, bindActionCreators} from 'redux';
-import { Provider, connect } from 'react-redux';
+import * as React from "react";
+import * as ReactDOM from "react-dom";
+import { Provider, ProviderProps } from "react-redux";
+import { reducer as toastrReducer, toastr } from "react-redux-toastr";
+import ReduxToastr from "react-redux-toastr";
+import { AnyAction, combineReducers, legacy_createStore } from "redux";
 
 function test() {
-    const store = createStore(combineReducers({ toastr: toastrReducer }));
-    var toastrFactory = React.createFactory(ReduxToastr);
-    var element = toastrFactory({ timeOut: 1000, newestOnTop: false });
-    var providerFactory = React.createFactory(Provider);
-    var root = providerFactory({ store: store }, element);
+    const reducers = combineReducers({ toastr: toastrReducer });
+    const store = legacy_createStore<ReturnType<typeof reducers>, AnyAction>(reducers);
+    const element = React.createElement(ReduxToastr, { timeOut: 1000, newestOnTop: false });
+    const root = React.createElement(Provider, { store: store }, element);
 
-    function callback() { }
+    function callback() {}
 
     toastr.clean();
-    toastr.confirm("Test", { onOk: callback, onCancel: callback, okText: "Ok text message", cancelText: "Cancel text message" });
+    toastr.confirm("Test", {
+        onOk: callback,
+        onCancel: callback,
+        okText: "Ok text message",
+        cancelText: "Cancel text message",
+    });
     toastr.error("Error", "Error message");
     toastr.info("Info", "Info test", { timeOut: 1000, removeOnHover: true, onShowComplete: callback });
     toastr.success("Test", "Test message", { component: new React.Component({}) });

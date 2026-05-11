@@ -1,4 +1,4 @@
-import randomNormal = require('random-normal');
+import randomNormal = require("random-normal");
 
 // No options specified
 randomNormal(); // $ExpectType number

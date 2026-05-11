@@ -1,13 +1,13 @@
-import * as http from 'http';
-import * as auth from 'http-auth';
+import * as http from "http";
+import * as auth from "http-auth";
 
 const basic = auth.basic(
     {
-        realm: 'Simon Area.',
+        realm: "Simon Area.",
     },
     (username, password, callback) => {
         // Custom authentication method.
-        callback(username === 'Tina' && password === 'Bullock');
+        callback(username === "Tina" && password === "Bullock");
     },
 );
 
@@ -18,5 +18,5 @@ http.createServer(
     }),
 ).listen(1337, () => {
     // Log URL.
-    console.log('Server running at http://127.0.0.1:1337/');
+    console.log("Server running at http://127.0.0.1:1337/");
 });

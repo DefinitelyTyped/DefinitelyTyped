@@ -1,23 +1,12 @@
-// Type definitions for jsurl 1.2.7
-// Project: https://github.com/Mikhus/jsurl
-// Definitions by: Alexey Gorshkov <https://github.com/agorshkov23>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics -- easier to use this function using a generic rather than casting
+export function stringify<T>(value: T): string;
 
-interface UrlQuery {
-    clear: () => void;
-}
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics -- easier to use this function using a generic rather than casting
+export function parse<T extends object>(urlFragment: string): T;
 
-declare class Url<T> {
-    constructor();
-    constructor(url: string);
-    query: T;
-    protocol: string;
-    user: string;
-    pass: string;
-    host: string;
-    port: string;
-    path: string;
-    hash: string;
-    href: string;
-    toString: () => string;
-}
+/**
+ * Same as `parse`, but returns `def` if parsing fails.
+ * @param urlFragment the URL fragment to parse
+ * @param def the default value to return if parsing fails
+ */
+export function tryParse<T extends object>(urlFragment: string, def?: T): T;

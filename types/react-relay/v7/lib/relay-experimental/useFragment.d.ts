@@ -1,6 +1,6 @@
-import { GraphQLTaggedNode } from 'relay-runtime';
+import { GraphQLTaggedNode } from "relay-runtime";
 
-import { ArrayKeyType, ArrayKeyTypeData, KeyType, KeyTypeData } from './helpers';
+import { ArrayKeyType, ArrayKeyTypeData, KeyType, KeyTypeData } from "./helpers";
 
 // NOTE: These declares ensure that the type of the returned data is:
 //   - non-nullable if the provided ref type is non-nullable

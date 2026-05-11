@@ -1,11 +1,3 @@
-// Type definitions for parse-git-config 3.0
-// Project: https://github.com/jonschlinkert/parse-git-config
-// Definitions by: Leonard Thieu <https://github.com/leonard-thieu>
-//                 Nikita Litvin <https://github.com/deltaidea>
-//                 BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 export = parse;
 
 /**
@@ -71,7 +63,7 @@ declare namespace parse {
     function resolveConfigPath(options: string | ResolveConfigOptions): string | null;
 
     interface ResolveConfigOptions {
-        type?: 'global' | undefined;
+        type?: "global" | undefined;
         cwd?: string | undefined;
         path?: string | undefined;
     }
@@ -81,7 +73,7 @@ declare namespace parse {
         expandKeys?: boolean | undefined;
     }
 
-    type ParseCallback = ((err: Error | null, config: Config) => void);
+    type ParseCallback = (err: Error | null, config: Config) => void;
 
     // TODO: Can this be defined more precisely?
     interface Config {

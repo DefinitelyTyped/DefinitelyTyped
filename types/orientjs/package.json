@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/orientjs",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/orientechnologies/orientjs"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/orientjs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "[Saeed Tabrizi]",
+            "githubUsername": "saeedtabrizi"
+        },
+        {
+            "name": "[Aleksey Rezvov]",
+            "githubUsername": "aleksey-rezvov"
+        }
+    ]
+}

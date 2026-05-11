@@ -175,7 +175,7 @@ export interface TablesorterConfiguration<TElement = HTMLElement> extends Tables
     /**
      * Either global `Globalize`-settings or per-column `Globalize`-settings to apply.
      */
-    globalize?: GlobalizeSettings | {[index: number]: GlobalizeSettings} | undefined;
+    globalize?: GlobalizeSettings | { [index: number]: GlobalizeSettings } | undefined;
 
     /**
      * A value indicating whether changes to child-rows are ignored by the table-sorter.

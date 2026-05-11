@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/precond",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/MathieuTurcotte/node-precond"
+    ],
+    "devDependencies": {
+        "@types/precond": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Oliver Schneider",
+            "githubUsername": "olsio"
+        }
+    ]
+}

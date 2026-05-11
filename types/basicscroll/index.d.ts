@@ -1,8 +1,3 @@
-// Type definitions for basicscroll 3.0
-// Project: https://github.com/electerious/basicScroll
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Creates a new basicScroll instance.
  */
@@ -107,37 +102,37 @@ export type AnimatedType = number | string | null;
 
 export type CallbackFunction = (instance: BasicScroll, percentage: number, props: Props) => void;
 export type KnownTimings =
-    | 'backInOut'
-    | 'backIn'
-    | 'backOut'
-    | 'bounceInOut'
-    | 'bounceIn'
-    | 'bounceOut'
-    | 'circInOut'
-    | 'circIn'
-    | 'circOut'
-    | 'cubicInOut'
-    | 'cubicIn'
-    | 'cubicOut'
-    | 'elasticInOut'
-    | 'elasticIn'
-    | 'elasticOut'
-    | 'expoInOut'
-    | 'expoIn'
-    | 'expoOut'
-    | 'linear'
-    | 'quadInOut'
-    | 'quadIn'
-    | 'quadOut'
-    | 'quartInOut'
-    | 'quartIn'
-    | 'quartOut'
-    | 'quintInOut'
-    | 'quintIn'
-    | 'quintOut'
-    | 'sineInOut'
-    | 'sineIn'
-    | 'sineOut';
+    | "backInOut"
+    | "backIn"
+    | "backOut"
+    | "bounceInOut"
+    | "bounceIn"
+    | "bounceOut"
+    | "circInOut"
+    | "circIn"
+    | "circOut"
+    | "cubicInOut"
+    | "cubicIn"
+    | "cubicOut"
+    | "elasticInOut"
+    | "elasticIn"
+    | "elasticOut"
+    | "expoInOut"
+    | "expoIn"
+    | "expoOut"
+    | "linear"
+    | "quadInOut"
+    | "quadIn"
+    | "quadOut"
+    | "quartInOut"
+    | "quartIn"
+    | "quartOut"
+    | "quintInOut"
+    | "quintIn"
+    | "quintOut"
+    | "sineInOut"
+    | "sineIn"
+    | "sineOut";
 
 export type TimingFunction = (t: number) => number;
 

@@ -1,8 +1,3 @@
-// Type definitions for svg-render 1.2
-// Project: https://github.com/catdad-experiments/svg-render#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export = svgRender;

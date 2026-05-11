@@ -1,8 +1,3 @@
-// Type definitions for lil-uri 0.2
-// Project: https://github.com/lil-js/uri#readme
-// Definitions by: Wayne Carson <https://github.com/wcarson>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Global exposed when library is used outside of a module environment.
  */
@@ -201,7 +196,7 @@ declare namespace uri {
      * Map of query string keys and values
      */
     interface QueryString {
-        [key: string]: string|string[];
+        [key: string]: string | string[];
     }
 
     /**

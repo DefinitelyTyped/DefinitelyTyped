@@ -1,7 +1,7 @@
 // Modified from the node.js definitions.
 // https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/node/zlib.d.ts
 
-import { InputType, CompressCallback, BrotliOptions, ZlibOptions } from "zlib";
+import { BrotliOptions, CompressCallback, InputType, ZlibOptions } from "zlib";
 export * from "zlib";
 
 /**

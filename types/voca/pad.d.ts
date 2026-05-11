@@ -1,3 +1,3 @@
-import v = require('./index');
+import v = require("./index");
 
 export = v.pad;

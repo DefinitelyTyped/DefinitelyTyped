@@ -1,29 +1,26 @@
-// Type definitions for react-native-svg-charts 5.0
-// Project: https://github.com/JesperLekland/react-native-svg-charts
-// Definitions by: Krzysztof Miemiec <https://github.com/krzysztof-miemiec>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import { ScaleBand, ScaleLinear, ScaleLogarithmic, ScalePower, ScaleTime } from 'd3-scale';
-import { CurveFactory, Series } from 'd3-shape';
-import * as React from 'react';
-import { StyleProp, ViewStyle } from 'react-native';
+import { ScaleBand, ScaleLinear, ScaleLogarithmic, ScalePower, ScaleTime } from "d3-scale";
+import { CurveFactory, Series } from "d3-shape";
+import * as React from "react";
+import { StyleProp, ViewStyle } from "react-native";
 import {
     CommonPathProps,
     LinearGradientProps,
     LineProps,
     PathProps,
     RadialGradientProps,
-    TextProps
-} from 'react-native-svg';
+    TextProps,
+} from "react-native-svg";
 
 export type ScaleType<Range, Output> =
-| ScaleLinear<Range, Output>
-| ScaleLogarithmic<Range, Output>
-| ScalePower<Range, Output>
-| ScaleTime<Range, Output>;
+    | ScaleLinear<Range, Output>
+    | ScaleLogarithmic<Range, Output>
+    | ScalePower<Range, Output>
+    | ScaleTime<Range, Output>;
 
-export interface AccessorFunctionProps<T> { index: number; item: T; }
+export interface AccessorFunctionProps<T> {
+    index: number;
+    item: T;
+}
 
 export type ScaleFunction = () => ScaleType<any, any> | ScaleBand<any>;
 export type AccessorFunction<T, U> = (props: AccessorFunctionProps<T>) => U;
@@ -44,10 +41,10 @@ export interface ChartProps<T> {
     height?: number | undefined;
     curve?: CurveFactory | undefined;
     contentInset?: {
-        top?: number | undefined,
-        left?: number | undefined,
-        right?: number | undefined,
-        bottom?: number | undefined,
+        top?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
+        bottom?: number | undefined;
     } | undefined;
     gridMin?: number | undefined;
     gridMax?: number | undefined;
@@ -110,23 +107,30 @@ export interface StackedAreaChartProps<T> extends ChartProps<T> {
     colors: string[];
     offset?: OffsetFunction | undefined;
     order?: OrderFunction | undefined;
-    renderGradient?: ((props: {
-        id: string,
-        width: number,
-        height: number,
-        x: number,
-        y: number,
-        index: number,
-        key: keyof T,
-        color: string,
-    }) => React.Component<LinearGradientProps | RadialGradientProps>) | undefined;
+    renderGradient?:
+        | ((props: {
+            id: string;
+            width: number;
+            height: number;
+            x: number;
+            y: number;
+            index: number;
+            key: keyof T;
+            color: string;
+        }) => React.Component<LinearGradientProps | RadialGradientProps>)
+        | undefined;
     showGrid?: boolean | undefined;
     extras?: any[] | undefined;
     renderDecorator?: (() => {}) | undefined;
 }
 
 export class StackedAreaChart<T> extends React.PureComponent<StackedAreaChartProps<T>> {
-    static extractDataPoints<T>(data: T[], keys: ReadonlyArray<keyof T>, order?: OrderFunction, offset?: OffsetFunction): number[];
+    static extractDataPoints<T>(
+        data: T[],
+        keys: ReadonlyArray<keyof T>,
+        order?: OrderFunction,
+        offset?: OffsetFunction,
+    ): number[];
 }
 
 // Bar Chart
@@ -148,14 +152,21 @@ export interface StackedBarChartProps<T> extends BarChartProps<T> {
     offset?: OffsetFunction | undefined;
     order?: OrderFunction | undefined;
     strokeColor?: string | undefined;
-    renderGradient?: ((props: { id: string }) => React.Component<LinearGradientProps | RadialGradientProps>) | undefined;
+    renderGradient?:
+        | ((props: { id: string }) => React.Component<LinearGradientProps | RadialGradientProps>)
+        | undefined;
     showGrid?: boolean | undefined;
     extras?: any[] | undefined;
     extra?: (() => {}) | undefined;
 }
 
 export class StackedBarChart<T> extends React.PureComponent<StackedBarChartProps<T>> {
-    static extractDataPoints<T>(data: T, keys: ReadonlyArray<keyof T>, order?: OrderFunction, offset?: OffsetFunction): number[];
+    static extractDataPoints<T>(
+        data: T,
+        keys: ReadonlyArray<keyof T>,
+        order?: OrderFunction,
+        offset?: OffsetFunction,
+    ): number[];
 }
 
 // Axis
@@ -176,7 +187,7 @@ export interface AxisProps<T> {
 export interface XAxisProps<T> extends AxisProps<T> {
     contentInset?: {
         left?: number | undefined;
-        right?: number | undefined
+        right?: number | undefined;
     } | undefined;
     xAccessor?: AccessorFunction<T, any> | undefined;
 }
@@ -248,7 +259,7 @@ export namespace Decorators {
     export class Tooltip extends React.Component<TooltipProps> {}
 }
 
-export type GridDirection = 'VERTICAL' | 'HORIZONTAL' | 'BOTH';
+export type GridDirection = "VERTICAL" | "HORIZONTAL" | "BOTH";
 
 export interface GridProps<T> {
     direction?: GridDirection | undefined;
@@ -262,9 +273,9 @@ export interface GridProps<T> {
 // Export as Component despite it's FC.
 export class Grid<T> extends React.Component<GridProps<T>> {
     static Direction: {
-        VERTICAL: 'VERTICAL',
-        HORIZONTAL: 'HORIZONTAL',
-        BOTH: 'BOTH',
+        VERTICAL: "VERTICAL";
+        HORIZONTAL: "HORIZONTAL";
+        BOTH: "BOTH";
     };
 }
 

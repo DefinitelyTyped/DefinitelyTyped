@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/unique-hash-stream",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/stream-utils/unique-hash-stream"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/unique-hash-stream": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

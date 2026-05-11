@@ -22,7 +22,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): MenuOptionWidget;
+            new(config?: ConfigOptions): MenuOptionWidget;
             prototype: Prototype;
             static: Static;
             super: DecoratedOptionWidget.Constructor;

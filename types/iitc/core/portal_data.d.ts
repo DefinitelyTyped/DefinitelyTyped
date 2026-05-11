@@ -1,5 +1,5 @@
 import { FieldGUID, LinkGUID, PortalGUID } from "./iitctypes";
-export { };
+export {};
 
 declare global {
     /**
@@ -7,7 +7,7 @@ declare global {
      * search through the links data for all that link from or to a portal. returns an object with separate lists of in
      * and out links. may or may not be as accurate as the portal details, depending on how much data the API returns
      */
-    function getPortalLinks(guid: PortalGUID): { in: LinkGUID[]; out: LinkGUID[]; };
+    function getPortalLinks(guid: PortalGUID): { in: LinkGUID[]; out: LinkGUID[] };
     function getPortalLinksCount(guid: PortalGUID): number;
 
     /**

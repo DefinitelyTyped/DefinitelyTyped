@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/mosca",
+    "version": "2.8.9999",
+    "projects": [
+        "https://github.com/mcollina/mosca"
+    ],
+    "devDependencies": {
+        "@types/mosca": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Joao Gabriel Gouveia",
+            "githubUsername": "GabrielGouv"
+        },
+        {
+            "name": "Jerray Fu",
+            "githubUsername": "jerray"
+        }
+    ]
+}

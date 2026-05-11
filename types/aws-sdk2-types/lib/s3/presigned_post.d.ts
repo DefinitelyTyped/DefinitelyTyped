@@ -21,7 +21,7 @@ export namespace PresignedPost {
          * An array of conditions that must be met for the form upload to be
          * accepted by S3.
          */
-        Conditions?: Array<{[key: string]: any}|[string, any, any]>;
+        Conditions?: Array<{ [key: string]: any } | [string, any, any]>;
 
         /**
          * The number of seconds for which the POST form's signed policy should be
@@ -34,7 +34,7 @@ export namespace PresignedPost {
          * (except 'key') will be included as exact match conditions in the
          * presigned policy.
          */
-        Fields?: {[key: string]: any};
+        Fields?: { [key: string]: any };
     }
 
     export interface Fields {
@@ -49,7 +49,7 @@ export namespace PresignedPost {
          * A hex-encoded HMAC of the POST policy, signed with the credentials
          * provided to the S3 client.
          */
-            'X-Amz-Signature': string;
+        "X-Amz-Signature": string;
 
         /**
          * Additional keys that must be included in the form to be submitted. This

@@ -1,6 +1,6 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
-() => {
+(() => {
     // $ExpectType Lens<number[], number>
     const headLens = R.lens(
         function get(arr: number[]) {
@@ -26,4 +26,4 @@ import * as R from 'ramda';
             return out;
         },
     );
-};
+});

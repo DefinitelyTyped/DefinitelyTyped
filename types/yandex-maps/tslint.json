@@ -1,9 +1,0 @@
-{
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "npm-naming": false,
-        "comment-format": false,
-        "interface-name": false,
-        "no-unnecessary-class": false
-    }
-}

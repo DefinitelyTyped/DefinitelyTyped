@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/jquery-timeentry",
+    "version": "2.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jquery-timeentry",
+    "projects": [
+        "https://github.com/kbwood/timeentry"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/jquery-timeentry": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mark Nadig",
+            "githubUsername": "marknadig"
+        }
+    ]
+}

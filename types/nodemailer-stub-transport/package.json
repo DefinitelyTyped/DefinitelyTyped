@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/nodemailer-stub-transport",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/andris9/nodemailer-stub-transport"
+    ],
+    "dependencies": {
+        "@types/nodemailer": "^3"
+    },
+    "devDependencies": {
+        "@types/nodemailer-stub-transport": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Cyril Schumacher",
+            "githubUsername": "cyrilschumacher"
+        }
+    ]
+}

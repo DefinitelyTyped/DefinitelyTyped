@@ -1,6 +1,6 @@
-import '../../';
+import "../../";
 
-declare module '../../' {
+declare module "../../" {
     interface EditorConfiguration {
         /**
          * When set to true, will make the editor full-screen (as in, taking up the whole browser window).

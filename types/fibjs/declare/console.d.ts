@@ -202,7 +202,7 @@
 declare module "console" {
     
 
-    module console {
+    namespace console {
         
         /**
          * 

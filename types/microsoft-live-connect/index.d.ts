@@ -1,13 +1,8 @@
-// Type definitions for Microsoft Live Connect v5.0
-// Project: http://msdn.microsoft.com/en-us/library/live/hh243643.aspx
-// Definitions by: John Vilk <https://github.com/jvilk>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="winjs" />
 /// <reference types="winrt" />
 
 declare namespace Microsoft.Live {
-    //#region REST Object Information
+    // #region REST Object Information
 
     /**
      * Sub object of REST objects that contains information about a user.
@@ -493,11 +488,13 @@ declare namespace Microsoft.Live {
         /**
          * An array that contains the contact's work info.
          */
-        work?: {
-            employer: {
-                name: string;
-            }
-        }[] | undefined;
+        work?:
+            | Array<{
+                employer: {
+                    name: string;
+                };
+            }>
+            | undefined;
         /**
          * The contact's email addresses.
          */
@@ -1562,9 +1559,9 @@ declare namespace Microsoft.Live {
         updated_time: string;
     }
 
-    //#endregion REST Object Information
+    // #endregion REST Object Information
 
-    //#region API Properties Interfaces
+    // #region API Properties Interfaces
 
     /**
      * 'Properties' object passed into the WL.api method.
@@ -1926,7 +1923,7 @@ declare namespace Microsoft.Live {
         overwrite?: string | undefined;
     }
 
-    //#endregion API Properties Interfaces
+    // #endregion API Properties Interfaces
 
     /**
      * Represents the user's session.
@@ -2026,7 +2023,7 @@ declare namespace Microsoft.Live {
              * Information on folders chosen in the picker.
              */
             folders?: IFolder[] | undefined;
-        }
+        };
     }
 
     /**
@@ -2041,9 +2038,11 @@ declare namespace Microsoft.Live {
          * @param onProgress Called to indicate that the promised event is
          *   making progress toward completion.
          */
-        then(onSuccess: (response: T) => void,
+        then(
+            onSuccess: (response: T) => void,
             onError?: (error: any) => void,
-            onProgress?: (progress: any) => void): IPromise<T>;
+            onProgress?: (progress: any) => void,
+        ): IPromise<T>;
         /**
          * Cancels the pending request represented by the Promise, and triggers
          * the error callback if the promised event has not yet occurred.
@@ -2091,8 +2090,7 @@ declare namespace Microsoft.Live {
          *   code to handle a successful, failed, and in-progress call to the
          *   corresponding WL.api method, respectively.
          */
-        api<T>(properties: IAPIProperties,
-              callback?: (response: any) => void): IPromise<T>;
+        api<T>(properties: IAPIProperties, callback?: (response: any) => void): IPromise<T>;
         /**
          * Makes a call to download a file from Microsoft SkyDrive.
          *
@@ -2114,8 +2112,10 @@ declare namespace Microsoft.Live {
          *   content_type and stream properties, representing the downloaded
          *   file's content type and file stream, respectively.
          */
-        backgroundDownload<T>(properties: IBackgroundDownloadProperties,
-            callback?: (response: any) => void): IPromise<T>;
+        backgroundDownload<T>(
+            properties: IBackgroundDownloadProperties,
+            callback?: (response: any) => void,
+        ): IPromise<T>;
         /**
          * Makes a call to upload a file to Microsoft SkyDrive.
          *
@@ -2135,8 +2135,7 @@ declare namespace Microsoft.Live {
          *   handle a successful, failed, and in-progress call to the
          *   corresponding WL.backgroudUpload method, respectively.
          */
-        backgroundUpload<T>(properties: IBackgroundUploadProperties,
-            callback?: (response: any) => void): IPromise<T>;
+        backgroundUpload<T>(properties: IBackgroundUploadProperties, callback?: (response: any) => void): IPromise<T>;
         /**
          * Specifies whether the current user can be signed out of their
          * Microsoft account.
@@ -2170,8 +2169,7 @@ declare namespace Microsoft.Live {
          *   the onError parameter to enable your code to handle a failed call
          *   to the corresponding WL.download method.
          */
-        download(properties: IDownloadProperties,
-            callback?: (response: any) => void): IPromise<void>;
+        download(properties: IDownloadProperties, callback?: (response: any) => void): IPromise<void>;
         Event: IEventAPI;
         /**
          * Displays the Microsoft SkyDrive file picker, which enables
@@ -2187,8 +2185,7 @@ declare namespace Microsoft.Live {
          *   a successful and failed call to the corresponding WL.fileDialog
          *   method, respectively.
          */
-        fileDialog(properties: IFileDialogProperties,
-            callback?: (response: any) => void): IPromise<IFilePickerResult>;
+        fileDialog(properties: IFileDialogProperties, callback?: (response: any) => void): IPromise<IFilePickerResult>;
         /**
          * Returns the sign-in status of the current user. If the user is signed
          * in and connected to your app, this function returns the session
@@ -2213,8 +2210,7 @@ declare namespace Microsoft.Live {
          *   In the body of the onSuccess function, a status object is returned,
          *   which contains the user's sign-in status and the session object.
          */
-        getLoginStatus(callback?: (status: ILoginStatus) => void,
-            force?: boolean): IPromise<ILoginStatus>;
+        getLoginStatus(callback?: (status: ILoginStatus) => void, force?: boolean): IPromise<ILoginStatus>;
         /**
          * Retrieves the current session object synchronously, if a session
          * object exists. For situations in which performance is critical, such
@@ -2268,8 +2264,7 @@ declare namespace Microsoft.Live {
          *   code to handle a successful, failed, and in-progress call to the
          *   corresponding WL.login method, respectively.
          */
-        login(properties: ILoginProperties,
-            callback?: (status: any) => void): IPromise<ILoginStatus>;
+        login(properties: ILoginProperties, callback?: (status: any) => void): IPromise<ILoginStatus>;
         /**
          * Signs the user out of Live Connect and clears any user state that is
          * maintained by the JavaScript library, such as cookies. If the user
@@ -2326,8 +2321,7 @@ declare namespace Microsoft.Live {
          *   onProgress parameter applies to newer web browsers such as Internet
          *   Explorer 10 only.
          */
-        upload<T>(properties: IUploadProperties,
-            callback?: (response: any) => void): IPromise<T>;
+        upload<T>(properties: IUploadProperties, callback?: (response: any) => void): IPromise<T>;
     }
 }
 

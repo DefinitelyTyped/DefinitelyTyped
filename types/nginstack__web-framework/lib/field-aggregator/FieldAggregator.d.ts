@@ -11,10 +11,12 @@ declare class FieldAggregator {
     private readOnlyModified;
     decimalPrecision: number | null;
     supportsCalculatedFields: boolean;
+    lastValue: number;
+    type: string;
+    alignment: string;
     value: number;
     description: string;
     readOnly: boolean;
-    lastValue: number;
     reset(): void;
     fValue: number;
     formatValue(value: number | Date): string;
@@ -25,4 +27,4 @@ declare class FieldAggregator {
     assign(obj: FieldAggregator): void;
     toString(): string;
 }
-import DataSet = require('@nginstack/engine/lib/dataset/DataSet.js');
+import DataSet = require("@nginstack/engine/lib/dataset/DataSet.js");

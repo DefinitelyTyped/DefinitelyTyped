@@ -1,8 +1,3 @@
-// Type definitions for unix-time 1.0
-// Project: https://github.com/segmentio/unix-time
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = unixTime;
 
 /**

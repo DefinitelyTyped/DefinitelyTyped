@@ -1,11 +1,4 @@
-// Type definitions for react-svg-radar-chart 1.2
-// Project: https://github.com/Spyna/react-svg-radar-chart
-// Definitions by: Lukas Tutkus <https://github.com/luksys5>
-//                 Alberto Francesco Motta <https://github.com/afmotta>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.5
-
-import * as React from 'react';
+import * as React from "react";
 
 export interface ChartData {
     data: {
@@ -59,23 +52,29 @@ export interface ChartOptionsProps {
     /** custom axis props */
     axisProps?: (() => { className: string }) | undefined;
     /** custom scale props */
-    scaleProps?: (() => {
-        className: string;
-        fill: string;
-    }) | undefined;
+    scaleProps?:
+        | (() => {
+            className: string;
+            fill: string;
+        })
+        | undefined;
     /** custom shape props */
     shapeProps?: (() => { className: string }) | undefined;
     /** custom captions props */
-    captionProps?: (() => {
-        className: string;
-        textAnchor: string;
-        fontSize: number;
-        fontFamily: string;
-    }) | undefined;
+    captionProps?:
+        | (() => {
+            className: string;
+            textAnchor: string;
+            fontSize: number;
+            fontFamily: string;
+        })
+        | undefined;
     /** custom dot props */
-    dotProps?: (() => {
-        className: string;
-    }) | undefined;
+    dotProps?:
+        | (() => {
+            className: string;
+        })
+        | undefined;
 }
 
 export interface ChartProps {

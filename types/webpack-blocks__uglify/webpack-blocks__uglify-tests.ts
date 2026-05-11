@@ -1,4 +1,4 @@
-import { createConfig } from 'webpack-blocks';
-import uglify from '@webpack-blocks/uglify';
+import uglify from "@webpack-blocks/uglify";
+import { createConfig } from "webpack-blocks";
 
 createConfig([uglify()]);

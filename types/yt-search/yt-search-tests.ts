@@ -1,14 +1,14 @@
-import yts, { search } from 'yt-search';
+import yts, { search } from "yt-search";
 
 // $ExpectType Promise<SearchResult>
-yts('');
+yts("");
 // $ExpectType Promise<SearchResult>
-yts.search('');
+yts.search("");
 // $ExpectType Promise<SearchResult>
-search('');
+search("");
 
 // $ExpectType void
-yts('', (err, data) => {
+yts("", (err, data) => {
     // $ExpectType string | Error | null | undefined
     err;
     // $ExpectType SearchResult
@@ -16,16 +16,16 @@ yts('', (err, data) => {
 });
 
 // $ExpectType Promise<SearchResult>
-yts({ query: '' });
+yts({ query: "" });
 
 // $ExpectType Promise<SearchResult>
-yts({ search: '', pageStart: 2, pageEnd: 5 });
+yts({ search: "", pageStart: 2, pageEnd: 5 });
 
 // $ExpectType Promise<VideoMetadataResult>
-yts({ videoId: '' });
+yts({ videoId: "" });
 
 // $ExpectType Promise<PlaylistMetadataResult>
-yts({ listId: '' });
+yts({ listId: "" });
 
 // @ts-expect-error
 yts();
@@ -34,4 +34,4 @@ yts();
 yts({});
 
 // @ts-expect-error
-yts({ query: '', videoId: '' });
+yts({ query: "", videoId: "" });

@@ -64,6 +64,8 @@ if (~process.argv.indexOf("--setup")) {
 // Similarly, if you want to tear down autocompletion, use `omeletteInstance.cleanupShellInitFile()`
 if (~process.argv.indexOf("--cleanup")) {
     completion.cleanupShellInitFile();
+
+    completion.cleanupShellInitFile("~/custom/.bashrc");
 }
 
 // Rest is yours
@@ -96,10 +98,10 @@ omelette`
       ${({ reply }) => fetch("http://api.example.com/lazy-commands").then(reply) /* Fetch when argument <tab>bed */}
       ${() => fs.readdirSync("/Users/") /* Access filesystem via Node */}
       ${({ before }) => [
-          /* Use parameters like `before`, `line`, `fragment` or `reply` */
-          `${before}/helloworld`,
-          `${before}/blabla`,
-      ]}
+    /* Use parameters like `before`, `line`, `fragment` or `reply` */
+    `${before}/helloworld`,
+    `${before}/blabla`,
+]}
   `.init();
 
 // No extra configuration required.
@@ -133,26 +135,26 @@ completion.init();
 omelette("hello")
     .tree({
         how: {
-          much: {
-            is: {
-              this: ["car"],
-              that: ["house"],
-            }
-          },
-          are: ["you"],
-          many: ["cars"],
+            much: {
+                is: {
+                    this: ["car"],
+                    that: ["house"],
+                },
+            },
+            are: ["you"],
+            many: ["cars"],
         },
         where: {
-          are: {
-            you: ["from"],
-            the: ["houses", "cars"],
-          },
-          is: {
-            // You can also add some logic with defining functions:
-            your() {
-              return ['house', 'car'];
+            are: {
+                you: ["from"],
+                the: ["houses", "cars"],
             },
-          }
-        }
+            is: {
+                // You can also add some logic with defining functions:
+                your() {
+                    return ["house", "car"];
+                },
+            },
+        },
     })
     .init();

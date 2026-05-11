@@ -1,11 +1,18 @@
 /// <reference types="node" />
-import { Wire, WireConstructor, READY_STATE, ExistingConnectConfig, ConnectConfig, InternalConnectConfig } from './wire';
-import { Identity } from '../identity';
-import { EventEmitter } from 'events';
-import { Environment } from '../environment/environment';
-import { RuntimeEvent } from '../api/events/base';
-import { EventAggregator } from '../api/events/eventAggregator';
-import { EntityTypeHelpers } from '../util/entity-type';
+import { EventEmitter } from "events";
+import { RuntimeEvent } from "../api/events/base";
+import { EventAggregator } from "../api/events/eventAggregator";
+import { Environment } from "../environment/environment";
+import { Identity } from "../identity";
+import { EntityTypeHelpers } from "../util/entity-type";
+import {
+    ConnectConfig,
+    ExistingConnectConfig,
+    InternalConnectConfig,
+    READY_STATE,
+    Wire,
+    WireConstructor,
+} from "./wire";
 export declare type MessageHandler = (data: any) => boolean;
 declare class Transport extends EventEmitter {
     protected wireListeners: Map<number, {
@@ -16,7 +23,7 @@ declare class Transport extends EventEmitter {
     me: Identity & EntityTypeHelpers;
     environment: Environment;
     topicRefMap: Map<string, number>;
-    sendRaw: Wire['send'];
+    sendRaw: Wire["send"];
     eventAggregator: EventAggregator;
     protected messageHandlers: MessageHandler[];
     constructor(wireType: WireConstructor, environment: Environment);
@@ -34,7 +41,11 @@ declare class Transport extends EventEmitter {
 }
 export default Transport;
 interface Transport {
-    sendAction(action: 'request-external-authorization', payload: {}, uncorrelated: true): Promise<Message<AuthorizationPayload>>;
+    sendAction(
+        action: "request-external-authorization",
+        payload: {},
+        uncorrelated: true,
+    ): Promise<Message<AuthorizationPayload>>;
     sendAction(action: string, payload: {}, uncorrelated: boolean): Promise<Message<Payload>>;
     topicRefMap: Map<string, number>;
 }
@@ -44,11 +55,11 @@ export declare class Message<T> {
     correlationId?: number | undefined;
 }
 export declare class EventMessage implements Message<RuntimeEvent> {
-    action: 'process-desktop-event';
+    action: "process-desktop-event";
     payload: RuntimeEvent;
 }
 export declare class NotificationEventMessage implements Message<NotificationEvent> {
-    action: 'process-notification-event';
+    action: "process-notification-event";
     payload: NotificationEvent;
 }
 export interface NotificationEvent {

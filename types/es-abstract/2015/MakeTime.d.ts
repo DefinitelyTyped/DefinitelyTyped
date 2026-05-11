@@ -1,2 +1,2 @@
-import MakeTime = require('../5/MakeTime');
+import MakeTime = require("../5/MakeTime");
 export = MakeTime;

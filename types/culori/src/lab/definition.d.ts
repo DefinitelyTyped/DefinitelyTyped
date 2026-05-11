@@ -1,14 +1,14 @@
-import convertLabToRgb from './convertLabToRgb';
-import convertLabToXyz50 from './convertLabToXyz50';
-import convertRgbToLab from './convertRgbToLab';
-import convertXyz50ToLab from './convertXyz50ToLab';
-import parseLab from './parseLab';
-import { interpolatorLinear } from '../interpolate/linear';
-import { fixupAlpha } from '../fixup/alpha';
-import { Lab } from './types';
+import { fixupAlpha } from "../fixup/alpha.js";
+import { interpolatorLinear } from "../interpolate/linear.js";
+import convertLabToRgb from "./convertLabToRgb.js";
+import convertLabToXyz50 from "./convertLabToXyz50.js";
+import convertRgbToLab from "./convertRgbToLab.js";
+import convertXyz50ToLab from "./convertXyz50ToLab.js";
+import parseLab from "./parseLab.js";
+import { Lab } from "./types.js";
 
-declare const definition: {
-    mode: 'lab';
+declare const modeLab: {
+    mode: "lab";
 
     toMode: {
         xyz50: typeof convertLabToXyz50;
@@ -20,7 +20,7 @@ declare const definition: {
         rgb: typeof convertRgbToLab;
     };
 
-    channels: ['l', 'a', 'b', 'alpha'];
+    channels: ["l", "a", "b", "alpha"];
 
     ranges: {
         l: [0, 100];
@@ -29,7 +29,7 @@ declare const definition: {
     };
 
     parse: [typeof parseLab];
-    serialize: (c: Omit<Lab, 'mode'>) => string;
+    serialize: (c: Omit<Lab, "mode">) => string;
 
     interpolate: {
         l: typeof interpolatorLinear;
@@ -39,4 +39,4 @@ declare const definition: {
     };
 };
 
-export default definition;
+export default modeLab;

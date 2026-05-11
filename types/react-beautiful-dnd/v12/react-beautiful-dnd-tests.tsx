@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 import {
     DragDropContext,
     Draggable,
@@ -12,8 +12,7 @@ import {
     DropResult,
     resetServerContext,
     ResponderProvided,
-} from 'react-beautiful-dnd';
-import * as ReactDOM from 'react-dom';
+} from "react-beautiful-dnd";
 
 interface Item {
     id: string;
@@ -36,7 +35,7 @@ const reorder = (list: any[], startIndex: number, endIndex: number) => {
 };
 
 const getListStyle = (snapshot: DroppableStateSnapshot) => ({
-    background: snapshot.draggingFromThisWith ? 'lightpink' : snapshot.isDraggingOver ? 'lightblue' : 'lightgrey',
+    background: snapshot.draggingFromThisWith ? "lightpink" : snapshot.isDraggingOver ? "lightblue" : "lightgrey",
     width: 250,
 });
 
@@ -95,9 +94,9 @@ class App extends React.Component<{}, AppState> {
                     {...dragHandleProps}
                     style={{
                         ...draggableProps.style,
-                        userSelect: 'none',
-                        background: snapshot.isDragging ? 'lightgreen' : 'grey',
-                        boxShadow: snapshot.isClone ? 'inset 0px 0px 0px 2px blue' : 'none',
+                        userSelect: "none",
+                        background: snapshot.isDragging ? "lightgreen" : "grey",
+                        boxShadow: snapshot.isClone ? "inset 0px 0px 0px 2px blue" : "none",
                     }}
                 >
                     {item.content}
@@ -138,6 +137,6 @@ class App extends React.Component<{}, AppState> {
     }
 }
 
-ReactDOM.render(<App />, document.getElementById('app'));
+<App />;
 
 resetServerContext();

@@ -1,11 +1,14 @@
-import imagemin from 'imagemin';
-import upng from 'imagemin-upng';
-import fs = require('fs');
+/// <reference types="node" />
 
-const buffer = fs.readFileSync('some-png.png');
+import fs = require("node:fs");
 
-imagemin(['images/*.png'], {
-    destination: 'build/images',
+import imagemin from "imagemin";
+import upng from "imagemin-upng";
+
+const buffer = fs.readFileSync("some-png.png");
+
+imagemin(["images/*.png"], {
+    destination: "build/images",
     plugins: [
         upng(),
         upng({}),

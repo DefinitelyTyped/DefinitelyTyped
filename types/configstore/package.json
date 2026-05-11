@@ -1,4 +1,18 @@
 {
     "private": true,
-    "type": "module"
+    "name": "@types/configstore",
+    "version": "6.0.9999",
+    "projects": [
+        "https://github.com/yeoman/configstore"
+    ],
+    "type": "module",
+    "devDependencies": {
+        "@types/configstore": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "ArcticLight",
+            "githubUsername": "ArcticLight"
+        }
+    ]
 }

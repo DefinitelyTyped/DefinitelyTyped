@@ -1,6 +1,6 @@
 import * as React from "react";
-import { ReactMotionLoop } from "react-motion-loop";
 import { spring } from "react-motion";
+import { ReactMotionLoop } from "react-motion-loop";
 
 const TestComponent: React.FunctionComponent<never> = props => (
     <ReactMotionLoop

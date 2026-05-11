@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/licensee",
+    "version": "12.0.9999",
+    "projects": [
+        "https://github.com/jslicense/licensee.js"
+    ],
+    "devDependencies": {
+        "@types/licensee": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jamie Magee",
+            "githubUsername": "JamieMagee"
+        }
+    ]
+}

@@ -4,5 +4,5 @@
  */
 export interface ScopeDescriptor {
     /** Returns all scopes for this descriptor. */
-    getScopesArray(): ReadonlyArray<string>;
+    getScopesArray(): readonly string[];
 }

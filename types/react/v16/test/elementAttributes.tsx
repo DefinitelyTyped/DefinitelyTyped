@@ -1,4 +1,12 @@
-import * as React from 'react';
+import * as React from "react";
+
+declare module "react" {
+    namespace JSX {
+        interface IntrinsicElements {
+            "custom-element": React.HTMLAttributes<unknown>;
+        }
+    }
+}
 
 const testCases = [
     <span />,
@@ -23,6 +31,7 @@ const testCases = [
     <span autoCapitalize="on" />,
     <span autoCapitalize="words" />,
     <span autoCapitalize="sentences" />,
+    <span autoCapitalize="characters" />,
     <span autoCorrect="off" />,
     <span autoCorrect="on" />,
     <span translate="no" />,
@@ -30,10 +39,10 @@ const testCases = [
     <svg>
         <image crossOrigin="anonymous" />
     </svg>,
-    <details open={true} onToggle={() => {}} />,
-    <input value={['one', 'two'] as ReadonlyArray<string>} />,
-    <input value={['one', 'two'] as string[]} />,
-    <input value={['one', 'two']} />,
+    <details open={true} onToggle={() => {}} name="foo" />,
+    <input value={["one", "two"] as readonly string[]} />,
+    <input value={["one", "two"] as string[]} />,
+    <input value={["one", "two"]} />,
     <div role="alertdialog" />,
     <div role="none presentation" />,
     <svg role="treeitem" />,
@@ -45,7 +54,9 @@ const testCases = [
         <source media="test" srcSet="test" width={50} height={50} />
         <img src="test" width={100} height={100} />
     </picture>,
+    <dialog />,
     <dialog
+        closedby="closerequest"
         onCancel={event => {
             // $ExpectType SyntheticEvent<HTMLDialogElement, Event>
             event;
@@ -54,6 +65,19 @@ const testCases = [
             // $ExpectType SyntheticEvent<HTMLDialogElement, Event>
             event;
         }}
-    ></dialog>,
+        open
+    />,
     <link nonce="8IBTHwOdqNKAWeKl7plt8g==" />,
+    <>
+        <template>
+            <div part="base" />
+            <custom-element exportparts="nested" />
+        </template>
+    </>,
+    <link rel="expect" href="#lead-content" blocking="render" />,
+    <link rel="expect" href="#lead-content" blocking="render render" />,
+    <style blocking="render" />,
+    <style blocking="render render" />,
+    <script blocking="render" async />,
+    <script blocking="render render" async />,
 ];

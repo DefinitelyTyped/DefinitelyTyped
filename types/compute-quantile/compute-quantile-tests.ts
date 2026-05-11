@@ -1,4 +1,4 @@
-import quantile = require('compute-quantile');
+import quantile = require("compute-quantile");
 
 // $ExpectType number
 quantile([1, 2, 3], 0.5);

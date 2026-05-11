@@ -11,12 +11,12 @@ export interface FileUploader {
     Init(
         URL: string,
         successCallback: (
-            uploadManager: UploadManager
+            uploadManager: UploadManager,
         ) => void,
         failureCallback: (
             errorCode: number,
-            errorString: string
-        ) => void
+            errorString: string,
+        ) => void,
     ): void;
 }
 export interface UploadManager {
@@ -70,7 +70,7 @@ export interface Job {
     OnRunFailure: (
         job: Job,
         errorCode: number,
-        errorString: string
+        errorString: string,
     ) => void;
     /**
      * A callback triggered when the job succeeds.
@@ -84,7 +84,7 @@ export interface Job {
      */
     OnUploadTransferPercentage: (
         job: Job,
-        percentage: number
+        percentage: number,
     ) => void;
     /**
      * Specify the URL of the script to receive the upload.
@@ -114,7 +114,7 @@ export interface SourceValue {
     Add: (
         source: string,
         name: string,
-        key?: string
+        key?: string,
     ) => void;
 }
 export interface FormField {
@@ -125,6 +125,6 @@ export interface FormField {
      */
     Add: (
         key: string,
-        value: string
+        value: string,
     ) => void;
 }

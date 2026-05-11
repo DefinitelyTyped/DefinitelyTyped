@@ -1,6 +1,6 @@
-import { GraphQLTaggedNode } from 'relay-runtime';
+import { GraphQLTaggedNode } from "relay-runtime";
 
-import { ArrayKeyType, ArrayKeyTypeData, KeyType, KeyTypeData } from './helpers';
+import { ArrayKeyType, ArrayKeyTypeData, KeyType, KeyTypeData } from "./helpers";
 
 // NOTE: These declares ensure that the type of the returned data is:
 //   - non-nullable if the provided ref type is non-nullable
@@ -16,8 +16,8 @@ export function useFragment<TKey extends KeyType>(
 
 export function useFragment<TKey extends KeyType>(
     fragmentInput: GraphQLTaggedNode,
-    fragmentRef: TKey | null,
-): KeyTypeData<TKey> | null;
+    fragmentRef: TKey | null | undefined,
+): KeyTypeData<TKey> | null | undefined;
 
 export function useFragment<TKey extends ArrayKeyType>(
     fragmentInput: GraphQLTaggedNode,
@@ -26,5 +26,5 @@ export function useFragment<TKey extends ArrayKeyType>(
 
 export function useFragment<TKey extends ArrayKeyType>(
     fragmentInput: GraphQLTaggedNode,
-    fragmentRef: TKey | null,
-): ArrayKeyTypeData<TKey> | null;
+    fragmentRef: TKey | null | undefined,
+): ArrayKeyTypeData<TKey> | null | undefined;

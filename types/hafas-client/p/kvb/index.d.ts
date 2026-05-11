@@ -1,3 +1,3 @@
-import { Profile } from '../../index';
+import { Profile } from "../../index";
 
 export const profile: Profile;

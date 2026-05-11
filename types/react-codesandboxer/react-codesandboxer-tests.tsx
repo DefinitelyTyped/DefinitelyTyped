@@ -5,15 +5,15 @@ const codeSandboxer = (
     <CodeSandboxer
         examplePath="deeply/nested/thing/some-example.js"
         gitInfo={{
-            account: 'noviny',
-            repository: 'react-CodeSandbox',
-            branch: 'master',
-            host: 'github',
+            account: "noviny",
+            repository: "react-CodeSandbox",
+            branch: "master",
+            host: "github",
         }}
         dependencies={{
-            '@atlaskit/css-reset': 'latest',
+            "@atlaskit/css-reset": "latest",
         }}
-        providedFiles={{ 'index.js': { content: 'abcde....' } }}
+        providedFiles={{ "index.js": { content: "abcde...." } }}
     >
         {({ isLoading }) =>
             isLoading
@@ -22,7 +22,6 @@ const codeSandboxer = (
                     <button type="submit">
                         Upload to CodeSandbox
                     </button>
-                )
-        }
+                )}
     </CodeSandboxer>
 );

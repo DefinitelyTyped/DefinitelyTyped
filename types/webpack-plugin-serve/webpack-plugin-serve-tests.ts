@@ -1,8 +1,8 @@
-import { Builtins, WebpackPluginServe } from 'webpack-plugin-serve';
+import { Builtins, WebpackPluginServe } from "webpack-plugin-serve";
 
-const proxy: Builtins['proxy'] = ({ logLevel }) => {
-    if (logLevel === 'debug') {
-        console.debug('debugging logs activated!');
+const proxy: Builtins["proxy"] = ({ logLevel }) => {
+    if (logLevel === "debug") {
+        console.debug("debugging logs activated!");
     }
 
     return (req, res, next) => next();
@@ -18,7 +18,7 @@ interface Configuration {
 }
 
 const usage = (config: Configuration) => {
-    config.entry.push('webpack-plugin-serve/client');
+    config.entry.push("webpack-plugin-serve/client");
 
     config.watch = true;
 
@@ -26,37 +26,37 @@ const usage = (config: Configuration) => {
         new WebpackPluginServe({
             compress: true,
             historyFallback: true,
-            host: '0.0.0.0',
+            host: "0.0.0.0",
             port: 3808,
             liveReload: true,
             middleware: (app: any, builtins: any) =>
                 app.use(async (ctx: any, next: any) => {
                     await next();
-                    ctx.set('Access-Control-Allow-Headers', '*');
-                    ctx.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-                    ctx.set('Access-Control-Allow-Origin', '*');
+                    ctx.set("Access-Control-Allow-Headers", "*");
+                    ctx.set("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+                    ctx.set("Access-Control-Allow-Origin", "*");
                 }),
-            static: '/',
+            static: "/",
 
             status: true,
             progress: true,
         }),
     );
 
-    config.output!.publicPath = '/';
+    config.output!.publicPath = "/";
 
     return config;
 };
 
 const baseConfig: Configuration = {
-    entry: ['index.js'],
+    entry: ["index.js"],
 };
 
 const configWithServer = usage(baseConfig);
 
 const newConfigWithGlobby = new WebpackPluginServe({
     static: {
-        glob: ['dist/**/public'],
+        glob: ["dist/**/public"],
         options: { onlyDirectories: true },
     },
 });

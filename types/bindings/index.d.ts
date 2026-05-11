@@ -1,9 +1,3 @@
-// Type definitions for bindings 1.5
-// Project: https://github.com/TooTallNate/node-bindings
-// Definitions by: Daniel Perez Alvarez <https://github.com/unindented>
-//                 ExE Boss <https://github.com/ExE-Boss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node"/>
 
 /**
@@ -28,7 +22,10 @@ declare namespace bindings {
         version?: string | undefined;
         /** @default 'bindings.node' */
         bindings?: string | undefined;
-        try?: ReadonlyArray<ReadonlyArray<string>> | undefined;
+        /* @default exports.getRoot(exports.getFileName()) */
+        module_root?: string | undefined;
+        /* @default (build/|out/)?(Debug|Release|default) and others */
+        try?: ReadonlyArray<readonly string[]> | undefined;
     }
 
     /**

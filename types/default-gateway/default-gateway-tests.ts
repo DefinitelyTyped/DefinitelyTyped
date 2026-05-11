@@ -1,4 +1,4 @@
-import { gateway4async, gateway6async, gateway4sync, gateway6sync, type Result } from 'default-gateway';
+import { gateway4async, gateway4sync, gateway6async, gateway6sync, type Result } from "default-gateway";
 
 gateway4async().then((g) => {
     // $ExpectType Result<4>

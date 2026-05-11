@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/are.na",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/ivangreene/arena-js"
+    ],
+    "devDependencies": {
+        "@types/are.na": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Hunter Caron",
+            "githubUsername": "huntercaron"
+        }
+    ]
+}

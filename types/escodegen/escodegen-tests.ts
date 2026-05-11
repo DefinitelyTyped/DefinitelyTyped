@@ -1,35 +1,35 @@
-import * as escodegen from 'escodegen';
+import * as escodegen from "escodegen";
 
 let emptyIndentOptions: escodegen.IndentOptions = {};
 let indentOptions: escodegen.IndentOptions = {
-    style: ' ',
+    style: " ",
     base: 0,
-    adjustMultilineComment: true
+    adjustMultilineComment: true,
 };
 
 let emptyFormatOptions: escodegen.FormatOptions = {};
 let formatOptions: escodegen.FormatOptions = {
     indent: indentOptions,
-    newline: '\n',
-    space: ' ',
+    newline: "\n",
+    space: " ",
     json: true,
     renumber: true,
     hexadecimal: true,
-    quotes: 'single',
+    quotes: "single",
     escapeless: true,
     compact: true,
     parentheses: true,
     semicolons: true,
     safeConcatenation: true,
-    preserveBlankLines: true
+    preserveBlankLines: true,
 };
 
 let emptyMozillaOptions: escodegen.MozillaOptions = {};
 let mozillaOptions: escodegen.MozillaOptions = {
     starlessGenerator: true,
     parenthesizedComprehensionBlock: true,
-    comprehensionExpressionStartsWithAssignment: true
-}
+    comprehensionExpressionStartsWithAssignment: true,
+};
 
 let emptyGenerateOptions: escodegen.GenerateOptions = {};
 let generateOptions: escodegen.GenerateOptions = {
@@ -44,7 +44,7 @@ let generateOptions: escodegen.GenerateOptions = {
     sourceMapRoot: " ",
     directive: true,
     file: " ",
-    verbatim: " "
+    verbatim: " ",
 };
 
 let precedence: escodegen.Precedence = escodegen.Precedence.Primary;

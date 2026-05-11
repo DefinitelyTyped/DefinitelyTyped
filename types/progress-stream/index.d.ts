@@ -1,9 +1,3 @@
-// Type definitions for progress-stream 2.0
-// Project: https://github.com/freeall/progress-stream
-// Definitions by: Mick Dekkers <https://github.com/mickdekkers>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 /// <reference types="node" />
 
 import stream = require("stream");
@@ -46,7 +40,7 @@ declare namespace progress_stream {
 
         // stream.Readable events
 
-        /* tslint:disable-next-line adjacent-overload-signatures */
+        /* eslint-disable-next-line @typescript-eslint/adjacent-overload-signatures */
         on(event: "close", listener: () => void): this;
         on(event: "data", listener: (chunk: any) => void): this;
         /* tslint:disable-next-line unified-signatures */
@@ -54,7 +48,7 @@ declare namespace progress_stream {
         /* tslint:disable-next-line unified-signatures */
         on(event: "readable", listener: () => void): this;
         on(event: "error", listener: (err: Error) => void): this;
-        /* tslint:disable-next-line adjacent-overload-signatures */
+        /* eslint-disable-next-line @typescript-eslint/adjacent-overload-signatures */
         once(event: "close", listener: () => void): this;
         once(event: "data", listener: (chunk: any) => void): this;
         /* tslint:disable-next-line unified-signatures */
@@ -65,14 +59,14 @@ declare namespace progress_stream {
 
         // stream.Writable events
 
-        /* tslint:disable-next-line adjacent-overload-signatures unified-signatures */
+        /* eslint-disable-next-line @typescript-eslint/adjacent-overload-signatures -- unified-signatures */
         on(event: "drain", listener: () => void): this;
         /* tslint:disable-next-line unified-signatures */
         on(event: "finish", listener: () => void): this;
         on(event: "pipe", listener: (src: stream.Readable) => void): this;
         /* tslint:disable-next-line unified-signatures */
         on(event: "unpipe", listener: (src: stream.Readable) => void): this;
-        /* tslint:disable-next-line adjacent-overload-signatures unified-signatures */
+        /* eslint-disable-next-line @typescript-eslint/adjacent-overload-signatures -- unified-signatures */
         once(event: "drain", listener: () => void): this;
         /* tslint:disable-next-line unified-signatures */
         once(event: "finish", listener: () => void): this;
@@ -82,9 +76,9 @@ declare namespace progress_stream {
 
         // events shared by stream.Readable and stream.Writable
 
-        /* tslint:disable-next-line adjacent-overload-signatures */
+        /* eslint-disable-next-line @typescript-eslint/adjacent-overload-signatures */
         on(event: string | symbol, listener: (...args: any[]) => void): this;
-        /* tslint:disable-next-line adjacent-overload-signatures */
+        /* eslint-disable-next-line @typescript-eslint/adjacent-overload-signatures */
         once(event: string | symbol, listener: (...args: any[]) => void): this;
     }
 

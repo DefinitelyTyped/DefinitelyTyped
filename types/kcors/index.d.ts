@@ -1,10 +1,4 @@
-// Type definitions for kcors 2.2
-// Project: https://github.com/koajs/cors
-// Definitions by: Xavier Stouder <https://github.com/Xstoudi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
-import * as Koa from "koa";
+import Koa = require("koa");
 
 declare function cors(options?: cors.Options): Koa.Middleware;
 export = cors;

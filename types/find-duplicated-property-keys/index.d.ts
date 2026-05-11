@@ -1,8 +1,3 @@
-// Type definitions for find-duplicated-property-keys 1.1
-// Project: https://github.com/SebastianG77/find-duplicated-property-keys#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * A package for detecting all duplicated property keys of a JSON string.
  * It can either be used as a standalone tool for validating JSON files or as a submodule for other Node.js projects.

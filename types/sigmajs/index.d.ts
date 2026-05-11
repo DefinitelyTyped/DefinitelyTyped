@@ -1,29 +1,24 @@
-// Type definitions for sigma.js v1.0.3
-// Project: https://github.com/jacomyal/sigma.js
-// Definitions by: Qinfeng Chen <https://github.com/qinfchen>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-declare namespace SigmaJs{
+declare namespace SigmaJs {
     interface Animation {
         camera(camera: Camera, target: { [index: string]: any }, options: { [index: string]: any }): number;
     }
 
     interface Camera {
         angle: number;
-        cameraPosition(x: number, y:number): {x: number; y: number};
+        cameraPosition(x: number, y: number): { x: number; y: number };
         goTo(settings: { [index: string]: any }): void;
-        graphPosition(x: number, y:number): {x: number; y: number};
+        graphPosition(x: number, y: number): { x: number; y: number };
         ratio: number;
         readPrefix: string;
-        settings(setting: string) : any;
+        settings(setting: string): any;
         x: number;
         y: number;
     }
 
     interface Canvas {
-        edges: {[renderType: string]: (edge: Edge, source: Node, target: Node, ...a:any[]) => void};
-        labels: {[renderType: string]: (node: Node, ...a:any[]) => void};
-        nodes: {[renderType: string]: (node: Node, ...a:any[]) => void};
+        edges: { [renderType: string]: (edge: Edge, source: Node, target: Node, ...a: any[]) => void };
+        labels: { [renderType: string]: (node: Node, ...a: any[]) => void };
+        nodes: { [renderType: string]: (node: Node, ...a: any[]) => void };
     }
 
     interface Classes {
@@ -46,7 +41,7 @@ declare namespace SigmaJs{
     }
 
     interface Edge {
-        [key : string] : any;
+        [key: string]: any;
         color?: string | undefined;
         id: string;
         size?: number | undefined;
@@ -100,7 +95,7 @@ declare namespace SigmaJs{
     }
 
     interface Node {
-        [key : string] : any;
+        [key: string]: any;
         color?: string | undefined;
         id: string;
         image?: any;
@@ -128,7 +123,7 @@ declare namespace SigmaJs{
         settings(settings: Settings): void;
     }
 
-    interface RendererConfigs{
+    interface RendererConfigs {
         container?: Element | undefined;
         id?: string | undefined;
         type?: string | undefined;
@@ -175,7 +170,7 @@ declare namespace SigmaJs{
         new(container: Element): Sigma;
         new(configuration: SigmaConfigs): Sigma;
         canvas: Canvas;
-        classes:Classes;
+        classes: Classes;
         misc: Miscellaneous;
         parsers: Parsers;
         plugins: Plugins;
@@ -291,8 +286,8 @@ declare namespace SigmaJs{
             labels: SVGEdgeLabels;
             [renderType: string]: SVGObject<SigmaJs.Edge> | SVGEdgeLabels;
         };
-        labels: {[renderType: string]: SVGObject<SigmaJs.Node>};
-        nodes: {[renderType: string]: SVGObject<SigmaJs.Node>};
+        labels: { [renderType: string]: SVGObject<SigmaJs.Node> };
+        nodes: { [renderType: string]: SVGObject<SigmaJs.Node> };
     }
 
     interface SVGEdgeLabels {
@@ -300,8 +295,8 @@ declare namespace SigmaJs{
     }
 
     interface SVGObject<T> {
-        create: (object: T, ...a:any[]) => Element;
-        update: (object: T, ...a:any[]) => void;
+        create: (object: T, ...a: any[]) => Element;
+        update: (object: T, ...a: any[]) => void;
     }
 }
 

@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/synchronous-autocomplete",
+    "version": "2.3.9999",
+    "projects": [
+        "https://github.com/derhuerst/synchronous-autocomplete"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/synchronous-autocomplete": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

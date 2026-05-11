@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/kahoot.js-updated",
+    "version": "2.4.9999",
+    "projects": [
+        "https://github.com/theusaf/kahoot.js-updated"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@types/ws": "*"
+    },
+    "devDependencies": {
+        "@types/kahoot.js-updated": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Adam Thompson-Sharpe",
+            "githubUsername": "MysteryBlokHed"
+        }
+    ]
+}

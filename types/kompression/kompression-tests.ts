@@ -4,11 +4,11 @@ import compress = require("kompression");
 const app = new Koa();
 
 app.use(
-    compress()
+    compress(),
 );
 
 app.use(
-    compress({})
+    compress({}),
 );
 
 // based on README
@@ -18,5 +18,5 @@ app.use(
             return /text/i.test(contentType);
         },
         threshold: 2048,
-    })
+    }),
 );

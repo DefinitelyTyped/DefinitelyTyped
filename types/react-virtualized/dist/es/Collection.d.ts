@@ -1,13 +1,14 @@
-import { PureComponent, Validator, Requireable } from 'react';
+import type * as PropTypes from "prop-types";
+import { JSX, PureComponent } from "react";
 import {
     Alignment,
     Index,
     ScrollParams,
     ScrollPosition,
     SectionRenderedParams,
-    SizeInfo,
     SizeAndPositionInfo,
-} from '../../index';
+    SizeInfo,
+} from "../../index";
 
 export type CollectionCellSizeAndPosition = {
     height: number;
@@ -31,7 +32,7 @@ export type CollectionCellRendererParams = {
 };
 export type CollectionCellRenderer = (params: CollectionCellRendererParams) => React.ReactNode;
 export type CollectionProps = {
-    'aria-label'?: string | undefined;
+    "aria-label"?: string | undefined;
     /**
      * Outer height of Collection is set to "auto". This property should only be
      * used in conjunction with the WindowScroller HOC.
@@ -128,16 +129,16 @@ export type CollectionProps = {
  */
 export class Collection extends PureComponent<CollectionProps> {
     static propTypes: {
-        'aria-label': Requireable<string>;
-        cellCount: Validator<number>;
-        cellGroupRenderer: Validator<CollectionCellGroupRenderer>;
-        cellRenderer: Validator<CollectionCellRenderer>;
-        cellSizeAndPositionGetter: Validator<CollectionCellSizeAndPositionGetter>;
-        sectionSize: Requireable<number>;
+        "aria-label": PropTypes.Requireable<string>;
+        cellCount: PropTypes.Validator<number>;
+        cellGroupRenderer: PropTypes.Validator<CollectionCellGroupRenderer>;
+        cellRenderer: PropTypes.Validator<CollectionCellRenderer>;
+        cellSizeAndPositionGetter: PropTypes.Validator<CollectionCellSizeAndPositionGetter>;
+        sectionSize: PropTypes.Requireable<number>;
     };
 
     static defaultProps: {
-        'aria-label': 'grid';
+        "aria-label": "grid";
         cellGroupRenderer: CollectionCellGroupRenderer;
     };
 
@@ -159,7 +160,7 @@ export class Collection extends PureComponent<CollectionProps> {
      * Calculates the minimum amount of change from the current scroll position to ensure the specified cell is (fully) visible.
      */
     getScrollPositionForCell(params: {
-        align: 'auto' | 'start' | 'end' | 'center';
+        align: "auto" | "start" | "end" | "center";
         cellIndex: number;
         height: number;
         scrollLeft: number;
@@ -172,7 +173,7 @@ export class Collection extends PureComponent<CollectionProps> {
     cellRenderers(
         params: {
             isScrolling: boolean;
-        } & SizeInfo
+        } & SizeInfo,
     ): React.ReactNode[];
 }
 

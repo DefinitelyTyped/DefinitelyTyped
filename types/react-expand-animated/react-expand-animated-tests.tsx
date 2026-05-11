@@ -1,5 +1,5 @@
-import * as React from 'react';
-import Expand from 'react-expand-animated';
+import * as React from "react";
+import Expand from "react-expand-animated";
 
 <Expand
     open={true}
@@ -7,7 +7,7 @@ import Expand from 'react-expand-animated';
     easing="ease-out"
     className="my-class"
     tag="div"
-    transitions={['height', 'opacity']}
+    transitions={["height", "opacity"]}
     styles={{
         open: { marginTop: 100 },
         close: { marginTop: 0 },
@@ -18,7 +18,7 @@ import Expand from 'react-expand-animated';
 
 <Expand
     // @ts-expect-error
-    transitions={['not-a-css-prop']}
+    transitions={["not-a-css-prop"]}
 >
     <div />
 </Expand>;
@@ -43,9 +43,7 @@ import Expand from 'react-expand-animated';
     <div />
 </Expand>;
 
-<Expand
-    // @ts-expect-error
-    tag="notATag"
->
+<Expand // @ts-expect-error
+ tag="notATag">
     <div />
 </Expand>;

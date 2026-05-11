@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/http-headers",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/watson/http-headers"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/http-headers": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

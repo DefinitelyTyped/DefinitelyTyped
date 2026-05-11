@@ -1,20 +1,15 @@
-// Type definitions for sasl-scram-sha-1 1.2
-// Project: https://github.com/legastero/js-sasl-scram-sha-1
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { Mechanism } from 'saslmechanisms';
+import { Mechanism } from "saslmechanisms";
 
 export = ScramSha1Mechanism;
 
 declare class ScramSha1Mechanism implements Mechanism {
     static Mechanism: typeof ScramSha1Mechanism;
     static prototype: {
-        name: 'SCRAM-SHA-1';
+        name: "SCRAM-SHA-1";
         clientFirst: true;
     };
 
-    name: 'SCRAM-SHA-1';
+    name: "SCRAM-SHA-1";
     clientFirst: true;
 
     constructor(options?: ScramSha1Mechanism.Options);

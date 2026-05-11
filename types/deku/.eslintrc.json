@@ -1,7 +1,8 @@
 {
     "rules": {
-        "dt-header": "off",
-        "export-just-namespace": "off",
-        "no-unnecessary-generics": "off"
+        "@definitelytyped/export-just-namespace": "off",
+        "@definitelytyped/no-unnecessary-generics": "off",
+        "@typescript-eslint/no-unsafe-function-type": "off",
+        "@typescript-eslint/no-wrapper-object-types": "off"
     }
 }

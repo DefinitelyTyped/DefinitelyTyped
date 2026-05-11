@@ -1,6 +1,6 @@
-import scroll = require('scroll');
+import scroll = require("scroll");
 
-const el: HTMLElement = document.createElement('div');
+const el: HTMLElement = document.createElement("div");
 const opts = {
     duration: 1000,
     ease: (time: number) => 0.5 * time,
@@ -9,7 +9,7 @@ const cb: (error: Error | null, scrollValue: number) => void = (error, scrollVal
     if (error != null) {
         console.error(error);
     } else {
-        console.log('scrolling completed! current scroll position is ', scrollValue);
+        console.log("scrolling completed! current scroll position is ", scrollValue);
     }
 };
 

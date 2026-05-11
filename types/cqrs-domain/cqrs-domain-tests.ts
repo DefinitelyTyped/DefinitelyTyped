@@ -4,8 +4,8 @@ const domain = createDomain({
     domainPath: "/domain",
     eventStore: {
         type: "mongodb",
-        dbName: "db1"
-    }
+        dbName: "db1",
+    },
 });
 
 domain.defineCommand({
@@ -14,7 +14,7 @@ domain.defineCommand({
     aggregateId: "aggregate.id",
     aggregate: "aggregate.name",
     payload: "payload",
-    revision: "revision"
+    revision: "revision",
 });
 
 domain.defineEvent({
@@ -23,10 +23,10 @@ domain.defineEvent({
     name: "event",
     context: "context.name",
     aggregateId: "aggregate.id",
-    aggregate: 'aggregate.name',
+    aggregate: "aggregate.name",
     payload: "payload",
     revision: "revision",
     version: "version",
     meta: "meta",
-    commitStamp: "occurredAt"
+    commitStamp: "occurredAt",
 });

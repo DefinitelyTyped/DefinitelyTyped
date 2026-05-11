@@ -1,2 +1,2 @@
-import { call } from '../index';
+import { call } from "../index.js";
 export default call;

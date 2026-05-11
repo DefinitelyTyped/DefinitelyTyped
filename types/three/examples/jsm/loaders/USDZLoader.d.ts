@@ -1,19 +1,14 @@
-import { Loader, LoadingManager, Mesh } from '../../../src/Three';
+import { LoadingManager } from "three";
+import { USDLoader } from "./USDLoader.js";
 
-export class USDAParser {
-    parse(text: string): object;
-}
-
-export class USDZLoader extends Loader {
+/**
+ * @deprecated USDZLoader has been deprecated. Please use USDLoader instead.
+ */
+declare class USDZLoader extends USDLoader {
+    /**
+     * @deprecated USDZLoader has been deprecated. Please use USDLoader instead.
+     */
     constructor(manager?: LoadingManager);
-
-    load(
-        url: string,
-        onLoad: (usdz: Mesh) => void,
-        onProgress?: (event: ProgressEvent) => void,
-        onError?: (event: ErrorEvent) => void,
-    ): void;
-    loadAsync(url: string, onProgress?: (event: ProgressEvent) => void): Promise<Mesh>;
-
-    parse(buffer: ArrayBuffer | string): THREE.Group;
 }
+
+export { USDZLoader };

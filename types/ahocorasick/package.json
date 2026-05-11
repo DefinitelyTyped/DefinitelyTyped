@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/ahocorasick",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/BrunoRB/ahocorasick"
+    ],
+    "devDependencies": {
+        "@types/ahocorasick": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "long2014",
+            "githubUsername": "Longqin88888"
+        }
+    ]
+}

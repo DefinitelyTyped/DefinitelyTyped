@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/angular-route",
+    "version": "1.7.9999",
+    "projects": [
+        "http://angularjs.org"
+    ],
+    "dependencies": {
+        "@types/angular": "*"
+    },
+    "devDependencies": {
+        "@types/angular-route": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jonathan Park",
+            "githubUsername": "park9140"
+        },
+        {
+            "name": "George Kalpakas",
+            "githubUsername": "gkalpak"
+        }
+    ]
+}

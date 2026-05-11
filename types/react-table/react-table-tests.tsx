@@ -1,12 +1,13 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import * as React from "react";
 import {
     Cell,
     CellProps,
     Column,
+    defaultOrderByFn,
     DefaultSortTypes,
     FilterProps,
     FilterValue,
+    FooterProps,
     HeaderGroup,
     HeaderProps,
     Hooks,
@@ -63,17 +64,16 @@ import {
     UseSortByOptions,
     UseSortByState,
     useTable,
-    defaultOrderByFn,
-    FooterProps,
-} from 'react-table';
+} from "react-table";
 
 // test heavily based up https://github.com/tannerlinsley/react-table/blob/master/examples/kitchen-sink-controlled/src/App.js
 
-declare module 'react-table' {
+declare module "react-table" {
     // take this file as-is, or comment out the sections that don't apply to your plugin configuration
 
     interface TableOptions<D extends object>
-        extends UseExpandedOptions<D>,
+        extends
+            UseExpandedOptions<D>,
             UseFiltersOptions<D>,
             UseGlobalFiltersOptions<D>,
             UseGroupByOptions<D>,
@@ -81,12 +81,14 @@ declare module 'react-table' {
             UseResizeColumnsOptions<D>,
             UseRowSelectOptions<D>,
             UseRowStateOptions<D>,
-            UseSortByOptions<D> {
+            UseSortByOptions<D>
+    {
         updateMyData: (rowIndex: number, columnId: string, value: any) => void;
     }
 
     interface TableInstance<D extends object = {}>
-        extends UseColumnOrderInstanceProps<D>,
+        extends
+            UseColumnOrderInstanceProps<D>,
             UseExpandedInstanceProps<D>,
             UseFiltersInstanceProps<D>,
             UseGlobalFiltersInstanceProps<D>,
@@ -94,12 +96,14 @@ declare module 'react-table' {
             UsePaginationInstanceProps<D>,
             UseRowSelectInstanceProps<D>,
             UseRowStateInstanceProps<D>,
-            UseSortByInstanceProps<D> {
+            UseSortByInstanceProps<D>
+    {
         editable: boolean;
     }
 
     interface TableState<D extends object = {}>
-        extends UseColumnOrderState<D>,
+        extends
+            UseColumnOrderState<D>,
             UseExpandedState<D>,
             UseFiltersState<D>,
             UseGlobalFiltersState<D>,
@@ -108,28 +112,31 @@ declare module 'react-table' {
             UseResizeColumnsState<D>,
             UseRowSelectState<D>,
             UseRowStateState<D>,
-            UseSortByState<D> {}
+            UseSortByState<D>
+    {}
 
     interface ColumnInterface<D extends object = {}>
-        extends UseFiltersColumnOptions<D>,
+        extends
+            UseFiltersColumnOptions<D>,
             UseGlobalFiltersColumnOptions<D>,
             UseGroupByColumnOptions<D>,
             UseResizeColumnsColumnOptions<D>,
-            UseSortByColumnOptions<D> {}
+            UseSortByColumnOptions<D>
+    {}
 
     interface ColumnInstance<D extends object = {}>
-        extends UseFiltersColumnProps<D>,
+        extends
+            UseFiltersColumnProps<D>,
             UseGroupByColumnProps<D>,
             UseResizeColumnsColumnProps<D>,
-            UseSortByColumnProps<D> {}
+            UseSortByColumnProps<D>
+    {}
 
     interface Cell<D extends object = {}> extends UseGroupByCellProps<D>, UseRowStateCellProps<D> {}
 
     interface Row<D extends object = {}>
-        extends UseExpandedRowProps<D>,
-            UseGroupByRowProps<D>,
-            UseRowSelectRowProps<D>,
-            UseRowStateRowProps<D> {}
+        extends UseExpandedRowProps<D>, UseGroupByRowProps<D>, UseRowSelectRowProps<D>, UseRowStateRowProps<D>
+    {}
 }
 
 interface Data {
@@ -182,7 +189,7 @@ function DefaultColumnFilter({ column: { filterValue, preFilteredRows, setFilter
 
     return (
         <input
-            value={filterValue || ''}
+            value={filterValue || ""}
             onChange={e => {
                 setFilter(e.target.value || undefined); // Set undefined to remove the filter entirely
             }}
@@ -272,11 +279,11 @@ function NumberRangeColumnFilter({ column: { filterValue = [], preFilteredRows, 
     return (
         <div
             style={{
-                display: 'flex',
+                display: "flex",
             }}
         >
             <input
-                value={filterValue[0] || ''}
+                value={filterValue[0] || ""}
                 type="number"
                 onChange={e => {
                     const val = e.target.value;
@@ -284,13 +291,13 @@ function NumberRangeColumnFilter({ column: { filterValue = [], preFilteredRows, 
                 }}
                 placeholder={`Min (${min})`}
                 style={{
-                    width: '70px',
-                    marginRight: '0.5rem',
+                    width: "70px",
+                    marginRight: "0.5rem",
                 }}
             />
             to
             <input
-                value={filterValue[1] || ''}
+                value={filterValue[1] || ""}
                 type="number"
                 onChange={e => {
                     const val = e.target.value;
@@ -298,8 +305,8 @@ function NumberRangeColumnFilter({ column: { filterValue = [], preFilteredRows, 
                 }}
                 placeholder={`Max (${max})`}
                 style={{
-                    width: '70px',
-                    marginLeft: '0.5rem',
+                    width: "70px",
+                    marginLeft: "0.5rem",
                 }}
             />
         </div>
@@ -406,7 +413,7 @@ function Table({ columns, data, updateMyData, skipPageReset = false }: Table<Dat
         (hooks: Hooks<Data>) => {
             hooks.allColumns.push(columns => [
                 {
-                    id: 'selection',
+                    id: "selection",
                     // The header can use the table's getToggleAllRowsSelectedProps method
                     // to render a checkbox
                     Header: ({ getToggleAllRowsSelectedProps }: HeaderProps<Data>) => (
@@ -459,20 +466,22 @@ function Table({ columns, data, updateMyData, skipPageReset = false }: Table<Dat
                                     return (
                                         <th key={headerKey} {...restHeaderProps}>
                                             <div>
-                                                {column.canGroupBy ? (
-                                                    // If the column can be grouped, let's add a toggle
-                                                    <span {...groupByToggleProps}>
-                                                        {column.isGrouped ? '🛑 ' : '👊 '}
-                                                    </span>
-                                                ) : null}
+                                                {column.canGroupBy
+                                                    ? (
+                                                        // If the column can be grouped, let's add a toggle
+                                                        <span {...groupByToggleProps}>
+                                                            {column.isGrouped ? "🛑 " : "👊 "}
+                                                        </span>
+                                                    )
+                                                    : null}
                                                 <span {...sortByProps}>
-                                                    {column.render('Header')}
+                                                    {column.render("Header")}
                                                     {/* Add a sort direction indicator */}
-                                                    {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
+                                                    {column.isSorted ? (column.isSortedDesc ? " 🔽" : " 🔼") : ""}
                                                 </span>
                                             </div>
                                             {/* Render the columns filter UI */}
-                                            <div>{column.canFilter ? column.render('Filter') : null}</div>
+                                            <div>{column.canFilter ? column.render("Filter") : null}</div>
                                         </th>
                                     );
                                 })}
@@ -490,22 +499,29 @@ function Table({ columns, data, updateMyData, skipPageReset = false }: Table<Dat
                                     const { key, ...restCellProps } = cell.getCellProps();
                                     return (
                                         <td key={key} {...restCellProps}>
-                                            {cell.isGrouped ? (
-                                                <>
-                                                    <span {...row.getToggleRowExpandedProps()}>
-                                                        {row.isExpanded ? '👇' : '👉'}
-                                                    </span>{' '}
-                                                    {cell.render('Cell', { editable: false })} ({row.subRows.length})
-                                                </>
-                                            ) : cell.isAggregated ? (
-                                                // If the cell is aggregated, use the Aggregated
-                                                // renderer for cell
-                                                cell.render('Aggregated')
-                                            ) : cell.isPlaceholder ? null : (
-                                                // For cells with repeated values, render null
-                                                // Otherwise, just render the regular cell
-                                                cell.render('Cell', { editable: true })
-                                            )}
+                                            {cell.isGrouped
+                                                ? (
+                                                    <>
+                                                        <span {...row.getToggleRowExpandedProps()}>
+                                                            {row.isExpanded ? "👇" : "👉"}
+                                                        </span>{" "}
+                                                        {cell.render("Cell", { editable: false })}{" "}
+                                                        ({row.subRows.length})
+                                                    </>
+                                                )
+                                                : cell.isAggregated
+                                                ? (
+                                                    // If the cell is aggregated, use the Aggregated
+                                                    // renderer for cell
+                                                    cell.render("Aggregated")
+                                                )
+                                                : cell.isPlaceholder
+                                                ? null
+                                                : (
+                                                    // For cells with repeated values, render null
+                                                    // Otherwise, just render the regular cell
+                                                    cell.render("Cell", { editable: true })
+                                                )}
                                         </td>
                                     );
                                 })}
@@ -519,38 +535,41 @@ function Table({ columns, data, updateMyData, skipPageReset = false }: Table<Dat
                         return (
                             <tr key={key} {...restFooterGroupProps}>
                                 {footerGroup.headers.map(column => (
-                                    <td {...column.getFooterProps()}>{column.render('Footer')}</td>
+                                    <td {...column.getFooterProps()}>{column.render("Footer")}</td>
                                 ))}
                             </tr>
                         );
                     })}
                 </tfoot>
             </table>
-            {/*
+            {
+                /*
         Pagination can be built however you'd like.
         This is just a very basic UI implementation:
-      */}
+      */
+            }
             <div className="pagination">
                 <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
-                    {'<<'}
-                </button>{' '}
+                    {"<<"}
+                </button>{" "}
                 <button onClick={previousPage} disabled={!canPreviousPage}>
-                    {'<'}
-                </button>{' '}
+                    {"<"}
+                </button>{" "}
                 <button onClick={nextPage} disabled={!canNextPage}>
-                    {'>'}
-                </button>{' '}
+                    {">"}
+                </button>{" "}
                 <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
-                    {'>>'}
-                </button>{' '}
+                    {">>"}
+                </button>{" "}
                 <span>
-                    Page{' '}
+                    Page{" "}
                     <strong>
                         {pageIndex + 1} of {pageOptions.length}
-                    </strong>{' '}
+                    </strong>
+                    {" "}
                 </span>
                 <span>
-                    | Go to page:{' '}
+                    | Go to page:{" "}
                     <input
                         type="number"
                         defaultValue={pageIndex + 1}
@@ -558,9 +577,9 @@ function Table({ columns, data, updateMyData, skipPageReset = false }: Table<Dat
                             const page = e.target.value ? Number(e.target.value) - 1 : 0;
                             gotoPage(page);
                         }}
-                        style={{ width: '100px' }}
+                        style={{ width: "100px" }}
                     />
-                </span>{' '}
+                </span>{" "}
                 <select
                     value={pageSize}
                     onChange={e => {
@@ -609,14 +628,14 @@ function filterGreaterThan(rows: Array<Row<any>>, id: Array<IdType<any>>, filter
 // when given the new filter value and returns true, the filter
 // will be automatically removed. Normally this is just an undefined
 // check, but here, we want to remove the filter if it's not a number
-filterGreaterThan.autoRemove = (val: any) => typeof val !== 'number';
+filterGreaterThan.autoRemove = (val: any) => typeof val !== "number";
 
 // This is a custom aggregator that
 // takes in an array of values and
 // returns the rounded median
 function roundedMedian(values: any[]) {
-    let min = values[0] || '';
-    let max = values[0] || '';
+    let min = values[0] || "";
+    let max = values[0] || "";
 
     values.forEach(value => {
         min = Math.min(min, value);
@@ -628,21 +647,21 @@ function roundedMedian(values: any[]) {
 
 const Component = (props: {}) => {
     const startingData: Data[] = [
-        { firstName: 'plastic', lastName: 'leather', age: 1, visits: 87, progress: 53, status: 'relationship' },
-        { firstName: 'eggs', lastName: 'quartz', age: 13, visits: 78, progress: 82, status: 'complicated' },
-        { firstName: 'wash', lastName: 'wrench', age: 29, visits: 75, progress: 49, status: 'single' },
-        { firstName: 'introduction', lastName: 'impression', age: 2, visits: 35, progress: 51, status: 'relationship' },
-        { firstName: 'steel', lastName: 'difference', age: 9, visits: 64, progress: 94, status: 'complicated' },
-        { firstName: 'snakes', lastName: 'corn', age: 17, visits: 55, progress: 47, status: 'relationship' },
-        { firstName: 'ocean', lastName: 'definition', age: 26, visits: 17, progress: 22, status: 'single' },
-        { firstName: 'drawing', lastName: 'fifth', age: 15, visits: 84, progress: 12, status: 'complicated' },
-        { firstName: 'silver', lastName: 'riddle', age: 15, visits: 59, progress: 24, status: 'relationship' },
-        { firstName: 'surprise', lastName: 'zinc', age: 23, visits: 7, progress: 48, status: 'single' },
-        { firstName: 'riddle', lastName: 'information', age: 2, visits: 63, progress: 3, status: 'complicated' },
+        { firstName: "plastic", lastName: "leather", age: 1, visits: 87, progress: 53, status: "relationship" },
+        { firstName: "eggs", lastName: "quartz", age: 13, visits: 78, progress: 82, status: "complicated" },
+        { firstName: "wash", lastName: "wrench", age: 29, visits: 75, progress: 49, status: "single" },
+        { firstName: "introduction", lastName: "impression", age: 2, visits: 35, progress: 51, status: "relationship" },
+        { firstName: "steel", lastName: "difference", age: 9, visits: 64, progress: 94, status: "complicated" },
+        { firstName: "snakes", lastName: "corn", age: 17, visits: 55, progress: 47, status: "relationship" },
+        { firstName: "ocean", lastName: "definition", age: 26, visits: 17, progress: 22, status: "single" },
+        { firstName: "drawing", lastName: "fifth", age: 15, visits: 84, progress: 12, status: "complicated" },
+        { firstName: "silver", lastName: "riddle", age: 15, visits: 59, progress: 24, status: "relationship" },
+        { firstName: "surprise", lastName: "zinc", age: 23, visits: 7, progress: 48, status: "single" },
+        { firstName: "riddle", lastName: "information", age: 2, visits: 63, progress: 3, status: "complicated" },
     ];
     const columns: ReadonlyArray<Column<Data>> = [
         {
-            id: 'selection',
+            id: "selection",
             // The header can use the table's getToggleAllRowsSelectedProps method
             // to render a checkbox
             Header: ({ getToggleAllRowsSelectedProps }: HeaderProps<Data>) => (
@@ -659,16 +678,16 @@ const Component = (props: {}) => {
             ),
         },
         {
-            Header: 'Name',
+            Header: "Name",
             columns: [
                 {
-                    Header: 'First Name',
-                    accessor: 'firstName',
+                    Header: "First Name",
+                    accessor: "firstName",
                     // Use a two-stage aggregator here to first
                     // count the total rows being aggregated,
                     // then sum any of those counts if they are
                     // aggregated further
-                    aggregate: 'count',
+                    aggregate: "count",
                     Aggregated: ({ cell: { value } }: CellProps<Data>) => <>{value} Names</>,
                     Cell: ({ value }) => {
                         const v = value; // $ExpectType string
@@ -679,29 +698,29 @@ const Component = (props: {}) => {
                     },
                 },
                 {
-                    Header: 'Last Name',
-                    accessor: 'lastName',
+                    Header: "Last Name",
+                    accessor: "lastName",
                     // Use our custom `fuzzyText` filter on this column
-                    filter: 'fuzzyText',
+                    filter: "fuzzyText",
                     // Use another two-stage aggregator here to
                     // first count the UNIQUE values from the rows
                     // being aggregated, then sum those counts if
                     // they are aggregated further
-                    aggregate: 'uniqueCount',
+                    aggregate: "uniqueCount",
                     Aggregated: ({ cell: { value } }: CellProps<Data>) => <>{value} Unique Names</>,
                 },
             ],
         },
         {
-            Header: 'Info',
+            Header: "Info",
             columns: [
                 {
-                    Header: 'Age',
-                    accessor: 'age',
+                    Header: "Age",
+                    accessor: "age",
                     Filter: SliderColumnFilter,
-                    filter: 'equals',
+                    filter: "equals",
                     // Aggregate the average age of visitors
-                    aggregate: 'average',
+                    aggregate: "average",
                     Aggregated: ({ cell: { value } }: CellProps<Data>) => <>{value} (avg)</>,
                     disableGlobalFilter: true,
                     Cell: ({ value }) => {
@@ -710,23 +729,23 @@ const Component = (props: {}) => {
                     },
                 },
                 {
-                    Header: 'Visits',
-                    accessor: 'visits',
+                    Header: "Visits",
+                    accessor: "visits",
                     Filter: NumberRangeColumnFilter,
-                    filter: 'between',
+                    filter: "between",
                     // Aggregate the sum of all visits
-                    aggregate: 'sum',
+                    aggregate: "sum",
                     Aggregated: ({ cell: { value } }: CellProps<Data>) => <>{value} (total)</>,
                 },
                 {
-                    Header: 'Status',
-                    accessor: 'status',
+                    Header: "Status",
+                    accessor: "status",
                     Filter: SelectColumnFilter,
-                    filter: 'includes',
+                    filter: "includes",
                 },
                 {
-                    Header: 'Profile Progress',
-                    accessor: 'progress',
+                    Header: "Profile Progress",
+                    accessor: "progress",
                     Filter: SliderColumnFilter,
                     filter: filterGreaterThan,
                     // Use our custom roundedMedian aggregator
@@ -740,13 +759,13 @@ const Component = (props: {}) => {
     // mostly the same as above but minus the grouping
     const columns2: ReadonlyArray<Column<Data>> = [
         {
-            Header: 'First Name',
-            accessor: 'firstName',
+            Header: "First Name",
+            accessor: "firstName",
             // Use a two-stage aggregator here to first
             // count the total rows being aggregated,
             // then sum any of those counts if they are
             // aggregated further
-            aggregate: 'count',
+            aggregate: "count",
             Aggregated: ({ cell: { value } }: CellProps<Data>) => <>{value} Names</>,
             Cell: ({ value }) => {
                 const v = value; // $ExpectType string
@@ -754,12 +773,12 @@ const Component = (props: {}) => {
             },
         },
         {
-            Header: 'Age',
-            accessor: 'age',
+            Header: "Age",
+            accessor: "age",
             Filter: SliderColumnFilter,
-            filter: 'equals',
+            filter: "equals",
             // Aggregate the average age of visitors
-            aggregate: 'average',
+            aggregate: "average",
             Aggregated: ({ cell: { value } }: CellProps<Data>) => <>{value} (avg)</>,
             disableGlobalFilter: true,
             Cell: ({ value }) => {
@@ -768,17 +787,17 @@ const Component = (props: {}) => {
             },
         },
         {
-            Header: 'Visits',
-            accessor: 'visits',
+            Header: "Visits",
+            accessor: "visits",
             Filter: NumberRangeColumnFilter,
-            filter: 'between',
+            filter: "between",
             // Aggregate the sum of all visits
-            aggregate: 'sum',
+            aggregate: "sum",
             Aggregated: ({ cell: { value } }: CellProps<Data>) => <>{value} (total)</>,
         },
         {
-            Header: 'Sub Rows',
-            accessor: 'subRows',
+            Header: "Sub Rows",
+            accessor: "subRows",
             Cell: ({ value }) => {
                 const v = value; // $ExpectType Data[] | undefined
                 const l = value!.length; // $ExpectType number
@@ -809,7 +828,7 @@ const Component = (props: {}) => {
                     };
                 }
                 return row;
-            }),
+            })
         );
     };
 
@@ -833,8 +852,8 @@ const Component = (props: {}) => {
             data={data}
             columns={[
                 {
-                    Header: 'First Name',
-                    accessor: 'firstName',
+                    Header: "First Name",
+                    accessor: "firstName",
                     Cell: ({ value }) => {
                         const v = value; // $ExpectType string
                         return <>{value}</>;
@@ -849,7 +868,7 @@ const Component = (props: {}) => {
             data={data}
             columns={[
                 {
-                    Header: 'First Name',
+                    Header: "First Name",
                     accessor: (i: Data) => i.firstName,
                     Cell: ({ value }: CellProps<Data>) => {
                         const v = value; // $ExpectType any
@@ -868,12 +887,10 @@ const Component = (props: {}) => {
     );
 };
 
-ReactDOM.render(<Component />, document.getElementById('root'));
-
 declare function checkDefaultSortType(sortType: DefaultSortTypes): void;
 
-checkDefaultSortType('alphanumeric');
-checkDefaultSortType('datetime');
-checkDefaultSortType('basic');
-checkDefaultSortType('string');
-checkDefaultSortType('number');
+checkDefaultSortType("alphanumeric");
+checkDefaultSortType("datetime");
+checkDefaultSortType("basic");
+checkDefaultSortType("string");
+checkDefaultSortType("number");

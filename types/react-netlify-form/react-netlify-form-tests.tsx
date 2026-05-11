@@ -1,5 +1,5 @@
-import * as React from 'react';
-import NetlifyForm from 'react-netlify-form';
+import * as React from "react";
+import NetlifyForm from "react-netlify-form";
 
 class BasicForm extends React.Component {
     render() {
@@ -30,8 +30,8 @@ class RecaptchaV2Form extends React.Component {
             <NetlifyForm
                 name="Form With Recaptcha"
                 recaptcha={{
-                    sitekey: 'my_recaptcha_site_key',
-                    size: 'normal',
+                    sitekey: "my_recaptcha_site_key",
+                    size: "normal",
                 }}
             >
                 {({ loading, error, recaptchaError, success, recaptcha }) => (
@@ -61,8 +61,8 @@ class InvisibleRecaptchaForm extends React.Component {
             <NetlifyForm
                 name="Form With Invisible Recaptcha"
                 recaptcha={{
-                    sitekey: 'my_recaptcha_site_key',
-                    size: 'invisible',
+                    sitekey: "my_recaptcha_site_key",
+                    size: "invisible",
                 }}
             >
                 {({ loading, error, recaptchaError, success, recaptcha }) => (

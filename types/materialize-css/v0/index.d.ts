@@ -1,13 +1,3 @@
-// Type definitions for materialize-css 0.100
-// Project: http://materializecss.com/
-// Definitions by:  Erik Lieben <https://github.com/eriklieben>
-//                 Leon Yu <https://github.com/leonyu>
-//                 Jean-Francois Cere <https://github.com/jfcere>
-//                 Sebastien Cote <https://github.com/scote>
-//                 Liad Idan <https://github.com/LiadIdan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery" />
 /// <reference types="pickadate" />
 

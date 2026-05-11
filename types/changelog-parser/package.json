@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/changelog-parser",
+    "version": "2.8.9999",
+    "projects": [
+        "https://github.com/hypermodules/changelog-parser"
+    ],
+    "devDependencies": {
+        "@types/changelog-parser": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Oliver Steele",
+            "githubUsername": "osteele"
+        }
+    ]
+}

@@ -14,7 +14,7 @@ export class VideoNullDriver {
     protected mGlobalAlpha: number;
     protected mStageRenderer: Renderer;
     protected mRendererMap: {
-        [x: string]: new () => Renderer;
+        [x: string]: new() => Renderer;
     };
     render(gameObject: GameObject, renderTexture?: CanvasRenderTexture, customTransform?: Matrix): void;
     getRenderer(type: string, owner: GameObject): Renderer;
@@ -48,13 +48,13 @@ export class VideoNullDriver {
 export namespace VideoNullDriver {
     const sessionPool: ObjectPool;
 }
-import { Matrix } from '../geom/Matrix';
-import { RenderSession } from './RenderSession';
-import { BlendMode } from './BlendMode';
-import { Renderer } from './Renderer';
-import { ObjectPool } from '../utils/ObjectPool';
-import { GameObject } from '../core/GameObject';
-import { Texture } from '../textures/Texture';
-import { Rectangle } from '../geom/Rectangle';
-import { Message } from '../messages/Message';
-import { CanvasRenderTexture } from '../textures/CanvasRenderTexture';
+import { GameObject } from "../core/GameObject";
+import { Matrix } from "../geom/Matrix";
+import { Rectangle } from "../geom/Rectangle";
+import { Message } from "../messages/Message";
+import { CanvasRenderTexture } from "../textures/CanvasRenderTexture";
+import { Texture } from "../textures/Texture";
+import { ObjectPool } from "../utils/ObjectPool";
+import { BlendMode } from "./BlendMode";
+import { Renderer } from "./Renderer";
+import { RenderSession } from "./RenderSession";

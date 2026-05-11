@@ -1,5 +1,5 @@
-import { Observable } from 'rxjs';
-import { Answers, DistinctQuestion, KeyUnion, UnionToIntersection } from '../..';
+import { Observable } from "rxjs";
+import { Answers, DistinctQuestion, KeyUnion, UnionToIntersection } from "../..";
 
 /**
  * Represents a property-name of any question-type.

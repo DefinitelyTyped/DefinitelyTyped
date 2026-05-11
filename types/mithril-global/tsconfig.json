@@ -11,11 +11,8 @@
         "strictFunctionTypes": true,
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
-        "types": []
+        "types": [],
+        "esModuleInterop": true
     },
     "files": [
         "index.d.ts",

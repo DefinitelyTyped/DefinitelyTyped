@@ -1809,7 +1809,7 @@ declare namespace dojox {
          * @param end An Integer (or an Array of integers) to use as an ending point
          */
         interface _core{(start: any[], end: any[]): void}
-        module _core {
+        namespace _core {
             /**
              * An Integer (or an Array of integers) to use as an ending point
              *

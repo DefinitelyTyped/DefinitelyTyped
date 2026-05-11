@@ -1,8 +1,3 @@
-// Type definitions for gaugeJS 1.3
-// Project: https://github.com/bernii/gauge.js#readme
-// Definitions by: Bradley Odell <https://github.com/BTOdell>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface PointerOptions {
     length: number;
     strokeWidth: number;
@@ -37,7 +32,7 @@ export interface GaugeOptions extends BaseOptions {
         color?: string | undefined;
         fractionDigits?: number | undefined;
     } | undefined;
-    staticZones?: StaticZoneOptions[] | Array<StaticZoneOptions & { height: number; }> | undefined;
+    staticZones?: StaticZoneOptions[] | Array<StaticZoneOptions & { height: number }> | undefined;
     renderTicks?: {
         divisions: number;
         divWidth: number;
@@ -124,4 +119,4 @@ export class Gauge extends BaseGauge {
     set(value: number): boolean;
 }
 
-export { };
+export {};

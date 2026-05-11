@@ -13,9 +13,9 @@ import {
     SeekBehavior,
     SteeringBehavior,
     Vector3,
-    Vehicle
+    Vehicle,
 } from "yuka";
-import { CustomObstacle } from './CustomObstacle';
+import { CustomObstacle } from "./CustomObstacle";
 
 const hidingSpot = new Vector3();
 const offset = new Vector3();

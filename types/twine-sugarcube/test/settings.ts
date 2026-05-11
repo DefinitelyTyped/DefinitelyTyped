@@ -5,7 +5,7 @@ Setting.addToggle("toggle", {
     default: false,
     desc: "description",
     onChange() {},
-    onInit() {}
+    onInit() {},
 });
 
 Setting.addRange("range", {
@@ -16,7 +16,7 @@ Setting.addRange("range", {
     default: 1,
     desc: "description",
     onChange() {},
-    onInit() {}
+    onInit() {},
 });
 
 Setting.addList("list", {
@@ -34,6 +34,8 @@ Setting.addList("list", {
     desc: "description",
 });
 
+Setting.setValue("blahKey", "blahValue"); // $ExpectType void
+Setting.getValue("blahKey"); // $ExpectType any
 Setting.load(); // $ExpectType void
 Setting.save(); // $ExpectType void
 Setting.reset(); // $ExpectType void

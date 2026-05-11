@@ -40,5 +40,5 @@ declare namespace UnicodeCJK {
     function kanaRemoveTrailingLatin(str: string): string;
 }
 
-// eslint-disable-next-line export-just-namespace
+// eslint-disable-next-line @definitelytyped/export-just-namespace
 export = UnicodeCJK;

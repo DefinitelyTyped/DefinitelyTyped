@@ -6,4 +6,4 @@ export class SoundAtlasAsset extends Asset {
     private mDataXHR;
     onLoaderRequested(factory: any): void;
 }
-import { Asset } from './Asset';
+import { Asset } from "./Asset";

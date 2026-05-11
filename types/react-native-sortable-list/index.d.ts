@@ -1,13 +1,5 @@
-// Type definitions for react-native-sortable-list 0.0
-// Project: https://github.com/gitim/react-native-sortable-list
-// Definitions by: Michael Sivolobov <https://github.com/sivolobov>
-//                 Vince Maiuri <https://github.com/RookY2K>
-//                 Soner Köksal <https://github.com/renjfk>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import { GestureResponderEvent, PanResponderGestureState, StyleProp, ViewStyle } from 'react-native';
-import { Component, ReactElement } from 'react';
+import { Component, ReactElement } from "react";
+import { GestureResponderEvent, PanResponderGestureState, StyleProp, ViewStyle } from "react-native";
 
 interface DataByNumber<T> {
     [key: number]: T;
@@ -87,7 +79,7 @@ interface SortableListProps<T, K> {
      *  - 'handled', the keyboard will not dismiss automatically when the tap was handled by a children,
      *    (or captured by an ancestor).
      */
-    keyboardShouldPersistTaps?: 'never' | 'always' | 'handled' | undefined;
+    keyboardShouldPersistTaps?: "never" | "always" | "handled" | undefined;
 
     /**
      * whether you intend to use the toggleRowActive method to activate a row or use the out of box solution.
@@ -153,17 +145,21 @@ export default class SortableList<T, K> extends Component<SortableListProps<T, K
     /**
      * scrolls by a given y offset, either immediately or with a smooth animation
      */
-    scrollBy({dx, dy, animated}: { dx?: number | undefined; dy?: number | undefined; animated?: boolean | undefined }): void;
+    scrollBy(
+        { dx, dy, animated }: { dx?: number | undefined; dy?: number | undefined; animated?: boolean | undefined },
+    ): void;
 
     /**
      * scrolls to a given y offset, either immediately or with a smooth animation
      */
-    scrollTo({x, y, animated}: { x?: number | undefined; y?: number | undefined; animated?: boolean | undefined }): void;
+    scrollTo(
+        { x, y, animated }: { x?: number | undefined; y?: number | undefined; animated?: boolean | undefined },
+    ): void;
 
     /**
      * scrolls to a given row key, either immediately or with a smooth animation
      */
-    scrollToRowKey({key, animated}: { key?: K | undefined; animated?: boolean | undefined }): void;
+    scrollToRowKey({ key, animated }: { key?: K | undefined; animated?: boolean | undefined }): void;
 }
 
 export { RowProps };

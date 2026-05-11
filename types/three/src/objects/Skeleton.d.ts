@@ -1,6 +1,13 @@
-import { Bone } from './Bone';
-import { Matrix4 } from './../math/Matrix4';
-import { DataTexture } from './../textures/DataTexture';
+import { Matrix4, Matrix4Tuple } from "../math/Matrix4.js";
+import { DataTexture } from "../textures/DataTexture.js";
+import { Bone } from "./Bone.js";
+
+export interface SkeletonJSON {
+    metadata: { version: number; type: string; generator: string };
+    bones: string[];
+    boneInverses: Matrix4Tuple[];
+    uuid: string;
+}
 
 /**
  * Use an array of {@link Bone | bones} to create a {@link Skeleton} that can be used by a {@link THREE.SkinnedMesh | SkinnedMesh}.
@@ -54,18 +61,14 @@ export class Skeleton {
     /**
      * The array buffer holding the bone data when using a vertex texture.
      */
-    boneMatrices: Float32Array;
+    boneMatrices: Float32Array | null;
+
+    previousBoneMatrices: Float32Array | null;
 
     /**
      * The {@link THREE.DataTexture | DataTexture} holding the bone data when using a vertex texture.
      */
-    boneTexture: null | DataTexture;
-
-    /**
-     * The size of the {@link boneTexture | .boneTexture}.
-     * @remarks Expects a `Integer`
-     */
-    boneTextureSize: number;
+    boneTexture: DataTexture | null;
 
     frame: number;
 
@@ -113,7 +116,7 @@ export class Skeleton {
      */
     dispose(): void;
 
-    toJSON(): unknown;
+    toJSON(): SkeletonJSON;
 
-    fromJSON(json: unknown, bones: Record<string, Bone>): void;
+    fromJSON(json: SkeletonJSON, bones: Record<string, Bone>): void;
 }

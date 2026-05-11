@@ -1,4 +1,4 @@
-import * as _ from 'fake-lodash-pure-js';
+import * as _ from "fake-lodash-pure-js";
 
 // $ExpectType number | undefined
 _.head<number>([1, 2]);

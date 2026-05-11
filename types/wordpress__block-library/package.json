@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/wordpress__block-library",
+    "version": "2.6.9999",
+    "projects": [
+        "https://github.com/WordPress/gutenberg/tree/master/packages/block-library/README.md"
+    ],
+    "devDependencies": {
+        "@types/wordpress__block-library": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Derek Sifford",
+            "githubUsername": "dsifford"
+        }
+    ]
+}

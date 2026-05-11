@@ -1,5 +1,5 @@
-import Ember from 'ember';
-import { assertType } from './lib/assert';
+import Ember from "ember";
+import { assertType } from "./lib/assert";
 
 const o = Ember.Object.create();
 assertType<object>(o);
@@ -13,22 +13,22 @@ assertType<number>(obj.a);
 assertType<number>(obj.c);
 
 export class Person extends Ember.Object.extend({
-    fullName: Ember.computed('firstName', 'lastName', function () {
-        return [this.firstName + this.lastName].join(' ');
+    fullName: Ember.computed("firstName", "lastName", function() {
+        return [this.firstName + this.lastName].join(" ");
     }),
 }) {
-    firstName: string;
-    lastName: string;
-    age: number;
+    firstName!: string;
+    lastName!: string;
+    age!: number;
 }
 const p = new Person();
 assertType<string>(p.firstName);
 assertType<Ember.ComputedProperty<string>>(p.fullName);
-assertType<string>(p.get('fullName'));
+assertType<string>(p.get("fullName"));
 
-const p2 = Person.create({ firstName: 'string' });
-const p2b = Person.create({}, { firstName: 'string' });
-const p2c = Person.create({}, {}, { firstName: 'string' });
+const p2 = Person.create({ firstName: "string" });
+const p2b = Person.create({}, { firstName: "string" });
+const p2c = Person.create({}, {}, { firstName: "string" });
 
 export class PersonWithNumberName extends Person.extend({
     fullName: 6,

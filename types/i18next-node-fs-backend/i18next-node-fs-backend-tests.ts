@@ -1,5 +1,5 @@
 import i18next from "i18next";
-import * as Backend from "i18next-node-fs-backend";
+import Backend from "i18next-node-fs-backend";
 
 var options = {
     backend: {
@@ -10,8 +10,8 @@ var options = {
         addPath: "/locales/{{lng}}/{{ns}}.missing.json",
 
         // jsonIndent to use when storing json files
-        jsonIndent: 2
-    }
+        jsonIndent: 2,
+    },
 };
 
 i18next.use(Backend).init(options);
@@ -31,7 +31,7 @@ var parseOptions = {
         parse: (data: any) => {
             return data;
         },
-    }
+    },
 };
 
 i18next.use(Backend).init({ backend: parseOptions });

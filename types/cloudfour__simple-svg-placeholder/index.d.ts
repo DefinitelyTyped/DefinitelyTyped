@@ -1,9 +1,3 @@
-// Type definitions for @cloudfour/simple-svg-placeholder 1.1
-// Project: https://github.com/cloudfour/simple-svg-placeholder#readme
-// Definitions by: Mike Deverell <https://github.com/devrelm>
-//                 Constantin Metz <https://github.com/keimeno>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare function simpleSvgPlaceholder(options?: {
     width?: number | undefined;
     height?: number | undefined;

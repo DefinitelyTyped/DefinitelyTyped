@@ -11,6 +11,7 @@ declare namespace GorillaEngine.UI {
         onExternalDragEnd: string;
     }
 
+    // tslint:disable-next-line:no-empty-interface
     interface DragContainer extends DragContainerProps {}
 
     class DragContainer extends Component {

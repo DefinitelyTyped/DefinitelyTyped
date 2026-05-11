@@ -112,10 +112,13 @@ export interface WebTwainBuffer extends WebTwainIO {
     GetSkewAngle(
         index: number,
         successCallback?: (
-            angle: number) => void,
+            angle: number,
+        ) => void,
         failureCallback?: (
             errorCode: number,
-            errorString: string) => void
+            errorString: string,
+        ) => void,
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): number | void;
     /**
      * Return the skew angle of the specified rectangle on the specified image.
@@ -137,10 +140,13 @@ export interface WebTwainBuffer extends WebTwainIO {
         right: number,
         bottom: number,
         successCallback?: (
-            angle: number) => void,
+            angle: number,
+        ) => void,
         failureCallback?: (
             errorCode: number,
-            errorString: string) => void
+            errorString: string,
+        ) => void,
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): number | void;
     /**
      * Return how many images are held in the buffer
@@ -175,7 +181,14 @@ export interface WebTwainBuffer extends WebTwainIO {
      * @param bottom The y-coordinate of the lower-right corner of the rectangle.
      * @param bFuzzyMatch Specify whether use fuzzy matching when detecting.
      */
-    IsBlankImageEx(index: number, left: number, top: number, right: number, bottom: number, bFuzzyMatch: boolean): boolean;
+    IsBlankImageEx(
+        index: number,
+        left: number,
+        top: number,
+        right: number,
+        bottom: number,
+        bFuzzyMatch: boolean,
+    ): boolean;
     /**
      * Check whether the specified image is blank.
      * @param index Specify the image.

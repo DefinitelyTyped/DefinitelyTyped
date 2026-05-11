@@ -1,5 +1,5 @@
-import { Plugin, Stats } from 'webpack';
-import webpack = require('webpack');
+import { Plugin, Stats } from "webpack";
+import webpack = require("webpack");
 
 /**
  * Stats writer module.

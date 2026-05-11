@@ -31,25 +31,27 @@ declare namespace OO.ui {
         /**
          * @see https://www.mediawiki.org/wiki/OOUI/Elements/Flagged#TextInputWidget
          */
-        type Flag = 'invalid';
+        type Flag = "invalid";
 
         interface EventMap extends InputWidget.EventMap, mixin.LabelElement.EventMap, mixin.FlaggedElement.EventMap {
             enter: [];
         }
 
         interface ConfigOptions
-            extends InputWidget.ConfigOptions,
+            extends
+                InputWidget.ConfigOptions,
                 mixin.IconElement.ConfigOptions,
                 mixin.IndicatorElement.ConfigOptions,
                 mixin.PendingElement.ConfigOptions,
                 mixin.LabelElement.ConfigOptions,
                 mixin.FlaggedElement.ConfigOptions,
-                mixin.RequiredElement.ConfigOptions {
+                mixin.RequiredElement.ConfigOptions
+        {
             /**
              * The value of the HTML `type` attribute: 'text', 'password' 'email', 'url' or 'number'.
              * Subclasses might support other types.
              */
-            type?: LiteralUnion<'text' | 'password' | 'email' | 'url' | 'number'>;
+            type?: LiteralUnion<"text" | "password" | "email" | "url" | "number">;
 
             /** Placeholder text */
             placeholder?: string;
@@ -76,7 +78,7 @@ declare namespace OO.ui {
              * The position of the inline label relative to that of the value or placeholder text:
              * `'before'` or `'after'`
              */
-            labelPosition?: 'before' | 'after';
+            labelPosition?: "before" | "after";
 
             /**
              * Should the browser support autocomplete for this field?
@@ -104,31 +106,37 @@ declare namespace OO.ui {
         }
 
         interface Static
-            extends InputWidget.Static,
+            extends
+                InputWidget.Static,
                 mixin.IconElement.Static,
                 mixin.IndicatorElement.Static,
                 mixin.LabelElement.Static,
-                mixin.FlaggedElement.Static {
+                mixin.FlaggedElement.Static
+        {
             validationPatterns: Record<string, RegExp>;
         }
 
         interface Props
-            extends InputWidget.Props,
+            extends
+                InputWidget.Props,
                 mixin.IconElement.Props,
                 mixin.IndicatorElement.Props,
                 mixin.PendingElement.Props,
                 mixin.LabelElement.Props,
                 mixin.FlaggedElement.Props,
-                mixin.RequiredElement.Props {}
+                mixin.RequiredElement.Props
+        {}
 
         interface Prototype
-            extends InputWidget.Prototype,
+            extends
+                InputWidget.Prototype,
                 mixin.IconElement.Prototype,
                 mixin.IndicatorElement.Prototype,
                 mixin.PendingElement.Prototype,
                 mixin.LabelElement.Prototype,
                 mixin.FlaggedElement.Prototype,
-                mixin.RequiredElement.Prototype {
+                mixin.RequiredElement.Prototype
+        {
             /**
              * Check if the input is {@link ConfigOptions.readOnly read-only}.
              *
@@ -254,7 +262,7 @@ declare namespace OO.ui {
              * @param labelPosition Label position, 'before' or 'after'
              * @return The widget, for chaining
              */
-            setLabelPosition(labelPosition: 'before' | 'after'): this;
+            setLabelPosition(labelPosition: "before" | "after"): this;
 
             /**
              * Update the position of the inline label.
@@ -303,21 +311,21 @@ declare namespace OO.ui {
             emitThrow<K extends keyof EventMap>(event: K, ...args: EventMap[K]): boolean;
             emitThrow<K extends string>(event: K extends keyof EventMap ? never : K, ...args: any[]): boolean;
 
-            connect<T extends Partial<Record<keyof EventMap, any>>, C>(
+            connect<T extends Partial<Record<keyof EventMap, any>>, C>( // eslint-disable-line @definitelytyped/no-unnecessary-generics
                 context: C,
-                methods: EventConnectionMap<T, C, EventMap>, // eslint-disable-line no-unnecessary-generics
+                methods: EventConnectionMap<T, C, EventMap>,
             ): this;
 
-            disconnect<T extends Partial<Record<keyof EventMap, any>>, C>(
+            disconnect<T extends Partial<Record<keyof EventMap, any>>, C>( // eslint-disable-line @definitelytyped/no-unnecessary-generics
                 context: C,
-                methods?: EventConnectionMap<T, C, EventMap>, // eslint-disable-line no-unnecessary-generics
+                methods?: EventConnectionMap<T, C, EventMap>,
             ): this;
             // #endregion
         }
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): TextInputWidget;
+            new(config?: ConfigOptions): TextInputWidget;
             prototype: Prototype;
             static: Static;
             super: InputWidget.Constructor;

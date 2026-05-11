@@ -1,9 +1,3 @@
-// Type definitions for extensible-duck 1.6
-// Project: https://github.com/investtools/extensible-duck
-// Definitions by: Cheng Gibson <https://github.com/nossbigg>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.6
-
 // note: all need to share same generics args, since the library exposes an instance of itself
 // for .reducer(), .sagas(), .takes(), etc...
 export class Duck<
@@ -14,7 +8,7 @@ export class Duck<
     TSelectors extends Record<string, (s: TState) => any> = AnyObject,
     TSagas extends Record<string, (...args: any[]) => any> = AnyObject,
     TTakes extends any[] = [],
-    TConsts extends Record<string, string[]> = AnyObject
+    TConsts extends Record<string, string[]> = AnyObject,
 > {
     constructor(
         options: DuckOptions<TState, TAction, TActionTypes, TActionCreators, TSelectors, TSagas, TTakes, TConsts>,
@@ -40,7 +34,7 @@ export interface DuckOptions<
     TSelectors extends Record<string, (s: TState) => any> = AnyObject,
     TSagas extends Record<string, (...args: any[]) => any> = AnyObject,
     TTakes extends any[] = [],
-    TConsts extends Record<string, string[]> = AnyObject
+    TConsts extends Record<string, string[]> = AnyObject,
 > {
     namespace: string;
     store: string;
@@ -63,7 +57,7 @@ export type DuckInstance<
     TSelectors extends Record<string, (s: TState) => any> = AnyObject,
     TSagas extends Record<string, (...args: any[]) => any> = AnyObject,
     TTakes extends any[] = [],
-    TConsts extends Record<string, string[]> = AnyObject
+    TConsts extends Record<string, string[]> = AnyObject,
 > = Duck<TState, TAction, TActionTypes, TActionCreators, TSelectors, TSagas, TTakes, TConsts> & DuckConsts<TConsts>;
 
 export type DuckCreators<
@@ -74,7 +68,7 @@ export type DuckCreators<
     TSelectors extends Record<string, (s: TState) => any> = AnyObject,
     TSagas extends Record<string, (...args: any[]) => any> = AnyObject,
     TTakes extends any[] = [],
-    TConsts extends Record<string, string[]> = AnyObject
+    TConsts extends Record<string, string[]> = AnyObject,
 > = (
     D: DuckInstance<TState, TAction, TActionTypes, TActionCreators, TSelectors, TSagas, TTakes, TConsts>,
 ) => TActionCreators;
@@ -87,7 +81,7 @@ export type DuckReducer<
     TSelectors extends Record<string, (s: TState) => any> = AnyObject,
     TSagas extends Record<string, (...args: any[]) => any> = AnyObject,
     TTakes extends any[] = [],
-    TConsts extends Record<string, string[]> = AnyObject
+    TConsts extends Record<string, string[]> = AnyObject,
 > = (
     S: TState,
     A: TAction,
@@ -102,7 +96,7 @@ export type DuckSagas<
     TSelectors extends Record<string, (s: TState) => any> = AnyObject,
     TSagas extends Record<string, (...args: any[]) => any> = AnyObject,
     TTakes extends any[] = [],
-    TConsts extends Record<string, string[]> = AnyObject
+    TConsts extends Record<string, string[]> = AnyObject,
 > = (D: DuckInstance<TState, TAction, TActionTypes, TActionCreators, TSelectors, TSagas, TTakes, TConsts>) => TSagas;
 
 export type DuckTakes<
@@ -113,7 +107,7 @@ export type DuckTakes<
     TSelectors extends Record<string, (s: TState) => any> = AnyObject,
     TSagas extends Record<string, (...args: any[]) => any> = AnyObject,
     TTakes extends any[] = [],
-    TConsts extends Record<string, string[]> = AnyObject
+    TConsts extends Record<string, string[]> = AnyObject,
 > = (D: DuckInstance<TState, TAction, TActionTypes, TActionCreators, TSelectors, TSagas, TTakes, TConsts>) => TTakes;
 
 export type DuckConsts<TConsts> = Record<keyof TConsts, Record<string, string>>;

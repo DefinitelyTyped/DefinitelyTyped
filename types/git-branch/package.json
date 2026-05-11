@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/git-branch",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/jonschlinkert/git-branch"
+    ],
+    "devDependencies": {
+        "@types/git-branch": "workspace:."
+    },
+    "owners": []
+}

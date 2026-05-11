@@ -1,5 +1,5 @@
 export interface Dlab {
-    mode: 'dlab';
+    mode: "dlab";
     l: number;
     a: number;
     b: number;

@@ -1,4 +1,4 @@
-export { };
+export {};
 
 declare global {
     /**
@@ -51,7 +51,7 @@ declare global {
          * a handler to be called when the result is selected. May return `true` to prevent the map from being repositioned.
          * You may reposition the map yourself or do other work.
          */
-        onSelected?: ((result: SearchResult, event: UIEvent) => (boolean | undefined)) | undefined;
+        onSelected?: ((result: SearchResult, event: UIEvent) => boolean | undefined) | undefined;
         /**
          * a handler to be called when the result is removed from the map(because another result has been
          * selected or the search was cancelled by the user).

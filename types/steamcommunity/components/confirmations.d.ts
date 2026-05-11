@@ -1,5 +1,5 @@
-import { Callback, CallbackError } from '../index';
-import CConfirmation = require('../classes/CConfirmation');
+import { Callback, CallbackError } from "../index";
+import CConfirmation = require("../classes/CConfirmation");
 
 export interface Confirmations {
     /**
@@ -8,10 +8,14 @@ export interface Confirmations {
      * @param key - The confirmation key that was generated using the preceeding time and the tag "conf" (this key can be reused)
      * @param callback - Called when the list of confirmations is received
      */
-    getConfirmations(time: number, key: string, callback: (
-        err: CallbackError,
-        confirmations: CConfirmation[],
-    ) => any): void;
+    getConfirmations(
+        time: number,
+        key: string,
+        callback: (
+            err: CallbackError,
+            confirmations: CConfirmation[],
+        ) => any,
+    ): void;
 
     /**
      * Get the trade offer ID associated with a particular confirmation
@@ -31,7 +35,14 @@ export interface Confirmations {
      * @param accept - true if you want to accept the confirmation, false if you want to cancel it
      * @param callback - Called when the request is complete
      */
-    respondToConfirmation(confID: number | number[], confKey: string | string[], time: number, key: string, accept: boolean, callback: Callback): void;
+    respondToConfirmation(
+        confID: number | number[],
+        confKey: string | string[],
+        time: number,
+        key: string,
+        accept: boolean,
+        callback: Callback,
+    ): void;
 
     /**
      * Accept a confirmation for a given object (trade offer or market listing) automatically.

@@ -2,27 +2,27 @@ interface HummerCommonStyle {
     /**
      * @summary position: 'relative' | 'absolute' | 'fixed'
      */
-    position?: 'relative' | 'absolute' | 'fixed';
+    position?: "relative" | "absolute" | "fixed";
     /**
      * @summary flexDirection:'column' | 'row'
      */
-    flexDirection?: 'column' | 'row';
+    flexDirection?: "column" | "row";
     /**
      * @summary flexWrap: 'nowrap' | 'wrap' | 'wrap-reverse'
      */
-    flexWrap?: 'nowrap' | 'wrap' | 'wrap-reverse';
+    flexWrap?: "nowrap" | "wrap" | "wrap-reverse";
     /**
      * @summary justifyContent: 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around' | 'space-evenly'
      */
-    justifyContent?: 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around' | 'space-evenly';
+    justifyContent?: "flex-start" | "flex-end" | "center" | "space-between" | "space-around" | "space-evenly";
     /**
      * @summary  alignItems: 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretch'
      */
-    alignItems?: 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretch';
+    alignItems?: "flex-start" | "flex-end" | "center" | "baseline" | "stretch";
     /**
      * @summary alignContent: 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around' | 'stretch';
      */
-    alignContent?: 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around' | 'stretch';
+    alignContent?: "flex-start" | "flex-end" | "center" | "space-between" | "space-around" | "stretch";
     /**
      * @summary flexGrow: 1
      */
@@ -38,7 +38,7 @@ interface HummerCommonStyle {
     /**
      * @summary alignSelf: 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretch';
      */
-    alignSelf?: 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretch';
+    alignSelf?: "flex-start" | "flex-end" | "center" | "baseline" | "stretch";
     /**
      * @summary width: 10 | '10px'
      */
@@ -158,27 +158,27 @@ interface HummerCommonStyle {
     /**
      * @summary boxSizing: 'none' | 'border-box'
      */
-    boxSizing?: 'none' | 'border-box';
+    boxSizing?: "none" | "border-box";
     /**
      * @summary borderStyle: 'none' | 'solid' | 'dashed' | 'dotted'
      */
-    borderStyle?: 'none' | 'solid' | 'dashed' | 'dotted';
+    borderStyle?: "none" | "solid" | "dashed" | "dotted";
     /**
      * @summary borderLeftStyle: 'none' | 'solid' | 'dashed' | 'dotted'
      */
-    borderLeftStyle?: 'none' | 'solid' | 'dashed' | 'dotted';
+    borderLeftStyle?: "none" | "solid" | "dashed" | "dotted";
     /**
      * @summary borderTopStyle: 'none' | 'solid' | 'dashed' | 'dotted';
      */
-    borderTopStyle?: 'none' | 'solid' | 'dashed' | 'dotted';
+    borderTopStyle?: "none" | "solid" | "dashed" | "dotted";
     /**
      * @summary borderRightStyle: 'none' | 'solid' | 'dashed' | 'dotted'
      */
-    borderRightStyle?: 'none' | 'solid' | 'dashed' | 'dotted';
+    borderRightStyle?: "none" | "solid" | "dashed" | "dotted";
     /**
      * @summary borderBottomStyle: 'none' | 'solid' | 'dashed' | 'dotted'
      */
-    borderBottomStyle?: 'none' | 'solid' | 'dashed' | 'dotted';
+    borderBottomStyle?: "none" | "solid" | "dashed" | "dotted";
     /**
      * @summary borderColor: '#000000'
      */
@@ -250,7 +250,7 @@ interface HummerCommonStyle {
     /**
      * @summary visibility: 'hidden' | 'visible'
      */
-    visibility?: 'hidden' | 'visible';
+    visibility?: "hidden" | "visible";
     /**
      * @summary zIndex: 1
      */
@@ -262,7 +262,7 @@ interface HummerCommonStyle {
 }
 
 interface ViewStyle extends HummerCommonStyle {
-    overflow?: 'visible' | 'hidden';
+    overflow?: "visible" | "hidden";
 }
 
 interface TextStyle extends HummerCommonStyle {
@@ -282,23 +282,23 @@ interface TextStyle extends HummerCommonStyle {
     /**
      * @summary fontStyle: 'normal' | 'italic'
      */
-    fontStyle?: 'normal' | 'italic';
+    fontStyle?: "normal" | "italic";
     /**
      * @summary textAlign: 'left' | 'center' | 'right'
      */
-    textAlign?: 'left' | 'center' | 'right';
+    textAlign?: "left" | "center" | "right";
     /**
      * @summary textVerticalAlign: 'top' | 'center' | 'bottom'
      */
-    textVerticalAlign?: 'top' | 'center' | 'bottom';
+    textVerticalAlign?: "top" | "center" | "bottom";
     /**
      * @summary textDecoration: 'none' | 'underline' | 'line-through'
      */
-    textDecoration?: 'none' | 'underline' | 'line-through';
+    textDecoration?: "none" | "underline" | "line-through";
     /**
      * @summary textOverflow: 'clip' | 'ellipsis'
      */
-    textOverflow?: 'clip' | 'ellipsis';
+    textOverflow?: "clip" | "ellipsis";
     /**
      * @summary textLineClamp: 1
      */
@@ -329,14 +329,14 @@ interface ButtonStyle extends HummerCommonStyle {
     /**
      * @summary textAlign: 'left' | 'center' | 'right'
      */
-    textAlign?: 'left' | 'center' | 'right';
+    textAlign?: "left" | "center" | "right";
 }
 
 interface InputStyle extends HummerCommonStyle {
     /**
      * @summary type: 'default' | 'number' | 'tel' | 'email' | 'password'
      */
-    type?: 'default' | 'number' | 'tel' | 'email' | 'password';
+    type?: "default" | "number" | "tel" | "email" | "password";
     /**
      * @summary color: '#000000'
      */
@@ -352,7 +352,7 @@ interface InputStyle extends HummerCommonStyle {
     /**
      * @summary textAlign: 'left' | 'center' | 'right'
      */
-    textAlign?: 'left' | 'center' | 'right';
+    textAlign?: "left" | "center" | "right";
     /**
      * @summary fontFamily: "New Times Roma"
      */
@@ -368,11 +368,11 @@ interface InputStyle extends HummerCommonStyle {
     /**
      * @summary returnKeyType: 'done' | 'go' | 'next' | 'search' | 'send'
      */
-    returnKeyType?: 'done' | 'go' | 'next' | 'search' | 'send';
+    returnKeyType?: "done" | "go" | "next" | "search" | "send";
 }
 
 interface ImageStyle extends HummerCommonStyle {
-    resize?: 'origin' | 'contain' | 'cover' | 'stretch';
+    resize?: "origin" | "contain" | "cover" | "stretch";
 }
 
 interface TextAreaStyle extends InputStyle {
@@ -389,11 +389,11 @@ interface ListStyle extends HummerCommonStyle {
     /**
      * @summary mode: 'list' | 'grid' | 'waterfall'
      */
-    mode?: 'list' | 'grid' | 'waterfall';
+    mode?: "list" | "grid" | "waterfall";
     /**
      * @summary scrollDirection: 'vertical' | 'horizontal'
      */
-    scrollDirection?: 'vertical' | 'horizontal';
+    scrollDirection?: "vertical" | "horizontal";
     /**
      * @summary column: 3
      */

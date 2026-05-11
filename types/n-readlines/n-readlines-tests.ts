@@ -1,4 +1,4 @@
-import LineByLine = require('n-readlines');
+import LineByLine = require("n-readlines");
 
 const file = "./test/testfile.csv";
 const lineReader = new LineByLine(file);

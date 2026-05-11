@@ -1,6 +1,20 @@
 {
     "private": true,
+    "name": "@types/final-form-set-field-touched",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/final-form/final-form-set-field-touched#readme"
+    ],
     "dependencies": {
         "final-form": "4.x.x"
-    }
+    },
+    "devDependencies": {
+        "@types/final-form-set-field-touched": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "hikiko4ern",
+            "githubUsername": "hikiko4ern"
+        }
+    ]
 }

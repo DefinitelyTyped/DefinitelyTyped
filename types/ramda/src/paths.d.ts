@@ -1,2 +1,2 @@
-import { paths } from '../index';
+import { paths } from "../index";
 export default paths;

@@ -1,4 +1,4 @@
-import asciichart = require('asciichart');
+import asciichart = require("asciichart");
 
 asciichart.black; // $ExpectType string
 asciichart.red; // $ExpectType string
@@ -22,22 +22,22 @@ asciichart.reset; // $ExpectType string
 asciichart.plot([1, 2, 3]);
 asciichart.plot([1, 2, 3], {});
 asciichart.plot([1, 2, 3], { offset: 4 });
-asciichart.plot([1, 2, 3], { padding: '  > ' });
+asciichart.plot([1, 2, 3], { padding: "  > " });
 asciichart.plot([1, 2, 3], { height: 10 });
 asciichart.plot([1, 2, 3], { min: -5 });
 asciichart.plot([1, 2, 3], { max: 15 });
-asciichart.plot([1, 2, 3], { symbols: ['┼', '┤', '╶', '╴', '─', '╰', '╭', '╮', '╯', '│'] });
+asciichart.plot([1, 2, 3], { symbols: ["┼", "┤", "╶", "╴", "─", "╰", "╭", "╮", "╯", "│"] });
 asciichart.plot([1, 2, 3], { format: x => x.toFixed(1) });
-asciichart.plot([1, 2, 3], { format: (x, i) => (i === 2 ? '  * ' : x.toFixed(2)) });
+asciichart.plot([1, 2, 3], { format: (x, i) => (i === 2 ? "  * " : x.toFixed(2)) });
 asciichart.plot([[1, 2, 3], [4, 5, 6]]);
 
 asciichart.plot([1, 2, 3], {
     offset: 4,
-    padding: '   >',
+    padding: "   >",
     height: 10,
     colors: [asciichart.blue, asciichart.green, asciichart.default, undefined],
     min: -5,
     max: 15,
-    symbols: ['┼', '┤', '╶', '╴', '─', '╰', '╭', '╮', '╯', '│'],
-    format: (x, i) => (i === 2 ? '  * ' : x.toFixed(2)),
+    symbols: ["┼", "┤", "╶", "╴", "─", "╰", "╭", "╮", "╯", "│"],
+    format: (x, i) => (i === 2 ? "  * " : x.toFixed(2)),
 });

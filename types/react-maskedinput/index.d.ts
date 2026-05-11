@@ -1,26 +1,45 @@
-// Type definitions for react-maskedinput 4.0
-// Project: https://github.com/insin/react-maskedinput
-// Definitions by: Karol Janyst <https://github.com/LKay>
-//                 Carlos Bonetti <https://github.com/CarlosBonetti>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 
-export interface FormatCharacter {
-    validate(char: string): string;
-    transform?(char: string): string;
+declare namespace MaskedInput {
+    interface FormatCharacter {
+        validate(char: string): string;
+        transform?(char: string): string;
+    }
+
+    interface CharsFormatters {
+        [char: string]: FormatCharacter;
+    }
+
+    interface MaskedInputProps extends
+        Omit<
+            React.InputHTMLAttributes<HTMLInputElement>,
+            | "maxLength"
+            | "onKeyDown"
+            | "onKeyPress"
+            | "onPaste"
+        >
+    {
+        /**
+         * The masking pattern to be applied to the `<input>`.
+         * See the {@link https://github.com/insin/inputmask-core#pattern|inputmask-core} docs for
+         * supported formatting characters.
+         */
+        mask: string;
+        /**
+         * Customised format character definitions for use in the pattern.
+         * See the {@link https://github.com/insin/inputmask-core#formatcharacters|inputmask-core}
+         * docs for details of the structure of this object.
+         */
+        formatCharacters?: CharsFormatters | undefined;
+        /**
+         * Customised placeholder character used to fill in editable parts of the pattern.
+         * See the {@link https://github.com/insin/inputmask-core#placeholderchar--string|inputmask-core}
+         * docs for details.
+         */
+        placeholderChar?: string | undefined;
+    }
 }
 
-export interface CharsFormatters {
-  [char: string]: FormatCharacter;
-}
+declare class MaskedInput extends React.Component<MaskedInput.MaskedInputProps> {}
 
-export interface MaskedInputProps extends React.InputHTMLAttributes<any> {
-  mask: string;
-  formatCharacters?: CharsFormatters | undefined;
-  placeholderChar?: string | undefined;
-}
-
-declare class MaskedInput extends React.Component<MaskedInputProps> {}
-export default MaskedInput;
+export = MaskedInput;

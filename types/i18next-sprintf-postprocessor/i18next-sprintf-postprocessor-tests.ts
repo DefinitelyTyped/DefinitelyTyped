@@ -15,7 +15,7 @@ function initTest() {
 }
 
 function tTest() {
-    i18next.t('interpolationTest1', 'a', 'b', 'c', 'd');
-    i18next.t('interpolationTest3', 'z');
-    i18next.t('interpolationTest4', 0);
+    i18next.t("interpolationTest1", "a", "b", "c", "d");
+    i18next.t("interpolationTest3", "z");
+    i18next.t("interpolationTest4", 0);
 }

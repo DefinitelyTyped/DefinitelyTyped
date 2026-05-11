@@ -1,9 +1,3 @@
-// Type definitions for scratch-vm (extension environment) 3.0
-// Project: https://github.com/LLK/scratch-vm#readme
-// Definitions by: Richie Bendall <https://github.com/Richienb>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
-
 type ValueOf<ObjectType> = ObjectType[keyof ObjectType];
 
 /** All the metadata needed to register an extension. */
@@ -116,7 +110,7 @@ declare enum ReporterScope {
      * This reporter's value is specific to a particular target/sprite.
      * Another target may have a different value or may not even have a value.
      */
-    TARGET = "target"
+    TARGET = "target",
 }
 
 declare namespace Scratch {
@@ -149,7 +143,7 @@ declare namespace Scratch {
         NOTE = "note",
 
         /** Inline image on block (as part of the label). */
-        IMAGE = "image"
+        IMAGE = "image",
     }
 
     /** Types of blocks. */
@@ -185,7 +179,7 @@ declare namespace Scratch {
         LOOP = "loop",
 
         /** General reporter with numeric or string value. */
-        REPORTER = "reporter"
+        REPORTER = "reporter",
     }
 
     /** Default types of target supported by the VM. */
@@ -194,6 +188,6 @@ declare namespace Scratch {
         SPRITE = "sprite",
 
         /** Rendered target which cannot move but can change backdrops. */
-        STAGE = "stage"
+        STAGE = "stage",
     }
 }

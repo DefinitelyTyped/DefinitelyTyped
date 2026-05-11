@@ -1,9 +1,3 @@
-// Type definitions for js-captcha 1.3
-// Project: https://github.com/robiveli/js-captcha
-// Definitions by: PikachuEXE <https://github.com/pikachuexe>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 declare namespace jCaptcha {
     /**
      * Options for the base jCaptcha class. Derived from https://github.com/robiveli/js-captcha#options

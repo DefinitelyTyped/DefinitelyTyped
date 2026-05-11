@@ -6,7 +6,7 @@ let stringValue: string;
 const req: RequestAPI<Request, CoreOptions, RequiredUriUrl> = {} as any;
 
 // with optional data
-stringValue = requestAsCurl(req, {test: "data"});
+stringValue = requestAsCurl(req, { test: "data" });
 
 // without optional data
 stringValue = requestAsCurl(req);

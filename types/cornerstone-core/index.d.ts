@@ -1,9 +1,3 @@
-// Type definitions for cornerstone-core 2.3
-// Project: https://github.com/cornerstonejs/cornerstone
-// Definitions by: SangYeob Yu <https://github.com/deminoth>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 /**
  * Calculate the transform for a Cornerstone enabled element
  *
@@ -49,7 +43,7 @@ export function generateLut(
  */
 export function getDefaultViewport(
     canvas: HTMLElement,
-    image: new (width?: number, height?: number) => HTMLImageElement,
+    image: new(width?: number, height?: number) => HTMLImageElement,
 ): any;
 export function getTransform(enabledElement: any): Transform;
 /**
@@ -77,10 +71,9 @@ export function setDefaultViewport(viewport: Viewport): void;
  * @param image A Cornerstone Image Object
  * @param lut Lookup table array
  * @param canvasImageDataData canvasImageData.data buffer filled with white pixels
- *
  */
 export function storedColorPixelDataToCanvasImageData(
-    image: new (width?: number, height?: number) => HTMLImageElement,
+    image: new(width?: number, height?: number) => HTMLImageElement,
     lut: any[],
     canvasImageDataData: Uint8ClampedArray,
 ): void;
@@ -97,33 +90,28 @@ export function storedColorPixelDataToCanvasImageData(
  * @param image A Cornerstone Image Object
  * @param lut Lookup table array
  * @param canvasImageDataData canvasImageData.data buffer filled with white pixels
- *
  */
 export function storedPixelDataToCanvasImageData(
-    image: new (width?: number, height?: number) => HTMLImageElement,
+    image: new(width?: number, height?: number) => HTMLImageElement,
     lut: any[],
     canvasImageDataData: Uint8ClampedArray,
 ): void;
 /**
- *
  * @param image A Cornerstone Image Object
  * @param colorLut Lookup table array
  * @param canvasImageDataData canvasImageData.data buffer filled with white pixels
- *
  */
 export function storedPixelDataToCanvasImageDataColorLUT(
-    image: new (width?: number, height?: number) => HTMLImageElement,
+    image: new(width?: number, height?: number) => HTMLImageElement,
     colorLut: any,
     canvasImageDataData: Uint8ClampedArray,
 ): void;
 
 /**
- *
  * @param image A Cornerstone Image Object
  * @param grayscaleLut Lookup table array
  * @param colorLut Lookup table array
  * @param canvasImageDataData canvasImageData.data buffer filled with white pixels
- *
  */
 export function storedPixelDataToCanvasImageDataPseudocolorLUT(
     image: Image,
@@ -138,10 +126,9 @@ export function storedPixelDataToCanvasImageDataPseudocolorLUT(
  * @param image A Cornerstone Image Object
  * @param lut Lookup table array
  * @param canvasImageDataData canvasImageData.data buffer filled with white pixels
- *
  */
 declare function storedPixelDataToCanvasImageDataRGBA(
-    image: new (width?: number, height?: number) => HTMLImageElement,
+    image: new(width?: number, height?: number) => HTMLImageElement,
     lut: any[],
     canvasImageDataData: Uint8ClampedArray,
 ): void;
@@ -306,7 +293,7 @@ export function updateImage(element: HTMLElement, invalidated?: boolean): void;
 export function enable(
     element: HTMLElement,
     options?: {
-        renderer?: 'webgl';
+        renderer?: "webgl";
     },
 ): void;
 
@@ -331,7 +318,6 @@ export function getElementData(element: HTMLElement, dataType: string): any;
  *
  * @param element An HTML Element enabled for Cornerstone
  * @param dataType A string name for an arbitrary set of data
- *
  */
 export function removeElementData(element: HTMLElement, dataType: string): void;
 
@@ -355,7 +341,7 @@ export function rescaleImage(baseLayer: EnabledElementLayer, targetLayer: Enable
  *
  * @returns layerId The new layer's unique identifier
  */
-export function addLayer(element: HTMLElement, image: Image, options: EnabledElementLayer['options']): string;
+export function addLayer(element: HTMLElement, image: Image, options: EnabledElementLayer["options"]): string;
 /**
  * Remove a layer from a Cornerstone element given a layer ID
  *
@@ -413,7 +399,6 @@ export function getActiveLayer(element: HTMLElement): EnabledElementLayer;
  * Purge the layers
  *
  * @param element The DOM element enabled for Cornerstone
- *
  */
 export function purgeLayers(element: HTMLElement): void;
 
@@ -757,7 +742,7 @@ declare class EventTarget {
  * @returns - Whether or not the image has been converted to a false color image
  */
 export function convertImageToFalseColorImage(
-    image: new (width?: number, height?: number) => HTMLImageElement,
+    image: new(width?: number, height?: number) => HTMLImageElement,
     colormap: unknown,
 ): boolean;
 /**
@@ -765,7 +750,6 @@ export function convertImageToFalseColorImage(
  *
  * @param element The Cornerstone element
  * @param colormap - it can be a colormap object or a colormap id (string)
- *
  */
 export function convertToFalseColorImage(element: HTMLElement, colormap: any): void;
 /**
@@ -774,7 +758,7 @@ export function convertToFalseColorImage(element: HTMLElement, colormap: any): v
  * @param image A Cornerstone Image Object
  * @returns True if the image object had a valid restore function, which was run. Otherwise, false.
  */
-export function restoreImage(image: new (width?: number, height?: number) => HTMLImageElement): boolean;
+export function restoreImage(image: new(width?: number, height?: number) => HTMLImageElement): boolean;
 /**
  * Adjusts an image's scale and translation so the image is centered and all pixels
  * in the image are viewable.
@@ -891,14 +875,12 @@ export namespace metaData {
      * Adds a metadata provider with the specified priority
      * @param provider Metadata provider function
      * @param [priority=0] - 0 is default/normal, > 0 is high, < 0 is low
-     *
      */
     function addProvider(provider: Provider, priority?: number): void;
     /**
      * Removes the specified provider
      *
      * @param provider Metadata provider function
-     *
      */
     function removeProvider(provider: Provider): void;
     /**

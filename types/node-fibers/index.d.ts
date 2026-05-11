@@ -1,8 +1,3 @@
-// Type definitions for node-fibers
-// Project: https://github.com/laverdet/node-fibers
-// Definitions by: Cary Haynie <https://github.com/caryhaynie>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface Fiber {
     reset: () => any;
     run: (param?: any) => any;
@@ -10,35 +5,33 @@ interface Fiber {
 }
 
 declare module "fibers" {
-
     function Fiber(fn: Function): Fiber;
 
     namespace Fiber {
         export var current: Fiber;
-        export function yield(value?: any): any
+        export function yield(value?: any): any;
     }
 
     export = Fiber;
 }
 
 declare module "fibers/future" {
-
     class Future {
         constructor();
         detach(): void;
         get(): any;
-        isResolved (): boolean;
+        isResolved(): boolean;
         proxy(future: Future): void;
         proxyErrors(futureOrList: any): Future;
         resolver(): Function;
         resolve(fn: Function): void;
         resolveSuccess(fn: Function): void;
         return(result?: any): void;
-        throw (error: any): void;
-        wait (): void;
+        throw(error: any): void;
+        wait(): void;
         static wait(future: Future): any;
         static wait(future_list: Future[]): any;
-        static wrap(fn: Function): Future
+        static wrap(fn: Function): Future;
     }
 
     export = Future;

@@ -1,2 +1,2 @@
-import { pair } from '../index';
+import { pair } from "../index";
 export default pair;

@@ -1,9 +1,3 @@
-// Type definitions for Timepicker Plugin for jQuery 1.13
-// Project: <https://github.com/jonthornton/jquery-timepicker>
-// Definitions by: doberkofler <https://github.com/doberkofler>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
-
 /// <reference types="jquery"/>
 
 interface JQueryTimepickerOptions {
@@ -48,15 +42,15 @@ interface JQueryTimepickerOptions {
     // default: { am: 'am', pm: 'pm', AM: 'AM', PM: 'PM', decimal: '.', mins: 'mins', hr: 'hr', hrs: 'hrs' }
     lang?:
         | {
-              am?: string | undefined;
-              pm?: string | undefined;
-              AM?: string | undefined;
-              PM?: string | undefined;
-              decimal?: string | undefined;
-              mins?: string | undefined;
-              hr?: string | undefined;
-              hrs?: string | undefined;
-          }
+            am?: string | undefined;
+            pm?: string | undefined;
+            AM?: string | undefined;
+            PM?: string | undefined;
+            decimal?: string | undefined;
+            mins?: string | undefined;
+            hr?: string | undefined;
+            hrs?: string | undefined;
+        }
         | undefined;
 
     // Set this to override CSS styling and set the list width to match the input element's width.
@@ -83,18 +77,18 @@ interface JQueryTimepickerOptions {
         | boolean
         | string
         | {
-              label?: string;
-              value?: string;
-              className?: string;
-          }
+            label?: string;
+            value?: string;
+            className?: string;
+        }
         | Array<
-              | string
-              | {
-                    label?: string;
-                    value?: string;
-                    className?: string;
-                }
-          >
+            | string
+            | {
+                label?: string;
+                value?: string;
+                className?: string;
+            }
+        >
         | undefined;
 
     // By default the timepicker dropdown will be aligned to the bottom right of the input element, or aligned to the top left if there isn't enough room below the input.
@@ -164,26 +158,26 @@ interface JQuery {
     timepicker(options: JQueryTimepickerOptions): JQuery;
 
     /** Get the time as an integer, expressed as seconds from 12am. */
-    timepicker(methodName: 'getSecondsFromMidnight'): number;
+    timepicker(methodName: "getSecondsFromMidnight"): number;
 
     /** Get the time using a Javascript Date object, relative to a Date object (default: today's date). */
-    timepicker(methodName: 'getTime', date?: Date): Date;
+    timepicker(methodName: "getTime", date?: Date): Date;
 
     /** Close the timepicker dropdown. */
-    timepicker(methodName: 'hide'): void;
+    timepicker(methodName: "hide"): void;
 
     /** Check if the timepicker attached to *a specific input* is visible. Not compatible with the `useSelect` option. */
-    timepicker(methodName: 'isVisible'): boolean;
+    timepicker(methodName: "isVisible"): boolean;
 
     /** Change the settings of an existing timepicker. Calling ```option``` on a visible timepicker will cause the picker to be hidden. */
-    timepicker(methodName: 'option', options: JQueryTimepickerOptions): void;
+    timepicker(methodName: "option", options: JQueryTimepickerOptions): void;
 
     /** Unbind an existing timepicker element. */
-    timepicker(methodName: 'remove'): void; // tslint:disable-line:unified-signatures
+    timepicker(methodName: "remove"): void; // tslint:disable-line:unified-signatures
 
     /** Set the time using a Javascript Date object. */
-    timepicker(methodName: 'setTime', date: Date): void;
+    timepicker(methodName: "setTime", date: Date): void;
 
     /** Display the timepicker dropdown. */
-    timepicker(methodName: 'show'): void; // tslint:disable-line:unified-signatures
+    timepicker(methodName: "show"): void; // tslint:disable-line:unified-signatures
 }

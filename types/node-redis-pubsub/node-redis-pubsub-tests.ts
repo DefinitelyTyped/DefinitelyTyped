@@ -2,7 +2,7 @@ import NRP = require("node-redis-pubsub");
 import { RedisClient } from "redis";
 
 const options = {
-    port: 6379
+    port: 6379,
 };
 const nrp: NRP.NodeRedisPubSub = NRP(options);
 

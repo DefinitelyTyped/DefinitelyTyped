@@ -1,9 +1,3 @@
-// Type definitions for beanstalkd 2.2
-// Project: https://github.com/burstable/node-beanstalkd-client
-// Definitions by: Maxime LUCE <https://github.com/SomaticIT>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /// <reference types="node" />
 
 import { Socket } from "net";
@@ -78,7 +72,7 @@ export default class BeanstalkdClient {
         reader: BasicReader | YamlReader,
     ): Promise<any>;
 
-    //#region Connection events
+    // #region Connection events
 
     /**
      * Listen on given event.
@@ -96,28 +90,28 @@ export default class BeanstalkdClient {
      * @param event The event to listen on.
      * @param listeners Listeners for the event.
      */
-    on(event: 'connect' | 'drain' | 'end' | 'timeout', ...listeners: Array<() => void>): void;
+    on(event: "connect" | "drain" | "end" | "timeout", ...listeners: Array<() => void>): void;
     /**
      * The error event is triggered when an error occured on the connection.
      *
      * @param event The event to listen on.
      * @param listeners Listeners for the error event.
      */
-    on(event: 'error', ...listeners: Array<(err: Error) => void>): void;
+    on(event: "error", ...listeners: Array<(err: Error) => void>): void;
     /**
      * The close event is triggered when connection closes.
      *
      * @param event The event to listen on.
      * @param listener Listeners for the close event.
      */
-    on(event: 'close', ...listeners: Array<(had_error: boolean) => void>): void;
+    on(event: "close", ...listeners: Array<(had_error: boolean) => void>): void;
     /**
      * The data event is triggered when socket receives data.
      *
      * @param event The event to listen on.
      * @param listener Listeners for the data event.
      */
-    on(event: 'data', ...listeners: Array<(data: Buffer) => void>): void;
+    on(event: "data", ...listeners: Array<(data: Buffer) => void>): void;
     /**
      * The lookup event is triggered when connection performs a lookup on a new address.
      *
@@ -125,13 +119,13 @@ export default class BeanstalkdClient {
      * @param listener Listeners for the lookup event.
      */
     on(
-        event: 'lookup',
+        event: "lookup",
         ...listeners: Array<(err: Error, address: string, family: string | number, host: string) => void>
     ): void;
 
-    //#endregion
+    // #endregion
 
-    //#region Commands
+    // #region Commands
 
     /**
      * Use the specified tube.
@@ -308,7 +302,7 @@ export default class BeanstalkdClient {
      */
     stats(): Promise<BeanstalkdStats>;
 
-    //#endregion
+    // #endregion
 }
 
 export interface BeanstalkdCaller {

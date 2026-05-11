@@ -42,7 +42,7 @@ export interface ContactContext extends Context {
     /**
      * The context type is always 'fdc3.contact'.
      */
-    type: 'fdc3.contact';
+    type: "fdc3.contact";
     /**
      * Free text name of the contact.
      */
@@ -68,7 +68,7 @@ export interface InstrumentContext extends Context {
     /**
      * The context type is always 'fdc3.instrument'.
      */
-    type: 'fdc3.instrument';
+    type: "fdc3.instrument";
     /**
      * Optional free text name of the instrument.
      */
@@ -104,7 +104,7 @@ export interface OrganizationContext extends Context {
     /**
      * The context type is always fdc3.organization.
      */
-    type: 'fdc3.organization';
+    type: "fdc3.organization";
     /**
      * Optional free text name of the organization.
      */

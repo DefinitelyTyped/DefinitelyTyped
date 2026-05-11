@@ -1,6 +1,6 @@
-import EmberObject from '@ember/object';
-import Evented from '@ember/object/evented';
-import ActionHandler from '@ember/object/-private/action-handler';
+import EmberObject from "@ember/object";
+import ActionHandler from "@ember/object/-private/action-handler";
+import Evented from "@ember/object/evented";
 
 /**
  * Ember.CoreView is an abstract class that exists to give view-like behavior to both Ember's main
@@ -9,5 +9,5 @@ import ActionHandler from '@ember/object/-private/action-handler';
  * Unless you have specific needs for CoreView, you will use Ember.Component in your applications.
  */
 export default class CoreView extends EmberObject {}
-// tslint:disable-next-line:no-empty-interface -- used for declaration merge
+// eslint-disable-next-line @typescript-eslint/no-empty-interface -- used for declaration merge
 export default interface CoreView extends Evented, ActionHandler {}

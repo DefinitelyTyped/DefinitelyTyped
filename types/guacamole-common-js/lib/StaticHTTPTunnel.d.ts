@@ -1,4 +1,4 @@
-import { Tunnel } from './Tunnel';
+import { Tunnel } from "./Tunnel";
 
 /**
  * Guacamole Tunnel which replays a Guacamole protocol dump from a static file

@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/react-native-material-kit",
+    "version": "0.5.9999",
+    "projects": [
+        "https://github.com/xinthink/react-native-material-kit"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "@types/react-native": "^0.71"
+    },
+    "devDependencies": {
+        "@types/react-native-material-kit": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Kyle Roach",
+            "githubUsername": "iRoachie"
+        },
+        {
+            "name": "Tim Wang",
+            "githubUsername": "timwangdev"
+        }
+    ]
+}

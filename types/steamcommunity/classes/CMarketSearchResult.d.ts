@@ -1,4 +1,4 @@
-import { appid } from '../index';
+import { appid } from "../index";
 
 export = CMarketSearchResult;
 

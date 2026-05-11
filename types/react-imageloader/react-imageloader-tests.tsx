@@ -1,4 +1,4 @@
-import ImageLoader = require('react-imageloader');
-import * as React from 'react';
+import ImageLoader = require("react-imageloader");
+import * as React from "react";
 
-let imageLoader = <ImageLoader src='image.png' />;
+let imageLoader = <ImageLoader src="image.png" />;

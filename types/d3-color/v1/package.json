@@ -1,0 +1,38 @@
+{
+    "private": true,
+    "name": "@types/d3-color",
+    "version": "1.4.9999",
+    "projects": [
+        "https://github.com/d3/d3-color/",
+        "https://d3js.org/d3-color"
+    ],
+    "devDependencies": {
+        "@types/d3-color": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tom Wanzek",
+            "githubUsername": "tomwanzek"
+        },
+        {
+            "name": "Alex Ford",
+            "githubUsername": "gustavderdrache"
+        },
+        {
+            "name": "Boris Yankov",
+            "githubUsername": "borisyankov"
+        },
+        {
+            "name": "denisname",
+            "githubUsername": "denisname"
+        },
+        {
+            "name": "Hugues Stefanski",
+            "githubUsername": "ledragon"
+        },
+        {
+            "name": "Nathan Bierema",
+            "githubUsername": "Methuselah96"
+        }
+    ]
+}

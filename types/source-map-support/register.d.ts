@@ -1,4 +1,4 @@
-/* eslint-disable no-useless-files */
+/* eslint-disable @definitelytyped/no-useless-files */
 
 // For following usage:
 //    import 'source-map-support/register'

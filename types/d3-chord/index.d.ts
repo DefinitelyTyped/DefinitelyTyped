@@ -1,11 +1,3 @@
-// Type definitions for D3JS d3-chord module 3.0
-// Project: https://github.com/d3/d3-chord/, https://d3js.org/d3-chord
-// Definitions by: Tom Wanzek <https://github.com/tomwanzek>
-//                 Alex Ford <https://github.com/gustavderdrache>
-//                 Boris Yankov <https://github.com/borisyankov>
-//                 Nathan Bierema <https://github.com/Methuselah96>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // Last module patch version validated against: 3.0.1
 
 // ---------------------------------------------------------------------
@@ -214,7 +206,6 @@ export interface Ribbon {
 }
 
 /**
- *
  * A ribbon generator to support rendering of chords in a chord diagram.
  *
  * The first generic corresponds to the type of the "this" context within which the ribbon generator and its accessor functions will be invoked.
@@ -411,7 +402,9 @@ export interface RibbonGenerator<This, RibbonDatum, RibbonSubgroupDatum> {
     context(context: CanvasRenderingContext2D | null): this;
 }
 
-export interface RibbonArrowGenerator<This, RibbonDatum, RibbonSubgroupDatum> extends RibbonGenerator<This, RibbonDatum, RibbonSubgroupDatum> {
+export interface RibbonArrowGenerator<This, RibbonDatum, RibbonSubgroupDatum>
+    extends RibbonGenerator<This, RibbonDatum, RibbonSubgroupDatum>
+{
     headRadius(): (this: This, d: RibbonSubgroupDatum, ...args: any[]) => number;
 
     headRadius(radius: number): this;
@@ -432,7 +425,7 @@ export function ribbon(): RibbonGenerator<any, Ribbon, RibbonSubgroup>;
  *
  * The second generic corresponds to the datum type of the chord subgroup, i.e. source or target of the cord. The default type is ChordSubgroup.
  */
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function ribbon<Datum, SubgroupDatum>(): RibbonGenerator<any, Datum, SubgroupDatum>;
 /**
  * Creates a new ribbon generator with the default settings.
@@ -445,7 +438,7 @@ export function ribbon<Datum, SubgroupDatum>(): RibbonGenerator<any, Datum, Subg
  *
  * The third generic corresponds to the datum type of the chord subgroup, i.e. source or target of the cord. The default type is ChordSubgroup.
  */
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function ribbon<This, Datum, SubgroupDatum>(): RibbonGenerator<This, Datum, SubgroupDatum>;
 
 /**
@@ -461,7 +454,7 @@ export function ribbonArrow(): RibbonArrowGenerator<any, Ribbon, RibbonSubgroup>
  *
  * The second generic corresponds to the datum type of the chord subgroup, i.e. source or target of the cord. The default type is ChordSubgroup.
  */
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function ribbonArrow<Datum, SubgroupDatum>(): RibbonArrowGenerator<any, Datum, SubgroupDatum>;
 /**
  * Creates a new arrow ribbon generator with the default settings.
@@ -474,5 +467,5 @@ export function ribbonArrow<Datum, SubgroupDatum>(): RibbonArrowGenerator<any, D
  *
  * The third generic corresponds to the datum type of the chord subgroup, i.e. source or target of the cord. The default type is ChordSubgroup.
  */
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function ribbonArrow<This, Datum, SubgroupDatum>(): RibbonArrowGenerator<This, Datum, SubgroupDatum>;

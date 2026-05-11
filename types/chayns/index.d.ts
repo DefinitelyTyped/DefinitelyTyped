@@ -1,9 +1,3 @@
-// Type definitions for non-npm package chayns 3.1
-// Project: https://github.com/TobitSoftware/chayns-js
-// Definitions by: Henning Kuehl <https://github.com/HenningKuehl>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 /**
  * Definition file for chayns v3.1
  */
@@ -11,7 +5,6 @@ declare namespace chayns {
     /**
      * Getting Started
      * chayns
-     *
      */
     let ready: Promise<any>;
 
@@ -47,7 +40,11 @@ declare namespace chayns {
 
     function removeNfcCallback(): Promise<any>;
 
-    function startNfcDetection(callback: (result: NfcDetectionResult) => any, interval: number, vibrate: boolean): Promise<any>;
+    function startNfcDetection(
+        callback: (result: NfcDetectionResult) => any,
+        interval: number,
+        vibrate: boolean,
+    ): Promise<any>;
 
     function stopNfcDetection(): Promise<any>;
 
@@ -73,7 +70,7 @@ declare namespace chayns {
 
     function getBaseColor(color?: string, colorMode?: number): string;
 
-    function share(config: ShareConfig): Promise<any>;        // TODO interface for promise result
+    function share(config: ShareConfig): Promise<any>; // TODO interface for promise result
 
     function getAvailableSharingServices(): Promise<number[]>;
 
@@ -99,9 +96,9 @@ declare namespace chayns {
 
     function scrollToY(position: number): Promise<any>;
 
-    function addToWallet(passbook: string): Promise<any>;        // TODO check passbock parameter
+    function addToWallet(passbook: string): Promise<any>; // TODO check passbock parameter
 
-    function addScrollListener(callback: (data: any) => any, throttle?: number): Promise<any>;        // TODO interface for callback data
+    function addScrollListener(callback: (data: any) => any, throttle?: number): Promise<any>; // TODO interface for callback data
 
     function setScreenOrientation(orientation: number): Promise<any>;
 
@@ -161,11 +158,11 @@ declare namespace chayns {
      * chayns.intercom
      */
     namespace intercom {
-        function sendMessageToUser(userId: number, config: IntercomConfig): Promise<any>;        // TODO set interface for promise result
+        function sendMessageToUser(userId: number, config: IntercomConfig): Promise<any>; // TODO set interface for promise result
 
-        function sendMessageToGroup(groupId: number, config: IntercomConfig): Promise<any>;    // TODO set interface for promise result
+        function sendMessageToGroup(groupId: number, config: IntercomConfig): Promise<any>; // TODO set interface for promise result
 
-        function sendMessageToPage(config: IntercomConfig): Promise<any>;                        // TODO set interface for promise result
+        function sendMessageToPage(config: IntercomConfig): Promise<any>; // TODO set interface for promise result
     }
 
     /**
@@ -173,9 +170,9 @@ declare namespace chayns {
      * chayns.passKit
      */
     namespace passKit {
-        function getInstalled(): Promise<any>;                        // TODO interface for promise result
+        function getInstalled(): Promise<any>; // TODO interface for promise result
 
-        function isInstalled(identifier: string): Promise<any>;        // TODO interface for promise result
+        function isInstalled(identifier: string): Promise<any>; // TODO interface for promise result
     }
 
     /**
@@ -374,25 +371,25 @@ declare namespace chayns {
         enum buttonType {
             CANCEL = -1,
             NEGATIVE = 0,
-            POSITIVE = 1
+            POSITIVE = 1,
         }
 
         enum buttonText {
-            CANCEL = 'Abbrechen',
-            NO = 'Nein',
-            OK = 'OK',
-            YES = 'Ja'
+            CANCEL = "Abbrechen",
+            NO = "Nein",
+            OK = "OK",
+            YES = "Ja",
         }
 
         enum dateType {
             DATE,
             TIME,
-            DATE_TIME
+            DATE_TIME,
         }
 
         enum inputType {
             DEFAULT = 0,
-            PASSWORD = 1
+            PASSWORD = 1,
         }
 
         function alert(title: string, message?: string): Promise<buttonType>;
@@ -576,7 +573,7 @@ declare namespace chayns {
         enum accessMode {
             PUBLIC,
             PROTECTED,
-            PRIVATE
+            PRIVATE,
         }
 
         function set(key: string, value: any, accessMode?: accessMode, tappIds?: number[]): Promise<any>;
@@ -790,7 +787,7 @@ interface DialogSelectConfig {
     message?: string | undefined;
     quickfind?: boolean | undefined;
     multiselect?: boolean | undefined;
-    buttons?: any[] | undefined;        // TODO interface for buttons
+    buttons?: any[] | undefined; // TODO interface for buttons
     list: DialogSelectConfigItem[];
 }
 

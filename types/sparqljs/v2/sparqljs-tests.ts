@@ -1,4 +1,4 @@
-import * as SparqlJs from 'sparqljs';
+import * as SparqlJs from "sparqljs";
 
 /**
  * Examples from the project's README
@@ -8,15 +8,15 @@ function officialExamples() {
     const SparqlParser = SparqlJs.Parser;
     const parser = new SparqlParser();
     const parsedQuery = parser.parse(
-        'PREFIX foaf: <http://xmlns.com/foaf/0.1/> ' +
-        'SELECT * { ?mickey foaf:name "Mickey Mouse"@en; foaf:knows ?other. }',
+        "PREFIX foaf: <http://xmlns.com/foaf/0.1/> "
+            + "SELECT * { ?mickey foaf:name \"Mickey Mouse\"@en; foaf:knows ?other. }",
     );
 
     // Regenerate a SPARQL query from a JSON object
     const SparqlGenerator = SparqlJs.Generator;
     const generator = new SparqlGenerator();
-    if (parsedQuery.type === 'query' && parsedQuery.queryType === 'SELECT') {
-        parsedQuery.variables = ['?mickey' as SparqlJs.Term];
+    if (parsedQuery.type === "query" && parsedQuery.queryType === "SELECT") {
+        parsedQuery.variables = ["?mickey" as SparqlJs.Term];
     }
 
     // $ExpectType string
@@ -25,56 +25,56 @@ function officialExamples() {
 
 function advancedOptions() {
     const parser = new SparqlJs.Parser(
-        {rdf: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'},
-        'http://example.com'
+        { rdf: "http://www.w3.org/1999/02/22-rdf-syntax-ns#" },
+        "http://example.com",
     );
-    const generator = new SparqlJs.Generator({allPrefixes: false});
+    const generator = new SparqlJs.Generator({ allPrefixes: false });
 }
 
 /**
  * Basic query structure
  */
 function basicQueries() {
-    const foo = 'example:foo' as SparqlJs.Term;
-    const bar = 'example:bar' as SparqlJs.Term;
-    const qux = 'example:qux' as SparqlJs.Term;
+    const foo = "example:foo" as SparqlJs.Term;
+    const bar = "example:bar" as SparqlJs.Term;
+    const qux = "example:qux" as SparqlJs.Term;
 
-    const prefixes = {rdf: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'};
+    const prefixes = { rdf: "http://www.w3.org/1999/02/22-rdf-syntax-ns#" };
 
     const bgpPattern: SparqlJs.BgpPattern = {
-        type: 'bgp',
+        type: "bgp",
         triples: [
-            {subject: foo, predicate: qux, object: bar},
+            { subject: foo, predicate: qux, object: bar },
             {
                 subject: foo,
                 predicate: {
-                    type: 'path',
-                    pathType: '|',
+                    type: "path",
+                    pathType: "|",
                     items: [qux, bar],
                 },
                 object: bar,
-            }
+            },
         ],
     };
 
     const select: SparqlJs.SelectQuery = {
-        type: 'query',
-        queryType: 'SELECT',
+        type: "query",
+        queryType: "SELECT",
         prefixes,
-        variables: ['*'],
+        variables: ["*"],
         distinct: true,
         from: {
-            default: ['http://example.com/'],
-            named: ['http://example.com/foo', 'http://example.com/bar'],
+            default: ["http://example.com/"],
+            named: ["http://example.com/foo", "http://example.com/bar"],
         },
         reduced: false,
         group: [
-            {expression: foo},
-            {expression: bar},
+            { expression: foo },
+            { expression: bar },
         ],
         having: [{
-            type: 'functionCall',
-            function: 'isIRI',
+            type: "functionCall",
+            function: "isIRI",
             args: [foo],
         }],
         order: [{
@@ -85,39 +85,39 @@ function basicQueries() {
         offset: 10,
         where: [bgpPattern],
         values: [
-            {x: foo, y: bar},
-            {x: foo},
-        ]
+            { x: foo, y: bar },
+            { x: foo },
+        ],
     };
 
     const construct: SparqlJs.ConstructQuery = {
-        type: 'query',
-        queryType: 'CONSTRUCT',
-        base: 'http://example.com',
+        type: "query",
+        queryType: "CONSTRUCT",
+        base: "http://example.com",
         prefixes,
         template: bgpPattern.triples,
     };
 
     const ask: SparqlJs.AskQuery = {
-        type: 'query',
-        queryType: 'ASK',
+        type: "query",
+        queryType: "ASK",
         prefixes,
     };
 
     const describe: SparqlJs.DescribeQuery = {
-        type: 'query',
-        queryType: 'DESCRIBE',
+        type: "query",
+        queryType: "DESCRIBE",
         prefixes,
         variables: [
             foo,
             {
                 variable: bar,
                 expression: {
-                    type: 'operation',
-                    operator: '+',
+                    type: "operation",
+                    operator: "+",
                     args: [foo, bar],
-                }
-            }
+                },
+            },
         ],
     };
 }
@@ -127,40 +127,40 @@ function basicQueries() {
  */
 function updateQueries() {
     const bgp: SparqlJs.BgpPattern = {
-        type: 'bgp',
+        type: "bgp",
         triples: [],
     };
 
     const update: SparqlJs.Update = {
-        type: 'update',
+        type: "update",
         prefixes: {
-            rdf: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
+            rdf: "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
         },
         updates: [
             {
-                updateType: 'insertdelete',
-                graph: 'http://example.com/foo',
+                updateType: "insertdelete",
+                graph: "http://example.com/foo",
                 insert: [bgp],
                 delete: [bgp],
                 where: [],
             },
             {
-                type: 'copy',
+                type: "copy",
                 silent: true,
                 source: {
-                    type: 'graph',
-                    name: 'http://example.com/foo',
+                    type: "graph",
+                    name: "http://example.com/foo",
                 },
                 destination: {
-                    type: 'graph',
+                    type: "graph",
                     default: true,
                 },
             },
             {
-                type: 'clear',
+                type: "clear",
                 silent: false,
                 graph: {
-                    type: 'graph',
+                    type: "graph",
                     all: true,
                 },
             },

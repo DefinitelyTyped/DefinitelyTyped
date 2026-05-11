@@ -1,30 +1,30 @@
-import { assertType } from './lib/assert';
-import ArrayProxy from '@ember/array/proxy';
-import EmberArray, { A } from '@ember/array';
-import EmberObject from '@ember/object';
+import EmberArray, { A } from "@ember/array";
+import ArrayProxy from "@ember/array/proxy";
+import EmberObject from "@ember/object";
+import { assertType } from "./lib/assert";
 
-const pets = ['dog', 'cat', 'fish'];
+const pets = ["dog", "cat", "fish"];
 const proxy = ArrayProxy.create({ content: A(pets) });
 
-proxy.get('firstObject'); // 'dog'
-proxy.set('content', A(['amoeba', 'paramecium']));
-proxy.get('firstObject'); // 'amoeba'
+proxy.get("firstObject"); // 'dog'
+proxy.set("content", A(["amoeba", "paramecium"]));
+proxy.get("firstObject"); // 'amoeba'
 
 const overridden = ArrayProxy.create({
     content: A(pets),
     objectAtContent(idx: number): string {
-        return this.get('content').objectAt(idx)!.toUpperCase();
+        return this.get("content").objectAt(idx)!.toUpperCase();
     },
 });
 
-overridden.get('firstObject'); // 'DOG'
+overridden.get("firstObject"); // 'DOG'
 
 class MyNewProxy<T> extends ArrayProxy<T> {
     isNew = true;
 }
 
 const x = MyNewProxy.create({ content: A([1, 2, 3]) }) as MyNewProxy<number>;
-assertType<number | undefined>(x.get('firstObject'));
+assertType<number | undefined>(x.get("firstObject"));
 assertType<boolean>(x.isNew);
 
 // Custom EmberArray
@@ -46,12 +46,12 @@ class MyArray<T> extends EmberObject.extend(EmberArray) {
 }
 
 const customArrayProxy = ArrayProxy.create({ content: new MyArray(pets) });
-customArrayProxy.get('firstObject'); // 'dog'
+customArrayProxy.get("firstObject"); // 'dog'
 
 // Vanilla array
 const vanillaArrayProxy = ArrayProxy.create({ content: pets });
-vanillaArrayProxy.get('firstObject'); // 'dog'
+vanillaArrayProxy.get("firstObject"); // 'dog'
 
 // Nested ArrayProxy
 const nestedArrayProxy = ArrayProxy.create({ content: proxy });
-nestedArrayProxy.get('firstObject'); // 'amoeba'
+nestedArrayProxy.get("firstObject"); // 'amoeba'

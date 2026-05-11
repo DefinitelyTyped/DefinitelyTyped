@@ -1,5 +1,5 @@
-import { Mimetype } from './GuacCommon';
-import { InputStream } from './InputStream';
+import { Mimetype } from "./GuacCommon";
+import { InputStream } from "./InputStream";
 
 /**
  * A reader which automatically handles the given input stream, assembling all

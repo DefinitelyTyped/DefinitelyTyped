@@ -1,9 +1,3 @@
-// Type definitions for nanoassert 2.0
-// Project: https://github.com/emilbayes/nanoassert
-// Definitions by: Junxiao Shi <https://github.com/yoursunny>
-//                 BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Assert that `declaration` is truthy otherwise throw `AssertionError`.
  * In JavaScript runtimes that use v8, you will get a nicer

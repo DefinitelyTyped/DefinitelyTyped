@@ -13,8 +13,8 @@ export type MultiInputProps = {
     popoverProps?: any;
     tagProps?: any;
     validationState?: {
-      state?: any,
-      text?: string | undefined
+        state?: any;
+        text?: string | undefined;
     } | undefined;
     onTagsUpdate?: ((...args: any[]) => any) | undefined;
 } & { [x: string]: any };

@@ -1,6 +1,3 @@
-export type DigestType = 'binarystring' | 'arraybuffer' | 'uint8array';
-export type exports = string;
-declare const BINARY_STRING: string;
-declare const ARRAY_BUFFER: string;
-declare const UINT8_ARRAY: string;
-export {};
+export const BINARY_STRING = 'binarystring';
+export const ARRAY_BUFFER = 'arraybuffer';
+export const UINT8_ARRAY = 'uint8array';

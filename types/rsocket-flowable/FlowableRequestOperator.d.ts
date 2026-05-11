@@ -1,4 +1,4 @@
-import { ISubscriber, ISubscription } from 'rsocket-types';
+import { ISubscriber, ISubscription } from "rsocket-types";
 /**
  * An operator that `request()`s the given number of items immediately upon
  * being subscribed.

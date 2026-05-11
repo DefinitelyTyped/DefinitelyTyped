@@ -1,4 +1,4 @@
-import * as μs from 'microseconds';
+import * as μs from "microseconds";
 
 const now = μs.now();
 const parsed = μs.parse(now);

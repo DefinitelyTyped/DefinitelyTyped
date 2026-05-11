@@ -1,9 +1,3 @@
-// Type definitions for non-npm package Apple Sign in API 1.5
-// Project: https://developer.apple.com/documentation/signinwithapplejs
-// Definitions by: Julius Lungys <https://github.com/voidpumpkin>
-//                 Koen Punt <https://github.com/koenpunt>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare var AppleID: AppleSignInAPI.AppleID;
 
 declare namespace AppleSignInAPI {

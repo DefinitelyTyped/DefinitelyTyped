@@ -1,17 +1,14 @@
-import * as React from 'react';
-import { View } from 'react-native';
-import {
-    Dialogflow,
-    Dialogflow_V2,
-} from 'react-native-dialogflow';
+import * as React from "react";
+import { View } from "react-native";
+import { Dialogflow, Dialogflow_V2 } from "react-native-dialogflow";
 
-const accessToken = 'accessToken';
-const eventName = 'event';
+const accessToken = "accessToken";
+const eventName = "event";
 const eventData = {};
-const query = '';
-const serviceAccount = '_@_.iam.gserviceaccount.com';
-const privateKey = '-----BEGIN PRIVATE KEY-----\n_\n-----END PRIVATE KEY-----';
-const projectId = 'projectId';
+const query = "";
+const serviceAccount = "_@_.iam.gserviceaccount.com";
+const privateKey = "-----BEGIN PRIVATE KEY-----\n_\n-----END PRIVATE KEY-----";
+const projectId = "projectId";
 
 class Screen1 extends React.Component<any> {
     componentDidMount() {
@@ -42,8 +39,6 @@ class Screen1 extends React.Component<any> {
     }
 
     render() {
-        return (
-            <View />
-        );
+        return <View />;
     }
 }

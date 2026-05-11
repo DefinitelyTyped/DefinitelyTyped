@@ -1,8 +1,3 @@
-// Type definitions for module-deps 6.2
-// Project: https://github.com/browserify/module-deps
-// Definitions by: TeamworkGuy2 <https://github.com/TeamworkGuy2>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 /**
@@ -33,7 +28,13 @@ declare namespace moduleDeps {
         /**
          * Custom resolve function using the opts.resolve(id, parent, cb) signature that browser-resolve has
          */
-        resolve?: ((id: string, opts: ParentObject, cb: (err?: Error | null, file?: string, pkg?: PackageObject, fakePath?: any) => void) => void) | undefined;
+        resolve?:
+            | ((
+                id: string,
+                opts: ParentObject,
+                cb: (err?: Error | null, file?: string, pkg?: PackageObject, fakePath?: any) => void,
+            ) => void)
+            | undefined;
 
         /**
          * A custom dependency detection function. opts.detect(source) should return an array of dependency module names. By default detective is used
@@ -50,7 +51,7 @@ declare namespace moduleDeps {
          * A function (id, file, pkg) that gets called after id has been resolved.
          * Return false to skip this file
          */
-        postFilter?: ((id: string, file: string, pkg: PackageObject) => (void | boolean)) | undefined; // tslint:disable-line:void-return
+        postFilter?: ((id: string, file: string, pkg: PackageObject) => void | boolean) | undefined; // eslint-disable-line @typescript-eslint/no-invalid-void-type
 
         /**
          * Transform the parsed package.json contents before using the values.
@@ -83,7 +84,15 @@ declare namespace moduleDeps {
         /**
          * A complex cache handler that allows async and persistent caching of data.
          */
-        persistentCache?: ((file: string, id: string, pkg: PackageObject, fallback: (dataAsString: string | null | undefined, cb: CacheCallback) => void, cb: CacheCallback) => void) | undefined;
+        persistentCache?:
+            | ((
+                file: string,
+                id: string,
+                pkg: PackageObject,
+                fallback: (dataAsString: string | null | undefined, cb: CacheCallback) => void,
+                cb: CacheCallback,
+            ) => void)
+            | undefined;
 
         /**
          * Array of global paths to search. Defaults to splitting on ':' in process.env.NODE_PATH
@@ -106,15 +115,32 @@ declare namespace moduleDeps {
     }
 
     interface ModuleDepsObject extends NodeJS.ReadWriteStream {
-        resolve(id: string, parent: Partial<ParentObject> & { id: string; [name: string]: any }, cb: (err: Error | null, file?: string, pkg?: PackageObject, fakePath?: any) => any): any;
+        resolve(
+            id: string,
+            parent: Partial<ParentObject> & { id: string; [name: string]: any },
+            cb: (err: Error | null, file?: string, pkg?: PackageObject, fakePath?: any) => any,
+        ): any;
 
         readFile(file: string, id?: any, pkg?: PackageObject): NodeJS.ReadableStream;
 
-        getTransforms(file: string, pkg: PackageObject, opts?: { builtin?: boolean | undefined; inNodeModules?: boolean | undefined }): NodeJS.ReadWriteStream;
+        getTransforms(
+            file: string,
+            pkg: PackageObject,
+            opts?: { builtin?: boolean | undefined; inNodeModules?: boolean | undefined },
+        ): NodeJS.ReadWriteStream;
 
-        walk(id: string | { file: string; id: string; entry?: boolean | undefined; expose?: string | undefined; noparse?: boolean | undefined; source?: string | undefined },
+        walk(
+            id: string | {
+                file: string;
+                id: string;
+                entry?: boolean | undefined;
+                expose?: string | undefined;
+                noparse?: boolean | undefined;
+                source?: string | undefined;
+            },
             parent: { modules: any },
-            cb: (err: Error | null, file?: string) => void): void;
+            cb: (err: Error | null, file?: string) => void,
+        ): void;
 
         parseDeps(file: string, src: string, cb: any): any[];
 
@@ -139,7 +165,10 @@ declare namespace moduleDeps {
         /**
          * When opts.ignoreMissing is enabled, this event fires for each missing package.
          */
-        on(event: "missing", listener: (id: string, parent: { id: string; filename: string; [prop: string]: any }) => any): this;
+        on(
+            event: "missing",
+            listener: (id: string, parent: { id: string; filename: string; [prop: string]: any }) => any,
+        ): this;
         /**
          * Every time a package is read, this event fires. The directory name of the package is available in pkg.__dirname.
          */

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/console-log-tree",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/QiShaoXuan/log-tree#readme"
+    ],
+    "devDependencies": {
+        "@types/console-log-tree": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Rajas Paranjpe",
+            "githubUsername": "ChocolateLoverRaj"
+        }
+    ]
+}

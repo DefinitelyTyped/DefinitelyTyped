@@ -1,8 +1,3 @@
-// Type definitions for hyphen 1.6
-// Project: https://github.com/ytiurin/hyphen
-// Definitions by: Krisztián Balla <https://github.com/krisztianb>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace hyphen {
     /**
      * Hyphenation patterns and exceptions for a language.
@@ -48,6 +43,13 @@ declare namespace hyphen {
          * @default 5
          */
         minWordLength?: number | undefined;
+
+        /**
+         * An array of values with exceptions of hyphenation in words.
+         * Hard hyphen symbol `-` should be used to mark the position of further configured hyphenation symbol.
+         * @default []
+         */
+        exceptions?: string[] | undefined;
     }
 
     /**
@@ -71,6 +73,13 @@ declare namespace hyphen {
          * @default 5
          */
         minWordLength?: number | undefined;
+
+        /**
+         * An array of values with exceptions of hyphenation in words.
+         * Hard hyphen symbol `-` should be used to mark the position of further configured hyphenation symbol.
+         * @default []
+         */
+        exceptions?: string[] | undefined;
     }
 
     /**

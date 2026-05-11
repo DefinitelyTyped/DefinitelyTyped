@@ -1,8 +1,3 @@
-// Type definitions for redis-server 1.2
-// Project: https://github.com/BrandonZacharie/node-redis-server
-// Definitions by: Sander Timmermans <https://github.com/Noldaru>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = RedisServer;
 
 declare namespace RedisServer {

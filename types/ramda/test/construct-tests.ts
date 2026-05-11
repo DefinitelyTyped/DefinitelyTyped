@@ -1,6 +1,6 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
-() => {
+(() => {
     function Circle(this: { r: number; colors: string; area: () => number }, r: number, colors: string) {
         this.r = r;
         this.colors = colors;
@@ -15,10 +15,10 @@ import * as R from 'ramda';
     const circleFactory = R.construct(Circle);
 
     // ExpectType {r: number, colors: string, area: () => number}
-    const circleObject = circleFactory(10, 'red');
-};
+    const circleObject = circleFactory(10, "red");
+});
 
-() => {
+(() => {
     class Circle {
         constructor(public r: number, public colors: string) {}
 
@@ -31,5 +31,5 @@ import * as R from 'ramda';
     const circleFactory = R.construct(Circle);
 
     // ExpectType Circle
-    const circleObject = circleFactory(10, 'red');
-};
+    const circleObject = circleFactory(10, "red");
+});

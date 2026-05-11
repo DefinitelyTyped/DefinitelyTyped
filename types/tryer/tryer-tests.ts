@@ -1,4 +1,4 @@
-import * as tryer from "tryer";
+import tryer from "tryer";
 
 // @ts-expect-error
 tryer();
@@ -53,5 +53,5 @@ tryer({
     until: () => true,
     when: () => false,
     limit: 1,
-    pass: () => {}
+    pass: () => {},
 });

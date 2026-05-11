@@ -12,9 +12,9 @@
 
 function shim(...args: any): any {
     throw new Error(
-        'The current renderer does not support persistence. ' +
-            'This error is likely caused by a bug in React. ' +
-            'Please file an issue.',
+        "The current renderer does not support persistence. "
+            + "This error is likely caused by a bug in React. "
+            + "Please file an issue.",
     );
 }
 

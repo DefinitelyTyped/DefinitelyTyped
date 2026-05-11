@@ -1,11 +1,3 @@
-// Type definitions for Express 4.17
-// Project: http://expressjs.com
-// Definitions by: Boris Yankov <https://github.com/borisyankov>
-//                 China Medical University Hospital <https://github.com/CMUH>
-//                 Puneet Arora <https://github.com/puneetar>
-//                 Dylan Frankland <https://github.com/dfrankland>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /* =================== USAGE ===================
 
     import express = require("express");
@@ -16,10 +8,9 @@
 /// <reference types="express-serve-static-core" />
 /// <reference types="serve-static" />
 
-import * as bodyParser from 'body-parser';
-import * as serveStatic from 'serve-static';
-import * as core from 'express-serve-static-core';
-import * as qs from 'qs';
+import bodyParser = require("body-parser");
+import * as core from "express-serve-static-core";
+import serveStatic = require("serve-static");
 
 /**
  * Creates an Express application. The express() function is a top-level function exported by the express module.
@@ -63,11 +54,6 @@ declare namespace e {
      */
     var urlencoded: typeof bodyParser.urlencoded;
 
-    /**
-     * This is a built-in middleware function in Express. It parses incoming request query parameters.
-     */
-    export function query(options: qs.IParseOptions | typeof qs.parse): Handler;
-
     export function Router(options?: RouterOptions): core.Router;
 
     interface RouterOptions {
@@ -99,7 +85,7 @@ declare namespace e {
         ResBody = any,
         ReqBody = any,
         ReqQuery = core.Query,
-        Locals extends Record<string, any> = Record<string, any>
+        Locals extends Record<string, any> = Record<string, any>,
     > extends core.ErrorRequestHandler<P, ResBody, ReqBody, ReqQuery, Locals> {}
     interface Express extends core.Express {}
     interface Handler extends core.Handler {}
@@ -115,19 +101,19 @@ declare namespace e {
         ResBody = any,
         ReqBody = any,
         ReqQuery = core.Query,
-        Locals extends Record<string, any> = Record<string, any>
+        Locals extends Record<string, any> = Record<string, any>,
     > extends core.Request<P, ResBody, ReqBody, ReqQuery, Locals> {}
     interface RequestHandler<
         P = core.ParamsDictionary,
         ResBody = any,
         ReqBody = any,
         ReqQuery = core.Query,
-        Locals extends Record<string, any> = Record<string, any>
+        Locals extends Record<string, any> = Record<string, any>,
     > extends core.RequestHandler<P, ResBody, ReqBody, ReqQuery, Locals> {}
     interface RequestParamHandler extends core.RequestParamHandler {}
     interface Response<
         ResBody = any,
-        Locals extends Record<string, any> = Record<string, any>
+        Locals extends Record<string, any> = Record<string, any>,
     > extends core.Response<ResBody, Locals> {}
     interface Router extends core.Router {}
     interface Send extends core.Send {}

@@ -1,8 +1,3 @@
-// Type definitions for base58-random 0.1
-// Project: https://github.com/deployable/base58-random#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace base58;
 export = base58;
 

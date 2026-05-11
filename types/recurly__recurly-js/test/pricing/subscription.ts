@@ -1,4 +1,4 @@
-export default function subscriptionPricing() {
+export default function subscriptionPricing () {
   window.recurly.Pricing.Subscription()
     .plan('basic', { quantity: 1 })
     .then(x => x)

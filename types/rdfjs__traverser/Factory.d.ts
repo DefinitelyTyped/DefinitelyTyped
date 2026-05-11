@@ -1,5 +1,5 @@
-import { DatasetCore } from '@rdfjs/types';
-import Traverser, { Options, TraversePredicate } from './Traverser';
+import { DatasetCore } from "@rdfjs/types";
+import Traverser, { Options, TraversePredicate } from "./Traverser.js";
 
 interface DatasetFactory {
     dataset(): DatasetCore;
@@ -10,14 +10,14 @@ type ExtractDataset<This> = This extends DatasetFactory ? ReturnType<This["datas
 export interface TraverserFactory {
     traverser<D extends DatasetCore = ExtractDataset<this>>(
         filter: TraversePredicate<D>,
-        options?: Omit<Options, 'factory'>
+        options?: Omit<Options, "factory">,
     ): Traverser<D>;
 }
 
 interface TraverserFactoryCtor {
     new(): TraverserFactory;
 
-    exports: ['traverser'];
+    exports: ["traverser"];
 }
 
 declare const factory: TraverserFactoryCtor;

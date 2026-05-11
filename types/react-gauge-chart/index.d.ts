@@ -1,9 +1,4 @@
-// Type definitions for react-gauge-chart 0.4
-// Project: https://github.com/Martin36/react-gauge-chart
-// Definitions by: Meir Keller <https://github.com/meirkl>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import * as React from 'react';
+import * as React from "react";
 
 export interface GaugeChartProps {
     /**
@@ -126,6 +121,44 @@ export interface GaugeChartProps {
      * @default null
      */
     formatTextValue?: ((value: string) => string) | undefined;
+
+    /**
+     * Custom text label textComponent
+     * @default null
+     */
+    textComponent?: React.ReactElement | undefined;
+
+    /**
+     * Add `className` to the text component container
+     * @default null
+     */
+    textComponentContainerClassName?: string | undefined;
+
+    /**
+     * Needle arc cornerRadius
+     * @default 0.55
+     */
+    needleScale?: number | undefined;
+
+    /**
+     * Custom needle component
+     *
+     * Note: Make sure to rotate the needle as per the percentage value
+     * @default null
+     */
+    customNeedleComponent?: React.ReactElement | undefined;
+
+    /**
+     * Add `className` to the custom needle container
+     * @default null
+     */
+    customNeedleComponentClassName?: string | undefined;
+
+    /**
+     * Add `style` to custom needle container div
+     * @default null
+     */
+    customNeedleStyle?: React.CSSProperties | undefined;
 }
 
 export default function GaugeChart(props: GaugeChartProps): React.ReactElement;

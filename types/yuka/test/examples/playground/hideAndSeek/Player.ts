@@ -3,10 +3,10 @@
  */
 
 import { AABB, GameEntity, MovingEntity, Quaternion, Ray, Vector3 } from "yuka";
-import { CustomObstacle } from './CustomObstacle';
-import { Shotgun } from './Shotgun';
+import { CustomObstacle } from "./CustomObstacle";
+import { Shotgun } from "./Shotgun";
 
-import world from './World';
+import world from "./World";
 
 const q = new Quaternion();
 const aabb = new AABB();
@@ -23,7 +23,7 @@ export class Player extends MovingEntity {
 
     constructor() {
         super();
-        this.name = 'player';
+        this.name = "player";
 
         this.boundingRadius = 1;
 

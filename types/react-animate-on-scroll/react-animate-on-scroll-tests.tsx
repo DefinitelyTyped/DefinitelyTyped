@@ -1,5 +1,5 @@
 import * as React from "react";
-import ScrollAnimation from 'react-animate-on-scroll';
+import ScrollAnimation from "react-animate-on-scroll";
 
 export default class ReactAnimateOnScrollTest extends React.Component {
     render() {

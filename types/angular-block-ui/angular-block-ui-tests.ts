@@ -1,14 +1,14 @@
-let app: angular.IModule = angular.module('at', ['blockUI']);
+let app: angular.IModule = angular.module("at", ["blockUI"]);
 
 app.config((blockUIConfig: angular.blockUI.BlockUIConfig) => {
-    blockUIConfig.message = 'Please stop clicking!';
+    blockUIConfig.message = "Please stop clicking!";
     blockUIConfig.delay = 100;
-    blockUIConfig.template = '<pre><code>{{ state | json }}</code></pre>';
-    blockUIConfig.templateUrl = 'my-templates/block-ui-overlay.html';
+    blockUIConfig.template = "<pre><code>{{ state | json }}</code></pre>";
+    blockUIConfig.templateUrl = "my-templates/block-ui-overlay.html";
     blockUIConfig.autoBlock = false;
     blockUIConfig.resetOnException = false;
     blockUIConfig.autoInjectBodyBlock = false;
-    blockUIConfig.cssClass = 'block-ui my-custom-class';
+    blockUIConfig.cssClass = "block-ui my-custom-class";
     blockUIConfig.blockBrowserNavigation = true;
 
     blockUIConfig.requestFilter = (config) => {
@@ -20,18 +20,18 @@ app.config((blockUIConfig: angular.blockUI.BlockUIConfig) => {
 
     blockUIConfig.requestFilter = (config) => {
         if (config.url.match(/^\/api\/quote($|\/).*/)) {
-            return 'Hello World';
+            return "Hello World";
         }
-        return 'Loading...';
+        return "Loading...";
     };
 });
 
-app.controller('Ctrl', ($scope: ng.IScope, blockUI: angular.blockUI.BlockUIService) => {
+app.controller("Ctrl", ($scope: ng.IScope, blockUI: angular.blockUI.BlockUIService) => {
     blockUI.start();
-    blockUI.start('Hello');
+    blockUI.start("Hello");
     blockUI.start({});
-    blockUI.start({message: 'World'});
-    blockUI.start({delay: 100});
+    blockUI.start({ message: "World" });
+    blockUI.start({ delay: 100 });
 
     blockUI.stop();
     blockUI.reset();

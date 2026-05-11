@@ -1,2 +1,2 @@
-declare function _exports(date: any, string: string): Date;
+declare function _exports(date: Date, string: string): Date;
 export = _exports;

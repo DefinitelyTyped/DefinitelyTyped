@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 export interface Option<T extends string = string> {
     key: T;
@@ -27,24 +27,26 @@ export interface SelectProps<T extends string = string> {
     triggerClassName?: string | undefined;
     validationState?:
         | {
-              state?: 'error' | 'warning' | 'information' | 'success' | undefined;
-              text?: string | undefined;
-          }
+            state?: "error" | "warning" | "information" | "success" | undefined;
+            text?: string | undefined;
+        }
         | undefined;
     options?: Array<Option<T>> | undefined;
     onClick?: ((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void) | undefined;
     onBlur?: ((event: React.FocusEvent<HTMLDivElement>) => void) | undefined;
     onSelect?:
         | ((
-              event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>,
-              selectedOption: Option<T>,
-          ) => void)
+            event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>,
+            selectedOption: Option<T>,
+        ) => void)
         | undefined;
     ref?: React.Ref<HTMLDivElement> | undefined;
 }
 
-declare const Select: (<T extends string = string>(props: SelectProps<T> & { selectedKey?: T }) => JSX.Element) & {
-    displayName: 'Select';
-};
+declare const Select:
+    & (<T extends string = string>(props: SelectProps<T> & { selectedKey?: T }) => React.JSX.Element)
+    & {
+        displayName: "Select";
+    };
 
 export default Select;

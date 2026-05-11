@@ -1,8 +1,3 @@
-// Type definitions for proc-log 3.0
-// Project: https://github.com/npm/proc-log#readme
-// Definitions by: JDB <https://github.com/legodude17>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface Logger {
     /**
      * Calls process.emit('log', 'error', ...args). The highest log level. For printing extremely serious errors that indicate something went wrong.
@@ -43,7 +38,7 @@ interface Logger {
     /**
      * An array of strings of all log method names.
      */
-    LEVELS: ['error', 'warn', 'notice', 'info', 'verbose', 'silly', 'http'];
+    LEVELS: ["error", "warn", "notice", "info", "verbose", "silly", "http"];
 }
 
 declare const logger: Logger;

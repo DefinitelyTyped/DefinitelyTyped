@@ -1,5 +1,5 @@
-import BitField = require('sparse-bitfield');
-import Pager = require('memory-pager');
+import BitField = require("sparse-bitfield");
+import Pager = require("memory-pager");
 
 const bits = BitField();
 BitField(new Buffer(1));
@@ -20,5 +20,5 @@ bits.get(0); // $ExpectType boolean
 bits.getByte(0); // $ExpectType number
 bits.set(0, true); // $ExpectType boolean
 bits.setByte(0, 1); // $ExpectType boolean
-bits.toBuffer(); // $ExpectType Buffer
+bits.toBuffer(); // $ExpectType Buffer || Buffer<ArrayBufferLike>
 bits.pages; // $ExpectType PagerInstance

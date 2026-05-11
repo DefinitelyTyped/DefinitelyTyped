@@ -1,9 +1,4 @@
-// Type definitions for react-responsive-masonry 2.1
-// Project: https://github.com/cedricdelpoux/react-responsive-masonry#readme
-// Definitions by: themashcodee <https://github.com/themashcodee>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { CSSProperties, ReactNode, ReactElement } from 'react';
+import { CSSProperties, ReactElement, ReactNode } from "react";
 
 export interface MasonryProps {
     children: ReactNode;
@@ -21,6 +16,30 @@ export interface MasonryProps {
     gutter?: string;
     className?: string;
     style?: CSSProperties;
+    /**
+     * Tag name of the container element
+     *
+     * Default Value = "div"
+     */
+    containerTag?: string;
+    /**
+     * Tag name of the item element
+     *
+     * Default Value = "div"
+     */
+    itemTag?: string;
+    /**
+     * Style object applied to each item
+     *
+     * Default Value = {}
+     */
+    itemStyle?: CSSProperties;
+    /**
+     * If true, items are placed in the order they are passed
+     *
+     * Default Value = false
+     */
+    sequential?: boolean;
 }
 
 export interface ResponsiveMasonryProps {
@@ -32,6 +51,14 @@ export interface ResponsiveMasonryProps {
      */
     columnsCountBreakPoints?: {
         [key: number]: number;
+    };
+    /**
+     * A Object containing Keys as breakpoints in px and values as the gutter size
+     *
+     * Default Value = { 350: '10px', 750: '10px', 900: '10px' }
+     */
+    gutterBreakPoints?: {
+        [key: number]: string;
     };
     className?: string;
     style?: CSSProperties;

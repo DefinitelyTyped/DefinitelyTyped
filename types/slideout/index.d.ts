@@ -1,8 +1,3 @@
-// Type definitions for Slideout 0.1.12
-// Project: https://github.com/mango/slideout
-// Definitions by: Markus Peloso <https://github.com/ToastHawaii>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = Slideout;
 export as namespace Slideout;
 
@@ -30,7 +25,7 @@ declare namespace Slideout {
         /**
          * The CSS effect to use when animating the opening and closing of the slideout.
          * Default: ease.
-        */
+         */
         fx?: string | undefined;
 
         /**
@@ -120,10 +115,10 @@ declare class Slideout {
     on(event: Slideout.Events, listener: Function): Slideout;
 
     /**
-   * Adds a listener to the collection for the specified event that will be called only once.
-   * @param event The event name.
-   * @param listener A listener function to add.
-   */
+     * Adds a listener to the collection for the specified event that will be called only once.
+     * @param event The event name.
+     * @param listener A listener function to add.
+     */
     once(event: "translate", listener: (translateX: number) => any): Slideout;
 
     /**

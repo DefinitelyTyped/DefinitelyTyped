@@ -1,6 +1,6 @@
-import * as React from 'react';
-import { GoogleSignin, GoogleSigninButton, User, statusCodes } from 'react-native-google-signin';
-import { StyleSheet, View, Text, TouchableHighlight } from 'react-native';
+import * as React from "react";
+import { StyleSheet, Text, TouchableHighlight, View } from "react-native";
+import { GoogleSignin, GoogleSigninButton, statusCodes, User } from "react-native-google-signin";
 
 interface State {
     user?: User | undefined;
@@ -11,7 +11,7 @@ export default class Signin extends React.Component<{}, State> {
 
     async componentDidMount() {
         GoogleSignin.configure({
-            scopes: ['https://www.googleapis.com/auth/drive.readonly']
+            scopes: ["https://www.googleapis.com/auth/drive.readonly"],
         });
         await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
     }
@@ -20,7 +20,7 @@ export default class Signin extends React.Component<{}, State> {
         let user;
         try {
             user = await GoogleSignin.signInSilently();
-        } catch (error) {
+        } catch (error: any) {
             if (error.code === statusCodes.SIGN_IN_REQUIRED) {
                 user = await GoogleSignin.signIn();
             }
@@ -57,5 +57,5 @@ export default class Signin extends React.Component<{}, State> {
 }
 
 const styles = StyleSheet.create({
-    button: { width: 312, height: 48 }
+    button: { width: 312, height: 48 },
 });

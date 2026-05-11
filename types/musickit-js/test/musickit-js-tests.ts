@@ -1,10 +1,13 @@
-MusicKit.configure({
-    app: {
-        build: '1.0',
-        name: 'PLAYER_NAME',
-    },
-    developerToken: 'devToken',
-});
+async function testConfigure() {
+    // $ExpectType MusicKitInstance
+    const instance = await MusicKit.configure({
+        app: {
+            build: "1.0",
+            name: "PLAYER_NAME",
+        },
+        developerToken: "devToken",
+    });
+}
 
 const player = MusicKit.getInstance();
 
@@ -20,7 +23,7 @@ MusicKit.PlaybackStates.stopped;
 MusicKit.PlaybackStates.waiting;
 
 const test = async () => {
-    const { attributes } = await player.api.song('');
+    const { attributes } = await player.api.song("");
     if (!attributes) return;
     const {
         // $ExpectType string
@@ -76,12 +79,12 @@ const test = async () => {
         // $ExpectType SearchChartResult<Albums>[]
         albums: chartAlbums,
         // $ExpectType SearchChartResult<MusicVideos>[]
-        'music-videos': chartMusicVideos,
+        "music-videos": chartMusicVideos,
         // $ExpectType SearchChartResult<Playlists>[]
         playlists: chartPlaylists,
         // $ExpectType SearchChartResult<Songs>[]
         songs: chartSongs,
-    } = await player.api.charts(['albums', 'music-videos', 'playlists', 'songs']);
+    } = await player.api.charts(["albums", "music-videos", "playlists", "songs"]);
 
     const {
         // $ExpectType SearchResult<Activities> | undefined
@@ -93,26 +96,26 @@ const test = async () => {
         // $ExpectType SearchResult<Curators> | undefined
         curators: searchCurators,
         // $ExpectType SearchResult<MusicVideos> | undefined
-        'music-videos': searchMusicVideos,
+        "music-videos": searchMusicVideos,
         // $ExpectType SearchResult<Playlists> | undefined
         playlists: searchPlaylists,
         // $ExpectType SearchResult<RecordLabels> | undefined
-        'record-labels': searchRecordLabels,
+        "record-labels": searchRecordLabels,
         // $ExpectType SearchResult<Stations> | undefined
         stations: searchStations,
         // $ExpectType SearchResult<Songs> | undefined
         songs: searchSongs,
-    } = await player.api.search('james+brown');
+    } = await player.api.search("james+brown");
 
     const {
         // $ExpectType string[]
         terms: searchHintsTerms,
-    } = await player.api.searchHints('james+brown');
+    } = await player.api.searchHints("james+brown");
 };
 
-player.addEventListener('playbackStateDidChange', ({ oldState, state }) => ({ oldState, state }));
-player.addEventListener('playbackProgressDidChange', ({ progress }) => ({ progress }));
-player.addEventListener('authorizationStatusDidChange', ({ authorizationStatus }) => {
+player.addEventListener("playbackStateDidChange", ({ oldState, state }) => ({ oldState, state }));
+player.addEventListener("playbackProgressDidChange", ({ progress }) => ({ progress }));
+player.addEventListener("authorizationStatusDidChange", ({ authorizationStatus }) => {
     switch (authorizationStatus) {
         case 0:
         case 1:
@@ -121,10 +124,10 @@ player.addEventListener('authorizationStatusDidChange', ({ authorizationStatus }
     }
 });
 
-player.removeEventListener('playbackStateDidChange');
+player.removeEventListener("playbackStateDidChange");
 
 player.pause();
 
 player.setQueue({
-    song: 'trackId',
+    song: "trackId",
 });

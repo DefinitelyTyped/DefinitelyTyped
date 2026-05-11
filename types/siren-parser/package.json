@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/siren-parser",
+    "version": "8.4.9999",
+    "projects": [
+        "https://github.com/Brightspace/node-siren-parser"
+    ],
+    "dependencies": {
+        "@types/chai": "*",
+        "@types/superagent": "*"
+    },
+    "devDependencies": {
+        "@types/siren-parser": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Dillon Redding",
+            "githubUsername": "dillonredding"
+        }
+    ]
+}

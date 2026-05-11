@@ -23,7 +23,7 @@ drivelist.list((error, drives) => {
                 isCard,
                 isSCSI,
                 isUSB,
-                isUAS
+                isUAS,
             } = drive;
 
             enumerator; // $ExpectType string
@@ -38,7 +38,7 @@ drivelist.list((error, drives) => {
             blockSize; // $ExpectType number | null
             logicalBlockSize; // $ExpectType number | null
 
-            mountpoints; //  $ExpectType MountPoint[]
+            mountpoints; // $ExpectType MountPoint[]
             mountpoints.forEach(mountpoint => {
                 const { path, label } = mountpoint;
 

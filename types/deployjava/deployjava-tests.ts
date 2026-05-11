@@ -1,5 +1,3 @@
-
-
 /**
  * @summary Test for the method: "allowPlugin".
  */
@@ -11,9 +9,9 @@ function testAllowPlugin() {
  * @summary Test for the method: "compareVersions".
  */
 function testCompareVersions() {
-    var installed = '1.8';
-    var required = '1.7';
-    
+    var installed = "1.8";
+    var required = "1.7";
+
     var result = deployJava.compareVersions(installed, required);
 }
 
@@ -21,11 +19,11 @@ function testCompareVersions() {
  * @summary Test for the method: "compareVersionToPattern".
  */
 function testCompareVersionToPattern() {
-    var version: string = '1.8';
-    var patternArray: Array<string> = ['1.6', '1.7', '1.8'];
+    var version: string = "1.8";
+    var patternArray: string[] = ["1.6", "1.7", "1.8"];
     var familyMatch: boolean = false;
     var minMatch: boolean = true;
-    
+
     var result = deployJava.compareVersionToPattern(version, patternArray, familyMatch, minMatch);
 }
 
@@ -61,7 +59,7 @@ function testGetJPIVersionUsingMimeType() {
  * @summary Test for the method: "getJREs".
  */
 function testGetJREs() {
-    var versions: Array<String> = deployJava.getJREs();
+    var versions: String[] = deployJava.getJREs();
 }
 
 /**
@@ -82,7 +80,7 @@ function testIEInstall() {
  * @summary Test for the method: "installJRE".
  */
 function testInstallJRE() {
-    var requestVersion: string = '1.8';
+    var requestVersion: string = "1.8";
     var result: boolean = deployJava.installJRE(requestVersion);
 }
 
@@ -98,7 +96,7 @@ function testInstallLatestJRE() {
  * @summary Test for the method: "isAutoInstallEnabled".
  */
 function testIsAutoInstallEnabled() {
-    var requestedJREVersion: string = '1.8';
+    var requestedJREVersion: string = "1.8";
     var result: boolean = deployJava.isAutoInstallEnabled();
     var result: boolean = deployJava.isAutoInstallEnabled(requestedJREVersion);
 }
@@ -135,7 +133,7 @@ function testIsPluginInstalled() {
  * @summary Test for the method: "isWebStartInstalled".
  */
 function testIsWebStartInstalled() {
-    var minimumVersion: string = '1.7';
+    var minimumVersion: string = "1.7";
     var result: boolean = deployJava.isWebStartInstalled();
     var result: boolean = deployJava.isWebStartInstalled(minimumVersion);
 }
@@ -144,7 +142,7 @@ function testIsWebStartInstalled() {
  * @summary Test for the method: "launch".
  */
 function testLaunch() {
-    var jnlp: string = 'http://www.example.com/';
+    var jnlp: string = "http://www.example.com/";
     var result: boolean = deployJava.launch(jnlp);
 }
 
@@ -152,7 +150,7 @@ function testLaunch() {
  * @summary Test for the method: "launchWebStartApplication".
  */
 function testLaunchWebStartApplication() {
-    var jnlp: string = 'http://www.example.com/';
+    var jnlp: string = "http://www.example.com/";
     deployJava.launchWebStartApplication(jnlp);
 }
 
@@ -175,15 +173,15 @@ function testRefresh() {
  */
 function testRunApplet() {
     var attributes: Object = {
-        code:'java2d.Java2DemoApplet.class',
-        archive:'Java2Demo.jar',
-        width:710,
-        height:540
+        code: "java2d.Java2DemoApplet.class",
+        archive: "Java2Demo.jar",
+        width: 710,
+        height: 540,
     };
-    
-    var parameters: Object = { fontSize:16, permissions:'sandbox' };
-    var version: string = '1.8';
-    
+
+    var parameters: Object = { fontSize: 16, permissions: "sandbox" };
+    var version: string = "1.8";
+
     deployJava.runApplet(attributes, parameters);
     deployJava.runApplet(attributes, parameters, version);
 }
@@ -192,7 +190,7 @@ function testRunApplet() {
  * @summary Test for the method: "setAdditionalPackages".
  */
 function testSetAdditionalPackages() {
-    var packageList: string = 'javax.swing';
+    var packageList: string = "javax.swing";
     var result: boolean = deployJava.setAdditionalPackages(packageList);
 }
 
@@ -207,7 +205,7 @@ function testSetAutoUpdateEnabled() {
  * @summary Test for the method: "setEarlyAccess".
  */
 function testSetEarlyAccess() {
-    var enabled: string = 'true';
+    var enabled: string = "true";
     deployJava.setEarlyAccess(enabled);
 }
 
@@ -215,7 +213,7 @@ function testSetEarlyAccess() {
  * @summary Test for the method: "setInstallerType".
  */
 function testSetInstallerType() {
-    var type: string = 'kernel';
+    var type: string = "kernel";
     deployJava.setInstallerType(type);
 }
 
@@ -230,7 +228,7 @@ function testTestForMSVM() {
  * @summary Test for the method: "testUsingActiveX".
  */
 function testTestUsingActiveX() {
-    var version: string = '1.7.0';
+    var version: string = "1.7.0";
     var result: boolean = deployJava.testUsingActiveX(version);
 }
 
@@ -238,7 +236,7 @@ function testTestUsingActiveX() {
  * @summary Test for the method: "testUsingMimeTypes".
  */
 function testTestUsingMimeTypes() {
-    var version: string = '1.7.0';
+    var version: string = "1.7.0";
     var result: boolean = deployJava.testUsingMimeTypes(version);
 }
 
@@ -246,7 +244,7 @@ function testTestUsingMimeTypes() {
  * @summary Test for the method: "testUsingPluginsArray".
  */
 function testTestUsingPluginsArray() {
-    var version: string = '1.7.0';
+    var version: string = "1.7.0";
     var result: boolean = deployJava.testUsingPluginsArray(version);
 }
 
@@ -254,7 +252,7 @@ function testTestUsingPluginsArray() {
  * @summary Test for the method: "versionCheck".
  */
 function testVersionCheck() {
-    deployJava.versionCheck('1.x');
+    deployJava.versionCheck("1.x");
 }
 
 /**
@@ -262,13 +260,13 @@ function testVersionCheck() {
  */
 function testWriteAppletTag() {
     var attributes: Object = {
-        code:'java2d.Java2DemoApplet.class',
-        archive:'Java2Demo.jar',
-        width:710,
-        height:540
+        code: "java2d.Java2DemoApplet.class",
+        archive: "Java2Demo.jar",
+        width: 710,
+        height: 540,
     };
-    
-    var parameters: Object = { fontSize:16, permissions:'sandbox' };
+
+    var parameters: Object = { fontSize: 16, permissions: "sandbox" };
     deployJava.writeAppletTag(attributes, parameters);
 }
 

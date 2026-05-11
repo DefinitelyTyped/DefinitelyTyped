@@ -1,13 +1,7 @@
-// Type definitions for steam-client 2.5
-// Project: https://github.com/DoctorMcKay/node-steam-client
-// Definitions by: Edward Sammut Alessi <https://github.com/Slessi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 /// <reference types="node" />
 /// <reference types="bytebuffer" />
 
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
 export class CMClient extends EventEmitter {
     /**
@@ -74,7 +68,6 @@ export class CMClient extends EventEmitter {
     logOn(details: CMsgClientLogonPassword | CMsgClientLogonLoginKey): void;
 
     /**
-     *
      * @param header
      * @param body
      * @param callback
@@ -103,23 +96,21 @@ export type SendMessage = (
         /**
          * A value from EMsg
          */
-        msg: EMsg,
+        msg: EMsg;
 
         /**
          * A CMsgProtoBufHeader object if this message is protobuf-backed, otherwise header.proto is falsy.
          */
-        proto?: CMsgProtoBufHeader | false | undefined
+        proto?: CMsgProtoBufHeader | false | undefined;
     },
-
     /**
      * A Buffer or ByteBuffer containing the rest of the message
      */
     body: Buffer | ByteBuffer,
-
     /**
      * If not falsy, then this message is a request, and callback shall be called with any response to it instead of 'message'/send. callback has the same arguments as 'message'/send.
      */
-    callback?: SendMessage | false
+    callback?: SendMessage | false,
 ) => void;
 
 export interface CMEventCallback {

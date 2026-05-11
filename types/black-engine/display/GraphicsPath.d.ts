@@ -5,4 +5,4 @@ export class GraphicsPath {
     lastLineWidth: number;
     lineMul: number;
 }
-import { Rectangle } from '../geom/Rectangle';
+import { Rectangle } from "../geom/Rectangle";

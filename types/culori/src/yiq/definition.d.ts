@@ -1,10 +1,10 @@
-import convertRgbToYiq from './convertRgbToYiq';
-import convertYiqToRgb from './convertYiqToRgb';
-import { interpolatorLinear } from '../interpolate/linear';
-import { fixupAlpha } from '../fixup/alpha';
+import { fixupAlpha } from "../fixup/alpha.js";
+import { interpolatorLinear } from "../interpolate/linear.js";
+import convertRgbToYiq from "./convertRgbToYiq.js";
+import convertYiqToRgb from "./convertYiqToRgb.js";
 
-declare const definition: {
-    mode: 'yiq';
+declare const modeYiq: {
+    mode: "yiq";
 
     toMode: {
         rgb: typeof convertYiqToRgb;
@@ -14,10 +14,10 @@ declare const definition: {
         rgb: typeof convertRgbToYiq;
     };
 
-    channels: ['y', 'i', 'q', 'alpha'];
+    channels: ["y", "i", "q", "alpha"];
 
-    parse: ['--yiq'];
-    serialize: '--yiq';
+    parse: ["--yiq"];
+    serialize: "--yiq";
 
     ranges: {
         i: [-0.595, 0.595];
@@ -32,4 +32,4 @@ declare const definition: {
     };
 };
 
-export default definition;
+export default modeYiq;

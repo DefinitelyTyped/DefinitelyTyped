@@ -1,14 +1,13 @@
-import { BufferGeometry, Loader, LoadingManager } from '../../../src/Three';
+import { BufferGeometry, Loader, LoadingManager } from "three";
 
-export class VTKLoader extends Loader {
+/**
+ * @deprecated The loader has been deprecated and will be removed with r194. Export your VTK files to glTF before using them on the web.
+ */
+export class VTKLoader extends Loader<BufferGeometry> {
+    /**
+     * @deprecated The loader has been deprecated and will be removed with r194. Export your VTK files to glTF before using them on the web.
+     */
     constructor(manager?: LoadingManager);
 
-    load(
-        url: string,
-        onLoad: (geometry: BufferGeometry) => void,
-        onProgress?: (event: ProgressEvent) => void,
-        onError?: (event: ErrorEvent) => void,
-    ): void;
-    loadAsync(url: string, onProgress?: (event: ProgressEvent) => void): Promise<BufferGeometry>;
     parse(data: ArrayBuffer | string, path: string): BufferGeometry;
 }

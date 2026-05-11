@@ -6,21 +6,29 @@ const Memory: Catbox.EnginePrototypeOrObject = {
     get() {},
     set() {},
     drop() {},
-    isReady(): boolean { return true; },
-    validateSegmentName(segment: string): null { return null; },
+    isReady(): boolean {
+        return true;
+    },
+    validateSegmentName(segment: string): null {
+        return null;
+    },
 };
 
-const client = new Catbox.Client(Memory, { partition: 'cache' });
+const client = new Catbox.Client(Memory, { partition: "cache" });
 
-const cache = new Catbox.Policy({
-    expiresIn: 5000,
-}, client, 'cache');
+const cache = new Catbox.Policy(
+    {
+        expiresIn: 5000,
+    },
+    client,
+    "cache",
+);
 
-cache.set('foo', 'bar', 5000, () => {});
+cache.set("foo", "bar", 5000, () => {});
 
-cache.get('foo', () => {});
+cache.get("foo", () => {});
 
-cache.drop('foo', () => {});
+cache.drop("foo", () => {});
 
 cache.isReady();
 

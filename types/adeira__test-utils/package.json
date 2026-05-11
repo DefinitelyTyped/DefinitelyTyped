@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/adeira__test-utils",
+    "version": "0.6.9999",
+    "projects": [
+        "https://github.com/adeira/universe/tree/master/src/test-utils"
+    ],
+    "devDependencies": {
+        "@types/adeira__test-utils": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Martin Zlámal",
+            "githubUsername": "mrtnzlml"
+        }
+    ]
+}

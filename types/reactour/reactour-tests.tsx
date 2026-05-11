@@ -1,12 +1,12 @@
-import * as React from 'react';
-import Tour, { Arrow, Badge, Close, Controls, CustomHelperProps, Dot, Navigation } from 'reactour';
+import * as React from "react";
+import Tour, { Arrow, Badge, Close, Controls, CustomHelperProps, Dot, Navigation } from "reactour";
 
 class CustomTour extends React.Component<{}, { isTourOpen: boolean }> {
     ref = React.createRef<Tour>();
 
     state = {
         isTourOpen: false,
-        update: '13213'
+        update: "13213",
     };
 
     printTourStateForSomeReason = () => {
@@ -27,7 +27,7 @@ class CustomTour extends React.Component<{}, { isTourOpen: boolean }> {
                 right,
                 top,
                 w,
-                width
+                width,
             } = this.ref.current.state;
 
             console.log(
@@ -46,10 +46,10 @@ class CustomTour extends React.Component<{}, { isTourOpen: boolean }> {
                 right,
                 top,
                 w,
-                width
+                width,
             );
         }
-    }
+    };
 
     render() {
         return (
@@ -62,7 +62,7 @@ class CustomTour extends React.Component<{}, { isTourOpen: boolean }> {
                     isOpen={this.state.isTourOpen}
                     steps={[
                         {
-                            content: <div>Example</div>
+                            content: <div>Example</div>,
                         },
                         {
                             content: ({ close, goTo, inDOM, step }) => (
@@ -76,7 +76,7 @@ class CustomTour extends React.Component<{}, { isTourOpen: boolean }> {
                                             onClick={() => goTo(2)}
                                             label={<pre>Go to next step</pre>}
                                         />
-                                        <Arrow disabled onClick={() => console.log('do nothing')} />
+                                        <Arrow disabled onClick={() => console.log("do nothing")} />
                                     </Controls>
                                     <Navigation className="im-a-div">
                                         <Dot
@@ -87,25 +87,25 @@ class CustomTour extends React.Component<{}, { isTourOpen: boolean }> {
                                             accentColor="#000"
                                         />
                                     </Navigation>
-                                    {inDOM ? 'Is in DOM' : 'Not in DOM'}, step: {step}
+                                    {inDOM ? "Is in DOM" : "Not in DOM"}, step: {step}
                                 </div>
                             ),
-                            selector: 'button.opener',
-                            position: 'center',
+                            selector: "button.opener",
+                            position: "center",
                             stepInteraction: false,
                             style: {
-                                display: 'flex'
+                                display: "flex",
                             },
                             action: (node: HTMLElement) => node.focus(),
-                            navDotAriaLabel: 'Got to last step'
+                            navDotAriaLabel: "Got to last step",
                         },
                         {
-                            content: 'Last step',
-                            observe: 'button.opener',
-                            highlightedSelectors: ['button.opener'],
-                            mutationObservables: ['button.opener'],
-                            resizeObservables: ['button.opener']
-                        }
+                            content: "Last step",
+                            observe: "button.opener",
+                            highlightedSelectors: ["button.opener"],
+                            mutationObservables: ["button.opener"],
+                            resizeObservables: ["button.opener"],
+                        },
                     ]}
                     onRequestClose={() => this.setState({ isTourOpen: false })}
                     accentColor="#f0123d"
@@ -118,7 +118,7 @@ class CustomTour extends React.Component<{}, { isTourOpen: boolean }> {
                     closeWithMask={false}
                     disableDotsNavigation={false}
                     disableInteraction
-                    disableKeyboardNavigation={['esc']}
+                    disableKeyboardNavigation={["esc"]}
                     getCurrentStep={currentStep => console.log(currentStep)}
                     goToStep={4}
                     highlightedMaskClassName="mask-hi"
@@ -127,7 +127,7 @@ class CustomTour extends React.Component<{}, { isTourOpen: boolean }> {
                     maskClassName="mask"
                     maskSpace={10}
                     nextButton="Next"
-                    nextStep={() => console.log('this would probably break something')}
+                    nextStep={() => console.log("this would probably break something")}
                     onAfterOpen={target => target.focus()}
                     onBeforeClose={target => target.blur()}
                     prevButton="Prev"
@@ -147,16 +147,16 @@ class CustomTour extends React.Component<{}, { isTourOpen: boolean }> {
                     accessibilityOptions={{
                         ariaLabelledBy: "Tour aria label",
                         closeButtonAriaLabel: "Close",
-                        showNavigationScreenReaders: true
+                        showNavigationScreenReaders: true,
                     }}
                     CustomHelper={({ current, content, totalSteps, gotoStep, close }: CustomHelperProps) => (
                         <main className="CustomHelper__wrapper">
                             <div className="CustomHelper__content">
-                                {typeof content !== 'function' && content}
+                                {typeof content !== "function" && content}
                                 <Controls
                                     data-tour-elem="controls"
                                     className="CustomHelper__controls"
-                                    style={{ position: 'absolute' }}
+                                    style={{ position: "absolute" }}
                                 >
                                     <Arrow
                                         onClick={() => gotoStep(current - 1)}

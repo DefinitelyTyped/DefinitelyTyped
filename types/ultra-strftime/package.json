@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/ultra-strftime",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/xio4/ultra_strftime"
+    ],
+    "devDependencies": {
+        "@types/ultra-strftime": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Roszatycki",
+            "githubUsername": "dex4er"
+        }
+    ]
+}

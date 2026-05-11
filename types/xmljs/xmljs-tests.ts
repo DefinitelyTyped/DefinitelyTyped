@@ -21,7 +21,7 @@ p.parseString(xml, (err, xmlNode) => {
     }
     const nodes = xmlNode.path(
         ["Envelope", "Body", "GetstockpriceResponse", "Price"],
-        true
+        true,
     );
     const arr = nodes.map(n => n.text);
 

@@ -1,9 +1,20 @@
-// Type definitions for tz-format
-// Project: https://github.com/SamVerschueren/tz-format
-// Definitions by: Sam Verschueren <https://github.com/samverschueren>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+declare function format(): string;
+declare function format(
+    /**
+     * Offset from UTC in hours.
+     */
+    offset: number,
+): string;
+declare function format(
+    /**
+     * Date to be formatted
+     * @default new Date()
+     */
+    date: Date,
+    /**
+     * Offset from UTC in hours.
+     */
+    offset?: number,
+): string;
 
-
-declare function format(date?: Date | number, offset?: number): string;
-declare namespace format {}
 export = format;

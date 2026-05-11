@@ -1,12 +1,5 @@
-// Type definitions for preview-email 3.0
-// Project: https://github.com/niftylettuce/preview-email
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference types="node" />
-
-import type { Options as NodeMailerOptions } from 'nodemailer/lib/mailer';
-import type { SimpleParserOptions } from 'mailparser';
+import type { SimpleParserOptions } from "mailparser";
+import type { Options as NodeMailerOptions } from "nodemailer/lib/mailer";
 
 /**
  * Automatically opens your browser to preview Node.js email messages sent with Nodemailer. Made for Lad!
@@ -34,7 +27,7 @@ declare namespace previewEmail {
          */
         open?: OpenOptions | boolean | undefined;
         /**
-         *  file path to a pug template file (defaults to preview-email's `template.pug` by default)
+         * file path to a pug template file (defaults to preview-email's `template.pug` by default)
          * - this is where you can pass a custom template for rendering email previews, e.g. your own stylesheet
          */
         template?: string | undefined;
@@ -55,12 +48,17 @@ declare namespace previewEmail {
          * (see [mailparser docs](https://nodemailer.com/extras/mailparser/#options) for available options
          * – note that `Iconv` option is always overridden for safeguard)
          */
-        simpleParser?: Omit<SimpleParserOptions, 'Iconv'> | undefined;
+        simpleParser?: Omit<SimpleParserOptions, "Iconv"> | undefined;
         /**
          * whether or not to return HTML only – and subsequently not write nor open the file preview file
          * @default false
          */
         returnHtml?: boolean | undefined;
+        /**
+         * whether or not to render a "Download Original" button to download via base64 inline onclick JavaScript.
+         * @default true
+         */
+        hasDownloadOriginalButton?: boolean | undefined;
     }
 
     interface OpenOptions {

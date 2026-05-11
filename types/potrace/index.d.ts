@@ -1,17 +1,12 @@
-// Type definitions for potrace 2.1
-// Project: https://github.com/tooolbox/node-potrace
-// Definitions by: Direnc Timur <https://github.com/proohit>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import Jimp = require('jimp');
+import Jimp = require("jimp");
 
 export interface PotraceOptions {
     /**
      * how to resolve ambiguities in path decomposition (default "minority")
      */
-    turdPolicy?: 'minority' | 'majority' | 'black' | 'white' | 'left' | 'right';
+    turdPolicy?: "minority" | "majority" | "black" | "white" | "left" | "right";
     /**
      * suppress speckles of up to this size (default 2)
      */
@@ -39,11 +34,11 @@ export interface PotraceOptions {
     /**
      * foreground color (default: 'auto' (black or white)) Will be ignored when exporting as `<symbol>`
      */
-    color?: string | 'auto';
+    color?: string | "auto";
     /**
      * background color (default: 'transparent') Will be ignored when exporting as `<symbol>`
      */
-    background?: string | 'transparent';
+    background?: string | "transparent";
 }
 
 export interface PosterizerOptions extends PotraceOptions {
@@ -54,11 +49,11 @@ export interface PosterizerOptions extends PotraceOptions {
     /**
      * How to select fill color for color ranges - equally spread or dominant. (default: "dominant")
      */
-    fillStrategy?: string | 'dominant';
+    fillStrategy?: string | "dominant";
     /**
      * How to choose thresholds in-between - after equal intervals or automatically balanced. (default: "auto")
      */
-    rangeDistribution?: string | 'auto';
+    rangeDistribution?: string | "auto";
 }
 
 export function trace(

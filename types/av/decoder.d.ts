@@ -3,7 +3,7 @@
 
 declare namespace AV {
     abstract class Decoder {
-        static register(id: string, decoder: new () => Decoder): void;
+        static register(id: string, decoder: new() => Decoder): void;
         static find(id: string): Decoder | null;
 
         stream: Stream;

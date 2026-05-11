@@ -1,11 +1,7 @@
-// Type definitions for clamscan 2.0
-// Project: https://github.com/kylefarris/clamscan
-// Definitions by: Viktoriia Hrechukha <https://github.com/vhrechukha>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import { Readable, Transform } from 'stream';
+import { Socket } from "net";
+import { Readable, Transform } from "stream";
 
 declare namespace NodeClam {
     interface Options {
@@ -23,37 +19,39 @@ declare namespace NodeClam {
         scanRecursively?: boolean;
         clamscan?: {
             /** Path to clamscan binary on your server */
-            path?: string,
+            path?: string;
             /** Path to a custom virus definition database */
-            db?: string,
+            db?: string;
             /** If true, scan archives (ex. zip, rar, tar, dmg, iso, etc...) */
-            scanArchives?: boolean,
+            scanArchives?: boolean;
             /** If true, this module will consider using the clamscan binary */
-            active?: boolean
+            active?: boolean;
         };
         clamdscan?: {
             /** Socket file for connecting via TCP */
-            socket?: string | boolean,
+            socket?: string | boolean;
             /** IP of host to connect to TCP interface */
-            host?: string | boolean,
+            host?: string | boolean;
             /** Port of host to use when connecting via TCP interface */
-            port?: number | boolean,
+            port?: number | boolean;
             /** Timeout for scanning files */
-            timeout?: number,
+            timeout?: number;
             /** Do not fail over to binary-method of scanning */
-            localFallback?: boolean,
+            localFallback?: boolean;
             /** Path to the clamdscan binary on your server */
-            path?: string,
+            path?: string;
             /** Specify config file if it's in an unusual place */
-            configFile?: string,
+            configFile?: string;
             /** Scan using all available cores! Yay! */
-            multiscan?: boolean,
+            multiscan?: boolean;
             /** If true, will re-load the DB on every call (slow) */
-            reloadDb?: boolean,
+            reloadDb?: boolean;
             /** If true, this module will consider using the clamdscan binary */
-            active?: boolean,
+            active?: boolean;
             /** Check to see if socket is available when applicable */
-            bypassTest?: boolean,
+            bypassTest?: boolean;
+            /** Connect to a TLS-Termination proxy in front of ClamAV */
+            tls?: boolean;
         };
         /** If clamdscan is found and active, it will be used by default */
         preference?: any;
@@ -74,8 +72,8 @@ declare namespace NodeClam {
 
 declare class NodeClam {
     readonly initialized: boolean;
-    readonly debugLabel: 'node-clam';
-    readonly defaultScanner: 'clamdscan';
+    readonly debugLabel: "node-clam";
+    readonly defaultScanner: "clamdscan";
     readonly defaults: Readonly<NodeClam.Options>;
     readonly settings: Readonly<NodeClam.Options>;
 
@@ -135,6 +133,18 @@ declare class NodeClam {
     passthrough(): Transform;
 
     /**
+     * This method checks to see if the remote/local socket is working.
+     * It supports a callback and Promise API. If no callback is supplied,
+     * a Promise will be returned.
+     * This method can be used for healthcheck purposes and is already
+     * implicitly used during scan.
+     *
+     * @see {@link https://github.com/kylefarris/clamscan#ping}
+     */
+    ping(): Promise<Socket>;
+    ping(cb: (err: NodeClam.NodeClamError | null, clam: Socket) => void): void;
+
+    /**
      * Just an alias to `isInfected`. See docs for that for usage examples.
      *
      * @see {@link https://github.com/kylefarris/clamscan/blob/master/index.js#L1405}
@@ -169,7 +179,12 @@ declare class NodeClam {
     >;
     scanFiles(
         files?: string[],
-        endCb?: (err: NodeClam.NodeClamError | null, goodFiles: string[], badFiles: string[], viruses: string[]) => void,
+        endCb?: (
+            err: NodeClam.NodeClamError | null,
+            goodFiles: string[],
+            badFiles: string[],
+            viruses: string[],
+        ) => void,
         fileCb?: (err: NodeClam.NodeClamError | null, file: string, isInfected: boolean, viruses: string[]) => void,
     ): void;
 
@@ -191,7 +206,12 @@ declare class NodeClam {
     >;
     scanDir(
         path?: string,
-        endCb?: (err: NodeClam.NodeClamError | null, goodFiles: string[], badFiles: string[], viruses: string[]) => void,
+        endCb?: (
+            err: NodeClam.NodeClamError | null,
+            goodFiles: string[],
+            badFiles: string[],
+            viruses: string[],
+        ) => void,
         fileCb?: (err: NodeClam.NodeClamError | null, file: string, isInfected: boolean, viruses: string[]) => void,
     ): void;
 

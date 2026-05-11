@@ -1,5 +1,3 @@
-export type exports = string;
-declare const IGNORE: string;
-declare const NEWLINE: string;
-declare const DONE: string;
-export {};
+export const IGNORE = "ignore";
+export const NEWLINE = "newline";
+export const DONE = "done";

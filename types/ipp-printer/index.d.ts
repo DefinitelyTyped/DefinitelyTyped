@@ -1,12 +1,7 @@
-// Type definitions for ipp-printer 1.0
-// Project: https://github.com/watson/ipp-printer
-// Definitions by: Matt Smith <https://github.com/mattsmithcode>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import * as http from 'http';
-import { Readable } from 'node:stream';
+import * as http from "http";
+import { Readable } from "node:stream";
 
 declare class Printer {
     constructor(opts?: Printer.Options | string);
@@ -19,8 +14,8 @@ declare class Printer {
     state: number;
     uri: string;
 
-    on(event: 'job', handler: (job: Printer.Job) => void): Printer;
-    on(event: 'operation', handler: (operation: Printer.Operation) => void): Printer;
+    on(event: "job", handler: (job: Printer.Job) => void): Printer;
+    on(event: "operation", handler: (operation: Printer.Operation) => void): Printer;
 }
 
 declare namespace Printer {
@@ -44,7 +39,7 @@ declare namespace Printer {
         uri: string;
         userName: string;
 
-        attributes(filter?: ReadonlyArray<string>): Attribute[];
+        attributes(filter?: readonly string[]): Attribute[];
         pause(): this;
         resume(): this;
         setEncoding(encoding: BufferEncoding): this;
@@ -53,7 +48,7 @@ declare namespace Printer {
     }
 
     interface Operation {
-        version: { major: number, minor: number };
+        version: { major: number; minor: number };
         operationId: number;
         requestId: number;
         groups: AttributeGroup[];

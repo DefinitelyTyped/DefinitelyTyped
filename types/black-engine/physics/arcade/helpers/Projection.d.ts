@@ -1,4 +1,4 @@
-import { Vector } from '../../../geom/Vector';
+import { Vector } from "../../../geom/Vector";
 
 export class Projection {
     private static __project;

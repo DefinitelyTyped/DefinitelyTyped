@@ -1,5 +1,5 @@
-import { DicItem, DicProps } from './dic';
-import { AvueCrudOption } from './crud';
+import { AvueCrudOption } from "./crud";
+import { DicItem, DicProps } from "./dic";
 
 export type AvueFormDefaults = Record<string, AvueFormColumn>;
 //  export type AvueFormDefaults<T = any, K = T extends object ? keyof T : string> = {
@@ -83,7 +83,7 @@ export interface AvueFormColumn<T = any, K = keyof T extends string ? keyof T : 
     /** 子表单 */
     children?: {
         /** 展示类型 */
-        type?: 'form' | 'crud';
+        type?: "form" | "crud";
         /** 新增方法 */
         rowAdd?: (done: (row: any) => void) => void;
         /** 删除方法 */
@@ -177,30 +177,31 @@ export interface AvueFormProps<T = any> {
     /** 配置项结构 */
     defaults?: AvueFormDefaults;
     /** upload组件上传前的回调,done用于继续图片上传，loading用于中断操作 */
-    'upload-before'?: (
+    "upload-before"?: (
         file: UploadRawFile,
         done: (file?: File) => void,
         loading: () => void,
         column: AvueFormColumn<T>,
     ) => void;
     /** upload组件上传后的回调,done用于结束操作，loading用于中断操作 */
-    'upload-after'?: (res: any, done: () => void, loading: () => void, column: AvueFormColumn<T>) => void;
+    "upload-after"?: (res: any, done: () => void, loading: () => void, column: AvueFormColumn<T>) => void;
     /** upload组件删除文件之前的钩子，参数为上传的文件和文件列表，若返回 false 或者返回 Promise 且被 reject，则停止删除 */
-    'upload-delete'?: (file: UploadFile, column: AvueFormColumn<T>) => boolean | Promise<any> | void;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    "upload-delete"?: (file: UploadFile, column: AvueFormColumn<T>) => boolean | Promise<any> | void;
     /** upload组件查看回调 */
-    'upload-preview'?: (file: UploadFile, column: AvueFormColumn<T>, done: () => void) => void;
+    "upload-preview"?: (file: UploadFile, column: AvueFormColumn<T>, done: () => void) => void;
     /** upload组件上传失败错误回调 */
-    'upload-error'?: (error: Error, column: AvueFormColumn<T>) => void;
+    "upload-error"?: (error: Error, column: AvueFormColumn<T>) => void;
     /** upload组件上传超过长度限制回调 */
-    'upload-exceed'?: (limit: number, files: File[], fileList: UploadUserFile[], column: AvueFormColumn<T>) => void;
+    "upload-exceed"?: (limit: number, files: File[], fileList: UploadUserFile[], column: AvueFormColumn<T>) => void;
     /** 表单提交回调事件 */
     onSubmit?: (form: T, done: () => void) => void;
     /** 表单重置回调事件 */
     onResetChange?: () => void;
     /** 更新表单值 */
-    'onUpdate:modelValue'?: (row: T) => any;
+    "onUpdate:modelValue"?: (row: T) => any;
     /** 更新配置项结构 */
-    'onUpdate:defaults'?: (defaluts: AvueFormDefaults) => any;
+    "onUpdate:defaults"?: (defaluts: AvueFormDefaults) => any;
 }
 export interface AvueFormMethods {
     /** 对整个表单进行提交 */
@@ -225,7 +226,7 @@ export interface AvueFormMethods {
     dicInit: () => void;
 }
 export interface AvueFormSlots<T = any> {
-    'menu-form': (scoped: { disabled: boolean; size: Size }) => VNode[];
+    "menu-form": (scoped: { disabled: boolean; size: Size }) => VNode[];
     [x: `${string}-label`]: (scoped: { column: AvueFormColumn<T> }) => VNode[];
     [x: `${string}-header`]: (scoped: { column: AvueFormColumn<T> }) => VNode[];
     [x: `${string}-error`]: (scoped: {
@@ -247,7 +248,7 @@ export interface AvueFormSlots<T = any> {
     }) => VNode[];
 }
 
-export const AvueForm: new () => {
+export const AvueForm: new() => {
     $props: AvueFormProps;
     $slots: AvueFormSlots;
 };

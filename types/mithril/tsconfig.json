@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "node16",
         "lib": [
             "es2015",
             "dom"
@@ -11,10 +11,6 @@
         "strictFunctionTypes": false,
         "forceConsistentCasingInFileNames": true,
         "noEmit": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "jsx": "preserve",
         "jsxFactory": "m"

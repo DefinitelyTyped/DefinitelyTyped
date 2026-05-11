@@ -52,7 +52,7 @@ jwt.sign(testObject, cert, { algorithm: "RS256" }, (
 });
 
 jwt.signAsync(testObject, cert, { algorithm: "RS256" }).then(
-    (token: string) => console.log(token)
+    (token: string) => console.log(token),
 );
 /**
  * jwt.verify
@@ -61,7 +61,7 @@ jwt.signAsync(testObject, cert, { algorithm: "RS256" }).then(
 // verify a token symmetric
 jwt.verify(token, "shhhhh", (
     err: jwt.JsonWebTokenError | jwt.NotBeforeError | jwt.TokenExpiredError,
-    decoded: object | string
+    decoded: object | string,
 ) => {
     const result = decoded as TestObject;
 
@@ -74,12 +74,12 @@ jwt.verifyAsync(token, "shhhhh").then(decoded => {
 });
 
 // use external time for verifying
-jwt.verify(token, 'shhhhh', { clockTimestamp: 1 }, (err, decoded) => {
-  const result = decoded as TestObject;
+jwt.verify(token, "shhhhh", { clockTimestamp: 1 }, (err, decoded) => {
+    const result = decoded as TestObject;
 
-  console.log(result.foo); // bar
+    console.log(result.foo); // bar
 });
-jwt.verifyAsync(token, 'shhhhh', { clockTimestamp: 1 }).then(decoded => {
+jwt.verifyAsync(token, "shhhhh", { clockTimestamp: 1 }).then(decoded => {
     const result = decoded as TestObject;
 
     console.log(result.foo); // bar

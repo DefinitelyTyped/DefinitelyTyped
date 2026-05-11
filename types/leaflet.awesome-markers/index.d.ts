@@ -1,12 +1,6 @@
-// Type definitions for Leaflet.awesome-markers plugin 2.0
-// Project: https://github.com/sigma-geosistemas/leaflet.awesome-markers
-// Definitions by: Marcel Sebek <https://github.com/sebek64>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 import * as Leaflet from "leaflet";
 
-declare module 'leaflet' {
+declare module "leaflet" {
     namespace AwesomeMarkers {
         const version: string;
 
@@ -19,17 +13,27 @@ declare module 'leaflet' {
             /**
              * Select de icon library. 'fa' for font-awesome or 'glyphicon' for bootstrap 3.
              */
-            prefix?: 'fa' | 'glyphicon' | undefined;
+            prefix?: "fa" | "glyphicon" | undefined;
 
             /**
              * Color of the marker
              */
-            markerColor?: 'red' | 'darkred' | 'orange' | 'green' | 'darkgreen' | 'blue' | 'purple' | 'darkpurple' | 'cadetblue' | undefined;
+            markerColor?:
+                | "red"
+                | "darkred"
+                | "orange"
+                | "green"
+                | "darkgreen"
+                | "blue"
+                | "purple"
+                | "darkpurple"
+                | "cadetblue"
+                | undefined;
 
             /**
              * Color of the icon. 'white', 'black' or css code (hex, rgba etc).
              */
-            iconColor?: 'white' | 'black' | string | undefined;
+            iconColor?: "white" | "black" | string | undefined;
 
             /**
              * Make the icon spin. true or false. Font-awesome required

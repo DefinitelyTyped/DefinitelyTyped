@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/buffercursor",
+    "version": "0.0.9999",
+    "projects": [
+        "http://github.com/tjfontaine/node-buffercursor"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@types/verror": "^1.10.10"
+    },
+    "devDependencies": {
+        "@types/buffercursor": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Vincent Giersch",
+            "githubUsername": "gierschv"
+        }
+    ]
+}

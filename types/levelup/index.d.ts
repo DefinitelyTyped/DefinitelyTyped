@@ -1,72 +1,75 @@
-// Type definitions for levelup 5.1
-// Project: https://github.com/Level/levelup
-// Definitions by: Meirion Hughes <https://github.com/MeirionHughes>
-//                 Daniel Byrne <https://github.com/danwbyrne>
-//                 Carson Farmer <https://github.com/carsonfarmer>
-//                 Steffen Park <https://github.com/istherepie>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="node" />
 
-import { EventEmitter } from 'events';
-import { AbstractLevelDOWN, AbstractIteratorOptions, AbstractBatch, ErrorCallback, AbstractOptions, ErrorValueCallback, AbstractGetOptions, AbstractIterator } from 'abstract-leveldown';
-import { LevelUPError, InitializationError, OpenError, ReadError, WriteError, NotFoundError, EncodingError } from 'level-errors';
+import {
+    AbstractBatch,
+    AbstractGetOptions,
+    AbstractIterator,
+    AbstractIteratorOptions,
+    AbstractLevelDOWN,
+    AbstractOptions,
+    ErrorCallback,
+    ErrorValueCallback,
+} from "abstract-leveldown";
+import { EventEmitter } from "events";
+import {
+    EncodingError,
+    InitializationError,
+    LevelUPError,
+    NotFoundError,
+    OpenError,
+    ReadError,
+    WriteError,
+} from "level-errors";
 
 type LevelUpPut<K, V, O> =
-    ((key: K, value: V, callback: ErrorCallback) => void) &
-    ((key: K, value: V, options: O, callback: ErrorCallback) => void) &
-    ((key: K, value: V, options?: O) => Promise<void>);
+    & ((key: K, value: V, callback: ErrorCallback) => void)
+    & ((key: K, value: V, options: O, callback: ErrorCallback) => void)
+    & ((key: K, value: V, options?: O) => Promise<void>);
 
 type LevelUpGet<K, V, O> =
-    ((key: K, callback: ErrorValueCallback<V>) => void) &
-    ((key: K, options: O, callback: ErrorValueCallback<V>) => void) &
-    ((key: K, options?: O) => Promise<V>);
+    & ((key: K, callback: ErrorValueCallback<V>) => void)
+    & ((key: K, options: O, callback: ErrorValueCallback<V>) => void)
+    & ((key: K, options?: O) => Promise<V>);
 
 type LevelUpGetMany<K, V, O> =
-    ((keys: K[], callback: ErrorValueCallback<V[]>) => void) &
-    ((keys: K[], options: O, callback: ErrorValueCallback<V[]>) => void) &
-    ((keys: K[], options?: O) => Promise<V[]>);
+    & ((keys: K[], callback: ErrorValueCallback<V[]>) => void)
+    & ((keys: K[], options: O, callback: ErrorValueCallback<V[]>) => void)
+    & ((keys: K[], options?: O) => Promise<V[]>);
 
 type LevelUpDel<K, O> =
-    ((key: K, callback: ErrorCallback) => void) &
-    ((key: K, options: O, callback: ErrorCallback) => void) &
-    ((key: K, options?: O) => Promise<void>);
+    & ((key: K, callback: ErrorCallback) => void)
+    & ((key: K, options: O, callback: ErrorCallback) => void)
+    & ((key: K, options?: O) => Promise<void>);
 
 type LevelUpClear<O> =
-    ((callback: ErrorCallback) => void) &
-    ((options: O, callback: ErrorCallback) => void) &
-    ((options?: O) => Promise<void>);
+    & ((callback: ErrorCallback) => void)
+    & ((options: O, callback: ErrorCallback) => void)
+    & ((options?: O) => Promise<void>);
 
 type LevelUpBatch<K, O> =
-    ((key: K, callback: ErrorCallback) => void) &
-    ((key: K, options: O, callback: ErrorCallback) => void) &
-    ((key: K, options?: O) => Promise<void>);
+    & ((key: K, callback: ErrorCallback) => void)
+    & ((key: K, options: O, callback: ErrorCallback) => void)
+    & ((key: K, options?: O) => Promise<void>);
 
-type InferDBPut<DB> =
-    DB extends { put: (key: infer K, value: infer V, options: infer O, cb: any) => void } ?
-    LevelUpPut<K, V, O> :
-    LevelUpPut<any, any, AbstractOptions>;
+type InferDBPut<DB> = DB extends { put: (key: infer K, value: infer V, options: infer O, cb: any) => void }
+    ? LevelUpPut<K, V, O>
+    : LevelUpPut<any, any, AbstractOptions>;
 
-type InferDBGet<DB> =
-    DB extends { get: (key: infer K, options: infer O, callback: ErrorValueCallback<infer V>) => void } ?
-    LevelUpGet<K, V, O> :
-    LevelUpGet<any, any, AbstractGetOptions>;
+type InferDBGet<DB> = DB extends
+    { get: (key: infer K, options: infer O, callback: ErrorValueCallback<infer V>) => void } ? LevelUpGet<K, V, O>
+    : LevelUpGet<any, any, AbstractGetOptions>;
 
-type InferDBGetMany<DB> =
-    DB extends { getMany: (keys: Array<infer K>, options: infer O, callback: ErrorValueCallback<Array<infer V>>) => void } ?
-    LevelUpGetMany<K, V, O> :
-    LevelUpGetMany<any, any, AbstractGetOptions>;
+type InferDBGetMany<DB> = DB extends
+    { getMany: (keys: Array<infer K>, options: infer O, callback: ErrorValueCallback<Array<infer V>>) => void }
+    ? LevelUpGetMany<K, V, O>
+    : LevelUpGetMany<any, any, AbstractGetOptions>;
 
-type InferDBDel<DB> =
-    DB extends { del: (key: infer K, options: infer O, callback: ErrorCallback) => void } ?
-    LevelUpDel<K, O> :
-    LevelUpDel<any, AbstractOptions>;
+type InferDBDel<DB> = DB extends { del: (key: infer K, options: infer O, callback: ErrorCallback) => void }
+    ? LevelUpDel<K, O>
+    : LevelUpDel<any, AbstractOptions>;
 
-type InferDBClear<DB> =
-    DB extends { clear: (options: infer O, callback: ErrorCallback) => void } ?
-    LevelUpClear<O> :
-    LevelUpClear<AbstractClearOptions>;
+type InferDBClear<DB> = DB extends { clear: (options: infer O, callback: ErrorCallback) => void } ? LevelUpClear<O>
+    : LevelUpClear<AbstractClearOptions>;
 
 interface AbstractClearOptions<K = any> extends AbstractOptions {
     gt?: K | undefined;
@@ -118,43 +121,47 @@ declare namespace levelup {
         /*
         emitted when a new value is 'put'
         */
-        on(event: 'put', cb: (key: any, value: any) => void): this;
+        on(event: "put", cb: (key: any, value: any) => void): this;
         /*
         emitted when a value is deleted
         */
-        on(event: 'del', cb: (key: any) => void): this;
+        on(event: "del", cb: (key: any) => void): this;
         /*
         emitted when a batch operation has executed
         */
-        on(event: 'batch', cb: (ary: any[]) => void): this;
+        on(event: "batch", cb: (ary: any[]) => void): this;
         /*
         emitted when clear is called
         */
-        on(event: 'clear', cb: (opts: any) => void): this;
+        on(event: "clear", cb: (opts: any) => void): this;
         /*
         emitted on given event
         */
-        on(event: 'open' | 'ready' | 'closed' | 'opening' | 'closing', cb: () => void): this;
+        on(event: "open" | "ready" | "closed" | "opening" | "closing", cb: () => void): this;
     }
 
     interface LevelUpConstructor {
         <DB extends AbstractLevelDOWN = AbstractLevelDOWN>(
             db: DB,
             options: any,
-            cb?: ErrorCallback): LevelUp<DB>;
+            cb?: ErrorCallback,
+        ): LevelUp<DB>;
 
         <DB extends AbstractLevelDOWN = AbstractLevelDOWN>(
             db: DB,
-            cb?: ErrorCallback): LevelUp<DB>;
+            cb?: ErrorCallback,
+        ): LevelUp<DB>;
 
-        new <DB extends AbstractLevelDOWN = AbstractLevelDOWN>(
+        new<DB extends AbstractLevelDOWN = AbstractLevelDOWN>(
             db: DB,
             options: any,
-            cb?: ErrorCallback): LevelUp<DB>;
+            cb?: ErrorCallback,
+        ): LevelUp<DB>;
 
-        new <DB extends AbstractLevelDOWN = AbstractLevelDOWN>(
+        new<DB extends AbstractLevelDOWN = AbstractLevelDOWN>(
             db: DB,
-            cb?: ErrorCallback): LevelUp<DB>;
+            cb?: ErrorCallback,
+        ): LevelUp<DB>;
 
         errors: {
             LevelUPError: typeof LevelUPError;

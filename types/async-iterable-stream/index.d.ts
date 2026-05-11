@@ -1,8 +1,3 @@
-// Type definitions for async-iterable-stream 3.0
-// Project: https://github.com/SocketCluster/async-iterable-stream
-// Definitions by: Daniel Rose <https://github.com/DanielRose>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 declare abstract class AsyncIterableStream<T> implements AsyncIterator<T>, AsyncIterable<T> {

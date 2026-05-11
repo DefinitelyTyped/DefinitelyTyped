@@ -1,8 +1,3 @@
-// Type definitions for jsbn v1.2.29
-// Project: http://www-cs-students.stanford.edu/%7Etjw/jsbn/
-// Definitions by: Eugene Chernyshov <https://github.com/Evgenus>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface RandomGenerator {
     nextBytes(bytes: number[]): void;
 }
@@ -172,10 +167,10 @@ export class BigInteger {
     setBit(n: number): BigInteger;
 
     // (public) this & ~(1<<n)
-    clearBit(n: number): BigInteger
+    clearBit(n: number): BigInteger;
 
     // (public) this ^ (1<<n)
-    flipBit(n: number): BigInteger
+    flipBit(n: number): BigInteger;
 
     // (protected) r = this + a
     addTo(a: BigInteger, r: BigInteger): void;

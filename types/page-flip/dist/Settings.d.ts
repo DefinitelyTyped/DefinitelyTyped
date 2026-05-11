@@ -5,7 +5,7 @@ export enum SizeType {
     /** Dimensions are fixed */
     FIXED = "fixed",
     /** Dimensions are calculated based on the parent element */
-    STRETCH = "stretch"
+    STRETCH = "stretch",
 }
 /**
  * Configuration object

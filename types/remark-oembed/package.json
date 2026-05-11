@@ -1,7 +1,21 @@
 {
-  "private": true,
-  "dependencies": {
-    "unified": "^10.1.2",
-    "remark": "^14.0.3"
-  }
+    "private": true,
+    "name": "@types/remark-oembed",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/sergioramos/remark-oembed#readme"
+    ],
+    "dependencies": {
+        "remark": "^14.0.3",
+        "unified": "^10.1.2"
+    },
+    "devDependencies": {
+        "@types/remark-oembed": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Karoline",
+            "githubUsername": "Boothwhack"
+        }
+    ]
 }

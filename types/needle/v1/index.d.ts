@@ -1,14 +1,10 @@
-// Type definitions for needle 1.4
-// Project: https://github.com/tomas/needle
-// Definitions by: San Chen <https://github.com/bigsan>, Niklas Mollenhauer <https://github.com/nikeee>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module "needle" {
-    import * as http from 'http';
-    import * as Buffer from 'buffer';
-    import * as https from 'https';
+    import * as http from "http";
+    import * as Buffer from "buffer";
+    import * as https from "https";
     namespace Needle {
         interface NeedleResponse extends http.IncomingMessage {
             body: any;
@@ -107,10 +103,16 @@ declare module "needle" {
             patch(url: string, data: BodyData, options?: NeedleOptions, callback?: NeedleCallback): ReadableStream;
 
             delete(url: string, data: BodyData, callback?: NeedleCallback): ReadableStream;
-            delete(url: string, data: BodyData, options?: NeedleOptions, callback ?: NeedleCallback): ReadableStream;
+            delete(url: string, data: BodyData, options?: NeedleOptions, callback?: NeedleCallback): ReadableStream;
 
             request(method: string, url: string, data: BodyData, callback?: NeedleCallback): ReadableStream;
-            request(method: string, url: string, data: BodyData, options?: NeedleOptions, callback?: NeedleCallback): ReadableStream;
+            request(
+                method: string,
+                url: string,
+                data: BodyData,
+                options?: NeedleOptions,
+                callback?: NeedleCallback,
+            ): ReadableStream;
         }
     }
     const needle: Needle.NeedleStatic;

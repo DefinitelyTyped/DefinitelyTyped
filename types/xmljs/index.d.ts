@@ -1,8 +1,3 @@
-// Type definitions for xmljs 0.3
-// Project: https://github.com/blackshadev/xmljs
-// Definitions by: Vincent Hagen <https://github.com/blackshadev>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /*~ Note that ES6 modules cannot directly export class objects.
  *~ This file should be imported using the CommonJS-style:
  *~   import x = require('someLibrary');

@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/knuddels-webapp-frontend-api",
+    "version": "1.20211209174657.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Knuddels UserApps API",
+    "projects": [
+        "https://developer.knuddels.de"
+    ],
+    "devDependencies": {
+        "@types/knuddels-webapp-frontend-api": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Knuddels GmbH & Co. KG",
+            "githubUsername": "Knuddels"
+        }
+    ]
+}

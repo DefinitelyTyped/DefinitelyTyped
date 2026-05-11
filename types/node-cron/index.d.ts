@@ -1,13 +1,4 @@
-// Type definitions for node-cron 3.0
-// Project: https://github.com/node-cron/node-cron, https://github.com/merencia/node-cron
-// Definitions by: morsic <https://github.com/maximelkin>,
-//                 burtek <https://github.com/burtek>,
-//                 Richard Honor <https://github.com/RMHonor>
-//                 Ata Berk YILMAZ <https://github.com/ataberkylmz>
-//                 Alex Seidmann <https://github.com/aseidma>
-//                 Pedro Américo <https://github.com/ghostebony>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
 /**
  * Creates a new task to execute the given function when the cron expression ticks.
@@ -15,7 +6,11 @@ import { EventEmitter } from 'events';
  * @param func
  * @param options
  */
-export function schedule(cronExpression: string, func: ((now: Date | "manual" | "init") => void) | string, options?: ScheduleOptions): ScheduledTask;
+export function schedule(
+    cronExpression: string,
+    func: ((now: Date | "manual" | "init") => void) | string,
+    options?: ScheduleOptions,
+): ScheduledTask;
 
 /**
  * To validate whether the expression is a cron expression or not

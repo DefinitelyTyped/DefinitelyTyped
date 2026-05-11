@@ -1,6 +1,5 @@
-import * as React from 'react';
-import { render } from 'react-dom';
-import enhanceWithClickOutside = require('react-click-outside');
+import * as React from "react";
+import enhanceWithClickOutside = require("react-click-outside");
 
 interface Props {
     text: string;
@@ -17,7 +16,7 @@ class StatefulComponent extends React.Component<Props, State> {
         this.setState({ isOpened: false });
     }
 
-  render() {
+    render() {
         return <div>{this.props.text}</div>;
     }
 }
@@ -30,12 +29,12 @@ class ComponentWithDecorator extends React.Component<Props, State> {
         this.setState({ isOpened: false });
     }
 
-  render() {
-      return <div>{this.props.text}</div>;
+    render() {
+        return <div>{this.props.text}</div>;
     }
 }
 
 const ClickOutsideStatefulComponent = enhanceWithClickOutside(StatefulComponent);
 
-render(<ClickOutsideStatefulComponent text="" />, document.getElementById('test'));
-render(<ComponentWithDecorator text="" />, document.getElementById('test'));
+<ClickOutsideStatefulComponent text="" />;
+<ComponentWithDecorator text="" />;

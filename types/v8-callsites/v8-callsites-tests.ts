@@ -22,9 +22,9 @@ Layer1();
 
 // Function-Types
 
-function WithArguments(test: string) { }
+function WithArguments(test: string) {}
 
-function Void(): void { }
+function Void(): void {}
 
 function NonVoid(): string {
     return "";

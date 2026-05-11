@@ -1,9 +1,3 @@
-// Type definitions for cmd-shim 5.0
-// Project: https://github.com/npm/cmd-shim
-// Definitions by: Andrew Bradley <https://github.com/cspotcode>
-//                 Hiroki Osame <https://github.com/privatenumber>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Create a cmd shim at `to` for the command line program at `from`. e.g.
  *

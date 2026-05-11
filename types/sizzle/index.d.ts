@@ -1,19 +1,23 @@
-// Type definitions for sizzle 2.3
-// Project: https://sizzlejs.com
-// Definitions by: Leonard Thieu <https://github.com/leonard-thieu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 export as namespace Sizzle;
 
 declare const Sizzle: SizzleStatic;
 export = Sizzle;
 
+// For users who don't have "dom" types
+// See: https://github.com/DefinitelyTyped/DefinitelyTyped/pull/73082
+type Element = typeof globalThis extends { Element: { new(): infer T } } ? T : never;
+type Document = typeof globalThis extends { Document: { new(): infer T } } ? T : never;
+type DocumentFragment = typeof globalThis extends { DocumentFragment: { new(): infer T } } ? T : never;
+
 interface SizzleStatic {
     selectors: Sizzle.Selectors;
-    <TArrayLike extends ArrayLike<Element>>(selector: string, context: Element | Document | DocumentFragment, results: TArrayLike): TArrayLike;
+    <TArrayLike extends ArrayLike<Element>>(
+        selector: string,
+        context: Element | Document | DocumentFragment,
+        results: TArrayLike,
+    ): TArrayLike;
     (selector: string, context?: Element | Document | DocumentFragment): Element[];
-    // tslint:disable-next-line:ban-types
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
     compile(selector: string): Function;
     matchesSelector(element: Element, selector: string): boolean;
     matches(selector: string, elements: Element[]): Element[];
@@ -38,6 +42,7 @@ declare namespace Sizzle {
         }
 
         interface FindFunction {
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             (match: RegExpMatchArray, context: Element | Document, isXML: boolean): Element[] | void;
         }
 

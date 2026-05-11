@@ -1,10 +1,5 @@
-// Type definitions for eslint-utils 3.0
-// Project: https://github.com/mysticatea/eslint-utils#readme
-// Definitions by: Josh Goldberg <https://github.com/JoshuaKGoldberg>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { AST, Scope, SourceCode } from 'eslint';
-import * as ESTree from 'estree';
+import { AST, Scope, SourceCode } from "eslint";
+import * as ESTree from "estree";
 
 type CommentOrToken = ESTree.Comment | AST.Token;
 
@@ -127,29 +122,29 @@ export function isParenthesized(times: number, node: ESTree.Node, sourceCode: So
 export function isParenthesized(node: ESTree.Node, sourceCode: SourceCode): boolean;
 
 export interface PunctuatorToken<Value extends string> extends AST.Token {
-    type: 'Punctuator';
+    type: "Punctuator";
     value: Value;
 }
 
-export interface ArrowToken extends PunctuatorToken<'=>'> {}
+export interface ArrowToken extends PunctuatorToken<"=>"> {}
 
-export interface CommaToken extends PunctuatorToken<','> {}
+export interface CommaToken extends PunctuatorToken<","> {}
 
-export interface SemicolonToken extends PunctuatorToken<';'> {}
+export interface SemicolonToken extends PunctuatorToken<";"> {}
 
-export interface ColonToken extends PunctuatorToken<':'> {}
+export interface ColonToken extends PunctuatorToken<":"> {}
 
-export interface OpeningParenToken extends PunctuatorToken<'('> {}
+export interface OpeningParenToken extends PunctuatorToken<"("> {}
 
-export interface ClosingParenToken extends PunctuatorToken<')'> {}
+export interface ClosingParenToken extends PunctuatorToken<")"> {}
 
-export interface OpeningBracketToken extends PunctuatorToken<'['> {}
+export interface OpeningBracketToken extends PunctuatorToken<"["> {}
 
-export interface ClosingBracketToken extends PunctuatorToken<']'> {}
+export interface ClosingBracketToken extends PunctuatorToken<"]"> {}
 
-export interface OpeningBraceToken extends PunctuatorToken<'{'> {}
+export interface OpeningBraceToken extends PunctuatorToken<"{"> {}
 
-export interface ClosingBraceToken extends PunctuatorToken<'}'> {}
+export interface ClosingBraceToken extends PunctuatorToken<"}"> {}
 
 /**
  * Checks if the given token is an arrow token or not.
@@ -305,5 +300,5 @@ export function isNotClosingBraceToken(node: CommentOrToken): boolean;
  */
 export function isNotCommentToken(node: CommentOrToken): boolean;
 
-export * from './patternMatcher';
-export * from './referenceTracker';
+export * from "./patternMatcher";
+export * from "./referenceTracker";

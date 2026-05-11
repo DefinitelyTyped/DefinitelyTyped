@@ -9,6 +9,8 @@ declare class DBCache {
     dbDate: Date;
     dbUTCDate: Date;
     initializedSuccessfully: boolean;
+    lastSynchronizedVersion: number;
+    lobCompressionAlgorithm: string;
     getTable(tableName: string): DataSet;
     copyTableStructure(tableName: string, ds: DataSet): void;
     getFieldValue(
@@ -23,7 +25,7 @@ declare class DBCache {
     hasTable(tableName: string): boolean;
     isCachedTable(tableName: string): boolean;
     getTableClass(tableName: string): number;
-    getTableNameDefinedByClass(classKey: number): boolean;
+    getTableNameDefinedByClass(classKey: number | DBKey): string;
     getTableNames(): any[];
     refresh(wait?: boolean, timeout?: number): boolean;
     isFromCache(ds: DataSet): boolean;
@@ -39,3 +41,4 @@ declare class DBCache {
     recordFieldExists(key: number, fieldName: string): boolean;
 }
 import DataSet = require('../dataset/DataSet.js');
+import DBKey = require('../dbkey/DBKey.js');

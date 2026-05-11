@@ -1,30 +1,30 @@
-import { compare, isBlank, isEmpty, isEqual, isNone, isPresent, tryInvoke, typeOf } from '@ember/utils';
+import { compare, isBlank, isEmpty, isEqual, isNone, isPresent, tryInvoke, typeOf } from "@ember/utils";
 
 (function() {
     /** isNone */
-    const maybeUndefined: string | undefined = 'not actually undefined';
+    const maybeUndefined: string | undefined = "not actually undefined";
     if (isNone(maybeUndefined)) {
         return;
     }
-    const anotherString = maybeUndefined + 'another string';
+    const anotherString = maybeUndefined + "another string";
     isNone(); // $ExpectType boolean
     isNone(null); // $ExpectType boolean
     isNone(undefined); // $ExpectType boolean
-    isNone(''); // $ExpectType boolean
+    isNone(""); // $ExpectType boolean
     isNone([]); // $ExpectType boolean
     isNone(function() {}); // $ExpectType boolean
 })();
 
 (function() {
     /** tryInvoke */
-    let d = new Date('03/15/2013');
+    let d = new Date("03/15/2013");
 
-    tryInvoke(d, 'getTime'); // $ExpectType number
-    tryInvoke(d, 'setFullYear', [2014]); // $ExpectType number
-    tryInvoke(d, 'noSuchMethod', [2014]); // $ExpectType undefined
-    tryInvoke(d, 'getTime');
-    tryInvoke(d, 'setFullYear', [2014]);
-    tryInvoke(d, 'noSuchMethod', [2014]);
+    tryInvoke(d, "getTime"); // $ExpectType number
+    tryInvoke(d, "setFullYear", [2014]); // $ExpectType number
+    tryInvoke(d, "noSuchMethod", [2014]); // $ExpectType undefined
+    tryInvoke(d, "getTime");
+    tryInvoke(d, "setFullYear", [2014]);
+    tryInvoke(d, "noSuchMethod", [2014]);
 })();
 
 (function() {
@@ -32,19 +32,19 @@ import { compare, isBlank, isEmpty, isEqual, isNone, isPresent, tryInvoke, typeO
     isPresent(); // $ExpectType boolean
     isPresent(null); // $ExpectType boolean
     isPresent(undefined); // $ExpectType boolean
-    isPresent(''); // $ExpectType boolean
-    isPresent('  '); // $ExpectType boolean
-    isPresent('\n\t'); // $ExpectType boolean
+    isPresent(""); // $ExpectType boolean
+    isPresent("  "); // $ExpectType boolean
+    isPresent("\n\t"); // $ExpectType boolean
     isPresent([]); // $ExpectType boolean
     isPresent({ length: 0 }); // $ExpectType boolean
     isPresent(false); // $ExpectType boolean
     isPresent(true); // $ExpectType boolean
-    isPresent('string'); // $ExpectType boolean
+    isPresent("string"); // $ExpectType boolean
     isPresent(0); // $ExpectType boolean
     isPresent(function() {}); // $ExpectType boolean
     isPresent({}); // $ExpectType boolean
     isPresent(false); // $ExpectType boolean
-    isPresent('\n\t Hello'); // $ExpectType boolean
+    isPresent("\n\t Hello"); // $ExpectType boolean
     isPresent([1, 2, 3]); // $ExpectType boolean
 })();
 
@@ -52,9 +52,9 @@ import { compare, isBlank, isEmpty, isEqual, isNone, isPresent, tryInvoke, typeO
     /** typeOf */
     typeOf(null); // $ExpectType "null"
     typeOf(undefined); // $ExpectType "undefined"
-    typeOf('michael'); // $ExpectType "string"
+    typeOf("michael"); // $ExpectType "string"
     // tslint:disable-next-line:no-construct
-    typeOf(new String('michael')); // $ExpectType "string"
+    typeOf(new String("michael")); // $ExpectType "string"
     typeOf(101); // $ExpectType "number"
     // tslint:disable-next-line:no-construct
     typeOf(new Number(101)); // $ExpectType "number"
@@ -68,15 +68,15 @@ import { compare, isBlank, isEmpty, isEqual, isNone, isPresent, tryInvoke, typeO
     typeOf(new FileList()); // $ExpectType "filelist"
     // typeOf(EmberObject.extend());   // $ExpectType "class"
     // typeOf(EmberObject.create());   // $ExpectType "instance"
-    typeOf(new Error('teamocil')); // $ExpectType "error"
+    typeOf(new Error("teamocil")); // $ExpectType "error"
     typeOf({ justAPojo: true }); // $ExpectType "object"
 
     typeOf();
     typeOf(null);
     typeOf(undefined);
-    typeOf('michael');
+    typeOf("michael");
     // tslint:disable-next-line:no-construct
-    typeOf(new String('michael'));
+    typeOf(new String("michael"));
     typeOf(101);
     // tslint:disable-next-line:no-construct
     typeOf(new Number(101));
@@ -88,14 +88,14 @@ import { compare, isBlank, isEmpty, isEqual, isNone, isPresent, tryInvoke, typeO
     typeOf(/abc/);
     typeOf(new Date());
     typeOf(FileList);
-    typeOf(new Error('teamocil'));
+    typeOf(new Error("teamocil"));
 })();
 
 (function() {
     /** isEqual */
-    isEqual('foo', 'bar'); // $ExpectType boolean
+    isEqual("foo", "bar"); // $ExpectType boolean
     isEqual(14, 37); // $ExpectType boolean
-    isEqual(14, '1'); // $ExpectType boolean
+    isEqual(14, "1"); // $ExpectType boolean
     isEqual(() => 4, () => 37); // $ExpectType boolean
     // @ts-expect-error
     isEqual(14);
@@ -105,7 +105,7 @@ import { compare, isBlank, isEmpty, isEqual, isNone, isPresent, tryInvoke, typeO
 
 (function() {
     /** compare */
-    compare('foo', 'bar'); // $ExpectType number
+    compare("foo", "bar"); // $ExpectType number
     compare(14, 37); // $ExpectType number
     compare(class {}, class {}); // $ExpectType number
     compare([], class {}); // $ExpectType number
@@ -123,13 +123,13 @@ import { compare, isBlank, isEmpty, isEqual, isNone, isPresent, tryInvoke, typeO
     isBlank(); // $ExpectType boolean
     isBlank(null); // $ExpectType boolean
     isBlank(undefined); // $ExpectType boolean
-    isBlank(''); // $ExpectType boolean
+    isBlank(""); // $ExpectType boolean
     isBlank([]); // $ExpectType boolean
-    isBlank('\n\t'); // $ExpectType boolean
-    isBlank('  '); // $ExpectType boolean
+    isBlank("\n\t"); // $ExpectType boolean
+    isBlank("  "); // $ExpectType boolean
     isBlank({}); // $ExpectType boolean
-    isBlank('\n\t Hello'); // $ExpectType boolean
-    isBlank('Hello world'); // $ExpectType boolean
+    isBlank("\n\t Hello"); // $ExpectType boolean
+    isBlank("Hello world"); // $ExpectType boolean
     isBlank([1, 2, 3]); // $ExpectType boolean
 })();
 
@@ -139,14 +139,14 @@ import { compare, isBlank, isEmpty, isEqual, isNone, isPresent, tryInvoke, typeO
     isEmpty(); // $ExpectType boolean
     isEmpty(null); // $ExpectType boolean
     isEmpty(undefined); // $ExpectType boolean
-    isEmpty(''); // $ExpectType boolean
+    isEmpty(""); // $ExpectType boolean
     isEmpty([]); // $ExpectType boolean
     isEmpty({ size: 0 }); // $ExpectType boolean
     isEmpty({}); // $ExpectType boolean
-    isEmpty('Adam Hawkins'); // $ExpectType boolean
+    isEmpty("Adam Hawkins"); // $ExpectType boolean
     isEmpty([0, 1, 2]); // $ExpectType boolean
-    isEmpty('\n\t'); // $ExpectType boolean
-    isEmpty('  '); // $ExpectType boolean
+    isEmpty("\n\t"); // $ExpectType boolean
+    isEmpty("  "); // $ExpectType boolean
     isEmpty({ size: 1 }); // $ExpectType boolean
     isEmpty({ size: () => 0 }); // $ExpectType boolean
 })();

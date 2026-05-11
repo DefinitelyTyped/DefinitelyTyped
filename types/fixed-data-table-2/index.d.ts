@@ -1,9 +1,3 @@
-// Type definitions for fixed-data-table-2 0.8
-// Project: https://github.com/schrodinger/fixed-data-table-2, http://schrodinger.github.io/fixed-data-table-2
-// Definitions by: Ilya Petukhov <https://github.com/ilivit>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 
 export as namespace FixedDataTable;
@@ -30,9 +24,17 @@ export interface ColumnReorderEndEvent {
     reorderColumn: string;
 }
 
-export type ElementOrFunc<P> = string | React.ReactElement | ((props: P) => (string | React.ReactElement));
+export type ElementOrFunc<P> = string | React.ReactElement | ((props: P) => string | React.ReactElement);
 
 export type TableRowEventHandler = (event: React.SyntheticEvent<Table>, rowIndex: number) => void;
+
+/**
+ * Represents the return type for a function that provides HTML attributes for
+ * a component.
+ */
+export type AttributesGetterReturn =
+    & React.HTMLAttributes<HTMLElement>
+    & { [key: `data-${string}`]: string | undefined };
 
 /**
  * Data grid component with fixed or scrollable header and columns.
@@ -125,8 +127,8 @@ export interface TableProps extends React.ClassAttributes<Table> {
      */
     ownerHeight?: number | undefined;
 
-    overflowX?: 'hidden' | 'auto' | undefined;
-    overflowY?: 'hidden' | 'auto' | undefined;
+    overflowX?: "hidden" | "auto" | undefined;
+    overflowY?: "hidden" | "auto" | undefined;
 
     /**
      * Boolean flag indicating of touch scrolling should be enabled
@@ -210,6 +212,12 @@ export interface TableProps extends React.ClassAttributes<Table> {
     rowExpanded?: ElementOrFunc<RowProps> | undefined;
 
     /**
+     * Callback that returns an object of html attributes to add to each row
+     * element.
+     */
+    rowAttributesGetter?: ((index: number) => AttributesGetterReturn) | undefined;
+
+    /**
      * To get any additional CSS classes that should be added to a row,
      * `rowClassNameGetter(index)` is called.
      */
@@ -220,6 +228,12 @@ export interface TableProps extends React.ClassAttributes<Table> {
      * returned value overrides `key` for the particular row.
      */
     rowKeyGetter?: ((index: number) => string) | undefined;
+
+    /**
+     * Callback that returns an object of html attributes to add to the grid
+     * element.
+     */
+    gridAttributesGetter?: (() => AttributesGetterReturn) | undefined;
 
     /**
      * Pixel height of the column group header.
@@ -278,15 +292,15 @@ export interface TableProps extends React.ClassAttributes<Table> {
 
     /**
      * Callback that is called when scrolling starts with current horizontal
-     * and vertical scroll values.
+     * and vertical scroll values, as well as the first and last row index.
      */
-    onScrollStart?: ((x: number, y: number) => void) | undefined;
+    onScrollStart?: ((x: number, y: number, firstRowIndex: number, lastRowIndex: number) => void) | undefined;
 
     /**
      * Callback that is called when scrolling ends or stops with new horizontal
-     * and vertical scroll values.
+     * and vertical scroll values, as well as the first and last row index.
      */
-    onScrollEnd?: ((x: number, y: number) => void) | undefined;
+    onScrollEnd?: ((x: number, y: number, firstRowIndex: number, lastRowIndex: number) => void) | undefined;
 
     /**
      * If enabled scroll events will not be propagated outside of the table.
@@ -423,7 +437,7 @@ export interface ColumnProps extends React.ClassAttributes<Column> {
     /**
      * The horizontal alignment of the table cell content.
      */
-    align?: 'left' | 'center' | 'right' | undefined;
+    align?: "left" | "center" | "right" | undefined;
 
     /**
      * Controls if the column is fixed when scrolling in the X axis.
@@ -602,7 +616,7 @@ export interface ColumnGroupProps extends React.ClassAttributes<ColumnGroup> {
     /**
      * The horizontal alignment of the table cell content.
      */
-    align?: 'left' | 'center' | 'right' | undefined;
+    align?: "left" | "center" | "right" | undefined;
 
     /**
      * Controls if the column group is fixed when scrolling in the X axis.
@@ -630,7 +644,7 @@ export interface ColumnGroupProps extends React.ClassAttributes<ColumnGroup> {
      * You can also pass in a function that returns a react elemnt, with the
      * props object above passed in as the first parameter.
      */
-    header?: string | React.ReactElement | ((props: ColumnGroupHeaderProps) => (string | React.ReactElement)) | undefined;
+    header?: string | React.ReactElement | ((props: ColumnGroupHeaderProps) => string | React.ReactElement) | undefined;
 
     /**
      * Extra class for cells in column
@@ -693,4 +707,124 @@ export interface CellProps extends React.HTMLAttributes<Cell> {
 }
 
 export class Cell extends React.Component<CellProps> {
+}
+
+export namespace Plugins {
+    interface ResizeCellProps extends React.HTMLAttributes<ResizeCell> {
+        /**
+         * Optional prop that if specified on the `Column` will be passed to the
+         * cell. It can be used to uniquely identify which column is the cell is in.
+         */
+        columnKey?: string | number;
+
+        /**
+         * The minimum width of the column.
+         */
+        minWidth?: number;
+
+        /**
+         * The maximum width of the column.
+         */
+        maxWidth?: number;
+
+        /**
+         * Outer width of the cell.
+         */
+        width?: number;
+
+        /**
+         * Whether touch is enabled or not.
+         */
+        touchEnabled?: boolean;
+
+        /**
+         * True if FDT has right to left orientation
+         */
+        isRTL?: boolean;
+
+        /**
+         * Callback function which is called when reordering ends
+         *
+         * ```
+         * function(newWidth: number, columnKey: string)
+         * ```
+         */
+        onColumnResizeEnd: (newWidth: number, columnKey: string) => void;
+
+        /**
+         * Outer height of the cell.
+         */
+        height?: number;
+    }
+
+    class ResizeCell extends React.Component<ResizeCellProps> {
+    }
+
+    interface ReorderCellProps extends React.HTMLAttributes<ReorderCell> {
+        /**
+         * Outer height of the cell.
+         */
+        height?: number;
+
+        /**
+         * Outer width of the cell.
+         */
+        width?: number;
+
+        /**
+         * Optional prop that if specified on the `Column` will be passed to the
+         * cell. It can be used to uniquely identify which column is the cell is in.
+         */
+        columnKey?: string | number;
+
+        /**
+         * Optional prop that represents the rows index in the table.
+         * For the 'cell' prop of a Column, this parameter will exist for any
+         * cell in a row with a positive index.
+         *
+         * Below that entry point the user is welcome to consume or
+         * pass the prop through at their discretion.
+         */
+        rowIndex?: number;
+
+        /**
+         * The left offset in pixels of the cell.
+         * Space between cell's left edge and left edge of table
+         */
+        left?: number;
+
+        /**
+         * Whether touch is enabled or not.
+         */
+        touchEnabled?: boolean;
+
+        /**
+         * The minimum width of the column.
+         */
+        minWidth?: number;
+
+        /**
+         * The maximum width of the column.
+         */
+        maxWidth?: number;
+
+        /**
+         * Callback function which is called when reordering starts
+         * ```
+         * function(columnKey: string)
+         * ```
+         */
+        onColumnReorderStart?: (columnKey: string) => void;
+
+        /**
+         * Callback function which is called when reordering ends
+         * ```
+         * function({columnBefore: string, columnAfter: string, reorderColumn: string})
+         * ```
+         */
+        onColumnReorderEnd: (event: { columnBefore: string; columnAfter: string; reorderColumn: string }) => void;
+    }
+
+    class ReorderCell extends React.Component<ReorderCellProps> {
+    }
 }

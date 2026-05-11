@@ -1,0 +1,30 @@
+{
+    "private": true,
+    "name": "@types/gapi.client.firebaseappdistribution-v1alpha",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Firebase App Distribution API v1alpha",
+    "projects": [
+        "https://firebase.google.com/products/app-distribution"
+    ],
+    "dependencies": {
+        "@maxim_mazurok/gapi.client.firebaseappdistribution-v1alpha": "latest"
+    },
+    "devDependencies": {
+        "@types/gapi.client.firebaseappdistribution-v1alpha": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Maxim Mazurok",
+            "githubUsername": "Maxim-Mazurok"
+        },
+        {
+            "name": "Nick Amoscato",
+            "githubUsername": "namoscato"
+        },
+        {
+            "name": "Declan Vong",
+            "githubUsername": "declanvong"
+        }
+    ]
+}

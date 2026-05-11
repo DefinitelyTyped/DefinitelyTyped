@@ -1,8 +1,3 @@
-// Type definitions for syslog-pro 1.0
-// Project: https://github.com/cyamato/SyslogPro
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Format the ANSI foreground color code from a RGB hex code or ANSI color code.
  *
@@ -121,8 +116,8 @@ export namespace Syslog {
         cef?: CEF.Options | undefined;
     }
 
-    type Protocol = 'udp' | 'tcp' | 'tls';
-    type Format = 'none' | 'rfc3164' | 'rfc5424' | 'leef' | 'cef';
+    type Protocol = "udp" | "tcp" | "tls";
+    type Format = "none" | "rfc3164" | "rfc5424" | "leef" | "cef";
 }
 
 export interface RFC {
@@ -869,12 +864,12 @@ export namespace RFC5424 {
          *
          * @default '-'
          */
-        pid?: number | '-' | undefined;
+        pid?: number | "-" | undefined;
 
         /**
          * @default '-'
          */
-        id?: number | '-' | undefined;
+        id?: number | "-" | undefined;
 
         /**
          * An array of structured data strings conforming to the IETF/IANA defined SD-IDs or IANA
@@ -1147,27 +1142,27 @@ export namespace CEF {
     }
 
     type Severity = SeverityString | SeverityNumber;
-    type SeverityString = 'Unknown' | 'Low' | 'Medium' | 'High' | 'Very-High';
+    type SeverityString = "Unknown" | "Low" | "Medium" | "High" | "Very-High";
     type SeverityNumber = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 
     interface Extensions {
         deviceAction?: string | null;
         applicationProtocol?: string | null;
         deviceCustomIPv6Address1?: string | null;
-        'deviceCustomIPv6 Address1Label'?: string | null;
+        "deviceCustomIPv6 Address1Label"?: string | null;
         deviceCustomIPv6Address3?: string | null;
-        'deviceCustomIPv6Address3 Label'?: string | null;
-        'deviceCustomIPv6 Address4'?: string | null;
-        'deviceCustomIPv6 Address4Label'?: string | null;
+        "deviceCustomIPv6Address3 Label"?: string | null;
+        "deviceCustomIPv6 Address4"?: string | null;
+        "deviceCustomIPv6 Address4Label"?: string | null;
         deviceEventCategory?: string | null;
         deviceCustomFloatingPoint1?: number | null;
-        'deviceCustom FloatingPoint1Label'?: string | null;
+        "deviceCustom FloatingPoint1Label"?: string | null;
         deviceCustomFloatingPoint2?: number | null;
-        'deviceCustomFloatingPoint2 Label'?: string | null;
+        "deviceCustomFloatingPoint2 Label"?: string | null;
         deviceCustomFloatingPoint3?: number | null;
-        'deviceCustom FloatingPoint3Label'?: string | null;
+        "deviceCustom FloatingPoint3Label"?: string | null;
         deviceCustomFloatingPoint4?: number | null;
-        'deviceCustom FloatingPoint4Label'?: string | null;
+        "deviceCustom FloatingPoint4Label"?: string | null;
         deviceCustomNumber1?: number | null;
         deviceCustomNumber1Label?: string | null;
         DeviceCustomNumber2?: number | null;
@@ -1189,7 +1184,7 @@ export namespace CEF {
         deviceCustomString6Label?: string | null;
         destinationDnsDomain?: string | null;
         destinationServiceName?: string | null;
-        'destinationTranslated Address'?: string | null;
+        "destinationTranslated Address"?: string | null;
         destinationTranslatedPort?: string | null;
         deviceCustomDate1?: string | null;
         deviceCustomDate1Label?: string | null;
@@ -1276,7 +1271,7 @@ export namespace CEF {
         agentDnsDomain?: string | null;
         agentNtDomain?: string | null;
         agentTranslatedAddress?: string | null;
-        'agentTranslatedZone ExternalID'?: string | null;
+        "agentTranslatedZone ExternalID"?: string | null;
         agentTranslatedZoneURI?: string | null;
         agentZoneExternalID?: string | null;
         agentZoneURI?: string | null;
@@ -1290,11 +1285,11 @@ export namespace CEF {
         agentVersion?: string | null;
         customerExternalID?: string | null;
         customerURI?: string | null;
-        'destinationTranslated ZoneExternalID'?: string | null;
-        'destinationTranslated ZoneURI'?: string | null;
+        "destinationTranslated ZoneExternalID"?: string | null;
+        "destinationTranslated ZoneURI"?: string | null;
         destinationZoneExternalID?: string | null;
         destinationZoneURI?: string | null;
-        'deviceTranslatedZone ExternalID'?: string | null;
+        "deviceTranslatedZone ExternalID"?: string | null;
         deviceTranslatedZoneURI?: string | null;
         deviceZoneExternalID?: string | null;
         deviceZoneURI?: string | null;
@@ -1304,7 +1299,7 @@ export namespace CEF {
         rawEvent?: string | null;
         sourceGeoLatitude?: number | null;
         sourceGeoLongitude?: number | null;
-        'sourceTranslatedZone ExternalID'?: string | null;
+        "sourceTranslatedZone ExternalID"?: string | null;
         sourceTranslatedZoneURI?: string | null;
         sourceZoneExternalID?: string | null;
         sourceZoneURI?: string | null;

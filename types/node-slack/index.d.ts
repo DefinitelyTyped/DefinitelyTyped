@@ -1,22 +1,14 @@
-// Type definitions for node-slack
-// Project: https://github.com/xoxco/node-slack
-// Definitions by: Qubo <https://github.com/tkQubo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-
-import request = require('request');
+import request = require("request");
 
 declare class Slack {
     constructor(hookUrl: string, option?: Slack.Option);
-    send(message: Slack.Message): any; //TODO: Here comes deferred's promise as a return type
+    send(message: Slack.Message): any; // TODO: Here comes deferred's promise as a return type
     send(message: Slack.Message, callback: Slack.SendCallback): request.Request;
     respond(query: Slack.Query): Slack.TextResponse;
     respond(query: Slack.Query, callback: Slack.ResponseCallback): Slack.TextResponse;
 }
 
 declare namespace Slack {
-
     interface Option {
         proxy: string;
     }

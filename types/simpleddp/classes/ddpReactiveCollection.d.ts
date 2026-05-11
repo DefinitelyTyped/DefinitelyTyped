@@ -1,7 +1,7 @@
-import { ddpBaseFilterOptions } from '../options';
-import { ddpCollection } from './ddpCollection';
-import { ddpReactiveDocument, ddpReactiveDocumentSettings } from './ddpReactiveDocument';
-import { ddpReducer } from './ddpReducer';
+import { ddpBaseFilterOptions } from "../options";
+import { ddpCollection } from "./ddpCollection";
+import { ddpReactiveDocument, ddpReactiveDocumentSettings } from "./ddpReactiveDocument";
+import { ddpReducer } from "./ddpReducer";
 
 export class ddpReactiveCollection<T> {
     constructor(ddpCollection: ddpCollection<T>, skiplimit: ddpBaseFilterOptions);
@@ -23,7 +23,6 @@ export class ddpReactiveCollection<T> {
      */
     one(settings: ddpReactiveDocumentSettings): ddpReactiveDocument<T>;
     /**
-     *
      * @param f () => void to execute on each element in the array.
      * @param initialValue Value to use as the first argument to the first call of the function.
      */
@@ -36,7 +35,6 @@ export class ddpReactiveCollection<T> {
      */
     settings(skiplimit: ddpBaseFilterOptions): void;
     /**
-     *
      * @param f A function used for sorting.
      */
     sort(f: typeof Array.prototype.sort): this;

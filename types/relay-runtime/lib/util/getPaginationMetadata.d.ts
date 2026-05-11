@@ -1,5 +1,5 @@
-import { ReaderFragment, ReaderPaginationMetadata } from './ReaderNode';
-import { ConcreteRequest } from './RelayConcreteNode';
+import { ReaderFragment, ReaderPaginationMetadata } from "./ReaderNode";
+import { ConcreteRequest } from "./RelayConcreteNode";
 
 export default function getPaginationMetadata(
     fragmentNode: ReaderFragment,

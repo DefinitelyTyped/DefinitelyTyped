@@ -1,6 +1,23 @@
 {
     "private": true,
+    "name": "@types/jquery.livestampjs",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jquery.livestampjs",
+    "projects": [
+        "http://mattbradley.github.com/livestampjs/"
+    ],
     "dependencies": {
+        "@types/jquery": "*",
         "moment": ">=2.14.0"
-    }
+    },
+    "devDependencies": {
+        "@types/jquery.livestampjs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Vincent Bortone",
+            "githubUsername": "vbortone"
+        }
+    ]
 }

@@ -1,7 +1,7 @@
-import { Interface as ReadlineInterface } from 'readline';
-import { Answers, ListQuestionOptions } from '../../index.js';
-import Paginator from '../utils/paginator.js';
-import Prompt from './base.js';
+import { Interface as ReadlineInterface } from "readline";
+import { Answers, ListQuestionOptions } from "../../index.js";
+import Paginator from "../utils/paginator.js";
+import Prompt from "./base.js";
 
 /**
  * The question-options for the {@link ListPrompt `ListPrompt<TQuestion>`}.

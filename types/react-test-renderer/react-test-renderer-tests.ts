@@ -1,13 +1,12 @@
 import React = require("react");
 import { act, create, ReactTestInstance } from "react-test-renderer";
-import { createRenderer } from 'react-test-renderer/shallow';
 
-class TestComponent extends React.Component { }
+class TestComponent extends React.Component {}
 
 const renderer = create(React.createElement("div"), {
     createNodeMock: (el: React.ReactElement) => {
         return {};
-    }
+    },
 });
 
 const json = renderer.toJSON();
@@ -69,12 +68,6 @@ if (instance) {
 }
 
 testInstance(renderer.root);
-
-const component = React.createElement(TestComponent);
-const shallowRenderer = createRenderer();
-shallowRenderer.render(component);
-shallowRenderer.getRenderOutput();
-shallowRenderer.getMountedInstance();
 
 // Only synchronous, void callbacks are acceptable for act()
 act(() => {});

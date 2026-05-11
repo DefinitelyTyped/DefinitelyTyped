@@ -1,8 +1,3 @@
-// Type definitions for rx-lite-joinpatterns 4.0
-// Project: https://github.com/Reactive-Extensions/RxJS
-// Definitions by: Igor Oleinikov <https://github.com/Igorbek>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="rx-lite" />
 
 declare namespace Rx {
@@ -32,17 +27,33 @@ declare namespace Rx {
     }
     interface Pattern7<T1, T2, T3, T4, T5, T6, T7> {
         and<T8>(other: Observable<T8>): Pattern8<T1, T2, T3, T4, T5, T6, T7, T8>;
-        thenDo<TR>(selector: (item1: T1, item2: T2, item3: T3, item4: T4, item5: T5, item6: T6, item7: T7) => TR): Plan<TR>;
+        thenDo<TR>(
+            selector: (item1: T1, item2: T2, item3: T3, item4: T4, item5: T5, item6: T6, item7: T7) => TR,
+        ): Plan<TR>;
     }
     interface Pattern8<T1, T2, T3, T4, T5, T6, T7, T8> {
         and<T9>(other: Observable<T9>): Pattern9<T1, T2, T3, T4, T5, T6, T7, T8, T9>;
-        thenDo<TR>(selector: (item1: T1, item2: T2, item3: T3, item4: T4, item5: T5, item6: T6, item7: T7, item8: T8) => TR): Plan<TR>;
+        thenDo<TR>(
+            selector: (item1: T1, item2: T2, item3: T3, item4: T4, item5: T5, item6: T6, item7: T7, item8: T8) => TR,
+        ): Plan<TR>;
     }
     interface Pattern9<T1, T2, T3, T4, T5, T6, T7, T8, T9> {
-        thenDo<TR>(selector: (item1: T1, item2: T2, item3: T3, item4: T4, item5: T5, item6: T6, item7: T7, item8: T8, item9: T9) => TR): Plan<TR>;
+        thenDo<TR>(
+            selector: (
+                item1: T1,
+                item2: T2,
+                item3: T3,
+                item4: T4,
+                item5: T5,
+                item6: T6,
+                item7: T7,
+                item8: T8,
+                item9: T9,
+            ) => TR,
+        ): Plan<TR>;
     }
 
-    interface Plan<T> { }
+    interface Plan<T> {}
 
     interface Observable<T> {
         and<T2>(other: Observable<T2>): Pattern2<T, T2>;

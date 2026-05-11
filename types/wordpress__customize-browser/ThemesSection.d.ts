@@ -1,7 +1,7 @@
-import { Control } from './Control';
-import { Section_Params, Section } from './Section';
-import { ThemeControl } from './ThemeControl';
-import { Theme } from './external';
+import { Control } from "./Control";
+import { Theme } from "./external";
+import { Section, Section_Params } from "./Section";
+import { ThemeControl } from "./ThemeControl";
 
 export class ThemesSection extends Section {
     currentTheme: string;
@@ -22,12 +22,12 @@ export class ThemesSection extends Section {
     updateCountDebounced: ((count: number) => void) | null;
     initialize(id?: string, options?: Section_Params): void;
     loadThemes(): void;
-    loadControls(themes: ReadonlyArray<Theme>, page: number): void;
+    loadControls(themes: readonly Theme[], page: number): void;
     loadMore(): void;
     filterSearch(term: string): void;
     checkTerm(section: ThemesSection): void;
     filtersChecked(): void;
-    initializeNewQuery(newTerm: string, newTags: ReadonlyArray<string>): void;
+    initializeNewQuery(newTerm: string, newTags: readonly string[]): void;
     renderScreenshots(): void;
     getVisibleCount(): number;
     updateCount(count: number): void;

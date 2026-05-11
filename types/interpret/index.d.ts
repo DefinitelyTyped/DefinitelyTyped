@@ -1,12 +1,7 @@
-// Type definitions for interpret 1.1
-// Project: https://github.com/gulpjs/interpret
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export interface Hook {
-    (m: { extensions: string } | NodeModule): any;
+    (m: { extensions: string } | NodeJS.Module): any;
     install(m?: { extension: string; [key: string]: any }): void;
 }
 

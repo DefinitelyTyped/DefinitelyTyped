@@ -1,13 +1,12 @@
-import { Texture } from './Texture';
 import {
-    Wrapping,
-    PixelFormat,
-    TextureDataType,
+    CubeTextureMapping,
     MagnificationTextureFilter,
     MinificationTextureFilter,
-    CubeTextureMapping,
-    ColorSpace,
-} from '../constants';
+    PixelFormat,
+    TextureDataType,
+    Wrapping,
+} from "../constants.js";
+import { Texture } from "./Texture.js";
 
 /**
  * Creates a cube texture made up of six images.
@@ -28,7 +27,7 @@ import {
  * @see {@link https://threejs.org/docs/index.html#api/en/textures/CubeTexture | Official Documentation}
  * @see {@link https://github.com/mrdoob/three.js/blob/master/src/textures/CubeTexture.js | Source}
  */
-export class CubeTexture extends Texture {
+export class CubeTexture<TImage = unknown> extends Texture<TImage[]> {
     /**
      * This creates a new {@link THREE.CubeTexture | CubeTexture} object.
      * @param images
@@ -43,7 +42,7 @@ export class CubeTexture extends Texture {
      * @param colorSpace See {@link Texture.colorSpace | .colorSpace}. Default {@link NoColorSpace}
      */
     constructor(
-        images?: any[], // HTMLImageElement or HTMLCanvasElement
+        images?: TImage[],
         mapping?: CubeTextureMapping,
         wrapS?: Wrapping,
         wrapT?: Wrapping,
@@ -52,7 +51,7 @@ export class CubeTexture extends Texture {
         format?: PixelFormat,
         type?: TextureDataType,
         anisotropy?: number,
-        colorSpace?: ColorSpace,
+        colorSpace?: string,
     );
 
     /**
@@ -66,15 +65,8 @@ export class CubeTexture extends Texture {
      * An image object, typically created using the {@link THREE.CubeTextureLoader.load | CubeTextureLoader.load()} method.
      * @see {@link Texture.image}
      */
-    get image(): any;
-    set image(data: any);
-
-    /**
-     * An image object, typically created using the {@link THREE.CubeTextureLoader.load | CubeTextureLoader.load()} method.
-     * @see {@link Texture.image}
-     */
-    get images(): any;
-    set images(data: any);
+    get images(): TImage[];
+    set images(value: TImage[]);
 
     /**
      * @inheritDoc

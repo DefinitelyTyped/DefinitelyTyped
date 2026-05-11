@@ -1,6 +1,6 @@
 /// <reference types="node"/>
 
-import pdfParse = require('pdf-parse');
+import pdfParse = require("pdf-parse");
 
 const dataBuffer: Buffer = null as never;
 
@@ -27,12 +27,17 @@ let options: pdfParse.Options;
 options = {};
 
 options = {
-    pagerender: pageData => {
-        const _pageData: any = pageData;
-        return 'modified callback';
+    pagerender: () => {
+        return "modified callback";
     },
     max: 0,
-    version: 'v1.10.100',
+    version: "v1.10.100",
+};
+
+options = {
+    pagerender: async () => {
+        return "modified callback";
+    },
 };
 
 pdfParse(dataBuffer, options);

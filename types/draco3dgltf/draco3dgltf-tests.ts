@@ -1,4 +1,4 @@
-import { createEncoderModule, createDecoderModule, EncoderModule, DecoderModule } from 'draco3dgltf';
+import { createDecoderModule, createEncoderModule, DecoderModule, EncoderModule } from "draco3dgltf";
 
 // Additional tests in '../draco3d/draco3d-tests.ts'.
 

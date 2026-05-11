@@ -5,7 +5,7 @@ When writing MediaWiki [gadgets](https://www.mediawiki.org/wiki/Extension:Gadget
 This package uses JSDoc documentation from OOjs, which is licensed under the MIT License.
 
 ```
-Copyright 2011-2017 OOjs Team and other contributors.
+Copyright Wikimedia Foundation and other contributors.
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the

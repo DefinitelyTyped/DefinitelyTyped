@@ -1,6 +1,6 @@
-import { Progressbar, create } from 'progressbar';
+import { create, Progressbar } from "progressbar";
 
-let str = '';
+let str = "";
 let progressbar: Progressbar;
 let num = 1;
 const fn: () => void = () => {};

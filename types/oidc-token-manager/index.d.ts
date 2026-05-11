@@ -1,8 +1,3 @@
-// Type definitions for oidc-token-manager
-// Project: https://github.com/IdentityModel/oidc-token-manager
-// Definitions by: Sławomir Rosiek <https://github.com/rosieks>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace Oidc {
     class DefaultHttpRequest {
         getJSON(url: string, config: any): DefaultPromise;
@@ -30,7 +25,7 @@ declare namespace Oidc {
     }
 
     interface OidcClient_Static {
-        new (settings: OidcClientSettings): OidcTokenManager;
+        new(settings: OidcClientSettings): OidcTokenManager;
     }
 
     interface OidcClient {
@@ -79,7 +74,7 @@ declare namespace Oidc {
     }
 
     interface OidcTokenManager_Static {
-        new (settings?: OidcTokenManagerSettings): OidcTokenManager;
+        new(settings?: OidcTokenManagerSettings): OidcTokenManager;
         setPromiseFactory(promiseFactory: DefaultPromiseFactory): void;
         setHttpRequest(httpRequest: DefaultHttpRequest): void;
     }

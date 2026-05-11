@@ -1,4 +1,4 @@
-import { getDictionary, getNoMarkupDictionary } from 'cleasby-vigfusson-dictionary';
+import { getDictionary, getNoMarkupDictionary } from "cleasby-vigfusson-dictionary";
 
 // $ExpectType DictionaryEntry[]
 const result = getDictionary();

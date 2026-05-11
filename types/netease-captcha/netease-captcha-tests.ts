@@ -1,11 +1,11 @@
 const config: NeteaseCaptcha.Config = {
-    captchaId: 'FAKE ID',
-    element: '#captcha',
-    mode: 'popup',
-    protocol: 'https',
-    width: '200px',
-    lang: 'en',
-    appendTo: '#captcha2',
+    captchaId: "FAKE ID",
+    element: "#captcha",
+    mode: "popup",
+    protocol: "https",
+    width: "200px",
+    lang: "en",
+    appendTo: "#captcha2",
     onVerify: (error: any, data?: NeteaseCaptcha.Data) => {
         console.log(error, data);
     },
@@ -29,12 +29,12 @@ if (window.initNECaptcha) {
 }
 
 const invisibleConfig: NeteaseCaptcha.Config = {
-    captchaId: 'FAKE ID',
-    element: '#captcha',
-    mode: 'bind',
-    protocol: 'https',
-    width: '200px',
-    lang: 'en',
+    captchaId: "FAKE ID",
+    element: "#captcha",
+    mode: "bind",
+    protocol: "https",
+    width: "200px",
+    lang: "en",
     onVerify: (error: any, data?: NeteaseCaptcha.Data) => {
         console.log(error, data);
     },

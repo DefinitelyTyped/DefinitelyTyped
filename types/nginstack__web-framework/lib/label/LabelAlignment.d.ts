@@ -1,6 +1,4 @@
-export type exports = string;
-declare const LEFT: string;
-declare const RIGHT: string;
-declare const CENTER: string;
-declare const JUSTIFY: string;
-export {};
+export const LEFT = "left";
+export const RIGHT = "right";
+export const CENTER = "center";
+export const JUSTIFY = "justify";

@@ -1,6 +1,21 @@
 {
     "private": true,
+    "name": "@types/redux-shortcuts",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/nak2k/node-redux-shortcuts"
+    ],
     "dependencies": {
+        "@types/mousetrap": "*",
         "redux": "^3.6.0"
-    }
+    },
+    "devDependencies": {
+        "@types/redux-shortcuts": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tim Stirrat",
+            "githubUsername": "tstirrat"
+        }
+    ]
 }

@@ -1,13 +1,13 @@
 let data = [{
     label: "2010-5-1",
-    value: 15
+    value: 15,
 }];
 
 let donutChart = Morris.Donut({
     element: "donutChartId",
     data: data,
     colors: ["chartreuse"],
-    resize: false
+    resize: false,
 });
 
 let barChart = Morris.Bar({
@@ -25,7 +25,7 @@ let barChart = Morris.Bar({
     gridTextWeight: "bold",
     barColors: ["aquamarine"],
     stacked: false,
-    hoverCallback: (index, options, content, row) => index + " " + content
+    hoverCallback: (index, options, content, row) => index + " " + content,
 });
 
 let lineChart = Morris.Line({
@@ -64,7 +64,7 @@ let lineChart = Morris.Line({
     gridTextSize: 42,
     gridTextFamily: "comic sans",
     gridTextWeight: "bold",
-    fillOpacity: 42
+    fillOpacity: 42,
 });
 
 let areaChart = Morris.Area({
@@ -73,5 +73,5 @@ let areaChart = Morris.Area({
     xkey: "label",
     ykeys: ["value"],
     labels: ["labels"],
-    behaveLikeLine: false
+    behaveLikeLine: false,
 });

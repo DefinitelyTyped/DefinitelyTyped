@@ -1,8 +1,3 @@
-// Type definitions for html-escape 1.0
-// Project: https://github.com/parshap/html-escape
-// Definitions by: ExE Boss <https://github.com/ExE-Boss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Escape a string to be safe for use in HTML by escaping
  * [reserved characters](http://www.w3.org/International/questions/qa-escapes#use)

@@ -1,6 +1,6 @@
-import forEach = require('es-abstract/helpers/forEach');
+import forEach = require("es-abstract/helpers/forEach");
 
-forEach([1, 2, '3'], function(v, i, a) {
+forEach([1, 2, "3"], function(v, i, a) {
     v; // $ExpectType string | number
     i; // $ExpectType number
     a; // $ExpectType (string | number)[]
@@ -10,8 +10,8 @@ forEach([1, 2, '3'], function(v, i, a) {
 forEach(
     {
         a: 1,
-        2: '3',
-        [Symbol.toStringTag]: 'foo',
+        2: "3",
+        [Symbol.toStringTag]: "foo",
     },
     function(v, k, o) {
         v; // $ExpectType string | number

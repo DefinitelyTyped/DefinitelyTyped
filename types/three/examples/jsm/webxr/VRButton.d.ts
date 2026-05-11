@@ -1,5 +1,7 @@
-import { WebGLRenderer } from '../../../src/Three';
+export interface VRButtonRenderer {
+    xr: { setSession: (value: XRSession) => Promise<void> };
+}
 
-export namespace VRButton {
-    function createButton(renderer: WebGLRenderer): HTMLElement;
+export class VRButton {
+    static createButton(renderer: VRButtonRenderer, sessionInit?: XRSessionInit): HTMLElement;
 }

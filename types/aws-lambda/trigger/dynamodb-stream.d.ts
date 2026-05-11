@@ -1,21 +1,29 @@
-import { Handler } from '../handler';
+import { Handler } from "../handler";
 
-// tslint:disable-next-line:void-return
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 export type DynamoDBStreamHandler = Handler<DynamoDBStreamEvent, DynamoDBBatchResponse | void>;
 
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers, @definitelytyped/no-single-element-tuple-type
+type Merge<T> = [{ [K in keyof T]: T[K] }][number];
+
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
+type ExclusivePropertyUnion<T, P = keyof T> = P extends any
+    ? Merge<{ [K in Extract<keyof T, P>]: T[K] } & { [K in Exclude<keyof T, P>]?: never }>
+    : never;
+
 // http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_streams_AttributeValue.html
-export interface AttributeValue {
-    B?: string | undefined;
-    BS?: string[] | undefined;
-    BOOL?: boolean | undefined;
-    L?: AttributeValue[] | undefined;
-    M?: { [id: string]: AttributeValue } | undefined;
-    N?: string | undefined;
-    NS?: string[] | undefined;
-    NULL?: boolean | undefined;
-    S?: string | undefined;
-    SS?: string[] | undefined;
-}
+export type AttributeValue = ExclusivePropertyUnion<{
+    B: string;
+    BOOL: boolean;
+    BS: string[];
+    L: AttributeValue[];
+    M: Record<string, AttributeValue>;
+    N: string;
+    NS: string[];
+    NULL: boolean;
+    S: string;
+    SS: string[];
+}>;
 
 // http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_streams_StreamRecord.html
 export interface StreamRecord {
@@ -25,7 +33,7 @@ export interface StreamRecord {
     OldImage?: { [key: string]: AttributeValue } | undefined;
     SequenceNumber?: string | undefined;
     SizeBytes?: number | undefined;
-    StreamViewType?: 'KEYS_ONLY' | 'NEW_IMAGE' | 'OLD_IMAGE' | 'NEW_AND_OLD_IMAGES' | undefined;
+    StreamViewType?: "KEYS_ONLY" | "NEW_IMAGE" | "OLD_IMAGE" | "NEW_AND_OLD_IMAGES" | undefined;
 }
 
 // http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_streams_Record.html
@@ -33,7 +41,7 @@ export interface DynamoDBRecord {
     awsRegion?: string | undefined;
     dynamodb?: StreamRecord | undefined;
     eventID?: string | undefined;
-    eventName?: 'INSERT' | 'MODIFY' | 'REMOVE' | undefined;
+    eventName?: "INSERT" | "MODIFY" | "REMOVE" | undefined;
     eventSource?: string | undefined;
     eventSourceARN?: string | undefined;
     eventVersion?: string | undefined;

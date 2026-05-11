@@ -1,7 +1,21 @@
 {
     "private": true,
+    "name": "@types/vue3-carousel-3d",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/Ray93/vue3-carousel-3d"
+    ],
     "dependencies": {
         "@babel/types": "^7.21.2",
         "vue": "^3.2.38"
-    }
+    },
+    "devDependencies": {
+        "@types/vue3-carousel-3d": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "tevem1207",
+            "githubUsername": "tevem1207"
+        }
+    ]
 }

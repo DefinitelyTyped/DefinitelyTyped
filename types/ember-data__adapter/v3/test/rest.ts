@@ -1,4 +1,4 @@
-import RESTAdapter from '@ember-data/adapter/rest';
+import RESTAdapter from "@ember-data/adapter/rest";
 
 class MyRESTAdapter extends RESTAdapter {
     someMethod() {

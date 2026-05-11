@@ -1,4 +1,14 @@
-export declare type UnitTypeEnum = "angleUnit" | "densityUnit" | "distanceUnit" | "percentUnit" | "pixelsUnit" | "pointsUnit" | "millimetersUnit" | "centimetersUnit" | "inchesUnit" | "picasUnit";
+export declare type UnitTypeEnum =
+    | "angleUnit"
+    | "densityUnit"
+    | "distanceUnit"
+    | "percentUnit"
+    | "pixelsUnit"
+    | "pointsUnit"
+    | "millimetersUnit"
+    | "centimetersUnit"
+    | "inchesUnit"
+    | "picasUnit";
 export interface UnitValue {
     _unit: UnitTypeEnum;
     _value: number;

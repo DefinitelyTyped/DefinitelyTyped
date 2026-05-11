@@ -1,4 +1,4 @@
-import streamx = require('streamx');
+import streamx = require("streamx");
 const { Readable, Writable } = streamx;
 
 {
@@ -9,21 +9,21 @@ const { Readable, Writable } = streamx;
         },
     });
     // @ts-expect-error
-    r.on('anyevent', () => {});
+    r.on("anyevent", () => {});
     // @ts-expect-error
-    r.on('data', (data: string) => {});
+    r.on("data", (data: string) => {});
     // @ts-expect-error
-    r.on('error', (error: number) => {});
+    r.on("error", (error: number) => {});
     // @ts-expect-error
-    r.on('open', (hello: string) => {});
+    r.on("open", (hello: string) => {});
     // @ts-expect-error
-    r.on('close', (hello: string) => {});
+    r.on("close", (hello: string) => {});
     // @ts-expect-error
     r.unshift(1);
     // @ts-expect-error
     r.push(1);
     // @ts-expect-error
-    r.destroy('hi');
+    r.destroy("hi");
     // @ts-expect-error
     r.pipe(new Readable());
     // @ts-expect-error
@@ -38,7 +38,7 @@ const { Readable, Writable } = streamx;
         },
     });
     // @ts-expect-error
-    w.write('123');
+    w.write("123");
     // @ts-expect-error
-    w.end('123');
+    w.end("123");
 }

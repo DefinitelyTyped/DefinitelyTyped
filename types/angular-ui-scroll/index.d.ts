@@ -1,14 +1,8 @@
-// Type definitions for Angular JS (ui.scroll module) 1.3.1
-// Project: https://github.com/angular-ui/ui-scroll
-// Definitions by: Mark Nadig <https://github.com/marknadig>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="angular" />
 
-import * as ng from 'angular';
+import * as ng from "angular";
 
-declare module 'angular' {
+declare module "angular" {
     export namespace ui {
         interface IScrollDatasource<T> {
             /**
@@ -25,7 +19,7 @@ declare module 'angular' {
              * Important: Make sure to respect the index and count parameters of the request. The array passed to the
              * success method should have exactly count elements unless it hit eof/bof
              */
-            get(index: number, count: number, success: (results: Array<T>) => any): void;
+            get(index: number, count: number, success: (results: T[]) => any): void;
         }
 
         interface IScrollAdapter {

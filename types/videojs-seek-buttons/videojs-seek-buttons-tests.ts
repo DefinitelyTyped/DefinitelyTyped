@@ -1,13 +1,13 @@
-import videojs from 'video.js';
+import videojs from "video.js";
 
-const player = videojs('my-video', {
+const player = videojs("my-video", {
     plugins: {
         seekButtons: {
             forward: 30,
             back: 10,
         },
         otherStuff: {
-            foo: 'bar',
+            foo: "bar",
         },
     },
 });

@@ -1,5 +1,5 @@
-import { MapOptions } from '.';
-import Source = require('./Source');
+import { MapOptions } from ".";
+import Source = require("./Source");
 
 /**
  * Represents source code without SourceMap

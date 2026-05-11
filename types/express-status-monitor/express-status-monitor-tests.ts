@@ -1,15 +1,15 @@
-import express = require('express');
-import expressStatusMonitor = require('express-status-monitor');
-import socketIO = require('socket.io');
+import express = require("express");
+import expressStatusMonitor = require("express-status-monitor");
+import socketIO = require("socket.io");
 
 const app = express();
 app.use(expressStatusMonitor());
 app.use(
     expressStatusMonitor({
-        title: 'Type Test',
-        theme: 'default.css',
-        path: '/status',
-        socketPath: '/socket.io',
+        title: "Type Test",
+        theme: "default.css",
+        path: "/status",
+        socketPath: "/socket.io",
         websocket: null,
         chartVisibility: {
             cpu: true,
@@ -17,7 +17,7 @@ app.use(
             load: true,
             heap: true,
         },
-        ignoreStartsWith: '/admin',
+        ignoreStartsWith: "/admin",
         healthChecks: [],
     }),
 );
@@ -26,10 +26,10 @@ app.use(
         spans: [{ interval: 10000, retention: 60 * 1000 }],
         healthChecks: [
             {
-                protocol: 'http',
-                host: 'localhost',
-                path: '/healthcheck',
-                port: '4000',
+                protocol: "http",
+                host: "localhost",
+                path: "/healthcheck",
+                port: "4000",
             },
         ],
     }),

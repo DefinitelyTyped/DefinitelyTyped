@@ -1,27 +1,27 @@
+import { Point, TextEditor } from "../index.d";
 import {
-    SuggestionsRequestedEvent,
-    Suggestion,
-    Suggestions,
-    SuggestionInsertedEvent,
     AutocompleteProvider,
-} from './index.d';
-import { TextEditor, Point } from '../index.d';
+    Suggestion,
+    SuggestionInsertedEvent,
+    Suggestions,
+    SuggestionsRequestedEvent,
+} from "./index.d";
 
 // https://github.com/atom/autocomplete-plus/wiki/Provider-API#suggestions
 const suggestion: Suggestion = {
-    text: 'someText',
-    snippet: 'someText(${1:myArg})',
-    displayText: 'someText',
-    replacementPrefix: 'so',
-    type: 'function',
-    leftLabel: '',
-    leftLabelHTML: '',
-    rightLabel: '',
-    rightLabelHTML: '',
-    className: '',
-    iconHTML: '',
-    description: '',
-    descriptionMoreURL: '',
+    text: "someText",
+    snippet: "someText(${1:myArg})",
+    displayText: "someText",
+    replacementPrefix: "so",
+    type: "function",
+    leftLabel: "",
+    leftLabelHTML: "",
+    rightLabel: "",
+    rightLabelHTML: "",
+    className: "",
+    iconHTML: "",
+    description: "",
+    descriptionMoreURL: "",
     // characterMatchIndices: [0, 1, 2], // TODO missing in the types
 };
 
@@ -32,19 +32,19 @@ const suggestionsRequestedEvent: SuggestionsRequestedEvent = {
 
     scopeDescriptor: {
         getScopesArray() {
-            return ['source.js'];
+            return ["source.js"];
         },
     },
 
-    prefix: '',
+    prefix: "",
 
     activatedManually: false,
 };
 
 // https://github.com/atom/autocomplete-plus/wiki/Provider-API#defining-a-provider
 const provider: AutocompleteProvider = {
-    selector: '.source.js, .source.coffee',
-    disableForSelector: '.source.js .comment',
+    selector: ".source.js, .source.coffee",
+    disableForSelector: ".source.js .comment",
 
     inclusionPriority: 1,
     excludeLowerPriority: true,
@@ -60,7 +60,7 @@ const provider: AutocompleteProvider = {
         prefix,
         activatedManually,
     }: SuggestionsRequestedEvent): Promise<Suggestions> {
-        return new Promise(resolve => resolve([{ text: 'something' }]));
+        return new Promise(resolve => resolve([{ text: "something" }]));
     },
 
     getSuggestionDetailsOnSelect(suggestion) {

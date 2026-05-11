@@ -2,7 +2,7 @@ declare namespace CKEDITOR {
     interface CKEditorStatic {
         readonly filter: {
             instances: { [id: string]: filter };
-            new (editorOrRules: editor | filter.allowedContentRules): filter;
+            new(editorOrRules: editor | filter.allowedContentRules): filter;
         };
     }
 

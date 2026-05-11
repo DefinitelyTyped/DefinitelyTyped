@@ -1,8 +1,9 @@
 export = LobFileStorage;
-declare function LobFileStorage(classKey: number): void;
+declare function LobFileStorage(lobClassKey: number, relationClassKey: any): void;
 declare class LobFileStorage {
-    constructor(classKey: number);
-    private classKey_;
+    constructor(lobClassKey: number, relationClassKey: any);
+    private lobClassKey_;
+    private relationClassKey_;
     private lobStorage_;
     tryGetFileInfo(fileKey: number): FileInfo;
     setExtraFileAttributes(fileKey: number, attributes: any): void;
@@ -10,7 +11,13 @@ declare class LobFileStorage {
     findFileByName(fileName: string): FileInfo;
     getFilesSize(fileKeys: number[]): number;
     addFile(fileName: string, content: string | File | MemoryStream): number;
-    updateFile(fileKey: number, content: string | File | MemoryStream): void;
+    updateFile(
+        fileKey: number,
+        content: string | File | MemoryStream,
+        options?: {
+            fileName?: string;
+        }
+    ): void;
 }
 import FileInfo = require('./FileInfo.js');
 import File = require('../io/File.js');

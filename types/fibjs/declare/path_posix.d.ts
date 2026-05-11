@@ -202,7 +202,7 @@
 declare module "path_posix" {
     
 
-    module path_posix {
+    namespace path_posix {
         
         
         /**

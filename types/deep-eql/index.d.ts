@@ -1,8 +1,3 @@
-// Type definitions for deep-eql 4.0
-// Project: https://github.com/chaijs/deep-eql
-// Definitions by: Rodrigo Pietnechuk <https://github.com/ghnoob>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace deepEqual {
     /**
      * Memoization class used to speed up comparison.

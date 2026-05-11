@@ -1,5 +1,9 @@
 {
     "rules": {
-        "no-any-union": "off"
+        "@definitelytyped/no-any-union": "off",
+        "@definitelytyped/strict-export-declare-modifiers": "off",
+        "@typescript-eslint/prefer-namespace": "off",
+        "@typescript-eslint/no-empty-interface": "off",
+        "@typescript-eslint/naming-convention": "off"
     }
 }

@@ -1,0 +1,26 @@
+{
+    "private": true,
+    "name": "@types/mojang-gametest",
+    "version": "0.1.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "mojang-gametest",
+    "projects": [
+        "https://docs.microsoft.com/minecraft/creator/"
+    ],
+    "dependencies": {
+        "@types/mojang-minecraft": "*"
+    },
+    "devDependencies": {
+        "@types/mojang-gametest": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jake Shirley",
+            "githubUsername": "JakeShirley"
+        },
+        {
+            "name": "Mike Ammerlaan",
+            "githubUsername": "mammerla"
+        }
+    ]
+}

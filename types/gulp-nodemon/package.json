@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/gulp-nodemon",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/JacksonGariety/gulp-nodemon"
+    ],
+    "dependencies": {
+        "@types/gulp": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/gulp-nodemon": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Qubo",
+            "githubUsername": "tkQubo"
+        }
+    ]
+}

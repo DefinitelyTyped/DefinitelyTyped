@@ -1,5 +1,3 @@
-export type exports = number;
-declare const IGNORE: number;
-declare const ACCEPT: number;
-declare const REMOVE: number;
-export {};
+export const IGNORE = 0;
+export const ACCEPT = 1;
+export const REMOVE = 2;

@@ -1,11 +1,11 @@
-import * as sandbox from '@architect/sandbox';
+import * as sandbox from "@architect/sandbox";
 
 sandbox.start().then(() => {});
 sandbox.start({}).then(() => {});
 sandbox.start({ quiet: true }).then(() => {});
 sandbox.start({ port: 4444 }).then(() => {});
-sandbox.start({ cwd: './idk/arc/' }).then(() => {});
-sandbox.start({ logLevel: 'normal' }).then(() => {});
+sandbox.start({ cwd: "./idk/arc/" }).then(() => {});
+sandbox.start({ logLevel: "normal" }).then(() => {});
 sandbox.start({ symlink: true }).then(() => {});
 sandbox.start({}, () => {});
 

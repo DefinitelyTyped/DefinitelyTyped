@@ -1,8 +1,3 @@
-// Type definitions for omgopass 3.2
-// Project: https://github.com/omgovich/omgopass#readme
-// Definitions by: Nikolai Kolodziej <https://github.com/kldzj>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface OmgopassOptions {
     /**
      * Count of syllables

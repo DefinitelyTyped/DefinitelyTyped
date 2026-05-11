@@ -1,4 +1,4 @@
-import * as randomGradient from "random-gradient";
+import randomGradient from "random-gradient";
 
 const direction: randomGradient.GradientDirection = "horizontal";
 

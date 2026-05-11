@@ -1,6 +1,21 @@
 {
     "private": true,
+    "name": "@types/mongoose-sequence",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/ramiel/mongoose-sequence"
+    ],
     "dependencies": {
+        "@types/node": "*",
         "mongoose": "^6.3.0"
-    }
+    },
+    "devDependencies": {
+        "@types/mongoose-sequence": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Linus Brolin",
+            "githubUsername": "linusbrolin"
+        }
+    ]
 }

@@ -1,8 +1,3 @@
-// Type definitions for polycrc 0.1
-// Project: https://github.com/latysheff/node-polycrc#readme
-// Definitions by: Emmanuel <https://github.com/emmanuelm41>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export class CRC {

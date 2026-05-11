@@ -35,7 +35,7 @@ declare namespace jsrsasign.KJUR.crypto {
          * @param hex hexadecial string of encrypted message
          * @param keyObj RSAKey object or hexadecimal string of symmetric cipher key
          * @param algName short/long algorithm name for encryption/decryption
-         * @return hexadecimal encrypted string
+         * @return decrypted raw string
          * @description
          * This static method decrypts encrypted hexadecimal string with specified key and algorithm.
          * @example

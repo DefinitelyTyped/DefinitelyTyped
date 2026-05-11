@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/restling",
+    "version": "0.9.9999",
+    "projects": [
+        "https://github.com/lucasfeliciano/restling"
+    ],
+    "dependencies": {
+        "@types/bluebird": "*",
+        "@types/restler": "*"
+    },
+    "devDependencies": {
+        "@types/restling": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alessandro vergani",
+            "githubUsername": "loghorn"
+        }
+    ]
+}

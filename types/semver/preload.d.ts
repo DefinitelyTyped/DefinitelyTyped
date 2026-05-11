@@ -1,2 +1,2 @@
-import semver = require('.');
+import semver = require(".");
 export = semver;

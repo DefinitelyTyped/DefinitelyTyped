@@ -1,5 +1,5 @@
-import { UnaryFunction } from '../internal/types';
-import Pair from '../Pair';
+import { UnaryFunction } from "../internal/types";
+import Pair from "../Pair";
 
 declare function State(val: (state: unknown) => Pair): State;
 

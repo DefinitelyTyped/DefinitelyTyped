@@ -1,4 +1,4 @@
-import FastBitSet = require('fastbitset');
+import FastBitSet = require("fastbitset");
 
 const bitSet = new FastBitSet();
 

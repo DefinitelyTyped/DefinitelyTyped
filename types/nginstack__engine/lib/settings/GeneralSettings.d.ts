@@ -21,18 +21,14 @@ declare class GeneralSettings {
 declare namespace GeneralSettings {
     export { getInstance, SettingOptions, DataSet };
 }
-type DataSet = import('../dataset/DataSet');
+import DBKey = require('../dbkey/DBKey.js');
+declare function getInstance(): GeneralSettings;
 interface SettingOptions {
     type: SettingType;
     multiple?: boolean;
-    classKey?: DBKey | number;
-    lookupType?: {
-        NONE: number;
-        RECORD: number;
-        CLASS: number;
-        FILE: number;
-    };
+    classKey?: number;
+    lookupType?: typeof LookupType;
 }
-import DBKey = require('../dbkey/DBKey.js');
-declare function getInstance(): GeneralSettings;
+type DataSet = import('../dataset/DataSet');
 import SettingType = require('./SettingType.js');
+import LookupType = require('../classdef/LookupType.js');

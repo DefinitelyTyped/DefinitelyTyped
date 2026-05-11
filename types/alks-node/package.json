@@ -1,6 +1,20 @@
 {
-  "private": true,
-  "dependencies": {
-    "moment": ">=2.15.2"
-  }
+    "private": true,
+    "name": "@types/alks-node",
+    "version": "0.9.9999",
+    "projects": [
+        "https://github.com/Cox-Automotive/alks-node#readme"
+    ],
+    "dependencies": {
+        "moment": ">=2.15.2"
+    },
+    "devDependencies": {
+        "@types/alks-node": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Matt Hoang",
+            "githubUsername": "matthoang08"
+        }
+    ]
 }

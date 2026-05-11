@@ -1,11 +1,6 @@
-// Type definitions for unzip-stream 0.3
-// Project: https://github.com/mhr3/unzip-stream#readme
-// Definitions by: Kyle Hensel <https://github.com/k-yle>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import { PassThrough } from 'stream';
+import { PassThrough } from "stream";
 
 export function Extract(options: {
     path: string;
@@ -20,7 +15,7 @@ export function Parse(options?: {
 
 export interface Entry extends PassThrough {
     path: string;
-    type: 'Directory' | 'File';
+    type: "Directory" | "File";
     size: number;
     autodrain: () => void;
 }

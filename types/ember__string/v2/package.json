@@ -1,0 +1,30 @@
+{
+    "private": true,
+    "name": "@types/ember__string",
+    "version": "2.0.9999",
+    "nonNpm": "conflict",
+    "nonNpmDescription": "@ember/string",
+    "projects": [
+        "https://www.npmjs.com/package/@ember/string"
+    ],
+    "dependencies": {
+        "@types/ember__template": "^3"
+    },
+    "devDependencies": {
+        "@types/ember__string": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Krystan HuffMenne",
+            "githubUsername": "gitKrystan"
+        },
+        {
+            "name": "James C. Davis",
+            "githubUsername": "jamescdavis"
+        },
+        {
+            "name": "Peter Wagenet",
+            "githubUsername": "wagenet"
+        }
+    ]
+}

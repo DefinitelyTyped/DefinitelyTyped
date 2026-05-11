@@ -8,7 +8,7 @@ const store = new DocumentDBStore({
     collection: "MY_COLLECTION",
     host: "https://sample.documents.azure.com:443/",
     ttl: 60 * 60 * 10, // 10 hours
-    key: "magic key"
+    key: "magic key",
 });
 
 const app = express();

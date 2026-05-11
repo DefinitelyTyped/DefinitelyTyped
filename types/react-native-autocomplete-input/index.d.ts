@@ -1,14 +1,5 @@
-// Type definitions for react-native-autocomplete-input 5.1
-// Project: https://github.com/mrlaessig/react-native-autocomplete-input#readme
-// Definitions by: Ifiok Jr. <https://github.com/ifiokjr>
-//                 Kanitkorn Sujautra <https://github.com/lukyth>
-//                 joleb <https://github.com/joleb>
-//                 AJ <https://github.com/ajenkins>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import { FC, ReactNode } from 'react';
-import { GestureResponderHandlers, StyleProp, ViewStyle, FlatListProps, TextInputProps } from 'react-native';
+import { FC, ReactNode } from "react";
+import { FlatListProps, GestureResponderHandlers, StyleProp, TextInputProps, ViewStyle } from "react-native";
 
 export interface AutocompleteProps<T> extends TextInputProps {
     /**
@@ -63,7 +54,7 @@ export interface AutocompleteProps<T> extends TextInputProps {
      * function
      * onStartShouldSetResponderCapture will be passed to the result list view container (onStartShouldSetResponderCapture).
      */
-    onStartShouldSetResponderCapture?: GestureResponderHandlers['onStartShouldSetResponderCapture'] | undefined;
+    onStartShouldSetResponderCapture?: GestureResponderHandlers["onStartShouldSetResponderCapture"] | undefined;
 
     /**
      * function

@@ -1,56 +1,46 @@
-// Type definitions for venn 0.2.16
-// Project: https://github.com/benfred/venn.js/
-// Definitions by: Jiajing Wang <https://github.com/marcwjj>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import * as d3 from 'd3';
+import * as d3 from "d3";
 
 /** Typing for Point object. */
 export interface Point {
-  x: number;
-  y: number;
+    x: number;
+    y: number;
 }
 
 /** Typing for Circle object. */
 export interface Circle {
-  x: number;
-  y: number;
-  radius: number;
+    x: number;
+    y: number;
+    radius: number;
 }
 
 /** Typing for Overlap object. */
 export interface Overlap {
-  sets: string[];
-  size: number;
-  weight?: number | undefined;
+    sets: string[];
+    size: number;
+    weight?: number | undefined;
 }
 
 /** Typing for Area object. */
 export interface Area {
-  sets: string[];
-  size: number;
+    sets: string[];
+    size: number;
 }
 
 /** Typing for layout function parameter. */
 export interface LayoutParameter {
-  lossFunction?: ((sets: {[key: string]: Circle}, overlaps: Overlap[]) => number) | undefined;
-  restarts?: number | undefined;
+    lossFunction?: ((sets: { [key: string]: Circle }, overlaps: Overlap[]) => number) | undefined;
+    restarts?: number | undefined;
 }
 
 /** Typing for the VennDiagram instance. */
 export interface VennDiagram {
-  (selection: d3.Selection<d3.BaseType, {}, d3.BaseType, {}|undefined>): {};
-  width: (w: number) => VennDiagram;
-  height: (h: number) => VennDiagram;
-  duration: (d: number) => VennDiagram;
-  layoutFunction:
-      (f: (areas: Area[], parameters: LayoutParameter) => void) => VennDiagram;
-  lossFunction:
-      (f: (sets: {[key: string]: Circle},
-           overlaps: Overlap[]) => number) => VennDiagram;
-  orientationOrder:
-      (f: (a: {setid: string}, b: {setid: string}) => number) => VennDiagram;
+    (selection: d3.Selection<d3.BaseType, {}, d3.BaseType, {} | undefined>): {};
+    width: (w: number) => VennDiagram;
+    height: (h: number) => VennDiagram;
+    duration: (d: number) => VennDiagram;
+    layoutFunction: (f: (areas: Area[], parameters: LayoutParameter) => void) => VennDiagram;
+    lossFunction: (f: (sets: { [key: string]: Circle }, overlaps: Overlap[]) => number) => VennDiagram;
+    orientationOrder: (f: (a: { setid: string }, b: { setid: string }) => number) => VennDiagram;
 }
 
 /**
@@ -59,7 +49,9 @@ export interface VennDiagram {
  * property).
  */
 export function intersectionArea(
-    circles: Array<{}>, stats?: {}): number;
+    circles: Array<{}>,
+    stats?: {},
+): number;
 
 /**
  * Typing for venn.distance that returns euclidean distance between two points.
@@ -72,7 +64,10 @@ export function distance(p1: Point, p2: Point): number;
  * Simpler faster circle intersection for only two circles.
  */
 export function circleOverlap(
-    r1: number, r2: number, d: number): number;
+    r1: number,
+    r2: number,
+    d: number,
+): number;
 
 /**
  * Typing for venn.circleFromPath that returns a circle object from an svg path.
@@ -85,15 +80,18 @@ export function circleFromPath(path: string): Circle;
  * the smallest areas are on top.
  */
 export function sortAreas(
-    div: d3.Selection<d3.BaseType, {}, d3.BaseType, {}|undefined>,
-    relativeTo: Area): void;
+    div: d3.Selection<d3.BaseType, {}, d3.BaseType, {} | undefined>,
+    relativeTo: Area,
+): void;
 
 /**
  * Typing for venn.bestInitialLayout that takes the best working variant of
  * either constrained MDS or greedy.
  */
 export function bestInitialLayout(
-    areas: Area[], params: LayoutParameter): Circle[];
+    areas: Area[],
+    params: LayoutParameter,
+): Circle[];
 
 /**
  * Typing for venn.venn, which given a list of set objects, and their

@@ -1,12 +1,12 @@
-import Money = require('js-money');
-import * as CurrencyObjects from 'js-money/lib/currency';
+import Money = require("js-money");
+import * as CurrencyObjects from "js-money/lib/currency";
 
-const money = new Money(1500, 'USD');
+const money = new Money(1500, "USD");
 const other = new Money(100, Money.THB);
 
 // instance method checks
 new Money(123, Money.TRY); // $ExpectType Money
-new Money(1500, 'USD'); // $ExpectType Money
+new Money(1500, "USD"); // $ExpectType Money
 money.amount; // $ExpectType number
 money.currency; // $ExpectType string
 money.equals(other); // $ExpectType boolean
@@ -34,8 +34,8 @@ money.getAmount(); // $ExpectType number
 money.getCurrency(); // $ExpectType string
 
 // static method checks
-Money.fromInteger(100, 'USD'); // $ExpectType Money
-Money.fromDecimal(100, Money.KZT, 'ceil'); // $ExpectType Money
+Money.fromInteger(100, "USD"); // $ExpectType Money
+Money.fromDecimal(100, Money.KZT, "ceil"); // $ExpectType Money
 Money.fromDecimal(100, Money.KZT); // $ExpectType Money
 Money.fromDecimal(100, Money.KZT, Math.ceil); // $ExpectType Money
 
@@ -61,4 +61,4 @@ CurrencyObjects.NIO.name_plural; // $ExpectType string
 CurrencyObjects.NIO.rounding; // $ExpectType number
 CurrencyObjects.NIO.symbol; // $ExpectType string
 CurrencyObjects.NIO.symbol_native; // $ExpectType string
-CurrencyObjects['UAH'].code;  // $ExpectType string
+CurrencyObjects["UAH"].code; // $ExpectType string

@@ -1,14 +1,12 @@
-
-
-//Example from http://bl.ocks.org/3887235
+// Example from http://bl.ocks.org/3887235
 interface TestPieChartData {
     population: number;
     age: string;
 }
 function testPieChart() {
     var width = 960,
-    height = 500,
-    radius = Math.min(width, height) / 2;
+        height = 500,
+        radius = Math.min(width, height) / 2;
 
     var color = d3.scale.ordinal<string>()
         .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
@@ -19,73 +17,81 @@ function testPieChart() {
 
     var pie = d3.layout.pie<TestPieChartData>()
         .sort(null)
-        .value(function (d) { return d.population; });
+        .value(function(d) {
+            return d.population;
+        });
 
     var svg = d3.select("body").append("svg")
         .attr("width", width)
         .attr("height", height)
-      .append("g")
+        .append("g")
         .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-    d3.csv("data.csv", d => ({ population: +d['population'], age: d['age'] }), function (error: any, data: any) {
+    d3.csv("data.csv", d => ({ population: +d["population"], age: d["age"] }), function(error: any, data: any) {
         var g = svg.selectAll(".arc")
             .data(pie(data))
-          .enter().append("g")
+            .enter().append("g")
             .attr("class", "arc");
 
         g.append("path")
             .attr("d", arc)
-            .style("fill", function (d) { return color(d.data.age); });
+            .style("fill", function(d) {
+                return color(d.data.age);
+            });
 
         g.append("text")
-            .attr("transform", function (d) { return "translate(" + arc.centroid(d) + ")"; })
+            .attr("transform", function(d) {
+                return "translate(" + arc.centroid(d) + ")";
+            })
             .attr("dy", ".35em")
             .style("text-anchor", "middle")
-            .text(function (d) { return d.data.age; });
-
+            .text(function(d) {
+                return d.data.age;
+            });
     });
 }
 
 function testMapConstructor() {
-    //No arg constructor
+    // No arg constructor
     var emptyMap: d3.Map<any> = d3.map();
 
-    //Object constructor
-    var object:{[key: string]: number } = {a: 1, b: 2, c: 3};
+    // Object constructor
+    var object: { [key: string]: number } = { a: 1, b: 2, c: 3 };
     var objectMap: d3.Map<number> = d3.map<number>(object);
 
-    //Array constructor
-    var numberArray: number[] = [1, 2, 3]
+    // Array constructor
+    var numberArray: number[] = [1, 2, 3];
     var numberArrayMap: d3.Map<number> = d3.map<number>(numberArray);
 
-    //Array with keyFn constructor
-    var objectArray: {key: string}[] = [{key: "v1"}, {key: "v2"}, {key: "v3"}];
+    // Array with keyFn constructor
+    var objectArray: Array<{ key: string }> = [{ key: "v1" }, { key: "v2" }, { key: "v3" }];
     var indexes: number[] = [];
-    //keyFn with index
-    var objectArrayMap1: d3.Map<{key: string}>
-            = d3.map<{key: string}>(objectArray, (o: {key: string}, index: number) => {
-        indexes.push(index);
-        return o.key;
-    });
-    //keyFn without index
-    var objectArrayMap2: d3.Map<{key: string}>
-            = d3.map<{key: string}>(objectArray, (o: {key: string}) => {
+    // keyFn with index
+    var objectArrayMap1: d3.Map<{ key: string }> = d3.map<{ key: string }>(
+        objectArray,
+        (o: { key: string }, index: number) => {
+            indexes.push(index);
+            return o.key;
+        },
+    );
+    // keyFn without index
+    var objectArrayMap2: d3.Map<{ key: string }> = d3.map<{ key: string }>(objectArray, (o: { key: string }) => {
         return o.key;
     });
 
-    //Map constructor
+    // Map constructor
     var duplicateMap: d3.Map<number> = d3.map(numberArrayMap);
 }
 
-//Example from http://bl.ocks.org/3887051
+// Example from http://bl.ocks.org/3887051
 interface GroupedData {
     State: string;
-    ages: Array<{ name: string; value: number;}>;
+    ages: Array<{ name: string; value: number }>;
 }
 function groupedBarChart() {
     var margin = { top: 20, right: 20, bottom: 30, left: 40 },
-    width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+        width = 960 - margin.left - margin.right,
+        height = 500 - margin.top - margin.bottom;
 
     var x0 = d3.scale.ordinal()
         .rangeRoundBands([0, width], .1);
@@ -110,77 +116,108 @@ function groupedBarChart() {
     var svg = d3.select("body").append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
-      .append("g")
+        .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    d3.csv("data.csv", <any> function (error: any, data: Array<GroupedData>) {
-        var ageNames = d3.keys(data[0]).filter(function (key) { return key !== "State"; });
+    d3.csv(
+        "data.csv",
+        <any> function(error: any, data: GroupedData[]) {
+            var ageNames = d3.keys(data[0]).filter(function(key) {
+                return key !== "State";
+            });
 
-        data.forEach(function (d) {
-            d.ages = ageNames.map(function (name) { return { name: name, value: +(<any> d)[name] }; });
-        });
+            data.forEach(function(d) {
+                d.ages = ageNames.map(function(name) {
+                    return { name: name, value: +(<any> d)[name] };
+                });
+            });
 
-        x0.domain(data.map(function (d) { return d.State; }));
-        x1.domain(ageNames).rangeRoundBands([0, x0.rangeBand()]);
-        y.domain([0, d3.max(data, function (d) { return d3.max(d.ages, function (d) { return d.value; }); })]);
+            x0.domain(data.map(function(d) {
+                return d.State;
+            }));
+            x1.domain(ageNames).rangeRoundBands([0, x0.rangeBand()]);
+            y.domain([
+                0,
+                d3.max(data, function(d) {
+                    return d3.max(d.ages, function(d) {
+                        return d.value;
+                    });
+                }),
+            ]);
 
-        svg.append("g")
-            .attr("class", "x axis")
-            .attr("transform", "translate(0," + height + ")")
-            .call(xAxis);
+            svg.append("g")
+                .attr("class", "x axis")
+                .attr("transform", "translate(0," + height + ")")
+                .call(xAxis);
 
-        svg.append("g")
-            .attr("class", "y axis")
-            .call(yAxis)
-          .append("text")
-            .attr("transform", "rotate(-90)")
-            .attr("y", 6)
-            .attr("dy", ".71em")
-            .style("text-anchor", "end")
-            .text("Population");
+            svg.append("g")
+                .attr("class", "y axis")
+                .call(yAxis)
+                .append("text")
+                .attr("transform", "rotate(-90)")
+                .attr("y", 6)
+                .attr("dy", ".71em")
+                .style("text-anchor", "end")
+                .text("Population");
 
-        var state = svg.selectAll(".state")
-            .data(data)
-          .enter().append("g")
-            .attr("class", "g")
-            .attr("transform", function (d) { return "translate(" + x0(d.State) + ",0)"; });
+            var state = svg.selectAll(".state")
+                .data(data)
+                .enter().append("g")
+                .attr("class", "g")
+                .attr("transform", function(d) {
+                    return "translate(" + x0(d.State) + ",0)";
+                });
 
-        state.selectAll<GroupedData>("rect")
-            .data(function (d) { return d.ages; })
-          .enter().append("rect")
-            .attr("width", x1.rangeBand())
-            .attr("x", function (d) { return x1(d.name); })
-            .attr("y", function (d) { return y(d.value); })
-            .attr("height", function (d) { return height - y(d.value); })
-            .style("fill", function (d) { return color(d.name); });
+            state.selectAll<GroupedData>("rect")
+                .data(function(d) {
+                    return d.ages;
+                })
+                .enter().append("rect")
+                .attr("width", x1.rangeBand())
+                .attr("x", function(d) {
+                    return x1(d.name);
+                })
+                .attr("y", function(d) {
+                    return y(d.value);
+                })
+                .attr("height", function(d) {
+                    return height - y(d.value);
+                })
+                .style("fill", function(d) {
+                    return color(d.name);
+                });
 
-        var legend = svg.selectAll(".legend")
-            .data(ageNames.reverse())
-          .enter().append("g")
-            .attr("class", "legend")
-            .attr("transform", function (d, i) { return "translate(0," + i * 20 + ")"; });
+            var legend = svg.selectAll(".legend")
+                .data(ageNames.reverse())
+                .enter().append("g")
+                .attr("class", "legend")
+                .attr("transform", function(d, i) {
+                    return "translate(0," + i * 20 + ")";
+                });
 
-        legend.append("rect")
-            .attr("x", width - 18)
-            .attr("width", 18)
-            .attr("height", 18)
-            .style("fill", color);
+            legend.append("rect")
+                .attr("x", width - 18)
+                .attr("width", 18)
+                .attr("height", 18)
+                .style("fill", color);
 
-        legend.append("text")
-            .attr("x", width - 24)
-            .attr("y", 9)
-            .attr("dy", ".35em")
-            .style("text-anchor", "end")
-            .text(function (d) { return d; });
-
-    });
+            legend.append("text")
+                .attr("x", width - 24)
+                .attr("y", 9)
+                .attr("dy", ".35em")
+                .style("text-anchor", "end")
+                .text(function(d) {
+                    return d;
+                });
+        },
+    );
 }
 
-//Example from http://bl.ocks.org/3886208
+// Example from http://bl.ocks.org/3886208
 function stackedBarChart() {
     var margin = { top: 20, right: 20, bottom: 30, left: 40 },
-    width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+        width = 960 - margin.left - margin.right,
+        height = 500 - margin.top - margin.bottom;
 
     var x = d3.scale.ordinal()
         .rangeRoundBands([0, width], .1);
@@ -203,22 +240,37 @@ function stackedBarChart() {
     var svg = d3.select("body").append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
-      .append("g")
+        .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    d3.csv("data.csv", function (error: any, data: any) {
-        color.domain(d3.keys(data[0]).filter(function (key) { return key !== "State"; }));
+    d3.csv("data.csv", function(error: any, data: any) {
+        color.domain(
+            d3.keys(data[0]).filter(function(key) {
+                return key !== "State";
+            }),
+        );
 
-        data.forEach(function (d: any) {
+        data.forEach(function(d: any) {
             var y0 = 0;
-            d.ages = color.domain().map(function (name) { return { name: name, y0: y0, y1: y0 += +d[name] }; });
+            d.ages = color.domain().map(function(name) {
+                return { name: name, y0: y0, y1: y0 += +d[name] };
+            });
             d.total = d.ages[d.ages.length - 1].y1;
         });
 
-        data.sort(function (a: any, b: any) { return b.total - a.total; });
+        data.sort(function(a: any, b: any) {
+            return b.total - a.total;
+        });
 
-        x.domain(data.map(function (d: any) { return d.State; }));
-        y.domain([0, d3.max(data, function (d: { total: number }) { return d.total; })]);
+        x.domain(data.map(function(d: any) {
+            return d.State;
+        }));
+        y.domain([
+            0,
+            d3.max(data, function(d: { total: number }) {
+                return d.total;
+            }),
+        ]);
 
         svg.append("g")
             .attr("class", "x axis")
@@ -228,7 +280,7 @@ function stackedBarChart() {
         svg.append("g")
             .attr("class", "y axis")
             .call(yAxis)
-          .append("text")
+            .append("text")
             .attr("transform", "rotate(-90)")
             .attr("y", 6)
             .attr("dy", ".71em")
@@ -237,23 +289,35 @@ function stackedBarChart() {
 
         var state = svg.selectAll(".state")
             .data(data)
-          .enter().append("g")
+            .enter().append("g")
             .attr("class", "g")
-            .attr("transform", function (d: any) { return "translate(" + x(d.State) + ",0)"; });
+            .attr("transform", function(d: any) {
+                return "translate(" + x(d.State) + ",0)";
+            });
 
         state.selectAll("rect")
-          .data(function (d: any) { return d.ages; })
-          .enter().append("rect")
+            .data(function(d: any) {
+                return d.ages;
+            })
+            .enter().append("rect")
             .attr("width", x.rangeBand())
-            .attr("y", function (d: any) { return y(d.y1); })
-            .attr("height", function (d: any) { return y(d.y0) - y(d.y1); })
-            .style("fill", function (d: any) { return color(d.name); });
+            .attr("y", function(d: any) {
+                return y(d.y1);
+            })
+            .attr("height", function(d: any) {
+                return y(d.y0) - y(d.y1);
+            })
+            .style("fill", function(d: any) {
+                return color(d.name);
+            });
 
         var legend = svg.selectAll(".legend")
             .data(color.domain().reverse())
-          .enter().append("g")
+            .enter().append("g")
             .attr("class", "legend")
-            .attr("transform", function (d, i) { return "translate(0," + i * 20 + ")"; });
+            .attr("transform", function(d, i) {
+                return "translate(0," + i * 20 + ")";
+            });
 
         legend.append("rect")
             .attr("x", width - 18)
@@ -266,16 +330,17 @@ function stackedBarChart() {
             .attr("y", 9)
             .attr("dy", ".35em")
             .style("text-anchor", "end")
-            .text(function (d) { return d; });
-
+            .text(function(d) {
+                return d;
+            });
     });
 }
 
 // example from http://bl.ocks.org/3886394
 function normalizedBarChart() {
     var margin = { top: 20, right: 100, bottom: 30, left: 40 },
-    width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+        width = 960 - margin.left - margin.right,
+        height = 500 - margin.top - margin.bottom;
 
     var x = d3.scale.ordinal()
         .rangeRoundBands([0, width], .1);
@@ -298,21 +363,34 @@ function normalizedBarChart() {
     var svg = d3.select("body").append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
-      .append("g")
+        .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    d3.csv("data.csv", function (error: any, data: any) {
-        color.domain(d3.keys(data[0]).filter(function (key) { return key !== "State"; }));
+    d3.csv("data.csv", function(error: any, data: any) {
+        color.domain(
+            d3.keys(data[0]).filter(function(key) {
+                return key !== "State";
+            }),
+        );
 
-        data.forEach(function (d: any) {
+        data.forEach(function(d: any) {
             var y0 = 0;
-            d.ages = color.domain().map(function (name) { return { name: name, y0: y0, y1: y0 += +d[name] }; });
-            d.ages.forEach(function (d: any) { d.y0 /= y0; d.y1 /= y0; });
+            d.ages = color.domain().map(function(name) {
+                return { name: name, y0: y0, y1: y0 += +d[name] };
+            });
+            d.ages.forEach(function(d: any) {
+                d.y0 /= y0;
+                d.y1 /= y0;
+            });
         });
 
-        data.sort(function (a: any, b: any) { return b.ages[0].y1 - a.ages[0].y1; });
+        data.sort(function(a: any, b: any) {
+            return b.ages[0].y1 - a.ages[0].y1;
+        });
 
-        x.domain(data.map(function (d: any) { return d.State; }));
+        x.domain(data.map(function(d: any) {
+            return d.State;
+        }));
 
         svg.append("g")
             .attr("class", "x axis")
@@ -325,23 +403,37 @@ function normalizedBarChart() {
 
         var state = svg.selectAll(".state")
             .data(data)
-          .enter().append("g")
+            .enter().append("g")
             .attr("class", "state")
-            .attr("transform", function (d: any) { return "translate(" + x(d.State) + ",0)"; });
+            .attr("transform", function(d: any) {
+                return "translate(" + x(d.State) + ",0)";
+            });
 
         state.selectAll("rect")
-            .data(function (d) { return d.ages; })
-          .enter().append("rect")
+            .data(function(d) {
+                return d.ages;
+            })
+            .enter().append("rect")
             .attr("width", x.rangeBand())
-            .attr("y", function (d: any) { return y(d.y1); })
-            .attr("height", function (d: any) { return y(d.y0) - y(d.y1); })
-            .style("fill", function (d: any) { return color(d.name); });
+            .attr("y", function(d: any) {
+                return y(d.y1);
+            })
+            .attr("height", function(d: any) {
+                return y(d.y0) - y(d.y1);
+            })
+            .style("fill", function(d: any) {
+                return color(d.name);
+            });
 
         var legend = svg.select(".state:last-child").selectAll(".legend")
-            .data(function (d: any) { return d.ages; })
-          .enter().append("g")
+            .data(function(d: any) {
+                return d.ages;
+            })
+            .enter().append("g")
             .attr("class", "legend")
-            .attr("transform", function (d: any) { return "translate(" + x.rangeBand() / 2 + "," + y((d.y0 + d.y1) / 2) + ")"; });
+            .attr("transform", function(d: any) {
+                return "translate(" + x.rangeBand() / 2 + "," + y((d.y0 + d.y1) / 2) + ")";
+            });
 
         legend.append("line")
             .attr("x2", 10);
@@ -349,16 +441,17 @@ function normalizedBarChart() {
         legend.append("text")
             .attr("x", 13)
             .attr("dy", ".35em")
-            .text(function (d: any) { return d.name; });
-
+            .text(function(d: any) {
+                return d.name;
+            });
     });
 }
 
 // example from http://bl.ocks.org/3885705
 function sortablebarChart() {
     var margin = { top: 20, right: 20, bottom: 30, left: 40 },
-    width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+        width = 960 - margin.left - margin.right,
+        height = 500 - margin.top - margin.bottom;
 
     var formatPercent = d3.format(".0%");
 
@@ -380,17 +473,23 @@ function sortablebarChart() {
     var svg = d3.select("body").append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
-      .append("g")
+        .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    d3.tsv("data.tsv", function (error: any, data: any) {
-
-        data.forEach(function (d: any) {
+    d3.tsv("data.tsv", function(error: any, data: any) {
+        data.forEach(function(d: any) {
             d.frequency = +d.frequency;
         });
 
-        x.domain(data.map(function (d: any) { return d.letter; }));
-        y.domain([0, d3.max(data, function (d: any) { return d.frequency; })]);
+        x.domain(data.map(function(d: any) {
+            return d.letter;
+        }));
+        y.domain([
+            0,
+            d3.max(data, function(d: any) {
+                return d.frequency;
+            }),
+        ]);
 
         svg.append("g")
             .attr("class", "x axis")
@@ -400,7 +499,7 @@ function sortablebarChart() {
         svg.append("g")
             .attr("class", "y axis")
             .call(yAxis)
-          .append("text")
+            .append("text")
             .attr("transform", "rotate(-90)")
             .attr("y", 6)
             .attr("dy", ".71em")
@@ -409,48 +508,68 @@ function sortablebarChart() {
 
         svg.selectAll(".bar")
             .data(data)
-          .enter().append("rect")
+            .enter().append("rect")
             .attr("class", "bar")
-            .attr("x", function (d: any) { return x(d.letter); })
+            .attr("x", function(d: any) {
+                return x(d.letter);
+            })
             .attr("width", x.rangeBand())
-            .attr("y", function (d: any) { return y(d.frequency); })
-            .attr("height", function (d: any) { return height - y(d.frequency); });
+            .attr("y", function(d: any) {
+                return y(d.frequency);
+            })
+            .attr("height", function(d: any) {
+                return height - y(d.frequency);
+            });
 
         d3.select("input").on("change", change);
 
-        var sortTimeout = setTimeout(function () {
+        var sortTimeout = setTimeout(function() {
             d3.select("input").property("checked", true).each(change);
         }, 2000);
 
         function change() {
             clearTimeout(sortTimeout);
 
-            var x0 = x.domain(data.sort(this.checked
-                ? function (a: any, b: any) { return b.frequency - a.frequency; }
-                : function (a: any, b: any) { return d3.ascending(a.letter, b.letter); })
-                .map(function (d: any) { return d.letter; }))
+            var x0 = x.domain(
+                data.sort(
+                    this.checked
+                        ? function(a: any, b: any) {
+                            return b.frequency - a.frequency;
+                        }
+                        : function(a: any, b: any) {
+                            return d3.ascending(a.letter, b.letter);
+                        },
+                )
+                    .map(function(d: any) {
+                        return d.letter;
+                    }),
+            )
                 .copy();
 
             var transition = svg.transition().duration(750),
-                delay = function (d: any, i: number) { return i * 50; };
+                delay = function(d: any, i: number) {
+                    return i * 50;
+                };
 
             transition.selectAll(".bar")
                 .delay(delay)
-                .attr("x", function (d: any) { return x0(d.letter); });
+                .attr("x", function(d: any) {
+                    return x0(d.letter);
+                });
 
             transition.select(".x.axis")
                 .call(xAxis)
-              .selectAll("g")
+                .selectAll("g")
                 .delay(delay);
         }
     });
 }
 
-//example from http://bl.ocks.org/4063318
+// example from http://bl.ocks.org/4063318
 function callenderView() {
     var width = 960,
-    height = 136,
-    cellSize = 17; // cell size
+        height = 136,
+        cellSize = 17; // cell size
 
     var day = d3.time.format("%w"),
         week = d3.time.format("%U"),
@@ -459,57 +578,85 @@ function callenderView() {
 
     var color = d3.scale.quantize()
         .domain([-.05, .05])
-        .range(d3.range(11).map(function (d) { return "q" + d + "-11"; }));
+        .range(
+            d3.range(11).map(function(d) {
+                return "q" + d + "-11";
+            }),
+        );
 
     var svg = d3.select("body").selectAll("svg")
         .data(d3.range(1990, 2011))
-      .enter().append("svg")
+        .enter().append("svg")
         .attr("width", width)
         .attr("height", height)
         .attr("class", "RdYlGn")
-      .append("g")
+        .append("g")
         .attr("transform", "translate(" + ((width - cellSize * 53) / 2) + "," + (height - cellSize * 7 - 1) + ")");
 
     svg.append("text")
         .attr("transform", "translate(-6," + cellSize * 3.5 + ")rotate(-90)")
         .style("text-anchor", "middle")
-        .text(function (d) { return d; });
+        .text(function(d) {
+            return d;
+        });
 
     var rect = svg.selectAll(".day")
-        .data(function (d) { return d3.time.days(new Date(d, 0, 1), new Date(d + 1, 0, 1)); })
-      .enter().append("rect")
+        .data(function(d) {
+            return d3.time.days(new Date(d, 0, 1), new Date(d + 1, 0, 1));
+        })
+        .enter().append("rect")
         .attr("class", "day")
         .attr("width", cellSize)
         .attr("height", cellSize)
-        .attr("x", function (d) { return parseInt(week(d)) * cellSize; })
-        .attr("y", function (d) { return parseInt(day(d)) * cellSize; })
+        .attr("x", function(d) {
+            return parseInt(week(d)) * cellSize;
+        })
+        .attr("y", function(d) {
+            return parseInt(day(d)) * cellSize;
+        })
         .datum(format);
 
     rect.append("title")
-        .text(function (d) { return d; });
+        .text(function(d) {
+            return d;
+        });
 
     svg.selectAll(".month")
-        .data(function (d) { return d3.time.months(new Date(d, 0, 1), new Date(d + 1, 0, 1)); })
-      .enter().append("path")
+        .data(function(d) {
+            return d3.time.months(new Date(d, 0, 1), new Date(d + 1, 0, 1));
+        })
+        .enter().append("path")
         .attr("class", "month")
         .attr("d", monthPath);
 
-    d3.csv("dji.csv", function (error: any, csv: any) {
+    d3.csv("dji.csv", function(error: any, csv: any) {
         var data = d3.nest()
-          .key(function (d: any) { return d.Date; })
-          .rollup(function (d: any) { return (d[0].Close - d[0].Open) / d[0].Open; })
-          .map(csv);
+            .key(function(d: any) {
+                return d.Date;
+            })
+            .rollup(function(d: any) {
+                return (d[0].Close - d[0].Open) / d[0].Open;
+            })
+            .map(csv);
 
-        rect.filter(function (d) { return d in data; })
-            .attr("class", function (d) { return "day " + color(data[d]); })
-          .select("title")
-            .text(function (d) { return d + ": " + percent(data[d]); });
+        rect.filter(function(d) {
+            return d in data;
+        })
+            .attr("class", function(d) {
+                return "day " + color(data[d]);
+            })
+            .select("title")
+            .text(function(d) {
+                return d + ": " + percent(data[d]);
+            });
     });
 
     function monthPath(t0: Date) {
         var t1 = new Date(t0.getFullYear(), t0.getMonth() + 1, 0),
-            d0 = +day(t0), w0 = +week(t0),
-            d1 = +day(t1), w1 = +week(t1);
+            d0 = +day(t0),
+            w0 = +week(t0),
+            d1 = +day(t1),
+            w1 = +week(t1);
         return "M" + (w0 + 1) * cellSize + "," + d0 * cellSize
             + "H" + w0 * cellSize + "V" + 7 * cellSize
             + "H" + w1 * cellSize + "V" + (d1 + 1) * cellSize
@@ -523,8 +670,8 @@ function callenderView() {
 // example from http://bl.ocks.org/3883245
 function lineChart() {
     var margin = { top: 20, right: 20, bottom: 30, left: 50 },
-    width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+        width = 960 - margin.left - margin.right,
+        height = 500 - margin.top - margin.bottom;
 
     var parseDate = d3.time.format("%d-%b-%y").parse;
 
@@ -543,23 +690,31 @@ function lineChart() {
         .orient("left");
 
     var line = d3.svg.line<{ date: Date; close: number }>()
-        .x(function (d) { return x(d.date); })
-        .y(function (d) { return y(d.close); });
+        .x(function(d) {
+            return x(d.date);
+        })
+        .y(function(d) {
+            return y(d.close);
+        });
 
     var svg = d3.select("body").append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
-      .append("g")
+        .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    d3.tsv("data.tsv", function (error: any, data: any) {
-        data.forEach(function (d: any) {
+    d3.tsv("data.tsv", function(error: any, data: any) {
+        data.forEach(function(d: any) {
             d.date = parseDate(d.date);
             d.close = +d.close;
         });
 
-        x.domain(d3.extent(data, function (d: any) { return d.date; }));
-        y.domain(d3.extent(data, function (d: any) { return d.close; }));
+        x.domain(d3.extent(data, function(d: any) {
+            return d.date;
+        }));
+        y.domain(d3.extent(data, function(d: any) {
+            return d.close;
+        }));
 
         svg.append("g")
             .attr("class", "x axis")
@@ -569,7 +724,7 @@ function lineChart() {
         svg.append("g")
             .attr("class", "y axis")
             .call(yAxis)
-          .append("text")
+            .append("text")
             .attr("transform", "rotate(-90)")
             .attr("y", 6)
             .attr("dy", ".71em")
@@ -583,11 +738,11 @@ function lineChart() {
     });
 }
 
-//example from http://bl.ocks.org/3884914
+// example from http://bl.ocks.org/3884914
 function bivariateAreaChart() {
     var margin = { top: 20, right: 20, bottom: 30, left: 50 },
-    width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+        width = 960 - margin.left - margin.right,
+        height = 500 - margin.top - margin.bottom;
 
     var parseDate = d3.time.format("%Y%m%d").parse;
 
@@ -606,25 +761,40 @@ function bivariateAreaChart() {
         .orient("left");
 
     var area = d3.svg.area<{ date: Date; low: number; high: number }>()
-        .x(function (d) { return x(d.date); })
-        .y0(function (d) { return y(d.low); })
-        .y1(function (d) { return y(d.high); });
+        .x(function(d) {
+            return x(d.date);
+        })
+        .y0(function(d) {
+            return y(d.low);
+        })
+        .y1(function(d) {
+            return y(d.high);
+        });
 
     var svg = d3.select("body").append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
-      .append("g")
+        .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    d3.tsv("data.tsv", function (error: any, data: any) {
-        data.forEach(function (d: any) {
+    d3.tsv("data.tsv", function(error: any, data: any) {
+        data.forEach(function(d: any) {
             d.date = parseDate(d.date);
             d.low = +d.low;
             d.high = +d.high;
         });
 
-        x.domain(d3.extent(data, function (d: any) { return d.date; }));
-        y.domain([d3.min(data, function (d: any) { return d.low; }), d3.max(data, function (d: any) { return d.high; })]);
+        x.domain(d3.extent(data, function(d: any) {
+            return d.date;
+        }));
+        y.domain([
+            d3.min(data, function(d: any) {
+                return d.low;
+            }),
+            d3.max(data, function(d: any) {
+                return d.high;
+            }),
+        ]);
 
         svg.append("path")
             .datum(data)
@@ -639,7 +809,7 @@ function bivariateAreaChart() {
         svg.append("g")
             .attr("class", "y axis")
             .call(yAxis)
-          .append("text")
+            .append("text")
             .attr("transform", "rotate(-90)")
             .attr("y", 6)
             .attr("dy", ".71em")
@@ -648,26 +818,34 @@ function bivariateAreaChart() {
     });
 }
 
-//Example from http://bl.ocks.org/mbostock/1557377
+// Example from http://bl.ocks.org/mbostock/1557377
 function dragMultiples() {
     var width = 238,
-    height = 123,
-    radius = 20;
+        height = 123,
+        radius = 20;
 
     var drag = d3.behavior.drag()
         .origin(Object)
         .on("drag", dragmove);
 
     var svg = d3.select("body").selectAll("svg")
-        .data(d3.range(16).map(function () { return { x: width / 2, y: height / 2 }; }))
-      .enter().append("svg")
+        .data(
+            d3.range(16).map(function() {
+                return { x: width / 2, y: height / 2 };
+            }),
+        )
+        .enter().append("svg")
         .attr("width", width)
         .attr("height", height);
 
     svg.append("circle")
         .attr("r", radius)
-        .attr("cx", function (d) { return d.x; })
-        .attr("cy", function (d) { return d.y; })
+        .attr("cx", function(d) {
+            return d.x;
+        })
+        .attr("cy", function(d) {
+            return d.y;
+        })
         .call(drag);
 
     function dragmove(d: { x: number; y: number }) {
@@ -677,11 +855,11 @@ function dragMultiples() {
     }
 }
 
-//Example from http://bl.ocks.org/mbostock/3892919
+// Example from http://bl.ocks.org/mbostock/3892919
 function panAndZoom() {
     var margin = { top: 20, right: 20, bottom: 30, left: 40 },
-    width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+        width = 960 - margin.left - margin.right,
+        height = 500 - margin.top - margin.bottom;
 
     var x = d3.scale.linear()
         .domain([-width / 2, width / 2])
@@ -712,7 +890,7 @@ function panAndZoom() {
     var svg = d3.select("body").append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
-      .append("g")
+        .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
         .call(zoom);
 
@@ -735,12 +913,12 @@ function panAndZoom() {
     }
 }
 
-//Example from http://bl.ocks.org/mbostock/1125997
+// Example from http://bl.ocks.org/mbostock/1125997
 function chainedTransitions() {
     var w = 960,
-    h = 500,
-    y = d3.scale.ordinal<number, number>().domain(d3.range(50)).rangePoints([20, h - 20]),
-    t = Date.now();
+        h = 500,
+        y = d3.scale.ordinal<number, number>().domain(d3.range(50)).rangePoints([20, h - 20]),
+        t = Date.now();
 
     var svg = d3.select("body").append("svg:svg")
         .attr("width", w)
@@ -748,24 +926,24 @@ function chainedTransitions() {
 
     var circle = svg.selectAll("circle")
         .data(y.domain())
-      .enter().append("svg:circle")
+        .enter().append("svg:circle")
         .attr("r", 16)
         .attr("cx", 20)
         .attr("cy", y)
         .each(slide(20, w - 20));
 
     function slide(x0: number, x1: number) {
-      t += 50;
-      return function() {
-        d3.select(this).transition()
-            .duration(t - Date.now())
-            .attr("cx", x1)
-            .each("end", slide(x1, x0));
-      };
+        t += 50;
+        return function() {
+            d3.select(this).transition()
+                .duration(t - Date.now())
+                .attr("cx", x1)
+                .each("end", slide(x1, x0));
+        };
     }
 }
 
-//Example from http://bl.ocks.org/mbostock/4062085
+// Example from http://bl.ocks.org/mbostock/4062085
 interface PyramidData {
     people: number;
     year: number;
@@ -787,7 +965,7 @@ function populationPyramid() {
         .scale(y)
         .orient("right")
         .tickSize(-width)
-        .tickFormat(function (d, i) {
+        .tickFormat(function(d, i) {
             // $ExpectType number
             i;
             return Math.round(d / 1e6) + "M";
@@ -810,100 +988,143 @@ function populationPyramid() {
         .attr("dy", ".71em")
         .text(2000);
 
-    d3.csv("population.csv", <any> function (error: any, rows: Array<PyramidData>) {
+    d3.csv(
+        "population.csv",
+        <any> function(error: any, rows: PyramidData[]) {
+            // Convert strings to numbers.
+            rows.forEach(function(d) {
+                d.people = +d.people;
+                d.year = +d.year;
+                d.age = +d.age;
+            });
 
-        // Convert strings to numbers.
-        rows.forEach(function (d) {
-            d.people = +d.people;
-            d.year = +d.year;
-            d.age = +d.age;
-        } );
+            // Compute the extent of the data set in age and years.
+            var age1 = d3.max(rows, function(d) {
+                    return d.age;
+                }),
+                year0 = d3.min(rows, function(d) {
+                    return d.year;
+                }),
+                year1 = d3.max(rows, function(d) {
+                    return d.year;
+                }),
+                year = year1;
 
-        // Compute the extent of the data set in age and years.
-        var age1 = d3.max(rows, function (d) { return d.age; } ),
-            year0 = d3.min(rows, function (d) { return d.year; } ),
-            year1 = d3.max(rows, function (d) { return d.year; } ),
-            year = year1;
+            // Update the scale domains.
+            x.domain([year1 - age1, year1]);
+            y.domain([
+                0,
+                d3.max(rows, function(d) {
+                    return d.people;
+                }),
+            ]);
 
-        // Update the scale domains.
-        x.domain([year1 - age1, year1]);
-        y.domain([0, d3.max(rows, function (d) { return d.people; } )]);
+            // Produce a map from year and birthyear to [male, female].
+            var data = d3.nest<PyramidData>()
+                .key(function(d) {
+                    return "" + d.year;
+                })
+                .key(function(d) {
+                    return "" + (d.year - d.age);
+                })
+                .rollup(function(v) {
+                    return v.map(function(d) {
+                        return d.people;
+                    });
+                })
+                .map(rows);
 
-        // Produce a map from year and birthyear to [male, female].
-        var data = d3.nest<PyramidData>()
-            .key(function (d) { return '' + d.year; } )
-            .key(function (d) { return '' + (d.year - d.age); } )
-            .rollup(function (v) { return v.map(function (d) { return d.people; } ); } )
-            .map(rows);
+            // Add an axis to show the population values.
+            svg.append("g")
+                .attr("class", "y axis")
+                .attr("transform", "translate(" + width + ",0)")
+                .call(yAxis)
+                .selectAll("g")
+                .filter(function(value) {
+                    return !value;
+                })
+                .classed("zero", true);
 
-        // Add an axis to show the population values.
-        svg.append("g")
-            .attr("class", "y axis")
-            .attr("transform", "translate(" + width + ",0)")
-            .call(yAxis)
-            .selectAll("g")
-            .filter(function (value) { return !value; } )
-            .classed("zero", true);
-
-        // Add labeled rects for each birthyear (so that no enter or exit is required).
-        var birthyear = birthyears.selectAll(".birthyear")
-            .data(d3.range(year0 - age1, year1 + 1, 5))
-            .enter().append("g")
-            .attr("class", "birthyear")
-            .attr("transform", function (birthyear) { return "translate(" + x(birthyear) + ",0)"; } );
-
-        birthyear.selectAll("rect")
-            .data(function (birthyear): number[] { return data[year][birthyear] || [0, 0]; } )
-            .enter().append("rect")
-            .attr("x", -barWidth / 2)
-            .attr("width", barWidth)
-            .attr("y", y)
-            .attr("height", function (value) { return height - y(value); } );
-
-        // Add labels to show birthyear.
-        birthyear.append("text")
-            .attr("y", height - 4)
-            .text(function (birthyear) { return birthyear; } );
-
-        // Add labels to show age (separate; not animated).
-        svg.selectAll(".age")
-            .data(d3.range(0, age1 + 1, 5))
-            .enter().append("text")
-            .attr("class", "age")
-            .attr("x", function (age) { return x(year - age); } )
-            .attr("y", height + 4)
-            .attr("dy", ".71em")
-            .text(function (age) { return age; } );
-
-        // Allow the arrow keys to change the displayed year.
-        window.focus();
-        d3.select(window).on("keydown", function () {
-            switch ((<KeyboardEvent> d3.event).keyCode) {
-                case 37: year = Math.max(year0, year - 10); break;
-                case 39: year = Math.min(year1, year + 10); break;
-            }
-            update();
-        } );
-
-        function update() {
-            if (!(<any>year in data)) return;
-            title.text(year);
-
-            birthyears.transition()
-                .duration(750)
-                .attr("transform", "translate(" + (x(year1) - x(year)) + ",0)");
+            // Add labeled rects for each birthyear (so that no enter or exit is required).
+            var birthyear = birthyears.selectAll(".birthyear")
+                .data(d3.range(year0 - age1, year1 + 1, 5))
+                .enter().append("g")
+                .attr("class", "birthyear")
+                .attr("transform", function(birthyear) {
+                    return "translate(" + x(birthyear) + ",0)";
+                });
 
             birthyear.selectAll("rect")
-                .data(function (birthyear): number[] { return data[year][birthyear] || [0, 0]; } )
-                .transition()
-                .duration(750)
+                .data(function(birthyear): number[] {
+                    return data[year][birthyear] || [0, 0];
+                })
+                .enter().append("rect")
+                .attr("x", -barWidth / 2)
+                .attr("width", barWidth)
                 .attr("y", y)
-                .attr("height", function (value) { return height - y(value); } );
-        }
-    } );
+                .attr("height", function(value) {
+                    return height - y(value);
+                });
+
+            // Add labels to show birthyear.
+            birthyear.append("text")
+                .attr("y", height - 4)
+                .text(function(birthyear) {
+                    return birthyear;
+                });
+
+            // Add labels to show age (separate; not animated).
+            svg.selectAll(".age")
+                .data(d3.range(0, age1 + 1, 5))
+                .enter().append("text")
+                .attr("class", "age")
+                .attr("x", function(age) {
+                    return x(year - age);
+                })
+                .attr("y", height + 4)
+                .attr("dy", ".71em")
+                .text(function(age) {
+                    return age;
+                });
+
+            // Allow the arrow keys to change the displayed year.
+            window.focus();
+            d3.select(window).on("keydown", function() {
+                switch ((<KeyboardEvent> d3.event).keyCode) {
+                    case 37:
+                        year = Math.max(year0, year - 10);
+                        break;
+                    case 39:
+                        year = Math.min(year1, year + 10);
+                        break;
+                }
+                update();
+            });
+
+            function update() {
+                if (!(<any> year in data)) return;
+                title.text(year);
+
+                birthyears.transition()
+                    .duration(750)
+                    .attr("transform", "translate(" + (x(year1) - x(year)) + ",0)");
+
+                birthyear.selectAll("rect")
+                    .data(function(birthyear): number[] {
+                        return data[year][birthyear] || [0, 0];
+                    })
+                    .transition()
+                    .duration(750)
+                    .attr("y", y)
+                    .attr("height", function(value) {
+                        return height - y(value);
+                    });
+            }
+        },
+    );
 }
 
-//Example from http://bl.ocks.org/MoritzStefaner/1377729
+// Example from http://bl.ocks.org/MoritzStefaner/1377729
 namespace forcedBasedLabelPlacemant {
     interface Node extends d3.layout.force.Node {
         label: string;
@@ -927,90 +1148,95 @@ namespace forcedBasedLabelPlacemant {
 
     var nodes: Node[] = [];
     var labelAnchors: LabelAnchor[] = [];
-    var labelAnchorLinks: { source: number; target: number; weight: number }[] = [];
+    var labelAnchorLinks: Array<{ source: number; target: number; weight: number }> = [];
     var links: typeof labelAnchorLinks = [];
 
     for (var i = 0; i < 30; i++) {
         var nodeLabel = {
-            label: "node " + i
+            label: "node " + i,
         };
         nodes.push(nodeLabel);
         labelAnchors.push({
-            node: nodeLabel
+            node: nodeLabel,
         });
         labelAnchors.push({
-            node: nodeLabel
+            node: nodeLabel,
         });
-    };
+    }
 
     for (var i = 0; i < nodes.length; i++) {
         for (var j = 0; j < i; j++) {
-            if (Math.random() > .95)
+            if (Math.random() > .95) {
                 links.push({
                     source: i,
                     target: j,
-                    weight: Math.random()
+                    weight: Math.random(),
                 });
+            }
         }
         labelAnchorLinks.push({
             source: i * 2,
             target: i * 2 + 1,
-            weight: 1
+            weight: 1,
         });
-    };
+    }
 
-    var force = d3.layout.force<LabelAnchorLink, Node>().size([w, h]).nodes(nodes).links(links).gravity(1).linkDistance(50).charge(-3000).linkStrength(function (x) {
-        return x.weight * 10
-    } );
-
+    var force = d3.layout.force<LabelAnchorLink, Node>().size([w, h]).nodes(nodes).links(links).gravity(1).linkDistance(
+        50,
+    ).charge(-3000).linkStrength(function(x) {
+        return x.weight * 10;
+    });
 
     force.start();
 
-    var force2 = d3.layout.force<LabelAnchorLink, LabelAnchor>().nodes(labelAnchors).links(labelAnchorLinks).gravity(0).linkDistance(0).linkStrength(8).charge(-100).size([w, h]);
+    var force2 = d3.layout.force<LabelAnchorLink, LabelAnchor>().nodes(labelAnchors).links(labelAnchorLinks).gravity(0)
+        .linkDistance(0).linkStrength(8).charge(-100).size([w, h]);
     force2.start();
 
-    var link = vis.selectAll("line.link").data(links).enter().append("svg:line").attr("class", "link").style("stroke", "#CCC");
+    var link = vis.selectAll("line.link").data(links).enter().append("svg:line").attr("class", "link").style(
+        "stroke",
+        "#CCC",
+    );
 
     var node = vis.selectAll("g.node").data(force.nodes()).enter().append("svg:g").attr("class", "node");
     node.append("svg:circle").attr("r", 5).style("fill", "#555").style("stroke", "#FFF").style("stroke-width", 3);
     node.call(force.drag);
 
+    var anchorLink = vis.selectAll("line.anchorLink").data(labelAnchorLinks); // .enter().append("svg:line").attr("class", "anchorLink").style("stroke", "#999");
 
-    var anchorLink = vis.selectAll("line.anchorLink").data(labelAnchorLinks)//.enter().append("svg:line").attr("class", "anchorLink").style("stroke", "#999");
-
-    var anchorNode = vis.selectAll("g.anchorNode").data(force2.nodes()).enter().append("svg:g").attr("class", "anchorNode");
+    var anchorNode = vis.selectAll("g.anchorNode").data(force2.nodes()).enter().append("svg:g").attr(
+        "class",
+        "anchorNode",
+    );
     anchorNode.append("svg:circle").attr("r", 0).style("fill", "#FFF");
-    anchorNode.append("svg:text").text(function (d, i) {
-        return i % 2 == 0 ? "" : d.node.label
-    } ).style("fill", "#555").style("font-family", "Arial").style("font-size", 12);
+    anchorNode.append("svg:text").text(function(d, i) {
+        return i % 2 == 0 ? "" : d.node.label;
+    }).style("fill", "#555").style("font-family", "Arial").style("font-size", 12);
 
-    var updateLink = function () {
-        (<d3.Selection<any>> this).attr("x1", function (d) {
+    var updateLink = function() {
+        (<d3.Selection<any>> this).attr("x1", function(d) {
             return d.source.x;
-        } ).attr("y1", function (d) {
-                return d.source.y;
-            } ).attr("x2", function (d) {
-                return d.target.x;
-            } ).attr("y2", function (d) {
-                return d.target.y;
-            } );
+        }).attr("y1", function(d) {
+            return d.source.y;
+        }).attr("x2", function(d) {
+            return d.target.x;
+        }).attr("y2", function(d) {
+            return d.target.y;
+        });
+    };
 
-    }
-
-    var updateNode = function () {
-        (<d3.Selection<any>> this).attr("transform", function (d) {
+    var updateNode = function() {
+        (<d3.Selection<any>> this).attr("transform", function(d) {
             return "translate(" + d.x + "," + d.y + ")";
-        } );
+        });
+    };
 
-    }
-
-    force.on("tick", function () {
-
+    force.on("tick", function() {
         force2.start();
 
         node.call(updateNode);
 
-        anchorNode.each(function (d, i) {
+        anchorNode.each(function(d, i) {
             if (i % 2 == 0) {
                 d.x = d.node.x;
                 d.y = d.node.y;
@@ -1027,18 +1253,16 @@ namespace forcedBasedLabelPlacemant {
                 var shiftY = 5;
                 this.childNodes[1].setAttribute("transform", "translate(" + shiftX + "," + shiftY + ")");
             }
-        } );
-
+        });
 
         anchorNode.call(updateNode);
 
         link.call(updateLink);
         anchorLink.call(updateLink);
-
-    } );
+    });
 }
 
-//Example from http://bl.ocks.org/mbostock/1125997
+// Example from http://bl.ocks.org/mbostock/1125997
 namespace forceCollapsable {
     interface Node extends d3.layout.force.Node {
         id: string;
@@ -1055,21 +1279,25 @@ namespace forceCollapsable {
 
     var force = d3.layout.force<Node>()
         .on("tick", tick)
-        .charge(function (d) { return d._children ? -d.size / 100 : -30; } )
-        .linkDistance(function (d) { return (d.target as Node)._children ? 80 : 30; } )
+        .charge(function(d) {
+            return d._children ? -d.size / 100 : -30;
+        })
+        .linkDistance(function(d) {
+            return (d.target as Node)._children ? 80 : 30;
+        })
         .size([w, h - 160]);
 
     var vis = d3.select("body").append("svg:svg")
         .attr("width", w)
         .attr("height", h);
 
-    d3.json("flare.json", function (json) {
+    d3.json("flare.json", function(json) {
         root = json;
         root.fixed = true;
         root.x = w / 2;
         root.y = h / 2 - 80;
         update();
-    } );
+    });
 
     function update() {
         var nodes = flatten(root),
@@ -1083,33 +1311,53 @@ namespace forceCollapsable {
 
         // Update the links…
         link = vis.selectAll("line.link")
-            .data(links, function (d) { return d.target.id; } );
+            .data(links, function(d) {
+                return d.target.id;
+            });
 
         // Enter any new links.
         link.enter().insert("svg:line", ".node")
             .attr("class", "link")
-            .attr("x1", function (d) { return (d.source as Node).x; } )
-            .attr("y1", function (d) { return (d.source as Node).y; } )
-            .attr("x2", function (d) { return (d.target as Node).x; } )
-            .attr("y2", function (d) { return (d.target as Node).y; } );
+            .attr("x1", function(d) {
+                return (d.source as Node).x;
+            })
+            .attr("y1", function(d) {
+                return (d.source as Node).y;
+            })
+            .attr("x2", function(d) {
+                return (d.target as Node).x;
+            })
+            .attr("y2", function(d) {
+                return (d.target as Node).y;
+            });
 
         // Exit any old links.
         link.exit().remove();
 
         // Update the nodes…
         node = vis.selectAll("circle.node")
-            .data(nodes, function (d) { return d.id; } )
+            .data(nodes, function(d) {
+                return d.id;
+            })
             .style("fill", color);
 
         node.transition()
-            .attr("r", function (d) { return d.children ? 4.5 : Math.sqrt(d.size) / 10; } );
+            .attr("r", function(d) {
+                return d.children ? 4.5 : Math.sqrt(d.size) / 10;
+            });
 
         // Enter any new nodes.
         node.enter().append("svg:circle")
             .attr("class", "node")
-            .attr("cx", function (d) { return d.x; } )
-            .attr("cy", function (d) { return d.y; } )
-            .attr("r", function (d) { return d.children ? 4.5 : Math.sqrt(d.size) / 10; } )
+            .attr("cx", function(d) {
+                return d.x;
+            })
+            .attr("cy", function(d) {
+                return d.y;
+            })
+            .attr("r", function(d) {
+                return d.children ? 4.5 : Math.sqrt(d.size) / 10;
+            })
             .style("fill", color)
             .on("click", click)
             .call(force.drag);
@@ -1119,13 +1367,25 @@ namespace forceCollapsable {
     }
 
     function tick() {
-        link.attr("x1", function (d) { return (d.source as Node).x; } )
-            .attr("y1", function (d) { return (d.source as Node).y; } )
-            .attr("x2", function (d) { return (d.target as Node).x; } )
-            .attr("y2", function (d) { return (d.target as Node).y; } );
+        link.attr("x1", function(d) {
+            return (d.source as Node).x;
+        })
+            .attr("y1", function(d) {
+                return (d.source as Node).y;
+            })
+            .attr("x2", function(d) {
+                return (d.target as Node).x;
+            })
+            .attr("y2", function(d) {
+                return (d.target as Node).y;
+            });
 
-        node.attr("cx", function (d) { return d.x; } )
-            .attr("cy", function (d) { return d.y; } );
+        node.attr("cx", function(d) {
+            return d.x;
+        })
+            .attr("cy", function(d) {
+                return d.y;
+            });
     }
 
     // Color leaf nodes orange, and packages white or blue.
@@ -1150,7 +1410,11 @@ namespace forceCollapsable {
         var nodes: Node[] = [], i = 0;
 
         function recurse(node: Node) {
-            if (node.children) node.size = node.children.reduce(function (p, v) { return p + recurse(v); } , 0);
+            if (node.children) {
+                node.size = node.children.reduce(function(p, v) {
+                    return p + recurse(v);
+                }, 0);
+            }
             if (!node.id) node.id = String(++i);
             nodes.push(node);
             return node.size;
@@ -1161,7 +1425,7 @@ namespace forceCollapsable {
     }
 }
 
-//Example from http://bl.ocks.org/mbostock/3757110
+// Example from http://bl.ocks.org/mbostock/3757110
 function azimuthalEquidistant() {
     var width = 960,
         height = 960;
@@ -1200,29 +1464,31 @@ function azimuthalEquidistant() {
         .attr("class", "graticule")
         .attr("d", path);
 
-    d3.json("/mbostock/raw/4090846/world-50m.json", function (error, world) {
+    d3.json("/mbostock/raw/4090846/world-50m.json", function(error, world) {
         svg.insert("path", ".graticule")
             .datum(topojson.feature(world, world.objects.land))
             .attr("class", "land")
             .attr("d", path);
 
         svg.insert("path", ".graticule")
-            .datum(topojson.mesh(world, world.objects.countries, function (a: any, b: any) { return a !== b; } ))
+            .datum(topojson.mesh(world, world.objects.countries, function(a: any, b: any) {
+                return a !== b;
+            }))
             .attr("class", "boundary")
             .attr("d", path);
-    } );
+    });
 
     d3.select(self.frameElement).style("height", height + "px");
 }
 
-//Example from http://bl.ocks.org/mbostock/4060366
+// Example from http://bl.ocks.org/mbostock/4060366
 function voronoiTesselation() {
     var width = 960,
         height = 500;
 
-    var vertices = d3.range(100).map(function (d): [number, number] {
+    var vertices = d3.range(100).map(function(d): [number, number] {
         return [Math.random() * width, Math.random() * height];
-    } );
+    });
 
     var voronoi = d3.geom.voronoi()
         .clipExtent([[0, 0], [width, height]]);
@@ -1231,22 +1497,34 @@ function voronoiTesselation() {
         .attr("width", width)
         .attr("height", height)
         .attr("class", "PiYG")
-        .on("mousemove", function () { vertices[0] = d3.mouse(this); redraw(); } );
+        .on("mousemove", function() {
+            vertices[0] = d3.mouse(this);
+            redraw();
+        });
 
-    var path = <d3.selection.Update<string>>svg.append("g").selectAll("path");
+    var path = <d3.selection.Update<string>> svg.append("g").selectAll("path");
 
     svg.selectAll("circle")
         .data(vertices.slice(1))
         .enter().append("circle")
-        .attr("transform", function (d) { return "translate(" + d + ")"; } )
+        .attr("transform", function(d) {
+            return "translate(" + d + ")";
+        })
         .attr("r", 2);
 
     redraw();
 
     function redraw() {
-        path = path.data(voronoi(vertices).map(function (d) { return "M" + d.join("L") + "Z"; } ), String);
+        path = path.data(
+            voronoi(vertices).map(function(d) {
+                return "M" + d.join("L") + "Z";
+            }),
+            String,
+        );
         path.exit().remove();
-        path.enter().append("path").attr("class", function (d, i) { return "q" + (i % 9) + "-9"; } ).attr("d", String);
+        path.enter().append("path").attr("class", function(d, i) {
+            return "q" + (i % 9) + "-9";
+        }).attr("d", String);
         path.order();
     }
 }
@@ -1258,37 +1536,49 @@ function forceDirectedVoronoi() {
         radius = 5.25,
         simulate = true,
         zoomToAdd = true,
-        color = d3.scale.quantize<string>().domain([10000, 7250]).range(["#dadaeb","#bcbddc","#9e9ac8","#807dba","#6a51a3","#54278f","#3f007d"])
+        color = d3.scale.quantize<string>().domain([10000, 7250]).range([
+            "#dadaeb",
+            "#bcbddc",
+            "#9e9ac8",
+            "#807dba",
+            "#6a51a3",
+            "#54278f",
+            "#3f007d",
+        ]);
 
-    var numVertices = (w*h) / 3000;
+    var numVertices = (w * h) / 3000;
     var vertices = d3.range(numVertices).map(function(i) {
-        var angle = radius * (i+10);
-        return {x: angle*Math.cos(angle)+(w/2), y: angle*Math.sin(angle)+(h/2)};
+        var angle = radius * (i + 10);
+        return { x: angle * Math.cos(angle) + (w / 2), y: angle * Math.sin(angle) + (h / 2) };
     });
     var d3_geom_voronoi = d3.geom.voronoi<{ x: number; y: number }>()
-        .x(function(d) { return d.x; })
-        .y(function(d) { return d.y; })
+        .x(function(d) {
+            return d.x;
+        })
+        .y(function(d) {
+            return d.y;
+        });
     var prevEventScale = 1;
-    var zoom = d3.behavior.zoom().on("zoom", function(d,i) {
-        if (zoomToAdd){
-          if ((<d3.ZoomEvent> d3.event).scale > prevEventScale) {
-            var angle = radius * vertices.length;
-            vertices.push({x: angle*Math.cos(angle)+(w/2), y: angle*Math.sin(angle)+(h/2)})
-          } else if (vertices.length > 2 && (<d3.ZoomEvent> d3.event).scale != prevEventScale) {
-            vertices.pop();
-          }
-        force.nodes(vertices).start()
+    var zoom = d3.behavior.zoom().on("zoom", function(d, i) {
+        if (zoomToAdd) {
+            if ((<d3.ZoomEvent> d3.event).scale > prevEventScale) {
+                var angle = radius * vertices.length;
+                vertices.push({ x: angle * Math.cos(angle) + (w / 2), y: angle * Math.sin(angle) + (h / 2) });
+            } else if (vertices.length > 2 && (<d3.ZoomEvent> d3.event).scale != prevEventScale) {
+                vertices.pop();
+            }
+            force.nodes(vertices).start();
         } else {
             if ((<d3.ZoomEvent> d3.event).scale > prevEventScale) {
-                radius+= .01
+                radius += .01;
             } else {
-                radius -= .01
+                radius -= .01;
             }
             vertices.forEach(function(d, i) {
-                var angle = radius * (i+10);
-                vertices[i] = {x: angle*Math.cos(angle)+(w/2), y: angle*Math.sin(angle)+(h/2)};
+                var angle = radius * (i + 10);
+                vertices[i] = { x: angle * Math.cos(angle) + (w / 2), y: angle * Math.sin(angle) + (h / 2) };
             });
-            force.nodes(vertices).start()
+            force.nodes(vertices).start();
         }
         prevEventScale = (<d3.ZoomEvent> d3.event).scale;
     });
@@ -1296,29 +1586,29 @@ function forceDirectedVoronoi() {
     d3.select(window)
         .on("keydown", function() {
             // shift
-            if((<KeyboardEvent> d3.event).keyCode == 16) {
-                zoomToAdd = false
+            if ((<KeyboardEvent> d3.event).keyCode == 16) {
+                zoomToAdd = false;
             }
 
             // s
-            if((<KeyboardEvent> d3.event).keyCode == 83) {
-                simulate = !simulate
-                if(simulate) {
-                    force.start()
+            if ((<KeyboardEvent> d3.event).keyCode == 83) {
+                simulate = !simulate;
+                if (simulate) {
+                    force.start();
                 } else {
-                    force.stop()
+                    force.stop();
                 }
             }
         })
         .on("keyup", function() {
-            zoomToAdd = true
-        })
+            zoomToAdd = true;
+        });
 
     var svg = d3.select("#chart")
         .append("svg")
         .attr("width", w)
         .attr("height", h)
-        .call(zoom)
+        .call(zoom);
 
     var force = d3.layout.force()
         .charge(-300)
@@ -1335,81 +1625,114 @@ function forceDirectedVoronoi() {
         path = path.data(d3_geom_voronoi(vertices));
         path.enter().append("path")
             // drag node by dragging cell
-            .call(d3.behavior.drag()
-              .on("drag", function(d, i) {
-                vertices[i] = {x: vertices[i].x + (<d3.DragEvent> d3.event).dx, y: vertices[i].y + (<d3.DragEvent> d3.event).dy}
-              })
+            .call(
+                d3.behavior.drag()
+                    .on("drag", function(d, i) {
+                        vertices[i] = {
+                            x: vertices[i].x + (<d3.DragEvent> d3.event).dx,
+                            y: vertices[i].y + (<d3.DragEvent> d3.event).dy,
+                        };
+                    }),
             )
-            .style("fill", function(d, i) { return color(0) })
-        path.attr("d", function(d) { return "M" + d.join("L") + "Z"; })
-            .transition().duration(150).style("fill", function(d, i) { return color(d3.geom.polygon(d).area()) })
+            .style("fill", function(d, i) {
+                return color(0);
+            });
+        path.attr("d", function(d) {
+            return "M" + d.join("L") + "Z";
+        })
+            .transition().duration(150).style("fill", function(d, i) {
+                return color(d3.geom.polygon(d).area());
+            });
         path.exit().remove();
 
-        circle = circle.data(vertices)
+        circle = circle.data(vertices);
         circle.enter().append("circle")
-              .attr("r", 0)
-              .transition().duration(1000).attr("r", 5);
-        circle.attr("cx", function(d) { return d.x; })
-              .attr("cy", function(d) { return d.y; });
+            .attr("r", 0)
+            .transition().duration(1000).attr("r", 5);
+        circle.attr("cx", function(d) {
+            return d.x;
+        })
+            .attr("cy", function(d) {
+                return d.y;
+            });
         circle.exit().transition().attr("r", 0).remove();
 
-        link = link.data(d3_geom_voronoi.links(vertices))
-        link.enter().append("line")
-        link.attr("x1", function(d) { return d.source.x; })
-            .attr("y1", function(d) { return d.source.y; })
-            .attr("x2", function(d) { return d.target.x; })
-            .attr("y2", function(d) { return d.target.y; })
+        link = link.data(d3_geom_voronoi.links(vertices));
+        link.enter().append("line");
+        link.attr("x1", function(d) {
+            return d.source.x;
+        })
+            .attr("y1", function(d) {
+                return d.source.y;
+            })
+            .attr("x2", function(d) {
+                return d.target.x;
+            })
+            .attr("y2", function(d) {
+                return d.target.y;
+            });
 
-        link.exit().remove()
+        link.exit().remove();
 
-        if(!simulate) force.stop()
+        if (!simulate) force.stop();
     }
 }
 
-//Example from http://bl.ocks.org/mbostock/4341156
+// Example from http://bl.ocks.org/mbostock/4341156
 function delaunayTesselation() {
     var width = 960,
         height = 500;
 
-    var vertices = d3.range(100).map(function (d): [number, number] {
+    var vertices = d3.range(100).map(function(d): [number, number] {
         return [Math.random() * width, Math.random() * height];
-    } );
+    });
 
     var svg = d3.select("body").append("svg")
         .attr("width", width)
         .attr("height", height)
         .attr("class", "PiYG")
-        .on("mousemove", function () { vertices[0] = d3.mouse(this); redraw(); } );
+        .on("mousemove", function() {
+            vertices[0] = d3.mouse(this);
+            redraw();
+        });
 
-    var path = <d3.selection.Update<any>>svg.append("g").selectAll("path");
+    var path = <d3.selection.Update<any>> svg.append("g").selectAll("path");
 
     svg.selectAll("circle")
         .data(vertices.slice(1))
         .enter().append("circle")
-        .attr("transform", function (d) { return "translate(" + d + ")"; } )
+        .attr("transform", function(d) {
+            return "translate(" + d + ")";
+        })
         .attr("r", 2);
 
     redraw();
 
     function redraw() {
-        path = path.data(d3.geom.delaunay(vertices).map(function (d) { return "M" + d.join("L") + "Z"; } ), String);
+        path = path.data(
+            d3.geom.delaunay(vertices).map(function(d) {
+                return "M" + d.join("L") + "Z";
+            }),
+            String,
+        );
         path.exit().remove();
-        path.enter().append("path").attr("class", function (d, i) { return "q" + (i % 9) + "-9"; } ).attr("d", String);
+        path.enter().append("path").attr("class", function(d, i) {
+            return "q" + (i % 9) + "-9";
+        }).attr("d", String);
     }
 }
 
-//Example from http://bl.ocks.org/mbostock/4343214
+// Example from http://bl.ocks.org/mbostock/4343214
 function quadtree() {
     var width = 960,
         height = 500;
 
     var data = d3.range(5000).map(function(): [number, number] {
-      return [Math.random() * width, Math.random() * width];
+        return [Math.random() * width, Math.random() * width];
     });
 
     var quadtree = d3.geom.quadtree()
-        .extent([[-1, -1], [width + 1, height + 1]])
-        (data);
+        .extent([[-1, -1], [width + 1, height + 1]])(data);
 
     var brush = d3.svg.brush()
         .x(d3.scale.identity().domain([0, width]))
@@ -1425,17 +1748,29 @@ function quadtree() {
         .data(nodes(quadtree))
         .enter().append("rect")
         .attr("class", "node")
-        .attr("x", function (d) { return d.x; } )
-        .attr("y", function (d) { return d.y; } )
-        .attr("width", function (d) { return d.width; } )
-        .attr("height", function (d) { return d.height; } );
+        .attr("x", function(d) {
+            return d.x;
+        })
+        .attr("y", function(d) {
+            return d.y;
+        })
+        .attr("width", function(d) {
+            return d.width;
+        })
+        .attr("height", function(d) {
+            return d.height;
+        });
 
     var point = svg.selectAll(".point")
-        .data(<{ scanned?: boolean | undefined; selected?: boolean | undefined; 0: number; 1: number }[]> data)
+        .data(<Array<{ scanned?: boolean | undefined; selected?: boolean | undefined; 0: number; 1: number }>> data)
         .enter().append("circle")
         .attr("class", "point")
-        .attr("cx", function (d) { return d[0]; } )
-        .attr("cy", function (d) { return d[1]; } )
+        .attr("cx", function(d) {
+            return d[0];
+        })
+        .attr("cy", function(d) {
+            return d[1];
+        })
         .attr("r", 4);
 
     svg.append("g")
@@ -1446,48 +1781,82 @@ function quadtree() {
 
     function brushed() {
         var extent = <[[number, number], [number, number]]> brush.extent();
-        point.each(function (d) { d.scanned = d.selected = false; } );
+        point.each(function(d) {
+            d.scanned = d.selected = false;
+        });
         search(quadtree, extent[0][0], extent[0][1], extent[1][0], extent[1][1]);
-        point.classed("scanned", function (d) { return d.scanned; } );
-        point.classed("selected", function (d) { return d.selected; } );
+        point.classed("scanned", function(d) {
+            return d.scanned;
+        });
+        point.classed("selected", function(d) {
+            return d.selected;
+        });
     }
 
     // Collapse the quadtree into an array of rectangles.
     function nodes(quadtree: d3.geom.quadtree.Quadtree<[number, number]>) {
-        var nodes: Array<{x: number; y: number; width: number; height: number}> = [];
-        quadtree.visit(function (node: d3.geom.quadtree.Node<[number, number]>, x1: number, y1: number, x2:number, y2: number) {
-            nodes.push({ x: x1, y: y1, width: x2 - x1, height: y2 - y1 });
-        } );
+        var nodes: Array<{ x: number; y: number; width: number; height: number }> = [];
+        quadtree.visit(
+            function(node: d3.geom.quadtree.Node<[number, number]>, x1: number, y1: number, x2: number, y2: number) {
+                nodes.push({ x: x1, y: y1, width: x2 - x1, height: y2 - y1 });
+            },
+        );
         return nodes;
     }
 
     // Find the nodes within the specified rectangle.
-    function search(quadtree: d3.geom.quadtree.Quadtree<{ scanned?: boolean | undefined; selected?: boolean | undefined; 0: number; 1: number }>, x0: number, y0: number, x3: number, y3: number) {
-        quadtree.visit(function (node: d3.geom.quadtree.Node<{ scanned?: boolean | undefined; selected?: boolean | undefined; 0: number; 1: number }>, x1: number, y1: number, x2:number, y2: number) {
-            var p = node.point;
-            if (p) {
-                p.scanned = true;
-                p.selected = (p[0] >= x0) && (p[0] < x3) && (p[1] >= y0) && (p[1] < y3);
-            }
-            return x1 >= x3 || y1 >= y3 || x2 < x0 || y2 < y0;
-        } );
+    function search(
+        quadtree: d3.geom.quadtree.Quadtree<
+            { scanned?: boolean | undefined; selected?: boolean | undefined; 0: number; 1: number }
+        >,
+        x0: number,
+        y0: number,
+        x3: number,
+        y3: number,
+    ) {
+        quadtree.visit(
+            function(
+                node: d3.geom.quadtree.Node<
+                    { scanned?: boolean | undefined; selected?: boolean | undefined; 0: number; 1: number }
+                >,
+                x1: number,
+                y1: number,
+                x2: number,
+                y2: number,
+            ) {
+                var p = node.point;
+                if (p) {
+                    p.scanned = true;
+                    p.selected = (p[0] >= x0) && (p[0] < x3) && (p[1] >= y0) && (p[1] < y3);
+                }
+                return x1 >= x3 || y1 >= y3 || x2 < x0 || y2 < y0;
+            },
+        );
     }
 }
 
-//Example from http://bl.ocks.org/mbostock/4341699
+// Example from http://bl.ocks.org/mbostock/4341699
 function convexHull() {
     var width = 960,
         height = 500;
 
     var randomX = d3.random.normal(width / 2, 60),
         randomY = d3.random.normal(height / 2, 60),
-        vertices = d3.range(100).map(function (): [number, number] { return [randomX(), randomY()]; } );
+        vertices = d3.range(100).map(function(): [number, number] {
+            return [randomX(), randomY()];
+        });
 
     var svg = d3.select("body").append("svg")
         .attr("width", width)
         .attr("height", height)
-        .on("mousemove", function () { vertices[0] = d3.mouse(this); redraw(); } )
-        .on("click", function () { vertices.push(d3.mouse(this)); redraw(); } );
+        .on("mousemove", function() {
+            vertices[0] = d3.mouse(this);
+            redraw();
+        })
+        .on("click", function() {
+            vertices.push(d3.mouse(this));
+            redraw();
+        });
 
     svg.append("rect")
         .attr("width", width)
@@ -1501,10 +1870,14 @@ function convexHull() {
     redraw();
 
     function redraw() {
-        hull.datum(d3.geom.hull(vertices)).attr("d", function (d) { return "M" + d.join("L") + "Z"; } );
+        hull.datum(d3.geom.hull(vertices)).attr("d", function(d) {
+            return "M" + d.join("L") + "Z";
+        });
         circle = circle.data(vertices);
         circle.enter().append("circle").attr("r", 3);
-        circle.attr("transform", function (d) { return "translate(" + d + ")"; } );
+        circle.attr("transform", function(d) {
+            return "translate(" + d + ")";
+        });
     }
 }
 
@@ -1523,15 +1896,21 @@ namespace hierarchicalEdgeBundling {
     var cluster = d3.layout.cluster<Result>()
         .size([360, innerRadius])
         .sort(null)
-        .value(function (d) { return d.size; } );
+        .value(function(d) {
+            return d.size;
+        });
 
     var bundle = d3.layout.bundle<Result>();
 
     var line = d3.svg.line.radial<Result>()
         .interpolate("bundle")
         .tension(.85)
-        .radius(function (d) { return d.y; } )
-        .angle(function (d) { return d.x / 180 * Math.PI; } );
+        .radius(function(d) {
+            return d.y;
+        })
+        .angle(function(d) {
+            return d.x / 180 * Math.PI;
+        });
 
     var svg = d3.select("body").append("svg")
         .attr("width", diameter)
@@ -1539,7 +1918,7 @@ namespace hierarchicalEdgeBundling {
         .append("g")
         .attr("transform", "translate(" + radius + "," + radius + ")");
 
-    d3.json("readme-flare-imports.json", function (error, classes) {
+    d3.json("readme-flare-imports.json", function(error, classes) {
         var nodes = cluster.nodes(packages.root(classes)),
             links = packages.imports(nodes);
 
@@ -1550,25 +1929,36 @@ namespace hierarchicalEdgeBundling {
             .attr("d", line);
 
         svg.selectAll(".node")
-            .data(nodes.filter(function (n) { return !n.children; } ))
+            .data(nodes.filter(function(n) {
+                return !n.children;
+            }))
             .enter().append("g")
             .attr("class", "node")
-            .attr("transform", function (d) { return "rotate(" + (d.x - 90) + ")translate(" + d.y + ")"; } )
+            .attr("transform", function(d) {
+                return "rotate(" + (d.x - 90) + ")translate(" + d.y + ")";
+            })
             .append("text")
-            .attr("dx", function (d) { return d.x < 180 ? 8 : -8; } )
+            .attr("dx", function(d) {
+                return d.x < 180 ? 8 : -8;
+            })
             .attr("dy", ".31em")
-            .attr("text-anchor", function (d) { return d.x < 180 ? "start" : "end"; } )
-            .attr("transform", function (d) { return d.x < 180 ? null : "rotate(180)"; } )
-            .text(function (d) { return d.key; } );
-    } );
+            .attr("text-anchor", function(d) {
+                return d.x < 180 ? "start" : "end";
+            })
+            .attr("transform", function(d) {
+                return d.x < 180 ? null : "rotate(180)";
+            })
+            .text(function(d) {
+                return d.key;
+            });
+    });
 
     d3.select(self.frameElement).style("height", diameter + "px");
 
     var packages = {
-
         // Lazily construct the package hierarchy from class names.
-        root: function (classes: any[]) {
-            var map: {[key: string]: Result} = {};
+        root: function(classes: any[]) {
+            var map: { [key: string]: Result } = {};
 
             function find(name: string, data?: any) {
                 var node: Result = map[name], i: number;
@@ -1583,32 +1973,34 @@ namespace hierarchicalEdgeBundling {
                 return node;
             }
 
-            classes.forEach(function (d) {
+            classes.forEach(function(d) {
                 find(d.name, d);
-            } );
+            });
 
             return map[""];
-        } ,
+        },
 
         // Return a list of imports for the given array of nodes.
-        imports: function (nodes: any[]) {
-            var map: {[key: string]: Result} = {},
-                imports: d3.layout.cluster.Link<Result>[] = [];
+        imports: function(nodes: any[]) {
+            var map: { [key: string]: Result } = {},
+                imports: Array<d3.layout.cluster.Link<Result>> = [];
 
             // Compute a map from name to node.
-            nodes.forEach(function (d) {
+            nodes.forEach(function(d) {
                 map[d.name] = d;
-            } );
+            });
 
             // For each import, construct a link from the source to target node.
-            nodes.forEach(function (d) {
-                if (d.imports) d.imports.forEach(function (i: string) {
-                    imports.push({ source: map[d.name], target: map[i] });
-                } );
-            } );
+            nodes.forEach(function(d) {
+                if (d.imports) {
+                    d.imports.forEach(function(i: string) {
+                        imports.push({ source: map[d.name], target: map[i] });
+                    });
+                }
+            });
 
             return imports;
-        }
+        },
     };
 }
 
@@ -1633,27 +2025,29 @@ function roundedRectangles() {
         .attr("y", -12.5)
         .attr("width", 25)
         .attr("height", 25)
-        .attr("transform", function (d, i) { return "scale(" + (1 - d / 25) * 20 + ")"; } )
+        .attr("transform", function(d, i) {
+            return "scale(" + (1 - d / 25) * 20 + ")";
+        })
         .style("fill", d3.scale.category20c<number>());
 
-    var g0 = g.datum(function (d) {
+    var g0 = g.datum(function(d) {
         return { center: [0, 0], angle: 0 };
-    } );
+    });
 
-    svg.on("mousemove", function () {
+    svg.on("mousemove", function() {
         mouse = d3.mouse(this);
-    } );
+    });
 
-    d3.timer(function () {
+    d3.timer(function() {
         count++;
-        g0.attr("transform", function (d, i) {
+        g0.attr("transform", function(d, i) {
             d.center[0] += (mouse[0] - d.center[0]) / (i + 5);
             d.center[1] += (mouse[1] - d.center[1]) / (i + 5);
             d.angle += Math.sin((count + i) / 10) * 7;
             return "translate(" + d.center + ")rotate(" + d.angle + ")";
-        } );
+        });
         return true;
-    } );
+    });
 }
 
 // example from http://bl.ocks.org/mbostock/4060954
@@ -1661,8 +2055,16 @@ function streamGraph() {
     var n = 20, // number of layers
         m = 200, // number of samples per layer
         stack = d3.layout.stack().offset("wiggle"),
-        layers0 = stack(d3.range(n).map(function () { return bumpLayer(m); })),
-        layers1 = stack(d3.range(n).map(function () { return bumpLayer(m); }));
+        layers0 = stack(
+            d3.range(n).map(function() {
+                return bumpLayer(m);
+            }),
+        ),
+        layers1 = stack(
+            d3.range(n).map(function() {
+                return bumpLayer(m);
+            }),
+        );
 
     var width = 960,
         height = 500;
@@ -1672,16 +2074,29 @@ function streamGraph() {
         .range([0, width]);
 
     var y = d3.scale.linear()
-        .domain([0, d3.max(layers0.concat(layers1), function (layer) { return d3.max(layer, function (d) { return d.y0 + d.y; }); })])
+        .domain([
+            0,
+            d3.max(layers0.concat(layers1), function(layer) {
+                return d3.max(layer, function(d) {
+                    return d.y0 + d.y;
+                });
+            }),
+        ])
         .range([height, 0]);
 
     var color = d3.scale.linear<string>()
         .range(["#aad", "#556"]);
 
     var area = d3.svg.area<{ x: number; y: number; y0: number }>()
-        .x(function (d) { return x(d.x); })
-        .y0(function (d) { return y(d.y0); })
-        .y1(function (d) { return y(d.y0 + d.y); });
+        .x(function(d) {
+            return x(d.x);
+        })
+        .y0(function(d) {
+            return y(d.y0);
+        })
+        .y1(function(d) {
+            return y(d.y0 + d.y);
+        });
 
     var svg = d3.select("body").append("svg")
         .attr("width", width)
@@ -1691,11 +2106,13 @@ function streamGraph() {
         .data(layers0)
         .enter().append("path")
         .attr("d", area)
-        .style("fill", function () { return color(Math.random()); });
+        .style("fill", function() {
+            return color(Math.random());
+        });
 
     function transition() {
         d3.selectAll("path")
-            .data(function () {
+            .data(function() {
                 var d = layers1;
                 layers1 = layers0;
                 return layers0 = d;
@@ -1706,8 +2123,7 @@ function streamGraph() {
     }
 
     // Inspired by Lee Byron's test data generator.
-    function bumpLayer(n: number): Array<{x: number; y: number;y0?:number | undefined;}> {
-
+    function bumpLayer(n: number): Array<{ x: number; y: number; y0?: number | undefined }> {
         function bump(a: number[]) {
             var x = 1 / (.1 + Math.random()),
                 y = 2 * Math.random() - .5,
@@ -1721,7 +2137,9 @@ function streamGraph() {
         var a: number[] = [], i: number;
         for (i = 0; i < n; ++i) a[i] = 0;
         for (i = 0; i < 5; ++i) bump(a);
-        return a.map(function (d, i) { return { x: i, y: Math.max(0, d) }; } );
+        return a.map(function(d, i) {
+            return { x: i, y: Math.max(0, d) };
+        });
     }
 }
 
@@ -1742,21 +2160,25 @@ namespace forceCollapsable2 {
 
     var force = d3.layout.force<Node>()
         .on("tick", tick)
-        .charge(function (d) { return d._children ? -d.size / 100 : -30; } )
-        .linkDistance(function (d) { return (d.target as Node)._children ? 80 : 30; } )
+        .charge(function(d) {
+            return d._children ? -d.size / 100 : -30;
+        })
+        .linkDistance(function(d) {
+            return (d.target as Node)._children ? 80 : 30;
+        })
         .size([w, h - 160]);
 
     var vis = d3.select("body").append("svg:svg")
         .attr("width", w)
         .attr("height", h);
 
-    d3.json("flare.json", function (json) {
+    d3.json("flare.json", function(json) {
         root = json;
         root.fixed = true;
         root.x = w / 2;
         root.y = h / 2 - 80;
         update();
-    } );
+    });
 
     function update() {
         var nodes = flatten(root),
@@ -1770,33 +2192,53 @@ namespace forceCollapsable2 {
 
         // Update the links…
         link = vis.selectAll("line.link")
-            .data(links, function (d) { return d.target.id; } );
+            .data(links, function(d) {
+                return d.target.id;
+            });
 
         // Enter any new links.
         link.enter().insert("svg:line", ".node")
             .attr("class", "link")
-            .attr("x1", function (d) { return (d.source as Node).x; } )
-            .attr("y1", function (d) { return (d.source as Node).y; } )
-            .attr("x2", function (d) { return (d.target as Node).x; } )
-            .attr("y2", function (d) { return (d.target as Node).y; } );
+            .attr("x1", function(d) {
+                return (d.source as Node).x;
+            })
+            .attr("y1", function(d) {
+                return (d.source as Node).y;
+            })
+            .attr("x2", function(d) {
+                return (d.target as Node).x;
+            })
+            .attr("y2", function(d) {
+                return (d.target as Node).y;
+            });
 
         // Exit any old links.
         link.exit().remove();
 
         // Update the nodes…
         node = vis.selectAll("circle.node")
-            .data(nodes, function (d) { return d.id; } )
+            .data(nodes, function(d) {
+                return d.id;
+            })
             .style("fill", color);
 
         node.transition()
-            .attr("r", function (d) { return d.children ? 4.5 : Math.sqrt(d.size) / 10; } );
+            .attr("r", function(d) {
+                return d.children ? 4.5 : Math.sqrt(d.size) / 10;
+            });
 
         // Enter any new nodes.
         node.enter().append("svg:circle")
             .attr("class", "node")
-            .attr("cx", function (d) { return d.x; } )
-            .attr("cy", function (d) { return d.y; } )
-            .attr("r", function (d) { return d.children ? 4.5 : Math.sqrt(d.size) / 10; } )
+            .attr("cx", function(d) {
+                return d.x;
+            })
+            .attr("cy", function(d) {
+                return d.y;
+            })
+            .attr("r", function(d) {
+                return d.children ? 4.5 : Math.sqrt(d.size) / 10;
+            })
             .style("fill", color)
             .on("click", click)
             .call(force.drag);
@@ -1806,13 +2248,25 @@ namespace forceCollapsable2 {
     }
 
     function tick() {
-        link.attr("x1", function (d) { return (d.source as Node).x; } )
-            .attr("y1", function (d) { return (d.source as Node).y; } )
-            .attr("x2", function (d) { return (d.target as Node).x; } )
-            .attr("y2", function (d) { return (d.target as Node).y; } );
+        link.attr("x1", function(d) {
+            return (d.source as Node).x;
+        })
+            .attr("y1", function(d) {
+                return (d.source as Node).y;
+            })
+            .attr("x2", function(d) {
+                return (d.target as Node).x;
+            })
+            .attr("y2", function(d) {
+                return (d.target as Node).y;
+            });
 
-        node.attr("cx", function (d) { return d.x; } )
-            .attr("cy", function (d) { return d.y; } );
+        node.attr("cx", function(d) {
+            return d.x;
+        })
+            .attr("cy", function(d) {
+                return d.y;
+            });
     }
 
     // Color leaf nodes orange, and packages white or blue.
@@ -1837,7 +2291,11 @@ namespace forceCollapsable2 {
         var nodes: Node[] = [], i = 0;
 
         function recurse(node: Node) {
-            if (node.children) node.size = node.children.reduce(function (p, v) { return p + recurse(v); } , 0);
+            if (node.children) {
+                node.size = node.children.reduce(function(p, v) {
+                    return p + recurse(v);
+                }, 0);
+            }
             if (!node.id) node.id = String(++i);
             nodes.push(node);
             return node.size;
@@ -1848,13 +2306,13 @@ namespace forceCollapsable2 {
     }
 }
 
-//exapmle from http://bl.ocks.org/mbostock/4062006
+// exapmle from http://bl.ocks.org/mbostock/4062006
 function chordDiagram() {
     var matrix = [
         [11975, 5871, 8916, 2868],
         [1951, 10048, 2060, 6171],
         [8010, 16145, 8090, 8045],
-        [1013, 990, 940, 6907]
+        [1013, 990, 940, 6907],
     ];
 
     var chord = d3.layout.chord()
@@ -1880,8 +2338,12 @@ function chordDiagram() {
     svg.append("g").selectAll("path")
         .data(chord.groups)
         .enter().append("path")
-        .style("fill", function (d) { return fill(d.index); } )
-        .style("stroke", function (d) { return fill(d.index); } )
+        .style("fill", function(d) {
+            return fill(d.index);
+        })
+        .style("stroke", function(d) {
+            return fill(d.index);
+        })
         .attr("d", d3.svg.arc<d3.layout.chord.Node>().innerRadius(innerRadius).outerRadius(outerRadius))
         .on("mouseover", fade(.1))
         .on("mouseout", fade(1));
@@ -1891,10 +2353,10 @@ function chordDiagram() {
         .enter().append("g").selectAll("g")
         .data(groupTicks)
         .enter().append("g")
-        .attr("transform", function (d) {
+        .attr("transform", function(d) {
             return "rotate(" + (d.angle * 180 / Math.PI - 90) + ")"
                 + "translate(" + outerRadius + ",0)";
-        } );
+        });
 
     ticks.append("line")
         .attr("x1", 1)
@@ -1906,9 +2368,15 @@ function chordDiagram() {
     ticks.append("text")
         .attr("x", 8)
         .attr("dy", ".35em")
-        .attr("transform", function (d) { return d.angle > Math.PI ? "rotate(180)translate(-16)" : null; } )
-        .style("text-anchor", function (d) { return d.angle > Math.PI ? "end" : null; } )
-        .text(function (d) { return d.label; } );
+        .attr("transform", function(d) {
+            return d.angle > Math.PI ? "rotate(180)translate(-16)" : null;
+        })
+        .style("text-anchor", function(d) {
+            return d.angle > Math.PI ? "end" : null;
+        })
+        .text(function(d) {
+            return d.label;
+        });
 
     svg.append("g")
         .attr("class", "chord")
@@ -1916,32 +2384,36 @@ function chordDiagram() {
         .data(chord.chords)
         .enter().append("path")
         .attr("d", d3.svg.chord<d3.layout.chord.Node>().radius(innerRadius))
-        .style("fill", function (d) { return fill(d.target.index); } )
+        .style("fill", function(d) {
+            return fill(d.target.index);
+        })
         .style("opacity", 1);
 
     // Returns an array of tick angles and labels, given a group.
     function groupTicks(d: d3.layout.chord.Node) {
         var k = (d.endAngle - d.startAngle) / d.value;
-        return d3.range(0, d.value, 1000).map(function (v, i) {
+        return d3.range(0, d.value, 1000).map(function(v, i) {
             return {
                 angle: v * k + d.startAngle,
-                label: i % 5 ? null : v / 1000 + "k"
+                label: i % 5 ? null : v / 1000 + "k",
             };
-        } );
+        });
     }
 
     // Returns an event handler for fading a given chord group.
     function fade(opacity: number) {
-        return function (g: {}, i: number) {
+        return function(g: {}, i: number) {
             svg.selectAll(".chord path")
-                .filter(function (d) { return d.source.index != i && d.target.index != i; } )
+                .filter(function(d) {
+                    return d.source.index != i && d.target.index != i;
+                })
                 .transition()
                 .style("opacity", opacity);
         };
     }
 }
 
-//example from http://mbostock.github.io/d3/talk/20111116/iris-parallel.html
+// example from http://mbostock.github.io/d3/talk/20111116/iris-parallel.html
 function irisParallel() {
     var species = ["setosa", "versicolor", "virginica"],
         traits = ["sepal length", "petal length", "sepal width", "petal width"];
@@ -1951,11 +2423,11 @@ function irisParallel() {
         h = 800 - m[0] - m[2];
 
     var x = d3.scale.ordinal().domain(traits).rangePoints([0, w]),
-        y: {[key: string]: any} = {};
+        y: { [key: string]: any } = {};
 
     var line = d3.svg.line(),
         axis = d3.svg.axis().orient("left"),
-        foreground: d3.Selection<{ [key: string]: string}>;
+        foreground: d3.Selection<{ [key: string]: string }>;
 
     var svg = d3.select("body").append("svg:svg")
         .attr("width", w + m[1] + m[3])
@@ -1963,26 +2435,30 @@ function irisParallel() {
         .append("svg:g")
         .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
 
-    d3.csv("iris.csv", function (flowers) {
+    d3.csv("iris.csv", function(flowers) {
         var i: number;
 
         // Create a scale and brush for each trait.
-        traits.forEach(function (d) {
+        traits.forEach(function(d) {
             y[d] = d3.scale.linear<number>()
-                .domain(d3.extent(flowers, function (p) { return +p[d]; } ))
+                .domain(d3.extent(flowers, function(p) {
+                    return +p[d];
+                }))
                 .range([h, 0]);
 
             y[d].brush = d3.svg.brush()
                 .y(y[d])
                 .on("brush", brush);
-        } );
+        });
 
         // Add a legend.
         var legend = svg.selectAll("g.legend")
             .data(species)
             .enter().append("svg:g")
             .attr("class", "legend")
-            .attr("transform", function (d, i) { return "translate(0," + (i * 20 + 584) + ")"; } );
+            .attr("transform", function(d, i) {
+                return "translate(0," + (i * 20 + 584) + ")";
+            });
 
         legend.append("svg:line")
             .attr("class", String)
@@ -1991,7 +2467,9 @@ function irisParallel() {
         legend.append("svg:text")
             .attr("x", 12)
             .attr("dy", ".31em")
-            .text(function (d) { return "Iris " + d; } );
+            .text(function(d) {
+                return "Iris " + d;
+            });
 
         // Add foreground lines.
         foreground = svg.append("svg:g")
@@ -2000,24 +2478,34 @@ function irisParallel() {
             .data(flowers)
             .enter().append("svg:path")
             .attr("d", path)
-            .attr("class", function (d) { return d['species']; } );
+            .attr("class", function(d) {
+                return d["species"];
+            });
 
         // Add a group element for each trait.
         var g = svg.selectAll(".trait")
             .data(traits)
             .enter().append("svg:g")
             .attr("class", "trait")
-            .attr("transform", function (d) { return "translate(" + x(d) + ")"; } )
-            .call(d3.behavior.drag<string>()
-                .origin(function (d) { return { x: x(d), y: NaN }; } )
-                .on("dragstart", dragstart)
-                .on("drag", drag)
-                .on("dragend", dragend));
+            .attr("transform", function(d) {
+                return "translate(" + x(d) + ")";
+            })
+            .call(
+                d3.behavior.drag<string>()
+                    .origin(function(d) {
+                        return { x: x(d), y: NaN };
+                    })
+                    .on("dragstart", dragstart)
+                    .on("drag", drag)
+                    .on("dragend", dragend),
+            );
 
         // Add an axis and title.
         g.append("svg:g")
             .attr("class", "axis")
-            .each(function (d) { d3.select(this).call(axis.scale(y[d])); } )
+            .each(function(d) {
+                d3.select(this).call(axis.scale(y[d]));
+            })
             .append("svg:text")
             .attr("text-anchor", "middle")
             .attr("y", -9)
@@ -2026,7 +2514,9 @@ function irisParallel() {
         // Add a brush for each axis.
         g.append("svg:g")
             .attr("class", "brush")
-            .each(function (d) { d3.select(this).call(y[d].brush); } )
+            .each(function(d) {
+                d3.select(this).call(y[d].brush);
+            })
             .selectAll("rect")
             .attr("x", -8)
             .attr("width", 16);
@@ -2037,44 +2527,66 @@ function irisParallel() {
 
         function drag(d: string) {
             x.range()[i] = (<d3.DragEvent> d3.event).x;
-            traits.sort(function (a, b) { return x(a) - x(b); } );
-            g.attr("transform", function (d) { return "translate(" + x(d) + ")"; } );
+            traits.sort(function(a, b) {
+                return x(a) - x(b);
+            });
+            g.attr("transform", function(d) {
+                return "translate(" + x(d) + ")";
+            });
             foreground.attr("d", path);
         }
 
         function dragend(d: string) {
             x.domain(traits).rangePoints([0, w]);
             var t = d3.transition().duration(500);
-            t.selectAll(".trait").attr("transform", function (d) { return "translate(" + x(d) + ")"; } );
+            t.selectAll(".trait").attr("transform", function(d) {
+                return "translate(" + x(d) + ")";
+            });
             t.selectAll(".foreground path").attr("d", path);
         }
-    } );
+    });
 
     // Returns the path for a given data point.
     function path(d: any): string {
-        return line(traits.map(function (p): [number, number] { return [x(p), y[p](d[p])]; } ));
+        return line(traits.map(function(p): [number, number] {
+            return [x(p), y[p](d[p])];
+        }));
     }
 
     // Handles a brush event, toggling the display of foreground lines.
     function brush() {
-        var actives = traits.filter(function (p) { return !y[p].brush.empty(); } ),
-            extents = actives.map(function (p) { return y[p].brush.extent(); } );
-        foreground.classed("fade", function (d) {
-            return !actives.every(function (p, i) {
+        var actives = traits.filter(function(p) {
+                return !y[p].brush.empty();
+            }),
+            extents = actives.map(function(p) {
+                return y[p].brush.extent();
+            });
+        foreground.classed("fade", function(d) {
+            return !actives.every(function(p, i) {
                 return extents[i][0] <= d[p] && d[p] <= extents[i][1];
-            } );
-        } );
+            });
+        });
     }
 }
 
-//example from
+// example from
 function healthAndWealth() {
     // Various accessors that specify the four dimensions of data to visualize.
-    function x(d: any) { return d.income; }
-    function y(d: any) { return d.lifeExpectancy; }
-    function radius(d: any) { return d.population; }
-    function color(d: any) { return d.region; }
-    function key(d: any) { return d.name; }
+    function x(d: any) {
+        return d.income;
+    }
+    function y(d: any) {
+        return d.lifeExpectancy;
+    }
+    function radius(d: any) {
+        return d.population;
+    }
+    function color(d: any) {
+        return d.region;
+    }
+    function key(d: any) {
+        return d.name;
+    }
 
     // Chart dimensions.
     var margin = { top: 19.5, right: 19.5, bottom: 19.5, left: 39.5 },
@@ -2135,10 +2647,11 @@ function healthAndWealth() {
         .text(1800);
 
     // Load the data.
-    d3.json("nations.json", function (nations: any[]) {
-
+    d3.json("nations.json", function(nations: any[]) {
         // A bisector since many nation's data is sparsely-defined.
-        var bisect = d3.bisector(function (d: any) { return d[0]; } );
+        var bisect = d3.bisector(function(d: any) {
+            return d[0];
+        });
 
         // Add a dot per nation. Initialize the data at 1800, and set the colors.
         var dot = svg.append("g")
@@ -2147,16 +2660,20 @@ function healthAndWealth() {
             .data(interpolateData(1800))
             .enter().append("circle")
             .attr("class", "dot")
-            .style("fill", function (d) { return colorScale(color(d)); } )
+            .style("fill", function(d) {
+                return colorScale(color(d));
+            })
             .call(position)
             .sort(order);
 
         // Add a title.
         dot.append("title")
-            .text(function (d) { return d.name; } );
+            .text(function(d) {
+                return d.name;
+            });
 
         // Add an overlay for the year label.
-        var box = (<SVGTextElement>label.node()).getBBox();
+        var box = (<SVGTextElement> label.node()).getBBox();
 
         var overlay = svg.append("rect")
             .attr("class", "overlay")
@@ -2175,9 +2692,15 @@ function healthAndWealth() {
 
         // Positions the dots based on data.
         function position(dot: d3.Selection<any>) {
-            dot.attr("cx", function (d) { return xScale(x(d)); } )
-                .attr("cy", function (d) { return yScale(y(d)); } )
-                .attr("r", function (d) { return radiusScale(radius(d)); } );
+            dot.attr("cx", function(d) {
+                return xScale(x(d));
+            })
+                .attr("cy", function(d) {
+                    return yScale(y(d));
+                })
+                .attr("r", function(d) {
+                    return radiusScale(radius(d));
+                });
         }
 
         // Defines a sort order so that the smallest dots are drawn on top.
@@ -2218,7 +2741,9 @@ function healthAndWealth() {
         // For the interpolated data, the dots and label are redrawn.
         function tweenYear() {
             var year = d3.interpolateNumber(1800, 2009);
-            return function (t: number) { displayYear(year(t)); };
+            return function(t: number) {
+                displayYear(year(t));
+            };
         }
 
         // Updates the display to show the specified year.
@@ -2229,15 +2754,15 @@ function healthAndWealth() {
 
         // Interpolates the dataset for the given (fractional) year.
         function interpolateData(year: number) {
-            return nations.map(function (d) {
+            return nations.map(function(d) {
                 return {
                     name: d.name,
                     region: d.region,
                     income: interpolateValues(d.income, year),
                     population: interpolateValues(d.population, year),
-                    lifeExpectancy: interpolateValues(d.lifeExpectancy, year)
+                    lifeExpectancy: interpolateValues(d.lifeExpectancy, year),
                 };
-            } );
+            });
         }
 
         // Finds (and possibly interpolates) the value for the specified year.
@@ -2251,165 +2776,215 @@ function healthAndWealth() {
             }
             return a[1];
         }
-    } );
+    });
 }
 
 // Test for d3.functor
-function functorTest () {
+function functorTest() {
     var f: (n: number) => number = d3.functor(10);
-    var g = d3.functor(function (v: number) { return v; });
+    var g = d3.functor(function(v: number) {
+        return v;
+    });
 
     return f(10) === g(10);
 }
 
 // Test for d3.Nest
 // Most test adopted from: https://github.com/mbostock/d3/blob/master/test/arrays/nest-test.js
-function nestTest () {
+function nestTest() {
     var data = [
         {
             a: 10,
-            b: [ 1, 2 ]
+            b: [1, 2],
         },
         {
             a: 20,
-            b: [ 2, 3 ]
+            b: [2, 3],
         },
         {
             a: 30,
-            b: [ 1, 2 ]
-        }
+            b: [1, 2],
+        },
     ];
 
-    var n1 = d3.nest<{a: number; b: number[] }>()
-                .key(function (d) { return String(d.a); })
-                .sortKeys(d3.descending)
-                .rollup(function (vals) {
-                    return d3.sum(vals[0].b);
-                });
+    var n1 = d3.nest<{ a: number; b: number[] }>()
+        .key(function(d) {
+            return String(d.a);
+        })
+        .sortKeys(d3.descending)
+        .rollup(function(vals) {
+            return d3.sum(vals[0].b);
+        });
     n1.map(data);
     n1.entries(data);
 
     var n2 = d3.nest<{ a: number; b: number[] }>()
-                .key(function (d) { return String(d.a); })
-                .sortValues(function (x1, x2) {
-                        return x1.b[0] < x1.b[1] ? -1 : (x1.b[0] > x1.b[0] ? 1 : 0); });
+        .key(function(d) {
+            return String(d.a);
+        })
+        .sortValues(function(x1, x2) {
+            return x1.b[0] < x1.b[1] ? -1 : (x1.b[0] > x1.b[0] ? 1 : 0);
+        });
     n2.map(data);
     n2.entries(data);
 
     // Tests adopted from d3's tests.
-    var keys = d3.nest<{ foo: number; }>()
-      .key(function(d) { return String(d.foo); })
-      .entries([{foo: 1}, {foo: 1}, {foo: 2}])
-      .map(function(d) { return d.key; })
-      .sort(d3.ascending);
+    var keys = d3.nest<{ foo: number }>()
+        .key(function(d) {
+            return String(d.foo);
+        })
+        .entries([{ foo: 1 }, { foo: 1 }, { foo: 2 }])
+        .map(function(d) {
+            return d.key;
+        })
+        .sort(d3.ascending);
 
-    var entries = d3.nest<{foo: number; bar?: number | undefined}>()
-      .key(function(d) { return String(d.foo); })
-      .entries([{foo: 1, bar: 0}, {foo: 2}, {foo: 1, bar: 1}]);
+    var entries = d3.nest<{ foo: number; bar?: number | undefined }>()
+        .key(function(d) {
+            return String(d.foo);
+        })
+        .entries([{ foo: 1, bar: 0 }, { foo: 2 }, { foo: 1, bar: 1 }]);
 
-    keys = d3.nest<{foo: number}>()
-        .key(function(d) { return String(d.foo); }).sortKeys(d3.descending)
-        .entries([{foo: 1}, {foo: 1}, {foo: 2}])
-        .map(function(d) { return d.key; });
+    keys = d3.nest<{ foo: number }>()
+        .key(function(d) {
+            return String(d.foo);
+        }).sortKeys(d3.descending)
+        .entries([{ foo: 1 }, { foo: 1 }, { foo: 2 }])
+        .map(function(d) {
+            return d.key;
+        });
 
     entries = d3.nest<{ foo: number; bar?: number | undefined }>()
-        .key(function(d) { return String(d.foo); })
-        .sortValues(function(a, b) { return a.bar - b.bar; })
-        .entries([{foo: 1, bar: 2}, {foo: 1, bar: 0}, {foo: 1, bar: 1}, {foo: 2}]);
+        .key(function(d) {
+            return String(d.foo);
+        })
+        .sortValues(function(a, b) {
+            return a.bar - b.bar;
+        })
+        .entries([{ foo: 1, bar: 2 }, { foo: 1, bar: 0 }, { foo: 1, bar: 1 }, { foo: 2 }]);
 
     entries = d3.nest<{ foo: number; bar?: number | undefined }>()
-        .key(function(d) { return String(d.foo); })
-        .rollup(function(values) { return d3.sum<any>(values, function(d) { return d.bar; }); })
-        .entries([{foo: 1, bar: 2}, {foo: 1, bar: 0}, {foo: 1, bar: 1}, {foo: 2}]);
+        .key(function(d) {
+            return String(d.foo);
+        })
+        .rollup(function(values) {
+            return d3.sum<any>(values, function(d) {
+                return d.bar;
+            });
+        })
+        .entries([{ foo: 1, bar: 2 }, { foo: 1, bar: 0 }, { foo: 1, bar: 1 }, { foo: 2 }]);
 
     entries = d3.nest<[number, number]>()
-        .key(function(d) { return String(d[0]); }).sortKeys(d3.ascending)
-        .key(function(d) { return String(d[1]); }).sortKeys(d3.ascending)
+        .key(function(d) {
+            return String(d[0]);
+        }).sortKeys(d3.ascending)
+        .key(function(d) {
+            return String(d[1]);
+        }).sortKeys(d3.ascending)
         .entries([[0, 1], [0, 2], [1, 1], [1, 2], [0, 2]]);
 
     entries = d3.nest<[number, number]>()
-        .key(function(d) { return String(d[0]); }).sortKeys(d3.ascending)
-        .key(function(d) { return String(d[1]); }).sortKeys(d3.ascending)
-        .rollup(function(values) { return values.length; })
+        .key(function(d) {
+            return String(d[0]);
+        }).sortKeys(d3.ascending)
+        .key(function(d) {
+            return String(d[1]);
+        }).sortKeys(d3.ascending)
+        .rollup(function(values) {
+            return values.length;
+        })
         .entries([[0, 1], [0, 2], [1, 1], [1, 2], [0, 2]]);
 
     entries = d3.nest<{ 0: number; 1: number; 2?: number | undefined }>()
-        .key(function(d) { return String(d[0]); }).sortKeys(d3.ascending)
-        .key(function(d) { return String(d[1]); }).sortKeys(d3.ascending)
-        .sortValues(function(a, b) { return a[2] - b[2]; })
+        .key(function(d) {
+            return String(d[0]);
+        }).sortKeys(d3.ascending)
+        .key(function(d) {
+            return String(d[1]);
+        }).sortKeys(d3.ascending)
+        .sortValues(function(a, b) {
+            return a[2] - b[2];
+        })
         .entries([[0, 1], [0, 2, 1], [1, 1], [1, 2], [0, 2, 0]]);
 
     var map = d3.nest<{ 0: number; 1: number; 2?: number | undefined }>()
-        .key(function(d) { return String(d[0]); }).sortKeys(d3.ascending)
-        .key(function(d) { return String(d[1]); }).sortKeys(d3.ascending)
-        .sortValues(function(a, b) { return a[2] - b[2]; })
+        .key(function(d) {
+            return String(d[0]);
+        }).sortKeys(d3.ascending)
+        .key(function(d) {
+            return String(d[1]);
+        }).sortKeys(d3.ascending)
+        .sortValues(function(a, b) {
+            return a[2] - b[2];
+        })
         .map([[0, 1], [0, 2, 1], [1, 1], [1, 2], [0, 2, 0]]);
 }
 
 // Test for setting attributes as an object
 // From https://github.com/mbostock/d3/blob/master/test/selection/attr-test.js
-function attrObjTest () {
-    d3.select('body')
+function attrObjTest() {
+    d3.select("body")
         .data(["orange"])
-        .attr({"xlink:href": function(d, i) { return d + "-" + i + ".png"; }});
+        .attr({
+            "xlink:href": function(d, i) {
+                return d + "-" + i + ".png";
+            },
+        });
 }
 
 // Test for setting styles as an object
 // From https://github.com/mbostock/d3/blob/master/test/selection/style-test.js
-function styleObjTest () {
-    d3.select('body')
-        .style({"background-color": "white", opacity: .42});
+function styleObjTest() {
+    d3.select("body")
+        .style({ "background-color": "white", opacity: .42 });
 }
 
 // Test for setting styles as an object
 // From https://github.com/mbostock/d3/blob/master/test/selection/property-test.js
-function propertyObjTest () {
-    d3.select('body')
-        .property({bgcolor: "purple", opacity: .41});
+function propertyObjTest() {
+    d3.select("body")
+        .property({ bgcolor: "purple", opacity: .41 });
 }
-
 
 // Test for brushes
 function brushTest() {
     var xScale = d3.scale.linear(),
         yScale = d3.scale.linear();
 
-    var xMin = 0, xMax = 1,
-        yMin = 0, yMax = 1;
+    var xMin = 0, xMax = 1, yMin = 0, yMax = 1;
 
     // Setting only x scale.
     var brush1 = d3.svg.brush()
-                    .x(xScale)
-                    .on('brush', function () {
-                        var extent = <[number, number]> brush1.extent();
-                        xMin = Math.max(extent[0], 0);
-                        xMax = Math.min(extent[1], 1);
-                        brush1.extent([xMin, xMax]);
-                    });
+        .x(xScale)
+        .on("brush", function() {
+            var extent = <[number, number]> brush1.extent();
+            xMin = Math.max(extent[0], 0);
+            xMax = Math.min(extent[1], 1);
+            brush1.extent([xMin, xMax]);
+        });
 
     // Setting both the x and y scale
     var brush2 = d3.svg.brush()
-                    .x(xScale)
-                    .y(yScale)
-                    .on('brush', function () {
-                        var extent = <[[number, number], [number, number]]> brush2.extent();
-                        var xExtent = extent[0],
-                            yExtent = extent[1];
+        .x(xScale)
+        .y(yScale)
+        .on("brush", function() {
+            var extent = <[[number, number], [number, number]]> brush2.extent();
+            var xExtent = extent[0],
+                yExtent = extent[1];
 
-                        xMin = Math.max(xExtent[0], 0);
-                        xMax = Math.min(xExtent[1], 1);
+            xMin = Math.max(xExtent[0], 0);
+            xMax = Math.min(xExtent[1], 1);
 
-                        yMin = Math.max(yExtent[0], 0);
-                        yMax = Math.min(yExtent[1], 1);
+            yMin = Math.max(yExtent[0], 0);
+            yMax = Math.min(yExtent[1], 1);
 
-                        brush1.extent([[xMin, xMax], [yMin, yMax]]);
-                    });
+            brush1.extent([[xMin, xMax], [yMin, yMax]]);
+        });
 }
-
 
 // Tests for area
 // Adopted from: https://github.com/mbostock/d3/blob/master/test/svg/area-test.js
-function svgAreaTest () {
+function svgAreaTest() {
     var a = d3.svg.area(),
         f: () => number,
         n: number;
@@ -2417,43 +2992,67 @@ function svgAreaTest () {
     a.x(f).x() === f;
     a.x(n).x() === n;
     a.x(0);
-    a.x(function (d) { return d[0] * 10; });
-    a.x(function (d, i) { return i * 10; });
+    a.x(function(d) {
+        return d[0] * 10;
+    });
+    a.x(function(d, i) {
+        return i * 10;
+    });
 
     a.x(f).x0() === f;
     a.x(n).x0() === n;
     a.x0(0);
-    a.x0(function (d) { return d[0] * 10; });
-    a.x0(function (d, i) { return i * 10; });
+    a.x0(function(d) {
+        return d[0] * 10;
+    });
+    a.x0(function(d, i) {
+        return i * 10;
+    });
 
     a.x(f).x1() === f;
     a.x(n).x1() === n;
     a.x1(0);
-    a.x1(function (d) { return d[0] * 10; });
-    a.x1(function (d, i) { return i * 10; });
+    a.x1(function(d) {
+        return d[0] * 10;
+    });
+    a.x1(function(d, i) {
+        return i * 10;
+    });
 
     a.y(f).y() === f;
     a.y(n).y() === n;
     a.y(0);
-    a.y(function (d) { return d[0] * 10; });
-    a.y(function (d, i) { return i * 10; });
+    a.y(function(d) {
+        return d[0] * 10;
+    });
+    a.y(function(d, i) {
+        return i * 10;
+    });
 
     a.y(f).y0() === f;
     a.y(n).y0() === n;
     a.y0(0);
-    a.y0(function (d) { return d[0] * 10; });
-    a.y0(function (d, i) { return i * 10; });
+    a.y0(function(d) {
+        return d[0] * 10;
+    });
+    a.y0(function(d, i) {
+        return i * 10;
+    });
 
     a.y(f).y1() === f;
     a.y(n).y1() === n;
     a.y1(0);
-    a.y1(function (d) { return d[0] * 10; });
-    a.y1(function (d, i) { return i * 10; });
+    a.y1(function(d) {
+        return d[0] * 10;
+    });
+    a.y1(function(d, i) {
+        return i * 10;
+    });
 }
 
 // Tests for areaRadial
 // Adopted from: https://github.com/mbostock/d3/blob/master/test/svg/area-radial-test.js
-function svgAreaRadialTest () {
+function svgAreaRadialTest() {
     var a = d3.svg.area.radial(),
         f: () => number,
         n: number;
@@ -2461,43 +3060,67 @@ function svgAreaRadialTest () {
     a.radius(f).radius() === f;
     a.radius(n).radius() === n;
     a.radius(0);
-    a.radius(function (d) { return d[0] * 10; });
-    a.radius(function (d, i) { return i * 10; });
+    a.radius(function(d) {
+        return d[0] * 10;
+    });
+    a.radius(function(d, i) {
+        return i * 10;
+    });
 
     a.radius(f).innerRadius() === f;
     a.radius(n).innerRadius() === n;
     a.innerRadius(0);
-    a.innerRadius(function (d) { return d[0] * 10; });
-    a.innerRadius(function (d, i) { return i * 10; });
+    a.innerRadius(function(d) {
+        return d[0] * 10;
+    });
+    a.innerRadius(function(d, i) {
+        return i * 10;
+    });
 
     a.radius(f).outerRadius() === f;
     a.radius(n).outerRadius() === n;
     a.outerRadius(0);
-    a.outerRadius(function (d) { return d[1] * 10; });
-    a.outerRadius(function (d, i) { return i * 10; });
+    a.outerRadius(function(d) {
+        return d[1] * 10;
+    });
+    a.outerRadius(function(d, i) {
+        return i * 10;
+    });
 
     a.angle(f).angle() === f;
     a.angle(n).angle() === n;
     a.angle(0);
-    a.angle(function (d) { return d[0] * 10; });
-    a.angle(function (d, i) { return i * 10; });
+    a.angle(function(d) {
+        return d[0] * 10;
+    });
+    a.angle(function(d, i) {
+        return i * 10;
+    });
 
     a.angle(f).startAngle() === f;
     a.angle(n).startAngle() === n;
     a.startAngle(0);
-    a.startAngle(function (d) { return d[0] * 10; });
-    a.startAngle(function (d, i) { return i * 10; });
+    a.startAngle(function(d) {
+        return d[0] * 10;
+    });
+    a.startAngle(function(d, i) {
+        return i * 10;
+    });
 
     a.angle(f).endAngle() === f;
     a.angle(n).endAngle() === n;
     a.endAngle(0);
-    a.endAngle(function (d) { return d[1] * 10; });
-    a.endAngle(function (d, i) { return i * 10; });
+    a.endAngle(function(d) {
+        return d[1] * 10;
+    });
+    a.endAngle(function(d, i) {
+        return i * 10;
+    });
 }
 
 // Tests for d3.svg.line
 // Adopted from: https://github.com/mbostock/d3/blob/master/test/svg/line-test.js
-function svgLineTest () {
+function svgLineTest() {
     var l = d3.svg.line(),
         f: () => number,
         n: number;
@@ -2505,19 +3128,27 @@ function svgLineTest () {
     l.x(f).x() === f;
     l.x(n).x() === n;
     l.x(0);
-    l.x(function (d) { return d[0]; });
-    l.x(function (d, i) { return i; });
+    l.x(function(d) {
+        return d[0];
+    });
+    l.x(function(d, i) {
+        return i;
+    });
 
     l.y(f).y() === f;
     l.y(n).y() === n;
     l.y(0);
-    l.y(function (d) { return d[1]; });
-    l.y(function (d, i) { return i; });
+    l.y(function(d) {
+        return d[1];
+    });
+    l.y(function(d, i) {
+        return i;
+    });
 }
 
 // Tests for d3.svg.line.radial
 // Adopted from: https://github.com/mbostock/d3/blob/master/test/svg/line-radial-test.js
-function svgLineRadialTest () {
+function svgLineRadialTest() {
     var l = d3.svg.line.radial(),
         f: () => number,
         n: number;
@@ -2525,44 +3156,68 @@ function svgLineRadialTest () {
     l.radius(f).radius() === f;
     l.radius(n).radius() === n;
     l.radius(0);
-    l.radius(function (d) { return d[0]; });
-    l.radius(function (d, i) { return i; });
+    l.radius(function(d) {
+        return d[0];
+    });
+    l.radius(function(d, i) {
+        return i;
+    });
 
     l.angle(f).angle() === f;
     l.angle(n).angle() === n;
     l.angle(0);
-    l.angle(function (d) { return d[1]; });
-    l.angle(function (d, i) { return i; });
+    l.angle(function(d) {
+        return d[1];
+    });
+    l.angle(function(d, i) {
+        return i;
+    });
 }
 
 // Tests for d3.svg.arc
 // Adopted from: https://github.com/mbostock/d3/blob/master/test/svg/arc-test.js
-function svgArcTest () {
+function svgArcTest() {
     var l = d3.svg.arc(),
         f: () => number;
 
     l.innerRadius(f).innerRadius() === f;
     l.innerRadius(0);
-    l.innerRadius(function (d) { return d.innerRadius; });
-    l.innerRadius(function (d, i) { return i; });
+    l.innerRadius(function(d) {
+        return d.innerRadius;
+    });
+    l.innerRadius(function(d, i) {
+        return i;
+    });
 
     l.outerRadius(f).outerRadius() === f;
     l.outerRadius(0);
-    l.outerRadius(function (d) { return d.outerRadius; });
-    l.outerRadius(function (d, i) { return i; });
+    l.outerRadius(function(d) {
+        return d.outerRadius;
+    });
+    l.outerRadius(function(d, i) {
+        return i;
+    });
 
     l.startAngle(f).startAngle() === f;
     l.startAngle(0);
-    l.startAngle(function (d) { return d.innerRadius; });
-    l.startAngle(function (d, i) { return i; });
+    l.startAngle(function(d) {
+        return d.innerRadius;
+    });
+    l.startAngle(function(d, i) {
+        return i;
+    });
 
     l.endAngle(f).endAngle() === f;
     l.endAngle(0);
-    l.endAngle(function (d) { return d.outerRadius; });
-    l.endAngle(function (d, i) { return i; });
+    l.endAngle(function(d) {
+        return d.outerRadius;
+    });
+    l.endAngle(function(d, i) {
+        return i;
+    });
 }
 
-function svgArcTest2 () {
+function svgArcTest2() {
     var l = d3.svg.arc<[number, number]>();
 
     l.innerRadius(d => d[0]);
@@ -2571,22 +3226,34 @@ function svgArcTest2 () {
 
 // Tests for d3.svg.diagonal
 // Adopted from: https://github.com/mbostock/d3/blob/master/test/svg/diagonal-test.js
-function svgDiagonalTest () {
+function svgDiagonalTest() {
     var d = d3.svg.diagonal();
 
-    d.projection()({ x: 0, y: 1}, 0);
-    d.projection(function (d) { return [d.x, d.y]; });
-    d.projection(function (d, i) { return [i, i + 1]; });
+    d.projection()({ x: 0, y: 1 }, 0);
+    d.projection(function(d) {
+        return [d.x, d.y];
+    });
+    d.projection(function(d, i) {
+        return [i, i + 1];
+    });
 
-    d.source()({ source: {x: 0, y: 1}, target: null }, 0);
-    d.source({x: 0, y: 1});
-    d.source(function (d) { return {x: d.source.x, y: d.source.y}; });
-    d.source(function (d, i) { return {x: d.source.x * i, y: d.source.y * i}; });
+    d.source()({ source: { x: 0, y: 1 }, target: null }, 0);
+    d.source({ x: 0, y: 1 });
+    d.source(function(d) {
+        return { x: d.source.x, y: d.source.y };
+    });
+    d.source(function(d, i) {
+        return { x: d.source.x * i, y: d.source.y * i };
+    });
 
-    d.target()({ target: {x: 0, y: 1}, source: null }, 0);
-    d.target({x: 0, y: 1});
-    d.target(function (d) { return {x: d.target.x, y: d.target.y}; });
-    d.target(function (d, i) { return {x: d.target.x * i, y: d.target.y * i}; });
+    d.target()({ target: { x: 0, y: 1 }, source: null }, 0);
+    d.target({ x: 0, y: 1 });
+    d.target(function(d) {
+        return { x: d.target.x, y: d.target.y };
+    });
+    d.target(function(d, i) {
+        return { x: d.target.x * i, y: d.target.y * i };
+    });
 }
 
 // Tests for d3.extent
@@ -2594,7 +3261,11 @@ function svgDiagonalTest () {
 function extentTest() {
     // usages of `o' suppressed as well as mixed-type comparisons
     // see https://github.com/Microsoft/TypeScript/commit/c0db7ffe8f55b6ec335880482ca43b93b066689d
-    var o = { valueOf: function () { return NaN; } };
+    var o = {
+        valueOf: function() {
+            return NaN;
+        },
+    };
 
     d3.extent([1]);
     d3.extent([5, 1, 2, 3, 4]);
@@ -2614,19 +3285,41 @@ function extentTest() {
     // d3.extent([3, "20"]);
     // d3.extent(["3", 20]);
 
-    d3.extent([1], (d) => { return d; });
-    d3.extent([5, 1, 2, 3, 4], (d) => { return d; });
-    d3.extent([20, 3], (d) => { return d; });
-    d3.extent([3, 20], (d) => { return d; });
-    d3.extent(["c", "a", "b"], (d) => { return d; });
-    d3.extent(["20", "3"], (d) => { return d; });
-    d3.extent(["3", "20"], (d) => { return d; });
-    d3.extent([NaN, 1, 2, 3, 4, 5], (d) => { return d; });
+    d3.extent([1], (d) => {
+        return d;
+    });
+    d3.extent([5, 1, 2, 3, 4], (d) => {
+        return d;
+    });
+    d3.extent([20, 3], (d) => {
+        return d;
+    });
+    d3.extent([3, 20], (d) => {
+        return d;
+    });
+    d3.extent(["c", "a", "b"], (d) => {
+        return d;
+    });
+    d3.extent(["20", "3"], (d) => {
+        return d;
+    });
+    d3.extent(["3", "20"], (d) => {
+        return d;
+    });
+    d3.extent([NaN, 1, 2, 3, 4, 5], (d) => {
+        return d;
+    });
     // d3.extent([o, 1, 2, 3, 4, 5], (d) => { return d; });
-    d3.extent([1, 2, 3, 4, 5, NaN], (d) => { return d; });
+    d3.extent([1, 2, 3, 4, 5, NaN], (d) => {
+        return d;
+    });
     // d3.extent([1, 2, 3, 4, 5, o], (d) => { return d; });
-    d3.extent([10, null, 3, undefined, 5, NaN], (d) => { return d; });
-    d3.extent([-1, null, -3, undefined, -5, NaN], (d) => { return d; });
+    d3.extent([10, null, 3, undefined, 5, NaN], (d) => {
+        return d;
+    });
+    d3.extent([-1, null, -3, undefined, -5, NaN], (d) => {
+        return d;
+    });
     // d3.extent([20, "3"], (d) => { return d; });
     // d3.extent(["20", 3], (d) => { return d; });
     // d3.extent([3, "20"], (d) => { return d; });
@@ -2637,17 +3330,33 @@ function extentTest() {
 // Adopted from http://bl.ocks.org/mbostock/4149176
 function multiTest() {
     var customTimeFormat = d3.time.format.multi([
-        [".%L", function(d) { return !!d.getMilliseconds(); }],
-        [":%S", function(d) { return !!d.getSeconds(); }],
-        ["%I:%M", function(d) { return !!d.getMinutes(); }],
-        ["%I %p", function(d) { return !!d.getHours(); }],
-        ["%a %d", function(d) { return !!d.getDay() && d.getDate() != 1; }],
-        ["%b %d", function(d) { return d.getDate() != 1; }],
-        ["%B", function(d) { return !!d.getMonth(); }],
-        ["%Y", function() { return true; }]
+        [".%L", function(d) {
+            return !!d.getMilliseconds();
+        }],
+        [":%S", function(d) {
+            return !!d.getSeconds();
+        }],
+        ["%I:%M", function(d) {
+            return !!d.getMinutes();
+        }],
+        ["%I %p", function(d) {
+            return !!d.getHours();
+        }],
+        ["%a %d", function(d) {
+            return !!d.getDay() && d.getDate() != 1;
+        }],
+        ["%b %d", function(d) {
+            return d.getDate() != 1;
+        }],
+        ["%B", function(d) {
+            return !!d.getMonth();
+        }],
+        ["%Y", function() {
+            return true;
+        }],
     ]);
 
-    var margin = {top: 250, right: 40, bottom: 250, left: 40},
+    var margin = { top: 250, right: 40, bottom: 250, left: 40 },
         width = 960 - margin.left - margin.right,
         height = 500 - margin.top - margin.bottom;
 
@@ -2662,7 +3371,7 @@ function multiTest() {
     var svg = d3.select("body").append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
-      .append("g")
+        .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
     svg.append("g")
@@ -2671,68 +3380,98 @@ function multiTest() {
         .call(xAxis);
 }
 
-function testD3Events () {
-    d3.select('svg')
-        .on('click', () => {
-            let e = <MouseEvent>d3.event;
+function testD3Events() {
+    d3.select("svg")
+        .on("click", () => {
+            let e = <MouseEvent> d3.event;
             var coords = [e.pageX, e.pageY];
             console.log("clicked", e.target, "at " + coords);
         })
-        .on('keypress', () => {
-            let e = <KeyboardEvent>d3.event;
+        .on("keypress", () => {
+            let e = <KeyboardEvent> d3.event;
             if (e.shiftKey) {
-                console.log('shift + ' + e.which);
+                console.log("shift + " + e.which);
             }
         });
 }
 
 function testD3MutlieTimeFormat() {
     var format = d3.time.format.multi([
-        [".%L", function(d) { return d.getMilliseconds(); }],
-        [":%S", function(d) { return d.getSeconds(); }],
-        ["%I:%M", function(d) { return d.getMinutes(); }],
-        ["%I %p", function(d) { return d.getHours(); }],
-        ["%a %d", function(d) { return d.getDay() && d.getDate() != 1; }],
-        ["%b %d", function(d) { return d.getDate() != 1; }],
-        ["%B", function(d) { return d.getMonth(); }],
-        ["%Y", function() { return true; }]
+        [".%L", function(d) {
+            return d.getMilliseconds();
+        }],
+        [":%S", function(d) {
+            return d.getSeconds();
+        }],
+        ["%I:%M", function(d) {
+            return d.getMinutes();
+        }],
+        ["%I %p", function(d) {
+            return d.getHours();
+        }],
+        ["%a %d", function(d) {
+            return d.getDay() && d.getDate() != 1;
+        }],
+        ["%b %d", function(d) {
+            return d.getDate() != 1;
+        }],
+        ["%B", function(d) {
+            return d.getMonth();
+        }],
+        ["%Y", function() {
+            return true;
+        }],
     ]);
 }
 
 function testMultiUtcFormat() {
     var format = d3.time.format.utc.multi([
-        [".%L", function(d) { return d.getMilliseconds(); }],
-        [":%S", function(d) { return d.getSeconds(); }],
-        ["%I:%M", function(d) { return d.getMinutes(); }],
-        ["%I %p", function(d) { return d.getHours(); }],
-        ["%a %d", function(d) { return d.getDay() && d.getDate() != 1; }],
-        ["%b %d", function(d) { return d.getDate() != 1; }],
-        ["%B", function(d) { return d.getMonth(); }],
-        ["%Y", function() { return true; }]
+        [".%L", function(d) {
+            return d.getMilliseconds();
+        }],
+        [":%S", function(d) {
+            return d.getSeconds();
+        }],
+        ["%I:%M", function(d) {
+            return d.getMinutes();
+        }],
+        ["%I %p", function(d) {
+            return d.getHours();
+        }],
+        ["%a %d", function(d) {
+            return d.getDay() && d.getDate() != 1;
+        }],
+        ["%b %d", function(d) {
+            return d.getDate() != 1;
+        }],
+        ["%B", function(d) {
+            return d.getMonth();
+        }],
+        ["%Y", function() {
+            return true;
+        }],
     ]);
 }
 
 function testEnterSizeEmpty() {
-
     var selectionSize: number,
         emptyStatus: boolean;
 
-    var newNodes = d3.selectAll('.test')
-                .data(['1', '2', '3'])
-                .enter();
+    var newNodes = d3.selectAll(".test")
+        .data(["1", "2", "3"])
+        .enter();
 
     emptyStatus = newNodes.empty();
     selectionSize = newNodes.size();
-
 }
 
 // Example from Matthias Jobst https://github.com/MatthiasJobst
 // Checks the brush with different Axis types
 class BrushAxisTest {
-    brush: d3.svg.Brush<any,Date,Date>;
+    brush: d3.svg.Brush<any, Date, Date>;
     constructor() {
-        let scale = d3.time.scale<Date,Date>();
-        this.brush = d3.svg.brush<any,Date>()
+        let scale = d3.time.scale<Date, Date>();
+        this.brush = d3.svg.brush<any, Date>()
             .x(scale) // the x accessor accepts time scales
             .y(scale); // as does y
     }
@@ -2740,48 +3479,61 @@ class BrushAxisTest {
         let extent = this.brush.extent();
         let brush = d3.svg.brush();
         brush.x(d3.scale.linear()); // Linear scale
-        brush.y(d3.scale.log());    // Logarithmic scale
+        brush.y(d3.scale.log()); // Logarithmic scale
         // Does not work:
         // brush.extent(this.brush.extent());
         // From https://github.com/d3/d3-3.x-api-reference/blob/master/Ordinal-Scales.md#ordinal_rangePoints
-        let ordinalScale = d3.scale.ordinal<number,number>()
+        let ordinalScale = d3.scale.ordinal<number, number>()
             .domain([1, 2, 3, 4])
             .rangePoints([0, 100]);
         let ordinalBrush = d3.svg.brush()
             .x(ordinalScale) // Ordinal scale
             .y(d3.scale.linear());
         let colorScale = d3.scale.category10();
-        let colorBrush = d3.svg.brush<any,string,number>()
+        let colorBrush = d3.svg.brush<any, string, number>()
             .x(colorScale) // Color scale
             .y(d3.scale.pow());
-    }
+    };
 }
 
-interface NodeWithText extends d3.layout.partition.Node { t: string; children?: NodeWithText[] | undefined; }
-function testPartition(data: Array<NodeWithText>) {
-        var width = 1000;
-        var height = 1000;
+interface NodeWithText extends d3.layout.partition.Node {
+    t: string;
+    children?: NodeWithText[] | undefined;
+}
+function testPartition(data: NodeWithText[]) {
+    var width = 1000;
+    var height = 1000;
 
-        var div = d3.select('#partition').style('width', width)
-            .style('height', height).style('position', 'relative');
-        var partition = d3.layout.partition().size([width, height]);
+    var div = d3.select("#partition").style("width", width)
+        .style("height", height).style("position", "relative");
+    var partition = d3.layout.partition().size([width, height]);
 
-        const root: NodeWithText = { t: 'root', children: data};
-        var nodes = partition.nodes(root);
-        div.selectAll('.node').data(nodes).enter()
-            .append('div')
-            .style('position', 'absolute')
-            .style('left', function (d) { return d.x })
-            .style('top', function (d) { return d.y })
-            .style('width', function (d) { return d.dx })
-            .style('height', function (d) { return d.dy })
-            .style('border', '1px solid black')
-            .style('background-color', function (d: NodeWithText) {
-                if (d.t === 'root') {
-                    return 'blue'
-                } else {
-                    return 'red';
-                }
-            })
-            .text(function (d: NodeWithText) { return d.t; });
+    const root: NodeWithText = { t: "root", children: data };
+    var nodes = partition.nodes(root);
+    div.selectAll(".node").data(nodes).enter()
+        .append("div")
+        .style("position", "absolute")
+        .style("left", function(d) {
+            return d.x;
+        })
+        .style("top", function(d) {
+            return d.y;
+        })
+        .style("width", function(d) {
+            return d.dx;
+        })
+        .style("height", function(d) {
+            return d.dy;
+        })
+        .style("border", "1px solid black")
+        .style("background-color", function(d: NodeWithText) {
+            if (d.t === "root") {
+                return "blue";
+            } else {
+                return "red";
+            }
+        })
+        .text(function(d: NodeWithText) {
+            return d.t;
+        });
 }

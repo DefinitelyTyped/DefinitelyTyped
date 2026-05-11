@@ -1,12 +1,11 @@
-import { IUniform } from '../../../src/Three';
+import { IUniform } from "three";
 
 export const SAOShader: {
+    name: string;
     defines: {
         NUM_SAMPLES: number;
         NUM_RINGS: number;
-        NORMAL_TEXTURE: number;
         DIFFUSE_TEXTURE: number;
-        DEPTH_PACKING: number;
         PERSPECTIVE_CAMERA: number;
     };
     uniforms: {

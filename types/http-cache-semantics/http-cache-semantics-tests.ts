@@ -1,7 +1,7 @@
-const req = { url: 'https://foo.bar', method: 'GET', headers: { foo: 'bar' } };
-const res = { status: 200, headers: { foo: 'bar' } };
+const req = { url: "https://foo.bar", method: "GET", headers: { foo: "bar" } };
+const res = { status: 200, headers: { foo: "bar" } };
 
-import CachePolicy = require('http-cache-semantics');
+import CachePolicy = require("http-cache-semantics");
 
 const policy = new CachePolicy(req, res);
 new CachePolicy(req, res, { shared: true });
@@ -13,7 +13,11 @@ new CachePolicy(req, res, { trustServerDate: true });
 policy.storable(); // $ExpectType boolean
 policy.satisfiesWithoutRevalidation(req); // $ExpectType boolean
 policy.responseHeaders(); // $ExpectType Headers
+policy.stale(); // $ExpectType boolean
+policy.age(); // $ExpectType number
+policy.maxAge(); // $ExpectType number
 policy.timeToLive(); // $ExpectType number
 CachePolicy.fromObject(policy.toObject()); // $ExpectType CachePolicy
 policy.revalidationHeaders(req); // $ExpectType Headers
 policy.revalidatedPolicy(req, res); // $ExpectType RevalidationPolicy
+policy.evaluateRequest(req); // $ExpectType EvaluateRequestResult

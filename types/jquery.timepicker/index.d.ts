@@ -1,9 +1,3 @@
-// Type definitions for jQuery UI Timepicker 0.3
-// Project: http://fgelinas.com/code/timepicker/
-// Definitions by: Anwar Javed <https://github.com/anwarjaved>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery"/>
 /// <reference types="jqueryui"/>
 
@@ -26,7 +20,7 @@ interface TimePickerMinutes {
 interface TimePickerOptions {
     /** 'focus' for popup on focus, */
     showOn?: string | undefined;
-    
+
     /**
      * 'button' element that will trigger the timepicker.
      *
@@ -76,7 +70,7 @@ interface TimePickerOptions {
     /**
      * Used as default time when input field is empty or for inline timePicker
      * (set to 'now' for the current time, '' for no highlighted time)
-     **/
+     */
     defaultTime?: string | undefined;
     /**
      * Position of the dialog relative to the input.
@@ -92,7 +86,7 @@ interface TimePickerOptions {
      */
     atPosition?: string | undefined;
 
-    //NEW: 2011-02-03
+    // NEW: 2011-02-03
     /** callback for enabling / disabling on selectable hours  ex : function(hour) { return true; } */
     onHourShow?: (() => any) | undefined;
     /** callback for enabling / disabling on time selection  ex : function(hour,minute) { return true; } */
@@ -131,13 +125,12 @@ interface TimePickerOptions {
     deselectButtonText?: string | undefined;
 }
 
-
 interface JQuery {
     timepicker(): JQuery;
-    timepicker(methodName: 'getTime'): string;
-    timepicker(methodName: 'getTimeAsDate'): Date;
-    timepicker(methodName: 'getHour'): number;
-    timepicker(methodName: 'getMinute'): number;
+    timepicker(methodName: "getTime"): string;
+    timepicker(methodName: "getTimeAsDate"): Date;
+    timepicker(methodName: "getHour"): number;
+    timepicker(methodName: "getMinute"): number;
     timepicker(methodName: string): any;
     timepicker(methodName: string, methodParameter: any): any;
     timepicker(optionLiteral: string, optionName: string): any;

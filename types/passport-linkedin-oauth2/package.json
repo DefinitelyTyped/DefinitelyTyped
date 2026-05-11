@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/passport-linkedin-oauth2",
+    "version": "1.5.9999",
+    "projects": [
+        "https://github.com/auth0/passport-linkedin-oauth2"
+    ],
+    "dependencies": {
+        "@types/express": "*",
+        "@types/passport": "*"
+    },
+    "devDependencies": {
+        "@types/passport-linkedin-oauth2": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Andrew Vetovitz",
+            "githubUsername": "andrewvetovitz"
+        }
+    ]
+}

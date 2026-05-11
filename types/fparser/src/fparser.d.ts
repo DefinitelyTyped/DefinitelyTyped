@@ -1,5 +1,5 @@
 export default class Formula {
-    constructor(fStr: string, options?: { memoization?: boolean; });
+    constructor(fStr: string, options?: { memoization?: boolean });
 
     setFormula(formulaString: string): this;
 
@@ -37,5 +37,5 @@ export default class Formula {
 
     getExpressionString(): string;
 
-    static calc(formula: string, valueObj: object | object[], options?: { memoization?: boolean; }): any;
+    static calc(formula: string, valueObj: object | object[], options?: { memoization?: boolean }): any;
 }

@@ -1,4 +1,4 @@
-import { DrawingContextAttributes } from '../types/util';
+import { DrawingContextAttributes } from "../types/util";
 
 export default class CanvasEntry {
     constructor();

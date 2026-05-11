@@ -1,15 +1,11 @@
-// Type definitions for valiant 2.0
-// Project: https://github.com/tweetdeck/valiant#readme
-// Definitions by: whatasoda <https://github.com/whatasoda>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 export as namespace Valiant;
 
-export function createInterval<T = number>(compareValues?: IntervalConstructor<T>['compareValues']): IntervalConstructor<T>;
+export function createInterval<T = number>(
+    compareValues?: IntervalConstructor<T>["compareValues"],
+): IntervalConstructor<T>;
 
 export interface IntervalConstructor<T = number> {
-    new (from: Endpoint<T>, to: Endpoint<T>): Interval<T>;
+    new(from: Endpoint<T>, to: Endpoint<T>): Interval<T>;
     prototype: Interval<T>;
     empty: Interval<T>;
     whole: Interval<T>;

@@ -1,6 +1,6 @@
-import { UI } from "./UI";
 import { PageFlip } from "../PageFlip";
 import { FlipSetting } from "../Settings";
+import { UI } from "./UI";
 /**
  * UI for canvas mode
  */

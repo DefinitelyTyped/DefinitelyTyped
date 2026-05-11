@@ -1,8 +1,3 @@
-// Type definitions for kompression 1.0
-// Project: https://github.com/tuananh/kompression
-// Definitions by: Aankhen <https://github.com/Aankhen>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import koa = require("koa");
 
 export = kompression;

@@ -1,17 +1,13 @@
-// Type definitions for pg 8.10
-// Project: https://github.com/brianc/node-postgres
-// Definitions by: Phips Peter <https://github.com/pspeter3>, Ravi van Rooijen <https://github.com/HoldYourWaffle>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="node" />
 
-import events = require('events');
-import stream = require('stream');
-import pgTypes = require('pg-types');
-import { NoticeMessage } from 'pg-protocol/dist/messages';
+import events = require("events");
+import stream = require("stream");
+import pgTypes = require("pg-types");
+import { NoticeMessage } from "pg-protocol/dist/messages.js";
 
-import { ConnectionOptions } from 'tls';
+import { ConnectionOptions } from "tls";
+
+export type QueryConfigValues<T> = T extends Array<infer U> ? T : never;
 
 export interface ClientConfig {
     user?: string | undefined;
@@ -21,16 +17,19 @@ export interface ClientConfig {
     host?: string | undefined;
     connectionString?: string | undefined;
     keepAlive?: boolean | undefined;
-    stream?: () => stream.Duplex | stream.Duplex | undefined;
+    stream?: () => stream.Duplex | undefined;
     statement_timeout?: false | number | undefined;
     ssl?: boolean | ConnectionOptions | undefined;
     query_timeout?: number | undefined;
+    lock_timeout?: number | undefined;
     keepAliveInitialDelayMillis?: number | undefined;
     idle_in_transaction_session_timeout?: number | undefined;
     application_name?: string | undefined;
+    fallback_application_name?: string | undefined;
     connectionTimeoutMillis?: number | undefined;
     types?: CustomTypesConfig | undefined;
     options?: string | undefined;
+    client_encoding?: string | undefined;
 }
 
 export type ConnectionConfig = ClientConfig;
@@ -41,23 +40,27 @@ export interface Defaults extends ClientConfig {
     reapIntervalMillis?: number | undefined;
     binary?: boolean | undefined;
     parseInt8?: boolean | undefined;
+    parseInputDatesAsUTC?: boolean | undefined;
 }
 
 export interface PoolConfig extends ClientConfig {
-    // properties from module 'node-pool'
+    // properties from module 'pg-pool'
     max?: number | undefined;
     min?: number | undefined;
-    idleTimeoutMillis?: number | undefined;
+    idleTimeoutMillis?: number | undefined | null;
     log?: ((...messages: any[]) => void) | undefined;
     Promise?: PromiseConstructorLike | undefined;
     allowExitOnIdle?: boolean | undefined;
     maxUses?: number | undefined;
+    maxLifetimeSeconds?: number | undefined;
+    Client?: (new() => ClientBase) | undefined;
+    onConnect?: ((client: ClientBase) => void) | undefined;
 }
 
-export interface QueryConfig<I extends any[] = any[]> {
+export interface QueryConfig<I = any[]> {
     name?: string | undefined;
     text: string;
-    values?: I | undefined;
+    values?: QueryConfigValues<I>;
     types?: CustomTypesConfig | undefined;
 }
 
@@ -69,8 +72,8 @@ export interface Submittable {
     submit: (connection: Connection) => void;
 }
 
-export interface QueryArrayConfig<I extends any[] = any[]> extends QueryConfig<I> {
-    rowMode: 'array';
+export interface QueryArrayConfig<I = any[]> extends QueryConfig<I> {
+    rowMode: "array";
 }
 
 export interface FieldDef {
@@ -85,7 +88,7 @@ export interface FieldDef {
 
 export interface QueryResultBase {
     command: string;
-    rowCount: number;
+    rowCount: number | null;
     oid: number;
     fields: FieldDef[];
 }
@@ -138,6 +141,10 @@ export interface MessageConfig {
     name?: string | undefined;
 }
 
+export function escapeIdentifier(str: string): string;
+
+export function escapeLiteral(str: string): string;
+
 export class Connection extends events.EventEmitter {
     readonly stream: stream.Duplex;
 
@@ -157,8 +164,16 @@ export class Connection extends events.EventEmitter {
     end(): void;
 }
 
+export interface PoolOptions extends PoolConfig {
+    max: number;
+    maxUses: number;
+    allowExitOnIdle: boolean;
+    maxLifetimeSeconds: number;
+    idleTimeoutMillis: number | null;
+}
+
 /**
- * {@link https://node-postgres.com/api/pool}
+ * {@link https://node-postgres.com/apis/pool}
  */
 export class Pool extends events.EventEmitter {
     /**
@@ -171,75 +186,86 @@ export class Pool extends events.EventEmitter {
     readonly totalCount: number;
     readonly idleCount: number;
     readonly waitingCount: number;
+    readonly expiredCount: number;
+
+    readonly ending: boolean;
+    readonly ended: boolean;
+
+    options: PoolOptions;
 
     connect(): Promise<PoolClient>;
-    connect(callback: (err: Error, client: PoolClient, done: (release?: any) => void) => void): void;
+    connect(
+        callback: (err: Error | undefined, client: PoolClient | undefined, done: (release?: any) => void) => void,
+    ): void;
 
     end(): Promise<void>;
     end(callback: () => void): void;
 
     query<T extends Submittable>(queryStream: T): T;
     // tslint:disable:no-unnecessary-generics
-    query<R extends any[] = any[], I extends any[] = any[]>(
+    query<R extends any[] = any[], I = any[]>(
         queryConfig: QueryArrayConfig<I>,
-        values?: I,
+        values?: QueryConfigValues<I>,
     ): Promise<QueryArrayResult<R>>;
-    query<R extends QueryResultRow = any, I extends any[] = any[]>(
+    query<R extends QueryResultRow = any, I = any[]>(
         queryConfig: QueryConfig<I>,
     ): Promise<QueryResult<R>>;
-    query<R extends QueryResultRow = any, I extends any[] = any[]>(
+    query<R extends QueryResultRow = any, I = any[]>(
         queryTextOrConfig: string | QueryConfig<I>,
-        values?: I,
+        values?: QueryConfigValues<I>,
     ): Promise<QueryResult<R>>;
-    query<R extends any[] = any[], I extends any[] = any[]>(
+    query<R extends any[] = any[], I = any[]>(
         queryConfig: QueryArrayConfig<I>,
         callback: (err: Error, result: QueryArrayResult<R>) => void,
     ): void;
-    query<R extends QueryResultRow = any, I extends any[] = any[]>(
+    query<R extends QueryResultRow = any, I = any[]>(
         queryTextOrConfig: string | QueryConfig<I>,
         callback: (err: Error, result: QueryResult<R>) => void,
     ): void;
-    query<R extends QueryResultRow = any, I extends any[] = any[]>(
+    query<R extends QueryResultRow = any, I = any[]>(
         queryText: string,
-        values: I,
+        values: QueryConfigValues<I>,
         callback: (err: Error, result: QueryResult<R>) => void,
     ): void;
     // tslint:enable:no-unnecessary-generics
 
-    on(event: 'release' | 'error', listener: (err: Error, client: PoolClient) => void): this;
-    on(event: 'connect' | 'acquire' | 'remove', listener: (client: PoolClient) => void): this;
+    on<K extends "error" | "release" | "connect" | "acquire" | "remove">(
+        event: K,
+        listener: K extends "error" | "release" ? (err: Error, client: PoolClient) => void
+            : (client: PoolClient) => void,
+    ): this;
 }
 
 export class ClientBase extends events.EventEmitter {
     constructor(config?: string | ClientConfig);
 
-    connect(): Promise<void>;
-    connect(callback: (err: Error) => void): void;
+    connect(): Promise<ClientBase>;
+    connect(callback: ((err: Error) => void) | ((err: null, c: ClientBase) => void)): void;
 
     query<T extends Submittable>(queryStream: T): T;
     // tslint:disable:no-unnecessary-generics
-    query<R extends any[] = any[], I extends any[] = any[]>(
+    query<R extends any[] = any[], I = any[]>(
         queryConfig: QueryArrayConfig<I>,
-        values?: I,
+        values?: QueryConfigValues<I>,
     ): Promise<QueryArrayResult<R>>;
-    query<R extends QueryResultRow = any, I extends any[] = any[]>(
+    query<R extends QueryResultRow = any, I = any>(
         queryConfig: QueryConfig<I>,
     ): Promise<QueryResult<R>>;
-    query<R extends QueryResultRow = any, I extends any[] = any[]>(
+    query<R extends QueryResultRow = any, I = any[]>(
         queryTextOrConfig: string | QueryConfig<I>,
-        values?: I,
+        values?: QueryConfigValues<I>,
     ): Promise<QueryResult<R>>;
-    query<R extends any[] = any[], I extends any[] = any[]>(
+    query<R extends any[] = any[], I = any[]>(
         queryConfig: QueryArrayConfig<I>,
         callback: (err: Error, result: QueryArrayResult<R>) => void,
     ): void;
-    query<R extends QueryResultRow = any, I extends any[] = any[]>(
+    query<R extends QueryResultRow = any, I = any[]>(
         queryTextOrConfig: string | QueryConfig<I>,
         callback: (err: Error, result: QueryResult<R>) => void,
     ): void;
-    query<R extends QueryResultRow = any, I extends any[] = any[]>(
+    query<R extends QueryResultRow = any, I = any[]>(
         queryText: string,
-        values: any[],
+        values: QueryConfigValues<I>,
         callback: (err: Error, result: QueryResult<R>) => void,
     ): void;
     // tslint:enable:no-unnecessary-generics
@@ -250,15 +276,18 @@ export class ClientBase extends events.EventEmitter {
     pauseDrain(): void;
     resumeDrain(): void;
 
-    escapeIdentifier(str: string): string;
-    escapeLiteral(str: string): string;
+    escapeIdentifier: typeof escapeIdentifier;
+    escapeLiteral: typeof escapeLiteral;
+    setTypeParser: typeof pgTypes.setTypeParser;
+    getTypeParser: typeof pgTypes.getTypeParser;
 
-    on(event: 'drain', listener: () => void): this;
-    on(event: 'error', listener: (err: Error) => void): this;
-    on(event: 'notice', listener: (notice: NoticeMessage) => void): this;
-    on(event: 'notification', listener: (message: Notification) => void): this;
-    // tslint:disable-next-line unified-signatures
-    on(event: 'end', listener: () => void): this;
+    on<E extends "drain" | "error" | "notice" | "notification" | "end">(
+        event: E,
+        listener: E extends "drain" | "end" ? () => void
+            : E extends "error" ? (err: Error) => void
+            : E extends "notice" ? (notice: NoticeMessage) => void
+            : (message: Notification) => void,
+    ): this;
 }
 
 export class Client extends ClientBase {
@@ -268,8 +297,12 @@ export class Client extends ClientBase {
     host: string;
     password?: string | undefined;
     ssl: boolean;
+    readonly connection: Connection;
 
     constructor(config?: string | ClientConfig);
+
+    connect(): Promise<Client>;
+    connect(callback: ((err: Error) => void) | ((err: null, c: Client) => void)): void;
 
     end(): Promise<void>;
     end(callback: (err: Error) => void): void;
@@ -280,24 +313,48 @@ export interface PoolClient extends ClientBase {
 }
 
 export class Query<R extends QueryResultRow = any, I extends any[] = any> extends events.EventEmitter
-    implements Submittable {
-    constructor(queryTextOrConfig?: string | QueryConfig<I>, values?: I);
+    implements Submittable
+{
+    constructor(
+        queryTextOrConfig?: string | QueryConfig<I>,
+        callback?: (error: Error | undefined, result: ResultBuilder<R>) => void,
+    );
+    constructor(
+        queryTextOrConfig?: string | QueryConfig<I>,
+        values?: I,
+        callback?: (error: Error | undefined, result: ResultBuilder<R>) => void,
+    );
     submit: (connection: Connection) => void;
-    on(event: 'row', listener: (row: R, result?: ResultBuilder<R>) => void): this;
-    on(event: 'error', listener: (err: Error) => void): this;
-    on(event: 'end', listener: (result: ResultBuilder<R>) => void): this;
+    on<E extends "row" | "error" | "end">(
+        event: E,
+        listener: E extends "row" ? (row: R, result?: ResultBuilder<R>) => void
+            : E extends "error" ? (err: Error) => void
+            : (result: ResultBuilder<R>) => void,
+    ): this;
 }
 
 export class Events extends events.EventEmitter {
-    on(event: 'error', listener: (err: Error, client: Client) => void): this;
+    on(event: "error", listener: (err: Error, client: Client) => void): this;
 }
 
 export const types: typeof pgTypes;
 
 export const defaults: Defaults & ClientConfig;
 
-import * as Pg from '.';
+import * as Pg from ".";
 
 export const native: typeof Pg | null;
 
-export { DatabaseError } from 'pg-protocol';
+export { DatabaseError } from "pg-protocol";
+export { TypeOverrides };
+import TypeOverrides = require("./lib/type-overrides");
+
+export class Result<R extends QueryResultRow = any> implements QueryResult<R> {
+    command: string;
+    rowCount: number | null;
+    oid: number;
+    fields: FieldDef[];
+    rows: R[];
+
+    constructor(rowMode: string, t: typeof types);
+}

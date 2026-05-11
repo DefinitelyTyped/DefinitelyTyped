@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/dom-trust-token",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Trust Token API",
+    "projects": [
+        "https://github.com/WICG/trust-token-api"
+    ],
+    "devDependencies": {
+        "@types/dom-trust-token": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Taymon A. Beal",
+            "githubUsername": "taymonbeal"
+        }
+    ]
+}

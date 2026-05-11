@@ -1,29 +1,39 @@
-// Type definitions for @wordpress/block-editor 11.5
-// Project: https://github.com/WordPress/gutenberg/tree/master/packages/block-editor/README.md
-// Definitions by: Derek Sifford <https://github.com/dsifford>
-//                 Jon Surrell <https://github.com/sirreal>
-//                 Dennis Snell <https://github.com/dmsnell>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.6
-import { BlockIconNormalized } from '@wordpress/blocks';
-import { dispatch, select } from '@wordpress/data';
+import { BlockTypeIconDescriptor } from "@wordpress/blocks";
+import { ReduxStoreConfig, StoreDescriptor } from "@wordpress/data";
 
-export * from './components';
-export * from './hooks';
-export * from './utils';
-export { storeConfig } from './store';
-export { SETTINGS_DEFAULTS } from './store/defaults';
+export * from "./components";
+export * from "./hooks";
+export { storeConfig } from "./store";
+export { SETTINGS_DEFAULTS } from "./store/defaults";
+export * from "./utils";
 
-declare module '@wordpress/data' {
-    function dispatch(key: 'core/block-editor'): typeof import('./store/actions');
-    function select(key: 'core/block-editor'): typeof import('./store/selectors');
+declare module "@wordpress/data" {
+    /**
+     * @deprecated Use the version that takes a store descriptor object instead
+     */
+    function dispatch(key: "core/block-editor"): typeof import("./store/actions");
+    /**
+     * @deprecated Use the version that takes a store descriptor object instead
+     */
+    function select(key: "core/block-editor"): typeof import("./store/selectors");
 }
 
-export const store: any;
+type Decurry<S extends { [key: string]: (...args: any[]) => any }> = {
+    [key in keyof S]: (state: any, ...args: Parameters<S[key]>) => ReturnType<S[key]>;
+};
+export interface BlockEditorStoreDescriptor extends
+    StoreDescriptor<
+        ReduxStoreConfig<any, typeof import("./store/actions"), Decurry<typeof import("./store/selectors")>>
+    >
+{
+    name: "core/block-editor";
+}
 
-export type EditorBlockMode = 'html' | 'visual';
-export type EditorMode = 'text' | 'visual';
-export type EditorTemplateLock = 'all' | 'insert' | false;
+export const store: BlockEditorStoreDescriptor;
+
+export type EditorBlockMode = "html" | "visual";
+export type EditorMode = "text" | "visual";
+export type EditorTemplateLock = "contentOnly" | "all" | "insert" | false;
 
 export interface EditorBaseSetting {
     name: string;
@@ -65,7 +75,7 @@ export interface EditorInserterItem {
     /**
      * Icon for the item, as it appears in the inserter.
      */
-    icon: BlockIconNormalized;
+    icon: BlockTypeIconDescriptor;
     /**
      * Block category that the item is associated with.
      */

@@ -1,3 +1,3 @@
-import pathIsInside = require('path-is-inside');
+import pathIsInside = require("path-is-inside");
 
-pathIsInside('path', 'parent'); // $ExpectType boolean
+pathIsInside("path", "parent"); // $ExpectType boolean

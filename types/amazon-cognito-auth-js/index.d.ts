@@ -1,9 +1,3 @@
-// Type definitions for amazon-cognito-auth-js 1.3
-// Project: https://github.com/aws/amazon-cognito-auth-js, http://aws.amazon.com/cognito
-// Definitions by: Scott Escue <https://github.com/scottescue>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 /*
  * Create global variable to provide access to types when used without module
  * loading.
@@ -65,7 +59,7 @@ export interface CognitoAuthOptions {
     /**
      * Optional: The token scopes
      */
-    TokenScopesArray?: ReadonlyArray<string> | undefined;
+    TokenScopesArray?: readonly string[] | undefined;
 
     /**
      * Required: Required: The redirect Uri, which will be launched after authentication as signed in.
@@ -153,7 +147,7 @@ export interface CognitoConstants {
     HOSTNAMEREGEX: RegExp;
     QUERYPARAMETERREGEX1: RegExp;
     QUERYPARAMETERREGEX2: RegExp;
-    HEADER: { 'Content-Type': string };
+    HEADER: { "Content-Type": string };
 }
 
 export class CognitoIdToken {
@@ -243,7 +237,7 @@ export class CognitoTokenScopes {
      * Constructs a new CognitoTokenScopes object
      * @param TokenScopesArray The token scopes
      */
-    constructor(TokenScopesArray: ReadonlyArray<string>);
+    constructor(TokenScopesArray: readonly string[]);
 
     /**
      * @returns the token scopes.
@@ -254,7 +248,7 @@ export class CognitoTokenScopes {
      * Sets new value for token scopes.
      * @param tokenScopes The token scopes
      */
-    setTokenScopes(tokenScopes: ReadonlyArray<string>): void;
+    setTokenScopes(tokenScopes: readonly string[]): void;
 }
 
 export class CognitoAuthSession {

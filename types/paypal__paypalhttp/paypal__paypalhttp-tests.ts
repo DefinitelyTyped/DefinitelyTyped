@@ -1,20 +1,20 @@
-import paypal = require('@paypal/paypalhttp');
+import paypal = require("@paypal/paypalhttp");
 
-const env = new paypal.Environment('https://example.com');
+const env = new paypal.Environment("https://example.com");
 let client = new paypal.HttpClient(env);
 client = new paypal.HttpClient(env);
 client.addInjector(req => {
     console.log(req);
 });
 client.addInjector(req => {
-    req.headers['Request-Id'] = 'abcd';
+    req.headers["Request-Id"] = "abcd";
 });
 
 const req: paypal.HttpRequest = {
-    path: '/path/to/resource',
-    verb: 'GET',
+    path: "/path/to/resource",
+    verb: "GET",
     headers: {
-        'X-Custom-Header': 'custom value',
+        "X-Custom-Header": "custom value",
     },
     body: {},
 };
@@ -28,7 +28,7 @@ client.execute(req).then(resp => {
     resp.result;
 });
 
-async () => {
+(async () => {
     const resp = await client.execute(req);
 
     // $ExpectType number
@@ -37,7 +37,7 @@ async () => {
     resp.headers;
     // $ExpectType any
     resp.result;
-};
+});
 
 client
     .execute(req)

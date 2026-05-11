@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/parallax-js",
+    "version": "3.1.9999",
+    "projects": [
+        "http://wagerfield.github.io/parallax/"
+    ],
+    "devDependencies": {
+        "@types/parallax-js": "workspace:."
+    },
+    "owners": []
+}

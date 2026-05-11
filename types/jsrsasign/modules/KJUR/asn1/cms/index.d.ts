@@ -26,7 +26,6 @@ declare namespace jsrsasign.KJUR.asn1 {
      * - easily verify CMS SignedData
      * - APIs are very similar to BouncyCastle library ASN.1 classes. So easy to learn.
      *
-     *
      * __PROVIDED CLASSES__
      *
      * - `KJUR.asn1.cms.SignedData`

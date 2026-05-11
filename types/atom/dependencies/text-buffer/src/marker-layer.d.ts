@@ -1,5 +1,5 @@
-import { Disposable } from '../../../index';
-import { Marker, PointCompatible, RangeCompatible } from './text-buffer';
+import { Disposable } from "../../../index";
+import { Marker, PointCompatible, RangeCompatible } from "./text-buffer";
 
 /** Experimental: A container for a related set of markers. */
 export interface MarkerLayer {
@@ -41,7 +41,7 @@ export interface MarkerLayer {
         range: RangeCompatible,
         options?: {
             reversed?: boolean | undefined;
-            invalidate?: 'never' | 'surround' | 'overlap' | 'inside' | 'touch' | undefined;
+            invalidate?: "never" | "surround" | "overlap" | "inside" | "touch" | undefined;
             exclusive?: boolean | undefined;
         },
     ): Marker;
@@ -50,7 +50,7 @@ export interface MarkerLayer {
     markPosition(
         position: PointCompatible,
         options?: {
-            invalidate?: 'never' | 'surround' | 'overlap' | 'inside' | 'touch' | undefined;
+            invalidate?: "never" | "surround" | "overlap" | "inside" | "touch" | undefined;
             exclusive?: boolean | undefined;
         },
     ): Marker;

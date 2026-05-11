@@ -13,7 +13,7 @@ function init() {
         vehicle.rotation.fromEuler(0, 2 * Math.PI * Math.random(), 0);
         vehicle.position.x = 2.5 - Math.random() * 5;
         vehicle.position.z = 2.5 - Math.random() * 5;
-        vehicle.setRenderComponent({matrix: new YUKA.Matrix4()}, sync);
+        vehicle.setRenderComponent({ matrix: new YUKA.Matrix4() }, sync);
 
         const wanderBehavior = new YUKA.WanderBehavior();
         vehicle.steering.add(wanderBehavior);
@@ -28,6 +28,6 @@ function animate() {
     entityManager.update(delta);
 }
 
-function sync(entity: YUKA.GameEntity, renderComponent: {matrix: YUKA.Matrix4}) {
+function sync(entity: YUKA.GameEntity, renderComponent: { matrix: YUKA.Matrix4 }) {
     renderComponent.matrix.copy(entity.worldMatrix);
 }

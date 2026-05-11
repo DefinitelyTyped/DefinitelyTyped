@@ -1,12 +1,3 @@
-// Type definitions for tmp 0.2
-// Project: https://github.com/raszi/node-tmp
-// Definitions by: Jared Klopper <https://github.com/optical>
-//                 Gyusun Yeom <https://github.com/Perlmint>
-//                 Alan Plum <https://github.com/pluma>
-//                 Carsten Klein <https://github.com/silkentrance>
-//                 BendingBender <https://github.com/bendingbender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface TmpNameOptions {
     /**
      * The optional temporary directory that must be relative to the system's default
@@ -108,7 +99,7 @@ export interface FileResult {
     removeCallback: () => void;
 }
 
-export type FileResultNoFd = Omit<FileResult, 'fd'>;
+export type FileResultNoFd = Omit<FileResult, "fd">;
 
 export interface DirResult {
     name: string;

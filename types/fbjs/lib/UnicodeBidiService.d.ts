@@ -55,6 +55,6 @@ declare class UnicodeBidiService {
     getDirection(str: string): UnicodeBidiService.BidiDirection;
 }
 declare namespace UnicodeBidiService {
-    type BidiDirection = 'LTR' | 'RTL' | 'NEUTRAL';
+    type BidiDirection = "LTR" | "RTL" | "NEUTRAL";
 }
 export = UnicodeBidiService;

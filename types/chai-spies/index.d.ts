@@ -1,11 +1,3 @@
-// Type definitions for chai-spies 1.0.0
-// Project: https://github.com/chaijs/chai-spies
-// Definitions by: Ilya Kuznetsov <https://github.com/kuzn-ilya>
-//                 Harm van der Werf <https://github.com/harm-less>
-//                 Jouni Suorsa <https://github.com/jounisuo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /// <reference types="chai" />
 
 declare namespace Chai {
@@ -65,30 +57,30 @@ declare namespace Chai {
 
 declare namespace ChaiSpies {
     interface Sandbox {
-      /**
-       * #### chai.spy.on (function)
-       *
-       * Wraps an object method into spy. All calls will pass through to the original function.
-       *
-       * @param {Object} object
-       * @param {String} methodNames names to spy on
-       * @param {function} fn replacement function
-       * @returns function to actually call
-       */
-      on(object: Object, methodNames: string | string[], fn?: (...parameters: any[]|any) => any): any;
+        /**
+         * #### chai.spy.on (function)
+         *
+         * Wraps an object method into spy. All calls will pass through to the original function.
+         *
+         * @param {Object} object
+         * @param {String} methodNames names to spy on
+         * @param {function} fn replacement function
+         * @returns function to actually call
+         */
+        on(object: Object, methodNames: string | string[], fn?: (...parameters: any[] | any) => any): any;
 
-      /**
-       * #### chai.spy.restore (function)
-       *
-       * Restores previously wrapped object's method.
-       * Restores all spied objects of a sandbox if called without parameters.
-       *
-       * @function
-       * @param {Object} [object]
-       * @param {String|String[]} [methods] name or names
-       * @return {Sandbox} Sandbox instance
-       */
-      restore(object?: Object, methodNames?: string | string[]): void;
+        /**
+         * #### chai.spy.restore (function)
+         *
+         * Restores previously wrapped object's method.
+         * Restores all spied objects of a sandbox if called without parameters.
+         *
+         * @function
+         * @param {Object} [object]
+         * @param {String|String[]} [methods] name or names
+         * @return {Sandbox} Sandbox instance
+         */
+        restore(object?: Object, methodNames?: string | string[]): void;
     }
     interface Spy {
         /**
@@ -111,21 +103,47 @@ declare namespace ChaiSpies {
         <A1, A2, A3, A4, R>(fn: SpyFunc4<A1, A2, A3, A4, R>): SpyFunc4Proxy<A1, A2, A3, A4, R>;
         <A1, A2, A3, A4, A5, R>(fn: SpyFunc5<A1, A2, A3, A4, A5, R>): SpyFunc5Proxy<A1, A2, A3, A4, A5, R>;
         <A1, A2, A3, A4, A5, A6, R>(fn: SpyFunc6<A1, A2, A3, A4, A5, A6, R>): SpyFunc6Proxy<A1, A2, A3, A4, A5, A6, R>;
-        <A1, A2, A3, A4, A5, A6, A7, R>(fn: SpyFunc7<A1, A2, A3, A4, A5, A6, A7, R>): SpyFunc7Proxy<A1, A2, A3, A4, A5, A6, A7, R>;
-        <A1, A2, A3, A4, A5, A6, A7, A8, R>(fn: SpyFunc8<A1, A2, A3, A4, A5, A6, A7, A8, R>): SpyFunc8Proxy<A1, A2, A3, A4, A5, A6, A7, A8, R>;
-        <A1, A2, A3, A4, A5, A6, A7, A8, A9, R>(fn: SpyFunc9<A1, A2, A3, A4, A5, A6, A7, A8, A9, R>): SpyFunc9Proxy<A1, A2, A3, A4, A5, A6, A7, A8, A9, R>;
-        <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, R>(fn: SpyFunc10<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, R>): SpyFunc10Proxy<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, R>;
+        <A1, A2, A3, A4, A5, A6, A7, R>(
+            fn: SpyFunc7<A1, A2, A3, A4, A5, A6, A7, R>,
+        ): SpyFunc7Proxy<A1, A2, A3, A4, A5, A6, A7, R>;
+        <A1, A2, A3, A4, A5, A6, A7, A8, R>(
+            fn: SpyFunc8<A1, A2, A3, A4, A5, A6, A7, A8, R>,
+        ): SpyFunc8Proxy<A1, A2, A3, A4, A5, A6, A7, A8, R>;
+        <A1, A2, A3, A4, A5, A6, A7, A8, A9, R>(
+            fn: SpyFunc9<A1, A2, A3, A4, A5, A6, A7, A8, A9, R>,
+        ): SpyFunc9Proxy<A1, A2, A3, A4, A5, A6, A7, A8, A9, R>;
+        <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, R>(
+            fn: SpyFunc10<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, R>,
+        ): SpyFunc10Proxy<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, R>;
         <R>(name: string, fn: SpyFunc0<R>): SpyFunc0Proxy<R>;
         <A1, R>(name: string, fn: SpyFunc1<A1, R>): SpyFunc1Proxy<A1, R>;
         <A1, A2, R>(name: string, fn: SpyFunc2<A1, A2, R>): SpyFunc2Proxy<A1, A2, R>;
         <A1, A2, A3, R>(name: string, fn: SpyFunc3<A1, A2, A3, R>): SpyFunc3Proxy<A1, A2, A3, R>;
         <A1, A2, A3, A4, R>(name: string, fn: SpyFunc4<A1, A2, A3, A4, R>): SpyFunc4Proxy<A1, A2, A3, A4, R>;
-        <A1, A2, A3, A4, A5, R>(name: string, fn: SpyFunc5<A1, A2, A3, A4, A5, R>): SpyFunc5Proxy<A1, A2, A3, A4, A5, R>;
-        <A1, A2, A3, A4, A5, A6, R>(name: string, fn: SpyFunc6<A1, A2, A3, A4, A5, A6, R>): SpyFunc6Proxy<A1, A2, A3, A4, A5, A6, R>;
-        <A1, A2, A3, A4, A5, A6, A7, R>(name: string, fn: SpyFunc7<A1, A2, A3, A4, A5, A6, A7, R>): SpyFunc7Proxy<A1, A2, A3, A4, A5, A6, A7, R>;
-        <A1, A2, A3, A4, A5, A6, A7, A8, R>(name: string, fn: SpyFunc8<A1, A2, A3, A4, A5, A6, A7, A8, R>): SpyFunc8Proxy<A1, A2, A3, A4, A5, A6, A7, A8, R>;
-        <A1, A2, A3, A4, A5, A6, A7, A8, A9, R>(name: string, fn: SpyFunc9<A1, A2, A3, A4, A5, A6, A7, A8, A9, R>): SpyFunc9Proxy<A1, A2, A3, A4, A5, A6, A7, A8, A9, R>;
-        <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, R>(name: string, fn: SpyFunc10<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, R>): SpyFunc10Proxy<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, R>;
+        <A1, A2, A3, A4, A5, R>(
+            name: string,
+            fn: SpyFunc5<A1, A2, A3, A4, A5, R>,
+        ): SpyFunc5Proxy<A1, A2, A3, A4, A5, R>;
+        <A1, A2, A3, A4, A5, A6, R>(
+            name: string,
+            fn: SpyFunc6<A1, A2, A3, A4, A5, A6, R>,
+        ): SpyFunc6Proxy<A1, A2, A3, A4, A5, A6, R>;
+        <A1, A2, A3, A4, A5, A6, A7, R>(
+            name: string,
+            fn: SpyFunc7<A1, A2, A3, A4, A5, A6, A7, R>,
+        ): SpyFunc7Proxy<A1, A2, A3, A4, A5, A6, A7, R>;
+        <A1, A2, A3, A4, A5, A6, A7, A8, R>(
+            name: string,
+            fn: SpyFunc8<A1, A2, A3, A4, A5, A6, A7, A8, R>,
+        ): SpyFunc8Proxy<A1, A2, A3, A4, A5, A6, A7, A8, R>;
+        <A1, A2, A3, A4, A5, A6, A7, A8, A9, R>(
+            name: string,
+            fn: SpyFunc9<A1, A2, A3, A4, A5, A6, A7, A8, A9, R>,
+        ): SpyFunc9Proxy<A1, A2, A3, A4, A5, A6, A7, A8, A9, R>;
+        <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, R>(
+            name: string,
+            fn: SpyFunc10<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, R>,
+        ): SpyFunc10Proxy<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, R>;
 
         /**
          * #### chai.spy.on (function)
@@ -139,7 +157,7 @@ declare namespace ChaiSpies {
          * @param {function} fn replacement function
          * @returns function to actually call
          */
-        on(object: Object, methodNames: string | string[], fn?: (...parameters: any[]|any) => any): any;
+        on(object: Object, methodNames: string | string[], fn?: (...parameters: any[] | any) => any): any;
 
         /**
          * #### chai.spy.interface (function)
@@ -157,27 +175,27 @@ declare namespace ChaiSpies {
         interface<T>(name: string, methods: T): T;
         interface<T>(methods: T): T;
 
-      /**
-       * #### chai.spy.restore (function)
-       *
-       * Restores spy assigned to DEFAULT sandbox
-       *
-       * Restores previously wrapped object's method.
-       * Restores all spied objects of a sandbox if called without parameters.
-       *
-       * @param {Object} [object]
-       * @param {String|String[]} [methods] name or names
-       * @return {Sandbox} Sandbox instance
-       */
+        /**
+         * #### chai.spy.restore (function)
+         *
+         * Restores spy assigned to DEFAULT sandbox
+         *
+         * Restores previously wrapped object's method.
+         * Restores all spied objects of a sandbox if called without parameters.
+         *
+         * @param {Object} [object]
+         * @param {String|String[]} [methods] name or names
+         * @return {Sandbox} Sandbox instance
+         */
         restore(object?: Object, methodNames?: string | string[]): void;
 
         /**
          * #### chai.spy.returns (function)
          *
          * Creates a spy which returns static value.
-         *```ts
+         * ```ts
          *      var method = chai.spy.returns(true);
-         *```
+         * ```
          * @param {*} value static value which is returned by spy
          * @returns new spy function which returns static value
          * @api public
@@ -378,7 +396,18 @@ declare namespace ChaiSpies {
          * Can be used for calls with a single argument too.
          */
 
-        exactly(a?: any, b?: any, c?: any, d?: any, e?: any, f?: any, g?: any, h?: any, i?: any, j?: any): Chai.Assertion;
+        exactly(
+            a?: any,
+            b?: any,
+            c?: any,
+            d?: any,
+            e?: any,
+            f?: any,
+            g?: any,
+            h?: any,
+            i?: any,
+            j?: any,
+        ): Chai.Assertion;
     }
 
     interface Always {
@@ -409,7 +438,18 @@ declare namespace ChaiSpies {
          * spy.should.have.been.called.always.with.exactly('foo');
          * ```
          */
-        exactly(a?: any, b?: any, c?: any, d?: any, e?: any, f?: any, g?: any, h?: any, i?: any, j?: any): Chai.Assertion;
+        exactly(
+            a?: any,
+            b?: any,
+            c?: any,
+            d?: any,
+            e?: any,
+            f?: any,
+            g?: any,
+            h?: any,
+            i?: any,
+            j?: any,
+        ): Chai.Assertion;
     }
 
     interface At {
@@ -516,13 +556,19 @@ declare namespace ChaiSpies {
     interface SpyFunc7Proxy<A1, A2, A3, A4, A5, A6, A7, R> extends SpyFunc7<A1, A2, A3, A4, A5, A6, A7, R>, Resetable {
     }
 
-    interface SpyFunc8Proxy<A1, A2, A3, A4, A5, A6, A7, A8, R> extends SpyFunc8<A1, A2, A3, A4, A5, A6, A7, A8, R>, Resetable {
+    interface SpyFunc8Proxy<A1, A2, A3, A4, A5, A6, A7, A8, R>
+        extends SpyFunc8<A1, A2, A3, A4, A5, A6, A7, A8, R>, Resetable
+    {
     }
 
-    interface SpyFunc9Proxy<A1, A2, A3, A4, A5, A6, A7, A8, A9, R> extends SpyFunc9<A1, A2, A3, A4, A5, A6, A7, A8, A9, R>, Resetable {
+    interface SpyFunc9Proxy<A1, A2, A3, A4, A5, A6, A7, A8, A9, R>
+        extends SpyFunc9<A1, A2, A3, A4, A5, A6, A7, A8, A9, R>, Resetable
+    {
     }
 
-    interface SpyFunc10Proxy<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, R> extends SpyFunc10<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, R>, Resetable {
+    interface SpyFunc10Proxy<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, R>
+        extends SpyFunc10<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, R>, Resetable
+    {
     }
 }
 

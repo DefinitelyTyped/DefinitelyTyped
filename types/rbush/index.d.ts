@@ -1,9 +1,3 @@
-// Type definitions for rbush 3.0
-// Project: https://github.com/mourner/rbush
-// Definitions by: Dan Vanderkam <https://github.com/danvk>
-//                 Chris Lewis <https://github.com/cmslewis>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface BBox {
     minX: number;
     minY: number;
@@ -47,7 +41,7 @@ export default class RBush<T> {
      *
      * @param items The items to load.
      */
-    load(items: ReadonlyArray<T>): RBush<T>;
+    load(items: readonly T[]): RBush<T>;
 
     /**
      * Removes a previously inserted item, comparing by reference.

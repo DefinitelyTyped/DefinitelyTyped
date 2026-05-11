@@ -26,12 +26,24 @@ declare class OpenIdProvider {
     ): import('../oauth2/OAuth2Client');
 }
 declare namespace OpenIdProvider {
-    export { discover, fromConfig, CryptoPKey, DBKey, ProviderMetadata };
+    export {
+        discover,
+        fromConfig,
+        signSupportAccountProvider,
+        verifySupportAccountProvider,
+        CryptoPKey,
+        DBKey,
+        DataSet,
+        ProviderMetadata,
+    };
 }
-type CryptoPKey = import('../crypto/CryptoPKey');
 declare function discover(discoverUri: string): ProviderMetadata;
 declare function fromConfig(key: DBKey): OpenIdProvider;
+declare function signSupportAccountProvider(ds: DataSet, privateKey: string): string;
+declare function verifySupportAccountProvider(ds: DataSet): boolean;
+type CryptoPKey = import('../crypto/CryptoPKey');
 type DBKey = import('../dbkey/DBKey');
+type DataSet = import('../dataset/DataSet');
 interface ProviderMetadata {
     issuer: string;
     authorizationEndpoint: string;

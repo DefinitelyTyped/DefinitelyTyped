@@ -1,5 +1,5 @@
-import { UnaryFunction } from '../internal/types';
-import Maybe from './Maybe';
+import { UnaryFunction } from "../internal/types";
+import Maybe from "./Maybe";
 
 /**
  * maybeToArray :: Maybe a -> [ a ]

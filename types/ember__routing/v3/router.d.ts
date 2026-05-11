@@ -44,8 +44,8 @@ export default class Router extends EmberObject.extend(Evented) {
     transitionTo(name: string, options: {}): Transition;
 }
 
-declare module '@ember/service' {
+declare module "@ember/service" {
     interface Registry {
-        'router': RouterService;
+        "router": RouterService;
     }
 }

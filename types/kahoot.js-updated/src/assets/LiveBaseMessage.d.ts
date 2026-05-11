@@ -1,4 +1,4 @@
-import Kahoot = require('../..');
+import Kahoot = require("../..");
 
 declare class LiveBaseMessage {
     constructor(client: Kahoot, channel: string, data?: any);

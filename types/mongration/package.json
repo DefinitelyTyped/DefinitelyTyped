@@ -1,6 +1,21 @@
 {
     "private": true,
+    "name": "@types/mongration",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/awapps/mongration#readme"
+    ],
     "dependencies": {
+        "@types/node": "*",
         "mongodb": "^4.5.0"
-    }
+    },
+    "devDependencies": {
+        "@types/mongration": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Anton Lobashev",
+            "githubUsername": "soulthreads"
+        }
+    ]
 }

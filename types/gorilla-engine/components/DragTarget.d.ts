@@ -8,5 +8,6 @@ declare namespace GorillaEngine.UI {
         constructor(options: Partial<DragTargetProps>);
     }
 
+    // tslint:disable-next-line:no-empty-interface
     interface DragTarget extends DragTargetProps {}
 }

@@ -5,38 +5,38 @@
  * They are not intended as definition tests.
  */
 
-import landingTemplate from 'stremio-addon-sdk/src/landingTemplate';
+import landingTemplate from "stremio-addon-sdk/src/landingTemplate";
 landingTemplate; // $ExpectType (addonInterface: Manifest) => string
 
 import {
-    Manifest,
     addonBuilder,
-    publishToCentral,
-    serveHTTP,
     AddonCatalog,
     AddonInterface,
     Args,
     Cache,
     ContentType,
     Extra,
-    ShortManifestResource,
     FullManifestResource,
+    getRouter,
+    Manifest,
     ManifestCatalog,
     ManifestExtra,
-    MetaPreview,
     MetaDetail,
     MetaLink,
+    MetaPreview,
     MetaVideo,
+    publishToCentral,
+    serveHTTP,
+    ShortManifestResource,
     Stream,
     Subtitle,
-    getRouter
-} from 'stremio-addon-sdk';
+} from "stremio-addon-sdk";
 
 const manifest: Manifest = {
-    id: '',
-    name: '',
-    description: '',
-    version: '',
+    id: "",
+    name: "",
+    description: "",
+    version: "",
     resources: [],
     types: [],
     catalogs: [],
@@ -49,52 +49,58 @@ const builder = new addonBuilder(manifest);
 builder;
 
 // $ExpectType void
-builder.defineCatalogHandler(() => Promise.resolve({
-    metas: []
-}));
+builder.defineCatalogHandler(() =>
+    Promise.resolve({
+        metas: [],
+    })
+);
 
 // $ExpectType void
 builder.defineMetaHandler(() =>
     Promise.resolve({
         meta: {
-            id: '',
-            name: '',
-            type: 'channel',
+            id: "",
+            name: "",
+            type: "channel",
         },
-    }),
+    })
 );
 
 // $ExpectType Promise<{ addons: AddonCatalog[]; } & Cache>
 builder.defineResourceHandler({
-    id: '',
-    type: 'channel'
+    id: "",
+    type: "channel",
 });
 
 // $ExpectType void
-builder.defineStreamHandler(() => Promise.resolve({
-    streams: []
-}));
+builder.defineStreamHandler(() =>
+    Promise.resolve({
+        streams: [],
+    })
+);
 
 // $ExpectType void
-builder.defineSubtitlesHandler(() => Promise.resolve({
-    subtitles: []
-}));
+builder.defineSubtitlesHandler(() =>
+    Promise.resolve({
+        subtitles: [],
+    })
+);
 
 // $ExpectType AddonInterface
 const addonInterface = builder.getInterface();
 
 // $ExpectType void
-publishToCentral('');
+publishToCentral("");
 
 // $ExpectType void
 serveHTTP(addonInterface, {
-    port: 1337
+    port: 1337,
 });
 
 const addonCatalog: AddonCatalog = {
     transportName: "",
     transportUrl: "",
-    manifest
+    manifest,
 };
 
 // $ExpectType AddonCatalog
@@ -102,7 +108,7 @@ addonCatalog;
 
 const addon: AddonInterface = {
     manifest,
-    async get(args: { resource: ShortManifestResource } & Args) {}
+    async get(args: { resource: ShortManifestResource } & Args) {},
 };
 
 // $ExpectType AddonInterface
@@ -111,7 +117,7 @@ addon;
 // $ExpectType any
 getRouter(addon);
 
-const shortResource: ShortManifestResource[] = ['catalog', 'meta', 'stream', 'subtitles', 'addon_catalog'];
+const shortResource: ShortManifestResource[] = ["catalog", "meta", "stream", "subtitles", "addon_catalog"];
 
 // $ExpectType ShortManifestResource[]
 shortResource;
@@ -124,18 +130,18 @@ emptyCache;
 const filledCache: Cache = {
     cacheMaxAge: 0,
     staleRevalidate: 0,
-    staleError: 0
+    staleError: 0,
 };
 
 // $ExpectType Cache
 filledCache;
 
-const contentTypes: ContentType[] = ['movie', 'series', 'channel', 'tv'];
+const contentTypes: ContentType[] = ["movie", "series", "channel", "tv"];
 
 // $ExpectType ContentType[]
 contentTypes;
 
-const extras: Extra[] = ['search', 'genre', 'skip'];
+const extras: Extra[] = ["search", "genre", "skip"];
 
 // $ExpectType Extra[]
 extras;
@@ -146,22 +152,22 @@ const args: Args = {
     extra: {
         genre: "Action",
         search: "",
-        skip: 0
-    }
+        skip: 0,
+    },
 };
 
 // $ExpectType Args
 args;
 
 // $ExpectType Promise<any>
-addon.get({resource: shortResource[0], ...args});
+addon.get({ resource: shortResource[0], ...args });
 
 // @ts-expect-error
 addon.get(args);
 
 const resource: FullManifestResource = {
     name: shortResource[0],
-    types: contentTypes
+    types: contentTypes,
 };
 
 // $ExpectType FullManifestResource
@@ -170,7 +176,7 @@ resource;
 const manifestExtra: ManifestExtra = {
     name: extras[1],
     options: ["Action", "Comedy", "Drama"],
-    isRequired: true
+    isRequired: true,
 };
 
 // $ExpectType ManifestExtra
@@ -180,7 +186,7 @@ const catalog: ManifestCatalog = {
     type: contentTypes[0],
     name: "",
     id: "",
-    extra: [manifestExtra]
+    extra: [manifestExtra],
 };
 
 // $ExpectType ManifestCatalog
@@ -204,7 +210,7 @@ const metaDetail: MetaDetail = {
     genres: ["Aventura", "Ficção", "Aventura"],
     releaseInfo: "2020",
     imdbRating: "6.7",
-    runtime: "2 h 21 min"
+    runtime: "2 h 21 min",
 };
 
 // $ExpectType MetaDetail
@@ -213,7 +219,7 @@ metaDetail;
 const metaLink: MetaLink = {
     name: "",
     category: "",
-    url: ""
+    url: "",
 };
 
 // $ExpectType MetaLink
@@ -222,7 +228,7 @@ metaLink;
 const metaVideo: MetaVideo = {
     id: "",
     title: "",
-    released: ""
+    released: "",
 };
 
 // $ExpectType MetaVideo
@@ -230,7 +236,7 @@ metaVideo;
 
 const stream: Stream = {
     ytId: "9bZkp7q19f0",
-    title: "PSY - GANGNAM STYLE"
+    title: "PSY - GANGNAM STYLE",
 };
 
 // $ExpectType Stream
@@ -239,7 +245,7 @@ stream;
 const subtitle: Subtitle = {
     id: "eng-1",
     url: "",
-    lang: "english"
+    lang: "english",
 };
 
 // $ExpectType Subtitle

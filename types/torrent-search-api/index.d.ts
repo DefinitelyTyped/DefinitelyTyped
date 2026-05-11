@@ -1,8 +1,3 @@
-// Type definitions for torrent-search-api 2.0
-// Project: https://github.com/JimmyLaurent/torrent-search-api
-// Definitions by: Nicolas Girardin <https://github.com/ngirardin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface Torrent {
     title: string;
     time: string;
@@ -63,26 +58,26 @@ export function isProviderActive(name: string): boolean;
 export function search(
     query: string,
     category: string,
-    limit: number
+    limit: number,
 ): Promise<Torrent[]>;
 
 export function search(
     providers: string[],
     query: string,
     category: string,
-    limit: number
+    limit: number,
 ): Promise<Torrent[]>;
 
 export function getTorrentDetails(torrent: Torrent): Promise<string>;
 
 export function downloadTorrent(
     torrent: Torrent,
-    filenamePath?: string
+    filenamePath?: string,
 ): Promise<string>;
 
 export function overrideConfig(
     providerName: string,
-    newConfig: TorrentProvider
+    newConfig: TorrentProvider,
 ): Promise<string>;
 
 export function getMagnet(torrent: Torrent): Promise<string>;

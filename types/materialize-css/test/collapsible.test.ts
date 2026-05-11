@@ -1,13 +1,13 @@
 import * as materialize from "materialize-css";
 
-const elem = document.querySelector('.whatever')!;
+const elem = document.querySelector(".whatever")!;
 
 // $ExpectType Collapsible
 const _collapsible = new M.Collapsible(elem);
 // $ExpectType Collapsible
 const el = M.Collapsible.init(elem);
 // $ExpectType Collapsible[]
-const els = M.Collapsible.init(document.querySelectorAll('.whatever'));
+const els = M.Collapsible.init(document.querySelectorAll(".whatever"));
 
 // $ExpectType Collapsible
 const collapsible = new materialize.Collapsible(elem, {
@@ -29,7 +29,7 @@ const collapsible = new materialize.Collapsible(elem, {
     onOpenStart(el) {
         // $ExpectType Element
         el;
-    }
+    },
 });
 
 // $ExpectType void

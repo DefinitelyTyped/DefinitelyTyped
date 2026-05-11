@@ -1,9 +1,9 @@
 /// <reference types="node" />
-import { LookupOptions as DnsLookupOptions, SrvRecord } from 'dns';
+import { LookupOptions as DnsLookupOptions, SrvRecord } from "dns";
 
 export function lookup(domain: string, options?: LookupOptions): Promise<ResolvedAddress[]>;
 
-export type LookupOptions = Omit<DnsLookupOptions, 'all'>;
+export type LookupOptions = Omit<DnsLookupOptions, "all">;
 
 export interface ResolvedAddress {
     family: 4 | 6;

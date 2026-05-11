@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/tonic-ui__react-icons",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/trendmicro-frontend/tonic-ui/tree/master/packages/react-icons"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "@types/tonic-ui__react": "*"
+    },
+    "devDependencies": {
+        "@types/tonic-ui__react-icons": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Zachary Legros",
+            "githubUsername": "ZachLegros"
+        },
+        {
+            "name": "Derek Hawker",
+            "githubUsername": "derekhawker"
+        }
+    ]
+}

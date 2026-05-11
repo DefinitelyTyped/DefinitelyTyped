@@ -4,5 +4,5 @@ export class BitmapTextRenderer extends Renderer {
     texture: Texture | null;
     render(driver: any, session: any): void;
 }
-import { Renderer } from './Renderer';
-import { Texture } from '../textures/Texture';
+import { Texture } from "../textures/Texture";
+import { Renderer } from "./Renderer";

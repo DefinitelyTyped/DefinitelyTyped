@@ -6,22 +6,22 @@ const options: ServerOptions = {
 };
 
 const handlerFn: Lifecycle.Method = (request, h) => {
-    request.log(['test', 'error'], 'Test event');
-    return 'path: ' + request.path;
+    request.log(["test", "error"], "Test event");
+    return "path: " + request.path;
 };
 
 const serverRoute: ServerRoute = {
-    path: '/',
-    method: 'GET',
-    handler: handlerFn
+    path: "/",
+    method: "GET",
+    handler: handlerFn,
 };
 
 const server = new Server(options);
 server.route(serverRoute);
 server.start();
-console.log('Server started at: ' + server.info.uri);
+console.log("Server started at: " + server.info.uri);
 
-server.events.on('request', (request: Request, event: any, tags: any) => {
+server.events.on("request", (request: Request, event: any, tags: any) => {
     console.log(tags);
     if (tags.error) {
         console.log(event);

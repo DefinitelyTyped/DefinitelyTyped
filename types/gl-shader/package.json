@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/gl-shader",
+    "version": "4.2.9999",
+    "projects": [
+        "https://github.com/stackgl/gl-shader"
+    ],
+    "devDependencies": {
+        "@types/gl-shader": "workspace:."
+    },
+    "owners": []
+}

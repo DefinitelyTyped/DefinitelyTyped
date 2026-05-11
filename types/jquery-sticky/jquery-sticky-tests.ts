@@ -1,18 +1,18 @@
 // initialization
-$('#sticker').sticky({
+$("#sticker").sticky({
     topSpacing: 12,
     bottomSpacing: 12,
-    className: 'class-name',
-    wrapperClassName: 'wrapper-class-name',
+    className: "class-name",
+    wrapperClassName: "wrapper-class-name",
     center: true,
-    getWidthFrom: '#container',
+    getWidthFrom: "#container",
     widthFromWrapper: false,
     responsiveWidth: true,
-    zIndex: '2'
+    zIndex: "2",
 });
 
 // update element position
-$('#sticker').sticky('update');
+$("#sticker").sticky("update");
 
 // unstick
 $("#sticker").unstick();

@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/react-cache",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/facebook/react/tree/master/packages/react-cache",
+        "https://github.com/facebook/react"
+    ],
+    "devDependencies": {
+        "@types/react-cache": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Spencer Miskoviak",
+            "githubUsername": "skovy"
+        }
+    ]
+}

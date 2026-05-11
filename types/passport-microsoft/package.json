@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/passport-microsoft",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/seanfisher/passport-microsoft#readme"
+    ],
+    "dependencies": {
+        "@types/passport-oauth2": "*"
+    },
+    "devDependencies": {
+        "@types/passport": "*",
+        "@types/passport-microsoft": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Eitan Levi",
+            "githubUsername": "skrud"
+        }
+    ]
+}

@@ -1,4 +1,4 @@
-import * as deasync from "deasync";
+import deasync from "deasync";
 
 function asyncFunction(input: number, cb: (err: any, res: number) => void) {}
 function handle(err: any, res: number) {}

@@ -1,2 +1,2 @@
-import * as _ from 'underscore';
+import _ = require("underscore");
 export { _ };

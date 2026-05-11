@@ -1,22 +1,22 @@
-import inline from 'inline-critical';
+import inline from "inline-critical";
 
 // $ExpectType string
-inline('', '');
+inline("", "");
 
 // $ExpectType string
-inline('', '', {});
+inline("", "", {});
 
 // $ExpectType string
-inline('', '', {
+inline("", "", {
     minify: true,
     extract: true,
-    basePath: '',
-    ignore: '',
-    selector: '',
+    basePath: "",
+    ignore: "",
+    selector: "",
     noscript: false,
     polyfill: true,
-    replaceStylesheets: false
+    replaceStylesheets: false,
 });
 
 // $ExpectType string
-inline('', '', {ignore: [/a/]});
+inline("", "", { ignore: [/a/] });

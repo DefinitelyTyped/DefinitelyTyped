@@ -1,14 +1,9 @@
-// Type definitions for twemoji-parser 13.1
-// Project: https://github.com/twitter/twemoji-parser
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * A simple library for identifying emoji entities within a string in order to render them as Twemoji.
  * For example, this parser is used within the rendering flow for Tweets and other text on mobile.twitter.com
  */
 
-export const TypeName = 'emoji';
+export const TypeName = "emoji";
 
 export interface EmojiEntity {
     /**
@@ -34,7 +29,7 @@ export interface ParsingOptions {
     assetType?: AssetType | undefined;
 }
 
-export type AssetType = 'png' | 'svg';
+export type AssetType = "png" | "svg";
 /**
  * Parser takes a string and returns an array of the emoji entities it finds.
  */

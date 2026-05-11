@@ -1,4 +1,4 @@
-import { Options } from './index';
+import { Options } from "./index";
 
 /**
  * Extracts package data identified by `spec` into a directory named

@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/meteor-percolate-migrations",
+    "version": "1.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Atmosphere package percolate:migrations",
+    "projects": [
+        "https://github.com/percolatestudio/meteor-migrations/"
+    ],
+    "devDependencies": {
+        "@types/meteor-percolate-migrations": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Stepan Yurtsiv",
+            "githubUsername": "yurtsiv"
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/react-native-event-source",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/jordanbyron/react-native-event-source#readme"
+    ],
+    "devDependencies": {
+        "@types/react-native-event-source": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alexander Tartmin",
+            "githubUsername": "Baskerville42"
+        }
+    ]
+}

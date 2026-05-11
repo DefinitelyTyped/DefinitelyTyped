@@ -1,8 +1,3 @@
-// Type definitions for jsurl2 2.1
-// Project: https://github.com/wmertens/jsurl2
-// Definitions by: Ben Grynhaus <https://github.com/bengry>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface StringifyOptions {
     /**
      * `rich`: encode Date, `undefined`, `Infinity`
@@ -23,7 +18,7 @@ export interface ParseOptions {
     deURI?: boolean;
 }
 
-// eslint-disable-next-line no-unnecessary-generics -- allows the user to specify a specific type that they expect the string to parse to
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics -- allows the user to specify a specific type that they expect the string to parse to
 export function parse<T extends object>(urlFragment: string, options?: ParseOptions): T;
 
 /**

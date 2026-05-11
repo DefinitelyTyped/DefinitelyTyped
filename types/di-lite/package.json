@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/di-lite",
+    "version": "0.3.9999",
+    "projects": [
+        "https://github.com/NickQiZhu/di.js"
+    ],
+    "devDependencies": {
+        "@types/di-lite": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Timothy Morris",
+            "githubUsername": "dcrusader"
+        }
+    ]
+}

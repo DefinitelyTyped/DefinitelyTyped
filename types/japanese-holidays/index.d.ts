@@ -1,9 +1,3 @@
-// Type definitions for japanese-holidays 1.0
-// Project: https://github.com/osamutake/japanese-holidays-js
-// Definitions by: syamatoo <https://github.com/syamatoo>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace JapaneseHolidays;
 
 export function isHoliday(date: Date, furikae?: boolean): string | undefined;

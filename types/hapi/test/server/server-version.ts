@@ -6,4 +6,4 @@ const server = new Server({
 });
 
 server.start();
-console.log(server.version);        // 17.x.x
+console.log(server.version); // 17.x.x

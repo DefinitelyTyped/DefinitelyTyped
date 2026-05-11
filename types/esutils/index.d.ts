@@ -1,8 +1,3 @@
-// Type definitions for esutils 2.0
-// Project: https://github.com/estools/esutils
-// Definitions by: Rhythm Bhiwani <https://github.com/rhythmbhiwani>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = esutils;
 
 declare const esutils: {

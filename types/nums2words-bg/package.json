@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/nums2words-bg",
+    "version": "1.4.9999",
+    "type": "module",
+    "projects": [
+        "https://github.com/vidul-nikolaev-petrov/nums2wordsBG#readme"
+    ],
+    "devDependencies": {
+        "@types/nums2words-bg": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "radostin04",
+            "githubUsername": "radostin04"
+        }
+    ]
+}

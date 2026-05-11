@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "type": "module",
+    "name": "@types/event-calendar__day-grid",
+    "version": "3.4.9999",
+    "projects": [
+        "https://vkurko.github.io/calendar/"
+    ],
+    "devDependencies": {
+        "@types/event-calendar__day-grid": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Michael Driscoll",
+            "githubUsername": "syncsynchalt"
+        },
+        {
+            "name": "Vladimir",
+            "githubUsername": "vkurko"
+        }
+    ]
+}

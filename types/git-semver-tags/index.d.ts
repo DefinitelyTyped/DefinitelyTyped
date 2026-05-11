@@ -1,18 +1,9 @@
-// Type definitions for git-semver-tags 4.1
-// Project: https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/git-semver-tags#readme
-// Definitions by: Jason Kwok <https://github.com/JasonHK>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Get all git semver tags of your repository in reverse chronological order
  */
-declare function gitSemverTags(options: gitSemverTags.Options, callback: gitSemverTags.Callback): void;
-declare function gitSemverTags(callback: gitSemverTags.Callback): void;
+declare function gitSemverTags(options?: gitSemverTags.Options): Promise<string[]>;
 
 declare namespace gitSemverTags {
-    type Callback = (error: any, tags: string[]) => void;
-
     interface Options {
         /**
          * Extract lerna style tags (`foo-package@2.0.0`) from the git history, rather

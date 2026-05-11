@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/clipper-lib",
+    "version": "6.4.9999",
+    "projects": [
+        "https://github.com/junmer/clipper-lib"
+    ],
+    "devDependencies": {
+        "@types/clipper-lib": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "kwnt-dev",
+            "githubUsername": "kwnt-dev"
+        }
+    ]
+}

@@ -1,12 +1,6 @@
-// Type definitions for D3JS d3-sankey module 0.12
-// Project: https://github.com/d3/d3-sankey/
-// Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 // Last module patch version validated against: 0.12
 
-import { Link } from 'd3-shape';
+import { Link } from "d3-shape";
 
 /**
  * A helper interface as an extension reference for user-provided properties of
@@ -347,26 +341,26 @@ export interface SankeyLayout<Data, N extends SankeyExtraProperties, L extends S
     /**
      * Returns the node comparison function which defaults to undefined.
      */
-    nodeSort(): ((a: SankeyNode<N, L>, b: SankeyNode<N, L>) => number) | undefined;
+    nodeSort(): ((a: SankeyNode<N, L>, b: SankeyNode<N, L>) => number) | undefined | null;
 
     /**
      * Set the node comparison function and return this Sankey layout generator.
      *
-     * @param compare Node comparison function.
+     * @param compare Node comparison function. If `null`, the order is fixed by the input.
      */
-    nodeSort(compare: (a: SankeyNode<N, L>, b: SankeyNode<N, L>) => number | undefined | null): this;
+    nodeSort(compare: ((a: SankeyNode<N, L>, b: SankeyNode<N, L>) => number) | undefined | null): this;
 
     /**
      * Returns the link comparison function which defaults to undefined.
      */
-    linkSort(): ((a: SankeyLink<N, L>, b: SankeyLink<N, L>) => number) | undefined;
+    linkSort(): ((a: SankeyLink<N, L>, b: SankeyLink<N, L>) => number) | undefined | null;
 
     /**
      * Set the link comparison function and return this Sankey layout generator.
      *
-     * @param compare Link comparison function.
+     * @param compare Link comparison function. If `null`, the order is fixed by the input.
      */
-    linkSort(compare: (a: SankeyLink<N, L>, b: SankeyLink<N, L>) => number | undefined | null): this;
+    linkSort(compare: ((a: SankeyLink<N, L>, b: SankeyLink<N, L>) => number) | undefined | null): this;
 }
 
 /**

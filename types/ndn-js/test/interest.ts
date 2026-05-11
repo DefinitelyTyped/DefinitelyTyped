@@ -16,13 +16,13 @@ blob = interest.getApplicationParameters();
 n = interest.getIncomingFaceId();
 
 interest = interest.setName(name)
-                   .setCanBePrefix(true)
-                   .setMustBeFresh(true)
-                   .setForwardingHint(fh)
-                   .setInterestLifetimeMilliseconds(2000)
-                   .setApplicationParameters(blob)
-                   .setApplicationParameters(Buffer.alloc(4))
-                   .appendParametersDigestToName();
+    .setCanBePrefix(true)
+    .setMustBeFresh(true)
+    .setForwardingHint(fh)
+    .setInterestLifetimeMilliseconds(2000)
+    .setApplicationParameters(blob)
+    .setApplicationParameters(Buffer.alloc(4))
+    .appendParametersDigestToName();
 
 b = interest.matchesData(new ndn.Data());
 b = interest.matchesName(name);

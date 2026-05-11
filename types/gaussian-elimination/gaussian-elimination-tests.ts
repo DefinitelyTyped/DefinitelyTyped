@@ -1,4 +1,4 @@
-import gauss = require('gaussian-elimination');
+import gauss = require("gaussian-elimination");
 
 const arr = [
     [3, 6, -2, -8],

@@ -18,7 +18,7 @@ function KeypressComboTests() {
         is_counting: false,
         is_exclusive: false,
         is_sequence: true,
-        is_solitary: true
+        is_solitary: true,
     };
 
     const pasteCombo = <keypress.Combo> {
@@ -28,7 +28,7 @@ function KeypressComboTests() {
         },
         prevent_default: true,
         prevent_repeat: true,
-        is_exclusive: true
+        is_exclusive: true,
     };
 
     listener.register_combo(copyCombo);
@@ -43,7 +43,7 @@ function KeypressComboTests() {
 }
 
 function KeypressBindingTests() {
-    const element = document.createElement('div');
+    const element = document.createElement("div");
     const defaults = <keypress.ListenerDefaults> {
         prevent_default: true,
         prevent_repeat: true,
@@ -51,7 +51,7 @@ function KeypressBindingTests() {
         is_counting: false,
         is_exclusive: false,
         is_solitary: false,
-        is_sequence: false
+        is_sequence: false,
     };
     let listener = new keypress.Listener(element);
     listener = new keypress.Listener(element, defaults);

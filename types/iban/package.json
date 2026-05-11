@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/iban",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/arhs/iban.js/"
+    ],
+    "devDependencies": {
+        "@types/iban": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Cyril Schumacher",
+            "githubUsername": "cyrilschumacher"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "cyrilschumacher"
+        }
+    ]
+}

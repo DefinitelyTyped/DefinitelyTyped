@@ -1,8 +1,3 @@
-// Type definitions for watch 1.0
-// Project: https://github.com/mikeal/watch
-// Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>, Gyusun Yeom <https://github.com/Perlmint>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // Imported from: https://github.com/soywiz/typescript-node-definitions/watch.d.ts
 
 /// <reference types="node" />
@@ -10,7 +5,9 @@
 import fs = require("fs");
 import events = require("events");
 
-export interface Files { [key: string]: fs.Stats; }
+export interface Files {
+    [key: string]: fs.Stats;
+}
 
 export interface Monitor extends events.EventEmitter {
     files: Files;
@@ -37,9 +34,17 @@ export interface WalkOptions extends BaseOptions {
 }
 
 export function watchTree(root: string, callback: (f: string, curr: fs.Stats, prev: fs.Stats) => void): void;
-export function watchTree(root: string, options: Options, callback: (f: string, curr: fs.Stats, prev: fs.Stats) => void): void;
+export function watchTree(
+    root: string,
+    options: Options,
+    callback: (f: string, curr: fs.Stats, prev: fs.Stats) => void,
+): void;
 export function unwatchTree(root: string): void;
 export function createMonitor(root: string, callback: (monitor: Monitor) => void): void;
 export function createMonitor(root: string, options: Options, callback: (monitor: Monitor) => void): void;
 export function walk(root: string, callback: (error: Error | null, files: Files | undefined) => void): void;
-export function walk(root: string, options: WalkOptions, callback: (error: Error | null, files: Files | undefined) => void): void;
+export function walk(
+    root: string,
+    options: WalkOptions,
+    callback: (error: Error | null, files: Files | undefined) => void,
+): void;

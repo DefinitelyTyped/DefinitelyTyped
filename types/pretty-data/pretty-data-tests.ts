@@ -1,13 +1,13 @@
-import { pd } from 'pretty-data';
+import { pd } from "pretty-data";
 
-pd.css('');
-pd.cssmin('');
+pd.css("");
+pd.cssmin("");
 
-pd.json('');
-pd.jsonmin('');
+pd.json("");
+pd.jsonmin("");
 
-pd.xml('');
-pd.xmlmin('');
+pd.xml("");
+pd.xmlmin("");
 
-pd.sql('');
-pd.sqlmin('');
+pd.sql("");
+pd.sqlmin("");

@@ -1,19 +1,46 @@
-import mime = require('mime-types');
+import mime = require("mime-types");
 
-mime.lookup('json'); // 'application/json'
-mime.lookup('.md'); // 'text/x-markdown'
-mime.lookup('file.html'); // 'text/html'
-mime.lookup('folder/file.js'); // 'application/javascript'
-mime.lookup('folder/.htaccess'); // false
+// $ExpectType string | false
+mime.lookup("json"); // 'application/json'
 
-mime.lookup('cats'); // false
-mime.contentType('markdown'); // 'text/x-markdown; charset=utf-8'
-mime.contentType('file.json'); // 'application/json; charset=utf-8'
+// $ExpectType string | false
+mime.lookup(".md"); // 'text/x-markdown'
 
-// from a full path
-mime.contentType('.json'); // 'application/json; charset=utf-8'
+// $ExpectType string | false
+mime.lookup("file.html"); // 'text/html'
 
-mime.extension('application/octet-stream'); // 'bin'
+// $ExpectType string | false
+mime.lookup("folder/file.js"); // 'application/javascript'
 
-mime.charset('text/x-markdown'); // 'UTF-8'
-mime.charsets.lookup('text/x-markdown'); // 'UTF-8'
+// $ExpectType string | false
+mime.lookup("folder/.htaccess"); // false
+
+// $ExpectType string | false
+mime.lookup("cats"); // false
+
+// $ExpectType string | false
+mime.contentType("markdown"); // 'text/x-markdown; charset=utf-8'
+
+// $ExpectType string | false
+mime.contentType("file.json"); // 'application/json; charset=utf-8'
+
+// $ExpectType string | false
+mime.contentType(".json"); // 'application/json; charset=utf-8'
+
+// $ExpectType string | false
+mime.extension("application/octet-stream"); // 'bin'
+
+// $ExpectType string | false
+mime.charset("text/x-markdown"); // 'UTF-8'
+
+// $ExpectType string | false
+mime.charsets.lookup("text/x-markdown"); // 'UTF-8'
+
+// $ExpectType string[]
+mime.extensions["application/json"]; // ['.json']
+
+// $ExpectType string
+mime.types.json; // "application/json"
+
+// @ts-expect-error
+mime.lookup(5);

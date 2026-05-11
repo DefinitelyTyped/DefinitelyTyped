@@ -1,2 +1,2 @@
-import Invoke = require('../2017/Invoke');
+import Invoke = require("../2017/Invoke");
 export = Invoke;

@@ -1,12 +1,3 @@
-// Type definitions for jaeger-client 3.18
-// Project: https://github.com/jaegertracing/jaeger-client-node#readme
-// Definitions by: jgeth <https://github.com/jgeth>
-//                 tsachis <https://github.com/tsachi>
-//                 MiLk <https://github.com/MiLk>
-//                 doochik <https://github.com/doochik>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 // This extracts the core definitions from express to prevent a circular dependency between express and serve-static
 /// <reference types="node" />
 
@@ -106,12 +97,12 @@ export class JaegerTracer extends opentracing.Tracer {
 
 export function initTracer(
     tracingConfig: TracingConfig,
-    tracingOptions: TracingOptions
+    tracingOptions: TracingOptions,
 ): JaegerTracer;
 
 export function initTracerFromEnv(
     tracingConfig: TracingConfig,
-    tracingOptions: TracingOptions
+    tracingOptions: TracingOptions,
 ): JaegerTracer;
 
 export class PrometheusMetricsFactory {

@@ -1,4 +1,4 @@
-import { Disposable, DisposableLike, FilesystemChangeEvent } from '../index';
+import { Disposable, DisposableLike, FilesystemChangeEvent } from "../index";
 
 /** Manage a subscription to filesystem events that occur beneath a root directory. */
 export interface PathWatcher extends DisposableLike {

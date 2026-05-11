@@ -1,9 +1,14 @@
-import Noise = require("noisejs");
-var noise = new Noise(Math.random());
+import Noise from "noisejs";
 
-var simplex2_noise_val = noise.simplex2(0.1, 0.2);
-var simplex3_noise_val = noise.simplex3(0.1, 0.2, 0.3);
-var perlin2_noise_val = noise.perlin2(0.1, 0.2);
-var perlin3_noise_val = noise.perlin3(0.1, 0.2, 0.3);
+const noise = new Noise(Math.random());
 
+// $ExpectType number
+noise.simplex2(0.1, 0.2);
+// $ExpectType number
+noise.simplex3(0.1, 0.2, 0.3);
+// $ExpectType number
+noise.perlin2(0.1, 0.2);
+// $ExpectType number
+noise.perlin3(0.1, 0.2, 0.3);
+// $ExpectType void
 noise.seed(Math.random());

@@ -1,9 +1,9 @@
-import createHash = require('create-hash');
+import createHash = require("create-hash");
 
-const hash = createHash('sha224');
+const hash = createHash("sha224");
 
-hash.update('synchronous write');
+hash.update("synchronous write");
 hash.digest();
-hash.write('write to it as a stream');
+hash.write("write to it as a stream");
 hash.end();
 hash.read();

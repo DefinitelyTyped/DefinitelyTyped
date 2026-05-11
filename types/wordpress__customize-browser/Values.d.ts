@@ -1,5 +1,5 @@
-import { Class } from './Class';
-import { Events } from './Events';
+import { Class } from "./Class";
+import { Events } from "./Events";
 
 export class Values<T> extends Class {
     defaultConstructor: T;

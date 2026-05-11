@@ -1,14 +1,9 @@
-// Type definitions for protoo-server 4.0
-// Project: https://protoojs.org
-// Definitions by: Antonis Balasas <https://github.com/antoniom>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import { Server as HttpServer, IncomingMessage } from 'http';
-import { Server as HttpsServer } from 'https';
-import { Socket } from 'net';
-import { IServerConfig } from 'websocket';
+import { IncomingMessage, Server as HttpServer } from "http";
+import { Server as HttpsServer } from "https";
+import { Socket } from "net";
+import { IServerConfig } from "websocket";
 
 export interface ConnectionRequestInfo {
     request: IncomingMessage;
@@ -44,7 +39,7 @@ export type ConnectionRequestCb = (
     reject: ConnectionRequestRejectFn,
 ) => void;
 
-export type WebSocketServerOptions = Pick<IServerConfig, Exclude<keyof IServerConfig, 'httpServer'>>;
+export type WebSocketServerOptions = Pick<IServerConfig, Exclude<keyof IServerConfig, "httpServer">>;
 
 export type ConnectionRequestAcceptFn = () => WebSocketTransport;
 
@@ -63,7 +58,7 @@ export type NotificationCb = (notification: ProtooNotification) => void;
 export class WebSocketServer {
     constructor(server: HttpServer | HttpsServer, options?: WebSocketServerOptions);
     stop(): void;
-    on(eventType: 'connectionrequest', callback: ConnectionRequestCb): void;
+    on(eventType: "connectionrequest", callback: ConnectionRequestCb): void;
 }
 
 export interface WebSocketTransport {
@@ -77,11 +72,11 @@ export class Room {
     peers: Peer[];
     closed: boolean;
     constructor();
-    createPeer(peerId: string, transport: WebSocketTransport): Promise<Peer>;
+    createPeer(peerId: string, transport: WebSocketTransport): Peer;
     hasPeer(peerId: string): boolean;
     getPeer(peerId: string): Peer;
     close(): void;
-    on(eventType: 'close', callback: EmptyCb): void;
+    on(eventType: "close", callback: EmptyCb): void;
 }
 
 export interface Peer {
@@ -91,9 +86,9 @@ export interface Peer {
     request(method: string, data?: any): Promise<ProotooResponse>;
     notify(method: string, data?: any): Promise<void>;
     close(): void;
-    on(eventType: 'request', callback: RequestCb): void;
-    on(eventType: 'notification', callback: NotificationCb): void;
-    on(eventType: 'close', callback: EmptyCb): void;
+    on(eventType: "request", callback: RequestCb): void;
+    on(eventType: "notification", callback: NotificationCb): void;
+    on(eventType: "close", callback: EmptyCb): void;
 }
 
 export const version: string;

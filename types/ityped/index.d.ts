@@ -1,9 +1,3 @@
-// Type definitions for ityped 1.0
-// Project: https://github.com/luisvinicius167/ityped
-// Definitions by: Daniel Rosenwasser <https://github.com/DanielRosenwasser>
-//                 MaySoMusician <https://github.com/MaySoMusician>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface Configuration {
     strings?: string[] | undefined;
     typeSpeed?: number | undefined;

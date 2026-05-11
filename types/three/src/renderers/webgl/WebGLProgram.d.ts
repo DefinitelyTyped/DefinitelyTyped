@@ -1,6 +1,5 @@
-import { WebGLRenderer } from './../WebGLRenderer';
-import { WebGLShader } from './WebGLShader';
-import { WebGLUniforms } from './WebGLUniforms';
+import { WebGLRenderer } from "../WebGLRenderer.js";
+import { WebGLUniforms } from "./WebGLUniforms.js";
 
 export class WebGLProgram {
     constructor(renderer: WebGLRenderer, cacheKey: string, parameters: object);
@@ -13,19 +12,11 @@ export class WebGLProgram {
      * @default 1
      */
     usedTimes: number;
-    program: any;
+    program: unknown; // TODO This should be the WebGLProgram in the DOM types
     vertexShader: WebGLShader;
     fragmentShader: WebGLShader;
-    /**
-     * @deprecated Use {@link WebGLProgram#getUniforms getUniforms()} instead.
-     */
-    uniforms: any;
-    /**
-     * @deprecated Use {@link WebGLProgram#getAttributes getAttributes()} instead.
-     */
-    attributes: any;
 
     getUniforms(): WebGLUniforms;
-    getAttributes(): any;
+    getAttributes(): unknown;
     destroy(): void;
 }

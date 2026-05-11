@@ -1,16 +1,10 @@
-// Type definitions for camo v0.12.2
-// Project: https://github.com/scottwrobinson/camo
-// Definitions by: Lucas Matías Ciruzzi <https://github.com/lucasmciruzzi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare module "camo" {
-
     /**
      * Connect function
      *
      * @param uri Connection URI
      */
-    export function connect (uri: string): Promise<any>;
+    export function connect(uri: string): Promise<any>;
 
     type TypeOrArrayOfType<Type> = Type | Type[];
 
@@ -18,13 +12,13 @@ declare module "camo" {
      * Supported type constructors for document properties
      */
     export type SchemaTypeConstructor =
-        TypeOrArrayOfType<StringConstructor> |
-        TypeOrArrayOfType<NumberConstructor> |
-        TypeOrArrayOfType<BooleanConstructor> |
-        TypeOrArrayOfType<ArrayBufferConstructor> |
-        TypeOrArrayOfType<DateConstructor> |
-        TypeOrArrayOfType<ObjectConstructor> |
-        TypeOrArrayOfType<ArrayConstructor>;
+        | TypeOrArrayOfType<StringConstructor>
+        | TypeOrArrayOfType<NumberConstructor>
+        | TypeOrArrayOfType<BooleanConstructor>
+        | TypeOrArrayOfType<ArrayBufferConstructor>
+        | TypeOrArrayOfType<DateConstructor>
+        | TypeOrArrayOfType<ObjectConstructor>
+        | TypeOrArrayOfType<ArrayConstructor>;
 
     /**
      * Supported types for document properties
@@ -174,13 +168,19 @@ declare module "camo" {
          * @param query Find query.
          * @param options findOne method options.
          */
-        public static findOne<StaticSchema extends DocumentSchema>(query: any, options?: FindOneOptions): Promise<StaticSchema>;
+        public static findOne<StaticSchema extends DocumentSchema>(
+            query: any,
+            options?: FindOneOptions,
+        ): Promise<StaticSchema>;
         /**
          * Return all documents matching the query.
          *
          * @param query Find query.
          */
-        public static find<StaticSchema extends DocumentSchema>(query: any, options?: FindOptions): Promise<StaticSchema[]>;
+        public static find<StaticSchema extends DocumentSchema>(
+            query: any,
+            options?: FindOptions,
+        ): Promise<StaticSchema[]>;
         /**
          * Find and update (or insert) a document in one atomic operation (atomic for MongoDB only).
          *
@@ -188,7 +188,11 @@ declare module "camo" {
          * @param values Values to set.
          * @param options findOneAndUpdate method options.
          */
-        public static findOneAndUpdate<StaticSchema extends DocumentSchema>(query: any, values: StaticSchema, options?: FindOneAndUpdateOptions): Promise<StaticSchema>;
+        public static findOneAndUpdate<StaticSchema extends DocumentSchema>(
+            query: any,
+            values: StaticSchema,
+            options?: FindOneAndUpdateOptions,
+        ): Promise<StaticSchema>;
         /**
          * Removes documents from the database.
          * Should only be used on an instantiated document with a valid id.
@@ -253,5 +257,4 @@ declare module "camo" {
          */
         public toJSON(): any;
     }
-
 }

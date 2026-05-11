@@ -1,8 +1,3 @@
-// Type definitions for Cosmos DB server-side JavaScript SDK
-// Project: http://azure.github.io/azure-documentdb-js-server/
-// Definitions by: John Downs <https://github.com/johndowns>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /** The Context object provides access to all operations that can be performed on Cosmos DB data, as well as access to the request and response objects. */
 interface IContext {
     /** Gets the collection object. */
@@ -36,14 +31,20 @@ interface IQueryAPI {
      * @param options Optional query options. Should not be used in a chained call.
      * @param callback Optional callback for the operation. If no callback is provided, any error in the operation will be thrown and the result document set will be written to the Response body. Should not be used in a chained call.
      */
-    filter(predicate: (document: Object) => boolean,
-        callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void): IQueryResponse;
-    filter(predicate: (document: Object) => boolean,
+    filter(
+        predicate: (document: Object) => boolean,
+        callback?: (error: IFeedCallbackError, resources: Object[], options: IFeedCallbackOptions) => void,
+    ): IQueryResponse;
+    filter(
+        predicate: (document: Object) => boolean,
         options?: IFeedOptions,
-        callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void): IQueryResponse;
-    filter<T>(predicate: (document: Object) => boolean,
+        callback?: (error: IFeedCallbackError, resources: Object[], options: IFeedCallbackOptions) => void,
+    ): IQueryResponse;
+    filter<T>(
+        predicate: (document: Object) => boolean,
         options?: IFeedOptions,
-        callback?: (error: IFeedCallbackError, resources: Array<T>, options: IFeedCallbackOptions) => void): IQueryResponse;
+        callback?: (error: IFeedCallbackError, resources: T[], options: IFeedCallbackOptions) => void,
+    ): IQueryResponse;
     /**
      * Produce a new set of documents by mapping/projecting the properties of the documents in the input document stream through the given mapping predicate.
      * When map is called by itself, the input document stream is the set of all documents in the current document collection. When used in a chained call, the input document stream is the set of documents returned from the previous query function.
@@ -51,14 +52,20 @@ interface IQueryAPI {
      * @param options Optional query options. Should not be used in a chained call.
      * @param callback Optional callback for the operation. If no callback is provided, any error in the operation will be thrown and the result document set will be written to the Response body. Should not be used in a chained call.
      */
-    map(predicate: (document: Object) => Object,
-        callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void): IQueryResponse;
-    map(predicate: (document: Object) => Object,
+    map(
+        predicate: (document: Object) => Object,
+        callback?: (error: IFeedCallbackError, resources: Object[], options: IFeedCallbackOptions) => void,
+    ): IQueryResponse;
+    map(
+        predicate: (document: Object) => Object,
         options?: IFeedOptions,
-        callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void): IQueryResponse;
-    map<T>(predicate: (document: Object) => Object,
+        callback?: (error: IFeedCallbackError, resources: Object[], options: IFeedCallbackOptions) => void,
+    ): IQueryResponse;
+    map<T>(
+        predicate: (document: Object) => Object,
         options?: IFeedOptions,
-        callback?: (error: IFeedCallbackError, resources: Array<T>, options: IFeedCallbackOptions) => void): IQueryResponse;
+        callback?: (error: IFeedCallbackError, resources: T[], options: IFeedCallbackOptions) => void,
+    ): IQueryResponse;
     /**
      * Produce a new set of documents by extracting a single property from each document in the input document stream. This is equivalent to a map call that projects only propertyName.
      * When pluck is called by itself, the input document stream is the set of all documents in the current document collection. When used in a chained call, the input document stream is the set of documents returned from the previous query function.
@@ -66,14 +73,20 @@ interface IQueryAPI {
      * @param options Optional query options. Should not be used in a chained call.
      * @param callback Optional callback for the operation. If no callback is provided, any error in the operation will be thrown and the result document set will be written to the Response body. Should not be used in a chained call.
      */
-    pluck(propertyName: string,
-        callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void): IQueryResponse;
-    pluck(propertyName: string,
+    pluck(
+        propertyName: string,
+        callback?: (error: IFeedCallbackError, resources: Object[], options: IFeedCallbackOptions) => void,
+    ): IQueryResponse;
+    pluck(
+        propertyName: string,
         options?: IFeedOptions,
-        callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void): IQueryResponse;
-    pluck<T>(propertyName: string,
+        callback?: (error: IFeedCallbackError, resources: Object[], options: IFeedCallbackOptions) => void,
+    ): IQueryResponse;
+    pluck<T>(
+        propertyName: string,
         options?: IFeedOptions,
-        callback?: (error: IFeedCallbackError, resources: Array<T>, options: IFeedCallbackOptions) => void): IQueryResponse;
+        callback?: (error: IFeedCallbackError, resources: T[], options: IFeedCallbackOptions) => void,
+    ): IQueryResponse;
     /**
      * Flatten nested arrays from each document in the input document stream.
      * When flatten is called by itself, the input document stream is the set of all documents in the current document collection. When used in a chained call, the input document stream is the set of documents returned from the previous query function.
@@ -81,14 +94,20 @@ interface IQueryAPI {
      * @param options Optional query options. Should not be used in a chained call.
      * @param callback Optional callback for the operation. If no callback is provided, any error in the operation will be thrown and the result document set will be written to the Response body. Should not be used in a chained call.
      */
-    flatten(isShallow?: boolean,
-        callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void): IQueryResponse;
-    flatten(isShallow?: boolean,
+    flatten(
+        isShallow?: boolean,
+        callback?: (error: IFeedCallbackError, resources: Object[], options: IFeedCallbackOptions) => void,
+    ): IQueryResponse;
+    flatten(
+        isShallow?: boolean,
         options?: IFeedOptions,
-        callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void): IQueryResponse;
-    flatten<T>(isShallow?: boolean,
+        callback?: (error: IFeedCallbackError, resources: Object[], options: IFeedCallbackOptions) => void,
+    ): IQueryResponse;
+    flatten<T>(
+        isShallow?: boolean,
         options?: IFeedOptions,
-        callback?: (error: IFeedCallbackError, resources: Array<T>, options: IFeedCallbackOptions) => void): IQueryResponse;
+        callback?: (error: IFeedCallbackError, resources: T[], options: IFeedCallbackOptions) => void,
+    ): IQueryResponse;
     /**
      * Produce a new set of documents by sorting the documents in the input document stream in ascending order using the given predicate.
      * When sortBy is called by itself, the input document stream is the set of all documents in the current document collection. When used in a chained call, the input document stream is the set of documents returned from the previous query function.
@@ -96,14 +115,20 @@ interface IQueryAPI {
      * @param options Optional query options. Should not be used in a chained call.
      * @param Optional callback for the operation. If no callback is provided, any error in the operation will be thrown and the result document set will be written to the Response body. Should not be used in a chained call.
      */
-    sortBy(predicate: (document: Object) => string | number,
-        callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void): IQueryResponse;
-    sortBy(predicate: (document: Object) => string | number,
+    sortBy(
+        predicate: (document: Object) => string | number,
+        callback?: (error: IFeedCallbackError, resources: Object[], options: IFeedCallbackOptions) => void,
+    ): IQueryResponse;
+    sortBy(
+        predicate: (document: Object) => string | number,
         options?: IFeedOptions,
-        callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void): IQueryResponse;
-    sortBy<T>(predicate: (document: Object) => string | number,
+        callback?: (error: IFeedCallbackError, resources: Object[], options: IFeedCallbackOptions) => void,
+    ): IQueryResponse;
+    sortBy<T>(
+        predicate: (document: Object) => string | number,
         options?: IFeedOptions,
-        callback?: (error: IFeedCallbackError, resources: Array<T>, options: IFeedCallbackOptions) => void): IQueryResponse;
+        callback?: (error: IFeedCallbackError, resources: T[], options: IFeedCallbackOptions) => void,
+    ): IQueryResponse;
     /**
      * Produce a new set of documents by sorting the documents in the input document stream in descending order using the given predicate.
      * When sortByDescending is called by itself, the input document stream is the set of all documents in the current document collection. When used in a chained call, the input document stream is the set of documents returned from the previous query function.
@@ -111,25 +136,37 @@ interface IQueryAPI {
      * @param options Optional query options. Should not be used in a chained call.
      * @param callback Optional callback for the operation. If no callback is provided, any error in the operation will be thrown and the result document set will be written to the Response body. Should not be used in a chained call.
      */
-    sortByDescending(predicate: (document: Object) => string | number,
-        callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void): IQueryResponse;
-    sortByDescending(predicate: (document: Object) => string | number,
+    sortByDescending(
+        predicate: (document: Object) => string | number,
+        callback?: (error: IFeedCallbackError, resources: Object[], options: IFeedCallbackOptions) => void,
+    ): IQueryResponse;
+    sortByDescending(
+        predicate: (document: Object) => string | number,
         options?: IFeedOptions,
-        callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void): IQueryResponse;
-    sortByDescending<T>(predicate: (document: Object) => string | number,
+        callback?: (error: IFeedCallbackError, resources: Object[], options: IFeedCallbackOptions) => void,
+    ): IQueryResponse;
+    sortByDescending<T>(
+        predicate: (document: Object) => string | number,
         options?: IFeedOptions,
-        callback?: (error: IFeedCallbackError, resources: Array<T>, options: IFeedCallbackOptions) => void): IQueryResponse;
+        callback?: (error: IFeedCallbackError, resources: T[], options: IFeedCallbackOptions) => void,
+    ): IQueryResponse;
     /**
      * Terminating call for a chained query. Should be used in conjunction with the opening chain call to perform chained queries.
      * When value is called, the query is queued for execution with the given options and callback.
      * @param options Optional query options for the entire chained call.
      * @param callback Optional callback for the operation. If no callback is provided, any error in the operation will be thrown and the result document set will be written to the Response body.
      */
-    value(callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void): IQueryResponse;
-    value(options?: IFeedOptions,
-        callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void): IQueryResponse;
-    value<T>(options?: IFeedOptions,
-        callback?: (error: IFeedCallbackError, resources: Array<T>, options: IFeedCallbackOptions) => void): IQueryResponse;
+    value(
+        callback?: (error: IFeedCallbackError, resources: Object[], options: IFeedCallbackOptions) => void,
+    ): IQueryResponse;
+    value(
+        options?: IFeedOptions,
+        callback?: (error: IFeedCallbackError, resources: Object[], options: IFeedCallbackOptions) => void,
+    ): IQueryResponse;
+    value<T>(
+        options?: IFeedOptions,
+        callback?: (error: IFeedCallbackError, resources: T[], options: IFeedCallbackOptions) => void,
+    ): IQueryResponse;
 }
 
 /**
@@ -149,13 +186,17 @@ interface ICollection extends IQueryAPI {
      * @param options optional create options
      * @param callback optional callback for the operation. If no callback is provided, any error in the operation will be thrown.
      */
-    createAttachment(documentLink: string,
+    createAttachment(
+        documentLink: string,
         body: IAttachment,
-        callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void): boolean;
-    createAttachment(documentLink: string,
+        callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void,
+    ): boolean;
+    createAttachment(
+        documentLink: string,
         body: IAttachment,
         options?: ICreateOptions,
-        callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void): boolean;
+        callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void,
+    ): boolean;
 
     /**
      * Create a document under the collection.
@@ -164,13 +205,17 @@ interface ICollection extends IQueryAPI {
      * @param optional create options
      * @param optional callback for the operation. If no callback is provided, any error in the operation will be thrown.
      */
-    createDocument(collectionLink: string,
+    createDocument(
+        collectionLink: string,
         body: Object,
-        callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void): boolean;
-    createDocument(collectionLink: string,
+        callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void,
+    ): boolean;
+    createDocument(
+        collectionLink: string,
         body: Object,
         options?: ICreateOptions,
-        callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void): boolean;
+        callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void,
+    ): boolean;
 
     /**
      * Delete an attachment.
@@ -178,11 +223,15 @@ interface ICollection extends IQueryAPI {
      * @param options optional delete options.
      * @param callback optional callback for the operation. If no callback is provided, any error in the operation will be thrown.
      */
-    deleteAttachment(attachmentLink: string,
-        callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void): boolean;
-    deleteAttachment(attachmentLink: string,
+    deleteAttachment(
+        attachmentLink: string,
+        callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void,
+    ): boolean;
+    deleteAttachment(
+        attachmentLink: string,
         options?: IDeleteOptions,
-        callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void): boolean;
+        callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void,
+    ): boolean;
 
     /**
      * Delete a document.
@@ -190,11 +239,15 @@ interface ICollection extends IQueryAPI {
      * @param options optional delete options
      * @param callback optional callback for the operation. If no callback is provided, any error in the operation will be thrown.
      */
-    deleteDocument(documentLink: string,
-        callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void): boolean;
-    deleteDocument(documentLink: string,
+    deleteDocument(
+        documentLink: string,
+        callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void,
+    ): boolean;
+    deleteDocument(
+        documentLink: string,
         options?: IDeleteOptions,
-        callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void): boolean;
+        callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void,
+    ): boolean;
 
     /** Get alt link (name-based link) of current collection. */
     getAltLink(): string;
@@ -209,13 +262,17 @@ interface ICollection extends IQueryAPI {
      * @param options optional query options
      * @param callback optional callback for the operation. If no callback is provided, any error in the operation will be thrown.
      */
-    queryAttachments(documentLink: string,
+    queryAttachments(
+        documentLink: string,
         query: string | IParameterizedQuery,
-        callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void): boolean;
-    queryAttachments(documentLink: string,
+        callback?: (error: IFeedCallbackError, resources: Object[], options: IFeedCallbackOptions) => void,
+    ): boolean;
+    queryAttachments(
+        documentLink: string,
         query: string | IParameterizedQuery,
         options?: IFeedOptions,
-        callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void): boolean;
+        callback?: (error: IFeedCallbackError, resources: Object[], options: IFeedCallbackOptions) => void,
+    ): boolean;
 
     /**
      * Execute a SQL query on the documents of the collection.
@@ -224,34 +281,50 @@ interface ICollection extends IQueryAPI {
      * @param options optional query options.
      * @param callback optional callback for the operation. If no callback is provided, any error in the operation will be thrown.
      */
-    queryDocuments(collectionLink: string,
+    queryDocuments(
+        collectionLink: string,
         filterQuery: string,
-        callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void): boolean;
-    queryDocuments<T>(collectionLink: string,
+        callback?: (error: IFeedCallbackError, resources: Object[], options: IFeedCallbackOptions) => void,
+    ): boolean;
+    queryDocuments<T>(
+        collectionLink: string,
         filterQuery: string,
-        callback?: (error: IFeedCallbackError, resources: Array<T>, options: IFeedCallbackOptions) => void): boolean;
-    queryDocuments(collectionLink: string,
+        callback?: (error: IFeedCallbackError, resources: T[], options: IFeedCallbackOptions) => void,
+    ): boolean;
+    queryDocuments(
+        collectionLink: string,
         filterQuery: string,
         options?: IFeedOptions,
-        callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void): boolean;
-    queryDocuments<T>(collectionLink: string,
+        callback?: (error: IFeedCallbackError, resources: Object[], options: IFeedCallbackOptions) => void,
+    ): boolean;
+    queryDocuments<T>(
+        collectionLink: string,
         filterQuery: string,
         options?: IFeedOptions,
-        callback?: (error: IFeedCallbackError, resources: Array<T>, options: IFeedCallbackOptions) => void): boolean;
-    queryDocuments(collectionLink: string,
+        callback?: (error: IFeedCallbackError, resources: T[], options: IFeedCallbackOptions) => void,
+    ): boolean;
+    queryDocuments(
+        collectionLink: string,
         filterQuery: IParameterizedQuery,
-        callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void): boolean;
-    queryDocuments<T>(collectionLink: string,
+        callback?: (error: IFeedCallbackError, resources: Object[], options: IFeedCallbackOptions) => void,
+    ): boolean;
+    queryDocuments<T>(
+        collectionLink: string,
         filterQuery: IParameterizedQuery,
-        callback?: (error: IFeedCallbackError, resources: Array<T>, options: IFeedCallbackOptions) => void): boolean;
-    queryDocuments(collectionLink: string,
+        callback?: (error: IFeedCallbackError, resources: T[], options: IFeedCallbackOptions) => void,
+    ): boolean;
+    queryDocuments(
+        collectionLink: string,
         filterQuery: IParameterizedQuery,
         options?: IFeedOptions,
-        callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void): boolean;
-    queryDocuments<T>(collectionLink: string,
+        callback?: (error: IFeedCallbackError, resources: Object[], options: IFeedCallbackOptions) => void,
+    ): boolean;
+    queryDocuments<T>(
+        collectionLink: string,
         filterQuery: IParameterizedQuery,
         options?: IFeedOptions,
-        callback?: (error: IFeedCallbackError, resources: Array<T>, options: IFeedCallbackOptions) => void): boolean;
+        callback?: (error: IFeedCallbackError, resources: T[], options: IFeedCallbackOptions) => void,
+    ): boolean;
 
     /**
      * Read an Attachment.
@@ -259,11 +332,15 @@ interface ICollection extends IQueryAPI {
      * @param options optional read options
      * @param callback optional callback for the operation. If no callback is provided, any error in the operation will be thrown.
      */
-    readAttachment(attachmenLink: string,
-        callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void): boolean;
-    readAttachment(attachmenLink: string,
+    readAttachment(
+        attachmenLink: string,
+        callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void,
+    ): boolean;
+    readAttachment(
+        attachmenLink: string,
         options?: IReadOptions,
-        callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void): boolean;
+        callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void,
+    ): boolean;
 
     /**
      * Get all attachments for the document.
@@ -271,11 +348,15 @@ interface ICollection extends IQueryAPI {
      * @param options optional read feed options
      * @param callback optional callback for the operation. If no callback is provided, any error in the operation will be thrown.
      */
-    readAttachments(documentLink: string,
-        callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void): boolean;
-    readAttachments(documentLink: string,
+    readAttachments(
+        documentLink: string,
+        callback?: (error: IFeedCallbackError, resources: Object[], options: IFeedCallbackOptions) => void,
+    ): boolean;
+    readAttachments(
+        documentLink: string,
         options?: IFeedOptions,
-        callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void): boolean;
+        callback?: (error: IFeedCallbackError, resources: Object[], options: IFeedCallbackOptions) => void,
+    ): boolean;
 
     /**
      * Read a document.
@@ -283,14 +364,20 @@ interface ICollection extends IQueryAPI {
      * @param options optional read options
      * @param callback optional callback for the operation. If no callback is provided, any error in the operation will be thrown.
      */
-    readDocument(documentLink: string,
-        callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void): boolean;
-    readDocument(documentLink: string,
+    readDocument(
+        documentLink: string,
+        callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void,
+    ): boolean;
+    readDocument(
+        documentLink: string,
         options?: IReadOptions,
-        callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void): boolean;
-    readDocument<T>(documentLink: string,
+        callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void,
+    ): boolean;
+    readDocument<T>(
+        documentLink: string,
         options?: IReadOptions,
-        callback?: (error: IRequestCallbackError, resources: T, options: IRequestCallbackOptions) => void): boolean;
+        callback?: (error: IRequestCallbackError, resources: T, options: IRequestCallbackOptions) => void,
+    ): boolean;
 
     /**
      * Get all documents for the collection.
@@ -298,14 +385,20 @@ interface ICollection extends IQueryAPI {
      * @param options optional read feed options
      * @param callback optional callback for the operation. If no callback is provided, any error in the operation will be thrown.
      */
-    readDocuments(collectionLink: string,
-        callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void): boolean;
-    readDocuments(collectionLink: string,
+    readDocuments(
+        collectionLink: string,
+        callback?: (error: IFeedCallbackError, resources: Object[], options: IFeedCallbackOptions) => void,
+    ): boolean;
+    readDocuments(
+        collectionLink: string,
         options?: IFeedOptions,
-        callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void): boolean;
-    readDocuments<T>(collectionLink: string,
+        callback?: (error: IFeedCallbackError, resources: Object[], options: IFeedCallbackOptions) => void,
+    ): boolean;
+    readDocuments<T>(
+        collectionLink: string,
         options?: IFeedOptions,
-        callback?: (error: IFeedCallbackError, resources: Array<T>, options: IFeedCallbackOptions) => void): boolean;
+        callback?: (error: IFeedCallbackError, resources: T[], options: IFeedCallbackOptions) => void,
+    ): boolean;
 
     /**
      * Replace an attachment.
@@ -314,13 +407,17 @@ interface ICollection extends IQueryAPI {
      * @param options optional replace options
      * @param callback optional callback for the operation. If no callback is provided, any error in the operation will be thrown.
      */
-    replaceAttachment(attachmentLink: string,
+    replaceAttachment(
+        attachmentLink: string,
         attachment: Object,
-        callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void): boolean;
-    replaceAttachment(attachmentLink: string,
+        callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void,
+    ): boolean;
+    replaceAttachment(
+        attachmentLink: string,
         attachment: Object,
         options?: IReplaceOptions,
-        callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void): boolean;
+        callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void,
+    ): boolean;
 
     /**
      * Replace a document.
@@ -329,14 +426,18 @@ interface ICollection extends IQueryAPI {
      * @param options optional replace options
      * @param callback optional callback for the operation. If no callback is provided, any error in the operation will be thrown.
      */
-    replaceDocument(documentLink: string,
+    replaceDocument(
+        documentLink: string,
         document: Object,
-        callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void): boolean;
-    replaceDocument(documentLink: string,
+        callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void,
+    ): boolean;
+    replaceDocument(
+        documentLink: string,
         document: Object,
         options?: IReplaceOptions,
-        callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void): boolean;
-    
+        callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void,
+    ): boolean;
+
     /**
      * Upsert an attachment for the document.
      * @param documentLink resource link of the document under which the attachment will be upserted
@@ -344,13 +445,17 @@ interface ICollection extends IQueryAPI {
      * @param options optional upsert options
      * @param callback optional callback for the operation. If no callback is provided, any error in the operation will be thrown.
      */
-    upsertAttachment(documentLink: string,
+    upsertAttachment(
+        documentLink: string,
         body: Object,
-        callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void): boolean;
-    upsertAttachment(documentLink: string,
+        callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void,
+    ): boolean;
+    upsertAttachment(
+        documentLink: string,
         body: Object,
         options?: IUpsertOptions,
-        callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void): boolean;
+        callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void,
+    ): boolean;
 
     /**
      * Upsert a document under the collection.
@@ -359,13 +464,17 @@ interface ICollection extends IQueryAPI {
      * @param options optional upsert options
      * @param callback optional callback for the operation. If no callback is provided, any error in the operation will be thrown.
      */
-    upsertDocument(collectionLink: string,
+    upsertDocument(
+        collectionLink: string,
         body: Object,
-        callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void): boolean;
-    upsertDocument(collectionLink: string,
+        callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void,
+    ): boolean;
+    upsertDocument(
+        collectionLink: string,
         body: Object,
         options?: IUpsertOptions,
-        callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void): boolean;
+        callback?: (error: IRequestCallbackError, resources: Object, options: IRequestCallbackOptions) => void,
+    ): boolean;
 }
 
 /** Options associated with a create operation. */
@@ -570,7 +679,7 @@ interface IParameterizedQuery {
     /** SQL query string. */
     query: string;
     /** Parameters */
-    parameters: Array<IQueryParam>;
+    parameters: IQueryParam[];
 }
 
 /** Parameter interface for parameterized queries */

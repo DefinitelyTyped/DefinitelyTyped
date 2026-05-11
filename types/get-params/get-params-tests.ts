@@ -1,7 +1,7 @@
-import getParams = require('get-params');
+import getParams = require("get-params");
 
 function myFunction(one: string, two: number, three: boolean) {
-    return 'blah';
+    return "blah";
 }
 
 const params: string[] = getParams(myFunction);

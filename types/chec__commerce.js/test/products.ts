@@ -1,13 +1,13 @@
-import Commerce = require('@chec/commerce.js');
-import Products = require('@chec/commerce.js/features/products');
+import Commerce = require("@chec/commerce.js");
+import Products = require("@chec/commerce.js/features/products");
 
-const commerce = new Commerce('{your_public_key}');
+const commerce = new Commerce("{your_public_key}");
 
 const limit = 50;
-const categorySlug = 'shoes';
-const productId = 'prod_1ypbroE658n4ea';
-const variantId = 'vrnt_Kvg9l6Apq51bB7';
-const productPermalink = 'YfFoyi';
+const categorySlug = "shoes";
+const productId = "prod_1ypbroE658n4ea";
+const variantId = "vrnt_Kvg9l6Apq51bB7";
+const productPermalink = "YfFoyi";
 
 // Fetch all products
 // $ExpectType Promise<ProductCollection>
@@ -26,7 +26,7 @@ commerce.products.retrieve(productId);
 
 // Retrieve a product by it's permalink
 // $ExpectType Promise<Product>
-commerce.products.retrieve(productPermalink, { type: 'permalink' });
+commerce.products.retrieve(productPermalink, { type: "permalink" });
 
 // $ExpectType Promise<VariantCollection>
 commerce.products.getVariants(productId);
@@ -38,27 +38,27 @@ commerce.products.getVariant(productId, variantId);
 const products: Products.ProductCollection = {
     data: [
         {
-            id: 'prod_31q0o3Za2wDdjR',
+            id: "prod_31q0o3Za2wDdjR",
             created: 1588262435,
             updated: 1594409714,
             active: true,
-            permalink: 'complexion-cream',
-            name: 'Complexion Cream',
+            permalink: "complexion-cream",
+            name: "Complexion Cream",
             description:
-                '<p>Anti-aging complexion cream for medium to dry skin. Nourish your face with a natural vitamin burst for that perfectly balanced glow.</p>',
+                "<p>Anti-aging complexion cream for medium to dry skin. Nourish your face with a natural vitamin burst for that perfectly balanced glow.</p>",
             price: {
                 raw: 32,
-                formatted: '32.00',
-                formatted_with_symbol: '$32.00',
-                formatted_with_code: '32.00 USD',
+                formatted: "32.00",
+                formatted_with_symbol: "$32.00",
+                formatted_with_code: "32.00 USD",
             },
             inventory: {
                 managed: false,
                 available: 0,
             },
             media: {
-                type: 'image',
-                source: 'https://cdn.chec.io/merchants/17851/assets/ISau419S4nHgwkVB|cream-3.jpg',
+                type: "image",
+                source: "https://cdn.chec.io/merchants/17851/assets/ISau419S4nHgwkVB|cream-3.jpg",
             },
             sku: null,
             sort_order: 2,
@@ -103,29 +103,29 @@ const products: Products.ProductCollection = {
                 extra_fields: false,
             },
             checkout_url: {
-                checkout: 'https://checkout.chec.io/complexion-cream?checkout=true',
-                display: 'https://checkout.chec.io/complexion-cream',
+                checkout: "https://checkout.chec.io/complexion-cream?checkout=true",
+                display: "https://checkout.chec.io/complexion-cream",
             },
             extra_fields: [],
             variant_groups: [
                 {
-                    id: 'vgrp_QG375v38xlrMOg',
-                    name: 'Size',
+                    id: "vgrp_QG375v38xlrMOg",
+                    name: "Size",
                     meta: null,
                     created: null,
                     updated: null,
                     options: [
                         {
-                            id: 'optn_NqKE50mGNldgBL',
-                            name: '100ml',
+                            id: "optn_NqKE50mGNldgBL",
+                            name: "100ml",
                             price: {
                                 raw: 0,
-                                formatted: '0.00',
-                                formatted_with_symbol: '$0.00',
-                                formatted_with_code: '0.00 USD',
+                                formatted: "0.00",
+                                formatted_with_symbol: "$0.00",
+                                formatted_with_code: "0.00 USD",
                             },
                             assets: [
-                                'ast_bO6J5ag49wEjpK',
+                                "ast_bO6J5ag49wEjpK",
                             ],
                             meta: null,
                             created: 1594413988,
@@ -136,20 +136,20 @@ const products: Products.ProductCollection = {
             ],
             categories: [
                 {
-                    id: 'cat_xA12JwrK8oPjnk',
-                    slug: 'facial-products',
-                    name: 'Facial Products',
+                    id: "cat_xA12JwrK8oPjnk",
+                    slug: "facial-products",
+                    name: "Facial Products",
                 },
             ],
             assets: [
                 {
-                    id: 'ast_bO6J5ag49wEjpK',
-                    url: 'https://cdn.chec.io/merchants/17851/assets/QoZTzBZBq5pOlfS4|cream-2.jpg',
+                    id: "ast_bO6J5ag49wEjpK",
+                    url: "https://cdn.chec.io/merchants/17851/assets/QoZTzBZBq5pOlfS4|cream-2.jpg",
                     description: null,
                     is_image: true,
-                    filename: '',
+                    filename: "",
                     file_size: 333854,
-                    file_extension: 'jpeg',
+                    file_extension: "jpeg",
                     image_dimensions: {
                         width: 2400,
                         height: 3596,
@@ -160,13 +160,13 @@ const products: Products.ProductCollection = {
                 },
             ],
             image: {
-                id: 'ast_bO6J5ag49wEjpK',
-                url: 'https://cdn.chec.io/merchants/17851/assets/QoZTzBZBq5pOlfS4|cream-2.jpg',
+                id: "ast_bO6J5ag49wEjpK",
+                url: "https://cdn.chec.io/merchants/17851/assets/QoZTzBZBq5pOlfS4|cream-2.jpg",
                 description: null,
                 is_image: true,
-                filename: '',
+                filename: "",
                 file_size: 333854,
-                file_extension: 'jpeg',
+                file_extension: "jpeg",
                 image_dimensions: {
                     width: 2400,
                     height: 3596,
@@ -177,20 +177,20 @@ const products: Products.ProductCollection = {
             },
             attributes: [
                 {
-                    id: 'attr_mL1vOoZW5Ra8Ze',
+                    id: "attr_mL1vOoZW5Ra8Ze",
                     meta: [],
-                    name: 'Weight',
-                    value: '2grams',
+                    name: "Weight",
+                    value: "2grams",
                 },
                 {
-                    id: 'attr_YgnZO5kg57MNqG',
+                    id: "attr_YgnZO5kg57MNqG",
                     meta: [],
-                    name: 'Product template',
+                    name: "Product template",
                     value: [
                         {
-                            label: 'Generic Template',
-                            value: 'genericTemplate',
-                        }
+                            label: "Generic Template",
+                            value: "genericTemplate",
+                        },
                     ],
                 },
             ],
@@ -213,7 +213,7 @@ const products: Products.ProductCollection = {
 const variants: Products.VariantCollection = {
     data: [
         {
-            id: 'vrnt_O3bR5XrO8wnzdj',
+            id: "vrnt_O3bR5XrO8wnzdj",
             sku: null,
             description: null,
             inventory: null,
@@ -224,7 +224,7 @@ const variants: Products.VariantCollection = {
             created: 1617227299,
             updated: 1617227299,
             options: {
-                vgrp_QG375v38xlrMOg: 'optn_NqKE50mGNldgBL',
+                vgrp_QG375v38xlrMOg: "optn_NqKE50mGNldgBL",
             },
             assets: [],
         },

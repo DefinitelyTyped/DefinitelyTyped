@@ -1,8 +1,3 @@
-// Type definitions for shade-blend-color 1.0
-// Project: https://github.com/darieldejesus/shade-blend-color#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * This will take a HEX or RGB web color. Shade-Blend-Color can shade it darker or lighter,
  * or blend it with a second color, and can also pass it right thru but convert
@@ -50,4 +45,4 @@
  * // Error Check Fails (Some Errors are not Caught)
  * shadeBlend(0.42, "#salt"); // #salt + [42% Lighter] => #6b6b6b00 (...and a Pound of Salt is Jibberish)
  */
-export default function shadeBlendColor(percentage: number, from: string, to?: 'c' | string): string | null;
+export default function shadeBlendColor(percentage: number, from: string, to?: "c" | string): string | null;

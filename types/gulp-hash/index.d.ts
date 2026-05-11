@@ -1,8 +1,3 @@
-// Type definitions for gulp-hash 4.2
-// Project: https://github.com/Dragory/gulp-hash
-// Definitions by: Martin Badin <https://github.com/martin-badin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 interface GulpHash {

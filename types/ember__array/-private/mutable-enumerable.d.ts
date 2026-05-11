@@ -1,5 +1,6 @@
-import Mixin from '@ember/object/mixin';
-import Enumerable from '@ember/array/-private/enumerable';
+import Mixin from "@ember/object/mixin";
+// eslint-disable-next-line @definitelytyped/no-self-import
+import Enumerable from "@ember/array/-private/enumerable";
 
 /**
  * This mixin defines the API for modifying generic enumerables. These methods

@@ -1,4 +1,4 @@
-import { Options as CommonOptions, LinkEntityType } from './index';
+import { LinkEntityType, Options as CommonOptions } from "./index";
 
 export interface Options extends CommonOptions {
     /**

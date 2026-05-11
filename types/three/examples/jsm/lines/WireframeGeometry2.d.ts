@@ -1,8 +1,8 @@
-import { BufferGeometry } from '../../../src/Three';
+import { BufferGeometry } from "three";
 
-import { LineSegmentsGeometry } from './LineSegmentsGeometry';
+import { LineSegmentsGeometry } from "./LineSegmentsGeometry.js";
 
 export class WireframeGeometry2 extends LineSegmentsGeometry {
     constructor(geometry: BufferGeometry);
-    readonly sWireframeGeometry2: boolean;
+    readonly isWireframeGeometry2: boolean;
 }

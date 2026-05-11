@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/nodemailer-direct-transport",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/andris9/nodemailer-direct-transport"
+    ],
+    "dependencies": {
+        "@types/nodemailer": "^3"
+    },
+    "devDependencies": {
+        "@types/nodemailer-direct-transport": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Rogier Schouten",
+            "githubUsername": "rogierschouten"
+        }
+    ]
+}

@@ -22,6 +22,11 @@ declare namespace OO.ui {
     interface MultilineTextInputWidget extends MultilineTextInputWidget.Props, MultilineTextInputWidget.Prototype {}
 
     namespace MultilineTextInputWidget {
+        interface NonNullRange {
+            from: number;
+            to: number;
+        }
+
         interface EventMap extends TextInputWidget.EventMap {
             resize: [];
         }
@@ -68,6 +73,13 @@ declare namespace OO.ui {
              */
             isAutosizing(): boolean;
 
+            /**
+             * Get an object describing the current selection range in a directional manner
+             *
+             * @return Object containing 'from' and 'to' offsets
+             */
+            getRange(): NonNullRange;
+
             // #region EventEmitter overloads
             on<K extends keyof EventMap, A extends ArgTuple = [], C = null>(
                 event: K,
@@ -105,21 +117,21 @@ declare namespace OO.ui {
             emitThrow<K extends keyof EventMap>(event: K, ...args: EventMap[K]): boolean;
             emitThrow<K extends string>(event: K extends keyof EventMap ? never : K, ...args: any[]): boolean;
 
-            connect<T extends Partial<Record<keyof EventMap, any>>, C>(
+            connect<T extends Partial<Record<keyof EventMap, any>>, C>( // eslint-disable-line @definitelytyped/no-unnecessary-generics
                 context: C,
-                methods: EventConnectionMap<T, C, EventMap>, // eslint-disable-line no-unnecessary-generics
+                methods: EventConnectionMap<T, C, EventMap>,
             ): this;
 
-            disconnect<T extends Partial<Record<keyof EventMap, any>>, C>(
+            disconnect<T extends Partial<Record<keyof EventMap, any>>, C>( // eslint-disable-line @definitelytyped/no-unnecessary-generics
                 context: C,
-                methods?: EventConnectionMap<T, C, EventMap>, // eslint-disable-line no-unnecessary-generics
+                methods?: EventConnectionMap<T, C, EventMap>,
             ): this;
             // #endregion
         }
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): MultilineTextInputWidget;
+            new(config?: ConfigOptions): MultilineTextInputWidget;
             prototype: Prototype;
             static: Static;
             super: TextInputWidget.Constructor;

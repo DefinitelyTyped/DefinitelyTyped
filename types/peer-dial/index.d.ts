@@ -1,13 +1,7 @@
-// Type definitions for peer-dial 0.0
-// Project: https://github.com/fraunhoferfokus/peer-dial
-// Definitions by: James Tooley <https://github.com/RealTYPICAL>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 /// <reference types="node" />
 
-import * as events from "events";
-import * as express from "express";
+import events = require("events");
+import express = require("express");
 import * as uuid from "node-uuid";
 
 export class Server extends events.EventEmitter {
@@ -75,7 +69,12 @@ export class DialDevice {
     constructor(deviceInfo: DeviceInfo);
     getAppInfoXml(appName: string, callback?: (data: string, err: any) => void): void;
     getAppInfo(appName: string, callback?: (data: AppInfo, err: any) => void): void;
-    launchApp(appName: string, launchData: string, contentType: string, callback?: (data: string, err: any) => void): void;
+    launchApp(
+        appName: string,
+        launchData: string,
+        contentType: string,
+        callback?: (data: string, err: any) => void,
+    ): void;
     stopApp(appName: string, pid: string, callback?: (data: number, err: any) => void): void;
 }
 
@@ -88,6 +87,6 @@ export interface DeviceInfo {
     modelName: string;
     UDN: string;
     iconList: object[] | {
-        icon: object
+        icon: object;
     };
 }

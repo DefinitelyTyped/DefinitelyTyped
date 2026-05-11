@@ -1,3 +1,3 @@
-import api = require('./');
+import api = require("./");
 
 export = api;

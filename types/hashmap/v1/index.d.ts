@@ -1,8 +1,3 @@
-// Type definitions for HashMap 1.1.0
-// Project: https://github.com/flesler/hashmap
-// Definitions by: Rafał Wrzeszcz <http://wrzasq.pl>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare class HashMap<KeyType, ValueType> {
     /**
      * Return value from hashmap.
@@ -10,7 +5,7 @@ declare class HashMap<KeyType, ValueType> {
      * @param key Key.
      * @return Value stored under given key.
      */
-    get(key : KeyType) : ValueType;
+    get(key: KeyType): ValueType;
 
     /**
      * Store value in hashmap.
@@ -18,7 +13,7 @@ declare class HashMap<KeyType, ValueType> {
      * @param key Key.
      * @param value Value.
      */
-    set(key : KeyType, value : ValueType) : void;
+    set(key: KeyType, value: ValueType): void;
 
     /**
      * Checks if given key exists in hashmap.
@@ -26,46 +21,45 @@ declare class HashMap<KeyType, ValueType> {
      * @param key Key.
      * @return Whether given key exists in hashmap.
      */
-    has(key : KeyType) : boolean;
+    has(key: KeyType): boolean;
 
     /**
      * Removes given key from hashmap.
      *
      * @param key Key.
      */
-    remove(key : KeyType) : void;
+    remove(key: KeyType): void;
 
     /**
      * Returns all contained keys.
      *
      * @return List of keys.
      */
-    keys() : KeyType[];
+    keys(): KeyType[];
 
     /**
      * Returns all container values.
      *
      * @return List of values.
      */
-    values() : ValueType[];
+    values(): ValueType[];
 
     /**
      * Returns size of hashmap (number of entries).
      *
      * @return Number of entries in hashmap.
      */
-    count() : number;
+    count(): number;
 
     /**
      * Clears hashmap.
      */
-    clear() : void;
+    clear(): void;
 
     /**
      * Iterates over hashmap.
      *
      * @param callback Function to be invoked for every hashmap entry.
      */
-    forEach(callback : (value : ValueType, key : KeyType) => void) : void;
+    forEach(callback: (value: ValueType, key: KeyType) => void): void;
 }
-

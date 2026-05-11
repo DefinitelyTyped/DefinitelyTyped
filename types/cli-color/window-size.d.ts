@@ -2,11 +2,11 @@ interface WindowSize {
     /**
      * Returns terminal width
      */
-    readonly width: number,
+    readonly width: number;
     /**
      * Returns terminal height
      */
-    readonly height: number
+    readonly height: number;
 }
 
 declare const windowSize: WindowSize;

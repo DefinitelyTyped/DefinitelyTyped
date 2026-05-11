@@ -1,6 +1,6 @@
 // The definition file for supplemental module.
 
-import * as cldr from "cldrjs";
+import cldr = require("cldrjs");
 
 declare module "cldrjs" {
     interface TimeDataStatic {
@@ -16,8 +16,8 @@ declare module "cldrjs" {
     interface SupplementalStatic {
         timeData: TimeDataStatic;
         weekData: WeekDataStatic;
-        (path:string): any;
-        (paths:string[]): any;
+        (path: string): any;
+        (paths: string[]): any;
     }
 
     interface CldrStatic {

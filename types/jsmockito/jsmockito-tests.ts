@@ -1,20 +1,19 @@
-
-
 function test_version() {
     var version: string = JsMockito.version;
 }
 
 // JsMockito.JsMockitoStubBuilder
 
-
 function test_then() {
-    new JsMockito.JsMockitoStubBuilder().then(function () {});
-    new JsMockito.JsMockitoStubBuilder().then(function () {}, function () {}, function () {});
+    new JsMockito.JsMockitoStubBuilder().then(function() {});
+    new JsMockito.JsMockitoStubBuilder().then(function() {}, function() {}, function() {});
 }
 
 function test_thenReturn() {
     new JsMockito.JsMockitoStubBuilder().thenReturn(1);
-    new JsMockito.JsMockitoStubBuilder().thenReturn("two", [3, 4], {5: 6}, function (seven: number) {return seven;});
+    new JsMockito.JsMockitoStubBuilder().thenReturn("two", [3, 4], { 5: 6 }, function(seven: number) {
+        return seven;
+    });
 }
 
 function test_thenThrow() {
@@ -193,5 +192,4 @@ declare class TestClass {
 }
 
 declare class TestVerifier implements JsMockito.Verifier {
-
 }

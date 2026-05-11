@@ -1,6 +1,30 @@
 {
-  "private": true,
-  "dependencies": {
-    "@maxim_mazurok/gapi.client.servicecontrol-v2": "latest"
-  }
+    "private": true,
+    "name": "@types/gapi.client.servicecontrol-v2",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Service Control API v2",
+    "projects": [
+        "https://cloud.google.com/service-control/"
+    ],
+    "dependencies": {
+        "@maxim_mazurok/gapi.client.servicecontrol-v2": "latest"
+    },
+    "devDependencies": {
+        "@types/gapi.client.servicecontrol-v2": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Maxim Mazurok",
+            "githubUsername": "Maxim-Mazurok"
+        },
+        {
+            "name": "Nick Amoscato",
+            "githubUsername": "namoscato"
+        },
+        {
+            "name": "Declan Vong",
+            "githubUsername": "declanvong"
+        }
+    ]
 }

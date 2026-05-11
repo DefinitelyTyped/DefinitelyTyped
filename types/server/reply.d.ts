@@ -3,7 +3,7 @@ import express = require("express");
 export type cookieType = (
     name: string,
     value: string,
-    opts?: express.CookieOptions
+    opts?: express.CookieOptions,
 ) => Reply;
 
 export type downloadType = (path: string, filename?: string) => any;

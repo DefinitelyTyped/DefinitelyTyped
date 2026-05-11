@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/bearcat-es6",
+    "version": "0.6.9999",
+    "projects": [
+        "https://github.com/ChrisPei/bearcat-es6"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/bearcat-es6": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Xin Li",
+            "githubUsername": "xinxinran0221010"
+        }
+    ]
+}

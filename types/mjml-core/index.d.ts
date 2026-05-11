@@ -1,14 +1,11 @@
-// Type definitions for mjml-core 4.7
-// Project: https://mjml.io
-// Definitions by: Ian Edington       <https://github.com/IanEdington>
-//                 Ryan Burr          <https://github.com/ryanburr>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * The main parser for MJML.
  * This version doesn't contain any of the core components registered in the 'mjml' package.
  */
-export default function mjml2html(input: string | MJMLJsonObject, options?: MJMLParsingOptions): MJMLParseResults;
+export default function mjml2html(
+    input: string | MJMLJsonObject,
+    options?: MJMLParsingOptions,
+): Promise<MJMLParseResults>;
 
 /**
  * Options passed as an object to the mjml2html function
@@ -31,28 +28,24 @@ export interface MJMLParsingOptions {
     keepComments?: boolean | undefined;
 
     /**
-     * @deprecated use js-beautify directly after processing the MJML
-     *
-     * Option to beautify the HTML output
+     * Beautify the HTML output using prettier (parser: 'html', printWidth: 240).
+     * Mutually exclusive with minify — if minify is true, beautify is skipped.
+     * Note: the CLI defaults this to true; the programmatic API defaults to false.
      * default: false
      */
     beautify?: boolean | undefined;
 
     /**
-     * @deprecated use html-minifier directly after processing the MJML
-     *
-     * Option to minify the HTML output
-     *
+     * Minify the HTML output using htmlnano (with cssnano-preset-lite for CSS).
+     * Takes priority over beautify when both are true.
      * default: false
      */
     minify?: boolean | undefined;
+
     /**
-     * @deprecated @see minify
-     *
-     * Options for html minifier, see mjml-cli documentation for more info
-     * Passed directly to html-minifier as options
-     *
-     * default: @see htmlMinify usage in mjml-core/src/index.js
+     * Options passed to htmlnano when minify is true.
+     * The minifyCss field accepts false, true, 'lite', or a cssnano options object.
+     * All htmlnano v3 options are accepted.
      */
     minifyOptions?: MJMLMinifyOptions | undefined;
 
@@ -65,7 +58,7 @@ export interface MJMLParsingOptions {
      *
      * default: soft
      */
-    validationLevel?: 'strict' | 'soft' | 'skip' | undefined;
+    validationLevel?: "strict" | "soft" | "skip" | undefined;
 
     /**
      * Full path of the specified file to use when resolving paths from mj-include components
@@ -109,12 +102,27 @@ export interface MJMLParsingOptions {
      * see mjml-parser-xml
      */
     preprocessors?: Array<((xml: string) => string)> | undefined;
+
+    /**
+     * Add media queries specific to printer when converting mjml into html. When enabling this option,
+     * the html might not be compatible with all email clients anymore.
+     */
+    printerSupport?: boolean | undefined;
 }
 
 export interface MJMLMinifyOptions {
     collapseWhitespace?: boolean | undefined;
+    /**
+     * CSS minification options passed to cssnano-preset-lite.
+     * Accepts false (disable), true/'lite' (use lite preset), or a cssnano options object.
+     * @see https://cssnano.co/docs/presets
+     */
+    minifyCss?: boolean | "lite" | { preset?: any; plugins?: any[]; configFile?: string } | undefined;
+    /** @deprecated use minifyCss instead */
     minifyCSS?: boolean | undefined;
     removeEmptyAttributes?: boolean | undefined;
+    minifyJs?: boolean | undefined;
+    removeComments?: false | "safe" | "all" | undefined;
 }
 
 export interface MJMLParseResults {
@@ -134,19 +142,19 @@ export type MJMLJsonObject = MJMLJsonWithChildren | MJMLJsonWithContent | MJMLJs
 
 export interface MJMLJsonWithChildren {
     tagName: string;
-    attributes: object;
+    attributes: Record<string, unknown>;
     children: MJMLJsonObject[];
 }
 
 export interface MJMLJsonWithContent {
     tagName: string;
-    attributes: object;
+    attributes: Record<string, unknown>;
     content: string;
 }
 
 export interface MJMLJsonSelfClosingTag {
     tagName: string;
-    attributes: object;
+    attributes: Record<string, unknown>;
 }
 
 /**
@@ -157,7 +165,7 @@ export const components: { [componentName: string]: Component | undefined };
 /**
  * Registers a component for use in mjml
  */
-export function registerComponent(ComponentClass: typeof Component): void;
+export function registerComponent(ComponentClass: typeof Component, options?: { registerDependencies?: boolean }): void;
 
 export abstract class BodyComponent extends Component {
     constructor(initialData: unknown);
@@ -187,7 +195,7 @@ export abstract class BodyComponent extends Component {
     renderChildren(
         children?: [],
         options?: {
-            props?: Component['props'] | undefined;
+            props?: Component["props"] | undefined;
             renderer?: ((component: Component) => any) | undefined;
             attributes?: Record<string, string> | undefined;
             rawXML?: boolean | undefined;

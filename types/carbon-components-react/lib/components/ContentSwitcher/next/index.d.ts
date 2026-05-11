@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactButtonAttr, ReactDivAttr, ForwardRefReturn } from "../../../../typings/shared";
+import { ForwardRefReturn, ReactButtonAttr, ReactDivAttr } from "../../../../typings/shared";
 
 export interface ContentSwitcherNextProps {
     children?: React.ReactNode | undefined;
@@ -13,7 +13,7 @@ export declare const ContentSwitcher: React.FC<ContentSwitcherNextProps>;
 type ExcludedContentTabsPropsKeys = "aria-label" | "onKeyDown" | "role";
 export interface ContentTabsProps extends Omit<ReactDivAttr, ExcludedContentTabsPropsKeys> {
     activation?: "automatic" | "manual" | undefined;
-    'aria-label': string;
+    "aria-label": string;
     children?: React.ReactNode | undefined;
     size?: "sm" | "md" | "lg" | undefined;
 }

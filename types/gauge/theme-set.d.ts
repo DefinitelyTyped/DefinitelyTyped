@@ -1,3 +1,3 @@
-import ThemeSet from './lib/theme-set';
+import ThemeSet from "./lib/theme-set";
 
 export = ThemeSet;

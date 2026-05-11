@@ -1,15 +1,11 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "node16",
         "lib": [
             "es6",
             "dom"
         ],
         "strict": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
@@ -95,6 +91,7 @@
         "test/identity-tests.ts",
         "test/ifElse-tests.ts",
         "test/includes-tests.ts",
+        "test/index-tests.ts",
         "test/indexBy-tests.ts",
         "test/indexOf-tests.ts",
         "test/init-tests.ts",
@@ -139,8 +136,6 @@
         "test/mergeDeepRight-tests.ts",
         "test/mergeDeepWith-tests.ts",
         "test/mergeDeepWithKey-tests.ts",
-        "test/mergeLeft-tests.ts",
-        "test/mergeRight-tests.ts",
         "test/mergeWith-tests.ts",
         "test/mergeWithKey-tests.ts",
         "test/min-tests.ts",

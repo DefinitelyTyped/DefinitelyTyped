@@ -69,11 +69,13 @@ declare namespace GoogleAdsScripts {
          *      }
          */
         interface ProductAdSelector
-            extends Base.Selector<ProductAdIterator>,
+            extends
+                Base.Selector<ProductAdIterator>,
                 Base.SelectorForDateRange,
                 Base.SelectorOrderBy,
                 Base.SelectorWithCondition,
                 Base.SelectorWithIds,
-                Base.SelectorWithLimit {}
+                Base.SelectorWithLimit
+        {}
     }
 }

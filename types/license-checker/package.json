@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/license-checker",
+    "version": "25.0.9999",
+    "projects": [
+        "https://github.com/davglass/license-checker"
+    ],
+    "devDependencies": {
+        "@types/license-checker": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Rogier Schouten",
+            "githubUsername": "rogierschouten"
+        },
+        {
+            "name": "Daniel Perez Alvarez",
+            "githubUsername": "unindented"
+        },
+        {
+            "name": "Alec Custer",
+            "githubUsername": "alechemy"
+        }
+    ]
+}

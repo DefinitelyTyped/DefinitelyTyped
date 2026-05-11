@@ -1,4 +1,18 @@
 {
-  "type": "module",
-  "private": true
+    "private": true,
+    "name": "@types/stringify-object",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/yeoman/stringify-object"
+    ],
+    "type": "module",
+    "devDependencies": {
+        "@types/stringify-object": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
 }

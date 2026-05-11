@@ -21,10 +21,10 @@ export class FirstPersonControls extends EventDispatcher {
     lookingSpeed: number;
     headMovement: number;
     input: {
-        forward: boolean,
-        backward: boolean,
-        right: boolean,
-        left: boolean
+        forward: boolean;
+        backward: boolean;
+        right: boolean;
+        left: boolean;
     };
 
     constructor(owner: Player) {
@@ -41,28 +41,28 @@ export class FirstPersonControls extends EventDispatcher {
             forward: false,
             backward: false,
             right: false,
-            left: false
+            left: false,
         };
     }
 
     connect() {
-        document.addEventListener('mousedown', this._mouseDownHandler, false);
-        document.addEventListener('mousemove', this._mouseMoveHandler, false);
-        document.addEventListener('pointerlockchange', this._pointerlockChangeHandler, false);
-        document.addEventListener('pointerlockerror', this._pointerlockErrorHandler, false);
-        document.addEventListener('keydown', this._keyDownHandler, false);
-        document.addEventListener('keyup', this._keyUpHandler, false);
+        document.addEventListener("mousedown", this._mouseDownHandler, false);
+        document.addEventListener("mousemove", this._mouseMoveHandler, false);
+        document.addEventListener("pointerlockchange", this._pointerlockChangeHandler, false);
+        document.addEventListener("pointerlockerror", this._pointerlockErrorHandler, false);
+        document.addEventListener("keydown", this._keyDownHandler, false);
+        document.addEventListener("keyup", this._keyUpHandler, false);
 
         document.body.requestPointerLock();
     }
 
     disconnect() {
-        document.removeEventListener('mousedown', this._mouseDownHandler, false);
-        document.removeEventListener('mousemove', this._mouseMoveHandler, false);
-        document.removeEventListener('pointerlockchange', this._pointerlockChangeHandler, false);
-        document.removeEventListener('pointerlockerror', this._pointerlockErrorHandler, false);
-        document.removeEventListener('keydown', this._keyDownHandler, false);
-        document.removeEventListener('keyup', this._keyUpHandler, false);
+        document.removeEventListener("mousedown", this._mouseDownHandler, false);
+        document.removeEventListener("mousemove", this._mouseMoveHandler, false);
+        document.removeEventListener("pointerlockchange", this._pointerlockChangeHandler, false);
+        document.removeEventListener("pointerlockerror", this._pointerlockErrorHandler, false);
+        document.removeEventListener("keydown", this._keyDownHandler, false);
+        document.removeEventListener("keyup", this._keyUpHandler, false);
     }
 
     update(delta: number) {
@@ -148,16 +148,16 @@ export class FirstPersonControls extends EventDispatcher {
 
     _pointerlockChangeHandler() {
         if (document.pointerLockElement === document.body) {
-            this.dispatchEvent({type: 'lock'});
+            this.dispatchEvent({ type: "lock" });
         } else {
             this.disconnect();
 
-            this.dispatchEvent({type: 'unlock'});
+            this.dispatchEvent({ type: "unlock" });
         }
     }
 
     _pointerlockErrorHandler() {
-        Logger.warn('YUKA.Player: Unable to use Pointer Lock API.');
+        Logger.warn("YUKA.Player: Unable to use Pointer Lock API.");
     }
 
     _keyDownHandler(event: KeyboardEvent) {

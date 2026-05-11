@@ -1,12 +1,12 @@
-import { Disposable } from '../index';
+import { Disposable } from "../index";
 
 /** Provides a registry for commands that you'd like to appear in the context menu. */
 export interface ContextMenuManager {
     /** Add context menu items scoped by CSS selectors. */
-    add(itemsBySelector: { [key: string]: ReadonlyArray<ContextMenuOptions> }): Disposable;
+    add(itemsBySelector: { [key: string]: readonly ContextMenuOptions[] }): Disposable;
 }
 
-export type ContextMenuOptions = ContextMenuItemOptions | { type: 'separator' };
+export type ContextMenuOptions = ContextMenuItemOptions | { type: "separator" };
 
 export interface ContextMenuItemOptions {
     /** The menu item's label. */
@@ -25,7 +25,7 @@ export interface ContextMenuItemOptions {
     enabled?: boolean | undefined;
 
     /** An array of additional items. */
-    submenu?: ReadonlyArray<ContextMenuOptions> | undefined;
+    submenu?: readonly ContextMenuOptions[] | undefined;
 
     /** Whether the menu item should appear in the menu. Defaults to true. */
     visible?: boolean | undefined;
@@ -43,20 +43,20 @@ export interface ContextMenuItemOptions {
     shouldDisplay?(event: Event): void;
 
     /** Place this menu item before the menu items representing the given commands. */
-    before?: ReadonlyArray<string> | undefined;
+    before?: readonly string[] | undefined;
 
     /** Place this menu item after the menu items representing the given commands. */
-    after?: ReadonlyArray<string> | undefined;
+    after?: readonly string[] | undefined;
 
     /**
      * Place this menu item's group before the containing group of the menu items
      * representing the given commands.
      */
-    beforeGroupContaining?: ReadonlyArray<string> | undefined;
+    beforeGroupContaining?: readonly string[] | undefined;
 
     /**
      * Place this menu item's group after the containing group of the menu items
      * representing the given commands.
      */
-    afterGroupContaining?: ReadonlyArray<string> | undefined;
+    afterGroupContaining?: readonly string[] | undefined;
 }

@@ -1,2 +1,2 @@
-import ArrayCreate = require('../2017/ArrayCreate');
+import ArrayCreate = require("../2017/ArrayCreate");
 export = ArrayCreate;

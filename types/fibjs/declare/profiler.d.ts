@@ -202,7 +202,7 @@
 declare module "profiler" {
     
 
-    module profiler {
+    namespace profiler {
         
         /**
          * 

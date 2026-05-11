@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/timezoned-date",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/thorn0/timezoned-date#readme"
+    ],
+    "devDependencies": {
+        "@types/timezoned-date": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ben Grynhaus",
+            "githubUsername": "bengry"
+        }
+    ]
+}

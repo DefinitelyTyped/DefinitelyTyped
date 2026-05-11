@@ -1,3 +1,3 @@
-declare function smootherstep(t: number): number;
+declare function easingSmootherstep(t: number): number;
 
-export default smootherstep;
+export default easingSmootherstep;

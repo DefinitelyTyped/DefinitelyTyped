@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/wink-pos-tagger",
+    "version": "2.2.9999",
+    "projects": [
+        "http://winkjs.org/"
+    ],
+    "dependencies": {
+        "@types/wink-tokenizer": "*"
+    },
+    "devDependencies": {
+        "@types/wink-pos-tagger": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Lars Klein",
+            "githubUsername": "lhk"
+        }
+    ]
+}

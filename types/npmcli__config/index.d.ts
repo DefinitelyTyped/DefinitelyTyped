@@ -1,11 +1,6 @@
-// Type definitions for @npmcli/config 6.0
-// Project: https://github.com/npm/config#readme
-// Definitions by: Emily M Klassen <https://github.com/forivall>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import { Stream } from 'stream';
+import { Stream } from "stream";
 
 export = Config;
 
@@ -59,11 +54,11 @@ declare class Config<Definitions extends Config.DefinitionsObject = Config.Defin
     deprecated: { [K in keyof Definitions]?: boolean };
 
     /** The `defaults` param */
-    defaults: { [K in keyof Definitions]: Definitions[K]['type'] };
+    defaults: { [K in keyof Definitions]: Definitions[K]["type"] };
     /** The `shorthands` param */
     shorthands: Config.ShortFlags;
     /** The `types` param */
-    types: { [K in keyof Definitions]: Definitions[K]['type'] };
+    types: { [K in keyof Definitions]: Definitions[K]["type"] };
     /** The `npmPath` param */
     npmPath: string;
     /** If `config.get('global')` is true, then `globalPrefix`, otherwise `localPrefix` */
@@ -109,14 +104,14 @@ declare class Config<Definitions extends Config.DefinitionsObject = Config.Defin
      * Load the given key from the config stack.
      * @param [where='cli']
      */
-    get<K extends keyof Definitions>(key: K, where?: Config.ConfType): Config.ConfigValueType<Definitions[K]['type']>;
+    get<K extends keyof Definitions>(key: K, where?: Config.ConfType): Config.ConfigValueType<Definitions[K]["type"]>;
     /**
      * Set the key to the specified value, at the specified level in the config stack.
      * @param [where='cli']
      */
     set<K extends keyof Definitions>(
         key: K,
-        value: Config.ConfigValueType<Definitions[K]['type']>,
+        value: Config.ConfigValueType<Definitions[K]["type"]>,
         where?: Config.ConfType,
     ): void;
     /**
@@ -196,12 +191,12 @@ declare namespace Config {
     interface TypeDefs {
         String: TypeInfo<StringConstructor>;
         Boolean: TypeInfo<BooleanConstructor>;
-        url: TypeInfo<typeof import('url')>;
+        url: TypeInfo<typeof import("url")>;
         Number: TypeInfo<NumberConstructor>;
-        path: TypeInfo<typeof import('path')>;
+        path: TypeInfo<typeof import("path")>;
         Stream: TypeInfo<typeof Stream>;
         Date: TypeInfo<DateConstructor>;
-        semver: TypeInfo<typeof import('semver')>;
+        semver: TypeInfo<typeof import("semver")>;
         Umask: TypeInfo<typeof Umask>;
     }
     interface Definition {
@@ -209,27 +204,19 @@ declare namespace Config {
         default?: any;
         deprecated?: boolean;
     }
-    type ConfigValueType<Def extends Definition['type']> = Def extends string
-        ? Def
+    type ConfigValueType<Def extends Definition["type"]> = Def extends string ? Def
         : Def extends ReadonlyArray<infer T>
-        ? ArrayConstructor extends T
-            ? _ConfigValueType<Exclude<T, ArrayConstructor>>
+            ? ArrayConstructor extends T ? _ConfigValueType<Exclude<T, ArrayConstructor>>
             : _ConfigValueType<T>
         : _ConfigValueType<Def>;
-    type _ConfigValueType<Def> = Def extends string | number | null
-        ? Def
-        : Def extends StringConstructor | typeof import('url') | typeof import('path') | typeof import('semver')
-        ? string
-        : Def extends BooleanConstructor
-        ? boolean
-        : Def extends NumberConstructor | typeof Umask
-        ? number
-        : Def extends typeof Stream
-        ? Stream
-        : Def extends DateConstructor
-        ? Date
-        : Def extends ArrayConstructor
-        ? unknown[]
+    type _ConfigValueType<Def> = Def extends string | number | null ? Def
+        : Def extends StringConstructor | typeof import("url") | typeof import("path") | typeof import("semver")
+            ? string
+        : Def extends BooleanConstructor ? boolean
+        : Def extends NumberConstructor | typeof Umask ? number
+        : Def extends typeof Stream ? Stream
+        : Def extends DateConstructor ? Date
+        : Def extends ArrayConstructor ? unknown[]
         : unknown;
     interface ShortFlags {
         [k: string]: string[] | string;
@@ -239,7 +226,7 @@ declare namespace Config {
         definitions: Definitions & DefinitionsObject;
         shorthands: ShortFlags;
         /** Must be provided for `.flat` to work */
-        flatten?: (data: ConfigData['data'], flattened: Record<string, any>) => void;
+        flatten?: (data: ConfigData["data"], flattened: Record<string, any>) => void;
         npmPath: string;
 
         cwd?: string;
@@ -249,8 +236,8 @@ declare namespace Config {
         platform?: NodeJS.Platform;
     }
 
-    type ConfFileType = 'project' | 'user' | 'global';
-    type ConfType = 'default' | 'env' | 'cli' | 'builtin' | ConfFileType;
+    type ConfFileType = "project" | "user" | "global";
+    type ConfType = "default" | "env" | "cli" | "builtin" | ConfFileType;
     interface ConfigData {
         /** The source where this data was loaded from. */
         source: string;
@@ -264,6 +251,6 @@ declare namespace Config {
     }
 
     type Problem =
-        | { action: 'delete'; key: string; where: ConfType }
-        | { action: 'rename'; from: string; to: string; where: ConfType };
+        | { action: "delete"; key: string; where: ConfType }
+        | { action: "rename"; from: string; to: string; where: ConfType };
 }

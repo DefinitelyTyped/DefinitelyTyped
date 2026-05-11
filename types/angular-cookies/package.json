@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/angular-cookies",
+    "version": "1.8.9999",
+    "projects": [
+        "http://angularjs.org"
+    ],
+    "dependencies": {
+        "@types/angular": "*"
+    },
+    "devDependencies": {
+        "@types/angular-cookies": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Diego Vilar",
+            "githubUsername": "diegovilar"
+        },
+        {
+            "name": "Anthony Ciccarello",
+            "githubUsername": "aciccarello"
+        }
+    ]
+}

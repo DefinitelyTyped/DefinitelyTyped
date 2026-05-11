@@ -1,8 +1,3 @@
-// Type definitions for sha512-universal 1.2
-// Project: https://github.com/chm-diederichs/sha512-universal#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = Sha512;
 
 declare function Sha512(): Sha512.Sha512;
@@ -16,7 +11,7 @@ declare namespace Sha512 {
     function ready(cb: () => void): void;
 
     interface Sha512 {
-        update(input: Uint8Array | ReadonlyArray<number>): this;
+        update(input: Uint8Array | readonly number[]): this;
         update(input: string, encoding?: string): this;
         digest<TBuf extends Uint8Array = Uint8Array>(enc?: TBuf, offset?: number): TBuf;
         digest(enc: string): string;
@@ -24,11 +19,11 @@ declare namespace Sha512 {
 
     interface HMACCtor {
         (key: Uint8Array): HMAC;
-        new (key: Uint8Array): HMAC;
+        new(key: Uint8Array): HMAC;
     }
 
     interface HMAC {
-        update(input: Uint8Array | ReadonlyArray<number>): this;
+        update(input: Uint8Array | readonly number[]): this;
         update(input: string, encoding?: string): this;
         digest<TBuf extends Uint8Array = Uint8Array>(enc?: TBuf, offset?: number): TBuf;
         digest(enc: string): string;

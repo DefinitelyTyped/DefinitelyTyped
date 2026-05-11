@@ -1,6 +1,21 @@
 {
     "private": true,
+    "name": "@types/datadog-tracer",
+    "version": "0.4.9999",
+    "projects": [
+        "https://github.com/rochdev/datadog-tracer-js#readme"
+    ],
     "dependencies": {
-        "opentracing": "^0.14.1"
-    }
+        "opentracing": "^0.14.1",
+        "@types/events": "*"
+    },
+    "devDependencies": {
+        "@types/datadog-tracer": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Dinesh Saravanan Kumaraswamy",
+            "githubUsername": "dineshsaravanan"
+        }
+    ]
 }

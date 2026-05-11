@@ -1,19 +1,4 @@
-// Type definitions for react-beautiful-dnd 12.2
-// Project: https://github.com/atlassian/react-beautiful-dnd
-// Definitions by: varHarrie <https://github.com/varHarrie>
-//                 Bradley Ayers <https://github.com/bradleyayers>
-//                 Austin Turner <https://github.com/paustint>
-//                 Mark Nelissen <https://github.com/marknelissen>
-//                 Enrico Boccadifuoco <https://github.com/enricoboccadifuoco>
-//                 Taeheon Kim <https://github.com/lonyele>
-//                 Kanitkorn Sujautra <https://github.com/lukyth>
-//                 Arun George <https://github.com/aruniverse>
-//                 Declan Warn <https://github.com/declan-warn>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-// Refer to https://github.com/atlassian/react-beautiful-dnd/blob/master/src/types.js
-
-import * as React from 'react';
+import * as React from "react";
 
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
@@ -71,7 +56,7 @@ export type TypeId = Id;
 export type ContextId = Id;
 export type ElementId = Id;
 
-export type DroppableMode = 'standard' | 'virtual';
+export type DroppableMode = "standard" | "virtual";
 
 export interface DroppableDescriptor {
     id: DroppableId;
@@ -95,30 +80,30 @@ export interface DraggableOptions {
     isEnabled: boolean;
 }
 
-export type Direction = 'horizontal' | 'vertical';
+export type Direction = "horizontal" | "vertical";
 
 export interface VerticalAxis {
-    direction: 'vertical';
-    line: 'y';
-    start: 'top';
-    end: 'bottom';
-    size: 'height';
-    crossAxisLine: 'x';
-    crossAxisStart: 'left';
-    crossAxisEnd: 'right';
-    crossAxisSize: 'width';
+    direction: "vertical";
+    line: "y";
+    start: "top";
+    end: "bottom";
+    size: "height";
+    crossAxisLine: "x";
+    crossAxisStart: "left";
+    crossAxisEnd: "right";
+    crossAxisSize: "width";
 }
 
 export interface HorizontalAxis {
-    direction: 'horizontal';
-    line: 'x';
-    start: 'left';
-    end: 'right';
-    size: 'width';
-    crossAxisLine: 'y';
-    crossAxisStart: 'top';
-    crossAxisEnd: 'bottom';
-    crossAxisSize: 'height';
+    direction: "horizontal";
+    line: "x";
+    start: "left";
+    end: "right";
+    size: "width";
+    crossAxisLine: "y";
+    crossAxisStart: "top";
+    crossAxisEnd: "bottom";
+    crossAxisSize: "height";
 }
 
 export type Axis = VerticalAxis | HorizontalAxis;
@@ -250,8 +235,8 @@ export interface DisplacedBy {
     point: Position;
 }
 
-export type VerticalUserDirection = 'up' | 'down';
-export type HorizontalUserDirection = 'left' | 'right';
+export type VerticalUserDirection = "up" | "down";
+export type HorizontalUserDirection = "left" | "right";
 
 export interface UserDirection {
     vertical: VerticalUserDirection;
@@ -271,12 +256,12 @@ export interface DisplacementGroups {
 }
 
 export interface ReorderImpact {
-    type: 'REORDER';
+    type: "REORDER";
     destination: DraggableLocation;
 }
 
 export interface CombineImpact {
-    type: 'COMBINE';
+    type: "COMBINE";
     combine: Combine;
 }
 
@@ -313,7 +298,7 @@ export interface PagePositions {
 // There are two seperate modes that a drag can be in
 // FLUID: everything is done in response to highly granular input (eg mouse)
 // SNAP: items move in response to commands (eg keyboard);
-export type MovementMode = 'FLUID' | 'SNAP';
+export type MovementMode = "FLUID" | "SNAP";
 
 export interface DragPositions {
     client: ClientPositions;
@@ -346,7 +331,7 @@ export interface DragUpdate extends DragStart {
     combine: Combine | null | undefined;
 }
 
-export type DropReason = 'DROP' | 'CANCEL';
+export type DropReason = "DROP" | "CANCEL";
 
 export interface DropResult extends DragUpdate {
     reason: DropReason;
@@ -408,13 +393,13 @@ export interface CompletedDrag {
 }
 
 export interface IdleState {
-    phase: 'IDLE';
+    phase: "IDLE";
     completed: CompletedDrag | null | undefined;
     shouldFlush: boolean;
 }
 
 export interface DraggingState {
-    phase: 'DRAGGING';
+    phase: "DRAGGING";
     isDragging: true;
     critical: Critical;
     movementMode: MovementMode;
@@ -438,23 +423,23 @@ export interface DraggingState {
 // If a drop occurs during this phase, it must wait until it is
 // completed before continuing with the drop
 // TODO: rename to BulkCollectingState
-export interface CollectingState extends Omit<DraggingState, 'phase'> {
-    phase: 'COLLECTING';
+export interface CollectingState extends Omit<DraggingState, "phase"> {
+    phase: "COLLECTING";
 }
 
 // If a drop action occurs during a bulk collection we need to
 // wait for the collection to finish before performing the drop.
 // This is to ensure that everything has the correct index after
 // a drop
-export interface DropPendingState extends Omit<DraggingState, 'phase'> {
-    phase: 'DROP_PENDING';
+export interface DropPendingState extends Omit<DraggingState, "phase"> {
+    phase: "DROP_PENDING";
     isWaiting: boolean;
     reason: DropReason;
 }
 
 // An optional phase for animating the drop / cancel if it is needed
 export interface DropAnimatingState {
-    phase: 'DROP_ANIMATING';
+    phase: "DROP_ANIMATING";
     completed: CompletedDrag;
     newHomeClientOffset: Position;
     dropDuration: number;
@@ -468,7 +453,7 @@ export type StateWhenUpdatesAllowed = DraggingState | CollectingState;
 
 export type Announce = (message: string) => void;
 
-export type InOutAnimationMode = 'none' | 'open' | 'close';
+export type InOutAnimationMode = "none" | "open" | "close";
 
 export interface ResponderProvided {
     announce: Announce;
@@ -572,9 +557,9 @@ export class DragDropContext extends React.Component<DragDropContextProps> {}
 
 export interface DroppableProvidedProps {
     // used for shared global styles
-    'data-rbd-droppable-context-id': ContextId;
+    "data-rbd-droppable-context-id": ContextId;
     // Used to lookup. Currently not used for drag and drop lifecycle
-    'data-rbd-droppable-id': DroppableId;
+    "data-rbd-droppable-id": DroppableId;
 }
 
 export interface DroppableProvided {
@@ -653,14 +638,14 @@ export interface NotDraggingStyle {
      *
      * The `style` prop should interpret `null` and `undefined` the same way.
      */
-    transition: 'none' | undefined;
+    transition: "none" | undefined;
 }
 
 export interface DraggingStyle {
-    position: 'fixed';
+    position: "fixed";
     top: number;
     left: number;
-    boxSizing: 'border-box';
+    boxSizing: "border-box";
     width: number;
     height: number;
     transition: string;
@@ -683,22 +668,22 @@ export interface DraggingStyle {
      * The `style` prop should interpret `null` and `undefined` the same way.
      */
     opacity: number | undefined;
-    pointerEvents: 'none';
+    pointerEvents: "none";
 }
 
 export interface DraggableProvidedDraggableProps {
     // inline style
     style?: DraggingStyle | NotDraggingStyle | undefined;
     // used for shared global styles
-    'data-rbd-draggable-context-id': string;
-    'data-rbd-draggable-id': string;
+    "data-rbd-draggable-context-id": string;
+    "data-rbd-draggable-id": string;
     onTransitionEnd?: React.TransitionEventHandler<any> | undefined;
 }
 
 export interface DraggableProvidedDragHandleProps {
-    'data-rbd-drag-handle-draggable-id': DraggableId;
-    'data-rbd-drag-handle-context-id': ContextId;
-    'aria-labelledby': ElementId;
+    "data-rbd-drag-handle-draggable-id": DraggableId;
+    "data-rbd-drag-handle-context-id": ContextId;
+    "aria-labelledby": ElementId;
 
     tabIndex: number;
     draggable: boolean;

@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-native-photo-view",
+    "version": "1.5.9999",
+    "projects": [
+        "https://github.com/alwx/react-native-photo-view"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "react-native": "*"
+    },
+    "devDependencies": {
+        "@types/react-native-photo-view": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Christian Chown",
+            "githubUsername": "christianchown"
+        }
+    ]
+}

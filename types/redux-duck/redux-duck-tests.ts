@@ -1,7 +1,7 @@
 // This example code explains how to setup app "Pond" with two ducks, "Alfred" and "Winnie"
 
-import { createDuck, DuckBuilder } from 'redux-duck';
-import { Action } from 'redux';
+import { Action } from "redux";
+import { createDuck, DuckBuilder } from "redux-duck";
 
 // import { FSAAuto as FSA } from 'flux-standard-action';
 // flux-standard-action is written in javascript but the types are included in the same package
@@ -26,23 +26,23 @@ export interface WinnieState {
 // Action Types
 
 enum AlfredActions {
-    EAT = 'pond/alfred/EAT',
-    SLEEP = 'pond/alfred/SLEEP',
+    EAT = "pond/alfred/EAT",
+    SLEEP = "pond/alfred/SLEEP",
 }
 enum WinnieActions {
-    GO_TO_WORK = 'pond/winnie/GO_TO_WORK',
-    RETURN_HOME = 'pond/winnie/RETURN_HOME',
+    GO_TO_WORK = "pond/winnie/GO_TO_WORK",
+    RETURN_HOME = "pond/winnie/RETURN_HOME",
 }
 
 // Action Structures
 
 type AlfredAction =
     | FSA<
-          AlfredActions.EAT,
-          {
-              readonly food: Food;
-          }
-      >
+        AlfredActions.EAT,
+        {
+            readonly food: Food;
+        }
+    >
     | FSA<AlfredActions.SLEEP>;
 
 type WinnieAction = FSA<WinnieActions.GO_TO_WORK> | FSA<WinnieActions.RETURN_HOME>;
@@ -65,8 +65,8 @@ type PondDuckBuilder = DuckBuilder<PondAction>;
 
 // Duck Builders
 
-const alfredBuilder: PondDuckBuilder = createDuck('alfred', 'pond');
-const winnieBuilder: PondDuckBuilder = createDuck('winnie', 'pond');
+const alfredBuilder: PondDuckBuilder = createDuck("alfred", "pond");
+const winnieBuilder: PondDuckBuilder = createDuck("winnie", "pond");
 
 // Ducks
 

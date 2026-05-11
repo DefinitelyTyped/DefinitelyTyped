@@ -75,7 +75,7 @@ export function showBlockTypes(blockNames: string | string[]): void;
  *
  * @param mode - The mode to switch to.
  */
-export function switchEditorMode(mode: 'text' | 'visual'): void;
+export function switchEditorMode(mode: "text" | "visual"): void;
 
 /**
  * Enables or disables a panel in the editor.

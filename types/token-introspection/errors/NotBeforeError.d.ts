@@ -1,4 +1,4 @@
-import TokenNotActiveError = require('./TokenNotActiveError');
+import TokenNotActiveError = require("./TokenNotActiveError");
 
 declare class NotBeforeError extends TokenNotActiveError {
 }

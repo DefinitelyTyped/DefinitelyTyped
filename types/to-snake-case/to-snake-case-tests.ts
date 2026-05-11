@@ -1,3 +1,3 @@
-import toSnakeCase = require('to-snake-case');
+import toSnakeCase = require("to-snake-case");
 
-toSnakeCase('camelCase');
+toSnakeCase("camelCase");

@@ -1,18 +1,18 @@
-import EmailTemplates = require('swig-email-templates');
-import jQuery = require('jquery');
+import EmailTemplates = require("swig-email-templates");
+import jQuery = require("jquery");
 
 const templates = new EmailTemplates();
-const withOptions = new EmailTemplates({ root: '' });
+const withOptions = new EmailTemplates({ root: "" });
 
-templates.generateText('templatePath', {}, 'html', () => {});
-templates.generateSubject('templatePath', {}, () => {});
+templates.generateText("templatePath", {}, "html", () => {});
+templates.generateSubject("templatePath", {}, () => {});
 templates.rewriteUrls(jQuery, () => {});
-templates.render('templatePath', {}, () => {});
+templates.render("templatePath", {}, () => {});
 (async () => {
-  const { html, text, subject } = await templates.render('templatePath', {});
+    const { html, text, subject } = await templates.render("templatePath", {});
 })();
 
-withOptions.generateText('templatePath', {}, 'html', () => {});
-withOptions.generateSubject('templatePath', {}, () => { });
+withOptions.generateText("templatePath", {}, "html", () => {});
+withOptions.generateSubject("templatePath", {}, () => {});
 withOptions.rewriteUrls(jQuery, () => {});
-withOptions.render('templatePath', {}, () => {});
+withOptions.render("templatePath", {}, () => {});

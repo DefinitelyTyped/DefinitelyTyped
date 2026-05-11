@@ -1,5 +1,6 @@
-// tslint:disable:no-single-declare-module js installs to root of node_modules
-declare module 'HttpRequestsReport' {
+// js installs to root of node_modules
+// eslint-disable-next-line @definitelytyped/no-single-declare-module
+declare module "HttpRequestsReport" {
     /**
      * This class handles the creation of http requests report.
      * This report is generated and uploaded to S3 bucket by Synthetics.

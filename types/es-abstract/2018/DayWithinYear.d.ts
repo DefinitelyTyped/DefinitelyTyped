@@ -1,2 +1,2 @@
-import DayWithinYear = require('../2017/DayWithinYear');
+import DayWithinYear = require("../2017/DayWithinYear");
 export = DayWithinYear;

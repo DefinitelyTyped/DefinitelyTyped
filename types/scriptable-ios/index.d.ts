@@ -1,11 +1,3 @@
-// Type definitions for non-npm package scriptable-ios 1.7
-// Project: https://scriptable.app/
-// Definitions by: schl3ck <https://github.com/schl3ck>
-//                 FuJuntao <https://github.com/FuJuntao>
-//                 FifiTheBulldog <https://github.com/FifiTheBulldog>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.7
-
 /**
  * _Presents an alert._
  * @see https://docs.scriptable.app/alert/#-new-alert
@@ -189,7 +181,7 @@ declare var args: {
     /**
      * _Parameter passed to a widget._
      *
-     * When creating a widget on the Home screen, you can define a parameter that can be read in your script using `args.widgetParameter`.
+     * When creating a widget on the Home Screen, you can define a parameter that can be read in your script using `args.widgetParameter`.
      *
      * The parameter can be used to differentiate the behavior of multiple widgets.
      * @see https://docs.scriptable.app/args/#widgetparameter
@@ -335,7 +327,7 @@ declare class Calendar {
      * @param availability - Availability to check against.
      * @see https://docs.scriptable.app/calendar/#-supportsavailability
      */
-    supportsAvailability(availability: 'busy' | 'free' | 'tentative' | 'unavailable'): boolean;
+    supportsAvailability(availability: "busy" | "free" | "tentative" | "unavailable"): boolean;
 
     /**
      * _Saves calendar._
@@ -445,7 +437,7 @@ declare class CalendarEvent {
      * calendar supports a specific availability.
      * @see https://docs.scriptable.app/calendarevent/#availability
      */
-    availability: 'busy' | 'free' | 'tentative' | 'unavailable';
+    availability: "busy" | "free" | "tentative" | "unavailable";
 
     /**
      * _Time zone of event._
@@ -482,42 +474,42 @@ declare class CalendarEvent {
      * @param calendars - Calendars to fetch events for. Defaults to all calendars.
      * @see https://docs.scriptable.app/calendarevent/#today
      */
-    static today(calendars?: ReadonlyArray<Calendar>): Promise<CalendarEvent[]>;
+    static today(calendars?: readonly Calendar[]): Promise<CalendarEvent[]>;
 
     /**
      * _Events occurring tomorrow._
      * @param calendars - Calendars to fetch events for. Defaults to all calendars.
      * @see https://docs.scriptable.app/calendarevent/#tomorrow
      */
-    static tomorrow(calendars?: ReadonlyArray<Calendar>): Promise<CalendarEvent[]>;
+    static tomorrow(calendars?: readonly Calendar[]): Promise<CalendarEvent[]>;
 
     /**
      * _Events that occurred yesterday._
      * @param calendars - Calendars to fetch events for. Defaults to all calendars.
      * @see https://docs.scriptable.app/calendarevent/#yesterday
      */
-    static yesterday(calendars?: ReadonlyArray<Calendar>): Promise<CalendarEvent[]>;
+    static yesterday(calendars?: readonly Calendar[]): Promise<CalendarEvent[]>;
 
     /**
      * _Events that occur this week._
      * @param calendars - Calendars to fetch events for. Defaults to all calendars.
      * @see https://docs.scriptable.app/calendarevent/#thisweek
      */
-    static thisWeek(calendars?: ReadonlyArray<Calendar>): Promise<CalendarEvent[]>;
+    static thisWeek(calendars?: readonly Calendar[]): Promise<CalendarEvent[]>;
 
     /**
      * _Events that occur next week._
      * @param calendars - Calendars to fetch events for. Defaults to all calendars.
      * @see https://docs.scriptable.app/calendarevent/#nextweek
      */
-    static nextWeek(calendars?: ReadonlyArray<Calendar>): Promise<CalendarEvent[]>;
+    static nextWeek(calendars?: readonly Calendar[]): Promise<CalendarEvent[]>;
 
     /**
      * _Events that occurred last week._
      * @param calendars - Calendars to fetch events for. Defaults to all calendars.
      * @see https://docs.scriptable.app/calendarevent/#lastweek
      */
-    static lastWeek(calendars?: ReadonlyArray<Calendar>): Promise<CalendarEvent[]>;
+    static lastWeek(calendars?: readonly Calendar[]): Promise<CalendarEvent[]>;
 
     /**
      * _Events that occurs between two dates._
@@ -526,7 +518,7 @@ declare class CalendarEvent {
      * @param calendars - Calendars to fetch events for. Defaults to all calendars.
      * @see https://docs.scriptable.app/calendarevent/#between
      */
-    static between(startDate: Date, endDate: Date, calendars?: ReadonlyArray<Calendar>): Promise<CalendarEvent[]>;
+    static between(startDate: Date, endDate: Date, calendars?: readonly Calendar[]): Promise<CalendarEvent[]>;
 
     /**
      * _Adds a recurrence rule._
@@ -602,8 +594,7 @@ declare class CallbackURL<T extends string = string> {
      * @see https://docs.scriptable.app/callbackurl/#-open
      */
     open(): Promise<
-        T extends `shortcuts://x-callback-url/${string}`
-            ? { result: string | number | boolean | null }
+        T extends `shortcuts://x-callback-url/${string}` ? { result: string | number | boolean | null }
             : Record<string, string | number | boolean | null>
     >;
 
@@ -829,13 +820,13 @@ declare var config: {
      * @see https://docs.scriptable.app/config/#widgetfamily
      */
     widgetFamily:
-        | 'small'
-        | 'medium'
-        | 'large'
-        | 'extraLarge'
-        | 'accessoryRectangular'
-        | 'accessoryInline'
-        | 'accessoryCircular'
+        | "small"
+        | "medium"
+        | "large"
+        | "extraLarge"
+        | "accessoryRectangular"
+        | "accessoryInline"
+        | "accessoryCircular"
         | null;
 };
 
@@ -1059,6 +1050,7 @@ declare class Contact {
      *
      * For security reasons, a contact's notes cannot be accessed in Siri, the Shortcuts app and in a notification.
      * @see https://docs.scriptable.app/contact/#note
+     * @deprecated Deprecated since 1.7.5
      */
     note: string;
 
@@ -1189,6 +1181,7 @@ declare class Contact {
      *
      * The `note` property may not be available if the container does not support it. In that case any value set on the property will be ignored.
      * @see https://docs.scriptable.app/contact/#isnoteavailable
+     * @deprecated Deprecated since 1.7.5
      */
     isNoteAvailable: boolean;
 
@@ -1248,7 +1241,7 @@ declare class Contact {
      * @param containers - Containers to fetch contacts from.
      * @see https://docs.scriptable.app/contact/#all
      */
-    static all(containers: ReadonlyArray<ContactsContainer>): Promise<Contact[]>;
+    static all(containers: readonly ContactsContainer[]): Promise<Contact[]>;
 
     /**
      * _Fetches contacts in groups._
@@ -1257,7 +1250,7 @@ declare class Contact {
      * @param groups - Groups to fetch contacts from.
      * @see https://docs.scriptable.app/contact/#ingroups
      */
-    static inGroups(groups: ReadonlyArray<ContactsGroup>): Promise<Contact[]>;
+    static inGroups(groups: readonly ContactsGroup[]): Promise<Contact[]>;
 
     /**
      * _Queues a contact to be added._
@@ -1388,7 +1381,7 @@ declare class ContactsGroup {
      * @param containers - Container to fetch contacts groups from.
      * @see https://docs.scriptable.app/contactsgroup/#all
      */
-    static all(containers: ReadonlyArray<ContactsContainer>): Promise<ContactsGroup[]>;
+    static all(containers: readonly ContactsContainer[]): Promise<ContactsGroup[]>;
 
     /**
      * _Queues a contacts group to be added._
@@ -1500,6 +1493,13 @@ declare class Data {
      * @see https://docs.scriptable.app/data/#frompng
      */
     static fromPNG(image: Image): Data;
+
+    /**
+     * _Creates data from an array of bytes._
+     * @param bytes - Array of bytes to convert to data.
+     * @see https://docs.scriptable.app/data/#frombytes
+     */
+    static fromBytes(bytes: readonly number[]): Data;
 
     /**
      * _Creates a string from the data._
@@ -2035,7 +2035,7 @@ declare var DocumentPicker: {
      * @param types - Types of files to select. Specified using UTIs. Defaults to all files.
      * @see https://docs.scriptable.app/documentpicker/#open
      */
-    open(types?: ReadonlyArray<string>): Promise<string[]>;
+    open(types?: readonly string[]): Promise<string[]>;
 
     /**
      * _Opens a file of any file type._
@@ -2705,8 +2705,8 @@ declare class FileManager {
     /**
      * _Download file from iCloud if necessary._
      *
-     * Downloads the file from iCloud if it has not already been downloaded. If you pass in a path to a file that is not stored in iCloud, the returned promise will be resolved immediately
-     * making it safe to pass in any file path.
+     * Downloads the file from iCloud if it has not already been downloaded. If you pass in a path to a file that is not stored in iCloud, the returned promise will be resolved
+     * immediately making it safe to pass in any file path.
      * @param filePath - Path of file to download from iCloud.
      * @see https://docs.scriptable.app/filemanager/#-downloadfilefromicloud
      */
@@ -3202,7 +3202,7 @@ declare class LinearGradient {
 /**
  * _Widget showing a list of elements._
  *
- * A widget showing a list of elements. Pass the widget to Script.setWidget() to display it on your Home screen.
+ * A widget showing a list of elements. Pass the widget to Script.setWidget() to display it on your Home Screen.
  * @see https://docs.scriptable.app/listwidget/#-new-listwidget
  */
 declare class ListWidget {
@@ -3269,7 +3269,7 @@ declare class ListWidget {
     /**
      * _Widget showing a list of elements._
      *
-     * A widget showing a list of elements. Pass the widget to Script.setWidget() to display it on your Home screen.
+     * A widget showing a list of elements. Pass the widget to Script.setWidget() to display it on your Home Screen.
      * @see https://docs.scriptable.app/listwidget/#-new-listwidget
      */
     constructor();
@@ -3735,9 +3735,9 @@ declare var module: {
 };
 
 declare namespace Notification {
-    interface Actions {
-        title: string;
-        url: string;
+    interface Action {
+        readonly title: string;
+        readonly url: string;
     }
 }
 
@@ -3775,12 +3775,13 @@ declare class Notification {
     /**
      * _Preferred height of the notification._
      *
-     * By default Scriptable attempts to determine an appropriate height for your notification. If you want to override the default behavior, you can specify a preferred content height.
+     * When this value is null (default), Scriptable attempts to determine an appropriate height for your notification.
+     * If you want to override the default behavior, you can specify a preferred content height.
      * The preferred content height is only used when running a script inside the notification, i.e. when `scriptName` is not null. iOS may limit the height of the notification in which
-     * case the preferred content height is not guaranteed to be respected.
+     * case the preferred content height is not guaranteed to be respected. The default value is null.
      * @see https://docs.scriptable.app/notification/#preferredcontentheight
      */
-    preferredContentHeight: number;
+    preferredContentHeight: number | null;
 
     /**
      * _Number to display in the app icon's badge._
@@ -3789,12 +3790,12 @@ declare class Notification {
      * badge unchanged. The default value is null.
      * @see https://docs.scriptable.app/notification/#badge
      */
-    badge: number;
+    badge: number | null;
 
     /**
      * _Identifier for grouping the notification._
      *
-     * Notifications are grouped by the identifier on the Home screen and in the Notification Center.
+     * Notifications are grouped by the identifier on the Home Screen and in the Notification Center.
      * @see https://docs.scriptable.app/notification/#threadidentifier
      */
     threadIdentifier: string;
@@ -3805,12 +3806,12 @@ declare class Notification {
      * Store any custom information for the notification. This can be accessed from the `Notification.opened` property when a script is run from a notification.
      * @see https://docs.scriptable.app/notification/#userinfo
      */
-    userInfo: { [key: string]: any };
+    userInfo: Readonly<Record<string, unknown>>;
 
     /**
      * _Sound of the notification._
      *
-     * Set to null if you do not want any sound. Set to one of the following values if you want a sound.
+     * Set to null if you do not want any sound. Set to one of the following string values if you want a sound.
      *
      * *   default
      * *   accept
@@ -3822,19 +3823,20 @@ declare class Notification {
      * *   piano\_success
      * *   popup
      *
-     * By default the notification is delivered with no sound.
+     * By default, the value is null, so the notification is delivered with no sound.
      * @see https://docs.scriptable.app/notification/#sound
      */
     sound:
-        | 'default'
-        | 'accept'
-        | 'alert'
-        | 'complete'
-        | 'event'
-        | 'failure'
-        | 'piano_error'
-        | 'piano_success'
-        | 'popup';
+        | "default"
+        | "accept"
+        | "alert"
+        | "complete"
+        | "event"
+        | "failure"
+        | "piano_error"
+        | "piano_success"
+        | "popup"
+        | null;
 
     /**
      * _URL to open when notification is tapped._
@@ -3843,7 +3845,7 @@ declare class Notification {
      * URL.
      * @see https://docs.scriptable.app/notification/#openurl
      */
-    openURL: string;
+    openURL: string | null;
 
     /**
      * _Delivery date of the notification._
@@ -3855,18 +3857,18 @@ declare class Notification {
      * and `setWeeklyTrigger` functions.
      * @see https://docs.scriptable.app/notification/#deliverydate
      */
-    deliveryDate: Date;
+    readonly deliveryDate: Date | null;
 
     /**
      * _Next trigger date of the notification._
      *
-     * The next trigger date is the point in time where the next notification will be delivered.
+     * If the notification has a schedule next delivery date, the next trigger date is the point in time where the next notification will be delivered. Otherwise it will be null.
      *
      * The property cannot be set. In order to specify a future delivery date for a notification, see the `setTriggerDate` function. For recurring notifications, see the `setDailyTrigger`
      * and `setWeeklyTrigger` functions.
      * @see https://docs.scriptable.app/notification/#nexttriggerdate
      */
-    nextTriggerDate: Date;
+    readonly nextTriggerDate: Date | null;
 
     /**
      * _Name of script to run in rich notification._
@@ -3875,7 +3877,7 @@ declare class Notification {
      * script to run it inside the notification.
      * @see https://docs.scriptable.app/notification/#scriptname
      */
-    scriptName: string;
+    scriptName: string | null;
 
     /**
      * _Actions added to the notification._
@@ -3890,7 +3892,7 @@ declare class Notification {
      * To add a notification, use `Notification.addAction`.
      * @see https://docs.scriptable.app/notification/#actions
      */
-    actions: Notification.Actions;
+    readonly actions: readonly Notification.Action[];
 
     /**
      * _Schedules and manages notifications._
@@ -3939,7 +3941,7 @@ declare class Notification {
      * remove delivered notifications, see `Notification.removeDelivered()`.
      * @see https://docs.scriptable.app/notification/#removepending
      */
-    static removePending(identifiers: ReadonlyArray<string>): Promise<void>;
+    static removePending(identifiers: readonly string[]): Promise<void>;
 
     /**
      * _Removes delivered notifications._
@@ -3948,7 +3950,7 @@ declare class Notification {
      * `Notification.removePending()`.
      * @see https://docs.scriptable.app/notification/#removedelivered
      */
-    static removeDelivered(identifiers: ReadonlyArray<string>): Promise<void>;
+    static removeDelivered(identifiers: readonly string[]): Promise<void>;
 
     /**
      * _Resets the current notification._
@@ -4158,7 +4160,7 @@ declare class Path {
      * @param points - Points to add lines between.
      * @see https://docs.scriptable.app/path/#-addlines
      */
-    addLines(points: ReadonlyArray<Point>): void;
+    addLines(points: readonly Point[]): void;
 
     /**
      * _Adds a set of rectangles._
@@ -4167,7 +4169,7 @@ declare class Path {
      * @param rects - Rectangles to add.
      * @see https://docs.scriptable.app/path/#-addrects
      */
-    addRects(rects: ReadonlyArray<Rect>): void;
+    addRects(rects: readonly Rect[]): void;
 
     /**
      * _Closes a sub path._
@@ -4580,8 +4582,8 @@ declare class RecurrenceRule {
      */
     static complexWeekly(
         interval: number,
-        daysOfTheWeek: ReadonlyArray<number>,
-        setPositions: ReadonlyArray<number>,
+        daysOfTheWeek: readonly number[],
+        setPositions: readonly number[],
     ): RecurrenceRule;
 
     /**
@@ -4600,8 +4602,8 @@ declare class RecurrenceRule {
      */
     static complexWeeklyEndDate(
         interval: number,
-        daysOfTheWeek: ReadonlyArray<number>,
-        setPositions: ReadonlyArray<number>,
+        daysOfTheWeek: readonly number[],
+        setPositions: readonly number[],
         endDate: Date,
     ): RecurrenceRule;
 
@@ -4621,8 +4623,8 @@ declare class RecurrenceRule {
      */
     static complexWeeklyOccurrenceCount(
         interval: number,
-        daysOfTheWeek: ReadonlyArray<number>,
-        setPositions: ReadonlyArray<number>,
+        daysOfTheWeek: readonly number[],
+        setPositions: readonly number[],
         occurrenceCount: number,
     ): RecurrenceRule;
 
@@ -4642,9 +4644,9 @@ declare class RecurrenceRule {
      */
     static complexMonthly(
         interval: number,
-        daysOfTheWeek: ReadonlyArray<number>,
-        daysOfTheMonth: ReadonlyArray<number>,
-        setPositions: ReadonlyArray<number>,
+        daysOfTheWeek: readonly number[],
+        daysOfTheMonth: readonly number[],
+        setPositions: readonly number[],
     ): RecurrenceRule;
 
     /**
@@ -4664,9 +4666,9 @@ declare class RecurrenceRule {
      */
     static complexMonthlyEndDate(
         interval: number,
-        daysOfTheWeek: ReadonlyArray<number>,
-        daysOfTheMonth: ReadonlyArray<number>,
-        setPositions: ReadonlyArray<number>,
+        daysOfTheWeek: readonly number[],
+        daysOfTheMonth: readonly number[],
+        setPositions: readonly number[],
         endDate: Date,
     ): RecurrenceRule;
 
@@ -4687,9 +4689,9 @@ declare class RecurrenceRule {
      */
     static complexMonthlyOccurrenceCount(
         interval: number,
-        daysOfTheWeek: ReadonlyArray<number>,
-        daysOfTheMonth: ReadonlyArray<number>,
-        setPositions: ReadonlyArray<number>,
+        daysOfTheWeek: readonly number[],
+        daysOfTheMonth: readonly number[],
+        setPositions: readonly number[],
         occurrenceCount: number,
     ): RecurrenceRule;
 
@@ -4711,11 +4713,11 @@ declare class RecurrenceRule {
      */
     static complexYearly(
         interval: number,
-        daysOfTheWeek: ReadonlyArray<number>,
-        monthsOfTheYear: ReadonlyArray<number>,
-        weeksOfTheYear: ReadonlyArray<number>,
-        daysOfTheYear: ReadonlyArray<number>,
-        setPositions: ReadonlyArray<number>,
+        daysOfTheWeek: readonly number[],
+        monthsOfTheYear: readonly number[],
+        weeksOfTheYear: readonly number[],
+        daysOfTheYear: readonly number[],
+        setPositions: readonly number[],
     ): RecurrenceRule;
 
     /**
@@ -4737,11 +4739,11 @@ declare class RecurrenceRule {
      */
     static complexYearlyEndDate(
         interval: number,
-        daysOfTheWeek: ReadonlyArray<number>,
-        monthsOfTheYear: ReadonlyArray<number>,
-        weeksOfTheYear: ReadonlyArray<number>,
-        daysOfTheYear: ReadonlyArray<number>,
-        setPositions: ReadonlyArray<number>,
+        daysOfTheWeek: readonly number[],
+        monthsOfTheYear: readonly number[],
+        weeksOfTheYear: readonly number[],
+        daysOfTheYear: readonly number[],
+        setPositions: readonly number[],
         endDate: Date,
     ): RecurrenceRule;
 
@@ -4764,11 +4766,11 @@ declare class RecurrenceRule {
      */
     static complexYearlyOccurrenceCount(
         interval: number,
-        daysOfTheWeek: ReadonlyArray<number>,
-        monthsOfTheYear: ReadonlyArray<number>,
-        weeksOfTheYear: ReadonlyArray<number>,
-        daysOfTheYear: ReadonlyArray<number>,
-        setPositions: ReadonlyArray<number>,
+        daysOfTheWeek: readonly number[],
+        monthsOfTheYear: readonly number[],
+        weeksOfTheYear: readonly number[],
+        daysOfTheYear: readonly number[],
+        setPositions: readonly number[],
         occurrenceCount: number,
     ): RecurrenceRule;
 }
@@ -4921,7 +4923,7 @@ declare class Reminder {
      * @param calendars - Calendars to fetch reminders for. Defaults to all calendars.
      * @see https://docs.scriptable.app/reminder/#scheduled
      */
-    static scheduled(calendars?: ReadonlyArray<Calendar>): Promise<Reminder[]>;
+    static scheduled(calendars?: readonly Calendar[]): Promise<Reminder[]>;
 
     /**
      * _Fetches all reminders._
@@ -4930,7 +4932,7 @@ declare class Reminder {
      * @param calendars - Calendars to fetch reminders for. Defaults to all calendars.
      * @see https://docs.scriptable.app/reminder/#all
      */
-    static all(calendars?: ReadonlyArray<Calendar>): Promise<Reminder[]>;
+    static all(calendars?: readonly Calendar[]): Promise<Reminder[]>;
 
     /**
      * _Fetches all completed reminders._
@@ -4939,7 +4941,7 @@ declare class Reminder {
      * @param calendars - Calendars to fetch reminders for. Defaults to all calendars.
      * @see https://docs.scriptable.app/reminder/#allcompleted
      */
-    static allCompleted(calendars?: ReadonlyArray<Calendar>): Promise<Reminder[]>;
+    static allCompleted(calendars?: readonly Calendar[]): Promise<Reminder[]>;
 
     /**
      * _Fetches all incomplete reminders._
@@ -4948,133 +4950,133 @@ declare class Reminder {
      * @param calendars - Calendars to fetch reminders for. Defaults to all calendars.
      * @see https://docs.scriptable.app/reminder/#allincomplete
      */
-    static allIncomplete(calendars?: ReadonlyArray<Calendar>): Promise<Reminder[]>;
+    static allIncomplete(calendars?: readonly Calendar[]): Promise<Reminder[]>;
 
     /**
      * _Fetches all reminders due today._
      * @param calendars - Calendars to fetch reminders for. Defaults to all calendars.
      * @see https://docs.scriptable.app/reminder/#allduetoday
      */
-    static allDueToday(calendars?: ReadonlyArray<Calendar>): Promise<Reminder[]>;
+    static allDueToday(calendars?: readonly Calendar[]): Promise<Reminder[]>;
 
     /**
      * _Fetches completed reminders due today._
      * @param calendars - Calendars to fetch reminders for. Defaults to all calendars.
      * @see https://docs.scriptable.app/reminder/#completedduetoday
      */
-    static completedDueToday(calendars?: ReadonlyArray<Calendar>): Promise<Reminder[]>;
+    static completedDueToday(calendars?: readonly Calendar[]): Promise<Reminder[]>;
 
     /**
      * _Fetches incomplete reminders due today._
      * @param calendars - Calendars to fetch reminders for. Defaults to all calendars.
      * @see https://docs.scriptable.app/reminder/#incompleteduetoday
      */
-    static incompleteDueToday(calendars?: ReadonlyArray<Calendar>): Promise<Reminder[]>;
+    static incompleteDueToday(calendars?: readonly Calendar[]): Promise<Reminder[]>;
 
     /**
      * _Fetches all reminders due tomorrow._
      * @param calendars - Calendars to fetch reminders for. Defaults to all calendars.
      * @see https://docs.scriptable.app/reminder/#allduetomorrow
      */
-    static allDueTomorrow(calendars?: ReadonlyArray<Calendar>): Promise<Reminder[]>;
+    static allDueTomorrow(calendars?: readonly Calendar[]): Promise<Reminder[]>;
 
     /**
      * _Fetches completed reminders due tomorrow._
      * @param calendars - Calendars to fetch reminders for. Defaults to all calendars.
      * @see https://docs.scriptable.app/reminder/#completedduetomorrow
      */
-    static completedDueTomorrow(calendars?: ReadonlyArray<Calendar>): Promise<Reminder[]>;
+    static completedDueTomorrow(calendars?: readonly Calendar[]): Promise<Reminder[]>;
 
     /**
      * _Fetches incomplete reminders due tomorrow._
      * @param calendars - Calendars to fetch reminders for. Defaults to all calendars.
      * @see https://docs.scriptable.app/reminder/#incompleteduetomorrow
      */
-    static incompleteDueTomorrow(calendars?: ReadonlyArray<Calendar>): Promise<Reminder[]>;
+    static incompleteDueTomorrow(calendars?: readonly Calendar[]): Promise<Reminder[]>;
 
     /**
      * _Fetches all reminders due yesterday._
      * @param calendars - Calendars to fetch reminders for. Defaults to all calendars.
      * @see https://docs.scriptable.app/reminder/#alldueyesterday
      */
-    static allDueYesterday(calendars?: ReadonlyArray<Calendar>): Promise<Reminder[]>;
+    static allDueYesterday(calendars?: readonly Calendar[]): Promise<Reminder[]>;
 
     /**
      * _Fetches completed reminders due yesterday._
      * @param calendars - Calendars to fetch reminders for. Defaults to all calendars.
      * @see https://docs.scriptable.app/reminder/#completeddueyesterday
      */
-    static completedDueYesterday(calendars?: ReadonlyArray<Calendar>): Promise<Reminder[]>;
+    static completedDueYesterday(calendars?: readonly Calendar[]): Promise<Reminder[]>;
 
     /**
      * _Fetches incomplete reminders due yesterday._
      * @param calendars - Calendars to fetch reminders for. Defaults to all calendars.
      * @see https://docs.scriptable.app/reminder/#incompletedueyesterday
      */
-    static incompleteDueYesterday(calendars?: ReadonlyArray<Calendar>): Promise<Reminder[]>;
+    static incompleteDueYesterday(calendars?: readonly Calendar[]): Promise<Reminder[]>;
 
     /**
      * _Fetches all reminders due this week._
      * @param calendars - Calendars to fetch reminders for. Defaults to all calendars.
      * @see https://docs.scriptable.app/reminder/#allduethisweek
      */
-    static allDueThisWeek(calendars?: ReadonlyArray<Calendar>): Promise<Reminder[]>;
+    static allDueThisWeek(calendars?: readonly Calendar[]): Promise<Reminder[]>;
 
     /**
      * _Fetches completed reminders due this week._
      * @param calendars - Calendars to fetch reminders for. Defaults to all calendars.
      * @see https://docs.scriptable.app/reminder/#completedduethisweek
      */
-    static completedDueThisWeek(calendars?: ReadonlyArray<Calendar>): Promise<Reminder[]>;
+    static completedDueThisWeek(calendars?: readonly Calendar[]): Promise<Reminder[]>;
 
     /**
      * _Fetches incomplete reminders due this week._
      * @param calendars - Calendars to fetch reminders for. Defaults to all calendars.
      * @see https://docs.scriptable.app/reminder/#incompleteduethisweek
      */
-    static incompleteDueThisWeek(calendars?: ReadonlyArray<Calendar>): Promise<Reminder[]>;
+    static incompleteDueThisWeek(calendars?: readonly Calendar[]): Promise<Reminder[]>;
 
     /**
      * _Fetches all reminders due next week._
      * @param calendars - Calendars to fetch reminders for. Defaults to all calendars.
      * @see https://docs.scriptable.app/reminder/#allduenextweek
      */
-    static allDueNextWeek(calendars?: ReadonlyArray<Calendar>): Promise<Reminder[]>;
+    static allDueNextWeek(calendars?: readonly Calendar[]): Promise<Reminder[]>;
 
     /**
      * _Fetches completed reminders due next week._
      * @param calendars - Calendars to fetch reminders for. Defaults to all calendars.
      * @see https://docs.scriptable.app/reminder/#completedduenextweek
      */
-    static completedDueNextWeek(calendars?: ReadonlyArray<Calendar>): Promise<Reminder[]>;
+    static completedDueNextWeek(calendars?: readonly Calendar[]): Promise<Reminder[]>;
 
     /**
      * _Fetches incomplete reminders due next week._
      * @param calendars - Calendars to fetch reminders for. Defaults to all calendars.
      * @see https://docs.scriptable.app/reminder/#incompleteduenextweek
      */
-    static incompleteDueNextWeek(calendars?: ReadonlyArray<Calendar>): Promise<Reminder[]>;
+    static incompleteDueNextWeek(calendars?: readonly Calendar[]): Promise<Reminder[]>;
 
     /**
      * _Fetches all reminders due last week._
      * @param calendars - Calendars to fetch reminders for. Defaults to all calendars.
      * @see https://docs.scriptable.app/reminder/#allduelastweek
      */
-    static allDueLastWeek(calendars?: ReadonlyArray<Calendar>): Promise<Reminder[]>;
+    static allDueLastWeek(calendars?: readonly Calendar[]): Promise<Reminder[]>;
 
     /**
      * _Fetches completed reminders due last week._
      * @param calendars - Calendars to fetch reminders for. Defaults to all calendars.
      * @see https://docs.scriptable.app/reminder/#completedduelastweek
      */
-    static completedDueLastWeek(calendars?: ReadonlyArray<Calendar>): Promise<Reminder[]>;
+    static completedDueLastWeek(calendars?: readonly Calendar[]): Promise<Reminder[]>;
 
     /**
      * _Fetches incomplete reminders due last week._
      * @param calendars - Calendars to fetch reminders for. Defaults to all calendars.
      * @see https://docs.scriptable.app/reminder/#incompleteduelastweek
      */
-    static incompleteDueLastWeek(calendars?: ReadonlyArray<Calendar>): Promise<Reminder[]>;
+    static incompleteDueLastWeek(calendars?: readonly Calendar[]): Promise<Reminder[]>;
 
     /**
      * _Fetches reminders completed today._
@@ -5083,7 +5085,7 @@ declare class Reminder {
      * @param calendars - Calendars to fetch reminders for. Defaults to all calendars.
      * @see https://docs.scriptable.app/reminder/#completedtoday
      */
-    static completedToday(calendars?: ReadonlyArray<Calendar>): Promise<Reminder[]>;
+    static completedToday(calendars?: readonly Calendar[]): Promise<Reminder[]>;
 
     /**
      * _Fetches reminders completed this week._
@@ -5092,7 +5094,7 @@ declare class Reminder {
      * @param calendars - Calendars to fetch reminders for. Defaults to all calendars.
      * @see https://docs.scriptable.app/reminder/#completedthisweek
      */
-    static completedThisWeek(calendars?: ReadonlyArray<Calendar>): Promise<Reminder[]>;
+    static completedThisWeek(calendars?: readonly Calendar[]): Promise<Reminder[]>;
 
     /**
      * _Fetches reminders completed last week._
@@ -5101,7 +5103,7 @@ declare class Reminder {
      * @param calendars - Calendars to fetch reminders for. Defaults to all calendars.
      * @see https://docs.scriptable.app/reminder/#completedlastweek
      */
-    static completedLastWeek(calendars?: ReadonlyArray<Calendar>): Promise<Reminder[]>;
+    static completedLastWeek(calendars?: readonly Calendar[]): Promise<Reminder[]>;
 
     /**
      * _Fetches due reminders._
@@ -5110,7 +5112,7 @@ declare class Reminder {
      * @param calendars - Calendars to fetch reminders for. Defaults to all calendars.
      * @see https://docs.scriptable.app/reminder/#allduebetween
      */
-    static allDueBetween(startDate: Date, endDate: Date, calendars?: ReadonlyArray<Calendar>): Promise<Reminder[]>;
+    static allDueBetween(startDate: Date, endDate: Date, calendars?: readonly Calendar[]): Promise<Reminder[]>;
 
     /**
      * _Fetches completed reminders._
@@ -5122,7 +5124,7 @@ declare class Reminder {
     static completedDueBetween(
         startDate: Date,
         endDate: Date,
-        calendars?: ReadonlyArray<Calendar>,
+        calendars?: readonly Calendar[],
     ): Promise<Reminder[]>;
 
     /**
@@ -5135,7 +5137,7 @@ declare class Reminder {
     static incompleteDueBetween(
         startDate: Date,
         endDate: Date,
-        calendars?: ReadonlyArray<Calendar>,
+        calendars?: readonly Calendar[],
     ): Promise<Reminder[]>;
 
     /**
@@ -5145,7 +5147,7 @@ declare class Reminder {
      * @param calendars - Calendars to fetch reminders for. Defaults to all calendars.
      * @see https://docs.scriptable.app/reminder/#completedbetween
      */
-    static completedBetween(startDate: Date, endDate: Date, calendars?: ReadonlyArray<Calendar>): Promise<Reminder[]>;
+    static completedBetween(startDate: Date, endDate: Date, calendars?: readonly Calendar[]): Promise<Reminder[]>;
 
     /**
      * _Adds a recurrence rule._
@@ -5396,9 +5398,9 @@ declare class SFSymbol {
     /**
      * _Constructs an SF symbol._
      *
-     * SF symbols are Apple's configurable icons that are designed to look great with the San Francisco font.
+     * SF symbols are Apples configurable icons that are designed to look great with the San Francisco font.
      *
-     * Symbols are referenced by their name. You can find the symbol names in [Apple's SF Symbols app for macOS](https://developer.apple.com/sf-symbols/). You can also browse symbol names
+     * Symbols are referenced by their name. You can find the symbol names in [Apples SF Symbols app for macOS](https://developer.apple.com/sf-symbols/). You can also browse symbol names
      * in the [SF Symbols Browser](https://apps.apple.com/us/app/sf-symbols-browser/id1491161336) and [San Fransymbols](https://apps.apple.com/us/app/san-fransymbols/id1504761986) apps
      * for iOS.
      * @param symbolName - Name of the symbol.
@@ -5560,7 +5562,7 @@ declare var ShareSheet: {
      * @param activityItems - Items to perform activity on.
      * @see https://docs.scriptable.app/sharesheet/#present
      */
-    present(activityItems: ReadonlyArray<any>): Promise<ShareSheet.ShareSheetResult>;
+    present(activityItems: readonly any[]): Promise<ShareSheet.ShareSheetResult>;
 };
 
 /**
@@ -5941,7 +5943,7 @@ declare class UITableCell {
     /**
      * _Left aligns content._
      *
-     * Specifies that content in the cell should be left aligned.
+     * Specifies that the content in the cell should be left aligned.
      * @see https://docs.scriptable.app/uitablecell/#-leftaligned
      */
     leftAligned(): void;
@@ -5949,7 +5951,7 @@ declare class UITableCell {
     /**
      * _Center aligns content._
      *
-     * Specifies that content in the cell should be center aligned.
+     * Specifies that the content in the cell should be center aligned.
      * @see https://docs.scriptable.app/uitablecell/#-centeraligned
      */
     centerAligned(): void;
@@ -5957,7 +5959,7 @@ declare class UITableCell {
     /**
      * _Right aligns content._
      *
-     * Specifies that content in the cell should be right aligned.
+     * Specifies that the content in the cell should be right aligned.
      * @see https://docs.scriptable.app/uitablecell/#-rightaligned
      */
     rightAligned(): void;
@@ -6075,12 +6077,14 @@ declare class UITableRow {
     /**
      * _Called when the row is selected._
      *
-     * Called when the row is selected when the table is presented. If this has no value, the row cannot be selected. Defaults to null.
+     * Called when the row is selected when the table is presented. If this has no value, the row cannot be selected. Defaults to `undefined`.
+     *
+     * The `index` parameter starts from 1.
      *
      * Rows cannot be tapped when the tables is presented in Siri.
      * @see https://docs.scriptable.app/uitablerow/#onselect
      */
-    onSelect: () => void;
+    onSelect: ((index: number) => void) | undefined;
 }
 
 /**
@@ -6368,8 +6372,8 @@ declare class WidgetDate {
      *
      * Specifies that text should be left aligned. This is the default.
      *
-     * This does not affect texts placed in stacks. Use spacers instead when aligning text in stacks. To align the text to left in a horizontal stack, you should place a spacer
-     * after the text.
+     * This does not affect texts placed in stacks. Use spacers instead when aligning text in stacks. To align the text to left in a horizontal stack, you should place a spacer after the
+     * text.
      * @see https://docs.scriptable.app/widgetdate/#-leftaligntext
      */
     leftAlignText(): void;
@@ -6644,7 +6648,7 @@ declare class WidgetStack {
      * _URL to open._
      *
      * The URL will be opened when the stack is tapped. This is only supported in medium and large widgets. Small widgets can only have a single tap target, which is specified by the `url`
-     * on the widget.
+     * property in the widget configurator.
      * @see https://docs.scriptable.app/widgetstack/#url
      */
     url: string;
@@ -6843,8 +6847,8 @@ declare class WidgetText {
      *
      * Specifies that text should be left aligned. This is the default.
      *
-     * This does not affect texts placed in stacks. Use spacers instead when aligning text in stacks. To align the text to left in a horizontal stack, you should place a spacer
-     * after the text.
+     * This does not affect texts placed in stacks. Use spacers instead when aligning text in stacks. To align the text to left in a horizontal stack, you should place a spacer after the
+     * text.
      * @see https://docs.scriptable.app/widgettext/#-leftaligntext
      */
     leftAlignText(): void;

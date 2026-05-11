@@ -1,10 +1,4 @@
-// Type definitions for fs-ext 2.0.0
-// Project: https://github.com/baudehlo/node-fs-ext
-// Definitions by: Oguzhan Ergin <https://github.com/OguzhanE>
-//                 Konstantin Ikonnikov <https://github.com/ikokostya>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-///<reference types="node"/>
+/// <reference types="node"/>
 
 /**
  * Asynchronous flock(2). No arguments other than a possible error are passed to the callback.
@@ -12,7 +6,11 @@
  * @param flags Flags can be 'sh', 'ex', 'shnb', 'exnb', 'un' and correspond to the various LOCK_SH,
  *      LOCK_EX, LOCK_SH | LOCK_NB, etc.
  */
-export function flock(fd: number, flags: 'sh' | 'ex' | 'shnb' | 'exnb' | 'un', callback: (err: NodeJS.ErrnoException | null) => void): void;
+export function flock(
+    fd: number,
+    flags: "sh" | "ex" | "shnb" | "exnb" | "un",
+    callback: (err: NodeJS.ErrnoException | null) => void,
+): void;
 export function flock(fd: number, flags: number, callback: (err: NodeJS.ErrnoException | null) => void): void;
 
 /**
@@ -21,7 +19,7 @@ export function flock(fd: number, flags: number, callback: (err: NodeJS.ErrnoExc
  * @param flags Flags can be 'sh', 'ex', 'shnb', 'exnb', 'un' and correspond to the various LOCK_SH,
  *      LOCK_EX, LOCK_SH | LOCK_NB, etc.
  */
-export function flockSync(fd: number, flags: 'sh' | 'ex' | 'shnb' | 'exnb' | 'un'): void;
+export function flockSync(fd: number, flags: "sh" | "ex" | "shnb" | "exnb" | "un"): void;
 export function flockSync(fd: number, flags: number): void;
 
 /**
@@ -31,10 +29,28 @@ export function flockSync(fd: number, flags: number): void;
  *      'setlkw' (F_SETLKW), 'getlk' (F_GETLK).
  * @param arg
  */
-export function fcntl(fd: number, cmd: 'getfd' | 'setfd' | 'setlk' | 'setlkw' | 'getlk', arg: number, callback: (err: NodeJS.ErrnoException | null, result: number) => void): void;
-export function fcntl(fd: number, cmd: number, arg: number, callback: (err: NodeJS.ErrnoException | null, result: number) => void): void;
-export function fcntl(fd: number, cmd: 'getfd' | 'setfd' | 'setlk' | 'setlkw' | 'getlk', callback: (err: NodeJS.ErrnoException | null, result: number) => void): void;
-export function fcntl(fd: number, cmd: number, callback: (err: NodeJS.ErrnoException | null, result: number) => void): void;
+export function fcntl(
+    fd: number,
+    cmd: "getfd" | "setfd" | "setlk" | "setlkw" | "getlk",
+    arg: number,
+    callback: (err: NodeJS.ErrnoException | null, result: number) => void,
+): void;
+export function fcntl(
+    fd: number,
+    cmd: number,
+    arg: number,
+    callback: (err: NodeJS.ErrnoException | null, result: number) => void,
+): void;
+export function fcntl(
+    fd: number,
+    cmd: "getfd" | "setfd" | "setlk" | "setlkw" | "getlk",
+    callback: (err: NodeJS.ErrnoException | null, result: number) => void,
+): void;
+export function fcntl(
+    fd: number,
+    cmd: number,
+    callback: (err: NodeJS.ErrnoException | null, result: number) => void,
+): void;
 
 /**
  * Synchronous fcntl(2). Throws an exception on error.
@@ -48,7 +64,7 @@ export function fcntl(fd: number, cmd: number, callback: (err: NodeJS.ErrnoExcep
  *      All other commands
  *          Zero.
  */
-export function fcntlSync(fd: number, cmd: 'getfd' | 'setfd' | 'setlk' | 'setlkw' | 'getlk', arg?: number): number;
+export function fcntlSync(fd: number, cmd: "getfd" | "setfd" | "setlk" | "setlkw" | "getlk", arg?: number): number;
 export function fcntlSync(fd: number, cmd: number, arg?: number): number;
 
 /**
@@ -60,7 +76,12 @@ export function fcntlSync(fd: number, cmd: number, arg?: number): number;
  *      (SEEK_END) to set to the end of the file plus offset bytes (usually negative or zero to seek
  *      to the end of the file).
  */
-export function seek(fd: number, offset: number, whence: number, callback: (err: NodeJS.ErrnoException | null, currFilePos: number) => void): void;
+export function seek(
+    fd: number,
+    offset: number,
+    whence: number,
+    callback: (err: NodeJS.ErrnoException | null, currFilePos: number) => void,
+): void;
 
 /**
  * Synchronous lseek(2). Throws an exception on error. Returns current file position.
@@ -137,7 +158,7 @@ export namespace constants {
     /**
      * Remove an existing lock held by this process.
      */
-    const LOCK_UN : number;
+    const LOCK_UN: number;
     /**
      * A call to flock() may block if an incompatible lock is held by another process. To make a
      * nonblocking request, include LOCK_NB (by ORing) with any of the above operations.

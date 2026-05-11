@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/async-rerun",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/fahidarif/rerun#readme"
+    ],
+    "devDependencies": {
+        "@types/async-rerun": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "M Fahad A.",
+            "githubUsername": "fahidarif"
+        }
+    ]
+}

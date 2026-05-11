@@ -1,11 +1,5 @@
-// Type definitions for restful.js 0.6.2
-// Project: https://github.com/marmelab/restful.js
-// Definitions by: Qubo <https://github.com/tkqubo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-
 export interface Headers {
-    [key: string]: any
+    [key: string]: any;
 }
 
 export interface Api extends Endpoint<Api> {
@@ -155,7 +149,7 @@ export interface MemberResponse<T> extends ResponseBase {
         headers: Headers;
         status: number;
         statusText: string;
-    }
+    };
     body(): ResponseBody<T>;
 }
 
@@ -165,8 +159,8 @@ export interface CollectionResponse<T> extends ResponseBase {
         headers: Headers;
         status: number;
         statusText: string;
-    }
-    body(): ResponseBody<T>[];
+    };
+    body(): Array<ResponseBody<T>>;
 }
 
 export interface ResponseBase {

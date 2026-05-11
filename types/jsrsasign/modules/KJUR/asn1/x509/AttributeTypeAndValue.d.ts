@@ -13,10 +13,10 @@ declare namespace jsrsasign.KJUR.asn1.x509 {
 
         setByAttrTypeAndValueStr(shortAttrType: string, valueStr: string): void;
 
-        getValueObj(dsType: 'utf8', valueStr: string): DERUTF8String;
-        getValueObj(dsType: 'prn', valueStr: string): DERPrintableString;
-        getValueObj(dsType: 'tel', valueStr: string): DERTeletexString;
-        getValueObj(dsType: 'ia5', valueStr: string): DERIA5String;
+        getValueObj(dsType: "utf8", valueStr: string): DERUTF8String;
+        getValueObj(dsType: "prn", valueStr: string): DERPrintableString;
+        getValueObj(dsType: "tel", valueStr: string): DERTeletexString;
+        getValueObj(dsType: "ia5", valueStr: string): DERIA5String;
 
         getEncodedHex(): string;
     }

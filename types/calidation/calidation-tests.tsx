@@ -1,5 +1,5 @@
-import * as React from 'react';
 import {
+    Fields,
     FieldsConfig,
     Form,
     FormContext,
@@ -9,9 +9,9 @@ import {
     ValidationContext,
     ValidatorContext,
     ValidatorsProvider,
-    Fields,
     ValidatorsProviderProps,
-} from 'calidation';
+} from "calidation";
+import * as React from "react";
 
 interface FieldTypes {
     foo: number;
@@ -20,12 +20,12 @@ interface FieldTypes {
 
 const config: FieldsConfig<FieldTypes> = {
     foo: {
-        isRequired: 'This field is required',
-        isNumber: 'This field must be a number',
+        isRequired: "This field is required",
+        isNumber: "This field must be a number",
         isGreaterThan: {
-            message: 'This field must be greater than 7',
+            message: "This field must be greater than 7",
             value: 7,
-            validateIf: ({ isDirty, fields }) => isDirty && fields.bar.some(b => b === 'test'),
+            validateIf: ({ isDirty, fields }) => isDirty && fields.bar.some(b => b === "test"),
         },
     },
     bar: {},
@@ -42,7 +42,7 @@ function onChange(event: React.ChangeEvent<HTMLFormElement>): void {
 }
 
 function onReset(): void {
-    console.log('form has been reset');
+    console.log("form has been reset");
 }
 
 function onSubmit(context: FormContext<FieldTypes>): void {
@@ -53,7 +53,7 @@ function onUpdate(context: FormContext<FieldTypes>): void {
     console.log(context);
 }
 
-const extraValidators: ValidatorsProviderProps<FieldTypes>['validators'] = {
+const extraValidators: ValidatorsProviderProps<FieldTypes>["validators"] = {
     isEven: config => value => (Number(value) % 2 !== 0 ? config.message : null),
     isOdd: (config, { errors, fields, isDirty }: ValidatorContext<FieldTypes>) => value => {
         if (!isDirty) {
@@ -71,9 +71,9 @@ const extraValidators: ValidatorsProviderProps<FieldTypes>['validators'] = {
 
 const configWithCustomValidators: FieldsConfig<FieldTypes> = {
     foo: {
-        isRequired: 'This field is required',
+        isRequired: "This field is required",
         isEven: {
-            message: 'This needs to be an even number',
+            message: "This needs to be an even number",
         },
     },
 };

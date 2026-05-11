@@ -1,14 +1,7 @@
-// Type definitions for test-console 2.0
-// Project: https://github.com/jamesshore/test-console
-// Definitions by:  Roberto Soares <https://github.com/roberto>
-//                  Pedro Guidoux <https://github.com/guidoux>
-//                  Guilherme Moretti <https://github.com/gbmoretti>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export const stdout: TestStream;
 export const stderr: TestStream;
 
-export type Output = ReadonlyArray<string>;
+export type Output = readonly string[];
 export type OutputCallback = (output: Output) => void;
 export type AsyncOutputCallback = (output: Output) => Promise<void>;
 export type NoOutputCallback = () => void;

@@ -1,9 +1,3 @@
-// Type definitions for deep-extend 0.6
-// Project: https://github.com/unclechu/node-deep-extend
-// Definitions by: rhysd <https://github.com/rhysd>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.9
-
 /** Recursive object extending. */
 declare function deepExtend<T extends object>(target: T): T;
 declare function deepExtend<T extends object, U extends object>(target: T, source: U): T & U;

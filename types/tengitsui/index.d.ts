@@ -1,8 +1,4 @@
-// Type definitions for tengitsui 4.3
-// Project: https://github.com/1026385513/tengitsui
-// Definitions by: 1026385513 <https://github.com/1026385513>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-import * as React from 'react';
+import * as React from "react";
 export type voidFunc = () => void;
 export type onChange = (value: any) => void;
 export interface BaseOpts {
@@ -50,15 +46,15 @@ export interface FunApi {
 }
 export type Api =
     | {
-          url?: string;
-          name: string;
-          confirm?: string;
-          action?: actionGen;
-          onClick?: clickFn;
-          mode?: string;
-          readonly?: string;
-          reorganizeSchema?: (schema: AdvancedSchema) => AdvancedSchema;
-      }
+        url?: string;
+        name: string;
+        confirm?: string;
+        action?: actionGen;
+        onClick?: clickFn;
+        mode?: string;
+        readonly?: string;
+        reorganizeSchema?: (schema: AdvancedSchema) => AdvancedSchema;
+    }
     | FunApi;
 export interface AdvancedApi {
     add?: string | Api;
@@ -75,7 +71,7 @@ export interface AdvancedAuth {
     remove?: number | string;
     [key: string]: number | string | undefined;
 }
-export type ViewType = 'list' | 'form' | 'filter' | 'detail';
+export type ViewType = "list" | "form" | "filter" | "detail";
 export interface AdvancedField {
     field: string;
     name: string;
@@ -91,7 +87,7 @@ export interface AdvancedField {
     useFirstOption?: boolean;
     visible?: boolean | visibleFnc;
     defaultValue?: any; // defaultValue 和visible互斥TODO 一起存在
-    fixed?: 'left' | 'right';
+    fixed?: "left" | "right";
 }
 export interface AdvancedSchema {
     [key: string]: AdvancedField;
@@ -114,7 +110,7 @@ export interface AdvancedFilterProps {
 }
 
 export interface AMapDistrictSearchProps {
-    level?: 'country' | 'province' | 'city' | 'district' | 'biz_area';
+    level?: "country" | "province" | "city" | "district" | "biz_area";
     subdistrict?: 0 | 1 | 2 | 3;
     name: string;
 }
@@ -146,7 +142,7 @@ export interface ChartProps {
     id: number | string;
     style?: string;
     className?: string;
-    theme?: 'light' | 'dark';
+    theme?: "light" | "dark";
     props: {};
 }
 
@@ -231,7 +227,7 @@ export interface FormProps {
 export interface GridLayoutProps {
     layout: string;
     gap?: number;
-    cellRatio?: 'auto' | number;
+    cellRatio?: "auto" | number;
     children: Element[];
     style?: object;
 }
@@ -265,7 +261,7 @@ export interface MileageRangeProps {
     opts?: {};
 }
 export interface ProgressProps {
-    type?: 'line' | 'circle' | 'dashboard' | undefined;
+    type?: "line" | "circle" | "dashboard" | undefined;
     title?: string | undefined;
     showPrecent?: boolean | false;
     strokeColor?: string | undefined;
@@ -276,8 +272,8 @@ export interface ProgressProps {
 export type RangePickerProps =
     | BaseProps
     | {
-          value: undefined | null | Array<null> | string[];
-      };
+        value: undefined | null | null[] | string[];
+    };
 
 export interface TableEditorRef {
     getValue: () => [];
@@ -298,7 +294,7 @@ export interface RenderProps {
     record: Record;
 }
 export type ColumnRender = (props: RenderProps) => any;
-export type FeildMode = 'multiple';
+export type FeildMode = "multiple";
 export interface TableEditorOpts {
     allowClear?: boolean;
     mode?: FeildMode;

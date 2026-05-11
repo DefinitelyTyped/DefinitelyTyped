@@ -1,8 +1,3 @@
-// Type definitions for jsan 3.1
-// Project: https://github.com/kolodny/jsan
-// Definitions by: Nathan Bierema <https://github.com/Methuselah96>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface Options {
     date?: boolean;
     function?: boolean;
@@ -22,10 +17,10 @@ export function stringify(
     value: unknown,
     replacer?: (key: string, value: unknown) => unknown | Array<number | string> | null,
     space?: string | number,
-    _options?: Options | boolean
+    _options?: Options | boolean,
 ): string;
 
 export function parse(
     text: string,
-    reviver?: (key: string, value: unknown) => unknown
+    reviver?: (key: string, value: unknown) => unknown,
 ): unknown;

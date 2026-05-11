@@ -1,2 +1,2 @@
-import { type } from '../index';
+import { type } from "../index";
 export default type;

@@ -11,5 +11,5 @@ export class VectorTextureAsset extends Asset {
         [x: string]: CanvasRenderTexture;
     };
 }
-import { Asset } from './Asset';
-import { CanvasRenderTexture } from '../textures/CanvasRenderTexture';
+import { CanvasRenderTexture } from "../textures/CanvasRenderTexture";
+import { Asset } from "./Asset";

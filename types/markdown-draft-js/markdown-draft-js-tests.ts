@@ -1,5 +1,5 @@
-import { EditorState, convertToRaw, convertFromRaw } from 'draft-js';
-import { draftToMarkdown, markdownToDraft } from 'markdown-draft-js';
+import { convertFromRaw, convertToRaw, EditorState } from "draft-js";
+import { draftToMarkdown, markdownToDraft } from "markdown-draft-js";
 
 const rawContent = convertToRaw(EditorState.createEmpty().getCurrentContent());
 draftToMarkdown(rawContent);
@@ -9,11 +9,11 @@ draftToMarkdown(rawContent, {
     styleItems: {
         RED: {
             open() {
-                return '<span style="color: red">';
+                return "<span style=\"color: red\">";
             },
 
             close() {
-                return '</span>';
+                return "</span>";
             },
         },
     },
@@ -24,11 +24,11 @@ draftToMarkdown(rawContent, {
     entityItems: {
         mention: {
             open: () => {
-                return '<span class="mention-item">';
+                return "<span class=\"mention-item\">";
             },
 
             close: () => {
-                return '</span>';
+                return "</span>";
             },
         },
     },
@@ -36,28 +36,28 @@ draftToMarkdown(rawContent, {
 
 // Handle preserveNewlines
 draftToMarkdown(rawContent, {
-    preserveNewlines: true
+    preserveNewlines: true,
 });
-markdownToDraft('# Test', {
-    preserveNewlines: true
+markdownToDraft("# Test", {
+    preserveNewlines: true,
 });
 
 // Handle escapeMarkdownCharacters
 draftToMarkdown(rawContent, {
-    escapeMarkdownCharacters: true
+    escapeMarkdownCharacters: true,
 });
 
 // Handle markdown param
-const rawDraft = markdownToDraft('# Test');
+const rawDraft = markdownToDraft("# Test");
 convertFromRaw(rawDraft);
 
 // Handle options.blockEntities without arguments and options.remarkablePlugins
-const rawDraftWithBlockEntities = markdownToDraft('# Test', {
+const rawDraftWithBlockEntities = markdownToDraft("# Test", {
     blockEntities: {
         link_open: () => {
             return {
-                type: 'LINK',
-                mutability: 'MUTABLE',
+                type: "LINK",
+                mutability: "MUTABLE",
             };
         },
     },
@@ -66,7 +66,7 @@ const rawDraftWithBlockEntities = markdownToDraft('# Test', {
 convertFromRaw(rawDraftWithBlockEntities);
 
 // Handle options.blockEntities with argument
-const rawDraftWithBlockEntitiesArguments = markdownToDraft('# Test', {
+const rawDraftWithBlockEntitiesArguments = markdownToDraft("# Test", {
     blockEntities: {
         link_open: item => {
             const data = item && {
@@ -74,8 +74,8 @@ const rawDraftWithBlockEntitiesArguments = markdownToDraft('# Test', {
                 href: item.href,
             };
             return {
-                type: 'LINK',
-                mutability: 'MUTABLE',
+                type: "LINK",
+                mutability: "MUTABLE",
                 data,
             };
         },
@@ -84,20 +84,20 @@ const rawDraftWithBlockEntitiesArguments = markdownToDraft('# Test', {
 convertFromRaw(rawDraftWithBlockEntitiesArguments);
 
 // Handle options.blockStyles
-const rawDraftWithBlockStyles = markdownToDraft('# Test', {
+const rawDraftWithBlockStyles = markdownToDraft("# Test", {
     blockStyles: {
-        code: 'CODE',
+        code: "CODE",
     },
 });
 convertFromRaw(rawDraftWithBlockStyles);
 
 // Handle options.blockTypes without arguments
-const rawDraftWithBlockTypes = markdownToDraft('# Test', {
+const rawDraftWithBlockTypes = markdownToDraft("# Test", {
     blockTypes: {
         paragraph_open: () => {
             return {
-                type: 'unstyled',
-                text: '',
+                type: "unstyled",
+                text: "",
                 entityRanges: [],
                 inlineStyleRanges: [],
             };
@@ -107,12 +107,12 @@ const rawDraftWithBlockTypes = markdownToDraft('# Test', {
 convertFromRaw(rawDraftWithBlockTypes);
 
 // Handle options.blockTypes with argument
-const rawDraftWithBlockTypesArguments = markdownToDraft('# Test', {
+const rawDraftWithBlockTypesArguments = markdownToDraft("# Test", {
     blockTypes: {
         paragraph_open: item => {
-            const text = item ? item.text : '';
+            const text = item ? item.text : "";
             return {
-                type: 'unstyled',
+                type: "unstyled",
                 text,
                 entityRanges: [],
                 inlineStyleRanges: [],
@@ -123,8 +123,8 @@ const rawDraftWithBlockTypesArguments = markdownToDraft('# Test', {
 convertFromRaw(rawDraftWithBlockTypesArguments);
 
 // Handle options.remarkablePreset and options.remarkableOptions
-const rawDraftWithRemarkablePreset = markdownToDraft('# Test', {
-    remarkablePreset: 'commonmark',
+const rawDraftWithRemarkablePreset = markdownToDraft("# Test", {
+    remarkablePreset: "commonmark",
     remarkableOptions: {
         html: true,
     },

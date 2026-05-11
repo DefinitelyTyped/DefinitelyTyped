@@ -21,7 +21,6 @@ declare namespace jsrsasign.KJUR.jws {
          * - now + 1year - after 365 days from now
          * - YYYYmmDDHHMMSSZ - UTC time (ex. 20130828235959Z)
          * - number - UNIX origin time (seconds from 1970-01-01 00:00:00) (ex. 1377714748)
-         *
          */
         function get(s: string): number;
 

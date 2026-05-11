@@ -1,5 +1,5 @@
 // peerDependencies: { tape: '*' }
-import tape = require('tape-promise/tape');
+import tape = require("tape-promise/tape");
 
 const name = String();
 const cb = async (test: tape.Test) => {};

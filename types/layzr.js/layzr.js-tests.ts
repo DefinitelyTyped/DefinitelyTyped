@@ -1,10 +1,10 @@
-import * as Layzr from "layzr.js";
+import Layzr from "layzr.js";
 
 const options: Layzr.LayzrOptions = {
     normal: "data-normal",
     retina: "data-retina",
     srcset: "data-srcset",
-    threshold: 0
+    threshold: 0,
 };
 
 const instance = Layzr();

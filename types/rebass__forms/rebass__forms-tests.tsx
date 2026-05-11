@@ -1,16 +1,16 @@
-import * as React from 'react';
+import * as React from "react";
 
-import { Label, Input, Select, Textarea, Radio, Checkbox, Slider, Switch } from '@rebass/forms';
+import { Checkbox, Input, Label, Radio, Select, Slider, Switch, Textarea } from "@rebass/forms";
 import {
-    Label as StyledLabel,
-    Input as StyledInput,
-    Select as StyledSelect,
-    Textarea as StyledTextarea,
-    Radio as StyledRadio,
     Checkbox as StyledCheckbox,
+    Input as StyledInput,
+    Label as StyledLabel,
+    Radio as StyledRadio,
+    Select as StyledSelect,
     Slider as StyledSlider,
     Switch as StyledSwitch,
-} from '@rebass/forms/styled-components';
+    Textarea as StyledTextarea,
+} from "@rebass/forms/styled-components";
 
 export default () => (
     <>

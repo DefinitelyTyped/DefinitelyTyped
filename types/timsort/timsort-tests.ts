@@ -1,3 +1,3 @@
-import * as TimSort from 'timsort';
+import * as TimSort from "timsort";
 
 TimSort.sort([]); // $ExpectType void

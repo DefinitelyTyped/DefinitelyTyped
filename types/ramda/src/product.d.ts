@@ -1,2 +1,2 @@
-import { product } from '../index';
+import { product } from "../index";
 export default product;

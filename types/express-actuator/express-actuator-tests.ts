@@ -9,21 +9,21 @@ const app = express();
 function actuatorTest() {
     app.use(actuator());
     app.use(actuator({}));
-    app.use(actuator({ basePath: '/management' }));
-    app.use(actuator({ infoGitMode: 'simple' }));
-    app.use(actuator({ infoGitMode: 'full' }));
-    app.use(actuator({ infoDateFormat: 'YYYY-DD-MM' }));
+    app.use(actuator({ basePath: "/management" }));
+    app.use(actuator({ infoGitMode: "simple" }));
+    app.use(actuator({ infoGitMode: "full" }));
+    app.use(actuator({ infoDateFormat: "YYYY-DD-MM" }));
     app.use(actuator({
         infoBuildOptions: {
-            string: '123',
+            string: "123",
             bool: true,
-            number: 1
-        }
+            number: 1,
+        },
     }));
     app.use(actuator({
         customEndpoints: [{
-            id: 'dependencies',
-            controller: (req, res) => {}
-        }]
+            id: "dependencies",
+            controller: (req, res) => {},
+        }],
     }));
 }

@@ -1,14 +1,14 @@
-import cytoscape = require('cytoscape');
-import euler = require('cytoscape-euler');
+import cytoscape = require("cytoscape");
+import euler = require("cytoscape-euler");
 
 cytoscape.use(euler);
 
 const eulerLayoutNoOptions: euler.EulerLayoutOptions = {
-    name: 'euler',
+    name: "euler",
 };
 
 const eulerLayoutAllOptions: euler.EulerLayoutOptions = {
-    name: 'euler',
+    name: "euler",
     springLength: () => 100,
     springCoeff: () => 0.5,
     mass: () => 12,
@@ -19,9 +19,9 @@ const eulerLayoutAllOptions: euler.EulerLayoutOptions = {
     movementThreshold: 12,
     timeStep: 5,
     refresh: 10,
-    animate: 'end',
+    animate: "end",
     animationDuration: 1000,
-    animationEasing: 'ease',
+    animationEasing: "ease",
     maxIterations: 12,
     maxSimulationTime: 5000,
     ungrabifyWhileSimulating: true,
@@ -32,19 +32,19 @@ const eulerLayoutAllOptions: euler.EulerLayoutOptions = {
 };
 
 const eulerLayoutx2y2BoundingBox: euler.EulerLayoutOptions = {
-    name: 'euler',
+    name: "euler",
     boundingBox: { x1: 12, y1: 30, x2: 500, y2: 400 },
 };
 
 const cy = cytoscape({
-    container: document.getElementById('cy'),
+    container: document.getElementById("cy"),
     layout: eulerLayoutNoOptions,
     elements: [
-        { data: { id: 'A' } },
-        { data: { id: 'B' } },
-        { data: { id: 'C' } },
-        { data: { source: 'A', target: 'B' } },
-        { data: { source: 'A', target: 'C' } },
+        { data: { id: "A" } },
+        { data: { id: "B" } },
+        { data: { id: "C" } },
+        { data: { source: "A", target: "B" } },
+        { data: { source: "A", target: "C" } },
     ],
 });
 

@@ -1,11 +1,9 @@
-// Type definitions for trie-prefix-tree 1.5
-// Project: https://github.com/lyndseybrowning/trie-prefix#readme
-// Definitions by: James Lismore <https://github.com/jlismore>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+type RawTree =
+    & { "$"?: 1 | undefined }
+    & { [s in Exclude<string, "$">]?: RawTree | undefined };
 
-export default function Trie(
-    strings: string[]
+declare function Trie(
+    strings: string[],
 ): {
     /**
      * Get a string representation of the trie
@@ -14,7 +12,7 @@ export default function Trie(
     /**
      * Get the generated raw trie object
      */
-    tree(): any;
+    tree(): RawTree;
     /**
      * Add a new word to the trie
      */
@@ -64,3 +62,5 @@ export default function Trie(
      */
     getSubAnagrams(word: string): string[];
 };
+
+export = Trie;

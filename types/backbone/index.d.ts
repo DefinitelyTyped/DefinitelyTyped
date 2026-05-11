@@ -1,23 +1,8 @@
-// Type definitions for Backbone 1.4
-// Project: http://backbonejs.org/
-//          https://github.com/jashkenas/backbone
-// Definitions by: Boris Yankov <https://github.com/borisyankov>
-//                 Natan Vivo <https://github.com/nvivo>
-//                 kenjiru <https://github.com/kenjiru>
-//                 jjoekoullas <https://github.com/jjoekoullas>
-//                 Julian Gonggrijp <https://github.com/jgonggrijp>
-//                 Kyle Scully <https://github.com/zieka>
-//                 Robert Kesterson <https://github.com/rkesters>
-//                 Bulat Khasanov <https://github.com/khasanovbi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="jquery" />
+/// <reference types="underscore" />
 
 export = Backbone;
 export as namespace Backbone;
-
-import * as _ from 'underscore';
 
 declare namespace Backbone {
     type _Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
@@ -69,7 +54,7 @@ declare namespace Backbone {
         parse?: boolean | undefined;
     }
 
-    interface PersistenceOptions extends Partial<_Omit<JQueryAjaxSettings, 'success' | 'error'>> {
+    interface PersistenceOptions extends Partial<_Omit<JQueryAjaxSettings, "success" | "error">> {
         // TODO: Generalize modelOrCollection
         success?: ((modelOrCollection: any, response: any, options: any) => void) | undefined;
         error?: ((modelOrCollection: any, response: any, options: any) => void) | undefined;
@@ -163,6 +148,7 @@ declare namespace Backbone {
     }
     interface Events_Off<BaseT> {
         <T extends BaseT>(this: T, eventName?: string | null, callback?: EventHandler | null, context?: any): T;
+        <T extends BaseT>(this: T, eventMap: EventMap, context?: any): T;
     }
     interface Events_Trigger<BaseT> {
         <T extends BaseT>(this: T, eventName: string, ...args: any[]): T;
@@ -173,6 +159,7 @@ declare namespace Backbone {
     }
     interface Events_Stop<BaseT> {
         <T extends BaseT>(this: T, object?: any, events?: string, callback?: EventHandler): T;
+        <T extends BaseT>(this: T, object: any, eventMap: EventMap): T;
     }
 
     /**
@@ -189,6 +176,7 @@ declare namespace Backbone {
         on(eventName: string, callback: EventHandler, context?: any): this;
         on(eventMap: EventMap, context?: any): this;
         off(eventName?: string | null, callback?: EventHandler | null, context?: any): this;
+        off(eventMap: EventMap, context?: any): this;
         trigger(eventName: string, ...args: any[]): this;
         bind(eventName: string, callback: EventHandler, context?: any): this;
         bind(eventMap: EventMap, context?: any): this;
@@ -201,6 +189,7 @@ declare namespace Backbone {
         listenToOnce(object: any, events: string, callback: EventHandler): this;
         listenToOnce(object: any, eventMap: EventMap): this;
         stopListening(object?: any, events?: string, callback?: EventHandler): this;
+        stopListening(object: any, eventMap: EventMap): this;
     }
 
     class ModelBase extends EventsMixin {
@@ -326,7 +315,7 @@ declare namespace Backbone {
          */
         static extend(properties: any, classProperties?: any): any;
 
-        model: new (...args: any[]) => TModel;
+        model: (new(...args: any[]) => TModel) | ((...args: any[]) => TModel);
         models: TModel[];
         length: number;
 
@@ -348,11 +337,11 @@ declare namespace Backbone {
          */
         comparator:
             | string
-            | { bivarianceHack(element: TModel): number | string }['bivarianceHack']
-            | { bivarianceHack(compare: TModel, to?: TModel): number }['bivarianceHack'];
+            | { bivarianceHack(element: TModel): number | string }["bivarianceHack"]
+            | { bivarianceHack(compare: TModel, to?: TModel): number }["bivarianceHack"];
 
-        add(model: {} | TModel, options?: AddOptions): TModel;
         add(models: Array<{} | TModel>, options?: AddOptions): TModel[];
+        add(model: {} | TModel, options?: AddOptions): TModel;
         at(index: number): TModel;
         /**
          * Get a model from a collection, specified by an id, a cid, or by passing in a model.
@@ -369,7 +358,6 @@ declare namespace Backbone {
         reset(models?: Array<{} | TModel>, options?: Silenceable): TModel[];
 
         /**
-         *
          * The set method performs a "smart" update of the collection with the passed list of models.
          * If a model in the list isn't yet in the collection it will be added; if the model is already in the
          * collection its attributes will be merged; and if the collection contains any models that aren't present
@@ -546,7 +534,9 @@ declare namespace Backbone {
 
     type ViewEventListener = (event: JQuery.Event) => void;
 
-    class View<TModel extends (Model | undefined) = Model, TElement extends Element = HTMLElement> extends EventsMixin implements Events {
+    class View<TModel extends (Model | undefined) = Model, TElement extends Element = HTMLElement> extends EventsMixin
+        implements Events
+    {
         /**
          * Do not use, prefer TypeScript's extend functionality.
          */
@@ -568,7 +558,7 @@ declare namespace Backbone {
          * For assigning events as object hash, do it like this: this.events = <any>{ "event:selector": callback, ... };
          * That works only if you set it in the constructor or the initialize method.
          */
-        events(): EventsHash;
+        events: _Result<EventsHash>;
 
         // A conditional type used here to prevent `TS2532: Object is possibly 'undefined'`
         model: TModel extends Model ? TModel : undefined;

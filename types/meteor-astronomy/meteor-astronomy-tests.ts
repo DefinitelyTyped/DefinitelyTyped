@@ -1,4 +1,4 @@
-import { Class, Enum } from 'meteor/jagi:astronomy';
+import { Class, Enum } from "meteor/jagi:astronomy";
 
 interface PostInterface {
     title: string;
@@ -8,18 +8,18 @@ interface PostInterface {
     tags?: string[] | undefined;
 }
 
-const Posts = new Mongo.Collection<PostInterface>('posts');
+const Posts = new Mongo.Collection<PostInterface>("posts");
 
 const Post = Class.create<PostInterface>({
-    name: 'Post',
+    name: "Post",
     collection: Posts,
     fields: {
         name: String,
         title: {
             type: String,
             validators: [{
-                type: 'minLength',
-                param: 3
+                type: "minLength",
+                param: 3,
             }],
         },
         userId: String,
@@ -32,12 +32,12 @@ const Post = Class.create<PostInterface>({
         },
     },
     behaviors: {
-        timestamp: {}
+        timestamp: {},
     },
 });
 
 let post = new Post({
-    title: 'text',
+    title: "text",
 });
 
 // Validate length of the "title" field.
@@ -45,13 +45,13 @@ post.save();
 
 // Notice that we call the "findOne" method
 // from the "Post" class not from the "Posts" collection.
-post = Post.findOne('id');
+post = Post.findOne("id");
 // Auto convert a string input value to a number.
-post.title = 'input[name=title]';
+post.title = "input[name=title]";
 post.publishedAt = new Date();
 // Check if all fields are valid and update document
 // with only the fields that have changed.
-post.save({fields: ['title']});
+post.save({ fields: ["title"] });
 
 interface UserProfileInterface {
     nickname: string;
@@ -61,13 +61,13 @@ interface UserProfileInterface {
 }
 
 const UserProfile = Class.create<UserProfileInterface>({
-    name: 'UserProfile',
+    name: "UserProfile",
     fields: {
         nickname: String,
         firstName: String,
         createdAt: Date,
         age: Number,
-    }
+    },
 });
 
 interface UserInterface extends Meteor.User {
@@ -81,7 +81,7 @@ interface UserInterface extends Meteor.User {
 }
 
 const User = Class.create<UserInterface>({
-    name: 'User',
+    name: "User",
     collection: Meteor.users as unknown as Mongo.Collection<UserInterface>,
     fields: {
         createdAt: Number,
@@ -97,7 +97,7 @@ const User = Class.create<UserInterface>({
         },
         address: {
             type: Object,
-            optional: true
+            optional: true,
         },
         phoneNumber: {
             type: String,
@@ -113,9 +113,9 @@ const User = Class.create<UserInterface>({
         fullName(param: string): string {
             const fullName = `${this.firstName} ${this.lastName}`;
 
-            if (param === 'lower') {
+            if (param === "lower") {
                 return fullName.toLowerCase();
-            } else if (param === 'upper') {
+            } else if (param === "upper") {
                 return fullName.toUpperCase();
             }
 
@@ -126,15 +126,15 @@ const User = Class.create<UserInterface>({
         fullName: { // Index name.
             fields: { // List of fields.
                 phoneNumber: 1,
-                createdAt: 1
+                createdAt: 1,
             },
-            options: {}
-        }
-    }
+            options: {},
+        },
+    },
 });
 
 const user = User.findOne();
-user.set({username: 'user1'});
+user.set({ username: "user1" });
 user.save();
 
 interface StatusInterface {
@@ -145,17 +145,17 @@ interface StatusInterface {
 }
 
 const Status = Enum.create<StatusInterface>({
-    name: 'Status',
-    identifiers: ['OPENED', 'CLOSED', 'DONE', 'CANCELED'],
+    name: "Status",
+    identifiers: ["OPENED", "CLOSED", "DONE", "CANCELED"],
 });
 
 const Issue = Class.create({
-    name: 'Issue',
+    name: "Issue",
     fields: {
         status: {
-            type: Status
-        }
-    }
+            type: Status,
+        },
+    },
 });
 
 Status.getValues(); // [0, 1, 2, 3]
@@ -168,13 +168,13 @@ interface StatusBisInterface {
 }
 
 const StatusBis = Enum.create<StatusBisInterface>({
-    name: 'Status',
+    name: "Status",
     identifiers: {
-        OPENED: 'OPENED',
-        CLOSED: 'CLOSED',
-        DONE: 'DONE',
-        CANCELED: 'CANCELED',
-    }
+        OPENED: "OPENED",
+        CLOSED: "CLOSED",
+        DONE: "DONE",
+        CANCELED: "CANCELED",
+    },
 });
 
 StatusBis.getValues(); // [5, 6, 15, 16]
@@ -184,16 +184,16 @@ const statusNumber = Status.OPENED;
 Status.getIdentifier(statusNumber); // "OPENED"
 
 // server.js
-Meteor.publish('posts', () => {
-    Post.find({}, {fields: {title: 1}});
+Meteor.publish("posts", () => {
+    Post.find({}, { fields: { title: 1 } });
 });
 
-Meteor.subscribe('posts');
-const post1 = Post.findOne({}, {defaults: false});
-post1.name = 'New name';
+Meteor.subscribe("posts");
+const post1 = Post.findOne({}, { defaults: false });
+post1.name = "New name";
 post1.getModifier(); // {$set: {name: 'New name'}} - it will not override tags
 post1.save();
 
 const user1 = User.findOne({}, {
-    disableEvents: true
+    disableEvents: true,
 });

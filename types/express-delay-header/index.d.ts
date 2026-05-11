@@ -1,8 +1,4 @@
-// Type definitions for express-delay-header 1.0
-// Project: https://github.com/guisehn/express-delay-header#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-import { NextFunction } from 'express-serve-static-core';
+import { NextFunction } from "express-serve-static-core";
 
 /**
  * Simulates latency on express requests when header is provided

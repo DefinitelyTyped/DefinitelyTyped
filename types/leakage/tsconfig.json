@@ -1,17 +1,13 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "node16",
         "lib": [
             "es6"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "baseUrl": "../",
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
@@ -21,4 +17,3 @@
         "leakage-tests.ts"
     ]
 }
-

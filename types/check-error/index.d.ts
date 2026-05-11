@@ -1,17 +1,11 @@
-// Type definitions for check-error 1.0
-// Project: https://github.com/chaijs/check-error#readme
-// Definitions by: Porama Ignoi Ruengrairatanaroj <https://github.com/Seally>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 export type ErrorInstanceOrConstructor =
     | Error
     | {
-          new (...args: any[]): Error;
-      }
+        new(...args: any[]): Error;
+    }
     | {
-          (...args: any[]): Error;
-      };
+        (...args: any[]): Error;
+    };
 
 /**
  * Checks if two instances are compatible (strict equal).

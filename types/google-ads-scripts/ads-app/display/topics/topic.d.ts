@@ -77,11 +77,13 @@ declare namespace GoogleAdsScripts {
          *     }
          */
         interface TopicSelector
-            extends Base.Selector<TopicIterator>,
+            extends
+                Base.Selector<TopicIterator>,
                 Base.SelectorForDateRange,
                 Base.SelectorOrderBy,
                 Base.SelectorWithCondition,
                 Base.SelectorWithIds,
-                Base.SelectorWithLimit {}
+                Base.SelectorWithLimit
+        {}
     }
 }

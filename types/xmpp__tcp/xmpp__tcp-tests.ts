@@ -1,13 +1,9 @@
-import Connection = require('@xmpp/connection');
-import ConnectionConnTCP = require('@xmpp/connection-tcp');
-import tcp = require('@xmpp/tcp');
-import ConnectionTCP = require('@xmpp/tcp/lib/Connection');
+import Connection from "@xmpp/connection";
+import ConnectionConnTCP from "@xmpp/connection-tcp";
+import tcp from "@xmpp/tcp";
+import ConnectionTCP from "@xmpp/tcp/lib/Connection.js";
 
-// test type exports
-type Entity = tcp.Entity;
-type Conn = ConnectionTCP;
-
-const conn = new ConnectionTCP({ domain: 'foo', service: 'bar' });
+const conn = new ConnectionTCP({ domain: "foo", service: "bar" });
 const connTcp: ConnectionConnTCP = conn;
 
 const entity = {

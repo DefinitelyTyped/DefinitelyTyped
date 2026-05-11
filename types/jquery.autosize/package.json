@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/jquery.autosize",
+    "version": "3.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jquery.autosize",
+    "projects": [
+        "http://www.jacklmoore.com/autosize/"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/jquery.autosize": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Aaron T. King",
+            "githubUsername": "kingdango"
+        }
+    ]
+}

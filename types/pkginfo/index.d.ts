@@ -1,8 +1,3 @@
-// Type definitions for pkginfo 0.4
-// Project: https://github.com/indexzero/node-pkginfo
-// Definitions by: David Tanner <https://github.com/DavidTanner>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 declare namespace PkgInfo {
@@ -17,7 +12,7 @@ declare namespace PkgInfo {
     }
 
     interface PkgInfo {
-        (pmodule: NodeModule, options?: Options | string[] | string, ...properties: string[]): PkgInfo;
+        (pmodule: NodeJS.Module, options?: Options | string[] | string, ...properties: string[]): PkgInfo;
 
         //
         // ### function find (dir)
@@ -27,17 +22,17 @@ declare namespace PkgInfo {
         // which contains a `package.json` file.
         //
         read(
-          pmodule: NodeModule,
-          dir?: string
+            pmodule: NodeJS.Module,
+            dir?: string,
         ): FindResults;
 
         find(
-          pmodule: NodeModule,
-          dir?: string
+            pmodule: NodeJS.Module,
+            dir?: string,
         ): Record<string, any>;
     }
 }
 
-declare const pkgInfo: PkgInfo.PkgInfo & { version: string; };
+declare const pkgInfo: PkgInfo.PkgInfo & { version: string };
 
 export = pkgInfo;

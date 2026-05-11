@@ -1,2 +1,2 @@
-import InLeapYear = require('../5/InLeapYear');
+import InLeapYear = require("../5/InLeapYear");
 export = InLeapYear;

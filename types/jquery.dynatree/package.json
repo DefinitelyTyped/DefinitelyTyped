@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/jquery.dynatree",
+    "version": "1.2.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jquery.dynatree",
+    "projects": [
+        "http://code.google.com/p/dynatree/"
+    ],
+    "dependencies": {
+        "@types/jquery": "*",
+        "@types/jqueryui": "*"
+    },
+    "devDependencies": {
+        "@types/jquery.dynatree": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "François de Campredon",
+            "githubUsername": "fdecampredon"
+        }
+    ]
+}

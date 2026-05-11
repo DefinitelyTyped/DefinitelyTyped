@@ -1,8 +1,3 @@
-// Type definitions for globrex 0.1
-// Project: https://github.com/terkelg/globrex#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Transform globs into regular expressions.
  * {@link: https://github.com/terkelg/globrex#api}

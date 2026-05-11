@@ -7,7 +7,7 @@
 export function validateAndSerializeToJsonBytes(o: unknown): Buffer;
 
 interface FromMap<T> {
-  fromMap(m: any): T;
+    fromMap(m: any): T;
 }
 
 /**

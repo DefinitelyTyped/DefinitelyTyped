@@ -1,5 +1,5 @@
-import * as React from 'react';
-import RelativePortal = require('react-relative-portal');
+import React from "react";
+import RelativePortal = require("react-relative-portal");
 
 <React.Fragment>
     <RelativePortal component="div">

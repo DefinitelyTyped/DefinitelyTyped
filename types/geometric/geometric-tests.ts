@@ -1,5 +1,5 @@
-import geometric = require('geometric');
-import { Line, LineInterpolator, Point, Polygon, PolygonInterpolator } from 'geometric';
+import geometric = require("geometric");
+import { Line, LineInterpolator, Point, Polygon, PolygonInterpolator } from "geometric";
 
 const polygon: Polygon = [
     [0, 0],
@@ -72,7 +72,7 @@ const t49: Polygon = geometric.polygonReflectY(polygon, 0.5);
 const t50: Polygon = geometric.polygonScaleArea(polygon, 1.5);
 const t51: Polygon = geometric.polygonScaleArea(polygon, 1.5, point);
 const t52: Polygon = geometric.polygonWind(polygon);
-const t53: Polygon = geometric.polygonWind(polygon, 'cw');
+const t53: Polygon = geometric.polygonWind(polygon, "cw");
 const t54: boolean = geometric.pointOnLine(point, line, epsilon);
 const t55: boolean = geometric.pointOnPolygon(point, polygon, epsilon);
 const t56: boolean = geometric.pointWithLine(point, line, epsilon);

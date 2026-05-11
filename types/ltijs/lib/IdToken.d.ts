@@ -1,4 +1,4 @@
-import { PlatformInfo } from './Utils/Platform';
+import { PlatformInfo } from "./Utils/Platform";
 
 export interface UserInfo {
     given_name: string;

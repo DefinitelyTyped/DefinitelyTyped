@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/flowjs__flow.js",
+    "version": "2.13.9999",
+    "projects": [
+        "https://github.com/flowjs/flow.js"
+    ],
+    "dependencies": {
+        "@types/flowjs": "*"
+    },
+    "devDependencies": {
+        "@types/flowjs__flow.js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "gentoo90",
+            "githubUsername": "gentoo90"
+        }
+    ]
+}

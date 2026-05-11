@@ -1,28 +1,25 @@
-import {Path} from "pathjs";
+import { Path } from "pathjs";
 
 Path.map("/test/:id")
-.to(()=>{ });
+    .to(() => {});
 
 Path.listen();
 
-//History
-Path.history.listen(() =>{
-    
+// History
+Path.history.listen(() => {
 });
 
 var initial = Path.history.initial;
 
-//Core
+// Core
 var route = new Path.core.route("/test/:id");
 
 function test1() {
-    
 }
 
 route.enter(test1);
 
 function test2() {
-    
 }
 
 var funs = new Array<Function>();

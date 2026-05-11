@@ -1,14 +1,9 @@
-// Type definitions for authenticator 1.1
-// Project: https://git.coolaj86.com/coolaj86/node-authenticator.js#readme
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Object returned by `verifyToken()`.
  * delta: number
  */
 export interface VerifyResult {
-  delta: number;
+    delta: number;
 }
 
 /**
@@ -36,12 +31,14 @@ export function generateToken(formattedKey: string): string;
  * how long of a one-time passcode to display to the user.
  * @param period The amount of time the TOTP code will be valid for, in seconds.
  */
-export function generateTotpUri(formattedKey: string,
-                                accountName: string,
-                                issuer: string,
-                                algorithm: string,
-                                digits: number,
-                                period: number): string;
+export function generateTotpUri(
+    formattedKey: string,
+    accountName: string,
+    issuer: string,
+    algorithm: string,
+    digits: number,
+    period: number,
+): string;
 
 /**
  * Validates a time-based token within a +/- 30 second (90 seconds) window
@@ -49,5 +46,4 @@ export function generateTotpUri(formattedKey: string,
  * @param formattedKey 32-character (160-bit) base32 key.
  * @param formattedToken 6-digit (20-bit) decimal time-based token.
  */
-export function verifyToken(formattedKey: string,
-                            formattedToken: string): VerifyResult | null;
+export function verifyToken(formattedKey: string, formattedToken: string): VerifyResult | null;

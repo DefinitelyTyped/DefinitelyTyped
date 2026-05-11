@@ -1,2 +1,2 @@
-import { nAry } from '../index';
+import { nAry } from "../index";
 export default nAry;

@@ -1,13 +1,13 @@
-import { blacklisted, addWords, removeWord, clearList } from 'wordfilter';
+import { addWords, blacklisted, clearList, removeWord } from "wordfilter";
 
 // $ExpectType boolean
-blacklisted('this is some kind of string');
+blacklisted("this is some kind of string");
 
-addWords('foo');
-addWords(['bar', 'baz']);
+addWords("foo");
+addWords(["bar", "baz"]);
 // @ts-expect-error
 addWords(3);
 
-removeWord('foo');
+removeWord("foo");
 
 clearList();

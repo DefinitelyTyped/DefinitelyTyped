@@ -1,11 +1,3 @@
-// Type definitions for js-yaml 3.12
-// Project: https://github.com/nodeca/js-yaml
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds>
-//                 Sebastian Clausen <https://github.com/sclausen>
-//                 ExE Boss <https://github.com/ExE-Boss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 export as namespace jsyaml;
 
 export function safeLoad(str: string, opts?: LoadOptions): string | object | undefined;
@@ -13,7 +5,7 @@ export function load(str: string, opts?: LoadOptions): any;
 
 export class Type {
     constructor(tag: string, opts?: TypeConstructorOptions);
-    kind: 'sequence' | 'scalar' | 'mapping' | null;
+    kind: "sequence" | "scalar" | "mapping" | null;
     resolve(data: any): boolean;
     construct(data: any): any;
     instanceOf: object | null;
@@ -52,7 +44,7 @@ export interface LoadOptions {
     listener?(this: State, eventType: EventType, state: State): void;
 }
 
-export type EventType = 'open' | 'close';
+export type EventType = "open" | "close";
 
 export interface State {
     input: string;
@@ -101,7 +93,7 @@ export interface DumpOptions {
 }
 
 export interface TypeConstructorOptions {
-    kind?: 'sequence' | 'scalar' | 'mapping' | undefined;
+    kind?: "sequence" | "scalar" | "mapping" | undefined;
     resolve?: ((data: any) => boolean) | undefined;
     construct?: ((data: any) => any) | undefined;
     instanceOf?: object | undefined;

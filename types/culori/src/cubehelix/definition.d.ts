@@ -1,16 +1,16 @@
-import { fixupHueShorter } from '../fixup/hue';
-import { fixupAlpha } from '../fixup/alpha';
-import { interpolatorLinear } from '../interpolate/linear';
-import convertRgbToCubehelix from './convertRgbToCubehelix';
-import convertCubehelixToRgb from './convertCubehelixToRgb';
-import { differenceHueSaturation } from '../difference';
-import { averageAngle } from '../average';
+import { averageAngle } from "../average.js";
+import { differenceHueSaturation } from "../difference.js";
+import { fixupAlpha } from "../fixup/alpha.js";
+import { fixupHueShorter } from "../fixup/hue.js";
+import { interpolatorLinear } from "../interpolate/linear.js";
+import convertCubehelixToRgb from "./convertCubehelixToRgb.js";
+import convertRgbToCubehelix from "./convertRgbToCubehelix.js";
 
-declare const definition: {
-    mode: 'cubehelix';
-    channels: ['h', 's', 'l', 'alpha'];
-    parse: ['--cubehelix'];
-    serialize: '--cubehelix';
+declare const modeCubehelix: {
+    mode: "cubehelix";
+    channels: ["h", "s", "l", "alpha"];
+    parse: ["--cubehelix"];
+    serialize: "--cubehelix";
 
     ranges: {
         h: [0, 360];
@@ -48,4 +48,4 @@ declare const definition: {
     };
 };
 
-export default definition;
+export default modeCubehelix;

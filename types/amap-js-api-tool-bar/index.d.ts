@@ -1,23 +1,17 @@
-// Type definitions for non-npm package amap-js-api-tool-bar 1.4
-// Project: https://lbs.amap.com/api/javascript-api/reference/map-control#AMap.ToolBar
-// Definitions by: breeze9527 <https://github.com/breeze9527>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="amap-js-api" />
 
 declare namespace AMap {
     namespace ToolBar {
         interface EventMap {
-            hide: Event<'hide'>;
-            show: Event<'show'>;
-            location: Event<'location', {lnglat: LngLat}>;
-            zoomchanged: Event<'zoomin' | 'zoomout'>;
+            hide: Event<"hide">;
+            show: Event<"show">;
+            location: Event<"location", { lnglat: LngLat }>;
+            zoomchanged: Event<"zoomin" | "zoomout">;
             // internal
-            'location-success': Event<'location-success'>; // TODO geolocation.getCurrentPosition
-            'location-failed': Event<'location-failed'>; // TODO geolocation.getCurrentPosition
+            "location-success": Event<"location-success">; // TODO geolocation.getCurrentPosition
+            "location-failed": Event<"location-failed">; // TODO geolocation.getCurrentPosition
         }
-        type Position = 'LT' | 'RT' | 'LB' | 'RB';
+        type Position = "LT" | "RT" | "LB" | "RB";
         interface Options {
             /**
              * 相对于地图容器左上角的偏移量

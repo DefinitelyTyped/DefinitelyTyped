@@ -1,8 +1,3 @@
-// Type definitions for react-native-torch 1.1
-// Project: https://github.com/ludo/react-native-torch#readme
-// Definitions by: Ben Lorantfy <https://github.com/BenLorantfy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare const Torch: {
     /**
      * Used to turn on or off the torch. Pass `true` to turn on and `false` to

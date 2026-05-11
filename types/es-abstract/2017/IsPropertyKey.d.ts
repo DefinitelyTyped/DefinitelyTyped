@@ -1,2 +1,2 @@
-import IsPropertyKey = require('../2016/IsPropertyKey');
+import IsPropertyKey = require("../2016/IsPropertyKey");
 export = IsPropertyKey;

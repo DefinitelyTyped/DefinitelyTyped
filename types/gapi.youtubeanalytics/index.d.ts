@@ -1,15 +1,7 @@
-// Type definitions for YouTube Analytics API
-// Project: https://developers.google.com/youtube/analytics/
-// Definitions by: Frank M <https://github.com/sgtfrankieboy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="gapi" />
 
 declare namespace gapi.client.youtubeAnalytics {
-
     export interface reports {
-
         /**
          * Retrieve your YouTube Analytics reports.
          */
@@ -21,11 +13,11 @@ declare namespace gapi.client.youtubeAnalytics {
             /**
              * The start date for fetching YouTube Analytics data. The value should be in YYYY-MM-DD format.
              */
-            'start-date': string;
+            "start-date": string;
             /**
              * The end date for fetching YouTube Analytics data. The value should be in YYYY-MM-DD format.
              */
-            'end-date': string;
+            "end-date": string;
             /**
              * A comma-separated list of YouTube Analytics metrics, such as views or likes,dislikes.
              */
@@ -41,7 +33,7 @@ declare namespace gapi.client.youtubeAnalytics {
             /**
              * The maximum number of rows to include in the response.
              */
-            'max-results'?: number | undefined;
+            "max-results"?: number | undefined;
             /**
              * A comma-separated list of dimensions or metrics that determine the sort order for YouTube Analytics data. By default the sort order is ascending. The '-' prefix causes descending sort order.
              */
@@ -49,13 +41,11 @@ declare namespace gapi.client.youtubeAnalytics {
             /**
              * An index of the first entity to retrieve. Use this parameter as a pagination mechanism along with the max-results parameter (one-based, inclusive).
              */
-            'start-index'?: number | undefined;
+            "start-index"?: number | undefined;
             /**
              * Selector specifying which fields to include in a partial response.
              */
             fields?: string | undefined;
-        }): HttpRequest<any>
-
+        }): HttpRequest<any>;
     }
-
 }

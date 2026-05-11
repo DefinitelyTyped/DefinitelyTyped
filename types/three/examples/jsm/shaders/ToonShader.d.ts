@@ -1,4 +1,4 @@
-import { IUniform } from '../../../src/Three';
+import { IUniform } from "three";
 
 export const ToonShader1: {
     uniforms: {

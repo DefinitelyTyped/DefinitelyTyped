@@ -1,13 +1,13 @@
-import { Address } from './address';
-import { FulfillmentStatus, PaymentStatus } from './checkout-capture-response';
-import { Currency } from './currency';
-import { Customer } from './customer';
-import { OrderConditionals } from './order-conditionals';
-import { OrderCollected } from './order-collected';
-import { OrderLineItem } from './order-line-item';
-import { OrderTax } from './order-tax';
-import { Price } from './price';
-import { Discount } from './discount';
+import { Address } from "./address";
+import { FulfillmentStatus, PaymentStatus } from "./checkout-capture-response";
+import { Currency } from "./currency";
+import { Customer } from "./customer";
+import { Discount } from "./discount";
+import { OrderCollected } from "./order-collected";
+import { OrderConditionals } from "./order-conditionals";
+import { OrderLineItem } from "./order-line-item";
+import { OrderTax } from "./order-tax";
+import { Price } from "./price";
 
 export interface Order {
     version: string;
@@ -52,7 +52,7 @@ export interface Order {
         };
         shipping: any;
         line_items: OrderLineItem[];
-        discount: Omit<Discount, 'valid'> | [];
+        discount: Omit<Discount, "valid"> | [];
         giftcard: any;
     };
     shipping: Address;

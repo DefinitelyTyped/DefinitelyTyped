@@ -11,17 +11,17 @@ const chart = AmCharts.makeChart("chartdiv", {
     type: "gauge",
     arrows: [
         {
-            value: 130
-        }
+            value: 130,
+        },
     ],
     titles: [
         {
             text: "Speedometer",
-            size: 15
-        }
+            size: 15,
+        },
     ],
     export: {
-        enabled: true
+        enabled: true,
     },
     axes: [
         {
@@ -32,22 +32,22 @@ const chart = AmCharts.makeChart("chartdiv", {
                 {
                     color: "#00CC00",
                     endValue: 90,
-                    startValue: 0
+                    startValue: 0,
                 },
                 {
                     color: "#ffac29",
                     endValue: 130,
-                    startValue: 90
+                    startValue: 90,
                 },
                 {
                     color: "#ea3838",
                     endValue: 220,
                     startValue: 130,
-                    innerRadius: "95%"
-                }
-            ]
-        }
-    ]
+                    innerRadius: "95%",
+                },
+            ],
+        },
+    ],
 });
 
 chart.export.capture(null, () => {

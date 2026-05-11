@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
-        "target": "es5",
+        "module": "node16",
+        "target": "es6",
         "lib": [
             "es6",
             "dom"
@@ -11,15 +11,6 @@
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "experimentalDecorators": true,
-        "baseUrl": "../../",
-        "typeRoots": [
-            "../../"
-        ],
-        "paths": {
-            "@ember/object": ["ember__object/v3"],
-            "@ember/object/*": ["ember__object/v3/*"],
-            "@ember/service": ["ember__service/v3"]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

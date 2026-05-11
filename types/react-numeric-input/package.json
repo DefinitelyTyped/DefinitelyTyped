@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/react-numeric-input",
+    "version": "2.2.9999",
+    "projects": [
+        "https://github.com/vlad-ignatov/react-numeric-input#readme"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-numeric-input": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Heather Booker",
+            "githubUsername": "heatherbooker"
+        },
+        {
+            "name": "Aarni Koskela",
+            "githubUsername": "akx"
+        }
+    ]
+}

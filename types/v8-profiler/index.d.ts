@@ -1,8 +1,3 @@
-// Type definitions for v8-profiler
-// Project: https://github.com/node-inspector/v8-profiler
-// Definitions by: York Yao <https://github.com/plantain-00/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /* =================== USAGE ===================
     import * as profiler from "v8-profiler";
     profiler.startProfiling();
@@ -92,7 +87,7 @@ declare module "v8-profiler" {
              * callback(error, data) receives serialized profile as second argument. (Serialization is equal to JSON.stringify result).
              */
             export(): fs.ReadStream;
-        }
+        };
     }
 
     var V8Profiler: V8Profiler.Profiler;

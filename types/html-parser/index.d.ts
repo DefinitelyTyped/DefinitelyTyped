@@ -1,12 +1,5 @@
-// Type definitions for html-parser 0.11
-// Project: https://www.npmjs.com/package/html-parser
-// Definitions by: Vladimir Grenaderov https://github.com/VladimirGrenaderov,
-//                 Max Boguslavskiy <https://github.com/maxbogus>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 export type Callback = (arg: any) => any;
-export type Token = '>' | '/>' | '?>';
+export type Token = ">" | "/>" | "?>";
 
 export interface CallbacksOption {
     attribute?(name: string, value: any): void;
@@ -34,6 +27,11 @@ export interface RemovalCallback {
 
 export function parse(htmlString: string, callbacks?: CallbacksOption, regex?: RegExpOptions): void;
 
-export function parseFile(fileName: string, encoding: string | undefined, callbacks: CallbacksOption, callback: Callback): void;
+export function parseFile(
+    fileName: string,
+    encoding: string | undefined,
+    callbacks: CallbacksOption,
+    callback: Callback,
+): void;
 
 export function sanitize(htmlString: string, removalCallbacks?: RemovalCallback): string;

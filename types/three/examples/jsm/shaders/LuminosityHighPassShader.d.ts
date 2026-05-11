@@ -1,6 +1,7 @@
-import { IUniform } from '../../../src/Three';
+import { IUniform } from "three";
 
 export const LuminosityHighPassShader: {
+    name: string;
     shaderID: string;
     uniforms: {
         tDiffuse: IUniform;

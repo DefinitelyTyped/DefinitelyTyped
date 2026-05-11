@@ -1,6 +1,20 @@
 {
     "private": true,
+    "name": "@types/lost",
+    "version": "9.0.9999",
+    "projects": [
+        "https://github.com/peterramsing/lost"
+    ],
     "dependencies": {
         "postcss": "^8.1.4"
-    }
+    },
+    "devDependencies": {
+        "@types/lost": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Adam Thompson-Sharpe",
+            "githubUsername": "MysteryBlokHed"
+        }
+    ]
 }

@@ -1,9 +1,3 @@
-// Type definitions for jsonpointer 4.0
-// Project: https://github.com/janl/node-jsonpointer#readme
-// Definitions by: Wessel Kuipers <https://github.com/WesselKuipers>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 export interface JSONPointer {
     /**
      * Looks up a JSON pointer in an object

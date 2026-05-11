@@ -1,10 +1,3 @@
-// Type definitions for netmask 2.0
-// Project: https://github.com/rs/node-netmask
-// Definitions by: Matt Frantz <https://github.com/mhfrantz>
-//                 JanST123 <https://github.com/JanST123>
-//                 Junxiao Shi <https://github.com/yoursunny>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * converts long to an ip address
  */
@@ -34,7 +27,7 @@ export class Netmask {
     /**
      * The blocks broadcast address (eg: 192.168.1.0/24 => 192.168.1.255)
      */
-    broadcast: string;
+    broadcast: string | undefined;
     /**
      * The number of IP addresses in a block (eg: 256).
      */
@@ -71,7 +64,6 @@ export class Netmask {
     toString(): string;
 
     /**
-     *
      * @param net A network - e.g 216.240.32.0/24
      * @param mask - optional netmask if not provided in `net`
      */

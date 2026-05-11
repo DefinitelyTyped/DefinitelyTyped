@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/jquery-urlparam",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jquery-urlparam",
+    "projects": [
+        "https://gist.github.com/stpettersens/e1f4478f299b6f4905c1"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/jquery-urlparam": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sam Saint-Pettersen",
+            "githubUsername": "stpettersens"
+        }
+    ]
+}

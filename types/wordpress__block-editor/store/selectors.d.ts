@@ -1,6 +1,6 @@
-import { BlockInstance } from '@wordpress/blocks';
+import { Block } from "@wordpress/blocks";
 
-import { EditorBlockListSettings, EditorBlockMode, EditorInserterItem, EditorSelection, EditorSettings } from '../';
+import { EditorBlockListSettings, EditorBlockMode, EditorInserterItem, EditorSelection, EditorSettings } from "../";
 
 /**
  * Determines if the given block type is allowed to be inserted into the block list.
@@ -33,7 +33,7 @@ export function getAdjacentBlockClientId(startClientId?: string, modifier?: 1 | 
  *
  * @returns Parsed block object.
  */
-export function getBlock(clientId: string): BlockInstance | null;
+export function getBlock(clientId: string): Block | null;
 
 /**
  * Returns a block's attributes given its client ID, or null if no block exists with the client ID.
@@ -119,6 +119,31 @@ export function getBlockName(clientId: string): string | null;
 export function getBlockOrder(rootClientId?: string): string[];
 
 /**
+ * Returns a block's parents' client IDs given its client ID
+ *
+ * @param clientId - Block client ID.
+ * @param ascending - If true, the client ids will be returned from closest to farthest instead of the default of farthest to closest
+ *
+ * @returns The client IDs of all parent blocks
+ */
+export function getBlockParents(clientId: string, ascending?: boolean): string[];
+
+/**
+ * Returns a block's parents' client IDs given its client ID pre-filtered to only include blocks with the passed blockNames
+ *
+ * @param clientId - Block client ID.
+ * @param blockName - the name or names of the block types to which the parents list should be filtered
+ * @param ascending - If true, the client ids will be returned from closest to farthest instead of the default of farthest to closest
+ *
+ * @returns The client IDs of all parent blocks filtered by the passed block name or names
+ */
+export function getBlockParentsByBlockName(
+    clientId: string,
+    blockName: string | string[],
+    ascending?: boolean,
+): string[];
+
+/**
  * Given a block client ID, returns the root block from which the block is nested, an empty string
  * for top-level blocks, or `null` if the block does not exist.
  *
@@ -157,14 +182,23 @@ export function getBlockSelectionStart(): string | undefined;
  *
  * @returns Post blocks.
  */
-export function getBlocks(rootClientId?: string): BlockInstance[];
+export function getBlocks(rootClientId?: string): Block[];
 
 /**
  * Given an array of block client IDs, returns the corresponding array of block objects or `null`.
  *
  * @param clientIds - Client IDs for which blocks are to be returned.
  */
-export function getBlocksByClientId(clientIds: string | string[]): Array<BlockInstance | null>;
+export function getBlocksByClientId(clientIds: string | string[]): Array<Block | null>;
+
+/**
+ * Returns all blocks that match a blockName. Results include nested blocks.
+ *
+ * @param blockName - Block name(s) for which clientIds are to be returned.
+ *
+ * @returns Array of clientIds of blocks with name equal to blockName.
+ */
+export function getBlocksByName(blockName: string | string[]): string[];
 
 /**
  * Returns an array containing the clientIds of all descendants of the blocks given.
@@ -250,7 +284,7 @@ export function getMultiSelectedBlockClientIds(): string[];
  *
  * @returns Multi-selected block objects.
  */
-export function getMultiSelectedBlocks(): BlockInstance[];
+export function getMultiSelectedBlocks(): Block[];
 
 /**
  * Returns the client ID of the block which ends the multi-selection set, or `null` if there is no
@@ -301,7 +335,7 @@ export function getPreviousBlockClientId(startClientId?: string): string | null;
  *
  * @returns Selected block.
  */
-export function getSelectedBlock(): BlockInstance | null;
+export function getSelectedBlock(): Block | null;
 
 /**
  * Returns the currently selected block client ID, or `null` if there is no selected block.

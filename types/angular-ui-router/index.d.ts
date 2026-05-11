@@ -1,12 +1,4 @@
-// Type definitions for Angular JS (ui.router module) 1.1.38
-// Project: https://github.com/angular-ui/ui-router
-// Definitions by: Michel Salib <https://github.com/michelsalib>
-//                 Ivan Matiishyn <https://github.com/matiishyn>
-//                 Mike Haas <https://github.com/mikehaas763>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-import * as angular from 'angular';
+import * as angular from "angular";
 
 declare const exportedString: "ui.router";
 export default exportedString;
@@ -24,7 +16,7 @@ export type IUrlRouterService = angular.ui.IUrlRouterService;
 export type IUiViewScrollProvider = angular.ui.IUiViewScrollProvider;
 export type IType = angular.ui.IType;
 
-declare module 'angular' {
+declare module "angular" {
     export namespace ui {
         interface IState {
             name?: string | undefined;
@@ -58,7 +50,6 @@ declare module 'angular' {
              * Specifies the parent state of this state
              */
             parent?: string | IState | undefined;
-
 
             resolve?: { [name: string]: any } | undefined;
             /**
@@ -104,13 +95,12 @@ declare module 'angular' {
              * Synchronously or asynchronously redirects Transitions to a different state/params
              */
             redirectTo?: string | Function | IState | undefined;
-
         }
 
         interface IUnfoundState {
-            to: string,
-            toParams: {},
-            options: IStateOptions
+            to: string;
+            toParams: {};
+            options: IStateOptions;
         }
 
         interface IStateProvider extends angular.IServiceProvider {
@@ -236,7 +226,7 @@ declare module 'angular' {
              */
             notify?: boolean | undefined;
             /**
-         * {boolean=false|string|IState}, If true will force transition even if the state or params have not changed, aka a reload of the same state. It differs from reloadOnSearch because you'd use this when you want to force a reload when everything is the same, including search params.
+             * {boolean=false|string|IState}, If true will force transition even if the state or params have not changed, aka a reload of the same state. It differs from reloadOnSearch because you'd use this when you want to force a reload when everything is the same, including search params.
              */
             reload?: boolean | string | IState | undefined;
         }
@@ -294,7 +284,7 @@ declare module 'angular' {
                 /**
                  * Currently resolved "resolve" values from the current state
                  */
-                globals: { [key: string]: any; };
+                globals: { [key: string]: any };
             };
         }
 
@@ -311,7 +301,6 @@ declare module 'angular' {
              * $locationChangeSuccess event, perform some custom logic (route protection,
              * auth, config, redirection, etc) and then finally proceed with the transition
              * by calling $urlRouter.sync().
-             *
              */
             sync(): void;
             listen(): Function;
@@ -371,5 +360,4 @@ declare module 'angular' {
             pattern?: RegExp | undefined;
         }
     }
-
 }

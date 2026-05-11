@@ -1,6 +1,5 @@
-
 namespace nvd3_test_lineChartSVGResize {
-    nv.addGraph(function () {
+    nv.addGraph(function() {
         var chart = nv.models.lineChart();
         var fitScreen = false;
         var width = 600;
@@ -9,20 +8,20 @@ namespace nvd3_test_lineChartSVGResize {
 
         chart.useInteractiveGuideline(true);
         chart.xAxis
-            .tickFormat(d3.format(',r'));
+            .tickFormat(d3.format(",r"));
 
-        chart.lines.dispatch.on("elementClick", function (evt) {
+        chart.lines.dispatch.on("elementClick", function(evt) {
             console.log(evt);
         });
 
         chart.yAxis
-            .axisLabel('Voltage (v)')
-            .tickFormat(d3.format(',.2f'));
+            .axisLabel("Voltage (v)")
+            .tickFormat(d3.format(",.2f"));
 
-        d3.select('#chart1 svg')
-            .attr('perserveAspectRatio', 'xMinYMid')
-            .attr('width', width)
-            .attr('height', height)
+        d3.select("#chart1 svg")
+            .attr("perserveAspectRatio", "xMinYMid")
+            .attr("width", width)
+            .attr("height", height)
             .datum(sinAndCos());
 
         setChartViewBox();
@@ -30,9 +29,8 @@ namespace nvd3_test_lineChartSVGResize {
 
         nv.utils.windowResize(resizeChart);
 
-        d3.select('#zoomIn').on('click', zoomIn);
-        d3.select('#zoomOut').on('click', zoomOut);
-
+        d3.select("#zoomIn").on("click", zoomIn);
+        d3.select("#zoomOut").on("click", zoomOut);
 
         function setChartViewBox() {
             var w = width * zoom,
@@ -42,8 +40,8 @@ namespace nvd3_test_lineChartSVGResize {
                 .width(w)
                 .height(h);
 
-            d3.select('#chart1 svg')
-                .attr('viewBox', '0 0 ' + w + ' ' + h)
+            d3.select("#chart1 svg")
+                .attr("viewBox", "0 0 " + w + " " + h)
                 .transition().duration(500)
                 .call(chart);
         }
@@ -63,8 +61,8 @@ namespace nvd3_test_lineChartSVGResize {
         // Resizing because of the viewbox and perserveAspectRatio settings
         // This scales the interior of the chart unlike the above
         function resizeChart() {
-            var container = d3.select('#chart1');
-            var svg = container.select('svg');
+            var container = d3.select("#chart1");
+            var svg = container.select("svg");
 
             if (fitScreen) {
                 // resize based on container's width AND HEIGHT
@@ -74,7 +72,7 @@ namespace nvd3_test_lineChartSVGResize {
             } else {
                 // resize based on container's width
                 var aspect = chart.width() / chart.height();
-                var targetWidth = parseInt(container.style('width'));
+                var targetWidth = parseInt(container.style("width"));
                 svg.attr("width", targetWidth);
                 svg.attr("height", Math.round(targetWidth / aspect));
             }
@@ -94,15 +92,13 @@ namespace nvd3_test_lineChartSVGResize {
             {
                 values: sin,
                 key: "Sine Wave",
-                color: "#ff7f0e"
+                color: "#ff7f0e",
             },
             {
                 values: cos,
                 key: "Cosine Wave",
-                color: "#2ca02c"
-            }
+                color: "#2ca02c",
+            },
         ];
     }
-
-
 }

@@ -1,5 +1,9 @@
 {
     "rules": {
-        "prefer-declare-function": "off"
+        "@definitelytyped/prefer-declare-function": "off",
+        "@definitelytyped/strict-export-declare-modifiers": "off",
+        "@typescript-eslint/triple-slash-reference": "off",
+        "@definitelytyped/no-duplicate-imports": "off",
+        "@typescript-eslint/no-empty-interface": "off"
     }
 }

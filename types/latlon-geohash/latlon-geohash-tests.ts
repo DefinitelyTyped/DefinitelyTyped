@@ -11,7 +11,7 @@ const atx_latlong: Geohash.Point = Geohash.decode(atx_geohash);
 const atx_bounds: Geohash.Bounds = Geohash.bounds(atx_geohash);
 
 // Adjacent
-const atx_adj_cell1: string = Geohash.adjacent(atx_geohash, Geohash.Direction.North);
+const atx_adj_cell1: string = Geohash.adjacent(atx_geohash, "n");
 const atx_adj_cell2: string = Geohash.adjacent(atx_geohash, "N");
 
 // Neighbors

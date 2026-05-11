@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/node-snap7",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/mathiask88/node-snap7"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/node-snap7": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Heilingbrunner",
+            "githubUsername": "heilingbrunner"
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/array-sort",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/jonschlinkert/array-sort"
+    ],
+    "devDependencies": {
+        "@types/array-sort": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Daniel Schmidt",
+            "githubUsername": "DanielMSchmidt"
+        }
+    ]
+}

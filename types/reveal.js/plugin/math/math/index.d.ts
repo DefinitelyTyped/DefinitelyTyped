@@ -1,4 +1,4 @@
-import Reveal = require('../../../.');
+import Reveal = require("../../../.");
 
 /**
  * Reveal plugin math

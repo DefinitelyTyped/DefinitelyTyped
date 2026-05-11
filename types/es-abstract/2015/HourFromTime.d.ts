@@ -1,2 +1,2 @@
-import HourFromTime = require('../5/HourFromTime');
+import HourFromTime = require("../5/HourFromTime");
 export = HourFromTime;

@@ -1,2 +1,2 @@
-import Reader from './Reader';
+import Reader from "./Reader";
 export default Reader;

@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/express-prometheus-middleware",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/joao-fontenele/express-prometheus-middleware#readme"
+    ],
+    "dependencies": {
+        "@types/express": "*"
+    },
+    "devDependencies": {
+        "@types/express-prometheus-middleware": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Floris de Bijl",
+            "githubUsername": "Fdebijl"
+        }
+    ]
+}

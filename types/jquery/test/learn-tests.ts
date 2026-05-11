@@ -24,7 +24,7 @@ function special() {
     function defineSpecialEvent() {
         jQuery.event.special.pushy = {
             bindType: "click",
-            delegateType: "click"
+            delegateType: "click",
         };
     }
 
@@ -42,16 +42,19 @@ function special() {
 
                 if (targetData.clicks % event.data.clicks === 0) {
                     event.type = handleObj.origType;
-                    ret = handleObj.handler.apply(this, arguments);
+                    ret = handleObj.handler.apply(
+                        this,
+                        arguments as unknown as [JQuery.TriggeredEvent, ...any[]],
+                    );
                     event.type = handleObj.type;
                     return ret;
                 }
-            }
+            },
         };
 
         // Sample usage
         $("p").on("multiclick", {
-            clicks: 3
+            clicks: 3,
         }, () => {
             alert("clicked 3 times");
         });

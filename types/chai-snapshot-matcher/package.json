@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/chai-snapshot-matcher",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/tlameiras/chai-snapshot#readme"
+    ],
+    "dependencies": {
+        "@types/chai": "*",
+        "@types/mocha": "*"
+    },
+    "devDependencies": {
+        "@types/chai-snapshot-matcher": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "tpluscode",
+            "githubUsername": "tpluscode"
+        }
+    ]
+}

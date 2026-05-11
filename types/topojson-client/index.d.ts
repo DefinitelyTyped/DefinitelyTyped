@@ -1,10 +1,3 @@
-// Type definitions for topojson-client 3.1
-// Project: https://github.com/topojson/topojson-client
-// Definitions by: denisname <https://github.com/denisname>
-//                 Ricardo Mello <https://github.com/ricmello>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.5
-
 import * as GeoJSON from "geojson";
 import {
     GeometryCollection,
@@ -16,9 +9,9 @@ import {
     Objects,
     Point,
     Polygon,
+    Properties,
     Topology,
     Transform,
-    Properties
 } from "topojson-specification";
 
 export type Transformer = (point: number[], index?: boolean) => number[];
@@ -56,9 +49,15 @@ export function feature<P extends Properties = GeoJSON.GeoJsonProperties>(
     object: GeometryObject<P> | string,
 ): GeoJSON.Feature<GeoJSON.GeometryObject, P> | GeoJSON.FeatureCollection<GeoJSON.GeometryObject, P>;
 
-export function merge(topology: Topology, objects: Array<Polygon | MultiPolygon>): GeoJSON.MultiPolygon;
+export function merge(
+    topology: Topology,
+    objects: GeometryCollection | Array<Polygon | MultiPolygon>,
+): GeoJSON.MultiPolygon;
 
-export function mergeArcs(topology: Topology, objects: Array<Polygon | MultiPolygon>): MultiPolygon;
+export function mergeArcs(
+    topology: Topology,
+    objects: GeometryCollection | Array<Polygon | MultiPolygon>,
+): MultiPolygon;
 
 export function mesh(
     topology: Topology,

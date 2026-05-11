@@ -7,9 +7,9 @@ type CellCls<T> =
 type SpanMethod<T> = (data: { row: T; rowIndex: number; column: TableColumnCtx<T>; columnIndex: number }) =>
     | number[]
     | {
-          rowspan: number;
-          colspan: number;
-      }
+        rowspan: number;
+        colspan: number;
+    }
     | undefined;
 
 type SummaryMethod<T> = (data: { columns: Array<TableColumnCtx<T>>; data: T[] }) => string[];
@@ -55,7 +55,7 @@ interface TableColumnCtx<T> {
     filterPlacement: string;
     filterMultiple: boolean;
     index: number | ((index: number) => number);
-    sortOrders: Array<'ascending' | 'descending' | null>;
+    sortOrders: Array<"ascending" | "descending" | null>;
     renderCell: (data: any) => void;
     colSpan: number;
     rowSpan: number;
@@ -71,7 +71,7 @@ interface TableColumnCtx<T> {
     filterOpened?: boolean;
 }
 
-type UploadStatus = 'ready' | 'uploading' | 'success' | 'fail';
+type UploadStatus = "ready" | "uploading" | "success" | "fail";
 interface UploadRawFile extends File {
     uid: number;
 }
@@ -85,7 +85,7 @@ interface UploadFile {
     url?: string;
     raw?: UploadRawFile;
 }
-type UploadUserFile = Omit<UploadFile, 'status' | 'uid'> & Partial<Pick<UploadFile, 'status' | 'uid'>>;
+type UploadUserFile = Omit<UploadFile, "status" | "uid"> & Partial<Pick<UploadFile, "status" | "uid">>;
 
 interface FormItemRule extends RuleItem {
     trigger?: string | string[];

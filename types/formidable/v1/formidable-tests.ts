@@ -1,14 +1,14 @@
 import formidable = require("formidable");
 import {
     defaultOptions,
-    plugins,
     File,
-    formidable as formidableAlias,
     Formidable,
+    formidable as formidableAlias,
     IncomingForm,
     MultipartParser,
     Options,
     PersistentFile,
+    plugins,
     VolatileFile,
 } from "formidable";
 import * as http from "http";

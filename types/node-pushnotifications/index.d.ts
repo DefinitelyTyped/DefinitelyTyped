@@ -1,23 +1,28 @@
-// Type definitions for node-pushnotifications 1.0
-// Project: https://github.com/appfeel/node-pushnotifications
-// Definitions by: Menushka Weeratunga <https://github.com/menushka>
-//                 Julian Hundeloh <https://github.com/jaulz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="node" />
 
-import * as webPush from 'web-push';
-
+import { Credential, ServiceAccount } from "firebase-admin/app";
+import * as webPush from "web-push";
 export = PushNotifications;
 
 declare class PushNotifications {
     constructor(settings: PushNotifications.Settings);
 
     setOptions(opts: PushNotifications.Settings): void;
-    sendWith(method: PushNotifications.PushMethod, regIds: string[], data: PushNotifications.Data, cb: PushNotifications.Callback): void;
-    send(registrationIds: PushNotifications.RegistrationId|PushNotifications.RegistrationId[], data: PushNotifications.Data, cb: PushNotifications.Callback): void;
-    send(registrationIds: PushNotifications.RegistrationId|PushNotifications.RegistrationId[], data: PushNotifications.Data): Promise<PushNotifications.Result[]>;
+    sendWith(
+        method: PushNotifications.PushMethod,
+        regIds: string[],
+        data: PushNotifications.Data,
+        cb: PushNotifications.Callback,
+    ): void;
+    send(
+        registrationIds: PushNotifications.RegistrationId | PushNotifications.RegistrationId[],
+        data: PushNotifications.Data,
+        cb: PushNotifications.Callback,
+    ): void;
+    send(
+        registrationIds: PushNotifications.RegistrationId | PushNotifications.RegistrationId[],
+        data: PushNotifications.Data,
+    ): Promise<PushNotifications.Result[]>;
 }
 
 declare namespace PushNotifications {
@@ -26,6 +31,13 @@ declare namespace PushNotifications {
         gcm?: {
             /** GCM or FCM token */
             id?: string | undefined;
+        } | undefined;
+        /** Firebase Cloud Messaging  */
+        fcm?: {
+            /** Firebase settings */
+            appName: string;
+            serviceAccountKey: ServiceAccount;
+            credential: Credential | null;
         } | undefined;
         /** Apple Push Notifications */
         apn?: {
@@ -105,10 +117,8 @@ declare namespace PushNotifications {
         isAlwaysUseFCM?: boolean | undefined;
     }
     interface Data {
-        /** REQUIRED */
-        title: string;
-        /** REQUIRED */
-        body: string;
+        title?: string;
+        body?: string;
         custom?: { [key: string]: string | number } | string | undefined;
         /**
          * gcm, apn. Supported values are 'high' or 'normal' (gcm). Will be translated to 10 and 5 for apn. Defaults
@@ -180,6 +190,7 @@ declare namespace PushNotifications {
         /** ADM */
         consolidationKey?: string | undefined;
     }
+    type MethodValue = "apn" | "gcm" | "fcm" | "adm" | "wns" | "webPush" | "unknown" | "none";
     interface Message {
         regId: string;
         originalRegId?: string | undefined;
@@ -188,12 +199,12 @@ declare namespace PushNotifications {
         errorMsg?: string | undefined;
     }
     interface Result {
-        method: string;
+        method: MethodValue;
         success: number;
         failure: number;
         message: Message[];
     }
     type PushMethod = (regIds: string[], data: Data, settings: Settings) => void;
-    type Callback = (err: any, result: any) => void;
+    type Callback = (err: any, result: Result[]) => void;
     type RegistrationId = string | webPush.PushSubscription;
 }

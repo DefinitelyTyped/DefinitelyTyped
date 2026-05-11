@@ -1,8 +1,3 @@
-// Type definitions for re-template-tag 2.0
-// Project: https://github.com/rauschma/re-template-tag
-// Definitions by: BendingBender <https://github.com/bendingbender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * A template tag for composing regular expressions.
  *

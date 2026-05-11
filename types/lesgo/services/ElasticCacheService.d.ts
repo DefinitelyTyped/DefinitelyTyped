@@ -1,4 +1,4 @@
-import Memcached = require('memcached');
+import Memcached = require("memcached");
 // We use memcahced-elasticcache which is just a drop-in replacement
 
 export interface MemcachedElasticCache extends Memcached.options {

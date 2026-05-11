@@ -125,7 +125,7 @@ export namespace OnScreenKeyboard {
  * @param layout The layout of the on-screen keyboard to display.
  */
 export class OnScreenKeyboard {
-    constructor(layout: Layout);
+    constructor(layout: OnScreenKeyboard.Layout);
 
     /**
      * The number of mousemove events to require before re-enabling mouse

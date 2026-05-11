@@ -1,4 +1,4 @@
-import EventEmitter from './events';
+import EventEmitter from "./events";
 
 declare namespace Thing {
     interface EmitEventOptions {
@@ -19,10 +19,10 @@ declare class Thing {
     destroyCallback(): Promise<void>;
 
     emitEvent(event: string, data?: unknown, options?: Thing.EmitEventOptions): void;
-    on: InstanceType<typeof EventEmitter>['on'];
-    off: InstanceType<typeof EventEmitter>['off'];
-    onAny: InstanceType<typeof EventEmitter>['onAny'];
-    offAny: InstanceType<typeof EventEmitter>['offAny'];
+    on: InstanceType<typeof EventEmitter>["on"];
+    off: InstanceType<typeof EventEmitter>["off"];
+    onAny: InstanceType<typeof EventEmitter>["onAny"];
+    offAny: InstanceType<typeof EventEmitter>["offAny"];
 
     debug(): void;
     matches(...tags: string[]): boolean;

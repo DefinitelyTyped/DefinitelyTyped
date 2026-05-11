@@ -76,7 +76,7 @@ declare namespace OO.ui {
              * @param message Description of error
              * @param config Configuration options
              */
-            new (message: string | JQuery, config?: ConfigOptions): Error;
+            new(message: string | JQuery, config?: ConfigOptions): Error;
             prototype: Error;
             static: {};
         }

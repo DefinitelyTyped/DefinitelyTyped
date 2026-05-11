@@ -15,6 +15,7 @@ declare class MultipartFormDataReader {
         }
     );
     private content_;
+    contentStream_: File | Request;
     private options_;
     private newLine_;
     private currentPart_;

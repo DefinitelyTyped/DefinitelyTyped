@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/pegjs",
+    "version": "0.10.9999",
+    "projects": [
+        "http://pegjs.org/"
+    ],
+    "devDependencies": {
+        "@types/pegjs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "vvakame",
+            "githubUsername": "vvakame"
+        },
+        {
+            "name": "Tobias Kahlert",
+            "githubUsername": "SrTobi"
+        },
+        {
+            "name": "C.J. Bell",
+            "githubUsername": "siegebell"
+        }
+    ]
+}

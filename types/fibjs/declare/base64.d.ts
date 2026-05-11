@@ -202,7 +202,7 @@
 declare module "base64" {
     
 
-    module base64 {
+    namespace base64 {
         
         
         

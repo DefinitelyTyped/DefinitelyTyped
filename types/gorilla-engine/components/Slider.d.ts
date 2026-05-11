@@ -1,15 +1,22 @@
 declare namespace GorillaEngine.UI {
-    interface SliderProps extends Common, Bounds, Clickable, Background {
-        text: string;
-        min: number;
-        max: number;
-        value: number;
-        direction: 'horizontal' | 'vertical';
-        animation: LottieAnimation;
-        filmstrip: {
-            path: string;
-            count: number;
-            direction: string;
+    interface SliderProps extends KnobProps {
+        /**
+         * The direction of the slider.
+         */
+        direction: "horizontal" | "vertical";
+        /**
+         * The path to the image used for the thumb of the slider.
+         */
+        thumbImage: string;
+
+        /**
+         * TODO:: no idea what this does
+         */
+        sliderBounds: {
+            x: number;
+            y: number;
+            width: number;
+            height: number;
         };
     }
 
@@ -20,5 +27,6 @@ declare namespace GorillaEngine.UI {
     class Slider extends Component {
         constructor(options: Partial<SliderProps>);
     }
+    // tslint:disable-next-line:no-empty-interface
     interface Slider extends SliderProps {}
 }

@@ -1,40 +1,34 @@
-// Type definitions for set-cookie-parser 2.4
-// Project: https://github.com/nfriedly/set-cookie-parser
-// Definitions by: Nick Paddock <https://github.com/nickp10>
-//                 Singlebyted <https://github.com/singlebyted>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
-import { IncomingMessage } from 'http';
-import http = require('http');
+import { IncomingMessage } from "http";
+import http = require("http");
 
 /**
  * Parses set-cookie headers into objects
  */
 declare function parse(
-    input: string | ReadonlyArray<string> | IncomingMessage,
+    input: string | readonly string[] | IncomingMessage,
     options: parse.Options & { map: true },
 ): parse.CookieMap;
 declare function parse(
-    input: string | ReadonlyArray<string> | IncomingMessage,
+    input: string | readonly string[] | IncomingMessage,
     options?: parse.Options & { map?: false | undefined },
 ): parse.Cookie[];
 declare function parse(
-    input: string | ReadonlyArray<string> | IncomingMessage,
+    input: string | readonly string[] | IncomingMessage,
     options?: parse.Options,
 ): parse.Cookie[] | parse.CookieMap;
 
 declare namespace parse {
     function parse(
-        input: string | ReadonlyArray<string> | IncomingMessage,
+        input: string | readonly string[] | IncomingMessage,
         options: Options & { map: true },
     ): CookieMap;
     function parse(
-        input: string | ReadonlyArray<string> | IncomingMessage,
+        input: string | readonly string[] | IncomingMessage,
         options?: Options & { map?: false | undefined },
     ): Cookie[];
-    function parse(input: string | ReadonlyArray<string> | IncomingMessage, options?: Options): Cookie[] | CookieMap;
+    function parse(input: string | readonly string[] | IncomingMessage, options?: Options): Cookie[] | CookieMap;
 
     /**
      * Set-Cookie header field-values are sometimes comma joined in one string. This splits them without choking on commas
@@ -45,7 +39,7 @@ declare namespace parse {
      * Based on: https://github.com/google/j2objc/commit/16820fdbc8f76ca0c33472810ce0cb03d20efe25
      * Credits to: https://github.com/tomball for original and https://github.com/chrusart for JavaScript implementation
      */
-    function splitCookiesString(input: string | ReadonlyArray<string> | undefined): string[];
+    function splitCookiesString(input: string | readonly string[] | undefined): string[];
 
     /**
      * Parses a single set-cookie header value string.
@@ -72,7 +66,7 @@ declare namespace parse {
         expires?: Date | undefined;
         /**
          * relative max age of the cookie in seconds from when the client receives it (integer or undefined)
-         * Note: when using with express's res.cookie() method, multiply maxAge by 1000 to convert to miliseconds
+         * Note: when using with express's res.cookie() method, multiply maxAge by 1000 to convert to milliseconds
          */
         maxAge?: number | undefined;
         /**

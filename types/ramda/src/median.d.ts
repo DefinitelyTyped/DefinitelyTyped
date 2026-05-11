@@ -1,2 +1,2 @@
-import { median } from '../index';
+import { median } from "../index";
 export default median;

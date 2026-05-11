@@ -1,9 +1,4 @@
-// Type definitions for imsi-grok 1.0
-// Project: https://github.com/atis--/imsi-grok#readme
-// Definitions by: Dean Pienaar <https://github.com/deanpienaar>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-// tslint:disable-next-line interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IMSIBreakdown {
     mcc: string;
     mnc: string;

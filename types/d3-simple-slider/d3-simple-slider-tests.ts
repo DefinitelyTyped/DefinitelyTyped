@@ -6,10 +6,10 @@
  * are not intended as functional tests.
  */
 
-import * as d3SimpleSlider from 'd3-simple-slider';
-import { scaleLinear } from 'd3-scale';
-import { select, Selection } from 'd3-selection';
-import { format } from 'd3-format';
+import { format } from "d3-format";
+import { scaleLinear } from "d3-scale";
+import { select, Selection } from "d3-selection";
+import * as d3SimpleSlider from "d3-simple-slider";
 
 let axisScaleNumber: d3SimpleSlider.SliderScale<number>;
 
@@ -20,9 +20,9 @@ axisScaleNumber = scaleLinear();
 // --------------------------------------------------------------------------
 
 let containerElement: d3SimpleSlider.SliderContainerElement;
-const svg: SVGSVGElement = select<SVGSVGElement, any>('svg').node()!; // mock
-const g: SVGGElement = select<SVGGElement, any>('g').node()!; // mock
-const canvas: HTMLCanvasElement = select<HTMLCanvasElement, any>('canvas').node()!; // mock
+const svg: SVGSVGElement = select<SVGSVGElement, any>("svg").node()!; // mock
+const g: SVGGElement = select<SVGGElement, any>("g").node()!; // mock
+const canvas: HTMLCanvasElement = select<HTMLCanvasElement, any>("canvas").node()!; // mock
 
 containerElement = svg;
 containerElement = g;
@@ -63,46 +63,46 @@ const tickValues: number[] | null = topSlider.tickValues();
 
 // tickFormat(...) ----------------------------------------------------------------
 
-topSlider = topSlider.tickFormat(format(',.0f'));
+topSlider = topSlider.tickFormat(format(",.0f"));
 topSlider = topSlider.tickFormat(null);
 
 const formatFn: ((domainValue: number, index: number) => string) | null = topSlider.tickFormat();
 
-leftSlider.tickFormat((d, i) => '#' + i);
-leftSlider.tickFormat(d => d + '!');
+leftSlider.tickFormat((d, i) => "#" + i);
+leftSlider.tickFormat(d => d + "!");
 
 // on(...) ----------------------------------------------------------------
 
 let listener: undefined | ((val: number) => void);
 
-topSlider = topSlider.on('click', val => {
-    console.log('onclick print val: ', val);
+topSlider = topSlider.on("click", val => {
+    console.log("onclick print val: ", val);
 });
 
 // get current listener
-listener = topSlider.on('click');
+listener = topSlider.on("click");
 
 if (listener) {
     // returns 'this' selection
-    topSlider = topSlider.on('click', listener); // check chaining return type by re-assigning
+    topSlider = topSlider.on("click", listener); // check chaining return type by re-assigning
 }
 
 // remove listener
-topSlider = topSlider.on('click', null); // check chaining return type by re-assigning
+topSlider = topSlider.on("click", null); // check chaining return type by re-assigning
 
 // --------------------------------------------------------------------------
 // Test Apply Slider
 // --------------------------------------------------------------------------
 
-const gSelection: Selection<SVGGElement, any, any, any> = select<SVGGElement, any>('g');
+const gSelection: Selection<SVGGElement, any, any, any> = select<SVGGElement, any>("g");
 
 gSelection.call(topSlider);
 
-const svgSelection: Selection<SVGSVGElement, any, any, any> = select<SVGSVGElement, any>('svg');
+const svgSelection: Selection<SVGSVGElement, any, any, any> = select<SVGSVGElement, any>("svg");
 
 svgSelection.call(leftSlider);
 
-const canvasSelection: Selection<HTMLCanvasElement, any, any, any> = select<HTMLCanvasElement, any>('canvas');
+const canvasSelection: Selection<HTMLCanvasElement, any, any, any> = select<HTMLCanvasElement, any>("canvas");
 
 // @ts-expect-error
 canvasSelection.call(leftSlider); // fails, incompatible context container element

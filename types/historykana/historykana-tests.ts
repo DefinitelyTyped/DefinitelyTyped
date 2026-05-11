@@ -16,8 +16,12 @@ const inputHistory = [
     "山田たろ",
     "山田たろう",
     "山田太郎",
-    "山田太郎"
+    "山田太郎",
 ];
 
 const result = historykana(inputHistory);
 // => やまだたろう
+
+historykana(inputHistory, {}); // $ExpectType string
+historykana(inputHistory, { kanaRegexp: /^[ 　ぁあ-んー]*$/ }); // $ExpectType string
+historykana(inputHistory, { kanaRegexp: "^[ 　ぁあ-んー]*$" }); // $ExpectType string

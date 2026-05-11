@@ -1,17 +1,9 @@
-// Type definitions for Hasher.js
-// Project: https://github.com/millermedeiros/hasher/
-// Definitions by: flyfishMT <https://github.com/flyfishMT>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="signals" />
 
-import * as signal from 'signals';
+import * as signal from "signals";
 
 declare namespace HasherJs {
-
     export interface HasherStatic {
-
         // {string} hasher.appendHash
         // String that should always be added to the end of Hash value.
         appendHash: string;

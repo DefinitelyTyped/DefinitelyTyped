@@ -1,10 +1,3 @@
-// Type definitions for non-npm package proposal-relative-indexing-method 0.1
-// Project: https://github.com/tc39/proposal-relative-indexing-method
-//          https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/at
-//          https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/at
-// Definitions by: Dmitry Semigradsky <https://github.com/Semigradsky>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface String {
     /**
      * Takes an integer value and returns the item at that index,

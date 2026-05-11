@@ -1,6 +1,6 @@
-import httpBuildQuery from 'http-build-query';
+import httpBuildQuery from "http-build-query";
 const queryString = httpBuildQuery({
-  foo: 2,
-  bar: "bar",
-  null: null,
+    foo: 2,
+    bar: "bar",
+    null: null,
 });

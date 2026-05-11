@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/pageclip",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/benogle/node-pageclip#readme"
+    ],
+    "devDependencies": {
+        "@types/pageclip": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Usman S. (Max Programming)",
+            "githubUsername": "max-programming"
+        }
+    ],
+    "dependencies": {
+        "@types/node": "^22.13.9999",
+        "@types/request": "^2.48.9999"
+    }
+}

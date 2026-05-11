@@ -1,5 +1,5 @@
-import express = require('express');
-import useragent = require('express-useragent');
+import express = require("express");
+import useragent = require("express-useragent");
 
 function serializeDetails(details: useragent.Details): string {
     const accessed: { [key: string]: any } = {
@@ -53,7 +53,7 @@ function serializeDetails(details: useragent.Details): string {
     };
 
     const keys = Object.keys(accessed);
-    return keys.map(key => `${key}:${accessed[key]}`).join(',');
+    return keys.map(key => `${key}:${accessed[key]}`).join(",");
 }
 
 function testMethods(userAgent: useragent.UserAgent): void {
@@ -77,11 +77,11 @@ function testMethods(userAgent: useragent.UserAgent): void {
     serializeDetails(defaultAgent);
     const version = userAgent.version;
 
-    const browser = userAgent.getBrowser('Chrome/76.0.3809.100');
-    const browserVersion = userAgent.getBrowserVersion('Chrome/76.0.3809.100');
-    const os = userAgent.getOS('os x');
-    const platform = userAgent.getPlatform('macintosh');
-    const parsed = userAgent.parse('browser:chrome');
+    const browser = userAgent.getBrowser("Chrome/76.0.3809.100");
+    const browserVersion = userAgent.getBrowserVersion("Chrome/76.0.3809.100");
+    const os = userAgent.getOS("os x");
+    const platform = userAgent.getPlatform("macintosh");
+    const parsed = userAgent.parse("browser:chrome");
 }
 
 // Server tests
@@ -89,15 +89,15 @@ testMethods(useragent);
 
 const app = express();
 app.use(useragent.express());
-app.get('/', (req, res) => {
+app.get("/", (req, res) => {
     const userAgentString = serializeDetails(req.useragent);
     res.end(userAgentString);
 });
-app.get('/parse', (req, res) => {
-    const source = req.headers['user-agent'];
+app.get("/parse", (req, res) => {
+    const source = req.headers["user-agent"];
     const ua = useragent.parse(source);
 
-    res.writeHead(200, { 'Content-Type': 'text/plain' });
+    res.writeHead(200, { "Content-Type": "text/plain" });
     res.end(JSON.stringify(ua));
 });
 

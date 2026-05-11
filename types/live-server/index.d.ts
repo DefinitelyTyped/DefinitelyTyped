@@ -1,8 +1,3 @@
-// Type definitions for live-server 1.2
-// Project: https://github.com/tapio/live-server#readme
-// Definitions by: Josh Cummings <https://github.com/joshcummingsdesign>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * The live-server start params.
  */

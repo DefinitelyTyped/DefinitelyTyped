@@ -1,10 +1,5 @@
-// Type definitions for fernet 0.4
-// Project: https://github.com/csquared/fernet.js
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import Hex = require('crypto-js/enc-hex');
-import Base64 = require('crypto-js/enc-base64');
+import Hex = require("crypto-js/enc-hex");
+import Base64 = require("crypto-js/enc-base64");
 
 export = fernet;
 
@@ -13,7 +8,7 @@ declare const fernet: fernet;
 type fernet = fernet.FernetConstructor & fernet.Fernet;
 
 declare namespace fernet {
-    type FernetConstructor = new (options?: Options) => Fernet;
+    type FernetConstructor = new(options?: Options) => Fernet;
     interface Fernet {
         Hex: typeof Hex;
         Base64: typeof Base64;
@@ -85,7 +80,7 @@ declare namespace fernet {
         secret?: string;
     }
 
-    type SecretConstructor = new (secret64: string) => Secret;
+    type SecretConstructor = new(secret64: string) => Secret;
     interface Secret {
         readonly signingKeyHex: string;
         readonly signingKey: CryptoJS.lib.WordArray;
@@ -93,7 +88,7 @@ declare namespace fernet {
         readonly encryptionKey: CryptoJS.lib.WordArray;
     }
 
-    type TokenConstructor = new (options?: TokenOptions) => Token;
+    type TokenConstructor = new(options?: TokenOptions) => Token;
     interface Token {
         secret?: Secret | undefined;
         encoded?: boolean | undefined;
@@ -110,7 +105,7 @@ declare namespace fernet {
         ttl: number;
         maxClockSkew: number;
 
-        setIV: Fernet['setIV'];
+        setIV: Fernet["setIV"];
         setTime(time?: string | number | Date): CryptoJS.lib.WordArray;
         encode(message?: string): string;
         decode(token?: string): string;

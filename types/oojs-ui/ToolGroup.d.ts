@@ -40,7 +40,7 @@ declare namespace OO.ui {
              */
             demote?: ToolExtractionCollection[] | ToolExtractionCollection;
             /** Alignment within the toolbar, either 'before' or 'after'. */
-            align?: 'before' | 'after';
+            align?: "before" | "after";
         }
 
         interface Static extends Widget.Static {
@@ -121,14 +121,14 @@ declare namespace OO.ui {
             emitThrow<K extends keyof EventMap>(event: K, ...args: EventMap[K]): boolean;
             emitThrow<K extends string>(event: K extends keyof EventMap ? never : K, ...args: any[]): boolean;
 
-            connect<T extends Partial<Record<keyof EventMap, any>>, C>(
+            connect<T extends Partial<Record<keyof EventMap, any>>, C>( // eslint-disable-line @definitelytyped/no-unnecessary-generics
                 context: C,
-                methods: EventConnectionMap<T, C, EventMap>, // eslint-disable-line no-unnecessary-generics
+                methods: EventConnectionMap<T, C, EventMap>,
             ): this;
 
-            disconnect<T extends Partial<Record<keyof EventMap, any>>, C>(
+            disconnect<T extends Partial<Record<keyof EventMap, any>>, C>( // eslint-disable-line @definitelytyped/no-unnecessary-generics
                 context: C,
-                methods?: EventConnectionMap<T, C, EventMap>, // eslint-disable-line no-unnecessary-generics
+                methods?: EventConnectionMap<T, C, EventMap>,
             ): this;
             // #endregion
         }
@@ -138,7 +138,7 @@ declare namespace OO.ui {
              * @param toolbar
              * @param config Configuration options
              */
-            new (toolbar: Toolbar, config?: ConfigOptions): ToolGroup;
+            new(toolbar: Toolbar, config?: ConfigOptions): ToolGroup;
             prototype: Prototype;
             static: Static;
             super: Widget.Constructor;

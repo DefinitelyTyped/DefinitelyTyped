@@ -1,8 +1,3 @@
-// Type definitions for secure-sample 2.0
-// Project: https://github.com/emilbayes/secure-sample
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = secureSample;
 
 /**

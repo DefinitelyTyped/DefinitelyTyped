@@ -1,4 +1,4 @@
-import * as constants from 'time-constants';
+import * as constants from "time-constants";
 
 let test: number;
 

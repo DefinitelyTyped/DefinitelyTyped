@@ -38,18 +38,13 @@ declare namespace DataModelSchema {
         DataModelSchemaOptions,
     };
 }
-interface DataModelSchemaOptions {
-    baseClass: number;
-    ignoreClassDefErrors: boolean;
-}
-interface ClassDefError {
-    classKey: number;
-    className: string;
-    classPath: string;
-    tableName: string;
-    error: string;
-    stackTrace: string;
-}
+declare function getRemoteSchema(
+    database: Database,
+    options?: DataModelSchemaOptions | Partial<DataModelSchemaOptions>
+): DataModelSchemaInfo;
+declare function formatUniqueIndexName(tableName: string, columns: string[]): string;
+type Database = import('../database/Database');
+type Field = import('../classdef/Field');
 interface TableInfo {
     name: string;
     displayName: string;
@@ -59,11 +54,7 @@ interface TableInfo {
     keyFieldName: string;
     classFieldName: string;
     versionFieldName: string;
-    cacheStrategy: {
-        ALWAYS: string;
-        NEVER: string;
-        ON_DEMAND: string;
-    };
+    cacheStrategy: typeof TableCacheStrategy;
     upgradeMustSyncRecords: boolean;
     managedDatabaseSchema: boolean;
     tablespace: string;
@@ -71,6 +62,16 @@ interface TableInfo {
     integerDatabaseType: string;
     errors: string[];
     warnings: string[];
+}
+interface ColumnDataTypeDef {
+    dataType: string;
+    charLength: number | null;
+    sourceClass: number;
+}
+interface ReferencedTable {
+    name: string;
+    baseClass: number;
+    integrityCheck: boolean;
 }
 interface ColumnInfo {
     name: string;
@@ -102,22 +103,13 @@ interface IndexInfo {
     errors: string[];
     warnings: string[];
 }
-declare function getRemoteSchema(
-    database: Database,
-    options?: DataModelSchemaOptions | Partial<DataModelSchemaOptions>
-): DataModelSchemaInfo;
-declare function formatUniqueIndexName(tableName: string, columns: string[]): string;
-type Database = import('../database/Database');
-type Field = import('../classdef/Field');
-interface ColumnDataTypeDef {
-    dataType: string;
-    charLength: number | null;
-    sourceClass: number;
-}
-interface ReferencedTable {
-    name: string;
-    baseClass: number;
-    integrityCheck: boolean;
+interface ClassDefError {
+    classKey: number;
+    className: string;
+    classPath: string;
+    tableName: string;
+    error: string;
+    stackTrace: string;
 }
 interface DataModelSchemaInfo {
     classDefErrors: ClassDefError[];
@@ -128,3 +120,8 @@ interface DataModelSchemaInfo {
     unmanagedTableColumns: Record<string, string[]>;
     unmanagedTableIndexes: Record<string, string[]>;
 }
+interface DataModelSchemaOptions {
+    baseClass: number;
+    ignoreClassDefErrors: boolean;
+}
+import TableCacheStrategy = require('../classdef/TableCacheStrategy.js');

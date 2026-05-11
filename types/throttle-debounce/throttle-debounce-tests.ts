@@ -1,10 +1,10 @@
-import { throttle, debounce } from 'throttle-debounce';
+import { debounce, throttle } from "throttle-debounce";
 
 type Proc = () => void;
 const proc: Proc = () => {};
 
 type Func = (x: number) => string;
-const func: Func = (x: number) => '';
+const func: Func = (x: number) => "";
 
 // --------------- throttle ---------------
 
@@ -25,7 +25,7 @@ throttle();
 // @ts-expect-error
 throttle(func);
 // @ts-expect-error
-throttle('', func);
+throttle("", func);
 // @ts-expect-error
 throttle(0);
 // @ts-expect-error
@@ -61,7 +61,7 @@ func3;
 func3(100);
 // Throttled function should reject arguments if `callback` reject them.
 // @ts-expect-error
-func3('abc');
+func3("abc");
 // @ts-expect-error
 func3();
 // Throttled function should have `cancel`.
@@ -82,7 +82,7 @@ debounce();
 // @ts-expect-error
 debounce(func);
 // @ts-expect-error
-debounce('', func);
+debounce("", func);
 // @ts-expect-error
 debounce(10);
 // @ts-expect-error
@@ -112,7 +112,7 @@ const func5 = debounce(1, func);
 func5(100);
 // Debounced function should reject arguments if `callback` reject them.
 // @ts-expect-error
-func5('abc');
+func5("abc");
 // @ts-expect-error
 func5();
 // Debounced function should have `cancel`.
@@ -122,7 +122,7 @@ func5.cancel();
 // $ExpectType void
 func5.cancel({ upcomingOnly: true });
 // @ts-expect-error
-func5.cancel({ upcomingOnly: 'true' });
+func5.cancel({ upcomingOnly: "true" });
 // @ts-expect-error
 func5.cancel({ upcomingOnly: 0 });
 // @ts-expect-error

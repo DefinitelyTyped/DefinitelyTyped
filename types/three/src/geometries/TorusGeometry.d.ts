@@ -1,4 +1,12 @@
-import { BufferGeometry } from './../core/BufferGeometry';
+import { BufferGeometry } from "../core/BufferGeometry.js";
+
+export interface TorusGeometryJSON {
+    radius: number;
+    tube: number;
+    radialSegments: number;
+    tubularSegments: number;
+    arc: number;
+}
 
 /**
  * A class for generating torus geometries.
@@ -16,21 +24,30 @@ import { BufferGeometry } from './../core/BufferGeometry';
  */
 export class TorusGeometry extends BufferGeometry {
     /**
-     * Create a new instance of {@link TorusGeometry}
-     * @param radius Radius of the torus, from the center of the torus to the center of the tube. Expects a `Float`. Default `1`.
-     * @param tube Radius of the tube. Expects a `Float`. Default `0.4`.
-     * @param radialSegments Expects a `Integer`.Default is `12`.
-     * @param tubularSegments Expects a `Integer`. Default `48`.
-     * @param arc Central angle. Expects a `Float`. Default `Math.PI * 2`
+     * @param radius Radius of the torus, from the center of the torus to the center of the tube. Default `1`.
+     * @param tube Radius of the tube. Must be smaller than `radius`. Default is `0.4`.
+     * @param radialSegments Default is `12`.
+     * @param tubularSegments Default is `48`.
+     * @param arc Central angle. Default is Math.PI * 2.
+     * @param {number} [thetaStart=0] - Start of the tubular sweep in radians.
+     * @param {number} [thetaLength=Math.PI times 2] - Length of the tubular sweep in radians.
      */
-    constructor(radius?: number, tube?: number, radialSegments?: number, tubularSegments?: number, arc?: number);
+    constructor(
+        radius?: number,
+        tube?: number,
+        radialSegments?: number,
+        tubularSegments?: number,
+        arc?: number,
+        thetaStart?: number,
+        thetaLength?: number,
+    );
 
     /**
      * A Read-only _string_ to check if `this` object type.
      * @remarks Sub-classes will update this value.
      * @defaultValue `TorusGeometry`
      */
-    override readonly type: string | 'TorusGeometry';
+    override readonly type: string | "TorusGeometry";
 
     /**
      * An object with a property for each of the constructor parameters.
@@ -42,8 +59,9 @@ export class TorusGeometry extends BufferGeometry {
         readonly radialSegments: number;
         readonly tubularSegments: number;
         readonly arc: number;
+        readonly thetaStart: number;
+        readonly thetaLength: number;
     };
 
-    /** @internal */
-    static fromJSON(data: any): TorusGeometry;
+    static fromJSON(data: TorusGeometryJSON): TorusGeometry;
 }

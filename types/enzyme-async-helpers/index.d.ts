@@ -1,27 +1,21 @@
-// Type definitions for enzyme-async-helpers 0.9
-// Project: https://github.com/zth/enzyme-async-helpers
-// Definitions by: Kim Ehrenpohl <https://github.com/kimehrenpohl>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
-
-import { ReactWrapper, EnzymeSelector } from 'enzyme';
+import { EnzymeSelector, ReactWrapper } from "enzyme";
 
 export function waitForState(
     wrapper: ReactWrapper,
     stateValidationFn: (state: object) => boolean,
-    config?: Config
+    config?: Config,
 ): Promise<void>;
 
 export function waitForElement(
     wrapper: ReactWrapper,
     elementSelector: EnzymeSelector,
-    config?: Config
+    config?: Config,
 ): Promise<void>;
 
 export function waitForProps(
     wrapper: ReactWrapper,
     propsValidationFn: (props: object) => boolean,
-    config?: Config
+    config?: Config,
 ): Promise<void>;
 
 export interface Config {

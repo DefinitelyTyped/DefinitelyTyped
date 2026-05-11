@@ -1,4 +1,4 @@
-import { PageFlip } from '../PageFlip';
+import { PageFlip } from "../PageFlip";
 /**
  * Data type passed to the event handler
  */

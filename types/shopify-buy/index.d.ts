@@ -1,13 +1,3 @@
-// Type definitions for shopify-buy 2.17
-// Project: https://github.com/Shopify/js-buy-sdk#readme
-// Definitions by: Martin Köhn <https://github.com/openminder>
-//                 Stephen Traiforos <https://github.com/straiforos>
-//                 Juan Manuel Incaurgarat <https://github.com/kilinkis>
-//                 Chris Worman <https://github.com/chrisworman-pela>
-//                 Maciej Baron <https://github.com/MaciekBaron>
-//                 Martin Badin <https://github.com/martin-badin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace ShopifyBuy {
     /**
      * Cart
@@ -329,152 +319,153 @@ declare namespace ShopifyBuy {
 
     // GraphQL Types - Enums
     enum ArticleSortKeys {
-        AUTHOR = 'author',
-        BLOG_TITLE = 'blog_title',
-        ID = 'id',
-        PUBLISHED_AT = 'published_at',
-        RELEVANCE = 'query',
-        TITLE = 'title',
-        UPDATED_AT = 'updated_at',
+        AUTHOR = "author",
+        BLOG_TITLE = "blog_title",
+        ID = "id",
+        PUBLISHED_AT = "published_at",
+        RELEVANCE = "query",
+        TITLE = "title",
+        UPDATED_AT = "updated_at",
     }
 
     enum BlogSortKeys {
-        HANDLE = 'HANDLE',
-        ID = 'id',
-        RELEVANCE = 'query',
-        TITLE = 'title',
+        HANDLE = "HANDLE",
+        ID = "id",
+        RELEVANCE = "query",
+        TITLE = "title",
     }
 
     enum CardBrand {
-        AMERICAN_EXPRESS = 'AMERICAN_EXPRESS',
-        DINERS_CLUB = 'DINERS_CLUB',
-        DISCOVER = 'DISCOVER',
-        ELO = 'ELO',
-        JCB = 'JCB',
-        MASTERCARD = 'MASTERCARD',
-        UNIONPAY = 'UNIONPAY',
-        VISA = 'VISA',
+        AMERICAN_EXPRESS = "AMERICAN_EXPRESS",
+        DINERS_CLUB = "DINERS_CLUB",
+        DISCOVER = "DISCOVER",
+        ELO = "ELO",
+        JCB = "JCB",
+        MASTERCARD = "MASTERCARD",
+        UNIONPAY = "UNIONPAY",
+        VISA = "VISA",
     }
 
     enum CartErrorCode {
-        INVALID = 'INVALID',
-        INVALID_MERCHANDISE_LINE = 'INVALID_MERCHANDISE_LINE',
-        LESS_THAN = 'LESS_THAN',
-        MISSING_DISCOUNT_CODE = 'MISSING_DISCOUNT_CODE',
-        MISSING_NOTE = 'MISSING_NOTE',
+        INVALID = "INVALID",
+        INVALID_MERCHANDISE_LINE = "INVALID_MERCHANDISE_LINE",
+        LESS_THAN = "LESS_THAN",
+        MISSING_DISCOUNT_CODE = "MISSING_DISCOUNT_CODE",
+        MISSING_NOTE = "MISSING_NOTE",
     }
 
     enum CheckoutErrorCode {
-        ALREADY_COMPLETED = 'ALREADY_COMPLETED',
-        BAD_DOMAIN = 'BAD_DOMAIN',
-        BLANK = 'BLANK',
-        CART_DOES_NOT_MEET_DISCOUNT_REQUIREMENTS_NOTICE = 'CART_DOES_NOT_MEET_DISCOUNT_REQUIREMENTS_NOTICE',
-        CUSTOMER_ALREADY_USED_ONCE_PER_CUSTOMER_DISCOUNT_NOTICE = 'CUSTOMER_ALREADY_USED_ONCE_PER_CUSTOMER_DISCOUNT_NOTICE',
-        DISCOUNT_ALREADY_APPLIED = 'DISCOUNT_ALREADY_APPLIED',
-        DISCOUNT_DISABLED = 'DISCOUNT_DISABLED',
-        DISCOUNT_EXPIRED = 'DISCOUNT_EXPIRED',
-        DISCOUNT_LIMIT_REACHED = 'DISCOUNT_LIMIT_REACHED',
-        DISCOUNT_NOT_FOUND = 'DISCOUNT_NOT_FOUND',
-        EMPTY = 'EMPTY',
-        EXPIRED_QUEUE_TOKEN = 'EXPIRED_QUEUE_TOKEN',
-        GIFT_CARD_ALREADY_APPLIED = 'GIFT_CARD_ALREADY_APPLIED',
-        GIFT_CARD_CODE_INVALID = 'GIFT_CARD_CODE_INVALID',
-        GIFT_CARD_CURRENCY_MISMATCH = 'GIFT_CARD_CURRENCY_MISMATCH',
-        GIFT_CARD_DEPLETED = 'GIFT_CARD_DEPLETED',
-        GIFT_CARD_DISABLED = 'GIFT_CARD_DISABLED',
-        GIFT_CARD_EXPIRED = 'GIFT_CARD_EXPIRED',
-        GIFT_CARD_NOT_FOUND = 'GIFT_CARD_NOT_FOUND',
-        GIFT_CARD_UNUSABLE = 'GIFT_CARD_UNUSABLE',
-        GREATER_THAN_OR_EQUAL_TO = 'GREATER_THAN_OR_EQUAL_TO',
-        HIGHER_VALUE_DISCOUNT_APPLIED = 'HIGHER_VALUE_DISCOUNT_APPLIED',
-        INVALID = 'INVALID',
-        INVALID_COUNTRY_AND_CURRENCY = 'INVALID_COUNTRY_AND_CURRENCY',
-        INVALID_FOR_COUNTRY = 'INVALID_FOR_COUNTRY',
-        INVALID_FOR_COUNTRY_AND_PROVINCE = 'INVALID_FOR_COUNTRY_AND_PROVINCE',
-        INVALID_PROVINCE_IN_COUNTRY = 'INVALID_PROVINCE_IN_COUNTRY',
-        INVALID_QUEUE_TOKEN = 'INVALID_QUEUE_TOKEN',
-        INVALID_REGION_IN_COUNTRY = 'INVALID_REGION_IN_COUNTRY',
-        INVALID_STATE_IN_COUNTRY = 'INVALID_STATE_IN_COUNTRY',
-        LESS_THAN = 'LESS_THAN',
-        LESS_THAN_OR_EQUAL_TO = 'LESS_THAN_OR_EQUAL_TO',
-        LINE_ITEM_NOT_FOUND = 'LINE_ITEM_NOT_FOUND',
-        LOCKED = 'LOCKED',
-        MAXIMUM_DISCOUNT_CODE_LIMIT_REACHED = 'MAXIMUM_DISCOUNT_CODE_LIMIT_REACHED',
-        MISSING_PAYMENT_INPUT = 'MISSING_PAYMENT_INPUT',
-        NOT_ENOUGH_IN_STOCK = 'NOT_ENOUGH_IN_STOCK',
-        NOT_SUPPORTED = 'NOT_SUPPORTED',
-        PRESENT = 'PRESENT',
-        PRODUCT_NOT_AVAILABLE = 'PRODUCT_NOT_AVAILABLE',
-        SHIPPING_RATE_EXPIRED = 'SHIPPING_RATE_EXPIRED',
-        THROTTLED_DURING_CHECKOUT = 'THROTTLED_DURING_CHECKOUT',
-        TOO_LONG = 'TOO_LONG',
-        TOTAL_PRICE_MISMATCH = 'TOTAL_PRICE_MISMATCH',
-        UNABLE_TO_APPLY = 'UNABLE_TO_APPLY',
+        ALREADY_COMPLETED = "ALREADY_COMPLETED",
+        BAD_DOMAIN = "BAD_DOMAIN",
+        BLANK = "BLANK",
+        CART_DOES_NOT_MEET_DISCOUNT_REQUIREMENTS_NOTICE = "CART_DOES_NOT_MEET_DISCOUNT_REQUIREMENTS_NOTICE",
+        CUSTOMER_ALREADY_USED_ONCE_PER_CUSTOMER_DISCOUNT_NOTICE =
+            "CUSTOMER_ALREADY_USED_ONCE_PER_CUSTOMER_DISCOUNT_NOTICE",
+        DISCOUNT_ALREADY_APPLIED = "DISCOUNT_ALREADY_APPLIED",
+        DISCOUNT_DISABLED = "DISCOUNT_DISABLED",
+        DISCOUNT_EXPIRED = "DISCOUNT_EXPIRED",
+        DISCOUNT_LIMIT_REACHED = "DISCOUNT_LIMIT_REACHED",
+        DISCOUNT_NOT_FOUND = "DISCOUNT_NOT_FOUND",
+        EMPTY = "EMPTY",
+        EXPIRED_QUEUE_TOKEN = "EXPIRED_QUEUE_TOKEN",
+        GIFT_CARD_ALREADY_APPLIED = "GIFT_CARD_ALREADY_APPLIED",
+        GIFT_CARD_CODE_INVALID = "GIFT_CARD_CODE_INVALID",
+        GIFT_CARD_CURRENCY_MISMATCH = "GIFT_CARD_CURRENCY_MISMATCH",
+        GIFT_CARD_DEPLETED = "GIFT_CARD_DEPLETED",
+        GIFT_CARD_DISABLED = "GIFT_CARD_DISABLED",
+        GIFT_CARD_EXPIRED = "GIFT_CARD_EXPIRED",
+        GIFT_CARD_NOT_FOUND = "GIFT_CARD_NOT_FOUND",
+        GIFT_CARD_UNUSABLE = "GIFT_CARD_UNUSABLE",
+        GREATER_THAN_OR_EQUAL_TO = "GREATER_THAN_OR_EQUAL_TO",
+        HIGHER_VALUE_DISCOUNT_APPLIED = "HIGHER_VALUE_DISCOUNT_APPLIED",
+        INVALID = "INVALID",
+        INVALID_COUNTRY_AND_CURRENCY = "INVALID_COUNTRY_AND_CURRENCY",
+        INVALID_FOR_COUNTRY = "INVALID_FOR_COUNTRY",
+        INVALID_FOR_COUNTRY_AND_PROVINCE = "INVALID_FOR_COUNTRY_AND_PROVINCE",
+        INVALID_PROVINCE_IN_COUNTRY = "INVALID_PROVINCE_IN_COUNTRY",
+        INVALID_QUEUE_TOKEN = "INVALID_QUEUE_TOKEN",
+        INVALID_REGION_IN_COUNTRY = "INVALID_REGION_IN_COUNTRY",
+        INVALID_STATE_IN_COUNTRY = "INVALID_STATE_IN_COUNTRY",
+        LESS_THAN = "LESS_THAN",
+        LESS_THAN_OR_EQUAL_TO = "LESS_THAN_OR_EQUAL_TO",
+        LINE_ITEM_NOT_FOUND = "LINE_ITEM_NOT_FOUND",
+        LOCKED = "LOCKED",
+        MAXIMUM_DISCOUNT_CODE_LIMIT_REACHED = "MAXIMUM_DISCOUNT_CODE_LIMIT_REACHED",
+        MISSING_PAYMENT_INPUT = "MISSING_PAYMENT_INPUT",
+        NOT_ENOUGH_IN_STOCK = "NOT_ENOUGH_IN_STOCK",
+        NOT_SUPPORTED = "NOT_SUPPORTED",
+        PRESENT = "PRESENT",
+        PRODUCT_NOT_AVAILABLE = "PRODUCT_NOT_AVAILABLE",
+        SHIPPING_RATE_EXPIRED = "SHIPPING_RATE_EXPIRED",
+        THROTTLED_DURING_CHECKOUT = "THROTTLED_DURING_CHECKOUT",
+        TOO_LONG = "TOO_LONG",
+        TOTAL_PRICE_MISMATCH = "TOTAL_PRICE_MISMATCH",
+        UNABLE_TO_APPLY = "UNABLE_TO_APPLY",
     }
 
     enum CollectionSortKeys {
-        ID = 'id',
-        RELEVANCE = 'query',
-        TITLE = 'title',
-        UPDATED_AT = 'updated_at',
+        ID = "id",
+        RELEVANCE = "query",
+        TITLE = "title",
+        UPDATED_AT = "updated_at",
     }
 
     // TODO: https://shopify.dev/api/storefront/unstable/enums/CountryCode
     type CountryCode = string;
 
     enum CropRegion {
-        BOTTOM = 'BOTTOM',
-        CENTER = 'CENTER',
-        LEFT = 'LEFT',
-        RIGHT = 'RIGHT',
-        TOP = 'TOP',
+        BOTTOM = "BOTTOM",
+        CENTER = "CENTER",
+        LEFT = "LEFT",
+        RIGHT = "RIGHT",
+        TOP = "TOP",
     }
 
     // TODO: https://shopify.dev/api/storefront/unstable/enums/CurrencyCode
     type CurrencyCode = string;
 
     enum CustomerErrorCode {
-        ALREADY_ENABLED = 'ALREADY_ENABLED',
-        BAD_DOMAIN = 'BAD_DOMAIN',
-        BLANK = 'BLANK',
-        CONTAINS_HTML_TAGS = 'CONTAINS_HTML_TAGS',
-        CONTAINS_URL = 'CONTAINS_URL',
-        CUSTOMER_DISABLED = 'CUSTOMER_DISABLED',
-        INVALID = 'INVALID',
-        INVALID_MULTIPASS_REQUEST = 'INVALID_MULTIPASS_REQUEST',
-        NOT_FOUND = 'NOT_FOUND',
-        PASSWORD_STARTS_OR_ENDS_WITH_WHITESPACE = 'PASSWORD_STARTS_OR_ENDS_WITH_WHITESPACE',
-        TAKEN = 'TAKEN',
-        TOKEN_INVALID = 'TOKEN_INVALID',
-        TOO_LONG = 'TOO_LONG',
-        TOO_SHORT = 'TOO_SHORT',
-        UNIDENTIFIED_CUSTOMER = 'UNIDENTIFIED_CUSTOMER',
+        ALREADY_ENABLED = "ALREADY_ENABLED",
+        BAD_DOMAIN = "BAD_DOMAIN",
+        BLANK = "BLANK",
+        CONTAINS_HTML_TAGS = "CONTAINS_HTML_TAGS",
+        CONTAINS_URL = "CONTAINS_URL",
+        CUSTOMER_DISABLED = "CUSTOMER_DISABLED",
+        INVALID = "INVALID",
+        INVALID_MULTIPASS_REQUEST = "INVALID_MULTIPASS_REQUEST",
+        NOT_FOUND = "NOT_FOUND",
+        PASSWORD_STARTS_OR_ENDS_WITH_WHITESPACE = "PASSWORD_STARTS_OR_ENDS_WITH_WHITESPACE",
+        TAKEN = "TAKEN",
+        TOKEN_INVALID = "TOKEN_INVALID",
+        TOO_LONG = "TOO_LONG",
+        TOO_SHORT = "TOO_SHORT",
+        UNIDENTIFIED_CUSTOMER = "UNIDENTIFIED_CUSTOMER",
     }
 
     enum DeliveryMethodType {
-        LOCAL = 'LOCAL',
-        NONE = 'NONE',
-        PICKUP_POINT = 'PICKUP_POINT',
-        PICK_UP = 'PICK_UP',
-        RETAIL = 'RETAIL',
-        SHIPPING = 'SHIPPING',
+        LOCAL = "LOCAL",
+        NONE = "NONE",
+        PICKUP_POINT = "PICKUP_POINT",
+        PICK_UP = "PICK_UP",
+        RETAIL = "RETAIL",
+        SHIPPING = "SHIPPING",
     }
 
     enum DigitalWallet {
-        ANDROID_PAY = 'ANDROID_PAY',
-        APPLE_PAY = 'APPLE_PAY',
-        FACEBOOK_PAY = 'FACEBOOK_PAY',
-        GOOGLE_PAY = 'GOOGLE_PAY',
-        SHOPIFY_PAY = 'SHOPIFY_PAY',
+        ANDROID_PAY = "ANDROID_PAY",
+        APPLE_PAY = "APPLE_PAY",
+        FACEBOOK_PAY = "FACEBOOK_PAY",
+        GOOGLE_PAY = "GOOGLE_PAY",
+        SHOPIFY_PAY = "SHOPIFY_PAY",
     }
 
     enum DiscountApplicationAllocationMethod {
-        ACROSS = 'ACROSS',
-        EACH = 'EACH',
+        ACROSS = "ACROSS",
+        EACH = "EACH",
         /**
          * @deprecated
          */
-        ONE = 'ONE',
+        ONE = "ONE",
     }
 
     // TODO: https://shopify.dev/api/storefront/unstable/enums/DiscountApplicationTargetSelection
@@ -887,6 +878,12 @@ declare namespace ShopifyBuy {
         appliedGiftCards: AppliedGiftCard[];
         availableShippingRates?: AvailableShippingRates;
         buyerIdentity: CheckoutBuyerIdentity;
+        /**
+         * @deprecated
+         * Not supported. Defaults to `null`.
+         *
+         * The Cart API does not maintain the state of a completed Cart that became an order.
+         */
         completedAt?: DateTime;
         createdAt: DateTime;
         currencyCode: CurrencyCode;
@@ -894,16 +891,58 @@ declare namespace ShopifyBuy {
         email?: string;
         lineItemsSubtotalPrice: MoneyV2;
         note?: string;
+        /**
+         * @deprecated
+         * Not supported. Defaults to `null`.
+         *
+         * To retrieve customer orders, please use either the [Customer Account API](https://shopify.dev/docs/api/customer) or the legacy [Customer API](https://shopify.dev/docs/api/storefront/2025-01/objects/customer).
+         */
         order?: Order;
+        /**
+         * @deprecated
+         * Not supported. Defaults to `null`.
+         *
+         * To retrieve customer orders, please use either the [Customer Account API](https://shopify.dev/docs/api/customer) or the legacy [Customer API](https://shopify.dev/docs/api/storefront/2025-01/objects/customer).
+         */
         orderStatusUrl?: URL;
         paymentDue: MoneyV2;
+        /**
+         * @deprecated
+         * Not supported. Defaults to `false`.
+         *
+         * The [Cart API](https://shopify.dev/docs/api/storefront/2025-01/objects/cart) returns only carts that are considered ready. Simply bypass or remove any existing code depending on this field.
+         */
         ready: boolean;
+        /**
+         * @deprecated
+         * Not supported. Defaults to `false`.
+         *
+         * The [Cart API](https://shopify.dev/docs/api/storefront/2025-01/objects/cart) does not contain shipping information, this is currently handled in the Checkout flow. Remove any existing code depending on these fields.
+         */
         requiresShipping: boolean;
         shippingAddress?: MailingAddress;
         shippingDiscountAllocations: DiscountAllocation[];
+        /**
+         * @deprecated
+         * Not supported. Defaults to `null`.
+         *
+         * The [Cart API](https://shopify.dev/docs/api/storefront/2025-01/objects/cart) does not contain shipping information, this is currently handled in the Checkout flow. Remove any existing code depending on these fields.
+         */
         shippingLine?: ShippingRate;
         subtotalPrice: MoneyV2;
+        /**
+         * @deprecated
+         * Not supported. Defaults to `false`.
+         *
+         * The [Cart API](https://shopify.dev/docs/api/storefront/2025-01/objects/cart) does not have Tax aware as this is currently handled in the Checkout flow. Remove any existing code depending on this field.
+         */
         taxExempt: boolean;
+        /**
+         * @deprecated
+         * Not supported. Defaults to `false`.
+         *
+         * The [Cart API](https://shopify.dev/docs/api/storefront/2025-01/objects/cart) does not have Tax aware as this is currently handled in the Checkout flow. Remove any existing code depending on this field.
+         */
         taxesIncluded: boolean;
         totalDuties?: MoneyV2;
         totalPrice: MoneyV2;
@@ -1553,6 +1592,11 @@ declare namespace ShopifyBuy {
 
         /**
          * Creates a checkout.
+         *
+         * @remarks
+         * There are limitations with checkout localization:
+         * - Does not create localized checkouts when passing `presentmentCurrencyCode`
+         * - Does not localize an *empty* checkout created with `buyerIdentity.countryCode` (must create with lineItems)
          */
         create(input?: {
             email?: string;
@@ -1564,6 +1608,9 @@ declare namespace ShopifyBuy {
 
         /**
          * Replaces the value of checkout's custom attributes and/or note with values defined in the input
+         *
+         * @remarks
+         * It does not update a checkout to support `allowPartialAddresses`
          */
         updateAttributes(
             checkoutId: ID,
@@ -1586,6 +1633,10 @@ declare namespace ShopifyBuy {
 
         /**
          * Applies a discount to an existing checkout using a discount code.
+         *
+         * @remarks
+         * - It does not apply an order-level fixed amount discount to an empty checkout
+         * - It does not apply an order-level percentage discount to an empty checkout
          */
         addDiscount(checkoutId: ID, discountCode: string): Promise<Checkout>;
 

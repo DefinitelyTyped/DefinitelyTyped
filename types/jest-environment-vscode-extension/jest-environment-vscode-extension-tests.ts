@@ -1,4 +1,4 @@
-import type { TextDocument, Range, Position } from 'vscode';
+import type { Position, Range, TextDocument } from "vscode";
 
 const doc = null as unknown as TextDocument;
 const range = null as unknown as Range;
@@ -10,11 +10,11 @@ const position = null as unknown as Position;
 using(
     {
         files: {
-            'index.js': '',
+            "index.js": "",
         },
     },
     async mapFileToDoc => {
-        mapFileToDoc['index.js'];
+        mapFileToDoc["index.js"];
     },
 );
 
@@ -22,12 +22,12 @@ using(
 using(
     {
         files: {
-            'index.js': '',
+            "index.js": "",
         },
     },
     async mapFileToDoc => {
         // @ts-expect-error
-        mapFileToDoc['unknown-file.js'];
+        mapFileToDoc["unknown-file.js"];
     },
 );
 
@@ -36,7 +36,7 @@ using(
     {
         files: {},
         mocks: {
-            'window.showQuickPick': async () => '',
+            "window.showQuickPick": async () => "",
         },
     },
     async mapFileToDoc => {},
@@ -67,7 +67,7 @@ take.hovers(doc, position);
 /* dedent */
 
 // $ExpectType string
-dedent('');
+dedent("");
 
 // @ts-expect-error
 dedent(1);

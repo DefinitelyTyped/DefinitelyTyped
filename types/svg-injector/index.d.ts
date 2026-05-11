@@ -1,8 +1,3 @@
-// Type definitions for SVG Injector
-// Project: https://github.com/iconic/SVGInjector
-// Definitions by: Patrick Westerhoff <https://github.com/poke>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace SVGInjector {
     interface SVGInjector {
         /**
@@ -12,7 +7,11 @@ declare namespace SVGInjector {
          * @param options Injector options.
          * @param done Callback that receives the injected element count as parameter.
          */
-        (elements: Node | NodeList | Array<Node>, options?: SVGInjectorOptions, done?: (elementCount: number) => void): void;
+        (
+            elements: Node | NodeList | Node[],
+            options?: SVGInjectorOptions,
+            done?: (elementCount: number) => void,
+        ): void;
     }
 
     interface SVGInjectorOptions {
@@ -24,7 +23,7 @@ declare namespace SVGInjector {
          * 'once' — Only run scripts once for each SVG.
          * 'never' — Ignore scripts (default)
          */
-        evalScripts?: string | undefined;
+        evalScripts?: "always" | "once" | "never" | undefined;
 
         /**
          * Location of fallback pngs, if desired.
@@ -39,7 +38,6 @@ declare namespace SVGInjector {
     }
 }
 
-
-declare var SVGInjector: SVGInjector.SVGInjector;
+declare const SVGInjector: SVGInjector.SVGInjector;
 export = SVGInjector;
 export as namespace SVGInjector;

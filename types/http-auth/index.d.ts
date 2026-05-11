@@ -1,18 +1,15 @@
-// Type definitions for http-auth 4.1
-// Project: https://github.com/http-auth/http-auth
-// Definitions by: nokazn <https://github.com/nokazn>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.0
-
 /// <reference types="node" />
 
-import * as http from 'http';
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
+import * as http from "http";
 
-type Qop = 'auth' | 'none';
-type Algorithm = 'MD5' | 'MD5-sess';
+type Qop = "auth" | "none";
+type Algorithm = "MD5" | "MD5-sess";
 
-type CheckedRequestListener = (req: http.IncomingMessage & { user?: string | undefined }, res: http.ServerResponse) => void;
+type CheckedRequestListener = (
+    req: http.IncomingMessage & { user?: string | undefined },
+    res: http.ServerResponse,
+) => void;
 type BasicChecker = (username: string, password: string, callback: (isAuthorized: boolean) => void) => void;
 type DigestChecker = (username: string, callback: (hash?: string) => void) => void;
 
@@ -34,7 +31,7 @@ interface ClientOptions {
     uri: string;
     algorithm: Algorithm;
     response: string;
-    qop?: 'auth' | undefined;
+    qop?: "auth" | undefined;
     nc?: string | undefined;
     cnonce?: string | undefined;
 }
@@ -103,9 +100,9 @@ type DigestOptions = BasicOptions & {
 declare abstract class Base extends EventEmitter {
     constructor(options: BasicOptions, checker?: BasicChecker | DigestChecker);
 
-    on(event: 'success', callback: (result: BasicResult<true> | DigestResult<true>) => void): this;
-    on(event: 'fail', callback: (result: BasicResult<false> | DigestResult<false>) => void): this;
-    on(event: 'error', callback: (err: Error) => void): this;
+    on(event: "success", callback: (result: BasicResult<true> | DigestResult<true>) => void): this;
+    on(event: "fail", callback: (result: BasicResult<false> | DigestResult<false>) => void): this;
+    on(event: "error", callback: (err: Error) => void): this;
 
     check(callback?: CheckedRequestListener): CheckedRequestListener;
     abstract processLine(userLine: string): void;
@@ -150,4 +147,4 @@ declare class Digest extends Base {
 declare function basic(options: BasicOptions, checker?: BasicChecker): Basic;
 declare function digest(options: DigestOptions, checker?: DigestChecker): Digest;
 
-export { basic, digest, BasicOptions, DigestOptions, BasicChecker, DigestChecker };
+export { basic, BasicChecker, BasicOptions, digest, DigestChecker, DigestOptions };

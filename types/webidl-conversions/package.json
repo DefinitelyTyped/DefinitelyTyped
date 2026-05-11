@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/webidl-conversions",
+    "version": "7.0.9999",
+    "projects": [
+        "https://github.com/jsdom/webidl-conversions#readme"
+    ],
+    "devDependencies": {
+        "@types/webidl-conversions": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "ExE Boss",
+            "githubUsername": "ExE-Boss"
+        },
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

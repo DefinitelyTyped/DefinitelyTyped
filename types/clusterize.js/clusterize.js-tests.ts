@@ -1,15 +1,15 @@
-import Clusterize = require('clusterize.js');
+import Clusterize = require("clusterize.js");
 
-const options: Clusterize.Options = { contentId: '', scrollId: '' };
+const options: Clusterize.Options = { contentId: "", scrollId: "" };
 const clusterize = new Clusterize(options);
 
-clusterize.append(['<li></li>']);
+clusterize.append(["<li></li>"]);
 
-clusterize.prepend(['<li></li>']);
+clusterize.prepend(["<li></li>"]);
 
 clusterize.getRowsAmount();
 
-clusterize.update(['<li></li>']);
+clusterize.update(["<li></li>"]);
 
 clusterize.getScrollProgress();
 
@@ -19,18 +19,18 @@ clusterize.clear();
 
 clusterize.destroy();
 
-const contentElement = document.createElement('div');
-const scrollElement = document.createElement('div');
+const contentElement = document.createElement("div");
+const scrollElement = document.createElement("div");
 const optionsv18: Clusterize.Options = { contentElem: contentElement, scrollElem: scrollElement };
 const clusterizev18 = new Clusterize(optionsv18);
 
-clusterizev18.append(['<li></li>']);
+clusterizev18.append(["<li></li>"]);
 
-clusterizev18.prepend(['<li></li>']);
+clusterizev18.prepend(["<li></li>"]);
 
 clusterizev18.getRowsAmount();
 
-clusterizev18.update(['<li></li>']);
+clusterizev18.update(["<li></li>"]);
 
 clusterizev18.getScrollProgress();
 

@@ -1,6 +1,32 @@
 {
     "private": true,
+    "name": "@types/nuxtjs__auth",
+    "version": "4.8.9999",
+    "projects": [
+        "https://auth.nuxtjs.org"
+    ],
     "dependencies": {
         "vue": "^2.6.10"
-    }
+    },
+    "devDependencies": {
+        "@types/nuxtjs__auth": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ruskin Constant",
+            "githubUsername": "jonnyparris"
+        },
+        {
+            "name": "Daniel Leal",
+            "githubUsername": "danielgek"
+        },
+        {
+            "name": "Nick Bolles",
+            "githubUsername": "NickBolles"
+        },
+        {
+            "name": "Andrii Rodionov",
+            "githubUsername": "arodiono"
+        }
+    ]
 }

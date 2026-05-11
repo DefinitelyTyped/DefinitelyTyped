@@ -1,3 +1,3 @@
-import stringify from '../src/stringify';
+import stringify from "../src/stringify";
 
 export = stringify;

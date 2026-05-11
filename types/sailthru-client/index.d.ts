@@ -1,11 +1,5 @@
-// Type definitions for sailthru-client 3.0
-// Project: https://github.com/sailthru/sailthru-node-client
-// Definitions by: Sergey Smolnikov <https://github.com/smolnikov>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
-import * as Restler from "restler";
 import * as http from "http";
+import * as Restler from "restler";
 
 export {};
 
@@ -14,9 +8,9 @@ interface RestlerResult {
 }
 
 export type SailthruError = {
-    statusCode: string,
-    error: string,
-    errormsg: string
+    statusCode: string;
+    error: string;
+    errormsg: string;
 } | null;
 
 export interface PurchaseItem {
@@ -29,11 +23,11 @@ export interface PurchaseItem {
     vars?: object | undefined;
     images?: {
         full?: {
-            url: string
-        } | undefined,
+            url: string;
+        } | undefined;
         thumb?: {
-            url: string
-        } | undefined
+            url: string;
+        } | undefined;
     } | undefined;
 }
 
@@ -71,7 +65,7 @@ export interface SailthruClient {
     apiGet(
         action: string,
         data: object,
-        callback: SailthruCallback
+        callback: SailthruCallback,
     ): void;
 
     /**
@@ -83,7 +77,7 @@ export interface SailthruClient {
     apiDelete(
         action: string,
         data: object,
-        callback?: SailthruCallback
+        callback?: SailthruCallback,
     ): void;
 
     /**
@@ -95,7 +89,7 @@ export interface SailthruClient {
     apiPost(
         action: string,
         data: object,
-        callback: SailthruCallback
+        callback: SailthruCallback,
     ): void;
 
     /**
@@ -109,7 +103,8 @@ export interface SailthruClient {
         action: string,
         data: object,
         binary_data_params: string[],
-        callback: SailthruCallback
+        callback: SailthruCallback,
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): void | RestlerResult;
 
     /**
@@ -123,7 +118,7 @@ export interface SailthruClient {
         action: string,
         data: object,
         binary_data_param: string[],
-        callback: SailthruCallback
+        callback: SailthruCallback,
     ): RestlerResult;
 
     /**
@@ -135,7 +130,7 @@ export interface SailthruClient {
     send(
         template: string,
         email: string,
-        callback: SailthruCallback
+        callback: SailthruCallback,
     ): void;
 
     /**
@@ -150,7 +145,7 @@ export interface SailthruClient {
         template: string,
         email: string,
         options: object,
-        callback: SailthruCallback
+        callback: SailthruCallback,
     ): void;
 
     /**
@@ -162,7 +157,7 @@ export interface SailthruClient {
     multiSend(
         template: string,
         emails: string | string[],
-        callback: SailthruCallback
+        callback: SailthruCallback,
     ): void;
 
     /**
@@ -177,7 +172,7 @@ export interface SailthruClient {
         template: string,
         emails: string[],
         options: object,
-        callback: SailthruCallback
+        callback: SailthruCallback,
     ): void;
 
     /**
@@ -187,7 +182,7 @@ export interface SailthruClient {
      */
     getSend(
         send_id: string,
-        callback: SailthruCallback
+        callback: SailthruCallback,
     ): void;
 
     /**
@@ -197,7 +192,7 @@ export interface SailthruClient {
      */
     cancelSend(
         send_id: string,
-        callback: SailthruCallback
+        callback: SailthruCallback,
     ): void;
 
     /**
@@ -207,7 +202,7 @@ export interface SailthruClient {
      */
     getUserBySid(
         sid: string,
-        callback: SailthruCallback
+        callback: SailthruCallback,
     ): void;
 
     /**
@@ -219,7 +214,7 @@ export interface SailthruClient {
     getUserByKey(
         id: string,
         key: string,
-        callback: SailthruCallback
+        callback: SailthruCallback,
     ): void;
 
     /**
@@ -233,7 +228,7 @@ export interface SailthruClient {
         id: string,
         key: string,
         fields: object,
-        callback: SailthruCallback
+        callback: SailthruCallback,
     ): void;
 
     /**
@@ -245,7 +240,8 @@ export interface SailthruClient {
     saveUserBySid(
         sid: string,
         options: object,
-        callback: SailthruCallback
+        callback: SailthruCallback,
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): void | RestlerResult;
 
     /**
@@ -259,7 +255,8 @@ export interface SailthruClient {
         id: string,
         key: string,
         options: object,
-        callback: SailthruCallback
+        callback: SailthruCallback,
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): void | RestlerResult;
 
     /**
@@ -269,7 +266,7 @@ export interface SailthruClient {
      */
     getBlast(
         blastId: string | number,
-        callback: SailthruCallback
+        callback: SailthruCallback,
     ): void;
 
     /**
@@ -279,7 +276,7 @@ export interface SailthruClient {
      */
     deleteBlast(
         blastId: string | number,
-        callback: SailthruCallback
+        callback: SailthruCallback,
     ): void;
 
     /**
@@ -289,7 +286,7 @@ export interface SailthruClient {
      */
     unscheduleBlast(
         blastId: string | number,
-        callback: SailthruCallback
+        callback: SailthruCallback,
     ): void;
 
     /**
@@ -299,7 +296,7 @@ export interface SailthruClient {
      */
     pauseBlast(
         blastId: string | number,
-        callback: SailthruCallback
+        callback: SailthruCallback,
     ): void;
 
     /**
@@ -309,7 +306,7 @@ export interface SailthruClient {
      */
     resumeBlast(
         blastId: string | number,
-        callback: SailthruCallback
+        callback: SailthruCallback,
     ): void;
 
     /**
@@ -319,7 +316,7 @@ export interface SailthruClient {
      */
     cancelBlast(
         blastId: string | number,
-        callback: SailthruCallback
+        callback: SailthruCallback,
     ): void;
 
     /**
@@ -329,7 +326,7 @@ export interface SailthruClient {
      */
     updateBlast(
         blastId: string | number,
-        callback: SailthruCallback
+        callback: SailthruCallback,
     ): void;
 
     /**
@@ -341,7 +338,7 @@ export interface SailthruClient {
     updateBlast(
         blastId: string | number,
         options: object,
-        callback: SailthruCallback
+        callback: SailthruCallback,
     ): void;
 
     /**
@@ -357,7 +354,7 @@ export interface SailthruClient {
         template: string,
         list: string,
         scheduleTime: string,
-        callback: SailthruCallback
+        callback: SailthruCallback,
     ): void;
 
     /**
@@ -375,7 +372,7 @@ export interface SailthruClient {
         list: string,
         scheduleTime: string,
         options: object,
-        callback: SailthruCallback
+        callback: SailthruCallback,
     ): void;
 
     /**
@@ -387,7 +384,7 @@ export interface SailthruClient {
     scheduleBlastFromBlast(
         blastId: string | number,
         scheduleTime: string,
-        callback: SailthruCallback
+        callback: SailthruCallback,
     ): void;
 
     /**
@@ -401,7 +398,7 @@ export interface SailthruClient {
         blastId: string | number,
         scheduleTime: string,
         options: object,
-        callback: SailthruCallback
+        callback: SailthruCallback,
     ): void;
 
     /**
@@ -425,7 +422,7 @@ export interface SailthruClient {
         subject: string,
         contentHtml: string,
         contentText: string,
-        callback: SailthruCallback
+        callback: SailthruCallback,
     ): void;
 
     /**
@@ -451,7 +448,7 @@ export interface SailthruClient {
         contentHtml: string,
         contentText: string,
         options: object,
-        callback: SailthruCallback
+        callback: SailthruCallback,
     ): void;
 
     /**
@@ -463,7 +460,7 @@ export interface SailthruClient {
     saveTemplate(
         template: string,
         options: object,
-        callback: SailthruCallback
+        callback: SailthruCallback,
     ): void;
 
     /**
@@ -475,7 +472,7 @@ export interface SailthruClient {
     saveTemplateFromRevision(
         template: string,
         revision_id: string,
-        callback: SailthruCallback
+        callback: SailthruCallback,
     ): void;
 
     /**
@@ -485,7 +482,7 @@ export interface SailthruClient {
      */
     deleteTemplate(
         template: string,
-        callback: SailthruCallback
+        callback: SailthruCallback,
     ): void;
 
     /**
@@ -493,7 +490,7 @@ export interface SailthruClient {
      * @param callback a standard callback function which will be invoked after the API server responds
      */
     getLists(
-        callback: SailthruCallback
+        callback: SailthruCallback,
     ): void;
 
     /**
@@ -503,7 +500,7 @@ export interface SailthruClient {
      */
     deleteList(
         list: string,
-        callback: SailthruCallback
+        callback: SailthruCallback,
     ): void;
 
     /**
@@ -515,7 +512,7 @@ export interface SailthruClient {
     pushContent(
         title: string,
         url: string,
-        callback: SailthruCallback
+        callback: SailthruCallback,
     ): void;
 
     /**
@@ -529,7 +526,7 @@ export interface SailthruClient {
         title: string,
         url: string,
         options: object,
-        callback: SailthruCallback
+        callback: SailthruCallback,
     ): void;
 
     /**
@@ -541,7 +538,7 @@ export interface SailthruClient {
     purchase(
         email: string,
         items: PurchaseItem[],
-        callback: SailthruCallback
+        callback: SailthruCallback,
     ): void;
 
     /**
@@ -555,7 +552,7 @@ export interface SailthruClient {
         email: string,
         items: PurchaseItem[],
         options: object,
-        callback: SailthruCallback
+        callback: SailthruCallback,
     ): void;
 
     /**
@@ -565,7 +562,7 @@ export interface SailthruClient {
      */
     stats(
         data: object,
-        callback: SailthruCallback
+        callback: SailthruCallback,
     ): void;
 
     /**
@@ -575,7 +572,7 @@ export interface SailthruClient {
      */
     statsList(
         options: object,
-        callback: SailthruCallback
+        callback: SailthruCallback,
     ): void;
 
     /**
@@ -585,7 +582,7 @@ export interface SailthruClient {
      */
     statsBlast(
         options: object,
-        callback: SailthruCallback
+        callback: SailthruCallback,
     ): void;
 
     /**
@@ -595,7 +592,7 @@ export interface SailthruClient {
      */
     getJobStatus(
         job: string,
-        callback: SailthruCallback
+        callback: SailthruCallback,
     ): void;
 
     /**
@@ -605,7 +602,7 @@ export interface SailthruClient {
      */
     processJob(
         job: string,
-        callback: SailthruCallback
+        callback: SailthruCallback,
     ): void;
 
     /**
@@ -617,7 +614,7 @@ export interface SailthruClient {
     processJob(
         job: string,
         options: object,
-        callback: SailthruCallback
+        callback: SailthruCallback,
     ): void;
 
     /**
@@ -631,7 +628,7 @@ export interface SailthruClient {
         job: string,
         options: object,
         report_email: string,
-        callback: SailthruCallback
+        callback: SailthruCallback,
     ): void;
 
     /**
@@ -647,7 +644,7 @@ export interface SailthruClient {
         options: object,
         report_email: string,
         postback_url: string,
-        callback: SailthruCallback
+        callback: SailthruCallback,
     ): void;
 
     /**
@@ -665,7 +662,7 @@ export interface SailthruClient {
         report_email: string,
         postback_url: string,
         binary_data_params: string[],
-        callback: SailthruCallback
+        callback: SailthruCallback,
     ): void;
 
     receiveOptoutPost(): void;
@@ -676,8 +673,8 @@ export interface SailthruClient {
      * @param method API method to get rate limit information
      */
     getLastRateLimitInfo(action: string, method: string): {
-        limit: number,
-        remaining: number,
-        reset: number
+        limit: number;
+        remaining: number;
+        reset: number;
     };
 }

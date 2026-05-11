@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/d3-fetch",
+    "version": "1.2.9999",
+    "projects": [
+        "https://d3js.org/d3-fetch/"
+    ],
+    "dependencies": {
+        "@types/d3-dsv": "^1"
+    },
+    "devDependencies": {
+        "@types/d3-fetch": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Hugues Stefanski",
+            "githubUsername": "ledragon"
+        },
+        {
+            "name": "denisname",
+            "githubUsername": "denisname"
+        },
+        {
+            "name": "Nathan Bierema",
+            "githubUsername": "Methuselah96"
+        }
+    ]
+}

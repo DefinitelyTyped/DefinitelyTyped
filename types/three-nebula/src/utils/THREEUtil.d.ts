@@ -1,3 +1,5 @@
+import * as THREE from "three";
+
 export namespace THREEUtil {
     function toScreenPos(pos: THREE.Vector3, camera: THREE.Camera, canvas: HTMLCanvasElement): THREE.Vector3;
 

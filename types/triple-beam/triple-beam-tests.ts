@@ -1,4 +1,4 @@
-import tripleBeam = require('triple-beam');
+import tripleBeam = require("triple-beam");
 
 const level: symbol = tripleBeam.LEVEL;
 const message: symbol = tripleBeam.MESSAGE;

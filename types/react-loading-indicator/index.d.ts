@@ -1,9 +1,3 @@
-// Type definitions for react-loading-indicator 1.0
-// Project: https://github.com/exponentjs/react-loading-indicator#readme
-// Definitions by: Markus Lasermann <https://github.com/snaptags>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.8
-
 import * as React from "react";
 export interface LoadingIndicatorColor {
     red: number; // value between 0 and 255, inclusive

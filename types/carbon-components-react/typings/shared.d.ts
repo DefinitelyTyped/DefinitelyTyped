@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 export interface ReactAttr<T = HTMLElement> extends React.HTMLAttributes<T> {}
 export interface ReactAnchorAttr<T = HTMLAnchorElement> extends React.AnchorHTMLAttributes<T> {}
@@ -11,14 +11,14 @@ export interface ReactLIAttr<T = HTMLLIElement> extends React.LiHTMLAttributes<T
 export type ShapeOf<B extends object, E extends object = { [key: string]: any }> = (E extends never ? {} : E) & B;
 export type Overwrite<T, U> = [T] extends [never] ? U : Omit<T, keyof U> & U;
 
-export type VerticalDirection = 'bottom' | 'top';
-export type HorizontalDirection = 'left' | 'right';
+export type VerticalDirection = "bottom" | "top";
+export type HorizontalDirection = "left" | "right";
 export type Direction = HorizontalDirection | VerticalDirection;
 export type ListBoxBaseItemType = object | string;
-export type TooltipAlignment = 'center' | 'end' | 'start';
+export type TooltipAlignment = "center" | "end" | "start";
 export type TooltipPosition = Direction;
-export type CarbonSize = 'lg' | 'sm' | 'xs';
-export type CarbonInputSize = 'sm' | 'lg' | 'xl';
+export type CarbonSize = "lg" | "sm" | "xs";
+export type CarbonInputSize = "sm" | "lg" | "xl";
 
 //
 // In retrospect, it may not always be a good idea to lump shared props into a common reused interface.
@@ -47,7 +47,7 @@ export interface RequiresChildrenProps<T = React.ReactNode> {
     children: NonNullable<T>;
 }
 
-export interface RequiresIdProps<T = ReactAttr['id']> {
+export interface RequiresIdProps<T = ReactAttr["id"]> {
     id: NonNullable<T>;
 }
 
@@ -79,9 +79,9 @@ export type ForwardRefProps<T, P = {}> = React.PropsWithoutRef<React.PropsWithCh
 export type ForwardRefReturn<T, P = {}> = React.ForwardRefExoticComponent<ForwardRefProps<T, P>>;
 
 export type JSXIntrinsicElementProps<
-    K extends keyof JSX.IntrinsicElements,
-    REF extends boolean = false
-> = REF extends true ? JSX.IntrinsicElements[K] : Omit<JSX.IntrinsicElements[K], 'ref'>;
+    K extends keyof React.JSX.IntrinsicElements,
+    REF extends boolean = false,
+> = REF extends true ? React.JSX.IntrinsicElements[K] : Omit<React.JSX.IntrinsicElements[K], "ref">;
 
 // for "as" props
-export type ReactComponentConstructor<P> = ((props: P) => FCReturn) | (new (props: P) => React.Component<unknown, any>);
+export type ReactComponentConstructor<P> = ((props: P) => FCReturn) | (new(props: P) => React.Component<unknown, any>);

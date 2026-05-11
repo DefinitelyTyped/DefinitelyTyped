@@ -1,26 +1,26 @@
-import { interpolatorLinear } from '../interpolate/linear';
-import { fixupAlpha } from '../fixup/alpha';
-import { Dlab } from './types';
-import { Lab65 } from '../lab65/types';
-import { Rgb } from '../rgb/types';
+import { fixupAlpha } from "../fixup/alpha.js";
+import { interpolatorLinear } from "../interpolate/linear.js";
+import { Lab65 } from "../lab65/types.js";
+import { Rgb } from "../rgb/types.js";
+import { Dlab } from "./types.js";
 
-declare const definition: {
-    mode: 'dlab';
+declare const modeDlab: {
+    mode: "dlab";
 
-    parse: ['--din99o-lab'];
-    serialize: '--din99o-lab';
+    parse: ["--din99o-lab"];
+    serialize: "--din99o-lab";
 
     toMode: {
-        lab65: (c: Omit<Dlab, 'mode'>) => Lab65;
-        rgb: (c: Omit<Dlab, 'mode'>) => Rgb;
+        lab65: (c: Omit<Dlab, "mode">) => Lab65;
+        rgb: (c: Omit<Dlab, "mode">) => Rgb;
     };
 
     fromMode: {
-        lab65: (c: Omit<Lab65, 'mode'>) => Dlab;
-        rgb: (c: Omit<Rgb, 'mode'>) => Dlab;
+        lab65: (c: Omit<Lab65, "mode">) => Dlab;
+        rgb: (c: Omit<Rgb, "mode">) => Dlab;
     };
 
-    channels: ['l', 'a', 'b', 'alpha'];
+    channels: ["l", "a", "b", "alpha"];
 
     ranges: {
         l: [0, 100];
@@ -39,4 +39,4 @@ declare const definition: {
     };
 };
 
-export default definition;
+export default modeDlab;

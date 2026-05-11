@@ -1,3 +1,5 @@
-export namespace RectAreaLightUniformsLib {
-    function init(): void;
+declare class RectAreaLightUniformsLib {
+    static init(): void;
 }
+
+export { RectAreaLightUniformsLib };

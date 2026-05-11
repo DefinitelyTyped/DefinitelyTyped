@@ -1,9 +1,3 @@
-// Type definitions for node-horseman 3.3
-// Project: https://github.com/johntitus/node-horseman#readme
-// Definitions by: Pratheek Adidela <https://github.com/apratheek>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 export = horseman;
 
 declare class horseman {
@@ -47,7 +41,7 @@ declare class horseman {
     crop(area: string | object, path: string): this;
 
     /** Take a base64 encoded cropped screenshot. */
-    cropBase64(area: string, type: string | 'PNG'): any;
+    cropBase64(area: string, type: string | "PNG"): any;
 
     /** Get the value of an css property of a selector. */
     cssProperty(selector: string, prop: string): string;
@@ -124,10 +118,22 @@ declare class horseman {
      *  error - callback(msg, trace);
      *  timeout - callback(type)
      */
-    on(event: string | "timeout" | "tabCreated" | "tabClosed"| "resourceTimeout"| "urlChanged"| "resourceReceived"| "pageCreated"| "loadFinished", func: (...args: any[]) => void): this;
+    on(
+        event:
+            | string
+            | "timeout"
+            | "tabCreated"
+            | "tabClosed"
+            | "resourceTimeout"
+            | "urlChanged"
+            | "resourceReceived"
+            | "pageCreated"
+            | "loadFinished",
+        func: (...args: any[]) => void,
+    ): this;
 
     /** Open a url in Phantom. */
-    open(url: string, method?: string | 'GET'): this;
+    open(url: string, method?: string | "GET"): this;
 
     /** Open URL in a new tab */
     openTab(url: string): this;
@@ -136,9 +142,9 @@ declare class horseman {
 
     /** Save the current page as a pdf. */
     pdf(path: string, paperSize: {
-        format?: "A3" | "A4" | "A5" | "Legal" | "Letter" | "Tabloid" | undefined,
-        orientation?: "portrait" | "landscape" | undefined,
-        margin?: string | undefined
+        format?: "A3" | "A4" | "A5" | "Legal" | "Letter" | "Tabloid" | undefined;
+        orientation?: "portrait" | "landscape" | undefined;
+        margin?: string | undefined;
     }): this;
 
     /** Get the plain text for the body of the page. */
@@ -157,7 +163,7 @@ declare class horseman {
     screenshot(path: string): this;
 
     /** Take a base64 encoded screenshot, e.g., PNG. */
-    screenshotBase64(type: string | 'PNG'): any;
+    screenshotBase64(type: string | "PNG"): any;
 
     /** Scroll to a position on the page. */
     scrollTo(top: number, left: number): this;

@@ -1,9 +1,4 @@
-// Type definitions for react-json-editor-ajrm 2.5
-// Project: https://github.com/AndrewRedican/react-json-editor-ajrm#readme
-// Definitions by: “GlennChia” <https://github.com/GlennChia>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import * as React from 'react';
+import * as React from "react";
 
 interface locale {
     format: string;
@@ -75,7 +70,7 @@ interface locale {
             missingOpen: string;
             missingClose: string;
             cannotWrap: string;
-        }
+        };
     };
     string: {
         missingOpen: string;

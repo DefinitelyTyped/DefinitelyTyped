@@ -1,8 +1,3 @@
-// Type definitions for morsee 1.0
-// Project: https://github.com/gabrielfurini/morsee
-// Definitions by: Bas950 <https://github.com/Bas950>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Encodes given string to morse code.
  *

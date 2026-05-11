@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/connect-route",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/baryshev/connect-route"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@types/connect": "*"
+    },
+    "devDependencies": {
+        "@types/connect-route": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Chris Thompson",
+            "githubUsername": "cthompson92"
+        }
+    ]
+}

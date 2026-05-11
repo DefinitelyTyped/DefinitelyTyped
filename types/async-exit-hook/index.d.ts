@@ -1,8 +1,3 @@
-// Type definitions for async-exit-hook 2.0
-// Project: https://github.com/Tapppi/async-exit-hook
-// Definitions by: Speedy <https://github.com/SpeedyCraftah>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // Internal types to define function parameters.
 type DoneCallback = () => void;
 type BaseHookFunction = (done: DoneCallback) => void;

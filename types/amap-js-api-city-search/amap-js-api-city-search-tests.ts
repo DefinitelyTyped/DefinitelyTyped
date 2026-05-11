@@ -2,8 +2,8 @@
 const citySearch = new AMap.CitySearch();
 
 citySearch.getLocalCity((status, result) => {
-    const statusTemp: 'error' | 'complete' | 'no_data' = status;
-    if (typeof result !== 'string') {
+    const statusTemp: "error" | "complete" | "no_data" = status;
+    if (typeof result !== "string") {
         // $ExpectType SearchResult
         result;
         // $ExpectType string
@@ -29,12 +29,12 @@ citySearch.getLocalCity((status, result) => {
 });
 
 // $ExpectType void
-citySearch.getCityByIp('ip', (status, result) => {
-    const statusTemp: 'error' | 'complete' | 'no_data' = status;
+citySearch.getCityByIp("ip", (status, result) => {
+    const statusTemp: "error" | "complete" | "no_data" = status;
     const resultTemp: AMap.CitySearch.SearchResult | string = result;
 });
 
-citySearch.on('complete', (event: AMap.CitySearch.EventMap['complete']) => {
+citySearch.on("complete", (event: AMap.CitySearch.EventMap["complete"]) => {
     // $ExpectType "complete"
     event.type;
     // $ExpectType string
@@ -55,7 +55,7 @@ citySearch.on('complete', (event: AMap.CitySearch.EventMap['complete']) => {
     event.status;
 });
 
-citySearch.on('error', (event: AMap.CitySearch.EventMap['error']) => {
+citySearch.on("error", (event: AMap.CitySearch.EventMap["error"]) => {
     // $ExpectType string
     event.info;
     // $ExpectType "error"

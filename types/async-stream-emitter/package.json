@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/async-stream-emitter",
+    "version": "7.0.9999",
+    "projects": [
+        "https://github.com/SocketCluster/async-stream-emitter"
+    ],
+    "dependencies": {
+        "@types/consumable-stream": "*",
+        "@types/writable-consumable-stream": "*"
+    },
+    "devDependencies": {
+        "@types/async-stream-emitter": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Daniel Rose",
+            "githubUsername": "DanielRose"
+        },
+        {
+            "name": "Nathan Bierema",
+            "githubUsername": "Methuselah96"
+        }
+    ]
+}

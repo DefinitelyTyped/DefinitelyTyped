@@ -1,6 +1,21 @@
 {
     "private": true,
+    "name": "@types/knex-cleaner",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/steven-ferguson/knex-cleaner"
+    ],
     "dependencies": {
+        "@types/node": "*",
         "knex": ">=2.3.0"
-    }
+    },
+    "devDependencies": {
+        "@types/knex-cleaner": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Karol Goraus",
+            "githubUsername": "Szarlus"
+        }
+    ]
 }

@@ -1,6 +1,6 @@
-import { createResponse } from 'create-response';
-import { HtmlRewritingStream } from 'html-rewriter';
-import { httpRequest } from 'http-request';
+import { createResponse } from "create-response";
+import { HtmlRewritingStream } from "html-rewriter";
+import { httpRequest } from "http-request";
 
 async function responseProvider(request: EW.ResponseProviderRequest) {
     // Setup: Fetch a stream containing HTML
@@ -13,8 +13,8 @@ async function responseProvider(request: EW.ResponseProviderRequest) {
     const rewriter = new HtmlRewritingStream();
 
     // (2) Add a handler to the rewriter: this one adds a <script> tag to the <head>.
-    rewriter.onElement('head', el => {
-        el.append('<script src="/beaconTracker.js"></script>');
+    rewriter.onElement("head", el => {
+        el.append("<script src=\"/beaconTracker.js\"></script>");
     });
 
     // (3) Use `pipeThrough()` to modify the input HTML with the rewriter

@@ -1,0 +1,32 @@
+{
+    "private": true,
+    "name": "@types/bitcore-lib-cash",
+    "version": "8.23.9999",
+    "projects": [
+        "https://github.com/bitpay/bitcore/packages/bitcore-lib-cash"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/bitcore-lib-cash": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "James Cramer",
+            "githubUsername": "jcramer"
+        },
+        {
+            "name": "Jt Freeman",
+            "githubUsername": "blockparty-sh"
+        },
+        {
+            "name": "Rosco Kalis",
+            "githubUsername": "rkalis"
+        },
+        {
+            "name": "Jason Dreyzehner",
+            "githubUsername": "bitjson"
+        }
+    ]
+}

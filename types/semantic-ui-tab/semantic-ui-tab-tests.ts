@@ -1,7 +1,7 @@
 function test_tab_static() {
-    $.fn.tab.settings.error!.method = 'method';
-    $.fn.tab.settings.namespace = 'namespace';
-    $.fn.tab.settings.name = 'name';
+    $.fn.tab.settings.error!.method = "method";
+    $.fn.tab.settings.namespace = "namespace";
+    $.fn.tab.settings.name = "name";
     $.fn.tab.settings.silent = false;
     $.fn.tab.settings.debug = true;
     $.fn.tab.settings.performance = true;
@@ -9,39 +9,39 @@ function test_tab_static() {
 }
 
 function test_tab() {
-    const selector = '.ui.tab';
-    $(selector).tab('change tab', 'path'); // $ExpectType JQuery<HTMLElement>
-    $(selector).tab('set state', 'path'); // $ExpectType JQuery<HTMLElement>
-    $(selector).tab('get path'); // $ExpectType string
-    $(selector).tab('is tab'); // $ExpectType boolean
-    $(selector).tab('cache read', 'path'); // $ExpectType string | false
-    $(selector).tab('cache add', 'path', 'html'); // $ExpectType JQuery<HTMLElement>
-    $(selector).tab('cache remove', 'path'); // $ExpectType JQuery<HTMLElement>
-    $(selector).tab('destroy'); // $ExpectType JQuery<HTMLElement>
-    $(selector).tab('setting', 'debug', undefined); // $ExpectType boolean
-    $(selector).tab('setting', 'debug'); // $ExpectType boolean
-    $(selector).tab('setting', 'debug', true); // $ExpectType JQuery<HTMLElement>
+    const selector = ".ui.tab";
+    $(selector).tab("change tab", "path"); // $ExpectType JQuery<HTMLElement>
+    $(selector).tab("set state", "path"); // $ExpectType JQuery<HTMLElement>
+    $(selector).tab("get path"); // $ExpectType string
+    $(selector).tab("is tab"); // $ExpectType boolean
+    $(selector).tab("cache read", "path"); // $ExpectType string | false
+    $(selector).tab("cache add", "path", "html"); // $ExpectType JQuery<HTMLElement>
+    $(selector).tab("cache remove", "path"); // $ExpectType JQuery<HTMLElement>
+    $(selector).tab("destroy"); // $ExpectType JQuery<HTMLElement>
+    $(selector).tab("setting", "debug", undefined); // $ExpectType boolean
+    $(selector).tab("setting", "debug"); // $ExpectType boolean
+    $(selector).tab("setting", "debug", true); // $ExpectType JQuery<HTMLElement>
     // $ExpectType JQuery<HTMLElement>
-    $(selector).tab('setting', {
-        namespace: 'namespace',
-        name: 'name',
+    $(selector).tab("setting", {
+        namespace: "namespace",
+        name: "name",
         silent: false,
         debug: true,
         performance: true,
-        verbose: true
+        verbose: true,
     });
     // $ExpectType JQuery<HTMLElement>
     $(selector).tab({
         auto: false,
-        deactivate: 'siblings',
+        deactivate: "siblings",
         history: true,
         ignoreFirstLoad: false,
-        evaluateScripts: 'once',
+        evaluateScripts: "once",
         alwaysRefresh: true,
-        cacheType: 'DOM',
+        cacheType: "DOM",
         cache: false,
         apiSettings: {
-            on: 'on',
+            on: "on",
             cache: true,
             stateContext: $(),
             encodeParameters: false,
@@ -53,8 +53,8 @@ function test_tab() {
             loadingDuration: 3,
             hideError: true,
             errorDuration: 10,
-            action: 'action',
-            url: 'url',
+            action: "action",
+            url: "url",
             urlData: false,
             response: false,
             responseAsync(settings, callback) {
@@ -66,8 +66,8 @@ function test_tab() {
                 settings; // $ExpectType Param
                 callback; // $ExpectType (response: any) => void
             },
-            method: 'post',
-            dataType: 'xml',
+            method: "post",
+            dataType: "xml",
             data: {},
             beforeSend(settings) {
                 settings; // $ExpectType Param
@@ -113,38 +113,38 @@ function test_tab() {
             },
             regExp: {
                 required: /{\$*[A-z0-9]+}/g,
-                optional: /{\/\$*[A-z0-9]+}/g
+                optional: /{\/\$*[A-z0-9]+}/g,
             },
             selector: {
-                disabled: '.disabled',
-                form: 'form'
+                disabled: ".disabled",
+                form: "form",
             },
             className: {
-                loading: 'loading',
-                error: 'error'
+                loading: "loading",
+                error: "error",
             },
             metadata: {
-                action: 'action',
-                url: 'url'
+                action: "action",
+                url: "url",
             },
             error: {
-                beforeSend: 'beforeSend',
-                error: 'error',
-                exitConditions: 'exitConditions',
-                JSONParse: 'JSONParse',
-                legacyParameters: 'legacyParameters',
-                missingAction: 'missingAction',
-                missingSerialize: 'missingSerialize',
-                missingURL: 'missingURL',
-                noReturnedValue: 'noReturnedValue',
-                parseError: 'parseError',
-                requiredParameter: 'requiredParameter',
-                statusMessage: 'statusMessage',
-                timeout: 'timeout'
-            }
+                beforeSend: "beforeSend",
+                error: "error",
+                exitConditions: "exitConditions",
+                JSONParse: "JSONParse",
+                legacyParameters: "legacyParameters",
+                missingAction: "missingAction",
+                missingSerialize: "missingSerialize",
+                missingURL: "missingURL",
+                noReturnedValue: "noReturnedValue",
+                parseError: "parseError",
+                requiredParameter: "requiredParameter",
+                statusMessage: "statusMessage",
+                timeout: "timeout",
+            },
         },
-        historyType: 'state',
-        path: 'path',
+        historyType: "state",
+        path: "path",
         context: $(),
         childrenOnly: true,
         maxDepth: 10,
@@ -173,41 +173,41 @@ function test_tab() {
             determineTitle(tabArray) {
                 tabArray; // $ExpectType any[]
 
-                return 'title';
-            }
+                return "title";
+            },
         },
         selector: {
-            tabs: 'tabs',
-            parent: 'parent'
+            tabs: "tabs",
+            parent: "parent",
         },
         metadata: {
-            tab: 'tab',
-            loaded: 'loaded',
-            promise: 'promise'
+            tab: "tab",
+            loaded: "loaded",
+            promise: "promise",
         },
         className: {
-            loading: 'loading',
-            active: 'active'
+            loading: "loading",
+            active: "active",
         },
         error: {
-            api: 'api',
-            method: 'method',
-            missingTab: 'missingTab',
-            noContent: 'noContent',
-            path: 'path',
-            recursion: 'recursion',
-            state: 'state'
-        }
+            api: "api",
+            method: "method",
+            missingTab: "missingTab",
+            noContent: "noContent",
+            path: "path",
+            recursion: "recursion",
+            state: "state",
+        },
     });
     $(selector).tab(); // $ExpectType JQuery<HTMLElement>
 
     // @ts-expect-error
-    $(selector).tab('foo');
+    $(selector).tab("foo");
     // @ts-expect-error
-    $(selector).tab({ foo: 'bar' });
+    $(selector).tab({ foo: "bar" });
 }
 
-import tab = require('semantic-ui-tab');
+import tab = require("semantic-ui-tab");
 
 function test_module() {
     tab; // $ExpectType Tab

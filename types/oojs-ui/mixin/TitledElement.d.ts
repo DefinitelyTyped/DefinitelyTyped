@@ -83,7 +83,7 @@ declare namespace OO.ui.mixin {
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): TitledElement;
+            new(config?: ConfigOptions): TitledElement;
             prototype: Prototype;
             static: Static;
         }

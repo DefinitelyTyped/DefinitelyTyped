@@ -1,4 +1,4 @@
-import { CustomTypesConfig } from '..';
+import { CustomTypesConfig } from "..";
 
 declare enum builtins {
     BOOL = 16,
@@ -60,18 +60,18 @@ declare enum builtins {
     REGDICTIONARY = 3769,
     JSONB = 3802,
     REGNAMESPACE = 4089,
-    REGROLE = 4096
-  }
+    REGROLE = 4096,
+}
 type TypeId = builtins;
-type TypeParser<I extends (string | Buffer), T> = (value: I) => T;
+type TypeParser<TOid = number, TReturn = any> = (oid: TOid) => TReturn;
+type TypeFormat = "text" | "binary";
 
 export = TypeOverrides;
 declare class TypeOverrides implements CustomTypesConfig {
     constructor(types?: CustomTypesConfig);
     setTypeParser<T>(oid: number | TypeId, parseFn: TypeParser<string, T>): void;
-    setTypeParser<T>(oid: number | TypeId, format: 'text', parseFn: TypeParser<string, T>): void;
-    setTypeParser<T>(oid: number | TypeId, format: 'binary', parseFn: TypeParser<Buffer, T>): void;
+    setTypeParser<T>(oid: number | TypeId, format: "text", parseFn: TypeParser<string, T>): void;
+    setTypeParser<T>(oid: number | TypeId, format: "binary", parseFn: TypeParser<Buffer, T>): void;
 
-    getTypeParser<T>(oid: number | TypeId, format?: 'text'): TypeParser<string, T | string>;
-    getTypeParser<T>(oid: number | TypeId, format: 'binary'): TypeParser<Buffer, T | string>;
+    getTypeParser<T>(oid: number | TypeId, format?: TypeFormat): TypeParser;
 }

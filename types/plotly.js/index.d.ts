@@ -1,66 +1,42 @@
-// Type definitions for plotly.js 2.12
-// Project: https://plot.ly/javascript/, https://github.com/plotly/plotly.js
-// Definitions by: Chris Gervang <https://github.com/chrisgervang>
-//                 Martin Duparc <https://github.com/martinduparc>
-//                 Frederik Aalund <https://github.com/frederikaalund>
-//                 taoqf <https://github.com/taoqf>
-//                 Dadstart <https://github.com/Dadstart>
-//                 Jared Szechy <https://github.com/szechyjs>
-//                 Sooraj Pudiyadath <https://github.com/soorajpudiyadath>
-//                 Jon Freedman <https://github.com/jonfreedman>
-//                 Megan Riel-Mehan <https://github.com/meganrm>
-//                 Josh Miles <https://github.com/milesjos>
-//                 Pramod Mathai  <https://github.com/skippercool>
-//                 Michael Adams <https://github.com/mtadams007>
-//                 Michael Arnett <https://github.com/marnett-git>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-//                 Brandon Mitchell <https://github.com/brammitch>
-//                 Jessica Blizzard <https://github.com/blizzardjessica>
-//                 Oleg Shilov <https://github.com/olegshilov>
-//                 Pablo Gracia <https://github.com/PabloGracia>
-//                 Jeffrey van Gogh <https://github.com/jvgogh>
-//                 John Abdou <https://github.com/jpabdou>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { BoxPlotData, BoxPlotMarker } from './lib/traces/box';
-import { ViolinData } from './lib/traces/violin';
-import { OhlcData } from './lib/traces/ohlc';
-import { CandlestickData } from './lib/traces/candlestick';
-import { PieData } from './lib/traces/pie';
-import { SankeyData } from './lib/traces/sankey';
+import { BoxPlotData, BoxPlotMarker } from "./lib/box";
+import { CandlestickData } from "./lib/candlestick";
+import { OhlcData } from "./lib/ohlc";
+import { PieData } from "./lib/pie";
+import { SankeyData } from "./lib/sankey";
+import { ViolinData } from "./lib/violin";
 
 export as namespace Plotly;
-export { BoxPlotData, ViolinData, OhlcData, CandlestickData, PieData, SankeyData };
+export { BoxPlotData, CandlestickData, OhlcData, PieData, SankeyData, ViolinData };
 
 export type DefaultIcons =
-    | 'undo'
-    | 'home'
-    | 'camera-retro'
-    | 'zoombox'
-    | 'pan'
-    | 'zoom_plus'
-    | 'zoom_minus'
-    | 'autoscale'
-    | 'tooltip_basic'
-    | 'tooltip_compare'
-    | 'plotlylogo'
-    | 'z-axis'
-    | '3d_rotate'
-    | 'camera'
-    | 'movie'
-    | 'question'
-    | 'disk'
-    | 'drawopenpath'
-    | 'drawclosedpath'
-    | 'lasso'
-    | 'selectbox'
-    | 'drawline'
-    | 'drawrect'
-    | 'drawcircle'
-    | 'eraseshape'
-    | 'spikeline'
-    | 'pencil'
-    | 'newplotlylogo';
+    | "undo"
+    | "home"
+    | "camera-retro"
+    | "zoombox"
+    | "pan"
+    | "zoom_plus"
+    | "zoom_minus"
+    | "autoscale"
+    | "tooltip_basic"
+    | "tooltip_compare"
+    | "plotlylogo"
+    | "z-axis"
+    | "3d_rotate"
+    | "camera"
+    | "movie"
+    | "question"
+    | "disk"
+    | "drawopenpath"
+    | "drawclosedpath"
+    | "lasso"
+    | "selectbox"
+    | "drawline"
+    | "drawrect"
+    | "drawcircle"
+    | "eraseshape"
+    | "spikeline"
+    | "pencil"
+    | "newplotlylogo";
 
 export const Icons: { [K in DefaultIcons]: Icon };
 
@@ -142,12 +118,12 @@ export interface PlotScene {
 }
 
 export interface PlotRelayoutEvent extends Partial<Layout> {
-    'xaxis.range[0]'?: number | undefined;
-    'xaxis.range[1]'?: number | undefined;
-    'yaxis.range[0]'?: number | undefined;
-    'yaxis.range[1]'?: number | undefined;
-    'xaxis.autorange'?: boolean | undefined;
-    'yaxis.autorange'?: boolean | undefined;
+    "xaxis.range[0]"?: number;
+    "xaxis.range[1]"?: number;
+    "yaxis.range[0]"?: number;
+    "yaxis.range[1]"?: number;
+    "xaxis.autorange"?: boolean;
+    "yaxis.autorange"?: boolean;
 }
 
 export interface ClickAnnotationEvent {
@@ -161,10 +137,7 @@ export interface FrameAnimationEvent {
     name: string;
     frame: Frame;
     animation: {
-        frame: {
-            duration: number;
-            redraw: boolean;
-        };
+        frame: AnimationFrameOpts;
         transition: Transition;
     };
 }
@@ -183,55 +156,213 @@ export interface LegendClickEvent {
 }
 
 export interface MapboxCenter {
+    /**
+     * Sets the latitude of the center of the map (in degrees North).
+     */
     lon: number;
+    /**
+     * Sets the longitude of the center of the map (in degrees East).
+     */
     lat: number;
 }
 
 export interface MapboxSymbol {
+    /**
+     * Sets the symbol icon image (mapbox.layer.layout.icon-image).
+     * Full list: https://www.mapbox.com/maki-icons/
+     */
     icon: string;
+    /**
+     * Sets the symbol icon size (mapbox.layer.layout.icon-size).
+     * Has an effect only when `type` is set to *symbol*.
+     */
     iconsize: number;
+    /**
+     * Sets the symbol text (mapbox.layer.layout.text-field).
+     */
     text: string;
-    placement: 'point' | 'line' | 'line-center';
+    /**
+     * Sets the symbol and/or text placement (mapbox.layer.layout.symbol-placement).
+     * If `placement` is *point*, the label is placed where the geometry is located.
+     * If `placement` is *line*, the label is placed along the line of the geometry.
+     * If `placement` is *line-center*, the label is placed on the center of the geometry.
+     */
+    placement: "point" | "line" | "line-center";
     textfont: Partial<Font>;
+    /**
+     * Sets the positions of the `text` elements with respects to the (x,y) coordinates.
+     */
     textposition:
-        | 'top left'
-        | 'top center'
-        | 'top right'
-        | 'middle center'
-        | 'bottom left'
-        | 'bottom center'
-        | 'bottom right';
+        | "top left"
+        | "top center"
+        | "top right"
+        | "middle center"
+        | "bottom left"
+        | "bottom center"
+        | "bottom right";
 }
 export interface MapboxLayers {
-    visible: true;
-    sourcetype: 'geojson' | 'vecotr' | 'raster' | 'image';
-    source: number | string;
+    /**
+     * Determines whether this layer is displayed.
+     */
+    visible: boolean;
+    /**
+     * Sets the source type for this layer, that is the type of the layer data.
+     */
+    sourcetype: "geojson" | "vecotr" | "raster" | "image";
+    /**
+     * Sets the source data for this layer (mapbox.layer.source).
+     * When `sourcetype` is set to *geojson*, `source` can be a URL to a GeoJSON or a GeoJSON object.
+     * When `sourcetype` is set to *vector* or *raster*, `source` can be a URL or an array of tile URLs.
+     * When `sourcetype` is set to *image*, `source` can be a URL to an image.
+     */
+    source: any;
+    /**
+     * Specifies the layer to use from a vector tile source (mapbox.layer.source-layer).
+     * Required for *vector* source type that supports multiple layers.
+     */
     sourcelayer: string;
+    /**
+     * Sets the attribution for this source.
+     */
     sourceattribution: string;
-    type: 'circle' | 'line' | 'fill' | 'symbol' | 'raster';
+    /**
+     * Sets the layer type,
+     * that is the how the layer data set in `source` will be rendered With `sourcetype` set to *geojson*,
+     * the following values are allowed: *circle*, *line*, *fill* and *symbol*.
+     * But note that *line* and *fill* are not compatible with Point GeoJSON geometries.
+     * With `sourcetype` set to *vector*, the following values are allowed: *circle*, *line*, *fill* and *symbol*.
+     * With `sourcetype` set to *raster* or `*image*`, only the *raster* value is allowed.
+     */
+    type: "circle" | "line" | "fill" | "symbol" | "raster";
+    /**
+     * Sets the coordinates array contains [longitude, latitude] pairs for the image corners listed in clockwise order: top left, top right, bottom right, bottom left.
+     * Only has an effect for *image* `sourcetype`.
+     */
     coordinates: number | string;
+    /**
+     * Determines if the layer will be inserted before the layer with the specified ID.
+     * If omitted or set to '', the layer will be inserted above every existing layer.
+     */
     below: string;
+    /**
+     * Sets the primary layer color.
+     * If `type` is *circle*, color corresponds to the circle color (mapbox.layer.paint.circle-color).
+     * If `type` is *line*, color corresponds to the line color (mapbox.layer.paint.line-color).
+     * If `type` is *fill*, color corresponds to the fill color (mapbox.layer.paint.fill-color).
+     * If `type` is *symbol*, color corresponds to the icon color (mapbox.layer.paint.icon-color).
+     */
     color: Color;
+    /**
+     * Sets the opacity of the layer.
+     * If `type` is *circle*, opacity corresponds to the circle opacity (mapbox.layer.paint.circle-opacity).
+     * If `type` is *line*, opacity corresponds to the line opacity (mapbox.layer.paint.line-opacity).
+     * If `type` is *fill*, opacity corresponds to the fill opacity (mapbox.layer.paint.fill-opacity).
+     * If `type` is *symbol*, opacity corresponds to the icon/text opacity (mapbox.layer.paint.text-opacity).
+     */
     opacity: number;
+    /**
+     * Sets the minimum zoom level (mapbox.layer.minzoom).
+     * At zoom levels less than the minzoom, the layer will be hidden.
+     */
     minzoom: number;
+    /**
+     * Sets the maximum zoom level (mapbox.layer.maxzoom).
+     * At zoom levels equal to or greater than the maxzoom, the layer will be hidden.
+     */
     maxzoom: number;
-    circle: { radius: number };
+    circle: {
+        /**
+         * Sets the circle radius (mapbox.layer.paint.circle-radius).
+         * Has an effect only when `type` is set to *circle*.
+         */
+        radius: number;
+    };
     line: Partial<ShapeLine>;
-    fill: { outlinecolor: Color };
+    fill: {
+        /**
+         * Sets the fill outline color (mapbox.layer.paint.fill-outline-color).
+         * Has an effect only when `type` is set to *fill*.
+         */
+        outlinecolor: Color;
+    };
     symbol: Partial<MapboxSymbol>;
+    /**
+     * When used in a template, named items are created in the output figure in addition to any items the figure already has in this array.
+     * You can modify these items in the output figure by making your own item with `templateitemname` matching this `name`
+     * alongside your modifications (including `visible: false` or `enabled: false` to hide it).
+     * Has no effect outside of a template.
+     */
     name: string;
+    /**
+     * Used to refer to a named item in this array in the template.
+     * Named items from the template will be created even without a matching item in the input figure,
+     * but you can modify one by making an item with `templateitemname` matching its `name`,
+     * alongside your modifications (including `visible: false` or `enabled: false` to hide it).
+     * If there is no template or no matching item,
+     * this item will be hidden unless you explicitly show it with `visible: true`.
+     */
     templateitemname: string;
 }
+
+export interface MapboxBounds {
+    /**
+     * Sets the maximum longitude of the map (in degrees East) if `west`, `south` and `north` are declared.
+     */
+    east: number;
+    /**
+     * Sets the maximum latitude of the map (in degrees North) if `east`, `west` and `south` are declared.
+     */
+    north: number;
+    /**
+     * Sets the minimum latitude of the map (in degrees North) if `east`, `west` and `north` are declared.
+     */
+    south: number;
+    /**
+     * Sets the minimum longitude of the map (in degrees East) if `east`, `south` and `north` are declared.
+     */
+    west: number;
+}
+
 export interface Mapbox {
     domain: Partial<Domain>;
+    /**
+     * Sets the mapbox access token to be used for this mapbox map.
+     * Alternatively, the mapbox access token can be set in the configuration options under `mapboxAccessToken`.
+     * Note that accessToken are only required when `style` (e.g with values : basic, streets, outdoors, light, dark, satellite, satellite-streets ) and/or a layout layer references the Mapbox server.
+     */
     accesstoken: string;
+    /**
+     * Defines the map layers that are rendered by default below the trace layers defined in `data`, which are themselves by default rendered below the layers defined in `layout.mapbox.layers`.
+     * These layers can be defined either explicitly as a Mapbox Style object which can contain multiple layer definitions that load data from any public or private Tile Map Service (TMS or XYZ) or Web Map Service (WMS) or implicitly by using one of the built-in style objects which use WMSes which do not require any access tokens, or by using a default Mapbox style or custom Mapbox style URL, both of which require a Mapbox access token.
+     * Note that Mapbox access token can be set in the `accesstoken` attribute or in the `mapboxAccessToken` config option.
+     * Mapbox Style objects are of the form described in the Mapbox GL JS documentation available at https://docs.mapbox.com/mapbox-gl-js/style-spec.
+     * The built-in plotly.js styles objects are: carto-darkmatter, carto-positron, open-street-map, stamen-terrain, stamen-toner, stamen-watercolor, white-bg.
+     * The built-in Mapbox styles are: basic, streets, outdoors, light, dark, satellite, satellite-streets.
+     * Mapbox style URLs are of the form: mapbox://mapbox.mapbox-<name>-<version>
+     */
     style: number | string;
     center: Partial<MapboxCenter>;
+    /**
+     * Sets the zoom level of the map (mapbox.zoom).
+     */
     zoom: number;
+    /**
+     * Sets the bearing angle of the map in degrees counter-clockwise from North (mapbox.bearing).
+     */
     bearing: number;
+    bounds: MapboxBounds;
+    /**
+     * Sets the pitch angle of the map (in degrees, where *0* means perpendicular to the surface of the map) (mapbox.pitch).
+     */
     pitch: number;
     layers: Array<Partial<MapboxLayers>>;
+    /**
+     * Controls persistence of user-driven changes in the view: `center`, `zoom`, `bearing`, `pitch`.
+     * Defaults to `layout.uirevision`.
+     */
     uirevision: number | string;
+    uid: string;
 }
 
 export interface SliderChangeEvent {
@@ -281,52 +412,78 @@ export interface BeforePlotEvent {
 }
 
 export interface PlotlyHTMLElement extends HTMLElement {
-    on(event: 'plotly_click' | 'plotly_unhover', callback: (event: PlotMouseEvent) => void): void;
-    on(event: 'plotly_hover', callback: (event: PlotHoverEvent) => void): void;
-    on(event: 'plotly_selecting' | 'plotly_selected', callback: (event: PlotSelectionEvent) => void): void;
-    on(event: 'plotly_restyle', callback: (data: PlotRestyleEvent) => void): void;
-    on(event: 'plotly_relayout' | 'plotly_relayouting', callback: (event: PlotRelayoutEvent) => void): void;
-    on(event: 'plotly_clickannotation', callback: (event: ClickAnnotationEvent) => void): void;
-    on(event: 'plotly_animatingframe', callback: (event: FrameAnimationEvent) => void): void;
-    on(event: 'plotly_legendclick' | 'plotly_legenddoubleclick', callback: (event: LegendClickEvent) => boolean): void;
-    on(event: 'plotly_sliderchange', callback: (event: SliderChangeEvent) => void): void;
-    on(event: 'plotly_sliderend', callback: (event: SliderEndEvent) => void): void;
-    on(event: 'plotly_sliderstart', callback: (event: SliderStartEvent) => void): void;
-    on(event: 'plotly_sunburstclick', callback: (event: SunburstClickEvent) => void): void;
-    on(event: 'plotly_event', callback: (data: any) => void): void;
-    on(event: 'plotly_beforeplot', callback: (event: BeforePlotEvent) => boolean): void;
+    on(event: "plotly_click" | "plotly_unhover", callback: (event: PlotMouseEvent) => void): void;
+    on(event: "plotly_hover", callback: (event: PlotHoverEvent) => void): void;
+    on(event: "plotly_selecting" | "plotly_selected", callback: (event: PlotSelectionEvent) => void): void;
+    on(event: "plotly_restyle", callback: (data: PlotRestyleEvent) => void): void;
+    on(event: "plotly_relayout" | "plotly_relayouting", callback: (event: PlotRelayoutEvent) => void): void;
+    on(event: "plotly_clickannotation", callback: (event: ClickAnnotationEvent) => void): void;
+    on(event: "plotly_animatingframe", callback: (event: FrameAnimationEvent) => void): void;
+    on(event: "plotly_legendclick" | "plotly_legenddoubleclick", callback: (event: LegendClickEvent) => boolean): void;
+    on(event: "plotly_sliderchange", callback: (event: SliderChangeEvent) => void): void;
+    on(event: "plotly_sliderend", callback: (event: SliderEndEvent) => void): void;
+    on(event: "plotly_sliderstart", callback: (event: SliderStartEvent) => void): void;
+    on(event: "plotly_sunburstclick", callback: (event: SunburstClickEvent) => void): void;
+    on(event: "plotly_event", callback: (data: any) => void): void;
+    on(event: "plotly_beforeplot", callback: (event: BeforePlotEvent) => boolean): void;
     on(
         event:
-            | 'plotly_afterexport'
-            | 'plotly_afterplot'
-            | 'plotly_animated'
-            | 'plotly_animationinterrupted'
-            | 'plotly_autosize'
-            | 'plotly_beforeexport'
-            | 'plotly_deselect'
-            | 'plotly_doubleclick'
-            | 'plotly_framework'
-            | 'plotly_redraw'
-            | 'plotly_transitioning'
-            | 'plotly_transitioninterrupted',
+            | "plotly_afterexport"
+            | "plotly_afterplot"
+            | "plotly_animated"
+            | "plotly_animationinterrupted"
+            | "plotly_autosize"
+            | "plotly_beforeexport"
+            | "plotly_deselect"
+            | "plotly_doubleclick"
+            | "plotly_framework"
+            | "plotly_redraw"
+            | "plotly_transitioning"
+            | "plotly_transitioninterrupted",
         callback: () => void,
     ): void;
     removeAllListeners: (handler: string) => void;
     data: Data[];
+    layout: Layout;
 }
 
 export interface ToImgopts {
-    format: 'jpeg' | 'png' | 'webp' | 'svg';
-    width: number;
-    height: number;
+    format: "jpeg" | "png" | "webp" | "svg";
+    /**
+     * If null, uses current graph width
+     */
+    width: number | null;
+    /**
+     * If null, uses current graph height
+     */
+    height: number | null;
     scale?: number | undefined;
 }
 
 export interface DownloadImgopts {
-    format: 'jpeg' | 'png' | 'webp' | 'svg';
-    width: number;
-    height: number;
+    format: "jpeg" | "png" | "webp" | "svg";
+    /**
+     * If null, uses current graph width
+     */
+    width: number | null;
+    /**
+     * If null, uses current graph height
+     */
+    height: number | null;
     filename: string;
+}
+
+export interface AnimationFrameOpts {
+    duration: number;
+    redraw: boolean;
+}
+
+export interface AnimationOpts {
+    mode: "immediate" | "next" | "afterall";
+    direction: "forward" | "reverse";
+    fromcurrent: boolean;
+    transition: Partial<Transition> | Array<Partial<Transition>>;
+    frame: Partial<AnimationFrameOpts> | Array<Partial<AnimationFrameOpts>>;
 }
 
 export interface PolarLayout {
@@ -336,8 +493,9 @@ export interface PolarLayout {
     bgcolor: Color;
     radialaxis: Partial<LayoutAxis>;
     angularaxis: Partial<LayoutAxis>;
-    gridshape: 'circular' | 'linear';
+    gridshape: "circular" | "linear";
     uirevision: string | number;
+    uid: string;
 }
 
 export interface PlotlyDataLayoutConfig {
@@ -399,24 +557,58 @@ export function react(
 export function addFrames(root: Root, frames: Array<Partial<Frame>>): Promise<PlotlyHTMLElement>;
 export function deleteFrames(root: Root, frames: number[]): Promise<PlotlyHTMLElement>;
 export function register(modules: PlotlyModule | PlotlyModule[]): void;
+export function animate(
+    root: Root,
+    frameOrGroupNameOrFrameList?: string | string[] | Partial<Frame> | Array<Partial<Frame>>,
+    opts?: Partial<AnimationOpts>,
+): Promise<void>;
+
+export interface ValidateResult {
+    code: string;
+    container: "data" | "layout";
+    trace: number | null;
+    path: string | (string | number)[];
+    astr: string;
+    msg: string;
+}
+export function validate(data: Data[], layout: Partial<Layout>): ValidateResult[];
+export function setPlotConfig(config: Partial<Config>): void;
+
+export type TemplateFigure = Root | { data: Data[]; layout: Partial<Layout> };
+export function makeTemplate(figure: TemplateFigure): Template;
+
+export interface ValidateTemplateResult {
+    code: string;
+    index?: number;
+    traceType?: string;
+    templateCount?: number;
+    dataCount?: number;
+    path?: string;
+    templateitemname?: string;
+    msg: string;
+}
+export function validateTemplate(figure: TemplateFigure, template: Template): ValidateTemplateResult[];
 
 // Layout
 export interface Layout {
     colorway: string[];
-    title:
-        | string
-        | Partial<{
-              text: string;
-              font: Partial<Font>;
-              xref: 'container' | 'paper';
-              yref: 'container' | 'paper';
-              x: number;
-              y: number;
-              xanchor: 'auto' | 'left' | 'center' | 'right';
-              yanchor: 'auto' | 'top' | 'middle' | 'bottom';
-              pad: Partial<Padding>;
-          }>;
-    titlefont: Partial<Font>;
+    title: Partial<{
+        text: string;
+        font: Partial<Font>;
+        xref: "container" | "paper";
+        yref: "container" | "paper";
+        x: number;
+        y: number;
+        xanchor: "auto" | "left" | "center" | "right";
+        yanchor: "auto" | "top" | "middle" | "bottom";
+        pad: Partial<Padding>;
+        subtitle:
+            | string
+            | Partial<{
+                text: string;
+                font: Partial<Font>;
+            }>;
+    }>;
     autosize: boolean;
     showlegend: boolean;
     paper_bgcolor: Color;
@@ -444,29 +636,57 @@ export interface Layout {
     margin: Partial<Margin>;
     height: number;
     width: number;
-    hovermode: 'closest' | 'x' | 'y' | 'x unified' | 'y unified' | false;
+    hovermode: "closest" | "x" | "y" | "x unified" | "y unified" | false;
     hoverdistance: number;
     hoverlabel: Partial<HoverLabel>;
+    /**
+     * Determines expansion of hover effects to other subplots.
+     * If "single" just the axis pair of the primary point is included without overlaying subplots.
+     * If "overlaying" all subplots using the main axis and occupying the same space are included.
+     * If "axis", also include stacked subplots using the same axis
+     * when `hovermode` is set to "x", "x unified", "y" or "y unified".
+     * @default "overlaying"
+     */
+    hoversubplots: "single" | "overlaying" | "axis";
     calendar: Calendar;
-    'xaxis.range': [Datum, Datum];
-    'xaxis.range[0]': Datum;
-    'xaxis.range[1]': Datum;
-    'yaxis.range': [Datum, Datum];
-    'yaxis.range[0]': Datum;
-    'yaxis.range[1]': Datum;
-    'yaxis.type': AxisType;
-    'xaxis.type': AxisType;
-    'xaxis.autorange': boolean;
-    'yaxis.autorange': boolean;
-    'xaxis.title': string;
-    'yaxis.title': string;
+
+    // these are just the most common nested property updates that you might
+    // want to pass to Plotly.relayout - *any* dotted property path through the
+    // normal nested structure is valid here, and enumerating them all including
+    // all possible [n] array indices would be infeasible (if it weren't for the
+    // array indices, the pure a.b.c bit might be doable with conditional types)
+    "xaxis.range": [Datum, Datum];
+    "xaxis.range[0]": Datum;
+    "xaxis.range[1]": Datum;
+    "yaxis.range": [Datum, Datum];
+    "yaxis.range[0]": Datum;
+    "yaxis.range[1]": Datum;
+    "yaxis.type": AxisType;
+    "xaxis.type": AxisType;
+    "xaxis.autorange": boolean;
+    "yaxis.autorange": boolean;
+    "xaxis.title": Partial<DataTitle>;
+    "yaxis.title": Partial<DataTitle>;
     ternary: {}; // TODO
     geo: {}; // TODO
+    map: Partial<Mapbox>;
     mapbox: Partial<Mapbox>;
     subplot: string;
     radialaxis: Partial<Axis>;
     angularaxis: {}; // TODO
-    dragmode: 'zoom' | 'pan' | 'select' | 'lasso' | 'orbit' | 'turntable' | false;
+    dragmode:
+        | "zoom"
+        | "pan"
+        | "select"
+        | "lasso"
+        | "drawclosedpath"
+        | "drawopenpath"
+        | "drawline"
+        | "drawrect"
+        | "drawcircle"
+        | "orbit"
+        | "turntable"
+        | false;
     orientation: number;
     annotations: Array<Partial<Annotations>>;
     shapes: Array<Partial<Shape>>;
@@ -476,29 +696,37 @@ export interface Layout {
     legend: Partial<Legend>;
     font: Partial<Font>;
     scene: Partial<Scene>;
-    barmode: 'stack' | 'group' | 'overlay' | 'relative';
-    barnorm: '' | 'fraction' | 'percent';
+    scene2: Partial<Scene>;
+    scene3: Partial<Scene>;
+    scene4: Partial<Scene>;
+    scene5: Partial<Scene>;
+    scene6: Partial<Scene>;
+    scene7: Partial<Scene>;
+    scene8: Partial<Scene>;
+    scene9: Partial<Scene>;
+    barmode: "stack" | "group" | "overlay" | "relative";
+    barnorm: "" | "fraction" | "percent";
     bargap: number;
     bargroupgap: number;
-    boxmode: 'group' | 'overlay';
-    selectdirection: 'h' | 'v' | 'd' | 'any';
+    boxmode: "group" | "overlay";
+    selectdirection: "h" | "v" | "d" | "any";
     hiddenlabels: string[];
     grid: Partial<{
         rows: number;
-        roworder: 'top to bottom' | 'bottom to top';
+        roworder: "top to bottom" | "bottom to top";
         columns: number;
         subplots: string[];
         xaxes: string[];
         yaxes: string[];
-        pattern: 'independent' | 'coupled';
+        pattern: "independent" | "coupled";
         xgap: number;
         ygap: number;
         domain: Partial<{
             x: number[];
             y: number[];
         }>;
-        xside: 'bottom' | 'bottom plot' | 'top plot' | 'top';
-        yside: 'left' | 'left plot' | 'right plot' | 'right';
+        xside: "bottom" | "bottom plot" | "top plot" | "top";
+        yside: "left" | "left plot" | "right plot" | "right";
     }>;
     polar: Partial<PolarLayout>;
     polar2: Partial<PolarLayout>;
@@ -511,8 +739,9 @@ export interface Layout {
     polar9: Partial<PolarLayout>;
     transition: Transition;
     template: Template;
-    clickmode: 'event' | 'select' | 'event+select' | 'none';
+    clickmode: "event" | "select" | "event+select" | "none";
     uirevision: number | string;
+    uid: string;
     datarevision: number | string;
     editrevision: number | string;
     selectionrevision: number | string;
@@ -521,25 +750,28 @@ export interface Layout {
 
 export interface Legend extends Label {
     borderwidth: number;
-    groupclick: 'toggleitem' | 'togglegroup';
+    groupclick: "toggleitem" | "togglegroup";
     grouptitlefont: Partial<Font>;
-    itemclick: 'toggle' | 'toggleothers' | false;
-    itemdoubleclick: 'toggle' | 'toggleothers' | false;
-    itemsizing: 'trace' | 'constant';
+    itemclick: "toggle" | "toggleothers" | false;
+    itemdoubleclick: "toggle" | "toggleothers" | false;
+    itemsizing: "trace" | "constant";
     itemwidth: number;
-    orientation: 'v' | 'h';
+    orientation: "v" | "h";
     title: Partial<LegendTitle>;
     tracegroupgap: number;
-    traceorder: 'grouped' | 'normal' | 'reversed' | 'reversed+grouped';
+    traceorder: "grouped" | "normal" | "reversed" | "reversed+grouped";
     uirevision: number | string;
-    valign: 'top' | 'middle' | 'bottom';
+    uid: string;
+    valign: "top" | "middle" | "bottom";
     x: number;
-    xanchor: 'auto' | 'left' | 'center' | 'right';
+    xanchor: "auto" | "left" | "center" | "right";
+    xref: "container" | "paper";
     y: number;
-    yanchor: 'auto' | 'top' | 'middle' | 'bottom';
+    yanchor: "auto" | "top" | "middle" | "bottom";
+    yref: "container" | "paper";
 }
 
-export type AxisType = '-' | 'linear' | 'log' | 'date' | 'category' | 'multicategory';
+export type AxisType = "-" | "linear" | "log" | "date" | "category" | "multicategory";
 
 export type DTickValue = number | string;
 
@@ -580,6 +812,40 @@ export interface TickFormatStop {
     templateitemname: string;
 }
 
+export interface AutoRangeOptions {
+    clipmax: DTickValue;
+    clipmin: DTickValue;
+    include: DTickValue;
+    maxallowed: DTickValue;
+    minallowed: DTickValue;
+}
+
+export interface MinorAxisLayout {
+    dtick: DTickValue;
+    gridcolor: Color;
+    griddash: Dash;
+    gridwidth: number;
+    nticks: number;
+    showgrid: boolean;
+    tick0: DTickValue;
+    tickcolor: Color;
+    ticklen: number;
+    tickmode: "auto" | "linear" | "array";
+    ticks: "outside" | "inside" | "";
+    tickvals: any[];
+    tickwidth: number;
+}
+
+export interface RangeBreak {
+    bounds: any[];
+    dvalue: number;
+    enabled: boolean;
+    name: string;
+    pattern: "day of week" | "hour" | "";
+    templateitemname: string;
+    values: any[];
+}
+
 export interface Axis {
     /**
      * A single toggle to hide the axis while preserving interaction like dragging.
@@ -594,16 +860,12 @@ export interface Axis {
      * Individual pieces can override this.
      */
     color: Color;
-    title: string | Partial<DataTitle>;
-    /**
-     * Former `titlefont` is now the sub-attribute `font` of `title`.
-     * To customize title font properties, please use `title.font` now.
-     */
-    titlefont: Partial<Font>;
+    title: Partial<DataTitle>;
     type: AxisType;
-    autorange: true | false | 'reversed';
+    autorange: true | false | "reversed" | "min reversed" | "max reversed" | "min" | "max";
+    autorangeoptions: Partial<AutoRangeOptions>;
     /**
-     * 'If *normal*, the range is computed in relation to the extrema
+     * If *normal*, the range is computed in relation to the extrema
      * of the input data.
      * If *tozero*`, the range extends to 0,
      * regardless of the input data
@@ -611,7 +873,7 @@ export interface Axis {
      * regardless of the input data.
      * Applies only to linear axes.
      */
-    rangemode: 'normal' | 'tozero' | 'nonnegative';
+    rangemode: "normal" | "tozero" | "nonnegative";
     range: any[];
     /**
      * Determines whether or not this axis is zoom-able.
@@ -622,14 +884,14 @@ export interface Axis {
     /**
      * Ticks
      */
-    tickmode: 'auto' | 'linear' | 'array';
+    tickmode: "auto" | "linear" | "array" | "sync";
     nticks: number;
     tick0: number | string;
     dtick: DTickValue;
     tickvals: any[];
     ticktext: string[];
-    ticks: 'outside' | 'inside' | '';
-    mirror: true | 'ticks' | false | 'all' | 'allticks';
+    ticks: "outside" | "inside" | "";
+    mirror: true | "ticks" | false | "all" | "allticks";
     ticklen: number;
     tickwidth: number;
     tickcolor: Color;
@@ -650,25 +912,25 @@ export interface Axis {
      * Similarly, the order can be determined by the min, max, sum, mean or median of all the values.
      */
     categoryorder:
-        | 'trace'
-        | 'category ascending'
-        | 'category descending'
-        | 'array'
-        | 'total ascending'
-        | 'total descending'
-        | 'min ascending'
-        | 'min descending'
-        | 'max ascending'
-        | 'max descending'
-        | 'sum ascending'
-        | 'sum descending'
-        | 'mean ascending'
-        | 'mean descending'
-        | 'median ascending'
-        | 'median descending';
+        | "trace"
+        | "category ascending"
+        | "category descending"
+        | "array"
+        | "total ascending"
+        | "total descending"
+        | "min ascending"
+        | "min descending"
+        | "max ascending"
+        | "max descending"
+        | "sum ascending"
+        | "sum descending"
+        | "mean ascending"
+        | "mean descending"
+        | "median ascending"
+        | "median descending";
     categoryarray: any[];
     tickfont: Partial<Font>;
-    tickangle: 'auto' | number;
+    tickangle: "auto" | number;
     tickprefix: string;
     /**
      * If `all`, all tick labels are displayed with a prefix.
@@ -676,7 +938,7 @@ export interface Axis {
      * If `last`, only the last tick is displayed with a suffix.
      * If `none`, tick prefixes are hidden.
      */
-    showtickprefix: 'all' | 'first' | 'last' | 'none';
+    showtickprefix: "all" | "first" | "last" | "none";
     /**
      * Sets a tick label suffix.
      */
@@ -684,14 +946,14 @@ export interface Axis {
     /**
      * Same as `showtickprefix` but for tick suffixes.
      */
-    showticksuffix: 'all' | 'first' | 'last' | 'none';
+    showticksuffix: "all" | "first" | "last" | "none";
     /**
      * If `all`, all exponents are shown besides their significands.
      * If `first`, only the exponent of the first tick is shown.
      * If `last`, only the exponent of the last tick is shown.
      * If `none`, no exponents appear.
      */
-    showexponent: 'all' | 'first' | 'last' | 'none';
+    showexponent: "all" | "first" | "last" | "none";
     /**
      * Determines a formatting rule for the tick exponents.
      * For example, consider the number 1,000,000,000.
@@ -702,9 +964,13 @@ export interface Axis {
      * If `SI`, *1G*.
      * If `B`, *1B*.
      */
-    exponentformat: 'none' | 'e' | 'E' | 'power' | 'SI' | 'B';
+    exponentformat: "none" | "e" | "E" | "power" | "SI" | "B";
     /**
-     * 'If `true`, even 4-digit integers are separated
+     * Hide SI prefix for 10^n if |n| is below this number. This only has an effect when `tickformat` is "SI" or "B".
+     */
+    minexponent: number;
+    /**
+     * If `true`, even 4-digit integers are separated
      */
     separatethousands: boolean;
     /**
@@ -741,17 +1007,17 @@ export interface Axis {
      * plotted on
      */
     spikemode:
-        | 'toaxis'
-        | 'across'
-        | 'marker'
-        | 'toaxis+across'
-        | 'toaxis+across+marker'
-        | 'across+marker'
-        | 'toaxis+marker';
+        | "toaxis"
+        | "across"
+        | "marker"
+        | "toaxis+across"
+        | "toaxis+across+marker"
+        | "across+marker"
+        | "toaxis+marker";
     /**
      * Determines whether spikelines are stuck to the cursor or to the closest datapoints.
      */
-    spikesnap: 'data' | 'cursor' | 'hovered data';
+    spikesnap: "data" | "cursor" | "hovered data";
 
     /**
      * Lines and Grids
@@ -812,51 +1078,85 @@ export interface Axis {
      * Only has an effect on *multicategory* axes.
      */
     dividerwidth: number;
+
+    autotypenumbers: "convert types" | "strict";
+    labelalias: DTickValue;
+    maxallowed: DTickValue;
+    minallowed: DTickValue;
 }
 
 export type Calendar =
-    | 'gregorian'
-    | 'chinese'
-    | 'coptic'
-    | 'discworld'
-    | 'ethiopian'
-    | 'hebrew'
-    | 'islamic'
-    | 'julian'
-    | 'mayan'
-    | 'nanakshahi'
-    | 'nepali'
-    | 'persian'
-    | 'jalali'
-    | 'taiwan'
-    | 'thai'
-    | 'ummalqura';
+    | "gregorian"
+    | "chinese"
+    | "coptic"
+    | "discworld"
+    | "ethiopian"
+    | "hebrew"
+    | "islamic"
+    | "julian"
+    | "mayan"
+    | "nanakshahi"
+    | "nepali"
+    | "persian"
+    | "jalali"
+    | "taiwan"
+    | "thai"
+    | "ummalqura";
 
-export type XAxisName = 'x' | 'x2' | 'x3' | 'x4' | 'x5' | 'x6' | 'x7' | 'x8' | 'x9' | 'x10' | 'x11';
-export type YAxisName = 'y' | 'y2' | 'y3' | 'y4' | 'y5' | 'y6' | 'y7' | 'y8' | 'y9' | 'y10' | 'y11';
+// regex from documentation: "/^x([2-9]|[1-9][0-9]+)?( domain)?$/" | "/^y([2-9]|[1-9][0-9]+)?( domain)?$/"
+// regex allows for an unlimited amount of digits for the 'axis number', but the following typescript definition is limited to two digits
+type xYAxisNames = `${
+    | ""
+    | `${2 | 3 | 4 | 5 | 6 | 7 | 8 | 9}`
+    | `${1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9}${0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9}`}${"" | " domain"}`;
+
+export type XAxisName = `x${xYAxisNames}`;
+export type YAxisName = `y${xYAxisNames}`;
+
 export type AxisName = XAxisName | YAxisName;
 
 export interface LayoutAxis extends Axis {
     fixedrange: boolean;
     scaleanchor: AxisName;
     scaleratio: number;
-    constrain: 'range' | 'domain';
-    constraintoward: 'left' | 'center' | 'right' | 'top' | 'middle' | 'bottom';
-    anchor: 'free' | AxisName;
-    side: 'top' | 'bottom' | 'left' | 'right' | 'clockwise' | 'counterclockwise';
-    overlaying: 'free' | AxisName;
-    layer: 'above traces' | 'below traces';
+    constrain: "range" | "domain";
+    constraintoward: "left" | "center" | "right" | "top" | "middle" | "bottom";
+    anchor: "free" | AxisName;
+    side: "top" | "bottom" | "left" | "right" | "clockwise" | "counterclockwise";
+    overlaying: "free" | AxisName;
+    layer: "above traces" | "below traces";
     domain: number[];
     position: number;
     rotation: number;
-    direction: 'counterclockwise' | 'clockwise';
+    direction: "counterclockwise" | "clockwise";
     rangeslider: Partial<RangeSlider>;
     rangeselector: Partial<RangeSelector>;
     automargin: boolean;
-    autotick: boolean;
     angle: any;
     griddash: Dash;
     l2p: (v: Datum) => number;
+
+    autotickangles: number[];
+    insiderange: any[];
+    matches: AxisName;
+    minor: Partial<MinorAxisLayout>;
+    rangebreaks: Array<Partial<RangeBreak>>;
+    ticklabelmode: "instant" | "period";
+    ticklabeloverflow: "allow" | "hide past div" | "hide past domain";
+    ticklabelposition:
+        | "outside"
+        | "inside"
+        | "outside top"
+        | "inside top"
+        | "outside left"
+        | "inside left"
+        | "outside right"
+        | "inside right"
+        | "outside bottom"
+        | "inside bottom";
+    ticklabelstep: number;
+    tickson: "labels" | "boundaries";
+    uirevision: DTickValue;
 }
 
 export interface SceneAxis extends Axis {
@@ -872,16 +1172,39 @@ export interface ShapeLine {
     dash: Dash;
 }
 
+export interface ShapeLabel {
+    font: Partial<Font>;
+    padding: number;
+    text: string;
+    textangle: "auto" | number;
+    textposition:
+        | "top left"
+        | "top center"
+        | "top right"
+        | "middle left"
+        | "middle center"
+        | "middle right"
+        | "bottom left"
+        | "bottom center"
+        | "bottom right"
+        | "start"
+        | "middle"
+        | "end";
+    texttemplate: string;
+    xanchor: "auto" | "left" | "center" | "right";
+    yanchor: "top" | "middle" | "bottom";
+}
+
 export interface Shape {
-    visible: boolean;
-    layer: 'below' | 'above';
-    type: 'rect' | 'circle' | 'line' | 'path';
+    visible: boolean | "legendonly";
+    layer: "below" | "above";
+    type: "rect" | "circle" | "line" | "path";
     path: string;
-    xref: 'paper' | XAxisName;
-    xsizemode: 'scaled' | 'pixel';
+    xref: "paper" | XAxisName;
+    xsizemode: "scaled" | "pixel";
     xanchor: number | string;
-    yref: 'paper' | YAxisName;
-    ysizemode: 'scaled' | 'pixel';
+    yref: "paper" | YAxisName;
+    ysizemode: "scaled" | "pixel";
     yanchor: number | string;
     x0: Datum;
     y0: Datum;
@@ -892,6 +1215,14 @@ export interface Shape {
     templateitemname: string;
     opacity: number;
     line: Partial<ShapeLine>;
+    label: Partial<ShapeLabel>;
+    showlegend: boolean;
+    legendgroup: string;
+    legendgrouptitle: {
+        text: string;
+        font?: Partial<Font>;
+    };
+    legendrank: number;
 }
 
 export interface Margin {
@@ -907,51 +1238,55 @@ export interface ModeBar {
     add: ModeBarDefaultButtons | ModeBarDefaultButtons[];
     bgcolor: Color;
     color: Color;
-    orientation: 'v' | 'h';
+    orientation: "v" | "h";
     remove: ModeBarDefaultButtons | ModeBarDefaultButtons[];
     uirevision: number | string;
+    uid: string;
 }
 
 export type ModeBarButtonAny = ModeBarDefaultButtons | ModeBarButton;
 
 export type ModeBarDefaultButtons =
-    | 'lasso2d'
-    | 'select2d'
-    | 'sendDataToCloud'
-    | 'zoom2d'
-    | 'pan2d'
-    | 'zoomIn2d'
-    | 'zoomOut2d'
-    | 'autoScale2d'
-    | 'resetScale2d'
-    | 'hoverClosestCartesian'
-    | 'hoverCompareCartesian'
-    | 'zoom3d'
-    | 'pan3d'
-    | 'orbitRotation'
-    | 'tableRotation'
-    | 'handleDrag3d'
-    | 'resetCameraDefault3d'
-    | 'resetCameraLastSave3d'
-    | 'hoverClosest3d'
-    | 'zoomInGeo'
-    | 'zoomOutGeo'
-    | 'resetGeo'
-    | 'hoverClosestGeo'
-    | 'hoverClosestGl2d'
-    | 'hoverClosestPie'
-    | 'toggleHover'
-    | 'toImage'
-    | 'resetViews'
-    | 'toggleSpikelines'
-    | 'zoomInMapbox'
-    | 'zoomOutMapbox'
-    | 'resetViewMapbox'
-    | 'togglespikelines'
-    | 'togglehover'
-    | 'hovercompare'
-    | 'hoverclosest'
-    | 'v1hovermode';
+    | "lasso2d"
+    | "select2d"
+    | "sendDataToCloud"
+    | "zoom2d"
+    | "pan2d"
+    | "zoomIn2d"
+    | "zoomOut2d"
+    | "autoScale2d"
+    | "resetScale2d"
+    | "hoverClosestCartesian"
+    | "hoverCompareCartesian"
+    | "zoom3d"
+    | "pan3d"
+    | "orbitRotation"
+    | "tableRotation"
+    | "handleDrag3d"
+    | "resetCameraDefault3d"
+    | "resetCameraLastSave3d"
+    | "hoverClosest3d"
+    | "zoomInGeo"
+    | "zoomOutGeo"
+    | "resetGeo"
+    | "hoverClosestGeo"
+    | "hoverClosestGl2d"
+    | "hoverClosestPie"
+    | "toggleHover"
+    | "toImage"
+    | "resetViews"
+    | "toggleSpikelines"
+    | "zoomInMap"
+    | "zoomInMapbox"
+    | "zoomOutMap"
+    | "zoomOutMapbox"
+    | "resetViewMap"
+    | "resetViewMapbox"
+    | "togglespikelines"
+    | "togglehover"
+    | "hovercompare"
+    | "hoverclosest"
+    | "v1hovermode";
 
 export type ButtonClickEvent = (gd: PlotlyHTMLElement, ev: MouseEvent) => void;
 
@@ -1021,7 +1356,7 @@ export interface GaugeBar {
     thickness: number;
 }
 export interface Gauge {
-    shape: 'angular' | 'bullet';
+    shape: "angular" | "bullet";
     bar: Partial<GaugeBar>;
     bgcolor: Color;
     bordercolor: Color;
@@ -1033,7 +1368,7 @@ export interface Gauge {
 
 export interface Delta {
     reference: number;
-    position: 'top' | 'bottom' | 'left' | 'right';
+    position: "top" | "bottom" | "left" | "right";
     relative: boolean;
     valueformat: string;
     increasing: {
@@ -1051,13 +1386,13 @@ export interface DataTitle {
     font: Partial<Font>;
     standoff: number;
     position:
-        | 'top left'
-        | 'top center'
-        | 'top right'
-        | 'middle center'
-        | 'bottom left'
-        | 'bottom center'
-        | 'bottom right';
+        | "top left"
+        | "top center"
+        | "top right"
+        | "middle center"
+        | "bottom left"
+        | "bottom center"
+        | "bottom right";
 }
 
 export interface PlotNumber {
@@ -1092,71 +1427,72 @@ export interface ErrorOptions {
     color: Color;
     thickness: number;
     width: number;
-    opacity: number;
 }
 
-export type ErrorBar = Partial<ErrorOptions> &
-    (
+export type ErrorBar =
+    & Partial<ErrorOptions>
+    & (
         | {
-              type: 'constant' | 'percent';
-              value: number;
-              valueminus?: number | undefined;
-          }
+            type: "constant" | "percent";
+            value: number;
+            valueminus?: number | undefined;
+        }
         | {
-              type: 'data';
-              array: Datum[];
-              arrayminus?: Datum[] | undefined;
-          }
+            type: "data";
+            array: Datum[];
+            arrayminus?: Datum[] | undefined;
+        }
     );
 
-export type Dash = 'solid' | 'dot' | 'dash' | 'longdash' | 'dashdot' | 'longdashdot';
+export type Dash = "solid" | "dot" | "dash" | "longdash" | "dashdot" | "longdashdot";
 export type PlotType =
-    | 'bar'
-    | 'barpolar'
-    | 'box'
-    | 'candlestick'
-    | 'carpet'
-    | 'choropleth'
-    | 'choroplethmapbox'
-    | 'cone'
-    | 'contour'
-    | 'contourcarpet'
-    | 'densitymapbox'
-    | 'funnel'
-    | 'funnelarea'
-    | 'heatmap'
-    | 'heatmapgl'
-    | 'histogram'
-    | 'histogram2d'
-    | 'histogram2dcontour'
-    | 'image'
-    | 'indicator'
-    | 'isosurface'
-    | 'mesh3d'
-    | 'ohlc'
-    | 'parcats'
-    | 'parcoords'
-    | 'pie'
-    | 'pointcloud'
-    | 'sankey'
-    | 'scatter'
-    | 'scatter3d'
-    | 'scattercarpet'
-    | 'scattergeo'
-    | 'scattergl'
-    | 'scattermapbox'
-    | 'scatterpolar'
-    | 'scatterpolargl'
-    | 'scatterternary'
-    | 'splom'
-    | 'streamtube'
-    | 'sunburst'
-    | 'surface'
-    | 'table'
-    | 'treemap'
-    | 'violin'
-    | 'volume'
-    | 'waterfall';
+    | "bar"
+    | "barpolar"
+    | "box"
+    | "candlestick"
+    | "carpet"
+    | "choropleth"
+    | "choroplethmap"
+    | "choroplethmapbox"
+    | "cone"
+    | "contour"
+    | "contourcarpet"
+    | "densitymap"
+    | "densitymapbox"
+    | "funnel"
+    | "funnelarea"
+    | "heatmap"
+    | "histogram"
+    | "histogram2d"
+    | "histogram2dcontour"
+    | "image"
+    | "indicator"
+    | "isosurface"
+    | "mesh3d"
+    | "ohlc"
+    | "parcats"
+    | "parcoords"
+    | "pie"
+    | "sankey"
+    | "scatter"
+    | "scatter3d"
+    | "scattercarpet"
+    | "scattergeo"
+    | "scattergl"
+    | "scattermap"
+    | "scattermapbox"
+    | "scatterpolar"
+    | "scatterpolargl"
+    | "scatterternary"
+    | "splom"
+    | "streamtube"
+    | "sunburst"
+    | "surface"
+    | "table"
+    | "treemap"
+    | "violin"
+    | "volume"
+    | "waterfall";
 
 export type Data =
     | Partial<PlotData>
@@ -1173,10 +1509,8 @@ export type Color =
     | Array<string | number | undefined | null>
     | Array<Array<string | number | undefined | null>>;
 export type ColorScale = string | string[] | Array<[number, string]>;
-export type DataTransform = Partial<Transform>;
 export type ScatterData = PlotData;
 
-// Bar Scatter
 export interface PlotData {
     type: PlotType;
     x: Datum[] | Datum[][] | TypedArray;
@@ -1194,154 +1528,163 @@ export interface PlotData {
     lat: Datum[];
     lon: Datum[];
     line: Partial<ScatterLine>;
-    'line.color': Color;
-    'line.width': number;
-    'line.dash': Dash;
-    'line.shape': 'linear' | 'spline' | 'hv' | 'vh' | 'hvh' | 'vhv';
-    'line.smoothing': number;
-    'line.simplify': boolean;
+    "line.color": Color;
+    "line.width": number;
+    "line.dash": Dash;
+    "line.shape": "linear" | "spline" | "hv" | "vh" | "hvh" | "vhv";
+    "line.smoothing": number;
+    "line.simplify": boolean;
     marker: Partial<PlotMarker> | Partial<BoxPlotMarker>;
-    'marker.symbol': MarkerSymbol | MarkerSymbol[];
-    'marker.color': Color;
-    'marker.colorscale': ColorScale | ColorScale[];
-    'marker.opacity': number | number[];
-    'marker.size': number | number[] | number[][];
-    'marker.maxdisplayed': number;
-    'marker.sizeref': number;
-    'marker.sizemax': number;
-    'marker.sizemin': number;
-    'marker.sizemode': 'diameter' | 'area';
-    'marker.showscale': boolean;
-    'marker.line': Partial<ScatterMarkerLine>;
-    'marker.line.color': Color;
-    'marker.line.colorscale': ColorScale | ColorScale[];
-    'marker.colorbar': {}; // TODO
-    'marker.pad.t': number;
-    'marker.pad.b': number;
-    'marker.pad.l': number;
-    'marker.pad.r': number;
+    "marker.symbol": MarkerSymbol | MarkerSymbol[];
+    "marker.color": Color;
+    "marker.colorscale": ColorScale | ColorScale[];
+    "marker.opacity": number | number[];
+    "marker.size": number | number[] | number[][];
+    "marker.maxdisplayed": number;
+    "marker.sizeref": number;
+    "marker.sizemax": number;
+    "marker.sizemin": number;
+    "marker.sizemode": "diameter" | "area";
+    "marker.showscale": boolean;
+    "marker.line": Partial<ScatterMarkerLine>;
+    "marker.line.color": Color;
+    "marker.line.colorscale": ColorScale | ColorScale[];
+    "marker.colorbar": {}; // TODO
+    "marker.pad.t": number;
+    "marker.pad.b": number;
+    "marker.pad.l": number;
+    "marker.pad.r": number;
     mode:
-        | 'lines'
-        | 'markers'
-        | 'text'
-        | 'lines+markers'
-        | 'text+markers'
-        | 'text+lines'
-        | 'text+lines+markers'
-        | 'none'
-        | 'gauge'
-        | 'number'
-        | 'delta'
-        | 'number+delta'
-        | 'gauge+number'
-        | 'gauge+number+delta'
-        | 'gauge+delta';
-    histfunc: 'count' | 'sum' | 'avg' | 'min' | 'max';
-    histnorm: '' | 'percent' | 'probability' | 'density' | 'probability density';
-    hoveron: 'points' | 'fills';
+        | "lines"
+        | "markers"
+        | "text"
+        | "lines+markers"
+        | "text+markers"
+        | "text+lines"
+        | "text+lines+markers"
+        | "none"
+        | "gauge"
+        | "number"
+        | "delta"
+        | "number+delta"
+        | "gauge+number"
+        | "gauge+number+delta"
+        | "gauge+delta";
+    histfunc: "count" | "sum" | "avg" | "min" | "max";
+    histnorm: "" | "percent" | "probability" | "density" | "probability density";
+    hoveron: "points" | "fills";
     hoverinfo:
-        | 'all'
-        | 'name'
-        | 'none'
-        | 'skip'
-        | 'text'
-        | 'x'
-        | 'x+text'
-        | 'x+name'
-        | 'x+y'
-        | 'x+y+text'
-        | 'x+y+name'
-        | 'x+y+z'
-        | 'x+y+z+text'
-        | 'x+y+z+name'
-        | 'y'
-        | 'y+name'
-        | 'y+x'
-        | 'y+text'
-        | 'y+x+text'
-        | 'y+x+name'
-        | 'y+z'
-        | 'y+z+text'
-        | 'y+z+name'
-        | 'y+x+z'
-        | 'y+x+z+text'
-        | 'y+x+z+name'
-        | 'z'
-        | 'z+x'
-        | 'z+x+text'
-        | 'z+x+name'
-        | 'z+y+x'
-        | 'z+y+x+text'
-        | 'z+y+x+name'
-        | 'z+x+y'
-        | 'z+x+y+text'
-        | 'z+x+y+name';
+        | "all"
+        | "name"
+        | "none"
+        | "skip"
+        | "text"
+        | "x"
+        | "x+text"
+        | "x+name"
+        | "x+y"
+        | "x+y+text"
+        | "x+y+name"
+        | "x+y+z"
+        | "x+y+z+text"
+        | "x+y+z+name"
+        | "y"
+        | "y+name"
+        | "y+x"
+        | "y+text"
+        | "y+x+text"
+        | "y+x+name"
+        | "y+z"
+        | "y+z+text"
+        | "y+z+name"
+        | "y+x+z"
+        | "y+x+z+text"
+        | "y+x+z+name"
+        | "z"
+        | "z+x"
+        | "z+x+text"
+        | "z+x+name"
+        | "z+y+x"
+        | "z+y+x+text"
+        | "z+y+x+name"
+        | "z+x+y"
+        | "z+x+y+text"
+        | "z+x+y+name";
     hoverlabel: Partial<HoverLabel>;
     hovertemplate: string | string[];
     hovertext: string | string[];
+    hoverongaps: boolean;
     xhoverformat: string;
     yhoverformat: string;
     zhoverformat: string;
     texttemplate: string | string[];
     textinfo:
-        | 'label'
-        | 'label+text'
-        | 'label+value'
-        | 'label+percent'
-        | 'label+text+value'
-        | 'label+text+percent'
-        | 'label+value+percent'
-        | 'text'
-        | 'text+value'
-        | 'text+percent'
-        | 'text+value+percent'
-        | 'value'
-        | 'value+percent'
-        | 'percent'
-        | 'none';
+        | "label"
+        | "label+text"
+        | "label+value"
+        | "label+percent"
+        | "label+text+value"
+        | "label+text+percent"
+        | "label+value+percent"
+        | "text"
+        | "text+value"
+        | "text+percent"
+        | "text+value+percent"
+        | "value"
+        | "value+percent"
+        | "percent"
+        | "none";
     textposition:
-        | 'top left'
-        | 'top center'
-        | 'top right'
-        | 'middle left'
-        | 'middle center'
-        | 'middle right'
-        | 'bottom left'
-        | 'bottom center'
-        | 'bottom right'
-        | 'inside'
-        | 'outside'
-        | 'auto'
-        | 'none';
+        | "top left"
+        | "top center"
+        | "top right"
+        | "middle left"
+        | "middle center"
+        | "middle right"
+        | "bottom left"
+        | "bottom center"
+        | "bottom right"
+        | "inside"
+        | "outside"
+        | "auto"
+        | "none";
     textfont: Partial<Font>;
-    fill: 'none' | 'tozeroy' | 'tozerox' | 'tonexty' | 'tonextx' | 'toself' | 'tonext';
+    textangle: "auto" | number;
+    insidetextanchor: "end" | "middle" | "start";
+    constraintext: "inside" | "outside" | "both" | "none";
+    fill: "none" | "tozeroy" | "tozerox" | "tonexty" | "tonextx" | "toself" | "tonext";
     fillcolor: string;
     fillpattern: Partial<Pattern>;
     showlegend: boolean;
     legendgroup: string;
+    legendgrouptitle: {
+        text: string;
+        font?: Partial<Font>;
+    };
+    legendrank: number;
     parents: string[];
     name: string;
     stackgroup: string;
-    groupnorm: '' | 'fraction' | 'percent';
-    stackgaps: 'infer zero' | 'interpolate';
+    groupnorm: "" | "fraction" | "percent";
+    stackgaps: "infer zero" | "interpolate";
     connectgaps: boolean;
-    visible: boolean | 'legendonly';
+    visible: boolean | "legendonly";
     delta: Partial<Delta>;
     gauge: Partial<Gauge>;
     number: Partial<PlotNumber>;
-    transforms: DataTransform[];
-    orientation: 'v' | 'h';
+    orientation: "v" | "h";
     width: number | number[];
-    boxmean: boolean | 'sd';
-    boxpoints: 'all' | 'outliers' | 'suspectedoutliers' | false;
+    boxmean: boolean | "sd";
+    boxpoints: "all" | "outliers" | "suspectedoutliers" | false;
     jitter: number;
     pointpos: number;
     opacity: number;
     showscale: boolean;
     colorscale: ColorScale;
-    zsmooth: 'fast' | 'best' | false;
+    zsmooth: "fast" | "best" | false;
     zmin: number;
     zmax: number;
+    zorder: number;
     ygap: number;
     xgap: number;
     transpose: boolean;
@@ -1354,7 +1697,7 @@ export interface PlotData {
     value: number;
     values: Datum[];
     labels: Datum[];
-    direction: 'clockwise' | 'counterclockwise';
+    direction: "clockwise" | "counterclockwise";
     hole: number;
     rotation: number;
     theta: Datum[];
@@ -1368,118 +1711,325 @@ export interface PlotData {
         y: number[];
     }>;
     title: Partial<DataTitle>;
-    branchvalues: 'total' | 'remainder';
+    branchvalues: "total" | "remainder";
     ids: string[];
     level: string;
     cliponaxis: boolean;
     automargin: boolean;
-    locationmode: 'ISO-3' | 'USA-states' | 'country names' | 'geojson-id';
+    locationmode: "ISO-3" | "USA-states" | "country names" | "geojson-id";
     locations: Datum[];
     reversescale: boolean;
     colorbar: Partial<ColorBar>;
-    offset: number;
+    offset: number | number[];
     contours: Partial<{
-        coloring: 'fill' | 'heatmap' | 'lines' | 'none';
+        coloring: "fill" | "heatmap" | "lines" | "none";
         end: number;
         labelfont: Partial<Font>;
         labelformat: string;
-        operation: '=' | '<' | '>=' | '>' | '<=' | '[]' | '()' | '[)' | '(]' | '][' | ')(' | '](' | ')[';
+        operation: "=" | "<" | ">=" | ">" | "<=" | "[]" | "()" | "[)" | "(]" | "][" | ")(" | "](" | ")[";
         showlabels: boolean;
         showlines: boolean;
         size: number;
         start: number;
-        type: 'levels' | 'constraint';
+        type: "levels" | "constraint";
         value: number | [lowerBound: number, upperBound: number];
     }>;
     autocontour: boolean;
     ncontours: number;
+    maxdepth: number;
+    uirevision: string | number;
+    uid: string;
 }
 
-/**
- * These interfaces are based on attribute descriptions in
- * https://github.com/plotly/plotly.js/tree/9d6144304308fc3007f0facf2535d38ea3e9b26c/src/transforms
- */
-export interface TransformStyle {
-    target: number | string | number[] | string[];
-    value: Partial<PlotData>;
-}
+export interface ColorBarTitle {
+    /**
+     * Sets the title of the color bar.
+     */
+    text: string;
 
-export interface TransformAggregation {
-    target: string;
-    func?:
-        | 'count'
-        | 'sum'
-        | 'avg'
-        | 'median'
-        | 'mode'
-        | 'rms'
-        | 'stddev'
-        | 'min'
-        | 'max'
-        | 'first'
-        | 'last'
-        | undefined;
-    funcmode?: 'sample' | 'population' | undefined;
-    enabled?: boolean | undefined;
-}
+    /**
+     * Sets this color bar"s title font.
+     */
+    font: Partial<Font>;
 
-export interface Transform {
-    type: 'aggregate' | 'filter' | 'groupby' | 'sort';
-    enabled: boolean;
-    target: number | string | number[] | string[];
-    operation: string;
-    aggregations: TransformAggregation[];
-    preservegaps: boolean;
-    groups: string | number[] | string[];
-    nameformat: string;
-    styles: TransformStyle[];
-    value: any;
-    order: 'ascending' | 'descending';
+    /**
+     * Determines the location of color bar"s title with respect to the color bar.
+     * Defaults to *top* when `orientation` is *v* and defaults to *right* when `orientation` is *h*.
+     */
+    side: "right" | "top" | "bottom";
 }
 
 export interface ColorBar {
-    thicknessmode: 'fraction' | 'pixels';
+    /**
+     * Sets the orientation of the colorbar.
+     * @default "v"
+     */
+    orientation: "h" | "v";
+
+    /**
+     * Determines whether this color bar's thickness (i.e. the measure in the constant color direction)
+     * is set in units of plot *fraction* or in *pixels*. Use `thickness` to set the value.
+     * @default "pixels"
+     */
+    thicknessmode: "fraction" | "pixels";
+
+    /**
+     * Sets the thickness of the color bar. This measure excludes the size of the padding, ticks, and labels.
+     * @default 30
+     */
     thickness: number;
-    lenmode: 'fraction' | 'pixels';
+
+    /**
+     * Determines whether this color bar"s length (i.e. the measure in the color variation direction)
+     * is set in units of plot *fraction* or in *pixels*. Use `len` to set the value.
+     * @default "fraction"
+     */
+    lenmode: "fraction" | "pixels";
+
+    /**
+     * Sets the length of the color bar. This measure excludes the padding of both ends.
+     * That is, the color bar length is this length minus the padding on both ends.
+     * @default 1
+     */
     len: number;
+
+    /**
+     * Sets the x position with respect to `xref` of the color bar (in plot fraction).
+     * When `xref` is *paper*, defaults to 1.02 when `orientation` is *v* and 0.5 when `orientation` is *h*.
+     * When `xref` is *container*, defaults to *1* when `orientation` is *v* and 0.5 when `orientation` is *h*.
+     * Must be between *0* and *1* if `xref` is *container* and between *-2* and *3* if `xref` is *paper*.
+     */
     x: number;
-    xanchor: 'left' | 'center' | 'right';
+
+    /**
+     * Sets the container `x` refers to. *container* spans the entire `width` of the plot.
+     * *paper* refers to the width of the plotting area only.
+     * @default "paper"
+     */
+    xref: "container" | "paper";
+
+    /**
+     * Sets this color bar"s horizontal position anchor. This anchor binds the `x` position
+     * to the *left*, *center*, or *right* of the color bar.
+     * Defaults to *left* when `orientation` is *v* and *center* when `orientation` is *h*.
+     */
+    xanchor: "left" | "center" | "right";
+
+    /**
+     * Sets the amount of padding (in px) along the x direction.
+     * @default 10
+     */
     xpad: number;
+
+    /**
+     * Sets the y position with respect to `yref` of the color bar (in plot fraction).
+     * When `yref` is *paper*, defaults to 0.5 when `orientation` is *v* and 1.02 when `orientation` is *h*.
+     * When `yref` is *container*, defaults to 0.5 when `orientation` is *v* and 1 when `orientation` is *h*.
+     * Must be between *0* and *1* if `yref` is *container* and between *-2* and *3* if `yref` is *paper*.
+     */
     y: number;
-    yanchor: 'top' | 'middle' | 'bottom';
+
+    /**
+     * Sets the container `y` refers to. *container* spans the entire `height` of the plot.
+     * *paper* refers to the height of the plotting area only.
+     * @default "paper"
+     */
+    yref: "container" | "paper";
+
+    /**
+     * Sets this color bar"s vertical position anchor. This anchor binds the `y` position
+     * to the *top*, *middle*, or *bottom* of the color bar.
+     * Defaults to *middle* when `orientation` is *v* and *bottom* when `orientation` is *h*.
+     */
+    yanchor: "top" | "middle" | "bottom";
+
+    /**
+     * Sets the amount of padding (in px) along the y direction.
+     * @default 10
+     */
     ypad: number;
+
+    /**
+     * Sets the color of the outline around the color bar.
+     */
     outlinecolor: Color;
+
+    /**
+     * Sets the width (in px) of the outline around the color bar.
+     * @default 1
+     */
     outlinewidth: number;
+
+    /**
+     * Sets the color of the border enclosing this color bar.
+     */
     bordercolor: Color;
-    borderwidth: Color;
+
+    /**
+     * Sets the width (in px) of the border enclosing this color bar.
+     * @default 0
+     */
+    borderwidth: number;
+
+    /**
+     * Sets the color of padded area.
+     * @default "rgba(0,0,0,0)"
+     */
     bgcolor: Color;
-    tickmode: 'auto' | 'linear' | 'array';
+
+    /**
+     * Determines the tick mode for the color bar.
+     */
+    tickmode: "auto" | "linear" | "array";
+
+    /**
+     * Sets the number of ticks.
+     */
     nticks: number;
+
+    /**
+     * Sets the starting tick.
+     */
     tick0: number | string;
+
+    /**
+     * Sets the step between ticks.
+     */
     dtick: DTickValue;
+
+    /**
+     * Sets the values at which ticks should appear.
+     */
     tickvals: Datum[] | Datum[][] | Datum[][][] | TypedArray;
+
+    /**
+     * Sets the text displayed at the ticks.
+     */
     ticktext: Datum[] | Datum[][] | Datum[][][] | TypedArray;
-    ticks: 'outside' | 'inside' | '';
+
+    /**
+     * Determines whether ticks are drawn.
+     * @default ""
+     */
+    ticks: "outside" | "inside" | "";
+
+    /**
+     * Determines how we handle tick labels that would overflow either the graph div or the domain of the axis.
+     * The default value for inside tick labels is *hide past domain*. In other cases the default is *hide past div*.
+     */
+    ticklabeloverflow: "allow" | "hide past div" | "hide past domain";
+
+    /**
+     * Determines where tick labels are drawn relative to the ticks.
+     * Left and right options are used when `orientation` is *h*, top and bottom when `orientation` is *v*.
+     * @default "outside"
+     */
+    ticklabelposition:
+        | "outside"
+        | "inside"
+        | "outside top"
+        | "inside top"
+        | "outside left"
+        | "inside left"
+        | "outside right"
+        | "inside right"
+        | "outside bottom"
+        | "inside bottom";
+
+    /**
+     * Sets the length of the ticks.
+     */
     ticklen: number;
+
+    /**
+     * Sets the width of the ticks.
+     */
     tickwidth: number;
+
+    /**
+     * Sets the color of the ticks.
+     */
     tickcolor: Color;
+
+    /**
+     * Sets the step between tick labels.
+     */
+    ticklabelstep: number;
+
+    /**
+     * Determines whether tick labels are shown.
+     */
     showticklabels: boolean;
-    tickfont: Font;
-    tickangle: 'auto' | number;
+
+    /**
+     * Allows specifying an alias for tick labels.
+     */
+    labelalias: DTickValue;
+
+    /**
+     * Sets the color bar"s tick label font.
+     */
+    tickfont: Partial<Font>;
+
+    /**
+     * Sets the angle of the tick labels.
+     */
+    tickangle: "auto" | number;
+
+    /**
+     * Sets the format for tick labels.
+     */
     tickformat: string;
+
+    /**
+     * Sets the format stops for tick labels.
+     */
     tickformatstops: Array<Partial<TickFormatStop>>;
+
+    /**
+     * Sets the prefix for tick labels.
+     */
     tickprefix: string;
-    showtickprefix: 'all' | 'first' | 'last' | 'none';
+
+    /**
+     * Determines which tick labels show the prefix.
+     */
+    showtickprefix: "all" | "first" | "last" | "none";
+
+    /**
+     * Sets the suffix for tick labels.
+     */
     ticksuffix: string;
-    showticksuffix: 'all' | 'first' | 'last' | 'none';
+
+    /**
+     * Determines which tick labels show the suffix.
+     */
+    showticksuffix: "all" | "first" | "last" | "none";
+
+    /**
+     * Determines whether thousands are separated.
+     */
     separatethousands: boolean;
-    exponentformat: 'none' | 'e' | 'E' | 'power' | 'SI' | 'B';
-    showexponent: 'all' | 'first' | 'last' | 'none';
-    title: string;
-    titlefont: Font;
-    titleside: 'right' | 'top' | 'bottom';
-    tickvalssrc: any;
-    ticktextsrc: any;
+
+    /**
+     * Sets the format for exponents.
+     */
+    exponentformat: "none" | "e" | "E" | "power" | "SI" | "B";
+
+    /**
+     * Sets the minimum exponent for which to use exponent notation.
+     */
+    minexponent: number;
+
+    /**
+     * Determines which tick labels show the exponent.
+     */
+    showexponent: "all" | "first" | "last" | "none";
+
+    /**
+     * Configuration for the color bar title.
+     */
+    title: Partial<ColorBarTitle>;
 }
 
 export type MarkerSymbol = string | number | Array<string | number>;
@@ -1505,7 +2055,7 @@ export interface PlotMarker {
     sizeref?: number | undefined;
     sizemax?: number | undefined;
     sizemin?: number | undefined;
-    sizemode?: 'diameter' | 'area' | undefined;
+    sizemode?: "diameter" | "area" | undefined;
     showscale?: boolean | undefined;
     line: Partial<ScatterMarkerLine>;
     pad?: Partial<Padding> | undefined;
@@ -1513,11 +2063,11 @@ export interface PlotMarker {
     colorbar?: Partial<ColorBar> | undefined;
     gradient?:
         | {
-              type: 'radial' | 'horizontal' | 'vertical' | 'none';
-              color: Color;
-              typesrc: any;
-              colorsrc: any;
-          }
+            type: "radial" | "horizontal" | "vertical" | "none";
+            color: Color;
+            typesrc: any;
+            colorsrc: any;
+        }
         | undefined;
     pattern?: Partial<Pattern>;
 }
@@ -1541,12 +2091,13 @@ export interface ScatterLine {
     color: Color;
     width: number;
     dash: Dash;
-    shape: 'linear' | 'spline' | 'hv' | 'vh' | 'hvh' | 'vhv';
+    shape: "linear" | "spline" | "hv" | "vh" | "hvh" | "vhv";
     smoothing: number;
     simplify: boolean;
 }
 
 export interface Font {
+    color: Color;
     /**
      * HTML font family - the typeface that will be applied by the web browser.
      * The web browser will only be able to apply a font if it is available on the system
@@ -1561,42 +2112,135 @@ export interface Font {
      */
     family: string;
     /**
+     * Sets the shape and color of the shadow behind text. "auto" places minimal shadow and applies contrast text font color.
+     * See https://developer.mozilla.org/en-US/docs/Web/CSS/text-shadow for additional options.
+     * @default "none"
+     */
+    shadow: string;
+    /**
      * number greater than or equal to 1
      * @default 13
      */
     size: number;
-    color: Color;
+    /**
+     * Sets the weight (or boldness) of the font.
+     * number between or equal to 1 and 1000
+     * @default "normal"
+     */
+    weight: number | "normal" | "bold";
+    /**
+     * Sets whether a font should be styled with a normal or italic face from its family.
+     * @default "normal"
+     */
+    style: "normal" | "italic";
+    /**
+     * Sets capitalization of text. Can be used to make text appear in all-uppercase, all-lowercase, or with each word capitalized.
+     * @default "normal"
+     */
+    textcase: "normal" | "word caps" | "upper" | "lower";
+    /**
+     * Sets the variant of the font.
+     * @default "normal"
+     */
+    variant: "normal" | "small-caps" | "all-small-caps" | "all-petite-caps" | "petite-caps" | "unicase";
+    /**
+     * Sets the kind of decoration line(s) with text, such as an "under", "over" or "through" as well as combinations e.g. "under+over".
+     * @default "none"
+     */
+    lineposition:
+        | "none"
+        | "under"
+        | "over"
+        | "through"
+        | "under+over"
+        | "over+under"
+        | "over+through"
+        | "through+over"
+        | "through+under"
+        | "under+through"
+        | "under+over+through"
+        | "under+through+over"
+        | "over+under+through"
+        | "over+through+under"
+        | "through+under+over"
+        | "through+over+under";
 }
 
 export interface Edits {
+    /**
+     * Determines if the main anchor of the annotation is editable.
+     * The main anchor corresponds to the text (if no arrow) or the arrow (which drags the whole thing leaving the arrow length & direction unchanged).
+     * @default false
+     */
     annotationPosition: boolean;
+
+    /**
+     * Has only an effect for annotations with arrows. Enables changing the length and direction of the arrow.
+     * @default false
+     */
     annotationTail: boolean;
+
+    /**
+     * Enables editing annotation text.
+     * @default false
+     */
     annotationText: boolean;
+
+    /**
+     * Enables editing axis title text.
+     * @default false
+     */
     axisTitleText: boolean;
+
+    /**
+     * Enables moving colorbars.
+     * @default false
+     */
     colorbarPosition: boolean;
+
+    /**
+     * Enables editing colorbar title text.
+     * @default false
+     */
     colorbarTitleText: boolean;
+
+    /**
+     * Enables moving the legend.
+     * @default false
+     */
     legendPosition: boolean;
+
+    /**
+     * Enables editing the trace name fields from the legend.
+     * @default false
+     */
     legendText: boolean;
+
+    /**
+     * Enables moving shapes.
+     * @default false
+     */
     shapePosition: boolean;
+
+    /**
+     * Enables editing the global layout title.
+     * @default false
+     */
     titleText: boolean;
 }
 
 export interface Config {
-    /** override the defaults for the toImageButton */
-    toImageButtonOptions: Partial<{
-        filename: string;
-        scale: number;
-        format: 'png' | 'svg' | 'jpeg' | 'webp';
-        height: number;
-        width: number;
-    }>;
-
-    /** no interactivity, for export or image generation */
+    /**
+     * Determines whether the graphs are interactive or not.
+     * If *false*, no interactivity, for export or image generation.
+     * @default false
+     */
     staticPlot: boolean;
 
     /**
      * Determines whether math should be typeset or not,
      * when MathJax (either v2 or v3) is present on the page.
+     * @default true
      */
     typesetMath: boolean;
 
@@ -1607,59 +2251,133 @@ export interface Config {
      */
     plotlyServerURL: string;
 
-    /** we can edit titles, move annotations, etc */
+    /**
+     * Determines whether the graph is editable or not.
+     * Sets all pieces of `edits` unless a separate `edits` config item overrides individual parts.
+     * @default false
+     */
     editable: boolean;
+
+    /**
+     * Configuration for editable features.
+     */
     edits: Partial<Edits>;
 
-    /** DO autosize once regardless of layout.autosize (use default width or height values otherwise) */
+    /**
+     * Enables moving selections.
+     * @default true
+     */
+    editSelection: boolean;
+
+    /**
+     * Determines whether the graphs are plotted with respect to layout.autosize:true and infer its container size.
+     * @default false
+     */
     autosizable: boolean;
 
-    /** set the length of the undo/redo queue */
-    queueLength: number;
+    /**
+     * Determines whether to change the layout size when window is resized.
+     * In v3, this option will be removed and will always be true.
+     * @default false
+     */
+    responsive: boolean;
 
-    /** if we DO autosize, do we fill the container or the screen? */
+    /**
+     * When `layout.autosize` is turned on, determines whether the graph fills the container (the default) or the screen (if set to *true*).
+     * @default false
+     */
     fillFrame: boolean;
 
-    /** if we DO autosize, set the frame margins in percents of plot size */
+    /**
+     * When `layout.autosize` is turned on, set the frame margins in fraction of the graph size.
+     * @default 0
+     */
     frameMargins: number;
 
-    /** mousewheel or two-finger scroll zooms the plot */
-    scrollZoom: boolean;
+    /**
+     * Determines whether mouse wheel or two-finger scroll zooms is enable.
+     * Turned on by default for gl3d, geo, mapbox and map subplots (as these subplot types do not have zoombox via pan),
+     * but turned off by default for cartesian subplots.
+     * Set `scrollZoom` to *false* to disable scrolling for all subplots.
+     * @default 'gl3d+geo+map'
+     */
+    scrollZoom: string | boolean;
 
-    /** double click interaction (false, 'reset', 'autosize' or 'reset+autosize') */
-    doubleClick: 'reset+autosize' | 'reset' | 'autosize' | false;
+    /**
+     * Sets the double click interaction mode.
+     * Has an effect only in cartesian plots.
+     * If *false*, double click is disable.
+     * If *reset*, double click resets the axis ranges to their initial values.
+     * If *autosize*, double click set the axis ranges to their autorange values.
+     * If *reset+autosize*, the odd double clicks resets the axis ranges to their initial values and even double clicks set the axis ranges to their autorange values.
+     * @default 'reset+autosize'
+     */
+    doubleClick: "reset+autosize" | "reset" | "autosize" | false;
 
-    /** sets the delay for registering a double-click in ms */
+    /**
+     * Sets the delay for registering a double-click in ms.
+     * This is the time interval (in ms) between first mousedown and 2nd mouseup to constitute a double-click.
+     * This setting propagates to all on-subplot double clicks (except for geo, mapbox and map) and on-legend double clicks.
+     * @default 300
+     */
     doubleClickDelay: number;
 
-    /** new users see some hints about interactivity */
-    showTips: boolean;
-
-    /** enable axis pan/zoom drag handles */
+    /**
+     * Set to *false* to omit cartesian axis pan/zoom drag handles.
+     * @default true
+     */
     showAxisDragHandles: boolean;
 
-    /** enable direct range entry at the pan/zoom drag points (drag handles must be enabled above) */
+    /**
+     * Set to *false* to omit direct range entry at the pan/zoom drag points, note that `showAxisDragHandles` must be enabled to have an effect.
+     * @default true
+     */
     showAxisRangeEntryBoxes: boolean;
 
-    /** link to open this plot in plotly */
+    /**
+     * Determines whether or not tips are shown while interacting with the resulting graphs.
+     * @default true
+     */
+    showTips: boolean;
+
+    /**
+     * Determines whether a link to Chart Studio Cloud is displayed at the bottom right corner of resulting graphs.
+     * Use with `sendData` and `linkText`.
+     * @default false
+     */
     showLink: boolean;
 
-    /** if we show a link, does it contain data or just link to a plotly file? */
-    sendData: boolean;
-
-    /** text appearing in the sendData link */
+    /**
+     * Sets the text appearing in the `showLink` link.
+     * @default 'Edit chart'
+     */
     linkText: string;
 
-    /** false or function adding source(s) to linkText <text> */
-    showSources: boolean;
+    /**
+     * If *showLink* is true, does it contain data just link to a Chart Studio Cloud file?
+     * @default true
+     */
+    sendData: boolean;
 
-    /** display the mode bar (true, false, or 'hover') */
-    displayModeBar: 'hover' | boolean;
+    /**
+     * Adds a source-displaying function to show sources on the resulting graphs.
+     * @default false
+     */
+    showSources: false | ((gd: PlotlyHTMLElement) => void | Promise<void>);
+
+    /**
+     * Determines the mode bar display mode.
+     * If *true*, the mode bar is always visible.
+     * If *false*, the mode bar is always hidden.
+     * If *hover*, the mode bar is visible while the mouse cursor is on the graph container.
+     * @default "hover"
+     */
+    displayModeBar: "hover" | boolean;
 
     /**
      * Should we include a ModeBar button, labeled "Edit in Chart Studio",
-     * that sends this chart to chart-studio.plotly.com (formerly plot.ly)
-     * or another plotly server as specified by `plotlyServerURL` for editing, export, etc?
+     * that sends this chart to chart-studio.plotly.com (formerly plot.ly) or another plotly server
+     * as specified by `plotlyServerURL` for editing, export, etc?
      * Prior to version 1.43.0 this button was included by default, now it is opt-in using this flag.
      * Note that this button can (depending on `plotlyServerURL` being set) send your data to an external server.
      * However that server does not persist your data until you arrive at the Chart Studio and explicitly click "Save".
@@ -1669,87 +2387,150 @@ export interface Config {
 
     /**
      * Same as `showSendToCloud`, but use a pencil icon instead of a floppy-disk.
-     * Note that if both `showSendToCloud` and `showEditInChartStudio` are turned, only `showEditInChartStudio` will be honored.
+     * Note that if both `showSendToCloud` and `showEditInChartStudio` are turned,
+     * only `showEditInChartStudio` will be honored.
      * @default false
      */
     showEditInChartStudio: boolean;
 
-    /** remove mode bar button by name (see ./components/modebar/buttons.js for the list of names) */
+    /**
+     * Remove mode bar buttons by name.
+     * See ./components/modebar/buttons.js for the list of names.
+     * @default []
+     */
     modeBarButtonsToRemove: ModeBarDefaultButtons[];
 
-    /** add mode bar button using config objects (see ./components/modebar/buttons.js for list of arguments) */
+    /**
+     * Add mode bar button using config objects.
+     * See ./components/modebar/buttons.js for list of arguments.
+     * To enable predefined modebar buttons e.g. shape drawing, hover and spikelines,
+     * simply provide their string name(s). This could include:
+     * *v1hovermode*, *hoverclosest*, *hovercompare*, *togglehover*, *togglespikelines*,
+     * *drawline*, *drawopenpath*, *drawclosedpath*, *drawcircle*, *drawrect* and *eraseshape*.
+     * Please note that these predefined buttons will only be shown if they are compatible
+     * with all trace types used in a graph.
+     * @default []
+     */
     modeBarButtonsToAdd: ModeBarButtonAny[];
 
     /**
-     * fully custom mode bar buttons as nested array, where the outer
-     * arrays represents button groups, and the inner arrays have
-     * buttons config objects or names of default buttons
-     * (see ./components/modebar/buttons.js for more info)
+     * Define fully custom mode bar buttons as nested array,
+     * where the outer arrays represents button groups, and
+     * the inner arrays have buttons config objects or names of default buttons.
+     * See ./components/modebar/buttons.js for more info.
+     * @default false
      */
     modeBarButtons: ModeBarButtonAny[][] | false;
 
-    /** add the plotly logo on the end of the mode bar */
+    /**
+     * Statically override options for toImage modebar button
+     * allowed keys are format, filename, width, height, scale
+     * @default {}
+     */
+    toImageButtonOptions: Partial<{
+        filename: string;
+        scale: number;
+        format: "png" | "svg" | "jpeg" | "webp";
+        height: number;
+        width: number;
+    }>;
+
+    /**
+     * Determines whether or not the plotly logo is displayed on the end of the mode bar.
+     * @default true
+     */
     displaylogo: boolean;
 
-    /** increase the pixel ratio for Gl plot images */
+    /**
+     * Watermark the images with the company's logo.
+     * @default false
+     */
+    watermark: boolean;
+
+    /**
+     * Set the pixel ratio during WebGL image export.
+     * @default 2
+     */
     plotGlPixelRatio: number;
 
     /**
-     * function to add the background color to a different container
-     * or 'opaque' to ensure there's white behind it
+     * Set function to add the background color (i.e. `layout.paper_color`) to a different container.
+     * This function take the graph div as first argument and the current background color as second argument.
+     * Alternatively, set to string *opaque* to ensure there is white behind it.
+     * @default "transparent"
      */
-    setBackground: ((gd: PlotlyHTMLElement, bgColor: string) => void) | 'opaque' | 'transparent';
+    setBackground: ((gd: PlotlyHTMLElement, bgColor: string) => void) | "opaque" | "transparent";
 
-    /** URL to topojson files used in geo charts */
+    /**
+     * Set the URL to topojson used in geo charts.
+     * By default, the topojson files are fetched from cdn.plot.ly.
+     * For example, set this option to: <path-to-plotly.js>/dist/topojson/
+     * to render geographical feature using the topojson files that ship with the plotly.js module.
+     * @default 'https://cdn.plot.ly/'
+     */
     topojsonURL: string;
 
     /**
-     * Mapbox access token (required to plot mapbox trace types)
-     * If using an Mapbox Atlas server, set this option to '',
-     * so that plotly.js won't attempt to authenticate to the public Mapbox server.
+     * Mapbox access token (required to plot mapbox trace types).
+     * If using an Mapbox Atlas server, set this option to '' so that plotly.js won't attempt to authenticate to the public Mapbox server.
+     * @default null
      */
-    mapboxAccessToken: string;
+    mapboxAccessToken: string | null;
 
     /**
-     * Turn all console logging on or off (errors will be thrown)
-     * This should ONLY be set via Plotly.setPlotConfig
+     * Turn all console logging on or off (errors will be thrown).
+     * This should ONLY be set via Plotly.setPlotConfig.
+     * Available levels:
+     * 0: no logs
+     * 1: warnings and errors, but not informational messages
+     * 2: verbose logs
+     * @default 1
      */
-    logging: boolean | 0 | 1 | 2;
+    logging: 0 | 1 | 2;
 
-    /** Set global transform to be applied to all traces with no specification needed */
-    globalTransforms: any[];
+    /**
+     * Set on-graph logging (notifier) level.
+     * This should ONLY be set via Plotly.setPlotConfig.
+     * Available levels:
+     * 0: no on-graph logs
+     * 1: warnings and errors, but not informational messages
+     * 2: verbose logs
+     * @default 0
+     */
+    notifyOnLogging: 0 | 1 | 2;
 
-    /** Which localization should we use? Should be a string like 'en' or 'en-US' */
+    /**
+     * Sets the length of the undo/redo queue.
+     * @default 0
+     */
+    queueLength: number;
+
+    /**
+     * Which localization should we use? Should be a string like 'en' or 'en-US'.
+     * @default 'en-US'
+     */
     locale: string;
 
     /**
      * Localization definitions
-     * Locales can be provided either here (specific to one chart) or globally
-     * by registering them as modules.
+     * Locales can be provided either here (specific to one chart) or globally by registering them as modules.
      * Should be an object of objects {locale: {dictionary: {...}, format: {...}}}
      * {
-     *     da: {
-     *         dictionary: {'Reset axes': 'Nulstil aksler', ...},
-     *         format: {months: [...], shortMonths: [...]}
-     *     },
-     *     ...
+     *   da: {
+     *     dictionary: {'Reset axes': 'Nulstil aksler', ...},
+     *     format: {months: [...], shortMonths: [...]}
+     *   },
+     *   ...
      * }
      * All parts are optional. When looking for translation or format fields, we
-     * look first for an exact match in a config locale, then in a registered
-     * module. If those fail, we strip off any regionalization ('en-US' -> 'en')
-     * and try each (config, registry) again. The final fallback for translation
-     * is untranslated (which is US English) and for formats is the base English
-     * (the only consequence being the last fallback date format %x is DD/MM/YYYY
-     * instead of MM/DD/YYYY). Currently `grouping` and `currency` are ignored
-     * for our automatic number formatting, but can be used in custom formats.
+     * look first for an exact match in a config locale, then in a registered module.
+     * If those fail, we strip off any regionalization ('en-US' -> 'en') and try each (config, registry) again.
+     * The final fallback for translation is untranslated (which is US English) and for formats is the base English
+     * (the only consequence being the last fallback date format %x is DD/MM/YYYY instead of MM/DD/YYYY).
+     * Currently `grouping` and `currency` are ignored for our automatic number formatting, but can be used in custom formats.
+     * @default {}
      */
-    locales: {};
-
-    /** Make the chart responsive to window size */
-    responsive: boolean;
-
-    /** Watermark the images with the company's logo */
-    watermark: boolean;
+    locales: Record<string, { dictionary?: Record<string, string>; format?: Record<string, any> }>;
 }
 
 // Components
@@ -1764,8 +2545,8 @@ export interface RangeSlider {
 }
 
 export interface RangeSelectorButton {
-    step: 'second' | 'minute' | 'hour' | 'day' | 'month' | 'year' | 'all';
-    stepmode: 'backward' | 'todate';
+    step: "second" | "minute" | "hour" | "day" | "month" | "year" | "all";
+    stepmode: "backward" | "todate";
     count: number;
     label: string;
 }
@@ -1774,9 +2555,9 @@ export interface RangeSelector extends Label {
     buttons: Array<Partial<RangeSelectorButton>>;
     visible: boolean;
     x: number;
-    xanchor: 'auto' | 'left' | 'center' | 'right';
+    xanchor: "auto" | "left" | "center" | "right";
     y: number;
-    yanchor: 'auto' | 'top' | 'middle' | 'bottom';
+    yanchor: "auto" | "top" | "middle" | "bottom";
     activecolor: string;
     borderwidth: number;
 }
@@ -1800,7 +2581,7 @@ export interface Label {
 
 export interface LegendTitle {
     font: Partial<Font>;
-    side: 'top' | 'left' | 'top left';
+    side: "top" | "left" | "top left" | "top center" | "top right";
     text: string;
 }
 
@@ -1809,7 +2590,7 @@ export interface HoverLabel extends Label {
      * Sets the horizontal alignment of the text content within hover label box.
      * @default "auto"
      */
-    align: 'left' | 'right' | 'auto';
+    align: "left" | "right" | "auto";
 
     /**
      * Sets the default length (in number of characters) of the trace name
@@ -1858,13 +2639,13 @@ export interface Annotations extends Label {
      * (i.e. `text` contains one or more <br> HTML tags) or if an
      * explicit width is set to override the text width.
      */
-    align: 'left' | 'center' | 'right';
+    align: "left" | "center" | "right";
 
     /**
      * Sets the vertical alignment of the `text` within the box.
      * Has an effect only if an explicit height is set to override the text height.
      */
-    valign: 'top' | 'middle' | 'bottom';
+    valign: "top" | "middle" | "bottom";
 
     /** Sets the padding (in px) between the `text` and the enclosing border. */
     borderpad: number;
@@ -1889,7 +2670,7 @@ export interface Annotations extends Label {
     startarrowhead: number;
 
     /** Sets the annotation arrow head position. */
-    arrowside: 'end' | 'start';
+    arrowside: "end" | "start";
 
     /**
      * Sets the size of the end annotation arrow head, relative to `arrowwidth`.
@@ -1952,7 +2733,7 @@ export interface Annotations extends Label {
      * for trendline annotations which should continue to indicate
      * the correct trend when zoomed.
      */
-    axref: 'pixel' | XAxisName;
+    axref: "pixel" | XAxisName;
 
     /**
      * Indicates in what terms the tail of the annotation (ax,ay)
@@ -1962,7 +2743,7 @@ export interface Annotations extends Label {
      * for trendline annotations which should continue to indicate
      * the correct trend when zoomed.
      */
-    ayref: 'pixel' | YAxisName;
+    ayref: "pixel" | YAxisName;
 
     /**
      * Sets the annotation's x coordinate axis.
@@ -1971,7 +2752,7 @@ export interface Annotations extends Label {
      * the left side of the plotting area in normalized coordinates
      * where 0 (1) corresponds to the left (right) side.
      */
-    xref: 'paper' | XAxisName;
+    xref: "paper" | XAxisName;
 
     /**
      * Sets the annotation's x position.
@@ -1991,7 +2772,7 @@ export interface Annotations extends Label {
      * If *auto*, the anchor is equivalent to *center* for data-referenced annotations or if there
      * is an arrow, whereas for paper-referenced with no arrow, the anchor picked corresponds to the closest side.
      */
-    xanchor: 'auto' | 'left' | 'center' | 'right';
+    xanchor: "auto" | "left" | "center" | "right";
 
     /**
      * Shifts the position of the whole annotation and arrow to the
@@ -2006,7 +2787,7 @@ export interface Annotations extends Label {
      * the bottom of the plotting area in normalized coordinates
      * where 0 (1) corresponds to the bottom (top).
      */
-    yref: 'paper' | YAxisName;
+    yref: "paper" | YAxisName;
 
     /**
      * Sets the annotation's y position.
@@ -2027,7 +2808,7 @@ export interface Annotations extends Label {
      * there is an arrow, whereas for paper-referenced with no arrow, the anchor picked
      * corresponds to the closest side.
      */
-    yanchor: 'auto' | 'top' | 'middle' | 'bottom';
+    yanchor: "auto" | "top" | "middle" | "bottom";
 
     /**
      * Shifts the position of the whole annotation and arrow up
@@ -2045,7 +2826,7 @@ export interface Annotations extends Label {
      * `x` or `y` values, you can set `xclick` and/or `yclick`. This is useful for example to label
      * the side of a bar. To label markers though, `standoff` is preferred over `xclick` and `yclick`.
      */
-    clicktoshow: false | 'onoff' | 'onout';
+    clicktoshow: false | "onoff" | "onout";
 
     /**
      * Toggle this annotation when clicking a data point whose `x` value
@@ -2080,30 +2861,30 @@ export interface Annotations extends Label {
 export interface Image {
     visible: boolean;
     source: string;
-    layer: 'above' | 'below';
+    layer: "above" | "below";
     sizex: number;
     sizey: number;
-    sizing: 'fill' | 'contain' | 'stretch';
+    sizing: "fill" | "contain" | "stretch";
     opacity: number;
     x: number | string;
     y: number | string;
-    xanchor: 'left' | 'center' | 'right';
-    yanchor: 'top' | 'middle' | 'bottom';
-    xref: 'paper' | XAxisName;
-    yref: 'paper' | YAxisName;
+    xanchor: "left" | "center" | "right";
+    yanchor: "top" | "middle" | "bottom";
+    xref: "paper" | XAxisName;
+    yref: "paper" | YAxisName;
 }
 
 export interface Scene {
     bgcolor: string;
     camera: Partial<Camera>;
     domain: Partial<Domain>;
-    aspectmode: 'auto' | 'cube' | 'data' | 'manual';
+    aspectmode: "auto" | "cube" | "data" | "manual";
     aspectratio: Partial<Point>;
     xaxis: Partial<SceneAxis>;
     yaxis: Partial<SceneAxis>;
     zaxis: Partial<SceneAxis>;
-    dragmode: 'orbit' | 'turntable' | 'zoom' | 'pan' | false;
-    hovermode: 'closest' | false;
+    dragmode: "orbit" | "turntable" | "zoom" | "pan" | false;
+    hovermode: "closest" | false;
     annotations: Partial<Annotations> | Array<Partial<Annotations>>;
     captureevents: boolean;
 }
@@ -2157,47 +2938,47 @@ export interface Transition {
      * Sets the easing function of the slider transition
      */
     easing:
-        | 'linear'
-        | 'quad'
-        | 'cubic'
-        | 'sin'
-        | 'exp'
-        | 'circle'
-        | 'elastic'
-        | 'back'
-        | 'bounce'
-        | 'linear-in'
-        | 'quad-in'
-        | 'cubic-in'
-        | 'sin-in'
-        | 'exp-in'
-        | 'circle-in'
-        | 'elastic-in'
-        | 'back-in'
-        | 'bounce-in'
-        | 'linear-out'
-        | 'quad-out'
-        | 'cubic-out'
-        | 'sin-out'
-        | 'exp-out'
-        | 'circle-out'
-        | 'elastic-out'
-        | 'back-out'
-        | 'bounce-out'
-        | 'linear-in-out'
-        | 'quad-in-out'
-        | 'cubic-in-out'
-        | 'sin-in-out'
-        | 'exp-in-out'
-        | 'circle-in-out'
-        | 'elastic-in-out'
-        | 'back-in-out'
-        | 'bounce-in-out';
+        | "linear"
+        | "quad"
+        | "cubic"
+        | "sin"
+        | "exp"
+        | "circle"
+        | "elastic"
+        | "back"
+        | "bounce"
+        | "linear-in"
+        | "quad-in"
+        | "cubic-in"
+        | "sin-in"
+        | "exp-in"
+        | "circle-in"
+        | "elastic-in"
+        | "back-in"
+        | "bounce-in"
+        | "linear-out"
+        | "quad-out"
+        | "cubic-out"
+        | "sin-out"
+        | "exp-out"
+        | "circle-out"
+        | "elastic-out"
+        | "back-out"
+        | "bounce-out"
+        | "linear-in-out"
+        | "quad-in-out"
+        | "cubic-in-out"
+        | "sin-in-out"
+        | "exp-in-out"
+        | "circle-in-out"
+        | "elastic-in-out"
+        | "back-in-out"
+        | "bounce-in-out";
     /**
      * Determines whether the figure's layout or traces smoothly transitions during updates that make both traces
      * and layout change. Default is "layout first".
      */
-    ordering?: 'layout first' | 'traces first' | undefined;
+    ordering?: "layout first" | "traces first" | undefined;
 }
 
 export interface SliderStep {
@@ -2212,7 +2993,7 @@ export interface SliderStep {
      * updates. This may be used to create a component interface and attach to
      * slider events manually via JavaScript.
      */
-    method: 'animate' | 'relayout' | 'restyle' | 'skip' | 'update';
+    method: "animate" | "relayout" | "restyle" | "skip" | "update";
     /**
      * Sets the arguments values to be passed to the Plotly
      * method set in `method` on slide.
@@ -2254,7 +3035,7 @@ export interface Padding {
      * The amount of padding (in px) on the left side of the component.
      */
     l: number;
-    editType: 'arraydraw';
+    editType: "arraydraw";
 }
 
 export interface Slider {
@@ -2273,7 +3054,7 @@ export interface Slider {
      * is set in units of plot *fraction* or in *pixels.
      * Use `len` to set the value.
      */
-    lenmode: 'fraction' | 'pixels';
+    lenmode: "fraction" | "pixels";
     /**
      * Sets the length of the slider
      * This measure excludes the padding of both ends.
@@ -2298,19 +3079,19 @@ export interface Slider {
      * This anchor binds the `x` position to the *left*, *center*
      * or *right* of the range selector.
      */
-    xanchor: 'auto' | 'left' | 'center' | 'right';
+    xanchor: "auto" | "left" | "center" | "right";
     /**
      * Sets the slider's vertical position anchor
      * This anchor binds the `y` position to the *top*, *middle*
      * or *bottom* of the range selector.
      */
-    yanchor: 'auto' | 'top' | 'middle' | 'bottom';
+    yanchor: "auto" | "top" | "middle" | "bottom";
     transition: Transition;
     currentvalue: Partial<CurrentValue>;
     /**
      * Sets the font of the slider step labels.
      */
-    font: Font;
+    font: Partial<Font>;
     /**
      * Sets the background color of the slider grip
      * while dragging.
@@ -2354,7 +3135,7 @@ export interface CurrentValue {
     /**
      * The alignment of the value readout relative to the length of the slider.
      */
-    xanchor: 'left' | 'center' | 'right';
+    xanchor: "left" | "center" | "right";
     /**
      * The amount of space, in pixels, between the current value label
      * and the slider.
@@ -2374,51 +3155,59 @@ export interface CurrentValue {
     font: Partial<Font>;
 }
 
+export type PatternShape = "" | "/" | "\\" | "x" | "-" | "|" | "+" | ".";
+
 /**
- * 'Sets the pattern within the marker.
+ * Sets the pattern within the marker.
  */
 export interface Pattern {
     /**
      * Sets the shape of the pattern fill.
      * By default, no pattern is used for filling the area.
      */
-    shape?: '' | '/' | '\\' | 'x' | '-' | '|' | '+' | '.';
+    shape?: PatternShape | PatternShape[] | undefined;
+    /**
+     * Sets a custom path for pattern fill.
+     * Use with no `shape` or `solidity`, provide an SVG path string for
+     * the regions of the square from (0,0) to (`size`,`size`) to color.
+     */
+    path?: string | undefined;
     /**
      * Determines whether `marker.color` should be used
      * as a default to `bgcolor` or a `fgcolor`.
      */
-    fillmode?: 'replace' | 'overlay';
+    fillmode?: "replace" | "overlay" | undefined;
     /**
      * When there is no colorscale sets the color of background pattern fill.
      * Defaults to a `marker.color` background when `fillmode` is *overlay*.
      * Otherwise, defaults to a transparent background.
      */
-    bgcolor?: string;
+    bgcolor?: string | string[] | undefined;
     /**
      * When there is no colorscale sets the color of foreground pattern fill.
      * Defaults to a `marker.color` background when `fillmode` is *replace*.
      * Otherwise, defaults to dark grey or white
      * to increase contrast with the `bgcolor`.
      */
-    fgcolor?: string;
+    fgcolor?: string | string[] | undefined;
     /**
      * Sets the opacity of the foreground pattern fill.
      * Defaults to a 0.5 when `fillmode` is *overlay*.
      * Otherwise, defaults to 1.
      */
-    fgopacity?: string;
+    fgopacity?: number | undefined;
     /**
      * Sets the size of unit squares of the pattern fill in pixels,
      * which corresponds to the interval of repetition of the pattern.
      */
-    size?: number;
+    size?: number | number[] | undefined;
     /**
      * Sets the solidity of the pattern fill.
      * Solidity is roughly the fraction of the area filled by the pattern.
      * Solidity of 0 shows only the background color without pattern
      * and solidty of 1 shows only the foreground color without pattern.
      */
-    solidity?: number;
+    solidity?: number | number[] | undefined;
 }
 
 export interface UpdateMenuButton {
@@ -2452,7 +3241,7 @@ export interface UpdateMenuButton {
      * used to create a component interface and attach to updatemenu events
      * manually via JavaScript.
      */
-    method: 'restyle' | 'relayout' | 'animate' | 'update' | 'skip';
+    method: "restyle" | "relayout" | "animate" | "update" | "skip";
     /**
      * When used in a template, named items are created in the output figure in
      * addition to any items the figure already has in this array. You can modify
@@ -2505,7 +3294,7 @@ export interface UpdateMenu {
      * the buttons will still appear in left-to-right or top-to-bottom order
      * respectively.
      */
-    direction: 'left' | 'up' | 'right' | 'down';
+    direction: "left" | "up" | "right" | "down";
     /**
      * Sets the font of the update menu button text.
      */
@@ -2541,7 +3330,7 @@ export interface UpdateMenu {
      * Determines whether the buttons are accessible via a dropdown menu or
      * whether the buttons are stacked horizontally or vertically
      */
-    type: 'dropdown' | 'buttons';
+    type: "dropdown" | "buttons";
     /**
      * Determines whether or not the update menu is visible.
      */
@@ -2554,7 +3343,7 @@ export interface UpdateMenu {
      * Sets the update menu's horizontal position anchor. This anchor binds
      * the `x` position to the "left", "center" or "right" of the range selector.
      */
-    xanchor: 'auto' | 'left' | 'center' | 'right';
+    xanchor: "auto" | "left" | "center" | "right";
     /**
      * Sets the y position (in normalized coordinates) of the update menu.
      */
@@ -2563,43 +3352,34 @@ export interface UpdateMenu {
      * Sets the update menu's vertical position anchor This anchor binds
      * the `y` position to the "top", "middle" or "bottom" of the range selector.
      */
-    yanchor: 'auto' | 'top' | 'middle' | 'bottom';
+    yanchor: "auto" | "top" | "middle" | "bottom";
 }
 
 interface TraceModule {
-    moduleType: 'trace';
+    moduleType: "trace";
     name: string;
     categories: string[];
-    meta: Record<string, unknown>;
-    [key: string]: unknown;
+    meta: {
+        description: string;
+    };
 }
 
 interface LocaleModule {
-    moduleType: 'locale';
+    moduleType: "locale";
     name: string;
     dictionary: Record<string, unknown>;
     format: Record<string, unknown>;
 }
 
-interface TransformModule {
-    moduleType: 'transform';
-    name: string;
-    transform: any;
-    calcTransform: any;
-    attributes: Record<string, unknown>;
-    supplyDefaults: any;
-}
-
 interface ComponentModule {
-    moduleType: 'component';
+    moduleType: "component";
     name: string;
-    [key: string]: unknown;
 }
 
 interface ApiMethodModule {
-    moduleType: 'apiMethod';
+    moduleType: "apiMethod";
     name: string;
     fn: any;
 }
 
-type PlotlyModule = TraceModule | LocaleModule | TransformModule | ComponentModule | ApiMethodModule;
+type PlotlyModule = TraceModule | LocaleModule | ComponentModule | ApiMethodModule;

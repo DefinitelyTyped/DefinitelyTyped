@@ -50,7 +50,7 @@ declare namespace BMap {
     }
     class CustomLayer extends TileLayer {
         constructor(opts: CustomLayerOptions);
-        onhotspotclick: (event: { type: string, target: any, content: any }) => void;
+        onhotspotclick: (event: { type: string; target: any; content: any }) => void;
     }
     interface Custompoi {
         poiId: string;

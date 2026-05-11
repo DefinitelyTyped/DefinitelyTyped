@@ -1,4 +1,4 @@
-export default function paypal() {
+export default function paypal () {
   const paypal = window.recurly.PayPal();
 
   window.recurly.PayPal({
@@ -11,6 +11,11 @@ export default function paypal() {
     braintree: {
       clientAuthorization: 'client-authorization'
     }
+  });
+
+  window.recurly.PayPal({
+    gatewayCode: 'gateway-code',
+    payPalComplete: true,
   });
 
   // @ts-expect-error
@@ -26,7 +31,7 @@ export default function paypal() {
   paypal.start();
   paypal.start({
     options: {
-      description: "description"
+      description: 'description'
     }
   });
   paypal.destroy();

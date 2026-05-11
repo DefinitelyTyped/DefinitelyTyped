@@ -1,16 +1,9 @@
-// Type definitions for @xmpp/tls 0.13
-// Project: https://github.com/xmppjs/xmpp.js/tree/main/packages/tls
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+import Connection from "@xmpp/connection";
 
-import Connection = require('@xmpp/connection');
+export default tls;
 
-export = tls;
+declare function tls({ entity }: { entity: Entity }): void;
 
-declare function tls({ entity }: { entity: tls.Entity }): void;
-
-declare namespace tls {
-    interface Entity {
-        transports: Array<typeof Connection>;
-    }
+export interface Entity {
+    transports: Array<typeof Connection>;
 }

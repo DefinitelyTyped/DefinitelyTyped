@@ -3,11 +3,11 @@ $("#picker").spectrum();
 
 // Initializer with options
 $("#picker").spectrum({
-    color: "yellow"
+    color: "yellow",
 });
 
 $("#picker").spectrum({
-    allowEmpty: true
+    allowEmpty: true,
 });
 
 $("#picker").spectrum({
@@ -15,15 +15,15 @@ $("#picker").spectrum({
 });
 
 $("#picker").spectrum({
-    showInput: true
+    showInput: true,
 });
 
 $("#picker").spectrum({
-    showAlpha: true
+    showAlpha: true,
 });
 
 $("#picker").spectrum({
-    disabled: true
+    disabled: true,
 });
 
 $("#picker").spectrum({
@@ -44,14 +44,14 @@ $("#picker").spectrum({
         ["#e06666", "#f6b26b", "#ffd966", "#93c47d", "#76a5af", "#6fa8dc", "#8e7cc3", "#c27ba0"],
         ["#c00", "#e69138", "#f1c232", "#6aa84f", "#45818e", "#3d85c6", "#674ea7", "#a64d79"],
         ["#900", "#b45f06", "#bf9000", "#38761d", "#134f5c", "#0b5394", "#351c75", "#741b47"],
-        ["#600", "#783f04", "#7f6000", "#274e13", "#0c343d", "#073763", "#20124d", "#4c1130"]
-    ]
+        ["#600", "#783f04", "#7f6000", "#274e13", "#0c343d", "#073763", "#20124d", "#4c1130"],
+    ],
 });
 
 const paletteModMod: string[][] = [["#000"]];
-const paletteUnmodMod: ReadonlyArray<string[]> = [["#000"]];
-const paletteModUnmod: Array<ReadonlyArray<string>> = [["#000"]];
-const paletteUnmodUnmod: ReadonlyArray<ReadonlyArray<string>> = [["#000"]];
+const paletteUnmodMod: readonly string[][] = [["#000"]];
+const paletteModUnmod: Array<readonly string[]> = [["#000"]];
+const paletteUnmodUnmod: ReadonlyArray<readonly string[]> = [["#000"]];
 $("#picker").spectrum({
     palette: paletteModMod,
 });
@@ -85,7 +85,7 @@ $("#picker").spectrum({
 });
 
 const selectionPaletteMod: string[] = ["red", "green", "blue"];
-const selectionPaletteUnmod: ReadonlyArray<string> = ["red", "green", "blue"];
+const selectionPaletteUnmod: readonly string[] = ["red", "green", "blue"];
 $("#picker").spectrum({
     selectionPalette: selectionPaletteMod,
 });
@@ -98,7 +98,7 @@ $("#picker").spectrum({
 });
 
 $("#picker").spectrum({
-    clickoutFiresChange: true
+    clickoutFiresChange: true,
 });
 $("#picker").spectrum("option", "selectionPalette", selectionPaletteMod);
 $("#picker").spectrum("option", "selectionPalette", selectionPaletteUnmod);
@@ -111,7 +111,7 @@ if (selectionPalette) {
 
 $("#picker").spectrum({
     showInitial: true,
-    showInput: true
+    showInput: true,
 });
 $("#picker").spectrum({
     chooseText: "Alright",
@@ -121,98 +121,98 @@ $("#picker").spectrum({
 });
 
 $("#picker").spectrum({
-    showButtons: false
+    showButtons: false,
 });
 
 $("#picker").spectrum({
-    containerClassName: "awesome"
+    containerClassName: "awesome",
 });
 
 $("#picker").spectrum({
-    replacerClassName: "awesome"
+    replacerClassName: "awesome",
 });
 
 $("#picker").spectrum({
-    preferredFormat: "hex"
+    preferredFormat: "hex",
 });
 
 $("#picker").spectrum(
     // Invalid format name raises a type error
     // @ts-expect-error
-    { preferredFormat: "lol" }
+    { preferredFormat: "lol" },
 );
 
 $("#picker").spectrum({
-    appendTo: "body"
+    appendTo: "body",
 });
 $("#picker").spectrum({
-    appendTo: document.createDocumentFragment()
+    appendTo: document.createDocumentFragment(),
 });
 $("#picker").spectrum({
-    appendTo: [document.createDocumentFragment()]
+    appendTo: [document.createDocumentFragment()],
 });
 $("#picker").spectrum({
-    appendTo: document.createElement("input")
+    appendTo: document.createElement("input"),
 });
 $("#picker").spectrum({
-    appendTo: [document.createElement("input")]
+    appendTo: [document.createElement("input")],
 });
 $("#picker").spectrum({
-    appendTo: $("#otherPicker")
+    appendTo: $("#otherPicker"),
 });
 $("#picker").spectrum(
     // Cannot use values not allowed by JQuery#appendTo
     // @ts-expect-error
-    { appendTo: [$("#otherPicker")] }
+    { appendTo: [$("#otherPicker")] },
 );
 
 $("#picker").spectrum({
     offset: {
         left: 0,
         top: 0,
-    }
+    },
 });
 $("#picker").spectrum({
     offset: {
         left: 0,
-    }
+    },
 });
 
 $("#picker").spectrum({
     change(color) {
         console.log(color);
-    }
+    },
 });
 $("#picker").spectrum({
     move(color) {
         // $ExpectType string
         color.toHexString();
-    }
+    },
 });
 $("#picker").spectrum({
     hide(color) {
         // $ExpectType string
         color.toHexString();
-    }
+    },
 });
 $("#picker").spectrum({
     show(color) {
         // $ExpectType string
         color.toHexString();
-    }
+    },
 });
 $("#picker").spectrum({
     beforeShow(color) {
         // $ExpectType string
         color.toHexString();
-    }
+    },
 });
 $("#picker").spectrum({
     beforeShow(color) {
         // $ExpectType string
         color.toHexString();
         return false;
-    }
+    },
 });
 
 // JQuery instance method

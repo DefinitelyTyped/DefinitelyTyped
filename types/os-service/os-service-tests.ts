@@ -1,11 +1,11 @@
-import * as service from 'os-service';
+import * as service from "os-service";
 
 const name = "MyTestService";
 
 service.add(name);
 service.add(name, (error): void => {
 });
-service.add(name, {displayName: name}, (): void => {
+service.add(name, { displayName: name }, (): void => {
 });
 
 service.run((): void => {

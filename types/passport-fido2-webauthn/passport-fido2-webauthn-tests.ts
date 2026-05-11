@@ -1,9 +1,9 @@
-import express = require('express');
-import passport = require('passport');
-import webauthn = require('passport-fido2-webauthn');
+import express = require("express");
+import passport = require("passport");
+import webauthn = require("passport-fido2-webauthn");
 
 // Example derived from https://github.com/jaredhanson/passport-webauthn
-const store = new webauthn.SessionChallengeStore({ key: 'webauthn' });
+const store = new webauthn.SessionChallengeStore({ key: "webauthn" });
 
 passport.use(
     new webauthn.Strategy(
@@ -15,7 +15,7 @@ passport.use(
                     return;
                 }
                 if (!row) {
-                    cb(null, false, { message: 'Invalid key.' });
+                    cb(null, false, { message: "Invalid key." });
                     return;
                 }
                 const publicKey = row.public_key;
@@ -25,11 +25,11 @@ passport.use(
                         return;
                     }
                     if (!row) {
-                        cb(null, false, { message: 'Invalid key.' });
+                        cb(null, false, { message: "Invalid key." });
                         return;
                     }
                     if (Buffer.compare(row.handle, userHandle) !== 0) {
-                        cb(null, false, { message: 'Invalid key.' });
+                        cb(null, false, { message: "Invalid key." });
                         return;
                     }
                     cb(null, row, publicKey);
@@ -66,7 +66,7 @@ passport.use(
 );
 
 const app = express();
-app.post('/login/public-key/challenge', (req, res, next) => {});
+app.post("/login/public-key/challenge", (req, res, next) => {});
 
 declare namespace db {
     function get(

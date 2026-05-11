@@ -1,7 +1,11 @@
 {
     "rules": {
-        "dt-header": "off",
-        "no-declare-current-package": "off",
-        "no-single-element-tuple-type": "off"
+        "@definitelytyped/no-declare-current-package": "off",
+        "@definitelytyped/no-single-element-tuple-type": "off",
+        "@definitelytyped/no-single-declare-module": "off",
+        "@typescript-eslint/no-unsafe-function-type": "off",
+        "@typescript-eslint/no-wrapper-object-types": "off",
+        "@typescript-eslint/no-empty-interface": "off",
+        "@typescript-eslint/no-misused-new": "off"
     }
 }

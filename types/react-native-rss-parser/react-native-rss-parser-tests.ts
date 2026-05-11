@@ -1,10 +1,10 @@
-import { parse } from 'react-native-rss-parser';
+import { parse } from "react-native-rss-parser";
 
 // -- Globals --
 declare const fetch: (url: string) => Promise<any>;
 declare const console: any;
 
-fetch('http://rss-url.com')
+fetch("http://rss-url.com")
     .then(response => response.text())
     .then(parse)
     .then(feed => {

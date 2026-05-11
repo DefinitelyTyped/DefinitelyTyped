@@ -1,5 +1,5 @@
-import { Texture } from './Texture';
-import { MagnificationTextureFilter, MinificationTextureFilter, PixelFormat } from '../constants';
+import { MagnificationTextureFilter, MinificationTextureFilter } from "../constants.js";
+import { Texture } from "./Texture.js";
 
 /**
  * This class can only be used in combination with {@link THREE.WebGLRenderer.copyFramebufferToTexture | WebGLRenderer.copyFramebufferToTexture()}.
@@ -21,20 +21,19 @@ import { MagnificationTextureFilter, MinificationTextureFilter, PixelFormat } fr
  * renderer.render( scene, camera );
  *
  * // copy part of the rendered frame into the framebuffer texture
- * renderer.copyFramebufferToTexture( vector, frameTexture );
+ * renderer.copyFramebufferToTexture( frameTexture, vector );
  * ```
  * @see Example: {@link https://threejs.org/examples/#webgl_framebuffer_texture | webgl_framebuffer_texture}
  * @see {@link https://threejs.org/docs/index.html#api/en/textures/FramebufferTexture | Official Documentation}
  * @see {@link https://github.com/mrdoob/three.js/blob/master/src/textures/FramebufferTexture.js | Source}
  */
-export class FramebufferTexture extends Texture {
+export class FramebufferTexture extends Texture<FramebufferTextureImageData> {
     /**
      * Create a new instance of {@link FramebufferTexture}
      * @param width The width of the texture.
      * @param height The height of the texture.
-     * @param format See {@link Texture.format | .format}. Default {@link THREE.RGBAFormat}.
      */
-    constructor(width: number, height: number, format: PixelFormat);
+    constructor(width: number, height: number);
 
     /**
      * Read-only flag to check if a given object is of type {@link FramebufferTexture}.
@@ -60,4 +59,9 @@ export class FramebufferTexture extends Texture {
      * @defaultValue `false`
      */
     generateMipmaps: boolean;
+}
+
+export interface FramebufferTextureImageData {
+    width: number;
+    height: number;
 }

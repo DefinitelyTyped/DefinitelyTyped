@@ -59,6 +59,13 @@ export type GooglePayOptions = {
   };
 
   /**
+   * If set to true, then the Google Pay button will not be rendered and an error will be emitted if the user
+   * is not eligible to pay with Google Pay.
+   * See https://developers.google.com/pay/api/web/reference/request-objects#IsReadyToPayRequest for more information.
+   */
+  existingPaymentMethodRequired?: boolean;
+
+  /**
    * Requires the user to accept providing the full billing address.
    * @deprecated use billingAddressRequired
    */
@@ -75,6 +82,13 @@ export type GooglePayOptions = {
   gatewayCode?: string;
 
   /**
+   * If provided, will use Braintree to process the GooglePay transaction.
+   */
+  braintree?: {
+    clientAuthorization: string;
+  };
+
+  /**
    * Specify configuration for Google Pay API.
    */
   paymentDataRequest?: GooglePayPaymentDataRequest;
@@ -84,6 +98,7 @@ export type GooglePayOptions = {
    */
   callbacks?: {
     onPaymentDataChanged?: (intermediatePaymentData: GooglePayIntermediatePaymentData) => Promise<GooglePayPaymentDataRequestUpdate>;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onPaymentAuthorized?: (paymentData: GooglePayPaymentData) => Promise<GooglePayPaymentAuthorizationResult> | void;
   },
 };

@@ -18,11 +18,14 @@ declare function encode(
     bin: string | ArrayBuffer | Uint8Array | MemoryStream | File,
     encodeFormat?: number
 ): string;
-declare function decode(str: string | ArrayBuffer, decodeFormat?: number): string | ArrayBuffer;
-declare var STRING_DECODING: number;
-declare var ARRAY_BUFFER_DECODING: number;
-declare var STANDARD_ENCODING: number;
-declare var MIME_ENCODING: number;
-declare var URL_ENCODING: number;
+declare function decode(
+    str: string | ArrayBuffer,
+    resultType?: string
+): string | Uint8Array | ArrayBuffer;
+declare let STRING_DECODING: number;
+declare let ARRAY_BUFFER_DECODING: number;
+declare let STANDARD_ENCODING: number;
+declare let MIME_ENCODING: number;
+declare let URL_ENCODING: number;
 type File = import('../io/File');
 type MemoryStream = import('../io/MemoryStream');

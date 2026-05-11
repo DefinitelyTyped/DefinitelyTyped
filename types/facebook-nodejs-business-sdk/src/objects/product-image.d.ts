@@ -1,5 +1,14 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
+/**
+ * ProductImage
+ * @see {@link https://developers.facebook.com/docs/marketing-api/}
+ */
 export default class ProductImage extends AbstractCrudObject {
-    static get Fields(): Record<string, any>;
+    static get Fields(): Readonly<{
+        height: "height";
+        id: "id";
+        image_url: "image_url";
+        width: "width";
+    }>;
     get(fields: string[], params?: Record<string, any>): Promise<ProductImage>;
 }

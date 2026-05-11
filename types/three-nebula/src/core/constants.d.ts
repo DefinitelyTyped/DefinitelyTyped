@@ -10,7 +10,7 @@ import {
     BEHAVIOUR_TYPE_ROTATE,
     BEHAVIOUR_TYPE_SCALE,
     BEHAVIOUR_TYPE_SPRING,
-} from '../behaviour/types';
+} from "../behaviour/types";
 import {
     INITIALIZER_TYPE_BODY,
     INITIALIZER_TYPE_BODY_SPRITE,
@@ -23,11 +23,11 @@ import {
     INITIALIZER_TYPE_ROTATION,
     INITIALIZER_TYPE_TEXTURE,
     INITIALIZER_TYPE_VECTOR_VELOCITY,
-} from '../initializer/types';
-import { ZONE_TYPE_BOX, ZONE_TYPE_LINE, ZONE_TYPE_MESH, ZONE_TYPE_POINT, ZONE_TYPE_SPHERE } from '../zone/types';
+} from "../initializer/types";
+import { ZONE_TYPE_BOX, ZONE_TYPE_LINE, ZONE_TYPE_MESH, ZONE_TYPE_POINT, ZONE_TYPE_SPHERE } from "../zone/types";
 
-import { ease } from '../ease';
-import { RENDERER_TYPE_SPRITE } from '../renderer/types';
+import { ease } from "../ease";
+import { RENDERER_TYPE_SPRITE } from "../renderer/types";
 
 /**
  * @description Default particle life
@@ -146,4 +146,4 @@ export const SUPPORTED_JSON_ZONE_TYPES: [
     typeof ZONE_TYPE_SPHERE,
 ];
 
-export { INITIALIZER_TYPES_THAT_REQUIRE_THREE } from '../initializer/types';
+export { INITIALIZER_TYPES_THAT_REQUIRE_THREE } from "../initializer/types";

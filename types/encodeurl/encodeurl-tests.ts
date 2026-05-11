@@ -1,3 +1,3 @@
-import encodeUrl = require('encodeurl');
+import encodeUrl = require("encodeurl");
 
-encodeUrl('/foo'); // $ExpectType string
+encodeUrl("/foo"); // $ExpectType string

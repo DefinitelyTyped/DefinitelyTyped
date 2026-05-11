@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/euclidean-distance",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/zeke/euclidean-distance"
+    ],
+    "devDependencies": {
+        "@types/euclidean-distance": "workspace:."
+    },
+    "owners": []
+}

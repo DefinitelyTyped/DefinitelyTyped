@@ -1,9 +1,9 @@
-import rgb from '../rgb/definition';
-import convertRgbToLrgb from './convertRgbToLrgb';
-import convertLrgbToRgb from './convertLrgbToRgb';
+import rgb from "../rgb/definition.js";
+import convertLrgbToRgb from "./convertLrgbToRgb.js";
+import convertRgbToLrgb from "./convertRgbToLrgb.js";
 
 interface LrgbDefinitionMixin {
-    mode: 'lrgb';
+    mode: "lrgb";
 
     toMode: {
         rgb: typeof convertLrgbToRgb;
@@ -13,10 +13,10 @@ interface LrgbDefinitionMixin {
         rgb: typeof convertRgbToLrgb;
     };
 
-    parse: ['--srgb-linear'];
-    serialize: '--srgb-linear';
+    parse: ["--srgb-linear"];
+    serialize: "--srgb-linear";
 }
 
-declare const definition: Omit<typeof rgb, keyof LrgbDefinitionMixin> & LrgbDefinitionMixin;
+declare const modeLrgb: Omit<typeof rgb, keyof LrgbDefinitionMixin> & LrgbDefinitionMixin;
 
-export default definition;
+export default modeLrgb;

@@ -1,5 +1,5 @@
-import { Collider } from '../../../colliders/Collider';
-import { RigidBody } from '../../../physics/RigidBody';
+import { Collider } from "../../../colliders/Collider";
+import { RigidBody } from "../../../physics/RigidBody";
 
 export class Pair {
     static __id(a: Collider, b: Collider): string;

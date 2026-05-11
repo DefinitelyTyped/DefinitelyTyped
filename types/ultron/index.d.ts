@@ -1,9 +1,3 @@
-// Type definitions for ultron 1.1
-// Project: https://github.com/unshiftio/ultron
-// Definitions by: Renée Kooi <https://github.com/goto-bus-stop>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.7
-
 type Listener = (...args: any[]) => void;
 
 /**
@@ -61,11 +55,11 @@ declare const Ultron: {
     /**
      * @param ee EventEmitter instance we need to wrap.
      */
-    new (ee: EventEmitter): Ultron;
+    new(ee: EventEmitter): Ultron;
 };
 
 declare namespace Ultron {
-    export { Listener, EventEmitter };
+    export { EventEmitter, Listener };
 }
 
 export = Ultron;

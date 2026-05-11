@@ -1,10 +1,10 @@
-import * as wellknown from 'wellknown';
+import * as wellknown from "wellknown";
 
 wellknown.parse("POINT(1 2)"); // $ExpectType GeoJSONGeometryOrNull
 
 const geoJson: wellknown.GeoJSONGeometry = {
     coordinates: [1, 2],
-    type: "Point"
+    type: "Point",
 };
 
 wellknown.stringify(geoJson); // $ExpectType string
@@ -16,13 +16,13 @@ const geometryCollection: wellknown.GeoJSONGeometry = {
     geometries: [
         {
             type: "Point",
-            coordinates: [1, 2]
+            coordinates: [1, 2],
         },
         {
             type: "Polygon",
-            coordinates: [[[1, 2], [2, 3], [3, 4], [4, 1]]]
-        }
-    ]
+            coordinates: [[[1, 2], [2, 3], [3, 4], [4, 1]]],
+        },
+    ],
 };
 
 wellknown.stringify(geometryCollection); // $ExpectType string
@@ -31,8 +31,8 @@ const feature: wellknown.GeoJSONFeature = {
     type: "Feature",
     geometry: {
         type: "Polygon",
-        coordinates: [[[1, 2], [2, 3], [3, 4], [4, 1]]]
-    }
+        coordinates: [[[1, 2], [2, 3], [3, 4], [4, 1]]],
+    },
 };
 
 wellknown.stringify(feature); // $ExpectType string

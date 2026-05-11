@@ -1,2 +1,2 @@
-import { curryN } from '../index';
+import { curryN } from "../index";
 export default curryN;

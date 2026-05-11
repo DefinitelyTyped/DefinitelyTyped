@@ -1,9 +1,3 @@
-// Type definitions for murmurhash3js-revisited 3.0
-// Project: https://github.com/cimi/murmurhash3js-revisited#readme
-// Definitions by: Carlo Francisco <https://github.com/jcfrancisco>
-//                 Junxiao Shi <https://github.com/yoursunny>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface X86 {
     hash32: (bytes: Uint8Array, seed?: number) => number;
     hash128: (bytes: Uint8Array, seed?: number) => string;

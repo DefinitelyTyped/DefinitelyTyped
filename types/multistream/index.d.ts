@@ -1,11 +1,6 @@
-// Type definitions for multistream 4.1
-// Project: https://github.com/feross/multistream
-// Definitions by: mrmlnc <https://github.com/mrmlnc>, mpvharmelen <https://github.com/mpvharmelen>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import { Stream, Readable as ReadableStream, ReadableOptions } from 'stream';
+import { Readable as ReadableStream, ReadableOptions, Stream } from "stream";
 
 declare class MultiStream extends ReadableStream {
     constructor(streams: MultiStream.Streams, opts?: ReadableOptions);

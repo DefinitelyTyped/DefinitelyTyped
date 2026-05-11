@@ -1,8 +1,3 @@
-// Type definitions for valvelet 1.1
-// Project: https://github.com/lpinca/valvelet
-// Definitions by: BendingBender <https://github.com/bendingbender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = valvelet;
 
 /**

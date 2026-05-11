@@ -1,6 +1,6 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
-() => {
+(() => {
     function takesOneArg(a: number) {
         return [a];
     }
@@ -14,4 +14,4 @@ import * as R from 'ramda';
     const u1: (a: number) => number[] = R.unary(takesOneArg);
     const u2: (a: number) => number[] = R.unary(takesTwoArgs);
     const u3: (a: number) => number[] = R.unary(takesThreeArgs);
-};
+});

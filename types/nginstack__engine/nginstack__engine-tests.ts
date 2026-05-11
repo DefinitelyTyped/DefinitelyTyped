@@ -1,5 +1,5 @@
-import * as DataSet from '@nginstack/engine/lib/dataset/DataSet';
-import * as Database from '@nginstack/engine/lib/database/Database';
+import DataSet from '@nginstack/engine/lib/dataset/DataSet';
+import Database from '@nginstack/engine/lib/database/Database';
 
 const values = ['test1', 'test_memo1', 1, true, new Date()];
 
@@ -88,8 +88,7 @@ database.columnExists('iVfs', 'iKey'); // $ExpectType boolean
 database.userHasScope(456, 'scope'); // $ExpectType boolean
 database.logout(); // $ExpectType void
 
-function testMajorVersions(prior: number, current: number): boolean {
-    return current > prior;
+function getVersion(): string {
+    return '81.0.1';
 }
-
-testMajorVersions(70, 71); // $ExpectType boolean
+getVersion(); // $ExpectType string

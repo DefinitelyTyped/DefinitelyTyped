@@ -14,8 +14,8 @@ export interface OCRPro {
         successCallback: () => void,
         failureCallback: (
             errorCode: number,
-            errorString: string
-        ) => void
+            errorString: string,
+        ) => void,
     ): void;
     /**
      * Return whether the OCR Professional engine has been installed.
@@ -35,12 +35,12 @@ export interface OCRPro {
         index: number,
         successCallback: (
             imageId: number,
-            result: OCRProResult
+            result: OCRProResult,
         ) => void,
         failureCallback: (
             errorCode: number,
-            errorString: string
-        ) => void
+            errorString: string,
+        ) => void,
     ): void;
     /**
      * Perform OCR on the specified local file.
@@ -52,15 +52,16 @@ export interface OCRPro {
      * @argument errorCode The error code.
      * @argument errorString The error string.
      */
-    RecognizeFile(path: string,
+    RecognizeFile(
+        path: string,
         successCallback: (
             path: string,
-            result: OCRProResult
+            result: OCRProResult,
         ) => void,
         failureCallback: (
             errorCode: number,
-            errorString: string
-        ) => void
+            errorString: string,
+        ) => void,
     ): void;
     /**
      * Perform OCR on the specified rectangular area(s) on the image.
@@ -79,12 +80,12 @@ export interface OCRPro {
         successCallback: (
             imageId: number,
             aryRects: Rect[],
-            result: OCRProResult
+            result: OCRProResult,
         ) => void,
         failureCallback: (
             errorCode: number,
-            errorString: string
-        ) => void
+            errorString: string,
+        ) => void,
     ): void;
     /**
      * Perform OCR on the selected images in the buffer.
@@ -97,12 +98,12 @@ export interface OCRPro {
      */
     RecognizeSelectedImages(
         successCallback: (
-            result: OCRProResult
+            result: OCRProResult,
         ) => void,
         failureCallback: (
             errorCode: number,
-            errorString: string
-        ) => void
+            errorString: string,
+        ) => void,
     ): void;
     /**
      * Return or set the current settings of the OCR engine.

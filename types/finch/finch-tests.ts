@@ -1,8 +1,4 @@
-
-
 function test_Finch() {
-
-
     Finch.route("Hello/Route", function() {
         return console.log("Well hello there! How you doin'?!");
     });
@@ -28,7 +24,7 @@ function test_Finch() {
         },
         teardown: function(bindings) {
             return console.log("Some Route has been torndown! :'(");
-        }
+        },
     });
 
     Finch.route("some/route", {
@@ -47,7 +43,7 @@ function test_Finch() {
         teardown: function(bindings, childCallback) {
             console.log("Some Route has been torndown! :'(");
             return childCallback();
-        }
+        },
     });
 
     Finch.call("Some/Route");
@@ -72,36 +68,35 @@ function test_Finch() {
     Finch.navigate("Some/Route");
 
     Finch.navigate("Some/Route", {
-        hello: 'world',
-        foo: 'bar'
+        hello: "world",
+        foo: "bar",
     });
 
     Finch.navigate("Some/Route", {
-        foo: 'bar'
+        foo: "bar",
     }, true);
 
     Finch.navigate("Some/Route", true);
 
     Finch.navigate({
-        hello: 'world2',
-        wow: 'wee'
+        hello: "world2",
+        wow: "wee",
     });
 
     Finch.navigate({
-        foo: 'bar',
-        wow: 'wee!!!'
+        foo: "bar",
+        wow: "wee!!!",
     });
 
     Finch.navigate({
-        hello: 'world2'
+        hello: "world2",
     }, true);
 
     Finch.listen();
     Finch.ignore();
     Finch.abort();
 
-
-    //test from Finch
+    // test from Finch
     Finch.call("/foo/bar");
     Finch.call("/foo/bar/123");
     Finch.call("/foo/bar/123");
@@ -126,31 +121,31 @@ function test_Finch() {
         setup: cb.setup_foo = this.stub(),
         load: cb.load_foo = this.stub(),
         unload: cb.unload_foo = this.stub(),
-        teardown: cb.teardown_foo = this.stub()
+        teardown: cb.teardown_foo = this.stub(),
     });
     Finch.route("[foo]/bar", {
         setup: cb.setup_foo_bar = this.stub(),
         load: cb.load_foo_bar = this.stub(),
         unload: cb.unload_foo_bar = this.stub(),
-        teardown: cb.teardown_foo_bar = this.stub()
+        teardown: cb.teardown_foo_bar = this.stub(),
     });
     Finch.route("[foo/bar]/:id", {
         setup: cb.setup_foo_bar_id = this.stub(),
         load: cb.load_foo_bar_id = this.stub(),
         unload: cb.unload_foo_bar_id = this.stub(),
-        teardown: cb.teardown_foo_bar_id = this.stub()
+        teardown: cb.teardown_foo_bar_id = this.stub(),
     });
     Finch.route("[foo]/baz", {
         setup: cb.setup_foo_baz = this.stub(),
         load: cb.load_foo_baz = this.stub(),
         unload: cb.unload_foo_baz = this.stub(),
-        teardown: cb.teardown_foo_baz = this.stub()
+        teardown: cb.teardown_foo_baz = this.stub(),
     });
     Finch.route("[foo/baz]/:id", {
         setup: cb.setup_foo_baz_id = this.stub(),
         load: cb.load_foo_baz_id = this.stub(),
         unload: cb.unload_foo_baz_id = this.stub(),
-        teardown: cb.teardown_foo_baz_id = this.stub()
+        teardown: cb.teardown_foo_baz_id = this.stub(),
     });
     Finch.call("/foo");
     Finch.call("/foo/bar");
@@ -179,7 +174,7 @@ function test_Finch() {
         },
         teardown: function() {
             return false;
-        }
+        },
     });
     Finch.route("/foo", {
         setup: function() {
@@ -191,7 +186,7 @@ function test_Finch() {
         unload: function() {
         },
         teardown: function() {
-        }
+        },
     });
     Finch.route("[/]bar", {
         setup: function() {
@@ -201,7 +196,7 @@ function test_Finch() {
         unload: function() {
         },
         teardown: function() {
-        }
+        },
     });
     Finch.call("/bar");
     Finch.call("/home/news");
@@ -224,7 +219,7 @@ function test_Finch() {
         },
         teardown: function(bindings, next) {
             return next();
-        }
+        },
     });
     Finch.route("[/home]/news", {
         setup: function(bindings, next) {
@@ -238,7 +233,7 @@ function test_Finch() {
         },
         teardown: function(bindings, next) {
             return next();
-        }
+        },
     });
     Finch.call("/home");
     Finch.call("/home/news");
@@ -254,7 +249,7 @@ function test_Finch() {
     Finch.call("/?x=false");
     Finch.call("/?x=stuff");
     Finch.options({
-        CoerceParameterTypes: true
+        CoerceParameterTypes: true,
     });
     Finch.call("/?x=123");
     Finch.call("/?x=123.456");
@@ -269,7 +264,7 @@ function test_Finch() {
     Finch.call("/false");
     Finch.call("/stuff");
     Finch.options({
-        CoerceParameterTypes: true
+        CoerceParameterTypes: true,
     });
     Finch.call("/123");
     Finch.call("/123.456");
@@ -281,53 +276,53 @@ function test_Finch() {
     Finch.navigate("/home/news");
     Finch.navigate("/home");
     Finch.navigate("/home", {
-        foo: "bar"
+        foo: "bar",
     });
     Finch.navigate("/home", {
-        hello: "world"
+        hello: "world",
     });
     Finch.navigate({
-        foos: "bars"
+        foos: "bars",
     });
     Finch.navigate({
-        foos: "baz"
+        foos: "baz",
     });
     Finch.navigate({
-        hello: "world"
+        hello: "world",
     }, true);
     Finch.navigate({
-        foos: null
+        foos: null,
     }, true);
     Finch.navigate("/home/news", true);
     Finch.navigate("/hello world", {});
     Finch.navigate("/hello world", {
-        foo: "bar bar"
+        foo: "bar bar",
     });
     Finch.navigate({
-        foo: "baz baz"
+        foo: "baz baz",
     });
     Finch.navigate({
-        hello: 'world world'
+        hello: "world world",
     }, true);
     Finch.navigate("/home?foo=bar", {
-        hello: "world"
+        hello: "world",
     });
     Finch.navigate("/home?foo=bar", {
         hello: "world",
-        foo: "baz"
+        foo: "baz",
     });
     Finch.navigate("/home?foo=bar", {
         hello: "world",
-        free: "bird"
+        free: "bird",
     });
     Finch.navigate("#/home", true);
     Finch.navigate("#/home");
     Finch.navigate("#/home/news", {
         free: "birds",
-        hello: "worlds"
+        hello: "worlds",
     });
     Finch.navigate("#/home/news", {
-        foo: "bar"
+        foo: "bar",
     }, true);
     Finch.navigate("/home/news");
     Finch.navigate("../");
@@ -347,22 +342,22 @@ function test_Finch() {
     Finch.abort();
     Finch.call("foo");
     Finch.route("/", {
-        'setup': cb.slash_setup = this.stub(),
-        'load': cb.slash_load = this.stub(),
-        'unload': cb.slash_unload = this.stub(),
-        'teardown': cb.slash_teardown = this.stub()
+        "setup": cb.slash_setup = this.stub(),
+        "load": cb.slash_load = this.stub(),
+        "unload": cb.slash_unload = this.stub(),
+        "teardown": cb.slash_teardown = this.stub(),
     });
     Finch.route("[/]users/profile", {
-        'setup': cb.profile_setup = this.stub(),
-        'load': cb.profile_load = this.stub(),
-        'unload': cb.profile_unload = this.stub(),
-        'teardown': cb.profile_teardown = this.stub()
+        "setup": cb.profile_setup = this.stub(),
+        "load": cb.profile_load = this.stub(),
+        "unload": cb.profile_unload = this.stub(),
+        "teardown": cb.profile_teardown = this.stub(),
     });
     Finch.route("[/]:page", {
-        'setup': cb.page_setup = this.stub(),
-        'load': cb.page_load = this.stub(),
-        'unload': cb.page_unload = this.stub(),
-        'teardown': cb.page_teardown = this.stub()
+        "setup": cb.page_setup = this.stub(),
+        "load": cb.page_load = this.stub(),
+        "unload": cb.page_unload = this.stub(),
+        "teardown": cb.page_teardown = this.stub(),
     });
     Finch.call("/users");
 }

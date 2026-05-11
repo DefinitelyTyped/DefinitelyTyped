@@ -1,17 +1,17 @@
-import * as React from 'react';
+import * as React from "react";
 import {
-    ProvinceMap,
-    getRandomColor,
     DistrictMap,
-    ZonalMap,
-    itemProps,
     DistrictMapTypes,
+    getRandomColor,
+    itemProps,
+    ProvinceMap,
     ProvinceMapTypes,
+    ZonalMap,
     ZonalMapTypes,
-} from 'react-nepal-map';
+} from "react-nepal-map";
 
 export const provinceFC = () => {
-    return <ProvinceMap provinceColor={['red', 'green', 'blue']} />;
+    return <ProvinceMap provinceColor={["red", "green", "blue"]} />;
 };
 
 export const provinceFCWithProps = () => {
@@ -27,7 +27,7 @@ export const provinceFCWithProps = () => {
             hoverColor={getRandomColor()}
             stroke="2"
             strokeWidth={2}
-            provinceColor={['red', 'blue', 'white']}
+            provinceColor={["red", "blue", "white"]}
         />
     );
 };
@@ -63,41 +63,41 @@ export const zonalFCWithProps = () => {
 
 const zonalMapData: ZonalMapTypes[] = [
     {
-        name: 'Gandaki',
-        code: 'GA',
-        shape: 'Zonal map data, cannot add the svg data for test because of maximum line length issue.',
+        name: "Gandaki",
+        code: "GA",
+        shape: "Zonal map data, cannot add the svg data for test because of maximum line length issue.",
     },
     {
-        name: 'LU',
-        code: 'Lumbini',
-        shape: 'Zonal map data, cannot add the svg data for test because of maximum line length issue.',
+        name: "LU",
+        code: "Lumbini",
+        shape: "Zonal map data, cannot add the svg data for test because of maximum line length issue.",
     },
 ];
 
 const districtMapData: DistrictMapTypes[] = [
     {
-        name: 'Nawalparasi_W',
+        name: "Nawalparasi_W",
         zip: 33010,
         province: 5,
-        shape: 'District map data, cannot add the svg data for test because of maximum line length issue.',
+        shape: "District map data, cannot add the svg data for test because of maximum line length issue.",
     },
     {
-        name: 'Rupendehi',
+        name: "Rupendehi",
         zip: 32900,
         province: 5,
-        shape: 'District map data, cannot add the svg data for test because of maximum line length issue.',
+        shape: "District map data, cannot add the svg data for test because of maximum line length issue.",
     },
 ];
 
 const provinceMapData: ProvinceMapTypes[] = [
     {
-        name: 'Province 4',
+        name: "Province 4",
         zip: 33700,
-        shape: 'Province map data, cannot add the svg data for test because of maximum line length issue.',
+        shape: "Province map data, cannot add the svg data for test because of maximum line length issue.",
     },
     {
-        name: 'Province 5',
+        name: "Province 5",
         zip: 32907,
-        shape: 'Province map data, cannot add the svg data for test because of maximum line length issue.',
+        shape: "Province map data, cannot add the svg data for test because of maximum line length issue.",
     },
 ];

@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-native-simple-animations",
+    "version": "0.3.9999",
+    "projects": [
+        "https://www.npmjs.com/package/react-native-simple-animations"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "react-native": "*"
+    },
+    "devDependencies": {
+        "@types/react-native-simple-animations": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "422.io",
+            "githubUsername": "iamwinner422"
+        }
+    ]
+}

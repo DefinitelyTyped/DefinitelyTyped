@@ -1,8 +1,3 @@
-// Type definitions for undertaker-registry 1.0
-// Project: https://github.com/gulpjs/undertaker-registry
-// Definitions by: Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare class UndertakerRegistry {
     /**
      * Returns the task with that name or undefined if no task is registered with that name.
@@ -38,6 +33,6 @@ declare class UndertakerRegistry {
     tasks(): { [taskName: string]: (...args: any[]) => any };
 }
 
-declare namespace UndertakerRegistry { }
+declare namespace UndertakerRegistry {}
 
 export = UndertakerRegistry;

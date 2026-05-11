@@ -1,4 +1,4 @@
-import Observable = require('.');
+import Observable = require(".");
 
 export function merge(): Observable<never>;
 export function merge<A>(a: ZenObservable.ObservableLike<A>): Observable<A>;

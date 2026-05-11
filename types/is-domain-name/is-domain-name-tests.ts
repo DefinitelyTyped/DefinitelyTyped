@@ -1,4 +1,4 @@
-import isDomainName = require('is-domain-name');
+import isDomainName = require("is-domain-name");
 
-isDomainName('localhost'); // $ExpectType boolean
-isDomainName('localhost.', true); // $ExpectType boolean
+isDomainName("localhost"); // $ExpectType boolean
+isDomainName("localhost.", true); // $ExpectType boolean

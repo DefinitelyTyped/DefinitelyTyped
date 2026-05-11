@@ -1,2 +1,2 @@
-import { min } from '../index';
+import { min } from "../index.js";
 export default min;

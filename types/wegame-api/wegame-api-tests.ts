@@ -7,15 +7,15 @@ console.assert(images != null);
 // 字体
 let texts = wx.getTextLineHeight({
     text: "",
-    fontFamily: 'Arial',
+    fontFamily: "Arial",
     fontSize: 28,
-    fontWeight: 'bold',
-    fontStyle: 'normal',
+    fontWeight: "bold",
+    fontStyle: "normal",
     success: res => {
         console.assert(res.lineHeight === 0);
-    }
+    },
 });
-let textload = wx.loadFont('Arial');
+let textload = wx.loadFont("Arial");
 console.assert(textload != null); // 当前版本不支持此加载自定义字体
 // 帧率
 wx.setPreferredFramesPerSecond(30);
@@ -24,7 +24,7 @@ wx.getBatteryInfo({
     success: info => {
         console.info(info.isCharging);
         console.info(info.level);
-    }
+    },
 });
 
 let sysinfo = wx.getSystemInfoSync();
@@ -57,15 +57,25 @@ const audioBegin = () => {
 wx.onAudioInterruptionBegin(audioBegin);
 wx.offAudioInterruptionBegin(audioBegin);
 
-const onWXError = (res: { message: string, stack: string }) => { console.error(`sys error: ${res.message}....${res.stack}`); };
+const onWXError = (res: { message: string; stack: string }) => {
+    console.error(`sys error: ${res.message}....${res.stack}`);
+};
 wx.onError(onWXError);
 wx.offError(onWXError);
 
 // 触摸事件
-wx.onTouchStart(d => { console.assert(d != null); });
-wx.onTouchMove(d => { console.assert(d != null); });
-wx.onTouchEnd(d => { console.assert(d != null); });
-wx.onTouchCancel(d => { console.assert(d != null); });
+wx.onTouchStart(d => {
+    console.assert(d != null);
+});
+wx.onTouchMove(d => {
+    console.assert(d != null);
+});
+wx.onTouchEnd(d => {
+    console.assert(d != null);
+});
+wx.onTouchCancel(d => {
+    console.assert(d != null);
+});
 // 加速计
 wx.onAccelerometerChange(res => {
     console.assert(res.x != null);
@@ -76,12 +86,12 @@ wx.startAccelerometer({
     interval: "game",
     success: () => {
         console.log("wx.startAccelerometer success");
-    }
+    },
 });
 wx.stopAccelerometer({
     success: () => {
         console.log("wx.stopAccelerometer success");
-    }
+    },
 });
 // 电量
 let getBat = wx.getBatteryInfoSync();
@@ -92,13 +102,13 @@ console.info(getBat.level);
 wx.getClipboardData({
     success: () => {
         console.log("wx.getClipboardData success");
-    }
+    },
 });
 wx.setClipboardData({
     data: "test",
     success: () => {
         console.log("wx.setClipboardData success");
-    }
+    },
 });
 // 罗盘
 wx.onCompassChange(res => {
@@ -107,18 +117,18 @@ wx.onCompassChange(res => {
 wx.startCompass({
     success: () => {
         console.log("wx.startCompass success");
-    }
+    },
 });
 wx.stopCompass({
     success: () => {
         console.log("wx.stopCompass success");
-    }
+    },
 });
 // 网络
 wx.getNetworkType({
     success: () => {
         console.log("wx.getNetworkType success");
-    }
+    },
 });
 wx.onNetworkStatusChange(res => {
     console.assert(res.isConnected != null);
@@ -127,30 +137,30 @@ wx.onNetworkStatusChange(res => {
 wx.getScreenBrightness({
     success: () => {
         console.log("wx.getScreenBrightness success");
-    }
+    },
 });
 wx.setKeepScreenOn({
     keepScreenOn: true,
     success: () => {
         console.log("wx.setKeepScreenOn success");
-    }
+    },
 });
 wx.setScreenBrightness({
     value: 1,
     success: () => {
         console.log("wx.setScreenBrightness success");
-    }
+    },
 });
 // 震动
 wx.vibrateShort({
     success: () => {
         console.log("wx.vibrateShort success");
-    }
+    },
 });
 wx.vibrateLong({
     success: () => {
         console.log("wx.vibrateLong success");
-    }
+    },
 });
 // 转屏
 wx.onDeviceOrientationChange(res => {
@@ -164,7 +174,7 @@ wx.getLocation({
     success: res => {
         res.altitude != null;
         console.log("wx.getLocation success");
-    }
+    },
 });
 // 下载
 let downLoad = wx.downloadFile({
@@ -179,34 +189,34 @@ let downLoad = wx.downloadFile({
     },
     complete: () => {
         console.log("wx.downloadFile comp");
-    }
+    },
 });
 console.assert(downLoad != null);
 downLoad.abort();
 // 发起请求
 let requ = wx.request({
-    url: 'https://www.baidu.com/',
+    url: "https://www.baidu.com/",
     success: () => {
         console.log("wx.request success");
-    }
+    },
 });
 console.assert(requ != null);
 requ.abort();
 // WebSocket
 let conne = wx.connectSocket({
-    url: 'wss://www.baidu.com/',
+    url: "wss://www.baidu.com/",
     header: {},
     protocols: [],
     success: () => {
         console.log("wx.connectSocket success");
-    }
+    },
 });
 console.assert(conne != null);
 wx.closeSocket({
-    reason: 'normal close',
+    reason: "normal close",
     success: () => {
         console.log("wx.closeSocket success");
-    }
+    },
 });
 wx.onSocketOpen(res => {
     console.assert(res.header != null);
@@ -216,7 +226,7 @@ wx.sendSocketMessage({
     data: "testdata",
     success: () => {
         console.log("wx.sendSocketMessage success");
-    }
+    },
 });
 // 上传
 let upLoad = wx.uploadFile({
@@ -228,7 +238,7 @@ let upLoad = wx.uploadFile({
     },
     fail: () => {
         console.log("wx.uploadFile fail");
-    }
+    },
 });
 console.assert(upLoad != null);
 upLoad.onProgressUpdate(res => {
@@ -239,44 +249,44 @@ upLoad.abort();
 // 开放数据
 let context = wx.getOpenDataContext();
 context.postMessage({
-    item: "friend"
+    item: "friend",
 });
 context.postMessage({
-    item: "group"
+    item: "group",
 });
 context.postMessage({
-    item: "user"
+    item: "user",
 });
 
 wx.removeUserCloudStorage({
-    keyList: []
+    keyList: [],
 });
 wx.setUserCloudStorage({
-    KVDataList: []
+    KVDataList: [],
 });
 
 // 登录
 wx.checkSession({
     success: () => {
         console.log("session valid");
-    }
+    },
 });
 wx.login({
     success: (res) => {
         console.log(`login code: ${res.code}`);
-    }
+    },
 });
 // 防沉迷
 wx.checkIsUserAdvisedToRest({
     todayPlayedTime: 10,
     success: res => {
         console.assert(res.result != null);
-    }
+    },
 });
 // 用户信息
 let ubtn = wx.createUserInfoButton({
-    type: 'text',
-    text: 'test btn',
+    type: "text",
+    text: "test btn",
     style: {
         left: 1,
         top: 1,
@@ -285,17 +295,17 @@ let ubtn = wx.createUserInfoButton({
         /**
          * 格式#ff0000
          */
-        backgroundColor: '#fefefe',
+        backgroundColor: "#fefefe",
         /**
          * 格式#ff0000
          */
-        borderColor: '#cccccc',
+        borderColor: "#cccccc",
         borderWidth: 1,
         borderRadius: 3,
         textAlign: "center",
         fontSize: 24,
-        lineHeight: 24
-    }
+        lineHeight: 24,
+    },
 });
 console.assert(ubtn != null);
 ubtn.onTap(res => {
@@ -304,7 +314,7 @@ ubtn.onTap(res => {
 const newUserInfoParam: wx.types.NewUserInfoParam = {
     success: res => {
         console.assert(res.data != null);
-    }
+    },
 };
 wx.getUserInfo(newUserInfoParam);
 // 设置
@@ -317,35 +327,35 @@ let createOpenSet = wx.createOpenSettingButton({
         width: 200,
         height: 40,
         lineHeight: 40,
-        backgroundColor: '#ff12ff',
-        borderColor: '#000',
+        backgroundColor: "#ff12ff",
+        borderColor: "#000",
         borderWidth: 1,
         borderRadius: 3,
-        textAlign: 'center',
-        fontSize: 16
-    }
+        textAlign: "center",
+        fontSize: 16,
+    },
 });
 console.assert(createOpenSet != null);
 wx.getSetting({
     success: res => {
         res.authSetting != null;
-    }
+    },
 });
 wx.openSetting({
     success: res => {
         res.authSetting != null;
-    }
+    },
 });
 // 微信运动
 wx.getWeRunData({
     success: res => {
         res.encryptedData != null;
         res.iv != null;
-    }
+    },
 });
 // 授权
 wx.authorize({
-    scope: "userInfo"
+    scope: "userInfo",
 });
 // 游戏圈
 let yxq = wx.createGameClubButton({
@@ -357,14 +367,14 @@ let yxq = wx.createGameClubButton({
         width: 200,
         height: 40,
         lineHeight: 40,
-        backgroundColor: '#f00ff0',
-        borderColor: '#fff222',
+        backgroundColor: "#f00ff0",
+        borderColor: "#fff222",
         borderWidth: 1,
         borderRadius: 3,
-        textAlign: 'center',
-        fontSize: 16
+        textAlign: "center",
+        fontSize: 16,
     },
-    icon: "green"
+    icon: "green",
 });
 console.assert(yxq != null);
 // 意见反馈
@@ -377,19 +387,19 @@ wx.createFeedbackButton({
         width: 200,
         height: 40,
         lineHeight: 40,
-        backgroundColor: '#00f0f0',
-        borderColor: '#000',
+        backgroundColor: "#00f0f0",
+        borderColor: "#000",
         borderWidth: 1,
         borderRadius: 3,
-        textAlign: 'center',
-        fontSize: 16
-    }
+        textAlign: "center",
+        fontSize: 16,
+    },
 });
 // 客服消息
 wx.openCustomerServiceConversation({
     success: () => {
         console.log("opened conversation window");
-    }
+    },
 });
 // 开放数据域
 let getOpenD = wx.getOpenDataContext();
@@ -401,71 +411,71 @@ wx.getShareInfo({
         res.encryptedData != null;
         res.errMsg != null;
         res.iv != null;
-    }
+    },
 });
 wx.hideShareMenu();
 wx.onShareAppMessage((): wx.types.ShareOption => {
     return {
         imageUrl: "test.png",
         title: "test title",
-        query: "__shareQueryStr"
+        query: "__shareQueryStr",
     };
 });
 wx.showShareMenu({
-    withShareTicket: true
+    withShareTicket: true,
 });
 wx.shareAppMessage({
-    title: ''
+    title: "",
 });
 wx.updateShareMenu({
-    withShareTicket: true
+    withShareTicket: true,
 });
 // 性能
 let getPer = wx.getPerformance();
 console.assert(getPer != null);
 // 调试
 wx.setEnableDebug({
-    enableDebug: true
+    enableDebug: true,
 });
 // 数据缓存
 wx.clearStorage({
     success: () => {
         console.log("wx.clearStorage success");
-    }
+    },
 });
 wx.getStorage({
-    key: 'test key',
+    key: "test key",
     success: res => {
         console.assert(res.data != null);
-    }
+    },
 });
 wx.getStorageInfo({
     success: res => {
         console.assert(res.keys != null);
         console.assert(res.currentSize != null);
         console.assert(res.limitSize != null);
-        console.log('wx.getStorageInfo success');
-    }
+        console.log("wx.getStorageInfo success");
+    },
 });
 wx.removeStorage({
     key: "test key",
     success: () => {
-        console.log('wx.removeStorage success');
-    }
+        console.log("wx.removeStorage success");
+    },
 });
 wx.setStorage({
     key: "",
     data: "",
     success: () => {
-        console.log('wx.removeStorage success');
-    }
+        console.log("wx.removeStorage success");
+    },
 });
 // 分包加载
 let loadSu = wx.loadSubpackage({
-    name: 'package name',
+    name: "package name",
     success: () => {
-        console.log('wx.loadSubpackage success');
-    }
+        console.log("wx.loadSubpackage success");
+    },
 });
 // 菜单
 let getMenu = wx.getMenuButtonBoundingClientRect();
@@ -477,21 +487,21 @@ console.assert(getMenu.right != null);
 console.assert(getMenu.bottom != null);
 console.assert(getMenu.left != null);
 wx.setMenuStyle({
-    style: 'dark'
+    style: "dark",
 });
 // 交互
 wx.showModal({
-    title: "modal window"
+    title: "modal window",
 });
 wx.showToast({
     duration: 1,
-    title: "show toast"
+    title: "show toast",
 });
 wx.showLoading({
-    title: "loaidng..."
+    title: "loaidng...",
 });
 wx.showActionSheet({
-    itemList: []
+    itemList: [],
 });
 wx.hideToast();
 wx.hideLoading();
@@ -505,14 +515,14 @@ wx.showKeyboard({
     maxLength: 22,
     multiple: true,
     confirmHold: false,
-    confirmType: "done"
+    confirmType: "done",
 });
 wx.updateKeyboard({
-    value: 'DEFGHI'
+    value: "DEFGHI",
 });
 // 状态栏
 wx.setStatusBarStyle({
-    style: "black"
+    style: "black",
 });
 // 窗口
 wx.onWindowResize(res => {
@@ -523,7 +533,7 @@ wx.onWindowResize(res => {
 let getUpda = wx.getUpdateManager();
 console.assert(getUpda != null);
 // worker
-let createWor = wx.createWorker('js/test.js');
+let createWor = wx.createWorker("js/test.js");
 console.assert(createWor != null);
 // 音频
 let creatInn = wx.createInnerAudioContext();
@@ -532,7 +542,7 @@ console.assert(creatInn != null);
 wx.getAvailableAudioSources({
     success: res => {
         console.assert(res.audioSources.length > 0);
-    }
+    },
 });
 // 录音
 let getRecord = wx.getRecorderManager();
@@ -540,28 +550,28 @@ console.assert(getRecord != null);
 // 图片
 wx.chooseImage({
     count: 1,
-    sizeType: ['original'],
-    sourceType: ['album'],
+    sizeType: ["original"],
+    sourceType: ["album"],
     success: res => {
         console.assert(res.tempFilePaths.length > 0);
-    }
+    },
 });
 wx.previewImage({
-    urls: []
+    urls: [],
 });
 wx.saveImageToPhotosAlbum({
-    filePath: "./temp"
+    filePath: "./temp",
 });
 // 视频
 wx.createVideo({
     src: "../res/testv.mp4",
-    objectFit: 'fill'
+    objectFit: "fill",
 });
 // 虚拟支付
 wx.requestMidasPayment({
     mode: "game",
     offerId: "",
-    currencyType: "CNY"
+    currencyType: "CNY",
 });
 // 广告
 const bannerAd = wx.createBannerAd({ adUnitId: "test", style: { width: 100, height: 64, left: 800, top: 300 } });
@@ -570,7 +580,11 @@ const videoAd = wx.createRewardedVideoAd({ adUnitId: "test" });
 console.log("videoAd: " + videoAd.adUnitId);
 const intrAd = wx.createInterstitialAd({ adUnitId: "test" });
 console.log("interstitialAd: " + intrAd.adUnitId);
-const gridAd = wx.createGridAd({ adUnitId: "test", style: { left: 100, top: 100, width: 100, height: 100 }, adTheme: 'black' });
+const gridAd = wx.createGridAd({
+    adUnitId: "test",
+    style: { left: 100, top: 100, width: 100, height: 100 },
+    adTheme: "black",
+});
 console.log("gridAd: " + gridAd.adUnitId);
 const csmAd = wx.createCustomAd({ adUnitId: "test", style: { left: 100, top: 100 } });
 console.log("customAd: " + csmAd.style.fixed);

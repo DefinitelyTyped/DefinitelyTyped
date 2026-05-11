@@ -1,6 +1,30 @@
 {
     "private": true,
+    "name": "@types/react-with-styles",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/airbnb/react-with-styles#readme"
+    ],
     "dependencies": {
+        "@types/prop-types": "*",
+        "@types/react": "*",
         "aphrodite": "^2.0.0"
-    }
+    },
+    "devDependencies": {
+        "@types/react-with-styles": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mohsen Azimi",
+            "githubUsername": "mohsen1"
+        },
+        {
+            "name": "Brie Bunge",
+            "githubUsername": "brieb"
+        },
+        {
+            "name": "Joe Lencioni",
+            "githubUsername": "lencioni"
+        }
+    ]
 }

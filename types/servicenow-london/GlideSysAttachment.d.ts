@@ -4,7 +4,7 @@ declare class GlideSysAttachment {
         sourceTable: string,
         sourceSysId: string,
         destinationTable: string,
-        destinationSysId: string
+        destinationSysId: string,
     ): void;
     deleteAttachment(sysId: string): void;
     getContent(record: ScopedGlideRecord): any;
@@ -15,12 +15,12 @@ declare class GlideSysAttachment {
         record: ScopedGlideRecord,
         fileName: string,
         contentType: string,
-        base64Content: string
+        base64Content: string,
     ): string;
     writeContentStream(
         record: ScopedGlideRecord,
         fileName: string,
         contentType: string,
-        inputStream: object
+        inputStream: object,
     ): string;
 }

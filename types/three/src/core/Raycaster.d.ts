@@ -1,9 +1,10 @@
-import { Vector3 } from './../math/Vector3';
-import { Object3D } from './Object3D';
-import { Vector2 } from './../math/Vector2';
-import { Ray } from './../math/Ray';
-import { Camera } from './../cameras/Camera';
-import { Layers } from './Layers';
+import { Camera } from "../cameras/Camera.js";
+import { Ray } from "../math/Ray.js";
+import { Vector2 } from "../math/Vector2.js";
+import { Vector3 } from "../math/Vector3.js";
+import { XRTargetRaySpace } from "../renderers/webxr/WebXRController.js";
+import { Layers } from "./Layers.js";
+import { Object3D } from "./Object3D.js";
 
 export interface Face {
     a: number;
@@ -16,6 +17,10 @@ export interface Face {
 export interface Intersection<TIntersected extends Object3D = Object3D> {
     /** Distance between the origin of the ray and the intersection */
     distance: number;
+    /**
+     * Some objects (f.e. {@link Points}) provide the distance of the intersection to the nearest point on the ray. For
+     * other objects it will be `undefined`
+     */
     distanceToRay?: number | undefined;
     /** Point of intersection, in world coordinates */
     point: Vector3;
@@ -23,7 +28,8 @@ export interface Intersection<TIntersected extends Object3D = Object3D> {
     /** Intersected face */
     face?: Face | null | undefined;
     /** Index of the intersected face */
-    faceIndex?: number | undefined;
+    faceIndex?: number | null | undefined;
+    barycoord?: Vector3 | null;
     /** The intersected object */
     object: TIntersected;
     uv?: Vector2 | undefined;
@@ -31,15 +37,17 @@ export interface Intersection<TIntersected extends Object3D = Object3D> {
     normal?: Vector3;
     /** The index number of the instance where the ray intersects the {@link THREE.InstancedMesh | InstancedMesh } */
     instanceId?: number | undefined;
+    pointOnLine?: Vector3;
+    batchId?: number;
 }
 
 export interface RaycasterParameters {
-    Mesh?: any;
-    Line?: { threshold: number } | undefined;
-    Line2?: { threshold: number } | undefined;
-    LOD?: any;
-    Points?: { threshold: number } | undefined;
-    Sprite?: any;
+    Mesh: any;
+    Line: { threshold: number };
+    Line2?: { threshold: number };
+    LOD: any;
+    Points: { threshold: number };
+    Sprite: any;
 }
 
 /**
@@ -152,6 +160,12 @@ export class Raycaster {
      * @param camera camera from which the ray should originate
      */
     setFromCamera(coords: Vector2, camera: Camera): void;
+
+    /**
+     * Updates the ray with a new origin and direction.
+     * @param controller The controller to copy the position and direction from.
+     */
+    setFromXRController(controller: XRTargetRaySpace): this;
 
     /**
      * Checks all intersection between the ray and the object with or without the descendants

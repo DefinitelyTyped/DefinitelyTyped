@@ -1,9 +1,4 @@
-// Type definitions for opencc-js 1.0
-// Project: https://github.com/nk2028/opencc-js
-// Definitions by: Pig Fang <https://github.com/g-plane>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-export type Locale = 'cn' | 'tw' | 'twp' | 'hk' | 'jp' | 't';
+export type Locale = "cn" | "tw" | "twp" | "hk" | "jp" | "t";
 
 export interface ConverterOptions {
     from?: Locale;

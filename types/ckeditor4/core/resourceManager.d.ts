@@ -2,7 +2,7 @@
 
 declare namespace CKEDITOR {
     interface resourceManagerStatic {
-        new (basePath: string, fileName: string): resourceManager;
+        new(basePath: string, fileName: string): resourceManager;
     }
     interface resourceManager {
         basePath: string;

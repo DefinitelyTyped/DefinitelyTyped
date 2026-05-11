@@ -216,7 +216,7 @@ httpRouter.attach(function() {
 // --------------------------------
 
 class MyTtyClass {
-    some_unique_field_name: boolean;
+    some_unique_field_name!: boolean;
 }
 
 let cliRouter: director.cli.Router<MyTtyClass> = new director.cli.Router<MyTtyClass>();

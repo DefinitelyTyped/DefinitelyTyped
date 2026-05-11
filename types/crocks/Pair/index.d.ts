@@ -1,2 +1,2 @@
-import Pair from './Pair';
+import Pair from "./Pair";
 export default Pair;

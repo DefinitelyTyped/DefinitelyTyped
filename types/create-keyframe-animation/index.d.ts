@@ -1,10 +1,4 @@
-// Type definitions for create-keyframe-animation 0.1
-// Project: https://github.com/HenrikJoreteg/create-keyframe-animation
-// Definitions by: fengyangfifa <https://github.com/fengyangfifa>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.4
-
-type Direction = 'normal' | 'alternate' | 'reverse' | 'alternate-reverse';
+type Direction = "normal" | "alternate" | "reverse" | "alternate-reverse";
 
 interface PresetsConfig {
     duration: number;
@@ -33,7 +27,7 @@ interface AnimationConfigIndex {
 }
 
 type AnimationType =
-    AnimationConfigStartAndEnd
+    | AnimationConfigStartAndEnd
     | AnimationConfigIndex
     | number[][]
     | Array<Record<string, unknown>>;
@@ -55,6 +49,7 @@ export function hasAnimation(name: string): boolean;
  * @param els This can be a single element, an array of elements or the result of querySelectorAll.
  * @param opts If this is a string it's assumed to be the name of the animation to run. If you pass an object it has to contain the name.
  */
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 export function runAnimation<T extends OptsType>(els: ElsType, opts: T): Promise<T> | void;
 
 /**
@@ -66,7 +61,8 @@ export function runAnimation<T extends OptsType>(els: ElsType, opts: T): Promise
 export function runAnimation<T extends ElsType, U>(
     els: T,
     opts: OptsType,
-    cb: (err: Error | null, result?: InferParams<T>) => U
+    cb: (err: Error | null, result?: InferParams<T>) => U,
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 ): Promise<U> | void;
 
 /**

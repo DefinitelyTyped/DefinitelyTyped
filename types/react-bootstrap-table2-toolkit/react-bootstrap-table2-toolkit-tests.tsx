@@ -1,13 +1,12 @@
-import * as React from 'react';
+import * as React from "react";
 import BootstrapTable, {
     CellAlignment,
     ColumnDescription,
-    HeaderFormatter,
     ColumnFormatter,
-} from 'react-bootstrap-table-next';
-import paginationFactory from 'react-bootstrap-table2-paginator';
-import { render } from 'react-dom';
-import ToolkitProvider, { InjectedSearchProps, Search, CSVExport } from 'react-bootstrap-table2-toolkit';
+    HeaderFormatter,
+} from "react-bootstrap-table-next";
+import paginationFactory from "react-bootstrap-table2-paginator";
+import ToolkitProvider, { CSVExport, InjectedSearchProps, Search } from "react-bootstrap-table2-toolkit";
 
 interface Product {
     id: number;
@@ -21,12 +20,12 @@ interface Product {
 const products: Product[] = [
     {
         id: 1,
-        name: 'Item name 1',
+        name: "Item name 1",
         price: 100,
     },
     {
         id: 2,
-        name: 'Item name 2',
+        name: "Item name 2",
         price: 100,
     },
 ];
@@ -50,19 +49,19 @@ const priceFormatter: ColumnFormatter<Product, { indexSquare: number }> = (cell,
 };
 
 const productColumns: Array<ColumnDescription<Product>> = [
-    { dataField: 'id', align: 'center', sort: true, text: 'Product ID' },
-    { dataField: 'name', align: 'center', sort: true, text: 'Product Name' },
+    { dataField: "id", align: "center", sort: true, text: "Product ID" },
+    { dataField: "name", align: "center", sort: true, text: "Product Name" },
     {
         isDummyField: true,
-        dataField: '',
+        dataField: "",
         sort: true,
-        text: 'Product Name',
+        text: "Product Name",
     },
     {
-        dataField: 'price',
+        dataField: "price",
         sort: true,
         formatter: priceFormatter,
-        text: 'Product Price',
+        text: "Product Price",
         headerFormatter: priceHeaderFormatter,
     },
     /**
@@ -70,10 +69,10 @@ const productColumns: Array<ColumnDescription<Product>> = [
      */
     {
         isDummyField: true,
-        dataField: '',
+        dataField: "",
         sort: true,
         formatter: priceFormatter,
-        text: 'Product Price',
+        text: "Product Price",
         headerFormatter: priceHeaderFormatter,
     },
 ];
@@ -91,36 +90,33 @@ const CustomSearch = (props: InjectedSearchProps) => {
     );
 };
 
-render(
-    <ToolkitProvider data={products} keyField="id" columns={productColumns}>
-        {({ baseProps, searchProps }) => (
-            <>
-                <CustomSearch {...searchProps} />
-                <BootstrapTable {...baseProps} pagination={paginationFactory({ sizePerPage: 10, page: 1 })} />
-            </>
-        )}
-    </ToolkitProvider>,
-    document.getElementById('app'),
-);
+<ToolkitProvider data={products} keyField="id" columns={productColumns}>
+    {({ baseProps, searchProps }) => (
+        <>
+            <CustomSearch {...searchProps} />
+            <BootstrapTable {...baseProps} pagination={paginationFactory({ sizePerPage: 10, page: 1 })} />
+        </>
+    )}
+</ToolkitProvider>;
 
 /**
  * Toolkit CSV export test
  */
 
 const csvColumns: Array<ColumnDescription<Product>> = [
-    { dataField: 'id', align: 'center', sort: true, text: 'Product ID' },
-    { dataField: 'name', align: 'center', sort: true, text: 'Product Name' },
+    { dataField: "id", align: "center", sort: true, text: "Product ID" },
+    { dataField: "name", align: "center", sort: true, text: "Product Name" },
     {
         isDummyField: true,
-        dataField: '',
+        dataField: "",
         sort: true,
-        text: 'Product Name',
+        text: "Product Name",
     },
     {
-        dataField: 'price',
+        dataField: "price",
         sort: true,
         formatter: priceFormatter,
-        text: 'Product Price',
+        text: "Product Price",
         headerFormatter: priceHeaderFormatter,
         csvExport: false,
     },
@@ -129,43 +125,40 @@ const csvColumns: Array<ColumnDescription<Product>> = [
      */
     {
         isDummyField: true,
-        dataField: '',
+        dataField: "",
         sort: true,
         formatter: priceFormatter,
-        text: 'Product Price',
+        text: "Product Price",
         headerFormatter: priceHeaderFormatter,
         csvType: Number,
         csvFormatter: value => value,
-        csvText: 'Price',
+        csvText: "Price",
         csvExport: true,
     },
 ];
 
-render(
-    <ToolkitProvider
-        data={products}
-        keyField="id"
-        exportCSV={{
-            fileName: 'custom.csv',
-            separator: '|',
-            ignoreHeader: true,
-            noAutoBOM: false,
-            blobType: 'text/plain;charset=utf-8',
-            exportAll: true,
-            onlyExportSelection: true,
-            onlyExportFiltered: true,
-        }}
-        columns={productColumns}
-    >
-        {({ baseProps, searchProps }) => (
-            <>
-                <CustomSearch {...searchProps} />
-                <BootstrapTable {...baseProps} pagination={paginationFactory({ sizePerPage: 10, page: 1 })} />
-            </>
-        )}
-    </ToolkitProvider>,
-    document.getElementById('app'),
-);
+<ToolkitProvider
+    data={products}
+    keyField="id"
+    exportCSV={{
+        fileName: "custom.csv",
+        separator: "|",
+        ignoreHeader: true,
+        noAutoBOM: false,
+        blobType: "text/plain;charset=utf-8",
+        exportAll: true,
+        onlyExportSelection: true,
+        onlyExportFiltered: true,
+    }}
+    columns={productColumns}
+>
+    {({ baseProps, searchProps }) => (
+        <>
+            <CustomSearch {...searchProps} />
+            <BootstrapTable {...baseProps} pagination={paginationFactory({ sizePerPage: 10, page: 1 })} />
+        </>
+    )}
+</ToolkitProvider>;
 
 /**
  * Toolkit Search with ClearSearchButton
@@ -173,18 +166,15 @@ render(
 
 const { SearchBar, ClearSearchButton } = Search;
 
-render(
-    <ToolkitProvider keyField="id" data={products} columns={productColumns} search>
-        {({ baseProps, searchProps }) => (
-            <>
-                <SearchBar {...searchProps} />
-                <ClearSearchButton {...searchProps} />
-                <BootstrapTable {...baseProps} />
-            </>
-        )}
-    </ToolkitProvider>,
-    document.getElementById('app'),
-);
+<ToolkitProvider keyField="id" data={products} columns={productColumns} search>
+    {({ baseProps, searchProps }) => (
+        <>
+            <SearchBar {...searchProps} />
+            <ClearSearchButton {...searchProps} />
+            <BootstrapTable {...baseProps} />
+        </>
+    )}
+</ToolkitProvider>;
 
 /**
  * Toolkit CSVExport with ExportCSVButton
@@ -192,14 +182,11 @@ render(
 
 const { ExportCSVButton } = CSVExport;
 
-render(
-    <ToolkitProvider keyField="id" data={products} columns={productColumns} search>
-        {({ baseProps, csvProps }) => (
-            <>
-                <ExportCSVButton {...csvProps}>Export</ExportCSVButton>
-                <BootstrapTable {...baseProps} />
-            </>
-        )}
-    </ToolkitProvider>,
-    document.getElementById('app'),
-);
+<ToolkitProvider keyField="id" data={products} columns={productColumns} search>
+    {({ baseProps, csvProps }) => (
+        <>
+            <ExportCSVButton {...csvProps}>Export</ExportCSVButton>
+            <BootstrapTable {...baseProps} />
+        </>
+    )}
+</ToolkitProvider>;

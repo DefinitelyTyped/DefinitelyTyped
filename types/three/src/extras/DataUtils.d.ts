@@ -4,7 +4,7 @@
  * @see {@link https://threejs.org/docs/index.html#api/en/extras/DataUtils | Official Documentation}
  * @see {@link https://github.com/mrdoob/three.js/blob/master/src/extras/DataUtils.js | Source}
  */
-export function toHalfFloat(val: number): number;
+declare function toHalfFloat(val: number): number;
 
 /**
  * Returns a single precision floating point value from the given half precision floating point value.
@@ -12,4 +12,11 @@ export function toHalfFloat(val: number): number;
  * @see {@link https://threejs.org/docs/index.html#api/en/extras/DataUtils | Official Documentation}
  * @see {@link https://github.com/mrdoob/three.js/blob/master/src/extras/DataUtils.js | Source}
  */
-export function fromHalfFloat(val: number): number;
+declare function fromHalfFloat(val: number): number;
+
+declare class DataUtils {
+    static toHalfFloat(val: number): number;
+    static fromHalfFloat(val: number): number;
+}
+
+export { DataUtils, fromHalfFloat, toHalfFloat };

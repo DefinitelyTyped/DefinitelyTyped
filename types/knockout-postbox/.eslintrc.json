@@ -1,6 +1,5 @@
 {
     "rules": {
-        "dt-header": "off",
-        "no-unnecessary-generics": "off"
+        "@definitelytyped/no-unnecessary-generics": "off"
     }
 }

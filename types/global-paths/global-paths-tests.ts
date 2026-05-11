@@ -1,4 +1,4 @@
-import paths = require('global-paths');
+import paths = require("global-paths");
 
 paths(); // $ExpectType string[]
-paths('foo'); // $ExpectType string[]
+paths("foo"); // $ExpectType string[]

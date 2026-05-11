@@ -1,16 +1,6 @@
-// Type definitions for Pdfkit v0.12.3
-// Project: http://pdfkit.org
-// Definitions by: Eric Hillah <https://github.com/erichillah>
-//                 Erik Berreßem <https://github.com/she11sh0cked>
-//                 Jeroen Vervaeke <https://github.com/jeroenvervaeke/>
-//                 Thales Agapito <https://github.com/thalesagapito/>
-//                 Evgeny Baram <https://github.com/r4tz52/>
-//                 Benjamin Just <https://github.com/BamButz/>
-//                 Joanna Gabis <https://github.com/jg-mms/>
-//                 Robin Guinant <https://github.com/Foohx>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
+
+type PDFKitReadable = import("stream").Readable;
 
 declare namespace PDFKit {
     interface PDFGradient {
@@ -33,7 +23,13 @@ declare namespace PDFKit {
     }
 
     interface PDFTilingPattern {
-        new(document: any, bbox: PDFKit.Mixins.BoundingBox, xStep: number, yStep: number, stream: string): PDFTilingPattern;
+        new(
+            document: any,
+            bbox: PDFKit.Mixins.BoundingBox,
+            xStep: number,
+            yStep: number,
+            stream: string,
+        ): PDFTilingPattern;
         createPattern(): PDFKitReference;
         embedPatternColorSpaces(): void;
         getPatternColorSpaceId(underlyingColorspace: string): string;
@@ -46,12 +42,12 @@ declare namespace PDFKit.Mixins {
     interface AnnotationOption {
         Type?: string | undefined;
         Rect?: any;
-        Border?: Array<number> | undefined;
+        Border?: number[] | undefined;
         SubType?: string | undefined;
         Contents?: string | undefined;
         Name?: string | undefined;
         color?: string | undefined;
-        QuadPoints?: Array<number> | undefined;
+        QuadPoints?: number[] | undefined;
 
         A?: any;
         B?: any;
@@ -92,41 +88,299 @@ declare namespace PDFKit.Mixins {
 
     // The color forms accepted by PDFKit:
     //     example:   "red"                  [R, G, B]                  [C, M, Y, K]
-    type ColorValue = string | PDFGradient | [PDFTilingPattern, TilingPatternColorValue] | [number, number, number] | [number, number, number, number];
+    type ColorValue = string | PDFGradient | [PDFTilingPattern, TilingPatternColorValue] | [number, number, number] | [
+        number,
+        number,
+        number,
+        number,
+    ];
 
     // The color forms accepted by PDFKit Tiling Pattern:
     //     example:   "red"                  [R, G, B]                  [C, M, Y, K]
     type TilingPatternColorValue = string | PDFGradient | [number, number, number] | [number, number, number, number];
 
     // The winding / filling rule accepted by PDFKit:
-    type RuleValue = 'even-odd' | 'evenodd' | 'non-zero' | 'nonzero';
+    type RuleValue = "even-odd" | "evenodd" | "non-zero" | "nonzero";
 
     // Text option opentype features as listed at https://docs.microsoft.com/en-us/typography/opentype/spec/featurelist
     type OpenTypeFeatures =
-        | 'aalt' | 'abvf' | 'abvm' | 'abvs' | 'afrc' | 'akhn' | 'blwf' | 'blwm' | 'blws' | 'calt' | 'case'
-        | 'cfar' | 'cjct' | 'clig' | 'cpct' | 'cpsp' | 'cswh' | 'curs' | 'cv01' | 'cv02' | 'cv03' | 'cv04'
-        | 'cv05' | 'cv06' | 'cv07' | 'cv08' | 'cv09' | 'cv10' | 'cv11' | 'cv12' | 'cv13' | 'cv14' | 'cv15'
-        | 'cv16' | 'cv17' | 'cv18' | 'cv19' | 'cv20' | 'cv21' | 'cv22' | 'cv23' | 'cv24' | 'cv25' | 'cv26'
-        | 'cv27' | 'cv28' | 'cv29' | 'cv30' | 'cv31' | 'cv32' | 'cv33' | 'cv34' | 'cv35' | 'cv36' | 'cv37'
-        | 'cv38' | 'cv39' | 'cv40' | 'cv41' | 'cv42' | 'cv43' | 'cv44' | 'cv45' | 'cv46' | 'cv47' | 'cv48'
-        | 'cv49' | 'cv50' | 'cv51' | 'cv52' | 'cv53' | 'cv54' | 'cv55' | 'cv56' | 'cv57' | 'cv58' | 'cv59'
-        | 'cv60' | 'cv61' | 'cv62' | 'cv63' | 'cv64' | 'cv65' | 'cv66' | 'cv67' | 'cv68' | 'cv69' | 'cv70'
-        | 'cv71' | 'cv72' | 'cv73' | 'cv74' | 'cv75' | 'cv76' | 'cv77' | 'cv78' | 'cv79' | 'cv80' | 'cv81'
-        | 'cv82' | 'cv83' | 'cv84' | 'cv85' | 'cv86' | 'cv87' | 'cv88' | 'cv89' | 'cv90' | 'cv91' | 'cv92'
-        | 'cv93' | 'cv94' | 'cv95' | 'cv96' | 'cv97' | 'cv98' | 'cv99' | 'c2pc' | 'c2sc' | 'dist' | 'ccmp'
-        | 'dlig' | 'dnom' | 'dtls' | 'expt' | 'falt' | 'fin2' | 'fin3' | 'fina' | 'flac' | 'frac' | 'fwid'
-        | 'half' | 'haln' | 'halt' | 'hist' | 'hkna' | 'hlig' | 'hngl' | 'hojo' | 'hwid' | 'init' | 'isol'
-        | 'ital' | 'jalt' | 'jp78' | 'jp83' | 'jp90' | 'jp04' | 'kern' | 'lfbd' | 'liga' | 'ljmo' | 'lnum'
-        | 'locl' | 'ltra' | 'ltrm' | 'mark' | 'med2' | 'medi' | 'mgrk' | 'mkmk' | 'mset' | 'nalt' | 'nlck'
-        | 'nukt' | 'numr' | 'onum' | 'opbd' | 'ordn' | 'ornm' | 'palt' | 'pcap' | 'pkna' | 'pnum' | 'pref'
-        | 'pres' | 'pstf' | 'psts' | 'pwid' | 'qwid' | 'rand' | 'rclt' | 'rkrf' | 'rlig' | 'rphf' | 'rtbd'
-        | 'rtla' | 'rtlm' | 'ruby' | 'rvrn' | 'salt' | 'sinf' | 'size' | 'smcp' | 'smpl' | 'ss01' | 'ss02'
-        | 'ss03' | 'ss04' | 'ss05' | 'ss06' | 'ss07' | 'ss08' | 'ss09' | 'ss10' | 'ss11' | 'ss12' | 'ss13'
-        | 'ss14' | 'ss15' | 'ss16' | 'ss17' | 'ss18' | 'ss19' | 'ss20' | 'ssty' | 'stch' | 'subs' | 'sups'
-        | 'swsh' | 'titl' | 'tjmo' | 'tnam' | 'tnum' | 'trad' | 'twid' | 'unic' | 'valt' | 'vatu' | 'vert'
-        | 'vhal' | 'vjmo' | 'vkna' | 'vkrn' | 'vpal' | 'vrt2' | 'vrtr' | 'zero';
+        | "aalt"
+        | "abvf"
+        | "abvm"
+        | "abvs"
+        | "afrc"
+        | "akhn"
+        | "blwf"
+        | "blwm"
+        | "blws"
+        | "calt"
+        | "case"
+        | "cfar"
+        | "cjct"
+        | "clig"
+        | "cpct"
+        | "cpsp"
+        | "cswh"
+        | "curs"
+        | "cv01"
+        | "cv02"
+        | "cv03"
+        | "cv04"
+        | "cv05"
+        | "cv06"
+        | "cv07"
+        | "cv08"
+        | "cv09"
+        | "cv10"
+        | "cv11"
+        | "cv12"
+        | "cv13"
+        | "cv14"
+        | "cv15"
+        | "cv16"
+        | "cv17"
+        | "cv18"
+        | "cv19"
+        | "cv20"
+        | "cv21"
+        | "cv22"
+        | "cv23"
+        | "cv24"
+        | "cv25"
+        | "cv26"
+        | "cv27"
+        | "cv28"
+        | "cv29"
+        | "cv30"
+        | "cv31"
+        | "cv32"
+        | "cv33"
+        | "cv34"
+        | "cv35"
+        | "cv36"
+        | "cv37"
+        | "cv38"
+        | "cv39"
+        | "cv40"
+        | "cv41"
+        | "cv42"
+        | "cv43"
+        | "cv44"
+        | "cv45"
+        | "cv46"
+        | "cv47"
+        | "cv48"
+        | "cv49"
+        | "cv50"
+        | "cv51"
+        | "cv52"
+        | "cv53"
+        | "cv54"
+        | "cv55"
+        | "cv56"
+        | "cv57"
+        | "cv58"
+        | "cv59"
+        | "cv60"
+        | "cv61"
+        | "cv62"
+        | "cv63"
+        | "cv64"
+        | "cv65"
+        | "cv66"
+        | "cv67"
+        | "cv68"
+        | "cv69"
+        | "cv70"
+        | "cv71"
+        | "cv72"
+        | "cv73"
+        | "cv74"
+        | "cv75"
+        | "cv76"
+        | "cv77"
+        | "cv78"
+        | "cv79"
+        | "cv80"
+        | "cv81"
+        | "cv82"
+        | "cv83"
+        | "cv84"
+        | "cv85"
+        | "cv86"
+        | "cv87"
+        | "cv88"
+        | "cv89"
+        | "cv90"
+        | "cv91"
+        | "cv92"
+        | "cv93"
+        | "cv94"
+        | "cv95"
+        | "cv96"
+        | "cv97"
+        | "cv98"
+        | "cv99"
+        | "c2pc"
+        | "c2sc"
+        | "dist"
+        | "ccmp"
+        | "dlig"
+        | "dnom"
+        | "dtls"
+        | "expt"
+        | "falt"
+        | "fin2"
+        | "fin3"
+        | "fina"
+        | "flac"
+        | "frac"
+        | "fwid"
+        | "half"
+        | "haln"
+        | "halt"
+        | "hist"
+        | "hkna"
+        | "hlig"
+        | "hngl"
+        | "hojo"
+        | "hwid"
+        | "init"
+        | "isol"
+        | "ital"
+        | "jalt"
+        | "jp78"
+        | "jp83"
+        | "jp90"
+        | "jp04"
+        | "kern"
+        | "lfbd"
+        | "liga"
+        | "ljmo"
+        | "lnum"
+        | "locl"
+        | "ltra"
+        | "ltrm"
+        | "mark"
+        | "med2"
+        | "medi"
+        | "mgrk"
+        | "mkmk"
+        | "mset"
+        | "nalt"
+        | "nlck"
+        | "nukt"
+        | "numr"
+        | "onum"
+        | "opbd"
+        | "ordn"
+        | "ornm"
+        | "palt"
+        | "pcap"
+        | "pkna"
+        | "pnum"
+        | "pref"
+        | "pres"
+        | "pstf"
+        | "psts"
+        | "pwid"
+        | "qwid"
+        | "rand"
+        | "rclt"
+        | "rkrf"
+        | "rlig"
+        | "rphf"
+        | "rtbd"
+        | "rtla"
+        | "rtlm"
+        | "ruby"
+        | "rvrn"
+        | "salt"
+        | "sinf"
+        | "size"
+        | "smcp"
+        | "smpl"
+        | "ss01"
+        | "ss02"
+        | "ss03"
+        | "ss04"
+        | "ss05"
+        | "ss06"
+        | "ss07"
+        | "ss08"
+        | "ss09"
+        | "ss10"
+        | "ss11"
+        | "ss12"
+        | "ss13"
+        | "ss14"
+        | "ss15"
+        | "ss16"
+        | "ss17"
+        | "ss18"
+        | "ss19"
+        | "ss20"
+        | "ssty"
+        | "stch"
+        | "subs"
+        | "sups"
+        | "swsh"
+        | "titl"
+        | "tjmo"
+        | "tnam"
+        | "tnum"
+        | "trad"
+        | "twid"
+        | "unic"
+        | "valt"
+        | "vatu"
+        | "vert"
+        | "vhal"
+        | "vjmo"
+        | "vkna"
+        | "vkrn"
+        | "vpal"
+        | "vrt2"
+        | "vrtr"
+        | "zero";
 
     type BoundingBox = [number, number, number, number];
+
+    type SizeUnits =
+        | "em"
+        | "in"
+        | "px"
+        | "cm"
+        | "mm"
+        | "pc"
+        | "ex"
+        | "ch"
+        | "rem"
+        | "vw"
+        | "vmin"
+        | "vmax"
+        | "%"
+        | "pt";
+
+    type Size = number | `${number}` | `${number}${SizeUnits}`;
+
+    type Wideness = Size | boolean;
+
+    type Sides<T> = T | [T, T] | [T, T, T, T] | SlightlyExpandedSides<T> | ExpandedSides<T>;
+
+    type PartialSides<T> = T | [T, T] | [T, T, T, T] | Partial<SlightlyExpandedSides<T>> | Partial<ExpandedSides<T>>;
+
+    interface SlightlyExpandedSides<T> {
+        vertical: T;
+        horizontal: T;
+    }
+
+    interface ExpandedSides<T> {
+        top: T;
+        right: T;
+        bottom: T;
+        left: T;
+    }
 
     interface PDFColor {
         fillColor(color: ColorValue, opacity?: number): this;
@@ -145,9 +399,18 @@ declare namespace PDFKit.Mixins {
         font(src: PDFFontSource, size?: number): this;
         font(src: PDFFontSource, family: string, size?: number): this;
         fontSize(size: number): this;
+        sizeToPoint(size: Size, defaultValue?: number, page?: PDFPage, percentageWidth?: number): number;
         currentLineHeight(includeGap?: boolean): number;
-        registerFont(name: string, src?: PDFFontSource, family?: string): this;
+        /** Helpful method to give a font an alias, eg: `registerFont('bold', './Roboto.ttf')` */
+        registerFont(
+            name: string,
+            src?: PDFFontSource,
+            /** Only specify family if the font type is `TTC` or `DFont` */
+            family?: string,
+        ): this;
     }
+
+    type ImageSrc = Buffer | ArrayBuffer | string;
 
     interface ImageOption {
         width?: number | undefined;
@@ -157,9 +420,9 @@ declare namespace PDFKit.Mixins {
         /** Two elements array specifying dimensions(w,h)  */
         fit?: [number, number] | undefined;
         cover?: [number, number] | undefined;
-        align?: 'center' | 'right' | undefined;
-        valign?: 'center' | 'bottom' | undefined;
-        link?: AnnotationOption | undefined;
+        align?: "center" | "right" | undefined;
+        valign?: "center" | "bottom" | undefined;
+        link?: string | AnnotationOption | undefined;
         goTo?: AnnotationOption | undefined;
         destination?: string | undefined;
     }
@@ -167,9 +430,123 @@ declare namespace PDFKit.Mixins {
     interface PDFImage {
         /**
          * Draw an image in PDFKit document.
+         *
+         * Warning: If string 'src' is provided, the file will be loaded synchronously using `fs.readFileSync(src)`!
          */
-        image(src: any, x?: number, y?: number, options?: ImageOption): this;
-        image(src: any, options?: ImageOption): this;
+        image(src: ImageSrc, x?: number, y?: number, options?: ImageOption): this;
+        image(src: ImageSrc, options?: ImageOption): this;
+    }
+
+    interface CellStyle {
+        /** The text stroke (default 0) */
+        textStroke?: number | boolean;
+        /** Sets the text stroke color of the cells text (default black) */
+        textStrokeColor?: ColorValue;
+        /** Sets the text color of the cells text (default black) */
+        textColor?: ColorValue;
+        /** The border for the cell (default 1pt) */
+        border?: PartialSides<Wideness> | undefined;
+        /** The border colors for the cell (default black) */
+        borderColor?: PartialSides<ColorValue>;
+        /** Set the background color of the cell */
+        backgroundColor?: ColorValue;
+        /** The padding for the cell (default 0.25em) */
+        padding?: Sides<Wideness>;
+        /** The alignment of the cell text (default {x: 'left', y: 'top'}) */
+        align?: "center" | ExpandedAlign;
+        /** Sets any text options you wish to provide (such as rotation) */
+        textOptions?: TextOptions;
+        /** Whether to show the debug lines for the cell (default false) */
+        debug?: boolean;
+    }
+
+    interface TableOptions {
+        /** The position of the table (default {x: doc.x, y: doc.y}) */
+        position?: { x?: number; y?: number };
+        /** The maximum width the table can expand to (defaults to the remaining content width (offset from the tables position)) */
+        maxWidth?: number;
+        /** Column definitions of the table. (default auto) */
+        columnStyles?:
+            | number
+            | Array<number | string | ColumnStyle>
+            | ColumnStyle
+            | ((row: number) => number | ColumnStyle | undefined);
+        /** Row definitions of the table. (default *) */
+        rowStyles?:
+            | number
+            | Array<number | string | RowStyle>
+            | RowStyle
+            | ((row: number) => number | RowStyle | undefined);
+        /** Defaults to apply to every cell */
+        defaultStyle?:
+            & (
+                | number
+                | Array<number | string>
+                | CellStyle
+                | ((row: number) => number | CellStyle | undefined)
+            )
+            & { width?: number };
+        /** Whether to show the debug lines for all the cells (default false) */
+        debug?: boolean;
+    }
+
+    interface TableOptionsWithData extends TableOptions {
+        /** The data to render (not required, you can call .row()). This can be an iterable (async or sync) */
+        data: Array<Array<string | CellOptions>>;
+    }
+
+    interface ExpandedAlign {
+        x?: "left" | "center" | "right" | "justify";
+        y?: "top" | "center" | "bottom";
+    }
+
+    interface CellOptions extends CellStyle {
+        /** The value, will be cast to a string (null and undefined are not rendered but the cell is still outlined) */
+        text?: string | undefined | null;
+        /** How many rows this cell covers, follows the same logic as HTML rowspan */
+        rowSpan?: number;
+        /** How many columns this cell covers, follows the same logic as HTML colspan */
+        colSpan?: number;
+        /** Font options for the cell */
+        font?: { src?: PDFFontSource; family?: string; size?: number };
+        /** Sets the cell type (for accessibility) (default TD) */
+        type?: "TD" | "TH";
+    }
+
+    interface ColumnStyle extends CellStyle {
+        /** The width of the column (default *) */
+        width?: string | number;
+        /** The minimum width of the column (default 0) */
+        minWidth?: string | number;
+        /** The maximum width of the column (default Infinity) */
+        maxWidth?: string | number;
+    }
+
+    interface RowBase {
+        /** The height of the row (default auto) */
+        height?: string | number;
+        /** The minimum height of the row (default 0) */
+        minHeight?: string | number;
+        /** The maximum height of the row (default Infinity) */
+        maxHeight?: string | number;
+    }
+
+    interface RowStyle extends CellStyle, RowBase {}
+
+    interface RowOptions extends CellOptions, RowBase {}
+
+    interface PDFTableObject {
+        /** Add a row of data (null and undefined are not rendered) */
+        row(data: Array<string | undefined | null | RowOptions>): this;
+        /** Indicates to the table that it is finished, allowing the table to flush its cell buffer (which should be empty unless there is rowSpans) */
+        end(): PDFDocument;
+    }
+
+    interface PDFTable {
+        /** Draw a table in PDFKit document. */
+        table(options?: TableOptions): PDFTableObject;
+        /** Draw a table in PDFKit document. */
+        table(options: TableOptionsWithData): PDFDocument;
     }
 
     interface TextOptions {
@@ -187,6 +564,8 @@ declare namespace PDFKit.Mixins {
         columnGap?: number | undefined;
         /** The amount in PDF points (72 per inch) to indent each paragraph of text */
         indent?: number | undefined;
+        /** Whether to indent all lines of a paragraph */
+        indentAllLines?: boolean | undefined;
         /** The amount of space between each paragraph of text */
         paragraphGap?: number | undefined;
         /** The amount of space between each line of text */
@@ -210,14 +589,24 @@ declare namespace PDFKit.Mixins {
         /** Whether to slant the text (angle in degrees or true) */
         oblique?: boolean | number | undefined;
         /** The alignment of the text (center, justify, left, right) */
-        //TODO check this
-        align?: 'center' | 'justify' | 'left' | 'right' | string | undefined;
+        align?: "center" | "justify" | "left" | "right" | undefined;
         /** The vertical alignment of the text with respect to its insertion point */
-        baseline?: number | 'svg-middle' | 'middle' | 'svg-central' | 'bottom' | 'ideographic' | 'alphabetic' | 'mathematical' | 'hanging' | 'top' | undefined;
+        baseline?:
+            | number
+            | "svg-middle"
+            | "middle"
+            | "svg-central"
+            | "bottom"
+            | "ideographic"
+            | "alphabetic"
+            | "mathematical"
+            | "hanging"
+            | "top"
+            | undefined;
         /** An array of OpenType feature tags to apply. If not provided, a set of defaults is used. */
         features?: OpenTypeFeatures[] | undefined;
         /** Sets a list as unordered, ordered or lettered */
-        listType?: 'bullet' | 'numbered' | 'lettered' | undefined;
+        listType?: "bullet" | "numbered" | "lettered" | undefined;
         /** The radius of bullet points in a list. Works only with listType: 'bullet' */
         bulletRadius?: number | undefined;
         /** The indent of bullet points in a list */
@@ -226,6 +615,19 @@ declare namespace PDFKit.Mixins {
         textIndent?: number | undefined;
         destination?: string | undefined;
         goTo?: string | undefined;
+        /** The parent structure element to add this child element to, for usage with text() and list() */
+        structParent?: PDFStructureElement | undefined;
+        /** The marking type used by text(), defaults to 'P' */
+        structType?: string | undefined;
+        /** The marking types used by items of list(), defaults to [ 'LI', 'Lbl', 'LBody' ] */
+        structTypes?: [string | null, string | null, string | null] | undefined;
+    }
+
+    interface TextBounds {
+        x: number;
+        y: number;
+        width: number;
+        height: number;
     }
 
     interface PDFText {
@@ -236,6 +638,8 @@ declare namespace PDFKit.Mixins {
         text(text: string, options?: TextOptions): this;
         widthOfString(text: string, options?: TextOptions): number;
         heightOfString(text: string, options?: TextOptions): number;
+        boundsOfString(text: string, x?: number, y?: number, options?: TextOptions): TextBounds;
+        boundsOfString(text: string, options?: TextOptions): TextBounds;
         list(list: Array<string | any>, x?: number, y?: number, options?: TextOptions): this;
         list(list: Array<string | any>, options?: TextOptions): this;
     }
@@ -287,10 +691,10 @@ declare namespace PDFKit.Mixins {
 
         /**
          * Creates and adds a form field to the document. Form fields are intermediate
-         * nodes in a PDF form that are used to specify form name heirarchy and form
+         * nodes in a PDF form that are used to specify form name hierarchy and form
          * value defaults.
          * @param name - field name (T attribute in field dictionary)
-         * @param options  - other attributes to include in field dictionary
+         * @param options - other attributes to include in the field dictionary
          */
         formField(name: string, options?: Record<string, any>): PDFKitReference;
 
@@ -313,7 +717,11 @@ declare namespace PDFKit.Mixins {
     interface PDFMarking {
         markContent(tag: string, options?: MarkingOptions): this;
         endMarkedContent(): this;
-        struct(tag: string, options?: MarkingOptions, children?: PDFStructureElementChild | PDFStructureElementChild[]): PDFStructureElement;
+        struct(
+            tag: string,
+            options?: StructureElementOptions,
+            children?: PDFStructureElementChild | PDFStructureElementChild[],
+        ): PDFStructureElement;
         addStructure(structElem: PDFStructureElement): this;
         initMarkings(options?: { tagged?: boolean }): void;
         initPageMarkings(pageMarkings: PageMarking[]): void;
@@ -325,9 +733,16 @@ declare namespace PDFKit.Mixins {
         endMarkings(): void;
     }
     interface MarkingOptions {
-        type?: 'Pagination' | 'Layout' | 'Page';
+        type?: "Pagination" | "Layout" | "Page";
         bbox?: [number, number, number, number];
         attached?: string[];
+        lang?: string;
+        alt?: string;
+        expanded?: string;
+        actual?: string;
+    }
+    interface StructureElementOptions {
+        title?: string;
         lang?: string;
         alt?: string;
         expanded?: string;
@@ -337,6 +752,30 @@ declare namespace PDFKit.Mixins {
         tag: string;
         structContent?: PDFStructureContent;
         options?: MarkingOptions;
+    }
+
+    interface PDFMetadata {
+        /** Called automatically */
+        initMetadata(): void;
+        appendXML(XMLxml: string, newLine?: boolean): void;
+        /** Called automatically */
+        endMetadata(): void;
+    }
+
+    type PDFSubsets = `PDF/A-1${"" | "a" | "b"}` | `PDF/A-2${"" | "a" | "b"}` | `PDF/A-3${"" | "a" | "b"}`;
+    interface PDFSubset {
+        // TODO: Add more types if needed. I do not understand this enought...
+        initSubset(options: { subset: PDFSubsets }): void;
+        endSubset(): void;
+    }
+
+    interface PDFOutline {
+        /**
+         * The root outline
+         */
+        outline: PDFKit.PDFOutline;
+        initOutline(): void;
+        endOutline(): void;
     }
 }
 
@@ -374,21 +813,21 @@ declare namespace PDFKit {
     }
 }
 
-declare module 'pdfkit/js/data' {
+declare module "pdfkit/js/data" {
     var PDFKitData: PDFKit.PDFData;
     export = PDFKitData;
 }
 
 declare namespace PDFKit {
     interface DocumentInfo {
-        Producer?: string | undefined;
-        Creator?: string | undefined;
-        CreationDate?: Date | undefined;
-        Title?: string | undefined;
-        Author?: string | undefined;
-        Subject?: string | undefined;
-        Keywords?: string | undefined;
-        ModDate?: Date | undefined;
+        Producer?: string;
+        Creator?: string;
+        CreationDate?: Date;
+        Title?: string;
+        Author?: string;
+        Subject?: string;
+        Keywords?: string;
+        ModDate?: Date;
     }
 
     interface DocumentPermissions {
@@ -398,7 +837,7 @@ declare namespace PDFKit {
         fillingForms?: boolean | undefined;
         contentAccessibility?: boolean | undefined;
         documentAssembly?: boolean | undefined;
-        printing?: 'lowResolution' | 'highResolution' | undefined;
+        printing?: "lowResolution" | "highResolution" | undefined;
     }
 
     interface PDFDocumentOptions {
@@ -407,37 +846,46 @@ declare namespace PDFKit {
         userPassword?: string | undefined;
         ownerPassword?: string | undefined;
         permissions?: DocumentPermissions | undefined;
-        pdfVersion?: '1.3' | '1.4' | '1.5' | '1.6' | '1.7' | '1.7ext3' | undefined;
+        pdfVersion?: "1.3" | "1.4" | "1.5" | "1.6" | "1.7" | "1.7ext3" | undefined;
         autoFirstPage?: boolean | undefined;
         size?: number[] | string | undefined;
-        margin?: number | undefined;
-        margins?: { top: number; left: number; bottom: number; right: number } | undefined;
-        layout?: 'portrait' | 'landscape' | undefined;
+        margin?: PDFKit.Mixins.Size | undefined;
+        margins?: PDFKit.Mixins.ExpandedSides<PDFKit.Mixins.Size> | undefined;
+        layout?: "portrait" | "landscape" | undefined;
         font?: string | undefined;
 
         bufferPages?: boolean | undefined;
         tagged?: boolean;
         lang?: string;
         displayTitle?: boolean;
+        subset?: Mixins.PDFSubsets;
+        fontLayoutCache?: boolean;
     }
 
     interface PDFDocument
-        extends NodeJS.ReadableStream,
-        Mixins.PDFAnnotation,
-        Mixins.PDFColor,
-        Mixins.PDFImage,
-        Mixins.PDFText,
-        Mixins.PDFVector,
-        Mixins.PDFFont,
-        Mixins.PDFAcroForm,
-        Mixins.PDFMarking,
-        Mixins.PDFAttachment {
+        extends
+            PDFKitReadable,
+            Mixins.PDFMetadata,
+            Mixins.PDFAnnotation,
+            Mixins.PDFColor,
+            Mixins.PDFImage,
+            Mixins.PDFTable,
+            Mixins.PDFText,
+            Mixins.PDFVector,
+            Mixins.PDFFont,
+            Mixins.PDFAcroForm,
+            Mixins.PDFMarking,
+            Mixins.PDFAttachment,
+            Mixins.PDFMetadata,
+            Mixins.PDFSubset,
+            Mixins.PDFOutline
+    {
         /**
          * PDF Version
          */
         version: number;
         /**
-         * Wheter streams should be compressed
+         * Whenever streams should be compressed
          */
         compress: boolean;
         /**
@@ -459,30 +907,51 @@ declare namespace PDFKit {
         new(options?: PDFDocumentOptions): PDFDocument;
 
         addPage(options?: PDFDocumentOptions): PDFDocument;
+        continueOnNewPage(options?: PDFDocumentOptions): PDFDocument;
         bufferedPageRange(): { start: number; count: number };
         switchToPage(n?: number): PDFPage;
         flushPages(): void;
+
+        // See https://opensource.adobe.com/dc-acrobat-sdk-docs/library/pdfmark/pdfmark_Actions.html#view-destinations.
+        // If `fitType` is missing, this method wll be invoked with (name, 'XYZ', null, null, null).
+        addNamedDestination(name: string): void;
+        addNamedDestination(name: string, fitType: "Fit"): void;
+        addNamedDestination(name: string, fitType: "FitB"): void;
+        addNamedDestination(name: string, fitType: "FitBH", top: number): void;
+        addNamedDestination(name: string, fitType: "FitBV", left: number): void;
+        addNamedDestination(name: string, fitType: "FitH", top: number): void;
+        addNamedDestination(name: string, fitType: "FitR", x1: number, y1: number, x2: number, y2: number): void;
+        addNamedDestination(name: string, fitType: "FitV", left: number): void;
+        addNamedDestination(
+            name: string,
+            fitType: "XYZ",
+            left: number | null,
+            top: number | null,
+            zoom: number | null,
+        ): void;
+        addNamedDestination(name: string, fitType: string, ...args: number[]): void;
+
+        addNamedEmbeddedFile(name: string, ref: PDFKitReference): void;
+        addNamedJavaScript(name: string, js: string): void;
+
         ref(data: {}): PDFKitReference;
         addContent(data: any): PDFDocument;
-        /**
-         * Deprecated
-         */
-        write(fileName: string, fn: any): void;
-        /**
-         * Deprecated. Throws exception
-         */
-        output(fn: any): void;
         end(): void;
         toString(): string;
     }
 }
 
-declare module 'pdfkit' {
+declare module "pdfkit" {
     var doc: PDFKit.PDFDocument;
     export = doc;
 }
 
-declare module 'pdfkit/js/gradient' {
+declare module "pdfkit/js/pdfkit.standalone" {
+    var doc: PDFKit.PDFDocument;
+    export = doc;
+}
+
+declare module "pdfkit/js/gradient" {
     var gradient: {
         PDFGradient: PDFKit.PDFGradient;
         PDFLinearGradient: PDFKit.PDFLinearGradient;
@@ -492,7 +961,7 @@ declare module 'pdfkit/js/gradient' {
     export = gradient;
 }
 
-declare module 'pdfkit/js/pattern' {
+declare module "pdfkit/js/pattern" {
     var pattern: {
         PDFTilingPattern: PDFKit.PDFTilingPattern;
     };
@@ -507,14 +976,14 @@ declare namespace PDFKit {
     interface PDFPage {
         size: string;
         layout: string;
-        margins: { top: number; left: number; bottom: number; right: number };
+        margins: PDFKit.Mixins.ExpandedSides<number>;
         width: number;
         height: number;
         document: PDFDocument;
         content: PDFKitReference;
 
         /**
-         * The page dictionnary
+         * The page dictionary
          */
         dictionary: PDFKitReference;
 
@@ -530,14 +999,14 @@ declare namespace PDFKit {
     }
 }
 
-declare module 'pdfkit/js/page' {
+declare module "pdfkit/js/page" {
     var PDFKitPage: PDFKit.PDFPage;
 
     export = PDFKitPage;
 }
 
 declare namespace PDFKit {
-    /** PDFReference - represents a reference to another object in the PDF object heirarchy */
+    /** PDFReference - represents a reference to another object in the PDF object hierarchy */
     class PDFKitReference {
         id: number;
         gen: number;
@@ -557,7 +1026,7 @@ declare namespace PDFKit {
     }
 }
 
-declare module 'pdfkit/js/reference' {
+declare module "pdfkit/js/reference" {
     var PDFKitReference: PDFKit.PDFKitReference;
 
     export = PDFKitReference;
@@ -570,14 +1039,14 @@ declare namespace PDFKit {
     }
 }
 
-declare module 'pdfkit/js/structure_content' {
+declare module "pdfkit/js/structure_content" {
     var PDFStructureContent: PDFKit.PDFStructureContent;
     export = PDFStructureContent;
 }
 
 declare namespace PDFKit {
     type PDFStructureElementChild =
-        (() => any)
+        | (() => any)
         | PDFStructureElement
         | PDFStructureContent;
 
@@ -587,11 +1056,13 @@ declare namespace PDFKit {
             document: PDFDocument,
             type: string,
             options?: { title?: string; lang?: string; alt?: string; expanded?: string; actual?: string },
-            children?: PDFStructureElementChild | PDFStructureElementChild[]);
+            children?: PDFStructureElementChild | PDFStructureElementChild[],
+        );
         constructor(
             document: PDFDocument,
             type: string,
-            children?: PDFStructureElementChild | PDFStructureElementChild[]);
+            children?: PDFStructureElementChild | PDFStructureElementChild[],
+        );
         add(el: PDFStructureElementChild): PDFStructureElement;
         setParent(parentRef: PDFKitReference): void;
         setAttached(): void;
@@ -599,42 +1070,64 @@ declare namespace PDFKit {
     }
 }
 
-declare module 'pdfkit/js/structure_element' {
+declare namespace PDFKit {
+    /**
+     * PDFKit data
+     */
+    interface PDFOutline {
+        document: PDFDocument;
+        children: PDFOutline[];
+        addItem(title: string, options?: { expanded?: boolean }): PDFOutline;
+        endOutline(): void;
+    }
+}
+
+declare module "pdfkit/js/structure_element" {
     var PDFStructureElement: PDFKit.PDFStructureElement;
     export = PDFStructureElement;
 }
 
-declare module 'pdfkit/js/mixins/annotations' {
+declare module "pdfkit/js/mixins/annotations" {
     var PDFKitAnnotation: PDFKit.Mixins.PDFAnnotation;
     export = PDFKitAnnotation;
 }
 
-declare module 'pdfkit/js/mixins/color' {
+declare module "pdfkit/js/mixins/color" {
     var PDFKitColor: PDFKit.Mixins.PDFColor;
     export = PDFKitColor;
 }
 
-declare module 'pdfkit/js/mixins/fonts' {
+declare module "pdfkit/js/mixins/fonts" {
     var PDFKitFont: PDFKit.Mixins.PDFFont;
     export = PDFKitFont;
 }
 
-declare module 'pdfkit/js/mixins/images' {
+declare module "pdfkit/js/mixins/images" {
     var PDFKitImage: PDFKit.Mixins.PDFImage;
     export = PDFKitImage;
 }
 
-declare module 'pdfkit/js/mixins/text' {
+declare module "pdfkit/js/mixins/table" {
+    var PDFKitTable: PDFKit.Mixins.PDFTable;
+    export = PDFKitTable;
+}
+
+declare module "pdfkit/js/mixins/text" {
     var PDFKitText: PDFKit.Mixins.PDFText;
     export = PDFKitText;
 }
 
-declare module 'pdfkit/js/mixins/vector' {
+declare module "pdfkit/js/mixins/vector" {
     var PDFKitVector: PDFKit.Mixins.PDFVector;
     export = PDFKitVector;
 }
 
-declare module 'pdfkit/js/mixins/markings' {
+declare module "pdfkit/js/mixins/markings" {
     var PDFKitMarking: PDFKit.Mixins.PDFMarking;
     export = PDFKitMarking;
+}
+
+declare module "pdfkit/js/mixins/outline" {
+    var PDFKitOutline: PDFKit.Mixins.PDFOutline;
+    export = PDFKitOutline;
 }

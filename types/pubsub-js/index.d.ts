@@ -1,18 +1,13 @@
-// Type definitions for PubSubJS 1.8.0
-// Project: https://github.com/mroderick/PubSubJS
-// Definitions by: Boris Yankov <https://github.com/borisyankov>
-//                 Matthias Lindinger <https://github.com/morpheus-87>
-//                 Profesor08 <https://github.com/Profesor08>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace PubSubJS {
     interface Base<T = any, M = Message>
-        extends CountSubscriptions,
+        extends
+            CountSubscriptions,
             ClearAllSubscriptions,
             GetSubscriptions,
             Publish<T, M>,
             Subscribe<T, M>,
-            Unsubscribe<T> {
+            Unsubscribe<T>
+    {
         name: string;
         version: string;
     }
@@ -54,6 +49,6 @@ declare namespace PubSubJS {
 
 declare var PubSub: PubSubJS.Base;
 
-declare module 'pubsub-js' {
+declare module "pubsub-js" {
     export = PubSub;
 }

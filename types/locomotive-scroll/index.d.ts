@@ -1,10 +1,5 @@
-// Type definitions for locomotive-scroll 4.1
-// Project: https://github.com/locomotivemtl/locomotive-scroll
-// Definitions by: Colin Lienard <https://github.com/ColinLienard>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace LocomotiveScroll {
-    type Direction = 'vertical' | 'horizontal';
+    type Direction = "vertical" | "horizontal";
 
     type Offset = [number | string, number | string];
 
@@ -83,6 +78,7 @@ declare namespace LocomotiveScroll {
     interface OnScrollEvent {
         currentElements: Record<string, ScrollElement>;
         delta: Position;
+        direction: string;
         limit: Position;
         scroll: Position;
         speed: number;
@@ -100,9 +96,9 @@ declare namespace LocomotiveScroll {
 declare class LocomotiveScroll {
     constructor(options?: LocomotiveScroll.InstanceOptions);
     init(): () => void;
-    on<EventName extends 'scroll' | 'call'>(
+    on<EventName extends "scroll" | "call">(
         eventName: EventName,
-        callback: (event: EventName extends 'scroll' ? LocomotiveScroll.OnScrollEvent : string | string[]) => void,
+        callback: (event: EventName extends "scroll" ? LocomotiveScroll.OnScrollEvent : string | string[]) => void,
     ): () => void;
     update(): () => void;
     destroy(): () => void;

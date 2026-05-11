@@ -1,4 +1,4 @@
-import {Endpoint} from './endpoint';
+import { Endpoint } from "./endpoint";
 /**
  * The low level HTTP request object, encapsulating all HTTP header and body data sent by a service request.
  */
@@ -28,7 +28,7 @@ export class HttpRequest {
      */
     headers: {
         [key: string]: string;
-    }
+    };
     /**
      * The HTTP method of the request.
      */

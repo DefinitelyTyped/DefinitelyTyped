@@ -1,16 +1,12 @@
-// Type definitions for electron-progressbar 1.2
-// Project: https://github.com/AndersonMamede/electron-progressbar
-// Definitions by: Samuel Corsi-House <https://github.com/xenfo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { BrowserWindowConstructorOptions, app } from 'electron';
+import { app, BrowserWindowConstructorOptions } from "electron";
 
 declare class ProgressBar {
-    constructor(options: ProgressBarOptions, electronApp?: typeof app)
+    constructor(options: ProgressBarOptions, electronApp?: typeof app);
 
     getOptions(): ProgressBarOptions;
 
-    on(eventName: 'ready' | 'progress' | 'completed' | 'aborted', listener: () => void): this;
+    on(eventName: "ready" | "progress" | "completed" | "aborted", listener: () => void): this;
+    on(eventName: "progress" | "completed" | "aborted", listener: (value: number) => void): this;
 
     setCompleted(): void;
 
@@ -26,15 +22,18 @@ declare class ProgressBar {
 }
 
 interface ProgressBarOptions {
+    debug?: boolean | undefined;
     abortOnError?: boolean | undefined;
     indeterminate?: boolean | undefined;
     initialValue?: number | undefined;
     maxValue?: number | undefined;
     closeOnComplete?: boolean | undefined;
+    lang?: string | undefined;
     title?: string | undefined;
     text?: string | undefined;
     detail?: string | undefined;
     style?: StyleOptions | undefined;
+    customHTML?: string | undefined;
     browserWindow?: BrowserWindowConstructorOptions | undefined;
 }
 

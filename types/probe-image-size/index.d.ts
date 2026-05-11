@@ -1,8 +1,3 @@
-// Type definitions for probe-image-size 7.2
-// Project: https://github.com/nodeca/probe-image-size#readme
-// Definitions by: Jinesh Shah <https://github.com/jineshshah36>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
 import needle = require("needle");
@@ -19,7 +14,7 @@ declare class ProbeError extends Error {
         message: string,
         code?: "ECONTENT" | null,
         statusCode?: number,
-    )
+    );
 }
 
 declare namespace probe {
@@ -47,7 +42,7 @@ declare namespace probe {
 
     function sync(data: Buffer): ProbeResult | null;
 
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface ParserStream extends Transform {}
 
     type Parser = () => ParserStream;

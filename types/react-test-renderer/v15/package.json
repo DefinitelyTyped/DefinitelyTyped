@@ -1,0 +1,32 @@
+{
+    "private": true,
+    "name": "@types/react-test-renderer",
+    "version": "15.5.9999",
+    "projects": [
+        "https://facebook.github.io/react/"
+    ],
+    "dependencies": {
+        "@types/react": "^15"
+    },
+    "devDependencies": {
+        "@types/react-test-renderer": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Arvitaly",
+            "githubUsername": "arvitaly"
+        },
+        {
+            "name": "Lochbrunner",
+            "githubUsername": "lochbrunner"
+        },
+        {
+            "name": "Lochbrunner",
+            "githubUsername": "lochbrunner"
+        },
+        {
+            "name": "John Reilly",
+            "githubUsername": "johnnyreilly"
+        }
+    ]
+}

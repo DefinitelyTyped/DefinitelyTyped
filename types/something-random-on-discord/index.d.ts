@@ -1,8 +1,3 @@
-// Type definitions for something-random-on-discord 0.0
-// Project: https://github.com/CTK-WARRIOR/something-random-on-discord#readme
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export class Random {
     constructor();
 

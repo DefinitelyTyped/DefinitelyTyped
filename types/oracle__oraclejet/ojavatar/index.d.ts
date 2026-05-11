@@ -1,12 +1,16 @@
-import { JetElement, JetSettableProperties, JetElementCustomEvent, JetSetPropertyType } from '..';
+import { JetElement, JetElementCustomEvent, JetSetPropertyType, JetSettableProperties } from "..";
 export interface ojAvatar extends JetElement<ojAvatarSettableProperties> {
     initials: string;
-    size: 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
+    size: "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "xxl";
     src: string;
     onInitialsChanged: ((event: JetElementCustomEvent<ojAvatar["initials"]>) => any) | null;
     onSizeChanged: ((event: JetElementCustomEvent<ojAvatar["size"]>) => any) | null;
     onSrcChanged: ((event: JetElementCustomEvent<ojAvatar["src"]>) => any) | null;
-    addEventListener<T extends keyof ojAvatarEventMap>(type: T, listener: (this: HTMLElement, ev: ojAvatarEventMap[T]) => any, useCapture?: boolean): void;
+    addEventListener<T extends keyof ojAvatarEventMap>(
+        type: T,
+        listener: (this: HTMLElement, ev: ojAvatarEventMap[T]) => any,
+        useCapture?: boolean,
+    ): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
     getProperty<T extends keyof ojAvatarSettableProperties>(property: T): ojAvatar[T];
     getProperty(property: string): any;
@@ -15,13 +19,13 @@ export interface ojAvatar extends JetElement<ojAvatarSettableProperties> {
     setProperties(properties: ojAvatarSettablePropertiesLenient): void;
 }
 export interface ojAvatarEventMap extends HTMLElementEventMap {
-    'initialsChanged': JetElementCustomEvent<ojAvatar["initials"]>;
-    'sizeChanged': JetElementCustomEvent<ojAvatar["size"]>;
-    'srcChanged': JetElementCustomEvent<ojAvatar["src"]>;
+    "initialsChanged": JetElementCustomEvent<ojAvatar["initials"]>;
+    "sizeChanged": JetElementCustomEvent<ojAvatar["size"]>;
+    "srcChanged": JetElementCustomEvent<ojAvatar["src"]>;
 }
 export interface ojAvatarSettableProperties extends JetSettableProperties {
     initials: string;
-    size: 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
+    size: "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "xxl";
     src: string;
 }
 export interface ojAvatarSettablePropertiesLenient extends Partial<ojAvatarSettableProperties> {

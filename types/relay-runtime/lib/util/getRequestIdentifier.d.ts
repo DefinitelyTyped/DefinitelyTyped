@@ -1,5 +1,5 @@
-import { RequestParameters } from './RelayConcreteNode';
-import { Variables } from './RelayRuntimeTypes';
+import { RequestParameters } from "./RelayConcreteNode";
+import { Variables } from "./RelayRuntimeTypes";
 
 export type RequestIdentifier = string;
 

@@ -2,12 +2,12 @@
  * Created by Ian Woongsoo Lee <https://github.com/yummyummyummy>.
  */
 
-import Koa = require('koa');
-import KoaRouter = require('koa-router');
-import passport = require('koa-passport');
-import AuthTokenStrategy = require('passport-auth-token');
+import Koa = require("koa");
+import KoaRouter = require("koa-router");
+import passport = require("koa-passport");
+import AuthTokenStrategy = require("passport-auth-token");
 
-//#region Test Models
+// #region Test Models
 interface AccessToken {
     id: string;
 }
@@ -21,8 +21,8 @@ testingAuthTokenStrategy.success = () => {};
 testingAuthTokenStrategy.fail = () => {};
 
 class AccessTokenImpl implements AccessToken {
-    id: string;
-    userId: string;
+    id!: string;
+    userId!: string;
 
     static findOne(token: AccessToken, callback: (token: AccessTokenImpl, err?: Error) => void): void {
         callback(new AccessTokenImpl(), undefined);
@@ -34,12 +34,12 @@ class AccessTokenImpl implements AccessToken {
 }
 
 class UserImpl implements User {
-    id: string;
+    id!: string;
     static findOne(user: User, callback: (user: UserImpl, err?: Error) => void): void {
         callback(new UserImpl(), undefined);
     }
 }
-//#endregion
+// #endregion
 
 // Sample from https://github.com/mbell8903/passport-auth-token#configure-strategy
 passport.use(
@@ -126,6 +126,6 @@ const app = new Koa();
 const route = new KoaRouter<Koa.DefaultState, Koa.Context>();
 // Sample from https://github.com/mbell8903/passport-auth-token#authenticate-requests
 app.use(route.routes());
-route.post('/login', passport.authenticate('authtoken', { session: false, optional: false }), async (ctx, next) => {
+route.post("/login", passport.authenticate("authtoken", { session: false, optional: false }), async (ctx, next) => {
     await next();
 });

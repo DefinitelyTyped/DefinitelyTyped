@@ -3,8 +3,8 @@ const charm = getCharm();
 charm.pipe(process.stdout);
 charm.reset();
 
-const colors: getCharm.CharmColor[] = [ 'red', 'cyan', 'yellow', 'green', 'blue' ];
-const text = 'Always after me lucky charms.';
+const colors: getCharm.CharmColor[] = ["red", "cyan", "yellow", "green", "blue"];
+const text = "Always after me lucky charms.";
 
 let offset = 0;
 const iv = setInterval(() => {
@@ -16,11 +16,10 @@ const iv = setInterval(() => {
         charm
             .move(1, dy)
             .foreground(color)
-            .write(c)
-        ;
+            .write(c);
         y += dy;
         if (y <= 0 || y >= 5) dy *= -1;
     }
     charm.position(0, 1);
-    offset ++;
+    offset++;
 }, 150);

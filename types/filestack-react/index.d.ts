@@ -1,12 +1,7 @@
-// Type definitions for filestack-react 4.0
-// Project: https://github.com/filestack/filestack-react
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+import { ClientOptions, PickerFileMetadata, PickerOptions, PickerResponse } from "filestack-js";
+import * as React from "react";
 
-import * as React from 'react';
-import { ClientOptions, PickerFileMetadata, PickerOptions } from 'filestack-js';
-
-export * as client from 'filestack-js';
+export * as client from "filestack-js";
 
 interface PickerBaseProps {
     /**
@@ -29,7 +24,7 @@ interface PickerBaseProps {
     /**
      * Called when all files have been uploaded
      */
-    onUploadDone?: (result: PickerFileMetadata) => void;
+    onUploadDone?: (result: PickerResponse) => void;
     /**
      * A function to be called when error occurs
      */

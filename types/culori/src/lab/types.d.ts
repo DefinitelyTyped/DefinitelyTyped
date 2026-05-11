@@ -1,5 +1,5 @@
 export interface Lab {
-    mode: 'lab';
+    mode: "lab";
     l: number;
     a: number;
     b: number;

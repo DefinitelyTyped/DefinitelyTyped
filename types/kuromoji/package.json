@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/kuromoji",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/takuyaa/kuromoji.js"
+    ],
+    "dependencies": {
+        "@types/doublearray": "*"
+    },
+    "devDependencies": {
+        "@types/kuromoji": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "MIZUSHIMA Junki",
+            "githubUsername": "mzsm"
+        },
+        {
+            "name": "kgtkr",
+            "githubUsername": "kgtkr"
+        }
+    ]
+}

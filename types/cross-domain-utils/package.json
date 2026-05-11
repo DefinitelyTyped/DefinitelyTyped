@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/cross-domain-utils",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/krakenjs/cross-domain-utils#readme"
+    ],
+    "devDependencies": {
+        "@types/cross-domain-utils": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ante Novokmet",
+            "githubUsername": "ANovokmet"
+        }
+    ]
+}

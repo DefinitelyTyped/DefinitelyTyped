@@ -1,25 +1,25 @@
 declare namespace AMap {
     namespace GeoJSON {
         type Geometry = {
-            type: 'Point';
+            type: "Point";
             coordinates: [number, number];
         } | {
-            type: 'MultiPoint' | 'LineString' | 'Polygon';
+            type: "MultiPoint" | "LineString" | "Polygon";
             coordinates: Array<[number, number]>;
         } | {
-            type: 'MultiLineString' | 'MultiPolygon';
+            type: "MultiLineString" | "MultiPolygon";
             coordinates: Array<Array<[number, number]>>;
         } | {
-            type: 'GeometryCollection';
+            type: "GeometryCollection";
             geometries: Geometry[];
         };
 
         type GeoJSONObject = {
-            type: 'Feature';
+            type: "Feature";
             properties: any;
             geometry: Geometry;
         } | {
-            type: 'FeatureCollection',
+            type: "FeatureCollection";
             properties: any;
             features: GeoJSONObject[];
         };

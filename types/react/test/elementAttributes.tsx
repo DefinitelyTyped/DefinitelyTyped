@@ -1,4 +1,12 @@
-import * as React from 'react';
+import * as React from "react";
+
+declare module "react" {
+    namespace JSX {
+        interface IntrinsicElements {
+            "custom-element": React.HTMLAttributes<unknown>;
+        }
+    }
+}
 
 const testCases = [
     <span />,
@@ -6,14 +14,22 @@ const testCases = [
     <span autoFocus />,
     <span className="klass" />,
     <span contentEditable />,
+    <span
+        contentEditable
+        // @ts-expect-error -- Use data-placeholder instead.
+        placeholder="foo"
+    />,
+    <span contentEditable="plaintext-only" />,
     <span contextMenu="menuId" />,
     <span dir="rtl" />,
     <span draggable />,
+    <span enterKeyHint="done" />,
     <span hidden />,
     <span id="s" />,
     <span lang="art-x-tokipona" />,
     <input placeholder="placeholder" />,
     <span slot="my-text" />,
+    <svg slot="my-svg" />,
     <span spellCheck />,
     <span tabIndex={0} />,
     <span title="title" />,
@@ -23,6 +39,7 @@ const testCases = [
     <span autoCapitalize="on" />,
     <span autoCapitalize="words" />,
     <span autoCapitalize="sentences" />,
+    <span autoCapitalize="characters" />,
     <span autoCorrect="off" />,
     <span autoCorrect="on" />,
     <span translate="no" />,
@@ -30,10 +47,10 @@ const testCases = [
     <svg>
         <image crossOrigin="anonymous" />
     </svg>,
-    <details open={true} onToggle={() => {}} />,
-    <input value={['one', 'two'] as ReadonlyArray<string>} />,
-    <input value={['one', 'two'] as string[]} />,
-    <input value={['one', 'two']} />,
+    <details open={true} onToggle={() => {}} name="foo" />,
+    <input value={["one", "two"] as readonly string[]} />,
+    <input value={["one", "two"] as string[]} />,
+    <input value={["one", "two"]} />,
     <input enterKeyHint="done" />,
     <input accept="image/*" capture="user" />,
     <input accept="image/*" capture="environment" />,
@@ -59,7 +76,21 @@ const testCases = [
         <source media="test" srcSet="test" width={50} height={50} />
         <img src="test" width={100} height={100} />
     </picture>,
+    <picture>
+        <source media="test" srcSet="test" width={50} height={50} />
+        <img alt="test" src="test" width={100} height={100} fetchPriority="high" />
+    </picture>,
+    <picture>
+        <source media="test" srcSet="test" width={50} height={50} />
+        <img alt="test" src="test" width={100} height={100} fetchPriority="low" />
+    </picture>,
+    <picture>
+        <source media="test" srcSet="test" width={50} height={50} />
+        <img alt="test" src="test" width={100} height={100} fetchPriority="auto" />
+    </picture>,
+    <dialog />,
     <dialog
+        closedby="closerequest"
         onCancel={event => {
             // $ExpectType SyntheticEvent<HTMLDialogElement, Event>
             event;
@@ -68,9 +99,90 @@ const testCases = [
             // $ExpectType SyntheticEvent<HTMLDialogElement, Event>
             event;
         }}
-    ></dialog>,
+        open
+    />,
     <link nonce="8IBTHwOdqNKAWeKl7plt8g==" />,
-    <center></center>
+    <svg nonce="8IBTHwOdqNKAWeKl7plt8g==" />,
+    <center></center>,
+    // Float
+    <>
+        <link href="https://foo.bar" precedence="medium" rel="canonical" />
+        <style href="unique-style-hash" precedence="anything">{` p { color: red; } `}</style>
+    </>,
+    <div inert={true} />,
+    <div inert={false} />,
+    <div // @ts-expect-error Old workaround that used to result in `element.inert = true` but would now result in `element.inert = false`
+     inert="" />,
+    // New Transition events
+    <div
+        onTransitionStart={event => {
+            // $ExpectType TransitionEvent<HTMLDivElement>
+            event;
+        }}
+        onTransitionRun={event => {
+            // $ExpectType TransitionEvent<HTMLDivElement>
+            event;
+        }}
+        onTransitionCancel={event => {
+            // $ExpectType TransitionEvent<HTMLDivElement>
+            event;
+        }}
+        onTransitionEnd={event => {
+            // $ExpectType TransitionEvent<HTMLDivElement>
+            event;
+        }}
+    />,
+    // Popover API
+    <>
+        <div
+            id="popover-target"
+            popover=""
+            onBeforeToggle={event => {
+                // $ExpectType 'open' | 'closed'
+                event.newState;
+                // $ExpectType 'open' | 'closed'
+                event.oldState;
+            }}
+            onToggle={event => {
+                // $ExpectType 'open' | 'closed'
+                event.newState;
+                // $ExpectType 'open' | 'closed'
+                event.oldState;
+            }}
+        >
+        </div>
+        <div popover="auto" />
+        <div popover="manual" />
+        <div popover="hint" />
+        <div
+            // @ts-expect-error accidental boolean
+            popover
+        />
+        <button popoverTarget="popover-target">Toggle</button>
+        <button popoverTarget="popover-target" popoverTargetAction="toggle">Toggle</button>
+        <button popoverTarget="popover-target" popoverTargetAction="show">Show</button>
+        <button popoverTarget="popover-target" popoverTargetAction="hide">Hide</button>
+        <button
+            popoverTarget="popover-target"
+            // @ts-expect-error
+            popoverTargetAction="bad"
+        >
+            Hide
+        </button>
+    </>,
+    <>
+        <template>
+            <div part="base" />
+            <svg part="svg" />
+            <custom-element exportparts="nested" />
+        </template>
+    </>,
+    <link rel="expect" href="#lead-content" blocking="render" />,
+    <link rel="expect" href="#lead-content" blocking="render render" />,
+    <style blocking="render" />,
+    <style blocking="render render" />,
+    <script blocking="render" async />,
+    <script blocking="render render" async />,
 ];
 
 // Needed to check these HTML elements in event callbacks.
@@ -112,7 +224,6 @@ const eventCallbacksTestCases = [
 
 function formActionsTest() {
     <form
-        // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
         action={formData => {
             // $ExpectType FormData
             formData;
@@ -121,7 +232,6 @@ function formActionsTest() {
         <input type="text" name="title" defaultValue="Hello" />
         <input
             type="submit"
-            // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
             formAction={formData => {
                 // $ExpectType FormData
                 formData;
@@ -129,7 +239,6 @@ function formActionsTest() {
             value="Save"
         />
         <button
-            // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
             formAction={formData => {
                 // $ExpectType FormData
                 formData;
@@ -138,4 +247,18 @@ function formActionsTest() {
             Delete
         </button>
     </form>;
+
+    <form
+        action={async (formData) => {
+            // $ExpectType FormData
+            formData;
+        }}
+    />;
+
+    <form
+        // @ts-expect-error -- Type 'Promise<number>' is not assignable to type 'Promise<void>'
+        action={async () => {
+            return 1;
+        }}
+    />;
 }

@@ -1,8 +1,8 @@
-import createMockRaf = require('mock-raf');
+import createMockRaf = require("mock-raf");
 
 const mockRaf = createMockRaf();
 const id = mockRaf.raf(() => {
-  console.log('RAF!!!');
+    console.log("RAF!!!");
 });
 mockRaf.step({ count: 10 });
 mockRaf.cancel(id);

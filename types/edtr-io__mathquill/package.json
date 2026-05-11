@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/edtr-io__mathquill",
+    "version": "0.11.9999",
+    "projects": [
+        "https://github.com/edtr-io/mathquill#readme"
+    ],
+    "devDependencies": {
+        "@types/edtr-io__mathquill": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Marco Gonzalez",
+            "githubUsername": "magonzalez9"
+        }
+    ]
+}

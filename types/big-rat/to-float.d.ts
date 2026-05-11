@@ -1,4 +1,4 @@
-import bigRat = require('./');
+import bigRat = require("./");
 
 declare function toFloat(value: bigRat.Rat): bigRat.Rat;
 

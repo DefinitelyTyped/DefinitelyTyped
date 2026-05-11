@@ -1,13 +1,3 @@
-// Type definitions for Matter.js - 0.18
-// Project: https://github.com/liabru/matter-js
-// Definitions by: Ivane Gegia <https://twitter.com/ivanegegia>
-//                 David Asmuth <https://github.com/piranha771>
-//                 Piotr Pietrzak <https://github.com/hasparus>
-//                 Dale Whinham <https://github.com/dwhinham>
-//                 slikts <https://github.com/slikts>
-//                 Steven Snoeijen <https://github.com/stevensnoeijen>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = Matter;
 export as namespace Matter;
 
@@ -20,11 +10,10 @@ declare namespace Matter {
      * @method use
      * @param ...plugin {Function} The plugin(s) to install on `base` (multi-argument).
      */
-    export function use(...plugins: (Plugin | string)[]): void;
+    export function use(...plugins: Array<Plugin | string>): void;
 
     /**
      * The `Matter.Axes` module contains methods for creating and manipulating sets of axes.
-     *
      */
     export class Axes {
         /**
@@ -33,18 +22,18 @@ declare namespace Matter {
          * @param {Vertices} vertices
          * @returns {axes} A new axes from the given vertices
          */
-        static fromVertices(vertices: Array<Vector>): Array<Vector>;
+        static fromVertices(vertices: Vector[]): Vector[];
         /**
          * Rotates a set of axes by the given angle.
          * @method rotate
          * @param {axes} axes
          * @param {number} angle
          */
-        static rotate(axes: Array<Vector>, angle: number): void;
+        static rotate(axes: Vector[], angle: number): void;
     }
 
     interface IChamfer {
-        radius?: number | Array<number> | undefined;
+        radius?: number | number[] | undefined;
         quality?: number | undefined;
         qualityMin?: number | undefined;
         qualityMax?: number | undefined;
@@ -59,7 +48,6 @@ declare namespace Matter {
      * with commonly used body configurations (such as rectangles, circles and other polygons).
      *
      * See the included usage [examples](https://github.com/liabru/matter-js/tree/master/examples).
-     *
      */
     export class Bodies {
         /**
@@ -119,7 +107,7 @@ declare namespace Matter {
          * @param {number} y
          * @param {number} width
          * @param {number} height
-         * @param {number} slope
+         * @param {number} slope Must be a number < 1.
          * @param {any} [options]
          * @returns {Body} A new trapezoid body
          */
@@ -155,7 +143,7 @@ declare namespace Matter {
         static fromVertices(
             x: number,
             y: number,
-            vertexSets: Array<Array<Vector>>,
+            vertexSets: Vector[][],
             options?: IBodyDefinition,
             flagInternal?: boolean,
             removeCollinear?: number,
@@ -196,13 +184,11 @@ declare namespace Matter {
          * An array of unique axis vectors (edge normals) used for collision detection.
          * These are automatically calculated from the given convex hull (`vertices` array) in `Body.create`.
          * They are constantly updated by `Body.update` during the simulation.
-         *
          */
-        axes?: Array<Vector> | undefined;
+        axes?: Vector[] | undefined;
         /**
          * A `Bounds` object that defines the AABB region for the body.
          * It is automatically calculated from the given convex hull (`vertices` array) in `Body.create` and constantly updated by `Body.update` during simulation.
-         *
          */
         bounds?: Bounds | undefined;
         /**
@@ -245,26 +231,22 @@ declare namespace Matter {
         frictionAir?: number | undefined;
         /**
          * An integer `Number` uniquely identifying number generated in `Body.create` by `Common.nextId`.
-         *
          */
         id?: number | undefined;
         /**
          * A `Number` that defines the moment of inertia (i.e. second moment of area) of the body.
          * It is automatically calculated from the given convex hull (`vertices` array) and density in `Body.create`.
          * If you modify this value, you must also modify the `body.inverseInertia` property (`1 / inertia`).
-         *
          */
         inertia?: number | undefined;
         /**
          * A `Number` that defines the inverse moment of inertia of the body (`1 / inertia`).
          * If you modify this value, you must also modify the `body.inertia` property.
-         *
          */
         inverseInertia?: number | undefined;
         /**
          * A `Number` that defines the inverse mass of the body (`1 / mass`).
          * If you modify this value, you must also modify the `body.mass` property.
-         *
          */
         inverseMass?: number | undefined;
         /**
@@ -297,7 +279,6 @@ declare namespace Matter {
         /**
          * A `Number` that defines the mass of the body, although it may be more appropriate to specify the `density` property instead.
          * If you modify this value, you must also modify the `body.inverseMass` property (`1 / mass`).
-         *
          */
         mass?: number | undefined;
         /**
@@ -310,7 +291,6 @@ declare namespace Matter {
         motion?: number | undefined;
         /**
          * An object reserved for storing plugin-specific properties.
-         *
          */
         plugin?: any;
         /**
@@ -321,7 +301,6 @@ declare namespace Matter {
         position?: Vector | undefined;
         /**
          * An `Object` that defines the rendering properties to be consumed by the module `Matter.Render`.
-         *
          */
         render?: IBodyRenderOptions | undefined;
         /**
@@ -393,9 +372,8 @@ declare namespace Matter {
          *
          * Other properties such as `inertia` and `bounds` are automatically calculated from the passed vertices (unless provided via `options`).
          * Concave hulls are not currently supported. The module `Matter.Vertices` contains useful methods for working with vertices.
-         *
          */
-        vertices?: Array<Vector> | undefined;
+        vertices?: Vector[] | undefined;
         /**
          * An array of bodies that make up this body.
          * The first body in the array must always be a self reference to the current body instance.
@@ -403,14 +381,12 @@ declare namespace Matter {
          * Parts are allowed to overlap, have gaps or holes or even form concave bodies.
          * Parts themselves should never be added to a `World`, only the parent body should be.
          * Use `Body.setParts` when setting parts to ensure correct updates of all properties.
-         *
          */
-        parts?: Array<Body> | undefined;
+        parts?: Body[] | undefined;
         /**
          * A self reference if the body is _not_ a part of another body.
          * Otherwise this is a reference to the body that this is a part of.
          * See `body.parts`.
-         *
          */
         parent?: Body | undefined;
         /**
@@ -443,9 +419,18 @@ declare namespace Matter {
          * Using the category/mask rules, two bodies `A` and `B` collide if each includes the other's
          * category in its mask, i.e. `(categoryA & maskB) !== 0` and `(categoryB & maskA) !== 0`
          * are both true.
-         *
          */
         collisionFilter?: ICollisionFilter | undefined;
+        /**
+         * Temporarily may hold parameters to be passed to `Vertices.chamfer` where supported by external functions.
+         *
+         * See `Vertices.chamfer` for possible parameters this object may hold.
+         *
+         * Currently only functions inside `Matter.Bodies` provide a utility using this property as a vertices pre-processing option.
+         *
+         * Alternatively consider using `Vertices.chamfer` directly on vertices before passing them to a body creation function.
+         */
+        chamfer?: IChamfer | null | undefined;
     }
 
     export interface IBodyRenderOptions {
@@ -458,7 +443,6 @@ declare namespace Matter {
 
         /**
          * An `Object` that defines the sprite properties to use when rendering, if any.
-         *
          */
         sprite?: IBodyRenderOptionsSprite | undefined;
 
@@ -488,8 +472,7 @@ declare namespace Matter {
 
     export interface IBodyRenderOptionsSprite {
         /**
-         * An `String` that defines the path to the image to use as the sprite texture, if any.
-         *
+         * A `String` that defines the path to the image to use as the sprite texture, if any.
          */
         texture: string;
 
@@ -509,13 +492,12 @@ declare namespace Matter {
     }
 
     /**
-    * The `Matter.Body` module contains methods for creating and manipulating body models.
-    * A `Matter.Body` is a rigid body that can be simulated by a `Matter.Engine`.
-    * Factories for commonly used body configurations (such as rectangles, circles and other polygons) can be found in the module `Matter.Bodies`.
-    *
-    * See the included usage [examples](https://github.com/liabru/matter-js/tree/master/examples).
-
-    */
+     * The `Matter.Body` module contains methods for creating and manipulating body models.
+     * A `Matter.Body` is a rigid body that can be simulated by a `Matter.Engine`.
+     * Factories for commonly used body configurations (such as rectangles, circles and other polygons) can be found in the module `Matter.Bodies`.
+     *
+     * See the included usage [examples](https://github.com/liabru/matter-js/tree/master/examples).
+     */
     export class Body {
         /**
          * Applies a force to a body from a given world-space position, including resulting torque.
@@ -601,7 +583,7 @@ declare namespace Matter {
          * @param {Body} body
          * @param {Vector[]} vertices
          */
-        static setVertices(body: Body, vertices: Array<Vector>): void;
+        static setVertices(body: Body, vertices: Vector[]): void;
         /**
          * Sets the parts of the `body` and updates mass, inertia and centroid.
          * Each part will have its parent set to `body`.
@@ -647,12 +629,64 @@ declare namespace Matter {
          */
         static setVelocity(body: Body, velocity: Vector): void;
         /**
+         * Gets the current linear velocity of the body.
+         * @method getVelocity
+         * @param {body} body
+         * @return {vector} velocity
+         */
+        static getVelocity(body: Body): Vector;
+        /**
          * Sets the angular velocity of the body instantly. Position, angle, force etc. are unchanged. See also `Body.applyForce`.
          * @method setAngularVelocity
          * @param {Body} body
          * @param {number} velocity
          */
         static setAngularVelocity(body: Body, velocity: number): void;
+        /**
+         * Gets the current rotational velocity of the body.
+         * @method getAngularVelocity
+         * @param {body} body
+         * @return {number} angular velocity
+         */
+        static getAngularVelocity(body: Body): number;
+        /**
+         * Sets the current rotational speed of the body.
+         * Direction is maintained. Affects body angular velocity.
+         * @method setAngularSpeed
+         * @param {body} body
+         * @param {number} speed
+         */
+        static setAngularSpeed(body: Body, speed: number): void;
+        /**
+         * Gets the current rotational speed of the body.
+         * Equivalent to the magnitude of its angular velocity.
+         * @method getAngularSpeed
+         * @param {body} body
+         * @return {number} angular speed
+         */
+        static getAngularSpeed(body: Body): number;
+        /**
+         * Updates properties `body.velocity`, `body.speed`, `body.angularVelocity` and `body.angularSpeed` which are normalised in relation to `Body._baseDelta`.
+         * @method updateVelocities
+         * @param {body} body
+         */
+        static updateVelocities(body: Body): void;
+        /**
+         * Gets the current linear speed of the body.
+         * Equivalent to the magnitude of its velocity.
+         * @method getSpeed
+         * @param {body} body
+         * @return {number} speed
+         */
+        static getSpeed(body: Body): number;
+        /**
+         * Sets the current linear speed of the body.
+         * Direction is maintained. Affects body velocity.
+         * @method setSpeed
+         * @param {body} body
+         * @param {number} speed
+         */
+        static setSpeed(body: Body, speed: number): void;
 
         /**
          * Sets the body as static, including isStatic flag and setting mass and inertia to Infinity.
@@ -721,13 +755,11 @@ declare namespace Matter {
          * An array of unique axis vectors (edge normals) used for collision detection.
          * These are automatically calculated from the given convex hull (`vertices` array) in `Body.create`.
          * They are constantly updated by `Body.update` during the simulation.
-         *
          */
-        axes: Array<Vector>;
+        axes: Vector[];
         /**
          * A `Bounds` object that defines the AABB region for the body.
          * It is automatically calculated from the given convex hull (`vertices` array) in `Body.create` and constantly updated by `Body.update` during simulation.
-         *
          */
         bounds: Bounds;
         /**
@@ -777,26 +809,22 @@ declare namespace Matter {
         frictionAir: number;
         /**
          * An integer `Number` uniquely identifying number generated in `Body.create` by `Common.nextId`.
-         *
          */
         id: number;
         /**
          * A `Number` that defines the moment of inertia (i.e. second moment of area) of the body.
          * It is automatically calculated from the given convex hull (`vertices` array) and density in `Body.create`.
          * If you modify this value, you must also modify the `body.inverseInertia` property (`1 / inertia`).
-         *
          */
         inertia: number;
         /**
          * A `Number` that defines the inverse moment of inertia of the body (`1 / inertia`).
          * If you modify this value, you must also modify the `body.inertia` property.
-         *
          */
         inverseInertia: number;
         /**
          * A `Number` that defines the inverse mass of the body (`1 / mass`).
          * If you modify this value, you must also modify the `body.mass` property.
-         *
          */
         inverseMass: number;
         /**
@@ -829,7 +857,6 @@ declare namespace Matter {
         /**
          * A `Number` that defines the mass of the body, although it may be more appropriate to specify the `density` property instead.
          * If you modify this value, you must also modify the `body.inverseMass` property (`1 / mass`).
-         *
          */
         mass: number;
         /**
@@ -848,7 +875,6 @@ declare namespace Matter {
         position: Vector;
         /**
          * An `Object` that defines the rendering properties to be consumed by the module `Matter.Render`.
-         *
          */
         render: IBodyRenderOptions;
         /**
@@ -920,9 +946,8 @@ declare namespace Matter {
          *
          * Other properties such as `inertia` and `bounds` are automatically calculated from the passed vertices (unless provided via `options`).
          * Concave hulls are not currently supported. The module `Matter.Vertices` contains useful methods for working with vertices.
-         *
          */
-        vertices: Array<Vector>;
+        vertices: Vector[];
         /**
          * An array of bodies that make up this body.
          * The first body in the array must always be a self reference to the current body instance.
@@ -930,19 +955,16 @@ declare namespace Matter {
          * Parts are allowed to overlap, have gaps or holes or even form concave bodies.
          * Parts themselves should never be added to a `World`, only the parent body should be.
          * Use `Body.setParts` when setting parts to ensure correct updates of all properties.
-         *
          */
-        parts: Array<Body>;
+        parts: Body[];
         /**
          * A self reference if the body is _not_ a part of another body.
          * Otherwise this is a reference to the body that this is a part of.
          * See `body.parts`.
-         *
          */
         parent: Body;
         /**
          * An object reserved for storing plugin-specific properties.
-         *
          */
         plugin: any;
         /**
@@ -975,14 +997,12 @@ declare namespace Matter {
          * Using the category/mask rules, two bodies `A` and `B` collide if each includes the other's
          * category in its mask, i.e. `(categoryA & maskB) !== 0` and `(categoryB & maskA) !== 0`
          * are both true.
-         *
          */
         collisionFilter: ICollisionFilter;
     }
 
     /**
      * The `Matter.Bounds` module contains methods for creating and manipulating axis-aligned bounding boxes (AABB).
-     *
      */
     export class Bounds {
         min: Vector;
@@ -1043,7 +1063,7 @@ declare namespace Matter {
          *
          * @default []
          */
-        bodies?: Array<Body> | undefined;
+        bodies?: Body[] | undefined;
 
         /**
          * An array of `Composite` that are _direct_ children of this composite.
@@ -1052,7 +1072,7 @@ declare namespace Matter {
          *
          * @default []
          */
-        composites?: Array<Composite> | undefined;
+        composites?: Composite[] | undefined;
 
         /**
          * An array of `Constraint` that are _direct_ children of this composite.
@@ -1061,11 +1081,10 @@ declare namespace Matter {
          *
          * @default []
          */
-        constraints?: Array<Constraint> | undefined;
+        constraints?: Constraint[] | undefined;
 
         /**
          * An integer `Number` uniquely identifying number generated in `Composite.create` by `Common.nextId`.
-         *
          */
         id?: number | undefined;
 
@@ -1107,7 +1126,6 @@ declare namespace Matter {
      * Note that the `Matter.World` object is also a type of `Matter.Composite` and as such all composite methods here can also operate on a `Matter.World`.
      *
      * See the included usage [examples](https://github.com/liabru/matter-js/tree/master/examples).
-     *
      */
     export class Composite {
         /**
@@ -1134,7 +1152,7 @@ declare namespace Matter {
          * @param {Composite} composite
          * @returns {Body[]} All the bodies
          */
-        static allBodies(composite: Composite): Array<Body>;
+        static allBodies(composite: Composite): Body[];
 
         /**
          * Returns all composites in the given composite, including all composites in its children, recursively.
@@ -1142,7 +1160,7 @@ declare namespace Matter {
          * @param {Composite} composite
          * @returns {Composite[]} All the composites
          */
-        static allComposites(composite: Composite): Array<Composite>;
+        static allComposites(composite: Composite): Composite[];
 
         /**
          * Returns all constraints in the given composite, including all constraints in its children, recursively.
@@ -1150,7 +1168,7 @@ declare namespace Matter {
          * @param {Composite} composite
          * @returns {Constraint[]} All the constraints
          */
-        static allConstraints(composite: Composite): Array<Constraint>;
+        static allConstraints(composite: Composite): Constraint[];
 
         /**
          * Removes all bodies, constraints and composites from the given composite.
@@ -1213,7 +1231,7 @@ declare namespace Matter {
          * @param {boolean} [deep=false]
          * @returns {Composite} The original composite with the objects removed
          */
-         static remove(
+        static remove(
             composite: Composite,
             object:
                 | Body
@@ -1255,7 +1273,6 @@ declare namespace Matter {
 
         /**
          * An integer `Number` uniquely identifying number generated in `Composite.create` by `Common.nextId`.
-         *
          */
         id: number;
 
@@ -1296,7 +1313,7 @@ declare namespace Matter {
          *
          * @default []
          */
-        bodies: Array<Body>;
+        bodies: Body[];
 
         /**
          * An array of `Constraint` that are _direct_ children of this composite.
@@ -1305,7 +1322,7 @@ declare namespace Matter {
          *
          * @default []
          */
-        constraints: Array<Constraint>;
+        constraints: Constraint[];
 
         /**
          * An array of `Composite` that are _direct_ children of this composite.
@@ -1314,11 +1331,10 @@ declare namespace Matter {
          *
          * @default []
          */
-        composites: Array<Composite>;
+        composites: Composite[];
 
         /**
          * An object reserved for storing plugin-specific properties.
-         *
          */
         plugin: Plugin;
     }
@@ -1328,7 +1344,6 @@ declare namespace Matter {
      * with commonly used configurations (such as stacks and chains).
      *
      * See the included usage [examples](https://github.com/liabru/matter-js/tree/master/examples).
-     *
      */
     export class Composites {
         /**
@@ -1483,7 +1498,6 @@ declare namespace Matter {
 
         /**
          * An integer `Number` uniquely identifying number generated in `Composite.create` by `Common.nextId`.
-         *
          */
         id?: number | undefined;
 
@@ -1497,7 +1511,6 @@ declare namespace Matter {
         /**
          * A `Number` that specifies the target resting length of the constraint.
          * It is calculated automatically in `Constraint.create` from initial positions of the `constraint.bodyA` and `constraint.bodyB`.
-         *
          */
         length?: number | undefined;
 
@@ -1517,7 +1530,6 @@ declare namespace Matter {
 
         /**
          * An `Object` that defines the rendering properties to be consumed by the module `Matter.Render`.
-         *
          */
         render?: IConstraintRenderDefinition | undefined;
 
@@ -1587,7 +1599,7 @@ declare namespace Matter {
          *
          * @default 'line'
          */
-        type?: 'line' | 'pin' | 'spring' | undefined;
+        type?: "line" | "pin" | "spring" | undefined;
     }
 
     /**
@@ -1596,7 +1608,6 @@ declare namespace Matter {
      * The stiffness of constraints can be modified to create springs or elastic.
      *
      * See the included usage [examples](https://github.com/liabru/matter-js/tree/master/examples).
-     *
      */
     export class Constraint {
         /**
@@ -1626,6 +1637,14 @@ declare namespace Matter {
         static pointBWorld(constraint: Constraint): Vector;
 
         /**
+         * Returns the current length of the constraint. This is the distance between both of the constraint's end points. See constraint.length for the target rest length.
+         * @method currentLength
+         * @param {constraint} constraint
+         * @returns {number} the current length
+         */
+        static currentLength(constraint: Constraint): number;
+
+        /**
          * The first possible `Body` that this constraint is attached to.
          *
          * @default null
@@ -1641,7 +1660,6 @@ declare namespace Matter {
 
         /**
          * An integer `Number` uniquely identifying number generated in `Composite.create` by `Common.nextId`.
-         *
          */
         id: number;
 
@@ -1655,7 +1673,6 @@ declare namespace Matter {
         /**
          * A `Number` that specifies the target resting length of the constraint.
          * It is calculated automatically in `Constraint.create` from initial positions of the `constraint.bodyA` and `constraint.bodyB`.
-         *
          */
         length: number;
 
@@ -1675,7 +1692,6 @@ declare namespace Matter {
 
         /**
          * An `Object` that defines the rendering properties to be consumed by the module `Matter.Render`.
-         *
          */
         render: IConstraintRenderDefinition;
 
@@ -1741,9 +1757,8 @@ declare namespace Matter {
 
         /**
          * An `Object` containing properties regarding the timing systems of the engine.
-         *
          */
-        timing?: IEngineTimingOptions;
+        timing?: Partial<IEngineTimingOptions>;
 
         /**
          * A `Matter.Detector` instance.
@@ -1769,13 +1784,11 @@ declare namespace Matter {
 
         /**
          * An object reserved for storing plugin-specific properties.
-         *
          */
         plugin?: {};
 
         /**
          * The gravity to apply on all bodies in `engine.world`.
-         *
          */
         gravity?: Partial<Gravity>;
     }
@@ -1823,7 +1836,6 @@ declare namespace Matter {
      * See `Matter.Runner` for an optional game loop utility.
      *
      * See the included usage [examples](https://github.com/liabru/matter-js/tree/master/examples).
-     *
      */
     export class Engine {
         /**
@@ -1859,7 +1871,7 @@ declare namespace Matter {
          * Therefore the value is always `1` (no correction) when `delta` constant (or when no correction is desired, which is the default).
          * See the paper on <a href="http://lonesock.net/article/verlet.html">Time Corrected Verlet</a> for more information.
          *
-         * Triggers `beforeUpdate` and `afterUpdate` events.
+         * Triggers `beforeUpdate`, `beforeSolve` and `afterUpdate` events.
          * Triggers `collisionStart`, `collisionActive` and `collisionEnd` events.
          * @method update
          * @param {engine} engine
@@ -1907,7 +1919,6 @@ declare namespace Matter {
 
         /**
          * The gravity to apply on all bodies in `engine.world`.
-         *
          */
         gravity: Gravity;
 
@@ -1937,7 +1948,6 @@ declare namespace Matter {
 
         /**
          * An `Object` containing properties regarding the timing systems of the engine.
-         *
          */
         timing: IEngineTimingOptions;
 
@@ -1972,7 +1982,7 @@ declare namespace Matter {
         world: World;
     }
 
-    export interface IGridDefinition { }
+    export interface IGridDefinition {}
 
     /**
      * This module has now been replaced by `Matter.Detector`.
@@ -2003,7 +2013,7 @@ declare namespace Matter {
          * @param {engine} engine
          * @param {boolean} forceUpdate
          */
-        static update(grid: Grid, bodies: Array<Body>, engine: Engine, forceUpdate: boolean): void;
+        static update(grid: Grid, bodies: Body[], engine: Engine, forceUpdate: boolean): void;
 
         /**
          * Clears the grid.
@@ -2029,7 +2039,6 @@ declare namespace Matter {
     export interface IMouseConstraintDefinition {
         /**
          * The `Constraint` object that is used to move the body during interaction.
-         *
          */
         constraint?: IConstraintDefinition | undefined;
 
@@ -2037,7 +2046,6 @@ declare namespace Matter {
          * An `Object` that specifies the collision filter properties.
          * The collision filter allows the user to define which types of body this mouse constraint can interact with.
          * See `body.collisionFilter` for more information.
-         *
          */
         collisionFilter?: ICollisionFilter | undefined;
 
@@ -2069,7 +2077,6 @@ declare namespace Matter {
      * Mouse constraints are used for allowing user interaction, providing the ability to move bodies via the mouse or touch.
      *
      * See the included usage [examples](https://github.com/liabru/matter-js/tree/master/examples).
-     *
      */
     export class MouseConstraint {
         /**
@@ -2085,7 +2092,6 @@ declare namespace Matter {
 
         /**
          * The `Constraint` object that is used to move the body during interaction.
-         *
          */
         constraint: Constraint;
 
@@ -2093,7 +2099,6 @@ declare namespace Matter {
          * An `Object` that specifies the collision filter properties.
          * The collision filter allows the user to define which types of body this mouse constraint can interact with.
          * See `body.collisionFilter` for more information.
-         *
          */
         collisionFilter: ICollisionFilter;
 
@@ -2122,7 +2127,6 @@ declare namespace Matter {
 
     /**
      * The `Matter.Pairs` module contains methods for creating and manipulating collision pair sets.
-     *
      */
     export class Pairs {
         /**
@@ -2148,7 +2152,7 @@ declare namespace Matter {
          * @param {Collision[]} collisions
          * @param {number} timestamp
          */
-        static update(pairs: Pairs, collisions: Array<Collision>, timestamp: number): void;
+        static update(pairs: Pairs, collisions: Collision[], timestamp: number): void;
     }
 
     export interface Vertex extends Vector {
@@ -2159,7 +2163,6 @@ declare namespace Matter {
 
     /**
      * The `Matter.Contact` module contains methods for creating and manipulating collision contacts.
-     *
      */
     export class Contact {
         /**
@@ -2177,7 +2180,6 @@ declare namespace Matter {
 
     /**
      * The `Matter.Pair` module contains methods for creating and manipulating collision pairs.
-     *
      */
     export class Pair {
         /**
@@ -2245,7 +2247,6 @@ declare namespace Matter {
      * The `Matter.Query` module contains methods for performing collision queries.
      *
      * See the included usage [examples](https://github.com/liabru/matter-js/tree/master/examples).
-     *
      */
     export class Query {
         /**
@@ -2255,7 +2256,7 @@ declare namespace Matter {
          * @param {Body[]} bodies
          * @returns {Collision[]} Collisions
          */
-        static collides(body: Body, bodies: Array<Body>): Array<Collision>;
+        static collides(body: Body, bodies: Body[]): Collision[];
 
         /**
          * Casts a ray segment against a set of bodies and returns all collisions, ray width is optional. Intersection points are not provided.
@@ -2266,7 +2267,7 @@ declare namespace Matter {
          * @param {number} [rayWidth]
          * @returns {Collision[]} Collisions
          */
-        static ray(bodies: Array<Body>, startPoint: Vector, endPoint: Vector, rayWidth?: number): Array<Collision>;
+        static ray(bodies: Body[], startPoint: Vector, endPoint: Vector, rayWidth?: number): Collision[];
 
         /**
          * Returns all bodies whose bounds are inside (or outside if set) the given set of bounds, from the given set of bodies.
@@ -2276,7 +2277,7 @@ declare namespace Matter {
          * @param {boolean} [outside=false]
          * @returns {Body[]} The bodies matching the query
          */
-        static region(bodies: Array<Body>, bounds: Bounds, outside?: boolean): Array<Body>;
+        static region(bodies: Body[], bounds: Bounds, outside?: boolean): Body[];
 
         /**
          * Returns all bodies whose vertices contain the given point, from the given set of bodies.
@@ -2285,18 +2286,16 @@ declare namespace Matter {
          * @param {Vector} point
          * @returns {Body[]} The bodies matching the query
          */
-        static point(bodies: Array<Body>, point: Vector): Array<Body>;
+        static point(bodies: Body[], point: Vector): Body[];
     }
 
     export interface IRenderDefinition {
         /**
          * A back-reference to the `Matter.Render` module.
-         *
          */
         controller?: any;
         /**
          * A reference to the `Matter.Engine` instance to be used.
-         *
          */
         engine: Engine;
         /**
@@ -2315,7 +2314,6 @@ declare namespace Matter {
 
         /**
          * The configuration options of the renderer.
-         *
          */
         options?: IRendererOptions | undefined;
 
@@ -2324,19 +2322,16 @@ declare namespace Matter {
          * Rendering will be automatically transformed and scaled to fit within the canvas size (`render.options.width` and `render.options.height`).
          * This allows for creating views that can pan or zoom around the scene.
          * You must also set `render.options.hasBounds` to `true` to enable bounded rendering.
-         *
          */
         bounds?: Bounds | undefined;
 
         /**
          * The 2d rendering context from the `render.canvas` element.
-         *
          */
         context?: CanvasRenderingContext2D | undefined;
 
         /**
          * The sprite texture cache.
-         *
          */
         textures?: any;
     }
@@ -2377,11 +2372,20 @@ declare namespace Matter {
         background?: string | undefined;
 
         /**
-         * Sets wireframe background if `render.options.wireframes` is enabled
+         * A CSS color string to use for background when `render.options.wireframes` is enabled.
+         * This may be also set to `'transparent'` or equivalent.
          *
          * default undefined
          */
         wireframeBackground?: string | undefined;
+
+        /**
+         * A CSS color string to use for stroke when `render.options.wireframes` is enabled.
+         * This may be also set to `'transparent'` or equivalent.
+         *
+         * default '#bbb'
+         */
+        wireframeStrokeStyle?: string | undefined;
 
         /**
          * Sets opacity of sleeping body if `render.options.showSleeping` is enabled
@@ -2431,6 +2435,7 @@ declare namespace Matter {
          * From left to right, the values shown are:
          * - average render frequency (e.g. 60 fps)
          * - exact engine delta time used for last update (e.g. 16.66ms)
+         * - average updates per frame (e.g. 1)
          * - average engine execution duration (e.g. 5.00ms)
          * - average render execution duration (e.g. 0.40ms)
          * - average effective play speed (e.g. '1.00x' is 'real-time')
@@ -2514,30 +2519,29 @@ declare namespace Matter {
     interface IRenderLookAtObject {
         bounds?: Bounds | undefined;
         position?:
-        | {
-            x: number;
-            y: number;
-        }
-        | undefined;
+            | {
+                x: number;
+                y: number;
+            }
+            | undefined;
         min?:
-        | {
-            x: number;
-            y: number;
-        }
-        | undefined;
+            | {
+                x: number;
+                y: number;
+            }
+            | undefined;
         max?:
-        | {
-            x: number;
-            y: number;
-        }
-        | undefined;
+            | {
+                x: number;
+                y: number;
+            }
+            | undefined;
     }
 
     /**
-     * The `Matter.Render` module is a simple HTML5 canvas based renderer for visualising instances of `Matter.Engine`.
+     * The `Matter.Render` module is a lightweight, optional utility which provides a simple canvas based renderer for visualising instances of `Matter.Engine`.
      * It is intended for development and debugging purposes, but may also be suitable for simple games.
      * It includes a number of drawing options including wireframe, vector with support for sprites and viewports.
-     *
      */
     export class Render {
         /**
@@ -2570,6 +2574,23 @@ declare namespace Matter {
          */
         static setPixelRatio(render: Render, pixelRatio: number): void;
         /**
+         * Sets the render `width` and `height`.
+         *
+         * Updates the canvas accounting for `render.options.pixelRatio`.
+         *
+         * Updates the bottom right render bound `render.bounds.max` relative to the provided `width` and `height`.
+         * The top left render bound `render.bounds.min` isn't changed.
+         *
+         * Follow this call with `Render.lookAt` if you need to change the render bounds.
+         *
+         * See also `Render.setPixelRatio`.
+         * @method setSize
+         * @param {render} render
+         * @param {number} width The width (in CSS pixels)
+         * @param {number} height The height (in CSS pixels)
+         */
+        static setSize(render: Render, width: number, height: number): void;
+        /**
          * Renders the given `engine`'s `Matter.World` object.
          * This is the entry point for all rendering and should be called every time the scene changes.
          * @method world
@@ -2593,7 +2614,6 @@ declare namespace Matter {
 
         /**
          * A back-reference to the `Matter.Render` module.
-         *
          */
         controller: any;
         /**
@@ -2611,7 +2631,6 @@ declare namespace Matter {
 
         /**
          * The configuration options of the renderer.
-         *
          */
         options: IRendererOptions;
 
@@ -2620,19 +2639,16 @@ declare namespace Matter {
          * Rendering will be automatically transformed and scaled to fit within the canvas size (`render.options.width` and `render.options.height`).
          * This allows for creating views that can pan or zoom around the scene.
          * You must also set `render.options.hasBounds` to `true` to enable bounded rendering.
-         *
          */
         bounds: Bounds;
 
         /**
          * The 2d rendering context from the `render.canvas` element.
-         *
          */
         context: CanvasRenderingContext2D;
 
         /**
          * The sprite texture cache.
-         *
          */
         textures: any;
 
@@ -2646,7 +2662,6 @@ declare namespace Matter {
 
     /**
      * The `Matter.Resolver` module contains methods for resolving collision pairs.
-     *
      */
     export class Resolver {
         /**
@@ -2654,21 +2669,21 @@ declare namespace Matter {
          * @method postSolvePosition
          * @param {Body[]} bodies
          */
-        static postSolvePosition(bodies: Array<Body>): void;
+        static postSolvePosition(bodies: Body[]): void;
 
         /**
          * Prepare pairs for position solving.
          * @method preSolvePosition
          * @param {Pair[]} pairs
          */
-        static preSolvePosition(pairs: Array<Pair>): void;
+        static preSolvePosition(pairs: Pair[]): void;
 
         /**
          * Prepare pairs for velocity solving.
          * @method preSolveVelocity
          * @param {Pair[]} pairs
          */
-        static preSolveVelocity(pairs: Array<Pair>): void;
+        static preSolveVelocity(pairs: Pair[]): void;
 
         /**
          * Find a solution for pair positions.
@@ -2676,7 +2691,7 @@ declare namespace Matter {
          * @param {Pair[]} pairs
          * @param {number} timeScale
          */
-        static solvePosition(pairs: Array<Pair>, timeScale: number): void;
+        static solvePosition(pairs: Pair[], timeScale: number): void;
 
         /**
          * Find a solution for pair velocities.
@@ -2684,23 +2699,28 @@ declare namespace Matter {
          * @param {Pair[]} pairs
          * @param {number} timeScale
          */
-        static solveVelocity(pairs: Array<Pair>, timeScale: number): void;
+        static solveVelocity(pairs: Pair[], timeScale: number): void;
     }
 
     export interface IRunnerOptions {
         /**
-         * A `Boolean` that specifies if the runner should use a fixed timestep (otherwise it is variable).
-         * If timing is fixed, then the apparent simulation speed will change depending on the frame rate (but behaviour will be deterministic).
-         * If the timing is variable, then the apparent simulation speed will be constant (approximately, but at the cost of determininism).
+         * The fixed timestep size used for `Engine.update` calls in milliseconds, known as `delta`.
          *
-         * @default false
-         */
-        isFixed?: boolean | undefined;
-
-        /**
-         * A `Number` that specifies the time step between updates in milliseconds.
-         * If `engine.timing.isFixed` is set to `true`, then `delta` is fixed.
-         * If it is `false`, then `delta` can dynamically change to maintain the correct apparent simulation speed.
+         * This value is recommended to be `1000 / 60` ms or smaller (i.e. equivalent to at least 60hz).
+         *
+         * Smaller `delta` values provide higher quality results at the cost of performance.
+         *
+         * You should usually avoid changing `delta` during running, otherwise quality may be affected.
+         *
+         * For smoother frame pacing choose a `delta` that is an even multiple of each display FPS you target, i.e. `1000 / (n * fps)` as this helps distribute an equal number of updates over each display frame.
+         *
+         * For example with a 60 Hz `delta` i.e. `1000 / 60` the runner will on average perform one update per frame on displays running 60 FPS and one update every two frames on displays running 120 FPS, etc.
+         *
+         * Where as e.g. using a 240 Hz `delta` i.e. `1000 / 240` the runner will on average perform four updates per frame on displays running 60 FPS and two updates per frame on displays running 120 FPS, etc.
+         *
+         * Therefore `Runner.run` will call multiple engine updates (or none) as needed to simulate the time elapsed between browser frames.
+         *
+         * In practice the number of updates in any particular frame may be restricted to respect the runner's performance budgets. These are specified by `runner.maxFrameTime` and `runner.maxUpdates`, see those properties for details.
          *
          * @default 1000 / 60
          */
@@ -2708,9 +2728,60 @@ declare namespace Matter {
 
         /**
          * A flag that specifies whether the runner is running or not.
+         *
          * @default true
          */
         enabled?: boolean | undefined;
+
+        /**
+         * The measured time elapsed between the last two browser frames in milliseconds.
+         * This is useful e.g. to estimate the current browser FPS using `1000 / runner.frameDelta`.
+         */
+        frameDelta?: number | undefined;
+
+        /**
+         * Enables averaging to smooth frame rate measurements and therefore stabilise play rate.
+         *
+         * @default true
+         */
+        frameDeltaSmoothing?: boolean | undefined;
+
+        /**
+         * Rounds measured browser frame delta to the nearest 1 Hz.
+         * This option can help smooth frame rate measurements and simplify handling hardware timing differences e.g. 59.94Hz and 60Hz displays.
+         * For best results you should also round your `runner.delta` equivalent to the nearest 1 Hz.
+         *
+         * @default true
+         */
+        frameDeltaSnapping?: boolean | undefined;
+
+        /**
+         * A performance budget that limits execution time allowed for this runner per browser frame in milliseconds.
+         *
+         * To calculate the effective browser FPS at which this throttle is applied use `1000 / runner.maxFrameTime`.
+         *
+         * This performance budget is intended to help maintain browser interactivity and help improve framerate recovery during temporary high CPU usage.
+         *
+         * This budget only covers the measured time elapsed executing the functions called in the scope of the runner tick, including `Engine.update` and its related user event callbacks.
+         *
+         * You may also reduce this budget to allow for any significant additional processing you perform on the same thread outside the scope of this runner tick, e.g. rendering time.
+         *
+         * See also `runner.maxUpdates`.
+         *
+         * @default 1000 / 30
+         */
+        maxFrameTime?: number | undefined;
+
+        /**
+         * An optional limit for maximum engine update count allowed per frame tick in addition to `runner.maxFrameTime`.
+         *
+         * Unless you set a value it is automatically chosen based on `runner.delta` and `runner.maxFrameTime`.
+         *
+         * See also `runner.maxFrameTime`.
+         *
+         *  @default null
+         */
+        maxUpdates?: number | null;
     }
 
     /**
@@ -2722,7 +2793,6 @@ declare namespace Matter {
      * Note that the method `Engine.run` is an alias for `Runner.run`.
      *
      * See the included usage [examples](https://github.com/liabru/matter-js/tree/master/examples).
-     *
      */
     export class Runner {
         /**
@@ -2770,6 +2840,29 @@ declare namespace Matter {
         static start(runner: Runner, engine: Engine): void;
 
         /**
+         * The fixed timestep size used for `Engine.update` calls in milliseconds, known as `delta`.
+         *
+         * This value is recommended to be `1000 / 60` ms or smaller (i.e. equivalent to at least 60hz).
+         *
+         * Smaller `delta` values provide higher quality results at the cost of performance.
+         *
+         * You should usually avoid changing `delta` during running, otherwise quality may be affected.
+         *
+         * For smoother frame pacing choose a `delta` that is an even multiple of each display FPS you target, i.e. `1000 / (n * fps)` as this helps distribute an equal number of updates over each display frame.
+         *
+         * For example with a 60 Hz `delta` i.e. `1000 / 60` the runner will on average perform one update per frame on displays running 60 FPS and one update every two frames on displays running 120 FPS, etc.
+         *
+         * Where as e.g. using a 240 Hz `delta` i.e. `1000 / 240` the runner will on average perform four updates per frame on displays running 60 FPS and two updates per frame on displays running 120 FPS, etc.
+         *
+         * Therefore `Runner.run` will call multiple engine updates (or none) as needed to simulate the time elapsed between browser frames.
+         *
+         * In practice the number of updates in any particular frame may be restricted to respect the runner's performance budgets. These are specified by `runner.maxFrameTime` and `runner.maxUpdates`, see those properties for details.
+         *
+         * @default 1000 / 60
+         */
+        delta: number;
+
+        /**
          * A flag that specifies whether the runner is running or not.
          *
          * @default true
@@ -2777,27 +2870,58 @@ declare namespace Matter {
         enabled: boolean;
 
         /**
-         * A `Boolean` that specifies if the runner should use a fixed timestep (otherwise it is variable).
-         * If timing is fixed, then the apparent simulation speed will change depending on the frame rate (but behaviour will be deterministic).
-         * If the timing is variable, then the apparent simulation speed will be constant (approximately, but at the cost of determininism).
-         *
-         * @default false
+         * The measured time elapsed between the last two browser frames in milliseconds.
+         * This is useful e.g. to estimate the current browser FPS using `1000 / runner.frameDelta`.
          */
-        isFixed: boolean;
+        frameDelta: number;
 
         /**
-         * A `Number` that specifies the time step between updates in milliseconds.
-         * If `engine.timing.isFixed` is set to `true`, then `delta` is fixed.
-         * If it is `false`, then `delta` can dynamically change to maintain the correct apparent simulation speed.
+         * Enables averaging to smooth frame rate measurements and therefore stabilise play rate.
          *
-         * @default 1000 / 60
+         * @default true
          */
-        delta: number;
+        frameDeltaSmoothing: boolean;
+
+        /**
+         * Rounds measured browser frame delta to the nearest 1 Hz.
+         * This option can help smooth frame rate measurements and simplify handling hardware timing differences e.g. 59.94Hz and 60Hz displays.
+         * For best results you should also round your `runner.delta` equivalent to the nearest 1 Hz.
+         *
+         * @default true
+         */
+        frameDeltaSnapping: boolean;
+
+        /**
+         * A performance budget that limits execution time allowed for this runner per browser frame in milliseconds.
+         *
+         * To calculate the effective browser FPS at which this throttle is applied use `1000 / runner.maxFrameTime`.
+         *
+         * This performance budget is intended to help maintain browser interactivity and help improve framerate recovery during temporary high CPU usage.
+         *
+         * This budget only covers the measured time elapsed executing the functions called in the scope of the runner tick, including `Engine.update` and its related user event callbacks.
+         *
+         * You may also reduce this budget to allow for any significant additional processing you perform on the same thread outside the scope of this runner tick, e.g. rendering time.
+         *
+         * See also `runner.maxUpdates`.
+         *
+         *  @default 1000 / 30
+         */
+        maxFrameTime: number;
+
+        /**
+         * An optional limit for maximum engine update count allowed per frame tick in addition to `runner.maxFrameTime`.
+         *
+         * Unless you set a value it is automatically chosen based on `runner.delta` and `runner.maxFrameTime`.
+         *
+         * See also `runner.maxFrameTime`.
+         *
+         * @default null
+         */
+        maxUpdates: number | null;
     }
 
     /**
      * The `Matter.Sleeping` module contains methods to manage the sleeping state of bodies.
-     *
      */
     export class Sleeping {
         static set(body: Body, isSleeping: boolean): void;
@@ -2807,7 +2931,6 @@ declare namespace Matter {
      * The `Matter.Svg` module contains methods for converting SVG images into an array of vector points.
      *
      * See the included usage [examples](https://github.com/liabru/matter-js/tree/master/examples).
-     *
      */
     export class Svg {
         /**
@@ -2820,7 +2943,7 @@ declare namespace Matter {
          * @param {Number} [sampleLength=15]
          * @returns {Vector[]} points
          */
-        static pathToVertices(path: SVGPathElement, sampleLength: number): Array<Vector>;
+        static pathToVertices(path: SVGPathElement, sampleLength: number): Vector[];
     }
 
     /**
@@ -2829,7 +2952,6 @@ declare namespace Matter {
      * A `Matter.Vector` object is of the form `{ x: 0, y: 0 }`.
      *
      * See the included usage [examples](https://github.com/liabru/matter-js/tree/master/examples).
-     *
      */
     export class Vector {
         x: number;
@@ -2995,7 +3117,6 @@ declare namespace Matter {
      * A `Matter.Body` maintains a set of vertices to represent the shape of the object (its convex hull).
      *
      * See the included usage [examples](https://github.com/liabru/matter-js/tree/master/examples).
-     *
      */
     export class Vertices {
         /**
@@ -3004,7 +3125,7 @@ declare namespace Matter {
          * @param {Vertices} vertices
          * @returns {Vector} The average point
          */
-        static mean(vertices: Array<Vector>): Vector;
+        static mean(vertices: Vector[]): Vector;
 
         /**
          * Sorts the input vertices into clockwise order in place.
@@ -3012,7 +3133,7 @@ declare namespace Matter {
          * @param {Vertices} vertices
          * @returns {Vertices} vertices
          */
-        static clockwiseSort(vertices: Array<Vector>): Array<Vector>;
+        static clockwiseSort(vertices: Vector[]): Vector[];
 
         /**
          * Returns true if the vertices form a convex shape (vertices must be in clockwise order).
@@ -3020,7 +3141,7 @@ declare namespace Matter {
          * @param {Vertices} vertices
          * @returns {boolean} `true` if the `vertices` are convex, `false` if not (or `null` if not computable).
          */
-        static isConvex(vertices: Array<Vector>): boolean;
+        static isConvex(vertices: Vector[]): boolean;
 
         /**
          * Returns the convex hull of the input vertices as a new array of points.
@@ -3028,7 +3149,7 @@ declare namespace Matter {
          * @param {Vertices} vertices
          * @returns {Array<Vertex>} vertices
          */
-        static hull(vertices: Array<Vertex>): Array<Vertex>;
+        static hull(vertices: Vertex[]): Vertex[];
 
         /**
          * Returns the area of the set of vertices.
@@ -3037,7 +3158,7 @@ declare namespace Matter {
          * @param {boolean} signed
          * @returns {number} The area
          */
-        static area(vertices: Array<Vector>, signed: boolean): number;
+        static area(vertices: Vector[], signed: boolean): number;
 
         /**
          * Returns the centre (centroid) of the set of vertices.
@@ -3045,7 +3166,7 @@ declare namespace Matter {
          * @param {Vertices} vertices
          * @returns {Vector} The centre point
          */
-        static centre(vertices: Array<Vector>): Vector;
+        static centre(vertices: Vector[]): Vector;
 
         /**
          * Chamfers a set of vertices by giving them rounded corners, returns a new set of vertices.
@@ -3059,12 +3180,12 @@ declare namespace Matter {
          * @returns {Vertices} vertices
          */
         static chamfer(
-            vertices: Array<Vector>,
-            radius: number | Array<number>,
+            vertices: Vector[],
+            radius: number | number[],
             quality: number,
             qualityMin: number,
             qualityMax: number,
-        ): Array<Vector>;
+        ): Vector[];
 
         /**
          * Returns `true` if the `point` is inside the set of `vertices`.
@@ -3073,7 +3194,7 @@ declare namespace Matter {
          * @param {Vector} point
          * @returns {boolean} True if the vertices contains point, otherwise false
          */
-        static contains(vertices: Array<Vector>, point: Vector): boolean;
+        static contains(vertices: Vector[], point: Vector): boolean;
 
         /**
          * Creates a new set of `Matter.Body` compatible vertices.
@@ -3091,7 +3212,7 @@ declare namespace Matter {
          * @param {Body} body
          * @returns {Vertices} vertices
          */
-        static create(points: Array<Vector>, body: Body): Array<Vector>;
+        static create(points: Vector[], body: Body): Vector[];
 
         /**
          * Parses a string containing ordered x y pairs separated by spaces (and optionally commas),
@@ -3102,7 +3223,7 @@ declare namespace Matter {
          * @param {Body} body
          * @returns {Vertices} vertices
          */
-        static fromPath(path: string, body: Body): Array<Vector>;
+        static fromPath(path: string, body: Body): Vector[];
 
         /**
          * Returns the moment of inertia (second moment of area) of the set of vertices given the total mass.
@@ -3111,7 +3232,7 @@ declare namespace Matter {
          * @param {number} mass
          * @returns {number} The polygon's moment of inertia
          */
-        static inertia(vertices: Array<Vector>, mass: number): number;
+        static inertia(vertices: Vector[], mass: number): number;
 
         /**
          * Rotates the set of vertices in-place.
@@ -3121,7 +3242,7 @@ declare namespace Matter {
          * @param {Vector} point
          * @returns {Vertices} vertices
          */
-        static rotate(vertices: Array<Vector>, angle: number, point: Vector): Array<Vector>;
+        static rotate(vertices: Vector[], angle: number, point: Vector): Vector[];
 
         /**
          * Scales the vertices from a point (default is centre) in-place.
@@ -3132,7 +3253,7 @@ declare namespace Matter {
          * @param {Vector} point
          * @returns {Vertices} vertices
          */
-        static scale(vertices: Array<Vector>, scaleX: number, scaleY: number, point: Vector): Array<Vector>;
+        static scale(vertices: Vector[], scaleX: number, scaleY: number, point: Vector): Vector[];
 
         /**
          * Translates the set of vertices in-place.
@@ -3142,7 +3263,7 @@ declare namespace Matter {
          * @param {number} scalar
          * @returns {Vertices} vertices
          */
-        static translate(vertices: Array<Vector>, vector: Vector, scalar: number): Array<Vector>;
+        static translate(vertices: Vector[], vector: Vector, scalar: number): Vector[];
     }
 
     interface IWorldDefinition extends ICompositeDefinition {
@@ -3181,7 +3302,6 @@ declare namespace Matter {
      * There are also a few methods here that alias those in `Matter.Composite` for easier readability.
      *
      * See the included usage [examples](https://github.com/liabru/matter-js/tree/master/examples).
-     *
      */
     export class World extends Composite {
         /**
@@ -3306,7 +3426,7 @@ declare namespace Matter {
          * @param {any} obj
          * @returns {string[]} keys
          */
-        static keys(obj: any): Array<string>;
+        static keys(obj: any): string[];
 
         /**
          * Returns the list of values for the given object.
@@ -3314,7 +3434,7 @@ declare namespace Matter {
          * @param {any} obj
          * @returns {array} Array of the objects property values
          */
-        static values(obj: any): Array<any>;
+        static values(obj: any): any[];
 
         /**
          * Gets a value from `base` relative to the `path` string.
@@ -3346,7 +3466,7 @@ declare namespace Matter {
          * @param {array} array
          * @returns {array} array shuffled randomly
          */
-        static shuffle(array: Array<any>): Array<any>;
+        static shuffle<T>(array: T[]): T[];
 
         /**
          * Randomly chooses a value from a list with equal probability.
@@ -3355,7 +3475,7 @@ declare namespace Matter {
          * @param {array} choices
          * @returns {any} A random choice object from the array
          */
-        static choose(choices: Array<any>): any;
+        static choose<T>(choices: readonly T[]): T;
 
         /**
          * Returns true if the object is a HTMLElement, otherwise false.
@@ -3363,7 +3483,7 @@ declare namespace Matter {
          * @param {any} obj
          * @returns {boolean} True if the object is a HTMLElement, otherwise false
          */
-        static isElement(obj: any): boolean;
+        static isElement<T>(obj: T): T extends HTMLElement ? true : false;
 
         /**
          * Returns true if the object is an array.
@@ -3371,7 +3491,7 @@ declare namespace Matter {
          * @param {any} obj
          * @returns {boolean} True if the object is an array, otherwise false
          */
-        static isArray(obj: any): boolean;
+        static isArray<T>(obj: T): T extends any[] ? true : false;
 
         /**
          * Returns true if the object is a function.
@@ -3379,7 +3499,7 @@ declare namespace Matter {
          * @param {any} obj
          * @returns {boolean} True if the object is a function, otherwise false
          */
-        static isFunction(obj: any): boolean;
+        static isFunction<T>(obj: T): T extends Function ? true : false;
 
         /**
          * Returns true if the object is a plain object.
@@ -3395,7 +3515,7 @@ declare namespace Matter {
          * @param {any} obj
          * @returns {boolean} True if the object is a string, otherwise false
          */
-        static isString(obj: any): boolean;
+        static isString<T>(obj: T): T extends string ? true : false;
 
         /**
          * Returns the given value clamped between a minimum and maximum value.
@@ -3447,7 +3567,7 @@ declare namespace Matter {
          * @method log
          * @param ...objs {} The objects to log.
          */
-        static log(): any;
+        static log(...objs: any[]): void;
 
         /**
          * Shows a `console.info` message only if the current `Common.logLevel` allows it.
@@ -3455,7 +3575,7 @@ declare namespace Matter {
          * @method info
          * @param ...objs {} The objects to log.
          */
-        static info(): any;
+        static info(...objs: any[]): void;
 
         /**
          * Shows a `console.warn` message only if the current `Common.logLevel` allows it.
@@ -3463,7 +3583,7 @@ declare namespace Matter {
          * @method warn
          * @param ...objs {} The objects to log.
          */
-        static warn(): any;
+        static warn(...objs: any[]): void;
 
         /**
          * Returns the next unique sequential ID.
@@ -3479,7 +3599,7 @@ declare namespace Matter {
          * @param {any} needle
          * @returns {number} The position of needle in haystack, otherwise -1.
          */
-        static indexOf(haystack: Array<any>, needle: any): number;
+        static indexOf<T>(haystack: T[], needle: T): number;
 
         /**
          * A cross browser compatible array map implementation.
@@ -3488,7 +3608,7 @@ declare namespace Matter {
          * @param {function} func
          * @returns {array} Values from list transformed by func.
          */
-        static map(list: Array<any>, funct: Function): Array<any>;
+        static map<T, U>(list: T[], func: (element: T) => U): U[];
 
         /**
          * Takes a directed graph and returns the partially ordered set of vertices in topological order.
@@ -3497,7 +3617,7 @@ declare namespace Matter {
          * @param {any} graph
          * @returns {array} Partially ordered set of vertices in topological order.
          */
-        static topologicalSort(graph: any): Array<any>;
+        static topologicalSort(graph: any): any[];
 
         /**
          * Takes _n_ functions as arguments and returns a new function that calls them in order.
@@ -3550,7 +3670,7 @@ declare namespace Matter {
          * @method warnOnce
          * @param ...objs {} The objects to log.
          */
-        static warnOnce(...objs: Record<string, any>[]): void;
+        static warnOnce(...objs: any[]): void;
 
         /**
          * Shows a deprecated console warning when the function on the given object is called.
@@ -3561,7 +3681,7 @@ declare namespace Matter {
          * @param {string} name The property name of the function on obj
          * @param {string} warning The one-time message to show if the function is called
          */
-        static deprecated(obj: Record<string, any>, prop: string, warning: string): void;
+        static deprecated<T>(obj: T, name: keyof T, warning: string): void;
 
         /**
          * Provide the [poly-decomp](https://github.com/schteppe/poly-decomp.js) library module to enable
@@ -3592,6 +3712,7 @@ declare namespace Matter {
     }
 
     export interface IEventComposite<T> extends IEvent<T> {
+        name: "beforeAdd" | "afterAdd" | "beforeRemove" | "afterRemove";
         /**
          * EventObjects (may be a single body, constraint, composite or a mixed array of these)
          */
@@ -3606,15 +3727,31 @@ declare namespace Matter {
     }
 
     export interface IEventCollision<T> extends IEventTimestamped<T> {
+        name: "collisionStart" | "collisionActive" | "collisionEnd";
         /**
          * The collision pair
          */
-        pairs: Array<Pair>;
+        pairs: Pair[];
     }
 
     export interface IMouseEvent<T> extends IEvent<T> {
-        name: 'mousedown' | 'mousemove' | 'mouseup';
+        mouse: Mouse;
+        name: "mousedown" | "mousemove" | "mouseup";
     }
+
+    type ICallback<T> = (e: IEvent<T>) => void;
+
+    type ICollisionCallback = (e: IEventCollision<Engine>) => void;
+
+    type ICompositeCallback = (e: IEventComposite<Composite>) => void;
+
+    type IEngineCallback = (e: IEventTimestamped<Engine>) => void;
+
+    type IMouseCallback = (e: IMouseEvent<MouseConstraint>) => void;
+
+    type IRenderCallback = (e: IEventTimestamped<Render>) => void;
+
+    type IRunnerCallback = (e: IEventTimestamped<Runner>) => void;
 
     export class Events {
         /**
@@ -3626,7 +3763,8 @@ declare namespace Matter {
          * @param {} event.source The source object of the event
          * @param {} event.name The name of the event
          */
-        static on(obj: Body, name: 'sleepStart', callback: (e: IEvent<Body>) => void): void;
+        static on<C extends ICallback<Body>>(obj: Body, name: "sleepStart", callback: C): C;
+
         /**
          * Fired when a body ends sleeping (where `this` is the body).
          *
@@ -3636,7 +3774,7 @@ declare namespace Matter {
          * @param {} event.source The source object of the event
          * @param {} event.name The name of the event
          */
-        static on(obj: Body, name: 'sleepEnd', callback: (e: IEvent<Body>) => void): void;
+        static on<C extends ICallback<Body>>(obj: Body, name: "sleepEnd", callback: C): C;
 
         /**
          * Fired when a call to `Composite.add` is made, before objects have been added.
@@ -3647,7 +3785,7 @@ declare namespace Matter {
          * @param {} event.source The source object of the event
          * @param {} event.name The name of the event
          */
-        static on(obj: Engine, name: 'beforeAdd', callback: (e: IEventComposite<Composite>) => void): void;
+        static on<C extends ICompositeCallback>(obj: Composite, name: "beforeAdd", callback: C): C;
 
         /**
          * Fired when a call to `Composite.add` is made, after objects have been added.
@@ -3658,7 +3796,7 @@ declare namespace Matter {
          * @param {} event.source The source object of the event
          * @param {} event.name The name of the event
          */
-        static on(obj: Engine, name: 'afterAdd', callback: (e: IEventComposite<Composite>) => void): void;
+        static on<C extends ICompositeCallback>(obj: Composite, name: "afterAdd", callback: C): C;
 
         /**
          * Fired when a call to `Composite.remove` is made, before objects have been removed.
@@ -3669,7 +3807,7 @@ declare namespace Matter {
          * @param {} event.source The source object of the event
          * @param {} event.name The name of the event
          */
-        static on(obj: Engine, name: 'beforeRemove', callback: (e: IEventComposite<Composite>) => void): void;
+        static on<C extends ICompositeCallback>(obj: Composite, name: "beforeRemove", callback: C): C;
 
         /**
          * Fired when a call to `Composite.remove` is made, after objects have been removed.
@@ -3680,7 +3818,7 @@ declare namespace Matter {
          * @param {} event.source The source object of the event
          * @param {} event.name The name of the event
          */
-        static on(obj: Engine, name: 'afterRemove', callback: (e: IEventComposite<Composite>) => void): void;
+        static on<C extends ICompositeCallback>(obj: Composite, name: "afterRemove", callback: C): C;
 
         /**
          * Fired after engine update and all collision events
@@ -3688,10 +3826,11 @@ declare namespace Matter {
          * @event afterUpdate
          * @param {} event An event object
          * @param {number} event.timestamp The engine.timing.timestamp of the event
+         * @param {number} event.delta The delta time in milliseconds value used in the update
          * @param {} event.source The source object of the event
          * @param {} event.name The name of the event
          */
-        static on(obj: Engine, name: 'afterUpdate', callback: (e: IEventTimestamped<Engine>) => void): void;
+        static on<C extends IEngineCallback>(obj: Engine, name: "afterUpdate", callback: C): C;
 
         /**
          * Fired before rendering
@@ -3702,7 +3841,7 @@ declare namespace Matter {
          * @param {} event.source The source object of the event
          * @param {} event.name The name of the event
          */
-        static on(obj: Engine, name: 'beforeRender', callback: (e: IEventTimestamped<Render>) => void): void;
+        static on<C extends IRenderCallback>(obj: Render, name: "beforeRender", callback: C): C;
         /**
          * Fired after rendering
          *
@@ -3712,7 +3851,7 @@ declare namespace Matter {
          * @param {} event.source The source object of the event
          * @param {} event.name The name of the event
          */
-        static on(obj: Engine, name: 'afterRender', callback: (e: IEventTimestamped<Render>) => void): void;
+        static on<C extends IRenderCallback>(obj: Render, name: "afterRender", callback: C): C;
 
         /**
          * Fired just before an update
@@ -3723,7 +3862,19 @@ declare namespace Matter {
          * @param {} event.source The source object of the event
          * @param {} event.name The name of the event
          */
-        static on(obj: Engine, name: 'beforeUpdate', callback: (e: IEventTimestamped<Engine>) => void): void;
+        static on<C extends IEngineCallback>(obj: Engine, name: "beforeUpdate", callback: C): C;
+
+        /**
+         * Fired after bodies updated based on their velocity and forces, but before any collision detection, constraints and resolving etc.
+         *
+         * @event beforeSolve
+         * @param {} event An event object
+         * @param {number} event.timestamp The engine.timing.timestamp of the event
+         * @param {number} event.delta The delta time in milliseconds value used in the update
+         * @param {} event.source The source object of the event
+         * @param {} event.name The name of the event
+         */
+        static on<C extends IEngineCallback>(obj: Engine, name: "beforeSolve", callback: C): C;
 
         /**
          * Fired after engine update, provides a list of all pairs that are colliding in the current tick (if any)
@@ -3732,10 +3883,11 @@ declare namespace Matter {
          * @param {} event An event object
          * @param {} event.pairs List of affected pairs
          * @param {number} event.timestamp The engine.timing.timestamp of the event
+         * @param {number} event.delta The delta time in milliseconds value used in the update
          * @param {} event.source The source object of the event
          * @param {} event.name The name of the event
          */
-        static on(obj: Engine, name: 'collisionActive', callback: (e: IEventCollision<Engine>) => void): void;
+        static on<C extends ICollisionCallback>(obj: Engine, name: "collisionActive", callback: C): C;
 
         /**
          * Fired after engine update, provides a list of all pairs that have ended collision in the current tick (if any)
@@ -3744,10 +3896,11 @@ declare namespace Matter {
          * @param {} event An event object
          * @param {} event.pairs List of affected pairs
          * @param {number} event.timestamp The engine.timing.timestamp of the event
+         * @param {number} event.delta The delta time in milliseconds value used in the update
          * @param {} event.source The source object of the event
          * @param {} event.name The name of the event
          */
-        static on(obj: Engine, name: 'collisionEnd', callback: (e: IEventCollision<Engine>) => void): void;
+        static on<C extends ICollisionCallback>(obj: Engine, name: "collisionEnd", callback: C): C;
 
         /**
          * Fired after engine update, provides a list of all pairs that have started to collide in the current tick (if any)
@@ -3756,10 +3909,11 @@ declare namespace Matter {
          * @param {} event An event object
          * @param {} event.pairs List of affected pairs
          * @param {number} event.timestamp The engine.timing.timestamp of the event
+         * @param {number} event.delta The delta time in milliseconds value used in the update
          * @param {} event.source The source object of the event
          * @param {} event.name The name of the event
          */
-        static on(obj: Engine, name: 'collisionStart', callback: (e: IEventCollision<Engine>) => void): void;
+        static on<C extends ICollisionCallback>(obj: Engine, name: "collisionStart", callback: C): C;
 
         /**
          * Fired at the start of a tick, before any updates to the engine or timing
@@ -3770,7 +3924,7 @@ declare namespace Matter {
          * @param {} event.source The source object of the event
          * @param {} event.name The name of the event
          */
-        static on(obj: Engine, name: 'beforeTick', callback: (e: IEventTimestamped<Runner>) => void): void;
+        static on<C extends IRunnerCallback>(obj: Runner, name: "beforeTick", callback: C): C;
 
         /**
          * Fired after engine timing updated, but just before update
@@ -3781,7 +3935,7 @@ declare namespace Matter {
          * @param {} event.source The source object of the event
          * @param {} event.name The name of the event
          */
-        static on(obj: Engine, name: 'tick', callback: (e: IEventTimestamped<Runner>) => void): void;
+        static on<C extends IRunnerCallback>(obj: Runner, name: "tick", callback: C): C;
 
         /**
          * Fired at the end of a tick, after engine update and after rendering
@@ -3792,7 +3946,7 @@ declare namespace Matter {
          * @param {} event.source The source object of the event
          * @param {} event.name The name of the event
          */
-        static on(obj: Engine, name: 'afterTick', callback: (e: IEventTimestamped<Runner>) => void): void;
+        static on<C extends IRunnerCallback>(obj: Runner, name: "afterTick", callback: C): C;
 
         /**
          * Fired before rendering
@@ -3803,7 +3957,7 @@ declare namespace Matter {
          * @param {} event.source The source object of the event
          * @param {} event.name The name of the event
          */
-        static on(obj: Engine, name: 'beforeRender', callback: (e: IEventTimestamped<Runner>) => void): void;
+        static on<C extends IRenderCallback>(obj: Render, name: "beforeRender", callback: C): C;
 
         /**
          * Fired after rendering
@@ -3814,7 +3968,7 @@ declare namespace Matter {
          * @param {} event.source The source object of the event
          * @param {} event.name The name of the event
          */
-        static on(obj: Engine, name: 'afterRender', callback: (e: IEventTimestamped<Runner>) => void): void;
+        static on<C extends IRenderCallback>(obj: Render, name: "afterRender", callback: C): C;
 
         /**
          * Fired when the mouse is down (or a touch has started) during the last step
@@ -3822,7 +3976,7 @@ declare namespace Matter {
          * @param name
          * @param callback
          */
-        static on(obj: MouseConstraint, name: 'mousedown', callback: (e: IMouseEvent<MouseConstraint>) => void): void;
+        static on<C extends IMouseCallback>(obj: MouseConstraint, name: "mousedown", callback: C): C;
 
         /**
          * Fired when the mouse has moved (or a touch moves) during the last step
@@ -3830,7 +3984,7 @@ declare namespace Matter {
          * @param name
          * @param callback
          */
-        static on(obj: MouseConstraint, name: 'mousemove', callback: (e: IMouseEvent<MouseConstraint>) => void): void;
+        static on<C extends IMouseCallback>(obj: MouseConstraint, name: "mousemove", callback: C): C;
 
         /**
          * Fired when the mouse is up (or a touch has ended) during the last step
@@ -3838,9 +3992,9 @@ declare namespace Matter {
          * @param name
          * @param callback
          */
-        static on(obj: MouseConstraint, name: 'mouseup', callback: (e: IMouseEvent<MouseConstraint>) => void): void;
+        static on<C extends IMouseCallback>(obj: MouseConstraint, name: "mouseup", callback: C): C;
 
-        static on(obj: any, name: string, callback: (e: any) => void): void;
+        static on<T, C extends (e: IEvent<T>) => void>(obj: T, name: string, callback: C): C;
 
         /**
          * Removes the given event callback. If no callback, clears all callbacks in eventNames. If no eventNames, clears all events.
@@ -3849,7 +4003,7 @@ declare namespace Matter {
          * @param eventName
          * @param callback
          */
-        static off(obj: any, eventName: string, callback: (e: any) => void): void;
+        static off(obj: any, eventName: string, callback?: (e: any) => void): void;
 
         /**
          * Fires all the callbacks subscribed to the given object's eventName, in the order they subscribed, if any.
@@ -3915,7 +4069,7 @@ declare namespace Matter {
          * @param {} module The module.
          * @returns {boolean} `true` if `plugin.for` is applicable to `module`, otherwise `false`.
          */
-        static isFor(plugin: Plugin, module: { name?: string | undefined;[_: string]: any }): boolean;
+        static isFor(plugin: Plugin, module: { name?: string | undefined; [_: string]: any }): boolean;
 
         /**
          * Installs the plugins by calling `plugin.install` on each plugin specified in `plugins` if passed, otherwise `module.uses`.
@@ -3934,8 +4088,8 @@ declare namespace Matter {
          * @param [plugins=module.uses] {} The plugins to install on module (optional, defaults to `module.uses`).
          */
         static use(
-            module: { uses?: (Plugin | string)[] | undefined;[_: string]: any },
-            plugins: (Plugin | string)[],
+            module: { uses?: Array<Plugin | string> | undefined; [_: string]: any },
+            plugins: Array<Plugin | string>,
         ): void;
 
         /**
@@ -4021,7 +4175,7 @@ declare namespace Matter {
          * @param {pairs} [Pairs] Optionally reuse collision records from existing pairs.
          * @returns {collision|null} A collision record if detected, otherwise null
          */
-        static collides(bodyA: Body, bodyB: Body, pairs: Pairs): Collision | null;
+        static collides(bodyA: Body, bodyB: Body, pairs?: Pairs): Collision | null;
 
         /**
          * A reference to the pair using this collision record, if there is one.
@@ -4039,25 +4193,21 @@ declare namespace Matter {
 
         /**
          * The first body part represented by the collision (see also `collision.parentA`).
-         *
          */
         bodyA: Body;
 
         /**
          * The second body part represented by the collision (see also `collision.parentB`).
-         *
          */
         bodyB: Body;
 
         /**
          * The first body represented by the collision (i.e. `collision.bodyA.parent`).
-         *
          */
         parentA: Body;
 
         /**
          * The second body represented by the collision (i.e. `collision.bodyB.parent`).
-         *
          */
         parentB: Body;
 
@@ -4096,7 +4246,7 @@ declare namespace Matter {
          *
          * @default []
          */
-        supports: Array<Vector>;
+        supports: Vector[];
     }
 
     interface IDetectorOptions {
@@ -4106,7 +4256,7 @@ declare namespace Matter {
          * _Note:_ The order of bodies in this array _is not fixed_ and will be continually managed by the detector.
          * @default []
          */
-        bodies?: Array<Body>;
+        bodies?: Body[];
 
         /**
          * Optional. A `Matter.Pairs` object from which previous collision objects may be reused. Intended for internal `Matter.Engine` usage.
@@ -4154,7 +4304,7 @@ declare namespace Matter {
          * @param {Detector} detector
          * @returns {Collision[]} collisions
          */
-        static collisions(detector: Detector): Array<Collision>;
+        static collisions(detector: Detector): Collision[];
 
         /**
          * Sets the list of bodies in the detector.
@@ -4170,7 +4320,7 @@ declare namespace Matter {
          * _Note:_ The order of bodies in this array _is not fixed_ and will be continually managed by the detector.
          * @default []
          */
-        bodies: Array<Body>;
+        bodies: Body[];
 
         /**
          * Optional. A `Matter.Pairs` object from which previous collision objects may be reused. Intended for internal `Matter.Engine` usage.

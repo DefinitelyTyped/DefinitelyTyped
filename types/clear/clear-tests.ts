@@ -1,4 +1,4 @@
-import clear = require('clear');
+import clear = require("clear");
 
 clear();
 

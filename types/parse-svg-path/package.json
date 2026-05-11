@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/parse-svg-path",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/jkroso/parse-svg-path"
+    ],
+    "devDependencies": {
+        "@types/parse-svg-path": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "gaspard",
+            "githubUsername": "gasp"
+        }
+    ]
+}

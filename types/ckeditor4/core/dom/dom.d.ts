@@ -4,12 +4,12 @@ declare namespace CKEDITOR {
     }
 
     interface domStatic {
-        comment: { new (comment: string | Node, ownerDocument?: dom.document): dom.comment };
-        document: { new (domDocument: Document): dom.document };
-        documentFragment: { new <T extends Event | EventTarget = Node>(nodeOrDoc: T): dom.documentFragment<T> };
-        domObject: { new <T extends Event | EventTarget = Node>(nativeDomObject: T): dom.domObject<T> };
+        comment: { new(comment: string | Node, ownerDocument?: dom.document): dom.comment };
+        document: { new(domDocument: Document): dom.document };
+        documentFragment: { new<T extends Event | EventTarget = Node>(nodeOrDoc: T): dom.documentFragment<T> };
+        domObject: { new<T extends Event | EventTarget = Node>(nativeDomObject: T): dom.domObject<T> };
         element: {
-            new (element: string | HTMLElement, ownerDocument?: dom.document): dom.element;
+            new(element: string | HTMLElement, ownerDocument?: dom.document): dom.element;
             // static method
             clearAllMarkers(database: unknown): unknown;
 
@@ -21,22 +21,22 @@ declare namespace CKEDITOR {
 
             setMarker(database: unknown, element: dom.element, name: string, value: unknown): dom.element;
         };
-        elementPath: { new (startNode: dom.element, root?: dom.element): dom.elementPath };
+        elementPath: { new(startNode: dom.element, root?: dom.element): dom.elementPath };
         event: {
-            new (domEvent: Event | EventTarget): dom.event<Event | EventTarget, dom.node<Event | EventTarget>>;
+            new(domEvent: Event | EventTarget): dom.event<Event | EventTarget, dom.node<Event | EventTarget>>;
         };
-        iterator: { new (range: dom.range): dom.iterator };
-        node: { new (domNode: Event | EventTarget): dom.node<Event | EventTarget> };
-        nodeList: { new (nativeList: NodeList): dom.nodeList<Event | EventTarget> };
+        iterator: { new(range: dom.range): dom.iterator };
+        node: { new(domNode: Event | EventTarget): dom.node<Event | EventTarget> };
+        nodeList: { new(nativeList: NodeList): dom.nodeList<Event | EventTarget> };
         range: {
-            new (root: dom.element | dom.document): dom.range;
+            new(root: dom.element | dom.document): dom.range;
             mergeRanges(ranges: dom.range[]): dom.range[];
         };
-        rangeList: { new (ranges?: dom.range | dom.range[]): dom.rangeList };
-        selection: { new (target: dom.document | dom.element | dom.selection): dom.selection };
-        text: { new (text: Text | string, ownerDocument?: dom.document): dom.text };
+        rangeList: { new(ranges?: dom.range | dom.range[]): dom.rangeList };
+        selection: { new(target: dom.document | dom.element | dom.selection): dom.selection };
+        text: { new(text: Text | string, ownerDocument?: dom.document): dom.text };
         walker: {
-            new (range: dom.range): dom.walker;
+            new(range: dom.range): dom.walker;
             validEmptyBlockContainers: { [key: string]: unknown };
             blockBoundary(customNodeNames: unknown): (node: dom.node) => boolean;
 
@@ -60,7 +60,7 @@ declare namespace CKEDITOR {
 
             whitespaces(isReject?: boolean): (node: dom.node) => boolean;
         };
-        window: { new (domWindow: Window): dom.window };
+        window: { new(domWindow: Window): dom.window };
     }
 
     namespace dom {
@@ -349,7 +349,7 @@ declare namespace CKEDITOR {
                 fromTop?: boolean,
             ): element;
 
-            direction(): 'ltr' | 'rtl';
+            direction(): "ltr" | "rtl";
 
             isContextFor(tag: string): boolean;
         }
@@ -374,9 +374,13 @@ declare namespace CKEDITOR {
 
             on(
                 eventName: string,
-                listenerFunction: (eventInfo: eventInfo<domObject<Event | EventTarget>
-                    | event<Event | EventTarget>
-                    | eventData>) => void,
+                listenerFunction: (
+                    eventInfo: eventInfo<
+                        | domObject<Event | EventTarget>
+                        | event<Event | EventTarget>
+                        | eventData
+                    >,
+                ) => void,
                 scopeObj?: unknown,
                 listenerData?: unknown,
                 priority?: number,

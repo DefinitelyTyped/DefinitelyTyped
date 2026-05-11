@@ -1,14 +1,10 @@
-// Type definitions for ola 1.2
-// Project: https://www.npmjs.com/package/ola
-// Definitions by: Adrien Gautier <https://github.com/adrgautier>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 type MultiValue<V extends Record<string, number>> = V & {
     get: (name: keyof V, now?: Date) => number;
     set: (values: V, time?: number) => void;
 };
 
 interface SingleValue {
-    get: (name?: 'value', now?: Date) => number;
+    get: (name?: "value", now?: Date) => number;
     set: (values: number | { value: number }, time?: number) => void;
     value: number;
 }

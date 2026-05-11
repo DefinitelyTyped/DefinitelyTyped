@@ -20,8 +20,4 @@ declare function hexDigest(
     key: string | Uint8Array | ArrayBuffer,
     data: string | Uint8Array | ArrayBuffer
 ): string;
-interface DigestType {
-    BINARY_STRING: string;
-    ARRAY_BUFFER: string;
-    UINT8_ARRAY: string;
-}
+type DigestType = typeof import('./DigestType');

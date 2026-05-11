@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/re-base",
+    "version": "3.2.9999",
+    "projects": [
+        "https://github.com/tylermcginnis/re-base#readme"
+    ],
+    "devDependencies": {
+        "@types/re-base": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "jordandrako",
+            "githubUsername": "jordandrako"
+        }
+    ]
+}

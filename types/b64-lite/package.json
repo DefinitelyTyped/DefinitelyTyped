@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/b64-lite",
+    "version": "1.4.9999",
+    "projects": [
+        "https://github.com/kevlened/b64-lite#readme"
+    ],
+    "devDependencies": {
+        "@types/b64-lite": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "JasonHK",
+            "githubUsername": "JasonHK"
+        },
+        {
+            "name": "Junxiao Shi",
+            "githubUsername": "yoursunny"
+        }
+    ]
+}

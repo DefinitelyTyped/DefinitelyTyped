@@ -1,5 +1,5 @@
-import * as React from 'react';
-import * as moment from 'moment';
+import moment from "moment";
+import React from "react";
 
 import {
     CalendarDay,
@@ -11,28 +11,30 @@ import {
     DayPicker,
     DayPickerRangeController,
     DayPickerSingleDateController,
-    RenderMonthProps,
-    SingleDatePicker,
-    SingleDatePickerInput,
     isInclusivelyAfterDay,
     isInclusivelyBeforeDay,
     isNextDay,
     isSameDay,
+    RenderMonthProps,
+    SingleDatePicker,
+    SingleDatePickerInput,
     toISODateString,
     toLocalizedDateString,
     toMomentObject,
-} from 'react-dates';
+} from "react-dates";
+
+import * as constants from "react-dates/constants";
 
 const onlyRenderText: RenderMonthProps = {
-    renderMonthText: month => month.format('MMMM'),
+    renderMonthText: month => month.format("MMMM"),
 };
 const onlyRenderElement: RenderMonthProps = {
-    renderMonthElement: ({ isVisible, month, onMonthSelect, onYearSelect }) => month.format('MMMM'),
+    renderMonthElement: ({ isVisible, month, onMonthSelect, onYearSelect }) => month.format("MMMM"),
 };
 // @ts-expect-error
 const bothRenderMethods: RenderMonthProps = {
-    renderMonthText: month => month.format('MMMM'),
-    renderMonthElement: ({ isVisible, month, onMonthSelect, onYearSelect }) => month.format('MMMM'),
+    renderMonthText: month => month.format("MMMM"),
+    renderMonthElement: ({ isVisible, month, onMonthSelect, onYearSelect }) => month.format("MMMM"),
 };
 
 const CalendarDayMinimumTest: React.FC = () => <CalendarDay />;
@@ -44,7 +46,7 @@ const CalendarDayFullTest: React.FC = () => (
         daySize={50}
         isFocused={false}
         isOutsideDay={false}
-        modifiers={new Set(['selected-span'])}
+        modifiers={new Set(["selected-span"])}
         onDayClick={(day, event) => {}}
         onDayMouseEnter={(day, event) => {}}
         onDayMouseLeave={(day, event) => {}}
@@ -53,7 +55,7 @@ const CalendarDayFullTest: React.FC = () => (
                 return date;
             },
         }}
-        renderDayContents={(day, modifiers) => day.format('d')}
+        renderDayContents={(day, modifiers) => day.format("d")}
         tabIndex={0}
     />
 );
@@ -70,7 +72,7 @@ const CalendarMonthFullTest: React.FC = () => (
         horizontalMonthPadding={5}
         isFocused={false}
         isVisible={true}
-        modifiers={{ date: new Set(['selected-span']) }}
+        modifiers={{ date: new Set(["selected-span"]) }}
         month={moment()}
         monthFormat="MM"
         onDayClick={(day, event) => {}}
@@ -86,7 +88,7 @@ const CalendarMonthFullTest: React.FC = () => (
         }}
         renderCalendarDay={props => <CalendarDay {...props} />}
         renderDayContents={(day, modifiers) => modifiers.size}
-        renderMonthText={month => month.format('MMMM')}
+        renderMonthText={month => month.format("MMMM")}
         setMonthTitleHeight={height => {}}
         verticalBorderSpacing={5}
     />
@@ -107,7 +109,7 @@ const CalendarMonthGridFullTest: React.FC = () => (
         isAnimating={true}
         isFocused={false}
         isRTL={false}
-        modifiers={{ month: { date: new Set(['selected-span']) } }}
+        modifiers={{ month: { date: new Set(["selected-span"]) } }}
         monthFormat="MM"
         numberOfMonths={3}
         onDayClick={(day, event) => {}}
@@ -124,7 +126,7 @@ const CalendarMonthGridFullTest: React.FC = () => (
         }}
         renderCalendarDay={props => <CalendarDay {...props} />}
         renderDayContents={(day, modifiers) => modifiers.size}
-        renderMonthElement={({ isVisible, month, onMonthSelect, onYearSelect }) => month.format('MMMM')}
+        renderMonthElement={({ isVisible, month, onMonthSelect, onYearSelect }) => month.format("MMMM")}
         setMonthTitleHeight={height => {}}
         transitionDuration={75}
         translationValue={46}
@@ -164,23 +166,23 @@ class DateRangePickerFullTest extends React.Component {
                     </React.Fragment>
                 }
                 dayAriaLabelFormat="dd"
-                dayPickerNavigationInlineStyles={{ width: '10' }}
+                dayPickerNavigationInlineStyles={{ width: "10" }}
                 daySize={50}
                 disabled={false}
                 disableScroll={true}
                 displayFormat="dd.mm.yyyy"
                 enableOutsideDays={true}
-                endDate={moment().add(5, 'days')}
+                endDate={moment().add(5, "days")}
                 endDateAriaLabel="dd"
                 endDateId="id2"
-                endDateOffset={day => day.add(5, 'days')}
+                endDateOffset={day => day.add(5, "days")}
                 endDatePlaceholderText="placeholder"
                 firstDayOfWeek={0}
                 focusedInput="startDate"
                 hideKeyboardShortcutsPanel={false}
                 horizontalMargin={20}
                 horizontalMonthPadding={20}
-                initialVisibleMonth={() => moment().set('year', 2020)}
+                initialVisibleMonth={() => moment().set("year", 2020)}
                 inputIconPosition="before"
                 isDayBlocked={day => false}
                 isDayHighlighted={day => true}
@@ -205,14 +207,14 @@ class DateRangePickerFullTest extends React.Component {
                 openDirection="up"
                 orientation="horizontal"
                 phrases={{
-                    closeDatePicker: 'Close',
+                    closeDatePicker: "Close",
                 }}
                 readOnly={false}
                 regular={true}
                 renderCalendarDay={props => <CalendarDay {...props} />}
                 renderCalendarInfo={() => <div>Hello</div>}
                 renderDayContents={day => day.toString()}
-                renderMonthText={month => month.format('MMM')}
+                renderMonthText={month => month.format("MMM")}
                 renderNavNextButton={({ ariaLabel, disabled, onClick, onKeyUp, onMouseUp }) => <div>Next</div>}
                 renderNavPrevButton={({ ariaLabel, disabled, onClick, onKeyUp, onMouseUp }) => <div>Next</div>}
                 renderWeekHeaderElement={day => <span>{day}</span>}
@@ -222,10 +224,10 @@ class DateRangePickerFullTest extends React.Component {
                 showClearDates={true}
                 showDefaultInputIcon={true}
                 small={false}
-                startDate={moment().add(3, 'days')}
+                startDate={moment().add(3, "days")}
                 startDateAriaLabel="dd"
                 startDateId="id1"
-                startDateOffset={day => day.subtract(3, 'days')}
+                startDateOffset={day => day.subtract(3, "days")}
                 startDatePlaceholderText="placeholder"
                 transitionDuration={5}
                 verticalHeight={20}
@@ -272,7 +274,7 @@ const DateRangePickerInputFullTest: React.FC = () => (
         onStartDateShiftTab={event => {}}
         openDirection="down"
         phrases={{
-            keyboardForwardNavigationInstructions: 'Forward',
+            keyboardForwardNavigationInstructions: "Forward",
         }}
         readOnly={false}
         regular={true}
@@ -324,7 +326,7 @@ const DateRangePickerInputControllerFullTest: React.FC = () => (
         onKeyDownQuestionMark={event => {}}
         openDirection="down"
         phrases={{
-            keyboardForwardNavigationInstructions: 'Forward',
+            keyboardForwardNavigationInstructions: "Forward",
         }}
         readOnly={false}
         regular={true}
@@ -350,20 +352,20 @@ const DayPickerFullTest: React.FC = () => (
     <DayPicker
         calendarInfoPosition="bottom"
         dayAriaLabelFormat="dd"
-        dayPickerNavigationInlineStyles={{ width: '10' }}
+        dayPickerNavigationInlineStyles={{ width: "10" }}
         daySize={50}
         disableNext={false}
         disablePrev={false}
         enableOutsideDays={true}
         firstDayOfWeek={5}
-        getFirstFocusableDay={month => month.startOf('month')}
+        getFirstFocusableDay={month => month.startOf("month")}
         hidden={false}
         hideKeyboardShortcutsPanel={true}
         horizontalMonthPadding={20}
-        initialVisibleMonth={() => moment('2020')}
+        initialVisibleMonth={() => moment("2020")}
         isFocused={true}
         isRTL={false}
-        modifiers={{ month: { day: new Set(['span-selected']) } }}
+        modifiers={{ month: { day: new Set(["span-selected"]) } }}
         monthFormat="MMM"
         navNext={<div>Next</div>}
         navPosition="navPositionTop"
@@ -388,11 +390,11 @@ const DayPickerFullTest: React.FC = () => (
         onYearChange={newMonth => {}}
         orientation="verticalScrollable"
         phrases={{
-            enterKey: 'Enter',
+            enterKey: "Enter",
         }}
         renderCalendarDay={props => <CalendarDay {...props} />}
         renderCalendarInfo={() => <span>Info</span>}
-        renderDayContents={day => day.format('dd')}
+        renderDayContents={day => day.format("dd")}
         renderKeyboardShortcutsButton={({ ariaLabel, onClick, ref }) => <button>shortcuts</button>}
         renderKeyboardShortcutsPanel={({
             closeButtonAriaLabel,
@@ -401,7 +403,7 @@ const DayPickerFullTest: React.FC = () => (
             onKeyDown,
             title,
         }) => <div>panel</div>}
-        renderMonthText={month => month.format('MMM')}
+        renderMonthText={month => month.format("MMM")}
         renderNavNextButton={({ ariaLabel, disabled, onClick, onKeyUp, onMouseUp }) => <div>Next</div>}
         renderNavPrevButton={({ ariaLabel, disabled, onClick, onKeyUp, onMouseUp }) => <div>Next</div>}
         renderWeekHeaderElement={day => <span>{day}</span>}
@@ -430,7 +432,7 @@ class DayPickerRangeControllerMinimumTest extends React.Component {
                 onDatesChange={({ endDate, startDate }) => {}}
                 focusedInput="startDate"
                 onFocusChange={arg => {}}
-                initialVisibleMonth={() => moment().add(2, 'months')}
+                initialVisibleMonth={() => moment().add(2, "months")}
             />
         );
     }
@@ -440,19 +442,19 @@ const DayPickerRangeControllerFullTest: React.FC = () => (
     <DayPickerRangeController
         calendarInfoPosition="top"
         dayAriaLabelFormat="dd"
-        dayPickerNavigationInlineStyles={{ width: '10' }}
+        dayPickerNavigationInlineStyles={{ width: "10" }}
         daySize={50}
         daysViolatingMinNightsCanBeClicked={false}
         disabled={false}
         enableOutsideDays={true}
         endDate={moment()}
-        endDateOffset={day => day.add(5, 'days')}
+        endDateOffset={day => day.add(5, "days")}
         firstDayOfWeek={1}
         focusedInput="startDate"
         getMinNightsForHoverDate={day => 5}
         hideKeyboardShortcutsPanel={false}
         horizontalMonthPadding={20}
-        initialVisibleMonth={() => moment().add(2, 'months')}
+        initialVisibleMonth={() => moment().add(2, "months")}
         isDayBlocked={day => false}
         isDayHighlighted={day => true}
         isFocused={true}
@@ -480,11 +482,11 @@ const DayPickerRangeControllerFullTest: React.FC = () => (
         onTab={event => {}}
         orientation="verticalScrollable"
         phrases={{
-            calendarLabel: 'Calendar',
+            calendarLabel: "Calendar",
         }}
         renderCalendarDay={props => <CalendarDay {...props} />}
         renderCalendarInfo={() => <div>Info</div>}
-        renderDayContents={day => day.format('d')}
+        renderDayContents={day => day.format("d")}
         renderKeyboardShortcutsButton={({ ariaLabel, onClick, ref }) => <button>shortcuts</button>}
         renderKeyboardShortcutsPanel={({
             closeButtonAriaLabel,
@@ -493,15 +495,15 @@ const DayPickerRangeControllerFullTest: React.FC = () => (
             onKeyDown,
             title,
         }) => <div>panel</div>}
-        renderMonthText={month => month.format('MMM')}
+        renderMonthText={month => month.format("MMM")}
         renderNavNextButton={({ ariaLabel, disabled, onClick, onKeyUp, onMouseUp }) => <div>Next</div>}
         renderNavPrevButton={({ ariaLabel, disabled, onClick, onKeyUp, onMouseUp }) => <div>Next</div>}
         renderWeekHeaderElement={day => <span>{day}</span>}
         showKeyboardShortcuts={false}
         startDate={moment()}
         minDate={moment()}
-        maxDate={moment().add(30, 'days')}
-        startDateOffset={day => day.subtract(3, 'days')}
+        maxDate={moment().add(30, "days")}
+        startDateOffset={day => day.subtract(3, "days")}
         transitionDuration={5}
         verticalBorderSpacing={5}
         verticalHeight={20}
@@ -516,7 +518,7 @@ class DayPickerSingleDateControllerMinimumTest extends React.Component {
             <DayPickerSingleDateController
                 date={moment()}
                 focused={true}
-                initialVisibleMonth={() => moment().subtract(1, 'day')}
+                initialVisibleMonth={() => moment().subtract(1, "day")}
                 onDateChange={arg => {}}
                 onFocusChange={({ focused }) => {}}
             />
@@ -529,16 +531,16 @@ const DayPickerSingleDateControllerFullTest: React.FC = () => (
         calendarInfoPosition="top"
         date={moment()}
         minDate={moment()}
-        maxDate={moment().add(30, 'days')}
+        maxDate={moment().add(30, "days")}
         dayAriaLabelFormat="dd"
-        dayPickerNavigationInlineStyles={{ width: '10' }}
+        dayPickerNavigationInlineStyles={{ width: "10" }}
         daySize={50}
         enableOutsideDays={true}
         firstDayOfWeek={1}
         focused={true}
         hideKeyboardShortcutsPanel={false}
         horizontalMonthPadding={20}
-        initialVisibleMonth={() => moment().subtract(1, 'day')}
+        initialVisibleMonth={() => moment().subtract(1, "day")}
         isDayBlocked={day => false}
         isDayHighlighted={day => true}
         isFocused={true}
@@ -565,12 +567,12 @@ const DayPickerSingleDateControllerFullTest: React.FC = () => (
         onTab={event => {}}
         orientation="verticalScrollable"
         phrases={{
-            calendarLabel: 'Calendar',
+            calendarLabel: "Calendar",
         }}
         renderCalendarDay={props => <CalendarDay {...props} />}
         renderCalendarInfo={() => <div>Info</div>}
-        renderDayContents={day => day.format('d')}
-        renderMonthText={month => month.format('MMM')}
+        renderDayContents={day => day.format("d")}
+        renderMonthText={month => month.format("MMM")}
         renderNavNextButton={({ ariaLabel, disabled, onClick, onKeyUp, onMouseUp }) => <div>Next</div>}
         renderNavPrevButton={({ ariaLabel, disabled, onClick, onKeyUp, onMouseUp }) => <div>Next</div>}
         renderWeekHeaderElement={day => <span>{day}</span>}
@@ -614,7 +616,7 @@ class SingleDatePickerFullTest extends React.Component {
                 }
                 date={moment()}
                 dayAriaLabelFormat="dd"
-                dayPickerNavigationInlineStyles={{ width: '10' }}
+                dayPickerNavigationInlineStyles={{ width: "10" }}
                 daySize={50}
                 disabled={false}
                 disableScroll={true}
@@ -626,7 +628,7 @@ class SingleDatePickerFullTest extends React.Component {
                 horizontalMargin={20}
                 horizontalMonthPadding={20}
                 id="SingleDatePicker"
-                initialVisibleMonth={() => moment().set('year', 2020)}
+                initialVisibleMonth={() => moment().set("year", 2020)}
                 inputIconPosition="before"
                 isDayBlocked={day => false}
                 isDayHighlighted={day => true}
@@ -648,7 +650,7 @@ class SingleDatePickerFullTest extends React.Component {
                 openDirection="up"
                 orientation="horizontal"
                 phrases={{
-                    closeDatePicker: 'Close',
+                    closeDatePicker: "Close",
                 }}
                 placeholder="test"
                 readOnly={false}
@@ -656,7 +658,7 @@ class SingleDatePickerFullTest extends React.Component {
                 renderCalendarDay={props => <CalendarDay {...props} />}
                 renderCalendarInfo={() => <div>Hello</div>}
                 renderDayContents={day => day.toString()}
-                renderMonthText={month => month.format('MMM')}
+                renderMonthText={month => month.format("MMM")}
                 renderNavNextButton={({ ariaLabel, disabled, onClick, onKeyUp, onMouseUp }) => <div>Next</div>}
                 renderNavPrevButton={({ ariaLabel, disabled, onClick, onKeyUp, onMouseUp }) => <div>Next</div>}
                 renderWeekHeaderElement={day => <span>{day}</span>}
@@ -706,7 +708,7 @@ const SingleDatePickerInputFullTest: React.FC = () => (
         onKeyDownTab={event => {}}
         openDirection="down"
         phrases={{
-            keyboardForwardNavigationInstructions: 'Forward',
+            keyboardForwardNavigationInstructions: "Forward",
         }}
         placeholder="test"
         readOnly={false}
@@ -732,13 +734,41 @@ const isNextDayDayResult: boolean = isNextDay(moment(), moment());
 const isNextDayDayResultError: boolean = isNextDay(moment());
 const isSameDayResult: boolean = isSameDay(moment(), moment());
 // @ts-expect-error
-const isSameDayResultError: boolean = isSameDay('January 1, 2020', moment());
-const toISODateStringResult: string | null = toISODateString(moment(), 'dd.mm.yyyy');
-const toISODateStringResultFromString: string | null = toISODateString('January 1, 2020');
-const toISODateStringResultFromDate: string | null = toISODateString(new Date(), 'dd.mm.yyyy');
-const toLocalizedDateStringResult: string | null = toLocalizedDateString(moment(), 'dd.mm.yyyy');
-const toLocalizedDateStringResultFromString: string | null = toLocalizedDateString('January 1, 2020', 'dd.mm.yyyy');
+const isSameDayResultError: boolean = isSameDay("January 1, 2020", moment());
+const toISODateStringResult: string | null = toISODateString(moment(), "dd.mm.yyyy");
+const toISODateStringResultFromString: string | null = toISODateString("January 1, 2020");
+const toISODateStringResultFromDate: string | null = toISODateString(new Date(), "dd.mm.yyyy");
+const toLocalizedDateStringResult: string | null = toLocalizedDateString(moment(), "dd.mm.yyyy");
+const toLocalizedDateStringResultFromString: string | null = toLocalizedDateString("January 1, 2020", "dd.mm.yyyy");
 const toLocalizedDateStringResultFromDate: string | null = toLocalizedDateString(new Date());
 const toMomentObjectResult: moment.Moment | null = toMomentObject(moment());
-const toMomentObjectResultFromString: moment.Moment | null = toMomentObject('January 1, 2020', 'dd.mm.yyyy');
-const toMomentObjectResultFromDate: moment.Moment | null = toMomentObject(new Date(), 'dd.mm.yyyy');
+const toMomentObjectResultFromString: moment.Moment | null = toMomentObject("January 1, 2020", "dd.mm.yyyy");
+const toMomentObjectResultFromDate: moment.Moment | null = toMomentObject(new Date(), "dd.mm.yyyy");
+
+const constantsDisplayFormat: string = constants.DISPLAY_FORMAT;
+const constantsISOFormat: string = constants.ISO_FORMAT;
+const constantsISOFormatMonth: string = constants.ISO_MONTH_FORMAT;
+const constantsStartDate: string = constants.START_DATE;
+const constantsEndDate: string = constants.END_DATE;
+const constantsHorizontalOrientation: string = constants.HORIZONTAL_ORIENTATION;
+const constantsVerticalOrientation: string = constants.VERTICAL_ORIENTATION;
+const constantsVerticalScrollable: string = constants.VERTICAL_SCROLLABLE;
+const constantsNavPositionBottom: string = constants.NAV_POSITION_BOTTOM;
+const constantsNavPositionTop: string = constants.NAV_POSITION_TOP;
+const constantsIconBeforePosition: string = constants.ICON_BEFORE_POSITION;
+const constantsIconAfterPosition: string = constants.ICON_AFTER_POSITION;
+const constantsInfoPositionTop: string = constants.INFO_POSITION_TOP;
+const constantsInfoPositionBottom: string = constants.INFO_POSITION_BOTTOM;
+const constantsInfoPositionBefore: string = constants.INFO_POSITION_BEFORE;
+const constantsInfoPositionAfter: string = constants.INFO_POSITION_AFTER;
+const constantsAnchorLeft: string = constants.ANCHOR_LEFT;
+const constantsAnchorRight: string = constants.ANCHOR_RIGHT;
+const constantsOpenDown: string = constants.OPEN_DOWN;
+const constantsOpenUp: string = constants.OPEN_UP;
+const constantsDaySize: number = constants.DAY_SIZE;
+const constantsBlockedModifier: string = constants.BLOCKED_MODIFIER;
+const constantsWeekdays: number[] = constants.WEEKDAYS;
+const constantsFangWidthPx: number = constants.FANG_WIDTH_PX;
+const constantsFangHeightPx: number = constants.FANG_HEIGHT_PX;
+const constantsDefaultVerticalSpacing: number = constants.DEFAULT_VERTICAL_SPACING;
+const constantsModifierKeyNames: Set<string> = constants.MODIFIER_KEY_NAMES;

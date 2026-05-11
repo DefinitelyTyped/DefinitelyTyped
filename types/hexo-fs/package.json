@@ -1,6 +1,0 @@
-{
-  "private": true,
-  "dependencies": {
-    "chokidar": "^2.1.2"
-  }
-}

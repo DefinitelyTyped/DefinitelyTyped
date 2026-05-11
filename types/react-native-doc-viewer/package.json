@@ -1,6 +1,22 @@
 {
     "private": true,
+    "name": "@types/react-native-doc-viewer",
+    "version": "2.7.9999",
+    "projects": [
+        "https://github.com/philipphecht/react-native-doc-viewer/blob/master/README.md"
+    ],
     "dependencies": {
         "react-native-fs": "^2.13.0"
-    }
+    },
+    "devDependencies": {
+        "@types/react": "*",
+        "react-native": "*",
+        "@types/react-native-doc-viewer": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Kyle Roach",
+            "githubUsername": "iRoachie"
+        }
+    ]
 }

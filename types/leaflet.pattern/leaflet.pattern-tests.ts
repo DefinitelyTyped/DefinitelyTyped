@@ -1,15 +1,15 @@
-import * as L from 'leaflet';
+import * as L from "leaflet";
 
-const map = new L.Map('#id');
+const map = new L.Map("#id");
 
 const patternOptions: L.PatternOptions = {
     x: 10,
     y: 10,
     width: 10,
     height: 10,
-    patternUnits: 'userSpaceOnUse',
-    patternContentUnits: 'userSpaceOnUse',
-    patternTransform: 'translateX(10px)',
+    patternUnits: "userSpaceOnUse",
+    patternContentUnits: "userSpaceOnUse",
+    patternTransform: "translateX(10px)",
     angle: 45,
 };
 
@@ -17,25 +17,25 @@ const stripePatternOptions: L.StripePatternOptions = {
     ...patternOptions,
     weight: 10,
     spaceWeight: 10,
-    color: '#FF0000',
-    spaceColor: '#00FF00',
+    color: "#FF0000",
+    spaceColor: "#00FF00",
     opacity: 0.5,
     spaceOpacity: 0.2,
 };
 
 const patternShapeOptions: L.PatternShapeOptions = {
     stroke: true,
-    color: '#0000FF',
+    color: "#0000FF",
     weight: 10,
     opacity: 10,
-    lineCap: 'butt',
-    lineJoin: 'butt',
+    lineCap: "butt",
+    lineJoin: "butt",
     dashArray: [1, 2],
     dashOffset: 2,
     fill: true,
-    fillColor: '#FF0000',
+    fillColor: "#FF0000",
     fillOpacity: 0.5,
-    fillRule: 'evenodd',
+    fillRule: "evenodd",
     fillPattern: new L.Pattern(),
 };
 
@@ -56,7 +56,7 @@ const patternRectOptions: L.PatternRectOptions = {
 };
 
 const patternPathOptions: L.PatternPathOptions = {
-    d: 'M10 0 L7 20 L25 20 Z',
+    d: "M10 0 L7 20 L25 20 Z",
 };
 
 const pattern = new L.Pattern(patternOptions);

@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/meteor-sjobs",
+    "version": "4.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "meteor-sjobs",
+    "projects": [
+        "https://github.com/msavin/SteveJobs"
+    ],
+    "dependencies": {
+        "@types/meteor": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/meteor-sjobs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Witold H",
+            "githubUsername": "LinearMilk"
+        }
+    ]
+}

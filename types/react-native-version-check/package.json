@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/react-native-version-check",
+    "version": "3.4.9999",
+    "projects": [
+        "https://github.com/kimxogus/react-native-version-check"
+    ],
+    "dependencies": {
+        "@types/node-fetch": "*"
+    },
+    "devDependencies": {
+        "@types/react-native-version-check": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "DELACOURT Vincent",
+            "githubUsername": "vdelacou"
+        },
+        {
+            "name": "Krishan",
+            "githubUsername": "KrishyV"
+        }
+    ]
+}

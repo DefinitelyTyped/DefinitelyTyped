@@ -1,0 +1,6 @@
+{
+    "rules": {
+        "@definitelytyped/no-duplicate-imports": "off",
+        "no-duplicate-imports": "off"
+    }
+}

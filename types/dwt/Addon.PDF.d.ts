@@ -15,8 +15,8 @@ export interface PDF {
         successCallback: () => void,
         failureCallback: (
             errorCode: number,
-            errorString: string
-        ) => void
+            errorString: string,
+        ) => void,
     ): void;
     /**
      * Return the convert mode.

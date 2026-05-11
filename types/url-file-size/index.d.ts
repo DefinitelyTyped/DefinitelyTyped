@@ -1,11 +1,6 @@
-// Type definitions for url-file-size 1.0
-// Project: https://github.com/dimdenGD/url-file-size#readme
-// Definitions by: Shehab Ali Tweel <https://github.com/shahoob>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import { URL } from 'url';
+import { URL } from "url";
 
 /**
  * Get file size from URL (in bytes) without downloading it.

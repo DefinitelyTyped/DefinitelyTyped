@@ -1,8 +1,3 @@
-// Type definitions for hapi 15.0
-// Project: https://github.com/spumko/hapi
-// Definitions by: Jason Swearingen <https://github.com/jasonswearingen>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // Note/Disclaimer: This .d.ts was created against hapi v8.x but has been incrementally upgraded to 13.x.  Some newer features/changes may be missing.  YMMV.
 
 /// <reference types="node" />
@@ -114,7 +109,11 @@ export interface IServerConnectionOptions extends IConnectionConfigurationServer
     /** - a string or string array of labels used to server.select() specific connections matching the specified labels.Defaults to an empty array [](no labels).*/
     labels?: string | string[] | undefined;
     /**  - used to create an HTTPS connection.The tls object is passed unchanged as options to the node.js HTTPS server as described in the node.js HTTPS documentation.Set to true when passing a listener object that has been configured to use TLS directly. */
-    tls?: boolean | { key?: string | undefined; cert?: string | undefined; pfx?: string | undefined; } | Object | undefined;
+    tls?:
+        | boolean
+        | { key?: string | undefined; cert?: string | undefined; pfx?: string | undefined }
+        | Object
+        | undefined;
 }
 
 export interface IConnectionConfigurationServerDefaults {
@@ -188,13 +187,20 @@ export interface IServerOptions {
 
 export interface IServerViewCompile {
     (template: string, options: any): void;
-    (template: string, options: any, callback: (err: any, compiled: (context: any, options: any, callback: (err: any, rendered: boolean) => void) => void) => void): void;
+    (
+        template: string,
+        options: any,
+        callback: (
+            err: any,
+            compiled: (context: any, options: any, callback: (err: any, rendered: boolean) => void) => void,
+        ) => void,
+    ): void;
 }
 
 export interface IServerViewsAdditionalOptions {
     /**    path - the root file path used to resolve and load the templates identified when calling reply.view().Defaults to current working directory.*/
     path?: string | undefined;
-    /**partialsPath - the root file path where partials are located.Partials are small segments of template code that can be nested and reused throughout other templates.Defaults to no partials support (empty path).
+    /** partialsPath - the root file path where partials are located.Partials are small segments of template code that can be nested and reused throughout other templates.Defaults to no partials support (empty path).
      */
     partialsPath?: string | undefined;
     /**helpersPath - the directory path where helpers are located.Helpers are functions used within templates to perform transformations and other data manipulations using the template context or other inputs.Each '.js' file in the helpers directory is loaded and the file name is used as the helper name.The files must export a single method with the signature function(context) and return a string.Sub - folders are not supported and are ignored.Defaults to no helpers support (empty path).Note that jade does not support loading helpers this way.*/
@@ -229,11 +235,18 @@ export interface IServerViewsAdditionalOptions {
 }
 
 export interface IServerViewsEnginesOptions extends IServerViewsAdditionalOptions {
-    /**- the npm module used for rendering the templates.The module object must contain: "module", the rendering function. The required function signature depends on the compileMode settings.
-     * If the compileMode is 'sync', the signature is compile(template, options), the return value is a function with signature function(context, options), and the method is allowed to throw errors.If the compileMode is 'async', the signature is compile(template, options, callback) where callback has the signature function(err, compiled) where compiled is a function with signature function(context, options, callback) and callback has the signature function(err, rendered).*/
+    /** - the npm module used for rendering the templates.The module object must contain: "module", the rendering function. The required function signature depends on the compileMode settings.
+     * If the compileMode is 'sync', the signature is compile(template, options), the return value is a function with signature function(context, options), and the method is allowed to throw errors.If the compileMode is 'async', the signature is compile(template, options, callback) where callback has the signature function(err, compiled) where compiled is a function with signature function(context, options, callback) and callback has the signature function(err, rendered). */
     module: {
         compile?(template: any, options: any): (context: any, options: any) => void;
-        compile?(template: any, options: any, callback: (err: any, compiled: (context: any, options: any, callback: (err: any, rendered: any) => void) => void) => void): void;
+        compile?(
+            template: any,
+            options: any,
+            callback: (
+                err: any,
+                compiled: (context: any, options: any, callback: (err: any, rendered: any) => void) => void,
+            ) => void,
+        ): void;
     };
 }
 
@@ -263,7 +276,8 @@ export interface IReplyMethods {
     continue(credentialData?: any): void;
 
     /** Transmits a file from the file system. The 'Content-Type' header defaults to the matching mime type based on filename extension.  The response flow control rules do not apply. */
-    file(/**   the file path. */
+    file(
+        /**   the file path. */
         path: string,
         /**  optional settings:  */
         options?: {
@@ -276,15 +290,18 @@ export interface IReplyMethods {
             mode?: boolean | string | undefined;
             /**   if true, looks for the same filename with the '.gz' suffix for a pre-compressed version of the file to serve if the request supports content encoding. Defaults to false.  */
             lookupCompressed: boolean;
-        }): void;
+        },
+    ): void;
     /**  Concludes the handler activity by returning control over to the router with a templatized view response.
      the response flow control rules apply. */
-    view(/**  the template filename and path, relative to the templates path configured via the server views manager. */
+    view(
+        /**  the template filename and path, relative to the templates path configured via the server views manager. */
         template: string,
         /**  optional object used by the template to render context-specific result. Defaults to no context {}. */
         context?: {},
         /**  optional object used to override the server's views manager configuration for this response. Cannot override isCached, partialsPath, or helpersPath which are only loaded at initialization.  */
-        options?: any): Response;
+        options?: any,
+    ): Response;
     /** Sets a header on the response */
     header(name: string, value: string, options?: IHeaderOptions): Response;
 
@@ -297,8 +314,10 @@ export interface IReplyMethods {
     /** Proxies the request to an upstream endpoint.
      the response flow control rules do not apply. */
 
-    proxy(/**  an object including the same keys and restrictions defined by the route proxy handler options. */
-        options: IProxyHandlerConfig): void;
+    proxy(
+        /**  an object including the same keys and restrictions defined by the route proxy handler options. */
+        options: IProxyHandlerConfig,
+    ): void;
     /** Redirects the client to the specified uri. Same as calling reply().redirect(uri).
      *  The response flow control rules apply. */
     redirect(uri: string): ResponseRedirect;
@@ -324,7 +343,8 @@ export interface IReply extends IReplyMethods {
         err: Error,
         result?: string | number | boolean | Buffer | stream.Stream | Promise<T> | T,
         /**  Note that when used to return both an error and credentials in the authentication methods, reply() must be called with three arguments function(err, null, data) where data is the additional authentication information. */
-        credentialData?: any): IBoom;
+        credentialData?: any,
+    ): IBoom;
     /**  Note that if result is a Stream with a statusCode property, that status code will be used as the default response code.  */
     <T>(result: string | number | boolean | Buffer | stream.Stream | Promise<T> | T): Response;
 }
@@ -336,10 +356,12 @@ export interface IReply extends IReplyMethods {
     FLOW CONTROL:
     When calling reply(), the framework waits until process.nextTick() to continue processing the request and transmit the response. This enables making changes to the returned response object before the response is sent. This means the framework will resume as soon as the handler method exits. To suspend this behavior, the returned response object supports the following methods: hold(), send() */
 export interface IStrictReply<T> extends IReplyMethods {
-    (err: Error,
+    (
+        err: Error,
         result?: Promise<T> | T,
         /**  Note that when used to return both an error and credentials in the authentication methods, reply() must be called with three arguments function(err, null, data) where data is the additional authentication information. */
-        credentialData?: any): IBoom;
+        credentialData?: any,
+    ): IBoom;
     /**  Note that if result is a Stream with a statusCode property, that status code will be used as the default response code.  */
     (result: Promise<T> | T): Response;
 }
@@ -399,7 +421,8 @@ export interface IProxyHandlerConfig {
         req: Request,
         reply: IReply,
         settings: IProxyHandlerConfig,
-        ttl: number): void;
+        ttl: number,
+    ): void;
     /** if set to 'upstream', applies the upstream response caching policy to the response using the response.ttl() method (or passed as an argument to the onResponse method if provided).*/
     ttl?: number | undefined;
     /** - a node http(s) agent to be used for connections to upstream server.  see https://nodejs.org/api/http.html#http_class_http_agent */
@@ -408,7 +431,7 @@ export interface IProxyHandlerConfig {
     maxSockets?: boolean | number | undefined;
 }
 /**  TODO: fill in joi definition  */
-export interface IJoi { }
+export interface IJoi {}
 
 /**  a validation function using the signature function(value, options, next) */
 export interface IValidationFunction {
@@ -418,19 +441,22 @@ export interface IValidationFunction {
         /**  the server validation options. */
         options: any,
         /**   the callback function called when validation is completed.  */
-        next: (err: any, value: any) => void): void;
+        next: (err: any, value: any) => void,
+    ): void;
 }
 /**  a custom error handler function with the signature 'function(request, reply, source, error)` */
 export interface IRouteFailFunction {
     /**  a custom error handler function with the signature 'function(request, reply, source, error)` */
-    (/** - the [request object]. */
+    (
+        /** - the [request object]. */
         request: Request,
         /**   the continuation reply interface. */
         reply: IReply,
         /**  the source of the invalid field (e.g. 'path', 'query', 'payload'). */
         source: string,
         /**  the error object prepared for the client response (including the validation function error under error.data). */
-        error: any): void;
+        error: any,
+    ): void;
 }
 
 /**  Each route can be customize to change the default behavior of the request lifecycle using the following options:  */
@@ -440,8 +466,7 @@ export interface IRouteAdditionalConfigurationOptions {
     /** authentication configuration.Value can be: false to disable authentication if a default strategy is set.
      a string with the name of an authentication strategy registered with server.auth.strategy().
      an object  */
-    auth?: boolean | string |
-    {
+    auth?: boolean | string | {
         /**  the authentication mode.Defaults to 'required' if a server authentication strategy is configured, otherwise defaults to no authentication.Available values:
          'required'authentication is required.
          'optional'authentication is optional (must be valid if present).
@@ -499,7 +524,8 @@ export interface IRouteAdditionalConfigurationOptions {
         override?: boolean | undefined;
     } | undefined;
     /**   defines the behavior for serving static resources using the built-in route handlers for files and directories: */
-    files?: {/** determines the folder relative paths are resolved against when using the file and directory handlers. */
+    files?: {
+        /** determines the folder relative paths are resolved against when using the file and directory handlers. */
         relativeTo: string;
     } | undefined;
 
@@ -679,20 +705,20 @@ export interface IRouteAdditionalConfigurationOptions {
     } | undefined;
 
     /**  ONLY WHEN ADDING NEW ROUTES (not when setting defaults).
-     *route description used for generating documentation (string).
+     * route description used for generating documentation (string).
      */
     description?: string | undefined;
     /**  ONLY WHEN ADDING NEW ROUTES (not when setting defaults).
-     *route notes used for generating documentation (string or array of strings).
+     * route notes used for generating documentation (string or array of strings).
      */
     notes?: string | string[] | undefined;
     /**  ONLY WHEN ADDING NEW ROUTES (not when setting defaults).
-     *route tags used for generating documentation (array of strings).
+     * route tags used for generating documentation (array of strings).
      */
     tags?: string[] | undefined;
 
     /**  Enable logging of routes
-        */
+     */
     log?: boolean | undefined;
 }
 
@@ -718,23 +744,25 @@ export interface IRouteAdditionalConfigurationAuthAccess {
     entity?: string | undefined;
 }
 
-export type IRouteAdditionalConfigurationCache = {
-    /** determines the privacy flag included in clientside caching using the 'Cache-Control' header. Values are:
+export type IRouteAdditionalConfigurationCache =
+    & {
+        /** determines the privacy flag included in clientside caching using the 'Cache-Control' header. Values are:
      'Default': no privacy flag.This is the default setting.
      'public': mark the response as suitable for public caching.
      'private': mark the response as suitable only for private caching.  */
-    privacy?: 'default' | 'public' | 'private' | undefined;
-    /** an array of HTTP response status codes (e.g. 200) which are allowed to include a valid caching directive. Defaults to [200]. */
-    statuses?: number[] | undefined;
-    /** a string with the value of the 'Cache-Control' header when caching is disabled. Defaults to 'no-cache'. */
-    otherwise?: string | undefined;
-} & ({
-    /** relative expiration expressed in the number of milliseconds since the item was saved in the cache. Cannot be used together with expiresAt. */
-    expiresIn: number;
-} | {
-    /** time of day expressed in 24h notation using the 'HH:MM' format, at which point all cache records for the route expire. Cannot be used together with expiresIn. */
-    expiresAt: string;
-} | {});
+        privacy?: "default" | "public" | "private" | undefined;
+        /** an array of HTTP response status codes (e.g. 200) which are allowed to include a valid caching directive. Defaults to [200]. */
+        statuses?: number[] | undefined;
+        /** a string with the value of the 'Cache-Control' header when caching is disabled. Defaults to 'no-cache'. */
+        otherwise?: string | undefined;
+    }
+    & ({
+        /** relative expiration expressed in the number of milliseconds since the item was saved in the cache. Cannot be used together with expiresAt. */
+        expiresIn: number;
+    } | {
+        /** time of day expressed in 24h notation using the 'HH:MM' format, at which point all cache records for the route expire. Cannot be used together with expiresIn. */
+        expiresAt: string;
+    } | {});
 
 /** server.realm http://hapijs.com/api#serverrealm
  The realm object contains server-wide or plugin-specific state that can be shared across various methods. For example, when calling server.bind(),
@@ -782,7 +810,7 @@ export interface IServerState {
         /**  - sets the 'Secure' flag.Defaults to false.*/
         isSecure: boolean;
         /**  - sets the 'HttpOnly' flag.Defaults to false.*/
-        isHttpOnly: boolean
+        isHttpOnly: boolean;
         /**  - the path scope.Defaults to null (no path).*/
         path: any;
         /**  - the domain scope.Defaults to null (no domain). */
@@ -872,7 +900,7 @@ export interface IRouteHandlerConfig {
             params: any;
             query: any;
             pre: any;
-        }
+        };
     } | undefined;
     config?: {
         handler: any;
@@ -934,7 +962,7 @@ export interface IRouteConfiguration {
     /**  - (required) the absolute path used to match incoming requests (must begin with '/'). Incoming requests are compared to the configured paths based on the connection router configuration option.The path can include named parameters enclosed in {} which will be matched against literal values in the request as described in Path parameters.*/
     path: string;
     /** - (required) the HTTP method.Typically one of 'GET', 'POST', 'PUT', 'PATCH', 'DELETE', or 'OPTIONS'.Any HTTP method is allowed, except for 'HEAD'.Use '*' to match against any HTTP method (only when an exact match was not found, and any match with a specific method will be given a higher priority over a wildcard match).
-     * Can be assigned an array of methods which has the same result as adding the same route with different methods manually.*/
+     * Can be assigned an array of methods which has the same result as adding the same route with different methods manually. */
     method: string | string[];
     /**  - an optional domain string or an array of domain strings for limiting the route to only requests with a matching host header field.Matching is done against the hostname part of the header only (excluding the port).Defaults to all hosts.*/
     vhost?: string | undefined;
@@ -1030,7 +1058,7 @@ export interface IServerInjectResponse {
     rawPayload: Buffer;
     raw: {
         req: http.IncomingMessage;
-        res: http.ServerResponse
+        res: http.ServerResponse;
     };
     result: any;
     request: Request;
@@ -1111,7 +1139,7 @@ export interface ICookieSettings {
     /**  - an object used to calculate an HMAC for cookie integrity validation.This does not provide privacy, only a mean to verify that the cookie value was generated by the server.Redundant when 'iron' encoding is used.Options are:
      integrity - algorithm options.Defaults to require('iron').defaults.integrity.
      password - password used for HMAC key generation. */
-    sign?: { integrity: any; password: string; } | undefined;
+    sign?: { integrity: any; password: string } | undefined;
     password?: string | undefined;
     iron?: any;
     ignoreErrors?: boolean | undefined;
@@ -1215,7 +1243,8 @@ export class Request extends Events.EventEmitter {
         acceptEncoding: string;
         /**  if CORS is enabled for the route, contains the following: */
         cors: {
-            isOriginMatch: boolean; /**  true if the request 'Origin' header matches the configured CORS restrictions. Set to false if no 'Origin' header is found or if it does not match. Note that this is only available after the 'onRequest' extension point as CORS is configured per-route and no routing decisions are made at that point in the request lifecycle. */
+            isOriginMatch:
+                boolean; /**  true if the request 'Origin' header matches the configured CORS restrictions. Set to false if no 'Origin' header is found or if it does not match. Note that this is only available after the 'onRequest' extension point as CORS is configured per-route and no routing decisions are made at that point in the request lifecycle. */
         };
         /**  content of the HTTP 'Host' header (e.g. 'example.com:8080'). */
         host: string;
@@ -1361,12 +1390,14 @@ export class Request extends Events.EventEmitter {
     return reply();
     };
      */
-    log(/** a string or an array of strings (e.g. ['error', 'database', 'read']) used to identify the event. Tags are used instead of log levels and provide a much more expressive mechanism for describing and filtering events.*/
+    log(
+        /** a string or an array of strings (e.g. ['error', 'database', 'read']) used to identify the event. Tags are used instead of log levels and provide a much more expressive mechanism for describing and filtering events.*/
         tags: string | string[],
         /** an optional message string or object with the application data being logged.*/
         data?: any,
         /**  an optional timestamp expressed in milliseconds. Defaults to Date.now() (now).*/
-        timestamp?: number): void;
+        timestamp?: number,
+    ): void;
 
     /** request.getLog([tags], [internal])
 
@@ -1379,10 +1410,12 @@ export class Request extends Events.EventEmitter {
      request.getLog(['error'], true);
      request.getLog(false);*/
 
-    getLog(/** is a single tag string or array of tag strings. If no tags specified, returns all events.*/
+    getLog(
+        /** is a single tag string or array of tag strings. If no tags specified, returns all events.*/
         tags?: string,
         /**  filters the events to only those with a matching event.internal value. If true, only internal logs are included. If false, only user event are included. Defaults to all events (undefined).*/
-        internal?: boolean): string[];
+        internal?: boolean,
+    ): string[];
 
     /** request.tail([name])
 
@@ -1419,8 +1452,10 @@ export class Request extends Events.EventEmitter {
 
     console.log('Request completed including db activity');
     });*/
-    tail(/** an optional tail name used for logging purposes.*/
-        name?: string): Function;
+    tail(
+        /** an optional tail name used for logging purposes.*/
+        name?: string,
+    ): Function;
 }
 /** Response events
 
@@ -1512,7 +1547,8 @@ export class Response extends Events.EventEmitter {
      weak - if true, the tag will be prefixed with the 'W/' weak signifier. Weak tags will fail to match identical tags for the purpose of determining 304 response status. Defaults to false.
      vary - if true and content encoding is set or applied to the response (e.g 'gzip' or 'deflate'), the encoding name will be automatically added to the tag at transmission time (separated by a '-' character). Ignored when weak is true. Defaults to true.*/
     etag(tag: string, options: {
-        weak: boolean; vary: boolean;
+        weak: boolean;
+        vary: boolean;
     }): Response;
 
     /**header(name, value, options) - sets an HTTP header where:
@@ -1621,7 +1657,7 @@ export interface IServerConnectionInfo {
  */
 export class ServerConnection extends Events.EventEmitter {
     domain: any;
-    _events: { route: Function, domain: Function, _events: Function, _eventsCount: Function, _maxListeners: Function };
+    _events: { route: Function; domain: Function; _events: Function; _eventsCount: Function; _maxListeners: Function };
     _eventsCount: number;
     settings: IServerConnectionOptions;
     server: Server;
@@ -1636,9 +1672,11 @@ export class ServerConnection extends Events.EventEmitter {
     _requestCounter: { value: number; min: number; max: number };
     _load: any;
     states: {
-        settings: any; cookies: any; names: any[]
+        settings: any;
+        cookies: any;
+        names: any[];
     };
-    auth: { connection: ServerConnection; _schemes: any; _strategies: any; settings: any; api: any; };
+    auth: { connection: ServerConnection; _schemes: any; _strategies: any; settings: any; api: any };
     _router: any;
     MSPluginsCollection: any;
     applicationCache: any;
@@ -1646,7 +1684,14 @@ export class ServerConnection extends Events.EventEmitter {
     info: IServerConnectionInfo;
 }
 
-export type RequestExtPoints = "onRequest" | "onPreResponse" | "onPreAuth" | "onPostAuth" | "onPreHandler" | "onPostHandler" | "onPreResponse";
+export type RequestExtPoints =
+    | "onRequest"
+    | "onPreResponse"
+    | "onPreAuth"
+    | "onPostAuth"
+    | "onPreHandler"
+    | "onPostHandler"
+    | "onPreResponse";
 export type ServerExtPoints = "onPreStart" | "onPostStart" | "onPreStop" | "onPostStop";
 
 /** Server http://hapijs.com/api#server
@@ -1844,7 +1889,7 @@ export class Server extends Events.EventEmitter {
          */
         api: {
             [index: string]: any;
-        }
+        };
         /** server.auth.default(options)
          Sets a default strategy which is applied to every route where:
          options - a string with the default strategy name or an object with a specified strategy or strategies using the same format as the route auth handler options.
@@ -1891,7 +1936,8 @@ export class Server extends Events.EventEmitter {
              * };
              * };
              */
-            scheme: (server: Server, options: any) => IServerAuthScheme): void;
+            scheme: (server: Server, options: any) => IServerAuthScheme,
+        ): void;
 
         /**
          * server.auth.strategy(name, scheme, [mode], [options])
@@ -2085,9 +2131,21 @@ export class Server extends Events.EventEmitter {
      server.route({ method: 'GET', path: '/test', handler: handler });
      server.start();
      // All requests will get routed to '/test'*/
-    ext(event: RequestExtPoints, method: (request: Request, reply: IReply, bind?: any) => void, options?: { before: string | string[]; after: string | string[]; bind?: any }): void;
-    ext<T>(event: RequestExtPoints, method: (request: Request, reply: IStrictReply<T>, bind?: any) => void, options?: { before: string | string[]; after: string | string[]; bind?: any }): void;
-    ext(event: ServerExtPoints, method: (server: Server, next: (err?: any) => void, bind?: any) => void, options?: { before: string | string[]; after: string | string[]; bind?: any }): void;
+    ext(
+        event: RequestExtPoints,
+        method: (request: Request, reply: IReply, bind?: any) => void,
+        options?: { before: string | string[]; after: string | string[]; bind?: any },
+    ): void;
+    ext<T>(
+        event: RequestExtPoints,
+        method: (request: Request, reply: IStrictReply<T>, bind?: any) => void,
+        options?: { before: string | string[]; after: string | string[]; bind?: any },
+    ): void;
+    ext(
+        event: ServerExtPoints,
+        method: (server: Server, next: (err?: any) => void, bind?: any) => void,
+        options?: { before: string | string[]; after: string | string[]; bind?: any },
+    ): void;
 
     /** server.handler(name, method)
      Registers a new handler type to be used in routes where:
@@ -2258,10 +2316,12 @@ export class Server extends Events.EventEmitter {
      server.methods.sumSync(4, 5, function (err, result) {
     console.log(result);
     }); */
-    method(/**  a unique method name used to invoke the method via server.methods[name]. When configured with caching enabled, server.methods[name].cache.drop(arg1, arg2, ..., argn, callback) can be used to clear the cache for a given key. Supports using nested names such as utils.users.get which will automatically create the missing path under server.methods and can be accessed for the previous example via server.methods.utils.users.get.*/
+    method(
+        /**  a unique method name used to invoke the method via server.methods[name]. When configured with caching enabled, server.methods[name].cache.drop(arg1, arg2, ..., argn, callback) can be used to clear the cache for a given key. Supports using nested names such as utils.users.get which will automatically create the missing path under server.methods and can be accessed for the previous example via server.methods.utils.users.get.*/
         name: string,
         method: IServerMethod,
-        options?: IServerMethodOptions): void;
+        options?: IServerMethodOptions,
+    ): void;
 
     /**server.method(methods)
      Registers a server method function as described in server.method() using a configuration object where:
@@ -2281,11 +2341,19 @@ export class Server extends Events.EventEmitter {
     }
     }
     });*/
-    method(methods: {
-        name: string; method: IServerMethod; options?: IServerMethodOptions | undefined
-    } | Array<{
-        name: string; method: IServerMethod; options?: IServerMethodOptions | undefined
-    }>): void;
+    method(
+        methods:
+            | {
+                name: string;
+                method: IServerMethod;
+                options?: IServerMethodOptions | undefined;
+            }
+            | Array<{
+                name: string;
+                method: IServerMethod;
+                options?: IServerMethodOptions | undefined;
+            }>,
+    ): void;
 
     /**server.path(relativeTo)
      Sets the path prefix used to locate static resources (files and view templates) when relative paths are used where:
@@ -2321,18 +2389,22 @@ export class Server extends Events.EventEmitter {
         options: {
             select?: string | string[] | undefined;
             routes: {
-                prefix: string; vhost?: string | string[] | undefined
+                prefix: string;
+                vhost?: string | string[] | undefined;
             };
         },
-        callback: (err: any) => void): void;
+        callback: (err: any) => void,
+    ): void;
     register(
         plugins: any | any[],
         options: {
             select?: string | string[] | undefined;
             routes: {
-                prefix: string; vhost?: string | string[] | undefined
+                prefix: string;
+                vhost?: string | string[] | undefined;
             };
-        }): Promise<any>;
+        },
+    ): Promise<any>;
 
     register(plugins: any | any[], callback: (err: any) => void): void;
     register(plugins: any | any[]): Promise<any>;
@@ -2360,7 +2432,12 @@ export class Server extends Events.EventEmitter {
      server.render('hello', context, function (err, rendered, config) {
     console.log(rendered);
     });*/
-    render(template: string, context: any, options: any, callback: (err: any, rendered: any, config: any) => void): void;
+    render(
+        template: string,
+        context: any,
+        options: any,
+        callback: (err: any, rendered: any, config: any) => void,
+    ): void;
 
     /** server.route(options)
      Adds a connection route where:

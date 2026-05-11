@@ -1,4 +1,4 @@
-import detect = require('charset-detector');
+import detect = require("charset-detector");
 
 let r: detect.CharsetMatch[];
 
@@ -14,8 +14,8 @@ r = detect(
         (input: ArrayLike<number>, stats: detect.InputStats): detect.CharsetMatch => {
             return {
                 confidence: 10,
-                lang: 'zh',
-                charsetName: 'charset',
+                lang: "zh",
+                charsetName: "charset",
             };
         },
     ],

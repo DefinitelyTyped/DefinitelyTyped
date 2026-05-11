@@ -1,12 +1,12 @@
 /// <reference types="node" />
-import karma = require('karma');
+import karma = require("karma");
 
 const testEnvProcessorConfigOption = (config: karma.Config) => {
     config.set({
-        plugins: ['karma-env-preprocessor'],
+        plugins: ["karma-env-preprocessor"],
         preprocessors: {
-            '**/*.js': ['env'],
+            "**/*.js": ["env"],
         },
-        envPreprocessor: ['PATH', 'HOME'],
+        envPreprocessor: ["PATH", "HOME"],
     });
 };

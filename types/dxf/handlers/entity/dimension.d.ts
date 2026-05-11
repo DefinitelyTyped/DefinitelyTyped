@@ -1,6 +1,6 @@
-import { Property } from '../../Information';
-import common, { CommonEntityData } from "./common";
 import { Point3D } from "../../Common";
+import { Property } from "../../Information";
+import common, { CommonEntityData } from "./common";
 
 export const TYPE: string;
 
@@ -11,8 +11,8 @@ export const TYPE: string;
  */
 export type DimensionEntityData = {
     block: any;
-    start: Point3D
-    end: Point3D
+    start: Point3D;
+    end: Point3D;
     textMidpoint: Point3D;
     measureStart: Point3D;
     measureEnd: Point3D;
@@ -21,7 +21,7 @@ export type DimensionEntityData = {
     extensionRotation?: number;
     textRotation?: number;
     attachementPoint: any;
-    extrudeDirection?: Point3D
+    extrudeDirection?: Point3D;
     ordinateType?: boolean;
     uniqueBlockReference?: boolean;
     userDefinedLocation?: boolean;

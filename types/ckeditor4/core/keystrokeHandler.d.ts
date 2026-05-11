@@ -2,7 +2,7 @@
 
 declare namespace CKEDITOR {
     interface CKEditorStatic {
-        readonly keystrokeHandler: { new (editor: editor): keystrokeHandler };
+        readonly keystrokeHandler: { new(editor: editor): keystrokeHandler };
     }
     interface keystrokeHandler {
         blockedKeystrokes: { [key: number]: string | boolean };

@@ -1,10 +1,3 @@
-// Type definitions for chai-enzyme 0.6.1
-// Project: https://github.com/producthunt/chai-enzyme
-// Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
-
-
 /// <reference types="enzyme" />
 /// <reference types="chai" />
 /// <reference types="react" />
@@ -174,12 +167,12 @@ declare namespace Chai {
 }
 
 declare module "chai-enzyme" {
-    import { ShallowWrapper, ReactWrapper } from "enzyme";
+    import { ReactWrapper, ShallowWrapper } from "enzyme";
 
-    type DebugWrapper = ShallowWrapper<any,any> | cheerio.Cheerio | ReactWrapper<any, any>;
+    type DebugWrapper = ShallowWrapper<any, any> | cheerio.Cheerio | ReactWrapper<any, any>;
     function chaiEnzyMe(wrapper?: (debugWrapper: DebugWrapper) => string): Chai.ChaiPlugin;
 
-    module chaiEnzyMe {
+    namespace chaiEnzyMe {
     }
     export = chaiEnzyMe;
 }

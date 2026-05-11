@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/is-empty",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/ianstormtaylor/is-empty"
+    ],
+    "devDependencies": {
+        "@types/is-empty": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Stanislav Termosa",
+            "githubUsername": "termosa"
+        }
+    ]
+}

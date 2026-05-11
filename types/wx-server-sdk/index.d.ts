@@ -1,20 +1,16 @@
-// Type definitions for wx-server-sdk 0.8
-// Project: https://developers.weixin.qq.com/miniprogram/dev/wxcloud/reference-server-api/
-// Definitions by: WangWei <https://github.com/vonweb>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 /// <reference types="node" />
 import * as fs from "fs";
 
 declare function init(options?: InitOptions): void;
 declare function updateConfig(options: InitOptions): void;
 interface InitOptions {
-    env: string
+    env:
+        | string
         | {
-                database: string;
-                storage: string;
-                functions: string;
-            };
+            database: string;
+            storage: string;
+            functions: string;
+        };
 }
 
 declare function getWXContext(): {
@@ -79,7 +75,7 @@ interface CallFunctionSuccess {
 
 // 云函数
 declare function getVoIPSign(
-    options: GetVoIPSignOptions
+    options: GetVoIPSignOptions,
 ): Promise<GetVoIPSignSuccess>;
 interface GetVoIPSignOptions {
     groupId: string;
@@ -154,7 +150,7 @@ interface Document {
     get(): Promise<{ data: any }>;
     update(options: CommonOption): Promise<{ stats: { updated: 0 | 1 } }>;
     set(
-        options: CommonOption
+        options: CommonOption,
     ): Promise<{
         _id: string | number;
         stats: { updated: 0 | 1; created: 0 | 1 };
@@ -332,16 +328,16 @@ interface AggregationOperators {
 }
 
 export {
-    init,
-    updateConfig,
-    getWXContext,
-    uploadFile,
+    callFunction,
+    database,
+    deleteFile,
     downloadFile,
     getTempFileURL,
-    deleteFile,
-    callFunction,
     getVoIPSign,
-    database,
+    getWXContext,
+    init,
+    updateConfig,
+    uploadFile,
 };
 // export = cloud;
 // export as namespace cloud;

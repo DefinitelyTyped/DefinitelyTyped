@@ -79,11 +79,13 @@ declare namespace GoogleAdsScripts {
          *      }
          */
         interface PlacementSelector
-            extends Base.Selector<PlacementIterator>,
+            extends
+                Base.Selector<PlacementIterator>,
                 Base.SelectorForDateRange,
                 Base.SelectorOrderBy,
                 Base.SelectorWithCondition,
                 Base.SelectorWithIds,
-                Base.SelectorWithLimit {}
+                Base.SelectorWithLimit
+        {}
     }
 }

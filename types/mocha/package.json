@@ -1,0 +1,41 @@
+{
+    "private": true,
+    "name": "@types/mocha",
+    "version": "10.0.9999",
+    "projects": [
+        "https://mochajs.org"
+    ],
+    "devDependencies": {
+        "@types/mocha": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Kazi Manzur Rashid",
+            "githubUsername": "kazimanzurrashid"
+        },
+        {
+            "name": "otiai10",
+            "githubUsername": "otiai10"
+        },
+        {
+            "name": "Vadim Macagon",
+            "githubUsername": "enlight"
+        },
+        {
+            "name": "Andrew Bradley",
+            "githubUsername": "cspotcode"
+        },
+        {
+            "name": "Dmitrii Sorin",
+            "githubUsername": "1999"
+        },
+        {
+            "name": "Noah Hummel",
+            "githubUsername": "strangedev"
+        },
+        {
+            "name": "nicojs",
+            "githubUsername": "nicojs"
+        }
+    ]
+}

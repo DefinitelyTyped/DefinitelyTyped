@@ -1,8 +1,3 @@
-// Type definitions for subset-font 1.4
-// Project: https://github.com/papandreou/subset-font
-// Definitions by: Logan Graham <https://github.com/omacranger>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 /**
@@ -12,11 +7,23 @@ interface SubsetFontOptions {
     /**
      * The desired output format. Defaults to the format of the original font.
      */
-    targetFormat?: 'sfnt' | 'woff' | 'woff2' | 'truetype';
+    targetFormat?: "sfnt" | "woff" | "woff2" | "truetype";
     /**
      * An array of numbers specifying the extra name ids to preserve in the name table. See README for details.
      */
     preserveNameIds?: number[];
+    /**
+     * An object specifying a full or partial instancing of variation axes in the font.
+     * Only works with variable fonts. See README's example for details.
+     */
+    variationAxes?: {
+        [axeName: string]: number | { min: number; max: number; default?: number };
+    };
+    /**
+     * Don't perform glyph closure for layout substitution (GSUB).
+     * Equivalent to `hb-subset --no-layout-closure` and `pyftsubset --no-layout-closure`.
+     */
+    noLayoutClosure?: boolean;
 }
 
 /**

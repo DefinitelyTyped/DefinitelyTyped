@@ -1,17 +1,17 @@
 import {
-    WebGLRenderer,
-    WebGLRenderTarget,
-    Texture,
     DataTexture,
-    Material,
-    ShaderMaterial,
-    Wrapping,
-    TextureFilter,
-    TextureDataType,
     IUniform,
     MagnificationTextureFilter,
+    Material,
     MinificationTextureFilter,
-} from '../../../src/Three';
+    ShaderMaterial,
+    Texture,
+    TextureDataType,
+    TextureFilter,
+    WebGLRenderer,
+    WebGLRenderTarget,
+    Wrapping,
+} from "three";
 
 export interface Variable {
     name: string;
@@ -49,7 +49,7 @@ export class GPUComputationRenderer {
         magFilter: MagnificationTextureFilter,
     ): WebGLRenderTarget;
     createTexture(): DataTexture;
-    renderTexture(input: Texture, output: Texture): void;
+    renderTexture(input: Texture, output: WebGLRenderTarget): void;
     doRenderTarget(material: Material, output: WebGLRenderTarget): void;
     dispose(): void;
 }

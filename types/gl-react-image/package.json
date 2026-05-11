@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/gl-react-image",
+    "version": "3.2.9999",
+    "projects": [
+        "https://github.com/gre/gl-react-image"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/gl-react-image": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Martin Badin",
+            "githubUsername": "martin-badin"
+        }
+    ]
+}

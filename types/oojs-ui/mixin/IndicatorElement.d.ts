@@ -86,7 +86,7 @@ declare namespace OO.ui.mixin {
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): IndicatorElement;
+            new(config?: ConfigOptions): IndicatorElement;
             prototype: Prototype;
             static: Static;
         }

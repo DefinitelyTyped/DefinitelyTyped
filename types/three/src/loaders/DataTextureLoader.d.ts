@@ -1,16 +1,14 @@
-import { Loader } from './Loader';
-import { LoadingManager } from './LoadingManager';
-import { DataTexture } from './../textures/DataTexture';
+import { DataTexture } from "../textures/DataTexture.js";
+import { Loader } from "./Loader.js";
+import { LoadingManager } from "./LoadingManager.js";
 
-export class DataTextureLoader extends Loader {
+export class DataTextureLoader extends Loader<DataTexture> {
     constructor(manager?: LoadingManager);
 
     load(
         url: string,
-        onLoad?: (dataTexture: DataTexture, texData: object) => void,
+        onLoad?: (data: DataTexture, texData: object) => void,
         onProgress?: (event: ProgressEvent) => void,
-        onError?: (event: ErrorEvent) => void,
+        onError?: (err: unknown) => void,
     ): DataTexture;
-
-    loadAsync(url: string, onProgress?: (event: ProgressEvent) => void): Promise<DataTexture>;
 }

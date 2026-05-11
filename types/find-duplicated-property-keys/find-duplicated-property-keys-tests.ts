@@ -1,6 +1,6 @@
-import findDuplicatedPropertyKeys = require('find-duplicated-property-keys');
+import findDuplicatedPropertyKeys = require("find-duplicated-property-keys");
 
-const jsonString = '{"name": "Carl", "name": "Carla", "data": 1, "data": [{ "data": 1, "data": 2}]}';
+const jsonString = "{\"name\": \"Carl\", \"name\": \"Carla\", \"data\": 1, \"data\": [{ \"data\": 1, \"data\": 2}]}";
 
 const result = findDuplicatedPropertyKeys(jsonString); // $ExpectType PropertyInfo[]
 

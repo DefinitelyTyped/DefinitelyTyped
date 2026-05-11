@@ -1,4 +1,4 @@
-import {Token} from '../token';
+import { Token } from "../token";
 
 export class SSOTokenProvider extends Token {
     /**
@@ -8,5 +8,5 @@ export class SSOTokenProvider extends Token {
 }
 
 export interface SSOTokenProviderOptions {
-  profile?: string
+    profile?: string;
 }

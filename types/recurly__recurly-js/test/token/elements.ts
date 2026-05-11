@@ -1,4 +1,4 @@
-export default function elementsToken() {
+export default function elementsToken () {
   const elements = window.recurly.Elements();
   const form = document.querySelector('form');
 

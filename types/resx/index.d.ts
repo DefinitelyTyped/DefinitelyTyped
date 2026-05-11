@@ -1,8 +1,3 @@
-// Type definitions for resx 2.0
-// Project: http://locize.com
-// Definitions by: Daniel Sousa <https://github.com/danielb7390>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface ObjectOfStrings {
     [key: string]: string;
 }

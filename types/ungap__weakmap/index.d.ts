@@ -1,8 +1,3 @@
-// Type definitions for @ungap/weakmap 0.1
-// Project: https://github.com/ungap/weakmap#readme
-// Definitions by: ExE Boss <https://github.com/ExE-Boss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Based on definitions from `lib.es2015.collection` and `lib.es2015.iterable`.
  */

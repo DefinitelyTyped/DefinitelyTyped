@@ -1,0 +1,15 @@
+{
+    "private": true,
+    "name": "@types/recursive-readdir",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/jergason/recursive-readdir/"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/recursive-readdir": "workspace:."
+    },
+    "owners": []
+}

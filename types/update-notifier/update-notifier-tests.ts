@@ -1,4 +1,4 @@
-import updateNotifier, { Package, UpdateInfo } from 'update-notifier';
+import updateNotifier, { Package, UpdateInfo } from "update-notifier";
 
 declare const packageJson: Package;
 
@@ -23,7 +23,7 @@ if (notifier.update) {
 
     // test all options
     notifier.notify({
-        message: 'Update available: ' + notifier.update.latest,
+        message: "Update available: " + notifier.update.latest,
         defer: false,
         isGlobal: true,
         boxenOptions: {
@@ -34,9 +34,9 @@ if (notifier.update) {
                 left: 2,
                 right: 2,
             },
-            align: 'center',
-            borderColor: 'yellow',
-            borderStyle: 'round',
+            align: "center",
+            borderColor: "yellow",
+            borderStyle: "round",
         },
     });
 }
@@ -47,8 +47,8 @@ if (notifier.update) {
     update.latest; // $ExpectType string
     update.name; // $ExpectType string
     update.type; // $ExpectType "latest" | "major" | "minor" | "patch" | "prerelease" | "build"
-    notifier.config.set('lastUpdateCheck', Date.now());
-    if (update.type && update.type !== 'latest') {
-        notifier.config.set('update', update);
+    notifier.config?.set("lastUpdateCheck", Date.now());
+    if (update.type && update.type !== "latest") {
+        notifier.config?.set("update", update);
     }
 })();

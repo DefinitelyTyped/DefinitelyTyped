@@ -1,6 +1,6 @@
-import Ember from 'ember';
-import RSVP from 'rsvp';
-import { assertType } from './lib/assert';
+import Ember from "ember";
+import RSVP from "rsvp";
+import { assertType } from "./lib/assert";
 
 function testRun() {
     const r = Ember.run(() => {
@@ -10,8 +10,8 @@ function testRun() {
     assertType<number>(r);
 
     function destroyApp(application: Ember.Application) {
-        Ember.run(application, 'destroy');
-        Ember.run(application, function () {
+        Ember.run(application, "destroy");
+        Ember.run(application, function() {
             this.destroy();
         });
     }
@@ -27,7 +27,7 @@ function testBind() {
         editor: null as string | null,
 
         setupEditor(editor: string) {
-            this.set('editor', editor);
+            this.set("editor", editor);
         },
     });
 }
@@ -51,7 +51,7 @@ function testCancel() {
 
     Ember.run.cancel(runLater);
 
-    const runScheduleOnce = Ember.run.scheduleOnce('afterRender', myContext, () => {
+    const runScheduleOnce = Ember.run.scheduleOnce("afterRender", myContext, () => {
         // will not be executed
     });
 
@@ -100,20 +100,20 @@ function testCancel() {
 function testDebounce() {
     function runIt() {}
 
-    const myContext = { name: 'debounce' };
+    const myContext = { name: "debounce" };
 
     Ember.run.debounce(runIt, 150);
     Ember.run.debounce(myContext, runIt, 150);
     Ember.run.debounce(myContext, runIt, 150, true);
 
     Ember.Component.extend({
-        searchValue: 'test',
+        searchValue: "test",
         fetchResults(value: string) {},
 
         actions: {
             handleTyping() {
                 // the fetchResults function is passed into the component from its parent
-                Ember.run.debounce(this, this.get('fetchResults'), this.get('searchValue'), 250);
+                Ember.run.debounce(this, this.get("fetchResults"), this.get("searchValue"), 250);
             },
         },
     });
@@ -140,7 +140,7 @@ function testJoin() {
 
     new RSVP.Promise(resolve => {
         Ember.run.later(() => {
-            resolve({ msg: 'Hold Your Horses' });
+            resolve({ msg: "Hold Your Horses" });
         }, 3000);
     });
 }
@@ -167,7 +167,7 @@ function testNext() {
 function testOnce() {
     Ember.Component.extend({
         init() {
-            Ember.run.once(this, 'processFullName');
+            Ember.run.once(this, "processFullName");
         },
 
         processFullName() {},
@@ -177,43 +177,43 @@ function testOnce() {
 function testSchedule() {
     Ember.Component.extend({
         init() {
-            Ember.run.schedule('sync', this, () => {
+            Ember.run.schedule("sync", this, () => {
                 // this will be executed in the first RunLoop queue, when bindings are synced
-                console.log('scheduled on sync queue');
+                console.log("scheduled on sync queue");
             });
 
-            Ember.run.schedule('actions', this, () => {
+            Ember.run.schedule("actions", this, () => {
                 // this will be executed in the 'actions' queue, after bindings have synced.
-                console.log('scheduled on actions queue');
+                console.log("scheduled on actions queue");
             });
         },
     });
 
-    Ember.run.schedule('actions', () => {
+    Ember.run.schedule("actions", () => {
         // Do more things
     });
 }
 
 function testScheduleOnce() {
     function sayHi() {
-        console.log('hi');
+        console.log("hi");
     }
 
     const myContext = {};
     Ember.run(() => {
-        Ember.run.scheduleOnce('afterRender', myContext, sayHi);
-        Ember.run.scheduleOnce('afterRender', myContext, sayHi);
+        Ember.run.scheduleOnce("afterRender", myContext, sayHi);
+        Ember.run.scheduleOnce("afterRender", myContext, sayHi);
         // sayHi will only be executed once, in the afterRender queue of the RunLoop
     });
-    Ember.run.scheduleOnce('actions', myContext, () => {
-        console.log('Closure');
+    Ember.run.scheduleOnce("actions", myContext, () => {
+        console.log("Closure");
     });
 }
 
 function testThrottle() {
     function runIt() {}
 
-    const myContext = { name: 'throttle' };
+    const myContext = { name: "throttle" };
 
     Ember.run.throttle(runIt, 150);
     Ember.run.throttle(myContext, runIt, 150);

@@ -1,81 +1,81 @@
-import webpack = require('webpack');
-import webpackNodeExternals = require('webpack-node-externals');
+import webpack = require("webpack");
+import webpackNodeExternals = require("webpack-node-externals");
 
 const a: webpack.Configuration = {
-    entry: 'test.js',
+    entry: "test.js",
     externals: [
-        webpackNodeExternals()
-    ]
+        webpackNodeExternals(),
+    ],
 };
 const b: webpack.Configuration = {
-    entry: 'test.js',
-    externals: webpackNodeExternals()
+    entry: "test.js",
+    externals: webpackNodeExternals(),
 };
 const c: webpack.Configuration = {
-    entry: 'test.js',
+    entry: "test.js",
     externals: [
         webpackNodeExternals({
             allowlist: [
-                'jquery',
-                'webpack/hot/dev-server',
+                "jquery",
+                "webpack/hot/dev-server",
                 /^lodash/,
-                (moduleName: string) => moduleName === 'moduleF',
+                (moduleName: string) => moduleName === "moduleF",
             ],
         }),
     ],
 };
 const d: webpack.Configuration = {
-    entry: 'test.js',
+    entry: "test.js",
     externals: [
         webpackNodeExternals({
             importType: (moduleName) => {
-                return 'commonjs';
-            }
-        })
-    ]
+                return "commonjs";
+            },
+        }),
+    ],
 };
 const e: webpack.Configuration = {
-    entry: 'test.js',
+    entry: "test.js",
     externals: [
         webpackNodeExternals({
             modulesFromFile: {
-                exclude: 'devDependencies'
-            }
-        })
-    ]
+                exclude: "devDependencies",
+            },
+        }),
+    ],
 };
 const f: webpack.Configuration = {
-    entry: 'test.js',
+    entry: "test.js",
     externals: [
         webpackNodeExternals({
             modulesFromFile: {
-                exclude: ['devDependencies']
-            }
-        })
-    ]
+                exclude: ["devDependencies"],
+            },
+        }),
+    ],
 };
 const g: webpack.Configuration = {
-    entry: 'test.js',
+    entry: "test.js",
     externals: [
         webpackNodeExternals({
             modulesFromFile: {
-                include: 'dependencies'
-            }
-        })
-    ]
+                include: "dependencies",
+            },
+        }),
+    ],
 };
 const h: webpack.Configuration = {
-    entry: 'test.js',
+    entry: "test.js",
     externals: [
         webpackNodeExternals({
             modulesFromFile: {
-                include: ['dependencies']
-            }
-        })
-    ]
+                include: ["dependencies"],
+            },
+        }),
+    ],
 };
 const i: webpack.Configuration = {
-    entry: 'test.js',
+    entry: "test.js",
     externals: [
         webpackNodeExternals({
             includeAbsolutePaths: true,
@@ -83,18 +83,27 @@ const i: webpack.Configuration = {
     ],
 };
 const j: webpack.Configuration = {
-    entry: 'test.js',
+    entry: "test.js",
     externals: [
         webpackNodeExternals({
-            modulesDir: 'node_modules/somepackage/node_modules',
+            modulesDir: "node_modules/somepackage/node_modules",
         }),
     ],
 };
 const k: webpack.Configuration = {
-    entry: 'test.js',
+    entry: "test.js",
     externals: [
         webpackNodeExternals({
-            binaryDirs: ['.bin', '._bin'],
+            binaryDirs: [".bin", "._bin"],
+        }),
+    ],
+};
+
+const l: webpack.Configuration = {
+    entry: "test.js",
+    externals: [
+        webpackNodeExternals({
+            importType: "module",
         }),
     ],
 };

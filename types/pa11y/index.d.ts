@@ -1,9 +1,3 @@
-// Type definitions for pa11y 5.3
-// Project: https://github.com/pa11y/pa11y
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 import { Browser, Page, Viewport } from "puppeteer";
 
 type AccessibilityStandard = "Section508" | "WCAG2A" | "WCAG2AA" | "WCAG2AAA";

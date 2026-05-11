@@ -1,6 +1,25 @@
 {
     "private": true,
+    "name": "@types/redux-promise",
+    "version": "0.5.9999",
+    "projects": [
+        "https://github.com/acdlite/redux-promise"
+    ],
     "dependencies": {
         "redux": "^3.6.0"
-    }
+    },
+    "devDependencies": {
+        "@types/redux-actions": "*",
+        "@types/redux-promise": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Rogelio Morrell Caballero",
+            "githubUsername": "molekilla"
+        },
+        {
+            "name": "Kaur Kuut",
+            "githubUsername": "xStrom"
+        }
+    ]
 }

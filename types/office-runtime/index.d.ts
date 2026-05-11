@@ -1,13 +1,3 @@
-// Type definitions for non-npm package office-runtime 1.0
-// Project: https://github.com/OfficeDev/office-js
-// Definitions by: OfficeDev <https://github.com/OfficeDev>,
-//                 David Chesnut <https://github.com/davidchesnut>,
-//                 Alex Jerabek <https://github.com/AlexJerabek>,
-//                 Ricky Kirkham <https://github.com/rick-kirkham>,
-//                 Alison McKay <https://github.com/alison-mk>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Typescript Version: 2.4
-
 /*
 office-runtime
 Copyright (c) Microsoft Corporation
@@ -353,6 +343,8 @@ declare namespace OfficeRuntime {
      *
      * **Applications**: Excel, Outlook, PowerPoint, Word
      *
+     * **Requirement set**: {@link https://learn.microsoft.com/javascript/api/requirement-sets/common/identity-api-requirement-sets | IdentityAPI 1.3}
+     * 
      * **Important**:
      *
      * - In Outlook, this API isn't supported if you load an add-in in an Outlook.com or Gmail mailbox.

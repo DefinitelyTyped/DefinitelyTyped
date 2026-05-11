@@ -1,25 +1,19 @@
-// Type definitions for redux-saga-routines 3.1
-// Project: https://github.com/afitiskin/redux-saga-routines
-// Definitions by: Alexey Pelykh <https://github.com/alexey-pelykh>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
-import { Dispatch } from 'redux';
+import { Dispatch } from "redux";
 import {
     Action,
-    ActionMeta,
     ActionFunction0,
     ActionFunction1,
     ActionFunction2,
     ActionFunction3,
     ActionFunction4,
     ActionFunctionAny,
-} from 'redux-actions';
-import { FormSubmitHandler } from 'redux-form';
+    ActionMeta,
+} from "redux-actions";
+import { FormSubmitHandler } from "redux-form";
 
 export function routinePromiseWatcherSaga(): IterableIterator<any>;
 
-export type RoutineStages = 'TRIGGER' | 'REQUEST' | 'SUCCESS' | 'FAILURE' | 'FULFILL';
+export type RoutineStages = "TRIGGER" | "REQUEST" | "SUCCESS" | "FAILURE" | "FULFILL";
 
 export type ActionCreatorFunction<Payload = any, Meta = any> = ActionFunctionAny<
     Action<Payload> | ActionMeta<Payload, Meta>
@@ -30,11 +24,13 @@ export type Routine<
     TRequestActionCreator = ActionCreatorFunction,
     TSuccessActionCreator = ActionCreatorFunction,
     TFailureActionCreator = ActionCreatorFunction,
-    TFulfillActionCreator = ActionCreatorFunction
-> = TTriggerActionCreator &
-    {
+    TFulfillActionCreator = ActionCreatorFunction,
+> =
+    & TTriggerActionCreator
+    & {
         [key in RoutineStages]: string;
-    } & {
+    }
+    & {
         trigger: TTriggerActionCreator;
         request: TRequestActionCreator;
         success: TSuccessActionCreator;
@@ -50,12 +46,10 @@ export type UnifiedRoutine<TActionCreator = ActionCreatorFunction> = Routine<
     TActionCreator
 >;
 
-export type ResolveFunctionReturnType<TFunction> = TFunction extends (...args: any[]) => infer TReturn
-    ? TReturn
+export type ResolveFunctionReturnType<TFunction> = TFunction extends (...args: any[]) => infer TReturn ? TReturn
     : undefined;
 
-export type ResolveFunctionArg1Type<TFunction> = TFunction extends (arg1: infer TArg1, ...args: any[]) => any
-    ? TArg1
+export type ResolveFunctionArg1Type<TFunction> = TFunction extends (arg1: infer TArg1, ...args: any[]) => any ? TArg1
     : undefined;
 
 export type ResolveFunctionArg2Type<TFunction> = TFunction extends (arg1: any, arg2: infer TArg1, ...args: any[]) => any
@@ -67,8 +61,7 @@ export type ResolveFunctionArg3Type<TFunction> = TFunction extends (
     arg2: any,
     arg3: infer TArg1,
     ...args: any[]
-) => any
-    ? TArg1
+) => any ? TArg1
     : undefined;
 
 export type ResolveFunctionArg4Type<TFunction> = TFunction extends (
@@ -77,8 +70,7 @@ export type ResolveFunctionArg4Type<TFunction> = TFunction extends (
     arg3: any,
     arg4: infer TArg1,
     ...args: any[]
-) => any
-    ? TArg1
+) => any ? TArg1
     : undefined;
 
 export type ResolveActionCreatorByPayload<
@@ -87,17 +79,14 @@ export type ResolveActionCreatorByPayload<
     TArg1 = ResolveFunctionArg1Type<TPayloadCreator>,
     TArg2 = ResolveFunctionArg2Type<TPayloadCreator>,
     TArg3 = ResolveFunctionArg3Type<TPayloadCreator>,
-    TArg4 = ResolveFunctionArg4Type<TPayloadCreator>
-> = TPayloadCreator extends ActionFunction0<TPayload>
-    ? ActionFunction0<Action<TPayload>>
-    : TPayloadCreator extends ActionFunction1<TArg1, TPayload>
-    ? ActionFunction1<TArg1, Action<TPayload>>
-    : TPayloadCreator extends ActionFunction2<TArg1, TArg2, TPayload>
-    ? ActionFunction2<TArg1, TArg2, Action<TPayload>>
+    TArg4 = ResolveFunctionArg4Type<TPayloadCreator>,
+> = TPayloadCreator extends ActionFunction0<TPayload> ? ActionFunction0<Action<TPayload>>
+    : TPayloadCreator extends ActionFunction1<TArg1, TPayload> ? ActionFunction1<TArg1, Action<TPayload>>
+    : TPayloadCreator extends ActionFunction2<TArg1, TArg2, TPayload> ? ActionFunction2<TArg1, TArg2, Action<TPayload>>
     : TPayloadCreator extends ActionFunction3<TArg1, TArg2, TArg3, TPayload>
-    ? ActionFunction3<TArg1, TArg2, TArg3, Action<TPayload>>
+        ? ActionFunction3<TArg1, TArg2, TArg3, Action<TPayload>>
     : TPayloadCreator extends ActionFunction4<TArg1, TArg2, TArg3, TArg4, TPayload>
-    ? ActionFunction4<TArg1, TArg2, TArg3, TArg4, Action<TPayload>>
+        ? ActionFunction4<TArg1, TArg2, TArg3, TArg4, Action<TPayload>>
     : ActionFunctionAny<Action<TPayload>>;
 
 export type ResolveActionCreatorByMeta<
@@ -106,17 +95,14 @@ export type ResolveActionCreatorByMeta<
     TArg1 = ResolveFunctionArg1Type<TMetaCreator>,
     TArg2 = ResolveFunctionArg2Type<TMetaCreator>,
     TArg3 = ResolveFunctionArg3Type<TMetaCreator>,
-    TArg4 = ResolveFunctionArg4Type<TMetaCreator>
-> = TMetaCreator extends ActionFunction0<TMeta>
-    ? ActionFunction0<ActionMeta<any, TMeta>>
-    : TMetaCreator extends ActionFunction1<TArg1, TMeta>
-    ? ActionFunction1<TArg1, ActionMeta<any, TMeta>>
-    : TMetaCreator extends ActionFunction2<TArg1, TArg2, TMeta>
-    ? ActionFunction2<TArg1, TArg2, ActionMeta<any, TMeta>>
+    TArg4 = ResolveFunctionArg4Type<TMetaCreator>,
+> = TMetaCreator extends ActionFunction0<TMeta> ? ActionFunction0<ActionMeta<any, TMeta>>
+    : TMetaCreator extends ActionFunction1<TArg1, TMeta> ? ActionFunction1<TArg1, ActionMeta<any, TMeta>>
+    : TMetaCreator extends ActionFunction2<TArg1, TArg2, TMeta> ? ActionFunction2<TArg1, TArg2, ActionMeta<any, TMeta>>
     : TMetaCreator extends ActionFunction3<TArg1, TArg2, TArg3, TMeta>
-    ? ActionFunction3<TArg1, TArg2, TArg3, ActionMeta<any, TMeta>>
+        ? ActionFunction3<TArg1, TArg2, TArg3, ActionMeta<any, TMeta>>
     : TMetaCreator extends ActionFunction4<TArg1, TArg2, TArg3, TArg4, TMeta>
-    ? ActionFunction4<TArg1, TArg2, TArg3, TArg4, ActionMeta<any, TMeta>>
+        ? ActionFunction4<TArg1, TArg2, TArg3, TArg4, ActionMeta<any, TMeta>>
     : ActionFunctionAny<ActionMeta<any, TMeta>>;
 
 export type ResolveActionCreatorByPayloadMeta<
@@ -127,23 +113,20 @@ export type ResolveActionCreatorByPayloadMeta<
     TArg1 = ResolveFunctionArg1Type<TPayloadCreator>,
     TArg2 = ResolveFunctionArg2Type<TPayloadCreator>,
     TArg3 = ResolveFunctionArg3Type<TPayloadCreator>,
-    TArg4 = ResolveFunctionArg4Type<TPayloadCreator>
-> = TMetaCreator extends ActionFunction0<TMeta>
-    ? ActionFunction0<ActionMeta<TPayload, TMeta>>
-    : TMetaCreator extends ActionFunction1<TArg1, TMeta>
-    ? ActionFunction1<TArg1, ActionMeta<TPayload, TMeta>>
+    TArg4 = ResolveFunctionArg4Type<TPayloadCreator>,
+> = TMetaCreator extends ActionFunction0<TMeta> ? ActionFunction0<ActionMeta<TPayload, TMeta>>
+    : TMetaCreator extends ActionFunction1<TArg1, TMeta> ? ActionFunction1<TArg1, ActionMeta<TPayload, TMeta>>
     : TMetaCreator extends ActionFunction2<TArg1, TArg2, TMeta>
-    ? ActionFunction2<TArg1, TArg2, ActionMeta<TPayload, TMeta>>
+        ? ActionFunction2<TArg1, TArg2, ActionMeta<TPayload, TMeta>>
     : TMetaCreator extends ActionFunction3<TArg1, TArg2, TArg3, TMeta>
-    ? ActionFunction3<TArg1, TArg2, TArg3, ActionMeta<TPayload, TMeta>>
+        ? ActionFunction3<TArg1, TArg2, TArg3, ActionMeta<TPayload, TMeta>>
     : TMetaCreator extends ActionFunction4<TArg1, TArg2, TArg3, TArg4, TMeta>
-    ? ActionFunction4<TArg1, TArg2, TArg3, TArg4, ActionMeta<TPayload, TMeta>>
+        ? ActionFunction4<TArg1, TArg2, TArg3, TArg4, ActionMeta<TPayload, TMeta>>
     : ActionFunctionAny<ActionMeta<TPayload, TMeta>>;
 
 export type ResolvePayloadByActionCreator<TActionCreator> = TActionCreator extends (
     ...args: any[]
-) => Action<infer TPayload>
-    ? TPayload
+) => Action<infer TPayload> ? TPayload
     : undefined;
 
 export interface ReduxFormPayload<TFormData = {}, TProps = {}> {
@@ -155,8 +138,8 @@ export function bindRoutineToReduxForm<TFormData = {}, TProps = {}>(
     routine:
         | Routine<ActionFunction1<ReduxFormPayload<TFormData, TProps>, Action<ReduxFormPayload<TFormData, TProps>>>>
         | Routine<
-              ActionFunction1<ReduxFormPayload<TFormData, TProps>, ActionMeta<ReduxFormPayload<TFormData, TProps>, any>>
-          >,
+            ActionFunction1<ReduxFormPayload<TFormData, TProps>, ActionMeta<ReduxFormPayload<TFormData, TProps>, any>>
+        >,
     noSuccessPayload?: boolean,
 ): FormSubmitHandler<TFormData, TProps>;
 
@@ -169,17 +152,17 @@ export type PromiseCreator<TPayload = {}> = (
 
 export function promisifyRoutine<
     TTriggerActionCreator = ActionCreatorFunction,
-    TRequestActionCreator = ActionCreatorFunction,
-    TSuccessActionCreator = ActionCreatorFunction,
-    TFailureActionCreator = ActionCreatorFunction,
-    TFulfillActionCreator = ActionCreatorFunction
+    TRequestActionCreator = ActionCreatorFunction, // eslint-disable-line @definitelytyped/no-unnecessary-generics
+    TSuccessActionCreator = ActionCreatorFunction, // eslint-disable-line @definitelytyped/no-unnecessary-generics
+    TFailureActionCreator = ActionCreatorFunction, // eslint-disable-line @definitelytyped/no-unnecessary-generics
+    TFulfillActionCreator = ActionCreatorFunction, // eslint-disable-line @definitelytyped/no-unnecessary-generics
 >(
     routine: Routine<
         TTriggerActionCreator,
-        TRequestActionCreator, // eslint-disable-line no-unnecessary-generics
-        TSuccessActionCreator, // eslint-disable-line no-unnecessary-generics
-        TFailureActionCreator, // eslint-disable-line no-unnecessary-generics
-        TFulfillActionCreator // eslint-disable-line no-unnecessary-generics
+        TRequestActionCreator,
+        TSuccessActionCreator,
+        TFailureActionCreator,
+        TFulfillActionCreator
     >,
 ): PromiseCreator<ResolvePayloadByActionCreator<TTriggerActionCreator>>;
 
@@ -288,7 +271,7 @@ export function createRoutine<
     TRequestPayloadCreator,
     TSuccessPayloadCreator,
     TFailurePayloadCreator,
-    TFulfillPayloadCreator
+    TFulfillPayloadCreator,
 >(
     typePrefix: string,
     payloadCreator: {
@@ -316,7 +299,7 @@ export function createRoutine<
     TRequestMetaCreator,
     TSuccessMetaCreator,
     TFailureMetaCreator,
-    TFulfillMetaCreator
+    TFulfillMetaCreator,
 >(
     typePrefix: string,
     payloadCreator: null | undefined,
@@ -350,7 +333,7 @@ export function createRoutine<
     TRequestMetaCreator,
     TSuccessMetaCreator,
     TFailureMetaCreator,
-    TFulfillMetaCreator
+    TFulfillMetaCreator,
 >(
     typePrefix: string,
     payloadCreator: {

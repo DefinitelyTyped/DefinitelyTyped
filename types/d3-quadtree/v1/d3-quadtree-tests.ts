@@ -6,14 +6,16 @@
  * are not intended as functional tests.
  */
 
-import * as d3Quadtree from 'd3-quadtree';
+import * as d3Quadtree from "d3-quadtree";
 
 // ---------------------------------------------------------------------------
 // Preparatory Steps
 // ---------------------------------------------------------------------------
 
 // custom type guard
-function isLeaf<T>(a: d3Quadtree.QuadtreeInternalNode<T> | d3Quadtree.QuadtreeLeaf<T>): a is d3Quadtree.QuadtreeLeaf<T> {
+function isLeaf<T>(
+    a: d3Quadtree.QuadtreeInternalNode<T> | d3Quadtree.QuadtreeLeaf<T>,
+): a is d3Quadtree.QuadtreeLeaf<T> {
     return a.length === undefined;
 }
 
@@ -35,7 +37,7 @@ let testData: TestDatum[] = [
     { x: 15, y: 80 },
     { x: 50, y: 30 },
     { x: 35, y: 60 },
-    { x: 70, y: 20 }
+    { x: 70, y: 20 },
 ];
 
 let node: d3Quadtree.QuadtreeInternalNode<TestDatum> | d3Quadtree.QuadtreeLeaf<TestDatum>;
@@ -47,7 +49,7 @@ const simpleTestData: Array<[number, number]> = [
     [15, 80],
     [50, 30],
     [35, 60],
-    [70, 20]
+    [70, 20],
 ];
 
 // ---------------------------------------------------------------------------
@@ -78,7 +80,7 @@ quadtree = d3Quadtree.quadtree<TestDatum>(testData); // explicitly typed to Test
 quadtree = d3Quadtree.quadtree(
     testData, // data type Array<TestDatum>
     d => d.x, // x accessor with d of type TestDatum
-    d => d.y // y accessor with d of type TestDatum
+    d => d.y, // y accessor with d of type TestDatum
 ); // inferred type underlying quadtree TestDatum
 
 quadtree = d3Quadtree.quadtree<TestDatum>(testData); // explicitly typed to TestDatum
@@ -113,13 +115,13 @@ quadtree = quadtree.cover(50, 90);
 
 quadtree = quadtree.add({ x: 35, y: 35 });
 // @ts-expect-error
-quadtree = quadtree.add({x: 35}); // fails, incompatible data type
+quadtree = quadtree.add({ x: 35 }); // fails, incompatible data type
 
 // addAll(...) ---------------------------------------------------------------
 
 quadtree = quadtree.addAll(testData);
 // @ts-expect-error
-quadtree = quadtree.addAll([{x: 35}, {x: 55, y: 13}]); // fails, incompatible data type
+quadtree = quadtree.addAll([{ x: 35 }, { x: 55, y: 13 }]); // fails, incompatible data type
 
 // remove(...) ---------------------------------------------------------------
 
@@ -172,7 +174,7 @@ quadtree = quadtree.visit((node, x0, y0, x1, y1) => {
     if (isLeaf(node)) {
         console.log(node.data);
     } else {
-        console.log('Top-Right Quadrant: ', node[0]);
+        console.log("Top-Right Quadrant: ", node[0]);
     }
     // void -> undefined return treated as falsey
 });
@@ -214,7 +216,7 @@ quadtree = quadtree.visitAfter((node, x0, y0, x1, y1) => {
     if (isLeaf(node)) {
         console.log(node.data);
     } else {
-        console.log('Top-Right Quadrant: ', node[0]);
+        console.log("Top-Right Quadrant: ", node[0]);
     }
 });
 

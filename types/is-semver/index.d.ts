@@ -1,8 +1,3 @@
-// Type definitions for is-semver 1.0
-// Project: https://github.com/IonicaBizau/is-semver#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = isSemver;
 
 /**

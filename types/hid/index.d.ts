@@ -1,8 +1,3 @@
-// Type definitions for hid 1.0
-// Project: https://github.com/hyperdivision/hid#readme
-// Definitions by: Dan Dean <https://github.com/dandean>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export {};

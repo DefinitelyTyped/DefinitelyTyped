@@ -1,7 +1,7 @@
-import { Sprite } from 'athenajs';
+import { Sprite } from "athenajs";
 
-const sprite: Sprite = new Sprite('mySprite', {
-    imageId: 'tiles',
+const sprite: Sprite = new Sprite("mySprite", {
+    imageId: "tiles",
     animations: {
         anim1: {
             frameDuration: 1,
@@ -14,15 +14,22 @@ const sprite: Sprite = new Sprite('mySprite', {
                     x: 1,
                     y: 4,
                     x2: 62,
-                    y2: 95
+                    y2: 95,
                 },
-                plane: 0
+                plane: 0,
             }],
-            loop: 0
-        }
-    }
+            loop: 0,
+        },
+    },
 });
 
-sprite.setAnimation('anim1', () => {
-    sprite.setAnimation('anim1', () => { console.log('the end!'); }, 0, true);
+sprite.setAnimation("anim1", () => {
+    sprite.setAnimation(
+        "anim1",
+        () => {
+            console.log("the end!");
+        },
+        0,
+        true,
+    );
 });

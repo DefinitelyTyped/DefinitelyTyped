@@ -55,8 +55,7 @@ declare namespace GoogleAdsScripts {
          *      }
          */
         interface ExcludedContentLabelSelector
-            extends Base.Selector<ExcludedContentLabelIterator>,
-                Base.SelectorWithIds,
-                Base.SelectorWithLimit {}
+            extends Base.Selector<ExcludedContentLabelIterator>, Base.SelectorWithIds, Base.SelectorWithLimit
+        {}
     }
 }

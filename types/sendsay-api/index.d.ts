@@ -1,8 +1,3 @@
-// Type definitions for sendsay-api 2.4
-// Project: https://github.com/sendsay-ru/sendsay-api-js
-// Definitions by: Dmitry_The_Fucker_LV <https://github.com/T0R0NT0T0KY0>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface BaseSendsayOptions {
     /**
      * Default: https://api.sendsay.ru

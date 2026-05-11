@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/clearbladejs-server",
+    "version": "1.1.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "clearbladejs-server",
+    "projects": [
+        "https://docs.clearblade.com/v/3/4-developer_reference/platformsdk/ClearBlade.js/"
+    ],
+    "dependencies": {
+        "@types/paho-mqtt": "*"
+    },
+    "devDependencies": {
+        "@types/clearbladejs-server": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jim Bouquet",
+            "githubUsername": "ClearBlade"
+        }
+    ]
+}

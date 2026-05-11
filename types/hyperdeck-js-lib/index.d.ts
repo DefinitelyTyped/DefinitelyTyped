@@ -1,13 +1,7 @@
-// Type definitions for hyperdeck-js-lib 1.7
-// Project: https://github.com/LA1TV/Hyperdeck-JS-Lib#readme
-// Definitions by: Kyle Hensel <https://github.com/k-yle>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.2
-
 /// <reference types="node" />
 
-import { GlobalLogger } from 'js-logger';
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
+import { GlobalLogger } from "js-logger";
 
 export const Logger: GlobalLogger;
 
@@ -24,75 +18,75 @@ export namespace Hyperdeck {
     }
 
     interface Notifier {
-        on(event: 'asynchronousEvent', callback: (response: Response<unknown>) => void): this;
-        on(event: 'connectionStateChange', callback: (response: { connected: boolean }) => void): this;
-        on(event: 'connectionLost', callback: () => void): this;
+        on(event: "asynchronousEvent", callback: (response: Response<unknown>) => void): this;
+        on(event: "connectionStateChange", callback: (response: { connected: boolean }) => void): this;
+        on(event: "connectionLost", callback: () => void): this;
 
-        once(event: 'asynchronousEvent', callback: (response: Response<unknown>) => void): this;
-        once(event: 'connectionStateChange', callback: (response: { connected: boolean }) => void): this;
-        once(event: 'connectionLost', callback: () => void): this;
+        once(event: "asynchronousEvent", callback: (response: Response<unknown>) => void): this;
+        once(event: "connectionStateChange", callback: (response: { connected: boolean }) => void): this;
+        once(event: "connectionLost", callback: () => void): this;
     }
     class Notifier extends EventEmitter {}
 
     type VideoFormat =
-        | 'NTSC'
-        | 'PAL'
-        | 'NTSCp'
-        | 'PALp'
-        | '720p50'
-        | '720p5994'
-        | '720p60'
-        | '1080p23976'
-        | '1080p24'
-        | '1080p25'
-        | '1080p2997'
-        | '1080p30'
-        | '1080i50'
-        | '1080i5994'
-        | '1080i60'
-        | '4Kp23976'
-        | '4Kp24'
-        | '4Kp25'
-        | '4Kp2997'
-        | '4Kp30'
-        | '4Kp50'
-        | '4Kp5994'
-        | '4Kp60';
+        | "NTSC"
+        | "PAL"
+        | "NTSCp"
+        | "PALp"
+        | "720p50"
+        | "720p5994"
+        | "720p60"
+        | "1080p23976"
+        | "1080p24"
+        | "1080p25"
+        | "1080p2997"
+        | "1080p30"
+        | "1080i50"
+        | "1080i5994"
+        | "1080i60"
+        | "4Kp23976"
+        | "4Kp24"
+        | "4Kp25"
+        | "4Kp2997"
+        | "4Kp30"
+        | "4Kp50"
+        | "4Kp5994"
+        | "4Kp60";
 
     type FileFormat =
-        | 'QuickTimeUncompressed'
-        | 'QuickTimeProResHQ'
-        | 'QuickTimeProRes'
-        | 'QuickTimeProResLT'
-        | 'QuickTimeProResProxy'
-        | 'QuickTimeDNxHD220'
-        | 'DNxHD220'
-        | 'QuickTimeDNxHR_HQX'
-        | 'DNxHR_HQX'
-        | 'H.264Low'
-        | 'H.264Medium'
-        | 'H.264High '
-        | 'QuickTimeDNxHD45 '
-        | 'DNxHD45'
-        | 'QuickTimeDNxHD145'
-        | 'DNxHD145'
-        | 'QuickTimeDNxHR_SQ '
-        | 'DNxHR_SQ'
-        | 'QuicktimeDNxHR_LB'
-        | 'DNxHR_LB';
+        | "QuickTimeUncompressed"
+        | "QuickTimeProResHQ"
+        | "QuickTimeProRes"
+        | "QuickTimeProResLT"
+        | "QuickTimeProResProxy"
+        | "QuickTimeDNxHD220"
+        | "DNxHD220"
+        | "QuickTimeDNxHR_HQX"
+        | "DNxHR_HQX"
+        | "H.264Low"
+        | "H.264Medium"
+        | "H.264High "
+        | "QuickTimeDNxHD45 "
+        | "DNxHD45"
+        | "QuickTimeDNxHD145"
+        | "DNxHD145"
+        | "QuickTimeDNxHR_SQ "
+        | "DNxHR_SQ"
+        | "QuicktimeDNxHR_LB"
+        | "DNxHR_LB";
 
     interface DeviceInfo {
-        'unique id': string;
+        "unique id": string;
         model: string;
-        'protocol version': string;
+        "protocol version": string;
     }
 
     interface SlotInfo {
-        'slot id': string;
-        status: 'empty' | 'mounting' | 'mounted' | 'error';
-        'volume name': string;
-        'recording time': string;
-        'video format': VideoFormat;
+        "slot id": string;
+        status: "empty" | "mounting" | "mounted" | "error";
+        "volume name": string;
+        "recording time": string;
+        "video format": VideoFormat;
     }
 
     interface ClipList {
@@ -100,16 +94,16 @@ export namespace Hyperdeck {
     }
 
     interface TransportInfo {
-        status: 'preview' | 'stopped' | 'play' | 'forward' | 'rewind' | 'jog' | 'shuttle' | 'record';
+        status: "preview" | "stopped" | "play" | "forward" | "rewind" | "jog" | "shuttle" | "record";
         speed: string;
         /** could be "none" */
-        'slot id': string;
-        'display timecode': Timecode;
+        "slot id": string;
+        "display timecode": Timecode;
         timecode: Timecode;
         /** could be "none" */
-        'clip id': string;
-        'video format': VideoFormat;
-        loop: 'true' | 'false';
+        "clip id": string;
+        "video format": VideoFormat;
+        loop: "true" | "false";
     }
 }
 
@@ -125,7 +119,7 @@ export class HyperdeckCore {
      * @return The promise which will resolve/reject when a response has been received
      *         (or connection lost).
      */
-    // eslint-disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     makeRequest<T>(command: string): Promise<Hyperdeck.Response<T>>;
 
     /**

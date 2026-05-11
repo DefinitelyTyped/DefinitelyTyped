@@ -1,8 +1,3 @@
-// Type definitions for Apple Pay JS 14.0
-// Project: https://developer.apple.com/reference/applepayjs
-// Definitions by: Martin Costello <https://github.com/martincostello>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * ApplePaySession is the entry point for Apple Pay on the web.
  */
@@ -45,15 +40,28 @@ declare class ApplePaySession extends EventTarget {
     onvalidatemerchant: (event: ApplePayJS.ApplePayValidateMerchantEvent) => void;
 
     /**
+     * An event handler called by the system when the user enters or updates a coupon code.
+     */
+    oncouponcodechanged: (event: ApplePayJS.ApplePayCouponCodeChangedEvent) => void;
+
+    /**
      * Indicates whether the device supports Apple Pay.
      * @returns true if the device supports making payments with Apple Pay; otherwise, false.
      */
     static canMakePayments(): boolean;
 
     /**
+     * Indicates whether the device supports Apple Pay and whether the person has an active card in Wallet that qualifies for web payments.
+     * @param merchantIdentifier - The merchant ID created when the merchant enrolled in Apple Pay.
+     * @returns the PaymentCredentialStatusResponse object.
+     */
+    static applePayCapabilities(merchantIdentifier: string): Promise<ApplePayJS.PaymentCredentialStatusResponse>;
+
+    /**
      * Indicates whether the device supports Apple Pay and whether the user has an active card in Wallet.
      * @param merchantIdentifier - The merchant ID created when the merchant enrolled in Apple Pay.
      * @returns true if the device supports Apple Pay and there is at least one active card in Wallet that is qualified for payments on the web; otherwise, false.
+     * @deprecated Use applePayCapabilities instead.
      */
     static canMakePaymentsWithActiveCard(merchantIdentifier: string): Promise<boolean>;
 
@@ -149,6 +157,12 @@ declare class ApplePaySession extends EventTarget {
     completeShippingMethodSelection(update: ApplePayJS.ApplePayShippingMethodUpdate): void;
 
     /**
+     * Completes the entry of a coupon code with an update.
+     * @param update - The updated coupon code.
+     */
+    completeCouponCodeChange(update: ApplePayJS.ApplePayCouponCodeUpdate): void;
+
+    /**
      * The requested action succeeded.
      */
     static readonly STATUS_SUCCESS: number;
@@ -226,7 +240,7 @@ declare namespace ApplePayJS {
     /**
      * Field names used for requesting contact information in a payment request.
      */
-    type ApplePayContactField = 'email' | 'name' | 'phone' | 'postalAddress' | 'phoneticName';
+    type ApplePayContactField = "email" | "name" | "phone" | "postalAddress" | "phoneticName";
 
     /**
      * A customizable error type that you create to indicate problems with the address or contact information on an Apple Pay sheet.
@@ -255,40 +269,45 @@ declare namespace ApplePayJS {
         /**
          * Shipping address or contact information is invalid or missing.
          */
-        | 'shippingContactInvalid'
-
+        | "shippingContactInvalid"
         /**
          * Billing address information is invalid or missing.
          */
-        | 'billingContactInvalid'
-
+        | "billingContactInvalid"
         /**
          * The merchant cannot provide service to the shipping address (for example, can't deliver to a P.O. Box).
          */
-        | 'addressUnserviceable'
-
+        | "addressUnserviceable"
+        /**
+         * The code that indicates an invalid coupon.
+         */
+        | "couponCodeInvalid"
+        /**
+         * The code that indicates an expired coupon.
+         */
+        | "couponCodeExpired"
         /**
          * An unknown but nonfatal error occurred during payment processing. The user can attempt authorization again.
          */
-        | 'unknown';
+        | "unknown";
 
     /**
      * Names of the fields in the shipping or billing contact information, used to locate errors in the payment sheet.
      */
     type ApplePayErrorContactField =
-        | 'phoneNumber'
-        | 'emailAddress'
-        | 'name'
-        | 'phoneticName'
-        | 'postalAddress'
-        | 'addressLines'
-        | 'locality'
-        | 'subLocality'
-        | 'postalCode'
-        | 'administrativeArea'
-        | 'subAdministrativeArea'
-        | 'country'
-        | 'countryCode';
+        | "phoneNumber"
+        | "emailAddress"
+        | "name"
+        | "phoneticName"
+        | "postalAddress"
+        | "addressLines"
+        | "locality"
+        | "subLocality"
+        | "postalCode"
+        | "administrativeArea"
+        | "subAdministrativeArea"
+        | "country"
+        | "countryCode";
 
     /**
      * Defines a line item in a payment request - for example, total, tax, discount, or grand total.
@@ -315,9 +334,9 @@ declare namespace ApplePayJS {
         paymentTiming?: ApplePayPaymentTiming;
 
         /**
-         * The [ISO 8601 formatted] date of the first payment.
+         * The date of the first payment.
          */
-        recurringPaymentStartDate?: string;
+        recurringPaymentStartDate?: Date;
 
         /**
          * The amount of time — in calendar units, such as day, month, or year — that represents a fraction of the total payment interval.
@@ -330,15 +349,14 @@ declare namespace ApplePayJS {
         recurringPaymentIntervalCount?: number;
 
         /**
-         * The [ISO 8601 formatted] date of the final payment.
-         *
+         * The date of the final payment.
          */
-        recurringPaymentEndDate?: string;
+        recurringPaymentEndDate?: Date;
 
         /**
-         * The [ISO 8601 formatted] date, in the future, of the payment.
+         * The date, in the future, of the payment.
          */
-        deferredPaymentDate?: string;
+        deferredPaymentDate?: Date;
 
         /**
          * The balance an account reaches before the merchant applies the automatic reload amount.
@@ -353,19 +371,19 @@ declare namespace ApplePayJS {
         /**
          * A value that specifies that the payment occurs when the transaction is complete.
          */
-        | 'immediate'
-        /**
-         * A value that specifies that the payment occurs on a regular basis.
-         */
-        | 'deferred'
+        | "immediate"
         /**
          * A value that specifies that the payment occurs in the future.
          */
-        | 'recurring'
+        | "deferred"
+        /**
+         * A value that specifies that the payment occurs on a regular basis.
+         */
+        | "recurring"
         /**
          * A value that specifies that the payment occurs automatically when the account falls below the automaticReloadPaymentThresholdAmount amount.
          */
-        | 'automaticReload';
+        | "automaticReload";
 
     /**
      * A type that indicates calendrical units, such as year, month, day, and hour.
@@ -374,23 +392,23 @@ declare namespace ApplePayJS {
         /**
          * A value that specifies the year unit.
          */
-        | 'year'
+        | "year"
         /**
          * A value that specifies the month unit.
          */
-        | 'month'
+        | "month"
         /**
          * A value that specifies the day unit.
          */
-        | 'day'
+        | "day"
         /**
          * A value that specifies the hour unit.
          */
-        | 'hour'
+        | "hour"
         /**
          * A value that specifies the minute unit.
          */
-        | 'minute';
+        | "minute";
 
     /**
      * A type that indicates whether a line item is final or pending.
@@ -399,12 +417,11 @@ declare namespace ApplePayJS {
         /**
          * A line item representing the known, final cost.
          */
-        | 'final'
-
+        | "final"
         /**
          * A line item representing an estimated or unknown cost.
          */
-        | 'pending';
+        | "pending";
 
     /**
      * The payment capabilities supported by the merchant.
@@ -413,22 +430,19 @@ declare namespace ApplePayJS {
         /**
          * Required. This value must be supplied.
          */
-        | 'supports3DS'
-
+        | "supports3DS"
         /**
          * Include this value only if you support China Union Pay transactions.
          */
-        | 'supportsEMV'
-
+        | "supportsEMV"
         /**
          * Optional. If present, only transactions that are categorized as credit cards are allowed.
          */
-        | 'supportsCredit'
-
+        | "supportsCredit"
         /**
          * Optional. If present, only transactions that are categorized as debit cards are allowed.
          */
-        | 'supportsDebit';
+        | "supportsDebit";
 
     /**
      * Represents the result of authorizing a payment request and contains encrypted payment information.
@@ -462,6 +476,7 @@ declare namespace ApplePayJS {
 
     /**
      * The result of payment authorization, including status and errors.
+     * See more: https://developer.apple.com/documentation/apple_pay_on_the_web/applepaypaymentauthorizationresult
      */
     interface ApplePayPaymentAuthorizationResult {
         /**
@@ -473,6 +488,30 @@ declare namespace ApplePayJS {
          * A list of custom errors to display on the payment sheet.
          */
         errors?: ApplePayError[] | undefined;
+
+        /**
+         * Optional metadata for an order that the customer placed using this payment method.
+         */
+        orderDetails?: ApplePayPaymentOrderDetails;
+    }
+
+    interface ApplePayPaymentOrderDetails {
+        /**
+         * An identifier for the order type associated with the order.
+         */
+        orderTypeIdentifier: string;
+        /**
+         * A unique order identifier scoped to your order type identifier.
+         */
+        orderIdentifier: string;
+        /**
+         * The URL of your web service.
+         */
+        webServiceURL: string;
+        /**
+         * The authentication token supplied to your web service.
+         */
+        authenticationToken: string;
     }
 
     /**
@@ -583,7 +622,7 @@ declare namespace ApplePayJS {
     /**
      * A payment card's type of payment.
      */
-    type ApplePayPaymentMethodType = 'debit' | 'credit' | 'prepaid' | 'store';
+    type ApplePayPaymentMethodType = "debit" | "credit" | "prepaid" | "store";
 
     /**
      * The ApplePayPaymentMethodSelectedEvent class defines the attributes contained by the ApplePaySession.onpaymentmethodselected callback function.
@@ -601,14 +640,14 @@ declare namespace ApplePayJS {
      */
     interface ApplePayPaymentMethodUpdate {
         /**
-         * An optional list of line items.
-         */
-        newLineItems?: ApplePayLineItem[] | undefined;
-
-        /**
          * The new total resulting from a change in the payment method.
          */
         newTotal: ApplePayLineItem;
+
+        /**
+         * An optional list of updated line items for the payment request that results from the user’s change to the payment method.
+         */
+        newLineItems?: ApplePayLineItem[] | undefined;
 
         /**
          * An array of updated multitoken contexts for a multimerchant payment request.
@@ -624,6 +663,11 @@ declare namespace ApplePayJS {
          * An updated request for a recurring payment.
          */
         newRecurringPaymentRequest?: ApplePayRecurringPaymentRequest;
+
+        /**
+         * An updated request for a deferred payment.
+         */
+        newDeferredPaymentRequest?: ApplePayDeferredPaymentRequest;
 
         /**
          * A list of customized errors you provide that results from the user's change to the payment method.
@@ -673,49 +717,31 @@ declare namespace ApplePayJS {
         /**
          * Active and ready to be used for payment.
          */
-        | 'activated'
-
+        | "activated"
         /**
          * Not active but may be activated by the issuer.
          */
-        | 'requiresActivation'
-
+        | "requiresActivation"
         /**
          * Not ready for use but activation is in progress.
          */
-        | 'activating'
-
+        | "activating"
         /**
          * Not active and can't be activated.
          */
-        | 'suspended'
-
+        | "suspended"
         /**
          * Not active because the issuer has disabled the account associated with the device.
          */
-        | 'deactivated';
+        | "deactivated";
 
     /**
      * Encapsulates a request for payment, including information about payment processing capabilities, the payment amount, and shipping information.
+     * See more: https://developer.apple.com/documentation/apple_pay_on_the_web/applepaypaymentrequest
      */
     interface ApplePayPaymentRequest {
         /**
-         * The merchant's two-letter ISO 3166 country code.
-         */
-        countryCode: string;
-
-        /**
-         * The three-letter ISO 4217 currency code for the payment.
-         */
-        currencyCode: string;
-
-        /**
-         * A set of line items that explain recurring payments and/or additional charges.
-         */
-        lineItems?: ApplePayLineItem[] | undefined;
-
-        /**
-         * The payment capabilities supported by the merchant.
+         * An array of the payment capabilities that the merchant supports, such as credit or debit.
          * The value must at least contain ApplePayMerchantCapability.supports3DS.
          */
         merchantCapabilities: ApplePayMerchantCapability[];
@@ -726,19 +752,19 @@ declare namespace ApplePayJS {
         supportedNetworks: string[];
 
         /**
-         * A line item representing the total for the payment.
+         * The merchant's two-letter ISO 3166 country code.
          */
-        total: ApplePayLineItem;
-
-        /**
-         * Billing contact information for the user.
-         */
-        billingContact?: ApplePayPaymentContact | undefined;
+        countryCode: string;
 
         /**
          * The billing information that you require from the user in order to process the transaction.
          */
         requiredBillingContactFields?: ApplePayContactField[] | undefined;
+
+        /**
+         * Billing contact information for the user.
+         */
+        billingContact?: ApplePayPaymentContact | undefined;
 
         /**
          * The shipping information that you require from the user in order to fulfill the order.
@@ -751,14 +777,9 @@ declare namespace ApplePayJS {
         shippingContact?: ApplePayPaymentContact | undefined;
 
         /**
-         * A set of shipping method objects that describe the available shipping methods.
+         * Optional user-defined data.
          */
-        shippingMethods?: ApplePayShippingMethod[] | undefined;
-
-        /**
-         * How the items are to be shipped.
-         */
-        shippingType?: ApplePayShippingType | undefined;
+        applicationData?: string | undefined;
 
         /**
          * A list of ISO 3166 country codes for limiting payments to cards from specific countries.
@@ -766,9 +787,54 @@ declare namespace ApplePayJS {
         supportedCountries?: string[] | undefined;
 
         /**
-         * Optional user-defined data.
+         * A Boolean value that determines whether the payment sheet displays the coupon code field.
          */
-        applicationData?: string | undefined;
+        supportsCouponCode?: boolean | undefined;
+
+        /**
+         * The initial coupon code for the payment request.
+         */
+        couponCode?: string | undefined;
+
+        /**
+         * A value that indicates whether the shipping mode prevents the user from editing the shipping address.
+         */
+        shippingContactEditingMode?: ApplePayShippingContactEditingMode;
+
+        /**
+         * A line item representing the total for the payment.
+         */
+        total: ApplePayLineItem;
+
+        /**
+         * A set of line items that explain recurring payments and/or additional charges.
+         */
+        lineItems?: ApplePayLineItem[] | undefined;
+
+        /**
+         * The three-letter ISO 4217 currency code for the payment.
+         */
+        currencyCode: string;
+
+        /**
+         * How the items are to be shipped.
+         */
+        shippingType?: ApplePayShippingType | undefined;
+
+        /**
+         * A set of shipping method objects that describe the available shipping methods.
+         */
+        shippingMethods?: ApplePayShippingMethod[] | undefined;
+
+        /**
+         * An array of payment token contexts that requests multiple payment tokens to support a multimerchant payment.
+         */
+        multiTokenContexts?: ApplePayPaymentTokenContext[];
+
+        /**
+         * A property that requests an automatic reload payment, such as a store card top-up.
+         */
+        automaticReloadPaymentRequest?: ApplePayAutomaticReloadPaymentRequest;
 
         /**
          * This property is optional. Use it to indicate that the payment request is for a recurring payment.
@@ -782,14 +848,14 @@ declare namespace ApplePayJS {
         recurringPaymentRequest?: ApplePayRecurringPaymentRequest;
 
         /**
-         * A property that requests an automatic reload payment, such as a store card top-up.
+         * A property that requests a deferred payment, such as a hotel booking or a pre-order.
          */
-        automaticReloadPaymentRequest?: ApplePayAutomaticReloadPaymentRequest;
+        deferredPaymentRequest?: ApplePayDeferredPaymentRequest;
 
         /**
-         * An array of payment token contexts that requests multiple payment tokens to support a multimerchant payment.
+         * A value that indicates whether Apple Pay Later is available for a transaction.
          */
-        multiTokenContexts?: ApplePayPaymentTokenContext[];
+        applePayLaterAvailability?: ApplePayLaterAvailability;
     }
 
     /**
@@ -868,6 +934,113 @@ declare namespace ApplePayJS {
     }
 
     /**
+     * A dictionary that represents a request to set up a deferred payment, such as a hotel booking or a pre-order.
+     */
+    interface ApplePayDeferredPaymentRequest {
+        /**
+         * The localized billing agreement the framework displays to the user prior to payment authorization.
+         */
+        billingAgreement?: string | undefined;
+
+        /**
+         * A dictionary that contains details about the deferred payment.
+         */
+        deferredBilling: ApplePayLineItem;
+
+        /**
+         * The date and time at the destination location of the payment.
+         */
+        freeCancellationDate?: Date | undefined;
+
+        /**
+         * The time zone at the destination location of the payment.
+         */
+        freeCancellationDateTimeZone?: string | undefined;
+
+        /**
+         * A URL that links to a page on your web site where the user can manage the payment method for the deferred payment, including deleting it.
+         */
+        managementURL: string;
+
+        /**
+         * A description of the deferred payment.
+         */
+        paymentDescription: string;
+
+        /**
+         * A URL to receive life-cycle notifications for the merchant-specific payment token the system issues for the request, if applicable.
+         */
+        tokenNotificationURL?: string | undefined;
+    }
+
+    /**
+     * The response for information about the device’s support for Apple Pay and the payment credential status.
+     */
+    interface PaymentCredentialStatusResponse {
+        /**
+         * The status of the possible payment credentials that a person has provisioned in Wallet.
+         */
+        paymentCredentialStatus: PaymentCredentialStatus;
+    }
+
+    /**
+     * Information about whether the device supports Apple Pay and the possible payment credentials the person has provisioned in Wallet.
+     */
+    type PaymentCredentialStatus =
+        /**
+         * Confirms that the device supports Apple Pay and there’s at least one active payment credential in Wallet that qualifies for payments on the web. Show an Apple Pay button and offer Apple Pay as the primary, but not necessarily sole, payment option.
+         */
+        | "paymentCredentialsAvailable"
+        /**
+         * Confirms that the device supports Apple Pay, but the Wallet information is unknown. Show an Apple Pay button and offer Apple Pay as a possible payment option.
+         */
+        | "paymentCredentialStatusUnknown"
+        /**
+         * Confirms that the device supports Apple Pay and that the device doesn’t have any active payment credentials in Wallet. Offer Apple Pay as a payment option, but don’t make it the sole or default payment option. This gives people the option to set up Apple Pay as part of their purchase.
+         */
+        | "paymentCredentialsUnavailable"
+        /**
+         * Indicates that the device doesn’t support Apple Pay. Don’t display an Apple Pay button or offer Apple Pay as a payment option.
+         */
+        | "applePayUnsupported";
+
+    /**
+     * Values you use to enable or disable Apple Pay Later for a specific transaction.
+     */
+    type ApplePayLaterAvailability =
+        /**
+         * Apple Pay Later is available.
+         * This is the default.
+         */
+        | "available"
+        /**
+         * Apple Pay Later is unavailable because one or more ineligible or prohibited items are in the shopping cart, such as gift cards
+         */
+        | "unavailableItemIneligible"
+        /**
+         * Apple Pay Later is unavailable because there’s a recurring payment or subscription in the shopping cart.
+         */
+        | "unavailableRecurringTransaction";
+
+    /**
+     * A value that indicates whether the shipping mode prevents the user from editing the shipping address.
+     */
+    type ApplePayShippingContactEditingMode =
+        /**
+         * The user can edit the shipping contact on the payment sheet.
+         */
+        | "available"
+        /**
+         * The user can’t edit the shipping contact on the payment sheet.
+         */
+        | "storePickup"
+        /**
+         * The user can edit the shipping contact on the payment sheet.
+         * @deprecated Use ApplePayShippingContactEditingMode.available instead.
+         */
+        | "enabled";
+
+    /**
      * Use ApplePayPaymentTokenContext to authorize a payment amount for each payment token in a multimerchant payment request.
      * To enable multiple merchants for a transaction, use one ApplePayPaymentTokenContext object for each merchant.
      *
@@ -932,12 +1105,13 @@ declare namespace ApplePayJS {
 
     /**
      * Updated transaction details resulting from a change in shipping contact, including any errors.
+     * See more: https://developer.apple.com/documentation/apple_pay_on_the_web/applepayshippingcontactupdate
      */
     class ApplePayShippingContactUpdate {
         /**
-         * List of custom errors to display on the payment sheet.
+         * The new total resulting from a change in the shipping contact.
          */
-        errors?: ApplePayError[] | undefined;
+        newTotal: ApplePayLineItem;
 
         /**
          * An optional list of updated line items.
@@ -945,14 +1119,34 @@ declare namespace ApplePayJS {
         newLineItems?: ApplePayLineItem[] | undefined;
 
         /**
+         * An array of updated multitoken contexts for a multimerchant payment request.
+         */
+        newMultiTokenContexts?: ApplePayPaymentTokenContext[];
+
+        /**
+         * An updated request for an automatic reload payment.
+         */
+        newAutomaticReloadPaymentRequest?: ApplePayAutomaticReloadPaymentRequest;
+
+        /**
+         * An updated request for a recurring payment.
+         */
+        newRecurringPaymentRequest?: ApplePayRecurringPaymentRequest;
+
+        /**
+         * An updated request for a deferred payment.
+         */
+        newDeferredPaymentRequest?: ApplePayDeferredPaymentRequest;
+
+        /**
+         * List of custom errors to display on the payment sheet.
+         */
+        errors?: ApplePayError[] | undefined;
+
+        /**
          * A list of shipping methods that are available to the updated shipping contact.
          */
         newShippingMethods?: ApplePayShippingMethod[] | undefined;
-
-        /**
-         * The new total resulting from a change in the shipping contact.
-         */
-        newTotal: ApplePayLineItem;
     }
 
     /**
@@ -1039,23 +1233,95 @@ declare namespace ApplePayJS {
 
     /**
      * Updated transaction details resulting from a change in shipping method.
+     * See more: https://developer.apple.com/documentation/apple_pay_on_the_web/applepayshippingmethodupdate
      */
     interface ApplePayShippingMethodUpdate {
+        /**
+         * The new total resulting from a change in the shipping method.
+         */
+        newTotal: ApplePayLineItem;
+
         /**
          * An optional list of updated line items.
          */
         newLineItems?: ApplePayLineItem[] | undefined;
 
         /**
-         * The new total resulting from a change in the shipping method.
+         * An array of updated multitoken contexts for a multimerchant payment request.
+         */
+        newMultiTokenContexts?: ApplePayPaymentTokenContext[];
+
+        /**
+         * An updated request for an automatic reload payment.
+         */
+        newAutomaticReloadPaymentRequest?: ApplePayAutomaticReloadPaymentRequest;
+
+        /**
+         * An updated request for a recurring payment.
+         */
+        newRecurringPaymentRequest?: ApplePayRecurringPaymentRequest;
+
+        /**
+         * An updated request for a deferred payment.
+         */
+        newDeferredPaymentRequest?: ApplePayDeferredPaymentRequest;
+
+        /**
+         * The updated list of available shipping methods that results from the user's change to the payment method.
+         */
+        newShippingMethods?: ApplePayShippingMethod[];
+    }
+
+    /**
+     * The attributes contained by the oncouponcodechanged callback function.
+     * See more: https://developer.apple.com/documentation/apple_pay_on_the_web/applepaycouponcodeupdate
+     */
+    abstract class ApplePayCouponCodeUpdate {
+        /**
+         * The new total resulting from a change in the payment method.
          */
         newTotal: ApplePayLineItem;
+
+        /**
+         * An optional list of line items.
+         */
+        newLineItems?: ApplePayLineItem[] | undefined;
+
+        /**
+         * An array of updated multitoken contexts for a multimerchant payment request.
+         */
+        newMultiTokenContexts?: ApplePayPaymentTokenContext[];
+
+        /**
+         * An updated request for an automatic reload payment.
+         */
+        newAutomaticReloadPaymentRequest?: ApplePayAutomaticReloadPaymentRequest;
+
+        /**
+         * An updated request for a recurring payment.
+         */
+        newRecurringPaymentRequest?: ApplePayRecurringPaymentRequest;
+
+        /**
+         * An updated request for a deferred payment.
+         */
+        newDeferredPaymentRequest?: ApplePayDeferredPaymentRequest;
+
+        /**
+         * A list of custom errors to display on the payment sheet.
+         */
+        errors?: ApplePayError[];
+
+        /**
+         * The updated list of available shipping methods that results from the user's change to the payment method.
+         */
+        newShippingMethods?: ApplePayShippingMethod[];
     }
 
     /**
      * A type that indicates how purchased items are to be shipped.
      */
-    type ApplePayShippingType = 'shipping' | 'delivery' | 'storePickup' | 'servicePickup';
+    type ApplePayShippingType = "shipping" | "delivery" | "storePickup" | "servicePickup";
 
     /**
      * The attributes contained by the onvalidatemerchant callback function.
@@ -1065,6 +1331,16 @@ declare namespace ApplePayJS {
          * The URL your server must use to validate itself and obtain a merchant session object.
          */
         readonly validationURL: string;
+    }
+
+    /**
+     * The attributes contained by the oncouponcodechanged callback function.
+     */
+    abstract class ApplePayCouponCodeChangedEvent extends Event {
+        /**
+         * The updated coupon code from the payment sheet.
+         */
+        readonly couponCode: string;
     }
 
     abstract class Event {

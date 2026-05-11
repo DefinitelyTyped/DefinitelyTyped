@@ -1,8 +1,8 @@
 import AbortablePromise = require("promise-abortable");
 
 const pNumber = new AbortablePromise<number>((resolve, reject, signal) => {
-  signal.onabort = (reason) => undefined;
-  resolve(1);
+    signal.onabort = (reason) => undefined;
+    resolve(1);
 });
 pNumber.abort("x");
 
@@ -12,17 +12,17 @@ let pString = pNumber.then((v) => "y", () => "z").catch(() => "z");
 pString.abort();
 
 pString = AbortablePromise.race([
-  "a",
-  Promise.resolve("b"),
-  AbortablePromise.resolve("c"),
+    "a",
+    Promise.resolve("b"),
+    AbortablePromise.resolve("c"),
 ]);
 
 let pTuple = AbortablePromise.all([
-  1,
-  "a",
+    1,
+    "a",
 ]);
 pTuple = AbortablePromise.all([
-  pNumber,
-  pString,
+    pNumber,
+    pString,
 ]);
 pTuple.abort().abort("again");

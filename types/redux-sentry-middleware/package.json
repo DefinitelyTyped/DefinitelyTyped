@@ -1,7 +1,22 @@
 {
-  "private": true,
-  "dependencies": {
-    "@sentry/browser": "^5.0.0 || ^6.0.0",
-    "redux": "^4.0.0"
-  }
+    "private": true,
+    "name": "@types/redux-sentry-middleware",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/vidit-sh/redux-sentry-middleware#readme",
+        "https://github.com/viditisonline/redux-sentry-middleware"
+    ],
+    "dependencies": {
+        "@sentry/browser": "^5.0.0 || ^6.0.0",
+        "redux": "^4.0.0"
+    },
+    "devDependencies": {
+        "@types/redux-sentry-middleware": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jan Dolezel",
+            "githubUsername": "dolezel"
+        }
+    ]
 }

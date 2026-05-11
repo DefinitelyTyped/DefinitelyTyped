@@ -1,2 +1,2 @@
-import TimeFromYear = require('../2015/TimeFromYear');
+import TimeFromYear = require("../2015/TimeFromYear");
 export = TimeFromYear;

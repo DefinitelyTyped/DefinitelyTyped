@@ -78,7 +78,11 @@ declare namespace CAPICOM {
 
         Item(index: number): Certificate;
 
-        Find(findType: CADES_Common.ValuesOf<CAPICOM_CERTIFICATE_FIND_TYPE>, varCriteria?: any, bFindValidOnly?: boolean): Certificates;
+        Find(
+            findType: CADES_Common.ValuesOf<CAPICOM_CERTIFICATE_FIND_TYPE>,
+            varCriteria?: any,
+            bFindValidOnly?: boolean,
+        ): Certificates;
 
         Select(title?: string, displayString?: string, bMultiSelect?: boolean): Certificates;
     }
@@ -88,7 +92,11 @@ declare namespace CAPICOM {
         readonly Location: CADES_Common.ValuesOf<CAPICOM_STORE_LOCATION>;
         readonly Name: string;
 
-        Open(location?: CADES_Common.ValuesOf<CAPICOM_STORE_LOCATION>, name?: CADES_Common.ValuesOf<CAPICOM_STORE_NAME>, openMode?: CADES_Common.ValuesOf<CAPICOM_STORE_OPEN_MODE>): void;
+        Open(
+            location?: CADES_Common.ValuesOf<CAPICOM_STORE_LOCATION>,
+            name?: CADES_Common.ValuesOf<CAPICOM_STORE_NAME>,
+            openMode?: CADES_Common.ValuesOf<CAPICOM_STORE_OPEN_MODE>,
+        ): void;
 
         Close(): void;
 

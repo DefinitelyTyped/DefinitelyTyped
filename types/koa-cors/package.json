@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/koa-cors",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/evert0n/koa-cors"
+    ],
+    "dependencies": {
+        "@types/koa": "*"
+    },
+    "devDependencies": {
+        "@types/koa-cors": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Romain Faust",
+            "githubUsername": "romain-faust"
+        }
+    ]
+}

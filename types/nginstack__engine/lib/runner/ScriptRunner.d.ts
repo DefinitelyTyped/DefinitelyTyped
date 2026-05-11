@@ -22,7 +22,7 @@ declare class ScriptRunner {
     trackingId: string;
     login(userId: string, password: string): boolean;
     loginBySession(session: Session): void;
-    loginByAuthToken(id: any): void;
+    loginByAuthToken(authToken: string): void;
     run(): any;
     applyFunction(functionName: string, args?: any[]): DataSet | number | Date | string | boolean;
     callFunction(functionName: string, params?: any[]): DataSet | number | Date | string | boolean;
@@ -35,5 +35,5 @@ declare class ScriptRunner {
 declare namespace ScriptRunner {
     export { DataSet, Session };
 }
-type Session = import('../session/Session');
 type DataSet = import('../dataset/DataSet');
+type Session = import('../session/Session');

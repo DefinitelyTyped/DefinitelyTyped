@@ -1,10 +1,3 @@
-// Type definitions for tabtab 3.0
-// Project: https://github.com/mklabs/node-tabtab
-// Definitions by: Vojtěch Habarta <https://github.com/vojtechhabarta>
-//                 Kamontat Chantrachirathumrong <https://github.com/kamontat>
-//                 ExE Boss <https://github.com/ExE-Boss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node"/>
 
 export interface InstallOptions {

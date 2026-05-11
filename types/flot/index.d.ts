@@ -1,12 +1,3 @@
-// Type definitions for Flot
-// Project: http://www.flotcharts.org/
-// Definitions by:  Matt Burland <https://github.com/burlandm>
-//                  Timo Mühlbach <https://github.com/Anticom>
-//                  Ariel Kuechler <https://github.com/admiralsmaster> 
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-
 /// <reference types="jquery" />
 
 declare namespace jquery.flot {
@@ -24,16 +15,18 @@ declare namespace jquery.flot {
     }
 
     interface hooks {
-        processOptions?: { (plot: plot, options: plotOptions): void; } [] | undefined;
-        processRawData?: { (plot: plot, series: dataSeries, data: any[], datapoints: datapoints): void; }[] | undefined;
-        processDatapoints?: { (plot: plot, series: dataSeries, datapoints: datapoints): void; }[] | undefined;
-        processOffset?: { (plot: plot, offset: canvasPoint): void; }[] | undefined;
-        drawBackground?: { (plot: plot, context: CanvasRenderingContext2D): void; }[] | undefined;
-        drawSeries?: { (plot: plot, context: CanvasRenderingContext2D, series: dataSeries): void; }[] | undefined;
-        draw?: { (plot: plot, context: CanvasRenderingContext2D): void; }[] | undefined;
-        bindEvents?: { (plot: plot, eventHolder: JQuery): void; }[] | undefined;
-        drawOverlay?: { (plot: plot, context: CanvasRenderingContext2D): void; }[] | undefined;
-        shutdown?: { (plot: plot, eventHolder: JQuery): void; }[] | undefined;
+        processOptions?: Array<{ (plot: plot, options: plotOptions): void }> | undefined;
+        processRawData?:
+            | Array<{ (plot: plot, series: dataSeries, data: any[], datapoints: datapoints): void }>
+            | undefined;
+        processDatapoints?: Array<{ (plot: plot, series: dataSeries, datapoints: datapoints): void }> | undefined;
+        processOffset?: Array<{ (plot: plot, offset: canvasPoint): void }> | undefined;
+        drawBackground?: Array<{ (plot: plot, context: CanvasRenderingContext2D): void }> | undefined;
+        drawSeries?: Array<{ (plot: plot, context: CanvasRenderingContext2D, series: dataSeries): void }> | undefined;
+        draw?: Array<{ (plot: plot, context: CanvasRenderingContext2D): void }> | undefined;
+        bindEvents?: Array<{ (plot: plot, eventHolder: JQuery): void }> | undefined;
+        drawOverlay?: Array<{ (plot: plot, context: CanvasRenderingContext2D): void }> | undefined;
+        shutdown?: Array<{ (plot: plot, eventHolder: JQuery): void }> | undefined;
     }
 
     interface interaction {
@@ -43,15 +36,15 @@ declare namespace jquery.flot {
     interface gridOptions {
         show?: boolean | undefined;
         aboveData?: boolean | undefined;
-        color?: any;                // color
-        backgroundColor?: any;      //color/gradient or null
-        margin?: any;                // number or margin object
+        color?: any; // color
+        backgroundColor?: any; // color/gradient or null
+        margin?: any; // number or margin object
         labelMargin?: number | undefined;
         axisMargin?: number | undefined;
-        markings?: any;             //array of markings or (fn: axes -> array of markings)
-        borderWidth?: any;          // number or width object
-        borderColor?: any;          // color or null
-        minBorderMargin?: number | undefined;       // or null
+        markings?: any; // array of markings or (fn: axes -> array of markings)
+        borderWidth?: any; // number or width object
+        borderColor?: any; // color or null
+        minBorderMargin?: number | undefined; // or null
         clickable?: boolean | undefined;
         hoverable?: boolean | undefined;
         autoHighlight?: boolean | undefined;
@@ -64,18 +57,18 @@ declare namespace jquery.flot {
     interface legendOptions {
         show?: boolean | undefined;
         labelFormatter?: ((label: string, series: any) => string) | undefined; //  null or (fn: string, series object -> string)
-        labelBoxBorderColor?: any;   //color
+        labelBoxBorderColor?: any; // color
         noColumns?: number | undefined;
-        position?: string | undefined;           //"ne" or "nw" or "se" or "sw"
-        margin?: any;                //number of pixels or [x margin, y margin]
-        backgroundColor?: any;       //null or color
-        backgroundOpacity?: number | undefined;  // between 0 and 1
-        container?: JQuery | undefined;         // null or jQuery object/DOM element/jQuery expression
-        sorted?: any;                //null/false, true, "ascending", "descending" or a comparator
+        position?: string | undefined; // "ne" or "nw" or "se" or "sw"
+        margin?: any; // number of pixels or [x margin, y margin]
+        backgroundColor?: any; // null or color
+        backgroundOpacity?: number | undefined; // between 0 and 1
+        container?: JQuery | undefined; // null or jQuery object/DOM element/jQuery expression
+        sorted?: any; // null/false, true, "ascending", "descending" or a comparator
     }
 
     interface seriesOptions {
-        color?: any;            // color or number
+        color?: any; // color or number
         label?: string | undefined;
         lines?: linesOptions | undefined;
         bars?: barsOptions | undefined;
@@ -93,26 +86,26 @@ declare namespace jquery.flot {
     }
 
     interface axisOptions {
-        show?: boolean | undefined;            // null or true/false
-        position?: string | undefined;      // "bottom" or "top" or "left" or "right"
-        mode?: string | undefined;          // "time"
-        monthNames?: string[] | undefined;  // array of month names
+        show?: boolean | undefined; // null or true/false
+        position?: string | undefined; // "bottom" or "top" or "left" or "right"
+        mode?: string | undefined; // "time"
+        monthNames?: string[] | undefined; // array of month names
 
-        color?: any;            // null or color spec
-        tickColor?: any;        // null or color spec
-        font?: any;             // null or font spec object
+        color?: any; // null or color spec
+        tickColor?: any; // null or color spec
+        font?: any; // null or font spec object
 
         min?: number | undefined;
         max?: number | undefined;
         autoscaleMargin?: number | undefined;
 
-        transform?: ((v: number) => number) | undefined;              // null or fn: number -> number
-        inverseTransform?: ((v: number) => number) | undefined;       // null or fn: number -> number
+        transform?: ((v: number) => number) | undefined; // null or fn: number -> number
+        inverseTransform?: ((v: number) => number) | undefined; // null or fn: number -> number
 
-        ticks?: any;                                    // null or number or ticks array or (fn: axis -> ticks array)
-        tickSize?: any;                                 // number or array
-        minTickSize?: any;                              // number or array
-        tickFormatter?: ((t: number, a?: axis) => string) | undefined;                            // (fn: number, object -> string) or string
+        ticks?: any; // null or number or ticks array or (fn: axis -> ticks array)
+        tickSize?: any; // number or array
+        minTickSize?: any; // number or array
+        tickFormatter?: ((t: number, a?: axis) => string) | undefined; // (fn: number, object -> string) or string
         tickDecimals?: number | undefined;
 
         labelWidth?: number | undefined;
@@ -122,17 +115,17 @@ declare namespace jquery.flot {
         tickLength?: number | undefined;
 
         alignTicksWithAxis?: number | undefined;
-        
-        timezone?: string | undefined;                      // "browser" or timezone (only makes sense for mode: "time")
-        timeformat?: string | undefined;                    // null or format string
+
+        timezone?: string | undefined; // "browser" or timezone (only makes sense for mode: "time")
+        timeformat?: string | undefined; // null or format string
         twelveHourClock?: boolean | undefined;
     }
 
     interface seriesTypeBase {
         show?: boolean | undefined;
         lineWidth?: number | undefined;
-        fill?: any;              //boolean or number
-        fillColor?: any;         //null or color/gradient
+        fill?: any; // boolean or number
+        fillColor?: any; // null or color/gradient
     }
 
     interface linesOptions extends seriesTypeBase {
@@ -155,12 +148,12 @@ declare namespace jquery.flot {
     }
 
     interface item {
-        datapoint: number[];        // the point, e.g. [0, 2]
-        dataIndex: number;          // the index of the point in the data array
-        series: dataSeries;             //the series object
-        seriesIndex: number;        //the index of the series
+        datapoint: number[]; // the point, e.g. [0, 2]
+        dataIndex: number; // the index of the point in the data array
+        series: dataSeries; // the series object
+        seriesIndex: number; // the index of the series
         pageX: number;
-        pageY: number;              //the global screen coordinates of the point
+        pageY: number; // the global screen coordinates of the point
     }
 
     interface datapoints {
@@ -203,8 +196,8 @@ declare namespace jquery.flot {
 
     interface axis extends axisOptions {
         options: axisOptions;
-        p2c(point: point):canvasPoint;
-        c2p(canvasPoint: canvasPoint):point;
+        p2c(point: point): canvasPoint;
+        c2p(canvasPoint: canvasPoint): point;
     }
 
     interface plugin {

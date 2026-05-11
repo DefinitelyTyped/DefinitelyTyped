@@ -1,7 +1,21 @@
 {
     "private": true,
+    "name": "@types/redux-testkit",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/wix/redux-testkit#readme"
+    ],
     "dependencies": {
         "redux": "*",
         "redux-thunk": "*"
-    }
+    },
+    "devDependencies": {
+        "@types/redux-testkit": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Andrey Kizimov",
+            "githubUsername": "Bookler96"
+        }
+    ]
 }

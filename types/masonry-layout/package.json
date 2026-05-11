@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/masonry-layout",
+    "version": "4.2.9999",
+    "projects": [
+        "https://github.com/desandro/masonry",
+        "https://masonry.desandro.com"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/masonry-layout": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mark Wilson",
+            "githubUsername": "m-a-wilson"
+        },
+        {
+            "name": "Travis Brown",
+            "githubUsername": "warriorrocker"
+        }
+    ]
+}

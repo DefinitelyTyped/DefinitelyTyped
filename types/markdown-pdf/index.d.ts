@@ -1,8 +1,3 @@
-// Type definitions for MarkdownPDF (markdown-pdf) 9.0
-// Project: https://github.com/alanshaw/markdown-pdf
-// Definitions by: Ange PICARD <https://github.com/MonsieurMan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = MarkdownPDF;
 
 declare function MarkdownPDF(options?: MarkdownPDF.Options): MarkdownPDF.OptionsBuilder;
@@ -35,8 +30,8 @@ declare namespace MarkdownPDF {
         /** A config object that is passed to remarkable, the underlying markdown parser */
         remarkable?: any; // FIXME: remarkable config types
     }
-    type PaperFormat = 'A3' | 'A4' | 'A5' | 'Legal' | 'Letter' | 'Tabloid';
-    type PaperOrientation = 'portait' | 'landscape';
+    type PaperFormat = "A3" | "A4" | "A5" | "Legal" | "Letter" | "Tabloid";
+    type PaperOrientation = "portait" | "landscape";
 
     interface OptionsBuilder {
         /** Create a readable stream and pipe it to markdown pdf. */

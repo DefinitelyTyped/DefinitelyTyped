@@ -1,4 +1,4 @@
-import * as htmlToRtf from 'html-to-rtf';
+import * as htmlToRtf from "html-to-rtf";
 
 const html = `
 <h1>Title <span style="color:rgb(255,0,0);">with</span> tag h1<h1>
@@ -26,4 +26,4 @@ const html = `
   </table>
 </div>
 `;
-htmlToRtf.saveRtfInFile('<Path>/<FileName>.rtf', htmlToRtf.convertHtmlToRtf(html));
+htmlToRtf.saveRtfInFile("<Path>/<FileName>.rtf", htmlToRtf.convertHtmlToRtf(html));

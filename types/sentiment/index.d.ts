@@ -1,8 +1,3 @@
-// Type definitions for sentiment 5.0
-// Project: https://github.com/thisandagain/sentiment
-// Definitions by: Isaac Ong <https://github.com/iojw>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = Sentiment;
 
 declare class Sentiment {
@@ -18,7 +13,7 @@ declare class Sentiment {
 
 declare namespace Sentiment {
     // No options supported currently
-    // tslint:disable-next-line no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface SentimentOptions {}
 
     interface LanguageModule {

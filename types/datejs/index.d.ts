@@ -1,10 +1,5 @@
-// Type definitions for DateJS
-// Project: http://www.datejs.com/
-// Definitions by: David Khristepher Santos <https://github.com/rupertavery>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-//NOTE: This definition file is for the library located at http://datejs.googlecode.com/svn/ and documented at https://code.google.com/p/datejs/wiki/APIDocumentation
-//That version of the library is more recent than the one provided at https://code.google.com/p/datejs/downloads/list, which has a slightly different API
+// NOTE: This definition file is for the library located at http://datejs.googlecode.com/svn/ and documented at https://code.google.com/p/datejs/wiki/APIDocumentation
+// That version of the library is more recent than the one provided at https://code.google.com/p/datejs/downloads/list, which has a slightly different API
 
 /// <reference path="sugarpak.d.ts" />
 
@@ -53,15 +48,17 @@ interface DateConstructor {
 /** DateJS Public Instance Methods */
 interface Date {
     /** Adds(or subtracts) to the value of the year, month, day, hour, minute, second, millisecond of the date instance using given configuration object. Positive and Negative values allowed. */
-    add(config?: Partial<{
-        milliseconds: number;
-        seconds: number;
-        minutes: number;
-        hours: number;
-        days: number;
-        months: number;
-        years: number;
-    }>): Date;
+    add(
+        config?: Partial<{
+            milliseconds: number;
+            seconds: number;
+            minutes: number;
+            hours: number;
+            days: number;
+            months: number;
+            years: number;
+        }>,
+    ): Date;
     /** Adds the specified number of milliseconds to this instance. */
     addMilliseconds(milliseconds: number): Date;
     /** Adds the specified number of seconds to this instance given the number of seconds to add.The number can be positive or negative. */
@@ -125,15 +122,17 @@ interface Date {
     /** Moves the date to the next nth occurrence of the dayOfWeek starting from the beginning of the month. The number (-1) is a magic number and will return the last occurrence of the dayOfWeek in the month. */
     moveToNthOccurrence(dayOfWeek: number, occurrence: number): Date;
     /** Set the value of year, month, day, hour, minute, second, millisecond of date instance using given configuration object. */
-    set(config: Partial<{
-        millisecond: number;
-        second: number;
-        minute: number;
-        hour: number;
-        day: number;
-        month: number;
-        year: number;
-    }>): Date;
+    set(
+        config: Partial<{
+            millisecond: number;
+            second: number;
+            minute: number;
+            hour: number;
+            day: number;
+            month: number;
+            year: number;
+        }>,
+    ): Date;
     /** Set the timezone for the current date using a culture - specific timezone abbreviation("PST").Note that in most JavaScript implementations, this will appear to change the time since the timezone is always based on the locale. */
     setTimezone(timezoneAbbreviation: string): Date;
     /** Set the timezone for the current date using an offset(-0700).Note that in most JavaScript implementations, this will appear to change the time since the timezone is always based on the locale. */
@@ -144,8 +143,7 @@ interface Date {
     toString(format?: string): string;
 }
 
-
-//NOTE: IDateJSStatic and IDateJS are provided here solely for backwards compatability with previous versions of this particular definition file (datejs.d.ts.)
-//DO NOT use them in new code (and it is strongly suggested you remove their use in any existing code); simply use the Javascript Date class instead.
-interface IDateJS extends Date { }
-interface IDateJSStatic extends DateConstructor { }
+// NOTE: IDateJSStatic and IDateJS are provided here solely for backwards compatability with previous versions of this particular definition file (datejs.d.ts.)
+// DO NOT use them in new code (and it is strongly suggested you remove their use in any existing code); simply use the Javascript Date class instead.
+interface IDateJS extends Date {}
+interface IDateJSStatic extends DateConstructor {}

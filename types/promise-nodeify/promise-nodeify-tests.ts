@@ -1,4 +1,4 @@
-import * as promiseNodeify from "promise-nodeify";
+import promiseNodeify from "promise-nodeify";
 
 const promise = new Promise<any>((resolve, reject) => {});
 const callback = () => {};

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/baidu-aip-sdk",
+    "version": "4.16.9999",
+    "projects": [
+        "https://github.com/Baidu-AIP/nodejs-sdk#readme"
+    ],
+    "devDependencies": {
+        "@types/baidu-aip-sdk": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "bangbang93",
+            "githubUsername": "bangbang93"
+        }
+    ]
+}

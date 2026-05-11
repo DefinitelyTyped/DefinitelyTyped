@@ -1,0 +1,30 @@
+{
+    "private": true,
+    "name": "@types/gapi.client.airquality-v1",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Air Quality API v1",
+    "projects": [
+        "https://developers.google.com/maps/documentation/air-quality"
+    ],
+    "dependencies": {
+        "@maxim_mazurok/gapi.client.airquality-v1": "latest"
+    },
+    "devDependencies": {
+        "@types/gapi.client.airquality-v1": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Maxim Mazurok",
+            "githubUsername": "Maxim-Mazurok"
+        },
+        {
+            "name": "Nick Amoscato",
+            "githubUsername": "namoscato"
+        },
+        {
+            "name": "Declan Vong",
+            "githubUsername": "declanvong"
+        }
+    ]
+}

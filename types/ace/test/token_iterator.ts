@@ -1,13 +1,13 @@
 const aceTokenIteratorTests = {
-    "test: token iterator initialization in JavaScript document": function () {
+    "test: token iterator initialization in JavaScript document": function() {
         var lines = [
             "function foo(items) {",
             "    for (var i=0; i<items.length; i++) {",
             "        alert(items[i] + \"juhu\");",
             "    } // Real Tab.",
-            "}"
+            "}",
         ];
-        var session = new AceAjax.EditSession(lines.join("\n"),mode);
+        var session = new AceAjax.EditSession(lines.join("\n"), mode);
 
         var iterator = new AceAjax.TokenIterator(session, 0, 0);
         assert.equal(iterator.getCurrentToken().value, "function");
@@ -53,12 +53,12 @@ const aceTokenIteratorTests = {
         assert.equal(iterator.getCurrentToken(), null);
     },
 
-    "test: token iterator initialization in text document": function () {
+    "test: token iterator initialization in text document": function() {
         var lines = [
             "Lorem ipsum dolor sit amet, consectetur adipisicing elit,",
             "sed do eiusmod tempor incididunt ut labore et dolore magna",
             "aliqua. Ut enim ad minim veniam, quis nostrud exercitation",
-            "ullamco laboris nisi ut aliquip ex ea commodo consequat."
+            "ullamco laboris nisi ut aliquip ex ea commodo consequat.",
         ];
         var session = new AceAjax.EditSession(lines.join("\n"));
 
@@ -86,59 +86,63 @@ const aceTokenIteratorTests = {
         assert.equal(iterator.getCurrentToken(), null);
     },
 
-    "test: token iterator step forward in JavaScript document": function () {
+    "test: token iterator step forward in JavaScript document": function() {
         var lines = [
             "function foo(items) {",
             "    for (var i=0; i<items.length; i++) {",
             "        alert(items[i] + \"juhu\");",
             "    } // Real Tab.",
-            "}"
+            "}",
         ];
-        var session = new AceAjax.EditSession(lines.join("\n"),mode);
+        var session = new AceAjax.EditSession(lines.join("\n"), mode);
 
         var tokens = [];
         var len = session.getLength();
-        for (var i = 0; i < len; i++)
+        for (var i = 0; i < len; i++) {
             tokens = tokens.concat(session.getTokens(i));
+        }
 
         var iterator = new AceAjax.TokenIterator(session, 0, 0);
-        for (var i = 1; i < tokens.length; i++)
+        for (var i = 1; i < tokens.length; i++) {
             assert.equal(iterator.stepForward(), tokens[i]);
+        }
         assert.equal(iterator.stepForward(), null);
         assert.equal(iterator.getCurrentToken(), null);
     },
 
-    "test: token iterator step backward in JavaScript document": function () {
+    "test: token iterator step backward in JavaScript document": function() {
         var lines = [
             "function foo(items) {",
             "     for (var i=0; i<items.length; i++) {",
             "         alert(items[i] + \"juhu\");",
             "     } // Real Tab.",
-            "}"
+            "}",
         ];
-        var session = new AceAjax.EditSession(lines.join("\n"),mode);
+        var session = new AceAjax.EditSession(lines.join("\n"), mode);
 
         var tokens = [];
         var len = session.getLength();
-        for (var i = 0; i < len; i++)
+        for (var i = 0; i < len; i++) {
             tokens = tokens.concat(session.getTokens(i));
+        }
 
         var iterator = new AceAjax.TokenIterator(session, 4, 0);
-        for (var i = tokens.length - 2; i >= 0; i--)
+        for (var i = tokens.length - 2; i >= 0; i--) {
             assert.equal(iterator.stepBackward(), tokens[i]);
+        }
         assert.equal(iterator.stepBackward(), null);
         assert.equal(iterator.getCurrentToken(), null);
     },
 
-    "test: token iterator reports correct row and column": function () {
+    "test: token iterator reports correct row and column": function() {
         var lines = [
             "function foo(items) {",
             "    for (var i=0; i<items.length; i++) {",
             "        alert(items[i] + \"juhu\");",
             "    } // Real Tab.",
-            "}"
+            "}",
         ];
-        var session = new AceAjax.EditSession(lines.join("\n"),mode);
+        var session = new AceAjax.EditSession(lines.join("\n"), mode);
 
         var iterator = new AceAjax.TokenIterator(session, 0, 0);
 
@@ -160,5 +164,5 @@ const aceTokenIteratorTests = {
         assert.equal(iterator.getCurrentToken().value, "for");
         assert.equal(iterator.getCurrentTokenRow(), 1);
         assert.equal(iterator.getCurrentTokenColumn(), 4);
-    }
+    },
 };

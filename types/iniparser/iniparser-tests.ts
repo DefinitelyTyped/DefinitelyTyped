@@ -1,20 +1,18 @@
+import * as iniparser from "iniparser";
 
-import * as iniparser from 'iniparser';
+type Result = { section: { param: string } };
 
-type Result = {section: {param: string}};
+declare const file: string;
 
-let file: string;
+// $ExpectType void
+iniparser.parse<Result>(file, (err, data) => {
+    // $ExpectType any
+    err;
+    // $ExpectType Result
+    data;
+});
 
-{
-    let callback: (err: any, data: Result) => void;
-    let result: void;
-
-    iniparser.parse(file, callback);
-}
-
-{
-    let result: Result;
-
-    result = iniparser.parseSync<Result>(file);
-    result = iniparser.parseString<Result>('');
-}
+// $ExpectType Result
+iniparser.parseSync<Result>(file);
+// $ExpectType Result
+iniparser.parseString<Result>("");

@@ -1,8 +1,3 @@
-// Type definitions for keysym 0.0
-// Project: https://github.com/substack/node-keysym
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface Record {
     keysym: number;
     names: string[];

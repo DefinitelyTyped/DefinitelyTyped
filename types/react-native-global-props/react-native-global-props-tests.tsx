@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 import {
     ActivityIndicatorProps,
     ImageProps,
@@ -19,7 +19,7 @@ import {
     TouchableWithoutFeedbackProps,
     View,
     ViewProps,
-} from 'react-native';
+} from "react-native";
 import {
     setCustomActivityIndicator,
     setCustomImage,
@@ -40,7 +40,7 @@ import {
     setCustomTouchableWithoutFeedback,
     setCustomView,
     setCustomWebView,
-} from 'react-native-global-props';
+} from "react-native-global-props";
 
 const customViewProps: ViewProps = {};
 // $ExpectType void
@@ -56,7 +56,7 @@ setCustomText(customTextProps);
 
 const customImageProps: ImageProps = {
     source: {
-        uri: 'https://example.org/image.png',
+        uri: "https://example.org/image.png",
     },
 };
 // $ExpectType void
@@ -118,7 +118,12 @@ setCustomPicker(customPickerProps);
 
 const customListViewProps: ListViewProps = {
     dataSource: new ListView.DataSource({}),
-    renderRow(rowData: any, sectionID: string | number, rowID: string | number, highlightRow: boolean | undefined): React.ReactElement {
+    renderRow(
+        rowData: any,
+        sectionID: string | number,
+        rowID: string | number,
+        highlightRow: boolean | undefined,
+    ): React.ReactElement {
         return <View />;
     },
 };

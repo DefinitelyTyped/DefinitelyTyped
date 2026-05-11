@@ -1,6 +1,6 @@
-import middy from '@middy/core';
-import { APIGatewayEvent, Context } from 'aws-lambda';
-import { HttpMiddlewareOptions } from './httpMiddleware';
+import middy from "@middy/core";
+import { APIGatewayEvent, Context } from "aws-lambda";
+import { HttpMiddlewareOptions } from "./httpMiddleware";
 
 export interface NormalizeHttpMiddlewareOptions extends HttpMiddlewareOptions {
     logger?: (message: any) => void;

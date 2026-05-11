@@ -1,12 +1,12 @@
-import * as topojson from "topojson-simplify";
 import { UsAtlas, WorldAtlas } from "topojson";
+import * as topojson from "topojson-simplify";
 
 declare let us: UsAtlas;
 declare let world: WorldAtlas;
 
 interface UsAtlasObjects extends TopoJSON.Objects {
-    counties: {type: "GeometryCollection", geometries: Array<TopoJSON.Polygon | TopoJSON.MultiPolygon>};
-    states: {type: "GeometryCollection", geometries: Array<TopoJSON.Polygon | TopoJSON.MultiPolygon>};
+    counties: { type: "GeometryCollection"; geometries: Array<TopoJSON.Polygon | TopoJSON.MultiPolygon> };
+    states: { type: "GeometryCollection"; geometries: Array<TopoJSON.Polygon | TopoJSON.MultiPolygon> };
     nation: TopoJSON.GeometryCollection;
 }
 

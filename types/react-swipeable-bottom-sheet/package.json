@@ -1,0 +1,16 @@
+{
+    "private": true,
+    "name": "@types/react-swipeable-bottom-sheet",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/manufont/react-swipeable-bottom-sheet"
+    ],
+    "dependencies": {
+        "@types/react": "^16",
+        "@types/react-swipeable-views": "*"
+    },
+    "devDependencies": {
+        "@types/react-swipeable-bottom-sheet": "workspace:."
+    },
+    "owners": []
+}

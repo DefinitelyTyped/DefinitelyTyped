@@ -1,4 +1,4 @@
-import * as jju from 'jju';
+import * as jju from "jju";
 
-jju.parse('{}'); // $ExpectType any
+jju.parse("{}"); // $ExpectType any
 jju.stringify({}); // $ExpectType string

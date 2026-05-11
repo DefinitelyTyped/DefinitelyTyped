@@ -1,2 +1,2 @@
-import IsStringPrefix = require('../2018/IsStringPrefix');
+import IsStringPrefix = require("../2018/IsStringPrefix");
 export = IsStringPrefix;

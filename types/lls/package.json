@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/lls",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/tantaman/LargeLocalStorage"
+    ],
+    "devDependencies": {
+        "@types/lls": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Borislav Zhivkov",
+            "githubUsername": "borislavjivkov"
+        }
+    ]
+}

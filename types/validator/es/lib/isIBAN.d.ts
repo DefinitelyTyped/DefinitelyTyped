@@ -1,3 +1,3 @@
-import isIBAN, { locales } from '../../lib/isIBAN';
+import isIBAN, { IBANLocale, IsIBANOptions, locales } from "../../lib/isIBAN";
 export default isIBAN;
-export { locales };
+export { IBANLocale, IsIBANOptions, locales };

@@ -1,11 +1,16 @@
-// Type definitions for splunk-logging 0.11
-// Project: http://dev.splunk.com
-// Definitions by: Alex Brick <https://github.com/bricka>
-//                 Borui Gu <https://github.com/BoruiGu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+import { CoreOptions as RequestOptions } from "request";
 
-import { CoreOptions as RequestOptions } from 'request';
+export {};
+
+export type Severity = "debug" | "info" | "warn" | "error";
+
+// this enum isn't actually exported, but it is used as an internal value by the Logger.
+declare enum SeverityLevel {
+    DEBUG = "debug",
+    INFO = "info",
+    WARN = "warn",
+    ERROR = "error",
+}
 
 export interface Config {
     token: string;
@@ -13,10 +18,10 @@ export interface Config {
     host?: string | undefined;
     maxRetries?: number | undefined;
     path?: string | undefined;
-    protocol?: 'http' | 'https' | undefined;
+    protocol?: "http" | "https" | undefined;
     port?: number | undefined;
     url?: string | undefined;
-    level?: string | undefined;
+    level?: Severity | string | undefined;
     batchInterval?: number | undefined;
     maxBatchSize?: number | undefined;
     maxBatchCount?: number | undefined;
@@ -27,12 +32,12 @@ export interface SendContextMetadata {
     index?: string | undefined;
     source?: string | undefined;
     sourcetype?: string | undefined;
-    time?: number | undefined;  // Milliseconds since epoch, e.g. with Date.now()
+    time?: number | undefined; // Milliseconds since epoch, e.g. with Date.now()
 }
 
 export interface SendContext {
     message: any;
-    severity?: string | undefined;
+    severity?: Severity | string | undefined;
     metadata?: SendContextMetadata | undefined;
 }
 
@@ -44,6 +49,7 @@ export class Logger {
     eventFormatter: EventFormatter;
     requestOptions: RequestOptions;
     readonly serializedContextQueue: any[];
+    readonly levels: typeof SeverityLevel;
 
     constructor(config: Config);
 

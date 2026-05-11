@@ -1,5 +1,5 @@
-import { Extrafields } from './extrafields';
-import { Address } from './address';
+import { Address } from "./address";
+import { Extrafields } from "./extrafields";
 
 export interface CheckoutCapture {
     line_items?: any;
@@ -19,16 +19,25 @@ export interface CheckoutCapture {
     };
     billing?: Partial<Address>;
     payment: {
-        gateway: 'braintree' | 'manual' | 'omise' | 'paypal' | 'razorpay' | 'stripe' | 'square' | 'test_gateway' | string;
+        gateway:
+            | "braintree"
+            | "manual"
+            | "omise"
+            | "paypal"
+            | "razorpay"
+            | "stripe"
+            | "square"
+            | "test_gateway"
+            | string;
         card?: {
             token?: string;
             nonce?: string;
-        }   |   {
-            number: string
-            expiry_month: string
-            expiry_year: string
-            cvc: string
-            postal_zip_code: string
+        } | {
+            number: string;
+            expiry_month: string;
+            expiry_year: string;
+            cvc: string;
+            postal_zip_code: string;
         };
         braintree?: {
             nonce: string;
@@ -41,7 +50,7 @@ export interface CheckoutCapture {
             payment_method_id?: string;
             payment_intent_id?: string;
             customer_id?: string;
-            setup_future_usage?: 'on_session' | 'off_session';
+            setup_future_usage?: "on_session" | "off_session";
         };
         razorpay?: {
             payment_id: string;
@@ -50,7 +59,7 @@ export interface CheckoutCapture {
             token: string;
         };
         paypal?: {
-            action: 'capture' | 'authorize';
+            action: "capture" | "authorize";
             payment_id?: string;
             payer_id?: string;
         };

@@ -1,27 +1,27 @@
-import unparse, { Argv } from 'yargs-unparser';
+import unparse, { Argv } from "yargs-unparser";
 
-unparse({ _: []});
+unparse({ _: [] });
 
-unparse({ _: [], foo: 'foo', bar: 1, baz: true });
+unparse({ _: [], foo: "foo", bar: 1, baz: true });
 
-unparse({ _: [], foo: 'foo', bar: 1, baz: true }, {});
+unparse({ _: [], foo: "foo", bar: 1, baz: true }, {});
 
-unparse({ _: [], foo: 'foo', bar: 1, baz: true }, {
-    alias: {foo: ['f']},
-    default: {foo: 'bar'},
-    command: 'qux'
+unparse({ _: [], foo: "foo", bar: 1, baz: true }, {
+    alias: { foo: ["f"] },
+    default: { foo: "bar" },
+    command: "qux",
 });
 
-const argv: Argv = unparse({ _: ['some/cmd'], foo: 'bar' });
+const argv: Argv = unparse({ _: ["some/cmd"], foo: "bar" });
 
 // @ts-expect-error
 unparse({ _: null });
 
 // @ts-expect-error
-unparse({ foo: 'bar' });
+unparse({ foo: "bar" });
 
 // @ts-expect-error
-unparse({ _: [] }, { alias: { foo: 'baz' }});
+unparse({ _: [] }, { alias: { foo: "baz" } });
 
 // @ts-expect-error
 unparse({ _: [] }, { default: null });

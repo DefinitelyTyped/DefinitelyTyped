@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/material-ui-pagination",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/lo-tp/material-ui-pagination"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/material-ui": "*",
+        "@types/material-ui-pagination": "workspace:.",
+        "@types/prop-types": "*",
+        "@types/react-tap-event-plugin": "*"
+    },
+    "owners": [
+        {
+            "name": "m0a",
+            "url": "https://m0a.github.io"
+        }
+    ]
+}

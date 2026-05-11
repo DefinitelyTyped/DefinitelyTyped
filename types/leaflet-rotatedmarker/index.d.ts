@@ -1,12 +1,6 @@
-// Type definitions for Leaflet.RotatedMarker 0.2
-// Project: https://github.com/bbecquet/Leaflet.RotatedMarker
-// Definitions by: Robert Prib <https://github.com/robert-prib-polestar>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+import * as L from "leaflet";
 
-import * as L from 'leaflet';
-
-declare module 'leaflet' {
+declare module "leaflet" {
     interface MarkerOptions {
         rotationAngle?: number | undefined; // Rotation angle, in degrees, clockwise. (Default = 0)
         rotationOrigin?: string | undefined; // The rotation center, as a transform-origin CSS rule. (Default = 'bottom center')
@@ -14,8 +8,8 @@ declare module 'leaflet' {
 
     interface Marker {
         /*
-        * Sets the rotation angle value.
-        */
+         * Sets the rotation angle value.
+         */
         setRotationAngle(newAngle: number): this;
 
         /**

@@ -1,16 +1,16 @@
-import MaskedInput, { conformToMask } from 'react-text-mask';
-import * as React from 'react';
+import * as React from "react";
+import MaskedInput, { conformToMask } from "react-text-mask";
 
-const mask = ['(', /\d/, /\d/, ')'];
+const mask = ["(", /\d/, /\d/, ")"];
 
 // $ExpectType ConformToMaskResult
-conformToMask('123', mask, {
+conformToMask("123", mask, {
     currentCaretPosition: 0,
-    placeholder: '',
-    previousConformedValue: '',
+    placeholder: "",
+    previousConformedValue: "",
     guide: false,
     keepCharPositions: false,
-    placeholderChar: '#',
+    placeholderChar: "#",
 });
 
 // Playground: https://codesandbox.io/s/nifty-wiles-6uwlb?file=/src/App.tsx
@@ -41,13 +41,20 @@ function Test() {
                 value=""
                 placeholderChar="#"
                 render={(setRef, props) => {
-                    return <input {...props} ref={ref => ref && setRef(ref)} />;
+                    return (
+                        <input
+                            {...props}
+                            ref={ref => {
+                                ref && setRef(ref);
+                            }}
+                        />
+                    );
                 }}
             />
             <MaskedInput
                 mask={false}
                 pipe={conformedValue => {
-                    if (conformedValue.includes('1')) {
+                    if (conformedValue.includes("1")) {
                         return false;
                     }
                     return conformedValue;
@@ -59,12 +66,12 @@ function Test() {
                 pipe={conformedValue => {
                     const newChar = {
                         index: 2,
-                        value: '9',
+                        value: "9",
                     };
-                    const nextConformedValue = conformedValue.split('');
+                    const nextConformedValue = conformedValue.split("");
                     nextConformedValue.splice(newChar.index, 1, newChar.value);
 
-                    return { value: nextConformedValue.join(''), indexesOfPipedChars: [newChar.index] };
+                    return { value: nextConformedValue.join(""), indexesOfPipedChars: [newChar.index] };
                 }}
             />
         </div>

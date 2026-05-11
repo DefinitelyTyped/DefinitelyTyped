@@ -1,6 +1,20 @@
 {
     "private": true,
+    "name": "@types/redux-injectable-store",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/lelandrichardson/redux-injectable-store#readme"
+    ],
     "dependencies": {
         "redux": "^3.6.0"
-    }
+    },
+    "devDependencies": {
+        "@types/redux-injectable-store": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Daniel Perez Alvarez",
+            "githubUsername": "unindented"
+        }
+    ]
 }

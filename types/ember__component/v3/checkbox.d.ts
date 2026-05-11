@@ -1,4 +1,4 @@
-import Component from '@ember/component';
+import Component from "@ember/component";
 
 /**
  * The internal class used to create text inputs when the {{input}} helper is used

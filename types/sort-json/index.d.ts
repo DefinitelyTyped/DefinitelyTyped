@@ -1,8 +1,3 @@
-// Type definitions for sort-json 2.0
-// Project: https://github.com/kesla/sort-json
-// Definitions by: Florian Keller <https://github.com/ffflorian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace visit {
     interface VisitOptions {
         /**

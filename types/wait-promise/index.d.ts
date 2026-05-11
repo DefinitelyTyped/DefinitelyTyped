@@ -1,9 +1,3 @@
-// Type definitions for wait-promise 0.4
-// Project: https://github.com/akira-cn/wait-promise
-// Definitions by: Paul Melnikow <https://github.com/paulmelnikow>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 export interface Wait {
     before(time: number): this;
     and(func: () => void): this;

@@ -1,9 +1,3 @@
-// Type definitions for parse-listing 1.1
-// Project: https://github.com/sergi/parse-listing
-// Definitions by: Maxime Lebastard <https://github.com/maximelebastard>
-//                 BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface File {
     type: nodeTypes;
     size: string;

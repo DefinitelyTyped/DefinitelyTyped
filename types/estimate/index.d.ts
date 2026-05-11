@@ -1,8 +1,3 @@
-// Type definitions for estimate 1.0
-// Project: https://github.com/bevacqua/estimate
-// Definitions by: Luis Rodrigues <https://github.com/goblindegook>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface Options {
     speed?: number | undefined;
     spaces?: RegExp | undefined;

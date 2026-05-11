@@ -6,14 +6,18 @@ const oauth2Model: OAuth2Server.AuthorizationCodeModel = {
     getClient: async (clientId: string, clientSecret: string): Promise<OAuth2Server.Client | OAuth2Server.Falsey> => {
         return undefined;
     },
-    saveToken: async (token: OAuth2Server.Token, client: OAuth2Server.Client, user: OAuth2Server.User): Promise<OAuth2Server.Token> => {
+    saveToken: async (
+        token: OAuth2Server.Token,
+        client: OAuth2Server.Client,
+        user: OAuth2Server.User,
+    ): Promise<OAuth2Server.Token> => {
         return token;
     },
     getAccessToken: async (accessToken: string): Promise<OAuth2Server.Token> => {
         return {
             accessToken,
-            client: {id: "testClient", grants: ["access_token"]},
-            user: {id: "testUser"}
+            client: { id: "testClient", grants: ["access_token"] },
+            user: { id: "testUser" },
         };
     },
     verifyScope: async (token: OAuth2Server.Token, scope: string): Promise<boolean> => {
@@ -24,16 +28,20 @@ const oauth2Model: OAuth2Server.AuthorizationCodeModel = {
             authorizationCode,
             expiresAt: new Date(),
             redirectUri: "www.test.com",
-            client: {id: "testClient", grants: ["access_token"]},
-            user: {id: "testUser"}
+            client: { id: "testClient", grants: ["access_token"] },
+            user: { id: "testUser" },
         };
     },
-    saveAuthorizationCode: async (code: OAuth2Server.AuthorizationCode, client: OAuth2Server.Client, user: OAuth2Server.User): Promise<OAuth2Server.AuthorizationCode> => {
+    saveAuthorizationCode: async (
+        code: OAuth2Server.AuthorizationCode,
+        client: OAuth2Server.Client,
+        user: OAuth2Server.User,
+    ): Promise<OAuth2Server.AuthorizationCode> => {
         return code;
     },
     revokeAuthorizationCode: async (code: OAuth2Server.AuthorizationCode): Promise<boolean> => {
         return true;
-    }
+    },
 };
 
 const serverOptions: ExpressOAuthServer.Options = {
@@ -68,16 +76,20 @@ expressApp.all(
     "/path",
     expressOAuthServer.authenticate(),
     (req: express.Request, res: express.Response, next: express.NextFunction) => {
-        res.json({message: "Secure data"});
+        res.json({ message: "Secure data" });
     },
 );
 
 expressApp.get(
     "/profile",
-    expressOAuthServer.authenticate({scope: "profile"}),
-    (req: express.Request & {user?: OAuth2Server.Token | undefined}, res: express.Response, next: express.NextFunction) => {
+    expressOAuthServer.authenticate({ scope: "profile" }),
+    (
+        req: express.Request & { user?: OAuth2Server.Token | undefined },
+        res: express.Response,
+        next: express.NextFunction,
+    ) => {
         res.json({
-            profile: req.user
+            profile: req.user,
         });
     },
 );

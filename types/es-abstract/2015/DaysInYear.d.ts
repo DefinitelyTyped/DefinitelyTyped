@@ -1,2 +1,2 @@
-import DaysInYear = require('../5/DaysInYear');
+import DaysInYear = require("../5/DaysInYear");
 export = DaysInYear;

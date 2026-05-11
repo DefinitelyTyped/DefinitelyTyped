@@ -1,8 +1,9 @@
-import { Color } from '../../math/Color';
-import { Vector2 } from '../../math/Vector2';
-import { Matrix3 } from '../../math/Matrix3';
+import { Color } from "../../math/Color.js";
+import { Matrix3 } from "../../math/Matrix3.js";
+import { Vector2 } from "../../math/Vector2.js";
+import { Vector3 } from "../../math/Vector3.js";
 
-// tslint:disable-next-line:interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IUniform<TValue = any> {
     value: TValue;
 }
@@ -23,7 +24,7 @@ export const UniformsLib: {
     };
     envmap: {
         envMap: IUniform<unknown>;
-        flipEnvMap: IUniform<number>;
+        envMapRotation: IUniform<Matrix3>;
         reflectivity: IUniform<number>;
         ior: IUniform<number>;
         refractRatio: IUniform<number>;
@@ -88,13 +89,13 @@ export const UniformsLib: {
         directionalLightShadows: {
             value: unknown[];
             properties: {
+                shadowIntensity: number;
                 shadowBias: {};
                 shadowNormalBias: {};
                 shadowRadius: {};
                 shadowMapSize: {};
             };
         };
-        directionalShadowMap: IUniform<unknown[]>;
         directionalShadowMatrix: IUniform<unknown[]>;
         spotLights: {
             value: unknown[];
@@ -111,6 +112,7 @@ export const UniformsLib: {
         spotLightShadows: {
             value: unknown[];
             properties: {
+                shadowIntensity: number;
                 shadowBias: {};
                 shadowNormalBias: {};
                 shadowRadius: {};
@@ -118,7 +120,6 @@ export const UniformsLib: {
             };
         };
         spotLightMap: IUniform<unknown[]>;
-        spotShadowMap: IUniform<unknown[]>;
         spotLightMatrix: IUniform<unknown[]>;
         pointLights: {
             value: unknown[];
@@ -132,6 +133,7 @@ export const UniformsLib: {
         pointLightShadows: {
             value: unknown[];
             properties: {
+                shadowIntensity: number;
                 shadowBias: {};
                 shadowNormalBias: {};
                 shadowRadius: {};
@@ -140,7 +142,6 @@ export const UniformsLib: {
                 shadowCameraFar: {};
             };
         };
-        pointShadowMap: IUniform<unknown[]>;
         pointShadowMatrix: IUniform<unknown[]>;
         hemisphereLights: {
             value: unknown[];
@@ -161,6 +162,10 @@ export const UniformsLib: {
         };
         ltc_1: IUniform<unknown>;
         ltc_2: IUniform<unknown>;
+        probesSH: IUniform<unknown>;
+        probesMin: IUniform<Vector3>;
+        probesMax: IUniform<Vector3>;
+        probesResolution: IUniform<Vector3>;
     };
     points: {
         diffuse: IUniform<Color>;

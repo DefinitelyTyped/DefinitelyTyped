@@ -6,7 +6,7 @@ import { EntityManager } from "./EntityManager";
 import { Telegram } from "./Telegram";
 
 export interface GameEntityConstructor {
-    new (): GameEntity;
+    new(): GameEntity;
 }
 
 /**

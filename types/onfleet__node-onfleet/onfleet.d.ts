@@ -1,13 +1,13 @@
-import Administrators = require('./Resources/Administrators');
-import Containers = require('./Resources/Containers');
-import Destinations = require('./Resources/Destinations');
-import Hubs = require('./Resources/Hubs');
-import Organization = require('./Resources/Organization');
-import Recipients = require('./Resources/Recipients');
-import Tasks = require('./Resources/Tasks');
-import Teams = require('./Resources/Teams');
-import Webhooks = require('./Resources/Webhooks');
-import Workers = require('./Resources/Workers');
+import Administrators = require("./Resources/Administrators");
+import Containers = require("./Resources/Containers");
+import Destinations = require("./Resources/Destinations");
+import Hubs = require("./Resources/Hubs");
+import Organization = require("./Resources/Organization");
+import Recipients = require("./Resources/Recipients");
+import Tasks = require("./Resources/Tasks");
+import Teams = require("./Resources/Teams");
+import Webhooks = require("./Resources/Webhooks");
+import Workers = require("./Resources/Workers");
 
 interface BottleneckOptions {
     /** default 20 */
@@ -26,8 +26,8 @@ declare class Onfleet {
         baseUrl: string;
         timeout: number;
         headers: {
-            'Content-Type': string;
-            'User-Agent': string;
+            "Content-Type": string;
+            "User-Agent": string;
             Authorization: string;
         };
     };

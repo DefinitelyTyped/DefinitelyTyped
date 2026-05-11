@@ -1,8 +1,3 @@
-// Type definitions for toidentifier 1.0
-// Project: https://github.com/component/toidentifier#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = toIdentifier;
 
 /**

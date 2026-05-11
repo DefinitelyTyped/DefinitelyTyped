@@ -1,98 +1,97 @@
-import wreck = require('wreck');
-import h2o2 = require('h2o2');
-import hapi = require('hapi');
+import wreck = require("wreck");
+import h2o2 = require("h2o2");
+import hapi = require("hapi");
 
 async function main() {
     const server = new hapi.Server({});
     await server.register(h2o2);
 
     server.route({
-        method: 'GET',
-        path: '/hproxyoptions',
+        method: "GET",
+        path: "/hproxyoptions",
         async handler(request, h) {
             // ResponseToolkit augmentation
             // https://github.com/hapijs/h2o2#hproxyoptions
-            return h.proxy({ host: 'example.com', port: 80, protocol: 'http' });
-        }
+            return h.proxy({ host: "example.com", port: 80, protocol: "http" });
+        },
     });
 
     server.route({
-        method: 'GET',
-        path: '/using-the-host-port-protocol-options',
+        method: "GET",
+        path: "/using-the-host-port-protocol-options",
         handler: {
             // HandlerDecorations augmentation
             // https://github.com/hapijs/h2o2#using-the-host-port-protocol-options
             proxy: {
-                host: '10.33.33.1',
-                port: '443',
-                protocol: 'https'
-            }
-        }
+                host: "10.33.33.1",
+                port: "443",
+                protocol: "https",
+            },
+        },
     });
 
     server.route({
-        method: 'GET',
-        path: '/using-the-uri-option',
+        method: "GET",
+        path: "/using-the-uri-option",
         handler: {
             // HandlerDecorations augmentation
             // https://github.com/hapijs/h2o2#using-the-uri-option
             proxy: {
-                uri: 'https://some.upstream.service.com/that/has?what=you&want=todo'
-            }
-        }
+                uri: "https://some.upstream.service.com/that/has?what=you&want=todo",
+            },
+        },
     });
 
-
     server.route({
-        method: 'GET',
-        path: '/custom-uri-template-values',
+        method: "GET",
+        path: "/custom-uri-template-values",
         handler: {
             // HandlerDecorations augmentation
             // https://github.com/hapijs/h2o2#custom-uri-template-values
             proxy: {
-                uri: '{protocol}://{host}:{port}/go/to/{path}'
-            }
-        }
+                uri: "{protocol}://{host}:{port}/go/to/{path}",
+            },
+        },
     });
 
     server.route({
-        method: 'GET',
-        path: '/custom-uri-template-values/{bar}',
+        method: "GET",
+        path: "/custom-uri-template-values/{bar}",
         handler: {
             // HandlerDecorations augmentation
             // https://github.com/hapijs/h2o2#custom-uri-template-values
             proxy: {
-                uri: 'https://some.upstream.service.com/some/path/to/{bar}'
-            }
-        }
+                uri: "https://some.upstream.service.com/some/path/to/{bar}",
+            },
+        },
     });
 
     server.route({
-        method: 'GET',
-        path: '/',
+        method: "GET",
+        path: "/",
         handler: {
             // HandlerDecorations augmentation
             // https://github.com/hapijs/h2o2#using-the-mapuri-and-onresponse-options
             proxy: {
                 async mapUri(request) {
-                    console.log('doing some additional stuff before redirecting');
+                    console.log("doing some additional stuff before redirecting");
                     return {
-                        uri: 'https://some.upstream.service.com/'
+                        uri: "https://some.upstream.service.com/",
                     };
                 },
 
                 async onResponse(err, res, request, h, settings, ttl) {
-                    console.log('receiving the response from the upstream.');
+                    console.log("receiving the response from the upstream.");
                     const payload = await wreck.read(res, { json: true });
 
-                    console.log('some payload manipulation if you want to.')
+                    console.log("some payload manipulation if you want to.");
                     let response = h.response(payload);
 
                     // TODO find a quicker way to do this
                     for (let header in res.headers) {
                         let value = res.headers[header];
                         if (value) {
-                            if (typeof value === 'string') {
+                            if (typeof value === "string") {
                                 value = [value];
                             }
                             for (let v of value) {
@@ -101,9 +100,9 @@ async function main() {
                         }
                     }
                     return response;
-                }
-            }
-        }
+                },
+            },
+        },
     });
 
     await server.start();
@@ -122,35 +121,35 @@ async function main() {
  */
 
 var proxyOptions: h2o2.ProxyHandlerOptions = {
-    host: '10.33.33.1',
-    port: '443',
-    protocol: 'https'  // errors correctly if misspelt
-}
+    host: "10.33.33.1",
+    port: "443",
+    protocol: "https", // errors correctly if misspelt
+};
 
 const badProtocolDemo: hapi.ServerRoute = {
-    method: 'GET',
-    path: '/',
+    method: "GET",
+    path: "/",
     handler: {
         proxy: {
-            host: '10.33.33.1',
-            port: '443'
+            host: "10.33.33.1",
+            port: "443",
             // port: null // detected as incompatible
-        }
-    }
+        },
+    },
 };
 
 const replyViaToolkit: hapi.ServerRoute = {
-    method: 'GET',
-    path: '/',
+    method: "GET",
+    path: "/",
     async handler(req, h): Promise<hapi.ResponseObject> {
         return h.proxy({
-            host: '10.33.33.1',
-            port: '443',
-            protocol: 'https'
+            host: "10.33.33.1",
+            port: "443",
+            protocol: "https",
         });
-    }
+    },
 };
 
 if (!module.parent) {
-    main().then(() => console.log('done'), err => console.error(err.stack));
+    main().then(() => console.log("done"), err => console.error(err.stack));
 }

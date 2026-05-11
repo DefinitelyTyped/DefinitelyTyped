@@ -1,7 +1,29 @@
 {
     "private": true,
+    "name": "@types/redux-immutable",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/gajus/redux-immutable"
+    ],
     "dependencies": {
-        "redux": "^4.0.0",
-        "immutable": "^4.0.0-rc.1"
-    }
+        "immutable": "^4.0.0-rc.1",
+        "redux": "^4.0.0"
+    },
+    "devDependencies": {
+        "@types/redux-immutable": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sebastian Sebald",
+            "githubUsername": "sebald"
+        },
+        {
+            "name": "Gavin Gregory",
+            "githubUsername": "gavingregory"
+        },
+        {
+            "name": "Kanitkorn Sujautra",
+            "githubUsername": "lukyth"
+        }
+    ]
 }

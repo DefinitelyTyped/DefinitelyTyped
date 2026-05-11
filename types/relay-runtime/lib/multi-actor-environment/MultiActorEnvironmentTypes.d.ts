@@ -1,6 +1,6 @@
-import { MutationParameters } from '../mutations/commitMutation';
-import { GraphQLResponse, PayloadData } from '../network/RelayNetworkTypes';
-import { RelayObservable } from '../network/RelayObservable';
+import { MutationParameters } from "../mutations/commitMutation";
+import { GraphQLResponse, PayloadData } from "../network/RelayNetworkTypes";
+import { RelayObservable } from "../network/RelayObservable";
 import {
     Environment as IEnvironment,
     ExecuteMutationConfig,
@@ -13,9 +13,9 @@ import {
     SingularReaderSelector,
     Snapshot,
     StoreUpdater,
-} from '../store/RelayStoreTypes';
-import { Disposable } from '../util/RelayRuntimeTypes';
-import { ActorIdentifier } from './ActorIdentifier';
+} from "../store/RelayStoreTypes";
+import { Disposable } from "../util/RelayRuntimeTypes";
+import { ActorIdentifier } from "./ActorIdentifier";
 
 export type MultiActorStoreUpdater = (
     actorIdentifier: ActorIdentifier,
@@ -166,7 +166,7 @@ export interface MultiActorEnvironment {
         actorEnvironment: ActorEnvironment,
         config: {
             operation: OperationDescriptor;
-            updater?: SelectorStoreUpdater<MutationParameters['response']> | null;
+            updater?: SelectorStoreUpdater<MutationParameters["response"]> | null;
         },
     ): RelayObservable<GraphQLResponse>;
 

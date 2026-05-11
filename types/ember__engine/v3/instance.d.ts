@@ -8,7 +8,7 @@ import EmberObject from "@ember/object";
  */
 export default class EngineInstance extends EmberObject.extend(
     RegistryProxyMixin,
-    ContainerProxyMixin
+    ContainerProxyMixin,
 ) {
     /**
      * Unregister a factory.

@@ -58,10 +58,18 @@ manager.clear();
 manager.destroy();
 
 // Event Subscription
-sub = manager.onDidMatchBinding((event): void => { event.keystrokes; });
-sub = manager.onDidPartiallyMatchBindings((event): void => { event.partiallyMatchedBindings; });
-sub = manager.onDidFailToMatchBinding((event): void => { event.keystrokes; });
-sub = manager.onDidFailToReadFile((event): void => { event.stack; });
+sub = manager.onDidMatchBinding((event): void => {
+    event.keystrokes;
+});
+sub = manager.onDidPartiallyMatchBindings((event): void => {
+    event.partiallyMatchedBindings;
+});
+sub = manager.onDidFailToMatchBinding((event): void => {
+    event.keystrokes;
+});
+sub = manager.onDidFailToReadFile((event): void => {
+    event.stack;
+});
 
 // Adding and Removing Bindings
 sub = manager.add("a", {}, 0);
@@ -72,13 +80,13 @@ bindings = manager.findKeyBindings();
 bindings = manager.findKeyBindings({ command: "a" });
 bindings = manager.findKeyBindings({ keystrokes: "a" });
 bindings = manager.findKeyBindings({ target: element });
-bindings = manager.findKeyBindings({ command: "a", keystrokes: "b"});
+bindings = manager.findKeyBindings({ command: "a", keystrokes: "b" });
 bindings = manager.findKeyBindings({ command: "a", keystrokes: "b", target: element });
 
 // Managing Keymap Files
 manager.loadKeymap("Test.file");
 manager.loadKeymap("Test.file", { watch: true });
-manager.loadKeymap("Test.file", { watch: true, priority: 0});
+manager.loadKeymap("Test.file", { watch: true, priority: 0 });
 
 // Managing Keyboard Events
 manager.handleKeyboardEvent(event);

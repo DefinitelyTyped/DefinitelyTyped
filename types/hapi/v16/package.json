@@ -1,6 +1,31 @@
 {
     "private": true,
+    "name": "@types/hapi",
+    "version": "16.1.9999",
+    "projects": [
+        "https://github.com/hapijs/hapi"
+    ],
     "dependencies": {
+        "@types/boom": "^4",
+        "@types/catbox": "^7",
+        "@types/mimos": "*",
+        "@types/node": "*",
+        "@types/podium": "*",
+        "@types/shot": "*",
         "joi": "^17.3.0"
-    }
+    },
+    "devDependencies": {
+        "@types/hapi": "workspace:.",
+        "@types/hoek": "*"
+    },
+    "owners": [
+        {
+            "name": "Jason Swearingen",
+            "githubUsername": "jasonswearingen"
+        },
+        {
+            "name": "AJP",
+            "githubUsername": "AJamesPhillips"
+        }
+    ]
 }

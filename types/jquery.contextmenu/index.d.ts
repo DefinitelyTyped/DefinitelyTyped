@@ -1,9 +1,3 @@
-// Type definitions for jQuery contextMenu 1.7.0
-// Project: http://medialize.github.com/jQuery-contextMenu/
-// Definitions by: Natan Vivo <https://github.com/nvivo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery" />
 
 interface JQueryContextMenuOptions {
@@ -13,7 +7,7 @@ interface JQueryContextMenuOptions {
     autoHide?: boolean | undefined;
     delay?: number | undefined;
     determinePosition?: ((menu: JQuery) => void) | undefined;
-    position?: ((opt: JQuery, x: number, y: number) => void) | undefined;
+    position?: ((opt: JQueryContextMenuOptions & { $menu: JQuery }, x: number, y: number) => void) | undefined;
     positionSubmenu?: ((menu: JQuery) => void) | undefined;
     zIndex?: number | undefined;
     animation?: {

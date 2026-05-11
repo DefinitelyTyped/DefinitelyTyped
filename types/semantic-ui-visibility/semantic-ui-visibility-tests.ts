@@ -1,7 +1,7 @@
 function test_visibility_static() {
-    $.fn.visibility.settings.error!.method = 'method';
-    $.fn.visibility.settings.namespace = 'namespace';
-    $.fn.visibility.settings.name = 'name';
+    $.fn.visibility.settings.error!.method = "method";
+    $.fn.visibility.settings.namespace = "namespace";
+    $.fn.visibility.settings.name = "name";
     $.fn.visibility.settings.silent = false;
     $.fn.visibility.settings.debug = true;
     $.fn.visibility.settings.performance = true;
@@ -9,33 +9,33 @@ function test_visibility_static() {
 }
 
 function test_visibility() {
-    const selector = '.ui.visibility';
-    $(selector).visibility('disable callbacks'); // $ExpectType JQuery<HTMLElement>
-    $(selector).visibility('enable callbacks'); // $ExpectType JQuery<HTMLElement>
-    $(selector).visibility('is on screen'); // $ExpectType boolean
-    $(selector).visibility('is off screen'); // $ExpectType boolean
-    $(selector).visibility('get pixels passed'); // $ExpectType number
-    $(selector).visibility('get element calculations'); // $ExpectType ElementCalculations
-    $(selector).visibility('get screen calculations'); // $ExpectType ScreenCalculations
-    $(selector).visibility('get screen size'); // $ExpectType ScreenSize
-    $(selector).visibility('destroy'); // $ExpectType JQuery<HTMLElement>
-    $(selector).visibility('setting', 'debug', undefined); // $ExpectType boolean
-    $(selector).visibility('setting', 'debug'); // $ExpectType boolean
-    $(selector).visibility('setting', 'debug', true); // $ExpectType JQuery<HTMLElement>
+    const selector = ".ui.visibility";
+    $(selector).visibility("disable callbacks"); // $ExpectType JQuery<HTMLElement>
+    $(selector).visibility("enable callbacks"); // $ExpectType JQuery<HTMLElement>
+    $(selector).visibility("is on screen"); // $ExpectType boolean
+    $(selector).visibility("is off screen"); // $ExpectType boolean
+    $(selector).visibility("get pixels passed"); // $ExpectType number
+    $(selector).visibility("get element calculations"); // $ExpectType ElementCalculations
+    $(selector).visibility("get screen calculations"); // $ExpectType ScreenCalculations
+    $(selector).visibility("get screen size"); // $ExpectType ScreenSize
+    $(selector).visibility("destroy"); // $ExpectType JQuery<HTMLElement>
+    $(selector).visibility("setting", "debug", undefined); // $ExpectType boolean
+    $(selector).visibility("setting", "debug"); // $ExpectType boolean
+    $(selector).visibility("setting", "debug", true); // $ExpectType JQuery<HTMLElement>
     // $ExpectType JQuery<HTMLElement>
-    $(selector).visibility('setting', {
-        namespace: 'namespace',
-        name: 'name',
+    $(selector).visibility("setting", {
+        namespace: "namespace",
+        name: "name",
         silent: false,
         debug: true,
         performance: true,
-        verbose: true
+        verbose: true,
     });
     // $ExpectType JQuery<HTMLElement>
     $(selector).visibility({
         once: false,
         continuous: true,
-        type: 'image',
+        type: "image",
         initialCheck: false,
         context: $(),
         refreshOnLoad: true,
@@ -46,7 +46,7 @@ function test_visibility() {
         includeMargin: false,
         throttle: 10,
         observeChanges: true,
-        transition: 'fade',
+        transition: "fade",
         duration: 5,
         onTopVisible() {
             this; // $ExpectType JQuery<HTMLElement>
@@ -104,21 +104,21 @@ function test_visibility() {
             this; // $ExpectType JQuery<HTMLElement>
         },
         className: {
-            fixed: 'fixed',
+            fixed: "fixed",
         },
         error: {
-            method: 'method'
-        }
+            method: "method",
+        },
     });
     $(selector).visibility(); // $ExpectType JQuery<HTMLElement>
 
     // @ts-expect-error
-    $(selector).visibility('foo');
+    $(selector).visibility("foo");
     // @ts-expect-error
-    $(selector).visibility({ foo: 'bar' });
+    $(selector).visibility({ foo: "bar" });
 }
 
-import visibility = require('semantic-ui-visibility');
+import visibility = require("semantic-ui-visibility");
 
 function test_module() {
     visibility; // $ExpectType Visibility

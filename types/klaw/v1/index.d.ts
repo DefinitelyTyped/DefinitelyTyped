@@ -1,12 +1,7 @@
-// Type definitions for klaw 1.3
-// Project: https://github.com/jprichardson/node-klaw
-// Definitions by: Matthew McEachen <https://github.com/mceachen>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { Stats } from "fs";
-import { Readable, ReadableOptions } from 'stream';
+import { Readable, ReadableOptions } from "stream";
 
 declare function K(root: string, options?: K.Options): K.Walker;
 

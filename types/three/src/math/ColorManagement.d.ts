@@ -1,34 +1,59 @@
-import { ColorSpace, DisplayP3ColorSpace, LinearSRGBColorSpace, SRGBColorSpace } from '../constants';
-import { Color } from './Color';
+import { ColorSpaceTransfer } from "../constants.js";
+import { Color } from "./Color.js";
+import { Matrix3 } from "./Matrix3.js";
+import { Vector3 } from "./Vector3.js";
 
-export function SRGBToLinear(c: number): number;
+export interface ColorSpaceDefinition {
+    primaries: [number, number, number, number, number, number];
+    whitePoint: [number, number];
+    transfer: ColorSpaceTransfer;
+    toXYZ: Matrix3;
+    fromXYZ: Matrix3;
+    luminanceCoefficients: [number, number, number];
+    workingColorSpaceConfig?: { unpackColorSpace: string };
+    outputColorSpaceConfig?: { drawingBufferColorSpace: string; toneMappingNode?: "extended" | "standard" };
+}
 
-export function LinearToSRGB(c: number): number;
-
-export namespace ColorManagement {
+export interface ColorManagement {
     /**
-     * @default false
+     * @default true
      */
-    let enabled: boolean;
+    enabled: boolean;
 
     /**
      * @default LinearSRGBColorSpace
      */
-    let workingColorSpace: ColorSpace;
+    workingColorSpace: string;
 
-    function convert(
-        color: Color,
-        sourceColorSpace: typeof SRGBColorSpace | typeof LinearSRGBColorSpace | typeof DisplayP3ColorSpace,
-        targetColorSpace: typeof SRGBColorSpace | typeof LinearSRGBColorSpace | typeof DisplayP3ColorSpace,
-    ): Color;
+    spaces: Record<string, ColorSpaceDefinition>;
 
-    function fromWorkingColorSpace(
-        color: Color,
-        targetColorSpace: typeof SRGBColorSpace | typeof LinearSRGBColorSpace | typeof DisplayP3ColorSpace,
-    ): Color;
+    convert: (color: Color, sourceColorSpace: string, targetColorSpace: string) => Color;
 
-    function toWorkingColorSpace(
-        color: Color,
-        sourceColorSpace: typeof SRGBColorSpace | typeof LinearSRGBColorSpace | typeof DisplayP3ColorSpace,
-    ): Color;
+    workingToColorSpace: (color: Color, targetColorSpace: string) => Color;
+
+    colorSpaceToWorking: (color: Color, sourceColorSpace: string) => Color;
+
+    getPrimaries: (colorSpace: string) => [number, number, number, number, number, number];
+
+    getTransfer: (colorSpace: string) => ColorSpaceTransfer;
+
+    getLuminanceCoefficients: (target: Vector3, colorSpace?: string) => Vector3;
+
+    define: (colorSpaces: Record<string, ColorSpaceDefinition>) => void;
+
+    /**
+     * @deprecated .fromWorkingColorSpace() has been renamed to .workingToColorSpace().
+     */
+    fromWorkingColorSpace: (color: Color, targetColorSpace: string) => Color;
+
+    /**
+     * @deprecated .toWorkingColorSpace() has been renamed to .colorSpaceToWorking().
+     */
+    toWorkingColorSpace: (color: Color, sourceColorSpace: string) => Color;
 }
+
+export const ColorManagement: ColorManagement;
+
+export function SRGBToLinear(c: number): number;
+
+export function LinearToSRGB(c: number): number;

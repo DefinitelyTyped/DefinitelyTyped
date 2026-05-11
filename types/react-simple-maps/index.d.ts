@@ -1,14 +1,7 @@
-// Type definitions for react-simple-maps 3.0
-// Project: https://github.com/zcreativelabs/react-simple-maps#readme
-// Definitions by: Novikov Mihail <https://github.com/thepocp>
-//                 Andrej Mihajlov <https://github.com/pronebird>
-//                 Kouame Komenan  <https://github.com/komenank>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { GeoPath, GeoProjection } from 'd3-geo';
-import { D3ZoomEvent } from 'd3-zoom';
-import { Feature } from 'geojson';
-import * as React from 'react';
+import { GeoPath, GeoProjection } from "d3-geo";
+import { D3ZoomEvent } from "d3-zoom";
+import { Feature } from "geojson";
+import * as React from "react";
 
 export type Point = [number, number];
 
@@ -18,9 +11,11 @@ export interface ProjectionConfig {
     parallels?: [number, number] | undefined;
     rotate?: [number, number, number] | undefined;
 }
+
 export type ProjectionFunction = (width: number, height: number, config: ProjectionConfig) => GeoProjection;
 
 export interface ComposableMapProps extends React.SVGAttributes<SVGSVGElement> {
+    children?: React.ReactNode;
     /**
      * @default 800
      */
@@ -49,6 +44,7 @@ export interface Position {
 }
 
 export interface ZoomableGroupProps extends React.SVGAttributes<SVGGElement> {
+    children?: React.ReactNode;
     /**
      * @default [0, 0]
      */
@@ -77,9 +73,50 @@ export interface ZoomableGroupProps extends React.SVGAttributes<SVGGElement> {
      * @default false
      */
     disableZooming?: boolean | undefined;
-    onMoveStart?: ((position: { coordinates: [number, number], zoom: number }, event: D3ZoomEvent<SVGElement, any>) => void) | undefined;
-    onMove?: ((position: {x: number, y: number, zoom: number, dragging: WheelEvent }, event: D3ZoomEvent<SVGElement, any>) => void) | undefined;
-    onMoveEnd?: ((position: { coordinates: [number, number], zoom: number }, event: D3ZoomEvent<SVGElement, any>) => void) | undefined;
+    onMoveStart?:
+        | ((position: { coordinates: [number, number]; zoom: number }, event: D3ZoomEvent<SVGElement, any>) => void)
+        | undefined;
+    onMove?:
+        | ((
+            position: { x: number; y: number; zoom: number; dragging: WheelEvent },
+            event: D3ZoomEvent<SVGElement, any>,
+        ) => void)
+        | undefined;
+    onMoveEnd?:
+        | ((position: { coordinates: [number, number]; zoom: number }, event: D3ZoomEvent<SVGElement, any>) => void)
+        | undefined;
+    filterZoomEvent?: ((element: SVGElement) => boolean) | undefined;
+    translateExtent?: [[number, number], [number, number]] | undefined;
+}
+
+interface ZoomPanProps {
+    /**
+     * @default [0, 0]
+     */
+    center?: Point | undefined;
+    /**
+     * @default 1
+     */
+    zoom?: number | undefined;
+    /**
+     * @default 1
+     */
+    scaleExtent?: Point | undefined;
+    /**
+     * @default [1, 8]
+     */
+    onMoveStart?:
+        | ((position: { coordinates: [number, number]; zoom: number }, event: D3ZoomEvent<SVGElement, any>) => void)
+        | undefined;
+    onMove?:
+        | ((
+            position: { x: number; y: number; zoom: number; dragging: WheelEvent },
+            event: D3ZoomEvent<SVGElement, any>,
+        ) => void)
+        | undefined;
+    onMoveEnd?:
+        | ((position: { coordinates: [number, number]; zoom: number }, event: D3ZoomEvent<SVGElement, any>) => void)
+        | undefined;
     filterZoomEvent?: ((element: SVGElement) => boolean) | undefined;
     translateExtent?: [[number, number], [number, number]] | undefined;
 }
@@ -90,14 +127,15 @@ interface GeographiesChildrenArgument {
     projection: GeoProjection;
 }
 
-export interface GeographiesProps extends Omit<React.SVGAttributes<SVGGElement>, 'children'> {
+export interface GeographiesProps extends Omit<React.SVGAttributes<SVGGElement>, "children"> {
     parseGeographies?: ((features: Array<Feature<any, any>>) => Array<Feature<any, any>>) | undefined;
     geography?: string | Record<string, any> | string[] | undefined;
     children?: ((data: GeographiesChildrenArgument) => void) | undefined;
 }
 
 export interface GeographyProps
-    extends Pick<React.SVGProps<SVGPathElement>, Exclude<keyof React.SVGProps<SVGPathElement>, 'style'>> {
+    extends Pick<React.SVGProps<SVGPathElement>, Exclude<keyof React.SVGProps<SVGPathElement>, "style">>
+{
     geography?: any;
     style?: {
         default?: React.CSSProperties | undefined;
@@ -113,7 +151,9 @@ export interface GeographyProps
 }
 
 export interface MarkerProps
-    extends Pick<React.SVGProps<SVGPathElement>, Exclude<keyof React.SVGProps<SVGPathElement>, 'style'>> {
+    extends Pick<React.SVGProps<SVGPathElement>, Exclude<keyof React.SVGProps<SVGPathElement>, "style">>
+{
+    children?: React.ReactNode;
     coordinates?: Point | undefined;
     style?: {
         default?: React.CSSProperties | undefined;
@@ -129,6 +169,7 @@ export interface MarkerProps
 }
 
 export interface AnnotationProps extends React.SVGProps<SVGGElement> {
+    children?: React.ReactNode;
     subject?: Point | undefined;
     connectorProps: React.SVGProps<SVGPathElement>;
     /**
@@ -161,7 +202,8 @@ export interface GraticuleProps extends React.SVGProps<SVGPathElement> {
 }
 
 export interface LineProps
-    extends Pick<React.SVGProps<SVGPathElement>, Exclude<keyof React.SVGProps<SVGPathElement>, 'from' | 'to'>> {
+    extends Pick<React.SVGProps<SVGPathElement>, Exclude<keyof React.SVGProps<SVGPathElement>, "from" | "to">>
+{
     /**
      * @default [0, 0]
      */
@@ -207,6 +249,31 @@ interface SphereProps extends React.SVGProps<SVGPathElement> {
     strokeWidth: number;
 }
 
+declare function useGeographies(args?: Omit<GeographiesProps, "children">): {
+    geographies: any[];
+    path: GeoPath;
+    projection: GeoProjection;
+};
+declare function useZoomPan(args?: ZoomPanProps): {
+    mapRef: React.RefObject<SVGSVGElement>;
+    position: Position;
+    transformString: string;
+};
+
+declare function useZoomPanContext(): {
+    x: number;
+    y: number;
+    k: number;
+    transformString: string;
+};
+
+declare function useMapContext(): {
+    width: number;
+    height: number;
+    path: GeoPath;
+    projection: GeoProjection;
+};
+
 declare const ComposableMap: React.FunctionComponent<ComposableMapProps>;
 declare const ZoomableGroup: React.FunctionComponent<ZoomableGroupProps>;
 declare const Geographies: React.FunctionComponent<GeographiesProps>;
@@ -217,4 +284,18 @@ declare const Graticule: React.FunctionComponent<GraticuleProps>;
 declare const Line: React.FunctionComponent<LineProps>;
 declare const Sphere: React.FunctionComponent<SphereProps>;
 
-export { ComposableMap, ZoomableGroup, Geographies, Geography, Marker, Annotation, Graticule, Line, Sphere };
+export {
+    Annotation,
+    ComposableMap,
+    Geographies,
+    Geography,
+    Graticule,
+    Line,
+    Marker,
+    Sphere,
+    useGeographies,
+    useMapContext,
+    useZoomPan,
+    useZoomPanContext,
+    ZoomableGroup,
+};

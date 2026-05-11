@@ -1,8 +1,3 @@
-// Type definitions for osenv 0.1
-// Project: https://github.com/npm/osenv
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * The machine name. Calls hostname if not found.
  */

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/alicloud__log",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/aliyun/aliyun-log-nodejs-sdk"
+    ],
+    "devDependencies": {
+        "@types/alicloud__log": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "RuixeWolf",
+            "githubUsername": "RuixeWolf"
+        }
+    ]
+}

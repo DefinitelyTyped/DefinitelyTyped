@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/random-number",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/ashnur/random-number"
+    ],
+    "devDependencies": {
+        "@types/random-number": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "OpenByteDev",
+            "githubUsername": "OpenByteDev"
+        }
+    ]
+}

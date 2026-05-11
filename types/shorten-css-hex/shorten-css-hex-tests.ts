@@ -1,3 +1,3 @@
-import shortenCssHex = require('shorten-css-hex');
+import shortenCssHex = require("shorten-css-hex");
 
-shortenCssHex('');
+shortenCssHex("");

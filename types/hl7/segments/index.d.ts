@@ -1,11 +1,11 @@
-export * from './ail.segment';
-export * from './pid.segment';
-export * from './msh.segment';
-export * from './pv1.segment';
-export * from './orc.segment';
-export * from './obr.segment';
-export * from './obx.segment';
-export * from './ais.segment';
+export * from "./ail.segment";
+export * from "./ais.segment";
+export * from "./msh.segment";
+export * from "./obr.segment";
+export * from "./obx.segment";
+export * from "./orc.segment";
+export * from "./pid.segment";
+export * from "./pv1.segment";
 
 /**
  * A segment is a logical grouping of data fields. Segments of a message may be required or optional.

@@ -1,14 +1,11 @@
-// Type definitions for WebGL Extensions
-// Project: http://webgl.org/
-// Definitions by: Arthur Langereis <https://github.com/zenmumbler>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.4
-
 // render-gl1/declarations - WebGL 1 extension definitions (beyond TS lib)
 // Extracted from Stardazed - https://github.com/stardazed/stardazed
 
 interface HTMLCanvasElement {
-    getContext(contextId: "webgl" | "experimental-webgl", contextAttributes?: WebGLContextAttributes): (WebGLRenderingContext & WebGL1Extensions) | null;
+    getContext(
+        contextId: "webgl" | "experimental-webgl",
+        contextAttributes?: WebGLContextAttributes,
+    ): (WebGLRenderingContext & WebGL1Extensions) | null;
 }
 
 interface WebGL1Extensions {
@@ -27,26 +24,54 @@ interface WebGL1Extensions {
     getExtension(name: "WEBKIT_WEBGL_lose_context"): WEBGL_lose_context; // Chrome
 }
 
-
 // WebGL 1 Type Branding
-interface WebGLObject { readonly __WebGLObject: void; }
-interface WebGLBuffer { readonly __WebGLBuffer: void; }
-interface WebGLFramebuffer { readonly __WebGLFramebuffer: void; }
-interface WebGLProgram { readonly __WebGLProgram: void; }
-interface WebGLRenderbuffer { readonly __WebGLRenderbuffer: void; }
-interface WebGLShader { readonly __WebGLShader: void; }
-interface WebGLTexture { readonly __WebGLTexture: void; }
-interface WebGLUniformLocation { readonly __WebGLUniformLocation: void; }
-interface WebGLVertexArrayObjectOES extends WebGLObject { readonly __WebGLVertexArrayObjectOES: void; }
+interface WebGLObject {
+    readonly __WebGLObject: void;
+}
+interface WebGLBuffer {
+    readonly __WebGLBuffer: void;
+}
+interface WebGLFramebuffer {
+    readonly __WebGLFramebuffer: void;
+}
+interface WebGLProgram {
+    readonly __WebGLProgram: void;
+}
+interface WebGLRenderbuffer {
+    readonly __WebGLRenderbuffer: void;
+}
+interface WebGLShader {
+    readonly __WebGLShader: void;
+}
+interface WebGLTexture {
+    readonly __WebGLTexture: void;
+}
+interface WebGLUniformLocation {
+    readonly __WebGLUniformLocation: void;
+}
+interface WebGLVertexArrayObjectOES extends WebGLObject {
+    readonly __WebGLVertexArrayObjectOES: void;
+}
 
-interface EXT_frag_depth { readonly __EXT_frag_depth: void; }
-interface EXT_shader_texture_lod { readonly __EXT_shader_texture_lod: void; }
+interface EXT_frag_depth {
+    readonly __EXT_frag_depth: void;
+}
+interface EXT_shader_texture_lod {
+    readonly __EXT_shader_texture_lod: void;
+}
 
-interface OES_element_index_uint { readonly __OESElementIndexUint: void; }
-interface OES_texture_float { readonly __OES_texture_float: void; }
-interface OES_texture_float_linear { readonly __OES_texture_float_linear: void; }
-interface OES_texture_half_float_linear { readonly __OES_texture_half_float_linear: void; }
-
+interface OES_element_index_uint {
+    readonly __OESElementIndexUint: void;
+}
+interface OES_texture_float {
+    readonly __OES_texture_float: void;
+}
+interface OES_texture_float_linear {
+    readonly __OES_texture_float_linear: void;
+}
+interface OES_texture_half_float_linear {
+    readonly __OES_texture_half_float_linear: void;
+}
 
 interface OES_vertex_array_object {
     // TS's lib.dom (as of v3.1.3) does not specify the nulls

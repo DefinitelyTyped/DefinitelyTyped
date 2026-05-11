@@ -1,4 +1,4 @@
-import ZalgoPromise = require('zalgo-promise');
+import ZalgoPromise = require("zalgo-promise");
 
 // $ExpectType ZalgoPromise<void>
 ZalgoPromise.ZalgoPromise.resolve();

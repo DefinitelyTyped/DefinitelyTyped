@@ -1,9 +1,20 @@
-import moment = require("moment");
+import moment from "moment";
 import * as mb from "moment-business";
 
-mb.isWeekDay(moment());
-mb.isWeekendDay(moment());
-mb.addWeekDays(moment(), 1);
-mb.subtractWeekDays(moment(), 1);
+// $ExpectType number
 mb.weekDays(moment(), moment());
+
+// $ExpectType number
 mb.weekendDays(moment(), moment());
+
+// $ExpectType Moment
+mb.addWeekDays(moment(), 1);
+
+// $ExpectType Moment
+mb.subtractWeekDays(moment(), 1);
+
+// $ExpectType boolean
+mb.isWeekDay(moment());
+
+// $ExpectType boolean
+mb.isWeekendDay(moment());

@@ -1,12 +1,7 @@
-// Type definitions for http-context 1.1
-// Project: https://github.com/lapwinglabs/http-context#readme
-// Definitions by: Matt Traynham <https://github.com/mtraynham>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import accepts = require('accepts');
-import http = require('http');
+import accepts = require("accepts");
+import http = require("http");
 
 export = HttpContext;
 
@@ -26,7 +21,7 @@ declare namespace HttpContext {
         href: string;
         method: string;
         path: string;
-        query: {[param: string]: string | string[]};
+        query: { [param: string]: string | string[] };
         querystring: string;
         search: string;
         host: string;

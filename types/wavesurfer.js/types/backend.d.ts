@@ -1,12 +1,12 @@
-import MediaElement from '../src/mediaelement';
-import MediaElementWebAudio from '../src/mediaelement-webaudio';
-import Observer from '../src/util/observer';
-import WebAudio from '../src/webaudio';
-import { WaveSurferParams } from './params';
+import MediaElement from "../src/mediaelement";
+import MediaElementWebAudio from "../src/mediaelement-webaudio";
+import Observer from "../src/util/observer";
+import WebAudio from "../src/webaudio";
+import { WaveSurferParams } from "./params";
 
 export type WaveSurferBackend = WebAudio | MediaElement | MediaElementWebAudio;
 
-export type Peaks = ReadonlyArray<number> | ReadonlyArray<ReadonlyArray<number>>;
+export type Peaks = readonly number[] | ReadonlyArray<readonly number[]>;
 
 export abstract class WebAudioBackend extends Observer {
     constructor(params: WaveSurferParams);

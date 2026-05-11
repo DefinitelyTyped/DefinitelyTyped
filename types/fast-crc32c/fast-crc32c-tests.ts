@@ -1,4 +1,4 @@
-import crc32 = require('fast-crc32c');
+import crc32 = require("fast-crc32c");
 
 // $ExpectType number
-crc32.calculate('sample');
+crc32.calculate("sample");

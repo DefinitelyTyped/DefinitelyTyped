@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/react-smartbanner",
+    "version": "5.1.9999",
+    "projects": [
+        "https://github.com/patw0929/react-smartbanner#readme"
+    ],
+    "dependencies": {
+        "@types/react": "^18.3.11"
+    },
+    "devDependencies": {
+        "@types/react-smartbanner": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Eldar Bakerman",
+            "githubUsername": "PCOffline"
+        }
+    ]
+}

@@ -1,28 +1,20 @@
-// Type definitions for lolex 5.1
-// Project: https://github.com/sinonjs/lolex
-// Definitions by: Wim Looman <https://github.com/Nemo157>
-//                 Rogier Schouten <https://github.com/rogierschouten>
-//                 Yishai Zehavi <https://github.com/zyishai>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /**
  * Names of clock methods that may be faked by install.
  */
 type FakeMethod =
-    | 'setTimeout'
-    | 'clearTimeout'
-    | 'setImmediate'
-    | 'clearImmediate'
-    | 'setInterval'
-    | 'clearInterval'
-    | 'Date'
-    | 'nextTick'
-    | 'hrtime'
-    | 'requestAnimationFrame'
-    | 'cancelAnimationFrame'
-    | 'requestIdleCallback'
-    | 'cancelIdleCallback';
+    | "setTimeout"
+    | "clearTimeout"
+    | "setImmediate"
+    | "clearImmediate"
+    | "setInterval"
+    | "clearInterval"
+    | "Date"
+    | "nextTick"
+    | "hrtime"
+    | "requestAnimationFrame"
+    | "cancelAnimationFrame"
+    | "requestIdleCallback"
+    | "cancelIdleCallback";
 
 /**
  * Global methods avaliable to every clock and also as standalone methods (inside `timers` global object).

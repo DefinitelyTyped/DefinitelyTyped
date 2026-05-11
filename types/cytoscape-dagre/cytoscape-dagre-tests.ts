@@ -1,17 +1,17 @@
-import cytoscape = require('cytoscape');
+import cytoscape = require("cytoscape");
 
-import dagre = require('cytoscape-dagre');
+import dagre = require("cytoscape-dagre");
 cytoscape.use(dagre);
 
 const dagreLayout: dagre.DagreLayoutOptions = {
-    name: 'dagre',
+    name: "dagre",
     fit: true,
     nodeDimensionsIncludeLabels: true,
     nodeSep: 50,
     edgeSep: 10,
     rankSep: 50,
-    rankDir: 'TB',
-    ranker: 'network-simplex',
+    rankDir: "TB",
+    ranker: "network-simplex",
     minLen: edge => 1,
     edgeWeight: edge => 1,
     animate: true,
@@ -22,13 +22,13 @@ const dagreLayout: dagre.DagreLayoutOptions = {
 };
 
 const cy = cytoscape({
-    container: document.getElementById('cy'),
+    container: document.getElementById("cy"),
     layout: dagreLayout,
     elements: [
-        { data: { id: 'A' } },
-        { data: { id: 'B' } },
-        { data: { id: 'C' } },
-        { data: { source: 'A', target: 'B' } },
-        { data: { source: 'A', target: 'C' } },
+        { data: { id: "A" } },
+        { data: { id: "B" } },
+        { data: { id: "C" } },
+        { data: { source: "A", target: "B" } },
+        { data: { source: "A", target: "C" } },
     ],
 });

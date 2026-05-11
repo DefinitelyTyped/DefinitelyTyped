@@ -1,9 +1,3 @@
-// Type definitions for Noteflight Client API 2.0
-// Project: Noteflight Client API 2.0 - <https://github.com/noteflight>
-// Definitions by: Nicholas Epps <https://github.com/nickslick03>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// visit https://www.noteflight.com/info/api/client_doc_v2 for more details.
-
 // IMPORTANT:
 //  <script src="https://www.noteflight.com/clientapi/2.0.0/nfclient.js"></script>
 // IS REQUIRED IN THE DOCUMENT HEAD
@@ -26,7 +20,7 @@ declare var NFClient: {
      * @param noteflightID - the ID of the noteflight score. This ID is displayed at the end of a noteflight score URL.
      * @param options - An object specificing the options of the embedded score.
      */
-    ScoreView: new (elementID: string, noteflightID: string, options: Options) => ScoreView;
+    ScoreView: new(elementID: string, noteflightID: string, options: Options) => ScoreView;
 };
 
 interface Options {
@@ -57,21 +51,21 @@ interface Options {
          * This optional parameter may be used to control how playback is handled in the embed, and also whether instrument sounds are downloaded or not.
          * There are three settings for this parameter. If this option is not provided, then the playback mode is determined by the default setting in the score.
          */
-        playback?: 'normal' | 'audioTrack' | 'echo' | 'silent';
+        playback?: "normal" | "audioTrack" | "echo" | "silent";
         /**
          * This optional parameter specifies the user's role with respect to the document.
          * Only two settings are permitted. The default setting is reader.
          */
-        role?: 'reader' | 'template';
+        role?: "reader" | "template";
         /**
          * This optional parameter specifies the mode in which the document is displayed.
          */
-        displayMode?: 'strip' | 'paginated' | 'flow';
+        displayMode?: "strip" | "paginated" | "flow";
         /**
          * This parameter specifies the technology used to display the document.
          * If omitted, the document is displayed with Flash if present, otherwise with HTML5.
          */
-        app?: 'flash' | 'html5';
+        app?: "flash" | "html5";
         /**
          * This parameter shows a watermark in the embed score.
          * The URL of the watermark has to be passed in this parameter.
@@ -105,22 +99,23 @@ interface Options {
 }
 
 type EventType =
-    | 'any'
-    | 'editorReady'
-    | 'scoreDataLoaded'
-    | 'selectionChange'
-    | 'playbackRequest'
-    | 'playbackStop'
-    | 'noteSizeChange'
-    | 'pageSizeChange'
-    | 'partsTransposed';
+    | "any"
+    | "editorReady"
+    | "scoreDataLoaded"
+    | "selectionChange"
+    | "playbackRequest"
+    | "playbackStop"
+    | "noteSizeChange"
+    | "pageSizeChange"
+    | "partsTransposed";
 
-type NoteflightEvent<T> = NoteflightEventProps &
-    EventFilter<T, 'scoreDataLoaded', ScoreDataLoadedProps> &
-    EventFilter<T, 'selectionChange', SelectionChangeProps> &
-    EventFilter<T, 'playbackRequest' | 'playbackStop', PlaybackProps>;
+type NoteflightEvent<T> =
+    & NoteflightEventProps
+    & EventFilter<T, "scoreDataLoaded", ScoreDataLoadedProps>
+    & EventFilter<T, "selectionChange", SelectionChangeProps>
+    & EventFilter<T, "playbackRequest" | "playbackStop", PlaybackProps>;
 
-type EventFilter<T, Event, Props> = T extends Event ? Props : T extends 'any' ? Partial<Props> : {};
+type EventFilter<T, Event, Props> = T extends Event ? Props : T extends "any" ? Partial<Props> : {};
 
 interface NoteflightEventProps {
     /**
@@ -153,7 +148,7 @@ interface SelectionChangeProps {
      * measure: one or more measures are selected,
      * range: a time range is selected in some set of staves.
      */
-    kind: 'object' | 'measure' | 'range' | undefined;
+    kind: "object" | "measure" | "range" | undefined;
     /**
      * The zero-based index of the measure at the start of the selected range.
      */
@@ -202,6 +197,7 @@ interface DocumentMethodPromise<Result> {
      * To wait for a method to complete or to obtain its return value if it has one,
      * call done() on the Promise object returned by the method and pass a callback that will receive the return value of the method (if any).
      */
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     done: (callback: (result: Result) => void | Array<(result: Result) => void>) => DocumentMethodPromise<Result>;
     /**
      * Internal function that stores the callback functions as passed through the done() method.
@@ -286,7 +282,7 @@ interface Note {
     /**
      * Type of note head: normal, stemless, slash, hit, cross, square, diamond, triangle, or harmonic.
      */
-    noteHead: 'normal' | 'stemless' | 'slash' | 'hit' | 'cross' | 'square' | 'diamond' | 'triangle' | 'harmonic';
+    noteHead: "normal" | "stemless" | "slash" | "hit" | "cross" | "square" | "diamond" | "triangle" | "harmonic";
 }
 
 interface Part {
@@ -329,15 +325,15 @@ interface KeySignature {
      * 	the mode of the key signature: one of "major", "minor", "ionian", "dorian", "phrygian", "lydian", "mixolydian", "aeolian", or "locrian". Left undefined if the score's mode is unknown.
      */
     mode:
-        | 'major'
-        | 'minor'
-        | 'ionian'
-        | 'dorian'
-        | 'phrygian'
-        | 'lydian'
-        | 'mixolydian'
-        | 'aeolian'
-        | 'locrian'
+        | "major"
+        | "minor"
+        | "ionian"
+        | "dorian"
+        | "phrygian"
+        | "lydian"
+        | "mixolydian"
+        | "aeolian"
+        | "locrian"
         | undefined;
     /**
      * the first note of the key signature's scale. Left undefined if the score's mode is unknown.
@@ -511,7 +507,7 @@ interface ScoreView {
      * @param mode This parameter may be used to control how playback is handled in the embed,
      * and also whether instrument sounds are downloaded or not.
      */
-    setPlaybackMode: (mode: 'normal' | 'audioTrack' | 'echo' | 'silent') => DocumentMethodPromise<undefined>;
+    setPlaybackMode: (mode: "normal" | "audioTrack" | "echo" | "silent") => DocumentMethodPromise<undefined>;
     /**
      *  Determines the set of parts that will be shown in the embed.
      *  @param partIndicies An array containing one or more zero-based indices of parts in the score to be shown.
@@ -655,7 +651,7 @@ interface ScoreView {
      * "audioTrack" for a synchronized track, "silent" for no playback,
      * or "echo" for playing selection only.
      */
-    getPlaybackMode: () => DocumentMethodPromise<'normal' | 'audioTrack' | 'silent' | 'echo'>;
+    getPlaybackMode: () => DocumentMethodPromise<"normal" | "audioTrack" | "silent" | "echo">;
     /**
      * Prints the score displayed in the client.
      * @param option Print the score using a real printer or download a PDF. Available only in HTML5.

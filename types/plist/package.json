@@ -1,6 +1,21 @@
 {
     "private": true,
+    "name": "@types/plist",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/TooTallNate/node-plist#readme"
+    ],
     "dependencies": {
+        "@types/node": "*",
         "xmlbuilder": ">=11.0.1"
-    }
+    },
+    "devDependencies": {
+        "@types/plist": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Yusuke Higuchi",
+            "githubUsername": "higuri"
+        }
+    ]
 }

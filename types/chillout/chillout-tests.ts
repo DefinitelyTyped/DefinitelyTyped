@@ -1,6 +1,6 @@
 /// <reference types="node" />
 /// <reference lib="dom" />
-import * as chillout from 'chillout';
+import * as chillout from "chillout";
 
 // test type exports
 type DefaultCallbackReturn = chillout.DefaultCallbackReturn;
@@ -12,13 +12,13 @@ type RepeatDescriptor = chillout.RepeatDescriptor;
 type ChilloutIterator<TValue> = chillout.ChilloutIterator<TValue>;
 
 // $ExpectType Promise<null | undefined>
-chillout.forEach([1, 'foo'], (value, key, arr) => {
+chillout.forEach([1, "foo"], (value, key, arr) => {
     value; // $ExpectType string | number
     key; // $ExpectType number
     arr; // $ExpectType (string | number)[]
 });
 // $ExpectType Promise<null | undefined>
-chillout.forEach([1, 'foo'], (value, key, arr) => {
+chillout.forEach([1, "foo"], (value, key, arr) => {
     value; // $ExpectType string | number
     key; // $ExpectType number
     arr; // $ExpectType (string | number)[]
@@ -26,7 +26,7 @@ chillout.forEach([1, 'foo'], (value, key, arr) => {
 });
 // $ExpectType Promise<null | undefined>
 chillout.forEach(
-    [1, 'foo'],
+    [1, "foo"],
     function(value, key, arr) {
         this; // $ExpectType { foo: string; }
         value; // $ExpectType string | number
@@ -34,17 +34,17 @@ chillout.forEach(
         arr; // $ExpectType (string | number)[]
         return Promise.resolve();
     },
-    { foo: 'bar' },
+    { foo: "bar" },
 );
 
 // $ExpectType ChilloutIterator<void, null>
-chillout.iterator.forEach([1, 'foo'], (value, key, arr) => {
+chillout.iterator.forEach([1, "foo"], (value, key, arr) => {
     value; // $ExpectType string | number
     key; // $ExpectType number
     arr; // $ExpectType (string | number)[]
 });
 // $ExpectType ChilloutIterator<typeof StopIteration, null>
-chillout.iterator.forEach([1, 'foo'], (value, key, arr) => {
+chillout.iterator.forEach([1, "foo"], (value, key, arr) => {
     value; // $ExpectType string | number
     key; // $ExpectType number
     arr; // $ExpectType (string | number)[]
@@ -52,7 +52,7 @@ chillout.iterator.forEach([1, 'foo'], (value, key, arr) => {
 });
 // $ExpectType ChilloutIterator<Promise<void>, null>
 chillout.iterator.forEach(
-    [1, 'foo'],
+    [1, "foo"],
     function(value, key, arr) {
         this; // $ExpectType { foo: string; }
         value; // $ExpectType string | number
@@ -60,17 +60,17 @@ chillout.iterator.forEach(
         arr; // $ExpectType (string | number)[]
         return Promise.resolve();
     },
-    { foo: 'bar' },
+    { foo: "bar" },
 );
 
 // $ExpectType Promise<null | undefined>
-chillout.forEach({ bar: 'baz', quux: true }, (value, key, arr) => {
+chillout.forEach({ bar: "baz", quux: true }, (value, key, arr) => {
     value; // $ExpectType string | boolean
     key; // $ExpectType "bar" | "quux"
     arr; // $ExpectType { bar: string; quux: boolean; }
 });
 // $ExpectType Promise<null | undefined>
-chillout.forEach({ bar: 'baz', quux: true }, (value, key, arr) => {
+chillout.forEach({ bar: "baz", quux: true }, (value, key, arr) => {
     value; // $ExpectType string | boolean
     key; // $ExpectType "bar" | "quux"
     arr; // $ExpectType { bar: string; quux: boolean; }
@@ -78,7 +78,7 @@ chillout.forEach({ bar: 'baz', quux: true }, (value, key, arr) => {
 });
 // $ExpectType Promise<null | undefined>
 chillout.forEach(
-    { bar: 'baz', quux: true },
+    { bar: "baz", quux: true },
     function(value, key, arr) {
         this; // $ExpectType { foo: string; }
         value; // $ExpectType string | boolean
@@ -86,17 +86,17 @@ chillout.forEach(
         arr; // $ExpectType { bar: string; quux: boolean; }
         return Promise.resolve();
     },
-    { foo: 'bar' },
+    { foo: "bar" },
 );
 
 // $ExpectType ChilloutIterator<void, null>
-chillout.iterator.forEach({ bar: 'baz', quux: true }, (value, key, arr) => {
+chillout.iterator.forEach({ bar: "baz", quux: true }, (value, key, arr) => {
     value; // $ExpectType string | boolean
     key; // $ExpectType "bar" | "quux"
     arr; // $ExpectType { bar: string; quux: boolean; }
 });
 // $ExpectType ChilloutIterator<typeof StopIteration, null>
-chillout.iterator.forEach({ bar: 'baz', quux: true }, (value, key, arr) => {
+chillout.iterator.forEach({ bar: "baz", quux: true }, (value, key, arr) => {
     value; // $ExpectType string | boolean
     key; // $ExpectType "bar" | "quux"
     arr; // $ExpectType { bar: string; quux: boolean; }
@@ -104,7 +104,7 @@ chillout.iterator.forEach({ bar: 'baz', quux: true }, (value, key, arr) => {
 });
 // $ExpectType ChilloutIterator<Promise<void>, null>
 chillout.iterator.forEach(
-    { bar: 'baz', quux: true },
+    { bar: "baz", quux: true },
     function(value, key, arr) {
         this; // $ExpectType { foo: string; }
         value; // $ExpectType string | boolean
@@ -112,7 +112,7 @@ chillout.iterator.forEach(
         arr; // $ExpectType { bar: string; quux: boolean; }
         return Promise.resolve();
     },
-    { foo: 'bar' },
+    { foo: "bar" },
 );
 
 // $ExpectType Promise<null | undefined>
@@ -144,7 +144,7 @@ chillout.repeat(
         i; // $ExpectType number
         return Promise.resolve();
     },
-    { foo: 'bar' },
+    { foo: "bar" },
 );
 
 // $ExpectType ChilloutIterator<void, null>
@@ -172,7 +172,7 @@ chillout.iterator.repeat(
         i; // $ExpectType number
         return Promise.resolve();
     },
-    { foo: 'bar' },
+    { foo: "bar" },
 );
 
 // $ExpectType Promise<null | undefined>
@@ -187,7 +187,7 @@ chillout.until(
         this; // $ExpectType { foo: string; }
         return Promise.resolve();
     },
-    { foo: 'bar' },
+    { foo: "bar" },
 );
 
 // $ExpectType ChilloutIterator<void, null>
@@ -202,7 +202,7 @@ chillout.iterator.until(
         this; // $ExpectType { foo: string; }
         return Promise.resolve();
     },
-    { foo: 'bar' },
+    { foo: "bar" },
 );
 
 // $ExpectType Promise<null | undefined>
@@ -217,47 +217,47 @@ chillout.waitUntil(
         this; // $ExpectType { foo: string; }
         return Promise.resolve();
     },
-    { foo: 'bar' },
+    { foo: "bar" },
 );
 
 // $ExpectType Promise<null | undefined>
-chillout.forOf([1, 'foo'][Symbol.iterator](), value => {
+chillout.forOf([1, "foo"][Symbol.iterator](), value => {
     value; // $ExpectType string | number
 });
 // $ExpectType Promise<null | undefined>
-chillout.forOf([1, 'foo'][Symbol.iterator](), value => {
+chillout.forOf([1, "foo"][Symbol.iterator](), value => {
     value; // $ExpectType string | number
     return chillout.StopIteration;
 });
 // $ExpectType Promise<null | undefined>
 chillout.forOf(
-    [1, 'foo'][Symbol.iterator](),
+    [1, "foo"][Symbol.iterator](),
     function(value) {
         this; // $ExpectType { foo: string; }
         value; // $ExpectType string | number
         return Promise.resolve();
     },
-    { foo: 'bar' },
+    { foo: "bar" },
 );
 
 // $ExpectType ChilloutIterator<void, null>
-chillout.iterator.forOf([1, 'foo'][Symbol.iterator](), value => {
+chillout.iterator.forOf([1, "foo"][Symbol.iterator](), value => {
     value; // $ExpectType string | number
 });
 // $ExpectType ChilloutIterator<typeof StopIteration, null>
-chillout.iterator.forOf([1, 'foo'][Symbol.iterator](), value => {
+chillout.iterator.forOf([1, "foo"][Symbol.iterator](), value => {
     value; // $ExpectType string | number
     return chillout.StopIteration;
 });
 // $ExpectType ChilloutIterator<Promise<void>, null>
 chillout.iterator.forOf(
-    [1, 'foo'][Symbol.iterator](),
+    [1, "foo"][Symbol.iterator](),
     function(value) {
         this; // $ExpectType { foo: string; }
         value; // $ExpectType string | number
         return Promise.resolve();
     },
-    { foo: 'bar' },
+    { foo: "bar" },
 );
 
 // $ExpectType Promise<null | undefined>
@@ -300,7 +300,7 @@ chillout
         console.log(value);
     })
     .then(() => {
-        console.log('done');
+        console.log("done");
     });
 
 const time = Date.now();
@@ -311,13 +311,13 @@ chillout
         console.log(processingTime);
     });
 
-const values = ['a', 'b', 'c'];
+const values = ["a", "b", "c"];
 chillout
     .forEach(values, (value, key, obj) => {
         console.log(value);
     })
     .then(() => {
-        console.log('done');
+        console.log("done");
     });
 
 const values2 = {
@@ -330,7 +330,7 @@ chillout
         console.log(`${key}:${value}`);
     })
     .then(() => {
-        console.log('done');
+        console.log("done");
     });
 
 async function getFileContents(url: string) {
@@ -338,12 +338,12 @@ async function getFileContents(url: string) {
     return response.text();
 }
 async function logFiles() {
-    const files = ['/file1.txt', '/file2.txt', '/file3.txt'];
+    const files = ["/file1.txt", "/file2.txt", "/file3.txt"];
     await chillout.forEach(files, async url => {
         const contents = await getFileContents(url);
         console.log(contents);
     });
-    console.log('done');
+    console.log("done");
 }
 logFiles();
 
@@ -352,14 +352,14 @@ chillout
         console.log(i);
     })
     .then(() => {
-        console.log('done');
+        console.log("done");
     });
 chillout
     .repeat({ start: 10, step: 2, done: 20 }, i => {
         console.log(i);
     })
     .then(() => {
-        console.log('done');
+        console.log("done");
     });
 let i = 0;
 chillout
@@ -371,7 +371,7 @@ chillout
         }
     })
     .then(() => {
-        console.log('done');
+        console.log("done");
     });
 
 // Sleep until msec
@@ -383,12 +383,12 @@ async function logNewFileContents() {
     let previous: string | null = null;
     let contents: string | null = null;
     await chillout.until(async () => {
-        contents = await getFileContents('./file1.txt');
+        contents = await getFileContents("./file1.txt");
         if (previous === null) {
             previous = contents;
         }
         if (contents !== previous) {
-            console.log('file changed!');
+            console.log("file changed!");
             return chillout.StopIteration; // break loop
         }
         await sleep(1000);
@@ -406,7 +406,7 @@ chillout
         }
     })
     .then(() => {
-        document.body.innerHTML += 'body loaded';
+        document.body.innerHTML += "body loaded";
     });
 chillout
     .waitUntil(() => {
@@ -419,12 +419,12 @@ chillout
         console.log(value);
     })
     .then(() => {
-        console.log('done');
+        console.log("done");
     });
 chillout
-    .forOf('abc', value => {
+    .forOf("abc", value => {
         console.log(value);
     })
     .then(() => {
-        console.log('done');
+        console.log("done");
     });

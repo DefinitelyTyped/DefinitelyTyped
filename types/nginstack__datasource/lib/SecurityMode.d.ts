@@ -1,5 +1,3 @@
-export type exports = number;
-declare const DISABLED: number;
-declare const ONLY_FILTER_VALUES: number;
-declare const FULL: number;
-export {};
+export const DISABLED = 0;
+export const ONLY_FILTER_VALUES = 1;
+export const FULL = 2;

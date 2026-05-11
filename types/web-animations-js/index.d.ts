@@ -1,9 +1,3 @@
-// Type definitions for web-animations-js 2.2
-// Project: https://github.com/web-animations/web-animations-js, https://github.com/web-animations
-// Definitions by: Kristian Moerch <https://github.com/kritollm>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 5.1
-
 type AnimationEffectTimingFillMode = "none" | "forwards" | "backwards" | "both" | "auto";
 type AnimationEffectTimingPlaybackDirection = "normal" | "reverse" | "alternate" | "alternate-reverse";
 
@@ -34,7 +28,7 @@ interface AnimationKeyFrame {
     easing?: string | string[] | undefined;
     offset?: number | Array<number | null> | null | undefined;
     opacity?: number | number[] | undefined;
-    transform?: string |  string[] | undefined;
+    transform?: string | string[] | undefined;
     // [key: string]: string | number | [string | number, string | number] | undefined; (duplicate string indexer in TypeScript 2.7+)
 }
 

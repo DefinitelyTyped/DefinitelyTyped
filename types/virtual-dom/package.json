@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/virtual-dom",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/Matt-Esch/virtual-dom"
+    ],
+    "devDependencies": {
+        "@types/virtual-dom": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Christopher Brown",
+            "githubUsername": "chbrown"
+        }
+    ]
+}

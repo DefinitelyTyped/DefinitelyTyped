@@ -1,14 +1,14 @@
 import {
-    createContext,
-    getDefaultWatermarks,
-    Watermarks,
-    ReportBase,
     ConsoleWriter,
-    XmlWriter,
+    createContext,
     FileWriter,
-} from 'istanbul-lib-report';
+    getDefaultWatermarks,
+    ReportBase,
+    Watermarks,
+    XmlWriter,
+} from "istanbul-lib-report";
 
-import { CoverageMap } from 'istanbul-lib-coverage';
+import { CoverageMap } from "istanbul-lib-coverage";
 
 const watermarks: Watermarks = {
     statements: [50, 100],
@@ -21,17 +21,17 @@ createContext();
 createContext({});
 
 const context = createContext({
-    dir: 'foo',
+    dir: "foo",
     watermarks,
-    sourceFinder: (filepath: string) => '',
+    sourceFinder: (filepath: string) => "",
 });
 
 context.watermarks;
-context.sourceFinder('foo').trim();
+context.sourceFinder("foo").trim();
 
 const coverageMap = new CoverageMap({});
 const secondContext = createContext({
-    defaultSummarizer: 'nested',
+    defaultSummarizer: "nested",
     watermarks: {
         statements: [75, 100],
     },
@@ -39,20 +39,20 @@ const secondContext = createContext({
 });
 
 secondContext.watermarks.functions[1];
-secondContext.classForPercent('lines', 50);
+secondContext.classForPercent("lines", 50);
 
 const fileWriter: FileWriter = secondContext.writer;
 
 const contentWriter = new ConsoleWriter();
 const xmlWriter: XmlWriter = secondContext.getXmlWriter(contentWriter);
-xmlWriter.openTag('Coverage', { someAttribute: 'foo' });
-xmlWriter.inlineTag('Result', null, `All's well that ends well`);
+xmlWriter.openTag("Coverage", { someAttribute: "foo" });
+xmlWriter.inlineTag("Result", null, `All's well that ends well`);
 xmlWriter.closeAll();
 
 const defaultMarks: Watermarks = getDefaultWatermarks();
 
 const report = new ReportBase({
-    summarizer: 'nested',
+    summarizer: "nested",
 });
 report.execute(secondContext);
 

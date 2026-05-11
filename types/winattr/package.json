@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/winattr",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/stevenvachon/winattr"
+    ],
+    "devDependencies": {
+        "@types/winattr": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Anatoliy Oblaukhov",
+            "githubUsername": "anmiles"
+        }
+    ]
+}

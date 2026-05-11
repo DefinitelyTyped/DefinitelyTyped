@@ -1,4 +1,4 @@
-import moment = require('moment-jalaali');
+import moment = require("moment-jalaali");
 
 moment.loadPersian();
 
@@ -24,24 +24,24 @@ m.jDayOfYear(1);
 m.jWeek(1);
 m.jWeekYear(1);
 
-m.startOf('jYear');
-m.startOf('jMonth');
+m.startOf("jYear");
+m.startOf("jMonth");
 
-m.endOf('jMonth');
-m.endOf('jYear');
+m.endOf("jMonth");
+m.endOf("jYear");
 
-m.add(1, 'jYear');
-m.add(2, 'jMonth');
-m.add(3, 'day');
+m.add(1, "jYear");
+m.add(2, "jMonth");
+m.add(3, "day");
 
-m.add('1', 'jYear');
-m.add('2', 'jMonth');
-m.add('3', 'day');
+m.add("1", "jYear");
+m.add("2", "jMonth");
+m.add("3", "day");
 
-m.subtract(1, 'jYear');
-m.subtract(2, 'jMonth');
-m.subtract(3, 'day');
+m.subtract(1, "jYear");
+m.subtract(2, "jMonth");
+m.subtract(3, "day");
 
-m.subtract('1', 'jYear');
-m.subtract('2', 'jMonth');
-m.subtract('3', 'day');
+m.subtract("1", "jYear");
+m.subtract("2", "jMonth");
+m.subtract("3", "day");

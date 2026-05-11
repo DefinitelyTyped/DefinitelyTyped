@@ -1,26 +1,17 @@
-// Type definitions for webpack-bundle-analyzer 3.9
-// Project: https://github.com/webpack-contrib/webpack-bundle-analyzer
-// Definitions by: Michael Strobel <https://github.com/kryops>
-//                 Max Boguslavskiy <https://github.com/maxbogus>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-//                 Kyle Hensel <https://github.com/k-yle>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
-import { WebpackPluginInstance, Compiler } from 'webpack';
+import { Compiler, WebpackPluginInstance } from "webpack";
 
 export namespace BundleAnalyzerPlugin {
     // Copied from @types/webpack@4 as webpack@5 only has `any` defined at the moment.
     // See https://github.com/webpack/webpack/issues/11630
     namespace Stats {
-        type Preset
-            = boolean
-            | 'errors-only'
-            | 'errors-warnings'
-            | 'minimal'
-            | 'none'
-            | 'normal'
-            | 'verbose';
+        type Preset =
+            | boolean
+            | "errors-only"
+            | "errors-warnings"
+            | "minimal"
+            | "none"
+            | "normal"
+            | "verbose";
 
         interface ToJsonOptionsObject {
             /** fallback value for stats options when an option is not defined (has precedence over local webpack defaults) */
@@ -99,7 +90,13 @@ export namespace BundleAnalyzerPlugin {
 
         type ToJsonOptions = Preset | ToJsonOptionsObject;
 
-        type StatsExcludeFilter = string | string[] | RegExp | RegExp[] | ((assetName: string) => boolean) | Array<(assetName: string) => boolean>;
+        type StatsExcludeFilter =
+            | string
+            | string[]
+            | RegExp
+            | RegExp[]
+            | ((assetName: string) => boolean)
+            | Array<(assetName: string) => boolean>;
     }
 
     type ExcludeAssetsPatternFn = (assetName: string) => boolean;
@@ -114,7 +111,7 @@ export namespace BundleAnalyzerPlugin {
          * In "json" mode single JSON file with bundle report will be generated
          * In "disabled" mode you can use this plugin to just generate Webpack Stats JSON file by setting "generateStatsFile" to true.
          */
-        analyzerMode?: 'server' | 'static' | 'json' | 'disabled' | undefined;
+        analyzerMode?: "server" | "static" | "json" | "disabled" | undefined;
 
         /**
          * Host that will be used in `server` mode to start HTTP server.
@@ -126,7 +123,7 @@ export namespace BundleAnalyzerPlugin {
          * Port that will be used in `server` mode to start HTTP server.
          * @default 8888
          */
-        analyzerPort?: number | 'auto' | undefined;
+        analyzerPort?: number | "auto" | undefined;
 
         /**
          * Path to bundle report file that will be generated in "static" mode.
@@ -146,7 +143,7 @@ export namespace BundleAnalyzerPlugin {
          * Should be one of "stat", "parsed" or "gzip".
          * @default 'parsed'
          */
-        defaultSizes?: 'parsed' | 'stat' | 'gzip' | undefined;
+        defaultSizes?: "parsed" | "stat" | "gzip" | undefined;
 
         /**
          * Automatically open report in default browser.
@@ -188,7 +185,7 @@ export namespace BundleAnalyzerPlugin {
          * Log level. Can be "info", "warn", "error" or "silent".
          * @default 'info'
          */
-        logLevel?: 'info' | 'warn' | 'error' | 'silent' | undefined;
+        logLevel?: "info" | "warn" | "error" | "silent" | undefined;
     }
 
     interface JsonReportItem {

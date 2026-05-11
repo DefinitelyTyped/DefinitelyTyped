@@ -1,3 +1,1 @@
-export type exports = string;
-declare const PATH: string;
-export {};
+export const PATH = "PATH";

@@ -1,8 +1,3 @@
-// Type definitions for json-stable-stringify-without-jsonify 1.0
-// Project: https://github.com/samn/json-stable-stringify
-// Definitions by: David Wheatley <https://github.com/davwheat>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Deterministic version of JSON.stringify() so you can get a consistent hash from stringified results.
  *

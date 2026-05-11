@@ -1,13 +1,3 @@
-// Type definitions for simple-oauth2 4.1
-// Project: https://github.com/lelylan/simple-oauth2
-// Definitions by: Michael Müller <https://github.com/mad-mike>,
-//                 Troy Lamerton <https://github.com/troy-lamerton>
-//                 Martín Rodriguez <https://github.com/netux>
-//                 Linus Unnebäck <https://github.com/LinusU>
-//                 Do Nam <https://github.com/namdien177>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.8
-
 export interface ModuleOptions<ClientIdName extends string = "client_id"> {
     client: {
         /** Service registered client id. Required. */
@@ -86,14 +76,16 @@ export interface WreckHttpOptions {
     headers?: { [key: string]: any } | undefined;
     redirects?: number | undefined;
     redirect303?: boolean | undefined;
-    beforeRedirect?: ((
-        redirectMethod: string,
-        statusCode: number,
-        location: string,
-        resHeaders: { [key: string]: any },
-        redirectOptions: any,
-        next: () => {},
-    ) => void) | undefined;
+    beforeRedirect?:
+        | ((
+            redirectMethod: string,
+            statusCode: number,
+            location: string,
+            resHeaders: { [key: string]: any },
+            redirectOptions: any,
+            next: () => {},
+        ) => void)
+        | undefined;
     redirected?: ((statusCode: number, location: string, req: any) => void) | undefined;
     timeout?: number | undefined;
     maxBytes?: number | undefined;
@@ -127,14 +119,16 @@ export class AuthorizationCode<ClientIdName extends string = "client_id"> {
      * @return the absolute authorization url
      */
     authorizeURL(
-        params?: {
-            /** A string that represents the Client-ID */
-            [key in ClientIdName]?: string;
-        } & {
-            redirect_uri?: string | undefined;
-            scope?: string | string[] | undefined;
-            state?: string | undefined;
-        },
+        params?:
+            & {
+                /** A string that represents the Client-ID */
+                [key in ClientIdName]?: string;
+            }
+            & {
+                redirect_uri?: string | undefined;
+                scope?: string | string[] | undefined;
+                state?: string | undefined;
+            },
     ): string;
 
     /**

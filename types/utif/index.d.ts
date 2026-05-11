@@ -1,11 +1,4 @@
-// Type definitions for utif 3.0
-// Project: https://github.com/photopea/UTIF.js
-// Definitions by: Jan Pesa <https://github.com/smajl>
-//                 Naveen Kumar Sangi <https://github.com/nkprince007>
-//                 Massimiliano Caniparoli <https://github.com/massic80>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import 'node';
+import "node";
 
 export as namespace UTIF;
 
@@ -16,7 +9,7 @@ export type TiffTag = string[] | number[];
  * You can get the the dimension (and other properties, "metadata") of the image without decompressing pixel data.
  * For more information on what each tag means, refer https://github.com/photopea/UTIF.js/blob/master/UTIF.js#L742 or TIFF 6 specification.
  */
-// tslint:disable-next-line:interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IFD {
     [property: string]: TiffTag | number | Uint8Array;
     data: Uint8Array;

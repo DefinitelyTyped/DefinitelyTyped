@@ -1,19 +1,14 @@
-// Type definitions for color-diff 1.2
-// Project: https://github.com/markusn/color-diff#readme
-// Definitions by: katsanva <https://github.com/katsanva>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface RGBColor {
-  R: number;
-  G: number;
-  B: number;
-  A?: number | undefined;
+    R: number;
+    G: number;
+    B: number;
+    A?: number | undefined;
 }
 
 export interface LabColor {
-  L: number;
-  a: number;
-  b: number;
+    L: number;
+    a: number;
+    b: number;
 }
 
 export function diff(c1: LabColor, c2: LabColor): number;
@@ -23,45 +18,45 @@ export function rgba_to_lab(c: RGBColor, bc?: RGBColor): LabColor;
 export function normalize_rgb(c: RGBColor): RGBColor;
 
 export function closest(
-  color: RGBColor,
-  palette: ReadonlyArray<RGBColor>,
-  backgroundColor?: RGBColor
+    color: RGBColor,
+    palette: readonly RGBColor[],
+    backgroundColor?: RGBColor,
 ): RGBColor;
 
 export function furthest(
-  color: RGBColor,
-  palette: ReadonlyArray<RGBColor>,
-  backgroundColor?: RGBColor
+    color: RGBColor,
+    palette: readonly RGBColor[],
+    backgroundColor?: RGBColor,
 ): RGBColor;
 
 export function map_palette(
-  a: ReadonlyArray<RGBColor>,
-  b: ReadonlyArray<RGBColor>,
-  type?: "closest" | "furthest",
-  backgroundColor?: RGBColor
+    a: readonly RGBColor[],
+    b: readonly RGBColor[],
+    type?: "closest" | "furthest",
+    backgroundColor?: RGBColor,
 ): { [key: string]: RGBColor };
 
 export function palette_map_key(c: RGBColor): string;
 
 export function closest_lab(
-  color: LabColor,
-  palette: ReadonlyArray<LabColor>
+    color: LabColor,
+    palette: readonly LabColor[],
 ): LabColor;
 
 export function furthest_lab(
-  color: LabColor,
-  palette: ReadonlyArray<LabColor>
+    color: LabColor,
+    palette: readonly LabColor[],
 ): LabColor;
 
 export function map_palette_lab(
-  p1: ReadonlyArray<LabColor>,
-  p2: ReadonlyArray<LabColor>
+    p1: readonly LabColor[],
+    p2: readonly LabColor[],
 ): { [key: string]: LabColor };
 
 export function lab_palette_map_key(c: LabColor): string;
 
 export function match_palette_lab(
-  target_color: LabColor,
-  palette: ReadonlyArray<LabColor>,
-  find_furthest: boolean
+    target_color: LabColor,
+    palette: readonly LabColor[],
+    find_furthest: boolean,
 ): LabColor;

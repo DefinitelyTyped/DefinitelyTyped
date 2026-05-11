@@ -6,13 +6,13 @@ const config: ZipCelXConfig = {
         data: [
             [{
                 value: "Income - Webshop",
-                type: "string"
+                type: "string",
             }, {
                 value: 1000,
-                type: "number"
-            }]
-        ]
-    }
+                type: "number",
+            }],
+        ],
+    },
 };
 
 zipcelx(config);

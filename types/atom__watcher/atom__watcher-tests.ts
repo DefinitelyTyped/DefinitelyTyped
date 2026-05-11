@@ -1,18 +1,18 @@
-import { watchPath, PathWatcher, WatcherOptions } from '@atom/watcher';
-import watcher = require('@atom/watcher');
+import { PathWatcher, WatcherOptions, watchPath } from "@atom/watcher";
+import watcher = require("@atom/watcher");
 
 // Empty options
-watchPath('/var/log', {}, () => {});
+watchPath("/var/log", {}, () => {});
 
 const options: WatcherOptions = {
     recursive: true,
 };
 let w: Promise<PathWatcher>;
-w = watcher.watchPath('/var/log', options, events => {
+w = watcher.watchPath("/var/log", options, events => {
     // $ExpectType Event[]
     events;
     const event = events[0];
-    if (event.action === 'renamed') {
+    if (event.action === "renamed") {
         // $ExpectType string
         event.oldPath;
     }
@@ -36,8 +36,8 @@ w.then(w => {
 watcher.configure({
     jsLog: watcher.STDOUT,
     mainLog: watcher.STDERR,
-    workerLog: 'worker.log',
-    pollingLog: 'polling.log',
+    workerLog: "worker.log",
+    pollingLog: "polling.log",
     workerCacheSize: 4096,
     pollingThrottle: 1000,
     pollingInterval: 100,

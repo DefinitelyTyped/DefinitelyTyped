@@ -94,7 +94,7 @@ declare namespace CKEDITOR {
         loadFullCoreTimeout: number;
         revision: string;
         rnd: number;
-        status: 'unloaded' | 'basic_loaded' | 'basic_ready' | 'loaded';
+        status: "unloaded" | "basic_loaded" | "basic_ready" | "loaded";
         timestamp: string;
         verbosity: number;
         version: string;
@@ -150,9 +150,13 @@ declare namespace CKEDITOR {
 
         on(
             eventName: string,
-            listenerFunction: (eventInfo: eventInfo<dom.domObject<Event | EventTarget>
-                | dom.event<Event | EventTarget>
-                | eventData>) => void,
+            listenerFunction: (
+                eventInfo: eventInfo<
+                    | dom.domObject<Event | EventTarget>
+                    | dom.event<Event | EventTarget>
+                    | eventData
+                >,
+            ) => void,
             scopeObj?: { [key: string]: any },
             listenerData?: { [key: string]: any },
             priority?: number,
@@ -160,9 +164,13 @@ declare namespace CKEDITOR {
 
         once(
             eventName: string,
-            listenerFunction: (eventInfo: eventInfo<dom.domObject<Event | EventTarget>
-                | dom.event<Event | EventTarget>
-                | eventData>) => void,
+            listenerFunction: (
+                eventInfo: eventInfo<
+                    | dom.domObject<Event | EventTarget>
+                    | dom.event<Event | EventTarget>
+                    | eventData
+                >,
+            ) => void,
             scopeObj?: { [key: string]: any },
             listenerData?: { [key: string]: any },
             priority?: number,
@@ -170,9 +178,16 @@ declare namespace CKEDITOR {
 
         removeAllListeners(): void;
 
-        removeListener(eventName: string, listenerFunction: (eventInfo: eventInfo<dom.domObject<Event | EventTarget>
-            | dom.event<Event | EventTarget>
-            | eventData>) => void): void;
+        removeListener(
+            eventName: string,
+            listenerFunction: (
+                eventInfo: eventInfo<
+                    | dom.domObject<Event | EventTarget>
+                    | dom.event<Event | EventTarget>
+                    | eventData
+                >,
+            ) => void,
+        ): void;
     }
 
     interface listenerRegistration {

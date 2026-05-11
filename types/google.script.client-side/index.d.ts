@@ -1,9 +1,3 @@
-// Type definitions for non-npm package Google Apps Script Client-side API 0.1
-// Project: https://developers.google.com/apps-script/guides/html/reference/host
-// Definitions by: clomie <https://github.com/clomie>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 declare namespace google.script {
     interface UrlLocation {
         /**
@@ -22,7 +16,7 @@ declare namespace google.script {
          * An object similar to location.parameter, but with an array of values for each key.
          * If no parameters are present, this will be an empty object.
          */
-        parameters: { [key: string]: ReadonlyArray<string> };
+        parameters: { [key: string]: readonly string[] };
     }
 
     namespace url {
@@ -36,7 +30,7 @@ declare namespace google.script {
     namespace history {
         type State = object | null;
         interface Query {
-            [key: string]: string | ReadonlyArray<string>;
+            [key: string]: string | readonly string[];
         }
 
         /**
@@ -116,7 +110,14 @@ declare namespace google.script {
         function setWidth(width: number): void;
     }
 
-    type Parameter = number | boolean | string | { [index: number]: Parameter } | { [key: string]: Parameter } | null | undefined;
+    type Parameter =
+        | number
+        | boolean
+        | string
+        | { [index: number]: Parameter }
+        | { [key: string]: Parameter }
+        | null
+        | undefined;
 
     interface RunnerFunctions {
         /**

@@ -1,4 +1,4 @@
-import { DiffBinaryFile } from './diff-binary-file';
+import { DiffBinaryFile } from "./diff-binary-file";
 
 export namespace DiffBinary {
     const enum DIFF_BINARY {

@@ -1,17 +1,10 @@
-// Type definitions for redux-state-sync 3.1
-// Project: https://github.com/AOHUA/redux-state-sync#readme
-// Definitions by: MU AOHUA <https://github.com/AOHUA>
-//                 AntonioMendez <https://github.com/AntonioMendez>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
-import { Store, Reducer, Middleware, AnyAction } from "redux";
 import BroadcastChannel, { BroadcastChannelOptions } from "broadcast-channel";
+import { AnyAction, Middleware, Reducer, Store } from "redux";
 
-export const GET_INIT_STATE = '&_GET_INIT_STATE';
-export const SEND_INIT_STATE = '&_SEND_INIT_STATE';
-export const RECEIVE_INIT_STATE = '&_RECEIVE_INIT_STATE';
-export const INIT_MESSAGE_LISTENER = '&_INIT_MESSAGE_LISTENER';
+export const GET_INIT_STATE = "&_GET_INIT_STATE";
+export const SEND_INIT_STATE = "&_SEND_INIT_STATE";
+export const RECEIVE_INIT_STATE = "&_RECEIVE_INIT_STATE";
+export const INIT_MESSAGE_LISTENER = "&_INIT_MESSAGE_LISTENER";
 export const WINDOW_STATE_SYNC_ID: string;
 
 export interface Stamp {
@@ -43,7 +36,7 @@ export function createMessageListener(config: MessageListenerConfig): void;
 export function createStateSyncMiddleware(config?: Config): Middleware;
 export function withReduxStateSync<T extends Reducer>(
     appReducer: T,
-    prepareInitialStateForStore?: Config['receiveState'],
+    prepareInitialStateForStore?: Config["receiveState"],
 ): T;
 export function initStateWithPrevTab(store: Store): Store;
 export function initMessageListener(store: Store): Store;

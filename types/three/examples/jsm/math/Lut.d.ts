@@ -1,4 +1,4 @@
-import { Color } from '../../../src/Three';
+import { Color } from "three";
 
 export class Lut {
     constructor(colormap?: string, numberofcolors?: number);

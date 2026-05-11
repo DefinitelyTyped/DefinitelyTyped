@@ -1,14 +1,10 @@
-// Type definitions for @lerna/collect-updates 5.1
-// Project: https://github.com/lerna/lerna/tree/main/utils/collect-updates
-// Definitions by: donmahallem <https://github.com/donmahallem>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-import { ExecOpts } from '@lerna/child-process';
-import { Package } from '@lerna/package';
-import { PackageGraph } from '@lerna/package-graph';
-import { PackageGraphNode } from '@lerna/package-graph/lib/package-graph-node';
+import { ExecOpts } from "@lerna/child-process";
+import { Package } from "@lerna/package";
+import { PackageGraph } from "@lerna/package-graph";
+import { PackageGraphNode } from "@lerna/package-graph/lib/package-graph-node";
 
-export { collectPackages } from './lib/collect-packages';
-export { getPackagesForOption } from './lib/get-packages-for-option';
+export { collectPackages } from "./lib/collect-packages";
+export { getPackagesForOption } from "./lib/get-packages-for-option";
 export interface UpdateCollectorOptions {
     /**
      * The semver bump keyword (patch/minor/major) or explicit version used

@@ -23,5 +23,5 @@ declare namespace Keys {
     const NUMPAD_9: 105;
 }
 
-// eslint-disable-next-line export-just-namespace
+// eslint-disable-next-line @definitelytyped/export-just-namespace
 export = Keys;

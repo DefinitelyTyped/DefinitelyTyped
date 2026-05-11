@@ -1,15 +1,14 @@
-// Type definitions for js-sha1 0.6
-// Project: https://github.com/emn178/js-sha1
-// Definitions by: Igor N. Dultsev <https://github.com/yhaskell>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+interface JsSha1Prototype {
+    update(message: string | ArrayBufferLike): JsSha1Prototype;
+    hex(message?: string): string;
+    array(message?: string): number[];
+    digest(message?: string): number[];
+    arrayBuffer(message?: string): ArrayBuffer;
+}
 
-interface JsSha1 {
-    (message: string): string;
-    update(message: string): string;
-    hex(message: string): string;
-    array(message: string): number[];
-    digest(message: string): number[];
-    arrayBuffer(message: string): ArrayBuffer;
+interface JsSha1 extends JsSha1Prototype {
+    (message: string | Uint8Array | ArrayBuffer | Array<number>): string;
+    create(): JsSha1Prototype;
 }
 
 declare var sha1: JsSha1;

@@ -6,9 +6,9 @@ cryptex.update({
         algorithm: "plaintext",
         secretEncoding: "binary",
         secrets: {
-            foo: "bar"
-        }
-    }
+            foo: "bar",
+        },
+    },
 });
 
 const value: Promise<string> = cryptex.getSecret("foo", true);

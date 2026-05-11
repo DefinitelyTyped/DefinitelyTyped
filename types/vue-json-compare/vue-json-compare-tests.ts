@@ -1,5 +1,5 @@
-import Vue, { ComponentOptions } from 'vue';
-import VueJsonCompare from 'vue-json-compare';
+import Vue, { ComponentOptions } from "vue";
+import VueJsonCompare from "vue-json-compare";
 
 // excerpt from vue-class-component/src/declarations.ts
 type VueClass<V> = {
@@ -7,12 +7,14 @@ type VueClass<V> = {
 } & typeof Vue;
 
 // excerpt from vue-class-component/src/index.ts
-declare function Component<V extends Vue>(options: ComponentOptions<V> & ThisType<V>): <VC extends VueClass<V>>(target: VC) => VC;
+declare function Component<V extends Vue>(
+    options: ComponentOptions<V> & ThisType<V>,
+): <VC extends VueClass<V>>(target: VC) => VC;
 
 new Vue({
-    el: '#app',
+    el: "#app",
     components: {
-        VueJsonCompare
+        VueJsonCompare,
     },
     template: `
         <vue-json-compare
@@ -21,25 +23,25 @@ new Vue({
         />
     `,
     data() {
-      return {
-        oldData: [{ prop1: 'A', prop2: 'B' }, { prop1: 'C', prop2: 'D' }],
-        newData: [{ prop1: 'A', prop2: 'B' }, { prop1: 'C', prop2: 'E' }],
-      };
-    }
+        return {
+            oldData: [{ prop1: "A", prop2: "B" }, { prop1: "C", prop2: "D" }],
+            newData: [{ prop1: "A", prop2: "B" }, { prop1: "C", prop2: "E" }],
+        };
+    },
 });
 
 @Component({
     components: {
-        VueJsonCompare
+        VueJsonCompare,
     },
     template: `
         <vue-json-compare
           :old-data="oldData"
           :new-data="newData"
         />
-    `
+    `,
 })
 class App extends Vue {
-  oldData = { prop1: 'A', prop2: 'B' };
-  newData = { prop1: 'A', prop2: 'C' };
+    oldData = { prop1: "A", prop2: "B" };
+    newData = { prop1: "A", prop2: "C" };
 }

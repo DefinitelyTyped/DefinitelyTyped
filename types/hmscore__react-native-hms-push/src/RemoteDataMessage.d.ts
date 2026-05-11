@@ -61,7 +61,7 @@ export interface RemoteDataMessageWithExtras {
             [x: string]: any;
         };
     };
-    remoteMessage: RemoteDataMessageObject['msg'];
+    remoteMessage: RemoteDataMessageObject["msg"];
 }
 
-export type BackgroundRemoteMessage = RemoteDataMessageObject['msg'];
+export type BackgroundRemoteMessage = RemoteDataMessageObject["msg"];

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/to-object-path",
+    "version": "0.3.9999",
+    "projects": [
+        "https://github.com/jonschlinkert/to-object-path"
+    ],
+    "devDependencies": {
+        "@types/to-object-path": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tristan F.",
+            "githubUsername": "LeoDog896"
+        }
+    ]
+}

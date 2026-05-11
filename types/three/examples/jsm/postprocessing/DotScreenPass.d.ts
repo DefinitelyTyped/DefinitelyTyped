@@ -1,6 +1,6 @@
-import { Vector2, ShaderMaterial } from '../../../src/Three';
+import { ShaderMaterial, Vector2 } from "three";
 
-import { Pass, FullScreenQuad } from './Pass';
+import { FullScreenQuad, Pass } from "./Pass.js";
 
 export class DotScreenPass extends Pass {
     constructor(center?: Vector2, angle?: number, scale?: number);

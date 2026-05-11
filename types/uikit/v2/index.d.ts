@@ -1,9 +1,3 @@
-// Type definitions for uikit 2.27
-// Project: https://getuikit.com
-// Definitions by: Giovanni Silva <https://github.com/giovannicandido>, Ivo Senner <https://github.com/s0x>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery" />
 
 declare namespace UIkit {
@@ -18,18 +12,18 @@ declare namespace UIkit {
         hide(force?: boolean): void;
     }
     type DropdownPosition =
-        | 'bottom-left'
-        | 'bottom-center'
-        | 'bottom-right'
-        | 'top-left'
-        | 'top-center'
-        | 'top-right'
-        | 'left-top'
-        | 'left-center'
-        | 'left-bottom'
-        | 'right-top'
-        | 'right-center'
-        | 'right-bottom';
+        | "bottom-left"
+        | "bottom-center"
+        | "bottom-right"
+        | "top-left"
+        | "top-center"
+        | "top-right"
+        | "left-top"
+        | "left-center"
+        | "left-bottom"
+        | "right-top"
+        | "right-center"
+        | "right-bottom";
     interface DropdownOptions {
         /**
          * Dropdown position
@@ -40,7 +34,7 @@ declare namespace UIkit {
          * Dropdown trigger behaviour
          * @default 'hover'
          */
-        mode?: 'hover' | 'click' | undefined;
+        mode?: "hover" | "click" | undefined;
         /**
          * Remain time before auto closing dropdown in hover mode
          * @default 800
@@ -76,7 +70,7 @@ declare namespace UIkit {
          * Possible values: 'x', 'y', true, false
          * @default false
          */
-        preventflip?: 'x' | 'y' | boolean | undefined;
+        preventflip?: "x" | "y" | boolean | undefined;
     }
     /**
      * Create a toggleable dropdown with different styles

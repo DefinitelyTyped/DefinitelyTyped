@@ -1,34 +1,34 @@
-import { Request } from 'express';
-import { Options } from 'swagger-express-validator';
-import validator = require('swagger-express-validator');
+import { Request } from "express";
+import { Options } from "swagger-express-validator";
+import validator = require("swagger-express-validator");
 
 const options: Options = {
-    schema: 'string',
+    schema: "string",
 };
 validator(options);
 
 // minimal required parameter
 validator({
-    schema: 'string',
+    schema: "string",
 });
 
 const complexOpts = {
-    swagger: '2.0',
+    swagger: "2.0",
     info: {
-        title: 'Basic API',
-        version: '1.0.0',
+        title: "Basic API",
+        version: "1.0.0",
     },
-    host: 'localhost',
-    schemes: ['https'],
-    consumes: ['application/json'],
-    produces: ['application/json'],
+    host: "localhost",
+    schemes: ["https"],
+    consumes: ["application/json"],
+    produces: ["application/json"],
 };
 
 validator({ schema: complexOpts });
 
 // all parameters
 validator({
-    schema: 'string',
+    schema: "string",
     validateRequest: true,
     validateResponse: true,
     allowNullable: true,

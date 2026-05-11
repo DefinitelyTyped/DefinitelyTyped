@@ -1,4 +1,4 @@
-import $isFinite = require('es-abstract/helpers/isFinite');
+import $isFinite = require("es-abstract/helpers/isFinite");
 
 const number = Math.random() / Math.random();
 

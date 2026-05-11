@@ -1,15 +1,5 @@
 declare function _exports(
-    value:
-        | {
-              ERROR: number;
-              DELETE: number;
-              UNLINK: number;
-          }
-        | string
-        | number
-): {
-    ERROR: number;
-    DELETE: number;
-    UNLINK: number;
-};
+    value: typeof MasterDeleteAction | string | number
+): typeof MasterDeleteAction;
 export = _exports;
+import MasterDeleteAction = require('./MasterDeleteAction.js');

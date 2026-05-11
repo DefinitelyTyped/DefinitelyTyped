@@ -1,13 +1,6 @@
-// Type definitions for react-reconciler 0.28
-// Project: https://reactjs.org/
-// Definitions by: Nathan Bierema <https://github.com/Methuselah96>
-//                 Zhang Haocong <https://github.com/zhanghaocong>
-//                 Mathieu Dutour <https://github.com/mathieudutour>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+import { Component, ReactNode } from "react";
 
-import { Component, ReactNode } from 'react';
-
+/* eslint-disable @definitelytyped/no-unnecessary-generics */
 declare function ReactReconciler<
     Type,
     Props,
@@ -16,15 +9,16 @@ declare function ReactReconciler<
     TextInstance,
     SuspenseInstance,
     HydratableInstance,
+    FormInstance,
     PublicInstance,
     HostContext,
-    UpdatePayload,
     ChildSet,
     TimeoutHandle,
     NoTimeout,
+    TransitionStatus,
 >(
+    /* eslint-enable @definitelytyped/no-unnecessary-generics */
     config: ReactReconciler.HostConfig<
-        /* eslint-disable no-unnecessary-generics */
         Type,
         Props,
         Container,
@@ -32,15 +26,15 @@ declare function ReactReconciler<
         TextInstance,
         SuspenseInstance,
         HydratableInstance,
+        FormInstance,
         PublicInstance,
         HostContext,
-        UpdatePayload,
         ChildSet,
         TimeoutHandle,
-        NoTimeout
-        /* eslint-enable no-unnecessary-generics */
+        NoTimeout,
+        TransitionStatus
     >,
-): ReactReconciler.Reconciler<Container, Instance, TextInstance, SuspenseInstance, PublicInstance>;
+): ReactReconciler.Reconciler<Container, Instance, TextInstance, SuspenseInstance, FormInstance, PublicInstance>;
 
 declare namespace ReactReconciler {
     interface HostConfig<
@@ -51,19 +45,18 @@ declare namespace ReactReconciler {
         TextInstance,
         SuspenseInstance,
         HydratableInstance,
+        FormInstance,
         PublicInstance,
         HostContext,
-        UpdatePayload,
         ChildSet,
         TimeoutHandle,
         NoTimeout,
+        TransitionStatus,
     > {
         // -------------------
         //        Modes
         // -------------------
-        // tslint:disable:max-line-length
         /**
-         *
          * The reconciler has two modes: mutation mode and persistent mode. You must specify one of them.
          *
          * If your target platform is similar to the DOM and has methods similar to `appendChild`, `removeChild`, and so on, you'll want to use the **mutation mode**. This is the same mode used by React DOM, React ART, and the classic React Native renderer.
@@ -80,12 +73,9 @@ declare namespace ReactReconciler {
          *
          * If you're not sure which one you want, you likely need the mutation mode.
          */
-        // tslint:enable:max-line-length
         supportsMutation: boolean;
 
-        // tslint:disable:max-line-length
         /**
-         *
          * The reconciler has two modes: mutation mode and persistent mode. You must specify one of them.
          *
          * If your target platform has immutable trees, you'll want the **persistent mode** instead. In that mode, existing nodes are never mutated, and instead every change clones the parent tree and then replaces the whole parent tree at the root. This is the node used by the new React Native renderer, codenamed "Fabric".
@@ -102,14 +92,12 @@ declare namespace ReactReconciler {
          *
          * If you're not sure which one you want, you likely need the mutation mode.
          */
-        // tslint:enable:max-line-length
         supportsPersistence: boolean;
 
         // -------------------
         //    Core Methods
         // -------------------
 
-        // tslint:disable:max-line-length
         /**
          * This method should return a newly created node. For example, the DOM renderer would call `document.createElement(type)` here and then set the properties from `props`.
          *
@@ -121,7 +109,6 @@ declare namespace ReactReconciler {
          *
          * This method happens **in the render phase**. It can (and usually should) mutate the node it has just created before returning it, but it must not modify any other nodes. It must not register any event handlers on the parent tree. This is because an instance being created doesn't guarantee it would be placed in the tree — it could be left unused and later collected by GC. If you need to do something when an instance is definitely in the tree, look at `commitMount` instead.
          */
-        // tslint:enable:max-line-length
         createInstance(
             type: Type,
             props: Props,
@@ -130,11 +117,9 @@ declare namespace ReactReconciler {
             internalHandle: OpaqueHandle,
         ): Instance;
 
-        // tslint:disable:max-line-length
         /**
          * Same as `createInstance`, but for text nodes. If your renderer doesn't support text nodes, you can throw here.
          */
-        // tslint:enable:max-line-length
         createTextInstance(
             text: string,
             rootContainer: Container,
@@ -142,16 +127,13 @@ declare namespace ReactReconciler {
             internalHandle: OpaqueHandle,
         ): TextInstance;
 
-        // tslint:disable:max-line-length
         /**
          * This method should mutate the `parentInstance` and add the child to its list of children. For example, in the DOM this would translate to a `parentInstance.appendChild(child)` call.
          *
          * This method happens **in the render phase**. It can mutate `parentInstance` and `child`, but it must not modify any other nodes. It's called while the tree is still being built up and not connected to the actual tree on the screen.
          */
-        // tslint:enable:max-line-length
         appendInitialChild(parentInstance: Instance, child: Instance | TextInstance): void;
 
-        // tslint:disable:max-line-length
         /**
          * In this method, you can perform some final mutations on the `instance`. Unlike with `createInstance`, by the time `finalizeInitialChildren` is called, all the initial children have already been added to the `instance`, but the instance itself has not yet been connected to the tree on the screen.
          *
@@ -161,7 +143,6 @@ declare namespace ReactReconciler {
          *
          * If you don't want to do anything here, you should return `false`.
          */
-        // tslint:enable:max-line-length
         finalizeInitialChildren(
             instance: Instance,
             type: Type,
@@ -170,25 +151,6 @@ declare namespace ReactReconciler {
             hostContext: HostContext,
         ): boolean;
 
-        // tslint:disable:max-line-length
-        /**
-         * React calls this method so that you can compare the previous and the next props, and decide whether you need to update the underlying instance or not. If you don't need to update it, return `null`. If you need to update it, you can return an arbitrary object representing the changes that need to happen. Then in `commitUpdate` you would need to apply those changes to the instance.
-         *
-         * This method happens **in the render phase**. It should only *calculate* the update — but not apply it! For example, the DOM renderer returns an array that looks like `[prop1, value1, prop2, value2, ...]` for all props that have actually changed. And only in `commitUpdate` it applies those changes. You should calculate as much as you can in `prepareUpdate` so that `commitUpdate` can be very fast and straightforward.
-         *
-         * See the meaning of `rootContainer` and `hostContext` in the `createInstance` documentation.
-         */
-        // tslint:enable:max-line-length
-        prepareUpdate(
-            instance: Instance,
-            type: Type,
-            oldProps: Props,
-            newProps: Props,
-            rootContainer: Container,
-            hostContext: HostContext,
-        ): UpdatePayload | null;
-
-        // tslint:disable:max-line-length
         /**
          * Some target platforms support setting an instance's text content without manually creating a text node. For example, in the DOM, you can set `node.textContent` instead of creating a text node and appending it.
          *
@@ -198,10 +160,8 @@ declare namespace ReactReconciler {
          *
          * This method happens **in the render phase**. Do not mutate the tree from it.
          */
-        // tslint:enable:max-line-length
         shouldSetTextContent(type: Type, props: Props): boolean;
 
-        // tslint:disable:max-line-length
         /**
          * This method lets you return the initial host context from the root of the tree. See `getChildHostContext` for the explanation of host context.
          *
@@ -209,10 +169,8 @@ declare namespace ReactReconciler {
          *
          * This method happens **in the render phase**. Do not mutate the tree from it.
          */
-        // tslint:enable:max-line-length
         getRootHostContext(rootContainer: Container): HostContext | null;
 
-        // tslint:disable:max-line-length
         /**
          * Host context lets you track some information about where you are in the tree so that it's available inside `createInstance` as the `hostContext` parameter. For example, the DOM renderer uses it to track whether it's inside an HTML or an SVG tree, because `createInstance` implementation needs to be different for them.
          *
@@ -222,34 +180,27 @@ declare namespace ReactReconciler {
          *
          * This method happens **in the render phase**. Do not mutate the tree from it.
          */
-        // tslint:enable:max-line-length
         getChildHostContext(parentHostContext: HostContext, type: Type, rootContainer: Container): HostContext;
 
-        // tslint:disable:max-line-length
         /**
          * Determines what object gets exposed as a ref. You'll likely want to return the `instance` itself. But in some cases it might make sense to only expose some part of it.
          *
          * If you don't want to do anything here, return `instance`.
          */
-        // tslint:enable:max-line-length
         getPublicInstance(instance: Instance | TextInstance): PublicInstance;
 
-        // tslint:disable:max-line-length
         /**
          * This method lets you store some information before React starts making changes to the tree on the screen. For example, the DOM renderer stores the current text selection so that it can later restore it. This method is mirrored by `resetAfterCommit`.
          *
          * Even if you don't want to do anything here, you need to return `null` from it.
          */
-        // tslint:enable:max-line-length
         prepareForCommit(containerInfo: Container): Record<string, any> | null;
 
-        // tslint:disable:max-line-length
         /**
          * This method is called right after React has performed the tree mutations. You can use it to restore something you've stored in `prepareForCommit` — for example, text selection.
          *
          * You can leave it empty.
          */
-        // tslint:enable:max-line-length
         resetAfterCommit(containerInfo: Container): void;
 
         /**
@@ -272,11 +223,9 @@ declare namespace ReactReconciler {
          */
         noTimeout: NoTimeout;
 
-        // tslint:disable:max-line-length
         /**
-         * Set this to `true` to indicate that your renderer supports `scheduleMicrotask`. We use microtasks as part of our discrete event implementation in React DOM. If you're not sure if your renderer should support this, you probably should. The option to not implement `scheduleMicrotask` exists so that platforms with more control over user events, like React Native, can choose to use a different mechanism.
+         * Set this to true to indicate that your renderer supports `scheduleMicrotask`. We use microtasks as part of our discrete event implementation in React DOM. If you're not sure if your renderer should support this, you probably should. The option to not implement `scheduleMicrotask` exists so that platforms with more control over user events, like React Native, can choose to use a different mechanism.
          */
-        // tslint:enable:max-line-length
         supportsMicrotasks?: boolean;
 
         /**
@@ -284,52 +233,15 @@ declare namespace ReactReconciler {
          */
         scheduleMicrotask?(fn: () => unknown): void;
 
-        // tslint:disable:max-line-length
         /**
          * This is a property (not a function) that should be set to `true` if your renderer is the main one on the page. For example, if you're writing a renderer for the Terminal, it makes sense to set it to `true`, but if your renderer is used *on top of* React DOM or some other existing renderer, set it to `false`.
          */
-        // tslint:enable:max-line-length
         isPrimaryRenderer: boolean;
 
         /**
          * Whether the renderer shouldn't trigger missing `act()` warnings
          */
         warnsIfNotActing?: boolean;
-
-        // tslint:disable:max-line-length
-        /**
-         * To implement this method, you'll need some constants available on the special `react-reconciler/constants` entry point:
-         *
-         * ```
-         * import {
-         *   DiscreteEventPriority,
-         *   ContinuousEventPriority,
-         *   DefaultEventPriority,
-         * } from 'react-reconciler/constants';
-         *
-         * const HostConfig = {
-         *   // ...
-         *   getCurrentEventPriority() {
-         *     return DefaultEventPriority;
-         *   },
-         *   // ...
-         * }
-         *
-         * const MyRenderer = Reconciler(HostConfig);
-         * ```
-         *
-         * The constant you return depends on which event, if any, is being handled right now. (In the browser, you can check this using `window.event && window.event.type`).
-         *
-         * - **Discrete events**: If the active event is directly caused by the user (such as mouse and keyboard events) and each event in a sequence is intentional (e.g. click), return DiscreteEventPriority. This tells React that they should interrupt any background work and cannot be batched across time.
-         *
-         * - **Continuous events**: If the active event is directly caused by the user but the user can't distinguish between individual events in a sequence (e.g. mouseover), return ContinuousEventPriority. This tells React they should interrupt any background work but can be batched across time.
-         *
-         * - **Other events / No active event**: In all other cases, return DefaultEventPriority. This tells React that this event is considered background work, and interactive events will be prioritized over it.
-         *
-         * You can consult the `getCurrentEventPriority()` implementation in `ReactDOMHostConfig.js` for a reference implementation.
-         */
-        // tslint:enable:max-line-length
-        getCurrentEventPriority(): Lane;
 
         getInstanceFromNode(node: any): Fiber | null | undefined;
 
@@ -349,69 +261,55 @@ declare namespace ReactReconciler {
         //  If you're using React in mutation mode (you probably do), you'll need to implement a few more methods.
         // -------------------
 
-        // tslint:disable:max-line-length
         /**
          * This method should mutate the `parentInstance` and add the child to its list of children. For example, in the DOM this would translate to a `parentInstance.appendChild(child)` call.
          *
          * Although this method currently runs in the commit phase, you still should not mutate any other nodes in it. If you need to do some additional work when a node is definitely connected to the visible tree, look at `commitMount`.
          */
-        // tslint:enable:max-line-length
         appendChild?(parentInstance: Instance, child: Instance | TextInstance): void;
 
-        // tslint:disable:max-line-length
         /**
          * Same as `appendChild`, but for when a node is attached to the root container. This is useful if attaching to the root has a slightly different implementation, or if the root container nodes are of a different type than the rest of the tree.
          */
-        // tslint:enable:max-line-length
         appendChildToContainer?(container: Container, child: Instance | TextInstance): void;
 
-        // tslint:disable:max-line-length
         /**
          * This method should mutate the `parentInstance` and place the `child` before `beforeChild` in the list of its children. For example, in the DOM this would translate to a `parentInstance.insertBefore(child, beforeChild)` call.
          *
          * Note that React uses this method both for insertions and for reordering nodes. Similar to DOM, it is expected that you can call `insertBefore` to reposition an existing child. Do not mutate any other parts of the tree from it.
          */
-        // tslint:enable:max-line-length
         insertBefore?(
             parentInstance: Instance,
             child: Instance | TextInstance,
             beforeChild: Instance | TextInstance | SuspenseInstance,
         ): void;
 
-        // tslint:disable:max-line-length
         /**
          * Same as `insertBefore`, but for when a node is attached to the root container. This is useful if attaching to the root has a slightly different implementation, or if the root container nodes are of a different type than the rest of the tree.
          */
-        // tslint:enable:max-line-length
         insertInContainerBefore?(
             container: Container,
             child: Instance | TextInstance,
             beforeChild: Instance | TextInstance | SuspenseInstance,
         ): void;
 
-        // tslint:disable:max-line-length
         /**
          * This method should mutate the `parentInstance` to remove the `child` from the list of its children.
          *
          * React will only call it for the top-level node that is being removed. It is expected that garbage collection would take care of the whole subtree. You are not expected to traverse the child tree in it.
          */
-        // tslint:enable:max-line-length
         removeChild?(parentInstance: Instance, child: Instance | TextInstance | SuspenseInstance): void;
 
-        // tslint:disable:max-line-length
         /**
          * Same as `removeChild`, but for when a node is detached from the root container. This is useful if attaching to the root has a slightly different implementation, or if the root container nodes are of a different type than the rest of the tree.
          */
-        // tslint:enable:max-line-length
         removeChildFromContainer?(container: Container, child: Instance | TextInstance | SuspenseInstance): void;
 
-        // tslint:disable:max-line-length
         /**
          * If you returned `true` from `shouldSetTextContent` for the previous props, but returned `false` from `shouldSetTextContent` for the next props, React will call this method so that you can clear the text content you were managing manually. For example, in the DOM you could set `node.textContent = ''`.
          *
          * If you never return `true` from `shouldSetTextContent`, you can leave it empty.
          */
-        // tslint:enable:max-line-length
         resetTextContent?(instance: Instance): void;
 
         /**
@@ -421,7 +319,6 @@ declare namespace ReactReconciler {
          */
         commitTextUpdate?(textInstance: TextInstance, oldText: string, newText: string): void;
 
-        // tslint:disable:max-line-length
         /**
          * This method is only called if you returned `true` from `finalizeInitialChildren` for this instance.
          *
@@ -433,30 +330,24 @@ declare namespace ReactReconciler {
          *
          * If you never return `true` from `finalizeInitialChildren`, you can leave it empty.
          */
-        // tslint:enable:max-line-length
         commitMount?(instance: Instance, type: Type, props: Props, internalInstanceHandle: OpaqueHandle): void;
 
-        // tslint:disable:max-line-length
         /**
-         * This method should mutate the `instance` according to the set of changes in `updatePayload`. Here, `updatePayload` is the object that you've returned from `prepareUpdate` and has an arbitrary structure that makes sense for your renderer. For example, the DOM renderer returns an update payload like `[prop1, value1, prop2, value2, ...]` from `prepareUpdate`, and that structure gets passed into `commitUpdate`. Ideally, all the diffing and calculation should happen inside `prepareUpdate` so that `commitUpdate` can be fast and straightforward.
+         * This method should mutate the instance to match nextProps.
          *
-         * The `internalHandle` data structure is meant to be opaque. If you bend the rules and rely on its internal fields, be aware that it may change significantly between versions. You're taking on additional maintenance risk by reading from it, and giving up all guarantees if you write something to it.
+         * The internalHandle data structure is meant to be opaque. If you bend the rules and rely on its internal fields, be aware that it may change significantly between versions. You're taking on additional maintenance risk by reading from it, and giving up all guarantees if you write something to it.
          */
-        // tslint:enable:max-line-length
         commitUpdate?(
             instance: Instance,
-            updatePayload: UpdatePayload,
             type: Type,
             prevProps: Props,
             nextProps: Props,
             internalHandle: OpaqueHandle,
         ): void;
 
-        // tslint:disable:max-line-length
         /**
          * This method should make the `instance` invisible without removing it from the tree. For example, it can apply visual styling to hide it. It is used by Suspense to hide the tree while the fallback is visible.
          */
-        // tslint:enable:max-line-length
         hideInstance?(instance: Instance): void;
 
         /**
@@ -479,20 +370,16 @@ declare namespace ReactReconciler {
          */
         clearContainer?(container: Container): void;
 
-        // tslint:disable:max-line-length
         // -------------------
         // Persistence Methods
         //    (optional)
-        //  If you use the persistent mode instead of the mutation mode, you would still need the "Core Methods". However, instead of the Mutation Methods above you will implement a different set of methods that performs cloning nodes and replacing them at the root level. You can find a list of them in the "Persistence" section [listed in this file](https://github.com/facebook/react/blob/master/packages/react-reconciler/src/forks/ReactFiberHostConfig.custom.js). File an issue if you need help.
+        //  If you use the persistent mode instead of the mutation mode, you would still need the "Core Methods". However, instead of the Mutation Methods above you will implement a different set of methods that performs cloning nodes and replacing them at the root level. You can find a list of them in the "Persistence" section [listed in this file](https://github.com/facebook/react/blob/master/packages/react-reconciler/src/forks/ReactFiberConfig.custom.js). File an issue if you need help.
         // -------------------
-        // tslint:enable:max-line-length
         cloneInstance?(
             instance: Instance,
-            updatePayload: UpdatePayload,
             type: Type,
             oldProps: Props,
             newProps: Props,
-            internalInstanceHandle: OpaqueHandle,
             keepChildren: boolean,
             recyclableInstance: null | Instance,
         ): Instance;
@@ -508,15 +395,13 @@ declare namespace ReactReconciler {
         ): Instance;
         cloneHiddenTextInstance?(instance: Instance, text: Type, internalInstanceHandle: OpaqueHandle): TextInstance;
 
-        // tslint:disable:max-line-length
         // -------------------
         // Hydration Methods
         //    (optional)
         // You can optionally implement hydration to "attach" to the existing tree during the initial render instead of creating it from scratch. For example, the DOM renderer uses this to attach to an HTML markup.
         //
-        // To support hydration, you need to declare `supportsHydration: true` and then implement the methods in the "Hydration" section [listed in this file](https://github.com/facebook/react/blob/master/packages/react-reconciler/src/forks/ReactFiberHostConfig.custom.js). File an issue if you need help.
+        // To support hydration, you need to declare `supportsHydration: true` and then implement the methods in the "Hydration" section [listed in this file](https://github.com/facebook/react/blob/master/packages/react-reconciler/src/forks/ReactFiberConfig.custom.js). File an issue if you need help.
         // -------------------
-        // tslint:enable:max-line-length
         supportsHydration: boolean;
 
         canHydrateInstance?(instance: HydratableInstance, type: Type, props: Props): null | Instance;
@@ -606,6 +491,63 @@ declare namespace ReactReconciler {
         didNotFindHydratableSuspenseInstance?(parentType: Type, parentProps: Props, parentInstance: Instance): void;
 
         errorHydratingContainer?(parentContainer: Container): void;
+
+        // Undocumented
+        // https://github.com/facebook/react/pull/26722
+        NotPendingTransition: TransitionStatus | null;
+        HostTransitionContext: ReactContext<TransitionStatus>;
+
+        // https://github.com/facebook/react/pull/28751
+        setCurrentUpdatePriority(newPriority: EventPriority): void;
+        getCurrentUpdatePriority(): EventPriority;
+        resolveUpdatePriority(): EventPriority;
+
+        // https://github.com/facebook/react/pull/28804
+        resetFormInstance(form: FormInstance): void;
+
+        // https://github.com/facebook/react/pull/25105
+        requestPostPaintCallback(callback: (time: number) => void): void;
+
+        // https://github.com/facebook/react/pull/26025
+        shouldAttemptEagerTransition(): boolean;
+
+        // https://github.com/facebook/react/pull/31528
+        trackSchedulerEvent(): void;
+
+        // https://github.com/facebook/react/pull/31008
+        resolveEventType(): null | string;
+        resolveEventTimeStamp(): number;
+
+        /**
+         * This method is called during render to determine if the Host Component type and props require some kind of loading process to complete before committing an update.
+         */
+        maySuspendCommit(type: Type, props: Props): boolean;
+
+        /**
+         * This method may be called during render if the Host Component type and props might suspend a commit. It can be used to initiate any work that might shorten the duration of a suspended commit.
+         */
+        preloadInstance(type: Type, props: Props): boolean;
+
+        /**
+         * This method is called just before the commit phase. Use it to set up any necessary state while any Host Components that might suspend this commit are evaluated to determine if the commit must be suspended.
+         */
+        startSuspendingCommit(): void;
+
+        /**
+         * This method is called after `startSuspendingCommit` for each Host Component that indicated it might suspend a commit.
+         */
+        suspendInstance(type: Type, props: Props): void;
+
+        /**
+         * This method is called after all `suspendInstance` calls are complete.
+         *
+         * Return `null` if the commit can happen immediately.
+         *
+         * Return `(initiateCommit: Function) => Function` if the commit must be suspended. The argument to this callback will initiate the commit when called. The return value is a cancellation function that the Reconciler can use to abort the commit.
+         */
+        waitForCommitToBeReady():
+            | ((initiateCommit: (...args: unknown[]) => unknown) => (...args: unknown[]) => unknown)
+            | null;
     }
 
     interface Thenable<T> {
@@ -642,21 +584,21 @@ declare namespace ReactReconciler {
         | 24;
 
     type HookType =
-        | 'useState'
-        | 'useReducer'
-        | 'useContext'
-        | 'useRef'
-        | 'useEffect'
-        | 'useLayoutEffect'
-        | 'useCallback'
-        | 'useMemo'
-        | 'useImperativeHandle'
-        | 'useDebugValue'
-        | 'useDeferredValue'
-        | 'useTransition'
-        | 'useMutableSource'
-        | 'useOpaqueIdentifier'
-        | 'useCacheRefresh';
+        | "useState"
+        | "useReducer"
+        | "useContext"
+        | "useRef"
+        | "useEffect"
+        | "useLayoutEffect"
+        | "useCallback"
+        | "useMemo"
+        | "useImperativeHandle"
+        | "useDebugValue"
+        | "useDeferredValue"
+        | "useTransition"
+        | "useMutableSource"
+        | "useOpaqueIdentifier"
+        | "useCacheRefresh";
 
     interface Source {
         fileName: string;
@@ -668,11 +610,14 @@ declare namespace ReactReconciler {
     type LanePriority = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17;
 
     type Lanes = number;
-    type Lane = number;
+
+    type Lane = number & { __LaneBrand: any };
 
     type Flags = number;
 
     type TypeOfMode = number;
+
+    type EventPriority = number;
 
     interface ReactProvider<T> {
         $$typeof: symbol | number;
@@ -705,7 +650,6 @@ declare namespace ReactReconciler {
         $$typeof: symbol | number;
         Consumer: ReactContext<T>;
         Provider: ReactProviderType<T>;
-        _calculateChangedBits: ((a: T, b: T) => number) | null;
         _currentValue: T;
         _currentValue2: T;
         _threadCount: number;
@@ -794,8 +738,8 @@ declare namespace ReactReconciler {
         ref:
             | null
             | (((handle: unknown) => void) & {
-                  _stringRef?: string | null;
-              })
+                _stringRef?: string | null;
+            })
             | RefObject;
 
         // Input is the data coming into process this fiber. Arguments. Props.
@@ -982,7 +926,11 @@ declare namespace ReactReconciler {
 
     type IntersectionObserverOptions = any;
 
-    interface Reconciler<Container, Instance, TextInstance, SuspenseInstance, PublicInstance> {
+    interface BaseErrorInfo {
+        componentStack?: string;
+    }
+
+    interface Reconciler<Container, Instance, TextInstance, SuspenseInstance, FormInstance, PublicInstance> {
         createContainer(
             containerInfo: Container,
             tag: RootTag,
@@ -990,8 +938,10 @@ declare namespace ReactReconciler {
             isStrictMode: boolean,
             concurrentUpdatesByDefaultOverride: null | boolean,
             identifierPrefix: string,
-            onRecoverableError: (error: Error) => void,
-            transitionCallbacks: null | TransitionTracingCallbacks,
+            onUncaughtError: (error: Error, info: BaseErrorInfo & { errorBoundary?: Component }) => void,
+            onCaughtError: (error: Error, info: BaseErrorInfo) => void,
+            onRecoverableError: (error: Error, info: BaseErrorInfo) => void,
+            onDefaultTransitionIndicator: () => void,
         ): OpaqueRoot;
 
         createPortal(
@@ -1000,8 +950,6 @@ declare namespace ReactReconciler {
             implementation: any,
             key?: string | null,
         ): ReactPortal;
-
-        registerMutableSourceForHydration(root: FiberRoot, mutableSource: MutableSource): void;
 
         createComponentSelector(component: React$AbstractComponent<never, unknown>): ComponentSelector;
 
@@ -1037,11 +985,22 @@ declare namespace ReactReconciler {
             isStrictMode: boolean,
             concurrentUpdatesByDefaultOverride: null | boolean,
             identifierPrefix: string,
-            onRecoverableError: (error: Error) => void,
+            onUncaughtError: (error: Error, info: BaseErrorInfo & { errorBoundary?: Component }) => void,
+            onCaughtError: (error: Error, info: BaseErrorInfo) => void,
+            onRecoverableError: (error: Error, info: BaseErrorInfo) => void,
+            onDefaultTransitionIndicator: () => void,
             transitionCallbacks: null | TransitionTracingCallbacks,
+            formState: unknown,
         ): OpaqueRoot;
 
         updateContainer(
+            element: ReactNode,
+            container: OpaqueRoot,
+            parentComponent?: Component<any, any> | null,
+            callback?: (() => void) | null,
+        ): Lane;
+
+        updateContainerSync(
             element: ReactNode,
             container: OpaqueRoot,
             parentComponent?: Component<any, any> | null,
@@ -1054,10 +1013,13 @@ declare namespace ReactReconciler {
 
         discreteUpdates<A, B, C, D, R>(fn: (arg0: A, arg1: B, arg2: C, arg3: D) => R, a: A, b: B, c: C, d: D): R;
 
-        flushControlled(fn: () => any): void;
-
         flushSync(): void;
         flushSync<R>(fn: () => R): R;
+
+        flushSyncFromReconciler(): void;
+        flushSyncFromReconciler<R>(fn: () => R): R;
+
+        flushSyncWork(): boolean;
 
         isAlreadyRendering(): boolean;
 
@@ -1067,15 +1029,9 @@ declare namespace ReactReconciler {
 
         attemptSynchronousHydration(fiber: Fiber): void;
 
-        attemptDiscreteHydration(fiber: Fiber): void;
-
         attemptContinuousHydration(fiber: Fiber): void;
 
         attemptHydrationAtCurrentPriority(fiber: Fiber): void;
-
-        getCurrentUpdatePriority(): LanePriority;
-
-        runWithPriority<T>(priority: LanePriority, fn: () => T): T;
 
         findHostInstance(component: any): PublicInstance | null;
 
@@ -1089,6 +1045,17 @@ declare namespace ReactReconciler {
 
         injectIntoDevTools(devToolsConfig: DevToolsConfig<Instance, TextInstance, any>): boolean;
     }
+
+    function defaultOnUncaughtError(error: Error): void;
+    function defaultOnCaughtError(error: Error): void;
+    function defaultOnRecoverableError(error: Error): void;
+
+    function startHostTransition(
+        formFiber: Fiber,
+        pendingState: unknown,
+        action: ((formData: FormData) => void) | null,
+        formData: FormData,
+    ): void;
 }
 
 export = ReactReconciler;

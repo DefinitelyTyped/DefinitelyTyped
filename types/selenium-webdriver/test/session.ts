@@ -1,5 +1,5 @@
-import { Session } from 'selenium-webdriver/lib/session';
-import { Capabilities } from 'selenium-webdriver/lib/capabilities';
+import { Capabilities } from "selenium-webdriver/lib/capabilities";
+import { Session } from "selenium-webdriver/lib/session";
 
 function TestSession() {
     let capabilities: Capabilities = new Capabilities();

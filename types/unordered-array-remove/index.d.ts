@@ -1,8 +1,3 @@
-// Type definitions for unordered-array-remove 1.0
-// Project: https://github.com/mafintosh/unordered-array-remove
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = arrayRemove;
 
 /**

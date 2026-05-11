@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/twitchat",
+    "version": "1.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "All Event Types and Action Types for Twitchat",
+    "projects": [
+        "https://github.com/Durss/Twitchat"
+    ],
+    "dependencies": {
+    },
+    "devDependencies": {
+        "@types/twitchat": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "François Dursus",
+            "githubUsername": "Durss"
+        },
+        {
+            "name": "Beutin Jérémy",
+            "githubUsername": "Drilmo"
+        }
+    ]
+}

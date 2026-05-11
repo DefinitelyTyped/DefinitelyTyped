@@ -1,52 +1,16 @@
-/**
- * The `node:vm` module enables compiling and running code within V8 Virtual
- * Machine contexts.
- *
- * **The `node:vm` module is not a security**
- * **mechanism. Do not use it to run untrusted code.**
- *
- * JavaScript code can be compiled and run immediately or
- * compiled, saved, and run later.
- *
- * A common use case is to run the code in a different V8 Context. This means
- * invoked code has a different global object than the invoking code.
- *
- * One can provide the context by `contextifying` an
- * object. The invoked code treats any property in the context like a
- * global variable. Any changes to global variables caused by the invoked
- * code are reflected in the context object.
- *
- * ```js
- * const vm = require('node:vm');
- *
- * const x = 1;
- *
- * const context = { x: 2 };
- * vm.createContext(context); // Contextify the object.
- *
- * const code = 'x += 40; var y = 17;';
- * // `x` and `y` are global variables in the context.
- * // Initially, x has the value 2 because that is the value of context.x.
- * vm.runInContext(code, context);
- *
- * console.log(context.x); // 42
- * console.log(context.y); // 17
- *
- * console.log(x); // 1; y is not defined.
- * ```
- * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/vm.js)
- */
-declare module 'vm' {
+declare module "node:vm" {
+    import { NonSharedBuffer } from "node:buffer";
+    import { ImportAttributes, ImportPhase } from "node:module";
     interface Context extends NodeJS.Dict<any> {}
     interface BaseOptions {
         /**
          * Specifies the filename used in stack traces produced by this script.
-         * Default: `''`.
+         * @default ''
          */
         filename?: string | undefined;
         /**
          * Specifies the line number offset that is displayed in stack traces produced by this script.
-         * Default: `0`.
+         * @default 0
          */
         lineOffset?: number | undefined;
         /**
@@ -55,23 +19,34 @@ declare module 'vm' {
          */
         columnOffset?: number | undefined;
     }
+    type DynamicModuleLoader<T> = (
+        specifier: string,
+        referrer: T,
+        importAttributes: ImportAttributes,
+        phase: ImportPhase,
+    ) => Module | Promise<Module>;
     interface ScriptOptions extends BaseOptions {
         /**
-         * V8's code cache data for the supplied source.
+         * Provides an optional data with V8's code cache data for the supplied source.
          */
-        cachedData?: Buffer | NodeJS.ArrayBufferView | undefined;
+        cachedData?: NodeJS.ArrayBufferView | undefined;
         /** @deprecated in favor of `script.createCachedData()` */
         produceCachedData?: boolean | undefined;
         /**
-         * Called during evaluation of this module when `import()` is called.
-         * If this option is not specified, calls to `import()` will reject with `ERR_VM_DYNAMIC_IMPORT_CALLBACK_MISSING`.
+         * Used to specify how the modules should be loaded during the evaluation of this script when `import()` is called. This option is
+         * part of the experimental modules API. We do not recommend using it in a production environment. For detailed information, see
+         * [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v25.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
+         * @experimental
          */
-        importModuleDynamically?: ((specifier: string, script: Script, importAssertions: Object) => Module) | undefined;
+        importModuleDynamically?:
+            | DynamicModuleLoader<Script>
+            | typeof constants.USE_MAIN_CONTEXT_DEFAULT_LOADER
+            | undefined;
     }
     interface RunningScriptOptions extends BaseOptions {
         /**
          * When `true`, if an `Error` occurs while compiling the `code`, the line of code causing the error is attached to the stack trace.
-         * Default: `true`.
+         * @default true
          */
         displayErrors?: boolean | undefined;
         /**
@@ -83,45 +58,52 @@ declare module 'vm' {
          * If `true`, the execution will be terminated when `SIGINT` (Ctrl+C) is received.
          * Existing handlers for the event that have been attached via `process.on('SIGINT')` will be disabled during script execution, but will continue to work after that.
          * If execution is terminated, an `Error` will be thrown.
-         * Default: `false`.
+         * @default false
          */
         breakOnSigint?: boolean | undefined;
     }
-    interface RunningScriptInNewContextOptions extends RunningScriptOptions {
+    interface RunningScriptInNewContextOptions
+        extends RunningScriptOptions, Pick<CreateContextOptions, "microtaskMode">
+    {
         /**
          * Human-readable name of the newly created context.
          */
-        contextName?: CreateContextOptions['name'];
+        contextName?: CreateContextOptions["name"] | undefined;
         /**
          * Origin corresponding to the newly created context for display purposes. The origin should be formatted like a URL,
          * but with only the scheme, host, and port (if necessary), like the value of the `url.origin` property of a `URL` object.
          * Most notably, this string should omit the trailing slash, as that denotes a path.
          */
-        contextOrigin?: CreateContextOptions['origin'];
-        contextCodeGeneration?: CreateContextOptions['codeGeneration'];
-        /**
-         * If set to `afterEvaluate`, microtasks will be run immediately after the script has run.
-         */
-        microtaskMode?: CreateContextOptions['microtaskMode'];
+        contextOrigin?: CreateContextOptions["origin"] | undefined;
+        contextCodeGeneration?: CreateContextOptions["codeGeneration"] | undefined;
     }
-    interface RunningCodeOptions extends RunningScriptOptions {
-        cachedData?: ScriptOptions['cachedData'];
-        importModuleDynamically?: ScriptOptions['importModuleDynamically'];
-    }
-    interface RunningCodeInNewContextOptions extends RunningScriptInNewContextOptions {
-        cachedData?: ScriptOptions['cachedData'];
-        importModuleDynamically?: ScriptOptions['importModuleDynamically'];
-    }
-    interface CompileFunctionOptions extends BaseOptions {
+    interface RunningCodeOptions extends RunningScriptOptions, Pick<ScriptOptions, "cachedData"> {
         /**
-         * Provides an optional data with V8's code cache data for the supplied source.
+         * Used to specify how the modules should be loaded during the evaluation of this script when `import()` is called. This option is
+         * part of the experimental modules API. We do not recommend using it in a production environment. For detailed information, see
+         * [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v25.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
+         * @experimental
          */
-        cachedData?: Buffer | undefined;
+        importModuleDynamically?:
+            | DynamicModuleLoader<Script>
+            | typeof constants.USE_MAIN_CONTEXT_DEFAULT_LOADER
+            | undefined;
+    }
+    interface RunningCodeInNewContextOptions
+        extends RunningScriptInNewContextOptions, Pick<ScriptOptions, "cachedData">
+    {
         /**
-         * Specifies whether to produce new cache data.
-         * Default: `false`,
+         * Used to specify how the modules should be loaded during the evaluation of this script when `import()` is called. This option is
+         * part of the experimental modules API. We do not recommend using it in a production environment. For detailed information, see
+         * [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v25.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
+         * @experimental
          */
-        produceCachedData?: boolean | undefined;
+        importModuleDynamically?:
+            | DynamicModuleLoader<Script>
+            | typeof constants.USE_MAIN_CONTEXT_DEFAULT_LOADER
+            | undefined;
+    }
+    interface CompileFunctionOptions extends BaseOptions, Pick<ScriptOptions, "cachedData" | "produceCachedData"> {
         /**
          * The sandbox/context in which the said function should be compiled in.
          */
@@ -130,6 +112,16 @@ declare module 'vm' {
          * An array containing a collection of context extensions (objects wrapping the current scope) to be applied while compiling
          */
         contextExtensions?: Object[] | undefined;
+        /**
+         * Used to specify how the modules should be loaded during the evaluation of this script when `import()` is called. This option is
+         * part of the experimental modules API. We do not recommend using it in a production environment. For detailed information, see
+         * [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v25.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
+         * @experimental
+         */
+        importModuleDynamically?:
+            | DynamicModuleLoader<ReturnType<typeof compileFunction>>
+            | typeof constants.USE_MAIN_CONTEXT_DEFAULT_LOADER
+            | undefined;
     }
     interface CreateContextOptions {
         /**
@@ -147,25 +139,35 @@ declare module 'vm' {
         origin?: string | undefined;
         codeGeneration?:
             | {
-                  /**
-                   * If set to false any calls to eval or function constructors (Function, GeneratorFunction, etc)
-                   * will throw an EvalError.
-                   * @default true
-                   */
-                  strings?: boolean | undefined;
-                  /**
-                   * If set to false any attempt to compile a WebAssembly module will throw a WebAssembly.CompileError.
-                   * @default true
-                   */
-                  wasm?: boolean | undefined;
-              }
+                /**
+                 * If set to false any calls to eval or function constructors (Function, GeneratorFunction, etc)
+                 * will throw an EvalError.
+                 * @default true
+                 */
+                strings?: boolean | undefined;
+                /**
+                 * If set to false any attempt to compile a WebAssembly module will throw a WebAssembly.CompileError.
+                 * @default true
+                 */
+                wasm?: boolean | undefined;
+            }
             | undefined;
         /**
          * If set to `afterEvaluate`, microtasks will be run immediately after the script has run.
          */
-        microtaskMode?: 'afterEvaluate' | undefined;
+        microtaskMode?: "afterEvaluate" | undefined;
+        /**
+         * Used to specify how the modules should be loaded during the evaluation of this script when `import()` is called. This option is
+         * part of the experimental modules API. We do not recommend using it in a production environment. For detailed information, see
+         * [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v25.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
+         * @experimental
+         */
+        importModuleDynamically?:
+            | DynamicModuleLoader<Context>
+            | typeof constants.USE_MAIN_CONTEXT_DEFAULT_LOADER
+            | undefined;
     }
-    type MeasureMemoryMode = 'summary' | 'detailed';
+    type MeasureMemoryMode = "summary" | "detailed";
     interface MeasureMemoryOptions {
         /**
          * @default 'summary'
@@ -174,7 +176,7 @@ declare module 'vm' {
         /**
          * @default 'default'
          */
-        execution?: 'default' | 'eager' | undefined;
+        execution?: "default" | "eager" | undefined;
     }
     interface MemoryMeasurement {
         total: {
@@ -190,7 +192,7 @@ declare module 'vm' {
     class Script {
         constructor(code: string, options?: ScriptOptions | string);
         /**
-         * Runs the compiled code contained by the `vm.Script` object within the given`contextifiedObject` and returns the result. Running code does not have access
+         * Runs the compiled code contained by the `vm.Script` object within the given `contextifiedObject` and returns the result. Running code does not have access
          * to local scope.
          *
          * The following example compiles code that increments a global variable, sets
@@ -198,16 +200,16 @@ declare module 'vm' {
          * The globals are contained in the `context` object.
          *
          * ```js
-         * const vm = require('node:vm');
+         * import { createContext, Script } from 'node:vm';
          *
          * const context = {
          *   animal: 'cat',
          *   count: 2,
          * };
          *
-         * const script = new vm.Script('count += 1; name = "kitty";');
+         * const script = new Script('count += 1; name = "kitty";');
          *
-         * vm.createContext(context);
+         * createContext(context);
          * for (let i = 0; i < 10; ++i) {
          *   script.runInContext(context);
          * }
@@ -225,18 +227,25 @@ declare module 'vm' {
          */
         runInContext(contextifiedObject: Context, options?: RunningScriptOptions): any;
         /**
-         * First contextifies the given `contextObject`, runs the compiled code contained
-         * by the `vm.Script` object within the created context, and returns the result.
-         * Running code does not have access to local scope.
+         * This method is a shortcut to `script.runInContext(vm.createContext(options), options)`.
+         * It does several things at once:
+         *
+         * 1. Creates a new context.
+         * 2. If `contextObject` is an object, contextifies it with the new context.
+         *    If  `contextObject` is undefined, creates a new object and contextifies it.
+         *    If `contextObject` is `vm.constants.DONT_CONTEXTIFY`, don't contextify anything.
+         * 3. Runs the compiled code contained by the `vm.Script` object within the created context. The code
+         *    does not have access to the scope in which this method is called.
+         * 4. Returns the result.
          *
          * The following example compiles code that sets a global variable, then executes
          * the code multiple times in different contexts. The globals are set on and
          * contained within each individual `context`.
          *
          * ```js
-         * const vm = require('node:vm');
+         * import { constants, Script } from 'node:vm';
          *
-         * const script = new vm.Script('globalVar = "set"');
+         * const script = new Script('globalVar = "set"');
          *
          * const contexts = [{}, {}, {}];
          * contexts.forEach((context) => {
@@ -245,12 +254,22 @@ declare module 'vm' {
          *
          * console.log(contexts);
          * // Prints: [{ globalVar: 'set' }, { globalVar: 'set' }, { globalVar: 'set' }]
+         *
+         * // This would throw if the context is created from a contextified object.
+         * // constants.DONT_CONTEXTIFY allows creating contexts with ordinary
+         * // global objects that can be frozen.
+         * const freezeScript = new Script('Object.freeze(globalThis); globalThis;');
+         * const frozenContext = freezeScript.runInNewContext(constants.DONT_CONTEXTIFY);
          * ```
          * @since v0.3.1
-         * @param contextObject An object that will be `contextified`. If `undefined`, a new object will be created.
+         * @param contextObject Either `vm.constants.DONT_CONTEXTIFY` or an object that will be contextified.
+         * If `undefined`, an empty contextified object will be created for backwards compatibility.
          * @return the result of the very last statement executed in the script.
          */
-        runInNewContext(contextObject?: Context, options?: RunningScriptInNewContextOptions): any;
+        runInNewContext(
+            contextObject?: Context | typeof constants.DONT_CONTEXTIFY,
+            options?: RunningScriptInNewContextOptions,
+        ): any;
         /**
          * Runs the compiled code contained by the `vm.Script` within the context of the
          * current `global` object. Running code does not have access to local scope, but _does_ have access to the current `global` object.
@@ -259,11 +278,11 @@ declare module 'vm' {
          * executes that code multiple times:
          *
          * ```js
-         * const vm = require('node:vm');
+         * import { Script } from 'node:vm';
          *
          * global.globalVar = 0;
          *
-         * const script = new vm.Script('globalVar += 1', { filename: 'myfile.vm' });
+         * const script = new Script('globalVar += 1', { filename: 'myfile.vm' });
          *
          * for (let i = 0; i < 1000; ++i) {
          *   script.runInThisContext();
@@ -278,7 +297,7 @@ declare module 'vm' {
          */
         runInThisContext(options?: RunningScriptOptions): any;
         /**
-         * Creates a code cache that can be used with the `Script` constructor's`cachedData` option. Returns a `Buffer`. This method may be called at any
+         * Creates a code cache that can be used with the `Script` constructor's `cachedData` option. Returns a `Buffer`. This method may be called at any
          * time and any number of times.
          *
          * The code cache of the `Script` doesn't contain any JavaScript observable
@@ -311,17 +330,17 @@ declare module 'vm' {
          * ```
          * @since v10.6.0
          */
-        createCachedData(): Buffer;
+        createCachedData(): NonSharedBuffer;
         /** @deprecated in favor of `script.createCachedData()` */
-        cachedDataProduced?: boolean | undefined;
+        cachedDataProduced?: boolean;
         /**
          * When `cachedData` is supplied to create the `vm.Script`, this value will be set
-         * to either `true` or `false` depending on acceptance of the data by V8\.
+         * to either `true` or `false` depending on acceptance of the data by V8.
          * Otherwise the value is `undefined`.
          * @since v5.7.0
          */
-        cachedDataRejected?: boolean | undefined;
-        cachedData?: Buffer | undefined;
+        cachedDataRejected?: boolean;
+        cachedData?: NonSharedBuffer;
         /**
          * When the script is compiled from a source that contains a source map magic
          * comment, this property will be set to the URL of the source map.
@@ -339,24 +358,27 @@ declare module 'vm' {
          * ```
          * @since v19.1.0, v18.13.0
          */
-        sourceMapURL?: string | undefined;
+        sourceMapURL: string | undefined;
     }
     /**
-     * If given a `contextObject`, the `vm.createContext()` method will `prepare
-     * that object` so that it can be used in calls to {@link runInContext} or `script.runInContext()`. Inside such scripts,
-     * the `contextObject` will be the global object, retaining all of its existing
-     * properties but also having the built-in objects and functions any standard [global object](https://es5.github.io/#x15.1) has. Outside of scripts run by the vm module, global variables
-     * will remain unchanged.
+     * If the given `contextObject` is an object, the `vm.createContext()` method will
+     * [prepare that object](https://nodejs.org/docs/latest-v25.x/api/vm.html#what-does-it-mean-to-contextify-an-object)
+     * and return a reference to it so that it can be used in calls to {@link runInContext} or
+     * [`script.runInContext()`](https://nodejs.org/docs/latest-v25.x/api/vm.html#scriptrunincontextcontextifiedobject-options).
+     * Inside such scripts, the global object will be wrapped by the `contextObject`, retaining all of its
+     * existing properties but also having the built-in objects and functions any standard
+     * [global object](https://es5.github.io/#x15.1) has. Outside of scripts run by the vm module, global
+     * variables will remain unchanged.
      *
      * ```js
-     * const vm = require('node:vm');
+     * import { createContext, runInContext } from 'node:vm';
      *
      * global.globalVar = 3;
      *
      * const context = { globalVar: 1 };
-     * vm.createContext(context);
+     * createContext(context);
      *
-     * vm.runInContext('globalVar *= 2;', context);
+     * runInContext('globalVar *= 2;', context);
      *
      * console.log(context);
      * // Prints: { globalVar: 2 }
@@ -366,7 +388,12 @@ declare module 'vm' {
      * ```
      *
      * If `contextObject` is omitted (or passed explicitly as `undefined`), a new,
-     * empty `contextified` object will be returned.
+     * empty contextified object will be returned.
+     *
+     * When the global object in the newly created context is contextified, it has some quirks
+     * compared to ordinary global objects. For example, it cannot be frozen. To create a context
+     * without the contextifying quirks, pass `vm.constants.DONT_CONTEXTIFY` as the `contextObject`
+     * argument. See the documentation of `vm.constants.DONT_CONTEXTIFY` for details.
      *
      * The `vm.createContext()` method is primarily useful for creating a single
      * context that can be used to run multiple scripts. For instance, if emulating a
@@ -377,11 +404,17 @@ declare module 'vm' {
      * The provided `name` and `origin` of the context are made visible through the
      * Inspector API.
      * @since v0.3.1
+     * @param contextObject Either `vm.constants.DONT_CONTEXTIFY` or an object that will be contextified.
+     * If `undefined`, an empty contextified object will be created for backwards compatibility.
      * @return contextified object.
      */
-    function createContext(sandbox?: Context, options?: CreateContextOptions): Context;
+    function createContext(
+        contextObject?: Context | typeof constants.DONT_CONTEXTIFY,
+        options?: CreateContextOptions,
+    ): Context;
     /**
-     * Returns `true` if the given `object` object has been `contextified` using {@link createContext}.
+     * Returns `true` if the given `object` object has been contextified using {@link createContext},
+     * or if it's the global object of a context created using `vm.constants.DONT_CONTEXTIFY`.
      * @since v0.11.7
      */
     function isContext(sandbox: Context): boolean;
@@ -396,13 +429,13 @@ declare module 'vm' {
      * The following example compiles and executes different scripts using a single `contextified` object:
      *
      * ```js
-     * const vm = require('node:vm');
+     * import { createContext, runInContext } from 'node:vm';
      *
      * const contextObject = { globalVar: 1 };
-     * vm.createContext(contextObject);
+     * createContext(contextObject);
      *
      * for (let i = 0; i < 10; ++i) {
-     *   vm.runInContext('globalVar *= 2;', contextObject);
+     *   runInContext('globalVar *= 2;', contextObject);
      * }
      * console.log(contextObject);
      * // Prints: { globalVar: 1024 }
@@ -414,34 +447,55 @@ declare module 'vm' {
      */
     function runInContext(code: string, contextifiedObject: Context, options?: RunningCodeOptions | string): any;
     /**
-     * The `vm.runInNewContext()` first contextifies the given `contextObject` (or
-     * creates a new `contextObject` if passed as `undefined`), compiles the `code`,
-     * runs it within the created context, then returns the result. Running code
-     * does not have access to the local scope.
-     *
+     * This method is a shortcut to
+     * `(new vm.Script(code, options)).runInContext(vm.createContext(options), options)`.
      * If `options` is a string, then it specifies the filename.
+     *
+     * It does several things at once:
+     *
+     * 1. Creates a new context.
+     * 2. If `contextObject` is an object, contextifies it with the new context.
+     *    If  `contextObject` is undefined, creates a new object and contextifies it.
+     *    If `contextObject` is `vm.constants.DONT_CONTEXTIFY`, don't contextify anything.
+     * 3. Compiles the code as a`vm.Script`
+     * 4. Runs the compield code within the created context. The code does not have access to the scope in
+     *    which this method is called.
+     * 5. Returns the result.
      *
      * The following example compiles and executes code that increments a global
      * variable and sets a new one. These globals are contained in the `contextObject`.
      *
      * ```js
-     * const vm = require('node:vm');
+     * import { runInNewContext, constants } from 'node:vm';
      *
      * const contextObject = {
      *   animal: 'cat',
      *   count: 2,
      * };
      *
-     * vm.runInNewContext('count += 1; name = "kitty"', contextObject);
+     * runInNewContext('count += 1; name = "kitty"', contextObject);
      * console.log(contextObject);
      * // Prints: { animal: 'cat', count: 3, name: 'kitty' }
+     *
+     * // This would throw if the context is created from a contextified object.
+     * // vm.constants.DONT_CONTEXTIFY allows creating contexts with ordinary global objects that
+     * // can be frozen.
+     * const frozenContext = runInNewContext(
+     *   'Object.freeze(globalThis); globalThis;',
+     *   constants.DONT_CONTEXTIFY,
+     * );
      * ```
      * @since v0.3.1
      * @param code The JavaScript code to compile and run.
-     * @param contextObject An object that will be `contextified`. If `undefined`, a new object will be created.
+     * @param contextObject Either `vm.constants.DONT_CONTEXTIFY` or an object that will be contextified.
+     * If `undefined`, an empty contextified object will be created for backwards compatibility.
      * @return the result of the very last statement executed in the script.
      */
-    function runInNewContext(code: string, contextObject?: Context, options?: RunningCodeInNewContextOptions | string): any;
+    function runInNewContext(
+        code: string,
+        contextObject?: Context | typeof constants.DONT_CONTEXTIFY,
+        options?: RunningCodeInNewContextOptions | string,
+    ): any;
     /**
      * `vm.runInThisContext()` compiles `code`, runs it within the context of the
      * current `global` and returns the result. Running code does not have access to
@@ -453,10 +507,10 @@ declare module 'vm' {
      * the JavaScript [`eval()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval) function to run the same code:
      *
      * ```js
-     * const vm = require('node:vm');
+     * import { runInThisContext } from 'node:vm';
      * let localVar = 'initial value';
      *
-     * const vmResult = vm.runInThisContext('localVar = "vm";');
+     * const vmResult = runInThisContext('localVar = "vm";');
      * console.log(`vmResult: '${vmResult}', localVar: '${localVar}'`);
      * // Prints: vmResult: 'vm', localVar: 'initial value'
      *
@@ -465,41 +519,9 @@ declare module 'vm' {
      * // Prints: evalResult: 'eval', localVar: 'eval'
      * ```
      *
-     * Because `vm.runInThisContext()` does not have access to the local scope,`localVar` is unchanged. In contrast,
+     * Because `vm.runInThisContext()` does not have access to the local scope, `localVar` is unchanged. In contrast,
      * [`eval()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval) _does_ have access to the
-     * local scope, so the value `localVar` is changed. In this way`vm.runInThisContext()` is much like an [indirect `eval()` call](https://es5.github.io/#x10.4.2), e.g.`(0,eval)('code')`.
-     *
-     * ## Example: Running an HTTP server within a VM
-     *
-     * When using either `script.runInThisContext()` or {@link runInThisContext}, the code is executed within the current V8 global
-     * context. The code passed to this VM context will have its own isolated scope.
-     *
-     * In order to run a simple web server using the `node:http` module the code passed
-     * to the context must either call `require('node:http')` on its own, or have a
-     * reference to the `node:http` module passed to it. For instance:
-     *
-     * ```js
-     * 'use strict';
-     * const vm = require('node:vm');
-     *
-     * const code = `
-     * ((require) => {
-     *   const http = require('node:http');
-     *
-     *   http.createServer((request, response) => {
-     *     response.writeHead(200, { 'Content-Type': 'text/plain' });
-     *     response.end('Hello World\\n');
-     *   }).listen(8124);
-     *
-     *   console.log('Server running at http://127.0.0.1:8124/');
-     * })`;
-     *
-     * vm.runInThisContext(code)(require);
-     * ```
-     *
-     * The `require()` in the above case shares the state with the context it is
-     * passed from. This may introduce risks when untrusted code is executed, e.g.
-     * altering objects in the context in unwanted ways.
+     * local scope, so the value `localVar` is changed. In this way `vm.runInThisContext()` is much like an [indirect `eval()` call](https://es5.github.io/#x10.4.2), e.g.`(0,eval)('code')`.
      * @since v0.3.1
      * @param code The JavaScript code to compile and run.
      * @return the result of the very last statement executed in the script.
@@ -515,13 +537,9 @@ declare module 'vm' {
      */
     function compileFunction(
         code: string,
-        params?: ReadonlyArray<string>,
-        options?: CompileFunctionOptions
-    ): Function & {
-        cachedData?: Script['cachedData'] | undefined;
-        cachedDataProduced?: Script['cachedDataProduced'] | undefined;
-        cachedDataRejected?: Script['cachedDataRejected'] | undefined;
-    };
+        params?: readonly string[],
+        options?: CompileFunctionOptions,
+    ): Function & Pick<Script, "cachedData" | "cachedDataProduced" | "cachedDataRejected">;
     /**
      * Measure the memory known to V8 and used by all contexts known to the
      * current V8 isolate, or the main context.
@@ -529,80 +547,63 @@ declare module 'vm' {
      * The format of the object that the returned Promise may resolve with is
      * specific to the V8 engine and may change from one version of V8 to the next.
      *
-     * The returned result is different from the statistics returned by`v8.getHeapSpaceStatistics()` in that `vm.measureMemory()` measure the
+     * The returned result is different from the statistics returned by `v8.getHeapSpaceStatistics()` in that `vm.measureMemory()` measure the
      * memory reachable by each V8 specific contexts in the current instance of
      * the V8 engine, while the result of `v8.getHeapSpaceStatistics()` measure
      * the memory occupied by each heap space in the current V8 instance.
      *
      * ```js
-     * const vm = require('node:vm');
+     * import { createContext, measureMemory } from 'node:vm';
      * // Measure the memory used by the main context.
-     * vm.measureMemory({ mode: 'summary' })
+     * measureMemory({ mode: 'summary' })
      *   // This is the same as vm.measureMemory()
      *   .then((result) => {
      *     // The current format is:
      *     // {
-     *     //   total: {
-     *     //      jsMemoryEstimate: 2418479, jsMemoryRange: [ 2418479, 2745799 ]
-     *     //    }
+     *     //   total: { jsMemoryEstimate: 1601828, jsMemoryRange: [1601828, 5275288] },
+     *     //   WebAssembly: { code: 0, metadata: 33962 },
      *     // }
      *     console.log(result);
      *   });
      *
-     * const context = vm.createContext({ a: 1 });
-     * vm.measureMemory({ mode: 'detailed', execution: 'eager' })
-     *   .then((result) => {
-     *     // Reference the context here so that it won't be GC'ed
-     *     // until the measurement is complete.
-     *     console.log(context.a);
-     *     // {
-     *     //   total: {
-     *     //     jsMemoryEstimate: 2574732,
-     *     //     jsMemoryRange: [ 2574732, 2904372 ]
-     *     //   },
-     *     //   current: {
-     *     //     jsMemoryEstimate: 2438996,
-     *     //     jsMemoryRange: [ 2438996, 2768636 ]
-     *     //   },
-     *     //   other: [
-     *     //     {
-     *     //       jsMemoryEstimate: 135736,
-     *     //       jsMemoryRange: [ 135736, 465376 ]
-     *     //     }
-     *     //   ]
-     *     // }
-     *     console.log(result);
-     *   });
+     * const context = createContext({ a: 1 });
+     * measureMemory({ mode: 'detailed', execution: 'eager' }).then((result) => {
+     *   // Reference the context here so that it won't be GC'ed
+     *   // until the measurement is complete.
+     *   console.log('Context:', context.a);
+     *   // {
+     *   //   total: { jsMemoryEstimate: 1767100, jsMemoryRange: [1767100, 5440560] },
+     *   //   WebAssembly: { code: 0, metadata: 33962 },
+     *   //   current: { jsMemoryEstimate: 1601828, jsMemoryRange: [1601828, 5275288] },
+     *   //   other: [{ jsMemoryEstimate: 165272, jsMemoryRange: [Array] }],
+     *   // }
+     *   console.log(result);
+     * });
      * ```
      * @since v13.10.0
      * @experimental
      */
     function measureMemory(options?: MeasureMemoryOptions): Promise<MemoryMeasurement>;
-    interface ModuleEvaluateOptions {
-        timeout?: RunningScriptOptions['timeout'] | undefined;
-        breakOnSigint?: RunningScriptOptions['breakOnSigint'] | undefined;
-    }
+    interface ModuleEvaluateOptions extends Pick<RunningScriptOptions, "breakOnSigint" | "timeout"> {}
     type ModuleLinker = (
         specifier: string,
         referencingModule: Module,
         extra: {
-            assert: Object;
-        }
+            attributes: ImportAttributes;
+        },
     ) => Module | Promise<Module>;
-    type ModuleStatus = 'unlinked' | 'linking' | 'linked' | 'evaluating' | 'evaluated' | 'errored';
+    type ModuleStatus = "unlinked" | "linking" | "linked" | "evaluating" | "evaluated" | "errored";
     /**
      * This feature is only available with the `--experimental-vm-modules` command
      * flag enabled.
      *
      * The `vm.Module` class provides a low-level interface for using
-     * ECMAScript modules in VM contexts. It is the counterpart of the `vm.Script`class that closely mirrors [Module Record](https://www.ecma-international.org/ecma-262/#sec-abstract-module-records)
-     * s as defined in the ECMAScript
+     * ECMAScript modules in VM contexts. It is the counterpart of the `vm.Script`
+     * class that closely mirrors [Module Record](https://tc39.es/ecma262/#sec-abstract-module-records)s as defined in the ECMAScript
      * specification.
      *
      * Unlike `vm.Script` however, every `vm.Module` object is bound to a context from
-     * its creation. Operations on `vm.Module` objects are intrinsically asynchronous,
-     * in contrast with the synchronous nature of `vm.Script` objects. The use of
-     * 'async' functions can help with manipulating `vm.Module` objects.
+     * its creation.
      *
      * Using a `vm.Module` object requires three distinct steps: creation/parsing,
      * linking, and evaluation. These three steps are illustrated in the following
@@ -630,7 +631,7 @@ declare module 'vm' {
      * // Here, we attempt to obtain the default export from the module "foo", and
      * // put it into local binding "secret".
      *
-     * const bar = new vm.SourceTextModule(`
+     * const rootModule = new vm.SourceTextModule(`
      *   import s from 'foo';
      *   s;
      *   print(s);
@@ -640,39 +641,48 @@ declare module 'vm' {
      * //
      * // "Link" the imported dependencies of this Module to it.
      * //
-     * // The provided linking callback (the "linker") accepts two arguments: the
-     * // parent module (`bar` in this case) and the string that is the specifier of
-     * // the imported module. The callback is expected to return a Module that
-     * // corresponds to the provided specifier, with certain requirements documented
-     * // in `module.link()`.
-     * //
-     * // If linking has not started for the returned Module, the same linker
-     * // callback will be called on the returned Module.
+     * // Obtain the requested dependencies of a SourceTextModule by
+     * // `sourceTextModule.moduleRequests` and resolve them.
      * //
      * // Even top-level Modules without dependencies must be explicitly linked. The
-     * // callback provided would never be called, however.
+     * // array passed to `sourceTextModule.linkRequests(modules)` can be
+     * // empty, however.
      * //
-     * // The link() method returns a Promise that will be resolved when all the
-     * // Promises returned by the linker resolve.
-     * //
-     * // Note: This is a contrived example in that the linker function creates a new
-     * // "foo" module every time it is called. In a full-fledged module system, a
-     * // cache would probably be used to avoid duplicated modules.
+     * // Note: This is a contrived example in that the resolveAndLinkDependencies
+     * // creates a new "foo" module every time it is called. In a full-fledged
+     * // module system, a cache would probably be used to avoid duplicated modules.
      *
-     * async function linker(specifier, referencingModule) {
-     *   if (specifier === 'foo') {
-     *     return new vm.SourceTextModule(`
-     *       // The "secret" variable refers to the global variable we added to
-     *       // "contextifiedObject" when creating the context.
-     *       export default secret;
-     *     `, { context: referencingModule.context });
+     * const moduleMap = new Map([
+     *   ['root', rootModule],
+     * ]);
      *
-     *     // Using `contextifiedObject` instead of `referencingModule.context`
-     *     // here would work as well.
-     *   }
-     *   throw new Error(`Unable to resolve dependency: ${specifier}`);
+     * function resolveAndLinkDependencies(module) {
+     *   const requestedModules = module.moduleRequests.map((request) => {
+     *     // In a full-fledged module system, the resolveAndLinkDependencies would
+     *     // resolve the module with the module cache key `[specifier, attributes]`.
+     *     // In this example, we just use the specifier as the key.
+     *     const specifier = request.specifier;
+     *
+     *     let requestedModule = moduleMap.get(specifier);
+     *     if (requestedModule === undefined) {
+     *       requestedModule = new vm.SourceTextModule(`
+     *         // The "secret" variable refers to the global variable we added to
+     *         // "contextifiedObject" when creating the context.
+     *         export default secret;
+     *       `, { context: referencingModule.context });
+     *       moduleMap.set(specifier, requestedModule);
+     *       // Resolve the dependencies of the new module as well.
+     *       resolveAndLinkDependencies(requestedModule);
+     *     }
+     *
+     *     return requestedModule;
+     *   });
+     *
+     *   module.linkRequests(requestedModules);
      * }
-     * await bar.link(linker);
+     *
+     * resolveAndLinkDependencies(rootModule);
+     * rootModule.instantiate();
      *
      * // Step 3
      * //
@@ -680,20 +690,12 @@ declare module 'vm' {
      * // resolve after the module has finished evaluating.
      *
      * // Prints 42.
-     * await bar.evaluate();
+     * await rootModule.evaluate();
      * ```
      * @since v13.0.0, v12.16.0
      * @experimental
      */
     class Module {
-        /**
-         * The specifiers of all dependencies of this module. The returned array is frozen
-         * to disallow any changes to it.
-         *
-         * Corresponds to the `[[RequestedModules]]` field of [Cyclic Module Record](https://tc39.es/ecma262/#sec-cyclic-module-records) s in
-         * the ECMAScript specification.
-         */
-        dependencySpecifiers: readonly string[];
         /**
          * If the `module.status` is `'errored'`, this property contains the exception
          * thrown by the module during evaluation. If the status is anything else,
@@ -733,30 +735,62 @@ declare module 'vm' {
          * * `'errored'`: The module has been evaluated, but an exception was thrown.
          *
          * Other than `'errored'`, this status string corresponds to the specification's [Cyclic Module Record](https://tc39.es/ecma262/#sec-cyclic-module-records)'s `[[Status]]` field. `'errored'`
-         * corresponds to`'evaluated'` in the specification, but with `[[EvaluationError]]` set to a
+         * corresponds to `'evaluated'` in the specification, but with `[[EvaluationError]]` set to a
          * value that is not `undefined`.
          */
         status: ModuleStatus;
         /**
-         * Evaluate the module.
+         * Evaluate the module and its depenendencies. Corresponds to the [Evaluate() concrete method](https://tc39.es/ecma262/#sec-moduleevaluation) field of
+         * [Cyclic Module Record](https://tc39.es/ecma262/#sec-cyclic-module-records)s in the ECMAScript specification.
          *
-         * This must be called after the module has been linked; otherwise it will reject.
-         * It could be called also when the module has already been evaluated, in which
-         * case it will either do nothing if the initial evaluation ended in success
-         * (`module.status` is `'evaluated'`) or it will re-throw the exception that the
-         * initial evaluation resulted in (`module.status` is `'errored'`).
+         * If the module is a `vm.SourceTextModule`, `evaluate()` must be called after the module has been instantiated;
+         * otherwise `evaluate()` will return a rejected promise.
          *
-         * This method cannot be called while the module is being evaluated
-         * (`module.status` is `'evaluating'`).
+         * For a `vm.SourceTextModule`, the promise returned by `evaluate()` may be fulfilled either
+         * synchronously or asynchronously:
          *
-         * Corresponds to the [Evaluate() concrete method](https://tc39.es/ecma262/#sec-moduleevaluation) field of [Cyclic Module Record](https://tc39.es/ecma262/#sec-cyclic-module-records) s in the
-         * ECMAScript specification.
+         * 1. If the `vm.SourceTextModule` has no top-level `await` in itself or any of its dependencies, the promise will be
+         *    fulfilled _synchronously_ after the module and all its dependencies have been evaluated.
+         *    1. If the evaluation succeeds, the promise will be _synchronously_ resolved to `undefined`.
+         *    2. If the evaluation results in an exception, the promise will be _synchronously_ rejected with the exception
+         *       that causes the evaluation to fail, which is the same as `module.error`.
+         * 2. If the `vm.SourceTextModule` has top-level `await` in itself or any of its dependencies, the promise will be
+         *    fulfilled _asynchronously_ after the module and all its dependencies have been evaluated.
+         *    1. If the evaluation succeeds, the promise will be _asynchronously_ resolved to `undefined`.
+         *    2. If the evaluation results in an exception, the promise will be _asynchronously_ rejected with the exception
+         *       that causes the evaluation to fail.
+         *
+         * If the module is a `vm.SyntheticModule`, `evaluate()` always returns a promise that fulfills synchronously, see
+         * the specification of [Evaluate() of a Synthetic Module Record](https://tc39.es/ecma262/#sec-smr-Evaluate):
+         *
+         * 1. If the `evaluateCallback` passed to its constructor throws an exception synchronously, `evaluate()` returns
+         *    a promise that will be synchronously rejected with that exception.
+         * 2. If the `evaluateCallback` does not throw an exception, `evaluate()` returns a promise that will be
+         *    synchronously resolved to `undefined`.
+         *
+         * The `evaluateCallback` of a `vm.SyntheticModule` is executed synchronously within the `evaluate()` call, and its
+         * return value is discarded. This means if `evaluateCallback` is an asynchronous function, the promise returned by
+         * `evaluate()` will not reflect its asynchronous behavior, and any rejections from an asynchronous
+         * `evaluateCallback` will be lost.
+         *
+         * `evaluate()` could also be called again after the module has already been evaluated, in which case:
+         *
+         * 1. If the initial evaluation ended in success (`module.status` is `'evaluated'`), it will do nothing
+         *    and return a promise that resolves to `undefined`.
+         * 2. If the initial evaluation resulted in an exception (`module.status` is `'errored'`), it will re-reject
+         *    the exception that the initial evaluation resulted in.
+         *
+         * This method cannot be called while the module is being evaluated (`module.status` is `'evaluating'`).
          * @return Fulfills with `undefined` upon success.
          */
         evaluate(options?: ModuleEvaluateOptions): Promise<void>;
         /**
          * Link module dependencies. This method must be called before evaluation, and
          * can only be called once per module.
+         *
+         * Use `sourceTextModule.linkRequests(modules)` and
+         * `sourceTextModule.instantiate()` to link modules either synchronously or
+         * asynchronously.
          *
          * The function is expected to return a `Module` object or a `Promise` that
          * eventually resolves to a `Module` object. The returned `Module` must satisfy the
@@ -766,7 +800,7 @@ declare module 'vm' {
          * * Its `status` must not be `'errored'`.
          *
          * If the returned `Module`'s `status` is `'unlinked'`, this method will be
-         * recursively called on the returned `Module` with the same provided `linker`function.
+         * recursively called on the returned `Module` with the same provided `linker` function.
          *
          * `link()` returns a `Promise` that will either get resolved when all linking
          * instances resolve to a valid `Module`, or rejected if the linker function either
@@ -788,27 +822,47 @@ declare module 'vm' {
          */
         link(linker: ModuleLinker): Promise<void>;
     }
-    interface SourceTextModuleOptions {
+    interface SourceTextModuleOptions extends Pick<ScriptOptions, "cachedData" | "columnOffset" | "lineOffset"> {
         /**
          * String used in stack traces.
          * @default 'vm:module(i)' where i is a context-specific ascending index.
          */
         identifier?: string | undefined;
-        cachedData?: ScriptOptions['cachedData'] | undefined;
         context?: Context | undefined;
-        lineOffset?: BaseOptions['lineOffset'] | undefined;
-        columnOffset?: BaseOptions['columnOffset'] | undefined;
         /**
          * Called during evaluation of this module to initialize the `import.meta`.
          */
         initializeImportMeta?: ((meta: ImportMeta, module: SourceTextModule) => void) | undefined;
-        importModuleDynamically?: ScriptOptions['importModuleDynamically'] | undefined;
+        /**
+         * Used to specify how the modules should be loaded during the evaluation of this script when `import()` is called. This option is
+         * part of the experimental modules API. We do not recommend using it in a production environment. For detailed information, see
+         * [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v25.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
+         * @experimental
+         */
+        importModuleDynamically?: DynamicModuleLoader<SourceTextModule> | undefined;
+    }
+    /**
+     * A `ModuleRequest` represents the request to import a module with given import attributes and phase.
+     * @since 24.4.0
+     */
+    interface ModuleRequest {
+        /**
+         * The specifier of the requested module.
+         */
+        specifier: string;
+        /**
+         * The `"with"` value passed to the `WithClause` in a `ImportDeclaration`, or an empty object if no value was
+         * provided.
+         */
+        attributes: ImportAttributes;
+        /**
+         * The phase of the requested module (`"source"` or `"evaluation"`).
+         */
+        phase: ImportPhase;
     }
     /**
      * This feature is only available with the `--experimental-vm-modules` command
      * flag enabled.
-     *
-     *
      *
      * The `vm.SourceTextModule` class provides the [Source Text Module Record](https://tc39.es/ecma262/#sec-source-text-module-records) as
      * defined in the ECMAScript specification.
@@ -818,9 +872,163 @@ declare module 'vm' {
     class SourceTextModule extends Module {
         /**
          * Creates a new `SourceTextModule` instance.
+         *
+         * Properties assigned to the `import.meta` object that are objects may
+         * allow the module to access information outside the specified `context`. Use
+         * `vm.runInContext()` to create objects in a specific context.
+         *
+         * ```js
+         * import vm from 'node:vm';
+         *
+         * const contextifiedObject = vm.createContext({ secret: 42 });
+         *
+         * const module = new vm.SourceTextModule(
+         *   'Object.getPrototypeOf(import.meta.prop).secret = secret;',
+         *   {
+         *     initializeImportMeta(meta) {
+         *       // Note: this object is created in the top context. As such,
+         *       // Object.getPrototypeOf(import.meta.prop) points to the
+         *       // Object.prototype in the top context rather than that in
+         *       // the contextified object.
+         *       meta.prop = {};
+         *     },
+         *   });
+         * // The module has an empty `moduleRequests` array.
+         * module.linkRequests([]);
+         * module.instantiate();
+         * await module.evaluate();
+         *
+         * // Now, Object.prototype.secret will be equal to 42.
+         * //
+         * // To fix this problem, replace
+         * //     meta.prop = {};
+         * // above with
+         * //     meta.prop = vm.runInContext('{}', contextifiedObject);
+         * ```
          * @param code JavaScript Module code to parse
          */
         constructor(code: string, options?: SourceTextModuleOptions);
+        /**
+         * @deprecated Use `sourceTextModule.moduleRequests` instead.
+         */
+        readonly dependencySpecifiers: readonly string[];
+        /**
+         * Iterates over the dependency graph and returns `true` if any module in its
+         * dependencies or this module itself contains top-level `await` expressions,
+         * otherwise returns `false`.
+         *
+         * The search may be slow if the graph is big enough.
+         *
+         * This requires the module to be instantiated first. If the module is not
+         * instantiated yet, an error will be thrown.
+         * @since v24.9.0
+         */
+        hasAsyncGraph(): boolean;
+        /**
+         * Returns whether the module itself contains any top-level `await` expressions.
+         *
+         * This corresponds to the field `[[HasTLA]]` in [Cyclic Module Record](https://tc39.es/ecma262/#sec-cyclic-module-records) in the
+         * ECMAScript specification.
+         * @since v24.9.0
+         */
+        hasTopLevelAwait(): boolean;
+        /**
+         * Instantiate the module with the linked requested modules.
+         *
+         * This resolves the imported bindings of the module, including re-exported
+         * binding names. When there are any bindings that cannot be resolved,
+         * an error would be thrown synchronously.
+         *
+         * If the requested modules include cyclic dependencies, the
+         * `sourceTextModule.linkRequests(modules)` method must be called on all
+         * modules in the cycle before calling this method.
+         * @since v24.8.0
+         */
+        instantiate(): void;
+        /**
+         * Link module dependencies. This method must be called before evaluation, and
+         * can only be called once per module.
+         *
+         * The order of the module instances in the `modules` array should correspond to the order of
+         * `sourceTextModule.moduleRequests` being resolved. If two module requests have the same
+         * specifier and import attributes, they must be resolved with the same module instance or an
+         * `ERR_MODULE_LINK_MISMATCH` would be thrown. For example, when linking requests for this
+         * module:
+         *
+         * ```js
+         * import foo from 'foo';
+         * import source Foo from 'foo';
+         * ```
+         *
+         * The `modules` array must contain two references to the same instance, because the two
+         * module requests are identical but in two phases.
+         *
+         * If the module has no dependencies, the `modules` array can be empty.
+         *
+         * Users can use `sourceTextModule.moduleRequests` to implement the host-defined
+         * [HostLoadImportedModule](https://tc39.es/ecma262/#sec-HostLoadImportedModule) abstract operation in the ECMAScript specification,
+         * and using `sourceTextModule.linkRequests()` to invoke specification defined
+         * [FinishLoadingImportedModule](https://tc39.es/ecma262/#sec-FinishLoadingImportedModule), on the module with all dependencies in a batch.
+         *
+         * It's up to the creator of the `SourceTextModule` to determine if the resolution
+         * of the dependencies is synchronous or asynchronous.
+         *
+         * After each module in the `modules` array is linked, call
+         * `sourceTextModule.instantiate()`.
+         * @since v24.8.0
+         * @param modules Array of `vm.Module` objects that this module depends on.
+         * The order of the modules in the array is the order of
+         * `sourceTextModule.moduleRequests`.
+         */
+        linkRequests(modules: readonly Module[]): void;
+        /**
+         * The requested import dependencies of this module. The returned array is frozen
+         * to disallow any changes to it.
+         *
+         * For example, given a source text:
+         *
+         * ```js
+         * import foo from 'foo';
+         * import fooAlias from 'foo';
+         * import bar from './bar.js';
+         * import withAttrs from '../with-attrs.ts' with { arbitraryAttr: 'attr-val' };
+         * import source Module from 'wasm-mod.wasm';
+         * ```
+         *
+         * The value of the `sourceTextModule.moduleRequests` will be:
+         *
+         * ```js
+         * [
+         *   {
+         *     specifier: 'foo',
+         *     attributes: {},
+         *     phase: 'evaluation',
+         *   },
+         *   {
+         *     specifier: 'foo',
+         *     attributes: {},
+         *     phase: 'evaluation',
+         *   },
+         *   {
+         *     specifier: './bar.js',
+         *     attributes: {},
+         *     phase: 'evaluation',
+         *   },
+         *   {
+         *     specifier: '../with-attrs.ts',
+         *     attributes: { arbitraryAttr: 'attr-val' },
+         *     phase: 'evaluation',
+         *   },
+         *   {
+         *     specifier: 'wasm-mod.wasm',
+         *     attributes: {},
+         *     phase: 'source',
+         *   },
+         * ];
+         * ```
+         * @since v24.4.0
+         */
+        readonly moduleRequests: readonly ModuleRequest[];
     }
     interface SyntheticModuleOptions {
         /**
@@ -837,23 +1045,27 @@ declare module 'vm' {
      * This feature is only available with the `--experimental-vm-modules` command
      * flag enabled.
      *
-     *
-     *
      * The `vm.SyntheticModule` class provides the [Synthetic Module Record](https://heycam.github.io/webidl/#synthetic-module-records) as
      * defined in the WebIDL specification. The purpose of synthetic modules is to
      * provide a generic interface for exposing non-JavaScript sources to ECMAScript
      * module graphs.
      *
      * ```js
-     * const vm = require('node:vm');
+     * import { SyntheticModule } from 'node:vm';
      *
      * const source = '{ "a": 1 }';
-     * const module = new vm.SyntheticModule(['default'], function() {
+     * const syntheticModule = new SyntheticModule(['default'], function() {
      *   const obj = JSON.parse(source);
      *   this.setExport('default', obj);
      * });
      *
-     * // Use `module` in linking...
+     * // Use `syntheticModule` in linking
+     * (async () => {
+     *   await syntheticModule.link(() => {});
+     *   await syntheticModule.evaluate();
+     *
+     *   console.log('Default export:', syntheticModule.namespace.default);
+     * })();
      * ```
      * @since v13.0.0, v12.16.0
      * @experimental
@@ -864,11 +1076,13 @@ declare module 'vm' {
          * @param exportNames Array of names that will be exported from the module.
          * @param evaluateCallback Called when the module is evaluated.
          */
-        constructor(exportNames: string[], evaluateCallback: (this: SyntheticModule) => void, options?: SyntheticModuleOptions);
+        constructor(
+            exportNames: string[],
+            evaluateCallback: (this: SyntheticModule) => void,
+            options?: SyntheticModuleOptions,
+        );
         /**
-         * This method is used after the module is linked to set the values of exports. If
-         * it is called before the module is linked, an `ERR_VM_MODULE_STATUS` error
-         * will be thrown.
+         * This method sets the module export binding slots with the given value.
          *
          * ```js
          * import vm from 'node:vm';
@@ -877,7 +1091,6 @@ declare module 'vm' {
          *   m.setExport('x', 1);
          * });
          *
-         * await m.link(() => {});
          * await m.evaluate();
          *
          * assert.strictEqual(m.namespace.x, 1);
@@ -888,7 +1101,35 @@ declare module 'vm' {
          */
         setExport(name: string, value: any): void;
     }
+    /**
+     * Returns an object containing commonly used constants for VM operations.
+     * @since v21.7.0, v20.12.0
+     */
+    namespace constants {
+        /**
+         * A constant that can be used as the `importModuleDynamically` option to `vm.Script`
+         * and `vm.compileFunction()` so that Node.js uses the default ESM loader from the main
+         * context to load the requested module.
+         *
+         * For detailed information, see [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v25.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
+         * @since v21.7.0, v20.12.0
+         */
+        const USE_MAIN_CONTEXT_DEFAULT_LOADER: number;
+        /**
+         * This constant, when used as the `contextObject` argument in vm APIs, instructs Node.js to create
+         * a context without wrapping its global object with another object in a Node.js-specific manner.
+         * As a result, the `globalThis` value inside the new context would behave more closely to an ordinary
+         * one.
+         *
+         * When `vm.constants.DONT_CONTEXTIFY` is used as the `contextObject` argument to {@link createContext},
+         * the returned object is a proxy-like object to the global object in the newly created context with
+         * fewer Node.js-specific quirks. It is reference equal to the `globalThis` value in the new context,
+         * can be modified from outside the context, and can be used to access built-ins in the new context directly.
+         * @since v22.8.0
+         */
+        const DONT_CONTEXTIFY: number;
+    }
 }
-declare module 'node:vm' {
-    export * from 'vm';
+declare module "vm" {
+    export * from "node:vm";
 }

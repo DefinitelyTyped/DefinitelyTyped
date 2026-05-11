@@ -1,6 +1,5 @@
-import SNSValidator = require('sns-validator');
+import SNSValidator = require("sns-validator");
 
-/* tslint:disable:max-line-length */
 const message = `{
     "Type" : "SubscriptionConfirmation",
     "MessageId" : "165545c9-2a5c-472c-8df2-7ff2be2b3b1b",
@@ -13,7 +12,6 @@ const message = `{
     "Signature" : "EXAMPLEpH+DcEwjAPg8O9mY8dReBSwksfg2S7WKQcikcNKWLQjwu6A4VbeS0QHVCkhRS7fUQvi2egU3N858fiTDN6bkkOxYDVrY0Ad8L10Hs3zH81mtnPk5uvvolIC1CXGu43obcgFxeL3khZl8IKvO61GWB6jI9b5+gLPoBc1Q=",
     "SigningCertURL" : "https://sns.us-west-2.amazonaws.com/SimpleNotificationService-f3ecfb7224c7233fe7bb5f59f96de52f.pem"
     }`;
-/* tslint:enable:max-line-length */
 const messageObject = JSON.parse(message);
 
 // Test with a string
@@ -29,13 +27,13 @@ new SNSValidator().validate(messageObject, (err, message) => {
 });
 
 // Test with an invalid string
-new SNSValidator().validate('invalid_message', (err, message) => {
+new SNSValidator().validate("invalid_message", (err, message) => {
     const e = err; // $ExpectType Error | null
     const m = message; // $ExpectType Record<string, unknown> | undefined
 });
 
 // Test with an invalid JSON
-new SNSValidator().validate({ ...messageObject, Signature: 'invalid_signature' }, (err, message) => {
+new SNSValidator().validate({ ...messageObject, Signature: "invalid_signature" }, (err, message) => {
     const e = err; // $ExpectType Error | null
     const m = message; // $ExpectType Record<string, unknown> | undefined
 });

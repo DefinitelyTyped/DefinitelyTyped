@@ -1,5 +1,5 @@
-import { assertType } from './lib/assert';
-import CoreObject from '@ember/object/core';
+import CoreObject from "@ember/object/core";
+import { assertType } from "./lib/assert";
 
 /** Newable tests */
 const co1 = new CoreObject();
@@ -21,14 +21,14 @@ co2.destroy(); // $ExpectType CoreObject
 co2.toString(); // $ExpectType string
 
 /** .create tests w/ initial instance data passed in */
-const co3 = CoreObject.create({ foo: '123', bar: 456 });
+const co3 = CoreObject.create({ foo: "123", bar: 456 });
 
 co3.foo; // $ExpectType string
 co3.bar; // $ExpectType number
 
 /** .extend with a zero-argument .create()  */
 const co4 = CoreObject.extend({
-    foo: '123',
+    foo: "123",
     bar: 456,
     baz(): [string, number] {
         return [this.foo, this.bar];
@@ -41,7 +41,7 @@ co4.baz; // $ExpectType () => [string, number]
 
 /** .extend with inconsistent arguments passed into .create()  */
 const class05 = CoreObject.extend({
-    foo: '123' as string | boolean,
+    foo: "123" as string | boolean,
     bar: 456,
     baz() {
         return [this.foo, this.bar];
@@ -50,7 +50,7 @@ const class05 = CoreObject.extend({
 // @ts-expect-error
 const c05 = class05.create({ foo: 99 });
 const c05b = class05.create({ foo: true });
-const c05c = class05.create({ foo: 'abc' });
+const c05c = class05.create({ foo: "abc" });
 // @ts-expect-error
 assertType<string>(c05b.foo);
 // @ts-expect-error
@@ -59,7 +59,7 @@ assertType<boolean>(c05c.foo);
 /** two .extend arguments with a zero-argument .create() */
 const co6 = CoreObject.extend(
     {
-        foo: '123',
+        foo: "123",
         bar: 456,
         baz() {
             return [this.foo, this.bar];
@@ -76,7 +76,7 @@ const co6 = CoreObject.extend(
     },
     {
         foo: 99,
-        bee: 'honey',
+        bee: "honey",
         func2() {
             // this includes stuff from CoreObject
             this.init; // $ExpectType () => void
@@ -97,7 +97,7 @@ assertType<() => Array<string | number>>(co6.baz); // $ExpectType () => (string 
 /** three .extend arguments with a zero-argument .create() */
 const co7 = CoreObject.extend(
     {
-        foo: '123',
+        foo: "123",
         bar: 456,
         baz() {
             return [this.foo, this.bar];
@@ -114,7 +114,7 @@ const co7 = CoreObject.extend(
     },
     {
         foo: 99,
-        bee: 'honey',
+        bee: "honey",
         func2() {
             // this includes stuff from CoreObject
             this.init; // $ExpectType () => void
@@ -126,8 +126,8 @@ const co7 = CoreObject.extend(
         },
     },
     {
-        foo: '99',
-        money: 'in the banana stand',
+        foo: "99",
+        money: "in the banana stand",
         func3() {
             // this includes stuff from CoreObject
             this.init; // $ExpectType () => void
@@ -148,7 +148,7 @@ assertType<() => Array<string | number>>(co7.baz); // $ExpectType () => (string 
 /** four .extend arguments with a zero-argument .create() */
 const co8 = CoreObject.extend(
     {
-        foo: '123',
+        foo: "123",
         bar: 456,
         baz() {
             return [this.foo, this.bar];
@@ -165,7 +165,7 @@ const co8 = CoreObject.extend(
     },
     {
         foo: 99,
-        bee: 'honey',
+        bee: "honey",
         func2() {
             // this includes stuff from CoreObject
             this.init; // $ExpectType () => void
@@ -180,8 +180,8 @@ const co8 = CoreObject.extend(
         },
     },
     {
-        foo: '99',
-        money: 'in the banana stand',
+        foo: "99",
+        money: "in the banana stand",
         func3() {
             // this includes stuff from CoreObject
             this.init; // $ExpectType () => void
@@ -196,8 +196,8 @@ const co8 = CoreObject.extend(
         },
     },
     {
-        foo: '99',
-        neighborhood: 'sudden valley',
+        foo: "99",
+        neighborhood: "sudden valley",
         func4() {
             // this includes stuff from CoreObject
             this.init; // $ExpectType () => void

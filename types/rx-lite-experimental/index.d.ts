@@ -1,8 +1,3 @@
-// Type definitions for rx-lite-experimental 4.0
-// Project: https://github.com/Reactive-Extensions/RxJS
-// Definitions by: Igor Oleinikov <https://github.com/Igorbek>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="rx-lite"/>
 
 declare namespace Rx {
@@ -48,8 +43,14 @@ declare namespace Rx {
          * @param resultSelector Result selector function to invoke with the last elements of both sequences.
          * @returns An observable sequence with the result of calling the selector function with the last elements of both input sequences.
          */
-        forkJoin<TSecond, TResult>(second: Observable<TSecond>, resultSelector: (left: T, right: TSecond) => TResult): Observable<TResult>;
-        forkJoin<TSecond, TResult>(second: IPromise<TSecond>, resultSelector: (left: T, right: TSecond) => TResult): Observable<TResult>;
+        forkJoin<TSecond, TResult>(
+            second: Observable<TSecond>,
+            resultSelector: (left: T, right: TSecond) => TResult,
+        ): Observable<TResult>;
+        forkJoin<TSecond, TResult>(
+            second: IPromise<TSecond>,
+            resultSelector: (left: T, right: TSecond) => TResult,
+        ): Observable<TResult>;
 
         /**
          * Comonadic bind operator.
@@ -57,7 +58,10 @@ declare namespace Rx {
          * @param [scheduler] Scheduler used to execute the operation. If not specified, defaults to the ImmediateScheduler.
          * @returns An observable sequence which results from the comonadic bind operation.
          */
-        manySelect<TResult>(selector: (item: Observable<T>, index: number, source: Observable<T>) => TResult, scheduler?: IScheduler): Observable<TResult>;
+        manySelect<TResult>(
+            selector: (item: Observable<T>, index: number, source: Observable<T>) => TResult,
+            scheduler?: IScheduler,
+        ): Observable<TResult>;
     }
 
     interface ObservableStatic {
@@ -167,10 +171,26 @@ declare namespace Rx {
          *
          * @returns An observable sequence which is determined by a case statement.
          */
-        case<T>(selector: () => string, sources: { [key: string]: Observable<T>; }, elseSource: Observable<T>): Observable<T>;
-        case<T>(selector: () => string, sources: { [key: string]: IPromise<T>; }, elseSource: Observable<T>): Observable<T>;
-        case<T>(selector: () => string, sources: { [key: string]: Observable<T>; }, elseSource: IPromise<T>): Observable<T>;
-        case<T>(selector: () => string, sources: { [key: string]: IPromise<T>; }, elseSource: IPromise<T>): Observable<T>;
+        case<T>(
+            selector: () => string,
+            sources: { [key: string]: Observable<T> },
+            elseSource: Observable<T>,
+        ): Observable<T>;
+        case<T>(
+            selector: () => string,
+            sources: { [key: string]: IPromise<T> },
+            elseSource: Observable<T>,
+        ): Observable<T>;
+        case<T>(
+            selector: () => string,
+            sources: { [key: string]: Observable<T> },
+            elseSource: IPromise<T>,
+        ): Observable<T>;
+        case<T>(
+            selector: () => string,
+            sources: { [key: string]: IPromise<T> },
+            elseSource: IPromise<T>,
+        ): Observable<T>;
 
         /**
          *  Uses selector to determine which source in sources to use.
@@ -186,8 +206,12 @@ declare namespace Rx {
          *
          * @returns An observable sequence which is determined by a case statement.
          */
-        case<T>(selector: () => string, sources: { [key: string]: Observable<T>; }, scheduler?: IScheduler): Observable<T>;
-        case<T>(selector: () => string, sources: { [key: string]: IPromise<T>; }, scheduler?: IScheduler): Observable<T>;
+        case<T>(
+            selector: () => string,
+            sources: { [key: string]: Observable<T> },
+            scheduler?: IScheduler,
+        ): Observable<T>;
+        case<T>(selector: () => string, sources: { [key: string]: IPromise<T> }, scheduler?: IScheduler): Observable<T>;
 
         /**
          *  Uses selector to determine which source in sources to use.
@@ -201,10 +225,26 @@ declare namespace Rx {
          *
          * @returns An observable sequence which is determined by a case statement.
          */
-        case<T>(selector: () => number, sources: { [key: number]: Observable<T>; }, elseSource: Observable<T>): Observable<T>;
-        case<T>(selector: () => number, sources: { [key: number]: IPromise<T>; }, elseSource: Observable<T>): Observable<T>;
-        case<T>(selector: () => number, sources: { [key: number]: Observable<T>; }, elseSource: IPromise<T>): Observable<T>;
-        case<T>(selector: () => number, sources: { [key: number]: IPromise<T>; }, elseSource: IPromise<T>): Observable<T>;
+        case<T>(
+            selector: () => number,
+            sources: { [key: number]: Observable<T> },
+            elseSource: Observable<T>,
+        ): Observable<T>;
+        case<T>(
+            selector: () => number,
+            sources: { [key: number]: IPromise<T> },
+            elseSource: Observable<T>,
+        ): Observable<T>;
+        case<T>(
+            selector: () => number,
+            sources: { [key: number]: Observable<T> },
+            elseSource: IPromise<T>,
+        ): Observable<T>;
+        case<T>(
+            selector: () => number,
+            sources: { [key: number]: IPromise<T> },
+            elseSource: IPromise<T>,
+        ): Observable<T>;
 
         /**
          *  Uses selector to determine which source in sources to use.
@@ -220,8 +260,12 @@ declare namespace Rx {
          *
          * @returns An observable sequence which is determined by a case statement.
          */
-        case<T>(selector: () => number, sources: { [key: number]: Observable<T>; }, scheduler?: IScheduler): Observable<T>;
-        case<T>(selector: () => number, sources: { [key: number]: IPromise<T>; }, scheduler?: IScheduler): Observable<T>;
+        case<T>(
+            selector: () => number,
+            sources: { [key: number]: Observable<T> },
+            scheduler?: IScheduler,
+        ): Observable<T>;
+        case<T>(selector: () => number, sources: { [key: number]: IPromise<T> }, scheduler?: IScheduler): Observable<T>;
 
         /**
          *  Uses selector to determine which source in sources to use.
@@ -235,10 +279,26 @@ declare namespace Rx {
          *
          * @returns An observable sequence which is determined by a case statement.
          */
-        switchCase<T>(selector: () => string, sources: { [key: string]: Observable<T>; }, elseSource: Observable<T>): Observable<T>;
-        switchCase<T>(selector: () => string, sources: { [key: string]: IPromise<T>; }, elseSource: Observable<T>): Observable<T>;
-        switchCase<T>(selector: () => string, sources: { [key: string]: Observable<T>; }, elseSource: IPromise<T>): Observable<T>;
-        switchCase<T>(selector: () => string, sources: { [key: string]: IPromise<T>; }, elseSource: IPromise<T>): Observable<T>;
+        switchCase<T>(
+            selector: () => string,
+            sources: { [key: string]: Observable<T> },
+            elseSource: Observable<T>,
+        ): Observable<T>;
+        switchCase<T>(
+            selector: () => string,
+            sources: { [key: string]: IPromise<T> },
+            elseSource: Observable<T>,
+        ): Observable<T>;
+        switchCase<T>(
+            selector: () => string,
+            sources: { [key: string]: Observable<T> },
+            elseSource: IPromise<T>,
+        ): Observable<T>;
+        switchCase<T>(
+            selector: () => string,
+            sources: { [key: string]: IPromise<T> },
+            elseSource: IPromise<T>,
+        ): Observable<T>;
 
         /**
          *  Uses selector to determine which source in sources to use.
@@ -254,8 +314,16 @@ declare namespace Rx {
          *
          * @returns An observable sequence which is determined by a case statement.
          */
-        switchCase<T>(selector: () => string, sources: { [key: string]: Observable<T>; }, scheduler?: IScheduler): Observable<T>;
-        switchCase<T>(selector: () => string, sources: { [key: string]: IPromise<T>; }, scheduler?: IScheduler): Observable<T>;
+        switchCase<T>(
+            selector: () => string,
+            sources: { [key: string]: Observable<T> },
+            scheduler?: IScheduler,
+        ): Observable<T>;
+        switchCase<T>(
+            selector: () => string,
+            sources: { [key: string]: IPromise<T> },
+            scheduler?: IScheduler,
+        ): Observable<T>;
 
         /**
          *  Uses selector to determine which source in sources to use.
@@ -269,10 +337,26 @@ declare namespace Rx {
          *
          * @returns An observable sequence which is determined by a case statement.
          */
-        switchCase<T>(selector: () => number, sources: { [key: number]: Observable<T>; }, elseSource: Observable<T>): Observable<T>;
-        switchCase<T>(selector: () => number, sources: { [key: number]: IPromise<T>; }, elseSource: Observable<T>): Observable<T>;
-        switchCase<T>(selector: () => number, sources: { [key: number]: Observable<T>; }, elseSource: IPromise<T>): Observable<T>;
-        switchCase<T>(selector: () => number, sources: { [key: number]: IPromise<T>; }, elseSource: IPromise<T>): Observable<T>;
+        switchCase<T>(
+            selector: () => number,
+            sources: { [key: number]: Observable<T> },
+            elseSource: Observable<T>,
+        ): Observable<T>;
+        switchCase<T>(
+            selector: () => number,
+            sources: { [key: number]: IPromise<T> },
+            elseSource: Observable<T>,
+        ): Observable<T>;
+        switchCase<T>(
+            selector: () => number,
+            sources: { [key: number]: Observable<T> },
+            elseSource: IPromise<T>,
+        ): Observable<T>;
+        switchCase<T>(
+            selector: () => number,
+            sources: { [key: number]: IPromise<T> },
+            elseSource: IPromise<T>,
+        ): Observable<T>;
 
         /**
          *  Uses selector to determine which source in sources to use.
@@ -288,8 +372,16 @@ declare namespace Rx {
          *
          * @returns An observable sequence which is determined by a case statement.
          */
-        switchCase<T>(selector: () => number, sources: { [key: number]: Observable<T>; }, scheduler?: IScheduler): Observable<T>;
-        switchCase<T>(selector: () => number, sources: { [key: number]: IPromise<T>; }, scheduler?: IScheduler): Observable<T>;
+        switchCase<T>(
+            selector: () => number,
+            sources: { [key: number]: Observable<T> },
+            scheduler?: IScheduler,
+        ): Observable<T>;
+        switchCase<T>(
+            selector: () => number,
+            sources: { [key: number]: IPromise<T> },
+            scheduler?: IScheduler,
+        ): Observable<T>;
 
         /**
          *  Runs all observable sequences in parallel and collect their last elements.

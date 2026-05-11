@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/color",
+    "version": "0.12.9999",
+    "projects": [
+        "https://github.com/qix-/color"
+    ],
+    "devDependencies": {
+        "@types/color": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Karol Janyst",
+            "githubUsername": "LKay"
+        }
+    ]
+}

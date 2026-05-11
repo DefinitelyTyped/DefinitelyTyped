@@ -1,3 +1,3 @@
-import Element from '../src/Element';
+import Element from "../src/Element";
 
 export = Element;

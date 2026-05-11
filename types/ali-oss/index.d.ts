@@ -1,9 +1,3 @@
-// Type definitions for ali-oss 6.16
-// Project: https://github.com/aliyun/oss-nodejs-sdk
-// Definitions by: Ptrdu <https://github.com/ptrdu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.3
-
 export = OSS;
 
 // basic OSS
@@ -32,7 +26,9 @@ declare namespace OSS {
         /** use time (ms) of refresh STSToken interval it should be less than sts info expire interval, default is 300000ms(5min) when sts info expires. */
         refreshSTSTokenInterval?: number;
         /** used by auto set stsToken、accessKeyId、accessKeySecret when sts info expires. return value must be object contains stsToken、accessKeyId、accessKeySecret */
-        refreshSTSToken?: () => Promise<{ accessKeyId: string, accessKeySecret: string, stsToken: string }>;
+        refreshSTSToken?: () => Promise<{ accessKeyId: string; accessKeySecret: string; stsToken: string }>;
+        /** Use V4 signature. Default is false. */
+        authorizationV4?: boolean | undefined;
     }
 
     /**
@@ -100,20 +96,20 @@ declare namespace OSS {
         StorageClass: StorageType;
     }
 
-    type StorageType = 'Standard' | 'IA' | 'Archive';
+    type StorageType = "Standard" | "IA" | "Archive";
 
-    type ACLType = 'public-read-write' | 'public-read' | 'private';
+    type ACLType = "public-read-write" | "public-read" | "private";
 
-    type HTTPMethods = 'GET' | 'POST' | 'DELETE' | 'PUT';
+    type HTTPMethods = "GET" | "POST" | "DELETE" | "PUT";
 
-    type RedundancyType = 'LRS' | 'ZRS';
+    type RedundancyType = "LRS" | "ZRS";
 
     interface RequestOptions {
         // the operation timeout
         timeout?: number | undefined;
     }
 
-    type RuleStatusType = 'Enabled' | 'Disabled';
+    type RuleStatusType = "Enabled" | "Disabled";
 
     interface LifecycleRule {
         /** rule id, if not set, OSS will auto create it with random string. */
@@ -167,7 +163,7 @@ declare namespace OSS {
         Version: string;
         Statement: Array<{
             Action: string[];
-            Effect: 'Allow' | 'Deny';
+            Effect: "Allow" | "Deny";
             Principal: string[];
             Resource: string[];
         }>;
@@ -263,7 +259,7 @@ declare namespace OSS {
         /** search start from marker, including marker key */
         marker?: string | undefined;
         /** max buckets, default is 100, limit to 1000 */
-        'max-keys'?: string | number | undefined;
+        "max-keys"?: string | number | undefined;
     }
 
     interface PutBucketOptions {
@@ -288,29 +284,29 @@ declare namespace OSS {
         /** only search current dir, not including subdir */
         delimiter?: string | undefined; // delimiter search scope e.g.
         /** max objects, default is 100, limit to 1000 */
-        'max-keys': string | number;
+        "max-keys": string | number;
         /** Specifies that the object names in the response are URL-encoded. */
-        'encoding-type'?: 'url' | '';
+        "encoding-type"?: "url" | "";
     }
 
     interface ListV2ObjectsQuery {
         /** search object using prefix key */
         prefix?: string;
         /** search start from token, including token key */
-        'continuation-token'?: string;
+        "continuation-token"?: string;
         /** only search current dir, not including subdir */
         delimiter?: string | number;
         /** max objects, default is 100, limit to 1000  */
-        'max-keys'?: string;
+        "max-keys"?: string | number;
         /**
          * The name of the object from which the list operation begins.
          * If this parameter is specified, objects whose names are alphabetically greater than the start-after parameter value are returned.
          */
-        'start-after'?: string;
+        "start-after"?: string;
         /** Specifies whether to include the information about object owners in the response. */
-        'fetch-owner'?: boolean;
+        "fetch-owner"?: boolean;
         /** Specifies that the object names in the response are URL-encoded. */
-        'encoding-type'?: 'url' | '';
+        "encoding-type"?: "url" | "";
     }
 
     interface ListObjectResult {
@@ -318,6 +314,15 @@ declare namespace OSS {
         prefixes: string[];
         isTruncated: boolean;
         nextMarker: string;
+        res: NormalSuccessResponse;
+    }
+
+    interface ListV2ObjectResult {
+        objects: ObjectMeta[];
+        prefixes: string[];
+        isTruncated: boolean;
+        nextContinuationToken: string;
+        keyCount: number;
         res: NormalSuccessResponse;
     }
 
@@ -437,9 +442,9 @@ declare namespace OSS {
     }
 
     interface ResponseHeaderType {
-        'content-type'?: string | undefined;
-        'content-disposition'?: string | undefined;
-        'cache-control'?: string | undefined;
+        "content-type"?: string | undefined;
+        "content-disposition"?: string | undefined;
+        "cache-control"?: string | undefined;
     }
 
     interface SignatureUrlOptions {
@@ -448,7 +453,7 @@ declare namespace OSS {
         /** the HTTP method, default is 'GET' */
         method?: HTTPMethods | undefined;
         /** set the request content type */
-        'Content-Type'?: string | undefined;
+        "Content-Type"?: string | undefined;
         /**  image process params, will send with x-oss-process e.g.: {process: 'image/resize,w_200'} */
         process?: string | undefined;
         /** traffic limit, range: 819200~838860800 */
@@ -550,11 +555,11 @@ declare namespace OSS {
 
     interface ListPartsQuery {
         /** The maximum part number in the response of the OSS. default value: 1000. */
-        'max-parts': number;
+        "max-parts": number;
         /** Starting position of a specific list. A part is listed only when the part number is greater than the value of this parameter. */
-        'part-number-marker': number;
+        "part-number-marker": number;
         /** Specify the encoding of the returned content and the encoding type. Optional value: url */
-        'encoding-type': string;
+        "encoding-type": string;
     }
 
     interface ListPartsResult {
@@ -571,9 +576,9 @@ declare namespace OSS {
 
     interface ListUploadsQuery {
         prefix?: string | undefined;
-        'max-uploads'?: number | undefined;
-        'key-marker'?: string | undefined;
-        'upload-id-marker'?: string | undefined;
+        "max-uploads"?: number | undefined;
+        "key-marker"?: string | undefined;
+        "upload-id-marker"?: string | undefined;
     }
 
     interface ListUploadsResult {
@@ -583,6 +588,15 @@ declare namespace OSS {
         nextUploadIdMarker: any;
         isTruncated: boolean;
         uploads: Upload[];
+    }
+
+    interface PutSymlinkOptions {
+        /** the storage type include (Standard,IA,Archive) */
+        storageClass?: string | undefined;
+        /** user meta, will send with x-oss-meta- prefix string */
+        meta?: UserMeta | undefined;
+        /** extra headers */
+        headers?: object | undefined;
     }
 
     interface PutChannelConf {
@@ -617,7 +631,7 @@ declare namespace OSS {
         /** the channel id marker (returns channels after this id) */
         marker: string;
         /** max number of channels to return */
-        'max-keys ': number;
+        "max-keys ": number;
     }
 
     interface ListChannelsResult {
@@ -675,7 +689,7 @@ declare namespace OSS {
         /**
          * @since 6.12.0
          */
-        listV2(query: ListV2ObjectsQuery | null, options?: RequestOptions): Promise<ListObjectResult>;
+        listV2(query: ListV2ObjectsQuery | null, options?: RequestOptions): Promise<ListV2ObjectResult>;
 
         put(name: string, file: any, options?: PutObjectOptions): Promise<PutObjectResult>;
 
@@ -699,9 +713,24 @@ declare namespace OSS {
 
         deleteMulti(names: string[], options?: DeleteMultiOptions): Promise<DeleteMultiResult>;
 
-        signatureUrl(name: string, options?: SignatureUrlOptions): string;
+        signatureUrl(name: string, options?: SignatureUrlOptions, strictObjectNameValidation?: boolean): string;
 
-        asyncSignatureUrl(name: string, options?: SignatureUrlOptions): Promise<string>;
+        signatureUrlV4(
+            method: HTTPMethods,
+            expires: number,
+            request: {
+                headers?: object | undefined;
+                queries?: object | undefined;
+            } | undefined,
+            objectName: string,
+            additionalHeaders?: string[],
+        ): Promise<string>;
+
+        asyncSignatureUrl(
+            name: string,
+            options?: SignatureUrlOptions,
+            strictObjectNameValidation?: boolean,
+        ): Promise<string>;
 
         putACL(name: string, acl: ACLType, options?: RequestOptions): Promise<NormalSuccessResponse>;
 
@@ -966,10 +995,10 @@ declare class OSS {
     putBucketPolicy(
         name: string,
         policy: OSS.BucketPolicy,
-        options?: OSS.RequestOptions
+        options?: OSS.RequestOptions,
     ): Promise<{
-        status: number,
-        res: OSS.NormalSuccessResponse,
+        status: number;
+        res: OSS.NormalSuccessResponse;
     }>;
 
     /**
@@ -982,10 +1011,10 @@ declare class OSS {
      */
     deleteBucketPolicy(
         name: string,
-        options?: OSS.RequestOptions
+        options?: OSS.RequestOptions,
     ): Promise<{
-        status: number,
-        res: OSS.NormalSuccessResponse,
+        status: number;
+        res: OSS.NormalSuccessResponse;
     }>;
 
     /********************************************************** Object operations ********************************************/
@@ -997,7 +1026,7 @@ declare class OSS {
     /**
      * List Objects in the bucket.(V2)
      */
-    listV2(query: OSS.ListV2ObjectsQuery | null, options: OSS.RequestOptions): Promise<OSS.ListObjectResult>;
+    listV2(query: OSS.ListV2ObjectsQuery | null, options?: OSS.RequestOptions): Promise<OSS.ListV2ObjectResult>;
 
     /**
      * Add an object to the bucket.
@@ -1052,7 +1081,12 @@ declare class OSS {
      * Copy an object from sourceName to name.
      */
     copy(name: string, sourceName: string, options?: OSS.CopyObjectOptions): Promise<OSS.CopyAndPutMetaResult>;
-    copy(name: string, sourceName: string, sourceBucket?: string, options?: OSS.CopyObjectOptions): Promise<OSS.CopyAndPutMetaResult>;
+    copy(
+        name: string,
+        sourceName: string,
+        sourceBucket?: string,
+        options?: OSS.CopyObjectOptions,
+    ): Promise<OSS.CopyAndPutMetaResult>;
 
     /**
      * Set an exists object meta.
@@ -1068,6 +1102,20 @@ declare class OSS {
      * Create a signature url for download or upload object. When you put object with signatureUrl ,you need to pass Content-Type.Please look at the example.
      */
     signatureUrl(name: string, options?: OSS.SignatureUrlOptions): string;
+
+    /**
+     * Generate a signed URL for V4 of an OSS resource and share the URL to allow authorized third-party users to access the resource.
+     */
+    signatureUrlV4(
+        method: OSS.HTTPMethods,
+        expires: number,
+        request: {
+            headers?: object | undefined;
+            queries?: object | undefined;
+        } | undefined,
+        objectName: string,
+        additionalHeaders?: string[],
+    ): Promise<string>;
 
     /**
      * Basically the same as signatureUrl, if refreshSTSToken is configured asyncSignatureUrl will refresh stsToken
@@ -1171,14 +1219,42 @@ declare class OSS {
     ): Promise<OSS.NormalSuccessResponse>;
 
     /**
+     * Cancel the current multipart upload operation.
+     * If abort is provided, it will also call abortMultipartUpload.
+     */
+    cancel(abort?: { name: string; uploadId: string; options?: OSS.RequestOptions }): void;
+
+    /**
+     * Check if the upload has been cancelled.
+     */
+    isCancel(): boolean;
+
+    /**
      * get postObject params.
      */
     calculatePostSignature(
         /**
          * policy config object or JSON string
          */
-        policy: object | string
+        policy: object | string,
     ): OSS.PostObjectParams;
+
+    /**
+     * put symlink
+     */
+    putSymlink(
+        name: string,
+        targetName: string,
+        options?: OSS.PutSymlinkOptions,
+    ): Promise<{ res: OSS.NormalSuccessResponse }>;
+
+    /**
+     * get symlink
+     */
+    getSymlink(
+        name: string,
+        options?: { versionId?: string | undefined; timeout?: number | undefined; headers?: object | undefined },
+    ): Promise<{ targetName: string; res: OSS.NormalSuccessResponse }>;
 
     /************************************************ RTMP Operations *************************************************************/
     /**

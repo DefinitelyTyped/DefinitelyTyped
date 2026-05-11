@@ -14,7 +14,7 @@ function init() {
     // leader
 
     const leader = new YUKA.Vehicle();
-    leader.setRenderComponent({matrix: new YUKA.Matrix4()}, sync);
+    leader.setRenderComponent({ matrix: new YUKA.Matrix4() }, sync);
 
     const seekBehavior = new YUKA.SeekBehavior(target);
     leader.steering.add(seekBehavior);
@@ -27,11 +27,11 @@ function init() {
         new YUKA.Vector3(0.5, 0, -0.5),
         new YUKA.Vector3(-0.5, 0, -0.5),
         new YUKA.Vector3(1.5, 0, -1.5),
-        new YUKA.Vector3(-1.5, 0, -1.5)
+        new YUKA.Vector3(-1.5, 0, -1.5),
     ];
 
     for (let i = 0; i < 4; i++) {
-        const followerMesh = {matrix: new YUKA.Matrix4()};
+        const followerMesh = { matrix: new YUKA.Matrix4() };
 
         const follower = new YUKA.Vehicle();
         follower.maxSpeed = 2;
@@ -60,6 +60,6 @@ function animate() {
     entityManager.update(deltaTime);
 }
 
-function sync(entity: YUKA.GameEntity, renderComponent: {matrix: YUKA.Matrix4}) {
+function sync(entity: YUKA.GameEntity, renderComponent: { matrix: YUKA.Matrix4 }) {
     renderComponent.matrix.copy(entity.worldMatrix);
 }

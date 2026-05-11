@@ -1,5 +1,5 @@
-import { Record } from './RelayStoreTypes';
-import { DataID } from '../util/RelayRuntimeTypes';
+import { DataID } from "../util/RelayRuntimeTypes";
+import { Record } from "./RelayStoreTypes";
 
 export class RelayModernRecord {
     /**

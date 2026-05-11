@@ -5,94 +5,76 @@ export type ParameterlessTriggerNameMap =
     /**
      * Indicates the `sort`-trigger.
      */
-    "sort" |
-
+    | "sort"
     /**
      * Indicates the `applyWidgets`-trigger.
      */
-    "applyWidgets" |
-
+    | "applyWidgets"
     /**
      * Indicates the `appendCache`-trigger.
      */
-    "appendCache" |
-
+    | "appendCache"
     /**
      * Indicates the `update`-trigger.
      */
-    "update" |
-
+    | "update"
     /**
      * Indicates the `updateRows`-trigger.
      */
-    "updateRows" |
-
+    | "updateRows"
     /**
      * Indicates the `updateCache`-trigger.
      */
-    "updateCache" |
-
+    | "updateCache"
     /**
      * Indicates the `updateHeaders`-trigger.
      */
-    "updateHeaders" |
-
+    | "updateHeaders"
     /**
      * Indicates the `updateAll`-trigger.
      */
-    "updateAll" |
-
+    | "updateAll"
     /**
      * Indicates the `search`-trigger.
      */
-    "search" |
-
+    | "search"
     /**
      * Indicates the `resetToLoadState`-trigger.
      */
-    "resetToLoadState" |
-
+    | "resetToLoadState"
     /**
      * Indicates the `destroy`-trigger.
      */
-    "destroy" |
-
+    | "destroy"
     /**
      * Indicates the `filterReset`-trigger.
      */
-    "filterReset" |
-
+    | "filterReset"
     /**
      * Indicates the `filterResetSaved`-trigger.
      */
-    "filterResetSaved" |
-
+    | "filterResetSaved"
     /**
      * Indicates the `filterAndSortReset`-trigger.
      */
-    "filterAndSortReset" |
-
+    | "filterAndSortReset"
     /**
      * Indicates the `saveSortReset`-trigger.
      */
-    "saveSortReset" |
-
+    | "saveSortReset"
     /**
      * Indicates the `enablePager`-trigger.
      */
-    "enablePager" |
-
+    | "enablePager"
     /**
      * Indicates the `disablePager`-trigger.
      */
-    "disablePager" |
-
+    | "disablePager"
     /**
      * Indicates the `pagerUpdate`-trigger.
      */
-    "pagerUpdate" |
-
+    | "pagerUpdate"
     /**
      * Indicates the `destroyPager`-trigger.
      */
-    "destroyPager";
+    | "destroyPager";

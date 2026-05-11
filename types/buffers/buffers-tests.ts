@@ -1,10 +1,9 @@
-
-import Buffers = require('buffers');
+import Buffers = require("buffers");
 
 var any: any;
 var num: number;
 var str: string;
-var buf = new Buffer([1, 2, 3]);
+var buf: Buffer = new Buffer([1, 2, 3]);
 var bufs: Buffers = new Buffers(); // with new, as type
 
 bufs = Buffers(); // no new

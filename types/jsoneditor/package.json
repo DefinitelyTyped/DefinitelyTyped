@@ -1,6 +1,33 @@
 {
     "private": true,
+    "name": "@types/jsoneditor",
+    "version": "9.9.9999",
+    "projects": [
+        "https://github.com/josdejong/jsoneditor"
+    ],
     "dependencies": {
+        "@types/ace": "*",
         "ajv": "^6.12.0"
-    }
+    },
+    "devDependencies": {
+        "@types/jsoneditor": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alejandro Sánchez",
+            "githubUsername": "alejo90"
+        },
+        {
+            "name": "Errietta Kostala",
+            "githubUsername": "errietta"
+        },
+        {
+            "name": "Adam Vigneaux",
+            "githubUsername": "adamvig"
+        },
+        {
+            "name": "Joep Kockelkorn",
+            "githubUsername": "joepkockelkorn"
+        }
+    ]
 }

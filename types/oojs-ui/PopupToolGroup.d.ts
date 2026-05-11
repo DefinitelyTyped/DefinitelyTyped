@@ -15,7 +15,8 @@ declare namespace OO.ui {
         interface EventMap extends ToolGroup.EventMap, mixin.LabelElement.EventMap, mixin.FlaggedElement.EventMap {}
 
         interface ConfigOptions
-            extends ToolGroup.ConfigOptions,
+            extends
+                ToolGroup.ConfigOptions,
                 mixin.IconElement.ConfigOptions,
                 mixin.IndicatorElement.ConfigOptions,
                 mixin.LabelElement.ConfigOptions,
@@ -23,7 +24,8 @@ declare namespace OO.ui {
                 mixin.FlaggedElement.ConfigOptions,
                 mixin.ClippableElement.ConfigOptions,
                 mixin.FloatableElement.ConfigOptions,
-                mixin.TabIndexedElement.ConfigOptions {
+                mixin.TabIndexedElement.ConfigOptions
+        {
             /** Text to display at the top of the popup */
             header?: string;
             /** See {@link Static.narrowConfig static.narrowConfig} */
@@ -31,12 +33,14 @@ declare namespace OO.ui {
         }
 
         interface Static
-            extends ToolGroup.Static,
+            extends
+                ToolGroup.Static,
                 mixin.IconElement.Static,
                 mixin.IndicatorElement.Static,
                 mixin.LabelElement.Static,
                 mixin.TitledElement.Static,
-                mixin.FlaggedElement.Static {
+                mixin.FlaggedElement.Static
+        {
             /**
              * Config options to change when toolbar is in narrow mode
              *
@@ -46,7 +50,8 @@ declare namespace OO.ui {
         }
 
         interface Props
-            extends ToolGroup.Props,
+            extends
+                ToolGroup.Props,
                 mixin.IconElement.Props,
                 mixin.IndicatorElement.Props,
                 mixin.LabelElement.Props,
@@ -54,12 +59,14 @@ declare namespace OO.ui {
                 mixin.FlaggedElement.Props,
                 mixin.ClippableElement.Props,
                 mixin.FloatableElement.Props,
-                mixin.TabIndexedElement.Props {
+                mixin.TabIndexedElement.Props
+        {
             $handle: JQuery;
         }
 
         interface Prototype
-            extends ToolGroup.Prototype,
+            extends
+                ToolGroup.Prototype,
                 mixin.IconElement.Prototype,
                 mixin.IndicatorElement.Prototype,
                 mixin.LabelElement.Prototype,
@@ -67,7 +74,8 @@ declare namespace OO.ui {
                 mixin.FlaggedElement.Prototype,
                 mixin.ClippableElement.Prototype,
                 mixin.FloatableElement.Prototype,
-                mixin.TabIndexedElement.Prototype {
+                mixin.TabIndexedElement.Prototype
+        {
             /**
              * Handle resize events from the toolbar
              */
@@ -127,14 +135,14 @@ declare namespace OO.ui {
             emitThrow<K extends keyof EventMap>(event: K, ...args: EventMap[K]): boolean;
             emitThrow<K extends string>(event: K extends keyof EventMap ? never : K, ...args: any[]): boolean;
 
-            connect<T extends Partial<Record<keyof EventMap, any>>, C>(
+            connect<T extends Partial<Record<keyof EventMap, any>>, C>( // eslint-disable-line @definitelytyped/no-unnecessary-generics
                 context: C,
-                methods: EventConnectionMap<T, C, EventMap>, // eslint-disable-line no-unnecessary-generics
+                methods: EventConnectionMap<T, C, EventMap>,
             ): this;
 
-            disconnect<T extends Partial<Record<keyof EventMap, any>>, C>(
+            disconnect<T extends Partial<Record<keyof EventMap, any>>, C>( // eslint-disable-line @definitelytyped/no-unnecessary-generics
                 context: C,
-                methods?: EventConnectionMap<T, C, EventMap>, // eslint-disable-line no-unnecessary-generics
+                methods?: EventConnectionMap<T, C, EventMap>,
             ): this;
             // #endregion
         }
@@ -144,7 +152,7 @@ declare namespace OO.ui {
              * @param toolbar
              * @param config Configuration options
              */
-            new (toolbar: Toolbar, config?: ConfigOptions): PopupToolGroup;
+            new(toolbar: Toolbar, config?: ConfigOptions): PopupToolGroup;
             prototype: Prototype;
             static: Static;
             super: ToolGroup.Constructor;

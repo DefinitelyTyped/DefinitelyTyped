@@ -1,4 +1,4 @@
-import Maybe from './Maybe';
+import Maybe from "./Maybe";
 
 /**
  * getProp :: (String | Integer) -> a -> Maybe b

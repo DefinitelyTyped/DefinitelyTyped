@@ -1,6 +1,4 @@
-export type exports = number;
-declare const NONE: number;
-declare const RECORD: number;
-declare const CLASS: number;
-declare const FILE: number;
-export {};
+export const NONE = 0;
+export const RECORD = 1;
+export const CLASS = 2;
+export const FILE = 3;

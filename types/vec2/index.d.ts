@@ -1,8 +1,3 @@
-// Type definitions for vec2 1.6
-// Project: https://github.com/tmpvar/vec2.js
-// Definitions by: Konrad Klockgether <https://github.com/Nielio>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * A generic library useful when you need to work with points/vectors in 2d space.
  * **Stuff to Note**: most of the Vec2's methods take a `returnNew` as the last parameter.
@@ -14,7 +9,7 @@ declare class Vec2 {
     readonly x: number;
     readonly y: number;
 
-    constructor(xy: number[] | {x: number, y: number});
+    constructor(xy: number[] | { x: number; y: number });
     constructor(x: number, y: number);
 
     static fromArray(xy: number[]): Vec2;
@@ -144,7 +139,6 @@ declare class Vec2 {
     clamp(low: Vec2, high: Vec2, returnNew?: boolean): Vec2;
 
     /**
-     *
      * Perform linear interpolation between this vector and the incoming.
      * `amount` - the percentage along the path to place the vector
      * `returnNew` - if `truthy`, apply the result to a new vector and return it, otherwise return `this`
@@ -186,12 +180,12 @@ declare class Vec2 {
      */
     fromArray(array: number[]): Vec2;
 
-     toJSON(): { x: number, y: number };
+    toJSON(): { x: number; y: number };
 
     /**
      * _returns_: `'(x, y)'`
      */
-     toString(): string;
+    toString(): string;
 }
 
 export = Vec2;

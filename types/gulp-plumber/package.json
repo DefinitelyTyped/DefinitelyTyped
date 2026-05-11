@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/gulp-plumber",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/floatdrop/gulp-plumber"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/gulp": "*",
+        "@types/gulp-plumber": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Joe Skeen",
+            "githubUsername": "joeskeen"
+        }
+    ]
+}

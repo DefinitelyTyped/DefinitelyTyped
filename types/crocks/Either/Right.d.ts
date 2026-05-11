@@ -1,5 +1,5 @@
-import { UnaryFunction } from '../internal/types';
-import Either from './Either';
+import { UnaryFunction } from "../internal/types";
+import Either from "./Either";
 
 declare function Right(val: unknown): Either;
 

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/luhn-generator",
+    "version": "0.5.9999",
+    "projects": [
+        "https://github.com/rromanovsky/luhn-generator"
+    ],
+    "devDependencies": {
+        "@types/luhn-generator": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

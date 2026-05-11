@@ -1,6 +1,6 @@
-import React = require('react');
-import reactDragula = require('react-dragula');
-import { Drake } from 'dragula';
+import React = require("react");
+import reactDragula = require("react-dragula");
+import { Drake } from "dragula";
 
 function DraggableItemss() {
     const draggableContainer = React.useRef<HTMLDivElement>(null);
@@ -15,7 +15,7 @@ function DraggableItemss() {
                             return false;
                         }
 
-                        return Boolean(handle.closest('.draggable'));
+                        return Boolean(handle.closest(".draggable"));
                     },
                 }),
             );
@@ -24,8 +24,8 @@ function DraggableItemss() {
 
     React.useEffect(() => {
         if (drake) {
-            drake.on('dragend', e => {
-                console.log('dragend');
+            drake.on("dragend", e => {
+                console.log("dragend");
             });
         }
     }, [drake]);

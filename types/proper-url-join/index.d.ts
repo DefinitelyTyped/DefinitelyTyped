@@ -1,10 +1,4 @@
-// Type definitions for proper-url-join 2.1
-// Project: https://github.com/moxystudio/js-proper-url-join
-// Definitions by: Jules Sam. Randolph <https://github.com/jsamr>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
-import { StringifyOptions } from 'query-string';
+import { StringifyOptions } from "query-string";
 
 export interface Options {
     /**
@@ -12,13 +6,13 @@ export interface Options {
      *
      * **Default**: `true`
      */
-    leadingSlash?: boolean | 'keep' | undefined;
+    leadingSlash?: boolean | "keep" | undefined;
     /**
      * Add a trailing slash.
      *
      * **Default**: `false`
      */
-    trailingSlash?: boolean | 'keep' | undefined;
+    trailingSlash?: boolean | "keep" | undefined;
     /**
      * Protocol relative URLs.
      *
@@ -30,7 +24,7 @@ export interface Options {
      * It will be merged with the query string in the url, if it exists.
      */
     query?: {
-        [k: string]: string|number|ReadonlyArray<string|number>;
+        [k: string]: string | number | ReadonlyArray<string | number>;
     } | undefined;
     /**
      * [query-string](https://github.com/sindresorhus/query-string#stringifyobject-options) singify method options to be considered when stringifying the query.
@@ -38,7 +32,7 @@ export interface Options {
     queryOptions?: StringifyOptions | undefined;
 }
 
-export type PathArg = string|null|undefined|number;
+export type PathArg = string | null | undefined | number;
 
 interface urlJoin {
     (p1: PathArg, options?: Options): string;
@@ -47,11 +41,66 @@ interface urlJoin {
     (p1: PathArg, p2: PathArg, p3: PathArg, p4: PathArg, options?: Options): string;
     (p1: PathArg, p2: PathArg, p3: PathArg, p4: PathArg, p5: PathArg, options?: Options): string;
     (p1: PathArg, p2: PathArg, p3: PathArg, p4: PathArg, p5: PathArg, p6: PathArg, options?: Options): string;
-    (p1: PathArg, p2: PathArg, p3: PathArg, p4: PathArg, p5: PathArg, p6: PathArg, p7: PathArg, options?: Options): string;
-    (p1: PathArg, p2: PathArg, p3: PathArg, p4: PathArg, p5: PathArg, p6: PathArg, p7: PathArg, p8: PathArg, options?: Options): string;
-    (p1: PathArg, p2: PathArg, p3: PathArg, p4: PathArg, p5: PathArg, p6: PathArg, p7: PathArg, p8: PathArg, p9: PathArg, options?: Options): string;
-    (p1: PathArg, p2: PathArg, p3: PathArg, p4: PathArg, p5: PathArg, p6: PathArg, p7: PathArg, p8: PathArg, p9: PathArg, p10: PathArg, options?: Options): string;
-    (p1: PathArg, p2: PathArg, p3: PathArg, p4: PathArg, p5: PathArg, p6: PathArg, p7: PathArg, p8: PathArg, p9: PathArg, p10: PathArg, p11: PathArg, ...args: Array<PathArg|Options>): string;
+    (
+        p1: PathArg,
+        p2: PathArg,
+        p3: PathArg,
+        p4: PathArg,
+        p5: PathArg,
+        p6: PathArg,
+        p7: PathArg,
+        options?: Options,
+    ): string;
+    (
+        p1: PathArg,
+        p2: PathArg,
+        p3: PathArg,
+        p4: PathArg,
+        p5: PathArg,
+        p6: PathArg,
+        p7: PathArg,
+        p8: PathArg,
+        options?: Options,
+    ): string;
+    (
+        p1: PathArg,
+        p2: PathArg,
+        p3: PathArg,
+        p4: PathArg,
+        p5: PathArg,
+        p6: PathArg,
+        p7: PathArg,
+        p8: PathArg,
+        p9: PathArg,
+        options?: Options,
+    ): string;
+    (
+        p1: PathArg,
+        p2: PathArg,
+        p3: PathArg,
+        p4: PathArg,
+        p5: PathArg,
+        p6: PathArg,
+        p7: PathArg,
+        p8: PathArg,
+        p9: PathArg,
+        p10: PathArg,
+        options?: Options,
+    ): string;
+    (
+        p1: PathArg,
+        p2: PathArg,
+        p3: PathArg,
+        p4: PathArg,
+        p5: PathArg,
+        p6: PathArg,
+        p7: PathArg,
+        p8: PathArg,
+        p9: PathArg,
+        p10: PathArg,
+        p11: PathArg,
+        ...args: Array<PathArg | Options>
+    ): string;
 }
 
 declare const urlJoin: urlJoin;

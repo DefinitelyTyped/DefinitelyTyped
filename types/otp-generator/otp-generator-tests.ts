@@ -1,4 +1,4 @@
-import otpGenerator = require('otp-generator');
+import otpGenerator = require("otp-generator");
 
 // $ExpectType string
 const otp = otpGenerator.generate(6, {

@@ -1,13 +1,13 @@
-import { Deferred } from 'athenajs';
+import { Deferred } from "athenajs";
 
 let def: Deferred;
 
 // static Deferred.resolve
 Deferred.resolve(true).then(() => {
-    console.log('resolved');
+    console.log("resolved");
 })
     .then(() => {
-        console.log('resolved');
+        console.log("resolved");
     });
 
 def = new Deferred();
@@ -18,11 +18,11 @@ def.resolve(10);
 def = new Deferred();
 def.reject(false);
 def.promise.then(() => {
-    console.log('done');
+    console.log("done");
 })
     .then(() => {
-        console.log('real done');
+        console.log("real done");
     })
     .catch(() => {
-        console.log('oops');
+        console.log("oops");
     });

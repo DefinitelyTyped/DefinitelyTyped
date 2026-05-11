@@ -1,4 +1,4 @@
-import { Card, CardType } from './Card';
+import { Card, CardType } from "./Card";
 
 /**
  * Represents a deck of French-suited playing cards.
@@ -36,8 +36,8 @@ export class Deck {
     }
 }
 
-const SUITS = ['♣', '♠', '♥', '♦'];
-const TYPES: CardType[] = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
+const SUITS = ["♣", "♠", "♥", "♦"];
+const TYPES: CardType[] = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
 
 function init(): Card[] {
     // 4 (suits) * 13 (card types) * 6 (decks) = 312 cards

@@ -1,21 +1,14 @@
-// Type definitions for gulp-insert 0.5.0
-// Project: https://github.com/rschmukler/gulp-insert
-// Definitions by: Shant Marouti <https://github.com/shantmarouti>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node"/>
 /// <reference types="vinyl"/>
 
-declare module 'gulp-insert' {
-
-    import File = require('vinyl');
+declare module "gulp-insert" {
+    import File = require("vinyl");
 
     interface Transformer {
-        (contents: string, file: File): string
+        (contents: string, file: File): string;
     }
 
     namespace Insert {
-
         /**
          * Prepends a string onto the contents
          * @param {string} content
@@ -44,9 +37,8 @@ declare module 'gulp-insert' {
          * @returns {NodeJS.ReadWriteStream}
          */
         function transform(transformer: Transformer): NodeJS.ReadWriteStream;
-
     }
 
-    module Insert { }
+    namespace Insert {}
     export = Insert;
 }

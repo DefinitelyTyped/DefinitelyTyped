@@ -1,24 +1,23 @@
-import { Store } from "./";
-import { BaseQuad, Quad, DataFactory, Stream, Term } from "rdf-js";
-import Endpoint = require("./Endpoint");
+import { BaseQuad, Quad, Quad_Graph, Stream } from "@rdfjs/types";
+import SimpleClient from "./SimpleClient.js";
 
-declare namespace StreamStore {
-    interface StreamStoreInit<Q extends BaseQuad = Quad> {
-        endpoint: Endpoint;
-        factory?: DataFactory<Q> | undefined;
-        maxQuadsPerRequest?: number | undefined;
-    }
+type HTTPMethod = "POST" | "PUT" | "DELETE";
+
+export interface StreamStore<Q extends BaseQuad = Quad> {
+    get(graph: Quad_Graph): Stream<Q>;
+    post(stream: Stream, options?: { graph?: Quad_Graph }): Promise<void>;
+    put(stream: Stream, options?: { graph?: Quad_Graph }): Promise<void>;
 }
 
-type WriteMethod = 'POST' | 'PUT' | 'DELETE';
+declare class Impl<Q extends BaseQuad = Quad> implements StreamStore<Q> {
+    constructor(options: { client: SimpleClient });
 
-interface StreamStore<Q extends BaseQuad = Quad> extends Store<Q> {}
+    get(graph: Quad_Graph): Stream<Q>;
+    post(stream: Stream, options?: { graph?: Quad_Graph }): Promise<void>;
+    put(stream: Stream, options?: { graph?: Quad_Graph }): Promise<void>;
 
-declare class StreamStore<Q extends BaseQuad = Quad> {
-    constructor(options: StreamStore.StreamStoreInit<Q>)
-
-    protected read({ graph }: { graph: Term }): Promise<Stream>;
-    protected writeRequest(method: WriteMethod, graph: Term, stream: ReadableStream): Promise<void>;
+    read(options?: { graph?: Quad_Graph; method: HTTPMethod }): Stream<Q>;
+    write(options?: { graph?: Quad_Graph; method: HTTPMethod; stream: Stream }): Promise<void>;
 }
 
-export = StreamStore;
+export default Impl;

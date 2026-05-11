@@ -1,6 +1,6 @@
-import pick = require('object.pick');
+import pick = require("object.pick");
 
-pick({a: 'a', b: 'b'}, ['a']);
+pick({ a: "a", b: "b" }, ["a"]);
 
-const keys = ['a'] as const;
-pick({a: 'a', b: 'b'}, keys);
+const keys = ["a"] as const;
+pick({ a: "a", b: "b" }, keys);

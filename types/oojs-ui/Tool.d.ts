@@ -28,10 +28,12 @@ declare namespace OO.ui {
         interface EventMap extends Widget.EventMap, mixin.FlaggedElement.EventMap {}
 
         interface ConfigOptions
-            extends Widget.ConfigOptions,
+            extends
+                Widget.ConfigOptions,
                 mixin.IconElement.ConfigOptions,
                 mixin.FlaggedElement.ConfigOptions,
-                mixin.TabIndexedElement.ConfigOptions {
+                mixin.TabIndexedElement.ConfigOptions
+        {
             /**
              * Title text or a function that returns text. If this config is omitted, the value of
              * the {@link Static.title static title} property is used.
@@ -124,20 +126,20 @@ declare namespace OO.ui {
         }
 
         interface Props
-            extends Widget.Props,
-                mixin.IconElement.Props,
-                mixin.FlaggedElement.Props,
-                mixin.TabIndexedElement.Props {
+            extends Widget.Props, mixin.IconElement.Props, mixin.FlaggedElement.Props, mixin.TabIndexedElement.Props
+        {
             $title: JQuery;
             $accel: JQuery;
             $link: JQuery;
         }
 
         interface Prototype
-            extends Widget.Prototype,
+            extends
+                Widget.Prototype,
                 mixin.IconElement.Prototype,
                 mixin.FlaggedElement.Prototype,
-                mixin.TabIndexedElement.Prototype {
+                mixin.TabIndexedElement.Prototype
+        {
             /**
              * Handle the toolbar state being updated. This method is called when the
              * {@link OO.ui.Toolbar.EventMap.updateState 'updateState' event} is emitted on the
@@ -265,14 +267,14 @@ declare namespace OO.ui {
             emitThrow<K extends keyof EventMap>(event: K, ...args: EventMap[K]): boolean;
             emitThrow<K extends string>(event: K extends keyof EventMap ? never : K, ...args: any[]): boolean;
 
-            connect<T extends Partial<Record<keyof EventMap, any>>, C>(
+            connect<T extends Partial<Record<keyof EventMap, any>>, C>( // eslint-disable-line @definitelytyped/no-unnecessary-generics
                 context: C,
-                methods: EventConnectionMap<T, C, EventMap>, // eslint-disable-line no-unnecessary-generics
+                methods: EventConnectionMap<T, C, EventMap>,
             ): this;
 
-            disconnect<T extends Partial<Record<keyof EventMap, any>>, C>(
+            disconnect<T extends Partial<Record<keyof EventMap, any>>, C>( // eslint-disable-line @definitelytyped/no-unnecessary-generics
                 context: C,
-                methods?: EventConnectionMap<T, C, EventMap>, // eslint-disable-line no-unnecessary-generics
+                methods?: EventConnectionMap<T, C, EventMap>,
             ): this;
             // #endregion
         }
@@ -282,7 +284,7 @@ declare namespace OO.ui {
              * @param toolGroup
              * @param config Configuration options
              */
-            new (toolGroup: ToolGroup, config?: ConfigOptions): Tool;
+            new(toolGroup: ToolGroup, config?: ConfigOptions): Tool;
             prototype: Prototype;
             static: Static;
             super: Widget.Constructor;

@@ -234,14 +234,14 @@ declare namespace OO.ui {
         emitThrow<K extends keyof ActionSet.EventMap>(event: K, ...args: ActionSet.EventMap[K]): boolean;
         emitThrow<K extends string>(event: K extends keyof ActionSet.EventMap ? never : K, ...args: any[]): boolean;
 
-        connect<T extends Partial<Record<keyof ActionSet.EventMap, any>>, C>(
+        connect<T extends Partial<Record<keyof ActionSet.EventMap, any>>, C>( // eslint-disable-line @definitelytyped/no-unnecessary-generics
             context: C,
-            methods: EventConnectionMap<T, C, ActionSet.EventMap>, // eslint-disable-line no-unnecessary-generics
+            methods: EventConnectionMap<T, C, ActionSet.EventMap>,
         ): this;
 
-        disconnect<T extends Partial<Record<keyof ActionSet.EventMap, any>>, C>(
+        disconnect<T extends Partial<Record<keyof ActionSet.EventMap, any>>, C>( // eslint-disable-line @definitelytyped/no-unnecessary-generics
             context: C,
-            methods?: EventConnectionMap<T, C, ActionSet.EventMap>, // eslint-disable-line no-unnecessary-generics
+            methods?: EventConnectionMap<T, C, ActionSet.EventMap>,
         ): this;
         // #endregion
     }
@@ -279,7 +279,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: {}): ActionSet;
+            new(config?: {}): ActionSet;
             prototype: ActionSet;
             static: Static;
         }

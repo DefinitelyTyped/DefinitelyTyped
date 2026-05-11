@@ -1,9 +1,3 @@
-// Type definitions for JQuery Gray 1.6
-// Project: https://github.com/karlhorky/gray
-// Definitions by: Anderson Friaça <https://github.com/AndersonFriaca>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery" />
 
 export type Classes = Partial<{
@@ -18,6 +12,6 @@ export type Options = Partial<{
 declare global {
     interface JQuery {
         gray(options?: Options): JQuery;
-        toggleClass(className: 'grayscale-off'): JQuery;
+        toggleClass(className: "grayscale-off"): JQuery;
     }
 }

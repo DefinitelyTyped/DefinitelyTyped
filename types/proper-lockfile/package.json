@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/proper-lockfile",
+    "version": "4.1.9999",
+    "projects": [
+        "https://github.com/moxystudio/node-proper-lockfile"
+    ],
+    "dependencies": {
+        "@types/retry": "*"
+    },
+    "devDependencies": {
+        "@types/proper-lockfile": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nikita Volodin",
+            "githubUsername": "qlonik"
+        },
+        {
+            "name": "Linus Unnebäck",
+            "githubUsername": "LinusU"
+        },
+        {
+            "name": "ulrichb",
+            "githubUsername": "ulrichb"
+        }
+    ]
+}

@@ -1,13 +1,7 @@
-// Type definitions for soundmanager2 2.97
-// Project: https://github.com/scottschiller/SoundManager2, http://www.schillmania.com/projects/soundmanager2
-// Definitions by: Elton Lee <https://github.com/elton2048>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 declare var soundManager: soundmanager.SoundManager;
 
 declare namespace soundmanager {
-    type ScriptAccess = 'always' | 'sameDomain';
+    type ScriptAccess = "always" | "sameDomain";
 
     interface DefaultOptions {
         autoLoad?: boolean | undefined;
@@ -112,7 +106,7 @@ declare namespace soundmanager {
         canPlayLink(domElement: HTMLElement): boolean;
         canPlayMIME(MIMEtype: string): boolean;
         canPlayURL(mediaURL: string): boolean;
-        clearOnPosition(id: string, msecOffset: number, callback?: (() => void)): SMSound;
+        clearOnPosition(id: string, msecOffset: number, callback?: () => void): SMSound;
         /**
          * Creates a sound object, supporting an arbitrary number of optional arguments. Returns a SMSound object instance. At minimum, a url parameter is required.
          */

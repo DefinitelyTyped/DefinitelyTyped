@@ -1,0 +1,37 @@
+{
+    "private": true,
+    "name": "@types/office-js",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/OfficeDev/office-js"
+    ],
+    "devDependencies": {
+        "@types/office-js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "OfficeDev",
+            "githubUsername": "OfficeDev"
+        },
+        {
+            "name": "Ricky Kirkham",
+            "githubUsername": "Rick-Kirkham"
+        },
+        {
+            "name": "Alex Jerabek",
+            "githubUsername": "AlexJerabek"
+        },
+        {
+            "name": "Elizabeth Samuel",
+            "githubUsername": "ElizabethSamuel-MSFT"
+        },
+        {
+            "name": "Alison McKay",
+            "githubUsername": "alison-mk"
+        },
+        {
+            "name": "Sam Ramon",
+            "githubUsername": "samantharamon"
+        }
+    ]
+}

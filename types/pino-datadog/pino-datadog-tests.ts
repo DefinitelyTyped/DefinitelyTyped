@@ -1,12 +1,12 @@
-import * as datadog from 'pino-datadog';
+import * as datadog from "pino-datadog";
 
 const options: datadog.Options = {
-    apiKey: 'api_key',
+    apiKey: "api_key",
     size: 10,
-    ddsource: 'source',
-    ddtags: 'tags',
-    service: 'service',
-    hostname: 'host',
+    ddsource: "source",
+    ddtags: "tags",
+    service: "service",
+    hostname: "host",
     keepMsg: true,
     eu: true,
 };

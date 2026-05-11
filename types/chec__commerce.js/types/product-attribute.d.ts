@@ -1,4 +1,4 @@
-import { ProductAttributeOption } from './product-attribute-option';
+import { ProductAttributeOption } from "./product-attribute-option";
 
 export interface ProductAttribute {
     id: string;

@@ -22,7 +22,7 @@ httpsServer.addListener("secureConnection", tlsSocket => {
     tlsSocket; // $ExpectType TLSSocket
 });
 httpsServer.addListener("connection", socket => {
-    socket; // $ExpectType Duplex
+    socket; // $ExpectType Socket
 });
 
 httpServer.stop(); // $ExpectType void

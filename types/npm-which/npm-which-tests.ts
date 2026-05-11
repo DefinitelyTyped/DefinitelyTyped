@@ -2,7 +2,7 @@ import npmWhich = require("npm-which");
 
 const which = npmWhich("");
 // @ts-expect-error
-npmWhich("", { });
+npmWhich("", {});
 npmWhich("", { cwd: "" });
 npmWhich(
     "",
@@ -12,9 +12,10 @@ npmWhich(
         error;
         // $ExpectType string
         result;
-    });
+    },
+);
 // @ts-expect-error
-npmWhich.sync("", { });
+npmWhich.sync("", {});
 npmWhich.sync("", { cwd: "" });
 which("", () => null);
 which("", { cwd: "" }, () => null);

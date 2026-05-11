@@ -1,9 +1,3 @@
-// Type definitions for jexcel 3.9
-// Project: https://github.com/paulhodel/jexcel
-// Definitions by: arx-8 <https://github.com/arx-8>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 2.9
-
 export = jexcel;
 export as namespace jexcel;
 
@@ -19,9 +13,9 @@ declare namespace jexcel {
     type SourceValue =
         | CellValue
         | {
-              id: CellValue;
-              name: CellValue;
-          };
+            id: CellValue;
+            name: CellValue;
+        };
 
     interface SourceValueElement<T extends CellValue> {
         id: T;
@@ -41,11 +35,13 @@ declare namespace jexcel {
          * Translations can be done here
          * Default: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
          */
-        months?: [string, string, string, string, string, string, string, string, string, string, string, string] | undefined;
-        // tslint:disable-next-line ban-types
+        months?:
+            | [string, string, string, string, string, string, string, string, string, string, string, string]
+            | undefined;
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         onchange?: Function | undefined;
         /** Events */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         onclose?: Function | undefined;
         /** Placeholder */
         placeholder?: CellValue | undefined;
@@ -70,13 +66,13 @@ declare namespace jexcel {
     }
 
     interface ColumnEditor {
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         closeEditor?: Function | undefined;
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         getValue?: Function | undefined;
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         openEditor?: Function | undefined;
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         setValue?: Function | undefined;
     }
 
@@ -84,7 +80,7 @@ declare namespace jexcel {
         /**
          * Default: "center"
          */
-        align?: 'center' | 'left' | 'right' | undefined;
+        align?: "center" | "left" | "right" | undefined;
         autocomplete?: boolean | undefined;
         decimal?: string | undefined;
         editor?: ColumnEditor | undefined;
@@ -101,17 +97,18 @@ declare namespace jexcel {
          * @see https://bossanova.uk/jexcel/v4/examples/column-types
          */
         type?:
-            | 'autocomplete'
-            | 'calendar'
-            | 'checkbox'
-            | 'color'
-            | 'dropdown'
-            | 'hidden'
-            | 'html'
-            | 'image'
-            | 'numeric'
-            | 'radio'
-            | 'text' | undefined;
+            | "autocomplete"
+            | "calendar"
+            | "checkbox"
+            | "color"
+            | "dropdown"
+            | "hidden"
+            | "html"
+            | "image"
+            | "numeric"
+            | "radio"
+            | "text"
+            | undefined;
         url?: string | undefined;
         width?: number | undefined;
         wordWrap?: boolean | undefined;
@@ -126,14 +123,14 @@ declare namespace jexcel {
          * @param string - Search for word
          * myTable.search([string]);
          */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         search?: Function | boolean | undefined;
         /**
          * Toggle table fullscreen mode or set fullscreen mode in initialization
          * @param boolean fullscreen - define fullscreen status as true or false
          * myTable.fullscreen([bool]);
          */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         fullscreen?: Function | boolean | undefined;
     }
 
@@ -143,7 +140,7 @@ declare namespace jexcel {
          * @param integer columnNumber - Which column should be excluded starting on zero
          * @param integer numOfColumns - number of columns to be excluded from the reference column    myTable.deleteColumn([integer], [integer]);
          */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         deleteColumn?: Function | undefined;
         /**
          * remove row by number
@@ -151,80 +148,80 @@ declare namespace jexcel {
          * @param integer numOfRows - number of lines to be excluded
          * myTable.deleteRow([integer], [integer]);
          */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         deleteRow?: Function | undefined;
         /** Destroy all merged cells    myTable.destroyMerge(); */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         destroyMerged?: Function | undefined;
         /**
          * get the current data as a CSV file
          * @param bool - true to download parsed formulas.
          * myTable.download([bool]);
          */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         download?: Function | undefined;
         /** get current cell DOM @param string columnName - str compatible with excel, or as object.    myTable.getCell([string]); */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         getCell?: Function | undefined;
         /** Get the data from one column by number @param integer columnNumber - Column number    myTable.getColumnData([int]); */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         getColumnData?: Function | undefined;
         /** get cell comments @param mixed - cell identification or null for the whole table.    myTable.getComments([string]); */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         getComments?: Function | undefined;
         /** get table definitions    myTable.getConfig(); */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         getConfig?: Function | undefined;
         /** Get the full or partial table data @param boolean onlyHighlighedCells - Get only highlighted cells    myTable.getData([bool]); */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         getData?: Function | undefined;
         /** get the current header by column number @param integer columnNumber - Column number starting on zero    myTable.getHeader([integer]); */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         getHeader?: Function | undefined;
         /** get all header titles    myTable.getHeaders(); */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         getHeaders?: Function | undefined;
         /** get the current row height @param integer rowNumber - row number starting on zero    myTable.getHeight([integer]); */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         getHeight?: Function | undefined;
         /** Get the full or partial table data in JSON format @param boolean onlyHighlighedCells - Get only highlighted cells    myTable.getData([bool]); */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         getJson?: Function | undefined;
         /** get current cell DOM innerHTML @param string columnName - str compatible with excel, or as object.    myTable.getLabel([string]); */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         getLabel?: Function | undefined;
         /** Get merged cells properties @param string columnName - Column name, such as A1.    myTable.getMerge([string]); */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         getMerge?: Function | undefined;
         /** get the table or cell meta information @param mixed - cell identification or null for the whole table.    myTable.getMeta([string]); */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         getMeta?: Function | undefined;
         /** Get the data from one row by number @param integer rowNumber - Row number    myTable.getRowData([int]); */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         getRowData?: Function | undefined;
         /** Get the selected columns @param boolean asIds - Get the colNumbers or row DOM elements    myTable.getSelectedColumns([bool]); */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         getSelectedColumns?: Function | undefined;
         /** Get the selected rows @param boolean asIds - Get the rowNumbers or row DOM elements    myTable.getSelectedRows([bool]); */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         getSelectedRows?: Function | undefined;
         /** get table or cell style @param mixed - cell identification or null for the whole table.    myTable.getStyle([string])); */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         getStyle?: Function | undefined;
         /** get current cell value @param mixed cellIdent - str compatible with excel, or as object.    myTable.getValue([string]); */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         getValue?: Function | undefined;
         /** get value from coords @param integer x @param integer y myTable.getValueFromCoords([integer], [integer]); */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         getValueFromCoords?: Function | undefined;
         /** get the current column width @param integer columnNumber - column number starting on zero    myTable.getWidth([integer]); */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         getWidth?: Function | undefined;
         /** hide column by number    myTable.hideColumn([int]); */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         hideColumn?: Function | undefined;
         /** hide column of index numbers    myTable.hideIndex(); */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         hideIndex?: Function | undefined;
         /**
          * add a new column
@@ -234,7 +231,7 @@ declare namespace jexcel {
          * @param object properties - column properties
          * myTable.insertColumn([mixed], [integer], [boolean], [object]);
          */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         insertColumn?: Function | undefined;
         /**
          * add a new row
@@ -243,7 +240,7 @@ declare namespace jexcel {
          * @param boolean insertBefore
          * myTable.insertRow([mixed], [integer], [boolean]);
          */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         insertRow?: Function | undefined;
         /**
          * change the column position
@@ -251,7 +248,7 @@ declare namespace jexcel {
          * @param integer newColumnPosition
          * myTable.moveColumn([integer], [integer]);
          */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         moveColumn?: Function | undefined;
         /**
          * change the row position
@@ -259,7 +256,7 @@ declare namespace jexcel {
          * @param integer newRowPosition
          * myTable.moveRow([integer], [integer]);
          */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         moveRow?: Function | undefined;
         /**
          * reorder a column asc or desc
@@ -267,40 +264,40 @@ declare namespace jexcel {
          * @param smallint sortType - One will order DESC, zero will order ASC, anything else will toggle the current order
          * myTable.orderBy([integer], [boolean]);
          */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         orderBy?: Function | undefined;
         /** Go to page number- Valid only when pagination is true. @param integer - Go to page number    myTable.page([integer]); */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         page?: Function | undefined;
         /** Redo changes    myTable.redo(); */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         redo?: Function | undefined;
         /** Destroy merged by column name @param string columnName - Column name, such as A1.    myTable.removeMerge([string]); */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         removeMerge?: Function | undefined;
         /** reset search table    myTable.resetSearch(); */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         resetSearch?: Function | undefined;
         /** Reset the table selection @param boolean executeBlur - execute the blur from the table myTable.resetSelection([bool]); */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         resetSelection?: Function | undefined;
         /** remove all style from a cell @param string columnName - Column name, example: A1, B3, etc    myTable.resetStyle([string]); */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         resetStyle?: Function | undefined;
         /** Set the data from one column by number @param integer columnNumber - Column number @param array colData - Column data    myTable.setColumnData([int], [array]); */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         setColumnData?: Function | undefined;
         /** set cell comments @param cell - cell identification @param text - comments    myTable.setComments([string], [string]); */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         setComments?: Function | undefined;
         /** Set the table data @param json newData - New json data, null will reload what is in memory.    myTable.setData([json]); */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         setData?: Function | undefined;
         /** change header by column @param integer columnNumber - column number starting on zero @param string columnTitle - New header title    myTable.setHeader([integer], [string]); */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         setHeader?: Function | undefined;
         /** change row height @param integer rowNumber - row number starting on zero @param string newRowHeight- New row height    myTable.setHeight([integer], [integer]); */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         setHeight?: Function | undefined;
         /**
          * Merge cells
@@ -309,10 +306,10 @@ declare namespace jexcel {
          * @param integer rowspan - Number of rows
          * myTable.setMerge([string], [int], [int]);
          */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         setMerge?: Function | undefined;
         /** set the table or cell meta information @param mixed - json with whole table meta information.    myTable.setMeta[mixed]); */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         setMeta?: Function | undefined;
         /**
          * Set the data from one row by number
@@ -320,7 +317,7 @@ declare namespace jexcel {
          * @param array rowData - Row data
          * myTable.setRowData([int], [array]);
          */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         setRowData?: Function | undefined;
         /**
          * set cell(s) CSS style
@@ -329,7 +326,7 @@ declare namespace jexcel {
          * @param v [optional]- CSS value
          * myTable.setSyle([object], [string], [string]);
          */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         setStyle?: Function | undefined;
         /**
          * change the cell value
@@ -338,7 +335,7 @@ declare namespace jexcel {
          * @param bool force - update readonly columns
          * myTable.setValue([string], [string], [bool]);
          */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         setValue?: Function | undefined;
         /**
          * get value from coords
@@ -348,7 +345,7 @@ declare namespace jexcel {
          * @param bool force - update readonly columns
          * myTable.getValueFromCoords([integer], [integer], [string], [bool]);
          */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         setValueFromCoords?: Function | undefined;
         /**
          * change column width
@@ -356,16 +353,16 @@ declare namespace jexcel {
          * @param string newColumnWidth - New column width
          * myTable.setWidth([integer], [integer]);
          */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         setWidth?: Function | undefined;
         /** show column by number    myTable.showIndex([int]); */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         showColumn?: Function | undefined;
         /** show column of index numbers    myTable.showIndex(); */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         showIndex?: Function | undefined;
         /** Undo last changes    myTable.undo(); */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         undo?: Function | undefined;
         /**
          * select cells
@@ -374,116 +371,118 @@ declare namespace jexcel {
          * @param boolean ignoreEvents - ignore onselection event
          * myTable.updateSelection([cell], [cell], true);
          */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         updateSelection?: Function | undefined;
         /** select cells @param integer x1 @param integer y1 @param integer x2 @param integer y2    myTable.updateSelectionFromCoords([integer], [integer], [integer], [integer]); */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         updateSelectionFromCoords?: Function | undefined;
         /** Which page showing on jExcel - Valid only when pagination is true.    myTable.whichPage(); */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         whichPage?: Function | undefined;
     }
 
     interface EventsOptions {
         /** After all changes are applied in the table. */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         onafterchanges?: Function | undefined;
         /** Before a column value is changed. NOTE: It is possible to overwrite the original value, by return a new value on this method. v3.4.0+ */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         onbeforechange?: Function | undefined;
         /** Before a column is excluded. You can cancel the insert event by returning false. */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         onbeforedeletecolumn?: Function | undefined;
         /** Before a row is deleted. You can cancel the delete event by returning false. */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         onbeforedeleterow?: Function | undefined;
         /** Before a new column is inserted. You can cancel the insert event by returning false. */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         onbeforeinsertcolumn?: Function | undefined;
         /** Before a new row is inserted. You can cancel the insert event by returning false. */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         onbeforeinsertrow?: Function | undefined;
         /** Before the paste action is performed. Used to parse any input data, should return the data. */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         onbeforepaste?: Function | undefined;
         /** On table blur */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         onblur?: Function | undefined;
         /** After a column value is changed. */
-        onchange?: ((
-            instance: HTMLElement,
-            cell: HTMLTableCellElement,
-            /** (e.g.) "0", "1" ... */
-            columnIndex: string,
-            /** (e.g.) "0", "1" ... */
-            rowIndex: string,
-            value: CellValue,
-        ) => void) | undefined;
+        onchange?:
+            | ((
+                instance: HTMLElement,
+                cell: HTMLTableCellElement,
+                /** (e.g.) "0", "1" ... */
+                columnIndex: string,
+                /** (e.g.) "0", "1" ... */
+                rowIndex: string,
+                value: CellValue,
+            ) => void)
+            | undefined;
         /** On header change */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         onchangeheader?: Function | undefined;
         /** When a setMeta is called. */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         onchangemeta?: Function | undefined;
         /** When the page is changed. */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         onchangepage?: Function | undefined;
         /** When a setStyle is called. */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         onchangestyle?: Function | undefined;
         /** After a column is excluded. */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         ondeletecolumn?: Function | undefined;
         /** After a row is excluded. */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         ondeleterow?: Function | undefined;
         /** When a closeEditor is called. */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         oneditionend?: Function | undefined;
         /** When a openEditor is called. */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         oneditionstart?: Function | undefined;
         /** On table focus */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         onfocus?: Function | undefined;
         /** After a new column is inserted. */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         oninsertcolumn?: Function | undefined;
         /** After a new row is inserted. */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         oninsertrow?: Function | undefined;
         /** This method is called when the method setData */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         onload?: Function | undefined;
         /** On column merge */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         onmerge?: Function | undefined;
         /** After a column is moved to a new position. */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         onmovecolumn?: Function | undefined;
         /** After a row is moved to a new position. */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         onmoverow?: Function | undefined;
         /** After a paste action is performed in the javascript table. */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         onpaste?: Function | undefined;
         /** On redo is applied */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         onredo?: Function | undefined;
         /** After a change in column width. */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         onresizecolumn?: Function | undefined;
         /** After a change in row height. */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         onresizerow?: Function | undefined;
         /** On the selection is changed. */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         onselection?: Function | undefined;
         /** After a colum is sorted. */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         onsort?: Function | undefined;
         /** On undo is applied */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         onundo?: Function | undefined;
     }
 
@@ -517,7 +516,7 @@ declare namespace jexcel {
         /** Column type, title, width, align, dropdown options, text wrapping, mask, etc.: object */
         columns?: Column[] | undefined;
         /** Context menu content: function() { return customMenu } */
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         contextMenu?: Function | undefined;
         /** When is true copy and export will bring formula results, if false will bring formulas: boolean */
         copyCompatibility?: boolean | undefined;
@@ -532,7 +531,7 @@ declare namespace jexcel {
         /** Load this data into the javascript table: array */
         data?: CellValue[][] | Array<{ [title in string | number]: CellValue }> | undefined;
         /** Default align for a new column: [center, left, right] */
-        defaultColAlign?: 'center' | 'left' | 'right' | undefined;
+        defaultColAlign?: "center" | "left" | "right" | undefined;
         /** Default width for a new column: integer */
         defaultColWidth?: number | undefined;
         /** Allow table edition: bool */
@@ -554,12 +553,14 @@ declare namespace jexcel {
         /** Minimum number of spare rows: [integer] */
         minSpareRows?: number[] | undefined;
         /** Define the nested headers, including title, colspan, etc: object */
-        nestedHeaders?: Array<
-            Array<{
-                colspan?: number | undefined;
-                title?: CellValue | undefined;
-            }>
-        > | undefined;
+        nestedHeaders?:
+            | Array<
+                Array<{
+                    colspan?: number | undefined;
+                    title?: CellValue | undefined;
+                }>
+            >
+            | undefined;
         /** Break the table by pages */
         pagination?: number | undefined;
         /** Number of records per page: 25,50,75,100 for example. */
@@ -591,7 +592,9 @@ declare namespace jexcel {
         /** Add custom toolbars: object */
         toolbar?: Array<Record<string, any>> | undefined;
         /** Method to config custom script execution. NOTE: This does not work with lazyLoading, Pagination or Search options. */
-        updateTable?: ((instance: any, cell: any, col: any, row: any, val: any, label: any, cellName: any) => void) | undefined;
+        updateTable?:
+            | ((instance: any, cell: any, col: any, row: any, val: any, label: any, cellName: any) => void)
+            | undefined;
         /** Load a external json file from this URL: string */
         url?: string | undefined;
         /** Global text wrapping: bool */
@@ -666,7 +669,13 @@ declare namespace jexcel {
     /**
      * @see https://bossanova.uk/jexcel/v4/docs/quick-reference
      */
-    type Options = SharedMethodsInitializationOptions & MethodsOptions & EventsOptions & InitializationOptions & TranslationsOptions & UnDocumentOptions;
+    type Options =
+        & SharedMethodsInitializationOptions
+        & MethodsOptions
+        & EventsOptions
+        & InitializationOptions
+        & TranslationsOptions
+        & UnDocumentOptions;
 
     interface ActionHistory {
         action: string;
@@ -864,52 +873,52 @@ declare namespace jexcel {
         // Other helpers
         // ----------------------------------------------------------------------
         build: any;
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         contextMenuControls: Function;
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         copyControls: Function;
         createTabs: (element: HTMLDivElement, result: any[]) => void;
         current: any;
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         cutControls: Function;
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         destroy: Function;
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         doubleClickControls: Function;
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         doubleDigitFormat: Function;
         fromSpreadsheet: (result: any[]) => void;
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         getColumnName: Function;
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         getColumnNameFromId: Function;
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         getElement: Function;
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         getIdFromColumnName: Function;
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         injectArray: Function;
         isMouseAction: boolean;
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         keyDownControls: Function;
         methods: object;
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         mouseDownControls: Function;
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         mouseMoveControls: Function;
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         mouseOverControls: Function;
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         mouseUpControls: Function;
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         pasteControls: Function;
         timeControl: any;
         timeControlLoading: any;
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         touchEndControls: Function;
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         touchStartControls: Function;
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         validLetter: Function;
     }
 }

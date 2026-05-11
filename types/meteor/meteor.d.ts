@@ -48,13 +48,19 @@ declare module 'meteor/meteor' {
          * record's profile field)
          */
         interface UserProfile {}
+
+        /**
+         * UserServices is left intentionally underspecified to allow overriding in your application.
+         */
+        interface UserServices {}
+
         interface User {
             _id: string;
             username?: string | undefined;
             emails?: UserEmail[] | undefined;
             createdAt?: Date | undefined;
             profile?: UserProfile;
-            services?: any;
+            services?: UserServices;
         }
 
         function user(options?: { fields?: Mongo.FieldSpecifier | undefined }): User | null;
@@ -229,6 +235,31 @@ declare module 'meteor/meteor' {
          * @param func The function to run
          */
         function defer(func: Function): void;
+
+        /**
+         * Wrap a function so that it only runs in background in specified environments..
+         * @param func The function to wrap
+         * @param options An object with an `on` property that is an array of environment names: `"development"`, `"production"`, and/or `"test"`.
+         */
+        function deferrable<T>(
+            func: () => T,
+            options: { on: Array<"development" | "production" | "test"> }
+        ): T | void;
+
+        /**
+         * Wrap a function to run in the background in development (similar to Meteor.isDevelopment ? Meteor.defer(fn) : Meteor.startup(fn)).
+         * @param func The function to wrap
+         */
+        function deferDev<T>(
+            func: () => T
+        ): T | void;
+        /**
+         * Wrap a function to run in the background in production (similar to Meteor.isProduction ? Meteor.defer(fn) : Meteor.startup(fn)).
+         * @param func The function to wrap
+         */
+        function deferProd<T>(
+            func: () => T
+        ): T | void;
         /** Timeout **/
 
         /** utils **/
@@ -277,7 +308,7 @@ declare module 'meteor/meteor' {
     namespace Meteor {
         /** Login **/
         interface LoginWithExternalServiceOptions {
-            requestPermissions?: ReadonlyArray<string> | undefined;
+            requestPermissions?: readonly string[] | undefined;
             requestOfflineToken?: Boolean | undefined;
             forceApprovalPrompt?: Boolean | undefined;
             redirectUrl?: string | undefined;
@@ -331,7 +362,7 @@ declare module 'meteor/meteor' {
 
         function loginWith<ExternalService>(
             options?: {
-                requestPermissions?: ReadonlyArray<string> | undefined;
+                requestPermissions?: readonly string[] | undefined;
                 requestOfflineToken?: boolean | undefined;
                 loginUrlParameters?: Object | undefined;
                 userEmail?: string | undefined;
@@ -430,7 +461,7 @@ declare module 'meteor/meteor' {
          */
         function publish(
             name: string | null,
-            func: (this: Subscription, ...args: any[]) => void | Mongo.Cursor<any> | Mongo.Cursor<any>[] | Promise<void | Mongo.Cursor<any> | Mongo.Cursor<any>[]>,
+            func: (this: Subscription, ...args: any[]) => void | Mongo.Cursor<any> | Array<Mongo.Cursor<any>> | Promise<void | Mongo.Cursor<any> | Array<Mongo.Cursor<any>>>,
             options?: { is_auto: boolean },
         ): void;
 

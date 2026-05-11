@@ -1,5 +1,17 @@
-import { ShaderMaterialParameters, ShaderMaterial } from './ShaderMaterial';
+import { ShaderMaterial } from "./ShaderMaterial.js";
 
+/**
+ * This class works just like {@link ShaderMaterial}, except that definitions
+ * of built-in uniforms and attributes are not automatically prepended to the
+ * GLSL shader code.
+ *
+ * `RawShaderMaterial` can only be used with {@link WebGLRenderer}.
+ */
 export class RawShaderMaterial extends ShaderMaterial {
-    constructor(parameters?: ShaderMaterialParameters);
+    /**
+     * This flag can be used for type testing.
+     *
+     * @default true
+     */
+    readonly isRawShaderMaterial: boolean;
 }

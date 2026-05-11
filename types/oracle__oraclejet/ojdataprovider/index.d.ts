@@ -30,7 +30,7 @@ export interface DataProvider<K, D> extends EventTarget {
     fetchFirst(parameters?: FetchListParameters<D>): AsyncIterable<FetchListResult<K, D>>;
     getCapability(capabilityName: string): any;
     getTotalSize(): Promise<number>;
-    isEmpty(): 'yes' | 'no' | 'unknown';
+    isEmpty(): "yes" | "no" | "unknown";
 }
 export interface DataProviderAddOperationEventDetail<K, D> extends DataProviderOperationEventDetail<K, D> {
     addBeforeKeys?: K[] | undefined;
@@ -52,11 +52,11 @@ export interface FetchAttribute {
     name: string;
 }
 export interface FetchByKeysCapability<D> {
-    implementation: 'iteration' | 'lookup';
+    implementation: "iteration" | "lookup";
 }
 export namespace FetchByKeysMixin {
     function applyMixin(derivedCtor: {
-        new (): DataProvider<any, any>;
+        new(): DataProvider<any, any>;
     }): any;
 }
 export interface FetchByKeysParameters<K> {
@@ -68,11 +68,11 @@ export interface FetchByKeysResults<K, D> {
     results: Map<K, Item<K, D>>;
 }
 export interface FetchByOffsetCapability<D> {
-    implementation: 'iteration' | 'randomAccess';
+    implementation: "iteration" | "randomAccess";
 }
 export namespace FetchByOffsetMixin {
     function applyMixin(derivedCtor: {
-        new (): DataProvider<any, any>;
+        new(): DataProvider<any, any>;
     }): any;
 }
 export interface FetchByOffsetParameters<D> extends FetchListParameters<D> {
@@ -110,7 +110,7 @@ export interface ItemMetadata<K> {
     key: K;
 }
 export interface SortCapability<D> {
-    attributes: 'none' | 'single' | 'multiple';
+    attributes: "none" | "single" | "multiple";
 }
 export interface SortCriterion<D> {
     attribute: keyof D;

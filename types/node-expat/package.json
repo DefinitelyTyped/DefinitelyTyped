@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/node-expat",
+    "version": "2.3.9999",
+    "projects": [
+        "https://github.com/astro/node-expat"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/debug": "*",
+        "@types/iconv": "*",
+        "@types/jasmine": "*",
+        "@types/node-expat": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "winston01",
+            "githubUsername": "winston01"
+        }
+    ]
+}

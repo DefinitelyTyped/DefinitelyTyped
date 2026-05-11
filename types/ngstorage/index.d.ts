@@ -1,9 +1,3 @@
-// Type definitions for ngstorage 0.3
-// Project: https://github.com/gsklee/ngStorage
-// Definitions by: Jakub Pistek <https://github.com/kubiq>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 export namespace ngStorage {
     interface StorageService {
         /**

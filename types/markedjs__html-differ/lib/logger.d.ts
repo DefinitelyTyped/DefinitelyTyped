@@ -1,4 +1,4 @@
-import { ChangeObject } from '../';
+import { ChangeObject } from "../";
 
 /**
  * @param result - the result of the work of the method `htmlDiffer.diffHtml`

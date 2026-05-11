@@ -1,3 +1,3 @@
-import Resolver from '@ember/application/resolver';
+import Resolver from "@ember/application/resolver";
 
 const res = Resolver.create();

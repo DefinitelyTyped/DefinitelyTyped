@@ -1,24 +1,21 @@
-// Type definitions for ospec 4.0
-// Project: https://github.com/MithrilJS/mithril.js/tree/next/ospec
-// Definitions by: Már Örlygsson <https://github.com/maranomynet>
-//                 Mike Linkovich <https://github.com/spacejack>
-//                 Claudia Meadows <https://github.com/dead-claudia>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
-
-type ObjectConstructor = new (...args: any[]) => any;
+type ObjectConstructor = new(...args: any[]) => any;
 
 declare namespace o {
     type AssertionDescriber = (description: string) => void;
+
+    interface Call<Args extends any[]> {
+        this: ((...args: unknown[]) => unknown) | undefined;
+        args: Args;
+    }
 
     interface Spy<Args extends any[], Returns> {
         (...args: Args): Returns;
         /** The number of times the function has been called */
         readonly callCount: number;
-        /** The arguments that were passed to the function in the last time it was called */
+        /** The arguments that were passed to the function the last time it was called */
         readonly args: Args;
-        /** List of arguments that were passed to the function each tine it was called */
-        readonly calls: Args[];
+        /** The calls made to the spy.  Each array value is an object containing the `this` calling context and an `args` array. */
+        readonly calls: Array<Call<Args>>;
     }
 
     interface Assertion<T> {
@@ -38,6 +35,7 @@ declare namespace o {
         notThrows(this: Assertion<() => any>, error: string | ObjectConstructor): AssertionDescriber; // See above
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     type Definer = (done: (error?: Error | null) => void, timeout: (delay: number) => void) => void | PromiseLike<any>;
 
     interface Result {
@@ -73,7 +71,7 @@ declare namespace o {
         afterEach(teardown: Definer): void;
 
         /** Returns a function that records the number of times it gets called, and its arguments */
-        spy<A extends any[]>(): Spy<A, undefined>; // eslint-disable-line no-unnecessary-generics
+        spy<A extends any[]>(): Spy<A, undefined>; // eslint-disable-line @definitelytyped/no-unnecessary-generics
         spy<A extends any[], R>(fn: (...args: A) => R): Spy<A, R>;
 
         /** Amount of time (in milliseconds) to wait until bailing out of a test */
@@ -86,7 +84,7 @@ declare namespace o {
         /** Default reporter used by `o.run()` */
         report: Reporter;
 
-        'new'(): Ospec;
+        "new"(): Ospec;
     }
 }
 

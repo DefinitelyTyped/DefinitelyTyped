@@ -1,5 +1,5 @@
-import * as React from 'react';
-import Truncate from 'react-truncate';
+import * as React from "react";
+import Truncate from "react-truncate";
 
 const TruncateTest: React.FC = _ => (
     <div>

@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/jitsi-meet",
+    "version": "2.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jitsi-meet",
+    "projects": [
+        "https://github.com/jitsi/jitsi-meet"
+    ],
+    "devDependencies": {
+        "@types/jitsi-meet": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tom Price",
+            "githubUsername": "tomtom5152"
+        },
+        {
+            "name": "Philipp Katz",
+            "githubUsername": "qqilihq"
+        }
+    ]
+}

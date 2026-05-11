@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/textile-js",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/borgar/textile-js"
+    ],
+    "devDependencies": {
+        "@types/textile-js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "phothinmg",
+            "githubUsername": "phothinmg"
+        }
+    ]
+}

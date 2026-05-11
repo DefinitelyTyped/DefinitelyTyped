@@ -1,5 +1,5 @@
-import Range = require('../classes/range');
-import semver = require('../index');
+import Range = require("../classes/range");
+import semver = require("../index");
 
 /**
  * Return a "simplified" range that matches the same items in `versions` list as the range specified.

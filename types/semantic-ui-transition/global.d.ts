@@ -9,95 +9,99 @@ declare namespace SemanticUI {
         /**
          * Stop current animation and preserve queue
          */
-        (behavior: 'stop'): JQuery;
+        (behavior: "stop"): JQuery;
         /**
          * Stop current animation and queued animations
          */
-        (behavior: 'stop all'): JQuery;
+        (behavior: "stop all"): JQuery;
         /**
          * Clears all queued animations
          */
-        (behavior: 'clear queue'): JQuery;
+        (behavior: "clear queue"): JQuery;
         /**
          * Stop current animation and show element
          */
-        (behavior: 'show'): JQuery;
+        (behavior: "show"): JQuery;
         /**
          * Stop current animation and hide element
          */
-        (behavior: 'hide'): JQuery;
+        (behavior: "hide"): JQuery;
         /**
          * Toggles between hide and show
          */
-        (behavior: 'toggle'): JQuery;
+        (behavior: "toggle"): JQuery;
         /**
          * Forces reflow using a more expensive but stable method
          */
-        (behavior: 'force repaint'): JQuery;
+        (behavior: "force repaint"): JQuery;
         /**
          * Triggers reflow on element
          */
-        (behavior: 'repaint'): JQuery;
+        (behavior: "repaint"): JQuery;
         /**
          * Resets all conditions changes during transition
          */
-        (behavior: 'reset'): JQuery;
+        (behavior: "reset"): JQuery;
         /**
          * Enables animation looping
          */
-        (behavior: 'looping'): JQuery;
+        (behavior: "looping"): JQuery;
         /**
          * Removes looping state from element
          */
-        (behavior: 'remove looping'): JQuery;
+        (behavior: "remove looping"): JQuery;
         /**
          * Adds disabled state (stops ability to animate)
          */
-        (behavior: 'disable'): JQuery;
+        (behavior: "disable"): JQuery;
         /**
          * Removes disabled state
          */
-        (behavior: 'enable'): JQuery;
+        (behavior: "enable"): JQuery;
         /**
          * Modifies element animation duration
          */
-        (behavior: 'set duration', duration: number): JQuery;
+        (behavior: "set duration", duration: number): JQuery;
         /**
          * Saves all class names and styles to cache to be retrieved after animation
          */
-        (behavior: 'save conditions'): JQuery;
+        (behavior: "save conditions"): JQuery;
         /**
          * Adds back cached names and styles to element
          */
-        (behavior: 'restore conditions'): JQuery;
+        (behavior: "restore conditions"): JQuery;
         /**
          * Returns vendor prefixed animation property for animationname
          */
-        (behavior: 'get animation name'): string;
+        (behavior: "get animation name"): string;
         /**
          * Returns vendor prefixed animation property for animationend
          */
-        (behavior: 'get animation event'): string;
+        (behavior: "get animation event"): string;
         /**
          * Returns whether element is currently visible
          */
-        (behavior: 'is visible'): boolean;
+        (behavior: "is visible"): boolean;
         /**
          * Returns whether transition is currently occurring
          */
-        (behavior: 'is animating'): boolean;
+        (behavior: "is animating"): boolean;
         /**
          * Returns whether animation looping is set
          */
-        (behavior: 'is looping'): boolean;
+        (behavior: "is looping"): boolean;
         /**
          * Returns whether animations are supported
          */
-        (behavior: 'is supported'): boolean;
-        (behavior: 'destroy'): JQuery;
-        <K extends keyof TransitionSettings>(behavior: 'setting', name: K, value?: undefined): TransitionSettings._Impl[K];
-        <K extends keyof TransitionSettings>(behavior: 'setting', name: K, value: TransitionSettings._Impl[K]): JQuery;
-        (behavior: 'setting', value: TransitionSettings): JQuery;
+        (behavior: "is supported"): boolean;
+        (behavior: "destroy"): JQuery;
+        <K extends keyof TransitionSettings>(
+            behavior: "setting",
+            name: K,
+            value?: undefined,
+        ): TransitionSettings._Impl[K];
+        <K extends keyof TransitionSettings>(behavior: "setting", name: K, value: TransitionSettings._Impl[K]): JQuery;
+        (behavior: "setting", value: TransitionSettings): JQuery;
         (transition: string): JQuery;
         (settings?: TransitionSettings): JQuery;
     }
@@ -108,27 +112,30 @@ declare namespace SemanticUI {
     type TransitionSettings = TransitionSettings.Param;
 
     namespace TransitionSettings {
-        type Param = (Pick<_Impl, 'animation'> |
-            Pick<_Impl, 'interval'> |
-            Pick<_Impl, 'reverse'> |
-            Pick<_Impl, 'displayType'> |
-            Pick<_Impl, 'duration'> |
-            Pick<_Impl, 'useFailSafe'> |
-            Pick<_Impl, 'allowRepeats'> |
-            Pick<_Impl, 'queue'> |
-            Pick<_Impl, 'onShow'> |
-            Pick<_Impl, 'onHide'> |
-            Pick<_Impl, 'onStart'> |
-            Pick<_Impl, 'onComplete'> |
-            Pick<_Impl, 'className'> |
-            Pick<_Impl, 'error'> |
-            Pick<_Impl, 'namespace'> |
-            Pick<_Impl, 'name'> |
-            Pick<_Impl, 'silent'> |
-            Pick<_Impl, 'debug'> |
-            Pick<_Impl, 'performance'> |
-            Pick<_Impl, 'verbose'>) &
-            Partial<Pick<_Impl, keyof _Impl>>;
+        type Param =
+            & (
+                | Pick<_Impl, "animation">
+                | Pick<_Impl, "interval">
+                | Pick<_Impl, "reverse">
+                | Pick<_Impl, "displayType">
+                | Pick<_Impl, "duration">
+                | Pick<_Impl, "useFailSafe">
+                | Pick<_Impl, "allowRepeats">
+                | Pick<_Impl, "queue">
+                | Pick<_Impl, "onShow">
+                | Pick<_Impl, "onHide">
+                | Pick<_Impl, "onStart">
+                | Pick<_Impl, "onComplete">
+                | Pick<_Impl, "className">
+                | Pick<_Impl, "error">
+                | Pick<_Impl, "namespace">
+                | Pick<_Impl, "name">
+                | Pick<_Impl, "silent">
+                | Pick<_Impl, "debug">
+                | Pick<_Impl, "performance">
+                | Pick<_Impl, "verbose">
+            )
+            & Partial<Pick<_Impl, keyof _Impl>>;
 
         interface _Impl {
             // region Transition Settings
@@ -150,7 +157,7 @@ declare namespace SemanticUI {
              *
              * @default 'auto'
              */
-            reverse: 'auto' | boolean;
+            reverse: "auto" | boolean;
             /**
              * Specify the final display type (block, inline-block etc) so that it doesn't have to be calculated.
              *
@@ -258,16 +265,19 @@ declare namespace SemanticUI {
         type ClassNameSettings = ClassNameSettings.Param;
 
         namespace ClassNameSettings {
-            type Param = (Pick<_Impl, 'animating'> |
-                Pick<_Impl, 'disabled'> |
-                Pick<_Impl, 'hidden'> |
-                Pick<_Impl, 'inward'> |
-                Pick<_Impl, 'loading'> |
-                Pick<_Impl, 'looping'> |
-                Pick<_Impl, 'outward'> |
-                Pick<_Impl, 'transition'> |
-                Pick<_Impl, 'visible'>) &
-                Partial<Pick<_Impl, keyof _Impl>>;
+            type Param =
+                & (
+                    | Pick<_Impl, "animating">
+                    | Pick<_Impl, "disabled">
+                    | Pick<_Impl, "hidden">
+                    | Pick<_Impl, "inward">
+                    | Pick<_Impl, "loading">
+                    | Pick<_Impl, "looping">
+                    | Pick<_Impl, "outward">
+                    | Pick<_Impl, "transition">
+                    | Pick<_Impl, "visible">
+                )
+                & Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**
@@ -312,9 +322,12 @@ declare namespace SemanticUI {
         type ErrorSettings = ErrorSettings.Param;
 
         namespace ErrorSettings {
-            type Param = (Pick<_Impl, 'noAnimation'> |
-                Pick<_Impl, 'method'>) &
-                Partial<Pick<_Impl, keyof _Impl>>;
+            type Param =
+                & (
+                    | Pick<_Impl, "noAnimation">
+                    | Pick<_Impl, "method">
+                )
+                & Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**

@@ -22,8 +22,9 @@ declare namespace OO.ui {
     interface MenuTagMultiselectWidget extends MenuTagMultiselectWidget.Props, MenuTagMultiselectWidget.Prototype {}
 
     namespace MenuTagMultiselectWidget {
-        type Option = Required<Pick<MenuOptionWidget.ConfigOptions, 'data'>> &
-            Pick<MenuOptionWidget.ConfigOptions, 'label' | 'icon'>;
+        type Option =
+            & Required<Pick<MenuOptionWidget.ConfigOptions, "data">>
+            & Pick<MenuOptionWidget.ConfigOptions, "label" | "icon">;
 
         interface ConfigOptions extends TagMultiselectWidget.ConfigOptions {
             /** Clear the text input value when a menu option is chosen */
@@ -113,7 +114,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): MenuTagMultiselectWidget;
+            new(config?: ConfigOptions): MenuTagMultiselectWidget;
             prototype: Prototype;
             static: Static;
             super: TagMultiselectWidget.Constructor;

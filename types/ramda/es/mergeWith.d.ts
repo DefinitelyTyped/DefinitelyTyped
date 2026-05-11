@@ -1,2 +1,2 @@
-import { mergeWith } from '../index';
+import { mergeWith } from "../index.js";
 export default mergeWith;

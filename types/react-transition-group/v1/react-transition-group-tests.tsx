@@ -1,7 +1,7 @@
 import * as React from "react";
 import TransitionGroup = require("react-transition-group/TransitionGroup");
 import CSSTransitionGroup = require("react-transition-group/CSSTransitionGroup");
-import { CSSTransitionGroupProps, TransitionGroupProps, TransitionGroupChildLifecycle } from "react-transition-group";
+import { CSSTransitionGroupProps, TransitionGroupChildLifecycle, TransitionGroupProps } from "react-transition-group";
 
 class TestChild extends React.Component implements TransitionGroupChildLifecycle {
     componentWillAppear(callback: () => void) {
@@ -23,7 +23,7 @@ class TestChild extends React.Component implements TransitionGroupChildLifecycle
     componentDidLeave() {}
 
     render() {
-        return (<li>{ "Test" }</li>);
+        return <li>{"Test"}</li>;
     }
 }
 
@@ -36,37 +36,37 @@ const Test: React.FunctionComponent = () => {
 
             <CSSTransitionGroup
                 transitionName="example"
-                transitionAppear={ true }
-                transitionAppearTimeout={ 500 }
-                transitionEnter={ true }
-                transitionEnterTimeout={ 500 }
-                transitionLeave={ true }
-                transitionLeaveTimeout={ 500 }
+                transitionAppear={true}
+                transitionAppearTimeout={500}
+                transitionEnter={true}
+                transitionEnterTimeout={500}
+                transitionLeave={true}
+                transitionLeaveTimeout={500}
             >
-                <div>{ "test" }</div>
+                <div>{"test"}</div>
             </CSSTransitionGroup>
 
             <CSSTransitionGroup
-                transitionName={ {
+                transitionName={{
                     enter: "enter",
                     enterActive: "enterActive",
                     leave: "leave",
                     leaveActive: "leaveActive",
                     appear: "appear",
-                    appearActive: "appearActive"
-                } }
+                    appearActive: "appearActive",
+                }}
             >
-                <div>{ "test" }</div>
+                <div>{"test"}</div>
             </CSSTransitionGroup>
 
             <CSSTransitionGroup
-                transitionName={ {
+                transitionName={{
                     enter: "enter",
                     leave: "leave",
-                    appear: "appear"
-                } }
+                    appear: "appear",
+                }}
             >
-                <div>{ "test" }</div>
+                <div>{"test"}</div>
             </CSSTransitionGroup>
         </div>
     );

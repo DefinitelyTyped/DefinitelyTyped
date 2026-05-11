@@ -4,10 +4,12 @@
  */
 declare function polyfill<T>(
     o: T,
-): {
-    -readonly [P in keyof T]: TypedPropertyDescriptor<T[P]>;
-} & {
-    [property: string]: PropertyDescriptor;
-};
+):
+    & {
+        -readonly [P in keyof T]: TypedPropertyDescriptor<T[P]>;
+    }
+    & {
+        [property: string]: PropertyDescriptor;
+    };
 
 export = polyfill;

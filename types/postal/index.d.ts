@@ -1,8 +1,3 @@
-// Type definitions for Postal v1.0.8
-// Project: https://github.com/postaljs/postal.js
-// Definitions by: Lokesh Peta <https://github.com/lokeshpeta>, Paul Jolly <https://github.com/myitcv>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface IConfiguration {
     SYSTEM_CHANNEL: string;
     DEFAULT_CHANNEL: string;
@@ -12,11 +7,11 @@ interface IConfiguration {
 interface IResolver {
     compare(binding: string, topic: string, headerOptions: {}): boolean;
     reset(): void;
-    purge(options?: {topic?: string | undefined, binding?: string | undefined, compact?: boolean | undefined}): void;
+    purge(options?: { topic?: string | undefined; binding?: string | undefined; compact?: boolean | undefined }): void;
 }
 
 interface ICallback<T> {
-    (data: T, envelope: IEnvelope<T>): void
+    (data: T, envelope: IEnvelope<T>): void;
 }
 
 interface ISubscriptionDefinition<T> {
@@ -27,7 +22,7 @@ interface ISubscriptionDefinition<T> {
     // after and before lack documentation
 
     constraint(predicateFn: (data: T, envelope: IEnvelope<T>) => boolean): ISubscriptionDefinition<T>;
-    constraints(predicateFns: ((data: T, envelope: IEnvelope<T>) => boolean)[]): ISubscriptionDefinition<T>;
+    constraints(predicateFns: Array<(data: T, envelope: IEnvelope<T>) => boolean>): ISubscriptionDefinition<T>;
     context(theContext: any): ISubscriptionDefinition<T>;
     debounce(interval: number): ISubscriptionDefinition<T>;
     defer(): ISubscriptionDefinition<T>;
@@ -52,7 +47,6 @@ interface IEnvelope<T> {
     timeStamp?: string | undefined;
 }
 
-
 interface IChannelDefinition<T> {
     subscribe(topic: string, callback: ICallback<T>): ISubscriptionDefinition<T>;
 
@@ -63,24 +57,28 @@ interface IChannelDefinition<T> {
 
 interface IPostal {
     subscriptions: {};
-    wireTaps: ICallback<any>[];
+    wireTaps: Array<ICallback<any>>;
 
     addWireTap(callback: ICallback<any>): () => void;
 
     channel<T>(name?: string): IChannelDefinition<T>;
 
-    getSubscribersFor(): ISubscriptionDefinition<any>[];
-    getSubscribersFor(options: {channel?: string | undefined, topic?: string | undefined, context?: any}): ISubscriptionDefinition<any>[];
-    getSubscribersFor(predicateFn: (sub: ISubscriptionDefinition<any>) => boolean): ISubscriptionDefinition<any>[];
+    getSubscribersFor(): Array<ISubscriptionDefinition<any>>;
+    getSubscribersFor(
+        options: { channel?: string | undefined; topic?: string | undefined; context?: any },
+    ): Array<ISubscriptionDefinition<any>>;
+    getSubscribersFor(predicateFn: (sub: ISubscriptionDefinition<any>) => boolean): Array<ISubscriptionDefinition<any>>;
 
     publish(envelope: IEnvelope<any>): void;
 
     reset(): void;
 
-    subscribe(options: {channel?: string | undefined, topic: string, callback: ICallback<any>}): ISubscriptionDefinition<any>;
+    subscribe(
+        options: { channel?: string | undefined; topic: string; callback: ICallback<any> },
+    ): ISubscriptionDefinition<any>;
     unsubscribe(sub: ISubscriptionDefinition<any>): void;
     unsubscribeFor(): void;
-    unsubscribeFor(options: {channel?: string | undefined, topic?: string | undefined, context?: any}): void;
+    unsubscribeFor(options: { channel?: string | undefined; topic?: string | undefined; context?: any }): void;
 
     configuration: IConfiguration;
 }
@@ -91,4 +89,3 @@ declare module "postal" {
     var postal: IPostal;
     export = postal;
 }
-

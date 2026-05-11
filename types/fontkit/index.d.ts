@@ -1,8 +1,3 @@
-// Type definitions for fontkit 2.0
-// Project: https://github.com/foliojs/fontkit#readme
-// Definitions by: Stepan Mikhailiuk <https://github.com/stepancar>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 /**
@@ -10,6 +5,8 @@
  * They all inherit from the TTFFont class and have the same public API.
  */
 export interface Font {
+    type: "TTF" | "WOFF" | "WOFF2";
+
     postscriptName: string;
     fullName: string;
     familyName: string;
@@ -38,9 +35,13 @@ export interface Font {
     /** the font’s bounding box, i.e. the box that encloses all glyphs in the font */
     bbox: BBOX;
     /** the font metric table consisting of a set of metrics and other data required for OpenType fonts */
-    'OS/2': Os2Table;
+    "OS/2": Os2Table;
     /** the font's horizontal header table consisting of information needed to layout fonts with horizontal characters    */
     hhea: HHEA;
+    /** the color table containing layer records for color glyphs (optional, present in fonts with color glyphs) */
+    COLR?: COLRTable;
+    /** the color palette table containing color definitions (optional, present in fonts with color glyphs) */
+    CPAL?: CPALTable;
 
     /** the number of glyphs in the font */
     numGlyphs: number;
@@ -48,6 +49,9 @@ export interface Font {
     characterSet: number[];
     /** an array of all OpenType feature tags (or mapped AAT tags) supported by the font */
     availableFeatures: string[];
+
+    /** An object describing the available axes in a variable font. Keys are 4 letter axis tags. */
+    variationAxes: Partial<Record<string, { name: string; min: number; default: number; max: number }>>;
 
     /**
      * Returns an array of strings that map to the given glyph id.
@@ -95,6 +99,35 @@ export interface Font {
      * stored in the glyph object.
      */
     getGlyph(glyphId: number, codePoints?: number[]): Glyph;
+
+    /**
+     * an array of all OpenType feature tags
+     * same to availableFeatures but can input custom script and language params
+     */
+    getAvailableFeatures(script: string | string[], language: string): string[];
+
+    /**
+     * Returns a Subset for this font.
+     */
+    createSubset(): Subset;
+
+    /**
+     * Returns a new font with the given variation settings applied.
+     * Settings can either be an instance name, or an object containing
+     * variation tags as specified by the `variationAxes` property.
+     */
+    getVariation(settings: object | string): Font;
+
+    // Standardized format plugin API
+    getFont(name: string): Font;
+
+    /**
+     * Gets a string from the font's `name` table
+     * `lang` is a BCP-47 language code.
+     */
+    getName(key: string, lang: string): string | null;
+
+    setDefaultLanguage(lang: string): void;
 }
 
 export interface GlyphRun {
@@ -214,6 +247,12 @@ export interface Glyph {
 
     /**  The glyph's name. Commonly the character, or 'space' or UTF**** */
     name: string;
+
+    /**
+     * For COLR glyphs, an array of objects containing the glyph and color for each layer.
+     * Each layer has a `glyph` property with the glyph object and a `color` property with RGBA values.
+     */
+    layers?: Array<{ glyph: Glyph; color: { red: number; green: number; blue: number; alpha: number } }>;
 }
 
 /**
@@ -262,7 +301,7 @@ export interface Path {
 }
 
 export interface PathCommand {
-    command: 'moveTo' | 'lineTo' | 'quadraticCurveTo' | 'bezierCurveTo' | 'closePath';
+    command: "moveTo" | "lineTo" | "quadraticCurveTo" | "bezierCurveTo" | "closePath";
     args: number[];
 }
 
@@ -288,6 +327,9 @@ export interface Os2Table {
         underscore: boolean;
         useTypoMetrics: boolean;
         wws: boolean;
+        bold: boolean;
+        regular: boolean;
+        oblique: boolean;
     };
     fsType: {
         bitmapOnly: boolean;
@@ -341,23 +383,63 @@ export interface HHEA {
     numberOfMetrics: number;
 }
 
+export interface COLRTable {
+    version: number;
+    numBaseGlyphRecords: number;
+    baseGlyphRecord: Array<{
+        gid: number;
+        firstLayerIndex: number;
+        numLayers: number;
+    }>;
+    layerRecords: Array<{
+        gid: number;
+        paletteIndex: number;
+    }>;
+    numLayerRecords: number;
+}
+
+export interface CPALTable {
+    version: number;
+    numPaletteEntries: number;
+    numPalettes: number;
+    numColorRecords: number;
+    colorRecords: Array<{
+        red: number;
+        green: number;
+        blue: number;
+        alpha: number;
+    }>;
+    colorRecordIndices: number[];
+}
+
+export interface FontCollection {
+    type: "TTC" | "DFont";
+    getFont(name: string): Font | null;
+    fonts: Font[];
+}
+
+export interface Subset {
+    includeGlyph(glyph: Glyph): boolean;
+    encode(): Uint8Array;
+}
+
 /**
  * Opens a font file asynchronously, returning a promise that resolves with a font object.
  * For collection fonts (such as TrueType collection files),
  * you can pass a postscriptName to get that font out of the collection instead of a collection object.
  */
-export function open(filename: string, postscriptName?: string): Promise<Font>;
+export function open(filename: string, postscriptName?: string): Promise<Font | FontCollection>;
 
 /**
  * Opens a font file synchronously, and returns a font object.
  * For collection fonts (such as TrueType collection files),
  * you can pass a postscriptName to get that font out of the collection instead of a collection object.
  */
-export function openSync(filename: string, postscriptName?: string): Font;
+export function openSync(filename: string, postscriptName?: string): Font | FontCollection;
 
 /**
  * Returns a font object for the given buffer.
  * For collection fonts (such as TrueType collection files),
  * you can pass a postscriptName to get that font out of the collection instead of a collection object.
  */
-export function create(buffer: Buffer, postscriptName?: string): Font;
+export function create(buffer: Buffer, postscriptName?: string): Font | FontCollection;

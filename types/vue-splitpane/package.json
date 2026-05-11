@@ -1,6 +1,20 @@
 {
-  "private": true,
-  "dependencies": {
-    "vue": "^2.0.0"
-  }
+    "private": true,
+    "name": "@types/vue-splitpane",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/PanJiaChen/vue-split-pane/"
+    ],
+    "dependencies": {
+        "vue": "^2.0.0"
+    },
+    "devDependencies": {
+        "@types/vue-splitpane": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "noonhorse",
+            "githubUsername": "noonhorse"
+        }
+    ]
 }

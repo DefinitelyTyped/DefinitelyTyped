@@ -1,8 +1,3 @@
-// Type definitions for discord-rich-presence 0.0
-// Project: https://github.com/devsnek/discord-rich-presence#readme
-// Definitions by: Sv443 <https://github.com/Sv443>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { EventEmitter } from "events";

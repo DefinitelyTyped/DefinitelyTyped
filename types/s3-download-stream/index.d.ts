@@ -1,12 +1,7 @@
-// Type definitions for s3-download-stream 0.1
-// Project: https://github.com/jb55/s3-download-stream
-// Definitions by: Caleb Everett <https://github.com/everettcaleb>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import { Readable } from "stream";
 import { S3 } from "aws-sdk2-types";
+import { Readable } from "stream";
 
 declare namespace s3Stream {
     interface S3StreamDownloaderOptions {

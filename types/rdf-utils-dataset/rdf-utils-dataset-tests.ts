@@ -1,13 +1,12 @@
-import { resource, resourcesToGraph } from 'rdf-utils-dataset';
-import { DatasetIndexed } from 'rdf-dataset-indexed/dataset';
-import DatasetExt from 'rdf-ext/lib/Dataset';
-import QuadExt from 'rdf-ext/lib/Quad';
-import { BaseQuad, DataFactory, DatasetCore, DatasetCoreFactory, Quad, Term } from '@rdfjs/types';
+import { BaseQuad, DataFactory, DatasetCore, DatasetCoreFactory, Quad, Term } from "@rdfjs/types";
+import { DatasetIndexed } from "rdf-dataset-indexed/dataset";
+import DatasetExt from "rdf-ext/lib/Dataset";
+import QuadExt from "rdf-ext/lib/Quad";
+import { resource, resourcesToGraph } from "rdf-utils-dataset";
 
-type Factory<OutQuad extends BaseQuad,
-    InQuad extends BaseQuad,
-    D extends DatasetCore<OutQuad, InQuad>,
-> = DataFactory<OutQuad, InQuad> & DatasetCoreFactory<OutQuad, InQuad, D>;
+type Factory<OutQuad extends BaseQuad, InQuad extends BaseQuad, D extends DatasetCore<OutQuad, InQuad>> =
+    & DataFactory<OutQuad, InQuad>
+    & DatasetCoreFactory<OutQuad, InQuad, D>;
 
 const dataset1: DatasetIndexed<BaseQuad, BaseQuad> = {} as any;
 const dataset2: DatasetIndexed<Quad, BaseQuad> = {} as any;

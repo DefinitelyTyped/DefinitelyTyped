@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/mongodb-uri",
+    "version": "0.9.9999",
+    "projects": [
+        "https://github.com/mongolab/mongodb-uri-node"
+    ],
+    "devDependencies": {
+        "@types/mongodb-uri": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "mernxl",
+            "githubUsername": "mernxl"
+        }
+    ]
+}

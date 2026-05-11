@@ -1,0 +1,32 @@
+{
+    "private": true,
+    "name": "@types/http-link-header",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/jhermsmeier/node-http-link-header"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/http-link-header": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Christian Rackerseder",
+            "githubUsername": "screendriver"
+        },
+        {
+            "name": "Noah Loomans",
+            "githubUsername": "nloomans"
+        },
+        {
+            "name": "Harris Lummis",
+            "githubUsername": "lummish"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

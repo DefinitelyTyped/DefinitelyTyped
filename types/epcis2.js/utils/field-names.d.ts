@@ -105,7 +105,7 @@ declare namespace fieldNames {
     }
     export { sensorReport_1 as sensorReport };
     export const event: {
-        '@context': string;
+        "@context": string;
         type: string;
         eventID: string;
         eventTime: string;
@@ -137,7 +137,7 @@ declare namespace fieldNames {
     };
     export const epcisDocument: {
         type: string;
-        '@context': string;
+        "@context": string;
         schemaVersion: string;
         creationDate: string;
         epcisHeader: string;

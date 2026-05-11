@@ -202,7 +202,7 @@
 declare module "url" {
     
 
-    module url {
+    namespace url {
         
         
         

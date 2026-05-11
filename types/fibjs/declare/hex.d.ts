@@ -202,7 +202,7 @@
 declare module "hex" {
     
 
-    module hex {
+    namespace hex {
         
         
         

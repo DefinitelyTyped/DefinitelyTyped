@@ -1,4 +1,4 @@
-import { Hint, Rule, Ruleset, ReportType } from './types';
+import { Hint, ReportType, Rule, Ruleset } from "./types";
 
 export default class Reporter {
     html: string;

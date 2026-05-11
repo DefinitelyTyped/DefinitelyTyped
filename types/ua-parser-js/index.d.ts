@@ -1,12 +1,3 @@
-// Type definitions for ua-parser-js 0.7
-// Project: https://github.com/faisalman/ua-parser-js
-// Definitions by: Viktor Miroshnikov <https://github.com/superduper>
-//                 Lucas Woo <https://github.com/legendecas>
-//                 Pablo Rodríguez <https://github.com/MeLlamoPablo>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-//                 BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace UAParser {
     // tslint:disable:interface-name backward compatible exclusion
 
@@ -21,7 +12,6 @@ declare namespace UAParser {
          * Mosaic, Mozilla, Netfront, Netscape, NetSurf, Nokia, OmniWeb, Opera [Mini/Mobi/Tablet],
          * Phoenix, Polaris, QQBrowser, RockMelt, Silk, Skyfire, SeaMonkey, SlimBrowser, Swiftfox,
          * Tizen, UCBrowser, Vivaldi, w3m, Yandex
-         *
          */
         name: string | undefined;
 
@@ -198,8 +188,8 @@ declare const UAParser: {
     /**
      * Create a new parser with UA prepopulated and extensions extended
      */
-    new (uastring?: string, extensions?: Record<string, unknown>): UAParser.UAParserInstance;
-    new (extensions?: Record<string, unknown>): UAParser.UAParserInstance;
+    new(uastring?: string, extensions?: Record<string, unknown>): UAParser.UAParserInstance;
+    new(extensions?: Record<string, unknown>): UAParser.UAParserInstance;
     (uastring?: string, extensions?: Record<string, unknown>): UAParser.IResult;
     (extensions?: Record<string, unknown>): UAParser.IResult;
 

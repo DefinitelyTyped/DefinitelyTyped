@@ -1,12 +1,7 @@
-// Type definitions for anchor-js 5.0
-// Project: https://github.com/bryanbraun/anchorjs
-// Definitions by: Brian Surowiec <https://github.com/xt0rted>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // TODO: remove @deprecated aliases in next major version (6.*)
 declare namespace anchorjs {
-    type Placement = 'left' | 'right';
-    type Visibility = 'always' | 'hover';
+    type Placement = "left" | "right";
+    type Visibility = "always" | "hover";
 
     interface Options {
         ariaLabel?: string | undefined;
@@ -21,7 +16,7 @@ declare namespace anchorjs {
 
     interface AnchorJS {
         options: Options;
-        new (options?: Options): this;
+        new(options?: Options): this;
         add(selector?: string): this;
         remove(selector?: string): this;
         removeAll(): void;

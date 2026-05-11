@@ -202,7 +202,7 @@
 declare module "assert" {
     
 
-    module assert {
+    namespace assert {
         
         
         

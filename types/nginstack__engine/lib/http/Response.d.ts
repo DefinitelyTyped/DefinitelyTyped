@@ -9,13 +9,13 @@ declare class Response {
     statusCode: number;
     cacheControl: string;
     expires: Date;
-    write(content: string): void;
-    writeln(content: string): void;
+    write(content: string | Uint8Array | ArrayBuffer): void;
+    writeln(content: string | Uint8Array | ArrayBuffer): void;
     setCookie(name: string, value: string): void;
     setHeader(name: any, value: any): void;
     getAllHeaders(): any;
     stop(): void;
-    redirect(uri: string, opt_permanently?: boolean): void;
-    stopAndRedirect(uri: string, opt_permanently?: boolean): void;
+    redirect(uri: string, permanently?: boolean): void;
+    stopAndRedirect(uri: string, permanently?: boolean): void;
     send(): void;
 }

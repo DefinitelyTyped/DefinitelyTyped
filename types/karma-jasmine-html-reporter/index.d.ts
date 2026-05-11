@@ -1,11 +1,6 @@
-// Type definitions for karma-jasmine-html-reporter 1.7
-// Project: https://github.com/dfederm/karma-jasmine-html-reporter#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+import "karma";
 
-import 'karma';
-
-declare module 'karma' {
+declare module "karma" {
     interface ConfigOptions {
         /**
          * In combination with multiple reporters you may want to disable failed messages

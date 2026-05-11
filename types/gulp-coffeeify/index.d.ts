@@ -1,10 +1,4 @@
-// Type definitions for gulp-coffeeify
-// Project: https://github.com/nariyu/gulp-coffeeify
-// Definitions by: Qubo <https://github.com/tkQubo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
-
 
 declare namespace coffeeify {
     interface Coffeeify {
@@ -15,7 +9,7 @@ declare namespace coffeeify {
         options?: {
             debug?: boolean | undefined;
             paths?: string[] | undefined;
-        } | undefined,
+        } | undefined;
         /**
          * [DEPRECATED]: You should use a 'paths' options of browserify.
          */

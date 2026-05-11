@@ -1,5 +1,7 @@
-import { useSyncExternalStore } from 'use-sync-external-store/shim';
-import { useSyncExternalStoreWithSelector } from 'use-sync-external-store/shim/with-selector';
+import { useSyncExternalStore } from "use-sync-external-store";
+import { useSyncExternalStore as useSyncExternalStoreShim } from "use-sync-external-store/shim";
+import { useSyncExternalStoreWithSelector as useSyncExternalStoreWithSelectorShim } from "use-sync-external-store/shim/with-selector";
+import { useSyncExternalStoreWithSelector } from "use-sync-external-store/with-selector";
 
 interface Store<State> {
     getState(): State;
@@ -26,7 +28,7 @@ function useStoreWrong() {
     // @ts-expect-error
     const version: number = useSyncExternalStore(
         () => () => {},
-        () => '1',
+        () => "1",
     );
 }
 

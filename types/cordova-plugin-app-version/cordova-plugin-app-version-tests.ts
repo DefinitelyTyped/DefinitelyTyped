@@ -1,18 +1,18 @@
 /// <reference types="cordova" />
 
 cordova.getAppVersion.getAppName()
-    .then(appName=> {
-        console.log(appName)
+    .then(appName => {
+        console.log(appName);
     });
 cordova.getAppVersion.getPackageName()
-    .then(packageName=> {
+    .then(packageName => {
         console.log(packageName);
     });
 cordova.getAppVersion.getVersionCode()
-    .then(versionCode=> {
+    .then(versionCode => {
         console.log(versionCode);
     });
 cordova.getAppVersion.getVersionNumber()
-    .then(versionNumber=> {
+    .then(versionNumber => {
         console.log(versionNumber);
     });

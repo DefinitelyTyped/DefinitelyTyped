@@ -8,8 +8,8 @@ import { TextInputSharedProps } from "./props";
 export interface ControlledPasswordInputProps extends TextInputSharedProps {
     hidePasswordLabel?: string | undefined;
     showPasswordLabel?: string | undefined;
-    size?: string | undefined,
-    togglePasswordVisibility?(event: React.MouseEvent<HTMLButtonElement>): void,
+    size?: string | undefined;
+    togglePasswordVisibility?(event: React.MouseEvent<HTMLButtonElement>): void;
     tooltipAlignment?: TooltipAlignment | undefined;
     tooltipPosition?: TooltipPosition | undefined;
 }

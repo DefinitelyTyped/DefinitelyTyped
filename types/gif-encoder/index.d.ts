@@ -1,10 +1,6 @@
-// Type definitions for gif-encoder 0.7
-// Project: https://github.com/twolfson/gif-encoder
-// Definitions by: aetheryx <https://github.com/aetheryx>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
-import { Readable } from 'stream';
+import { Readable } from "stream";
 
 type Pixels = ArrayLike<number>;
 
@@ -22,8 +18,8 @@ declare class GIFEncoder extends Readable {
             /**
              * Number, in bytes, to store in internal buffer. Defaults to 64kB.
              */
-            highWaterMark?: number | undefined
-        }
+            highWaterMark?: number | undefined;
+        },
     );
 
     read(size?: number): Buffer | null;
@@ -41,7 +37,7 @@ declare class GIFEncoder extends Readable {
             | "frame#stop"
             | "finish#start"
             | "finish#stop",
-        listener: () => void
+        listener: () => void,
     ): this;
     on(event: "data", listener: (chunk: Buffer) => void): this;
     on(event: "error", listener: (err: Error) => void): this;
@@ -59,7 +55,7 @@ declare class GIFEncoder extends Readable {
             | "frame#stop"
             | "finish#start"
             | "finish#stop",
-        listener: () => void
+        listener: () => void,
     ): this;
     once(event: "data", listener: (chunk: Buffer) => void): this;
     once(event: "error", listener: (err: Error) => void): this;
@@ -71,7 +67,7 @@ declare class GIFEncoder extends Readable {
         /**
          * Amount of milliseconds to delay between frames.
          */
-        ms: number
+        ms: number,
     ): void;
 
     /**
@@ -81,7 +77,7 @@ declare class GIFEncoder extends Readable {
         /**
          * Amount of frames per second.
          */
-        framesPerSecond: number
+        framesPerSecond: number,
     ): void;
 
     /**
@@ -105,7 +101,7 @@ declare class GIFEncoder extends Readable {
          *      restore the area overwritten by the graphic with
          *      what was there prior to rendering the graphic.
          */
-        disposalCode: 0 | 1 | 2 | 3
+        disposalCode: 0 | 1 | 2 | 3,
     ): void;
 
     /**
@@ -119,7 +115,7 @@ declare class GIFEncoder extends Readable {
          *
          * If n is a positive number, loop n times.
          */
-        amount: number
+        amount: number,
     ): void;
 
     /**
@@ -129,7 +125,7 @@ declare class GIFEncoder extends Readable {
         /**
          * RGB color to represent transparent background, e.g. 0x00FF00
          */
-        color: number
+        color: number,
     ): void;
 
     /**
@@ -145,7 +141,7 @@ declare class GIFEncoder extends Readable {
          *
          * 10 is the default, provided an even trade-off.
          */
-        quality: number
+        quality: number,
     ): void;
 
     /**
@@ -180,7 +176,7 @@ declare class GIFEncoder extends Readable {
              * Indicator to treat imageData as RGBA values (false) or indices in palette (true)
              */
             indexedPixels: boolean;
-        }
+        },
     ): void;
 
     /**
@@ -233,7 +229,7 @@ declare class GIFEncoder extends Readable {
              * Indicator to treat imageData as RGBA values (false) or indices in palette (true)
              */
             indexedPixels: boolean;
-        }
+        },
     ): void;
 
     /**
@@ -245,7 +241,7 @@ declare class GIFEncoder extends Readable {
          * It should follow the sequence of r, g, b, a and be 4 * height * width in length.
          * This can be collected from a canvas through context.getImageData(0, 0, width, height).data
          */
-        imageData: Pixels
+        imageData: Pixels,
     ): void;
 
     /**
@@ -257,7 +253,7 @@ declare class GIFEncoder extends Readable {
          * It should follow the sequence of r, g, b, a and be 4 * height * width in length.
          * This can be collected from a canvas through context.getImageData(0, 0, width, height).data
          */
-        pixels: Pixels
+        pixels: Pixels,
     ): void;
 
     /**
@@ -268,7 +264,7 @@ declare class GIFEncoder extends Readable {
          * Array of pixels to use as palette for the frame.
          * It should follow the sequence of r, g, b, a.
          */
-        palette: Pixels
+        palette: Pixels,
     ): void;
 
     /**

@@ -1,6 +1,20 @@
 {
     "private": true,
+    "name": "@types/react-widgets-moment",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/jquense/react-widgets#readme"
+    ],
     "dependencies": {
         "moment": "^2.18.1"
-    }
+    },
+    "devDependencies": {
+        "@types/react-widgets-moment": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Janeene Beeforth",
+            "githubUsername": "dawnmist"
+        }
+    ]
 }

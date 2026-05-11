@@ -1,8 +1,3 @@
-// Type definitions for code 4.0
-// Project: https://github.com/hapijs/code
-// Definitions by: Prashant Tiwari <https://github.com/prashaantt>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /** Generates an assertion object. */
 export function expect<T>(value: T | T[], prefix?: string): AssertionChain<T>;
 /** Makes the test fail with the given message. */

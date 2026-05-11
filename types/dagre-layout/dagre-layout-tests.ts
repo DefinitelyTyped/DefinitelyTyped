@@ -5,6 +5,6 @@ graph.setGraph({})
     .setDefaultEdgeLabel(() => ({}))
     .setNode("a", {})
     .setEdge("b", "c")
-    .setEdge("c", "d", {class: "class"});
+    .setEdge("c", "d", { class: "class" });
 
 dagre.layout(graph);

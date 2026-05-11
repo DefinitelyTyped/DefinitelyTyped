@@ -1,4 +1,4 @@
-import NavigationMenuPanel, { NavigationMenuPanelOptions } from './navigation-menu-panel';
+import NavigationMenuPanel, { NavigationMenuPanelOptions } from "./navigation-menu-panel";
 
 interface NavigationMenuOptions extends NavigationMenuPanelOptions {
     selectorInit: string;

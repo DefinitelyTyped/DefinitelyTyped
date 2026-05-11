@@ -1,6 +1,6 @@
 /// <reference types="../experimental"/>
 
-import React = require('react');
+import React = require("react");
 
 // NOTE: forward declarations for tests
 declare var console: Console;
@@ -15,179 +15,205 @@ function suspenseTest() {
 
     function FlameChart() {
         return (
-            <React.Suspense fallback="computing..." unstable_expectedLoadTime={2000}>
+            <React.Suspense fallback="computing..." defer>
                 <DisplayData />
             </React.Suspense>
         );
     }
 }
 
-// Unsupported `revealOrder` triggers a runtime warning
-// @ts-expect-error
-<React.SuspenseList revealOrder="something">
-    <React.Suspense fallback="Loading">Content</React.Suspense>
-</React.SuspenseList>;
-
-<React.SuspenseList revealOrder="backwards">
-    <React.Suspense fallback="Loading">A</React.Suspense>
-    <React.Suspense fallback="Loading">B</React.Suspense>
-</React.SuspenseList>;
-
-<React.SuspenseList revealOrder="forwards">
-    <React.Suspense fallback="Loading">A</React.Suspense>
-    <React.Suspense fallback="Loading">B</React.Suspense>
-</React.SuspenseList>;
-
-<React.SuspenseList revealOrder="together">
-    <React.Suspense fallback="Loading">A</React.Suspense>
-    <React.Suspense fallback="Loading">B</React.Suspense>
-</React.SuspenseList>;
-
-function useEvent() {
-    // Implicit any
+function suspenseListTests() {
+    <React.unstable_SuspenseList>
+        <React.Suspense fallback="Loading">Content</React.Suspense>
+        <React.Suspense fallback="Loading">Content</React.Suspense>
+    </React.unstable_SuspenseList>;
+    // @ts-expect-error -- Directional SuspenseList needs more than one child
+    <React.unstable_SuspenseList>
+        <React.Suspense fallback="Loading">Content</React.Suspense>
+    </React.unstable_SuspenseList>;
+    // Unsupported `revealOrder` triggers a runtime warning
     // @ts-expect-error
-    const anyEvent = React.experimental_useEffectEvent(value => {
-        // $ExpectType any
-        return value;
-    });
-    // $ExpectType any
-    anyEvent({});
-    // $ExpectType (value: string) => number
-    const typedEvent = React.experimental_useEffectEvent((value: string) => {
-        return Number(value);
-    });
-    // $ExpectType number
-    typedEvent('1');
-    // Argument of type '{}' is not assignable to parameter of type 'string'.
-    // @ts-expect-error
-    typedEvent({});
+    <React.unstable_SuspenseList revealOrder="something">
+        <React.Suspense fallback="Loading">Content</React.Suspense>
+    </React.unstable_SuspenseList>;
 
-    function useContextuallyTypedEvent(fn: (event: Event) => string) {}
-    useContextuallyTypedEvent(
-        React.experimental_useEffectEvent(event => {
-            // $ExpectType Event
-            event;
-            return String(event);
-        }),
-    );
-}
+    <React.unstable_SuspenseList revealOrder="forwards">
+        <React.Suspense fallback="Loading">Content</React.Suspense>
+        <React.Suspense fallback="Loading">Content</React.Suspense>
+    </React.unstable_SuspenseList>;
 
-function useAsyncAction() {
-    const [isPending, startTransition] = React.useTransition();
+    <React.unstable_SuspenseList revealOrder="backwards" tail="collapsed">
+        <React.Suspense fallback="Loading">A</React.Suspense>
+        <React.Suspense fallback="Loading">B</React.Suspense>
+    </React.unstable_SuspenseList>;
 
-    function handleClick() {
-        // $ExpectType void
-        startTransition(async () => {});
+    // @ts-expect-error -- Must have more than one static child
+    <React.unstable_SuspenseList revealOrder="backwards" tail="collapsed">
+        <React.Suspense fallback="Loading">B</React.Suspense>
+    </React.unstable_SuspenseList>;
+
+    <React.unstable_SuspenseList revealOrder="unstable_legacy-backwards" tail="collapsed">
+        <React.Suspense fallback="Loading">A</React.Suspense>
+        <React.Suspense fallback="Loading">B</React.Suspense>
+    </React.unstable_SuspenseList>;
+
+    <React.unstable_SuspenseList revealOrder="independent">
+        <React.Suspense fallback="Loading">A</React.Suspense>
+        <React.Suspense fallback="Loading">B</React.Suspense>
+    </React.unstable_SuspenseList>;
+
+    <React.unstable_SuspenseList revealOrder="forwards" tail="hidden">
+        <React.Suspense fallback="Loading">A</React.Suspense>
+        <React.Suspense fallback="Loading">B</React.Suspense>
+    </React.unstable_SuspenseList>;
+
+    <React.unstable_SuspenseList revealOrder="together">
+        <React.Suspense fallback="Loading">A</React.Suspense>
+        <React.Suspense fallback="Loading">B</React.Suspense>
+    </React.unstable_SuspenseList>;
+
+    function Page({ children }: { children: NonNullable<React.ReactNode> }) {
+        return (
+            // @ts-expect-error -- Can't pass arbitrary Nodes. Must be an Element or Iterable of Elements.
+            <React.unstable_SuspenseList revealOrder="forwards" tail="collapsed">
+                {children}
+            </React.unstable_SuspenseList>
+        );
     }
-}
-
-function formActionsTest() {
-    <form
-        action={formData => {
-            // $ExpectType FormData
-            formData;
-        }}
-    >
-        <input type="text" name="title" defaultValue="Hello" />
-        <input
-            type="submit"
-            formAction={formData => {
-                // $ExpectType FormData
-                formData;
-            }}
-            value="Save"
-        />
-        <button
-            formAction={formData => {
-                // $ExpectType FormData
-                formData;
-            }}
-        >
-            Delete
-        </button>
-    </form>;
-}
-
-const useOptimistic = React.experimental_useOptimistic;
-function Optimistic() {
-    const savedCartSize = 0;
-    const [optimisticCartSize, addToOptimisticCart] = useOptimistic(savedCartSize, (prevSize, newItem) => {
-        // This is the default type for un-inferrable generics in TypeScript.
-        // To have a concrete type either type the second parameter in the reducer (see addToOptimisticCartTyped)
-        // or declare the type of the generic (see addToOptimisticCartTyped2)
-        // $ExpectType unknown
-        newItem;
-        console.log('Increment optimistic cart size for ' + newItem);
-        return prevSize + 1;
-    });
-    // $ExpectType number
-    optimisticCartSize;
-
-    const [, addToOptimisticCartTyped] = useOptimistic(savedCartSize, (prevSize, newItem: string) => {
-        // $ExpectType string
-        newItem;
-        console.log('Increment optimistic cart size for ' + newItem);
-        return prevSize + 1;
-    });
-    const [, addToOptimisticCartTyped2] = useOptimistic<number, string>(savedCartSize, (prevSize, newItem) => {
-        // $ExpectType string
-        newItem;
-        console.log('Increment optimistic cart size for ' + newItem);
-        return prevSize + 1;
-    });
-
-    const addItemToCart = (item: unknown) => {
-        addToOptimisticCart(item);
-        addToOptimisticCartTyped(
-            // @ts-expect-error unknown is not assignable to string
-            item,
-        );
-        addToOptimisticCartTyped(String(item));
-        addToOptimisticCartTyped2(
-            // @ts-expect-error unknown is not assignable to string
-            item,
-        );
-        addToOptimisticCartTyped2(String(item));
-    };
-
-    const [state, setStateDefaultAction] = useOptimistic(1);
-    const handleClick = () => {
-        setStateDefaultAction(2);
-        setStateDefaultAction(() => 3);
-        setStateDefaultAction(n => n + 1);
-        // @ts-expect-error string is not assignable to number
-        setStateDefaultAction('4');
-    };
-}
-
-// ReactNode tests
-{
-    // @ts-expect-error
-    const render: React.ReactNode = () => React.createElement('div');
-    // @ts-expect-error
-    const emptyObject: React.ReactNode = { };
-    // @ts-expect-error
-    const plainObject: React.ReactNode = { dave: true };
-    const promise: React.ReactNode = Promise.resolve('React');
-    // @ts-expect-error plain objects are not allowed
-    <div>{{ dave: true }}</div>;
-    <div>{Promise.resolve('React')}</div>;
 }
 
 function elementTypeTests() {
-    const ReturnPromise = () => Promise.resolve('React');
-    // @ts-expect-error Needs https://github.com/DefinitelyTyped/DefinitelyTyped/pull/65135
+    const ReturnPromise = () => Promise.resolve("React");
     const FCPromise: React.FC = ReturnPromise;
     class RenderPromise extends React.Component {
         render() {
-          return Promise.resolve('React');
+            return Promise.resolve("React");
         }
     }
 
-    // @ts-expect-error Needs https://github.com/DefinitelyTyped/DefinitelyTyped/pull/65135
     <ReturnPromise />;
-    // @ts-expect-error Needs https://github.com/DefinitelyTyped/DefinitelyTyped/pull/65135
     React.createElement(ReturnPromise);
     <RenderPromise />;
     React.createElement(RenderPromise);
+}
+
+function taintTests() {
+    const taintUniqueValue = React.experimental_taintUniqueValue;
+    const taintObjectReference = React.experimental_taintObjectReference;
+
+    const process = {
+        env: {
+            SECRET: "0967af1802d2a516e88c7c42e0b8ef95",
+        },
+    };
+    const user = {
+        name: "Sebbie",
+    };
+
+    taintUniqueValue("Cannot pass a secret token to the client", process, process.env.SECRET);
+    taintUniqueValue(undefined, process, process.env.SECRET);
+    // @ts-expect-error Probably meant `taintObjectReference`
+    taintUniqueValue(
+        undefined,
+        user,
+    );
+    taintUniqueValue(
+        undefined,
+        process,
+        // @ts-expect-error should use taintObjectReference instead
+        process.env,
+    );
+    taintUniqueValue(
+        undefined,
+        process,
+        // @ts-expect-error Not unique
+        5,
+    );
+
+    taintObjectReference("Don't pass the raw user object to the client", user);
+    taintObjectReference(undefined, user);
+    taintObjectReference(
+        undefined,
+        // @ts-expect-error Not a reference
+        process.env.SECRET,
+    );
+    taintObjectReference(
+        undefined,
+        // @ts-expect-error Not a reference
+        true,
+    );
+}
+
+// @enableGestureTransition
+function swipeTransitionTest() {
+    const startGestureTransition = React.unstable_startGestureTransition;
+
+    const url: string = "";
+    const [renderedUrl, optimisticNavigate] = React.useOptimistic(
+        url,
+        (state, direction) => {
+            return direction === "left" ? "/?a" : "/?b";
+        },
+    );
+
+    function onScroll() {
+        const gestureProvider: {} = {};
+        // $ExpectType () => void
+        startGestureTransition(
+            gestureProvider,
+            () => {
+                optimisticNavigate("left");
+            },
+            {
+                rangeStart: 0,
+                rangeEnd: 100,
+            },
+        );
+        // @ts-expect-error -- missing gesture provider
+        startGestureTransition();
+        // @ts-expect-error -- missing scope
+        startGestureTransition(gestureProvider);
+        // options can be omitted
+        startGestureTransition(gestureProvider, () => {});
+        // options can be empty
+        startGestureTransition(gestureProvider, () => {}, {});
+    }
+
+    <React.ViewTransition
+        onGestureEnter={(timeline, options, instance, types) => {
+            // @ts-expect-error -- Only implemented by react-dom
+            timeline.currentTime;
+            // passed options are non-nullable
+            // $ExpectType number
+            options.rangeStart;
+            // $ExpectType number
+            options.rangeEnd;
+            // @ts-expect-error -- Only implemented by react-dom
+            instance.group;
+        }}
+    >
+    </React.ViewTransition>;
+
+    <React.ViewTransition
+        // @ts-expect-error -- Either void or a function must be returned
+        onGestureEnter={() => {
+            return 5;
+        }}
+    >
+    </React.ViewTransition>;
+
+    <React.ViewTransition
+        onGestureEnter={() => {
+            return function cleanup() {};
+        }}
+    >
+    </React.ViewTransition>;
+}
+
+function optimisticKeyTest() {
+    <div key={React.optimisticKey} />;
+    <div
+        // @ts-expect-error -- random symbols are not allowed.
+        key={Symbol("foreign-key")}
+    />;
 }

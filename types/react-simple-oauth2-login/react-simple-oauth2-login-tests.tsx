@@ -12,9 +12,7 @@ export function Test() {
             state={"state"}
             onSuccess={() => {}}
             onFailure={() => {}}
-            render={({ onClick, buttonText }) => (
-                <button onClick={onClick}>{buttonText}</button>
-              )}
+            render={({ onClick, buttonText }) => <button onClick={onClick}>{buttonText}</button>}
         />
     );
 }

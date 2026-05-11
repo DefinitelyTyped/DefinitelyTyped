@@ -1,17 +1,17 @@
-import { SSM } from 'aws-sdk2-types';
 import {
-    ParameterQuery,
-    parameterQuery,
     getParameter,
     getParameters,
     getParametersByPath,
-    getParameterSync,
-    getParametersSync,
     getParametersByPathSync,
+    getParametersSync,
+    getParameterSync,
+    newQuery,
+    ParameterQuery,
+    parameterQuery,
     putParameter,
     putParameterSync,
-    newQuery,
-} from 'aws-param-store';
+} from "aws-param-store";
+import { SSM } from "aws-sdk2-types";
 
 declare let bool: boolean;
 declare let query: ParameterQuery;
@@ -45,27 +45,27 @@ allParamResults = query.executeSync();
 
 // test chaining
 query = query
-.path(psName)
-.named(psName)
-.named(psNames)
-.decryption(bool)
-.recursive(bool);
+    .path(psName)
+    .named(psName)
+    .named(psNames)
+    .decryption(bool)
+    .recursive(bool);
 
 promiseAllParamResults = query
-.path(psName)
-.named(psName)
-.named(psNames)
-.decryption(bool)
-.recursive(bool)
-.execute();
+    .path(psName)
+    .named(psName)
+    .named(psNames)
+    .decryption(bool)
+    .recursive(bool)
+    .execute();
 
 allParamResults = query
-.path(psName)
-.named(psName)
-.named(psNames)
-.decryption(bool)
-.recursive(bool)
-.executeSync();
+    .path(psName)
+    .named(psName)
+    .named(psNames)
+    .decryption(bool)
+    .recursive(bool)
+    .executeSync();
 
 promiseParamResult = getParameter(psName);
 promiseParamResult = getParameter(psName, options);

@@ -1,6 +1,6 @@
-import { DataProvider } from '../ojdataprovider';
-import { editableValue, editableValueEventMap, editableValueSettableProperties } from '../ojeditablevalue';
-import { JetElement, JetSettableProperties, JetElementCustomEvent, JetSetPropertyType } from '..';
+import { JetElement, JetElementCustomEvent, JetSetPropertyType, JetSettableProperties } from "..";
+import { DataProvider } from "../ojdataprovider";
+import { editableValue, editableValueEventMap, editableValueSettableProperties } from "../ojeditablevalue";
 export interface ojRadioset<K, D> extends editableValue<any, ojRadiosetSettableProperties<K, D>> {
     disabled: boolean;
     labelledBy: string | null;
@@ -25,58 +25,69 @@ export interface ojRadioset<K, D> extends editableValue<any, ojRadiosetSettableP
     onValueChanged: ((event: JetElementCustomEvent<ojRadioset<K, D>["value"]>) => any) | null;
     onOjAnimateEnd: ((event: ojRadioset.ojAnimateEnd) => any) | null;
     onOjAnimateStart: ((event: ojRadioset.ojAnimateStart) => any) | null;
-    addEventListener<T extends keyof ojRadiosetEventMap<K, D>>(type: T, listener: (this: HTMLElement, ev: ojRadiosetEventMap<K, D>[T]) => any, useCapture?: boolean): void;
+    addEventListener<T extends keyof ojRadiosetEventMap<K, D>>(
+        type: T,
+        listener: (this: HTMLElement, ev: ojRadiosetEventMap<K, D>[T]) => any,
+        useCapture?: boolean,
+    ): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
     getProperty<T extends keyof ojRadiosetSettableProperties<K, D>>(property: T): ojRadioset<K, D>[T];
     getProperty(property: string): any;
-    setProperty<T extends keyof ojRadiosetSettableProperties<K, D>>(property: T, value: ojRadiosetSettableProperties<K, D>[T]): void;
+    setProperty<T extends keyof ojRadiosetSettableProperties<K, D>>(
+        property: T,
+        value: ojRadiosetSettableProperties<K, D>[T],
+    ): void;
     setProperty<T extends string>(property: T, value: JetSetPropertyType<T, ojRadiosetSettableProperties<K, D>>): void;
     setProperties(properties: ojRadiosetSettablePropertiesLenient<K, D>): void;
     refresh(): void;
     validate(): Promise<string>;
 }
 export namespace ojRadioset {
-    interface ojAnimateEnd extends CustomEvent<{
-        action: string;
-        element: Element;
-        [propName: string]: any;
-    }> {
+    interface ojAnimateEnd extends
+        CustomEvent<{
+            action: string;
+            element: Element;
+            [propName: string]: any;
+        }>
+    {
     }
-    interface ojAnimateStart extends CustomEvent<{
-        action: string;
-        element: Element;
-        endCallback: (() => void);
-        [propName: string]: any;
-    }> {
+    interface ojAnimateStart extends
+        CustomEvent<{
+            action: string;
+            element: Element;
+            endCallback: () => void;
+            [propName: string]: any;
+        }>
+    {
     }
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type Option = {
         disabled?: boolean | undefined;
         label?: string | undefined;
         value: any;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type OptionContext<D> = {
         component: Element;
         index: number;
         data: D;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type OptionsKeys = {
         label?: string | undefined;
         value?: string | undefined;
     };
 }
 export interface ojRadiosetEventMap<K, D> extends editableValueEventMap<any, ojRadiosetSettableProperties<K, D>> {
-    'ojAnimateEnd': ojRadioset.ojAnimateEnd;
-    'ojAnimateStart': ojRadioset.ojAnimateStart;
-    'disabledChanged': JetElementCustomEvent<ojRadioset<K, D>["disabled"]>;
-    'labelledByChanged': JetElementCustomEvent<ojRadioset<K, D>["labelledBy"]>;
-    'optionRendererChanged': JetElementCustomEvent<ojRadioset<K, D>["optionRenderer"]>;
-    'optionsChanged': JetElementCustomEvent<ojRadioset<K, D>["options"]>;
-    'optionsKeysChanged': JetElementCustomEvent<ojRadioset<K, D>["optionsKeys"]>;
-    'requiredChanged': JetElementCustomEvent<ojRadioset<K, D>["required"]>;
-    'valueChanged': JetElementCustomEvent<ojRadioset<K, D>["value"]>;
+    "ojAnimateEnd": ojRadioset.ojAnimateEnd;
+    "ojAnimateStart": ojRadioset.ojAnimateStart;
+    "disabledChanged": JetElementCustomEvent<ojRadioset<K, D>["disabled"]>;
+    "labelledByChanged": JetElementCustomEvent<ojRadioset<K, D>["labelledBy"]>;
+    "optionRendererChanged": JetElementCustomEvent<ojRadioset<K, D>["optionRenderer"]>;
+    "optionsChanged": JetElementCustomEvent<ojRadioset<K, D>["options"]>;
+    "optionsKeysChanged": JetElementCustomEvent<ojRadioset<K, D>["optionsKeys"]>;
+    "requiredChanged": JetElementCustomEvent<ojRadioset<K, D>["required"]>;
+    "valueChanged": JetElementCustomEvent<ojRadioset<K, D>["value"]>;
 }
 export interface ojRadiosetSettableProperties<K, D> extends editableValueSettableProperties<any> {
     disabled: boolean;

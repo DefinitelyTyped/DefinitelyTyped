@@ -1,4 +1,4 @@
-import { DS } from 'ember-data';
+import { DS } from "ember-data";
 
 export default DS.Model;
-export { ModelRegistry } from 'ember-data';
+export { ModelRegistry } from "ember-data";

@@ -1,8 +1,3 @@
-// Type definitions for secure-random-double 1.0
-// Project: https://github.com/emilbayes/secure-random-double
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = secureRandomDouble;
 
 /**

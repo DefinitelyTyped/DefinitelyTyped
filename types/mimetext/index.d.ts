@@ -1,8 +1,3 @@
-// Type definitions for mimetext 2.0
-// Project: https://github.com/muratgozel/MIMEText
-// Definitions by: Josh Goldberg <https://github.com/JoshuaKGoldberg>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface MailLocationData {
     addr: string;
     name?: string;
@@ -19,91 +14,91 @@ export interface MailboxBoundaries {
 
 export interface MailboxInput extends MailLocationData, RecipientOptions {}
 
-export type InputType = 'OBJECT' | 'SPEC_COMPLIANT_TEXT' | 'TEXT';
+export type InputType = "OBJECT" | "SPEC_COMPLIANT_TEXT" | "TEXT";
 
-export type MIMEPlacement = 'content' | 'header';
+export type MIMEPlacement = "content" | "header";
 
-export type RecipientType = 'bcc' | 'cc' | 'to';
+export type RecipientType = "bcc" | "cc" | "to";
 
-export type TextFormat = 'text/html' | 'text/plain';
+export type TextFormat = "text/html" | "text/plain";
 
 export type MailLocation = string | MailLocationData;
 
 export type MessageHeaders = string[] | Record<string, string>;
 
 export type ApplicationType =
-    | 'application/epub+zip'
-    | 'application/gzip'
-    | 'application/java-archive'
-    | 'application/json'
-    | 'application/ld+json'
-    | 'application/msword'
-    | 'application/octet-stream'
-    | 'application/ogg'
-    | 'application/pdf'
-    | 'application/rtf'
-    | 'application/vnd.amazon.ebook'
-    | 'application/vnd.apple.installer+xml'
-    | 'application/vnd.mozilla.xul+xml'
-    | 'application/vnd.ms-excel'
-    | 'application/vnd.ms-fontobject'
-    | 'application/vnd.ms-powerpoint'
-    | 'application/vnd.oasis.opendocument.presentation'
-    | 'application/vnd.oasis.opendocument.spreadsheet'
-    | 'application/vnd.oasis.opendocument.text'
-    | 'application/vnd.openxmlformats-officedocument.presentationml.presentation'
-    | 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-    | 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-    | 'application/vnd.rar'
-    | 'application/vnd.visio'
-    | 'application/x-7z-compressed'
-    | 'application/x-abiword'
-    | 'application/x-bzip'
-    | 'application/x-bzip2'
-    | 'application/x-cdf'
-    | 'application/x-csh'
-    | 'application/x-freearc'
-    | 'application/x-httpd-php'
-    | 'application/x-sh'
-    | 'application/x-tar'
-    | 'application/xhtml+xml'
-    | 'application/xml'
-    | 'application/zip';
+    | "application/epub+zip"
+    | "application/gzip"
+    | "application/java-archive"
+    | "application/json"
+    | "application/ld+json"
+    | "application/msword"
+    | "application/octet-stream"
+    | "application/ogg"
+    | "application/pdf"
+    | "application/rtf"
+    | "application/vnd.amazon.ebook"
+    | "application/vnd.apple.installer+xml"
+    | "application/vnd.mozilla.xul+xml"
+    | "application/vnd.ms-excel"
+    | "application/vnd.ms-fontobject"
+    | "application/vnd.ms-powerpoint"
+    | "application/vnd.oasis.opendocument.presentation"
+    | "application/vnd.oasis.opendocument.spreadsheet"
+    | "application/vnd.oasis.opendocument.text"
+    | "application/vnd.openxmlformats-officedocument.presentationml.presentation"
+    | "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    | "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    | "application/vnd.rar"
+    | "application/vnd.visio"
+    | "application/x-7z-compressed"
+    | "application/x-abiword"
+    | "application/x-bzip"
+    | "application/x-bzip2"
+    | "application/x-cdf"
+    | "application/x-csh"
+    | "application/x-freearc"
+    | "application/x-httpd-php"
+    | "application/x-sh"
+    | "application/x-tar"
+    | "application/xhtml+xml"
+    | "application/xml"
+    | "application/zip";
 
 export type AudioType =
-    | 'audio/aac'
-    | 'audio/midi'
-    | 'audio/x-midi'
-    | 'audio/mpeg'
-    | 'audio/ogg'
-    | 'audio/opus'
-    | 'audio/wav'
-    | 'audio/webm';
+    | "audio/aac"
+    | "audio/midi"
+    | "audio/x-midi"
+    | "audio/mpeg"
+    | "audio/ogg"
+    | "audio/opus"
+    | "audio/wav"
+    | "audio/webm";
 
-export type FontType = 'font/otf' | 'font/ttf' | 'font/woff' | 'font/woff2';
+export type FontType = "font/otf" | "font/ttf" | "font/woff" | "font/woff2";
 
 export type ImageType =
-    | 'image/avif'
-    | 'image/bmp'
-    | 'image/gif'
-    | 'image/jpeg'
-    | 'image/png'
-    | 'image/svg+xml'
-    | 'image/tiff'
-    | 'image/vnd.microsoft.icon'
-    | 'image/webp';
+    | "image/avif"
+    | "image/bmp"
+    | "image/gif"
+    | "image/jpeg"
+    | "image/png"
+    | "image/svg+xml"
+    | "image/tiff"
+    | "image/vnd.microsoft.icon"
+    | "image/webp";
 
-export type TextType = 'text/calendar' | 'text/css' | 'text/csv' | 'text/html' | 'text/javascript' | 'text/plain';
+export type TextType = "text/calendar" | "text/css" | "text/csv" | "text/html" | "text/javascript" | "text/plain";
 
 export type VideoType =
-    | 'video/3gpp'
-    | 'video/3gpp2'
-    | 'video/mp2t'
-    | 'video/mp4'
-    | 'video/mpeg'
-    | 'video/ogg'
-    | 'video/webm'
-    | 'video/x-msvideo';
+    | "video/3gpp"
+    | "video/3gpp2"
+    | "video/mp2t"
+    | "video/mp4"
+    | "video/mpeg"
+    | "video/ogg"
+    | "video/webm"
+    | "video/x-msvideo";
 
 export type MIMEType = ApplicationType | AudioType | FontType | ImageType | TextType | VideoType;
 

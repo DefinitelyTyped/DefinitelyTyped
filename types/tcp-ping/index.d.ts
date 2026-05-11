@@ -1,9 +1,3 @@
-// Type definitions for tcp-ping 0.1
-// Project: https://github.com/wesolyromek/tcp-ping
-// Definitions by: JUNG YONG WOO <https://github.com/stegano>
-//                 rymate1234 <https://github.com/rymate1234>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface Options {
     address?: string | undefined;
     port?: number | undefined;

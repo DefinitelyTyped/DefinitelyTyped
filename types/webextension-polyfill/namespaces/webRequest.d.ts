@@ -2,20 +2,11 @@
 // BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
 //////////////////////////////////////////////////////
 
-/**
- * Namespace: browser.webRequest
- *
- * Use the <code>browser.webRequest</code> API to observe and analyze traffic and to intercept, block,
- * or modify requests in-flight.
- * Permissions: "webRequest"
- *
- * Comments found in source JSON schema files:
- * Copyright (c) 2012 The Chromium Authors. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be
- * found in the LICENSE file.
- */
 import { Events } from "./events";
 
+/**
+ * Namespace: browser.webRequest
+ */
 export namespace WebRequest {
     type ResourceType =
         | "main_frame"
@@ -24,7 +15,6 @@ export namespace WebRequest {
         | "script"
         | "image"
         | "object"
-        | "object_subrequest"
         | "xmlhttprequest"
         | "xslt"
         | "ping"
@@ -37,6 +27,7 @@ export namespace WebRequest {
         | "imageset"
         | "web_manifest"
         | "speculative"
+        | "json"
         | "other";
 
     type OnBeforeRequestOptions = "blocking" | "requestBody" | "extraHeaders";
@@ -295,7 +286,7 @@ export namespace WebRequest {
          * An ArrayBuffer with a copy of the data.
          * Optional.
          */
-        bytes?: any;
+        bytes?: unknown;
 
         /**
          * A string with the file's path and name.
@@ -321,7 +312,9 @@ export namespace WebRequest {
         | "tracking_content"
         | "any_basic_tracking"
         | "any_strict_tracking"
-        | "any_social_tracking";
+        | "any_social_tracking"
+        | "consentmanager"
+        | "antifraud";
 
     /**
      * If the request has been classified this is an array of $(ref:UrlClassificationFlags).
@@ -345,7 +338,8 @@ export namespace WebRequest {
     /**
      * A BlockingResponse or a Promise<BlockingResponse>
      */
-    type BlockingResponseOrPromise = BlockingResponse | Promise<BlockingResponse>;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    type BlockingResponseOrPromiseOrVoid = BlockingResponse | Promise<BlockingResponse> | void;
 
     /**
      * "uninitialized": The StreamFilter is not fully initialized. No methods may be called until a "start" event has been
@@ -387,9 +381,6 @@ export namespace WebRequest {
 
         /**
          * Creates a stream filter for the given add-on and the given extension ID.
-         *
-         * @param requestId
-         * @param addonId
          */
         create(requestId: number, addonId: string): void;
 
@@ -418,38 +409,28 @@ export namespace WebRequest {
 
         /**
          * Writes a chunk of data to the output stream. This may not be called before the "start" event has been received.
-         *
-         * @param data
          */
         write(data: ArrayBuffer | Uint8Array): void;
 
         /**
          * Dispatched with a StreamFilterDataEvent whenever incoming data is available on the stream.
          * This data will not be delivered to the output stream unless it is explicitly written via a write() call.
-         *
-         * @param data
          */
         ondata?: (data: StreamFilterEventData) => void;
 
         /**
          * Dispatched when the stream is opened, and is about to begin delivering data.
-         *
-         * @param data
          */
         onstart?: (data: StreamFilterEventData) => void;
 
         /**
          * Dispatched when the stream has closed, and has no more data to deliver. The output stream remains open and writable
          * until close() is called.
-         *
-         * @param data
          */
         onstop?: (data: StreamFilterEventData) => void;
 
         /**
          * Dispatched when an error has occurred. No further data may be read or written after this point.
-         *
-         * @param data
          */
         onerror?: (data: StreamFilterEventData) => void;
     }
@@ -1517,8 +1498,9 @@ export namespace WebRequest {
     /**
      * Fired when a request is about to occur.
      */
-    interface onBeforeRequestEvent
-        extends Events.Event<(details: OnBeforeRequestDetailsType) => BlockingResponseOrPromise | void> {
+    interface OnBeforeRequestEvent
+        extends Events.Event<(details: OnBeforeRequestDetailsType) => BlockingResponseOrPromiseOrVoid>
+    {
         /**
          * Registers an event listener <em>callback</em> to an event.
          *
@@ -1527,9 +1509,9 @@ export namespace WebRequest {
          * @param extraInfoSpec Optional. Array of extra information that should be passed to the listener function.
          */
         addListener(
-            callback: (details: OnBeforeRequestDetailsType) => BlockingResponseOrPromise | void,
+            callback: (details: OnBeforeRequestDetailsType) => BlockingResponseOrPromiseOrVoid,
             filter: RequestFilter,
-            extraInfoSpec?: OnBeforeRequestOptions[]
+            extraInfoSpec?: OnBeforeRequestOptions[],
         ): void;
     }
 
@@ -1537,8 +1519,9 @@ export namespace WebRequest {
      * Fired before sending an HTTP request, once the request headers are available. This may occur after a TCP connection is
      * made to the server, but before any HTTP data is sent.
      */
-    interface onBeforeSendHeadersEvent
-        extends Events.Event<(details: OnBeforeSendHeadersDetailsType) => BlockingResponseOrPromise | void> {
+    interface OnBeforeSendHeadersEvent
+        extends Events.Event<(details: OnBeforeSendHeadersDetailsType) => BlockingResponseOrPromiseOrVoid>
+    {
         /**
          * Registers an event listener <em>callback</em> to an event.
          *
@@ -1547,9 +1530,9 @@ export namespace WebRequest {
          * @param extraInfoSpec Optional. Array of extra information that should be passed to the listener function.
          */
         addListener(
-            callback: (details: OnBeforeSendHeadersDetailsType) => BlockingResponseOrPromise | void,
+            callback: (details: OnBeforeSendHeadersDetailsType) => BlockingResponseOrPromiseOrVoid,
             filter: RequestFilter,
-            extraInfoSpec?: OnBeforeSendHeadersOptions[]
+            extraInfoSpec?: OnBeforeSendHeadersOptions[],
         ): void;
     }
 
@@ -1557,7 +1540,7 @@ export namespace WebRequest {
      * Fired just before a request is going to be sent to the server (modifications of previous onBeforeSendHeaders callbacks
      * are visible by the time onSendHeaders is fired).
      */
-    interface onSendHeadersEvent extends Events.Event<(details: OnSendHeadersDetailsType) => void> {
+    interface OnSendHeadersEvent extends Events.Event<(details: OnSendHeadersDetailsType) => void> {
         /**
          * Registers an event listener <em>callback</em> to an event.
          *
@@ -1568,15 +1551,16 @@ export namespace WebRequest {
         addListener(
             callback: (details: OnSendHeadersDetailsType) => void,
             filter: RequestFilter,
-            extraInfoSpec?: OnSendHeadersOptions[]
+            extraInfoSpec?: OnSendHeadersOptions[],
         ): void;
     }
 
     /**
      * Fired when HTTP response headers of a request have been received.
      */
-    interface onHeadersReceivedEvent
-        extends Events.Event<(details: OnHeadersReceivedDetailsType) => BlockingResponseOrPromise | void> {
+    interface OnHeadersReceivedEvent
+        extends Events.Event<(details: OnHeadersReceivedDetailsType) => BlockingResponseOrPromiseOrVoid>
+    {
         /**
          * Registers an event listener <em>callback</em> to an event.
          *
@@ -1585,9 +1569,9 @@ export namespace WebRequest {
          * @param extraInfoSpec Optional. Array of extra information that should be passed to the listener function.
          */
         addListener(
-            callback: (details: OnHeadersReceivedDetailsType) => BlockingResponseOrPromise | void,
+            callback: (details: OnHeadersReceivedDetailsType) => BlockingResponseOrPromiseOrVoid,
             filter: RequestFilter,
-            extraInfoSpec?: OnHeadersReceivedOptions[]
+            extraInfoSpec?: OnHeadersReceivedOptions[],
         ): void;
     }
 
@@ -1596,8 +1580,9 @@ export namespace WebRequest {
      * credentials, it can cancel the request and display the error page, or it can take no action on the challenge.
      * If bad user credentials are provided, this may be called multiple times for the same request.
      */
-    interface onAuthRequiredEvent
-        extends Events.Event<(details: OnAuthRequiredDetailsType) => BlockingResponseOrPromise | void> {
+    interface OnAuthRequiredEvent
+        extends Events.Event<(details: OnAuthRequiredDetailsType) => BlockingResponseOrPromiseOrVoid>
+    {
         /**
          * Registers an event listener <em>callback</em> to an event.
          *
@@ -1606,9 +1591,9 @@ export namespace WebRequest {
          * @param extraInfoSpec Optional. Array of extra information that should be passed to the listener function.
          */
         addListener(
-            callback: (details: OnAuthRequiredDetailsType) => BlockingResponseOrPromise | void,
+            callback: (details: OnAuthRequiredDetailsType) => BlockingResponseOrPromiseOrVoid,
             filter: RequestFilter,
-            extraInfoSpec?: OnAuthRequiredOptions[]
+            extraInfoSpec?: OnAuthRequiredOptions[],
         ): void;
     }
 
@@ -1616,7 +1601,7 @@ export namespace WebRequest {
      * Fired when the first byte of the response body is received. For HTTP requests, this means that the status line and
      * response headers are available.
      */
-    interface onResponseStartedEvent extends Events.Event<(details: OnResponseStartedDetailsType) => void> {
+    interface OnResponseStartedEvent extends Events.Event<(details: OnResponseStartedDetailsType) => void> {
         /**
          * Registers an event listener <em>callback</em> to an event.
          *
@@ -1627,14 +1612,14 @@ export namespace WebRequest {
         addListener(
             callback: (details: OnResponseStartedDetailsType) => void,
             filter: RequestFilter,
-            extraInfoSpec?: OnResponseStartedOptions[]
+            extraInfoSpec?: OnResponseStartedOptions[],
         ): void;
     }
 
     /**
      * Fired when a server-initiated redirect is about to occur.
      */
-    interface onBeforeRedirectEvent extends Events.Event<(details: OnBeforeRedirectDetailsType) => void> {
+    interface OnBeforeRedirectEvent extends Events.Event<(details: OnBeforeRedirectDetailsType) => void> {
         /**
          * Registers an event listener <em>callback</em> to an event.
          *
@@ -1645,14 +1630,14 @@ export namespace WebRequest {
         addListener(
             callback: (details: OnBeforeRedirectDetailsType) => void,
             filter: RequestFilter,
-            extraInfoSpec?: OnBeforeRedirectOptions[]
+            extraInfoSpec?: OnBeforeRedirectOptions[],
         ): void;
     }
 
     /**
      * Fired when a request is completed.
      */
-    interface onCompletedEvent extends Events.Event<(details: OnCompletedDetailsType) => void> {
+    interface OnCompletedEvent extends Events.Event<(details: OnCompletedDetailsType) => void> {
         /**
          * Registers an event listener <em>callback</em> to an event.
          *
@@ -1663,14 +1648,14 @@ export namespace WebRequest {
         addListener(
             callback: (details: OnCompletedDetailsType) => void,
             filter: RequestFilter,
-            extraInfoSpec?: OnCompletedOptions[]
+            extraInfoSpec?: OnCompletedOptions[],
         ): void;
     }
 
     /**
      * Fired when an error occurs.
      */
-    interface onErrorOccurredEvent extends Events.Event<(details: OnErrorOccurredDetailsType) => void> {
+    interface OnErrorOccurredEvent extends Events.Event<(details: OnErrorOccurredDetailsType) => void> {
         /**
          * Registers an event listener <em>callback</em> to an event.
          *
@@ -1681,7 +1666,7 @@ export namespace WebRequest {
         addListener(
             callback: (details: OnErrorOccurredDetailsType) => void,
             filter: RequestFilter,
-            extraInfoSpec?: OnErrorOccurredOptions[]
+            extraInfoSpec?: OnErrorOccurredOptions[],
         ): void;
     }
 
@@ -1694,15 +1679,12 @@ export namespace WebRequest {
 
         /**
          * ...
-         *
-         * @param requestId
          */
         filterResponseData(requestId: string): StreamFilter;
 
         /**
          * Retrieves the security information for the request.  Returns a promise that will resolve to a SecurityInfo object.
          *
-         * @param requestId
          * @param options Optional.
          */
         getSecurityInfo(requestId: string, options?: GetSecurityInfoOptionsType): Promise<SecurityInfo>;
@@ -1710,52 +1692,52 @@ export namespace WebRequest {
         /**
          * Fired when a request is about to occur.
          */
-        onBeforeRequest: onBeforeRequestEvent;
+        onBeforeRequest: OnBeforeRequestEvent;
 
         /**
          * Fired before sending an HTTP request, once the request headers are available. This may occur after a TCP connection is
          * made to the server, but before any HTTP data is sent.
          */
-        onBeforeSendHeaders: onBeforeSendHeadersEvent;
+        onBeforeSendHeaders: OnBeforeSendHeadersEvent;
 
         /**
          * Fired just before a request is going to be sent to the server (modifications of previous onBeforeSendHeaders callbacks
          * are visible by the time onSendHeaders is fired).
          */
-        onSendHeaders: onSendHeadersEvent;
+        onSendHeaders: OnSendHeadersEvent;
 
         /**
          * Fired when HTTP response headers of a request have been received.
          */
-        onHeadersReceived: onHeadersReceivedEvent;
+        onHeadersReceived: OnHeadersReceivedEvent;
 
         /**
          * Fired when an authentication failure is received. The listener has three options: it can provide authentication
          * credentials, it can cancel the request and display the error page, or it can take no action on the challenge.
          * If bad user credentials are provided, this may be called multiple times for the same request.
          */
-        onAuthRequired: onAuthRequiredEvent;
+        onAuthRequired: OnAuthRequiredEvent;
 
         /**
          * Fired when the first byte of the response body is received. For HTTP requests, this means that the status line and
          * response headers are available.
          */
-        onResponseStarted: onResponseStartedEvent;
+        onResponseStarted: OnResponseStartedEvent;
 
         /**
          * Fired when a server-initiated redirect is about to occur.
          */
-        onBeforeRedirect: onBeforeRedirectEvent;
+        onBeforeRedirect: OnBeforeRedirectEvent;
 
         /**
          * Fired when a request is completed.
          */
-        onCompleted: onCompletedEvent;
+        onCompleted: OnCompletedEvent;
 
         /**
          * Fired when an error occurs.
          */
-        onErrorOccurred: onErrorOccurredEvent;
+        onErrorOccurred: OnErrorOccurredEvent;
 
         /**
          * The maximum number of times that <code>handlerBehaviorChanged</code> can be called per 10 minute sustained interval.

@@ -7,7 +7,7 @@ interface SamsungPay {
 
     setupPaymentRequest(paymentReqeuestData: {
         supportedNetworks: AllowedNetworks[];
-        total: PaymentRequestAmount
+        total: PaymentRequestAmount;
     }): void;
 
     setupSamsungPayButton(
@@ -16,14 +16,16 @@ interface SamsungPay {
             color: "black" | "white";
             type: "pay" | "buy";
             shape: "shape" | "rectangular";
-        }
+        },
     ): void;
 
-    getPrime(callback: (
-        result: BaseResult & MerchantReferenceInfo & {
-            card_info: CardInfoV1;
-            card: Card;
-            total_amount: string;
-        }
-    ) => void): void;
+    getPrime(
+        callback: (
+            result: BaseResult & MerchantReferenceInfo & {
+                card_info: CardInfoV1;
+                card: Card;
+                total_amount: string;
+            },
+        ) => void,
+    ): void;
 }

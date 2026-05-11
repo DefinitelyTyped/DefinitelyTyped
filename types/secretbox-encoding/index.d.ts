@@ -1,8 +1,3 @@
-// Type definitions for secretbox-encoding 1.0
-// Project: https://github.com/jwerle/secretbox-encoding#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export = createCodec;
@@ -137,7 +132,7 @@ declare namespace createCodec {
     type ValueToEncode = Buffer | string | readonly number[] | JSONParsedBuffer;
 
     interface JSONParsedBuffer {
-        type: 'Buffer';
+        type: "Buffer";
         data: readonly number[];
     }
 

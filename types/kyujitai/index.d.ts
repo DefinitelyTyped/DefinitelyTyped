@@ -1,7 +1,3 @@
-// Type definitions for kyujitai 1.3
-// Project: https://github.com/hakatashi/kyujitai.js
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 export as namespace Kyujitai;
 
 /**

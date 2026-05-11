@@ -1,0 +1,41 @@
+{
+    "private": true,
+    "name": "@types/vimeo__player",
+    "version": "2.18.9999",
+    "projects": [
+        "https://github.com/vimeo/player.js"
+    ],
+    "devDependencies": {
+        "@types/vimeo__player": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Denis Yılmaz",
+            "githubUsername": "denisyilmaz"
+        },
+        {
+            "name": "Felix Albert",
+            "url": "f.albert.work@icloud.com"
+        },
+        {
+            "name": "Tim Chen",
+            "githubUsername": "timc13"
+        },
+        {
+            "name": "Terry Mun",
+            "githubUsername": "terrymun"
+        },
+        {
+            "name": "Coskun Deniz",
+            "url": "deniz@tassomai.com"
+        },
+        {
+            "name": "Kohei Watanabe",
+            "githubUsername": "kou029w"
+        },
+        {
+            "name": "Michael Markey",
+            "githubUsername": "mikeamarkey"
+        }
+    ]
+}

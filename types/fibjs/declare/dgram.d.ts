@@ -202,7 +202,7 @@
 declare module "dgram" {
     
 
-    module dgram {
+    namespace dgram {
         
         
         

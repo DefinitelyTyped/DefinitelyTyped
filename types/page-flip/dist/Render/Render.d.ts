@@ -1,8 +1,8 @@
-import { PageFlip } from '../PageFlip';
-import { Point, PageRect, RectPoints } from '../BasicTypes';
-import { FlipDirection } from '../Flip/Flip';
-import { Page } from '../Page/Page';
-import { FlipSetting } from '../Settings';
+import { PageRect, Point, RectPoints } from "../BasicTypes";
+import { FlipDirection } from "../Flip/Flip";
+import { Page } from "../Page/Page";
+import { PageFlip } from "../PageFlip";
+import { FlipSetting } from "../Settings";
 export type FrameAction = () => void;
 export type AnimationSuccessAction = () => void;
 /**
@@ -43,7 +43,7 @@ export interface AnimationProcess {
  */
 export enum Orientation {
     PORTRAIT = "portrait",
-    LANDSCAPE = "landscape"
+    LANDSCAPE = "landscape",
 }
 /**
  * Class responsible for rendering the book

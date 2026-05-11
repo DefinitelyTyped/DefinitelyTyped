@@ -1,7 +1,7 @@
-import register1 = require('@babel/register');
-import * as register2 from '@babel/register';
-// tslint:disable-next-line:no-duplicate-imports
-import register3, { RegisterOptions } from '@babel/register';
+import register1 = require("@babel/register");
+import * as register2 from "@babel/register";
+// eslint-disable-next-line no-duplicate-imports
+import register3, { RegisterOptions } from "@babel/register";
 
 // $ExpectType typeof register
 register1;
@@ -23,18 +23,18 @@ register3({
     ignore: [
         /regex/,
         filepath => {
-            return filepath !== '/path/to/es6-file.js';
+            return filepath !== "/path/to/es6-file.js";
         },
     ],
     only: [
         /my_es6_folder/,
         filepath => {
-            return filepath === '/path/to/es6-file.js';
+            return filepath === "/path/to/es6-file.js";
         },
     ],
-    extensions: ['.es6', '.es', '.jsx', '.js', '.mjs'],
+    extensions: [".es6", ".es", ".jsx", ".js", ".mjs"],
     cache: true,
-    rootMode: 'upward',
+    rootMode: "upward",
 });
 // @ts-expect-error
-register3({ blah: 'blah' });
+register3({ blah: "blah" });

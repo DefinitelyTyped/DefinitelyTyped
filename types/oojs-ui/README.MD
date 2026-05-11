@@ -20,7 +20,7 @@ Please refer to the OOUI documentation or the code comments for more details.
     - [`OO.ui.CheckboxInputWidget`](CheckboxInputWidget.d.ts) (Inconsistency in `change` event)
     - [`OO.ui.NumberInputWidget`](NumberInputWidget.d.ts) (Changes method signatures of `OO.ui.TextInputWidget`)
     - [`OO.ui.OutlineControlsWidget`](OutlineControlsWidget.d.ts) (Inconsistency in `move` and `remove` event)
-    - [`OO.ui.SelectFileWidget`](SelectFileWidget.d.ts) (Inconsistency in `change` event, changes method signatures of `SelectFileInputWidget`)
+    - [`OO.ui.SelectFileInputWidget`](SelectFileInputWidget.d.ts) (Inconsistency in `change` event, changes method signatures of `OO.ui.InputWidget`)
     - [`OO.ui.SelectWidget`](SelectWidget.d.ts) (Inconsistency in `move` and `remove` event)
 
 

@@ -1,4 +1,4 @@
-import { DataTextureLoader, TextureFilter, LoadingManager } from 'three';
+import { DataTextureLoader, LoadingManager, TextureFilter } from "three";
 
 export interface TIFFResult {
     width: number;

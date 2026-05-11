@@ -1,6 +1,6 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
-() => {
+(() => {
     // $ExpectType boolean
     R.xor(true, true);
 
@@ -23,7 +23,7 @@ import * as R from 'ramda';
     R.xor(0, 0);
 
     // $ExpectType boolean
-    R.xor('foo', 0);
+    R.xor("foo", 0);
 
     // $ExpectType boolean
     R.xor({}, 0);
@@ -32,7 +32,7 @@ import * as R from 'ramda';
     R.xor([], 0);
 
     // $ExpectType boolean
-    R.xor('', 0);
+    R.xor("", 0);
 
     // $ExpectType boolean
     R.xor(NaN, 0);
@@ -42,17 +42,17 @@ import * as R from 'ramda';
 
     // $ExpectType boolean
     R.xor(undefined, 0);
-};
+});
 
-() => {
+(() => {
     // $ExpectType (b: any) => boolean
     R.xor(true);
 
     // $ExpectType (b: any) => boolean
-    R.xor('foo');
-};
+    R.xor("foo");
+});
 
-() => {
+(() => {
     // $ExpectType boolean
     R.xor(true)(true);
 
@@ -75,7 +75,7 @@ import * as R from 'ramda';
     R.xor(0)(0);
 
     // $ExpectType boolean
-    R.xor('foo')(0);
+    R.xor("foo")(0);
 
     // $ExpectType boolean
     R.xor({})(0);
@@ -84,7 +84,7 @@ import * as R from 'ramda';
     R.xor([])(0);
 
     // $ExpectType boolean
-    R.xor('')(0);
+    R.xor("")(0);
 
     // $ExpectType boolean
     R.xor(NaN)(0);
@@ -94,4 +94,4 @@ import * as R from 'ramda';
 
     // $ExpectType boolean
     R.xor(undefined)(0);
-};
+});

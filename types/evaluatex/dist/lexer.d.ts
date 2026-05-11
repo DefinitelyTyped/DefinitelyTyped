@@ -1,4 +1,4 @@
-import { Token, Constants, Options } from '../index';
+import { Constants, Options, Token } from "../index";
 
 declare function lexer(expression: string, constants?: Constants, options?: Options): Token[];
 

@@ -13,5 +13,11 @@ declare class DBKey {
 declare namespace DBKey {
     function isLike(value: any): boolean;
     function from(value: any): DBKey;
-    function equals(a: string | number | DBKey, b: string | number | DBKey): boolean;
+    function equals(a: DBKey | string | number, b: DBKey | string | number): boolean;
+    function val(key: number | DBKey, expr: string): string | number | null | boolean | Date;
+    function str(key: number | DBKey, expr: string): string;
+    function num(key: number | DBKey, expr: string): number;
+    function bool(key: number | DBKey, expr: string): boolean;
+    function date(key: number | DBKey, expr: string): Date | null;
+    function dbkey(key: number | DBKey, expr: string): DBKey | null;
 }

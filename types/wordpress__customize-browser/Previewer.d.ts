@@ -1,5 +1,5 @@
-import { Messenger_Params, Messenger } from './Messenger';
-import { Value } from './Value';
+import { Messenger, Messenger_Params } from "./Messenger";
+import { Value } from "./Value";
 
 export interface Previewer_Params extends Messenger_Params {
     allowedUrls: any[]; // TODO

@@ -1,16 +1,3 @@
-// Type definitions for non-npm package Google Pay API 0.7
-// Project: https://developers.google.com/pay/api/web/
-// Definitions by: Florian Luccioni <https://github.com/Fluccioni>,
-//                 Radu Raicea <https://github.com/Radu-Raicea>,
-//                 Filip Stanis <https://github.com/fstanis>
-//                 Alexandre Couret <https://github.com/ozotek>
-//                 Sergi Ferriz <https://github.com/mumpo>
-//                 Soc Sieng <https://github.com/socsieng>
-//                 Jose L Ugia <https://github.com/JlUgia>
-//                 Dominik Mengelt <https://github.com/dmengelt>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.1
-
 /**
  * Spec for the Google Pay APIs.
  */
@@ -405,7 +392,7 @@ declare namespace google.payments.api {
          * If omitted, a shipping address from any supported country may be
          * returned.
          */
-        allowedCountryCodes: string[];
+        allowedCountryCodes?: string[];
 
         /**
          * Whether a phone number is additionally required from the buyer for
@@ -417,6 +404,15 @@ declare namespace google.payments.api {
          * @default false
          */
         phoneNumberRequired?: false | true | undefined;
+
+        /**
+         * Shipping address format.
+         *
+         * If omitted, defaults to [[ShippingAddressFormat|`FULL`]].
+         *
+         * * @default "FULL"
+         */
+        format?: ShippingAddressFormat | undefined;
     }
 
     /**
@@ -496,6 +492,14 @@ declare namespace google.payments.api {
          * number be returned.
          */
         phoneNumber?: string | undefined;
+
+        /**
+         * The ISO 3166-2 administrative area
+         *
+         * ISO 3166-2 administrative area corresponding to administrativeArea.
+         * Only present if the shipping or billing address format is FULL-ISO3166.
+         */
+        iso3166AdministrativeArea?: string | undefined;
     }
 
     /**
@@ -529,6 +533,14 @@ declare namespace google.payments.api {
          * The locality (e.g. city or town).
          */
         locality: string;
+
+        /**
+         * The ISO 3166-2 administrative area
+         *
+         * ISO 3166-2 administrative area corresponding to administrativeArea.
+         * Only present if the shipping address format is FULL-ISO3166.
+         */
+        iso3166AdministrativeArea?: string | undefined;
     }
 
     /**
@@ -792,6 +804,21 @@ declare namespace google.payments.api {
          * @default true
          */
         allowCreditCards?: false | true | undefined;
+
+        /**
+         * Issuer country allowlist that contains ISO 3166-1 alpha-2 country codes.
+         * When this allowlist is set, users can only choose payment methods issued in the specified countries.
+         * If neither allowlist nor blocklist is set, users will be allowed to choose payment methods issued in any country.
+         */
+        allowedIssuerCountryCodes?: string[] | undefined;
+
+        /**
+         * Issuer country blocklist that contains ISO 3166-1 alpha-2 country codes.
+         * When this blocklist is set, users are restricted from choosing payment methods issued in the specified countries.
+         *
+         * Note: allowedIssuerCountryCodes and blockedIssuerCountryCodes are mutually exclusive, so only one should be set at a time.
+         */
+        blockedIssuerCountryCodes?: string[] | undefined;
 
         /**
          * Set to `true` to request assuranceDetails.
@@ -1180,6 +1207,11 @@ declare namespace google.payments.api {
          * [[CardParameters.billingAddressRequired|`CardParameters.billingAddressRequired`]].
          */
         billingAddress?: Address | undefined;
+
+        /**
+         * Card funding source for the selected payment method.
+         */
+        cardFundingSource?: CardFundingSource | undefined;
     }
 
     /**
@@ -1425,7 +1457,9 @@ declare namespace google.payments.api {
      * These parameters will be used to tokenize/transmit the
      * payment method returned to you in a format you can charge or reference.
      */
-    type PaymentMethodTokenizationSpecification = PaymentGatewayTokenizationSpecification | DirectTokenizationSpecification;
+    type PaymentMethodTokenizationSpecification =
+        | PaymentGatewayTokenizationSpecification
+        | DirectTokenizationSpecification;
 
     /**
      * Payment method tokenization type enum string.
@@ -1508,7 +1542,17 @@ declare namespace google.payments.api {
      * - `VISA`:
      *   Visa card network.
      */
-    type CardNetwork = "AMEX" | "DISCOVER" | "ELECTRON" | "ELO" | "ELO_DEBIT" | "INTERAC" | "JCB" | "MAESTRO" | "MASTERCARD" | "VISA";
+    type CardNetwork =
+        | "AMEX"
+        | "DISCOVER"
+        | "ELECTRON"
+        | "ELO"
+        | "ELO_DEBIT"
+        | "INTERAC"
+        | "JCB"
+        | "MAESTRO"
+        | "MASTERCARD"
+        | "VISA";
 
     /**
      * Card authentication method enum string.
@@ -1583,8 +1627,35 @@ declare namespace google.payments.api {
      *   Only select this format when it is required to process the order.
      *   Additional form entry or customer data requests can increase friction
      *   during the checkout process and can lead to a lower conversion rate.
+     *
+     * - `FULL-ISO3166`:
+     *   Same as `FULL` but includes [[Address.iso3166AdministrativeArea|`Address.iso3166AdministrativeArea`]]
      */
-    type BillingAddressFormat = "MIN" | "FULL";
+    type BillingAddressFormat = "MIN" | "FULL" | "FULL-ISO3166";
+
+    /**
+     * Shipping address format enum string.
+     *
+     * Options:
+     *
+     * - `FULL`:
+     *   Full shipping address
+     *
+     *   All the fields in [[Address|`Address`]] will
+     *   be returned, with the possible exception of
+     *   [[Address.phoneNumber|`Address.phoneNumber`]] which will only be
+     *   returned if
+     *   [[ShippingAddressParameters.phoneNumberRequired|`ShippingAddressParameters.phoneNumberRequired`]]
+     *   is set to `true`.
+     *
+     *   Only select this format when it is required to process the order.
+     *   Additional form entry or customer data requests can increase friction
+     *   during the checkout process and can lead to a lower conversion rate.
+     *
+     * - `FULL-ISO3166`:
+     *   Same as `FULL` but includes [[Address.iso3166AdministrativeArea|`Address.iso3166AdministrativeArea`]]
+     */
+    type ShippingAddressFormat = "FULL" | "FULL-ISO3166";
 
     /**
      * The status of the total price used.
@@ -1624,8 +1695,13 @@ declare namespace google.payments.api {
      *   [[TransactionInfo.totalPriceStatus|`TransactionInfo.totalPriceStatus`]]
      *   is set to [[TotalPriceStatus|`FINAL`]]. Otherwise,
      *   a payment data request will fail.
+     *
+     * - `CONTINUE_TO_REVIEW`:
+     *   Use the 'Continue to Review Order' button for a buy flow in the
+     *   payments sheet. Once loadPaymentData completes, the integrator should
+     *   show an order confirmation screen to finalize the purchase.
      */
-    type CheckoutOption = "DEFAULT" | "COMPLETE_IMMEDIATE_PURCHASE";
+    type CheckoutOption = "DEFAULT" | "COMPLETE_IMMEDIATE_PURCHASE" | "CONTINUE_TO_REVIEW";
 
     /**
      * Enum string of a display item.
@@ -1760,7 +1836,13 @@ declare namespace google.payments.api {
      * - `OTHER_ERROR`:
      *   A catch all for error not fitting anywhere else.
      */
-    type ErrorReason = "SHIPPING_ADDRESS_INVALID" | "SHIPPING_ADDRESS_UNSERVICEABLE" | "SHIPPING_OPTION_INVALID" | "OFFER_INVALID" | "PAYMENT_DATA_INVALID" | "OTHER_ERROR";
+    type ErrorReason =
+        | "SHIPPING_ADDRESS_INVALID"
+        | "SHIPPING_ADDRESS_UNSERVICEABLE"
+        | "SHIPPING_OPTION_INVALID"
+        | "OFFER_INVALID"
+        | "PAYMENT_DATA_INVALID"
+        | "OTHER_ERROR";
 
     /**
      * Enum strings for the state of the transaction.
@@ -1778,6 +1860,25 @@ declare namespace google.payments.api {
      *   to retry.
      */
     type TransactionState = "SUCCESS" | "ERROR";
+
+    /**
+     * Enum string for the card funding source of the selected payment method.
+     *
+     * Options:
+     *
+     * - `UNKNOWN`:
+     *   The funding source is unknown.
+     *
+     * - `CREDIT`:
+     *   The card is a credit card.
+     *
+     * - `DEBIT`:
+     *   The card is a debit card.
+     *
+     * - `PREPAID`:
+     *   The card is a prepaid card.
+     */
+    type CardFundingSource = "UNKNOWN" | "CREDIT" | "DEBIT" | "PREPAID";
 
     /**
      * This object allows you to configure a Google Pay payment button. For
@@ -1806,6 +1907,15 @@ declare namespace google.payments.api {
          * @default "buy"
          */
         buttonType?: ButtonType | undefined;
+
+        /**
+         * Specifies the button corner radius in pixels. The minimum is 0 and the
+         * maximum depends on the height of the button. If the height is 40px (default height) then
+         * the maximum value for the buttonRadius is 20.
+         *
+         * @default 4
+         */
+        buttonRadius?: number | undefined;
 
         /**
          * Determines how the button's size should change relative to the
@@ -1840,6 +1950,15 @@ declare namespace google.payments.api {
          * @default browser or operating system language
          */
         buttonLocale?: string;
+
+        /**
+         * Specifies the border types for the Google Pay button.
+         *
+         * If omitted, defaults to `default_border`.
+         *
+         * @default "default_border"
+         */
+        buttonBorderType?: ButtonBorderType | undefined;
 
         /**
          * List of allowed payment methods.
@@ -2096,7 +2215,6 @@ declare namespace google.payments.api {
      * viewer's browser matches an [available
      * language](https://developers.google.com/pay/api/web/guides/brand-guidelines#payment-buttons-assets).
      *
-     *
      * Options:
      *
      * - `book`:
@@ -2129,7 +2247,32 @@ declare namespace google.payments.api {
      * - `short`:
      *   Same as "plain".
      */
-    type ButtonType = "book" | "buy" | "checkout" | "donate" | "order" | "pay" | "plain" | "subscribe" | "long" | "short";
+    type ButtonType =
+        | "book"
+        | "buy"
+        | "checkout"
+        | "donate"
+        | "order"
+        | "pay"
+        | "plain"
+        | "subscribe"
+        | "long"
+        | "short";
+
+    /**
+     * Supported border types for the Google Pay button.
+     *
+     * Options:
+     *
+     * - `no_border`:
+     *   "No border is displayed around the button.
+     *
+     * - `default_border`:
+     *   "A thin border is displayed around the button. (default).
+     */
+    type ButtonBorderType =
+        | "no_border"
+        | "default_border";
 
     /**
      * Supported methods for controlling the size of the Google Pay button.
@@ -2204,7 +2347,9 @@ declare namespace google.payments.api {
          * shipping options and transaction info. Don't intentionally return
          * reject if possible.*
          */
-        (intermediatePaymentData: IntermediatePaymentData) => Promise<PaymentDataRequestUpdate> | PaymentDataRequestUpdate;
+        (
+            intermediatePaymentData: IntermediatePaymentData,
+        ) => Promise<PaymentDataRequestUpdate> | PaymentDataRequestUpdate;
 
     /**
      * This object contains details about errors returned by client JavaScript
@@ -2232,5 +2377,9 @@ declare namespace google.payments.api {
      * - `INTERNAL_ERROR`:
      *   General server error.
      */
-    type PaymentsErrorStatusCode = "BUYER_ACCOUNT_ERROR" | "DEVELOPER_ERROR" | "MERCHANT_ACCOUNT_ERROR" | "INTERNAL_ERROR";
+    type PaymentsErrorStatusCode =
+        | "BUYER_ACCOUNT_ERROR"
+        | "DEVELOPER_ERROR"
+        | "MERCHANT_ACCOUNT_ERROR"
+        | "INTERNAL_ERROR";
 }

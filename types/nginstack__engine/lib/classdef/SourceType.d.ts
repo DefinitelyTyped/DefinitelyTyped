@@ -1,6 +1,4 @@
-export type exports = string;
-declare const MODEL: string;
-declare const VIEW: string;
-declare const CONFIG: string;
-declare const NON_STRICT_MODEL: string;
-export {};
+export const MODEL = 'model';
+export const VIEW = 'view';
+export const CONFIG = 'config';
+export const NON_STRICT_MODEL = 'non_strict_model';

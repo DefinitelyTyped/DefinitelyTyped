@@ -2,404 +2,404 @@ import * as elasticsearch from "elasticsearch";
 import HttpConnector = require("elasticsearch/src/lib/connectors/http");
 
 class MyHttpConnector extends HttpConnector {
-  constructor(host: any, config: any) {
-    super(host, config);
-  }
+    constructor(host: any, config: any) {
+        super(host, config);
+    }
 }
 
 let client = new elasticsearch.Client({
-  host: 'localhost:9200',
-  log: 'trace'
+    host: "localhost:9200",
+    log: "trace",
 });
 
 client = new elasticsearch.Client({
-  host: 'localhost:9200',
-  connectionClass: MyHttpConnector
+    host: "localhost:9200",
+    connectionClass: MyHttpConnector,
 });
 
 client = new elasticsearch.Client({
-  hosts: [
-    'box1.server.org',
-    'box2.server.org'
-  ],
-  selector: (hosts: any) => { }
+    hosts: [
+        "box1.server.org",
+        "box2.server.org",
+    ],
+    selector: (hosts: any) => {},
 });
 
 client.ping({
-  requestTimeout: 30000
+    requestTimeout: 30000,
 }, (error) => {
 });
 
 client.search({
-  q: 'pants'
+    q: "pants",
 }).then((body) => {
-  const hits = body.hits.hits;
+    const hits = body.hits.hits;
 }, (error) => {
 });
 
 client.search({
-  body: {
-    query: {
-      match_all: {
-        _name: 'test'
-      }
-    }
-  }
-}
-).then((body) => {
-  const hit = body.hits.hits[0];
-  const names = hit && hit.matched_queries;
+    body: {
+        query: {
+            match_all: {
+                _name: "test",
+            },
+        },
+    },
+}).then((body) => {
+    const hit = body.hits.hits[0];
+    const names = hit && hit.matched_queries;
 }, (error) => {
 });
 
 client.indices.create({
-  index: 'test_index',
-  includeTypeName: true,
-  ignore: [400, 404]
+    index: "test_index",
+    includeTypeName: true,
+    ignore: [400, 404],
 }).then((body) => {
 }, (error) => {
 });
 
 client.indices.get({
-  index: 'test_index',
-  includeTypeName: false,
-  ignore: 404
+    index: "test_index",
+    includeTypeName: false,
+    ignore: 404,
 }).then((body) => {
 }, (error) => {
 });
 
 client.indices.delete({
-  index: 'test_index',
-  ignore: [404]
+    index: "test_index",
+    ignore: [404],
 }).then((body) => {
 }, (error) => {
 });
 
 client.indices.delete({
-  index: 'test_index',
-  ignoreUnavailable: true
+    index: "test_index",
+    ignoreUnavailable: true,
 }).then((body) => {
 }, (error) => {
 });
 
 client.deleteByQuery({
-  index: 'test_index',
-  type: 'test_type',
-  body: {
-    query: {
-    }
-  }
+    index: "test_index",
+    type: "test_type",
+    body: {
+        query: {},
+    },
 }).then((response) => {
 }, (error) => {
 });
 
 client.create({
-  index: 'index',
-  type: 'type'
+    index: "index",
+    type: "type",
 });
 
 client.create({
-  id: '123',
-  index: 'index',
-  type: 'type'
+    id: "123",
+    index: "index",
+    type: "type",
 });
 
 client.create({
-  id: '123',
-  index: 'index',
-  type: 'type'
+    id: "123",
+    index: "index",
+    type: "type",
 }, (err, repsonse, status) => {
 });
 
 client.create({
-  id: '123',
-  index: 'index',
-  type: 'type',
-  routing: 'parent_123',
+    id: "123",
+    index: "index",
+    type: "type",
+    routing: "parent_123",
 }, (err, repsonse, status) => {
 });
 
 client.cluster.getSettings({
-  masterTimeout: '100s'
+    masterTimeout: "100s",
 }, (err, response) => {
 });
 
 client.cluster.health({
-  masterTimeout: '100s'
+    masterTimeout: "100s",
 }, (err, response) => {
 });
 
 client.cluster.pendingTasks({
-  ignore: 1
+    ignore: 1,
 }, (err, response) => {
 });
 
 client.cluster.putSettings({
-  ignore: 1
+    ignore: 1,
 }, (err, response) => {
 });
 
 client.cluster.putSettings({
-  ignore: 1
+    ignore: 1,
 }, (err, response) => {
 });
 
 client.cluster.reroute({
-  ignore: 1
+    ignore: 1,
 }, (err, response) => {
 });
 
 client.cluster.state({
-  ignore: 1
+    ignore: 1,
 }, (err, response) => {
 });
 
 client.cluster.stats({
-  ignore: 1
+    ignore: 1,
 }, (err, response) => {
 });
 
 client.count({
-  index: 'index_name'
+    index: "index_name",
 }, (error, response) => {
-  // ...
+    // ...
 });
 
 client.count({
-  index: 'index_name',
-  body: {
-    query: {
-      filtered: {
-        filter: {
-          terms: {
-            foo: ['bar']
-          }
-        }
-      }
-    }
-  }
+    index: "index_name",
+    body: {
+        query: {
+            filtered: {
+                filter: {
+                    terms: {
+                        foo: ["bar"],
+                    },
+                },
+            },
+        },
+    },
 }, (err, response) => {
-  // ...
+    // ...
 });
 
 client.explain({
-  // the document to test
-  index: 'myindex',
-  type: 'mytype',
-  id: '1',
+    // the document to test
+    index: "myindex",
+    type: "mytype",
+    id: "1",
 
-  // the query to score it against
-  q: 'field:value'
+    // the query to score it against
+    q: "field:value",
 }, (error, response) => {
-  // ...
+    // ...
 });
 
 client.explain({
-  index: 'myindex',
-  type: 'mytype',
-  id: '1',
-  body: {
-    query: {
-      match: { title: 'test' }
-    }
-  }
+    index: "myindex",
+    type: "mytype",
+    id: "1",
+    body: {
+        query: {
+            match: { title: "test" },
+        },
+    },
 }, (error, response) => {
-  // ...
+    // ...
 });
 
 client.index({
-  index: 'myindex',
-  type: 'mytype',
-  id: '1',
-  body: {
-    title: 'Test 1',
-    tags: ['y', 'z'],
-    published: true,
-  }
+    index: "myindex",
+    type: "mytype",
+    id: "1",
+    body: {
+        title: "Test 1",
+        tags: ["y", "z"],
+        published: true,
+    },
 }, (error, response) => {
 });
 
 client.get({
-  index: 'myindex',
-  type: 'mytype',
-  id: '1',
-  routing: '1'
+    index: "myindex",
+    type: "mytype",
+    id: "1",
+    routing: "1",
 }, (error, response) => {
-  const routing = response._routing;
+    const routing = response._routing;
 });
 
 client.mget({
-  body: {
-    docs: [
-      { _index: 'indexA', _type: 'typeA', _id: '1' },
-      { _index: 'indexB', _type: 'typeB', _id: '1' },
-      { _index: 'indexC', _type: 'typeC', _id: '1' }
-    ]
-  }
-}, (error, response) => {
-  // ...
-});
-
-client.mget({
-  index: 'myindex',
-  type: 'mytype',
-  body: {
-    ids: [1, 2, 3],
-    _source: ['test']
-  }
-}, (error, response) => {
-  // ...
-});
-
-client.mget({
-  routing: "myroute",
-  body: {
-    ids: [1, 2, 3]
-  }
-}, (error, response) => {
-  // ...
-});
-
-client.search({
-  index: 'myindex',
-  q: 'title:test'
-}, (error, response) => {
-  // ...
-});
-
-client.search({
-  index: 'myindex',
-  body: {
-    query: {
-      match: {
-        title: 'test'
-      }
+    body: {
+        docs: [
+            { _index: "indexA", _type: "typeA", _id: "1" },
+            { _index: "indexB", _type: "typeB", _id: "1" },
+            { _index: "indexC", _type: "typeC", _id: "1" },
+        ],
     },
-    facets: {
-      tags: {
-        terms: {
-          field: 'tags'
-        }
-      }
-    }
-  }
 }, (error, response) => {
-  // ...
+    // ...
+});
+
+client.mget({
+    index: "myindex",
+    type: "mytype",
+    body: {
+        ids: [1, 2, 3],
+        _source: ["test"],
+    },
+}, (error, response) => {
+    // ...
+});
+
+client.mget({
+    routing: "myroute",
+    body: {
+        ids: [1, 2, 3],
+    },
+}, (error, response) => {
+    // ...
+});
+
+client.search({
+    index: "myindex",
+    q: "title:test",
+}, (error, response) => {
+    // ...
+});
+
+client.search({
+    index: "myindex",
+    body: {
+        query: {
+            match: {
+                title: "test",
+            },
+        },
+        facets: {
+            tags: {
+                terms: {
+                    field: "tags",
+                },
+            },
+        },
+    },
+}, (error, response) => {
+    // ...
 });
 
 client.suggest({
-  index: 'myindex',
-  body: {
-    mysuggester: {
-      text: 'tset',
-      term: {
-        field: 'title'
-      }
-    }
-  }
+    index: "myindex",
+    body: {
+        mysuggester: {
+            text: "tset",
+            term: {
+                field: "title",
+            },
+        },
+    },
 }, (error, response) => {
 });
 
 // first we do a search, and specify a scroll timeout
 const allTitles: string[] = [];
 client.search({
-  index: 'myindex',
-  // Set to 30 seconds because we are calling right back
-  scroll: '30s',
-  searchType: 'query_then_fetch',
-  docvalueFields: ['title'],
-  q: 'title:test'
+    index: "myindex",
+    // Set to 30 seconds because we are calling right back
+    scroll: "30s",
+    searchType: "query_then_fetch",
+    docvalueFields: ["title"],
+    q: "title:test",
 }, function getMoreUntilDone(error, response) {
-  // collect the title from each response
-  response.hits.hits.forEach((hit) => {
-    allTitles.push(hit.fields.title);
-  });
+    // collect the title from each response
+    response.hits.hits.forEach((hit) => {
+        allTitles.push(hit.fields.title);
+    });
 
-  if (response.hits.total !== allTitles.length) {
-    // now we can call scroll over and over
-    client.scroll({
-      scrollId: response._scroll_id!,
-      scroll: '30s'
-    }, getMoreUntilDone);
-  } else {
-    console.log('every "test" title', allTitles);
-  }
+    if (response.hits.total !== allTitles.length) {
+        // now we can call scroll over and over
+        client.scroll({
+            scrollId: response._scroll_id!,
+            scroll: "30s",
+        }, getMoreUntilDone);
+    } else {
+        console.log("every \"test\" title", allTitles);
+    }
 });
 
 client.updateByQuery({
-  index: 'myIndex',
-  type: 'mytype',
+    index: "myIndex",
+    type: "mytype",
 }, (error, response) => {
-  const {
-    took,
-    timed_out,
-    updated,
-    deleted,
-    batches,
-    version_conflicts,
-    noops,
-    retries,
-    throttled_millis,
-    throttled_until_millis,
-    total,
-    failures
-  } = response;
+    const {
+        took,
+        timed_out,
+        updated,
+        deleted,
+        batches,
+        version_conflicts,
+        noops,
+        retries,
+        throttled_millis,
+        throttled_until_millis,
+        total,
+        failures,
+    } = response;
 
-  const { bulk, search } = retries;
+    const { bulk, search } = retries;
 
-  // ...
+    // ...
 });
 
 client.indices.updateAliases({
-  body: {
-    actions: [
-      { remove: { index: 'logstash-2014.04', alias: 'logstash-current' } },
-      { add: { index: 'logstash-2014.05', alias: 'logstash-current' } }
-    ]
-  }
+    body: {
+        actions: [
+            { remove: { index: "logstash-2014.04", alias: "logstash-current" } },
+            { add: { index: "logstash-2014.05", alias: "logstash-current" } },
+        ],
+    },
 }).then((response) => {
-  // ...
+    // ...
 }, (error) => {
-  // ...
+    // ...
 });
 
 client.indices.updateAliases({
-  body: {
-    actions: [
-      {
-        add: {
-          index: 'logstash-2018.11', alias: 'logstash-filtered', filter: {
-            query: {
-              exists: { field: 'id' }
-            }
-          },
-          routing: 'id'
-        }
-      }
-    ]
-  }
+    body: {
+        actions: [
+            {
+                add: {
+                    index: "logstash-2018.11",
+                    alias: "logstash-filtered",
+                    filter: {
+                        query: {
+                            exists: { field: "id" },
+                        },
+                    },
+                    routing: "id",
+                },
+            },
+        ],
+    },
 }).then((response) => {
-  // ...
+    // ...
 }, (error) => {
-  // ...
+    // ...
 });
 
 client.reindex({
-  body: {
-    source: {
-      index: "twitter"
+    body: {
+        source: {
+            index: "twitter",
+        },
+        dest: {
+            index: "new_twitter",
+        },
     },
-    dest: {
-      index: "new_twitter"
-    }
-  }
 })
-  .then(response => {
-    const { took, timed_out } = response;
-    // ...
-  });
+    .then(response => {
+        const { took, timed_out } = response;
+        // ...
+    });
 
 // Errors
 function testErrors() {
-  throw new elasticsearch.errors.AuthenticationException();
+    throw new elasticsearch.errors.AuthenticationException();
 }

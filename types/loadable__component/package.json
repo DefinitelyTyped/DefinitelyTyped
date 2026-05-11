@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/loadable__component",
+    "version": "5.13.9999",
+    "projects": [
+        "https://github.com/smooth-code/loadable-components"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/loadable__component": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Martynas Kadiša",
+            "githubUsername": "martynaskadisa"
+        },
+        {
+            "name": "Daniel Playfair Cal",
+            "githubUsername": "hedgepigdaniel"
+        }
+    ]
+}

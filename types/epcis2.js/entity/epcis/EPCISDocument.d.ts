@@ -19,7 +19,7 @@ export default class EPCISDocument extends Entity {
      */
     setContext(context: any): EPCISDocument;
 
-    '@context': any;
+    "@context": any;
 
     /**
      * Getter for the context property
@@ -156,5 +156,5 @@ export default class EPCISDocument extends Entity {
     isValid(): boolean;
 }
 import Entity from "../Entity";
-import EPCISHeader from "./EPCISHeader";
 import Event from "../events/Event";
+import EPCISHeader from "./EPCISHeader";

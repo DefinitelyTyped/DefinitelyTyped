@@ -1,5 +1,5 @@
-import { Mimetype } from './GuacCommon';
-import { InputStream } from './InputStream';
+import { Mimetype } from "./GuacCommon";
+import { InputStream } from "./InputStream";
 
 /**
  * Abstract audio player which accepts, queues and plays back arbitrary audio

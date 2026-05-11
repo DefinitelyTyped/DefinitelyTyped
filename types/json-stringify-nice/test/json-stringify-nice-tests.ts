@@ -11,10 +11,10 @@ const obj = {
 function replacer(key: string, val: any) {
     return key === "a"
         ? {
-              hello: "📞 yes",
-              "this is": "🐕",
-              ...val,
-          }
+            hello: "📞 yes",
+            "this is": "🐕",
+            ...val,
+        }
         : val;
 }
 

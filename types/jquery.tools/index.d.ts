@@ -1,15 +1,9 @@
-// Type definitions for non-npm package jQuery TOOLS 1.2
-// Project: https://github.com/jquerytools/jquerytools
-// Definitions by: Joe Skeen <https://github.com/joeskeen>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery"/>
 
 interface JQuery {
     overlay(opts?: JQueryTools.overlay.OverlayOptions): JQuery;
     overlay<T extends JQueryTools.overlay.Overlay>(opts?: JQueryTools.overlay.OverlayOptions): T;
-    data(key: 'overlay'): JQueryTools.overlay.Overlay;
+    data(key: "overlay"): JQueryTools.overlay.Overlay;
 }
 
 interface JQueryStatic {
@@ -24,9 +18,11 @@ declare namespace JQueryTools {
 
     namespace overlay {
         interface OverlayStatic {
-            addEffect(effectName: string,
-                      effectFn: (this: Overlay, position: CssOptions, done: () => void) => void,
-                      closeFn: (this: Overlay, done: () => void) => void): void;
+            addEffect(
+                effectName: string,
+                effectFn: (this: Overlay, position: CssOptions, done: () => void) => void,
+                closeFn: (this: Overlay, done: () => void) => void,
+            ): void;
         }
 
         interface CssOptions {
@@ -87,7 +83,7 @@ declare namespace JQueryTools {
              * but you can also supply a numerical value specifying a distance in pixels.
              * @default 'center'
              */
-            left?: 'center' | number | undefined;
+            left?: "center" | number | undefined;
             /**
              * If enabled then the overlay loads immediately after it has been initialized.
              * @default false
@@ -105,7 +101,7 @@ declare namespace JQueryTools {
              * By setting this property to 0, the overlay will appear immediately without any animation.
              * @default 'normal'
              */
-            speed?: 'slow' | 'normal' | 'fast' | number | undefined;
+            speed?: "slow" | "normal" | "fast" | number | undefined;
             /**
              * The element to be overlayed (if not specified in the rel attribute of the triggering element).
              */

@@ -1,2 +1,2 @@
-import { maxBy } from '../index';
+import { maxBy } from "../index.js";
 export default maxBy;

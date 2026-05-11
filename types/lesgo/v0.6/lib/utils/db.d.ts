@@ -1,4 +1,4 @@
-import AuroraDbService from '../services/AuroraDbService';
+import AuroraDbService from "../services/AuroraDbService";
 
 declare const db: AuroraDbService;
 

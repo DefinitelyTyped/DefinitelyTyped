@@ -1,4 +1,4 @@
-import connectsqlite3 = require('connect-sqlite3');
+import connectsqlite3 = require("connect-sqlite3");
 import connect = require("express-session");
 
 // $ExpectType SQLiteStoreInitator

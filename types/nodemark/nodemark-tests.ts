@@ -1,8 +1,8 @@
-import benchmark = require('nodemark');
+import benchmark = require("nodemark");
 
 declare var console: any;
 
-console.log('benchmark:', benchmark);
+console.log("benchmark:", benchmark);
 
 let x: number;
 
@@ -10,7 +10,7 @@ function subject() {
     for (let i = 0; i < 100; i++) {
         const y = Math.exp(x);
         if (!y) {
-            throw new Error('Assertion Error: invalid output');
+            throw new Error("Assertion Error: invalid output");
         }
     }
 }
@@ -30,8 +30,8 @@ function asyncSetup(cb: benchmark.DoneCallback) {
 }
 
 function assertNumber(x: number) {
-    if (typeof x !== 'number') {
-        throw new Error('Assertion Error: expect number');
+    if (typeof x !== "number") {
+        throw new Error("Assertion Error: expect number");
     }
 }
 

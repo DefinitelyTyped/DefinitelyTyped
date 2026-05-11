@@ -1,9 +1,4 @@
-// Type definitions for react-mic 12.4
-// Project: https://hackingbeauty.github.io/react-mic
-// Definitions by: mikaello <https://github.com/mikaello>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import * as React from 'react';
+import * as React from "react";
 
 /**
  * Record a user's voice and display as an oscillation (or frequency bars).
@@ -18,11 +13,11 @@ export interface ReactMicStopEvent {
     startTime: number;
     stopTime: number;
     option: {
-      audioBitsPerSecond: number;
-      mimeType: string;
+        audioBitsPerSecond: number;
+        mimeType: string;
     };
     blobURL: string;
-  }
+}
 
 export interface ReactMicProps {
     /** Set to true to begin recording */
@@ -31,7 +26,7 @@ export interface ReactMicProps {
     /** Available in React-Mic-Plus upgrade only */
     pause?: boolean | undefined;
 
-    visualSetting?: 'sinewave' | 'frequencyBars' | undefined;
+    visualSetting?: "sinewave" | "frequencyBars" | undefined;
 
     className?: string | undefined;
 
@@ -42,7 +37,7 @@ export interface ReactMicProps {
     onData?: ((recordedData: Blob) => void) | undefined;
 
     /** defaults -> "audio/webm".  Set to "audio/wav" for WAV or "audio/mp3" for MP3 audio format (available in React-Mic-Gold) */
-    mimeType?: 'audio/webm' | 'audio/wav' | undefined;
+    mimeType?: "audio/webm" | "audio/wav" | undefined;
 
     /** Sound wave color */
     strokeColor?: string | undefined;

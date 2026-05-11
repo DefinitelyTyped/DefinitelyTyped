@@ -1,4 +1,4 @@
-import * as Perf from 'react-addons-perf';
+import * as Perf from "react-addons-perf";
 
 Perf.start();
 Perf.stop();

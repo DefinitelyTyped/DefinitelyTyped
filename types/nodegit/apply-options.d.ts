@@ -1,5 +1,5 @@
-import { ConvenientHunk } from './convenient-hunk';
-import { DiffDelta } from './diff-delta';
+import { ConvenientHunk } from "./convenient-hunk";
+import { DiffDelta } from "./diff-delta";
 
 export class ApplyOptions {
     deltaCb?: ((delta: DiffDelta, payload: any) => number) | undefined;

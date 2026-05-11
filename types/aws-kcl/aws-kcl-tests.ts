@@ -1,4 +1,4 @@
-import kcl from 'aws-kcl';
+import kcl from "aws-kcl";
 
 // Example used from https://github.com/awslabs/amazon-kinesis-client-nodejs
 const recordProcessor = {
@@ -19,7 +19,7 @@ const recordProcessor = {
         for (record of records) {
             sequenceNumber = record.sequenceNumber;
             const partitionKey = record.partitionKey;
-            const data = new Buffer(record.data, 'base64').toString();
+            const data = new Buffer(record.data, "base64").toString();
             console.log(partitionKey, data);
         }
 
@@ -45,6 +45,32 @@ const recordProcessor = {
         });
         completeCallback();
     },
+
+    shutdownRequested(shutdownRequestedInput: kcl.ShutdownRequestedInput, completeCallback: kcl.Callback) {
+        shutdownRequestedInput.checkpointer.checkpoint((_err?: string) => {
+            completeCallback();
+        });
+    },
 };
 
 kcl(recordProcessor).run();
+
+const recordProcessorWithoutShutdownRequested: kcl.RecordProcessor = {
+    initialize(_initializeInput: kcl.InitializeInput, completeCallback: kcl.Callback) {
+        completeCallback();
+    },
+
+    processRecords(processRecordsInput: kcl.ProcessRecordsInput, completeCallback: kcl.Callback) {
+        completeCallback();
+    },
+
+    leaseLost(_leaseLostInput: kcl.LeaseLossInput, completeCallback: kcl.Callback) {
+        completeCallback();
+    },
+
+    shardEnded(shardEndedInput: kcl.ShardEndedInput, completeCallback: kcl.Callback) {
+        completeCallback();
+    },
+};
+
+kcl(recordProcessorWithoutShutdownRequested).run();

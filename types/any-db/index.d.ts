@@ -1,10 +1,4 @@
-// Type definitions for any-db 2.1.0
-// Project: https://github.com/grncdr/node-any-db
-// Definitions by: Rogier Schouten <https://github.com/rogierschouten>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
-
 
 import events = require("events");
 import stream = require("stream");
@@ -19,14 +13,14 @@ export interface Adapter {
      * Create a new connection object. In common usage, config will be created by parse-db-url and passed to the adapter by any-db.
      * If a continuation is given, it must be called, either with an error or the established connection.
      */
-    createConnection(opts: ConnectOpts, callback?: (error: Error, result: Connection) => void): Connection;
+    createConnection(opts: ConnectOpts, callback?: (error: Error | null, result: Connection) => void): Connection;
 
     /**
      * Create a Query that may eventually be executed later on by a Connection. While this function is rarely needed by user code,
      * it makes it possible for ConnectionPool.query and Transaction.query to fulfill the Queryable.query contract
      * by synchronously returning a Query stream
      */
-    createQuery(text: string, params?: any[], callback?: (error: Error, result: ResultSet) => void): Query;
+    createQuery(text: string, params?: any[], callback?: (error: Error | null, result: ResultSet) => void): Query;
     createQuery(query: Query): Query;
 }
 /**
@@ -131,7 +125,7 @@ export interface Query extends stream.Readable {
      * as other any-db libraries may rely on modifying the callback property
      * of a Query they did not create.
      */
-    callback: (error: Error, results: ResultSet) => void;
+    callback?: (error: Error | null, results: ResultSet) => void;
 }
 
 /**
@@ -153,7 +147,7 @@ export interface Queryable extends events.EventEmitter {
      * The second form is not needed for normal use, but must be implemented by adapters to work correctly
      * with ConnectionPool and Transaction. See Adapter.createQuery for more details.
      */
-    query(text: string, params?: any[], callback?: (error: Error, results: ResultSet) => void): Query
+    query(text: string, params?: any[], callback?: (error: Error | null, results: ResultSet) => void): Query;
 
     /**
      * The second form is not needed for normal use, but must be implemented by adapters to work correctly
@@ -188,11 +182,11 @@ export interface Connection extends Queryable {
      * Close the database connection. If a continuation is provided it
      * will be called after the connection has closed.
      */
-    end(callback?: (error: Error) => void): void;
+    end(callback?: (error: Error | null) => void): void;
 }
 
 export interface ConnectionStatic {
-    new (): Connection;
+    new(): Connection;
 
     name: string;
     createConnection(): void;
@@ -213,13 +207,13 @@ export interface ConnectionPool extends Queryable {
      * Implements Queryable.query by automatically acquiring a connection
      * and releasing it when the query completes.
      */
-    query(text: string, params?: any[], callback?: (error: Error, results: ResultSet) => void): Query;
+    query(text: string, params?: any[], callback?: (error: Error | null, results: ResultSet) => void): Query;
 
     /**
      * Remove a connection from the pool. If you use this method you must
      * return the connection back to the pool using ConnectionPool.release
      */
-    acquire(callback: (error: Error, result: Connection) => void): void;
+    acquire(callback: (error: Error | null, result: Connection) => void): void;
 
     /**
      * Return a connection to the pool. This should only be called with connections
@@ -231,7 +225,7 @@ export interface ConnectionPool extends Queryable {
      * Stop giving out new connections, and close all existing database connections as they
      * are returned to the pool.
      */
-    close(callback?: (error: Error) => void): void;
+    close(callback?: (error: Error | null) => void): void;
 }
 
 /**
@@ -265,13 +259,15 @@ export interface PoolConfig {
      * Called immediately after a connection is first established. Use this to do one-time setup of new connections.
      * The supplied Connection will not be added to the pool until you pass it to the done continuation.
      */
-    onConnect?: ((connection: Connection, ready: (error: Error, result: Connection) => void) => void) | undefined;
+    onConnect?:
+        | ((connection: Connection, ready: (error: Error | null, result: Connection) => void) => void)
+        | undefined;
     /**
      * Called each time a connection is returned to the pool. Use this to restore a connection to
      * it's original state (e.g. rollback transactions, set the database session vars). If reset
      * fails to call the done continuation the connection will be lost in limbo.
      */
-    reset?: ((connection: Connection, done: (error: Error) => void) => void) | undefined;
+    reset?: ((connection: Connection, done: (error: Error | null) => void) => void) | undefined;
     /**
      * (default function (err) { return true }) - Called when an error is encountered
      * by pool.query or emitted by an idle connection. If shouldDestroyConnection(error)
@@ -286,7 +282,10 @@ export interface PoolConfig {
  * @param callback
  * @returns    Connection object.
  */
-export declare function createConnection(url: string, callback?: (error: Error, connection: Connection) => void): Connection;
+export declare function createConnection(
+    url: string,
+    callback?: (error: Error | null, connection: Connection) => void,
+): Connection;
 
 /**
  * Create a database connection.
@@ -294,8 +293,10 @@ export declare function createConnection(url: string, callback?: (error: Error, 
  * @param callback
  * @returns    Connection object.
  */
-export declare function createConnection(opts: ConnectOpts, callback?: (error: Error, connection: Connection) => void): Connection;
+export declare function createConnection(
+    opts: ConnectOpts,
+    callback?: (error: Error | null, connection: Connection) => void,
+): Connection;
 
-
-export declare function createPool(url: string, config: PoolConfig): ConnectionPool;
-export declare function createPool(opts: ConnectOpts, config: PoolConfig): ConnectionPool;
+export declare function createPool(url: string, config?: PoolConfig): ConnectionPool;
+export declare function createPool(opts: ConnectOpts, config?: PoolConfig): ConnectionPool;

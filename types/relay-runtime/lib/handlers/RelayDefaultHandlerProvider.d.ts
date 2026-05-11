@@ -1,5 +1,5 @@
-import { Handler } from '../store/RelayStoreTypes';
+import { Handler } from "../store/RelayStoreTypes";
 
-export type HandlerProvider = (handle: string) => any;
+export type HandlerProvider = (handle: string) => Handler | undefined;
 
-export function RelayDefaultHandlerProvider(handle: string): Handler;
+export default function RelayDefaultHandlerProvider(handle: string): Handler;

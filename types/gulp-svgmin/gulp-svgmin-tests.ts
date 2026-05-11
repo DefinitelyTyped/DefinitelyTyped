@@ -15,26 +15,26 @@ svgmin();
 // $ExpectType Transform
 svgmin({
     plugins: [{
-        removeDoctype: false
+        removeDoctype: false,
     }, {
-        removeComments: false
+        removeComments: false,
     }, {
         cleanupNumericValues: {
-            floatPrecision: 2
-        }
+            floatPrecision: 2,
+        },
     }, {
         convertColors: {
             names2hex: false,
-            rgb2hex: false
-        }
-    }]
+            rgb2hex: false,
+        },
+    }],
 });
 
 // $ExpectType Transform
 svgmin({
     js2svg: {
-        pretty: true
-    }
+        pretty: true,
+    },
 });
 
 // $ExpectType Transform
@@ -43,9 +43,9 @@ svgmin(function getOptions(file) {
     return {
         plugins: [{
             cleanupIDs: {
-                prefix: prefix + '-',
-                minify: true
-            }
-        }]
+                prefix: prefix + "-",
+                minify: true,
+            },
+        }],
     };
 });

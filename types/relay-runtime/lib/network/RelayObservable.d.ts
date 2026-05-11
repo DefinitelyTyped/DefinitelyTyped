@@ -37,6 +37,7 @@ export interface Sink<T> {
  * and may return either a cleanup function or a Subscription instance (for use
  * when composing Observables).
  */
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 export type Source<T> = (sink: Sink<T>) => void | Subscription | (() => unknown);
 
 /**

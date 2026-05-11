@@ -1,5 +1,5 @@
-import postcss from 'postcss';
-import inlineSvg = require('postcss-inline-svg');
+import postcss from "postcss";
+import inlineSvg = require("postcss-inline-svg");
 
 // Test without options
 postcss([inlineSvg()]);
@@ -10,7 +10,7 @@ postcss([inlineSvg({})]);
 // Test `path`
 postcss([
     inlineSvg({
-        paths: ['..', 'svg'],
+        paths: ["..", "svg"],
     }),
 ]);
 
@@ -46,7 +46,7 @@ postcss([
 // Test all options
 postcss([
     inlineSvg({
-        paths: ['..', 'svg'],
+        paths: ["..", "svg"],
         xmlns: false,
         encode: code => code,
         transform: (svg, _path) => svg,

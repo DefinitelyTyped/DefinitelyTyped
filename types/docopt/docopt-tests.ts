@@ -6,5 +6,5 @@ Usage:
   quick_example.coffee serial <port> [--baud=9600] [--timeout=<seconds>]
   quick_example.coffee -h | --help | --version
 `;
-docopt(doc, { version: '0.1.1rc' });
-docopt(doc)
+docopt(doc, { version: "0.1.1rc" });
+docopt(doc);

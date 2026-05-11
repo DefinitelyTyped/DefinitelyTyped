@@ -1,32 +1,22 @@
-// Type definitions for @sinonjs/fake-timers 8.1
-// Project: https://github.com/sinonjs/fake-timers
-// Definitions by: Wim Looman <https://github.com/Nemo157>
-//                 Rogier Schouten <https://github.com/rogierschouten>
-//                 Yishai Zehavi <https://github.com/zyishai>
-//                 Remco Haszing <https://github.com/remcohaszing>
-//                 Jaden Simon <https://github.com/JadenSimon>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /**
  * Names of clock methods that may be faked by install.
  */
 export type FakeMethod =
-    | 'setTimeout'
-    | 'clearTimeout'
-    | 'setImmediate'
-    | 'clearImmediate'
-    | 'setInterval'
-    | 'clearInterval'
-    | 'Date'
-    | 'nextTick'
-    | 'hrtime'
-    | 'requestAnimationFrame'
-    | 'cancelAnimationFrame'
-    | 'requestIdleCallback'
-    | 'cancelIdleCallback'
-    | 'performance'
-    | 'queueMicrotask';
+    | "setTimeout"
+    | "clearTimeout"
+    | "setImmediate"
+    | "clearImmediate"
+    | "setInterval"
+    | "clearInterval"
+    | "Date"
+    | "nextTick"
+    | "hrtime"
+    | "requestAnimationFrame"
+    | "cancelAnimationFrame"
+    | "requestIdleCallback"
+    | "cancelIdleCallback"
+    | "performance"
+    | "queueMicrotask";
 
 /**
  * Global methods available to every clock and also as standalone methods (inside `timers` global object).
@@ -87,6 +77,11 @@ export interface GlobalTimers<TTimerId extends TimerId> {
      * Implements the Date object but using this clock to provide the correct time.
      */
     Date: typeof Date;
+
+    /**
+     * Mimics process.nextTick() explicitly dropping additional arguments.
+     */
+    queueMicrotask: (callback: () => void) => void;
 }
 
 /**
@@ -94,12 +89,12 @@ export interface GlobalTimers<TTimerId extends TimerId> {
  */
 export interface NodeTimer {
     /**
-     * Stub method call. Does nothing.
+     * Marks the timer as referenced.
      */
     ref(): NodeTimer;
 
     /**
-     * Stub method call. Does nothing.
+     * Marks the timer as unreferenced.
      */
     unref(): NodeTimer;
 
@@ -107,12 +102,29 @@ export interface NodeTimer {
      * Refreshes the timer.
      */
     refresh(): NodeTimer;
+
+    /**
+     * Returns true if the timer will keep the event loop active.
+     */
+    hasRef(): boolean;
 }
 
 /**
  * Timer identifier for clock scheduling.
  */
 export type TimerId = number | NodeTimer;
+
+/**
+ * Allows configuring how the clock advances time, automatically or manually.
+ *
+ * - `manual`: Timers do not advance without explicit, manual calls to the tick APIs (`clock.nextAsync`, `clock.runAllAsync`, etc).
+ * - `nextAsync`: The clock will continuously break the event loop, then run the next timer until the mode changes.
+ * - `interval`: This is the same as specifying `shouldAdvanceTime: true` with an `advanceTimeDelta`. If the delta is not specified, 20 will be used by default.
+ */
+export type TimerTickMode =
+    | { mode: "manual" }
+    | { mode: "nextAsync" }
+    | { mode: "interval"; delta?: number };
 
 /**
  * Controls the flow of time.
@@ -257,12 +269,35 @@ export interface FakeClock<TTimerId extends TimerId> extends GlobalTimers<TTimer
     runToLastAsync: () => Promise<number>;
 
     /**
+     * Advances the clock by `time` milliseconds.
+     *
+     * Any timers within the affected range will be moved to the end of the range.
+     * Then, the clock will be advanced by `time` milliseconds, firing any timers
+     * that are now due.
+     *
+     * @param time   How many ticks to advance by.
+     * @returns Fake milliseconds since the unix epoch.
+     */
+    jump: (time: number | string) => number;
+
+    /**
      * Simulates a user changing the system clock.
      *
      * @param now   New system time.
      * @remarks This affects the current time but it does not in itself cause timers to fire.
      */
     setSystemTime: (now?: number | Date) => void;
+
+    /**
+     * Allows configuring how the clock advances time, automatically or manually.
+     * @param tickModeConfig The new configuration for how the clock should tick.
+     */
+    setTickMode: (tickModeConfig: TimerTickMode) => void;
+
+    /**
+     * Run all pending microtasks scheduled with `queueMicrotask`.
+     */
+    runMicrotasks: () => void;
 }
 
 /**
@@ -283,19 +318,9 @@ export type NodeClock = FakeClock<NodeTimer> & {
     hrtime(prevTime?: [number, number]): [number, number];
 
     /**
-     * Mimics process.nextTick() explicitly dropping additional arguments.
-     */
-    queueMicrotask: (callback: () => void) => void;
-
-    /**
      * Simulates process.nextTick().
      */
     nextTick: (callback: (...args: any[]) => void, ...args: any[]) => void;
-
-    /**
-     * Run all pending microtasks scheduled with nextTick.
-     */
-    runMicrotasks: () => void;
 };
 
 /**
@@ -366,6 +391,11 @@ export interface FakeTimerInstallOpts {
      * default, leading to potentially unexpected behavior if timers existed prior to installing FakeTimers. (default: false)
      */
     shouldClearNativeTimers?: boolean | undefined;
+
+    /**
+     * Tells FakeTimers to not throw an error when faking a timer that does not exist in the global object. (default: false)
+     */
+    ignoreMissingTimers?: boolean | undefined;
 }
 
 /**

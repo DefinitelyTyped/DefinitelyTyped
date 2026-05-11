@@ -1,4 +1,4 @@
-import Mixin from '@ember/object/mixin';
+import Mixin from "@ember/object/mixin";
 
 /**
  * RegistryProxyMixin is used to provide public access to specific
@@ -14,7 +14,11 @@ interface RegistryProxyMixin {
      * `inject`) or for service lookup. Each factory is registered with
      * a full name including two parts: `type:name`.
      */
-    register(fullName: string, factory: any, options?: { singleton?: boolean | undefined; instantiate?: boolean | undefined }): any;
+    register(
+        fullName: string,
+        factory: any,
+        options?: { singleton?: boolean | undefined; instantiate?: boolean | undefined },
+    ): any;
     /**
      * Unregister a factory.
      */

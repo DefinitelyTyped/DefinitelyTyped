@@ -1,9 +1,3 @@
-// Type definitions for non-npm package Sarif 2.1
-// Project: https://github.com/Microsoft/sarif-sdk
-// Definitions by: Jeff King <https://github.com/jeffersonking>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 /**
  * Static Analysis Results Format (SARIF) Version 2.1.0-rtm.5 JSON Schema: a standard format for the output of static
  * analysis tools.
@@ -36,8 +30,7 @@ export interface Log {
 }
 
 export namespace Log {
-    type version =
-        "2.1.0";
+    type version = "2.1.0";
 }
 
 /**
@@ -170,29 +163,29 @@ export interface Artifact {
 
 export namespace Artifact {
     type roles =
-        "analysisTarget" |
-        "attachment" |
-        "responseFile" |
-        "resultFile" |
-        "standardStream" |
-        "tracedFile" |
-        "unmodified" |
-        "modified" |
-        "added" |
-        "deleted" |
-        "renamed" |
-        "uncontrolled" |
-        "driver" |
-        "extension" |
-        "translation" |
-        "taxonomy" |
-        "policy" |
-        "referencedOnCommandLine" |
-        "memoryContents" |
-        "directory" |
-        "userSpecifiedConfiguration" |
-        "toolSpecifiedConfiguration" |
-        "debugOutputFile";
+        | "analysisTarget"
+        | "attachment"
+        | "responseFile"
+        | "resultFile"
+        | "standardStream"
+        | "tracedFile"
+        | "unmodified"
+        | "modified"
+        | "added"
+        | "deleted"
+        | "renamed"
+        | "uncontrolled"
+        | "driver"
+        | "extension"
+        | "translation"
+        | "taxonomy"
+        | "policy"
+        | "referencedOnCommandLine"
+        | "memoryContents"
+        | "directory"
+        | "userSpecifiedConfiguration"
+        | "toolSpecifiedConfiguration"
+        | "debugOutputFile";
 }
 
 /**
@@ -571,8 +564,7 @@ export interface ExternalProperties {
 }
 
 export namespace ExternalProperties {
-    type version =
-        "2.1.0";
+    type version = "2.1.0";
 }
 
 /**
@@ -1162,10 +1154,10 @@ export interface Notification {
 
 export namespace Notification {
     type level =
-        "none" |
-        "note" |
-        "warning" |
-        "error";
+        | "none"
+        | "note"
+        | "warning"
+        | "error";
 }
 
 /**
@@ -1367,10 +1359,10 @@ export interface ReportingConfiguration {
 
 export namespace ReportingConfiguration {
     type level =
-        "none" |
-        "note" |
-        "warning" |
-        "error";
+        | "none"
+        | "note"
+        | "warning"
+        | "error";
 }
 
 /**
@@ -1674,24 +1666,24 @@ export interface Result {
 
 export namespace Result {
     type kind =
-        "notApplicable" |
-        "pass" |
-        "fail" |
-        "review" |
-        "open" |
-        "informational";
+        | "notApplicable"
+        | "pass"
+        | "fail"
+        | "review"
+        | "open"
+        | "informational";
 
     type level =
-        "none" |
-        "note" |
-        "warning" |
-        "error";
+        | "none"
+        | "note"
+        | "warning"
+        | "error";
 
     type baselineState =
-        "new" |
-        "unchanged" |
-        "updated" |
-        "absent";
+        | "new"
+        | "unchanged"
+        | "updated"
+        | "absent";
 }
 
 /**
@@ -1899,8 +1891,8 @@ export interface Run {
 
 export namespace Run {
     type columnKind =
-        "utf16CodeUnits" |
-        "unicodeCodePoints";
+        | "utf16CodeUnits"
+        | "unicodeCodePoints";
 }
 
 /**
@@ -2038,13 +2030,13 @@ export interface Suppression {
 
 export namespace Suppression {
     type kind =
-        "inSource" |
-        "external";
+        | "inSource"
+        | "external";
 
     type status =
-        "accepted" |
-        "underReview" |
-        "rejected";
+        | "accepted"
+        | "underReview"
+        | "rejected";
 }
 
 /**
@@ -2167,9 +2159,9 @@ export interface ThreadFlowLocation {
 
 export namespace ThreadFlowLocation {
     type importance =
-        "important" |
-        "essential" |
-        "unimportant";
+        | "important"
+        | "essential"
+        | "unimportant";
 }
 
 /**
@@ -2353,8 +2345,8 @@ export interface ToolComponent {
 
 export namespace ToolComponent {
     type contents =
-        "localizedData" |
-        "nonLocalizedData";
+        | "localizedData"
+        | "nonLocalizedData";
 }
 
 /**

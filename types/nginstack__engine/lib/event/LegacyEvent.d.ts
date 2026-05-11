@@ -13,13 +13,13 @@ declare class LegacyEvent {
     dispatchWithParameterArray(params: any[]): any;
     dispatch(...args: any[]): any;
     private _indexOf;
-    set(method: Method | ((arg0: any) => any)): void;
+    set(method: ((arg0: any) => any) | Method): void;
     isEmpty: boolean;
 }
 declare namespace LegacyEvent {
-    const inheritedEvent: any;
-    const inheritedIndexEventsMethods: number;
-    const inheritedEventsMethodsStack: any[];
+    let inheritedEvent: any;
+    let inheritedIndexEventsMethods: number;
+    let inheritedEventsMethodsStack: any[];
     function executeEventMethod(methodIndex: any, params: any): any;
     function inherited(...args: any[]): any;
 }

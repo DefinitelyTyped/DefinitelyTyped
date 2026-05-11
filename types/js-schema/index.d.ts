@@ -1,11 +1,4 @@
-// Type definitions for js-schema
-// Project: https://github.com/molnarg/js-schema
-// Definitions by: Marcin Porebski <https://github.com/marcinporebski>, Robin Labat <https://github.com/roblabat>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-
-declare module 'js-schema'
-{
+declare module "js-schema" {
     function schema(definition: any): schema.Schema;
 
     namespace schema {
@@ -32,7 +25,7 @@ interface StringConstructor {
 }
 
 interface ArrayConstructor {
-    like(arr: Array<any>): ArrayConstructor;
+    like(arr: any[]): ArrayConstructor;
     of(pattern: any): ArrayConstructor;
     of(length: number, pattern: any): ArrayConstructor;
     of(minLength: number, maxLength: number, pattern: any): ArrayConstructor;

@@ -1,6 +1,6 @@
-import { Interface as ReadlineInterface } from 'readline';
-import inquirer = require('../..');
-import Prompt = require('./base');
+import { Interface as ReadlineInterface } from "readline";
+import inquirer = require("../..");
+import Prompt = require("./base");
 
 /**
  * The question for the {@link PasswordPrompt `PasswordPrompt<TQuestion>`}.

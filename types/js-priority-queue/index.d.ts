@@ -1,8 +1,3 @@
-// Type definitions for js-priority-queue
-// Project: https://github.com/adamhooper/js-priority-queue
-// Definitions by: York Yao <https://github.com/plantain-00/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /* =================== USAGE ===================
     import * as PriorityQueue from "js-priority-queue";
     var queue = new PriorityQueue<number>({ comparator: (a, b) => b - a });
@@ -53,12 +48,11 @@ declare module "js-priority-queue" {
              * Don't use BHeapStrategy, except as a lesson in how sometimes miracles in one programming language aren't great in other languages.
              */
             strategy?: typeof AbstractPriorityQueue | undefined;
-        }
-        class ArrayStrategy<T> extends AbstractPriorityQueue<T>{ }
-        class BinaryHeapStrategy<T> extends AbstractPriorityQueue<T>{ }
-        class BHeapStrategy<T> extends AbstractPriorityQueue<T>{ }
-
+        };
+        class ArrayStrategy<T> extends AbstractPriorityQueue<T> {}
+        class BinaryHeapStrategy<T> extends AbstractPriorityQueue<T> {}
+        class BHeapStrategy<T> extends AbstractPriorityQueue<T> {}
     }
-    class PriorityQueue<T> extends AbstractPriorityQueue<T> { }
+    class PriorityQueue<T> extends AbstractPriorityQueue<T> {}
     export = PriorityQueue;
 }

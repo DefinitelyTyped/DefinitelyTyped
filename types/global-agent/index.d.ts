@@ -1,8 +1,3 @@
-// Type definitions for global-agent 2.1
-// Project: https://github.com/gajus/global-agent#readme
-// Definitions by: Jamie Magee <https://github.com/JamieMagee>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface ProxyAgentConfigurationInputType {
     environmentVariableNamespace?: string | undefined;
     forceGlobalAgent?: boolean | undefined;
@@ -10,12 +5,12 @@ export interface ProxyAgentConfigurationInputType {
 }
 
 export interface ProxyAgentConfigurationType {
-    readonly HTTP_PROXY: string | null;
-    readonly HTTPS_PROXY: string | null;
-    readonly NO_PROXY: string | null;
+    HTTP_PROXY: string | null;
+    HTTPS_PROXY: string | null;
+    NO_PROXY: string | null;
 }
 
 export function bootstrap(configurationInput?: ProxyAgentConfigurationInputType): boolean;
 export function createGlobalProxyAgent(
-    configurationInput: ProxyAgentConfigurationInputType,
+    configurationInput?: ProxyAgentConfigurationInputType,
 ): ProxyAgentConfigurationType;

@@ -1,10 +1,4 @@
-// Type definitions for coffeeify
-// Project: https://github.com/jnordberg/coffeeify
-// Definitions by: Qubo <https://github.com/tkQubo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-
-import through = require('through');
+import through = require("through");
 
 declare namespace coffeeify {
     interface Coffeeify {
@@ -20,7 +14,7 @@ declare namespace coffeeify {
     }
 
     interface ParseError extends SyntaxError {
-        new (error: any, src: string, file: string): ParseError;
+        new(error: any, src: string, file: string): ParseError;
         message: string;
         line: number;
         column: number;

@@ -1,4 +1,4 @@
-import * as sinon from 'sinon';
+import * as sinon from "sinon";
 
 const fn = sinon.spy((arg1: any, arg2: any) => [arg1, arg2]);
 const spy = sinon.spy();
@@ -72,7 +72,7 @@ expect(fn).toBeCalledTimes(1);
 expect(fn).toHaveReturnedWith({});
 expect(fn).toReturnWith({});
 expect(fn).toHaveReturned();
-expect(fn).toReturn();
+expect(fn).toReturn({});
 expect(fn).toHaveAlwaysReturnedWith({});
 expect(fn).toAlwaysReturnWith({});
 

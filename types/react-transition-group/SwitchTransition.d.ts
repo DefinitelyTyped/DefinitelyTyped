@@ -1,22 +1,22 @@
 import { Component, ReactElement } from "react";
 
 export enum modes {
-  out = 'out-in',
-  in = 'in-out'
+    out = "out-in",
+    in = "in-out",
 }
 
 export interface SwitchTransitionProps {
-  /**
-   * Transition modes.
-   * `out-in`: Current element transitions out first, then when complete, the new element transitions in.
-   * `in-out`: New element transitions in first, then when complete, the current element transitions out.
-   */
-  mode?: 'out-in' | 'in-out' | undefined;
+    /**
+     * Transition modes.
+     * `out-in`: Current element transitions out first, then when complete, the new element transitions in.
+     * `in-out`: New element transitions in first, then when complete, the current element transitions out.
+     */
+    mode?: "out-in" | "in-out" | undefined;
 
-  /**
-   * Any `Transition` or `CSSTransition` component
-   */
-  children: ReactElement;
+    /**
+     * Any `Transition` or `CSSTransition` component
+     */
+    children: ReactElement;
 }
 
 /**

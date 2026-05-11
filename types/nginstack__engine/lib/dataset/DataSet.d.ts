@@ -4,7 +4,7 @@ declare class DataSet {
     constructor(idoDB?: IdoDB);
     sqlStatement: string;
     createField(fieldName: string, fieldType: string, opt_fieldSize?: number): void;
-    create(): void;
+    create(tableName?: string): void;
     reload(): void;
     append(
         dataSet?: DataSet | any[],
@@ -27,6 +27,7 @@ declare class DataSet {
     tableName: string;
     automaticApplyUpdates: boolean;
     integrityCheck: boolean;
+    stringOverflowMode: string;
     modified: boolean;
     localDBInfo: any;
     recordCount: number;
@@ -99,7 +100,8 @@ declare class DataSet {
         fieldId: number | string,
         options?: GetFieldOptions | number
     ): string | number | Date | boolean | null;
-    setField(fieldId: number | string, value: any, opt_ignoreInvalidFieldId?: boolean): void;
+    setField(fieldId: number | string, value: any, ignoreInvalidFieldId?: boolean): void;
+    setFields(fields: Record<string, any> | string[], values?: any[]): void;
     applyUpdates(waitDBCacheSync?: boolean, logChanges?: boolean): number;
     cancelUpdates(opt_key?: number): void;
     copyStructure(sourceDataSet: DataSet, fieldNames?: string): void;
@@ -126,7 +128,7 @@ declare class DataSet {
         uniqueId: number;
         kind: string;
     };
-    iterate(func: (arg0: DataSet) => any, thisObj?: any): void;
+    iterate(func: (arg0: DataSet) => any, thisObj?: any): any;
     getDeltaInspector(): DeltaInspector;
     updateAll(
         fieldNames: string[],
@@ -166,8 +168,8 @@ declare namespace DataSet {
     export {
         getIntegerDataType,
         setIntegerDataType,
-        setStringOverflowMode,
-        getStringOverflowMode,
+        defaultStringOverflowMode,
+        MAX_FIELDS_PER_TABLE,
         File,
         MemoryStream,
         GetFieldOptions,
@@ -178,7 +180,6 @@ declare namespace DataSet {
         DataSetFieldDef,
     };
 }
-type IdoDB = import('../ido/IdoDB');
 declare function DataSetFieldDefs(): void;
 declare class DataSetFieldDefs {
     size: number;
@@ -195,20 +196,21 @@ declare class DataSetFieldDefs {
     assign(fieldDefs: DataSetFieldDefs): void;
     toArray(): DataSetFieldDef[];
 }
+import DBKey = require('../dbkey/DBKey.js');
+declare function getIntegerDataType(): DataSetFieldType;
+declare function setIntegerDataType(type: DataSetFieldType): void;
+declare let defaultStringOverflowMode: string;
+declare let MAX_FIELDS_PER_TABLE: number;
 type File = import('../io/File');
 type MemoryStream = import('../io/MemoryStream');
 type GetFieldOptions = import('./GetFieldOptions');
+type DeltaInspector = import('./DeltaInspector');
+type IdoDB = import('../ido/IdoDB');
+type DataSetFieldType = import('./DataSetDataType').DataSetFieldType;
 interface ApplyUndoLogOptions {
     startVersion: number | null;
     endVersion: number | null;
 }
-type DeltaInspector = import('./DeltaInspector');
-import DBKey = require('../dbkey/DBKey.js');
-declare function getIntegerDataType(): DataSetFieldType;
-declare function setIntegerDataType(type: DataSetFieldType): void;
-declare function setStringOverflowMode(mode: string): void;
-declare function getStringOverflowMode(): string;
-type DataSetFieldType = import('./DataSetDataType').DataSetFieldType;
 interface DataSetFieldDef {
     name: string;
     type: DataSetFieldType;

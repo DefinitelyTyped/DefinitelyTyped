@@ -1,4 +1,4 @@
-export type PusherUserPresence = 'online' | 'offline' | 'unknown';
+export type PusherUserPresence = "online" | "offline" | "unknown";
 
 export interface PusherUser {
     avatarURL?: string | undefined;

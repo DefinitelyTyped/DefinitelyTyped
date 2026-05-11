@@ -1,7 +1,7 @@
+import { Channel } from "../Channel";
+import { CalculationsBlendMode, CalculationsChannel, CalculationsLayer, CalculationsResult } from "../Constants";
 import { Document } from "../Document";
 import { Layer } from "../Layer";
-import { Channel } from "../Channel";
-import { CalculationsBlendMode, CalculationsResult, CalculationsLayer, CalculationsChannel } from "../Constants";
 /**
  * Type for the Layer choice in [[CalculationsSource]]
  * @targetfolder objects/options
@@ -15,7 +15,11 @@ declare type CalculationsLayerType = Layer | CalculationsLayer.MERGED;
  * @optionobject
  * @minVersion 24.5
  */
-export declare type CalculationsChannelType = Channel | CalculationsChannel.GRAY | CalculationsChannel.TRANSPARENCY | CalculationsChannel.SELECTION;
+export declare type CalculationsChannelType =
+    | Channel
+    | CalculationsChannel.GRAY
+    | CalculationsChannel.TRANSPARENCY
+    | CalculationsChannel.SELECTION;
 /**
  * Reference for sources (source1, source2, mask) to be used in [[CalculationsOptions]].
  * @targetfolder objects/options

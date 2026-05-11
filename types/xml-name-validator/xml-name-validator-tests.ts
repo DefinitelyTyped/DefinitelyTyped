@@ -1,4 +1,4 @@
-import { name, qname } from 'xml-name-validator';
+import { name, qname } from "xml-name-validator";
 
-name(''); // $ExpectType boolean
-qname(''); // $ExpectType boolean
+name(""); // $ExpectType boolean
+qname(""); // $ExpectType boolean

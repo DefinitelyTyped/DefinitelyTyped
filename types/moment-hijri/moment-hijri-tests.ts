@@ -1,4 +1,4 @@
-import moment = require('moment-hijri');
+import moment = require("moment-hijri");
 
 const m = moment();
 
@@ -16,27 +16,27 @@ m.iDayOfYear(1);
 m.iWeek(1);
 m.iWeekYear(1);
 
-m.startOf('iYear');
-m.startOf('iMonth');
+m.startOf("iYear");
+m.startOf("iMonth");
 
-m.endOf('iMonth');
-m.endOf('iYear');
+m.endOf("iMonth");
+m.endOf("iYear");
 
-m.add(1, 'iYear');
-m.add(2, 'iMonth');
-m.add(3, 'day');
+m.add(1, "iYear");
+m.add(2, "iMonth");
+m.add(3, "day");
 
-m.add('1', 'iYear');
-m.add('2', 'iMonth');
-m.add('3', 'day');
+m.add("1", "iYear");
+m.add("2", "iMonth");
+m.add("3", "day");
 
-m.subtract(1, 'iYear');
-m.subtract(2, 'iMonth');
-m.subtract(3, 'day');
+m.subtract(1, "iYear");
+m.subtract(2, "iMonth");
+m.subtract(3, "day");
 
-m.subtract('1', 'iYear');
-m.subtract('2', 'iMonth');
-m.subtract('3', 'day');
+m.subtract("1", "iYear");
+m.subtract("2", "iMonth");
+m.subtract("3", "day");
 
 m.iDaysInMonth();
 

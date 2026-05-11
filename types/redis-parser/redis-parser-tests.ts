@@ -1,4 +1,4 @@
-import Parser = require('redis-parser');
+import Parser = require("redis-parser");
 
 // @ts-expect-error
 new Parser(); // TypeError: Options are mandatory.

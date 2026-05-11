@@ -1,10 +1,4 @@
-// Type definitions for bit-array v0.2.2
-// Project: https://github.com/bramstein/bit-array
-// Definitions by: Mudkip <https://github.com/mudkipme>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare module "bit-array" {
-
     class BitArray {
         /**
          * Creates a new empty BitArray with the given length or initialises the BitArray with the given hex representation.

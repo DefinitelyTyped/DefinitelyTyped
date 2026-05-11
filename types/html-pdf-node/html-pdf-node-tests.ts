@@ -1,4 +1,4 @@
-import { generatePdfs, generatePdf } from "html-pdf-node/index";
+import { generatePdf, generatePdfs } from "html-pdf-node/index";
 
 // $ExpectType void
 generatePdf(
@@ -10,9 +10,9 @@ generatePdf(
         printBackground: true,
     },
     (err, buffer) => {
-        // $ExpectType Buffer
+        // $ExpectType Buffer || Buffer<ArrayBufferLike>
         buffer;
-    }
+    },
 );
 
 // $ExpectType void
@@ -23,14 +23,14 @@ generatePdfs(
         },
         {
             content: "<h1>Hello World!</h1>",
-        }
+        },
     ],
     {
         format: "A4",
         printBackground: true,
     },
     (err, buffer) => {
-        // $ExpectType Buffer
+        // $ExpectType Buffer || Buffer<ArrayBufferLike>
         buffer;
-    }
+    },
 );

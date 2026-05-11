@@ -1,4 +1,4 @@
-import { CMIDecimal } from './CMIDataTypes';
+import { CMIDecimal } from "./CMIDataTypes";
 
 /**
  * A set vocabulary phrase. Three possible vocabulary values:
@@ -9,7 +9,7 @@ import { CMIDecimal } from './CMIDataTypes';
  *
  * If an unrecognized or unanticipated lesson_mode is received, then **normal** is assumed by the SCO.
  */
-export type CMIVocabularyMode = 'normal' | 'review' | 'browse';
+export type CMIVocabularyMode = "normal" | "review" | "browse";
 
 /**
  * A set vocabulary phrase. Six possible vocabulary values:
@@ -24,7 +24,7 @@ export type CMIVocabularyMode = 'normal' | 'review' | 'browse';
  * SCO. Maybe he just read the table of contents, or the SCO abstract and decided he was not ready. Any algorithm within the SCO may be used to determine when the SCO moves from "not attempted" to
  * "incomplete".
  */
-export type CMIVocabularyStatus = 'passed' | 'completed' | 'failed' | 'incomplete' | 'browsed' | 'not attempted';
+export type CMIVocabularyStatus = "passed" | "completed" | "failed" | "incomplete" | "browsed" | "not attempted";
 
 /**
  * A set vocabulary phrase. Three possible vocabulary values:
@@ -36,7 +36,7 @@ export type CMIVocabularyStatus = 'passed' | 'completed' | 'failed' | 'incomplet
  * LMS system automatically logged the student out of the course - after updating the appropriate data model elements.
  * - "": The empty string vocabulary should be used to represent a normal exit state.
  */
-export type CMIVocabularyExit = 'time-out' | 'suspend' | 'logout' | '';
+export type CMIVocabularyExit = "time-out" | "suspend" | "logout" | "";
 
 /**
  * A set vocabulary phrase. Two possible vocabulary values:
@@ -44,7 +44,7 @@ export type CMIVocabularyExit = 'time-out' | 'suspend' | 'logout' | '';
  * - "no-credit": This means that the student is taking the SCO for no-credit. His current credit if any (for instance a score of 80 and a status of passed) will not be changed by his performance in
  * this SCO. The LMS system is telling the SCO that if the SCO sends data to the LMS system it will not change the student's accreditation.
  */
-export type CMIVocabularyCredit = 'credit' | 'no-credit';
+export type CMIVocabularyCredit = "credit" | "no-credit";
 
 /**
  * A set vocabulary phrase. Three possible vocabulary values:
@@ -56,18 +56,18 @@ export type CMIVocabularyCredit = 'credit' | 'no-credit';
  * used is if the SCO was already completed and then later it was loaded for review purposes. In this case it was neither an initial launch (ab-initio) nor a continuation from a suspended state
  * (resume).
  */
-export type CMIVocabularyEntry = 'ab-initio' | 'resume' | '';
+export type CMIVocabularyEntry = "ab-initio" | "resume" | "";
 
 export type CMIVocabularyInteraction =
-    | 'true-false'
-    | 'choice'
-    | 'fill-in'
-    | 'numeric'
-    | 'likert'
-    | 'matching'
-    | 'performance'
-    | 'sequencing';
+    | "true-false"
+    | "choice"
+    | "fill-in"
+    | "numeric"
+    | "likert"
+    | "matching"
+    | "performance"
+    | "sequencing";
 
-export type CMIVocabularyResult = 'correct' | 'wrong' | 'unanticipated' | 'neutral' | CMIDecimal;
+export type CMIVocabularyResult = "correct" | "wrong" | "unanticipated" | "neutral" | CMIDecimal;
 
-export type CMIVocabularyTimeLimitAction = `${'exit' | 'continue'},${'message' | 'no message'}`;
+export type CMIVocabularyTimeLimitAction = `${"exit" | "continue"},${"message" | "no message"}`;

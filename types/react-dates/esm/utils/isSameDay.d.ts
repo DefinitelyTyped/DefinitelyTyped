@@ -1,3 +1,3 @@
-import { isSameDay } from '../../index';
+import { isSameDay } from "../../index";
 
 export default isSameDay;

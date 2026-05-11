@@ -1,8 +1,3 @@
-// Type definitions for eslint-plugin-markdown 2.0
-// Project: https://github.com/eslint/eslint-plugin-markdown#readme
-// Definitions by: JounQin <https://github.com/JounQin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { Linter } from "eslint";
 import { Node } from "unist";
 

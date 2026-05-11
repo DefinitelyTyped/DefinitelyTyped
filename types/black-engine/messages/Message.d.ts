@@ -17,6 +17,6 @@ export class Message {
     toString(): string;
     __reset(): Message;
 }
-import { MessageType } from './MessageType';
-import { ObjectPool } from './../utils/ObjectPool';
-import { MessageDispatcher } from './MessageDispatcher';
+import { ObjectPool } from "./../utils/ObjectPool";
+import { MessageDispatcher } from "./MessageDispatcher";
+import { MessageType } from "./MessageType";

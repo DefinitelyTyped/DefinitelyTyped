@@ -1,8 +1,0 @@
-{
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "interface-over-type-literal": false,
-        "no-consecutive-blank-lines": false,
-        "prefer-const": false
-    }
-}

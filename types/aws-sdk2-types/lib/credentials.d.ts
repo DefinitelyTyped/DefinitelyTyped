@@ -1,4 +1,4 @@
-import {AWSError} from './error';
+import { AWSError } from "./error";
 export class Credentials {
     /**
      * Creates a Credentials object with a given set of credential information as an options hash.
@@ -74,13 +74,13 @@ export interface CredentialsOptions {
     /**
      * AWS access key ID.
      */
-    accessKeyId: string
+    accessKeyId: string;
     /**
      * AWS secret access key.
      */
-    secretAccessKey: string
+    secretAccessKey: string;
     /**
      * AWS session token.
      */
-    sessionToken?: string
+    sessionToken?: string;
 }

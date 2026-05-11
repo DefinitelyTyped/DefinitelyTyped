@@ -1,5 +1,5 @@
-import WebpackErrorNotificationPlugin = require('webpack-error-notification');
-import webpack = require('webpack');
+import WebpackErrorNotificationPlugin = require("webpack-error-notification");
+import webpack = require("webpack");
 
 let config: webpack.Configuration = {
     plugins: [
@@ -9,11 +9,11 @@ let config: webpack.Configuration = {
 };
 
 config = {
-    plugins: [new WebpackErrorNotificationPlugin('darwin')],
+    plugins: [new WebpackErrorNotificationPlugin("darwin")],
 };
 config = {
     plugins: [
-        new WebpackErrorNotificationPlugin('darwin', {
+        new WebpackErrorNotificationPlugin("darwin", {
             notifyWarnings: false,
         }),
     ],
@@ -21,7 +21,7 @@ config = {
 
 config = {
     plugins: [
-        new WebpackErrorNotificationPlugin('linux', {
+        new WebpackErrorNotificationPlugin("linux", {
             notifyWarnings: false,
         }),
     ],

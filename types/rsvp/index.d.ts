@@ -1,10 +1,3 @@
-// Type definitions for RSVP 4.0
-// Project: https://github.com/tildeio/rsvp.js
-// Definitions by: Chris Krycho <https://github.com/chriskrycho>
-//                 Mike North <https://github.com/mike-north>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 // These types are derived in large part from the Microsoft-supplied types for
 // ES2015 Promises. They have been tweaked to support RSVP's extensions to the
 // Promises A+ spec and the additional helper functions it supplies.
@@ -18,9 +11,9 @@ declare namespace RSVP {
 
     // RSVP supplies status for promises in certain places.
     enum State {
-        fulfilled = 'fulfilled',
-        rejected = 'rejected',
-        pending = 'pending',
+        fulfilled = "fulfilled",
+        rejected = "rejected",
+        pending = "pending",
     }
 
     type Resolved<T> = {
@@ -56,10 +49,10 @@ declare namespace RSVP {
 
     interface ObjectWithEventMixins {
         on(
-            eventName: 'created' | 'chained' | 'fulfilled' | 'rejected',
-            listener: (event: InstrumentEvent) => void
+            eventName: "created" | "chained" | "fulfilled" | "rejected",
+            listener: (event: InstrumentEvent) => void,
         ): void;
-        on(eventName: 'error', errorHandler: (reason: any) => void): void;
+        on(eventName: "error", errorHandler: (reason: any) => void): void;
         on(eventName: string, callback: (value: any) => void): void;
         off(eventName: string, callback?: (value: any) => void): void;
         trigger(eventName: string, options?: any, label?: string): void;
@@ -71,10 +64,10 @@ declare namespace RSVP {
 
         /** Registers a callback to be executed when `eventName` is triggered */
         static on(
-            eventName: 'created' | 'chained' | 'fulfilled' | 'rejected',
-            listener: (event: InstrumentEvent) => void
+            eventName: "created" | "chained" | "fulfilled" | "rejected",
+            listener: (event: InstrumentEvent) => void,
         ): void;
-        static on(eventName: 'error', errorHandler: (reason: any) => void): void;
+        static on(eventName: "error", errorHandler: (reason: any) => void): void;
         static on(eventName: string, callback: (value: any) => void): void;
 
         /**
@@ -97,59 +90,59 @@ declare namespace RSVP {
     class Promise<T> implements PromiseLike<T> {
         constructor(
             executor: (resolve: (value?: RSVP.Arg<T>) => void, reject: (reason?: any) => void) => void,
-            label?: string
+            label?: string,
         );
 
         new<T>(
-            executor: (resolve: (value?: RSVP.Arg<T>) => void, reject: (reason?: any) => void) => void
+            executor: (resolve: (value?: RSVP.Arg<T>) => void, reject: (reason?: any) => void) => void,
         ): RSVP.Promise<T>;
 
         then<TResult1 = T, TResult2 = never>(
             onFulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | null,
             onRejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null,
-            label?: string
+            label?: string,
         ): RSVP.Promise<TResult1 | TResult2>;
 
         catch<TResult = never>(
             onRejected?: ((reason: any) => TResult | PromiseLike<TResult>) | null,
-            label?: string
+            label?: string,
         ): RSVP.Promise<T | TResult>;
 
         finally<U>(onFinally?: U | PromiseLike<U>): RSVP.Promise<T>;
 
-        readonly [Symbol.toStringTag]: 'Promise';
+        readonly [Symbol.toStringTag]: "Promise";
 
         static all<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
             values: [Arg<T1>, Arg<T2>, Arg<T3>, Arg<T4>, Arg<T5>, Arg<T6>, Arg<T7>, Arg<T8>, Arg<T9>, Arg<T10>],
-            label?: string
+            label?: string,
         ): RSVP.Promise<[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10]>;
         static all<T1, T2, T3, T4, T5, T6, T7, T8, T9>(
             values: [Arg<T1>, Arg<T2>, Arg<T3>, Arg<T4>, Arg<T5>, Arg<T6>, Arg<T7>, Arg<T8>, Arg<T9>],
-            label?: string
+            label?: string,
         ): RSVP.Promise<[T1, T2, T3, T4, T5, T6, T7, T8, T9]>;
         static all<T1, T2, T3, T4, T5, T6, T7, T8>(
             values: [Arg<T1>, Arg<T2>, Arg<T3>, Arg<T4>, Arg<T5>, Arg<T6>, Arg<T7>, Arg<T8>],
-            label?: string
+            label?: string,
         ): RSVP.Promise<[T1, T2, T3, T4, T5, T6, T7, T8]>;
         static all<T1, T2, T3, T4, T5, T6, T7>(
             values: [Arg<T1>, Arg<T2>, Arg<T3>, Arg<T4>, Arg<T5>, Arg<T6>, Arg<T7>],
-            label?: string
+            label?: string,
         ): RSVP.Promise<[T1, T2, T3, T4, T5, T6, T7]>;
         static all<T1, T2, T3, T4, T5, T6>(
             values: [Arg<T1>, Arg<T2>, Arg<T3>, Arg<T4>, Arg<T5>, Arg<T6>],
-            label?: string
+            label?: string,
         ): RSVP.Promise<[T1, T2, T3, T4, T5, T6]>;
         static all<T1, T2, T3, T4, T5>(
             values: [Arg<T1>, Arg<T2>, Arg<T3>, Arg<T4>, Arg<T5>],
-            label?: string
+            label?: string,
         ): RSVP.Promise<[T1, T2, T3, T4, T5]>;
         static all<T1, T2, T3, T4>(
             values: [Arg<T1>, Arg<T2>, Arg<T3>, Arg<T4>],
-            label?: string
+            label?: string,
         ): RSVP.Promise<[T1, T2, T3, T4]>;
         static all<T1, T2, T3>(values: [Arg<T1>, Arg<T2>, Arg<T3>], label?: string): RSVP.Promise<[T1, T2, T3]>;
         static all<T1, T2>(values: [Arg<T1>, Arg<T2>], label?: string): Promise<[T1, T2]>;
-        static all<T>(values: (Arg<T>)[], label?: string): RSVP.Promise<T[]>;
+        static all<T>(values: Array<Arg<T>>, label?: string): RSVP.Promise<T[]>;
 
         static race<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
             values: [
@@ -162,37 +155,37 @@ declare namespace RSVP {
                 Arg<T7>,
                 Arg<T8>,
                 Arg<T9>,
-                T10 | PromiseLike<T10>
+                T10 | PromiseLike<T10>,
             ],
-            label?: string
+            label?: string,
         ): RSVP.Promise<T1 | T2 | T3 | T4 | T5 | T6 | T7 | T8 | T9 | T10>;
         static race<T1, T2, T3, T4, T5, T6, T7, T8, T9>(
             values: [Arg<T1>, Arg<T2>, Arg<T3>, Arg<T4>, Arg<T5>, Arg<T6>, Arg<T7>, Arg<T8>, Arg<T9>],
-            label?: string
+            label?: string,
         ): RSVP.Promise<T1 | T2 | T3 | T4 | T5 | T6 | T7 | T8 | T9>;
         static race<T1, T2, T3, T4, T5, T6, T7, T8>(
             values: [Arg<T1>, Arg<T2>, Arg<T3>, Arg<T4>, Arg<T5>, Arg<T6>, Arg<T7>, Arg<T8>],
-            label?: string
+            label?: string,
         ): RSVP.Promise<T1 | T2 | T3 | T4 | T5 | T6 | T7 | T8>;
         static race<T1, T2, T3, T4, T5, T6, T7>(
             values: [Arg<T1>, Arg<T2>, Arg<T3>, Arg<T4>, Arg<T5>, Arg<T6>, Arg<T7>],
-            label?: string
+            label?: string,
         ): RSVP.Promise<T1 | T2 | T3 | T4 | T5 | T6 | T7>;
         static race<T1, T2, T3, T4, T5, T6>(
             values: [Arg<T1>, Arg<T2>, Arg<T3>, Arg<T4>, Arg<T5>, Arg<T6>],
-            label?: string
+            label?: string,
         ): RSVP.Promise<T1 | T2 | T3 | T4 | T5 | T6>;
         static race<T1, T2, T3, T4, T5>(
             values: [Arg<T1>, Arg<T2>, Arg<T3>, Arg<T4>, Arg<T5>],
-            label?: string
+            label?: string,
         ): RSVP.Promise<T1 | T2 | T3 | T4 | T5>;
         static race<T1, T2, T3, T4>(
             values: [Arg<T1>, Arg<T2>, Arg<T3>, Arg<T4>],
-            label?: string
+            label?: string,
         ): RSVP.Promise<T1 | T2 | T3 | T4>;
         static race<T1, T2, T3>(values: [Arg<T1>, Arg<T2>, Arg<T3>], label?: string): RSVP.Promise<T1 | T2 | T3>;
         static race<T1, T2>(values: [Arg<T1>, Arg<T2>], label?: string): RSVP.Promise<T1 | T2>;
-        static race<T>(values: (Arg<T>)[], label?: string): RSVP.Promise<T>;
+        static race<T>(values: Array<Arg<T>>, label?: string): RSVP.Promise<T>;
 
         static reject(reason?: any, label?: string): RSVP.Promise<never>;
 
@@ -229,59 +222,59 @@ declare namespace RSVP {
 
     function denodeify<T1, T2, T3, A>(
         nodeFunc: (arg1: A, callback: (err: any, data1: T1, data2: T2, data3: T3) => void) => void,
-        options?: false
+        options?: false,
     ): (arg1: A) => RSVP.Promise<T1>;
 
     function denodeify<T1, T2, A>(
         nodeFunc: (arg1: A, callback: (err: any, data1: T1, data2: T2) => void) => void,
-        options?: false
+        options?: false,
     ): (arg1: A) => RSVP.Promise<T1>;
 
     function denodeify<T, A>(
         nodeFunc: (arg1: A, callback: (err: any, data: T) => void) => void,
-        options?: false
+        options?: false,
     ): (arg1: A) => RSVP.Promise<T>;
 
     function denodeify<T1, T2, T3, A>(
         nodeFunc: (arg1: A, callback: (err: any, data1: T1, data2: T2, data3: T3) => void) => void,
-        options: true
+        options: true,
     ): (arg1: A) => RSVP.Promise<[T1, T2, T3]>;
 
     function denodeify<T1, T2, A>(
         nodeFunc: (arg1: A, callback: (err: any, data1: T1, data2: T2) => void) => void,
-        options: true
+        options: true,
     ): (arg1: A) => RSVP.Promise<[T1, T2]>;
 
     function denodeify<T, A>(
         nodeFunc: (arg1: A, callback: (err: any, data: T) => void) => void,
-        options: true
+        options: true,
     ): (arg1: A) => RSVP.Promise<[T]>;
 
     function denodeify<T1, T2, T3, A, K1 extends string, K2 extends string, K3 extends string>(
         nodeFunc: (arg1: A, callback: (err: any, data1: T1, data2: T2, data3: T3) => void) => void,
-        options: [K1, K2, K3]
+        options: [K1, K2, K3],
     ): (arg1: A) => RSVP.Promise<{ [K in K1]: T1 } & { [K in K2]: T2 } & { [K in K3]: T3 }>;
 
     function denodeify<T1, T2, A, K1 extends string, K2 extends string>(
         nodeFunc: (arg1: A, callback: (err: any, data1: T1, data2: T2) => void) => void,
-        options: [K1, K2]
+        options: [K1, K2],
     ): (arg1: A) => RSVP.Promise<{ [K in K1]: T1 } & { [K in K2]: T2 }>;
 
     function denodeify<T, A, K1 extends string>(
         nodeFunc: (arg1: A, callback: (err: any, data: T) => void) => void,
-        options: [K1]
+        options: [K1],
     ): (arg1: A) => RSVP.Promise<{ [K in K1]: T }>;
 
     // ----- hash and hashSettled ----- //
     function hash<T>(object: { [P in keyof T]: Arg<T[P]> }, label?: string): RSVP.Promise<T>;
     function hashSettled<T>(
         object: { [P in keyof T]: Arg<T[P]> },
-        label?: string
+        label?: string,
     ): RSVP.Promise<{ [P in keyof T]: PromiseState<T[P]> }>;
 
     function allSettled<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
         entries: [Arg<T1>, Arg<T2>, Arg<T3>, Arg<T4>, Arg<T5>, Arg<T6>, Arg<T7>, Arg<T8>, Arg<T9>, Arg<T10>],
-        label?: string
+        label?: string,
     ): RSVP.Promise<
         [
             PromiseState<T1>,
@@ -292,12 +285,12 @@ declare namespace RSVP {
             PromiseState<T6>,
             PromiseState<T7>,
             PromiseState<T8>,
-            PromiseState<T9>
+            PromiseState<T9>,
         ]
     >;
     function allSettled<T1, T2, T3, T4, T5, T6, T7, T8, T9>(
         entries: [Arg<T1>, Arg<T2>, Arg<T3>, Arg<T4>, Arg<T5>, Arg<T6>, Arg<T7>, Arg<T8>, Arg<T9>],
-        label?: string
+        label?: string,
     ): RSVP.Promise<
         [
             PromiseState<T1>,
@@ -308,12 +301,12 @@ declare namespace RSVP {
             PromiseState<T6>,
             PromiseState<T7>,
             PromiseState<T8>,
-            PromiseState<T9>
+            PromiseState<T9>,
         ]
     >;
     function allSettled<T1, T2, T3, T4, T5, T6, T7, T8>(
         entries: [Arg<T1>, Arg<T2>, Arg<T3>, Arg<T4>, Arg<T5>, Arg<T6>, Arg<T7>, Arg<T8>],
-        label?: string
+        label?: string,
     ): RSVP.Promise<
         [
             PromiseState<T1>,
@@ -323,12 +316,12 @@ declare namespace RSVP {
             PromiseState<T5>,
             PromiseState<T6>,
             PromiseState<T7>,
-            PromiseState<T8>
+            PromiseState<T8>,
         ]
     >;
     function allSettled<T1, T2, T3, T4, T5, T6, T7>(
         entries: [Arg<T1>, Arg<T2>, Arg<T3>, Arg<T4>, Arg<T5>, Arg<T6>, Arg<T7>],
-        label?: string
+        label?: string,
     ): RSVP.Promise<
         [
             PromiseState<T1>,
@@ -337,131 +330,131 @@ declare namespace RSVP {
             PromiseState<T4>,
             PromiseState<T5>,
             PromiseState<T6>,
-            PromiseState<T7>
+            PromiseState<T7>,
         ]
     >;
     function allSettled<T1, T2, T3, T4, T5, T6>(
         entries: [Arg<T1>, Arg<T2>, Arg<T3>, Arg<T4>, Arg<T5>, Arg<T6>],
-        label?: string
+        label?: string,
     ): RSVP.Promise<
         [PromiseState<T1>, PromiseState<T2>, PromiseState<T3>, PromiseState<T4>, PromiseState<T5>, PromiseState<T6>]
     >;
     function allSettled<T1, T2, T3, T4, T5>(
         entries: [Arg<T1>, Arg<T2>, Arg<T3>, Arg<T4>, Arg<T5>],
-        label?: string
+        label?: string,
     ): RSVP.Promise<[PromiseState<T1>, PromiseState<T2>, PromiseState<T3>, PromiseState<T4>, PromiseState<T5>]>;
     function allSettled<T1, T2, T3, T4>(
         entries: [Arg<T1>, Arg<T2>, Arg<T3>, Arg<T4>],
-        label?: string
+        label?: string,
     ): RSVP.Promise<[PromiseState<T1>, PromiseState<T2>, PromiseState<T3>, PromiseState<T4>]>;
     function allSettled<T1, T2, T3>(
         entries: [Arg<T1>, Arg<T2>, Arg<T3>],
-        label?: string
+        label?: string,
     ): RSVP.Promise<[PromiseState<T1>, PromiseState<T2>, PromiseState<T3>]>;
     function allSettled<T1, T2>(
         entries: [Arg<T1>, Arg<T2>],
-        label?: string
+        label?: string,
     ): RSVP.Promise<[PromiseState<T1>, PromiseState<T2>]>;
-    function allSettled<T>(entries: Arg<T>[], label?: string): RSVP.Promise<[PromiseState<T>]>;
+    function allSettled<T>(entries: Array<Arg<T>>, label?: string): RSVP.Promise<[PromiseState<T>]>;
 
     function map<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, U>(
         entries: [Arg<T1>, Arg<T2>, Arg<T3>, Arg<T4>, Arg<T5>, Arg<T6>, Arg<T7>, Arg<T8>, Arg<T9>, Arg<T10>],
         mapFn: (item: T1 | T2 | T3 | T4 | T5 | T6 | T7 | T8 | T9 | T10) => U,
-        label?: string
-    ): RSVP.Promise<Array<U> & { length: 10 }>;
+        label?: string,
+    ): RSVP.Promise<U[] & { length: 10 }>;
 
     function map<T1, T2, T3, T4, T5, T6, T7, T8, T9, U>(
         entries: [Arg<T1>, Arg<T2>, Arg<T3>, Arg<T4>, Arg<T5>, Arg<T6>, Arg<T7>, Arg<T8>, Arg<T9>],
         mapFn: (item: T1 | T2 | T3 | T4 | T5 | T6 | T7 | T8 | T9) => U,
-        label?: string
-    ): RSVP.Promise<Array<U> & { length: 9 }>;
+        label?: string,
+    ): RSVP.Promise<U[] & { length: 9 }>;
     function map<T1, T2, T3, T4, T5, T6, T7, T8, U>(
         entries: [Arg<T1>, Arg<T2>, Arg<T3>, Arg<T4>, Arg<T5>, Arg<T6>, Arg<T7>, Arg<T8>],
         mapFn: (item: T1 | T2 | T3 | T4 | T5 | T6 | T7 | T8) => U,
-        label?: string
-    ): RSVP.Promise<Array<U> & { length: 8 }>;
+        label?: string,
+    ): RSVP.Promise<U[] & { length: 8 }>;
     function map<T1, T2, T3, T4, T5, T6, T7, U>(
         entries: [Arg<T1>, Arg<T2>, Arg<T3>, Arg<T4>, Arg<T5>, Arg<T6>, Arg<T7>],
         mapFn: (item: T1 | T2 | T3 | T4 | T5 | T6 | T7) => U,
-        label?: string
-    ): RSVP.Promise<Array<U> & { length: 7 }>;
+        label?: string,
+    ): RSVP.Promise<U[] & { length: 7 }>;
     function map<T1, T2, T3, T4, T5, T6, U>(
         entries: [Arg<T1>, Arg<T2>, Arg<T3>, Arg<T4>, Arg<T5>, Arg<T6>],
         mapFn: (item: T1 | T2 | T3 | T4 | T5 | T6) => U,
-        label?: string
-    ): RSVP.Promise<Array<U> & { length: 6 }>;
+        label?: string,
+    ): RSVP.Promise<U[] & { length: 6 }>;
     function map<T1, T2, T3, T4, T5, U>(
         entries: [Arg<T1>, Arg<T2>, Arg<T3>, Arg<T4>, Arg<T5>],
         mapFn: (item: T1 | T2 | T3 | T4 | T5) => U,
-        label?: string
-    ): RSVP.Promise<Array<U> & { length: 5 }>;
+        label?: string,
+    ): RSVP.Promise<U[] & { length: 5 }>;
     function map<T1, T2, T3, T4, U>(
         entries: [Arg<T1>, Arg<T2>, Arg<T3>, Arg<T4>],
         mapFn: (item: T1 | T2 | T3 | T4) => U,
-        label?: string
-    ): RSVP.Promise<Array<U> & { length: 4 }>;
+        label?: string,
+    ): RSVP.Promise<U[] & { length: 4 }>;
     function map<T1, T2, T3, U>(
         entries: [Arg<T1>, Arg<T2>, Arg<T3>],
         mapFn: (item: T1 | T2 | T3) => U,
-        label?: string
-    ): RSVP.Promise<Array<U> & { length: 3 }>;
+        label?: string,
+    ): RSVP.Promise<U[] & { length: 3 }>;
     function map<T1, T2, U>(
         entries: [Arg<T1>, Arg<T2>],
         mapFn: (item: T1 | T2) => U,
-        label?: string
-    ): RSVP.Promise<Array<U> & { length: 2 }>;
+        label?: string,
+    ): RSVP.Promise<U[] & { length: 2 }>;
     function map<T, U>(
-        entries: Arg<T>[],
+        entries: Array<Arg<T>>,
         mapFn: (item: T) => U,
-        label?: string
-    ): RSVP.Promise<Array<U> & { length: 1 }>;
+        label?: string,
+    ): RSVP.Promise<U[] & { length: 1 }>;
 
     function filter<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
         entries: [Arg<T1>, Arg<T2>, Arg<T3>, Arg<T4>, Arg<T5>, Arg<T6>, Arg<T7>, Arg<T8>, Arg<T9>, Arg<T10>],
         filterFn: (item: T1 | T2 | T3 | T4 | T5 | T6 | T7 | T8 | T9 | T10) => boolean,
-        label?: string
+        label?: string,
     ): RSVP.Promise<Array<T1 | T2 | T3 | T4 | T5 | T6 | T7 | T8 | T9 | T10>>;
     function filter<T1, T2, T3, T4, T5, T6, T7, T8, T9>(
         entries: [Arg<T1>, Arg<T2>, Arg<T3>, Arg<T4>, Arg<T5>, Arg<T6>, Arg<T7>, Arg<T8>, Arg<T9>],
         filterFn: (item: T1 | T2 | T3 | T4 | T5 | T6 | T7 | T8 | T9) => boolean,
-        label?: string
+        label?: string,
     ): RSVP.Promise<Array<T1 | T2 | T3 | T4 | T5 | T6 | T7 | T8 | T9>>;
     function filter<T1, T2, T3, T4, T5, T6, T7, T8>(
         entries: [Arg<T1>, Arg<T2>, Arg<T3>, Arg<T4>, Arg<T5>, Arg<T6>, Arg<T7>, Arg<T8>],
         filterFn: (item: T1 | T2 | T3 | T4 | T5 | T6 | T7 | T8) => boolean,
-        label?: string
+        label?: string,
     ): RSVP.Promise<Array<T1 | T2 | T3 | T4 | T5 | T6 | T7 | T8>>;
     function filter<T1, T2, T3, T4, T5, T6, T7>(
         entries: [Arg<T1>, Arg<T2>, Arg<T3>, Arg<T4>, Arg<T5>, Arg<T6>, Arg<T7>],
         filterFn: (item: T1 | T2 | T3 | T4 | T5 | T6 | T7) => boolean,
-        label?: string
+        label?: string,
     ): RSVP.Promise<Array<T1 | T2 | T3 | T4 | T5 | T6 | T7>>;
     function filter<T1, T2, T3, T4, T5, T6>(
         entries: [Arg<T1>, Arg<T2>, Arg<T3>, Arg<T4>, Arg<T5>, Arg<T6>],
         filterFn: (item: T1 | T2 | T3 | T4 | T5 | T6) => boolean,
-        label?: string
+        label?: string,
     ): RSVP.Promise<Array<T1 | T2 | T3 | T4 | T5 | T6> & { length: 6 }>;
     function filter<T1, T2, T3, T4, T5>(
         entries: [Arg<T1>, Arg<T2>, Arg<T3>, Arg<T4>, Arg<T5>],
         filterFn: (item: T1 | T2 | T3 | T4 | T5) => boolean,
-        label?: string
+        label?: string,
     ): RSVP.Promise<Array<T1 | T2 | T3 | T4 | T5>>;
     function filter<T1, T2, T3, T4>(
         entries: [Arg<T1>, Arg<T2>, Arg<T3>, Arg<T4>],
         filterFn: (item: T1 | T2 | T3 | T4) => boolean,
-        label?: string
+        label?: string,
     ): RSVP.Promise<Array<T1 | T2 | T3 | T4>>;
     function filter<T1, T2, T3>(
         entries: [Arg<T1>, Arg<T2>, Arg<T3>],
         filterFn: (item: T1 | T2 | T3) => boolean,
-        label?: string
+        label?: string,
     ): RSVP.Promise<Array<T1 | T2 | T3>>;
     function filter<T1, T2>(
         entries: [Arg<T1>, Arg<T2>],
         filterFn: (item: T1 | T2) => boolean,
-        label?: string
+        label?: string,
     ): RSVP.Promise<Array<T1 | T2>>;
-    function filter<T>(entries: Arg<T>[], filterFn: (item: T) => boolean, label?: string): RSVP.Promise<Array<T>>;
+    function filter<T>(entries: Array<Arg<T>>, filterFn: (item: T) => boolean, label?: string): RSVP.Promise<T[]>;
 
     function defer<T>(label?: string): Deferred<T>;
 

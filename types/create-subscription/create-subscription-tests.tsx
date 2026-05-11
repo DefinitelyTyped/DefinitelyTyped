@@ -1,5 +1,5 @@
-import * as React from "react";
 import { createSubscription, Subscription } from "create-subscription";
+import * as React from "react";
 
 //
 // Example: Subscribing to event dispatchers
@@ -26,7 +26,7 @@ const EventHandlerSubscription = createSubscription({
         const onChange = (event: any) => callback(eventDispatcher.value);
         eventDispatcher.addEventListener("change", onChange);
         return () => eventDispatcher.removeEventListener("change", onChange);
-    }
+    },
 });
 
 declare const eventDispatcher: EventDispatcher<number>;
@@ -73,13 +73,13 @@ const PromiseSubscription = createSubscription({
             // Success
             callback,
             // Failure
-            () => callback(undefined)
+            () => callback(undefined),
         );
 
         // There is no way to "unsubscribe" from a Promise.
         // create-subscription will still prevent stale values from rendering.
         return () => {};
-    }
+    },
 });
 
 declare const loadingPromise: Promise<string>;
@@ -104,8 +104,14 @@ declare const wrongPromise: Promise<number>;
     {value => null}
 </PromiseSubscription>;
 
-// @ts-expect-error
-const MismatchSubscription = createSubscription({ getCurrentValue: (a: number) => null, subscribe: (a: string, callback) => (() => undefined) });
+const MismatchSubscription = createSubscription({
+    // @ts-expect-error
+    getCurrentValue: (a: number) => null,
+    subscribe: (a: string, callback) => (() => undefined),
+});
 
-// @ts-expect-error
-const NoUnsubscribe = createSubscription({ getCurrentValue: (a: number) => a, subscribe: (a: number, callback) => { /* oops, should've returned a callback here */ }});
+const NoUnsubscribe = createSubscription({
+    getCurrentValue: (a: number) => a,
+    // @ts-expect-error
+    subscribe: (a: number, callback) => {/* oops, should've returned a callback here */},
+});

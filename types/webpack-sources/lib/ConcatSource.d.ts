@@ -1,8 +1,8 @@
-import { SourceListMap } from 'source-list-map';
-import { SourceNode } from 'source-map';
+import { SourceListMap } from "source-list-map";
+import { SourceNode } from "source-map";
 
-import { MapOptions, SourceAndMapMixin } from '.';
-import Source = require('./Source');
+import { MapOptions, SourceAndMapMixin } from ".";
+import Source = require("./Source");
 
 /**
  * Concatenate multiple Sources or strings to a single source.

@@ -1,5 +1,5 @@
-import semver = require('../index');
-import SemVer = require('../classes/semver');
+import semver = require("../index");
+import SemVer = require("../classes/semver");
 
 /**
  * Compares two versions excluding build identifiers (the bit after `+` in the semantic version string).

@@ -1,5 +1,5 @@
-import remark = require('remark');
-import remarkHint = require('remark-hint');
+import remark = require("remark");
+import remarkHint = require("remark-hint");
 
 remark.remark().use(remarkHint);
 // @ts-expect-error

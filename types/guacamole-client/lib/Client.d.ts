@@ -1,14 +1,14 @@
-import { Mimetype } from './GuacCommon';
-import { Tunnel } from './Tunnel';
-import { OutputStream } from './OutputStream';
-import { InputStream } from './InputStream';
-import { Status } from './Status';
-import { Display } from './Display';
-import { AudioPlayer } from './AudioPlayer';
-import { VideoPlayer } from './VideoPlayer';
-import { VisibleLayer } from './VisibleLayer';
-import { Mouse } from './Mouse';
-import * as Guacamole from './Object';
+import { AudioPlayer } from "./AudioPlayer";
+import { Display } from "./Display";
+import { Mimetype } from "./GuacCommon";
+import { InputStream } from "./InputStream";
+import { Mouse } from "./Mouse";
+import * as Guacamole from "./Object";
+import { OutputStream } from "./OutputStream";
+import { Status } from "./Status";
+import { Tunnel } from "./Tunnel";
+import { VideoPlayer } from "./VideoPlayer";
+import { VisibleLayer } from "./VisibleLayer";
 
 export {};
 
@@ -31,13 +31,13 @@ export namespace Client {
     type ExportLayer =
         | ExportLayerBase
         | (ExportLayerBase & {
-              x: number;
-              y: number;
-              z: number;
-              alpha: number;
-              matrix: unknown;
-              parent: unknown;
-          });
+            x: number;
+            y: number;
+            z: number;
+            alpha: number;
+            matrix: unknown;
+            parent: unknown;
+        });
 
     export interface ExportedState {
         currentState: State;

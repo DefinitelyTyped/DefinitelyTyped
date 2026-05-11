@@ -1,18 +1,18 @@
-import { Writable, WritableOptions, Duplex, DuplexOptions, Transform, TransformOptions } from 'stream';
-import FilterBase = require('../filters/FilterBase');
-import Parser = require('../Parser');
-import StreamBase = require('../streamers/StreamBase');
-import Chain = require('stream-chain');
+import { Duplex, DuplexOptions, Transform, TransformOptions, Writable, WritableOptions } from "stream";
+import FilterBase = require("../filters/FilterBase");
+import Parser = require("../Parser");
+import StreamBase = require("../streamers/StreamBase");
+import Chain = require("stream-chain");
 export = withParser;
 
 declare function withParser(
     fn: (options: FilterBase.FilterOptions) => FilterBase,
-    options?: withParser.FilterOptions
+    options?: withParser.FilterOptions,
 ): Chain;
 
 declare function withParser(
     fn: (options?: StreamBase.StreamOptions) => StreamBase,
-    options?: withParser.StreamOptions
+    options?: withParser.StreamOptions,
 ): Chain;
 
 declare function withParser(fn: (options?: TransformOptions) => Transform, options?: Parser.ParserOptions): Chain;

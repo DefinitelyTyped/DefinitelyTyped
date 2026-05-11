@@ -1,4 +1,4 @@
-import { ComparisonOptions, ComparisonResult } from '.';
+import { ComparisonOptions, ComparisonResult } from ".";
 
 export = compareImages;
 

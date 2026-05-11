@@ -1,13 +1,7 @@
-// Type definitions for Chroma.js v0.5.6
-// Project: https://github.com/gka/chroma.js
-// Definitions by: Sebastian Brückner <https://github.com/invliD>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Chroma.js is a tiny library for all kinds of color conversions and color scales.
  */
 declare namespace Chroma {
-
     export interface ChromaStatic {
         /**
          * Creates a color from a string representation (as supported in CSS).
@@ -311,7 +305,6 @@ declare namespace Chroma {
          */
         range(colors: string[]): Scale;
     }
-
 }
 
 declare var chroma: Chroma.ChromaStatic;

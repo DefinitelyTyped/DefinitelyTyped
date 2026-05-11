@@ -1,4 +1,4 @@
-import { declare } from '@babel/helper-plugin-utils';
+import { declare } from "@babel/helper-plugin-utils";
 
 export default declare((api, options, dirname) => {
     api.assertVersion(7);
@@ -6,7 +6,7 @@ export default declare((api, options, dirname) => {
     dirname; // $ExpectType string
 
     return {
-        name: 'test-helper-plugin-utils',
+        name: "test-helper-plugin-utils",
         visitor: {
             Program: {
                 enter(path, state) {

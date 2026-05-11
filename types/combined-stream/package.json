@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/combined-stream",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/felixge/node-combined-stream"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/combined-stream": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Felix Geisendörfer",
+            "githubUsername": "felixge"
+        },
+        {
+            "name": "Tomek Łaziuk",
+            "githubUsername": "tlaziuk"
+        },
+        {
+            "name": "Kon Pik",
+            "githubUsername": "konpikwastaken"
+        }
+    ]
+}

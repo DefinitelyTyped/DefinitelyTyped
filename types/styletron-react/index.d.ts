@@ -1,13 +1,7 @@
-// Type definitions for styletron-react 5.0
-// Project: https://github.com/styletron/styletron
-// Definitions by: Eric Taylor <https://github.com/erictaylor>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
+import * as React from "react";
+import { driver, StandardEngine, StyleObject } from "styletron-standard";
 
-import * as React from 'react';
-import { driver, StandardEngine, StyleObject } from 'styletron-standard';
-
-export { StyleObject, StandardEngine };
+export { StandardEngine, StyleObject };
 
 // From styletron-react types
 export interface Reducer {
@@ -44,7 +38,7 @@ export type StyletronGetInitialStyle = () => StyleObject;
 export type StyletronWrapper = (fc: React.FC<any>) => React.ComponentType<any>;
 
 export interface Styletron {
-    reducers: ReadonlyArray<ReducerContainer>;
+    reducers: readonly ReducerContainer[];
     base: StyletronBase;
     driver: StyletronDriver;
     wrapper: StyletronWrapper;
@@ -69,13 +63,13 @@ export type StyletronComponent<P extends object> = React.FC<P & StyletronCompone
 };
 
 export interface StyledFn {
-    <C extends keyof JSX.IntrinsicElements | React.ComponentType<any>, P extends object>(
+    <C extends keyof React.JSX.IntrinsicElements | React.ComponentType<any>, P extends object>(
         component: C,
         style: (props: P) => StyleObject,
     ): StyletronComponent<
         Pick<React.ComponentProps<C>, Exclude<keyof React.ComponentProps<C>, { className: string }>> & P
     >;
-    <C extends keyof JSX.IntrinsicElements | React.ComponentType<any>>(
+    <C extends keyof React.JSX.IntrinsicElements | React.ComponentType<any>>(
         component: C,
         style: StyleObject,
     ): StyletronComponent<Pick<React.ComponentProps<C>, Exclude<keyof React.ComponentProps<C>, { className: string }>>>;
@@ -132,7 +126,7 @@ export const Provider: typeof DevProvider | React.Provider<StandardEngine>;
 
 export function DevConsumer(props: {
     children: (styletronEngine: StandardEngine, debugEngine: DebugEngine, hydrating: boolean) => React.ReactNode;
-}): JSX.Element;
+}): React.JSX.Element;
 
 /**
  * @param style the StyleObject
@@ -205,6 +199,6 @@ export function createDeepMergeReducer(style: StyleObject): AssignmentCommutativ
 // Utility functions
 export function resolveStyle(
     getInitialStyle: () => StyleObject,
-    reducers: ReadonlyArray<ReducerContainer>,
+    reducers: readonly ReducerContainer[],
     props: object,
 ): StyleObject;

@@ -1,6 +1,6 @@
 /** @jsx h */
-import { render, RenderResponse, cleanup } from "ink-testing-library";
 import { Component, h } from "ink";
+import { cleanup, render, RenderResponse } from "ink-testing-library";
 
 const renderResponse = render(<Component<{}, {}, {}> />); // $ExpectType RenderResponse
 

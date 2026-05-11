@@ -1,3 +1,3 @@
-import { ROOT } from 'ebongarde-root';
+import { ROOT } from "ebongarde-root";
 
 console.log(ROOT);

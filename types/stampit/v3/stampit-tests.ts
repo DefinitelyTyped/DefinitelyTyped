@@ -1,4 +1,4 @@
-import stampit = require('stampit');
+import stampit = require("stampit");
 
 const a = stampit().init(function(options) {
     const a = options.args[0];
@@ -10,7 +10,7 @@ a(); // Object -- so far so good.
 a().getA(); // "a"
 
 const b = stampit().init(function() {
-    const a = 'b';
+    const a = "b";
     this.getB = () => {
         return a;
     };
@@ -31,53 +31,53 @@ const membership = stampit({
         },
         getMember(name: any) {
             return this.members[name];
-        }
+        },
     },
     refs: {
-        members: {}
-    }
+        members: {},
+    },
 });
 
 // Let's set some defaults:
 const defaults = stampit().refs({
-    name: 'The Saloon',
-    specials: 'Whisky, Gin, Tequila'
+    name: "The Saloon",
+    specials: "Whisky, Gin, Tequila",
 });
 
 // Classical inheritance has nothing on this. No parent/child coupling. No deep inheritance hierarchies.
 // Just good, clean code reusability.
 const bar = stampit.compose(defaults, membership);
 // Note that you can override refs on instantiation:
-const myBar = bar({ name: 'Moe\'s' });
+const myBar = bar({ name: "Moe's" });
 // Silly, but proves that everything is as it should be.
-myBar.add({ name: 'Homer' }).open().getMember('Homer');
+myBar.add({ name: "Homer" }).open().getMember("Homer");
 
 const myStamp = stampit().methods({
     foo() {
-        return 'foo';
+        return "foo";
     },
     methodOverride() {
         return false;
-    }
+    },
 }).methods({
     bar() {
-        return 'bar';
+        return "bar";
     },
     methodOverride() {
         return true;
-    }
+    },
 });
 
 myStamp.props({
-    foo: { bar: 'bar' },
-    refsOverride: false
+    foo: { bar: "bar" },
+    refsOverride: false,
 }).refs({
-    bar: 'bar',
-    refsOverride: true
+    bar: "bar",
+    refsOverride: true,
 });
 
 myStamp.init(function() {
-    const secret = 'foo';
+    const secret = "foo";
 
     this.getSecret = () => {
         return secret;
@@ -97,38 +97,38 @@ const newStamp = stampit({ refs: { defaultNum: 1 } }).compose(myStamp);
 
 const obj1 = stampit().methods({
     a() {
-        return 'a';
-    }
+        return "a";
+    },
 }, {
     b() {
-        return 'b';
-    }
+        return "b";
+    },
 }).create();
 
 const obj2 = stampit().refs({
-    a: 'a'
+    a: "a",
 }, {
-    b: 'b'
+    b: "b",
 }).create();
 
 obj = defaults.compose(newStamp, membership).create();
 
 // The old constructor / class thing...
 const Constructor = function Constructor() {
-    this.thing = 'initialized';
+    this.thing = "initialized";
 };
 Constructor.prototype.foo = function foo() {
-    return 'foo';
+    return "foo";
 };
 
 // A new stamp to compose with...
 const newskool = stampit().methods({
     bar: function bar() {
-        return 'bar';
-    }
+        return "bar";
+    },
     // your methods here...
 }).init(function() {
-    this.baz = 'baz';
+    this.baz = "baz";
 });
 
 // Now you can compose those old constructors just like you could
@@ -150,13 +150,13 @@ interface SomeStampInstance {
 
 // Test import of stamp type
 interface SomeStamp extends stampit.Stamp {
-    (params: { a: number; b: boolean}): SomeStampInstance;
+    (params: { a: number; b: boolean }): SomeStampInstance;
 }
 
 const SomeStamp = stampit()
-    .init(function(params: { a: number; b: boolean}) {
-        this.a = '' + a;
-        this.b = '' + b;
+    .init(function(params: { a: number; b: boolean }) {
+        this.a = "" + a;
+        this.b = "" + b;
     }) as SomeStamp;
 
 SomeStamp({ a: 1, b: false }); // $ExpectType SomeStampInstance

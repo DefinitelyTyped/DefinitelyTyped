@@ -1,5 +1,5 @@
-import { VueConstructor } from 'vue';
-import { DateRangePickerProps } from './shared.d';
+import { VueConstructor } from "vue";
+import { DateRangePickerProps } from "./shared.d";
 
 export const DateRangePicker: DateRangePicker;
 

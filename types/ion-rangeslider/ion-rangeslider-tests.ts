@@ -1,7 +1,7 @@
 /// <reference types="jquery"/>
-let sliderInputElement = $('<input />');
+let sliderInputElement = $("<input />");
 sliderInputElement.ionRangeSlider({
-    skin: 'round',
+    skin: "round",
     decorate_both: true,
     disable: false,
     drag_interval: false,
@@ -39,14 +39,14 @@ sliderInputElement.ionRangeSlider({
     to_min: 60,
     type: "double",
     values: ["a", "b", "c"],
-    values_separator: ","
+    values_separator: ",",
 });
 sliderInputElement.update({
     min: 20,
     max: 90,
     from: 40,
     to: 70,
-    step: 5
+    step: 5,
 });
 sliderInputElement.reset();
 sliderInputElement.destroy();

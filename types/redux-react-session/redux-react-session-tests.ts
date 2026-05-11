@@ -1,5 +1,5 @@
-import { combineReducers, createStore } from 'redux';
-import { sessionService, sessionReducer } from 'redux-react-session';
+import { combineReducers, createStore } from "redux";
+import { sessionReducer, sessionService } from "redux-react-session";
 
 // add the session reducer
 

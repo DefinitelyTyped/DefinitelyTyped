@@ -1,8 +1,3 @@
-// Type definitions for a2hs.js 0.4
-// Project: https://github.com/koddr/a2hs.js/
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * A useful modern JavaScript solution for adding a progressive
  * web application (PWA) to the home screen of your mobile

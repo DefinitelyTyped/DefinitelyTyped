@@ -1,22 +1,17 @@
-// Type definitions for non-npm package Dropbox Chooser 1.0
-// Project: https://www.dropbox.com/developers/chooser
-// Definitions by: Michael Su <https://github.com/quas94>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace Dropbox {
     interface Chooser {
-      choose(options: ChooserOptions): void;
+        choose(options: ChooserOptions): void;
     }
 
     interface ChooserOptions {
         // called when a user selects an item in the Chooser
-        success(files: ReadonlyArray<ChooserFile>): void;
+        success(files: readonly ChooserFile[]): void;
 
         // called when the user closes the dialog without selecting a file
         cancel?(): void;
 
         // default: 'preview'
-        linkType?: 'preview' | 'direct' | undefined;
+        linkType?: "preview" | "direct" | undefined;
 
         // default: false
         multiselect?: boolean | undefined;
@@ -58,7 +53,7 @@ declare namespace Dropbox {
 
     // Refer to "Handling the response" section of: https://www.dropbox.com/developers/chooser
     type ChooserFileBoundingBox = 75 | 256 | 800 | 1280 | 2048;
-    type ChooserFileMode = 'fit' | 'crop' | 'fit_one_and_overflow';
+    type ChooserFileMode = "fit" | "crop" | "fit_one_and_overflow";
 }
 
 interface Window {

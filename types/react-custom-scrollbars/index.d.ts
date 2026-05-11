@@ -1,9 +1,3 @@
-// Type definitions for react-custom-scrollbars 4.0
-// Project: https://github.com/malte-wessel/react-custom-scrollbars
-// Definitions by: kittimiyo <https://github.com/kittimiyo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 
 export as namespace ReactCustomScrollbars;

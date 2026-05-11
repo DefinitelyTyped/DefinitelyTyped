@@ -4,13 +4,6 @@
 
 /**
  * Namespace: browser.i18n
- *
- * Use the <code>browser.i18n</code> infrastructure to implement internationalization across your whole app or extension.
- *
- * Comments found in source JSON schema files:
- * Copyright (c) 2012 The Chromium Authors. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be
- * found in the LICENSE file.
  */
 export namespace I18n {
     /**
@@ -66,6 +59,12 @@ export namespace I18n {
          * @returns Message localized for current locale.
          */
         getMessage(messageName: string, substitutions?: string[] | string): string;
+
+        /**
+         * Gets the preferred locales of the operating system. This is different from the locales set in the browser; to get those,
+         * use $(ref:i18n.getAcceptLanguages).
+         */
+        getPreferredSystemLanguages(): Promise<LanguageCode[]>;
 
         /**
          * Gets the browser UI language of the browser. This is different from $(ref:i18n.getAcceptLanguages)

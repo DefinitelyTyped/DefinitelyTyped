@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/cwise-parser",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/scijs/cwise-parser#readme"
+    ],
+    "devDependencies": {
+        "@types/cwise-parser": "workspace:.",
+        "@types/tape": "*"
+    },
+    "owners": [
+        {
+            "name": "taoqf",
+            "githubUsername": "taoqf"
+        }
+    ]
+}

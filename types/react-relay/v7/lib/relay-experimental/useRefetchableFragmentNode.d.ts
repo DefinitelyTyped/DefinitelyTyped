@@ -7,9 +7,9 @@ import {
     RenderPolicy,
     Variables,
     VariablesOf,
-} from 'relay-runtime';
+} from "relay-runtime";
 
-import { KeyType } from './helpers';
+import { KeyType } from "./helpers";
 
 export type RefetchFn<TQuery extends OperationType, TOptions = Options> = RefetchFnExact<TQuery, TOptions>;
 
@@ -71,18 +71,18 @@ export interface InternalOptions extends Options {
 
 export type Action =
     | {
-          type: 'reset';
-          environment: IEnvironment;
-          fragmentIdentifier: string;
-      }
+        type: "reset";
+        environment: IEnvironment;
+        fragmentIdentifier: string;
+    }
     | {
-          type: 'refetch';
-          refetchVariables: Variables;
-          fetchPolicy?: FetchPolicy | undefined;
-          renderPolicy?: RenderPolicy | undefined;
-          onComplete?: ((args: Error | null) => void) | undefined;
-          environment?: IEnvironment | null | undefined;
-      };
+        type: "refetch";
+        refetchVariables: Variables;
+        fetchPolicy?: FetchPolicy | undefined;
+        renderPolicy?: RenderPolicy | undefined;
+        onComplete?: ((args: Error | null) => void) | undefined;
+        environment?: IEnvironment | null | undefined;
+    };
 
 export interface RefetchState {
     fetchPolicy?: FetchPolicy | undefined;
@@ -99,10 +99,9 @@ export interface DebugIDandTypename {
     id: string;
     typename: string;
 }
-
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function useRefetchableFragmentNode<TQuery extends OperationType, TKey extends KeyType | null>(
     fragmentNode: ReaderFragment,
     parentFragmentRef: unknown,
     componentDisplayName: string,
-): // eslint-disable-next-line no-unnecessary-generics
-ReturnTypeNode<TQuery, TKey, InternalOptions>;
+): ReturnTypeNode<TQuery, TKey, InternalOptions>;

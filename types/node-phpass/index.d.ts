@@ -1,8 +1,3 @@
-// Type definitions for node-phpass 1.0
-// Project: https://github.com/glauberportella/password-hash
-// Definitions by: Glenn Reyes <https://github.com/glennreyes>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export const CRYPT_BLOWFISH = 1;
 export const CRYPT_EXT_DES = 2;
 

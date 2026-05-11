@@ -1,8 +1,3 @@
-// Type definitions for adj-noun 0.1
-// Project: https://github.com/btford/adj-noun
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = nextFn;
 
 /**

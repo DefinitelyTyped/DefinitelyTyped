@@ -47,7 +47,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): MenuSectionOptionWidget;
+            new(config?: ConfigOptions): MenuSectionOptionWidget;
             prototype: Prototype;
             static: Static;
             super: DecoratedOptionWidget.Constructor;

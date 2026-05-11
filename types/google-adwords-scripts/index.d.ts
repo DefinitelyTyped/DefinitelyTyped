@@ -1,9 +1,3 @@
-// Type definitions for non-npm package Google AdWords Scripts 1.0
-// Project: https://github.com/jafaircl/gaws
-// Definitions by: Jonathan Faircloth <https://github.com/jafaircl>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 /// <reference types="google-apps-script" />
 
 // Generics
@@ -72,10 +66,7 @@ interface AdWordsTargeting<A, E> {
 }
 
 // Ad Customizers
-interface AdCustomizerItem extends AdWordsEntity,
-                                   hasMobilePreferred,
-                                   hasStartAndEndDate,
-                                   hasSchedules {
+interface AdCustomizerItem extends AdWordsEntity, hasMobilePreferred, hasStartAndEndDate, hasSchedules {
     clearTargetAdGroup(): void;
     clearTargetCampaign(): void;
     clearTargetKeyword(): void;
@@ -93,10 +84,13 @@ interface AdCustomizerItem extends AdWordsEntity,
     setTargetKeyword(keyword?: string): void;
 }
 
-interface AdCustomizerItemBuilder<AdCustomizerItem> extends AdWordsBuilder<AdCustomizerItem>,
-                                                            hasMobilePreferredBuilder<AdCustomizerItemBuilder<AdCustomizerItem>>,
-                                                            hasSchedulesBuilder<AdCustomizerItemBuilder<AdCustomizerItem>>,
-                                                            hasStartAndEndDateBuilder<AdCustomizerItemBuilder<AdCustomizerItem>> {
+interface AdCustomizerItemBuilder<AdCustomizerItem>
+    extends
+        AdWordsBuilder<AdCustomizerItem>,
+        hasMobilePreferredBuilder<AdCustomizerItemBuilder<AdCustomizerItem>>,
+        hasSchedulesBuilder<AdCustomizerItemBuilder<AdCustomizerItem>>,
+        hasStartAndEndDateBuilder<AdCustomizerItemBuilder<AdCustomizerItem>>
+{
     withAttributeValue(name: string, value: {}): AdCustomizerItemBuilder<AdCustomizerItem>;
     withAttributeValues(attributeValues: {}): AdCustomizerItemBuilder<AdCustomizerItem>;
     withTargetAdGroup(campaignName: string, adGroup: string): AdCustomizerItemBuilder<AdCustomizerItem>;
@@ -145,30 +139,27 @@ interface AdWordsAdExtensions extends AdGroupExtensions {
     newSnippetBuilder(): SnippetBuilder<Snippet>;
 }
 
-interface Callout extends AdWordsEntity,
-                          hasMobilePreferred,
-                          hasStartAndEndDate,
-                          hasSchedules,
-                          hasStats,
-                          isAdGroupChild {
+interface Callout
+    extends AdWordsEntity, hasMobilePreferred, hasStartAndEndDate, hasSchedules, hasStats, isAdGroupChild
+{
     getId(): number;
     getText(): string;
     setText(text: string): void;
 }
 
-interface CalloutBuilder<Callout> extends AdWordsBuilder<Callout>,
-                                          hasMobilePreferredBuilder<CalloutBuilder<Callout>>,
-                                          hasSchedulesBuilder<CalloutBuilder<Callout>>,
-                                          hasStartAndEndDateBuilder<CalloutBuilder<Callout>> {
+interface CalloutBuilder<Callout>
+    extends
+        AdWordsBuilder<Callout>,
+        hasMobilePreferredBuilder<CalloutBuilder<Callout>>,
+        hasSchedulesBuilder<CalloutBuilder<Callout>>,
+        hasStartAndEndDateBuilder<CalloutBuilder<Callout>>
+{
     withText(text: string): CalloutBuilder<Callout>;
 }
 
-interface Message extends AdWordsEntity,
-                          hasMobilePreferred,
-                          hasStartAndEndDate,
-                          hasSchedules,
-                          hasStats,
-                          isAdGroupChild {
+interface Message
+    extends AdWordsEntity, hasMobilePreferred, hasStartAndEndDate, hasSchedules, hasStats, isAdGroupChild
+{
     getBusinessName(): string;
     getCountryCode(): string;
     getExtensionText(): string;
@@ -182,10 +173,13 @@ interface Message extends AdWordsEntity,
     setPhoneNumber(phoneNumber: string): void;
 }
 
-interface MessageBuilder<Message> extends AdWordsBuilder<Message>,
-                                          hasMobilePreferredBuilder<MessageBuilder<Message>>,
-                                          hasStartAndEndDateBuilder<MessageBuilder<Message>>,
-                                          hasSchedulesBuilder<MessageBuilder<Message>> {
+interface MessageBuilder<Message>
+    extends
+        AdWordsBuilder<Message>,
+        hasMobilePreferredBuilder<MessageBuilder<Message>>,
+        hasStartAndEndDateBuilder<MessageBuilder<Message>>,
+        hasSchedulesBuilder<MessageBuilder<Message>>
+{
     withBusinessName(businessName: string): MessageBuilder<Message>;
     withCountryCode(countryCode: string): MessageBuilder<Message>;
     withExtensionText(extensionText: string): MessageBuilder<Message>;
@@ -193,12 +187,9 @@ interface MessageBuilder<Message> extends AdWordsBuilder<Message>,
     withPhoneNumber(phoneNumber: string): MessageBuilder<Message>;
 }
 
-interface MobileApp extends AdWordsEntity,
-                            hasMobilePreferred,
-                            hasStartAndEndDate,
-                            hasSchedules,
-                            hasStats,
-                            isAdGroupChild {
+interface MobileApp
+    extends AdWordsEntity, hasMobilePreferred, hasStartAndEndDate, hasSchedules, hasStats, isAdGroupChild
+{
     clearLinkUrl(): void;
     getAppId(): string;
     getId(): number;
@@ -215,23 +206,23 @@ interface MobileAppUrls extends AdWordsUrls, hasGetFinalUrl, hasSetFinalUrl, has
     clearTrackingTemplate(): void;
 }
 
-interface MobileAppBuilder<MobileApp> extends AdWordsBuilder<MobileApp>,
-                                              hasMobilePreferredBuilder<MobileAppBuilder<MobileApp>>,
-                                              hasStartAndEndDateBuilder<MobileAppBuilder<MobileApp>>,
-                                              hasSchedulesBuilder<MobileAppBuilder<MobileApp>>,
-                                              hasTrackingTemplateBuilder<MobileAppBuilder<MobileApp>>,
-                                              hasFinalUrlBuilder<MobileAppBuilder<MobileApp>> {
+interface MobileAppBuilder<MobileApp>
+    extends
+        AdWordsBuilder<MobileApp>,
+        hasMobilePreferredBuilder<MobileAppBuilder<MobileApp>>,
+        hasStartAndEndDateBuilder<MobileAppBuilder<MobileApp>>,
+        hasSchedulesBuilder<MobileAppBuilder<MobileApp>>,
+        hasTrackingTemplateBuilder<MobileAppBuilder<MobileApp>>,
+        hasFinalUrlBuilder<MobileAppBuilder<MobileApp>>
+{
     withAppId(appId: string): MobileAppBuilder<MobileApp>;
     withLinkText(linkText: string): MobileAppBuilder<MobileApp>;
     withStore(store: AppStore): MobileAppBuilder<MobileApp>;
 }
 
-interface PhoneNumber extends AdWordsEntity,
-                              hasMobilePreferred,
-                              hasSchedules,
-                              hasStartAndEndDate,
-                              hasStats,
-                              isAdGroupChild {
+interface PhoneNumber
+    extends AdWordsEntity, hasMobilePreferred, hasSchedules, hasStartAndEndDate, hasStats, isAdGroupChild
+{
     getCountry(): string;
     getId(): number;
     getPhoneNumber(): string;
@@ -239,20 +230,18 @@ interface PhoneNumber extends AdWordsEntity,
     setPhoneNumber(phoneNumber: string): void;
 }
 
-interface PhoneNumberBuilder<PhoneNumber> extends AdWordsBuilder<PhoneNumber>,
-                                                  hasMobilePreferredBuilder<PhoneNumberBuilder<PhoneNumber>>,
-                                                  hasStartAndEndDateBuilder<PhoneNumberBuilder<PhoneNumber>>,
-                                                  hasSchedulesBuilder<PhoneNumberBuilder<PhoneNumber>> {
+interface PhoneNumberBuilder<PhoneNumber>
+    extends
+        AdWordsBuilder<PhoneNumber>,
+        hasMobilePreferredBuilder<PhoneNumberBuilder<PhoneNumber>>,
+        hasStartAndEndDateBuilder<PhoneNumberBuilder<PhoneNumber>>,
+        hasSchedulesBuilder<PhoneNumberBuilder<PhoneNumber>>
+{
     withCountry(country: string): PhoneNumberBuilder<PhoneNumber>;
     withPhoneNumber(phoneNumber: string): PhoneNumberBuilder<PhoneNumber>;
 }
 
-interface Review extends AdWordsEntity,
-                         hasMobilePreferred,
-                         hasSchedules,
-                         hasStartAndEndDate,
-                         hasStats,
-                         isAdGroupChild {
+interface Review extends AdWordsEntity, hasMobilePreferred, hasSchedules, hasStartAndEndDate, hasStats, isAdGroupChild {
     getId(): number;
     getSourceName(): string;
     getSourceUrl(): string;
@@ -264,22 +253,22 @@ interface Review extends AdWordsEntity,
     setText(text: string): void;
 }
 
-interface ReviewBuilder<Review> extends AdWordsBuilder<Review>,
-                                        hasMobilePreferredBuilder<ReviewBuilder<Review>>,
-                                        hasStartAndEndDateBuilder<ReviewBuilder<Review>>,
-                                        hasSchedulesBuilder<ReviewBuilder<Review>> {
+interface ReviewBuilder<Review>
+    extends
+        AdWordsBuilder<Review>,
+        hasMobilePreferredBuilder<ReviewBuilder<Review>>,
+        hasStartAndEndDateBuilder<ReviewBuilder<Review>>,
+        hasSchedulesBuilder<ReviewBuilder<Review>>
+{
     withExactlyQuoted(exactlyQuoted: boolean): ReviewBuilder<Review>;
     withSourceName(sourceName: string): ReviewBuilder<Review>;
     withSourceUrl(sourceUrl: string): ReviewBuilder<Review>;
     withText(text: string): ReviewBuilder<Review>;
 }
 
-interface Sitelink extends AdWordsEntity,
-                           hasMobilePreferred,
-                           hasSchedules,
-                           hasStartAndEndDate,
-                           hasStats,
-                           isAdGroupChild {
+interface Sitelink
+    extends AdWordsEntity, hasMobilePreferred, hasSchedules, hasStartAndEndDate, hasStats, isAdGroupChild
+{
     clearDescription1(): void;
     clearDescription2(): void;
     clearLinkUrl(): void;
@@ -297,23 +286,23 @@ interface SitelinkUrls extends AdWordsUrls, hasSetTrackingTemplate, hasGetFinalU
     clearMobileFinalUrl(): void;
 }
 
-interface SitelinkBuilder<Sitelink> extends AdWordsBuilder<Sitelink>,
-                                            hasMobilePreferredBuilder<SitelinkBuilder<Sitelink>>,
-                                            hasStartAndEndDateBuilder<SitelinkBuilder<Sitelink>>,
-                                            hasSchedulesBuilder<SitelinkBuilder<Sitelink>>,
-                                            hasTrackingTemplateBuilder<SitelinkBuilder<Sitelink>>,
-                                            hasFinalUrlBuilder<SitelinkBuilder<Sitelink>> {
+interface SitelinkBuilder<Sitelink>
+    extends
+        AdWordsBuilder<Sitelink>,
+        hasMobilePreferredBuilder<SitelinkBuilder<Sitelink>>,
+        hasStartAndEndDateBuilder<SitelinkBuilder<Sitelink>>,
+        hasSchedulesBuilder<SitelinkBuilder<Sitelink>>,
+        hasTrackingTemplateBuilder<SitelinkBuilder<Sitelink>>,
+        hasFinalUrlBuilder<SitelinkBuilder<Sitelink>>
+{
     withDescription1(description1: string): SitelinkBuilder<Sitelink>;
     withDescription2(description2: string): SitelinkBuilder<Sitelink>;
     withLinkText(linkText: string): SitelinkBuilder<Sitelink>;
 }
 
-interface Snippet extends AdWordsEntity,
-                          hasMobilePreferred,
-                          hasSchedules,
-                          hasStartAndEndDate,
-                          hasStats,
-                          isAdGroupChild {
+interface Snippet
+    extends AdWordsEntity, hasMobilePreferred, hasSchedules, hasStartAndEndDate, hasStats, isAdGroupChild
+{
     getHeader(): string;
     getId(): number;
     getValues(): string[];
@@ -321,10 +310,13 @@ interface Snippet extends AdWordsEntity,
     setValues(values: string[]): void;
 }
 
-interface SnippetBuilder<Snippet> extends AdWordsBuilder<Snippet>,
-                                          hasMobilePreferredBuilder<SnippetBuilder<Snippet>>,
-                                          hasStartAndEndDateBuilder<SnippetBuilder<Snippet>>,
-                                          hasSchedulesBuilder<SnippetBuilder<Snippet>> {
+interface SnippetBuilder<Snippet>
+    extends
+        AdWordsBuilder<Snippet>,
+        hasMobilePreferredBuilder<SnippetBuilder<Snippet>>,
+        hasStartAndEndDateBuilder<SnippetBuilder<Snippet>>,
+        hasSchedulesBuilder<SnippetBuilder<Snippet>>
+{
     withHeader(header: string): SnippetBuilder<Snippet>;
     withValues(values: string[]): SnippetBuilder<Snippet>;
 }
@@ -354,9 +346,12 @@ interface AdGroupUrls extends AdWordsUrls, hasSetTrackingTemplate {
     clearTrackingTemplate(): void;
 }
 
-interface AdGroupBuilder<AdGroup> extends AdWordsBuilder<AdGroup>,
-                                          hasBiddingStrategyBuilder<AdGroupBuilder<AdGroup>>,
-                                          hasTrackingTemplateBuilder<AdGroupBuilder<AdGroup>> {
+interface AdGroupBuilder<AdGroup>
+    extends
+        AdWordsBuilder<AdGroup>,
+        hasBiddingStrategyBuilder<AdGroupBuilder<AdGroup>>,
+        hasTrackingTemplateBuilder<AdGroupBuilder<AdGroup>>
+{
     withCpa(cpa: number): AdGroupBuilder<AdGroup>;
     withCpc(cpc: number): AdGroupBuilder<AdGroup>;
     withCpm(cpm: number): AdGroupBuilder<AdGroup>;
@@ -381,7 +376,9 @@ interface AdGroupDevices {
     setTabletBidModifier(modifier: number): void;
 }
 
-interface AdGroupTargeting<SearchAdGroupAudience, SearchAdGroupExcludedAudience> extends AdWordsTargeting<SearchAdGroupAudience, SearchAdGroupExcludedAudience> {
+interface AdGroupTargeting<SearchAdGroupAudience, SearchAdGroupExcludedAudience>
+    extends AdWordsTargeting<SearchAdGroupAudience, SearchAdGroupExcludedAudience>
+{
     getTargetingSetting(): string;
     newUserListBuilder(): SearchAdGroupAudienceBuilder<SearchAdGroupAudience>;
     setTargetingSetting(criterionTypeGroup: CriterionTypeGroup, targetingSetting: TargetingSetting): void;
@@ -398,11 +395,7 @@ interface AdParam extends AdWordsEntity {
 }
 
 // Ad
-interface Ad extends AdWordsEntity,
-                     canBeEnabled,
-                     hasLabels,
-                     hasStats,
-                     isAdGroupChild {
+interface Ad extends AdWordsEntity, canBeEnabled, hasLabels, hasStats, isAdGroupChild {
     asType(): AdViewSpace;
     getApprovalStatus(): ApprovalStatus;
     getDisapprovalReasons(): string[];
@@ -415,7 +408,7 @@ interface Ad extends AdWordsEntity,
     urls(): AdUrls;
 }
 
-interface AdBuilder<T> extends AdWordsBuilder<T>, hasFinalUrlBuilder<T>, hasTrackingTemplateBuilder<T> { }
+interface AdBuilder<T> extends AdWordsBuilder<T>, hasFinalUrlBuilder<T>, hasTrackingTemplateBuilder<T> {}
 
 interface AdBuilderSpace {
     expandedTextAdBuilder(): ExpandedTextAdBuilder<ExpandedTextAd>;
@@ -437,7 +430,7 @@ interface AdTypeSpace {
     responsiveDisplayAd(): boolean;
 }
 
-interface AdUrls extends AdWordsUrls, hasGetFinalUrl { }
+interface AdUrls extends AdWordsUrls, hasGetFinalUrl {}
 
 interface AdViewSpace {
     expandedTextAd(): ExpandedTextAd;
@@ -515,7 +508,9 @@ interface GmailMultiProductAdBuilder<GmailMultiProductAd> extends AdBuilder<Gmai
     withItemButtonCallsToAction(itemCallsToAction: string[]): GmailMultiProductAdBuilder<GmailMultiProductAd>;
     withItemButtonFinalMobileUrls(itemButtonFinalMobileUrls: string[]): GmailMultiProductAdBuilder<GmailMultiProductAd>;
     withItemButtonFinalUrls(itemButtonFinalUrls: string[]): GmailMultiProductAdBuilder<GmailMultiProductAd>;
-    withItemButtonTrackingTemplates(itemButtonTrackingTemplates: string[]): GmailMultiProductAdBuilder<GmailMultiProductAd>;
+    withItemButtonTrackingTemplates(
+        itemButtonTrackingTemplates: string[],
+    ): GmailMultiProductAdBuilder<GmailMultiProductAd>;
     withItemImages(itemImages: Media[]): GmailMultiProductAdBuilder<GmailMultiProductAd>;
     withItemTitle(itemTitles: string[]): GmailMultiProductAdBuilder<GmailMultiProductAd>;
     withLogo(logo: Media): GmailMultiProductAdBuilder<GmailMultiProductAd>;
@@ -539,7 +534,9 @@ interface GmailSinglePromotionAd extends Ad {
     getSubject(): string;
 }
 
-interface GmailSinglePromotionAdBuilder<GmailSinglePromotionAd> extends AdBuilder<GmailSinglePromotionAdBuilder<GmailSinglePromotionAd>> {
+interface GmailSinglePromotionAdBuilder<GmailSinglePromotionAd>
+    extends AdBuilder<GmailSinglePromotionAdBuilder<GmailSinglePromotionAd>>
+{
     withAdvertiser(advertiser: string): GmailSinglePromotionAdBuilder<GmailSinglePromotionAd>;
     withCallToAction(callToAction: string): GmailSinglePromotionAdBuilder<GmailSinglePromotionAd>;
     withCallToActionButtonColor(callToActionButtonColor: string): GmailSinglePromotionAdBuilder<GmailSinglePromotionAd>;
@@ -596,7 +593,9 @@ interface ResponsiveDisplayAd extends Ad {
     getShortHeadline(): string;
 }
 
-interface ResponsiveDisplayAdBuilder<ResponsiveDisplayAd> extends AdBuilder<ResponsiveDisplayAdBuilder<ResponsiveDisplayAd>> {
+interface ResponsiveDisplayAdBuilder<ResponsiveDisplayAd>
+    extends AdBuilder<ResponsiveDisplayAdBuilder<ResponsiveDisplayAd>>
+{
     withBusinessName(businessName: string): ResponsiveDisplayAdBuilder<ResponsiveDisplayAd>;
     withDescription(description: string): ResponsiveDisplayAdBuilder<ResponsiveDisplayAd>;
     withLogoImage(logo: Media): ResponsiveDisplayAdBuilder<ResponsiveDisplayAd>;
@@ -650,7 +649,10 @@ interface Budget extends AdWordsEntity, hasStats {
 // Bulk Uploads
 interface BulkUploads {
     newCsvUpload(columnNames: string[], optArgs: FileUploadArguments): CsvUpload;
-    newFileUpload(file: GoogleAppsScript.Spreadsheet.Sheet | GoogleAppsScript.Base.Blob | GoogleAppsScript.Drive.File, optArgs: FileUploadArguments): FileUpload;
+    newFileUpload(
+        file: GoogleAppsScript.Spreadsheet.Sheet | GoogleAppsScript.Base.Blob | GoogleAppsScript.Drive.File,
+        optArgs: FileUploadArguments,
+    ): FileUpload;
 }
 
 interface BulkUpload<T> {
@@ -679,7 +681,14 @@ interface FileUploadArguments {
 interface Campaign extends AdWordsEntity, canBeEnabled, hasLabels, hasStartAndEndDate, hasStats {
     adGroups(): AdWordsSelector<AdGroup>;
     addAdSchedule(adSchedule: AdSchedule): AdWordsOperation<AdSchedule>;
-    addAdSchedule(dayOfWeek: DayOfWeekString, startHour: number, startMinute: number, endHour: number, endMinute: number, bidModifier: number): AdWordsOperation<AdSchedule>;
+    addAdSchedule(
+        dayOfWeek: DayOfWeekString,
+        startHour: number,
+        startMinute: number,
+        endHour: number,
+        endMinute: number,
+        bidModifier: number,
+    ): AdWordsOperation<AdSchedule>;
     addCallout(calloutExtension: Callout): AdWordsOperation<Callout>;
     addExcludedPlacementList(excludedPlacementList: ExcludedPlacementList): void;
     addLocation(locationId: number | TargetedLocation | LocationObject): AdWordsOperation<TargetedLocation>;
@@ -689,7 +698,13 @@ interface Campaign extends AdWordsEntity, canBeEnabled, hasLabels, hasStartAndEn
     addNegativeKeywordLIst(negativeKeywordList: NegativeKeywordList): void;
     addPhoneNumber(phoneNumberExtension: PhoneNumber): AdWordsOperation<PhoneNumber>;
     addProximity(proximity: ProximityObject | TargetedProximity): AdWordsOperation<TargetedProximity>;
-    addProximity(latitude: number, longitude: number, radius: number, radiusUnits: RadiusUnits, optArgs: { bidModifier: number, address: AddressObject}): AdWordsOperation<TargetedProximity>;
+    addProximity(
+        latitude: number,
+        longitude: number,
+        radius: number,
+        radiusUnits: RadiusUnits,
+        optArgs: { bidModifier: number; address: AddressObject },
+    ): AdWordsOperation<TargetedProximity>;
     addReview(reviewExtension: Review): AdWordsOperation<Review>;
     addSiteLink(sitelinkExtension: Sitelink): AdWordsOperation<Sitelink>;
     addSnippet(snippetExtension: Snippet): AdWordsOperation<Snippet>;
@@ -725,9 +740,11 @@ interface Campaign extends AdWordsEntity, canBeEnabled, hasLabels, hasStartAndEn
     urls(): CampaignUrls;
 }
 
-interface CampaignBidding extends AdWordsBidding, canSetBiddingStrategy { }
+interface CampaignBidding extends AdWordsBidding, canSetBiddingStrategy {}
 
-interface CampaignTargeting<SearchCampaignAudience, SearchCampaignExcludedAudience> extends AdWordsTargeting<AdWordsEntity, AdWordsEntity> {
+interface CampaignTargeting<SearchCampaignAudience, SearchCampaignExcludedAudience>
+    extends AdWordsTargeting<AdWordsEntity, AdWordsEntity>
+{
     adSchedules(): AdWordsSelector<AdSchedule>;
     excludedContentLabels(): AdWordsSelector<ExcludedContentLabel>;
     excludedLocations(): AdWordsSelector<ExcludedLocation>;
@@ -930,10 +947,13 @@ interface KeywordBidding extends AdWordsBidding, canSetBiddingStrategy {
     setCpm(cpm: number): void;
 }
 
-interface KeywordBuilder<Keyword> extends AdWordsBuilder<Keyword>,
-                                          hasBiddingStrategyBuilder<KeywordBuilder<Keyword>>,
-                                          hasTrackingTemplateBuilder<KeywordBuilder<Keyword>>,
-                                          hasFinalUrlBuilder<KeywordBuilder<Keyword>> {
+interface KeywordBuilder<Keyword>
+    extends
+        AdWordsBuilder<Keyword>,
+        hasBiddingStrategyBuilder<KeywordBuilder<Keyword>>,
+        hasTrackingTemplateBuilder<KeywordBuilder<Keyword>>,
+        hasFinalUrlBuilder<KeywordBuilder<Keyword>>
+{
     withCpc(cpc: number): KeywordBuilder<Keyword>;
     withCpm(cpm: number): KeywordBuilder<Keyword>;
     withText(text: string): KeywordBuilder<Keyword>;
@@ -989,6 +1009,7 @@ interface Media {
     getSourceUrl(): string;
     getType(): MediaType;
     getUrls(): MediaUrls;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     getYouTubeVideoId(): string | void;
 }
 
@@ -1171,7 +1192,7 @@ interface Language extends AdWordsEntity, isCampaignChild {
     remove(): void;
 }
 
-interface TargetedLocation extends ExcludedLocation, canSetBidModifier, hasStats { }
+interface TargetedLocation extends ExcludedLocation, canSetBidModifier, hasStats {}
 
 interface Platform extends AdWordsEntity, canSetBidModifier, hasStats, isCampaignChild {
     getCampaignType(): CampaignType;
@@ -1406,98 +1427,124 @@ interface AdWordsDate {
     day: number;
 }
 
-type DateRange = 'TODAY' |
-                         'YESTERDAY' |
-                         'LAST_7_DAYS' |
-                         'THIS_WEEK_SUN_TODAY' |
-                         'LAST_WEEK' |
-                         'LAST_14_DAYS' |
-                         'LAST_30_DAYS' |
-                         'LAST_BUSINESS_WEEK' |
-                         'LAST_WEEK_SUN_SAT' |
-                         'THIS_MONTH' |
-                         'LAST_MONTH' |
-                         'ALL_TIME';
+type DateRange =
+    | "TODAY"
+    | "YESTERDAY"
+    | "LAST_7_DAYS"
+    | "THIS_WEEK_SUN_TODAY"
+    | "LAST_WEEK"
+    | "LAST_14_DAYS"
+    | "LAST_30_DAYS"
+    | "LAST_BUSINESS_WEEK"
+    | "LAST_WEEK_SUN_SAT"
+    | "THIS_MONTH"
+    | "LAST_MONTH"
+    | "ALL_TIME";
 
-type DayOfWeekString = 'MONDAY' | 'TUESDAY' | 'WEDNESDAY' | 'THURSDAY' | 'FRIDAY' | 'SATURDAY' | 'SUNDAY';
+type DayOfWeekString = "MONDAY" | "TUESDAY" | "WEDNESDAY" | "THURSDAY" | "FRIDAY" | "SATURDAY" | "SUNDAY";
 
-type AppStore = 'iOS' | 'Android';
+type AppStore = "iOS" | "Android";
 
-type ApprovalStatus = 'APPROVED' | 'DISAPPROVED' | 'FAMILY_SAFE' | 'NON_FAMILY_SAFE' | 'PORN' | 'UNCHECKED';
+type ApprovalStatus = "APPROVED" | "DISAPPROVED" | "FAMILY_SAFE" | "NON_FAMILY_SAFE" | "PORN" | "UNCHECKED";
 
-type PolicyApprovalStatus = 'UNKNOWN' | 'APPROVED' | 'APPROVED_LIMITED' | 'ELIGIBLE' | 'UNDER_REVIEW' | 'DISAPPROVED' | 'SITE_SUSPENDED';
+type PolicyApprovalStatus =
+    | "UNKNOWN"
+    | "APPROVED"
+    | "APPROVED_LIMITED"
+    | "ELIGIBLE"
+    | "UNDER_REVIEW"
+    | "DISAPPROVED"
+    | "SITE_SUSPENDED";
 
-type AdType = 'EXPANDED_TEXT_AD' | 'IMAGE_AD' | 'MOBILE_AD' | 'MOBILE_IMAGE_AD' | 'PRODUCT_AD' | 'RICH_MEDIA_AD' | 'TEMPLATE_AD' | 'TEXT_AD';
+type AdType =
+    | "EXPANDED_TEXT_AD"
+    | "IMAGE_AD"
+    | "MOBILE_AD"
+    | "MOBILE_IMAGE_AD"
+    | "PRODUCT_AD"
+    | "RICH_MEDIA_AD"
+    | "TEMPLATE_AD"
+    | "TEXT_AD";
 
-type BiddingStrategySource = 'CAMPAIGN' | 'ADGROUP' | 'CRITERION';
+type BiddingStrategySource = "CAMPAIGN" | "ADGROUP" | "CRITERION";
 
-type TargetingSetting = 'TARGET_ALL_TRUE' | 'TARGET_ALL_FALSE';
+type TargetingSetting = "TARGET_ALL_TRUE" | "TARGET_ALL_FALSE";
 
-type AudienceType = 'USER_INTEREST' | 'USER_LIST';
+type AudienceType = "USER_INTEREST" | "USER_LIST";
 
-type RadiusUnits = 'MILES' | 'KILOMETERS';
+type RadiusUnits = "MILES" | "KILOMETERS";
 
-type AdRotationType = 'OPTIMIZE' |
-                              'CONVERSION_OPTIMIZE' |
-                              'ROTATE' |
-                              'ROTATE_FOREVER';
+type AdRotationType =
+    | "OPTIMIZE"
+    | "CONVERSION_OPTIMIZE"
+    | "ROTATE"
+    | "ROTATE_FOREVER";
 
-type BiddingStrategyString = 'MANUAL_CPC' | 'MANUAL_CPM' | 'BUDGET_OPTIMIZER' | 'CONVERSION_OPTIMIZER' | 'PERCENT_CPA';
+type BiddingStrategyString = "MANUAL_CPC" | "MANUAL_CPM" | "BUDGET_OPTIMIZER" | "CONVERSION_OPTIMIZER" | "PERCENT_CPA";
 
-type CriterionTypeGroup = 'USER_INTEREST_AND_LIST';
+type CriterionTypeGroup = "USER_INTEREST_AND_LIST";
 
-type MatchType = 'BROAD' | 'PHRASE' | 'EXACT';
+type MatchType = "BROAD" | "PHRASE" | "EXACT";
 
-type MediaType = 'AUDIO' | 'DYNAMIC_IMAGE' | 'ICON' | 'IMAGE' | 'STANDARD_ICON' | 'VIDEO' | 'MEDIA_BUNDLE';
+type MediaType = "AUDIO" | "DYNAMIC_IMAGE" | "ICON" | "IMAGE" | "STANDARD_ICON" | "VIDEO" | "MEDIA_BUNDLE";
 
-type CampaignType = 'SEARCH_OR_DISPLAY' | 'VIDEO' | 'SHOPPING';
+type CampaignType = "SEARCH_OR_DISPLAY" | "VIDEO" | "SHOPPING";
 
-type TargetType = 'Airport' |
-                          'Autonomous Community' |
-                          'Borough' |
-                          'Canton' |
-                          'City' |
-                          'City Region' |
-                          'Congressional District' |
-                          'Country' |
-                          'County' |
-                          'Department' |
-                          'District' |
-                          'Governorate' |
-                          'Municipality' |
-                          'National Park' |
-                          'Neighborhood' |
-                          'Okrug' |
-                          'Postal Code' |
-                          'Prefecture' |
-                          'Province' |
-                          'Region' |
-                          'State' |
-                          'Territory' |
-                          'TV Region' |
-                          'Union Territory' |
-                          'University';
+type TargetType =
+    | "Airport"
+    | "Autonomous Community"
+    | "Borough"
+    | "Canton"
+    | "City"
+    | "City Region"
+    | "Congressional District"
+    | "Country"
+    | "County"
+    | "Department"
+    | "District"
+    | "Governorate"
+    | "Municipality"
+    | "National Park"
+    | "Neighborhood"
+    | "Okrug"
+    | "Postal Code"
+    | "Prefecture"
+    | "Province"
+    | "Region"
+    | "State"
+    | "Territory"
+    | "TV Region"
+    | "Union Territory"
+    | "University";
 
-type TargetingStatus = 'ACTIVE' | 'PHASING_OUT' | 'OBSOLETE';
+type TargetingStatus = "ACTIVE" | "PHASING_OUT" | "OBSOLETE";
 
-type UserListType = 'UNKNOWN0' | 'REMARKETING' | 'LOGICAL' | 'EXTERNAL_REMARKETING' | 'RULE_BASED' | 'SIMILAR' | 'CRM_BASED';
+type UserListType =
+    | "UNKNOWN0"
+    | "REMARKETING"
+    | "LOGICAL"
+    | "EXTERNAL_REMARKETING"
+    | "RULE_BASED"
+    | "SIMILAR"
+    | "CRM_BASED";
 
-type UserListSizeRange = 'LESS_THAN_FIVE_HUNDRED' |
-                         'LESS_THAN_ONE_THOUSAND' |
-                         'ONE_THOUSAND_TO_TEN_THOUSAND' |
-                         'TEN_THOUSAND_TO_FIFTY_THOUSAND' |
-                         'FIFTY_THOUSAND_TO_ONE_HUNDRED_THOUSAND' |
-                         'ONE_HUNDRED_THOUSAND_TO_THREE_HUNDRED_THOUSAND' |
-                         'THREE_HUNDRED_THOUSAND_TO_FIVE_HUNDRED_THOUSAND' |
-                         'FIVE_HUNDRED_THOUSAND_TO_ONE_MILLION' |
-                         'ONE_MILLION_TO_TWO_MILLION' |
-                         'TWO_MILLION_TO_THREE_MILLION' |
-                         'THREE_MILLION_TO_FIVE_MILLION' |
-                         'FIVE_MILLION_TO_TEN_MILLION' |
-                         'TEN_MILLION_TO_TWENTY_MILLION' |
-                         'TWENTY_MILLION_TO_THIRTY_MILLION' |
-                         'THIRTY_MILLION_TO_FIFTY_MILLION' |
-                         'OVER_FIFTY_MILLION';
+type UserListSizeRange =
+    | "LESS_THAN_FIVE_HUNDRED"
+    | "LESS_THAN_ONE_THOUSAND"
+    | "ONE_THOUSAND_TO_TEN_THOUSAND"
+    | "TEN_THOUSAND_TO_FIFTY_THOUSAND"
+    | "FIFTY_THOUSAND_TO_ONE_HUNDRED_THOUSAND"
+    | "ONE_HUNDRED_THOUSAND_TO_THREE_HUNDRED_THOUSAND"
+    | "THREE_HUNDRED_THOUSAND_TO_FIVE_HUNDRED_THOUSAND"
+    | "FIVE_HUNDRED_THOUSAND_TO_ONE_MILLION"
+    | "ONE_MILLION_TO_TWO_MILLION"
+    | "TWO_MILLION_TO_THREE_MILLION"
+    | "THREE_MILLION_TO_FIVE_MILLION"
+    | "FIVE_MILLION_TO_TEN_MILLION"
+    | "TEN_MILLION_TO_TWENTY_MILLION"
+    | "TWENTY_MILLION_TO_THIRTY_MILLION"
+    | "THIRTY_MILLION_TO_FIFTY_MILLION"
+    | "OVER_FIFTY_MILLION";
 
 // Autocomplete
 declare namespace AdWordsApp {
@@ -1546,20 +1593,20 @@ declare namespace MccApp {
     function select(account: AdWordsEntity): void; // TODO: ManagedAccount
 }
 
-declare namespace Analytics { }
+declare namespace Analytics {}
 
-declare namespace BigQuery { }
+declare namespace BigQuery {}
 
-declare namespace Calendar { }
+declare namespace Calendar {}
 
-declare namespace FusionTables { }
+declare namespace FusionTables {}
 
-declare namespace Prediction { }
+declare namespace Prediction {}
 
-declare namespace ShoppingContent { }
+declare namespace ShoppingContent {}
 
-declare namespace Slides { }
+declare namespace Slides {}
 
-declare namespace Tasks { }
+declare namespace Tasks {}
 
-declare namespace YouTube { }
+declare namespace YouTube {}

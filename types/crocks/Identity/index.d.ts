@@ -1,2 +1,2 @@
-import Identity from './Identity';
+import Identity from "./Identity";
 export default Identity;

@@ -1,6 +1,6 @@
-import stickyCluster = require('sticky-cluster');
-import express = require('express');
-import * as http from 'http';
+import stickyCluster = require("sticky-cluster");
+import express = require("express");
+import * as http from "http";
 
 /** test with all params */
 stickyCluster(
@@ -12,14 +12,17 @@ stickyCluster(
         callback(server);
     },
     {
-        prefix: 'sticky-cluster:',
+        prefix: "sticky-cluster:",
         concurrency: 10,
         port: 3000,
         debug: true,
         hardShutdownDelay: 60 * 1000,
         env: (index) => ({ stickycluster_worker_index: index }),
-        errorHandler: (err) => { console.log(err); process.exit(1); }
-    }
+        errorHandler: (err) => {
+            console.log(err);
+            process.exit(1);
+        },
+    },
 );
 
 /** test with no params */
@@ -30,5 +33,5 @@ stickyCluster(
 
         // don't do server.listen(), just pass the server instance into the callback
         callback(server);
-    }
+    },
 );

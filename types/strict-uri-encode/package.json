@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/strict-uri-encode",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/kevva/strict-uri-encode#readme"
+    ],
+    "devDependencies": {
+        "@types/strict-uri-encode": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Keiichiro Amemiya",
+            "githubUsername": "hoishin"
+        }
+    ]
+}

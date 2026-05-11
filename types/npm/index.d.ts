@@ -1,8 +1,3 @@
-// Type definitions for npm 7.19.0
-// Project: https://github.com/npm/cli
-// Definitions by: Maxime LUCE <https://github.com/SomaticIT>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 declare var npm: npm.Static;
@@ -26,13 +21,12 @@ declare namespace npm {
         cache: string;
         tmp: string;
 
-
         load(callback?: SimpleCallback<void>): Promise<void>;
 
         deref(command: string): string;
     }
 
-    //#region Commands Interfaces
+    // #region Commands Interfaces
 
     export interface Commands {
         install: CommandFunction;
@@ -134,34 +128,34 @@ declare namespace npm {
         "run-script": CommandFunction;
         completion: CommandFunction;
 
-        //Aliases
-        rm: CommandFunction;               // uninstall
-        r: CommandFunction;                // uninstall
-        un: CommandFunction;               // uninstall
-        unlink: CommandFunction;           // uninstall
-        remove: CommandFunction;           // uninstall
-        rb: CommandFunction;               // rebuild
-        list: CommandFunction;             // ls
-        la: CommandFunction;               // ls
-        ll: CommandFunction;               // ls
-        i: CommandFunction;                // install
-        isntall: CommandFunction;          // install
-        up: CommandFunction;               // update
-        c: CommandFunction;                // config
-        find: CommandFunction;             // search
-        s: CommandFunction;                // search
-        se: CommandFunction;               // search
-        author: CommandFunction;           // owner
-        home: CommandFunction;             // docs
-        issues: CommandFunction;           // bugs
-        unstar: CommandFunction;           // star
-        apihelp: CommandFunction;          // help
-        long: CommandFunction;             // adduser
-        "add-user": CommandFunction;       // adduser
-        tst: CommandFunction;              // test
-        t: CommandFunction;                // test
-        "find-dupes": CommandFunction;     // dedupe
-        ddp: CommandFunction;              // dedupe
+        // Aliases
+        rm: CommandFunction; // uninstall
+        r: CommandFunction; // uninstall
+        un: CommandFunction; // uninstall
+        unlink: CommandFunction; // uninstall
+        remove: CommandFunction; // uninstall
+        rb: CommandFunction; // rebuild
+        list: CommandFunction; // ls
+        la: CommandFunction; // ls
+        ll: CommandFunction; // ls
+        i: CommandFunction; // install
+        isntall: CommandFunction; // install
+        up: CommandFunction; // update
+        c: CommandFunction; // config
+        find: CommandFunction; // search
+        s: CommandFunction; // search
+        se: CommandFunction; // search
+        author: CommandFunction; // owner
+        home: CommandFunction; // docs
+        issues: CommandFunction; // bugs
+        unstar: CommandFunction; // star
+        apihelp: CommandFunction; // help
+        long: CommandFunction; // adduser
+        "add-user": CommandFunction; // adduser
+        tst: CommandFunction; // test
+        t: CommandFunction; // test
+        "find-dupes": CommandFunction; // dedupe
+        ddp: CommandFunction; // dedupe
         /**
          * Alias for `dist-tag`
          *
@@ -193,14 +187,12 @@ declare namespace npm {
          */
         it: CommandFunction;
 
-
         // plumbing
         build: CommandFunction;
         unbuild: CommandFunction;
         xmas: CommandFunction;
         substack: CommandFunction;
         visnup: CommandFunction;
-
     }
     export interface CommandFunction {
         (args: string[], callback: CommandCallback): void;
@@ -209,9 +201,9 @@ declare namespace npm {
         (err?: Error, result?: any, result2?: any, result3?: any, result4?: any): void;
     }
 
-    //#endregion
+    // #endregion
 
-    //#region Other Interfaces
+    // #region Other Interfaces
 
     export interface Spinner {
         int: string;
@@ -220,12 +212,12 @@ declare namespace npm {
         stop(): void;
     }
 
-    //#endregion
+    // #endregion
 
-    //#region Config Interfaces
+    // #region Config Interfaces
 
     export interface ConfigStatic {
-        new (base: Config): Config;
+        new(base: Config): Config;
         (base: Config): Config;
     }
 
@@ -510,9 +502,9 @@ declare namespace npm {
         auth?: string | undefined;
     }
 
-    //#endregion
+    // #endregion
 
-    //#region Utilities Interfaces
+    // #region Utilities Interfaces
 
     export interface Dictionary<T> {
         [key: string]: T;
@@ -526,5 +518,5 @@ declare namespace npm {
         (err?: Error, result?: T): void;
     }
 
-    //#endregion
+    // #endregion
 }

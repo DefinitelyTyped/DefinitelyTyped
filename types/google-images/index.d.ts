@@ -1,14 +1,19 @@
-// Type definitions for google-images 2.1
-// Project: https://github.com/vadimdemedes/google-images
-// Definitions by: Dolan Miu <https://github.com/dolanmiu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = GoogleImages;
 
 declare namespace GoogleImages {
     type SearchImageSize = "icon" | "small" | "medium" | "large" | "xlarge" | "xxlarge" | "huge";
     type SearchImageType = "clipart" | "face" | "lineart" | "news" | "photo";
-    type SearchDominantColor = "black" | "blue" | "brown" | "gray" | "green" | "pink" | "purple" | "teal" | "white" | "yellow";
+    type SearchDominantColor =
+        | "black"
+        | "blue"
+        | "brown"
+        | "gray"
+        | "green"
+        | "pink"
+        | "purple"
+        | "teal"
+        | "white"
+        | "yellow";
     type SearchColorType = "color" | "gray" | "mono";
     type SearchSafe = "high" | "medium" | "off";
 
@@ -28,9 +33,9 @@ declare namespace GoogleImages {
         height: number;
         size: number;
         thumbnail: {
-            url: string,
-            width: number,
-            height: number
+            url: string;
+            width: number;
+            height: number;
         };
     }
 }

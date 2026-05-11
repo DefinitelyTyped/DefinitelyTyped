@@ -1,12 +1,6 @@
-// Type definitions for karma-parallel 0.3
-// Project: https://github.com/joeljeske/karma-parallel#readme
-// Definitions by: Piotr Błażejewicz (Peter Blazejewicz) <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
+import "karma";
 
-import 'karma';
-
-declare module 'karma' {
+declare module "karma" {
     interface ConfigOptions {
         /**
          * Options for this plugin
@@ -33,7 +27,7 @@ declare module 'karma' {
          * When it encounters a describe, it must decide if it will skip the tests inside of it, or not
          * @default 'round-robin'
          */
-        shardStrategy?: 'round-robin' | 'description-length' | 'custom' | undefined;
+        shardStrategy?: "round-robin" | "description-length" | "custom" | undefined;
         /**
          * Custom function that will determine if a describe block should run in the current executor.
          * It is a function that is serialized and re-constructed on each executor.

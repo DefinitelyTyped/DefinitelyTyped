@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/format-util",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/tmpfs/format-util#readme"
+    ],
+    "devDependencies": {
+        "@types/format-util": "workspace:."
+    },
+    "owners": []
+}

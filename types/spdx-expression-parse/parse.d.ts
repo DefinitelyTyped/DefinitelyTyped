@@ -1,4 +1,4 @@
-import { Info, Token } from './';
+import { Info, Token } from "./";
 
 declare function parse(tokens: Token[]): Info;
 

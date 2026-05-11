@@ -7,4 +7,4 @@ export class ColorScatter {
     getValueAt(t: any): number;
     value: number;
 }
-import { ColorScatterBase } from './ColorScatterBase';
+import { ColorScatterBase } from "./ColorScatterBase";

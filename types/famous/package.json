@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/famous",
+    "version": "0.7.9999",
+    "projects": [
+        "http://famous.org/"
+    ],
+    "devDependencies": {
+        "@types/famous": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Boris Vasilenko",
+            "githubUsername": "borisvasilenko"
+        }
+    ]
+}

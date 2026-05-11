@@ -1,4 +1,3 @@
-
 function CommandTests() {
     // initalize command with an execute method
     var cmd1 = ko.command(() => {
@@ -10,29 +9,35 @@ function CommandTests() {
         return "Hello cmd2";
     })
         .done((data: any) => {
-        alert("success");
-    })
+            alert("success");
+        })
         .fail((response) => {
-        // dummy
-        return false;
-    })
+            // dummy
+            return false;
+        })
         .fail((response, status, message) => {
-        // fail has response, error and text
-        alert(status + message);
-    });
+            // fail has response, error and text
+            alert(status + message);
+        });
 
     // initialize command with options (action only)
     var cmd3 = ko.command({
-        action: () => { return "Hello cmd3"; }
+        action: () => {
+            return "Hello cmd3";
+        },
     });
 
     // initialize command with options (action only)
     var cmd4 = ko.command({
-        action: () => { return "Hello cmd4"; }
+        action: () => {
+            return "Hello cmd4";
+        },
     });
 
     // initialize command with action with typed argument
-    var cmd5 = ko.command((message: string) => { return message; });
+    var cmd5 = ko.command((message: string) => {
+        return message;
+    });
 
     // test execute the command
     cmd1();
@@ -42,11 +47,9 @@ function CommandTests() {
     var failed = cmd1.failed();
     var completed = cmd1.completed();
     var canExecute = cmd1.canExecute();
-
 }
 
 function EditableTests() {
-
     // test ko.editable initializers
     var edit1 = ko.editable<boolean>(); // no intializer
 
@@ -54,8 +57,8 @@ function EditableTests() {
 
     var edit3 = ko.editable<any>({ test: true }); // with anything
 
-    var edit4 = ko.editable<string|number>(1); // with union types
-    var edit5 = ko.editable<string|number>("test");
+    var edit4 = ko.editable<string | number>(1); // with union types
+    var edit5 = ko.editable<string | number>("test");
 
     ko.editable.makeEditable(this);
 
@@ -73,7 +76,6 @@ function EditableTests() {
 }
 
 function EditableArrayTests() {
-
     // test ko.editable intializers
     var edit1 = ko.editableArray<boolean>(); // no init value
 
@@ -81,7 +83,7 @@ function EditableArrayTests() {
 
     var edit3 = ko.editableArray<any>(["a", 1, false, {}]); // mixed
 
-    var edit4 = ko.editableArray<number|string>(["a", 1]); // constrained
+    var edit4 = ko.editableArray<number | string>(["a", 1]); // constrained
 
     // test getting the array value
     var value = edit1();
@@ -94,11 +96,9 @@ function EditableArrayTests() {
     edit1.endEdit();
     edit1.cancelEdit();
     edit1.rollback();
-
 }
 
 function SortableTests() {
-
     // sorting is added via an extender, there are no .d.ts
     // types for this at present
     var sort1 = ko.observableArray([1, 2, 3]).extend({ sortable: true });
@@ -110,23 +110,20 @@ function SortableTests() {
         { id: 1, name: "bob" },
     ]).extend({
         sortable: {
-            key: 'id',
-            descending: false
-        }
+            key: "id",
+            descending: false,
+        },
     });
 
     sort2.setSourceKey("id");
     sort2.sortDescending(true);
     sort2.setSourceKey("name");
     sort2.sortDescending(false);
-    
 }
 
 function BindingHandlerTests() {
-
-        // test binding handlers
-        var bh1 = ko.bindingHandlers.command;
-        var bh2 = ko.bindingHandlers.loadingWhen;
-        var bh3 = ko.bindingHandlers.sortBy;
-        
+    // test binding handlers
+    var bh1 = ko.bindingHandlers.command;
+    var bh2 = ko.bindingHandlers.loadingWhen;
+    var bh3 = ko.bindingHandlers.sortBy;
 }

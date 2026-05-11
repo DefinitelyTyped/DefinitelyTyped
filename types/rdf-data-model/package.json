@@ -1,6 +1,20 @@
 {
     "private": true,
+    "name": "@types/rdf-data-model",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/rdf-ext/rdf-data-model"
+    ],
     "dependencies": {
-      "rdf-js": "^4.0.2"
-    }
-  }
+        "@rdfjs/types": ">=1.0.0"
+    },
+    "devDependencies": {
+        "@types/rdf-data-model": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ruben Taelman",
+            "githubUsername": "rubensworks"
+        }
+    ]
+}

@@ -1,8 +1,3 @@
-// Type definitions for strftime 0.9.2
-// Project: https://github.com/samsonjs/strftime
-// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare module "strftime" {
     type strftimeFunction = (format: string, date?: Date) => string;
 
@@ -48,15 +43,15 @@ declare module "strftime" {
          * @interface
          */
         export interface Locale {
-            days?: Array<string> | undefined;
-            shortDays?: Array<string> | undefined;
-            months?: Array<string> | undefined;
-            shortMonths?: Array<string> | undefined;
+            days?: string[] | undefined;
+            shortDays?: string[] | undefined;
+            months?: string[] | undefined;
+            shortMonths?: string[] | undefined;
             AM?: string | undefined;
             PM?: string | undefined;
             am?: string | undefined;
             pm?: string | undefined;
-            formats: LocaleFormats
+            formats: LocaleFormats;
         }
     }
 

@@ -1,12 +1,8 @@
 {
     "compilerOptions": {
         "noEmit": true,
-        "module": "commonjs",
+        "module": "node16",
         "forceConsistentCasingInFileNames": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "lib": [
             "es5"

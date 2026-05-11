@@ -1,11 +1,11 @@
-import * as gulp from 'gulp';
-import prettifyHtml = require('gulp-html-prettify');
+import * as gulp from "gulp";
+import prettifyHtml = require("gulp-html-prettify");
 
-gulp.task('prettifyHtml', () => {
-    gulp.src('source/*.html')
+gulp.task("prettifyHtml", () => {
+    gulp.src("source/*.html")
         .pipe(prettifyHtml({
-            indent_char: ' ',
-            indent_size: 2
+            indent_char: " ",
+            indent_size: 2,
         }))
-        .pipe(gulp.dest('./dist/'));
+        .pipe(gulp.dest("./dist/"));
 });

@@ -14,6 +14,7 @@ import JasmineClass from "jasmine";
     jasmineClass.addMatchingHelperFiles(["dir/**/*.js"]);
 
     jasmineClass.env.configure({
+        forbidDuplicateNames: true,
         random: true,
         failSpecWithNoExpectations: true,
         hideDisabled: true,
@@ -93,6 +94,11 @@ describe("Included matchers:", () => {
             const value: number | string = null as any;
 
             expect(value).toBe(12);
+        });
+
+        it("should not consider strings as array-like", () => {
+            // @ts-expect-error
+            expect("abc").toEqual(["a", "b", "c"]);
         });
     });
 
@@ -311,7 +317,7 @@ describe("Included matchers:", () => {
 
 describe("toThrowMatching", () => {
     expect(() => {
-        (({} as any).doSomething());
+        ({} as any).doSomething();
     }).toThrowMatching(error => error !== undefined);
 });
 
@@ -330,8 +336,8 @@ describe("toHaveClass", () => {
     expect(element).toHaveClass(Element);
 });
 
-describe('toHaveSpyInteractions', () => {
-    const mySpyObj = jasmine.createSpyObj('NewClass', ['spyA', 'spyB']);
+describe("toHaveSpyInteractions", () => {
+    const mySpyObj = jasmine.createSpyObj("NewClass", ["spyA", "spyB"]);
     mySpyObj.otherMethod = () => {};
     expect(mySpyObj).toHaveSpyInteractions();
     expect(mySpyObj).not.toHaveSpyInteractions();
@@ -1126,14 +1132,14 @@ describe("Spy for generic method", () => {
 
 describe("Multiple spies, when created manually", () => {
     class Tape {
-        private rewindTo: number;
+        private rewindTo!: number;
         play(): void {}
         pause(): void {}
         rewind(pos: number): void {
             this.rewindTo = pos;
         }
         stop(): void {}
-        readonly isPlaying: boolean; // spy obj makes this writable
+        readonly isPlaying!: boolean; // spy obj makes this writable
     }
 
     var tape: Tape;
@@ -1328,8 +1334,8 @@ describe("custom asymmetry", () => {
             return matchersUtil.equals(secondValue, "bar");
         },
         jasmineToString(pp) {
-            return 'an asymmetric tester for ' + pp('bar');
-        }
+            return "an asymmetric tester for " + pp("bar");
+        },
     };
 
     it("dives in deep", () => {
@@ -1428,10 +1434,9 @@ describe("jasmine.objectContaining", () => {
         );
     });
 
-    describe('stringContaining', () => {
-        it('passes', () => {
-            expect('foot').toEqual(jasmine.stringContaining('foo'));
-            expect('foot').toEqual(jasmine.stringContaining(/foo/));
+    describe("stringContaining", () => {
+        it("passes", () => {
+            expect("foot").toEqual(jasmine.stringContaining("foo"));
         });
     });
 
@@ -1496,7 +1501,7 @@ describe("jasmine.arrayContaining", () => {
     });
 
     it("matches read-only array", () => {
-        const bar: ReadonlyArray<number> = [1, 2, 3, 4];
+        const bar: readonly number[] = [1, 2, 3, 4];
 
         expect(bar).toEqual(jasmine.arrayContaining([3, 1]));
         expect(bar).not.toEqual(jasmine.arrayContaining([6]));
@@ -1735,6 +1740,14 @@ describe("Manually ticking the Jasmine Clock", () => {
     });
 });
 
+describe("Automatically ticking the Jasmine Clock", () => {
+    it("ticks automatically", async () => {
+        jasmine.clock().install().autoTick();
+        await new Promise(resolve => setTimeout(resolve));
+        jasmine.clock().uninstall();
+    });
+});
+
 describe("Asynchronous specs", () => {
     var value: number;
     beforeEach((done: DoneFn) => {
@@ -1783,6 +1796,7 @@ describe("Fail", () => {
 
 // test based on http://jasmine.github.io/2.2/custom_equality.html
 describe("custom equality", () => {
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     const myCustomEquality: jasmine.CustomEqualityTester = (first: any, second: any): boolean | void => {
         if (typeof first === "string" && typeof second === "string") {
             return first[0] === second[1];
@@ -1902,8 +1916,8 @@ describe("Custom matcher: 'toBeGoofy'", () => {
 
     it("can use the custom negativeCompare method", () => {
         const matchersUtil = {
-            pp: () => '',
-            buildFailureMessage: () => '',
+            pp: () => "",
+            buildFailureMessage: () => "",
             equals: () => false,
             contains: () => false,
         };
@@ -1923,8 +1937,8 @@ describe("Custom matcher: 'toBeGoofy'", () => {
     it("has a proper message on failure", () => {
         const actual = { hyuk: "this is fun" };
         const matchersUtil = {
-            pp: () => '',
-            buildFailureMessage: () => '',
+            pp: () => "",
+            buildFailureMessage: () => "",
             equals: () => false,
             contains: () => false,
         };
@@ -2042,7 +2056,7 @@ describe("better typed spys", () => {
     });
     describe("spyOnProperty", () => {
         it("works", () => {
-            const obj = {prop: "test", otherProp: 1};
+            const obj = { prop: "test", otherProp: 1 };
             const getSpy = spyOnProperty(obj, "prop");
             getSpy.and.returnValue("spy");
             // @ts-expect-error
@@ -2080,10 +2094,10 @@ describe("better typed spys", () => {
                 return 0;
             }
             toString(): string {
-                return '';
+                return "";
             }
             toLocaleString(): string {
-                return '';
+                return "";
             }
             // Also make sure we don't throw type errors when using a more specific return type.
             valueOf(): boolean {
@@ -2091,10 +2105,10 @@ describe("better typed spys", () => {
             }
         }
         it("works for classes that override Object prototype methods", () => {
-            jasmine.createSpyObj<TestOverride>("TestOverride", {method: 1});
+            jasmine.createSpyObj<TestOverride>("TestOverride", { method: 1 });
         });
         it("allows spying on Object prototype methods", () => {
-            jasmine.createSpyObj<TestOverride>("TestOverride", {toString: '', toLocaleString: '', valueOf: false});
+            jasmine.createSpyObj<TestOverride>("TestOverride", { toString: "", toLocaleString: "", valueOf: false });
         });
     });
 });
@@ -2471,15 +2485,15 @@ describe("setDefaultSpyStrategy", () => {
 });
 
 describe("spyOnGlobalErrorsAsync", () => {
-    it('demonstrates global error spies', async function() {
+    it("demonstrates global error spies", async function() {
         await jasmine.spyOnGlobalErrorsAsync(async function(globalErrorSpy) {
             setTimeout(function() {
-                throw new Error('the expected error');
+                throw new Error("the expected error");
             });
             await new Promise(function(resolve) {
                 setTimeout(resolve);
             });
-            const expected = new Error('the expected error');
+            const expected = new Error("the expected error");
             expect(globalErrorSpy).toHaveBeenCalledWith(expected);
         });
     });
@@ -2499,7 +2513,7 @@ describe("Jasmine constructor", () => {
 
     it("creates new Jasmine instance with args", () => {
         const instance = new JasmineClass({
-            projectBaseDir: 'foo',
+            projectBaseDir: "foo",
         });
         expect(instance).toBeInstanceOf(JasmineClass);
     });
@@ -2518,8 +2532,8 @@ describe("Debug logging", function() {
         });
     });
 
-    it('can log', function() {
-        jasmine.debugLog('test');
+    it("can log", function() {
+        jasmine.debugLog("test");
     });
 });
 
@@ -2534,7 +2548,7 @@ describe("Debug logging", function() {
     env.configure({
         specFilter: spec => {
             return specFilter.matches(spec.getFullName());
-        }
+        },
     });
 
     env.setSpecProperty("name", "value");
@@ -2562,6 +2576,7 @@ describe("Debug logging", function() {
             console.log("id", suite.id);
             console.log("description", suite.description);
             console.log("fullName", suite.fullName);
+            console.log("filename", suite.filename);
             console.log("fe", suite.failedExpectations);
 
             for (const fe of suite.failedExpectations) {
@@ -2588,3 +2603,23 @@ describe("Debug logging", function() {
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 1000;
 jasmine.MAX_PRETTY_PRINT_DEPTH = 40;
+
+jasmine.pp(true);
+jasmine.pp("string");
+jasmine.pp(42);
+jasmine.pp({ key: "value" });
+jasmine.pp([1, 2, 3]);
+jasmine.pp(new Map());
+jasmine.pp(new Set());
+jasmine.pp(() => {});
+
+(async () => {
+    throwUnless(1).toEqual(2);
+
+    try {
+        const promise = Promise.resolve("a");
+        await throwUnlessAsync(promise).toBeResolvedTo("b");
+    } catch (err) {
+        (err as ThrowUnlessFailure).matcherName; // $ExpectType string
+    }
+})();

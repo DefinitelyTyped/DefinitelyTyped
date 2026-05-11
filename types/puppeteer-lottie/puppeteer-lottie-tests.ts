@@ -1,29 +1,29 @@
-import renderLottie = require('puppeteer-lottie');
+import renderLottie = require("puppeteer-lottie");
 
 (async () => {
-    const bodymovin = 'some/bodymovin.json';
-    const output = 'output/some.png';
+    const bodymovin = "some/bodymovin.json";
+    const output = "output/some.png";
 
     await renderLottie({
-        path: 'fixtures/bodymovin.json',
-        output: 'example.mp4',
+        path: "fixtures/bodymovin.json",
+        output: "example.mp4",
     });
 
     await renderLottie({
-        path: 'fixtures/bodymovin.json',
-        output: 'example.gif',
+        path: "fixtures/bodymovin.json",
+        output: "example.gif",
         width: 640,
     });
 
     await renderLottie({
-        path: 'fixtures/bodymovin.json',
-        output: 'frame-%d.png',
+        path: "fixtures/bodymovin.json",
+        output: "frame-%d.png",
         height: 128,
     });
 
     await renderLottie({
-        path: 'fixtures/bodymovin.json',
-        output: 'preview.jpg',
+        path: "fixtures/bodymovin.json",
+        output: "preview.jpg",
     });
 
     await renderLottie({
@@ -31,8 +31,8 @@ import renderLottie = require('puppeteer-lottie');
         quiet: true,
         ffmpegOptions: {
             crf: 22,
-            profileVideo: 'high',
-            preset: 'fast',
+            profileVideo: "high",
+            preset: "fast",
         },
         output,
     });

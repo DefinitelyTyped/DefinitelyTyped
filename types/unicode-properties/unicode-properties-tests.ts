@@ -1,4 +1,4 @@
-import * as unicode from 'unicode-properties';
+import * as unicode from "unicode-properties";
 
 const codePoint = 0x41; // 'A'
 

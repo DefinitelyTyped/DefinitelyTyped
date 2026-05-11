@@ -1,5 +1,8 @@
 {
     "rules": {
-        "prefer-declare-function": "off"
+        "@definitelytyped/prefer-declare-function": "off",
+        "@definitelytyped/no-duplicate-imports": "off",
+        "@typescript-eslint/consistent-type-definitions": "off",
+        "no-duplicate-imports": "off"
     }
 }

@@ -1,4 +1,4 @@
-import * as triplesec from 'triplesec';
+import * as triplesec from "triplesec";
 
 const progressHook = (progress: triplesec.Progress) => {
     progress.what; // $ExpectType string
@@ -7,24 +7,24 @@ const progressHook = (progress: triplesec.Progress) => {
 };
 
 triplesec.encrypt({
-    data: new Buffer('data'),
-    key: new Buffer('key'),
+    data: new Buffer("data"),
+    key: new Buffer("key"),
     progress_hook: progressHook,
 }, (err, buff) => {
     if (err === null) {
-        buff; // $ExpectType Buffer | null
+        buff; // $ExpectType Buffer | null || Buffer<ArrayBufferLike> | null
     } else {
         err; // $ExpectType Error
     }
 });
 
 triplesec.decrypt({
-    data: new Buffer('data'),
-    key: new Buffer('key'),
+    data: new Buffer("data"),
+    key: new Buffer("key"),
     progress_hook: progressHook,
 }, (err, buff) => {
     if (err === null) {
-        buff; // $ExpectType Buffer | null
+        buff; // $ExpectType Buffer | null || Buffer<ArrayBufferLike> | null
     } else {
         err; // $ExpectType Error
     }

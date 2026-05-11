@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-native-highlight-words",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/clauderic/react-native-highlight-words"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "react-native": "*"
+    },
+    "devDependencies": {
+        "@types/react-native-highlight-words": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ivan Stelmakh",
+            "githubUsername": "stelmakhivan"
+        }
+    ]
+}

@@ -1,11 +1,5 @@
-// Type definitions for webpack-assets-manifest 4.0
-// Project: https://github.com/webdeveric/webpack-assets-manifest
-// Definitions by: Franklin Tse <https://github.com/FranklinWhale>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
-import { compilation, Compiler, loader, Plugin, Stats } from 'webpack';
-import { AsyncSeriesHook, SyncHook, SyncWaterfallHook } from 'tapable';
+import { AsyncSeriesHook, SyncHook, SyncWaterfallHook } from "tapable";
+import { compilation, Compiler, loader, Plugin, Stats } from "webpack";
 
 declare class WebpackAssetsManifest extends Plugin {
     constructor(options?: WebpackAssetsManifest.Options);
@@ -75,9 +69,9 @@ declare class WebpackAssetsManifest extends Plugin {
 
     /** Process compilation assets */
     processAssetsByChunkName(
-        assets: Record<string, string | ReadonlyArray<string>>,
+        assets: Record<string, string | readonly string[]>,
         hmrFiles?: Set<string>,
-    ): this['assetNames'];
+    ): this["assetNames"];
 
     /** Get the data for `JSON.stringify()` */
     toJSON(): unknown;
@@ -172,7 +166,7 @@ declare namespace WebpackAssetsManifest {
         space?: number | string | undefined;
 
         /** https://github.com/webdeveric/webpack-assets-manifest#writetodisk */
-        writeToDisk?: boolean | 'auto' | undefined;
+        writeToDisk?: boolean | "auto" | undefined;
 
         /** https://github.com/webdeveric/webpack-assets-manifest#fileextregex */
         fileExtRegex?: RegExp | null | false | undefined;
@@ -181,7 +175,7 @@ declare namespace WebpackAssetsManifest {
         sortManifest?: boolean | ((this: WebpackAssetsManifest, a: string, b: string) => number) | undefined;
 
         /** https://github.com/webdeveric/webpack-assets-manifest#merge */
-        merge?: boolean | 'customize' | undefined;
+        merge?: boolean | "customize" | undefined;
 
         /** https://github.com/webdeveric/webpack-assets-manifest#publicpath */
         publicPath?:
@@ -200,11 +194,11 @@ declare namespace WebpackAssetsManifest {
         /** https://github.com/webdeveric/webpack-assets-manifest#customize */
         customize?:
             | ((
-                  entry: Entry,
-                  original: Entry,
-                  manifest: WebpackAssetsManifest,
-                  asset: (compilation.Asset & { info: Record<string, any> }) | null,
-              ) => Entry | false)
+                entry: Entry,
+                original: Entry,
+                manifest: WebpackAssetsManifest,
+                asset: (compilation.Asset & { info: Record<string, any> }) | null,
+            ) => Entry | false)
             | null
             | undefined;
 
@@ -227,7 +221,7 @@ declare namespace WebpackAssetsManifest {
         integrity?: boolean | undefined;
 
         /** https://github.com/webdeveric/webpack-assets-manifest#integrityhashes */
-        integrityHashes?: ReadonlyArray<string> | undefined;
+        integrityHashes?: readonly string[] | undefined;
 
         /** https://github.com/webdeveric/webpack-assets-manifest#integritypropertyname */
         integrityPropertyName?: string | undefined;

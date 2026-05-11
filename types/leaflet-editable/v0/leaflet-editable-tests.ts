@@ -1,5 +1,5 @@
-import * as L from 'leaflet';
-import 'leaflet-editable';
+import * as L from "leaflet";
+import "leaflet-editable";
 
 class MarkerClass {}
 class MarkerEditorClass {}
@@ -10,10 +10,10 @@ class PolylineClass {}
 class PolylineEditorClass {}
 class VertexMarkerClass {}
 
-const map: L.Map = L.map('div', {
+const map: L.Map = L.map("div", {
     editable: true,
     editOptions: {
-        drawingCSSClass: 'css-class',
+        drawingCSSClass: "css-class",
         editLayer: L.layerGroup(),
         featuresLayer: L.layerGroup<L.Marker | L.Polyline | L.Polygon>(),
         lineGuideOptions: {},

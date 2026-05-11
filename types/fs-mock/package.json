@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/fs-mock",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/sakren/node-fs-mock"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/fs-mock": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Rogier Schouten",
+            "githubUsername": "rogierschouten"
+        }
+    ]
+}

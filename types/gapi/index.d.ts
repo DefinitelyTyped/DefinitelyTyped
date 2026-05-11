@@ -1,9 +1,3 @@
-// Type definitions for Google API Client
-// Project: https://github.com/google/google-api-javascript-client
-// Definitions by: Frank M <https://github.com/sgtfrankieboy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /**
  * The OAuth 2.0 token object represents the OAuth 2.0 token and any associated data.
  */
@@ -29,7 +23,7 @@ interface GoogleApiOAuth2TokenObject {
 
 interface GoogleApiOAuth2TokenSessionState {
     extraQueryParams: {
-        authuser: string,
+        authuser: string;
     };
 }
 
@@ -41,13 +35,12 @@ interface GoogleApiOAuth2TokenSessionState {
  * https://developers.google.com/identity/sign-in/web/session-state
  */
 declare namespace gapi {
-
     type LoadCallback = (...args: any[]) => void;
     type LoadConfig = {
-      callback: LoadCallback,
-      onerror?: Function | undefined,
-      timeout?: number | undefined,
-      ontimeout?: Function | undefined,
+        callback: LoadCallback;
+        onerror?: Function | undefined;
+        timeout?: number | undefined;
+        ontimeout?: Function | undefined;
     };
     type CallbackOrConfig = LoadConfig | LoadCallback;
 
@@ -56,7 +49,6 @@ declare namespace gapi {
      * Reference: https://developers.google.com/api-client-library/javascript/reference/referencedocs#gapiloadlibraries-callbackorconfig
      */
     export function load(apiName: string, callback: CallbackOrConfig): void;
-
 }
 
 declare namespace gapi.auth {
@@ -165,7 +157,7 @@ declare namespace gapi.client {
         /**
          * The scopes to request, as a space-delimited string.
          */
-        scope?: string | undefined,
+        scope?: string | undefined;
         /**
          * Arbitrary value. If present, allows keys generated after July 29th, 2022 to work with the old (deprecated) api.
          */
@@ -259,7 +251,7 @@ declare namespace gapi.client {
      *
      * Reference: https://developers.google.com/api-client-library/javascript/reference/referencedocs#gapiclientsettokentokenobject
      */
-    export function setToken(token: TokenObject|null): void;
+    export function setToken(token: TokenObject | null): void;
 
     interface HttpRequestFulfilled<T> {
         result: T;
@@ -281,12 +273,12 @@ declare namespace gapi.client {
      * HttpRequest supports promises.
      * See Google API Client JavaScript Using Promises https://developers.google.com/api-client-library/javascript/features/promises
      */
-     class HttpRequestPromise<T> {
+    class HttpRequestPromise<T> {
         // Taken and adapted from https://github.com/Microsoft/TypeScript/blob/v2.3.1/lib/lib.es5.d.ts#L1343
         then<TResult1 = T, TResult2 = never>(
             onfulfilled?: ((response: HttpRequestFulfilled<T>) => TResult1 | PromiseLike<TResult1>) | null,
             onrejected?: ((reason: HttpRequestRejected) => TResult2 | PromiseLike<TResult2>) | null,
-            opt_context?: any
+            opt_context?: any,
         ): Promise<TResult1 | TResult2>;
     }
 
@@ -298,21 +290,23 @@ declare namespace gapi.client {
          * Executes the request and runs the supplied callback on response.
          * @param callback The callback function which executes when the request succeeds or fails.
          */
-        execute(callback: (
-            /**
-             * contains the response parsed as JSON. If the response is not JSON, this field will be false.
-             */
-            jsonResp: T,
-            /**
-             * is the HTTP response. It is JSON, and can be parsed to an object
-             */
-            rawResp: {
-                body: string;
-                headers: any[];
-                status: number;
-                statusText: string;
-            }
-            ) => any): void;
+        execute(
+            callback: (
+                /**
+                 * contains the response parsed as JSON. If the response is not JSON, this field will be false.
+                 */
+                jsonResp: T,
+                /**
+                 * is the HTTP response. It is JSON, and can be parsed to an object
+                 */
+                rawResp: {
+                    body: string;
+                    headers: any[];
+                    status: number;
+                    statusText: string;
+                },
+            ) => any,
+        ): void;
     }
 
     /**
@@ -337,44 +331,46 @@ declare namespace gapi.client {
                 /**
                  * is the raw batch ID-response map as a string. It contains all responses to all requests in the batch.
                  */
-                rawBatchResponse: any
-                ) => any
+                rawBatchResponse: any,
+            ) => any;
         }): void;
         /**
          * Executes all requests in the batch. The supplied callback is executed on success or failure.
          * @param callback The callback to execute when the batch returns.
          */
-        execute(callback: (
-            /**
-             * is an ID-response map of each requests response.
-             */
-            responseMap: any,
-            /**
-             * is the same response, but as an unparsed JSON-string.
-             */
-            rawBatchResponse: string
-            ) => any): void;
+        execute(
+            callback: (
+                /**
+                 * is an ID-response map of each requests response.
+                 */
+                responseMap: any,
+                /**
+                 * is the same response, but as an unparsed JSON-string.
+                 */
+                rawBatchResponse: string,
+            ) => any,
+        ): void;
     }
 
     /**
      * Similar to gapi.client.HttpRequest except this object encapsulates requests generated by registered methods.
      */
     export class RpcRequest {
-
         /**
          * Executes the request and runs the supplied callback with the response.
          * @param callback The callback function which executes when the request succeeds or fails.
          */
-        callback(callback: (
-            /**
-             * contains the response parsed as JSON. If the response is not JSON, this field will be false.
-             */
-            jsonResp: any,
-            /**
-             * is the same as jsonResp, except it is a raw string that has not been parsed. It is typically used when the response is not JSON.
-             */
-            rawResp: string
-            ) => void): void;
+        callback(
+            callback: (
+                /**
+                 * contains the response parsed as JSON. If the response is not JSON, this field will be false.
+                 */
+                jsonResp: any,
+                /**
+                 * is the same as jsonResp, except it is a raw string that has not been parsed. It is typically used when the response is not JSON.
+                 */
+                rawResp: string,
+            ) => void,
+        ): void;
     }
-
 }

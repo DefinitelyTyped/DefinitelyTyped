@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/express-jsonschema",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/trainiac/express-jsonschema#readme"
+    ],
+    "dependencies": {
+        "@types/express": "*",
+        "@types/json-schema": "*"
+    },
+    "devDependencies": {
+        "@types/express-jsonschema": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Arne Schubert",
+            "githubUsername": "atd-schubert"
+        }
+    ]
+}

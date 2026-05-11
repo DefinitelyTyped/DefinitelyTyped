@@ -1,5 +1,5 @@
-import { SourceLike } from '.';
-import Source = require('./Source');
+import { SourceLike } from ".";
+import Source = require("./Source");
 
 declare class CompatSource extends Source {
     constructor(sourceLike: SourceLike);

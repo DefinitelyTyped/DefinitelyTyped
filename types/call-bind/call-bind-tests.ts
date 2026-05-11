@@ -1,2 +1,2 @@
-import './test/callBind.test';
-import './test/callBound.test';
+import "./test/callBind.test";
+import "./test/callBound.test";

@@ -39,7 +39,7 @@ declare class Uni {
      *
      * 参考: [http://uniapp.dcloud.io/api/window/communication?id=off](http://uniapp.dcloud.io/api/window/communication?id=off)
      */
-    $off(eventName?: string | any [], callback?: () => void): void;
+    $off(eventName?: string | any[], callback?: () => void): void;
     /**
      * 通过id 获取 subNVues 原生子窗体的实例
      *
@@ -969,11 +969,31 @@ interface SubNVue {
     /**
      * 显示原生子窗体
      */
-    show(options?: 'slide-in-right' | 'slide-in-left' | 'slide-in-top' | 'slide-in-bottom' | 'fade-in' | 'zoom-out' | 'zoom-fade-out' | 'pop-in'): void;
+    show(
+        options?:
+            | "slide-in-right"
+            | "slide-in-left"
+            | "slide-in-top"
+            | "slide-in-bottom"
+            | "fade-in"
+            | "zoom-out"
+            | "zoom-fade-out"
+            | "pop-in",
+    ): void;
     /**
      * 隐藏原生子窗体
      */
-    hide(options?: 'slide-out-right' | 'slide-out-left' | 'slide-out-top' | 'slide-out-bottom' | 'fade-out' | 'zoom-in' | 'zoom-fade-in' | 'pop-out'): void;
+    hide(
+        options?:
+            | "slide-out-right"
+            | "slide-out-left"
+            | "slide-out-top"
+            | "slide-out-bottom"
+            | "fade-out"
+            | "zoom-in"
+            | "zoom-fade-in"
+            | "pop-out",
+    ): void;
     /**
      * 设置原生子窗体的样式
      */
@@ -995,7 +1015,7 @@ interface SubNVuesSetStyleOptions {
      * - absolute: 原生子窗体在页面中绝对定位
      * - dock: 原生子窗体在页面中停靠
      */
-    position?: 'static' | 'absolute' | 'dock' | undefined;
+    position?: "static" | "absolute" | "dock" | undefined;
     /**
      * 原生子窗体的停靠方式,仅当原生子窗体 "position" 属性值设置为 "dock" 时才生效
      * - top: 原生子窗体停靠则页面顶部
@@ -1003,19 +1023,19 @@ interface SubNVuesSetStyleOptions {
      * - left: 原生子窗体停靠在页面左侧
      * - right: 原生子窗体停靠在页面右侧
      */
-    dock?: 'top' | 'bottom' | 'left' | 'right' | undefined;
+    dock?: "top" | "bottom" | "left" | "right" | undefined;
     /**
      * 原生子窗体的内置样式
      * - popup: 弹出层
      * - navigationBar: 导航栏
      */
-    type?: 'popup' | 'navigationBar' | undefined;
+    type?: "popup" | "navigationBar" | undefined;
     /**
      * 原生子窗体的遮罩层,仅当原生子窗体 "type" 属性值设置为 "popup" 时才生效
      * - popup: 弹出层
      * - navigationBar: 导航栏
      */
-    mask?: 'popup' | 'navigationBar' | undefined;
+    mask?: "popup" | "navigationBar" | undefined;
     /**
      * 原生子窗体的宽度
      */
@@ -1054,7 +1074,7 @@ interface RequestPaymentOptions {
      * - baidu: 百度收银台
      * - appleiap: 苹果应用内支付
      */
-    provider?: 'alipay' | 'wxpay' | 'baidu' | 'appleiap' | undefined;
+    provider?: "alipay" | "wxpay" | "baidu" | "appleiap" | undefined;
     /**
      * 订单数据
      */
@@ -1110,7 +1130,7 @@ interface RequestOptions {
      * 默认为 GET
      * 可以是：OPTIONS，GET，HEAD，POST，PUT，DELETE，TRACE，CONNECT
      */
-    method?: 'OPTIONS' | 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'TRACE' | 'CONNECT' | undefined;
+    method?: "OPTIONS" | "GET" | "HEAD" | "POST" | "PUT" | "DELETE" | "TRACE" | "CONNECT" | undefined;
     /**
      * 如果设为json，会尝试对返回的数据做一次 JSON.parse
      */
@@ -1166,7 +1186,7 @@ interface UploadFileOption {
      * - video: 视频
      * - audio: 音频
      */
-    fileType?: 'image' | 'video' | 'audio' | undefined;
+    fileType?: "image" | "video" | "audio" | undefined;
     /**
      * 要上传文件资源的路径
      */
@@ -1178,7 +1198,7 @@ interface UploadFileOption {
     /**
      * 需要上传的文件列表。使用 files 时，filePath 和 name 不生效。仅 5+App 支持
      */
-    files?: UploadFileOptionFiles [] | undefined;
+    files?: UploadFileOptionFiles[] | undefined;
     /**
      * HTTP 请求 Header, header 中不能设置 Referer
      */
@@ -1322,11 +1342,11 @@ interface ConnectSocketOption {
      * 默认为 GET
      * 可以是：OPTIONS，GET，HEAD，POST，PUT，DELETE，TRACE，CONNECT
      */
-    method?: 'OPTIONS' | 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'TRACE' | 'CONNECT' | undefined;
+    method?: "OPTIONS" | "GET" | "HEAD" | "POST" | "PUT" | "DELETE" | "TRACE" | "CONNECT" | undefined;
     /**
      * 子协议数组
      */
-    protocols?: string [] | undefined;
+    protocols?: string[] | undefined;
     /**
      * 接口调用成功的回调函数
      */
@@ -1432,11 +1452,11 @@ interface ChooseImageOptions {
     /**
      * original 原图，compressed 压缩图，默认二者都有
      */
-    sizeType?: string | string [] | undefined;
+    sizeType?: string | string[] | undefined;
     /**
      * album 从相册选图，camera 使用相机，默认二者都有
      */
-    sourceType?: string | string [] | undefined;
+    sourceType?: string | string[] | undefined;
     /**
      * 成功则返回图片的本地文件路径列表 tempFilePaths
      */
@@ -1455,11 +1475,11 @@ interface ChooseImageSuccessCallbackResult {
     /**
      * 图片的本地文件路径列表
      */
-    tempFilePaths?: string | any [] | undefined;
+    tempFilePaths?: string | any[] | undefined;
     /**
      * 图片的本地文件列表，每一项是一个 File 对象
      */
-    tempFiles?: ChooseImageSuccessCallbackResultFile | ChooseImageSuccessCallbackResultFile [] | undefined;
+    tempFiles?: ChooseImageSuccessCallbackResultFile | ChooseImageSuccessCallbackResultFile[] | undefined;
 }
 
 interface ChooseImageSuccessCallbackResultFile {
@@ -1485,14 +1505,14 @@ interface PreviewImageOptions {
     /**
      * 需要预览的图片链接列表
      */
-    urls?: string | any [] | undefined;
+    urls?: string | any[] | undefined;
     /**
      * 图片指示器样式
      * - default: 底部圆点指示器
      * - number: 顶部数字指示器
      * - none: 不显示指示器
      */
-    indicator?: 'default' | 'number' | 'none' | undefined;
+    indicator?: "default" | "number" | "none" | undefined;
     /**
      * 是否可循环预览
      */
@@ -1519,7 +1539,7 @@ interface LongPressActionsOptions {
     /**
      * 按钮的文字数组
      */
-    itemList?: string [] | undefined;
+    itemList?: string[] | undefined;
     /**
      * 按钮的文字颜色，字符串格式，默认为"#000000"
      */
@@ -2101,7 +2121,7 @@ interface ChooseVideoOptions {
     /**
      * album 从相册选视频，camera 使用相机拍摄，默认为：['album', 'camera']
      */
-    sourceType?: string | any [] | undefined;
+    sourceType?: string | any[] | undefined;
     /**
      * 是否压缩所选的视频源文件，默认值为true，需要压缩
      */
@@ -2115,7 +2135,7 @@ interface ChooseVideoOptions {
      * - front: 前置摄像头
      * - back: 后置摄像头
      */
-    camera?: 'front' | 'back' | undefined;
+    camera?: "front" | "back" | undefined;
     /**
      * 接口调用成功，返回视频文件的临时文件路径，详见返回参数说明
      */
@@ -2229,7 +2249,7 @@ interface CameraContextTakePhotoOptions {
      * - high: 高质量
      * - low: 低质量
      */
-    quality?: 'normal' | 'high' | 'low' | undefined;
+    quality?: "normal" | "high" | "low" | undefined;
     /**
      * 接口调用成功的回调函数
      */
@@ -2538,7 +2558,7 @@ interface GetStorageInfoSuccess {
     /**
      * 当前storage中所有的 key
      */
-    keys?: string [] | undefined;
+    keys?: string[] | undefined;
     /**
      * 当前占用的空间大小, 单位 kb
      */
@@ -2795,11 +2815,11 @@ interface MapContextIncludePointsOptions {
     /**
      * 要显示在可视区域内的坐标点列表，[{latitude, longitude}]
      */
-    points?: LocationObject [] | undefined;
+    points?: LocationObject[] | undefined;
     /**
      * 坐标点形成的矩形边缘到地图边缘的距离，单位像素。格式为[上,右,下,左]，安卓上只能识别数组第一项，上下左右的padding一致。开发者工具暂不支持padding参数。
      */
-    padding?: number [] | undefined;
+    padding?: number[] | undefined;
 }
 
 interface MapContextGetRegionOptions {
@@ -3196,7 +3216,7 @@ interface ScanCodeOptions {
     /**
      * 扫码类型，参数类型是数组，二维码是'qrCode'，一维码是'barCode'，DataMatrix是‘datamatrix’，pdf417是‘pdf417’。
      */
-    scanType?: any [] | undefined;
+    scanType?: any[] | undefined;
     /**
      * 成功返回的回调函数
      */
@@ -3346,14 +3366,14 @@ interface OnBluetoothDeviceFoundResult {
     /**
      * 设备列表信息
      */
-    devices?: BluetoothDeviceInfo [] | undefined;
+    devices?: BluetoothDeviceInfo[] | undefined;
 }
 
 interface StartBluetoothDevicesDiscoveryOptions {
     /**
      * 蓝牙设备主 service 的 uuid 列表
      */
-    services?: any [] | undefined;
+    services?: any[] | undefined;
     /**
      * 是否允许重复上报同一设备， 如果允许重复上报，则onDeviceFound 方法会多次上报同一设备，但是 RSSI 值会有不同
      */
@@ -3417,7 +3437,7 @@ interface GetBluetoothDevicesSuccess {
     /**
      * uuid 对应的的已连接设备列表
      */
-    devices?: BluetoothDeviceInfo [] | undefined;
+    devices?: BluetoothDeviceInfo[] | undefined;
     /**
      * 成功：ok，错误：详细信息
      */
@@ -3440,11 +3460,11 @@ interface BluetoothDeviceInfo {
     /**
      * 当前蓝牙设备的广播数据段中的ManufacturerData数据段 （注意：vConsole 无法打印出 ArrayBuffer 类型数据）
      */
-    advertisData?: any [] | undefined;
+    advertisData?: any[] | undefined;
     /**
      * 当前蓝牙设备的广播数据段中的ServiceUUIDs数据段
      */
-    advertisServiceUUIDs?: any [] | undefined;
+    advertisServiceUUIDs?: any[] | undefined;
     /**
      * 当前蓝牙设备的广播数据段中的LocalName数据段
      */
@@ -3452,14 +3472,14 @@ interface BluetoothDeviceInfo {
     /**
      * 当前蓝牙设备的广播数据段中的ServiceData数据段
      */
-    serviceData?: any [] | undefined;
+    serviceData?: any[] | undefined;
 }
 
 interface GetConnectedBluetoothDevicesOptions {
     /**
      * 蓝牙设备主 service 的 uuid 列表
      */
-    services?: any [] | undefined;
+    services?: any[] | undefined;
     /**
      * 成功则返回本机蓝牙适配器状态
      */
@@ -3478,7 +3498,7 @@ interface GetConnectedBluetoothDevicesSuccess {
     /**
      * 搜索到的设备列表
      */
-    devices?: GetConnectedBluetoothDevicesSuccessData [] | undefined;
+    devices?: GetConnectedBluetoothDevicesSuccessData[] | undefined;
     /**
      * 成功：ok，错误：详细信息
      */
@@ -3572,7 +3592,7 @@ interface GetBLEDeviceServicesSuccess {
     /**
      * 设备服务列表
      */
-    services?: GetBLEDeviceServicesSuccessData [] | undefined;
+    services?: GetBLEDeviceServicesSuccessData[] | undefined;
     /**
      * 成功：ok，错误：详细信息
      */
@@ -3617,7 +3637,7 @@ interface GetBLEDeviceCharacteristicsSuccess {
     /**
      * 设备特征值列表
      */
-    characteristics?: GetBLEDeviceCharacteristicsSuccessData [] | undefined;
+    characteristics?: GetBLEDeviceCharacteristicsSuccessData[] | undefined;
     /**
      * 成功：ok，错误：详细信息
      */
@@ -3689,7 +3709,7 @@ interface WriteBLECharacteristicValueOptions {
     /**
      * 蓝牙设备特征值对应的二进制值
      */
-    value?: any [] | undefined;
+    value?: any[] | undefined;
     /**
      * 成功则返回本机蓝牙适配器状态
      */
@@ -3751,14 +3771,14 @@ interface OnBLECharacteristicValueChangeSuccess {
     /**
      * 特征值最新的值 （注意：vConsole 无法打印出 ArrayBuffer 类型数据）
      */
-    value?: any [] | undefined;
+    value?: any[] | undefined;
 }
 
 interface StartBeaconDiscoveryOptions {
     /**
      * iBeacon设备广播的 uuids
      */
-    uuids?: any [] | undefined;
+    uuids?: any[] | undefined;
     /**
      * 接口调用成功的回调函数
      */
@@ -3807,7 +3827,7 @@ interface GetBeaconsRes {
     /**
      * 接口调用成功的回调函数
      */
-    beacons?: Beacon [] | undefined;
+    beacons?: Beacon[] | undefined;
     /**
      * 调用结果
      */
@@ -3871,7 +3891,7 @@ interface StartHCEOptions {
     /**
      * 需要注册到系统的 AID 列表，每个 AID 为 String 类型
      */
-    aid_list?: any [] | undefined;
+    aid_list?: any[] | undefined;
     /**
      * 接口调用成功的回调函数
      */
@@ -3909,7 +3929,7 @@ interface HCEMessageRes {
     /**
      * 客户端接收到 NFC 设备的指令
      */
-    data?: any [] | undefined;
+    data?: any[] | undefined;
     /**
      * 此参数当且仅当 messageType=2 时有效
      */
@@ -3920,7 +3940,7 @@ interface SendHCEMessageOptions {
     /**
      * 二进制数据
      */
-    data?: any [] | undefined;
+    data?: any[] | undefined;
     /**
      * 接口调用成功的回调函数
      */
@@ -4030,7 +4050,7 @@ interface SetWifiListOptions {
     /**
      * Wi-Fi 的SSID
      */
-    wifiList?: WiFiItem [] | undefined;
+    wifiList?: WiFiItem[] | undefined;
     /**
      * 接口调用成功的回调函数
      */
@@ -4093,7 +4113,7 @@ interface ShowToastOptions {
      * - loading: 显示加载图标
      * - none: 不显示图标
      */
-    icon?: 'success' | 'loading' | 'none' | undefined;
+    icon?: "success" | "loading" | "none" | undefined;
     /**
      * 自定义图标的本地路径，image 的优先级高于 icon
      */
@@ -4201,7 +4221,7 @@ interface ShowActionSheetOptions {
     /**
      * 按钮的文字数组
      */
-    itemList?: any [] | undefined;
+    itemList?: any[] | undefined;
     /**
      * 按钮的文字颜色，默认为"#000000"
      */
@@ -4365,7 +4385,7 @@ interface NavigationBarAnimation {
      * - easeOut: 动画以低速结束
      * - easeInOut: 动画以低速开始和结束
      */
-    timingFunc?: 'linear' | 'easeIn' | 'easeOut' | 'easeInOut' | undefined;
+    timingFunc?: "linear" | "easeIn" | "easeOut" | "easeInOut" | undefined;
 }
 
 interface WindowResizeResult {
@@ -4596,7 +4616,18 @@ interface NavigateToOptions {
      * - zoom-fade-out: 从小到大逐渐放大并且从透明到不透明逐渐显示效果
      * - pop-in: 从右侧平移入栈动画效果
      */
-    animationType?: 'auto' | 'none' | 'slide-in-right' | 'slide-in-left' | 'slide-in-top' | 'slide-in-bottom' | 'fade-in' | 'zoom-out' | 'zoom-fade-out' | 'pop-in' | undefined;
+    animationType?:
+        | "auto"
+        | "none"
+        | "slide-in-right"
+        | "slide-in-left"
+        | "slide-in-top"
+        | "slide-in-bottom"
+        | "fade-in"
+        | "zoom-out"
+        | "zoom-fade-out"
+        | "pop-in"
+        | undefined;
     /**
      * 窗口显示动画的持续时间，单位为 ms
      */
@@ -4676,7 +4707,7 @@ interface CreateIntersectionObserverOptions {
     /**
      * 所有阈值
      */
-    thresholds?: any [] | undefined;
+    thresholds?: any[] | undefined;
     /**
      * 初始的相交比例
      */
@@ -4705,7 +4736,18 @@ interface NavigateBackOptions {
      * - zoom-fade-in: 从大逐渐缩小并且从不透明到透明逐渐隐藏关闭动画
      * - pop-out: 从右侧平移出栈动画效果
      */
-    animationType?: 'auto' | 'none' | 'slide-out-right' | 'slide-out-left' | 'slide-out-top' | 'slide-out-bottom' | 'fade-out' | 'zoom-in' | 'zoom-fade-in' | 'pop-out' | undefined;
+    animationType?:
+        | "auto"
+        | "none"
+        | "slide-out-right"
+        | "slide-out-left"
+        | "slide-out-top"
+        | "slide-out-bottom"
+        | "fade-out"
+        | "zoom-in"
+        | "zoom-fade-in"
+        | "pop-out"
+        | undefined;
     /**
      * 窗口关闭动画的持续时间，单位为 ms
      */
@@ -4727,7 +4769,7 @@ interface CreateAnimationOptions {
      * - step-start: 动画第一帧就跳至结束状态直到结束
      * - step-end: 动画一直保持开始状态，最后一帧跳到结束状态
      */
-    timingFunction?: 'linear' | 'ease' | 'ease-in' | 'ease-in-out' | 'ease-out' | 'step-start' | 'step-end' | undefined;
+    timingFunction?: "linear" | "ease" | "ease-in" | "ease-in-out" | "ease-out" | "step-start" | "step-end" | undefined;
     /**
      * 动画延迟时间，单位 ms
      */
@@ -5064,11 +5106,11 @@ interface NodeField {
     /**
      * 指定属性名列表，返回节点对应属性名的当前属性值（只能获得组件文档中标注的常规属性值，id class style 和事件绑定的属性值不可获取）
      */
-    properties?: string [] | undefined;
+    properties?: string[] | undefined;
     /**
      * 指定样式名列表，返回节点对应样式名的当前值
      */
-    computedStyle?: string [] | undefined;
+    computedStyle?: string[] | undefined;
     /**
      * 是否返回节点对应的 Context 对象
      */
@@ -5079,11 +5121,11 @@ interface IntersectionObserver {
     /**
      * 使用选择器指定一个节点，作为参照区域之一
      */
-    relativeTo(selector?: string, margins?: any []): void;
+    relativeTo(selector?: string, margins?: any[]): void;
     /**
      * 指定页面显示区域作为参照区域之一
      */
-    relativeToViewport(margins?: any []): void;
+    relativeToViewport(margins?: any[]): void;
     /**
      * 指定目标节点并开始监听相交状态变化情况
      */
@@ -5286,14 +5328,14 @@ interface CanvasContext {
      * - round:
      * - square:
      */
-    lineCap?: 'butt' | 'round' | 'square' | undefined;
+    lineCap?: "butt" | "round" | "square" | undefined;
     /**
      * 线条的结束交点样式
      * - bevel:
      * - round:
      * - miter:
      */
-    lineJoin?: 'bevel' | 'round' | 'miter' | undefined;
+    lineJoin?: "bevel" | "round" | "miter" | undefined;
     /**
      * 最大斜接长度
      */
@@ -5341,15 +5383,15 @@ interface CanvasContext {
     /**
      * 设置线条的端点样式
      */
-    setLineCap(lineCap?: 'butt' | 'round' | 'square'): void;
+    setLineCap(lineCap?: "butt" | "round" | "square"): void;
     /**
      * 设置线条的交点样式
      */
-    setLineJoin(lineJoin?: 'bevel' | 'round' | 'miter'): void;
+    setLineJoin(lineJoin?: "bevel" | "round" | "miter"): void;
     /**
      * 设置线条的宽度
      */
-    setLineDash(pattern?: any [], offset?: number): void;
+    setLineDash(pattern?: any[], offset?: number): void;
     /**
      * 设置最大斜接长度
      */
@@ -5433,17 +5475,27 @@ interface CanvasContext {
     /**
      * 设置文字的对齐
      */
-    setTextAlign(align?: 'left' | 'center' | 'right'): void;
+    setTextAlign(align?: "left" | "center" | "right"): void;
     /**
      * 设置文字的水平对齐
      */
-    setTextBaseline(textBaseline?: 'top' | 'bottom' | 'middle' | 'normal'): void;
+    setTextBaseline(textBaseline?: "top" | "bottom" | "middle" | "normal"): void;
     /**
      * 绘制图像到画布
      */
     drawImage(imageResource: string, dx: number, dy: number): void;
     drawImage(imageResource: string, dx: number, dy: number, dWidth: number, dHeigt: number): void;
-    drawImage(imageResource: string, sx: number, sy: number, sWidth: number, sHeigt: number, dx: number, dy: number, dWidth: number, dHeight: number): void;
+    drawImage(
+        imageResource: string,
+        sx: number,
+        sy: number,
+        sWidth: number,
+        sHeigt: number,
+        dx: number,
+        dy: number,
+        dWidth: number,
+        dHeight: number,
+    ): void;
     /**
      * 设置全局画笔透明度
      */
@@ -5475,11 +5527,18 @@ interface CanvasContext {
     /**
      * 对指定的图像创建模式的方法，可在指定的方向上重复元图像
      */
-    createPattern(image?: string, repetition?: 'repeat' | 'repeat-x' | 'repeat-y' | 'no-repeat'): CanvasPattern | null;
+    createPattern(image?: string, repetition?: "repeat" | "repeat-x" | "repeat-y" | "no-repeat"): CanvasPattern | null;
     /**
      * 使用矩阵重新设置（覆盖）当前变换的方法
      */
-    setTransform(scaleX?: number, skewX?: number, skewY?: number, scaleY?: number, translateX?: number, translateY?: number): void;
+    setTransform(
+        scaleX?: number,
+        skewX?: number,
+        skewY?: number,
+        scaleY?: number,
+        translateX?: number,
+        translateY?: number,
+    ): void;
 }
 
 interface CanvasGradient {
@@ -5489,7 +5548,7 @@ interface CanvasGradient {
     addColorStop(stop?: number, color?: string): void;
 }
 
-// tslint:disable-next-line no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface CanvasPattern {
 }
 
@@ -5609,7 +5668,7 @@ interface CanvasGetImageDataRes {
     /**
      * 图像像素点数据，一维数组，每四项表示一个像素点的rgba
      */
-    data?: any [] | undefined;
+    data?: any[] | undefined;
 }
 
 interface CanvasPutImageDataOptions {
@@ -5620,7 +5679,7 @@ interface CanvasPutImageDataOptions {
     /**
      * 图像像素点数据，一维数组，每四项表示一个像素点的rgba
      */
-    data?: any [] | undefined;
+    data?: any[] | undefined;
     /**
      * 源图像数据在目标画布中的位置偏移量（x 轴方向的偏移量）
      */
@@ -5952,7 +6011,7 @@ interface GetProviderOptions {
      * - payment: 支付
      * - push: 推送
      */
-    service?: 'oauth' | 'share' | 'payment' | 'push' | undefined;
+    service?: "oauth" | "share" | "payment" | "push" | undefined;
     /**
      * 接口调用成功的回调
      */
@@ -5975,11 +6034,11 @@ interface GetProviderRes {
      * - payment: 支付
      * - push: 推送
      */
-    service?: 'oauth' | 'share' | 'payment' | 'push' | undefined;
+    service?: "oauth" | "share" | "payment" | "push" | undefined;
     /**
      * 得到的服务供应商
      */
-    provider?: any [] | undefined;
+    provider?: any[] | undefined;
 }
 
 interface LoginOptions {
@@ -5990,7 +6049,7 @@ interface LoginOptions {
      * - sinaweibo: 新浪微博登录
      * - xiaomi: 小米登录
      */
-    provider?: 'weixin' | 'qq' | 'sinaweibo' | 'xiaomi' | undefined;
+    provider?: "weixin" | "qq" | "sinaweibo" | "xiaomi" | undefined;
     /**
      * 超时时间，单位 ms
      */
@@ -6037,7 +6096,7 @@ interface LoginRes {
     /**
      * 支付宝小程序登录成功的授权 scope
      */
-    authSucessScope?: string [] | undefined;
+    authSucessScope?: string[] | undefined;
 }
 
 interface CheckSessionOptions {
@@ -6082,7 +6141,7 @@ interface GetUserInfoOptions {
      * - sinaweibo: 新浪微博登录
      * - xiaomi: 小米登录
      */
-    provider?: 'weixin' | 'qq' | 'sinaweibo' | 'xiaomi' | undefined;
+    provider?: "weixin" | "qq" | "sinaweibo" | "xiaomi" | undefined;
     /**
      * 是否带上登录态信息，仅微信小程序生效。
      */
@@ -6158,7 +6217,7 @@ interface ShareOptions {
      * - qq: 分享到QQ好友
      * - weixin: 分享微信消息、朋友圈及微信小程序
      */
-    provider?: 'sinaweibo' | 'qq' | 'weixin' | undefined;
+    provider?: "sinaweibo" | "qq" | "weixin" | undefined;
     /**
      * 分享类型。默认图文0，纯文字1，纯图片2，音乐3，视频4，小程序5。
      * - 0: 图文
@@ -6168,7 +6227,7 @@ interface ShareOptions {
      * - 4: 视频
      * - 5: 小程序
      */
-    type?: '0' | '1' | '2' | '3' | '4' | '5' | undefined;
+    type?: "0" | "1" | "2" | "3" | "4" | "5" | undefined;
     /**
      * 标题
      */
@@ -6226,7 +6285,7 @@ interface MiniProgramShareOptions {
      * - 1: 测试版
      * - 2: 体验版
      */
-    type?: '0' | '1' | '2' | undefined;
+    type?: "0" | "1" | "2" | undefined;
     /**
      * 兼容低版本的网页链接
      */
@@ -6240,7 +6299,7 @@ interface SubscribePushOptions {
      * - igexin: 个推
      * - mipush: 小米推送
      */
-    provider?: 'unipush' | 'igexin' | 'mipush' | undefined;
+    provider?: "unipush" | "igexin" | "mipush" | undefined;
     /**
      * 接口调用成功的回调函数
      */
@@ -6262,7 +6321,7 @@ interface UnscribePushOptions {
      * - igexin: 个推
      * - mipush: 小米推送
      */
-    provider?: 'unipush' | 'igexin' | 'mipush' | undefined;
+    provider?: "unipush" | "igexin" | "mipush" | undefined;
     /**
      * 接口调用成功的回调函数
      */
@@ -6284,7 +6343,7 @@ interface OnPushOptions {
      * - igexin: 个推
      * - mipush: 小米推送
      */
-    provider?: 'unipush' | 'igexin' | 'mipush' | undefined;
+    provider?: "unipush" | "igexin" | "mipush" | undefined;
     /**
      * 接收到透传数据回调，回调参数（Object）：messageId（消息id）、data（消息内容）
      */
@@ -6310,7 +6369,7 @@ interface OffPushOptions {
      * - igexin: 个推
      * - mipush: 小米推送
      */
-    provider?: 'unipush' | 'igexin' | 'mipush' | undefined;
+    provider?: "unipush" | "igexin" | "mipush" | undefined;
     /**
      * 接口调用成功的回调函数
      */
@@ -6474,7 +6533,7 @@ interface AddCardOptions {
     /**
      * 需要添加的卡券列表
      */
-    cardList?: AddCardData [] | undefined;
+    cardList?: AddCardData[] | undefined;
     /**
      * 接口调用成功的回调函数
      */
@@ -6504,7 +6563,7 @@ interface AddCardRes {
     /**
      * 卡券 id
      */
-    cardList?: CardData [] | undefined;
+    cardList?: CardData[] | undefined;
 }
 
 interface CardData {
@@ -6530,7 +6589,7 @@ interface OpenCardOptions {
     /**
      * 需要打开的卡券列表
      */
-    cardList?: OpenCardData [] | undefined;
+    cardList?: OpenCardData[] | undefined;
     /**
      * 接口调用成功的回调函数
      */
@@ -6590,39 +6649,39 @@ interface AuthSetting {
     /**
      * 是否授权用户信息
      */
-    'scope.userInfo'?: boolean | undefined;
+    "scope.userInfo"?: boolean | undefined;
     /**
      * 是否授权地理位置
      */
-    'scope.userLocation'?: boolean | undefined;
+    "scope.userLocation"?: boolean | undefined;
     /**
      * 是否授权通讯地址
      */
-    'scope.address'?: boolean | undefined;
+    "scope.address"?: boolean | undefined;
     /**
      * 是否授权发票抬头
      */
-    'scope.invoiceTitle'?: boolean | undefined;
+    "scope.invoiceTitle"?: boolean | undefined;
     /**
      * 是否授权获取发票
      */
-    'scope.invoice'?: boolean | undefined;
+    "scope.invoice"?: boolean | undefined;
     /**
      * 是否授权微信运动步数
      */
-    'scope.werun'?: boolean | undefined;
+    "scope.werun"?: boolean | undefined;
     /**
      * 是否授权录音功能
      */
-    'scope.record'?: boolean | undefined;
+    "scope.record"?: boolean | undefined;
     /**
      * 是否授权保存到相册
      */
-    'scope.writePhotosAlbum'?: boolean | undefined;
+    "scope.writePhotosAlbum"?: boolean | undefined;
     /**
      * 是否授权摄像头
      */
-    'scope.camera'?: boolean | undefined;
+    "scope.camera"?: boolean | undefined;
 }
 
 interface GetWeRunDataOptions {
@@ -6778,7 +6837,7 @@ interface CheckIsSupportSoterAuthenticationRes {
     /**
      * 接口调用成功的回调函数
      */
-    supportMode?: any [] | undefined;
+    supportMode?: any[] | undefined;
     /**
      * 接口调用结果
      */
@@ -6789,7 +6848,7 @@ interface StartSoterAuthenticationOptions {
     /**
      * 请求使用的可接受的生物认证方式
      */
-    requestAuthModes?: any [] | undefined;
+    requestAuthModes?: any[] | undefined;
     /**
      * 挑战因子
      */
@@ -6838,7 +6897,7 @@ interface CheckIsSoterEnrolledInDeviceOptions {
      * - facial: 人脸识别（暂未支持）
      * - speech: 声纹识别（暂未支持）
      */
-    checkAuthMode?: 'fingerPrint' | 'facial' | 'speech' | undefined;
+    checkAuthMode?: "fingerPrint" | "facial" | "speech" | undefined;
     /**
      * 接口调用成功的回调函数
      */

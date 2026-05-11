@@ -1,3 +1,3 @@
-import clone from '../src/clone';
+import clone from "../src/clone";
 
 export = clone;

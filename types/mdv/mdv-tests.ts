@@ -1,14 +1,14 @@
-import { Options, Warnings } from 'mdv';
-import mdv = require('mdv');
+import { Options, Warnings } from "mdv";
+import mdv = require("mdv");
 
 const options: Options = {
-    source: './some.md',
+    source: "./some.md",
     save: true,
     warnings: false,
 };
 const result = mdv.validate(`# Markdown Validator`, options); // $ExpectType ValidateResults
 // $ExpectType ValidateResults & Warnings
-const warnings: Warnings = mdv.validate('# Markdown Validator', {
+const warnings: Warnings = mdv.validate("# Markdown Validator", {
     warnings: true,
 });
 

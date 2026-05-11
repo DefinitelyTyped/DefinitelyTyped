@@ -1,9 +1,3 @@
-// Type definitions for DevExpress ASP.NET v172.6
-// Project: http://devexpress.com/
-// Definitions by: DevExpress Inc. <http://devexpress.com/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="knockout"/>
 /// <reference types="jquery"/>
 
@@ -121,7 +115,10 @@ interface ASPxClientDashboardItemClickEventArgs extends ASPxClientEventArgs {
      * @param onCompleted A ASPxClientDashboardItemRequestUnderlyingDataCompleted object that references a method executed after the request is completed.
      * @param dataMembers (Optional) An array of string values that specify data members used to obtain underlying data. If this parameter is not specified, underlying data for all available data members will be requested.
      */
-    RequestUnderlyingData(onCompleted: ASPxClientDashboardItemRequestUnderlyingDataCompleted, dataMembers: string[]): void;
+    RequestUnderlyingData(
+        onCompleted: ASPxClientDashboardItemRequestUnderlyingDataCompleted,
+        dataMembers: string[],
+    ): void;
 }
 /**
  * References a method that will handle the ItemVisualInteractivity events.
@@ -1236,7 +1233,9 @@ interface ASPxClientDashboard extends ASPxClientControl {
     /**
      * Allows you to provide custom visual interactivity for data-bound dashboard items that support element selection and highlighting.
      */
-    ItemVisualInteractivity: ASPxClientEvent<ASPxClientDashboardItemVisualInteractivityEventHandler<ASPxClientDashboard>>;
+    ItemVisualInteractivity: ASPxClientEvent<
+        ASPxClientDashboardItemVisualInteractivityEventHandler<ASPxClientDashboard>
+    >;
     /**
      * Allows you to access underlying UI/Data Visualization widgets.
      */
@@ -1252,7 +1251,9 @@ interface ASPxClientDashboard extends ASPxClientControl {
     /**
      * Allows you to access underlying UI/Data Visualization widgets.
      */
-    ItemBeforeWidgetDisposed: ASPxClientEvent<ASPxClientDashboardItemBeforeWidgetDisposedEventHandler<ASPxClientDashboard>>;
+    ItemBeforeWidgetDisposed: ASPxClientEvent<
+        ASPxClientDashboardItemBeforeWidgetDisposedEventHandler<ASPxClientDashboard>
+    >;
     /**
      * Occurs after the selection within the dashboard item is changed.
      */
@@ -1264,11 +1265,15 @@ interface ASPxClientDashboard extends ASPxClientControl {
     /**
      * Occurs when a master filter state is changed.
      */
-    ItemMasterFilterStateChanged: ASPxClientEvent<ASPxClientDashboardItemMasterFilterStateChangedEventHandler<ASPxClientDashboard>>;
+    ItemMasterFilterStateChanged: ASPxClientEvent<
+        ASPxClientDashboardItemMasterFilterStateChangedEventHandler<ASPxClientDashboard>
+    >;
     /**
      * Occurs when a drill-down/drill-up is performed.
      */
-    ItemDrillDownStateChanged: ASPxClientEvent<ASPxClientDashboardItemDrillDownStateChangedEventHandler<ASPxClientDashboard>>;
+    ItemDrillDownStateChanged: ASPxClientEvent<
+        ASPxClientDashboardItemDrillDownStateChangedEventHandler<ASPxClientDashboard>
+    >;
     /**
      * Occurs after the available interactivity actions have changed for the specific dashboard item.
      */
@@ -1296,11 +1301,15 @@ interface ASPxClientDashboard extends ASPxClientControl {
     /**
      * Allows you to customize a dashboard item's caption (for instance, add custom buttons, menus, etc.).
      */
-    ItemCaptionToolbarUpdated: ASPxClientEvent<ASPxClientDashboardItemCaptionToolbarUpdatedEventHandler<ASPxClientDashboard>>;
+    ItemCaptionToolbarUpdated: ASPxClientEvent<
+        ASPxClientDashboardItemCaptionToolbarUpdatedEventHandler<ASPxClientDashboard>
+    >;
     /**
      * Allows you to customize a dashboard title (for instance, add custom buttons, menus, etc.).
      */
-    DashboardTitleToolbarUpdated: ASPxClientEvent<ASPxClientDashboardTitleToolbarUpdatedEventHandler<ASPxClientDashboard>>;
+    DashboardTitleToolbarUpdated: ASPxClientEvent<
+        ASPxClientDashboardTitleToolbarUpdatedEventHandler<ASPxClientDashboard>
+    >;
     /**
      * Returns names of the predefined ranges available for the specified Range Filter.
      * @param itemName A string value that specifies the component name of the Range Filter dashboard item.
@@ -1312,8 +1321,7 @@ interface ASPxClientDashboard extends ASPxClientControl {
      */
     GetCurrentPredefinedRange(itemName: string): string;
     /**
-     * 
-     * @param itemName 
+     * @param itemName
      */
     UpdateItemCaptionToolbar(itemName: string): void;
     UpdateDashboardTitleToolbar(): void;
@@ -1697,7 +1705,11 @@ interface ASPxClientDashboard extends ASPxClientControl {
      * @param args A ASPxClientDashboardItemRequestUnderlyingDataParameters object containing parameters used to obtain the underlying data.
      * @param onCompleted A ASPxClientDashboardItemRequestUnderlyingDataCompleted object that references a method executed after the request is completed.
      */
-    RequestUnderlyingData(itemName: string, args: ASPxClientDashboardItemRequestUnderlyingDataParameters, onCompleted: ASPxClientDashboardItemRequestUnderlyingDataCompleted): void;
+    RequestUnderlyingData(
+        itemName: string,
+        args: ASPxClientDashboardItemRequestUnderlyingDataParameters,
+        onCompleted: ASPxClientDashboardItemRequestUnderlyingDataCompleted,
+    ): void;
     /**
      * Returns the currently selected range in the specified Range Filter dashboard item.
      * @param itemName A String value that specifies the component name of the Range Filter dashboard item.
@@ -2004,7 +2016,9 @@ interface ASPxClientDashboardViewer extends ASPxClientControl {
     /**
      * Occurs after the available interactivity actions have changed.
      */
-    ActionAvailabilityChanged: ASPxClientEvent<ASPxClientDashboardActionAvailabilityChangedEventHandler<ASPxClientDashboardViewer>>;
+    ActionAvailabilityChanged: ASPxClientEvent<
+        ASPxClientDashboardActionAvailabilityChangedEventHandler<ASPxClientDashboardViewer>
+    >;
     /**
      * Occurs when an end-user changes the state of the master filter.
      */
@@ -2036,7 +2050,9 @@ interface ASPxClientDashboardViewer extends ASPxClientControl {
     /**
      * Allows you to provide custom visual interactivity for data-bound dashboard items that support element selection and highlighting.
      */
-    ItemVisualInteractivity: ASPxClientEvent<ASPxClientDashboardItemVisualInteractivityEventHandler<ASPxClientDashboardViewer>>;
+    ItemVisualInteractivity: ASPxClientEvent<
+        ASPxClientDashboardItemVisualInteractivityEventHandler<ASPxClientDashboardViewer>
+    >;
     /**
      * Allows you to access underlying UI/Data Visualization widgets.
      */
@@ -2052,19 +2068,27 @@ interface ASPxClientDashboardViewer extends ASPxClientControl {
     /**
      * Allows you to access underlying UI/Data Visualization widgets.
      */
-    ItemBeforeWidgetDisposed: ASPxClientEvent<ASPxClientDashboardItemBeforeWidgetDisposedEventHandler<ASPxClientDashboardViewer>>;
+    ItemBeforeWidgetDisposed: ASPxClientEvent<
+        ASPxClientDashboardItemBeforeWidgetDisposedEventHandler<ASPxClientDashboardViewer>
+    >;
     /**
      * Occurs after the selection within the dashboard item is changed.
      */
-    ItemSelectionChanged: ASPxClientEvent<ASPxClientDashboardItemSelectionChangedEventHandler<ASPxClientDashboardViewer>>;
+    ItemSelectionChanged: ASPxClientEvent<
+        ASPxClientDashboardItemSelectionChangedEventHandler<ASPxClientDashboardViewer>
+    >;
     /**
      * Allows you to color the required dashboard item elements using the specified colors.
      */
-    ItemElementCustomColor: ASPxClientEvent<ASPxClientDashboardItemElementCustomColorEventHandler<ASPxClientDashboardViewer>>;
+    ItemElementCustomColor: ASPxClientEvent<
+        ASPxClientDashboardItemElementCustomColorEventHandler<ASPxClientDashboardViewer>
+    >;
     /**
      * Allows you to customize a dashboard item's caption (for instance, add custom buttons, menus, etc.).
      */
-    ItemCaptionToolbarUpdated: ASPxClientEvent<ASPxClientDashboardItemCaptionToolbarUpdatedEventHandler<ASPxClientDashboardViewer>>;
+    ItemCaptionToolbarUpdated: ASPxClientEvent<
+        ASPxClientDashboardItemCaptionToolbarUpdatedEventHandler<ASPxClientDashboardViewer>
+    >;
     /**
      * Allows you to customize a dashboard title (for instance, add custom buttons, menus, etc.).
      */
@@ -2148,8 +2172,7 @@ interface ASPxClientDashboardViewer extends ASPxClientControl {
      */
     GetCurrentSelection(itemName: string): ASPxClientDashboardItemDataAxisPointTuple[];
     /**
-     * 
-     * @param itemName 
+     * @param itemName
      */
     UpdateItemCaptionToolbar(itemName: string): void;
     UpdateDashboardTitleToolbar(): void;
@@ -2159,7 +2182,11 @@ interface ASPxClientDashboardViewer extends ASPxClientControl {
      * @param args A ASPxClientDashboardItemRequestUnderlyingDataParameters object containing parameters used to obtain the underlying data.
      * @param onCompleted A ASPxClientDashboardItemRequestUnderlyingDataCompleted object that references a method executed after the request is completed.
      */
-    RequestUnderlyingData(itemName: string, args: ASPxClientDashboardItemRequestUnderlyingDataParameters, onCompleted: ASPxClientDashboardItemRequestUnderlyingDataCompleted): void;
+    RequestUnderlyingData(
+        itemName: string,
+        args: ASPxClientDashboardItemRequestUnderlyingDataParameters,
+        onCompleted: ASPxClientDashboardItemRequestUnderlyingDataCompleted,
+    ): void;
     /**
      * Invokes the Dashboard Parameters dialog.
      */
@@ -2539,10 +2566,10 @@ interface ASPxClientDashboardItemAction {
     Actions: any[];
 }
 declare enum ASPxClientDashboardAction {
-    SetMasterFilter=0,
-    ClearMasterFilter=1,
-    DrillDown=2,
-    DrillUp=3
+    SetMasterFilter = 0,
+    ClearMasterFilter = 1,
+    DrillDown = 2,
+    DrillUp = 3,
 }
 /**
  * References a method that will handle the MasterFilterSet event.
@@ -3277,7 +3304,7 @@ interface ASPxClientBinaryImage extends ASPxClientEdit {
     GetValue(): Object;
     /**
      * For internal use only.
-     * @param value 
+     * @param value
      */
     SetValue(value: Object): void;
     /**
@@ -5098,7 +5125,9 @@ interface ASPxClientValidationSummary extends ASPxClientControl {
     /**
      * Occurs on the client side when the validation summary's visibility is changed.
      */
-    VisibilityChanged: ASPxClientEvent<ASPxClientValidationSummaryVisibilityChangedEventHandler<ASPxClientValidationSummary>>;
+    VisibilityChanged: ASPxClientEvent<
+        ASPxClientValidationSummaryVisibilityChangedEventHandler<ASPxClientValidationSummary>
+    >;
 }
 /**
  * A method that will handle the VisibilityChanged event.
@@ -5300,7 +5329,9 @@ interface ASPxClientCardView extends ASPxClientGridBase {
     /**
      * Enables you to provide navigation for editors contained in a templated cell in Batch Edit mode.
      */
-    BatchEditTemplateCellFocused: ASPxClientEvent<ASPxClientCardViewBatchEditTemplateCellFocusedEventHandler<ASPxClientCardView>>;
+    BatchEditTemplateCellFocused: ASPxClientEvent<
+        ASPxClientCardViewBatchEditTemplateCellFocusedEventHandler<ASPxClientCardView>
+    >;
     /**
      * Enables you to specify whether card data is valid and provide an error text.
      */
@@ -5312,7 +5343,9 @@ interface ASPxClientCardView extends ASPxClientGridBase {
     /**
      * Occurs on the client side before data changes are canceled in batch edit mode.
      */
-    BatchEditChangesCanceling: ASPxClientEvent<ASPxClientCardViewBatchEditChangesCancelingEventHandler<ASPxClientCardView>>;
+    BatchEditChangesCanceling: ASPxClientEvent<
+        ASPxClientCardViewBatchEditChangesCancelingEventHandler<ASPxClientCardView>
+    >;
     /**
      * Occurs on the client side before a card is inserted in batch edit mode.
      */
@@ -5516,7 +5549,7 @@ interface ASPxClientCardView extends ASPxClientGridBase {
      * @param column An ASPxClientCardViewColumn object that represents the data column.
      * @param sortOrder A string value that specifies the column's sort order ('ASC', 'DSC' or 'NONE').
      * @param reset true to clear any previous sorting; otherwise, false.
-     * @param sortIndex 
+     * @param sortIndex
      */
     SortBy(column: ASPxClientCardViewColumn, sortOrder: string, reset: boolean, sortIndex: number): void;
     /**
@@ -6429,7 +6462,13 @@ interface ASPxClientCardViewBatchEditApi {
      * @param displayText A string value that specifies the cell display text.
      * @param cancelCellHighlighting true to cancel highlighting of the modified cell, false to highlight the modified cell.
      */
-    SetCellValue(visibleIndex: number, columnFieldNameOrId: string, value: Object, displayText: string, cancelCellHighlighting?: boolean): void;
+    SetCellValue(
+        visibleIndex: number,
+        columnFieldNameOrId: string,
+        value: Object,
+        displayText: string,
+        cancelCellHighlighting?: boolean,
+    ): void;
     /**
      * Gets the value of the specified cell.
      * @param visibleIndex A zero-based integer value that specifies the visible index of a card containing the processed cell.
@@ -6610,7 +6649,9 @@ interface ASPxClientGridView extends ASPxClientGridBase {
     /**
      * Enables you to provide navigation for editors contained in a templated cell in Batch Edit mode.
      */
-    BatchEditTemplateCellFocused: ASPxClientEvent<ASPxClientGridViewBatchEditTemplateCellFocusedEventHandler<ASPxClientGridView>>;
+    BatchEditTemplateCellFocused: ASPxClientEvent<
+        ASPxClientGridViewBatchEditTemplateCellFocusedEventHandler<ASPxClientGridView>
+    >;
     /**
      * Occurs on the client side before data changes are saved in batch edit mode.
      */
@@ -6618,7 +6659,9 @@ interface ASPxClientGridView extends ASPxClientGridBase {
     /**
      * Occurs on the client side before data changes are canceled in batch edit mode.
      */
-    BatchEditChangesCanceling: ASPxClientEvent<ASPxClientGridViewBatchEditChangesCancelingEventHandler<ASPxClientGridView>>;
+    BatchEditChangesCanceling: ASPxClientEvent<
+        ASPxClientGridViewBatchEditChangesCancelingEventHandler<ASPxClientGridView>
+    >;
     /**
      * Occurs on the client side before a data row is inserted in batch edit mode.
      */
@@ -7236,7 +7279,12 @@ interface ASPxClientGridView extends ASPxClientGridBase {
      * @param moveBefore true to move the column before the target column; otherwise, false.
      * @param moveToGroup true to group the grid's data by the column; otherwise, false.
      */
-    MoveColumn(column: ASPxClientGridViewColumn, moveToColumnVisibleIndex: number, moveBefore: boolean, moveToGroup: boolean): void;
+    MoveColumn(
+        column: ASPxClientGridViewColumn,
+        moveToColumnVisibleIndex: number,
+        moveBefore: boolean,
+        moveToGroup: boolean,
+    ): void;
     /**
      * Moves the specified column to the specified visual position within the grid and optionally groups the grid's data by this column.
      * @param columnIndex An integer value that specifies the absolute index of the column to move.
@@ -7252,7 +7300,12 @@ interface ASPxClientGridView extends ASPxClientGridBase {
      * @param moveBefore true to move the column before the target column; otherwise, false.
      * @param moveToGroup true to group the grid's data by the column; otherwise, false.
      */
-    MoveColumn(columnFieldNameOrId: string, moveToColumnVisibleIndex: number, moveBefore: boolean, moveToGroup: boolean): void;
+    MoveColumn(
+        columnFieldNameOrId: string,
+        moveToColumnVisibleIndex: number,
+        moveBefore: boolean,
+        moveToGroup: boolean,
+    ): void;
     /**
      * Moves the specified column to the specified visual position within the grid and optionally groups or ungroups the grid's data by this column.
      * @param column An ASPxClientGridViewColumn object that represents the column to move.
@@ -7261,7 +7314,13 @@ interface ASPxClientGridView extends ASPxClientGridBase {
      * @param moveToGroup true to group the grid's data by the column; otherwise, false.
      * @param moveFromGroup true to ungroup the grid's data by the column; otherwise, false.
      */
-    MoveColumn(column: ASPxClientGridViewColumn, moveToColumnVisibleIndex: number, moveBefore: boolean, moveToGroup: boolean, moveFromGroup: boolean): void;
+    MoveColumn(
+        column: ASPxClientGridViewColumn,
+        moveToColumnVisibleIndex: number,
+        moveBefore: boolean,
+        moveToGroup: boolean,
+        moveFromGroup: boolean,
+    ): void;
     /**
      * Moves the specified column to the specified visual position within the grid and optionally groups or ungroups the grid's data by this column.
      * @param columnIndex An integer value that specifies the absolute index of the column to move.
@@ -7270,7 +7329,13 @@ interface ASPxClientGridView extends ASPxClientGridBase {
      * @param moveToGroup true to group the grid's data by the column; otherwise, false.
      * @param moveFromGroup true to ungroup the grid's data by the column; otherwise, false.
      */
-    MoveColumn(columnIndex: number, moveToColumnVisibleIndex: number, moveBefore: boolean, moveToGroup: boolean, moveFromGroup: boolean): void;
+    MoveColumn(
+        columnIndex: number,
+        moveToColumnVisibleIndex: number,
+        moveBefore: boolean,
+        moveToGroup: boolean,
+        moveFromGroup: boolean,
+    ): void;
     /**
      * Moves the specified column to the specified visual position within the grid and optionally groups or ungroups the grid's data by this column.
      * @param columnFieldNameOrId A string value that identifies the column to be moved by the name of the data source field to which the column is bound or by the column's name.
@@ -7279,21 +7344,35 @@ interface ASPxClientGridView extends ASPxClientGridBase {
      * @param moveToGroup true to group the grid's data by the column; otherwise, false.
      * @param moveFromGroup true to ungroup the grid's data by the column; otherwise, false.
      */
-    MoveColumn(columnFieldNameOrId: string, moveToColumnVisibleIndex: number, moveBefore: boolean, moveToGroup: boolean, moveFromGroup: boolean): void;
+    MoveColumn(
+        columnFieldNameOrId: string,
+        moveToColumnVisibleIndex: number,
+        moveBefore: boolean,
+        moveToGroup: boolean,
+        moveFromGroup: boolean,
+    ): void;
     /**
      * Moves the specified column to the specified visual position within the grid.
      * @param columnIndex An integer value that specifies the absolute index of the column to move.
      * @param moveToColumnVisibleIndex An integer value that specifies the column's position among the visible columns within the grid.
      * @param targetPosition An ASPxClientGridColumnMovingTargetPosition enumeration value specifying the position relative to the target column in which to place the moved column.
      */
-    MoveColumn(columnIndex: number, moveToColumnVisibleIndex: number, targetPosition: ASPxClientGridColumnMovingTargetPosition): void;
+    MoveColumn(
+        columnIndex: number,
+        moveToColumnVisibleIndex: number,
+        targetPosition: ASPxClientGridColumnMovingTargetPosition,
+    ): void;
     /**
      * Moves the specified column to the specified visual position within the grid.
      * @param columnFieldNameOrId A String value that identifies the column to be moved by the name of the data source field to which the column is bound or by the column's name.
      * @param moveToColumnVisibleIndex An integer value that specifies the column's position among the visible columns within the grid.
      * @param targetPosition An ASPxClientGridColumnMovingTargetPosition enumeration value specifying the position relative to the target column in which to place the moved column.
      */
-    MoveColumn(columnFieldNameOrId: string, moveToColumnVisibleIndex: number, targetPosition: ASPxClientGridColumnMovingTargetPosition): void;
+    MoveColumn(
+        columnFieldNameOrId: string,
+        moveToColumnVisibleIndex: number,
+        targetPosition: ASPxClientGridColumnMovingTargetPosition,
+    ): void;
     /**
      * Moves the specified column to the specified visual position within the grid and optionally groups or ungroups the grid's data by this column.
      * @param columnIndex An integer value that specifies the absolute index of the column to move.
@@ -7302,7 +7381,13 @@ interface ASPxClientGridView extends ASPxClientGridBase {
      * @param moveToGroup true, to group the ASPxGridView's data by the column; otherwise, false.
      * @param moveFromGroup true, to ungroup the grid's data by the column; otherwise, false.
      */
-    MoveColumn(columnIndex: number, moveToColumnVisibleIndex: number, targetPosition: ASPxClientGridColumnMovingTargetPosition, moveToGroup: boolean, moveFromGroup: boolean): void;
+    MoveColumn(
+        columnIndex: number,
+        moveToColumnVisibleIndex: number,
+        targetPosition: ASPxClientGridColumnMovingTargetPosition,
+        moveToGroup: boolean,
+        moveFromGroup: boolean,
+    ): void;
     /**
      * Moves the specified column to the specified visual position within the grid and optionally groups or ungroups the grid's data by this column.
      * @param columnFieldNameOrId A string value that identifies the column to be moved by the name of the data source field to which the column is bound or by the column's name.
@@ -7311,7 +7396,13 @@ interface ASPxClientGridView extends ASPxClientGridBase {
      * @param moveToGroup true, to group the grid's data by the column; otherwise, false.
      * @param moveFromGroup true, to ungroup the grid's data by the column; otherwise, false.
      */
-    MoveColumn(columnFieldNameOrId: string, moveToColumnVisibleIndex: number, targetPosition: ASPxClientGridColumnMovingTargetPosition, moveToGroup: boolean, moveFromGroup: boolean): void;
+    MoveColumn(
+        columnFieldNameOrId: string,
+        moveToColumnVisibleIndex: number,
+        targetPosition: ASPxClientGridColumnMovingTargetPosition,
+        moveToGroup: boolean,
+        moveFromGroup: boolean,
+    ): void;
     /**
      * Returns an object specifying the grid column's layout.
      */
@@ -8220,7 +8311,13 @@ interface ASPxClientGridViewBatchEditApi {
      * @param displayText A string value that specifies the cell display text.
      * @param cancelCellHighlighting true to cancel highlighting of the modified cell, false to highlight the modified cell.
      */
-    SetCellValue(visibleIndex: number, columnFieldNameOrId: string, value: Object, displayText: string, cancelCellHighlighting?: boolean): void;
+    SetCellValue(
+        visibleIndex: number,
+        columnFieldNameOrId: string,
+        value: Object,
+        displayText: string,
+        cancelCellHighlighting?: boolean,
+    ): void;
     /**
      * Gets the value of the specified cell.
      * @param visibleIndex A zero-based integer value that specifies a visible index of a row containing the processed cell.
@@ -8306,7 +8403,9 @@ interface ASPxClientVerticalGrid extends ASPxClientGridBase {
     /**
      * Occurs when a grid switches to batch edit mode.
      */
-    BatchEditStartEditing: ASPxClientEvent<ASPxClientVerticalGridBatchEditStartEditingEventHandler<ASPxClientVerticalGrid>>;
+    BatchEditStartEditing: ASPxClientEvent<
+        ASPxClientVerticalGridBatchEditStartEditingEventHandler<ASPxClientVerticalGrid>
+    >;
     /**
      * Occurs when a grid leaves the batch edit mode.
      */
@@ -8314,31 +8413,45 @@ interface ASPxClientVerticalGrid extends ASPxClientGridBase {
     /**
      * Enables you to prevent a batch edit confirmation message from being displayed.
      */
-    BatchEditConfirmShowing: ASPxClientEvent<ASPxClientVerticalGridBatchEditConfirmShowingEventHandler<ASPxClientVerticalGrid>>;
+    BatchEditConfirmShowing: ASPxClientEvent<
+        ASPxClientVerticalGridBatchEditConfirmShowingEventHandler<ASPxClientVerticalGrid>
+    >;
     /**
      * Enables you to provide navigation for editors contained in a templated cell in Batch Edit mode.
      */
-    BatchEditTemplateCellFocused: ASPxClientEvent<ASPxClientVerticalGridBatchEditTemplateCellFocusedEventHandler<ASPxClientVerticalGrid>>;
+    BatchEditTemplateCellFocused: ASPxClientEvent<
+        ASPxClientVerticalGridBatchEditTemplateCellFocusedEventHandler<ASPxClientVerticalGrid>
+    >;
     /**
      * Occurs on the client side before data changes are saved in batch edit mode.
      */
-    BatchEditChangesSaving: ASPxClientEvent<ASPxClientVerticalGridBatchEditChangesSavingEventHandler<ASPxClientVerticalGrid>>;
+    BatchEditChangesSaving: ASPxClientEvent<
+        ASPxClientVerticalGridBatchEditChangesSavingEventHandler<ASPxClientVerticalGrid>
+    >;
     /**
      * Occurs on the client side before data changes are canceled in batch edit mode.
      */
-    BatchEditChangesCanceling: ASPxClientEvent<ASPxClientVerticalGridBatchEditChangesCancelingEventHandler<ASPxClientVerticalGrid>>;
+    BatchEditChangesCanceling: ASPxClientEvent<
+        ASPxClientVerticalGridBatchEditChangesCancelingEventHandler<ASPxClientVerticalGrid>
+    >;
     /**
      * Occurs on the client side before a record is inserted in batch edit mode.
      */
-    BatchEditRecordInserting: ASPxClientEvent<ASPxClientVerticalGridBatchEditRecordInsertingEventHandler<ASPxClientVerticalGrid>>;
+    BatchEditRecordInserting: ASPxClientEvent<
+        ASPxClientVerticalGridBatchEditRecordInsertingEventHandler<ASPxClientVerticalGrid>
+    >;
     /**
      * Occurs on the client side before a record is deleted in batch edit mode.
      */
-    BatchEditRecordDeleting: ASPxClientEvent<ASPxClientVerticalGridBatchEditRecordDeletingEventHandler<ASPxClientVerticalGrid>>;
+    BatchEditRecordDeleting: ASPxClientEvent<
+        ASPxClientVerticalGridBatchEditRecordDeletingEventHandler<ASPxClientVerticalGrid>
+    >;
     /**
      * Enables you to specify whether record data is valid and provide an error text.
      */
-    BatchEditRecordValidating: ASPxClientEvent<ASPxClientVerticalGridBatchEditRecordValidatingEventHandler<ASPxClientVerticalGrid>>;
+    BatchEditRecordValidating: ASPxClientEvent<
+        ASPxClientVerticalGridBatchEditRecordValidatingEventHandler<ASPxClientVerticalGrid>
+    >;
     /**
      * Occurs on the client side when the focused cell is about to be changed.
      */
@@ -8442,7 +8555,7 @@ interface ASPxClientVerticalGrid extends ASPxClientGridBase {
      * @param rowIndex An integer value that specifies the row's position within the row collection.
      * @param sortOrder A string value that specifies the row's sort order ('ASC', 'DSC' or 'NONE').
      * @param reset true to clear any previous sorting; otherwise, false.
-     * @param sortIndex 
+     * @param sortIndex
      */
     SortBy(rowIndex: number, sortOrder: string, reset: boolean, sortIndex: number): void;
     /**
@@ -9339,7 +9452,13 @@ interface ASPxClientVerticalGridBatchEditApi {
      * @param displayText A string value that specifies the cell display text.
      * @param cancelCellHighlighting true to cancel highlighting of the modified cell, false to highlight the modified cell.
      */
-    SetCellValue(visibleIndex: number, rowFieldNameOrId: string, value: Object, displayText: string, cancelCellHighlighting?: boolean): void;
+    SetCellValue(
+        visibleIndex: number,
+        rowFieldNameOrId: string,
+        value: Object,
+        displayText: string,
+        cancelCellHighlighting?: boolean,
+    ): void;
     /**
      * Gets the value of the specified cell.
      * @param visibleIndex A zero-based integer value that specifies a visible index of a record containing the processed cell.
@@ -9582,7 +9701,9 @@ interface ASPxClientHtmlEditorChangeMediaElementCommandArguments extends ASPxCli
 /**
  * The base class for parameters related to inserting or changing HTML5 media elements (Audio and Video) in the ASPxHtmlEditor.
  */
-interface ASPxClientHtmlEditorChangeHtml5MediaElementCommandArguments extends ASPxClientHtmlEditorChangeMediaElementCommandArguments {
+interface ASPxClientHtmlEditorChangeHtml5MediaElementCommandArguments
+    extends ASPxClientHtmlEditorChangeMediaElementCommandArguments
+{
     /**
      * Determines if a media file will start playing automatically.
      * Value: true, if autoplay is enabled; otherwise, false.
@@ -9607,7 +9728,9 @@ interface ASPxClientHtmlEditorChangeHtml5MediaElementCommandArguments extends AS
 /**
  * Contains settings related to the INSERTAUDIO_COMMAND command parameter.
  */
-interface ASPxClientHtmlEditorInsertAudioCommandArguments extends ASPxClientHtmlEditorChangeHtml5MediaElementCommandArguments {
+interface ASPxClientHtmlEditorInsertAudioCommandArguments
+    extends ASPxClientHtmlEditorChangeHtml5MediaElementCommandArguments
+{
 }
 /**
  * Contains settings related to the CHANGEAUDIO_COMMAND command parameter.
@@ -9617,7 +9740,9 @@ interface ASPxClientHtmlEditorChangeAudioCommandArguments extends ASPxClientHtml
 /**
  * Contains settings related to the INSERTVIDEO_COMMAND command parameter.
  */
-interface ASPxClientHtmlEditorInsertVideoCommandArguments extends ASPxClientHtmlEditorChangeHtml5MediaElementCommandArguments {
+interface ASPxClientHtmlEditorInsertVideoCommandArguments
+    extends ASPxClientHtmlEditorChangeHtml5MediaElementCommandArguments
+{
     /**
      * Defines the URL of an image that is shown while the video file is downloading, or until an end-user clicks the play button.
      * Value: A string value that specifies the poster image URL.
@@ -9632,7 +9757,9 @@ interface ASPxClientHtmlEditorChangeVideoCommandArguments extends ASPxClientHtml
 /**
  * Contains settings related to the INSERTFLASH_COMMAND command parameter.
  */
-interface ASPxClientHtmlEditorInsertFlashCommandArguments extends ASPxClientHtmlEditorChangeMediaElementCommandArguments {
+interface ASPxClientHtmlEditorInsertFlashCommandArguments
+    extends ASPxClientHtmlEditorChangeMediaElementCommandArguments
+{
     /**
      * Determines if the target flash element will start playing automatically.
      * Value: true, if autoplay is enabled; otherwise, false.
@@ -9667,7 +9794,9 @@ interface ASPxClientHtmlEditorChangeFlashCommandArguments extends ASPxClientHtml
 /**
  * Contains settings related to the INSERTYOUTUBEVIDEO_COMMAND command parameter.
  */
-interface ASPxClientHtmlEditorInsertYouTubeVideoCommandArguments extends ASPxClientHtmlEditorChangeMediaElementCommandArguments {
+interface ASPxClientHtmlEditorInsertYouTubeVideoCommandArguments
+    extends ASPxClientHtmlEditorChangeMediaElementCommandArguments
+{
     /**
      * Determines if suggested videos are shown after the target YouTube video finishes.
      * Value: true, to show suggested videos; otherwise, false
@@ -9692,7 +9821,9 @@ interface ASPxClientHtmlEditorInsertYouTubeVideoCommandArguments extends ASPxCli
 /**
  * Contains settings related to the CHANGEYOUTUBEVIDEO_COMMAND command parameter.
  */
-interface ASPxClientHtmlEditorChangeYouTubeVideoCommandArguments extends ASPxClientHtmlEditorInsertYouTubeVideoCommandArguments {
+interface ASPxClientHtmlEditorChangeYouTubeVideoCommandArguments
+    extends ASPxClientHtmlEditorInsertYouTubeVideoCommandArguments
+{
 }
 /**
  * Contains settings related to the TABLEPROPERTIES_DIALOG_COMMAND command parameter.
@@ -11490,11 +11621,15 @@ interface ASPxClientRichEdit extends ASPxClientControl {
     /**
      * Occurs when the characters' formatting is changed.
      */
-    CharacterPropertiesChanged: ASPxClientEvent<ASPxClientRichEditCharacterPropertiesChangedEventHandler<ASPxClientRichEdit>>;
+    CharacterPropertiesChanged: ASPxClientEvent<
+        ASPxClientRichEditCharacterPropertiesChangedEventHandler<ASPxClientRichEdit>
+    >;
     /**
      * Occurs when a paragraph's formatting is changed.
      */
-    ParagraphPropertiesChanged: ASPxClientEvent<ASPxClientRichEditParagraphPropertiesChangedEventHandler<ASPxClientRichEdit>>;
+    ParagraphPropertiesChanged: ASPxClientEvent<
+        ASPxClientRichEditParagraphPropertiesChangedEventHandler<ASPxClientRichEdit>
+    >;
     /**
      * Enables you to switch the full-screen mode of the Rich Text Editor.
      * @param fullscreen true to activate full-screen mode; false to deactivate full-screen mode.
@@ -13029,10 +13164,10 @@ interface InlinePictureInfo {
     actualHeight: number;
 }
 declare enum HeaderFooterType {
-    First=0,
-    Odd=1,
-    Primary=1,
-    Even=2
+    First = 0,
+    Odd = 1,
+    Primary = 1,
+    Even = 2,
 }
 /**
  * Contains the settings defining a file to save to.
@@ -13055,16 +13190,16 @@ interface RichEditFileInfo {
     documentFormat: any;
 }
 declare enum DocumentFormat {
-    Undefined=0,
-    PlainText=1,
-    Rtf=2,
-    Html=3,
-    OpenXml=4,
-    Mht=5,
-    WordML=6,
-    OpenDocument=7,
-    ePub=9,
-    Doc=10
+    Undefined = 0,
+    PlainText = 1,
+    Rtf = 2,
+    Html = 3,
+    OpenXml = 4,
+    Mht = 5,
+    WordML = 6,
+    OpenDocument = 7,
+    ePub = 9,
+    Doc = 10,
 }
 /**
  * Contains a set of methods and properties to work with the document selection.
@@ -13318,9 +13453,9 @@ interface SpellingInfo {
     misspelledIntervals: MisspelledInterval[];
 }
 declare enum SpellCheckerState {
-    Disabled=0,
-    InProgress=1,
-    Done=2
+    Disabled = 0,
+    InProgress = 1,
+    Done = 2,
 }
 /**
  * Contains the settings defining a misspelled interval.
@@ -13358,8 +13493,8 @@ interface MisspelledInterval {
     suggestions: string[];
 }
 declare enum SpellingErrorType {
-    Misspelling=0,
-    Repeating=1
+    Misspelling = 0,
+    Repeating = 1,
 }
 /**
  * Serves as a base for objects implementing different element styles.
@@ -13502,10 +13637,10 @@ interface SubDocument {
     findTables(interval: Interval): Field[];
 }
 declare enum SubDocumentType {
-    Main=0,
-    Header=1,
-    Footer=2,
-    TextBox=3
+    Main = 0,
+    Header = 1,
+    Footer = 2,
+    TextBox = 3,
 }
 /**
  * Defines a table in the document.
@@ -13995,14 +14130,14 @@ interface MailMergeSettings {
     mergeMode: any;
 }
 declare enum MergeMode {
-    NewParagraph=0,
-    NewSection=1,
-    JoinTables=2
+    NewParagraph = 0,
+    NewSection = 1,
+    JoinTables = 2,
 }
 declare enum MailMergeExportRange {
-    AllRecords=0,
-    CurrentRecord=1,
-    Range=2
+    AllRecords = 0,
+    CurrentRecord = 1,
+    Range = 2,
 }
 /**
  * A command to create a new empty document.
@@ -14522,69 +14657,69 @@ interface TextBoxRelativeSizeSettings {
     relativeHeightType: any;
 }
 declare enum FloatingObjectRelativeWidthType {
-    Margin=0,
-    Page=1,
-    LeftMargin=2,
-    RightMargin=3,
-    InsideMargin=4,
-    OutsideMargin=5
+    Margin = 0,
+    Page = 1,
+    LeftMargin = 2,
+    RightMargin = 3,
+    InsideMargin = 4,
+    OutsideMargin = 5,
 }
 declare enum FloatingObjectRelativeHeightType {
-    Margin=0,
-    Page=1,
-    TopMargin=2,
-    BottomMargin=3,
-    InsideMargin=4,
-    OutsideMargin=5
+    Margin = 0,
+    Page = 1,
+    TopMargin = 2,
+    BottomMargin = 3,
+    InsideMargin = 4,
+    OutsideMargin = 5,
 }
 declare enum FloatingObjectTextWrapType {
-    None=0,
-    TopAndBottom=1,
-    Tight=2,
-    Through=3,
-    Square=4
+    None = 0,
+    TopAndBottom = 1,
+    Tight = 2,
+    Through = 3,
+    Square = 4,
 }
 declare enum FloatingObjectTextWrapSide {
-    Both=0,
-    Left=1,
-    Right=2,
-    Largest=3
+    Both = 0,
+    Left = 1,
+    Right = 2,
+    Largest = 3,
 }
 declare enum FloatingObjectHorizontalPositionType {
-    Page=0,
-    Character=1,
-    Column=2,
-    Margin=3,
-    LeftMargin=4,
-    RightMargin=5,
-    InsideMargin=6,
-    OutsideMargin=7
+    Page = 0,
+    Character = 1,
+    Column = 2,
+    Margin = 3,
+    LeftMargin = 4,
+    RightMargin = 5,
+    InsideMargin = 6,
+    OutsideMargin = 7,
 }
 declare enum FloatingObjectHorizontalPositionAlignment {
-    None=0,
-    Left=1,
-    Center=2,
-    Right=3,
-    Inside=4,
-    Outside=5
+    None = 0,
+    Left = 1,
+    Center = 2,
+    Right = 3,
+    Inside = 4,
+    Outside = 5,
 }
 declare enum FloatingObjectVerticalPositionType {
-    Page=0,
-    Line=1,
-    Paragraph=2,
-    Margin=3,
-    TopMargin=4,
-    BottomMargin=5,
-    InsideMargin=6,
-    OutsideMargin=7
+    Page = 0,
+    Line = 1,
+    Paragraph = 2,
+    Margin = 3,
+    TopMargin = 4,
+    BottomMargin = 5,
+    InsideMargin = 6,
+    OutsideMargin = 7,
 }
 declare enum FloatingObjectVerticalPositionAlignment {
-    None=0,
-    Top=1,
-    Center=2,
-    Bottom=3,
-    Inside=4,
-    Outside=5
+    None = 0,
+    Top = 1,
+    Center = 2,
+    Bottom = 3,
+    Inside = 4,
+    Outside = 5,
 }
 /**
  * A command to cancel changes caused by the previous command.
@@ -14937,71 +15072,71 @@ interface ListLevelSettings {
     fontItalic: boolean;
 }
 declare enum ListLevelFormat {
-    Decimal=0,
-    AIUEOHiragana=1,
-    AIUEOFullWidthHiragana=2,
-    ArabicAbjad=3,
-    ArabicAlpha=4,
-    Bullet=5,
-    CardinalText=6,
-    Chicago=7,
-    ChineseCounting=8,
-    ChineseCountingThousand=9,
-    ChineseLegalSimplified=10,
-    Chosung=11,
-    DecimalEnclosedCircle=12,
-    DecimalEnclosedCircleChinese=13,
-    DecimalEnclosedFullstop=14,
-    DecimalEnclosedParentheses=15,
-    DecimalFullWidth=16,
-    DecimalFullWidth2=17,
-    DecimalHalfWidth=18,
-    DecimalZero=19,
-    Ganada=20,
-    Hebrew1=21,
-    Hebrew2=22,
-    Hex=23,
-    HindiConsonants=24,
-    HindiDescriptive=25,
-    HindiNumbers=26,
-    HindiVowels=27,
-    IdeographDigital=28,
-    IdeographEnclosedCircle=29,
-    IdeographLegalTraditional=30,
-    IdeographTraditional=31,
-    IdeographZodiac=32,
-    IdeographZodiacTraditional=33,
-    Iroha=34,
-    IrohaFullWidth=35,
-    JapaneseCounting=36,
-    JapaneseDigitalTenThousand=37,
-    JapaneseLegal=38,
-    KoreanCounting=39,
-    KoreanDigital=40,
-    KoreanDigital2=41,
-    KoreanLegal=42,
-    LowerLetter=43,
-    LowerRoman=44,
-    None=45,
-    NumberInDash=46,
-    Ordinal=47,
-    OrdinalText=48,
-    RussianLower=49,
-    RussianUpper=50,
-    TaiwaneseCounting=51,
-    TaiwaneseCountingThousand=52,
-    TaiwaneseDigital=53,
-    ThaiDescriptive=54,
-    ThaiLetters=55,
-    ThaiNumbers=56,
-    UpperLetter=57,
-    UpperRoman=58,
-    VietnameseDescriptive=59
+    Decimal = 0,
+    AIUEOHiragana = 1,
+    AIUEOFullWidthHiragana = 2,
+    ArabicAbjad = 3,
+    ArabicAlpha = 4,
+    Bullet = 5,
+    CardinalText = 6,
+    Chicago = 7,
+    ChineseCounting = 8,
+    ChineseCountingThousand = 9,
+    ChineseLegalSimplified = 10,
+    Chosung = 11,
+    DecimalEnclosedCircle = 12,
+    DecimalEnclosedCircleChinese = 13,
+    DecimalEnclosedFullstop = 14,
+    DecimalEnclosedParentheses = 15,
+    DecimalFullWidth = 16,
+    DecimalFullWidth2 = 17,
+    DecimalHalfWidth = 18,
+    DecimalZero = 19,
+    Ganada = 20,
+    Hebrew1 = 21,
+    Hebrew2 = 22,
+    Hex = 23,
+    HindiConsonants = 24,
+    HindiDescriptive = 25,
+    HindiNumbers = 26,
+    HindiVowels = 27,
+    IdeographDigital = 28,
+    IdeographEnclosedCircle = 29,
+    IdeographLegalTraditional = 30,
+    IdeographTraditional = 31,
+    IdeographZodiac = 32,
+    IdeographZodiacTraditional = 33,
+    Iroha = 34,
+    IrohaFullWidth = 35,
+    JapaneseCounting = 36,
+    JapaneseDigitalTenThousand = 37,
+    JapaneseLegal = 38,
+    KoreanCounting = 39,
+    KoreanDigital = 40,
+    KoreanDigital2 = 41,
+    KoreanLegal = 42,
+    LowerLetter = 43,
+    LowerRoman = 44,
+    None = 45,
+    NumberInDash = 46,
+    Ordinal = 47,
+    OrdinalText = 48,
+    RussianLower = 49,
+    RussianUpper = 50,
+    TaiwaneseCounting = 51,
+    TaiwaneseCountingThousand = 52,
+    TaiwaneseDigital = 53,
+    ThaiDescriptive = 54,
+    ThaiLetters = 55,
+    ThaiNumbers = 56,
+    UpperLetter = 57,
+    UpperRoman = 58,
+    VietnameseDescriptive = 59,
 }
 declare enum ListLevelNumberAlignment {
-    Left=0,
-    Center=1,
-    Right=2
+    Left = 0,
+    Center = 1,
+    Right = 2,
 }
 /**
  * A command to invoke the Insert Image dialog.
@@ -15460,8 +15595,8 @@ interface Margins {
     bottom: number;
 }
 declare enum Orientation {
-    Landscape=0,
-    Portrait=1
+    Landscape = 0,
+    Portrait = 1,
 }
 /**
  * A command to increment the indent level of paragraphs in a selected range.
@@ -15713,19 +15848,19 @@ interface TabSettings {
     deleted: boolean;
 }
 declare enum TabAlign {
-    Left=0,
-    Center=1,
-    Right=2,
-    Decimal=3
+    Left = 0,
+    Center = 1,
+    Right = 2,
+    Decimal = 3,
 }
 declare enum TabLeaderType {
-    None=0,
-    Dots=1,
-    MiddleDots=2,
-    Hyphens=3,
-    Underline=4,
-    ThickLine=5,
-    EqualSign=6
+    None = 0,
+    Dots = 1,
+    MiddleDots = 2,
+    Hyphens = 3,
+    Underline = 4,
+    ThickLine = 5,
+    EqualSign = 6,
 }
 /**
  * Contains settings to define the paragraph formatting.
@@ -15803,23 +15938,23 @@ interface ParagraphFormattingSettings {
     backColor: string;
 }
 declare enum ParagraphAlignment {
-    Left=0,
-    Right=1,
-    Center=2,
-    Justify=3
+    Left = 0,
+    Right = 1,
+    Center = 2,
+    Justify = 3,
 }
 declare enum ParagraphLineSpacingType {
-    Single=0,
-    Sesquialteral=1,
-    Double=2,
-    Multiple=3,
-    Exactly=4,
-    AtLeast=5
+    Single = 0,
+    Sesquialteral = 1,
+    Double = 2,
+    Multiple = 3,
+    Exactly = 4,
+    AtLeast = 5,
 }
 declare enum ParagraphFirstLineIndent {
-    None=0,
-    Indented=1,
-    Hanging=2
+    None = 0,
+    Indented = 1,
+    Hanging = 2,
 }
 /**
  * A command to assign a shortcut to the specified client command.
@@ -16453,197 +16588,197 @@ interface TableBorderSettings {
     style: any;
 }
 declare enum BorderLineStyle {
-    None=0,
-    Single=1,
-    Thick=2,
-    Double=3,
-    Dotted=4,
-    Dashed=5,
-    DotDash=6,
-    DotDotDash=7,
-    Triple=8,
-    ThinThickSmallGap=9,
-    ThickThinSmallGap=10,
-    ThinThickThinSmallGap=11,
-    ThinThickMediumGap=12,
-    ThickThinMediumGap=13,
-    ThinThickThinMediumGap=14,
-    ThinThickLargeGap=15,
-    ThickThinLargeGap=16,
-    ThinThickThinLargeGap=17,
-    Wave=18,
-    DoubleWave=19,
-    DashSmallGap=20,
-    DashDotStroked=21,
-    ThreeDEmboss=22,
-    ThreeDEngrave=23,
-    Outset=24,
-    Inset=25,
-    Apples=26,
-    ArchedScallops=27,
-    BabyPacifier=28,
-    BabyRattle=29,
-    Balloons3Colors=30,
-    BalloonsHotAir=31,
-    BasicBlackDashes=32,
-    BasicBlackDots=33,
-    BasicBlackSquares=34,
-    BasicThinLines=35,
-    BasicWhiteDashes=36,
-    BasicWhiteDots=37,
-    BasicWhiteSquares=38,
-    BasicWideInline=39,
-    BasicWideMidline=40,
-    BasicWideOutline=41,
-    Bats=42,
-    Birds=43,
-    BirdsFlight=44,
-    Cabins=45,
-    CakeSlice=46,
-    CandyCorn=47,
-    CelticKnotwork=48,
-    CertificateBanner=49,
-    ChainLink=50,
-    ChampagneBottle=51,
-    CheckedBarBlack=52,
-    CheckedBarColor=53,
-    Checkered=54,
-    ChristmasTree=55,
-    CirclesLines=56,
-    CirclesRectangles=57,
-    ClassicalWave=58,
-    Clocks=59,
-    Compass=60,
-    Confetti=61,
-    ConfettiGrays=62,
-    ConfettiOutline=63,
-    ConfettiStreamers=64,
-    ConfettiWhite=65,
-    CornerTriangles=66,
-    CouponCutoutDashes=67,
-    CouponCutoutDots=68,
-    CrazyMaze=69,
-    CreaturesButterfly=70,
-    CreaturesFish=71,
-    CreaturesInsects=72,
-    CreaturesLadyBug=73,
-    CrossStitch=74,
-    Cup=75,
-    DecoArch=76,
-    DecoArchColor=77,
-    DecoBlocks=78,
-    DiamondsGray=79,
-    DoubleD=80,
-    DoubleDiamonds=81,
-    Earth1=82,
-    Earth2=83,
-    EclipsingSquares1=84,
-    EclipsingSquares2=85,
-    EggsBlack=86,
-    Fans=87,
-    Film=88,
-    Firecrackers=89,
-    FlowersBlockPrint=90,
-    FlowersDaisies=91,
-    FlowersModern1=92,
-    FlowersModern2=93,
-    FlowersPansy=94,
-    FlowersRedRose=95,
-    FlowersRoses=96,
-    FlowersTeacup=97,
-    FlowersTiny=98,
-    Gems=99,
-    GingerbreadMan=100,
-    Gradient=101,
-    Handmade1=102,
-    Handmade2=103,
-    HeartBalloon=104,
-    HeartGray=105,
-    Hearts=106,
-    HeebieJeebies=107,
-    Holly=108,
-    HouseFunky=109,
-    Hypnotic=110,
-    IceCreamCones=111,
-    LightBulb=112,
-    Lightning1=113,
-    Lightning2=114,
-    MapleLeaf=115,
-    MapleMuffins=116,
-    MapPins=117,
-    Marquee=118,
-    MarqueeToothed=119,
-    Moons=120,
-    Mosaic=121,
-    MusicNotes=122,
-    Northwest=123,
-    Ovals=124,
-    Packages=125,
-    PalmsBlack=126,
-    PalmsColor=127,
-    PaperClips=128,
-    Papyrus=129,
-    PartyFavor=130,
-    PartyGlass=131,
-    Pencils=132,
-    People=133,
-    PeopleHats=134,
-    PeopleWaving=135,
-    Poinsettias=136,
-    PostageStamp=137,
-    Pumpkin1=138,
-    PushPinNote1=139,
-    PushPinNote2=140,
-    Pyramids=141,
-    PyramidsAbove=142,
-    Quadrants=143,
-    Rings=144,
-    Safari=145,
-    Sawtooth=146,
-    SawtoothGray=147,
-    ScaredCat=148,
-    Seattle=149,
-    ShadowedSquares=150,
-    SharksTeeth=151,
-    ShorebirdTracks=152,
-    Skyrocket=153,
-    SnowflakeFancy=154,
-    Snowflakes=155,
-    Sombrero=156,
-    Southwest=157,
-    Stars=158,
-    Stars3d=159,
-    StarsBlack=160,
-    StarsShadowed=161,
-    StarsTop=162,
-    Sun=163,
-    Swirligig=164,
-    TornPaper=165,
-    TornPaperBlack=166,
-    Trees=167,
-    TriangleParty=168,
-    Triangles=169,
-    Tribal1=170,
-    Tribal2=171,
-    Tribal3=172,
-    Tribal4=173,
-    Tribal5=174,
-    Tribal6=175,
-    TwistedLines1=176,
-    TwistedLines2=177,
-    Vine=178,
-    Waveline=179,
-    WeavingAngles=180,
-    WeavingBraid=181,
-    WeavingRibbon=182,
-    WeavingStrips=183,
-    WhiteFlowers=184,
-    Woodwork=185,
-    XIllusions=186,
-    ZanyTriangles=187,
-    ZigZag=188,
-    ZigZagStitch=189,
-    Nil=-1
+    None = 0,
+    Single = 1,
+    Thick = 2,
+    Double = 3,
+    Dotted = 4,
+    Dashed = 5,
+    DotDash = 6,
+    DotDotDash = 7,
+    Triple = 8,
+    ThinThickSmallGap = 9,
+    ThickThinSmallGap = 10,
+    ThinThickThinSmallGap = 11,
+    ThinThickMediumGap = 12,
+    ThickThinMediumGap = 13,
+    ThinThickThinMediumGap = 14,
+    ThinThickLargeGap = 15,
+    ThickThinLargeGap = 16,
+    ThinThickThinLargeGap = 17,
+    Wave = 18,
+    DoubleWave = 19,
+    DashSmallGap = 20,
+    DashDotStroked = 21,
+    ThreeDEmboss = 22,
+    ThreeDEngrave = 23,
+    Outset = 24,
+    Inset = 25,
+    Apples = 26,
+    ArchedScallops = 27,
+    BabyPacifier = 28,
+    BabyRattle = 29,
+    Balloons3Colors = 30,
+    BalloonsHotAir = 31,
+    BasicBlackDashes = 32,
+    BasicBlackDots = 33,
+    BasicBlackSquares = 34,
+    BasicThinLines = 35,
+    BasicWhiteDashes = 36,
+    BasicWhiteDots = 37,
+    BasicWhiteSquares = 38,
+    BasicWideInline = 39,
+    BasicWideMidline = 40,
+    BasicWideOutline = 41,
+    Bats = 42,
+    Birds = 43,
+    BirdsFlight = 44,
+    Cabins = 45,
+    CakeSlice = 46,
+    CandyCorn = 47,
+    CelticKnotwork = 48,
+    CertificateBanner = 49,
+    ChainLink = 50,
+    ChampagneBottle = 51,
+    CheckedBarBlack = 52,
+    CheckedBarColor = 53,
+    Checkered = 54,
+    ChristmasTree = 55,
+    CirclesLines = 56,
+    CirclesRectangles = 57,
+    ClassicalWave = 58,
+    Clocks = 59,
+    Compass = 60,
+    Confetti = 61,
+    ConfettiGrays = 62,
+    ConfettiOutline = 63,
+    ConfettiStreamers = 64,
+    ConfettiWhite = 65,
+    CornerTriangles = 66,
+    CouponCutoutDashes = 67,
+    CouponCutoutDots = 68,
+    CrazyMaze = 69,
+    CreaturesButterfly = 70,
+    CreaturesFish = 71,
+    CreaturesInsects = 72,
+    CreaturesLadyBug = 73,
+    CrossStitch = 74,
+    Cup = 75,
+    DecoArch = 76,
+    DecoArchColor = 77,
+    DecoBlocks = 78,
+    DiamondsGray = 79,
+    DoubleD = 80,
+    DoubleDiamonds = 81,
+    Earth1 = 82,
+    Earth2 = 83,
+    EclipsingSquares1 = 84,
+    EclipsingSquares2 = 85,
+    EggsBlack = 86,
+    Fans = 87,
+    Film = 88,
+    Firecrackers = 89,
+    FlowersBlockPrint = 90,
+    FlowersDaisies = 91,
+    FlowersModern1 = 92,
+    FlowersModern2 = 93,
+    FlowersPansy = 94,
+    FlowersRedRose = 95,
+    FlowersRoses = 96,
+    FlowersTeacup = 97,
+    FlowersTiny = 98,
+    Gems = 99,
+    GingerbreadMan = 100,
+    Gradient = 101,
+    Handmade1 = 102,
+    Handmade2 = 103,
+    HeartBalloon = 104,
+    HeartGray = 105,
+    Hearts = 106,
+    HeebieJeebies = 107,
+    Holly = 108,
+    HouseFunky = 109,
+    Hypnotic = 110,
+    IceCreamCones = 111,
+    LightBulb = 112,
+    Lightning1 = 113,
+    Lightning2 = 114,
+    MapleLeaf = 115,
+    MapleMuffins = 116,
+    MapPins = 117,
+    Marquee = 118,
+    MarqueeToothed = 119,
+    Moons = 120,
+    Mosaic = 121,
+    MusicNotes = 122,
+    Northwest = 123,
+    Ovals = 124,
+    Packages = 125,
+    PalmsBlack = 126,
+    PalmsColor = 127,
+    PaperClips = 128,
+    Papyrus = 129,
+    PartyFavor = 130,
+    PartyGlass = 131,
+    Pencils = 132,
+    People = 133,
+    PeopleHats = 134,
+    PeopleWaving = 135,
+    Poinsettias = 136,
+    PostageStamp = 137,
+    Pumpkin1 = 138,
+    PushPinNote1 = 139,
+    PushPinNote2 = 140,
+    Pyramids = 141,
+    PyramidsAbove = 142,
+    Quadrants = 143,
+    Rings = 144,
+    Safari = 145,
+    Sawtooth = 146,
+    SawtoothGray = 147,
+    ScaredCat = 148,
+    Seattle = 149,
+    ShadowedSquares = 150,
+    SharksTeeth = 151,
+    ShorebirdTracks = 152,
+    Skyrocket = 153,
+    SnowflakeFancy = 154,
+    Snowflakes = 155,
+    Sombrero = 156,
+    Southwest = 157,
+    Stars = 158,
+    Stars3d = 159,
+    StarsBlack = 160,
+    StarsShadowed = 161,
+    StarsTop = 162,
+    Sun = 163,
+    Swirligig = 164,
+    TornPaper = 165,
+    TornPaperBlack = 166,
+    Trees = 167,
+    TriangleParty = 168,
+    Triangles = 169,
+    Tribal1 = 170,
+    Tribal2 = 171,
+    Tribal3 = 172,
+    Tribal4 = 173,
+    Tribal5 = 174,
+    Tribal6 = 175,
+    TwistedLines1 = 176,
+    TwistedLines2 = 177,
+    Vine = 178,
+    Waveline = 179,
+    WeavingAngles = 180,
+    WeavingBraid = 181,
+    WeavingRibbon = 182,
+    WeavingStrips = 183,
+    WhiteFlowers = 184,
+    Woodwork = 185,
+    XIllusions = 186,
+    ZanyTriangles = 187,
+    ZigZag = 188,
+    ZigZagStitch = 189,
+    Nil = -1,
 }
 /**
  * Contains the settings to define the table cell formatting.
@@ -16691,10 +16826,10 @@ interface TableCellFormattingSettings {
     marginsSameAsTable: boolean;
 }
 declare enum TableCellVerticalAlignment {
-    Top=0,
-    Both=1,
-    Center=2,
-    Bottom=3
+    Top = 0,
+    Both = 1,
+    Center = 2,
+    Bottom = 3,
 }
 /**
  * Contains the settings to format a table.
@@ -16782,23 +16917,23 @@ interface TableHeightUnit {
     type: any;
 }
 declare enum TableHeightUnitType {
-    Minimum=0,
-    Auto=1,
-    Exact=2
+    Minimum = 0,
+    Auto = 1,
+    Exact = 2,
 }
 declare enum TableRowAlignment {
-    Both=0,
-    Center=1,
-    Distribute=2,
-    Left=3,
-    NumTab=4,
-    Right=5
+    Both = 0,
+    Center = 1,
+    Distribute = 2,
+    Left = 3,
+    NumTab = 4,
+    Right = 5,
 }
 declare enum TableWidthUnitType {
-    Nil=0,
-    Auto=1,
-    FiftiethsOfPercent=2,
-    ModelUnits=3
+    Nil = 0,
+    Auto = 1,
+    FiftiethsOfPercent = 2,
+    ModelUnits = 3,
 }
 /**
  * A command to change the font name of characters in a selected range.
@@ -17135,9 +17270,9 @@ interface FontFormattingSettings {
     hidden: boolean;
 }
 declare enum CharacterFormattingScript {
-    Normal=0,
-    Subscript=1,
-    Superscript=2
+    Normal = 0,
+    Subscript = 1,
+    Superscript = 2,
 }
 /**
  * A command to toggle the horizontal ruler's visibility.
@@ -18246,7 +18381,11 @@ interface ASPxClientScheduler extends ASPxClientControl {
      * @param propertyNames An array of strings, that are the names of appointment properties to query.
      * @param onCallBack A handler of a function executed after a callback.
      */
-    RefreshClientAppointmentProperties(clientAppointment: ASPxClientAppointment, propertyNames: string[], onCallBack: Object): void;
+    RefreshClientAppointmentProperties(
+        clientAppointment: ASPxClientAppointment,
+        propertyNames: string[],
+        onCallBack: Object,
+    ): void;
     /**
      * Client-side function that invokes the editing form for the appointment specified by its client ID.
      * @param aptClientId A string, representing the appointment client identifier.
@@ -19090,13 +19229,13 @@ interface ASPxClientWordChangedEventHandler<S> {
     (source: S, e: ASPxClientSpellCheckerAfterCheckEventArgs): void;
 }
 declare enum ASPxClientSpreadsheetPopupMenuType {
-    ColumnHeading=0,
-    RowHeading=1,
-    SheetTab=3,
-    Picture=4,
-    Chart=5,
-    Cell=7,
-    AutoFilter=8
+    ColumnHeading = 0,
+    RowHeading = 1,
+    SheetTab = 3,
+    Picture = 4,
+    Chart = 5,
+    Cell = 7,
+    AutoFilter = 8,
 }
 /**
  * A method that will handle the CustomCommandExecuted event.
@@ -19245,7 +19384,9 @@ interface ASPxClientSpreadsheet extends ASPxClientControl {
     /**
      * Occurs after a custom command has been executed on the client side.
      */
-    CustomCommandExecuted: ASPxClientEvent<ASPxClientSpreadsheetCustomCommandExecutedEventHandler<ASPxClientSpreadsheet>>;
+    CustomCommandExecuted: ASPxClientEvent<
+        ASPxClientSpreadsheetCustomCommandExecutedEventHandler<ASPxClientSpreadsheet>
+    >;
     /**
      * Fires if any change is made to the Spreadsheet's document on the client.
      */
@@ -19727,7 +19868,11 @@ interface ASPxClientTreeList extends ASPxClientControl {
      * @param onCallback A ASPxClientTreeListValuesCallback object that represents the JavaScript function which receives the list of values as a parameter.
      * @param visibleOnly true to return values within selected nodes that are displayed within the current page; false to return values within all selected nodes.
      */
-    GetSelectedNodeValues(fieldNames: string[], onCallback: ASPxClientTreeListValuesCallback, visibleOnly: boolean): void;
+    GetSelectedNodeValues(
+        fieldNames: string[],
+        onCallback: ASPxClientTreeListValuesCallback,
+        visibleOnly: boolean,
+    ): void;
     /**
      * Selects the specified page.
      * @param index An integer value that specifies the active page's index.
@@ -20449,7 +20594,7 @@ interface BootstrapClientAccordionItem extends ASPxClientNavBarItem {
     GetImageUrl(): string;
     /**
      * Specifies the URL which points to the image displayed within the item.
-     * @param value 
+     * @param value
      */
     SetImageUrl(value: string): void;
     /**
@@ -20881,13 +21026,11 @@ interface BootstrapClientListBoxItem extends ASPxClientListEditItem {
      */
     iconCssClass: string;
     /**
-     * 
-     * @param columnIndex 
+     * @param columnIndex
      */
     GetColumnText(columnIndex: number): string;
     /**
-     * 
-     * @param columnName 
+     * @param columnName
      */
     GetColumnText(columnName: string): string;
     /**
@@ -21112,7 +21255,7 @@ interface BootstrapClientMenuItem extends ASPxClientMenuItem {
     GetImageUrl(): string;
     /**
      * Sets the URL which points to the image displayed within the menu item.
-     * @param value 
+     * @param value
      */
     SetImageUrl(value: string): void;
     /**
@@ -21402,7 +21545,7 @@ interface BootstrapClientTab extends ASPxClientTab {
     GetImageUrl(): string;
     /**
      * Specifies the URL which points to the image displayed within the tab.
-     * @param value 
+     * @param value
      */
     SetImageUrl(value: string): void;
     /**
@@ -21411,7 +21554,7 @@ interface BootstrapClientTab extends ASPxClientTab {
     GetActiveImageUrl(): string;
     /**
      * Specifies the URL which points to the image displayed within the active tab.
-     * @param value 
+     * @param value
      */
     SetActiveImageUrl(value: string): void;
     /**
@@ -21520,7 +21663,7 @@ interface BootstrapClientTagBox extends ASPxClientTokenBox {
     TagsChanged: ASPxClientEvent<ASPxClientEventHandler<BootstrapClientTagBox>>;
     /**
      * Adds a new token with the specified text to the end of the control's token collection.
-     * @param text 
+     * @param text
      */
     AddToken(text: string): void;
     /**
@@ -21530,7 +21673,7 @@ interface BootstrapClientTagBox extends ASPxClientTokenBox {
     AddTag(text: string): void;
     /**
      * Use the RemoveTagByText method instead.
-     * @param text 
+     * @param text
      */
     RemoveTokenByText(text: string): void;
     /**
@@ -21540,7 +21683,7 @@ interface BootstrapClientTagBox extends ASPxClientTokenBox {
     RemoveTagByText(text: string): void;
     /**
      * Use the RemoveTag method instead.
-     * @param index 
+     * @param index
      */
     RemoveToken(index: number): void;
     /**
@@ -21550,7 +21693,7 @@ interface BootstrapClientTagBox extends ASPxClientTokenBox {
     RemoveTag(index: number): void;
     /**
      * Returns an HTML span element that corresponds to the specified token.
-     * @param index 
+     * @param index
      */
     GetTokenHtmlElement(index: number): Object;
     /**
@@ -21560,7 +21703,7 @@ interface BootstrapClientTagBox extends ASPxClientTokenBox {
     GetTagHtmlElement(index: number): Object;
     /**
      * Returns an HTML span element that corresponds to the specified token's text.
-     * @param index 
+     * @param index
      */
     GetTokenTextHtmlElement(index: number): Object;
     /**
@@ -21570,7 +21713,7 @@ interface BootstrapClientTagBox extends ASPxClientTokenBox {
     GetTagTextHtmlElement(index: number): Object;
     /**
      * Returns an HTML span element that corresponds to the specified token's remove button.
-     * @param index 
+     * @param index
      */
     GetTokenRemoveButtonHtmlElement(index: number): Object;
     /**
@@ -21588,7 +21731,7 @@ interface BootstrapClientTagBox extends ASPxClientTokenBox {
     GetTagCollection(): string[];
     /**
      * Returns a collection of tokens.
-     * @param collection 
+     * @param collection
      */
     SetTokenCollection(collection: string[]): void;
     /**
@@ -21606,7 +21749,7 @@ interface BootstrapClientTagBox extends ASPxClientTokenBox {
     ClearTagCollection(): void;
     /**
      * Returns the index of a token specified by its text.
-     * @param text 
+     * @param text
      */
     GetTokenIndexByText(text: string): number;
     /**
@@ -21616,8 +21759,8 @@ interface BootstrapClientTagBox extends ASPxClientTokenBox {
     GetTagIndexByText(text: string): number;
     /**
      * Use the IsCustomTag method instead.
-     * @param text 
-     * @param caseSensitive 
+     * @param text
+     * @param caseSensitive
      */
     IsCustomToken(text: string, caseSensitive: boolean): boolean;
     /**
@@ -21652,20 +21795,20 @@ interface BootstrapClientTagBox extends ASPxClientTokenBox {
     FindItemByValue(value: Object): BootstrapClientListBoxItem;
     /**
      * This method is not in effect for the BootstrapClientTagBox class.
-     * @param texts 
+     * @param texts
      */
     AddItem(texts: string[]): number;
     /**
      * This method is not in effect for the BootstrapClientTagBox class.
-     * @param texts 
-     * @param value 
+     * @param texts
+     * @param value
      */
     AddItem(texts: string[], value: Object): number;
     /**
      * This method is not in effect for the BootstrapClientTagBox class.
-     * @param texts 
-     * @param value 
-     * @param iconCssClass 
+     * @param texts
+     * @param value
+     * @param iconCssClass
      */
     AddItem(texts: string[], value: Object, iconCssClass: string): number;
     /**
@@ -21688,23 +21831,23 @@ interface BootstrapClientTagBox extends ASPxClientTokenBox {
     AddItem(text: string, value: Object, iconCssClass: string): number;
     /**
      * This method is not in effect for the BootstrapClientTagBox class.
-     * @param index 
-     * @param texts 
-     * @param value 
-     * @param iconCssClass 
+     * @param index
+     * @param texts
+     * @param value
+     * @param iconCssClass
      */
     InsertItem(index: number, texts: string[], value: Object, iconCssClass: string): void;
     /**
      * This method is not in effect for the BootstrapClientTagBox class.
-     * @param index 
-     * @param texts 
-     * @param value 
+     * @param index
+     * @param texts
+     * @param value
      */
     InsertItem(index: number, texts: string[], value: Object): void;
     /**
      * This method is not in effect for the BootstrapClientTagBox class.
-     * @param index 
-     * @param texts 
+     * @param index
+     * @param texts
      */
     InsertItem(index: number, texts: string[]): void;
     /**
@@ -21867,7 +22010,7 @@ interface BootstrapClientTreeViewNode extends ASPxClientTreeViewNode {
     GetImageUrl(): string;
     /**
      * Sets the URL which points to the image displayed within the node.
-     * @param value 
+     * @param value
      */
     SetImageUrl(value: string): void;
     /**
@@ -22072,7 +22215,9 @@ interface BootstrapClientChartBase extends BootstrapUIWidgetBase {
     /**
      * Fires when the selection state of a series point has been changed.
      */
-    PointSelectionChanged: ASPxClientEvent<BootstrapClientChartBasePointSelectionChangedEventHandler<BootstrapClientChartBase>>;
+    PointSelectionChanged: ASPxClientEvent<
+        BootstrapClientChartBasePointSelectionChangedEventHandler<BootstrapClientChartBase>
+    >;
     /**
      * Fires when a point's tooltip becomes hidden.
      */
@@ -22084,7 +22229,9 @@ interface BootstrapClientChartBase extends BootstrapUIWidgetBase {
     /**
      * Fires when a user clicks a label on the argument axis.
      */
-    ArgumentAxisClick: ASPxClientEvent<BootstrapClientCoordinateSystemChartArgumentAxisClickEventHandler<BootstrapClientChartBase>>;
+    ArgumentAxisClick: ASPxClientEvent<
+        BootstrapClientCoordinateSystemChartArgumentAxisClickEventHandler<BootstrapClientChartBase>
+    >;
     /**
      * Fires when a user clicks a series.
      */
@@ -22092,11 +22239,15 @@ interface BootstrapClientChartBase extends BootstrapUIWidgetBase {
     /**
      * Fires when the hover state of a series has been changed.
      */
-    SeriesHoverChanged: ASPxClientEvent<BootstrapClientCoordinateSystemChartSeriesHoverChangedEventHandler<BootstrapClientChartBase>>;
+    SeriesHoverChanged: ASPxClientEvent<
+        BootstrapClientCoordinateSystemChartSeriesHoverChangedEventHandler<BootstrapClientChartBase>
+    >;
     /**
      * Fires when the selection state of a series has been changed.
      */
-    SeriesSelectionChanged: ASPxClientEvent<BootstrapClientCoordinateSystemChartSeriesSelectionChangedEventHandler<BootstrapClientChartBase>>;
+    SeriesSelectionChanged: ASPxClientEvent<
+        BootstrapClientCoordinateSystemChartSeriesSelectionChangedEventHandler<BootstrapClientChartBase>
+    >;
 }
 /**
  * Represents a client-side equivalent of the Chart control.
@@ -22961,8 +23112,8 @@ interface MVCxClientPopupControl extends ASPxClientPopupControl {
     PerformWindowCallback(window: ASPxClientPopupWindow, data: Object): void;
     /**
      * Sends a callback with parameters to update the popup window by processing the related popup window.
-     * @param window 
-     * @param parameter 
+     * @param window
+     * @param parameter
      */
     PerformWindowCallback(window: ASPxClientPopupWindow, parameter: string): void;
     /**
@@ -23036,7 +23187,9 @@ interface MVCxClientReportDesigner extends ASPxClientReportDesigner {
     /**
      * Occurs after executing the Save command on the client.
      */
-    SaveCommandExecuted: ASPxClientEvent<MVCxClientReportDesignerSaveCommandExecutedEventHandler<MVCxClientReportDesigner>>;
+    SaveCommandExecuted: ASPxClientEvent<
+        MVCxClientReportDesignerSaveCommandExecutedEventHandler<MVCxClientReportDesigner>
+    >;
     /**
      * Sends a callback to the server with the specified argument.
      * @param arg A Object value, specifying the callback argument.
@@ -23519,7 +23672,7 @@ interface ASPxClientControlBase {
     GetClientVisible(): boolean;
     /**
      * Specifies whether a control is displayed.
-     * @param visible 
+     * @param visible
      */
     SetClientVisible(visible: boolean): void;
     /**
@@ -23748,8 +23901,8 @@ interface ASPxClientEvent<T> {
     ClearHandlers(): void;
     /**
      * For internal use only.
-     * @param source 
-     * @param e 
+     * @param source
+     * @param e
      */
     FireEvent(source: Object, e: ASPxClientEventArgs): void;
 }
@@ -24945,7 +25098,9 @@ interface ASPxClientFileManager extends ASPxClientControl {
     /**
      * Enables you to highlight the search text, which is specified using the filter box, in templates.
      */
-    HighlightItemTemplate: ASPxClientEvent<ASPxClientFileManagerHighlightItemTemplateEventHandler<ASPxClientFileManager>>;
+    HighlightItemTemplate: ASPxClientEvent<
+        ASPxClientFileManagerHighlightItemTemplateEventHandler<ASPxClientFileManager>
+    >;
     /**
      * Fires on the client side before a file upload starts, and allows you to cancel the action.
      */
@@ -24965,7 +25120,9 @@ interface ASPxClientFileManager extends ASPxClientControl {
     /**
      * Enables you to specify whether the selected file(s) are valid and provide an error text.
      */
-    FileUploadValidationErrorOccurred: ASPxClientEvent<ASPxClientUploadControlValidationErrorOccurredEventHandler<ASPxClientFileManager>>;
+    FileUploadValidationErrorOccurred: ASPxClientEvent<
+        ASPxClientUploadControlValidationErrorOccurredEventHandler<ASPxClientFileManager>
+    >;
     /**
      * Fires on the client side before a file download starts, and allows you to cancel the action.
      */
@@ -26251,7 +26408,9 @@ interface ASPxClientImageGallery extends ASPxClientDataView {
     /**
      * Occurs on the client side after an active item has been changed within the fullscreen viewer.
      */
-    FullscreenViewerActiveItemIndexChanged: ASPxClientEvent<ASPxClientImageGalleryFullscreenViewerEventHandler<ASPxClientImageGallery>>;
+    FullscreenViewerActiveItemIndexChanged: ASPxClientEvent<
+        ASPxClientImageGalleryFullscreenViewerEventHandler<ASPxClientImageGallery>
+    >;
     /**
      * Shows the fullscreen viewer with the specified active item.
      * @param index An Int32 value that is an index of the active item.
@@ -26471,7 +26630,13 @@ interface ASPxClientImageZoom extends ASPxClientControl {
      * @param expandWindowText A string value specifying the text displayed in the expand window.
      * @param alternateText A string value that specifies the alternate text displayed instead of the image.
      */
-    SetImageProperties(imageUrl: string, largeImageUrl: string, zoomWindowText: string, expandWindowText: string, alternateText: string): void;
+    SetImageProperties(
+        imageUrl: string,
+        largeImageUrl: string,
+        zoomWindowText: string,
+        expandWindowText: string,
+        alternateText: string,
+    ): void;
 }
 /**
  * Represents a client-side equivalent of the ASPxLoadingPanel control.
@@ -27228,8 +27393,8 @@ interface ASPxClientPopupControl extends ASPxClientPopupControlBase {
     GetWindowPopUpReasonMouseEvent(window: ASPxClientPopupWindow): Object;
     /**
      * Sends a callback with parameters to update the popup window by processing the related popup window.
-     * @param window 
-     * @param parameter 
+     * @param window
+     * @param parameter
      */
     PerformWindowCallback(window: ASPxClientPopupWindow, parameter: string): void;
     /**
@@ -29115,7 +29280,9 @@ interface ASPxClientUploadControl extends ASPxClientControl {
     /**
      * Occurs on the client after upload of all selected files has been completed.
      */
-    FilesUploadComplete: ASPxClientEvent<ASPxClientUploadControlFilesUploadCompleteEventHandler<ASPxClientUploadControl>>;
+    FilesUploadComplete: ASPxClientEvent<
+        ASPxClientUploadControlFilesUploadCompleteEventHandler<ASPxClientUploadControl>
+    >;
     /**
      * Occurs on the client side before upload of the specified files starts.
      */
@@ -29131,7 +29298,9 @@ interface ASPxClientUploadControl extends ASPxClientControl {
     /**
      * Occurs on the client side when the progress bar indicator position is changed.
      */
-    UploadingProgressChanged: ASPxClientEvent<ASPxClientUploadControlUploadingProgressChangedEventHandler<ASPxClientUploadControl>>;
+    UploadingProgressChanged: ASPxClientEvent<
+        ASPxClientUploadControlUploadingProgressChangedEventHandler<ASPxClientUploadControl>
+    >;
     /**
      * Occurs on the client side when the file input elements count is changed.
      */
@@ -29139,7 +29308,9 @@ interface ASPxClientUploadControl extends ASPxClientControl {
     /**
      * Enables you to specify whether the selected file(s) are valid and provide an error text.
      */
-    ValidationErrorOccurred: ASPxClientEvent<ASPxClientUploadControlValidationErrorOccurredEventHandler<ASPxClientUploadControl>>;
+    ValidationErrorOccurred: ASPxClientEvent<
+        ASPxClientUploadControlValidationErrorOccurredEventHandler<ASPxClientUploadControl>
+    >;
     /**
      * Fires when the mouse enters a drop zone or an external drop zone element while dragging a file.
      */
@@ -29570,7 +29741,9 @@ interface ASPxClientChartDesigner extends ASPxClientControl {
     /**
      * Enables you to customize the menu actions of a Client Chart Designer.
      */
-    CustomizeMenuActions: ASPxClientEvent<ASPxClientChartDesignerCustomizeMenuActionsEventHandler<ASPxClientChartDesigner>>;
+    CustomizeMenuActions: ASPxClientEvent<
+        ASPxClientChartDesignerCustomizeMenuActionsEventHandler<ASPxClientChartDesigner>
+    >;
     /**
      * Sends a callback to the server and generates the server-side event, passing it the specified argument.
      * @param arg A string value that represents any information that needs to be sent to the server-side event.
@@ -29586,7 +29759,7 @@ interface ASPxClientChartDesigner extends ASPxClientControl {
      * Updates the localization settings of the ASPxClientChartDesigner properties.
      * @param localization A dictionary containing the property names, along with their localized equivalents.
      */
-    UpdateLocalization(localization: { [key: string]: string; }): void;
+    UpdateLocalization(localization: { [key: string]: string }): void;
     /**
      * Returns the model of the Client Chart Designer.
      */
@@ -29706,7 +29879,9 @@ interface ASPxClientWebChartControl extends ASPxClientControl {
     /**
      * Occurs before crosshair items are drawn when the chart's contents are being drawn.
      */
-    CustomDrawCrosshair: ASPxClientEvent<ASPxClientWebChartControlCustomDrawCrosshairEventHandler<ASPxClientWebChartControl>>;
+    CustomDrawCrosshair: ASPxClientEvent<
+        ASPxClientWebChartControlCustomDrawCrosshairEventHandler<ASPxClientWebChartControl>
+    >;
     /**
      * Occurs on the client side when any chart element is selected.
      */
@@ -30450,7 +30625,13 @@ interface ASPxClientXYDiagram2D extends ASPxClientXYDiagramBase {
      * @param axisY An ASPxClientAxis2D descendant, representing the Y-axis.
      * @param pane An ASPxClientXYDiagramPane object, representing the pane.
      */
-    DiagramToPoint(argument: Object, value: Object, axisX: ASPxClientAxis2D, axisY: ASPxClientAxis2D, pane: ASPxClientXYDiagramPane): ASPxClientControlCoordinates;
+    DiagramToPoint(
+        argument: Object,
+        value: Object,
+        axisX: ASPxClientAxis2D,
+        axisY: ASPxClientAxis2D,
+        pane: ASPxClientXYDiagramPane,
+    ): ASPxClientControlCoordinates;
     /**
      * Shows the Crosshair Cursor at the point with the specified coordinates.
      * @param screenX The horizontal coordinate that is related to the top-left angle of the chart.
@@ -31745,11 +31926,15 @@ interface ASPxClientQueryBuilder extends ASPxClientControl {
     /**
      * Enables you to customize the menu actions of a Query Builder.
      */
-    CustomizeToolbarActions: ASPxClientEvent<ASPxClientQueryBuilderCustomizeToolbarActionsEventHandler<ASPxClientQueryBuilder>>;
+    CustomizeToolbarActions: ASPxClientEvent<
+        ASPxClientQueryBuilderCustomizeToolbarActionsEventHandler<ASPxClientQueryBuilder>
+    >;
     /**
      * Enables you to customize the Query Builder's localization strings.
      */
-    CustomizeLocalization: ASPxClientEvent<ASPxClientQueryBuilderCustomizeLocalizationEventHandler<ASPxClientQueryBuilder>>;
+    CustomizeLocalization: ASPxClientEvent<
+        ASPxClientQueryBuilderCustomizeLocalizationEventHandler<ASPxClientQueryBuilder>
+    >;
     /**
      * Occurs when executing the Save command on the client.
      */
@@ -31769,7 +31954,7 @@ interface ASPxClientQueryBuilder extends ASPxClientControl {
      * Updates the ASPxClientQueryBuilder properties' localization settings.
      * @param localization A dictionary containing the property names, along with their localized equivalents.
      */
-    UpdateLocalization(localization: { [key: string]: string; }): void;
+    UpdateLocalization(localization: { [key: string]: string }): void;
     /**
      * Returns the object model of a Query Builder.
      */
@@ -31852,19 +32037,27 @@ interface ASPxClientReportDesigner extends ASPxClientControl {
     /**
      * Occurs when executing the Save command on the client.
      */
-    SaveCommandExecute: ASPxClientEvent<ASPxClientReportDesignerSaveCommandExecuteEventHandler<ASPxClientReportDesigner>>;
+    SaveCommandExecute: ASPxClientEvent<
+        ASPxClientReportDesignerSaveCommandExecuteEventHandler<ASPxClientReportDesigner>
+    >;
     /**
      * Enables you to customize the Web Report Designer's menu actions.
      */
-    CustomizeMenuActions: ASPxClientEvent<ASPxClientReportDesignerCustomizeMenuActionsEventHandler<ASPxClientReportDesigner>>;
+    CustomizeMenuActions: ASPxClientEvent<
+        ASPxClientReportDesignerCustomizeMenuActionsEventHandler<ASPxClientReportDesigner>
+    >;
     /**
      * Occurs each time a standard editor is created for a report parameter based on a parameter type.
      */
-    CustomizeParameterEditors: ASPxClientEvent<ASPxClientReportDesignerCustomizeParameterEditorsEventHandler<ASPxClientReportDesigner>>;
+    CustomizeParameterEditors: ASPxClientEvent<
+        ASPxClientReportDesignerCustomizeParameterEditorsEventHandler<ASPxClientReportDesigner>
+    >;
     /**
      * Occurs each time a look-up editor is created for a report parameter.
      */
-    CustomizeParameterLookUpSource: ASPxClientEvent<ASPxClientReportDesignerCustomizeParameterLookUpSourceEventHandler<ASPxClientReportDesigner>>;
+    CustomizeParameterLookUpSource: ASPxClientEvent<
+        ASPxClientReportDesignerCustomizeParameterLookUpSourceEventHandler<ASPxClientReportDesigner>
+    >;
     /**
      * Occurs on the client side when the Report Designer is being closed.
      */
@@ -31908,15 +32101,21 @@ interface ASPxClientReportDesigner extends ASPxClientControl {
     /**
      * Enables you to customize the Save dialog of the Web Report Designer.
      */
-    CustomizeSaveDialog: ASPxClientEvent<ASPxClientReportDesignerCustomizeSaveDialogEventHandler<ASPxClientReportDesigner>>;
+    CustomizeSaveDialog: ASPxClientEvent<
+        ASPxClientReportDesignerCustomizeSaveDialogEventHandler<ASPxClientReportDesigner>
+    >;
     /**
      * Enables you to customize the Save Report dialog of the Web Report Designer.
      */
-    CustomizeSaveAsDialog: ASPxClientEvent<ASPxClientReportDesignerCustomizeSaveAsDialogEventHandler<ASPxClientReportDesigner>>;
+    CustomizeSaveAsDialog: ASPxClientEvent<
+        ASPxClientReportDesignerCustomizeSaveAsDialogEventHandler<ASPxClientReportDesigner>
+    >;
     /**
      * Enables you to customize the Open Report dialog of the Web Report Designer.
      */
-    CustomizeOpenDialog: ASPxClientEvent<ASPxClientReportDesignerCustomizeOpenDialogEventHandler<ASPxClientReportDesigner>>;
+    CustomizeOpenDialog: ASPxClientEvent<
+        ASPxClientReportDesignerCustomizeOpenDialogEventHandler<ASPxClientReportDesigner>
+    >;
     /**
      * Enables you to customize the Toolbox of the Web Report Designer.
      */
@@ -31924,19 +32123,27 @@ interface ASPxClientReportDesigner extends ASPxClientControl {
     /**
      * Occurs after a report has been switched to Print Preview.
      */
-    PreviewDocumentReady: ASPxClientEvent<ASPxClientWebDocumentViewerDocumentReadyEventHandler<ASPxClientReportDesigner>>;
+    PreviewDocumentReady: ASPxClientEvent<
+        ASPxClientWebDocumentViewerDocumentReadyEventHandler<ASPxClientReportDesigner>
+    >;
     /**
      * Occurs each time an editing field's value changes in Print Preview.
      */
-    PreviewEditingFieldChanged: ASPxClientEvent<ASPxClientWebDocumentViewerEditingFieldChangedEventHandler<ASPxClientReportDesigner>>;
+    PreviewEditingFieldChanged: ASPxClientEvent<
+        ASPxClientWebDocumentViewerEditingFieldChangedEventHandler<ASPxClientReportDesigner>
+    >;
     /**
      * Enables you to customize UI elements of a Document Viewer built into a Web Report Designer.
      */
-    PreviewCustomizeElements: ASPxClientEvent<ASPxClientWebDocumentViewerCustomizeElementsEventHandler<ASPxClientReportDesigner>>;
+    PreviewCustomizeElements: ASPxClientEvent<
+        ASPxClientWebDocumentViewerCustomizeElementsEventHandler<ASPxClientReportDesigner>
+    >;
     /**
      * Enables you to customize the actions of a Document Viewer built into a Web Report Designer.
      */
-    PreviewCustomizeMenuActions: ASPxClientEvent<ASPxClientWebDocumentViewerCustomizeMenuActionsEventHandler<ASPxClientReportDesigner>>;
+    PreviewCustomizeMenuActions: ASPxClientEvent<
+        ASPxClientWebDocumentViewerCustomizeMenuActionsEventHandler<ASPxClientReportDesigner>
+    >;
     /**
      * Occurs when the left mouse button is clicked on a report document in Print Preview.
      */
@@ -31944,15 +32151,21 @@ interface ASPxClientReportDesigner extends ASPxClientControl {
     /**
      * Occurs after report parameter values are reset to their default values in Print Preview.
      */
-    PreviewParametersReset: ASPxClientEvent<ASPxClientWebDocumentViewerParametersResetEventHandler<ASPxClientReportDesigner>>;
+    PreviewParametersReset: ASPxClientEvent<
+        ASPxClientWebDocumentViewerParametersResetEventHandler<ASPxClientReportDesigner>
+    >;
     /**
      * Occurs after report parameter values are submitted in Print Preview.
      */
-    PreviewParametersSubmitted: ASPxClientEvent<ASPxClientWebDocumentViewerParametersSubmittedEventHandler<ASPxClientReportDesigner>>;
+    PreviewParametersSubmitted: ASPxClientEvent<
+        ASPxClientWebDocumentViewerParametersSubmittedEventHandler<ASPxClientReportDesigner>
+    >;
     /**
      * Enables you to customize the Web Report Designer's localization strings.
      */
-    CustomizeLocalization: ASPxClientEvent<ASPxClientReportDesignerCustomizeLocalizationEventHandler<ASPxClientReportDesigner>>;
+    CustomizeLocalization: ASPxClientEvent<
+        ASPxClientReportDesignerCustomizeLocalizationEventHandler<ASPxClientReportDesigner>
+    >;
     /**
      * Occurs before the Web Report Designer UI is initialized.
      */
@@ -31972,7 +32185,7 @@ interface ASPxClientReportDesigner extends ASPxClientControl {
      * Updates the Report Designer properties' localization settings.
      * @param localization A dictionary containing the property names, along with their localized equivalents.
      */
-    UpdateLocalization(localization: { [key: string]: string; }): void;
+    UpdateLocalization(localization: { [key: string]: string }): void;
     /**
      * Provides access to a client-side model of a Web Report Designer.
      */
@@ -32836,7 +33049,7 @@ interface ASPxClientReportViewer extends ASPxClientControl {
      * Submits the values of the specified parameters.
      * @param parameters A dictionary containing the parameter names, along with their Object values.
      */
-    SubmitParameters(parameters: { [key: string]: Object; }): void;
+    SubmitParameters(parameters: { [key: string]: Object }): void;
     /**
      * Prints a report shown in the ReportViewer.
      */
@@ -33264,7 +33477,7 @@ interface ASPxClientParametersSubmittedEventArgs extends ASPxClientEventArgs {
      * Provides access to report parameters and their submitted values.
      * Value: A dictionary containing the parameter names along with their values.
      */
-    Parameters: { [key: string]: Object; };
+    Parameters: { [key: string]: Object };
 }
 /**
  * Provides data for the PreviewParametersReset events.
@@ -33350,7 +33563,7 @@ interface ASPxClientWebDocumentViewerBrick {
      * Provides access to a brick's content.
      * Value: A dictionary that stores content keys along with the corresponding contents.
      */
-    content: { [key: string]: string; };
+    content: { [key: string]: string };
     /**
      * Provides access to navigation settings of the current brick.
      * Value: An object that provides a brick's navigation settings.
@@ -33413,23 +33626,33 @@ interface ASPxClientWebDocumentViewer extends ASPxClientControl {
     /**
      * Occurs each time an editing field's value changes.
      */
-    EditingFieldChanged: ASPxClientEvent<ASPxClientWebDocumentViewerEditingFieldChangedEventHandler<ASPxClientWebDocumentViewer>>;
+    EditingFieldChanged: ASPxClientEvent<
+        ASPxClientWebDocumentViewerEditingFieldChangedEventHandler<ASPxClientWebDocumentViewer>
+    >;
     /**
      * Allows you to customize the Web Document Viewer's UI elements.
      */
-    CustomizeElements: ASPxClientEvent<ASPxClientWebDocumentViewerCustomizeElementsEventHandler<ASPxClientWebDocumentViewer>>;
+    CustomizeElements: ASPxClientEvent<
+        ASPxClientWebDocumentViewerCustomizeElementsEventHandler<ASPxClientWebDocumentViewer>
+    >;
     /**
      * Enables you to customize the Web Document Viewer's menu actions.
      */
-    CustomizeMenuActions: ASPxClientEvent<ASPxClientWebDocumentViewerCustomizeMenuActionsEventHandler<ASPxClientWebDocumentViewer>>;
+    CustomizeMenuActions: ASPxClientEvent<
+        ASPxClientWebDocumentViewerCustomizeMenuActionsEventHandler<ASPxClientWebDocumentViewer>
+    >;
     /**
      * Occurs each time a standard editor is created for a report parameter based on a parameter type.
      */
-    CustomizeParameterEditors: ASPxClientEvent<ASPxClientWebDocumentViewerCustomizeParameterEditorsEventHandler<ASPxClientWebDocumentViewer>>;
+    CustomizeParameterEditors: ASPxClientEvent<
+        ASPxClientWebDocumentViewerCustomizeParameterEditorsEventHandler<ASPxClientWebDocumentViewer>
+    >;
     /**
      * Occurs each time a look-up editor is created for a report parameter.
      */
-    CustomizeParameterLookUpSource: ASPxClientEvent<ASPxClientWebDocumentViewerCustomizeParameterLookUpSourceEventHandler<ASPxClientWebDocumentViewer>>;
+    CustomizeParameterLookUpSource: ASPxClientEvent<
+        ASPxClientWebDocumentViewerCustomizeParameterLookUpSourceEventHandler<ASPxClientWebDocumentViewer>
+    >;
     /**
      * Occurs when the left mouse button is clicked on a report document.
      */
@@ -33437,15 +33660,21 @@ interface ASPxClientWebDocumentViewer extends ASPxClientControl {
     /**
      * Occurs after report parameter values are reset to their default values.
      */
-    ParametersReset: ASPxClientEvent<ASPxClientWebDocumentViewerParametersResetEventHandler<ASPxClientWebDocumentViewer>>;
+    ParametersReset: ASPxClientEvent<
+        ASPxClientWebDocumentViewerParametersResetEventHandler<ASPxClientWebDocumentViewer>
+    >;
     /**
      * Occurs after report parameter values are submitted.
      */
-    ParametersSubmitted: ASPxClientEvent<ASPxClientWebDocumentViewerParametersSubmittedEventHandler<ASPxClientWebDocumentViewer>>;
+    ParametersSubmitted: ASPxClientEvent<
+        ASPxClientWebDocumentViewerParametersSubmittedEventHandler<ASPxClientWebDocumentViewer>
+    >;
     /**
      * Enables you to customize the Web Document Viewer's localization strings.
      */
-    CustomizeLocalization: ASPxClientEvent<ASPxClientWebDocumentViewerCustomizeLocalizationEventHandler<ASPxClientWebDocumentViewer>>;
+    CustomizeLocalization: ASPxClientEvent<
+        ASPxClientWebDocumentViewerCustomizeLocalizationEventHandler<ASPxClientWebDocumentViewer>
+    >;
     /**
      * Occurs before the Web Document Viewer UI is initialized.
      */
@@ -33536,7 +33765,7 @@ interface ASPxClientWebDocumentViewer extends ASPxClientControl {
      * Updates the Web Document Viewer properties' localization settings.
      * @param localization A dictionary containing the property names, along with their localized equivalents.
      */
-    UpdateLocalization(localization: { [key: string]: string; }): void;
+    UpdateLocalization(localization: { [key: string]: string }): void;
 }
 /**
  * A method that will handle the EditingFieldChanged event.
@@ -34188,7 +34417,11 @@ interface ASPxClientEditStatic extends ASPxClientEditBaseStatic {
      * @param validationGroup A string value that specifies the validation group's name.
      * @param validateInvisibleEditors true to validate both visible and invisible editors that belong to the specified container and group; false to validate only visible editors.
      */
-    ValidateEditorsInContainerById(containerId: string, validationGroup: string, validateInvisibleEditors: boolean): boolean;
+    ValidateEditorsInContainerById(
+        containerId: string,
+        validationGroup: string,
+        validateInvisibleEditors: boolean,
+    ): boolean;
     /**
      * Performs validation of visible editors that are located within the specified container and belong to a specific validation group.
      * @param containerId A string value that specifies the container's unique identifier.
@@ -36940,4 +37173,3 @@ declare var ASPxClientReportParametersPanel: ASPxClientReportParametersPanelStat
 declare var ASPxClientReportToolbar: ASPxClientReportToolbarStatic;
 declare var ASPxClientReportViewer: ASPxClientReportViewerStatic;
 declare var ASPxClientWebDocumentViewer: ASPxClientWebDocumentViewerStatic;
-

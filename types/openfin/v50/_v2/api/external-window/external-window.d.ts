@@ -1,9 +1,9 @@
-import { _Window } from '../window/window';
-import { AnchorType, Bounds } from '../../shapes';
-import { Base, EmitterBase } from '../base';
-import { ExternalWindowEvents } from '../events/externalWindow';
-import { Identity } from '../../identity';
-import Transport from '../../transport/transport';
+import { Identity } from "../../identity";
+import { AnchorType, Bounds } from "../../shapes";
+import Transport from "../../transport/transport";
+import { Base, EmitterBase } from "../base";
+import { ExternalWindowEvents } from "../events/externalWindow";
+import { _Window } from "../window/window";
 /**
  * @lends ExternalWindow
  */
@@ -48,7 +48,7 @@ export declare class ExternalWindow extends EmitterBase<ExternalWindowEvents> {
      * @return {Promise.<void>}
      * @experimental
      * @tutorial Window.close
-    */
+     */
     close(): Promise<void>;
     /**
      * Flashes the external window’s frame and taskbar icon until stopFlashing is called.
@@ -70,7 +70,7 @@ export declare class ExternalWindow extends EmitterBase<ExternalWindowEvents> {
      * @return {Promise.<Bounds>}
      * @experimental
      * @tutorial Window.getBounds
-    */
+     */
     getBounds(): Promise<Bounds>;
     /**
      * Retrieves an array containing wrapped external windows that are grouped

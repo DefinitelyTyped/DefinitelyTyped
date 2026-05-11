@@ -1,28 +1,26 @@
-// Type definitions for pouchdb-live-find 0.4
-// Project: https://github.com/colinskow/pouchdb-live-find
-// Definitions by: assemblethis <https://github.com/assemblethis>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /// <reference types="pouchdb-core" />
 declare namespace PouchDB {
     namespace LiveFind {
-        interface RequestDef<Content extends {}> extends Pick<Find.FindRequest<Content>, Exclude<keyof Find.FindRequest<Content>, 'use_index'>> {
+        interface RequestDef<Content extends {}>
+            extends Pick<Find.FindRequest<Content>, Exclude<keyof Find.FindRequest<Content>, "use_index">>
+        {
             aggregate?: boolean | undefined; // if true outputs an aggregate list on every update event
         }
 
-        interface PaginateOptions<Content extends {}> extends Pick<Find.FindRequest<Content>, 'sort' | 'skip'| 'limit'> {}
+        interface PaginateOptions<Content extends {}>
+            extends Pick<Find.FindRequest<Content>, "sort" | "skip" | "limit">
+        {}
 
         interface UpdateEvent {
-            action: 'REMOVE' | 'ADD' | 'UPDATE';
+            action: "REMOVE" | "ADD" | "UPDATE";
             id: any;
             rev: any;
             doc: any;
         }
         interface LiveFeed<Content extends {} = {}> {
-            on(event: 'ready' | 'cancelled', listener: () => void): this;
-            on(event: 'error', listener: (err: any) => void): this;
-            on(event: 'update', listener: (event: UpdateEvent, list: any) => void): this;
+            on(event: "ready" | "cancelled", listener: () => void): this;
+            on(event: "error", listener: (err: any) => void): this;
+            on(event: "update", listener: (event: UpdateEvent, list: any) => void): this;
         }
 
         interface LiveFeed<Content extends {} = {}> extends EventEmitter {
@@ -41,7 +39,7 @@ declare namespace PouchDB {
     }
 }
 
-declare module 'pouchdb-live-find' {
+declare module "pouchdb-live-find" {
     const plugin: PouchDB.Plugin;
     export = plugin;
 }

@@ -1,4 +1,4 @@
-import { ease } from '../ease';
+import { ease } from "../ease";
 export interface Infinity extends Number {
     Infinity: true;
 }

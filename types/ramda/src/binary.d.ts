@@ -1,2 +1,2 @@
-import { binary } from '../index';
+import { binary } from "../index";
 export default binary;

@@ -1,8 +1,3 @@
-// Type definitions for negative-index 1.0
-// Project: https://github.com/dy/negative-index#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = negativeIndex;
 
 /**

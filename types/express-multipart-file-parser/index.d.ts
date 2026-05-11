@@ -1,13 +1,7 @@
-// Type definitions for express-multipart-file-parser 0.1
-// Project: https://github.com/cristovao-trevisan/express-multipart-file-parser#readme
-// Definitions by: Chen Asraf <https://github.com/chenasraf>
-//                 Cristóvão Trevisan <https://github.com/cristovao-trevisan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import type { BusboyConfig as BusboyOptions } from 'busboy';
-import type { Options as RawBodyOptions } from 'raw-body';
+import type { BusboyConfig as BusboyOptions } from "busboy";
+import type { Options as RawBodyOptions } from "raw-body";
 
 interface UploadedFile {
     /** Field name specified in the form */
@@ -39,7 +33,7 @@ interface FileParserOptions {
     busboyOptions?: BusboyOptions;
 }
 
-declare module 'express-serve-static-core' {
+declare module "express-serve-static-core" {
     interface Request {
         files?: UploadedFile[];
     }

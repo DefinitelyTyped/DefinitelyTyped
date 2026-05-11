@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/route-matcher",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/cowboy/javascript-route-matcher"
+    ],
+    "devDependencies": {
+        "@types/route-matcher": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "mchevestrier",
+            "githubUsername": "mchevestrier"
+        }
+    ]
+}

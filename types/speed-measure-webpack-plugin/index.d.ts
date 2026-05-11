@@ -1,9 +1,3 @@
-// Type definitions for speed-measure-webpack-plugin 1.3
-// Project: https://github.com/stephencookdev/speed-measure-webpack-plugin#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 import { Compiler, Configuration } from "webpack";
 
 /**

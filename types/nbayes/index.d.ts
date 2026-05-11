@@ -1,8 +1,3 @@
-// Type definitions for nbayes 3.0
-// Project: https://github.com/derhuerst/nbayes
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = nbayes;
 
 /**

@@ -1,13 +1,7 @@
-// Type definitions for megajs 0.14
-// Project: https://github.com/qgustavor/mega
-// Definitions by: Daniel Byrne <https://github.com/danwbyrne>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 /// <reference types="node" />
 
-import { Readable, Writable, Stream } from 'stream';
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
+import { Readable, Stream, Writable } from "stream";
 
 export interface AccountInfo {
     type: string;
@@ -74,7 +68,7 @@ export class File extends EventEmitter {
     nodeId: string;
     downloadId: string;
     directory: boolean;
-    children: ReadonlyArray<MutableFile>;
+    children: readonly MutableFile[];
     loadAttributes(cb?: any): Readable;
     download(options?: DownloadOptions, cb?: any): Readable;
 }
@@ -89,16 +83,16 @@ export class Storage extends EventEmitter {
     root: MutableFile;
     trash: MutableFile;
     inbox: MutableFile;
-    mounts: ReadonlyArray<File>;
+    mounts: readonly File[];
     upload(options: UploadOptions | string, buffer?: Buffer, cb?: any): Writable;
     mkdir(options: MakeDirectoryOptions | string, cb: (err: Error | undefined, file: MutableFile) => void): Readable;
     reload(cb: any): Readable;
     login(cb: any): Readable;
     getAccountInfo(cb: any): AccountInfo;
     toJSON(): JSON;
-    on(event: 'ready', listener: (storage: Storage) => void): this;
-    on(event: 'move', listener: (file: MutableFile, oldDir: MutableFile) => void): this;
-    on(event: 'add' | 'delete' | 'update', listener: (file: MutableFile) => void): this;
+    on(event: "ready", listener: (storage: Storage) => void): this;
+    on(event: "move", listener: (file: MutableFile, oldDir: MutableFile) => void): this;
+    on(event: "add" | "delete" | "update", listener: (file: MutableFile) => void): this;
 }
 
 export class MutableFile extends File {
@@ -115,8 +109,8 @@ export class MutableFile extends File {
     rename(newFileName: string, cb: (err: Error | undefined) => void): Readable;
     setLabel(label: string, cb: (err: Error | undefined) => void): Readable;
     setFavorite(isFavorite: boolean, cb: (err: Error | undefined) => void): Readable;
-    on(event: 'move', listener: (oldDir: MutableFile) => void): this;
-    on(event: 'delete' | 'update', listener: () => void): this;
+    on(event: "move", listener: (oldDir: MutableFile) => void): this;
+    on(event: "delete" | "update", listener: () => void): this;
 }
 
 export default function mega(options: StorageOptions, cb?: any): Storage;

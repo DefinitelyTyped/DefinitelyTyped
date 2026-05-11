@@ -1,9 +1,3 @@
-// Type definitions for Translator 3.0
-// Project: https://github.com/willdurand/BazingaJsTranslationBundle
-// Definitions by: Alex <https://github.com/alexndlm>
-//                  Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace Translator {
     interface BazingaTranslator {
         /**

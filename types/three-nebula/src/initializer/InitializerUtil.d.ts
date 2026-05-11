@@ -1,6 +1,7 @@
-import Particle from '../core/Particle';
-import { Emitter } from '../emitter';
-import Initializer from './Initializer';
+import * as THREE from "three";
+import Particle from "../core/Particle";
+import { Emitter } from "../emitter";
+import Initializer from "./Initializer";
 
 export namespace InitializerUtil {
     const particleEuler: THREE.Euler | null;
@@ -16,7 +17,6 @@ export namespace InitializerUtil {
     /**
      * Ensures that the emitter's position, velocity and accleration are added
      * to each created particle.
-     *
      */
     function bindEmitter(emitter: Emitter, particle: Particle): void;
 }

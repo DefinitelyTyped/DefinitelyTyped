@@ -1,16 +1,7 @@
-// Type definitions for adm-zip 0.5
-// Project: https://github.com/cthackers/adm-zip
-// Definitions by: John Vilk <https://github.com/jvilk>
-//                 Abner Oliveira <https://github.com/abner>
-//                 BendingBender <https://github.com/BendingBender>
-//                 Matthew Sainsbury <https://github.com/mattsains>
-//                 Lei Nelissen <https://github.com/LeiNelissen>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import * as FS from 'fs';
-import { Constants } from './util';
+import * as FS from "fs";
+import { Constants } from "./util";
 
 declare class AdmZip {
     /**
@@ -47,7 +38,7 @@ declare class AdmZip {
     readAsTextAsync(
         fileName: string | AdmZip.IZipEntry,
         callback: (data: string, err: string) => void,
-        encoding?: string
+        encoding?: string,
     ): void;
     /**
      * Remove the entry from the file or the entry and all its nested directories
@@ -115,10 +106,9 @@ declare class AdmZip {
         localPath: string,
         callback: (success?: boolean, err?: string) => void,
         zipPath?: string,
-        filter?: RegExp | ((filename: string) => boolean)
+        filter?: RegExp | ((filename: string) => boolean),
     ): void;
     /**
-     *
      * @param localPath - path where files will be extracted
      * @param props - optional properties
      * @param props.zipPath - optional path inside zip
@@ -126,7 +116,7 @@ declare class AdmZip {
      */
     addLocalFolderPromise(
         localPath: string,
-        props: { zipPath?: string, filter?: RegExp | ((filename: string) => boolean) }
+        props: { zipPath?: string; filter?: RegExp | ((filename: string) => boolean) },
     ): Promise<void>;
     /**
      * Allows you to create a entry (file or directory) in the zip file.
@@ -137,8 +127,9 @@ declare class AdmZip {
      *   for a directory.
      * @param comment Comment to add to the entry.
      * @param attr Attribute to add to the entry.
+     * @return The entry corresponding to one which was just added.
      */
-    addFile(entryName: string, content: Buffer, comment?: string, attr?: number): void;
+    addFile(entryName: string, content: Buffer, comment?: string, attr?: number): AdmZip.IZipEntry;
     /**
      * Returns an array of `IZipEntry` objects representing the files and folders
      * inside the archive.
@@ -203,7 +194,7 @@ declare class AdmZip {
         targetPath: string,
         overwrite?: boolean,
         keepOriginalPermission?: boolean,
-        password?: string | Buffer
+        password?: string | Buffer,
     ): void;
     /**
      * Extracts the entire archive to the given location.
@@ -231,14 +222,11 @@ declare class AdmZip {
      * if a zip was opened and no `targetFileName` is provided, it will
      * overwrite the opened zip.
      */
-    writeZipPromise(
-        targetFileName?: string,
-        props?: { overwrite?: boolean, perm?: number }
-    ): Promise<boolean>;
+    writeZipPromise(targetFileName?: string, props?: { overwrite?: boolean; perm?: number }): Promise<boolean>;
     /**
      * Returns the content of the entire zip file.
      */
-    toBuffer(): Buffer;
+    toBuffer(): Buffer<ArrayBuffer>;
     /**
      * Asynchronously returns the content of the entire zip file.
      * @param onSuccess called with the content of the zip file, once it has been generated.
@@ -247,7 +235,7 @@ declare class AdmZip {
      * @param onItemEnd called after an entry is compressed.
      */
     toBuffer(
-        onSuccess: (buffer: Buffer) => void,
+        onSuccess: (buffer: Buffer<ArrayBuffer>) => void,
         onFail?: (...args: any[]) => void,
         onItemStart?: (name: string) => void,
         onItemEnd?: (name: string) => void,
@@ -255,7 +243,7 @@ declare class AdmZip {
     /**
      * Asynchronously convert the promise to a Buffer
      */
-    toBufferPromise(): Promise<Buffer>;
+    toBufferPromise(): Promise<Buffer<ArrayBuffer>>;
 }
 
 declare namespace AdmZip {
@@ -267,7 +255,7 @@ declare namespace AdmZip {
      * data and creates the headers required to write in the zip file.
      */
     // disable warning about the I-prefix in interface name to prevent breaking stuff for users without a major bump
-    // tslint:disable-next-line:interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface IZipEntry {
         /**
          * Represents the full name and path of the file
@@ -371,7 +359,7 @@ declare namespace AdmZip {
         /* Read entries during load (initial loading may be slower) */
         readEntries: boolean;
         /* Read method */
-        method: typeof Constants[keyof typeof Constants] | number;
+        method: (typeof Constants)[keyof typeof Constants] | number;
         /* file system */
         fs: null | typeof FS;
     }

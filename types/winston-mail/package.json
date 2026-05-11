@@ -1,6 +1,21 @@
 {
     "private": true,
+    "name": "@types/winston-mail",
+    "version": "1.5.9999",
+    "projects": [
+        "https://github.com/wavded/winston-mail#readme"
+    ],
     "dependencies": {
         "@types/winston": "2.3.9"
-    }
+    },
+    "devDependencies": {
+        "@types/node": "*",
+        "@types/winston-mail": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sorin Sandru",
+            "githubUsername": "idono87"
+        }
+    ]
 }

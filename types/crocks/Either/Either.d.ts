@@ -1,4 +1,4 @@
-import { UnaryFunction } from '../internal/types';
+import { UnaryFunction } from "../internal/types";
 
 declare function Either(val: any): Either;
 

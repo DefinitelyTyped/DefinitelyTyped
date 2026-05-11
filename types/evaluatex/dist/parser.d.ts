@@ -1,4 +1,4 @@
-import { AbstractSyntaxTreeNode, Token } from '../index';
+import { AbstractSyntaxTreeNode, Token } from "../index";
 
 declare function parse(token: Token[]): AbstractSyntaxTreeNode;
 

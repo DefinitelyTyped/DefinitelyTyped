@@ -5,7 +5,7 @@ interface IAny {
 var obj: IAny;
 var n: number = 0;
 var bool: boolean = false;
-var str: string = '';
+var str: string = "";
 
 var l: Line = Line.create(v, v);
 var m: Matrix = Matrix.create(v);

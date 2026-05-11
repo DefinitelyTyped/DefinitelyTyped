@@ -2,17 +2,17 @@
 A TS file to help with the construction of the official Relay (flow) types.
  */
 
-import { FragmentType } from 'relay-runtime';
-import { EntryPoint } from './EntryPointTypes';
+import { FragmentType } from "relay-runtime";
+import { EntryPoint } from "./EntryPointTypes";
 
 export type KeyType<TData = unknown> = Readonly<{
-    ' $data'?: TData | undefined;
-    ' $fragmentSpreads': FragmentType;
+    " $data"?: TData | undefined;
+    " $fragmentSpreads": FragmentType;
 }>;
 
-export type KeyTypeData<TKey extends KeyType<TData>, TData = unknown> = Required<TKey>[' $data'];
+export type KeyTypeData<TKey extends KeyType<TData>, TData = unknown> = Required<TKey>[" $data"];
 
-export type ArrayKeyType<TData = unknown> = ReadonlyArray<KeyType<ReadonlyArray<TData>> | null>;
+export type ArrayKeyType<TData = unknown> = ReadonlyArray<KeyType<readonly TData[]> | null | undefined>;
 export type ArrayKeyTypeData<TKey extends ArrayKeyType<TData>, TData = unknown> = KeyTypeData<
     NonNullable<TKey[number]>
 >;
@@ -20,13 +20,11 @@ export type ArrayKeyTypeData<TKey extends ArrayKeyType<TData>, TData = unknown> 
 export type GetEntryPointParamsFromEntryPoint<TEntryPoint> = TEntryPoint extends EntryPoint<
     infer TEntryPointComponent,
     infer TEntryPointParams
->
-    ? TEntryPointParams
+> ? TEntryPointParams
     : never;
 
 export type GetEntryPointComponentFromEntryPoint<TEntryPoint> = TEntryPoint extends EntryPoint<
     infer TEntryPointComponent,
     infer TEntryPointParams
->
-    ? TEntryPointComponent
+> ? TEntryPointComponent
     : never;

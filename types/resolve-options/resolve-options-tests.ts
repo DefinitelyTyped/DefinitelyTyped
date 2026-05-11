@@ -2,31 +2,31 @@ import resolveOptions = require("resolve-options");
 
 const config = {
     cwd: {
-      default: "C/test",
-      type: 'string'
+        default: "C/test",
+        type: "string",
     },
     read: {
-        type: 'boolean'
+        type: "boolean",
     },
     since: {
-        type: ['date', 'number']
+        type: ["date", "number"],
     },
     sourcemaps: {
-      default: false,
-      type: 'boolean'
+        default: false,
+        type: "boolean",
     },
-  };
+};
 
-  const options = {
+const options = {
     read() {
         return true;
-      },
+    },
     since: Date.now(),
     sourcemaps: true,
-  };
+};
 
-  const resolver = resolveOptions(config, options);
+const resolver = resolveOptions(config, options);
 
-  const cwd = resolver.resolve('cwd');
-  const sourcemaps = resolver.resolve('sourcemaps');
-  const read = resolver.resolve('read');
+const cwd = resolver.resolve("cwd");
+const sourcemaps = resolver.resolve("sourcemaps");
+const read = resolver.resolve("read");

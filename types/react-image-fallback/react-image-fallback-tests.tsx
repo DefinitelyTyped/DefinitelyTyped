@@ -1,19 +1,25 @@
-import * as React from 'react';
-import ReactImageFallback, { ReactImageFallbackProps } from 'react-image-fallback';
+import * as React from "react";
+import ReactImageFallback, { ReactImageFallbackProps } from "react-image-fallback";
 
 class ReactImageFallbackSimple extends React.Component<ReactImageFallbackProps> {
     render() {
-        return <ReactImageFallback
-            src="my-image.png"
-            fallbackImage="my-backup.png" />;
+        return (
+            <ReactImageFallback
+                src="my-image.png"
+                fallbackImage="my-backup.png"
+            />
+        );
     }
 }
 
 class ReactImageFallbackWithUndefineds extends React.Component<ReactImageFallbackProps> {
     render() {
-        return <ReactImageFallback
-            src={undefined}
-            fallbackImage={[undefined, "my-backup.png"]} />;
+        return (
+            <ReactImageFallback
+                src={undefined}
+                fallbackImage={[undefined, "my-backup.png"]}
+            />
+        );
     }
 }
 
@@ -25,23 +31,29 @@ class ReactImageFallbackWithOptionals extends React.Component<ReactImageFallback
     }
 
     render() {
-        return <ReactImageFallback
-            src="my-image.png"
-            fallbackImage="my-backup.png"
-            initialImage="loader.gif"
-            onLoad={this.onLoad}
-            onError={this.onError}
-            initialTimeout={1000} />;
+        return (
+            <ReactImageFallback
+                src="my-image.png"
+                fallbackImage="my-backup.png"
+                initialImage="loader.gif"
+                onLoad={this.onLoad}
+                onError={this.onError}
+                initialTimeout={1000}
+            />
+        );
     }
 }
 
 class ReactImageFallbackWithImageTagProps extends React.Component<ReactImageFallbackProps> {
     render() {
-        return <ReactImageFallback
-            src="my-image.png"
-            fallbackImage="my-backup.png"
-            alt="alt text"
-            width="123"
-            className="customClass" />;
+        return (
+            <ReactImageFallback
+                src="my-image.png"
+                fallbackImage="my-backup.png"
+                alt="alt text"
+                width="123"
+                className="customClass"
+            />
+        );
     }
 }

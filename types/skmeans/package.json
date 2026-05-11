@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/skmeans",
+    "version": "0.11.9999",
+    "projects": [
+        "https://github.com/solzimer/skmeans"
+    ],
+    "devDependencies": {
+        "@types/skmeans": "workspace:."
+    },
+    "owners": []
+}

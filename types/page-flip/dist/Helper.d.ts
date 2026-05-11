@@ -1,4 +1,4 @@
-import { Point, Rect, Segment } from './BasicTypes';
+import { Point, Rect, Segment } from "./BasicTypes";
 /**
  * A class containing helping mathematical methods
  */

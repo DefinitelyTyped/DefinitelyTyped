@@ -1,203 +1,207 @@
-import * as sass from 'node-sass';
+import * as sass from "node-sass";
 
 console.log(sass.info);
 
 const syncImporter: sass.SyncImporter = function(url, prev) {
-  if (url.startsWith('!')) {
-    return sass.NULL;
-  }
-  if (url.endsWith('?')) {
-    return sass.types.Error("cannot question mark");
-  }
-  console.log(typeof this.callback); // "undefined"
-  return { file: [prev, url].join('/') };
+    if (url.startsWith("!")) {
+        return sass.NULL;
+    }
+    if (url.endsWith("?")) {
+        return sass.types.Error("cannot question mark");
+    }
+    console.log(typeof this.callback); // "undefined"
+    return { file: [prev, url].join("/") };
 };
 
 const asyncImporter: sass.AsyncImporter = function(url, prev, done) {
-  if (url.startsWith('!')) {
-    // shouldn't really call twice, just checking for compiler validity
-    done(null);
-    done(sass.NULL);
-  }
-  if (url.endsWith('?')) {
-    // shouldn't really call twice, just checking for compiler validity
-    done(new sass.types.Error('Cannot accept this file'));
-    done(new Error('Cannot accept this file'));
-  } else {
-    console.log(this.options.file); // "string"
-    console.log(typeof this.callback); // "function"
-    done({ file: [prev, url].join('/') });
-  }
+    if (url.startsWith("!")) {
+        // shouldn't really call twice, just checking for compiler validity
+        done(null);
+        done(sass.NULL);
+    }
+    if (url.endsWith("?")) {
+        // shouldn't really call twice, just checking for compiler validity
+        done(new sass.types.Error("Cannot accept this file"));
+        done(new Error("Cannot accept this file"));
+    } else {
+        console.log(this.options.file); // "string"
+        console.log(typeof this.callback); // "function"
+        done({ file: [prev, url].join("/") });
+    }
 };
 
 const anotherAsyncImporter: sass.AsyncImporter = (url, prev, done) => {
-  someAsyncFunction(url, prev, (result) => {
-    if (result == null) {
-      // return null to opt out of handling this path
-      // compiler will fall to next importer in array (or its own default)
-      done(null);
-    }
-    // only one of them is required, see section Special Behaviors.
-    done({ file: result.path });
-    done({ contents: result.data });
-  });
+    someAsyncFunction(url, prev, (result) => {
+        if (result == null) {
+            // return null to opt out of handling this path
+            // compiler will fall to next importer in array (or its own default)
+            done(null);
+        }
+        // only one of them is required, see section Special Behaviors.
+        done({ file: result.path });
+        done({ contents: result.data });
+    });
 };
 
 const handleAsyncResult: sass.SassRenderCallback = (error, result) => { // node-style callback from v3.0.0 onwards
-  if (error) {
-    console.log(error.status, error.column, error.message, error.line);
-  } else {
-    console.log(result.stats);
-    console.log(result.css.toString());
-    console.log(result.map.toString());
-    // or better
-    console.log(JSON.stringify(result.map)); // note, JSON.stringify accepts Buffer too
-  }
+    if (error) {
+        console.log(error.status, error.column, error.message, error.line);
+    } else {
+        console.log(result.stats);
+        console.log(result.css.toString());
+        console.log(result.map.toString());
+        // or better
+        console.log(JSON.stringify(result.map)); // note, JSON.stringify accepts Buffer too
+    }
 };
 
 const syncFunction: Record<string, sass.SyncSassFn> = {
-  "pow($base, $exp)"($base, $exp) {
-    console.log(this.options.file); // "string"
-    console.log(typeof this.callback); // "undefined"
-    if ($base instanceof sass.types.Number && $exp instanceof sass.types.Number) {
-      if ($base.getUnit() !== "" || $exp.getUnit() !== "") {
-        throw new Error("Cannot have units in an exponent");
-      }
-      return new sass.types.Number(Math.pow($base.getValue(), $exp.getValue()));
-    } else {
-      throw new Error("Number expected");
-    }
-  }
+    "pow($base, $exp)"($base, $exp) {
+        console.log(this.options.file); // "string"
+        console.log(typeof this.callback); // "undefined"
+        if ($base instanceof sass.types.Number && $exp instanceof sass.types.Number) {
+            if ($base.getUnit() !== "" || $exp.getUnit() !== "") {
+                throw new Error("Cannot have units in an exponent");
+            }
+            return new sass.types.Number(Math.pow($base.getValue(), $exp.getValue()));
+        } else {
+            throw new Error("Number expected");
+        }
+    },
 };
 
 const syncVarArg: Record<string, sass.SyncSassVarArgFn3> = {
-  "add-all($n1, $n2, $ns...)"($n1, $n2, $ns) {
-    if (!($n1 instanceof sass.types.Number)) {
-      throw new Error("Expected a number");
-    }
-    if (!($n2 instanceof sass.types.Number)) {
-      throw new Error("Expected a number");
-    }
-    const unit = $n1.getUnit();
-    if ($n2.getUnit() !== unit) {
-      throw new Error("units don't match");
-    }
-    let accum = $n1.getValue() + $n2.getValue();
-    $ns.forEach(($n) => {
-      if (!($n instanceof sass.types.Number)) {
-        throw new Error("Expected a number");
-      }
-      if ($n.getUnit() !== unit) {
-        throw new Error("units don't match");
-      }
-      accum = accum + $n.getValue();
-    });
-    return sass.types.Number(accum, unit);
-  }
+    "add-all($n1, $n2, $ns...)"($n1, $n2, $ns) {
+        if (!($n1 instanceof sass.types.Number)) {
+            throw new Error("Expected a number");
+        }
+        if (!($n2 instanceof sass.types.Number)) {
+            throw new Error("Expected a number");
+        }
+        const unit = $n1.getUnit();
+        if ($n2.getUnit() !== unit) {
+            throw new Error("units don't match");
+        }
+        let accum = $n1.getValue() + $n2.getValue();
+        $ns.forEach(($n) => {
+            if (!($n instanceof sass.types.Number)) {
+                throw new Error("Expected a number");
+            }
+            if ($n.getUnit() !== unit) {
+                throw new Error("units don't match");
+            }
+            accum = accum + $n.getValue();
+        });
+        return sass.types.Number(accum, unit);
+    },
 };
 
-const syncFunctions: Record<string, sass.SyncSassFunction> = {...syncFunction, ...syncVarArg};
+const syncFunctions: Record<string, sass.SyncSassFunction> = { ...syncFunction, ...syncVarArg };
 
 const asyncFunction: Record<string, sass.AsyncSassFn2> = {
-  "pow-async($base, $exp)"($base, $exp, done) {
-    console.log(this.options.file); // "string"
-    console.log(typeof this.callback); // "function"
-    if ($base instanceof sass.types.Number && $exp instanceof sass.types.Number) {
-      if ($base.getUnit() !== "" || $exp.getUnit() !== "") {
-        done(new sass.types.Error("Cannot have units in an exponent"));
-      }
-      done(new sass.types.Number(Math.pow($base.getValue(), $exp.getValue())));
-    } else {
-      done(new sass.types.Error("Number expected"));
-    }
-  }
+    "pow-async($base, $exp)"($base, $exp, done) {
+        console.log(this.options.file); // "string"
+        console.log(typeof this.callback); // "function"
+        if ($base instanceof sass.types.Number && $exp instanceof sass.types.Number) {
+            if ($base.getUnit() !== "" || $exp.getUnit() !== "") {
+                done(new sass.types.Error("Cannot have units in an exponent"));
+            }
+            done(new sass.types.Number(Math.pow($base.getValue(), $exp.getValue())));
+        } else {
+            done(new sass.types.Error("Number expected"));
+        }
+    },
 };
 
 const asyncVarArg: Record<string, sass.AsyncSassVarArgFn3> = {
-  "add-all-async($n1, $n2, $ns...)"($n1, $n2, $ns, done) {
-    if (!($n1 instanceof sass.types.Number)) {
-      done(new sass.types.Error("Expected a number"));
-      return;
-    }
-    if (!($n2 instanceof sass.types.Number)) {
-      done(new sass.types.Error("Expected a number"));
-      return;
-    }
-    const unit = $n1.getUnit();
-    if ($n2.getUnit() !== unit) {
-      done(new sass.types.Error("units don't match"));
-      return;
-    }
-    let accum = $n1.getValue() + $n2.getValue();
-    for (const $n of $ns) {
-      if (!($n instanceof sass.types.Number)) {
-        done(new sass.types.Error("Expected a number"));
-        return;
-      }
-      if ($n.getUnit() !== unit) {
-        done(new sass.types.Error("units don't match"));
-        return;
-      }
-      accum = accum + $n.getValue();
-    }
-    done(sass.types.Number(accum, unit));
-  }
+    "add-all-async($n1, $n2, $ns...)"($n1, $n2, $ns, done) {
+        if (!($n1 instanceof sass.types.Number)) {
+            done(new sass.types.Error("Expected a number"));
+            return;
+        }
+        if (!($n2 instanceof sass.types.Number)) {
+            done(new sass.types.Error("Expected a number"));
+            return;
+        }
+        const unit = $n1.getUnit();
+        if ($n2.getUnit() !== unit) {
+            done(new sass.types.Error("units don't match"));
+            return;
+        }
+        let accum = $n1.getValue() + $n2.getValue();
+        for (const $n of $ns) {
+            if (!($n instanceof sass.types.Number)) {
+                done(new sass.types.Error("Expected a number"));
+                return;
+            }
+            if ($n.getUnit() !== unit) {
+                done(new sass.types.Error("units don't match"));
+                return;
+            }
+            accum = accum + $n.getValue();
+        }
+        done(sass.types.Number(accum, unit));
+    },
 };
 
-const asyncFunctions: Record<string, sass.AsyncSassFunction> = {...asyncFunction, ...asyncVarArg};
+const asyncFunctions: Record<string, sass.AsyncSassFunction> = { ...asyncFunction, ...asyncVarArg };
 
-const functions: sass.FunctionDeclarations = {...syncFunctions, ...asyncFunctions};
+const functions: sass.FunctionDeclarations = { ...syncFunctions, ...asyncFunctions };
 
 sass.render({
-  file: '/path/to/myFile.scss',
-  data: 'body{background:blue; a{color:black;}}',
-  functions,
-  importer: [anotherAsyncImporter, asyncImporter, syncImporter],
-  includePaths: ['lib/', 'mod/'],
-  outputStyle: 'compressed'
+    file: "/path/to/myFile.scss",
+    data: "body{background:blue; a{color:black;}}",
+    functions,
+    importer: [anotherAsyncImporter, asyncImporter, syncImporter],
+    includePaths: ["lib/", "mod/"],
+    outputStyle: "compressed",
 }, handleAsyncResult);
 
 // OR
 
 sass.render({
-  file: '/path/to/myFile.scss',
-  data: 'body{background:blue; a{color:black;}}',
-  importer: asyncImporter,
-  includePaths: ['lib/', 'mod/'],
-  outputStyle: 'compressed'
+    file: "/path/to/myFile.scss",
+    data: "body{background:blue; a{color:black;}}",
+    importer: asyncImporter,
+    includePaths: ["lib/", "mod/"],
+    outputStyle: "compressed",
 }, handleAsyncResult);
 
 // OR
 
 sass.render({
-  file: '/path/to/myFile.scss',
-  data: 'body{background:blue; a{color:black;}}',
-  importer: syncImporter,
-  includePaths: ['lib/', 'mod/'],
-  outputStyle: 'compressed'
+    file: "/path/to/myFile.scss",
+    data: "body{background:blue; a{color:black;}}",
+    importer: syncImporter,
+    includePaths: ["lib/", "mod/"],
+    outputStyle: "compressed",
 }, handleAsyncResult);
 
 // OR
 
 const result = sass.renderSync({
-  file: '/path/to/file.scss',
-  data: 'body{background:blue; a{color:black;}}',
-  outputStyle: 'compressed',
-  functions: syncFunctions,
-  outFile: '/to/my/output.css',
-  sourceMap: true, // or an absolute or relative (to outFile) path
-  sourceMapRoot: '.',
-  importer: syncImporter,
+    file: "/path/to/file.scss",
+    data: "body{background:blue; a{color:black;}}",
+    outputStyle: "compressed",
+    functions: syncFunctions,
+    outFile: "/to/my/output.css",
+    sourceMap: true, // or an absolute or relative (to outFile) path
+    sourceMapRoot: ".",
+    importer: syncImporter,
 });
 
 console.log(result.css);
 console.log(result.map);
 console.log(result.stats);
 
-function someAsyncFunction(url: string, prev: string, callback: (result: { path: string; data: string }) => void): void { }
+function someAsyncFunction(
+    url: string,
+    prev: string,
+    callback: (result: { path: string; data: string }) => void,
+): void {}
 
 function sameType<V extends sass.types.Value>(v1: V, v2: V): boolean {
-  return v1.constructor === v2.constructor;
+    return v1.constructor === v2.constructor;
 }
 
 // function-based Constructors and instance methods for types
@@ -268,11 +272,11 @@ sameType(ident, map1.getKey(0)); // true
 const error = new sass.types.Error("message");
 
 function valuesOf(enumerable: sass.types.Enumerable): sass.types.Value[] {
-  const values = new Array<sass.types.Value>();
-  for (let i = 0; i < enumerable.getLength(); i++) {
-    values.push(enumerable.getValue(i));
-  }
-  return values;
+    const values = new Array<sass.types.Value>();
+    for (let i = 0; i < enumerable.getLength(); i++) {
+        values.push(enumerable.getValue(i));
+    }
+    return values;
 }
 
 let arr = valuesOf(map1);

@@ -1,8 +1,3 @@
-// Type definitions for sane-email-validation 3.0
-// Project: https://github.com/scottgonzalez/sane-email-validation
-// Definitions by: Forbes Lindesay <https://github.com/ForbesLindesay>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Sane Email Validation
  */

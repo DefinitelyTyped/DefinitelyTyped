@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/jsreport-jsrender",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/jsreport/jsreport-jsrender"
+    ],
+    "dependencies": {
+        "@types/jsreport-core": "*"
+    },
+    "devDependencies": {
+        "@types/jsreport-jsrender": "workspace:.",
+        "@types/jsreport-phantom-pdf": "*",
+        "@types/node": "*"
+    },
+    "owners": [
+        {
+            "name": "taoqf",
+            "githubUsername": "taoqf"
+        }
+    ]
+}

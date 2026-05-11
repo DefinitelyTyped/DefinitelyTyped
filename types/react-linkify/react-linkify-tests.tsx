@@ -1,6 +1,6 @@
 import LinkifyIt = require("linkify-it");
 import * as React from "react";
-import ReactLinkify from 'react-linkify';
+import ReactLinkify from "react-linkify";
 
 const linkifier = new LinkifyIt();
 
@@ -11,7 +11,8 @@ class ExampleOfUsingReactLinkify extends React.Component {
                 textDecorator={textDecorator}
                 hrefDecorator={hrefDecorator}
                 componentDecorator={componentDecorator}
-                matchDecorator={matchDecorator}>
+                matchDecorator={matchDecorator}
+            >
                 This is a great website: www.wikipedia.org!
             </ReactLinkify>
         );

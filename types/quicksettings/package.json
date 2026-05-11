@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/quicksettings",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/bit101/quicksettings"
+    ],
+    "devDependencies": {
+        "@types/quicksettings": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "janizde",
+            "githubUsername": "janizde"
+        }
+    ]
+}

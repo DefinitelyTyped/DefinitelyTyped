@@ -6,6 +6,7 @@ declare class PermissionSchema {
     private declaredFieldsByClass_;
     private databaseFieldNames_;
     private classDefManager_;
+    private mimeTypesWithPermissionControl_;
     private NON_PERMISSION_FIELDS_;
     private logger_;
     private tableCacheForGetFieldValue_;
@@ -47,7 +48,7 @@ declare class PermissionSchema {
     ): any;
     getFieldsForFile(
         fileKey: number,
-        opt_options?:
+        options?:
             | {
                   includeNonDatabaseFields: boolean;
               }
@@ -68,9 +69,9 @@ declare class PermissionSchema {
     getExtraFiltersForClass(classKey: number): string[];
 }
 declare namespace PermissionSchema {
-    const TARGET_FIELDS: string[];
-    const PERIOD_FIELDS: string[];
-    const INHERITANCE_FIELDS: string[];
+    let TARGET_FIELDS: string[];
+    let PERIOD_FIELDS: string[];
+    let INHERITANCE_FIELDS: string[];
     function getInstance(): PermissionSchema;
 }
 import DataSet = require('../dataset/DataSet.js');

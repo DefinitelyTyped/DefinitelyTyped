@@ -1,37 +1,32 @@
-// Type definitions for react-bootstrap-table2-filter 1.3
-// Project: https://github.com/react-bootstrap-table/react-bootstrap-table2#readme
-// Definitions by: Wlad Meixner <https://github.com/gosticks>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 // documentation taken from https://react-bootstrap-table.github.io/react-bootstrap-table2/docs/table-props.html
 
-import { TableColumnFilterProps, ColumnDescription } from 'react-bootstrap-table-next';
-import { CSSProperties, SyntheticEvent } from 'react';
+import { CSSProperties, SyntheticEvent } from "react";
+import { ColumnDescription, TableColumnFilterProps } from "react-bootstrap-table-next";
 
 export enum FILTER_TYPES {
-    TEXT = 'TEXT',
-    SELECT = 'SELECT',
-    MULTISELECT = 'MULTISELECT',
-    NUMBER = 'NUMBER',
-    DATE = 'DATE',
+    TEXT = "TEXT",
+    SELECT = "SELECT",
+    MULTISELECT = "MULTISELECT",
+    NUMBER = "NUMBER",
+    DATE = "DATE",
 }
 
 /**
  * Filter comparators used for table filters
  */
 export enum Comparator {
-    LIKE = 'LIKE',
-    EQ = '=',
-    NE = '!=',
-    GT = '>',
-    GE = '>=',
-    LT = '<',
-    LE = '<=',
+    LIKE = "LIKE",
+    EQ = "=",
+    NE = "!=",
+    GT = ">",
+    GE = ">=",
+    LT = "<",
+    LE = "<=",
 }
 
-export type TextFilterProps<T extends object = any> = TableColumnFilterProps<string, T> &
-    Partial<{
+export type TextFilterProps<T extends object = any> =
+    & TableColumnFilterProps<string, T>
+    & Partial<{
         /**
          *  default is false, and true will only work when comparator is LIKE
          */
@@ -95,23 +90,25 @@ export function multiSelectFilter(props: Partial<MultiSelectFilterProps>): Table
 /**
  * Number filter configuration options
  */
-export type NumberFilterProps<T extends object = any> = TableColumnFilterProps<
-    { number: number | ''; comparator: Comparator },
-    T
-> & {
-    options?: number[] | undefined;
-    comparators?: Comparator[] | undefined;
-    /**
-     * When set to true comparator dropdown does not show a "no selection" option
-     */
-    withoutEmptyComparatorOption?: boolean | undefined;
-    withoutEmptyNumberOption?: boolean | undefined;
-    comparatorClassName?: string | undefined;
-    numberClassName?: string | undefined;
-    comparatorStyle?: CSSProperties | undefined;
-    numberStyle?: CSSProperties | undefined;
-    defaultValue?: { number: number; comparator: Comparator } | undefined;
-};
+export type NumberFilterProps<T extends object = any> =
+    & TableColumnFilterProps<
+        { number: number | ""; comparator: Comparator },
+        T
+    >
+    & {
+        options?: number[] | undefined;
+        comparators?: Comparator[] | undefined;
+        /**
+         * When set to true comparator dropdown does not show a "no selection" option
+         */
+        withoutEmptyComparatorOption?: boolean | undefined;
+        withoutEmptyNumberOption?: boolean | undefined;
+        comparatorClassName?: string | undefined;
+        numberClassName?: string | undefined;
+        comparatorStyle?: CSSProperties | undefined;
+        numberStyle?: CSSProperties | undefined;
+        defaultValue?: { number: number; comparator: Comparator } | undefined;
+    };
 
 export function numberFilter(props: Partial<NumberFilterProps>): TableColumnFilterProps;
 
@@ -122,9 +119,9 @@ export interface DateFilterProps<T extends object = any> extends TableColumnFilt
     withoutEmptyComparatorOption?: boolean | undefined;
     defaultValue?:
         | {
-              date: Date;
-              comparator: Comparator;
-          }
+            date: Date;
+            comparator: Comparator;
+        }
         | undefined;
     comparators?: Comparator[] | undefined;
     comparatorClassName?: string | undefined;

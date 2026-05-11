@@ -33,8 +33,8 @@ export class CustomEntity extends GameEntity {
         if (!this.manager) {
             return this;
         }
-        const target = this.manager.getEntityByName('target');
-        const obstacle = this.manager.getEntityByName('obstacle');
+        const target = this.manager.getEntityByName("target");
+        const obstacle = this.manager.getEntityByName("obstacle");
 
         this.target = target;
         if (obstacle) {

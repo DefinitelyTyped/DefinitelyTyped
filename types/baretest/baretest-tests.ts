@@ -1,6 +1,6 @@
-import baretest = require('baretest');
+import baretest = require("baretest");
 
-const test = baretest('my program');
+const test = baretest("my program");
 
 function doSetup(): void {}
 function doCleanup(): void {}
@@ -10,11 +10,11 @@ test.before(doSetup);
 
 test.after(doCleanup);
 
-test('it can do things', assertSomeThings);
+test("it can do things", assertSomeThings);
 
-test.skip('it can create world peace', assertSomeThings);
+test.skip("it can create world peace", assertSomeThings);
 
-test('it can do things asynchronously', async () => {
+test("it can do things asynchronously", async () => {
     return;
 });
 
@@ -28,7 +28,7 @@ test("you shouldn't take parameters in a test function", (people: number) => {})
 
 // @ts-expect-error
 test("you shouldn't return from an async test function", async () => {
-    return 'data from an API under test';
+    return "data from an API under test";
 });
 
 (async () => {

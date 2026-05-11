@@ -1,15 +1,15 @@
-import convertHwbToRgb from './convertHwbToRgb';
-import convertRgbToHwb from './convertRgbToHwb';
-import parseHwb from './parseHwb';
-import { fixupHueShorter } from '../fixup/hue';
-import { fixupAlpha } from '../fixup/alpha';
-import { interpolatorLinear } from '../interpolate/linear';
-import { differenceHueNaive } from '../difference';
-import { averageAngle } from '../average';
-import { Hwb } from './types';
+import { averageAngle } from "../average.js";
+import { differenceHueNaive } from "../difference.js";
+import { fixupAlpha } from "../fixup/alpha.js";
+import { fixupHueShorter } from "../fixup/hue.js";
+import { interpolatorLinear } from "../interpolate/linear.js";
+import convertHwbToRgb from "./convertHwbToRgb.js";
+import convertRgbToHwb from "./convertRgbToHwb.js";
+import parseHwb from "./parseHwb.js";
+import { Hwb } from "./types.js";
 
-declare const definition: {
-    mode: 'hwb';
+declare const modeHwb: {
+    mode: "hwb";
 
     toMode: {
         rgb: typeof convertHwbToRgb;
@@ -19,14 +19,14 @@ declare const definition: {
         rgb: typeof convertRgbToHwb;
     };
 
-    channels: ['h', 'w', 'b', 'alpha'];
+    channels: ["h", "w", "b", "alpha"];
 
     ranges: {
         h: [0, 360];
     };
 
     parse: [typeof parseHwb];
-    serialize: (c: Omit<Hwb, 'mode'>) => string;
+    serialize: (c: Omit<Hwb, "mode">) => string;
 
     interpolate: {
         h: { use: typeof interpolatorLinear; fixup: typeof fixupHueShorter };
@@ -44,4 +44,4 @@ declare const definition: {
     };
 };
 
-export default definition;
+export default modeHwb;

@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/purifycss-webpack",
+    "version": "0.7.9999",
+    "projects": [
+        "https://github.com/webpack-contrib/purifycss-webpack"
+    ],
+    "dependencies": {
+        "@types/webpack": "^4"
+    },
+    "devDependencies": {
+        "@types/purifycss-webpack": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Geoff Garbers",
+            "githubUsername": "garbetjie"
+        }
+    ]
+}

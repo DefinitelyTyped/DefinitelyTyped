@@ -2,10 +2,11 @@ import gulp = require("gulp");
 import * as es from "event-stream";
 
 gulp.task("es:concat", () => {
-    var streams = gulp.src(["*"])
-        .pipe(gulp.dest("build"));
+    const streams: es.MapStream[] = [
+        gulp.src(["*"]).pipe(gulp.dest("build")) as unknown as es.MapStream,
+    ];
 
-    return es.concat.apply(null, streams);
+    return es.concat(streams);
 });
 
 gulp.task("es:readArray ", () => {
@@ -15,8 +16,5 @@ gulp.task("es:readArray ", () => {
 es.pipeline(
     es.readArray([0, 1, 2, 3, undefined]),
     es.filterSync((value: number | undefined) => !!value),
-    es.map((value: number, callback: Function) =>
-        callback(null, value + 1)
-    )
+    es.map((value: number, callback: Function) => callback(null, value + 1)),
 );
-

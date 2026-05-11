@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/ibm-openapi-validator",
+    "version": "0.15.9999",
+    "projects": [
+        "https://github.com/IBM/openapi-validator#readme"
+    ],
+    "devDependencies": {
+        "@types/ibm-openapi-validator": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Rifa Achrinza",
+            "githubUsername": "achrinza"
+        }
+    ]
+}

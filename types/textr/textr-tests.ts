@@ -3,9 +3,9 @@ import textr = require("textr");
 textr();
 
 textr()
-    .use(() => { });
+    .use(() => {});
 
 textr()
-    .use(() => { })
-    .use(() => { })
-    .exec('hello');
+    .use(() => {})
+    .use(() => {})
+    .exec("hello");

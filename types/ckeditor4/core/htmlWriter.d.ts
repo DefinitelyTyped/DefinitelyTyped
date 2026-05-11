@@ -1,6 +1,6 @@
 declare namespace CKEDITOR {
     interface CKEditorStatic {
-        readonly htmlWriter: { new (): htmlWriter };
+        readonly htmlWriter: { new(): htmlWriter };
     }
     /** https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_htmlWriter.html */
     interface htmlWriter extends htmlParser.basicWriter {

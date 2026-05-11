@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/btoa",
+    "version": "1.2.9999",
+    "projects": [
+        "https://git.coolaj86.com/coolaj86/btoa.js.git"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/btoa": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "John Wright",
+            "githubUsername": "johngeorgewright"
+        },
+        {
+            "name": "Alex Brick",
+            "githubUsername": "bricka"
+        }
+    ]
+}

@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "node16",
         "lib": [
             "es6"
         ],
@@ -8,16 +8,16 @@
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "probe-image-size-tests.ts"
+        "probe-image-size-tests.ts",
+        "lib/parse_sync/bmp.d.ts",
+        "lib/parse_sync/ico.d.ts",
+        "lib/parse_sync/png.d.ts",
+        "stream.d.ts"
     ]
 }

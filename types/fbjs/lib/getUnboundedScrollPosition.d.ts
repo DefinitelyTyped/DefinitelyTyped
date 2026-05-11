@@ -1,4 +1,4 @@
-import { DOMWindow } from 'jsdom';
+import { DOMWindow } from "jsdom";
 
 /**
  * Gets the scroll position of the supplied element or window.

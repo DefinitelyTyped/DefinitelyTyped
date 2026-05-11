@@ -1,8 +1,0 @@
-{
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "ban-types": false,
-        "no-redundant-jsdoc-2": false,
-        "strict-export-declare-modifiers": false
-    }
-}

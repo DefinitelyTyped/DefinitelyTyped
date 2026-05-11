@@ -1,13 +1,7 @@
-// Type definitions for redux-form 5.0
-// Project: https://github.com/erikras/redux-form
-// Definitions by: Tim de Koning <https://github.com/reggino>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.6
-
 // Based on work by: Daniel Lytkin <https://github.com/aikoven>
 
-import * as React from 'react';
-import { Dispatch, Reducer } from 'redux';
+import * as React from "react";
+import { Dispatch, Reducer } from "redux";
 
 //
 // export const actionTypes: { [actionName: string]: string };
@@ -238,6 +232,7 @@ export interface ReduxFormProps<T> {
      */
     handleSubmit(event: React.SyntheticEvent<T>): void;
     handleSubmit(event: React.MouseEvent<HTMLButtonElement>): void;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     handleSubmit(submit: (data: FormData, dispatch?: Dispatch<any>) => Promise<any> | void): React.FormEventHandler<T>;
 
     /**

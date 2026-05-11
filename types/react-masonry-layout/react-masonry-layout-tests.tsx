@@ -1,17 +1,17 @@
-import * as React from 'react';
-import MasonryLayout from 'react-masonry-layout';
+import * as React from "react";
+import MasonryLayout from "react-masonry-layout";
 
 class Masonry extends React.Component {
     state = {
         perPage: 10,
-        items: Array(20).fill(''),
+        items: Array(20).fill(""),
     };
 
     loadItems = () => {
         this.setState({
-            items: this.state.items.concat(Array(this.state.perPage).fill('')),
+            items: this.state.items.concat(Array(this.state.perPage).fill("")),
         });
-    }
+    };
 
     render() {
         return (
@@ -21,8 +21,8 @@ class Masonry extends React.Component {
                     packed="data-packed"
                     sizes={[
                         { columns: 2, gutter: 10 },
-                        { mq: '768px', columns: 3, gutter: 25 },
-                        { mq: '1024px', columns: 4, gutter: 50 },
+                        { mq: "768px", columns: 3, gutter: 25 },
+                        { mq: "1024px", columns: 4, gutter: 50 },
                     ]}
                     position={false}
                     className=""
@@ -42,13 +42,13 @@ class Masonry extends React.Component {
                             <div
                                 key={i}
                                 style={{
-                                    width: '100px',
+                                    width: "100px",
                                     height: `${height}px`,
                                     lineHeight: `${height}px`,
-                                    color: 'white',
-                                    fontSize: '32px',
-                                    display: 'block',
-                                    background: 'rgba(0,0,0,0.7)',
+                                    color: "white",
+                                    fontSize: "32px",
+                                    display: "block",
+                                    background: "rgba(0,0,0,0.7)",
                                 }}
                             >
                                 {i}

@@ -1,5 +1,3 @@
-export type exports = string;
-declare const ALWAYS: string;
-declare const NEVER: string;
-declare const ON_DEMAND: string;
-export {};
+export const ALWAYS = 'T';
+export const NEVER = 'F';
+export const ON_DEMAND = 'O';

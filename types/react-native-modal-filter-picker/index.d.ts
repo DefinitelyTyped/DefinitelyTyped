@@ -1,20 +1,5 @@
-// Type definitions for react-native-modal-filter-picker 2.1
-// Project: https://github.com/hiddentao/react-native-modal-filter-picker#readme
-// Definitions by: Chang Yanwei <https://github.com/ywchang>
-//                 Cheng Gibson <https://github.com/nossbigg>
-//                 Zheng Arnaud <https://github.com/arnaud-zg>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import * as React from 'react';
-import {
-  StyleProp,
-  ViewStyle,
-  TextStyle,
-  KeyboardAvoidingView,
-  ModalProps,
-  FlatListProps,
-} from 'react-native';
+import * as React from "react";
+import { FlatListProps, KeyboardAvoidingView, ModalProps, StyleProp, TextStyle, ViewStyle } from "react-native";
 
 export interface ModalFilterPickerOption {
     label: string;
@@ -36,10 +21,10 @@ export interface ModalFilterPickerProps<T extends ModalFilterPickerOption> {
     modal?: ModalProps | undefined;
     selectedOption?: string | undefined;
     flatListProps?: Partial<FlatListProps<T>> | undefined;
-    renderOption?: ((option: T, isSelected: boolean) => JSX.Element) | undefined;
-    renderList?: (() => JSX.Element) | undefined;
-    renderCancelButton?: (() => JSX.Element) | undefined;
-    keyboardShouldPersistTaps?: 'never' | 'always' | 'handle' | undefined;
+    renderOption?: ((option: T, isSelected: boolean) => React.JSX.Element) | undefined;
+    renderList?: (() => React.JSX.Element) | undefined;
+    renderCancelButton?: (() => React.JSX.Element) | undefined;
+    keyboardShouldPersistTaps?: "never" | "always" | "handle" | undefined;
     autoFocus?: boolean | undefined;
 
     // styling props
@@ -56,7 +41,7 @@ export interface ModalFilterPickerProps<T extends ModalFilterPickerOption> {
 }
 
 declare class ModalFilterPicker<T extends ModalFilterPickerOption> extends React.Component<
-ModalFilterPickerProps<T>
+    ModalFilterPickerProps<T>
 > {}
 
 export default ModalFilterPicker;

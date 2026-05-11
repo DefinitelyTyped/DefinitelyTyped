@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/gulp-json-validator",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/jackyjieliu/gulp-json-validator"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/gulp-json-validator": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Peter Safranek",
+            "githubUsername": "pe8ter"
+        }
+    ]
+}

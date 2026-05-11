@@ -1,6 +1,6 @@
-import { Interface as ReadlineInterface } from 'readline';
-import inquirer, { Answers, InputQuestionOptions } from '../../index.js';
-import Prompt from './base.js';
+import { Interface as ReadlineInterface } from "readline";
+import inquirer, { Answers, InputQuestionOptions } from "../../index.js";
+import Prompt from "./base.js";
 
 /**
  * The question-options for the {@link InputPrompt `InputPrompt<TQuestion>`}.

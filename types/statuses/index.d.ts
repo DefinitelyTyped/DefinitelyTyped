@@ -1,11 +1,4 @@
-// Type definitions for statuses 2.0
-// Project: https://github.com/jshttp/statuses
-// Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
-//                 BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.7
-
-type NumericAscii = '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '0';
+type NumericAscii = "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "0";
 type NonNumericAscii<S> = S extends `${NumericAscii}` ? never : any;
 
 type IsNumericString<S extends string> = S extends `${number}` ? any : never;
@@ -29,9 +22,7 @@ interface status {
 }
 
 declare namespace status {
-    type Result<S extends string> = S extends IsNumericString<S>
-        ? string
-        : S extends IsNonNumericString<S>
-        ? number
+    type Result<S extends string> = S extends IsNumericString<S> ? string
+        : S extends IsNonNumericString<S> ? number
         : string | number;
 }

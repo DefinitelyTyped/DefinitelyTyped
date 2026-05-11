@@ -4,40 +4,40 @@ namespace nvd3_test_legend {
 
     var legend = nv.models.legend();
 
-    d3.select('#test1')
-        .attr('width', width)
-        .attr('height', height)
+    d3.select("#test1")
+        .attr("width", width)
+        .attr("height", height)
         .datum(sinAndCos());
 
     var legend2 = nv.models.legend()
         .align(false);
 
-    d3.select('#test2')
-        .attr('width', width)
-        .attr('height', height)
+    d3.select("#test2")
+        .attr("width", width)
+        .attr("height", height)
         .datum(sinAndCos()).call(legend2);
 
     var legend3 = nv.models.legend()
         .width(900)
         .padding(70);
 
-    d3.select('#test3')
-        .attr('width', 900)
-        .attr('height', 200)
+    d3.select("#test3")
+        .attr("width", 900)
+        .attr("height", 200)
         .datum(sinAndCos()).call(legend3);
 
-    var update = function () {
-        d3.select('#test1').call(legend);
-    }
+    var update = function() {
+        d3.select("#test1").call(legend);
+    };
 
     update();
-    legend.dispatch.on('stateChange', function (d) {
+    legend.dispatch.on("stateChange", function(d) {
         console.log(d);
         update();
     });
 
-    d3.select('#changeData').on('click', function () {
-        d3.select('#test1')
+    d3.select("#changeData").on("click", function() {
+        d3.select("#test1")
             .datum(differentData())
             .call(legend);
     });
@@ -49,7 +49,7 @@ namespace nvd3_test_legend {
             { key: "A Very Long Series Label With Over Twenty Characters" },
             { key: "A Very Long Series Label With Over Twenty Characters" },
             { key: "Cosine Wave" },
-            { key: "Another test label" }
+            { key: "Another test label" },
         ];
     }
 
@@ -61,7 +61,7 @@ namespace nvd3_test_legend {
             { key: "Equities" },
             { key: "Bonds" },
             { key: "Stocks" },
-            { key: "Apple" }
+            { key: "Apple" },
         ];
     }
 }

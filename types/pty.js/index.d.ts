@@ -1,11 +1,4 @@
-// Type definitions for pty.js 0.2
-// Project: https://github.com/chjj/pty.js
-// Definitions by: Vadim Macagon <https://github.com/enlight>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 /// <reference types="node" />
-
 
 /** Options that can be used when creating a new pseudo-terminal. */
 interface TerminalOptions {
@@ -18,7 +11,7 @@ interface TerminalOptions {
     gid?: number | undefined;
 }
 
-import net = require('net');
+import net = require("net");
 
 export declare class Terminal {
     /** Read-only name of the terminal. */
@@ -28,7 +21,7 @@ export declare class Terminal {
     /** Read-only number of rows in the terminal. */
     rows: number;
     /**
-         * Read-only identifier of the spawned process associated with the slave end of the
+     * Read-only identifier of the spawned process associated with the slave end of the
      * pseudo-terminal. This will be null if the terminal was created via [[Terminal.open]].
      */
     pid: number;
@@ -48,15 +41,15 @@ export declare class Terminal {
 
     /**
      * Creates a new pseudo-terminal, spawns a child process, and associates it with the slave
- * end of the pseudo-terminal.
- */
+     * end of the pseudo-terminal.
+     */
     constructor(file?: string, args?: string[], opt?: TerminalOptions);
 
     resize(cols?: number, rows?: number): void;
     /**
- * Sends a signal to the spawned process associated with the slave end of the
- * pseudo-terminal (this only works if [[pid]] is not null).
- */
+     * Sends a signal to the spawned process associated with the slave end of the
+     * pseudo-terminal (this only works if [[pid]] is not null).
+     */
     kill(signal?: string): void;
     redraw(): void;
 
@@ -75,7 +68,7 @@ export declare class Terminal {
 
     // NodeJS Stream interface
 
-    pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean | undefined; }): T;
+    pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean | undefined }): T;
 
     // NodeJS EventEmitter interface
 
@@ -99,31 +92,45 @@ export declare function fork(file?: string, args?: string[], opt?: TerminalOptio
 /** Alias for [[createTerminal]]. */
 export declare function spawn(file?: string, args?: string[], opt?: TerminalOptions): Terminal;
 /**
-* Creates a new pseudo-terminal.
-* This function is not available on Windows, use [[fork]] there instead.
-*/
+ * Creates a new pseudo-terminal.
+ * This function is not available on Windows, use [[fork]] there instead.
+ */
 export declare function open(opt?: { cols?: number | undefined; rows?: number | undefined }): Terminal;
 
 // Internal stuff that probably isn't very useful but is exported by pty.js
-export declare module native {
+export declare namespace native {
     /** Unix-only. */
     export function fork(
-        file: string, args: string[], env: any, cwd: string, cols: number, rows: number,
-        uid?: number, gid?: number
+        file: string,
+        args: string[],
+        env: any,
+        cwd: string,
+        cols: number,
+        rows: number,
+        uid?: number,
+        gid?: number,
     ): { fd: number; pid: number; pty: string };
     /** Unix-only. */
     export function open(
-        cols: number, rows: number
+        cols: number,
+        rows: number,
     ): { master: number; slave: number; pty: string };
     /** Unix-only. */
     export function process(fd: number, tty: string): string;
     /** Windows-only. */
     export function open(
-        dataPipe: string, cols: number, rows: number, debug: boolean
+        dataPipe: string,
+        cols: number,
+        rows: number,
+        debug: boolean,
     ): { pid: number; pty: number; fd: number };
     /** Windows-only. */
     export function startProcess(
-        pid: number, file: string, cmdline: string, env: string[], cwd: string
+        pid: number,
+        file: string,
+        cmdline: string,
+        env: string[],
+        cwd: string,
     ): void;
     /** Windows-only. */
     export function kill(pid: number): void;

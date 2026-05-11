@@ -6,32 +6,32 @@ const server = new Server({
 });
 
 // Definition for INERT
-declare module 'hapi' {
+declare module "hapi" {
     interface HandlerDecorations {
         file?: string | undefined;
     }
 }
 
 const serverRouteOption: ServerRoute = {
-    path: '/file',
-    method: 'GET',
+    path: "/file",
+    method: "GET",
     handler: {
-        file: './test.html'
-    }
+        file: "./test.html",
+    },
 };
 
 const plugin: Plugin<any> = {
-    name: 'example',
+    name: "example",
     register: async (server: Server, options: ServerRegisterOptions) => {
         // Assuming the Inert plugin was registered previously
-        server.path(__dirname + '../static');
+        server.path(__dirname + "../static");
         server.route(serverRouteOption);
-    }
+    },
 };
 
 server.start();
 server.register(plugin);
 
-server.events.on('start', () => {
-    console.log('Server started at: ' + server.info.uri);
+server.events.on("start", () => {
+    console.log("Server started at: " + server.info.uri);
 });

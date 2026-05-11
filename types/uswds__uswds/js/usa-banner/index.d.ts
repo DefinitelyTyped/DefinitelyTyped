@@ -1,6 +1,6 @@
 interface Banner {
-    on(el: HTMLElement): void;
-    off(el: HTMLElement): void;
+    on(el?: HTMLElement): void;
+    off(el?: HTMLElement): void;
 }
 
 declare const banner: Banner;

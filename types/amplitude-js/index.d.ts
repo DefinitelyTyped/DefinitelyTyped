@@ -1,16 +1,10 @@
-// Type definitions for Amplitude SDK 8.16
-// Project: https://github.com/amplitude/Amplitude-Javascript
-// Definitions by: Dan Manastireanu <https://github.com/danmana>
-//                 Kimmo Hintikka <https://github.com/HintikkaKimmo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace amplitude;
 
 export type Callback = (responseCode: number, responseBody: string, details?: { reason: string }) => void;
 export type LogReturn = number | undefined;
-export type Transport = 'http' | 'beacon';
+export type Transport = "http" | "beacon";
 // https://github.com/amplitude/Amplitude-JavaScript/blob/v8.9.0/src/server-zone.js#L9
-export type ServerZone = 'EU' | 'US';
+export type ServerZone = "EU" | "US";
 
 // https://amplitude.github.io/Amplitude-JavaScript/Options
 export interface Config {
@@ -33,19 +27,19 @@ export interface Config {
     includeReferrer?: boolean | undefined;
     includeUtm?: boolean | undefined;
     language?: string | undefined;
-    logLevel?: 'DISABLE' | 'ERROR' | 'WARN' | 'INFO' | undefined;
+    logLevel?: "DISABLE" | "ERROR" | "WARN" | "INFO" | undefined;
     optOut?: boolean | undefined;
     onError?: (() => void) | undefined;
     onExitPage?: (() => void) | undefined;
     platform?: string | undefined;
-    sameSiteCookie?: 'Lax' | 'Strict' | 'None' | undefined;
+    sameSiteCookie?: "Lax" | "Strict" | "None" | undefined;
     saveEvents?: boolean | undefined;
     savedMaxCount?: number | undefined;
     saveParamsReferrerOncePerSession?: boolean | undefined;
     secureCookie?: boolean | undefined;
     sessionTimeout?: number | undefined;
     sessionId?: number | null;
-    storage?: '' | 'cookies' | 'localStorage' | 'sessionStorage' | 'none';
+    storage?: "" | "cookies" | "localStorage" | "sessionStorage" | "none";
     trackingOptions?: {
         city?: boolean | undefined;
         country?: boolean | undefined;
@@ -139,7 +133,14 @@ export class AmplitudeClient {
     regenerateDeviceId(): void;
 
     identify(identify: Identify, callback?: Callback, errorCallback?: Callback, outOfSession?: boolean): void;
-    groupIdentify(groupType: string, groupName: string | string[], identify: Identify, callback?: Callback, errorCallback?: Callback, outOfSession?: boolean): void;
+    groupIdentify(
+        groupType: string,
+        groupName: string | string[],
+        identify: Identify,
+        callback?: Callback,
+        errorCallback?: Callback,
+        outOfSession?: boolean,
+    ): void;
 
     setUserProperties(properties: any): void;
     /**
@@ -161,15 +162,35 @@ export class AmplitudeClient {
     setServerZone(serverZone: ServerZone, serverZoneBasedApi?: boolean): void;
 
     setEventUploadThreshold(eventUploadThreshold: number): void;
-    logEvent(event: string, data?: any, callback?: Callback, errorCallback?: Callback, outOfSession?: boolean): LogReturn;
-    logEventWithGroups(event: string, data?: any, groups?: any, callback?: Callback, errorCallback?: Callback, outOfSession?: boolean): LogReturn;
+    logEvent(
+        event: string,
+        data?: any,
+        callback?: Callback,
+        errorCallback?: Callback,
+        outOfSession?: boolean,
+    ): LogReturn;
+    logEventWithGroups(
+        event: string,
+        data?: any,
+        groups?: any,
+        callback?: Callback,
+        errorCallback?: Callback,
+        outOfSession?: boolean,
+    ): LogReturn;
     logRevenueV2(revenue_obj: Revenue): LogReturn;
 
     /**
      * @deprecated Use `logRevenueV2` instead
      */
     logRevenue(price: number, quantity: number, product: string): LogReturn;
-    logEventWithTimestamp(event: string, data?: any, timestamp?: number, callback?: Callback, errorCallback?: Callback, outOfSession?: boolean): LogReturn;
+    logEventWithTimestamp(
+        event: string,
+        data?: any,
+        timestamp?: number,
+        callback?: Callback,
+        errorCallback?: Callback,
+        outOfSession?: boolean,
+    ): LogReturn;
 
     Identify: typeof Identify;
     Revenue: typeof Revenue;
@@ -179,7 +200,7 @@ export interface CookieStorageOptions {
     expirationDays?: number | undefined;
     domain?: string | undefined;
     secure?: boolean | undefined;
-    sameSite?: 'Lax' | 'Strict' | 'None' | undefined;
+    sameSite?: "Lax" | "Strict" | "None" | undefined;
 }
 export interface CookieStorage {
     reset(): void;
@@ -193,7 +214,6 @@ export interface CookieStorage {
 // Proxy methods that get executed on the default AmplitudeClient instance (not all client methods are proxied)
 
 /**
- *
  * @deprecated Please use amplitude.getInstance().init(apiKey, opt_userId, opt_config, opt_callback);
  */
 export function init(

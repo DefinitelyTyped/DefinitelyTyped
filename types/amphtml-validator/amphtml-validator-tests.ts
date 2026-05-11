@@ -13,7 +13,7 @@ import * as ampHtmlValidator from "amphtml-validator";
                 message,
                 specUrl,
                 code,
-                params
+                params,
             } = err;
             return err;
         });

@@ -1,9 +1,12 @@
 {
     "rules": {
-        "dt-header": "off",
-        "trim-file": "off",
-        "no-any-union": "off",
-        "no-declare-current-package": "off",
-        "no-self-import": "off"
+        "@definitelytyped/no-any-union": "off",
+        "@definitelytyped/no-declare-current-package": "off",
+        "@definitelytyped/no-self-import": "off",
+        "@definitelytyped/strict-export-declare-modifiers": "off",
+        "@typescript-eslint/no-unsafe-function-type": "off",
+        "@typescript-eslint/no-wrapper-object-types": "off",
+        "@typescript-eslint/naming-convention": "off",
+        "no-duplicate-imports": "off"
     }
 }

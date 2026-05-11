@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/fast-stable-stringify",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/nickyout/fast-stable-stringify"
+    ],
+    "devDependencies": {
+        "@types/fast-stable-stringify": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "gaspard",
+            "githubUsername": "gasp"
+        }
+    ]
+}

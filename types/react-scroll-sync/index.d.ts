@@ -1,9 +1,4 @@
-// Type definitions for react-scroll-sync 0.8
-// Project: https://github.com/okonet/react-scroll-sync
-// Definitions by: Corné Dorrestijn <https://github.com/cornedor>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import * as React from 'react';
+import * as React from "react";
 
 export interface ScrollSyncProps {
     children?: React.ReactNode;
@@ -19,6 +14,7 @@ export interface ScrollSyncPaneProps {
     children?: React.ReactNode;
     group?: string | string[] | undefined;
     enabled?: boolean | undefined;
+    innerRef?: React.Ref<HTMLElement>;
 }
 
 export const ScrollSync: React.FC<ScrollSyncProps>;

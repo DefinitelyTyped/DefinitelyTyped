@@ -1,10 +1,4 @@
-// Type definitions for @webpack-blocks/dev-server 2.0
-// Project: https://github.com/andywer/webpack-blocks/tree/master/packages/dev-server
-// Definitions by: Max Boguslavskiy <https://github.com/maxbogus>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
-import { Block } from 'webpack-blocks';
+import { Block } from "webpack-blocks";
 
 declare namespace devServer {
     type InjectClientFunction = (compilerConfig: any) => boolean;
@@ -51,9 +45,9 @@ declare namespace devServer {
         allowedHosts?: string[] | undefined;
         before?: StartMiddlewareFunction | undefined;
         bonjour?: boolean | undefined;
-        clientLogLevel?: 'silent' | 'trace' | 'debug' | 'info' | 'warn' | 'error' | 'none' | 'warning' | undefined;
+        clientLogLevel?: "silent" | "trace" | "debug" | "info" | "warn" | "error" | "none" | "warning" | undefined;
         compress?: boolean | undefined;
-        contentBase?: boolean | string | string [] | number | undefined;
+        contentBase?: boolean | string | string[] | number | undefined;
         disableHostCheck?: boolean | undefined;
         filename?: string | undefined;
         headers?: object | undefined;
@@ -73,7 +67,7 @@ declare namespace devServer {
         noInfo?: boolean | undefined;
         open?: boolean | string | undefined;
         openPage?: string | undefined;
-        overlay?: boolean | { errors?: boolean | undefined, warnings?: boolean | undefined } | undefined;
+        overlay?: boolean | { errors?: boolean | undefined; warnings?: boolean | undefined } | undefined;
         pfx?: string | undefined;
         pfxPassphrase?: string | undefined;
         port?: number | undefined;
@@ -88,8 +82,8 @@ declare namespace devServer {
         socketPath?: string | undefined;
         socketPort?: number | string | undefined;
         staticOptions?: SetHeadersFunction | undefined;
-        stats?: 'none' | 'errors-only' | 'minimal' | 'normal' | 'verbose' | object | undefined;
-        transportMode?: 'sockjs' | 'ws' | TransportMode | undefined;
+        stats?: "none" | "errors-only" | "minimal" | "normal" | "verbose" | object | undefined;
+        transportMode?: "sockjs" | "ws" | TransportMode | undefined;
         useLocalIp?: boolean | undefined;
         watchContentBase?: boolean | undefined;
         watchOptions?: WatchOptions | undefined;

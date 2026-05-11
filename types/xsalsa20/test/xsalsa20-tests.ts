@@ -8,9 +8,9 @@ new xsalsa20(nonce, key); // $ExpectType Xor
 const xor = xsalsa20(nonce, key);
 xor; // $ExpectType Xor
 
-xor.update(Buffer.from("hello")); // $ExpectType Uint8Array
-xor.update(Buffer.from("hello"), Buffer.from("world")); // $ExpectType Buffer
-xor.update(Buffer.from("hello"), new Uint8Array()); // $ExpectType Uint8Array
-xor.update(new Uint8Array()); // $ExpectType Uint8Array
+xor.update(Buffer.from("hello")); // $ExpectType Uint8Array || Uint8Array<ArrayBufferLike>
+xor.update(Buffer.from("hello"), Buffer.from("world")); // $ExpectType Buffer || Buffer<ArrayBuffer>
+xor.update(Buffer.from("hello"), new Uint8Array()); // $ExpectType Uint8Array || Uint8Array<ArrayBuffer>
+xor.update(new Uint8Array()); // $ExpectType Uint8Array || Uint8Array<ArrayBufferLike>
 
 xor.finalize(); // $ExpectType void

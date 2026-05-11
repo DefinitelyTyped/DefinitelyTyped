@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/meteor-mdg-validation-error",
+    "version": "0.5.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Atmosphere package mdg:validation-error",
+    "projects": [
+        "https://github.com/meteor/validation-error"
+    ],
+    "dependencies": {
+        "@types/meteor": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/meteor-mdg-validation-error": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "ToastHawaii",
+            "githubUsername": "ToastHawaii"
+        }
+    ]
+}

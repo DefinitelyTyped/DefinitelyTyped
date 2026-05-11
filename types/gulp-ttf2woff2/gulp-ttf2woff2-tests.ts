@@ -1,9 +1,9 @@
-import gulp = require('gulp');
-import ttf2woff2 = require('gulp-ttf2woff2');
-import PluginError = require('plugin-error');
+import gulp = require("gulp");
+import ttf2woff2 = require("gulp-ttf2woff2");
+import PluginError = require("plugin-error");
 
-gulp.task('ttf2woff2', () => {
-    gulp.src(['fonts/*.ttf']).pipe(ttf2woff2()).pipe(gulp.dest('fonts/'));
+gulp.task("ttf2woff2", () => {
+    gulp.src(["fonts/*.ttf"]).pipe(ttf2woff2()).pipe(gulp.dest("fonts/"));
 });
 
 ttf2woff2({});

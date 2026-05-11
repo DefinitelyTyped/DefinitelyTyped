@@ -5,18 +5,18 @@ ParseMockDB.mockDB(); // Mock the Parse RESTController
 // from parse-mockdb test suite
 ParseMockDB.registerHook("Foo", "beforeSave", (request) => {
     const object = request.object;
-    if (object.get('error')) {
-        return Parse.Promise.error('whoah');
+    if (object.get("error")) {
+        return Parse.Promise.error("whoah");
     }
-    object.set('cool', true);
+    object.set("cool", true);
     return Parse.Promise.as(object);
 });
 
 // from parse-mockdb test suite
 ParseMockDB.registerHook("Foo", "beforeDelete", (request) => {
     const object = request.object;
-    if (object.get('error')) {
-        return Parse.Promise.error('whoah');
+    if (object.get("error")) {
+        return Parse.Promise.error("whoah");
     }
     return Parse.Promise.as({});
 });

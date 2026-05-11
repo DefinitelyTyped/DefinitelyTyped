@@ -1,2 +1,2 @@
-import { of } from '../index';
+import { of } from "../index.js";
 export default of;

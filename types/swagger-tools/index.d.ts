@@ -1,11 +1,5 @@
-// Type definitions for swagger-tools 0.10
-// Project: https://github.com/apigee-127/swagger-tools
-// Definitions by: Alex Brick <https://github.com/bricka>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
-import { NextHandleFunction } from 'connect';
-import { IncomingMessage, ServerResponse } from 'http';
+import { NextHandleFunction } from "connect";
+import { IncomingMessage, ServerResponse } from "http";
 
 export interface SwaggerParameterSchema {
     allowMultiple?: boolean | undefined;
@@ -47,7 +41,11 @@ export interface Swagger12Request extends IncomingMessage {
     };
 }
 
-export type SwaggerRouter12HandlerFunction = (req: Swagger12Request, res: ServerResponse, next: (arg?: any) => void) => void;
+export type SwaggerRouter12HandlerFunction = (
+    req: Swagger12Request,
+    res: ServerResponse,
+    next: (arg?: any) => void,
+) => void;
 
 export interface SwaggerRouter12OptionsControllers {
     [handlerName: string]: SwaggerRouter12HandlerFunction;
@@ -97,7 +95,11 @@ export interface Swagger20Request<P extends SwaggerRequestParameters> extends In
     };
 }
 
-export type SwaggerRouter20HandlerFunction = (req: Swagger20Request<any>, res: ServerResponse, next: (arg?: any) => void) => void;
+export type SwaggerRouter20HandlerFunction = (
+    req: Swagger20Request<any>,
+    res: ServerResponse,
+    next: (arg?: any) => void,
+) => void;
 
 export interface SwaggerRouter20OptionsControllers {
     [handlerName: string]: SwaggerRouter20HandlerFunction;
@@ -118,7 +120,12 @@ export interface SwaggerSecurityError {
 
 export type SwaggerSecurityCallback = (err?: SwaggerSecurityError) => void;
 
-export type SwaggerSecurityHandler = (request: IncomingMessage, securityDefinition: any, scopes: string | string[], callback: SwaggerSecurityCallback) => void;
+export type SwaggerSecurityHandler = (
+    request: IncomingMessage,
+    securityDefinition: any,
+    scopes: string | string[],
+    callback: SwaggerSecurityCallback,
+) => void;
 
 export interface SwaggerSecurityOptions {
     [securityDefinitionName: string]: SwaggerSecurityHandler;
@@ -169,5 +176,5 @@ export function initializeMiddleware(swaggerObject: any, callback: InitializeMid
 export function initializeMiddleware(
     swaggerObject: any,
     resources: Resource[],
-    callback: InitializeMiddlewareCallback12
+    callback: InitializeMiddlewareCallback12,
 ): void;

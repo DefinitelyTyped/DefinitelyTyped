@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/jwt-encode",
+    "version": "1.0.9999",
+    "projects": [
+        "https://www.npmjs.com/package/jwt-encode"
+    ],
+    "devDependencies": {
+        "@types/jwt-encode": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Shakirov Kirill",
+            "githubUsername": "turisap"
+        }
+    ]
+}

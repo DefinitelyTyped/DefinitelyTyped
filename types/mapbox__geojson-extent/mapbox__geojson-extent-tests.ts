@@ -1,8 +1,8 @@
-import extent = require('@mapbox/geojson-extent');
-import { GeoJSON, BBox, Polygon } from 'geojson';
+import extent = require("@mapbox/geojson-extent");
+import { BBox, GeoJSON, Polygon } from "geojson";
 
 const bbox: BBox = extent({
-    type: 'Polygon',
+    type: "Polygon",
     coordinates: [
         [
             [170.0, 45.0],
@@ -16,7 +16,7 @@ const bbox: BBox = extent({
 });
 
 const poly: Polygon | null = extent.polygon({
-    type: 'Polygon',
+    type: "Polygon",
     coordinates: [
         [
             [170.0, 45.0],
@@ -30,7 +30,7 @@ const poly: Polygon | null = extent.polygon({
 });
 
 const json: GeoJSON = extent.bboxify({
-    type: 'Polygon',
+    type: "Polygon",
     coordinates: [
         [
             [170.0, 45.0],

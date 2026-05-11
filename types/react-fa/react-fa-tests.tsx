@@ -1,30 +1,30 @@
-import * as React from 'react';
-import DefaultIcon, { Icon, IconStack, IconProps } from 'react-fa';
+import * as React from "react";
+import DefaultIcon, { Icon, IconProps, IconStack } from "react-fa";
 
 export class ReactFATest extends React.Component {
     render() {
         const defaultProps = {
-            name: 'flask',
-            Component: 'div',
+            name: "flask",
+            Component: "div",
         };
 
         return (
             <div>
-                <Icon { ...defaultProps } />
-                <Icon { ...defaultProps } size='lg' />
-                <Icon { ...defaultProps } spin />
-                <Icon { ...defaultProps } rotate='90' />
-                <Icon { ...defaultProps } flip='vertical' />
-                <Icon { ...defaultProps } fixedWidth />
-                <Icon { ...defaultProps } pulse />
+                <Icon {...defaultProps} />
+                <Icon {...defaultProps} size="lg" />
+                <Icon {...defaultProps} spin />
+                <Icon {...defaultProps} rotate="90" />
+                <Icon {...defaultProps} flip="vertical" />
+                <Icon {...defaultProps} fixedWidth />
+                <Icon {...defaultProps} pulse />
 
-                <Icon { ...defaultProps } className="test" onClick={ () => {} } />
+                <Icon {...defaultProps} className="test" onClick={() => {}} />
 
-                <DefaultIcon { ...defaultProps } />
+                <DefaultIcon {...defaultProps} />
 
-                <IconStack size='lg'>
-                    <Icon name='circle' stack='2x' />
-                    <Icon name='flask' stack='1x' inverse />
+                <IconStack size="lg">
+                    <Icon name="circle" stack="2x" />
+                    <Icon name="flask" stack="1x" inverse />
                 </IconStack>
             </div>
         );

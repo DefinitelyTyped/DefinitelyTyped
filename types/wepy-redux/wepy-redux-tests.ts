@@ -1,11 +1,10 @@
-import wepy from "wepy";
 import { createStore } from "redux";
+import wepy from "wepy";
 import { connect, getStore, setStore } from "wepy-redux";
 
 const store = createStore(
-    (counter: number | undefined, action: { type: string; payload: number }) =>
-        counter || 0 + action.payload,
-    0
+    (counter: number | undefined, action: { type: string; payload: number }) => counter || 0 + action.payload,
+    0,
 );
 
 setStore(store);
@@ -24,12 +23,12 @@ interface State {
         num(state: State) {
             return state.counter.num;
         },
-        inc: "inc"
+        inc: "inc",
     },
     {
         addNum: "INCREMENT",
-        asyncInc: () => {}
-    }
+        asyncInc: () => {},
+    },
 )
 export default class Index extends wepy.page {
     // methods

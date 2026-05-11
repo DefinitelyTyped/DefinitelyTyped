@@ -1,6 +1,6 @@
 import { Identity } from "./identity";
 
-export declare type AnchorType = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
+export declare type AnchorType = "top-left" | "top-right" | "bottom-left" | "bottom-right";
 export interface TransitionOptions {
     interrupt: boolean;
     tween?: string | undefined;
@@ -33,7 +33,7 @@ export interface Bounds {
     right?: number | undefined;
     bottom?: number | undefined;
 }
-export declare type ViewBounds = Pick<Bounds, Exclude<keyof Bounds, 'right' | 'bottom'>>;
+export declare type ViewBounds = Pick<Bounds, Exclude<keyof Bounds, "right" | "bottom">>;
 export interface RGB {
     red: number;
     blue: number;
@@ -64,6 +64,6 @@ export interface ClientIdentity extends Identity {
 
 export interface PreloadScript {
     mandatory?: boolean | undefined;
-    state?: 'load-started' | 'load-failed' | 'load-succeeded' | 'failed' | 'succeeded' | undefined;
+    state?: "load-started" | "load-failed" | "load-succeeded" | "failed" | "succeeded" | undefined;
     url: string;
 }

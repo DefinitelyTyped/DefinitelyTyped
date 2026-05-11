@@ -4,7 +4,7 @@
         "react-addons-css-transition-group-tests.ts"
     ],
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "node16",
         "lib": [
             "es6",
             "dom"
@@ -13,16 +13,7 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
-        "paths": {
-            "react": [
-                "react/v15"
-            ]
-        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     }

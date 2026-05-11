@@ -1,11 +1,13 @@
 /**
  * Simple enum for enum test
  */
-enum enumTest { male, female }
+enum enumTest {
+    male,
+    female,
+}
 
 /**
  * ensure that observable values can validate
- *
  */
 function ObservableValidationTypes() {
     // any
@@ -38,42 +40,55 @@ function ObservableValidationTypes() {
         .validate()
         .end();
 
-    //array
-    var t6 = ko.observableArray<any>(<any[]>[])
+    // array
+    var t6 = ko.observableArray<any>(<any[]> [])
         .validate()
         .end();
 }
 
 function ComputedValidationTests() {
-    var t1 = ko.computed<string>(function () { return "hello world"; })
+    var t1 = ko.computed<string>(function() {
+        return "hello world";
+    })
         .validate()
         .end();
 }
 
 function RuleTests() {
-
     // various values used in rule tests
     var dummyRule: Valerie.IRule = { test: null, defaultOptions: null };
 
     // valerie supports both value and function arguments in many cases
 
     var stringValue = "";
-    var stringFN = function () { return stringValue; }
+    var stringFN = function() {
+        return stringValue;
+    };
 
     var numberValue = 1;
-    var numberFN = function () { return numberValue; }
+    var numberFN = function() {
+        return numberValue;
+    };
 
     var booleanValue = false;
-    var booleanFN = function () { return booleanValue; }
+    var booleanFN = function() {
+        return booleanValue;
+    };
 
     var dateValue = new Date();
-    var dateFN = function () { return dateValue; }
+    var dateFN = function() {
+        return dateValue;
+    };
 
-    var anyValue = <any>{};
-    var anyFN = function () { return anyValue; }
+    var anyValue = <any> {};
+    var anyFN = function() {
+        return anyValue;
+    };
 
-    var arrayValue = <any[]>[];
-    var arrayFN = function () { return arrayValue; }
+    var arrayValue = <any[]> [];
+    var arrayFN = function() {
+        return arrayValue;
+    };
 
     var regexpValue = /\d+/;
 
@@ -87,7 +102,9 @@ function RuleTests() {
     var test_applicable = ko.observable(stringValue)
         .validate()
         .applicable(true)
-        .applicable(function () { return false; })
+        .applicable(function() {
+            return false;
+        })
         .end();
 
     var test_currencyMajor = ko.observable(numberValue)
@@ -270,28 +287,28 @@ function RuleTests() {
 
     var test_rule = ko.observable(anyValue)
         .validate()
-        .rule(() => { return anyValue; })
+        .rule(() => {
+            return anyValue;
+        })
         .end();
-
 }
 
 function ModelValidation() {
-
     var model = {};
 
     var validatedModel = valerie.validatableModel(model)
         .validateAll()
         .end();
-
 }
 
 function UtilsStaticTests() {
-
     var t1 = valerie.utils.asArray(1);
-    var t2 = valerie.utils.asArray([1,2]);
+    var t2 = valerie.utils.asArray([1, 2]);
 
     var t3 = valerie.utils.asFunction(1);
-    var t4 = valerie.utils.asFunction((): number => { return 1; });
+    var t4 = valerie.utils.asFunction((): number => {
+        return 1;
+    });
 
     var t5 = valerie.utils.isArray([1, 2]);
     var t5 = valerie.utils.isArrayOrObject(1);
@@ -305,19 +322,16 @@ function UtilsStaticTests() {
 }
 
 function ValidationResultStaticTests() {
-
     var t1 = valerie.ValidationResult.passedInstance;
 
     var t2 = valerie.ValidationResult.createFailedResult("message");
-
 }
 
 function ValidationStateStaticTests() {
-
     var t1 = valerie.validationState.findIn({});
     var t2 = valerie.validationState.getFor({});
     var t3 = valerie.validationState.has({});
 
-    var state = <Valerie.IValidationState>{};
+    var state = <Valerie.IValidationState> {};
     var t4 = valerie.validationState.setFor({}, state);
 }

@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/reactabular-sticky",
+    "version": "8.14.9999",
+    "projects": [
+        "http://reactabular.js.org/"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "@types/reactabular-table": "*"
+    },
+    "devDependencies": {
+        "@types/reactabular-sticky": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Marcos Junior",
+            "githubUsername": "junalmeida"
+        }
+    ]
+}

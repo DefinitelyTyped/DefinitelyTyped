@@ -1,8 +1,0 @@
-{
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "no-reference-import": false,
-        "semicolon": false,
-        "strict-export-declare-modifiers": false
-    }
-}

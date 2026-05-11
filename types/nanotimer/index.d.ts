@@ -1,8 +1,3 @@
-// Type definitions for nanotimer 0.3
-// Project: https://github.com/Krb686/nanotimer
-// Definitions by: Samuel Bodin <https://github.com/bodinsamuel>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace NanoTimer {
     interface TimeoutResults {
         waitTime: number;

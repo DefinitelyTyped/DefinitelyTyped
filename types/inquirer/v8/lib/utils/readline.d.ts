@@ -1,4 +1,4 @@
-import { Interface as ReadlineInterface } from 'readline';
+import { Interface as ReadlineInterface } from "readline";
 
 /**
  * Moves the cursor to the left.

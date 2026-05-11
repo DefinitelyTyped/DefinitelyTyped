@@ -1,4 +1,4 @@
-import { Middleware, Middlewares, Context } from "./typings/common";
+import { Context, Middleware, Middlewares } from "./typings/common";
 
 export type getType = (
     path: string,

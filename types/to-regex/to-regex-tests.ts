@@ -1,33 +1,33 @@
-import toRegex = require('to-regex');
+import toRegex = require("to-regex");
 
 // $ExpectType RegExp
-toRegex('foo');
+toRegex("foo");
 
 // $ExpectType RegExp
-toRegex(['foo', 'bar']);
+toRegex(["foo", "bar"]);
 
 // $ExpectType RegExp
-toRegex('foo', { contains: true });
+toRegex("foo", { contains: true });
 
 // $ExpectType RegExp
-toRegex('foo', {
+toRegex("foo", {
     contains: true,
     negate: false,
     nocase: true,
-    flags: 'g',
+    flags: "g",
     cache: true,
     safe: true,
 });
 
 // $ExpectType RegExp
-toRegex.makeRe('foo');
+toRegex.makeRe("foo");
 
 // $ExpectType RegExp
-toRegex.makeRe('foo|bar', {
+toRegex.makeRe("foo|bar", {
     contains: true,
     negate: false,
     nocase: true,
-    flags: 'g',
+    flags: "g",
     cache: true,
     safe: true,
 });

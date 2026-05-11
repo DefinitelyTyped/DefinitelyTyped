@@ -1,13 +1,8 @@
-// Type definitions for fs-minipass 2.1
-// Project: https://github.com/npm/fs-minipass#readme
-// Definitions by: JDB <https://github.com/legodude17>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import Minipass = require('minipass');
-import { Encoding } from 'minipass';
-import type { Mode } from 'fs';
+import Minipass = require("minipass");
+import type { Mode } from "fs";
+import { Encoding } from "minipass";
 /**
  * Path string is required, but somewhat irrelevant if an open file descriptor is passed in as an option.
  */

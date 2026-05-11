@@ -1,28 +1,28 @@
-import convertXyz50ToLuv from './convertXyz50ToLuv';
-import convertLuvToXyz50 from './convertLuvToXyz50';
+import convertLuvToXyz50 from "./convertLuvToXyz50.js";
+import convertXyz50ToLuv from "./convertXyz50ToLuv.js";
 
-import { interpolatorLinear } from '../interpolate/linear';
-import { fixupAlpha } from '../fixup/alpha';
-import { Luv } from './types';
-import { Rgb } from '../rgb/types';
+import { fixupAlpha } from "../fixup/alpha.js";
+import { interpolatorLinear } from "../interpolate/linear.js";
+import { Rgb } from "../rgb/types.js";
+import { Luv } from "./types.js";
 
-declare const definition: {
-    mode: 'luv';
+declare const modeLuv: {
+    mode: "luv";
 
     toMode: {
         xyz50: typeof convertLuvToXyz50;
-        rgb: (c: Omit<Luv, 'mode'>) => Rgb;
+        rgb: (c: Omit<Luv, "mode">) => Rgb;
     };
 
     fromMode: {
         xyz50: typeof convertXyz50ToLuv;
-        rgb: (c: Omit<Rgb, 'mode'>) => Luv;
+        rgb: (c: Omit<Rgb, "mode">) => Luv;
     };
 
-    channels: ['l', 'u', 'v', 'alpha'];
+    channels: ["l", "u", "v", "alpha"];
 
-    parse: ['--luv'];
-    serialize: '--luv';
+    parse: ["--luv"];
+    serialize: "--luv";
 
     ranges: {
         l: [0, 100];
@@ -38,4 +38,4 @@ declare const definition: {
     };
 };
 
-export default definition;
+export default modeLuv;

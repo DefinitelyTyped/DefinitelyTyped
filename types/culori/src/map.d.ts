@@ -1,5 +1,5 @@
-import { Color, FindColorByMode, Mode } from './common';
-import { Rgb } from './rgb/types';
+import { Color, FindColorByMode, Mode } from "./common.js";
+import { Rgb } from "./rgb/types.js";
 
 type Channel = string;
 
@@ -25,10 +25,11 @@ interface ColorToPredefinedColorMapper<M extends Mode> {
     (color: string): FindColorByMode<M> | undefined;
 }
 
-declare function mapper(fn: MapFn<'rgb'>, mode?: undefined, preserve_mode?: false): ColorToRgbMapper;
-declare function mapper(fn: MapFn<'rgb'>, mode: undefined, preserve_mode: true): ColorToSameColorMapper;
+declare function mapper(fn: MapFn<"rgb">, mode?: undefined, preserve_mode?: false): ColorToRgbMapper;
+declare function mapper(fn: MapFn<"rgb">, mode: undefined, preserve_mode: true): ColorToSameColorMapper;
 declare function mapper<M extends Mode>(fn: MapFn<M>, mode: M, preserve_mode?: false): ColorToPredefinedColorMapper<M>;
 declare function mapper<M extends Mode>(fn: MapFn<M>, mode: M, preserve_mode: true): ColorToSameColorMapper;
+declare function mapper(fn: MapFn<Mode>, mode: null, preserve_mode?: false): ColorToSameColorMapper;
 
 declare function mapAlphaMultiply(v: number, ch: Channel, c: Color): number;
 
@@ -42,4 +43,4 @@ declare function mapTransferGamma(
     offset?: number,
 ): (v: number, ch: Channel) => number;
 
-export { mapper, mapAlphaMultiply, mapAlphaDivide, mapTransferLinear, mapTransferGamma };
+export { mapAlphaDivide, mapAlphaMultiply, mapper, mapTransferGamma, mapTransferLinear };

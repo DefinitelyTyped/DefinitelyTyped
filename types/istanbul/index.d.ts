@@ -1,12 +1,6 @@
-// Type definitions for Istanbul v0.4.0
-// Project: https://github.com/gotwarlost/istanbul
-// Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-
 declare namespace istanbul {
     interface Istanbul {
-        new (options?: any): Istanbul;
+        new(options?: any): Istanbul;
         Collector: Collector;
         config: Config;
         ContentWriter: ContentWriter;
@@ -22,7 +16,7 @@ declare namespace istanbul {
     }
 
     interface Collector {
-        new (options?: any): Collector;
+        new(options?: any): Collector;
         add(coverage: any, testName?: string): void;
         getFinalCoverage(): any;
     }
@@ -40,7 +34,7 @@ declare namespace istanbul {
     }
 
     interface Instrumenter {
-        new (options?: any): Instrumenter;
+        new(options?: any): Instrumenter;
         instrumentSync(code: string, filename: string): string;
     }
 
@@ -48,13 +42,13 @@ declare namespace istanbul {
     }
 
     interface Configuration {
-        new (obj: any, overrides: any): Configuration;
+        new(obj: any, overrides: any): Configuration;
     }
 
     interface Reporter {
-        new (cfg?: Configuration, dir?: string): Reporter;
+        new(cfg?: Configuration, dir?: string): Reporter;
         add(fmt: string): void;
-        addAll(fmts: Array<string>): void;
+        addAll(fmts: string[]): void;
         write(collector: Collector, sync: boolean, callback: Function): void;
     }
 

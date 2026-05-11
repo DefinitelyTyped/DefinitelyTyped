@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/logger",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/quirkey/node-logger"
+    ],
+    "devDependencies": {
+        "@types/logger": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Max Wan",
+            "githubUsername": "maxwan"
+        }
+    ]
+}

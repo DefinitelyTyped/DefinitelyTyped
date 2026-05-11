@@ -1,14 +1,8 @@
-// Type definitions for react-html-parser 2.0
-// Project: https://github.com/wrakky/react-html-parser#readme
-// Definitions by: Spencer Elliott <https://github.com/elliottsj>
-//                 Wooram Jun <https://github.com/chatoo2412>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import { ReactElement } from "react";
 import { DomElement } from "htmlparser2";
+import { ReactElement } from "react";
 
 export interface Transform {
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     (node: DomElement, index: number, transform?: Transform): ReactElement | void | null;
 }
 

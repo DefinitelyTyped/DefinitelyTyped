@@ -1,6 +1,6 @@
-import * as Koa from "koa";
-import * as Router from "koa-router";
-import * as Subdomain from "koa-subdomain";
+import Koa from "koa";
+import Router from "koa-router";
+import Subdomain from "koa-subdomain";
 
 const app = new Koa();
 const router = new Router();

@@ -1,11 +1,3 @@
-// Type definitions for blueimp-load-image 5.16
-// Project: https://github.com/blueimp/JavaScript-Load-Image
-// Definitions by: Evan Kesten <https://github.com/ebk46>
-//                 Konstantin Lukaschenko <https://github.com/KonstantinLukaschenko>
-//                 Saeid Rezaei <https://github.com/moeinio>
-//                 Zak Barbuto <https://github.com/zbarbuto>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace loadImage {
     type LoadImageCallback = (eventOrImage: Event | HTMLCanvasElement | HTMLImageElement, data?: MetaData) => void;
     type LoadImageResult = MetaData & {
@@ -21,7 +13,7 @@ declare namespace loadImage {
     interface Exif {
         [tag: number]: ExifTagValue;
         map: Record<string, number>;
-        get: (tagName: 'Orientation' | 'Thumbnail' | 'Exif' | 'GPSInfo' | 'Interoperability') => ExifTagValue;
+        get: (tagName: "Orientation" | "Thumbnail" | "Exif" | "GPSInfo" | "Interoperability") => ExifTagValue;
     }
 
     interface Iptc {
@@ -41,7 +33,7 @@ declare namespace loadImage {
     }
 
     interface WriteExifData {
-        exif: Pick<Exif, 'map'>;
+        exif: Pick<Exif, "map">;
         exifOffsets: ExifMap;
     }
 
@@ -76,7 +68,7 @@ declare namespace loadImage {
         orientation?: Orientation | undefined;
         crop?: boolean | undefined;
         imageSmoothingEnabled?: boolean | undefined;
-        imageSmoothingQuality?: 'low' | 'medium' | 'high' | undefined;
+        imageSmoothingQuality?: "low" | "medium" | "high" | undefined;
     }
     interface CanvasFalseOptions {
         canvas?: false | undefined;
@@ -184,6 +176,7 @@ interface LoadImage {
     readFile: unknown;
     isInstanceOf: unknown;
     createObjectURL: (blob: Blob) => string | false;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     revokeObjectURL: (url: string) => void | false;
 }
 

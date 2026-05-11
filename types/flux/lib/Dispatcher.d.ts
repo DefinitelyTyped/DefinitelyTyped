@@ -1,4 +1,4 @@
-declare namespace Dispatcher { }
+declare namespace Dispatcher {}
 
 declare class Dispatcher<TPayload> {
     /**

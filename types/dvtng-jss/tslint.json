@@ -1,9 +1,0 @@
-{
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "no-consecutive-blank-lines": false,
-        "npm-naming": false,
-        "object-literal-key-quotes": false,
-        "unified-signatures": false
-    }
-}

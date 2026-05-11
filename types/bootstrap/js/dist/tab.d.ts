@@ -1,5 +1,5 @@
-import { GetInstanceFactory } from './base-component.d';
-import BaseComponent, { GetOrCreateInstanceFactory } from './base-component';
+import BaseComponent, { GetOrCreateInstanceFactory } from "./base-component";
+import { GetInstanceFactory } from "./base-component.d";
 
 declare class Tab extends BaseComponent {
     /**
@@ -33,14 +33,14 @@ declare namespace Tab {
          * Use event.target and event.relatedTarget to target the active tab and
          * the previous active tab (if available) respectively.
          */
-        show = 'show.bs.tab',
+        show = "show.bs.tab",
 
         /**
          * This event fires on tab show after a tab has been shown. Use
          * event.target and event.relatedTarget to target the active tab and the
          * previous active tab (if available) respectively.
          */
-        shown = 'shown.bs.tab',
+        shown = "shown.bs.tab",
 
         /**
          * This event fires when a new tab is to be shown (and thus the previous
@@ -48,17 +48,17 @@ declare namespace Tab {
          * to target the current active tab and the new soon-to-be-active tab,
          * respectively.
          */
-        hide = 'hide.bs.tab',
+        hide = "hide.bs.tab",
 
         /**
          * This event fires after a new tab is shown (and thus the previous
          * active tab is hidden). Use event.target and event.relatedTarget to
          * target the previous active tab and the new active tab, respectively.
          */
-        hidden = 'hidden.bs.tab',
+        hidden = "hidden.bs.tab",
     }
 
-    type jQueryInterface = (config?: 'show' | 'dispose') => JQuery;
+    type jQueryInterface = (config?: "show" | "dispose") => JQuery;
 }
 
 export default Tab;

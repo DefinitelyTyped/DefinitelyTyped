@@ -1,3 +1,3 @@
-import re = require('path-regex');
+import re = require("path-regex");
 
 re(); // $ExpectType RegExp

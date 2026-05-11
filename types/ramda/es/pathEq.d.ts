@@ -1,2 +1,2 @@
-import { pathEq } from '../index';
+import { pathEq } from "../index.js";
 export default pathEq;

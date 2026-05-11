@@ -1,4 +1,4 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
 (() => {
     function printXPlusFive(x: number) {
@@ -13,7 +13,7 @@ import * as R from 'ramda';
 //   R.forEach.idx(printXPlusFive, [{name: 1}, {name: 2}, {name: 3}]);
 // })();
 
-() => {
+(() => {
     function printXPlusFive(x: number) {
         console.log(x + 5);
     }
@@ -23,4 +23,4 @@ import * as R from 'ramda';
     // -> 6
     // -> 7
     // -> 8
-};
+});

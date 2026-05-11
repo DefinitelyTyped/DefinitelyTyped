@@ -9,18 +9,10 @@
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-        "paths": {
-            "@rdfjs/*": [
-                "rdfjs__*"
-            ]
-        }
+        "esModuleInterop": true
     },
     "files": [
         "index.d.ts",

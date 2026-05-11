@@ -1,8 +1,3 @@
-// Type definitions for @stroncium/procfs 1.2
-// Project: https://github.com/stroncium/nodejs-procfs
-// Definitions by: pauhull <https://github.com/pauhull>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface ProcessMountinfo {
     devId: number;
     mountId: number;
@@ -58,7 +53,7 @@ export interface ProcessLimit {
     units?: string;
 }
 
-export type ProcessState = 'R' | 'S' | 'D' | 'Z' | 'T' | 't' | 'X';
+export type ProcessState = "R" | "S" | "D" | "Z" | "T" | "t" | "X";
 
 export interface ProcessStat {
     blockIoTicks: number;
@@ -152,7 +147,7 @@ export interface ProcessStatus {
     umask?: number;
 }
 
-export type ProcessFdinfoType = 'regular' | 'event' | 'epoll' | 'signal' | 'inotify' | 'fanotify' | 'timer';
+export type ProcessFdinfoType = "regular" | "event" | "epoll" | "signal" | "inotify" | "fanotify" | "timer";
 
 export interface ProcessFdinfoEpollCounter {
     fd: number;
@@ -195,7 +190,7 @@ export interface ProcessFdinfo {
     timerValue?: number[];
 }
 
-export type ProcessFdType = 'pipe' | 'socket' | 'file' | 'anon-inode';
+export type ProcessFdType = "pipe" | "socket" | "file" | "anon-inode";
 
 export interface ProcessFd {
     type: ProcessFdType;
@@ -348,7 +343,7 @@ export interface Stat {
     systemCpuTime: StatCpuTime;
 }
 
-export type DeviceType = 'character' | 'block';
+export type DeviceType = "character" | "block";
 
 export interface Device {
     group: string;
@@ -431,12 +426,12 @@ export interface CgroupController {
     name: string;
 }
 
-export type ProcfsErrorCode = 'EPARSE' | 'EUNKNOWN' | 'ENOENT';
+export type ProcfsErrorCode = "EPARSE" | "EUNKNOWN" | "ENOENT";
 
 export class ProcfsError extends Error {
-    static ERR_PARSING_FAILED: 'EPARSE';
-    static ERR_UNKNOWN: 'EUNKNOWN';
-    static ERR_NOT_FOUND: 'ENOENT';
+    static ERR_PARSING_FAILED: "EPARSE";
+    static ERR_UNKNOWN: "EUNKNOWN";
+    static ERR_NOT_FOUND: "ENOENT";
     constructor(code: ProcfsErrorCode, message?: string, sourceError?: string);
     code: ProcfsErrorCode;
     sourceText?: string;

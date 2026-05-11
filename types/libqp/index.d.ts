@@ -1,8 +1,3 @@
-// Type definitions for libqp 1.1
-// Project: https://github.com/nodemailer/libqp
-// Definitions by: Chris. Webster <https://github.com/webstech>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 import { Transform, TransformOptions } from "stream";
 

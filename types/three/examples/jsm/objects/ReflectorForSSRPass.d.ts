@@ -1,15 +1,18 @@
 import {
-    Mesh,
-    ShaderMaterial,
-    WebGLRenderTarget,
     BufferGeometry,
-    WebGLRenderer,
-    Scene,
     Camera,
+    Color,
     IUniform,
-} from '../../../src/Three';
+    Mesh,
+    Scene,
+    ShaderMaterial,
+    Vector2,
+    WebGLRenderer,
+    WebGLRenderTarget,
+} from "three";
 
 export interface ReflectorShader {
+    name: string;
     defines: {
         DISTANCE_ATTENUATION: boolean;
         FRESNEL: boolean;
@@ -31,7 +34,7 @@ export interface ReflectorForSSRPassOptions {
 }
 
 export class ReflectorForSSRPass<TGeometry extends BufferGeometry = BufferGeometry> extends Mesh<TGeometry> {
-    type: 'ReflectorForSSRPass';
+    type: "ReflectorForSSRPass";
     options: ReflectorForSSRPassOptions;
 
     static ReflectorShader: ReflectorShader;
@@ -39,6 +42,8 @@ export class ReflectorForSSRPass<TGeometry extends BufferGeometry = BufferGeomet
     needsUpdate: boolean;
     maxDistance: number;
     opacity: number;
+    color: Color;
+    resolution: Vector2;
 
     get distanceAttenuation(): boolean;
     set distanceAttenuation(val: boolean);

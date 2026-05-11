@@ -8,10 +8,10 @@
 
 class AuthService {
     /**
-      * Holds all the requests which failed due to 401 response,
-      * so they can be re-requested in future, once login is completed.
-      */
-    buffer: Array<{ config: ng.IRequestConfig; deferred: ng.IDeferred<any>; }> = [];
+     * Holds all the requests which failed due to 401 response,
+     * so they can be re-requested in future, once login is completed.
+     */
+    buffer: Array<{ config: ng.IRequestConfig; deferred: ng.IDeferred<any> }> = [];
 
     /**
      * Required by HTTP interceptor.
@@ -20,15 +20,17 @@ class AuthService {
     pushToBuffer = (config: ng.IRequestConfig, deferred: ng.IDeferred<any>) => {
         this.buffer.push({
             config,
-            deferred
+            deferred,
         });
-    }
+    };
 
     $get = [
-        '$rootScope', '$injector', ($rootScope: ng.IScope, $injector: ng.auto.IInjectorService) => {
+        "$rootScope",
+        "$injector",
+        ($rootScope: ng.IScope, $injector: ng.auto.IInjectorService) => {
             let $http: ng.IHttpService; // initialized later because of circular dependency problem
             function retry(config: ng.IRequestConfig, deferred: ng.IDeferred<any>) {
-                $http = $http || $injector.get<ng.IHttpService>('$http');
+                $http = $http || $injector.get<ng.IHttpService>("$http");
                 $http(config).then(response => {
                     deferred.resolve(response);
                 });
@@ -43,32 +45,31 @@ class AuthService {
 
             return {
                 loginConfirmed() {
-                    $rootScope.$broadcast('event:auth-loginConfirmed');
+                    $rootScope.$broadcast("event:auth-loginConfirmed");
                     retryAll();
-                }
+                },
             };
-        }
+        },
     ];
 }
 
-angular.module('http-auth-interceptor', [])
-
-    .provider('authService', AuthService)
-
-/**
- * $http interceptor.
- * On 401 response - it stores the request and broadcasts 'event:angular-auth-loginRequired'.
- */
+angular.module("http-auth-interceptor", [])
+    .provider("authService", AuthService)
+    /**
+     * $http interceptor.
+     * On 401 response - it stores the request and broadcasts 'event:angular-auth-loginRequired'.
+     */
     .config([
-        '$httpProvider', 'authServiceProvider',
+        "$httpProvider",
+        "authServiceProvider",
         ($httpProvider: ng.IHttpProvider, authServiceProvider: AuthService) => {
-            $httpProvider.defaults.headers.common = { Authorization: 'Bearer token' };
-            $httpProvider.defaults.headers.get.Authorization = 'Bearer token';
-            $httpProvider.defaults.headers.post['Authorization'] = (config: ng.IRequestConfig) =>
-                'Bearer token';
+            $httpProvider.defaults.headers.common = { Authorization: "Bearer token" };
+            $httpProvider.defaults.headers.get.Authorization = "Bearer token";
+            $httpProvider.defaults.headers.post["Authorization"] = (config: ng.IRequestConfig) => "Bearer token";
 
             const interceptor = [
-                '$rootScope', '$q',
+                "$rootScope",
+                "$q",
                 ($rootScope: ng.IScope, $q: ng.IQService) => {
                     return {
                         request(config: ng.IRequestConfig) {
@@ -80,16 +81,16 @@ angular.module('http-auth-interceptor', [])
                             if (rejection.status === 401) {
                                 const deferred = $q.defer<ng.IHttpResponse<any>>();
                                 authServiceProvider.pushToBuffer(rejection.config, deferred);
-                                $rootScope.$broadcast('event:auth-loginRequired');
+                                $rootScope.$broadcast("event:auth-loginRequired");
                                 return deferred.promise;
                             }
                             return $q.reject(rejection);
-                        }
+                        },
                     };
-                }
+                },
             ];
             $httpProvider.interceptors.push(interceptor);
-        }
+        },
     ]);
 
 namespace HttpAndRegularPromiseTests {
@@ -109,7 +110,7 @@ namespace HttpAndRegularPromiseTests {
     }
 
     function someController($scope: SomeControllerScope, $http: ng.IHttpService, $q: ng.IQService) {
-        $http.get<ExpectedResponse>('http://somewhere/some/resource')
+        $http.get<ExpectedResponse>("http://somewhere/some/resource")
             .then((response: ng.IHttpResponse<ExpectedResponse>) => {
                 // typing lost, so something like
                 // const i: number = response.data
@@ -117,7 +118,7 @@ namespace HttpAndRegularPromiseTests {
                 $scope.person = response.data;
             });
 
-        $http.get<ExpectedResponse>('http://somewhere/some/resource')
+        $http.get<ExpectedResponse>("http://somewhere/some/resource")
             .then((response: ng.IHttpResponse<ExpectedResponse>) => {
                 // typing lost, so something like
                 // const i: number = response.data
@@ -125,7 +126,7 @@ namespace HttpAndRegularPromiseTests {
                 $scope.person = response.data;
             });
 
-        const aPromise: ng.IPromise<Person> = $q.when({ firstName: 'Jack', lastName: 'Sparrow' });
+        const aPromise: ng.IPromise<Person> = $q.when({ firstName: "Jack", lastName: "Sparrow" });
         aPromise.then((person: Person) => {
             $scope.person = person;
         });
@@ -135,13 +136,13 @@ namespace HttpAndRegularPromiseTests {
             $scope.theAnswer = answer;
         });
 
-        const cPromise: ng.IPromise<string[]> = $q.when(['a', 'b', 'c']);
+        const cPromise: ng.IPromise<string[]> = $q.when(["a", "b", "c"]);
         cPromise.then((letters: string[]) => {
             $scope.letters = letters;
         });
 
         // When $q.when is passed an IPromise<T>, it returns an IPromise<T>
-        const dPromise: ng.IPromise<string> = $q.when($q.when('ALBATROSS!'));
+        const dPromise: ng.IPromise<string> = $q.when($q.when("ALBATROSS!"));
         dPromise.then((snack: string) => {
             $scope.snack = snack;
         });
@@ -149,7 +150,7 @@ namespace HttpAndRegularPromiseTests {
         // $q.when may be called without arguments
         const ePromise: ng.IPromise<void> = $q.when();
         ePromise.then(() => {
-            $scope.nothing = 'really nothing';
+            $scope.nothing = "really nothing";
         });
     }
 }
@@ -167,89 +168,94 @@ class TestProvider implements ng.IServiceProvider {
 }
 
 // IModule Registering Test
-let mod = angular.module('tests', []);
-mod.controller('name', ($scope: ng.IScope) => { });
-mod.controller('name', ['$scope', ($scope: ng.IScope) => { }]);
-mod.controller('name', class {
-    // Uncommenting the next line should lead to a type error because this signature isn't compatible
-    // with the signature of the `$onChanges` hook:
-    // $onChanges(x: number) { }
-});
+let mod = angular.module("tests", []);
+mod.controller("name", ($scope: ng.IScope) => {});
+mod.controller("name", ["$scope", ($scope: ng.IScope) => {}]);
+mod.controller(
+    "name",
+    class {
+        // Uncommenting the next line should lead to a type error because this signature isn't compatible
+        // with the signature of the `$onChanges` hook:
+        // $onChanges(x: number) { }
+    },
+);
 mod.controller({
     MyCtrl: class {},
     MyCtrl2() {},
-    MyCtrl3: ['$fooService', ($fooService: any) => { }]
+    MyCtrl3: ["$fooService", ($fooService: any) => {}],
 });
-mod.directive('myDirectiveA', ($rootScope: ng.IRootScopeService) => {
+mod.directive("myDirectiveA", ($rootScope: ng.IRootScopeService) => {
     return (scope, el, attrs) => {
-        let foo = 'none';
-        el.on('click', e => {
+        let foo = "none";
+        el.on("click", e => {
             foo = e.type;
             $rootScope.$apply();
         });
         scope.$watch(() => foo, () => el.text(foo));
     };
 });
-mod.directive('myDirectiveB', ['$rootScope', ($rootScope: ng.IRootScopeService) => {
+mod.directive("myDirectiveB", ["$rootScope", ($rootScope: ng.IRootScopeService) => {
     return {
         link(scope, el, attrs) {
-            el.on('click', e => {
+            el.on("click", e => {
                 // Doesn't exist on jqLite
                 // el.hide();
             });
-        }
+        },
     };
 }]);
 mod.directive({
     myFooDir: () => ({
-        template: 'my-foo-dir.tpl.html'
+        template: "my-foo-dir.tpl.html",
     }),
-    myBarDir: ['$fooService', ($fooService: any) => ({
-        template: 'my-bar-dir.tpl.html'
-    })]
+    myBarDir: ["$fooService", ($fooService: any) => ({
+        template: "my-bar-dir.tpl.html",
+    })],
 });
-mod.factory('name', ($scope: ng.IScope) => {});
-mod.factory('name', ['$scope', ($scope: ng.IScope) => {}]);
+mod.factory("name", ($scope: ng.IScope) => {});
+mod.factory("name", ["$scope", ($scope: ng.IScope) => {}]);
 mod.factory({
     name1(foo: any) {},
-    name2: ['foo', (foo: any) => {}]
+    name2: ["foo", (foo: any) => {}],
 });
-mod.filter('name', ($scope: ng.IScope) => () => {});
-mod.filter('name', ['$scope', ($scope: ng.IScope) => () => {}]);
+mod.filter("name", ($scope: ng.IScope) => () => {});
+mod.filter("name", ["$scope", ($scope: ng.IScope) => () => {}]);
 mod.filter({
-    name1(foo: any) { return () => {}; },
-    name2: ['foo', (foo: any) => () => {}],
+    name1(foo: any) {
+        return () => {};
+    },
+    name2: ["foo", (foo: any) => () => {}],
 });
 const customStatefulFilter: ng.IFilterFunction = (s) => 1;
-mod.filter('name', () => customStatefulFilter);
-mod.filter('name', ['$scope', () => customStatefulFilter]);
+mod.filter("name", () => customStatefulFilter);
+mod.filter("name", ["$scope", () => customStatefulFilter]);
 mod.filter({
     name1: () => customStatefulFilter,
-    name2: ['foo', () => customStatefulFilter],
+    name2: ["foo", () => customStatefulFilter],
 });
-mod.provider('name', ($scope: ng.IScope) => ({ $get: () => { } }));
-mod.provider('name', TestProvider);
-mod.provider('name', ['$scope', ($scope: ng.IScope) => {}]);
+mod.provider("name", ($scope: ng.IScope) => ({ $get: () => {} }));
+mod.provider("name", TestProvider);
+mod.provider("name", ["$scope", ($scope: ng.IScope) => {}]);
 mod.provider(My.Namespace);
-mod.service('name', ($scope: ng.IScope) => {});
-mod.service('name', ['$scope', ($scope: ng.IScope) => {}]);
+mod.service("name", ($scope: ng.IScope) => {});
+mod.service("name", ["$scope", ($scope: ng.IScope) => {}]);
 mod.service({
     MyCtrl: class {},
     MyCtrl2: () => {},
-    MyCtrl3: ['$fooService', ($fooService: any) => {}]
+    MyCtrl3: ["$fooService", ($fooService: any) => {}],
 });
-mod.constant('name', 23);
-mod.constant('name', '23');
+mod.constant("name", 23);
+mod.constant("name", "23");
 mod.constant(My.Namespace);
-mod.value('name', 23);
-mod.value('name', '23');
+mod.value("name", 23);
+mod.value("name", "23");
 mod.value(My.Namespace);
-mod.decorator('name', ($scope: ng.IScope) => {});
-mod.decorator('name', ['$scope', ($scope: ng.IScope) => {}]);
+mod.decorator("name", ($scope: ng.IScope) => {});
+mod.decorator("name", ["$scope", ($scope: ng.IScope) => {}]);
 
 // QProvider tests
-angular.module('qprovider-test', [])
-    .config(['$qProvider', ($qProvider: ng.IQProvider) => {
+angular.module("qprovider-test", [])
+    .config(["$qProvider", ($qProvider: ng.IQProvider) => {
         const provider: ng.IQProvider = $qProvider.errorOnUnhandledRejections(false);
         const currentValue: boolean = $qProvider.errorOnUnhandledRejections();
     }]);
@@ -268,22 +274,22 @@ urlListRegex = $compileProvider.imgSrcSanitizationTrustedUrlList();
 $compileProvider.imgSrcSanitizationTrustedUrlList(/^\s*(https?|mailto):/);
 
 let $httpProvider: ng.IHttpProvider;
-$httpProvider.xsrfWhitelistedOrigins = ['https://example.com'];
-$httpProvider.xsrfTrustedOrigins = ['https://example.com'];
+$httpProvider.xsrfWhitelistedOrigins = ["https://example.com"];
+$httpProvider.xsrfTrustedOrigins = ["https://example.com"];
 
 let $sceDelegateProvider: ng.ISCEDelegateProvider;
 let urlList: any[];
 urlList = $sceDelegateProvider.bannedResourceUrlList();
-$sceDelegateProvider.bannedResourceUrlList(['https://example.com']);
+$sceDelegateProvider.bannedResourceUrlList(["https://example.com"]);
 urlList = $sceDelegateProvider.trustedResourceUrlList();
-$sceDelegateProvider.trustedResourceUrlList(['https://example.com']);
+$sceDelegateProvider.trustedResourceUrlList(["https://example.com"]);
 
 // Promise signature tests
 let foo: ng.IPromise<number>;
 foo.then((x) => {
     // x is inferred to be a number
     x.toFixed();
-    return 'asdf';
+    return "asdf";
 }).then((x) => {
     // x is inferred to be string
     const len = x.length;
@@ -320,10 +326,10 @@ foo.then((x) => {
 
 namespace TestPromiseInterop {
     declare const promiseInterop: ng.IPromise<number>;
-    const ngStringPromise: ng.IPromise<string> =
-        promiseInterop.then((num) => Promise.resolve(String(num)));
-    const caughtStringPromise: ng.IPromise<string|number> =
-        promiseInterop.catch((reason) => Promise.resolve('oh noes'));
+    const ngStringPromise: ng.IPromise<string> = promiseInterop.then((num) => Promise.resolve(String(num)));
+    const caughtStringPromise: ng.IPromise<string | number> = promiseInterop.catch((reason) =>
+        Promise.resolve("oh noes")
+    );
 }
 
 // $q signature tests
@@ -369,30 +375,30 @@ namespace TestQ {
         let result: angular.IPromise<any[]>;
         result = $q.all([promiseAny, promiseAny]);
         // TS should infer that n1 and n2 are numbers and have toFixed.
-        $q.all([1, $q.when(2)]).then(([ n1, n2 ]) => n1.toFixed() + n2.toFixed());
-        $q.all([1, $q.when(2), '3']).then(([ n1, n2, n3 ]) => n1.toFixed() + n2.toFixed() + n3.slice(1));
+        $q.all([1, $q.when(2)]).then(([n1, n2]) => n1.toFixed() + n2.toFixed());
+        $q.all([1, $q.when(2), "3"]).then(([n1, n2, n3]) => n1.toFixed() + n2.toFixed() + n3.slice(1));
     }
     {
         let result: angular.IPromise<AbcObject[]>;
         result = $q.all<AbcObject>([promiseAny, promiseAny]);
     }
     {
-        let result: angular.IPromise<{[id: string]: any; }>;
-        result = $q.all({a: promiseAny, b: promiseAny});
+        let result: angular.IPromise<{ [id: string]: any }>;
+        result = $q.all({ a: promiseAny, b: promiseAny });
     }
     {
-        let result: angular.IPromise<{a: number; b: string; }>;
-        result = $q.all<{a: number; b: string; }>({a: promiseAny, b: promiseAny});
+        let result: angular.IPromise<{ a: number; b: string }>;
+        result = $q.all<{ a: number; b: string }>({ a: promiseAny, b: promiseAny });
     }
     {
-        const result = $q.all({ num: $q.when(2), str: $q.when('test') });
+        const result = $q.all({ num: $q.when(2), str: $q.when("test") });
         // TS should infer that num is a number and str is a string
-        result.then(r => (r.num * 2) + r.str.indexOf('s'));
+        result.then(r => (r.num * 2) + r.str.indexOf("s"));
     }
     {
-        const result = $q.all({ num: $q.when(2), str: 'test' });
+        const result = $q.all({ num: $q.when(2), str: "test" });
         // TS should infer that num is a number and str is a string
-        result.then(r => (r.num * 2) + r.str.indexOf('s'));
+        result.then(r => (r.num * 2) + r.str.indexOf("s"));
     }
 
     // $q.defer
@@ -411,7 +417,7 @@ namespace TestQ {
     {
         let result: angular.IPromise<never>;
         result = $q.reject();
-        result = $q.reject('');
+        result = $q.reject("");
         result.catch(() => 5).then(x => x.toFixed());
     }
 
@@ -424,7 +430,9 @@ namespace TestQ {
         let result: angular.IPromise<AbcObject>;
         result = $q.resolve<AbcObject>(abcObject);
         result = $q.resolve<AbcObject>(abcObjectPromise);
-        const result2: angular.IPromise<AbcObject | GhObject> = $q.resolve<AbcObject | GhObject>(Math.random() > 0.5 ? abcObject : ghObjectPromise);
+        const result2: angular.IPromise<AbcObject | GhObject> = $q.resolve<AbcObject | GhObject>(
+            Math.random() > 0.5 ? abcObject : ghObjectPromise,
+        );
     }
 
     // $q.when
@@ -445,32 +453,104 @@ namespace TestQ {
         result = $q.when<AbcObject, EfObject>(efObject, (result: EfObject) => abcObject, (any) => any, (any) => any);
 
         result = $q.when<AbcObject, EfObject>(efObjectPromise, (result: EfObject) => abcObject);
-        resultOther = $q.when<AbcObject, GhObject, EfObject>(efObjectPromise, (result: EfObject) => abcObject, (any) => ghObject);
-        resultOther = $q.when<AbcObject, GhObject, EfObject>(efObjectPromise, (result: EfObject) => abcObject, (any) => ghObject);
-        resultOther = $q.when<AbcObject, GhObject, EfObject>(efObjectPromise, (result: EfObject) => abcObject, (any) => ghObject, (any) => any);
-        resultOther = $q.when<AbcObject, GhObject, EfObject>(efObjectPromise, (result: EfObject) => abcObject, (any) => ghObjectPromise);
-        resultOther = $q.when<AbcObject, GhObject, EfObject>(efObjectPromise, (result: EfObject) => abcObject, (any) => ghObjectPromise, (any) => any);
+        resultOther = $q.when<AbcObject, GhObject, EfObject>(
+            efObjectPromise,
+            (result: EfObject) => abcObject,
+            (any) => ghObject,
+        );
+        resultOther = $q.when<AbcObject, GhObject, EfObject>(
+            efObjectPromise,
+            (result: EfObject) => abcObject,
+            (any) => ghObject,
+        );
+        resultOther = $q.when<AbcObject, GhObject, EfObject>(
+            efObjectPromise,
+            (result: EfObject) => abcObject,
+            (any) => ghObject,
+            (any) => any,
+        );
+        resultOther = $q.when<AbcObject, GhObject, EfObject>(
+            efObjectPromise,
+            (result: EfObject) => abcObject,
+            (any) => ghObjectPromise,
+        );
+        resultOther = $q.when<AbcObject, GhObject, EfObject>(
+            efObjectPromise,
+            (result: EfObject) => abcObject,
+            (any) => ghObjectPromise,
+            (any) => any,
+        );
 
         result = $q.when<AbcObject, EfObject>(efObjectPromiseLike, (result: EfObject) => abcObject);
-        resultOther = $q.when<AbcObject, GhObject, EfObject>(efObjectPromiseLike, (result: EfObject) => abcObject, (any) => ghObject);
-        resultOther = $q.when<AbcObject, GhObject, EfObject>(efObjectPromiseLike, (result: EfObject) => abcObject, (any) => ghObject);
-        resultOther = $q.when<AbcObject, GhObject, EfObject>(efObjectPromiseLike, (result: EfObject) => abcObject, (any) => ghObject, (any) => any);
-        resultOther = $q.when<AbcObject, GhObject, EfObject>(efObjectPromiseLike, (result: EfObject) => abcObject, (any) => ghObjectPromise);
-        resultOther = $q.when<AbcObject, GhObject, EfObject>(efObjectPromiseLike, (result: EfObject) => abcObject, (any) => ghObjectPromise, (any) => any);
+        resultOther = $q.when<AbcObject, GhObject, EfObject>(
+            efObjectPromiseLike,
+            (result: EfObject) => abcObject,
+            (any) => ghObject,
+        );
+        resultOther = $q.when<AbcObject, GhObject, EfObject>(
+            efObjectPromiseLike,
+            (result: EfObject) => abcObject,
+            (any) => ghObject,
+        );
+        resultOther = $q.when<AbcObject, GhObject, EfObject>(
+            efObjectPromiseLike,
+            (result: EfObject) => abcObject,
+            (any) => ghObject,
+            (any) => any,
+        );
+        resultOther = $q.when<AbcObject, GhObject, EfObject>(
+            efObjectPromiseLike,
+            (result: EfObject) => abcObject,
+            (any) => ghObjectPromise,
+        );
+        resultOther = $q.when<AbcObject, GhObject, EfObject>(
+            efObjectPromiseLike,
+            (result: EfObject) => abcObject,
+            (any) => ghObjectPromise,
+            (any) => any,
+        );
 
         result = $q.when<AbcObject, EfObject>(efObject, (result: EfObject) => abcObjectPromise);
         result = $q.when<AbcObject, EfObject>(efObject, (result: EfObject) => abcObjectPromise, (any) => any);
-        result = $q.when<AbcObject, EfObject>(efObject, (result: EfObject) => abcObjectPromise, (any) => any, (any) => any);
+        result = $q.when<AbcObject, EfObject>(
+            efObject,
+            (result: EfObject) => abcObjectPromise,
+            (any) => any,
+            (any) => any,
+        );
 
         result = $q.when<AbcObject, EfObject>(efObject, (result: EfObject) => abcObjectPromiseLike);
         result = $q.when<AbcObject, EfObject>(efObject, (result: EfObject) => abcObjectPromiseLike, (any) => any);
-        result = $q.when<AbcObject, EfObject>(efObject, (result: EfObject) => abcObjectPromiseLike, (any) => any, (any) => any);
+        result = $q.when<AbcObject, EfObject>(
+            efObject,
+            (result: EfObject) => abcObjectPromiseLike,
+            (any) => any,
+            (any) => any,
+        );
 
         result = $q.when<AbcObject, EfObject>(efObjectPromise, (result: EfObject) => abcObjectPromise);
-        resultOther = $q.when<AbcObject, GhObject, EfObject>(efObjectPromise, (result: EfObject) => abcObjectPromise, (any) => ghObject);
-        resultOther = $q.when<AbcObject, GhObject, EfObject>(efObjectPromise, (result: EfObject) => abcObjectPromise, (any) => ghObject, (any) => any);
-        resultOther = $q.when<AbcObject, GhObject, EfObject>(efObjectPromise, (result: EfObject) => abcObjectPromise, (any) => ghObjectPromise);
-        resultOther = $q.when<AbcObject, GhObject, EfObject>(efObjectPromise, (result: EfObject) => abcObjectPromise, (any) => ghObjectPromise, (any) => any);
+        resultOther = $q.when<AbcObject, GhObject, EfObject>(
+            efObjectPromise,
+            (result: EfObject) => abcObjectPromise,
+            (any) => ghObject,
+        );
+        resultOther = $q.when<AbcObject, GhObject, EfObject>(
+            efObjectPromise,
+            (result: EfObject) => abcObjectPromise,
+            (any) => ghObject,
+            (any) => any,
+        );
+        resultOther = $q.when<AbcObject, GhObject, EfObject>(
+            efObjectPromise,
+            (result: EfObject) => abcObjectPromise,
+            (any) => ghObjectPromise,
+        );
+        resultOther = $q.when<AbcObject, GhObject, EfObject>(
+            efObjectPromise,
+            (result: EfObject) => abcObjectPromise,
+            (any) => ghObjectPromise,
+            (any) => any,
+        );
     }
 }
 
@@ -485,10 +565,10 @@ httpFoo.then((x) => {
 });
 
 httpFoo.then((response: ng.IHttpResponse<any>) => {
-    const h = response.headers('test');
+    const h = response.headers("test");
     h.charAt(0);
     const hs = response.headers();
-    hs['content-type'].charAt(1);
+    hs["content-type"].charAt(1);
 });
 
 // Deferred signature tests
@@ -552,7 +632,7 @@ namespace TestInjector {
             return 7;
         }
         const result = $injector.invoke(foobar);
-        if (!(typeof result === 'number')) {
+        if (!(typeof result === "number")) {
             // This fails to compile if 'result' is not exactly a number.
             const expectNever: never = result;
         }
@@ -562,15 +642,15 @@ namespace TestInjector {
 
         const inlineAnnotatedFunction: any[] = [false, foobar];
         anyResult = $injector.invoke(inlineAnnotatedFunction);
-        anyResult = $injector.invoke(inlineAnnotatedFunction, 'anyContext', 'anyLocals');
-        anyResult = $injector.invoke(inlineAnnotatedFunction, 'anyContext');
-        anyResult = $injector.invoke(inlineAnnotatedFunction, undefined, 'anyLocals');
+        anyResult = $injector.invoke(inlineAnnotatedFunction, "anyContext", "anyLocals");
+        anyResult = $injector.invoke(inlineAnnotatedFunction, "anyContext");
+        anyResult = $injector.invoke(inlineAnnotatedFunction, undefined, "anyLocals");
     }
 
     // $injector.loadNewModules
     {
         const inlineAnnotatedFunction: any[] = [false, (v: boolean) => {}];
-        const modA = angular.module('$injector.moduleA', []);
+        const modA = angular.module("$injector.moduleA", []);
         $injector.loadNewModules([modA]);
         $injector.loadNewModules([modA.name]);
         $injector.loadNewModules([inlineAnnotatedFunction]);
@@ -578,7 +658,7 @@ namespace TestInjector {
 
     // $injector.modules
     {
-        const module: angular.IModule = $injector.modules['$injector.module'];
+        const module: angular.IModule = $injector.modules["$injector.module"];
     }
 }
 
@@ -587,21 +667,21 @@ namespace TestPromise {
     const anything: any = null;
 
     interface AbcObject {
-        kind: 'abc';
+        kind: "abc";
         a: number;
         b: string;
         c: boolean;
     }
 
     interface DefObject {
-        kind: 'def';
+        kind: "def";
         d: number;
         e: string;
         f: boolean;
     }
 
     function isAbcObject(x: AbcObject | DefObject): x is AbcObject {
-        return x.kind === 'abc';
+        return x.kind === "abc";
     }
 
     const abcObject: AbcObject = null;
@@ -656,7 +736,7 @@ namespace TestPromise {
     // $ExpectType IPromise<AbcObject>
     promise.then(
         result => anyOf3(rejectedPromise, result, abcObjectPromise),
-        reason => anyOf3(rejectedPromise, abcObject, abcObjectPromise)
+        reason => anyOf3(rejectedPromise, abcObject, abcObjectPromise),
     );
 
     // $ExpectType IPromise<IHttpResponse<AbcObject>>
@@ -679,9 +759,7 @@ namespace TestPromise {
     // );
 
     // $ExpectType IPromise<AbcObject | DefObject>
-    promise.then<AbcObject | DefObject, AbcObject>(result =>
-        anyOf3(abcObjectPromise, result, defObjectPromise)
-    );
+    promise.then<AbcObject | DefObject, AbcObject>(result => anyOf3(abcObjectPromise, result, defObjectPromise));
 
     // $ExpectType IPromise<AbcObject | DefObject>
     promise.then(result => result, any => defObject, any => any);
@@ -723,9 +801,9 @@ namespace TestPromise {
     // $ExpectType IPromise<number>
     $q.resolve(true).then(result => Math.random() > 0.5 ? Math.random() : $q.reject());
     // $ExpectType IPromise<number>
-    $q.resolve(true).then(result => Math.random() > 0.5 ? Math.random() : $q.reject('a'));
+    $q.resolve(true).then(result => Math.random() > 0.5 ? Math.random() : $q.reject("a"));
     // $ExpectType IPromise<never>
-    $q.resolve().then(() => $q.reject('a'));
+    $q.resolve().then(() => $q.reject("a"));
     // $ExpectType IPromise<void>
     $q.resolve().then(() => {
         if (Math.random() > 0.5) $q.reject();
@@ -757,7 +835,7 @@ namespace TestPromise {
     promise
         .catch(err => defObject)
         .then(
-            ambiguous => (isAbcObject(ambiguous) ? ambiguous.c : ambiguous.f)
+            ambiguous => (isAbcObject(ambiguous) ? ambiguous.c : ambiguous.f),
         );
 
     // promise.finally
@@ -770,7 +848,7 @@ namespace TestPromise {
 }
 
 function test_angular_forEach() {
-    const values: { [key: string]: string } = { name: 'misko', gender: 'male' };
+    const values: { [key: string]: string } = { name: "misko", gender: "male" };
     const log: string[] = [];
     angular.forEach(values, (value, key, obj) => {
         obj[key] = value;
@@ -779,7 +857,7 @@ function test_angular_forEach() {
     // expect(log).toEqual(['name: misko', 'gender: male']);
     // TODO: Set minimum version to ts3.1 where this is always HTMLCollectionOf
     type Collection = NodeListOf<HTMLImageElement> | HTMLCollectionOf<HTMLImageElement>;
-    const collection: Collection = angular.forEach(document.getElementsByTagName('img'), (value, key, obj) => {
+    const collection: Collection = angular.forEach(document.getElementsByTagName("img"), (value, key, obj) => {
         value; // $ExpectType HTMLImageElement
         key; // $ExpectType number
         const collection: Collection = obj;
@@ -791,7 +869,7 @@ function test_angular_forEach() {
         obj; // $ExpectType number[]
     });
     // $ExpectType string
-    angular.forEach('123', (value, key, obj) => {
+    angular.forEach("123", (value, key, obj) => {
         value; // $ExpectType string
         key; // $ExpectType number
         obj; // $ExpectType string
@@ -799,15 +877,15 @@ function test_angular_forEach() {
 }
 
 // angular.element() tests
-let element = angular.element('<div></div>');
+let element = angular.element("<div></div>");
 let scope: ng.IScope = element.scope();
 let isolateScope: ng.IScope = element.isolateScope();
-isolateScope = element.find('div').isolateScope();
+isolateScope = element.find("div").isolateScope();
 isolateScope = element.children().isolateScope();
 let element2 = angular.element(element);
-let elementArray = angular.element(document.querySelectorAll('div'));
+let elementArray = angular.element(document.querySelectorAll("div"));
 let elementReadyFn = angular.element(() => {
-    console.log('ready');
+    console.log("ready");
 });
 angular.element(window);
 declare let windowService: angular.IWindowService;
@@ -840,8 +918,8 @@ namespace TestTimeout {
         result = $timeout(abcObjectFn, 1);
         result = $timeout(abcObjectFn, 1, true);
         result = $timeout(abcObjectFn, 1, true, 1);
-        result = $timeout(abcObjectFn, 1, true, 1, '');
-        result = $timeout(abcObjectFn, 1, true, 1, '', true);
+        result = $timeout(abcObjectFn, 1, true, 1, "");
+        result = $timeout(abcObjectFn, 1, true, 1, "", true);
     }
 
     // $timeout.cancel
@@ -857,7 +935,9 @@ function test_IAttributes(attributes: ng.IAttributes) {
 }
 
 test_IAttributes({
-    $normalize(classVal) { return 'foo'; },
+    $normalize(classVal) {
+        return "foo";
+    },
     $addClass(classVal) {},
     $removeClass(classVal) {},
     $updateClass(newClass, oldClass) {},
@@ -865,16 +945,16 @@ test_IAttributes({
     $observe(name: any, fn: any) {
         return fn;
     },
-    $attr: {}
+    $attr: {},
 });
 
 class SampleDirective implements ng.IDirective {
-    restrict = 'A';
-    name = 'doh';
+    restrict = "A";
+    name = "doh";
 
     compile(templateElement: JQLite) {
         return {
-            post: this.link
+            post: this.link,
         };
     }
 
@@ -886,11 +966,11 @@ class SampleDirective implements ng.IDirective {
 }
 
 class SampleDirective2 implements ng.IDirective {
-    restrict = 'EAC';
+    restrict = "EAC";
 
     compile(templateElement: JQLite) {
         return {
-            pre: this.link
+            pre: this.link,
         };
     }
 
@@ -901,138 +981,146 @@ class SampleDirective2 implements ng.IDirective {
     link(scope: ng.IScope) {}
 }
 
-angular.module('SameplDirective', []).directive('sampleDirective', SampleDirective.instance).directive('sameplDirective2', SampleDirective2.instance);
+angular.module("SameplDirective", []).directive("sampleDirective", SampleDirective.instance).directive(
+    "sameplDirective2",
+    SampleDirective2.instance,
+);
 
-angular.module('AnotherSampleDirective', []).directive('myDirective', ['$interpolate', '$q', ($interpolate: ng.IInterpolateService, $q: ng.IQService) => {
-    return {
-        restrict: 'A',
-        link: (scope: ng.IScope, el: JQLite, attr: ng.IAttributes) => {
-            $interpolate(attr['test'])(scope);
-            $interpolate('', true)(scope);
-            $interpolate('', true, 'html')(scope);
-            $interpolate('', true, 'html', true)(scope);
-            const defer = $q.defer();
-            defer.reject();
-            defer.resolve();
-            defer.promise.then(d => d)
-            .then(
-                (): any => null,
-                (): any => null)
-            .catch((): any => null)
-            .finally((): any => null);
-            let promise = new $q((resolve) => {
-                resolve();
-            });
+angular.module("AnotherSampleDirective", []).directive("myDirective", [
+    "$interpolate",
+    "$q",
+    ($interpolate: ng.IInterpolateService, $q: ng.IQService) => {
+        return {
+            restrict: "A",
+            link: (scope: ng.IScope, el: JQLite, attr: ng.IAttributes) => {
+                $interpolate(attr["test"])(scope);
+                $interpolate("", true)(scope);
+                $interpolate("", true, "html")(scope);
+                $interpolate("", true, "html", true)(scope);
+                const defer = $q.defer();
+                defer.reject();
+                defer.resolve();
+                defer.promise.then(d => d)
+                    .then(
+                        (): any => null,
+                        (): any => null,
+                    )
+                    .catch((): any => null)
+                    .finally((): any => null);
+                let promise = new $q((resolve) => {
+                    resolve();
+                });
 
-            promise = new $q((resolve, reject) => {
-                reject();
-                resolve(true);
-            });
+                promise = new $q((resolve, reject) => {
+                    reject();
+                    resolve(true);
+                });
 
-            promise = new $q<boolean>((resolver, reject) => {
-                resolver(true);
-                reject(false);
-            });
-        }
-    };
-}]);
+                promise = new $q<boolean>((resolver, reject) => {
+                    resolver(true);
+                    reject(false);
+                });
+            },
+        };
+    },
+]);
 
 // test from https://docs.angularjs.org/guide/directive
-angular.module('docsSimpleDirective', [])
-    .controller('Controller', ['$scope', ($scope: any) => {
+angular.module("docsSimpleDirective", [])
+    .controller("Controller", ["$scope", ($scope: any) => {
         $scope.customer = {
-            name: 'Naomi',
-            address: '1600 Amphitheatre'
+            name: "Naomi",
+            address: "1600 Amphitheatre",
         };
     }])
-    .directive('myCustomer', () => {
+    .directive("myCustomer", () => {
         return {
-            template: 'Name: {{customer.name}} Address: {{customer.address}}'
+            template: "Name: {{customer.name}} Address: {{customer.address}}",
         };
     });
 
-angular.module('docsTemplateUrlDirective', [])
-    .controller('Controller', ['$scope', ($scope: any) => {
+angular.module("docsTemplateUrlDirective", [])
+    .controller("Controller", ["$scope", ($scope: any) => {
         $scope.customer = {
-            name: 'Naomi',
-            address: '1600 Amphitheatre'
+            name: "Naomi",
+            address: "1600 Amphitheatre",
         };
     }])
-    .directive('myCustomer', () => {
+    .directive("myCustomer", () => {
         return {
-            templateUrl: 'my-customer.html'
+            templateUrl: "my-customer.html",
         };
     });
 
-angular.module('docsRestrictDirective', [])
-    .controller('Controller', ['$scope', ($scope: any) => {
+angular.module("docsRestrictDirective", [])
+    .controller("Controller", ["$scope", ($scope: any) => {
         $scope.customer = {
-            name: 'Naomi',
-            address: '1600 Amphitheatre'
+            name: "Naomi",
+            address: "1600 Amphitheatre",
         };
     }])
-    .directive('myCustomer', () => {
+    .directive("myCustomer", () => {
         return {
-            restrict: 'E',
-            templateUrl: 'my-customer.html'
+            restrict: "E",
+            templateUrl: "my-customer.html",
         };
     });
 
-angular.module('docsScopeProblemExample', [])
-    .controller('NaomiController', ['$scope', ($scope: any) => {
+angular.module("docsScopeProblemExample", [])
+    .controller("NaomiController", ["$scope", ($scope: any) => {
         $scope.customer = {
-            name: 'Naomi',
-            address: '1600 Amphitheatre'
+            name: "Naomi",
+            address: "1600 Amphitheatre",
         };
     }])
-    .controller('IgorController', ['$scope', ($scope: any) => {
+    .controller("IgorController", ["$scope", ($scope: any) => {
         $scope.customer = {
-            name: 'Igor',
-            address: '123 Somewhere'
+            name: "Igor",
+            address: "123 Somewhere",
         };
     }])
-    .directive('myCustomer', () => {
+    .directive("myCustomer", () => {
         return {
-            restrict: 'E',
-            templateUrl: 'my-customer.html'
+            restrict: "E",
+            templateUrl: "my-customer.html",
         };
     });
 
-angular.module('docsIsolateScopeDirective', [])
-    .controller('Controller', ['$scope', ($scope: any) => {
-        $scope.naomi = { name: 'Naomi', address: '1600 Amphitheatre' };
-        $scope.igor = { name: 'Igor', address: '123 Somewhere' };
+angular.module("docsIsolateScopeDirective", [])
+    .controller("Controller", ["$scope", ($scope: any) => {
+        $scope.naomi = { name: "Naomi", address: "1600 Amphitheatre" };
+        $scope.igor = { name: "Igor", address: "123 Somewhere" };
     }])
-    .directive('myCustomer', () => {
+    .directive("myCustomer", () => {
         return {
-            restrict: 'E',
+            restrict: "E",
             scope: {
-                customerInfo: '=info'
+                customerInfo: "=info",
             },
-            templateUrl: 'my-customer-iso.html'
+            templateUrl: "my-customer-iso.html",
         };
     });
 
-angular.module('docsIsolationExample', [])
-    .controller('Controller', ['$scope', ($scope: any) => {
-        $scope.naomi = { name: 'Naomi', address: '1600 Amphitheatre' };
-        $scope.vojta = { name: 'Vojta', address: '3456 Somewhere Else' };
+angular.module("docsIsolationExample", [])
+    .controller("Controller", ["$scope", ($scope: any) => {
+        $scope.naomi = { name: "Naomi", address: "1600 Amphitheatre" };
+        $scope.vojta = { name: "Vojta", address: "3456 Somewhere Else" };
     }])
-    .directive('myCustomer', () => {
+    .directive("myCustomer", () => {
         return {
-            restrict: 'E',
+            restrict: "E",
             scope: {
-                customerInfo: '=info'
+                customerInfo: "=info",
             },
-            templateUrl: 'my-customer-plus-vojta.html'
+            templateUrl: "my-customer-plus-vojta.html",
         };
     });
 
-angular.module('docsTimeDirective', [])
-    .controller('Controller', ['$scope', ($scope: any) => {
-        $scope.format = 'M/d/yy h:mm:ss a';
+angular.module("docsTimeDirective", [])
+    .controller("Controller", ["$scope", ($scope: any) => {
+        $scope.format = "M/d/yy h:mm:ss a";
     }])
-    .directive('myCurrentTime', ['$interval', 'dateFilter', ($interval: any, dateFilter: any) => {
+    .directive("myCurrentTime", ["$interval", "dateFilter", ($interval: any, dateFilter: any) => {
         return {
             link(scope: ng.IScope, element: JQLite, attrs: ng.IAttributes) {
                 let format: any;
@@ -1042,12 +1130,12 @@ angular.module('docsTimeDirective', [])
                     element.text(dateFilter(new Date(), format));
                 }
 
-                scope.$watch(attrs['myCurrentTime'], (value: any) => {
+                scope.$watch(attrs["myCurrentTime"], (value: any) => {
                     format = value;
                     updateTime();
                 });
 
-                element.on('$destroy', () => {
+                element.on("$destroy", () => {
                     $interval.cancel(timeoutId);
                 });
 
@@ -1055,41 +1143,41 @@ angular.module('docsTimeDirective', [])
                 timeoutId = $interval(() => {
                     updateTime(); // update DOM
                 }, 1000);
-            }
+            },
         };
     }]);
 
-angular.module('docsTransclusionDirective', [])
-    .controller('Controller', ['$scope', ($scope: any) => {
-        $scope.name = 'Tobias';
+angular.module("docsTransclusionDirective", [])
+    .controller("Controller", ["$scope", ($scope: any) => {
+        $scope.name = "Tobias";
     }])
-    .directive('myDialog', () => {
+    .directive("myDialog", () => {
         return {
-            restrict: 'E',
+            restrict: "E",
             transclude: true,
-            templateUrl: 'my-dialog.html'
+            templateUrl: "my-dialog.html",
         };
     });
 
-angular.module('docsTransclusionExample', [])
-    .controller('Controller', ['$scope', ($scope: any) => {
-        $scope.name = 'Tobias';
+angular.module("docsTransclusionExample", [])
+    .controller("Controller", ["$scope", ($scope: any) => {
+        $scope.name = "Tobias";
     }])
-    .directive('myDialog', () => {
+    .directive("myDialog", () => {
         return {
-            restrict: 'E',
+            restrict: "E",
             transclude: true,
             scope: {},
-            templateUrl: 'my-dialog.html',
+            templateUrl: "my-dialog.html",
             link(scope: ng.IScope, element: JQLite) {
-                scope['name'] = 'Jeff';
-            }
+                scope["name"] = "Jeff";
+            },
         };
     });
 
-angular.module('docsIsoFnBindExample', [])
-    .controller('Controller', ['$scope', '$timeout', ($scope: any, $timeout: any) => {
-        $scope.name = 'Tobias';
+angular.module("docsIsoFnBindExample", [])
+    .controller("Controller", ["$scope", "$timeout", ($scope: any, $timeout: any) => {
+        $scope.name = "Tobias";
         $scope.hideDialog = () => {
             $scope.dialogIsHidden = true;
             $timeout(() => {
@@ -1097,19 +1185,19 @@ angular.module('docsIsoFnBindExample', [])
             }, 2000);
         };
     }])
-    .directive('myDialog', () => {
+    .directive("myDialog", () => {
         return {
-            restrict: 'E',
+            restrict: "E",
             transclude: true,
             scope: {
-                close: '&onClose'
+                close: "&onClose",
             },
-            templateUrl: 'my-dialog-close.html'
+            templateUrl: "my-dialog-close.html",
         };
     });
 
-angular.module('dragModule', [])
-    .directive('myDraggable', ['$document', ($document: any) => {
+angular.module("dragModule", [])
+    .directive("myDraggable", ["$document", ($document: any) => {
         return (scope: any, element: any, attr: any) => {
             let startX = 0;
             let startY = 0;
@@ -1117,47 +1205,47 @@ angular.module('dragModule', [])
             let y = 0;
 
             element.css({
-                position: 'relative',
-                border: '1px solid red',
-                backgroundColor: 'lightgrey',
-                cursor: 'pointer'
+                position: "relative",
+                border: "1px solid red",
+                backgroundColor: "lightgrey",
+                cursor: "pointer",
             });
 
-            element.on('mousedown', (event: any) => {
+            element.on("mousedown", (event: any) => {
                 // Prevent default dragging of selected content
                 event.preventDefault();
                 startX = event.pageX - x;
                 startY = event.pageY - y;
-                $document.on('mousemove', mousemove);
-                $document.on('mouseup', mouseup);
+                $document.on("mousemove", mousemove);
+                $document.on("mouseup", mouseup);
             });
 
             function mousemove(event: any) {
                 y = event.pageY - startY;
                 x = event.pageX - startX;
                 element.css({
-                    top: y + 'px',
-                    left:  x + 'px'
+                    top: y + "px",
+                    left: x + "px",
                 });
             }
 
             function mouseup() {
-                $document.off('mousemove', mousemove);
-                $document.off('mouseup', mouseup);
+                $document.off("mousemove", mousemove);
+                $document.off("mouseup", mouseup);
             }
         };
     }]);
 
-angular.module('docsTabsExample', [])
-    .directive('myTabs', () => {
+angular.module("docsTabsExample", [])
+    .directive("myTabs", () => {
         return {
-            restrict: 'E',
+            restrict: "E",
             transclude: true,
             scope: {},
             controller($scope: ng.IScope) {
-                const panes: any = $scope['panes'] = [];
+                const panes: any = $scope["panes"] = [];
 
-                $scope['select'] = (pane: any) => {
+                $scope["select"] = (pane: any) => {
                     angular.forEach(panes, (pane: any) => {
                         pane.selected = false;
                     });
@@ -1166,35 +1254,35 @@ angular.module('docsTabsExample', [])
 
                 this.addPane = (pane: any) => {
                     if (panes.length === 0) {
-                        $scope['select'](pane);
+                        $scope["select"](pane);
                     }
                     panes.push(pane);
                 };
             },
-            templateUrl: 'my-tabs.html'
+            templateUrl: "my-tabs.html",
         };
     })
-    .directive('myPane', () => {
+    .directive("myPane", () => {
         return {
-            require: '^myTabs',
-            restrict: 'E',
+            require: "^myTabs",
+            restrict: "E",
             transclude: true,
             scope: {
-                title: '@'
+                title: "@",
             },
             link(scope: ng.IScope, element: JQLite, attrs: ng.IAttributes, tabsCtrl: any) {
                 tabsCtrl.addPane(scope);
             },
-            templateUrl: 'my-pane.html'
+            templateUrl: "my-pane.html",
         };
     });
 
-angular.module('multiSlotTranscludeExample', [])
-    .directive('dropDownMenu', () => {
+angular.module("multiSlotTranscludeExample", [])
+    .directive("dropDownMenu", () => {
         return {
             transclude: {
-                button: 'button',
-                list: 'ul',
+                button: "button",
+                list: "ul",
             },
             link(scope, element, attrs, ctrl, transclude) {
                 // without scope
@@ -1203,35 +1291,35 @@ angular.module('multiSlotTranscludeExample', [])
 
                 // with scope
                 transclude(scope, clone => element.append(clone));
-                transclude(scope, clone => element.append(clone), element, 'button');
-                element.append(transclude(scope, null, element, 'list').addClass('drop-down-list'));
-            }
+                transclude(scope, clone => element.append(clone), element, "button");
+                element.append(transclude(scope, null, element, "list").addClass("drop-down-list"));
+            },
         };
     });
 
 // $ExpectType IModule
-const componentModule = angular.module('componentExample', [])
-    .component('counter', {
-        require: {ctrl: '^ctrl'},
+const componentModule = angular.module("componentExample", [])
+    .component("counter", {
+        require: { ctrl: "^ctrl" },
         bindings: {
-            count: '='
+            count: "=",
         },
-        controller: 'CounterCtrl',
-        controllerAs: 'counterCtrl',
+        controller: "CounterCtrl",
+        controllerAs: "counterCtrl",
         template() {
-            return '';
+            return "";
         },
         transclude: {
-            el: 'target'
-        }
+            el: "target",
+        },
     })
-    .component('anotherCounter', {
+    .component("anotherCounter", {
         controller() {},
         require: {
-            parent: '^parentCtrl'
+            parent: "^parentCtrl",
         },
-        template: '',
-        transclude: true
+        template: "",
+        transclude: true,
     })
     .component({
         aThirdComponent: {
@@ -1239,9 +1327,9 @@ const componentModule = angular.module('componentExample', [])
                 count: number;
             },
             bindings: {
-                count: '='
-            }
-        }
+                count: "=",
+            },
+        },
     });
 
 interface ICopyExampleUser {
@@ -1257,9 +1345,9 @@ interface ICopyExampleScope {
     reset(): any;
 }
 
-angular.module('copyExample', [])
-    .controller('ExampleController', ['$scope', ($scope: ICopyExampleScope) => {
-        $scope.master = { };
+angular.module("copyExample", [])
+    .controller("ExampleController", ["$scope", ($scope: ICopyExampleScope) => {
+        $scope.master = {};
 
         $scope.update = user => {
             // Example with 1 argument
@@ -1279,11 +1367,11 @@ interface IMyScope extends angular.IScope {
     myScopeProperty: boolean;
 }
 
-angular.module('aaa').directive('directive', () => ({
+angular.module("aaa").directive("directive", () => ({
     link(scope: IMyScope) {
         console.log(scope.myScopeProperty);
         return;
-    }
+    },
 }));
 
 namespace locationTests {
@@ -1304,11 +1392,11 @@ namespace locationTests {
     }
 
     // set foo to 'yipee'
-    $location.search('foo', 'yipee');
+    $location.search("foo", "yipee");
     // => $location
 
     // set foo to 5
-    $location.search('foo', 5);
+    $location.search("foo", 5);
     // => $location
 
     /*
@@ -1318,28 +1406,28 @@ namespace locationTests {
     // in browser with HTML5 history support:
     // open http://example.com/#!/a -> rewrite to http://example.com/a
     // (replacing the http://example.com/#!/a history record)
-    assert($location.path() === '/a');
+    assert($location.path() === "/a");
 
-    $location.path('/foo');
-    assert($location.absUrl() === 'http://example.com/foo');
+    $location.path("/foo");
+    assert($location.absUrl() === "http://example.com/foo");
 
     $location.search();
-    $location.search({ a: 'b', c: true });
-    assert($location.absUrl() === 'http://example.com/foo?a=b&c');
+    $location.search({ a: "b", c: true });
+    assert($location.absUrl() === "http://example.com/foo?a=b&c");
 
-    $location.path('/new').search('x=y');
-    assert($location.url() === 'new?x=y');
-    assert($location.absUrl() === 'http://example.com/new?x=y');
+    $location.path("/new").search("x=y");
+    assert($location.url() === "new?x=y");
+    assert($location.absUrl() === "http://example.com/new?x=y");
 
     // in browser without html5 history support:
     // open http://example.com/new?x=y -> redirect to http://example.com/#!/new?x=y
     // (again replacing the http://example.com/new?x=y history item)
-    assert($location.path() === '/new');
+    assert($location.path() === "/new");
 
-    $location.path('/foo/bar');
-    assert($location.path() === '/foo/bar');
-    assert($location.url() === '/foo/bar?x=y');
-    assert($location.absUrl() === 'http://example.com/#!/foo/bar?x=y');
+    $location.path("/foo/bar");
+    assert($location.path() === "/foo/bar");
+    assert($location.url() === "/foo/bar?x=y");
+    assert($location.absUrl() === "http://example.com/#!/foo/bar?x=y");
 }
 
 // NgModelController
@@ -1349,36 +1437,36 @@ function NgModelControllerTyping() {
     const $q: angular.IQService = null;
 
     // See https://docs.angularjs.org/api/ng/type/ngModel.NgModelController#$validators
-    ngModel.$validators['validCharacters'] = (modelValue, viewValue) => {
+    ngModel.$validators["validCharacters"] = (modelValue, viewValue) => {
         const value = modelValue || viewValue;
-        return /[0-9]+/.test(value) &&
-            /[a-z]+/.test(value) &&
-            /[A-Z]+/.test(value) &&
-            /\W+/.test(value);
+        return /[0-9]+/.test(value)
+            && /[a-z]+/.test(value)
+            && /[A-Z]+/.test(value)
+            && /\W+/.test(value);
     };
 
-    ngModel.$asyncValidators['uniqueUsername'] = (modelValue, viewValue) => {
+    ngModel.$asyncValidators["uniqueUsername"] = (modelValue, viewValue) => {
         const value = modelValue || viewValue;
-        return $http.get('/api/users/' + value).
-            then(() => $q.reject('exists'), () => true);
+        return $http.get("/api/users/" + value)
+            .then(() => $q.reject("exists"), () => true);
     };
 }
 
 // FormController
-angular.module('app').directive('formDebugChecker', () => {
+angular.module("app").directive("formDebugChecker", () => {
     return {
-        require: '^^form',
+        require: "^^form",
         link: (scope, el, attrs, ctrl) => {
             const form = ctrl as angular.IFormController;
-            el.on('click', () => {
+            el.on("click", () => {
                 const report = [] as string[];
                 angular.forEach(form.$error, (controls, validationErrorKey) => {
                     const names = controls.map(control => control.$name);
-                    report.push(`${validationErrorKey}: ${controls.length} control(s) (${names.join(', ')})`);
+                    report.push(`${validationErrorKey}: ${controls.length} control(s) (${names.join(", ")})`);
                 });
-                console.log(`This form has ${report.length} error(s).\n${report.join('\n')}`);
+                console.log(`This form has ${report.length} error(s).\n${report.join("\n")}`);
             });
-        }
+        },
     };
 });
 
@@ -1386,75 +1474,75 @@ let $filter: angular.IFilterService;
 
 function testFilter() {
     const items: string[] = null;
-    $filter('filter')(items, 'test');
-    $filter('filter')(items, {name: 'test'});
-    $filter('filter')(items, (val, index, array) => {
+    $filter("filter")(items, "test");
+    $filter("filter")(items, { name: "test" });
+    $filter("filter")(items, (val, index, array) => {
         return true;
     });
-    $filter('filter')(items, (val, index, array) => {
-      return true;
+    $filter("filter")(items, (val, index, array) => {
+        return true;
     }, (actual, expected) => {
         return actual === expected;
     });
 }
 
 function testCurrency() {
-    $filter('currency')(126);
-    $filter('currency')(126, '$', 2);
+    $filter("currency")(126);
+    $filter("currency")(126, "$", 2);
 }
 
 function testNumber() {
-    $filter('number')(167);
-    $filter('number')(167, 2);
+    $filter("number")(167);
+    $filter("number")(167, 2);
 }
 
 function testDate() {
-    $filter('date')(new Date());
-    $filter('date')(new Date(), 'yyyyMMdd');
-    $filter('date')(new Date(), 'yyyyMMdd', '+0430');
+    $filter("date")(new Date());
+    $filter("date")(new Date(), "yyyyMMdd");
+    $filter("date")(new Date(), "yyyyMMdd", "+0430");
 }
 
 function testJson() {
-    const json: string = $filter('json')({test: true}, 2);
+    const json: string = $filter("json")({ test: true }, 2);
 }
 
 function testLowercase() {
-    const lower: string = $filter('lowercase')('test');
+    const lower: string = $filter("lowercase")("test");
 }
 
 function testUppercase() {
-    const lower: string = $filter('uppercase')('test');
+    const lower: string = $filter("uppercase")("test");
 }
 
 function testLimitTo() {
-    const limitTo = $filter('limitTo');
-    let filtered: number[] = $filter('limitTo')([1, 2, 3], 5);
-    filtered = $filter('limitTo')([1, 2, 3], 5, 2);
+    const limitTo = $filter("limitTo");
+    let filtered: number[] = $filter("limitTo")([1, 2, 3], 5);
+    filtered = $filter("limitTo")([1, 2, 3], 5, 2);
 
-    let filteredString: string = $filter('limitTo')('124', 4);
-    filteredString = $filter('limitTo')(124, 4);
+    let filteredString: string = $filter("limitTo")("124", 4);
+    filteredString = $filter("limitTo")(124, 4);
 }
 
 function testOrderBy() {
-    let filtered: number[] = $filter('orderBy')([1, 2, 3], 'test');
-    filtered = $filter('orderBy')([1, 2, 3], 'test', true);
-    filtered = $filter('orderBy')([1, 2, 3], ['prop1', 'prop2']);
-    filtered = $filter('orderBy')([1, 2, 3], (val: number) => 1);
-    let filtered2: string[] = $filter('orderBy')(['1', '2', '3'], (val: string) => 1);
-    filtered2 = $filter('orderBy')(['1', '2', '3'], [
+    let filtered: number[] = $filter("orderBy")([1, 2, 3], "test");
+    filtered = $filter("orderBy")([1, 2, 3], "test", true);
+    filtered = $filter("orderBy")([1, 2, 3], ["prop1", "prop2"]);
+    filtered = $filter("orderBy")([1, 2, 3], (val: number) => 1);
+    let filtered2: string[] = $filter("orderBy")(["1", "2", "3"], (val: string) => 1);
+    filtered2 = $filter("orderBy")(["1", "2", "3"], [
         (val: string) => 1,
-        (val: string) => 2
+        (val: string) => 2,
     ]);
 }
 
 function testDynamicFilter() {
     // Test with separate variables
-    const dateFilter = $filter('date');
+    const dateFilter = $filter("date");
     const myDate = new Date();
-    dateFilter(myDate , 'EEE, MMM d');
+    dateFilter(myDate, "EEE, MMM d");
 
     // Test with dynamic name
-    const filterName = 'date';
+    const filterName = "date";
     const dynDateFilter = $filter<ng.IFilterDate>(filterName);
     dynDateFilter(new Date());
 }
@@ -1462,45 +1550,45 @@ function testDynamicFilter() {
 type MyCustomFilter = (value: string) => string;
 
 function testCustomFilter() {
-    const filterCustom = $filter<MyCustomFilter>('custom');
-    const filtered: string = filterCustom('test');
+    const filterCustom = $filter<MyCustomFilter>("custom");
+    const filtered: string = filterCustom("test");
 }
 
 function parseTyping() {
     const $parse: angular.IParseService = null;
-    const compiledExp = $parse('a.b.c');
+    const compiledExp = $parse("a.b.c");
     if (compiledExp.constant) {
         return compiledExp({});
     } else if (compiledExp.literal) {
-        return compiledExp({}, {a: {b: {c: 42}}});
+        return compiledExp({}, { a: { b: { c: 42 } } });
     }
 }
 
 function parseWithParams() {
     const $parse: angular.IParseService = null;
-    const compiledExp1 = $parse('a.b.c', () => null);
-    const compiledExp2 = $parse('a.b.c', null, false);
+    const compiledExp1 = $parse("a.b.c", () => null);
+    const compiledExp2 = $parse("a.b.c", null, false);
 }
 
 function doBootstrap(element: Element | JQuery, mode: string): ng.auto.IInjectorService {
-    if (mode === 'debug') {
-        return angular.bootstrap(element, ['main', ($provide: ng.auto.IProvideService) => {
-            $provide.decorator('$rootScope', ($delegate: ng.IRootScopeService) => {
-                $delegate['debug'] = true;
+    if (mode === "debug") {
+        return angular.bootstrap(element, ["main", ($provide: ng.auto.IProvideService) => {
+            $provide.decorator("$rootScope", ($delegate: ng.IRootScopeService) => {
+                $delegate["debug"] = true;
             });
-        }, 'debug-helpers'], {
-            strictDi: true
+        }, "debug-helpers"], {
+            strictDi: true,
         });
     }
-    return angular.bootstrap(element, ['main'], {
-        strictDi: false
+    return angular.bootstrap(element, ["main"], {
+        strictDi: false,
     });
 }
 
 function testIHttpParamSerializerJQLikeProvider() {
     const serializer: angular.IHttpParamSerializer = null;
     serializer({
-        a: 'b'
+        a: "b",
     });
 }
 
@@ -1523,14 +1611,14 @@ function toPromise<T>(val: T): ng.IPromise<T> {
 }
 
 const directiveCompileFn: ng.IDirectiveCompileFn = (
-        templateElement: JQLite,
-        templateAttributes: ng.IAttributes,
-        transclude: ng.ITranscludeFunction
-    ): ng.IDirectiveLinkFn => {
+    templateElement: JQLite,
+    templateAttributes: ng.IAttributes,
+    transclude: ng.ITranscludeFunction,
+): ng.IDirectiveLinkFn => {
     return (
         scope: ng.IScope,
         instanceElement: JQLite,
-        instanceAttributes: ng.IAttributes
+        instanceAttributes: ng.IAttributes,
     ) => {
         return null;
     };
@@ -1551,18 +1639,18 @@ interface MyController extends ng.INgModelController {
     foo: string;
 }
 
-angular.module('WithGenerics', [])
-    .directive('directiveUsingGenerics', () => {
+angular.module("WithGenerics", [])
+    .directive("directiveUsingGenerics", () => {
         return {
-            restrict: 'E',
+            restrict: "E",
             link(scope: MyScope, element: MyElement, templateAttributes: MyAttributes, controller: MyController) {
-                scope['name'] = 'Jeff';
-            }
+                scope["name"] = "Jeff";
+            },
         };
     })
-    .directive('linkFunctionUsingGenerics', () => {
+    .directive("linkFunctionUsingGenerics", () => {
         return (scope: MyScope, element: MyElement, templateAttributes: MyAttributes, controller: MyController) => {
-            scope['name'] = 'Jeff';
+            scope["name"] = "Jeff";
         };
     });
 

@@ -1,8 +1,3 @@
-// Type definitions for typography-breakpoint-constants 0.16
-// Project: https://github.com/KyleAMathews/typography.js
-// Definitions by: Luis Rodrigues <https://github.com/goblindegook>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export const DEFAULT_MEDIA_QUERY: string;
 export const DEFAULT_WIDTH: string;
 export const LARGER_DISPLAY_MEDIA_QUERY: string;

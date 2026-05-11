@@ -1,6 +1,6 @@
-import ConsumableStream = require('consumable-stream');
+import ConsumableStream = require("consumable-stream");
 
-import WritableConsumableStream = require('.');
+import WritableConsumableStream = require(".");
 
 declare class Consumer<T> implements ConsumableStream.Consumer<T> {
     id: number;

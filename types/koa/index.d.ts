@@ -1,15 +1,3 @@
-// Type definitions for Koa 2.13.1
-// Project: http://koajs.com
-// Definitions by: jKey Lu <https://github.com/jkeylu>
-//                 Brice Bernard <https://github.com/brikou>
-//                 harryparkdotio <https://github.com/harryparkdotio>
-//                 Wooram Jun <https://github.com/chatoo2412>
-//                 Christian Vaagland Tellnes <https://github.com/tellnes>
-//                 Piotr Kuczynski <https://github.com/pkuczynski>
-//                 vnoder <https://github.com/vnoder>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /* =================== USAGE ===================
 
     import * as Koa from "koa"
@@ -21,19 +9,21 @@
 
  =============================================== */
 /// <reference types="node" />
-import * as accepts from 'accepts';
-import * as Cookies from 'cookies';
-import { EventEmitter } from 'events';
-import { IncomingMessage, ServerResponse, Server, IncomingHttpHeaders, OutgoingHttpHeaders } from 'http';
-import { Http2ServerRequest, Http2ServerResponse } from 'http2';
-import httpAssert = require('http-assert');
-import * as HttpErrors from 'http-errors';
-import * as Keygrip from 'keygrip';
-import * as compose from 'koa-compose';
-import { Socket, ListenOptions } from 'net';
-import * as url from 'url';
-import * as contentDisposition from 'content-disposition';
-import { ParsedUrlQuery } from 'querystring';
+import accepts = require("accepts");
+import { AsyncLocalStorage } from "async_hooks";
+import Cookies = require("cookies");
+import { EventEmitter } from "events";
+import { IncomingHttpHeaders, IncomingMessage, OutgoingHttpHeaders, Server, ServerResponse } from "http";
+import { Http2ServerRequest, Http2ServerResponse } from "http2";
+import httpAssert = require("http-assert");
+import contentDisposition = require("content-disposition");
+import HttpErrors = require("http-errors");
+import Keygrip = require("keygrip");
+import compose = require("koa-compose");
+import { ListenOptions, Socket } from "net";
+import { ParsedUrlQuery } from "querystring";
+import * as url from "url";
+import type httpErrors = require("http-errors");
 
 declare interface ContextDelegatedRequest {
     /**
@@ -333,7 +323,19 @@ declare interface ContextDelegatedResponse {
     /**
      * Vary on `field`.
      */
-    vary(field: string): void;
+    vary(field: string | string[]): void;
+
+    /**
+     * Perform a special-cased "back" to provide Referrer support.
+     * When Referrer is not present, `alt` or "/" is used.
+     *
+     * Examples:
+     *
+     *    ctx.back()
+     *    ctx.back('/index.html')
+     */
+
+    back(alt?: string): void;
 
     /**
      * Perform a 302 redirect to `url`.
@@ -344,12 +346,10 @@ declare interface ContextDelegatedResponse {
      *
      * Examples:
      *
-     *    this.redirect('back');
-     *    this.redirect('back', '/index.html');
      *    this.redirect('/login');
      *    this.redirect('http://google.com');
      */
-    redirect(url: string, alt?: string): void;
+    redirect(url: string): void;
 
     /**
      * Set Content-Disposition to "attachment" to signal the client to prompt for download.
@@ -442,12 +442,12 @@ declare interface ContextDelegatedResponse {
 
 declare class Application<
     StateT = Application.DefaultState,
-    ContextT = Application.DefaultContext
+    ContextT = Application.DefaultContext,
 > extends EventEmitter {
     proxy: boolean;
     proxyIpHeader: string;
     maxIpsCount: number;
-    middleware: Application.Middleware<StateT, ContextT>[];
+    middleware: Array<Application.Middleware<StateT, ContextT>>;
     subdomainOffset: number;
     env: string;
     context: Application.BaseContext & ContextT;
@@ -455,9 +455,9 @@ declare class Application<
     response: Application.BaseResponse;
     silent: boolean;
     keys: Keygrip | string[];
+    ctxStorage: AsyncLocalStorage<ContextT> | undefined;
 
     /**
-     *
      * @param {object} [options] Application options
      * @param {string} [options.env='development'] Environment
      * @param {string[]} [options.keys] Signed cookie keys
@@ -465,15 +465,16 @@ declare class Application<
      * @param {number} [options.subdomainOffset] Subdomain offset
      * @param {string} [options.proxyIpHeader] Proxy IP header, defaults to X-Forwarded-For
      * @param {number} [options.maxIpsCount] Max IPs read from proxy IP header, default to 0 (means infinity)
-     *
+     * @param {boolean|AsyncLocalStorage} [options.asyncLocalStorage]  Pass `true` or an instance of `AsyncLocalStorage` to enable async local storage
      */
     constructor(options?: {
-        env?: string | undefined,
-        keys?: string[] | undefined,
-        proxy?: boolean | undefined,
-        subdomainOffset?: number | undefined,
-        proxyIpHeader?: string | undefined,
-        maxIpsCount?: number | undefined
+        env?: string | undefined;
+        keys?: string[] | undefined;
+        proxy?: boolean | undefined;
+        subdomainOffset?: number | undefined;
+        proxyIpHeader?: string | undefined;
+        maxIpsCount?: number | undefined;
+        asyncLocalStorage?: boolean | AsyncLocalStorage<ContextT> | undefined;
     });
 
     /**
@@ -509,7 +510,7 @@ declare class Application<
      * Old-style middleware will be converted.
      */
     use<NewStateT = {}, NewContextT = {}>(
-        middleware: Application.Middleware<StateT & NewStateT, ContextT & NewContextT>
+        middleware: Application.Middleware<StateT & NewStateT, ContextT & NewContextT>,
     ): Application<StateT & NewStateT, ContextT & NewContextT>;
 
     /**
@@ -534,6 +535,11 @@ declare class Application<
      * @api private
      */
     onerror(err: Error): void;
+
+    /**
+     * return current context from async local storage
+     */
+    readonly currentContext: ContextT | undefined;
 }
 
 declare namespace Application {
@@ -551,7 +557,7 @@ declare namespace Application {
         /**
          * Custom properties.
          */
-        [key: string]: any;
+        [key: PropertyKey]: any;
     }
 
     type Middleware<StateT = DefaultState, ContextT = DefaultContext, ResponseBodyT = any> = compose.Middleware<
@@ -688,9 +694,8 @@ declare namespace Application {
          *
          * See: https://github.com/jshttp/http-errors
          */
-        throw(message: string, code?: number, properties?: {}): never;
-        throw(status: number): never;
-        throw(...properties: Array<number | string | {}>): never;
+        throw(status: number, ...args: httpErrors.UnknownError[]): never;
+        throw(...args: httpErrors.UnknownError[]): never;
 
         /**
          * Default error handling.
@@ -732,10 +737,11 @@ declare namespace Application {
         respond?: boolean | undefined;
     }
 
-    type ParameterizedContext<StateT = DefaultState, ContextT = DefaultContext, ResponseBodyT = unknown> = ExtendableContext
-        & { state: StateT; }
+    type ParameterizedContext<StateT = DefaultState, ContextT = DefaultContext, ResponseBodyT = unknown> =
+        & ExtendableContext
+        & { state: StateT }
         & ContextT
-        & { body: ResponseBodyT; response: { body: ResponseBodyT }; };
+        & { body: ResponseBodyT; response: { body: ResponseBodyT } };
 
     interface Context extends ParameterizedContext {}
 

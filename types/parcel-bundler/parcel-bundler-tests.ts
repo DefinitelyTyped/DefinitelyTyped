@@ -6,32 +6,32 @@ const files = ["./index.d.ts"];
 
 const bundler = new ParcelBundler(files, parcelOption);
 
-bundler.on('buildStart', (entryPoints) => {
+bundler.on("buildStart", (entryPoints) => {
     console.log(entryPoints);
 });
 
-bundler.on('bundled', (bundle) => {
+bundler.on("bundled", (bundle) => {
     console.log(bundle);
 });
 
-bundler.on('buildEnd', () => console.log('Parcel bundler finished!'));
+bundler.on("buildEnd", () => console.log("Parcel bundler finished!"));
 
 const cb = () => {};
-bundler.on('buildEnd', cb);
-bundler.off('buildEnd', cb);
+bundler.on("buildEnd", cb);
+bundler.off("buildEnd", cb);
 
-bundler.addAssetType('md', 'markdown-asset');
+bundler.addAssetType("md", "markdown-asset");
 
-bundler.addPackager('md', 'markdown-packager');
+bundler.addPackager("md", "markdown-packager");
 
 bundler.middleware();
 
 bundler.bundle().then(bundle => bundle.name);
 
-bundler.serve(1234, false, 'localhost').then((server) => server.close());
+bundler.serve(1234, false, "localhost").then((server) => server.close());
 
-const otherBundler = new ParcelBundler(['./missing.d.ts'], parcelOption);
+const otherBundler = new ParcelBundler(["./missing.d.ts"], parcelOption);
 
-otherBundler.on('buildError', (error) => console.log(error));
+otherBundler.on("buildError", (error) => console.log(error));
 
 otherBundler.bundle();

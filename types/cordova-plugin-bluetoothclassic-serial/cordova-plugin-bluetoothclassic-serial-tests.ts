@@ -1,20 +1,19 @@
-let BluetoothClassicSerial: BluetoothClassicSerial =
-  window.BluetoothClassicSerial;
+let BluetoothClassicSerial: BluetoothClassicSerial = window.BluetoothClassicSerial;
 
 BluetoothClassicSerial.connect(
-  "",
-  [""]
+    "",
+    [""],
 );
 BluetoothClassicSerial.connect(
-  "",
-  [""],
-  results => {}
+    "",
+    [""],
+    results => {},
 );
 BluetoothClassicSerial.connect(
-  "",
-  [""],
-  results => {},
-  error => {}
+    "",
+    [""],
+    results => {},
+    error => {},
 );
 BluetoothClassicSerial.connectInsecure("", [""]);
 BluetoothClassicSerial.connectInsecure("", [""], results => {});

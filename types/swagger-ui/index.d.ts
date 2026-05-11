@@ -1,9 +1,3 @@
-// Type definitions for swagger-ui 3.52
-// Project: https://github.com/swagger-api/swagger-ui
-// Definitions by: Julian Pfeil <https://github.com/juarrow>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = SwaggerUI;
 
 declare function SwaggerUI(opts: SwaggerUI.SwaggerUIOptions): SwaggerUI;
@@ -37,10 +31,16 @@ declare namespace SwaggerUI {
          * used by Topbar plugin. When used and Topbar plugin is enabled, the url parameter will not be parsed.
          * Names and URLs must be unique among all items in this array, since they're used as identifiers.
          */
-        urls?: Array<{
-            url: string;
-            name: string;
-        }> | undefined;
+        urls?:
+            | Array<{
+                url: string;
+                name: string;
+            }>
+            | undefined;
+        /**
+         * Enables overriding configuration parameters via URL search params.
+         */
+        queryConfigEnabled?: boolean | undefined;
 
         // Plugin system
 
@@ -50,10 +50,6 @@ declare namespace SwaggerUI {
          */
         layout?: string | undefined;
         /**
-         * A Javascript object to configure plugin integration and behaviors
-         */
-        pluginsOptions?: PluginsOptions;
-        /**
          * An array of plugin functions to use in Swagger UI.
          */
         plugins?: SwaggerUIPlugin[] | undefined;
@@ -61,7 +57,7 @@ declare namespace SwaggerUI {
          * An array of presets to use in Swagger UI.
          * Usually, you'll want to include ApisPreset if you use this option.
          */
-        presets?: SwaggerUIPlugin[] | undefined;
+        presets?: SwaggerUIPlugin[] | SwaggerUIPreset[] | undefined;
 
         // Display
 
@@ -137,13 +133,6 @@ declare namespace SwaggerUI {
          */
         tagsSorter?: SorterLike | undefined;
         /**
-         * When enabled, sanitizer will leave style, class and data-* attributes untouched
-         * on all HTML Elements declared inside markdown strings.
-         * This parameter is Deprecated and will be removed in 4.0.0.
-         * @deprecated
-         */
-        useUnsafeMarkdown?: boolean | undefined;
-        /**
          * Provides a mechanism to be notified when Swagger UI has finished rendering a newly provided definition.
          */
         onComplete?: (() => any) | undefined;
@@ -154,19 +143,26 @@ declare namespace SwaggerUI {
         syntaxHighlight?:
             | false
             | {
-                  /**
-                   * Whether syntax highlighting should be activated or not.
-                   */
-                  activate?: boolean | undefined;
-                  /**
-                   * Highlight.js syntax coloring theme to use. (Only these 6 styles are available.)
-                   */
-                  theme?: "agate" | "arta" | "monokai" | "nord" | "obsidian" | "tomorrow-night" | undefined;
-              } | undefined;
+                /**
+                 * Whether syntax highlighting should be activated or not.
+                 */
+                activate?: boolean | undefined;
+                /**
+                 * Highlight.js syntax coloring theme to use. (Only these 6 styles are available.)
+                 */
+                theme?: "agate" | "arta" | "idea" | "monokai" | "nord" | "obsidian" | "tomorrow-night" | undefined;
+            }
+            | undefined;
         /**
          * Controls whether the "Try it out" section should be enabled by default.
          */
         tryItOutEnabled?: boolean | undefined;
+        /**
+         * Enables the request snippet section.
+         * When disabled, the legacy curl snippet will be used.
+         * The default is false.
+         */
+        requestSnippetsEnabled?: boolean | undefined;
         /**
          * This is the default configuration section for the the requestSnippets plugin.
          */
@@ -252,6 +248,36 @@ declare namespace SwaggerUI {
          * If set to true, it persists authorization data and it would not be lost on browser close/refresh
          */
         persistAuthorization?: boolean | undefined;
+
+        // Options missing from https://github.com/swagger-api/swagger-ui/blob/master/docs/usage/configuration.md
+
+        /**
+         * Inline Plugin Option. See https://github.com/swagger-api/swagger-ui/blob/master/docs/customization/add-plugin.md
+         */
+        components?: Indexable | undefined;
+        /**
+         * Inline Plugin Option. See https://github.com/swagger-api/swagger-ui/blob/master/docs/customization/add-plugin.md
+         */
+        fn?: Indexable | undefined;
+        /**
+         * See https://github.com/swagger-api/swagger-ui/blob/master/src/core/config/factorization/system.js
+         */
+        configs?: any;
+        /**
+         * Passes initial values to the Swagger UI state.
+         * See https://github.com/swagger-api/swagger-ui/blob/master/src/core/config/factorization/system.js
+         */
+        initialState?: any;
+        /**
+         * Used in src/core/plugins/oas3/fn.js
+         */
+        fileUploadMediaTypes?: string[] | undefined;
+        /**
+         * Allows to define a custom uncaught exception handler.
+         * The default is `null`, which means that the default handler will be used.
+         * The default handler will log the error to the console.
+         */
+        uncaughtExceptionHandler?: ((error: unknown) => unknown) | null | undefined;
     }
 
     interface PluginsOptions {
@@ -265,7 +291,7 @@ declare namespace SwaggerUI {
         pluginLoadType?: PluginLoadType;
     }
 
-    type PluginLoadType = 'legacy' | 'chain';
+    type PluginLoadType = "legacy" | "chain";
 
     type SupportedHTTPMethods = "get" | "put" | "post" | "delete" | "options" | "head" | "patch" | "trace";
 
@@ -273,8 +299,8 @@ declare namespace SwaggerUI {
         | "alpha"
         | "method"
         | {
-              (name1: string, name2: string): number;
-          };
+            (name1: string, name2: string): number;
+        };
 
     interface Request {
         [prop: string]: any;
@@ -306,9 +332,63 @@ declare namespace SwaggerUI {
         };
     }
 
+    /**
+     * Presets are arrays of plugins
+     * See https://swagger.io/docs/open-source-tools/swagger-ui/customization/overview/#presets
+     */
+    type SwaggerUIPreset = SwaggerUIPlugin[];
+
     interface Indexable {
         [index: string]: any;
     }
+
+    const config: {
+        defaults: Required<SwaggerUIOptions>;
+        merge: (target: SwaggerUIOptions, ...sources: SwaggerUIOptions[]) => SwaggerUIOptions;
+        typeCast: (options: unknown) => SwaggerUIOptions;
+        typeCastMappings: {
+            [key in Exclude<keyof SwaggerUIOptions, "queryConfigEnabled">]-?: {
+                typeCaster: (value: unknown, defaultValue?: SwaggerUIOptions[key]) => SwaggerUIOptions[key] | null;
+                defaultValue?: SwaggerUIOptions[key];
+            };
+        };
+    };
+    /**
+     * Internal presets
+     * See https://swagger.io/docs/open-source-tools/swagger-ui/customization/overview/#presets
+     */
+    const presets: {
+        base: SwaggerUIPreset;
+        apis: SwaggerUIPreset;
+    };
+
+    const plugins: {
+        Auth: SwaggerUIPlugin;
+        Configs: SwaggerUIPlugin;
+        DeepLining: SwaggerUIPlugin;
+        Err: SwaggerUIPlugin;
+        Filter: SwaggerUIPlugin;
+        Icons: SwaggerUIPlugin;
+        JSONSchema5: SwaggerUIPlugin;
+        JSONSchema5Samples: SwaggerUIPlugin;
+        JSONSchema202012: SwaggerUIPlugin;
+        JSONSchema202012Samples: SwaggerUIPlugin;
+        Layout: SwaggerUIPlugin;
+        Logs: SwaggerUIPlugin;
+        OpenAPI30: SwaggerUIPlugin;
+        OpenAPI31: SwaggerUIPlugin;
+        OnComplete: SwaggerUIPlugin;
+        RequestSnippets: SwaggerUIPlugin;
+        Spec: SwaggerUIPlugin;
+        SwaggerClient: SwaggerUIPlugin;
+        Util: SwaggerUIPlugin;
+        View: SwaggerUIPlugin;
+        ViewLegacy: SwaggerUIPlugin;
+        DownloadUrl: SwaggerUIPlugin;
+        SyntaxHighlighting: SwaggerUIPlugin;
+        Versions: SwaggerUIPlugin;
+        SafeRender: SwaggerUIPlugin;
+    };
 }
 
 interface SwaggerUI {

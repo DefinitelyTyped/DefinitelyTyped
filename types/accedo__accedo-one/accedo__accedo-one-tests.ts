@@ -9,11 +9,11 @@ accedoOne({
 });
 
 const accedo = accedoOne({
-    appKey: 'asf8ggtg0a63189cvbs1278jj354',
+    appKey: "asf8ggtg0a63189cvbs1278jj354",
 });
 
 // @ts-expect-error
-accedo.getEntries('');
+accedo.getEntries("");
 // @ts-expect-error
 accedo.getEntries(0);
 
@@ -32,34 +32,34 @@ accedo.getAllApplicationGroupScopeDataByUser();
 // @ts-expect-error
 accedo.getApplicationScopeDataByUserAndKey();
 // @ts-expect-error
-accedo.getApplicationScopeDataByUserAndKey('userName01');
+accedo.getApplicationScopeDataByUserAndKey("userName01");
 
 // @ts-expect-error
 accedo.getApplicationGroupScopeDataByUserAndKey();
 // @ts-expect-error
-accedo.getApplicationGroupScopeDataByUserAndKey('userName01');
+accedo.getApplicationGroupScopeDataByUserAndKey("userName01");
 
 // @ts-expect-error
 accedo.setApplicationScopeUserData();
 // @ts-expect-error
-accedo.setApplicationScopeUserData('userName01');
+accedo.setApplicationScopeUserData("userName01");
 
 // @ts-expect-error
 accedo.setApplicationGroupScopeUserData();
 // @ts-expect-error
-accedo.setApplicationGroupScopeUserData('userName01');
+accedo.setApplicationGroupScopeUserData("userName01");
 
 // @ts-expect-error
 accedo.setApplicationScopeUserDataByKey();
 // @ts-expect-error
-accedo.setApplicationScopeUserDataByKey('userName01');
+accedo.setApplicationScopeUserDataByKey("userName01");
 
 // @ts-expect-error
 accedo.setApplicationGroupScopeUserDataByKey();
 // @ts-expect-error
-accedo.setApplicationGroupScopeUserDataByKey('userName01');
+accedo.setApplicationGroupScopeUserDataByKey("userName01");
 // @ts-expect-error
-accedo.setApplicationGroupScopeUserDataByKey('userName01', 'key02');
+accedo.setApplicationGroupScopeUserDataByKey("userName01", "key02");
 
 // @ts-expect-error
 accedo.sendLogs();

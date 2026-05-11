@@ -1,4 +1,4 @@
-import srs from 'secure-random-string';
+import srs from "secure-random-string";
 
 function testReturn() {
     // $ExpectType string

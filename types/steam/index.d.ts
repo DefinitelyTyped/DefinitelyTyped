@@ -1,11 +1,6 @@
-// Type definitions for steam
-// Project: https://github.com/seishun/node-steam
-// Definitions by: Andrey Kurdyumov <https://github.com/kant2002>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
 export = Steam;
 
@@ -20,19 +15,19 @@ declare namespace Steam {
     }
 
     export enum EResult {
-        AccountLogonDenied
+        AccountLogonDenied,
     }
 
     export enum EPersonaState {
-        Online
+        Online,
     }
 
     export enum EChatEntryType {
-        ChatMsg
+        ChatMsg,
     }
 
     export enum EChatMemberStateChange {
-        Kicked
+        Kicked,
     }
 
     export class SteamClient extends EventEmitter {
@@ -49,18 +44,5 @@ declare namespace Steam {
 
         setPersonaState(state: EPersonaState): void;
         setPersonaName(name: string): void;
-
-        // Event emitter
-        addListener(event: string, listener: Function): this;
-        on(event: string, listener: Function): this;
-        once(event: string, listener: Function): this;
-        removeListener(event: string, listener: Function): this;
-        removeAllListeners(event?: string): this;
-        setMaxListeners(n: number): this;
-        getMaxListeners(): number;
-        listeners(event: string): Function[];
-        emit(event: string, ...args: any[]): boolean;
-        listenerCount(type: string): number;
     }
 }
-

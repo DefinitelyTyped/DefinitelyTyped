@@ -1,10 +1,10 @@
-import PdfPrinter from 'pdfmake';
-import JsxPdf from 'jsx-pdf';
-import { createWriteStream } from 'fs';
+import { createWriteStream } from "fs";
+import JsxPdf from "jsx-pdf";
+import PdfPrinter from "pdfmake";
 
 const fonts = {
     Roboto: {
-        normal: 'Roboto-Regular.ttf',
+        normal: "Roboto-Regular.ttf",
     },
 };
 
@@ -12,12 +12,12 @@ const printer = new PdfPrinter(fonts);
 
 const pdfDoc2 = printer.createPdfKitDocument(
     JsxPdf.renderPdf(
-        <document defaultStyle={{ font: 'Roboto', fontSize: 12 }}>
+        <document defaultStyle={{ font: "Roboto", fontSize: 12 }}>
             <content>This will appear in my PDF!</content>
         </document>,
     ),
 );
-pdfDoc2.pipe(createWriteStream('out.pdf'));
+pdfDoc2.pipe(createWriteStream("out.pdf"));
 pdfDoc2.end();
 
 // these are all from the README
@@ -50,7 +50,7 @@ const doc2 = (
 const docWithOrderedList = (
     <document>
         <content>
-            <ol reversed start={10} separator={['(', ')']} type="lower-roman">
+            <ol reversed start={10} separator={["(", ")"]} type="lower-roman">
                 <text>Item 1</text>
                 <text>Item 2</text>
                 <text>Item 3</text>
@@ -71,13 +71,13 @@ const docWithUnorderedList = (
     </document>
 );
 const leftCellStyle = {
-    color: 'grey',
+    color: "grey",
 };
 
 const doc3 = (
     <document>
         <content>
-            <table widths={[100, '*', 'auto']} headerRows={1} layout="headerLineOnly">
+            <table widths={[100, "*", "auto"]} headerRows={1} layout="headerLineOnly">
                 <row>
                     <cell>Fixed width column</cell>
                     <cell>Column that fills the remaining space</cell>
@@ -134,16 +134,14 @@ const doc6 = (
 
 const GroupGreeting = ({ names }: { names: string[] }) => (
     <stack>
-        {names.map(name => (
-            <Greeting name={name} />
-        ))}
+        {names.map(name => <Greeting name={name} />)}
     </stack>
 );
 
 const doc7 = (
     <document>
         <content>
-            <GroupGreeting names={['Bob', 'Alice']} />
+            <GroupGreeting names={["Bob", "Alice"]} />
         </content>
     </document>
 );
@@ -206,10 +204,10 @@ const doc11 = (
         pageMargins={[20, 20, 20, 20]}
         pageSize="A4"
         defaultStyle={{
-            font: 'OpenSans',
+            font: "OpenSans",
         }}
         info={{
-            author: 'Buzz Lightyear',
+            author: "Buzz Lightyear",
         }}
     >
         <header>Greeting</header>
@@ -227,7 +225,7 @@ const doc12 = (
                 </text>
             )}
         </header>
-        <content>{/* ... */}</content>
+        <content>Hello, Bob!</content>
     </document>
 );
 

@@ -1,12 +1,17 @@
-import mergeImg from 'merge-img';
-import { resolve } from 'path';
-const fixturePath = resolve(__dirname, 'fixtures');
+import mergeImg from "merge-img";
+import { resolve } from "path";
 
-mergeImg(['image-1.png', 'image-2.jpg']).then(img => {
+const fixturePath = resolve(__dirname, "fixtures");
+
+mergeImg(["image-1.png", "image-2.jpg"]).then(img => {
+    // $ExpectType Jimp
+    img;
+
     // Save image as file
-    img.write('out.png', () => console.log('done'));
+    img.write("out.png", () => console.log("done"));
 });
 
+// $ExpectType Promise<Jimp>
 mergeImg([
     {
         src: `${fixturePath}/example.png`,
@@ -18,12 +23,15 @@ mergeImg([
     },
 ]);
 
+// $ExpectType Promise<Jimp>
 mergeImg([`${fixturePath}/example.png`, `${fixturePath}/example.png`], {
     direction: true,
     color: 0xffffffff,
-    align: 'center',
+    align: "center",
     offset: 10,
 });
+
+// $ExpectType Promise<Jimp>
 mergeImg([
     {
         src: `${fixturePath}/example.png`,
@@ -35,6 +43,8 @@ mergeImg([
         offsetY: 150,
     },
 ]);
+
+// $ExpectType Promise<Jimp>
 mergeImg([`${fixturePath}/example.png`, `${fixturePath}/example.png`], {
     margin: {
         top: 40,

@@ -1,5 +1,5 @@
-import express = require('express');
-import xmlparser = require('express-xml-bodyparser');
+import express = require("express");
+import xmlparser = require("express-xml-bodyparser");
 
 const app: express.Express = express();
 
@@ -15,19 +15,19 @@ app.use(xmlparser({
     explicitArray: true,
     normalize: true,
     normalizeTags: true,
-    trim: true
+    trim: true,
 }));
 
 // xml-parser with all options
 app.use(xmlparser({
     async: true,
-    attrkey: 'attrkey',
-    attrNameProcessors: [(name => String.fromCharCode((42 + name.length) & 127))],
-    attrValueProcessors: [(name => String.fromCharCode((24 + name.length) & 127))],
-    charkey: 'charKey',
+    attrkey: "attrkey",
+    attrNameProcessors: [name => String.fromCharCode((42 + name.length) & 127)],
+    attrValueProcessors: [name => String.fromCharCode((24 + name.length) & 127)],
+    charkey: "charKey",
     charsAsChildren: true,
-    childkey: 'childkey',
-    emptyTag: 'emptyTag',
+    childkey: "childkey",
+    emptyTag: "emptyTag",
     explicitArray: true,
     explicitCharkey: true,
     explicitChildren: true,
@@ -47,10 +47,14 @@ app.use(xmlparser({
 
 // xml-parser as route middleware with custom options
 const routeMiddleware: express.Handler = xmlparser({ explicitArray: false, strict: false });
-const routeHandler: express.RequestHandler = (req: express.Request, res: express.Response, next: express.NextFunction) => {
-    res.send('Success!');
+const routeHandler: express.RequestHandler = (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction,
+) => {
+    res.send("Success!");
 };
-app.post('/auth', [routeMiddleware], routeHandler);
+app.post("/auth", [routeMiddleware], routeHandler);
 
 // overriding mime-type regexp
 xmlparser.regexp = /text\/(stranger|things)/;

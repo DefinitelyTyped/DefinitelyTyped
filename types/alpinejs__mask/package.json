@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/alpinejs__mask",
+    "version": "3.13.9999",
+    "projects": [
+        "https://github.com/alpinejs/alpine"
+    ],
+    "dependencies": {
+        "@types/alpinejs": "*"
+    },
+    "devDependencies": {
+        "@types/alpinejs__mask": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Eric Kwoka",
+            "githubUsername": "ekwoka"
+        }
+    ]
+}

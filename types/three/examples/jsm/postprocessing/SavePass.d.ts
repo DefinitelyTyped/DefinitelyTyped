@@ -1,6 +1,6 @@
-import { ShaderMaterial, WebGLRenderTarget } from '../../../src/Three';
+import { ShaderMaterial, WebGLRenderTarget } from "three";
 
-import { Pass, FullScreenQuad } from './Pass';
+import { FullScreenQuad, Pass } from "./Pass.js";
 
 export class SavePass extends Pass {
     constructor(renderTarget?: WebGLRenderTarget);

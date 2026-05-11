@@ -6,7 +6,7 @@
  * are not intended as functional tests.
  */
 
-import * as d3Color from 'd3-color';
+import * as d3Color from "d3-color";
 
 // Signature tests for 'color', rgb and hsl
 
@@ -17,17 +17,17 @@ let displayable: boolean;
 let cString: string;
 let nil: null;
 
-c = d3Color.color('oops');
-c = d3Color.color('steelblue');
-c = d3Color.color('rgba(20, 100, 200, 0.5)');
+c = d3Color.color("oops");
+c = d3Color.color("steelblue");
+c = d3Color.color("rgba(20, 100, 200, 0.5)");
 c = d3Color.color(d3Color.rgb(0, 0, 0));
 
-cRGB = d3Color.color('hsl(60, 100%, 20%, 0.5)')!.rgb();
+cRGB = d3Color.color("hsl(60, 100%, 20%, 0.5)")!.rgb();
 
 cRGB = d3Color.rgb(20, 100, 200);
 cRGB = d3Color.rgb(20, 100, 200, 0.5);
-cRGB = d3Color.rgb('steelblue');
-cRGB = d3Color.rgb('rgba(20, 100, 200, 0.5)');
+cRGB = d3Color.rgb("steelblue");
+cRGB = d3Color.rgb("rgba(20, 100, 200, 0.5)");
 cRGB = d3Color.rgb(c);
 cRGB = cRGB.brighter();
 cRGB = cRGB.brighter(0.2);
@@ -44,13 +44,13 @@ cString = cRGB.formatHex();
 cString = cRGB.formatHex8();
 cString = cRGB.formatHsl();
 cString = cRGB.formatRgb();
-console.log('Channels = (r : %d, g: %d, b: %d)', cRGB.r, cRGB.g, cRGB.b);
-console.log('Opacity = %d', cRGB.opacity);
+console.log("Channels = (r : %d, g: %d, b: %d)", cRGB.r, cRGB.g, cRGB.b);
+console.log("Opacity = %d", cRGB.opacity);
 
 cHSL = d3Color.hsl(60, 1, 0.2);
 cHSL = d3Color.hsl(60, 1, 0.2, 0.5);
-cHSL = d3Color.hsl('steelblue');
-cHSL = d3Color.hsl('rgba(20, 100, 200, 0.5)');
+cHSL = d3Color.hsl("steelblue");
+cHSL = d3Color.hsl("rgba(20, 100, 200, 0.5)");
 cHSL = d3Color.hsl(c);
 cHSL = cHSL.brighter();
 cHSL = cHSL.brighter(0.2);
@@ -67,8 +67,8 @@ cString = cHSL.formatHex();
 cString = cHSL.formatHex8();
 cString = cHSL.formatHsl();
 cString = cHSL.formatRgb();
-console.log('Channels = (h : %d, s: %d, l: %d)', cHSL.h, cHSL.s, cHSL.l);
-console.log('Opacity = %d', cHSL.opacity);
+console.log("Channels = (h : %d, s: %d, l: %d)", cHSL.h, cHSL.s, cHSL.l);
+console.log("Opacity = %d", cHSL.opacity);
 
 // Signature tests for Lab
 
@@ -76,8 +76,8 @@ let cLab: d3Color.LabColor;
 
 cLab = d3Color.lab(120, 40, 50);
 cLab = d3Color.lab(120, 40, 50, 0.5);
-cLab = d3Color.lab('steelblue');
-cLab = d3Color.lab('rgba(20, 100, 200, 0.5)');
+cLab = d3Color.lab("steelblue");
+cLab = d3Color.lab("rgba(20, 100, 200, 0.5)");
 cLab = d3Color.lab(c);
 cLab = cLab.brighter();
 cLab = cLab.brighter(0.2);
@@ -93,8 +93,8 @@ cString = cLab.formatHex();
 cString = cLab.formatHex8();
 cString = cLab.formatHsl();
 cString = cLab.formatRgb();
-console.log('Channels = (l : %d, a: %d, b: %d)', cLab.l, cLab.a, cLab.b);
-console.log('Opacity = %d', cLab.opacity);
+console.log("Channels = (l : %d, a: %d, b: %d)", cLab.l, cLab.a, cLab.b);
+console.log("Opacity = %d", cLab.opacity);
 
 // Signature tests for Gray
 cLab = d3Color.gray(120);
@@ -106,8 +106,8 @@ let cHcl: d3Color.HCLColor;
 
 cHcl = d3Color.hcl(120, 40, 50);
 cHcl = d3Color.hcl(120, 40, 50, 0.5);
-cHcl = d3Color.hcl('steelblue');
-cHcl = d3Color.hcl('rgba(20, 100, 200, 0.5)');
+cHcl = d3Color.hcl("steelblue");
+cHcl = d3Color.hcl("rgba(20, 100, 200, 0.5)");
 cHcl = d3Color.hcl(c);
 cHcl = cHcl.brighter();
 cHcl = cHcl.brighter(0.2);
@@ -123,13 +123,13 @@ cString = cHcl.formatHex();
 cString = cHcl.formatHex8();
 cString = cHcl.formatHsl();
 cString = cHcl.formatRgb();
-console.log('Channels = (h : %d, c: %d, l: %d)', cHcl.h, cHcl.c, cHcl.l);
-console.log('Opacity = %d', cHcl.opacity);
+console.log("Channels = (h : %d, c: %d, l: %d)", cHcl.h, cHcl.c, cHcl.l);
+console.log("Opacity = %d", cHcl.opacity);
 
 cHcl = d3Color.lch(40, 50, 120);
 cHcl = d3Color.lch(40, 50, 120, 0.5);
-cHcl = d3Color.lch('steelblue');
-cHcl = d3Color.lch('rgba(20, 100, 200, 0.5)');
+cHcl = d3Color.lch("steelblue");
+cHcl = d3Color.lch("rgba(20, 100, 200, 0.5)");
 cHcl = d3Color.lch(c);
 
 // Signature tests for Cubehelix
@@ -138,8 +138,8 @@ let cCubehelix: d3Color.CubehelixColor;
 
 cCubehelix = d3Color.cubehelix(20, 100, 200);
 cCubehelix = d3Color.cubehelix(20, 100, 200, 0.5);
-cCubehelix = d3Color.cubehelix('steelblue');
-cCubehelix = d3Color.cubehelix('rgba(20, 100, 200, 0.5)');
+cCubehelix = d3Color.cubehelix("steelblue");
+cCubehelix = d3Color.cubehelix("rgba(20, 100, 200, 0.5)");
 cCubehelix = d3Color.cubehelix(c);
 cCubehelix = cCubehelix.brighter();
 cCubehelix = cCubehelix.brighter(0.2);
@@ -155,12 +155,18 @@ cString = cCubehelix.formatHex();
 cString = cCubehelix.formatHex8();
 cString = cCubehelix.formatHsl();
 cString = cCubehelix.formatRgb();
-console.log('Channels = (h : %d, s: %d, l: %d)', cCubehelix.h, cCubehelix.s, cCubehelix.l);
-console.log('Opacity = %d', cCubehelix.opacity);
+console.log("Channels = (h : %d, s: %d, l: %d)", cCubehelix.h, cCubehelix.s, cCubehelix.l);
+console.log("Opacity = %d", cCubehelix.opacity);
 
 // Prototype, instanceof and typeguard
 
-declare let color: d3Color.RGBColor | d3Color.HSLColor | d3Color.LabColor | d3Color.HCLColor | d3Color.CubehelixColor | null;
+declare let color:
+    | d3Color.RGBColor
+    | d3Color.HSLColor
+    | d3Color.LabColor
+    | d3Color.HCLColor
+    | d3Color.CubehelixColor
+    | null;
 
 if (color instanceof d3Color.rgb) {
     cRGB = color;

@@ -1,14 +1,8 @@
-// Type definitions for JFP
-// Project: http://cmstead.github.io/JFP
-// Definitions by: Chris Stead <http://www.chrisstead.com>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare var j: j.JfpStatic;
 export = j;
 export as namespace j;
 
 declare namespace j {
-
     interface JfpStatic {
         /**
          * jfp supports string function aliasing -- alias is a jfp function name and seeking behavior
@@ -18,11 +12,10 @@ declare namespace j {
         (externalFunction: (...args: any[]) => any, ...args: any[]): JfpCurriedOutput<any>;
     }
 
-    interface JfpCurriedOutput<T> { }
+    interface JfpCurriedOutput<T> {}
 
-    //Array functions
+    // Array functions
     interface JfpStatic {
-
         /**
          * Removes falsey values from an array
          * @param values The array to compact
@@ -241,12 +234,10 @@ declare namespace j {
          * Zips two arrays together into an array of arrays
          */
         zip(lista: any[], listb: any[]): any[][];
-
     }
 
-    //Conditional functions
+    // Conditional functions
     interface JfpStatic {
-
         /**
          * Returns preferred value if truthy, otherwise returns default value
          * @param defaultValue Default value
@@ -313,11 +304,9 @@ declare namespace j {
          * @param ...args arguments for userFunction
          */
         when(predicateValue: boolean, userFunction: (...args: any[]) => any, ...args: any[]): any;
-
     }
 
     interface JfpStatic {
-
         /**
          * Converts value to decimal equivalent returns null if non-convertable
          * @param value String or number value to convert
@@ -330,11 +319,9 @@ declare namespace j {
          * @param value Object literal
          */
         toValues(value: Object): any[];
-
     }
 
     interface JfpStatic {
-
         /**
          * Returns function which returns provided value
          * Signature: (any) -> () -> any
@@ -353,7 +340,7 @@ declare namespace j {
          * Composes a set of functions into a new single function
          * @param ...args Arguments for compose
          */
-        compose(...args: ((...args: any[]) => any)[]): (...args: any[]) => any
+        compose(...args: Array<(...args: any[]) => any>): (...args: any[]) => any;
 
         /**
          * Counts the number of arguments in a function declaration
@@ -402,7 +389,7 @@ declare namespace j {
          * @param value Initial condition for function pipelining
          * @param ...args Functions to chain/pipeline
          */
-        pipeline(value: any, ...args: ((...args: any[]) => any)[]): any;
+        pipeline(value: any, ...args: Array<(...args: any[]) => any>): any;
 
         /**
          * Recursion function to allow for tail-optimized recursion
@@ -437,7 +424,6 @@ declare namespace j {
 
     // Predicate functions
     interface JfpStatic {
-
         /**
          * Returns true if array contains provided value, else false
          */
@@ -553,12 +539,10 @@ declare namespace j {
          * Returns boolean inverse of passed value
          */
         not(value: boolean): boolean;
-
     }
 
     // Composite functions
     interface JfpStatic {
-
         /**
          * Clones values to an optional depth
          */
@@ -568,7 +552,7 @@ declare namespace j {
         /**
          * Composes functions together in common nested order
          */
-        compose(...args: ((...args: any[]) => any)[]): (...args: any[]) => any;
+        compose(...args: Array<(...args: any[]) => any>): (...args: any[]) => any;
 
         /**
          * Curries passed function and applies optional arguments
@@ -593,12 +577,12 @@ declare namespace j {
         /**
          * Passes chains functions together with an initial arguments
          */
-        pipeline(value: any, ...args: ((...args: any[]) => any)[]): any;
+        pipeline(value: any, ...args: Array<(...args: any[]) => any>): any;
 
         /**
          * Composes functions executing from left to right
          */
-        rcompose(...args: ((...args: any[]) => any)[]): (...args: any[]) => any;
+        rcompose(...args: Array<(...args: any[]) => any>): (...args: any[]) => any;
 
         /**
          * Executes a trampolined tail-optimized recursive function
@@ -614,20 +598,16 @@ declare namespace j {
          * Outputs a string composed of n copies of base string
          */
         times(count: number, value: string): string;
-
     }
 
     interface JfpStatic {
-
         /**
          * Converts string to decimal safely
          */
         toDec(value: any): number;
-
     }
 
     interface JfpStatic {
-
         /**
          * Adds two numbers
          */
@@ -688,11 +668,9 @@ declare namespace j {
          * Truncates number to floor if positive or to ceil if negative
          */
         truncate(value: number): number;
-
     }
 
     interface JfpStatic {
-
         /**
          * Checks if number is negative
          */
@@ -767,11 +745,9 @@ declare namespace j {
          * Checks if a is less than b
          */
         less(a: number, b: number): boolean;
-
     }
 
     interface JfpStatic {
-
         /**
          * Gets object keys
          */
@@ -786,11 +762,9 @@ declare namespace j {
          * Picks key from object
          */
         pick(key: string, dataset: {}): any;
-
     }
 
     interface JfpStatic {
-
         /**
          * Traverses object tree and retrieves dot-delimited key or returns null
          */
@@ -815,11 +789,9 @@ declare namespace j {
          * Transforms object to a new object containing transformed keys
          */
         transform(transformation: string[][], dataset: {}): {};
-
     }
 
     interface JfpStatic {
-
         /**
          * Performs a conjunction (and) operation on two or more booleans
          */
@@ -838,9 +810,6 @@ declare namespace j {
         /**
          * Creates composite predicate which performs each check on a value and then conjoins the result
          */
-        composePredicate(...args: ((...args: any[]) => boolean)[]): (...args: any[]) => boolean;
-
-
+        composePredicate(...args: Array<(...args: any[]) => boolean>): (...args: any[]) => boolean;
     }
-
 }

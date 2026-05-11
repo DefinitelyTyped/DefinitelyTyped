@@ -1,25 +1,12 @@
-// Type definitions for ssh2-sftp-client 9.0
-// Project: https://github.com/theophilusx/ssh2-sftp-client
-// Definitions by: igrayson <https://github.com/igrayson>
-//                 Ascari Andrea <https://github.com/ascariandrea>
-//                 Kartik Malik <https://github.com/kartik2406>
-//                 Michael Pertl <https://github.com/viamuli>
-//                 Taylor Herron <https://github.com/gbhmt>
-//                 Lane Goldberg <https://github.com/builtbylane>
-//                 Lorenzo Adinolfi <https://github.com/loru88>
-//                 Tom Xu <https://github.com/hengkx>
-//                 Joseph Burger <https://github.com/candyapplecorn>
-//                 Emma Milner <https://github.com/tsop14>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import * as ssh2 from 'ssh2';
+import * as ssh2 from "ssh2";
 
 export = sftp;
 
-type FileInfoType = 'd' | '-' | 'l';
+type FileInfoType = "d" | "-" | "l";
 
 declare class sftp {
-    constructor(name?: string);
+    constructor(name?: string, callbacks?: sftp.Callbacks);
+
     connect(options: sftp.ConnectOptions): Promise<ssh2.SFTPWrapper>;
 
     list(remoteFilePath: string, filter?: sftp.ListFilterFunction): Promise<sftp.FileInfo[]>;
@@ -68,7 +55,7 @@ declare class sftp {
 
     downloadDir(srcDir: string, destDir: string, options?: sftp.DownloadDirOptions): Promise<string>;
 
-    end(): Promise<void>;
+    end(): Promise<boolean>;
 
     on(event: string, callback: (...args: any[]) => void): void;
 
@@ -84,6 +71,12 @@ declare class sftp {
 }
 
 declare namespace sftp {
+    interface Callbacks {
+        error?: (error: unknown) => void;
+        end?: () => void;
+        close?: () => void;
+    }
+
     interface ConnectOptions extends ssh2.ConnectConfig {
         retries?: number;
         retry_factor?: number;
@@ -102,7 +95,7 @@ declare namespace sftp {
     }
 
     interface ReadStreamOptions extends ModeOption {
-        flags?: 'r';
+        flags?: "r";
         encoding?: null | string;
         handle?: null | string;
 
@@ -113,7 +106,7 @@ declare namespace sftp {
     }
 
     interface WriteStreamOptions extends ModeOption {
-        flags?: 'w' | 'a';
+        flags?: "w" | "a";
         encoding?: null | string;
 
         /**

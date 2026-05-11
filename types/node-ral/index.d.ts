@@ -1,11 +1,5 @@
-// Type definitions for node-ral 0.18
-// Project: https://github.com/fex-team/node-ral
-// Definitions by: ssddi456 <https://github.com/ssddi456>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-import { EventEmitter } from 'events';
-import { Request, Response, NextFunction } from "express";
+import { EventEmitter } from "events";
+import { NextFunction, Request, Response } from "express";
 
 export interface LogInfo {
     service: string;
@@ -44,7 +38,7 @@ export namespace RAL {
     }
 
     class NormalizerManager {
-        constructor()
+        constructor();
         normalizers: string[];
         setConfigNormalizer(normalizers: string[]): void;
         needUpdate(config: any): boolean;
@@ -82,7 +76,7 @@ export abstract class RalModule {
     static load(pathOrModule: string | RalModule): void;
 
     static modules: {
-        [key: string]: RalModule
+        [key: string]: RalModule;
     };
 }
 
@@ -92,27 +86,36 @@ export interface Server {
     port: string | number;
 }
 
-export type buildInConverter = 'form' | 'formData' | 'json' | 'protobuf' | 'querystring' | 'raw' | 'redis' | 'stream' | 'string';
+export type buildInConverter =
+    | "form"
+    | "formData"
+    | "json"
+    | "protobuf"
+    | "querystring"
+    | "raw"
+    | "redis"
+    | "stream"
+    | "string";
 export interface Service {
-    method?: 'GET' | 'POST' | undefined;
+    method?: "GET" | "POST" | undefined;
     server: Server[];
     hybird?: boolean | undefined;
     timeout?: number | undefined;
     retry?: number | undefined;
     unpack: buildInConverter;
     pack: buildInConverter;
-    encoding?: 'utf-8' | 'GBK' | undefined;
-    balance: 'random' | 'roundrobin' | 'hashring';
-    protocol: 'http' | 'https' | 'soap' | 'redis';
+    encoding?: "utf-8" | "GBK" | undefined;
+    balance: "random" | "roundrobin" | "hashring";
+    protocol: "http" | "https" | "soap" | "redis";
     headers?: {
-        [key: string]: string | number
+        [key: string]: string | number;
     } | undefined;
     query?: any;
     data?: any;
     path?: string | undefined;
 }
 
-export type BalanceContextConstructor = new (serviceID: string, service: Service) => Balance.BalanceContextClass;
+export type BalanceContextConstructor = new(serviceID: string, service: Service) => Balance.BalanceContextClass;
 
 export abstract class Balance {
     constructor();
@@ -128,7 +131,7 @@ export abstract class Balance {
 
 export namespace Balance {
     class BalanceContextClass {
-        constructor(serviceID: string, service: Service)
+        constructor(serviceID: string, service: Service);
         currentIDC: string;
         serviceID: string;
         reqIDCServers: string[];

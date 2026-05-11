@@ -1,5 +1,5 @@
-import GoogleTokenStrategy = require('passport-google-id-token');
-import * as passport from 'passport';
+import GoogleTokenStrategy = require("passport-google-id-token");
+import * as passport from "passport";
 
 interface ParsedToken {
     payload: {
@@ -16,7 +16,7 @@ interface ParsedToken {
 passport.use(
     new GoogleTokenStrategy(
         {
-            clientID: 'sdjasldajsd',
+            clientID: "sdjasldajsd",
         },
         (parsedToken: ParsedToken, googleId: string, done: any) => {
             const user = {

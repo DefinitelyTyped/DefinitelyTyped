@@ -1,10 +1,3 @@
-// Type definitions for json-pointer 1.0
-// Project: https://github.com/manuelstofer/json-pointer
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds>
-//                 BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.0
-
 export = JsonPointer;
 
 declare const JsonPointer: JsonPointer.Wrapper & JsonPointer.Api;
@@ -162,13 +155,15 @@ declare namespace JsonPointer {
         compile(tokens: string[]): string;
     }
 
-    type BoundApi = {
-        [key in "get" | "remove" | "dict" | "walk" | "has"]: (
-            ...params: DropFirst<Parameters<Api[key]>>
-        ) => ReturnType<Api[key]>;
-    } & {
-        set: (...params: DropFirst<Parameters<Api["set"]>>) => BoundApi;
-    };
+    type BoundApi =
+        & {
+            [key in "get" | "remove" | "dict" | "walk" | "has"]: (
+                ...params: DropFirst<Parameters<Api[key]>>
+            ) => ReturnType<Api[key]>;
+        }
+        & {
+            set: (...params: DropFirst<Parameters<Api["set"]>>) => BoundApi;
+        };
 }
 
 type DropFirst<T extends unknown[]> = T extends [any, ...infer U] ? U : never;

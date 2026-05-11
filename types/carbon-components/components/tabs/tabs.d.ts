@@ -1,4 +1,4 @@
-import ContentSwitcher, { ContentSwitcherOptions } from '../content-switcher/content-switcher';
+import ContentSwitcher, { ContentSwitcherOptions } from "../content-switcher/content-switcher";
 
 interface TabOptions extends ContentSwitcherOptions {
     selectorInit: string;

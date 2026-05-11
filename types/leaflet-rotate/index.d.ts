@@ -1,18 +1,16 @@
-// Type definitions for leaflet-rotate 0.1
-// Project: https://github.com//Raruto/leaflet-rotate
-// Definitions by: Brian Jubelirer <https://github.com/bjubes>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+import * as L from "leaflet";
 
-import * as L from 'leaflet';
-
-declare module 'leaflet' {
+declare module "leaflet" {
     interface MapOptions {
         rotate?: boolean;
         bearing?: number;
         trackContainerMutation?: boolean;
         touchRotate?: boolean | string;
         shiftKeyRotate?: boolean | string;
-        rotateControl?: boolean;
+        rotateControl?: boolean | {
+            position?: string;
+            closeOnZeroBearing?: boolean;
+        };
     }
 
     interface Map {
@@ -30,6 +28,7 @@ declare module 'leaflet' {
     interface MarkerOptions {
         rotation?: number;
         rotateWithView?: boolean;
+        scale?: number;
     }
 
     interface Marker {

@@ -12,7 +12,7 @@ const collectionToArray = <T>(col: { Item(key: any): T }): T[] => {
     return results;
 };
 
-const app = new ActiveXObject('Word.Application');
+const app = new ActiveXObject("Word.Application");
 app.Visible = true;
 
 for (const project of collectionToArray(app.VBE.VBProjects)) {

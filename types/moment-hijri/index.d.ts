@@ -1,14 +1,9 @@
-// Type definitions for moment-hijri 2.1
-// Project: https://github.com/xsoh/moment-hijri
-// Definitions by: Alaa Masoud <https://github.com/alaatm>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import moment = require('moment');
+import moment = require("moment");
 
 export = moment;
 
-declare module 'moment' {
-    type IUnitOfTime = 'iYear' | 'iMonth';
+declare module "moment" {
+    type IUnitOfTime = "iYear" | "iMonth" | "iDate";
 
     function iDaysInMonth(year: number, month: number): number;
 

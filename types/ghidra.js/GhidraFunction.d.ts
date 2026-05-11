@@ -1,0 +1,62 @@
+import { Address } from "./Address";
+import { DataType } from "./DataTypeManager";
+import type { JavaClass } from "./JavaClass";
+import { Program } from "./Program";
+import { PrototypeModel } from "./PrototypeModel";
+import { SourceType } from "./SourceType";
+import { TaskMonitor } from "./TaskMonitor";
+import { Variable } from "./Variable";
+
+// https://ghidra.re/ghidra_docs/api/ghidra/program/model/listing/GhidraFunction.html
+
+export interface GhidraFunction extends JavaClass {
+    addLocalVariable(variable: Variable, source: SourceType): Variable;
+    addTag(name: string): boolean;
+    getAllVariables(): Variable[];
+    getAutoParameterCount(): number;
+    getCalledGhidraFunctions(monitor: TaskMonitor): Set<GhidraFunction>;
+    getCallFixup(): string;
+    getCallingConvention(): PrototypeModel;
+    getCallingConventionName(): string;
+    getCallingGhidraFunctions(monitor: TaskMonitor): Set<GhidraFunction>;
+    getComment(): string;
+    getCommentAsArray(): string[];
+    getDefaultCallingConventionName(): string;
+    getEntryPoint(): Address;
+    getGhidraFunctionThunkAddresses(): Address[];
+    getLocalVariables(): Variable[];
+    getName(): string;
+    getParameterCount(): number;
+    getProgram(): Program;
+    getPrototypeString(formalSignature: boolean, includeCallingConvention: boolean): string;
+    getRepeatableComment(): string;
+    getReturnType(): DataType;
+    getSignatureSource(): SourceType;
+    getStackPurgeSize(): number;
+    getThunkedGhidraFunction(recursive: boolean): GhidraFunction;
+    hasCustomVariableStorage(): boolean;
+    hasNoReturn(): boolean;
+    hasVarArgs(): boolean;
+    isDeleted(): boolean;
+    isExternal(): boolean;
+    isInline(): boolean;
+    isStackPurgeSizeValid(): boolean;
+    isThunk(): boolean;
+    promoteLocalUserLabelsToGlobal(): void;
+    removeParameter(ordinal: number): void;
+    removeTag(name: string): void;
+    removeVariable(variable: Variable): void;
+    setCallFixup(name: string): void;
+    setCallingConvention(name: string): void;
+    setComment(comment: string): void;
+    setCustomVariableStorage(hasCustomVariableStorage: boolean): void;
+    setInline(isInline: boolean): void;
+    setName(name: string, source: SourceType): void;
+    setNoReturn(hasNoReturn: boolean): void;
+    setRepeatableComment(comment: string): void;
+    setReturnType(type: DataType, source: SourceType): void;
+    setSignatureSource(signatureSource: SourceType): void;
+    setStackPurgeSize(purgeSize: number): void;
+    setThunkedGhidraFunction(thunkedGhidraFunction: GhidraFunction): void;
+    setVarArgs(hasVarArgs: boolean): void;
+}

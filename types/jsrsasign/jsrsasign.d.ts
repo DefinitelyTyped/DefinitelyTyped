@@ -1,6 +1,6 @@
 declare namespace jsrsasign {
-    type EncryptionAlgorithms = 'DES-CBC' | 'DES-EDE3-CBC' | 'AES-128-CBC' | 'AES-192-CBC' | 'AES-256-CBC';
-    type PrivateKeyOutputFormatType = 'PKCS1PRV' | 'PKCS5PRV' | 'PKCS8PRV';
+    type EncryptionAlgorithms = "DES-CBC" | "DES-EDE3-CBC" | "AES-128-CBC" | "AES-192-CBC" | "AES-256-CBC";
+    type PrivateKeyOutputFormatType = "PKCS1PRV" | "PKCS5PRV" | "PKCS8PRV";
 
     /**
      * convert an ArrayBuffer to a hexadecimal string

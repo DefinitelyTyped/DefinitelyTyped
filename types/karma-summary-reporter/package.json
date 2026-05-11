@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/karma-summary-reporter",
+    "version": "3.1.9999",
+    "projects": [
+        "https://github.com/sth/karma-summary-reporter#readme"
+    ],
+    "dependencies": {
+        "@types/karma": "*"
+    },
+    "devDependencies": {
+        "@types/karma-summary-reporter": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz (Peter Blazejewicz)",
+            "githubUsername": "peterblazejewicz"
+        },
+        {
+            "name": "Stephan Hohe",
+            "githubUsername": "sth"
+        }
+    ]
+}

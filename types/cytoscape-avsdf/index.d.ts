@@ -1,9 +1,4 @@
-// Type definitions for cytoscape-avsdf 1.0
-// Project: https://github.com/iVis-at-Bilkent/cytoscape.js-avsdf
-// Definitions by: Roger Dubbs <https://github.com/rogerdubbs>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import cytoscape = require('cytoscape');
+import cytoscape = require("cytoscape");
 
 declare const cytoscapeAvsdf: cytoscape.Ext;
 export = cytoscapeAvsdf;
@@ -16,7 +11,7 @@ declare namespace cytoscapeAvsdf {
      * @see <a href='https://github.com/iVis-at-Bilkent/cytoscape.js-avsdf'>cytoscape-avsdf package Documentation</a>
      */
     interface AvsdfLayoutOptions extends cytoscape.BaseLayoutOptions {
-        name: 'avsdf';
+        name: "avsdf";
 
         /**
          * number of ticks per frame; higher is faster but more jerky
@@ -46,7 +41,7 @@ declare namespace cytoscapeAvsdf {
          * Type of layout animation. The option set is {'during', 'end', false}
          * @default 'end'
          */
-        animate?: 'end' | 'during' | false;
+        animate?: "end" | "during" | false;
 
         /**
          * easing of animation if enabled

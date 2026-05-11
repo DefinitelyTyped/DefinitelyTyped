@@ -1,9 +1,3 @@
-// Type definitions for colornames 1.1
-// Project: https://github.com/timoxley/colornames#readme
-// Definitions by: Manuel Thalmann <https://github.com/manuth>
-//                 Benjamin Turner <https://github.com/blturner>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Represents a color.
  */

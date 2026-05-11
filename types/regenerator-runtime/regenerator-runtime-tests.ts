@@ -1,13 +1,10 @@
-import regenerator = require('regenerator-runtime');
+import regenerator = require("regenerator-runtime");
 
 /**
  * The `expectType` function from https://www.npmjs.com/package/tsd,
  * except instead of returning `void`, it returns `T`.
  */
 declare function expectType<T>(value: T): T;
-
-expectType<typeof regenerator>(regeneratorRuntime);
-expectType<typeof regeneratorRuntime>(regenerator);
 
 declare const number: number;
 declare const anyArray: object[];
@@ -16,7 +13,7 @@ declare const anyIterable: Iterable<object>;
 declare const anyIterableIterator: IterableIterator<object>;
 declare const anyGenerator: Generator<object, object, object>;
 
-regenerator.values(anyArray); // $ExpectType IterableIterator<object>
+regenerator.values(anyArray); // $ExpectType IterableIterator<object> || ArrayIterator<object>
 expectType<Iterator<object>>(regenerator.values(anyIterable));
 regenerator.values(anyIterableIterator); // $ExpectType IterableIterator<object>
 regenerator.values(anyGenerator); // $ExpectType Generator<object, object, object>
@@ -39,7 +36,7 @@ function IteratorMap<T, U, TNext = unknown>(
     const iterated = GetIteratorDirect(this); // $ExpectType IteratorRecord<Iterator<T, unknown, TNext>>
 
     // 2. If IsCallable(mapper) is false, throw a TypeError exception.
-    if (typeof mapper !== 'function') {
+    if (typeof mapper !== "function") {
         throw new TypeError(`${mapper} is not a function`);
     }
 
@@ -68,7 +65,7 @@ function IteratorMap<T, U, TNext = unknown>(
 
                         // b. If next is false, return undefined.
                         if (!next) {
-                            context.next = 'end';
+                            context.next = "end";
                             break;
                         }
 
@@ -96,7 +93,7 @@ function IteratorMap<T, U, TNext = unknown>(
                         context.prev = 3;
                         context.t0 = context.catch(1);
                         return context.abrupt(
-                            'return',
+                            "return",
                             IteratorClose(iterated, () => {
                                 throw context.t0;
                             }),
@@ -107,7 +104,7 @@ function IteratorMap<T, U, TNext = unknown>(
                         context.next = 0;
                         break;
 
-                    case 'end':
+                    case "end":
                         // tslint:disable-next-line: no-void-expression
                         return context.stop();
                 }
@@ -124,14 +121,14 @@ declare const overloadedFunction: {
     <T>(...args: T[]): Generator<T>;
 };
 
-// $ExpectType { (): Generator<unknown, any, unknown>; <T>(...args: T[]): Generator<T, any, unknown>; } & GeneratorFunction
+// $ExpectType { (): Generator<unknown, any, unknown>; <T>(...args: T[]): Generator<T, any, unknown>; } & GeneratorFunction || { (): Generator<unknown, any, any>; <T>(...args: T[]): Generator<T, any, any>; } & GeneratorFunction
 regenerator.mark(overloadedFunction);
 
 declare const mappableIterator: IterableIterator<object> & {
     map: typeof IteratorMap;
 };
 
-// $ExpectType Generator<string | awrap<Promise<any>>, void, undefined>
+// $ExpectType Generator<string | awrap<Promise<any>>, void, undefined> || Generator<string | awrap<Promise<any>>, void, unknown> || Generator<string | awrap<Promise<any>>, void, any>
 const mappedIterator = mappableIterator.map(value => {
     value; // $ExpectType object
     return value instanceof Promise ? regenerator.awrap(value) : String(value);
@@ -141,9 +138,9 @@ const mappedIterator = mappableIterator.map(value => {
 new regenerator.AsyncIterator(mappedIterator, Promise);
 
 interface IteratorRecord<I extends Iterator<unknown, unknown, unknown>> {
-    '[[Iterator]]': I;
-    '[[NextMethod]]': I['next'];
-    '[[Done]]': boolean;
+    "[[Iterator]]": I;
+    "[[NextMethod]]": I["next"];
+    "[[Done]]": boolean;
 }
 
 declare function GetIteratorDirect<I extends Iterator<unknown, unknown, unknown>>(iterator: I): IteratorRecord<I>;

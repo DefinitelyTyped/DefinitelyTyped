@@ -1,8 +1,3 @@
-// Type definitions for test-exclude 6.0
-// Project: https://istanbul.js.org/
-// Definitions by: atlowChemi <https://github.com/atlowChemi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface TestExcludeOptions {
     cwd?: string;
     include?: string | string[];

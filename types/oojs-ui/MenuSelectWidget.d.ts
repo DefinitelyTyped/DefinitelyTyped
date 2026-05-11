@@ -36,9 +36,11 @@ declare namespace OO.ui {
         }
 
         interface ConfigOptions
-            extends SelectWidget.ConfigOptions,
+            extends
+                SelectWidget.ConfigOptions,
                 mixin.ClippableElement.ConfigOptions,
-                mixin.FloatableElement.ConfigOptions {
+                mixin.FloatableElement.ConfigOptions
+        {
             /**
              * Text input used to implement option highlighting for menu
              * items that match the text the user types. This config is used by
@@ -82,7 +84,7 @@ declare namespace OO.ui {
              * The mode by which the menu filters the results.
              * Options are 'exact', 'prefix' or 'substring'. See `OO.ui.SelectWidget.getItemMatcher`
              */
-            filterMode?: 'substring' | 'prefix' | 'exact';
+            filterMode?: "substring" | "prefix" | "exact";
 
             /**
              * Width of the menu as a number of pixels or CSS string with unit
@@ -106,9 +108,8 @@ declare namespace OO.ui {
         }
 
         interface Prototype
-            extends SelectWidget.Prototype,
-                mixin.ClippableElement.Prototype,
-                mixin.FloatableElement.Prototype {
+            extends SelectWidget.Prototype, mixin.ClippableElement.Prototype, mixin.FloatableElement.Prototype
+        {
             /**
              * Return the visible items in the menu.
              *
@@ -165,21 +166,21 @@ declare namespace OO.ui {
             emitThrow<K extends keyof EventMap>(event: K, ...args: EventMap[K]): boolean;
             emitThrow<K extends string>(event: K extends keyof EventMap ? never : K, ...args: any[]): boolean;
 
-            connect<T extends Partial<Record<keyof EventMap, any>>, C>(
+            connect<T extends Partial<Record<keyof EventMap, any>>, C>( // eslint-disable-line @definitelytyped/no-unnecessary-generics
                 context: C,
-                methods: EventConnectionMap<T, C, EventMap>, // eslint-disable-line no-unnecessary-generics
+                methods: EventConnectionMap<T, C, EventMap>,
             ): this;
 
-            disconnect<T extends Partial<Record<keyof EventMap, any>>, C>(
+            disconnect<T extends Partial<Record<keyof EventMap, any>>, C>( // eslint-disable-line @definitelytyped/no-unnecessary-generics
                 context: C,
-                methods?: EventConnectionMap<T, C, EventMap>, // eslint-disable-line no-unnecessary-generics
+                methods?: EventConnectionMap<T, C, EventMap>,
             ): this;
             // #endregion
         }
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): MenuSelectWidget;
+            new(config?: ConfigOptions): MenuSelectWidget;
             prototype: Prototype;
             static: Static;
             super: SelectWidget.Constructor;

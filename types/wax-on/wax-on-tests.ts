@@ -1,4 +1,4 @@
-import * as wax from 'wax-on';
+import * as wax from "wax-on";
 
 declare let Handlebars: unknown;
 

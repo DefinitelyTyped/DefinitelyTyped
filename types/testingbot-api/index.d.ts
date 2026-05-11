@@ -1,10 +1,5 @@
-// Type definitions for testingbot-api 1.0
-// Project: https://github.com/testingbot/testingbot-api
-// Definitions by: Tim Brust <https://github.com/timbru31>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace TestingBot {
-    type BrowserType = 'webdriver' | 'rc';
+    type BrowserType = "webdriver" | "rc";
     type TestSuccess = true | false | 0 | 1;
 
     interface TestingBotOptions {
@@ -19,19 +14,19 @@ declare namespace TestingBot {
     }
 
     interface TestData {
-        'test[success]'?: TestSuccess | undefined;
-        'test[status_message]'?: string | undefined;
-        'test[name]'?: string | undefined;
-        'test[extra]'?: string | undefined;
+        "test[success]"?: TestSuccess | undefined;
+        "test[status_message]"?: string | undefined;
+        "test[name]"?: string | undefined;
+        "test[extra]"?: string | undefined;
         build?: string | undefined;
         groups?: string | undefined;
     }
 
     interface TestLabData {
-        'test[url]'?: string | undefined;
-        'test[name]'?: string | undefined;
-        'test[cron]'?: string | undefined;
-        'test[enabled]'?: boolean | undefined;
+        "test[url]"?: string | undefined;
+        "test[name]"?: string | undefined;
+        "test[cron]"?: string | undefined;
+        "test[enabled]"?: boolean | undefined;
     }
 
     interface TestingBot {
@@ -62,7 +57,7 @@ declare namespace TestingBot {
 }
 
 declare const TestingBot: {
-    new (options?: TestingBot.TestingBotOptions): TestingBot.TestingBot;
+    new(options?: TestingBot.TestingBotOptions): TestingBot.TestingBot;
 };
 
 export = TestingBot;

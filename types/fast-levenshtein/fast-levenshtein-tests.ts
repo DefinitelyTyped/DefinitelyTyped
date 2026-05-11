@@ -1,4 +1,4 @@
-import * as fastLevenshtein from 'fast-levenshtein';
+import * as fastLevenshtein from "fast-levenshtein";
 
 declare const boolVal: boolean;
 declare const strVal: string;

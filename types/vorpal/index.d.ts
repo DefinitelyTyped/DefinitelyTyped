@@ -1,18 +1,17 @@
-// Type definitions for vorpal 1.12
-// Project: https://github.com/dthree/vorpal
-// Definitions by: Daniel Byrne <https://github.com/danwbyrne>
-//                 Gheorghe Avram <https://github.com/sweethuman>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
-
 declare class Vorpal {
-    parse(argv: ReadonlyArray<string>, opts?: Vorpal.ParseOpts): this;
+    parse(argv: readonly string[], opts?: Vorpal.ParseOpts): this;
     delimiter(value: string): this;
     show(): this;
     hide(): this;
     find(command: string): Vorpal.Command;
     exec(command: string): Promise<{}>;
-    execSync(command: string): Promise<{}>;
+    exec(command: string, args?: Vorpal.Args): Promise<{}>;
+    exec(
+        command: string,
+        args?: Vorpal.Args,
+        callback?: (data: any) => any,
+    ): this;
+    execSync(command: string, opts?: Vorpal.Args): any;
     log(value: string, ...values: string[]): this;
     history(id: string): this;
     localStorage(id: string): object;
@@ -20,7 +19,17 @@ declare class Vorpal {
     pipe(value: (stdout: string) => string): this;
     use(extension: Vorpal.Extension): this;
     catch(command: string, description?: string): Vorpal.Catch;
-    command(command: string, description?: string): Vorpal.Command;
+    command(
+        command: string,
+        description?: string,
+        opts?: Vorpal.CommandOpts,
+    ): Vorpal.Command;
+    mode(
+        mode: string,
+        description?: string,
+        opts?: Vorpal.CommandOpts,
+    ): Vorpal.Mode;
+    commands: Vorpal.Command[];
     version(version: string): this;
     sigint(value: () => void): this;
     ui: Vorpal.UI;
@@ -35,16 +44,24 @@ declare namespace Vorpal {
         };
     }
 
+    interface CommandOpts {
+        default?: boolean;
+        mode?: boolean;
+        noHelp?: boolean;
+    }
+
     interface ParseOpts {
-        use?: 'minimist';
+        use?: "minimist";
     }
 
     interface PromptObject {
         [key: string]: any;
     }
 
-    type Action = (args: Args) => Promise<void>;
+    type Action = (args: Args | string) => Promise<void>;
     type Cancel = () => void;
+
+    type Extension = (vorpal: Vorpal, args?: Args) => any;
 
     class Command {
         _name: string;
@@ -52,21 +69,32 @@ declare namespace Vorpal {
         _cancel: Cancel | undefined;
         alias(command: string): this;
         parse(value: (command: string, args: Args) => string): this;
-        option(option: string, description: string, autocomplete?: ReadonlyArray<string>): this;
-        types(types: { string?: ReadonlyArray<string> | undefined }): this;
+        option(
+            option: string,
+            description: string,
+            autocomplete?: readonly string[],
+        ): this;
+        types(types: { string?: readonly string[] | undefined }): this;
         hidden(): this;
         remove(): this;
-        help(value: (args: Args) => void): this;
+        help(value: (args: Args, cb?: (helpText?: string) => void) => void): this;
         validate(value: (args: Args) => boolean | string): this;
-        autocomplete(values: ReadonlyArray<string> | { data: () => Promise<ReadonlyArray<string>> }): this;
-        action(action: Action): this;
+        autocomplete(
+            values: readonly string[] | { data: () => Promise<readonly string[]> },
+        ): this;
+        action(action: Action, cb?: (data: any) => any): this;
         cancel(cancel: Cancel): this;
         allowUnknownOptions(): this;
+        done(value: () => any): this;
+        init(init: Action): this;
+        delimiter(delimiter: string): this;
     }
 
     class Catch extends Command {}
 
-    class Extension {}
+    class Mode extends Command {
+        description(value: string): this;
+    }
 
     class UI {
         delimiter(text?: string): string;
@@ -83,9 +111,8 @@ declare namespace Vorpal {
 
     class CommandInstance {
         log(value: string, ...values: string[]): void;
-        prompt(prompt: object | ReadonlyArray<object>): Promise<PromptObject>;
+        prompt(prompt: object | readonly object[]): Promise<PromptObject>;
         delimiter(value: string): void;
     }
 }
-
 export = Vorpal;

@@ -1,15 +1,15 @@
 import {
-    JSDOM,
-    VirtualConsole,
-    CookieJar,
     BaseOptions,
-    FileOptions,
-    DOMWindow,
-    ResourceLoader,
-    FetchOptions,
     ConstructorOptions,
+    CookieJar,
+    DOMWindow,
+    FileOptions,
+    JSDOM,
+    requestInterceptor,
+    VirtualConsole,
 } from "jsdom";
 import { CookieJar as ToughCookieJar, MemoryCookieStore } from "tough-cookie";
+import { ProxyAgent } from "undici-types";
 import { Script } from "vm";
 
 function test_basic_usage() {
@@ -63,10 +63,11 @@ function test_virtualConsole() {
     virtualConsole.on("dir", () => {});
     // ... etc. See https://console.spec.whatwg.org/#logging
 
-    virtualConsole.sendTo(console);
-
-    const c = console;
-    virtualConsole.sendTo(c, { omitJSDOMErrors: true });
+    virtualConsole.forwardTo(console);
+    virtualConsole.forwardTo(console, {});
+    virtualConsole.forwardTo(console, { jsdomErrors: undefined });
+    virtualConsole.forwardTo(console, { jsdomErrors: ["unhandled-exception", "not-implemented"] });
+    virtualConsole.forwardTo(console, { jsdomErrors: "none" });
 }
 
 function test_cookieJar(store: MemoryCookieStore, options: ToughCookieJar.Options) {
@@ -188,55 +189,59 @@ function test_fragment_serialization() {
     }
 }
 
-function test_custom_resource_loader() {
-    class CustomResourceLoader extends ResourceLoader {
-        fetch(url: string, options: FetchOptions) {
-            if (options.element) {
-                console.log(`Element ${options.element.localName} is requesting the url ${url}`);
-
-                if (options.element.localName === "iframe") {
-                    console.log("Ignoring resource requested by iframe element");
-                    return null;
-                }
-            }
-
-            return super.fetch(url, options);
+function test_request_interceptor() {
+    // $ExpectType DispatchInterceptor
+    requestInterceptor(function(request, { element }) {
+        console.log(`${element?.localName || "XHR"} requested ${request.url}`);
+        if (request.url === "https://example.com/some-specific-script.js") {
+            return new Response("window.someGlobal = 5;", {
+                headers: { "Content-Type": "application/javascript" },
+            });
         }
-    }
-    new JSDOM("", { resources: new CustomResourceLoader() });
+    });
 }
 
-function test_resource_loader_return_type(resourceLoader: ResourceLoader) {
-    resourceLoader.fetch("https://example.com", {}); // $ExpectType AbortablePromise<Buffer> | null
+function test_resources_options() {
+    new JSDOM("", {
+        resources: "usable",
+    });
+    new JSDOM("", {
+        resources: {},
+    });
+    new JSDOM("", {
+        resources: {
+            userAgent: "",
+            dispatcher: new ProxyAgent("http://127.0.0.1:9001"),
+            interceptors: [requestInterceptor(function() {})],
+        },
+    });
 }
 
 function test_createElementDirectTypes() {
-    const dom = new JSDOM('');
+    const dom = new JSDOM("");
 
     const document = dom.window.document;
 
-    document.createElement('hr'); // $ExpectType HTMLHRElement
-    document.createElement('br'); // $ExpectType HTMLBRElement
-    document.createElement('body'); // $ExpectType HTMLBodyElement
-    document.createElement('head'); // $ExpectType HTMLHeadElement
-    document.createElement('meta'); // $ExpectType HTMLMetaElement
-    document.createElement('html'); // $ExpectType HTMLHtmlElement
-    document.createElement('ul'); // $ExpectType HTMLUListElement
-    document.createElement('ol'); // $ExpectType HTMLOListElement
-    document.createElement('li'); // $ExpectType HTMLLIElement
-    document.createElement('h1'); // $ExpectType HTMLHeadingElement
-    document.createElement('div'); // $ExpectType HTMLDivElement
-    document.createElement('p'); // $ExpectType HTMLParagraphElement
-    document.createElement('pre'); // $ExpectType HTMLPreElement
-    document.createElement('somethingcustom'); // $ExpectType HTMLElement
+    document.createElement("hr"); // $ExpectType HTMLHRElement
+    document.createElement("br"); // $ExpectType HTMLBRElement
+    document.createElement("body"); // $ExpectType HTMLBodyElement
+    document.createElement("head"); // $ExpectType HTMLHeadElement
+    document.createElement("meta"); // $ExpectType HTMLMetaElement
+    document.createElement("html"); // $ExpectType HTMLHtmlElement
+    document.createElement("ul"); // $ExpectType HTMLUListElement
+    document.createElement("ol"); // $ExpectType HTMLOListElement
+    document.createElement("li"); // $ExpectType HTMLLIElement
+    document.createElement("h1"); // $ExpectType HTMLHeadingElement
+    document.createElement("div"); // $ExpectType HTMLDivElement
+    document.createElement("p"); // $ExpectType HTMLParagraphElement
+    document.createElement("pre"); // $ExpectType HTMLPreElement
+    document.createElement("somethingcustom"); // $ExpectType HTMLElement
 }
 
 function test_supported_contenttypes() {
-    new JSDOM('', { contentType: 'application/xhtml+xml' });
-    new JSDOM('', { contentType: 'application/xml' });
-    new JSDOM('', { contentType: 'text/xml' });
-    new JSDOM('', { contentType: 'text/html' });
-    new JSDOM('', { contentType: 'image/svg+xml' });
-    // @ts-expect-error Only the supported types are possible
-    new JSDOM('', { contentType: 'somethingelse' });
+    new JSDOM("", { contentType: "application/xhtml+xml" });
+    new JSDOM("", { contentType: "application/xml" });
+    new JSDOM("", { contentType: "text/xml" });
+    new JSDOM("", { contentType: "text/html" });
+    new JSDOM("", { contentType: "image/svg+xml" });
 }

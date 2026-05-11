@@ -1,6 +1,6 @@
-import Koa = require('koa');
-import webpack = require('webpack');
-import koaWebpack = require('koa-webpack');
+import Koa = require("koa");
+import webpack = require("webpack");
+import koaWebpack = require("koa-webpack");
 
 const app = new Koa();
 const config: webpack.Configuration = {};
@@ -10,7 +10,7 @@ const multiCompiler = webpack([]);
 app.use(ctx => {
     // $ExpectType MemoryFileSystem | undefined
     ctx.state.fs;
-    ctx.body = ctx.state.fs!.createReadStream('file.js');
+    ctx.body = ctx.state.fs!.createReadStream("file.js");
 });
 
 app.use(ctx => {
@@ -27,14 +27,14 @@ koaWebpack({
     config,
     // Reference: https://github.com/webpack/webpack-dev-middleware#options
     devMiddleware: {
-        headers: { 'X-Custom-Header': 'yes' },
-        index: 'index.html',
+        headers: { "X-Custom-Header": "yes" },
+        index: "index.html",
         lazy: false,
         logger: undefined,
-        logLevel: 'info',
+        logLevel: "info",
         // logTime: false,
         // mimeTypes: null,
-        publicPath: '/assets/',
+        publicPath: "/assets/",
         reporter: null,
         serverSideRender: false,
         stats: { context: process.cwd() },
@@ -45,10 +45,10 @@ koaWebpack({
     hotClient: {
         allEntries: false,
         autoConfigure: true,
-        host: 'localhost',
+        host: "localhost",
         hmr: true,
         https: false,
-        logLevel: 'info',
+        logLevel: "info",
         logTime: false,
         port: 0,
         reload: true,
@@ -62,7 +62,7 @@ koaWebpack({
     middleware.devMiddleware.close();
     middleware.devMiddleware.invalidate();
     middleware.devMiddleware.waitUntilValid();
-    middleware.devMiddleware.getFilenameFromUrl('/public/index.html');
+    middleware.devMiddleware.getFilenameFromUrl("/public/index.html");
     middleware.devMiddleware.fileSystem;
     middleware.hotClient.close();
     middleware.hotClient.options;
@@ -70,6 +70,6 @@ koaWebpack({
 
     // close the middleware
     middleware.close(() => {
-        console.log('closed');
+        console.log("closed");
     });
 });

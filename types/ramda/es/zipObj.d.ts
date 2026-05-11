@@ -1,2 +1,2 @@
-import { zipObj } from '../index';
+import { zipObj } from "../index.js";
 export default zipObj;

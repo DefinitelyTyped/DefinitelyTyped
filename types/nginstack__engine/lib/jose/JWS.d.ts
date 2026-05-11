@@ -5,7 +5,7 @@ declare class JWS {
     headers: Record<string, string | number | boolean>;
     claims: Record<string, string | number | boolean>;
     private registeredClaims_;
-    algorithm: Algorithm;
+    algorithm: string;
     issuer: string;
     subject: string;
     audience: string;
@@ -25,7 +25,6 @@ declare class JWS {
 declare namespace JWS {
     export { sign, parse, parseHeader, verify, VerifyOptions };
 }
-import Algorithm = require('./Algorithm.js');
 import CryptoPKey = require('../crypto/CryptoPKey.js');
 declare function sign(
     payload: any,

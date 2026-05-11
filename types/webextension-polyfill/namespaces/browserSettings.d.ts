@@ -2,20 +2,12 @@
 // BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
 //////////////////////////////////////////////////////
 
-/**
- * Namespace: browser.browserSettings
- *
- * Use the <code>browser.browserSettings</code> API to control global settings of the browser.
- * Permissions: "browserSettings"
- *
- * Comments found in source JSON schema files:
- * Copyright (c) 2012 The Chromium Authors. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be
- * found in the LICENSE file.
- */
 import { BrowserSettingsColorManagement } from "./browserSettings_colorManagement";
 import { Types } from "./types";
 
+/**
+ * Namespace: browser.browserSettings
+ */
 export namespace BrowserSettings {
     /**
      * How images should be animated in the browser.
@@ -122,6 +114,11 @@ export namespace BrowserSettings {
          * resistFingerprinting is true, this setting has no effect and zoom is applied to the current tab only.
          */
         zoomSiteSpecific: Types.Setting;
+
+        /**
+         * This boolean setting controls whether vertical tabs are enabled.
+         */
+        verticalTabs: Types.Setting;
 
         colorManagement: BrowserSettingsColorManagement.Static;
     }

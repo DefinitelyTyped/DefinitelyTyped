@@ -1,4 +1,4 @@
-import * as CSSOM from 'cssom';
+import * as CSSOM from "cssom";
 
 let styleSheet: CSSOM.CSSStyleSheet;
 

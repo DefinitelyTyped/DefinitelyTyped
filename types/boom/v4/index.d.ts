@@ -1,15 +1,6 @@
-// Type definitions for boom 4.3
-// Project: https://github.com/hapijs/boom
-// Definitions by: AJP <https://github.com/AJamesPhillips>
-//                 Jinesh Shah <https://github.com/jineshshah36>
-//                 Daniel Machado <https://github.com/danielmachado>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 export = Boom;
 
 declare namespace Boom {
-
     /**
      * boom provides a set of utilities for returning HTTP errors. Each utility returns a Boom error response object (instance of Error) which includes the following properties:
      * @see {@link https://github.com/hapijs/boom#boom}
@@ -35,7 +26,7 @@ declare namespace Boom {
         /** statusCode - the HTTP status code (typically 4xx or 5xx). */
         statusCode: number;
         /** headers - an object containing any HTTP headers where each key is a header name and value is the header content. (Limited value type to string https://github.com/hapijs/boom/issues/151 ) */
-        headers: {[index: string]: string};
+        headers: { [index: string]: string };
         /** payload - the formatted object used as the response payload (stringified). Can be directly manipulated but any changes will be lost if reformat() is called. Any content allowed and by default includes the following content: */
         payload: Payload;
     }
@@ -62,7 +53,10 @@ declare namespace Boom {
      * @param options optional additional options
      * @see {@link https://github.com/hapijs/boom#boomifyerror-options}
      */
-    export function boomify(error: Error, options?: { statusCode?: number | undefined, message?: string | undefined, override?: boolean | undefined }): BoomError<null>;
+    export function boomify(
+        error: Error,
+        options?: { statusCode?: number | undefined; message?: string | undefined; override?: boolean | undefined },
+    ): BoomError<null>;
 
     /**
      * Decorates an error with the boom properties
@@ -100,9 +94,17 @@ declare namespace Boom {
      * @param attributes an object of values to use while setting the 'WWW-Authenticate' header. This value is only used when scheme is a string, otherwise it is ignored. Every key/value pair will be included in the 'WWW-Authenticate' in the format of 'key="value"' as well as in the response payload under the attributes key. Alternatively value can be a string which is use to set the value of the scheme, for example setting the token value for negotiate header. If string is used message parameter must be null. null and undefined will be replaced with an empty string. If attributes is set, message will be used as the 'error' segment of the 'WWW-Authenticate' header. If message is unset, the 'error' segment of the header will not be present and isMissing will be true on the error object.
      * @see {@link https://github.com/hapijs/boom#boomunauthorizedmessage-scheme-attributes}
      */
-    export function unauthorized(message?: string, scheme?: string, attributes?: {[index: string]: string}): BoomError<null>;
+    export function unauthorized(
+        message?: string,
+        scheme?: string,
+        attributes?: { [index: string]: string },
+    ): BoomError<null>;
     export function unauthorized(message?: string, scheme?: string[]): BoomError<null>;
-    export function unauthorized(message?: null, scheme?: string, attributes?: {[index: string]: string} | string): BoomError<null>;
+    export function unauthorized(
+        message?: null,
+        scheme?: string,
+        attributes?: { [index: string]: string } | string,
+    ): BoomError<null>;
     export function unauthorized(message?: null, scheme?: string[]): BoomError<null>;
 
     /**
@@ -136,7 +138,11 @@ declare namespace Boom {
      * @param allow optional string or array of strings (to be combined and separated by ', ') which is set to the 'Allow' header.
      * @see {@link https://github.com/hapijs/boom#boommethodnotallowedmessage-data-allow}
      */
-    export function methodNotAllowed<Data = null>(message?: string, data?: Data, allow?: string | string[]): BoomError<Data>;
+    export function methodNotAllowed<Data = null>(
+        message?: string,
+        data?: Data,
+        allow?: string | string[],
+    ): BoomError<Data>;
 
     /**
      * Returns a 406 Not Acceptable error

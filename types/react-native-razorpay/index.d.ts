@@ -1,8 +1,3 @@
-// Type definitions for react-native-razorpay 2.2
-// Project: https://www.npmjs.com/package/react-native-razorpay
-// Definitions by: Ankan Bhattacharya <https://github.com/Ankan002>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface SuccessResponse {
     razorpay_signature: string;
     razorpay_order_id: string;
@@ -84,8 +79,12 @@ export interface CheckoutOptions {
 }
 
 declare const RazorpayCheckout: {
-    open: (options: CheckoutOptions, successCallback?: (data: SuccessResponse) => void, errorCallback?: (data: ErrorResponse) => void) => Promise<SuccessResponse>,
-    onExternalWalletSelection: (externalWalletCallback: (data: unknown) => void) => void
+    open: (
+        options: CheckoutOptions,
+        successCallback?: (data: SuccessResponse) => void,
+        errorCallback?: (data: ErrorResponse) => void,
+    ) => Promise<SuccessResponse>;
+    onExternalWalletSelection: (externalWalletCallback: (data: unknown) => void) => void;
 };
 
 export default RazorpayCheckout;

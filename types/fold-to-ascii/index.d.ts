@@ -1,8 +1,3 @@
-// Type definitions for fold-to-ascii 5.0
-// Project: https://github.com/mplatt/fold-to-ascii
-// Definitions by: Morgan Zolob <https://github.com/mogzol>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Replace all known non-ASCII characters with appropriate replacements,
  * replace the unknown ones with a fallback

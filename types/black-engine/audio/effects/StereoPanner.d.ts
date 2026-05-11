@@ -7,4 +7,4 @@ export class StereoPanner extends SoundEffect {
     set pan(arg: number);
     get pan(): number;
 }
-import { SoundEffect } from '../SoundEffect';
+import { SoundEffect } from "../SoundEffect";

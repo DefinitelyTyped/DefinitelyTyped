@@ -7,10 +7,10 @@ export interface CrossDomainWindowType {
     open: (url?: string, target?: string, features?: string) => CrossDomainWindowType | null;
     close: () => void;
     focus: () => void;
-    top: CrossDomainWindowType  | null;
-    frames: CrossDomainWindowType ;
+    top: CrossDomainWindowType | null;
+    frames: CrossDomainWindowType;
     opener: CrossDomainWindowType | null;
-    parent: CrossDomainWindowType  | null;
+    parent: CrossDomainWindowType | null;
     length: number;
     postMessage: (a: string, b: string) => void;
 }
@@ -30,4 +30,4 @@ export interface SameDomainWindowType {
     };
 }
 
-export type DomainMatcher = string | ReadonlyArray<string> | RegExp;
+export type DomainMatcher = string | readonly string[] | RegExp;

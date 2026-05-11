@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/primer__octicons",
+    "version": "19.21.9999",
+    "projects": [
+        "https://github.com/primer/octicons"
+    ],
+    "devDependencies": {
+        "@types/primer__octicons": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Oliver Rose",
+            "githubUsername": "olivermrose"
+        }
+    ]
+}

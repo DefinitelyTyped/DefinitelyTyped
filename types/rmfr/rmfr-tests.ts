@@ -7,13 +7,13 @@ import rmfr = require("rmfr");
     await rmfr("../{tmp_d*,test.js}", {
         glob: {
             cwd: "node_modules",
-            ignore: "some_filename"
-        }
+            ignore: "some_filename",
+        },
     });
     await rmfr("test.js", {
         glob: {
-            cwd: "this/directory/does/not/exist"
-        }
+            cwd: "this/directory/does/not/exist",
+        },
     });
 
     // @ts-expect-error

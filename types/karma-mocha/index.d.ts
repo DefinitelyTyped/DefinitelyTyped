@@ -1,12 +1,6 @@
-// Type definitions for karma-mocha 1.3
-// Project: https://github.com/karma-runner/karma-mocha#readme
-// Definitions by: Piotr Błażejewicz (Peter Blazejewicz) <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
+import "karma";
 
-import 'karma';
-
-declare module 'karma' {
+declare module "karma" {
     interface ClientOptions {
         mocha?: MochaClientOptions | undefined;
     }

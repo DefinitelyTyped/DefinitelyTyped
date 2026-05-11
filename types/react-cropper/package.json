@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "cropperjs": "^1.5.5"
-    }
-}

@@ -1,0 +1,34 @@
+{
+    "private": true,
+    "name": "@types/castv2",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/thibauts/node-castv2#readme"
+    ],
+    "dependencies": {
+        "@types/chromecast-caf-receiver": "*",
+        "@types/events": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/castv2": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Thibaut Séguy",
+            "githubUsername": "thibauts"
+        },
+        {
+            "name": "Joey Parrish",
+            "githubUsername": "joeyparrish"
+        },
+        {
+            "name": "Julian Domingo",
+            "githubUsername": "juliandomingo"
+        },
+        {
+            "name": "Theodore Abshire",
+            "githubUsername": "theodab"
+        }
+    ]
+}

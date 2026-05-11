@@ -1,8 +1,3 @@
-// Type definitions for gatsby-plugin-breakpoints 1.3
-// Project: https://github.com/JimmyBeldone/gatsby-plugin-breakpoints
-// Definitions by: Iva Kop <https://github.com/IvaKop>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * @see https://www.gatsbyjs.com/plugins/gatsby-plugin-breakpoints/
  */
@@ -23,7 +18,7 @@ export interface BreakpointOptions {
     queries?: QueriesObject | undefined;
 }
 export interface BreakpointConfig {
-    resolve: 'gatsby-plugin-breakpoints';
+    resolve: "gatsby-plugin-breakpoints";
     options?: BreakpointOptions | undefined;
 }
 

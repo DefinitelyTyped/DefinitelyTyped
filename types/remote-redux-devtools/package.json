@@ -1,6 +1,32 @@
 {
     "private": true,
+    "name": "@types/remote-redux-devtools",
+    "version": "0.5.9999",
+    "projects": [
+        "https://github.com/zalmoxisus/remote-redux-devtools"
+    ],
     "dependencies": {
         "redux": "^4.0.0"
-    }
+    },
+    "devDependencies": {
+        "@types/remote-redux-devtools": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Colin Eberhardt",
+            "githubUsername": "ColinEberhardt"
+        },
+        {
+            "name": "Daniel Perez Alvarez",
+            "githubUsername": "unindented"
+        },
+        {
+            "name": "Maximo Dominguez",
+            "githubUsername": "mamodom"
+        },
+        {
+            "name": "Colin Dekker",
+            "githubUsername": "colindekker"
+        }
+    ]
 }

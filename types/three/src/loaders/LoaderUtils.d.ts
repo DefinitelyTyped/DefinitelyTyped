@@ -1,7 +1,5 @@
-export interface LoaderUtils {
-    decodeText(array: BufferSource): string;
-    extractUrlBase(url: string): string;
-    resolveURL(url: string, path: string): string;
-}
+export class LoaderUtils {
+    static extractUrlBase(url: string): string;
 
-export const LoaderUtils: LoaderUtils;
+    static resolveURL(url: string, path: string): string;
+}

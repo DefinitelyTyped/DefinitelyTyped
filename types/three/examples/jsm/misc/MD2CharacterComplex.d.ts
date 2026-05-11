@@ -1,4 +1,4 @@
-import { Object3D, Mesh, Texture } from '../../../src/Three';
+import { Mesh, Object3D, Texture } from "three";
 
 export class MD2CharacterComplex {
     constructor();
@@ -9,12 +9,20 @@ export class MD2CharacterComplex {
     maxReverseSpeed: number;
     frontAcceleration: number;
     backAcceleration: number;
-    frontDecceleration: number;
+    frontDeceleration: number;
     angularSpeed: number;
     root: Object3D;
     meshBody: Mesh | null;
     meshWeapon: Mesh | null;
-    controls: null;
+    controls: {
+        crouch?: boolean | undefined;
+        jump?: boolean | undefined;
+        attack?: boolean | undefined;
+        moveForward?: boolean | undefined;
+        moveBackward?: boolean | undefined;
+        moveLeft?: boolean | undefined;
+        moveRight?: boolean | undefined;
+    } | null;
     skinsBody: Texture[];
     skinsWeapon: Texture[];
     weapons: Mesh[];

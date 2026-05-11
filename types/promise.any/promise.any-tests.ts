@@ -1,5 +1,7 @@
-import assert = require('assert');
-import any = require('promise.any');
+import any = require("promise.any");
+
+declare function ok(value: unknown): void;
+declare function strictEqual<T>(actual: T, expected: T): void;
 
 const resolved = Promise.resolve(42);
 const rejected = Promise.reject(-1);
@@ -11,21 +13,21 @@ any();
 any([]); // $ExpectType Promise<never>
 
 any([resolved, rejected, alsoRejected]).then(result => {
-    assert.strictEqual(result, 42);
+    strictEqual(result, 42);
 });
 
 any([rejected, alsoRejected]).catch(error => {
-    assert.ok(error instanceof AggregateError);
-    assert.strictEqual(error.errors, [-1, Infinity]);
+    ok(error instanceof AggregateError);
+    strictEqual(error.errors, [-1, Infinity]);
 });
 
 any.shim();
 
 Promise.any([resolved, rejected, alsoRejected]).then(result => {
-    assert.strictEqual(result, 42);
+    strictEqual(result, 42);
 });
 
 Promise.any([rejected, alsoRejected]).catch(error => {
-    assert.ok(error instanceof AggregateError);
-    assert.strictEqual(error.errors, [-1, Infinity]);
+    ok(error instanceof AggregateError);
+    strictEqual(error.errors, [-1, Infinity]);
 });

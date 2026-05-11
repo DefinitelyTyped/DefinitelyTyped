@@ -1,9 +1,3 @@
-// Type definitions for jfs 0.2
-// Project: https://github.com/flosse/json-file-store
-// Definitions by: Tomasz Łaziuk <https://github.com/tlaziuk>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 declare const JsonFileStore: JsonFileStore.JsonFileStore;
 
 declare namespace JsonFileStore {
@@ -12,13 +6,13 @@ declare namespace JsonFileStore {
     }
 
     interface Options {
-        type?: 'single' | 'memory' | undefined;
+        type?: "single" | "memory" | undefined;
         pretty?: boolean | undefined;
         saveId?: boolean | string | undefined;
     }
 
     interface JsonFileStore {
-        new <T extends Storable>(name?: string, opts?: Options): Instance<T>;
+        new<T extends Storable>(name?: string, opts?: Options): Instance<T>;
     }
 
     interface Instance<T> {
@@ -34,6 +28,7 @@ declare namespace JsonFileStore {
 
         delete<K extends keyof T>(id: K, cb?: (err?: Error) => void): void;
 
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         deleteSync<K extends keyof T>(id: K): Error | void;
 
         all(cb: (err?: Error, all?: T) => void): void;

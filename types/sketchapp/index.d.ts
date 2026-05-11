@@ -1,14 +1,7 @@
-// Type definitions for non-npm package the SketchApp 56.0
-// Project: https://github.com/xlayers/xlayers
-// Definitions by: Wassim Chegham <https://github.com/manekinekko>
-//                 Phetsinorath William <https://github.com/shikanime>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 type SketchMSFillTypeEnum = 0 | 1 | 4 | 5;
 type SketchMSBorderPositionEnum = 0 | 1 | 2 | 3;
 interface SketchMSBorder {
-    _class: 'border';
+    _class: "border";
     isEnabled: boolean;
     color: SketchMSColor;
     fillType: SketchMSFillTypeEnum;
@@ -18,16 +11,16 @@ interface SketchMSBorder {
 type SketchMSBorderLineCapStyle = 0 | 1 | 2;
 type SketchMSBorderLineJoinStyle = 0 | 1 | 2;
 interface SketchMSBorderOptions {
-    _class: 'borderOptions';
+    _class: "borderOptions";
     isEnabled: boolean;
     dashPattern: number[];
     lineCapStyle: SketchMSBorderLineCapStyle;
     lineJoinStyle: SketchMSBorderLineJoinStyle;
 }
 interface SketchMSImageDataReference {
-    _class: 'jSONOriginalDataReference';
+    _class: "jSONOriginalDataReference";
     _ref: string;
-    _ref_class: 'imageData';
+    _ref_class: "imageData";
     data: {
         _data: string;
     };
@@ -37,7 +30,7 @@ interface SketchMSImageDataReference {
 }
 type SketchMSPatternFillTypeEnum = 0 | 1 | 2 | 3;
 interface SketchMSFill {
-    _class: 'fill';
+    _class: "fill";
     isEnabled: boolean;
     color?: SketchMSColor | undefined;
     fillType: SketchMSFillTypeEnum;
@@ -48,7 +41,7 @@ interface SketchMSFill {
     patternTileScale: number;
 }
 interface SketchMSShadow {
-    _class: 'shadow' | 'MSInnerShadow';
+    _class: "shadow" | "MSInnerShadow";
     isEnabled: boolean;
     blurRadius: number;
     color: SketchMSColor;
@@ -58,7 +51,7 @@ interface SketchMSShadow {
     spread: number;
 }
 interface SketchMSStyleBorder {
-    _class: 'styleBorder';
+    _class: "styleBorder";
     position: number;
     color: SketchMSColor;
     gradient: SketchMSGradient;
@@ -68,12 +61,12 @@ interface SketchMSStyleBorder {
     isEnabled: number;
 }
 interface SketchMSGradientStop {
-    _class: 'gradientStop';
+    _class: "gradientStop";
     color: SketchMSColor;
     position: number;
 }
 interface SketchMSGradient {
-    _class: 'gradient';
+    _class: "gradient";
     from: {
         x: number;
         y: number;
@@ -88,7 +81,7 @@ interface SketchMSGradient {
     elipseLength: number;
 }
 interface SketchMSStyleFill {
-    _class: 'styleFill';
+    _class: "styleFill";
     contextSettings: SketchMSGraphicsContextSettings;
     color: SketchMSColor;
     gradient: SketchMSGradient;
@@ -100,7 +93,7 @@ interface SketchMSStyleFill {
     isEnabled: number;
 }
 interface SketchMSStyleShadow {
-    _class: 'styleShadow';
+    _class: "styleShadow";
     spread: number;
     color: SketchMSColor;
     offsetY: number;
@@ -110,25 +103,25 @@ interface SketchMSStyleShadow {
     isEnabled: number;
 }
 interface SketchMSParagraphStyle {
-    _class: 'paragraphStyle';
+    _class: "paragraphStyle";
     alignment: number;
     allowsDefaultTighteningForTruncation: number;
 }
 interface SketchMSStyleBorderOptions {
-    _class: 'styleBorderOptions';
+    _class: "styleBorderOptions";
     lineJoinStyle: number;
     isEnabled: number;
     lineCapStyle: number;
     dashPattern: unknown[];
 }
 interface SketchMSGraphicsContextSettings {
-    _class: 'graphicsContextSettings';
+    _class: "graphicsContextSettings";
     opacity: number;
     blendMode: SketchMSGraphicsContextSettingsBlendMode;
 }
 type SketchMSGraphicsContextSettingsBlendMode = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15;
 interface SketchMSStyleBlur {
-    _class: 'styleBlur';
+    _class: "styleBlur";
     radius: number;
     motionAngle: number;
     isEnabled: number;
@@ -139,13 +132,13 @@ interface SketchMSStyleBlur {
     };
 }
 interface SketchMSStyleReflection {
-    _class: 'styleReflection';
+    _class: "styleReflection";
     strength: number;
     isEnabled: number;
     distance: number;
 }
 interface SketchMSStyleColorControls {
-    _class: 'styleColorControls';
+    _class: "styleColorControls";
     hue: number;
     brightness: number;
     contrast: number;
@@ -153,7 +146,7 @@ interface SketchMSStyleColorControls {
     saturation: number;
 }
 interface SketchMSFontAttribute {
-    _class: 'fontDescriptor';
+    _class: "fontDescriptor";
     attributes: {
         name: string;
         size: number;
@@ -166,15 +159,15 @@ interface SketchMSAttributes {
     kerning: number;
 }
 interface SketchMSStringAttribute {
-    _class: 'stringAttribute';
+    _class: "stringAttribute";
     attributes: SketchMSAttributes;
 }
 interface SketchMSTextStyle {
-    _class: 'textStyle';
+    _class: "textStyle";
     encodedAttributes: SketchMSAttributes;
 }
 interface SketchMSStyle {
-    _class: 'style';
+    _class: "style";
     do_objectID: string;
     endMarkerType: number;
     miterLimit: number;
@@ -194,25 +187,25 @@ interface SketchMSStyle {
     shadows?: SketchMSStyleShadow[] | undefined;
 }
 interface SketchMSAttributedString {
-    _class: 'attributedString';
+    _class: "attributedString";
     string: string;
     attributes: SketchMSStringAttribute[];
     archivedAttributedString?: {
-      _archive: string;
+        _archive: string;
     } | undefined;
 }
 interface SketchMSTextLayer extends SketchMSContainerLayer {
-    _class: 'text';
+    _class: "text";
     attributedString: SketchMSAttributedString;
 }
 interface SketchMSLayoutSimpleGrid {
-    _class: 'simpleGrid';
+    _class: "simpleGrid";
     thickGridTimes: number;
     isEnabled: number;
     gridSize: number;
 }
 interface SketchMSLayoutGrid {
-    _class: 'layoutGrid';
+    _class: "layoutGrid";
     isEnabled: boolean;
     columnWidth: number;
     drawHorizontal: boolean;
@@ -228,19 +221,19 @@ interface SketchMSLayoutGrid {
 }
 type SketchMSLayout = SketchMSLayoutGrid | SketchMSLayoutSimpleGrid;
 interface SketchMSFlowConnection {
-    _class: 'immutableFlowConnection';
+    _class: "immutableFlowConnection";
     animationType: number;
-    destinationArtboardID?: string | 'back' | undefined;
+    destinationArtboardID?: string | "back" | undefined;
 }
 type SketchMSFlow = SketchMSFlowConnection;
 interface SketchMSImmutableHotspotLayer extends SketchMSLayer {
-    _class: 'MSImmutableHotspotLayer';
+    _class: "MSImmutableHotspotLayer";
     flow: SketchMSFlow;
 }
 type SketchMSPointString = string;
 type SketchMSCurveMode = 0 | 1 | 2 | 3 | 4;
 interface SketchMSCurvePoint {
-    _class: 'curvePoint';
+    _class: "curvePoint";
     cornerRadius: number;
     curveFrom: SketchMSPointString;
     curveMode: SketchMSCurveMode;
@@ -251,21 +244,21 @@ interface SketchMSCurvePoint {
 }
 type SketchMSPoint = SketchMSCurvePoint;
 interface SketchMSPathLayer extends SketchMSLayer {
-    _class: 'path' | 'shapePath' | 'rectangle' | 'oval' | 'triangle';
+    _class: "path" | "shapePath" | "rectangle" | "oval" | "triangle";
     edited: boolean;
     isClosed: boolean;
     pointRadiusBehaviour: number;
     points: SketchMSPoint[];
 }
 interface SketchMSColor {
-    _class: 'color';
+    _class: "color";
     red: number;
     green: number;
     blue: number;
     alpha: number;
 }
 interface SketchMSSymbolMasterLayer extends SketchMSPageLayer {
-    _class: 'symbolMaster';
+    _class: "symbolMaster";
     backgroundColor: SketchMSColor;
     hasBackgroundColor: boolean;
     includeBackgroundColorInExport: boolean;
@@ -276,7 +269,7 @@ interface SketchMSSymbolMasterLayer extends SketchMSPageLayer {
     changeIdentifier: number;
 }
 interface SketchMSSymbolInstanceLayer extends SketchMSLayer {
-    _class: 'symbolInstance';
+    _class: "symbolInstance";
     horizontalSpacing: number;
     overrideValues: unknown[];
     scale: number;
@@ -284,19 +277,19 @@ interface SketchMSSymbolInstanceLayer extends SketchMSLayer {
     verticalSpacing: number;
 }
 interface SketchMSRulerData {
-    _class: 'rulerData';
+    _class: "rulerData";
     base: number;
     guides: unknown[];
 }
 interface SketchMSPageLayer extends SketchMSContainerLayer {
-    _class: 'page' | 'symbolMaster';
+    _class: "page" | "symbolMaster";
     hasClickThrough: boolean;
     horizontalRulerData: SketchMSRulerData;
     includeInCloudUpload: boolean;
     verticalRulerData: SketchMSRulerData;
 }
 interface SketchMSRect {
-    _class: 'rect';
+    _class: "rect";
     constrainProportions: boolean;
     height: number;
     width: number;
@@ -305,7 +298,7 @@ interface SketchMSRect {
 }
 type SketchMSLayerBooleanOperation = -1 | 0 | 1 | 2 | 3;
 interface SketchMSLayerExportOptions {
-    _class: 'exportOptions';
+    _class: "exportOptions";
     exportFormats: unknown[];
     includedLayerIds: unknown[];
     layerOptions: number;
@@ -345,23 +338,23 @@ interface SketchMSLayer {
     css?: string | undefined;
 }
 interface SketchMSSharedStyle {
-    _class: 'sharedStyle';
+    _class: "sharedStyle";
     value: SketchMSStyle;
     name: string;
 }
 interface SketchMSImageCollection {
-    _class: 'imageCollection';
+    _class: "imageCollection";
     images: unknown[];
 }
 interface SketchMSDocumentAssets {
-    _class: 'assetCollection';
+    _class: "assetCollection";
     gradients: unknown[];
     colors: unknown[];
     imageCollection: SketchMSImageCollection;
     images: unknown[];
 }
 interface SketchMSImmutableForeignSymbol {
-    _class: 'MSImmutableForeignSymbol';
+    _class: "MSImmutableForeignSymbol";
     libraryID: string;
     sourceLibraryName: string;
     symbolPrivate: boolean;
@@ -369,24 +362,24 @@ interface SketchMSImmutableForeignSymbol {
     symbolMaster: SketchMSSymbolMasterLayer;
 }
 interface SketchMSSharedStyleContainer {
-    _class: 'sharedStyleContainer';
+    _class: "sharedStyleContainer";
     objects: SketchMSSharedStyle[];
 }
 interface SketchMSSymbolContainers {
-    _class: 'symbolContainer';
+    _class: "symbolContainer";
     objects: unknown[];
 }
 interface SketchMSSharedTextStyleContainer {
-    _class: 'sharedTextStyleContainer';
+    _class: "sharedTextStyleContainer";
     objects: unknown[];
 }
 interface SketchMSPageReference {
-    _class: 'MSJSONFileReference';
-    _ref_class: 'MSImmutablePage';
+    _class: "MSJSONFileReference";
+    _ref_class: "MSImmutablePage";
     _ref: string;
 }
 interface SketchMSDocument {
-    _class: 'documentData';
+    _class: "documentData";
     do_objectID: string;
     assets: SketchMSDocumentAssets;
     colorSpace: number;

@@ -1,20 +1,10 @@
-// Type definitions for websocket 1.0
-// Project: https://github.com/theturtle32/WebSocket-Node
-// Definitions by: Paul Loyd <https://github.com/loyd>,
-//                 Kay Schecker <https://github.com/flynetworks>,
-//                 Zhao Lei <https://github.com/zhaoleimxd>
-//                 Sheng Chen <https://github.com/jdneo>,
-//                 Matthew Peveler <https://github.com/MasterOdin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 /// <reference types="node" />
 
-import events = require('events');
-import http = require('http');
-import https = require('https');
-import net = require('net');
-import url = require('url');
+import events = require("events");
+import http = require("http");
+import https = require("https");
+import net = require("net");
+import url = require("url");
 
 export interface IStringified {
     toString: (...args: any[]) => string;
@@ -188,12 +178,12 @@ export class server extends events.EventEmitter {
     handleRequestResolved(request: request): void;
 
     // Events
-    on(event: 'request', cb: (request: request) => void): this;
-    on(event: 'connect', cb: (connection: connection) => void): this;
-    on(event: 'close', cb: (connection: connection, reason: number, desc: string) => void): this;
-    addListener(event: 'request', cb: (request: request) => void): this;
-    addListener(event: 'connect', cb: (connection: connection) => void): this;
-    addListener(event: 'close', cb: (connection: connection, reason: number, desc: string) => void): this;
+    on(event: "request", cb: (request: request) => void): this;
+    on(event: "connect", cb: (connection: connection) => void): this;
+    on(event: "close", cb: (connection: connection, reason: number, desc: string) => void): this;
+    addListener(event: "request", cb: (request: request) => void): this;
+    addListener(event: "connect", cb: (connection: connection) => void): this;
+    addListener(event: "close", cb: (connection: connection, reason: number, desc: string) => void): this;
 }
 
 export interface ICookie {
@@ -222,7 +212,7 @@ export class request extends events.EventEmitter {
     /** `Sec-WebSocket-Key` */
     key: string;
     /** Parsed resource, including the query string parameters */
-    resourceURL: url.Url;
+    resourceURL: url.UrlWithParsedQuery;
 
     /**
      * Client's IP. If an `X-Forwarded-For` header is present, the value will be taken
@@ -282,15 +272,16 @@ export class request extends events.EventEmitter {
     reject(httpStatus?: number, reason?: string, extraHeaders?: object): void;
 
     // Events
-    on(event: 'requestResolved' | 'requestRejected', cb: (request: this) => void): this;
-    on(event: 'requestAccepted', cb: (connection: connection) => void): this;
-    addListener(event: 'requestResolved' | 'requestRejected', cb: (request: this) => void): this;
-    addListener(event: 'requestAccepted', cb: (connection: connection) => void): this;
+    on(event: "requestResolved" | "requestRejected", cb: (request: this) => void): this;
+    on(event: "requestAccepted", cb: (connection: connection) => void): this;
+    addListener(event: "requestResolved" | "requestRejected", cb: (request: this) => void): this;
+    addListener(event: "requestAccepted", cb: (connection: connection) => void): this;
 
     readHandshake(): void;
 
     parseExtensions(extensionString: string): string[];
 
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     parseCookies(str: string): ICookie[] | void;
 
     _handleSocketCloseBeforeAccept(): void;
@@ -299,12 +290,12 @@ export class request extends events.EventEmitter {
 }
 
 export interface IUtf8Message {
-    type: 'utf8';
+    type: "utf8";
     utf8Data: string;
 }
 
 export interface IBinaryMessage {
-    type: 'binary';
+    type: "binary";
     binaryData: Buffer;
 }
 
@@ -347,10 +338,10 @@ export interface IBufferList extends events.EventEmitter {
     toString(): string;
 
     // Events
-    on(event: 'advance', cb: (n: number) => void): this;
-    on(event: 'write', cb: (buf: Buffer) => void): this;
-    addListener(event: 'advance', cb: (n: number) => void): this;
-    addListener(event: 'write', cb: (buf: Buffer) => void): this;
+    on(event: "advance", cb: (n: number) => void): this;
+    on(event: "write", cb: (buf: Buffer) => void): this;
+    addListener(event: "advance", cb: (n: number) => void): this;
+    addListener(event: "write", cb: (buf: Buffer) => void): this;
 }
 
 export class connection extends events.EventEmitter {
@@ -366,7 +357,7 @@ export class connection extends events.EventEmitter {
     static CLOSE_REASON_MESSAGE_TOO_BIG: number;
     static CLOSE_REASON_EXTENSION_REQUIRED: number;
 
-    static CLOSE_DESCRIPTIONS: {[code: number]: string};
+    static CLOSE_DESCRIPTIONS: { [code: number]: string };
 
     /**
      * After the connection is closed, contains a textual description of the reason for
@@ -424,8 +415,13 @@ export class connection extends events.EventEmitter {
 
     _pingListenerCount: number;
 
-    constructor(socket: net.Socket, extensions: IExtension[], protocol: string,
-        maskOutgoingPackets: boolean, config: IConfig);
+    constructor(
+        socket: net.Socket,
+        extensions: IExtension[],
+        protocol: string,
+        maskOutgoingPackets: boolean,
+        config: IConfig,
+    );
 
     /**
      * Close the connection. A close frame will be sent to the remote peer indicating
@@ -506,20 +502,20 @@ export class connection extends events.EventEmitter {
     _addSocketEventListeners(): void;
 
     // Events
-    on(event: 'message', cb: (data: Message) => void): this;
-    on(event: 'frame', cb: (frame: frame) => void): this;
-    on(event: 'close', cb: (code: number, desc: string) => void): this;
-    on(event: 'error', cb: (err: Error) => void): this;
-    on(event: 'drain' | 'pause' | 'resume', cb: () => void): this;
-    on(event: 'ping', cb: (cancel: () => void, binaryPayload: Buffer) => void): this;
-    on(event: 'pong', cb: (binaryPayload: Buffer) => void): this;
-    addListener(event: 'message', cb: (data: Message) => void): this;
-    addListener(event: 'frame', cb: (frame: frame) => void): this;
-    addListener(event: 'close', cb: (code: number, desc: string) => void): this;
-    addListener(event: 'error', cb: (err: Error) => void): this;
-    addListener(event: 'drain' | 'pause' | 'resume', cb: () => void): this;
-    addListener(event: 'ping', cb: (cancel: () => void, binaryPayload: Buffer) => void): this;
-    addListener(event: 'pong', cb: (binaryPayload: Buffer) => void): this;
+    on(event: "message", cb: (data: Message) => void): this;
+    on(event: "frame", cb: (frame: frame) => void): this;
+    on(event: "close", cb: (code: number, desc: string) => void): this;
+    on(event: "error", cb: (err: Error) => void): this;
+    on(event: "drain" | "pause" | "resume", cb: () => void): this;
+    on(event: "ping", cb: (cancel: () => void, binaryPayload: Buffer) => void): this;
+    on(event: "pong", cb: (binaryPayload: Buffer) => void): this;
+    addListener(event: "message", cb: (data: Message) => void): this;
+    addListener(event: "frame", cb: (frame: frame) => void): this;
+    addListener(event: "close", cb: (code: number, desc: string) => void): this;
+    addListener(event: "error", cb: (err: Error) => void): this;
+    addListener(event: "drain" | "pause" | "resume", cb: () => void): this;
+    addListener(event: "ping", cb: (cancel: () => void, binaryPayload: Buffer) => void): this;
+    addListener(event: "pong", cb: (binaryPayload: Buffer) => void): this;
 }
 
 export class frame {
@@ -631,7 +627,13 @@ export class client extends events.EventEmitter {
      *     using {@link https://github.com/koichik/node-tunnel|koichik/node-tunnel} or similar.
      * @example client.connect('ws://www.mygreatapp.com:1234/websocketapp/')
      */
-    connect(requestUrl: url.Url | string, requestedProtocols?: string | string[], origin?: string, headers?: http.OutgoingHttpHeaders, extraRequestOptions?: http.RequestOptions): void;
+    connect(
+        requestUrl: url.Url | string,
+        requestedProtocols?: string | string[],
+        origin?: string,
+        headers?: http.OutgoingHttpHeaders,
+        extraRequestOptions?: http.RequestOptions,
+    ): void;
 
     /**
      * Will cancel an in-progress connection request before either the `connect` event or the `connectFailed` event has been emitted.
@@ -640,12 +642,12 @@ export class client extends events.EventEmitter {
     abort(): void;
 
     // Events
-    on(event: 'connect', cb: (connection: connection) => void): this;
-    on(event: 'connectFailed', cb: (err: Error) => void): this;
-    on(event: 'httpResponse', cb: (response: http.IncomingMessage, client: client) => void): this;
-    addListener(event: 'connect', cb: (connection: connection) => void): this;
-    addListener(event: 'connectFailed', cb: (err: Error) => void): this;
-    addListener(event: 'httpResponse', cb: (response: http.IncomingMessage, client: client) => void): this;
+    on(event: "connect", cb: (connection: connection) => void): this;
+    on(event: "connectFailed", cb: (err: Error) => void): this;
+    on(event: "httpResponse", cb: (response: http.IncomingMessage, client: client) => void): this;
+    addListener(event: "connect", cb: (connection: connection) => void): this;
+    addListener(event: "connectFailed", cb: (err: Error) => void): this;
+    addListener(event: "httpResponse", cb: (response: http.IncomingMessage, client: client) => void): this;
 }
 
 export interface IRouterRequest extends events.EventEmitter {
@@ -662,7 +664,7 @@ export interface IRouterRequest extends events.EventEmitter {
     /** A string containing the path that was requested by the client */
     resource: string;
     /** Parsed resource, including the query string parameters */
-    resourceURL: url.Url;
+    resourceURL: url.UrlWithParsedQuery;
 
     /** A reference to the original Node HTTP request object */
     httpRequest: http.IncomingMessage;
@@ -698,10 +700,10 @@ export interface IRouterRequest extends events.EventEmitter {
     reject(httpStatus?: number, reason?: string): void;
 
     // Events
-    on(event: 'requestAccepted', cb: (connection: connection) => void): this;
-    on(event: 'requestRejected', cb: (request: this) => void): this;
-    addListener(event: 'requestAccepted', cb: (connection: connection) => void): this;
-    addListener(event: 'requestRejected', cb: (request: this) => void): this;
+    on(event: "requestAccepted", cb: (connection: connection) => void): this;
+    on(event: "requestRejected", cb: (request: this) => void): this;
+    addListener(event: "requestAccepted", cb: (connection: connection) => void): this;
+    addListener(event: "requestRejected", cb: (request: this) => void): this;
 }
 
 export interface IRouterConfig {
@@ -762,7 +764,7 @@ export class w3cwebsocket {
     _protocol?: string | undefined;
     _extensions: IExtension[];
     _bufferedAmount: number;
-    _binaryType: 'arraybuffer';
+    _binaryType: "arraybuffer";
     _connection?: connection | undefined;
     _client: client;
 
@@ -772,7 +774,7 @@ export class w3cwebsocket {
     extensions: IExtension[];
     bufferedAmount: number;
 
-    binaryType: 'arraybuffer';
+    binaryType: "arraybuffer";
 
     CONNECTING: number;
     OPEN: number;
@@ -799,7 +801,7 @@ export class w3cwebsocket {
 
 export const deprecation: {
     disableWarnings: boolean;
-    deprecationWarningMap: {[name: string]: string};
+    deprecationWarningMap: { [name: string]: string };
     warn(deprecationName: string): void;
 };
 

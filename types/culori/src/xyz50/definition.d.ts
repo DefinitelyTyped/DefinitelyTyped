@@ -1,14 +1,14 @@
-import convertXyz50ToRgb from './convertXyz50ToRgb';
-import convertXyz50ToLab from '../lab/convertXyz50ToLab';
-import convertRgbToXyz50 from './convertRgbToXyz50';
-import convertLabToXyz50 from '../lab/convertLabToXyz50';
-import { interpolatorLinear } from '../interpolate/linear';
-import { fixupAlpha } from '../fixup/alpha';
+import { fixupAlpha } from "../fixup/alpha.js";
+import { interpolatorLinear } from "../interpolate/linear.js";
+import convertLabToXyz50 from "../lab/convertLabToXyz50.js";
+import convertXyz50ToLab from "../lab/convertXyz50ToLab.js";
+import convertRgbToXyz50 from "./convertRgbToXyz50.js";
+import convertXyz50ToRgb from "./convertXyz50ToRgb.js";
 
-declare const definition: {
-    mode: 'xyz50';
-    parse: ['xyz-d50', '--xyz-d50'];
-    serialize: 'xyz-d50';
+declare const modeXyz50: {
+    mode: "xyz50";
+    parse: ["xyz-d50", "--xyz-d50"];
+    serialize: "xyz-d50";
 
     toMode: {
         rgb: typeof convertXyz50ToRgb;
@@ -20,7 +20,7 @@ declare const definition: {
         lab: typeof convertLabToXyz50;
     };
 
-    channels: ['x', 'y', 'z', 'alpha'];
+    channels: ["x", "y", "z", "alpha"];
 
     ranges: {
         x: [0, 0.964];
@@ -36,4 +36,4 @@ declare const definition: {
     };
 };
 
-export default definition;
+export default modeXyz50;

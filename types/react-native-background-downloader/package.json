@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/react-native-background-downloader",
+    "version": "2.3.9999",
+    "projects": [
+        "https://github.com/EkoLabs/react-native-background-downloader.git"
+    ],
+    "devDependencies": {
+        "@types/react-native-background-downloader": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Junseong Park",
+            "githubUsername": "Kweiza"
+        },
+        {
+            "name": "Adam Hunter",
+            "githubUsername": "adamrhunter"
+        },
+        {
+            "name": "Philip Su",
+            "githubUsername": "fivecar"
+        }
+    ]
+}

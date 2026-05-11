@@ -1,5 +1,5 @@
-import MathJax from 'react-mathjax';
-import React from 'react';
+import React from "react";
+import MathJax from "react-mathjax";
 
 const tex = `f(x) = \\int_{-\\infty}^\\infty
     \\hat f(\\xi)\\,e^{2 \\pi i \\xi x}
@@ -10,7 +10,7 @@ export class Component extends React.Component {
         return (
             <MathJax.Provider>
                 <div>
-                    This is an inline math formula: <MathJax.Node inline formula={'a = b'} />
+                    This is an inline math formula: <MathJax.Node inline formula={"a = b"} />
                     And a block one:
                     <MathJax.Node formula={tex} />
                 </div>

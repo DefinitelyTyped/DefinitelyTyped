@@ -10,7 +10,7 @@ declare class NetworkUtilities {
     findNetworksCacheVersion: any;
     findHosts(ids: string | string[]): number[];
     findNetworks(ids: string | any[]): any[];
-    findServices(ids: string | any[], serviceClass: number, port: number): any[];
+    findServices(ids: string | string[], serviceClass: number, port: number): any[];
 }
 declare namespace NetworkUtilities {
     function findNetworks(address: any): any[];

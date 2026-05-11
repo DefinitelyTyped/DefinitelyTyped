@@ -1,9 +1,3 @@
-// Type definitions for chai-json-pattern 1.1
-// Project: https://github.com/damian-szulc/chai-json-pattern, http://chaijs.com
-// Definitions by: Christoph Herb <https://github.com/chrishrb>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 // <reference types="chai" />
 
 declare global {
@@ -19,7 +13,8 @@ declare namespace ChaiJsonPattern {
         [key: string]: (target: any) => void;
     }
 }
-declare const chaiJsonPattern: Chai.ChaiPlugin;
+declare const chaiJsonPattern: Chai.ChaiPlugin & {
+    extend(plugin: ChaiJsonPattern.Plugin): void;
+};
 
-export default chaiJsonPattern;
-export function extend(plugin: ChaiJsonPattern.Plugin): void;
+export = chaiJsonPattern;

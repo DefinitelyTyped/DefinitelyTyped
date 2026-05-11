@@ -202,7 +202,7 @@
 declare module "querystring" {
     
 
-    module querystring {
+    namespace querystring {
         
         
         

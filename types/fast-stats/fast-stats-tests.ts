@@ -1,4 +1,3 @@
-
 import faststats = require("fast-stats");
 import Stats = faststats.Stats;
 
@@ -9,9 +8,9 @@ var ns: number[];
 var buckets: faststats.Bucket[];
 
 var stats: Stats = new Stats({ bucket_precision: 10 })
-  .push(1, 2, 3)
-  .push([1, 2, 3])
-  .unshift(1, 2, 3);
+    .push(1, 2, 3)
+    .push([1, 2, 3])
+    .unshift(1, 2, 3);
 
 n = stats.pop();
 n = stats.shift();
@@ -40,5 +39,3 @@ n = stats.gstddev();
 n = stats.moe();
 ns = stats.range();
 buckets = stats.distribution();
-
-

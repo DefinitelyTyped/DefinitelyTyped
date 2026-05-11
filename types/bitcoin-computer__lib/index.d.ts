@@ -1,30 +1,180 @@
-// Type definitions for @bitcoin-computer/lib 0.15
-// Project: https://github.com/bitcoin-computer/monorepo
-// Definitions by: jonty007 <https://github.com/jonty007>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+/// <reference types="node" />
+import { Psbt, Transaction, TxInput, TxOutput } from "@bitcoin-computer/nakamotojs";
 
-type JUndefined = undefined;
-type JNull = null;
-type JBoolean = boolean;
-type JNumber = number;
-type JString = string;
-type JBasic = JUndefined | JNull | JBoolean | JNumber | JString;
+type Json = JBasic | JObject | JArray;
+type JBasic = undefined | null | boolean | number | string | symbol | bigint;
 type JArray = Json[];
 interface JObject {
     [x: string]: Json;
 }
-type Json = JBasic | JObject | JArray;
+type SJson = JBasic | SJObject | SJArray;
 type SJArray = SJson[];
 interface SJObject {
     [x: string]: SJson;
     _id: string;
     _rev: string;
     _root: string;
+    _owners: string[];
+    _amount: number;
+    _readers?: string[];
+    _url?: string;
 }
-type SJson = JBasic | SJObject | SJArray;
-type Chain = 'LTC' | 'BTC';
-type Network = 'livenet' | 'testnet' | 'mainnet' | 'regtest';
-type SelectUtxos = Partial<{
+
+declare class Mock {
+    _id: string;
+    _rev: string;
+    _root: string;
+    _amount: number;
+    _owners: string[];
+    constructor({
+        _id,
+        _rev,
+        _root,
+    }?: {
+        _id?: string | undefined;
+        _rev?: string | undefined;
+        _root?: string | undefined;
+    });
+}
+
+declare class Wallet {
+    readonly restClient: RestClient;
+    constructor(params?: ComputerOptions);
+    derive(subpath?: string): Wallet;
+    getBalance(): Promise<number>;
+    getUtxos(): Promise<_Unspent[]>;
+    getDustThreshold(isWitnessProgram: boolean, script?: Buffer): number;
+    getAmountThreshold(isWitnessProgram: boolean, script: Buffer): number;
+    getUtxosWithOpts({ include, exclude }?: FundOptions): Promise<_Unspent[]>;
+    fetchUtxo: (utxo: _Unspent) => Promise<Utxo>;
+    checkFee(fee: number, size: number): void;
+    getSigOpCount(script: Buffer): number;
+    getLegacySigOpCount(tx: Transaction): Promise<number>;
+    getTransactionSigOpCost(tx: Transaction): Promise<number>;
+    getTxSize(txSize: any, nSigOpCost: any, bytesPerSigOp: any): number;
+    estimatePsbtSize(tx: Psbt): number;
+    fundPsbt(tx: Psbt, opts?: FundOptions): Promise<void>;
+    getOutputSpent: (input: TxInput) => Promise<TxOutput>;
+    getInputAmount: (tx: Transaction) => Promise<number>;
+    getOutputAmount: (tx: Transaction) => number;
+    estimateSize(tx: any): Promise<number>;
+    estimateFee(tx: any): Promise<number>;
+    fund(tx: Transaction, opts?: FundOptions): Promise<void>;
+    sign(transaction: Transaction, { inputIndex, sighashType, inputScript }?: SigOptions): Promise<void>;
+    broadcast(tx: Transaction): Promise<string>;
+    send(satoshis: number, address: string): Promise<string>;
+    get hdPrivateKey(): any;
+    get privateKey(): Buffer;
+    get publicKey(): Buffer;
+    get passphrase(): string;
+    get path(): string;
+    get chain(): Chain;
+    get network(): Network;
+    get url(): string;
+    get mnemonic(): string;
+    get address(): string;
+}
+
+declare class UrlFetch {
+    baseUrl: string;
+    privateKey?: Buffer;
+    keyPair: any;
+    constructor(baseUrl?: string, keyPair?: any);
+    _get<T>(route: string): Promise<T>;
+    _post<T1, T2>(route: string, data: T1): Promise<T2>;
+    _delete<T>(route: string): Promise<T>;
+    retry: (error: any) => boolean;
+    get<T>(route: string): Promise<T>;
+    post<T1, T2>(route: string, datum: T1): Promise<T2>;
+    delete<T>(route: string): Promise<T>;
+}
+
+declare class RestClient {
+    readonly chain: Chain;
+    readonly network: Network;
+    readonly networkObj: any;
+    readonly mnemonic: string;
+    readonly path: string;
+    readonly passphrase: string;
+    readonly bcn: UrlFetch;
+    readonly dustRelayTxFee: number;
+    readonly _keyPair: any;
+    satPerByte: number;
+    private randomAddress;
+    constructor({ chain, network, mnemonic, path, passphrase, url, satPerByte, dustRelayFee }?: ComputerOptions);
+    get privateKey(): Buffer;
+    get keyPair(): any;
+    getBalance(address: string): Promise<number>;
+    getTransactions(txIds: string[]): Promise<_Transaction[]>;
+    getRawTxs(txIds: string[]): Promise<string[]>;
+    get RANDOM_ADDRESS(): string;
+    getUtxosByAddress(address: string): Promise<_Unspent[]>;
+    query({ publicKey, hash, limit, offset, order, ids, mod }: Partial<Query>): Promise<string[]>;
+    idsToRevs(outIds: string[]): Promise<string[]>;
+    revToId(rev: string): Promise<string>;
+    rpc(method: string, params: string): Promise<any>;
+    static getSecretOutput({ _url, keyPair }: { _url: string; keyPair: any }): Promise<{
+        host: string;
+        data: string;
+    }>;
+    static setSecretOutput({
+        secretOutput,
+        host,
+        keyPair,
+    }: {
+        secretOutput: SecretOutput;
+        host: string;
+        keyPair: any;
+    }): Promise<Data & (Encrypted | Stored)>;
+    static deleteSecretOutput({ _url, keyPair }: { _url: string; keyPair: any }): Promise<void>;
+    get url(): string;
+    broadcast(txHex: string): Promise<string>;
+    fetch(txId: string): Promise<_Transaction>;
+    fetchAll(txIds: string[]): Promise<_Transaction[]>;
+    unspents(address: string): Promise<_Unspent[]>;
+    faucet(address: string, value: number): Promise<_Unspent>;
+    faucetComplex(output: Buffer, value: number): Promise<_Unspent>;
+    verify(txo: _Unspent): Promise<void>;
+    mine(count: number): Promise<void>;
+    height(): Promise<number>;
+    listTxs(address: string): Promise<_Transaction>;
+}
+
+type Chain = "LTC" | "BTC";
+type Network = "testnet" | "mainnet" | "regtest";
+type Fee = Partial<{
+    fee: number;
+}>;
+type ProgramMetaData =
+    & JObject
+    & Partial<{
+        _amount: number;
+        _owners: string[];
+        _readers?: string[];
+        _url?: string;
+    }>;
+
+interface FundOptions {
+    fund?: boolean;
+    include?: string[];
+    exclude?: string[];
+}
+interface SigOptions {
+    sign?: boolean;
+    inputIndex?: number;
+    sighashType?: number;
+    inputScript?: Buffer;
+}
+interface MockOptions {
+    mocks?: {
+        [s: string]: Mock;
+    };
+}
+type InscriptionOptions = Partial<{
+    commitAmount: number;
+    commitFee: number;
+    revealAmount: number;
+    revealFee: number;
     include: string[];
     exclude: string[];
 }>;
@@ -36,6 +186,8 @@ type ComputerOptions = Partial<{
     path: string;
     seed: string;
     url: string;
+    satPerByte: number;
+    dustRelayFee: number;
 }>;
 
 interface SecretOutput {
@@ -51,48 +203,37 @@ interface TransitionJSON {
 interface Stored {
     _url: string;
 }
-type ProgramMetaData = Partial<
-    JObject & {
-        _amount: number;
-        _owners: string[];
-        _readers?: string[];
-        _url?: string;
-    }
->;
 interface Location {
     _rev: string;
     _root: string;
     _id: string;
+    _owners: string[];
+    _amount: number;
+    _readers?: string[];
+    _url?: string;
 }
 interface Encrypted {
     __cypher: string;
     __secrets: string[];
 }
-type Transition = Encrypted & {
-    exp: string;
-    env: {
-        [s: string]: string;
-    };
-    mod: string;
-    root: string;
-};
-type Data = ProgramMetaData & Transition & JObject;
-type Class = new (...args: any) => any;
+
+type Data = ProgramMetaData;
+type Class = new(...args: any) => any;
 type Query = Partial<{
     mod: string;
     publicKey: string;
     limit: number;
     offset: number;
-    order: 'ASC' | 'DESC';
+    order: "ASC" | "DESC";
     ids: string[];
-    classHash: string;
+    hash: string;
 }>;
 type UserQuery<T extends Class> = Partial<{
     mod: string;
     publicKey: string;
     limit: number;
     offset: number;
-    order: 'ASC' | 'DESC';
+    order: "ASC" | "DESC";
     ids: string[];
     contract: {
         class: T;
@@ -100,170 +241,131 @@ type UserQuery<T extends Class> = Partial<{
     };
 }>;
 
-declare class Tx {
-    tx: any;
-    outData: Data[];
-    constructor();
-    get txId(): string;
-    get inputs(): string[];
-    get encoding(): {
-        ioDescriptor: number[];
-        dataPrefix: string;
-    };
-    get ioDescriptor(): number[];
-    get dataPrefix(): string;
-    get inputsLength(): number;
-    get outputsLength(): number;
-    get maxDataIndex(): number;
-    get ownerInputs(): any[];
-    get ownerOutputs(): any[];
-    get inRevs(): string[];
-    get outRevs(): string[];
-    get zip(): string[][];
-    isBcTx(chain: Chain, network: Network): boolean;
-    getOwnerOutputs(): any;
-    getDataOutputs(): any;
-    getOutData(restClient: RestClient): Promise<Data[]>;
-    getOwners(): string[][];
-    getAmounts(): number[];
-    spendFromData(inputRevs: string[], restClient: RestClient): Promise<void>;
-    createDataOuts(objects: Array<Partial<ProgramMetaData>>, restClient?: RestClient): void;
-    static fromTransaction(tx: any, restClient?: RestClient): Promise<Tx>;
-    static fromTxHex({ hex, restClient }: { hex?: string; restClient?: RestClient }): Promise<Tx>;
-    static fromTxId({ txId, restClient }: { txId?: string; restClient?: RestClient }): Promise<Tx>;
-    static getUtxosFromTx(tx: any): string[];
+interface _Unspent {
+    txId: string;
+    vout: number;
+    satoshis: number;
+    rev?: string;
+    scriptPubKey?: string;
+    amount?: number;
+    address?: string;
+    height?: number;
 }
 
-declare class RestClient {
-    readonly chain: Chain;
-    readonly network: Network;
-    readonly mnemonic: any;
-    readonly path: string;
-    readonly passphrase: string;
-    private bcn;
-    constructor({ chain, network, mnemonic, path, passphrase, url }?: ComputerOptions);
-    get privateKey(): any;
-    getBalance(address: string): Promise<number>;
-    getTransactions(txIds: string[]): Promise<any[]>;
-    getRawTxs(txIds: string[]): Promise<string[]>;
-    broadcast(txJSON: any): Promise<string>;
-    getUtxosByAddress(address: string): Promise<any[]>;
-    query({ publicKey, classHash, limit, offset, order, ids, mod }: Partial<Query>): Promise<string[]>;
-    idsToRevs(outIds: string[]): Promise<string[]>;
-    rpc(method: string, params: string): Promise<any>;
-    static getSecretOutput({ _url, privateKey }: { _url: string; privateKey: any }): Promise<{
-        host: string;
-        data: string;
-    }>;
-    static setSecretOutput({
-        secretOutput,
-        host,
-        privateKey,
-    }: {
-        secretOutput: SecretOutput;
-        host: string;
-        privateKey: any;
-    }): Promise<Data & (Encrypted | Stored)>;
-    static deleteSecretOutput({ _url, privateKey }: { _url: string; privateKey: any }): Promise<void>;
-    get url(): string;
+interface _Input {
+    txId: string;
+    vout: number;
+    script: string;
+    sequence: string;
+    witness: string[];
+}
+interface _Output {
+    value: number;
+    script: string;
+    address?: string;
 }
 
-declare class Wallet {
-    readonly restClient: RestClient;
-    constructor(params?: ComputerOptions);
-    derive(subpath?: string): Wallet;
-    getBalance(): Promise<number>;
-    getUtxos(): Promise<any[]>;
-    getUtxosByEffectiveValue(amount: number, { include, exclude }?: Partial<SelectUtxos>): Promise<any[]>;
-    fundTx(tx: any, selectUtxos?: Partial<SelectUtxos>): Promise<void>;
-    /**
-     * Given a transaction with inputs and outputs containing data, this function
-     * adds extra inputs to fund the transaction and possibly an change output.
-     * The included and excluded utxos are used to select the inputs.
-     */
-    fund(transaction: Tx, selectUtxos?: Partial<SelectUtxos>): Promise<void>;
-    signTx(tx: any): void;
-    sign(transaction: Tx): void;
-    broadcast(transaction: Tx): Promise<string>;
-    send(amount: number, address: string): Promise<string>;
-    get hdPrivateKey(): any;
-    get privateKey(): any;
-    get publicKey(): any;
-    get passphrase(): string;
-    get path(): string;
-    get chain(): Chain;
-    get network(): Network;
-    get url(): string;
-    get mnemonic(): any;
-    get address(): any;
+interface _Transaction {
+    txId: string;
+    txHex: string;
+    vsize: number;
+    version: number;
+    locktime: number;
+    ins: _Input[];
+    outs: _Output[];
 }
-
-declare class Computer {
-    wallet: Wallet;
-    constructor(params?: ComputerOptions);
-    static getExp(constructor: Class, argString?: string): string;
-    new<T extends Class>(
-        constructor: T,
-        args?: ConstructorParameters<T>,
-        mod?: string,
-    ): Promise<InstanceType<T> & Location>;
-    decode(transaction: any): Promise<TransitionJSON>;
-    encode({ exp, env, mod }: Partial<TransitionJSON>): Promise<any>;
-    encodeNew<T extends Class>({
-        constructor,
-        args,
-        mod,
-    }: {
-        constructor: T;
-        args?: ConstructorParameters<T>;
-        mod?: string;
-        root?: string;
-    }): Promise<any>;
-    encodeCall<T extends Class, K extends keyof InstanceType<T>>({
-        target,
-        property,
-        args,
-        mod,
-    }: {
-        target: InstanceType<T> & Location;
-        property: string;
-        args: Parameters<InstanceType<T>[K]>;
-        mod?: string;
-    }): Promise<any>;
-    query<T extends Class>(q: Partial<UserQuery<T>>): Promise<string[]>;
-    export(module: string): Promise<string>;
-    import(rev: string): Promise<any>;
-    getChain(): string;
-    getNetwork(): string;
-    getMnemonic(): string;
-    getPrivateKey(): string;
-    getPassphrase(): string;
-    getPublicKey(): string;
-    getAddress(): string;
-    getBalance(): Promise<number>;
-    getUtxos(tx?: any): Promise<string[]>;
-    sign(tx: any): void;
-    fund(tx: any, selectUtxos?: Partial<SelectUtxos>): Promise<void>;
-    broadcast(tx: any): Promise<string>;
-    sync(rev: string): Promise<unknown>;
-    send(amount: number, address: string): Promise<string>;
-    rpcCall(method: string, params: string): Promise<any>;
-    txFromHex({ hex }: { hex?: string }): Promise<Tx>;
-    txFromJSON({ json }: { json?: string }): Promise<Tx>;
-    queryRevs(q: Query): Promise<string[]>;
-    getOwnedRevs(publicKey?: any): Promise<string[]>;
-    getRevs(publicKey?: any): Promise<string[]>;
-    getLatestRevs(ids: string[]): Promise<string[]>;
-    getLatestRev(id: string): Promise<string>;
-    idsToRevs(ids: string[]): Promise<string[]>;
-    read(rev: string): Promise<unknown>;
-    write(exp: string, env: Record<string, string>, mod: string): Promise<unknown>;
+interface Utxo {
+    hash: any;
+    index: any;
+    nonWitnessUtxo: Buffer;
+}
+interface Effect {
+    res: Json;
+    env: JObject;
 }
 
 declare class Contract {
     _id: string;
     _rev: string;
     _root: string;
+    _amount: number;
+    _owners: string[];
     constructor(opts?: {});
 }
-export { Computer, Contract };
+
+declare class Computer {
+    wallet: Wallet;
+    constructor(params?: ComputerOptions);
+    new<T extends Class>(
+        constructor: T,
+        args?: ConstructorParameters<T>,
+        mod?: string,
+    ): Promise<InstanceType<T> & Location>;
+    lockdown(opts?: any): void;
+    delete(inRevs: string[]): Promise<string>;
+    decode(transaction: Transaction): Promise<TransitionJSON>;
+    encode(json: Partial<TransitionJSON & FundOptions & SigOptions & MockOptions>): Promise<{
+        tx?: Transaction;
+        effect: Effect;
+    }>;
+    encodeNew<T extends Class>({ constructor, args, mod }: {
+        constructor: T;
+        args: ConstructorParameters<T>;
+        mod?: string;
+        root?: string;
+    }): Promise<{
+        tx?: Transaction;
+        effect: Effect;
+    }>;
+    getUtxos(address?: string): Promise<string[]>;
+    encodeCall<T extends Class, K extends keyof InstanceType<T>>({ target, property, args, mod }: {
+        target: InstanceType<T> & Location;
+        property: string;
+        args: Parameters<InstanceType<T>[K]>;
+        mod?: string;
+    }): Promise<{
+        tx?: Transaction;
+        effect: Effect;
+    }>;
+    query<T extends Class>(q: UserQuery<T>): Promise<string[]>;
+    deploy(module: string, opts?: Partial<InscriptionOptions>): Promise<string>;
+    load(rev: string): Promise<any>;
+    getChain(): Chain;
+    getNetwork(): Network;
+    getMnemonic(): string;
+    getPrivateKey(): string;
+    getPassphrase(): string;
+    getPath(): string;
+    getUrl(): string;
+    getPublicKey(): string;
+    getAddress(): string;
+    setFee(fee: number): void;
+    getFee(): number;
+    getBalance(): Promise<number>;
+    sign(transaction: Transaction, opts?: SigOptions): Promise<void>;
+    fund(tx: Transaction, opts?: Fee & FundOptions): Promise<void>;
+    broadcast(tx: Transaction): Promise<string>;
+    sync(rev: string): Promise<unknown>;
+    send(satoshis: number, address: string): Promise<string>;
+    rpcCall(method: string, params: string): Promise<any>;
+    txFromHex({ hex }: {
+        hex?: string | undefined;
+    }): Promise<any>;
+    getInscription(rawTx: string, index: number): {
+        contentType: string;
+        body: string;
+    };
+    listTxs(address?: string): Promise<_Transaction>;
+    export(module: string, opts?: Partial<InscriptionOptions>): Promise<string>;
+    import(rev: string): Promise<any>;
+    queryRevs(q: Query): Promise<string[]>;
+    getOwnedRevs(publicKey?: Buffer): Promise<string[]>;
+    getRevs(publicKey?: Buffer): Promise<string[]>;
+    getLatestRevs(ids: string[]): Promise<string[]>;
+    getLatestRev(id: string): Promise<string>;
+    idsToRevs(ids: string[]): Promise<string[]>;
+    faucet(amount: number, address?: string): Promise<_Unspent>;
+    toScriptPubKey(publicKeys?: string[]): Buffer;
+}
+
+export { Computer, Contract, Mock };

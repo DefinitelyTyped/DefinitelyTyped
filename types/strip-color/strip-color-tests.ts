@@ -1,3 +1,3 @@
-import strip = require('strip-color');
+import strip = require("strip-color");
 
-strip('abc'); // $ExpectType string
+strip("abc"); // $ExpectType string

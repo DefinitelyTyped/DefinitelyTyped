@@ -1,10 +1,8 @@
-// Type definitions for gaze 1.1
-// Project: https://github.com/shama/gaze
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.1
+/// <reference types="node" />
 
-type Mode = 'auto' | 'watch' | 'poll';
+import type { EventEmitter } from "node:events";
+
+type Mode = "auto" | "watch" | "poll";
 
 interface Options {
     /**
@@ -27,11 +25,11 @@ interface Options {
 }
 
 declare namespace gaze {
-    class Gaze {
+    class Gaze extends EventEmitter {
         constructor(
             patterns: string | string[],
             options?: Options | null,
-            callback?: (error: Error | null, watcher: Gaze) => void
+            callback?: (error: Error | null, watcher: Gaze) => void,
         );
 
         /**
@@ -69,7 +67,11 @@ declare namespace gaze {
 declare function gaze(
     patterns: string | string[],
     options?: Options | null,
-    callback?: (error: Error | null, watcher: gaze.Gaze) => void
+    callback?: (error: Error | null, watcher: gaze.Gaze) => void,
+): void;
+declare function gaze(
+    patterns: string | string[],
+    callback?: (error: Error | null, watcher: gaze.Gaze) => void,
 ): void;
 
 export = gaze;

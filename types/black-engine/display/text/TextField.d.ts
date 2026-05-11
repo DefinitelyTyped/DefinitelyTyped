@@ -82,8 +82,8 @@ export class TextField extends DisplayObject {
     set highQuality(arg: boolean);
     get highQuality(): boolean;
 }
-import { DisplayObject } from '../DisplayObject';
-import { TextStyle } from './TextStyle';
-import { Rectangle } from '../../geom/Rectangle';
-import { FontStyle } from './styles/FontStyle';
-import { FontWeight } from './styles/FontWeight';
+import { Rectangle } from "../../geom/Rectangle";
+import { DisplayObject } from "../DisplayObject";
+import { FontStyle } from "./styles/FontStyle";
+import { FontWeight } from "./styles/FontWeight";
+import { TextStyle } from "./TextStyle";

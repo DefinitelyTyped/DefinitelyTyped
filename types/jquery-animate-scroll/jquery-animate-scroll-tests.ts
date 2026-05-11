@@ -1,21 +1,21 @@
 import { Options } from "jquery-animate-scroll";
 
 // basic usage
-$('a').animateScroll();
+$("a").animateScroll();
 
-$('#article-1').scrollHere();
+$("#article-1").scrollHere();
 
-$.scrollTo($('#article-1'));
+$.scrollTo($("#article-1"));
 
 // with options
 const options: Options = {
-  $container: $('body'),
-  speed: 1000,
-  offset: -100
+    $container: $("body"),
+    speed: 1000,
+    offset: -100,
 };
 
-$('a').animateScroll(options);
+$("a").animateScroll(options);
 
-$('#article-1').scrollHere(options);
+$("#article-1").scrollHere(options);
 
-$.scrollTo($('#article-1'), options);
+$.scrollTo($("#article-1"), options);

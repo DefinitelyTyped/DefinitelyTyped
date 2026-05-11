@@ -1,2 +1,2 @@
-import { empty } from '../index';
+import { empty } from "../index";
 export default empty;

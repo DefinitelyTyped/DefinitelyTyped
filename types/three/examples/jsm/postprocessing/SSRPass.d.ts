@@ -1,18 +1,16 @@
 import {
-    Color,
-    MeshNormalMaterial,
-    MeshBasicMaterial,
-    ShaderMaterial,
-    WebGLRenderTarget,
-    Scene,
-    WebGLRenderer,
     Camera,
+    Color,
     Mesh,
-    Material,
-    ColorRepresentation,
-} from '../../../src/Three';
-import { Pass, FullScreenQuad } from '../postprocessing/Pass';
-import { ReflectorForSSRPass } from '../objects/ReflectorForSSRPass';
+    MeshBasicMaterial,
+    MeshNormalMaterial,
+    Scene,
+    ShaderMaterial,
+    WebGLRenderer,
+    WebGLRenderTarget,
+} from "three";
+import { ReflectorForSSRPass } from "../objects/ReflectorForSSRPass.js";
+import { FullScreenQuad, Pass } from "./Pass.js";
 
 export interface SSRPassParams {
     renderer: WebGLRenderer;
@@ -26,7 +24,7 @@ export interface SSRPassParams {
     groundReflector: ReflectorForSSRPass | null;
 }
 
-export class SSRPass extends Pass {
+declare class SSRPass extends Pass {
     width: number;
     height: number;
     clear: boolean;
@@ -43,19 +41,17 @@ export class SSRPass extends Pass {
     get selects(): Mesh[] | null;
     set selects(val: Mesh[] | null);
     selective: boolean;
-    get isBouncing(): boolean;
-    set isBouncing(val: boolean);
+    get bouncing(): boolean;
+    set bouncing(val: boolean);
 
     blur: boolean;
 
-    get isDistanceAttenuation(): boolean;
-    set isDistanceAttenuation(val: boolean);
-    get isFresnel(): boolean;
-    set isFresnel(val: boolean);
-    get isInfiniteThick(): boolean;
-    set isInfiniteThick(val: boolean);
-
-    thickTolerance: number;
+    get distanceAttenuation(): boolean;
+    set distanceAttenuation(val: boolean);
+    get fresnel(): boolean;
+    set fresnel(val: boolean);
+    get infiniteThick(): boolean;
+    set infiniteThick(val: boolean);
 
     beautyRenderTarget: WebGLRenderTarget;
     prevRenderTarget: WebGLRenderTarget;
@@ -96,29 +92,8 @@ export class SSRPass extends Pass {
 
     constructor(params: SSRPassParams);
 
-    dispose: () => void;
-
-    renderPass: (
-        renderer: WebGLRenderer,
-        passMaterial: Material,
-        renderTarget: WebGLRenderTarget,
-        clearColor: ColorRepresentation,
-        clearAlpha: ColorRepresentation,
-    ) => void;
-
-    renderOverride: (
-        renderer: WebGLRenderer,
-        passMaterial: Material,
-        renderTarget: WebGLRenderTarget,
-        clearColor: ColorRepresentation,
-        clearAlpha: ColorRepresentation,
-    ) => void;
-
-    renderMetalness: (
-        renderer: WebGLRenderer,
-        passMaterial: Material,
-        renderTarget: WebGLRenderTarget,
-        clearColor: ColorRepresentation,
-        clearAlpha: ColorRepresentation,
-    ) => void;
+    get resolutionScale(): number;
+    set resolutionScale(value: number);
 }
+
+export { SSRPass };

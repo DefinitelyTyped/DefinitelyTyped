@@ -4,14 +4,6 @@
 
 /**
  * Namespace: browser.topSites
- *
- * Use the chrome.topSites API to access the top sites that are displayed on the new tab page.
- * Permissions: "topSites"
- *
- * Comments found in source JSON schema files:
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 export namespace TopSites {
     /**

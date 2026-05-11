@@ -1,3 +1,3 @@
-import { toMomentObject } from '../../index';
+import { toMomentObject } from "../../index";
 
 export default toMomentObject;
