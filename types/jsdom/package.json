@@ -13,9 +13,10 @@
     "dependencies": {
         "@types/node": "*",
         "@types/tough-cookie": "*",
-        "parse5": "^7.0.0",
+        "parse5": "^8.0.0",
         "undici-types": "^7.21.0"
     },
+    "minimumTypeScriptVersion": "5.3",
     "devDependencies": {
         "@types/jsdom": "workspace:."
     },
