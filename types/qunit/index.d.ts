@@ -593,12 +593,12 @@ declare global {
         }
 
         interface TodoFunction {
-            (name: string, callback?: TestFunctionCallback): void;
+            (name: string, callback: TestFunctionCallback): void;
             each: EachFunction;
         }
 
         interface SkipFunction {
-            (name: string, callback?: TestFunctionCallback): void;
+            (name: string, callback: TestFunctionCallback): void;
             each: EachFunction;
         }
 
