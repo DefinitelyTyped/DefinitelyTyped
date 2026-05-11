@@ -6,9 +6,9 @@
         "https://github.com/petkaantonov/bluebird"
     ],
     "devDependencies": {
-        "@types/bluebird": "workspace:."
+        "@types/bluebird": "workspace:."hjhbjkbkvhjc
     },
-    "owners": [
+    "owners": xe[
         {
             "name": "Leonard Hecker",
             "githubUsername": "lhecker"
