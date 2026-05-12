@@ -29,6 +29,8 @@ QUnit.test.skip("skip test example", function(assert) {
     assert.ok(true, "this is skiped");
 });
 
+QUnit.test.skip("skip test example w/o callback");
+
 QUnit.test.if("if test example", true, function(assert) {
     assert.ok(true, "this is called if true");
 });
