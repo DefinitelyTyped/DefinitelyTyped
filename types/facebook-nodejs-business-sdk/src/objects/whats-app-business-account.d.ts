@@ -34,6 +34,7 @@ export default class WhatsAppBusinessAccount extends AbstractCrudObject {
         purchase_order_number: "purchase_order_number";
         status: "status";
         timezone_id: "timezone_id";
+        whatsapp_business_manager_messaging_limit: "whatsapp_business_manager_messaging_limit";
     }>;
     static get BusinessVerificationStatus(): Readonly<{
         expired: "expired";
@@ -47,6 +48,14 @@ export default class WhatsAppBusinessAccount extends AbstractCrudObject {
         revoked: "revoked";
         verified: "verified";
     }>;
+    static get WhatsappBusinessManagerMessagingLimit(): Readonly<{
+        tier_100k: "TIER_100K";
+        tier_10k: "TIER_10K";
+        tier_250: "TIER_250";
+        tier_2k: "TIER_2K";
+        tier_unlimited: "TIER_UNLIMITED";
+        untiered: "UNTIERED";
+    }>;
     static get Tasks(): Readonly<{
         develop: "DEVELOP";
         manage: "MANAGE";
@@ -58,6 +67,10 @@ export default class WhatsAppBusinessAccount extends AbstractCrudObject {
         view_cost: "VIEW_COST";
         view_phone_assets: "VIEW_PHONE_ASSETS";
         view_templates: "VIEW_TEMPLATES";
+    }>;
+    static get Type(): Readonly<{
+        interactive: "INTERACTIVE";
+        text: "TEXT";
     }>;
     static get Category(): Readonly<{
         authentication: "AUTHENTICATION";
@@ -71,9 +84,14 @@ export default class WhatsAppBusinessAccount extends AbstractCrudObject {
         named: "NAMED";
         positional: "POSITIONAL";
     }>;
+    static get SendType(): Readonly<{
+        campaign: "CAMPAIGN";
+        direct: "DIRECT";
+    }>;
     static get SubCategory(): Readonly<{
         order_details: "ORDER_DETAILS";
         order_status: "ORDER_STATUS";
+        rich_order_status: "RICH_ORDER_STATUS";
     }>;
     static get ProviderName(): Readonly<{
         billdesk: "BILLDESK";
@@ -91,10 +109,14 @@ export default class WhatsAppBusinessAccount extends AbstractCrudObject {
     getConversationAnalytics(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getDataset(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createDataset(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Dataset>;
+    getDegreesOfFreedomSpec(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getFlows(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createFlow(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AbstractObject>;
     createGeneratePaymentConfigurationOauthLink(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<WhatsAppBusinessAccount>;
+    getGroupAnalytics(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getMarketingCampaigns(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getMessageCampaigns(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createMessageSample(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<WhatsAppBusinessAccount>;
     getMessageTemplatePreviews(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     deleteMessageTemplates(params?: Record<string, any>): Promise<any>;
     getMessageTemplates(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
@@ -124,7 +146,9 @@ export default class WhatsAppBusinessAccount extends AbstractCrudObject {
     createTemplateGroup(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AbstractObject>;
     getTemplatePerformanceMetrics(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createUpsertMessageTemplate(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<WhatsAppBusinessAccount>;
+    deleteWelcomeMessageSequences(params?: Record<string, any>): Promise<any>;
     getWelcomeMessageSequences(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createWelcomeMessageSequence(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AbstractObject>;
     get(fields: string[], params?: Record<string, any>): Promise<WhatsAppBusinessAccount>;
     update(fields: string[], params?: Record<string, any>): Promise<WhatsAppBusinessAccount>;
 }

@@ -8,6 +8,7 @@ export default class AdsValueAdjustmentRuleCollection extends AbstractCrudObject
     static get Fields(): Readonly<{
         id: "id";
         is_default_setting: "is_default_setting";
+        last_attach_time: "last_attach_time";
         name: "name";
         product_type: "product_type";
         status: "status";

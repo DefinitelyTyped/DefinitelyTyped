@@ -35,7 +35,6 @@
 
         "experimental/csv/index.d.ts",
         "experimental/fs/index.d.ts",
-        "experimental/redis/index.d.ts",
         "experimental/streams/index.d.ts",
         "websockets/index.d.ts",
 
@@ -57,7 +56,6 @@
         "test/http.ts",
         "test/websockets.ts",
         "test/secrets.ts",
-        "test/redis.ts",
         "test/global.ts"
     ]
 }

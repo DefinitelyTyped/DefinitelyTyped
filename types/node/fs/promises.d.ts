@@ -802,19 +802,42 @@ declare module "node:fs/promises" {
      * @since v10.0.0
      * @return Fulfills with the {fs.Stats} object for the given `path`.
      */
+    function stat(path: PathLike): Promise<Stats>;
     function stat(
         path: PathLike,
         opts?: StatOptions & {
             bigint?: false | undefined;
+            throwIfNoEntry?: true | undefined;
         },
     ): Promise<Stats>;
     function stat(
         path: PathLike,
         opts: StatOptions & {
             bigint: true;
+            throwIfNoEntry?: true | undefined;
         },
     ): Promise<BigIntStats>;
-    function stat(path: PathLike, opts?: StatOptions): Promise<Stats | BigIntStats>;
+    function stat(
+        path: PathLike,
+        opts: StatOptions & {
+            bigint?: false | undefined;
+            throwIfNoEntry: false;
+        },
+    ): Promise<Stats | undefined>;
+    function stat(
+        path: PathLike,
+        opts: StatOptions & {
+            bigint: true;
+            throwIfNoEntry: false;
+        },
+    ): Promise<BigIntStats | undefined>;
+    function stat(
+        path: PathLike,
+        opts: StatOptions & {
+            throwIfNoEntry?: true | undefined;
+        },
+    ): Promise<Stats | BigIntStats>;
+    function stat(path: PathLike, opts?: StatOptions): Promise<Stats | BigIntStats | undefined>;
     /**
      * @since v19.6.0, v18.15.0
      * @return Fulfills with the {fs.StatFs} object for the given `path`.

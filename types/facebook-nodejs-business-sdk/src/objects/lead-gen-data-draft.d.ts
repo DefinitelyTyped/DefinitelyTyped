@@ -17,6 +17,7 @@ export default class LeadGenDataDraft extends AbstractCrudObject {
         page: "page";
         question_page_custom_headline: "question_page_custom_headline";
         questions: "questions";
+        should_enforce_work_email: "should_enforce_work_email";
         status: "status";
         thank_you_page: "thank_you_page";
         tracking_parameters: "tracking_parameters";

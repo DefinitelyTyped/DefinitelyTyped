@@ -9,7 +9,6 @@ export default class Shop extends AbstractCrudObject {
         fb_sales_channel: "fb_sales_channel";
         id: "id";
         ig_sales_channel: "ig_sales_channel";
-        is_onsite_enabled: "is_onsite_enabled";
         shop_status: "shop_status";
         workspace: "workspace";
     }>;

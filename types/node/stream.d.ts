@@ -1067,7 +1067,7 @@ declare module "node:stream" {
             writableCorked?: number | undefined;
         }
         interface DuplexToWebOptions {
-            type?: web.ReadableStreamType | undefined;
+            readableType?: web.ReadableStreamType | undefined;
         }
         interface DuplexEventMap extends ReadableEventMap, WritableEventMap {}
         /**

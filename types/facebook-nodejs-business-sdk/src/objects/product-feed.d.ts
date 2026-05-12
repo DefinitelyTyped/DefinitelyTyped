@@ -111,6 +111,9 @@ export default class ProductFeed extends AbstractCrudObject {
         smart_pixel_language_or_country: "SMART_PIXEL_LANGUAGE_OR_COUNTRY";
         version: "VERSION";
     }>;
+    static get UseCase(): Readonly<{
+        creator_asset: "CREATOR_ASSET";
+    }>;
     getAutomotiveModels(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getDestinations(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getFlights(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;

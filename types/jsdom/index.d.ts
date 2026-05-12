@@ -3,7 +3,7 @@
 /// <reference types="node" />
 
 import { EventEmitter } from "events";
-import { Token } from "parse5";
+import type { Token } from "parse5" with { "resolution-mode": "import" };
 import * as tough from "tough-cookie";
 import { Dispatcher } from "undici-types";
 import { Context } from "vm";

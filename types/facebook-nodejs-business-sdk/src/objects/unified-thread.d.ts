@@ -10,6 +10,7 @@ export default class UnifiedThread extends AbstractCrudObject {
         folder: "folder";
         former_participants: "former_participants";
         id: "id";
+        is_owner: "is_owner";
         is_subscribed: "is_subscribed";
         link: "link";
         linked_group: "linked_group";

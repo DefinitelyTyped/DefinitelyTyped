@@ -12,6 +12,7 @@ export default class AdSet extends AbstractCrudObject {
         account_id: "account_id";
         adlabels: "adlabels";
         adset_schedule: "adset_schedule";
+        anchor_event_attribution_window_days: "anchor_event_attribution_window_days";
         asset_feed_id: "asset_feed_id";
         attribution_spec: "attribution_spec";
         automatic_manual_state: "automatic_manual_state";
@@ -61,6 +62,7 @@ export default class AdSet extends AbstractCrudObject {
         optimization_goal: "optimization_goal";
         optimization_sub_event: "optimization_sub_event";
         pacing_type: "pacing_type";
+        placement_soft_opt_out: "placement_soft_opt_out";
         promoted_object: "promoted_object";
         recommendations: "recommendations";
         recurring_budget_semantics: "recurring_budget_semantics";
@@ -76,8 +78,11 @@ export default class AdSet extends AbstractCrudObject {
         targeting_optimization_types: "targeting_optimization_types";
         time_based_ad_rotation_id_blocks: "time_based_ad_rotation_id_blocks";
         time_based_ad_rotation_intervals: "time_based_ad_rotation_intervals";
+        trending_topics_spec: "trending_topics_spec";
         updated_time: "updated_time";
         use_new_app_click: "use_new_app_click";
+        value_rule_set_id: "value_rule_set_id";
+        value_rules_applied: "value_rules_applied";
     }>;
     static get BidStrategy(): Readonly<{
         cost_cap: "COST_CAP";
@@ -229,6 +234,7 @@ export default class AdSet extends AbstractCrudObject {
     }>;
     static get OptimizationSubEvent(): Readonly<{
         none: "NONE";
+        post_interaction: "POST_INTERACTION";
         travel_intent: "TRAVEL_INTENT";
         travel_intent_bucket_01: "TRAVEL_INTENT_BUCKET_01";
         travel_intent_bucket_02: "TRAVEL_INTENT_BUCKET_02";
@@ -248,6 +254,11 @@ export default class AdSet extends AbstractCrudObject {
         value_5: "5";
         value_6: "6";
         value_7: "7";
+        value_8: "8";
+        value_9: "9";
+        value_10: "10";
+        value_11: "11";
+        value_12: "12";
     }>;
     static get TuneForCategory(): Readonly<{
         credit: "CREDIT";
@@ -275,6 +286,7 @@ export default class AdSet extends AbstractCrudObject {
     getAdRulesGoverned(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getAds(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getAsyncAdRequests(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getBudgetSchedules(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createBudgetSchedule(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<HighDemandPeriod>;
     getCopies(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createCopy(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AdSet>;

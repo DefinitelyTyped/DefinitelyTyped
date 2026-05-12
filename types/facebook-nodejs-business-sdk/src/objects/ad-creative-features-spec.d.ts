@@ -14,6 +14,7 @@ export default class AdCreativeFeaturesSpec extends AbstractCrudObject {
         biz_ai: "biz_ai";
         carousel_to_video: "carousel_to_video";
         catalog_feed_tag: "catalog_feed_tag";
+        creative_stickers: "creative_stickers";
         customize_product_recommendation: "customize_product_recommendation";
         cv_transformation: "cv_transformation";
         description_automation: "description_automation";
@@ -24,6 +25,7 @@ export default class AdCreativeFeaturesSpec extends AbstractCrudObject {
         fb_reels_tag: "fb_reels_tag";
         fb_story_tag: "fb_story_tag";
         feed_caption_optimization: "feed_caption_optimization";
+        generate_cta: "generate_cta";
         hide_price: "hide_price";
         ig_feed_tag: "ig_feed_tag";
         ig_glados_feed: "ig_glados_feed";
@@ -50,19 +52,27 @@ export default class AdCreativeFeaturesSpec extends AbstractCrudObject {
         product_tags: "product_tags";
         profile_card: "profile_card";
         profile_extension: "profile_extension";
+        replace_media_text: "replace_media_text";
+        reveal_details_over_time: "reveal_details_over_time";
+        show_destination_blurbs: "show_destination_blurbs";
         show_summary: "show_summary";
         site_extensions: "site_extensions";
         standard_enhancements: "standard_enhancements";
         standard_enhancements_catalog: "standard_enhancements_catalog";
+        text_extraction_for_headline: "text_extraction_for_headline";
+        text_extraction_for_tap_target: "text_extraction_for_tap_target";
         text_generation: "text_generation";
         text_optimizations: "text_optimizations";
         text_overlay_translation: "text_overlay_translation";
         text_translation: "text_translation";
+        translate_voiceover: "translate_voiceover";
         video_auto_crop: "video_auto_crop";
         video_filtering: "video_filtering";
         video_highlight: "video_highlight";
+        video_highlights: "video_highlights";
         video_to_image: "video_to_image";
         video_uncrop: "video_uncrop";
+        wa_mm_image_filtering: "wa_mm_image_filtering";
         wa_mm_text_truncation_length: "wa_mm_text_truncation_length";
     }>;
 }

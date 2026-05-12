@@ -5,6 +5,7 @@ import { AbstractCrudObject } from "./../abstract-crud-object";
  */
 export default class AdPromotedObject extends AbstractCrudObject {
     static get Fields(): Readonly<{
+        anchor_event_config: "anchor_event_config";
         application_id: "application_id";
         boosted_product_set_id: "boosted_product_set_id";
         conversion_goal_id: "conversion_goal_id";
@@ -12,6 +13,7 @@ export default class AdPromotedObject extends AbstractCrudObject {
         custom_event_str: "custom_event_str";
         custom_event_type: "custom_event_type";
         dataset_split_id: "dataset_split_id";
+        dataset_split_ids: "dataset_split_ids";
         event_id: "event_id";
         full_funnel_objective: "full_funnel_objective";
         fundraiser_campaign_id: "fundraiser_campaign_id";
@@ -19,7 +21,9 @@ export default class AdPromotedObject extends AbstractCrudObject {
         lead_ads_custom_event_type: "lead_ads_custom_event_type";
         lead_ads_form_event_source_type: "lead_ads_form_event_source_type";
         lead_ads_offsite_conversion_type: "lead_ads_offsite_conversion_type";
+        lead_ads_selected_pixel_id: "lead_ads_selected_pixel_id";
         mcme_conversion_id: "mcme_conversion_id";
+        multi_event_product: "multi_event_product";
         object_store_url: "object_store_url";
         object_store_urls: "object_store_urls";
         offer_id: "offer_id";
@@ -27,6 +31,8 @@ export default class AdPromotedObject extends AbstractCrudObject {
         offsite_conversion_event_id: "offsite_conversion_event_id";
         omnichannel_object: "omnichannel_object";
         page_id: "page_id";
+        passback_application_id: "passback_application_id";
+        passback_pixel_id: "passback_pixel_id";
         pixel_aggregation_rule: "pixel_aggregation_rule";
         pixel_id: "pixel_id";
         pixel_rule: "pixel_rule";
