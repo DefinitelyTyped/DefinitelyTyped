@@ -204,8 +204,7 @@ export type ExecutorOptions =
     | "constant-vus"
     | "ramping-vus"
     | "constant-arrival-rate"
-    | "ramping-arrival-rate"
-    | "externally-controlled";
+    | "ramping-arrival-rate";
 
 /**
  * BaseScenario.
@@ -221,7 +220,6 @@ export abstract class BaseScenario {
      * - `ramping-vus`
      * - `constant-arrival-rate`
      * - `ramping-arrival-rate`
-     * - `externally-controlled`
      */
     executor: ExecutorOptions;
 
@@ -422,36 +420,13 @@ export interface RampingArrivalRateScenario extends BaseScenario {
     preAllocatedVUs: number;
 }
 
-/**
- * Control and scale execution at runtime via k6's REST API or the CLI.
- *
- * https://grafana.com/docs/k6/latest/using-k6/scenarios/executors/externally-controlled/
- */
-export interface ExternallyControlledScenario extends BaseScenario {
-    executor: "externally-controlled";
-
-    /**
-     * Number of VUs to run concurrently.
-     *
-     * The default value is 1.
-     */
-    vus?: number;
-
-    /** Total scenario duration (excluding `gracefulStop`) */
-    duration: string;
-
-    /** Maximum number of VUs to allow during the test run. */
-    maxVUs?: number;
-}
-
 export type Scenario =
     | SharedIterationsScenario
     | PerVUIterationsScenario
     | ConstantVUsScenario
     | RampingVUsScenario
     | ConstantArrivalRateScenario
-    | RampingArrivalRateScenario
-    | ExternallyControlledScenario;
+    | RampingArrivalRateScenario;
 
 export interface ScenarioOptions {
     /** Browser specific options */

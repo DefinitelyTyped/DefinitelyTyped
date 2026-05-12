@@ -5,6 +5,8 @@ import { AbstractCrudObject } from "./../abstract-crud-object";
  */
 export default class CopyrightOwnershipTransfer extends AbstractCrudObject {
     static get Fields(): Readonly<{
+        assets: "assets";
+        has_ownership_been_updated: "has_ownership_been_updated";
         id: "id";
         receiving_rights_holder: "receiving_rights_holder";
         sending_rights_holder: "sending_rights_holder";

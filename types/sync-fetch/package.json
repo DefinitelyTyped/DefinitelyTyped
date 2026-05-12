@@ -11,10 +11,5 @@
     "devDependencies": {
         "@types/sync-fetch": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Alex Laz",
-            "githubUsername": "alex-laz"
-        }
-    ]
+    "owners": []
 }

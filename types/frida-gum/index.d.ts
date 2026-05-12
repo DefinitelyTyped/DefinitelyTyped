@@ -1496,9 +1496,19 @@ interface KernelMemoryScanMatch {
     size: number;
 }
 
-type MemoryAllocOptions = Record<any, never> | MemoryAllocNearOptions;
+type MemoryAllocOptions = MemoryAllocPlainOptions | MemoryAllocNearOptions;
 
-interface MemoryAllocNearOptions {
+interface MemoryAllocPlainOptions {
+    /**
+     * Page protection to use for the allocation. Defaults to `"rw"`.
+     *
+     * Specifying a protection that includes `"x"` requires `size` to be a
+     * multiple of `Process.pageSize`.
+     */
+    protection?: PageProtection | undefined;
+}
+
+interface MemoryAllocNearOptions extends MemoryAllocPlainOptions {
     /**
      * Memory address to try allocating near.
      */

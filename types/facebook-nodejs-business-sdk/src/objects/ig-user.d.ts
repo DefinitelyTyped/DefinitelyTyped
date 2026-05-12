@@ -3,6 +3,7 @@ import AbstractObject from "./../abstract-object";
 import Cursor from "./../cursor";
 import IGBCAdsPermission from "./igbc-ads-permission";
 import BrandedContentShadowIGUserID from "./branded-content-shadow-ig-user-id";
+import ShadowIGUserCollaborationInvites from "./shadow-ig-user-collaboration-invites";
 import ThreadsUser from "./threads-user";
 import Dataset from "./dataset";
 import IGMedia from "./ig-media";
@@ -44,6 +45,8 @@ export default class IGUser extends AbstractCrudObject {
     getBrandedContentTagApproval(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createBrandedContentTagApproval(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<BrandedContentShadowIGUserID>;
     getCatalogProductSearch(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getCollaborationInvites(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createCollaborationInvite(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<ShadowIGUserCollaborationInvites>;
     getConnectedThreadsUser(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getContentPublishingLimit(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getCreatorMarketPlaceCreators(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
@@ -61,6 +64,7 @@ export default class IGUser extends AbstractCrudObject {
     getProductAppeal(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createProductAppeal(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<IGShoppingProductAppeal>;
     getRecentlySearchedHashtags(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getScheduledMedia(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getStories(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getTags(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getUpcomingEvents(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;

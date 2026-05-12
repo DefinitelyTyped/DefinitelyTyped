@@ -1144,6 +1144,7 @@ declare module "node:fs" {
         options:
             | (StatOptions & {
                 bigint?: false | undefined;
+                throwIfNoEntry?: true | undefined;
             })
             | undefined,
         callback: (err: NodeJS.ErrnoException | null, stats: Stats) => void,
@@ -1152,33 +1153,82 @@ declare module "node:fs" {
         path: PathLike,
         options: StatOptions & {
             bigint: true;
+            throwIfNoEntry?: true | undefined;
         },
         callback: (err: NodeJS.ErrnoException | null, stats: BigIntStats) => void,
     ): void;
     function stat(
         path: PathLike,
-        options: StatOptions | undefined,
+        options: StatOptions & {
+            bigint?: false | undefined;
+            throwIfNoEntry: false;
+        },
+        callback: (err: NodeJS.ErrnoException | null, stats: Stats | undefined) => void,
+    ): void;
+    function stat(
+        path: PathLike,
+        options: StatOptions & {
+            bigint: true;
+            throwIfNoEntry: false;
+        },
+        callback: (err: NodeJS.ErrnoException | null, stats: BigIntStats | undefined) => void,
+    ): void;
+    function stat(
+        path: PathLike,
+        options: StatOptions & {
+            throwIfNoEntry?: true | undefined;
+        },
         callback: (err: NodeJS.ErrnoException | null, stats: Stats | BigIntStats) => void,
     ): void;
+    function stat(
+        path: PathLike,
+        options: StatOptions | undefined,
+        callback: (err: NodeJS.ErrnoException | null, stats: Stats | BigIntStats | undefined) => void,
+    ): void;
     namespace stat {
+        // TODO: aliased promisify signatures
         /**
          * Asynchronous stat(2) - Get file status.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          */
+        function __promisify__(path: PathLike): Promise<Stats>;
         function __promisify__(
             path: PathLike,
             options?: StatOptions & {
                 bigint?: false | undefined;
+                throwIfNoEntry?: true | undefined;
             },
         ): Promise<Stats>;
         function __promisify__(
             path: PathLike,
             options: StatOptions & {
                 bigint: true;
+                throwIfNoEntry?: true | undefined;
             },
         ): Promise<BigIntStats>;
-        function __promisify__(path: PathLike, options?: StatOptions): Promise<Stats | BigIntStats>;
+        function __promisify__(
+            path: PathLike,
+            options: StatOptions & {
+                bigint?: false | undefined;
+                throwIfNoEntry: false;
+            },
+        ): Promise<Stats | undefined>;
+        function __promisify__(
+            path: PathLike,
+            options: StatOptions & {
+                bigint: true;
+                throwIfNoEntry: false;
+            },
+        ): Promise<BigIntStats | undefined>;
+        function __promisify__(
+            path: PathLike,
+            options: StatOptions & {
+                throwIfNoEntry?: true | undefined;
+            },
+        ): Promise<Stats | BigIntStats>;
+        function __promisify__(path: PathLike, options?: StatOptions): Promise<Stats | BigIntStats | undefined>;
     }
+    /** @deprecated This orphaned interface will be removed in a future version. */
     interface StatSyncFn extends Function {
         (path: PathLike, options?: undefined): Stats;
         (
@@ -1220,7 +1270,42 @@ declare module "node:fs" {
      * Synchronous stat(2) - Get file status.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    const statSync: StatSyncFn;
+    function statSync(path: PathLike): Stats;
+    function statSync(
+        path: PathLike,
+        options?: StatOptions & {
+            bigint?: false | undefined;
+            throwIfNoEntry?: true | undefined;
+        },
+    ): Stats;
+    function statSync(
+        path: PathLike,
+        options: StatOptions & {
+            bigint: true;
+            throwIfNoEntry?: true | undefined;
+        },
+    ): BigIntStats;
+    function statSync(
+        path: PathLike,
+        options: StatOptions & {
+            bigint?: false | undefined;
+            throwIfNoEntry: false;
+        },
+    ): Stats | undefined;
+    function statSync(
+        path: PathLike,
+        options: StatOptions & {
+            bigint: true;
+            throwIfNoEntry: false;
+        },
+    ): BigIntStats | undefined;
+    function statSync(
+        path: PathLike,
+        options: StatOptions & {
+            throwIfNoEntry?: true | undefined;
+        },
+    ): Stats | BigIntStats;
+    function statSync(path: PathLike, options?: StatOptions): Stats | BigIntStats | undefined;
     /**
      * Invokes the callback with the `fs.Stats` for the file descriptor.
      *
@@ -1410,7 +1495,42 @@ declare module "node:fs" {
      * Synchronous lstat(2) - Get file status. Does not dereference symbolic links.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    const lstatSync: StatSyncFn;
+    function lstatSync(path: PathLike): Stats;
+    function lstatSync(
+        path: PathLike,
+        options?: StatOptions & {
+            bigint?: false | undefined;
+            throwIfNoEntry?: true | undefined;
+        },
+    ): Stats;
+    function lstatSync(
+        path: PathLike,
+        options: StatOptions & {
+            bigint: true;
+            throwIfNoEntry?: true | undefined;
+        },
+    ): BigIntStats;
+    function lstatSync(
+        path: PathLike,
+        options: StatOptions & {
+            bigint?: false | undefined;
+            throwIfNoEntry: false;
+        },
+    ): Stats | undefined;
+    function lstatSync(
+        path: PathLike,
+        options: StatOptions & {
+            bigint: true;
+            throwIfNoEntry: false;
+        },
+    ): BigIntStats | undefined;
+    function lstatSync(
+        path: PathLike,
+        options: StatOptions & {
+            throwIfNoEntry?: true | undefined;
+        },
+    ): Stats | BigIntStats;
+    function lstatSync(path: PathLike, options?: StatOptions): Stats | BigIntStats | undefined;
     /**
      * Creates a new link from the `existingPath` to the `newPath`. See the POSIX [`link(2)`](http://man7.org/linux/man-pages/man2/link.2.html) documentation for more detail. No arguments other than
      * a possible
@@ -4461,10 +4581,10 @@ declare module "node:fs" {
     }
     interface StatOptions {
         bigint?: boolean | undefined;
-    }
-    interface StatSyncOptions extends StatOptions {
         throwIfNoEntry?: boolean | undefined;
     }
+    /** @deprecated This orphaned interface will be removed in a future version. Use `StatOptions` instead. */
+    interface StatSyncOptions extends StatOptions {}
     interface CopyOptionsBase {
         /**
          * Dereference symlinks

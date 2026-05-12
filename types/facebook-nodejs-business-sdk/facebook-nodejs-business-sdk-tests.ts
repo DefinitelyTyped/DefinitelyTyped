@@ -22,6 +22,8 @@ import { FacebookRequestError } from 'facebook-nodejs-business-sdk/src/exception
 import TEventRequest from "facebook-nodejs-business-sdk/src/objects/serverside/event-request";
 import BusinessDataApiUserData from "facebook-nodejs-business-sdk/src/objects/serverside/user-data";
 import AttributionData from "facebook-nodejs-business-sdk/src/objects/serverside/attribution-data";
+import AttributionSetting from "facebook-nodejs-business-sdk/src/objects/serverside/attribution-setting";
+import DeclineReason from "facebook-nodejs-business-sdk/src/objects/serverside/decline-reason";
 
 async function testGetAdsFetchFirstPageFalse(): Promise<Array<Record<string, string>>> {
     const ads = [];
@@ -162,6 +164,11 @@ export function testBusinessDataApiUserDataConstructor() {
 
 export function testAttributionDataConstructor() {
     const attributionData = new AttributionData();
+}
+
+export function testAttributionSettingAndDeclineReasonExports() {
+    void new AttributionSetting(24, 168);
+    void DeclineReason.UNKNOWN;
 }
 
 export function testAdCampaignStatsFields() {
