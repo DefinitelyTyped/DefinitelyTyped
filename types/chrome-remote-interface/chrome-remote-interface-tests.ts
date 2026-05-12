@@ -408,3 +408,30 @@ CDP.Activate({ id: "CC46FBFA-3BDA-493B-B2E4-2BE6EB0D97EC" }, (err) => {
 CDP.Version((err, info) => {
     if (!err) {}
 });
+
+(async () => {
+    const client = await CDP();
+    try {
+        await client.send("Page.navigate", { url: "https://github.com" });
+    } catch (err) {
+        if (err instanceof CDP.ProtocolError) {
+            // $ExpectType ProtocolErrorRequest
+            err.request;
+            // $ExpectType string
+            err.request.method;
+            // $ExpectType SendError
+            err.response;
+            // $ExpectType number
+            err.response.code;
+            // $ExpectType string
+            err.response.message;
+        }
+    }
+
+    const protocolError: CDP.ProtocolError = new CDP.ProtocolError(
+        { method: "Page.navigate", params: { url: "https://github.com" }, sessionId: "abc" },
+        { code: -32000, message: "boom" },
+    );
+    protocolError.request.method;
+    protocolError.response.code;
+})();

@@ -44,6 +44,22 @@ declare namespace CDP {
         data?: string | undefined;
     }
 
+    interface ProtocolErrorRequest {
+        method: string;
+        params?: object | undefined;
+        sessionId?: string | undefined;
+    }
+
+    interface ProtocolError extends Error {
+        request: ProtocolErrorRequest;
+        response: SendError;
+    }
+
+    interface ProtocolErrorConstructor {
+        new(request: ProtocolErrorRequest, response: SendError): ProtocolError;
+        readonly prototype: ProtocolError;
+    }
+
     interface SendCallback<T extends keyof ProtocolMappingApi.Commands> {
         (error: true, response: SendError): void;
         (error: false, response: ProtocolMappingApi.Commands[T]["returnType"]): void;
@@ -430,6 +446,8 @@ declare const CDP: {
     Version(options: CDP.BaseOptions, callback: (err: Error | null, info: CDP.VersionResult) => void): void;
     Version(callback: (err: Error | null, info: CDP.VersionResult) => void): void;
     Version(options?: CDP.BaseOptions): Promise<CDP.VersionResult>;
+
+    ProtocolError: CDP.ProtocolErrorConstructor;
 };
 
 export = CDP;
