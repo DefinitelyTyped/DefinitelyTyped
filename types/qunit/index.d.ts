@@ -598,7 +598,7 @@ declare global {
         }
 
         interface SkipFunction {
-            (name: string, callback: TestFunctionCallback): void;
+            (name: string, callback?: TestFunctionCallback): void;
             each: EachFunction;
         }
 
