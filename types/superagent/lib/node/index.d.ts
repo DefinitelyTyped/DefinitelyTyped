@@ -6,7 +6,7 @@ import * as http2 from "http2";
 import * as https from "https";
 import { LookupFunction } from "net";
 import { Stream } from "stream";
-import { CBHandler, AgentOptions as SAgentOptions, URLType } from "../../types";
+import { AgentOptions as SAgentOptions, CBHandler, URLType } from "../../types";
 import { Request as Http2Request } from "./http2wrapper";
 import methods = require("methods");
 
