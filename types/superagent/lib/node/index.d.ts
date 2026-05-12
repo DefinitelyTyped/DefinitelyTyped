@@ -6,7 +6,7 @@ import * as http2 from "http2";
 import * as https from "https";
 import { LookupFunction } from "net";
 import { Stream } from "stream";
-import { AgentOptions as SAgentOptions, CBHandler, URLType } from "../../types";
+import { CBHandler, AgentOptions as SAgentOptions, URLType } from "../../types";
 import { Request as Http2Request } from "./http2wrapper";
 import methods = require("methods");
 
@@ -87,7 +87,7 @@ declare class SARequest extends Stream implements RequestBase {
     redirects(n: number): this;
     responseType(type: string): this;
     retry(count?: number, callback?: CBHandler): this;
-    send<T extends string | object = string | object>(data?: T): this;
+    send<T extends string | object>(data?: T): this;
     serialize(serializer: (obj: any) => string): this;
     set(field: "Cookie", val: string[]): this;
     set(field: http.IncomingHttpHeaders): this;

@@ -379,5 +379,7 @@ interface RequestBody {
     a: boolean;
     b: number;
 }
+request.post("/").send("generic");
 request.post("/").send<string>("generic");
+request.post("/").send({ a: true, b: 42 });
 request.post("/").send<RequestBody>({ a: true, b: 42 });
