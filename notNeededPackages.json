@@ -6475,6 +6475,10 @@
             "libraryName": "react-query",
             "asOfVersion": "1.2.8"
         },
+        "react-resizable": {
+            "libraryName": "react-resizable",
+            "asOfVersion": "4.0.0"
+        },
         "react-resize-detector": {
             "libraryName": "react-resize-detector",
             "asOfVersion": "6.1.0"
