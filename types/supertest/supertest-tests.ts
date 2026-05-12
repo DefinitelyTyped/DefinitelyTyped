@@ -107,5 +107,7 @@ interface ResponseBody {
     b: number;
 }
 request.get("/")
+    .expect({ a: true, b: 42 })
     .expect<ResponseBody>({ a: true, b: 42 })
+    .expect(200, { a: true, b: 42 })
     .expect<ResponseBody>(200, { a: true, b: 42 });

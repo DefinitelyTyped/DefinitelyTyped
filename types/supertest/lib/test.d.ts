@@ -9,7 +9,7 @@ declare class Test extends Request {
     serverAddress(app: App, path: string): string;
 
     expect(status: number, callback?: CallbackHandler): this;
-    expect<T extends any = any>(status: number, body: T, callback?: CallbackHandler): this;
+    expect<T>(status: number, body: T, callback?: CallbackHandler): this;
     expect(checker: (res: Response) => any, callback?: CallbackHandler): this;
     expect(body: string, callback?: CallbackHandler): this;
     expect(body: RegExp, callback?: CallbackHandler): this;
