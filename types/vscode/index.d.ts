@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 /**
- * Type Definition for Visual Studio Code 1.118 Extension API
+ * Type Definition for Visual Studio Code 1.120 Extension API
  * See https://code.visualstudio.com/api for more information
  */
 
@@ -12253,6 +12253,8 @@ declare module 'vscode' {
 
 		/**
 		 * Get the children of `element` or root if no element is passed.
+		 *
+		 * *Note:* The result is not mutated by the API consumer; readonly arrays may be cast to `T[]`.
 		 *
 		 * @param element The element from which the provider gets children. Can be `undefined`.
 		 * @returns Children of `element` or root if no element is passed.
