@@ -1208,6 +1208,10 @@
             "libraryName": "content-range",
             "asOfVersion": "2.0.2"
         },
+        "content-type": {
+            "libraryName": "content-type",
+            "asOfVersion": "2.0.0"
+        },
         "contentstack": {
             "libraryName": "contentstack",
             "asOfVersion": "3.11.0"
