@@ -19,4 +19,4 @@ declare class PuppeteerHar {
     mainFrame: Frame;
 }
 
-export = PuppeteerHar
+export = PuppeteerHar;
