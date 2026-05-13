@@ -279,7 +279,7 @@ declare namespace sap {
     "sap/ui/thirdparty/qunit-2": undefined;
   }
 }
-// For Library Version: 1.147.0
+// For Library Version: 1.148.0
 
 declare module "sap/base/assert" {
   /**
@@ -2839,6 +2839,30 @@ declare module "sap/base/util/array/uniqueSort" {
      */
     aArray: any[]
   ): any[];
+}
+
+declare module "sap/base/util/clamp" {
+  /**
+   * Returns a value clamped between an upper bound 'max' and lower bound 'min'.
+   *
+   * @since 1.130
+   *
+   * @returns clamped value
+   */
+  export default function clamp(
+    /**
+     * value
+     */
+    val: number,
+    /**
+     * lower bound
+     */
+    min: number,
+    /**
+     * upper bound
+     */
+    max: number
+  ): number;
 }
 
 declare module "sap/base/util/deepClone" {
@@ -19154,7 +19178,8 @@ declare module "sap/ui/core/Component" {
      *
      * @since 1.56.0
      *
-     * @returns A Promise that resolves with the newly created component instance
+     * @returns A Promise that resolves with the newly created component instance, or rejects with an error
+     * if the component could not be created
      */
     static create(
       /**
@@ -28976,7 +29001,12 @@ declare module "sap/ui/core/Element" {
      *
      * @returns reference to the instance itself
      */
-    unbindElement(sModelName: string): ManagedObject;
+    unbindElement(
+      /**
+       * Name of the model to remove the context for.
+       */
+      sModelName?: string
+    ): ManagedObject;
   }
   /**
    * The structure of the "metadata" object which is passed when inheriting from sap.ui.core.Element using
@@ -42803,8 +42833,8 @@ declare module "sap/ui/core/routing/Route" {
      *     browser is product/settings and no arguments will be passed to the events of the route.
      *
      * 	 -  mandatory parameters: "pattern" : "product/{id}" - {id} is a mandatory parameter, e. g. the following
-     *     hashes would match: product/5, product/3. The pattenMatched event will get 5 or 3 passed as id in its
-     *     arguments.The hash product/ will not match.
+     *     hashes would match: product/5, product/3. The patternMatched event will get 5 or 3 passed as id in its
+     *     arguments. The hash product/ will not match.
      *
      * 	 -  optional parameters: "pattern" : "product/{id}/detail/:detailId:" - :detailId: is an optional parameter,
      *     e. g. the following hashes would match: product/5/detail, product/3/detail/2
@@ -44160,7 +44190,7 @@ declare module "sap/ui/core/routing/Router" {
        * The parent route - if a parent route is given, the `routeMatched` event of this route will also trigger
        * the `routeMatched` of the parent and it will also create the view of the parent (if provided).
        */
-      oParent: Route
+      oParent?: Route
     ): void;
     /**
      * Attaches event handler `fnFunction` to the {@link #event:beforeRouteMatched beforeRouteMatched} event
@@ -53217,7 +53247,7 @@ declare module "sap/ui/core/ws/SapPcpWebSocket" {
       /**
        * array of protocols as strings, a single protocol as a string. Protocol(s) should be selected from {@link sap.ui.core.ws.SapPcpWebSocket.SUPPORTED_PROTOCOLS}.
        */
-      aProtocols?: any[]
+      vProtocols?: string | string[]
     );
     /**
      * Protocol versions.
@@ -53290,7 +53320,7 @@ declare module "sap/ui/core/ws/SapPcpWebSocket" {
       /**
        * additional pcp-fields as key-value map
        */
-      oPcpFields?: object
+      oPcpFields?: Record<string, any>
     ): this;
   }
   /**
@@ -53316,7 +53346,7 @@ declare module "sap/ui/core/ws/SapPcpWebSocket" {
     /**
      * Received pcpFields as a key-value map.
      */
-    pcpFields?: string;
+    pcpFields?: Record<string, string>;
   }
 
   /**
@@ -53354,7 +53384,7 @@ declare module "sap/ui/core/ws/WebSocket" {
       /**
        * array of protocols as strings, a single protocol as a string
        */
-      aProtocols?: any[]
+      vProtocols?: string | string[]
     );
 
     /**
@@ -61147,9 +61177,16 @@ declare module "sap/ui/model/json/JSONModel" {
 }
 
 declare module "sap/ui/model/json/TypedJSONModel" {
-  import JSONModel from "sap/ui/model/json/JSONModel";
-  import TypedJSONContext from "sap/ui/model/json/TypedJSONContext";
+  import Message from "sap/ui/core/message/Message";
+  import ClientContextBinding from "sap/ui/model/ClientContextBinding";
   import Context from "sap/ui/model/Context";
+  import Filter from "sap/ui/model/Filter";
+  import Sorter from "sap/ui/model/Sorter";
+  import JSONModel from "sap/ui/model/json/JSONModel";
+  import JSONListBinding from "sap/ui/model/json/JSONListBinding";
+  import JSONPropertyBinding from "sap/ui/model/json/JSONPropertyBinding";
+  import JSONTreeBinding from "sap/ui/model/json/JSONTreeBinding";
+  import TypedJSONContext from "sap/ui/model/json/TypedJSONContext";
 
   /**
    * TypedJSONModel is a subclass of JSONModel that provides type-safe access to the model data. It is only available when using UI5 with TypeScript.
@@ -61166,7 +61203,76 @@ declare module "sap/ui/model/json/TypedJSONModel" {
       fnCallBack?: Function,
       bReload?: boolean
     ): TypedJSONContext<Data, Path>;
+
+    bindContext<Path extends AbsoluteObjectBindingPath<Data>>(
+      sPath: Path,
+      oContext?: undefined,
+      mParameters?: object
+    ): ClientContextBinding;
+    bindContext<
+      Path extends RelativeObjectBindingPath<Data, Root>,
+      Root extends AbsoluteObjectBindingPath<Data>,
+    >(
+      sPath: Path,
+      oContext: TypedJSONContext<Data, Root>,
+      mParameters?: object
+    ): ClientContextBinding;
+
+    bindList<Path extends AbsoluteListBindingPath<Data>>(
+      sPath: Path,
+      oContext?: undefined,
+      aSorters?: Sorter | Sorter[],
+      aFilters?: Filter | Filter[],
+      mParameters?: object
+    ): JSONListBinding;
+    bindList<
+      Path extends RelativeListBindingPath<Data, Root>,
+      Root extends AbsoluteBindingPath<Data>,
+    >(
+      sPath: Path,
+      oContext: TypedJSONContext<Data, Root>,
+      aSorters?: Sorter | Sorter[],
+      aFilters?: Filter | Filter[],
+      mParameters?: object
+    ): JSONListBinding;
+
+    bindProperty<Path extends AbsoluteBindingPath<Data>>(
+      sPath: Path,
+      oContext?: undefined,
+      mParameters?: object
+    ): JSONPropertyBinding;
+    bindProperty<
+      Path extends RelativeBindingPath<Data, Root>,
+      Root extends AbsoluteBindingPath<Data>,
+    >(
+      sPath: Path,
+      oContext: TypedJSONContext<Data, Root>,
+      mParameters?: object
+    ): JSONPropertyBinding;
+
+    bindTree<Path extends AbsoluteTreeBindingPath<Data>>(
+      sPath: Path,
+      oContext?: undefined,
+      aFilters?: Filter | Filter[],
+      mParameters?: object,
+      aSorters?: Sorter | Sorter[]
+    ): JSONTreeBinding;
+    bindTree<
+      Path extends RelativeTreeBindingPath<Data, Root>,
+      Root extends AbsoluteBindingPath<Data>,
+    >(
+      sPath: Path,
+      oContext: TypedJSONContext<Data, Root>,
+      aFilters?: Filter | Filter[],
+      mParameters?: object,
+      aSorters?: Sorter | Sorter[]
+    ): JSONTreeBinding;
+
     getData(): Data;
+    getMessagesByPath<Path extends AbsoluteBindingPath<Data>>(
+      sPath: Path,
+      bPrefixMatch?: boolean
+    ): Message[];
     getProperty<Path extends AbsoluteBindingPath<Data>>(
       sPath: Path
     ): PropertyByAbsoluteBindingPath<Data, Path>;
@@ -61231,6 +61337,65 @@ declare module "sap/ui/model/json/TypedJSONModel" {
           never;
 
   /**
+   * Valid absolute binding path for underlying `Array` types.
+   *
+   * @example
+   * type SalesOrder = { id: string, items: string[] };
+   * type PathInObject = PathInJSONModel<SalesOrder>; // "/id" | "/items"
+   * let path: PathInObject = "/items"; // ok
+   * path = "/id"; // error
+   * path = "/items/0"; // error, since an element in the array is a string
+   */
+  export type AbsoluteListBindingPath<Type> = {
+    [Path in AbsoluteBindingPath<Type>]: PropertyByAbsoluteBindingPath<
+      Type,
+      Path
+    > extends Array<unknown>
+      ? Path
+      : never;
+  }[AbsoluteBindingPath<Type>];
+
+  /**
+   * Valid absolute binding path for underlying `Array` or `object` types.
+   *
+   * @example
+   * type SalesOrder = { id: string, items: string[], parameters: { weight: number } };
+   * type PathInObject = PathInJSONModel<SalesOrder>; // "/id" | "/items" | "/parameters"
+   * let path: PathInObject = "/items"; // ok
+   * path = "/parameters"; // ok
+   * path = "/id"; // error
+   * path = "/items/0"; // error, since an element in the array is a string
+   */
+  export type AbsoluteTreeBindingPath<Type> = {
+    [Path in AbsoluteBindingPath<Type>]: PropertyByAbsoluteBindingPath<
+      Type,
+      Path
+    > extends Array<unknown>
+      ? Path
+      : PropertyByAbsoluteBindingPath<Type, Path> extends object
+        ? Path
+        : never;
+  }[AbsoluteBindingPath<Type>];
+
+  /**
+   * Valid absolute binding path for underlying object types (excludes arrays and primitives).
+   *
+   * @example
+   * type Order = { customer: { address: { city: string } }, items: string[], total: number };
+   * type ObjectPaths = AbsoluteObjectBindingPath<Order>; // "/customer" | "/customer/address"
+   */
+  export type AbsoluteObjectBindingPath<Type> = {
+    [Path in AbsoluteBindingPath<Type>]: PropertyByAbsoluteBindingPath<
+      Type,
+      Path
+    > extends Array<unknown>
+      ? never
+      : PropertyByAbsoluteBindingPath<Type, Path> extends object
+        ? Path
+        : never;
+  }[AbsoluteBindingPath<Type>];
+
+  /**
    * Valid relative binding path in a JSONModel.
    * The root of the path is defined by the given root string.
    *
@@ -61245,6 +61410,76 @@ declare module "sap/ui/model/json/TypedJSONModel" {
     AbsoluteBindingPath<TypeAtPath<Type, Root>> extends `/${infer Rest}`
       ? Rest
       : never;
+
+  /**
+   * Valid relative binding path for underlying `Array` types.
+   * The root of the path is defined by the given root string.
+   *
+   * @example
+   * type SalesOrder = { buyer: { id: string, items: string[] } };
+   * type PathRelativeToSalesOrder = RelativeListBindingPath<SalesOrderWrapper, "/buyer">; // "id" | "items"
+   */
+  export type RelativeListBindingPath<
+    Type,
+    Root extends AbsoluteBindingPath<Type>,
+  > = {
+    [Path in RelativeBindingPath<Type, Root>]: PropertyByRelativeBindingPath<
+      Type,
+      Root,
+      Path
+    > extends Array<unknown>
+      ? Path
+      : never;
+  }[RelativeBindingPath<Type, Root>];
+
+  /**
+   * Valid relative binding path for underlying `Array` or `object` types.
+   * The root of the path is defined by the given root string.
+   *
+   * @example
+   * type SalesOrder = { buyer: { id: string, items: string[], parameters: { weight: number } } };
+   * type PathRelativeToSalesOrder = RelativeTreeBindingPath<SalesOrderWrapper, "/buyer">; // "items" | "parameters"
+   */
+  export type RelativeTreeBindingPath<
+    Type,
+    Root extends AbsoluteBindingPath<Type>,
+  > = {
+    [Path in RelativeBindingPath<Type, Root>]: PropertyByRelativeBindingPath<
+      Type,
+      Root,
+      Path
+    > extends Array<unknown>
+      ? Path
+      : PropertyByRelativeBindingPath<Type, Root, Path> extends object
+        ? Path
+        : never;
+  }[RelativeBindingPath<Type, Root>];
+
+  /**
+   * Valid relative binding path for underlying object types (excludes arrays and primitives).
+   * The root of the path is defined by the given root string.
+   *
+   * @example
+   * type SalesOrder = { buyer: { id: string, name: string }, items: string[] };
+   * type PathRelativeToSalesOrder = RelativeObjectBindingPath<SalesOrder, "/buyer">; // never (no nested objects)
+   *
+   * type Order = { customer: { address: { city: string } }, total: number };
+   * type PathInOrder = RelativeObjectBindingPath<Order, "/">; // "customer" | "customer/address"
+   */
+  export type RelativeObjectBindingPath<
+    Type,
+    Root extends AbsoluteBindingPath<Type>,
+  > = {
+    [Path in RelativeBindingPath<Type, Root>]: PropertyByRelativeBindingPath<
+      Type,
+      Root,
+      Path
+    > extends Array<unknown>
+      ? never
+      : PropertyByRelativeBindingPath<Type, Root, Path> extends object
+        ? Path
+        : never;
+  }[RelativeBindingPath<Type, Root>];
 
   /**
    * The type of a property in a JSONModel identified by the given path.
@@ -61449,6 +61684,16 @@ declare module "sap/ui/model/json/JSONPropertyBinding" {
      * @returns Metadata object describing this class
      */
     static getMetadata(): Metadata;
+    /**
+     * Sets the value for this `JSONPropertyBinding` if the binding is not suspended. If a new value is set,
+     * an {@link sap.ui.model.Model#propertyChange} event is fired with change reason {@link sap.ui.model.ChangeReason.Binding Binding}.
+     */
+    setValue(
+      /**
+       * The value to set for this binding
+       */
+      vValue: any
+    ): void;
   }
 }
 
@@ -61610,10 +61855,9 @@ declare module "sap/ui/model/ListBinding" {
        */
       vFilter?: Filter[] | Filter,
       /**
-       * The type of the application filters to replace
+       * The type of the application filters to replace, see {@link sap.ui.model.FilterType}
        */
-      sFilterType?: /* was: sap.ui.model.FilterType.Application */
-      any | /* was: sap.ui.model.FilterType.ApplicationBound */ any
+      sFilterType?: "Application" | "ApplicationBound"
     ): Filter[] | Filter | undefined;
     /**
      * Detaches event handler `fnFunction` from the {@link #event:filter filter} event of this `sap.ui.model.ListBinding`.
@@ -74080,9 +74324,10 @@ declare module "sap/ui/model/odata/v4/Context" {
      *
      * @returns A promise which is resolved without a defined result in case of success, or rejected with an
      * instance of `Error` in case of failure, for example if the annotation belongs to the read-only namespace
-     * "@$ui5.*". With `bRetry` it is only rejected with an `Error` instance where `oError.canceled === true`
-     * when the entity has been deleted while the request was pending or the property has been reset via the
-     * methods
+     * "@$ui5.*", or if `sGroupId` is `null` and the outdated flag at the header context would be set or the
+     * grand total would be affected. With `bRetry` it is only rejected with an `Error` instance where `oError.canceled
+     * === true` when the entity has been deleted while the request was pending or the property has been reset
+     * via the methods
      * 	 {@link sap.ui.model.odata.v4.ODataModel#resetChanges}  {@link sap.ui.model.odata.v4.ODataContextBinding#resetChanges }
      * or  {@link sap.ui.model.odata.v4.ODataListBinding#resetChanges}.
      */
@@ -80320,10 +80565,9 @@ declare module "sap/ui/model/TreeBinding" {
        */
       vFilter?: Filter[] | Filter,
       /**
-       * The type of the application filters to replace
+       * The type of the application filters to replace, see {@link sap.ui.model.FilterType}
        */
-      sFilterType?: /* was: sap.ui.model.FilterType.Application */
-      any | /* was: sap.ui.model.FilterType.ApplicationBound */ any
+      sFilterType?: "Application" | "ApplicationBound"
     ): Filter[] | Filter | undefined;
     /**
      * Detaches event handler `fnFunction` from the {@link #event:_filter _filter} event of this `sap.ui.model.TreeBinding`.
