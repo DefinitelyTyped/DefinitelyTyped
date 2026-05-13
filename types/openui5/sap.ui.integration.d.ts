@@ -1,4 +1,4 @@
-// For Library Version: 1.147.0
+// For Library Version: 1.148.0
 
 declare module "sap/ui/integration/library" {
   import { URI } from "sap/ui/core/library";
@@ -1458,6 +1458,7 @@ declare module "sap/ui/integration/widgets/Card" {
      * 	 - If neither the manifest URL nor the base URL is defined, relative resources will not load correctly.
      *
      *
+     * @since 1.70
      *
      * @returns Value of property `baseUrl`
      */
@@ -1893,6 +1894,7 @@ declare module "sap/ui/integration/widgets/Card" {
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
+     * @since 1.70
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -2635,6 +2637,9 @@ declare module "sap/ui/integration/widgets/Card" {
      * URL.
      * 	 - If both the manifest URL and the base URL are defined, the base URL is used.
      * 	 - If neither the manifest URL nor the base URL is defined, relative resources will not load correctly.
+     *
+     *
+     * @since 1.70
      */
     baseUrl?: URI | PropertyBindingInfo | `{${string}}`;
 
@@ -4845,8 +4850,6 @@ declare namespace sap {
     "sap/ui/integration/Host": undefined;
 
     "sap/ui/integration/library": undefined;
-
-    "sap/ui/integration/services/Service": undefined;
 
     "sap/ui/integration/util/CsrfTokenHandler": undefined;
 
