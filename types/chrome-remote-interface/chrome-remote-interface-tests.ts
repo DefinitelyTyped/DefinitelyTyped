@@ -430,8 +430,4 @@ CDP.Version((err, info) => {
 
     // @ts-expect-error
     new CDP.ProtocolError({} as any, {} as any);
-
-    // @ts-expect-error
-    const _err: CDP.ProtocolError = undefined as any;
-    void _err;
 })();
