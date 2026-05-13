@@ -4825,6 +4825,10 @@
             "libraryName": "node-mailjet",
             "asOfVersion": "4.0.0"
         },
+        "node-osc": {
+            "libraryName": "node-osc",
+            "asOfVersion": "11.2.0"
+        },
         "node-pg-migrate": {
             "libraryName": "node-pg-migrate",
             "asOfVersion": "2.15.0"
