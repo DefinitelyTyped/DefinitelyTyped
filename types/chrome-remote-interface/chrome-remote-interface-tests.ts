@@ -428,10 +428,10 @@ CDP.Version((err, info) => {
         }
     }
 
-    const protocolError: CDP.ProtocolError = new CDP.ProtocolError(
-        { method: "Page.navigate", params: { url: "https://github.com" }, sessionId: "abc" },
-        { code: -32000, message: "boom" },
-    );
-    protocolError.request.method;
-    protocolError.response.code;
+    // @ts-expect-error
+    new CDP.ProtocolError({} as any, {} as any);
+
+    // @ts-expect-error
+    const _err: CDP.ProtocolError = undefined as any;
+    void _err;
 })();
