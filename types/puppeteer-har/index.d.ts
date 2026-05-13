@@ -1,14 +1,16 @@
 import type { Frame, Page } from "puppeteer";
 
-export interface PuppeteerHarOptions {
-    path?: string;
-    saveResponse?: boolean;
-    captureMimeTypes?: boolean;
+declare namespace PuppeteerHar {
+    interface PuppeteerHarOptions {
+        path?: string;
+        saveResponse?: boolean;
+        captureMimeTypes?: boolean;
+    }
 }
 
-export class PuppeteerHar {
-    constructor(page: any, options?: PuppeteerHarOptions);
-    start(options?: PuppeteerHarOptions): Promise<void>;
+declare class PuppeteerHar {
+    constructor(page: Page, options?: PuppeteerHar.PuppeteerHarOptions);
+    start(options?: PuppeteerHar.PuppeteerHarOptions): Promise<void>;
     stop(): Promise<PuppeteerHar | undefined>;
     cleanUp(): Promise<void>;
 
@@ -16,3 +18,5 @@ export class PuppeteerHar {
     page: Page;
     mainFrame: Frame;
 }
+
+export = PuppeteerHar

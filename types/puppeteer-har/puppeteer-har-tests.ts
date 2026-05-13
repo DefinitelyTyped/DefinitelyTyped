@@ -2,7 +2,7 @@
 
 // Import only for type-checking purposes
 import { Frame, Page } from "puppeteer";
-import { PuppeteerHar, PuppeteerHarOptions } from "puppeteer-har";
+import PuppeteerHar from "puppeteer-har";
 
 // Define a mock Page interface just for type-checking
 
@@ -14,13 +14,13 @@ const mockPage: any = {
 };
 
 // Check if the PuppeteerHar class is correctly typed
-const page: Page = mockPage as any; // Type assertion to use Page
+const page: Page = mockPage as any as Page; // Type assertion to use Page
 
 const har = new PuppeteerHar(page, {
     path: "",
     saveResponse: true,
     captureMimeTypes: true,
-} as PuppeteerHarOptions);
+} as PuppeteerHar.PuppeteerHarOptions);
 
 // Type-check the methods of PuppeteerHar
 const startPromise: Promise<void> = har.start();
