@@ -68,7 +68,7 @@ export interface HowlListeners {
     onplayerror?: HowlErrorCallback | undefined;
 }
 
-export interface HowlOptions extends HowlListeners {
+export interface HowlOptions extends HowlListeners, PannerAttributes {
     /**
      * The sources to the track(s) to be loaded for the sound (URLs or base64 data URIs). These should
      * be in order of preference, howler.js will automatically load the first one that is compatible
@@ -158,12 +158,6 @@ export interface HowlOptions extends HowlListeners {
             withCredentials?: boolean | undefined;
         }
         | undefined;
-
-    /**
-     * Sets the panner node's attributes for a sound or group of sounds. See the pannerAttr method 
-     * for all available options.
-     */
-    pannerAttr?: PannerAttributes
 }
 
 export class Howl {
