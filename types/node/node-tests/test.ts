@@ -175,6 +175,8 @@ test(undefined, undefined, t => {
     t.error;
     // $ExpectType number
     t.attempt;
+    // $ExpectType number | undefined
+    t.workerId;
 });
 
 // Test the subtest approach.
@@ -379,6 +381,13 @@ it.expectFailure("x", {
     signal: new AbortController().signal,
     timeout: Infinity,
 });
+
+// expectFailure predicates
+test({ expectFailure: "message" });
+test({ expectFailure: Error });
+test({ expectFailure: /error/ });
+test({ expectFailure: { code: "ERR_INVALID_ARG_TYPE" } });
+test({ expectFailure: (err) => err instanceof TypeError });
 
 // Test with suite context
 describe(s => {

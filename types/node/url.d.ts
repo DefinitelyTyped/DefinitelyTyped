@@ -235,7 +235,7 @@ declare module "node:url" {
     /**
      * `url.format(urlString)` is shorthand for `url.format(url.parse(urlString))`.
      *
-     * Because it invokes the deprecated `url.parse()`, passing a string argument
+     * Because it invokes the deprecated `url.parse()` internally, passing a string argument
      * to `url.format()` is itself deprecated.
      *
      * Canonicalizing a URL string can be performed using the WHATWG URL API, by
@@ -265,6 +265,8 @@ declare module "node:url" {
      * url.resolve('http://example.com/one', '/two'); // 'http://example.com/two'
      * ```
      *
+     * Because it invokes the deprecated `url.parse()` internally, `url.resolve()` is itself deprecated.
+     *
      * To achieve the same result using the WHATWG URL API:
      *
      * ```js
@@ -283,7 +285,7 @@ declare module "node:url" {
      * resolve('http://example.com/one', '/two'); // 'http://example.com/two'
      * ```
      * @since v0.1.25
-     * @legacy Use the WHATWG URL API instead.
+     * @deprecated Use the WHATWG URL API instead.
      * @param from The base URL to use if `to` is a relative URL.
      * @param to The target URL to resolve.
      */
