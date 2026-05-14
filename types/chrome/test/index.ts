@@ -1194,6 +1194,12 @@ function testGetManifest() {
                 matches: ["https://github.com/*"],
                 js: ["cs.js"],
             },
+            {
+                matches: ["https://example.com/*"],
+                js: ["cs-example.js"],
+                all_frames: true,
+                run_at: "document_start",
+            },
         ],
         content_security_policy: "default-src 'self'",
         optional_permissions: ["https://*/*"],
@@ -1211,6 +1217,14 @@ function testGetManifest() {
                 matches: ["https://github.com/*"],
                 js: ["cs.js"],
                 world: "MAIN",
+            },
+            {
+                matches: ["https://example.com/*"],
+                js: ["cs-example.js"],
+                world: "MAIN",
+                all_frames: true,
+                match_origin_as_fallback: true,
+                run_at: "document_start",
             },
         ],
         content_security_policy: {

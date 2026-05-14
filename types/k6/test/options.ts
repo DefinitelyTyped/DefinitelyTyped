@@ -55,10 +55,6 @@ const scenarioExample: Options = {
             stages: [{ duration: "10s", target: 10 }],
             preAllocatedVUs: 20,
         },
-        myScenario7: {
-            executor: "externally-controlled",
-            duration: "10s",
-        },
     },
 };
 

@@ -42,7 +42,7 @@ export type Matrix4Tuple = [
  * m.multiply( m3 );
  */
 export class Matrix4 {
-    static readonly isMatrix4: boolean;
+    readonly isMatrix4: true;
 
     /**
      * Array with matrix values.

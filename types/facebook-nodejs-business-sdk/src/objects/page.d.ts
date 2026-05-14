@@ -51,6 +51,7 @@ export default class Page extends AbstractCrudObject {
         connected_instagram_account: "connected_instagram_account";
         connected_page_backed_instagram_account: "connected_page_backed_instagram_account";
         contact_address: "contact_address";
+        copyright_attribution_insights: "copyright_attribution_insights";
         copyright_whitelisted_ig_partners: "copyright_whitelisted_ig_partners";
         country_page_likes: "country_page_likes";
         cover: "cover";
@@ -244,6 +245,7 @@ export default class Page extends AbstractCrudObject {
         c2pa: "C2PA";
         c2pa_metadata_edited: "C2PA_METADATA_EDITED";
         explicit: "EXPLICIT";
+        explicit_animate: "EXPLICIT_ANIMATE";
         explicit_imagine: "EXPLICIT_IMAGINE";
         explicit_imagine_me: "EXPLICIT_IMAGINE_ME";
         explicit_restyle: "EXPLICIT_RESTYLE";
@@ -360,6 +362,12 @@ export default class Page extends AbstractCrudObject {
         scheduled: "SCHEDULED";
         scheduled_recurring: "SCHEDULED_RECURRING";
     }>;
+    static get RecommendationAction(): Readonly<{
+        accept_closed: "ACCEPT_CLOSED";
+        accept_new: "ACCEPT_NEW";
+        reject_closed: "REJECT_CLOSED";
+        reject_new: "REJECT_NEW";
+    }>;
     static get Category(): Readonly<{
         utility: "UTILITY";
     }>;
@@ -431,10 +439,13 @@ export default class Page extends AbstractCrudObject {
         awards: "awards";
         bio: "bio";
         birthday: "birthday";
+        business_integrity: "business_integrity";
         call_permission_reply: "call_permission_reply";
+        call_settings_update: "call_settings_update";
         calls: "calls";
         category: "category";
         checkins: "checkins";
+        comment_poll_response: "comment_poll_response";
         company_overview: "company_overview";
         conversations: "conversations";
         culinary_team: "culinary_team";
@@ -443,6 +454,7 @@ export default class Page extends AbstractCrudObject {
         email: "email";
         feature_access_list: "feature_access_list";
         feed: "feed";
+        follow: "follow";
         founded: "founded";
         general_info: "general_info";
         general_manager: "general_manager";
@@ -461,6 +473,8 @@ export default class Page extends AbstractCrudObject {
         local_delivery: "local_delivery";
         location: "location";
         marketing_message_delivery_failed: "marketing_message_delivery_failed";
+        marketing_message_echoes: "marketing_message_echoes";
+        marketing_messages_subscriber_upload_status: "marketing_messages_subscriber_upload_status";
         mcom_invoice_change: "mcom_invoice_change";
         members: "members";
         mention: "mention";
@@ -514,6 +528,8 @@ export default class Page extends AbstractCrudObject {
         response_feedback: "response_feedback";
         send_cart: "send_cart";
         standby: "standby";
+        story_poll_response: "story_poll_response";
+        story_share: "story_share";
         user_action: "user_action";
         video_text_question_responses: "video_text_question_responses";
         videos: "videos";
@@ -522,6 +538,7 @@ export default class Page extends AbstractCrudObject {
     getAbTests(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createAbTest(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<PagePostExperiment>;
     createAcknowledgeOrder(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Page>;
+    getAdsEligibility(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getAdsPosts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     deleteAgencies(params?: Record<string, any>): Promise<any>;
     getAgencies(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
@@ -535,6 +552,7 @@ export default class Page extends AbstractCrudObject {
     getBlocked(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createBlocked(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AbstractObject>;
     createBusinessDatum(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AbstractObject>;
+    createBusinessMessagingFeatureStatus(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Page>;
     getBusinessProjects(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getCallToActions(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createCall(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AbstractObject>;
@@ -610,6 +628,7 @@ export default class Page extends AbstractCrudObject {
     getPosts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getProductCatalogs(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getPublishedPosts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getRatings(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createReleaseThreadControl(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Page>;
     createRequestThreadControl(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Page>;
     getRoles(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;

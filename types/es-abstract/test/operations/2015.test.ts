@@ -123,6 +123,7 @@ type ExpectedKeys =
     | "Abstract Equality Comparison"
     | "Abstract Relational Comparison"
     | "Strict Equality Comparison"
+    | "abs"
     | "AdvanceStringIndex"
     | "ArrayCreate"
     | "ArraySetLength"

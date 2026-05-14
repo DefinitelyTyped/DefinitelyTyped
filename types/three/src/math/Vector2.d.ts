@@ -12,8 +12,6 @@ export interface Vector2Like {
  * 2D vector.
  */
 export class Vector2 {
-    static readonly isVector2: boolean;
-
     constructor(x?: number, y?: number);
 
     /**
@@ -27,6 +25,7 @@ export class Vector2 {
     y: number;
     width: number;
     height: number;
+    readonly isVector2: true;
 
     /**
      * Sets value of this vector.

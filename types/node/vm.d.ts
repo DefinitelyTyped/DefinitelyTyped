@@ -200,16 +200,16 @@ declare module "node:vm" {
          * The globals are contained in the `context` object.
          *
          * ```js
-         * import vm from 'node:vm';
+         * import { createContext, Script } from 'node:vm';
          *
          * const context = {
          *   animal: 'cat',
          *   count: 2,
          * };
          *
-         * const script = new vm.Script('count += 1; name = "kitty";');
+         * const script = new Script('count += 1; name = "kitty";');
          *
-         * vm.createContext(context);
+         * createContext(context);
          * for (let i = 0; i < 10; ++i) {
          *   script.runInContext(context);
          * }
@@ -243,9 +243,9 @@ declare module "node:vm" {
          * contained within each individual `context`.
          *
          * ```js
-         * const vm = require('node:vm');
+         * import { constants, Script } from 'node:vm';
          *
-         * const script = new vm.Script('globalVar = "set"');
+         * const script = new Script('globalVar = "set"');
          *
          * const contexts = [{}, {}, {}];
          * contexts.forEach((context) => {
@@ -256,10 +256,10 @@ declare module "node:vm" {
          * // Prints: [{ globalVar: 'set' }, { globalVar: 'set' }, { globalVar: 'set' }]
          *
          * // This would throw if the context is created from a contextified object.
-         * // vm.constants.DONT_CONTEXTIFY allows creating contexts with ordinary
+         * // constants.DONT_CONTEXTIFY allows creating contexts with ordinary
          * // global objects that can be frozen.
-         * const freezeScript = new vm.Script('Object.freeze(globalThis); globalThis;');
-         * const frozenContext = freezeScript.runInNewContext(vm.constants.DONT_CONTEXTIFY);
+         * const freezeScript = new Script('Object.freeze(globalThis); globalThis;');
+         * const frozenContext = freezeScript.runInNewContext(constants.DONT_CONTEXTIFY);
          * ```
          * @since v0.3.1
          * @param contextObject Either `vm.constants.DONT_CONTEXTIFY` or an object that will be contextified.
@@ -278,11 +278,11 @@ declare module "node:vm" {
          * executes that code multiple times:
          *
          * ```js
-         * import vm from 'node:vm';
+         * import { Script } from 'node:vm';
          *
          * global.globalVar = 0;
          *
-         * const script = new vm.Script('globalVar += 1', { filename: 'myfile.vm' });
+         * const script = new Script('globalVar += 1', { filename: 'myfile.vm' });
          *
          * for (let i = 0; i < 1000; ++i) {
          *   script.runInThisContext();
@@ -371,14 +371,14 @@ declare module "node:vm" {
      * variables will remain unchanged.
      *
      * ```js
-     * const vm = require('node:vm');
+     * import { createContext, runInContext } from 'node:vm';
      *
      * global.globalVar = 3;
      *
      * const context = { globalVar: 1 };
-     * vm.createContext(context);
+     * createContext(context);
      *
-     * vm.runInContext('globalVar *= 2;', context);
+     * runInContext('globalVar *= 2;', context);
      *
      * console.log(context);
      * // Prints: { globalVar: 2 }
@@ -429,13 +429,13 @@ declare module "node:vm" {
      * The following example compiles and executes different scripts using a single `contextified` object:
      *
      * ```js
-     * import vm from 'node:vm';
+     * import { createContext, runInContext } from 'node:vm';
      *
      * const contextObject = { globalVar: 1 };
-     * vm.createContext(contextObject);
+     * createContext(contextObject);
      *
      * for (let i = 0; i < 10; ++i) {
-     *   vm.runInContext('globalVar *= 2;', contextObject);
+     *   runInContext('globalVar *= 2;', contextObject);
      * }
      * console.log(contextObject);
      * // Prints: { globalVar: 1024 }
@@ -466,21 +466,24 @@ declare module "node:vm" {
      * variable and sets a new one. These globals are contained in the `contextObject`.
      *
      * ```js
-     * const vm = require('node:vm');
+     * import { runInNewContext, constants } from 'node:vm';
      *
      * const contextObject = {
      *   animal: 'cat',
      *   count: 2,
      * };
      *
-     * vm.runInNewContext('count += 1; name = "kitty"', contextObject);
+     * runInNewContext('count += 1; name = "kitty"', contextObject);
      * console.log(contextObject);
      * // Prints: { animal: 'cat', count: 3, name: 'kitty' }
      *
      * // This would throw if the context is created from a contextified object.
      * // vm.constants.DONT_CONTEXTIFY allows creating contexts with ordinary global objects that
      * // can be frozen.
-     * const frozenContext = vm.runInNewContext('Object.freeze(globalThis); globalThis;', vm.constants.DONT_CONTEXTIFY);
+     * const frozenContext = runInNewContext(
+     *   'Object.freeze(globalThis); globalThis;',
+     *   constants.DONT_CONTEXTIFY,
+     * );
      * ```
      * @since v0.3.1
      * @param code The JavaScript code to compile and run.
@@ -504,10 +507,10 @@ declare module "node:vm" {
      * the JavaScript [`eval()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval) function to run the same code:
      *
      * ```js
-     * import vm from 'node:vm';
+     * import { runInThisContext } from 'node:vm';
      * let localVar = 'initial value';
      *
-     * const vmResult = vm.runInThisContext('localVar = "vm";');
+     * const vmResult = runInThisContext('localVar = "vm";');
      * console.log(`vmResult: '${vmResult}', localVar: '${localVar}'`);
      * // Prints: vmResult: 'vm', localVar: 'initial value'
      *
@@ -519,38 +522,6 @@ declare module "node:vm" {
      * Because `vm.runInThisContext()` does not have access to the local scope, `localVar` is unchanged. In contrast,
      * [`eval()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval) _does_ have access to the
      * local scope, so the value `localVar` is changed. In this way `vm.runInThisContext()` is much like an [indirect `eval()` call](https://es5.github.io/#x10.4.2), e.g.`(0,eval)('code')`.
-     *
-     * ## Example: Running an HTTP server within a VM
-     *
-     * When using either `script.runInThisContext()` or {@link runInThisContext}, the code is executed within the current V8 global
-     * context. The code passed to this VM context will have its own isolated scope.
-     *
-     * In order to run a simple web server using the `node:http` module the code passed
-     * to the context must either import `node:http` on its own, or have a
-     * reference to the `node:http` module passed to it. For instance:
-     *
-     * ```js
-     * 'use strict';
-     * import vm from 'node:vm';
-     *
-     * const code = `
-     * ((require) => {
-     * const http = require('node:http');
-     *
-     *   http.createServer((request, response) => {
-     *     response.writeHead(200, { 'Content-Type': 'text/plain' });
-     *     response.end('Hello World\\n');
-     *   }).listen(8124);
-     *
-     *   console.log('Server running at http://127.0.0.1:8124/');
-     * })`;
-     *
-     * vm.runInThisContext(code)(require);
-     * ```
-     *
-     * The `require()` in the above case shares the state with the context it is
-     * passed from. This may introduce risks when untrusted code is executed, e.g.
-     * altering objects in the context in unwanted ways.
      * @since v0.3.1
      * @param code The JavaScript code to compile and run.
      * @return the result of the very last statement executed in the script.
@@ -582,44 +553,32 @@ declare module "node:vm" {
      * the memory occupied by each heap space in the current V8 instance.
      *
      * ```js
-     * import vm from 'node:vm';
+     * import { createContext, measureMemory } from 'node:vm';
      * // Measure the memory used by the main context.
-     * vm.measureMemory({ mode: 'summary' })
+     * measureMemory({ mode: 'summary' })
      *   // This is the same as vm.measureMemory()
      *   .then((result) => {
      *     // The current format is:
      *     // {
-     *     //   total: {
-     *     //      jsMemoryEstimate: 2418479, jsMemoryRange: [ 2418479, 2745799 ]
-     *     //    }
+     *     //   total: { jsMemoryEstimate: 1601828, jsMemoryRange: [1601828, 5275288] },
+     *     //   WebAssembly: { code: 0, metadata: 33962 },
      *     // }
      *     console.log(result);
      *   });
      *
-     * const context = vm.createContext({ a: 1 });
-     * vm.measureMemory({ mode: 'detailed', execution: 'eager' })
-     *   .then((result) => {
-     *     // Reference the context here so that it won't be GC'ed
-     *     // until the measurement is complete.
-     *     console.log(context.a);
-     *     // {
-     *     //   total: {
-     *     //     jsMemoryEstimate: 2574732,
-     *     //     jsMemoryRange: [ 2574732, 2904372 ]
-     *     //   },
-     *     //   current: {
-     *     //     jsMemoryEstimate: 2438996,
-     *     //     jsMemoryRange: [ 2438996, 2768636 ]
-     *     //   },
-     *     //   other: [
-     *     //     {
-     *     //       jsMemoryEstimate: 135736,
-     *     //       jsMemoryRange: [ 135736, 465376 ]
-     *     //     }
-     *     //   ]
-     *     // }
-     *     console.log(result);
-     *   });
+     * const context = createContext({ a: 1 });
+     * measureMemory({ mode: 'detailed', execution: 'eager' }).then((result) => {
+     *   // Reference the context here so that it won't be GC'ed
+     *   // until the measurement is complete.
+     *   console.log('Context:', context.a);
+     *   // {
+     *   //   total: { jsMemoryEstimate: 1767100, jsMemoryRange: [1767100, 5440560] },
+     *   //   WebAssembly: { code: 0, metadata: 33962 },
+     *   //   current: { jsMemoryEstimate: 1601828, jsMemoryRange: [1601828, 5275288] },
+     *   //   other: [{ jsMemoryEstimate: 165272, jsMemoryRange: [Array] }],
+     *   // }
+     *   console.log(result);
+     * });
      * ```
      * @since v13.10.0
      * @experimental
@@ -1092,15 +1051,21 @@ declare module "node:vm" {
      * module graphs.
      *
      * ```js
-     * import vm from 'node:vm';
+     * import { SyntheticModule } from 'node:vm';
      *
      * const source = '{ "a": 1 }';
-     * const module = new vm.SyntheticModule(['default'], function() {
+     * const syntheticModule = new SyntheticModule(['default'], function() {
      *   const obj = JSON.parse(source);
      *   this.setExport('default', obj);
      * });
      *
-     * // Use `module` in linking...
+     * // Use `syntheticModule` in linking
+     * (async () => {
+     *   await syntheticModule.link(() => {});
+     *   await syntheticModule.evaluate();
+     *
+     *   console.log('Default export:', syntheticModule.namespace.default);
+     * })();
      * ```
      * @since v13.0.0, v12.16.0
      * @experimental

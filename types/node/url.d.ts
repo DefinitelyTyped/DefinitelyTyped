@@ -229,9 +229,31 @@ declare module "node:url" {
      * * `result` is returned.
      * @since v0.1.25
      * @legacy Use the WHATWG URL API instead.
-     * @param urlObject A URL object (as returned by `url.parse()` or constructed otherwise). If a string, it is converted to an object by passing it to `url.parse()`.
+     * @param urlObject A URL object (as returned by `url.parse()` or constructed otherwise).
      */
-    function format(urlObject: UrlObject | string): string;
+    function format(urlObject: UrlObject): string;
+    /**
+     * `url.format(urlString)` is shorthand for `url.format(url.parse(urlString))`.
+     *
+     * Because it invokes the deprecated `url.parse()`, passing a string argument
+     * to `url.format()` is itself deprecated.
+     *
+     * Canonicalizing a URL string can be performed using the WHATWG URL API, by
+     * constructing a new URL object and calling `url.toString()`.
+     *
+     * ```js
+     * import { URL } from 'node:url';
+     *
+     * const unformatted = 'http://[fe80:0:0:0:0:0:0:1]:/a/b?a=b#abc';
+     * const formatted = new URL(unformatted).toString();
+     *
+     * console.log(formatted); // Prints: http://[fe80::1]/a/b?a=b#abc
+     * ```
+     * @since v0.1.25
+     * @deprecated Use the WHATWG URL API instead.
+     * @param urlString A string that will be passed to `url.parse()` and then formatted.
+     */
+    function format(urlString: string): string;
     /**
      * The `url.resolve()` method resolves a target URL relative to a base URL in a
      * manner similar to that of a web browser resolving an anchor tag.

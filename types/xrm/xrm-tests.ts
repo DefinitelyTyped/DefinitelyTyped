@@ -180,6 +180,11 @@ enum TestOptionSet {
 const optionSetAttributeEnum = formContext.getAttribute<Xrm.Attributes.OptionSetAttribute<TestOptionSet>>("statuscode");
 if (optionSetAttributeEnum !== null) {
     const optionEnumValue: TestOptionSet | null = optionSetAttributeEnum.getValue();
+    optionSetAttributeEnum.getOption(TestOptionSet.Option1);
+    optionSetAttributeEnum.setValue(TestOptionSet.Option1);
+    optionSetAttributeEnum.setValue(null);
+    // @ts-expect-error — plain number is not assignable to TestOptionSet
+    optionSetAttributeEnum.setValue(123);
 }
 
 /// Demonstrate MultiSelectOptionSet Value as int
@@ -203,6 +208,11 @@ const multiSelectOptionSetAttributeEnum = formContext.getAttribute<
 >("statuscode");
 if (multiSelectOptionSetAttributeEnum !== null) {
     const multiSelectOptionEnumValue: TestMultiSelectOptionSet[] | null = multiSelectOptionSetAttributeEnum.getValue();
+    multiSelectOptionSetAttributeEnum.getOption(TestMultiSelectOptionSet.Option1);
+    multiSelectOptionSetAttributeEnum.setValue([TestMultiSelectOptionSet.Option1]);
+    multiSelectOptionSetAttributeEnum.setValue(null);
+    // @ts-expect-error — plain number is not assignable to TestMultiSelectOptionSet
+    multiSelectOptionSetAttributeEnum.setValue([123]);
 }
 
 // Demonstrate that controls on a MultiSelectOptionSetAttribute are typed as MultiSelectOptionSetControl
@@ -606,6 +616,24 @@ function onChangeFormField(executionContext: Xrm.Events.EventContext): void {
     footerSection.setVisible(true);
 }
 
+// Demonstrate Navigating to a generative page
+Xrm.Navigation.navigateTo({
+    pageType: "generative",
+    pageId: "84fd907e-8bfe-11ec-a8a3-0242ac120002",
+    recordId: "84fd907e-8bfe-11ec-a8a3-0242ac120002",
+    entityName: "contact",
+    data: {
+        "custom": "value",
+    },
+}).then(
+    (success) => {
+        console.log("Generative page opened");
+    },
+    (error) => {
+        console.log(error.message);
+    },
+);
+
 // Demonstrate formContext.ui.headerSection methods
 function onChangeHeaderField(executionContext: Xrm.Events.EventContext): void {
     const formContext = executionContext.getFormContext();
@@ -630,13 +658,13 @@ function booleanAttributeControls(formContext: Xrm.FormContext) {
     // @ts-expect-error
     const notString: string = booleanAttribute.getValue();
 
-    booleanAttribute = booleanAttribute.controls.get(0).getAttribute();
+    booleanAttribute = booleanAttribute.controls.get<Xrm.Controls.BooleanControl>(0).getAttribute();
 
     booleanAttribute.controls.forEach((c: Xrm.Controls.BooleanControl) => c.setDisabled(true));
 
-    booleanAttribute.controls.get(0).getAttribute().getAttributeType() === "boolean";
+    booleanAttribute.controls.get<Xrm.Controls.BooleanControl>(0).getAttribute().getAttributeType() === "boolean";
     // @ts-expect-error
-    booleanAttribute.controls.get(0).getAttribute().getAttributeType() === "optionset";
+    booleanAttribute.controls.get<Xrm.Controls.OptionSetControl>(0).getAttribute().getAttributeType() === "optionset";
 }
 
 // Demonstrate add and remove methods for formContext.data.process
@@ -799,3 +827,20 @@ const framedControlSetVisible = (formContext: Xrm.FormContext) => {
     // setVisible
     framedControl.setVisible(true);
 };
+
+// Demonstrate ItemCollection.get() overloads
+function testItemCollectionGet(formContext: Xrm.FormContext) {
+    // Without explicit type parameter: returns T | null
+    // $ExpectType Tab | null
+    formContext.ui.tabs.get(0);
+
+    // $ExpectType Tab | null
+    formContext.ui.tabs.get("tabName");
+
+    // With explicit type parameter: returns TSubType (caller asserts item exists)
+    // $ExpectType Tab
+    formContext.ui.tabs.get<Xrm.Controls.Tab>(0);
+
+    // $ExpectType Tab
+    formContext.ui.tabs.get<Xrm.Controls.Tab>("tabName");
+}

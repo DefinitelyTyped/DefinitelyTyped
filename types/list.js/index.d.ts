@@ -74,6 +74,7 @@ declare namespace List {
 
     type Event =
         | "updated"
+        | "parseComplete"
         | "filterStart"
         | "filterComplete"
         | "searchStart"

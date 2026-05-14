@@ -1242,10 +1242,14 @@ declare module "node:http2" {
     > extends SessionOptions {
         streamResetBurst?: number | undefined;
         streamResetRate?: number | undefined;
+        /** @deprecated Use `http1Options.IncomingMessage` instead. */
         Http1IncomingMessage?: Http1Request | undefined;
+        /** @deprecated Use `http1Options.ServerResponse` instead. */
         Http1ServerResponse?: Http1Response | undefined;
+        http1Options?: Http1Options<Http1Request, Http1Response> | undefined;
         Http2ServerRequest?: Http2Request | undefined;
         Http2ServerResponse?: Http2Response | undefined;
+        strictSingleValueFields?: boolean | undefined;
     }
     interface SecureClientSessionOptions extends ClientSessionOptions, tls.ConnectionOptions {}
     interface SecureServerSessionOptions<
@@ -1269,6 +1273,14 @@ declare module "node:http2" {
         allowHTTP1?: boolean | undefined;
         origins?: string[] | undefined;
     }
+    interface Http1Options<
+        Request extends typeof IncomingMessage,
+        Response extends typeof ServerResponse<InstanceType<Request>>,
+    > {
+        IncomingMessage?: Request | undefined;
+        ServerResponse?: Response | undefined;
+        keepAliveTimeout?: number | undefined;
+    }
     interface Http2ServerCommon {
         setTimeout(msec?: number, callback?: () => void): this;
         /**
@@ -1286,7 +1298,10 @@ declare module "node:http2" {
         "checkContinue": [request: InstanceType<Http2Request>, response: InstanceType<Http2Response>];
         "request": [request: InstanceType<Http2Request>, response: InstanceType<Http2Response>];
         "session": [session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>];
-        "sessionError": [err: Error];
+        "sessionError": [
+            err: Error,
+            session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>,
+        ];
     }
     interface Http2Server<
         Http1Request extends typeof IncomingMessage = typeof IncomingMessage,

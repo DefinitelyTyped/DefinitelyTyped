@@ -639,7 +639,7 @@ addAbortSignal(new AbortSignal(), new Readable());
     // $ExpectType ReadableWritablePair<any, any>
     Duplex.toWeb(duplex);
     // $ExpectType ReadableWritablePair<any, any>
-    Duplex.toWeb(duplex, { type: "bytes" });
+    Duplex.toWeb(duplex, { readableType: "bytes" });
 }
 
 {

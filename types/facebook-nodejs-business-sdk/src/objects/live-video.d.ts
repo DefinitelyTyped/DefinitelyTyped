@@ -24,7 +24,6 @@ export default class LiveVideo extends AbstractCrudObject {
         is_manual_mode: "is_manual_mode";
         is_reference_only: "is_reference_only";
         live_views: "live_views";
-        overlay_url: "overlay_url";
         permalink_url: "permalink_url";
         planned_start_time: "planned_start_time";
         recommended_encoder_settings: "recommended_encoder_settings";

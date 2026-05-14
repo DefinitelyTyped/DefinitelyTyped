@@ -67,7 +67,7 @@ import { URL } from "node:url";
     http2Session.on("close", () => {});
     http2Session.on("connect", (session: Http2Session, socket: Socket) => {});
     http2Session.on("error", (err: Error) => {});
-    http2Session.on("frameError", (frameType: number, errorCode: number, streamID: number) => {});
+    http2Session.on("frameError", (frameType: number, errorCode: number, id: number) => {});
     http2Session.on("goaway", (errorCode: number, lastStreamID: number, opaqueData?: Buffer) => {});
     http2Session.on("localSettings", (settings: Settings) => {});
     http2Session.on("remoteSettings", (settings: Settings) => {});
@@ -140,7 +140,7 @@ import { URL } from "node:url";
 
     http2Stream.on("aborted", () => {});
     http2Stream.on("error", (err: Error) => {});
-    http2Stream.on("frameError", (frameType: number, errorCode: number, streamID: number) => {});
+    http2Stream.on("frameError", (frameType: number, errorCode: number, id: number) => {});
     http2Stream.on("streamClosed", (code: number) => {});
     http2Stream.on("timeout", () => {});
     http2Stream.on("trailers", (trailers: IncomingHttpHeaders, flags: number) => {});
@@ -239,7 +239,7 @@ import { URL } from "node:url";
     const s1: Server = http2Server;
     const s2: Server = http2SecureServer;
     [http2Server, http2SecureServer].forEach((server) => {
-        server.on("sessionError", (err: Error) => {});
+        server.on("sessionError", (err: Error, session: ServerHttp2Session) => {});
         server.on("session", (session: ServerHttp2Session) => {});
         server.on("checkContinue", (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => {});
         server.on("stream", (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => {});

@@ -2,8 +2,8 @@ export = QueryString;
 export as namespace qs;
 
 declare namespace QueryString {
-    type defaultEncoder = (str: any, defaultEncoder?: any, charset?: string) => string;
-    type defaultDecoder = (str: string, decoder?: any, charset?: string) => string;
+    type defaultEncoder = (str: unknown, defaultEncoder?: unknown, charset?: string) => string;
+    type defaultDecoder = (str: string, decoder?: unknown, charset?: string) => string;
 
     type BooleanOptional = boolean | undefined;
 

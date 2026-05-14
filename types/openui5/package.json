@@ -1,11 +1,11 @@
 {
     "private": true,
     "name": "@types/openui5",
-    "version": "1.147.9999",
+    "version": "1.148.9999",
     "nonNpm": true,
     "nonNpmDescription": "openui5",
     "projects": [
-        "https://github.com/SAP/openui5"
+        "https://github.com/UI5/openui5"
     ],
     "minimumTypeScriptVersion": "5.0",
     "dependencies": {
