@@ -1,6 +1,12 @@
 import type ProtocolMappingApi from "devtools-protocol/types/protocol-mapping";
 import type ProtocolProxyApi from "devtools-protocol/types/protocol-proxy-api";
 
+declare class ProtocolError extends Error {
+    private constructor();
+    readonly request: CDP.ProtocolErrorRequest;
+    readonly response: CDP.SendError;
+}
+
 declare namespace CDP {
     interface BaseOptions {
         host?: string | undefined;
@@ -42,6 +48,12 @@ declare namespace CDP {
         code: number;
         message: string;
         data?: string | undefined;
+    }
+
+    interface ProtocolErrorRequest {
+        method: string;
+        params?: object | undefined;
+        sessionId?: string | undefined;
     }
 
     interface SendCallback<T extends keyof ProtocolMappingApi.Commands> {
@@ -430,6 +442,8 @@ declare const CDP: {
     Version(options: CDP.BaseOptions, callback: (err: Error | null, info: CDP.VersionResult) => void): void;
     Version(callback: (err: Error | null, info: CDP.VersionResult) => void): void;
     Version(options?: CDP.BaseOptions): Promise<CDP.VersionResult>;
+
+    readonly ProtocolError: typeof ProtocolError;
 };
 
 export = CDP;
