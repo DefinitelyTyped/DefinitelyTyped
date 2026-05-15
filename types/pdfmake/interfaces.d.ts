@@ -528,6 +528,13 @@ export interface TableCellProperties {
      * Defaults to `1`.
      */
     overlayOpacity?: number | null | undefined;
+
+    /**
+     * Vertical alignment of the cell's content.
+     *
+     * Defaults to `top`.
+     */
+    verticalAlignment?: "top" | "middle" | "bottom" | undefined;
 }
 
 /**

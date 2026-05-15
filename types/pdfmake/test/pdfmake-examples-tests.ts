@@ -2423,6 +2423,18 @@ const tables: TDocumentDefinitions = {
                 ],
             },
         },
+        {
+            table: {
+                headerRows: 1,
+                widths: [ '*', 'auto', 100, '*' ],
+
+                body: [
+                    [ 'First', 'Second', 'Third', 'The last one' ],
+                    [ 'Value 1', 'Value 2', 'Value 3', 'Value 4' ],
+                    [ { text: 'Bold value', verticalAlignment: "middle" }, 'Val 2', 'Val 3', 'Val 4' ]
+                ]
+            }
+        }
     ],
     styles: {
         header: {
