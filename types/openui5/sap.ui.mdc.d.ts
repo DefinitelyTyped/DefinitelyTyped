@@ -1,4 +1,4 @@
-// For Library Version: 1.147.0
+// For Library Version: 1.148.0
 
 declare module "sap/ui/mdc/AggregationBaseDelegate" {
   import BaseDelegate from "sap/ui/mdc/BaseDelegate";
@@ -1435,6 +1435,8 @@ declare module "sap/ui/mdc/field/MultiValueFieldDelegate" {
 
   import MultiValueField from "sap/ui/mdc/MultiValueField";
 
+  import MultiValueFieldItem from "sap/ui/mdc/field/MultiValueFieldItem";
+
   /**
    * Delegate for {@link sap.ui.mdc.MultiValueField MultiValueField}.
    *
@@ -1470,7 +1472,13 @@ declare module "sap/ui/mdc/field/MultiValueFieldDelegate" {
      * Items can be removed, updated, or added. Use the binding information of the {@link sap.ui.mdc.MultiValueField MultiValueField }
      * control to update the data in the related model.
      *
+     * If updating of the items fails, return a rejected `Promise` to sync the conditions with the items. Set
+     * a `valueState` if needed.
+     *
      * @since 1.142
+     *
+     * @returns null or a `Promise` returning an array containing the current items after update. If update
+     * of items fails, the `Promise` needs to be rejected
      */
     updateItemsFromConditions(
       /**
@@ -1482,7 +1490,7 @@ declare module "sap/ui/mdc/field/MultiValueFieldDelegate" {
        * Current conditions of the {@link sap.ui.mdc.MultiValueField MultiValueField} control
        */
       aConditions: ConditionObject[]
-    ): void;
+    ): null | Promise<MultiValueFieldItem[]>;
   }
   const MultiValueFieldDelegate: MultiValueFieldDelegate;
   export default MultiValueFieldDelegate;
@@ -9366,6 +9374,18 @@ declare module "sap/ui/mdc/enums/TableRowActionType" {
    * @since 1.115
    */
   enum TableRowActionType {
+    /**
+     * Custom-defined row action
+     *
+     * @since 1.148
+     */
+    Custom = "Custom",
+    /**
+     * Row action for deletion
+     *
+     * @since 1.148
+     */
+    Delete = "Delete",
     /**
      * Navigation arrow (chevron) is shown
      */
@@ -17447,6 +17467,8 @@ declare module "sap/ui/mdc/Table" {
 
   import DataStateIndicator from "sap/m/plugins/DataStateIndicator";
 
+  import UI5Element from "sap/ui/core/Element";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import TableP13nMode from "sap/ui/mdc/enums/TableP13nMode";
@@ -17855,6 +17877,14 @@ declare module "sap/ui/mdc/Table" {
      */
     destroyDataStateIndicator(): this;
     /**
+     * Destroys the defaultExportSettings in the aggregation {@link #getDefaultExportSettings defaultExportSettings}.
+     *
+     * @since 1.148
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    destroyDefaultExportSettings(): this;
+    /**
      * Destroys the noData in the aggregation {@link #getNoData noData}.
      *
      * @since 1.106
@@ -18171,6 +18201,21 @@ declare module "sap/ui/mdc/Table" {
      * @since 1.89
      */
     getDataStateIndicator(): DataStateIndicator;
+    /**
+     * Gets content of aggregation {@link #getDefaultExportSettings defaultExportSettings}.
+     *
+     * Default values shown in the export dialog.
+     *
+     * **Note:** These values are defaults shown to the user in the export dialog. The user can still modify
+     * them before export. If the user modifies a value in the dialog, the user choice takes precedence and
+     * is not overridden by event handlers.
+     *
+     * The expected type is `sap.ui.export.TableExportSettings`. The `sap.ui.export` library must be loaded
+     * before setting this aggregation.
+     *
+     * @since 1.148
+     */
+    getDefaultExportSettings(): UI5Element;
     /**
      * Gets current value of property {@link #getDelegate delegate}.
      *
@@ -18732,6 +18777,19 @@ declare module "sap/ui/mdc/Table" {
        * The dataStateIndicator to set
        */
       oDataStateIndicator: DataStateIndicator
+    ): this;
+    /**
+     * Sets the aggregated {@link #getDefaultExportSettings defaultExportSettings}.
+     *
+     * @since 1.148
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setDefaultExportSettings(
+      /**
+       * The defaultExportSettings to set
+       */
+      oDefaultExportSettings: UI5Element
     ): this;
     /**
      * Sets a new value for property {@link #getDelegate delegate}.
@@ -19730,6 +19788,20 @@ declare module "sap/ui/mdc/Table" {
      * for the changes to take effect.
      */
     rowSettings?: RowSettings;
+
+    /**
+     * Default values shown in the export dialog.
+     *
+     * **Note:** These values are defaults shown to the user in the export dialog. The user can still modify
+     * them before export. If the user modifies a value in the dialog, the user choice takes precedence and
+     * is not overridden by event handlers.
+     *
+     * The expected type is `sap.ui.export.TableExportSettings`. The `sap.ui.export` library must be loaded
+     * before setting this aggregation.
+     *
+     * @since 1.148
+     */
+    defaultExportSettings?: UI5Element;
 
     /**
      * `DataStateIndicator` plugin that can be used to show binding-related messages.
@@ -21557,6 +21629,16 @@ declare module "sap/ui/mdc/table/GridTableType" {
   /**
    * The table type info class for the metadata-driven table.
    *
+   *
+   * **Important Notes for `{@link sap.ui.mdc.table.RowSettings#setRowActionCount rowActionCount}`:**
+   *
+   *
+   * The `rowActionCount` property is used to determine the number of row actions that are displayed for each
+   * row in the table. The actual number of displayed actions can be limited by the underlying table type:
+   *
+   * 	 - `GridTable`: Maximum number of three actions including the overflow button. 0 means no actions are
+   *     visible.
+   *
    * @since 1.65
    */
   export default class GridTableType extends TableTypeBase {
@@ -22122,6 +22204,18 @@ declare module "sap/ui/mdc/table/ResponsiveTableType" {
   /**
    * The table type info class for the metadata-driven table.
    *
+   *
+   * **Important Notes for `{@link sap.ui.mdc.table.RowSettings#setRowActionCount rowActionCount}`:**
+   *
+   *
+   * The `rowActionCount` property is used to determine the number of row actions that are displayed for each
+   * row in the table. The actual number of displayed actions can be limited by the underlying table type:
+   *
+   *
+   * 	 - `ResponsiveTable`: Maximum of 2-3 actions depending on configuration (1 navigation action + 2 additional
+   *     actions)
+   * 	 - `rowActionCount` = 0: navigation action is always visible if it exists
+   *
    * @since 1.65
    */
   export default class ResponsiveTableType extends TableTypeBase {
@@ -22626,6 +22720,8 @@ declare module "sap/ui/mdc/table/RowActionItem" {
      * Setting the type ensures default values for the properties `icon` and `text`. If an icon or text is set
      * explicitly, this setting is used.
      *
+     * Default value is `Custom`.
+     *
      *
      * @returns Value of property `type`
      */
@@ -22687,6 +22783,8 @@ declare module "sap/ui/mdc/table/RowActionItem" {
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
+     * Default value is `Custom`.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -22694,7 +22792,7 @@ declare module "sap/ui/mdc/table/RowActionItem" {
       /**
        * New value for property `type`
        */
-      sType: TableRowActionType | keyof typeof TableRowActionType
+      sType?: TableRowActionType | keyof typeof TableRowActionType
     ): this;
     /**
      * Sets a new value for property {@link #getVisible visible}.
@@ -22930,6 +23028,49 @@ declare module "sap/ui/mdc/table/RowSettings" {
      */
     getNavigated(): boolean;
     /**
+     * Gets current value of property {@link #getRowActionCount rowActionCount}.
+     *
+     * Defines the number of row actions to display.
+     *
+     * This property is useful for bound row actions where the count cannot be determined automatically. If
+     * not set, the count is derived from:
+     * 	 - Bound actions: Defaults to 1 (must be set explicitly if multiple actions exist)
+     * 	 - Static actions: The length of the `rowActions` aggregation
+     *
+     * **Note:**
+     *  If the `rowActionCount` property is not explicitly set, the table will automatically determine the number
+     * of row actions that is displayed based on the configuration of the `RowSettings` and the underlying table
+     * type. In this case, the table will check how many actions are configured in the `RowSettings` and will
+     * display as many actions as possible up to the maximum number of actions supported by the underlying table
+     * type.
+     *
+     *
+     * If the `rowActionCount` property is explicitly set, its value will be used to determine how many row
+     * actions are displayed, regardless of the number of actions configured in the `RowSettings`. However,
+     * the actual number of displayed actions will still be limited by the maximum number of actions supported
+     * by the underlying table type.
+     *
+     * **Example:**
+     *  If the underlying table type supports a maximum number of 3 row actions, and there are 5 actions configured
+     * in the `RowSettings`:
+     *
+     *
+     * 	 - `rowActionCount` is not set, the table will display 3 actions (the maximum supported).
+     * 	 - `rowActionCount` is set to 2, the table will display 2 actions (as specified), even though more actions
+     *     are configured in the `RowSettings`.
+     *
+     * For bound row actions, the `rowActionCount` must be set explicitly, as the count cannot be determined
+     * automatically. For static actions, the count defaults to the length of the `rowActions` aggregation in
+     * the `RowSettings`.
+     *
+     * Default value is `-1`.
+     *
+     * @since 1.148
+     *
+     * @returns Value of property `rowActionCount`
+     */
+    getRowActionCount(): int;
+    /**
      * Gets content of aggregation {@link #getRowActions rowActions}.
      *
      * The actions that appear at the end of a row.
@@ -23056,6 +23197,56 @@ declare module "sap/ui/mdc/table/RowSettings" {
        */
       bNavigated?: boolean
     ): this;
+    /**
+     * Sets a new value for property {@link #getRowActionCount rowActionCount}.
+     *
+     * Defines the number of row actions to display.
+     *
+     * This property is useful for bound row actions where the count cannot be determined automatically. If
+     * not set, the count is derived from:
+     * 	 - Bound actions: Defaults to 1 (must be set explicitly if multiple actions exist)
+     * 	 - Static actions: The length of the `rowActions` aggregation
+     *
+     * **Note:**
+     *  If the `rowActionCount` property is not explicitly set, the table will automatically determine the number
+     * of row actions that is displayed based on the configuration of the `RowSettings` and the underlying table
+     * type. In this case, the table will check how many actions are configured in the `RowSettings` and will
+     * display as many actions as possible up to the maximum number of actions supported by the underlying table
+     * type.
+     *
+     *
+     * If the `rowActionCount` property is explicitly set, its value will be used to determine how many row
+     * actions are displayed, regardless of the number of actions configured in the `RowSettings`. However,
+     * the actual number of displayed actions will still be limited by the maximum number of actions supported
+     * by the underlying table type.
+     *
+     * **Example:**
+     *  If the underlying table type supports a maximum number of 3 row actions, and there are 5 actions configured
+     * in the `RowSettings`:
+     *
+     *
+     * 	 - `rowActionCount` is not set, the table will display 3 actions (the maximum supported).
+     * 	 - `rowActionCount` is set to 2, the table will display 2 actions (as specified), even though more actions
+     *     are configured in the `RowSettings`.
+     *
+     * For bound row actions, the `rowActionCount` must be set explicitly, as the count cannot be determined
+     * automatically. For static actions, the count defaults to the length of the `rowActions` aggregation in
+     * the `RowSettings`.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `-1`.
+     *
+     * @since 1.148
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setRowActionCount(
+      /**
+       * New value for property `rowActionCount`
+       */
+      iRowActionCount?: int
+    ): this;
   }
   /**
    * Describes the settings that can be provided to the RowSettings constructor.
@@ -23089,6 +23280,44 @@ declare module "sap/ui/mdc/table/RowSettings" {
     navigated?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
+     * Defines the number of row actions to display.
+     *
+     * This property is useful for bound row actions where the count cannot be determined automatically. If
+     * not set, the count is derived from:
+     * 	 - Bound actions: Defaults to 1 (must be set explicitly if multiple actions exist)
+     * 	 - Static actions: The length of the `rowActions` aggregation
+     *
+     * **Note:**
+     *  If the `rowActionCount` property is not explicitly set, the table will automatically determine the number
+     * of row actions that is displayed based on the configuration of the `RowSettings` and the underlying table
+     * type. In this case, the table will check how many actions are configured in the `RowSettings` and will
+     * display as many actions as possible up to the maximum number of actions supported by the underlying table
+     * type.
+     *
+     *
+     * If the `rowActionCount` property is explicitly set, its value will be used to determine how many row
+     * actions are displayed, regardless of the number of actions configured in the `RowSettings`. However,
+     * the actual number of displayed actions will still be limited by the maximum number of actions supported
+     * by the underlying table type.
+     *
+     * **Example:**
+     *  If the underlying table type supports a maximum number of 3 row actions, and there are 5 actions configured
+     * in the `RowSettings`:
+     *
+     *
+     * 	 - `rowActionCount` is not set, the table will display 3 actions (the maximum supported).
+     * 	 - `rowActionCount` is set to 2, the table will display 2 actions (as specified), even though more actions
+     *     are configured in the `RowSettings`.
+     *
+     * For bound row actions, the `rowActionCount` must be set explicitly, as the count cannot be determined
+     * automatically. For static actions, the count defaults to the length of the `rowActions` aggregation in
+     * the `RowSettings`.
+     *
+     * @since 1.148
+     */
+    rowActionCount?: int | PropertyBindingInfo | `{${string}}`;
+
+    /**
      * The actions that appear at the end of a row.
      *
      * **Note:** This aggregation cannot be bound with a factory. If the table type is {@link sap.ui.mdc.table.ResponsiveTableType ResponsiveTable},
@@ -23109,6 +23338,7 @@ declare module "sap/ui/mdc/table/TableTypeBase" {
 
   /**
    * The table type info base class for the metadata-driven table. Base class with no implementation.
+   *
    *
    * @since 1.65
    */
@@ -28221,9 +28451,13 @@ declare namespace sap {
 
     "sap/ui/mdc/LinkDelegate": undefined;
 
+    "sap/ui/mdc/mixin/ActionToolbarMixin": undefined;
+
     "sap/ui/mdc/mixin/AdaptationMixin": undefined;
 
     "sap/ui/mdc/mixin/DelegateMixin": undefined;
+
+    "sap/ui/mdc/mixin/DynamicPropertiesMixin": undefined;
 
     "sap/ui/mdc/mixin/FilterIntegrationMixin": undefined;
 
