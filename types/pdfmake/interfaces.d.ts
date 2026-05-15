@@ -1702,6 +1702,11 @@ export interface TableOfContent {
      * Defaults to the system locale.
      */
     sortLocale?: string | undefined;
+
+    /**
+     * If set to `true`, adds all items to outlines / bookmarks (any existing outline settings on texts are respected)
+     */
+    outlines?: boolean | undefined;
 }
 
 /**

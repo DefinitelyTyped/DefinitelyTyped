@@ -2599,6 +2599,7 @@ const toc: TDocumentDefinitions = {
                 numberStyle: { bold: true },
                 sortBy: "page",
                 sortLocale: "cs",
+                outlines: true,
             },
         },
         {
