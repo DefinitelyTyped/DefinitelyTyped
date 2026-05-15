@@ -1056,7 +1056,7 @@ export interface ContentColumns extends ContentBase, ForbidOtherElementPropertie
      *
      * Note: Recursive snaking columns are not supported.
      */
-    snakingColumns?: boolean
+    snakingColumns?: boolean;
 }
 
 /**

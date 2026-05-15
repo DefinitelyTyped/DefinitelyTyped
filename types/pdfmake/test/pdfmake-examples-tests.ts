@@ -408,13 +408,13 @@ const columnsSnake: TDocumentDefinitions = {
     content: [
         {
             columns: [
-                {text: "Long content", width: '*'},
-                {text: '', width: '*'},
-                {text: '', width: '*'}
+                { text: "Long content", width: "*" },
+                { text: "", width: "*" },
+                { text: "", width: "*" },
             ],
-            snakingColumns: true
-        }
-    ]
+            snakingColumns: true,
+        },
+    ],
 };
 
 const images: TDocumentDefinitions = {
@@ -2439,15 +2439,15 @@ const tables: TDocumentDefinitions = {
         {
             table: {
                 headerRows: 1,
-                widths: [ '*', 'auto', 100, '*' ],
+                widths: ["*", "auto", 100, "*"],
 
                 body: [
-                    [ 'First', 'Second', 'Third', 'The last one' ],
-                    [ 'Value 1', 'Value 2', 'Value 3', 'Value 4' ],
-                    [ { text: 'Bold value', verticalAlignment: "middle" }, 'Val 2', 'Val 3', 'Val 4' ]
-                ]
-            }
-        }
+                    ["First", "Second", "Third", "The last one"],
+                    ["Value 1", "Value 2", "Value 3", "Value 4"],
+                    [{ text: "Bold value", verticalAlignment: "middle" }, "Val 2", "Val 3", "Val 4"],
+                ],
+            },
+        },
     ],
     styles: {
         header: {
@@ -2480,39 +2480,39 @@ const tables: TDocumentDefinitions = {
 };
 
 const outlinesAndBookmarks: TDocumentDefinitions = {
-  content: [
-    {
-      text: 'First header in bookmarks',
-      outline: true,
-    },
-    {
-      text: 'Second header with custom bookmark',
-      outline: true,
-      outlineText: 'Custom bookmark text',
-    },
-    {
-      text: 'Structured bookmarks',
-      id: 'structured-bookmarks',
-      outline: true,
-      outlineExpanded: true
-    },
-    {
-      text: 'First subheader',
-      outline: true,
-      outlineParentId: 'structured-bookmarks'
-    },
-    {
-      text: 'Second subheader',
-      outline: true,
-      outlineParentId: 'structured-bookmarks'
-    },
-    {
-      text: 'Third subheader',
-      outline: true,
-      outlineParentId: 'structured-bookmarks',
-      id: 'third-subheader'
-    }
-  ]
+    content: [
+        {
+            text: "First header in bookmarks",
+            outline: true,
+        },
+        {
+            text: "Second header with custom bookmark",
+            outline: true,
+            outlineText: "Custom bookmark text",
+        },
+        {
+            text: "Structured bookmarks",
+            id: "structured-bookmarks",
+            outline: true,
+            outlineExpanded: true,
+        },
+        {
+            text: "First subheader",
+            outline: true,
+            outlineParentId: "structured-bookmarks",
+        },
+        {
+            text: "Second subheader",
+            outline: true,
+            outlineParentId: "structured-bookmarks",
+        },
+        {
+            text: "Third subheader",
+            outline: true,
+            outlineParentId: "structured-bookmarks",
+            id: "third-subheader",
+        },
+    ],
 };
 
 const textDecorations: TDocumentDefinitions = {
