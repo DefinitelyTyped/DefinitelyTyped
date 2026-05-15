@@ -164,6 +164,7 @@
         "katex",
         "keep-network__tbtc.js",
         "koa",
+        "koa/v2",
         "kss",
         "leveldown",
         "locutus",

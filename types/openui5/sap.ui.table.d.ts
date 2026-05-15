@@ -1,4 +1,4 @@
-// For Library Version: 1.147.0
+// For Library Version: 1.148.0
 
 declare module "sap/ui/table/library" {
   import TreeAutoExpandMode1 from "sap/ui/model/TreeAutoExpandMode";
@@ -88,15 +88,15 @@ declare module "sap/ui/table/library" {
    */
   export enum RowActionType {
     /**
-     * Custom defined Row Action.
+     * Custom-defined row action
      */
     Custom = "Custom",
     /**
-     * Delete Row Action.
+     * Row action for deletion
      */
     Delete = "Delete",
     /**
-     * Navigation Row Action.
+     * Navigation arrow (chevron) is shown
      */
     Navigation = "Navigation",
   }

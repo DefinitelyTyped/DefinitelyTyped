@@ -3,7 +3,7 @@
 /// <reference types="node" />
 
 import { EventEmitter } from "events";
-import { Token } from "parse5";
+import type { Token } from "parse5" with { "resolution-mode": "import" };
 import * as tough from "tough-cookie";
 import { Dispatcher } from "undici-types";
 import { Context } from "vm";
@@ -186,7 +186,7 @@ export interface ResourcesOptions {
     interceptors?: Dispatcher.DispatcherComposeInterceptor[] | undefined;
 }
 
-export interface DOMWindow extends Omit<Window, "top" | "self" | "window"> {
+export interface DOMWindow extends Omit<Window, "top" | "self" | "window" | number> {
     [key: string]: any;
     [index: number]: any;
 

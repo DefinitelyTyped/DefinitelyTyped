@@ -408,3 +408,26 @@ CDP.Activate({ id: "CC46FBFA-3BDA-493B-B2E4-2BE6EB0D97EC" }, (err) => {
 CDP.Version((err, info) => {
     if (!err) {}
 });
+
+(async () => {
+    const client = await CDP();
+    try {
+        await client.send("Page.navigate", { url: "https://github.com" });
+    } catch (err) {
+        if (err instanceof CDP.ProtocolError) {
+            // $ExpectType ProtocolErrorRequest
+            err.request;
+            // $ExpectType string
+            err.request.method;
+            // $ExpectType SendError
+            err.response;
+            // $ExpectType number
+            err.response.code;
+            // $ExpectType string
+            err.response.message;
+        }
+    }
+
+    // @ts-expect-error
+    new CDP.ProtocolError({} as any, {} as any);
+})();

@@ -1532,6 +1532,10 @@ declare namespace naver.maps {
      */
     class StreetLayer extends LabelLayer {
         constructor(option?: StreetLayerOptions);
+        // Only available in the Maps GL submodule.
+        setAirWaterView?(visible: boolean): void;
+        // Only available in the Maps GL submodule.
+        isVisibleAirWaterView?(): boolean;
     }
 
     /**

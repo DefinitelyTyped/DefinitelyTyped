@@ -175,6 +175,8 @@ test(undefined, undefined, t => {
     t.error;
     // $ExpectType number
     t.attempt;
+    // $ExpectType number | undefined
+    t.workerId;
 });
 
 // Test the subtest approach.
@@ -379,6 +381,13 @@ it.expectFailure("x", {
     signal: new AbortController().signal,
     timeout: Infinity,
 });
+
+// expectFailure predicates
+test({ expectFailure: "message" });
+test({ expectFailure: Error });
+test({ expectFailure: /error/ });
+test({ expectFailure: { code: "ERR_INVALID_ARG_TYPE" } });
+test({ expectFailure: (err) => err instanceof TypeError });
 
 // Test with suite context
 describe(s => {
@@ -979,6 +988,14 @@ class TestReporter extends Transform {
                     null,
                     `${name}/${details.duration_ms}/${details.type}/${details.error.cause}/
                     ${nesting}/${testNumber}/${todo}/${skip}/${file}/${column}/${line}`,
+                );
+                break;
+            }
+            case "test:interrupted": {
+                const { tests } = event.data;
+                callback(
+                    null,
+                    tests.map((test) => `${test.name}/${test.nesting}/${test.file}/${test.column}/${test.line}`),
                 );
                 break;
             }

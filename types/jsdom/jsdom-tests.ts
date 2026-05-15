@@ -24,6 +24,9 @@ domWindow.WebAssembly; // $ExpectType typeof WebAssembly
 domWindow.InputEvent.prototype; // $ExpectType InputEvent
 domWindow.external; // $ExpectType External
 
+domWindow["Infinity"]; // $ExpectType number
+domWindow["NaN"]; // $ExpectType number
+
 domWindow.FinalizationRegistry; // $ExpectType FinalizationRegistryConstructor
 domWindow.WeakRef; // $ExpectType WeakRefConstructor
 
