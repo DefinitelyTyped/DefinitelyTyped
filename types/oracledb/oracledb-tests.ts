@@ -720,7 +720,7 @@ export const fetchAsBufferTests = (): void => {
 };
 
 export const fetchAsStringTests = (): void => {
-    defaultOracledb.fetchAsString = [oracledb.DATE, oracledb.NUMBER, oracledb.BUFFER, oracledb.CLOB];
+    defaultOracledb.fetchAsString = [oracledb.DATE, oracledb.NUMBER, oracledb.BUFFER, oracledb.CLOB, oracledb.NCLOB];
     // @ts-expect-error
     defaultOracledb.fetchAsString = [{}];
     // @ts-expect-error
