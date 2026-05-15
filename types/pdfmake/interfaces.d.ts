@@ -1023,6 +1023,24 @@ export interface ContentText extends ContentLink, ContentBase, ForbidOtherElemen
      * below one another, but as inline text in a single paragraph.
      */
     text: Content;
+    /**
+     * Adds this node to the PDF outline/bookmark tree.
+     *
+     * Outlines are hierarchical navigation entries shown in the PDF viewer.
+     */
+    outline?: boolean;
+    /**
+     * Overrides the displayed bookmark label.
+     */
+    outlineText?: string;
+    /**
+     * Marks the bookmark as expanded/opened by default.
+     */
+    outlineExpanded?: boolean;
+    /**
+     * Assigns this bookmark to the parent entry with the given `id`.
+     */
+    outlineParentId?: string;
 }
 
 /**

@@ -2466,6 +2466,42 @@ const tables: TDocumentDefinitions = {
     },
 };
 
+const outlinesAndBookmarks: TDocumentDefinitions = {
+  content: [
+    {
+      text: 'First header in bookmarks',
+      outline: true,
+    },
+    {
+      text: 'Second header with custom bookmark',
+      outline: true,
+      outlineText: 'Custom bookmark text',
+    },
+    {
+      text: 'Structured bookmarks',
+      id: 'structured-bookmarks',
+      outline: true,
+      outlineExpanded: true
+    },
+    {
+      text: 'First subheader',
+      outline: true,
+      outlineParentId: 'structured-bookmarks'
+    },
+    {
+      text: 'Second subheader',
+      outline: true,
+      outlineParentId: 'structured-bookmarks'
+    },
+    {
+      text: 'Third subheader',
+      outline: true,
+      outlineParentId: 'structured-bookmarks',
+      id: 'third-subheader'
+    }
+  ]
+};
+
 const textDecorations: TDocumentDefinitions = {
     content: [
         { text: "Higlighted text", fontSize: 18, background: "yellow" },
