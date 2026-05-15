@@ -1049,6 +1049,14 @@ export interface ContentText extends ContentLink, ContentBase, ForbidOtherElemen
 export interface ContentColumns extends ContentBase, ForbidOtherElementProperties<"columns"> {
     /** Divides the given elements into multiple columns. */
     columns: Column[];
+    /**
+     * Enables snaking columns (newspaper-style columns), where content flows vertically through the first column
+     * and continues at the top of the next columns as needed. Only the first column should contain content;
+     * the remaining columns act as empty overflow targets.
+     *
+     * Note: Recursive snaking columns are not supported.
+     */
+    snakingColumns?: boolean
 }
 
 /**

@@ -404,6 +404,19 @@ const columnsSimple: TDocumentDefinitions = {
     },
 };
 
+const columnsSnake: TDocumentDefinitions = {
+    content: [
+        {
+            columns: [
+                {text: "Long content", width: '*'},
+                {text: '', width: '*'},
+                {text: '', width: '*'}
+            ],
+            snakingColumns: true
+        }
+    ]
+};
+
 const images: TDocumentDefinitions = {
     content: [
         "pdfmake (since it's based on pdfkit) supports JPEG and PNG format",
