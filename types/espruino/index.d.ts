@@ -14,7 +14,7 @@ declare module "Wifi" {
 
     interface connectionOptions {
         password?: string,
-        dnsServers?: [string, string] | [string] // Max 2 DNS servers
+        dnsServers?: [string, string] // Max 2 DNS servers
         channel?: number,
         bssid?: string,
         authMode?: WifiAuth
@@ -24,7 +24,7 @@ declare module "Wifi" {
     function startAP(ssid: string, options: APOptions, callback: (err: string|null) => void): void;
     function disconnect(callback: () => void): void
 
-    function getAPDetails(callback?: (details: any|undefined) => void): {
+    function getAPDetails(callback?: (details: any) => void): {
         status: "enabled" | "disabled"
         stations: {ip:any}[],
         ssid: string,
@@ -35,10 +35,10 @@ declare module "Wifi" {
         savedSsid: string | null
     }
 
-    type IPInfo = {ip:string, netmask:string, gw:string, mac:string}
+    interface IPInfo {ip:string, netmask:string, gw:string, mac:string}
     function getAPIP(callback?: (err:any, ipinfo:IPInfo) => void): IPInfo
     
-    type details = {
+    interface details {
         status: status
         rssi: any,
         ssid: string,
@@ -52,7 +52,7 @@ declare module "Wifi" {
     function getHostname(callback?: (hostname: string) => void): string
     function getIP(callback?: (err:any, ipinfo:IPInfo) => void): IPInfo
     
-    type StatusCallback = {
+    interface StatusCallback {
         status: status,
         ap: "enabled" | "disabled",
         mode: "off" | "sta" | "ap" | "sta+ap",
@@ -77,7 +77,7 @@ declare module "Wifi" {
 
     // EVENTS
     type events = "connected" | "dhcp_timeout" | "disconnected" | "probe_recv" | "sta_joined" | "sta_left" | "associated" | "auth_change"
-    function on(event:events, callback:(details:any|undefined) => void): void
+    function on(event:events, callback:(details:any) => void): void
 
 }
 
@@ -2316,8 +2316,6 @@ declare interface httpSRs {
     headers:Record<string,any>
     setHeader(key:string,value:string):void
 
-    writeHead(statusCode:number|string,headers:Record<string,any>):void
-
     /**
      * <p>This function writes the <code>data</code> argument as a string. Data that is passed in
      * (including arrays) will be converted to a string with the normal JavaScript
@@ -2342,7 +2340,7 @@ declare interface httpSRs {
      * @param headers
      * @url http://www.espruino.com/Reference#l_httpSRs_writeHead
      */
-    writeHead(statusCode: number, headers: any): void;
+    writeHead(statusCode:number|string,headers:Record<string,any>):void
 
     /**
      * <p>Event Listener</p>

@@ -35,7 +35,7 @@ wifi.connect(12345, {});
 wifi.connect("Test");
 
 // ALLOWED
-wifi.connect("Test", { dnsServers: ["8.8.8.8"] });
+wifi.connect("Test", { dnsServers: ["8.8.8.8", "1.1.1.1"] });
 
 // @ts-expect-error -- dnsServers is a 2-tuple, not a 3-tuple
 wifi.connect("Test", { dnsServers: ["8.8.8.8", "1.1.1.1", "9.9.9.9"] });
