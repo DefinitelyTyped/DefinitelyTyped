@@ -1,6 +1,5 @@
 import * as wifi from "Wifi";
 
-
 // minimum
 wifi.connect("Test", {});
 

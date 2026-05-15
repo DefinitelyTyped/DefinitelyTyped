@@ -2179,8 +2179,10 @@ declare namespace ESP8266 {
  */
 declare function http(): void;
 
+type HTTPRequestMethod = "GET"|"POST"|"PUT"|"DELETE"
+
 /** */
-declare namespace http {
+declare module "http" {
     /**
      * <p>Create an HTTP Server</p>
      * <p>When a request to the server is made, the callback is called. In the callback you can use the methods on the response (httpSRs) to send data. You can also add <code>request.on(&#39;data&#39;,function() { ... })</code> to listen for POSTed data</p>
@@ -2190,6 +2192,36 @@ declare namespace http {
      * @url http://www.espruino.com/Reference#l_http_createServer
      */
     function createServer(callback: any): httpSrv;
+
+    /**
+     * <p>Retrieve Data from a Remote Server</p>
+     * 
+     * @param options
+     * @param callback
+     * @return
+     * @url https://www.espruino.com/Reference#t_l_http_get
+     */
+    function get(options: string,callback:(data:httpCRs) => void): httpCRq
+
+    /**
+     * <p>Retrieve/Put Data to a Server</p>
+     * 
+     * @param options
+     * @param callback
+     * @return
+     * @url https://www.espruino.com/Reference#t_l_http_request
+     */
+    function request(
+        options:{
+            host:string,
+            port:number,
+            path:string,
+            method:HTTPRequestMethod,
+            protocol: "https:" | "http:",
+            headers: Record<string,any>
+        },
+        callback:(data:httpCRs) => void
+    ): httpCRq 
 }
 
 /**
@@ -2224,11 +2256,16 @@ declare interface httpSrv {
  *
  * @url http://www.espruino.com/Reference#httpSRq
  */
+type httpSRqEvent = "close" | "drain"
 declare interface httpSRq {
     /**
      * @return
      */
     new(): httpSRq;
+
+    url:string
+    headers:Record<string,any>
+    method:HTTPRequestMethod
 
     /**
      * <p>Return how many bytes are available to read. If there is already a listener for data, this will always return 0.</p>
@@ -2255,6 +2292,13 @@ declare interface httpSRq {
      * @url http://www.espruino.com/Reference#l_httpSRq_pipe
      */
     pipe(destination: any, options: any): void;
+
+    /**
+     * <p>Event Listener</p>
+     * @param event 
+     * @param callback 
+     */
+    on(event:httpSRqEvent, callback:(data:any) => void):void
 }
 
 /**
@@ -2262,11 +2306,17 @@ declare interface httpSRq {
  *
  * @url http://www.espruino.com/Reference#httpSRs
  */
+type httpSRsEvent = "close" | "data"
 declare interface httpSRs {
     /**
      * @return
      */
     new(): httpSRs;
+
+    headers:Record<string,any>
+    setHeader(key:string,value:string):void
+
+    writeHead(statusCode:number|string,headers:Record<string,any>):void
 
     /**
      * <p>This function writes the <code>data</code> argument as a string. Data that is passed in
@@ -2293,6 +2343,13 @@ declare interface httpSRs {
      * @url http://www.espruino.com/Reference#l_httpSRs_writeHead
      */
     writeHead(statusCode: number, headers: any): void;
+
+    /**
+     * <p>Event Listener</p>
+     * @param event 
+     * @param callback 
+     */
+    on(event:httpSRsEvent, callback:(data:any) => void):void
 }
 
 /**
@@ -2300,6 +2357,7 @@ declare interface httpSRs {
  *
  * @url http://www.espruino.com/Reference#httpCRq
  */
+type httpCRqEvent = "drain" | "error"
 declare interface httpCRq {
     /**
      * @return
@@ -2325,6 +2383,13 @@ declare interface httpCRq {
      * @url http://www.espruino.com/Reference#l_httpCRq_end
      */
     end(data: any): void;
+
+    /**
+     * <p>Event Listener</p>
+     * @param event 
+     * @param callback 
+     */
+    on(event:httpCRqEvent, callback:(data:any) => void):void
 }
 
 /**
@@ -2332,11 +2397,17 @@ declare interface httpCRq {
  *
  * @url http://www.espruino.com/Reference#httpCRs
  */
+type httpCRsEvent = "close" | "data" | "error"
 declare interface httpCRs {
     /**
      * @return
      */
     new(): httpCRs;
+
+    headers: Record<string,any>
+    httpVersion: string
+    statusCode: string
+    statusMessage: string
 
     /**
      * <p>Return how many bytes are available to read. If there is a &#39;data&#39; event handler, this will always return 0.</p>
@@ -2363,6 +2434,13 @@ declare interface httpCRs {
      * @url http://www.espruino.com/Reference#l_httpCRs_pipe
      */
     pipe(destination: any, options: any): void;
+
+    /**
+     * <p>Event Listener</p>
+     * @param event 
+     * @param callback 
+     */
+    on(event:httpCRsEvent, callback:(data:any) => void):void
 }
 
 /**
