@@ -1028,19 +1028,19 @@ export interface ContentText extends ContentLink, ContentBase, ForbidOtherElemen
      *
      * Outlines are hierarchical navigation entries shown in the PDF viewer.
      */
-    outline?: boolean;
+    outline?: boolean | undefined;
     /**
      * Overrides the displayed bookmark label.
      */
-    outlineText?: string;
+    outlineText?: string | undefined;
     /**
      * Marks the bookmark as expanded/opened by default.
      */
-    outlineExpanded?: boolean;
+    outlineExpanded?: boolean | undefined;
     /**
      * Assigns this bookmark to the parent entry with the given `id`.
      */
-    outlineParentId?: string;
+    outlineParentId?: string | undefined;
 }
 
 /**
@@ -1056,7 +1056,7 @@ export interface ContentColumns extends ContentBase, ForbidOtherElementPropertie
      *
      * Note: Recursive snaking columns are not supported.
      */
-    snakingColumns?: boolean;
+    snakingColumns?: boolean | undefined;
 }
 
 /**
