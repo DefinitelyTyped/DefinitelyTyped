@@ -36,3 +36,6 @@ pdfMake.setProgressCallback(progress => console.log("Creating pdf: ", progress *
 pdfMake.createPdf(dd, options).write("fileName.pdf").then(() => {
     console.log("PDF file written");
 });
+
+pdfMake.setUrlAccessPolicy(url => url.startsWith(""));
+pdfMake.setLocalAccessPolicy(path => path.startsWith(""));
