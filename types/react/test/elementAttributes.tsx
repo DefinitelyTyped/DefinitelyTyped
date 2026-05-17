@@ -167,8 +167,12 @@ const testCases = [
             // @ts-expect-error
             popoverTargetAction="bad"
         >
-            Hide
+            Bad action
         </button>
+        {/* Tests for Invoker Commands API — commandFor and command */}
+        <button commandFor="my-popover" command="toggle-popover">Toggle</button>
+        <button commandFor="my-dialog" command="show-modal">Open</button>
+        <button commandFor="custom" command="--custom-action">Custom</button>
     </>,
     <>
         <template>
