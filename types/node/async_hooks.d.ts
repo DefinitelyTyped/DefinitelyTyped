@@ -28,7 +28,7 @@ declare module "node:async_hooks" {
      * ```
      *
      * Promise contexts may not get precise `executionAsyncIds` by default.
-     * See the section on [promise execution tracking](https://nodejs.org/docs/latest-v25.x/api/async_hooks.html#promise-execution-tracking).
+     * See the section on [promise execution tracking](https://nodejs.org/docs/latest-v26.x/api/async_hooks.html#promise-execution-tracking).
      * @since v8.1.0
      * @return The `asyncId` of the current execution context. Useful to track when something calls.
      */
@@ -101,29 +101,29 @@ declare module "node:async_hooks" {
      * ```
      *
      * Promise contexts may not get valid `triggerAsyncId`s by default. See
-     * the section on [promise execution tracking](https://nodejs.org/docs/latest-v25.x/api/async_hooks.html#promise-execution-tracking).
+     * the section on [promise execution tracking](https://nodejs.org/docs/latest-v26.x/api/async_hooks.html#promise-execution-tracking).
      * @return The ID of the resource responsible for calling the callback that is currently being executed.
      */
     function triggerAsyncId(): number;
     interface HookCallbacks {
         /**
-         * The [`init` callback](https://nodejs.org/docs/latest-v25.x/api/async_hooks.html#initasyncid-type-triggerasyncid-resource).
+         * The [`init` callback](https://nodejs.org/docs/latest-v26.x/api/async_hooks.html#initasyncid-type-triggerasyncid-resource).
          */
         init?(asyncId: number, type: string, triggerAsyncId: number, resource: object): void;
         /**
-         * The [`before` callback](https://nodejs.org/docs/latest-v25.x/api/async_hooks.html#beforeasyncid).
+         * The [`before` callback](https://nodejs.org/docs/latest-v26.x/api/async_hooks.html#beforeasyncid).
          */
         before?(asyncId: number): void;
         /**
-         * The [`after` callback](https://nodejs.org/docs/latest-v25.x/api/async_hooks.html#afterasyncid).
+         * The [`after` callback](https://nodejs.org/docs/latest-v26.x/api/async_hooks.html#afterasyncid).
          */
         after?(asyncId: number): void;
         /**
-         * The [`promiseResolve` callback](https://nodejs.org/docs/latest-v25.x/api/async_hooks.html#promiseresolveasyncid).
+         * The [`promiseResolve` callback](https://nodejs.org/docs/latest-v26.x/api/async_hooks.html#promiseresolveasyncid).
          */
         promiseResolve?(asyncId: number): void;
         /**
-         * The [`destroy` callback](https://nodejs.org/docs/latest-v25.x/api/async_hooks.html#destroyasyncid).
+         * The [`destroy` callback](https://nodejs.org/docs/latest-v26.x/api/async_hooks.html#destroyasyncid).
          */
         destroy?(asyncId: number): void;
         /**
@@ -153,7 +153,7 @@ declare module "node:async_hooks" {
      * All callbacks are optional. For example, if only resource cleanup needs to
      * be tracked, then only the `destroy` callback needs to be passed. The
      * specifics of all functions that can be passed to `callbacks` is in the
-     * [Hook Callbacks](https://nodejs.org/docs/latest-v25.x/api/async_hooks.html#hook-callbacks) section.
+     * [Hook Callbacks](https://nodejs.org/docs/latest-v26.x/api/async_hooks.html#hook-callbacks) section.
      *
      * ```js
      * import { createHook } from 'node:async_hooks';
@@ -184,7 +184,7 @@ declare module "node:async_hooks" {
      * via the async hooks mechanism, the `init()`, `before()`, `after()`, and
      * `destroy()` callbacks _must not_ be async functions that return promises.
      * @since v8.1.0
-     * @param options The [Hook Callbacks](https://nodejs.org/docs/latest-v25.x/api/async_hooks.html#hook-callbacks) to register
+     * @param options The [Hook Callbacks](https://nodejs.org/docs/latest-v26.x/api/async_hooks.html#hook-callbacks) to register
      * @returns Instance used for disabling and enabling hooks
      */
     function createHook(options: HookCallbacks): AsyncHook;

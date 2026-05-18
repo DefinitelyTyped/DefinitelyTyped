@@ -19,7 +19,7 @@ declare module "node:console" {
             colorMode?: boolean | "auto" | undefined;
             /**
              * Specifies options that are passed along to
-             * [`util.inspect()`](https://nodejs.org/docs/latest-v25.x/api/util.html#utilinspectobject-options).
+             * [`util.inspect()`](https://nodejs.org/docs/latest-v26.x/api/util.html#utilinspectobject-options).
              */
             inspectOptions?: InspectOptions | ReadonlyMap<NodeJS.WritableStream, InspectOptions> | undefined;
             /**

@@ -32,7 +32,7 @@ declare module "node:events" {
     interface EventEmitterOptions {
         /**
          * It enables
-         * [automatic capturing of promise rejection](https://nodejs.org/docs/latest-v25.x/api/events.html#capture-rejections-of-promises).
+         * [automatic capturing of promise rejection](https://nodejs.org/docs/latest-v26.x/api/events.html#capture-rejections-of-promises).
          * @default false
          */
         captureRejections?: boolean | undefined;
@@ -445,7 +445,7 @@ declare module "node:events" {
             signal?: AbortSignal | undefined;
         }
         /**
-         * See how to write a custom [rejection handler](https://nodejs.org/docs/latest-v25.x/api/events.html#emittersymbolfornodejsrejectionerr-eventname-args).
+         * See how to write a custom [rejection handler](https://nodejs.org/docs/latest-v26.x/api/events.html#emittersymbolfornodejsrejectionerr-eventname-args).
          * @since v13.4.0, v12.16.0
          */
         const captureRejectionSymbol: unique symbol;
@@ -857,7 +857,7 @@ declare module "node:events" {
         /**
          * Integrates `EventEmitter` with `AsyncResource` for `EventEmitter`s that
          * require manual async tracking. Specifically, all events emitted by instances
-         * of `events.EventEmitterAsyncResource` will run within its [async context](https://nodejs.org/docs/latest-v25.x/api/async_context.html).
+         * of `events.EventEmitterAsyncResource` will run within its [async context](https://nodejs.org/docs/latest-v26.x/api/async_context.html).
          *
          * ```js
          * import { EventEmitterAsyncResource, EventEmitter } from 'node:events';

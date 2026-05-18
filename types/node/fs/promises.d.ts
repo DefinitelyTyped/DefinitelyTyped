@@ -256,9 +256,9 @@ declare module "node:fs/promises" {
         datasync(): Promise<void>;
         /**
          * Return the file contents as an async iterable using the
-         * [`node:stream/iter`](https://nodejs.org/docs/latest-v25.x/api/stream_iter.html) pull model. Reads are performed in `chunkSize`-byte
+         * [`node:stream/iter`](https://nodejs.org/docs/latest-v26.x/api/stream_iter.html) pull model. Reads are performed in `chunkSize`-byte
          * chunks (default 128 KB). If transforms are provided, they are applied
-         * via [`stream/iter pull()`](https://nodejs.org/docs/latest-v25.x/api/stream_iter.html#pullsource-transforms-options).
+         * via [`stream/iter pull()`](https://nodejs.org/docs/latest-v26.x/api/stream_iter.html#pullsource-transforms-options).
          *
          * The file handle is locked while the iterable is being consumed and unlocked
          * when iteration completes, an error occurs, or the consumer breaks.
@@ -538,7 +538,7 @@ declare module "node:fs/promises" {
             position?: number,
         ): Promise<WriteVResult<TBuffers>>;
         /**
-         * Return a [`node:stream/iter`](https://nodejs.org/docs/latest-v25.x/api/stream_iter.html) writer backed by this file handle.
+         * Return a [`node:stream/iter`](https://nodejs.org/docs/latest-v26.x/api/stream_iter.html) writer backed by this file handle.
          *
          * The writer supports both `Symbol.asyncDispose` and `Symbol.dispose`:
          *
@@ -548,7 +548,7 @@ declare module "node:fs/promises" {
          * * `using w = fh.writer()` — calls `fail()` unconditionally.
          *
          * The `writeSync()` and `writevSync()` methods enable the try-sync fast path
-         * used by [`stream/iter pipeTo()`](https://nodejs.org/docs/latest-v25.x/api/stream_iter.html#pipetosource-transforms-writer). When the reader's chunk size matches the
+         * used by [`stream/iter pipeTo()`](https://nodejs.org/docs/latest-v26.x/api/stream_iter.html#pipetosource-transforms-writer). When the reader's chunk size matches the
          * writer's `chunkSize`, all writes in a `pipeTo()` pipeline complete
          * synchronously with zero promise overhead.
          *

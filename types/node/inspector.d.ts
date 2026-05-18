@@ -34,7 +34,7 @@ declare module "node:inspector" {
      * If wait is `true`, will block until a client has connected to the inspect port
      * and flow control has been passed to the debugger client.
      *
-     * See the [security warning](https://nodejs.org/docs/latest-v25.x/api/cli.html#warning-binding-inspector-to-a-public-ipport-combination-is-insecure)
+     * See the [security warning](https://nodejs.org/docs/latest-v26.x/api/cli.html#warning-binding-inspector-to-a-public-ipport-combination-is-insecure)
      * regarding the `host` parameter usage.
      * @param port Port to listen on for inspector connections. Defaults to what was specified on the CLI.
      * @param host Host to listen on for inspector connections. Defaults to what was specified on the CLI.

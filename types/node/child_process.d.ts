@@ -404,7 +404,7 @@ declare module "node:child_process" {
          * as the connection may have been closed during the time it takes to send the
          * connection to the child.
          * @since v0.5.9
-         * @param sendHandle `undefined`, or a [`net.Socket`](https://nodejs.org/docs/latest-v25.x/api/net.html#class-netsocket), [`net.Server`](https://nodejs.org/docs/latest-v25.x/api/net.html#class-netserver), or [`dgram.Socket`](https://nodejs.org/docs/latest-v25.x/api/dgram.html#class-dgramsocket) object.
+         * @param sendHandle `undefined`, or a [`net.Socket`](https://nodejs.org/docs/latest-v26.x/api/net.html#class-netsocket), [`net.Server`](https://nodejs.org/docs/latest-v26.x/api/net.html#class-netserver), or [`dgram.Socket`](https://nodejs.org/docs/latest-v26.x/api/dgram.html#class-dgramsocket) object.
          * @param options The `options` argument, if present, is an object used to parameterize the sending of certain types of handles. `options` supports the following properties:
          */
         send(message: Serializable, callback?: (error: Error | null) => void): boolean;

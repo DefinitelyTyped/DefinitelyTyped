@@ -459,7 +459,7 @@ declare module "node:perf_hooks" {
      * Event Loop Utilization (ELU).
      *
      * If bootstrapping has not yet finished on the main thread the properties have
-     * the value of `0`. The ELU is immediately available on [Worker threads](https://nodejs.org/docs/latest-v25.x/api/worker_threads.html#worker-threads) since
+     * the value of `0`. The ELU is immediately available on [Worker threads](https://nodejs.org/docs/latest-v26.x/api/worker_threads.html#worker-threads) since
      * bootstrap happens within the event loop.
      *
      * Both `utilization1` and `utilization2` are optional parameters.

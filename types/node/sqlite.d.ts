@@ -336,7 +336,7 @@ declare module "node:sqlite" {
          * @param options Optional configuration settings for the function.
          * @param fn The JavaScript function to call when the SQLite function is
          * invoked. The return value of this function should be a valid SQLite data type:
-         * see [Type conversion between JavaScript and SQLite](https://nodejs.org/docs/latest-v25.x/api/sqlite.html#type-conversion-between-javascript-and-sqlite). The result defaults to
+         * see [Type conversion between JavaScript and SQLite](https://nodejs.org/docs/latest-v26.x/api/sqlite.html#type-conversion-between-javascript-and-sqlite). The result defaults to
          * `NULL` if the return value is `undefined`.
          */
         function(
