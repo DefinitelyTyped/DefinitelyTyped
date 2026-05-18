@@ -23,6 +23,7 @@ import {
     GeoJSONDelegate,
     ImageAnnotation,
     ImageAnnotationConstructorOptions,
+    ItemCollection,
     LineGradient,
     LookAround,
     LookAroundOptions,
@@ -68,6 +69,7 @@ import {
     TileOverlayConstructorOptions,
     UserLocationAnnotation,
 } from "apple-mapkit";
+import type { GeoJSON, GeoJsonProperties, Geometry } from "geojson";
 
 // ===== MapKit Initialization =====
 const initOptions: MapKitInitializationOptions = {
@@ -732,7 +734,14 @@ const geoJSONData = {
     ],
 };
 
-const importedItems = mapkit.importGeoJSON(geoJSONData, geoJSONDelegate);
+const importedItems:
+    | ItemCollection<
+        GeoJSON<
+            Geometry,
+            GeoJsonProperties
+        >
+    >
+    | undefined = mapkit.importGeoJSON(geoJSONData, geoJSONDelegate);
 
 // ===== Map Feature Annotations =====
 
