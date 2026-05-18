@@ -5009,6 +5009,10 @@
             "libraryName": "openpgp",
             "asOfVersion": "5.0.0"
         },
+        "openseadragon": {
+            "libraryName": "openseadragon",
+            "asOfVersion": "6.0.0"
+        },
         "opn": {
             "libraryName": "opn",
             "asOfVersion": "5.5.0"
