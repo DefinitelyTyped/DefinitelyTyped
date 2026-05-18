@@ -609,7 +609,11 @@ declare module "node:crypto" {
     class KeyObject {
         private constructor();
         /**
-         * Example: Converting a `CryptoKey` instance to a `KeyObject`:
+         * Returns the underlying `KeyObject` of a `CryptoKey`. The returned `KeyObject`
+         * does not retain any of the restrictions imposed by the Web Crypto API on the
+         * original `CryptoKey`, such as the allowed key usages, the algorithm or hash
+         * algorithm bindings, and the extractability flag. In particular, the underlying
+         * key material of the returned `KeyObject` can always be exported.
          *
          * ```js
          * const { KeyObject } = await import('node:crypto');
