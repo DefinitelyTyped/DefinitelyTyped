@@ -54,6 +54,7 @@ import { fileURLToPath } from "node:url";
     }
     process.setUncaughtExceptionCaptureCallback(myCb);
     process.setUncaughtExceptionCaptureCallback(null);
+    process.addUncaughtExceptionCaptureCallback((err) => true);
     const b: boolean = process.hasUncaughtExceptionCaptureCallback();
 }
 

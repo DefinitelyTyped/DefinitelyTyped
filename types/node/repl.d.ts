@@ -86,6 +86,21 @@ declare module "node:repl" {
          * @default false
          */
         breakEvalOnSigint?: boolean | undefined;
+        /**
+         * This function customizes error handling in the REPL.
+         * It receives the thrown exception as its first argument and must return one
+         * of the following values synchronously:
+         * * `'print'` to print the error to the output stream (default behavior).
+         * * `'ignore'` to skip all remaining error handling.
+         * * `'unhandled'` to treat the exception as fully unhandled. In this case,
+         *   the error will be passed to process-wide exception handlers, such as
+         *   the `'uncaughtException'` event.
+         *   The `'unhandled'` value may or may not be desirable in situations
+         *   where the `REPLServer` instance has been closed, depending on the particular
+         *   use case.
+         * @since v25.9.0
+         */
+        handleError?: ((err: unknown) => "print" | "ignore" | "unhandled") | undefined;
     }
     type REPLEval = (
         this: REPLServer,

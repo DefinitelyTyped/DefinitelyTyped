@@ -179,7 +179,7 @@ declare module "node:quic" {
          * The TLS crypto keys to use for sessions.
          * @since v23.8.0
          */
-        keys?: KeyObject | webcrypto.CryptoKey | ReadonlyArray<KeyObject | webcrypto.CryptoKey> | undefined;
+        keys?: KeyObject | readonly KeyObject[] | undefined;
         /**
          * Specifies the maximum UDP packet payload size.
          * @since v23.8.0
@@ -653,7 +653,7 @@ declare module "node:quic" {
         /**
          * Sends an unreliable datagram to the remote peer, returning the datagram ID.
          * If the datagram payload is specified as an `ArrayBufferView`, then ownership of
-         * that view will be transfered to the underlying stream.
+         * that view will be transferred to the underlying stream.
          * @since v23.8.0
          */
         sendDatagram(datagram: string | NodeJS.ArrayBufferView): bigint;

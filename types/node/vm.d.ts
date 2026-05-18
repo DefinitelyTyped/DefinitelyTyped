@@ -232,11 +232,12 @@ declare module "node:vm" {
          *
          * 1. Creates a new context.
          * 2. If `contextObject` is an object, contextifies it with the new context.
-         *    If  `contextObject` is undefined, creates a new object and contextifies it.
+         *    If `contextObject` is undefined, creates a new object and contextifies it.
          *    If `contextObject` is `vm.constants.DONT_CONTEXTIFY`, don't contextify anything.
-         * 3. Runs the compiled code contained by the `vm.Script` object within the created context. The code
-         *    does not have access to the scope in which this method is called.
-         * 4. Returns the result.
+         * 3. Compiles the code as a `vm.Script`
+         * 4. Runs the compiled code within the created context. The code does not have access to the scope in
+         *    which this method is called.
+         * 5. Returns the result.
          *
          * The following example compiles code that sets a global variable, then executes
          * the code multiple times in different contexts. The globals are set on and

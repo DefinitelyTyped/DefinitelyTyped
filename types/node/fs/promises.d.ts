@@ -37,6 +37,7 @@ declare module "node:fs/promises" {
         WriteVResult,
     } from "node:fs";
     import { Stream } from "node:stream";
+    import { ByteReadableStream, Transform, Writer } from "node:stream/iter";
     import { ReadableStream } from "node:stream/web";
     interface FileChangeInfo<T extends string | Buffer> {
         eventType: WatchEventType;
@@ -84,6 +85,57 @@ declare module "node:fs/promises" {
     }
     interface ReadableWebStreamOptions {
         autoClose?: boolean | undefined;
+    }
+    interface PullOptions extends Abortable {
+        /**
+         * Close the file handle when the stream ends.
+         * @default false
+         */
+        autoClose?: boolean | undefined;
+        /**
+         * Byte offset to begin reading from. When specified,
+         * reads use explicit positioning (`pread` semantics).
+         */
+        start?: number | undefined;
+        /**
+         * Maximum number of bytes to read before ending the
+         * iterator. Reads stop when `limit` bytes have been delivered or EOF is
+         * reached, whichever comes first.
+         */
+        limit?: number | undefined;
+        /**
+         * Size in bytes of the buffer allocated for each
+         * read operation.
+         * @default 131072
+         */
+        chunkSize?: number | undefined;
+    }
+    interface WriterOptions {
+        /**
+         * Close the file handle when the writer ends or fails.
+         * @default false
+         */
+        autoClose?: boolean | undefined;
+        /**
+         * Byte offset to start writing at. When specified,
+         * writes use explicit positioning.
+         */
+        start?: number | undefined;
+        /**
+         * Maximum number of bytes the writer will accept.
+         * Async writes (`write()`, `writev()`) that would exceed the limit reject
+         * with `ERR_OUT_OF_RANGE`. Sync writes (`writeSync()`, `writevSync()`)
+         * return `false`.
+         */
+        limit?: number | undefined;
+        /**
+         * Maximum chunk size in bytes for synchronous write
+         * operations. Writes larger than this threshold fall back to async I/O.
+         * Set this to match the reader's `chunkSize` for optimal `pipeTo()`
+         * performance.
+         * @default 131072
+         */
+        chunkSize?: number | undefined;
     }
     // TODO: Add `EventEmitter` close
     interface FileHandle {
@@ -202,6 +254,41 @@ declare module "node:fs/promises" {
          * @return Fulfills with `undefined` upon success.
          */
         datasync(): Promise<void>;
+        /**
+         * Return the file contents as an async iterable using the
+         * [`node:stream/iter`](https://nodejs.org/docs/latest-v25.x/api/stream_iter.html) pull model. Reads are performed in `chunkSize`-byte
+         * chunks (default 128 KB). If transforms are provided, they are applied
+         * via [`stream/iter pull()`](https://nodejs.org/docs/latest-v25.x/api/stream_iter.html#pullsource-transforms-options).
+         *
+         * The file handle is locked while the iterable is being consumed and unlocked
+         * when iteration completes, an error occurs, or the consumer breaks.
+         *
+         * This function is only available when the `--experimental-stream-iter` flag is
+         * enabled.
+         *
+         * ```js
+         * import { open } from 'node:fs/promises';
+         * import { text } from 'node:stream/iter';
+         * import { compressGzip } from 'node:zlib/iter';
+         *
+         * const fh = await open('input.txt', 'r');
+         *
+         * // Read as text
+         * console.log(await text(fh.pull({ autoClose: true })));
+         *
+         * // Read 1 KB starting at byte 100
+         * const fh2 = await open('input.txt', 'r');
+         * console.log(await text(fh2.pull({ start: 100, limit: 1024, autoClose: true })));
+         *
+         * // Read with compression
+         * const fh3 = await open('input.txt', 'r');
+         * const compressed = fh3.pull(compressGzip(), { autoClose: true });
+         * ```
+         * @since v25.9.0
+         * @experimental
+         */
+        pull(...transforms: Transform[]): ByteReadableStream;
+        pull(...args: [...transforms: Transform[], options: PullOptions]): ByteReadableStream;
         /**
          * Request that all data for the open file descriptor is flushed to the storage
          * device. The specific implementation is operating system and device specific.
@@ -450,6 +537,45 @@ declare module "node:fs/promises" {
             buffers: TBuffers,
             position?: number,
         ): Promise<WriteVResult<TBuffers>>;
+        /**
+         * Return a [`node:stream/iter`](https://nodejs.org/docs/latest-v25.x/api/stream_iter.html) writer backed by this file handle.
+         *
+         * The writer supports both `Symbol.asyncDispose` and `Symbol.dispose`:
+         *
+         * * `await using w = fh.writer()` — if the writer is still open (no `end()`
+         *   called), `asyncDispose` calls `fail()`. If `end()` is pending, it waits
+         *   for it to complete.
+         * * `using w = fh.writer()` — calls `fail()` unconditionally.
+         *
+         * The `writeSync()` and `writevSync()` methods enable the try-sync fast path
+         * used by [`stream/iter pipeTo()`](https://nodejs.org/docs/latest-v25.x/api/stream_iter.html#pipetosource-transforms-writer). When the reader's chunk size matches the
+         * writer's `chunkSize`, all writes in a `pipeTo()` pipeline complete
+         * synchronously with zero promise overhead.
+         *
+         * This function is only available when the `--experimental-stream-iter` flag is
+         * enabled.
+         *
+         * ```js
+         * import { open } from 'node:fs/promises';
+         * import { from, pipeTo } from 'node:stream/iter';
+         * import { compressGzip } from 'node:zlib/iter';
+         *
+         * // Async pipeline
+         * const fh = await open('output.gz', 'w');
+         * await pipeTo(from('Hello!'), compressGzip(), fh.writer({ autoClose: true }));
+         *
+         * // Sync pipeline with limit
+         * const src = await open('input.txt', 'r');
+         * const dst = await open('output.txt', 'w');
+         * const w = dst.writer({ limit: 1024 * 1024 }); // Max 1 MB
+         * await pipeTo(src.pull({ autoClose: true }), w);
+         * await w.end();
+         * await dst.close();
+         * ```
+         * @since v25.9.0
+         * @experimental
+         */
+        writer(options?: WriterOptions): Writer;
         /**
          * Read from a file and write to an array of [ArrayBufferView](https://developer.mozilla.org/en-US/docs/Web/API/ArrayBufferView) s
          * @since v13.13.0, v12.17.0

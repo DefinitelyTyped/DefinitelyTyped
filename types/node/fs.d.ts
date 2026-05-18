@@ -380,7 +380,8 @@ declare module "node:fs" {
         "ready": [];
     }
     /**
-     * Instances of `fs.ReadStream` are created and returned using the {@link createReadStream} function.
+     * Instances of `fs.ReadStream` cannot be constructed directly. They are created and
+     * returned using the `fs.createReadStream()` function.
      * @since v0.1.93
      */
     class ReadStream extends stream.Readable {
@@ -643,7 +644,8 @@ declare module "node:fs" {
         "ready": [];
     }
     /**
-     * Instances of `fs.WriteStream` are created and returned using the {@link createWriteStream} function.
+     * Instances of `fs.WriteStream` cannot be constructed directly. They are created and
+     * returned using the `fs.createWriteStream()` function.
      * @since v0.1.93
      */
     class WriteStream extends stream.Writable {

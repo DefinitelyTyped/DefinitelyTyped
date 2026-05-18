@@ -218,6 +218,7 @@ declare module "node:module" {
          * This feature requires `--allow-worker` if used with the
          * [Permission Model](https://nodejs.org/docs/latest-v25.x/api/permissions.html#permission-model).
          * @since v20.6.0, v18.19.0
+         * @deprecated Use `module.registerHooks()` instead.
          * @param specifier Customization hooks to be registered; this should be
          * the same string that would be passed to `import()`, except that if it is
          * relative, it is resolved relative to `parentURL`.
