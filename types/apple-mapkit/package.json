@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/apple-mapkit",
-    "version": "5.80.9999",
+    "version": "5.81.9999",
     "nonNpm": true,
     "nonNpmDescription": "MapKit JS",
     "projects": [
