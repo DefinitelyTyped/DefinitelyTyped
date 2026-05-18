@@ -6,8 +6,8 @@ async function testAuth(): Promise<void> {
     const tokenType: Safie.Auth.TokenType = initResult.tokenType;
     console.log(tokenType);
 
-    await Safie.Auth.setToken('token', Safie.Auth.TokenType.APIKey);
-    await Safie.Auth.setToken('token', Safie.Auth.TokenType.AccessToken, true);
+    await Safie.Auth.setToken("token", Safie.Auth.TokenType.APIKey);
+    await Safie.Auth.setToken("token", Safie.Auth.TokenType.AccessToken, true);
     await Safie.Auth.removeToken();
 }
 
@@ -24,18 +24,18 @@ async function testDevices(): Promise<void> {
         console.log(id, modelName, serial, name, streaming, connected);
     });
 
-    const thumbnail: Blob = await Safie.Devices.queryThumbnail({ deviceId: 'device' });
+    const thumbnail: Blob = await Safie.Devices.queryThumbnail({ deviceId: "device" });
     console.log(thumbnail);
 
-    const image: Blob = await Safie.Devices.queryImage({ deviceId: 'device' });
-    await Safie.Devices.queryImage({ deviceId: 'device', timestamp: 1595981532000 });
+    const image: Blob = await Safie.Devices.queryImage({ deviceId: "device" });
+    await Safie.Devices.queryImage({ deviceId: "device", timestamp: 1595981532000 });
     console.log(image);
 
-    const stillCapture: Blob = await Safie.Devices.queryStillCapture({ deviceId: 'device' });
+    const stillCapture: Blob = await Safie.Devices.queryStillCapture({ deviceId: "device" });
     console.log(stillCapture);
 
     const media: Safie.Devices.QueryMediaResult = await Safie.Devices.queryMedia({
-        deviceId: 'device',
+        deviceId: "device",
         start: 1597823820000,
         end: 1597910220000,
     });
@@ -46,7 +46,7 @@ async function testDevices(): Promise<void> {
     });
 
     const events: Safie.Devices.QueryStandardEventsResult = await Safie.Devices.queryStandardEvents({
-        deviceId: 'device',
+        deviceId: "device",
         start: 1597823820000,
         end: 1597910220000,
         types: [
@@ -68,7 +68,7 @@ async function testDevices(): Promise<void> {
     console.log(events.offset, events.total);
 
     const location: Safie.Devices.QueryLocationResult = await Safie.Devices.queryLocation({
-        deviceId: 'device',
+        deviceId: "device",
     });
     const gpsStatus: Safie.Devices.GPSStatus = location.gpsStatus;
     const lat: number = location.location.latitude;
@@ -76,7 +76,7 @@ async function testDevices(): Promise<void> {
     console.log(gpsStatus, lat, lng);
 
     const recording: Safie.Devices.QueryLocalRecordingStateResult = await Safie.Devices.queryLocalRecordingState({
-        deviceId: 'device',
+        deviceId: "device",
     });
     if (recording.localRecording) {
         const localMode: boolean = recording.localRecording.localMode;
@@ -98,19 +98,19 @@ async function testDevices(): Promise<void> {
 }
 
 function testPlayer(): void {
-    const element = document.getElementById('player') as HTMLElement;
+    const element = document.getElementById("player") as HTMLElement;
     const player: Safie.Player.StreamingPlayer = new Safie.Player.StreamingPlayer(element, {
-        deviceId: 'device',
+        deviceId: "device",
         volume: 50,
         muted: false,
         userInteractions: true,
-        liveBroadcastMode: 'hls',
+        liveBroadcastMode: "hls",
     });
     new Safie.Player.StreamingPlayer(element);
-    new Safie.Player.StreamingPlayer(element, { liveBroadcastMode: 'webrtc' });
+    new Safie.Player.StreamingPlayer(element, { liveBroadcastMode: "webrtc" });
 
     const instanceId: string = player.instanceId;
-    player.deviceId = 'newDevice';
+    player.deviceId = "newDevice";
     const deviceId: string = player.deviceId;
     player.volume = 75;
     const volume: number = player.volume;
@@ -118,7 +118,7 @@ function testPlayer(): void {
     const muted: boolean = player.muted;
     player.userInteractions = false;
     const userInteractions: boolean = player.userInteractions;
-    const liveMode: 'hls' | 'webrtc' = player.liveBroadcastMode;
+    const liveMode: "hls" | "webrtc" = player.liveBroadcastMode;
     const status: Safie.Player.PlayerStatus = player.status;
     const playTime: number = player.playTime;
     const streamingMode: Safie.Player.StreamingMode = player.streamingMode;
@@ -131,19 +131,23 @@ function testPlayer(): void {
     player.pause();
     player.unpause();
 
-    const onPlayTimeChange: Safie.Player.EventListeners[Safie.Player.PlayerEvent.PLAY_TIME_CHANGE] = (timestamp: number) => {
+    const onPlayTimeChange: Safie.Player.EventListeners[Safie.Player.PlayerEvent.PLAY_TIME_CHANGE] = (
+        timestamp: number,
+    ) => {
         console.log(timestamp);
     };
-    const onStatusChange: Safie.Player.EventListeners[Safie.Player.PlayerEvent.STATUS_CHANGE] = ({ status: s, context }) => {
+    const onStatusChange: Safie.Player.EventListeners[Safie.Player.PlayerEvent.STATUS_CHANGE] = (
+        { status: s, context },
+    ) => {
         const playerStatus: Safie.Player.PlayerStatus = s;
         console.log(playerStatus);
         if (context) {
             const playerContext: Safie.Player.PlayerStatusContext = context;
-            if ('streamingMode' in playerContext) {
+            if ("streamingMode" in playerContext) {
                 const mode: Safie.Player.StreamingMode = playerContext.streamingMode;
                 console.log(mode);
             }
-            if ('error' in playerContext) {
+            if ("error" in playerContext) {
                 const errorDetail: Safie.ErrorDetail = playerContext.error;
                 console.log(errorDetail);
             }
@@ -178,21 +182,21 @@ function testPlayer(): void {
 }
 
 function testTimeline(): void {
-    const playerElement = document.getElementById('player') as HTMLElement;
+    const playerElement = document.getElementById("player") as HTMLElement;
     const player1 = new Safie.Player.StreamingPlayer(playerElement);
     const player2 = new Safie.Player.StreamingPlayer(playerElement);
 
-    const timelineElement = document.getElementById('timeline') as HTMLElement;
+    const timelineElement = document.getElementById("timeline") as HTMLElement;
     const timeline: Safie.UIControl.Timeline = new Safie.UIControl.Timeline(timelineElement, {
         players: [player1, player2],
-        filterEventTypes: ['motion', 'sound'],
+        filterEventTypes: ["motion", "sound"],
     });
     new Safie.UIControl.Timeline(timelineElement, { players: [player1] });
     new Safie.UIControl.Timeline(timelineElement, { players: [player1], filterEventTypes: null });
 
     const status: Safie.UIControl.TimelineStatus = timeline.status;
     const playTime: number = timeline.playTime;
-    timeline.filterEventTypes = ['motion'];
+    timeline.filterEventTypes = ["motion"];
     timeline.filterEventTypes = null;
     const filterEventTypes: string[] | null = timeline.filterEventTypes;
     console.log(status, playTime, filterEventTypes);
@@ -204,10 +208,14 @@ function testTimeline(): void {
     timeline.unpause();
     timeline.stop();
 
-    const onPlayTimeChange: Safie.UIControl.EventListeners[Safie.UIControl.TimelineEvent.PLAY_TIME_CHANGE] = (timestamp: number) => {
+    const onPlayTimeChange: Safie.UIControl.EventListeners[Safie.UIControl.TimelineEvent.PLAY_TIME_CHANGE] = (
+        timestamp: number,
+    ) => {
         console.log(timestamp);
     };
-    const onStatusChange: Safie.UIControl.EventListeners[Safie.UIControl.TimelineEvent.STATUS_CHANGE] = ({ status: s, context }) => {
+    const onStatusChange: Safie.UIControl.EventListeners[Safie.UIControl.TimelineEvent.STATUS_CHANGE] = (
+        { status: s, context },
+    ) => {
         const timelineStatus: Safie.UIControl.TimelineStatus = s;
         console.log(timelineStatus);
         if (context) {
@@ -254,13 +262,13 @@ function testErrorHandling(error: Safie.ErrorDetail): void {
 
     // ErrorTypeリテラルの網羅
     const errorTypes: Safie.ErrorType[] = [
-        'invalid_params',
-        'unauthorized',
-        'forbidden',
-        'too_many_requests',
-        'service_unavailable',
-        'network_error',
-        'resource_exhausted',
+        "invalid_params",
+        "unauthorized",
+        "forbidden",
+        "too_many_requests",
+        "service_unavailable",
+        "network_error",
+        "resource_exhausted",
     ];
     console.log(errorTypes);
 }
@@ -271,4 +279,4 @@ testDevices();
 testPlayer();
 testTimeline();
 testUsers();
-testErrorHandling({ type: 'invalid_params', message: 'sample' });
+testErrorHandling({ type: "invalid_params", message: "sample" });
