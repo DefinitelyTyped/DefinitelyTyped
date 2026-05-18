@@ -68,7 +68,7 @@ export interface HowlListeners {
     onplayerror?: HowlErrorCallback | undefined;
 }
 
-export interface HowlOptions extends HowlListeners {
+export interface HowlOptions extends HowlListeners, PannerAttributes {
     /**
      * The sources to the track(s) to be loaded for the sound (URLs or base64 data URIs). These should
      * be in order of preference, howler.js will automatically load the first one that is compatible
