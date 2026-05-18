@@ -1,4 +1,4 @@
-import { Client, WsClient, TcpClient, RtpEngineError, RtpEngineResponse } from "rtpengine-client";
+import { Client, RtpEngineError, RtpEngineResponse, TcpClient, WsClient } from "rtpengine-client";
 
 // --- Client (UDP) ---
 
@@ -7,7 +7,7 @@ const c1 = new Client();
 const c2 = new Client(12345);
 const c3 = new Client(12345, "127.0.0.1");
 const c4 = new Client({ localPort: 12345, localAddress: "0.0.0.0", timeout: 1000, rejectOnError: true });
-const c5 = new Client(() => { /* listening */ });
+const c5 = new Client(() => {/* listening */});
 
 // Events
 c1.on("listening", () => {});
