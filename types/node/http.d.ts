@@ -341,7 +341,7 @@ declare module "node:http" {
         "connection": [socket: net.Socket];
         "dropRequest": [request: InstanceType<Request>, socket: stream.Duplex];
         "request": Parameters<RequestListener<Request, Response>>;
-        "upgrade": [req: InstanceType<Request>, socket: stream.Duplex, head: NonSharedBuffer];
+        "upgrade": [req: InstanceType<Request>, stream: stream.Duplex, head: NonSharedBuffer];
     }
     /**
      * @since v0.1.17
@@ -947,7 +947,7 @@ declare module "node:http" {
         "response": [response: IncomingMessage];
         "socket": [socket: net.Socket];
         "timeout": [];
-        "upgrade": [response: IncomingMessage, socket: net.Socket, head: NonSharedBuffer];
+        "upgrade": [response: IncomingMessage, stream: net.Socket, head: NonSharedBuffer];
     }
     /**
      * This object is created internally and returned from {@link request}. It
