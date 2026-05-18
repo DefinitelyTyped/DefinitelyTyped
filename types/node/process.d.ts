@@ -251,12 +251,11 @@ declare module "node:process" {
                  */
                 readonly tls_sni: boolean;
                 /**
-                 * A value that is `"strip"` by default,
-                 * `"transform"` if Node.js is run with `--experimental-transform-types`, and `false` if
+                 * A value that is `"strip"` by default, and `false` if
                  * Node.js is run with `--no-strip-types`.
                  * @since v22.10.0
                  */
-                readonly typescript: "strip" | "transform" | false;
+                readonly typescript: "strip" | false;
                 /**
                  * A boolean value that is `true` if the current Node.js build includes support for libuv.
                  *
