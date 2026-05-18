@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/rtpengine-client",
+    "version": "0.4.9999",
+    "projects": [
+        "https://github.com/drachtio/rtpengine-client"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/rtpengine-client": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Dan Virsén",
+            "githubUsername": "danvirsen"
+        }
+    ]
+}
