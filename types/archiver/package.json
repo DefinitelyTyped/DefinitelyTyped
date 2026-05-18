@@ -1,10 +1,11 @@
 {
     "private": true,
     "name": "@types/archiver",
-    "version": "8.0.0",
+    "version": "8.0.9999",
     "projects": [
         "https://github.com/archiverjs/node-archiver"
     ],
+    "type": "module",
     "dependencies": {
         "@types/readdir-glob": "*"
     },

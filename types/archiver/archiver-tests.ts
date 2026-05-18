@@ -85,9 +85,8 @@ archiver.symlink("directory/directory", "../../directory", 493); // $ExpectType 
 
 const tarArchive = new TarArchive({ gzip: true, gzipOptions: { level: 9 } });
 tarArchive.append("content", { name: "file.txt" });
-tarArchive.finalize();
+tarArchive.finalize(); // $ExpectType Promise<void>
 
 const jsonArchive = new JsonArchive();
 jsonArchive.append("content", { name: "file.txt" });
-jsonArchive.finalize();
-
+jsonArchive.finalize(); // $ExpectType Promise<void>

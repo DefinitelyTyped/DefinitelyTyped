@@ -1,6 +1,6 @@
 import * as fs from "fs";
-import ReaddirGlob = require("readdir-glob");
-import stream = require("stream");
+import * as ReaddirGlob from "readdir-glob";
+import * as stream from "stream";
 import { ZlibOptions } from "zlib";
 
 export type Partial<T> = {
