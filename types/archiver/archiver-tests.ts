@@ -1,16 +1,16 @@
-import Archiver = require("archiver");
+import { Archiver, ArchiverError, ArchiverOptions, EntryData, JsonArchive, TarArchive, ZipArchive } from "archiver";
 import * as fs from "fs";
 import { Readable, Writable } from "stream";
 
-const options: Archiver.ArchiverOptions = {
+const options: ArchiverOptions = {
     statConcurrency: 1,
     allowHalfOpen: true,
     readableObjectMode: true,
-    writeableObjectMode: true,
+    writableObjectMode: true,
     decodeStrings: true,
     encoding: "test",
     highWaterMark: 1,
-    objectmode: true,
+    objectMode: true,
     comment: "test",
     forceLocalTime: true,
     forceZip64: true,
@@ -21,9 +21,7 @@ const options: Archiver.ArchiverOptions = {
     gzipOptions: {},
 };
 
-Archiver("zip", options);
-
-const archiver = Archiver.create("zip");
+const archiver = new ZipArchive({ zlib: { level: 9 } });
 
 const archiverAsReadable: Readable = archiver;
 const archiverAsWritable: Writable = archiver;
@@ -46,11 +44,11 @@ archiver.append(Readable.from(["test"]), { name: "buffer.txt", date: new Date() 
 archiver.directory("./path", "./someOtherPath");
 archiver.directory("./", "", {});
 archiver.directory("./", false, { name: "test" });
-archiver.directory("./", false, (entry: Archiver.EntryData) => {
+archiver.directory("./", false, (entry: EntryData) => {
     entry.name = "foobar";
     return entry;
 });
-archiver.directory("./", false, (entry: Archiver.EntryData) => false);
+archiver.directory("./", false, (entry: EntryData) => false);
 
 archiver.append(readStream, {
     name: "sub/folder.xml",
@@ -63,29 +61,33 @@ archiver.glob("./path", {}, {});
 
 archiver.file("./path", { name: "test" });
 
-archiver.setFormat("zip");
-archiver.setModule(() => {});
-
 archiver.pointer();
-archiver.use(() => {});
 
 archiver.finalize(); // $ExpectType Promise<void>
 
 archiver.symlink("./path", "./target");
 
-function fakeHandler(err: Archiver.ArchiverError) {
+function fakeHandler(err: ArchiverError) {
     console.log(err.code);
     console.log(err.message);
     console.log(err.stack);
     console.log(err.data);
 }
 
-const fakeError = new Archiver.ArchiverError("code", "foo");
+const fakeError = new ArchiverError("code", "foo");
 
 archiver.on("error", fakeHandler);
 archiver.on("warning", fakeHandler);
 
 archiver.on("data", (chunk: Buffer) => console.log(chunk));
 
-Archiver.isRegisteredFormat("zip"); // $ExpectType boolean
-archiver.symlink("directory/directory", "../../directory", 493); // $ExpectType Archiver
+archiver.symlink("directory/directory", "../../directory", 493); // $ExpectType ZipArchive
+
+const tarArchive = new TarArchive({ gzip: true, gzipOptions: { level: 9 } });
+tarArchive.append("content", { name: "file.txt" });
+tarArchive.finalize();
+
+const jsonArchive = new JsonArchive();
+jsonArchive.append("content", { name: "file.txt" });
+jsonArchive.finalize();
+
