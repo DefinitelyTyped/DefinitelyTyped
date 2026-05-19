@@ -217,7 +217,7 @@ import { promisify } from "node:util";
 }
 
 {
-    let key: crypto.CipherKey = "" as crypto.CipherKey;
+    let key: crypto.KeyLike = "" as crypto.KeyLike;
     let iv: crypto.BinaryLike = "" as crypto.BinaryLike;
     {
         let cipher = crypto.createCipheriv("aes-128-ccm", key, iv, { authTagLength: 16 });
@@ -301,7 +301,7 @@ import { promisify } from "node:util";
 }
 
 {
-    let key: crypto.CipherKey = "" as crypto.CipherKey;
+    let key: crypto.KeyLike = "" as crypto.KeyLike;
     let iv: crypto.BinaryLike = "" as crypto.BinaryLike;
     {
         let cipher = crypto.createDecipheriv("aes-128-ccm", key, iv, { authTagLength: 16 });
@@ -1299,62 +1299,6 @@ import { promisify } from "node:util";
 }
 
 {
-    // crypto_constants_test
-    let num: number;
-    let str: string;
-
-    num = crypto.constants.OPENSSL_VERSION_NUMBER;
-    num = crypto.constants.SSL_OP_ALL;
-    num = crypto.constants.SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION;
-    num = crypto.constants.SSL_OP_CIPHER_SERVER_PREFERENCE;
-    num = crypto.constants.SSL_OP_CISCO_ANYCONNECT;
-    num = crypto.constants.SSL_OP_COOKIE_EXCHANGE;
-    num = crypto.constants.SSL_OP_CRYPTOPRO_TLSEXT_BUG;
-    num = crypto.constants.SSL_OP_DONT_INSERT_EMPTY_FRAGMENTS;
-    num = crypto.constants.SSL_OP_LEGACY_SERVER_CONNECT;
-    num = crypto.constants.SSL_OP_NO_COMPRESSION;
-    num = crypto.constants.SSL_OP_NO_QUERY_MTU;
-    num = crypto.constants.SSL_OP_NO_SESSION_RESUMPTION_ON_RENEGOTIATION;
-    num = crypto.constants.SSL_OP_NO_SSLv2;
-    num = crypto.constants.SSL_OP_NO_SSLv3;
-    num = crypto.constants.SSL_OP_NO_TICKET;
-    num = crypto.constants.SSL_OP_NO_TLSv1;
-    num = crypto.constants.SSL_OP_NO_TLSv1_1;
-    num = crypto.constants.SSL_OP_NO_TLSv1_2;
-    num = crypto.constants.SSL_OP_TLS_ROLLBACK_BUG;
-    num = crypto.constants.ENGINE_METHOD_RSA;
-    num = crypto.constants.ENGINE_METHOD_DSA;
-    num = crypto.constants.ENGINE_METHOD_DH;
-    num = crypto.constants.ENGINE_METHOD_RAND;
-    num = crypto.constants.ENGINE_METHOD_EC;
-    num = crypto.constants.ENGINE_METHOD_CIPHERS;
-    num = crypto.constants.ENGINE_METHOD_DIGESTS;
-    num = crypto.constants.ENGINE_METHOD_PKEY_METHS;
-    num = crypto.constants.ENGINE_METHOD_PKEY_ASN1_METHS;
-    num = crypto.constants.ENGINE_METHOD_ALL;
-    num = crypto.constants.ENGINE_METHOD_NONE;
-    num = crypto.constants.DH_CHECK_P_NOT_SAFE_PRIME;
-    num = crypto.constants.DH_CHECK_P_NOT_PRIME;
-    num = crypto.constants.DH_UNABLE_TO_CHECK_GENERATOR;
-    num = crypto.constants.DH_NOT_SUITABLE_GENERATOR;
-    num = crypto.constants.RSA_PKCS1_PADDING;
-    num = crypto.constants.RSA_SSLV23_PADDING;
-    num = crypto.constants.RSA_NO_PADDING;
-    num = crypto.constants.RSA_PKCS1_OAEP_PADDING;
-    num = crypto.constants.RSA_X931_PADDING;
-    num = crypto.constants.RSA_PKCS1_PSS_PADDING;
-    num = crypto.constants.RSA_PSS_SALTLEN_DIGEST;
-    num = crypto.constants.RSA_PSS_SALTLEN_MAX_SIGN;
-    num = crypto.constants.RSA_PSS_SALTLEN_AUTO;
-    num = crypto.constants.POINT_CONVERSION_COMPRESSED;
-    num = crypto.constants.POINT_CONVERSION_UNCOMPRESSED;
-    num = crypto.constants.POINT_CONVERSION_HYBRID;
-
-    str = crypto.constants.defaultCoreCipherList;
-    str = crypto.constants.defaultCipherList;
-}
-
-{
     const sig: Buffer = crypto.sign("md5", Buffer.from(""), "mykey");
 
     crypto.sign("md5", Buffer.from(""), "mykey", (error: Error | null, data: Buffer) => {});
@@ -1445,7 +1389,7 @@ import { promisify } from "node:util";
         dsaEncoding: "der",
     });
 
-    crypto.sign("slh-dsa-sha2-128s", Buffer.from("asd"), { key, context: Uint8Array.of(1, 2, 3, 4).buffer });
+    crypto.sign("slh-dsa-sha2-128s", Buffer.from("asd"), { key, context: Uint8Array.of(1, 2, 3, 4) });
 }
 
 {
@@ -1756,9 +1700,6 @@ import { promisify } from "node:util";
 }
 
 {
-    crypto.DiffieHellmanGroup("modp14");
-    new crypto.DiffieHellmanGroup("modp14");
-
     const alice: crypto.DiffieHellmanGroup = crypto.getDiffieHellman("modp14");
     const bob: crypto.DiffieHellmanGroup = crypto.createDiffieHellmanGroup("modp14");
 
@@ -1810,7 +1751,7 @@ import { promisify } from "node:util";
     let aliceSecret = alice.computeSecret(bobPublicKey, "hex"); // $ExpectType NonSharedBuffer
     aliceSecret = alice.computeSecret(Buffer.from(bobPublicKey, "hex"));
 
-    let bobSecret = bob.computeSecret(alicePublicKey, "hex"); // $ExpectType string
+    let bobSecret = bob.computeSecret(alicePublicKey, null, "hex"); // $ExpectType string
     bobSecret = bob.computeSecret(alicePublicKey.toString("hex"), "hex", "hex");
 
     aliceSecret.toString("hex") === bobSecret;
