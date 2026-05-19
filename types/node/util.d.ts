@@ -139,19 +139,6 @@ declare module "node:util" {
     export interface Inspectable {
         [inspect.custom](depth: number, options: InspectContext, inspect: typeof _inspect): any;
     }
-    // TODO: Remove these in a future major
-    /** @deprecated Use `InspectStyle` instead. */
-    export type Style = Exclude<InspectStyle, "name">;
-    /** @deprecated Use the `Inspectable` interface instead. */
-    export type CustomInspectFunction = (depth: number, options: InspectContext) => any;
-    /** @deprecated Use `InspectContext` instead. */
-    export interface InspectOptionsStylized extends InspectContext {}
-    /** @deprecated Use `InspectColorModifier` instead. */
-    export type Modifiers = InspectColorModifier;
-    /** @deprecated Use `InspectColorForeground` instead. */
-    export type ForegroundColors = InspectColorForeground;
-    /** @deprecated Use `InspectColorBackground` instead. */
-    export type BackgroundColors = InspectColorBackground;
     export interface CallSiteObject {
         /**
          * Returns the name of the function associated with this call site.
