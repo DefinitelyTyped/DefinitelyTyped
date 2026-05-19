@@ -111,7 +111,10 @@ declare module "node:stream/iter" {
         signal: AbortSignal;
     }
     interface StatelessTransformFn {
-        (chunks: Uint8Array[] | null, options: TransformCallbackOptions): TransformResult | null;
+        (
+            chunks: Uint8Array[] | null,
+            options: TransformCallbackOptions,
+        ): Promise<TransformResult | null> | TransformResult | null;
     }
     interface SyncStatelessTransformFn {
         (chunks: Uint8Array[] | null): SyncTransformResult | null;
