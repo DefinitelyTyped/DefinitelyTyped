@@ -22,9 +22,6 @@ declare module "node:worker_threads" {
     const threadName: string | null;
     const workerData: any;
     interface WorkerPerformance extends Pick<Performance, "eventLoopUtilization"> {}
-    /** @deprecated Use `import { Transferable } from "node:worker_threads"` instead. */
-    // TODO: remove in a future major @types/node version.
-    type TransferListItem = Transferable;
     interface WorkerOptions {
         /**
          * List of arguments which would be stringified and appended to
