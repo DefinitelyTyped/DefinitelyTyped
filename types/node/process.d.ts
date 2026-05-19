@@ -1443,8 +1443,7 @@ declare module "node:process" {
                  * `process.addUncaughtExceptionCaptureCallback()` instead.
                  * @since v9.3.0
                  */
-                // TODO: callback parameter should be `unknown`
-                setUncaughtExceptionCaptureCallback(cb: ((err: Error) => void) | null): void;
+                setUncaughtExceptionCaptureCallback(cb: ((err: unknown) => void) | null): void;
                 /**
                  * Indicates whether a callback has been set using {@link setUncaughtExceptionCaptureCallback}.
                  * @since v9.3.0
