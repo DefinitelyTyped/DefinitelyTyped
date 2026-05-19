@@ -2916,12 +2916,6 @@ declare module "node:fs" {
     interface ReadOptionsWithBuffer<T extends NodeJS.ArrayBufferView> extends ReadOptions {
         buffer?: T | undefined;
     }
-    /** @deprecated Use `ReadOptions` instead. */
-    // TODO: remove in future major
-    interface ReadSyncOptions extends ReadOptions {}
-    /** @deprecated Use `ReadOptionsWithBuffer` instead. */
-    // TODO: remove in future major
-    interface ReadAsyncOptions<T extends NodeJS.ArrayBufferView> extends ReadOptionsWithBuffer<T> {}
     /**
      * Read data from the file specified by `fd`.
      *
