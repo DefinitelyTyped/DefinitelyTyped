@@ -52,9 +52,6 @@ declare module "node:perf_hooks" {
         entryTypes?: EntryType[];
         type?: EntryType;
     }
-    // TODO: remove in next major
-    /** @deprecated Use `TimerifyOptions` instead. */
-    interface PerformanceTimerifyOptions extends TimerifyOptions {}
     interface PerformanceEventMap {
         "resourcetimingbufferfull": Event;
     }
@@ -601,11 +598,6 @@ declare module "node:perf_hooks" {
      * @since v15.9.0, v14.18.0
      */
     function createHistogram(options?: CreateHistogramOptions): RecordableHistogram;
-    // TODO: remove these in a future major
-    /** @deprecated Use the canonical `PerformanceMarkOptions` instead. */
-    interface MarkOptions extends PerformanceMarkOptions {}
-    /** @deprecated Use the canonical `PerformanceMeasureOptions` instead. */
-    interface MeasureOptions extends PerformanceMeasureOptions {}
 }
 declare module "perf_hooks" {
     export * from "node:perf_hooks";
