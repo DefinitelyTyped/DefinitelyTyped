@@ -39,7 +39,7 @@ jobs:
         with:
           node-version: '24'
 
-      - uses: pnpm/action-setup@739bfe42ca9233c5e6aca07c1a25a9d34aca49b0 # v6.0.7
+      - uses: pnpm/action-setup@0e279bb959325dab635dd2c09392533439d90093 # v6.0.8
 
       - id: matrix
         run: |
@@ -79,7 +79,7 @@ jobs:
             printf "Aborting: symlinks found:\n%s" "$symlinks"; exit 1
           fi
 
-      - uses: pnpm/action-setup@739bfe42ca9233c5e6aca07c1a25a9d34aca49b0 # v6.0.7
+      - uses: pnpm/action-setup@0e279bb959325dab635dd2c09392533439d90093 # v6.0.8
 
       - name: Get pnpm cache info
         id: pnpm-cache
