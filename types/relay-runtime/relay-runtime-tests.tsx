@@ -20,6 +20,7 @@ import {
     isValueResult,
     LiveState,
     Network,
+    PayloadError,
     PreloadableConcreteRequest,
     PreloadableQueryRegistry,
     QueryResponseCache,
@@ -96,6 +97,17 @@ const network = Network.create(fetchFunction);
 
 // Create a cache for storing query responses
 const cache = new QueryResponseCache({ size: 250, ttl: 60000 });
+
+// PayloadError extensions
+const payloadErrorWithExtensions: PayloadError = {
+    message: "Name for character with ID 1002 could not be fetched.",
+    locations: [{ line: 6, column: 7 }],
+    path: ["hero", "heroFriends", 1, "name"],
+    extensions: {
+        code: "CAN_NOT_FETCH_BY_ID",
+        timestamp: "Fri Feb 9 14:33:09 UTC 2018",
+    },
+};
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // Handler Provider
