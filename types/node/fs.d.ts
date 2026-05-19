@@ -4669,9 +4669,7 @@ declare module "node:fs" {
      * @param dest destination path to copy to.
      */
     function cpSync(source: string | URL, destination: string | URL, opts?: CopySyncOptions): void;
-
-    // TODO: collapse
-    interface _GlobOptions<T extends Dirent | string> {
+    interface GlobOptions<T extends Dirent | string = Dirent | string> {
         /**
          * Current working directory.
          * @default process.cwd()
@@ -4694,11 +4692,10 @@ declare module "node:fs" {
          */
         exclude?: ((fileName: T) => boolean) | readonly string[] | undefined;
     }
-    interface GlobOptions extends _GlobOptions<Dirent | string> {}
-    interface GlobOptionsWithFileTypes extends _GlobOptions<Dirent> {
+    interface GlobOptionsWithFileTypes extends GlobOptions<Dirent> {
         withFileTypes: true;
     }
-    interface GlobOptionsWithoutFileTypes extends _GlobOptions<string> {
+    interface GlobOptionsWithoutFileTypes extends GlobOptions<string> {
         withFileTypes?: false | undefined;
     }
 
