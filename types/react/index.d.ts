@@ -4129,7 +4129,6 @@ declare namespace React {
         componentStack?: string | null;
     }
 
-    // Keep in sync with JSX namespace in ./jsx-runtime.d.ts and ./jsx-dev-runtime.d.ts
     namespace JSX {
         // We don't just alias React.ElementType because React.ElementType
         // historically does more than we need it to.

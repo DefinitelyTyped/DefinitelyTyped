@@ -4284,7 +4284,6 @@ declare namespace React {
         digest?: string | null;
     }
 
-    // Keep in sync with JSX namespace in ./jsx-runtime.d.ts and ./jsx-dev-runtime.d.ts
     namespace JSX {
         interface Element extends GlobalJSXElement {}
         interface ElementClass extends GlobalJSXElementClass {}
