@@ -34,6 +34,7 @@ declare module "node:process" {
         "node:domain": typeof import("node:domain");
         "events": typeof import("events");
         "node:events": typeof import("node:events");
+        "node:ffi": typeof import("node:ffi");
         "fs": typeof import("fs");
         "node:fs": typeof import("node:fs");
         "fs/promises": typeof import("fs/promises");
