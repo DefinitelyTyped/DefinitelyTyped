@@ -445,3 +445,19 @@ const poolWithOnConnect = new Pool({
 poolWithOnConnect.connect().then(client => {
     console.log("client connected");
 });
+
+const poolWithVerify = new Pool({
+    verify: (client, done) => {
+        const poolClient: pg.PoolClient = client;
+        poolClient.query("SELECT 1");
+        if (Math.random() > 0.5) {
+            done(new Error("verification failed"));
+        } else {
+            done();
+        }
+    },
+});
+
+poolWithVerify.connect().then(client => {
+    console.log("client connected");
+});
