@@ -12,6 +12,7 @@ interface IAMAuthConfig {
 interface AppRoleAuthConfig {
     role_id: string;
     secret_id?: string | undefined;
+    namespace?: string | undefined;
 }
 
 interface TokenAuthConfig {
