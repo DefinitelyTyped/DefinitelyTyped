@@ -56,6 +56,8 @@ import { URL } from "node:url";
         maxFrameSize: 0,
         maxConcurrentStreams: 0,
         maxHeaderListSize: 0,
+        enableConnectProtocol: false,
+        customSettings: { 10: 10 },
     };
 }
 

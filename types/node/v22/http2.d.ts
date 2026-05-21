@@ -635,6 +635,7 @@ declare module "http2" {
         maxConcurrentStreams?: number | undefined;
         maxHeaderListSize?: number | undefined;
         enableConnectProtocol?: boolean | undefined;
+        customSettings?: { [key: number]: number };
     }
     export interface ClientSessionRequestOptions {
         endStream?: boolean | undefined;

@@ -582,6 +582,7 @@ declare module "node:http2" {
         maxConcurrentStreams?: number | undefined;
         maxHeaderListSize?: number | undefined;
         enableConnectProtocol?: boolean | undefined;
+        customSettings?: { [key: number]: number };
     }
     interface ClientSessionRequestOptions {
         endStream?: boolean | undefined;
