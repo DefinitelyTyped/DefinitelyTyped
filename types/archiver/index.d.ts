@@ -99,10 +99,3 @@ export class ZipArchive extends Archiver {
 export class TarArchive extends Archiver {
     constructor(options?: CoreOptions & TransformOptions & TarOptions);
 }
-
-declare function create(format: string, options?: ArchiverOptions): Archiver;
-declare function isRegisteredFormat(format: string): boolean;
-// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
-declare function registerFormat(format: string, module: Function): void;
-
-export { create, isRegisteredFormat, registerFormat };

@@ -2,10 +2,8 @@ import {
     Archiver,
     ArchiverError,
     ArchiverOptions,
-    create,
     EntryData,
     EntryDataFunction,
-    isRegisteredFormat,
     ProgressData,
     TarArchive,
     ZipArchive,
@@ -93,8 +91,5 @@ archiver.on("error", fakeHandler);
 archiver.on("warning", fakeHandler);
 
 archiver.on("data", (chunk: Buffer) => console.log(chunk));
-
-create("zip");
-isRegisteredFormat("zip");
 
 const tarArchiver: Archiver = new TarArchive({ gzip: true });
