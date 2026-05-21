@@ -304,7 +304,6 @@ declare module "v8" {
      * ```
      * @param ctor The constructor that can be used to search on the prototype chain in order to filter target objects in the heap.
      * @since v20.13.0
-     * @experimental
      */
     function queryObjects(ctor: Function): number | string[];
     function queryObjects(ctor: Function, options: { format: "count" }): number;
