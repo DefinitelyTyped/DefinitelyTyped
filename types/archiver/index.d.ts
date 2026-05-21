@@ -15,6 +15,8 @@ export interface EntryData {
 
 export interface ZipEntryData extends EntryData {
     store?: boolean | undefined;
+    comment?: string | undefined;
+    namePrependSlash?: boolean | undefined;
 }
 
 export type TarEntryData = EntryData;
@@ -39,6 +41,7 @@ export class ArchiverError extends Error {
 }
 
 export class Archiver extends stream.Transform {
+    constructor(options?: CoreOptions & TransformOptions);
     abort(): this;
     append(source: stream.Readable | Buffer | string, data?: EntryData | ZipEntryData | TarEntryData): this;
     directory(
@@ -68,11 +71,11 @@ export interface CoreOptions {
 export interface TransformOptions {
     allowHalfOpen?: boolean | undefined;
     readableObjectMode?: boolean | undefined;
-    writeableObjectMode?: boolean | undefined;
+    writableObjectMode?: boolean | undefined;
     decodeStrings?: boolean | undefined;
     encoding?: BufferEncoding | undefined;
     highWaterMark?: number | undefined;
-    objectmode?: boolean | undefined;
+    objectMode?: boolean | undefined;
 }
 
 export interface ZipOptions {
