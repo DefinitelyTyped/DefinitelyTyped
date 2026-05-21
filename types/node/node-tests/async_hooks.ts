@@ -6,6 +6,7 @@ import {
     executionAsyncId,
     executionAsyncResource,
     HookCallbacks,
+    RunScope,
     triggerAsyncId,
 } from "node:async_hooks";
 
@@ -86,6 +87,8 @@ import {
         return 42;
     }, 1);
     ctx.enterWith("test");
+    using scope: RunScope = ctx.withScope("test");
+    scope.dispose();
 }
 
 {

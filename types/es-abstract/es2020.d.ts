@@ -1,6 +1,7 @@
 import ES2019 = require("./es2019");
 
 interface ES2020 {
+    readonly abs: typeof import("./2020/abs");
     readonly "Abstract Equality Comparison": typeof import("./2020/AbstractEqualityComparison");
     readonly "Abstract Relational Comparison": typeof import("./2020/AbstractRelationalComparison");
     readonly "Strict Equality Comparison": typeof import("./2020/StrictEqualityComparison");

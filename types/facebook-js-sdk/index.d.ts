@@ -8,7 +8,21 @@ declare namespace facebook {
         | "auth.logout"
         | "auth.login"
         | "auth.statusChange"
+        | "xfbml.ready"
         | "xfbml.render";
+
+    /**
+     * Payload delivered to `xfbml.ready` subscribers when a social plugin
+     * finishes rendering. The `instance` shape varies by plugin `type`
+     * (e.g. video instances expose `play`/`pause`/`subscribe`).
+     *
+     * https://developers.facebook.com/docs/javascript/howto/#tracking-xfbml-rendering
+     */
+    interface XfbmlReadyMessage {
+        type: string;
+        id: string;
+        instance: unknown;
+    }
 
     type LoginStatus =
         | "authorization_expired"
@@ -18,7 +32,8 @@ declare namespace facebook {
 
     type FacebookEventCallback<
         TEvent extends FacebookEventType,
-    > = TEvent extends "xfbl.render" ? () => void
+    > = TEvent extends "xfbml.render" ? () => void
+        : TEvent extends "xfbml.ready" ? (message: XfbmlReadyMessage) => void
         : (response: StatusResponse) => void;
 
     type UserField =

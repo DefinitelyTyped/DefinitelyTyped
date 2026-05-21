@@ -8,6 +8,6 @@ export default class AdCampaignGroupStructureTree extends AbstractCrudObject {
         children: "children";
         id: "id";
         name: "name";
-        time_updated: "time_updated";
+        status: "status";
     }>;
 }

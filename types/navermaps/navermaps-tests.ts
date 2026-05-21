@@ -68,6 +68,10 @@ const cadastral = new naver.maps.CadastralLayer();
 naver.maps.Event.once(map, "init", function() {
     street.setMap(map);
     cadastral.setMap(map);
+
+    // Optional methods
+    street.setAirWaterView?.(false);
+    street.isVisibleAirWaterView?.();
 });
 
 /**

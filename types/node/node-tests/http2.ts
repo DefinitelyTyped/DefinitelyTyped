@@ -1,3 +1,4 @@
+import { IncomingMessage, ServerResponse } from "node:http";
 import {
     ClientHttp2Session,
     ClientHttp2Stream,
@@ -67,7 +68,7 @@ import { URL } from "node:url";
     http2Session.on("close", () => {});
     http2Session.on("connect", (session: Http2Session, socket: Socket) => {});
     http2Session.on("error", (err: Error) => {});
-    http2Session.on("frameError", (frameType: number, errorCode: number, streamID: number) => {});
+    http2Session.on("frameError", (frameType: number, errorCode: number, id: number) => {});
     http2Session.on("goaway", (errorCode: number, lastStreamID: number, opaqueData?: Buffer) => {});
     http2Session.on("localSettings", (settings: Settings) => {});
     http2Session.on("remoteSettings", (settings: Settings) => {});
@@ -144,7 +145,7 @@ import { URL } from "node:url";
 
     http2Stream.on("aborted", () => {});
     http2Stream.on("error", (err: Error) => {});
-    http2Stream.on("frameError", (frameType: number, errorCode: number, streamID: number) => {});
+    http2Stream.on("frameError", (frameType: number, errorCode: number, id: number) => {});
     http2Stream.on("streamClosed", (code: number) => {});
     http2Stream.on("timeout", () => {});
     http2Stream.on("trailers", (trailers: IncomingHttpHeaders, flags: number) => {});
@@ -240,7 +241,7 @@ import { URL } from "node:url";
     const s1: Server = http2Server;
     const s2: Server = http2SecureServer;
     [http2Server, http2SecureServer].forEach((server) => {
-        server.on("sessionError", (err: Error) => {});
+        server.on("sessionError", (err: Error, session: ServerHttp2Session) => {});
         server.on("session", (session: ServerHttp2Session) => {});
         server.on("checkContinue", (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => {});
         server.on(
@@ -276,6 +277,7 @@ import { URL } from "node:url";
         streamResetBurst: 1000,
         streamResetRate: 33,
         strictFieldWhitespaceValidation: false,
+        strictSingleValueFields: true,
     };
     const secureServerOptions: SecureServerOptions = { ...serverOptions, ca: "..." };
     const onRequestHandler = (request: Http2ServerRequest, response: Http2ServerResponse) => {
@@ -434,6 +436,62 @@ import { URL } from "node:url";
     const packet: Buffer = getPackedSettings(settings);
     settings = getUnpackedSettings(Buffer.from([]));
     settings = getUnpackedSettings(Uint8Array.from([]));
+}
+
+// Http1IncomingMessage, Http1ServerResponse
+{
+    class MyHttp1ServerRequest extends IncomingMessage {
+        foo!: number;
+    }
+
+    class MyHttp1ServerResponse<Request extends IncomingMessage = IncomingMessage> extends ServerResponse<Request> {
+        bar!: string;
+    }
+
+    // $ExpectType Http2Server<typeof MyHttp1ServerRequest, typeof MyHttp1ServerResponse, typeof Http2ServerRequest, typeof Http2ServerResponse>
+    createServer({
+        http1Options: {
+            IncomingMessage: MyHttp1ServerRequest,
+            ServerResponse: MyHttp1ServerResponse,
+            keepAliveTimeout: 500,
+        },
+    });
+
+    // $ExpectType Http2SecureServer<typeof MyHttp1ServerRequest, typeof MyHttp1ServerResponse, typeof Http2ServerRequest, typeof Http2ServerResponse>
+    createSecureServer({
+        allowHTTP1: true,
+        http1Options: {
+            IncomingMessage: MyHttp1ServerRequest,
+            ServerResponse: MyHttp1ServerResponse,
+            keepAliveTimeout: 500,
+        },
+    });
+
+    // $ExpectType Http2Server<typeof IncomingMessage, typeof ServerResponse, typeof Http2ServerRequest, typeof Http2ServerResponse>
+    createServer({
+        http1Options: { keepAliveTimeout: 500 },
+    });
+
+    // $ExpectType Http2SecureServer<typeof IncomingMessage, typeof ServerResponse, typeof Http2ServerRequest, typeof Http2ServerResponse>
+    createSecureServer({
+        allowHTTP1: true,
+        http1Options: { keepAliveTimeout: 500 },
+    });
+
+    // Deprecated
+    // $ExpectType Http2Server<typeof MyHttp1ServerRequest, typeof MyHttp1ServerResponse, typeof Http2ServerRequest, typeof Http2ServerResponse>
+    createServer({
+        Http1IncomingMessage: MyHttp1ServerRequest,
+        Http1ServerResponse: MyHttp1ServerResponse,
+    });
+
+    // Deprecated
+    // $ExpectType Http2SecureServer<typeof MyHttp1ServerRequest, typeof MyHttp1ServerResponse, typeof Http2ServerRequest, typeof Http2ServerResponse>
+    createSecureServer({
+        allowHTTP1: true,
+        Http1IncomingMessage: MyHttp1ServerRequest,
+        Http1ServerResponse: MyHttp1ServerResponse,
+    });
 }
 
 // Http2ServerRequest, Http2ServerResponse,

@@ -7,5 +7,6 @@ export default class AdCreativeAssetGroupsSpec extends AbstractCrudObject {
     static get Fields(): Readonly<{
         groups: "groups";
         origin: "origin";
+        origins: "origins";
     }>;
 }

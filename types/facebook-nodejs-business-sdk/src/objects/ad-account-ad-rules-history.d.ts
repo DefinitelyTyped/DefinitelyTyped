@@ -31,6 +31,7 @@ export default class AdAccountAdRulesHistory extends AbstractCrudObject {
         enable_gen_uncrop: "ENABLE_GEN_UNCROP";
         enable_landing_page_views: "ENABLE_LANDING_PAGE_VIEWS";
         enable_music: "ENABLE_MUSIC";
+        enable_product_set_boosting: "ENABLE_PRODUCT_SET_BOOSTING";
         enable_reels_placements: "ENABLE_REELS_PLACEMENTS";
         enable_semantic_based_audience_expansion: "ENABLE_SEMANTIC_BASED_AUDIENCE_EXPANSION";
         enable_shops_ads: "ENABLE_SHOPS_ADS";

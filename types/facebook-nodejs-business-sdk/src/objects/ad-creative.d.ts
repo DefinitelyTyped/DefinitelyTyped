@@ -49,6 +49,7 @@ export default class AdCreative extends AbstractCrudObject {
         link_destination_display_url: "link_destination_display_url";
         link_og_id: "link_og_id";
         link_url: "link_url";
+        media_sourcing_spec: "media_sourcing_spec";
         messenger_sponsored_message: "messenger_sponsored_message";
         name: "name";
         object_id: "object_id";
@@ -89,6 +90,7 @@ export default class AdCreative extends AbstractCrudObject {
         book_a_consultation: "BOOK_A_CONSULTATION";
         book_now: "BOOK_NOW";
         book_travel: "BOOK_TRAVEL";
+        browse_shop: "BROWSE_SHOP";
         buy: "BUY";
         buy_now: "BUY_NOW";
         buy_tickets: "BUY_TICKETS";
@@ -105,11 +107,13 @@ export default class AdCreative extends AbstractCrudObject {
         download: "DOWNLOAD";
         event_rsvp: "EVENT_RSVP";
         find_a_group: "FIND_A_GROUP";
+        find_out_more: "FIND_OUT_MORE";
         find_your_groups: "FIND_YOUR_GROUPS";
         follow_news_storyline: "FOLLOW_NEWS_STORYLINE";
         follow_page: "FOLLOW_PAGE";
         follow_user: "FOLLOW_USER";
         get_a_quote: "GET_A_QUOTE";
+        get_details: "GET_DETAILS";
         get_directions: "GET_DIRECTIONS";
         get_in_touch: "GET_IN_TOUCH";
         get_offer: "GET_OFFER";
@@ -143,18 +147,22 @@ export default class AdCreative extends AbstractCrudObject {
         request_time: "REQUEST_TIME";
         say_thanks: "SAY_THANKS";
         see_more: "SEE_MORE";
+        see_shop: "SEE_SHOP";
         sell_now: "SELL_NOW";
         send_a_gift: "SEND_A_GIFT";
         send_gift_money: "SEND_GIFT_MONEY";
         send_updates: "SEND_UPDATES";
         share: "SHARE";
         shop_now: "SHOP_NOW";
+        shop_with_ai: "SHOP_WITH_AI";
         sign_up: "SIGN_UP";
         sotto_subscribe: "SOTTO_SUBSCRIBE";
         start_order: "START_ORDER";
         subscribe: "SUBSCRIBE";
         swipe_up_product: "SWIPE_UP_PRODUCT";
         swipe_up_shop: "SWIPE_UP_SHOP";
+        try_demo: "TRY_DEMO";
+        try_on_with_ai: "TRY_ON_WITH_AI";
         update_app: "UPDATE_APP";
         use_app: "USE_APP";
         use_mobile_app: "USE_MOBILE_APP";
@@ -165,6 +173,7 @@ export default class AdCreative extends AbstractCrudObject {
         view_in_cart: "VIEW_IN_CART";
         view_product: "VIEW_PRODUCT";
         visit_pages_feed: "VISIT_PAGES_FEED";
+        visit_website: "VISIT_WEBSITE";
         watch_live_video: "WATCH_LIVE_VIDEO";
         watch_more: "WATCH_MORE";
         watch_video: "WATCH_VIDEO";
@@ -217,6 +226,9 @@ export default class AdCreative extends AbstractCrudObject {
     static get DynamicAdVoice(): Readonly<{
         dynamic: "DYNAMIC";
         story_owner: "STORY_OWNER";
+    }>;
+    static get ExecutionOptions(): Readonly<{
+        validate_only: "validate_only";
     }>;
     static get Operator(): Readonly<{
         all: "ALL";

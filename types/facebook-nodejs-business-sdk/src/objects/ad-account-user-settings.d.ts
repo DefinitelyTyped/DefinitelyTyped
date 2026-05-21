@@ -13,6 +13,7 @@ export default class AdAccountUserSettings extends AbstractCrudObject {
         ad_object_export_format: "ad_object_export_format";
         ads_manager_footer_row_toast_impressions: "ads_manager_footer_row_toast_impressions";
         auto_review_video_caption: "auto_review_video_caption";
+        budget_optimization_quick_view_created: "budget_optimization_quick_view_created";
         campaign_overview_columns: "campaign_overview_columns";
         column_suggestion_status: "column_suggestion_status";
         conditional_formatting_rules: "conditional_formatting_rules";
@@ -70,9 +71,14 @@ export default class AdAccountUserSettings extends AbstractCrudObject {
         syd_campaign_trends_time_range: "syd_campaign_trends_time_range";
         syd_landing_page_opt_in_status: "syd_landing_page_opt_in_status";
         text_gen_persona_opt_in_type: "text_gen_persona_opt_in_type";
+        text_variations_hl_opt_in_out_ts: "text_variations_hl_opt_in_out_ts";
+        text_variations_hl_opt_in_type: "text_variations_hl_opt_in_type";
         text_variations_opt_in_out_ts: "text_variations_opt_in_out_ts";
         text_variations_opt_in_type: "text_variations_opt_in_type";
         user: "user";
+        value_optimized_qv_created: "value_optimized_qv_created";
+        value_qv_nux_impressions: "value_qv_nux_impressions";
+        value_suggested_column_status: "value_suggested_column_status";
     }>;
     static get SydCampaignTrendsObjective(): Readonly<{
         app_installs: "APP_INSTALLS";

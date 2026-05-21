@@ -2035,6 +2035,9 @@ declare module "node:inspector" {
             autoAttach: boolean;
             waitForDebuggerOnStart: boolean;
         }
+        interface GetTargetsReturnType {
+            targetInfos: TargetInfo[];
+        }
         interface TargetCreatedEventDataType {
             targetInfo: TargetInfo;
         }
@@ -2506,6 +2509,7 @@ declare module "node:inspector" {
          */
         post(method: "NodeWorker.detach", params?: NodeWorker.DetachParameterType, callback?: (err: Error | null) => void): void;
         post(method: "NodeWorker.detach", callback?: (err: Error | null) => void): void;
+        post(method: "Target.getTargets", callback?: (err: Error | null, params: Target.GetTargetsReturnType) => void): void;
         post(method: "Target.setAutoAttach", params?: Target.SetAutoAttachParameterType, callback?: (err: Error | null) => void): void;
         post(method: "Target.setAutoAttach", callback?: (err: Error | null) => void): void;
         post(method: "DOMStorage.clear", params?: DOMStorage.ClearParameterType, callback?: (err: Error | null) => void): void;
@@ -3642,6 +3646,7 @@ declare module "node:inspector/promises" {
          * Detached from the worker with given sessionId.
          */
         post(method: "NodeWorker.detach", params?: NodeWorker.DetachParameterType): Promise<void>;
+        post(method: "Target.getTargets"): Promise<Target.GetTargetsReturnType>;
         post(method: "Target.setAutoAttach", params?: Target.SetAutoAttachParameterType): Promise<void>;
         post(method: "DOMStorage.clear", params?: DOMStorage.ClearParameterType): Promise<void>;
         /**

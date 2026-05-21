@@ -197,7 +197,7 @@ var propertyOrSpread: ESTree.Property | ESTree.SpreadElement = objectExpression.
 
 string = property.type;
 if (property.type === "Property") {
-    privateIdentifierOrExpression = property.key;
+    expression = property.key;
     expressionOrPattern = property.value;
     string = property.kind;
 }

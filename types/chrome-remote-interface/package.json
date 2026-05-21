@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/chrome-remote-interface",
-    "version": "0.33.9999",
+    "version": "0.34.9999",
     "projects": [
         "https://github.com/cyrus-and/chrome-remote-interface"
     ],

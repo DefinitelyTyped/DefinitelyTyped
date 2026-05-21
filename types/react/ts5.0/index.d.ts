@@ -3165,7 +3165,7 @@ declare namespace React {
         alt?: string | undefined;
         crossOrigin?: CrossOrigin;
         decoding?: "async" | "auto" | "sync" | undefined;
-        fetchPriority?: "high" | "low" | "auto";
+        fetchPriority?: "high" | "low" | "auto" | undefined;
         height?: number | string | undefined;
         loading?: "eager" | "lazy" | undefined;
         referrerPolicy?: HTMLAttributeReferrerPolicy | undefined;
@@ -3338,7 +3338,7 @@ declare namespace React {
         as?: string | undefined;
         blocking?: "render" | (string & {}) | undefined;
         crossOrigin?: CrossOrigin;
-        fetchPriority?: "high" | "low" | "auto";
+        fetchPriority?: "high" | "low" | "auto" | undefined;
         href?: string | undefined;
         hrefLang?: string | undefined;
         integrity?: string | undefined;

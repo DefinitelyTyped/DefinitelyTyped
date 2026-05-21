@@ -14,6 +14,10 @@ import { AppendOptions } from "form-data";
 import { AgentOptions as SAgentOptions, CBHandler, URLType } from "../../types";
 import { Request as Http2Request } from "./http2wrapper";
 
+type GlobalBlob = typeof globalThis extends { Blob: infer T } ? T extends abstract new(...args: any) => infer I ? I
+    : never
+    : never;
+
 type HttpMethod<Req extends request.Request> =
     | ((url: URLType, callback?: CBHandler) => Req)
     | ((url: URLType, data?: string | Record<string, any>, callback?: CBHandler) => Req);
@@ -57,15 +61,15 @@ declare class SARequest extends Stream implements RequestBase {
     field(
         fields: {
             [fieldName: string]:
-                | (string | number | boolean | Blob | Buffer | ReadStream)
-                | Array<string | number | boolean | Blob | Buffer | ReadStream>;
+                | request.MultipartValueSingle
+                | Array<request.MultipartValueSingle>;
         },
     ): this;
     field(
         name: string,
         val:
-            | (string | number | boolean | Blob | Buffer | ReadStream)
-            | Array<string | number | boolean | Blob | Buffer | ReadStream>,
+            | request.MultipartValueSingle
+            | Array<request.MultipartValueSingle>,
         options?: AppendOptions | string,
     ): this;
     finally(onfinally?: (() => void) | null): Promise<ResponseBase>;
@@ -119,7 +123,7 @@ declare namespace request {
 
     type CallbackHandler = CBHandler;
 
-    type MultipartValueSingle = Blob | Buffer | ReadStream | string | boolean | number;
+    type MultipartValueSingle = GlobalBlob | Blob | Buffer | ReadStream | string | boolean | number;
 
     interface ProgressEvent {
         direction: "download" | "upload";

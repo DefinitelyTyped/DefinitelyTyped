@@ -1,4 +1,5 @@
 import { AbstractCrudObject } from "./../abstract-crud-object";
+import AbstractObject from "./../abstract-object";
 import Cursor from "./../cursor";
 import AdAccountBusinessConstraints from "./ad-account-business-constraints";
 import AdPlacePageSet from "./ad-place-page-set";
@@ -81,6 +82,7 @@ export default class AdAccount extends AbstractCrudObject {
         min_daily_budget: "min_daily_budget";
         name: "name";
         offsite_pixels_tos_accepted: "offsite_pixels_tos_accepted";
+        opportunity_score: "opportunity_score";
         owner: "owner";
         owner_business: "owner_business";
         partner: "partner";
@@ -316,6 +318,9 @@ export default class AdAccount extends AbstractCrudObject {
     getMatchedSearchApplications(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getMaxBid(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getMcmeConversions(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createMessageCampaign(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AbstractObject>;
+    getMessageDeliveryEstimate(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createMessage(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AbstractObject>;
     getMinimumBudgets(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getOnBehalfRequests(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createProductAudience(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<CustomAudience>;

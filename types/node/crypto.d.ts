@@ -3778,7 +3778,7 @@ declare module "node:crypto" {
         interface CShakeParams extends Algorithm {
             customization?: NodeJS.BufferSource;
             functionName?: NodeJS.BufferSource;
-            length: number;
+            outputLength: number;
         }
         interface ContextParams extends Algorithm {
             context?: NodeJS.BufferSource;
@@ -3815,6 +3815,10 @@ declare module "node:crypto" {
             hash: HashAlgorithmIdentifier;
             length?: number;
         }
+        interface KangarooTwelveParams {
+            customization?: NodeJS.BufferSource;
+            outputLength: number;
+        }
         interface JsonWebKey {
             alg?: string;
             crv?: string;
@@ -3849,7 +3853,7 @@ declare module "node:crypto" {
         }
         interface KmacParams extends Algorithm {
             customization?: NodeJS.BufferSource;
-            length: number;
+            outputLength: number;
         }
         interface Pbkdf2Params extends Algorithm {
             hash: HashAlgorithmIdentifier;
@@ -3883,6 +3887,10 @@ declare module "node:crypto" {
         }
         interface RsaPssParams extends Algorithm {
             saltLength: number;
+        }
+        interface TurboShakeParams {
+            domainSeparation?: number;
+            outputLength: number;
         }
         interface Crypto {
             readonly subtle: SubtleCrypto;
@@ -3945,7 +3953,10 @@ declare module "node:crypto" {
                 extractable: boolean,
                 keyUsages: readonly KeyUsage[],
             ): Promise<CryptoKey>;
-            digest(algorithm: AlgorithmIdentifier | CShakeParams, data: NodeJS.BufferSource): Promise<ArrayBuffer>;
+            digest(
+                algorithm: AlgorithmIdentifier | CShakeParams | TurboShakeParams | KangarooTwelveParams,
+                data: NodeJS.BufferSource,
+            ): Promise<ArrayBuffer>;
             encapsulateBits(
                 encapsulationAlgorithm: AlgorithmIdentifier,
                 encapsulationKey: CryptoKey,

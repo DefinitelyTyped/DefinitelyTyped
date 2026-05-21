@@ -7,7 +7,7 @@
  *   - `.errback(...args, (err, result) => {})` - Calls the callback with the computed value, or error.
  * @param generatorFnOrOptions A generator function, or options for an existing sync/async function
  */
-declare function gensync<A extends unknown[], R, E = unknown>(
+declare function gensync<A extends unknown[], R, E = any>(
     generatorFnOrOptions: ((...args: A) => Generator<gensync.Handler, R>) | gensync.Options<A, R, E>,
 ): gensync.Gensync<A, R, E>;
 
@@ -16,7 +16,7 @@ declare namespace gensync {
      * A generator produced by `gensync`, which can only "await" (with `yield*`) other
      * generators produced by `gensync`.
      */
-    type Handler<R = unknown> = Generator<Handler, R>;
+    type Handler<R = any> = Generator<Handler, R>;
 
     /**
      * Given a `gensync` generator, produces the "awaited" type of that generator
@@ -28,7 +28,7 @@ declare namespace gensync {
      * A callback function such that if the result is void, there is no result parameter.
      */
     // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-    type Callback<R, E = unknown> = [R] extends [void] ? (err: E) => void : (err: E, result: R) => void;
+    type Callback<R, E = any> = [R] extends [void] ? (err: E) => void : (err: E, result: R) => void;
 
     /**
      * A function that can be "awaited" (with `yield*`) in another `gensync` generator,
@@ -38,7 +38,7 @@ declare namespace gensync {
      *   - `.async(...args)` - Returns a promise for the computed value.
      *   - `.errback(...args, (err, result) => {})` - Calls the callback wit
      */
-    interface Gensync<A extends unknown[], R, E = unknown> {
+    interface Gensync<A extends unknown[], R, E = any> {
         (...args: A): Handler<R>;
         sync(...args: A): R;
         async(...args: A): Promise<R>;
@@ -86,7 +86,7 @@ declare namespace gensync {
         async: (...args: A) => Promise<R>;
     }
 
-    interface ErrbackOptions<A extends unknown[], R, E = unknown> extends Omit<SyncOptions<A, R>, "errback"> {
+    interface ErrbackOptions<A extends unknown[], R, E = any> extends Omit<SyncOptions<A, R>, "errback"> {
         /**
          * A function that will be called when `.async()` or `.errback()` is called on
          * the `gensync()` result, or when the result is passed to `yield*` in another
@@ -101,7 +101,7 @@ declare namespace gensync {
         errback: (...args: [...A, Callback<R, E>]) => void;
     }
 
-    type Options<A extends unknown[], R, E = unknown> =
+    type Options<A extends unknown[], R, E = any> =
         | SyncOptions<A, R>
         | AsyncOptions<A, R>
         | ErrbackOptions<A, R, E>;

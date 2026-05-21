@@ -92,8 +92,10 @@ export default class AdActivity extends AbstractCrudObject {
         update_ad_set_target_spec: "update_ad_set_target_spec";
         update_ad_targets_spec: "update_ad_targets_spec";
         update_adaccount_agency_fee: "update_adaccount_agency_fee";
+        update_adaccount_agency_fee_status: "update_adaccount_agency_fee_status";
         update_adgroup_stop_delivery: "update_adgroup_stop_delivery";
         update_audience: "update_audience";
+        update_budget_flex_toggle_status: "update_budget_flex_toggle_status";
         update_campaign_ad_scheduling: "update_campaign_ad_scheduling";
         update_campaign_budget: "update_campaign_budget";
         update_campaign_budget_optimization_toggling_status: "update_campaign_budget_optimization_toggling_status";

@@ -6,6 +6,7 @@ import type {
 } from "./index";
 
 interface ES5 {
+    readonly abs: typeof import("./5/abs");
     readonly "Abstract Equality Comparison": typeof import("./5/AbstractEqualityComparison");
     readonly "Abstract Relational Comparison": typeof import("./5/AbstractRelationalComparison");
     readonly "Strict Equality Comparison": typeof import("./5/StrictEqualityComparison");
