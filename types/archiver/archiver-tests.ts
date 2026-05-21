@@ -1,14 +1,26 @@
-import Archiver = require("archiver");
+import {
+    Archiver,
+    ArchiverError,
+    ArchiverOptions,
+    create,
+    EntryData,
+    EntryDataFunction,
+    isRegisteredFormat,
+    ProgressData,
+    TarArchive,
+    ZipArchive,
+} from "archiver";
+
 import * as fs from "fs";
 import { Readable, Writable } from "stream";
 
-const options: Archiver.ArchiverOptions = {
+const options: ArchiverOptions = {
     statConcurrency: 1,
     allowHalfOpen: true,
     readableObjectMode: true,
     writeableObjectMode: true,
     decodeStrings: true,
-    encoding: "test",
+    encoding: "utf8",
     highWaterMark: 1,
     objectmode: true,
     comment: "test",
@@ -21,9 +33,7 @@ const options: Archiver.ArchiverOptions = {
     gzipOptions: {},
 };
 
-Archiver("zip", options);
-
-const archiver = Archiver.create("zip");
+const archiver: Archiver = new ZipArchive(options);
 
 const archiverAsReadable: Readable = archiver;
 const archiverAsWritable: Writable = archiver;
@@ -46,15 +56,11 @@ archiver.append(Readable.from(["test"]), { name: "buffer.txt", date: new Date() 
 archiver.directory("./path", "./someOtherPath");
 archiver.directory("./", "", {});
 archiver.directory("./", false, { name: "test" });
-archiver.directory("./", false, (entry: Archiver.EntryData) => {
+archiver.directory("./", false, (entry: EntryData) => {
     entry.name = "foobar";
     return entry;
 });
-archiver.directory("./", false, (entry: Archiver.EntryData) => false);
-
-archiver.append(readStream, {
-    name: "sub/folder.xml",
-});
+archiver.directory("./", false, (entry: EntryData) => false);
 
 archiver.glob("**", {
     cwd: "path/to/files",
@@ -72,20 +78,23 @@ archiver.use(() => {});
 archiver.finalize(); // $ExpectType Promise<void>
 
 archiver.symlink("./path", "./target");
+archiver.symlink("directory/directory", "../../directory", 493);
 
-function fakeHandler(err: Archiver.ArchiverError) {
+function fakeHandler(err: ArchiverError) {
     console.log(err.code);
     console.log(err.message);
     console.log(err.stack);
     console.log(err.data);
 }
 
-const fakeError = new Archiver.ArchiverError("code", "foo");
+const fakeError = new ArchiverError("code", "foo");
 
 archiver.on("error", fakeHandler);
 archiver.on("warning", fakeHandler);
 
 archiver.on("data", (chunk: Buffer) => console.log(chunk));
 
-Archiver.isRegisteredFormat("zip"); // $ExpectType boolean
-archiver.symlink("directory/directory", "../../directory", 493); // $ExpectType Archiver
+create("zip");
+isRegisteredFormat("zip");
+
+const tarArchiver: Archiver = new TarArchive({ gzip: true });
