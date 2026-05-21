@@ -221,7 +221,6 @@ declare module "node:readline" {
         [Symbol.asyncIterator](): NodeJS.AsyncIterator<string>;
     }
     interface Interface extends InternalEventEmitter<InterfaceEventMap> {}
-    type ReadLine = Interface; // type forwarded for backwards compatibility
     type Completer = (line: string) => CompleterResult;
     type AsyncCompleter = (
         line: string,
@@ -498,6 +497,8 @@ declare module "node:readline" {
      * @return `false` if `stream` wishes for the calling code to wait for the `'drain'` event to be emitted before continuing to write additional data; otherwise `true`.
      */
     function moveCursor(stream: NodeJS.WritableStream, dx: number, dy: number, callback?: () => void): boolean;
+    /** @deprecated This alias will be removed in a future version. Use `import { Interface } from 'node:readline'` instead. */
+    type ReadLine = Interface;
 }
 declare module "node:readline" {
     export * as promises from "node:readline/promises";
