@@ -2,15 +2,15 @@
 
 interface Console {
     error(): void;
-    error(formatOrObject: object | string, ...values: any[]): void;
+    error(formatOrObject: any, ...values: any[]): void;
     info(): void;
-    info(formatOrObject: object | string, ...values: any[]): void;
+    info(formatOrObject: any, ...values: any[]): void;
     log(): void;
-    log(formatOrObject: object | string, ...values: any[]): void;
+    log(formatOrObject: any, ...values: any[]): void;
     time(label: string): void;
     timeEnd(label: string): void;
     warn(): void;
-    warn(formatOrObject: object | string, ...values: any[]): void;
+    warn(formatOrObject: any, ...values: any[]): void;
 }
 
 declare namespace GoogleAppsScript {
