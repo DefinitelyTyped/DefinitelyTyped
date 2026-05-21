@@ -81,6 +81,8 @@ declare module "node:process" {
         "node:stream": typeof import("node:stream");
         "stream/consumers": typeof import("stream/consumers");
         "node:stream/consumers": typeof import("node:stream/consumers");
+        "stream/iter": typeof import("stream/iter");
+        "node:stream/iter": typeof import("node:stream/iter");
         "stream/promises": typeof import("stream/promises");
         "node:stream/promises": typeof import("node:stream/promises");
         "stream/web": typeof import("stream/web");
