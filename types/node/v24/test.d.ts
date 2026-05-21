@@ -236,7 +236,7 @@ declare module "node:test" {
         }
         interface RunOptions {
             /**
-             * If a number is provided, then that many test processes would run in parallel, where each process corresponds to one test file.
+             * If a number is provided, then that many tests would run asynchronously (they are still managed by the single-threaded event loop).
              * If `true`, it would run `os.availableParallelism() - 1` test files in parallel. If `false`, it would only run one test file at a time.
              * @default false
              */
