@@ -1,5 +1,5 @@
 declare namespace Big {
-    type BigSource = number | string | Big;
+    type BigSource = number | string | Big | bigint;
 
     /**
      * GT = 1, EQ = 0, LT = -1
