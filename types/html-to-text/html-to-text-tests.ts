@@ -235,6 +235,7 @@ const htmlString = `<h1>h1</h1><p><b>bold</b></p><p><i>italic</i></p>
 
 console.log("\nProcessing string with default options");
 console.log(htmlToText(htmlString));
+htmlToText("<p>Hello</p>");
 
 console.log("\nProcessing string with custom options");
 const text = htmlToText(htmlString, htmlOptions);
