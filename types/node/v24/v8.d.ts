@@ -731,6 +731,11 @@ declare module "v8" {
          * @since v19.6.0, v18.15.0
          */
         stop(): GCProfilerResult;
+        /**
+         * Stop collecting GC data, and discard the profile.
+         * @since v24.13.0
+         */
+        [Symbol.dispose](): void;
     }
     interface GCProfilerResult {
         version: number;
