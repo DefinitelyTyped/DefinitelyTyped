@@ -4,6 +4,7 @@ import {
     ArchiverOptions,
     EntryData,
     EntryDataFunction,
+    JsonArchive,
     ProgressData,
     TarArchive,
     ZipArchive,
@@ -31,10 +32,13 @@ const options: ArchiverOptions = {
     gzipOptions: {},
 };
 
-const archiver: Archiver = new ZipArchive(options);
+const zipArchiver: ZipArchive = new ZipArchive(options);
+const tarArchiver: TarArchive = new TarArchive({ gzip: true });
+const jsonArchiver: JsonArchive = new JsonArchive();
 
-const archiverAsReadable: Readable = archiver;
-const archiverAsWritable: Writable = archiver;
+const archiver: Archiver = zipArchiver;
+const readable: Readable = archiver;
+const writable: Writable = archiver;
 
 const writeStream = fs.createWriteStream("./archiver.d.ts");
 const readStream = fs.createReadStream("./archiver.d.ts");
@@ -46,9 +50,15 @@ archiver.append(readStream, { name: "archiver.d.ts" });
 archiver.append(readStream, { name: "buffer.txt", date: "05/05/1991" });
 archiver.append(readStream, { name: "buffer.txt", date: new Date() });
 archiver.append(readStream, { name: "buffer.txt", mode: 1 });
-archiver.append(readStream, { name: "buffer.txt", mode: 1, stats: ({} as fs.Stats) });
+archiver.append(readStream, {
+    name: "buffer.txt",
+    mode: 1,
+    stats: {} as fs.Stats,
+});
 archiver.append("Some content", { name: "filename", store: true });
-archiver.append(readStream, { name: "archiver.d.ts" }).append(readStream, { name: "archiver.d.ts" });
+archiver
+    .append(readStream, { name: "archiver.d.ts" })
+    .append(readStream, { name: "archiver.d.ts" });
 archiver.append(Readable.from(["test"]), { name: "buffer.txt", date: new Date() });
 
 archiver.directory("./path", "./someOtherPath");
@@ -60,18 +70,13 @@ archiver.directory("./", false, (entry: EntryData) => {
 });
 archiver.directory("./", false, (entry: EntryData) => false);
 
-archiver.glob("**", {
-    cwd: "path/to/files",
-});
-archiver.glob("./path", {}, {});
-
+archiver.file("./path");
 archiver.file("./path", { name: "test" });
 
-archiver.setFormat("zip");
-archiver.setModule(() => {});
+archiver.glob("**", { cwd: "path/to/files" });
+archiver.glob("./path", {}, {});
 
 archiver.pointer();
-archiver.use(() => {});
 
 archiver.finalize(); // $ExpectType Promise<void>
 
@@ -91,5 +96,9 @@ archiver.on("error", fakeHandler);
 archiver.on("warning", fakeHandler);
 
 archiver.on("data", (chunk: Buffer) => console.log(chunk));
-
-const tarArchiver: Archiver = new TarArchive({ gzip: true });
+archiver.on("progress", (progress: ProgressData) => {
+    console.log(progress.entries.total);
+});
+archiver.on("entry", (entry: EntryData) => {
+    console.log(entry.name);
+});

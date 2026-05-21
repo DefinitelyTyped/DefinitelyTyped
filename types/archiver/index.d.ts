@@ -35,23 +35,22 @@ export type EntryDataFunction = (entry: EntryData) => false | EntryData;
 export class ArchiverError extends Error {
     code: string;
     data: any;
-    path?: any;
     constructor(code: string, data: any);
 }
 
 export class Archiver extends stream.Transform {
     abort(): this;
     append(source: stream.Readable | Buffer | string, data?: EntryData | ZipEntryData | TarEntryData): this;
-    directory(dirpath: string, destpath: false | string, data?: Partial<EntryData> | EntryDataFunction): this;
-    file(filename: string, data: EntryData): this;
+    directory(
+        dirpath: string,
+        destpath: false | string,
+        data?: Partial<EntryData> | EntryDataFunction,
+    ): this;
+    /** @param data - entry data (optional) */
+    file(filename: string, data?: EntryData): this;
     glob(pattern: string, options?: GlobOptions, data?: Partial<EntryData>): this;
     finalize(): Promise<void>;
-    setFormat(format: string): this;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
-    setModule(module: Function): this;
     pointer(): number;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
-    use(plugin: Function): this;
     symlink(filepath: string, target: string, mode?: number): this;
     on(event: "error" | "warning", listener: (error: ArchiverError) => void): this;
     on(event: "data", listener: (data: Buffer) => void): this;
@@ -98,4 +97,8 @@ export class ZipArchive extends Archiver {
 
 export class TarArchive extends Archiver {
     constructor(options?: CoreOptions & TransformOptions & TarOptions);
+}
+
+export class JsonArchive extends Archiver {
+    constructor(options?: CoreOptions & TransformOptions);
 }
