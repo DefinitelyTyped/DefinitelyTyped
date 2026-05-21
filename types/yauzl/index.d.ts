@@ -18,9 +18,12 @@ export class Entry {
     externalFileAttributes: number;
     extraFieldLength: number;
     extraFields: Array<{ id: number; data: Buffer }>;
+    extraFieldRaw: Buffer;
     fileCommentLength: number;
     fileName: string;
     fileNameLength: number;
+    fileNameRaw: Buffer;
+    fileCommentRaw: Buffer;
     generalPurposeBitFlag: number;
     internalFileAttributes: number;
     lastModFileDate: number;
@@ -30,9 +33,25 @@ export class Entry {
     versionMadeBy: number;
     versionNeededToExtract: number;
 
-    getLastModDate(): Date;
+    getLastModDate(options?: { forceDosFormat?: boolean; timezone?: "local" | "UTC" }): Date;
     isEncrypted(): boolean;
     isCompressed(): boolean;
+}
+
+export class LocalFileHeader {
+    fileDataStart: number;
+    versionNeededToExtract: number;
+    generalPurposeBitFlag: number;
+    compressionMethod: number;
+    lastModFileTime: number;
+    lastModFileDate: number;
+    crc32: number;
+    compressedSize: number;
+    uncompressedSize: number;
+    fileNameLength: number;
+    extraFieldLength: number;
+    fileName: Buffer;
+    extraField: Buffer;
 }
 
 export interface ZipFileOptions {
@@ -40,6 +59,10 @@ export interface ZipFileOptions {
     decrypt: boolean | null;
     start: number | null;
     end: number | null;
+}
+
+export interface ReadLocalFileHeaderOptions {
+    minimal?: boolean;
 }
 
 export class ZipFile extends EventEmitter {
@@ -73,6 +96,24 @@ export class ZipFile extends EventEmitter {
         callback: (err: Error | null, stream: Readable) => void,
     ): void;
     openReadStream(entry: Entry, callback: (err: Error | null, stream: Readable) => void): void;
+    openReadStreamLowLevel(
+        fileDataStart: number,
+        compressedSize: number,
+        relativeStart: number,
+        relativeEnd: number,
+        decompress: boolean,
+        uncompressedSize: number,
+        callback: (err: Error | null, stream: Readable) => void,
+    ): void;
+    readLocalFileHeader(
+        entry: Entry,
+        options: ReadLocalFileHeaderOptions,
+        callback: (err: Error | null, localFileHeader: LocalFileHeader) => void,
+    ): void;
+    readLocalFileHeader(
+        entry: Entry,
+        callback: (err: Error | null, localFileHeader: LocalFileHeader) => void,
+    ): void;
     close(): void;
     readEntry(): void;
 }
@@ -108,3 +149,10 @@ export function fromRandomAccessReader(
 ): void;
 export function dosDateTimeToDate(date: number, time: number): Date;
 export function validateFileName(fileName: string): string | null;
+export function getFileNameLowLevel(
+    generalPurposeBitFlag: number,
+    fileNameBuffer: Buffer,
+    extraFields: Array<{ id: number; data: Buffer }>,
+    strictFileNames: boolean,
+): string;
+export function parseExtraFields(extraFieldBuffer: Buffer): Array<{ id: number; data: Buffer }>;
