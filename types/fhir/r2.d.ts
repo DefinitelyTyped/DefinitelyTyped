@@ -13190,6 +13190,8 @@ export interface ImmunizationRecommendationRecommendation extends BackboneElemen
  * Base StructureDefinition for Resource Resource
  */
 export interface Resource {
+  /** Resource Type Name (for serialization) */
+  readonly resourceType: string;
   /**
    * Logical id of this artifact
    * The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes.
