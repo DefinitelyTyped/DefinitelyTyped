@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/libnpmpublish",
-    "version": "9.0.9999",
+    "version": "11.2.9999",
     "projects": [
         "https://npmjs.com/package/libnpmpublish"
     ],
