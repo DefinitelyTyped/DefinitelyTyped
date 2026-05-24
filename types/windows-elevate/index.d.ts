@@ -1,9 +1,9 @@
 /// <reference types="node" />
 
-import { ChildProcess, ExecFileException } from "child_process";
+import { ChildProcess, ExecException } from "child_process";
 
 export function exec(
     cmd: string,
     options?: string | readonly string[] | null,
-    callback?: (error: ExecFileException, stdout: string, stderr: string) => void,
+    callback?: (error: ExecException, stdout: string, stderr: string) => void,
 ): ChildProcess;
