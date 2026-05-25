@@ -14,6 +14,9 @@ declare module "concaveman" {
      * //=hull
      */
     function concaveman(points: number[][], concavity?: number, lengthThreshold?: number): number[][];
-    namespace concaveman {}
+    namespace concaveman {
+        const _default: typeof concaveman;
+        export { _default as default };
+    }
     export = concaveman;
 }
