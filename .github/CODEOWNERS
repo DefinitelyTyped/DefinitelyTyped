@@ -5436,7 +5436,6 @@
 /types/openlayers/v3/                                   @osechet
 /types/openpay/                                         @bjardon
 /types/openrct2/                                        @OpenRCT2 @IntelOrca @tubbo
-/types/openseadragon/                                   @alvaromartmart @jstaab @kristinruben @geoff-harper @justincy @peterblazejewicz @rssaini01
 /types/openssi-websdk/                                  @arner
 /types/openstack-wrapper/                               @sanjaymadane
 /types/opentimestamps/                                  @despotes
@@ -6959,6 +6958,7 @@
 /types/rtl-detect/                                      @imprevo
 /types/rtlcss/                                          @peterblazejewicz
 /types/rtp-parser/                                      @matthew-smith
+/types/rtpengine-client/                                @danvirsen
 /types/rtree/                                           @oefirouz
 /types/run-parallel/                                    @mrmlnc
 /types/run-parallel-limit/                              @mrmlnc
