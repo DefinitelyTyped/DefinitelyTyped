@@ -277,12 +277,26 @@ export function disconnectStreamSource(source: StreamSource): void;
  */
 export function renderStreamMessage(message: StreamMessage | string): void;
 
+export interface TurboHistory {
+    readonly location: URL;
+    readonly restorationIdentifier: string;
+    push(location: URL, restorationIdentifier?: string): void;
+    replace(location: URL, restorationIdentifier?: string): void;
+}
+
 export interface TurboSession {
+    readonly history: TurboHistory;
+    adapter: Adapter;
+    readonly enabled: boolean;
+    readonly started: boolean;
+
     connectStreamSource(source: StreamSource): void;
     disconnectStreamSource(source: StreamSource): void;
     renderStreamMessage(message: StreamMessage | string): void;
+
     drive: boolean;
-    adapter: Adapter;
+    readonly location: URL;
+    readonly restorationIdentifier: string;
 }
 
 export const StreamActions: {
