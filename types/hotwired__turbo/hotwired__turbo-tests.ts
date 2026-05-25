@@ -15,6 +15,7 @@ import {
     StreamActions,
     StreamMessage,
     StreamSource,
+    TurboHistory,
     Visit,
     visit,
     VisitOptions,
@@ -289,3 +290,29 @@ StreamMessage.contentType;
 
 // $ExpectType StreamMessage
 StreamMessage.wrap("<turbo-stream></turbo-stream>");
+
+// Test TurboHistory via session.history
+// $ExpectType TurboHistory
+session.history;
+// $ExpectType TurboHistory
+Turbo.session.history;
+
+session.history.push(new URL("https://example.com"));
+session.history.push(new URL("https://example.com"), "abc-123");
+session.history.replace(new URL("https://example.com"));
+session.history.replace(new URL("https://example.com"), "abc-123");
+
+// $ExpectType URL
+session.history.location;
+// $ExpectType string
+session.history.restorationIdentifier;
+
+// Test session getters
+// $ExpectType URL
+session.location;
+// $ExpectType string
+session.restorationIdentifier;
+// $ExpectType boolean
+session.started;
+// $ExpectType boolean
+session.enabled;
