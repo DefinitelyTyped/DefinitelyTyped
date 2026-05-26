@@ -1,4 +1,5 @@
 import {
+    BuyCryptoPaymentMethod,
     BuyListResponse,
     BuyProviderInfo,
     BuyTrade,
@@ -11,6 +12,7 @@ import {
     ExchangeTradeQuoteRequest,
     ExchangeTradeSigned,
     InfoResponse,
+    SellCryptoPaymentMethod,
     SellFiatTrade,
     SellFiatTradeSigned,
     SellListResponse,
@@ -261,3 +263,7 @@ const sellListResponse: SellListResponse = {
     subdivision: "WA",
     providers: [sellProviderInfo],
 };
+
+const buyPaymentMethod: BuyCryptoPaymentMethod = "blik";
+
+const sellPaymentMethod: SellCryptoPaymentMethod = "pix";

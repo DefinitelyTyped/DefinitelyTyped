@@ -173,7 +173,39 @@ export type BuyCryptoPaymentMethod =
     | "viettelpay"
     | "duitnow"
     | "payid"
-    | "toss";
+    | "toss"
+    | "sepa"
+    | "trustly"
+    | "astropay"
+    | "skrill"
+    | "neteller"
+    | "ach"
+    | "instantAch"
+    | "revolutPay"
+    | "pix"
+    | "paypal"
+    | "mpesa"
+    | "spei"
+    | "fpx"
+    | "grapPay"
+    | "shopeePay"
+    | "touchNGo"
+    | "boost"
+    | "qrph"
+    | "qrphGCash"
+    | "qrphMaya"
+    | "qrphPesonet"
+    | "qrphGrabPay"
+    | "qrphInstaPay"
+    | "fasterPayment"
+    | "openBanking"
+    | "khipu"
+    | "pse"
+    | "flutterwave"
+    | "venmo"
+    | "multibanco"
+    | "klarna"
+    | "blik";
 
 export type BuyTradeTag =
     | "renewed"
@@ -532,7 +564,17 @@ export interface SellListResponse {
     providers: SellProviderInfo[];
 }
 
-export type SellCryptoPaymentMethod = "bankTransfer" | "creditCard";
+export type SellCryptoPaymentMethod =
+    | "bankTransfer"
+    | "creditCard"
+    | "sepa"
+    | "ach"
+    | "skrill"
+    | "neteller"
+    | "payid"
+    | "dcinterac"
+    | "fasterPayment"
+    | "pix";
 
 export type SellTradeTag = "renewed" | "alternativeCurrency" | "bestRate" | "favorite" | "wantFiat" | "widget";
 
