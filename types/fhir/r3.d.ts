@@ -14778,6 +14778,12 @@ export interface MedicationPackage extends BackboneElement {
 }
 
 /**
+ * A fixed quantity (no comparator)
+ */
+export interface SimpleQuantity extends Quantity {
+}
+
+/**
  * Base StructureDefinition for DiagnosticReport Resource
  */
 export interface DiagnosticReport extends DomainResource {
@@ -20780,6 +20786,8 @@ export interface ImmunizationRecommendationRecommendation extends BackboneElemen
  * Base StructureDefinition for Resource Resource
  */
 export interface Resource {
+  /** Resource Type Name (for serialization) */
+  readonly resourceType: string;
   /**
    * Logical id of this artifact
    * The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes.
