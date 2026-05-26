@@ -445,3 +445,13 @@ const poolWithOnConnect = new Pool({
 poolWithOnConnect.connect().then(client => {
     console.log("client connected");
 });
+
+const poolWithVerify = new Pool({
+    verify: (client, done) => {
+        client.query("SELECT 1").then(() => {
+            done();
+        }).catch(err => {
+            done(err);
+        });
+    },
+});
