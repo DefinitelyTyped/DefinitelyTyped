@@ -217,6 +217,10 @@ const proxyHandlerV2Websocket: APIGatewayProxyWebsocketHandlerV2 = async (event,
     strOrUndefined = event.body;
     bool = event.isBase64Encoded;
     strOrUndefined = event.stageVariables ? event.stageVariables["example"] : undefined;
+    strOrUndefined = event.queryStringParameters ? event.queryStringParameters["example"] : undefined;
+    const multiValueQueryStringParameter = event.multiValueQueryStringParameters
+        ? event.multiValueQueryStringParameters["example"]
+        : undefined;
 
     str = event.requestContext.routeKey;
     str = event.requestContext.messageId;
