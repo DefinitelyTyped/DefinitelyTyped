@@ -14,6 +14,16 @@ function assertType<T>(value: T): T {
         client.on("event", (message) => {
             if (message.method === "Network.requestWillBeSent") {}
         });
+        // `once` / `removeListener` overloads mirror `on(...)`.
+        const onceDisconnectHandler = () => {};
+        client.once("disconnect", onceDisconnectHandler);
+        client.removeListener("disconnect", onceDisconnectHandler);
+        client.once("Network.requestWillBeSent", (params) => {
+            params.documentURL;
+        });
+        client.removeListener("event", (message) => {
+            if (message.method === "Network.requestWillBeSent") {}
+        });
 
         // Stable Domains
         {

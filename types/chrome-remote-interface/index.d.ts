@@ -381,6 +381,22 @@ declare namespace CDP {
             ): void;
             // '<domain>.<method>.<sessionId>' i.e. Network.requestWillBeSent.abc123
             on(event: string, callback: (params: object, sessionId?: string) => void): void;
+            // `once` mirrors `on(...)` — auto-removes the listener after the first invocation.
+            once(event: "event", callback: (message: EventMessage) => void): void;
+            once(event: "ready" | "disconnect", callback: () => void): void;
+            once<T extends keyof ProtocolMappingApi.Events>(
+                event: T,
+                callback: (params: ProtocolMappingApi.Events[T][0], sessionId?: string) => void,
+            ): void;
+            once(event: string, callback: (params: object, sessionId?: string) => void): void;
+            // `removeListener` mirrors `on(...)` — detaches a previously registered listener.
+            removeListener(event: "event", callback: (message: EventMessage) => void): void;
+            removeListener(event: "ready" | "disconnect", callback: () => void): void;
+            removeListener<T extends keyof ProtocolMappingApi.Events>(
+                event: T,
+                callback: (params: ProtocolMappingApi.Events[T][0], sessionId?: string) => void,
+            ): void;
+            removeListener(event: string, callback: (params: object, sessionId?: string) => void): void;
             // client.send(method, [params], [sessionId], [callback])
             send<T extends keyof ProtocolMappingApi.Commands>(event: T, callback: SendCallback<T>): void;
             send<T extends keyof ProtocolMappingApi.Commands>(
