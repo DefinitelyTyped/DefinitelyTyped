@@ -101,11 +101,11 @@ const infoResponse: InfoResponse = {
     config: {
         btcSwapDummyData: {
             opreturn: {
-                dataHex: 'abcd1234'
+                dataHex: "abcd1234",
             },
-            feePercentage: 2
-        }
-    }
+            feePercentage: 2,
+        },
+    },
 };
 
 const exchangeProviderInfo: ExchangeProviderInfo = {
