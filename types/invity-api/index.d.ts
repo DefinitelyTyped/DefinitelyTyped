@@ -522,6 +522,14 @@ export interface Platforms {
 export interface InfoResponse {
     platforms: Platforms;
     coins: Coins;
+    config: {
+        btcSwapDummyData?: {
+            opreturn: {
+                dataHex: string;
+            };
+            feePercentage: number;
+        };
+    };
 }
 
 // sell/voucher types
