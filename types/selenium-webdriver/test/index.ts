@@ -513,7 +513,12 @@ function TestWebElement() {
     element = element.findElement({ id: "ABC" });
     element.findElements({ className: "ABC" }).then((elements: webdriver.WebElement[]) => {});
 
-    stringPromise = element.getAttribute("class");
+    const maybeAttr: Promise<string | null> = element.getAttribute("class");
+    maybeAttr.then(v => {
+        if (v !== null) {
+            v.toUpperCase();
+        }
+    });
     stringPromise = element.getCssValue("display");
     driver = element.getDriver();
     element.getLocation().then((location: webdriver.ILocation) => {});
