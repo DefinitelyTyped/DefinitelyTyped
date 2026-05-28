@@ -370,4 +370,4 @@ export function loadSync(
     },
 ): Font;
 
-export function parse(buffer: any): Font;
+export function parse(buffer: any, opt?: { lowMemory: boolean }): Font;
