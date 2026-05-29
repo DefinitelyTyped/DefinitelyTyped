@@ -13,6 +13,19 @@ interface BidderConfig {
 
 type NoParamFunction = () => void;
 type ParamFunction = (arg: any) => void;
+interface AdvertisingConfig {
+    client: "vast" | "googima";
+    endstate?: string;
+    outstream?: boolean;
+    rules?: {
+        deferAds?: Record<string, unknown>;
+        frequency?: number;
+        startOn?: number;
+        startOnSeek?: string;
+        timeBetweenAds?: number;
+    };
+    vpaidcontrols?: boolean;
+}
 
 interface SocialConsents {
     vendors: {
@@ -130,6 +143,13 @@ const ndOne: OneLine.OneLine = {
         // Mock implementation for setBettingCookie
         this.setBettingCookie(betting);
     },
+    getBaseAdvertisingConfig: () => {
+        const config: AdvertisingConfig = { client: "vast" };
+        return config;
+    },
+    hasVisibleVideoAdUi: (container: HTMLElement) => {
+        return container.childElementCount > 0;
+    },
 };
 
 // Test cases
@@ -141,3 +161,8 @@ ndOne.requestVideoPlayerAds(() => {
     console.log("Video player ads bidding complete");
 });
 ndOne.setBettingCookie(true);
+const advertisingConfig = ndOne.getBaseAdvertisingConfig();
+if (advertisingConfig) {
+    advertisingConfig.client;
+}
+ndOne.hasVisibleVideoAdUi(document.createElement("div"));
