@@ -1,5 +1,5 @@
-// Tests for Google Publisher Tag 1.20260518
-// Synced from: https://github.com/googleads/google-publisher-tag-types/commit/26b00c99eb377e0e93b1510a795f2e647d91d8e5
+// Tests for Google Publisher Tag 1.20260525
+// Synced from: https://github.com/googleads/google-publisher-tag-types/commit/3a5fc88b30b26709f89e5dc6f8f1bb725322c2b6
 
 // Test for googletag.cmd
 function test_googletag_cmd() {
@@ -139,61 +139,97 @@ function test_googletag_privacySettingsConfig_tagForAgeTreatment() {
 // Test for googletag.PubAdsService.setTargeting
 function test_googletag_pubAdsService_setTargeting() {
     // Example with a single value for a key.
-    googletag.pubads().setTargeting("interests", "sports");
+    googletag.setConfig({
+        targeting: {
+            interests: "sports",
+        },
+    });
 
     // Example with multiple values for a key inside in an array.
-    googletag.pubads().setTargeting("interests", ["sports", "music"]);
+    googletag.setConfig({
+        targeting: {
+            interests: ["sports", "music"],
+        },
+    });
 }
 
 // Test for googletag.PubAdsService.clearTargeting
 function test_googletag_pubAdsService_clearTargeting() {
-    googletag.pubads().setTargeting("interests", "sports");
-    googletag.pubads().setTargeting("colors", "blue");
-    googletag.pubads().setTargeting("fruits", "apple");
+    googletag.setConfig({
+        targeting: {
+            interests: "sports",
+            colors: "blue",
+            fruits: "apple",
+        },
+    });
 
-    googletag.pubads().clearTargeting("interests");
+    googletag.setConfig({
+        targeting: {
+            interests: null,
+        },
+    });
     // Targeting 'colors' and 'fruits' are still present, while 'interests'
     // was cleared.
 
-    googletag.pubads().clearTargeting();
+    googletag.setConfig({
+        targeting: null,
+    });
     // All targeting has been cleared.
 }
 
 // Test for googletag.PubAdsService.getTargeting
 function test_googletag_pubAdsService_getTargeting() {
-    googletag.pubads().setTargeting("interests", "sports");
+    googletag.setConfig({
+        targeting: {
+            interests: "sports",
+        },
+    });
 
-    googletag.pubads().getTargeting("interests");
+    const targetingConfig = googletag.getConfig("targeting").targeting;
+
+    // Get targeting for a specific key.
+    const targeting = targetingConfig?.["interests"] || [];
     // Returns ['sports'].
 
-    googletag.pubads().getTargeting("age");
+    const ageTargeting = targetingConfig?.["age"] || [];
     // Returns [] (empty array).
 }
 
 // Test for googletag.PubAdsService.getTargetingKeys
 function test_googletag_pubAdsService_getTargetingKeys() {
-    googletag.pubads().setTargeting("interests", "sports");
-    googletag.pubads().setTargeting("colors", "blue");
+    googletag.setConfig({
+        targeting: {
+            interests: "sports",
+            colors: "blue",
+        },
+    });
 
-    googletag.pubads().getTargetingKeys();
+    const targetingConfig = googletag.getConfig("targeting").targeting;
+    const keys = Object.keys(targetingConfig || {});
     // Returns ['interests', 'colors'].
 }
 
 // Test for googletag.PubAdsService.setCategoryExclusion
 function test_googletag_pubAdsService_setCategoryExclusion() {
     // Label = AirlineAd.
-    googletag.pubads().setCategoryExclusion("AirlineAd");
+    googletag.setConfig({
+        categoryExclusion: ["AirlineAd"],
+    });
 }
 
 // Test for googletag.PubAdsService.clearCategoryExclusions
 function test_googletag_pubAdsService_clearCategoryExclusions() {
     // Set category exclusion to exclude ads with 'AirlineAd' labels.
-    googletag.pubads().setCategoryExclusion("AirlineAd");
+    googletag.setConfig({
+        categoryExclusion: ["AirlineAd"],
+    });
 
     // Make ad requests. No ad with 'AirlineAd' label will be returned.
 
     // Clear category exclusions so all ads can be returned.
-    googletag.pubads().clearCategoryExclusions();
+    googletag.setConfig({
+        categoryExclusion: null,
+    });
 
     // Make ad requests. Any ad can be returned.
 }
@@ -201,7 +237,9 @@ function test_googletag_pubAdsService_clearCategoryExclusions() {
 // Test for googletag.PubAdsService.setCentering
 function test_googletag_pubAdsService_setCentering() {
     // Make ads centered.
-    googletag.pubads().setCentering(true);
+    googletag.setConfig({
+        centering: true,
+    });
 }
 
 // Test for googletag.PubAdsService.refresh
@@ -249,7 +287,9 @@ function test_googletag_pubAdsService_clear() {
 // Test for googletag.PubAdsService.setLocation
 function test_googletag_pubAdsService_setLocation() {
     // Postal code:
-    googletag.pubads().setLocation("10001,US");
+    googletag.setConfig({
+        location: "10001,US",
+    });
 }
 
 // Test for googletag.PubAdsService.setPublisherProvidedId
@@ -259,22 +299,38 @@ function test_googletag_pubAdsService_setPublisherProvidedId() {
 
 // Test for googletag.PubAdsService.set
 function test_googletag_pubAdsService_set() {
-    googletag.pubads().set("adsense_background_color", "#FFFFFF");
+    googletag.setConfig({
+        adsenseAttributes: {
+            page_url: "http://www.example.com",
+        },
+    });
 }
 
 // Test for googletag.PubAdsService.get
 function test_googletag_pubAdsService_get() {
-    googletag.pubads().set("adsense_background_color", "#FFFFFF");
-    googletag.pubads().get("adsense_background_color");
-    // Returns '#FFFFFF'.
+    googletag.setConfig({
+        adsenseAttributes: {
+            page_url: "http://www.example.com",
+        },
+    });
+
+    const adsenseConfig = googletag.getConfig("adsenseAttributes").adsenseAttributes;
+    const pageUrl = adsenseConfig?.page_url || null;
+    // Returns 'http://www.example.com'.
 }
 
 // Test for googletag.PubAdsService.getAttributeKeys
 function test_googletag_pubAdsService_getAttributeKeys() {
-    googletag.pubads().set("adsense_background_color", "#FFFFFF");
-    googletag.pubads().set("adsense_border_color", "#AABBCC");
-    googletag.pubads().getAttributeKeys();
-    // Returns ['adsense_background_color', 'adsense_border_color'].
+    googletag.setConfig({
+        adsenseAttributes: {
+            page_url: "http://www.example.com",
+            document_language: "en",
+        },
+    });
+
+    const adsenseConfig = googletag.getConfig("adsenseAttributes").adsenseAttributes;
+    const adsenseAttributes = Object.keys(adsenseConfig || {});
+    // Returns ['page_url', 'document_language'].
 }
 
 // Test for googletag.PubAdsService.display
@@ -297,13 +353,21 @@ function test_googletag_pubAdsService_updateCorrelator() {
 
 // Test for googletag.PubAdsService.setForceSafeFrame
 function test_googletag_pubAdsService_setForceSafeFrame() {
-    googletag.pubads().setForceSafeFrame(true);
+    googletag.setConfig({
+        safeFrame: {
+            forceSafeFrame: true,
+        },
+    });
 
     // The following slot will be opted-out of the page-level force
     // SafeFrame instruction.
     googletag
         .defineSlot("/1234567/sports", [160, 600], "div-1")!
-        .setForceSafeFrame(false)
+        .setConfig({
+            safeFrame: {
+                forceSafeFrame: false,
+            },
+        })
         .addService(googletag.pubads());
 
     // The following slot will have SafeFrame forced.
@@ -315,22 +379,22 @@ function test_googletag_pubAdsService_setForceSafeFrame() {
 
 // Test for googletag.PubAdsService.setSafeFrameConfig
 function test_googletag_pubAdsService_setSafeFrameConfig() {
-    googletag.pubads().setForceSafeFrame(true);
+    googletag.setConfig({
+        safeFrame: {
+            forceSafeFrame: true,
+            allowOverlayExpansion: true,
+            allowPushExpansion: true,
+            sandbox: true,
+        },
+    });
 
-    const pageConfig = {
-        allowOverlayExpansion: true,
-        allowPushExpansion: true,
-        sandbox: true,
-    };
-
-    const slotConfig = { allowOverlayExpansion: false };
-
-    googletag.pubads().setSafeFrameConfig(pageConfig);
-
-    // The following slot will not allow for expansion by overlay.
     googletag
         .defineSlot("/1234567/sports", [160, 600], "div-1")!
-        .setSafeFrameConfig(slotConfig)
+        .setConfig({
+            safeFrame: {
+                allowOverlayExpansion: false,
+            },
+        })
         .addService(googletag.pubads());
 
     // The following slot will inherit the page level settings, and hence
@@ -343,13 +407,15 @@ function test_googletag_pubAdsService_setSafeFrameConfig() {
 
 // Test for googletag.PubAdsService.enableLazyLoad
 function test_googletag_pubAdsService_enableLazyLoad() {
-    googletag.pubads().enableLazyLoad({
-        // Fetch slots within 5 viewports.
-        fetchMarginPercent: 500,
-        // Render slots within 2 viewports.
-        renderMarginPercent: 200,
-        // Double the above values on mobile.
-        mobileScaling: 2.0,
+    googletag.setConfig({
+        lazyLoad: {
+            // Fetch slots within 5 viewports.
+            fetchMarginPercent: 500,
+            // Render slots within 2 viewports.
+            renderMarginPercent: 200,
+            // Double the above values on mobile.
+            mobileScaling: 2.0,
+        },
     });
 }
 
@@ -443,7 +509,11 @@ function test_googletag_slot_set() {
     // Setting an attribute on a single ad slot.
     googletag
         .defineSlot("/1234567/sports", [160, 600], "div")!
-        .set("adsense_background_color", "#FFFFFF")
+        .setConfig({
+            adsenseAttributes: {
+                page_url: "http://www.example.com",
+            },
+        })
         .addService(googletag.pubads());
 }
 
@@ -451,23 +521,33 @@ function test_googletag_slot_set() {
 function test_googletag_slot_get() {
     const slot = googletag
         .defineSlot("/1234567/sports", [160, 600], "div")!
-        .set("adsense_background_color", "#FFFFFF")
+        .setConfig({
+            adsenseAttributes: {
+                page_url: "http://www.example.com",
+            },
+        })
         .addService(googletag.pubads());
 
-    slot.get("adsense_background_color");
-    // Returns '#FFFFFF'.
+    const adsenseConfig = slot.getConfig("adsenseAttributes").adsenseAttributes;
+    const pageUrl = adsenseConfig?.page_url || null;
+    // Returns 'http://www.example.com'.
 }
 
 // Test for googletag.Slot.getAttributeKeys
 function test_googletag_slot_getAttributeKeys() {
     const slot = googletag
         .defineSlot("/1234567/sports", [160, 600], "div")!
-        .set("adsense_background_color", "#FFFFFF")
-        .set("adsense_border_color", "#AABBCC")
+        .setConfig({
+            adsenseAttributes: {
+                page_url: "http://www.example.com",
+                document_language: "en",
+            },
+        })
         .addService(googletag.pubads());
 
-    slot.getAttributeKeys();
-    // Returns ['adsense_background_color', 'adsense_border_color'].
+    const adsenseConfig = slot.getConfig("adsenseAttributes").adsenseAttributes;
+    const adsenseAttributes = Object.keys(adsenseConfig || {});
+    // Returns ['page_url', 'document_language'].
 }
 
 // Test for googletag.Slot.addService
@@ -498,16 +578,20 @@ function test_googletag_slot_defineSizeMapping() {
 function test_googletag_slot_setClickUrl() {
     googletag
         .defineSlot("/1234567/sports", [160, 600], "div")!
-        .setClickUrl("http://www.example.com?original_click_url=")
+        .setConfig({
+            clickUrl: "http://www.example.com?original_click_url=",
+        })
         .addService(googletag.pubads());
 }
 
 // Test for googletag.Slot.setCategoryExclusion
 function test_googletag_slot_setCategoryExclusion() {
-    // Label = AirlineAd
+    // Label = AirlineAd.
     googletag
         .defineSlot("/1234567/sports", [160, 600], "div")!
-        .setCategoryExclusion("AirlineAd")
+        .setConfig({
+            categoryExclusion: ["AirlineAd"],
+        })
         .addService(googletag.pubads());
 }
 
@@ -516,14 +600,18 @@ function test_googletag_slot_clearCategoryExclusions() {
     // Set category exclusion to exclude ads with 'AirlineAd' labels.
     const slot = googletag
         .defineSlot("/1234567/sports", [160, 600], "div")!
-        .setCategoryExclusion("AirlineAd")
+        .setConfig({
+            categoryExclusion: ["AirlineAd"],
+        })
         .addService(googletag.pubads());
 
     // Make an ad request. No ad with 'AirlineAd' label will be returned
     // for the slot.
 
     // Clear category exclusions so all ads can be returned.
-    slot.clearCategoryExclusions();
+    slot.setConfig({
+        categoryExclusion: null,
+    });
 
     // Make an ad request. Any ad can be returned for the slot.
 }
@@ -532,39 +620,59 @@ function test_googletag_slot_clearCategoryExclusions() {
 function test_googletag_slot_getCategoryExclusions() {
     const slot = googletag
         .defineSlot("/1234567/sports", [160, 600], "div")!
-        .setCategoryExclusion("AirlineAd")
-        .setCategoryExclusion("TrainAd")
+        .setConfig({
+            categoryExclusion: ["AirlineAd", "TrainAd"],
+        })
         .addService(googletag.pubads());
 
-    slot.getCategoryExclusions();
+    const exclusions = slot.getConfig("categoryExclusion")?.categoryExclusion || [];
     // Returns ['AirlineAd', 'TrainAd'].
 }
 
 // Test for googletag.Slot.setTargeting
 function test_googletag_slot_setTargeting() {
-    const slot = googletag.defineSlot("/1234567/sports", [160, 600], "div")!.addService(googletag.pubads());
+    const slot = googletag.defineSlot("/1234567/sports", [160, 600], "div")!;
+    slot.addService(googletag.pubads());
 
     // Example with a single value for a key.
-    slot.setTargeting("allow_expandable", "true");
+    slot.setConfig({
+        targeting: {
+            allow_expandable: "true",
+        },
+    });
 
     // Example with multiple values for a key inside in an array.
-    slot.setTargeting("interests", ["sports", "music"]);
+    slot.setConfig({
+        targeting: {
+            interests: ["sports", "music"],
+        },
+    });
 }
 
 // Test for googletag.Slot.clearTargeting
 function test_googletag_slot_clearTargeting() {
     const slot = googletag
         .defineSlot("/1234567/sports", [160, 600], "div")!
-        .setTargeting("allow_expandable", "true")
-        .setTargeting("interests", ["sports", "music"])
-        .setTargeting("color", "red")
+        .setConfig({
+            targeting: {
+                allow_expandable: "true",
+                interests: ["sports", "music"],
+                color: "red",
+            },
+        })
         .addService(googletag.pubads());
 
-    slot.clearTargeting("color");
+    slot.setConfig({
+        targeting: {
+            color: null,
+        },
+    });
     // Targeting 'allow_expandable' and 'interests' are still present,
     // while 'color' was cleared.
 
-    slot.clearTargeting();
+    slot.setConfig({
+        targeting: null,
+    });
     // All targeting has been cleared.
 }
 
@@ -572,13 +680,20 @@ function test_googletag_slot_clearTargeting() {
 function test_googletag_slot_getTargeting() {
     const slot = googletag
         .defineSlot("/1234567/sports", [160, 600], "div")!
-        .setTargeting("allow_expandable", "true")
+        .setConfig({
+            targeting: {
+                allow_expandable: "true",
+            },
+        })
         .addService(googletag.pubads());
 
-    slot.getTargeting("allow_expandable");
+    const targetingConfig = slot.getConfig("targeting").targeting;
+
+    // Get targeting for a specific key.
+    const targeting = targetingConfig?.["allow_expandable"] || [];
     // Returns ['true'].
 
-    slot.getTargeting("age");
+    const ageTargeting = targetingConfig?.["age"] || [];
     // Returns [] (empty array).
 }
 
@@ -586,26 +701,35 @@ function test_googletag_slot_getTargeting() {
 function test_googletag_slot_getTargetingKeys() {
     const slot = googletag
         .defineSlot("/1234567/sports", [160, 600], "div")!
-        .setTargeting("allow_expandable", "true")
-        .setTargeting("interests", ["sports", "music"])
+        .setConfig({
+            targeting: {
+                allow_expandable: "true",
+                interests: ["sports", "music"],
+            },
+        })
         .addService(googletag.pubads());
 
-    slot.getTargetingKeys();
+    const targetingConfig = slot.getConfig("targeting").targeting;
+    const keys = Object.keys(targetingConfig || {});
     // Returns ['interests', 'allow_expandable'].
 }
 
 // Test for googletag.Slot.setCollapseEmptyDiv
 function test_googletag_slot_setCollapseEmptyDiv() {
-    googletag
+    const slot1 = googletag
         .defineSlot("/1234567/sports", [160, 600], "div-1")!
-        .setCollapseEmptyDiv(true, true)
+        .setConfig({
+            collapseDiv: "BEFORE_FETCH",
+        })
         .addService(googletag.pubads());
     // The above will cause the div for this slot to be collapsed
     // when the page is loaded, before ads are requested.
 
-    googletag
+    const slot2 = googletag
         .defineSlot("/1234567/sports", [160, 600], "div-2")!
-        .setCollapseEmptyDiv(true)
+        .setConfig({
+            collapseDiv: "ON_NO_FILL",
+        })
         .addService(googletag.pubads());
     // The above will cause the div for this slot to be collapsed
     // only after GPT detects that no ads are available for the slot.
